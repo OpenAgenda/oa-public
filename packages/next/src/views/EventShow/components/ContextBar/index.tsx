@@ -4,10 +4,11 @@ import { useIntl } from 'react-intl';
 import useSessionStorageState from 'use-session-storage-state';
 import { chakra, Box, SimpleGrid, Collapse, Link, Tooltip, useBreakpointValue } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
-import { faTurnLeft, faPencil } from 'icons/solid';
+import { faTurnLeft } from 'icons/solid';
 import base64 from 'utils/base64';
 import { FetchStatus } from 'config/types';
 import useLocationQuery from 'hooks/useLocationQuery';
+import isAdminMod from '../../../../utils/isAdminMod';
 import { useAgenda } from '../../contexts/agenda';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
@@ -15,6 +16,7 @@ import { contextBar as messages } from '../../messages';
 import StateSelector from './StateSelector';
 import ContextBarButton from './ContextBarButton';
 import OtherActions from './OtherActions';
+import Edit from './Edit';
 
 const Column = chakra(Box, {
   baseStyle: {
@@ -64,10 +66,7 @@ export default function ContextBar() {
   const router = useRouter();
   const agenda = useAgenda();
   const { event } = useEvent();
-  const {
-    me,
-    status,
-  } = useMember();
+  const { me, status } = useMember();
 
   const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
   const url = new URL(localePrefix + router.asPath, 'https://n');
@@ -75,8 +74,6 @@ export default function ContextBar() {
 
   const [nc] = useSessionStorageState('EventShow:nc');
   const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
-
-  const isAdminMod = ['administrator', 'moderator'].includes(me?.member?.role);
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -88,8 +85,8 @@ export default function ContextBar() {
 
   return (
     <Collapse in animateOpacity>
-      <SimpleGrid columns={isAdminMod ? 4 : 3} bg="white" spacing="1px">
-        {isAdminMod ? (
+      <SimpleGrid columns={isAdminMod(me?.member) ? 4 : 3} bg="white" spacing="1px">
+        {isAdminMod(me?.member) ? (
           <Column>
             <Tooltip label={intl.formatMessage(messages.backToDashboard)} isDisabled={!isMobile}>
               <ContextBarButton
@@ -97,9 +94,7 @@ export default function ContextBar() {
                 href={`/${agenda.slug}/admin/events${qs.stringify(getAdminNav(eventNc), { addQueryPrefix: true })}`}
                 justifyContent={{ base: 'center', md: 'space-between' }}
               >
-                {isMobile
-                  ? <FaIcon icon={faTurnLeft} size="lg" />
-                  : intl.formatMessage(messages.backToDashboard)}
+                {isMobile ? <FaIcon icon={faTurnLeft} size="lg" /> : intl.formatMessage(messages.backToDashboard)}
               </ContextBarButton>
             </Tooltip>
           </Column>
@@ -108,17 +103,7 @@ export default function ContextBar() {
           <StateSelector agenda={agenda} editLink={editLink} />
         </Column>
         <Column>
-          <Tooltip label={intl.formatMessage(messages.edit)} isDisabled={!isMobile}>
-            <ContextBarButton
-              as={Link}
-              href={editLink}
-              justifyContent={{ base: 'center', md: 'space-between' }}
-            >
-              {isMobile
-                ? <FaIcon icon={faPencil} size="lg" />
-                : intl.formatMessage(messages.edit)}
-            </ContextBarButton>
-          </Tooltip>
+          <Edit agenda={agenda} />
         </Column>
         <Column>
           <OtherActions agenda={agenda} />

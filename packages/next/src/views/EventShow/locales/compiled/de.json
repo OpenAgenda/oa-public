@@ -113,6 +113,18 @@
       "value": "Edit"
     }
   ],
+  "next.views.EventShow.ContextBar.editEvent": [
+    {
+      "type": 0,
+      "value": "Edit event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.editLocation": [
+    {
+      "type": 0,
+      "value": "Edit location"
+    }
+  ],
   "next.views.EventShow.ContextBar.feature": [
     {
       "type": 0,
@@ -285,6 +297,12 @@
     {
       "type": 0,
       "value": "State:"
+    }
+  ],
+  "next.views.EventShow.ContextBar.suggestLocaitonChange": [
+    {
+      "type": 0,
+      "value": "Suggest a change on the location"
     }
   ],
   "next.views.EventShow.ContextBar.toModerateContributorInfo": [
@@ -711,6 +729,12 @@
     {
       "type": 0,
       "value": "Access"
+    }
+  ],
+  "next.views.EventShow.actions": [
+    {
+      "type": 0,
+      "value": "Actions"
     }
   ],
   "next.views.EventShow.contactAdministrators": [

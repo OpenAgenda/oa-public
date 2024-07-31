@@ -33,6 +33,10 @@ export default defineMessages({
     id: 'next.views.EventShow.Activities.seeMore',
     defaultMessage: 'See more',
   },
+  edit: {
+    id: 'next.views.EventShow.actions',
+    defaultMessage: 'Actions',
+  },
 });
 
 export const contextBar = defineMessages({
@@ -43,6 +47,18 @@ export const contextBar = defineMessages({
   edit: {
     id: 'next.views.EventShow.ContextBar.edit',
     defaultMessage: 'Edit',
+  },
+  editEvent: {
+    id: 'next.views.EventShow.ContextBar.editEvent',
+    defaultMessage: 'Edit event',
+  },
+  editLocation: {
+    id: 'next.views.EventShow.ContextBar.editLocation',
+    defaultMessage: 'Edit location',
+  },
+  suggestLocaitonChange: {
+    id: 'next.views.EventShow.ContextBar.suggestLocaitonChange',
+    defaultMessage: 'Suggest a change on the location',
   },
   otherActions: {
     id: 'next.views.EventShow.ContextBar.otherActions',

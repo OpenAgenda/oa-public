@@ -113,6 +113,18 @@
       "value": "crwdns33620:0crwdne33620:0"
     }
   ],
+  "next.views.EventShow.ContextBar.editEvent": [
+    {
+      "type": 0,
+      "value": "Edit event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.editLocation": [
+    {
+      "type": 0,
+      "value": "Edit location"
+    }
+  ],
   "next.views.EventShow.ContextBar.feature": [
     {
       "type": 0,
@@ -285,6 +297,12 @@
     {
       "type": 0,
       "value": "crwdns33664:0crwdne33664:0"
+    }
+  ],
+  "next.views.EventShow.ContextBar.suggestLocaitonChange": [
+    {
+      "type": 0,
+      "value": "Suggest a change on the location"
     }
   ],
   "next.views.EventShow.ContextBar.toModerateContributorInfo": [
@@ -689,6 +707,12 @@
     {
       "type": 0,
       "value": "crwdns33764:0crwdne33764:0"
+    }
+  ],
+  "next.views.EventShow.actions": [
+    {
+      "type": 0,
+      "value": "Actions"
     }
   ],
   "next.views.EventShow.contactAdministrators": [

@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { Flex, Collapse } from '@openagenda/uikit';
 import { FetchStatus } from 'config/types';
+import isAdminMod from '../../../../utils/isAdminMod';
 import ContributorContextBar from './ContributorContextBar';
 import ModeratorContextBar from './ModeratorContextBar';
 import VisibilityContextBar from './VisibilityContextBar';
@@ -16,13 +17,12 @@ export default function ContextBar({ agenda }) {
   if (!me) return null;
 
   const { drafts } = me.events;
-  const isAdminMod = ['administrator', 'moderator'].includes(me.member.role);
 
   return (
     <Collapse in animateOpacity>
       <Flex minH="50px" px="6" bg="primary.500" align="center" color="white">
         <VisibilityContextBar agenda={agenda} />
-        {isAdminMod ? (
+        {isAdminMod(me.member) ? (
           <ModeratorContextBar agenda={agenda} states={events?.states ?? []} />
         ) : (
           <ContributorContextBar agenda={agenda} drafts={drafts} states={me.events.states} />

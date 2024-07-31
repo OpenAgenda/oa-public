@@ -12,6 +12,10 @@ import {
   Heading,
   Link,
   Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   List,
   ListItem,
   ListIcon,
@@ -25,7 +29,7 @@ import { nl2br } from '@openagenda/react-shared';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { FaIcon } from 'icons';
 import { faGlobe } from 'icons/regular';
-import { faPhone } from 'icons/solid';
+import { faPhone, faChevronDown } from 'icons/solid';
 import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
 import { keyCDNLoader } from 'utils/imageLoader';
@@ -34,6 +38,7 @@ import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
 import useSession from 'hooks/useSession';
 import useLocationQuery from 'hooks/useLocationQuery';
+import isAdminMod from '../../utils/isAdminMod';
 import { useAgenda } from './contexts/agenda';
 import Metas from './components/Metas';
 import ContextBar from './components/ContextBar';
@@ -61,6 +66,7 @@ import Map from './components/Map';
 import LdJson from './components/LdJson';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
+import canModifyLocation from './utils/canModifyLocation';
 import useEvent from './hooks/useEvent';
 import useMember from './hooks/useMember';
 import useShareModal from './hooks/useShareModal';
@@ -71,7 +77,7 @@ const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
 export type EventShowProps = {
-  preload?: string[]
+  preload?: string[];
 };
 
 function EventShow({ preload }: EventShowProps) {
@@ -101,38 +107,24 @@ function EventShow({ preload }: EventShowProps) {
 
     const url = new URL(router.asPath, 'https://n');
     url.searchParams.set('cl', languages[index]);
-    router.replace(
-      url.pathname + url.search,
-      null,
-      { shallow: true, scroll: false },
-    );
+    router.replace(url.pathname + url.search, null, { shallow: true, scroll: false });
   };
 
-  const hasAdditionalFields = useMemo(
-    () => additionalFieldsUtils.hasAdditionalFields(agenda.schema),
-    [agenda.schema],
-  );
+  const hasAdditionalFields = useMemo(() => additionalFieldsUtils.hasAdditionalFields(agenda.schema), [agenda.schema]);
 
   const additionalFields = useMemo(
-    () => additionalFieldsUtils.formatAdditionalFieldData({
-      schema: agenda.schema,
-      event,
-      locale: contentLocale,
-      defaultLocale: intl.locale,
-      dateFnsLocale,
-    }),
+    () =>
+      additionalFieldsUtils.formatAdditionalFieldData({
+        schema: agenda.schema,
+        event,
+        locale: contentLocale,
+        defaultLocale: intl.locale,
+        dateFnsLocale,
+      }),
     [agenda.schema, dateFnsLocale, event, contentLocale, intl.locale],
   );
 
-  const {
-    shareIsOpen,
-    shareOnOpen,
-    shareOnClose,
-    emailSent,
-    emailSentIsOpen,
-    emailSentOnClose,
-    onEmailSent,
-  } = useShareModal();
+  const { shareIsOpen, shareOnOpen, shareOnClose, emailSent, emailSentIsOpen, emailSentOnClose, onEmailSent } = useShareModal();
 
   useEffect(() => {
     if (!query.nc) {
@@ -144,29 +136,29 @@ function EventShow({ preload }: EventShowProps) {
     //   return;
     // }
 
-    window.sessionStorage.setItem('EventShow:nc', JSON.stringify({
-      [`${agenda.uid}.${event.uid}`]: {
-        ...query.nc,
-        state: query.nc.state ? query.nc.state.map(Number) : query.nc.state,
-        from: query.nc.from ? parseInt(query.nc.from, 10) : query.nc.from,
-      },
-    }));
+    window.sessionStorage.setItem(
+      'EventShow:nc',
+      JSON.stringify({
+        [`${agenda.uid}.${event.uid}`]: {
+          ...query.nc,
+          state: query.nc.state ? query.nc.state.map(Number) : query.nc.state,
+          from: query.nc.from ? parseInt(query.nc.from, 10) : query.nc.from,
+        },
+      }),
+    );
     const url = new URL(router.asPath, 'https://n');
     url.search = qs.stringify({ ...query, nc: undefined }, { addQueryPrefix: true });
-    router.replace(
-      url.pathname + url.search,
-      null,
-      { shallow: true, scroll: false },
-    );
+    router.replace(url.pathname + url.search, null, { shallow: true, scroll: false });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isEventContributor = member && member.userUid === me?.member?.userUid;
-  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
 
-  const displayContextBar = isEventContributor || isAdminMod;
+  const displayContextBar = isEventContributor || isAdminMod(me?.member);
 
   const updatedTs = new Date(event.updatedAt).getTime();
+
+  const { canEditEvent = false } = me?.authorizations ?? {};
 
   return (
     <>
@@ -236,7 +228,6 @@ function EventShow({ preload }: EventShowProps) {
           mt="8"
           maxW="container.lg"
         >
-
           <GridItem area="sidebar" display={{ base: 'none', lg: 'block' }}>
             <Flex direction="row" gap="8" mt="16">
               <Sidebar contentLocale={contentLocale} shareOnOpen={shareOnOpen} />
@@ -281,9 +272,7 @@ function EventShow({ preload }: EventShowProps) {
                 ) : null}
 
                 {event.description?.[contentLocale] ? (
-                  <Box fontSize="xl">
-                    {event.description[contentLocale]}
-                  </Box>
+                  <Box fontSize="xl">{event.description[contentLocale]}</Box>
                 ) : null}
 
                 <ShareSection
@@ -302,12 +291,16 @@ function EventShow({ preload }: EventShowProps) {
                   {event.image
                     ? event.image?.size?.width && event.image?.size?.height ? (
                       <Image
-                        src={process.env.NODE_ENV === 'development'
-                          ? `${DEV_IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
-                          : `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`}
-                        fallbackSrc={process.env.NODE_ENV === 'development'
-                          ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
-                          : undefined}
+                        src={
+                          process.env.NODE_ENV === 'development'
+                            ? `${DEV_IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                            : `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                        }
+                        fallbackSrc={
+                          process.env.NODE_ENV === 'development'
+                            ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                            : undefined
+                        }
                         width={event.image.size.width}
                         height={event.image.size.height}
                         loader={keyCDNLoader}
@@ -318,12 +311,16 @@ function EventShow({ preload }: EventShowProps) {
                       />
                     ) : (
                       <Image
-                        src={process.env.NODE_ENV === 'development'
-                          ? `${DEV_IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
-                          : `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`}
-                        fallbackSrc={process.env.NODE_ENV === 'development'
-                          ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
-                          : undefined}
+                        src={
+                          process.env.NODE_ENV === 'development'
+                            ? `${DEV_IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                            : `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                        }
+                        fallbackSrc={
+                          process.env.NODE_ENV === 'development'
+                            ? `${IMAGE_PREFIX}${event.image.filename}?__ts=${updatedTs}`
+                            : undefined
+                        }
                         fill
                         // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
                         pos="unset !important"
@@ -425,7 +422,9 @@ function EventShow({ preload }: EventShowProps) {
             {/* location */}
             {event.location ? (
               <div>
-                <Heading as="h2" fontSize="2xl" mb="4">{intl.formatMessage(messages.aboutLocation)}</Heading>
+                <Heading as="h2" fontSize="2xl" mb="4">
+                  {intl.formatMessage(messages.aboutLocation)}
+                </Heading>
                 <Flex
                   display="flex"
                   direction="column"
@@ -442,46 +441,76 @@ function EventShow({ preload }: EventShowProps) {
                   //   borderColor: 'primary.500',
                   // }}
                 >
-                  {event.location.agendaUid === agenda.uid || event.location.setUid === agenda.locationSetUid ? (
-                    <EditLocationButton />
-                  ) : null}
+                  {canEditEvent ? (
+                    <Menu>
+                      <MenuButton
+                        as={Button}
+                        variant="outline"
+                        alignSelf="flex-start"
+                        borderColor="oaGray.300"
+                        color="blackAlpha.800"
+                        _hover={{
+                          bg: 'oaGray.100',
+                          color: 'blackAlpha.900',
+                          textDecoration: 'none',
+                        }}
+                        position="absolute"
+                        top="6"
+                        right="6"
+                        rightIcon={<FaIcon icon={faChevronDown} />}
+                      >
+                        {intl.formatMessage(messages.edit)}
+                      </MenuButton>
+                      <MenuList>
+                        <MenuItem as="a" href="#">
+                          {canModifyLocation(me?.member, event, agenda) ? (
+                            <EditLocationButton canEditEvent />
+                          ) : (
+                            <SuggestLocationChangeButton canEditEvent />
+                          )}
+                        </MenuItem>
+                        <MenuItem as="a" href="#">
+                          <LocationHistory />
+                        </MenuItem>
+                      </MenuList>
+                    </Menu>
+                  ) : (
+                    <>
+                      {canModifyLocation(me?.member, event, agenda) ? (
+                        <EditLocationButton canEditEvent={false} />
+                      ) : (
+                        <SuggestLocationChangeButton canEditEvent={false} />
+                      )}
+                    </>
+                  )}
 
                   <div>
-                    <chakra.div fontWeight="bold">
-                      {event.location.name}
-                    </chakra.div>
-                    <chakra.div>
-                      {event.location.address}
-                    </chakra.div>
+                    <chakra.div fontWeight="bold">{event.location.name}</chakra.div>
+                    <chakra.div>{event.location.address}</chakra.div>
                     <Wrap color="oaGray.500">
                       {['department', 'region', 'country'].map(part => (
-                        <WrapItem key={part}>
-                          {event.location[part]}
-                        </WrapItem>
+                        <WrapItem key={part}>{event.location[part]}</WrapItem>
                       ))}
                     </Wrap>
                   </div>
 
                   {event.location.description?.[contentLocale] ? (
-                    <div>
-                      {nl2br(event.location.description[contentLocale])}
-                    </div>
+                    <div>{nl2br(event.location.description[contentLocale])}</div>
                   ) : null}
 
                   {event.location.tags?.length ? (
                     <div>
-                      <chakra.div fontWeight="bold">
-                        {intl.formatMessage(messages.tags)}
-                      </chakra.div>
-                      {intl.formatList(event.location.tags.map(tag => tag.label), { style: 'narrow' })}
+                      <chakra.div fontWeight="bold">{intl.formatMessage(messages.tags)}</chakra.div>
+                      {intl.formatList(
+                        event.location.tags.map(tag => tag.label),
+                        { style: 'narrow' },
+                      )}
                     </div>
                   ) : null}
 
                   {event.location.access?.[contentLocale] ? (
                     <div>
-                      <chakra.div fontWeight="bold">
-                        {intl.formatMessage(messages.access)}
-                      </chakra.div>
+                      <chakra.div fontWeight="bold">{intl.formatMessage(messages.access)}</chakra.div>
                       {event.location.access[contentLocale]}
                     </div>
                   ) : null}
@@ -490,12 +519,16 @@ function EventShow({ preload }: EventShowProps) {
                     <div>
                       {event.location.image ? (
                         <Image
-                          src={process.env.NODE_ENV === 'development'
-                            ? `${DEV_IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
-                            : `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`}
-                          fallbackSrc={process.env.NODE_ENV === 'development'
-                            ? `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
-                            : undefined}
+                          src={
+                            process.env.NODE_ENV === 'development'
+                              ? `${DEV_IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                              : `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                          }
+                          fallbackSrc={
+                            process.env.NODE_ENV === 'development'
+                              ? `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                              : undefined
+                          }
                           fill
                           // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
                           pos="unset !important"
@@ -521,12 +554,7 @@ function EventShow({ preload }: EventShowProps) {
                       {event.location.website ? (
                         <ListItem>
                           <ListIcon as={FaIcon} icon={faGlobe} verticalAlign="middle" />
-                          <Link
-                            isExternal
-                            href={event.location.website}
-                            colorScheme="primary"
-                            wordBreak="break-all"
-                          >
+                          <Link isExternal href={event.location.website} colorScheme="primary" wordBreak="break-all">
                             {event.location.website}
                           </Link>
                         </ListItem>
@@ -549,12 +577,7 @@ function EventShow({ preload }: EventShowProps) {
                       <List>
                         {event.location.links?.map(link => (
                           <ListItem key={link}>
-                            <Link
-                              isExternal
-                              href={link}
-                              colorScheme="primary"
-                              wordBreak="break-all"
-                            >
+                            <Link isExternal href={link} colorScheme="primary" wordBreak="break-all">
                               {link}
                             </Link>
                           </ListItem>
@@ -570,22 +593,17 @@ function EventShow({ preload }: EventShowProps) {
                     zoom={14}
                     aspectRatioProps={{ gridColumn: 2, display: { base: 'block', lg: 'none' } }}
                   />
-
-                  <SuggestLocationChangeButton />
-
-                  <LocationHistory />
                 </Flex>
               </div>
             ) : null}
 
             <ContributorSection contentLocale={contentLocale} />
 
-            <Activities
-              res={`/agendas/${agenda.uid}/events/${event.uid}/activities`}
-              hideEmpty
-            >
+            <Activities res={`/agendas/${agenda.uid}/events/${event.uid}/activities`} hideEmpty>
               <div>
-                <Heading as="h2" fontSize="2xl" mb="4">{intl.formatMessage(messages.history)}</Heading>
+                <Heading as="h2" fontSize="2xl" mb="4">
+                  {intl.formatMessage(messages.history)}
+                </Heading>
                 <ActivitiesList p={8} />
               </div>
             </Activities>
@@ -609,9 +627,7 @@ function EventShow({ preload }: EventShowProps) {
               </div>
             ) : null}
 
-            {!mailtoSettings?.enabled && session?.user ? (
-              <Inbox />
-            ) : null}
+            {!mailtoSettings?.enabled && session?.user ? <Inbox /> : null}
           </GridItem>
 
           <GridItem area="footer">
@@ -620,9 +636,7 @@ function EventShow({ preload }: EventShowProps) {
         </Grid>
       </Flex>
 
-      {needConsentFor ? (
-        <ConsentBanner consentFor={needConsentFor} />
-      ) : null}
+      {needConsentFor ? <ConsentBanner consentFor={needConsentFor} /> : null}
 
       {shareIsOpen ? (
         <ShareModal
@@ -635,13 +649,7 @@ function EventShow({ preload }: EventShowProps) {
         />
       ) : null}
 
-      {emailSentIsOpen ? (
-        <EmailConfirmationAlert
-          isOpen
-          onClose={emailSentOnClose}
-          count={emailSent}
-        />
-      ) : null}
+      {emailSentIsOpen ? <EmailConfirmationAlert isOpen onClose={emailSentOnClose} count={emailSent} /> : null}
 
       <LdJson />
 
@@ -657,14 +665,15 @@ function EventShow({ preload }: EventShowProps) {
   );
 }
 
-EventShow.fetchLocale = (locale: string) => Promise.all([
-  fetchLocale(locale),
-  // fetchErrorLocale(locale),
-  fetchCommonLocale('event/fields', locale),
-  fetchCommonLocale('event/states', locale),
-  fetchCommonLocale('event/statuses', locale),
-  fetchCommonLocale('roles', locale),
-  import(`@openagenda/activity-apps/src/locales-compiled/${locale}.json`).then(mod => mod.default),
-]).then(results => Object.assign({}, ...results));
+EventShow.fetchLocale = (locale: string) =>
+  Promise.all([
+    fetchLocale(locale),
+    // fetchErrorLocale(locale),
+    fetchCommonLocale('event/fields', locale),
+    fetchCommonLocale('event/states', locale),
+    fetchCommonLocale('event/statuses', locale),
+    fetchCommonLocale('roles', locale),
+    import(`@openagenda/activity-apps/src/locales-compiled/${locale}.json`).then(mod => mod.default),
+  ]).then(results => Object.assign({}, ...results));
 
 export default EventShow;

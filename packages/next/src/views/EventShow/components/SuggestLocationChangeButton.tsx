@@ -6,31 +6,29 @@ import useEvent from '../hooks/useEvent';
 import useMember from '../hooks/useMember';
 import { suggestLocationChangeButton as messages } from '../messages';
 
-export default function SuggestLocationChangeButton() {
+export default function SuggestLocationChangeButton({ canEditEvent }: { canEditEvent: boolean }) {
   const intl = useIntl();
   const agenda = useAgenda();
   const { event } = useEvent();
-  const { me, status } = useMember();
+  const { status } = useMember();
 
   if (status === FetchStatus.Fetching) return null;
-
-  const isAdminMod = me?.member && ['administrator', 'moderator'].includes(me?.member.role);
-
-  if (isAdminMod) return null;
 
   return (
     <Button
       as={Link}
       href={`/${agenda.slug}/locations/${event.location.agendaUid}.${event.location.uid}/suggest-change`}
       variant="outline"
-      alignSelf="flex-start"
-      borderColor="oaGray.300"
+      borderColor={!canEditEvent ? 'oaGray.300' : 'transparent'}
       color="blackAlpha.800"
       _hover={{
-        bg: 'oaGray.100',
-        color: 'blackAlpha.900',
+        bg: !canEditEvent ? 'gray.100' : 'transparent',
+        color: !canEditEvent ? 'blackAlpha.900' : undefined,
         textDecoration: 'none',
       }}
+      position={!canEditEvent ? 'absolute' : undefined}
+      top={!canEditEvent ? '6' : undefined}
+      right={!canEditEvent ? '6' : undefined}
     >
       {intl.formatMessage(messages.suggestLocaitonChange)}
     </Button>
