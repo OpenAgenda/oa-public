@@ -69,15 +69,22 @@ function task({ enqueue, services, registrations, queue }) {
         throw new Error('agenda not found');
       }
 
-      const event = await events.get(eventUid, { private: null, includeFields: ['registration', 'timings'] });
+      const event = await events.get(eventUid, {
+        private: null,
+        includeFields: ['registration', 'timings', 'uid'],
+      });
 
       if (!event) {
         throw new Error('event not found');
       }
 
-      const passCultureService = registrations(agenda.settings.registration).passCulture;
+      const passCultureService = registrations(
+        agenda.settings.registration,
+      ).passCulture;
 
-      const passCultureData = (event?.registration ?? []).find(r => r.service === 'passCulture')?.data;
+      const passCultureData = (event?.registration ?? []).find(
+        r => r.service === 'passCulture',
+      )?.data;
 
       const applied = await passCultureService.apply(event, passCultureData);
 
@@ -94,7 +101,10 @@ function task({ enqueue, services, registrations, queue }) {
         return;
       }
 
-      log.info('pendingOffer: no longer pending, changes were applied', logBundle);
+      log.info(
+        'pendingOffer: no longer pending, changes were applied',
+        logBundle,
+      );
 
       await core.agendas(agendaUid).events.patch(
         eventUid,
@@ -126,9 +136,11 @@ function task({ enqueue, services, registrations, queue }) {
   );
 
   worker.on('error', failedReason => log.error('error', failedReason));
-  worker.on('failed', (job, error) => log.error(job.name, 'failed', job.data, error));
+  worker.on('failed', (job, error) =>
+    log.error(job.name, 'failed', job.data, error));
   // worker.on('active', job => {});
-  worker.on('completed', (job, result, prev) => log.debug(job.name, 'completed', prev));
+  worker.on('completed', (job, result, prev) =>
+    log.debug(job.name, 'completed', prev));
 
   return {
     shutdown: async () => {
@@ -138,7 +150,11 @@ function task({ enqueue, services, registrations, queue }) {
   };
 }
 
-export default function ProcessPassPendingOffers({ services, registrations, pending: pendingConfig }) {
+export default function ProcessPassPendingOffers({
+  services,
+  registrations,
+  pending: pendingConfig,
+}) {
   const { bull, tracker } = services;
 
   let shutdownTask;
