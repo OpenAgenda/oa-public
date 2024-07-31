@@ -116,13 +116,13 @@
   "next.views.EventShow.ContextBar.editEvent": [
     {
       "type": 0,
-      "value": "Edit event"
+      "value": "Modifier l'événement"
     }
   ],
   "next.views.EventShow.ContextBar.editLocation": [
     {
       "type": 0,
-      "value": "Edit location"
+      "value": "Modifier le lieu"
     }
   ],
   "next.views.EventShow.ContextBar.feature": [
@@ -302,7 +302,7 @@
   "next.views.EventShow.ContextBar.suggestLocaitonChange": [
     {
       "type": 0,
-      "value": "Suggest a change on the location"
+      "value": "Suggérer une modification sur le lieu"
     }
   ],
   "next.views.EventShow.ContextBar.toModerateContributorInfo": [

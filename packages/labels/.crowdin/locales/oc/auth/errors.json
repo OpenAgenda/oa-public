@@ -1,15 +1,15 @@
 {
-  "noAccountFound": "Pas cap compte trobat",
   "accountAlreadyActivated": "Lo compte es ja activat",
+  "fieldCannotBeEmpty": "Lo camp pòt pas demorar voide",
   "incorrectPassword": "Lo senhal es incorrècte",
   "invalidToken": "Geton invalid",
-  "userNotFound": "Utilizaire·a pas trobat·da",
-  "userNotActivated": "Utilizaire·a pas activat·da",
-  "userAlreadyActivated": "Utilizaire·a ja activat·da",
-  "passwordsMustMatch": "Lo senhal correspond pas.",
-  "fieldCannotBeEmpty": "Lo camp pòt pas demorar voide",
+  "noAccountFound": "Pas cap compte trobat",
   "passwordCouldNotBeModified": "Lo senhal se posquèt pas cambiar",
   "passwordResetSent": "Una reïnicializacion de senhal es estada mandada a la vòstra adreça email",
+  "passwordUpdated": "Vòstre senhal es estat mes a jorn.",
+  "passwordsMustMatch": "Lo senhal correspond pas.",
   "resetLinkOutdated": "Lo ligam es passat. Tornatz ensajar.",
-  "passwordUpdated": "Vòstre senhal es estat mes a jorn."
+  "userAlreadyActivated": "Utilizaire·a ja activat·da",
+  "userNotActivated": "Utilizaire·a pas activat·da",
+  "userNotFound": "Utilizaire·a pas trobat·da"
 }

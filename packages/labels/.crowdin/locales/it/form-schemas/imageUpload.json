@@ -1,11 +1,11 @@
 {
-  "upload": "Carica un'immagine",
-  "update": "Aggiorna l'immagine",
+  "acceptedExtensions": "File accettati",
   "error": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
-  "tip": "Trascinare un'immagine nella zona d'ombra.",
-  "replace": "Sostituire il file",
   "loading": "Caricamento in corso",
-  "remove": "Rimuovi",
   "or": "OPPURE",
-  "acceptedExtensions": "File accettati"
+  "remove": "Rimuovi",
+  "replace": "Sostituire il file",
+  "tip": "Trascinare un'immagine nella zona d'ombra.",
+  "update": "Aggiorna l'immagine",
+  "upload": "Carica un'immagine"
 }

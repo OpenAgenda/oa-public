@@ -226,6 +226,7 @@ module.exports = {
   inviteContributors: {
     fr: 'Inviter des contributeurs',
     en: 'Invite Contributors',
+    io: 'crwdns34000:0crwdne34000:0',
   },
   invite: {
     fr: 'Inviter',

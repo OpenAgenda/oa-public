@@ -19,7 +19,7 @@
   "next.views.EventShow.ContextBar.duplicateInfo": "Cargar un novèl formulari de sasida preemplenat amb las informacions d'aqueste eveniment",
   "next.views.EventShow.ContextBar.edit": "Modificar",
   "next.views.EventShow.ContextBar.editEvent": "",
-  "next.views.EventShow.ContextBar.editLocation": "",
+  "next.views.EventShow.ContextBar.editLocation": "Modificar lo lòc",
   "next.views.EventShow.ContextBar.feature": "",
   "next.views.EventShow.ContextBar.featuredInfo": "",
   "next.views.EventShow.ContextBar.invalidEventMessage": "",

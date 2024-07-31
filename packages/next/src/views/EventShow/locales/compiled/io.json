@@ -116,13 +116,13 @@
   "next.views.EventShow.ContextBar.editEvent": [
     {
       "type": 0,
-      "value": "Edit event"
+      "value": "crwdns34004:0crwdne34004:0"
     }
   ],
   "next.views.EventShow.ContextBar.editLocation": [
     {
       "type": 0,
-      "value": "Edit location"
+      "value": "crwdns34006:0crwdne34006:0"
     }
   ],
   "next.views.EventShow.ContextBar.feature": [
@@ -302,7 +302,7 @@
   "next.views.EventShow.ContextBar.suggestLocaitonChange": [
     {
       "type": 0,
-      "value": "Suggest a change on the location"
+      "value": "crwdns34008:0crwdne34008:0"
     }
   ],
   "next.views.EventShow.ContextBar.toModerateContributorInfo": [
@@ -712,7 +712,7 @@
   "next.views.EventShow.actions": [
     {
       "type": 0,
-      "value": "Actions"
+      "value": "crwdns34010:0crwdne34010:0"
     }
   ],
   "next.views.EventShow.contactAdministrators": [

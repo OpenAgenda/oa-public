@@ -19,7 +19,7 @@
   "next.views.EventShow.ContextBar.duplicateInfo": "",
   "next.views.EventShow.ContextBar.edit": "",
   "next.views.EventShow.ContextBar.editEvent": "",
-  "next.views.EventShow.ContextBar.editLocation": "",
+  "next.views.EventShow.ContextBar.editLocation": "Editar lugar",
   "next.views.EventShow.ContextBar.feature": "",
   "next.views.EventShow.ContextBar.featuredInfo": "",
   "next.views.EventShow.ContextBar.invalidEventMessage": "",
