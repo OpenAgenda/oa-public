@@ -38,6 +38,7 @@ import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
 import useSession from 'hooks/useSession';
 import useLocationQuery from 'hooks/useLocationQuery';
+import isAdminMod from '../../utils/isAdminMod';
 import { useAgenda } from './contexts/agenda';
 import Metas from './components/Metas';
 import ContextBar from './components/ContextBar';
@@ -152,9 +153,8 @@ function EventShow({ preload }: EventShowProps) {
   }, []);
 
   const isEventContributor = member && member.userUid === me?.member?.userUid;
-  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
 
-  const displayContextBar = isEventContributor || isAdminMod;
+  const displayContextBar = isEventContributor || isAdminMod(me?.member);
 
   const updatedTs = new Date(event.updatedAt).getTime();
 
@@ -463,7 +463,7 @@ function EventShow({ preload }: EventShowProps) {
                       </MenuButton>
                       <MenuList>
                         <MenuItem as="a" href="#">
-                          {canModifyLocation(isAdminMod, event, agenda) ? (
+                          {canModifyLocation(me?.member, event, agenda) ? (
                             <EditLocationButton canEditEvent />
                           ) : (
                             <SuggestLocationChangeButton canEditEvent />
@@ -476,7 +476,7 @@ function EventShow({ preload }: EventShowProps) {
                     </Menu>
                   ) : (
                     <>
-                      {canModifyLocation(isAdminMod, event, agenda) ? (
+                      {canModifyLocation(me?.member, event, agenda) ? (
                         <EditLocationButton canEditEvent={false} />
                       ) : (
                         <SuggestLocationChangeButton canEditEvent={false} />

@@ -8,6 +8,7 @@ import { faTurnLeft } from 'icons/solid';
 import base64 from 'utils/base64';
 import { FetchStatus } from 'config/types';
 import useLocationQuery from 'hooks/useLocationQuery';
+import isAdminMod from '../../../../utils/isAdminMod';
 import { useAgenda } from '../../contexts/agenda';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
@@ -74,8 +75,6 @@ export default function ContextBar() {
   const [nc] = useSessionStorageState('EventShow:nc');
   const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
 
-  const isAdminMod = ['administrator', 'moderator'].includes(me?.member?.role);
-
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   if (status === FetchStatus.Fetching) {
@@ -86,8 +85,8 @@ export default function ContextBar() {
 
   return (
     <Collapse in animateOpacity>
-      <SimpleGrid columns={isAdminMod ? 4 : 3} bg="white" spacing="1px">
-        {isAdminMod ? (
+      <SimpleGrid columns={isAdminMod(me?.member) ? 4 : 3} bg="white" spacing="1px">
+        {isAdminMod(me?.member) ? (
           <Column>
             <Tooltip label={intl.formatMessage(messages.backToDashboard)} isDisabled={!isMobile}>
               <ContextBarButton

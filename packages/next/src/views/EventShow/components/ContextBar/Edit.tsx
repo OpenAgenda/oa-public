@@ -33,8 +33,6 @@ export default function Edit({ agenda }) {
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
-
   const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
   const url = new URL(localePrefix + router.asPath, 'https://n');
   const currentUrl = url.pathname + url.search;
@@ -55,7 +53,7 @@ export default function Edit({ agenda }) {
       </Tooltip>
       <MenuList borderTopRadius="0">
         <LinkMenuItem href={editLink} action={intl.formatMessage(messages.editEvent)} />
-        {canModifyLocation(isAdminMod, event, agenda) ? (
+        {canModifyLocation(me?.member, event, agenda) ? (
           <LinkMenuItem
             href={`/${agenda.slug}/admin/locations/${event.location.uid}/edit`}
             action={intl.formatMessage(messages.editLocation)}

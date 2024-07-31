@@ -21,6 +21,7 @@ import {
 import { FaIcon } from 'icons';
 import { faChevronDown, faEllipsisVertical } from 'icons/solid';
 import base64 from 'utils/base64';
+import getIsAdminMod from '../../../../utils/isAdminMod';
 import { contextBar as messages } from '../../messages';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
@@ -33,10 +34,10 @@ function ButtonMenuItem({ action, description = null, onClick, disabled = false 
   return (
     <MenuItem onClick={onClick} isDisabled={disabled}>
       <Flex direction="column">
-        <Text fontWeight="bold" display="block">{action}</Text>
-        {description ? (
-          <p>{description}</p>
-        ) : null}
+        <Text fontWeight="bold" display="block">
+          {action}
+        </Text>
+        {description ? <p>{description}</p> : null}
       </Flex>
     </MenuItem>
   );
@@ -46,7 +47,9 @@ function LinkMenuItem({ action, description, href, rel = null }) {
   return (
     <MenuItem as="a" href={href} rel={rel}>
       <Flex direction="column">
-        <Text fontWeight="bold" display="block">{action}</Text>
+        <Text fontWeight="bold" display="block">
+          {action}
+        </Text>
         <p>{description}</p>
       </Flex>
     </MenuItem>
@@ -63,22 +66,14 @@ export default function OtherActions({ agenda }) {
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const isAdminMod = me?.member?.role === 'administrator' || me?.member?.role === 'moderator';
+  const isAdminMod = getIsAdminMod(me?.member);
   const isEventContributor = member && member.userUid === me?.member?.userUid;
   const isOriginAgenda = event.originAgenda?.uid === agenda.uid;
   const { canEditEvent = false } = me?.authorizations ?? {};
 
-  const {
-    isOpen: removeIsOpen,
-    onOpen: removeOnOpen,
-    onClose: removeOnClose,
-  } = useDisclosure();
+  const { isOpen: removeIsOpen, onOpen: removeOnOpen, onClose: removeOnClose } = useDisclosure();
 
-  const {
-    isOpen: duplicateIsOpen,
-    onOpen: duplicateOnOpen,
-    onClose: duplicateOnClose,
-  } = useDisclosure();
+  const { isOpen: duplicateIsOpen, onOpen: duplicateOnOpen, onClose: duplicateOnClose } = useDisclosure();
 
   const {
     isOpen: transferOwnershipIsOpen,
@@ -96,21 +91,24 @@ export default function OtherActions({ agenda }) {
         },
       };
 
-      await mutate(async () => {
-        const response = await fetch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
-          method: 'PATCH',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+      await mutate(
+        async () => {
+          const response = await fetch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
-        if (response.ok) return optimisticResponse;
-        throw new Error('Error');
-      }, {
-        optimisticData: optimisticResponse,
-        revalidate: false,
-      });
+          if (response.ok) return optimisticResponse;
+          throw new Error('Error');
+        },
+        {
+          optimisticData: optimisticResponse,
+          revalidate: false,
+        },
+      );
     } catch (e) {
       console.log('PATCH EVENT ERROR', e);
     }
@@ -140,11 +138,7 @@ export default function OtherActions({ agenda }) {
 
   return (
     <>
-      <Menu
-        matchWidth
-        gutter={0}
-        modifiers={isMobile ? fullWidth as any : null}
-      >
+      <Menu matchWidth gutter={0} modifiers={isMobile ? (fullWidth as any) : null}>
         <Tooltip label={intl.formatMessage(messages.otherActions)} isDisabled={!isMobile}>
           <MenuButton
             as={ContextBarButton}
@@ -185,7 +179,11 @@ export default function OtherActions({ agenda }) {
                 disabled={!allowTransferOwnership}
                 onClick={transferOwnershipOnOpen}
                 action={intl.formatMessage(messages.transferOwnership)}
-                description={intl.formatMessage(messages[allowTransferOwnership ? 'transferOwnershipDescription' : 'transferOwnershipDescriptionDisabled'])}
+                description={intl.formatMessage(
+                  messages[
+                    allowTransferOwnership ? 'transferOwnershipDescription' : 'transferOwnershipDescriptionDisabled'
+                  ],
+                )}
               />
             </>
           ) : null}
@@ -229,9 +227,7 @@ export default function OtherActions({ agenda }) {
               />
             </>
           ) : null}
-          {displayRemove || displayRequestEditionRights ? (
-            <MenuDivider />
-          ) : null}
+          {displayRemove || displayRequestEditionRights ? <MenuDivider /> : null}
           {displayRequestEditionRights ? (
             <LinkMenuItem
               href={requestEditionRightsUrl}
@@ -271,9 +267,7 @@ export default function OtherActions({ agenda }) {
 
           <ModalFooter justifyContent="center">
             <Button colorScheme="danger" mr={3} onClick={onRemove}>
-              {isOriginAgenda
-                ? intl.formatMessage(messages.delete)
-                : intl.formatMessage(messages.remove)}
+              {isOriginAgenda ? intl.formatMessage(messages.delete) : intl.formatMessage(messages.remove)}
             </Button>
             <Button variant="ghost" onClick={removeOnClose}>
               {intl.formatMessage(messages.cancel)}
@@ -282,13 +276,9 @@ export default function OtherActions({ agenda }) {
         </ModalContent>
       </Modal>
 
-      {duplicateIsOpen ? (
-        <DuplicateModal isOpen onClose={duplicateOnClose} agenda={agenda} event={event} />
-      ) : null}
+      {duplicateIsOpen ? <DuplicateModal isOpen onClose={duplicateOnClose} agenda={agenda} event={event} /> : null}
 
-      {transferOwnershipIsOpen ? (
-        <TransferOwnershipModal isOpen onClose={transferOwnershipOnClose} />
-      ) : null}
+      {transferOwnershipIsOpen ? <TransferOwnershipModal isOpen onClose={transferOwnershipOnClose} /> : null}
     </>
   );
 }
