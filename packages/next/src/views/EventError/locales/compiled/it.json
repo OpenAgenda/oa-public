@@ -5,6 +5,12 @@
       "value": "Agenda non trovata"
     }
   ],
+  "next.views.EventError.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact administrators"
+    }
+  ],
   "next.views.EventError.eventNotFound": [
     {
       "type": 0,
@@ -57,12 +63,6 @@
     {
       "type": 0,
       "value": " se non hai ancora un account."
-    }
-  ],
-  "next.views.EventError.requestInvitation": [
-    {
-      "type": 0,
-      "value": "Richiedere un invito"
     }
   ],
   "next.views.EventError.restrictedAccess": [

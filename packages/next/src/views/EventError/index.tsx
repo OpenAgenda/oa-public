@@ -1,7 +1,11 @@
 import { useRouter } from 'next/router';
 import { defineMessages, useIntl } from 'react-intl';
 import { Text, Button, Link, Container, Box } from '@openagenda/uikit';
-import { ErrorDisplay, ErrorContainer, JsonError } from 'components/ErrorDisplay';
+import {
+  ErrorDisplay,
+  ErrorContainer,
+  JsonError,
+} from 'components/ErrorDisplay';
 import fetchErrorLocale from 'components/ErrorDisplay/locales';
 import base64 from 'utils/base64';
 import { useAgenda } from 'views/EventShow/contexts/agenda';
@@ -9,10 +13,10 @@ import AgendaHeader from 'views/EventShow/components/AgendaHeader';
 import fetchLocale from './locales';
 
 export type EventErrorProps = {
-  agendaSlug: string,
-  eventSlug: string,
-  statusCode: number,
-  error?: JsonError
+  agendaSlug: string;
+  eventSlug: string;
+  statusCode: number;
+  error?: JsonError;
 };
 
 const messages = defineMessages({
@@ -22,7 +26,8 @@ const messages = defineMessages({
   },
   unauthorizedMsg: {
     id: 'next.views.EventError.unauthorizedMsg',
-    defaultMessage: 'Access to this agenda is restricted,{br}authenticate yourself before you can access it.',
+    defaultMessage:
+      'Access to this event is restricted,{br}authenticate yourself before you can access it.',
   },
   signIn: {
     id: 'next.views.EventError.signIn',
@@ -30,15 +35,16 @@ const messages = defineMessages({
   },
   orSignUp: {
     id: 'next.views.EventError.orSignup',
-    defaultMessage: 'Or <link>sign up</link> if you don\'t have an account yet.',
+    defaultMessage: "Or <link>sign up</link> if you don't have an account yet.",
   },
   forbiddenMsg: {
     id: 'next.views.EventError.forbiddenMsg',
-    defaultMessage: 'You do not have access to this agenda.{br}Check the link provided to you or request access.',
+    defaultMessage:
+      'You do not have access to this event.{br}Check the link provided to you or request access.',
   },
-  requestInvitation: {
-    id: 'next.views.EventError.requestInvitation',
-    defaultMessage: 'Request an invitation',
+  contactAdministrators: {
+    id: 'next.views.EventError.contactAdministrators',
+    defaultMessage: 'Contact administrators',
   },
   agendaNotFound: {
     id: 'next.views.EventError.agendaNotFound',
@@ -46,7 +52,8 @@ const messages = defineMessages({
   },
   notFoundMsg: {
     id: 'next.views.EventError.notFoundMsg',
-    defaultMessage: 'There is no calendar corresponding to this link.{br}Either the link is invalid or the calendar has been deleted.',
+    defaultMessage:
+      'There is no event corresponding to this link.{br} Either the link is invalid or the agenda has been deleted.',
   },
   searchAgenda: {
     id: 'next.views.EventError.searchAgenda',
@@ -116,11 +123,14 @@ export default function EventError({
         <Text fontSize="2xl" fontWeight="bold" mb="4">
           {intl.formatMessage(messages.restrictedAccess)}
         </Text>
-        <Text>
-          {intl.formatMessage(messages.forbiddenMsg, { br: <br /> })}
-        </Text>
-        <Button as={Link} href={`/${agendaSlug}/contact`} colorScheme="primary" mt="8">
-          {intl.formatMessage(messages.requestInvitation)}
+        <Text>{intl.formatMessage(messages.forbiddenMsg, { br: <br /> })}</Text>
+        <Button
+          as={Link}
+          href={`/${agendaSlug}/contact`}
+          colorScheme="primary"
+          mt="8"
+        >
+          {intl.formatMessage(messages.contactAdministrators)}
         </Button>
       </ErrorContainer>
     );
@@ -147,7 +157,11 @@ export default function EventError({
     return (
       <>
         <Box as="header" w="full" bg="#413a42" px="4" py="8">
-          <Container maxW="container.lg" color="white" textAlign={{ base: 'center', md: 'start' }}>
+          <Container
+            maxW="container.lg"
+            color="white"
+            textAlign={{ base: 'center', md: 'start' }}
+          >
             <AgendaHeader />
           </Container>
         </Box>
@@ -160,7 +174,12 @@ export default function EventError({
             {intl.formatMessage(messages.notFoundMsg, { br: <br /> })}
           </Text>
 
-          <Button as={Link} href={`/${agendaSlug}`} colorScheme="primary" mt="8">
+          <Button
+            as={Link}
+            href={`/${agendaSlug}`}
+            colorScheme="primary"
+            mt="8"
+          >
             {intl.formatMessage(messages.seeAgenda)}
           </Button>
         </ErrorContainer>
@@ -169,12 +188,9 @@ export default function EventError({
   }
 
   // 500
-  return (
-    <ErrorDisplay error={error} />
-  );
+  return <ErrorDisplay error={error} />;
 }
 
-EventError.fetchLocale = (locale: string) => Promise.all([
-  fetchLocale(locale),
-  fetchErrorLocale(locale),
-]).then(results => Object.assign({}, ...results));
+EventError.fetchLocale = (locale: string) =>
+  Promise.all([fetchLocale(locale), fetchErrorLocale(locale)]).then(results =>
+    Object.assign({}, ...results));

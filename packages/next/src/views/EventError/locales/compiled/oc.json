@@ -5,10 +5,16 @@
       "value": "Agenda pas trobada"
     }
   ],
+  "next.views.EventError.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contacter les administrateurs"
+    }
+  ],
   "next.views.EventError.eventNotFound": [
     {
       "type": 0,
-      "value": "Event not found"
+      "value": "Événement introuvable"
     }
   ],
   "next.views.EventError.forbiddenMsg": [
@@ -59,16 +65,10 @@
       "value": " s'avètz pas encara de compte."
     }
   ],
-  "next.views.EventError.requestInvitation": [
-    {
-      "type": 0,
-      "value": "Demandar una convidacion"
-    }
-  ],
   "next.views.EventError.restrictedAccess": [
     {
       "type": 0,
-      "value": "Restricted access"
+      "value": "Accès restreint"
     }
   ],
   "next.views.EventError.searchAgenda": [
@@ -92,7 +92,7 @@
   "next.views.EventError.unauthorizedMsg": [
     {
       "type": 0,
-      "value": "Access to this agenda is restricted,"
+      "value": "L'accès à cet événement est restrent, "
     },
     {
       "type": 1,
@@ -100,7 +100,7 @@
     },
     {
       "type": 0,
-      "value": "authenticate yourself before you can access it."
+      "value": "connectez-vous avant de tenter d'y accéder à nouveau"
     }
   ]
 }

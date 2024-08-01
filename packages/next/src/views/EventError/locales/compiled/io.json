@@ -5,6 +5,12 @@
       "value": "crwdns33882:0crwdne33882:0"
     }
   ],
+  "next.views.EventError.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact administrators"
+    }
+  ],
   "next.views.EventError.eventNotFound": [
     {
       "type": 0,
@@ -43,12 +49,6 @@
     {
       "type": 0,
       "value": "crwdns33890:0crwdne33890:0"
-    }
-  ],
-  "next.views.EventError.requestInvitation": [
-    {
-      "type": 0,
-      "value": "crwdns33892:0crwdne33892:0"
     }
   ],
   "next.views.EventError.restrictedAccess": [
