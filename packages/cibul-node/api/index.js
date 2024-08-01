@@ -374,7 +374,6 @@ export default (core, { useRouter = true } = {}) => {
     '/agendas/:agendaUid/members/invite',
     mw.member.load,
     mw.member.loadContext,
-    mw.member.allow(['administrator', 'moderator']),
     (req, res, next) =>
       core
         .agendas(req.agenda.uid)
