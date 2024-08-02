@@ -20,15 +20,12 @@ async function sendToContributor({
   beforeStateLabel,
   afterStateLabel,
 }) {
-  const {
-    mails,
-  } = services;
+  const { mails } = services;
 
   const conributorLang = contributorUser.culture || 'fr';
 
-  const sendAgendaPublicationMessage = (
-    agendaEvent.state === agendaEventStates.PUBLISHED
-  ) && _.get(agenda, 'settings.contribution.messages.publication');
+  const sendAgendaPublicationMessage = agendaEvent.state === agendaEventStates.PUBLISHED
+    && _.get(agenda, 'settings.contribution.messages.publication');
 
   const to = {
     address: contributorUser.email,
@@ -36,7 +33,8 @@ async function sendToContributor({
       {
         rule: ['receive', 'myEventChangeState'],
         dataPath: 'unsubscribeLink',
-      }, {
+      },
+      {
         memberId: contributor.id,
         rule: ['receive', 'myEventChangeState'],
         dataPath: 'memberUnsubscribeLink',
@@ -49,6 +47,7 @@ async function sendToContributor({
   const agendaTitle = agenda.title;
 
   if (sendAgendaPublicationMessage) {
+    log('sending custom event publish notification to contributor');
     await mails.send({
       template: 'eventPublishContributor',
       to,
@@ -57,11 +56,17 @@ async function sendToContributor({
         agendaTitle,
         logo,
         link,
-        message: fromMarkdownToHTML(_.get(agenda, 'settings.contribution.messages.publication')),
+        message: fromMarkdownToHTML(
+          _.get(agenda, 'settings.contribution.messages.publication'),
+        ),
       },
       lang: conributorLang,
     });
   } else {
+    log('sending standard event publish notification message to contributor', {
+      beforeState: beforeStateLabel,
+      afterState: afterStateLabel,
+    });
     await mails.send({
       template: 'myEventChangeState',
       to,
@@ -78,14 +83,13 @@ async function sendToContributor({
   }
 }
 
-export default async ({ config, services }, { agendaEvent, before, context, agenda, event }) => {
+export default async (
+  { config, services },
+  { agendaEvent, before, context, agenda, event },
+) => {
   const { root } = config;
 
-  const {
-    mails,
-    members: membersSvc,
-    users: usersSvc,
-  } = services;
+  const { mails, members: membersSvc, users: usersSvc } = services;
 
   if (!mails) {
     log('warn', 'mails is not initialized');
@@ -103,9 +107,11 @@ export default async ({ config, services }, { agendaEvent, before, context, agen
 
   log('Found %s adminmods', members.length);
 
-  const contributorUser = agendaEvent.userUid ? await usersSvc.findOne({
-    query: { uid: agendaEvent.userUid },
-  }) : null;
+  const contributorUser = agendaEvent.userUid
+    ? await usersSvc.findOne({
+      query: { uid: agendaEvent.userUid },
+    })
+    : null;
 
   log(
     '%s contributor user%s',
@@ -113,10 +119,12 @@ export default async ({ config, services }, { agendaEvent, before, context, agen
     contributorUser ? ` ${contributorUser.uid}` : '',
   );
 
-  const contributor = contributorUser ? await membersSvc.get({
-    agendaUid: agenda.uid,
-    userUid: contributorUser.uid,
-  }) : null;
+  const contributor = contributorUser
+    ? await membersSvc.get({
+      agendaUid: agenda.uid,
+      userUid: contributorUser.uid,
+    })
+    : null;
   const creator = await membersSvc.get({
     agendaUid: event.agendaUid, // origin agenda
     userUid: event.creatorUid,
@@ -128,7 +136,11 @@ export default async ({ config, services }, { agendaEvent, before, context, agen
   });
 
   if (contributorUser) {
-    log('%s corresponding member%s', contributor ? 'Found' : 'Did not find', contributor ? ` (${contributor.id})` : '');
+    log(
+      '%s corresponding member%s',
+      contributor ? 'Found' : 'Did not find',
+      contributor ? ` (${contributor.id})` : '',
+    );
   }
 
   const eventIsPublished = agendaEvent.state === agendaEventStates.PUBLISHED;
@@ -138,18 +150,28 @@ export default async ({ config, services }, { agendaEvent, before, context, agen
   if (eventIsRefused) log('event is refused');
 
   const creatorIsAdminmod = creatorUser
-    && members.includes(member => member.user && member.user.uid !== creatorUser.uid);
+    && members.includes(
+      member => member.user && member.user.uid !== creatorUser.uid,
+    );
   const visibleForCreator = creatorIsAdminmod || (!agenda.private && eventIsPublished);
 
   if (visibleForCreator) log('creator should see change');
 
   const contributorIsAdminmod = contributor?.role
-    && membersSvc.utils.compareRoles.isSuperiorToOrEqual(contributor.role, 'moderator');
+    && membersSvc.utils.compareRoles.isSuperiorToOrEqual(
+      contributor.role,
+      'moderator',
+    );
 
   let sentToCreator = false;
   let sentToContributor = false;
 
-  if (creatorUser && creatorUser.uid !== contributorUser?.uid && visibleForCreator) {
+  if (
+    creatorUser
+    && creatorUser.uid !== contributorUser?.uid
+    && visibleForCreator
+  ) {
+    log('creator is not contributor, notifying creator');
     await sendToContributor({
       services,
       contributor: creator,
@@ -166,7 +188,11 @@ export default async ({ config, services }, { agendaEvent, before, context, agen
     sentToCreator = true;
   }
 
-  if (contributorUser && (contributorIsAdminmod || eventIsPublished || eventIsRefused)) {
+  if (
+    contributorUser
+    && (contributorIsAdminmod || eventIsPublished || eventIsRefused)
+  ) {
+    log('notifying contributor');
     await sendToContributor({
       services,
       contributor,
@@ -219,11 +245,20 @@ export default async ({ config, services }, { agendaEvent, before, context, agen
           lang: member.user.culture,
           unsubscriptions: [
             {
-              rule: ['receive', 'eventChangeState', { state: agendaEvent.state }],
+              rule: [
+                'receive',
+                'eventChangeState',
+                { state: agendaEvent.state },
+              ],
               dataPath: 'unsubscribeLink',
-            }, {
+            },
+            {
               memberId: member.id,
-              rule: ['receive', 'eventChangeState', { state: agendaEvent.state }],
+              rule: [
+                'receive',
+                'eventChangeState',
+                { state: agendaEvent.state },
+              ],
               dataPath: 'memberUnsubscribeLink',
             },
           ],

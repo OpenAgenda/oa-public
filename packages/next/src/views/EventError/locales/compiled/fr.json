@@ -2,19 +2,25 @@
   "next.views.EventError.agendaNotFound": [
     {
       "type": 0,
-      "value": "Agenda not found"
+      "value": "Agenda introuvable"
+    }
+  ],
+  "next.views.EventError.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contacter les administrateurs"
     }
   ],
   "next.views.EventError.eventNotFound": [
     {
       "type": 0,
-      "value": "Event not found"
+      "value": "Événement introuvable"
     }
   ],
   "next.views.EventError.forbiddenMsg": [
     {
       "type": 0,
-      "value": "You do not have access to this agenda."
+      "value": "Vous n’avez pas accès à cet événement."
     },
     {
       "type": 1,
@@ -22,53 +28,25 @@
     },
     {
       "type": 0,
-      "value": "Check the link provided to you or request access."
+      "value": "Vérifiez le lien qui vous a été fourni ou faites une demande d’accès."
     }
   ],
   "next.views.EventError.notFoundMsg": [
     {
       "type": 0,
-      "value": "There is no calendar corresponding to this link."
-    },
-    {
-      "type": 1,
-      "value": "br"
-    },
-    {
-      "type": 0,
-      "value": "Either the link is invalid or the calendar has been deleted."
+      "value": "Il n'y a pas d'événement correspondant à ce lien"
     }
   ],
   "next.views.EventError.orSignup": [
     {
       "type": 0,
-      "value": "Or "
-    },
-    {
-      "children": [
-        {
-          "type": 0,
-          "value": "sign up"
-        }
-      ],
-      "type": 8,
-      "value": "link"
-    },
-    {
-      "type": 0,
-      "value": " if you don't have an account yet."
-    }
-  ],
-  "next.views.EventError.requestInvitation": [
-    {
-      "type": 0,
-      "value": "Request an invitation"
+      "value": "Créer un compte"
     }
   ],
   "next.views.EventError.restrictedAccess": [
     {
       "type": 0,
-      "value": "Restricted access"
+      "value": "Accès restreint"
     }
   ],
   "next.views.EventError.searchAgenda": [
@@ -80,7 +58,7 @@
   "next.views.EventError.seeAgenda": [
     {
       "type": 0,
-      "value": "See agenda"
+      "value": "Voir l'agenda"
     }
   ],
   "next.views.EventError.signIn": [
@@ -92,7 +70,7 @@
   "next.views.EventError.unauthorizedMsg": [
     {
       "type": 0,
-      "value": "Access to this agenda is restricted,"
+      "value": "L'accès à cet événement est restrent, "
     },
     {
       "type": 1,
@@ -100,7 +78,7 @@
     },
     {
       "type": 0,
-      "value": "authenticate yourself before you can access it."
+      "value": "connectez-vous avant de tenter d'y accéder à nouveau"
     }
   ]
 }
