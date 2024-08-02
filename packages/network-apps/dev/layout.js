@@ -1,9 +1,7 @@
-"use strict";
+'use strict';
 
 // generate page with layout
-module.exports = ( content, data ) => {
-
-  return `<!DOCTYPE html>
+module.exports = (content) => `<!DOCTYPE html>
     <html>
       <head>
         <meta charset="utf-8">
@@ -13,6 +11,4 @@ module.exports = ( content, data ) => {
       <body>
         ${content}
       </body>
-    </html>`
-
-}
+    </html>`;

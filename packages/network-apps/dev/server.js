@@ -1,88 +1,105 @@
-"use strict";
+'use strict';
 
 process.env.NODE_ENV = 'development';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const express = require( 'express' );
-const webpack = require( 'webpack' );
+const express = require('express');
+const webpack = require('webpack');
+const webpackDevMw = require('webpack-dev-middleware');
+const webpackHotMw = require('webpack-hot-middleware');
 
-const webpackConfig = require( './webpack' );
+const webpackConfig = require('./webpack');
 
-const compiler = webpack( webpackConfig );
+const compiler = webpack(webpackConfig);
 
 const dev = express();
 
-const style = require( '@openagenda/bs-templates' ).getCss( 'main' );
+const style = require('@openagenda/bs-templates').getCss('main');
 
-const Service = require( '../' );
+const Service = require('..');
 
-const devLayout = require( './layout' );
+const devLayout = require('./layout');
 
-Service.router.setLayout( devLayout );
+Service.router.setLayout(devLayout);
 
-const stories = require( './stories' ).reduce( ( stories, story ) => {
+const stories = require('./stories').reduce(
+  (carry, story) =>
+    _.set(
+      carry,
+      story.slug,
+      _.assign(story, {
+        service: Service(story.config),
+      }),
+    ),
+  {},
+);
 
-  // each dev story has its instanciated service app
-  return _.set( stories, story.slug, _.assign( story, { service:
-    Service( story.config )
-  } ) );
+dev.use(
+  webpackDevMw(compiler, {
+    stats: {
+      noInfo: true,
+      errorDetails: true,
+    },
+    publicPath: '/js',
+  }),
+);
 
-}, {} );
+dev.use(webpackHotMw(compiler));
 
-dev.use( require( 'webpack-dev-middleware' )( compiler, {
-  stats: {
-    noInfo: true,
-    errorDetails: true
-  },
-  publicPath: '/js'
-} ) );
-
-dev.use( require( 'webpack-hot-middleware' )( compiler ) );
-
-
-dev.get( '/', ( req, res ) => {
-
-  res.send( devLayout( '<div class="margin-top-lg">' +
-    _.chunk( _.keys( stories ), 4 ).map( chunk => '<div class="row">' +
-      chunk.map( slug => `
+dev.get('/', (req, res) => {
+  res.send(
+    devLayout(
+      `<div class="margin-top-lg">${_.chunk(_.keys(stories), 4)
+        .map(
+          (chunk) =>
+            `<div class="row">${chunk
+              .map(
+                (slug) => `
         <div class="col-md-3">
           <div class="wsq padding-all-sm margin-all-sm">
-            <label>${stories[ slug ].name}</label>
-            <p>${stories[ slug ].description}</p>
+            <label>${stories[slug].name}</label>
+            <p>${stories[slug].description}</p>
             <a href="/${slug}">Open</a>
           </div>
         </div>
-      ` ).join( '' ) +
-    '</div>' ).join( '' ) + '</div>'
-  ) );
-
-} );
+      `,
+              )
+              .join('')}</div>`,
+        )
+        .join('')}</div>`,
+    ),
+  );
+});
 
 // useful only if frontAppPath is given to service at init
-dev.use( '/dist',
+dev.use(
+  '/dist',
   Service.router.dist,
-  ( req, res, next ) => res.send( 404 ) // if not, unhandled files will be handled by following routes
+  (req, res) => res.send(404), // if not, unhandled files will be handled by following routes
 );
 
-dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).send( style ) );
-dev.get( '/favicon.ico', ( req, res ) => res.sendStatus( 404 ) );
-dev.use( '/fonts', express.static( __dirname + '/../bs-templates/templates/fonts' ) );
+dev.get('/style.css', (req, res) =>
+  res.set('Content-Type', 'text/css').send(style),
+);
+dev.get('/favicon.ico', (req, res) => res.sendStatus(404));
+dev.use(
+  '/fonts',
+  express.static(`${__dirname}/../bs-templates/templates/fonts`),
+);
 
-dev.use( '/:story', ( req, res, next ) => {
+dev.use('/:story', (req, res, next) => {
+  const story = stories[req.params.story];
 
-  const story = stories[ req.params.story ];
+  if (!story) return res.redirect(302, '/');
 
-  if ( !story ) return res.redirect( 302, '/' );
+  Service.router.setService(story.service);
 
-  Service.router.setService( story.service );
-
-  _.assign( req, story.req );
+  _.assign(req, story.req);
 
   next();
+});
 
-} );
+dev.use('/:story', Service.router);
 
-dev.use( '/:story', Service.router );
-
-dev.listen( 3000 );
+dev.listen(3000);

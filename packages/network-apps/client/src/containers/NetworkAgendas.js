@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import reducers from '../reducers';
@@ -11,20 +10,17 @@ import Canvas from '../components/Canvas';
 import ListHead from '../components/ListHead';
 import Loading from '../components/Loading';
 
-
-export class NetworkAgendas extends Component {
+export class NetworkAgendasComponent extends Component {
   componentDidMount() {
-    this.props.onMount();
+    const { onMount } = this.props;
+
+    onMount();
   }
 
   render() {
     const {
-      network,
-      agendas,
-      add,
-      create,
-      remove
-    } = this.props.network;
+      network: { agendas, add, create, remove },
+    } = this.props;
 
     const {
       onAdd,
@@ -35,54 +31,95 @@ export class NetworkAgendas extends Component {
       onCreateSubmit,
       onRemove,
       onRemoveSubmit,
-      onRemoveClose
+      onRemoveClose,
     } = this.props;
 
-    return <Canvas {...this.props}>
-      <ListHead className="text-center">
-          <button className="btn btn-primary margin-h-sm" onClick={onCreate}>Créer un agenda</button>
-          <button className="btn btn-default margin-h-sm" onClick={onAdd}>Ajouter un agenda existant</button>
-      </ListHead>
-      <div>
-        {agendas ? <ul className="list-unstyled">{agendas.map( a => (
-          <li className="margin-v-sm padding-h-sm padding-top-sm wsq" key={'agenda' + a.uid}>
-            <label>{a.title}</label>
-            <ul className="list-inline">
-              <li><a target="_blank" href={`/agendas/${a.uid}`}>Voir</a></li>
-              <li><button className="btn btn-link" onClick={onRemove.bind(null, a)}>Retirer</button></li>
+    return (
+      <Canvas {...this.props}>
+        <ListHead className="text-center">
+          <button
+            type="button"
+            className="btn btn-primary margin-h-sm"
+            onClick={onCreate}
+          >
+            Créer un agenda
+          </button>
+          <button
+            type="button"
+            className="btn btn-default margin-h-sm"
+            onClick={onAdd}
+          >
+            Ajouter un agenda existant
+          </button>
+        </ListHead>
+        <div>
+          {agendas ? (
+            <ul className="list-unstyled">
+              {agendas.map((a) => (
+                <li
+                  className="margin-v-sm padding-h-sm padding-top-sm wsq"
+                  key={`agenda${a.uid}`}
+                >
+                  <strong>{a.title}</strong>
+                  <ul className="list-inline">
+                    <li>
+                      <a
+                        target="_blank"
+                        href={`/agendas/${a.uid}`}
+                        rel="noreferrer"
+                      >
+                        Voir
+                      </a>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="btn btn-link"
+                        onClick={onRemove.bind(null, a)}
+                      >
+                        Retirer
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+              ))}
             </ul>
-          </li>
-        ) )}</ul> : <Loading /> }
-        { add ? <AddAgenda
-          onAdd={onAddSubmit}
-          onClose={onAddClose}
-        /> : null }
-        { remove ? <RemoveAgenda
-          onRemove={onRemoveSubmit.bind(null, remove)}
-          onClose={onRemoveClose}
-        /> : null }
-        { create ? <CreateAgenda
-          onCreate={onCreateSubmit}
-          onClose={onCreateClose}
-        /> : null }
-      </div>
-    </Canvas>
-
+          ) : (
+            <Loading />
+          )}
+          {add ? <AddAgenda onAdd={onAddSubmit} onClose={onAddClose} /> : null}
+          {remove ? (
+            <RemoveAgenda
+              onRemove={() => onRemoveSubmit(remove)}
+              onClose={onRemoveClose}
+            />
+          ) : null}
+          {create ? (
+            <CreateAgenda onCreate={onCreateSubmit} onClose={onCreateClose} />
+          ) : null}
+        </div>
+      </Canvas>
+    );
   }
 }
 
-export default connect(
-  state => state,
-  dispatch => ( {
-    onMount: () => dispatch( reducers.network.loadAgendas() ),
-    onAdd: () => dispatch( reducers.network.showAddAgenda() ),
-    onCreate: () => dispatch( reducers.network.showCreateAgenda() ),
-    onAddSubmit: slugOrUrl => dispatch( reducers.network.submitAddAgenda( slugOrUrl ) ),
-    onCreateSubmit: agenda => dispatch( reducers.network.submitCreateAgenda( agenda ) ),
-    onAddClose: () => dispatch( reducers.network.closeAddAgenda() ),
-    onCreateClose: () => dispatch( reducers.network.closeCreateAgenda() ),
-    onRemove: agenda => dispatch( reducers.network.showRemoveAgenda(agenda) ),
-    onRemoveSubmit: agenda => dispatch( reducers.network.submitRemoveAgenda(agenda) ),
-    onRemoveClose: () => dispatch( reducers.network.closeRemoveAgenda() ),
-  } )
-)( NetworkAgendas );
+const NetworkAgendas = connect(
+  (state) => state,
+  (dispatch) => ({
+    onMount: () => dispatch(reducers.network.loadAgendas()),
+    onAdd: () => dispatch(reducers.network.showAddAgenda()),
+    onCreate: () => dispatch(reducers.network.showCreateAgenda()),
+    onAddSubmit: (slugOrUrl) =>
+      dispatch(reducers.network.submitAddAgenda(slugOrUrl)),
+    onCreateSubmit: (agenda) =>
+      dispatch(reducers.network.submitCreateAgenda(agenda)),
+    onAddClose: () => dispatch(reducers.network.closeAddAgenda()),
+    onCreateClose: () => dispatch(reducers.network.closeCreateAgenda()),
+    onRemove: (agenda) => dispatch(reducers.network.showRemoveAgenda(agenda)),
+    onRemoveSubmit: (agenda) =>
+      dispatch(reducers.network.submitRemoveAgenda(agenda)),
+    onRemoveClose: () => dispatch(reducers.network.closeRemoveAgenda()),
+  }),
+)(NetworkAgendasComponent);
+
+export default NetworkAgendas;

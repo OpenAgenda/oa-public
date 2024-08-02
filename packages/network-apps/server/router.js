@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const bodyParser = require('body-parser');
@@ -11,22 +11,71 @@ const log = require('@openagenda/logs')('router');
 
 const router = express.Router({ mergeParams: true });
 
-const manifest = require(__dirname + '/../client/dist/manifest.json');
+const manifest = require(`${__dirname}/../client/dist/manifest.json`);
+
+function _getClientAppPath(serviceName, config) {
+  const distFileName = manifest['main.js'];
+
+  if (config.frontAppPath) {
+    return `${config.frontAppPath}/${distFileName}`;
+  }
+
+  if (process.env.NODE_ENV === 'development') return '/js/app.js';
+
+  return [config.CDNPath + serviceName, distFileName].join('/');
+}
+
+async function _renderPage(req, res) {
+  const init = {
+    config: {
+      lang: req.lang,
+      base: req.baseUrl,
+    },
+    state: {},
+  };
+
+  const { cspNonce } = res.locals;
+
+  const layoutData = {
+    lang: req.lang,
+    cspNonce,
+  };
+
+  res.type('html');
+  res.end(
+    router.layout(
+      `<div>
+      <div id="app">${ReactDOM.renderToString(createElement(Spinner))}</div>
+      <script nonce="${cspNonce}" type="application/json" id="init">${serialize(init, { isJSON: true })}</script>
+      <script nonce="${cspNonce}" defer type="text/javascript" src="${_getClientAppPath(router.service.name, router.service.config)}"></script>
+    </div>`,
+      layoutData,
+    ),
+  );
+}
 
 module.exports = Object.assign(router, {
-  dist: express.static(__dirname + '/../client/dist'),
-  setService: service => router.service = service,
-  setLayout: layout => router.layout = layout
+  dist: express.static(`${__dirname}/../client/dist`),
+  setService: (service) => {
+    router.service = service;
+  },
+  setLayout: (layout) => {
+    router.layout = layout;
+  },
 });
 
-router.get('/config.json', (req, res, next) => {
-  router.service.getEventSchema().then(eventSchema => {
+router.get('/config.json', (req, res) => {
+  router.service.getEventSchema().then((eventSchema) => {
     res.json({ eventSchema });
   });
 });
 
 router.post('*', bodyParser.json());
-router.get('*', (req, res, next) => req.headers.accept !== 'application/json' ? _renderPage(req, res, next) : next());
+router.get('*', (req, res, next) =>
+  req.headers.accept !== 'application/json'
+    ? _renderPage(req, res, next)
+    : next(),
+);
 
 router.get('/', async (req, res, next) => {
   try {
@@ -46,87 +95,86 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.get('/networks/:uid', async (req, res, next) => {
+router.get('/:uid', async (req, res, next) => {
   try {
-    const uid = parseInt(req.params.uid);
+    const uid = parseInt(req.params.uid, 10);
 
     res.json({
       network: await router.service.getNetwork(uid),
-      schema: await router.service.getNetworkSchema(uid)
+      schema: await router.service.getNetworkSchema(uid),
     });
   } catch (e) {
     next(e);
   }
 });
 
-router.post(
-  '/networks/:uid',
-  async (req, res, next) => {
-    try {
-      res.json(
-        await router.service.setNetworkSchemaFields(req.params.uid, JSON.parse(req.body.data).fields)
-      );
-    } catch (e) {
-      next(e);
-    }
-  });
+router.post('/:uid', async (req, res, next) => {
+  try {
+    res.json(
+      await router.service.setNetworkSchemaFields(
+        req.params.uid,
+        JSON.parse(req.body.data).fields,
+      ),
+    );
+  } catch (e) {
+    next(e);
+  }
+});
 
-router.get(
-  '/networks/:uid/agendas',
-  async (req, res, next) => {
-    const uid = parseInt(req.params.uid);
+router.get('/:uid/agendas', async (req, res, next) => {
+  const uid = parseInt(req.params.uid, 10);
 
-    try {
-      res.json({
-        network: await router.service.getNetwork(uid),
-        agendas: await router.service.getNetworkAgendas(uid)
-      });
-    } catch (e) {
-      next(e);
-    }
-  });
+  try {
+    res.json({
+      network: await router.service.getNetwork(uid),
+      agendas: await router.service.getNetworkAgendas(uid),
+    });
+  } catch (e) {
+    next(e);
+  }
+});
 
-router.post(
-  '/networks/:uid/agendas/add',
-  async (req, res, next) => {
-    try {
-      res.json(await router.service.addAgendaToNetwork(
-        parseInt(req.params.uid),
-        req.body.slugOrUrl.split('/').pop()
-      ));
-    } catch (e) {
-      log('error', 'agenda add', e);
-      next(e);
-    }
-  });
+router.post('/:uid/agendas/add', async (req, res, next) => {
+  try {
+    res.json(
+      await router.service.addAgendaToNetwork(
+        parseInt(req.params.uid, 10),
+        req.body.slugOrUrl.split('/').pop(),
+      ),
+    );
+  } catch (e) {
+    log('error', 'agenda add', e);
+    next(e);
+  }
+});
 
-router.post(
-  '/networks/:uid/agendas/remove/:agendaUid',
-  async (req, res, next) => {
-    try {
-      res.json(await router.service.removeAgendaFromNetwork(
-        parseInt(req.params.uid),
-        parseInt(req.params.agendaUid)
-      ));
-    } catch (e) {
-      log('error', 'agenda add', e);
-      next(e);
-    }
-  });
+router.post('/:uid/agendas/remove/:agendaUid', async (req, res, next) => {
+  try {
+    res.json(
+      await router.service.removeAgendaFromNetwork(
+        parseInt(req.params.uid, 10),
+        parseInt(req.params.agendaUid, 10),
+      ),
+    );
+  } catch (e) {
+    log('error', 'agenda add', e);
+    next(e);
+  }
+});
 
-router.post(
-  '/networks/:uid/agendas',
-  async (req, res, next) => {
-    try {
-      res.json(await router.service.createAgenda(
-        parseInt(req.params.uid),
+router.post('/:uid/agendas', async (req, res, next) => {
+  try {
+    res.json(
+      await router.service.createAgenda(
+        parseInt(req.params.uid, 10),
         req.body,
-        await router.service.getLoggedUser(req)
-      ));
-    } catch (e) {
-      next(e);
-    }
-  });
+        await router.service.getLoggedUser(req),
+      ),
+    );
+  } catch (e) {
+    next(e);
+  }
+});
 
 router.use((err, req, res, next) => {
   if (req.headers.accept === 'application/json') {
@@ -135,46 +183,3 @@ router.use((err, req, res, next) => {
     next(err);
   }
 });
-
-
-async function _renderPage(req, res, next) {
-  const init = {
-    config: {
-      lang: req.lang,
-      base: req.baseUrl
-    },
-    state: {}
-  };
-
-  const { cspNonce } = res.locals;
-
-  const layoutData = {
-    lang: req.lang,
-    cspNonce,
-  };
-
-  res.type('html');
-  res.end(router.layout(
-    `<div>
-      <div id="app">${ReactDOM.renderToString(
-        createElement(Spinner)
-      )}</div>
-      <script nonce="${cspNonce}" type="application/json" id="init">${serialize(init, { isJSON: true })}</script>
-      <script nonce="${cspNonce}" defer type="text/javascript" src="${_getClientAppPath(router.service.name, router.service.config)}"></script>
-    </div>`, layoutData));
-}
-
-function _getClientAppPath(serviceName, config) {
-  const distFileName = manifest['main.js'];
-
-  if (config.frontAppPath) {
-    return config.frontAppPath + '/' + distFileName;
-  }
-
-  if (process.env.NODE_ENV === 'development') return '/js/app.js';
-
-  return [
-    config.CDNPath + serviceName,
-    distFileName
-  ].join('/');
-}
