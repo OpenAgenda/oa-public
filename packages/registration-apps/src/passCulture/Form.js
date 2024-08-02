@@ -184,8 +184,8 @@ export default function Form({
           optional={false}
         />
       </Section>
-      <Section>
-        {patchMode ? (
+      {patchMode ? (
+        <Section>
           <Select
             disabled={openSubForm}
             label="Catégorie"
@@ -205,34 +205,35 @@ export default function Form({
             }
             optional={false}
           />
-        ) : null}
 
-        {relatedCategoryFieldName ? (
-          <Select
-            disabled={openSubForm}
-            label={
-              relatedCategoryFieldName === 'musicType'
-                ? 'Type de musique'
-                : 'Type de spectacle'
-            }
-            value={currentValue[relatedCategoryFieldName]}
-            placeholder="Choix requis"
-            options={relatedCategoryOptions}
-            onChange={option =>
-              setPatch({
-                ...patch,
-                [relatedCategoryFieldName]: option.value,
-              })}
-            error={
-              showErrors
-                ? (errors || []).filter(
-                  e => e?.field === 'musicType' || e?.field === 'showType',
-                )
-                : false
-            }
-          />
-        ) : null}
-      </Section>
+          {relatedCategoryFieldName ? (
+            <Select
+              disabled={openSubForm}
+              label={
+                relatedCategoryFieldName === 'musicType'
+                  ? 'Type de musique'
+                  : 'Type de spectacle'
+              }
+              value={currentValue[relatedCategoryFieldName]}
+              placeholder="Choix requis"
+              options={relatedCategoryOptions}
+              onChange={option =>
+                setPatch({
+                  ...patch,
+                  [relatedCategoryFieldName]: option.value,
+                })}
+              error={
+                showErrors
+                  ? (errors || []).filter(
+                    e =>
+                      e?.field === 'musicType' || e?.field === 'showType',
+                  )
+                  : false
+              }
+            />
+          ) : null}
+        </Section>
+      ) : null}
       <Section>
         <PriceCategories
           disabled={openSubForm && openSubForm !== 'priceCategories'}
