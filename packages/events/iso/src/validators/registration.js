@@ -11,14 +11,14 @@ const validates = {
 };
 
 const extractType = (value, options = {}) => {
-  const {
-    throwOnError = true,
-  } = options;
+  const { throwOnError = true } = options;
   for (const type of ['phone', 'email', 'link']) {
     try {
       validates[type](value);
       return type;
-    } catch (e) { /* not of type */ }
+    } catch (e) {
+      /* not of type */
+    }
   }
 
   if (!throwOnError) {
@@ -29,60 +29,64 @@ const extractType = (value, options = {}) => {
 };
 
 function toListOfObjects(v) {
-  return [].concat(v)
+  return []
+    .concat(v)
     .filter(item => ![null, undefined].includes(item))
-    .map(item => (
-      typeof item === 'string' ? {
-        value: item,
-        type: extractType(item, { throwOnError: false }),
-      } : item
-    ));
+    .map(item =>
+      (typeof item === 'string'
+        ? {
+          value: item,
+          type: extractType(item, { throwOnError: false }),
+        }
+        : item));
 }
 
 const knownServices = ['passCulture'];
 
 module.exports = function validateRegistration({ field }) {
   return v => {
-    const result = toListOfObjects(v).reduce(({ clean, errors }, item, index) => {
-      const {
-        type,
-        value,
-      } = item;
+    const result = toListOfObjects(v).reduce(
+      ({ clean, errors }, item, index) => {
+        const { type, value } = item;
 
-      const cleanItem = { type };
+        const cleanItem = { type };
 
-      if (!type) {
-        errors.push({
-          field,
-          code: 'registration.invalid',
-          message: 'registration value must be a phone, an email or a link',
-          origin: value,
-          index,
-        });
-      } else {
-        cleanItem.value = validates[type](value);
-      }
-
-      if (item.service) {
-        if (!knownServices.includes(item.service)) {
+        if (!type) {
           errors.push({
-            index,
-            origin: item.service,
-            code: 'service.invalid',
             field,
+            code: 'registration.invalid',
+            message: 'registration value must be a phone, an email or a link',
+            origin: value,
+            index,
+          });
+        } else {
+          cleanItem.value = validates[type](value);
+        }
+
+        if (item.service) {
+          if (!knownServices.includes(item.service)) {
+            errors.push({
+              index,
+              origin: item.service,
+              code: 'service.invalid',
+              field,
+            });
+          }
+          Object.assign(cleanItem, {
+            service: item.service,
+            data: item.data,
           });
         }
-        Object.assign(cleanItem, {
-          service: item.service,
-          data: item.data,
-        });
-      }
 
-      return {
-        errors,
-        clean: clean.concat(cleanItem),
-      };
-    }, { clean: [], errors: [] });
+        if (item.lastProcessedAt) cleanItem.lastProcessedAt = item.lastProcessedAt;
+
+        return {
+          errors,
+          clean: clean.concat(cleanItem),
+        };
+      },
+      { clean: [], errors: [] },
+    );
 
     if (result.errors.length) {
       throw result.errors;
