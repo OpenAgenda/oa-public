@@ -29,6 +29,20 @@ const messages = defineMessages({
   },
 });
 
+const imgSource = (errored, rejected, pending) => {
+  if (errored) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-error-22.png';
+  if (rejected) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-rejected-22.png';
+  if (pending) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png';
+  return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png';
+};
+
+const title = (intl, errored, rejected, pending) => {
+  if (errored) return intl.formatMessage(messages.linkedErrored);
+  if (rejected) return intl.formatMessage(messages.linkedRejected);
+  if (pending) return intl.formatMessage(messages.linkedPending);
+  return intl.formatMessage(messages.linked);
+};
+
 export default function PassImage({
   pending,
   rejected,
@@ -42,19 +56,6 @@ export default function PassImage({
   const intl = useIntl();
   const seeLink = passRes.show.replace(':id', passId);
   const editLink = passRes.edit.replace(':id', passId);
-  const imgSource = () => {
-    if (errored) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-error-22.png';
-    if (rejected) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-rejected-22.png';
-    if (pending) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png';
-    return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png';
-  };
-
-  const title = () => {
-    if (errored) return intl.formatMessage(messages.linkedErrored);
-    if (rejected) return intl.formatMessage(messages.linkedRejected);
-    if (pending) return intl.formatMessage(messages.linkedPending);
-    return intl.formatMessage(messages.linked);
-  };
 
   return (
     <button
@@ -76,7 +77,11 @@ export default function PassImage({
             `
       }
     >
-      <img src={imgSource()} alt="logoPassCulture" title={title()} />
+      <img
+        src={imgSource(errored, rejected, pending)}
+        alt="logoPassCulture"
+        title={title(intl, errored, rejected, pending)}
+      />
       {passTabIsOpen ? (
         <span>
           <a className="margin-left-xs" href={seeLink}>
