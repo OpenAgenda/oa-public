@@ -62,9 +62,17 @@ function ConfirmationBody({ isCreated, hasErrors, isPending, isPatch, editLink, 
 }
 
 export default function Confirmation({ event, res, className }) {
-  const passData = event.registration.find(r => r.service === 'passCulture')?.data;
+  const passRegistrartion = event.registration.find(r => r.service === 'passCulture');
+  const passData = passRegistrartion?.data;
 
   if (!passData) {
+    return null;
+  }
+
+  const lastProcessed = passRegistrartion?.lastProcessedAt;
+  const thirtySecAgo = new Date(new Date().getTime() - 30 * 1000);
+
+  if (new Date(lastProcessed) < thirtySecAgo) {
     return null;
   }
 
