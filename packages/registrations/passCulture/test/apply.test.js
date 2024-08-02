@@ -38,26 +38,38 @@ const applyValidTimingId = (entries, event) => {
 
 const api = 'https://pc.local';
 
-const mockSuccessfullPriceCategoriesPostResponse = async ({ request }) => HttpResponse.json({
-  priceCategories: (await request.json()).priceCategories.map(priceCategory => ({
-    ...priceCategory,
-    id: Math.ceil(Math.random() * 10000),
-  })),
-});
+const mockSuccessfullPriceCategoriesPostResponse = async ({ request }) =>
+  HttpResponse.json({
+    priceCategories: (await request.json()).priceCategories.map(
+      priceCategory => ({
+        ...priceCategory,
+        id: Math.ceil(Math.random() * 10000),
+      }),
+    ),
+  });
 
-const mockSuccessfullDatesPostResponse = async ({ request }) => HttpResponse.json({
-  dates: (await request.json()).dates.map(date => ({
-    ...date,
-    id: Math.ceil(Math.random() * 10000),
-  })),
-});
+const mockSuccessfullDatesPostResponse = async ({ request }) =>
+  HttpResponse.json({
+    dates: (await request.json()).dates.map(date => ({
+      ...date,
+      id: Math.ceil(Math.random() * 10000),
+    })),
+  });
 
-const mockErrorPiceCategoriesPostResponse = async () => new HttpResponse(JSON.stringify({ 'priceCategories.0.price': ['ensure this value is less than or equal to 30000'] }), {
-  status: 400,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+const mockErrorPiceCategoriesPostResponse = async () =>
+  new HttpResponse(
+    JSON.stringify({
+      'priceCategories.0.price': [
+        'ensure this value is less than or equal to 30000',
+      ],
+    }),
+    {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
 
 describe('apply', () => {
   let pc;
@@ -75,13 +87,11 @@ describe('apply', () => {
       let server;
       beforeAll(() => {
         server = setupServer(
-          http.post(
-            `${api}/public/offers/v1/events`,
-            () => HttpResponse.json({
+          http.post(`${api}/public/offers/v1/events`, () =>
+            HttpResponse.json({
               id: randomPassOfferID,
               status: 'PASPENDING',
-            }),
-          ),
+            })),
           http.post(
             `${api}/public/offers/v1/events/:id/price_categories`,
             mockSuccessfullPriceCategoriesPostResponse,
@@ -105,31 +115,43 @@ describe('apply', () => {
 
         beforeAll(async () => {
           const [CArtEvent] = CArtEvents;
-          const timingId = CArtEvent.timings.map(t => new Date(t.begin).getTime()).pop();
+          const timingId = CArtEvent.timings
+            .map(t => new Date(t.begin).getTime())
+            .pop();
 
-          processed = await apply(pc, CArtEvent, {
-            venueId: 123,
-            category: 'CINE_PLEIN_AIR',
-            bookingContact: 'clem@oa.com',
-            priceCategories: [{
-              label: 'Tarif réduit',
-              price: 8,
-              id: 0,
-            }, {
-              label: 'Plein tarif',
-              price: 14,
-              id: 1,
-            }],
-            dates: [{
-              id: 2,
-              timingId,
-              priceCategoryId: 0,
-              quantity: 3,
-            }],
-          }, {
-            categories: settings.categories,
-            related: settings.related,
-          });
+          processed = await apply(
+            pc,
+            CArtEvent,
+            {
+              venueId: 123,
+              category: 'CINE_PLEIN_AIR',
+              bookingContact: 'clem@oa.com',
+              priceCategories: [
+                {
+                  label: 'Tarif réduit',
+                  price: 8,
+                  id: 0,
+                },
+                {
+                  label: 'Plein tarif',
+                  price: 14,
+                  id: 1,
+                },
+              ],
+              dates: [
+                {
+                  id: 2,
+                  timingId,
+                  priceCategoryId: 0,
+                  quantity: 3,
+                },
+              ],
+            },
+            {
+              categories: settings.categories,
+              related: settings.related,
+            },
+          );
         });
 
         test('response key of processed data containes passId and isPending keys', () => {
@@ -170,15 +192,22 @@ describe('apply', () => {
       let server;
 
       beforeAll(() => {
+        const statusForId = id => {
+          if (id === '123456') {
+            return 'PENDING';
+          }
+          if (id === '654321') {
+            return 'REJECTED';
+          }
+          return 'WHICHEVER';
+        };
         server = setupServer(
-          http.get(
-            `${api}/public/offers/v1/events/:id`,
-            async ({ params }) => HttpResponse.json({
+          http.get(`${api}/public/offers/v1/events/:id`, async ({ params }) =>
+            HttpResponse.json({
               ...getEventResponse,
               id: parseInt(params.id, 10),
-              status: params.id === '123456' ? 'PENDING' : 'WHICHEVER',
-            }),
-          ),
+              status: statusForId(params.id),
+            })),
           http.post(
             `${api}/public/offers/v1/events/:id/price_categories`,
             mockSuccessfullPriceCategoriesPostResponse,
@@ -201,7 +230,12 @@ describe('apply', () => {
         let processed;
 
         beforeAll(async () => {
-          processed = await apply(pc, CArtEvents[0], withPendingOffer, settings);
+          processed = await apply(
+            pc,
+            CArtEvents[0],
+            withPendingOffer,
+            settings,
+          );
         });
 
         test('no changes are made on pending offer data', () => {
@@ -211,7 +245,9 @@ describe('apply', () => {
 
       describe('no longer pending', () => {
         let processed;
-        const noLongerPending = produce(withPendingOffer, draft => { draft[0].response.passId = 5421; });
+        const noLongerPending = produce(withPendingOffer, draft => {
+          draft[0].response.passId = 5421;
+        });
 
         beforeAll(async () => {
           processed = await apply(pc, CArtEvents[0], noLongerPending, settings);
@@ -230,14 +266,18 @@ describe('apply', () => {
 
       describe('rejected', () => {
         let processed;
-        const rejected = produce(withPendingOffer, draft => { draft[0].response.isPending = false; });
+        const rejected = produce(withPendingOffer, draft => {
+          draft[0].response.passId = 654321;
+        });
 
         beforeAll(async () => {
-          processed = await apply(pc, CArtEvents[0], rejected, { ...settings, simulateRejected: true });
+          processed = await apply(pc, CArtEvents[0], rejected, { ...settings });
         });
 
         test('all remaining operations stoped', () => {
-          expect(processed.filter(item => item.appliedAt).length).toBe(rejected.filter(item => item.appliedAt).length + 1);
+          expect(processed.filter(item => item.appliedAt).length).toBe(
+            rejected.filter(item => item.appliedAt).length + 1,
+          );
         });
 
         test('isRejected is switched to true in newly inserted response item', () => {
@@ -255,21 +295,17 @@ describe('apply', () => {
       beforeAll(() => {
         const randomPassOfferID = Math.ceil(Math.random() * 100000);
         server = setupServer(
-          http.get(
-            `${api}/public/offers/v1/events/:id`,
-            async ({ params }) => HttpResponse.json({
+          http.get(`${api}/public/offers/v1/events/:id`, async ({ params }) =>
+            HttpResponse.json({
               ...getEventResponse,
               id: parseInt(params.id, 10),
               status: params.id === '123456' ? 'PENDING' : 'WHICHEVER',
-            }),
-          ),
-          http.post(
-            `${api}/public/offers/v1/events`,
-            () => HttpResponse.json({
+            })),
+          http.post(`${api}/public/offers/v1/events`, () =>
+            HttpResponse.json({
               id: randomPassOfferID,
               status: 'PASPENDING',
-            }),
-          ),
+            })),
           http.post(
             `${api}/public/offers/v1/events/:id/price_categories`,
             mockErrorPiceCategoriesPostResponse,
@@ -292,35 +328,54 @@ describe('apply', () => {
         let processed;
 
         beforeAll(async () => {
-          const timingId = CArtEvents[0].timings.map(t => new Date(t.begin).getTime()).pop();
-          processed = await apply(pc, CArtEvents[0], {
-            venueId: 123,
-            category: 'CINE_PLEIN_AIR',
-            bookingContact: 'clem@oa.com',
-            priceCategories: [{
-              label: 'Tarif réduit',
-              price: 8,
-              id: 0,
-            }, {
-              label: 'Plein tarif',
-              price: 14,
-              id: 1,
-            }],
-            dates: [{
-              id: 2,
-              timingId,
-              priceCategoryId: 0,
-              quantity: 3,
-            }],
-          }, { ...settings });
+          const timingId = CArtEvents[0].timings
+            .map(t => new Date(t.begin).getTime())
+            .pop();
+          processed = await apply(
+            pc,
+            CArtEvents[0],
+            {
+              venueId: 123,
+              category: 'CINE_PLEIN_AIR',
+              bookingContact: 'clem@oa.com',
+              priceCategories: [
+                {
+                  label: 'Tarif réduit',
+                  price: 8,
+                  id: 0,
+                },
+                {
+                  label: 'Plein tarif',
+                  price: 14,
+                  id: 1,
+                },
+              ],
+              dates: [
+                {
+                  id: 2,
+                  timingId,
+                  priceCategoryId: 0,
+                  quantity: 3,
+                },
+              ],
+            },
+            { ...settings },
+          );
         });
 
         test('all remaining operations stoped', () => {
-          expect(processed[1].error).toStrictEqual(new BadRequest({
-            info: {
-              'priceCategories.0.price': ['ensure this value is less than or equal to 30000'],
-            },
-          }, 'priceCategories create'));
+          expect(processed[1].error).toStrictEqual(
+            new BadRequest(
+              {
+                info: {
+                  'priceCategories.0.price': [
+                    'ensure this value is less than or equal to 30000',
+                  ],
+                },
+              },
+              'priceCategories create',
+            ),
+          );
         });
       });
     });
@@ -332,10 +387,11 @@ describe('apply', () => {
         server = setupServer(
           http.patch(
             `${api}/public/offers/v1/events/:eventOfferId/price_categories/:id`,
-            async ({ request, params }) => HttpResponse.json({
-              ...await request.json(),
-              id: params.id,
-            }),
+            async ({ request, params }) =>
+              HttpResponse.json({
+                ...await request.json(),
+                id: params.id,
+              }),
           ),
         );
 
@@ -347,9 +403,16 @@ describe('apply', () => {
       });
 
       test('last item of processed elements contains an appliedAt timestamp', async () => {
-        const processed = await apply(pc, CArtEvents[0], applyValidTimingId(withPriceCategoryUpdate, CArtEvents[0]), settings);
+        const processed = await apply(
+          pc,
+          CArtEvents[0],
+          applyValidTimingId(withPriceCategoryUpdate, CArtEvents[0]),
+          settings,
+        );
 
-        expect(processed[processed.length - 1].appliedAt instanceof Date).toBe(true);
+        expect(processed[processed.length - 1].appliedAt instanceof Date).toBe(
+          true,
+        );
       });
     });
 
@@ -360,10 +423,11 @@ describe('apply', () => {
         server = setupServer(
           http.patch(
             `${api}/public/offers/v1/events/:eventOfferId/dates/:id`,
-            async ({ request, params }) => HttpResponse.json({
-              ...await request.json(),
-              id: params.id,
-            }),
+            async ({ request, params }) =>
+              HttpResponse.json({
+                ...await request.json(),
+                id: params.id,
+              }),
           ),
         );
 
@@ -375,9 +439,16 @@ describe('apply', () => {
       });
 
       test('last item of processed elements contains an appliedAt timestamp', async () => {
-        const processed = await apply(pc, CArtEvents[0], applyValidTimingId(withDateUpdate, CArtEvents[0]), settings);
+        const processed = await apply(
+          pc,
+          CArtEvents[0],
+          applyValidTimingId(withDateUpdate, CArtEvents[0]),
+          settings,
+        );
 
-        expect(processed[processed.length - 1].appliedAt instanceof Date).toBe(true);
+        expect(processed[processed.length - 1].appliedAt instanceof Date).toBe(
+          true,
+        );
       });
     });
 
@@ -400,9 +471,16 @@ describe('apply', () => {
       });
 
       test('last item of processed elements contains an appliedAt timestamp', async () => {
-        const processed = await apply(pc, CArtEvents[0], applyValidTimingId(withDateDelete, CArtEvents[0]), settings);
+        const processed = await apply(
+          pc,
+          CArtEvents[0],
+          applyValidTimingId(withDateDelete, CArtEvents[0]),
+          settings,
+        );
 
-        expect(processed[processed.length - 1].appliedAt instanceof Date).toBe(true);
+        expect(processed[processed.length - 1].appliedAt instanceof Date).toBe(
+          true,
+        );
       });
     });
   });
@@ -410,68 +488,66 @@ describe('apply', () => {
   describe('unit', () => {
     describe('getMatchingPassId', () => {
       test('retrieves passId matching a given id from PC data set', () => {
-        expect(
-          getMatchingPassId(partiallyApplied, 1),
-        ).toBe(789789);
+        expect(getMatchingPassId(partiallyApplied, 1)).toBe(789789);
       });
     });
 
     describe('getObjectType', () => {
       test('evaluates what operation is required for given item', () => {
-        expect(
-          getObjectType({ priceCategories: [] }),
-        ).toBe('priceCategories');
+        expect(getObjectType({ priceCategories: [] })).toBe('priceCategories');
       });
 
       test('entry with eventDuration is of eventOffer type', () => {
-        expect(
-          getObjectType({ eventDuration: 210 }),
-        ).toBe('eventOffer');
+        expect(getObjectType({ eventDuration: 210 })).toBe('eventOffer');
       });
     });
 
     describe('getOperationType', () => {
       test('eventOffer update', () => {
-        const operationType = getOperationType([
-          {
-            duo: true,
-            eventDuration: 210,
-            category: 'CONCERT',
-            musicType: 'JAZZ-AVANT_GARDE_JAZZ',
-            venueId: 548,
-            bookingContact: 'fdqfdsqfdsq@fdsqfdsq.com',
-            response: {
-              passId: 72771,
-              isPending: false,
-            },
-            appliedAt: '2024-06-11T09:52:16.657Z',
-            operation: 'create',
-          },
-          {
-            priceCategories: [
-              {
-                price: 0,
-                label: 'Tarif unique',
-                id: 0,
+        const operationType = getOperationType(
+          [
+            {
+              duo: true,
+              eventDuration: 210,
+              category: 'CONCERT',
+              musicType: 'JAZZ-AVANT_GARDE_JAZZ',
+              venueId: 548,
+              bookingContact: 'fdqfdsqfdsq@fdsqfdsq.com',
+              response: {
+                passId: 72771,
+                isPending: false,
               },
-            ],
-            response: {
+              appliedAt: '2024-06-11T09:52:16.657Z',
+              operation: 'create',
+            },
+            {
               priceCategories: [
                 {
-                  passId: 4733,
+                  price: 0,
+                  label: 'Tarif unique',
                   id: 0,
                 },
               ],
+              response: {
+                priceCategories: [
+                  {
+                    passId: 4733,
+                    id: 0,
+                  },
+                ],
+              },
+              appliedAt: '2024-06-11T09:52:17.168Z',
+              operation: 'create',
             },
-            appliedAt: '2024-06-11T09:52:17.168Z',
-            operation: 'create',
-          },
+            {
+              eventDuration: 210,
+            },
+          ],
+          'eventOffer',
           {
             eventDuration: 210,
           },
-        ], 'eventOffer', {
-          eventDuration: 210,
-        });
+        );
 
         expect(operationType).toBe('update');
       });
