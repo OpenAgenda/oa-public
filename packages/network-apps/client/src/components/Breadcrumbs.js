@@ -63,8 +63,8 @@ const Crumb = (props) => {
           _.mapKeys(
             {
               '': 'Réseaux',
-              '/networks/:uid': _.get(props, 'network.network.title'),
-              '/networks/:uid/agendas': 'Agendas',
+              '/:uid': _.get(props, 'network.network.title'),
+              '/:uid/agendas': 'Agendas',
             },
             (v, k) => base + k,
           ),
