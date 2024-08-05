@@ -56,26 +56,25 @@ async function _renderPage(req, res) {
 
 module.exports = Object.assign(router, {
   dist: express.static(`${__dirname}/../client/dist`),
-  setService: (service) => {
+  setService: service => {
     router.service = service;
   },
-  setLayout: (layout) => {
+  setLayout: layout => {
     router.layout = layout;
   },
 });
 
 router.get('/config.json', (req, res) => {
-  router.service.getEventSchema().then((eventSchema) => {
+  router.service.getEventSchema().then(eventSchema => {
     res.json({ eventSchema });
   });
 });
 
 router.post('*', bodyParser.json());
 router.get('*', (req, res, next) =>
-  req.headers.accept !== 'application/json'
+  (req.headers.accept !== 'application/json'
     ? _renderPage(req, res, next)
-    : next(),
-);
+    : next()));
 
 router.get('/', async (req, res, next) => {
   try {

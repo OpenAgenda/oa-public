@@ -95,10 +95,10 @@ export class NetworkEditComponent extends Component {
 }
 
 const NetworkEdit = connect(
-  (state) => state,
-  (dispatch) => ({
+  state => state,
+  dispatch => ({
     onMount: () => dispatch(reducers.network.load()),
-    onUpdate: (updated) => dispatch(reducers.network.updateSchema(updated)),
+    onUpdate: updated => dispatch(reducers.network.updateSchema(updated)),
   }),
 )(NetworkEditComponent);
 
