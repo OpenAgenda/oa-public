@@ -6,7 +6,7 @@ import getPaths from '../getPaths';
 function extractCrumbs(routePatterns, match) {
   const parts = match.path.split('/');
 
-  return parts
+  const result = parts
     .reduce(
       (crumbPaths, part, index) =>
         crumbPaths.concat(parts.filter((p, i) => i <= index).join('/')),
@@ -18,6 +18,7 @@ function extractCrumbs(routePatterns, match) {
       pattern,
       exact: match.path === pattern,
     }));
+  return result;
 }
 
 export default (props) => {
