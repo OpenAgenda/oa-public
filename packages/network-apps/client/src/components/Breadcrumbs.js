@@ -24,13 +24,26 @@ export default (props) => {
   const {
     match,
     config: { base },
+    secondaryNavLinks = null,
   } = props;
   return (
-    <ol className="margin-v-z breadcrumb">
-      {extractCrumbs(Object.values(getPaths(base)), match).map((crumb) => (
-        <Crumb key={crumb.pattern} {...props} {...crumb} />
-      ))}
-    </ol>
+    <>
+      {secondaryNavLinks
+        ? secondaryNavLinks.map(({ path, label }) => (
+            <Link
+              className="pull-right margin-all-xs margin-right-sm"
+              to={path}
+            >
+              {label}
+            </Link>
+          ))
+        : null}
+      <ol className="margin-v-z breadcrumb">
+        {extractCrumbs(Object.values(getPaths(base)), match).map((crumb) => (
+          <Crumb key={crumb.pattern} {...props} {...crumb} />
+        ))}
+      </ol>
+    </>
   );
 };
 

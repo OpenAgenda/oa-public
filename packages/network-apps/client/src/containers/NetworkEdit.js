@@ -20,63 +20,75 @@ export class NetworkEditComponent extends Component {
   render() {
     const {
       network: { network, schema },
-      config: { eventSchema, lang },
+      config: { eventSchema, lang, base },
       onUpdate,
     } = this.props;
 
-    return (
-      <Canvas {...this.props}>
-        {network ? (
-          <div className="wsq padding-all-sm">
-            <FormSchemaBuilder
-              lang={lang}
-              addEnabled
-              settingsEnabled
-              editableExtensions
-              schema={schema}
-              extendedFrom={[
-                {
-                  schema: eventSchema,
-                  info: {
-                    label: 'Evénement',
-                    info: 'Champ événement.',
-                  },
-                },
-              ]}
-              onUpdate={onUpdate}
-              components={{
-                enabledRanges: EnabledRanges,
-              }}
-              customFieldConfigurationSchemas={{
-                timings: {
-                  fields: [
-                    {
-                      field: 'label',
-                      fieldType: 'abstract',
-                    },
-                    {
-                      field: 'sub',
-                      fieldType: 'abstract',
-                    },
-                    {
-                      field: 'enabledRanges',
-                      fieldType: 'enabledRanges',
-                      label: 'Configurateur des saisie de dates',
-                    },
-                  ],
-                },
-              }}
-            />
-            <pre>
-              <code>{JSON.stringify(schema, null, 2)}</code>
-            </pre>
-            <pre>
-              <code>{JSON.stringify(eventSchema, null, 2)}</code>
-            </pre>
-          </div>
-        ) : (
+    if (!network) {
+      return (
+        <Canvas {...this.props}>
           <Loading />
-        )}
+        </Canvas>
+      );
+    }
+
+    return (
+      <Canvas
+        {...this.props}
+        secondaryNavLinks={[
+          {
+            path: `${base}/${network.uid}/agendas`,
+            label: 'Voir les agendas',
+          },
+        ]}
+      >
+        <div className="wsq padding-all-sm">
+          <FormSchemaBuilder
+            lang={lang}
+            addEnabled
+            settingsEnabled
+            editableExtensions
+            schema={schema}
+            extendedFrom={[
+              {
+                schema: eventSchema,
+                info: {
+                  label: 'Evénement',
+                  info: 'Champ événement.',
+                },
+              },
+            ]}
+            onUpdate={onUpdate}
+            components={{
+              enabledRanges: EnabledRanges,
+            }}
+            customFieldConfigurationSchemas={{
+              timings: {
+                fields: [
+                  {
+                    field: 'label',
+                    fieldType: 'abstract',
+                  },
+                  {
+                    field: 'sub',
+                    fieldType: 'abstract',
+                  },
+                  {
+                    field: 'enabledRanges',
+                    fieldType: 'enabledRanges',
+                    label: 'Configurateur des saisie de dates',
+                  },
+                ],
+              },
+            }}
+          />
+          <pre>
+            <code>{JSON.stringify(schema, null, 2)}</code>
+          </pre>
+          <pre>
+            <code>{JSON.stringify(eventSchema, null, 2)}</code>
+          </pre>
+        </div>
       </Canvas>
     );
   }
