@@ -1,27 +1,31 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const logger = require( '@openagenda/logs' );
+const logger = require('@openagenda/logs');
 
-const name = require( '../package.json' ).name.split( '/' ).pop();
+const name = require('../package.json').name.split('/').pop();
+const router = require('./router');
 
-module.exports = _.assign( ( config = {} ) => {
+module.exports = Object.assign(
+  (config = {}) => {
+    let eventSchema;
 
-  let eventSchema;
+    if (config.logger) {
+      logger.setModuleConfig(config.logger);
+    }
 
-  if ( config.logger ) {
-    logger.setModuleConfig( config.logger );
-  }
-
-  return _.assign( {
-    name,
-    config
-  }, config.interfaces, {
-    getEventSchema: async () => eventSchema ?
-      eventSchema :
-      eventSchema = await config.interfaces.getEventSchema()
-  } );
-
-}, {
-  router: require( './router' )
-} );
+    return {
+      name,
+      config,
+      ...config.interfaces,
+      getEventSchema: async () => {
+        if (!eventSchema) {
+          eventSchema = await config.interfaces.getEventSchema();
+        }
+        return eventSchema;
+      },
+    };
+  },
+  {
+    router,
+  },
+);
