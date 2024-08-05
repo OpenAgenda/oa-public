@@ -274,7 +274,7 @@ describe('apply', () => {
           processed = await apply(pc, CArtEvents[0], rejected, { ...settings });
         });
 
-        test('all remaining operations stoped', () => {
+        test('all remaining operations stopped', () => {
           expect(processed.filter(item => item.appliedAt).length).toBe(
             rejected.filter(item => item.appliedAt).length + 1,
           );
