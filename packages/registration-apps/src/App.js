@@ -60,40 +60,59 @@ function Registration(props) {
         mergeSpreadRegistrationValues({
           standard: updatedValue,
           passCulture: passCultureValue,
+          OGValue: value || [],
         }),
       );
     },
-    [propsOnChange, passCultureValue],
+    [propsOnChange, passCultureValue, value],
   );
 
   const access = settings.passCulture?.access || ['administrator', 'moderator'];
 
   return (
     <div className="">
-      {(settings.passCulture?.siren ?? []).length && access.includes(userRole) ? (
+      {(settings.passCulture?.siren ?? []).length
+      && access.includes(userRole) ? (
         <PassCultureCheckbox
           value={passCultureValue}
           settings={settings.passCulture}
           timings={relatedValues?.other?.timings ?? []}
           location={relatedValues?.other?.location ?? {}}
-          title={relatedValues?.other?.title?.fr || relatedValues?.other?.title || null}
-          longDesc={relatedValues?.other?.longDescription?.fr || relatedValues?.other?.longDescription || null}
-          conditions={relatedValues?.other?.conditions?.fr || relatedValues?.other?.conditions || null}
+          title={
+            relatedValues?.other?.title?.fr
+            || relatedValues?.other?.title
+            || null
+          }
+          longDesc={
+            relatedValues?.other?.longDescription?.fr
+            || relatedValues?.other?.longDescription
+            || null
+          }
+          conditions={
+            relatedValues?.other?.conditions?.fr
+            || relatedValues?.other?.conditions
+            || null
+          }
           onChange={updatedPassCultureValue =>
             propsOnChange(
               mergeSpreadRegistrationValues({
                 standard: standardValue,
                 passCulture: updatedPassCultureValue,
+                OGValue: value || [],
               }),
             )}
         />
-      ) : null}
+        ) : null}
       <StandardRegistrationField
         value={standardValue}
         inputValue={inputValue}
         onChange={onStandardChange}
         onInputChange={onInputChange}
-        placeholder={placeholder && !standardValue?.length ? flattenLabel(placeholder, lang) : undefined}
+        placeholder={
+          placeholder && !standardValue?.length
+            ? flattenLabel(placeholder, lang)
+            : undefined
+        }
         infoLabel={info}
       />
     </div>

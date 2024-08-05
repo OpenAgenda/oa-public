@@ -26,7 +26,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     OAEvent: { uid: OAEvent.uid },
   };
 
-  const { categories: categoriesFromOptions, related: relatedFromOptions, simulateRejected = false } = options;
+  const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
 
   const { categories, related } = !categoriesFromOptions || !relatedFromOptions
     ? await pc.offers.events.categories.list()
@@ -49,7 +49,12 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
 
   if (!wasApplied(firstItem)) {
     log.info('creating event offer', logBundle);
-    const { response, succeeded, error } = await applyEventOffer.create(pc, OAEvent, firstItem, options);
+    const { response, succeeded, error } = await applyEventOffer.create(
+      pc,
+      OAEvent,
+      firstItem,
+      options,
+    );
 
     if (error) {
       throw error; // {"offer: ["Une offre qui a un ticket..."]}}
@@ -71,7 +76,11 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
   }
 
   const wasPending = firstItem?.response?.isPending;
-  const fetchedStatus = wasPending && await pc.offers.events(firstItem.response.passId).get().then(({ status }) => status);
+  const fetchedStatus = wasPending
+    && await pc.offers
+      .events(firstItem.response.passId)
+      .get()
+      .then(({ status }) => status);
   const isStillPending = wasPending && fetchedStatus === 'PENDING';
   const isRejected = wasPending && fetchedStatus === 'REJECTED';
 
@@ -80,7 +89,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     return dataEntries;
   }
 
-  if (isRejected || simulateRejected) {
+  if (isRejected) {
     log.info('was pending at previous apply but is now rejected', logBundle);
     processed.push({
       response: {
@@ -121,19 +130,18 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
     const objectType = getObjectType(entry);
     const operation = getOperationType(cleanEntries, objectType, entry);
 
-    log('entry was not yet applied, processing', Object.assign(entryLogBundle, { type: objectType, operation }));
-
-    const { succeeded, response, remaining, error } = await getApplyFn(objectType, operation)(
-      pc,
-      passEventOfferId,
-      OAEvent,
-      processed,
-      entry,
-      {
-        ...options,
-        logBundle: entryLogBundle,
-      },
+    log(
+      'entry was not yet applied, processing',
+      Object.assign(entryLogBundle, { type: objectType, operation }),
     );
+
+    const { succeeded, response, remaining, error } = await getApplyFn(
+      objectType,
+      operation,
+    )(pc, passEventOfferId, OAEvent, processed, entry, {
+      ...options,
+      logBundle: entryLogBundle,
+    });
 
     if (succeeded) {
       processed.push({
@@ -150,10 +158,14 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
 
     const processedWithError = processed
       .concat({
-        ...objectType === 'eventOffer' ? remaining : { [objectType]: remaining },
+        ...objectType === 'eventOffer'
+          ? remaining
+          : { [objectType]: remaining },
         error,
       })
-      .concat(remainingDataEntries.slice(remainingDataEntries.length - index + 1));
+      .concat(
+        remainingDataEntries.slice(remainingDataEntries.length - index + 1),
+      );
 
     log('done with errors', { ...logBundle, processed: processedWithError });
 

@@ -26,7 +26,8 @@ const hasPriceCategories = value => !!(value?.priceCategories ?? []).length;
 
 const checkForLocationMatch = (oaLocation, venues) => {
   const resp = venues.reduce((carry, item) => {
-    const levenshteinPercent = (distance(oaLocation.name, item.publicName) * 100) / Math.max(oaLocation.name.length, item.publicName.length);
+    const levenshteinPercent = (distance(oaLocation.name, item.publicName) * 100)
+      / Math.max(oaLocation.name.length, item.publicName.length);
     if (levenshteinPercent < 0.8) {
       if (!carry || carry.levenshteinPercent < levenshteinPercent) {
         return {
@@ -44,13 +45,17 @@ function infoBlock({ status }) {
   if (status === 'validation en cours') {
     return (
       <div className="info-block warning">
-        Votre offre est en cours de validation. les modifications faites seront appliquées des que possible.
+        Votre offre est en cours de validation. les modifications faites seront
+        appliquées des que possible.
       </div>
     );
   }
   if (status === 'modification') {
     return (
-      <div className="info-block">Votre offre est déja crée, vous pouvez encore faire certaines modifications.</div>
+      <div className="info-block">
+        Votre offre est déja crée, vous pouvez encore faire certaines
+        modifications.
+      </div>
     );
   }
   return null;
@@ -72,7 +77,9 @@ export default function Form({
   patchMode = false,
 }) {
   const [patch, setPatch] = useState(
-    initialValue[initialValue.length - 1]?.editing ? initialValue[initialValue.length - 1] : { editing: true },
+    initialValue[initialValue.length - 1]?.editing
+      ? initialValue[initialValue.length - 1]
+      : { editing: true },
   );
   const [showErrors, setShowErrors] = useState(false);
 
@@ -81,7 +88,10 @@ export default function Form({
   const longDescWarning = longDesc ? longDesc.length > 1000 : false;
 
   const { Section, Select, Button, Input, Checkbox } = useContext(ComponentsContext);
-  const storedValue = useMemo(() => getCurrentValue(initialValue), [initialValue]);
+  const storedValue = useMemo(
+    () => getCurrentValue(initialValue),
+    [initialValue],
+  );
   const currentValue = useMemo(
     () => getCurrentValue(initialValue.filter(v => !v.editing).concat(patch)),
     [initialValue, patch],
@@ -92,7 +102,10 @@ export default function Form({
     [categories, currentValue.category],
   );
   const relatedCategoryOptions = useMemo(
-    () => (relatedCategoryFieldName ? getRelatedFieldOptions(related, relatedCategoryFieldName) : undefined),
+    () =>
+      (relatedCategoryFieldName
+        ? getRelatedFieldOptions(related, relatedCategoryFieldName)
+        : undefined),
     [relatedCategoryFieldName, related],
   );
   const venuesOptions = offererVenues
@@ -163,44 +176,64 @@ export default function Form({
               ...patch,
               venueId: option.value,
             })}
-          error={showErrors ? (errors || []).filter(e => e?.field === 'venueId') : false}
+          error={
+            showErrors
+              ? (errors || []).filter(e => e?.field === 'venueId')
+              : false
+          }
           optional={false}
         />
       </Section>
-      <Section>
-        <Select
-          disabled={openSubForm}
-          label="Catégorie"
-          value={currentValue?.category}
-          placeholder="Choix requis"
-          options={categories}
-          onChange={option =>
-            setPatch({
-              ...patch,
-              category: option.value,
-            })}
-          patchMode={patchMode}
-          error={showErrors ? (errors || []).filter(e => e?.field === 'category') : false}
-          optional={false}
-        />
-        {relatedCategoryFieldName ? (
+      {patchMode ? (
+        <Section>
           <Select
             disabled={openSubForm}
-            label={relatedCategoryFieldName === 'musicType' ? 'Type de musique' : 'Type de spectacle'}
-            value={currentValue[relatedCategoryFieldName]}
+            label="Catégorie"
+            value={currentValue?.category}
             placeholder="Choix requis"
-            options={relatedCategoryOptions}
+            options={categories}
             onChange={option =>
               setPatch({
                 ...patch,
-                [relatedCategoryFieldName]: option.value,
+                category: option.value,
               })}
+            patchMode={patchMode}
             error={
-              showErrors ? (errors || []).filter(e => e?.field === 'musicType' || e?.field === 'showType') : false
+              showErrors
+                ? (errors || []).filter(e => e?.field === 'category')
+                : false
             }
+            optional={false}
           />
-        ) : null}
-      </Section>
+
+          {relatedCategoryFieldName ? (
+            <Select
+              disabled={openSubForm}
+              label={
+                relatedCategoryFieldName === 'musicType'
+                  ? 'Type de musique'
+                  : 'Type de spectacle'
+              }
+              value={currentValue[relatedCategoryFieldName]}
+              placeholder="Choix requis"
+              options={relatedCategoryOptions}
+              onChange={option =>
+                setPatch({
+                  ...patch,
+                  [relatedCategoryFieldName]: option.value,
+                })}
+              error={
+                showErrors
+                  ? (errors || []).filter(
+                    e =>
+                      e?.field === 'musicType' || e?.field === 'showType',
+                  )
+                  : false
+              }
+            />
+          ) : null}
+        </Section>
+      ) : null}
       <Section>
         <PriceCategories
           disabled={openSubForm && openSubForm !== 'priceCategories'}
@@ -210,12 +243,17 @@ export default function Form({
             setOpenSubForm(false);
           }}
           onRemove={pc => setPatch(removePriceCategory(patch, pc))}
-          onSubFormToggle={open => setOpenSubForm(open ? 'priceCategories' : false)}
+          onSubFormToggle={open =>
+            setOpenSubForm(open ? 'priceCategories' : false)}
           onChange={pc => {
             setPatch(changePriceCategory(patch, pc, currentValue));
             setOpenSubForm(false);
           }}
-          error={showErrors ? (errors || []).filter(e => e?.field === 'priceCategories') : false}
+          error={
+            showErrors
+              ? (errors || []).filter(e => e?.field === 'priceCategories')
+              : false
+          }
         />
       </Section>
       <Section>
@@ -236,15 +274,27 @@ export default function Form({
           }}
           onSubFormToggle={open => setOpenSubForm(open ? 'dates' : false)}
           timings={timings}
-          error={showErrors ? (errors || []).filter(e => e?.field === 'dates') : false}
+          error={
+            showErrors
+              ? (errors || []).filter(e => e?.field === 'dates')
+              : false
+          }
         />
       </Section>
       <Section>
-        <Duration value={currentValue} onChange={v => setPatch({ ...patch, eventDuration: v })} timings={timings} />
+        <Duration
+          value={currentValue}
+          onChange={v => setPatch({ ...patch, eventDuration: v })}
+          timings={timings}
+        />
       </Section>
       {titleWarning ? (
         <Section>
-          <Name value={currentValue} onChange={v => setPatch({ ...patch, name: v })} title={title} />
+          <Name
+            value={currentValue}
+            onChange={v => setPatch({ ...patch, name: v })}
+            title={title}
+          />
         </Section>
       ) : null}
       <Section>
@@ -268,9 +318,14 @@ export default function Form({
           value={currentValue.bookingContact}
           label="Email de contact"
           type="email"
-          onChange={e => setPatch({ ...patch, bookingContact: e.target.value })}
+          onChange={e =>
+            setPatch({ ...patch, bookingContact: e.target.value })}
           sub="Cette adresse email sera communiquée aux bénéficiaires ayant réservé votre offre."
-          error={showErrors ? (errors || []).filter(e => e?.field === 'bookingContact') : false}
+          error={
+            showErrors
+              ? (errors || []).filter(e => e?.field === 'bookingContact')
+              : false
+          }
           optional={false}
         />
       </Section>
