@@ -2,7 +2,6 @@ packages/activities
 packages/activity-apps
 packages/admin-agendas
 packages/agenda-contribute
-packages/agenda-events
 packages/agenda-search
 packages/agenda-settings
 packages/agendas
