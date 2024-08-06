@@ -32,14 +32,14 @@ export default async (service, agendaUid, eventUid, data, options = {}) => {
   try {
     const values = {
       ...current,
-      ...(_.omit(data, ['aggregated']) || {}),
+      ..._.omit(data, ['aggregated']) || {},
       updatedAt: new Date(),
       createdAt: current.createdAt,
       userUid: current.userUid,
     };
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'userUid', 'aggregated'].forEach((f) => {
+      ['updatedAt', 'createdAt', 'userUid', 'aggregated'].forEach(f => {
         if (data[f]) values[f] = data[f];
       });
     }

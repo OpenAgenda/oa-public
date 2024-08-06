@@ -74,9 +74,8 @@ function buildListQuery(service, query, nav, options = {}) {
 
   addWheres(k, query);
 
-  return k.then((rows) =>
-    rows.map((r) => _.mapKeys(r, (v, key) => _.camelCase(key))),
-  );
+  return k.then(rows =>
+    rows.map(r => _.mapKeys(r, (v, key) => _.camelCase(key))));
 }
 
 export default Object.assign(buildListQuery, {

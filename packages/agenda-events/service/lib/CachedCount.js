@@ -6,8 +6,8 @@ const PREFIX = 'agenda_events:CachedCount';
 const defaultLifetime = 60 * 60 * 24;
 
 export default function CachedCount(redisClient, namespace, fn, lifetime) {
-  const getKey = (args) =>
-    `${PREFIX}:${namespace}:${args.filter((e) => !!e).join(':')}`;
+  const getKey = args =>
+    `${PREFIX}:${namespace}:${args.filter(e => !!e).join(':')}`;
 
   const getCurrentCount = async (args, forceReset = false) => {
     const key = getKey(args);

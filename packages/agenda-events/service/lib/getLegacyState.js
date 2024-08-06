@@ -1,6 +1,6 @@
 import states from '../../iso/states.js';
 
-export default (state) => {
+export default state => {
   if (state === 2) {
     return states.PUBLISHED;
   }

@@ -1,6 +1,6 @@
 import states from '../../iso/states.js';
 
-export default (state) => {
+export default state => {
   let isPublished = false;
   let legacyState = 0;
 
