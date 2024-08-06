@@ -1,26 +1,36 @@
-'use strict';
+import ih from 'immutability-helper';
+import knex from 'knex';
+import Service from '../index.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/index.js';
 
-const _ = require('lodash');
-const ih = require('immutability-helper');
-
-const Service = require('..');
-const config = require('../testconfig');
-const fixtures = require('./fixtures');
-
-describe.only('agendaEvents - 04 - functional (server): update', function() {
+describe('agendaEvents - 04 - functional (server): update', () => {
   let svc;
+  let knexClient;
 
   beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
-      'agenda_event.data.sql'
+      'agenda_event.data.sql',
     ]);
   });
 
-  beforeAll(() => {
-    svc = Service(config);
+  beforeAll(async () => {
+    knexClient = knex({
+      client: 'mysql',
+      connection: config.mysql,
+    });
   });
+
+  beforeAll(() => {
+    svc = Service({
+      ...config,
+      knex: knexClient,
+    });
+  });
+
+  afterAll(() => knexClient.destroy());
 
   describe('simple update', () => {
     let result;
@@ -29,7 +39,7 @@ describe.only('agendaEvents - 04 - functional (server): update', function() {
       result = await svc(62792452).update(10974548, {
         featured: true,
         state: 2,
-        aggregated: 'fdqfdsq'
+        aggregated: 'fdqfdsq',
       });
     });
 
@@ -53,8 +63,8 @@ describe.only('agendaEvents - 04 - functional (server): update', function() {
   });
 
   describe('handling protected values', () => {
-
-    let protectedRef, unprotectedRef;
+    let protectedRef;
+    let unprotectedRef;
 
     const forcedDate = new Date('2018-02-28T08:00:00.000Z');
 
@@ -66,13 +76,17 @@ describe.only('agendaEvents - 04 - functional (server): update', function() {
     beforeAll(async () => {
       await svc(1).update(11, {
         userUid: 3,
-        createdAt: forcedDate
+        createdAt: forcedDate,
       });
 
-      await svc(1).update(12, {
-        userUid: 3,
-        createdAt: forcedDate
-      }, { protected: false });
+      await svc(1).update(
+        12,
+        {
+          userUid: 3,
+          createdAt: forcedDate,
+        },
+        { protected: false },
+      );
 
       protectedRef = await svc(1).get(11);
 
@@ -94,16 +108,13 @@ describe.only('agendaEvents - 04 - functional (server): update', function() {
     it('unprotected ref createdAt timestamp is changed', async () => {
       expect(unprotectedRef.createdAt).toEqual(forcedDate);
     });
-
-  } );
-
+  });
 
   describe('other', () => {
-
     it('cleans state given as string', async () => {
-      let result = await svc(62792452).update(10974548, {
+      const result = await svc(62792452).update(10974548, {
         featured: true,
-        state: '1'
+        state: '1',
       });
 
       expect(result.updated.state).toBe(1);
@@ -111,24 +122,27 @@ describe.only('agendaEvents - 04 - functional (server): update', function() {
 
     it('simple update to refused state', async () => {
       const result = await svc(62792452).update(10974548, {
-        state: -1
+        state: -1,
       });
 
       expect(result.updated.state).toBe(-1);
     });
 
     it('updated of aggregated key is done through options', async () => {
-      const result = await svc(62792452)
-        .update(10974548, {}, {
-          aggregated: 'updatedchecksum'
-        });
+      const result = await svc(62792452).update(
+        10974548,
+        {},
+        {
+          aggregated: 'updatedchecksum',
+        },
+      );
 
       expect(result.updated.aggregated).toBe('updatedchecksum');
     });
 
     it('simple update to canEdit set to true', async () => {
       const result = await svc(62792452).update(10974548, {
-        canEdit: true
+        canEdit: true,
       });
 
       expect(result.updated.canEdit).toBe(true);
@@ -136,11 +150,11 @@ describe.only('agendaEvents - 04 - functional (server): update', function() {
 
     it('update is part update', async () => {
       await svc(62792452).update(10974548, {
-        canEdit: true
+        canEdit: true,
       });
 
       const result = await svc(62792452).update(10974548, {
-        state: -1
+        state: -1,
       });
 
       expect(result.updated.canEdit).toBe(true);
@@ -148,7 +162,7 @@ describe.only('agendaEvents - 04 - functional (server): update', function() {
 
     it('update on sourcePaths field replaces previous list', async () => {
       const result = await svc(62792452).update(60059313, {
-        sourcePaths: [88, [11]]
+        sourcePaths: [88, [11]],
       });
 
       expect(result.updated.sourcePaths).toEqual([88, [11]]);
@@ -156,7 +170,7 @@ describe.only('agendaEvents - 04 - functional (server): update', function() {
 
     it('update without state does not change current state', async () => {
       await svc(62792452).update(10974548, {
-        state: -1
+        state: -1,
       });
 
       const result = await svc(62792452).update(10974548, {});
@@ -164,33 +178,36 @@ describe.only('agendaEvents - 04 - functional (server): update', function() {
       expect(result.updated.state).toBe(-1);
     });
 
+    it('context can be passed in options to be transfered to onUpdate interface', () =>
+      new Promise((rs) => {
+        svc = Service(
+          ih(config, {
+            interfaces: {
+              onUpdate: {
+                $set: (before, after, context) => {
+                  expect(context.userUid).toBe(111);
+                  rs();
+                },
+              },
+            },
+          }),
+        );
 
-    it('context can be passed in options to be transfered to onUpdate interface', done => {
-      svc = Service(ih(config, {
-        interfaces: {
-          onUpdate: {
-            $set: (before, after, context) => {
-              expect(context.userUid).toBe(111);
-              done();
-            }
-          }
-        }
+        svc(62792452).update(
+          10974548,
+          { featured: true },
+          {
+            context: {
+              userUid: 111,
+              aggregated: false,
+              sourceAgenda: null,
+              transferToLegacy: false,
+              agenda: null,
+              event: null,
+              legacy: true,
+            },
+          },
+        );
       }));
-
-      svc(62792452).update(10974548, { featured: true }, {
-        context: {
-          userUid: 111,
-          aggregated: false,
-          sourceAgenda: null,
-          transferToLegacy: false,
-          agenda: null,
-          event: null,
-          legacy: true
-        }
-      });
-
-    });
-
   });
-
 });

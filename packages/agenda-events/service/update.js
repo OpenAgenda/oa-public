@@ -1,14 +1,13 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
+import validate from '../iso/validate.js';
+import validateOptions from './lib/validateOptions.js';
+import * as utils from './lib/utils.js';
 
-const log = require('@openagenda/logs')('update');
+const log = logs('update');
 
-const validate = require('../iso/validate');
-const validateOptions = require('./lib/validateOptions');
-const utils = require('./lib/utils');
-
-module.exports = async (service, agendaUid, eventUid, data, options = {}) => {
+export default async (service, agendaUid, eventUid, data, options = {}) => {
   const { config, client, get, toLegacy } = service;
 
   log('input for %s.%s', agendaUid, eventUid, data);
@@ -26,25 +25,27 @@ module.exports = async (service, agendaUid, eventUid, data, options = {}) => {
   if (current === null) {
     return {
       success,
-      code: 'not_found'
-    }
+      code: 'not_found',
+    };
   }
 
   try {
-    const values = Object.assign({}, current, _.omit(data, ['aggregated']) || {}, {
+    const values = {
+      ...current,
+      ...(_.omit(data, ['aggregated']) || {}),
       updatedAt: new Date(),
       createdAt: current.createdAt,
-      userUid: current.userUid
-    });
+      userUid: current.userUid,
+    };
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'userUid', 'aggregated'].forEach(f => {
+      ['updatedAt', 'createdAt', 'userUid', 'aggregated'].forEach((f) => {
         if (data[f]) values[f] = data[f];
       });
     }
 
     log('info', 'validating for %s.%s', agendaUid, eventUid, values);
-    
+
     clean = validate(values);
 
     if (params.aggregated) {
@@ -54,20 +55,18 @@ module.exports = async (service, agendaUid, eventUid, data, options = {}) => {
     return {
       success: false,
       valid: false,
-      errors: validationErrors
-    }
+      errors: validationErrors,
+    };
   }
 
   const entry = utils.toEntry(_.omit(clean, ['agendaUid', 'eventUid']));
 
   log('db entry for %s.%s', agendaUid, eventUid, entry);
 
-  const result = await client('agenda_event')
-    .update(entry)
-    .where({
-      agenda_uid: agendaUid,
-      event_uid: eventUid
-    });
+  const result = await client('agenda_event').update(entry).where({
+    agenda_uid: agendaUid,
+    event_uid: eventUid,
+  });
 
   success = !!result;
 
@@ -92,6 +91,6 @@ module.exports = async (service, agendaUid, eventUid, data, options = {}) => {
   return {
     success,
     before: current,
-    updated
-  }
-}
+    updated,
+  };
+};

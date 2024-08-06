@@ -1,30 +1,22 @@
-"use strict";
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema';
 
-const _ = require( 'lodash' );
+import booleanValidator from '@openagenda/validators/boolean';
+import passValidator from '@openagenda/validators/pass';
+import choiceValidator from '@openagenda/validators/choice';
+import textValidator from '@openagenda/validators/text';
 
-const schema = require( '@openagenda/validators/schema' );
-
-schema.register( {
-  boolean: require('@openagenda/validators/boolean'),
-  pass: require('@openagenda/validators/pass'),
-  choice: require('@openagenda/validators/choice'),
-  text: require('@openagenda/validators/text')
-} );
-
-module.exports = ( values, operation = 'default' ) => {
-
-  const clean = validates[ operation ]( values );
-
-  clean.context.transferToLegacy = clean.transferToLegacy;
-
-  return clean;
-
-}
+schema.register({
+  boolean: booleanValidator,
+  choice: choiceValidator,
+  pass: passValidator,
+  text: textValidator,
+});
 
 const base = {
   protected: {
     type: 'boolean',
-    default: true
+    default: true,
   },
   aggregated: {
     type: 'text',
@@ -33,15 +25,15 @@ const base = {
   },
   transferToLegacy: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   decorate: {
     type: 'choice',
-    options: ['member', 'sourceAgendas', 'user']
+    options: ['member', 'sourceAgendas', 'user'],
   },
   throwOnNotFound: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   context: {
     optional: true,
@@ -50,68 +42,76 @@ const base = {
       // user at the origin of the operation
       userUid: {
         type: 'integer',
-        default: null
+        default: null,
       },
       // user at the origin of the operation
       user: {
         type: 'pass',
-        default: null
+        default: null,
       },
       agendaUid: {
         type: 'integer',
-        default: null
+        default: null,
       },
       // if operation was done through legacy app
       legacy: {
         type: 'boolean',
-        default: true
+        default: true,
       },
       deletion: {
         type: 'boolean',
         optional: true,
-        default: false
+        default: false,
       },
       // if event is in hand, it can be added to context to avoid multiple loads
       event: {
         type: 'pass',
         optional: true,
-        default: null
+        default: null,
       },
       // if agenda is in hand, it can be added to context to avoid multiple loads
       agenda: {
         type: 'pass',
         optional: true,
-        default: null
+        default: null,
       },
       aggregated: {
         type: 'boolean',
-        default: false
+        default: false,
       },
       // if ref was added by aggregation, source agenda can be provided by context
       sourceAgenda: {
         type: 'pass',
-        default: null
+        default: null,
       },
       // when the update is part of a mass update
       batched: {
         type: 'boolean',
-        default: false
+        default: false,
       },
       stateChangeType: {
         type: 'text',
-        default: null
+        default: null,
       },
       // Origin of duplication
       duplicateOrigin: {
         type: 'pass',
-        default: null
-      }
-    }
-  }
-}
+        default: null,
+      },
+    },
+  },
+};
 
 const validates = {
-  default: schema( base ),
-  create: schema( _.omit( base, [ 'context.fields.deletion' ] ) ),
-  update: schema( _.omit( base, [ 'context.fields.deletion' ] ) )
-}
+  default: schema(base),
+  create: schema(_.omit(base, ['context.fields.deletion'])),
+  update: schema(_.omit(base, ['context.fields.deletion'])),
+};
+
+export default (values, operation = 'default') => {
+  const clean = validates[operation](values);
+
+  clean.context.transferToLegacy = clean.transferToLegacy;
+
+  return clean;
+};

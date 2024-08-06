@@ -1,8 +1,6 @@
-'use strict';
+import states from '../../iso/states.js';
 
-const states = require('../../iso/states');
-
-module.exports = (state, isPublished) => {
+export default (state) => {
   if (state === 2) {
     return states.PUBLISHED;
   }
@@ -16,4 +14,4 @@ module.exports = (state, isPublished) => {
   }
 
   return states.TOCONTROL;
-}
+};

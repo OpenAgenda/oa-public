@@ -1,125 +1,95 @@
-'use strict';
+import _ from 'lodash';
+import ih from 'immutability-helper';
+import schema from '@openagenda/validators/schema';
 
-const ih = require('immutability-helper');
-const eventStates = require('./states');
+import integerValidator from '@openagenda/validators/integer';
+import booleanValidator from '@openagenda/validators/boolean';
+import choiceValidator from '@openagenda/validators/choice';
+import dateValidator from '@openagenda/validators/date';
+import passValidator from '@openagenda/validators/pass';
+import textValidator from '@openagenda/validators/text';
 
-const schema = require('@openagenda/validators/schema');
-
-const _ = {
-  extend: require('lodash/extend'),
-  keys: require('lodash/keys'),
-  isObject: require('lodash/isObject'),
-  pick: require('lodash/pick'),
-  assign: require('lodash/assign'),
-  omit: require('lodash/omit'),
-  get: require('lodash/get')
-};
+import eventStates from './states.js';
 
 schema.register({
-  integer: require('@openagenda/validators/integer'),
-  boolean: require('@openagenda/validators/boolean'),
-  choice: require('@openagenda/validators/choice'),
-  date: require('@openagenda/validators/date'),
-  pass: require('@openagenda/validators/pass'),
-  text: require('@openagenda/validators/text')
+  integer: integerValidator,
+  boolean: booleanValidator,
+  choice: choiceValidator,
+  date: dateValidator,
+  pass: passValidator,
+  text: textValidator,
 });
 
 const fields = {
   eventUid: {
     type: 'integer',
-    optional: false
+    optional: false,
   },
   agendaUid: {
     type: 'integer',
-    optional: false
+    optional: false,
   },
   userUid: {
     type: 'integer',
-    default: null
+    default: null,
   },
   aggregated: {
     type: 'text',
     default: null,
-    max: 32
+    max: 32,
   },
   sourcePaths: {
     type: 'pass',
-    list: true
+    list: true,
   },
   featured: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   canEdit: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   state: {
     type: 'choice',
     default: eventStates.PUBLISHED,
     unique: true,
     optional: false,
-    options: _.keys(eventStates).map(k => eventStates[k])
+    options: _.keys(eventStates).map(k => eventStates[k]),
   },
   legacyId: {
     type: 'text',
-    optional: true
+    optional: true,
   },
   createdAt: {
-    type: 'date'
+    type: 'date',
   },
   updatedAt: {
-    type: 'date'
-  }
-}
+    type: 'date',
+  },
+};
 
 const validate = schema(fields);
 
-const validateData = schema(_.pick(fields, [
-  'state',
-  'featured',
-  'userUid',
-  'sourcePaths',
-  'aggregated'
-]));
+const internalValidateData = schema(
+  _.pick(fields, ['state', 'featured', 'userUid', 'sourcePaths', 'aggregated']),
+);
 
-module.exports = v => validate(_preClean(v));
+function _pickSetFields(preCleaned) {
+  const aeFields = Object.keys(internalValidateData.fields);
 
-module.exports.validateData = (v, options = {}) => {
-  const {
-    optionalSecondaryFields,
-    partial
-  } = {
-    optionalSecondaryFields: false,
-    partial: false,
-    ...options
-  };
+  return Object.keys(preCleaned).filter(field => aeFields.includes(field));
+}
 
-  const preCleaned = _preClean(v);
+function _postClean(v, c, { optionalSecondaryFields }) {
+  if (!optionalSecondaryFields) return c;
 
-  const validateFn = partial
-    ? validateData.part.bind(null, _pickSetFields(preCleaned))
-    : validateData;
-
-  const clean = validateFn(preCleaned);
-
-  return  _postClean(v, clean, {
-    optionalSecondaryFields
-  });
-};
-
-module.exports.validateData.fields = validateData.fields
-
-
-function _postClean( v, c, { optionalSecondaryFields } ) {
-  if ( !optionalSecondaryFields ) return c;
-
-  return _.omit(c, [
-    'state',
-    'featured',
-    'sourcePaths',
-    'aggregated'
-  ].filter(f => _.get(v, f, null) === null));
+  return _.omit(
+    c,
+    ['state', 'featured', 'sourcePaths', 'aggregated'].filter(
+      f => _.get(v, f, null) === null,
+    ),
+  );
 }
 
 function _preClean(v) {
@@ -130,25 +100,47 @@ function _preClean(v) {
   if (v.state !== undefined) {
     try {
       update.state = {
-        $set: parseInt(v.state)
+        $set: parseInt(v.state, 10),
       };
-    } catch (e) {}
+    } catch (e) {
+      /* e */
+    }
   }
 
   if (v.sourceAgendaUid) {
-    update['$unset'] = ['sourceAgendaUid'];
+    update.$unset = ['sourceAgendaUid'];
     try {
       update.sourcePaths = {
-        $set: JSON.parse(v.sourceAgendaUid)
+        $set: JSON.parse(v.sourceAgendaUid),
       };
-    } catch (e) {}
+    } catch (e) {
+      /* e */
+    }
   }
 
   return ih(v, update);
 }
 
-function _pickSetFields(preCleaned) {
-  const aeFields = Object.keys(validateData.fields);
+export default v => validate(_preClean(v));
 
-  return Object.keys(preCleaned).filter(field => aeFields.includes(field));
+export function validateData(v, options = {}) {
+  const { optionalSecondaryFields, partial } = {
+    optionalSecondaryFields: false,
+    partial: false,
+    ...options,
+  };
+
+  const preCleaned = _preClean(v);
+
+  const validateFn = partial
+    ? internalValidateData.part.bind(null, _pickSetFields(preCleaned))
+    : internalValidateData;
+
+  const clean = validateFn(preCleaned);
+
+  return _postClean(v, clean, {
+    optionalSecondaryFields,
+  });
 }
+
+validateData.fields = internalValidateData.fields;

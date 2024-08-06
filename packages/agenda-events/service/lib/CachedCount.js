@@ -1,13 +1,13 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const { promisify } = require('util');
-const log = require('@openagenda/logs')('CachedCount');
+const log = logs('CachedCount');
 
 const PREFIX = 'agenda_events:CachedCount';
-const defaultLifetime = 60*60*24;
+const defaultLifetime = 60 * 60 * 24;
 
-module.exports = function CachedCount(redisClient, namespace, fn, lifetime) {
-  const getKey = args => `${PREFIX}:${namespace}:${args.filter(e => !!e).join(':')}`;
+export default function CachedCount(redisClient, namespace, fn, lifetime) {
+  const getKey = (args) =>
+    `${PREFIX}:${namespace}:${args.filter((e) => !!e).join(':')}`;
 
   const getCurrentCount = async (args, forceReset = false) => {
     const key = getKey(args);
@@ -15,13 +15,13 @@ module.exports = function CachedCount(redisClient, namespace, fn, lifetime) {
     let count = current;
     log('current', count);
 
-    if (forceReset || (current === null)) {
-      count = await fn.apply(null, args);
+    if (forceReset || current === null) {
+      count = await fn(...args);
       await redisClient.set(key, count);
       await redisClient.expire(key, lifetime || defaultLifetime);
     }
-    return typeof count === 'string' ? parseInt(count) : count;
-  }
+    return typeof count === 'string' ? parseInt(count, 10) : count;
+  };
 
   return Object.assign((...args) => getCurrentCount(args), {
     inc: async (...args) => {
@@ -35,6 +35,6 @@ module.exports = function CachedCount(redisClient, namespace, fn, lifetime) {
       const count = args.pop();
       await getCurrentCount(args);
       return redisClient.decrBy(getKey(args), count);
-    }
-  })
+    },
+  });
 }

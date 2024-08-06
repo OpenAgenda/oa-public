@@ -1,19 +1,20 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('create');
+import validate from '../iso/validate.js';
+import validateOptions from './lib/validateOptions.js';
+import * as utils from './lib/utils.js';
 
-const validate = require('../iso/validate');
-const validateOptions = require('./lib/validateOptions');
-const utils = require('./lib/utils');
+const log = logs('create');
 
-module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) => {
-  const {
-    config,
-    client,
-    get,
-    toLegacy
-  } = service;
+export default async (
+  service,
+  agendaUid,
+  eventUid,
+  data = {},
+  options = {},
+) => {
+  const { config, client, get, toLegacy } = service;
 
   log('info', 'initiating create', { agendaUid, eventUid, data, options });
 
@@ -24,19 +25,22 @@ module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) =
   let created = null;
 
   try {
-    const values = Object.assign({ eventUid, agendaUid }, _.omit(data, ['aggregated']) || {}, {
+    const values = {
+      eventUid,
+      agendaUid,
+      ...(_.omit(data, ['aggregated']) || {}),
       createdAt: new Date(),
-      updatedAt: new Date()
-    });
+      updatedAt: new Date(),
+    };
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'aggregated'].forEach(f => {
+      ['updatedAt', 'createdAt', 'aggregated'].forEach((f) => {
         if (data[f]) values[f] = data[f];
       });
     }
 
     clean = validate(values);
-    
+
     if (params.aggregated) {
       clean.aggregated = params.aggregated;
     }
@@ -44,33 +48,34 @@ module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) =
     return {
       success: false,
       valid: false,
-      errors: validationErrors
-    }
+      errors: validationErrors,
+    };
   }
 
   if (clean.userUid && clean.aggregated) {
     return {
       success: false,
       valid: false,
-      errors: [{
-        field: 'aggregated',
-        code: 'invalid',
-        message: 'cannot be aggregated and associated to a user',
-        origin: _.pick(clean, ['userUid', 'aggregated'])
-      }]
-    }
+      errors: [
+        {
+          field: 'aggregated',
+          code: 'invalid',
+          message: 'cannot be aggregated and associated to a user',
+          origin: _.pick(clean, ['userUid', 'aggregated']),
+        },
+      ],
+    };
   }
 
   if (await get(agendaUid, eventUid)) {
     return {
       success: false,
       valid: true,
-      code: 'already.exists'
-    }
+      code: 'already.exists',
+    };
   }
 
-  const insertIds = await client('agenda_event')
-    .insert(utils.toEntry(clean));
+  const insertIds = await client('agenda_event').insert(utils.toEntry(clean));
 
   success = insertIds.length === 1;
 
@@ -82,9 +87,9 @@ module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) =
     log('info', 'transfering to legacy %j', created);
 
     try {
-     const updatedRef = await toLegacy(created);
-     log('info', 'successfully transferred to legacy', updatedRef);
-     created.legacyId = updatedRef.legacyId;
+      const updatedRef = await toLegacy(created);
+      log('info', 'successfully transferred to legacy', updatedRef);
+      created.legacyId = updatedRef.legacyId;
     } catch (e) {
       log('error', 'failed to transfer to legacy', e);
     }
@@ -103,6 +108,6 @@ module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) =
   return {
     success,
     insertId: insertIds.length ? insertIds[0] : null,
-    created
-  }
-}
+    created,
+  };
+};

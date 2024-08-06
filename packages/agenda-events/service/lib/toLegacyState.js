@@ -1,8 +1,6 @@
-'use strict';
+import states from '../../iso/states.js';
 
-const states = require('../../iso/states');
-
-module.exports = state => {
+export default (state) => {
   let isPublished = false;
   let legacyState = 0;
 
@@ -19,6 +17,6 @@ module.exports = state => {
 
   return {
     state: legacyState,
-    isPublished
-  }
-}
+    isPublished,
+  };
+};

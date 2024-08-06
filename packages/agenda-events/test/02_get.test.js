@@ -1,144 +1,147 @@
-'use strict';
+import _ from 'lodash';
+import redis from 'redis';
+import knex from 'knex';
+import Queues from '@openagenda/queues';
 
-const _ = require('lodash');
-const assert = require('node:assert');
-const redis = require('redis');
-const Queues = require('@openagenda/queues');
+import Service from '../index.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/index.js';
+import membersFixtures from './fixtures/members.json';
+import usersFixtures from './fixtures/users.json';
+import sourceAgendasFixtures from './fixtures/sourceAgendas.json';
 
-const Service = require('..');
-const config = require('../testconfig');
-
-const fixtures = require('./fixtures');
-const membersFixtures = require('./fixtures/members.json');
-const usersFixtures = require('./fixtures/users.json');
-const sourceAgendasFixtures = require('./fixtures/sourceAgendas.json');
-
-describe('agendaEvents - 02 - functional (server): get', function() {
-  let svc, get;
+describe('agendaEvents - 02 - functional (server): get', () => {
+  let svc;
+  let get;
   let redisClient;
+  let knexClient;
 
   beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
-      'agenda_event.data.sql'
+      'agenda_event.data.sql',
     ]);
   });
 
   beforeAll(async () => {
     redisClient = redis.createClient({
-      socket: { host: 'localhost', port: 6379 }
+      socket: { host: 'localhost', port: 6379 },
     });
 
     await redisClient.connect();
+
+    knexClient = knex({
+      client: 'mysql',
+      connection: config.mysql,
+    });
   });
 
   beforeAll(() => {
     svc = Service({
       ...config,
+      knex: knexClient,
       queue: Queues({
         redis: redisClient,
-        prefix: 'agenda-events'
+        prefix: 'agenda-events',
       })('02_get'),
       interfaces: {
         ...config.interfaces,
-        getMembers: async aes => aes.map(ae => _.find(membersFixtures, {
-          agendaUid: ae.agendaUid,
-          userUid: ae.userUid
-        })),
-        getUsers: async aes => ([]
-          .concat(aes)
-          .map(ae => usersFixtures.find(u => u.uid === ae.userUid))
-        ),
-        getSourceAgendas: async sourceAgendaUids => sourceAgendasFixtures
-          .filter(agenda => sourceAgendaUids.includes(agenda.uid))
-      }
+        getMembers: async aes =>
+          aes.map(ae =>
+            _.find(membersFixtures, {
+              agendaUid: ae.agendaUid,
+              userUid: ae.userUid,
+            })),
+        getUsers: async aes =>
+          []
+            .concat(aes)
+            .map(ae => usersFixtures.find(u => u.uid === ae.userUid)),
+        getSourceAgendas: async sourceAgendaUids =>
+          sourceAgendasFixtures.filter(agenda =>
+            sourceAgendaUids.includes(agenda.uid)),
+      },
     });
 
     get = svc.get;
   });
 
   afterAll(async () => redisClient.quit());
+  afterAll(() => knexClient.destroy());
 
   describe('simple get', () => {
     let ref;
 
     beforeAll(async () => {
-      ref = await svc(62792452).get(10974548)
+      ref = await svc(62792452).get(10974548);
     });
 
     it('agendaUid, eventUid, userUid are provided', () => {
-      assert.equal(ref.agendaUid, 62792452);
-      assert.equal(ref.eventUid, 10974548);
-      assert.equal(ref.userUid, 12312312);
+      expect(ref.agendaUid).toBe(62792452);
+      expect(ref.eventUid).toBe(10974548);
+      expect(ref.userUid).toBe(12312312);
     });
 
     it('if aggregated, sourcePaths are provided and aggregated bool is true', () => {
-      assert.deepEqual(ref.sourcePaths, [[6789678], [896785]]);
-      assert(ref.aggregated);
+      expect(ref.sourcePaths).toEqual([[6789678], [896785]]);
+      expect(ref.aggregated).toBe('achecksumvalue');
     });
 
     it('canEdit bool indicates if agenda has edit rights on event', () => {
-      assert.equal(ref.canEdit, false);
+      expect(ref.canEdit).toBe(false);
     });
 
     it('state in agenda is provided', () => {
-      assert.equal(ref.state, config.eventStates.VALIDATED);
+      expect(ref.state).toBe(config.eventStates.VALIDATED);
     });
 
     it('featured bool is provided', () => {
-      assert.equal(ref.featured, false);
+      expect(ref.featured).toBe(false);
     });
 
     it('legacyId is provided and is composed of legacy agenda id and event id', () => {
-      assert.equal(ref.legacyId, '42.24');
+      expect(ref.legacyId).toBe('42.24');
     });
   });
 
   it('get with decorate to get member details', async () => {
     const ref = await svc(62792452).get(10974548, {
-      decorate: ['member']
+      decorate: ['member'],
     });
 
-    assert.deepEqual(
-      ref.member,
-      {
-        agendaUid: 62792452,
-        userUid: 12312312,
-        role: 1
-      }
-    );
+    expect(ref.member).toEqual({
+      agendaUid: 62792452,
+      userUid: 12312312,
+      role: 1,
+    });
   });
 
   it('get with decorate to get user details', async () => {
     const ref = await svc(62792452).get(10974548, {
-      decorate: ['user']
+      decorate: ['user'],
     });
 
-    assert.deepEqual(
-      ref.user,
-      {
-        uid: 12312312,
-        fullName: 'Kevin',
-      }
-    );
+    expect(ref.user).toEqual({
+      uid: 12312312,
+      fullName: 'Kevin',
+    });
   });
 
   it('get with decorate to get sourceAgenda details', async () => {
     const ref = await svc(62792452).get(10974548, {
-      decorate: ['sourceAgendas']
+      decorate: ['sourceAgendas'],
     });
 
-    assert.deepEqual(
-      ref.sourceAgendas,
-      [{
+    expect(ref.sourceAgendas).toEqual([
+      {
         uid: 6789678,
-        title: 'La source'
-      }, {
+        title: 'La source',
+      },
+      {
         uid: 896785,
-        title: 'Et encore une source'
-      }]
-    );
+        title: 'Et encore une source',
+      },
+    ]);
   });
 
   it('explicit error is thrown when event uid is not provided', async () => {
@@ -148,7 +151,7 @@ describe('agendaEvents - 02 - functional (server): get', function() {
     } catch (e) {
       error = e;
     }
-    assert.equal(error.message, 'Event uid is missing');
+    expect(error.message).toBe('Event uid is missing');
   });
 
   it('explicit error is thrown when agenda uid is not provided', async () => {
@@ -159,57 +162,50 @@ describe('agendaEvents - 02 - functional (server): get', function() {
       error = e;
     }
 
-    assert.equal(error.message, 'Agenda uid is missing');
+    expect(error.message).toBe('Agenda uid is missing');
   });
 
   it('get provides empty sourcePaths list when none are stored in entry', async () => {
     const ae = await svc(62792452).get(53117383);
 
-    assert.deepEqual(ae.sourcePaths, []);
+    expect(ae.sourcePaths).toEqual([]);
   });
 
   it('get provides sourcePaths as list of uids (or list of list) when a json is stored in entry', async () => {
     const ae = await svc(62792452).get(60059313);
 
-    assert.deepEqual(ae.sourcePaths, [11, [22], 33]);
+    expect(ae.sourcePaths).toEqual([11, [22], 33]);
   });
 
   it('get by legacy id', async () => {
     const ref = await get.byLegacyId(42, 24);
 
-    assert.deepEqual(
-      _.omit(ref, ['updatedAt', 'createdAt']),
-      {
-        eventUid: 10974548,
-        agendaUid: 62792452,
-        userUid: 12312312,
-        aggregated: 'achecksumvalue',
-        sourcePaths: [[6789678], [896785]],
-        featured: false,
-        canEdit: false,
-        state: config.eventStates.VALIDATED,
-        legacyId: '42.24'
-      }
-    );  
+    expect(_.omit(ref, ['updatedAt', 'createdAt'])).toEqual({
+      eventUid: 10974548,
+      agendaUid: 62792452,
+      userUid: 12312312,
+      aggregated: 'achecksumvalue',
+      sourcePaths: [[6789678], [896785]],
+      featured: false,
+      canEdit: false,
+      state: config.eventStates.VALIDATED,
+      legacyId: '42.24',
+    });
   });
 
   it('get returns null if no match is found', async () => {
-    assert.equal(
-      await svc(62792452).get(60059377),
-      null
-    );
+    expect(await svc(62792452).get(60059377)).toBeNull();
   });
 
   it('get throws not found error if option is set', async () => {
     let error;
     try {
       await svc(62792452).get(60059377, {
-        throwOnNotFound: true
+        throwOnNotFound: true,
       });
     } catch (e) {
       error = e;
     }
-    assert.equal(error.name, 'NotFoundError');
+    expect(error.name).toBe('NotFoundError');
   });
-
-} );
+});
