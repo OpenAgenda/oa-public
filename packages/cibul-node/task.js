@@ -124,6 +124,8 @@ export default (config, core, services) => {
     services.unsubscriptions.task();
   }
 
+  services.accessTokens.clearOldTokens();
+
   // services.eventSearch.rebuild();
   // services.eventSearch.transverse.rebuild();
 
