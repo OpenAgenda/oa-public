@@ -1,12 +1,13 @@
-"use strict";
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema';
 
-const schema = require('@openagenda/validators/schema');
-const states = require('../../iso/states');
-const _ = require('lodash');
+import integerValidator from '@openagenda/validators/integer';
+import choiceValidator from '@openagenda/validators/choice';
+import states from '../../iso/states.js';
 
 schema.register({
-  choice: require('@openagenda/validators/choice'),
-  integer: require('@openagenda/validators/integer')
+  choice: choiceValidator,
+  integer: integerValidator,
 });
 
 const validate = schema({
@@ -14,34 +15,39 @@ const validate = schema({
     type: 'choice',
     optional: true,
     unique: true,
-    options: _.keys(states).map(k => k.toLowerCase()).concat(_.values(states))
+    options: _.keys(states)
+      .map((k) => k.toLowerCase())
+      .concat(_.values(states)),
   },
   eventUid: {
     type: 'integer',
     optional: true,
     list: {
-      default: null
-    }
+      default: null,
+    },
   },
   aggregated: {
     type: 'boolean',
     optional: true,
-    default: null
+    default: null,
   },
   canEdit: {
     type: 'boolean',
-    optional: true
-  }
+    optional: true,
+  },
 });
 
-module.exports = values => {
+export default (values) => {
   const clean = validate(values);
 
   if (clean.state && typeof clean.state === 'string') {
-    clean.state = states[Object.keys(states).filter(k => clean.state === k.toLowerCase())[0]];
+    clean.state =
+      states[
+        Object.keys(states).filter((k) => clean.state === k.toLowerCase())[0]
+      ];
   } else if (clean.state === null) {
     return _.omit(clean, ['state']);
   }
 
   return clean;
-}
+};

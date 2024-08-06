@@ -1,32 +1,41 @@
-"use strict";
+import _ from 'lodash';
 
-const _ = require( 'lodash' );
+import validate from '../iso/validate.js';
+import validateListQuery from './lib/validateListQuery.js';
+import extractListParameters from './lib/extractListParameters.js';
+import validateOptions from './lib/validateOptions.js';
+import decorateListItems from './lib/decorateListItems.js';
+import buildListQuery from './lib/buildListQuery.js';
 
-const log = require('@openagenda/logs')('list');
+function _total(client, query) {
+  const k = client('agenda_event');
 
-const validate = require('../iso/validate');
+  buildListQuery.addWheres(k, query);
 
-const validateListQuery = require('./lib/validateListQuery');
-const extractListParameters = require('./lib/extractListParameters');
-const validateOptions = require('./lib/validateOptions');
-const decorateListItems = require('./lib/decorateListItems');
-const buildListQuery = require('./lib/buildListQuery');
+  return k.count('id as total').then(rows => rows[0].total);
+}
 
-module.exports = async (service, agendaUid, query, offset, limit, options) => {
+async function list(service, agendaUid, query, offset, limit, options) {
   const { client } = service;
 
-  const params = extractListParameters(agendaUid, query, offset, limit, options);
+  const params = extractListParameters(
+    agendaUid,
+    query,
+    offset,
+    limit,
+    options,
+  );
 
-  const {
-    decorate
-  } = validateOptions(params.options);
+  const { decorate } = validateOptions(params.options);
 
-  const items = (await buildListQuery(
-    service,
-    params.query,
-    _.pick(params, ['offset', 'limit']),
-    { decorate }
-  )).map(validate);
+  const items = (
+    await buildListQuery(
+      service,
+      params.query,
+      _.pick(params, ['offset', 'limit']),
+      { decorate },
+    )
+  ).map(validate);
 
   if (decorate.length) {
     await decorateListItems(service, items, decorate);
@@ -34,20 +43,25 @@ module.exports = async (service, agendaUid, query, offset, limit, options) => {
 
   return {
     items,
-    total: await _total(client, params.query)
-  }
+    total: await _total(client, params.query),
+  };
 }
 
-module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 20, options = {}) => {
+export async function byLastId(
+  service,
+  agendaUid,
+  query,
+  lastId,
+  limit = 20,
+  options = {},
+) {
   const { client } = service;
 
   const cleanQuery = {
-    agendaUid
+    agendaUid,
   };
 
-  const {
-    decorate
-  } = validateOptions(options);
+  const { decorate } = validateOptions(options);
 
   const nav = {};
 
@@ -59,7 +73,9 @@ module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 20, 
     Object.assign(nav, { lastId, limit });
   }
 
-  const dirtyItems = await buildListQuery(service, cleanQuery, nav, { decorate });
+  const dirtyItems = await buildListQuery(service, cleanQuery, nav, {
+    decorate,
+  });
   const items = dirtyItems.map(validate);
 
   if (decorate.length) {
@@ -69,40 +85,41 @@ module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 20, 
   return {
     items,
     total: await _total(client, cleanQuery),
-    lastId: _.get(_.last(dirtyItems), 'id', -1)
-  }
+    lastId: _.get(_.last(dirtyItems), 'id', -1),
+  };
 }
 
-module.exports.byUserUid = async (service, userUid, offset, limit) => {
+export async function byUserUid(service, userUid, offset, limit) {
   const { client } = service;
   return {
-    items: (await buildListQuery(service, { userUid }, { offset, limit })).map(validate),
-    total: await _total(client, { userUid })
-  }
+    items: (await buildListQuery(service, { userUid }, { offset, limit })).map(
+      validate,
+    ),
+    total: await _total(client, { userUid }),
+  };
 }
 
-module.exports.byEventUid = async (service, eventUid, ...args) => {
+export async function byEventUid(service, eventUid, ...args) {
   const { client } = service;
 
   const offset = args.length === 2 ? args[0] : args[1];
-  const limit = args.length === 2 ? args[1] : (args[2] || 20);
-  
+  const limit = args.length === 2 ? args[1] : args[2] || 20;
+
   const query = { eventUid };
   if (args.length === 3 || args.length === 1) {
     Object.assign(query, args[0]);
   }
-  
+
   return {
-    items: (await buildListQuery(service, query, { offset, limit })).map(validate),
-    total: await _total(client, query)
-  }
+    items: (await buildListQuery(service, query, { offset, limit })).map(
+      validate,
+    ),
+    total: await _total(client, query),
+  };
 }
 
-function _total(client, query) {
-  const k = client('agenda_event');
-
-  buildListQuery.addWheres(k, query);
-
-  return k.count('id as total')
-    .then(rows => rows[0]['total']);
-}
+export default Object.assign(list, {
+  byLastId,
+  byUserUid,
+  byEventUid,
+});

@@ -1,13 +1,10 @@
-'use strict';
+import validateListQuery from './validateListQuery.js';
 
-const validateListQuery = require('./validateListQuery');
-
-module.exports = (agendaUid, query, offset, limit, options) => {
-
+export default (agendaUid, query, offset, limit, options) => {
   const params = {
     query: {
-      agendaUid
-    }
+      agendaUid,
+    },
   };
 
   if (options !== undefined) {
@@ -15,22 +12,22 @@ module.exports = (agendaUid, query, offset, limit, options) => {
       query: Object.assign(params.query, validateListQuery(query)),
       offset,
       limit,
-      options
+      options,
     });
   } else if (typeof query !== 'object') {
     Object.assign(params, {
       offset: query,
       limit: offset,
-      options: limit || {}
+      options: limit || {},
     });
   } else {
     Object.assign(params, {
       query: Object.assign(params.query, validateListQuery(query)),
       offset,
       limit,
-      options: {}
+      options: {},
     });
   }
 
   return params;
-}
+};

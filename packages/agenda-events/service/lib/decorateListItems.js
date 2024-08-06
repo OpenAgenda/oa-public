@@ -1,43 +1,48 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
+const getPathLeaves = (item) =>
+  (item.sourcePaths || [])
+    .map((p) => [].concat(p))
+    .filter((p) => p.length)
+    .map((p) => p[p.length - 1]);
 
-const getPathLeaves = item => (
-  item.sourcePaths || []
-).map(p => [].concat(p)).filter(p => p.length).map(p => p[p.length-1]);
-
-module.exports = async (service, items = [], decorate = []) => {
-  const {
-    config
-  } = service;
+export default async (service, items = [], decorate = []) => {
+  const { config } = service;
 
   if (!config.interfaces) {
     return;
   }
 
-  let members, sourceAgendas;
+  let members;
+  let sourceAgendas;
 
   if (decorate.includes('member') && config.interfaces.getMembers) {
     members = await config.interfaces.getMembers(items);
   }
 
-  if (decorate.includes('sourceAgendas') && config.interfaces.getSourceAgendas) {
+  if (
+    decorate.includes('sourceAgendas') &&
+    config.interfaces.getSourceAgendas
+  ) {
     const sourceAgendaUids = items
       .map(getPathLeaves)
-      .reduce((sourceAgendaUids, leaves) => sourceAgendaUids
-        .concat(leaves.filter(uid => !sourceAgendaUids.includes(uid))), []);
+      .reduce(
+        (saUids, leaves) =>
+          saUids.concat(leaves.filter((uid) => !saUids.includes(uid))),
+        [],
+      );
 
     sourceAgendas = await config.interfaces.getSourceAgendas(sourceAgendaUids);
   }
 
-  items.forEach(ae => {
+  items.forEach((ae) => {
     if (members) {
       ae.member = _.find(members, { userUid: ae.userUid });
     }
     if (sourceAgendas) {
       ae.sourceAgendas = getPathLeaves(ae)
-        .map(uid => _.find(sourceAgendas, { uid }))
-        .filter(uid => !!uid);
+        .map((uid) => _.find(sourceAgendas, { uid }))
+        .filter((uid) => !!uid);
     }
   });
-}
+};

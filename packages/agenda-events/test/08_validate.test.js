@@ -1,27 +1,40 @@
-'use strict';
+import _ from 'lodash';
+import knex from 'knex';
+import Service from '../index.js';
+import config from '../testconfig.js';
 
-const _ = require( 'lodash' );
-
-const Service = require('..');
-const config = require('../testconfig');
-
-describe('agendaEvents - functional (server): validation', function() {
+describe('agendaEvents - functional (server): validation', () => {
   let svc;
+  let knexClient;
 
-  beforeAll(() => {
-    svc = Service(config);
+  beforeAll(async () => {
+    knexClient = knex({
+      client: 'mysql',
+      connection: config.mysql,
+    });
   });
 
+  beforeAll(() => {
+    svc = Service({
+      ...config,
+      knex: knexClient,
+    });
+  });
+
+  afterAll(() => knexClient.destroy());
+
   it('base validate endpoint validates data part of an agendaEvent reference', () => {
-    expect(svc.validate( {
-      state: 2,
-      featured: true
-    })).toEqual( {
+    expect(
+      svc.validate({
+        state: 2,
+        featured: true,
+      }),
+    ).toEqual({
       state: 2,
       featured: true,
       userUid: null,
       sourcePaths: [],
-      aggregated: null
+      aggregated: null,
     });
   });
 
@@ -31,36 +44,48 @@ describe('agendaEvents - functional (server): validation', function() {
       'featured',
       'userUid',
       'sourcePaths',
-      'aggregated'
+      'aggregated',
     ]);
   });
 
   it('validate endpoint assigns default state value when it is unspecified', () => {
-    expect(svc.validate({
-      featured: true
-    })).toEqual({
+    expect(
+      svc.validate({
+        featured: true,
+      }),
+    ).toEqual({
       state: 2,
       featured: true,
       userUid: null,
       sourcePaths: [],
-      aggregated: null
+      aggregated: null,
     });
   });
 
   it('validate endpoint does not include state if not provided and optional state option is set', () => {
-    expect(svc.validate({
-      featured: true
-    }, { optionalSecondaryFields: true })).toEqual({
+    expect(
+      svc.validate(
+        {
+          featured: true,
+        },
+        { optionalSecondaryFields: true },
+      ),
+    ).toEqual({
       featured: true,
-      userUid: null
+      userUid: null,
     });
   });
 
   it('validate can do things partially', () => {
-    expect(svc.validate({
-      state: 0
-    }, { partial: true })).toEqual({
-      state: 0
+    expect(
+      svc.validate(
+        {
+          state: 0,
+        },
+        { partial: true },
+      ),
+    ).toEqual({
+      state: 0,
     });
   });
 });

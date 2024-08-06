@@ -1,41 +1,33 @@
-'use strict';
+import knex from 'knex';
+import logger from '@openagenda/logs';
+import list from './service/list.js';
+import get from './service/get.js';
+import getAggregatedCount from './service/getAggregatedCount.js';
+import create from './service/create.js';
+import update from './service/update.js';
+import set from './service/set.js';
+import remove from './service/remove.js';
+import * as validate from './iso/validate.js';
+import * as legacy from './service/legacy.js';
+import * as stats from './service/stats.js';
+import interfacesTask from './tasks/interfaces.js';
+import setSourcePaths from './utils/setSourcePaths.js';
+import states from './iso/states.js';
 
-const _ = require('lodash');
-const knex = require('knex');
-const logger = require('@openagenda/logs');
-
-const list = require('./service/list');
-const get = require('./service/get');
-const getAggregatedCount = require('./service/getAggregatedCount');
-const create = require('./service/create');
-const update = require('./service/update');
-const set = require('./service/set');
-const remove = require('./service/remove');
-const validate = require('./iso/validate');
-const legacy = require('./service/legacy');
-const stats = require('./service/stats');
-const interfacesTask = require('./tasks/interfaces');
-const setSourcePaths = require('./utils/setSourcePaths');
-const states = require('./iso/states');
-
-module.exports = c => {
+export default (c) => {
   const config = {
     queueNames: {
-      interfaces: 'agendaEventInterfaces'
+      interfaces: 'agendaEventInterfaces',
     },
-    ...c
+    ...c,
   };
 
-  const {
-    queue,
-  } = config;
+  const { queue } = config;
 
-  const {
-    interfaces
-  } = config;
+  const { interfaces } = config;
 
   if (queue) {
-      queue.register({
+    queue.register({
       onRemove: interfaces.onRemove,
     });
   }
@@ -47,11 +39,13 @@ module.exports = c => {
   const service = {
     config,
     queue,
-    client: config.knex || knex({
-      client: 'mysql',
-      connection: config.mysql
-    }),
-    redisClient: config.redisClient
+    client:
+      config.knex ||
+      knex({
+        client: 'mysql',
+        connection: config.mysql,
+      }),
+    redisClient: config.redisClient,
   };
 
   Object.assign(service, {
@@ -72,47 +66,50 @@ module.exports = c => {
     fromLegacy: legacy.from.bind(null, service),
     removeLegacy: legacy.remove.bind(null, service),
     countByUserUid: stats.countByUserUid.bind(null, service),
-    interfacesTask: interfacesTask.bind(null, service)
+    interfacesTask: interfacesTask.bind(null, service),
   });
 
-  service.exposed = Object.assign(agendaUid => ({
-    list: service.list.bind(null, agendaUid),
-    listByLastId: service.listByLastId.bind(null, agendaUid),
-    get: service.get.bind(null, agendaUid),
-    getAggregatedCount: service.getAggregatedCount.bind(null, agendaUid),
-    create: service.create.bind(null, agendaUid),
-    update: service.update.bind(null, agendaUid),
-    remove: service.remove.bind(null, agendaUid),
-    set: service.set.bind(null, agendaUid),
-    stats: {
-      countByUserUid: service.countByUserUid.bind(null, agendaUid)
-    }
-  }), {
-    list: {
-      byEventUid: service.listByEventUid,
-      byUserUid: service.listByUserUid
-    },
-    get: {
-      byLegacyId: service.getByLegacyId
-    },
-    remove: Object.assign(service.removeByEventUid, {
-      byLegacyId: service.removeByLegacyId
+  service.exposed = Object.assign(
+    (agendaUid) => ({
+      list: service.list.bind(null, agendaUid),
+      listByLastId: service.listByLastId.bind(null, agendaUid),
+      get: service.get.bind(null, agendaUid),
+      getAggregatedCount: service.getAggregatedCount.bind(null, agendaUid),
+      create: service.create.bind(null, agendaUid),
+      update: service.update.bind(null, agendaUid),
+      remove: service.remove.bind(null, agendaUid),
+      set: service.set.bind(null, agendaUid),
+      stats: {
+        countByUserUid: service.countByUserUid.bind(null, agendaUid),
+      },
     }),
-    tasks: {
-      interfaces: service.interfacesTask
+    {
+      list: {
+        byEventUid: service.listByEventUid,
+        byUserUid: service.listByUserUid,
+      },
+      get: {
+        byLegacyId: service.getByLegacyId,
+      },
+      remove: Object.assign(service.removeByEventUid, {
+        byLegacyId: service.removeByLegacyId,
+      }),
+      tasks: {
+        interfaces: service.interfacesTask,
+      },
+      legacyTransfer: Object.assign(service.fromLegacy, {
+        to: service.toLegacy,
+        remove: service.removeLegacy,
+      }),
+      validate: validate.validateData,
+      utils: {
+        setSourcePaths: setSourcePaths.bind(null, service),
+      },
+      states,
     },
-    legacyTransfer: Object.assign(service.fromLegacy, {
-      to: service.toLegacy,
-      remove: service.removeLegacy
-    }),
-    validate: validate.validateData,
-    utils: {
-      setSourcePaths: setSourcePaths.bind(null, service)
-    },
-    states
-  });
+  );
 
   return service.exposed;
-}
+};
 
-module.exports.states = states;
+export { states };

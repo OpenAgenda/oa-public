@@ -1,23 +1,34 @@
-'use strict';
+import knex from 'knex';
+import Service from '../index.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/index.js';
 
-const Service = require('..');
-const config = require('../testconfig');
-const fixtures = require('./fixtures');
-
-describe('agendaEvents - functional (server): utils', function() {
+describe('agendaEvents - functional (server): utils', () => {
   let svc;
+  let knexClient;
 
   beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
-      'agenda_event.data.sql'
-   ]);
+      'agenda_event.data.sql',
+    ]);
+  });
+  beforeAll(async () => {
+    knexClient = knex({
+      client: 'mysql',
+      connection: config.mysql,
+    });
   });
 
   beforeAll(() => {
-    svc = Service(config);
+    svc = Service({
+      ...config,
+      knex: knexClient,
+    });
   });
+
+  afterAll(() => knexClient.destroy());
 
   describe('setSourcePaths', () => {
     let result;

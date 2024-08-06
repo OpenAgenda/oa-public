@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports.countByUserUid = (service, agendaUid, userUids = null) => {
+export function countByUserUid(service, agendaUid, userUids = null) {
   const { client } = service;
 
   const k = client('agenda_event')
@@ -11,10 +9,10 @@ module.exports.countByUserUid = (service, agendaUid, userUids = null) => {
     k.whereIn('user_uid', userUids);
   }
 
-  return k.groupBy('user_uid')
-    .then(r => r.map(r => ({
-      count: r.event_count,
-      userUid: r.user_uid
-    })));
+  return k.groupBy('user_uid').then((r) =>
+    r.map((rr) => ({
+      count: rr.event_count,
+      userUid: rr.user_uid,
+    })),
+  );
 }
-

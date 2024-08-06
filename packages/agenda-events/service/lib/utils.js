@@ -1,21 +1,19 @@
-"use strict";
+import camelCase from 'lodash/camelCase';
+import snakeCase from 'lodash/snakeCase';
 
-const camelCase = require('lodash/camelCase');
-const snakeCase = require('lodash/snakeCase');
-
-module.exports.toEntry = ae => {
+export function toEntry(ae) {
   return Object.keys(ae).reduce((entry, field) => {
     const col = snakeCase(field);
     if (['sourceAgendaUid', 'sourcePaths'].includes(field)) {
-      entry['source_agenda_uid'] = JSON.stringify(ae[field]);
+      entry.source_agenda_uid = JSON.stringify(ae[field]);
     } else {
       entry[col] = ae[field];
     }
     return entry;
-  },{});
+  }, {});
 }
 
-module.exports.fromEntry = entry => {
+export function fromEntry(entry) {
   return Object.keys(entry).reduce((ae, col) => {
     const field = camelCase(col);
     if (col === 'source_agenda_uid') {
@@ -24,5 +22,5 @@ module.exports.fromEntry = entry => {
       ae[field] = entry[col];
     }
     return ae;
-  },{});
+  }, {});
 }

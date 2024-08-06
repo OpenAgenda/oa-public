@@ -1,26 +1,37 @@
-'use strict';
+import _ from 'lodash';
+import knex from 'knex';
 
-const _ = require('lodash');
-const ih = require('immutability-helper');
+import Service from '../index.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/index.js';
 
-const Service = require('..');
-const config = require('../testconfig');
-const fixtures = require('./fixtures');
-
-describe('agendaEvents - 09 - functional (server): set', function() {
+describe('agendaEvents - 09 - functional (server): set', () => {
   let svc;
+  let knexClient;
 
   beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       '../../model.sql',
-      'agenda_event.data.sql'
-   ]);
+      'agenda_event.data.sql',
+    ]);
+  });
+
+  beforeAll(async () => {
+    knexClient = knex({
+      client: 'mysql',
+      connection: config.mysql,
+    });
   });
 
   beforeAll(() => {
-    svc = Service(config);
+    svc = Service({
+      ...config,
+      knex: knexClient,
+    });
   });
+
+  afterAll(() => knexClient.destroy());
 
   it('set can create', async () => {
     const ae = await svc(1234).get(5678);
@@ -33,7 +44,7 @@ describe('agendaEvents - 09 - functional (server): set', function() {
 
     expect(_.pick(created, ['agendaUid', 'eventUid'])).toEqual({
       agendaUid: 1234,
-      eventUid: 5678
+      eventUid: 5678,
     });
   });
 
@@ -48,28 +59,29 @@ describe('agendaEvents - 09 - functional (server): set', function() {
 
     expect(_.pick(updated, ['agendaUid', 'eventUid'])).toEqual({
       agendaUid: 1234,
-      eventUid: 9999
+      eventUid: 9999,
     });
   });
 
-
   it('set can take operation-specific options', async () => {
-    await svc(1234).set(38473, { state: 1, create: {
-      state: 2
-    } });
+    await svc(1234).set(38473, {
+      state: 1,
+      create: {
+        state: 2,
+      },
+    });
 
     const ae = await svc(1234).get(38473);
 
     expect(ae.state).toBe(2);
   });
 
-
   it('set item is returned in set key of result', async () => {
     const result = await svc(1234).set(9999, { state: 0 });
 
     expect(_.pick(result.set, ['agendaUid', 'eventUid'])).toEqual({
       agendaUid: 1234,
-      eventUid: 9999
+      eventUid: 9999,
     });
   });
 });

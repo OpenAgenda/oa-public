@@ -1,14 +1,11 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('tasks/interfaces');
+const log = logs('tasks/interfaces');
 
-module.exports = (service, options) => {
+export default (service, options) => {
   const {
     queue,
-    config: {
-      interfaces
-    }
+    config: { interfaces },
   } = service;
 
   queue.setConsumer((data, cb) => {
@@ -24,4 +21,4 @@ module.exports = (service, options) => {
   });
 
   queue.launch(options || { interval: 10 });
-}
+};
