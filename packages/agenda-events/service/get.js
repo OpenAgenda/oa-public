@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { NotFound } from '@openagenda/verror';
-import NotFoundError from '@openagenda/utils/errors/NotFoundError';
+import NotFoundError from '@openagenda/utils/errors/NotFoundError.js';
 
 import validate from '../iso/validate.js';
 import * as utils from './lib/utils.js';
