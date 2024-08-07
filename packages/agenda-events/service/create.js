@@ -28,13 +28,13 @@ export default async (
     const values = {
       eventUid,
       agendaUid,
-      ...(_.omit(data, ['aggregated']) || {}),
+      ..._.omit(data, ['aggregated']) || {},
       createdAt: new Date(),
       updatedAt: new Date(),
     };
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'aggregated'].forEach((f) => {
+      ['updatedAt', 'createdAt', 'aggregated'].forEach(f => {
         if (data[f]) values[f] = data[f];
       });
     }

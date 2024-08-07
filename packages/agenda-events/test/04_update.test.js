@@ -179,7 +179,7 @@ describe('agendaEvents - 04 - functional (server): update', () => {
     });
 
     it('context can be passed in options to be transfered to onUpdate interface', () =>
-      new Promise((rs) => {
+      new Promise(rs => {
         svc = Service(
           ih(config, {
             interfaces: {
