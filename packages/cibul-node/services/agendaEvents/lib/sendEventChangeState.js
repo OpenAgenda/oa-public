@@ -63,10 +63,13 @@ async function sendToContributor({
       lang: conributorLang,
     });
   } else {
-    log('sending standard event publish notification message to contributor', {
-      beforeState: beforeStateLabel,
-      afterState: afterStateLabel,
-    });
+    log(
+      'sending standard event state change notification message to contributor',
+      {
+        beforeState: beforeStateLabel,
+        afterState: afterStateLabel,
+      },
+    );
     await mails.send({
       template: 'myEventChangeState',
       to,
@@ -75,6 +78,7 @@ async function sendToContributor({
         agenda: agendaTitle,
         beforeState: beforeStateLabel,
         afterState: afterStateLabel,
+        motive: agendaEvent.motive,
         logo,
         link,
       },

@@ -25,6 +25,12 @@
           </h2>
         </mj-text>
 
+        <% if (typeof motive !== 'undefined') { %>
+          <mj-markdown padding-top="0">
+            <%- motive %>
+          </mj-markdown>
+        <% } %>
+
         <mj-button
           background-color="#41acdd"
           color="white"
