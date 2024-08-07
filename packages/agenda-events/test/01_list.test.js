@@ -248,6 +248,7 @@ describe('agendaEvents - 01 - functional (server): list', () => {
       'legacyId',
       'createdAt',
       'updatedAt',
+      'motive',
     ]);
   });
 });

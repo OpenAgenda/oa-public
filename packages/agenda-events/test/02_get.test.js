@@ -190,6 +190,7 @@ describe('agendaEvents - 02 - functional (server): get', () => {
       canEdit: false,
       state: config.eventStates.VALIDATED,
       legacyId: '42.24',
+      motive: null,
     });
   });
 

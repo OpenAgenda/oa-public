@@ -14,6 +14,7 @@ async function _get(client, where) {
       'user_uid',
       'source_agenda_uid',
       'state',
+      'motive',
       'can_edit',
       'featured',
       'aggregated',
@@ -73,11 +74,11 @@ export default Object.assign(
     }
 
     if (
-      decorate.includes('sourceAgendas') &&
-      config.interfaces.getSourceAgendas
+      decorate.includes('sourceAgendas')
+      && config.interfaces.getSourceAgendas
     ) {
       ae.sourceAgendas = await config.interfaces.getSourceAgendas(
-        (ae.sourcePaths || []).map((p) => p[p.length - 1]),
+        (ae.sourcePaths || []).map(p => p[p.length - 1]),
       );
     }
 
