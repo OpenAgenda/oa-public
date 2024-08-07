@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { NotFound } from '@openagenda/verror';
-import NotFoundError from '@openagenda/utils/errors/NotFoundError';
+import NotFoundError from '@openagenda/utils/errors/NotFoundError.js';
 
 import validate from '../iso/validate.js';
 import * as utils from './lib/utils.js';
@@ -73,11 +73,11 @@ export default Object.assign(
     }
 
     if (
-      decorate.includes('sourceAgendas') &&
-      config.interfaces.getSourceAgendas
+      decorate.includes('sourceAgendas')
+      && config.interfaces.getSourceAgendas
     ) {
       ae.sourceAgendas = await config.interfaces.getSourceAgendas(
-        (ae.sourcePaths || []).map((p) => p[p.length - 1]),
+        (ae.sourcePaths || []).map(p => p[p.length - 1]),
       );
     }
 
