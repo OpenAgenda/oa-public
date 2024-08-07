@@ -11,5 +11,6 @@ CREATE TABLE IF NOT EXISTS `agenda_event` (
   `user_uid` bigint(20) DEFAULT NULL,
   `source_agenda_uid` varchar(300),
   `aggregated` varchar(32) default null,
+  `motive` text default null,
   primary key ( id )
-) ENGINE=InnoDB AUTO_INCREMENT=954070 DEFAULT CHARSET=utf8;
+) engine=InnoDB default character set utf8mb4 collate utf8mb4_unicode_ci;

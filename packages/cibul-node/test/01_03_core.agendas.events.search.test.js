@@ -41,6 +41,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     core = Core(services, testConfig);
 
     await core.agendas(2).events.search.rebuild();
+    await core.agendas(1).events.search.rebuild();
     await services.simpleCache.clearAll();
   });
 
@@ -59,7 +60,9 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     });
 
     it('first, next and lastTiming are provided by default', async () => {
-      const { events: [event] } = await core.agendas(2).events.search({});
+      const {
+        events: [event],
+      } = await core.agendas(2).events.search({});
 
       expect(event.firstTiming).not.toBeUndefined();
       expect(event.lastTiming).not.toBeUndefined();
@@ -67,48 +70,69 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     });
 
     it('if neither userUid or access are provided, only published events are returned', async () => {
-      const { events } = await core.agendas(2).events.search({ state: null }, {}, { detailed: true });
+      const { events } = await core
+        .agendas(2)
+        .events.search({ state: null }, {}, { detailed: true });
 
       expect(events.filter(e => e.state === 2).length).toBeGreaterThan(0);
       expect(events.filter(e => e.state !== 2).length).toBe(0);
     });
 
     it('if access is adminmod, unpublished events are returned when requested', async () => {
-      const { events } = await core.agendas(2).events.search({ state: null }, {}, {
-        detailed: true,
-        access: 'administrator',
-      });
+      const { events } = await core.agendas(2).events.search(
+        { state: null },
+        {},
+        {
+          detailed: true,
+          access: 'administrator',
+        },
+      );
 
       expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
     });
 
     it('if search part of query contains an integer, a uid filter is applied', async () => {
-      const { events, total } = await core.agendas(2).events.search({
-        state: null,
-        search: '1',
-      }, {}, { access: 'administrator' });
+      const { events, total } = await core.agendas(2).events.search(
+        {
+          state: null,
+          search: '1',
+        },
+        {},
+        { access: 'administrator' },
+      );
 
       expect(total).toBe(1);
       expect(events[0].uid).toBe(1);
     });
 
     it('if includeLabels option is set, additional field values are provided with labels', async () => {
-      const { events } = await core.agendas(2).events.search({ state: null }, {}, {
-        detailed: true,
-        access: 'administrator',
-        includeLabels: true,
-      });
+      const { events } = await core.agendas(2).events.search(
+        { state: null },
+        {},
+        {
+          detailed: true,
+          access: 'administrator',
+          includeLabels: true,
+        },
+      );
 
-      expect(events[0].thematique).toEqual({ id: 2, label: { fr: 'Exposition' } });
+      expect(events[0].thematique).toEqual({
+        id: 2,
+        label: { fr: 'Exposition' },
+      });
     });
 
     it('if monolingal option is specified, additional field values are provided with monolingual labels', async () => {
-      const { events } = await core.agendas(2).events.search({ state: null }, {}, {
-        detailed: true,
-        access: 'administrator',
-        includeLabels: true,
-        monolingual: 'fr',
-      });
+      const { events } = await core.agendas(2).events.search(
+        { state: null },
+        {},
+        {
+          detailed: true,
+          access: 'administrator',
+          includeLabels: true,
+          monolingual: 'fr',
+        },
+      );
 
       expect(events[0].thematique).toEqual({
         id: 2,
@@ -117,88 +141,128 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     });
 
     it('location image provides full path with includeLocationImagePath option', async () => {
-      const { events: [event] } = await core.agendas(2).events.search({
-        state: null,
-        locationUid: 1,
-      }, { size: 1 }, {
-        detailed: true,
-        includeLocationImagePath: true,
-        access: 'internal',
-      });
+      const {
+        events: [event],
+      } = await core.agendas(2).events.search(
+        {
+          state: null,
+          locationUid: 1,
+        },
+        { size: 1 },
+        {
+          detailed: true,
+          includeLocationImagePath: true,
+          access: 'internal',
+        },
+      );
 
-      expect(event.location.image).toBe('https://openagendatest.s3.amazonaws.com/52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg');
+      expect(event.location.image).toBe(
+        'https://openagendatest.s3.amazonaws.com/52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg',
+      );
     });
 
     it('if userUid is provided, it can be authorized with adminmod access, non published content is accessible', async () => {
-      const { events } = await core.agendas(2).events.search({ state: null }, {}, {
-        detailed: true,
-        userUid: 63170200,
-      });
+      const { events } = await core.agendas(2).events.search(
+        { state: null },
+        {},
+        {
+          detailed: true,
+          userUid: 63170200,
+        },
+      );
 
       expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
     });
 
     it('fix: image credits are provided', async () => {
       const { events } = await core.agendas(2).events.search();
-      expect(events.filter(e => e.uid === 2)[0].imageCredits).toEqual('Gaetan Latouche');
+      expect(events.filter(e => e.uid === 2)[0].imageCredits).toEqual(
+        'Gaetan Latouche',
+      );
     });
 
     it('if useAfterKey is set in options, after is to be given to navigation instead of searchAfter and result provides after instead of sort and sort as the effective sort value', async () => {
-      const { sort, after, events } = await core.agendas(2).events.search({ state: null }, { size: 1 }, {
-        userUid: 63170200,
-        useAfterKey: true,
-      });
+      const { sort, after, events } = await core.agendas(2).events.search(
+        { state: null },
+        { size: 1 },
+        {
+          userUid: 63170200,
+          useAfterKey: true,
+        },
+      );
 
       expect(events[0].uid).toBe(1);
       expect(sort).toBe('timingsWithFeatured.asc');
       expect(after).toEqual([0, null, 1569578400000, 1]);
 
-      const result = await core.agendas(2).events.search({ state: null }, { size: 1, after }, {
-        userUid: 63170200,
-        useAfterKey: true,
-      });
+      const result = await core.agendas(2).events.search(
+        { state: null },
+        { size: 1, after },
+        {
+          userUid: 63170200,
+          useAfterKey: true,
+        },
+      );
 
       expect(result.events[0].uid).toBe(2);
     });
 
     it('fix: updatedAt is latest between ae, event and location timestamps', async () => {
-      const { events } = await core.agendas(2).events.search({
-        state: null,
-        uid: 1,
-      }, {}, {
-        access: 'administrator',
-        detailed: true,
-      });
+      const { events } = await core.agendas(2).events.search(
+        {
+          state: null,
+          uid: 1,
+        },
+        {},
+        {
+          access: 'administrator',
+          detailed: true,
+        },
+      );
 
-      expect(
-        new Date(events.pop().updatedAt).getTime(),
-      ).toBeGreaterThanOrEqual(1719330399000);
+      expect(new Date(events.pop().updatedAt).getTime()).toBeGreaterThanOrEqual(
+        1719330399000,
+      );
     });
 
     it('longDescriptionFormat option set to HTML', async () => {
-      const { events } = await core.agendas(2).events.search({}, { size: 1 }, {
-        longDescriptionFormat: 'HTML',
-        detailed: true,
-        userUid: 63170200,
-      });
+      const { events } = await core.agendas(2).events.search(
+        {},
+        { size: 1 },
+        {
+          longDescriptionFormat: 'HTML',
+          detailed: true,
+          userUid: 63170200,
+        },
+      );
 
-      expect(events[0].longDescription.fr.substr(0, 38)).toBe('<p><strong>! CHANGEMENT !</strong></p>');
+      expect(events[0].longDescription.fr.substr(0, 38)).toBe(
+        '<p><strong>! CHANGEMENT !</strong></p>',
+      );
     });
 
     it('longDescriptionFormat option set to HTMLWithEmbeds', async () => {
-      const { events } = await core.agendas(2).events.search({}, { size: 1 }, {
-        longDescriptionFormat: 'HTMLWithEmbeds',
-        detailed: true,
-        userUid: 63170200,
-      });
+      const { events } = await core.agendas(2).events.search(
+        {},
+        { size: 1 },
+        {
+          longDescriptionFormat: 'HTMLWithEmbeds',
+          detailed: true,
+          userUid: 63170200,
+        },
+      );
 
       expect(events[0].longDescription.fr).toContain('<iframe');
     });
 
     it('aggregations can requested through options', async () => {
-      const { aggregations } = await core.agendas(2).events.search({}, { size: 0 }, {
-        aggregations: ['states'],
-      });
+      const { aggregations } = await core.agendas(2).events.search(
+        {},
+        { size: 0 },
+        {
+          aggregations: ['states'],
+        },
+      );
       expect(aggregations.states).toBeDefined();
     });
 
@@ -206,13 +270,17 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       const {
         events: [event],
         total,
-      } = await core.agendas(2).events.search({
-        state: null,
-        'location.specificite': 32,
-      }, {}, {
-        detailed: true,
-        access: 'administrator',
-      });
+      } = await core.agendas(2).events.search(
+        {
+          state: null,
+          'location.specificite': 32,
+        },
+        {},
+        {
+          detailed: true,
+          access: 'administrator',
+        },
+      );
 
       expect(total).toBe(1);
       expect(event.location.specificite).toEqual([32]);
@@ -222,18 +290,38 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       const {
         events: [event],
         total,
-      } = await core.agendas(2).events.search({
-        state: null,
-        location: {
-          specificite: [32],
+      } = await core.agendas(2).events.search(
+        {
+          state: null,
+          location: {
+            specificite: [32],
+          },
         },
-      }, {}, {
-        detailed: true,
-        access: 'administrator',
-      });
+        {},
+        {
+          detailed: true,
+          access: 'administrator',
+        },
+      );
 
       expect(total).toBe(1);
       expect(event.location.specificite).toEqual([32]);
+    });
+
+    it('motive is provided on detailed search', async () => {
+      const {
+        events: [event],
+      } = await core.agendas(1).events.search(
+        {
+          state: -1,
+        },
+        {},
+        {
+          detailed: true,
+          access: 'administrator',
+        },
+      );
+      expect(event.motive).toBe('>_>');
     });
   });
 
@@ -285,16 +373,16 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('keys provided in response are success, sort, total, after and events', () => {
         expect(
-          Object.keys(response)
-            .filter(
-              key => ['success', 'sort', 'total', 'after', 'events'].includes(key),
-            ).length,
+          Object.keys(response).filter(key =>
+            ['success', 'sort', 'total', 'after', 'events'].includes(key)).length,
         ).toEqual(5);
       });
 
       it('if user is adminmod, unpublished events can be provided', () => {
         expect(response.events.length).toBeGreaterThan(0);
-        expect(response.events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
+        expect(
+          response.events.filter(e => e.state !== 2).length,
+        ).toBeGreaterThan(0);
       });
     });
 
@@ -315,7 +403,10 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             detailed: 1,
             uid: 2,
           },
-        }).then(r => r.data, err => err.response.data);
+        }).then(
+          r => r.data,
+          err => err.response.data,
+        );
       });
 
       it('search results match query', () => {
@@ -366,7 +457,9 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           },
         }).then(r => r.data);
 
-        expect(response.event.note).toBe('Une note interne pour les administrateurs');
+        expect(response.event.note).toBe(
+          'Une note interne pour les administrateurs',
+        );
       });
     });
 
@@ -386,7 +479,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       it('useDateHoursMinutesFormat', async () => {
-        expect(event.timings[0].begin).toEqual({ date: '2019-09-27', hours: '10', minutes: '00' });
+        expect(event.timings[0].begin).toEqual({
+          date: '2019-09-27',
+          hours: '10',
+          minutes: '00',
+        });
       });
     });
 
@@ -651,20 +748,28 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
           const { after } = responses[0];
 
-          responses.push(await axios(ih(axiosParams, {
-            params: {
-              after: { $set: after },
-            },
-          })).then(r => r.data));
+          responses.push(
+            await axios(
+              ih(axiosParams, {
+                params: {
+                  after: { $set: after },
+                },
+              }),
+            ).then(r => r.data),
+          );
         } catch (e) {
           // console.log(e);
         }
 
         try {
-          responses.push(await axios(produce(axiosParams, draft => {
-            draft.params.size = 2;
-            draft.params.from = 1;
-          })).then(r => r.data));
+          responses.push(
+            await axios(
+              produce(axiosParams, draft => {
+                draft.params.size = 2;
+                draft.params.from = 1;
+              }),
+            ).then(r => r.data),
+          );
         } catch (e) {
           // console.log(e);
         }

@@ -11,6 +11,7 @@ const testConfig = {
     user: process.env.OA_MYSQL_TEST_USER,
     password: process.env.OA_MYSQL_TEST_PASSWORD,
     database: 'oatest',
+    charset: 'utf8mb4',
     ssl: true,
   },
   redis: {
@@ -39,7 +40,8 @@ const testConfig = {
       ? {
         key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
         cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8'),
-        rejectUnauthorized: !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY,
+        rejectUnauthorized:
+            !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY,
       }
       : null,
   },

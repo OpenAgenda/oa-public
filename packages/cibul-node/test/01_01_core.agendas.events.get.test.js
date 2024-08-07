@@ -86,21 +86,48 @@ describe('core - functional (server): core.agendas().events.get()', () => {
 
     it('location is provided', () => {
       expect(Object.keys(event.location)).toEqual([
-        'uid', 'setUid', 'slug', 'name', 'address',
-        'countryCode', 'adminLevel1', 'adminLevel2',
-        'adminLevel3', 'adminLevel4', 'city', 'adminLevel5',
-        'district', 'postalCode', 'insee', 'latitude', 'longitude',
-        'region', 'department', 'timezone',
-        'updatedAt', 'createdAt', 'image', 'description', 'tags',
-        'website', 'email', 'phone', 'links', 'access',
-        'state', 'imageCredits', 'extId',
-        'duplicateCandidates', 'disqualifiedDuplicates',
-        'mergedIn', 'agendaUid',
+        'uid',
+        'setUid',
+        'slug',
+        'name',
+        'address',
+        'countryCode',
+        'adminLevel1',
+        'adminLevel2',
+        'adminLevel3',
+        'adminLevel4',
+        'city',
+        'adminLevel5',
+        'district',
+        'postalCode',
+        'insee',
+        'latitude',
+        'longitude',
+        'region',
+        'department',
+        'timezone',
+        'updatedAt',
+        'createdAt',
+        'image',
+        'description',
+        'tags',
+        'website',
+        'email',
+        'phone',
+        'links',
+        'access',
+        'state',
+        'imageCredits',
+        'extId',
+        'duplicateCandidates',
+        'disqualifiedDuplicates',
+        'mergedIn',
+        'agendaUid',
       ]);
     });
   });
 
-  describe('get with access option', () => {
+  describe('authorization', () => {
     describe('access: null', () => {
       let event;
 
@@ -148,20 +175,26 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     it('if provided access value does not match set value in field, value is not provided', async () => {
-      const event = await core.agendas(2).events.get(1, { access: 'moderator' });
+      const event = await core
+        .agendas(2)
+        .events.get(1, { access: 'moderator' });
 
       expect(event.note).toBe(undefined);
     });
 
     it('if provided access value matches field configuration, value is provided', async () => {
-      const event = await core.agendas(2).events.get(1, { access: 'administrator' });
+      const event = await core
+        .agendas(2)
+        .events.get(1, { access: 'administrator' });
 
       expect(event.thematique).toBe(2);
       expect(event.note).toBe('Une note interne pour les administrateurs');
     });
 
     it('administrator access includes event public fields in response', async () => {
-      const event = await core.agendas(2).events.get(1, { access: 'administrator' });
+      const event = await core
+        .agendas(2)
+        .events.get(1, { access: 'administrator' });
 
       expect(event.locationUid).toBe(1);
     });
@@ -187,7 +220,9 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     it('schema is available under formSchema key, with public fields, excluding id', () => {
-      expect(result.formSchema.fields.filter(({ field }) => field === 'id').length).toEqual(0);
+      expect(
+        result.formSchema.fields.filter(({ field }) => field === 'id').length,
+      ).toEqual(0);
     });
 
     it('event is provided in payload', () => {
@@ -211,11 +246,16 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     it('admin field is provided in event', () => {
-      expect(adminResult.event.note).toEqual('Une note interne pour les administrateurs');
+      expect(adminResult.event.note).toEqual(
+        'Une note interne pour les administrateurs',
+      );
     });
 
     it('admin fields are given in schema', () => {
-      expect(adminResult.formSchema.fields.filter(({ field }) => ['thematique', 'note'].includes(field)).length).toEqual(2);
+      expect(
+        adminResult.formSchema.fields.filter(({ field }) =>
+          ['thematique', 'note'].includes(field)).length,
+      ).toEqual(2);
     });
 
     it('event id is not provided if access is administrator', () => {
@@ -223,7 +263,10 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     it('event id field is not provided if access is administrator', () => {
-      expect(adminResult.formSchema.fields.filter(({ field }) => field === 'id').length).toEqual(0);
+      expect(
+        adminResult.formSchema.fields.filter(({ field }) => field === 'id')
+          .length,
+      ).toEqual(0);
     });
 
     it('event id field is provided if access is internal', () => {
@@ -235,7 +278,10 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     it('id field is present if formSchema if access is internal', () => {
-      expect(internalResult.formSchema.fields.filter(({ field }) => field === 'id').length).toEqual(1);
+      expect(
+        internalResult.formSchema.fields.filter(({ field }) => field === 'id')
+          .length,
+      ).toEqual(1);
     });
   });
 
@@ -259,9 +305,11 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         useDateHoursMinutesFormat: true,
       });
 
-      expect(
-        Object.keys(event.timings[0].begin),
-      ).toEqual(['date', 'hours', 'minutes']);
+      expect(Object.keys(event.timings[0].begin)).toEqual([
+        'date',
+        'hours',
+        'minutes',
+      ]);
     });
 
     it('useLocationObjectFormat', async () => {
@@ -274,12 +322,17 @@ describe('core - functional (server): core.agendas().events.get()', () => {
   });
 
   describe('other', () => {
+    it('motive of refused event is provided by get', async () => {
+      const ev = await core.agendas(1).events.get(2);
+
+      expect(ev.motive).toBe('>_>');
+      expect(ev.state).toBe(-1);
+    });
+
     it('updatedAt value is latest between event and agenda_event record', async () => {
       const ev = await core.agendas(2).events.get(1);
 
-      expect(
-        ev.updatedAt.getTime(),
-      ).toBe(
+      expect(ev.updatedAt.getTime()).toBe(
         new Date('2022-06-30T09:00:00.000Z').getTime(),
       );
     });
