@@ -58,7 +58,9 @@ async function _createAndSend(services, values) {
 
   const { users: usersSvc, tokens: tokensSvc } = services;
 
-  const user = values.user ? _.pick(values.user, 'id', 'uid', 'email') : { email: values.email };
+  const user = values.user
+    ? _.pick(values.user, 'id', 'uid', 'email')
+    : { email: values.email };
 
   if (user.id && user.email && user.isActivated) {
     log('user is already loaded: %s', JSON.stringify(user));
@@ -74,8 +76,6 @@ async function _createAndSend(services, values) {
 
   if (!result) throw new Error(getLabel('noAccountFound', values.req.lang));
 
-  if (!result.isActivated) throw new Error(getLabel('userNotActivated', values.req.lang));
-
   values.user = result;
 
   let token = await tokensSvc.findOne({
@@ -87,7 +87,10 @@ async function _createAndSend(services, values) {
   });
 
   if (token) {
-    await tokensSvc.config.interfaces.sendToken(config, services)({ result: token, params: { user: values.user } });
+    await tokensSvc.config.interfaces.sendToken(
+      config,
+      services,
+    )({ result: token, params: { user: values.user } });
   } else {
     token = await tokensSvc.create(
       {
@@ -136,7 +139,13 @@ function lostPasswordSubmit(req, res) {
   const { services } = req.app;
 
   _createAndSend(services, { email: req.body.email, req })
-    .then(_ifValueIs('sent', true, _redirectToSignin(req, res, getLabel('passwordResetSent', req.lang))))
+    .then(
+      _ifValueIs(
+        'sent',
+        true,
+        _redirectToSignin(req, res, getLabel('passwordResetSent', req.lang)),
+      ),
+    )
 
     .then(_ifValueIsNot('sent', true, _render(req, res, 'auth/lostPassword')))
 
@@ -156,7 +165,13 @@ function resetPassword(req, res) {
   _verifyToken(services, { token: req.params.token, req })
     .then(_ifValueIs('valid', true, _render(req, res, 'auth/resetPassword')))
 
-    .then(_ifValueIsNot('resolved', true, _redirectToSignin(req, res, getLabel('resetLinkOutdated', req.lang))))
+    .then(
+      _ifValueIsNot(
+        'resolved',
+        true,
+        _redirectToSignin(req, res, getLabel('resetLinkOutdated', req.lang)),
+      ),
+    )
 
     .then(() => log('done'), cmn.catchError(req, res));
 }
@@ -167,12 +182,13 @@ async function updatePassword(services, values) {
   await _verifyToken(services, values);
 
   if (values.valid) {
-    const result = await usersSvc.findOne({ query: { id: values.loadedToken.userId }, detailed: true });
+    const result = await usersSvc.findOne({
+      query: { id: values.loadedToken.userId },
+      detailed: true,
+    });
 
     if (!result) {
       values.message = getLabel('userNotFound', values.req.lang);
-    } else if (!result.isActivated) {
-      values.message = getLabel('userNotActivated', values.req.lang);
     } else {
       values.user = result;
     }
@@ -190,7 +206,14 @@ async function updatePassword(services, values) {
       }
 
       try {
-        await usersSvc.changePassword(values.user.uid, { password: values.password });
+        await usersSvc.changePassword(values.user.uid, {
+          password: values.password,
+        });
+
+        if (!values.user.isActivated) {
+          log('activated user on password reset', { userUid: values.user.uid });
+          await usersSvc.activate(values.user.uid, {}, { ignoreToken: true });
+        }
 
         values.success = true;
       } catch (e) {
@@ -217,9 +240,17 @@ function resetPasswordSubmit(req, res) {
     password: req.body.password,
     repeat: req.body.repeat,
   })
-    .then(_ifValueIs('success', true, _redirectToSignin(req, res, getLabel('passwordUpdated', req.lang))))
+    .then(
+      _ifValueIs(
+        'success',
+        true,
+        _redirectToSignin(req, res, getLabel('passwordUpdated', req.lang)),
+      ),
+    )
 
-    .then(_ifValueIsNot('resolved', true, _render(req, res, 'auth/resetPassword')))
+    .then(
+      _ifValueIsNot('resolved', true, _render(req, res, 'auth/resetPassword')),
+    )
 
     .then(() => log('done'), cmn.catchError(req, res));
 }
@@ -227,7 +258,10 @@ function resetPasswordSubmit(req, res) {
 export default app => {
   const { sessions } = app.services;
 
-  const preMw = [cmn.loadBaseData('oa-main.css'), sessions.mw.ifLogged((req, res) => res.redirect(302, '/'))];
+  const preMw = [
+    cmn.loadBaseData('oa-main.css'),
+    sessions.mw.ifLogged((req, res) => res.redirect(302, '/')),
+  ];
 
   app.get('/password/lost', preMw, lostPassword);
   app.post('/password/lost', preMw, lostPasswordSubmit);
