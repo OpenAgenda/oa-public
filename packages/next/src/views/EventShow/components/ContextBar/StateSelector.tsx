@@ -16,6 +16,7 @@ import {
   Text,
 } from '@openagenda/uikit';
 import stateMessages from '@openagenda/common-labels/event/states';
+import { nl2br } from '@openagenda/react-shared';
 import StateTag from 'components/StateTag';
 import NotificationModal from 'components/NotificationModal';
 import { FaIcon } from 'icons';
@@ -147,10 +148,13 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
 
         <MenuList borderTopRadius="0" p="4">
           <div>{getContributorInfo(intl, event.state)}</div>
-          {event.state === -1 && event.motive ? (
-            <Text>
-              <b>{intl.formatMessage(messages.motive)}</b>: {event.motive}
-            </Text>
+          {event.state === -1 && event?.motive ? (
+            <>
+              <Text mt={2}>
+                <b>{intl.formatMessage(messages.motive)}:</b>
+              </Text>
+              <Text>{nl2br(event.motive)}</Text>
+            </>
           ) : null}
           <Button
             as={Link}

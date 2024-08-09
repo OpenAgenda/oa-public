@@ -73,7 +73,13 @@ export const Contributor = {
 
 export const ContributorRejectedEvent = {
   render: () => (
-    <Fixtures event={{ ...eventFixtures, state: -1, motive: 'TestMotive 😬' }}>
+    <Fixtures
+      event={{
+        ...eventFixtures,
+        state: -1,
+        motive: 'TestMotive 😬\n new line \n other lineS',
+      }}
+    >
       <ContextBar />
     </Fixtures>
   ),

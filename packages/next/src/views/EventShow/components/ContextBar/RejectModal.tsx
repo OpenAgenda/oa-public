@@ -9,6 +9,7 @@ import {
   ModalCloseButton,
   ModalFooter,
   Textarea,
+  Text,
   Button,
 } from '@openagenda/uikit';
 import { rejectModal as messages } from '../../messages';
@@ -28,10 +29,12 @@ export default function RejectModal({ setRefuseModal, changeState }) {
             },
           }}
         >
-          {intl.formatMessage(messages.rejectEvent)}
+          {intl.formatMessage(messages.confirmRejection)}
           <ModalCloseButton />
         </ModalHeader>
         <ModalBody>
+          <b>{intl.formatMessage(messages.motive)}</b>
+          <Text pb={2}>{intl.formatMessage(messages.motiveInfo)}</Text>
           <Textarea
             value={motive}
             onChange={e => setMotive(e.target.value)}
@@ -45,7 +48,7 @@ export default function RejectModal({ setRefuseModal, changeState }) {
                 setRefuseModal(false);
               }}
             >
-              {intl.formatMessage(messages.reject)}
+              {intl.formatMessage(messages.confirm)}
             </Button>
           </ModalFooter>
         </ModalBody>

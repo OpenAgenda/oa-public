@@ -765,22 +765,34 @@
       "value": "Liens additionnels:"
     }
   ],
+  "next.views.EventShow.rejectModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirmer"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirmRejection": [
+    {
+      "type": 0,
+      "value": "Confirmer le refus"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motive": [
+    {
+      "type": 0,
+      "value": "Motif"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motiveInfo": [
+    {
+      "type": 0,
+      "value": "Le motif sera présenté au contributeur dans la notification qui lui sera envoyé par mail ainsi que directement associé au status das la page de l'événement."
+    }
+  ],
   "next.views.EventShow.rejectModal.motivePlaceholder": [
     {
       "type": 0,
-      "value": "Raison du refus"
-    }
-  ],
-  "next.views.EventShow.rejectModal.reject": [
-    {
-      "type": 0,
-      "value": "Refuser l'événement"
-    }
-  ],
-  "next.views.EventShow.rejectModal.rejectEvent": [
-    {
-      "type": 0,
-      "value": "Refuser"
+      "value": "Motif du refus"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

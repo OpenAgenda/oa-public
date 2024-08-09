@@ -565,16 +565,25 @@ export const transferOwnershipModal = defineMessages({
 });
 
 export const rejectModal = defineMessages({
+  motive: {
+    id: 'next.views.EventShow.rejectModal.motive',
+    defaultMessage: 'Motive',
+  },
+  motiveInfo: {
+    id: 'next.views.EventShow.rejectModal.motiveInfo',
+    defaultMessage:
+      'The motive will be presented to the contributor in the notification sent to him by email as well as directly associated with the status on the event page.',
+  },
   motivePlaceholder: {
     id: 'next.views.EventShow.rejectModal.motivePlaceholder',
     defaultMessage: 'Motive for rejection',
   },
-  reject: {
-    id: 'next.views.EventShow.rejectModal.reject',
-    defaultMessage: 'Reject',
+  confirmRejection: {
+    id: 'next.views.EventShow.rejectModal.confirmRejection',
+    defaultMessage: 'Confirm rejection',
   },
-  rejectEvent: {
-    id: 'next.views.EventShow.rejectModal.rejectEvent',
-    defaultMessage: 'Reject event',
+  confirm: {
+    id: 'next.views.EventShow.rejectModal.confirm',
+    defaultMessage: 'Confirm',
   },
 });
