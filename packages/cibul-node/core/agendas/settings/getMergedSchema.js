@@ -17,9 +17,7 @@ async function loadFormSchema(formSchemas, formSchemaId) {
 }
 
 function dispatchSettingsInFields(services, agenda, schema) {
-  const {
-    registrations,
-  } = services;
+  const { registrations } = services;
 
   for (const field of schema.fields) {
     if (field.fieldType === 'events') {
@@ -27,7 +25,10 @@ function dispatchSettingsInFields(services, agenda, schema) {
       continue;
     }
 
-    if (field.field === 'registration' && agenda.settings?.registration?.passCulture) {
+    if (
+      field.field === 'registration'
+      && agenda.settings?.registration?.passCulture
+    ) {
       field.settings = {
         ...agenda.settings.registration,
         passCulture: {
@@ -48,9 +49,7 @@ function dispatchSettingsInFields(services, agenda, schema) {
 }
 
 export default async (services, agendaOrUid, options = {}) => {
-  const {
-    formSchemas,
-  } = services;
+  const { formSchemas } = services;
 
   const {
     preloadedNetwork = null,
@@ -66,12 +65,11 @@ export default async (services, agendaOrUid, options = {}) => {
     actingMember,
   } = options;
 
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  const agenda = _.isObject(agendaOrUid)
+    ? agendaOrUid
+    : await getAgenda(services, agendaOrUid);
 
-  const {
-    networkUid,
-    formSchemaId,
-  } = agenda;
+  const { networkUid, formSchemaId } = agenda;
 
   const network = preloadedNetwork || await getNetwork(services, networkUid);
 
@@ -81,9 +79,11 @@ export default async (services, agendaOrUid, options = {}) => {
     !!_.get(network, 'formSchemaId'),
   ).then(s => (s ? { ...s, type: 'agenda' } : s));
 
-  const networkSchema = network ? await formSchemas
-    .get(_.get(network, 'formSchemaId'))
-    .then(s => (s ? { ...s, type: 'network' } : s)) : null;
+  const networkSchema = network
+    ? await formSchemas
+      .get(_.get(network, 'formSchemaId'))
+      .then(s => (s ? { ...s, type: 'network' } : s))
+    : null;
 
   const mergeArgs = [networkSchema, formSchema];
 
@@ -108,31 +108,42 @@ export default async (services, agendaOrUid, options = {}) => {
 
   if (includeDateRange) {
     mergeArgs.push({
-      fields: [{
-        field: 'dateRange',
-        fieldType: 'text',
-      }],
+      fields: [
+        {
+          field: 'dateRange',
+          fieldType: 'text',
+        },
+      ],
     });
   }
 
   if (includeAgendaEvent) {
     mergeArgs.push({
-      fields: [{
-        field: 'state',
-        fieldType: 'abstract',
-      }, {
-        field: 'featured',
-        fieldType: 'abstract',
-      }],
+      fields: [
+        {
+          field: 'state',
+          fieldType: 'abstract',
+        },
+        {
+          field: 'featured',
+          fieldType: 'abstract',
+        },
+        {
+          field: 'motive',
+          fieldType: 'abstract',
+        },
+      ],
     });
   }
 
   if (includeOriginAgenda) {
     mergeArgs.push({
-      fields: [{
-        field: 'originAgenda',
-        fieldType: 'abstract',
-      }],
+      fields: [
+        {
+          field: 'originAgenda',
+          fieldType: 'abstract',
+        },
+      ],
     });
   }
 
@@ -142,11 +153,15 @@ export default async (services, agendaOrUid, options = {}) => {
 
   if (includeEvent) {
     log('returning schema with event for access %s', access);
-    return dispatchSettingsInFields(services, agenda, merge.schemasWithEvent(...mergeArgs, {
-      ...mergeOptions,
-      access,
-      includeNonDataFields,
-    }));
+    return dispatchSettingsInFields(
+      services,
+      agenda,
+      merge.schemasWithEvent(...mergeArgs, {
+        ...mergeOptions,
+        access,
+        includeNonDataFields,
+      }),
+    );
   }
 
   log('returning schema without event for access %s', access);
@@ -155,5 +170,9 @@ export default async (services, agendaOrUid, options = {}) => {
     mergeOptions.access = access;
   }
 
-  return dispatchSettingsInFields(services, agenda, merge.schemas(...mergeArgs, mergeOptions));
+  return dispatchSettingsInFields(
+    services,
+    agenda,
+    merge.schemas(...mergeArgs, mergeOptions),
+  );
 };
