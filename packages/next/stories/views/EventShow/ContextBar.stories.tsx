@@ -12,12 +12,8 @@ import eventFixtures from '../../fixtures/events/sample.json';
 export default {
   title: 'views/EventShow/ContextBar',
   component: ContextBar,
-  loaders: [
-    intlMessagesLoader(EventShow.fetchLocale),
-  ],
-  decorators: [
-    ProvidersDecorator,
-  ],
+  loaders: [intlMessagesLoader(EventShow.fetchLocale)],
+  decorators: [ProvidersDecorator],
 };
 
 function Fixtures({ event, children }) {
@@ -30,10 +26,11 @@ function Fixtures({ event, children }) {
       <SWRConfig
         value={{
           fallback: {
-            [`/api/agendas/slug/${agendaFixtures.slug}/events/slug/${event.slug}?longDescriptionFormat=HTMLWithEmbeds`]: {
-              success: true,
-              event,
-            },
+            [`/api/agendas/slug/${agendaFixtures.slug}/events/slug/${event.slug}?longDescriptionFormat=HTMLWithEmbeds`]:
+              {
+                success: true,
+                event,
+              },
           },
         }}
       >
@@ -54,19 +51,51 @@ export const Contributor = {
       handlers: [
         http.get(
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
-          () => HttpResponse.json({
-            me: {
-              member: {
-                uid: eventFixtures.ownerUid,
-                role: 'contributor',
+          () =>
+            HttpResponse.json({
+              me: {
+                member: {
+                  uid: eventFixtures.ownerUid,
+                  role: 'contributor',
+                },
+                authorizations: {
+                  canEditEvent: true,
+                  canChangeState: false,
+                  canPublishEvent: false,
+                },
               },
-              authorizations: {
-                canEditEvent: true,
-                canChangeState: false,
-                canPublishEvent: false,
+            }),
+        ),
+      ],
+    },
+  },
+};
+
+export const ContributorRejectedEvent = {
+  render: () => (
+    <Fixtures event={{ ...eventFixtures, state: -1, motive: 'TestMotive 😬' }}>
+      <ContextBar />
+    </Fixtures>
+  ),
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(
+          `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
+          () =>
+            HttpResponse.json({
+              me: {
+                member: {
+                  uid: eventFixtures.ownerUid,
+                  role: 'contributor',
+                },
+                authorizations: {
+                  canEditEvent: true,
+                  canChangeState: false,
+                  canPublishEvent: false,
+                },
               },
-            },
-          }),
+            }),
         ),
       ],
     },
@@ -84,18 +113,19 @@ export const Moderator = {
       handlers: [
         http.get(
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
-          () => HttpResponse.json({
-            me: {
-              member: {
-                role: 'moderator',
+          () =>
+            HttpResponse.json({
+              me: {
+                member: {
+                  role: 'moderator',
+                },
+                authorizations: {
+                  canEditEvent: true,
+                  canChangeState: true,
+                  canPublishEvent: true,
+                },
               },
-              authorizations: {
-                canEditEvent: true,
-                canChangeState: true,
-                canPublishEvent: true,
-              },
-            },
-          }),
+            }),
         ),
       ],
     },
@@ -113,18 +143,19 @@ export const Administrator = {
       handlers: [
         http.get(
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
-          () => HttpResponse.json({
-            me: {
-              member: {
-                role: 'administrator',
+          () =>
+            HttpResponse.json({
+              me: {
+                member: {
+                  role: 'administrator',
+                },
+                authorizations: {
+                  canEditEvent: true,
+                  canChangeState: true,
+                  canPublishEvent: true,
+                },
               },
-              authorizations: {
-                canEditEvent: true,
-                canChangeState: true,
-                canPublishEvent: true,
-              },
-            },
-          }),
+            }),
         ),
       ],
     },
@@ -142,18 +173,19 @@ export const InvalidEventOnStateChange = {
       handlers: [
         http.get(
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
-          () => HttpResponse.json({
-            me: {
-              member: {
-                role: 'administrator',
+          () =>
+            HttpResponse.json({
+              me: {
+                member: {
+                  role: 'administrator',
+                },
+                authorizations: {
+                  canEditEvent: true,
+                  canChangeState: true,
+                  canPublishEvent: true,
+                },
               },
-              authorizations: {
-                canEditEvent: true,
-                canChangeState: true,
-                canPublishEvent: true,
-              },
-            },
-          }),
+            }),
         ),
         http.patch(
           `/api/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,

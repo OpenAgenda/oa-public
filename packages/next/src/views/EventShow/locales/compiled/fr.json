@@ -209,6 +209,12 @@
       "value": "Les horaires de l'événement ont été modifié"
     }
   ],
+  "next.views.EventShow.ContextBar.motive": [
+    {
+      "type": 0,
+      "value": "Motif"
+    }
+  ],
   "next.views.EventShow.ContextBar.otherActions": [
     {
       "type": 0,
@@ -757,6 +763,24 @@
     {
       "type": 0,
       "value": "Liens additionnels:"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motivePlaceholder": [
+    {
+      "type": 0,
+      "value": "Raison du refus"
+    }
+  ],
+  "next.views.EventShow.rejectModal.reject": [
+    {
+      "type": 0,
+      "value": "Refuser l'événement"
+    }
+  ],
+  "next.views.EventShow.rejectModal.rejectEvent": [
+    {
+      "type": 0,
+      "value": "Refuser"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

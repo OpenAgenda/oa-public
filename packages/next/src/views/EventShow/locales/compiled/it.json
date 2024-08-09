@@ -209,6 +209,12 @@
       "value": "The timings of the event have been modified"
     }
   ],
+  "next.views.EventShow.ContextBar.motive": [
+    {
+      "type": 0,
+      "value": "Motive"
+    }
+  ],
   "next.views.EventShow.ContextBar.otherActions": [
     {
       "type": 0,
@@ -753,6 +759,24 @@
     {
       "type": 0,
       "value": "Altri link:"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motivePlaceholder": [
+    {
+      "type": 0,
+      "value": "Motive for rejection"
+    }
+  ],
+  "next.views.EventShow.rejectModal.reject": [
+    {
+      "type": 0,
+      "value": "Reject"
+    }
+  ],
+  "next.views.EventShow.rejectModal.rejectEvent": [
+    {
+      "type": 0,
+      "value": "Reject event"
     }
   ],
   "next.views.EventShow.sendAnEmail": [
