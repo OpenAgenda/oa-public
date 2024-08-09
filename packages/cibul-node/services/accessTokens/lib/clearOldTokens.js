@@ -20,14 +20,8 @@ export default async (knex, options = {}) => {
   );
   for (const token of oldTokens) {
     log.info(`Handling token ${token.id}, last updated at ${token.updated_at}`);
-    const nonces = await knex('access_token_nonce').where(
-      'access_token_id',
-      token.id,
-    );
-    log.info(`${nonces.length} nonces to delete`);
-    for (const nonce of nonces) {
-      await knex('access_token_nonce').where('id', nonce.id).del();
-    }
+    log.info('Deleting associated nonces');
+    await knex('access_token_nonce').where('access_token_id', token.id).del();
     await knex('access_token').where('id', token.id).del();
     log.info(`Removing token ${token.id}, last updated at ${token.updated_at}`);
     if (new Date() > maxDurationFromStart) {
