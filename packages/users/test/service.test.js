@@ -238,7 +238,7 @@ describe('methods', () => {
         detailed: true,
       });
 
-      expect(total).toBe(25);
+      expect(total).toBe(26);
       expect(users[0]).toMatchObject({
         isRemoved: false,
       });
@@ -250,7 +250,7 @@ describe('methods', () => {
         detailed: true,
       });
 
-      expect(total).toBe(26);
+      expect(total).toBe(27);
     });
   });
 
@@ -637,6 +637,13 @@ describe('methods', () => {
       });
 
       expect(validPassword).toBe(true);
+    });
+  });
+
+  describe('activate', () => {
+    it('activates without a token in hand', async () => {
+      const user = await service.activate(898928392, {}, { ignoreToken: true });
+      expect(user.isActivated).toBe(true);
     });
   });
 

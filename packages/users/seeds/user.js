@@ -787,5 +787,20 @@ exports.seed = async knex => {
       last_inbox_check: null,
       is_blacklisted: null,
     },
+    {
+      id: '1198391',
+      full_name: 'Gudlaug l\'inactive',
+      email: 'gud@laug.net',
+      culture: 'fr',
+      is_activated: '0',
+      main: null,
+      password: 'd347a7e8e804b4cc630cdeb43a14eef6e522a50c',
+      salt: 'OJOmvCd4V3GbHmaNzsVdotoaiQK2RS1E',
+      created_at: '2024-08-09 07:52:37',
+      updated_at: '2024-08-09 07:52:37',
+      is_removed: '0',
+      store: '{"ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"429":"429"},"p_order":"publication","p_passed":"1","announcement":false,"uid":"50306799"}',
+      uid: '898928392',
+    },
   ]);
 };

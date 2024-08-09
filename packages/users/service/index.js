@@ -241,9 +241,13 @@ class Users extends Service {
     return crypto.verifyPassword(user.password, password, user.salt);
   }
 
-  async activate(uid, data) {
+  async activate(uid, data = {}, options = {}) {
     const tokensSvc = await this.config.getTokensService();
     let user;
+
+    const {
+      ignoreToken = false,
+    } = options;
 
     if (uid) {
       user = await this.get(uid);
@@ -253,14 +257,14 @@ class Users extends Service {
       }
     }
 
-    const token = await tokensSvc.findOne({
+    const token = !ignoreToken ? await tokensSvc.findOne({
       query: {
         token: data.token,
         ...user ? { userId: user.id } : {},
       },
-    });
+    }) : null;
 
-    if (!token) {
+    if (!token && !ignoreToken) {
       throw new errors.NotFound('Token not found for `activate`');
     }
 
@@ -282,7 +286,9 @@ class Users extends Service {
       );
     }
 
-    await tokensSvc.remove(token.id);
+    if (token) {
+      await tokensSvc.remove(token.id);
+    }
 
     return user;
   }
