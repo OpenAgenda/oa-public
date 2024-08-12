@@ -124,7 +124,10 @@ export default (config, core, services) => {
     services.unsubscriptions.task();
   }
 
-  services.accessTokens.clearOldTokens();
+  tfy(services.accessTokens.clearOldTokens, {
+    period: 'daily',
+    time: '06:00',
+  });
 
   // services.eventSearch.rebuild();
   // services.eventSearch.transverse.rebuild();
