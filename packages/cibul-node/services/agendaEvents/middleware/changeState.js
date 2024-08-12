@@ -29,35 +29,42 @@ function doRedirect(req, res) {
 
 export default (req, res, next) => {
   const hasBody = typeis.hasBody(req);
-  const state = hasBody
-    ? req.body.state
-    : req.params.state;
+  const state = hasBody ? req.body.state : req.params.state;
+  const motive = hasBody ? req.body.motive : null;
 
-  req.app.services.core.agendas(req.agenda.uid).events.update(req.event.uid, {
-    state,
-  }, {
-    partial: true,
-    access: req.access,
-    private: null,
-    context: {
-      userUid: req.user.uid,
-    },
-  }).then(result => {
-    if (hasBody) {
-      return res.json(result);
-    }
+  req.app.services.core
+    .agendas(req.agenda.uid)
+    .events.update(
+      req.event.uid,
+      {
+        state,
+        motive,
+      },
+      {
+        partial: true,
+        access: req.access,
+        private: null,
+        context: {
+          userUid: req.user.uid,
+        },
+      },
+    )
+    .then(result => {
+      if (hasBody) {
+        return res.json(result);
+      }
 
-    res.redirect(
-      302,
-      req.query.redirect ? base64.decode(req.query.redirect) : `/${req.agenda.slug}/events/${req.event.slug}`,
-    );
-  }, next);
+      res.redirect(
+        302,
+        req.query.redirect
+          ? base64.decode(req.query.redirect)
+          : `/${req.agenda.slug}/events/${req.event.slug}`,
+      );
+    }, next);
 };
 
 export function batched(req, res, next) {
-  const {
-    sessions,
-  } = req.app.services;
+  const { sessions } = req.app.services;
   const stateSwitch = switches[req.body.state];
 
   if (!stateSwitch) {
@@ -66,24 +73,44 @@ export function batched(req, res, next) {
     return doRedirect(req, res);
   }
 
-  req.app.services.core.agendas(req.agenda.uid).events.batch('update', {
-    state: stateSwitch[0],
-  }, {
-    state: stateSwitch[1],
-  }, {
-    partial: true,
-    access: req.access,
-    context: {
-      userUid: req.user.uid,
-    },
-  }).then(() => {
-    req.log.info('changing state of agenda events from %s to %s', labels[stateSwitch[0]], labels[stateSwitch[1]]);
+  req.app.services.core
+    .agendas(req.agenda.uid)
+    .events.batch(
+      'update',
+      {
+        state: stateSwitch[0],
+      },
+      {
+        state: stateSwitch[1],
+      },
+      {
+        partial: true,
+        access: req.access,
+        context: {
+          userUid: req.user.uid,
+        },
+      },
+    )
+    .then(() => {
+      req.log.info(
+        'changing state of agenda events from %s to %s',
+        labels[stateSwitch[0]],
+        labels[stateSwitch[1]],
+      );
 
-    sessions.setFlash(req, res, getActionLabel('actionsInProcess', {
-      oldstate: `<strong>${getStatelabel(labels[stateSwitch[0]], req.lang)}</strong>`,
-      newstate: `<strong>${getStatelabel(labels[stateSwitch[1]], req.lang)}</strong>`,
-    }, req.lang));
+      sessions.setFlash(
+        req,
+        res,
+        getActionLabel(
+          'actionsInProcess',
+          {
+            oldstate: `<strong>${getStatelabel(labels[stateSwitch[0]], req.lang)}</strong>`,
+            newstate: `<strong>${getStatelabel(labels[stateSwitch[1]], req.lang)}</strong>`,
+          },
+          req.lang,
+        ),
+      );
 
-    doRedirect(req, res);
-  }, next);
+      doRedirect(req, res);
+    }, next);
 }
