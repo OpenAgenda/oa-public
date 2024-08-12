@@ -4,7 +4,7 @@ const MAX_ATTEMPTS = 1000;
 
 module.exports = async (service, field, valueGenerator) => {
   const {
-    client: { knex },
+    clients: { knex },
     config: { schema },
   } = service;
   let attempts = 0;

@@ -34,4 +34,4 @@ CREATE TABLE `${schema}` (
   INDEX agenda_uid_idx (agenda_uid),
   INDEX owner_uid_idx (owner_uid),
   INDEX location_uid_idx (location_uid)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) engine=InnoDB default character set utf8mb4 collate utf8mb4_0900_ai_ci;
