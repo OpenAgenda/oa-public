@@ -35,7 +35,9 @@ function padTo2Digits(num: number) {
 function formatDateToGoogleCalendar(date: Date) {
   // eslint-disable-next-line prefer-template
   return `${
-    date.getUTCFullYear() + padTo2Digits(date.getUTCMonth() + 1) + padTo2Digits(date.getUTCDate())
+    date.getUTCFullYear()
+    + padTo2Digits(date.getUTCMonth() + 1)
+    + padTo2Digits(date.getUTCDate())
   }T${padTo2Digits(date.getUTCHours())}${padTo2Digits(date.getUTCMinutes())}${padTo2Digits(date.getUTCSeconds())}Z`;
 }
 
@@ -43,7 +45,15 @@ function isOnline(event) {
   return event.attendanceMode !== 1;
 }
 
-function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLocale, intl }) {
+function getImportUrl({
+  service,
+  agenda,
+  event,
+  eventUrl,
+  timingIndex,
+  contentLocale,
+  intl,
+}) {
   if (timingIndex === '') {
     return null;
   }
@@ -53,7 +63,9 @@ function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLo
   const end = new Date(timing.end);
 
   const location = encodeURIComponent(
-    isOnline(event) ? intl.formatMessage(messages.online) : `${event.location.name} - ${event.location.address}`,
+    isOnline(event)
+      ? intl.formatMessage(messages.online)
+      : `${event.location.name} - ${event.location.address}`,
   );
 
   switch (service) {
@@ -98,11 +110,14 @@ function getImportUrl({ service, agenda, event, eventUrl, timingIndex, contentLo
   }
 }
 
-async function sendEmails(url, { arg }: { arg: string[] }): Promise<{ count: number }> {
+async function sendEmails(
+  url,
+  { arg }: { arg: string[] },
+): Promise<{ count: number }> {
   return ky
     .post(url, {
       json: {
-        mailsend: arg.join(';'),
+        mailsend: arg.map(({ email }) => email).join(';'),
       },
     })
     .json();
@@ -120,7 +135,9 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
 
   const now = new Date();
 
-  const currentAndUpcomingTimings = event.timings.filter(timing => new Date(timing.begin) > now);
+  const currentAndUpcomingTimings = event.timings.filter(
+    timing => new Date(timing.begin) > now,
+  );
 
   const [selectedTimingIndex, setSelectedTimingIndex] = useState(() =>
     (currentAndUpcomingTimings.length === 1 ? '0' : ''));
@@ -145,12 +162,16 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
 
   const emails = useMemo(() => extractEmails(emailValue), [emailValue]);
 
-  const { trigger, isMutating } = useSWRMutation(`/${agenda.slug}/events/${event.uid}/email`, sendEmails, {
-    onSuccess(data) {
-      onClose();
-      onEmailSent(data.count);
+  const { trigger, isMutating } = useSWRMutation(
+    `/${agenda.slug}/events/${event.uid}/email`,
+    sendEmails,
+    {
+      onSuccess(data) {
+        onClose();
+        onEmailSent(data.count);
+      },
     },
-  });
+  );
 
   const [copied, setCopied] = useState(false);
 
@@ -238,9 +259,16 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
               if (new Date(timing.begin) < now) return null;
               return (
                 <option key={timing.begin} value={index}>
-                  {formatInTimeZone(timing.begin, event.timezone, 'PPPP, HH:mm', { locale: dateFnsLocale })}
+                  {formatInTimeZone(
+                    timing.begin,
+                    event.timezone,
+                    'PPPP, HH:mm',
+                    { locale: dateFnsLocale },
+                  )}
                   &nbsp;-&nbsp;
-                  {formatInTimeZone(timing.end, event.timezone, 'HH:mm', { locale: dateFnsLocale })}
+                  {formatInTimeZone(timing.end, event.timezone, 'HH:mm', {
+                    locale: dateFnsLocale,
+                  })}
                 </option>
               );
             })}
@@ -297,7 +325,9 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
               size="sm"
               mx="1"
               onClick={async () => {
-                const success = await copyText(process.env.NEXT_PUBLIC_ROOT + router.asPath);
+                const success = await copyText(
+                  process.env.NEXT_PUBLIC_ROOT + router.asPath,
+                );
                 if (success) setCopied(true);
               }}
             >
