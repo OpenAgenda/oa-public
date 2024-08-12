@@ -3,8 +3,10 @@
 const MAX_ATTEMPTS = 1000;
 
 module.exports = async (service, field, valueGenerator) => {
-  const knex = service.clients.knex;
-  const schema = service.config.schema;
+  const {
+    clients: { knex },
+    config: { schema },
+  } = service;
   let attempts = 0;
   let previous;
 
@@ -16,8 +18,8 @@ module.exports = async (service, field, valueGenerator) => {
     }
 
     previous = value;
-    attempts++;
+    attempts += 1;
   } while (attempts <= MAX_ATTEMPTS);
 
-  throw new Error('Failed to defined new ' + field);
-}
+  throw new Error(`Failed to defined new ${field}`);
+};
