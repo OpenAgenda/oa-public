@@ -101,6 +101,18 @@ describe('agendaEvents - 01 - functional (server): list', () => {
     ]);
   });
 
+  it('list provides motive on detailed call', async () => {
+    const { items } = await svc(62792452).list(
+      { state: states.REFUSED },
+      0,
+      10,
+    );
+
+    expect(items.find(ae => ae.eventUid === 22175636).motive).toBe(
+      '╚(ಠ_ಠ)=┐',
+    );
+  });
+
   it('list filtered by state using code in query', async () => {
     const result = await svc(62792452).list(
       {
@@ -248,6 +260,7 @@ describe('agendaEvents - 01 - functional (server): list', () => {
       'legacyId',
       'createdAt',
       'updatedAt',
+      'motive',
     ]);
   });
 });

@@ -209,6 +209,12 @@
       "value": "Les horaires de l'événement ont été modifié"
     }
   ],
+  "next.views.EventShow.ContextBar.motive": [
+    {
+      "type": 0,
+      "value": "Motif"
+    }
+  ],
   "next.views.EventShow.ContextBar.otherActions": [
     {
       "type": 0,
@@ -757,6 +763,36 @@
     {
       "type": 0,
       "value": "Liens additionnels:"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirmer"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirmRejection": [
+    {
+      "type": 0,
+      "value": "Confirmer le refus"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motive": [
+    {
+      "type": 0,
+      "value": "Motif"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motiveInfo": [
+    {
+      "type": 0,
+      "value": "Le motif sera présenté au contributeur dans la notification qui lui sera envoyée par email et sera visible sur la fiche événement."
+    }
+  ],
+  "next.views.EventShow.rejectModal.motivePlaceholder": [
+    {
+      "type": 0,
+      "value": "Votre événement ne correspond pas au critères..."
     }
   ],
   "next.views.EventShow.sendAnEmail": [

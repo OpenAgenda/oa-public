@@ -67,12 +67,24 @@ const fields = {
   updatedAt: {
     type: 'date',
   },
+  motive: {
+    type: 'text',
+    max: 1000,
+    optional: true,
+  },
 };
 
 const validate = schema(fields);
 
 const internalValidateData = schema(
-  _.pick(fields, ['state', 'featured', 'userUid', 'sourcePaths', 'aggregated']),
+  _.pick(fields, [
+    'state',
+    'featured',
+    'userUid',
+    'sourcePaths',
+    'aggregated',
+    'motive',
+  ]),
 );
 
 function _pickSetFields(preCleaned) {
@@ -86,7 +98,7 @@ function _postClean(v, c, { optionalSecondaryFields }) {
 
   return _.omit(
     c,
-    ['state', 'featured', 'sourcePaths', 'aggregated'].filter(
+    ['state', 'featured', 'sourcePaths', 'aggregated', 'motive'].filter(
       f => _.get(v, f, null) === null,
     ),
   );
@@ -95,7 +107,9 @@ function _postClean(v, c, { optionalSecondaryFields }) {
 function _preClean(v) {
   if (!_.isObject(v)) return v;
 
-  const update = {};
+  const update = {
+    $unset: [],
+  };
 
   if (v.state !== undefined) {
     try {
@@ -108,7 +122,7 @@ function _preClean(v) {
   }
 
   if (v.sourceAgendaUid) {
-    update.$unset = ['sourceAgendaUid'];
+    update.$unset.push('sourceAgendaUid');
     try {
       update.sourcePaths = {
         $set: JSON.parse(v.sourceAgendaUid),
@@ -116,6 +130,10 @@ function _preClean(v) {
     } catch (e) {
       /* e */
     }
+  }
+
+  if (v.motive && v.state !== -1) {
+    update.$unset.push('motive');
   }
 
   return ih(v, update);

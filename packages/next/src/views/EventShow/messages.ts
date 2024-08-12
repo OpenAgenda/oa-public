@@ -82,11 +82,13 @@ export const contextBar = defineMessages({
   },
   transferOwnershipDescription: {
     id: 'next.views.EventShow.ContextBar.transferOwnershipDescription',
-    defaultMessage: 'Hand over ownership of the event to another member of the agenda',
+    defaultMessage:
+      'Hand over ownership of the event to another member of the agenda',
   },
   transferOwnershipDescriptionDisabled: {
     id: 'next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled',
-    defaultMessage: 'Transferring ownership is only possible if you have edition rights over the event',
+    defaultMessage:
+      'Transferring ownership is only possible if you have edition rights over the event',
   },
   featuredInfo: {
     id: 'next.views.EventShow.ContextBar.featuredInfo',
@@ -98,7 +100,8 @@ export const contextBar = defineMessages({
   },
   duplicateInfo: {
     id: 'next.views.EventShow.ContextBar.duplicateInfo',
-    defaultMessage: 'Load a new event form pre-filled with the details from this event',
+    defaultMessage:
+      'Load a new event form pre-filled with the details from this event',
   },
   clearStatus: {
     id: 'next.views.EventShow.ContextBar.clearStatus',
@@ -122,7 +125,8 @@ export const contextBar = defineMessages({
   },
   markAsMovedOnlineStatus: {
     id: 'next.views.EventShow.ContextBar.markAsMovedOnlineStatus',
-    defaultMessage: 'The event will no longer be attended to at a physical location',
+    defaultMessage:
+      'The event will no longer be attended to at a physical location',
   },
   markAsPostponed: {
     id: 'next.views.EventShow.ContextBar.markAsPostponed',
@@ -199,11 +203,13 @@ export const contextBar = defineMessages({
   },
   refusedInfo: {
     id: 'next.views.EventShow.ContextBar.refusedInfo',
-    defaultMessage: 'This event is not compatible with the agenda and should not be published',
+    defaultMessage:
+      'This event is not compatible with the agenda and should not be published',
   },
   toModerateInfo: {
     id: 'next.views.EventShow.ContextBar.toModerateInfo',
-    defaultMessage: 'This event needs to be verified and is not ready for publication',
+    defaultMessage:
+      'This event needs to be verified and is not ready for publication',
   },
   readyToPublishInfo: {
     id: 'next.views.EventShow.ContextBar.readyToPublishInfo',
@@ -215,15 +221,18 @@ export const contextBar = defineMessages({
   },
   refusedContributorInfo: {
     id: 'next.views.EventShow.ContextBar.refusedContributorInfo',
-    defaultMessage: 'This event has been rejected by agenda administrators and will not be published.',
+    defaultMessage:
+      'This event has been rejected by agenda administrators and will not be published.',
   },
   toModerateContributorInfo: {
     id: 'next.views.EventShow.ContextBar.toModerateContributorInfo',
-    defaultMessage: 'This event will be verified by administrators prior to its publication.',
+    defaultMessage:
+      'This event will be verified by administrators prior to its publication.',
   },
   readyToPublishContributorInfo: {
     id: 'next.views.EventShow.ContextBar.readyToPublishContributorInfo',
-    defaultMessage: 'This event has been validated by moderators. It will be published without further changes.',
+    defaultMessage:
+      'This event has been validated by moderators. It will be published without further changes.',
   },
   publishedContributorInfo: {
     id: 'next.views.EventShow.ContextBar.publishedContributorInfo',
@@ -241,6 +250,10 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.invalidEventMessage',
     defaultMessage:
       'Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda.',
+  },
+  motive: {
+    id: 'next.views.EventShow.ContextBar.motive',
+    defaultMessage: 'Motive',
   },
 });
 
@@ -394,7 +407,8 @@ export const emailConfirmationAlert = defineMessages({
   },
   shareEventInfo: {
     id: 'next.views.EventShow.EmailConfirmationAlert.shareEventInfo',
-    defaultMessage: 'The event was sent to {count, plural, one {# email address} other {# email addresses}}.',
+    defaultMessage:
+      'The event was sent to {count, plural, one {# email address} other {# email addresses}}.',
   },
   close: {
     id: 'next.views.EventShow.EmailConfirmationAlert.close',
@@ -547,5 +561,29 @@ export const transferOwnershipModal = defineMessages({
   close: {
     id: 'next.views.EventShow.transferOwnershipModal.close',
     defaultMessage: 'Close',
+  },
+});
+
+export const rejectModal = defineMessages({
+  motive: {
+    id: 'next.views.EventShow.rejectModal.motive',
+    defaultMessage: 'Motive',
+  },
+  motiveInfo: {
+    id: 'next.views.EventShow.rejectModal.motiveInfo',
+    defaultMessage:
+      'The motive will be presented to the contributor in the notification sent to him by email as well as directly associated with the status on the event page.',
+  },
+  motivePlaceholder: {
+    id: 'next.views.EventShow.rejectModal.motivePlaceholder',
+    defaultMessage: 'Motive for rejection',
+  },
+  confirmRejection: {
+    id: 'next.views.EventShow.rejectModal.confirmRejection',
+    defaultMessage: 'Confirm rejection',
+  },
+  confirm: {
+    id: 'next.views.EventShow.rejectModal.confirm',
+    defaultMessage: 'Confirm',
   },
 });

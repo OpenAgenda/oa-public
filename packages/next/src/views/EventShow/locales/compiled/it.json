@@ -209,6 +209,12 @@
       "value": "The timings of the event have been modified"
     }
   ],
+  "next.views.EventShow.ContextBar.motive": [
+    {
+      "type": 0,
+      "value": "Motive"
+    }
+  ],
   "next.views.EventShow.ContextBar.otherActions": [
     {
       "type": 0,
@@ -753,6 +759,36 @@
     {
       "type": 0,
       "value": "Altri link:"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirm"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirmRejection": [
+    {
+      "type": 0,
+      "value": "Confirm rejection"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motive": [
+    {
+      "type": 0,
+      "value": "Motive"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motiveInfo": [
+    {
+      "type": 0,
+      "value": "The motive will be presented to the contributor in the notification sent to him by email as well as directly associated with the status on the event page."
+    }
+  ],
+  "next.views.EventShow.rejectModal.motivePlaceholder": [
+    {
+      "type": 0,
+      "value": "Motive for rejection"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

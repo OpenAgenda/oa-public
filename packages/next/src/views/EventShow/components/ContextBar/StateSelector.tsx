@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useIntl } from 'react-intl';
 import {
   chakra,
@@ -13,8 +13,10 @@ import {
   useDisclosure,
   useBreakpointValue,
   Link,
+  Text,
 } from '@openagenda/uikit';
 import stateMessages from '@openagenda/common-labels/event/states';
+import { nl2br } from '@openagenda/react-shared';
 import StateTag from 'components/StateTag';
 import NotificationModal from 'components/NotificationModal';
 import { FaIcon } from 'icons';
@@ -23,6 +25,7 @@ import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import { contextBar as messages } from '../../messages';
 import ContextBarButton from './ContextBarButton';
+import RejectModal from './RejectModal';
 import { fullWidth } from './popperModifiers';
 
 const stateMap = {
@@ -57,44 +60,50 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const {
-    canChangeState = false,
-    canPublish = false,
-  } = me?.authorizations ?? {};
+  const { canChangeState = false, canPublish = false } = me?.authorizations ?? {};
 
   const invalidEventModal = useDisclosure();
 
-  const changeState = useCallback((state: number) => {
-    const optimisticResponse = {
-      success: true,
-      event: {
-        ...event,
-        state,
-      },
-    };
+  const [refuseModal, setRefuseModal] = useState(false);
 
-    mutate(async () => fetch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ state }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then(response => {
-      if (response.ok) {
-        return optimisticResponse;
-      }
-      if (response.status === 400) {
-        invalidEventModal.onOpen();
-        return;
-      }
-      throw new Error('Error');
-    }), {
-      optimisticData: optimisticResponse,
-      revalidate: false,
-    }).catch(e => {
-      console.log('UPDATE STATE ERROR', e);
-    });
-  }, [invalidEventModal, event, mutate, agenda]);
+  const changeState = useCallback(
+    (state: number, motive: string = null) => {
+      const optimisticResponse = {
+        success: true,
+        event: {
+          ...event,
+          state,
+        },
+      };
+
+      mutate(
+        async () =>
+          fetch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ state, motive }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).then(response => {
+            if (response.ok) {
+              return optimisticResponse;
+            }
+            if (response.status === 400) {
+              invalidEventModal.onOpen();
+              return;
+            }
+            throw new Error('Error');
+          }),
+        {
+          optimisticData: optimisticResponse,
+          revalidate: false,
+        },
+      ).catch(e => {
+        console.log('UPDATE STATE ERROR', e);
+      });
+    },
+    [invalidEventModal, event, mutate, agenda],
+  );
 
   const stateLabel = (
     <>
@@ -109,7 +118,7 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
       <Menu
         matchWidth
         gutter={0}
-        modifiers={isMobile ? fullWidth as any : null}
+        modifiers={isMobile ? (fullWidth as any) : null}
       >
         <Tooltip label={stateLabel} isDisabled={!isMobile}>
           <MenuButton
@@ -117,8 +126,15 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
             rightIcon={<FaIcon icon={faChevronDown} />}
           >
             {/* Adds Flex because MenuButton adds a span that shifts the elements */}
-            <Flex as="span" align="center" justify={{ base: 'center', md: 'start' }}>
-              <StateTag state={event.state} marginEnd={{ base: 'none', md: '0.5rem' }} />
+            <Flex
+              as="span"
+              align="center"
+              justify={{ base: 'center', md: 'start' }}
+            >
+              <StateTag
+                state={event.state}
+                marginEnd={{ base: 'none', md: '0.5rem' }}
+              />
               {!isMobile ? (
                 <>
                   {intl.formatMessage(messages.state)}
@@ -131,9 +147,15 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
         </Tooltip>
 
         <MenuList borderTopRadius="0" p="4">
-          <div>
-            {getContributorInfo(intl, event.state)}
-          </div>
+          <div>{getContributorInfo(intl, event.state)}</div>
+          {event.state === -1 && event?.motive ? (
+            <>
+              <Text mt={2}>
+                <b>{intl.formatMessage(messages.motive)}:</b>
+              </Text>
+              <Text>{nl2br(event.motive)}</Text>
+            </>
+          ) : null}
           <Button
             as={Link}
             href={`/${agenda.slug}/events/${event.slug}/contact`}
@@ -151,7 +173,7 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
     <Menu
       matchWidth
       gutter={0}
-      modifiers={isMobile ? fullWidth as any : null}
+      modifiers={isMobile ? (fullWidth as any) : null}
     >
       <Tooltip label={stateLabel} isDisabled={!isMobile}>
         <MenuButton
@@ -168,7 +190,7 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
       </Tooltip>
       <Portal>
         <MenuList borderTopRadius="0">
-          <MenuItem onClick={() => changeState(-1)}>
+          <MenuItem onClick={() => setRefuseModal(true)}>
             <StateTag state="refused" mr="2" />
             <Flex direction="column">
               <b>{intl.formatMessage(stateMessages.refused)}</b>
@@ -207,6 +229,12 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
           onAction={() => {
             window.location.href = editLink;
           }}
+        />
+      ) : null}
+      {refuseModal ? (
+        <RejectModal
+          setRefuseModal={setRefuseModal}
+          changeState={r => changeState(-1, r)}
         />
       ) : null}
     </Menu>

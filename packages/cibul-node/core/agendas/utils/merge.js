@@ -7,17 +7,21 @@ import getAddMethod from './getAddMethod.js';
 
 const log = logs('core/agendas/utils/merge');
 
-const { utils: { merge } } = formSchemas;
-const { utils: { getSchema: getLocationSchema } } = agendaLocations;
+const {
+  utils: { merge },
+} = formSchemas;
+const {
+  utils: { getSchema: getLocationSchema },
+} = agendaLocations;
 
-function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {}) {
-  const {
-    originAgenda,
-    includeFields,
-    member,
-    user,
-    load,
-  } = {
+function mergeEvent(
+  event,
+  agendaEvent,
+  networkCustom,
+  agendaCustom,
+  options = {},
+) {
+  const { originAgenda, includeFields, member, user, load } = {
     includeFields: null,
     originAgenda: null,
     member: null,
@@ -52,22 +56,34 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
 
   let updatedAtOrigin = 'event';
 
-  if (event?.location?.updatedAt && event.updatedAt < event.location?.updatedAt) {
+  if (
+    event?.location?.updatedAt
+    && event.updatedAt < event.location?.updatedAt
+  ) {
     compiled.updatedAt = event.location.updatedAt;
     updatedAtOrigin = 'location';
   }
 
-  [networkCustom, agendaCustom].filter(d => !!d).forEach(data => {
-    Object.keys(data).forEach(field => {
-      if (includeFields && !includeFields.includes(field)) {
-        return;
-      }
-      compiled[field] = data[field];
+  [networkCustom, agendaCustom]
+    .filter(d => !!d)
+    .forEach(data => {
+      Object.keys(data).forEach(field => {
+        if (includeFields && !includeFields.includes(field)) {
+          return;
+        }
+        compiled[field] = data[field];
+      });
     });
-  });
 
   if (agendaEvent && load.agendaEvent) {
-    ['state', 'featured', 'sourcePaths', 'aggregated', 'canEdit'].forEach(aeField => {
+    [
+      'state',
+      'featured',
+      'sourcePaths',
+      'aggregated',
+      'canEdit',
+      'motive',
+    ].forEach(aeField => {
       compiled[aeField] = agendaEvent[aeField];
     });
 
@@ -126,7 +142,9 @@ function appendLocationSchema(schema, options = {}) {
 function schemas(...args) {
   const mergeOptions = args && args.length ? args[args.length - 1] : {};
   const { includeLocationLegacyAdminLevels } = mergeOptions;
-  return appendLocationSchema(merge(...args), { includeLocationLegacyAdminLevels });
+  return appendLocationSchema(merge(...args), {
+    includeLocationLegacyAdminLevels,
+  });
 }
 
 function schemasWithEvent(...args) {
@@ -141,24 +159,33 @@ function schemasWithEvent(...args) {
 
   if (memberSchema) {
     schemaExtensions.push({
-      fields: [{
-        field: 'member',
-        read: ['administrator', 'moderator', 'internal'],
-        fieldType: 'abstract',
-        schema: memberSchema,
-      }],
+      fields: [
+        {
+          field: 'member',
+          read: ['administrator', 'moderator', 'internal'],
+          fieldType: 'abstract',
+          schema: memberSchema,
+        },
+      ],
     });
   }
 
   if (includeAgendaEvent) {
     schemaExtensions.push({
-      fields: [{
-        field: 'state',
-        fieldType: 'abstract',
-      }, {
-        field: 'featured',
-        fieldType: 'abstract',
-      }],
+      fields: [
+        {
+          field: 'state',
+          fieldType: 'abstract',
+        },
+        {
+          field: 'featured',
+          fieldType: 'abstract',
+        },
+        {
+          field: 'motive',
+          fieldType: 'abstract',
+        },
+      ],
     });
   }
 
@@ -172,14 +199,7 @@ function schemasWithEvent(...args) {
   );
 }
 
-function eventFromObject(
-  {
-    event,
-    agendaEvent,
-    custom,
-  },
-  options = {},
-) {
+function eventFromObject({ event, agendaEvent, custom }, options = {}) {
   return mergeEvent(
     event,
     agendaEvent,
@@ -189,9 +209,4 @@ function eventFromObject(
   );
 }
 
-export {
-  mergeEvent as event,
-  schemas,
-  schemasWithEvent,
-  eventFromObject,
-};
+export { mergeEvent as event, schemas, schemasWithEvent, eventFromObject };

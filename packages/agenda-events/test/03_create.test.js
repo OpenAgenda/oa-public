@@ -189,4 +189,13 @@ describe('agendaEvents - 03 - functional (server): create', () => {
 
     expect(created.canEdit).toBe(true);
   });
+
+  it('creating refused ref with motive', async () => {
+    const { created } = await svc(1212).create(38923893, {
+      state: -1,
+      motive: 'Hopopop',
+    });
+
+    expect(created.motive).toBe('Hopopop');
+  });
 });

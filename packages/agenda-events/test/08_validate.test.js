@@ -35,6 +35,7 @@ describe('agendaEvents - functional (server): validation', () => {
       userUid: null,
       sourcePaths: [],
       aggregated: null,
+      motive: null,
     });
   });
 
@@ -45,6 +46,7 @@ describe('agendaEvents - functional (server): validation', () => {
       'userUid',
       'sourcePaths',
       'aggregated',
+      'motive',
     ]);
   });
 
@@ -59,6 +61,7 @@ describe('agendaEvents - functional (server): validation', () => {
       userUid: null,
       sourcePaths: [],
       aggregated: null,
+      motive: null,
     });
   });
 
@@ -86,6 +89,35 @@ describe('agendaEvents - functional (server): validation', () => {
       ),
     ).toEqual({
       state: 0,
+    });
+  });
+
+  it('motive is removed if state is not refused', () => {
+    expect(
+      svc.validate(
+        {
+          state: 0,
+          motive: "I don't wanna",
+        },
+        { partial: true },
+      ),
+    ).toEqual({
+      state: 0,
+    });
+  });
+
+  it('motive is maintained if state is refused', () => {
+    expect(
+      svc.validate(
+        {
+          state: -1,
+          motive: 'Ah non. Non non non.',
+        },
+        { partial: true },
+      ),
+    ).toEqual({
+      motive: 'Ah non. Non non non.',
+      state: -1,
     });
   });
 });

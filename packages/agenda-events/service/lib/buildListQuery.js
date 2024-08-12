@@ -46,6 +46,7 @@ function buildListQuery(service, query, nav, options = {}) {
     'user_uid',
     'can_edit',
     'state',
+    'motive',
     'aggregated',
     'featured',
     'updated_at',

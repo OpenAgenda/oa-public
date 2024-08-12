@@ -1,5 +1,5 @@
 {
-  "base" : [
+  "base": [
     "uid",
     "title",
     "description",
@@ -26,7 +26,7 @@
     "lastTiming",
     "nextTiming"
   ],
-  "detailed" : [
+  "detailed": [
     "longDescription",
     "conditions",
     "html",
@@ -45,6 +45,7 @@
     "draft",
     "age",
     "state",
+    "motive",
     "member",
     "links"
   ],

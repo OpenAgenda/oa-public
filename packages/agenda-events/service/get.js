@@ -14,6 +14,7 @@ async function _get(client, where) {
       'user_uid',
       'source_agenda_uid',
       'state',
+      'motive',
       'can_edit',
       'featured',
       'aggregated',

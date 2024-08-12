@@ -180,7 +180,7 @@ describe('agendaEvents - 04 - functional (server): update', () => {
 
     it('context can be passed in options to be transfered to onUpdate interface', () =>
       new Promise(rs => {
-        svc = Service(
+        const otherSvc = Service(
           ih(config, {
             interfaces: {
               onUpdate: {
@@ -193,7 +193,7 @@ describe('agendaEvents - 04 - functional (server): update', () => {
           }),
         );
 
-        svc(62792452).update(
+        otherSvc(62792452).update(
           10974548,
           { featured: true },
           {
@@ -209,5 +209,20 @@ describe('agendaEvents - 04 - functional (server): update', () => {
           },
         );
       }));
+
+    it('update ref to refuse and set motive', async () => {
+      const result = await svc(62792452).update(10974548, {
+        state: -1,
+        motive: 'Tsk tsk',
+      });
+
+      expect(result.updated.motive).toBe('Tsk tsk');
+      const row = await knexClient('agenda_event').first().where({
+        agenda_uid: 62792452,
+        event_uid: 10974548,
+      });
+
+      expect(row.motive).toBe('Tsk tsk');
+    });
   });
 });
