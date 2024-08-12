@@ -34,9 +34,15 @@ export default services =>
 
     for (const eventUid of uids) {
       // update search indices
-      const relatedReferences = await agendaEvents.list.byEventUid(eventUid).then(({ items }) => items);
+      const relatedReferences = await agendaEvents.list
+        .byEventUid(eventUid)
+        .then(({ items }) => items);
 
-      log('found %s references for event %s', relatedReferences.length, eventUid);
+      log(
+        'found %s references for event %s',
+        relatedReferences.length,
+        eventUid,
+      );
 
       for (const ae of relatedReferences) {
         const { agendaUid } = ae;
@@ -45,7 +51,14 @@ export default services =>
         try {
           await core.agendas(agendaUid).events.search.resyncEvent(eventUid);
         } catch (error) {
-          log.error('failed to resync event', { eventUid, agendaUid, error });
+          if (error.name === 'NotFound') {
+            log.error(
+              'failed to retrieve agenda matching evaluated agendaEvent ref',
+              { error, agendaUid, eventUid },
+            );
+          } else {
+            log.error('failed to resync event', { eventUid, agendaUid, error });
+          }
         }
 
         if (!impactedAgendaUids.includes(agendaUid)) {
