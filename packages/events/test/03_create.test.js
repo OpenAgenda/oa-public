@@ -440,6 +440,12 @@ describe('events - functional - create', () => {
       ).toBe('number');
     });
 
+    it('slug from title containing unhandled characters provides randomized result of same length', async () => {
+      const title = '🍽 𝗟𝗔 𝗡𝗢𝗖𝗧𝗨𝗥𝗡𝗘 𝗚𝗢𝗨𝗥𝗠𝗔𝗡𝗗𝗘 🌙';
+      const draft = await svc.create({ title }, { draft: true });
+      expect(draft.slug.length).toBe(title.length);
+    });
+
     it('draft create does not required title to be specified', async () => {
       const event = await svc.create(
         {
