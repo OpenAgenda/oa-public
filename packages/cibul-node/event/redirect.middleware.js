@@ -3,7 +3,9 @@ import _ from 'lodash';
 import { NotFound } from '@openagenda/verror';
 import unserialize from 'locutus/php/var/unserialize.js';
 
-const redirectTemplate = _.template(readFileSync(`${import.meta.dirname}/redirect.tpl`, 'utf-8'));
+const redirectTemplate = _.template(
+  readFileSync(`${import.meta.dirname}/redirect.tpl`, 'utf-8'),
+);
 
 function render(config, req, res) {
   res.send(
@@ -43,7 +45,9 @@ function loadFacebookMetas(config, req, res, next) {
   if (_.get(req, 'event.image.filename')) {
     req.metas.push({
       property: 'og:image',
-      content: _.get(req, 'event.image.base').replace('cibuldev', 'cibul') + _.get(req, 'event.image.filename'),
+      content:
+        _.get(req, 'event.image.base').replace('cibuldev', 'cibul')
+        + _.get(req, 'event.image.filename'),
     });
   }
 
@@ -55,8 +59,9 @@ function loadEvent(config, req, res, next) {
     .agendas(req.params.agendaUid)
     .events.get(req.params.eventUid, {
       lang: req.lang,
-      internal: true,
+      access: 'internal',
       returnPayload: true,
+      private: null,
     })
     .then(
       payload => {
@@ -92,7 +97,10 @@ function loadSiteURL(config, req, res, next) {
       try {
         req.siteURL = _.get(unserialize(embed.store), 'siteurl');
       } catch (e) {
-        req.log.error('could not extract siteurl from store of embed %s', embed.uid);
+        req.log.error(
+          'could not extract siteurl from store of embed %s',
+          embed.uid,
+        );
       }
 
       if (!req.siteURL && req.agenda.url) {
