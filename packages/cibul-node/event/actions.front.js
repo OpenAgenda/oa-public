@@ -18,7 +18,10 @@ function getDates(event, lang) {
   const { timezone } = event;
 
   const result = event.timings.reduce((accu, val) => {
-    const day = moment.tz(val.begin, event.timezone).locale(lang).format('dddd D MMMM');
+    const day = moment
+      .tz(val.begin, event.timezone)
+      .locale(lang)
+      .format('dddd D MMMM');
     const foundDay = accu.find(v => v === day);
 
     if (foundDay) {
@@ -32,7 +35,10 @@ function getDates(event, lang) {
         timezone,
         timings: [
           {
-            begin: moment.tz(val.begin, event.timezone).locale(lang).format('LT'),
+            begin: moment
+              .tz(val.begin, event.timezone)
+              .locale(lang)
+              .format('LT'),
             end: moment.tz(val.end, event.timezone).locale(lang).format('LT'),
           },
         ],
@@ -46,7 +52,8 @@ function getDates(event, lang) {
 }
 
 function actionDatesJson(req, res, next) {
-  const service = ['google', 'yahoo', 'live', 'ics'].find(v => v === req.query.service) || 'google';
+  const service = ['google', 'yahoo', 'live', 'ics'].find(v => v === req.query.service)
+    || 'google';
 
   try {
     addCalendarLinks(
@@ -57,14 +64,16 @@ function actionDatesJson(req, res, next) {
       req.lang,
     );
   } catch (e) {
-    return next(new VError({
-      cause: e,
-      info: {
-        url: req.originalUrl,
-        agenda: req.agenda,
-        event: req.event,
-      },
-    }));
+    return next(
+      new VError({
+        cause: e,
+        info: {
+          url: req.originalUrl,
+          agenda: req.agenda,
+          event: req.event,
+        },
+      }),
+    );
   }
 
   return res.send({
@@ -83,21 +92,20 @@ function actionDatesJson(req, res, next) {
 }
 
 async function eventMailSend(req, res, next) {
-  const {
-    events: eventsSvc,
-    mails,
-  } = req.app.services;
+  const { events: eventsSvc, mails } = req.app.services;
 
   let customData = null;
 
   try {
-    const { event, formSchema } = await req.app.services.core.agendas(req.agenda.uid).events.get(req.event.uid, {
-      load: {
-        custom: true,
-      },
-      returnPayload: true,
-      access: 'public',
-    });
+    const { event, formSchema } = await req.app.services.core
+      .agendas(req.agenda.uid)
+      .events.get(req.event.uid, {
+        load: {
+          custom: true,
+        },
+        returnPayload: true,
+        access: 'public',
+      });
 
     customData = formSchemaDecorate(_.get(formSchema, 'fields', []))(event, {
       labelsAsKeys: true,
@@ -110,11 +118,15 @@ async function eventMailSend(req, res, next) {
   }
 
   try {
-    const emails = (typeof req.body.mailsend === 'string' ? req.body.mailsend : '').split(/[\s;,\n\r]+/);
+    const emails = (
+      typeof req.body.mailsend === 'string' ? req.body.mailsend : ''
+    ).split(/[\s;,\n\r]+/);
 
     const logo = req.agenda.image
       ? {
-        src: config.aws.imageBucketPath + req.agenda.image.replace('.com/', '.com/rwtb'),
+        src:
+            config.aws.imageBucketPath
+            + req.agenda.image.replace('.com/', '.com/rwtb'),
         width: '100px',
       }
       : {
@@ -130,20 +142,25 @@ async function eventMailSend(req, res, next) {
       message: 'queuing emails',
     });
 
-    const dateRange = range(req.event.timings.map(t => ({
-      start: new Date(t.begin),
-      end: new Date(t.end),
-    })), req.lang, req.event.timezone);
+    const dateRange = range(
+      req.event.timings.map(t => ({
+        start: new Date(t.begin),
+        end: new Date(t.end),
+      })),
+      req.lang,
+      req.event.timezone,
+    );
 
     const staticMap = config.staticTiles?.replace(
       /{w}|{h}|{lon}|{lat}|{z}/gi,
-      matched => ({
-        '{w}': 600,
-        '{h}': 140,
-        '{z}': 16,
-        '{lon}': req.event.location.longitude,
-        '{lat}': req.event.location.latitude,
-      }[matched]),
+      matched =>
+        ({
+          '{w}': 600,
+          '{h}': 140,
+          '{z}': 16,
+          '{lon}': req.event.location.longitude,
+          '{lat}': req.event.location.latitude,
+        })[matched],
     );
 
     log('staticMap', staticMap);
@@ -170,13 +187,25 @@ async function eventMailSend(req, res, next) {
           description: getLocaleValue(req.event.description, req.lang),
           longDescription: getLocaleValue(req.event.longDescription, req.lang),
           conditions: getLocaleValue(req.event.conditions, req.lang),
-          formattedRegistration: eventsSvc.utils.formatRegistration(req.event.registration, {
-            order: ['link', 'email', 'phone'],
-            includeLinkPrefix: true,
-          }),
-          image: req.event.image ? config.aws.imageBucketPath + req.event.image.filename : null,
+          formattedRegistration: eventsSvc.utils.formatRegistration(
+            req.event.registration,
+            {
+              order: ['link', 'email', 'phone'],
+              includeLinkPrefix: true,
+            },
+          ),
+          image: req.event.image
+            ? config.aws.imageBucketPath + req.event.image.filename
+            : null,
           location: _.mapValues(
-            _.pick(req.event.location, 'name', 'address', 'region', 'city', 'postalCode'),
+            _.pick(
+              req.event.location,
+              'name',
+              'address',
+              'region',
+              'city',
+              'postalCode',
+            ),
             v => (v && typeof v.toString === 'function' ? v.toString() : v),
           ),
           dates: getDates(req.event, req.lang),
@@ -208,49 +237,62 @@ export default app => {
   const {
     events: eventsSvc,
     members: membersSvc,
+    users: usersSvc,
   } = app.services;
 
-  app.get(
-    '/:slug/events/:eventSlug/action',
-    (req, res) => res.redirect(`/${req.params.slug}/events/${req.params.eventSlug}?sharemodal=1`),
-  );
+  app.get('/:slug/events/:eventSlug/action', (req, res) =>
+    res.redirect(
+      `/${req.params.slug}/events/${req.params.eventSlug}?sharemodal=1`,
+    ));
 
   app.get(
     '/:slug/events/:eventUid/action/dates',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => req.app.services.core.agendas(req.agenda.uid)
-      .events
-      .get(req.params.eventUid, { detailed: true })
-      .then(result => {
-        if (!result) {
-          return next({ code: 404 });
-        }
-        req.event = result;
-        next();
-      }, err => {
-        next(err.name === 'BadRequestError' ? { code: 404 } : err);
-      }),
+    (req, res, next) =>
+      req.app.services.core
+        .agendas(req.agenda.uid)
+        .events.get(req.params.eventUid, { detailed: true })
+        .then(
+          result => {
+            if (!result) {
+              return next({ code: 404 });
+            }
+            req.event = result;
+            next();
+          },
+          err => {
+            next(err.name === 'BadRequestError' ? { code: 404 } : err);
+          },
+        ),
     actionDatesJson,
   );
 
   app.post(
     '/:slug/events/:eventUid/email',
     agendaSvc.mw.load('slug'),
+    usersSvc.mw.loadBySessionOrKey(),
+    (req, res, next) => {
+      if (!req.user) return next({ code: 401 });
+      next();
+    },
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get({ uid: req.params.eventUid }, { includeFields: ['uid'] })
-      .then(event => req.app.services.core.agendas(req.agenda.uid)
-        .events
-        .get(event?.uid, { detailed: true })
-        .then(result => {
-          if (!result) {
-            return next({ code: 404 });
-          }
+    (req, res, next) =>
+      eventsSvc
+        .get({ uid: req.params.eventUid }, { includeFields: ['uid'] })
+        .then(event =>
+          req.app.services.core
+            .agendas(req.agenda.uid)
+            .events.get(event?.uid, { detailed: true })
+            .then(result => {
+              if (!result) {
+                return next({ code: 404 });
+              }
 
-          req.event = result;
-          next();
-        })
-        .catch(next)),
+              req.event = result;
+              next();
+            })
+            .catch(next)),
     eventMailSend,
   );
 
@@ -258,29 +300,37 @@ export default app => {
     '/:slug/events/:eventSlug/ics',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
-      .then(event => req.app.services.core.agendas(req.agenda.uid)
-        .events
-        .get(event?.uid, { detailed: true }))
-      .then(result => {
-        if (!result) {
-          return next({ code: 404 });
-        }
+    (req, res, next) =>
+      eventsSvc
+        .get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
+        .then(event =>
+          req.app.services.core
+            .agendas(req.agenda.uid)
+            .events.get(event?.uid, { detailed: true }))
+        .then(result => {
+          if (!result) {
+            return next({ code: 404 });
+          }
 
-        req.event = result;
+          req.event = result;
 
-        if (!result.timings) {
-          throw new Error(`Event slug:${req.params.eventSlug} does not have timings !`);
-        }
+          if (!result.timings) {
+            throw new Error(
+              `Event slug:${req.params.eventSlug} does not have timings !`,
+            );
+          }
 
-        next();
-      })
-      .catch(next),
+          next();
+        })
+        .catch(next),
     (req, res, next) => {
       res.set('Content-Type', 'text/calendar; charset=utf-8');
 
       if (req.query.dl) {
-        res.set('Content-disposition', `attachment; filename=${req.event.slug}.ics`);
+        res.set(
+          'Content-disposition',
+          `attachment; filename=${req.event.slug}.ics`,
+        );
       }
 
       try {
@@ -288,14 +338,16 @@ export default app => {
 
         res.end();
       } catch (e) {
-        next(new VError({
-          cause: e,
-          info: {
-            url: req.originalUrl,
-            agenda: req.agenda,
-            event: req.event,
-          },
-        }));
+        next(
+          new VError({
+            cause: e,
+            info: {
+              url: req.originalUrl,
+              agenda: req.agenda,
+              event: req.event,
+            },
+          }),
+        );
       }
     },
   );
