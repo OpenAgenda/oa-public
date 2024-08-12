@@ -5,6 +5,22 @@ describe('fromHTMLToMarkdown', () => {
     expect(fromHTMLToMarkdown('<h1>Yeay</h1>')).toBe('Yeay\n====');
   });
 
+  test('less basic', () => {
+    expect(
+      fromHTMLToMarkdown(`
+        <p>https://le_monde.fr</p>
+      `),
+    ).toBe('[https://le\\_monde.fr](https://le_monde.fr)');
+  });
+
+  test('what? less basic', () => {
+    expect(
+      fromHTMLToMarkdown(`
+        <p>Un autre: https://le_monde.fr</p>
+      `),
+    ).toBe('Un autre: [https://le\\_monde.fr](https://le_monde.fr)');
+  });
+
   test('with a link as paragraph', () => {
     const r = fromHTMLToMarkdown(`
       <p>Un lien en texte:</p>
@@ -24,9 +40,9 @@ describe('fromHTMLToMarkdown', () => {
   });
 
   test('fix: link present in both href and content should be considered as markdown link', () => {
-    expect(fromHTMLToMarkdown('<a href="https://lemonde.fr">https://lemonde.fr</a>')).toBe(
-      '[https://lemonde.fr](https://lemonde.fr)',
-    );
+    expect(
+      fromHTMLToMarkdown('<a href="https://lemonde.fr">https://lemonde.fr</a>'),
+    ).toBe('[https://lemonde.fr](https://lemonde.fr)');
   });
 
   test('links with & are properly replaced', () => {
@@ -74,24 +90,49 @@ describe('fromHTMLToMarkdown', () => {
   });
 
   test('emails are also automatically extracted', () => {
-    const r = fromHTMLToMarkdown(["<p>kaore@openagenda.com le texte après l'email</p>", '<p></p>'].join(''));
+    const r = fromHTMLToMarkdown(
+      ["<p>kaore@openagenda.com le texte après l'email</p>", '<p></p>'].join(
+        '',
+      ),
+    );
 
-    expect(r).toBe("[kaore@openagenda.com](mailto:kaore@openagenda.com) le texte après l'email");
+    expect(r).toBe(
+      "[kaore@openagenda.com](mailto:kaore@openagenda.com) le texte après l'email",
+    );
   });
 
   test('emails in italic sentences are extracted too', () => {
-    expect(fromHTMLToMarkdown('<p><em>kaore@openagenda.com voilà mon email</em></p>')).toBe(
+    expect(
+      fromHTMLToMarkdown(
+        '<p><em>kaore@openagenda.com voilà mon email</em></p>',
+      ),
+    ).toBe(
       '_[kaore@openagenda.com](mailto:kaore@openagenda.com) voilà mon email_',
     );
   });
 
   test('fix: unexpected conversion when handling protocol-less links', () => {
-    expect(fromHTMLToMarkdown('<p>Chez</p><p>www.openagenda.com</p>')).toBeTruthy();
+    expect(
+      fromHTMLToMarkdown('<p>Chez</p><p>www.openagenda.com</p>'),
+    ).toBeTruthy();
   });
 
   test('scripts tags are filtered out', () => {
-    expect(fromHTMLToMarkdown('<p>Here is a script: <script>alert("fiddlesnouts")</script></p>')).toBe(
-      'Here is a script: alert("fiddlesnouts")',
+    expect(
+      fromHTMLToMarkdown(
+        '<p>Here is a script: <script>alert("fiddlesnouts")</script></p>',
+      ),
+    ).toBe('Here is a script: alert("fiddlesnouts")');
+  });
+
+  test('first and second links are extracted as makrdown', () => {
+    expect(
+      fromHTMLToMarkdown(
+        '<p><a href="https://link.com">Label</a> et <a href="https://www.autrelien.com?c%5B%5D=v&amp;dfa%5B%5D=discovery">autre label</a><br/>ça devrait marcher correctement</p>',
+      ),
+    ).toBe(
+      '[Label](https://link.com) et [autre label](https://www.autrelien.com?c%5B%5D=v&dfa%5B%5D=discovery)  \n'
+        + 'ça devrait marcher correctement',
     );
   });
 });
