@@ -8478,7 +8478,7 @@ __metadata:
     moment-timezone: "npm:0.5.31"
     mysql: "npm:^2.11.1"
     rimraf: "npm:^3.0.1"
-    slugify: "npm:^1.4.5"
+    slugify: "npm:^1.6.6"
     uuid: "npm:^3.4.0"
   languageName: unknown
   linkType: soft
@@ -41939,6 +41939,13 @@ __metadata:
   version: 1.4.6
   resolution: "slugify@npm:1.4.6"
   checksum: 10c0/71412807d713281b099c0b72954ae3d1ce99f2fb606c37964a7fdf8a9dde798ba6e97d0bb3e354c152874d2b18cc724c5a6f0802356c984ad4fc570f561157f3
+  languageName: node
+  linkType: hard
+
+"slugify@npm:^1.6.6":
+  version: 1.6.6
+  resolution: "slugify@npm:1.6.6"
+  checksum: 10c0/e7e63f08f389a371d6228bc19d64ec84360bf0a538333446cc49dbbf3971751a6d180d2f31551188dd007a65ca771e69f574e0283290a7825a818e90b75ef44d
   languageName: node
   linkType: hard
 
