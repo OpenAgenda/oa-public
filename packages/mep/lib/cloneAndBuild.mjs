@@ -1,13 +1,16 @@
 import { exec } from 'node:child_process';
 import fs from 'node:fs/promises';
-import getNodeGroupEndpoint from './getNodeGroupEndpoint.mjs';
 
-export default async function cloneAndBuild({ dir, envVars, nodeGroups }) {
+function getNginxAddress(nodes) {
+  return nodes.byGroups(['nginx'])[0].address;
+}
+
+export default async function cloneAndBuild({ dir, envVars, nodes }) {
   const {
     DOMAIN: domain,
     API_DOMAIN: APIDomain,
     NODE_ENV: nodeEnv,
-    OA_SERVER_PORT: serverPort,
+    OA_INTERNAL_SERVER_PORT: internalServerPort,
     NEXT_PUBLIC_ASSET_PREFIX: nextPublicAssetPrefix,
     NEXT_PUBLIC_MAP_TILES: nextPublicMapTiles,
     SENTRY_AUTH_TOKEN: sentryAuthToken,
@@ -19,7 +22,7 @@ export default async function cloneAndBuild({ dir, envVars, nodeGroups }) {
     `DOMAIN=${domain}`,
     `API_DOMAIN=${APIDomain}`,
     `NODE_ENV=${nodeEnv}`,
-    `NEXT_API_INTERNAL_BASE_URL=http://${getNodeGroupEndpoint(nodeGroups, 'web')}:${serverPort}`,
+    `NEXT_API_INTERNAL_BASE_URL=http://${getNginxAddress(nodes)}:${internalServerPort}`,
     `NEXT_PUBLIC_MAP_TILES=${nextPublicMapTiles}`,
     `SENTRY_AUTH_TOKEN=${sentryAuthToken}`,
   ];

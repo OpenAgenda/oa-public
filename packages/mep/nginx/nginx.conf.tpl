@@ -12,16 +12,16 @@ events {
 }
 
 http {
-    upstream api_servers {<% APIEndpoints.forEach(ep => { %>
-        server <%= ep %>:<%= serverPort %>;<% }); %>
+    upstream api_servers {<% APIEndpoints.forEach(endpoint => { %>
+        server <%= endpoint %>;<% }); %>
         keepalive <%= APIEndpoints.length * 2 %>;
     }
-    upstream next_servers {<% NextEndpoints.forEach(ep => { %>
-        server <%= ep %>:<%= serverPort %>;<% }); %>
+    upstream next_servers {<% NextEndpoints.forEach(endpoint => { %>
+        server <%= endpoint %>;<% }); %>
         keepalive <%= NextEndpoints.length * 2 %>;
     }
-    upstream web_servers {<% WebEndpoints.forEach(ep => { %>
-        server <%= ep %>:<%= serverPort %>;<% }); %>
+    upstream web_servers {<% WebEndpoints.forEach(endpoint => { %>
+        server <%= endpoint %>;<% }); %>
         keepalive <%= WebEndpoints.length * 2 %>;
     }
 
@@ -32,7 +32,7 @@ http {
         '' $scheme;
     }
 
-################### main site #####################
+################### main site - HTTPS (external) #####################
     server {
         listen 80;
 
@@ -41,6 +41,15 @@ http {
         if ($real_scheme != "https") {
             return 301 https://$server_name$request_uri;
         }
+
+        include conf.d/server_params;
+    }
+
+################### main site - HTTP (internal) #####################
+    server {
+        listen <%= internalServerPort %>;
+
+        server_name _;
 
         include conf.d/server_params;
     }

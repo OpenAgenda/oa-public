@@ -11,7 +11,7 @@
   "main": "",
   "packageManager": "yarn@3.2.4",
   "dependencies": {
-    "axios": "^0.21.1",
+    "ky": "^1.6.0",
     "lodash": "^4.17.15",
     "ssh2": "^1.11.0"
   }

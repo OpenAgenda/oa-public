@@ -1,7 +1,7 @@
 import { exec as execCb } from 'node:child_process';
 import { promisify } from 'util';
 
-const exec = promisify(execCb)
+const exec = promisify(execCb);
 
 /*
 a: archive = -rlptgoD (no -H,-A,-X)
@@ -25,23 +25,26 @@ D: same as --devices --specials
 --specials: preserve special files
  */
 
-export default async function rsync(nodes, srcFolder, destPath, {
-  SSHKeyPath,
-  options = '-aAXEWHx --del',
-}) {
+export default async function rsync(
+  nodes,
+  srcFolder,
+  destPath,
+  { SSHKeyPath, user = 'root', options = '-aAXEWHx --del' },
+) {
   const results = [];
   for (const node of nodes) {
-    console.log(`rsync to node ${node.connectionEndpoint}`);
+    const endpoint = `${user}@${new URL(node.adminUrl).hostname}`;
+    console.log(`rsync to node ${endpoint}`);
     const result = await exec(
-      `rsync ${options} -e 'ssh -i ${SSHKeyPath} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' ${srcFolder}/ ${node.connectionEndpoint}:${destPath}`,
+      `rsync ${options} -e 'ssh -i ${SSHKeyPath} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' ${srcFolder}/ ${endpoint}:${destPath}`,
       {
         maxBuffer: Infinity,
-      }
+      },
     );
     console.log('  done.');
     results.push({
       node,
-      result
+      result,
     });
   }
   return results;

@@ -5,7 +5,7 @@ import cloneAndBuild from './lib/cloneAndBuild.mjs';
 import rsync from './lib/rsync.mjs';
 import rexec from './lib/rexec.mjs';
 import sftp from './lib/sftp.mjs';
-import getNodesAndGroups from './lib/getNodesAndGroups.mjs';
+import getNodes from './lib/getNodes.mjs';
 import prepareNginxFiles from './lib/prepareNginxFiles.mjs';
 import buildAndUploadEcosystemFile from './lib/buildAndUploadEcosystemFile.mjs';
 import uploadNginxFilesAndReload from './lib/uploadNginxFilesAndReload.mjs';
@@ -38,22 +38,18 @@ const pm2Commands = [
 ];
 
 const envVars = Object.assign(
-  await fs.readFile(envFilePath, 'utf8').then(data => JSON.parse(data)),
-  await fs.readFile(localEnvFilePath, 'utf8').then(data => JSON.parse(data)),
+  await fs.readFile(envFilePath, 'utf8').then((data) => JSON.parse(data)),
+  await fs.readFile(localEnvFilePath, 'utf8').then((data) => JSON.parse(data)),
 );
 
-const response = await getNodesAndGroups(webEnvName, ['web', 'next', 'api'], { jelasticAccessToken });
-
-const {
-  nodeGroups,
-  nodes,
-} = response;
+const nodes = await getNodes(webEnvName, jelasticAccessToken);
+const taskNodes = await getNodes(taskEnvName, jelasticAccessToken);
 
 if (runBuild || runAll) {
   await clearDir(dir);
   await cloneAndBuild({
     dir,
-    nodeGroups,
+    nodes,
     envVars,
   });
 }
@@ -62,56 +58,59 @@ const uploads = [];
 
 if (runUploadToWeb || runAll) {
   uploads.push(async () => {
-    const nodes = (await getNodesAndGroups(webEnvName, ['data'], { jelasticAccessToken })).nodes;
-    await rsync(nodes, `${dir}/oa`, '/data/oa', { SSHKeyPath });
+    await rsync(nodes.byGroups(['data']), `${dir}/oa`, '/data/oa', {
+      SSHKeyPath,
+    });
   });
 }
 
 if (runUploadToTask || runAll) {
   uploads.push(async () => {
-    const taskNodes = (await getNodesAndGroups(taskEnvName, null, { jelasticAccessToken })).nodes;
-    await rsync(taskNodes, `${dir}/oa`, '/root/oa', { SSHKeyPath });
+    await rsync(taskNodes.all(), `${dir}/oa`, '/root/oa', { SSHKeyPath });
   });
 }
 
-await Promise.all(uploads.map(run => run()));
+await Promise.all(uploads.map((run) => run()));
 
 const runs = [];
 
 if (runUpdateWeb || runAll) {
   runs.push(async () => {
-    const nodes = (await getNodesAndGroups(webEnvName, ['web'], { jelasticAccessToken })).nodes;
-    await buildAndUploadEcosystemFile(nodes, 'web admin', {
+    const webNodes = nodes.byGroups(['web']);
+    await buildAndUploadEcosystemFile(webNodes, 'web admin', {
       SSHKeyPath,
       envVars,
       dir,
       instances: 4,
     });
-    await rexec(nodes, pm2Commands, { SSHKeyPath });
+    await rexec(webNodes, pm2Commands, { SSHKeyPath });
   });
 }
 
 if (runUpdateAPI || runAll) {
   runs.push(async () => {
-    const nodes = (await getNodesAndGroups(webEnvName, ['api'], { jelasticAccessToken })).nodes;
-    await buildAndUploadEcosystemFile(nodes, 'api', {
+    const apiNodes = nodes.byGroups(['api']);
+    await buildAndUploadEcosystemFile(apiNodes, 'api', {
       SSHKeyPath,
       envVars,
       dir,
       instances: 4,
     });
-    await rexec(nodes, pm2Commands, { SSHKeyPath });
+    await rexec(apiNodes, pm2Commands, { SSHKeyPath });
   });
 }
 
 if (runUpdateNext || runAll) {
   runs.push(async () => {
-    const nextNodes = (await getNodesAndGroups(webEnvName, ['next'], { jelasticAccessToken })).nodes;
+    const nextNodes = nodes.byGroups(['next']);
 
     await copyAndEditFile('next.config.js', `${dir}/next.config.js`, {
       port: envVars.OA_SERVER_PORT,
+      internalPort: envVars.OA_INTERNAL_SERVER_PORT,
     });
-    await sftp(nextNodes, `${dir}/next.config.js`, 'ecosystem.config.js', { SSHKeyPath });
+    await sftp(nextNodes, `${dir}/next.config.js`, 'ecosystem.config.js', {
+      SSHKeyPath,
+    });
 
     await rexec(nextNodes, pm2Commands, { SSHKeyPath });
   });
@@ -119,14 +118,13 @@ if (runUpdateNext || runAll) {
 
 if (runUpdateTask || runAll) {
   runs.push(async () => {
-    const taskNodes = (await getNodesAndGroups(taskEnvName, null, { jelasticAccessToken })).nodes;
-    await buildAndUploadEcosystemFile(taskNodes, 'task', {
+    await buildAndUploadEcosystemFile(taskNodes.all(), 'task', {
       SSHKeyPath,
       envVars,
       dir,
       instances: 1,
     });
-    await rexec(taskNodes, pm2Commands, { SSHKeyPath });
+    await rexec(taskNodes.all(), pm2Commands, { SSHKeyPath });
   });
 }
 
@@ -134,22 +132,18 @@ if (runUpdateNginx || runAll) {
   runs.push(async () => {
     await prepareNginxFiles({
       dir,
-      jelasticAccessToken,
-      SSHKeyPath,
       envVars,
       nodes,
-      remoteNginxDir,
     });
     await uploadNginxFilesAndReload({
       dir,
-      webEnvName,
-      jelasticAccessToken,
+      nodes: nodes.byGroups(['nginx']),
       remoteNginxDir,
       SSHKeyPath,
     });
   });
 }
 
-await Promise.all(runs.map(run => run()));
+await Promise.all(runs.map((run) => run()));
 
 console.log('done');
