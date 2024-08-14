@@ -112,7 +112,7 @@ function getImportUrl({
 
 async function sendEmails(
   url,
-  { arg }: { arg: string[] },
+  { arg }: { arg: { email: string }[] },
 ): Promise<{ count: number }> {
   return ky
     .post(url, {
