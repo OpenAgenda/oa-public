@@ -338,6 +338,25 @@ module.exports = [
         ],
       },
       {
+        field: 'public',
+        type: 'schema',
+        read: ['administrator', 'moderator', 'internal', 'legacy'],
+        write: ['internal'],
+        fields: [
+          {
+            field: 'filters',
+            type: 'schema',
+            fields: [
+              {
+                field: 'displayed',
+                list: { default: null },
+                type: 'text',
+              },
+            ],
+          },
+        ],
+      },
+      {
         field: 'admin',
         type: 'schema',
         read: ['administrator', 'moderator', 'internal', 'legacy'],

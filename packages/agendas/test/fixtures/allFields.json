@@ -48,6 +48,18 @@
           }
         }
       },
+      "public": {
+        "fields": {
+          "filters": {
+            "fields": {
+              "displayed": {
+                "type": "text",
+                "list": { "default": null }
+              }
+            }
+          }
+        }
+      },
       "lab": {
         "fields": {
           "status": {
