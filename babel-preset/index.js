@@ -14,10 +14,6 @@ function isBabelLoader(caller) {
   return !!(caller && caller.name === 'babel-loader');
 }
 
-function hasSupportDynamicImport(caller) {
-  return !!(caller && caller.supportsDynamicImport);
-}
-
 function hasSupportHotReload(caller) {
   return !!(caller && caller.supportsHotReload);
 }
@@ -27,7 +23,6 @@ module.exports = declare((api, options) => {
 
   const env = api.env();
   const isWebpack = api.caller(isBabelLoader);
-  const supportDynamicImport = api.caller(hasSupportDynamicImport);
   const supportHotReload = api.caller(hasSupportHotReload);
 
   const envOpts = {
@@ -37,20 +32,24 @@ module.exports = declare((api, options) => {
     shippedProposals: true,
   };
 
-  const transformRuntime = 'transformRuntime' in options ? options.transformRuntime : true;
-  const useBuiltIns = 'useBuiltIns' in options
-    ? options.useBuiltIns
-    : transformRuntime
-      ? 'usage'
-      : false;
-  const corejs = 'corejs' in options
-    ? options.corejs
-    : useBuiltIns
-      ? { version: 3, proposals: true }
-      : undefined;
-  const development = 'development' in options
-    ? options.development
-    : api.cache(() => process.env.NODE_ENV !== 'production');
+  const transformRuntime =
+    'transformRuntime' in options ? options.transformRuntime : true;
+  const useBuiltIns =
+    'useBuiltIns' in options
+      ? options.useBuiltIns
+      : transformRuntime
+        ? 'usage'
+        : false;
+  const corejs =
+    'corejs' in options
+      ? options.corejs
+      : useBuiltIns
+        ? { version: 3, proposals: true }
+        : undefined;
+  const development =
+    'development' in options
+      ? options.development
+      : api.cache(() => process.env.NODE_ENV !== 'production');
   let reactIntlOpts = null;
 
   switch (env) {
@@ -85,8 +84,8 @@ module.exports = declare((api, options) => {
       {
         useBuiltIns,
         corejs,
-        ...envOpts
-      }
+        ...envOpts,
+      },
     ],
     require('@babel/preset-typescript'),
     [
@@ -95,81 +94,31 @@ module.exports = declare((api, options) => {
         development,
         runtime: 'automatic',
         importSource: options.importSource,
-      }
-    ]
+      },
+    ],
   ];
 
   const plugins = [
     require('@sigmacomputing/babel-plugin-lodash'),
     require('babel-plugin-add-module-exports'),
-    transformRuntime ? [
-      require('@babel/plugin-transform-runtime'),
-      {
-        corejs,
-        version: require('@babel/helpers/package.json').version
-      }
-    ] : null,
-
-    // Stage 0
-    require('@babel/plugin-proposal-function-bind'),
-
-    // Stage 1
-    require('@babel/plugin-proposal-export-default-from'),
-    require('@babel/plugin-proposal-logical-assignment-operators'),
-    [
-      require('@babel/plugin-proposal-optional-chaining'),
-      {
-        loose: envOpts.loose
-      }
-    ],
-    [
-      require('@babel/plugin-proposal-pipeline-operator'),
-      {
-        proposal: 'minimal'
-      }
-    ],
-    [
-      require('@babel/plugin-proposal-nullish-coalescing-operator'),
-      {
-        loose: envOpts.loose
-      }
-    ],
-    require('@babel/plugin-proposal-do-expressions'),
-
-    // Stage 2
-    [
-      require('@babel/plugin-proposal-decorators'),
-      {
-        legacy: true
-      }
-    ],
-    require('@babel/plugin-proposal-function-sent'),
-    require('@babel/plugin-proposal-export-namespace-from'),
-    require('@babel/plugin-proposal-numeric-separator'),
-    require('@babel/plugin-proposal-throw-expressions'),
-
-    // Stage 3
-    require('@babel/plugin-syntax-dynamic-import'),
-    !supportDynamicImport ? require('babel-plugin-dynamic-import-node') : null,
-    require('@babel/plugin-syntax-import-meta'),
-    [
-      require('@babel/plugin-proposal-class-properties'),
-      {
-        loose: envOpts.loose
-      }
-    ],
-    require('@babel/plugin-proposal-json-strings'),
+    transformRuntime
+      ? [
+          require('@babel/plugin-transform-runtime'),
+          {
+            corejs,
+            version: require('@babel/helpers/package.json').version,
+          },
+        ]
+      : null,
 
     isWebpack && supportHotReload ? require('react-refresh/babel') : null,
-    !isWebpack && reactIntlOpts ? [
-      require('babel-plugin-react-intl'),
-      reactIntlOpts
-    ] : null
-  ]
-    .filter(Boolean);
+    !isWebpack && reactIntlOpts
+      ? [require('babel-plugin-react-intl'), reactIntlOpts]
+      : null,
+  ].filter(Boolean);
 
   return {
     presets,
-    plugins
+    plugins,
   };
 });
