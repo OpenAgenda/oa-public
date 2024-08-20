@@ -36,6 +36,18 @@
   },
   "settings": {
     "fields": {
+      "admin": {
+        "fields": {
+          "filters": {
+            "fields": {
+              "displayed": {
+                "type": "text",
+                "list": { "default": null }
+              }
+            }
+          }
+        }
+      },
       "lab": {
         "fields": {
           "status": {
@@ -99,57 +111,35 @@
             "type": "choice",
             "optional": false,
             "unique": true,
-            "options": [
-              2,
-              0,
-              1
-            ]
+            "options": [2, 0, 1]
           },
           "defaultState": {
             "default": 2,
             "type": "choice",
             "optional": false,
             "unique": true,
-            "options": [
-              0,
-              1,
-              2
-            ]
+            "options": [0, 1, 2]
           },
           "canPublish": {
             "type": "choice",
-            "default": [
-              "administrators",
-              "moderators"
-            ],
-            "options": [
-              "administrators",
-              "moderators"
-            ]
+            "default": ["administrators", "moderators"],
+            "options": ["administrators", "moderators"]
           },
           "moderateOnChangeBy": {
             "type": "choice",
             "default": [],
-            "options": [
-              "administrator",
-              "moderator",
-              "contributor"
-            ]
+            "options": ["administrator", "moderator", "contributor"]
+          },
+          "modoCanInviteModo": {
+            "max": 255,
+            "type": "boolean"
           },
           "defaultLang": {
             "default": null,
             "type": "choice",
             "optional": true,
             "unique": true,
-            "options": [
-              "en",
-              "fr",
-              "it",
-              "es",
-              "de",
-              "ar",
-              null
-            ]
+            "options": ["en", "fr", "it", "es", "de", "ar", null]
           },
           "allowLocationCreate": {
             "default": true,
@@ -211,12 +201,7 @@
                 "type": "text",
                 "min": 2,
                 "max": 2,
-                "default": [
-                  "en",
-                  "es",
-                  "it",
-                  "de"
-                ]
+                "default": ["en", "es", "it", "de"]
               },
               "checked": {
                 "list": {
