@@ -42,6 +42,7 @@ http {
             return 301 https://$server_name$request_uri;
         }
 
+        include conf.d/common;
         include conf.d/server_params;
     }
 
@@ -51,7 +52,11 @@ http {
 
         server_name _;
 
-        include conf.d/server_params;
+
+        include conf.d/common;
+        location / {
+            include conf.d/nodejs_params;
+        }
     }
 
 ####################### API #######################
