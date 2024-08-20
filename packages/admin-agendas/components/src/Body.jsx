@@ -31,14 +31,14 @@ export default class Body extends React.Component {
   constructor( props ) {
     super( props );
 
-    this.debouncedSearch = ::this.debouncedSearch;
-    this.search = ::this.search;
-    this.resetSearchPage = ::this.resetSearchPage;
-    this.onSearchChange = ::this.onSearchChange;
-    this.getSearchPage = ::this.getSearchPage;
-    this.onSelectAgenda = ::this.onSelectAgenda;
-    this.getMembersPage = ::this.getMembersPage;
-    this.setAgenda = ::this.setAgenda;
+    this.debouncedSearch = this.debouncedSearch.bind(this);
+    this.search = this.search.bind(this);
+    this.resetSearchPage = this.resetSearchPage.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.getSearchPage = this.getSearchPage.bind(this);
+    this.onSelectAgenda = this.onSelectAgenda.bind(this);
+    this.getMembersPage = this.getMembersPage.bind(this);
+    this.setAgenda = this.setAgenda.bind(this);
   }
 
   static propTypes = {
