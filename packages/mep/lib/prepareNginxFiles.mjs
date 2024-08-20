@@ -61,6 +61,7 @@ export default async function prepareNginxFiles({ dir, nodes, envVars }) {
     'utf-8',
   );
 
+  await copyAndEditFile(`${dir}/oa/docker/nginx/common`, `${dir}/nginx/conf.d`);
   await copyAndEditFile(
     `${dir}/oa/docker/nginx/server_params`,
     `${dir}/nginx/conf.d`,

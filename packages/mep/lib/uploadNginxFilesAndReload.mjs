@@ -27,6 +27,7 @@ export default async function uploadNginxFilesAndReload({
     nodes,
     [
       `sudo cp ${remoteNginxDir}/nginx.conf /etc/nginx/nginx.conf`,
+      `sudo ln -sf ${remoteNginxDir}/conf.d/common /etc/nginx/conf.d/common`,
       `sudo ln -sf ${remoteNginxDir}/conf.d/server_params /etc/nginx/conf.d/server_params`,
       `sudo ln -sf ${remoteNginxDir}/conf.d/nodejs_params /etc/nginx/conf.d/nodejs_params`,
       `sudo ln -sf ${remoteNginxDir}/conf.d/nextjs_params /etc/nginx/conf.d/nextjs_params`,
