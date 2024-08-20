@@ -8,7 +8,6 @@
   "passwordResetSent": "Una reimpostazione della password è stata inviata alla sua email",
   "passwordUpdated": "La tua password è stata aggiornata.",
   "passwordsMustMatch": "La password deve corrispondere.",
-  "userAlreadyActivated": "Il conto è già attivato",
   "userNotActivated": "Conto non attivato",
   "userNotFound": "Nessun conto trovato"
 }

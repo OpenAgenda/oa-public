@@ -5,7 +5,6 @@
   "invalidToken": "Invalid token",
   "userNotFound": "User not found",
   "userNotActivated": "User not activated",
-  "userAlreadyActivated": "User already activated",
   "passwordsMustMatch": "Password must match.",
   "fieldCannotBeEmpty": "Field cannot be empty",
   "passwordCouldNotBeModified": "The password could not be modified",

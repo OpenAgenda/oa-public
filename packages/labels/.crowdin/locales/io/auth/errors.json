@@ -9,7 +9,6 @@
   "passwordUpdated": "crwdns13080:0crwdne13080:0",
   "passwordsMustMatch": "crwdns13070:0crwdne13070:0",
   "resetLinkOutdated": "crwdns13078:0crwdne13078:0",
-  "userAlreadyActivated": "crwdns13068:0crwdne13068:0",
   "userNotActivated": "crwdns13066:0crwdne13066:0",
   "userNotFound": "crwdns13064:0crwdne13064:0"
 }
