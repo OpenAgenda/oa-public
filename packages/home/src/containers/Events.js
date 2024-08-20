@@ -75,36 +75,7 @@ function AgendaItem({ agenda, res, getLabel }) {
   );
 }
 
-@withLayoutData('lang')
-@provideHooks({
-  fetch: ({ store: { dispatch } }) => dispatch(setTab('events')),
-  defer: async ({ store: { dispatch }, location }) => {
-    const query = qs.parse(location.search, { ignoreQueryPrefix: true });
-    const promises = [];
-
-    // if ( !eventsActions.isLoaded( state ) ) {
-    promises.push(dispatch(eventsActions.load(query)));
-    // }
-
-    return promises;
-  },
-})
-@connect(
-  (state, props) => ({
-    query: qs.parse(props.location.search, { ignoreQueryPrefix: true }),
-    res: state.res,
-    events: state.events.data,
-    page: state.events.page,
-    total: state.events.total,
-    loading: state.events.loading === undefined ? true : state.events.loading,
-    listLoading: state.events.listLoading,
-    nextLoading: state.events.nextLoading,
-    perPageLimit: state.settings.perPageLimit,
-    modals: state.modals,
-  }),
-  { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load },
-)
-export default class Events extends Component {
+class Events extends Component {
   static contextType = I18nContext;
 
   constructor(props, context) {
@@ -344,3 +315,35 @@ export default class Events extends Component {
     );
   }
 }
+
+export default withLayoutData('lang')(
+  provideHooks({
+    fetch: ({ store: { dispatch } }) => dispatch(setTab('events')),
+    defer: async ({ store: { dispatch }, location }) => {
+      const query = qs.parse(location.search, { ignoreQueryPrefix: true });
+      const promises = [];
+
+      // if ( !eventsActions.isLoaded( state ) ) {
+      promises.push(dispatch(eventsActions.load(query)));
+      // }
+
+      return promises;
+    },
+  })(
+    connect(
+      (state, props) => ({
+        query: qs.parse(props.location.search, { ignoreQueryPrefix: true }),
+        res: state.res,
+        events: state.events.data,
+        page: state.events.page,
+        total: state.events.total,
+        loading: state.events.loading === undefined ? true : state.events.loading,
+        listLoading: state.events.listLoading,
+        nextLoading: state.events.nextLoading,
+        perPageLimit: state.settings.perPageLimit,
+        modals: state.modals,
+      }),
+      { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load },
+    )(Events),
+  ),
+);
