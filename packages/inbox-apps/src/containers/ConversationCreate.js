@@ -30,31 +30,6 @@ async function asyncLoad({ store: { dispatch, getState }, agenda }) {
   }
 }
 
-@withLayoutData('agenda')
-@connect(
-  (state, props) => {
-    const query = qs.parse(props.location.search, { ignoreQueryPrefix: true });
-
-    return {
-      initialValues: query.origin
-        ? _.merge(state.settings.defaultQuery, { params: { origin: query.origin } })
-        : state.settings.defaultQuery,
-      settings: state.settings,
-      conversations: state.inbox.data,
-      author: state.conversation.author,
-      loading: state.inbox.loading || state.conversation.authorFetching,
-      loaded: state.inbox.loaded && state.conversation.author,
-      res: state.res,
-    };
-  },
-  {
-    ...conversationFormActions,
-    ...modalActions,
-    attachFileToMessage: conversationActions.attachFileToMessage,
-  },
-)
-@withContext(ReactReduxContext, 'reactReduxContext')
-@withRouter
 class ConversationCreate extends Component {
   static contextType = I18nContext;
 
@@ -194,4 +169,31 @@ class ConversationCreate extends Component {
   }
 }
 
-export default ConversationCreate;
+export default withLayoutData('agenda')(
+  connect(
+    (state, props) => {
+      const query = qs.parse(props.location.search, { ignoreQueryPrefix: true });
+
+      return {
+        initialValues: query.origin
+          ? _.merge(state.settings.defaultQuery, { params: { origin: query.origin } })
+          : state.settings.defaultQuery,
+        settings: state.settings,
+        conversations: state.inbox.data,
+        author: state.conversation.author,
+        loading: state.inbox.loading || state.conversation.authorFetching,
+        loaded: state.inbox.loaded && state.conversation.author,
+        res: state.res,
+      };
+    },
+    {
+      ...conversationFormActions,
+      ...modalActions,
+      attachFileToMessage: conversationActions.attachFileToMessage,
+    },
+  )(
+    withContext(ReactReduxContext, 'reactReduxContext')(
+      withRouter(ConversationCreate),
+    ),
+  ),
+);

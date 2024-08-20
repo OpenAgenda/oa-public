@@ -24,12 +24,7 @@ function isCreator(creator, user) {
   return false;
 }
 
-@connect(
-  state => ({
-    settings: state.settings,
-  }),
-)
-export default class ConversationItem extends Component {
+class ConversationItem extends Component {
   static contextType = I18nContext;
 
   constructor(props) {
@@ -228,3 +223,9 @@ export default class ConversationItem extends Component {
     );
   }
 }
+
+export default connect(
+  state => ({
+    settings: state.settings,
+  }),
+)(ConversationItem);

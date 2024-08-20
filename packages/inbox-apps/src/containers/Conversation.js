@@ -44,24 +44,6 @@ function asyncLoad({ store: { getState, dispatch }, history, conversationId, age
   return Promise.all(promises);
 }
 
-@withLayoutData('user', 'agenda')
-@connect(
-  state => ({
-    settings: state.settings,
-    author: state.conversation.author,
-    conversations: state.inbox.data,
-    conversation: state.conversation.data,
-    messages: state.conversation.messages,
-    loading: state.conversation.loading,
-    loaded: state.conversation.loaded && state.conversation.author,
-    nextLoading: state.conversation.nextLoading,
-    lastPage: state.conversation.lastPage,
-    res: state.res,
-  }),
-  { ...conversationActions, ...modalActions, inboxLoad: inboxActions.load },
-)
-@withContext(ReactReduxContext, 'reactReduxContext')
-@withRouter
 class ConversationContainer extends Component {
   static contextType = I18nContext;
 
@@ -359,4 +341,24 @@ class ConversationContainer extends Component {
   }
 }
 
-export default ConversationContainer;
+export default withLayoutData('user', 'agenda')(
+  connect(
+    state => ({
+      settings: state.settings,
+      author: state.conversation.author,
+      conversations: state.inbox.data,
+      conversation: state.conversation.data,
+      messages: state.conversation.messages,
+      loading: state.conversation.loading,
+      loaded: state.conversation.loaded && state.conversation.author,
+      nextLoading: state.conversation.nextLoading,
+      lastPage: state.conversation.lastPage,
+      res: state.res,
+    }),
+    { ...conversationActions, ...modalActions, inboxLoad: inboxActions.load },
+  )(
+    withContext(ReactReduxContext, 'reactReduxContext')(
+      withRouter(ConversationContainer),
+    ),
+  ),
+);

@@ -27,10 +27,7 @@ function isInInboxes(inboxes, user) {
   return inboxes.some(inbox => isUser({ inbox }, user));
 }
 
-@connect(state => ({
-  settings: state.settings,
-}))
-export default class ConversationTitle extends Component {
+class ConversationTitle extends Component {
   static defaultProps = {
     EntityComponent: ({ children }) => <span className="text-muted">{children}</span>,
   };
@@ -578,3 +575,9 @@ export default class ConversationTitle extends Component {
     }
   }
 }
+
+export default connect(state => ({
+  settings: state.settings,
+}))(
+  ConversationTitle,
+);

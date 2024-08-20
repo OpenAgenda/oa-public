@@ -56,32 +56,6 @@ function asyncLoad({ store: { getState, dispatch }, location, history, agenda })
 
 const getAuthorName = obj => obj.inboxUser?.name ?? obj.inbox.name;
 
-@withLayoutData('user', 'agenda')
-@connect(
-  (state, props) => {
-    const query = qs.parse(props.location.search, { ignoreQueryPrefix: true });
-
-    return {
-      initialValues: query.origin
-        ? _.merge(state.settings.defaultQuery, { params: { origin: query.origin } })
-        : state.settings.defaultQuery,
-      settings: state.settings,
-      conversations: state.inbox.data,
-      total: state.inbox.total,
-      totalOpened: state.inbox.totalOpened,
-      totalClosed: state.inbox.totalClosed,
-      loading: state.inbox.loading,
-      loaded: state.inbox.loaded,
-      nextLoading: state.inbox.nextLoading,
-      lastPage: state.inbox.lastPage,
-      author: state.conversation.author,
-      res: state.res,
-    };
-  },
-  { ...conversationActions, ...inboxActions, ...conversationFormActions, ...modalActions },
-)
-@withContext(ReactReduxContext, 'reactReduxContext')
-@withRouter
 class Inbox extends Component {
   static contextType = I18nContext;
 
@@ -317,4 +291,32 @@ class Inbox extends Component {
   }
 }
 
-export default Inbox;
+export default withLayoutData('user', 'agenda')(
+  connect(
+    (state, props) => {
+      const query = qs.parse(props.location.search, { ignoreQueryPrefix: true });
+
+      return {
+        initialValues: query.origin
+          ? _.merge(state.settings.defaultQuery, { params: { origin: query.origin } })
+          : state.settings.defaultQuery,
+        settings: state.settings,
+        conversations: state.inbox.data,
+        total: state.inbox.total,
+        totalOpened: state.inbox.totalOpened,
+        totalClosed: state.inbox.totalClosed,
+        loading: state.inbox.loading,
+        loaded: state.inbox.loaded,
+        nextLoading: state.inbox.nextLoading,
+        lastPage: state.inbox.lastPage,
+        author: state.conversation.author,
+        res: state.res,
+      };
+    },
+    { ...conversationActions, ...inboxActions, ...conversationFormActions, ...modalActions },
+  )(
+    withContext(ReactReduxContext, 'reactReduxContext')(
+      withRouter(Inbox),
+    ),
+  ),
+);

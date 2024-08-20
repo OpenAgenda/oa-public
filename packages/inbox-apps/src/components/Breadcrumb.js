@@ -4,8 +4,7 @@ import cn from 'classnames';
 import I18nContext from '../contexts/I18nContext';
 import LinkContainer from './LinkContainer';
 
-@withRouter
-export default class Breadcrumb extends Component {
+class Breadcrumb extends Component {
   static contextType = I18nContext;
 
   renderParts() {
@@ -61,3 +60,5 @@ export default class Breadcrumb extends Component {
     );
   }
 }
+
+export default withRouter(Breadcrumb);
