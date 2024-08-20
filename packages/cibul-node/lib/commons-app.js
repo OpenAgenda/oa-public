@@ -15,6 +15,7 @@ import makeLabelGetter from '@openagenda/labels';
 import unauthLabels from '@openagenda/labels/agendas/unauthorizedPrivate.js';
 import errorLabels from '@openagenda/labels/errors/index.js';
 import unauthorizedLabels from '@openagenda/labels/errors/unauthorized.js';
+import { fromMarkdownToHTML } from '@openagenda/md';
 import config from '../config/index.js';
 import errorLogger from '../services/errors.js';
 import i18n from '../i18n/i18n.js';
@@ -24,7 +25,9 @@ const getUnauthLabel = makeLabelGetter(unauthLabels);
 const getErrorLabel = makeLabelGetter(errorLabels);
 const getUnauthorizedLabel = makeLabelGetter(unauthorizedLabels);
 
-const renderError = _.template(fs.readFileSync(`${import.meta.dirname}/error.tpl`, 'utf-8'));
+const renderError = _.template(
+  fs.readFileSync(`${import.meta.dirname}/error.tpl`, 'utf-8'),
+);
 
 const log = logger('commons-app');
 
@@ -51,13 +54,12 @@ function agendaMailTo(agenda) {
 
 function loadLogger(name) {
   return (req, res, next) => {
-    req.log = logger.createLogger2('req')
-      .loadMetadata({
-        module: name || 'unknown',
-        url: req.originalUrl,
-        ip: (req.header('x-forwarded-for') || '').split(', ').shift(),
-        userUid: req.user && req.user.uid ? req.user.uid : null,
-      });
+    req.log = logger.createLogger2('req').loadMetadata({
+      module: name || 'unknown',
+      url: req.originalUrl,
+      ip: (req.header('x-forwarded-for') || '').split(', ').shift(),
+      userUid: req.user && req.user.uid ? req.user.uid : null,
+    });
 
     if (next) next();
   };
@@ -86,7 +88,10 @@ function _getLang(req) {
  */
 
 function _filterNonParsable(str) {
-  const rgx = new RegExp(`[${[8232, 8233].map(String.fromCharCode).join('')}]`, 'g');
+  const rgx = new RegExp(
+    `[${[8232, 8233].map(String.fromCharCode).join('')}]`,
+    'g',
+  );
 
   return str.replace(rgx, ' ');
 }
@@ -96,9 +101,7 @@ function _filterNonParsable(str) {
  */
 function lang(req, res, next) {
   req.lang = 'fr';
-  const {
-    sessions,
-  } = req.app.services;
+  const { sessions } = req.app.services;
 
   sessions.isLogged(req).then(isLogged => {
     if (isLogged) {
@@ -140,9 +143,11 @@ function loadBaseData(func, cssFile) {
 
     const baseData = {
       head: {
-        css: cssFile ? {
-          main: `/css/${cssFile}?v=${config.cssVersion}`,
-        } : {},
+        css: cssFile
+          ? {
+            main: `/css/${cssFile}?v=${config.cssVersion}`,
+          }
+          : {},
         js: {},
       },
       bottom: {
@@ -165,7 +170,9 @@ function loadBaseData(func, cssFile) {
 
     if (req.outdatedBrowser) {
       // Note: bottom is before head
-      req.baseData.bottom.scripts.push(`window.outdatedBrowserOptions = { language: "${req.lang}" };`);
+      req.baseData.bottom.scripts.push(
+        `window.outdatedBrowserOptions = { language: "${req.lang}" };`,
+      );
       req.baseData.head.js.outdated = '/js/outdated.js';
     }
 
@@ -182,7 +189,9 @@ function loadBaseData(func, cssFile) {
 
     if (req.cookies.translateMode) {
       // Note: bottom is before head
-      req.baseData.bottom.scripts.push('window._jipt = [[\'project\', \'openagenda\']];');
+      req.baseData.bottom.scripts.push(
+        "window._jipt = [['project', 'openagenda']];",
+      );
       req.baseData.head.js.crowdin = 'https://cdn.crowdin.com/jipt/jipt.js';
     }
 
@@ -248,10 +257,14 @@ function errorResponse(req, res, err, jsr) {
     }
 
     if (res.code === 413) {
-      error.message = i18n('Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb', {
-        '%max%': Math.ceil(error.limit / 1000),
-        '%sub%': Math.ceil(error.length / 1000),
-      }, req.lang);
+      error.message = i18n(
+        'Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb',
+        {
+          '%max%': Math.ceil(error.limit / 1000),
+          '%sub%': Math.ceil(error.length / 1000),
+        },
+        req.lang,
+      );
     } else if (error.message) {
       error.message = i18n(error.message, {}, req.lang);
     }
@@ -259,7 +272,9 @@ function errorResponse(req, res, err, jsr) {
     if (jsonResponse) {
       renderJson(req, res, {
         success: false,
-        message: error.message ? error.message : 'There was a problem during the handling of the request',
+        message: error.message
+          ? error.message
+          : 'There was a problem during the handling of the request',
       });
 
       return;
@@ -297,9 +312,11 @@ function errorResponse(req, res, err, jsr) {
       // agenda.image depends to includeImagePath option
       layoutData.agenda = {
         ...req.agenda,
-        image: req.agenda.image && req.agenda.image.match(/^(?:(?:https?|ftp):\/\/|\/\/)/)
-          ? req.agenda.image
-          : config.aws.imageBucketPath + req.agenda.image,
+        image:
+          req.agenda.image
+          && req.agenda.image.match(/^(?:(?:https?|ftp):\/\/|\/\/)/)
+            ? req.agenda.image
+            : config.aws.imageBucketPath + req.agenda.image,
       };
 
       res.send(layouts.agenda(renderError(data), layoutData));
@@ -362,15 +379,20 @@ function renderTemplate(req, templatePath, data, maintain, cb) {
 
   compiledData.originalUrl = req.originalUrl;
 
-  templater(templatePath + (req.xhr ? '.part' : ''), compiledData, (err, result) => {
-    if (err && req.xhr) { // xhr request has no corresponding partial
-      templater(templatePath, compiledData, cb);
+  templater(
+    templatePath + (req.xhr ? '.part' : ''),
+    compiledData,
+    (err, result) => {
+      if (err && req.xhr) {
+        // xhr request has no corresponding partial
+        templater(templatePath, compiledData, cb);
 
-      return;
-    }
+        return;
+      }
 
-    cb(err, result);
-  });
+      cb(err, result);
+    },
+  );
 }
 
 /**
@@ -392,7 +414,9 @@ function render(req, res, templatePath, data, maintain) {
           'Cache-Control': res.get('Cache-Control') || 'no-cache',
         });
       } catch (e) {
-        req.log.error(new VError(e, `Error in the render of the template ${templatePath}`));
+        req.log.error(
+          new VError(e, `Error in the render of the template ${templatePath}`),
+        );
       }
 
       res.write(render2);
@@ -412,12 +436,14 @@ function renderUnauthorized(req, res, _next) {
     render(req, res, 'dialog/index', {
       agenda: req.agenda,
       title: getUnauthLabel('title', req.lang),
-      content: getUnauthLabel('message', req.lang),
-      actions: [{
-        type: 'primary',
-        href: `${req.agenda.slug}/contact`,
-        label: getUnauthLabel('contactAdmin', req.lang),
-      }],
+      content: fromMarkdownToHTML(getUnauthLabel('message', req.lang)),
+      actions: [
+        {
+          type: 'primary',
+          href: `${req.agenda.slug}/contact`,
+          label: getUnauthLabel('contactAdmin', req.lang),
+        },
+      ],
     });
   });
 }
@@ -432,11 +458,14 @@ function useEmbedGoogleAnalytics(req, res, next) {
  * returns middleware that redirects to given route&params ( uses req.genUrl )
  */
 function redirectTo(route, params = {}, options = {}) {
-  const redirectParams = _.extend({
-    code: 302,
-    maintainQuery: false,
-    raw: {},
-  }, options);
+  const redirectParams = _.extend(
+    {
+      code: 302,
+      maintainQuery: false,
+      raw: {},
+    },
+    options,
+  );
 
   return (req, res, _next) => {
     const paramValues = _.mapValues(params, k => {
@@ -451,7 +480,10 @@ function redirectTo(route, params = {}, options = {}) {
       if (k.$route || k.$base64Route) {
         const key = k.$route || k.$base64Route;
 
-        let v = req.genUrl(key[0], _.mapValues(key[1], r => _.get(req.params, r)));
+        let v = req.genUrl(
+          key[0],
+          _.mapValues(key[1], r => _.get(req.params, r)),
+        );
 
         if (k.$base64Route) {
           v = Buffer.from(v, 'utf-8').toString('base64');
@@ -485,7 +517,10 @@ function redirectTo(route, params = {}, options = {}) {
 
 function redirectToSignin(req, res, _next) {
   const agenda = req.agenda || _.get(req, 'agendaInstance.data');
-  res.redirect(302, `${agenda ? `/${agenda.slug}` : ''}/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`);
+  res.redirect(
+    302,
+    `${agenda ? `/${agenda.slug}` : ''}/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`,
+  );
 }
 
 function makeRedirect(urlOrReq) {
@@ -501,39 +536,39 @@ function favoriteLinkHTML(uid) {
 
 function loadAgendaBy(param) {
   return (req, res, next) => {
-    const {
-      agendas,
-    } = req.app.services;
+    const { agendas } = req.app.services;
 
     const identifier = _.isString(param)
       ? _.pick(req.params, [param])
       : _.set({}, _.keys(param)[0], req.params[param[_.keys(param)[0]]]);
 
-    agendas.get(identifier, {
-      private: null,
-      internal: true,
-      includeImagePath: true,
-    }).then(agenda => {
-      if (!agenda) return next({ code: 404 });
+    agendas
+      .get(identifier, {
+        private: null,
+        internal: true,
+        includeImagePath: true,
+      })
+      .then(agenda => {
+        if (!agenda) return next({ code: 404 });
 
-      _.assign(req, { agenda });
+        _.assign(req, { agenda });
 
-      next();
-    }, next);
+        next();
+      }, next);
   };
 }
 
 function _saveCookie(req, res, cookieValues) {
-  const encodedCookieValues = Buffer.from(JSON.stringify(cookieValues)).toString('base64');
+  const encodedCookieValues = Buffer.from(
+    JSON.stringify(cookieValues),
+  ).toString('base64');
 
   // do this both in req and res.
   req.cookies[config.cookie.name] = encodedCookieValues;
 
-  res.cookie(
-    config.cookie.name,
-    encodedCookieValues,
-    { maxAge: 5 * 60 * 1000 },
-  );
+  res.cookie(config.cookie.name, encodedCookieValues, {
+    maxAge: 5 * 60 * 1000,
+  });
 }
 
 function _decodeCookie(req) {
@@ -589,10 +624,12 @@ function writeToCookie(req, res, key, value) {
 }
 
 function loadLegacyRoutes(genUrl) {
-  genUrl.load(Object.entries(config.routes.globals).reduce((accu, [name, route]) => {
-    accu[name] = route.uri;
-    return accu;
-  }, {}));
+  genUrl.load(
+    Object.entries(config.routes.globals).reduce((accu, [name, route]) => {
+      accu[name] = route.uri;
+      return accu;
+    }, {}),
+  );
 }
 
 function redirectLegacySearch(req, res, next) {
@@ -601,7 +638,10 @@ function redirectLegacySearch(req, res, next) {
 
     query.search = undefined;
 
-    res.redirect(301, req.baseUrl + req.path + qs.stringify(query, { addQueryPrefix: true }));
+    res.redirect(
+      301,
+      req.baseUrl + req.path + qs.stringify(query, { addQueryPrefix: true }),
+    );
 
     return;
   }
@@ -641,8 +681,10 @@ export default {
 
   agendaMailTo,
 
-  ifIs: (path, fn) => (req, res, next) => (_.get(req, path, false) ? fn(req, res, next) : next()),
-  ifIsNot: (path, fn) => (req, res, next) => (_.get(req, path, false) ? next() : fn(req, res, next)),
+  ifIs: (path, fn) => (req, res, next) =>
+    (_.get(req, path, false) ? fn(req, res, next) : next()),
+  ifIsNot: (path, fn) => (req, res, next) =>
+    (_.get(req, path, false) ? next() : fn(req, res, next)),
 
   lang,
 };
