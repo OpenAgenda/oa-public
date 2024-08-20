@@ -12,20 +12,7 @@ const componentPropTypes = PropTypes.oneOfType( [
   PropTypes.string
 ] );
 
-@connect(
-  ( state, props ) => ({
-    res: state.res,
-    agendas: state.agendas[ props.id ].data,
-    page: state.agendas[ props.id ].page,
-    total: state.agendas[ props.id ].total,
-    loading: state.agendas[ props.id ].loading,
-    listLoading: state.agendas[ props.id ].listLoading,
-    nextLoading: state.agendas[ props.id ].nextLoading,
-    perPageLimit: state.settings.perPageLimit
-  }),
-  agendasActions
-)
-export default class AgendasSearch extends Component {
+class AgendasSearch extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
@@ -134,3 +121,17 @@ export default class AgendasSearch extends Component {
   }
 
 }
+
+export default connect(
+  (state, props) => ({
+    res: state.res,
+    agendas: state.agendas[props.id].data,
+    page: state.agendas[props.id].page,
+    total: state.agendas[props.id].total,
+    loading: state.agendas[props.id].loading,
+    listLoading: state.agendas[props.id].listLoading,
+    nextLoading: state.agendas[props.id].nextLoading,
+    perPageLimit: state.settings.perPageLimit,
+  }),
+  agendasActions,
+)(AgendasSearch);

@@ -7,17 +7,7 @@ import { Modal, Spinner } from '@openagenda/react-shared';
 import AgendasSearch from './AgendasSearch';
 import * as modalsActions from '../redux/modules/modals';
 
-@connect(
-  state => ({
-    loading: state.agendas.selectAgendasForDuplicate.loading,
-    modals: state.modals,
-    eventUid: state.eventUid,
-    agendaUid: state.agendaUid,
-    initialized: state.agendas.initialized
-  }),
-  modalsActions
-)
-export default class App extends Component {
+class App extends Component {
   static childContextTypes = {
     lang: PropTypes.string,
     getLabel: PropTypes.func
@@ -96,3 +86,14 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect(
+  state => ({
+    loading: state.agendas.selectAgendasForDuplicate.loading,
+    modals: state.modals,
+    eventUid: state.eventUid,
+    agendaUid: state.agendaUid,
+    initialized: state.agendas.initialized,
+  }),
+  modalsActions,
+)(App);
