@@ -27,7 +27,9 @@ const getLabel = makeLabelGetter(authSigninLabels);
 const getErrorLabel = makeLabelGetter(authErrorsLabels);
 const __ = makeLabelGetter(authActivationLabels);
 
-const manualTemplate = _.template(fs.readFileSync(`${import.meta.dirname}/manual.tpl`, 'utf-8'));
+const manualTemplate = _.template(
+  fs.readFileSync(`${import.meta.dirname}/manual.tpl`, 'utf-8'),
+);
 
 const useOptions = {
   usernameField: 'email',
@@ -37,7 +39,8 @@ const useOptions = {
 
 const preMw = [cmn.loadBaseData(auth.layoutData, 'oa-main.css')];
 
-const renderManualPage = ((labels, lang) => manualTemplate(flattenLabels(labels, lang))).bind(
+const renderManualPage = ((labels, lang) =>
+  manualTemplate(flattenLabels(labels, lang))).bind(
   null,
   Object.keys(manualLabels).reduce(
     (html, key) => ({
@@ -110,15 +113,24 @@ function signinSubmit(req, res, next) {
           }),
         )
 
-        .then(auth.ifUserLoaded(true, auth.ifUserActivated(false, auth.redirectToResend)))
+        .then(
+          auth.ifUserLoaded(
+            true,
+            auth.ifUserActivated(false, auth.redirectToResend),
+          ),
+        )
 
         .then(auth.ifUserLoaded(true, auth.signin))
 
         .then(v => {
-          log.info('signin attempt %s', v.data?.errors ? 'failed' : 'successful', {
-            ...logBundle,
-            errors: v.data?.errors,
-          });
+          log.info(
+            'signin attempt %s',
+            v.data?.errors ? 'failed' : 'successful',
+            {
+              ...logBundle,
+              errors: v.data?.errors,
+            },
+          );
           return v;
         })
 
@@ -130,9 +142,12 @@ function signinSubmit(req, res, next) {
 function passwordComplexity(values) {
   const { security } = values.req.app.services;
 
-  const { score, isSameAs } = security.passwords.evaluate(values.req.body.password, {
-    identifiers: _.pick(values.req.body, ['full_name', 'email']),
-  });
+  const { score, isSameAs } = security.passwords.evaluate(
+    values.req.body.password,
+    {
+      identifiers: _.pick(values.req.body, ['full_name', 'email']),
+    },
+  );
 
   if (isSameAs) {
     _.set(values, 'data.errors.password', 'isSameAs');
@@ -167,7 +182,9 @@ async function captchaCheck(values) {
   let result;
 
   try {
-    result = await axios.get(`${verifyUrl}?privatekey=${privateKey}&token=${captchaToken}`);
+    result = await axios.get(
+      `${verifyUrl}?privatekey=${privateKey}&token=${captchaToken}`,
+    );
   } catch (e) {
     log.error('Error with the mtCaptcha service', e);
     values.data.errors = {
@@ -251,11 +268,16 @@ function signupSubmit(req, res) {
 
     .then(async values => {
       if (values.data.errors) {
-        log.info('signup attempt failed', { ...logBundle, errors: values.data.errors });
+        log.info('signup attempt failed', {
+          ...logBundle,
+          errors: values.data.errors,
+        });
         return values;
       }
 
-      const optionals = _.pickBy(_.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda'));
+      const optionals = _.pickBy(
+        _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda'),
+      );
 
       if (req.agenda) {
         optionals.agenda = req.agenda;
@@ -283,19 +305,33 @@ function signupSubmit(req, res) {
       } catch (err) {
         values.data.errors = {};
 
-        if ((err.errors ?? []).find(({ code, field }) => field === 'fullName' && code === 'string.toolong')) {
+        if (
+          (err.errors ?? []).find(
+            ({ code, field }) =>
+              field === 'fullName' && code === 'string.toolong',
+          )
+        ) {
           values.data.errors.fullName = 'fullNameTooLong';
         }
 
-        if (err && _.find(err.errors, { field: 'email', code: 'email.invalid' })) {
+        if (
+          err
+          && _.find(err.errors, { field: 'email', code: 'email.invalid' })
+        ) {
           values.data.errors = { email: 'invalidEmail' };
         }
 
-        if (err && _.find(err.errors, { field: 'password', code: 'string.tooshort' })) {
+        if (
+          err
+          && _.find(err.errors, { field: 'password', code: 'string.tooshort' })
+        ) {
           values.data.errors = { password: 'passwordTooShort' };
         }
 
-        if (err && _.find(err.errors, { field: 'fullName', code: 'required' })) {
+        if (
+          err
+          && _.find(err.errors, { field: 'fullName', code: 'required' })
+        ) {
           values.data.errors = { fullName: 'fieldCannotBeEmpty' };
         }
 
@@ -316,7 +352,12 @@ function signupSubmit(req, res) {
       return values;
     })
 
-    .then(auth.ifUserLoaded(true, auth.ifUserActivated(false, auth.redirectToComplete)))
+    .then(
+      auth.ifUserLoaded(
+        true,
+        auth.ifUserActivated(false, auth.redirectToComplete),
+      ),
+    )
 
     .then(auth.ifUserLoaded(true, auth.ifUserActivated(true, auth.signin)))
 
@@ -344,7 +385,9 @@ function signupComplete(req, res) {
     indexed: false,
     agenda: req.agenda,
     resend:
-      (req.agenda ? `/${req.agenda.slug}/activate/resend` : '/activate/resend')
+      (req.agenda
+        ? `/${req.agenda.slug}/activate/resend`
+        : '/activate/resend')
       + qs.stringify(resendQuery, { addQueryPrefix: true }),
   });
 }
@@ -358,7 +401,9 @@ async function activateResend(req, res) {
     let user;
     let token;
 
-    const optionals = _.pickBy(_.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda'));
+    const optionals = _.pickBy(
+      _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda'),
+    );
 
     try {
       user = await users.findOne({
@@ -367,11 +412,17 @@ async function activateResend(req, res) {
       });
 
       if (!user) {
-        throw getErrorLabel('noAccountFound', req.lang);
+        throw new BadRequest(
+          { info: { email: req.query.email } },
+          'No matching account found for activation resend',
+        );
       }
 
       if (user && user.isActivated) {
-        throw getErrorLabel('userAlreadyActivated', req.lang);
+        throw new BadRequest(
+          { info: { email: req.query.email } },
+          'User is already activated, no need to activate',
+        );
       }
 
       token = await tokens.findOne({
@@ -387,7 +438,10 @@ async function activateResend(req, res) {
           params: { user, optionals },
         });
       } else {
-        token = await tokens.create({ userId: user.id, email: user.email, type: 'aa' }, { user, optionals });
+        token = await tokens.create(
+          { userId: user.id, email: user.email, type: 'aa' },
+          { user, optionals },
+        );
       }
 
       sessions.setFlash(req, res, __('sendAgain', req.lang));
@@ -417,7 +471,9 @@ async function activateResend(req, res) {
 async function activate(req, res) {
   const { users, agendas, tokens, redis } = req.app.services;
 
-  const optionals = _.pickBy(_.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda'));
+  const optionals = _.pickBy(
+    _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda'),
+  );
 
   const accountActivationMode = await redis.get('accountActivationMode') ?? 'manual';
 
@@ -457,34 +513,44 @@ async function activate(req, res) {
   }
 
   try {
-    const user = await users.activate(0, { token: req.params.token }, { optionals, detailed: true });
+    const user = await users.activate(
+      0,
+      { token: req.params.token },
+      { optionals, detailed: true },
+    );
 
     if (!req.query || !req.query.invitation) {
       return auth.signin({ req, res, user });
     }
 
-    invitationsSvc.get({ token: req.query.invitation }, { includeProcessed: true }, (err, { invitation }) => {
-      if (err || !invitation) return auth.signin({ req, res, user });
+    invitationsSvc.get(
+      { token: req.query.invitation },
+      { includeProcessed: true },
+      (err, { invitation }) => {
+        if (err || !invitation) return auth.signin({ req, res, user });
 
-      const actions = invitation.data.actions.filter(v => v.name === 'linkMember');
+        const actions = invitation.data.actions.filter(
+          v => v.name === 'linkMember',
+        );
 
-      if (actions.length === 1) {
-        const { agendaId } = actions[0].params[0];
+        if (actions.length === 1) {
+          const { agendaId } = actions[0].params[0];
 
-        agendas.get({ id: agendaId }, (e, agenda) => {
-          if (e) {
-            req.log.error(e);
-          } else {
-            req.agenda = agenda;
-          }
+          agendas.get({ id: agendaId }, (e, agenda) => {
+            if (e) {
+              req.log.error(e);
+            } else {
+              req.agenda = agenda;
+            }
 
-          auth.signin({ req, res, user });
-        });
-        return;
-      }
+            auth.signin({ req, res, user });
+          });
+          return;
+        }
 
-      return auth.signin({ req, res, user });
-    });
+        return auth.signin({ req, res, user });
+      },
+    );
   } catch (err) {
     if (err.message.includes('not found')) {
       return auth.renderInvalidActivation(req, res);
@@ -499,7 +565,10 @@ export default app => {
 
   log('initing');
 
-  passport.use('local-signin', new LocalStrategy(useOptions, handleSigninRequest));
+  passport.use(
+    'local-signin',
+    new LocalStrategy(useOptions, handleSigninRequest),
+  );
 
   app.get(
     '/signin',
@@ -525,7 +594,13 @@ export default app => {
     signinSubmit,
   );
 
-  app.post('/:agendaSlug/signin', agendas.mw.load, preMw, sessions.mw.ifLogged(redirectToContribute), signinSubmit);
+  app.post(
+    '/:agendaSlug/signin',
+    agendas.mw.load,
+    preMw,
+    sessions.mw.ifLogged(redirectToContribute),
+    signinSubmit,
+  );
 
   app.get(
     '/signup',
@@ -553,7 +628,13 @@ export default app => {
     signupSubmit,
   );
 
-  app.post('/:agendaSlug/signup', agendas.mw.load, preMw, sessions.mw.ifLogged(redirectToContribute), signupSubmit);
+  app.post(
+    '/:agendaSlug/signup',
+    agendas.mw.load,
+    preMw,
+    sessions.mw.ifLogged(redirectToContribute),
+    signupSubmit,
+  );
 
   app.get(
     '/signup/complete',
@@ -592,5 +673,11 @@ export default app => {
     activate,
   );
 
-  app.get('/:agendaSlug/activate/:token', agendas.mw.load, preMw, sessions.mw.ifLogged(redirectToContribute), activate);
+  app.get(
+    '/:agendaSlug/activate/:token',
+    agendas.mw.load,
+    preMw,
+    sessions.mw.ifLogged(redirectToContribute),
+    activate,
+  );
 };

@@ -9,7 +9,6 @@
   "passwordUpdated": "Votre mot de passe a été mis à jour.",
   "passwordsMustMatch": "Le mot de passe ne correspond pas.",
   "resetLinkOutdated": "Le lien est obsolète. Réessayez.",
-  "userAlreadyActivated": "Utilisateur déjà activé",
   "userNotActivated": "Utilisateur non activé",
   "userNotFound": "Utilisateur introuvable"
 }
