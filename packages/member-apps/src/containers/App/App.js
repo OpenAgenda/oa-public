@@ -12,18 +12,7 @@ import membersReducer from '../../reducers/members';
 import modalsReducer from '../../reducers/modals';
 import locales from '../../locales-compiled';
 
-@withLayoutData('lang')
-@provideHooks({
-  inject: ({ store }) =>
-    store.inject({
-      members: membersReducer,
-      modals: modalsReducer,
-    }),
-})
-@connect(state => ({
-  res: state.res,
-}))
-export default class App extends Component {
+class App extends Component {
   i18nContextValue = {
     lang: this.props.lang,
     getLabel: (label, values = {}) =>
@@ -47,3 +36,17 @@ export default class App extends Component {
     );
   }
 }
+
+export default withLayoutData('lang')(
+  provideHooks({
+    inject: ({ store }) =>
+      store.inject({
+        members: membersReducer,
+        modals: modalsReducer,
+      }),
+  })(
+    connect(state => ({
+      res: state.res,
+    }))(App),
+  ),
+);

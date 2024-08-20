@@ -127,37 +127,6 @@ function HistoryModalButton({ openModal, children }) {
   );
 }
 
-@injectIntl
-@withLayoutData('agenda', 'member', 'role', 'user')
-@connect(
-  (state, props) => {
-    const query = qs.parse(props.location.search, {
-      ignoreQueryPrefix: true,
-    });
-
-    return {
-      query,
-      res: state.res,
-      members: state.members.data ?? [],
-      patchSuccessModal: state.members.patchSuccessModal,
-      page: state.members.page ?? 1,
-      total: state.members.total ?? 0,
-      loadLoading: state.members.loadLoading,
-      listLoading: state.members.listLoading,
-      nextLoading: state.members.nextLoading,
-      credFilters: state.members.credFilters,
-      showInviteResult: state.members.showInviteResult,
-      inviteError: state.members.inviteError,
-      stats: state.members.stats ?? {},
-      perPageLimit: state.settings.perPageLimit,
-      modals: state.modals,
-      schema: state.members.schema ?? null,
-    };
-  },
-  { ...membersActions, ...modalsActions },
-)
-@withContext(ReactReduxContext, 'reactReduxContext')
-@withRouter
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -786,4 +755,42 @@ class Dashboard extends Component {
   }
 }
 
-export default withContext(I18nContext, 'i18n')(Dashboard);
+export default withContext(I18nContext, 'i18n')(
+  injectIntl(
+    withLayoutData('agenda', 'member', 'role', 'user')(
+      connect(
+        (state, props) => {
+          const query = qs.parse(props.location.search, {
+            ignoreQueryPrefix: true,
+          });
+
+          return {
+            query,
+            res: state.res,
+            members: state.members.data ?? [],
+            patchSuccessModal: state.members.patchSuccessModal,
+            page: state.members.page ?? 1,
+            total: state.members.total ?? 0,
+            loadLoading: state.members.loadLoading,
+            listLoading: state.members.listLoading,
+            nextLoading: state.members.nextLoading,
+            credFilters: state.members.credFilters,
+            showInviteResult: state.members.showInviteResult,
+            inviteError: state.members.inviteError,
+            stats: state.members.stats ?? {},
+            perPageLimit: state.settings.perPageLimit,
+            modals: state.modals,
+            schema: state.members.schema ?? null,
+          };
+        },
+        { ...membersActions, ...modalsActions },
+      )(
+        withContext(ReactReduxContext, 'reactReduxContext')(
+          withRouter(
+            Dashboard
+          )
+        )
+      )
+    )
+  )
+);
