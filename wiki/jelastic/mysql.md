@@ -2,8 +2,8 @@
 
 ## Prérequis
 
- * Un compte sur jelastic cloud
- * Un certificat d'autorité de certification et la possibilité de générer des certificats vérifiés pour les adresses générées lors du déroulement de ce guide (voir la section concernant la supervision)
+- Un compte sur jelastic cloud
+- Un certificat d'autorité de certification et la possibilité de générer des certificats vérifiés pour les adresses générées lors du déroulement de ce guide (voir la section concernant la supervision)
 
 ## Création d'un environement
 
@@ -69,7 +69,6 @@ Et éditer le fichier de configuration pour placer la même valeur (/etc/mysql/c
 
 Si la valeur est suffisante, une erreur `ER_OUT_OF_SORTMEMORY` ne surviendra pas dans le noeud de tâches quand une resynchro d'index est lancée sur un gros agenda.
 
-
 #### Le query timeout
 
 Pour éviter les timeout pour les requêtes un peu gourmandes, il faut ajuster la configuration de chaque noeud ProxySQL:
@@ -82,8 +81,42 @@ mysql -h 127.0.0.1 -P6032 -uadmin -padmin
 select * from global_variables;
 update global_variables set variable_value=1200000 where variable_name='mysql-default_query_timeout';
 LOAD MYSQL VARIABLES TO RUNTIME;
+SAVE MYSQL VARIABLES TO DISK;
 ```
 
+#### Éviter un trop gros nombre de tables temporaires sur le disque
+
+Sur chaque noeud, se connecter pour lancer les requêtes suivantes:
+
+```sql
+SET GLOBAL table_open_cache = 4000;
+SET GLOBAL table_definition_cache = 2000;
+SET GLOBAL tmp_table_size = 256 * 1024 * 1024;
+SET GLOBAL max_heap_table_size = 256 * 1024 * 1024;
+```
+
+Et éditer le fichier de configuration pour placer la même valeur (/etc/mysql/conf.d/my_custom.cnf) sous la clause [mysqld]:
+
+```
+table_open_cache=4000
+table_definition_cache=2000
+tmp_table_size=268435456
+max_heap_table_size=268435456
+```
+
+#### Durée de vie limitée pour les sessions entre ProxySQL et MySQL:
+
+Pour renouveller les sessions entre ProxySQL et MySQL toutes les 24h et éviter d'avoir des tables temporaires qui s'accumulent jusqu'au manque d'espace disque, il faut ajuster la configuration de chaque noeud ProxySQL:
+
+```
+mysql -h 127.0.0.1 -P6032 -uadmin -padmin
+```
+
+```sql
+SET mysql-connection_max_age_ms = 86400000;
+LOAD MYSQL VARIABLES TO RUNTIME;
+SAVE MYSQL VARIABLES TO DISK;
+```
 
 ## Chargement de la base dans les noeuds
 
@@ -179,45 +212,47 @@ Pour sécuriser les backups sur un autre serveur:
 
 1. Ajouter la clé ssh publique à `.ssh/authorized_keys`
 2. Créer le script suivant sur le second serveur:
-    ```bash
-    #!/bin/bash
-    
-    HOST="XXX.XXX.XXX.XXX"
-    USER="root"
-    PORT="22"
-    
-    SOURCE_DIR="/data/backups"
-    DEST_DIR="/data/backups"
-    
-    BACKUP_COUNT=5
-    
-    LATEST_FILE=$(ssh -p $PORT $USER@$HOST "ls -t $SOURCE_DIR | head -n 1")
-    
-    if [ -n "$LATEST_FILE" ]; then
-        if [ ! -f "$DEST_DIR/$LATEST_FILE" ]; then
-            scp -P $PORT $USER@$HOST:"$SOURCE_DIR/$LATEST_FILE" "$DEST_DIR/$LATEST_FILE"
-            echo "File downloaded: $LATEST_FILE"
-        else
-            echo "The file $LATEST_FILE already exists locally."
-        fi
-    else
-        echo "No file found in $SOURCE_DIR"
-    fi
-    
-    cd $DEST_DIR || exit 1
-    
-    files_to_remove=$(ls -t | tail -n +$(($BACKUP_COUNT + 1)))
-    if [[ ! -z "$files_to_remove" ]]; then
-        echo "$files_to_remove" | xargs rm --
-        echo "Removed $(echo "$files_to_remove" | wc -w) excess files."
-    else
-        echo "The number of files in $DEST_DIR is less than $BACKUP_COUNT, nothing to remove."
-    fi
-    ```
+
+   ```bash
+   #!/bin/bash
+
+   HOST="XXX.XXX.XXX.XXX"
+   USER="root"
+   PORT="22"
+
+   SOURCE_DIR="/data/backups"
+   DEST_DIR="/data/backups"
+
+   BACKUP_COUNT=5
+
+   LATEST_FILE=$(ssh -p $PORT $USER@$HOST "ls -t $SOURCE_DIR | head -n 1")
+
+   if [ -n "$LATEST_FILE" ]; then
+       if [ ! -f "$DEST_DIR/$LATEST_FILE" ]; then
+           scp -P $PORT $USER@$HOST:"$SOURCE_DIR/$LATEST_FILE" "$DEST_DIR/$LATEST_FILE"
+           echo "File downloaded: $LATEST_FILE"
+       else
+           echo "The file $LATEST_FILE already exists locally."
+       fi
+   else
+       echo "No file found in $SOURCE_DIR"
+   fi
+
+   cd $DEST_DIR || exit 1
+
+   files_to_remove=$(ls -t | tail -n +$(($BACKUP_COUNT + 1)))
+   if [[ ! -z "$files_to_remove" ]]; then
+       echo "$files_to_remove" | xargs rm --
+       echo "Removed $(echo "$files_to_remove" | wc -w) excess files."
+   else
+       echo "The number of files in $DEST_DIR is less than $BACKUP_COUNT, nothing to remove."
+   fi
+   ```
+
 3. Ajouter le cron suivant:
-    ```
-    0 5 * * Sun /root/download_backup.sh
-    ```
+   ```
+   0 5 * * Sun /root/download_backup.sh
+   ```
 
 ## Supervision
 
@@ -351,12 +386,12 @@ mysql> SET GLOBAL log_throttle_queries_not_using_indexes = 100; SET PERSIST log_
 
 Sur chaque instance MySQL, éxecutez les commandes suivantes en remplacant les mots clés suivants par les valeurs choisies précédemment:
 
- * ${IP_PMM}: l'ip privée du noeud contenant le superviseur pmm
- * ${DB_NODE_IP}: l'ip du noeud mysql édité
- * ${DB_NODE_ID}: l'identifant du noeud
+- ${IP_PMM}: l'ip privée du noeud contenant le superviseur pmm
+- ${DB_NODE_IP}: l'ip du noeud mysql édité
+- ${DB_NODE_ID}: l'identifant du noeud
 
- * ${PMM_SERVER_PWD}: le mot de passe choisi lors de la première connexion au superviseur
- * ${PMM_DB_USER_PWD}: le mot de passe choisi lors de la creation de l'utilisateur MySQL pour le superviseur: pmm-agent
+- ${PMM_SERVER_PWD}: le mot de passe choisi lors de la première connexion au superviseur
+- ${PMM_DB_USER_PWD}: le mot de passe choisi lors de la creation de l'utilisateur MySQL pour le superviseur: pmm-agent
 
 ```
 sudo pmm-admin config --server-insecure-tls --server-url=https://admin:${PMM_SERVER_PWD}@${IP_PMM}:443 --force ${DB_NODE_IP} generic mysql-${DB_NODE_ID}
@@ -368,17 +403,16 @@ pmm-admin add mysql --query-source=slowlog --username=pmm-agent --password=${PMM
 
 Pour que le superviseur puisse se connecter aux agents, une règle entrante doit être ajoutée au pare-feu de l'environnement:
 
- * Noeud: Base de données SQL
- * Nom: Percona PMM Ports
- * Protocole: TCP/UDP
- * Plage de ports: 42000-42005
- * Source: Noeuds d'environnement
- * Noeuds associés: (Le noeud contenant le superviseur)
- * Priorité: 1050
- * Action: autoriser
+- Noeud: Base de données SQL
+- Nom: Percona PMM Ports
+- Protocole: TCP/UDP
+- Plage de ports: 42000-42005
+- Source: Noeuds d'environnement
+- Noeuds associés: (Le noeud contenant le superviseur)
+- Priorité: 1050
+- Action: autoriser
 
 Pour le conteneur hébergeant le superviseur, seul le port https peut-être maintenu activé.
-
 
 ### Test & chargement d'un panneau préconfiguré
 
@@ -409,9 +443,9 @@ Générer de nouveaux certificats : Générez de nouveaux certificats pour les p
 Installer les nouveaux certificats : Installez les nouveaux certificats sur les serveurs qui fournissent les points de terminaison SSL/TLS, dans le même dossier et avec le même nom que précisé dans la section précédente. Placer dans `/var/lib/proxysql` les nouveaux certificats `proxysql-cert.pem` et `proxysql-key.pem`.
 
 Activer le ssl si ce n'est pas déjà fait:
-    UPDATE mysql_servers SET use_ssl=1 WHERE port=3306;
-    LOAD MYSQL SERVERS TO RUNTIME;  
-    SAVE MYSQL SERVERS TO DISK;
+UPDATE mysql_servers SET use_ssl=1 WHERE port=3306;
+LOAD MYSQL SERVERS TO RUNTIME;  
+ SAVE MYSQL SERVERS TO DISK;
 
 Mettre à jour les chemin pointant vers les certificats:
 
@@ -421,7 +455,7 @@ SET mysql-ssl_p2s_ca="/var/lib/proxysql/proxysql-ca.pem";
 SET mysql-ssl_p2s_cipher='ECDHE-RSA-AES256-SHA';
 
 Pour vérifier que les valeurs sont bien chargées:
-SELECT * FROM global_variables WHERE variable_name LIKE 'mysql%ssl%';
+SELECT \* FROM global_variables WHERE variable_name LIKE 'mysql%ssl%';
 
 LOAD MYSQL VARIABLES TO RUNTIME;
 SAVE MYSQL VARIABLES TO DISK;
