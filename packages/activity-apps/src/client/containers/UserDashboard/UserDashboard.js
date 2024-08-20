@@ -13,43 +13,7 @@ import modalsReducer from '../../redux/modules/modals';
 import { ActivityItem } from '../../components';
 import messages from '../../messages/activities';
 
-@injectIntl
-@provideHooks({
-  inject: ({ store }) => store.inject({
-    form: formReducer,
-    modals: modalsReducer,
-    activities: activitiesReducer
-  }),
-  fetch: async ({ store: { dispatch, getState }, location }) => {
-    const state = getState();
-    const query = qs.parse(location.search, { ignoreQueryPrefix: true });
-    const promises = [];
-
-    if (!activitiesActions.isLoaded(state)) {
-      promises.push(dispatch(activitiesActions.load(query)));
-    }
-
-    return Promise.all(__CLIENT__ ? [] : promises);
-  }
-})
-@connect(
-  (state, props) => {
-    const locationQuery = qs.parse(props.location.search, { ignoreQueryPrefix: true });
-
-    return {
-      res: state.res,
-      activitiesConfig: state.settings.activities,
-      activities: state.activities.data,
-      fromId: state.activities.fromId,
-      loading: state.activities.loading,
-      nextLoading: state.activities.nextLoading,
-      lastPage: state.activities.lastPage,
-      query: _.pick(locationQuery, ['actor', 'verb', 'object', 'target'])
-    };
-  },
-  { ...activitiesActions }
-)
-export default class UserDashboard extends Component {
+class UserDashboard extends Component {
 
   static propTypes = {
     list: PropTypes.func,
@@ -102,3 +66,44 @@ export default class UserDashboard extends Component {
   }
 
 };
+
+export default injectIntl(
+  provideHooks({
+    inject: ({ store }) => store.inject({
+      form: formReducer,
+      modals: modalsReducer,
+      activities: activitiesReducer
+    }),
+    fetch: async ({ store: { dispatch, getState }, location }) => {
+      const state = getState();
+      const query = qs.parse(location.search, { ignoreQueryPrefix: true });
+      const promises = [];
+
+      if (!activitiesActions.isLoaded(state)) {
+        promises.push(dispatch(activitiesActions.load(query)));
+      }
+
+      return Promise.all(__CLIENT__ ? [] : promises);
+    }
+  })(
+    connect(
+      (state, props) => {
+        const locationQuery = qs.parse(props.location.search, { ignoreQueryPrefix: true });
+
+        return {
+          res: state.res,
+          activitiesConfig: state.settings.activities,
+          activities: state.activities.data,
+          fromId: state.activities.fromId,
+          loading: state.activities.loading,
+          nextLoading: state.activities.nextLoading,
+          lastPage: state.activities.lastPage,
+          query: _.pick(locationQuery, ['actor', 'verb', 'object', 'target'])
+        };
+      },
+      { ...activitiesActions }
+    )(
+      UserDashboard
+    )
+  )
+);

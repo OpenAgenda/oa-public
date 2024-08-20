@@ -11,38 +11,7 @@ import * as activitiesActions from '../../redux/modules/activities';
 import { ActivityItem } from '../../components';
 import messages from '../../messages/activities';
 
-@injectIntl
-@withLayoutData('agenda')
-@provideHooks({
-  fetch: async ({ store: { dispatch }, location, params }) => {
-    const query = qs.parse(location.search, { ignoreQueryPrefix: true });
-    const promises = [];
-
-    // if ( !activitiesActions.isLoaded( state ) ) {
-    promises.push(dispatch(activitiesActions.load(query, { slug: params.slug })));
-    // }
-
-    return Promise.all(__CLIENT__ ? [] : promises);
-  }
-})
-@connect(
-  (state, props) => {
-    const locationQuery = qs.parse(props.location.search, { ignoreQueryPrefix: true });
-
-    return {
-      res: state.res,
-      activitiesConfig: state.settings.activities,
-      activities: state.activities.data,
-      fromId: state.activities.fromId,
-      loading: state.activities.loading,
-      nextLoading: state.activities.nextLoading,
-      lastPage: state.activities.lastPage,
-      query: _.pick(locationQuery, ['actor', 'verb', 'object', 'target'])
-    };
-  },
-  { ...activitiesActions }
-)
-export default class AgendaDashboard extends Component {
+class AgendaDashboard extends Component {
   static propTypes = {
     list: PropTypes.func,
     nextPage: PropTypes.func,
@@ -91,3 +60,40 @@ export default class AgendaDashboard extends Component {
 
   }
 };
+
+export default injectIntl(
+  withLayoutData('agenda')(
+    provideHooks({
+      fetch: async ({ store: { dispatch }, location, params }) => {
+        const query = qs.parse(location.search, { ignoreQueryPrefix: true });
+        const promises = [];
+
+        // if ( !activitiesActions.isLoaded( state ) ) {
+        promises.push(dispatch(activitiesActions.load(query, { slug: params.slug })));
+        // }
+
+        return Promise.all(__CLIENT__ ? [] : promises);
+      }
+    })(
+      connect(
+        (state, props) => {
+          const locationQuery = qs.parse(props.location.search, { ignoreQueryPrefix: true });
+
+          return {
+            res: state.res,
+            activitiesConfig: state.settings.activities,
+            activities: state.activities.data,
+            fromId: state.activities.fromId,
+            loading: state.activities.loading,
+            nextLoading: state.activities.nextLoading,
+            lastPage: state.activities.lastPage,
+            query: _.pick(locationQuery, ['actor', 'verb', 'object', 'target'])
+          };
+        },
+        { ...activitiesActions }
+      )(
+        AgendaDashboard
+      )
+    )
+  )
+);
