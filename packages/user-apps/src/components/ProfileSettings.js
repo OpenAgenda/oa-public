@@ -6,16 +6,7 @@ import { reduxForm, Field } from 'redux-form';
 import I18nContext from '../contexts/I18nContext';
 import { AuthenticateAndConfirm } from '@openagenda/react-shared';
 
-@reduxForm({
-  form: 'profileSettings',
-  destroyOnUnmount: false,
-})
-@connect(state => ({
-  prefix: state.settings.prefix,
-  deleteAccountRes: state.res.deleteAccount,
-}))
-@withRouter
-export default class ProfileSettings extends Component {
+class ProfileSettings extends Component {
   static contextType = I18nContext;
 
   renderFullNameInput = field => (
@@ -113,3 +104,15 @@ export default class ProfileSettings extends Component {
     );
   }
 }
+
+export default reduxForm({
+  form: 'profileSettings',
+  destroyOnUnmount: false,
+})(
+  connect(state => ({
+    prefix: state.settings.prefix,
+    deleteAccountRes: state.res.deleteAccount,
+  }))(
+    withRouter(ProfileSettings),
+  ),
+);

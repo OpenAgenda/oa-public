@@ -5,12 +5,7 @@ import { AuthenticateAndConfirm, Modal } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 import qs from 'qs';
 
-@connect(state => ({
-  prefix: state.settings.prefix,
-  changeEmailRes: state.res.changeEmail,
-}))
-@withRouter
-export default class EmailSettings extends Component {
+class EmailSettings extends Component {
   static contextType = I18nContext;
 
   constructor(props) {
@@ -112,3 +107,10 @@ export default class EmailSettings extends Component {
     );
   }
 }
+
+export default connect(state => ({
+  prefix: state.settings.prefix,
+  changeEmailRes: state.res.changeEmail,
+}))(
+  withRouter(EmailSettings),
+);

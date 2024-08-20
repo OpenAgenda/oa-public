@@ -4,12 +4,7 @@ import { withRouter } from 'react-router-dom';
 import AbilitiesEditor from '@openagenda/abilities/build/client/AbilitiesEditor';
 import I18nContext from '../contexts/I18nContext';
 
-
-@connect( state => ({
-  prefix: state.settings.prefix
-}) )
-@withRouter
-export default class UnsubscribedSettings extends Component {
+class UnsubscribedSettings extends Component {
   static contextType = I18nContext;
 
   render() {
@@ -60,3 +55,11 @@ export default class UnsubscribedSettings extends Component {
     );
   }
 }
+
+export default connect(state => ({
+  prefix: state.settings.prefix,
+}))(
+  withRouter(
+    UnsubscribedSettings,
+  ),
+);

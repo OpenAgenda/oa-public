@@ -52,10 +52,7 @@ function ImageForm({ handleSubmit, dirty, submitting, submitSucceeded, valid }) 
   );
 }
 
-@connect(state => ({
-  prefix: state.settings.prefix
-}))
-export default class ImageSettings extends Component {
+class ImageSettings extends Component {
   static propTypes = {
     activeTab: PropTypes.bool
   };
@@ -99,3 +96,7 @@ export default class ImageSettings extends Component {
     );
   }
 }
+
+export default connect(state => ({
+  prefix: state.settings.prefix,
+}))(ImageSettings);

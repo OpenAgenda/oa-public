@@ -20,24 +20,7 @@ import {
 
 const mergedLocales = mergeLocales(locales, sharedLocales);
 
-@provideHooks({
-  fetch: async ({ store: { dispatch } }) => (typeof window !== 'undefined'
-    ? dispatch(userSettingsActions.load())
-    : Promise.resolve()),
-})
-@withLayoutData('lang')
-@connect(
-  state => ({
-    res: state.res,
-    loading: state.userSettings.loading,
-    user: state.userSettings.user,
-    successMessagesDisplayed: state.userSettings.successMessagesDisplayed,
-    modal: state.userSettings.modal,
-  }),
-  userSettingsActions,
-)
-@withRouter
-export default class SettingsContainer extends Component {
+class SettingsContainer extends Component {
   render() {
     const {
       history,
@@ -156,3 +139,24 @@ export default class SettingsContainer extends Component {
     );
   }
 }
+
+export default provideHooks({
+  fetch: async ({ store: { dispatch } }) => (typeof window !== 'undefined'
+    ? dispatch(userSettingsActions.load())
+    : Promise.resolve()),
+})(
+  withLayoutData('lang')(
+    connect(
+      state => ({
+        res: state.res,
+        loading: state.userSettings.loading,
+        user: state.userSettings.user,
+        successMessagesDisplayed: state.userSettings.successMessagesDisplayed,
+        modal: state.userSettings.modal,
+      }),
+      userSettingsActions,
+    )(
+      withRouter(SettingsContainer),
+    ),
+  ),
+);

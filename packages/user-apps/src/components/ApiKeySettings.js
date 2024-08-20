@@ -4,12 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import I18nContext from '../contexts/I18nContext';
 
-
-@connect( state => ({
-  prefix: state.settings.prefix
-}) )
-@withRouter
-export default class ApiKeySettings extends Component {
+class ApiKeySettings extends Component {
   static propTypes = {
     activeTab: PropTypes.bool
   };
@@ -85,3 +80,9 @@ export default class ApiKeySettings extends Component {
     );
   }
 }
+
+export default connect(state => ({
+  prefix: state.settings.prefix,
+}))(
+  withRouter(ApiKeySettings),
+);

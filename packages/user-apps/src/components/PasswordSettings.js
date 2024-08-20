@@ -6,16 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import I18nContext from '../contexts/I18nContext';
 
-
-@reduxForm( {
-  form: 'passwordSettings',
-  destroyOnUnmount: false
-} )
-@connect( state => ({
-  prefix: state.settings.prefix
-}) )
-@withRouter
-export default class PasswordSettings extends Component {
+class PasswordSettings extends Component {
   static propTypes = {
     activeTab: PropTypes.bool
   };
@@ -110,3 +101,14 @@ export default class PasswordSettings extends Component {
     );
   }
 }
+
+export default reduxForm({
+  form: 'passwordSettings',
+  destroyOnUnmount: false,
+})(
+  connect(state => ({
+    prefix: state.settings.prefix,
+  }))(
+    withRouter(PasswordSettings),
+  ),
+);
