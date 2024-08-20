@@ -63,11 +63,12 @@ async function sendToContributor({
       lang: conributorLang,
     });
   } else {
-    log(
+    (agendaEvent.motive ? log.info : log.debug)(
       'sending standard event state change notification message to contributor',
       {
         beforeState: beforeStateLabel,
         afterState: afterStateLabel,
+        motive: agendaEvent.motive,
       },
     );
     await mails.send({
