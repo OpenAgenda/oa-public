@@ -10,6 +10,7 @@ import makeLabelGetter from '@openagenda/labels';
 import eventShowLabels from '@openagenda/labels/event/show.js';
 import agendaShowLabels from '@openagenda/labels/agendas/show.js';
 import forbiddenLabels from '@openagenda/labels/agendas/forbidden.js';
+import { fromMarkdownToHTML } from '@openagenda/md';
 import utils from '@openagenda/utils';
 import * as agendaSvc from '../services/agenda/index.js';
 import cacheMw from '../lib/cache.mw.js';
@@ -97,8 +98,17 @@ function showXhr(template) {
 function _showJSONIfRequested(req, res, next) {
   if (req.accepts(['html', 'json']) === 'json') {
     return res.json({
-      ..._.pick(req.agenda, ['uid', 'title', 'description', 'slug', 'url', 'official']),
-      image: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : null,
+      ..._.pick(req.agenda, [
+        'uid',
+        'title',
+        'description',
+        'slug',
+        'url',
+        'official',
+      ]),
+      image: req.agenda.image
+        ? config.aws.imageBucketPath + req.agenda.image
+        : null,
     });
   }
   next();
@@ -144,7 +154,11 @@ function redirect(req, res, next) {
     return next({ code: 404 });
   }
 
-  const redirectUrl = req.genUrl('agendaShow', { slug: req.agenda.slug, oaq: req.query.oaq }, { protocol: 'https://' });
+  const redirectUrl = req.genUrl(
+    'agendaShow',
+    { slug: req.agenda.slug, oaq: req.query.oaq },
+    { protocol: 'https://' },
+  );
 
   req.log.info('redirecting to %s', redirectUrl);
 
@@ -212,7 +226,9 @@ function _formatEventItem(event, req, cb) {
 
   const keywords = inst.getTags();
 
-  const organization = event.organization ? { slug: event.organizationSlug, label: event.organization } : false;
+  const organization = event.organization
+    ? { slug: event.organizationSlug, label: event.organization }
+    : false;
 
   inst.switchLanguage(req.lang);
 
@@ -264,7 +280,8 @@ function _formatEventItem(event, req, cb) {
       organization: organization ? organization.label : null,
     },
     favorite: cmn.favoriteLinkHTML(inst.uid),
-    location: _.mapValues(_.first(inst.locations), value => (_.isObject(value) ? _.get(value, req.lang) : value)),
+    location: _.mapValues(_.first(inst.locations), value =>
+      (_.isObject(value) ? _.get(value, req.lang) : value)),
   });
 
   return cb(null, formatted);
@@ -295,7 +312,9 @@ function _format(req, res, next) {
 
       req.templateData = {
         events: formattedEvents,
-        hasSearchQuery: req.query.oaq ? !!Object.keys(req.query.oaq).length : false,
+        hasSearchQuery: req.query.oaq
+          ? !!Object.keys(req.query.oaq).length
+          : false,
         // are all events of the agenda passed
         passed: req.agenda.passed,
         // does the current selection include passed events
@@ -326,7 +345,10 @@ function _appendFacebookParams(req, res, next) {
 }
 
 function _redirectToEmbed(req, res) {
-  res.redirect(303, req.genUrl('agendaEmbedShow', { uid: req.agenda.uid, fb: 1 }));
+  res.redirect(
+    303,
+    req.genUrl('agendaEmbedShow', { uid: req.agenda.uid, fb: 1 }),
+  );
 }
 
 function _loadAgendaByAgendaId(req, res, next) {
@@ -441,28 +463,34 @@ function _formatCustomEmbedLinks(req, res, next) {
     e.oaLink = `//openagenda.com/agendas/${req.agenda.uid}/events/${e.uid}`;
 
     if (e.categorySlug) {
-      e.categoryLink = req.genUrl(req.preview ? 'customEmbedShowPreview' : 'customEmbedShow', {
-        uid: req.params.uid,
-        embedUid: req.embed.uid,
-        oaq: {
-          category: e.categorySlug,
-          passed: req.query.passed,
+      e.categoryLink = req.genUrl(
+        req.preview ? 'customEmbedShowPreview' : 'customEmbedShow',
+        {
+          uid: req.params.uid,
+          embedUid: req.embed.uid,
+          oaq: {
+            category: e.categorySlug,
+            passed: req.query.passed,
+          },
+          lang: req.lang,
         },
-        lang: req.lang,
-      });
+      );
     }
 
     if (e.tags) {
       e.tags.forEach(t => {
-        t.link = req.genUrl(req.preview ? 'customEmbedShowPreview' : 'customEmbedShow', {
-          uid: req.params.uid,
-          embedUid: req.embed.uid,
-          oaq: {
-            tags: [t.slug],
-            passed: req.query.passed,
+        t.link = req.genUrl(
+          req.preview ? 'customEmbedShowPreview' : 'customEmbedShow',
+          {
+            uid: req.params.uid,
+            embedUid: req.embed.uid,
+            oaq: {
+              tags: [t.slug],
+              passed: req.query.passed,
+            },
+            lang: req.lang,
           },
-          lang: req.lang,
-        });
+        );
       });
     }
 
@@ -518,7 +546,10 @@ function _layoutData(req, _res) {
     metas: {
       title: utils.escape(req.agenda.title, false),
       ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
-      ogTitle: { property: 'og:title', content: utils.escape(req.agenda.title, false) },
+      ogTitle: {
+        property: 'og:title',
+        content: utils.escape(req.agenda.title, false),
+      },
       ogType: { property: 'og:type', content: 'activity' },
       ogLanguage: { property: 'og:language', content: req.lang },
       ogUrl: { property: 'og:url', content: url },
@@ -537,7 +568,9 @@ function _layoutData(req, _res) {
 
   if (req.agenda.private) {
     data.bottom = {
-      scripts: [`window.controlData = '/agendas/${req.agenda.uid}/controldata.prv'`],
+      scripts: [
+        `window.controlData = '/agendas/${req.agenda.uid}/controldata.prv'`,
+      ],
     };
   }
 
@@ -552,7 +585,11 @@ function _layoutData(req, _res) {
 
   data.headLinks.push({
     rel: 'canonical',
-    href: req.genUrl('agendaShow', { slug: req.agenda.slug }, { abs: true, protocol: 'https://' }),
+    href: req.genUrl(
+      'agendaShow',
+      { slug: req.agenda.slug },
+      { abs: true, protocol: 'https://' },
+    ),
   });
 
   return data;
@@ -562,7 +599,7 @@ function unauthorizedIP(req, res) {
   cmn.render(req, res, 'dialog/index', {
     agenda: req.agenda,
     title: forbiddenLabel('title', req.lang),
-    content: forbiddenLabel('content', req.lang),
+    content: fromMarkdownToHTML(forbiddenLabel('content', req.lang)),
     actions: [
       {
         type: 'primary',
@@ -640,7 +677,10 @@ export default app => {
     '/agendas/:uid/controldata.prv',
     preMw,
     agendaSvc.mw.load('uid', { basicLoad: true, cache: true }),
-    cmn.ifIsNot('agenda.private', cmn.redirectTo('controlData', { uid: 'uid' })),
+    cmn.ifIsNot(
+      'agenda.private',
+      cmn.redirectTo('controlData', { uid: 'uid' }),
+    ),
     members.mw.loadAndAuthorize('reader'),
     controlDataSvc.middleware,
   );
