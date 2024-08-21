@@ -18,10 +18,17 @@ export type AgendaSettingsInbox = {
   };
 };
 
+export type AgendaSettingsPublic = {
+  filters: {
+    displayed: string[];
+  };
+};
+
 export type AgendaSettings = {
   tracking?: AgendaSettingsTracking;
   lab?: AgendaSettingsLab;
   inbox?: AgendaSettingsInbox;
+  public?: AgendaSettingsPublic;
 };
 
 export type Agenda = {
