@@ -1,5 +1,4 @@
 import { http, HttpResponse } from 'msw';
-import { produce } from 'immer';
 import AgendaShow from 'pages/[agendaSlug]';
 import AgendaShowView from 'views/AgendaShow';
 import { Agenda } from 'types';
@@ -40,13 +39,17 @@ export const CustomFilterSelection = {
       <AgendaShow
         intlMessages={intlMessages}
         agenda={
-          produce(agendaFixtures, draft => {
-            draft.settings.public = {
-              filters: {
-                displayed: ['timings', 'categories-metropolitaines'],
+          {
+            ...agendaFixtures,
+            settings: {
+              ...agendaFixtures.settings,
+              public: {
+                filters: {
+                  displayed: ['timings', 'categories-metropolitaines'],
+                },
               },
-            };
-          }) as Agenda
+            },
+          } as Agenda
         }
       />
     </AgendaShow.Layout>
