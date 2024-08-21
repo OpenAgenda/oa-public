@@ -34,6 +34,7 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
   const intl = useIntl();
 
   const upcomingOnly = !query.timings && query.passed !== '1';
+  const displaySearchFilter = !!filters.find(({ name }) => name === 'search');
 
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
@@ -41,6 +42,7 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
     filters,
     query,
   });
+
   const { data: pages, error } = useEventsQuery({
     suspense: true,
     agenda,
@@ -64,18 +66,17 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
     null, // apiClient
     `/api/agendas/slug/${agenda.slug}/events`,
     {
-      ...upcomingOnly ? {
-        relative: ['current', 'upcoming'],
-      } : null,
+      ...upcomingOnly
+        ? {
+          relative: ['current', 'upcoming'],
+        }
+        : null,
       ...query,
       passed: undefined, // omit passed
     },
   );
 
-  const {
-    isOpen: isOpenFilters,
-    onToggle: onToggleFilters,
-  } = useDisclosure();
+  const { isOpen: isOpenFilters, onToggle: onToggleFilters } = useDisclosure();
 
   const isLoadingInitialData = !pages && !error;
 
@@ -85,13 +86,16 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
 
   return (
     <Form gap="8" mb={{ base: '0', lg: '12' }}>
-      <Search
-        disabled={false}
-        isLoading={false}
-        mx={{ base: '4', lg: '0' }}
-      />
+      {displaySearchFilter ? (
+        <Search
+          disabled={false}
+          isLoading={false}
+          mx={{ base: '4', lg: '0' }}
+        />
+      ) : null}
 
-      <div>{/* Useful to remove gap for the drawer on mobile */}
+      <div>
+        {/* Useful to remove gap for the drawer on mobile */}
         <Flex>
           <Button
             colorScheme="primary"
@@ -119,7 +123,13 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
               <CloseButton onClick={onToggleFilters} />
             </Flex>
 
-            <Flex direction="column" gap="8" grow="1" overflow="auto" px={{ base: '4', lg: '0' }}>
+            <Flex
+              direction="column"
+              gap="8"
+              grow="1"
+              overflow="auto"
+              px={{ base: '4', lg: '0' }}
+            >
               <Filters
                 filters={filters}
                 // disabled={isFetching || filtersQuery.isFetching}
@@ -146,21 +156,34 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
               </Button>
             </Box>
 
-            <Box display={{ base: 'none', lg: 'block' }} pt="8" wordBreak="normal">
+            <Box
+              display={{ base: 'none', lg: 'block' }}
+              pt="8"
+              wordBreak="normal"
+            >
               <Link href="/" color="primary.500">
                 OpenAgenda
               </Link>
               <NoBreak>&nbsp;·</NoBreak>{' '}
-              <Link href="https://doc.openagenda.com/" isExternal color="primary.500">
+              <Link
+                href="https://doc.openagenda.com/"
+                isExternal
+                color="primary.500"
+              >
                 {intl.formatMessage(messages.help)}
               </Link>
               <NoBreak>&nbsp;·</NoBreak>{' '}
-              <Link href="https://doc.openagenda.com/conditions/" isExternal color="primary.500">
+              <Link
+                href="https://doc.openagenda.com/conditions/"
+                isExternal
+                color="primary.500"
+              >
                 {intl.formatMessage(messages.termsOfUse)}
               </Link>
-
               <br />
-              <chakra.span color="oaGray.300" wordBreak="normal">&lt;uid:{agenda.uid}&gt;</chakra.span>
+              <chakra.span color="oaGray.300" wordBreak="normal">
+                &lt;uid:{agenda.uid}&gt;
+              </chakra.span>
             </Box>
           </Flex>
         </ResponsiveDrawer>

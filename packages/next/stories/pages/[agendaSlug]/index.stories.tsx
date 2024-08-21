@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+import { produce } from 'immer';
 import AgendaShow from 'pages/[agendaSlug]';
 import AgendaShowView from 'views/AgendaShow';
 import { Agenda } from 'types';
@@ -10,12 +11,8 @@ import eventsFixtures from './fixtures/events.json';
 export default {
   title: 'pages/[agendaSlug]/index',
   component: AgendaShow,
-  loaders: [
-    intlMessagesLoader(AgendaShowView.fetchLocale),
-  ],
-  decorators: [
-    ProvidersDecorator,
-  ],
+  loaders: [intlMessagesLoader(AgendaShowView.fetchLocale)],
+  decorators: [ProvidersDecorator],
 };
 
 export const Sample = {
@@ -30,7 +27,35 @@ export const Sample = {
   parameters: {
     msw: {
       handlers: [
-        http.get('/api/agendas/slug/metropole-europeenne-de-lille/events', () => HttpResponse.json(eventsFixtures)),
+        http.get('/api/agendas/slug/metropole-europeenne-de-lille/events', () =>
+          HttpResponse.json(eventsFixtures)),
+      ],
+    },
+  },
+};
+
+export const CustomFilterSelection = {
+  render: (_args, { loaded: { intlMessages } }) => (
+    <AgendaShow.Layout>
+      <AgendaShow
+        intlMessages={intlMessages}
+        agenda={
+          produce(agendaFixtures, draft => {
+            draft.settings.public = {
+              filters: {
+                displayed: ['timings', 'categories-metropolitaines'],
+              },
+            };
+          }) as Agenda
+        }
+      />
+    </AgendaShow.Layout>
+  ),
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/api/agendas/slug/metropole-europeenne-de-lille/events', () =>
+          HttpResponse.json(eventsFixtures)),
       ],
     },
   },

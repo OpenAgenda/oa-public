@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { SWRConfig } from 'swr';
 import qs from 'qs';
 import { createIntlCache, createIntl } from 'react-intl';
-import { getFilters, filtersToAggregations, getAdditionalFilters } from '@openagenda/react-filters';
+import { getFilters, filtersToAggregations } from '@openagenda/react-filters';
 import { getSupportedLocale } from '@openagenda/intl';
 import VError from '@openagenda/verror';
 import { NextPageWithLayout } from 'pages/_app';
@@ -16,6 +16,7 @@ import parseLocationQuery from 'utils/parseLocationQuery';
 import { errorToJSON } from 'utils/errorToJSON';
 import { logError } from 'utils/sentry';
 import generateNonce from 'utils/generateNonce';
+import listFiltersToInclude from 'utils/listFiltersToInclude';
 import CSP, { DEFAULT_DIRECTIVES } from 'utils/contentSecurityPolicy';
 import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
 
@@ -41,19 +42,18 @@ export const getServerSideProps: GetServerSideProps = async ({
   const query = parseLocationQuery(resolvedUrl);
 
   try {
-    const [
-      intlMessages,
-      dateFnsLocale,
-      agenda,
-    ] = await Promise.all([
+    const [intlMessages, dateFnsLocale, agenda] = await Promise.all([
       AgendaShow.fetchLocale(locale),
       getDateFnsLocale(locale),
-      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`, {
-        headers: {
-          Cookie: req.headers.cookie,
-          Authorization: req.headers.authorization,
+      fetch(
+        `${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`,
+        {
+          headers: {
+            Cookie: req.headers.cookie,
+            Authorization: req.headers.authorization,
+          },
         },
-      }).then(r => {
+      ).then(r => {
         if (r.ok) return r.json();
         throw new VError[r.status](r.statusText);
       }),
@@ -67,65 +67,68 @@ export const getServerSideProps: GetServerSideProps = async ({
 
       const nonce = generateNonce();
       res.setHeader('X-Nonce', nonce);
-      res.setHeader('Content-Security-Policy-Report-Only', CSP({
-        props: { nonce },
-        directives: {
-          ...DEFAULT_DIRECTIVES,
-          connectSrc: [
-            ...DEFAULT_DIRECTIVES.connectSrc,
-            ...matomoDomain ? [
-              `https://${matomoDomain}`,
-            ] : [],
-            ...googleAnalytics ? [
-              'https://*.google-analytics.com',
-              'https://*.analytics.google.com',
-              'https://*.googletagmanager.com',
-              'https://*.g.doubleclick.net',
-              'https://*.google.com',
-            ] : [],
-          ],
-          imgSrc: [
-            ...DEFAULT_DIRECTIVES.imgSrc,
-            ...matomoDomain ? [
-              `https://${matomoDomain}`,
-            ] : [],
-            ...googleAnalytics ? [
-              'https://*.google-analytics.com',
-              'https://*.analytics.google.com',
-              'https://*.googletagmanager.com',
-              'https://*.g.doubleclick.net',
-              'https://*.google.com',
-            ] : [],
-          ],
-        },
-      }));
+      res.setHeader(
+        'Content-Security-Policy-Report-Only',
+        CSP({
+          props: { nonce },
+          directives: {
+            ...DEFAULT_DIRECTIVES,
+            connectSrc: [
+              ...DEFAULT_DIRECTIVES.connectSrc,
+              ...matomoDomain ? [`https://${matomoDomain}`] : [],
+              ...googleAnalytics
+                ? [
+                  'https://*.google-analytics.com',
+                  'https://*.analytics.google.com',
+                  'https://*.googletagmanager.com',
+                  'https://*.g.doubleclick.net',
+                  'https://*.google.com',
+                ]
+                : [],
+            ],
+            imgSrc: [
+              ...DEFAULT_DIRECTIVES.imgSrc,
+              ...matomoDomain ? [`https://${matomoDomain}`] : [],
+              ...googleAnalytics
+                ? [
+                  'https://*.google-analytics.com',
+                  'https://*.analytics.google.com',
+                  'https://*.googletagmanager.com',
+                  'https://*.g.doubleclick.net',
+                  'https://*.google.com',
+                ]
+                : [],
+            ],
+          },
+        }),
+      );
     }
 
-    const intl = createIntl({
-      locale,
-      messages: intlMessages,
-      defaultLocale: getSupportedLocale(locale),
-      onError(e) {
-        if (e.code !== 'MISSING_DATA') {
-          // console.error(e);
-        }
+    const intl = createIntl(
+      {
+        locale,
+        messages: intlMessages,
+        defaultLocale: getSupportedLocale(locale),
+        onError(e) {
+          if (e.code !== 'MISSING_DATA') {
+            // console.error(e);
+          }
+        },
       },
-    }, intlCache);
-
-    const additionalFilters = getAdditionalFilters(agenda.schema.fields)
-      .map(({ fieldSchema }) => fieldSchema.field);
-
-    const filtersToInclude = ['geo', 'timings', ...additionalFilters];
+      intlCache,
+    );
 
     const filters = getFilters(intl, agenda.schema.fields, {
       dateFnsLocale,
       missingValue: 'null',
-      include: filtersToInclude,
+      include: listFiltersToInclude(agenda),
     });
 
-    const prefilter = !query.timings && query.passed !== '1' ? {
-      relative: ['current', 'upcoming'],
-    } : null;
+    const prefilter = !query.timings && query.passed !== '1'
+      ? {
+        relative: ['current', 'upcoming'],
+      }
+      : null;
 
     const paramsBase = {
       aggsSizeLimit: 1500,
@@ -158,8 +161,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return { props };
   } catch (e: any) {
-    const intlMessages = await AgendaError.fetchLocale(locale)
-      .catch(() => ({}));
+    const intlMessages = await AgendaError.fetchLocale(locale).catch(
+      () => ({}),
+    );
 
     const statusCode = Number.isInteger(e.code) ? e.code : 500;
     res.statusCode = statusCode;
@@ -184,9 +188,7 @@ const AgendaPage: NextPageWithLayout<PageProps> = props => {
   const { fallback = {} } = props;
 
   if ('statusCode' in props) {
-    return (
-      <AgendaError {...props} />
-    );
+    return <AgendaError {...props} />;
   }
 
   return (

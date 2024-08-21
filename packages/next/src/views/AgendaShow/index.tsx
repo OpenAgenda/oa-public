@@ -1,11 +1,19 @@
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
 import { useIntl } from 'react-intl';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useLatest, usePrevious } from 'react-use';
 import qs from 'qs';
 import { Box, Container, useConst } from '@openagenda/uikit';
-import { FiltersProvider, getAdditionalFilters, useFilters } from '@openagenda/react-filters';
+import { FiltersProvider, useFilters } from '@openagenda/react-filters';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
@@ -15,11 +23,18 @@ import ConsentBanner from 'components/ConsentBanner';
 import useIsMounted from 'hooks/useIsMounted';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import type { Agenda } from 'types';
+
+import listFiltersToInclude from 'utils/listFiltersToInclude';
+
 import useEventsQuery from './hooks/useEventsQuery';
 import Metas from './components/Metas';
 import AgendaHeader from './components/AgendaHeader';
 import ContextBar from './components/ContextBar';
-import { EventsSkeleton, FiltersSkeleton, TotalSkeleton } from './components/LoadingPage';
+import {
+  EventsSkeleton,
+  FiltersSkeleton,
+  TotalSkeleton,
+} from './components/LoadingPage';
 import ContentGrid from './components/ContentGrid';
 import includeFields from './includeFields';
 import fetchLocale from './locales';
@@ -50,12 +65,13 @@ const DynamicLdJson = dynamic(() => import('./components/LdJson'), {
 DynamicEventsPart.render.preload();
 
 export type AgendaShowProps = {
-  agenda: Agenda,
-  preload?: string[]
+  agenda: Agenda;
+  preload?: string[];
 };
 
 const stripLangPrefix = pathname => pathname.replace(/^\/[a-z][a-z]\//, '/');
-const isDifferentPathname = (pathname1, pathname2) => stripLangPrefix(pathname1) !== stripLangPrefix(pathname2);
+const isDifferentPathname = (pathname1, pathname2) =>
+  stripLangPrefix(pathname1) !== stripLangPrefix(pathname2);
 
 function AgendaShow({ agenda, preload }: AgendaShowProps) {
   const intl = useIntl();
@@ -76,30 +92,37 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
 
   const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
 
-  const filtersToInclude = useMemo(() => {
-    const additionalFilters = getAdditionalFilters(agenda.schema.fields)
-      .map(({ fieldSchema }) => fieldSchema.field);
-
-    return ['geo', 'timings', ...additionalFilters];
-  }, [agenda.schema.fields]);
+  const filtersToInclude = useMemo(
+    () => listFiltersToInclude(agenda),
+    [agenda],
+  );
 
   const filters = useFilters(intl, agenda.schema.fields, {
     dateFnsLocale,
     missingValue: 'null',
-    mapTiles: 'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
+    mapTiles:
+      'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
     // exclude: adminFilters,
     include: filtersToInclude,
   });
 
-  const { data: pages } = useEventsQuery({ agenda, filters, query, includeFields });
+  const { data: pages } = useEventsQuery({
+    agenda,
+    filters,
+    query,
+    includeFields,
+  });
 
   const [_isPending, startTransition] = useTransition();
 
-  const onFilterChange = useCallback((values: Record<string, string | string[]>) => {
-    startTransition(() => {
-      setQuery(values);
-    });
-  }, []);
+  const onFilterChange = useCallback(
+    (values: Record<string, string | string[]>) => {
+      startTransition(() => {
+        setQuery(values);
+      });
+    },
+    [],
+  );
 
   // Update filters if location change (back)
   useEffect(() => {
@@ -172,7 +195,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
           filters={filters}
         >
           <ContentGrid
-            total={(
+            total={
               isMounted ? (
                 <Suspense fallback={<TotalSkeleton />}>
                   <DynamicTotalPart
@@ -183,8 +206,8 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
                   />
                 </Suspense>
               ) : null
-            )}
-            events={(
+            }
+            events={
               isMounted ? (
                 <Suspense fallback={<EventsSkeleton />}>
                   <DynamicEventsPart
@@ -195,8 +218,8 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
                   />
                 </Suspense>
               ) : null
-            )}
-            filters={(
+            }
+            filters={
               isMounted ? (
                 <Suspense fallback={<FiltersSkeleton />}>
                   <DynamicFiltersPart
@@ -207,14 +230,12 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
                   />
                 </Suspense>
               ) : null
-            )}
+            }
           />
         </FiltersProvider>
       </main>
 
-      {needConsentFor ? (
-        <ConsentBanner consentFor={needConsentFor} />
-      ) : null}
+      {needConsentFor ? <ConsentBanner consentFor={needConsentFor} /> : null}
 
       {isMounted ? (
         <Suspense>
@@ -230,13 +251,16 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   );
 }
 
-AgendaShow.fetchLocale = (locale: string) => Promise.all([
-  fetchLocale(locale),
-  fetchErrorLocale(locale),
-  fetchCommonLocale('event/attendanceModes', locale),
-  fetchCommonLocale('event/statuses', locale),
-  import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(mod => mod.default),
-]).then(results => Object.assign({}, ...results));
+AgendaShow.fetchLocale = (locale: string) =>
+  Promise.all([
+    fetchLocale(locale),
+    fetchErrorLocale(locale),
+    fetchCommonLocale('event/attendanceModes', locale),
+    fetchCommonLocale('event/statuses', locale),
+    import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(
+      mod => mod.default,
+    ),
+  ]).then(results => Object.assign({}, ...results));
 
 AgendaShow.includeFields = includeFields;
 
