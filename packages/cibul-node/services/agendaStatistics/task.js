@@ -23,7 +23,9 @@ function processJob({ services }) {
 
     switch (data.type) {
       case 'controlData':
-        return services.legacy.controlData.rebuild(data.agendaUid).then(() => cb(), cb);
+        return services.legacy.controlData
+          .rebuild(data.agendaUid)
+          .then(() => cb(), cb);
 
       case 'customToLegacy':
         services.legacy.tagsAndCustom.setAll(data.agendaUid);
@@ -35,21 +37,27 @@ function processJob({ services }) {
 
       case 'agendaEvents':
         log('resyncing agenda %d - agendaEvents resync', data.agendaUid);
-        services.agendaEvents.tasks.transferLegacyData({ agendaUid: data.agendaUid });
-        break;
-
-      case 'inbox':
-        services.agendas.get({ uid: data.agendaUid }, { private: null, internal: true }, (err, agenda) => {
-          const stats = {};
-
-          syncAgenda(agenda, stats)
-            .then(() => {
-              log('info', 'Agenda %d inbox synced', agenda.uid, stats);
-            });
+        services.agendaEvents.tasks.transferLegacyData({
+          agendaUid: data.agendaUid,
         });
         break;
 
+      case 'inbox':
+        services.agendas.get(
+          { uid: data.agendaUid },
+          { private: null, internal: true },
+          (err, agenda) => {
+            const stats = {};
+
+            syncAgenda(agenda, stats).then(() => {
+              log('info', 'Agenda %d inbox synced', agenda.uid, stats);
+            });
+          },
+        );
+        break;
+
       case 'activityFeeds':
+        log('resyncing activities', { agendaUid: data.agendaUid });
         services.activities.tasks.agendaRebuild(data.agendaUid);
         break;
       default:
@@ -63,19 +71,23 @@ function processJob({ services }) {
 export default (config, services) => {
   const q = services.queues('agendaStatistics');
 
-  return Object.assign(() => {
-    q.register({
-      processJob: processJob({ services, config }),
-    });
+  return Object.assign(
+    () => {
+      log('task');
+      q.register({
+        processJob: processJob({ services, config }),
+      });
 
-    q.run();
-  }, {
-    enqueueResync: (agendaUid, type) => {
-      q('processJob', {
-        operation: 'resync',
-        agendaUid,
-        type,
-      }).then(() => log('enqueued %s %s', agendaUid, type));
+      q.run();
     },
-  });
+    {
+      enqueueResync: (agendaUid, type) => {
+        q('processJob', {
+          operation: 'resync',
+          agendaUid,
+          type,
+        }).then(() => log('enqueued %s %s', agendaUid, type));
+      },
+    },
+  );
 };
