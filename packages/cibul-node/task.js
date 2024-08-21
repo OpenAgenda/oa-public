@@ -76,11 +76,11 @@ export default (config, core, services) => {
     time: '14:00',
   });
 
-  tfy(services.activities.rebuild, {
+  /* tfy(services.activities.rebuild, {
     period: 'monthly',
     day: 'monday',
     time: '03:00',
-  });
+  }); */
   // services.activities.tasks.rebuild();
 
   services.agendaDocx.task();
