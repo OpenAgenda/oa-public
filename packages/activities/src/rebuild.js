@@ -33,14 +33,22 @@ function getEventsStream(config, options) {
       `${schemas.eventService}.*`,
       `${schemas.user}.is_removed as userRemoved`,
     ])
-    .join(schemas.user, `${schemas.eventService}.owner_uid`, `${schemas.user}.uid`);
+    .join(
+      schemas.user,
+      `${schemas.eventService}.owner_uid`,
+      `${schemas.user}.uid`,
+    );
 
   if (options.agendaUid) {
     q.where(`${schemas.eventService}.agenda_uid`, options.agendaUid);
   }
 
   if (options.since) {
-    q.where(`${schemas.eventService}.updated_at`, '>=', new Date(options.since * 1000));
+    q.where(
+      `${schemas.eventService}.updated_at`,
+      '>=',
+      new Date(options.since * 1000),
+    );
   }
 
   return q.stream();
@@ -50,11 +58,12 @@ function getAgendasStream(config, options) {
   const { knex, schemas } = config;
 
   const q = knex(schemas.agenda)
-    .select([
-      `${schemas.agenda}.*`,
-      `${schemas.aggregator}.id as aggId`,
-    ])
-    .leftJoin(schemas.aggregator, `${schemas.agenda}.id`, `${schemas.aggregator}.review_id`);
+    .select([`${schemas.agenda}.*`, `${schemas.aggregator}.id as aggId`])
+    .leftJoin(
+      schemas.aggregator,
+      `${schemas.agenda}.id`,
+      `${schemas.aggregator}.review_id`,
+    );
 
   if (options.agendaUid) {
     q.where(`${schemas.agenda}.uid`, options.agendaUid);
@@ -65,7 +74,11 @@ function getAgendasStream(config, options) {
   }
 
   if (options.since) {
-    q.where(`${schemas.agenda}.updated_at`, '>=', new Date(options.since * 1000));
+    q.where(
+      `${schemas.agenda}.updated_at`,
+      '>=',
+      new Date(options.since * 1000),
+    );
   }
 
   return q.stream();
@@ -74,8 +87,7 @@ function getAgendasStream(config, options) {
 function getLocationsStream(config, options, agenda) {
   const { knex, schemas } = config;
 
-  const q = knex(schemas.location)
-    .where('agenda_id', agenda.id);
+  const q = knex(schemas.location).where('agenda_id', agenda.id);
 
   if (agenda.location_set_uid) {
     q.where('set_uid', agenda.location_set_uid);
@@ -96,8 +108,16 @@ function getAgendaEventsStream(config, options, agenda) {
       `${schemas.agendaEventService}.*`,
       `${schemas.location}.uid as locationUid`,
     ])
-    .leftJoin(schemas.eventService, `${schemas.agendaEventService}.event_uid`, `${schemas.eventService}.uid`)
-    .leftJoin(schemas.location, `${schemas.eventService}.location_uid`, `${schemas.location}.uid`)
+    .leftJoin(
+      schemas.eventService,
+      `${schemas.agendaEventService}.event_uid`,
+      `${schemas.eventService}.uid`,
+    )
+    .leftJoin(
+      schemas.location,
+      `${schemas.eventService}.location_uid`,
+      `${schemas.location}.uid`,
+    )
     .where(`${schemas.agendaEventService}.agenda_uid`, agenda.uid);
 
   if (options.since) {
@@ -115,12 +135,24 @@ function getMembersStream(config, options, agenda) {
       `${schemas.stakeholder}.*`,
       `${schemas.user}.is_removed as userRemoved`,
     ])
-    .join(schemas.user, `${schemas.stakeholder}.user_uid`, `${schemas.user}.uid`)
-    .join(schemas.agenda, `${schemas.stakeholder}.agenda_uid`, `${schemas.agenda}.uid`)
+    .join(
+      schemas.user,
+      `${schemas.stakeholder}.user_uid`,
+      `${schemas.user}.uid`,
+    )
+    .join(
+      schemas.agenda,
+      `${schemas.stakeholder}.agenda_uid`,
+      `${schemas.agenda}.uid`,
+    )
     .where('agenda_uid', agenda.uid);
 
   if (options.since) {
-    q.where(`${schemas.agenda}.updated_at`, '>=', new Date(options.since * 1000));
+    q.where(
+      `${schemas.agenda}.updated_at`,
+      '>=',
+      new Date(options.since * 1000),
+    );
   }
 
   return q.stream();
@@ -133,18 +165,29 @@ async function removeFeed(service, feed) {
     await service.feed({ id: feed.id }).remove();
     return true;
   } catch (e) {
-    log.error(new VError({
-      cause: e,
-      info: {
-        entityType: feed.entity_type,
-        entityUid: feed.entity_uid,
-      },
-    }, 'Cannot remove feed'));
+    log.error(
+      new VError(
+        {
+          cause: e,
+          info: {
+            entityType: feed.entity_type,
+            entityUid: feed.entity_uid,
+          },
+        },
+        'Cannot remove feed',
+      ),
+    );
     return false;
   }
 }
 
-async function checkUserFollow(config, report, originFeed, targetFeed, feedFollow) {
+async function checkUserFollow(
+  config,
+  report,
+  originFeed,
+  targetFeed,
+  feedFollow,
+) {
   const { service, knex, schemas } = config;
 
   switch (originFeed.entityType) {
@@ -165,22 +208,32 @@ async function checkUserFollow(config, report, originFeed, targetFeed, feedFollo
           await service.feed(targetFeed).unfollow(originFeed);
           report.userUnfollowAgenda += 1;
         } else if (member.credential !== store.credential) {
-          log.debug(`Feed user ${userUid} refollow feed agenda ${agendaUid} with role ${member.credential} (before: ${store.credential})`);
+          log.debug(
+            `Feed user ${userUid} refollow feed agenda ${agendaUid} with role ${member.credential} (before: ${store.credential})`,
+          );
           await service.feed(targetFeed).unfollow(originFeed);
-          await service.feed(targetFeed).follow({
-            entityType: originFeed.entityType,
-            entityUid: originFeed.entityUid,
-          }, { credential: member.credential });
+          await service.feed(targetFeed).follow(
+            {
+              entityType: originFeed.entityType,
+              entityUid: originFeed.entityUid,
+            },
+            { credential: member.credential },
+          );
           report.userRefollowAgenda += 1;
         }
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            agendaUid,
-            userUid,
-          },
-        }, 'Feed user cannot unfollow feed agenda'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                agendaUid,
+                userUid,
+              },
+            },
+            'Feed user cannot unfollow feed agenda',
+          ),
+        );
       }
       break;
     }
@@ -201,32 +254,44 @@ async function checkUserFollow(config, report, originFeed, targetFeed, feedFollo
           report.userUnfollowEvent += 1;
         }
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            eventUid,
-            userUid,
-          },
-        }, 'Feed user cannot unfollow feed event'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                eventUid,
+                userUid,
+              },
+            },
+            'Feed user cannot unfollow feed event',
+          ),
+        );
       }
       break;
     }
     default: {
       // unfollow
       try {
-        log.debug(`Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`);
+        log.debug(
+          `Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`,
+        );
         await service.feed(targetFeed).unfollow(originFeed);
         report.userUnfollow += 1;
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            targetType: targetFeed.entityType,
-            targetUid: targetFeed.entityUid,
-            originType: originFeed.entityType,
-            originUid: originFeed.entityUid,
-          },
-        }, 'Feed cannot be unfollowed'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                targetType: targetFeed.entityType,
+                targetUid: targetFeed.entityUid,
+                originType: originFeed.entityType,
+                originUid: originFeed.entityUid,
+              },
+            },
+            'Feed cannot be unfollowed',
+          ),
+        );
       }
     }
   }
@@ -242,23 +307,30 @@ async function checkAgendaFollow(config, report, originFeed, targetFeed) {
       const eventUid = originFeed.entityUid;
 
       try {
-        const agendaEvent = await knex(schemas.agendaEventService).first().where({
-          agenda_uid: agendaUid,
-          event_uid: eventUid,
-        });
+        const agendaEvent = await knex(schemas.agendaEventService)
+          .first()
+          .where({
+            agenda_uid: agendaUid,
+            event_uid: eventUid,
+          });
         if (!agendaEvent) {
           log.debug(`Feed agenda ${agendaUid} unfollow feed event ${eventUid}`);
           await service.feed(targetFeed).unfollow(originFeed);
           report.agendaUnfollowEvent += 1;
         }
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            eventUid,
-            agendaUid,
-          },
-        }, 'Feed agenda cannot unfollow feed event'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                eventUid,
+                agendaUid,
+              },
+            },
+            'Feed agenda cannot unfollow feed event',
+          ),
+        );
       }
       break;
     }
@@ -268,22 +340,38 @@ async function checkAgendaFollow(config, report, originFeed, targetFeed) {
       const locationUid = originFeed.entityUid;
 
       try {
-        const agenda = await knex(schemas.agenda).first().where('uid', agendaUid);
-        const location = await knex(schemas.location).first().where('uid', locationUid);
+        const agenda = await knex(schemas.agenda)
+          .first()
+          .where('uid', agendaUid);
+        const location = await knex(schemas.location)
+          .first()
+          .where('uid', locationUid);
 
-        if (!agenda || agenda.location_set_uid || location.agenda_id !== agenda.id || location.deleted) {
-          log.debug(`Feed agenda ${agendaUid} unfollow feed location ${locationUid}`);
+        if (
+          !agenda ||
+          agenda.location_set_uid ||
+          location.agenda_id !== agenda.id ||
+          location.deleted
+        ) {
+          log.debug(
+            `Feed agenda ${agendaUid} unfollow feed location ${locationUid}`,
+          );
           await service.feed(targetFeed).unfollow(originFeed);
           report.agendaUnfollowLocation += 1;
         }
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            locationUid,
-            agendaUid,
-          },
-        }, 'Feed agenda cannot unfollow feed location'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                locationUid,
+                agendaUid,
+              },
+            },
+            'Feed agenda cannot unfollow feed location',
+          ),
+        );
       }
       break;
     }
@@ -293,40 +381,56 @@ async function checkAgendaFollow(config, report, originFeed, targetFeed) {
       const locationSetUid = originFeed.entityUid;
 
       try {
-        const agenda = await knex(schemas.agenda).first().where('uid', agendaUid);
+        const agenda = await knex(schemas.agenda)
+          .first()
+          .where('uid', agendaUid);
 
         if (agenda?.location_set_uid !== locationSetUid) {
-          log.debug(`Feed agenda ${agendaUid} unfollow feed locationSet ${locationSetUid}`);
+          log.debug(
+            `Feed agenda ${agendaUid} unfollow feed locationSet ${locationSetUid}`,
+          );
           await service.feed(targetFeed).unfollow(originFeed);
           report.agendaUnfollowLocationSet += 1;
         }
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            locationSetUid,
-            agendaUid,
-          },
-        }, 'Feed agenda cannot unfollow feed locationSet'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                locationSetUid,
+                agendaUid,
+              },
+            },
+            'Feed agenda cannot unfollow feed locationSet',
+          ),
+        );
       }
       break;
     }
     default: {
       // unfollow
       try {
-        log.debug(`Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`);
+        log.debug(
+          `Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`,
+        );
         await service.feed(targetFeed).unfollow(originFeed);
         report.agendaUnfollow += 1;
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            targetType: targetFeed.entityType,
-            targetUid: targetFeed.entityUid,
-            originType: originFeed.entityType,
-            originUid: originFeed.entityUid,
-          },
-        }, 'Feed cannot be unfollowed'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                targetType: targetFeed.entityType,
+                targetUid: targetFeed.entityUid,
+                originType: originFeed.entityType,
+                originUid: originFeed.entityUid,
+              },
+            },
+            'Feed cannot be unfollowed',
+          ),
+        );
       }
     }
   }
@@ -337,19 +441,26 @@ async function checkEventFollow(config, report, originFeed, targetFeed) {
 
   // unfollow
   try {
-    log.debug(`Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`);
+    log.debug(
+      `Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`,
+    );
     await service.feed(targetFeed).unfollow(originFeed);
     report.eventUnfollow += 1;
   } catch (e) {
-    log.error(new VError({
-      cause: e,
-      info: {
-        targetType: targetFeed.entityType,
-        targetUid: targetFeed.entityUid,
-        originType: originFeed.entityType,
-        originUid: originFeed.entityUid,
-      },
-    }, 'Feed cannot be unfollowed'));
+    log.error(
+      new VError(
+        {
+          cause: e,
+          info: {
+            targetType: targetFeed.entityType,
+            targetUid: targetFeed.entityUid,
+            originType: originFeed.entityType,
+            originUid: originFeed.entityUid,
+          },
+        },
+        'Feed cannot be unfollowed',
+      ),
+    );
   }
 }
 
@@ -358,19 +469,26 @@ async function checkLocationFollow(config, report, originFeed, targetFeed) {
 
   // unfollow
   try {
-    log.debug(`Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`);
+    log.debug(
+      `Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`,
+    );
     await service.feed(targetFeed).unfollow(originFeed);
     report.locationUnfollow += 1;
   } catch (e) {
-    log.error(new VError({
-      cause: e,
-      info: {
-        targetType: targetFeed.entityType,
-        targetUid: targetFeed.entityUid,
-        originType: originFeed.entityType,
-        originUid: originFeed.entityUid,
-      },
-    }, 'Feed cannot be unfollowed'));
+    log.error(
+      new VError(
+        {
+          cause: e,
+          info: {
+            targetType: targetFeed.entityType,
+            targetUid: targetFeed.entityUid,
+            originType: originFeed.entityType,
+            originUid: originFeed.entityUid,
+          },
+        },
+        'Feed cannot be unfollowed',
+      ),
+    );
   }
 }
 
@@ -383,38 +501,54 @@ async function checkLocationSetFollow(config, report, originFeed, targetFeed) {
     const locationUid = originFeed.entityUid;
 
     try {
-      const location = await knex(schemas.location).first().where('uid', locationUid);
+      const location = await knex(schemas.location)
+        .first()
+        .where('uid', locationUid);
 
       if (location?.set_uid !== locationSetUid || location.deleted) {
-        log.debug(`Feed locationSet ${locationSetUid} unfollow feed location ${locationUid}`);
+        log.debug(
+          `Feed locationSet ${locationSetUid} unfollow feed location ${locationUid}`,
+        );
         await service.feed(targetFeed).unfollow(originFeed);
         report.locationSetUnfollowLocation += 1;
       }
     } catch (e) {
-      log.error(new VError({
-        cause: e,
-        info: {
-          locationSetUid,
-          locationUid,
-        },
-      }, 'Feed locationSet cannot unfollow feed location'));
+      log.error(
+        new VError(
+          {
+            cause: e,
+            info: {
+              locationSetUid,
+              locationUid,
+            },
+          },
+          'Feed locationSet cannot unfollow feed location',
+        ),
+      );
     }
   } else {
     // unfollow
     try {
-      log.debug(`Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`);
+      log.debug(
+        `Feed ${targetFeed.entityType} ${targetFeed.entityUid} unfollow feed ${originFeed.entityType} ${originFeed.entityUid}`,
+      );
       await service.feed(targetFeed).unfollow(originFeed);
       report.locationSetUnfollow += 1;
     } catch (e) {
-      log.error(new VError({
-        cause: e,
-        info: {
-          targetType: targetFeed.entityType,
-          targetUid: targetFeed.entityUid,
-          originType: originFeed.entityType,
-          originUid: originFeed.entityUid,
-        },
-      }, 'Feed cannot be unfollowed'));
+      log.error(
+        new VError(
+          {
+            cause: e,
+            info: {
+              targetType: targetFeed.entityType,
+              targetUid: targetFeed.entityUid,
+              originType: originFeed.entityType,
+              originUid: originFeed.entityUid,
+            },
+          },
+          'Feed cannot be unfollowed',
+        ),
+      );
     }
   }
 }
@@ -458,6 +592,7 @@ module.exports = async function rebuild(config, options = {}) {
     locationSetUnfollow: 0, // follow chelou...
   };
 
+  log.info('running rebuild', { options });
 
   if (!options.agendaUid && !options.setUid) {
     // Remove feeds from entities that no longer exist
@@ -465,7 +600,7 @@ module.exports = async function rebuild(config, options = {}) {
     let feedCount = 0;
 
     for await (const feed of feedsStream) {
-      feedCount += 1
+      feedCount += 1;
 
       if (feedCount % 1000 === 0) {
         log.debug(`feed n°${feedCount}`);
@@ -473,7 +608,9 @@ module.exports = async function rebuild(config, options = {}) {
 
       switch (feed.entity_type) {
         case 'user': {
-          const user = await knex(schemas.user).first().where('uid', feed.entity_uid);
+          const user = await knex(schemas.user)
+            .first()
+            .where('uid', feed.entity_uid);
           if (!user || user.is_removed) {
             const isRemoved = await removeFeed(service, feed);
             if (isRemoved) {
@@ -483,7 +620,9 @@ module.exports = async function rebuild(config, options = {}) {
           break;
         }
         case 'agenda': {
-          const agenda = await knex(schemas.agenda).first().where('uid', feed.entity_uid);
+          const agenda = await knex(schemas.agenda)
+            .first()
+            .where('uid', feed.entity_uid);
           if (!agenda) {
             const isRemoved = await removeFeed(service, feed);
             if (isRemoved) {
@@ -493,7 +632,9 @@ module.exports = async function rebuild(config, options = {}) {
           break;
         }
         case 'event': {
-          const event = await knex(schemas.eventService).first().where('uid', feed.entity_uid);
+          const event = await knex(schemas.eventService)
+            .first()
+            .where('uid', feed.entity_uid);
           if (!event || event.deleted_at) {
             const isRemoved = await removeFeed(service, feed);
             if (isRemoved) {
@@ -503,7 +644,9 @@ module.exports = async function rebuild(config, options = {}) {
           break;
         }
         case 'location': {
-          const location = await knex(schemas.location).first().where('uid', feed.entity_uid);
+          const location = await knex(schemas.location)
+            .first()
+            .where('uid', feed.entity_uid);
           if (!location) {
             const isRemoved = await removeFeed(service, feed);
             if (isRemoved) {
@@ -513,7 +656,9 @@ module.exports = async function rebuild(config, options = {}) {
           break;
         }
         case 'locationSet': {
-          const location = await knex(schemas.locationSet).first().where('uid', feed.entity_uid);
+          const location = await knex(schemas.locationSet)
+            .first()
+            .where('uid', feed.entity_uid);
           if (!location) {
             const isRemoved = await removeFeed(service, feed);
             if (isRemoved) {
@@ -545,34 +690,69 @@ module.exports = async function rebuild(config, options = {}) {
           service.feed({ id: feedFollow.target_feed }).get(),
         ]);
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            id: feedFollow.id,
-          },
-        }, 'Cannot get feeds of follow'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                id: feedFollow.id,
+              },
+            },
+            'Cannot get feeds of follow',
+          ),
+        );
         continue;
       }
 
       switch (targetFeed.entityType) {
         case 'user': {
-          await checkUserFollow(config, report, originFeed, targetFeed, feedFollow);
+          await checkUserFollow(
+            config,
+            report,
+            originFeed,
+            targetFeed,
+            feedFollow,
+          );
           break;
         }
         case 'agenda': {
-          await checkAgendaFollow(config, report, originFeed, targetFeed, feedFollow);
+          await checkAgendaFollow(
+            config,
+            report,
+            originFeed,
+            targetFeed,
+            feedFollow,
+          );
           break;
         }
         case 'event': {
-          await checkEventFollow(config, report, originFeed, targetFeed, feedFollow);
+          await checkEventFollow(
+            config,
+            report,
+            originFeed,
+            targetFeed,
+            feedFollow,
+          );
           break;
         }
         case 'location': {
-          await checkLocationFollow(config, report, originFeed, targetFeed, feedFollow);
+          await checkLocationFollow(
+            config,
+            report,
+            originFeed,
+            targetFeed,
+            feedFollow,
+          );
           break;
         }
         case 'locationSet': {
-          await checkLocationSetFollow(config, report, originFeed, targetFeed, feedFollow);
+          await checkLocationSetFollow(
+            config,
+            report,
+            originFeed,
+            targetFeed,
+            feedFollow,
+          );
           break;
         }
       }
@@ -597,16 +777,23 @@ module.exports = async function rebuild(config, options = {}) {
       }
 
       try {
-        await service.feed({ entityType: 'user', entityUid: user.uid }).create();
+        await service
+          .feed({ entityType: 'user', entityUid: user.uid })
+          .create();
         report.userFeedsCreated += 1;
       } catch (e) {
         if (e.message !== 'Feed already exists') {
-          log.error(new VError({
-            cause: e,
-            info: {
-              userUid: user.uid,
-            },
-          }, 'Cannot create feed user'));
+          log.error(
+            new VError(
+              {
+                cause: e,
+                info: {
+                  userUid: user.uid,
+                },
+              },
+              'Cannot create feed user',
+            ),
+          );
         }
       }
     }
@@ -623,16 +810,23 @@ module.exports = async function rebuild(config, options = {}) {
       }
 
       try {
-        await service.feed({ entityType: 'locationSet', entityUid: locationSet.uid }).create();
+        await service
+          .feed({ entityType: 'locationSet', entityUid: locationSet.uid })
+          .create();
         report.locationSetFeedsCreated += 1;
       } catch (e) {
         if (e.message !== 'Feed already exists') {
-          log.error(new VError({
-            cause: e,
-            info: {
-              locationSetUid: locationSet.uid,
-            },
-          }, 'Cannot create feed locationSet'));
+          log.error(
+            new VError(
+              {
+                cause: e,
+                info: {
+                  locationSetUid: locationSet.uid,
+                },
+              },
+              'Cannot create feed locationSet',
+            ),
+          );
         }
       }
     }
@@ -656,33 +850,47 @@ module.exports = async function rebuild(config, options = {}) {
     let eventFeed;
 
     try {
-      eventFeed = await service.feed({ entityType: 'event', entityUid: event.uid }).create({ internal: true });
+      eventFeed = await service
+        .feed({ entityType: 'event', entityUid: event.uid })
+        .create({ internal: true });
       report.eventFeedsCreated += 1;
     } catch (e) {
       if (e.message !== 'Feed already exists') {
-        log.error(new VError({
-          cause: e,
-          info: {
-            eventUid: event.uid,
-          },
-        }, 'Cannot create feed event'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                eventUid: event.uid,
+              },
+            },
+            'Cannot create feed event',
+          ),
+        );
         continue;
       }
     }
 
     if (!eventFeed) {
       try {
-        eventFeed = await service.feed({
-          entityType: 'event',
-          entityUid: event.uid,
-        }).get({ internal: true });
+        eventFeed = await service
+          .feed({
+            entityType: 'event',
+            entityUid: event.uid,
+          })
+          .get({ internal: true });
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            eventUid: event.uid,
-          },
-        }, 'Cannot get feed event'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                eventUid: event.uid,
+              },
+            },
+            'Cannot get feed event',
+          ),
+        );
         continue;
       }
     }
@@ -692,20 +900,27 @@ module.exports = async function rebuild(config, options = {}) {
 
       // log.debug(`feed user ${event.owner_uid} follow feed event ${event.uid}`);
 
-      await service.feed({
-        entityType: 'user',
-        entityUid: event.owner_uid,
-      }).follow(eventFeed.id);
+      await service
+        .feed({
+          entityType: 'user',
+          entityUid: event.owner_uid,
+        })
+        .follow(eventFeed.id);
       report.userFollowEvent += 1;
     } catch (e) {
       if (e.message !== 'Feed already followed') {
-        log.error(new VError({
-          cause: e,
-          info: {
-            userUid: event.owner_uid,
-            eventUid: event.uid,
-          },
-        }, 'Feed user cannot follow feed event'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                userUid: event.owner_uid,
+                eventUid: event.uid,
+              },
+            },
+            'Feed user cannot follow feed event',
+          ),
+        );
       }
     }
   }
@@ -727,34 +942,47 @@ module.exports = async function rebuild(config, options = {}) {
     let agendaFeed;
 
     try {
-      agendaFeed = await service.feed({ entityType: 'agenda', entityUid: agenda.uid })
+      agendaFeed = await service
+        .feed({ entityType: 'agenda', entityUid: agenda.uid })
         .create({ internal: true, followed: true });
       report.agendaFeedsCreated += 1;
     } catch (e) {
       if (e.message !== 'Feed already exists') {
-        log.error(new VError({
-          cause: e,
-          info: {
-            agendaUid: agenda.uid,
-          },
-        }, 'Cannot create feed agenda'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                agendaUid: agenda.uid,
+              },
+            },
+            'Cannot create feed agenda',
+          ),
+        );
         continue;
       }
     }
 
     if (!agendaFeed) {
       try {
-        agendaFeed = await service.feed({
-          entityType: 'agenda',
-          entityUid: agenda.uid,
-        }).get({ internal: true, followed: true });
+        agendaFeed = await service
+          .feed({
+            entityType: 'agenda',
+            entityUid: agenda.uid,
+          })
+          .get({ internal: true, followed: true });
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            agendaUid: agenda.uid,
-          },
-        }, 'Cannot get feed agenda'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                agendaUid: agenda.uid,
+              },
+            },
+            'Cannot get feed agenda',
+          ),
+        );
         continue;
       }
     }
@@ -763,16 +991,26 @@ module.exports = async function rebuild(config, options = {}) {
       // locationSet feed created before without `options.agendaUid`
       if (options.agendaUid) {
         try {
-          await service.feed({ entityType: 'locationSet', entityUid: agenda.location_set_uid }).create();
+          await service
+            .feed({
+              entityType: 'locationSet',
+              entityUid: agenda.location_set_uid,
+            })
+            .create();
           report.locationSetFeedsCreated += 1;
         } catch (e) {
           if (e.message !== 'Feed already exists') {
-            log.error(new VError({
-              cause: e,
-              info: {
-                locationSetUid: agenda.location_set_uid,
-              },
-            }, 'Cannot create feed locationSet'));
+            log.error(
+              new VError(
+                {
+                  cause: e,
+                  info: {
+                    locationSetUid: agenda.location_set_uid,
+                  },
+                },
+                'Cannot create feed locationSet',
+              ),
+            );
           }
         }
       }
@@ -780,38 +1018,51 @@ module.exports = async function rebuild(config, options = {}) {
       try {
         // log.debug(`feed agenda ${agenda.uid} follow feed locationSet ${agenda.location_set_uid}`);
 
-        await service.feed({
-          entityType: 'agenda',
-          entityUid: agenda.uid,
-        }).follow({
-          entityType: 'locationSet',
-          entityUid: agenda.location_set_uid,
-        });
+        await service
+          .feed({
+            entityType: 'agenda',
+            entityUid: agenda.uid,
+          })
+          .follow({
+            entityType: 'locationSet',
+            entityUid: agenda.location_set_uid,
+          });
         report.agendaFollowLocationSet += 1;
       } catch (e) {
         if (e.message !== 'Feed already followed') {
-          log.error(new VError({
-            cause: e,
-            info: {
-              agendaUid: agenda.uid,
-              locationSetUid: agenda.location_set_uid,
-            },
-          }, 'Feed agenda cannot follow feed locationSet'));
+          log.error(
+            new VError(
+              {
+                cause: e,
+                info: {
+                  agendaUid: agenda.uid,
+                  locationSetUid: agenda.location_set_uid,
+                },
+              },
+              'Feed agenda cannot follow feed locationSet',
+            ),
+          );
         }
       }
-    } else { // agenda don't have locationSetUid
-      for (const follower of (agendaFeed.followed || [])) {
+    } else {
+      // agenda don't have locationSetUid
+      for (const follower of agendaFeed.followed || []) {
         let feed;
 
         try {
           feed = await service.feed({ id: follower.originFeed }).get();
         } catch (e) {
-          log.error(new VError({
-            cause: e,
-            info: {
-              feedId: follower.originFeed,
-            },
-          }, 'Cannot get feed'));
+          log.error(
+            new VError(
+              {
+                cause: e,
+                info: {
+                  feedId: follower.originFeed,
+                },
+              },
+              'Cannot get feed',
+            ),
+          );
           continue;
         }
 
@@ -820,13 +1071,18 @@ module.exports = async function rebuild(config, options = {}) {
             const unfollowed = await service.feed(agendaFeed).unfollow(feed);
             report.agendaUnfollowLocationSet += unfollowed;
           } catch (e) {
-            log.error(new VError({
-              cause: e,
-              info: {
-                agendaUid: agenda.uid,
-                setUid: feed.entityUid,
-              },
-            }, 'Feed agenda cannot unfollow feed locationSet'));
+            log.error(
+              new VError(
+                {
+                  cause: e,
+                  info: {
+                    agendaUid: agenda.uid,
+                    setUid: feed.entityUid,
+                  },
+                },
+                'Feed agenda cannot unfollow feed locationSet',
+              ),
+            );
           }
         }
       }
@@ -849,100 +1105,139 @@ module.exports = async function rebuild(config, options = {}) {
       let locationFeed;
 
       try {
-        locationFeed = await service.feed({ entityType: 'location', entityUid: location.uid })
+        locationFeed = await service
+          .feed({ entityType: 'location', entityUid: location.uid })
           .create({ internal: true });
         report.locationFeedsCreated += 1;
       } catch (e) {
         if (e.message !== 'Feed already exists') {
-          log.error(new VError({
-            cause: e,
-            info: {
-              locationUid: location.uid,
-            },
-          }, 'Cannot create feed location'));
+          log.error(
+            new VError(
+              {
+                cause: e,
+                info: {
+                  locationUid: location.uid,
+                },
+              },
+              'Cannot create feed location',
+            ),
+          );
           continue;
         }
       }
 
       if (!locationFeed) {
         try {
-          locationFeed = await service.feed({
-            entityType: 'location',
-            entityUid: location.uid,
-          }).get({ internal: true, followedBy: true });
+          locationFeed = await service
+            .feed({
+              entityType: 'location',
+              entityUid: location.uid,
+            })
+            .get({ internal: true, followedBy: true });
         } catch (e) {
-          log.error(new VError({
-            cause: e,
-            info: {
-              locationUid: location.uid,
-            },
-          }, 'Cannot get feed location'));
+          log.error(
+            new VError(
+              {
+                cause: e,
+                info: {
+                  locationUid: location.uid,
+                },
+              },
+              'Cannot get feed location',
+            ),
+          );
           continue;
         }
       }
 
       if (agenda.location_set_uid) {
         try {
-          const unfollowed = await service.feed({
-            entityType: 'agenda',
-            entityUid: agenda.uid,
-          }).unfollow(locationFeed);
+          const unfollowed = await service
+            .feed({
+              entityType: 'agenda',
+              entityUid: agenda.uid,
+            })
+            .unfollow(locationFeed);
           report.agendaUnfollowLocation += unfollowed;
         } catch (e) {
-          log.error(new VError({
-            cause: e,
-            info: {
-              agendaUid: agenda.uid,
-              locationUid: location.uid,
-            },
-          }, 'Feed agenda cannot unfollow feed location'));
+          log.error(
+            new VError(
+              {
+                cause: e,
+                info: {
+                  agendaUid: agenda.uid,
+                  locationUid: location.uid,
+                },
+              },
+              'Feed agenda cannot unfollow feed location',
+            ),
+          );
         }
 
         try {
-          await service.feed({
-            entityType: 'locationSet',
-            entityUid: agenda.location_set_uid,
-          }).follow(locationFeed);
+          await service
+            .feed({
+              entityType: 'locationSet',
+              entityUid: agenda.location_set_uid,
+            })
+            .follow(locationFeed);
           report.locationSetFollowLocation += 1;
         } catch (e) {
           if (e.message !== 'Feed already followed') {
-            log.error(new VError({
-              cause: e,
-              info: {
-                setUid: agenda.location_set_uid,
-                locationUid: location.uid,
-              },
-            }, 'Feed locationSet cannot follow feed location'));
+            log.error(
+              new VError(
+                {
+                  cause: e,
+                  info: {
+                    setUid: agenda.location_set_uid,
+                    locationUid: location.uid,
+                  },
+                },
+                'Feed locationSet cannot follow feed location',
+              ),
+            );
           }
         }
       } else {
-        for (const follower of (locationFeed.followedBy || [])) {
+        for (const follower of locationFeed.followedBy || []) {
           let feed;
 
           try {
             feed = await service.feed({ id: follower.targetFeed }).get();
           } catch (e) {
-            log.error(new VError({
-              cause: e,
-              info: {
-                feedId: follower.targetFeed,
-              },
-            }, 'Cannot get feed'));
+            log.error(
+              new VError(
+                {
+                  cause: e,
+                  info: {
+                    feedId: follower.targetFeed,
+                  },
+                },
+                'Cannot get feed',
+              ),
+            );
             continue;
           }
 
           if (feed.entityType === 'locationSet') {
             try {
-              const unfollowed = await service.feed(feed).unfollow(locationFeed);
+              const unfollowed = await service
+                .feed(feed)
+                .unfollow(locationFeed);
               report.locationSetUnfollowLocation += unfollowed;
             } catch (e) {
-              log.error(new VError({
-                cause: e,
-                info: {
-                  setUid: feed.entityUid,
-                  locationUid: location.uid,
-                },
-              }, 'Feed locationSet cannot unfollow feed location'));
+              log.error(
+                new VError(
+                  {
+                    cause: e,
+                    info: {
+                      setUid: feed.entityUid,
+                      locationUid: location.uid,
+                    },
+                  },
+                  'Feed locationSet cannot unfollow feed location',
+                ),
+              );
             }
           }
         }
@@ -952,13 +1247,18 @@ module.exports = async function rebuild(config, options = {}) {
           report.agendaFollowLocation += 1;
         } catch (e) {
           if (e.message !== 'Feed already followed') {
-            log.error(new VError({
-              cause: e,
-              info: {
-                agendaUid: agenda.uid,
-                locationUid: location.uid,
-              },
-            }, 'Feed agenda cannot follow feed location'));
+            log.error(
+              new VError(
+                {
+                  cause: e,
+                  info: {
+                    agendaUid: agenda.uid,
+                    locationUid: location.uid,
+                  },
+                },
+                'Feed agenda cannot follow feed location',
+              ),
+            );
           }
         }
       }
@@ -977,23 +1277,30 @@ module.exports = async function rebuild(config, options = {}) {
       try {
         // log.debug(`feed agenda ${agendaEvent.agenda_uid} follow feed event ${agendaEvent.event_uid}`);
 
-        await service.feed({
-          entityType: 'agenda',
-          entityUid: agendaEvent.agenda_uid,
-        }).follow({
-          entityType: 'event',
-          entityUid: agendaEvent.event_uid,
-        });
+        await service
+          .feed({
+            entityType: 'agenda',
+            entityUid: agendaEvent.agenda_uid,
+          })
+          .follow({
+            entityType: 'event',
+            entityUid: agendaEvent.event_uid,
+          });
         report.agendaFollowEvent += 1;
       } catch (e) {
         if (e.message !== 'Feed already followed') {
-          log.error(new VError({
-            cause: e,
-            info: {
-              agendaUid: agendaEvent.agenda_uid,
-              eventUid: agendaEvent.event_uid,
-            },
-          }, 'Feed agenda cannot follow feed event'));
+          log.error(
+            new VError(
+              {
+                cause: e,
+                info: {
+                  agendaUid: agendaEvent.agenda_uid,
+                  eventUid: agendaEvent.event_uid,
+                },
+              },
+              'Feed agenda cannot follow feed event',
+            ),
+          );
         }
       }
     }
@@ -1010,30 +1317,45 @@ module.exports = async function rebuild(config, options = {}) {
 
       const feedFollow = await knex(schemas.feed_follow)
         .first()
-        .leftJoin(`${schemas.feed} as targetFeed`, 'targetFeed.id', `${schemas.feed_follow}.target_feed`)
-        .leftJoin(`${schemas.feed} as originFeed`, 'originFeed.id', `${schemas.feed_follow}.origin_feed`)
+        .leftJoin(
+          `${schemas.feed} as targetFeed`,
+          'targetFeed.id',
+          `${schemas.feed_follow}.target_feed`,
+        )
+        .leftJoin(
+          `${schemas.feed} as originFeed`,
+          'originFeed.id',
+          `${schemas.feed_follow}.origin_feed`,
+        )
         .where('targetFeed.entity_type', 'user')
         .andWhere('originFeed.entity_type', 'agenda')
         .andWhere('targetFeed.entity_uid', member.user_uid)
         .andWhere('originFeed.entity_type', member.agenda_uid);
 
       if (feedFollow) {
-        const store = JSON.parse(feedFollow.store || '{}')
+        const store = JSON.parse(feedFollow.store || '{}');
         if (store.credential !== member.credential) {
           // unfollow + follow
           try {
-            await service.feed({
-              entityType: 'user',
-              entityUid: member.user_uid,
-            }).unfollow({ entityType: 'agenda', entityUid: member.agenda_uid });
+            await service
+              .feed({
+                entityType: 'user',
+                entityUid: member.user_uid,
+              })
+              .unfollow({ entityType: 'agenda', entityUid: member.agenda_uid });
           } catch (e) {
-            log.error(new VError({
-              cause: e,
-              info: {
-                agendaUid: member.agenda_uid,
-                userUid: member.user_uid,
-              },
-            }, 'Feed user cannot unfollow feed agenda'));
+            log.error(
+              new VError(
+                {
+                  cause: e,
+                  info: {
+                    agendaUid: member.agenda_uid,
+                    userUid: member.user_uid,
+                  },
+                },
+                'Feed user cannot unfollow feed agenda',
+              ),
+            );
             continue;
           }
 
@@ -1041,23 +1363,33 @@ module.exports = async function rebuild(config, options = {}) {
             try {
               // log.debug(`feed user ${member.user_uid} follow feed agenda ${member.agenda_uid}`);
 
-              await service.feed({
-                entityType: 'user',
-                entityUid: member.user_uid,
-              }).follow({
-                entityType: 'agenda',
-                entityUid: member.agenda_uid,
-              }, { credential: member.credential });
+              await service
+                .feed({
+                  entityType: 'user',
+                  entityUid: member.user_uid,
+                })
+                .follow(
+                  {
+                    entityType: 'agenda',
+                    entityUid: member.agenda_uid,
+                  },
+                  { credential: member.credential },
+                );
               report.userRefollowAgenda += 1;
             } catch (e) {
               if (e.message !== 'Feed already followed') {
-                log.error(new VError({
-                  cause: e,
-                  info: {
-                    agendaUid: member.agenda_uid,
-                    userUid: member.user_uid,
-                  },
-                }, 'Feed user cannot follow feed agenda'));
+                log.error(
+                  new VError(
+                    {
+                      cause: e,
+                      info: {
+                        agendaUid: member.agenda_uid,
+                        userUid: member.user_uid,
+                      },
+                    },
+                    'Feed user cannot follow feed agenda',
+                  ),
+                );
               }
             }
           } else {
@@ -1068,23 +1400,33 @@ module.exports = async function rebuild(config, options = {}) {
         try {
           // log.debug(`feed user ${member.user_uid} follow feed agenda ${member.agenda_uid}`);
 
-          await service.feed({
-            entityType: 'user',
-            entityUid: member.user_uid,
-          }).follow({
-            entityType: 'agenda',
-            entityUid: member.agenda_uid,
-          }, { credential: member.credential });
+          await service
+            .feed({
+              entityType: 'user',
+              entityUid: member.user_uid,
+            })
+            .follow(
+              {
+                entityType: 'agenda',
+                entityUid: member.agenda_uid,
+              },
+              { credential: member.credential },
+            );
           report.userFollowAgenda += 1;
         } catch (e) {
           if (e.message !== 'Feed already followed') {
-            log.error(new VError({
-              cause: e,
-              info: {
-                agendaUid: member.agenda_uid,
-                userUid: member.user_uid,
-              },
-            }, 'Feed user cannot follow feed agenda'));
+            log.error(
+              new VError(
+                {
+                  cause: e,
+                  info: {
+                    agendaUid: member.agenda_uid,
+                    userUid: member.user_uid,
+                  },
+                },
+                'Feed user cannot follow feed agenda',
+              ),
+            );
           }
         }
       }
