@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import rebuildActivityFeeds from '@openagenda/activities/src/rebuild.js';
 
@@ -21,38 +20,36 @@ function runRebuild({ config, since, agendaUid, activities }) {
   );
 }
 
-function rebuildActivities({ config, services }) {
-  const {
-    redis: redisClient,
-    activities,
-  } = services;
+async function rebuildActivities({ config, services }) {
+  const { redis: redisClient, activities } = services;
 
-  redisClient.get(sinceKey, (err, result) => {
-    if (err) {
-      log.error('Rebuild failed: could not fetch redis key', err);
-      return;
-    }
-    const since = parseInt(result, 10);
-    const startTime = Math.floor(Date.now() / 1000);
+  const result = await redisClient.get(sinceKey);
 
-    runRebuild({
+  const since = result ? parseInt(result, 10) : null;
+  const startTime = Math.floor(Date.now() / 1000);
+
+  try {
+    await runRebuild({
       config,
       activities,
       since,
-    }).then(() => {
-      log.info('Synchronization end !', { since });
-      redisClient.set(sinceKey, startTime, _.noop);
-    }, e => {
-      log.error('Error on activities syncing:', e);
     });
-  });
+  } catch (error) {
+    log.error('Error on activities syncing', { error });
+    return;
+  }
+
+  log.info('Synchronization end !', { since });
+
+  await redisClient.set(sinceKey, startTime);
 }
 
 export default ({ config, services }) => ({
   rebuild: () => rebuildActivities({ services, config }),
-  agendaRebuild: agendaUid => runRebuild({
-    activities: services.activities,
-    config,
-    agendaUid,
-  }),
+  agendaRebuild: agendaUid =>
+    runRebuild({
+      activities: services.activities,
+      config,
+      agendaUid,
+    }),
 });
