@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const logger = require('@openagenda/logs');
 const feed = require('./feed');
 const feeds = require('./feeds');
@@ -8,8 +8,8 @@ const activities = require('./activities');
 const notifications = require('./notifications');
 const rebuild = require('./rebuild');
 
-const cleanOldActivitiesTask = require('./activities/tasks/cleanOld')
-const cleanOldNotificationsTask = require('./notifications/tasks/cleanOld')
+const cleanOldActivitiesTask = require('./activities/tasks/cleanOld');
+const cleanOldNotificationsTask = require('./notifications/tasks/cleanOld');
 
 module.exports = Service;
 
@@ -21,15 +21,16 @@ async function Service(c) {
   Object.assign(config.knex.client.config, {
     schemas: {
       ...config.knex.client.config.schemas,
-      ...config.schemas
-    }
+      ...config.schemas,
+    },
   });
 
   if (c.migrations !== null) {
     Object.assign(config.knex.client.config, {
-      migrations: Object.assign({}, c.migrations, {
-        directory: path.resolve(path.dirname(__dirname), 'migrations')
-      })
+      migrations: {
+        ...c.migrations,
+        directory: path.resolve(path.dirname(__dirname), 'migrations'),
+      },
     });
   }
 
@@ -37,24 +38,24 @@ async function Service(c) {
     await config.knex.migrate.latest();
   }
 
-  const service = config.service = {};
+  const service = (config.service = {});
 
   return Object.assign(service, {
     feed: feed.bind(null, config),
     feeds: feeds.bind(null, config),
     activities: Object.assign(
       activities.bind(null, config), // .activities( identifiers ).list
-      activities(config, null) // .activities.list
+      activities(config, null), // .activities.list
     ),
     notifications: notifications.bind(null, config),
     tasks: {
       activities: {
-        cleanOld: cleanOldActivitiesTask.bind(null, config)
+        cleanOld: cleanOldActivitiesTask.bind(null, config),
       },
       notifications: {
-        cleanOld: cleanOldNotificationsTask.bind(null, config)
-      }
+        cleanOld: cleanOldNotificationsTask.bind(null, config),
+      },
     },
     rebuild: rebuild.bind(null, config),
   });
-};
+}

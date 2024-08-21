@@ -1,3 +1,5 @@
+'use strict';
+
 const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('activities/rebuild');
 
@@ -667,6 +669,8 @@ module.exports = async function rebuild(config, options = {}) {
           }
           break;
         }
+        default:
+          log('unknown entity type', { entityType: feed.entity_type });
       }
     }
 
@@ -754,6 +758,9 @@ module.exports = async function rebuild(config, options = {}) {
             feedFollow,
           );
           break;
+        }
+        default: {
+          log('unknow entity type', { entityType: targetFeed.entityType });
         }
       }
     }
