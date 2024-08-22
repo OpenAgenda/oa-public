@@ -1,4 +1,8 @@
+import logs from '@openagenda/logs';
+
 import validateOptions from './lib/validateOptions.js';
+
+const log = logs('remove');
 
 async function _remove(service, where, current = null, params = null) {
   const { config, client, removeLegacy } = service;
@@ -31,9 +35,12 @@ async function _remove(service, where, current = null, params = null) {
       params !== null ? params.context : null,
     );
   }
-
   if (success && params.transferToLegacy) {
-    await removeLegacy(current);
+    try {
+      await removeLegacy(current);
+    } catch (e) {
+      log.warn('legacy ref could not be removed', { error: e });
+    }
   }
 
   return {
