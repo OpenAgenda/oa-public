@@ -379,6 +379,7 @@ function Dashboard() {
             'originAgenda.title',
             'onlineAccessLink',
             'registration',
+            'motive',
           ],
         },
         page,

@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 import qs from 'qs';
 import { css } from '@emotion/react';
-import { useApiClient, MoreInfo } from '@openagenda/react-shared';
+import { useApiClient, MoreInfo, useModal, Modal, nl2br } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
 import toggleEventItemValue from '../utils/toggleEventItemValue';
 import EventStateSelector from './EventStateSelector';
@@ -94,6 +94,14 @@ const messages = defineMessages({
     id: 'EventAdminApp.EventItem.unnamedMemberInfo',
     defaultMessage: 'Member has not specified his/her name',
   },
+  seeMotive: {
+    id: 'EventAdminApp.EventItem.seeMotive',
+    defaultMessage: 'See motive',
+  },
+  motiveTitle: {
+    id: 'EventAdminApp.EventItem.motiveTitle',
+    defaultMessage: 'Motive',
+  },
 });
 
 export default function EventItem({
@@ -150,6 +158,7 @@ export default function EventItem({
   }, [event]);
 
   const [hovered, setHovered] = useState(false);
+  const motiveModal = useModal();
 
   const onSelect = useCallback(
     () => selectEvent(event.uid),
@@ -371,16 +380,16 @@ export default function EventItem({
           </li>
 
           {event.member
-          && event.originAgenda?.uid === agenda.uid
-          && event.location ? (
-            <li>
-              <a
-                className="btn btn-link btn-link-inline"
-                href={`/${agenda.slug}/admin/locations/${event.location.uid}?uids[]=${event.location.uid}`}
-              >
-                {intl.formatMessage(messages.showLocation)}
-              </a>
-            </li>
+            && event.originAgenda?.uid === agenda.uid
+            && event.location ? (
+              <li>
+                <a
+                  className="btn btn-link btn-link-inline"
+                  href={`/${agenda.slug}/admin/locations/${event.location.uid}?uids[]=${event.location.uid}`}
+                >
+                  {intl.formatMessage(messages.showLocation)}
+                </a>
+              </li>
             ) : null}
 
           {event.onlineAccessLink ? (
@@ -395,6 +404,18 @@ export default function EventItem({
                 &nbsp;
                 <i className="fa fa-external-link" />
               </a>
+            </li>
+          ) : null}
+
+          {event.motive && event.state === -1 ? (
+            <li>
+              <button
+                type="button"
+                className="btn btn-link btn-link-inline"
+                onClick={() => motiveModal.open()}
+              >
+                {intl.formatMessage(messages.seeMotive)}
+              </button>
             </li>
           ) : null}
 
@@ -432,6 +453,16 @@ export default function EventItem({
           >
             <input type="checkbox" onChange={onSelect} checked={selected} />
           </div>
+        ) : null}
+        {motiveModal.isOpen ? (
+          <Modal
+            title={intl.formatMessage(messages.motiveTitle)}
+            onClose={motiveModal.close}
+          >
+            <div>
+              {nl2br(event.motive)}
+            </div>
+          </Modal>
         ) : null}
       </div>
     </li>

@@ -92,6 +92,27 @@ export function SharedEventItem() {
   );
 }
 
+export function RefusedWithMotiveEventItem() {
+  return (
+    <div className="list-unstyled">
+      <EventItem
+        key={2}
+        agenda={agenda}
+        event={{ ...contributedEvent, motive: 'testMotive\n this is why.', state: -1 }}
+        openRemoveModal={() => {}}
+        selected={false}
+        selectEvent={() => {}}
+        query={{}}
+        page={1}
+        index={0}
+        isFirst={false}
+        isLast={false}
+        redirectURL="redirectURL"
+      />
+    </div>
+  );
+}
+
 export function ContributedEventItem() {
   return (
     <div className="list-unstyled">
