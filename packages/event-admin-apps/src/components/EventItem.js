@@ -458,6 +458,10 @@ export default function EventItem({
           <Modal
             title={intl.formatMessage(messages.motiveTitle)}
             onClose={motiveModal.close}
+            classNames={{
+              overlay: 'popup-overlay',
+              title: 'popup-title padding-bottom-z',
+            }}
           >
             <div>
               {nl2br(event.motive)}
