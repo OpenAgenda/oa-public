@@ -1,22 +1,21 @@
-import React from 'react';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
-import EditDecorator from './decorators/EditDecorator';
 import createApp from '../src/client/editApp';
+import EditDecorator from './decorators/EditDecorator';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
 const agenda = {
   uid: 17026855,
   slug: 'proces-d-assises-2016',
-  title: 'Proces d\'assices 2016',
+  title: "Proces d'assices 2016",
   settings: {},
-  credentials: {}
+  credentials: {},
 };
 
 const getDefaultState = () => ({
   settings: {
-    prefix: `/:slug/admin`
+    prefix: '/:slug/admin',
   },
   res: {
     agenda: '/:slug',
@@ -30,42 +29,66 @@ const getDefaultState = () => ({
       create: '/:slug/keys/create',
       list: '/:slug/keys/list',
       update: '/:slug/keys/update',
-      remove: '/:slug/keys/remove'
-    }
+      remove: '/:slug/keys/remove',
+    },
   },
   agenda: {},
   modals: {},
-  form: {}
+  form: {},
 });
 
 const wrapAppOptions = {
   extraProps: {
     agenda,
-    lang: 'fr'
-  }
+    lang: 'fr',
+  },
 };
 
 export default {
   title: 'Edit',
-  decorators: [EditDecorator]
+  decorators: [EditDecorator],
 };
 
-export const GettingStarted = () => wrapApp(createApp({
-  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/getting-started`] }),
-  initialState: getDefaultState()
-}), wrapAppOptions);
+export const GettingStarted = () =>
+  wrapApp(
+    createApp({
+      history: createMemoryHistory({
+        initialEntries: [`/${agenda.slug}/admin/getting-started`],
+      }),
+      initialState: getDefaultState(),
+    }),
+    wrapAppOptions,
+  );
 
-export const Profile = () => wrapApp(createApp({
-  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/profile`] }),
-  initialState: getDefaultState()
-}), wrapAppOptions);
+export const Profile = () =>
+  wrapApp(
+    createApp({
+      history: createMemoryHistory({
+        initialEntries: [`/${agenda.slug}/admin/settings/profile`],
+      }),
+      initialState: getDefaultState(),
+    }),
+    wrapAppOptions,
+  );
 
-export const Contribution = () => wrapApp(createApp({
-  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/contribution`] }),
-  initialState: getDefaultState()
-}), wrapAppOptions);
+export const Contribution = () =>
+  wrapApp(
+    createApp({
+      history: createMemoryHistory({
+        initialEntries: [`/${agenda.slug}/admin/settings/contribution`],
+      }),
+      initialState: getDefaultState(),
+    }),
+    wrapAppOptions,
+  );
 
-export const Advanced = () => wrapApp(createApp({
-  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/advanced`] }),
-  initialState: getDefaultState()
-}), wrapAppOptions);
+export const Advanced = () =>
+  wrapApp(
+    createApp({
+      history: createMemoryHistory({
+        initialEntries: [`/${agenda.slug}/admin/settings/advanced`],
+      }),
+      initialState: getDefaultState(),
+    }),
+    wrapAppOptions,
+  );

@@ -1,11 +1,4 @@
-import _ from 'lodash';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
 import { FormattedMessage, useIntl, defineMessages } from 'react-intl';
@@ -27,7 +20,7 @@ const completedPrefix = (agenda, prefix) =>
 
 function getError(form, fieldname) {
   const fieldState = form.getFieldState(fieldname);
-  const errors = form.getState().errors;
+  const { errors } = form.getState();
 
   return fieldState?.touched && errors?.[fieldname];
 }
@@ -63,23 +56,23 @@ function SubmitButton({
         {getLabel('saved')}
       </button>
     );
-  } else if (submitting) {
+  }
+  if (submitting) {
     return (
       <button type="submit" className="btn btn-primary" disabled>
         {getLabel('saving')}
       </button>
     );
-  } else {
-    return (
-      <button
-        type="submit"
-        className="btn btn-primary"
-        disabled={hasChanged && !hasValidationErrors ? undefined : true}
-      >
-        {getLabel('saveModifications')}
-      </button>
-    );
   }
+  return (
+    <button
+      type="submit"
+      className="btn btn-primary"
+      disabled={hasChanged && !hasValidationErrors ? undefined : true}
+    >
+      {getLabel('saveModifications')}
+    </button>
+  );
 }
 
 export default function ContributionEdition() {
@@ -372,16 +365,14 @@ export default function ContributionEdition() {
                       </p>
                     </label>
                     {hasComplete ? (
-                      <>
-                        <div style={{ paddingLeft: '20px' }}>
-                          <Field
-                            name="messages.complete"
-                            component={MarkdownInput}
-                            lang={lang}
-                            parse={_.identity} // to keep empty value
-                          />
-                        </div>
-                      </>
+                      <div style={{ paddingLeft: '20px' }}>
+                        <Field
+                          name="messages.complete"
+                          component={MarkdownInput}
+                          lang={lang}
+                          parse={_.identity}
+                        />
+                      </div>
                     ) : null}
                   </div>
                 ) : null}
