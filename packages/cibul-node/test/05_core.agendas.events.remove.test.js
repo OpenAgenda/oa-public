@@ -47,7 +47,9 @@ describe('core - functional (server): core agendas() events.remove()', () => {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test',
       });
-    } catch (e) { /* */ }
+    } catch (e) {
+      /* */
+    }
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -57,11 +59,15 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     let searchResultBefore;
 
     beforeAll(async () => {
-      searchResultBefore = await core.agendas(17026800).events.search({ uid: 19201989 });
+      searchResultBefore = await core
+        .agendas(17026800)
+        .events.search({ uid: 19201989 });
     });
 
     beforeAll(async () => {
-      event = await core.agendas(17026800).events.remove(19201989);
+      event = await core
+        .agendas(17026800)
+        .events.remove(19201989, { access: 'internal' });
     });
 
     it('result is removed event', () => {
@@ -69,9 +75,9 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     });
 
     it('event is removed from agenda search', async () => {
-      const {
-        total,
-      } = await core.agendas(17026800).events.search({ uid: 19201989 });
+      const { total } = await core
+        .agendas(17026800)
+        .events.search({ uid: 19201989 });
       expect(searchResultBefore.total).toBe(1);
       expect(total).toBe(0);
     });
@@ -81,7 +87,9 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     let event;
 
     beforeAll(async () => {
-      event = await core.agendas(17026855).events.remove(19201978);
+      event = await core
+        .agendas(17026855)
+        .events.remove(19201978, { access: 'internal' });
     });
 
     it('result is removed event', () => {
@@ -98,7 +106,9 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     });
 
     beforeAll(async () => {
-      await core.agendas(17026855).events.remove(89378913);
+      await core
+        .agendas(17026855)
+        .events.remove(89378913, { access: 'internal' });
     });
 
     beforeAll(async () => {
@@ -176,9 +186,41 @@ describe('core - functional (server): core agendas() events.remove()', () => {
           'access-token': accessToken,
           nonce: 12987897,
         },
-      }).then(() => {}, err => err.response);
+      }).then(
+        () => {},
+        err => err.response,
+      );
 
       expect(errorResponse.status).toBe(404);
+    });
+
+    it('user with no relevent authorization cannot delete event', async () => {
+      const anotherAccessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/requestAccessToken',
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: {
+          code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
+        },
+      }).then(r => r.data.access_token);
+
+      const { error, result } = await axios({
+        method: 'delete',
+        url: 'http://localhost:3000/agendas/17026855/events/789456',
+        headers: {
+          'content-type': 'application/json',
+          'access-token': anotherAccessToken,
+          nonce: 779798,
+        },
+      }).then(
+        r => ({ result: r }),
+        e => ({ error: e }),
+      );
+
+      expect(result).toBeUndefined();
+      expect(error.response.status).toBe(403);
     });
   });
 });

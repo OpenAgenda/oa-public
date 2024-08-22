@@ -2,10 +2,15 @@ import logs from '@openagenda/logs';
 
 const log = logs('core/agendas/utils/authorizations');
 
-const canPublish = (agenda, access) => (
-  agenda?.settings?.contribution?.canPublish
-  || ['administrators', 'moderators']
-).map(v => v.replace(/s$/, '')).includes(access);
+const canPublish = (agenda, access) =>
+  (
+    agenda?.settings?.contribution?.canPublish || [
+      'administrators',
+      'moderators',
+    ]
+  )
+    .map(v => v.replace(/s$/, ''))
+    .includes(access);
 
 function canRead(compareRoles, agendaEvent, event, member) {
   // event is published on a public agenda
@@ -21,20 +26,60 @@ function canRead(compareRoles, agendaEvent, event, member) {
     return true;
   }
   // event is private and published and user is contributor of the agenda
-  if (agendaEvent.state === 2 && event.private && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')) {
+  if (
+    agendaEvent.state === 2
+    && event.private
+    && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')
+  ) {
     return true;
   }
   return false;
+}
+
+function canRemoveEvent(services, { member, agendaEvent, access }) {
+  const {
+    members: {
+      utils: {
+        compareRoles: { isSuperiorToOrEqual },
+      },
+    },
+  } = services;
+
+  // user is moderator or better
+  if (isSuperiorToOrEqual(member?.role ?? access, 'moderator')) {
+    return true;
+  }
+
+  if (!agendaEvent) {
+    return null;
+  }
+
+  return false;
+}
+
+function canDeleteEvent(services, { member, agendaEvent, event, access }) {
+  if (!agendaEvent || !event) {
+    return null;
+  }
+
+  const isEventOwner = member?.userUid === event.ownerUid;
+  const isOriginAgenda = event.agendaUid === agendaEvent.agendaUid;
+
+  if ((event.draft || member) && isEventOwner) {
+    return true;
+  }
+
+  if (!canRemoveEvent(services, { access, member, agendaEvent })) {
+    return false;
+  }
+  return !!isOriginAgenda;
 }
 
 const canCreateEvent = (services, member, agendaIsClosed) => {
   const {
     members: {
       utils: {
-        compareRoles: {
-          isSuperiorTo,
-          isSuperiorToOrEqual,
-        },
+        compareRoles: { isSuperiorTo, isSuperiorToOrEqual },
       },
     },
   } = services;
@@ -51,29 +96,29 @@ const canCreateEvent = (services, member, agendaIsClosed) => {
 };
 
 const getCanEditEventOnAgenda = async (core, member, event, agendaIsClosed) => {
-  const {
-    members,
-  } = core.services;
+  const { members } = core.services;
 
-  const {
-    compareRoles,
-  } = members.utils;
+  const { compareRoles } = members.utils;
 
   if (agendaIsClosed && compareRoles.isInferiorTo(member?.role, 'moderator')) {
     return false;
   }
 
   return !!(
-    member && event && await core.users(member.userUid).canEditEvent(event)
+    member
+    && event
+    && await core.users(member.userUid).canEditEvent(event)
   );
 };
 
-function canContribute(services, member, { agendaIsClosed, isMemberDataRequired }) {
+function canContribute(
+  services,
+  member,
+  { agendaIsClosed, isMemberDataRequired },
+) {
   const {
     members: {
-      utils: {
-        compareRoles,
-      },
+      utils: { compareRoles },
     },
   } = services;
 
@@ -81,44 +126,75 @@ function canContribute(services, member, { agendaIsClosed, isMemberDataRequired 
     return true;
   }
 
-  return (member && !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')) ?? false;
+  return (
+    (member
+      && !agendaIsClosed
+      && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor'))
+    ?? false
+  );
 }
 
 async function fromMember(core, agenda, agendaEvent, event, member) {
-  const {
-    members,
-  } = core.services;
+  const { members } = core.services;
 
-  const {
-    compareRoles,
-    getRoleSlug,
-  } = members.utils;
+  const { compareRoles, getRoleSlug } = members.utils;
 
   const memberRole = member ? getRoleSlug(member.role) : null;
   const agendaIsClosed = await core.agendas(agenda).settings.isClosed();
-  const isMemberDataRequired = await core.agendas(agenda).settings.isMemberDataRequired();
+  const isMemberDataRequired = await core
+    .agendas(agenda)
+    .settings.isMemberDataRequired();
 
-  log('fromMember with %s role %s', memberRole, agendaIsClosed ? ' on closed agenda' : '');
+  log(
+    'fromMember with %s role %s',
+    memberRole,
+    agendaIsClosed ? ' on closed agenda' : '',
+  );
 
-  const canEditEvent = await getCanEditEventOnAgenda(core, member, event, agendaIsClosed);
+  const canEditEvent = await getCanEditEventOnAgenda(
+    core,
+    member,
+    event,
+    agendaIsClosed,
+  );
 
   return {
-    canRead: agendaEvent ? canRead(compareRoles, agendaEvent, event, member) : canEditEvent,
-    mustBeModerated: (member && (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(memberRole)) ?? false,
-    canChangeState: (member && compareRoles.isSuperiorToOrEqual(member?.role, 'moderator', { throwIfUnknown: false })) ?? false,
+    canRead: agendaEvent
+      ? canRead(compareRoles, agendaEvent, event, member)
+      : canEditEvent,
+    mustBeModerated:
+      (member
+        && (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(
+          memberRole,
+        ))
+      ?? false,
+    canChangeState:
+      (member
+        && compareRoles.isSuperiorToOrEqual(member?.role, 'moderator', {
+          throwIfUnknown: false,
+        }))
+      ?? false,
     canPublish: (member && canPublish(agenda, memberRole)) ?? false,
     canEditEvent,
     canCreateEvent: canCreateEvent(core.services, member, agendaIsClosed),
-    canContribute: canContribute(core.services, member, { agendaIsClosed, isMemberDataRequired }),
+    canRemoveEvent: canRemoveEvent(core.services, { member, agendaEvent }),
+    canDeleteEvent: canDeleteEvent(core.services, {
+      member,
+      event,
+      agendaEvent,
+    }),
+    canContribute: canContribute(core.services, member, {
+      agendaIsClosed,
+      isMemberDataRequired,
+    }),
   };
 }
 
-async function fromAccess(core, agenda, agendaEvent, access) {
-  const {
-    compareRoles,
-  } = core.services.members.utils;
+async function fromAccess(core, agenda, agendaEvent, event, access) {
+  const { compareRoles } = core.services.members.utils;
 
-  const isAtLeastContributor = compareRoles.isSuperiorToOrEqual(access, 'contributor') || access === 'internal';
+  const isAtLeastContributor = compareRoles.isSuperiorToOrEqual(access, 'contributor')
+    || access === 'internal';
   const agendaIsClosed = await core.agendas(agenda).settings.isClosed();
 
   if (access === 'internal') {
@@ -128,75 +204,87 @@ async function fromAccess(core, agenda, agendaEvent, access) {
       canPublish: true,
       canEditEvent: true,
       canCreateEvent: true,
+      canRemoveEvent: true,
+      canDeleteEvent: true,
     };
   }
 
   return {
-    mustBeModerated: (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(access),
-    canChangeState: compareRoles.isSuperiorToOrEqual(access, 'moderator', { throwIfUnknown: false }),
+    mustBeModerated: (
+      agenda?.settings?.contribution?.moderateOnChangeBy || []
+    ).includes(access),
+    canChangeState: compareRoles.isSuperiorToOrEqual(access, 'moderator', {
+      throwIfUnknown: false,
+    }),
     canPublish: canPublish(agenda, access),
-    canEditEvent: !agendaIsClosed && isAtLeastContributor && (agendaEvent ? agendaEvent.canEdit : true),
-    canCreateEvent: !agendaIsClosed && compareRoles.isSuperiorToOrEqual(access, 'contributor'),
+    canEditEvent:
+      !agendaIsClosed
+      && isAtLeastContributor
+      && (agendaEvent ? agendaEvent.canEdit : true),
+    canCreateEvent:
+      !agendaIsClosed
+      && compareRoles.isSuperiorToOrEqual(access, 'contributor'),
+    canRemoveEvent: canRemoveEvent(core.services, { access, agendaEvent }),
+    canDeleteEvent: canDeleteEvent(core.services, {
+      agenda,
+      agendaEvent,
+      event,
+      access,
+    }),
   };
 }
 
-export default (core, operation, {
-  agenda,
-  agendaEvent,
-  event,
-  member,
-  access,
-}) => {
+export default (
+  core,
+  _operation,
+  { agenda, agendaEvent, event, member, access },
+) => {
   if (member && access !== 'internal') {
     return fromMember(core, agenda, agendaEvent, event, member);
   }
 
-  return fromAccess(core, agenda, agendaEvent, access);
+  return fromAccess(core, agenda, agendaEvent, event, access);
 };
 
-export async function getForUserOnAgenda(core, userUid, agendaUid, event, options = {}) {
+export async function getForUserOnAgenda(
+  core,
+  userUid,
+  agendaUid,
+  event,
+  options = {},
+) {
   log('getForUserOnAgenda');
 
-  const {
-    promisedAccess = null,
-    agendaEvent: preloadedAgendaEvent = null,
-  } = options;
+  const { promisedAccess = null, agendaEvent: preloadedAgendaEvent = null } = options;
 
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
-  const {
-    agendas,
-    members,
-    agendaEvents,
-  } = services;
+  const { agendas, members, agendaEvents } = services;
 
   const member = await members.get({ agendaUid, userUid });
 
-  const agenda = await agendas.get({ uid: agendaUid }, {
-    internal: true,
-    private: null,
-    includeImagePath: true,
-  });
-  const agendaEvent = preloadedAgendaEvent || (event?.uid && await agendaEvents(agendaUid).get(event.uid));
+  const agenda = await agendas.get(
+    { uid: agendaUid },
+    {
+      internal: true,
+      private: null,
+      includeImagePath: true,
+    },
+  );
+  const agendaEvent = preloadedAgendaEvent
+    || (event?.uid && await agendaEvents(agendaUid).get(event.uid));
 
   if (promisedAccess) {
     return fromAccess(
       core,
       agenda,
       event ? await agenda.changeEventState(agenda.uid).get(event.uid) : null,
+      event,
       promisedAccess,
     );
   }
 
-  return fromMember(
-    core,
-    agenda,
-    agendaEvent,
-    event,
-    member,
-  );
+  return fromMember(core, agenda, agendaEvent, event, member);
 }
 
 export function filterUnauthorized(clean, data, authorizations) {
@@ -209,7 +297,10 @@ export function filterUnauthorized(clean, data, authorizations) {
     delete data.state;
   }
 
-  if (!authorizations.canPublish && parseInt(clean.agendaEvent?.state, 10) === 2) {
+  if (
+    !authorizations.canPublish
+    && parseInt(clean.agendaEvent?.state, 10) === 2
+  ) {
     delete clean.agendaEvent.state;
     delete data.state;
   }

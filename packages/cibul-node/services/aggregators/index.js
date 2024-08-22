@@ -9,10 +9,7 @@ const log = logs('services/aggregators');
 
 export function init(config, services) {
   log('init');
-  const {
-    agendas: agendasSvc,
-    tracker,
-  } = services;
+  const { agendas: agendasSvc, tracker } = services;
 
   let task;
 
@@ -21,20 +18,20 @@ export function init(config, services) {
     queues: services.queues,
     logger: config.getLogConfig('svc', 'aggregators'),
     interfaces: {
-      getMergedSchema: agendaUid => services
-        .core.agendas(agendaUid)
-        .settings.schema.getMerged(),
+      getMergedSchema: agendaUid =>
+        services.core.agendas(agendaUid).settings.schema.getMerged(),
       updateSourcePaths: ({
         aggregatorAgendaUid,
         sourceAgenda,
         eventUid,
         paths,
-      }) => services.agendaEvents.utils.setSourcePaths(
-        aggregatorAgendaUid,
-        eventUid,
-        paths,
-        { context: { sourceAgenda } },
-      ),
+      }) =>
+        services.agendaEvents.utils.setSourcePaths(
+          aggregatorAgendaUid,
+          eventUid,
+          paths,
+          { context: { sourceAgenda } },
+        ),
       referenceEvent: async ({
         aggregatorAgendaUid,
         eventUid,
@@ -46,7 +43,11 @@ export function init(config, services) {
       }) => {
         tracker('aggregators.referenceEvent');
         try {
-          log('referencing event %s in agenda %s', eventUid, aggregatorAgendaUid);
+          log(
+            'referencing event %s in agenda %s',
+            eventUid,
+            aggregatorAgendaUid,
+          );
           await services.core
             .agendas(aggregatorAgendaUid)
             .events.add(eventUid, payload, {
@@ -83,12 +84,14 @@ export function init(config, services) {
       }) => {
         tracker('aggregators.updateEventReference');
         try {
-          await services.core.agendas(aggregatorAgendaUid).events.update(eventUid, payload, {
-            aggregated,
-            batched,
-            partial: true,
-            access: 'administrator',
-          });
+          await services.core
+            .agendas(aggregatorAgendaUid)
+            .events.update(eventUid, payload, {
+              aggregated,
+              batched,
+              partial: true,
+              access: 'administrator',
+            });
           tracker('aggregators.updateEventReference.done');
           return {
             success: true,
@@ -109,10 +112,13 @@ export function init(config, services) {
       },
       unreferenceEvent: async (aggregatorAgendaUid, eventUid, { batched }) => {
         try {
-          await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid, {
-            batched,
-            protectFromOriginRemove: true,
-          });
+          await services.core
+            .agendas(aggregatorAgendaUid)
+            .events.remove(eventUid, {
+              batched,
+              protectFromOriginRemove: true,
+              access: 'internal',
+            });
           return {
             success: true,
           };
@@ -129,19 +135,29 @@ export function init(config, services) {
           };
         }
       },
-      getEventReference: (agendaUid, eventUid) => services
-        .agendaEvents(agendaUid).get(eventUid)
-        .then(ae => (ae ? {
-          sourcePaths: ae.sourcePaths,
-          aggregated: ae.aggregated,
-        } : null)),
-      listEventReferences: (agendaUid, after, query = {}) => services.core.agendas(agendaUid).events.search(
-        { ...query, state: 2 },
-        { after },
-        { useAfterKey: true, detailed: true },
-      ),
-      loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid)
-        .events.get(eventUid, { detailed: true }),
+      getEventReference: (agendaUid, eventUid) =>
+        services
+          .agendaEvents(agendaUid)
+          .get(eventUid)
+          .then(ae =>
+            (ae
+              ? {
+                sourcePaths: ae.sourcePaths,
+                aggregated: ae.aggregated,
+              }
+              : null)),
+      listEventReferences: (agendaUid, after, query = {}) =>
+        services.core
+          .agendas(agendaUid)
+          .events.search(
+            { ...query, state: 2 },
+            { after },
+            { useAfterKey: true, detailed: true },
+          ),
+      loadEvent: (agendaUid, eventUid) =>
+        services.core
+          .agendas(agendaUid)
+          .events.get(eventUid, { detailed: true }),
       getAgendasByUids: (agendaUids, options = {}) => {
         const query = ['search', 'slug']
           .filter(k => !!options[k])
@@ -149,15 +165,27 @@ export function init(config, services) {
 
         log('getting agendas for %j', query);
 
-        return agendasSvc.list(query, 0, 200, {
-          internal: true,
-          includeImagePath: true,
-          useDefaultImage: true,
-        }).then(({ agendas }) => agendas.map(a => _.pick(a, [
-          'id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt',
-        ])));
+        return agendasSvc
+          .list(query, 0, 200, {
+            internal: true,
+            includeImagePath: true,
+            useDefaultImage: true,
+          })
+          .then(({ agendas }) =>
+            agendas.map(a =>
+              _.pick(a, [
+                'id',
+                'uid',
+                'title',
+                'slug',
+                'image',
+                'official',
+                'createdAt',
+                'updatedAt',
+              ])));
       },
-      getAggregatedCount: agendaUid => services.agendaEvents(agendaUid).getAggregatedCount(),
+      getAggregatedCount: agendaUid =>
+        services.agendaEvents(agendaUid).getAggregatedCount(),
       onAddSource: ({ aggregatorAgenda, sourceAgenda }, { user, member }) => {
         onAddSource(services, {
           aggregatorAgenda,
@@ -166,7 +194,10 @@ export function init(config, services) {
           member,
         });
       },
-      onRemoveSource: ({ aggregatorAgenda, sourceAgenda }, { user, member }) => {
+      onRemoveSource: (
+        { aggregatorAgenda, sourceAgenda },
+        { user, member },
+      ) => {
         onRemoveSource(services, {
           aggregatorAgenda,
           sourceAgenda,
