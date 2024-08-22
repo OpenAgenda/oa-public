@@ -46,7 +46,7 @@
   "EventAdminApp.EventItem.passed": "Passé",
   "EventAdminApp.EventItem.remove": "Retirer de l'agenda",
   "EventAdminApp.EventItem.removeFeatured": "Retirer de la une",
-  "EventAdminApp.EventItem.seeMotive": "Voir le motif",
+  "EventAdminApp.EventItem.seeMotive": "Motif du refus",
   "EventAdminApp.EventItem.shared": "Partagé par un membre qui a depuis quitté l'agenda",
   "EventAdminApp.EventItem.sharedBy": "Partagé par <memberLink>{memberName}</memberLink>",
   "EventAdminApp.EventItem.sharedFrom": "Partagé depuis <agendaLink>{agendaTitle}</agendaLink>",
