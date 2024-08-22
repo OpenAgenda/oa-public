@@ -80,7 +80,6 @@ export async function init(config, services) {
   Object.assign(activities, service);
   Object.assign(activities.tasks, RebuildTasks({ config, services }));
 
-  // plugApp = module.exports
   Object.assign(plugApp, activities);
 
   return service;
