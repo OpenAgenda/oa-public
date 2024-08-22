@@ -105,7 +105,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
   }
 
   if (wasPending) {
-    log.info("was pending at previous apply but isn't anymore");
+    log.info("was pending at previous apply but isn't anymore", logBundle);
     processed.push({
       response: {
         isPending: false,
