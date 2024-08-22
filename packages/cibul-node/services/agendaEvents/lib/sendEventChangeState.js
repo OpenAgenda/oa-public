@@ -69,6 +69,8 @@ async function sendToContributor({
         beforeState: beforeStateLabel,
         afterState: afterStateLabel,
         motive: agendaEvent.motive,
+        agenda: { uid: agenda.uid, slug: agenda.slug },
+        event: { uid: event.uid, slug: event.slug },
       },
     );
     await mails.send({
