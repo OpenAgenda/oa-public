@@ -8,10 +8,10 @@ import decorateListItems from './lib/decorateListItems.js';
 import buildListQuery from './lib/buildListQuery.js';
 import postReadClean from './lib/postReadClean.js';
 
-function _total(client, query) {
+function _total(client, query, options) {
   const k = client('agenda_event');
 
-  buildListQuery.addWheres(k, query);
+  buildListQuery.addWheres(k, query, options);
 
   return k.count('id as total').then(rows => rows[0].total);
 }
@@ -34,7 +34,7 @@ async function list(service, agendaUid, query, offset, limit, options) {
       service,
       params.query,
       _.pick(params, ['offset', 'limit']),
-      { decorate },
+      { decorate, removed },
     )
   ).map(validate).map(i => postReadClean(i, { removed }));
 
@@ -44,7 +44,7 @@ async function list(service, agendaUid, query, offset, limit, options) {
 
   return {
     items,
-    total: await _total(client, params.query),
+    total: await _total(client, params.query, { removed }),
   };
 }
 
@@ -62,7 +62,7 @@ export async function byLastId(
     agendaUid,
   };
 
-  const { decorate } = validateOptions(options);
+  const { decorate, removed } = validateOptions(options);
 
   const nav = {};
 
@@ -76,8 +76,9 @@ export async function byLastId(
 
   const dirtyItems = await buildListQuery(service, cleanQuery, nav, {
     decorate,
+    removed
   });
-  const items = dirtyItems.map(validate);
+  const items = dirtyItems.map(validate).map(i => postReadClean(i, { removed }));
 
   if (decorate.length) {
     await decorateListItems(service, items, decorate);
@@ -85,7 +86,7 @@ export async function byLastId(
 
   return {
     items,
-    total: await _total(client, cleanQuery),
+    total: await _total(client, cleanQuery, { removed }),
     lastId: _.get(_.last(dirtyItems), 'id', -1),
   };
 }

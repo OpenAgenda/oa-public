@@ -263,4 +263,22 @@ describe('agendaEvents - 01 - functional (server): list', () => {
       'motive',
     ]);
   });
+
+  it('list only removed items', async () => {
+    const { items, total } = await svc(62792452).list(0, 100, { removed: true });
+    expect(items.length).toBe(1);
+    expect(total).toBe(1);
+  });
+
+  it('list all items', async () => {
+    const { items } = await svc(62792452).list(0, 100, { removed: null });
+    expect(items.filter(i => i.removedAt !== null).length).toBe(1);
+    expect(items.length > 1).toBeTruthy();
+  });
+
+  it('list only not removed items', async () => {
+    const { items } = await svc(62792452).list(0, 10000, {});
+    expect(items.filter(i => i.eventUid === 53117384).length).toBe(0);
+    expect(items.length < 10000 ).toBeTruthy();
+  });
 });

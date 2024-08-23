@@ -227,4 +227,19 @@ describe('agendaEvents - 02 - functional (server): get', () => {
       'motive',
     ]);
   });
+
+  it('get with removed option at true', async () => {
+    const ref = await svc(62792452).get(53117384, { removed: true });
+    expect(new Date(ref.removedAt)).toEqual(new Date("2020-01-19T12:52:59.000Z"));
+  });
+
+  it('get with removed option null', async () => {
+    const ref = await svc(62792452).get(53117384, { removed: null });
+    expect(new Date(ref.removedAt)).toEqual(new Date("2020-01-19T12:52:59.000Z"));
+  });
+
+  it('get without removed option does not get removed item', async () => {
+    const ref = await svc(62792452).get(53117384, { });
+    expect(ref).toEqual(null);
+  });
 });

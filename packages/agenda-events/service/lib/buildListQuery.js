@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
-function addWheres(k, query) {
+function addWheres(k, query, options = {}) {
+  const {removed} = options;
+
   if (query.agendaUid !== undefined) {
     k.where('agenda_uid', query.agendaUid);
   } else if (query.userUid !== undefined) {
@@ -28,12 +30,15 @@ function addWheres(k, query) {
   if (query.canEdit !== undefined) {
     k.andWhere('can_edit', query.canEdit);
   }
+
+  if (removed === true) k.whereNotNull('removed_at');
+  if (removed === false) k.whereNull('removed_at');
 }
 
 function buildListQuery(service, query, nav, options = {}) {
   const { client } = service;
 
-  const { decorate } = {
+  const { decorate, removed } = {
     decorate: [],
     ...options,
   };
@@ -57,6 +62,10 @@ function buildListQuery(service, query, nav, options = {}) {
     fields.push('id');
   }
 
+  if (removed || removed === null) {
+    fields.push('removed_at');
+  } 
+
   if (decorate.includes('sourceAgendas')) {
     fields.push('source_agenda_uid');
   }
@@ -73,7 +82,7 @@ function buildListQuery(service, query, nav, options = {}) {
     k.offset(offset);
   }
 
-  addWheres(k, query);
+  addWheres(k, query, options);
 
   return k.then(rows =>
     rows.map(r => _.mapKeys(r, (v, key) => _.camelCase(key))));
