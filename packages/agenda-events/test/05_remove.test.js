@@ -48,13 +48,13 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
   it('simple remove', async () => {
     const before = await svc(62792452).get(10974548);
     const result = await svc(62792452).remove(10974548);
-    const after = await svc(62792452).get(10974548);
+    const after = await svc(62792452).get(10974548, {removed: null});
 
     expect(result.success).toBe(true);
 
     expect(before).not.toBeNull();
 
-    expect(after).toBeNull();
+    expect(after.removedAt).toBeTruthy();
 
     expect(_.pick(result.removed, ['eventUid', 'agendaUid'])).toEqual({
       eventUid: 10974548,
@@ -65,21 +65,21 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
   it('remove by legacyId', async () => {
     const before = await svc(62792452).get(10974548);
     const result = await svc.remove.byLegacyId(42, 24);
-    const after = await svc(62792452).get(10974548);
+    const after = await svc(62792452).get(10974548, {removed: null});
 
     expect(result.success).toBe(true);
     expect(before).not.toBeNull();
-    expect(after).toBeNull();
+    expect(after.removedAt).toBeTruthy();
   });
 
   it('remove by legacyId with eventId only', async () => {
     const before = await svc(62792452).get(10974548);
     const result = await svc.remove.byLegacyId(null, 24);
-    const after = await svc(62792452).get(10974548);
+    const after = await svc(62792452).get(10974548, {removed: null});
 
     expect(result.success).toBe(true);
     expect(before).not.toBeNull();
-    expect(after).toBeNull();
+    expect(after.removedAt).toBeTruthy();
   });
 
   it('all references of given event can be removed in one call', async () => {

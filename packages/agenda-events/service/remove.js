@@ -21,9 +21,8 @@ async function _remove(service, where, current = null, params = null) {
     await service.getAggregatedCount.dec(current.agendaUid);
   }
 
-  const removedRows = await client('agenda_event').del().where(where);
-
-  const success = removedRows === 1;
+  const result = await client('agenda_event').update({removed_at: new Date()}).where(where);
+  const success = !!result;
 
   if (success && config.interfaces.onRemove) {
     config.interfaces.onRemove(
@@ -80,14 +79,12 @@ export async function byEventUid(service, eventUid, options) {
     }
     offset += limit;
   }
-
-  const removedRows = await client('agenda_event')
-    .del()
-    .where({ event_uid: eventUid });
+  
+  const result = await client('agenda_event').update({removed_at: new Date()}).where({ event_uid: eventUid });
 
   return {
-    success: removedRows >= 1,
-    removed: removedRows,
+    success: result >= 1,
+    removed: result,
   };
 }
 
@@ -128,12 +125,10 @@ export async function byLegacyId(service, agendaId = null, eventId = null) {
     await service.getAggregatedCount.dec(agendaUid, toBeRemovedCount);
   }
 
-  const removedRows = await client('agenda_event')
-    .del()
-    .where('legacy_id', 'like', like);
+  const result = await client('agenda_event').update({removed_at: new Date()}).where('legacy_id', 'like', like);
 
   return {
-    success: removedRows >= 1,
+    success: result >= 1,
   };
 }
 

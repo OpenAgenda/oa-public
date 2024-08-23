@@ -209,4 +209,22 @@ describe('agendaEvents - 02 - functional (server): get', () => {
     }
     expect(error.name).toBe('NotFoundError');
   });
+
+  it('an item contains agenda & event references, state, featured bool and custom data', async () => {
+    const ref = await svc(62792452).get(10974548);
+    expect(Object.keys(ref)).toEqual([
+      'eventUid',
+      'agendaUid',
+      'userUid',
+      'aggregated',
+      'sourcePaths',
+      'featured',
+      'canEdit',
+      'state',
+      'legacyId',
+      'createdAt',
+      'updatedAt',
+      'motive',
+    ]);
+  });
 });

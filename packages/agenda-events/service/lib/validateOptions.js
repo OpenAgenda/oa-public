@@ -35,6 +35,11 @@ const base = {
     type: 'boolean',
     default: false,
   },
+  removed : {
+    type: 'boolean',
+    default: false,
+    allowNull: true,
+  },
   context: {
     optional: true,
     default: null,

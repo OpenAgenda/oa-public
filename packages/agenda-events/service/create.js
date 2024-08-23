@@ -75,6 +75,8 @@ export default async (
     };
   }
 
+  
+
   const insertIds = await client('agenda_event').insert(utils.toEntry(clean));
 
   success = insertIds.length === 1;

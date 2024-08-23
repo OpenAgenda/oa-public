@@ -6,6 +6,7 @@ import extractListParameters from './lib/extractListParameters.js';
 import validateOptions from './lib/validateOptions.js';
 import decorateListItems from './lib/decorateListItems.js';
 import buildListQuery from './lib/buildListQuery.js';
+import postReadClean from './lib/postReadClean.js';
 
 function _total(client, query) {
   const k = client('agenda_event');
@@ -26,7 +27,7 @@ async function list(service, agendaUid, query, offset, limit, options) {
     options,
   );
 
-  const { decorate } = validateOptions(params.options);
+  const { decorate, removed } = validateOptions(params.options);
 
   const items = (
     await buildListQuery(
@@ -35,7 +36,7 @@ async function list(service, agendaUid, query, offset, limit, options) {
       _.pick(params, ['offset', 'limit']),
       { decorate },
     )
-  ).map(validate);
+  ).map(validate).map(i => postReadClean(i, { removed }));
 
   if (decorate.length) {
     await decorateListItems(service, items, decorate);
