@@ -1,255 +1,291 @@
 'use strict';
 
+const Files = require('@openagenda/files');
 const {
   service: config,
-  dependencies: dConfig
-} = require('../testconfig.sample.js');
+  dependencies: dConfig,
+} = require('../testconfig.sample');
 
-const mysql = require('mysql');
-const assert = require('assert');
-const Files = require('@openagenda/files');
+const svc = require('../service/index');
+const loadFixtures = require('./fixtures/load');
 
-const svc = require('../service/index.js');
+describe('agendas - functional (server): set (update)', () => {
+  beforeAll(
+    loadFixtures.bind(null, {
+      mysql: config.mysql,
+      files: [
+        `${__dirname}/fixtures/resetDb.sql`,
+        `${__dirname}/../model.sql`,
+        `${__dirname}/fixtures/agenda.data.sql`,
+        `${__dirname}/fixtures/agendaEvent.data.sql`,
+        `${__dirname}/fixtures/occurrence.data.sql`,
+      ],
+      map: {
+        database: config.mysql.database,
+        agenda: 'agenda',
+        agendaEvent: 'agenda_event',
+        occurrence: 'occurrence',
+        legacyCredential: 'legacy_credential_set',
+      },
+    }),
+  );
 
-describe('agendas - functional (server): set (update)', function() {
-  beforeAll(require('./fixtures/load.js').bind(null, {
-    mysql: config.mysql,
-    files: [
-      __dirname + '/fixtures/resetDb.sql',
-      __dirname + '/../model.sql',
-      __dirname + '/fixtures/agenda.data.sql',
-      __dirname + '/fixtures/agendaEvent.data.sql',
-      __dirname + '/fixtures/occurrence.data.sql'
-   ],
-    map: {
-      database: config.mysql.database,
-      agenda: 'agenda',
-      agendaEvent: 'agenda_event',
-      occurrence: 'occurrence',
-      legacyCredential: 'legacy_credential_set'
-    }
-  }));
+  beforeAll(() =>
+    svc.init({
+      ...config,
+      Files: Files(dConfig.files),
+    }),
+  );
 
-  beforeAll(() => svc.init({
-    ...config,
-    Files: Files(dConfig.files)
-  }));
-
-  afterEach(() => svc.init({
-    ...config,
-    Files: Files(dConfig.files)
-  }));
+  afterEach(() =>
+    svc.init({
+      ...config,
+      Files: Files(dConfig.files),
+    }),
+  );
 
   it('set returns a promise', async () => {
     const { agenda } = await svc.set(4875, {
-      title: 'La promesse'
+      title: 'La promesse',
     });
 
-    assert.strictEqual(agenda.title, 'La promesse');
+    expect(agenda.title).toBe('La promesse');
   });
 
   it('set in promise mode can take options', async () => {
-    const { agenda } = await svc.set(4875, {
-      title: 'La 2ème promesse'
-    }, { protected: false });
+    const { agenda } = await svc.set(
+      4875,
+      {
+        title: 'La 2ème promesse',
+      },
+      { protected: false },
+    );
 
-    assert.strictEqual(agenda.title, 'La 2ème promesse');
+    expect(agenda.title).toBe('La 2ème promesse');
   });
 
-  it('set sets a pre-exisiting agenda if identifier is given as first parameter', done => {
-    svc.set(4875, {
-      title: 'Le Frometon'
-    }, (err, result) => {
-      assert.strictEqual(err, null);
-      assert.strictEqual(result.agenda.title, 'Le Frometon');
-
-      done();
+  it('set sets a pre-exisiting agenda if identifier is given as first parameter', async () => {
+    const result = await svc.set(4875, {
+      title: 'Le Frometon',
     });
+
+    expect(result.agenda.title).toBe('Le Frometon');
   });
 
-  it('set by slug works too', done => {
-    svc.set({ slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016' }, {
-      official: true
-    }, { protected: false }, (err, result) => {
-      assert.strictEqual(err, null);
-      assert.strictEqual(result.agenda.official, 1);
+  it('set by slug works too', async () => {
+    const result = await svc.set(
+      {
+        slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
+      },
+      {
+        official: true,
+      },
+      { protected: false },
+    );
 
-      done();
-    });
+    expect(result.agenda.official).toBe(1);
   });
 
-  it('setting official timestamps offialized_at', done => {
-    let now = new Date();
+  it('setting official timestamps offialized_at', async () => {
+    const now = new Date();
 
-    svc.set(4875, {
-      official: true
-    }, { protected: false, internal: true }, (err, result) => {
-      assert(result.agenda.officializedAt.getTime() - now.getTime() < 1000);
+    const result = await svc.set(
+      4875,
+      {
+        official: true,
+      },
+      { protected: false, internal: true },
+    );
 
-      done();
-    });
+    expect(result.agenda.officializedAt.getTime() - now.getTime()).toBeLessThan(
+      1000,
+    );
   });
 
-  it('set without internal option returns an updated agenda that excludes internal fields', done => {
-    svc.set(4875, { title: 'Booyah' }, (err, result) => {
-      assert.strictEqual(result.agenda.id, undefined);
+  it('set without internal option returns an updated agenda that excludes internal fields', async () => {
+    const result = await svc.set(4875, { title: 'Booyah' });
 
-      done();
-    });
+    expect(result.agenda.id).toBeUndefined();
   });
 
-  it('set with internal option set to true returns an updated agenda that includes internal fields', done => {
-    svc.set(4875, { title: 'Boom.' }, { internal: true }, (err, result) => {
-      assert.strictEqual(result.agenda.id, 4875);
+  it('set with internal option set to true returns an updated agenda that includes internal fields', async () => {
+    const result = await svc.set(4875, { title: 'Boom.' }, { internal: true });
 
-      done();
-    });
+    expect(result.agenda.id).toBe(4875);
   });
 
-  it('set with includeImagePath to true returns an updated agenda that includes image paths', done => {
-    svc.set(4875, { title: 'Le mur' }, { includeImagePath: true }, (err, result) => {
-      assert.strictEqual(result.agenda.image, '//openagendatst.s3.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg');
+  it('set with includeImagePath to true returns an updated agenda that includes image paths', async () => {
+    const result = await svc.set(
+      4875,
+      { title: 'Le mur' },
+      { includeImagePath: true },
+    );
 
-      done();
-    });
+    expect(result.agenda.image).toBe(
+      '//openagendatst.s3.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
+    );
   });
 
-  it('set slug', done => {
-    svc.set({ slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016' }, {
-      slug: 'lait'
-    }, (err, result) => {
-      assert.strictEqual(err, null);
-      assert.strictEqual(result.agenda.slug, 'lait')
+  it('set slug', async () => {
+    const result = await svc.set(
+      {
+        slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
+      },
+      {
+        slug: 'lait',
+      },
+    );
 
-      done();
-    });
+    expect(result.agenda.slug).toBe('lait');
   });
 
-  it('set credentials on pre-exisiting agenda', done => {
-    svc.set({ uid: 65903437 }, {
-      credentials: {
-        moderators: true
-      }
-    }, {
-      internal: true, // to retrieve credentials after update
-      protected: false
-    }, (err, result) => {
-      assert.strictEqual(err, null);
+  it('set credentials on pre-exisiting agenda', async () => {
+    const result = await svc.set(
+      { uid: 65903437 },
+      {
+        credentials: {
+          moderators: true,
+        },
+      },
+      {
+        internal: true, // to retrieve credentials after update
+        protected: false,
+      },
+    );
 
-      assert.strictEqual(result.agenda.credentials.moderators, true);
-
-      done();
-    });
+    expect(result.agenda.credentials.moderators).toBe(true);
   });
 
-  it('empty moderateOnChangeBy keeped', done => {
-    svc.set(
+  it('empty moderateOnChangeBy kept', async () => {
+    const result = await svc.set(
       { uid: 35338076 },
       {
         settings: {
           contribution: {
-            moderateOnChangeBy: []
-          }
-        }
-      }, {
+            moderateOnChangeBy: [],
+          },
+        },
+      },
+      {
         internal: true, // to retrieve credentials after update
-        protected: false
-      }, (err, result) => {
-        assert.strictEqual(err, null);
-        assert.deepStrictEqual(result.agenda.settings.contribution.moderateOnChangeBy, []);
+        protected: false,
+      },
+    );
 
-        done();
-      });
+    expect(result.agenda.settings.contribution.moderateOnChangeBy).toEqual([]);
   });
 
-  it('unprotected set cannot update protected field', done => {
+  it('unprotected set cannot update protected field', async () => {
     const uid = 65903437;
 
-    svc.set({ uid }, {
-      credentials: {
-        moderators: true
-      }
-    }, { protected: false }, (err, result) => {
-      svc.set({ uid }, {
-        title: 'Nouveau titre',
-        credentials: {}
-      }, () => {
-        svc.get({ uid }, { internal: true }, (err, data) => {
-          assert(data.credentials.moderators);
+    await svc.set(
+      { uid },
+      {
+        credentials: {
+          moderators: true,
+        },
+      },
+      { protected: false },
+    );
 
-          done();
-        });
-      });
-    });
+    await svc.set(
+      { uid },
+      {
+        title: 'Nouveau titre',
+        credentials: {},
+      },
+    );
+
+    const data = await svc.get({ uid }, { internal: true });
+
+    expect(data.credentials.moderators).toBeTruthy();
   });
 
-  it('partial settings set does not impact remaining settings values', done => {
-    let uid = 65903437;
+  it('partial settings set does not impact remaining settings values', async () => {
+    const uid = 65903437;
 
-    svc.set({ uid }, {
-      settings: {
-        translation: {
-          enabled: true
-        }
-      }
-    }, (err, result) => {
-      svc.set({ uid }, {
+    await svc.set(
+      { uid },
+      {
+        settings: {
+          translation: {
+            enabled: true,
+          },
+        },
+      },
+    );
+
+    const result = await svc.set(
+      { uid },
+      {
         settings: {
           contribution: {
             defaultState: 1,
-          }
-        }
-      }, (err, result) => {
-        assert(result.agenda.settings.translation.enabled);
+          },
+        },
+      },
+    );
 
-        done();
-      });
-    });
+    expect(result.agenda.settings.translation.enabled).toBeTruthy();
   });
 
   it('admin settings are not lost with update', async () => {
     const { agenda } = await svc.set({ uid: 35338076 }, { title: 'Bah quoi' });
-    
-    expect(agenda.settings.admin).toEqual({ filters: { displayed: ['keyword'] }});
+
+    expect(agenda.settings.admin).toEqual({
+      filters: { displayed: ['keyword'] },
+    });
   });
 
-  it('onUpdate callbacks with agenda data before and after update', done => {
-    svc.init(Object.assign({}, config, {
-      Files: Files(dConfig.files),
-      interfaces: {
-        onUpdate: (before, after) => {
-          assert.strictEqual(before.settings.contribution.useFields, false);
-          assert.strictEqual(after.settings.contribution.useFields, true);
+  it('onUpdate callbacks with agenda data before and after update', () =>
+    new Promise((rs) => {
+      svc.init({
+        ...config,
+        Files: Files(dConfig.files),
+        interfaces: {
+          onUpdate: (before, after) => {
+            expect(before.settings.contribution.useFields).toBe(false);
+            expect(after.settings.contribution.useFields).toBe(true);
 
-          done();
-        }
-      }
+            rs();
+          },
+        },
+      });
+
+      svc.set(
+        4830,
+        {
+          settings: {
+            contribution: {
+              useFields: true,
+            },
+          },
+        },
+        () => {},
+      );
     }));
 
-    svc.set(4830, {
-      settings: {
-        contribution: {
-          useFields: true
-        }
-      }
-    }, () => {});
-  });
+  it('onUpdate callbacks with agenda data that includes internal fields', () =>
+    new Promise((rs) => {
+      svc.init({
+        ...config,
+        Files: Files(dConfig.files),
+        interfaces: {
+          onUpdate: (before, after) => {
+            expect(before.id).toBe(4830);
+            expect(after.id).toBe(4830);
 
-  it('onUpdate callbacks with agenda data that includes internal fields', done => {
-    svc.init(Object.assign({}, config, {
-      Files: Files(dConfig.files),
-      interfaces: {
-        onUpdate: (before, after) => {
-          assert.strictEqual(before.id, 4830);
-          assert.strictEqual(after.id, 4830);
+            rs();
+          },
+        },
+      });
 
-          done();
-        }
-      }
+      svc.set(
+        4830,
+        {
+          title: 'Blaaargh',
+        },
+        () => {},
+      );
     }));
-
-    svc.set(4830, {
-      title: 'Blaaargh'
-    }, () => {});
-  });
 });
