@@ -175,6 +175,38 @@ describe('agendas - functional (server): set (update)', () => {
     expect(result.agenda.settings.contribution.moderateOnChangeBy).toEqual([]);
   });
 
+  it('public and admin settings can be patched up without affecting neighboring settings', async () => {
+    await svc.set(
+      { uid: 65903437 },
+      {
+        settings: {
+          public: {
+            filters: {
+              displayed: ['keyword', 'search'],
+            },
+          },
+        },
+      },
+    );
+
+    const result = await svc.set(
+      { uid: 65903437 },
+      {
+        settings: {
+          public: {
+            filters: {
+              displayed: ['addMethod'],
+            },
+          },
+        },
+      },
+    );
+
+    expect(result.agenda.settings.public.filters.displayed).toEqual([
+      'addMethod',
+    ]);
+  });
+
   it('unprotected set cannot update protected field', async () => {
     const uid = 65903437;
 

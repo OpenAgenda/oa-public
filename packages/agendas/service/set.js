@@ -287,13 +287,15 @@ function _filterProtected(namespace, v) {
 }
 
 function _merge(v) {
-  const customizer = (obj, src, key) => {
-    if (_.isArray(src) && key === 'moderateOnChangeBy') {
+  v.merged = _.mergeWith({}, v.current, v.data, (obj, src, key) => {
+    if (key === 'filters') {
       return src;
     }
-  };
 
-  v.merged = _.mergeWith({}, v.current, v.data, customizer);
+    if (Array.isArray(src) && key === 'moderateOnChangeBy') {
+      return src;
+    }
+  });
 
   return v;
 }
