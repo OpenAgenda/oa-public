@@ -1,19 +1,29 @@
 'use strict';
 
 const log = require('@openagenda/logs')('remove');
+const update = require('./update');
 const getIndexName = require('./utils/getIndexName');
 const getDocumentId = require('./utils/getDocumentId');
 const ESToVerror = require('./utils/ESToVerror');
 
 module.exports = async function remove(config, set, identifiers, options = {}) {
-  const {
-    refresh,
-  } = {
+  const { refresh, soft } = {
     refresh: false,
+    soft: true,
     ...options,
   };
 
   const { client, defaultIndex } = config;
+
+  if (soft) {
+    return update(
+      config,
+      set,
+      identifiers,
+      { uid: identifiers.uid, removed: true, updatedAt: new Date() },
+      { operation: 'index' },
+    );
+  }
 
   let res;
 
@@ -44,6 +54,9 @@ module.exports = async function remove(config, set, identifiers, options = {}) {
 
   return {
     success: res.body.result === 'deleted',
-    message: res.body.result === 'deleted' ? 'event was removed' : 'event was not removed',
+    message:
+      res.body.result === 'deleted'
+        ? 'event was removed'
+        : 'event was not removed',
   };
 };

@@ -9,7 +9,11 @@ const Service = require('..');
 describe('02 - event search - functional: Applied search', () => {
   describe('Bordeaux Métropole', () => {
     let service;
-    const formSchema = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/applied/bordeaux-metropole.schema.json`));
+    const formSchema = JSON.parse(
+      fs.readFileSync(
+        `${__dirname}/fixtures/applied/bordeaux-metropole.schema.json`,
+      ),
+    );
 
     beforeAll(() => {
       service = Service(config);
@@ -28,7 +32,11 @@ describe('02 - event search - functional: Applied search', () => {
     beforeAll(async () => {
       await service('bdx').rebuild({
         eventsList: async (lastId, limit) =>
-          JSON.parse(fs.readFileSync(`${__dirname}/fixtures/applied/bordeaux-metropole.${lastId}.${limit}.json`)),
+          JSON.parse(
+            fs.readFileSync(
+              `${__dirname}/fixtures/applied/bordeaux-metropole.${lastId}.${limit}.json`,
+            ),
+          ),
         formSchema,
       });
     });
@@ -76,10 +84,12 @@ describe('02 - event search - functional: Applied search', () => {
         });
 
         it('registration is a list [{ type, value }]', async () => {
-          expect(event.registration).toEqual([{
-            type: 'link',
-            value: 'http://william-theviot.fr',
-          }]);
+          expect(event.registration).toEqual([
+            {
+              type: 'link',
+              value: 'http://william-theviot.fr',
+            },
+          ]);
         });
       });
 
@@ -104,90 +114,122 @@ describe('02 - event search - functional: Applied search', () => {
 
     describe('Search', () => {
       it('events can be filtered by member', async () => {
-        const { total } = await service('bdx')
-          .search({ memberUid: 75052324 }, {});
+        const { total } = await service('bdx').search(
+          { memberUid: 75052324 },
+          {},
+        );
         expect(total).toBe(204);
       });
 
       it('events can be filtered by multiple members', async () => {
-        const { total } = await service('bdx')
-          .search({ memberUid: [75052324, 65133249] }, {});
+        const { total } = await service('bdx').search(
+          { memberUid: [75052324, 65133249] },
+          {},
+        );
         expect(total).toBe(228);
       });
 
       it('events can be filtered by origin agenda', async () => {
-        const { total } = await service('bdx').search({
-          originAgendaUid: 19486837,
-        }, {});
+        const { total } = await service('bdx').search(
+          {
+            originAgendaUid: 19486837,
+          },
+          {},
+        );
 
         expect(total).toBe(1);
       });
 
       it('events can by filtered by creation date', async () => {
-        const { total } = await service('bdx').search({
-          createdAt: {
-            lte: new Date('2019-01-01'),
+        const { total } = await service('bdx').search(
+          {
+            createdAt: {
+              lte: new Date('2019-01-01'),
+            },
           },
-        }, {});
+          {},
+        );
 
         expect(total).toBe(2);
       });
 
       it('events can be filtered buy update date', async () => {
-        const { total } = await service('bdx').search({
-          createdAt: {
-            gte: new Date('2019-06-01'),
-            lte: new Date('2020-01-01'),
+        const { total } = await service('bdx').search(
+          {
+            createdAt: {
+              gte: new Date('2019-06-01'),
+              lte: new Date('2020-01-01'),
+            },
           },
-        }, {});
+          {},
+        );
 
         expect(total).toBe(425);
       });
 
       it('events can be filtered by source agenda', async () => {
-        const { total } = await service('bdx').search({
-          sourceAgendaUid: 1108324,
-        }, {}, { detailed: true });
+        const { total } = await service('bdx').search(
+          {
+            sourceAgendaUid: 1108324,
+          },
+          {},
+          { detailed: true },
+        );
 
         expect(total).toBe(38);
       });
 
       it('filter by city', async () => {
-        const { total } = await service('bdx').search({
-          city: 'Bordeaux',
-        }, {});
+        const { total } = await service('bdx').search(
+          {
+            city: 'Bordeaux',
+          },
+          {},
+        );
 
         expect(total).toBe(129);
       });
 
       it('filter by district', async () => {
-        const { total } = await service('bdx').search({
-          district: 'Bordeaux Maritime',
-        }, {});
+        const { total } = await service('bdx').search(
+          {
+            district: 'Bordeaux Maritime',
+          },
+          {},
+        );
 
         expect(total).toBe(26);
       });
 
       it('filter by department', async () => {
-        const { total } = await service('bdx').search({
-          department: 'Gironde',
-        }, {});
+        const { total } = await service('bdx').search(
+          {
+            department: 'Gironde',
+          },
+          {},
+        );
 
         expect(total).toBe(507);
       });
 
       it('get events matching one state', async () => {
-        const { total } = await service('bdx').search({
-          state: 2,
-        }, {});
+        const { total } = await service('bdx').search(
+          {
+            state: 2,
+          },
+          {},
+        );
 
         expect(total).toBe(518);
       });
 
       it('search for multiple states', async () => {
-        const { total } = await service('bdx').search({
-          state: [1, 0],
-        }, {});
+        const { total } = await service('bdx').search(
+          {
+            state: [1, 0],
+          },
+          {},
+        );
 
         expect(total).toBe(3);
       });
@@ -203,23 +245,24 @@ describe('02 - event search - functional: Applied search', () => {
 
     describe('Sort and navigation', () => {
       it('scroll through results', async () => {
-        const {
-          total,
-          events,
-          scrollId,
-        } = await service('bdx').search({}, {
-          scroll: '1m',
-        }, {
-          detailed: true,
-          formSchema,
-        });
+        const { total, events, scrollId } = await service('bdx').search(
+          {},
+          {
+            scroll: '1m',
+          },
+          {
+            detailed: true,
+            formSchema,
+          },
+        );
 
         let hasMore = true;
 
         do {
-          const {
-            events: moreEvents,
-          } = await service('bdx').search.scroll(scrollId, '1m');
+          const { events: moreEvents } = await service('bdx').search.scroll(
+            scrollId,
+            '1m',
+          );
 
           if (moreEvents.length) {
             moreEvents.forEach(e => events.push(e));
@@ -232,111 +275,111 @@ describe('02 - event search - functional: Applied search', () => {
       });
 
       it('navigation with search after and default sort', async () => {
-        const {
-          events: chunkOfEvents,
-        } = await service('bdx').search({}, { size: 10 });
-
-        const {
-          sort: searchAfter,
-        } = await service('bdx').search({}, { size: 2 });
-
-        const {
-          events: secondSmallerChunkOfEvents,
-        } = await service('bdx').search({}, { size: 2, searchAfter });
-
-        expect(
-          chunkOfEvents[2].uid,
-        ).toBe(
-          secondSmallerChunkOfEvents[0].uid,
+        const { events: chunkOfEvents } = await service('bdx').search(
+          {},
+          { size: 10 },
         );
+
+        const { sort: searchAfter } = await service('bdx').search(
+          {},
+          { size: 2 },
+        );
+
+        const { events: secondSmallerChunkOfEvents } = await service(
+          'bdx',
+        ).search({}, { size: 2, searchAfter });
+
+        expect(chunkOfEvents[2].uid).toBe(secondSmallerChunkOfEvents[0].uid);
       });
 
       it('if useAfterKey option is used, after key is provided', async () => {
-        const {
-          events: chunkOfEvents,
-        } = await service('bdx').search({}, { size: 10 });
-
-        const {
-          after,
-        } = await service('bdx').search({}, { size: 2 }, { useAfterKey: true });
-
-        const {
-          events: secondSmallerChunkOfEvents,
-        } = await service('bdx').search({}, { size: 2, after }, { useAfterKey: true });
-
-        expect(
-          chunkOfEvents[2].uid,
-        ).toBe(
-          secondSmallerChunkOfEvents[0].uid,
+        const { events: chunkOfEvents } = await service('bdx').search(
+          {},
+          { size: 10 },
         );
+
+        const { after } = await service('bdx').search(
+          {},
+          { size: 2 },
+          { useAfterKey: true },
+        );
+
+        const { events: secondSmallerChunkOfEvents } = await service(
+          'bdx',
+        ).search({}, { size: 2, after }, { useAfterKey: true });
+
+        expect(chunkOfEvents[2].uid).toBe(secondSmallerChunkOfEvents[0].uid);
       });
 
-      it(
-        'if useAfterKey option is used, given sort key gives effective sort',
-        async () => {
-          const {
-            sort,
-          } = await service('bdx').search({}, { size: 2 }, { useAfterKey: true });
+      it('if useAfterKey option is used, given sort key gives effective sort', async () => {
+        const { sort } = await service('bdx').search(
+          {},
+          { size: 2 },
+          { useAfterKey: true },
+        );
 
-          expect(sort).toBe('timingsWithFeatured.asc');
-        },
-      );
+        expect(sort).toBe('timingsWithFeatured.asc');
+      });
 
-      it(
-        'fix: after key is provided event when search filter is used',
-        async () => {
-          const result = await service('bdx').search({
+      it('fix: after key is provided event when search filter is used', async () => {
+        const result = await service('bdx').search(
+          {
             search: 'Spectacle',
-          }, { size: 1 }, { useAfterKey: true });
+          },
+          { size: 1 },
+          { useAfterKey: true },
+        );
 
-          expect(result.after).toBeTruthy();
-        },
-      );
+        expect(result.after).toBeTruthy();
+      });
     });
 
     describe('Additional fields search', () => {
       it('search by additional optioned field', async () => {
-        const {
-          total,
-          events,
-        } = await service('bdx').search({
-          'thematiques-bordeaux-metropole': 9,
-        }, {}, { formSchema });
+        const { total, events } = await service('bdx').search(
+          {
+            'thematiques-bordeaux-metropole': 9,
+          },
+          {},
+          { formSchema },
+        );
 
         expect(total).toBe(118);
 
         for (const event of events) {
           expect(
-            event['thematiques-bordeaux-metropole']
-              .filter(id => id === 9)
+            event['thematiques-bordeaux-metropole'].filter(id => id === 9)
               .length,
           ).toBe(1);
         }
       });
 
-      it(
-        'search by additional optioned field with multiple values (matches either)',
-        async () => {
-          const {
-            total,
-            events,
-          } = await service('bdx').search({
+      it('search by additional optioned field with multiple values (matches either)', async () => {
+        const { total, events } = await service('bdx').search(
+          {
             'thematiques-bordeaux-metropole': [9, 13, 23],
-          }, {}, { formSchema });
+          },
+          {},
+          { formSchema },
+        );
 
-          events.forEach(e => {
-            expect(
-              e['thematiques-bordeaux-metropole'].filter(id => [9, 13, 23].includes(id)).length,
-            ).toBeGreaterThan(0);
-          });
+        events.forEach(e => {
+          expect(
+            e['thematiques-bordeaux-metropole'].filter(id =>
+              [9, 13, 23].includes(id)).length,
+          ).toBeGreaterThan(0);
+        });
 
-          expect(total).toBe(127);
-        },
-      );
+        expect(total).toBe(127);
+      });
     });
 
     describe('CRUD operations', () => {
-      const data = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/applied/bordeaux-metropole.event.json`));
+      const data = JSON.parse(
+        fs.readFileSync(
+          `${__dirname}/fixtures/applied/bordeaux-metropole.event.json`,
+        ),
+      );
       let addResult;
 
       beforeAll(async () => {
@@ -348,7 +391,7 @@ describe('02 - event search - functional: Applied search', () => {
 
       afterAll(async () => {
         try {
-          await service('bdx').remove({ uid: data.uid });
+          await service('bdx').remove({ uid: data.uid }, { soft: false });
         } catch (e) {
           // console.log(e);
         }
@@ -359,62 +402,83 @@ describe('02 - event search - functional: Applied search', () => {
       });
 
       it('added document can be retrieved through its uid', async () => {
-        const {
-          events,
-        } = await service('bdx').search({
-          uid: data.uid,
-        }, { formSchema });
+        const { events } = await service('bdx').search(
+          {
+            uid: data.uid,
+          },
+          { formSchema },
+        );
 
         expect(events[0].uid).toBe(data.uid);
       });
 
       it('updating a document standard field', async () => {
-        const result = await service('bdx').update({ uid: data.uid }, {
-          ...data, // this is not a patch, all data must be provided
-          state: 1,
-        }, {
-          refresh: true,
-          formSchema,
-        });
+        const result = await service('bdx').update(
+          { uid: data.uid },
+          {
+            ...data, // this is not a patch, all data must be provided
+            state: 1,
+          },
+          {
+            refresh: true,
+            formSchema,
+          },
+        );
 
         expect(result.success).toBe(true);
 
-        const { events } = await service('bdx').search({
-          uid: data.uid,
-          state: null,
-        }, {}, { detailed: true });
+        const { events } = await service('bdx').search(
+          {
+            uid: data.uid,
+            state: null,
+          },
+          {},
+          { detailed: true },
+        );
 
         expect(events.length).toBe(1);
         expect(events[0].state).toBe(1);
       });
 
       it('updating a document additional field', async () => {
-        await service('bdx').update({ uid: data.uid }, {
-          ...data, // this is not a patch, all data must be provided
-          'thematiques-bordeaux-metropole': [3, 7, 8],
-        }, {
-          refresh: true,
-          formSchema,
-        });
+        await service('bdx').update(
+          { uid: data.uid },
+          {
+            ...data, // this is not a patch, all data must be provided
+            'thematiques-bordeaux-metropole': [3, 7, 8],
+          },
+          {
+            refresh: true,
+            formSchema,
+          },
+        );
 
-        const event = await service('bdx').search({
-          uid: data.uid,
-          state: null,
-        }, {}, {
-          detailed: true,
-          first: true,
-          formSchema,
-        });
+        const event = await service('bdx').search(
+          {
+            uid: data.uid,
+            state: null,
+          },
+          {},
+          {
+            detailed: true,
+            first: true,
+            formSchema,
+          },
+        );
 
         expect(event['thematiques-bordeaux-metropole']).toEqual([3, 7, 8]);
       });
 
       it('removing a document', async () => {
-        const result = await service('bdx').remove({
-          uid: data.uid,
-        }, {
-          refresh: true,
-        });
+        const result = await service('bdx').remove(
+          {
+            uid: data.uid,
+          },
+          {
+            refresh: true,
+            soft: false,
+          },
+        );
 
         expect(result.success).toBe(true);
 
@@ -429,21 +493,33 @@ describe('02 - event search - functional: Applied search', () => {
 
     describe('Aggregations', () => {
       describe('keywords', () => {
-        let agg; let
-          agg2;
+        let agg;
+        let agg2;
 
         beforeAll(async () => {
-          agg = await service('bdx').search({}, { size: 0 }, {
-            detailed: true,
-            aggregations: 'keywords',
-          }).then(r => r.aggregations.keywords);
+          agg = await service('bdx')
+            .search(
+              {},
+              { size: 0 },
+              {
+                detailed: true,
+                aggregations: 'keywords',
+              },
+            )
+            .then(r => r.aggregations.keywords);
 
-          agg2 = await service('bdx').search({}, { size: 0 }, {
-            aggregations: {
-              type: 'keywords',
-              size: 20,
-            },
-          }).then(r => r.aggregations.keywords);
+          agg2 = await service('bdx')
+            .search(
+              {},
+              { size: 0 },
+              {
+                aggregations: {
+                  type: 'keywords',
+                  size: 20,
+                },
+              },
+            )
+            .then(r => r.aggregations.keywords);
         });
 
         it('default number of keywords retured is 10', () => {
@@ -468,12 +544,18 @@ describe('02 - event search - functional: Applied search', () => {
         let createdOrUpdatedAtAgg;
 
         beforeAll(async () => {
-          const aggs = await service('bdx').search({
-            date: { gte: '2020-03-01' },
-          }, { size: 0 }, {
-            detailed: true,
-            aggregations: ['createdAt', 'updatedAt', 'createdOrUpdatedAt'],
-          }).then(({ aggregations }) => aggregations)
+          const aggs = await service('bdx')
+            .search(
+              {
+                date: { gte: '2020-03-01' },
+              },
+              { size: 0 },
+              {
+                detailed: true,
+                aggregations: ['createdAt', 'updatedAt', 'createdOrUpdatedAt'],
+              },
+            )
+            .then(({ aggregations }) => aggregations)
             .catch(_err => {});
 
           createdAtAgg = aggs.createdAt;
@@ -490,7 +572,10 @@ describe('02 - event search - functional: Applied search', () => {
         });
 
         it('createdOrUpdatedAt agg is a list of { eventCount, key }', () => {
-          expect(Object.keys(createdOrUpdatedAtAgg[0])).toEqual(['key', 'eventCount']);
+          expect(Object.keys(createdOrUpdatedAtAgg[0])).toEqual([
+            'key',
+            'eventCount',
+          ]);
         });
       });
 
@@ -498,15 +583,23 @@ describe('02 - event search - functional: Applied search', () => {
         let createdAtAgg;
 
         beforeAll(async () => {
-          const aggs = await service('bdx').search({
-            createdAt: { gte: '2020-01-02' },
-          }, { size: 0 }, {
-            detailed: true,
-            aggregations: [{
-              type: 'createdAt',
-              fixedInterval: '7d',
-            }],
-          }).then(({ aggregations }) => aggregations)
+          const aggs = await service('bdx')
+            .search(
+              {
+                createdAt: { gte: '2020-01-02' },
+              },
+              { size: 0 },
+              {
+                detailed: true,
+                aggregations: [
+                  {
+                    type: 'createdAt',
+                    fixedInterval: '7d',
+                  },
+                ],
+              },
+            )
+            .then(({ aggregations }) => aggregations)
             .catch(_err => {
               // console.log(err.body.error)
             });
@@ -524,48 +617,52 @@ describe('02 - event search - functional: Applied search', () => {
           let agg;
 
           beforeAll(async () => {
-            const result = await service('bdx').search({}, { size: 0 }, {
-              detailed: true,
-              aggregations: 'timings',
-            });
+            const result = await service('bdx').search(
+              {},
+              { size: 0 },
+              {
+                detailed: true,
+                aggregations: 'timings',
+              },
+            );
 
             agg = result.aggregations.timings;
           });
 
-          it(
-            'there are as many items in timings aggregation as there are dates in lifespan of result',
-            () => {
-              expect(agg.length).toBe(748);
-            },
-          );
+          it('there are as many items in timings aggregation as there are dates in lifespan of result', () => {
+            expect(agg.length).toBe(748);
+          });
 
-          it(
-            'each item is a { key, timingCount } pair, the key being a date (YYYY-MM-DD)',
-            () => {
-              expect(_.first(agg)).toEqual({
-                key: '2018-12-15',
-                timingCount: 1,
-              });
-              expect(_.last(agg)).toEqual({
-                key: '2020-12-31',
-                timingCount: 1,
-              });
-            },
-          );
+          it('each item is a { key, timingCount } pair, the key being a date (YYYY-MM-DD)', () => {
+            expect(_.first(agg)).toEqual({
+              key: '2018-12-15',
+              timingCount: 1,
+            });
+            expect(_.last(agg)).toEqual({
+              key: '2020-12-31',
+              timingCount: 1,
+            });
+          });
         });
 
         describe('by month', () => {
           let agg;
 
           beforeAll(async () => {
-            const result = await service('bdx').search({}, { size: 0 }, {
-              detailed: true,
-              aggregations: [{
-                type: 'timings',
-                interval: 'month',
-                format: 'YYYY-MM',
-              }],
-            });
+            const result = await service('bdx').search(
+              {},
+              { size: 0 },
+              {
+                detailed: true,
+                aggregations: [
+                  {
+                    type: 'timings',
+                    interval: 'month',
+                    format: 'YYYY-MM',
+                  },
+                ],
+              },
+            );
 
             agg = result.aggregations.timings;
           });
@@ -583,30 +680,40 @@ describe('02 - event search - functional: Applied search', () => {
           let agg;
 
           beforeAll(async () => {
-            const result = await service('bdx').search({
-              date: {
-                gte: '2020-04-01',
-                lte: '2020-04-02',
+            const result = await service('bdx').search(
+              {
+                date: {
+                  gte: '2020-04-01',
+                  lte: '2020-04-02',
+                },
               },
-            }, { size: 0 }, {
-              detailed: true,
-              aggregations: [{
-                key: 'timingsByMonth',
-                type: 'timings',
-                interval: 'month',
-                format: 'YYYY-MM',
-              }, {
-                key: 'timingsByDay',
-                type: 'timings',
-                interval: 'day',
-              }],
-            });
+              { size: 0 },
+              {
+                detailed: true,
+                aggregations: [
+                  {
+                    key: 'timingsByMonth',
+                    type: 'timings',
+                    interval: 'month',
+                    format: 'YYYY-MM',
+                  },
+                  {
+                    key: 'timingsByDay',
+                    type: 'timings',
+                    interval: 'day',
+                  },
+                ],
+              },
+            );
 
             agg = result.aggregations;
           });
 
           it('both are provided in their respective keys', () => {
-            expect(Object.keys(agg)).toEqual(['timingsByMonth', 'timingsByDay']);
+            expect(Object.keys(agg)).toEqual([
+              'timingsByMonth',
+              'timingsByDay',
+            ]);
           });
 
           it('day keys matching date filter are the only ones to be provided', () => {
@@ -616,15 +723,14 @@ describe('02 - event search - functional: Applied search', () => {
             ]);
           });
 
-          it(
-            'month keys matching date filter are the only ones to be provided',
-            () => {
-              expect(agg.timingsByMonth).toEqual([{
+          it('month keys matching date filter are the only ones to be provided', () => {
+            expect(agg.timingsByMonth).toEqual([
+              {
                 key: '2020-04',
                 timingCount: 133,
-              }]);
-            },
-          );
+              },
+            ]);
+          });
         });
       });
 
@@ -633,21 +739,29 @@ describe('02 - event search - functional: Applied search', () => {
         let aggMoreItems;
 
         beforeAll(async () => {
-          const result = await service('bdx').search({}, { size: 0 }, {
-            detailed: true,
-            aggregations: ['regions', 'departments', 'cities'],
-          });
+          const result = await service('bdx').search(
+            {},
+            { size: 0 },
+            {
+              detailed: true,
+              aggregations: ['regions', 'departments', 'cities'],
+            },
+          );
           agg = result.aggregations;
         });
 
         beforeAll(async () => {
-          const result = await service('bdx').search({}, { size: 0 }, {
-            detailed: true,
-            aggregations: {
-              type: 'cities',
-              size: 20,
+          const result = await service('bdx').search(
+            {},
+            { size: 0 },
+            {
+              detailed: true,
+              aggregations: {
+                type: 'cities',
+                size: 20,
+              },
             },
-          });
+          );
           aggMoreItems = result.aggregations;
         });
 
@@ -685,10 +799,14 @@ describe('02 - event search - functional: Applied search', () => {
         let agg;
 
         beforeAll(async () => {
-          const result = await service('bdx').search({}, { size: 0 }, {
-            detailed: true,
-            aggregations: ['members'],
-          });
+          const result = await service('bdx').search(
+            {},
+            { size: 0 },
+            {
+              detailed: true,
+              aggregations: ['members'],
+            },
+          );
           agg = result.aggregations.members;
         });
 
@@ -709,10 +827,14 @@ describe('02 - event search - functional: Applied search', () => {
         let agg;
 
         beforeAll(async () => {
-          const result = await service('bdx').search({}, { size: 0 }, {
-            detailed: true,
-            aggregations: ['locations'],
-          });
+          const result = await service('bdx').search(
+            {},
+            { size: 0 },
+            {
+              detailed: true,
+              aggregations: ['locations'],
+            },
+          );
           agg = result.aggregations.locations;
         });
 
@@ -733,10 +855,14 @@ describe('02 - event search - functional: Applied search', () => {
         let agg;
 
         beforeAll(async () => {
-          const result = await service('bdx').search({}, { size: 0 }, {
-            detailed: true,
-            aggregations: ['sourceAgendas'],
-          });
+          const result = await service('bdx').search(
+            {},
+            { size: 0 },
+            {
+              detailed: true,
+              aggregations: ['sourceAgendas'],
+            },
+          );
           agg = result.aggregations.sourceAgendas;
         });
 
@@ -757,10 +883,14 @@ describe('02 - event search - functional: Applied search', () => {
         let originAgendaAggregation;
 
         beforeAll(async () => {
-          const result = await service('bdx').search({}, { size: 0 }, {
-            detailed: true,
-            aggregations: ['originAgendas'],
-          });
+          const result = await service('bdx').search(
+            {},
+            { size: 0 },
+            {
+              detailed: true,
+              aggregations: ['originAgendas'],
+            },
+          );
           originAgendaAggregation = result.aggregations.originAgendas;
         });
 
@@ -782,30 +912,39 @@ describe('02 - event search - functional: Applied search', () => {
           });
         });
 
-        it(
-          'size option can be used to return specific number of items',
-          async () => {
-            const count = await service('bdx').search({}, { size: 0 }, {
-              detailed: true,
-              aggregations: [{
-                type: 'originAgendas',
-                size: 3,
-              }],
-            }).then(({ aggregations }) => aggregations.originAgendas.length);
+        it('size option can be used to return specific number of items', async () => {
+          const count = await service('bdx')
+            .search(
+              {},
+              { size: 0 },
+              {
+                detailed: true,
+                aggregations: [
+                  {
+                    type: 'originAgendas',
+                    size: 3,
+                  },
+                ],
+              },
+            )
+            .then(({ aggregations }) => aggregations.originAgendas.length);
 
-            expect(count).toBe(3);
-          },
-        );
+          expect(count).toBe(3);
+        });
       });
 
       describe('timespan', () => {
         let timespanAggregation;
 
         beforeAll(async () => {
-          const result = await service('bdx').search({}, { size: 0 }, {
-            detailed: true,
-            aggregations: 'timespan',
-          });
+          const result = await service('bdx').search(
+            {},
+            { size: 0 },
+            {
+              detailed: true,
+              aggregations: 'timespan',
+            },
+          );
 
           timespanAggregation = result.aggregations.timespan;
         });
@@ -825,25 +964,33 @@ describe('02 - event search - functional: Applied search', () => {
         let statesAggregation;
 
         beforeAll(async () => {
-          const result = await service('bdx').search({ state: null }, { size: 0 }, {
-            detailed: true,
-            aggregations: 'states',
-          });
+          const result = await service('bdx').search(
+            { state: null },
+            { size: 0 },
+            {
+              detailed: true,
+              aggregations: 'states',
+            },
+          );
 
           statesAggregation = result.aggregations.states;
         });
 
         it('provides count for each state', () => {
-          expect(statesAggregation).toEqual([{
-            key: 2,
-            eventCount: 518,
-          }, {
-            key: 1,
-            eventCount: 1,
-          }, {
-            key: 0,
-            eventCount: 2,
-          }]);
+          expect(statesAggregation).toEqual([
+            {
+              key: 2,
+              eventCount: 518,
+            },
+            {
+              key: 1,
+              eventCount: 1,
+            },
+            {
+              key: 0,
+              eventCount: 2,
+            },
+          ]);
         });
       });
 
@@ -851,49 +998,62 @@ describe('02 - event search - functional: Applied search', () => {
         let TRHAggregation;
 
         beforeAll(async () => {
-          const result = await service('bdx').search({
-            date: {
-              gte: new Date('2019-11-01'),
-              lte: new Date('2019-11-30'),
+          const result = await service('bdx').search(
+            {
+              date: {
+                gte: new Date('2019-11-01'),
+                lte: new Date('2019-11-30'),
+              },
             },
-          }, { size: 0 }, {
-            detailed: true,
-            aggregations: 'eventsByDateRanges',
-          });
+            { size: 0 },
+            {
+              detailed: true,
+              aggregations: 'eventsByDateRanges',
+            },
+          );
 
           TRHAggregation = result.aggregations.eventsByDateRanges;
         });
 
         it('item of aggregation contains keys {key, count, sampleEvents}', () => {
-          expect(Object.keys(TRHAggregation[0])).toEqual(['key', 'eventCount', 'sampleEvents']);
+          expect(Object.keys(TRHAggregation[0])).toEqual([
+            'key',
+            'eventCount',
+            'sampleEvents',
+          ]);
         });
 
         it('item.key is of format YYYY-MM-DD', () => {
           expect(TRHAggregation[0].key).toBe('2019-11-01');
         });
 
-        it(
-          'item.sampleEvents contains 3 events corresponding to provided key',
-          () => {
-            expect(TRHAggregation[0].sampleEvents.map(e => e.uid).sort()).toEqual([16560750, 75721304]);
-          },
-        );
+        it('item.sampleEvents contains 3 events corresponding to provided key', () => {
+          expect(
+            TRHAggregation[0].sampleEvents.map(e => e.uid).sort(),
+          ).toEqual([16560750, 75721304]);
+        });
       });
 
       describe('additionalFields', () => {
         let agg;
 
         beforeAll(async () => {
-          agg = await service('bdx').search({
-            date: {
-              gte: new Date('2019-11-01'),
-              lte: new Date('2019-11-30'),
-            },
-          }, { size: 0 }, {
-            detailed: true,
-            formSchema,
-            aggregations: 'additionalFields',
-          }).then(r => r.aggregations.additionalFields);
+          agg = await service('bdx')
+            .search(
+              {
+                date: {
+                  gte: new Date('2019-11-01'),
+                  lte: new Date('2019-11-30'),
+                },
+              },
+              { size: 0 },
+              {
+                detailed: true,
+                formSchema,
+                aggregations: 'additionalFields',
+              },
+            )
+            .then(r => r.aggregations.additionalFields);
         });
 
         it('an object is provided with schema fields as keys', () => {
@@ -915,7 +1075,9 @@ describe('02 - event search - functional: Applied search', () => {
         });
 
         it('label is provided for each field', () => {
-          expect(agg['thematiques-bordeaux-metropole'].label.fr).toEqual('Thématiques Bordeaux Métropole');
+          expect(agg['thematiques-bordeaux-metropole'].label.fr).toEqual(
+            'Thématiques Bordeaux Métropole',
+          );
         });
       });
 
@@ -923,15 +1085,23 @@ describe('02 - event search - functional: Applied search', () => {
         let agg;
 
         beforeAll(async () => {
-          agg = await service('bdx').search({}, { size: 0 }, {
-            detailed: true,
-            formSchema,
-            aggregations: [{
-              key: 'et_bim',
-              type: 'additionalFields',
-              field: 'thematiques-bordeaux-metropole',
-            }],
-          }).then(r => r.aggregations.et_bim);
+          agg = await service('bdx')
+            .search(
+              {},
+              { size: 0 },
+              {
+                detailed: true,
+                formSchema,
+                aggregations: [
+                  {
+                    key: 'et_bim',
+                    type: 'additionalFields',
+                    field: 'thematiques-bordeaux-metropole',
+                  },
+                ],
+              },
+            )
+            .then(r => r.aggregations.et_bim);
         });
 
         it('only values of field are collected', () => {
@@ -947,16 +1117,21 @@ describe('02 - event search - functional: Applied search', () => {
         it('if field is not known, BadRequest error is thrown', async () => {
           let error;
           try {
-            await service('bdx').search({
-            }, { size: 0 }, {
-              detailed: true,
-              formSchema,
-              aggregations: [{
-                key: 'et_paf',
-                type: 'additionalFields',
-                field: 'this-field-does-not-exist',
-              }],
-            });
+            await service('bdx').search(
+              {},
+              { size: 0 },
+              {
+                detailed: true,
+                formSchema,
+                aggregations: [
+                  {
+                    key: 'et_paf',
+                    type: 'additionalFields',
+                    field: 'this-field-does-not-exist',
+                  },
+                ],
+              },
+            );
           } catch (e) {
             error = e;
           }
@@ -964,35 +1139,43 @@ describe('02 - event search - functional: Applied search', () => {
           expect(error.name).toBe('BadRequest');
         });
 
-        it(
-          'if field is not known or no values correspond, empty array is returned',
-          async () => {
-            const result = await service('bdx').search({
-              date: {
-                gte: new Date('2010-11-01'),
-                lte: new Date('2010-11-01'),
+        it('if field is not known or no values correspond, empty array is returned', async () => {
+          const result = await service('bdx')
+            .search(
+              {
+                date: {
+                  gte: new Date('2010-11-01'),
+                  lte: new Date('2010-11-01'),
+                },
               },
-            }, { size: 0 }, {
-              detailed: true,
-              formSchema,
-              aggregations: [{
-                key: 'et_paf',
-                type: 'additionalFields',
-                field: 'categories-agenda-metropolitain',
-              }],
-            }).then(r => r.aggregations.et_paf);
+              { size: 0 },
+              {
+                detailed: true,
+                formSchema,
+                aggregations: [
+                  {
+                    key: 'et_paf',
+                    type: 'additionalFields',
+                    field: 'categories-agenda-metropolitain',
+                  },
+                ],
+              },
+            )
+            .then(r => r.aggregations.et_paf);
 
-            expect(result).toEqual([]);
-          },
-        );
+          expect(result).toEqual([]);
+        });
       });
     });
 
     describe('More like this', () => {
       it('on title alone', async () => {
-        const { events } = await service('bdx').moreLikeThis({
-          title: { fr: 'Sieste musicale' },
-        }, { size: 2 });
+        const { events } = await service('bdx').moreLikeThis(
+          {
+            title: { fr: 'Sieste musicale' },
+          },
+          { size: 2 },
+        );
 
         expect(events.map(e => e.slug)).toEqual([
           'sieste-musicale-basta',
@@ -1001,9 +1184,12 @@ describe('02 - event search - functional: Applied search', () => {
       });
 
       it('on keywords alone', async () => {
-        const { events } = await service('bdx').moreLikeThis({
-          keywords: { fr: ['jazz'] },
-        }, { size: 3 });
+        const { events } = await service('bdx').moreLikeThis(
+          {
+            keywords: { fr: ['jazz'] },
+          },
+          { size: 3 },
+        );
 
         expect(events.map(e => e.slug)).toEqual([
           'concert-au-quartier-libre',
@@ -1013,10 +1199,13 @@ describe('02 - event search - functional: Applied search', () => {
       });
 
       it('on title and keywords', async () => {
-        const { events } = await service('bdx').moreLikeThis({
-          title: { fr: 'Sieste musicale' },
-          keywords: { fr: ['jazz'] },
-        }, { size: 2 });
+        const { events } = await service('bdx').moreLikeThis(
+          {
+            title: { fr: 'Sieste musicale' },
+            keywords: { fr: ['jazz'] },
+          },
+          { size: 2 },
+        );
 
         expect(events.map(e => e.slug)).toEqual([
           'sieste-musicale-basta',
@@ -1025,10 +1214,13 @@ describe('02 - event search - functional: Applied search', () => {
       });
 
       it('on title and keywords with boosted keywords', async () => {
-        const { events } = await service('bdx').moreLikeThis({
-          title: { fr: 'Sieste musicale' },
-          keywords: { fr: ['jazz'] },
-        }, { size: 3, boost: { keywords: 30, title: 10 } });
+        const { events } = await service('bdx').moreLikeThis(
+          {
+            title: { fr: 'Sieste musicale' },
+            keywords: { fr: ['jazz'] },
+          },
+          { size: 3, boost: { keywords: 30, title: 10 } },
+        );
 
         expect(events.map(e => e.slug)).toEqual([
           'concert-au-quartier-libre',
@@ -1038,34 +1230,44 @@ describe('02 - event search - functional: Applied search', () => {
       });
 
       it('on additional field of radio type', async () => {
-        const { events } = await service('bdx').moreLikeThis({
-          'thematiques-bordeaux-metropole': '3933.9',
-        }, { size: 3, formSchema, detailed: true });
+        const { events } = await service('bdx').moreLikeThis(
+          {
+            'thematiques-bordeaux-metropole': '3933.9',
+          },
+          { size: 3, formSchema, detailed: true },
+        );
 
         for (const event of events) {
-          expect(event['thematiques-bordeaux-metropole'].includes(9)).toBe(true);
+          expect(event['thematiques-bordeaux-metropole'].includes(9)).toBe(
+            true,
+          );
         }
       });
 
-      it(
-        'on additional field of radio type without scheamId prefixed',
-        async () => {
-          const { events } = await service('bdx').moreLikeThis({
+      it('on additional field of radio type without scheamId prefixed', async () => {
+        const { events } = await service('bdx').moreLikeThis(
+          {
             'thematiques-bordeaux-metropole': '9',
-          }, { size: 3, formSchema, detailed: true });
+          },
+          { size: 3, formSchema, detailed: true },
+        );
 
-          for (const event of events) {
-            expect(event['thematiques-bordeaux-metropole'].includes(9)).toBe(true);
-          }
-        },
-      );
+        for (const event of events) {
+          expect(event['thematiques-bordeaux-metropole'].includes(9)).toBe(
+            true,
+          );
+        }
+      });
 
       it('on location', async () => {
-        const { events } = await service('bdx').moreLikeThis({
-          location: {
-            city: 'Bassens',
+        const { events } = await service('bdx').moreLikeThis(
+          {
+            location: {
+              city: 'Bassens',
+            },
           },
-        }, { size: 3, detailed: true });
+          { size: 3, detailed: true },
+        );
 
         for (const event of events) {
           expect(event.location.city).toBe('Bassens');
@@ -1075,15 +1277,21 @@ describe('02 - event search - functional: Applied search', () => {
 
     describe('Options', () => {
       it('includeImageTimestamps', async () => {
-        const { events } = await service('bdx')
-          .search({}, { size: 1 }, { detailed: true, includeLabels: true, formSchema });
+        const { events } = await service('bdx').search(
+          {},
+          { size: 1 },
+          { detailed: true, includeLabels: true, formSchema },
+        );
 
         expect(events[0].image.filename.indexOf('?')).toBe(-1);
       });
 
       it('useDefaultImage', async () => {
-        const { events } = await service('bdx')
-          .search({ uid: 27240673 }, { size: 1 }, { useDefaultImage: true });
+        const { events } = await service('bdx').search(
+          { uid: 27240673 },
+          { size: 1 },
+          { useDefaultImage: true },
+        );
 
         expect(events[0].image).toEqual(config.defaultImage);
       });
