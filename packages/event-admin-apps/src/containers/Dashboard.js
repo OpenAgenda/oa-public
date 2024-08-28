@@ -276,6 +276,9 @@ function Dashboard() {
   const [selectedEvents, setSelectedEvents] = useState(() => new Set());
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
+  const [isShowingAllFilters, setIsShowingAllFilters] = useState(
+    !agenda.settings?.admin?.filters?.displayed,
+  );
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
@@ -283,7 +286,9 @@ function Dashboard() {
     dateFnsLocale: dateFnsLocales[intl.locale],
     missingValue: 'null',
     mapTiles,
-    include: agenda.settings?.admin?.filters?.displayed,
+    include: !isShowingAllFilters
+      ? agenda.settings?.admin?.filters?.displayed
+      : undefined,
   });
   const filters = useMemo(() => {
     const orderedFilter = unorderedFilters.sort((a, b) => {
@@ -322,7 +327,7 @@ function Dashboard() {
     );
 
     removeModal.close();
-  }, [agenda.slug, apiClient, queryClient, removeModal]);
+  }, [agenda.slug, apiClient, queryClient, removeModal, agenda.uid]);
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
@@ -866,6 +871,8 @@ function Dashboard() {
         query={query}
         filtersQuery={filtersQuery}
         eventsQuery={eventsQuery}
+        isShowingAllFilters={isShowingAllFilters}
+        onShowAllFilters={() => setIsShowingAllFilters(true)}
       />
     </FiltersProvider>
   );

@@ -60,6 +60,7 @@
   "EventAdminApp.EventStateSelector.motivePlaceholder": "Motive of refusal",
   "EventAdminApp.EventStateSelector.motiveTitle": "Confirm refusal",
   "EventAdminApp.FiltersPortal.filters": "Filters",
+  "EventAdminApp.FiltersPortal.showAllFilters": "Show all filters",
   "EventAdminApp.PassImage.edit": "Edit",
   "EventAdminApp.PassImage.link": "This event is linked to a pass Culture offer",
   "EventAdminApp.PassImage.linkErrored": "An error occurred during the creation or update of the linked pass Culture offer. Contact support to find a resolution",

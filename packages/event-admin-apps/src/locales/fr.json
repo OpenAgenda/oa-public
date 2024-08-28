@@ -60,6 +60,7 @@
   "EventAdminApp.EventStateSelector.motivePlaceholder": "Votre événement ne correspond pas au critères...",
   "EventAdminApp.EventStateSelector.motiveTitle": "Confirmer le refus",
   "EventAdminApp.FiltersPortal.filters": "Filtres",
+  "EventAdminApp.FiltersPortal.showAllFilters": "Afficher tous les filtres",
   "EventAdminApp.PassImage.edit": "Modifier",
   "EventAdminApp.PassImage.link": "Cette fiche est liée à une offre pass Culture",
   "EventAdminApp.PassImage.linkErrored": "Une anomalie a eu lieu lors de la création ou mise à jour de l'offre pass Culture. Contactez le support pour en savoir plus",

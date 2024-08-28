@@ -69,16 +69,91 @@ export const Presentation = {
   parameters: {
     msw: {
       handlers: [
-        http.post('/la-gargouille/events/search', () => HttpResponse.json(mainData)),
-        http.get('/agendas/48959239/admin/settings/exports', () => HttpResponse.json(exportSettings)),
-        http.post('/:agendaSlug/events/:eventSlug/state', async ({ request, params }) => {
-          const event = JSON.parse(
-            JSON.stringify(
-              mainData.events.find(e => e.slug === params.eventSlug),
-            ),
-          );
-          return HttpResponse.json({ ...event, ...await request.json() });
-        }),
+        http.post('/la-gargouille/events/search', () =>
+          HttpResponse.json(mainData)),
+        http.get('/agendas/48959239/admin/settings/exports', () =>
+          HttpResponse.json(exportSettings)),
+        http.post(
+          '/:agendaSlug/events/:eventSlug/state',
+          async ({ request, params }) => {
+            const event = JSON.parse(
+              JSON.stringify(
+                mainData.events.find(e => e.slug === params.eventSlug),
+              ),
+            );
+            return HttpResponse.json({ ...event, ...await request.json() });
+          },
+        ),
+      ],
+    },
+  },
+  decorators: [AdminPageDecorator, ProvidersDecorator],
+};
+
+export const WithSelectionOfFilters = {
+  render: function Render() {
+    const filtersContainerRef = useRef();
+
+    return (
+      <>
+        <div
+          className="col-md-3 col-md-push-5 col-sm-12 wsq filters"
+          ref={filtersContainerRef}
+        />
+        <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
+          {wrapApp(
+            createApp({
+              history: createMemoryHistory(),
+              initialState: getDefaultState({}),
+            }),
+            {
+              disableScrollToTop: true,
+              extraProps: {
+                agendaSchema: {
+                  fields: [],
+                },
+                lang: 'fr',
+                agenda: {
+                  uid: 48959239,
+                  slug: 'la-gargouille',
+                  title: 'La gargouille',
+                  credentials: {
+                    aggregator: true,
+                  },
+                  settings: {
+                    admin: {
+                      filters: {
+                        displayed: ['search', 'keyword', 'map', 'state'],
+                      },
+                    },
+                  },
+                },
+                filtersContainerRef,
+              },
+            },
+          )}
+        </div>
+      </>
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.post('/la-gargouille/events/search', () =>
+          HttpResponse.json(mainData)),
+        http.get('/agendas/48959239/admin/settings/exports', () =>
+          HttpResponse.json(exportSettings)),
+        http.post(
+          '/:agendaSlug/events/:eventSlug/state',
+          async ({ request, params }) => {
+            const event = JSON.parse(
+              JSON.stringify(
+                mainData.events.find(e => e.slug === params.eventSlug),
+              ),
+            );
+            return HttpResponse.json({ ...event, ...await request.json() });
+          },
+        ),
       ],
     },
   },
