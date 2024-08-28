@@ -384,6 +384,7 @@ function signupComplete(req, res) {
   cmn.render(req, res, 'auth/activation', {
     indexed: false,
     agenda: req.agenda,
+    email: req.query.email,
     resend:
       (req.agenda
         ? `/${req.agenda.slug}/activate/resend`
