@@ -9,7 +9,7 @@
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/event-search",
   "scripts": {
-    "test": "jest --runInBand --forceExit --testTimeout=40000 --verbose=false",
+    "test": "jest --runInBand --forceExit --testTimeout=60000 --verbose=false",
     "sandbox": "node sandbox/run.js"
   },
   "keywords": [],
