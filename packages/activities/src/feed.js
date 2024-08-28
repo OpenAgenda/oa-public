@@ -1,56 +1,49 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const FEED_TYPES = require( './feedTypes' );
+const _ = require('lodash');
+const FEED_TYPES = require('./feedTypes');
 
-
-module.exports = function feed( config, identifiers ) {
-
+module.exports = function feed(config, identifiersOrId) {
   const { feeds, activities, notifications } = config.service;
 
-  if ( !_.isObject( identifiers ) ) identifiers = { id: identifiers };
+  const identifiers = _.isObject(identifiersOrId)
+    ? identifiersOrId
+    : { id: identifiersOrId };
 
-  return _.deeply( _.mapValues )( Object.assign( feeds( identifiers ), {
-    activities: activities( identifiers ),
-    notifications: notifications( identifiers )
-  } ), v => {
+  return _.deeply(_.mapValues)(
+    Object.assign(feeds(identifiers), {
+      activities: activities(identifiers),
+      notifications: notifications(identifiers),
+    }),
+    (v) => {
+      if (typeof v !== 'function') return v;
 
-    if ( typeof v !== 'function' ) return v;
+      return (...args) => {
+        if (!config) throw new Error('service not initialized');
 
-    return ( ...args ) => {
+        if (
+          identifiers.entityType &&
+          !FEED_TYPES.includes(identifiers.entityType)
+        ) {
+          throw new Error(
+            `You cannot use feed of type ${identifiers.entityType}`,
+          );
+        }
 
-      if ( !config ) throw new Error( 'service not initialized' );
+        return () => v(...args);
+      };
+    },
+  );
+};
 
-      if ( identifiers.entityType && !FEED_TYPES.includes( identifiers.entityType ) ) {
-
-        throw new Error( `You cannot use feed of type ${identifiers.entityType}` );
-
-      }
-
-      return v.apply( null, args );
-
-    };
-
-  } );
-
-}
-
-_.mixin( {
-  deeply( map ) {
-    return ( obj, fn ) => {
-      return map( _.mapValues( obj, v => {
-        return _.isPlainObject( v ) ? _.deeply( map )( v, fn ) : v;
-      } ), fn );
-    }
+_.mixin({
+  deeply(map) {
+    return (obj, fn) =>
+      map(
+        _.mapValues(obj, (v) =>
+          _.isPlainObject(v) ? _.deeply(map)(v, fn) : v,
+        ),
+        fn,
+      );
   },
-} );
-
-/*
-obj = _.deeply(_.mapKeys)(obj, (value, key) => {
-  return key;
 });
-
-obj = _.deeply(_.mapValues)(obj, (value, key, object) => {
-  return value;
-});
-*/

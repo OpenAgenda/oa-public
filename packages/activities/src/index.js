@@ -11,10 +11,11 @@ const rebuild = require('./rebuild');
 const cleanOldActivitiesTask = require('./activities/tasks/cleanOld');
 const cleanOldNotificationsTask = require('./notifications/tasks/cleanOld');
 
-module.exports = Service;
-
-async function Service(c) {
-  const config = c;
+module.exports = async function Service(c) {
+  const config = {
+    ...c,
+    service: {},
+  };
 
   logger.setModuleConfig(c.logger);
 
@@ -38,9 +39,7 @@ async function Service(c) {
     await config.knex.migrate.latest();
   }
 
-  const service = (config.service = {});
-
-  return Object.assign(service, {
+  return Object.assign(config.service, {
     feed: feed.bind(null, config),
     feeds: feeds.bind(null, config),
     activities: Object.assign(
@@ -58,4 +57,4 @@ async function Service(c) {
     },
     rebuild: rebuild.bind(null, config),
   });
-}
+};
