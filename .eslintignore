@@ -3,8 +3,6 @@ packages/activity-apps
 packages/admin-agendas
 packages/agenda-contribute
 packages/agenda-search
-packages/agenda-settings
-packages/agendas
 packages/cibul-templates
 packages/custom
 packages/date-range
