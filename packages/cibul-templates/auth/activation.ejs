@@ -8,6 +8,9 @@
         <div class="content">
           <h2><%= __('checkEmail') %></h2>
           <p><%= __('checkEmailInstruction') %></p>
+          <div class="text-center margin-v-md">
+            <b><%= email %></b>
+          </div>
           <p><%- __( 'didNotReceive', {
             resend : `<a class="url" href="${resend}">${__( 'resend' )}</a>`,
             support : '<a class="url" href="mailto:verif@openagenda.com">verif@openagenda.com</a>'
