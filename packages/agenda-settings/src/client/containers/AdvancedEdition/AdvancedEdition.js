@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
+import { useIntl, defineMessages } from 'react-intl';
 import { Modal, useLayoutData } from '@openagenda/react-shared';
 import {
   KeysManager,
@@ -8,6 +9,7 @@ import {
   TrackingSettingsForm,
   LabSettingsForm,
   PassSettings,
+  FiltersSettings,
 } from '../../components';
 import * as modalsActions from '../../reducers/modals';
 import * as keysActions from '../../reducers/keys';
@@ -18,6 +20,18 @@ const docRes = {
   official: 'https://doc.openagenda.com/les-agendas-officiels-sur-openagenda',
   private: 'https://doc.openagenda.com/visibilite-des-agendas',
 };
+
+const messages = defineMessages({
+  filtersTitle: {
+    id: 'AgendaSettings.AdvancedEdition.filtersMenuTitle',
+    defaultMessage: 'Filters',
+  },
+  filtersDescription: {
+    id: 'AgendaSettings.AdvancedEdition.filtersMenuDescription',
+    defaultMessage:
+      'Define which filters you want to show on the front page of the agenda as well as in the administration',
+  },
+});
 
 function TableRow({
   activeTab,
@@ -41,13 +55,21 @@ function TableRow({
       </td>
       {activeTab === tabName ? (
         <td>
-          <div
+          <button
+            type="button"
             className="margin-bottom-sm"
-            style={{ cursor: 'pointer' }}
+            style={{
+              cursor: 'pointer',
+              border: 'none',
+              padding: 0,
+              margin: 0,
+              background: 'transparent',
+              textAlign: 'left',
+            }}
             onClick={() => setActiveTab(null)}
           >
             {closedComponent}
-          </div>
+          </button>
           {openedComponent}
         </td>
       ) : (
@@ -58,15 +80,19 @@ function TableRow({
 }
 
 export default function AdvancedEdition() {
-  const { agenda } = useLayoutData();
+  const layoutData = useLayoutData();
+  const { agenda, agendaSchema } = layoutData;
 
   const { getLabel } = useContext(I18nContext);
 
   const dispatch = useDispatch();
 
-  const removeModal = useSelector((state) => state.modals.removeKey || {});
+  const removeModal = useSelector(state => state.modals.removeKey || {});
+  const loading = useSelector(state => state.agenda.loading);
 
   const [activeTab, setActiveTab] = useState(null);
+
+  const intl = useIntl();
 
   return (
     <div className="advanced">
@@ -87,14 +113,14 @@ export default function AdvancedEdition() {
               setActiveTab={setActiveTab}
               tabName="official"
               description={<b>{getLabel('labeling')}</b>}
-              closedComponent={
+              closedComponent={(
                 <b className="text-muted">
                   {getLabel(
                     agenda.official ? 'officialAgenda' : 'nonOfficialAgenda',
                   )}
                 </b>
-              }
-              openedComponent={
+              )}
+              openedComponent={(
                 <div>
                   {agenda.official ? (
                     <a href={docRes.official} target="_blank" rel="noreferrer">
@@ -119,7 +145,7 @@ export default function AdvancedEdition() {
                     </div>
                   )}
                 </div>
-              }
+              )}
             />
 
             <TableRow
@@ -127,7 +153,7 @@ export default function AdvancedEdition() {
               setActiveTab={setActiveTab}
               tabName="private"
               description={<b>{getLabel('visibility')}</b>}
-              closedComponent={
+              closedComponent={(
                 <b className="text-muted">
                   {getLabel(agenda.private ? 'privateAgenda' : 'publicAgenda')}{' '}
                   -{' '}
@@ -135,19 +161,19 @@ export default function AdvancedEdition() {
                     agenda.indexed ? 'indexedAgenda' : 'notIndexedAgenda',
                   )}
                 </b>
-              }
-              openedComponent={
+              )}
+              openedComponent={(
                 <div>
                   <div className="checkbox">
-                    <label>
+                    <label htmlFor="displayIndexMenu">
                       <input
+                        id="displayIndexMenu"
                         type="checkbox"
                         checked={agenda.indexed}
                         onChange={() =>
                           dispatch(
                             agendaActions.edit({ indexed: !agenda.indexed }),
-                          )
-                        }
+                          )}
                       />{' '}
                       {getLabel('indexedAgendaDesc')}
                     </label>
@@ -188,7 +214,24 @@ export default function AdvancedEdition() {
                     </div>
                   )}
                 </div>
-              }
+              )}
+            />
+
+            <TableRow
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              tableName="filters"
+              description={<b>{intl.formatMessage(messages.filtersTitle)}</b>}
+              closedComponent={intl.formatMessage(messages.filtersDescription)}
+              openedComponent={(
+                <FiltersSettings
+                  settings={agenda.settings}
+                  onSubmit={patch =>
+                    dispatch(agendaActions.edit({ settings: patch }))}
+                  loading={loading}
+                  schema={agendaSchema}
+                />
+              )}
             />
 
             <TableRow
@@ -237,18 +280,19 @@ export default function AdvancedEdition() {
         >
           <p>{getLabel('removeKeyWarning')}</p>
           <button
+            type="button"
             className="btn btn-primary"
             onClick={() => dispatch(modalsActions.closeModal('removeKey'))}
           >
             {getLabel('close')}
           </button>
           <button
+            type="button"
             className="btn btn-danger pull-right"
             onClick={() =>
               dispatch(keysActions.remove(removeModal.options.key))
                 .then(() => dispatch(modalsActions.closeModal('removeKey')))
-                .catch(() => dispatch(modalsActions.closeModal('removeKey')))
-            }
+                .catch(() => dispatch(modalsActions.closeModal('removeKey')))}
           >
             {getLabel('remove')}
           </button>

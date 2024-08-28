@@ -10,12 +10,13 @@ module.exports = {
           extractFromFormatMessageCall: true,
           ast: true,
         },
-      }
+        importSource: '@emotion/react',
+      },
     ],
-    require.resolve('@emotion/babel-preset-css-prop')
   ],
   plugins: [
-    require.resolve('@loadable/babel-plugin')
+    require.resolve('@loadable/babel-plugin'),
+    require.resolve('@emotion/babel-plugin'),
   ],
-  sourceType: 'unambiguous'
+  sourceType: 'unambiguous',
 };
