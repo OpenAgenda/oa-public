@@ -40,6 +40,7 @@
     "createdAt",
     "updatedAt",
     "location",
+    "originAgenda",
     "accessibility",
     "private",
     "draft",
