@@ -34,14 +34,15 @@ export default function (options) {
 
   const result = getApp();
 
-  if (import.meta.webpackHot) {
+  // causes issues in an integrated environment
+  /* if (import.meta.webpackHot) {
     import.meta.webpackHot.accept('./editRoutes', () => {
       const newApp = getApp();
 
       result.Content = newApp.Content;
       result.triggerHooks = newApp.triggerHooks;
     });
-  }
+  } */
 
   return result;
 }

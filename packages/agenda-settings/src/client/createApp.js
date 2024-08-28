@@ -33,14 +33,15 @@ export default function (options) {
 
   const result = getApp();
 
-  if (import.meta.webpackHot) {
+  // causes issues in an integrated environment
+  /* if (import.meta.webpackHot) {
     import.meta.webpackHot.accept('./createRoutes', () => {
       const newApp = getApp();
 
       result.Content = newApp.Content;
       result.triggerHooks = newApp.triggerHooks;
     });
-  }
+  } */
 
   return result;
 }
