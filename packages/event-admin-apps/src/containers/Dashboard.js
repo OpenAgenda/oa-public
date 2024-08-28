@@ -283,7 +283,7 @@ function Dashboard() {
     dateFnsLocale: dateFnsLocales[intl.locale],
     missingValue: 'null',
     mapTiles,
-    include: agenda.settings.admin?.filters?.displayed,
+    include: agenda.settings?.admin?.filters?.displayed,
   });
   const filters = useMemo(() => {
     const orderedFilter = unorderedFilters.sort((a, b) => {
