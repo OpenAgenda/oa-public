@@ -15,22 +15,22 @@ module.exports = function feed(config, identifiersOrId) {
       activities: activities(identifiers),
       notifications: notifications(identifiers),
     }),
-    (v) => {
+    v => {
       if (typeof v !== 'function') return v;
 
       return (...args) => {
         if (!config) throw new Error('service not initialized');
 
         if (
-          identifiers.entityType &&
-          !FEED_TYPES.includes(identifiers.entityType)
+          identifiers.entityType
+          && !FEED_TYPES.includes(identifiers.entityType)
         ) {
           throw new Error(
             `You cannot use feed of type ${identifiers.entityType}`,
           );
         }
 
-        return () => v(...args);
+        return v(...args);
       };
     },
   );
@@ -40,9 +40,8 @@ _.mixin({
   deeply(map) {
     return (obj, fn) =>
       map(
-        _.mapValues(obj, (v) =>
-          _.isPlainObject(v) ? _.deeply(map)(v, fn) : v,
-        ),
+        _.mapValues(obj, v =>
+          (_.isPlainObject(v) ? _.deeply(map)(v, fn) : v)),
         fn,
       );
   },
