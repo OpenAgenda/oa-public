@@ -59,7 +59,12 @@ module.exports = (data, options = {}) => {
   const { formSchema = null } = options;
 
   if (data.removed) {
-    return { removed: true, updatedAt: data.updatedAt, uid: data.uid };
+    return {
+      removed: true,
+      updatedAt: data.updatedAt,
+      uid: data.uid,
+      state: -2,
+    };
   }
 
   const cleanedEvent = cleanOptionedFields(data, formSchema);

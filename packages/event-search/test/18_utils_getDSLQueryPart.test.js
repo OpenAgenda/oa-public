@@ -5,23 +5,39 @@ const getDSLQueryPart = require('../utils/getDSLQueryPart');
 
 describe('event-search - unit: utils - getDSLQueryPart', () => {
   it('filtering by uid only', () => {
-    expect(
-      getDSLQueryPart(validateQuery({ uid: 123 })),
-    ).toEqual({
+    expect(getDSLQueryPart(validateQuery({ uid: 123 }))).toEqual({
       bool: {
-        filter: [{
-          term: { uid: 123 },
-        }, {
-          terms: { state: [2] },
-        }],
+        filter: [
+          {
+            term: { uid: 123 },
+          },
+          {
+            terms: { state: [2] },
+          },
+        ],
+        minimum_should_match: 1,
+        should: [
+          {
+            bool: {
+              must_not: {
+                exists: {
+                  field: 'removed',
+                },
+              },
+            },
+          },
+          {
+            term: {
+              removed: false,
+            },
+          },
+        ],
       },
     });
   });
 
   it('filtering by multiple uids', () => {
-    expect(
-      getDSLQueryPart(validateQuery({ uid: [123, 456] })),
-    ).toEqual({
+    expect(getDSLQueryPart(validateQuery({ uid: [123, 456] }))).toEqual({
       bool: {
         filter: [
           {
@@ -32,6 +48,23 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
           {
             terms: {
               state: [2],
+            },
+          },
+        ],
+        minimum_should_match: 1,
+        should: [
+          {
+            bool: {
+              must_not: {
+                exists: {
+                  field: 'removed',
+                },
+              },
+            },
+          },
+          {
+            term: {
+              removed: false,
             },
           },
         ],
@@ -51,6 +84,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             },
           },
         ],
+        minimum_should_match: 1,
         must_not: {
           bool: {
             filter: [
@@ -71,6 +105,22 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             ],
           },
         },
+        should: [
+          {
+            bool: {
+              must_not: {
+                exists: {
+                  field: 'removed',
+                },
+              },
+            },
+          },
+          {
+            term: {
+              removed: false,
+            },
+          },
+        ],
       },
     });
   });
@@ -92,6 +142,23 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             },
           },
         ],
+        minimum_should_match: 1,
+        should: [
+          {
+            bool: {
+              must_not: {
+                exists: {
+                  field: 'removed',
+                },
+              },
+            },
+          },
+          {
+            term: {
+              removed: false,
+            },
+          },
+        ],
       },
     });
   });
@@ -108,6 +175,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             },
           },
         ],
+        minimum_should_match: 1,
         must_not: {
           bool: {
             filter: [
@@ -119,6 +187,22 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             ],
           },
         },
+        should: [
+          {
+            bool: {
+              must_not: {
+                exists: {
+                  field: 'removed',
+                },
+              },
+            },
+          },
+          {
+            term: {
+              removed: false,
+            },
+          },
+        ],
       },
     });
   });
@@ -135,6 +219,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             },
           },
         ],
+        minimum_should_match: 1,
         must_not: {
           bool: {
             filter: [
@@ -146,6 +231,22 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             ],
           },
         },
+        should: [
+          {
+            bool: {
+              must_not: {
+                exists: {
+                  field: 'removed',
+                },
+              },
+            },
+          },
+          {
+            term: {
+              removed: false,
+            },
+          },
+        ],
       },
     });
   });
