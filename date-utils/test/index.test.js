@@ -1,6 +1,6 @@
-import SpreadTimings from '../src/components/SpreadTimings';
+import spreadTimings from '../src/spreadTimings';
 
-describe('SpreadTimings', () => {
+describe('spreadTimings', () => {
   const timezone = 'Europe/Paris';
 
   it('correctly distributes timings across different months, weeks, and days', () => {
@@ -10,7 +10,7 @@ describe('SpreadTimings', () => {
       { begin: '2024-09-02T12:00:00Z', end: '2024-09-02T13:00:00Z' },
     ];
 
-    const result = SpreadTimings(timings, timezone);
+    const result = spreadTimings(timings, timezone);
 
     expect(result).toEqual({
       '2024-08': {
@@ -41,7 +41,7 @@ describe('SpreadTimings', () => {
       { begin: '2024-08-01T14:00:00Z', end: '2024-08-01T15:00:00Z' },
     ];
 
-    const result = SpreadTimings(timings, timezone);
+    const result = spreadTimings(timings, timezone);
 
     expect(result).toEqual({
       '2024-08': {
@@ -61,7 +61,7 @@ describe('SpreadTimings', () => {
       { begin: '2024-09-01T12:00:00Z', end: '2024-09-01T13:00:00Z' },
     ];
 
-    const result = SpreadTimings(timings, timezone);
+    const result = spreadTimings(timings, timezone);
 
     expect(result).toEqual({
       '2024-08': {
@@ -82,7 +82,7 @@ describe('SpreadTimings', () => {
   });
 
   it('returns an empty object when there are no timings', () => {
-    const result = SpreadTimings([], timezone);
+    const result = spreadTimings([], timezone);
 
     expect(result).toEqual({});
   });
