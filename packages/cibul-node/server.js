@@ -122,18 +122,31 @@ try {
     app.use(sentryErrorHandler({ tag: 'app' }));
     app.use((err, req, res, _next) => cmn.catchError(req, res)(err));
 
-    app.listen(config.port, () => {
+    const server = app.listen(config.port, () => {
       console.log(`-- Server listening on port ${config.port} --`);
     });
+
+    server.keepAliveTimeout = 76 * 1000;
+    server.headersTimeout = 80 * 1000;
   }
 
   if (API) {
-    express()
+    const apiServer = express()
       .set('trust proxy', ['loopback', 'uniquelocal'])
-      .use('/v2', logContextMw.withContext, Sentry.Handlers.requestHandler(), secureHeaders, logRequestMw, api)
+      .use(
+        '/v2',
+        logContextMw.withContext,
+        Sentry.Handlers.requestHandler(),
+        secureHeaders,
+        logRequestMw,
+        api,
+      )
       .listen(config.apiPort, () => {
         console.log(`-- API listening on port ${config.apiPort} --`);
       });
+
+    apiServer.keepAliveTimeout = 76 * 1000;
+    apiServer.headersTimeout = 80 * 1000;
   }
 
   if (TASK) {
