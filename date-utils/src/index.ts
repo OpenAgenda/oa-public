@@ -1,1 +1,1 @@
-export { default as spreadTimings } from './components/SpreadTimings';
+export { default as spreadTimings } from './SpreadTimings';
