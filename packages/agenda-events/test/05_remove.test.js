@@ -54,7 +54,7 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
 
     expect(before).not.toBeNull();
 
-    expect(after.removedAt).toBeTruthy();
+    expect(after.removed).toBeTruthy();
 
     expect(_.pick(result.removed, ['eventUid', 'agendaUid'])).toEqual({
       eventUid: 10974548,
@@ -69,7 +69,7 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
 
     expect(result.success).toBe(true);
     expect(before).not.toBeNull();
-    expect(after.removedAt).toBeTruthy();
+    expect(after.removed).toBeTruthy();
   });
 
   it('remove by legacyId with eventId only', async () => {
@@ -79,7 +79,7 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
 
     expect(result.success).toBe(true);
     expect(before).not.toBeNull();
-    expect(after.removedAt).toBeTruthy();
+    expect(after.removed).toBeTruthy();
   });
 
   it('all references of given event can be removed in one call', async () => {

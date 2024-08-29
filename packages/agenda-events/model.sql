@@ -9,7 +9,7 @@ create table if not exists `agenda_event` (
   can_edit tinyint(1) default 0,
   created_at datetime not null,
   updated_at datetime not null,
-  removed_at datetime default null,
+  removed tinyint(1) not null default 0,
   legacy_id varchar(30),
   aggregated varchar(32) default null,
   motive TEXT default null,

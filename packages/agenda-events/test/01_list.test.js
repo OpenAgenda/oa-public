@@ -272,7 +272,7 @@ describe('agendaEvents - 01 - functional (server): list', () => {
 
   it('list all items', async () => {
     const { items } = await svc(62792452).list(0, 100, { removed: null });
-    expect(items.filter(i => i.removedAt !== null).length).toBe(1);
+    expect(items.filter(i => i.removed === true).length).toBe(1);
     expect(items.length > 1).toBeTruthy();
   });
 

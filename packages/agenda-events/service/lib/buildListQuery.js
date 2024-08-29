@@ -31,8 +31,8 @@ function addWheres(k, query, options = {}) {
     k.andWhere('can_edit', query.canEdit);
   }
 
-  if (removed === true) k.whereNotNull('removed_at');
-  if (removed === false) k.whereNull('removed_at');
+  if (removed === true) k.where('removed', 1);
+  if (removed === false) k.where('removed', 0);
 }
 
 function buildListQuery(service, query, nav, options = {}) {
@@ -63,7 +63,7 @@ function buildListQuery(service, query, nav, options = {}) {
   }
 
   if (removed || removed === null) {
-    fields.push('removed_at');
+    fields.push('removed');
   } 
 
   if (decorate.includes('sourceAgendas')) {

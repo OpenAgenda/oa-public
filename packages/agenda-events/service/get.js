@@ -24,12 +24,12 @@ async function _get(client, where, options = {}) {
   ];
   const { removed } = options;
   if (removed || removed === null) {
-    fieldList.push('removed_at');
+    fieldList.push('removed');
   }
 
   const k = client('agenda_event').first(fieldList).where(where)
-  if (removed === true) k.whereNotNull('removed_at');
-  if (removed === false) k.whereNull('removed_at');
+  if (removed === true) k.where('removed', 1);
+  if (removed === false) k.where('removed', 0);
 
   const entry = await k;
 

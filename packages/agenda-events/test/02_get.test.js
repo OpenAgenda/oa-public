@@ -191,6 +191,7 @@ describe('agendaEvents - 02 - functional (server): get', () => {
       state: config.eventStates.VALIDATED,
       legacyId: '42.24',
       motive: null,
+      removed: false,
     });
   });
 
@@ -230,12 +231,12 @@ describe('agendaEvents - 02 - functional (server): get', () => {
 
   it('get with removed option at true', async () => {
     const ref = await svc(62792452).get(53117384, { removed: true });
-    expect(new Date(ref.removedAt)).toEqual(new Date("2020-01-19T12:52:59.000Z"));
+    expect(ref.removed).toEqual(true);
   });
 
   it('get with removed option null', async () => {
     const ref = await svc(62792452).get(53117384, { removed: null });
-    expect(new Date(ref.removedAt)).toEqual(new Date("2020-01-19T12:52:59.000Z"));
+    expect(ref.removed).toEqual(true);
   });
 
   it('get without removed option does not get removed item', async () => {
