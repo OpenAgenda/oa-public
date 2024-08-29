@@ -12,6 +12,8 @@ if ($client_ip = "155.133.142.67") { return 403; }
 if ($client_ip = "185.172.100.42") { return 403; }
 # 2024-08-23 hits /agendas/settings.json?key=
 if ($client_ip = "54.37.121.239") { return 403; }
+# 2024-08-29 deleted account that reads settings of a deleted agenda
+if ($client_ip = "185.172.100.42") { return 403; }
 
 gzip on;
 gzip_types
