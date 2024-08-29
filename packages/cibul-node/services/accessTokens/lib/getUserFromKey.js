@@ -1,11 +1,8 @@
+import { NotFound } from '@openagenda/verror';
 import getApiKeySetFromKey from './getApiKeySetFromKey.js';
 
 async function getUserFromKey(services, keyField, keyString = null) {
-  const {
-    users,
-    knex,
-    simpleCache,
-  } = services;
+  const { users, knex, simpleCache } = services;
 
   const cached = await simpleCache('users', `${keyField}:${keyString}`).get();
 
@@ -16,7 +13,7 @@ async function getUserFromKey(services, keyField, keyString = null) {
   const apiKeySet = await getApiKeySetFromKey(knex, keyField, keyString);
 
   if (!apiKeySet) {
-    throw new Error('invalid key');
+    throw new NotFound('invalid key');
   }
 
   const user = await users.findOne({
@@ -26,12 +23,20 @@ async function getUserFromKey(services, keyField, keyString = null) {
     detailed: true,
   });
 
-  simpleCache('users', `${keyField}:${keyString}`).set(JSON.stringify(user), 60 * 60);
+  if (!user) {
+    throw new NotFound('user not found');
+  }
+
+  simpleCache('users', `${keyField}:${keyString}`).set(
+    JSON.stringify(user),
+    60 * 60,
+  );
 
   return user;
 }
 
-export default (services, keyString = null) => getUserFromKey(services, 'api_key', keyString);
+export default (services, keyString = null) =>
+  getUserFromKey(services, 'api_key', keyString);
 
 export function secret(services, keyString = null) {
   return getUserFromKey(services, 'api_secret', keyString);

@@ -33,7 +33,7 @@ export default async (req, res, next) => {
 
   try {
     if (!req.user && !req.agendaKey) {
-      throw new Error('could not find user or calendar matching key');
+      throw new Error('could not find user or agenda matching key');
     }
   } catch (e) {
     return res.status(403).json({
