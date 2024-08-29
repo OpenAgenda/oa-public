@@ -1,4 +1,4 @@
-import SpreadTimings from '../src/components/SpreadTimings';
+import SpreadTimings from '../src/spreadTimings';
 
 describe('SpreadTimings', () => {
   const timezone = 'Europe/Paris';
