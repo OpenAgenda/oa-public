@@ -1,0 +1,7 @@
+{
+  "extends": "@openagenda/tsconfig/base",
+  "compilerOptions": {
+    "noImplicitAny": false
+  },
+  "include": ["src"]
+}
