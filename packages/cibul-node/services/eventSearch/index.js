@@ -14,7 +14,12 @@ import { loadOtherUpdates, otherUpdate } from './lib/otherUpdates.js';
 
 const log = logs('services/eventSearch');
 
-async function task({ queue, rebuildQueue, updateMapping, updateDynamicSettings }) {
+async function task({
+  queue,
+  rebuildQueue,
+  updateMapping,
+  updateDynamicSettings,
+}) {
   log('task');
 
   queue.on('error', (fn, args, error) => {
@@ -38,18 +43,23 @@ async function task({ queue, rebuildQueue, updateMapping, updateDynamicSettings 
 
 export async function init(config, services) {
   log('init');
-  const {
-    queues,
-    tracker,
-  } = services;
+  const { queues, tracker } = services;
 
   const port = _.get(config, 'es75.port', 9200);
-  const protocol = _.get(config, 'es75.protocol', _.get(config, 'es75.ssl') ? 'https' : 'http');
+  const protocol = _.get(
+    config,
+    'es75.protocol',
+    _.get(config, 'es75.ssl') ? 'https' : 'http',
+  );
   const host = _.get(config, 'es75.host', 'localhost');
 
   const node = `${protocol}://${host}:${port}`;
 
-  log('using elasticsearch node %s, default index %s', node, config.es75.agendaEventsIndex);
+  log(
+    'using elasticsearch node %s, default index %s',
+    node,
+    config.es75.agendaEventsIndex,
+  );
 
   const eventSearch = EventSearch({
     elasticsearch: {
@@ -118,5 +128,6 @@ export async function init(config, services) {
       agendas: agendaRoutes(config, services),
     },
     cluster: eventSearch.cluster,
+    getConfig: eventSearch.getConfig,
   };
 }
