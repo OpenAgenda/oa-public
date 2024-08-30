@@ -1,4 +1,7 @@
 import validateOptions from './lib/validateOptions.js';
+import logs from '@openagenda/logs';
+
+const log = logs('remove');
 
 async function _remove(service, where, current = null, params = null) {
   const { config, client, removeLegacy } = service;
@@ -22,6 +25,7 @@ async function _remove(service, where, current = null, params = null) {
   }
 
   const result = await client('agenda_event').update({updated_at: new Date(), removed: 1}).where(where);
+
   const success = !!result;
 
   if (success && config.interfaces.onRemove) {
@@ -32,9 +36,13 @@ async function _remove(service, where, current = null, params = null) {
   }
 
   if (success && params.transferToLegacy) {
-    await removeLegacy(current);
+    try {
+      await removeLegacy(current);
+    } catch (error) {
+      log.warn('Failed to remove legacy', {error});
+    }
   }
-
+  log('debug', 'returning', { success, removed: current });
   return {
     success,
     removed: current,

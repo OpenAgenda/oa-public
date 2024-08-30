@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 function addWheres(k, query, options = {}) {
-  const {removed} = options;
+  const { removed = false } = options;
 
   if (query.agendaUid !== undefined) {
     k.where('agenda_uid', query.agendaUid);
