@@ -5,6 +5,8 @@ import getAdditionalFilters from './getAdditionalFilters';
 export default function getFilters(intl, fields, opts = {}) {
   const { staticRanges, inputRanges } = dateRanges(intl, opts);
 
+  const { include, sort, exclude } = opts;
+
   const standardFilters = [
     { name: 'viewport' },
     { name: 'geo' },
@@ -33,12 +35,23 @@ export default function getFilters(intl, fields, opts = {}) {
     { name: 'accessibility' },
   ];
 
-  const additionalFilters = getAdditionalFilters(fields);
+  const defaultSortFilters = standardFilters
+    .concat(getAdditionalFilters(fields))
+    .filter(filter => !exclude || !exclude.includes(filter.name))
+    .filter(filter => !include || include.includes(filter.name));
 
-  return standardFilters
-    .concat(additionalFilters)
-    .filter(filter => opts.include?.includes(filter.name) ?? true)
-    .filter(filter => !opts.exclude?.includes(filter.name))
+  const finalCompleteSort = sort ?? include ?? [];
+
+  defaultSortFilters.forEach(filter => {
+    if (finalCompleteSort.includes(filter.name)) {
+      return;
+    }
+    finalCompleteSort.push(filter.name);
+  });
+
+  return finalCompleteSort
+    .map(filterName =>
+      defaultSortFilters.find(filter => filter.name === filterName))
     .map(filter =>
       withDefaultFilterConfig(filter, intl, {
         dateFnsLocale: opts.dateFnsLocale,
