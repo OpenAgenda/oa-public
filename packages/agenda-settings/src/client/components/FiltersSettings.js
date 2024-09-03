@@ -151,7 +151,7 @@ export default function FiltersSettings({
           value={publicFilters}
           schema={schema}
           disabled={loading}
-          exclude={['viewport', 'memberUid']}
+          exclude={['viewport', 'memberUid', 'search', 'geo']}
           placeholder={m('selectPlaceholder')}
           onChange={update => {
             setPublicFilters(update);
