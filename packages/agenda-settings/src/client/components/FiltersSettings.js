@@ -53,10 +53,13 @@ const messages = defineMessages({
     id: 'AgendaSettings.Components.FiltersSettings.resetModalConfirm',
     defaultMessage: 'Confirm',
   },
+  selectPlaceholder: {
+    id: 'AgendaSettings.Components.FiltersSettings.selectPlaceholder',
+    defaultMessage: 'Select one or more filters',
+  },
 });
 
-const strfy = filters =>
-  [...filters || []].sort((f1, f2) => (f1 < f2 ? 1 : -1)).join('|');
+const strfy = filters => [...filters || []].join('|');
 
 const getHasChanges = (settings, publicFilters, adminFilters) =>
   strfy(publicFilters) !== strfy(settings.public?.filters?.displayed)
@@ -149,6 +152,7 @@ export default function FiltersSettings({
           schema={schema}
           disabled={loading}
           exclude={['viewport', 'memberUid']}
+          placeholder={m('selectPlaceholder')}
           onChange={update => {
             setPublicFilters(update);
           }}
@@ -161,8 +165,9 @@ export default function FiltersSettings({
         <FilterSelect
           value={adminFilters}
           schema={schema}
-          exclude={['viewport']}
+          exclude={['viewport', 'search']}
           disabled={loading}
+          placeholder={m('selectPlaceholder')}
           onChange={update => {
             setAdminFilters(update);
           }}

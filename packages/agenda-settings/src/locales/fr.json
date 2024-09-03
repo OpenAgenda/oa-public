@@ -12,6 +12,7 @@
   "AgendaSettings.Components.FiltersSettings.resetModalConfirm": "Confirmer",
   "AgendaSettings.Components.FiltersSettings.resetModalMessage": "Êtes-vous sûr? La sélection par défaut de filtres viendra remplacer la configuration actuelle.",
   "AgendaSettings.Components.FiltersSettings.resetModalTitle": "Confirmer la réinitialisation des filtres",
+  "AgendaSettings.Components.FiltersSettings.selectPlaceholder": "Un ou plusieurs filtres",
   "AgendaSettings.Components.FiltersSettings.sub": "Cliquez-glissez les filtres pour ajuster l'ordre",
   "AgendaSettings.Components.FiltersSettings.submit": "Enregistrer",
   "AgendaSettings.CreationSecondStep.formEvent": "Formulaire événement",
