@@ -32,6 +32,7 @@
     "@openagenda/activity-apps": "^1.2.1",
     "@openagenda/browserslist-config": "^1.0.0",
     "@openagenda/common-labels": "^1.2.4",
+    "@openagenda/date-utils": "^0.0.1",
     "@openagenda/intl": "^1.1.3",
     "@openagenda/mails": "^4.0.1",
     "@openagenda/md": "^1.0.0",
