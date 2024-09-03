@@ -123,7 +123,7 @@ export const WithSelectionOfFilters = {
                   settings: {
                     admin: {
                       filters: {
-                        displayed: ['search', 'keyword', 'map', 'state'],
+                        displayed: ['search', 'keyword', 'geo', 'state'],
                       },
                     },
                   },
