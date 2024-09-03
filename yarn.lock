@@ -3255,15 +3255,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.2.0":
-  version: 7.25.4
-  resolution: "@babel/runtime@npm:7.25.4"
-  dependencies:
-    regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/33e937e685f0bfc2d40c219261e2e50d0df7381a6e7cbf56b770e0c5d77cb0c21bf4d97da566cf0164317ed7508e992082c7b6cce7aaa3b17da5794f93fbfb46
-  languageName: node
-  linkType: hard
-
 "@babel/runtime@npm:^7.23.2":
   version: 7.24.6
   resolution: "@babel/runtime@npm:7.24.6"
@@ -4921,6 +4912,42 @@ __metadata:
   version: 0.5.6
   resolution: "@discoveryjs/json-ext@npm:0.5.6"
   checksum: 10c0/4bcaae126686b3b6f472d79aae47868f934f3fecc337f11e5ac289f6f776d139fe2bdcfe325af2bc526312495bc96975306e29f8316150c1ac7483b95d80035b
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/accessibility@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@dnd-kit/accessibility@npm:3.1.0"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/4f9d24e801d66d4fbb551ec389ed90424dd4c5bbdf527000a618e9abb9833cbd84d9a79e362f470ccbccfbd6d00217a9212c92f3cef66e01c951c7f79625b9d7
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/core@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "@dnd-kit/core@npm:6.1.0"
+  dependencies:
+    "@dnd-kit/accessibility": "npm:^3.1.0"
+    "@dnd-kit/utilities": "npm:^3.2.2"
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/c793eb97cb59285ca8937ebcdfcd27cff09d750ae06722e36ca5ed07925e41abc36a38cff98f9f6056f7a07810878d76909826142a2968330e7e22060e6be584
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/utilities@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "@dnd-kit/utilities@npm:3.2.2"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/9aa90526f3e3fd567b5acc1b625a63177b9e8d00e7e50b2bd0e08fa2bf4dba7e19529777e001fdb8f89a7ce69f30b190c8364d390212634e0afdfa8c395e85a0
   languageName: node
   linkType: hard
 
@@ -8071,6 +8098,8 @@ __metadata:
     "@babel/core": "npm:^7.23.3"
     "@babel/node": "npm:^7.22.19"
     "@babel/runtime-corejs3": "npm:^7.23.2"
+    "@dnd-kit/core": "npm:^6.1.0"
+    "@dnd-kit/utilities": "npm:^3.2.2"
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@loadable/babel-plugin": "npm:^5.13.2"
@@ -8115,7 +8144,6 @@ __metadata:
     react-router-config: "npm:^5.1.1"
     react-router-dom: "npm:^5.1.2"
     react-select: "npm:^5.7.4"
-    react-sortable-hoc: "npm:^2.0.0"
     react-use: "npm:^15.3.4"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
@@ -38057,7 +38085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:15, prop-types@npm:^15.0.0, prop-types@npm:^15.5.10, prop-types@npm:^15.5.4, prop-types@npm:^15.5.6, prop-types@npm:^15.5.7, prop-types@npm:^15.5.8, prop-types@npm:^15.5.9, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:15, prop-types@npm:^15.0.0, prop-types@npm:^15.5.10, prop-types@npm:^15.5.4, prop-types@npm:^15.5.6, prop-types@npm:^15.5.8, prop-types@npm:^15.5.9, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -39610,21 +39638,6 @@ __metadata:
     react: ^15.0.0 || ^16.0.0
     react-dom: ^15.0.0 || ^16.0.0
   checksum: 10c0/e57e10c500995006ccb1c97720629a527c9227724f8cb247619faffd88ba33eeba386adb858e5a3c8fae77c48e0ff50c76916013ab0c6c1b65eb90651c5ef289
-  languageName: node
-  linkType: hard
-
-"react-sortable-hoc@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "react-sortable-hoc@npm:2.0.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.2.0"
-    invariant: "npm:^2.2.4"
-    prop-types: "npm:^15.5.7"
-  peerDependencies:
-    prop-types: ^15.5.7
-    react: ^16.3.0 || ^17.0.0
-    react-dom: ^16.3.0 || ^17.0.0
-  checksum: 10c0/084c80d984d2b69886580c9de800b5e2f21edbe9244a7b9bf7d0cae24d568296b76e3e2a95c9f46bd2ecd686a61341f4a68bbe0e2b6eb22c1a32981d3609808a
   languageName: node
   linkType: hard
 

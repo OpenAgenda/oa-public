@@ -18,6 +18,19 @@ export const FilterSelect = () => {
   return (
     <FilterSelectComponent
       value={selected}
+      onChange={update => {
+        setSelected(update);
+      }}
+      schema={agenda.schema}
+    />
+  );
+};
+
+export const EmptyFilterSelect = () => {
+  const [selected, setSelected] = useState([]);
+  return (
+    <FilterSelectComponent
+      value={selected}
       onChange={update => setSelected(update)}
       schema={agenda.schema}
     />
@@ -36,6 +49,21 @@ export const FiltersSettings = () => {
   );
 };
 
+export const FiltersSettingsAsSaved = () => {
+  const [settings, setSettings] = useState(agendaWithModifiedFilters.settings);
+
+  return (
+    <>
+      <p>Save button is disabled if values match stored settings</p>
+      <FiltersSettingsComponent
+        schema={agenda.schema}
+        settings={settings}
+        onSubmit={update => setSettings(update)}
+      />
+    </>
+  );
+};
+
 export const LoadingFiltersSettings = () => {
   const [settings, setSettings] = useState(agenda.settings);
 
@@ -49,7 +77,7 @@ export const LoadingFiltersSettings = () => {
   );
 };
 
-export const ResetableFiltersSettings = () => {
+export const ResettableFiltersSettings = () => {
   const [settings, setSettings] = useState(agendaWithModifiedFilters.settings);
 
   return (

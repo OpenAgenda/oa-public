@@ -282,32 +282,26 @@ function Dashboard() {
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
-  const unorderedFilters = useFilters(intl, agendaSchema.fields, {
+  const filters = useFilters(intl, agendaSchema.fields, {
     dateFnsLocale: dateFnsLocales[intl.locale],
     missingValue: 'null',
     mapTiles,
+    sort: agenda.settings?.admin?.filters?.displayed ?? [
+      'geo',
+      'state',
+      'relative',
+    ],
     include: !isShowingAllFilters
       ? agenda.settings?.admin?.filters?.displayed
       : undefined,
-  });
-  const filters = useMemo(() => {
-    const orderedFilter = unorderedFilters.sort((a, b) => {
-      const priority = ['geo', 'state', 'relative'];
-      const indexA = priority.indexOf(a.name);
-      const indexB = priority.indexOf(b.name);
-      if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-      if (indexA !== -1) return -1;
-      if (indexB !== -1) return 1;
-      return 0;
-    });
-
-    return orderedFilter.map(filter => {
-      if (filter.name === 'state' || filter.name === 'relative') {
-        return { ...filter, defaultCollapsed: false };
+  }).map(filter =>
+    (['state', 'relative'].includes(filter.name)
+      ? {
+        ...filter,
+        defaultCollapsed: false,
       }
-      return filter;
-    });
-  }, [unorderedFilters]);
+      : filter));
+
   const mapFilter = useMemo(
     () => filters.find(v => v.name === 'geo'),
     [filters],
