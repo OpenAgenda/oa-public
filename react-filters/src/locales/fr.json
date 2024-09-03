@@ -10,6 +10,7 @@
   "ReactFilters.dateRanges.thisWeekend": "Ce week-end",
   "ReactFilters.dateRanges.today": "Aujourd'hui",
   "ReactFilters.dateRanges.tomorrow": "Demain",
+  "ReactFilters.fields.NumberRangeField.gte": "Min",
   "ReactFilters.filters.MapFilter.previewLabel": "Carte",
   "ReactFilters.filters.searchFilter.placeholder": "Rechercher",
   "ReactFilters.filters.searchFilter.previewLabel": "Recherche",
