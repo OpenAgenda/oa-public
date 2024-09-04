@@ -10,13 +10,7 @@ const log = logs('core/agendas/events/remove');
 export default async (core, agendaUid, eventUid, options) => {
   log('removing event %s from agenda %s', eventUid, agendaUid);
 
-  const {
-    agendaEvents,
-    aggregators,
-    custom,
-    events,
-    eventSearch,
-  } = core.services;
+  const { agendaEvents, aggregators, custom, events, eventSearch } = core.services;
 
   const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
   log('  loaded agenda %s', agenda.slug);
@@ -41,9 +35,7 @@ export default async (core, agendaUid, eventUid, options) => {
 
   const payload = createPayload(core, agenda);
 
-  const {
-    formSchemaId,
-  } = agenda;
+  const { formSchemaId } = agenda;
 
   const removed = {
     event: false,
@@ -72,10 +64,15 @@ export default async (core, agendaUid, eventUid, options) => {
   payload.setItem('event', event);
 
   if (isOriginAgenda) {
-    log('remove request comes from agenda %s, origin is %s, proceeding with delete', agendaUid, event.agendaUid);
+    log(
+      'remove request comes from agenda %s, origin is %s, proceeding with delete',
+      agendaUid,
+      event.agendaUid,
+    );
   }
 
   if (!event.draft) {
+    log('calling event service to remove event %s', eventUid);
     const result = await agendaEvents(agendaUid).remove(eventUid, {
       transferToLegacy: true,
       context: {
@@ -91,6 +88,7 @@ export default async (core, agendaUid, eventUid, options) => {
     });
 
     if (result.success) {
+      log('  removed from agenda events');
       payload.setItem('agendaEvent', result.removed);
     }
   }
@@ -117,6 +115,9 @@ export default async (core, agendaUid, eventUid, options) => {
   log('  agenda %s event origin agenda', isOriginAgenda ? 'is' : 'is not');
 
   if (!remaining.total || isOriginAgenda) {
+    log(
+      '  no remaining references or origin agenda, removing from event service',
+    );
     await events.remove(eventUid, {
       context: {
         agendaUid,
@@ -151,15 +152,22 @@ export default async (core, agendaUid, eventUid, options) => {
     });
     log('  removed from search');
   } catch (e) {
-    log('error', 'could not remove event %s.%s from search indices', event.uid, e);
+    log(
+      'error',
+      'could not remove event %s.%s from search indices',
+      event.uid,
+      e,
+    );
   }
 
   await refreshAgenda(agenda.uid);
 
   const result = await payload.getResponse('removed', access);
 
-  return returnPayload ? {
-    ...result,
-    deletion: isOriginAgenda,
-  } : result.removed;
+  return returnPayload
+    ? {
+      ...result,
+      deletion: isOriginAgenda,
+    }
+    : result.removed;
 };
