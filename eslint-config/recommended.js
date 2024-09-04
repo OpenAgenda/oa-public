@@ -173,17 +173,6 @@ module.exports = {
         ],
         'no-shadow': 'off',
         '@typescript-eslint/no-shadow': 'error',
-        'no-extra-parens': 'off',
-        '@typescript-eslint/no-extra-parens': [
-          'error',
-          'all',
-          {
-            ignoreJSX: 'all',
-            nestedBinaryExpressions: false,
-            enforceForArrowConditionals: false,
-            conditionalAssign: false,
-          },
-        ],
         'react/require-default-props': 'off',
       },
     },
