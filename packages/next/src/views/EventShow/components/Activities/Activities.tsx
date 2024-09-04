@@ -25,7 +25,7 @@ export function Activities({ res, hideEmpty = false, children }) {
     ([_comp, _requestId, activitiesRes, pageIndex, fromId]) =>
       fetch(
         `${activitiesRes}?fromId=${fromId}${pageIndex === 0 ? '&withConfig=1' : ''}`,
-      ).then(r => {
+      ).then((r) => {
         if (r.ok) return r.json();
         throw new Error("Can't list activities");
       }),
@@ -45,9 +45,9 @@ export function Activities({ res, hideEmpty = false, children }) {
     || (pages && pages[pages.length - 1]?.activities?.length < PAGE_SIZE);
 
   const nextPage = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
-      setSize(s => s + 1);
+      setSize((s) => s + 1);
     },
     [setSize],
   );

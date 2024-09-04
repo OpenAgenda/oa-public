@@ -26,12 +26,15 @@ function Total({ total, upcomingOnly, passed, disabled }) {
     return url.pathname + url.search;
   }, [passed, router.asPath, router.locale]);
 
-  const togglePassed = useCallback(e => {
-    e.preventDefault();
-    if (disabled) return;
+  const togglePassed = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (disabled) return;
 
-    router.push(passedUrl, null, { shallow: true });
-  }, [disabled, passedUrl, router]);
+      router.push(passedUrl, null, { shallow: true });
+    },
+    [disabled, passedUrl, router],
+  );
 
   return (
     <Text
@@ -40,7 +43,10 @@ function Total({ total, upcomingOnly, passed, disabled }) {
       flexDirection="column"
     >
       <chakra.span _after={{ content: { base: 'none', sm: '" - "' } }}>
-        {intl.formatMessage(messages[upcomingOnly ? 'totalUpcomingEvents' : 'totalEvents'], { count: total })}
+        {intl.formatMessage(
+          messages[upcomingOnly ? 'totalUpcomingEvents' : 'totalEvents'],
+          { count: total },
+        )}
       </chakra.span>
       <Button
         as="a"
@@ -50,7 +56,9 @@ function Total({ total, upcomingOnly, passed, disabled }) {
         onClick={togglePassed}
         disabled={disabled}
       >
-        {intl.formatMessage(messages[passed ? 'showUpcomingEventsOnly' : 'includePassedEvents'])}
+        {intl.formatMessage(
+          messages[passed ? 'showUpcomingEventsOnly' : 'includePassedEvents'],
+        )}
       </Button>
     </Text>
   );
@@ -81,7 +89,8 @@ export default function TotalPart({ agenda, filters, query, includeFields }) {
   });
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   // const isEmpty = pages?.[0]?.events?.length === 0;
   // const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
   // const isRefreshing = isValidating && pages && pages.length === size;

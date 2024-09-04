@@ -30,9 +30,13 @@ export default function AgendaItem({ agenda, targetAgenda }) {
           width="40"
           height="40"
           src={imageSrc || graylogo140}
-          fallbackSrc={isDev && typeof imageSrc === 'string'
-            ? imageSrc.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
-            : undefined}
+          fallbackSrc={
+            isDev && typeof imageSrc === 'string'
+              ? imageSrc
+                .replace('cibuldev', 'cibul')
+                .replace('images-', 'imagesdev-')
+              : undefined
+          }
           alt=""
           draggable={false}
           loader={imageSrc ? keyCDNLoader : null}

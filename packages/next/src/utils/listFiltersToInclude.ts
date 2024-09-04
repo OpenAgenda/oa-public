@@ -4,7 +4,7 @@ export default function listFiltersToInclude(agenda) {
   if (agenda.settings?.public?.filters?.displayed) {
     return ['search', 'geo'].concat(
       agenda.settings.public.filters.displayed.filter(
-        name => !['search', 'geo'].includes(name),
+        (name) => !['search', 'geo'].includes(name),
       ),
     );
   }

@@ -207,7 +207,7 @@ export function DateRangeSection({
 
   const isUpcoming = useMemo(() => {
     const now = new Date();
-    return event.timings.some(timing => new Date(timing.end) > now);
+    return event.timings.some((timing) => new Date(timing.end) > now);
   }, [event.timings]);
 
   return (
@@ -295,7 +295,7 @@ export function RegistrationSection({
       <Box fontSize="lg" color="oaGray.500">
         <b>{intl.formatMessage(messages.registration)}</b>
       </Box>
-      {registration.map(registrationItem => (
+      {registration.map((registrationItem) => (
         <Fragment key={registrationItem.value}>
           <Icon
             as={FaIcon}
@@ -370,7 +370,7 @@ export function AccessibilitySection({
 
   const accessibilities = Object.entries(event.accessibility);
 
-  const hasAccessibility = accessibilities.some(v => v[1] === true);
+  const hasAccessibility = accessibilities.some((v) => v[1] === true);
 
   if (!hasAccessibility && !event.age?.min && !event.age?.max) {
     return null;
@@ -452,7 +452,7 @@ export function LocationSection({ event, icon = faLocationDot }) {
           {event.location.address}
         </Link>
         <Wrap color="oaGray.500">
-          {['department', 'region', 'country'].map(part => (
+          {['department', 'region', 'country'].map((part) => (
             <WrapItem key={part}>{event.location[part]}</WrapItem>
           ))}
         </Wrap>

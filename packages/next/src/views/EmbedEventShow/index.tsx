@@ -288,7 +288,7 @@ function EmbedEventShow({ preload }: EmbedEventShowProps) {
                   </chakra.div>
                   <chakra.div>{event.location.address}</chakra.div>
                   <Wrap color="oaGray.500">
-                    {['department', 'region', 'country'].map(part => (
+                    {['department', 'region', 'country'].map((part) => (
                       <WrapItem key={part}>{event.location[part]}</WrapItem>
                     ))}
                   </Wrap>
@@ -304,7 +304,7 @@ function EmbedEventShow({ preload }: EmbedEventShowProps) {
                       {intl.formatMessage(messages.tags)}
                     </chakra.div>
                     {intl.formatList(
-                      event.location.tags.map(tag => tag.label),
+                      event.location.tags.map((tag) => tag.label),
                       { style: 'narrow' },
                     )}
                   </div>
@@ -396,7 +396,7 @@ function EmbedEventShow({ preload }: EmbedEventShowProps) {
                   <chakra.div>
                     {intl.formatMessage(messages.moreLinks)}
                     <List>
-                      {event.location.links?.map(link => (
+                      {event.location.links?.map((link) => (
                         <ListItem key={link}>
                           <Link
                             isExternal
@@ -439,7 +439,7 @@ function EmbedEventShow({ preload }: EmbedEventShowProps) {
 }
 
 EmbedEventShow.fetchLocale = (locale: string) =>
-  Promise.all([fetchLocale(locale)]).then(results =>
+  Promise.all([fetchLocale(locale)]).then((results) =>
     Object.assign({}, ...results));
 
 export default EmbedEventShow;

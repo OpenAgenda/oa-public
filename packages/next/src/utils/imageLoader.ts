@@ -1,6 +1,10 @@
 import type { ImageLoaderProps } from 'next/image';
 
-export function keyCDNLoader({ src, width, quality }: ImageLoaderProps): string {
+export function keyCDNLoader({
+  src,
+  width,
+  quality,
+}: ImageLoaderProps): string {
   const url = new URL(src);
   const params = url.searchParams;
 
@@ -13,7 +17,11 @@ export function keyCDNLoader({ src, width, quality }: ImageLoaderProps): string 
   return url.href;
 }
 
-export function thumborLoader({ src, width, quality }: ImageLoaderProps): string {
+export function thumborLoader({
+  src,
+  width,
+  quality,
+}: ImageLoaderProps): string {
   const params = [`${width}x0`];
   if (quality) {
     params.push(`filters:quality(${quality})`);

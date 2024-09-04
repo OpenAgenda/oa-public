@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async ({
             Cookie: req.headers.cookie,
           },
         },
-      ).then(r => {
+      ).then((r) => {
         if (r.ok) return r.json();
         throw new VError[r.status](r.statusText);
       }),
@@ -63,7 +63,7 @@ export const getServerSideProps: GetServerSideProps = async ({
           Authorization: req.headers.authorization,
           Cookie: req.headers.cookie,
         },
-      }).then(r => {
+      }).then((r) => {
         if (r.ok) return r.json();
         throw new VError[r.status](r.statusText);
       }),
@@ -215,7 +215,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 //   fallback: 'blocking',
 // });
 
-const EventPage: NextPageWithLayout<PageProps> = props => {
+const EventPage: NextPageWithLayout<PageProps> = (props) => {
   const { fallback = {}, agenda } = props;
 
   if ('statusCode' in props) {

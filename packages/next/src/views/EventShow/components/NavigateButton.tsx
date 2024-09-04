@@ -46,7 +46,7 @@ export function useGoToSiblingEvent({
     // speed up context bar display
     preload(
       `/api/me/agendas/${agenda.uid}/events/${response.event.uid}`,
-      input => ky(input).json(),
+      (input) => ky(input).json(),
     ).catch(() => null);
 
     router

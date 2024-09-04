@@ -58,7 +58,7 @@ export type EmbedAgendaShowProps = {
   referrer: string;
 };
 
-const stripLangPrefix = pathname => pathname.replace(/^\/[a-z][a-z]\//, '/');
+const stripLangPrefix = (pathname) => pathname.replace(/^\/[a-z][a-z]\//, '/');
 const isDifferentPathname = (pathname1, pathname2) =>
   stripLangPrefix(pathname1) !== stripLangPrefix(pathname2);
 
@@ -116,7 +116,7 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
     const requiredFilters = (prefilter.filters as string)?.split(',') ?? [];
 
     return ['search', 'geo', 'timings', ...additionalFilters]
-      .filter(filter => requiredFilters.includes(filter))
+      .filter((filter) => requiredFilters.includes(filter))
       .sort((a, b) => {
         // Last
         if (a === 'geo') return 1;
@@ -189,7 +189,7 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   useEffect(() => {
     if (pages?.length > 0 && previousPages !== pages) {
       // Update map markers
-      const mapFilter = filters.find(v => v.name === 'geo');
+      const mapFilter = filters.find((v) => v.name === 'geo');
       const mapElem = mapFilter?.elemRef.current;
 
       if (mapElem) {
@@ -282,8 +282,8 @@ EmbedAgendaShow.fetchLocale = (locale: string) =>
   Promise.all([
     fetchLocale(locale),
     import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(
-      mod => mod.default,
+      (mod) => mod.default,
     ),
-  ]).then(results => Object.assign({}, ...results));
+  ]).then((results) => Object.assign({}, ...results));
 
 export default EmbedAgendaShow;

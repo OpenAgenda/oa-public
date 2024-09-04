@@ -1,7 +1,12 @@
 import { SWRConfig } from 'swr';
 import ky from 'ky';
 import { CookiesProvider, Cookies } from 'react-cookie';
-import { UIKitProvider, theme as defaultTheme, defaultCache, EmotionCache } from '@openagenda/uikit';
+import {
+  UIKitProvider,
+  theme as defaultTheme,
+  defaultCache,
+  EmotionCache,
+} from '@openagenda/uikit';
 import swrStatusMiddleware from 'utils/swrStatusMiddleware';
 import { LanguageProvider } from 'components/LanguageProvider';
 

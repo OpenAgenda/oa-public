@@ -34,7 +34,7 @@ export default function Metas({ preload, contentLocale }) {
       <meta name="description" content={description} />
 
       <link rel="canonical" href={canonicalUrl} />
-      {SUPPORTED_LOCALES.map(key =>
+      {SUPPORTED_LOCALES.map((key) =>
         (key === 'io' ? null : (
           <link
             key={`alternate:${key}`}
@@ -43,7 +43,11 @@ export default function Metas({ preload, contentLocale }) {
             href={`${absUrl.origin}/${key}${absUrl.pathname}`}
           />
         )))}
-      <link rel="alternate" hrefLang="x-default" href={`${absUrl.origin}/en${absUrl.pathname}`} />
+      <link
+        rel="alternate"
+        hrefLang="x-default"
+        href={`${absUrl.origin}/en${absUrl.pathname}`}
+      />
 
       <meta property="og:site_name" content="OpenAgenda" />
       <meta property="og:type" content="website" />
@@ -51,9 +55,13 @@ export default function Metas({ preload, contentLocale }) {
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
       <meta property="og:locale" content={contentLocale} />
-      {SUPPORTED_LOCALES.map(key =>
+      {SUPPORTED_LOCALES.map((key) =>
         (key === intl.locale || key === 'io' ? null : (
-          <meta key={`ogLocale:${key}`} property="og:locale:alternate" content={key} />
+          <meta
+            key={`ogLocale:${key}`}
+            property="og:locale:alternate"
+            content={key}
+          />
         )))}
       <meta property="og:url" content={absUrl.origin + absUrl.pathname} />
       {image ? <meta property="og:image" content={image} /> : null}
@@ -66,8 +74,14 @@ export default function Metas({ preload, contentLocale }) {
       <meta property="twitter:url" content={canonicalUrl} />
       {image ? <meta property="twitter:image" content={image} /> : null}
 
-      {preload?.map(href => (
-        <link key={`preload-${href}`} rel="preload" href={href} as="fetch" crossOrigin="anonymous" />
+      {preload?.map((href) => (
+        <link
+          key={`preload-${href}`}
+          rel="preload"
+          href={href}
+          as="fetch"
+          crossOrigin="anonymous"
+        />
       ))}
     </Head>
   );

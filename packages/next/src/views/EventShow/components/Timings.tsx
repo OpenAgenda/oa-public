@@ -66,7 +66,7 @@ function TimingsDisplay({ timingsPerWeek, timezone }) {
 
   return (
     <Flex direction="column" gap="2">
-      {Object.values(timingsPerWeek).map(week =>
+      {Object.values(timingsPerWeek).map((week) =>
         Object.entries(week).map(([day, dayTimings]) => (
           <Flex key={day} justify="space-between">
             <div>
@@ -77,7 +77,7 @@ function TimingsDisplay({ timingsPerWeek, timezone }) {
               )}
             </div>
             <div>
-              {dayTimings.map(timing => (
+              {dayTimings.map((timing) => (
                 <div key={timing.begin}>
                   {formatInTimeZone(new Date(timing.begin), timezone, 'HH:mm', {
                     locale: dateFnsLocale,

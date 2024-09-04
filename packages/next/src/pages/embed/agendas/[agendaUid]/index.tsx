@@ -133,7 +133,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     const requiredFilters = (query.filters as string)?.split(',') ?? [];
 
     const filtersToInclude = ['search', 'geo', 'timings', ...additionalFilters]
-      .filter(filter => requiredFilters.includes(filter))
+      .filter((filter) => requiredFilters.includes(filter))
       .sort((a, b) => {
         // Last
         if (a === 'geo') return 1;
@@ -202,7 +202,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 };
 
-const EmbedAgendaPage: NextPageWithLayout<PageProps> = props => {
+const EmbedAgendaPage: NextPageWithLayout<PageProps> = (props) => {
   const { fallback = {} } = props;
 
   return (

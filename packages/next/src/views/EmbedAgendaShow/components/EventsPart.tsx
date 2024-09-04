@@ -57,9 +57,9 @@ export default function EventsPart({
   }, [router.locale, router.asPath, query, pages]);
 
   const nextPage = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
-      setSize(s => s + 1);
+      setSize((s) => s + 1);
     },
     [setSize],
   );

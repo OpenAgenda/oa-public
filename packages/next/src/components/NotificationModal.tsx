@@ -18,10 +18,7 @@ export default function NotificationModal({
   onAction,
 }) {
   return (
-    <Modal
-      isOpen
-      onClose={onClose}
-    >
+    <Modal isOpen onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         {title ? (
@@ -41,10 +38,7 @@ export default function NotificationModal({
         </ModalBody>
         <ModalFooter justifyContent="center">
           {action ? (
-            <Button
-              colorScheme="primary"
-              onClick={onAction}
-            >
+            <Button colorScheme="primary" onClick={onAction}>
               {action}
             </Button>
           ) : null}

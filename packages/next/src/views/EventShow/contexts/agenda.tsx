@@ -5,9 +5,7 @@ const agendaContext = createContext<Agenda>(null);
 
 export function AgendaProvider({ agenda, children }) {
   return (
-    <agendaContext.Provider value={agenda}>
-      {children}
-    </agendaContext.Provider>
+    <agendaContext.Provider value={agenda}>{children}</agendaContext.Provider>
   );
 }
 

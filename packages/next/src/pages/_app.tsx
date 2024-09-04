@@ -14,19 +14,19 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   // Layout?: (props: { children: ReactNode }) => ReactElement<typeof props>
-  Layout?: React.FC<{ children: React.ReactNode }>
-  theme?: Record<string, any>
-}
+  Layout?: React.FC<{ children: React.ReactNode }>;
+  theme?: Record<string, any>;
+};
 
 type AppPropsWithLayout<P = {}> = AppProps<P> & {
-  Component: NextPageWithLayout<P>
-  universalCookies?: Cookies
-  cache?: EmotionCache
-}
+  Component: NextPageWithLayout<P>;
+  universalCookies?: Cookies;
+  cache?: EmotionCache;
+};
 
 interface PageProps {
-  intlMessages: Record<string, string>
-  sessionLocale?: string
+  intlMessages: Record<string, string>;
+  sessionLocale?: string;
 }
 
 function MyApp({

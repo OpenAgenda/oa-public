@@ -16,11 +16,9 @@ import featuredEvent from '../../fixtures/events/featured.json';
 export default {
   title: 'views/AgendaShow/EventItem',
   component: EventItem,
-  loaders: [
-    intlMessagesLoader(AgendaShow.fetchLocale),
-  ],
+  loaders: [intlMessagesLoader(AgendaShow.fetchLocale)],
   decorators: [
-    Story => (
+    (Story) => (
       <FiltersProvider>
         <Container maxW="container.md">
           <Story />

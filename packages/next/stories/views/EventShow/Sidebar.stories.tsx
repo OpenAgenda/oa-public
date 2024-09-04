@@ -18,7 +18,7 @@ export default {
   component: Sidebar,
   loaders: [intlMessagesLoader(EventShow.fetchLocale)],
   decorators: [
-    Story => (
+    (Story) => (
       <Container maxW="md">
         <Story />
       </Container>

@@ -20,7 +20,7 @@ export default function Metas({ preload, contentLocale }) {
       <title>{`${event.title[contentLocale]} | ${agenda.title} | OpenAgenda Embed`}</title>
       <meta name="robots" content="noindex, nofollow" />
       <link rel="canonical" href={canonicalUrl} />
-      {SUPPORTED_LOCALES.map(key =>
+      {SUPPORTED_LOCALES.map((key) =>
         (key === 'io' ? null : (
           <link
             key={`alternate:${key}`}
@@ -35,7 +35,7 @@ export default function Metas({ preload, contentLocale }) {
         href={`${absUrl.origin}/en${absUrl.pathname}`}
       />
 
-      {preload?.map(href => (
+      {preload?.map((href) => (
         <link
           key={`preload-${href}`}
           rel="preload"

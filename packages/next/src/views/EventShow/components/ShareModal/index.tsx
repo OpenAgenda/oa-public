@@ -22,7 +22,13 @@ import ShareOnOA from './ShareOnOA';
 import UnloggedBody from './UnloggedBody';
 import OtherShares from './OtherShares';
 
-function ShareModalBody({ agenda, event, contentLocale, onClose, onEmailSent }) {
+function ShareModalBody({
+  agenda,
+  event,
+  contentLocale,
+  onClose,
+  onEmailSent,
+}) {
   const intl = useIntl();
   const { user } = useUser();
 
@@ -48,7 +54,11 @@ function ShareModalBody({ agenda, event, contentLocale, onClose, onEmailSent }) 
             )}
           </TabPanel>
           <TabPanel>
-            <OtherShares contentLocale={contentLocale} onClose={onClose} onEmailSent={onEmailSent} />
+            <OtherShares
+              contentLocale={contentLocale}
+              onClose={onClose}
+              onEmailSent={onEmailSent}
+            />
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -74,11 +84,7 @@ export default function ShareModal({
 
     url.searchParams.delete('sharemodal');
 
-    router.replace(
-      url.pathname + url.search,
-      null,
-      { shallow: true },
-    );
+    router.replace(url.pathname + url.search, null, { shallow: true });
     originalOnClose();
   }, [originalOnClose, router]);
 

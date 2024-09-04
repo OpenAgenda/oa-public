@@ -70,11 +70,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        16,
-        10,
-        5
-      ],
+      "categories-metropolitaines": [16, 10, 5],
       "slug": "balade-de-jardins-en-jardins-a-croix",
       "updatedAt": "2022-07-05T08:54:00.000Z",
       "addMethod": "aggregation",
@@ -123,9 +119,7 @@
           "updatedAt": "2022-07-05T08:54:01.000Z"
         }
       ],
-      "label": [
-        32
-      ],
+      "label": [32],
       "creatorUid": 10866730,
       "recurringevent": [],
       "registration": [
@@ -146,11 +140,7 @@
         "setUid": null,
         "uid": 72290358,
         "createdAt": "2022-03-25T13:50:55.000Z",
-        "duplicateCandidates": [
-          72259617,
-          55790147,
-          32031446
-        ],
+        "duplicateCandidates": [72259617, 55790147, 32031446],
         "countryCode": "FR",
         "adminLevel5": null,
         "links": [],
@@ -348,9 +338,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "mumotopia-1803679",
       "updatedAt": "2022-03-28T10:24:13.000Z",
       "addMethod": "aggregation",
@@ -417,9 +405,7 @@
         "setUid": null,
         "uid": 2480366,
         "createdAt": "2022-03-28T10:13:13.000Z",
-        "duplicateCandidates": [
-          86029127
-        ],
+        "duplicateCandidates": [86029127],
         "countryCode": "FR",
         "adminLevel5": null,
         "links": [],
@@ -515,9 +501,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        4
-      ],
+      "categories-metropolitaines": [4],
       "slug": "test-5140892",
       "updatedAt": "2022-07-12T10:33:36.000Z",
       "addMethod": "share",
@@ -639,9 +623,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        20
-      ],
+      "categories-metropolitaines": [20],
       "slug": "les-nuits-dete-2022",
       "updatedAt": "2022-05-02T13:18:00.000Z",
       "addMethod": "aggregation",
@@ -711,9 +693,7 @@
         "setUid": null,
         "uid": 1837699,
         "createdAt": "2022-02-22T10:28:21.000Z",
-        "duplicateCandidates": [
-          77992348
-        ],
+        "duplicateCandidates": [77992348],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -766,9 +746,7 @@
         "fr": "France (Métropole)",
         "es": "Francia (Metropolitana)"
       },
-      "interetintercommunal": [
-        1
-      ],
+      "interetintercommunal": [1],
       "featured": false,
       "private": 0,
       "keywords": {
@@ -821,10 +799,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        22,
-        20
-      ],
+      "categories-metropolitaines": [22, 20],
       "slug": "francs-folies-n7-476255",
       "updatedAt": "2022-05-02T12:31:23.000Z",
       "addMethod": "aggregation",
@@ -914,9 +889,7 @@
         "setUid": null,
         "uid": 25939381,
         "createdAt": "2021-09-30T11:35:19.000Z",
-        "duplicateCandidates": [
-          77332778
-        ],
+        "duplicateCandidates": [77332778],
         "countryCode": "FR",
         "adminLevel5": null,
         "links": [],
@@ -1014,9 +987,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        17
-      ],
+      "categories-metropolitaines": [17],
       "slug": "concert-de-cloture-de-saison",
       "updatedAt": "2022-04-25T10:09:02.000Z",
       "addMethod": "aggregation",
@@ -1086,9 +1057,7 @@
         "setUid": null,
         "uid": 77992348,
         "createdAt": "2022-02-18T09:42:18.000Z",
-        "duplicateCandidates": [
-          1837699
-        ],
+        "duplicateCandidates": [1837699],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -1188,9 +1157,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        17
-      ],
+      "categories-metropolitaines": [17],
       "slug": "le-dernier-chef-doeuvre-de-bernstein",
       "updatedAt": "2022-05-03T10:33:13.000Z",
       "addMethod": "aggregation",
@@ -1260,9 +1227,7 @@
         "setUid": null,
         "uid": 77992348,
         "createdAt": "2022-02-18T09:42:18.000Z",
-        "duplicateCandidates": [
-          1837699
-        ],
+        "duplicateCandidates": [1837699],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -1366,9 +1331,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        13
-      ],
+      "categories-metropolitaines": [13],
       "slug": "lille-pianos-festival-2022",
       "updatedAt": "2022-05-03T14:45:47.000Z",
       "addMethod": "aggregation",
@@ -1438,9 +1401,7 @@
         "setUid": null,
         "uid": 1837699,
         "createdAt": "2022-02-22T10:28:21.000Z",
-        "duplicateCandidates": [
-          77992348
-        ],
+        "duplicateCandidates": [77992348],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -1540,9 +1501,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        17
-      ],
+      "categories-metropolitaines": [17],
       "slug": "shakespeare-en-musique",
       "updatedAt": "2022-04-25T10:02:21.000Z",
       "addMethod": "aggregation",
@@ -1612,9 +1571,7 @@
         "setUid": null,
         "uid": 77992348,
         "createdAt": "2022-02-18T09:42:18.000Z",
-        "duplicateCandidates": [
-          1837699
-        ],
+        "duplicateCandidates": [1837699],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -1667,9 +1624,7 @@
         "fr": "France (Métropole)",
         "es": "Francia (Metropolitana)"
       },
-      "interetintercommunal": [
-        1
-      ],
+      "interetintercommunal": [1],
       "featured": false,
       "private": 0,
       "keywords": {},
@@ -1712,9 +1667,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        22
-      ],
+      "categories-metropolitaines": [22],
       "slug": "mais-qui-a-tue-antoine-chiffon-7889047",
       "updatedAt": "2022-04-06T11:56:48.000Z",
       "addMethod": "aggregation",
@@ -1781,9 +1734,7 @@
       ],
       "label": [],
       "creatorUid": 14439970,
-      "recurringevent": [
-        2
-      ],
+      "recurringevent": [2],
       "registration": [
         {
           "type": "email",
@@ -1802,9 +1753,7 @@
         "setUid": null,
         "uid": 77332778,
         "createdAt": "2022-04-06T11:48:19.000Z",
-        "duplicateCandidates": [
-          25939381
-        ],
+        "duplicateCandidates": [25939381],
         "countryCode": "FR",
         "adminLevel5": null,
         "links": [],
@@ -1922,9 +1871,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        17
-      ],
+      "categories-metropolitaines": [17],
       "slug": "eblouissants-classiques",
       "updatedAt": "2022-05-02T13:22:32.000Z",
       "addMethod": "aggregation",
@@ -1994,9 +1941,7 @@
         "setUid": null,
         "uid": 1837699,
         "createdAt": "2022-02-22T10:28:21.000Z",
-        "duplicateCandidates": [
-          77992348
-        ],
+        "duplicateCandidates": [77992348],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -2100,9 +2045,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "mumotopia-5474524",
       "updatedAt": "2022-04-21T19:13:56.000Z",
       "addMethod": "aggregation",
@@ -2153,9 +2096,7 @@
           "updatedAt": "2022-05-20T08:30:25.000Z"
         }
       ],
-      "label": [
-        32
-      ],
+      "label": [32],
       "creatorUid": 72921795,
       "recurringevent": [],
       "registration": [],
@@ -2171,9 +2112,7 @@
         "setUid": null,
         "uid": 77641163,
         "createdAt": "2022-03-28T08:15:18.000Z",
-        "duplicateCandidates": [
-          30445763
-        ],
+        "duplicateCandidates": [30445763],
         "countryCode": "FR",
         "adminLevel5": null,
         "links": [],
@@ -2271,9 +2210,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        17
-      ],
+      "categories-metropolitaines": [17],
       "slug": "symphonie-n8",
       "updatedAt": "2022-04-25T10:03:07.000Z",
       "addMethod": "aggregation",
@@ -2343,9 +2280,7 @@
         "setUid": null,
         "uid": 77992348,
         "createdAt": "2022-02-18T09:42:18.000Z",
-        "duplicateCandidates": [
-          1837699
-        ],
+        "duplicateCandidates": [1837699],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -2441,9 +2376,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        23
-      ],
+      "categories-metropolitaines": [23],
       "slug": "visite-guidee-du-cimetiere-de-rue-petillon",
       "updatedAt": "2022-03-10T13:22:20.000Z",
       "addMethod": "aggregation",
@@ -2513,9 +2446,7 @@
         "setUid": null,
         "uid": 77333493,
         "createdAt": "2022-02-22T10:25:41.000Z",
-        "duplicateCandidates": [
-          91279752
-        ],
+        "duplicateCandidates": [91279752],
         "countryCode": "FR",
         "adminLevel5": null,
         "links": [],
@@ -2613,9 +2544,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        23
-      ],
+      "categories-metropolitaines": [23],
       "slug": "le-beffroi-vue-a-360-sur-les-annees-20-30-7976644",
       "updatedAt": "2022-03-23T15:57:18.000Z",
       "addMethod": "aggregation",
@@ -2689,9 +2618,7 @@
         "setUid": null,
         "uid": 29413253,
         "createdAt": "2021-10-14T17:28:00.000Z",
-        "duplicateCandidates": [
-          34377299
-        ],
+        "duplicateCandidates": [34377299],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -2789,9 +2716,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        20
-      ],
+      "categories-metropolitaines": [20],
       "slug": "les-treteaux-de-maitre-pierre",
       "updatedAt": "2022-05-03T10:38:09.000Z",
       "addMethod": "aggregation",
@@ -2861,9 +2786,7 @@
         "setUid": null,
         "uid": 77992348,
         "createdAt": "2022-02-18T09:42:18.000Z",
-        "duplicateCandidates": [
-          1837699
-        ],
+        "duplicateCandidates": [1837699],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -2959,9 +2882,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        3
-      ],
+      "categories-metropolitaines": [3],
       "slug": "atelier-dinitiation-a-la-recherche-comment-retracer-200-ans-dhistoire-dune-habitation-lilloise-6709610",
       "updatedAt": "2022-03-23T15:41:55.000Z",
       "addMethod": "aggregation",
@@ -3033,9 +2954,7 @@
         "setUid": null,
         "uid": 19109407,
         "createdAt": "2022-02-18T11:54:50.000Z",
-        "duplicateCandidates": [
-          21917370
-        ],
+        "duplicateCandidates": [21917370],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -3133,9 +3052,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        3
-      ],
+      "categories-metropolitaines": [3],
       "slug": "atelier-dinitiation-a-la-recherche-comment-retracer-200-ans-dhistoire-dune-habitation-lilloise-907335",
       "updatedAt": "2022-03-23T15:41:25.000Z",
       "addMethod": "aggregation",
@@ -3207,9 +3124,7 @@
         "setUid": null,
         "uid": 19109407,
         "createdAt": "2022-02-18T11:54:50.000Z",
-        "duplicateCandidates": [
-          21917370
-        ],
+        "duplicateCandidates": [21917370],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -3264,9 +3179,7 @@
         "fr": "France (Métropole)",
         "es": "Francia (Metropolitana)"
       },
-      "interetintercommunal": [
-        1
-      ],
+      "interetintercommunal": [1],
       "featured": false,
       "private": 0,
       "keywords": {
@@ -3318,9 +3231,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        23
-      ],
+      "categories-metropolitaines": [23],
       "slug": "visite-urbaine-8227379",
       "updatedAt": "2022-04-25T12:57:08.000Z",
       "addMethod": "aggregation",
@@ -3390,9 +3301,7 @@
         "setUid": null,
         "uid": 68807711,
         "createdAt": "2022-03-09T15:06:45.000Z",
-        "duplicateCandidates": [
-          48192155
-        ],
+        "duplicateCandidates": [48192155],
         "countryCode": "FR",
         "adminLevel5": null,
         "links": [],
@@ -3494,9 +3403,7 @@
       ],
       "links": [],
       "state": 2,
-      "categories-metropolitaines": [
-        6
-      ],
+      "categories-metropolitaines": [6],
       "slug": "vive-la-liberte",
       "updatedAt": "2022-05-03T10:34:15.000Z",
       "addMethod": "aggregation",
@@ -3566,9 +3473,7 @@
         "setUid": null,
         "uid": 77992348,
         "createdAt": "2022-02-18T09:42:18.000Z",
-        "duplicateCandidates": [
-          1837699
-        ],
+        "duplicateCandidates": [1837699],
         "countryCode": "FR",
         "adminLevel5": "Lille-Centre",
         "links": [],
@@ -3609,12 +3514,7 @@
       "nextTiming": null
     }
   ],
-  "after": [
-    0,
-    32503680000000,
-    1651780800000,
-    94731507
-  ],
+  "after": [0, 32503680000000, 1651780800000, 94731507],
   "sort": "timingsWithFeatured.asc",
   "aggregations": {
     "viewport": {

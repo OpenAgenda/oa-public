@@ -15,20 +15,16 @@ import generateNonce from 'utils/generateNonce';
 import CSP from 'utils/contentSecurityPolicy';
 
 type CustomDocumentProps = {
-  outdatedBrowser?: boolean
-  nonce: string
-}
-type MyDocumentProps = DocumentProps & CustomDocumentProps
-type MyDocumentInitialProps = DocumentInitialProps & CustomDocumentProps
+  outdatedBrowser?: boolean;
+  nonce: string;
+};
+type MyDocumentProps = DocumentProps & CustomDocumentProps;
+type MyDocumentInitialProps = DocumentInitialProps & CustomDocumentProps;
 
 function wrapApp({ cookies, cache }) {
-  return App => {
-    const Wrapped = props => (
-      <App
-        universalCookies={cookies}
-        cache={cache}
-        {...props}
-      />
+  return (App) => {
+    const Wrapped = (props) => (
+      <App universalCookies={cookies} cache={cache} {...props} />
     );
     return Wrapped;
   };
@@ -36,7 +32,11 @@ function wrapApp({ cookies, cache }) {
 
 function OutdatedStyle({ nonce, assetPrefix }) {
   return (
-    <link rel="stylesheet" href={`${assetPrefix}/_next/static/css/outdated-browser.css`} nonce={nonce} />
+    <link
+      rel="stylesheet"
+      href={`${assetPrefix}/_next/static/css/outdated-browser.css`}
+      nonce={nonce}
+    />
   );
 }
 
@@ -50,7 +50,11 @@ function OutdatedScript({ nonce, assetPrefix, locale }) {
         }}
         nonce={nonce}
       />
-      <script src={`${assetPrefix}/_next/static/chunks/outdated-browser.js`} defer nonce={nonce} />
+      <script
+        src={`${assetPrefix}/_next/static/chunks/outdated-browser.js`}
+        defer
+        nonce={nonce}
+      />
     </>
   );
 }
@@ -62,22 +66,32 @@ function MyDocument({
   nonce,
 }: MyDocumentProps) {
   return (
-    <Html
-      lang={locale}
-      style={{ colorScheme: 'light' }}
-      data-theme="light"
-    >
+    <Html lang={locale} style={{ colorScheme: 'light' }} data-theme="light">
       <Head nonce={nonce}>
         {process.env.NEXT_PUBLIC_ASSET_PREFIX ? (
           <>
-            <link rel="preconnect" href={process.env.NEXT_PUBLIC_ASSET_PREFIX} crossOrigin="" />
-            <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_ASSET_PREFIX} />
+            <link
+              rel="preconnect"
+              href={process.env.NEXT_PUBLIC_ASSET_PREFIX}
+              crossOrigin=""
+            />
+            <link
+              rel="dns-prefetch"
+              href={process.env.NEXT_PUBLIC_ASSET_PREFIX}
+            />
           </>
         ) : null}
         {process.env.NEXT_PUBLIC_IMAGE_PREFIX ? (
           <>
-            <link rel="preconnect" href={process.env.NEXT_PUBLIC_IMAGE_PREFIX} crossOrigin="" />
-            <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_IMAGE_PREFIX} />
+            <link
+              rel="preconnect"
+              href={process.env.NEXT_PUBLIC_IMAGE_PREFIX}
+              crossOrigin=""
+            />
+            <link
+              rel="dns-prefetch"
+              href={process.env.NEXT_PUBLIC_IMAGE_PREFIX}
+            />
           </>
         ) : null}
         {outdatedBrowser ? (
@@ -89,14 +103,20 @@ function MyDocument({
         <Main />
         <NextScript nonce={nonce} />
         {outdatedBrowser ? (
-          <OutdatedScript assetPrefix={assetPrefix} locale={locale} nonce={nonce} />
+          <OutdatedScript
+            assetPrefix={assetPrefix}
+            locale={locale}
+            nonce={nonce}
+          />
         ) : null}
       </body>
     </Html>
   );
 }
 
-MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentInitialProps> => {
+MyDocument.getInitialProps = async (
+  ctx: DocumentContext,
+): Promise<MyDocumentInitialProps> => {
   const originalRenderPage = ctx.renderPage;
 
   const cookies = new Cookies(ctx.req?.headers?.cookie);
@@ -110,7 +130,10 @@ MyDocument.getInitialProps = async (ctx: DocumentContext): Promise<MyDocumentIni
   let nonce = responseHeaders.get('X-Nonce');
   if (!nonce) {
     nonce = generateNonce();
-    ctx.res?.setHeader('Content-Security-Policy-Report-Only', CSP({ props: { nonce } }));
+    ctx.res?.setHeader(
+      'Content-Security-Policy-Report-Only',
+      CSP({ props: { nonce } }),
+    );
   }
 
   const cache = createEmotionCache();

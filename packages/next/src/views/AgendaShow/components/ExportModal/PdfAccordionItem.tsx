@@ -24,7 +24,12 @@ export default function PdfAccordionItem({ handleSubmit }) {
             </Radio>
           </Stack>
         </RadioGroup>
-        <Button type="submit" colorScheme="primary" alignSelf="center" onClick={handleSubmit('pdf', { mode })}>
+        <Button
+          type="submit"
+          colorScheme="primary"
+          alignSelf="center"
+          onClick={handleSubmit('pdf', { mode })}
+        >
           {intl.formatMessage(messages.modalTitle)}
         </Button>
       </Flex>

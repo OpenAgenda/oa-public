@@ -1,10 +1,10 @@
 export interface JsonError {
-  name: string
-  message: string
-  shortMessage?: string
-  stack?: string
-  cause?: JsonError
-  info?: Record<string, any>
+  name: string;
+  message: string;
+  shortMessage?: string;
+  stack?: string;
+  cause?: JsonError;
+  info?: Record<string, any>;
 }
 
 // enhanced VError.prototype.toJSON for dev
@@ -36,7 +36,10 @@ export function errorToJSON(error): JsonError {
 
   // Conserve keys order in obj
   for (const key in error['@@verror/meta']) {
-    if (Object.prototype.hasOwnProperty.call(error['@@verror/meta'], key) && !(key in obj)) {
+    if (
+      Object.prototype.hasOwnProperty.call(error['@@verror/meta'], key)
+      && !(key in obj)
+    ) {
       obj[key] = error['@@verror/meta'][key];
     }
   }

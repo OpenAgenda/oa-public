@@ -42,7 +42,7 @@ export function FiltersSkeleton({ filters, filtersToInclude }) {
   const orderedFilters = useMemo(
     () =>
       filters
-        .filter(filter => filtersToInclude.includes(filter.name))
+        .filter((filter) => filtersToInclude.includes(filter.name))
         .sort((a, b) => {
           // Last
           if (a.name === 'geo') return 1;
@@ -63,7 +63,7 @@ export function FiltersSkeleton({ filters, filtersToInclude }) {
       spacingX="10"
       spacingY="6"
     >
-      {orderedFilters.map(filter => {
+      {orderedFilters.map((filter) => {
         if (filter.name === 'geo') {
           return (
             <Box key="geo" gridColumn="1 / -1">

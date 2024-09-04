@@ -8,7 +8,9 @@ export default function Description({ agenda }) {
 
   return (
     <Text color="oaGray.500" mb="6">
-      {intl.formatMessage(messages.subtitle, { agenda: getLocaleValue(agenda.title, intl.locale) })}
+      {intl.formatMessage(messages.subtitle, {
+        agenda: getLocaleValue(agenda.title, intl.locale),
+      })}
     </Text>
   );
 }

@@ -9,7 +9,12 @@ export default function RssAccordionItem({ handleSubmit }) {
   return (
     <AccordionItem title="RSS">
       <chakra.div textAlign="center">
-        <Button type="submit" colorScheme="primary" alignSelf="center" onClick={handleSubmit('rss')}>
+        <Button
+          type="submit"
+          colorScheme="primary"
+          alignSelf="center"
+          onClick={handleSubmit('rss')}
+        >
           {intl.formatMessage(messages.modalTitle)}
         </Button>
       </chakra.div>

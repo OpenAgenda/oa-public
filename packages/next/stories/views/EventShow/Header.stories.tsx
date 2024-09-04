@@ -12,9 +12,7 @@ import agendaWithoutNetwork from '../../fixtures/a-qui-le-tour.agenda.json';
 export default {
   title: 'views/EventShow/AgendaHeader',
   component: AgendaHeader,
-  loaders: [
-    intlMessagesLoader(EventShow.fetchLocale),
-  ],
+  loaders: [intlMessagesLoader(EventShow.fetchLocale)],
   decorators: [ProvidersDecorator],
 };
 

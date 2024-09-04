@@ -8,18 +8,22 @@ import messages from '../../messages';
 import { useActivitiesContext } from './context';
 
 function renderHighlight(content) {
-  return (
-    <chakra.span color="black">{content}</chakra.span>
-  );
+  return <chakra.span color="black">{content}</chakra.span>;
 }
 
 function renderLink(link, content) {
   if (isNextUrl(link)) {
-    return <NextChakraLink href={link} colorScheme="primary">{content}</NextChakraLink>;
+    return (
+      <NextChakraLink href={link} colorScheme="primary">
+        {content}
+      </NextChakraLink>
+    );
   }
 
   return (
-    <Link href={link} colorScheme="primary">{content}</Link>
+    <Link href={link} colorScheme="primary">
+      {content}
+    </Link>
   );
 }
 
@@ -28,17 +32,24 @@ function Activity({ formattedActivity, activity, isBrowser }) {
     <chakra.div color="oaGray.500">
       <div>{formattedActivity}</div>
       <chakra.div visibility={isBrowser ? 'visible' : 'hidden'}>
-        <FormattedDate value={activity.createdAt} dateStyle="long" timeStyle="short" />
+        <FormattedDate
+          value={activity.createdAt}
+          dateStyle="long"
+          timeStyle="short"
+        />
       </chakra.div>
     </chakra.div>
   );
 }
 
 type ActivitiesListProps = {
-  emptyElem?: ReactElement
+  emptyElem?: ReactElement;
 } & FlexProps;
 
-export function ActivitiesList({ emptyElem = null, ...props }: ActivitiesListProps) {
+export function ActivitiesList({
+  emptyElem = null,
+  ...props
+}: ActivitiesListProps) {
   const intl = useIntl();
 
   const {
@@ -74,8 +85,8 @@ export function ActivitiesList({ emptyElem = null, ...props }: ActivitiesListPro
       // }}
       {...props}
     >
-      {pages.map(page =>
-        page.activities.map(activity => (
+      {pages.map((page) =>
+        page.activities.map((activity) => (
           <ActivityItem
             key={activity.id}
             config={config}
@@ -87,11 +98,7 @@ export function ActivitiesList({ emptyElem = null, ...props }: ActivitiesListPro
         )))}
 
       {!isLoadingInitialData && !isReachingEnd ? (
-        <Button
-          onClick={nextPage}
-          isLoading={isLoadingMore}
-          m="auto"
-        >
+        <Button onClick={nextPage} isLoading={isLoadingMore} m="auto">
           {intl.formatMessage(messages.seeMore)}
         </Button>
       ) : null}

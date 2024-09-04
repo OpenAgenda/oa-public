@@ -28,9 +28,7 @@ function ProfileBar({ portalRef }) {
 
   // Authenticated
   if (user) {
-    return (
-      <ProfileMenu portalRef={portalRef} user={user} />
-    );
+    return <ProfileMenu portalRef={portalRef} user={user} />;
   }
 
   // Not authenticated
@@ -63,11 +61,7 @@ function ProfileBar({ portalRef }) {
 export default function Navbar() {
   const intl = useIntl();
 
-  const {
-    inputValue,
-    setInputValue,
-    onSearch,
-  } = useSearch();
+  const { inputValue, setInputValue, onSearch } = useSearch();
 
   const headerRef = useRef();
 
@@ -76,11 +70,24 @@ export default function Navbar() {
   const homeHref = hrefWithLang('/', sessionUser ? null : intl.locale);
 
   return (
-    <Flex ref={headerRef} as="header" direction="column" bg="white" boxShadow="sm">
+    <Flex
+      ref={headerRef}
+      as="header"
+      direction="column"
+      bg="white"
+      boxShadow="sm"
+    >
       <Container maxW="container.xl" px={0}>
         <Flex justify="space-between" h="50" align="stretch">
           <Flex gap="8">
-            <Flex as="a" href={homeHref} pr="4" pl={{ base: '0', md: '4' }} align="center" shrink="0">
+            <Flex
+              as="a"
+              href={homeHref}
+              pr="4"
+              pl={{ base: '0', md: '4' }}
+              align="center"
+              shrink="0"
+            >
               <Image
                 src={logoPic}
                 width="125"
@@ -94,11 +101,15 @@ export default function Navbar() {
                 display={{ base: 'block', md: 'none' }}
               />
             </Flex>
-            <Flex as="form" onSubmit={onSearch} display={{ base: 'none', lg: 'flex' }}>
+            <Flex
+              as="form"
+              onSubmit={onSearch}
+              display={{ base: 'none', lg: 'flex' }}
+            >
               <SearchInput
                 input={{
                   value: inputValue,
-                  onChange: e => setInputValue(e.target.value),
+                  onChange: (e) => setInputValue(e.target.value),
                 }}
               />
             </Flex>

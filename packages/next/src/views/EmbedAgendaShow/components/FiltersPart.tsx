@@ -91,7 +91,7 @@ export default function FiltersPart({
   const orderedFilters = useMemo(
     () =>
       filters
-        .filter(filter => filtersToInclude.includes(filter.name))
+        .filter((filter) => filtersToInclude.includes(filter.name))
         .sort((a, b) => {
           // Last
           if (a.name === 'geo') return 1;

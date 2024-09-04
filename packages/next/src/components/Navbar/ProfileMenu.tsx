@@ -31,26 +31,7 @@ export default function ProfileMenu({ user, portalRef }) {
   const collapseId = 'header-menu-collapse';
   const { getButtonProps, isOpen } = useDisclosure({ id: collapseId });
 
-  const {
-    inputValue,
-    setInputValue,
-    onSearch,
-  } = useSearch();
-
-  const button = user.image ? (
-    <Image
-      alt={intl.formatMessage(messages.profileMenu)}
-      src={process.env.NODE_ENV === 'development'
-        ? `${process.env.NEXT_PUBLIC_DEV_AWS_BUCKET}/${user.image}`
-        : `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`}
-      fallbackSrc={process.env.NODE_ENV === 'development'
-        ? `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
-        : undefined}
-      loader={thumborLoader}
-      width="30"
-      height="30"
-    />
-  ) : user.fullName;
+  const { inputValue, setInputValue, onSearch } = useSearch();
 
   return (
     <>
@@ -65,7 +46,25 @@ export default function ProfileMenu({ user, portalRef }) {
           py="0"
           alignSelf="stretch"
         >
-          {button}
+          {user.image ? (
+            <Image
+              alt={intl.formatMessage(messages.profileMenu)}
+              src={
+                process.env.NODE_ENV === 'development'
+                  ? `${process.env.NEXT_PUBLIC_DEV_AWS_BUCKET}/${user.image}`
+                  : `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
+              }
+              fallbackSrc={
+                process.env.NODE_ENV === 'development'
+                  ? `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
+                  : undefined
+              }
+              loader={thumborLoader}
+              width="30"
+              height="30"
+            />
+          )
+            : user.fullName}
         </MenuButton>
         <MenuList
           // https://github.com/chakra-ui/chakra-ui/issues/5742
@@ -105,7 +104,7 @@ export default function ProfileMenu({ user, portalRef }) {
                 h="50px"
                 input={{
                   value: inputValue,
-                  onChange: e => setInputValue(e.target.value),
+                  onChange: (e) => setInputValue(e.target.value),
                 }}
               />
             </form>

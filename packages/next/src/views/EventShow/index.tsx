@@ -107,7 +107,7 @@ function EventShow({ preload }: EventShowProps) {
 
   const [tabIndex, setTabIndex] = useState(() =>
     languages.indexOf(contentLocale));
-  const handleTabsChange = index => {
+  const handleTabsChange = (index) => {
     setTabIndex(index);
 
     const url = new URL(router.asPath, 'https://n');
@@ -245,7 +245,7 @@ function EventShow({ preload }: EventShowProps) {
                 colorScheme="primary"
               >
                 <TabList>
-                  {languages.map(language => (
+                  {languages.map((language) => (
                     <Tab key={language}>{language.toUpperCase()}</Tab>
                   ))}
                 </TabList>
@@ -434,7 +434,7 @@ function EventShow({ preload }: EventShowProps) {
                     </chakra.div>
                     <chakra.div>{event.location.address}</chakra.div>
                     <Wrap color="oaGray.500">
-                      {['department', 'region', 'country'].map(part => (
+                      {['department', 'region', 'country'].map((part) => (
                         <WrapItem key={part}>{event.location[part]}</WrapItem>
                       ))}
                     </Wrap>
@@ -452,7 +452,7 @@ function EventShow({ preload }: EventShowProps) {
                         {intl.formatMessage(messages.tags)}
                       </chakra.div>
                       {intl.formatList(
-                        event.location.tags.map(tag => tag.label),
+                        event.location.tags.map((tag) => tag.label),
                         { style: 'narrow' },
                       )}
                     </div>
@@ -544,7 +544,7 @@ function EventShow({ preload }: EventShowProps) {
                     <chakra.div>
                       {intl.formatMessage(messages.moreLinks)}
                       <List>
-                        {event.location.links?.map(link => (
+                        {event.location.links?.map((link) => (
                           <ListItem key={link}>
                             <Link
                               isExternal
@@ -661,7 +661,7 @@ EventShow.fetchLocale = (locale: string) =>
     fetchCommonLocale('roles', locale),
     import(
       `@openagenda/activity-apps/src/locales-compiled/${locale}.json`
-    ).then(mod => mod.default),
-  ]).then(results => Object.assign({}, ...results));
+    ).then((mod) => mod.default),
+  ]).then((results) => Object.assign({}, ...results));
 
 export default EventShow;

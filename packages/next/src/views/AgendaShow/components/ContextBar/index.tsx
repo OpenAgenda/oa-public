@@ -25,7 +25,11 @@ export default function ContextBar({ agenda }) {
         {isAdminMod(me.member) ? (
           <ModeratorContextBar agenda={agenda} states={events?.states ?? []} />
         ) : (
-          <ContributorContextBar agenda={agenda} drafts={drafts} states={me.events.states} />
+          <ContributorContextBar
+            agenda={agenda}
+            drafts={drafts}
+            states={me.events.states}
+          />
         )}
       </Flex>
     </Collapse>
