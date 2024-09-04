@@ -8579,7 +8579,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/date-utils@workspace:public/date-utils":
+"@openagenda/date-utils@npm:^0.0.1, @openagenda/date-utils@workspace:public/date-utils":
   version: 0.0.0-use.local
   resolution: "@openagenda/date-utils@workspace:public/date-utils"
   dependencies:
@@ -9558,6 +9558,7 @@ __metadata:
     "@openagenda/activity-apps": "npm:^1.2.1"
     "@openagenda/browserslist-config": "npm:^1.0.0"
     "@openagenda/common-labels": "npm:^1.2.4"
+    "@openagenda/date-utils": "npm:^0.0.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/mails": "npm:^4.0.1"
