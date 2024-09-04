@@ -71,6 +71,7 @@ module.exports = (data, options = {}) => {
 
   return produce(cleanedEvent, event => {
     Object.assign(event, {
+      removed: false,
       attendanceMode: event.attendanceMode || 1,
       onlineAccessLink: event.onlineAccessLink || null,
       featured: !!event.featured,

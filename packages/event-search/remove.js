@@ -14,14 +14,14 @@ module.exports = async function remove(config, set, identifiers, options = {}) {
   };
 
   const { client, defaultIndex } = config;
-
+  log('processing', identifiers, { soft });
   if (soft) {
     return update(
       config,
       set,
       identifiers,
       { uid: identifiers.uid, removed: true, updatedAt: new Date() },
-      { operation: 'index' },
+      { operation: 'index', refresh },
     );
   }
 
