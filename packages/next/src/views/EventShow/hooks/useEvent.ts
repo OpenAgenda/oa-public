@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import useSWRImmutable from 'swr/immutable';
+import { useAgenda } from '../contexts/agenda';
 
 type Timing = {
   begin: string;
@@ -90,10 +91,11 @@ export type Event = {
 
 export default function useEvent() {
   const router = useRouter();
-  const { agendaSlug, eventSlug } = router.query;
+  const agenda = useAgenda();
+  const { eventSlug } = router.query;
 
   const { data, ...rest } = useSWRImmutable<{ success: boolean; event: Event }>(
-    `/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`,
+    `/api/agendas/slug/${agenda.slug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`,
   );
 
   return { event: data.event, ...rest };

@@ -47,7 +47,7 @@ export default function FilterPreviewer({
   if (valueOptions?.length) {
     return (
       <>
-        {valueOptions.map(option => (
+        {valueOptions.map((option) => (
           <ValueTag
             key={option.value}
             label={option.label}
@@ -62,7 +62,14 @@ export default function FilterPreviewer({
 
   // single
   if (label) {
-    return <ValueTag label={label} onRemove={onRemove} disabled={disabled} title={withTitle ? title : null} />;
+    return (
+      <ValueTag
+        label={label}
+        onRemove={onRemove}
+        disabled={disabled}
+        title={withTitle ? title : null}
+      />
+    );
   }
 
   return null;

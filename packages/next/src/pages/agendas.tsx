@@ -7,7 +7,7 @@ import { NavbarSearchProvider } from 'contexts/NavbarSearchManager';
 import parseLocationQuery from 'utils/parseLocationQuery';
 
 type PageProps = AgendasSearchProps & {
-  intlMessages?: Record<string, string>
+  intlMessages?: Record<string, string>;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({
@@ -18,46 +18,47 @@ export const getServerSideProps: GetServerSideProps = async ({
   resolvedUrl,
 }) => {
   const query = parseLocationQuery(resolvedUrl) as {
-    search?: string
-    network?: string
-    locationSet?: string
-    after?: string[]
+    search?: string;
+    network?: string;
+    locationSet?: string;
+    after?: string[];
   };
 
-  const agendasUrl = `/api/agendas${qs.stringify({
-    ...query,
-    after: query.after?.map(String),
-    includeImagePath: 0,
-    useDefaultImage: 0,
-    fields: ['summary', 'network', 'locationSet'],
-  }, {
-    addQueryPrefix: true,
-  })}`;
+  const agendasUrl = `/api/agendas${qs.stringify(
+    {
+      ...query,
+      after: query.after?.map(String),
+      includeImagePath: 0,
+      useDefaultImage: 0,
+      fields: ['summary', 'network', 'locationSet'],
+    },
+    {
+      addQueryPrefix: true,
+    },
+  )}`;
 
   const intlMessages = await AgendasSearch.fetchLocale(locale);
 
   const props: PageProps = {
     intlMessages,
-    preload: [
-      agendasUrl,
-    ]
+    preload: [agendasUrl]
       .concat(query.network ? `/api/networks/${query.network}` : [])
-      .concat(query.locationSet ? `/api/locationSets/${query.locationSet}` : []),
+      .concat(
+        query.locationSet ? `/api/locationSets/${query.locationSet}` : [],
+      ),
   };
 
   return { props };
 };
 
-const AgendasPage: NextPageWithLayout<PageProps> = props => (
+const AgendasPage: NextPageWithLayout<PageProps> = (props) => (
   <AgendasSearch {...props} />
 );
 
 // eslint-disable-next-line react/display-name
 AgendasPage.Layout = ({ children }) => (
   <NavbarSearchProvider>
-    <Layout>
-      {children}
-    </Layout>
+    <Layout>{children}</Layout>
   </NavbarSearchProvider>
 );
 

@@ -25,7 +25,12 @@ export const Basic = {
           Open modal
         </Button>
 
-        <ExportModal isOpen={isOpen} onClose={onClose} agendaUid={1234} agendaTitle="Titre" />
+        <ExportModal
+          isOpen={isOpen}
+          onClose={onClose}
+          agendaUid={1234}
+          agendaTitle="Titre"
+        />
       </>
     );
   },
@@ -34,7 +39,8 @@ export const Basic = {
       handlers: [
         http.get('/users/me', () => HttpResponse.json(userFixtures)),
         http.get('/api/me', () => HttpResponse.json(me)),
-        http.get('/agendas/1234/settings/exports', () => HttpResponse.json(columns)),
+        http.get('/agendas/1234/settings/exports', () =>
+          HttpResponse.json(columns)),
       ],
     },
   },
@@ -50,7 +56,13 @@ export const OpenAccordion = {
           Open modal
         </Button>
 
-        <ExportModal isOpen={isOpen} onClose={onClose} agendaUid={1234} agendaTitle="Titre" defaultIndex={7} />
+        <ExportModal
+          isOpen={isOpen}
+          onClose={onClose}
+          agendaUid={1234}
+          agendaTitle="Titre"
+          defaultIndex={7}
+        />
       </>
     );
   },
@@ -59,7 +71,8 @@ export const OpenAccordion = {
       handlers: [
         http.get('/users/me', () => HttpResponse.json(userFixtures)),
         http.get('/api/me', () => HttpResponse.json(me)),
-        http.get('/agendas/1234/settings/exports', () => HttpResponse.json(columns)),
+        http.get('/agendas/1234/settings/exports', () =>
+          HttpResponse.json(columns)),
       ],
     },
   },

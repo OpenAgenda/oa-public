@@ -28,13 +28,13 @@ export const parameters = { layout: 'fullscreen' };
 
 export const decorators = [
   // Clean the cache at each story change
-  Story => (
+  (Story) => (
     <SWRConfig value={{ provider: () => new Map() }}>
       <Story />
     </SWRConfig>
   ),
   // Fix uikit theme
-  Story => {
+  (Story) => {
     useLayoutEffect(() => {
       const root = document.documentElement;
       root.dataset.theme = 'light';

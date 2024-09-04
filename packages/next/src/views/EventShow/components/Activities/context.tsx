@@ -7,7 +7,4 @@ const [ActivitiesProvider, useActivitiesContext] = createContext({
   providerName: 'ActivitiesProvider',
 });
 
-export {
-  ActivitiesProvider,
-  useActivitiesContext,
-};
+export { ActivitiesProvider, useActivitiesContext };

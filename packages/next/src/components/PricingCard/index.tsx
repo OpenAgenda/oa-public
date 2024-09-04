@@ -21,7 +21,16 @@ const visuals = {
   network: { svg: NetworkSVG, width: 80, height: 70 },
 };
 
-const UnicodeCheck = () => (<chakra.i role="presentation" marginEnd={2} fontWeight="bold" color="primary.500">✓</chakra.i>);
+const UnicodeCheck = () => (
+  <chakra.i
+    role="presentation"
+    marginEnd={2}
+    fontWeight="bold"
+    color="primary.500"
+  >
+    ✓
+  </chakra.i>
+);
 
 export default function PricingCard({
   name = null,
@@ -33,13 +42,7 @@ export default function PricingCard({
   ...props
 }) {
   return (
-    <Box
-      position="relative"
-      pb="6"
-      maxW="md"
-      width="100%"
-      {...props}
-    >
+    <Box position="relative" pb="6" maxW="md" width="100%" {...props}>
       <VStack spacing={6} bg="white" color="white" borderTopRadius="lg" pt="8">
         <Image
           alt=""
@@ -54,11 +57,27 @@ export default function PricingCard({
         ) : null}
         {HeadingComponent ? <HeadingComponent /> : null}
       </VStack>
-      <Flex align="flex-end" fontSize="xl" justify="center" pt="4" pb="2" bg="white" color="primary.400" fontWeight="bold">
+      <Flex
+        align="flex-end"
+        fontSize="xl"
+        justify="center"
+        pt="4"
+        pb="2"
+        bg="white"
+        color="primary.400"
+        fontWeight="bold"
+      >
         {cost}
       </Flex>
       {before ? (
-        <Flex bg="white" px="8" py="4" fontSize="xl" align="center" direction="column">
+        <Flex
+          bg="white"
+          px="8"
+          py="4"
+          fontSize="xl"
+          align="center"
+          direction="column"
+        >
           <Text pb="6">{before}</Text>
           <Text fontWeight="bold">avec en plus:</Text>
         </Flex>
@@ -71,8 +90,20 @@ export default function PricingCard({
           </ListItem>
         ))}
       </List>
-      <Flex align="stretch" fontSize="xl" justify="center" pt="4" pb="8" bg="white" color="primary.400" fontWeight="bold" borderBottomRadius="lg">
-        <Button colorScheme="primary" size="lg">Créer un agenda</Button>
+      <Flex
+        align="stretch"
+        fontSize="xl"
+        justify="center"
+        pt="4"
+        pb="8"
+        bg="white"
+        color="primary.400"
+        fontWeight="bold"
+        borderBottomRadius="lg"
+      >
+        <Button colorScheme="primary" size="lg">
+          Créer un agenda
+        </Button>
       </Flex>
     </Box>
   );

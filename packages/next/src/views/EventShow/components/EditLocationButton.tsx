@@ -6,7 +6,11 @@ import useEvent from '../hooks/useEvent';
 import { useAgenda } from '../contexts/agenda';
 import { editLocationButton as messages } from '../messages';
 
-export default function EditLocationButton({ canEditEvent }: { canEditEvent: boolean }) {
+export default function EditLocationButton({
+  canEditEvent,
+}: {
+  canEditEvent: boolean;
+}) {
   const intl = useIntl();
   const { status } = useMember();
   const { event } = useEvent();

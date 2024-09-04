@@ -2,7 +2,10 @@ import { useToken } from '@openagenda/uikit';
 import ContentLoader from 'react-content-loader';
 
 export default function ProfileLoader(props) {
-  const [oaGray100, oaGray200] = useToken('colors', ['oaGray.100', 'oaGray.200']);
+  const [oaGray100, oaGray200] = useToken('colors', [
+    'oaGray.100',
+    'oaGray.200',
+  ]);
 
   return (
     <ContentLoader

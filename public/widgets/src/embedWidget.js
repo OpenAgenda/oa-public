@@ -1,5 +1,20 @@
 import iframeResize from '@iframe-resizer/parent';
 
+function encodeForURLHash(url) {
+  const charsToEncode = ['#', '%'];
+
+  let encodedURL = '';
+  for (const char of url) {
+    if (charsToEncode.includes(char)) {
+      encodedURL += `%${char.charCodeAt(0).toString(16).toUpperCase()}`;
+    } else {
+      encodedURL += char;
+    }
+  }
+
+  return encodedURL;
+}
+
 export default class EmbedLoader {
   constructor() {
     this.loadedEmbeds = new Set();
@@ -15,7 +30,7 @@ export default class EmbedLoader {
       this.cleanupEmbeds();
     }
 
-    return this.loadEmbeds(element);
+    this.loadEmbeds(element);
   }
 
   cleanupEmbeds() {
@@ -42,6 +57,7 @@ export default class EmbedLoader {
             {
               license: '12ajjdewwwy-26rnhw2943-1s7g1u8ma0i',
               checkOrigin: false,
+              onMessage: this.onChildMessage,
             },
             iframe,
           );
@@ -72,12 +88,20 @@ export default class EmbedLoader {
       url.searchParams.set('filters', dataset.filters);
     }
 
+    const { hash } = window.location;
+    if (hash?.startsWith('#!')) {
+      const decodedSrc = decodeURIComponent(hash.substring(2));
+      const urlWithInitPath = new URL(decodedSrc, url);
+      urlWithInitPath.searchParams.set('initPath', url.pathname + url.search);
+      return urlWithInitPath.toString();
+    }
+
     return url.toString();
   }
 
   createIframe(embedUrl, href) {
     const iframe = document.createElement('iframe');
-    iframe.id = `oa-widget-${this.embedCounter}`;
+    iframe.id = `oa-embed-${this.embedCounter}`;
     this.embedCounter += 1;
     iframe.scrolling = 'no';
     iframe.frameBorder = '0';
@@ -93,5 +117,14 @@ export default class EmbedLoader {
     iframe.style.height = '500px';
 
     return iframe;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  onChildMessage({ message }) {
+    if (message.type === 'urlChange') {
+      const newUrl = message.url;
+      const encodedNewUrl = `#!${encodeForURLHash(newUrl)}`;
+      window.history.replaceState(null, null, encodedNewUrl);
+    }
   }
 }

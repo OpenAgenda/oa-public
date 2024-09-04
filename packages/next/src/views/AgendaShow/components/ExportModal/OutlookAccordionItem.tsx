@@ -1,5 +1,12 @@
 import { useIntl } from 'react-intl';
-import { Flex, H4, Input, Link, ListItem, OrderedList } from '@openagenda/uikit';
+import {
+  Flex,
+  H4,
+  Input,
+  Link,
+  ListItem,
+  OrderedList,
+} from '@openagenda/uikit';
 import AccordionItem from './AccordionItem';
 import messages from './messages';
 
@@ -9,13 +16,21 @@ export default function OutlookAccordionItem({ res }) {
   return (
     <AccordionItem title="Outlook">
       <Flex gap="4" direction="column">
-        <Input value={res.export.ics} readOnly onClick={e => (e.target as HTMLInputElement).select()} />
+        <Input
+          value={res.export.ics}
+          readOnly
+          onClick={(e) => (e.target as HTMLInputElement).select()}
+        />
         <H4>{intl.formatMessage(messages.instructions)}</H4>
         <OrderedList>
           <ListItem>
             {intl.formatMessage(messages.instructionsCopyLink, {
               link: (
-                <Link href="https://calendar.google.com" isExternal colorScheme="primary">
+                <Link
+                  href="https://calendar.google.com"
+                  isExternal
+                  colorScheme="primary"
+                >
                   Outlook
                 </Link>
               ),

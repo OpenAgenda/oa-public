@@ -36,13 +36,8 @@
     "contribution": {
       "type": 1,
       "defaultState": 0,
-      "canPublish": [
-        "administrators",
-        "moderators"
-      ],
-      "moderateOnChangeBy": [
-        "contributor"
-      ],
+      "canPublish": ["administrators", "moderators"],
+      "moderateOnChangeBy": ["contributor"],
       "defaultLang": null,
       "allowLocationCreate": true,
       "messages": {
@@ -388,13 +383,7 @@
         "allowURL": true,
         "allowPath": true,
         "imageWithSizeAndVariants": true,
-        "extensions": [
-          "jpg",
-          "bmp",
-          "png",
-          "jpeg",
-          "webp"
-        ],
+        "extensions": ["jpg", "bmp", "png", "jpeg", "webp"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -443,9 +432,7 @@
         "enableWith": "image",
         "optionalWith": null,
         "related": {
-          "enable": [
-            "image"
-          ],
+          "enable": ["image"],
           "optional": []
         },
         "selfHandled": [],
@@ -531,10 +518,7 @@
         "optional": false,
         "enableWith": {
           "field": "attendanceMode",
-          "value": [
-            2,
-            3
-          ]
+          "value": [2, 3]
         },
         "schemaId": null,
         "schemaType": "event",
@@ -1125,14 +1109,8 @@
               "field": "uid",
               "fieldType": "integer",
               "optional": false,
-              "read": [
-                "internal",
-                "public",
-                "list"
-              ],
-              "write": [
-                "internal"
-              ],
+              "read": ["internal", "public", "list"],
+              "write": ["internal"],
               "label": {
                 "en": "Id",
                 "fr": "Identifiant",
@@ -1148,13 +1126,8 @@
               "fieldType": "integer",
               "optional": true,
               "default": null,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ],
+              "read": ["internal", "public"],
+              "write": ["internal"],
               "schemaId": null,
               "schemaType": null
             },
@@ -1162,13 +1135,8 @@
               "field": "slug",
               "fieldType": "text",
               "optional": false,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ],
+              "read": ["internal", "public"],
+              "write": ["internal"],
               "max": 100,
               "schemaId": null,
               "schemaType": null
@@ -1649,10 +1617,7 @@
               "field": "timezone",
               "optional": true,
               "fieldType": "text",
-              "read": [
-                "internal",
-                "public"
-              ],
+              "read": ["internal", "public"],
               "write": [
                 "internal",
                 "administrator",
@@ -1666,13 +1631,8 @@
               "field": "updatedAt",
               "optional": false,
               "fieldType": "date",
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ],
+              "read": ["internal", "public"],
+              "write": ["internal"],
               "schemaId": null,
               "schemaType": null
             },
@@ -1680,13 +1640,8 @@
               "field": "createdAt",
               "optional": false,
               "fieldfieldType": "date",
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ],
+              "read": ["internal", "public"],
+              "write": ["internal"],
               "schemaId": null,
               "schemaType": null
             },
@@ -1903,10 +1858,7 @@
                 "contributor"
               ],
               "default": 0,
-              "options": [
-                0,
-                1
-              ],
+              "options": [0, 1],
               "schemaId": null,
               "schemaType": null
             },
@@ -1935,10 +1887,7 @@
               "field": "imageRightsAreHeld",
               "optional": true,
               "fieldType": "text",
-              "read": [
-                "internal",
-                "public"
-              ],
+              "read": ["internal", "public"],
               "write": [
                 "internal",
                 "administrator",
@@ -1953,10 +1902,7 @@
               "field": "extId",
               "optional": true,
               "fieldType": "text",
-              "read": [
-                "internal",
-                "public"
-              ],
+              "read": ["internal", "public"],
               "write": [
                 "internal",
                 "administrator",
@@ -1974,14 +1920,8 @@
               },
               "default": null,
               "optional": true,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal",
-                "contributor"
-              ],
+              "read": ["internal", "public"],
+              "write": ["internal", "contributor"],
               "schemaId": null,
               "schemaType": null
             },
@@ -1993,14 +1933,8 @@
               },
               "default": null,
               "optional": true,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal",
-                "contributor"
-              ],
+              "read": ["internal", "public"],
+              "write": ["internal", "contributor"],
               "schemaId": null,
               "schemaType": null
             },
@@ -2009,13 +1943,8 @@
               "fieldType": "integer",
               "optional": true,
               "default": null,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ],
+              "read": ["internal", "public"],
+              "write": ["internal"],
               "schemaId": null,
               "schemaType": null
             }
@@ -2091,10 +2020,7 @@
           "en": "Ce champ ne saffiche pas sur le formulaire des contributeurs. Il n’apparaitra pas sur le site internet, seulement dans les exports."
         },
         "write": null,
-        "display": [
-          "administrator",
-          "moderator"
-        ]
+        "display": ["administrator", "moderator"]
       },
       {
         "languages": [],
@@ -2385,16 +2311,8 @@
         "info": null,
         "sub": null,
         "placeholder": null,
-        "write": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
-        "read": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
+        "write": ["administrator", "moderator", "contributor"],
+        "read": ["administrator", "moderator", "contributor"],
         "optional": true,
         "display": true,
         "enable": true,
@@ -2436,16 +2354,8 @@
         "info": null,
         "sub": null,
         "placeholder": null,
-        "write": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
-        "read": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
+        "write": ["administrator", "moderator", "contributor"],
+        "read": ["administrator", "moderator", "contributor"],
         "optional": false,
         "display": true,
         "enable": true,
@@ -2453,9 +2363,7 @@
         "enableWith": "diffusion-sur-le-pass-culture",
         "optionalWith": null,
         "related": {
-          "enable": [
-            "diffusion-sur-le-pass-culture"
-          ],
+          "enable": ["diffusion-sur-le-pass-culture"],
           "optional": []
         },
         "selfHandled": [],
@@ -2480,16 +2388,8 @@
         },
         "sub": null,
         "placeholder": null,
-        "write": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
-        "read": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
+        "write": ["administrator", "moderator", "contributor"],
+        "read": ["administrator", "moderator", "contributor"],
         "optional": false,
         "display": true,
         "enable": true,
@@ -2497,9 +2397,7 @@
         "enableWith": "diffusion-sur-le-pass-culture",
         "optionalWith": null,
         "related": {
-          "enable": [
-            "diffusion-sur-le-pass-culture"
-          ],
+          "enable": ["diffusion-sur-le-pass-culture"],
           "optional": []
         },
         "selfHandled": [],
@@ -2524,15 +2422,8 @@
         },
         "sub": null,
         "placeholder": null,
-        "write": [
-          "administrator",
-          "moderator"
-        ],
-        "read": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
+        "write": ["administrator", "moderator"],
+        "read": ["administrator", "moderator", "contributor"],
         "optional": true,
         "display": true,
         "enable": true,
@@ -2540,9 +2431,7 @@
         "enableWith": "diffusion-sur-le-pass-culture",
         "optionalWith": null,
         "related": {
-          "enable": [
-            "diffusion-sur-le-pass-culture"
-          ],
+          "enable": ["diffusion-sur-le-pass-culture"],
           "optional": []
         },
         "selfHandled": [],
@@ -2631,9 +2520,7 @@
         "field": "uid",
         "fieldType": "integer",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -2641,9 +2528,7 @@
         "field": "slug",
         "fieldType": "text",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -2651,18 +2536,14 @@
         "field": "private",
         "fieldType": "boolean",
         "default": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "timezone",
         "fieldType": "text",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -2670,45 +2551,35 @@
         "field": "draft",
         "fieldType": "boolean",
         "default": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "createdAt",
         "fieldType": "date",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "creatorUid",
         "fieldType": "integer",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "ownerUid",
         "fieldType": "integer",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "updatedAt",
         "fieldType": "date",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -2716,18 +2587,14 @@
         "field": "agendaUid",
         "fieldType": "integer",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "fileKey",
         "fieldType": "text",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -2735,9 +2602,7 @@
         "field": "locationUid",
         "fieldType": "integer",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -2746,9 +2611,7 @@
         "fieldType": "integer",
         "list": true,
         "optional": true,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -2756,9 +2619,7 @@
         "field": "links",
         "fieldType": "pass",
         "optional": true,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       }

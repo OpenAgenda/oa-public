@@ -3,7 +3,7 @@ import Announcement from './Announcement';
 import FlashAlert from './FlashAlert';
 
 type LayoutProps = {
-  children: React.ReactNode
+  children: React.ReactNode;
 };
 
 export default function Layout({ children }: LayoutProps) {

@@ -1,8 +1,21 @@
 import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { useChoiceState, useFilterTitle, Field } from '@openagenda/react-filters';
+import {
+  useChoiceState,
+  useFilterTitle,
+  Field,
+} from '@openagenda/react-filters';
 import { getLocaleValue } from '@openagenda/intl';
-import { Checkbox, Box, Text, Input, Button, Popover, PopoverTrigger, PopoverContent } from '@openagenda/uikit';
+import {
+  Checkbox,
+  Box,
+  Text,
+  Input,
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@openagenda/uikit';
 import choiceFilterMessages from '@openagenda/react-filters/messages/choiceFilter';
 import { FaIcon } from 'icons';
 import { faTableCellsLarge } from 'icons/light';
@@ -27,10 +40,20 @@ function formatValue(value) {
 
 function ChoiceField({ input, getTotal, filter, option, disabled }) {
   const intl = useIntl();
-  const total = useMemo(() => getTotal?.(filter, option), [filter, getTotal, option]);
+  const total = useMemo(
+    () => getTotal?.(filter, option),
+    [filter, getTotal, option],
+  );
 
   return (
-    <Checkbox isChecked={input.checked} isDisabled={disabled} inputProps={input} w="full" px="3" py="1.5">
+    <Checkbox
+      isChecked={input.checked}
+      isDisabled={disabled}
+      inputProps={input}
+      w="full"
+      px="3"
+      py="1.5"
+    >
       {getLocaleValue(option.label, intl.locale) || <>&nbsp;</>}
       {Number.isInteger(total) && total !== 0 ? (
         <Box as="span" ml="2">
@@ -42,13 +65,31 @@ function ChoiceField({ input, getTotal, filter, option, disabled }) {
 }
 
 const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
-  { name, filter, getTotal, getOptions, disabled, inputType = 'checkbox', pageSize = 10, searchMinSize = 2 * pageSize },
+  {
+    name,
+    filter,
+    getTotal,
+    getOptions,
+    disabled,
+    inputType = 'checkbox',
+    pageSize = 10,
+    searchMinSize = 2 * pageSize,
+  },
   _ref,
 ) {
   const intl = useIntl();
   const title = useFilterTitle(name, filter.fieldSchema);
 
-  const { options, searchValue, onSearchChange, foundOptions, countOptions, hasMoreOptions, moreOptions, lessOptions } = useChoiceState({
+  const {
+    options,
+    searchValue,
+    onSearchChange,
+    foundOptions,
+    countOptions,
+    hasMoreOptions,
+    moreOptions,
+    lessOptions,
+  } = useChoiceState({
     filter,
     getOptions,
     pageSize,
@@ -85,7 +126,9 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
             w="inherit"
             value={searchValue}
             onChange={onSearchChange}
-            placeholder={intl.formatMessage(choiceFilterMessages.searchPlaceholder)}
+            placeholder={intl.formatMessage(
+              choiceFilterMessages.searchPlaceholder,
+            )}
           />
         ) : null}
 
@@ -114,13 +157,25 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
           ) : null))}
 
         {hasMoreOptions ? (
-          <Button variant="link" colorScheme="primary" p="2" alignSelf="center" onClick={moreOptions}>
+          <Button
+            variant="link"
+            colorScheme="primary"
+            p="2"
+            alignSelf="center"
+            onClick={moreOptions}
+          >
             {intl.formatMessage(choiceFilterMessages.moreOptions)}
           </Button>
         ) : null}
 
         {!hasMoreOptions && countOptions > pageSize ? (
-          <Button variant="link" colorScheme="primary" p="2" alignSelf="center" onClick={lessOptions}>
+          <Button
+            variant="link"
+            colorScheme="primary"
+            p="2"
+            alignSelf="center"
+            onClick={lessOptions}
+          >
             {intl.formatMessage(choiceFilterMessages.lessOptions)}
           </Button>
         ) : null}

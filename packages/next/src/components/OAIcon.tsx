@@ -1,4 +1,10 @@
-import { Icon, IconProps, SystemStyleObject, useToken, forwardRef } from '@openagenda/uikit';
+import {
+  Icon,
+  IconProps,
+  SystemStyleObject,
+  useToken,
+  forwardRef,
+} from '@openagenda/uikit';
 
 interface OAIconProps extends IconProps {
   withShadow?: boolean;
@@ -10,21 +16,20 @@ interface OAIconProps extends IconProps {
   tertiaryOpacity?: string | number;
 }
 
-const OAIcon = forwardRef<OAIconProps, 'svg'>(function OAIcon({
-  withShadow = false,
-  primaryColor,
-  secondaryColor,
-  tertiaryColor,
-  primaryOpacity = 1,
-  secondaryOpacity = 1,
-  tertiaryOpacity = 1,
-  ...props
-}: OAIconProps, ref) {
-  const [
-    primaryC,
-    secondaryC,
-    tertiaryC,
-  ] = useToken(
+const OAIcon = forwardRef<OAIconProps, 'svg'>(function OAIcon(
+  {
+    withShadow = false,
+    primaryColor,
+    secondaryColor,
+    tertiaryColor,
+    primaryOpacity = 1,
+    secondaryOpacity = 1,
+    tertiaryOpacity = 1,
+    ...props
+  }: OAIconProps,
+  ref,
+) {
+  const [primaryC, secondaryC, tertiaryC] = useToken(
     'colors',
     [primaryColor, secondaryColor, tertiaryColor],
     ['currentColor', 'currentColor', 'currentColor'],
@@ -37,7 +42,12 @@ const OAIcon = forwardRef<OAIconProps, 'svg'>(function OAIcon({
   const viewBoxHeight = withShadow ? 216.004 : 185.594;
 
   return (
-    <Icon ref={ref} viewBox={`0 0 146.278 ${viewBoxHeight}`} __css={styles} {...props}>
+    <Icon
+      ref={ref}
+      viewBox={`0 0 146.278 ${viewBoxHeight}`}
+      __css={styles}
+      {...props}
+    >
       <path
         fill={`var(--icon-secondary-color, ${secondaryC})`}
         opacity={`var(--icon-secondary-opacity, ${secondaryOpacity})`}

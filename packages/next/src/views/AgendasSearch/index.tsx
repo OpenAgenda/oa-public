@@ -17,22 +17,24 @@ import fetchLocale from './locales';
 const PAGE_SIZE = 20;
 
 export type AgendasSearchProps = {
-  preload?: string[]
+  preload?: string[];
 };
 
 function Head({ total, network, locationSet }) {
   const intl = useIntl();
   const query = useLocationQuery() as {
-    search?: string
-    network?: string
-    locationSet?: string
+    search?: string;
+    network?: string;
+    locationSet?: string;
   };
 
   if (query.search) {
     return (
       <>
         <H1 fontSize="4xl" mb="2">
-          {intl.formatMessage(messages.searchResultsHead, { search: query.search })}
+          {intl.formatMessage(messages.searchResultsHead, {
+            search: query.search,
+          })}
         </H1>
         <Text mb="8">
           {total >= 10000
@@ -44,14 +46,26 @@ function Head({ total, network, locationSet }) {
   }
 
   if (query.network && network) {
-    return <H1 fontSize="4xl" mb="8">{network.title}</H1>;
+    return (
+      <H1 fontSize="4xl" mb="8">
+        {network.title}
+      </H1>
+    );
   }
 
   if (query.locationSet && locationSet) {
-    return <H1 fontSize="4xl" mb="8">{locationSet.title}</H1>;
+    return (
+      <H1 fontSize="4xl" mb="8">
+        {locationSet.title}
+      </H1>
+    );
   }
 
-  return <H1 fontSize="4xl" mb="8">{intl.formatMessage(messages.latestUpdated)}</H1>;
+  return (
+    <H1 fontSize="4xl" mb="8">
+      {intl.formatMessage(messages.latestUpdated)}
+    </H1>
+  );
 }
 
 function AgendasSearch({ preload }: AgendasSearchProps) {
@@ -83,22 +97,32 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
       if (pageIndex === 0) return ['AgendasSearch', 'agendas', reqQuery, pageIndex, query.after];
 
       // add the cursor to the API endpoint
-      return ['AgendasSearch', 'agendas', reqQuery, pageIndex, previousPageData.after];
+      return [
+        'AgendasSearch',
+        'agendas',
+        reqQuery,
+        pageIndex,
+        previousPageData.after,
+      ];
     },
     ([_comp, _requestId, reqQuery, _pageIndex, after]) =>
-      fetch(`/api/agendas${qs.stringify({
-        ...reqQuery,
-        after: after?.map(String),
-        includeImagePath: 0,
-        useDefaultImage: 0,
-        fields: ['summary', 'network', 'locationSet'],
-      }, {
-        addQueryPrefix: true,
-      })}`)
-        .then(r => {
-          if (r.ok) return r.json();
-          throw new Error('Can\'t list agendas');
-        }),
+      fetch(
+        `/api/agendas${qs.stringify(
+          {
+            ...reqQuery,
+            after: after?.map(String),
+            includeImagePath: 0,
+            useDefaultImage: 0,
+            fields: ['summary', 'network', 'locationSet'],
+          },
+          {
+            addQueryPrefix: true,
+          },
+        )}`,
+      ).then((r) => {
+        if (r.ok) return r.json();
+        throw new Error("Can't list agendas");
+      }),
     {
       keepPreviousData: true,
       revalidateFirstPage: false,
@@ -109,12 +133,13 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.agendas?.length === 0;
   const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
 
   const { ref } = useInView({
-    onChange: inView => {
+    onChange: (inView) => {
       if (inView && !isReachingEnd && !isLoadingMore) {
         setSize(size + 1).catch(() => null);
       }
@@ -131,16 +156,17 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
     return url.pathname + url.search;
   }, [router.locale, router.asPath, query, pages]);
 
-  const nextPage = useCallback(e => {
-    e.preventDefault();
-    setSize(s => s + 1);
-  }, [setSize]);
+  const nextPage = useCallback(
+    (e) => {
+      e.preventDefault();
+      setSize((s) => s + 1);
+    },
+    [setSize],
+  );
 
   if (isLoadingInitialData) {
     // TODO loading
-    return (
-      <Metas preload={preload} />
-    );
+    return <Metas preload={preload} />;
   }
 
   return (
@@ -159,11 +185,10 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
         />
 
         <VStack align="stretch" spacing="8">
-          {pages.map(
-            page => page.agendas.map(agenda => (
+          {pages.map((page) =>
+            page.agendas.map((agenda) => (
               <AgendaItem key={agenda.uid} agenda={agenda} />
-            )),
-          )}
+            )))}
         </VStack>
 
         {!isLoadingInitialData && !isReachingEnd ? (
@@ -186,8 +211,8 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
   );
 }
 
-AgendasSearch.fetchLocale = (locale: string) => Promise.all([
-  fetchLocale(locale),
-]).then(results => Object.assign({}, ...results));
+AgendasSearch.fetchLocale = (locale: string) =>
+  Promise.all([fetchLocale(locale)]).then((results) =>
+    Object.assign({}, ...results));
 
 export default AgendasSearch;

@@ -1,15 +1,19 @@
 import { useRouter } from 'next/router';
 import { defineMessages, useIntl } from 'react-intl';
 import { Text, Button, Link } from '@openagenda/uikit';
-import { ErrorDisplay, ErrorContainer, JsonError } from 'components/ErrorDisplay';
+import {
+  ErrorDisplay,
+  ErrorContainer,
+  JsonError,
+} from 'components/ErrorDisplay';
 import fetchErrorLocale from 'components/ErrorDisplay/locales';
 import base64 from 'utils/base64';
 import fetchLocale from './locales';
 
 export type AgendaErrorProps = {
-  agendaSlug: string,
-  statusCode: number,
-  error?: JsonError
+  agendaSlug: string;
+  statusCode: number;
+  error?: JsonError;
 };
 
 const messages = defineMessages({
@@ -19,7 +23,8 @@ const messages = defineMessages({
   },
   unauthorizedMsg: {
     id: 'next.views.AgendaError.unauthorizedMsg',
-    defaultMessage: 'Access to this agenda is restricted,{br}authenticate yourself before you can access it.',
+    defaultMessage:
+      'Access to this agenda is restricted,{br}authenticate yourself before you can access it.',
   },
   signIn: {
     id: 'next.views.AgendaError.signIn',
@@ -27,11 +32,12 @@ const messages = defineMessages({
   },
   orSignUp: {
     id: 'next.views.AgendaError.orSignup',
-    defaultMessage: 'Or <link>sign up</link> if you don\'t have an account yet.',
+    defaultMessage: "Or <link>sign up</link> if you don't have an account yet.",
   },
   forbiddenMsg: {
     id: 'next.views.AgendaError.forbiddenMsg',
-    defaultMessage: 'You do not have access to this agenda.{br}Check the link provided to you or request access.',
+    defaultMessage:
+      'You do not have access to this agenda.{br}Check the link provided to you or request access.',
   },
   requestInvitation: {
     id: 'next.views.AgendaError.requestInvitation',
@@ -43,7 +49,8 @@ const messages = defineMessages({
   },
   notFoundMsg: {
     id: 'next.views.AgendaError.notFoundMsg',
-    defaultMessage: 'There is no calendar corresponding to this link.{br}Either the link is invalid or the calendar has been deleted.',
+    defaultMessage:
+      'There is no calendar corresponding to this link.{br}Either the link is invalid or the calendar has been deleted.',
   },
   searchAgenda: {
     id: 'next.views.AgendaError.searchAgenda',
@@ -51,7 +58,11 @@ const messages = defineMessages({
   },
 });
 
-export default function AgendaError({ agendaSlug, statusCode, error }: AgendaErrorProps) {
+export default function AgendaError({
+  agendaSlug,
+  statusCode,
+  error,
+}: AgendaErrorProps) {
   const router = useRouter();
   const intl = useIntl();
 
@@ -98,10 +109,13 @@ export default function AgendaError({ agendaSlug, statusCode, error }: AgendaErr
         <Text fontSize="2xl" fontWeight="bold" mb="4">
           {intl.formatMessage(messages.restrictedAccess)}
         </Text>
-        <Text>
-          {intl.formatMessage(messages.forbiddenMsg, { br: <br /> })}
-        </Text>
-        <Button as={Link} href={`/${agendaSlug}/contact`} colorScheme="primary" mt="8">
+        <Text>{intl.formatMessage(messages.forbiddenMsg, { br: <br /> })}</Text>
+        <Button
+          as={Link}
+          href={`/${agendaSlug}/contact`}
+          colorScheme="primary"
+          mt="8"
+        >
           {intl.formatMessage(messages.requestInvitation)}
         </Button>
       </ErrorContainer>
@@ -126,12 +140,9 @@ export default function AgendaError({ agendaSlug, statusCode, error }: AgendaErr
   }
 
   // 500
-  return (
-    <ErrorDisplay error={error} />
-  );
+  return <ErrorDisplay error={error} />;
 }
 
-AgendaError.fetchLocale = (locale: string) => Promise.all([
-  fetchLocale(locale),
-  fetchErrorLocale(locale),
-]).then(results => Object.assign({}, ...results));
+AgendaError.fetchLocale = (locale: string) =>
+  Promise.all([fetchLocale(locale), fetchErrorLocale(locale)]).then((results) =>
+    Object.assign({}, ...results));

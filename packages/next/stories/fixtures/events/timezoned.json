@@ -30,9 +30,7 @@
     "fr": "Jardin N'Gouba : Visite-découverte de la forêt et du jardin. Marqué : \"Esprit Parc\""
   },
   "types-devenement": 9,
-  "theme": [
-    11
-  ],
+  "theme": [11],
   "image": {
     "filename": "4ae3cd18a57145d0b2ba594ecde3ca7a.base.image.jpg",
     "size": {
@@ -72,12 +70,7 @@
       "fr": "Le long du chemin de l' Habituée négresse",
       "es": "A lo largo del camino de la Habitual negra"
     },
-    "types-de-lieu": [
-      28,
-      29,
-      27,
-      30
-    ],
+    "types-de-lieu": [28, 29, 27, 30],
     "city": "Bouillante",
     "timezone": "America/Guadeloupe",
     "postalCode": "97125",
@@ -85,9 +78,7 @@
     "imageCredits": "YVES",
     "description": {},
     "setUid": null,
-    "specificite": [
-      33
-    ],
+    "specificite": [33],
     "uid": 22620071,
     "createdAt": "2024-03-16T01:06:07.000Z",
     "duplicateCandidates": null,
@@ -151,16 +142,8 @@
   "longDescription": {
     "fr": "<p>La forêt et le jardin N'Gouba est marqué \"esprit parc\" du Parc National de la Guadeloupe. Il vous sera proposé de faire:</p>\n<p></p>\n<ul>\n<li>Une visite autonome avec guide de la forêt puis du jardin et dégustation des fruits de saison</li>\n<li>Une visite de l'atelier de fabrication de la poudre de cacao</li>\n</ul>\n"
   },
-  "conditions-de-participation": [
-    14,
-    15
-  ],
-  "type-de-public": [
-    55,
-    56,
-    57,
-    58
-  ],
+  "conditions-de-participation": [14, 15],
+  "type-de-public": [55, 56, 57, 58],
   "conditions": {
     "fr": "Enfant de 6 à 13 ans : 5 euros - Adulte : 10 euros-  groupe de 10 personnes 8 euros par personne ;Horaire : 8h 16 h"
   },

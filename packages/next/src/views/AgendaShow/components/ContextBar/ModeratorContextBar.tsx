@@ -1,7 +1,14 @@
 import { Fragment } from 'react';
 import qs from 'qs';
 import { useIntl } from 'react-intl';
-import { chakra, Button, IconButton, Spacer, Link, Tooltip } from '@openagenda/uikit';
+import {
+  chakra,
+  Button,
+  IconButton,
+  Spacer,
+  Link,
+  Tooltip,
+} from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGears } from '@fortawesome/pro-solid-svg-icons';
 import StateTag from 'components/StateTag';
@@ -21,36 +28,51 @@ export default function ModeratorContextBar({ agenda, states }) {
 
   return (
     <>
-      {!states.length ? intl.formatMessage(messages.empty) : (
-        <>
-          <chakra.span display={{ base: 'none', md: 'inline-flex' }}>
-            {intl.formatMessage(messages.events)}&nbsp;
-          </chakra.span>
-          {states.map(({ key, eventCount }, index, arr) => (
-            <Fragment key={key}>
-              <Link
-                href={`/${agenda.slug}/admin/events?${qs.stringify({ 'q.state': [key] })}`}
-                fontWeight="bold"
-              >
-                <Tooltip
-                  hasArrow
-                  label={intl.formatMessage(messages[stateToSlug[key]], { count: eventCount })}
+      {!states.length
+        ? intl.formatMessage(messages.empty)
+        : (
+          <>
+            <chakra.span display={{ base: 'none', md: 'inline-flex' }}>
+              {intl.formatMessage(messages.events)}&nbsp;
+            </chakra.span>
+            {states.map(({ key, eventCount }, index, arr) => (
+              <Fragment key={key}>
+                <Link
+                  href={`/${agenda.slug}/admin/events?${qs.stringify({ 'q.state': [key] })}`}
+                  fontWeight="bold"
                 >
-                  <chakra.span display={{ base: 'inline-flex', md: 'none' }} verticalAlign="middle" alignItems="center">
-                    <StateTag state={key} />
+                  <Tooltip
+                    hasArrow
+                    label={intl.formatMessage(messages[stateToSlug[key]], {
+                      count: eventCount,
+                    })}
+                  >
+                    <chakra.span
+                      display={{ base: 'inline-flex', md: 'none' }}
+                      verticalAlign="middle"
+                      alignItems="center"
+                    >
+                      <StateTag state={key} />
                     &nbsp;{intl.formatNumber(eventCount)}
+                    </chakra.span>
+                  </Tooltip>
+                  <chakra.span
+                    display={{ base: 'none', md: 'inline-flex' }}
+                    verticalAlign="middle"
+                    alignItems="center"
+                  >
+                    <StateTag state={key} />
+                  &nbsp;
+                    {intl.formatMessage(messages[stateToSlug[key]], {
+                      count: eventCount,
+                    })}
                   </chakra.span>
-                </Tooltip>
-                <chakra.span display={{ base: 'none', md: 'inline-flex' }} verticalAlign="middle" alignItems="center">
-                  <StateTag state={key} />
-                  &nbsp;{intl.formatMessage(messages[stateToSlug[key]], { count: eventCount })}
-                </chakra.span>
-              </Link>
-              {index < arr.length - 1 ? wordSeparator : null}
-            </Fragment>
-          ))}
-        </>
-      )}
+                </Link>
+                {index < arr.length - 1 ? wordSeparator : null}
+              </Fragment>
+            ))}
+          </>
+        )}
       <Spacer />
       <Button
         as={Link}
@@ -67,9 +89,7 @@ export default function ModeratorContextBar({ agenda, states }) {
           textDecoration: 'none',
         }}
       >
-        <chakra.span>
-          {intl.formatMessage(messages.manage)}
-        </chakra.span>
+        <chakra.span>{intl.formatMessage(messages.manage)}</chakra.span>
       </Button>
       <IconButton
         as={Link}

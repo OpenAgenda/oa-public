@@ -45,11 +45,7 @@ export default function AggregateModal({
 
     url.searchParams.delete('displayAggregatorModal');
 
-    router.replace(
-      url.pathname + url.search,
-      null,
-      { shallow: true },
-    );
+    router.replace(url.pathname + url.search, null, { shallow: true });
     originalOnClose();
   }, [originalOnClose, router]);
 

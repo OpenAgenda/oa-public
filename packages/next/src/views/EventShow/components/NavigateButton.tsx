@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ky from 'ky';
 import qs from 'qs';
@@ -13,56 +13,71 @@ import useEvent from '../hooks/useEvent';
 import { useAgenda } from '../contexts/agenda';
 import { navigationButton as messages } from '../messages';
 
-type NavigateButtonProps = {
+export type NavigateButtonProps = {
   direction: 'previous' | 'next';
 };
 
-export default function NavigateButton({ direction }: NavigateButtonProps) {
-  const intl = useIntl();
+export function useGoToSiblingEvent({
+  direction,
+  agenda,
+  eventNc,
+  setNc,
+  query,
+  urlPrefix = `/${agenda.slug}`,
+}) {
   const router = useRouter();
-  const query = useLocationQuery() as any;
-  const agenda = useAgenda();
-  const { event } = useEvent();
 
-  const [nc, setNc] = useSessionStorageState('EventShow:nc');
-  const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
-
-  const goToSiblingEvent = async () => {
-    const response = await ky(`/${agenda.slug}/navigate?${qs.stringify({
-      nav: direction === 'previous' ? 'prev' : 'next',
-      nc: {
-        state: eventNc.fromAdmin ? [-1, 0, 1, 2] : undefined,
-        sort: eventNc.fromAdmin ? 'updatedAt.desc' : undefined,
-        ...eventNc,
-        fromAdmin: undefined,
-      },
-    })}`).json<any>();
+  return useCallback(async () => {
+    const response = await ky(
+      `/${agenda.slug}/navigate?${qs.stringify({
+        nav: direction === 'previous' ? 'prev' : 'next',
+        nc: {
+          state: eventNc.fromAdmin ? [-1, 0, 1, 2] : undefined,
+          sort: eventNc.fromAdmin ? 'updatedAt.desc' : undefined,
+          ...eventNc,
+          fromAdmin: undefined,
+          first: undefined,
+          last: undefined,
+        },
+      })}`,
+    ).json<any>();
     if (!response.event) return;
 
     // speed up context bar display
-    preload(`/api/me/agendas/${agenda.uid}/events/${response.event.uid}`, input => ky(input).json())
-      .catch(() => null);
+    preload(
+      `/api/me/agendas/${agenda.uid}/events/${response.event.uid}`,
+      (input) => ky(input).json(),
+    ).catch(() => null);
 
-    router.push(`/${agenda.slug}/events/${response.event.slug}${qs.stringify(query, { addQueryPrefix: true })}`)
+    router
+      .push(
+        `${urlPrefix}/events/${response.event.slug}${qs.stringify(query, { addQueryPrefix: true })}`,
+      )
       .then(() => {
         setNc({
           [`${agenda.uid}.${response.event.uid}`]: {
             ...eventNc,
-            from: direction === 'previous' ? eventNc.from - 1 : eventNc.from + 1,
+            from:
+              direction === 'previous' ? eventNc.from - 1 : eventNc.from + 1,
             first: response.isFirst ? 'true' : undefined,
             last: response.isLast ? 'true' : undefined,
           },
         });
       });
-  };
+  }, [agenda.slug, agenda.uid, direction, eventNc, query, router, setNc]);
+}
 
+export function useNavigateKeyboardShortcut({ direction, goToSiblingEvent }) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         e.preventDefault();
 
         const isPrevious = e.key === 'ArrowLeft';
-        if ((isPrevious && direction === 'previous') || (!isPrevious && direction === 'next')) {
+        if (
+          (isPrevious && direction === 'previous')
+          || (!isPrevious && direction === 'next')
+        ) {
           goToSiblingEvent().catch(() => null);
         }
       }
@@ -73,6 +88,26 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [direction, goToSiblingEvent]);
+}
+
+export default function NavigateButton({ direction }: NavigateButtonProps) {
+  const intl = useIntl();
+  const query = useLocationQuery() as any;
+  const agenda = useAgenda();
+  const { event } = useEvent();
+
+  const [nc, setNc] = useSessionStorageState('EventShow:nc');
+  const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
+
+  const goToSiblingEvent = useGoToSiblingEvent({
+    direction,
+    agenda,
+    eventNc,
+    setNc,
+    query,
+  });
+
+  useNavigateKeyboardShortcut({ direction, goToSiblingEvent });
 
   if (!eventNc) {
     return null;
@@ -85,8 +120,16 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
     <IconButton
       isRound
       variant="unstyled"
-      aria-label={intl.formatMessage(direction === 'previous' ? messages.previousEvent : messages.nextEvent)}
-      icon={<FaIcon icon={direction === 'previous' ? faChevronLeft : faChevronRight} width="1em" size="2xl" />}
+      aria-label={intl.formatMessage(
+        direction === 'previous' ? messages.previousEvent : messages.nextEvent,
+      )}
+      icon={(
+        <FaIcon
+          icon={direction === 'previous' ? faChevronLeft : faChevronRight}
+          width="1em"
+          size="2xl"
+        />
+      )}
       h="auto"
       _hover={{
         color: 'primary.500',

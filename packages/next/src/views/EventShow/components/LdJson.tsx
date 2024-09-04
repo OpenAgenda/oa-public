@@ -12,11 +12,18 @@ export default function LdJson() {
   const agenda = useAgenda();
   const { event } = useEvent();
 
-  const eventLdJSON = useMemo(() => stringify(toEventSchema(event, {
-    locale: intl.locale,
-    formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
-    url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`,
-  })), [agenda.slug, intl.locale, event]);
+  const eventLdJSON = useMemo(
+    () =>
+      stringify(
+        toEventSchema(event, {
+          locale: intl.locale,
+          formatDate: (date, tz = 'Europe/Paris') =>
+            formatInTimeZone(date, tz, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+          url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`,
+        }),
+      ),
+    [agenda.slug, intl.locale, event],
+  );
 
   return (
     <script

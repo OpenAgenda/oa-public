@@ -5,11 +5,16 @@ import { SWRConfig } from 'swr';
 import { createIntl, createIntlCache } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
 import { theme as defaultTheme, extendTheme } from '@openagenda/uikit';
-import { filtersToAggregations, getAdditionalFilters, getFilters } from '@openagenda/react-filters';
+import {
+  filtersToAggregations,
+  getAdditionalFilters,
+  getFilters,
+} from '@openagenda/react-filters';
 import { NextPageWithLayout } from 'pages/_app';
 import EmbedAgendaShow, { EmbedAgendaShowProps } from 'views/EmbedAgendaShow';
 import includeFields from 'views/AgendaShow/includeFields';
 import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
+import EmbedLayout from 'components/EmbedLayout';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import getDateFnsLocale from 'utils/getDateFnsLocale';
 import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
@@ -121,12 +126,14 @@ export const getServerSideProps: GetServerSideProps = async ({
       intlCache,
     );
 
-    const additionalFilters = getAdditionalFilters(agenda.schema.fields).map(({ fieldSchema }) => fieldSchema.field);
+    const additionalFilters = getAdditionalFilters(agenda.schema.fields).map(
+      ({ fieldSchema }) => fieldSchema.field,
+    );
 
     const requiredFilters = (query.filters as string)?.split(',') ?? [];
 
     const filtersToInclude = ['search', 'geo', 'timings', ...additionalFilters]
-      .filter(filter => requiredFilters.includes(filter))
+      .filter((filter) => requiredFilters.includes(filter))
       .sort((a, b) => {
         // Last
         if (a === 'geo') return 1;
@@ -183,8 +190,6 @@ export const getServerSideProps: GetServerSideProps = async ({
         `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params)}`,
       ],
       referrer,
-      filtersToInclude,
-      prefilter: query,
     };
 
     return { props };
@@ -197,7 +202,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 };
 
-const EmbedAgendaPage: NextPageWithLayout<PageProps> = props => {
+const EmbedAgendaPage: NextPageWithLayout<PageProps> = (props) => {
   const { fallback = {} } = props;
 
   return (
@@ -208,6 +213,8 @@ const EmbedAgendaPage: NextPageWithLayout<PageProps> = props => {
     </DateFnsLocaleProvider>
   );
 };
+
+EmbedAgendaPage.Layout = EmbedLayout;
 
 EmbedAgendaPage.theme = theme;
 

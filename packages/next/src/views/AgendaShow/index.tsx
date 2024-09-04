@@ -69,7 +69,7 @@ export type AgendaShowProps = {
   preload?: string[];
 };
 
-const stripLangPrefix = pathname => pathname.replace(/^\/[a-z][a-z]\//, '/');
+const stripLangPrefix = (pathname) => pathname.replace(/^\/[a-z][a-z]\//, '/');
 const isDifferentPathname = (pathname1, pathname2) =>
   stripLangPrefix(pathname1) !== stripLangPrefix(pathname2);
 
@@ -152,7 +152,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   useEffect(() => {
     if (pages?.length > 0 && previousPages !== pages) {
       // Update map markers
-      const mapFilter = filters.find(v => v.name === 'geo');
+      const mapFilter = filters.find((v) => v.name === 'geo');
       const mapElem = mapFilter?.elemRef.current;
 
       if (mapElem) {
@@ -258,9 +258,9 @@ AgendaShow.fetchLocale = (locale: string) =>
     fetchCommonLocale('event/attendanceModes', locale),
     fetchCommonLocale('event/statuses', locale),
     import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(
-      mod => mod.default,
+      (mod) => mod.default,
     ),
-  ]).then(results => Object.assign({}, ...results));
+  ]).then((results) => Object.assign({}, ...results));
 
 AgendaShow.includeFields = includeFields;
 

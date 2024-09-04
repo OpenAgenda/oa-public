@@ -1,12 +1,12 @@
 export default function getPrefilteredQuery({ prefilter, query, filters }) {
   return Object.entries(query).reduce(
     (result, [key, value]: [string, any]) => {
-      const filter = filters.find(v => v.name === key);
+      const filter = filters.find((v) => v.name === key);
 
       switch (filter?.type) {
         case 'choice': {
           if (prefilter[key]) {
-            result[key] = value.filter(v => prefilter[key].includes(v));
+            result[key] = value.filter((v) => prefilter[key].includes(v));
           } else {
             result[key] = value;
           }
@@ -15,8 +15,12 @@ export default function getPrefilteredQuery({ prefilter, query, filters }) {
         case 'dateRange': {
           const queryGte = value.gte ? new Date(value.gte).getTime() : null;
           const queryLte = value.lte ? new Date(value.lte).getTime() : null;
-          const prefilterGte = prefilter[key]?.gte ? new Date(prefilter[key].gte).getTime() : null;
-          const prefilterLte = prefilter[key]?.lte ? new Date(prefilter[key].lte).getTime() : null;
+          const prefilterGte = prefilter[key]?.gte
+            ? new Date(prefilter[key].gte).getTime()
+            : null;
+          const prefilterLte = prefilter[key]?.lte
+            ? new Date(prefilter[key].lte).getTime()
+            : null;
           const tz = prefilter[key]?.tz ?? query.tz ?? null;
 
           const resultValue: { gte?: string; lte?: string; tz?: 'string' } = {};

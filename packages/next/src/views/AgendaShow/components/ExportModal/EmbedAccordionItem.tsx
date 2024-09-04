@@ -6,7 +6,11 @@ import AccordionItem from './AccordionItem';
 import messages from './messages';
 
 function escapeHTML(text: string) {
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 const SCRIPT_URL = 'https://cdn.openagenda.com/js/widgets.js';
@@ -36,7 +40,12 @@ export default function EmbedAccordionItem({ res, agendaTitle }) {
   return (
     <AccordionItem title={intl.formatMessage(messages.embed)}>
       <Flex gap="4" direction="column">
-        <Textarea value={embedCode} readOnly rows={5} onClick={e => (e.target as HTMLInputElement).select()} />
+        <Textarea
+          value={embedCode}
+          readOnly
+          rows={5}
+          onClick={(e) => (e.target as HTMLInputElement).select()}
+        />
         <Tooltip
           label={intl.formatMessage(messages.copied)}
           hasArrow
@@ -49,7 +58,7 @@ export default function EmbedAccordionItem({ res, agendaTitle }) {
             type="submit"
             colorScheme="primary"
             alignSelf="center"
-            onClick={async e => {
+            onClick={async (e) => {
               e.preventDefault();
               const success = await copyText(embedCode);
               if (success) setCopied(true);
