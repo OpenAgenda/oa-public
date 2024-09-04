@@ -83,29 +83,29 @@ export const getServerSideProps: GetServerSideProps = async ({
             ...DEFAULT_DIRECTIVES,
             connectSrc: [
               ...DEFAULT_DIRECTIVES.connectSrc,
-              ...(matomoDomain ? [`https://${matomoDomain}`] : []),
-              ...(googleAnalytics
+              ...matomoDomain ? [`https://${matomoDomain}`] : [],
+              ...googleAnalytics
                 ? [
-                    'https://*.google-analytics.com',
-                    'https://*.analytics.google.com',
-                    'https://*.googletagmanager.com',
-                    'https://*.g.doubleclick.net',
-                    'https://*.google.com',
-                  ]
-                : []),
+                  'https://*.google-analytics.com',
+                  'https://*.analytics.google.com',
+                  'https://*.googletagmanager.com',
+                  'https://*.g.doubleclick.net',
+                  'https://*.google.com',
+                ]
+                : [],
             ],
             imgSrc: [
               ...DEFAULT_DIRECTIVES.imgSrc,
-              ...(matomoDomain ? [`https://${matomoDomain}`] : []),
-              ...(googleAnalytics
+              ...matomoDomain ? [`https://${matomoDomain}`] : [],
+              ...googleAnalytics
                 ? [
-                    'https://*.google-analytics.com',
-                    'https://*.analytics.google.com',
-                    'https://*.googletagmanager.com',
-                    'https://*.g.doubleclick.net',
-                    'https://*.google.com',
-                  ]
-                : []),
+                  'https://*.google-analytics.com',
+                  'https://*.analytics.google.com',
+                  'https://*.googletagmanager.com',
+                  'https://*.g.doubleclick.net',
+                  'https://*.google.com',
+                ]
+                : [],
             ],
           },
         }),
@@ -133,7 +133,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     const requiredFilters = (query.filters as string)?.split(',') ?? [];
 
     const filtersToInclude = ['search', 'geo', 'timings', ...additionalFilters]
-      .filter((filter) => requiredFilters.includes(filter))
+      .filter(filter => requiredFilters.includes(filter))
       .sort((a, b) => {
         // Last
         if (a === 'geo') return 1;
@@ -150,12 +150,11 @@ export const getServerSideProps: GetServerSideProps = async ({
       include: filtersToInclude,
     });
 
-    const prefilter =
-      !query.timings && query.passed !== '1'
-        ? {
-            relative: ['current', 'upcoming'],
-          }
-        : null;
+    const prefilter = !query.timings && query.passed !== '1'
+      ? {
+        relative: ['current', 'upcoming'],
+      }
+      : null;
 
     const paramsBase = {
       aggsSizeLimit: 1500,
@@ -203,7 +202,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 };
 
-const EmbedAgendaPage: NextPageWithLayout<PageProps> = (props) => {
+const EmbedAgendaPage: NextPageWithLayout<PageProps> = props => {
   const { fallback = {} } = props;
 
   return (

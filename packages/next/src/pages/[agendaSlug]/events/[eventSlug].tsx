@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async ({
             Cookie: req.headers.cookie,
           },
         },
-      ).then((r) => {
+      ).then(r => {
         if (r.ok) return r.json();
         throw new VError[r.status](r.statusText);
       }),
@@ -63,7 +63,7 @@ export const getServerSideProps: GetServerSideProps = async ({
           Authorization: req.headers.authorization,
           Cookie: req.headers.cookie,
         },
-      }).then((r) => {
+      }).then(r => {
         if (r.ok) return r.json();
         throw new VError[r.status](r.statusText);
       }),
@@ -94,29 +94,29 @@ export const getServerSideProps: GetServerSideProps = async ({
             ...DEFAULT_DIRECTIVES,
             connectSrc: [
               ...DEFAULT_DIRECTIVES.connectSrc,
-              ...(matomoDomain ? [`https://${matomoDomain}`] : []),
-              ...(googleAnalytics
+              ...matomoDomain ? [`https://${matomoDomain}`] : [],
+              ...googleAnalytics
                 ? [
-                    'https://*.google-analytics.com',
-                    'https://*.analytics.google.com',
-                    'https://*.googletagmanager.com',
-                    'https://*.g.doubleclick.net',
-                    'https://*.google.com',
-                  ]
-                : []),
+                  'https://*.google-analytics.com',
+                  'https://*.analytics.google.com',
+                  'https://*.googletagmanager.com',
+                  'https://*.g.doubleclick.net',
+                  'https://*.google.com',
+                ]
+                : [],
             ],
             imgSrc: [
               ...DEFAULT_DIRECTIVES.imgSrc,
-              ...(matomoDomain ? [`https://${matomoDomain}`] : []),
-              ...(googleAnalytics
+              ...matomoDomain ? [`https://${matomoDomain}`] : [],
+              ...googleAnalytics
                 ? [
-                    'https://*.google-analytics.com',
-                    'https://*.analytics.google.com',
-                    'https://*.googletagmanager.com',
-                    'https://*.g.doubleclick.net',
-                    'https://*.google.com',
-                  ]
-                : []),
+                  'https://*.google-analytics.com',
+                  'https://*.analytics.google.com',
+                  'https://*.googletagmanager.com',
+                  'https://*.g.doubleclick.net',
+                  'https://*.google.com',
+                ]
+                : [],
             ],
           },
         }),
@@ -215,7 +215,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 //   fallback: 'blocking',
 // });
 
-const EventPage: NextPageWithLayout<PageProps> = (props) => {
+const EventPage: NextPageWithLayout<PageProps> = props => {
   const { fallback = {}, agenda } = props;
 
   if ('statusCode' in props) {

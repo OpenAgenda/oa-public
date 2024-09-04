@@ -7,5 +7,5 @@ const internalUrlPatterns = [
 ];
 
 export default function isNextUrl(url: string): boolean {
-  return internalUrlPatterns.some((pattern) => pattern.test(url));
+  return internalUrlPatterns.some(pattern => pattern.test(url));
 }

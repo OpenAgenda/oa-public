@@ -76,11 +76,11 @@ export default function FiltersPart({
     null, // apiClient
     `/api/agendas/slug/${agenda.slug}/events`,
     {
-      ...(upcomingOnly
+      ...upcomingOnly
         ? {
-            relative: ['current', 'upcoming'],
-          }
-        : null),
+          relative: ['current', 'upcoming'],
+        }
+        : null,
       ...getPrefilteredQuery({ prefilter, query, filters }),
       passed: undefined, // omit passed
     },
@@ -91,7 +91,7 @@ export default function FiltersPart({
   const orderedFilters = useMemo(
     () =>
       filters
-        .filter((filter) => filtersToInclude.includes(filter.name))
+        .filter(filter => filtersToInclude.includes(filter.name))
         .sort((a, b) => {
           // Last
           if (a.name === 'geo') return 1;

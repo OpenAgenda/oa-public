@@ -41,12 +41,10 @@ export default function EventsPart({
   });
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore =
-    isLoadingInitialData ||
-    (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
-  const isReachingEnd =
-    isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
+  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
 
   const seeMoreUrl = useMemo(() => {
     const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
@@ -59,9 +57,9 @@ export default function EventsPart({
   }, [router.locale, router.asPath, query, pages]);
 
   const nextPage = useCallback(
-    (e) => {
+    e => {
       e.preventDefault();
-      setSize((s) => s + 1);
+      setSize(s => s + 1);
     },
     [setSize],
   );
@@ -91,8 +89,7 @@ export default function EventsPart({
               first={pageIndex === 0 && eventIndex === 0}
               last={pageIndex * PAGE_SIZE + eventIndex === page.total - 1}
             />
-          )),
-        )}
+          )))}
       </SimpleGrid>
 
       {!isLoadingInitialData && !isReachingEnd ? (

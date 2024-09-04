@@ -30,14 +30,12 @@ export default function useClientAnalytics(
     'MatomoCookieConsent',
   );
 
-  const gaConsent =
-    consentSource === 'cookies'
-      ? cookies.GaCookieConsent
-      : gaLocalStorageConsent;
-  const matomoConsent =
-    consentSource === 'cookies'
-      ? cookies.MatomoCookieConsent
-      : matomoLocalStorageConsent;
+  const gaConsent = consentSource === 'cookies'
+    ? cookies.GaCookieConsent
+    : gaLocalStorageConsent;
+  const matomoConsent = consentSource === 'cookies'
+    ? cookies.MatomoCookieConsent
+    : matomoLocalStorageConsent;
 
   const storageAvailable = isLocalStorageAvailable();
 
@@ -60,9 +58,9 @@ export default function useClientAnalytics(
 
     if (matomoUrl && matomoSiteId) {
       if (
-        !storageAvailable ||
-        !matomoAskForConsent ||
-        (matomoAskForConsent && matomoConsent === 'true')
+        !storageAvailable
+        || !matomoAskForConsent
+        || (matomoAskForConsent && matomoConsent === 'true')
       ) {
         addMatomoClientTracker({ matomoUrl, matomoSiteId, matomoCustom });
       }
@@ -74,15 +72,15 @@ export default function useClientAnalytics(
   }
 
   if (
-    (gaConsent === undefined || gaConsent === null) &&
-    trackingSettings?.googleAnalytics
+    (gaConsent === undefined || gaConsent === null)
+    && trackingSettings?.googleAnalytics
   ) {
     return 'ga';
   }
 
   if (
-    (matomoConsent === undefined || matomoConsent === null) &&
-    trackingSettings?.matomoAskForConsent
+    (matomoConsent === undefined || matomoConsent === null)
+    && trackingSettings?.matomoAskForConsent
   ) {
     return 'matomo';
   }

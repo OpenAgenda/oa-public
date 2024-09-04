@@ -34,9 +34,8 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
     return null;
   }
 
-  const isVisible =
-    (direction === 'previous' && !eventNc?.first) ||
-    (direction === 'next' && !eventNc?.last);
+  const isVisible = (direction === 'previous' && !eventNc?.first)
+    || (direction === 'next' && !eventNc?.last);
 
   return (
     <IconButton
@@ -44,13 +43,13 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
       aria-label={intl.formatMessage(
         direction === 'previous' ? messages.previousEvent : messages.nextEvent,
       )}
-      icon={
+      icon={(
         <FaIcon
           icon={direction === 'previous' ? faChevronLeft : faChevronRight}
           width="1em"
           size="xl"
         />
-      }
+      )}
       h="auto"
       color="primary.500"
       _hover={{

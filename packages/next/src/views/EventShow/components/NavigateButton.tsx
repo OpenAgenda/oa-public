@@ -46,7 +46,7 @@ export function useGoToSiblingEvent({
     // speed up context bar display
     preload(
       `/api/me/agendas/${agenda.uid}/events/${response.event.uid}`,
-      (input) => ky(input).json(),
+      input => ky(input).json(),
     ).catch(() => null);
 
     router
@@ -75,8 +75,8 @@ export function useNavigateKeyboardShortcut({ direction, goToSiblingEvent }) {
 
         const isPrevious = e.key === 'ArrowLeft';
         if (
-          (isPrevious && direction === 'previous') ||
-          (!isPrevious && direction === 'next')
+          (isPrevious && direction === 'previous')
+          || (!isPrevious && direction === 'next')
         ) {
           goToSiblingEvent().catch(() => null);
         }
@@ -113,9 +113,8 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
     return null;
   }
 
-  const isVisible =
-    (direction === 'previous' && !eventNc?.first) ||
-    (direction === 'next' && !eventNc?.last);
+  const isVisible = (direction === 'previous' && !eventNc?.first)
+    || (direction === 'next' && !eventNc?.last);
 
   return (
     <IconButton
@@ -124,13 +123,13 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
       aria-label={intl.formatMessage(
         direction === 'previous' ? messages.previousEvent : messages.nextEvent,
       )}
-      icon={
+      icon={(
         <FaIcon
           icon={direction === 'previous' ? faChevronLeft : faChevronRight}
           width="1em"
           size="2xl"
         />
-      }
+      )}
       h="auto"
       _hover={{
         color: 'primary.500',

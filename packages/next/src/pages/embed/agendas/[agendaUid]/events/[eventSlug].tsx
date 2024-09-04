@@ -85,7 +85,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 };
 
-const EmbedEventPage: NextPageWithLayout<PageProps> = (props) => {
+const EmbedEventPage: NextPageWithLayout<PageProps> = props => {
   const { fallback = {}, agenda } = props;
 
   return (

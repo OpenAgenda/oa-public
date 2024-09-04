@@ -68,11 +68,11 @@ export default function EventItem({
       state: [2],
       sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
       passed: undefined,
-      ...(upcomingOnly
+      ...upcomingOnly
         ? {
-            relative: ['current', 'upcoming'],
-          }
-        : null),
+          relative: ['current', 'upcoming'],
+        }
+        : null,
       from,
       first: first || undefined,
       last: last || undefined,

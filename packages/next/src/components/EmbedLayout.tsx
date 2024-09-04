@@ -16,13 +16,12 @@ type EmbedLayoutDataValue = {
   initQuery: Record<string, any>;
 };
 
-export const [EmbedLayoutDataProvider, useEmbedLayoutData] =
-  createContext<EmbedLayoutDataValue>({
-    strict: true,
-    name: 'EmbedLayoutDataContext',
-    hookName: 'useEmbedLayoutData',
-    providerName: 'EmbedLayoutDataProvider',
-  });
+export const [EmbedLayoutDataProvider, useEmbedLayoutData] = createContext<EmbedLayoutDataValue>({
+  strict: true,
+  name: 'EmbedLayoutDataContext',
+  hookName: 'useEmbedLayoutData',
+  providerName: 'EmbedLayoutDataProvider',
+});
 
 export default function EmbedLayout({ children }: LayoutProps) {
   const router = useRouter();
@@ -32,8 +31,7 @@ export default function EmbedLayout({ children }: LayoutProps) {
   const isEmbedFirstLoad = useIsFirstRender();
 
   const initPath = useConst(() =>
-    router.query.initPath?.length ? (router.query.initPath as string) : null,
-  );
+    (router.query.initPath?.length ? (router.query.initPath as string) : null));
 
   const value = useMemo(
     () => ({

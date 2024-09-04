@@ -58,7 +58,7 @@ export type EmbedAgendaShowProps = {
   referrer: string;
 };
 
-const stripLangPrefix = (pathname) => pathname.replace(/^\/[a-z][a-z]\//, '/');
+const stripLangPrefix = pathname => pathname.replace(/^\/[a-z][a-z]\//, '/');
 const isDifferentPathname = (pathname1, pathname2) =>
   stripLangPrefix(pathname1) !== stripLangPrefix(pathname2);
 
@@ -80,7 +80,7 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   const isFirstRender = useIsFirstRender();
 
   const initialValues = useConst(() => ({
-    ...(initPath ? urlQuery : {}),
+    ...initPath ? urlQuery : {},
     initPath: undefined,
     filters: undefined,
   }));
@@ -116,7 +116,7 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
     const requiredFilters = (prefilter.filters as string)?.split(',') ?? [];
 
     return ['search', 'geo', 'timings', ...additionalFilters]
-      .filter((filter) => requiredFilters.includes(filter))
+      .filter(filter => requiredFilters.includes(filter))
       .sort((a, b) => {
         // Last
         if (a === 'geo') return 1;
@@ -167,8 +167,7 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
       const currentUrl = new URL(router.asPath, 'https://n');
       const url = new URL(href, 'https://n');
 
-      if (isDifferentPathname(currentUrl.pathname, url.pathname) || !shallow)
-        return;
+      if (isDifferentPathname(currentUrl.pathname, url.pathname) || !shallow) return;
 
       const form = filtersFormRef.current;
       const newUrlQuery = qs.parse(url.search, { ignoreQueryPrefix: true });
@@ -190,16 +189,15 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   useEffect(() => {
     if (pages?.length > 0 && previousPages !== pages) {
       // Update map markers
-      const mapFilter = filters.find((v) => v.name === 'geo');
+      const mapFilter = filters.find(v => v.name === 'geo');
       const mapElem = mapFilter?.elemRef.current;
 
       if (mapElem) {
         mapElem.onQueryChange(pages[0].aggregations.viewport);
       }
 
-      const url =
-        new URL(latestRouter.current.asPath, 'https://n').pathname +
-        qs.stringify(latestQuery.current, { addQueryPrefix: true });
+      const url = new URL(latestRouter.current.asPath, 'https://n').pathname
+        + qs.stringify(latestQuery.current, { addQueryPrefix: true });
 
       if (url !== latestRouter.current.asPath) {
         latestRouter.current.push(url, null, { shallow: true });
@@ -225,12 +223,12 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
             <>
               {filters.length ? (
                 <Suspense
-                  fallback={
+                  fallback={(
                     <FiltersSkeleton
                       filters={filters}
                       filtersToInclude={filtersToInclude}
                     />
-                  }
+                  )}
                 >
                   <DynamicFiltersPart
                     agenda={agenda}
@@ -284,8 +282,8 @@ EmbedAgendaShow.fetchLocale = (locale: string) =>
   Promise.all([
     fetchLocale(locale),
     import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(
-      (mod) => mod.default,
+      mod => mod.default,
     ),
-  ]).then((results) => Object.assign({}, ...results));
+  ]).then(results => Object.assign({}, ...results));
 
 export default EmbedAgendaShow;

@@ -43,12 +43,9 @@ import Map from './Map';
 
 function getPassImgSource(passData) {
   const currValue = getCurrentPassValue(passData);
-  if (currValue?.isRejected)
-    return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-rejected-22.png';
-  if (currValue?.isPending)
-    return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png';
-  if (currValue?.error)
-    return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-error-22.png';
+  if (currValue?.isRejected) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-rejected-22.png';
+  if (currValue?.isPending) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png';
+  if (currValue?.error) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-error-22.png';
   return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png';
 }
 
@@ -125,10 +122,10 @@ function extractPassFromRegistration(intl, registration) {
     passCulture:
       currentPassData && !currentPassData.isPending
         ? {
-            img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
-            label: intl.formatMessage(messages.accessPassOffer),
-            ...passItem,
-          }
+          img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
+          label: intl.formatMessage(messages.accessPassOffer),
+          ...passItem,
+        }
         : null,
   };
 }
@@ -210,7 +207,7 @@ export function DateRangeSection({
 
   const isUpcoming = useMemo(() => {
     const now = new Date();
-    return event.timings.some((timing) => new Date(timing.end) > now);
+    return event.timings.some(timing => new Date(timing.end) > now);
   }, [event.timings]);
 
   return (
@@ -298,7 +295,7 @@ export function RegistrationSection({
       <Box fontSize="lg" color="oaGray.500">
         <b>{intl.formatMessage(messages.registration)}</b>
       </Box>
-      {registration.map((registrationItem) => (
+      {registration.map(registrationItem => (
         <Fragment key={registrationItem.value}>
           <Icon
             as={FaIcon}
@@ -373,7 +370,7 @@ export function AccessibilitySection({
 
   const accessibilities = Object.entries(event.accessibility);
 
-  const hasAccessibility = accessibilities.some((v) => v[1] === true);
+  const hasAccessibility = accessibilities.some(v => v[1] === true);
 
   if (!hasAccessibility && !event.age?.min && !event.age?.max) {
     return null;
@@ -423,9 +420,9 @@ export function AccessibilitySection({
             {!event.age.max
               ? intl.formatMessage(messages.startingAt, { min: event.age.min })
               : intl.formatMessage(messages.minToMaxYearsOld, {
-                  min: event.age.min,
-                  max: event.age.max,
-                })}
+                min: event.age.min,
+                max: event.age.max,
+              })}
           </div>
         </>
       ) : null}
@@ -455,7 +452,7 @@ export function LocationSection({ event, icon = faLocationDot }) {
           {event.location.address}
         </Link>
         <Wrap color="oaGray.500">
-          {['department', 'region', 'country'].map((part) => (
+          {['department', 'region', 'country'].map(part => (
             <WrapItem key={part}>{event.location[part]}</WrapItem>
           ))}
         </Wrap>

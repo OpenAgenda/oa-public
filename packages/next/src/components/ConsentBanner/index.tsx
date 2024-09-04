@@ -51,13 +51,13 @@ export default function ConsentBanner({
 
   const setConsent = (value: any) => {
     if (consentSource === 'cookies') {
-      if (consentFor === 'ga')
-        setCookie('GaCookieConsent', value, { sameSite: 'none', secure: true });
-      if (consentFor === 'matomo')
+      if (consentFor === 'ga') setCookie('GaCookieConsent', value, { sameSite: 'none', secure: true });
+      if (consentFor === 'matomo') {
         setCookie('MatomoCookieConsent', value, {
           sameSite: 'none',
           secure: true,
         });
+      }
     } else if (consentSource === 'localStorage') {
       if (consentFor === 'ga') setGaLocalStorageConsent(value);
       if (consentFor === 'matomo') setMatomoLocalStorageConsent(value);

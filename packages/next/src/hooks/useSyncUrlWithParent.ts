@@ -9,7 +9,7 @@ export default function useSyncUrlWithParent() {
   const latestRouter = useLatest(router);
 
   useLayoutEffect(() => {
-    const onMessage = (message) => {
+    const onMessage = message => {
       console.log('Message reçu du parent:', message);
 
       if (message.type === 'urlChange') {
