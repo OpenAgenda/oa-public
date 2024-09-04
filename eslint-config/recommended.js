@@ -36,7 +36,6 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     // 'space-in-parens': [ 'error', 'always' ],
     'max-len': ['off', 80],
-    'arrow-parens': ['error', 'as-needed'],
     'function-call-argument-newline': 'error',
     'object-curly-newline': [
       'error',
@@ -185,16 +184,13 @@ module.exports = {
             conditionalAssign: false,
           },
         ],
-        'react/require-default-props': 'off'
+        'react/require-default-props': 'off',
       },
     },
     {
       files: ['*.mjs'],
       rules: {
-        'import/extensions': [
-          'error',
-          'ignorePackages',
-        ],
+        'import/extensions': ['error', 'ignorePackages'],
         'unicorn/prefer-module': ['error'],
       },
     },
