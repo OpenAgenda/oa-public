@@ -750,7 +750,7 @@
   "next.views.EventShow.backToList": [
     {
       "type": 0,
-      "value": "Back to list"
+      "value": "Retour à la liste"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
