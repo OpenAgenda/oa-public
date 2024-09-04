@@ -23,11 +23,12 @@ export function Activities({ res, hideEmpty = false, children }) {
       return ['EventShow', 'activities', res, pageIndex, fromId];
     },
     ([_comp, _requestId, activitiesRes, pageIndex, fromId]) =>
-      fetch(`${activitiesRes}?fromId=${fromId}${pageIndex === 0 ? '&withConfig=1' : ''}`)
-        .then(r => {
-          if (r.ok) return r.json();
-          throw new Error('Can\'t list activities');
-        }),
+      fetch(
+        `${activitiesRes}?fromId=${fromId}${pageIndex === 0 ? '&withConfig=1' : ''}`,
+      ).then(r => {
+        if (r.ok) return r.json();
+        throw new Error("Can't list activities");
+      }),
     {
       keepPreviousData: true,
       revalidateFirstPage: false,
@@ -37,14 +38,19 @@ export function Activities({ res, hideEmpty = false, children }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
-  const isEmpty = pages?.[0]?.activities?.length === 0;
-  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.activities?.length < PAGE_SIZE);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isEmpty = !pages?.[0]?.activities?.length;
+  const isReachingEnd = isEmpty
+    || (pages && pages[pages.length - 1]?.activities?.length < PAGE_SIZE);
 
-  const nextPage = useCallback(e => {
-    e.preventDefault();
-    setSize(s => s + 1);
-  }, [setSize]);
+  const nextPage = useCallback(
+    e => {
+      e.preventDefault();
+      setSize(s => s + 1);
+    },
+    [setSize],
+  );
 
   if (hideEmpty && (isLoadingInitialData || isEmpty || error)) {
     return null;
@@ -60,9 +66,5 @@ export function Activities({ res, hideEmpty = false, children }) {
     isReachingEnd,
   };
 
-  return (
-    <ActivitiesProvider value={context}>
-      {children}
-    </ActivitiesProvider>
-  );
+  return <ActivitiesProvider value={context}>{children}</ActivitiesProvider>;
 }
