@@ -55,7 +55,6 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
     it('event item contains description field by default', async () => {
       const { events } = await core.agendas(2).events.search({});
-
       expect(Object.keys(events[0]).includes('description')).toBeTruthy();
     });
 
@@ -802,6 +801,50 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         }).then(r => r.data);
 
         expect(response.aggregations).toBeDefined();
+      });
+
+      it('removed option at true', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/1/events',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+            removed: 1,
+          },
+        }).then(r => r.data);
+        expect(response.total).toBe(1);
+      });
+
+      it('default removed option at false', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/1/events',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+          },
+        }).then(r => r.data);
+        expect(response.total).toBe(1);
+      });
+
+      it('removed option at null', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/1/events',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+            removed: 'null',
+          },
+        }).then(r => r.data);
+        expect(response.total).toBe(2);
       });
     });
   });
