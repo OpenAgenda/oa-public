@@ -1,11 +1,45 @@
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
+import useLocalStorageState from 'use-local-storage-state';
 import type { AgendaSettingsTracking } from 'types';
 import addGoogleAnalyticsTracker from 'utils/addGoogleAnalyticsTracker';
 import { addMatomoClientTracker } from 'utils/addMatomoTracker';
 
-export default function useClientAnalytics(trackingSettings: AgendaSettingsTracking): string | null {
+type ConsentSource = 'cookies' | 'localStorage';
+
+function isLocalStorageAvailable(): boolean {
+  try {
+    const testKey = '__storage_test__';
+    localStorage.setItem(testKey, 'test');
+    localStorage.removeItem(testKey);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+export default function useClientAnalytics(
+  trackingSettings: AgendaSettingsTracking,
+  consentSource: ConsentSource = 'cookies',
+): string | null {
   const [cookies] = useCookies();
+  const [gaLocalStorageConsent] = useLocalStorageState<string | null>(
+    'GaCookieConsent',
+  );
+  const [matomoLocalStorageConsent] = useLocalStorageState<string | null>(
+    'MatomoCookieConsent',
+  );
+
+  const gaConsent =
+    consentSource === 'cookies'
+      ? cookies.GaCookieConsent
+      : gaLocalStorageConsent;
+  const matomoConsent =
+    consentSource === 'cookies'
+      ? cookies.MatomoCookieConsent
+      : matomoLocalStorageConsent;
+
+  const storageAvailable = isLocalStorageAvailable();
 
   useEffect(() => {
     if (!trackingSettings) {
@@ -20,21 +54,36 @@ export default function useClientAnalytics(trackingSettings: AgendaSettingsTrack
       matomoCustom,
     } = trackingSettings;
 
-    if (googleAnalytics && cookies.GaCookieConsent === 'true') {
+    if (!storageAvailable || (googleAnalytics && gaConsent === 'true')) {
       addGoogleAnalyticsTracker({ googleAnalyticsID: googleAnalytics });
     }
+
     if (matomoUrl && matomoSiteId) {
-      if (!matomoAskForConsent || (matomoAskForConsent && cookies.MatomoCookieConsent === 'true')) {
+      if (
+        !storageAvailable ||
+        !matomoAskForConsent ||
+        (matomoAskForConsent && matomoConsent === 'true')
+      ) {
         addMatomoClientTracker({ matomoUrl, matomoSiteId, matomoCustom });
       }
     }
-  }, [cookies.GaCookieConsent, cookies.MatomoCookieConsent, trackingSettings]);
+  }, [trackingSettings, gaConsent, matomoConsent, storageAvailable]);
 
-  if (cookies.GaCookieConsent === undefined && trackingSettings?.googleAnalytics) {
+  if (consentSource === 'localStorage' && !storageAvailable) {
+    return null;
+  }
+
+  if (
+    (gaConsent === undefined || gaConsent === null) &&
+    trackingSettings?.googleAnalytics
+  ) {
     return 'ga';
   }
 
-  if (cookies.MatomoCookieConsent === undefined && trackingSettings?.matomoAskForConsent) {
+  if (
+    (matomoConsent === undefined || matomoConsent === null) &&
+    trackingSettings?.matomoAskForConsent
+  ) {
     return 'matomo';
   }
 

@@ -16,7 +16,7 @@ export type CreateContextReturn<T> = [
   React.Provider<T>,
   () => T,
   React.Context<T>,
-]
+];
 
 function getErrorMessage(hook: string, provider: string) {
   return `${hook} returned \`undefined\`. Seems you forgot to wrap component within ${provider}`;
@@ -39,7 +39,7 @@ export function createContext<T = any>(options: CreateContextOptions<T> = {}) {
   function useContext() {
     const context = useReactContext(Context);
 
-    if (!context && strict) {
+    if (context === undefined && strict) {
       const error = new Error(
         errorMessage ?? getErrorMessage(hookName, providerName),
       );

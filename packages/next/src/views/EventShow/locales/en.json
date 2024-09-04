@@ -114,6 +114,7 @@
   "next.views.EventShow.aboutLocation": "About the location",
   "next.views.EventShow.access": "Access",
   "next.views.EventShow.actions": "Actions",
+  "next.views.EventShow.backToList": "Back to list",
   "next.views.EventShow.contactAdministrators": "Contact administrators",
   "next.views.EventShow.history": "History",
   "next.views.EventShow.moreLinks": "More links:",

@@ -2,7 +2,15 @@ import qs from 'qs';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import useSessionStorageState from 'use-session-storage-state';
-import { chakra, Box, SimpleGrid, Collapse, Link, Tooltip, useBreakpointValue } from '@openagenda/uikit';
+import {
+  chakra,
+  Box,
+  SimpleGrid,
+  Collapse,
+  Link,
+  Tooltip,
+  useBreakpointValue,
+} from '@openagenda/uikit';
 import { FaIcon } from 'icons';
 import { faTurnLeft } from 'icons/solid';
 import base64 from 'utils/base64';
@@ -40,7 +48,12 @@ function getAdminNav(eventNc) {
 
   for (const key in eventNc) {
     if (Object.prototype.hasOwnProperty.call(eventNc, key)) {
-      if (key === 'from' || key === 'fromAdmin') {
+      if (
+        key === 'from' ||
+        key === 'fromAdmin' ||
+        key === 'first' ||
+        key === 'last'
+      ) {
         continue;
       }
       // // ignore default sort
@@ -85,16 +98,27 @@ export default function ContextBar() {
 
   return (
     <Collapse in animateOpacity>
-      <SimpleGrid columns={isAdminMod(me?.member) ? 4 : 3} bg="white" spacing="1px">
+      <SimpleGrid
+        columns={isAdminMod(me?.member) ? 4 : 3}
+        bg="white"
+        spacing="1px"
+      >
         {isAdminMod(me?.member) ? (
           <Column>
-            <Tooltip label={intl.formatMessage(messages.backToDashboard)} isDisabled={!isMobile}>
+            <Tooltip
+              label={intl.formatMessage(messages.backToDashboard)}
+              isDisabled={!isMobile}
+            >
               <ContextBarButton
                 as={Link}
                 href={`/${agenda.slug}/admin/events${qs.stringify(getAdminNav(eventNc), { addQueryPrefix: true })}`}
                 justifyContent={{ base: 'center', md: 'space-between' }}
               >
-                {isMobile ? <FaIcon icon={faTurnLeft} size="lg" /> : intl.formatMessage(messages.backToDashboard)}
+                {isMobile ? (
+                  <FaIcon icon={faTurnLeft} size="lg" />
+                ) : (
+                  intl.formatMessage(messages.backToDashboard)
+                )}
               </ContextBarButton>
             </Tooltip>
           </Column>

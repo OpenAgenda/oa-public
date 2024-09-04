@@ -19,13 +19,15 @@ type CommonProps = {
   fallback?: any;
 };
 
-type ShowPageProps = EventShowProps & CommonProps;
-type ErrorPageProps = EventErrorProps & CommonProps & {
-  agenda?: Agenda
-};
-type PageProps = ShowPageProps & {
-  agenda: Agenda
-} | ErrorPageProps;
+type ShowPageProps = EventShowProps &
+  CommonProps & {
+    agenda: Agenda;
+  };
+type ErrorPageProps = EventErrorProps &
+  CommonProps & {
+    agenda?: Agenda;
+  };
+type PageProps = ShowPageProps | ErrorPageProps;
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
@@ -44,26 +46,27 @@ export const getServerSideProps: GetServerSideProps = async ({
   try {
     const results = await Promise.allSettled([
       EventShow.fetchLocale(locale),
-      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1&includeMemberSchema=1`, {
-        headers: {
-          Authorization: req.headers.authorization,
-          Cookie: req.headers.cookie,
+      fetch(
+        `${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1&includeMemberSchema=1`,
+        {
+          headers: {
+            Authorization: req.headers.authorization,
+            Cookie: req.headers.cookie,
+          },
         },
-      })
-        .then(r => {
-          if (r.ok) return r.json();
-          throw new VError[r.status](r.statusText);
-        }),
+      ).then((r) => {
+        if (r.ok) return r.json();
+        throw new VError[r.status](r.statusText);
+      }),
       fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}${eventUrl}`, {
         headers: {
           Authorization: req.headers.authorization,
           Cookie: req.headers.cookie,
         },
-      })
-        .then(r => {
-          if (r.ok) return r.json();
-          throw new VError[r.status](r.statusText);
-        }),
+      }).then((r) => {
+        if (r.ok) return r.json();
+        throw new VError[r.status](r.statusText);
+      }),
     ]);
 
     if (results[0].status === 'rejected') throw results[0].reason;
@@ -83,38 +86,41 @@ export const getServerSideProps: GetServerSideProps = async ({
 
       const nonce = generateNonce();
       res.setHeader('X-Nonce', nonce);
-      res.setHeader('Content-Security-Policy-Report-Only', CSP({
-        props: { nonce },
-        directives: {
-          ...DEFAULT_DIRECTIVES,
-          connectSrc: [
-            ...DEFAULT_DIRECTIVES.connectSrc,
-            ...matomoDomain ? [
-              `https://${matomoDomain}`,
-            ] : [],
-            ...googleAnalytics ? [
-              'https://*.google-analytics.com',
-              'https://*.analytics.google.com',
-              'https://*.googletagmanager.com',
-              'https://*.g.doubleclick.net',
-              'https://*.google.com',
-            ] : [],
-          ],
-          imgSrc: [
-            ...DEFAULT_DIRECTIVES.imgSrc,
-            ...matomoDomain ? [
-              `https://${matomoDomain}`,
-            ] : [],
-            ...googleAnalytics ? [
-              'https://*.google-analytics.com',
-              'https://*.analytics.google.com',
-              'https://*.googletagmanager.com',
-              'https://*.g.doubleclick.net',
-              'https://*.google.com',
-            ] : [],
-          ],
-        },
-      }));
+      res.setHeader(
+        'Content-Security-Policy-Report-Only',
+        CSP({
+          props: { nonce },
+          directives: {
+            ...DEFAULT_DIRECTIVES,
+            connectSrc: [
+              ...DEFAULT_DIRECTIVES.connectSrc,
+              ...(matomoDomain ? [`https://${matomoDomain}`] : []),
+              ...(googleAnalytics
+                ? [
+                    'https://*.google-analytics.com',
+                    'https://*.analytics.google.com',
+                    'https://*.googletagmanager.com',
+                    'https://*.g.doubleclick.net',
+                    'https://*.google.com',
+                  ]
+                : []),
+            ],
+            imgSrc: [
+              ...DEFAULT_DIRECTIVES.imgSrc,
+              ...(matomoDomain ? [`https://${matomoDomain}`] : []),
+              ...(googleAnalytics
+                ? [
+                    'https://*.google-analytics.com',
+                    'https://*.analytics.google.com',
+                    'https://*.googletagmanager.com',
+                    'https://*.g.doubleclick.net',
+                    'https://*.google.com',
+                  ]
+                : []),
+            ],
+          },
+        }),
+      );
     }
 
     const { event } = eventResponse;
@@ -134,8 +140,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return { props };
   } catch (e: any) {
-    const intlMessages = await EventError.fetchLocale(locale)
-      .catch(() => ({}));
+    const intlMessages = await EventError.fetchLocale(locale).catch(() => ({}));
 
     const statusCode = Number.isInteger(e.code) ? e.code : 500;
     res.statusCode = statusCode;
@@ -210,7 +215,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 //   fallback: 'blocking',
 // });
 
-const EventPage: NextPageWithLayout<PageProps> = props => {
+const EventPage: NextPageWithLayout<PageProps> = (props) => {
   const { fallback = {}, agenda } = props;
 
   if ('statusCode' in props) {

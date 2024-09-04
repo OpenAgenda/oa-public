@@ -1,10 +1,14 @@
 import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { Filters, useGetTotal, useLoadGeoData } from '@openagenda/react-filters';
+import {
+  Filters,
+  useGetTotal,
+  useLoadGeoData,
+} from '@openagenda/react-filters';
 import { chakra, Box, SimpleGrid } from '@openagenda/uikit';
 import useFiltersBaseQuery from 'views/AgendaShow/hooks/useFiltersBaseQuery';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
-import AgendaShowMapFilter from '../../AgendaShow/components/MapFilter';
+import AgendaShowMapFilter from 'views/AgendaShow/components/MapFilter';
 import useGetFilterOptions from '../hooks/useGetFilterOptions';
 import getPrefilteredQuery from '../utils/getPrefilteredQuery';
 import DateRangeFilter from './DateRangeFilter';
@@ -24,7 +28,15 @@ const MapFilter = React.forwardRef<any, any>(function MapFilter(props, ref) {
 
 const StyledSearchfilter = chakra(SearchFilter);
 
-export default function FiltersParts({ agenda, filters, query, includeFields, filtersToInclude, prefilter, referrer }) {
+export default function FiltersPart({
+  agenda,
+  filters,
+  query,
+  includeFields,
+  filtersToInclude,
+  prefilter,
+  referrer,
+}) {
   const intl = useIntl();
 
   const upcomingOnly = !query.timings && query.passed !== '1';
@@ -64,11 +76,11 @@ export default function FiltersParts({ agenda, filters, query, includeFields, fi
     null, // apiClient
     `/api/agendas/slug/${agenda.slug}/events`,
     {
-      ...upcomingOnly
+      ...(upcomingOnly
         ? {
-          relative: ['current', 'upcoming'],
-        }
-        : null,
+            relative: ['current', 'upcoming'],
+          }
+        : null),
       ...getPrefilteredQuery({ prefilter, query, filters }),
       passed: undefined, // omit passed
     },
@@ -79,7 +91,7 @@ export default function FiltersParts({ agenda, filters, query, includeFields, fi
   const orderedFilters = useMemo(
     () =>
       filters
-        .filter(filter => filtersToInclude.includes(filter.name))
+        .filter((filter) => filtersToInclude.includes(filter.name))
         .sort((a, b) => {
           // Last
           if (a.name === 'geo') return 1;
@@ -87,17 +99,26 @@ export default function FiltersParts({ agenda, filters, query, includeFields, fi
           // Second to last
           if (a.name === 'search') return 1;
           if (b.name === 'search') return -1;
-          return filtersToInclude.indexOf(a.name) - filtersToInclude.indexOf(b.name);
+          return (
+            filtersToInclude.indexOf(a.name) - filtersToInclude.indexOf(b.name)
+          );
         }),
     [filters, filtersToInclude],
   );
 
   if (isLoadingInitialData) {
-    return <FiltersSkeleton filters={filters} filtersToInclude={filtersToInclude} />;
+    return (
+      <FiltersSkeleton filters={filters} filtersToInclude={filtersToInclude} />
+    );
   }
 
   return (
-    <SimpleGrid as="form" templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))" spacingX="10" spacingY="6">
+    <SimpleGrid
+      as="form"
+      templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))"
+      spacingX="10"
+      spacingY="6"
+    >
       <Filters
         filters={orderedFilters}
         // disabled={isFetching || filtersQuery.isFetching}

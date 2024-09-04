@@ -1,6 +1,18 @@
 import { Fragment, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { Flex, Icon, Button, Wrap, WrapItem, Grid, Box, Tag, HStack, Link, Tooltip } from '@openagenda/uikit';
+import {
+  Flex,
+  Icon,
+  Button,
+  Wrap,
+  WrapItem,
+  Grid,
+  Box,
+  Tag,
+  HStack,
+  Link,
+  Tooltip,
+} from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { getCurrentValue as getCurrentPassValue } from '@openagenda/registrations/passCulture/iso/utils';
 import { FaIcon } from 'icons';
@@ -13,7 +25,14 @@ import {
   faEarDeaf,
   faEyeLowVision,
 } from 'icons/regular';
-import { faLink, faClockRotateLeft, faTicket, faPhone, faWheelchair, faChild } from 'icons/solid';
+import {
+  faLink,
+  faClockRotateLeft,
+  faTicket,
+  faPhone,
+  faWheelchair,
+  faChild,
+} from 'icons/solid';
 import { faPI, faII } from 'icons/custom';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
@@ -24,13 +43,16 @@ import Map from './Map';
 
 function getPassImgSource(passData) {
   const currValue = getCurrentPassValue(passData);
-  if (currValue?.isRejected) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-rejected-22.png';
-  if (currValue?.isPending) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png';
-  if (currValue?.error) return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-error-22.png';
+  if (currValue?.isRejected)
+    return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-rejected-22.png';
+  if (currValue?.isPending)
+    return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-pending-22.png';
+  if (currValue?.error)
+    return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-error-22.png';
   return 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png';
 }
 
-function getRegistrationIcon(type: string) {
+function defaultGetRegistrationIcon(type: string) {
   switch (type) {
     case 'phone':
       return faPhone;
@@ -56,7 +78,7 @@ function getRegistrationLink({ value, type }: { value: string; type: string }) {
   }
 }
 
-function getAccessibilityIcon(type: string) {
+function defaultGetAccessibilityIcon(type: string) {
   switch (type) {
     case 'ii': // accessibleToIntellectually
       return faII;
@@ -91,36 +113,49 @@ function getAccessibilityMessage(type: string) {
 }
 
 function extractPassFromRegistration(intl, registration) {
-  const passItem = registration.find(({ service }) => service === 'passCulture');
+  const passItem = registration.find(
+    ({ service }) => service === 'passCulture',
+  );
   const currentPassData = passItem ? getCurrentPassValue(passItem.data) : null;
 
   return {
-    registration: registration.filter(({ service }) => service !== 'passCulture'),
+    registration: registration.filter(
+      ({ service }) => service !== 'passCulture',
+    ),
     passCulture:
       currentPassData && !currentPassData.isPending
         ? {
-          img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
-          label: intl.formatMessage(messages.accessPassOffer),
-          ...passItem,
-        }
+            img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
+            label: intl.formatMessage(messages.accessPassOffer),
+            ...passItem,
+          }
         : null,
   };
 }
 
-export function ShareSection({ contentLocale, shareOnOpen, ...props }) {
+export function ShareSection({
+  isDisabled,
+  shareOnOpen,
+  icon = faShareNodes,
+  ...props
+}) {
   const intl = useIntl();
 
-  const { event } = useEvent();
-
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
-      <Icon as={FaIcon} icon={faShareNodes} size="2xl" color="oaGray.300" mt="1" />
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      {...props}
+    >
+      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
       <Button
         onClick={shareOnOpen}
         // leftIcon={<OAIcon />}
         variant="solid"
         colorScheme="primary"
-        isDisabled={!!event.private}
+        isDisabled={isDisabled}
       >
         {intl.formatMessage(messages.share)}
       </Button>
@@ -128,18 +163,23 @@ export function ShareSection({ contentLocale, shareOnOpen, ...props }) {
   );
 }
 
-export function OnlineAccessSection(props) {
+export function OnlineAccessSection({ event, icon = faLink, ...props }) {
   const intl = useIntl();
-
-  const { event } = useEvent();
 
   if (!event.onlineAccessLink) {
     return null;
   }
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
-      <Icon as={FaIcon} icon={faLink} size="2xl" color="oaGray.300" />
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      justifyItems="flex-start"
+      {...props}
+    >
+      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
       <Button
         as={Link}
         isExternal
@@ -160,23 +200,42 @@ export function OnlineAccessSection(props) {
   );
 }
 
-export function DateRangeSection(props) {
+export function DateRangeSection({
+  event,
+  upcomingIcon = faClock,
+  pastIcon = faClockRotateLeft,
+  ...props
+}) {
   const intl = useIntl();
-
-  const { event } = useEvent();
 
   const isUpcoming = useMemo(() => {
     const now = new Date();
-    return event.timings.some(timing => new Date(timing.end) > now);
+    return event.timings.some((timing) => new Date(timing.end) > now);
   }, [event.timings]);
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
-      <Icon as={FaIcon} icon={isUpcoming ? faClock : faClockRotateLeft} size="2xl" color="oaGray.300" />
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      {...props}
+    >
+      <Icon
+        as={FaIcon}
+        icon={isUpcoming ? upcomingIcon : pastIcon}
+        size="2xl"
+        color="oaGray.300"
+      />
       <HStack>
         <span>{getLocaleValue(event.dateRange, intl.locale)}</span>
         {!event.nextTiming ? (
-          <Tag borderRadius="full" variant="outline" colorScheme="oaGray" flexShrink="0">
+          <Tag
+            borderRadius="full"
+            variant="outline"
+            colorScheme="oaGray"
+            flexShrink="0"
+          >
             <b>{intl.formatMessage(messages.passed)}</b>
           </Tag>
         ) : null}
@@ -185,18 +244,22 @@ export function DateRangeSection(props) {
   );
 }
 
-export function ConditionsSection(props) {
+export function ConditionsSection({ event, icon = faTicket, ...props }) {
   const intl = useIntl();
-
-  const { event } = useEvent();
 
   if (!event.conditions?.[intl.locale]) {
     return null;
   }
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
-      <Icon as={FaIcon} icon={faTicket} size="2xl" color="oaGray.300" />
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      {...props}
+    >
+      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
       <Box fontSize="lg" color="oaGray.500">
         <b>{intl.formatMessage(messages.conditions)}</b>
       </Box>
@@ -205,26 +268,44 @@ export function ConditionsSection(props) {
   );
 }
 
-export function RegistrationSection(props) {
+export function RegistrationSection({
+  event,
+  icon = faSquareCheck,
+  getRegistrationIcon = defaultGetRegistrationIcon,
+  ...props
+}) {
   const intl = useIntl();
 
-  const { event } = useEvent();
+  const { registration, passCulture } = extractPassFromRegistration(
+    intl,
+    event.registration,
+  );
 
-  const { registration, passCulture } = extractPassFromRegistration(intl, event.registration);
-
-  if (!passCulture && !registration) {
+  if (!passCulture && !registration?.length) {
     return null;
   }
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center" {...props}>
-      <Icon as={FaIcon} icon={faSquareCheck} size="2xl" color="oaGray.300" />
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      justifyItems="flex-start"
+      {...props}
+    >
+      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
       <Box fontSize="lg" color="oaGray.500">
         <b>{intl.formatMessage(messages.registration)}</b>
       </Box>
-      {registration.map(registrationItem => (
+      {registration.map((registrationItem) => (
         <Fragment key={registrationItem.value}>
-          <Icon as={FaIcon} icon={getRegistrationIcon(registrationItem.type)} color="oaGray.300" justifySelf="end" />
+          <Icon
+            as={FaIcon}
+            icon={getRegistrationIcon(registrationItem.type)}
+            color="oaGray.300"
+            justifySelf="end"
+          />
           <Tooltip
             label={registrationItem.value}
             aria-label={intl.formatMessage(messages.completeLink)}
@@ -240,7 +321,9 @@ export function RegistrationSection(props) {
               overflow="hidden"
               textOverflow="ellipsis"
             >
-              {registrationItem.type === 'link' ? intl.formatMessage(messages.registerBook) : ''}
+              {registrationItem.type === 'link'
+                ? intl.formatMessage(messages.registerBook)
+                : ''}
               &nbsp;
               {registrationItem.value}
             </Link>
@@ -272,21 +355,38 @@ export function RegistrationSection(props) {
   );
 }
 
-export function AccessibilitySection(props) {
-  const intl = useIntl();
+export function TimingsSection({ event }) {
+  return (
+    <Box ml="12">
+      <Timings timings={event.timings} timezone={event.timezone} />
+    </Box>
+  );
+}
 
-  const { event } = useEvent();
+export function AccessibilitySection({
+  event,
+  ageIcon = faChild,
+  getAccessibilityIcon = defaultGetAccessibilityIcon,
+  ...props
+}) {
+  const intl = useIntl();
 
   const accessibilities = Object.entries(event.accessibility);
 
-  const hasAccessibility = accessibilities.some(v => v[1] === true);
+  const hasAccessibility = accessibilities.some((v) => v[1] === true);
 
   if (!hasAccessibility && !event.age?.min && !event.age?.max) {
     return null;
   }
 
   return (
-    <Grid templateColumns="2em 1fr" columnGap="4" rowGap="8" alignItems="center" {...props}>
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="8"
+      alignItems="center"
+      {...props}
+    >
       {accessibilities.map(([accessibilityKey, accessibilityValue]) => {
         if (!accessibilityValue) {
           return null;
@@ -302,22 +402,30 @@ export function AccessibilitySection(props) {
               justifySelf="end"
             />
 
-            <div>{intl.formatMessage(getAccessibilityMessage(accessibilityKey))}</div>
+            <div>
+              {intl.formatMessage(getAccessibilityMessage(accessibilityKey))}
+            </div>
           </Fragment>
         );
       })}
 
       {event.age?.min || event.age?.max ? (
         <>
-          <Icon as={FaIcon} icon={faChild} size="2xl" color="oaGray.300" justifySelf="end" />
+          <Icon
+            as={FaIcon}
+            icon={ageIcon}
+            size="2xl"
+            color="oaGray.300"
+            justifySelf="end"
+          />
 
           <div>
             {!event.age.max
               ? intl.formatMessage(messages.startingAt, { min: event.age.min })
               : intl.formatMessage(messages.minToMaxYearsOld, {
-                min: event.age.min,
-                max: event.age.max,
-              })}
+                  min: event.age.min,
+                  max: event.age.max,
+                })}
           </div>
         </>
       ) : null}
@@ -325,7 +433,53 @@ export function AccessibilitySection(props) {
   );
 }
 
-export default function Sidebar({ contentLocale, shareOnOpen = null }) {
+export function LocationSection({ event, icon = faLocationDot }) {
+  if (!event.location?.latitude || !event.location?.longitude) {
+    return null;
+  }
+  return (
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+    >
+      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
+      <Box>
+        <p>{event.location.name}</p>
+        <Link
+          isExternal
+          href={`https://www.openstreetmap.org/directions?to=${event.location.latitude}%2C${event.location.longitude}`}
+          colorScheme="primary"
+        >
+          {event.location.address}
+        </Link>
+        <Wrap color="oaGray.500">
+          {['department', 'region', 'country'].map((part) => (
+            <WrapItem key={part}>{event.location[part]}</WrapItem>
+          ))}
+        </Wrap>
+      </Box>
+      <Map
+        width={300}
+        height={200}
+        center={[event.location.latitude, event.location.longitude]}
+        zoom={14}
+        aspectRatioProps={{ gridColumn: 2 }}
+      />
+    </Grid>
+  );
+}
+
+export function ReferencesSection({ agenda, event }) {
+  return (
+    <Box ml="12">
+      <References agenda={agenda} event={event} />
+    </Box>
+  );
+}
+
+export default function Sidebar({ shareOnOpen = null }) {
   const agenda = useAgenda();
   const { event } = useEvent();
 
@@ -337,49 +491,15 @@ export default function Sidebar({ contentLocale, shareOnOpen = null }) {
       // w={{ base: 'full', xl: '75%' }}
       // px={{ base: '4', xl: '0' }}
     >
-      <ShareSection contentLocale={contentLocale} shareOnOpen={shareOnOpen} />
-      <OnlineAccessSection />
-      <DateRangeSection />
-      <ConditionsSection />
-      <RegistrationSection />
-
-      <Box ml="12">
-        <Timings timings={event.timings} timezone={event.timezone} key={event.uid} />
-      </Box>
-
-      <AccessibilitySection />
-
-      {event.location?.latitude && event.location?.longitude ? (
-        <Grid templateColumns="2em 1fr" columnGap="4" rowGap="1" alignItems="center">
-          <Icon as={FaIcon} icon={faLocationDot} size="2xl" color="oaGray.300" />
-          <Box>
-            <p>{event.location.name}</p>
-            <Link
-              isExternal
-              href={`https://www.openstreetmap.org/directions?to=${event.location.latitude}%2C${event.location.longitude}`}
-              colorScheme="primary"
-            >
-              {event.location.address}
-            </Link>
-            <Wrap color="oaGray.500">
-              {['department', 'region', 'country'].map(part => (
-                <WrapItem key={part}>{event.location[part]}</WrapItem>
-              ))}
-            </Wrap>
-          </Box>
-          <Map
-            width={300}
-            height={200}
-            center={[event.location.latitude, event.location.longitude]}
-            zoom={14}
-            aspectRatioProps={{ gridColumn: 2 }}
-          />
-        </Grid>
-      ) : null}
-
-      <Box ml="12">
-        <References agenda={agenda} event={event} />
-      </Box>
+      <ShareSection isDisabled={!!event.private} shareOnOpen={shareOnOpen} />
+      <OnlineAccessSection event={event} />
+      <DateRangeSection event={event} />
+      <ConditionsSection event={event} />
+      <RegistrationSection event={event} />
+      <TimingsSection event={event} />
+      <AccessibilitySection event={event} />
+      <LocationSection event={event} />
+      <ReferencesSection agenda={agenda} event={event} />
     </Flex>
   );
 }
