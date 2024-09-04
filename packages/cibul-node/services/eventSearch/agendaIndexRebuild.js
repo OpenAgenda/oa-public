@@ -5,23 +5,36 @@ const log = logs('services/eventSearch/agendaIndexRebuild');
 
 function eventsList(core, agenda) {
   let count = 0;
-  return (lastId, limit) => core.agendas(agenda.uid).events.list({}, {
-    lastId,
-    limit,
-  }, {
-    returnPayload: true,
-    detailed: true,
-    access: 'internal',
-  }).then(({ events, lastId: nextLastId }) => {
-    log('listed %s events for reindexing in agenda %s (cursor: %s, total done: %s)', events.length, agenda.slug, nextLastId, count += events.length);
-    return { lastId: nextLastId, events };
-  });
+  return (lastId, limit) =>
+    core
+      .agendas(agenda.uid)
+      .events.list(
+        {},
+        {
+          lastId,
+          limit,
+        },
+        {
+          returnPayload: true,
+          detailed: true,
+          access: 'internal',
+          removed: null,
+        },
+      )
+      .then(({ events, lastId: nextLastId }) => {
+        log(
+          'listed %s events for reindexing in agenda %s (cursor: %s, total done: %s)',
+          events.length,
+          agenda.slug,
+          nextLastId,
+          count += events.length,
+        );
+        return { lastId: nextLastId, events };
+      });
 }
 
 export default async (services, eventSearch, agenda) => {
-  const {
-    core,
-  } = services;
+  const { core } = services;
 
   const logPrefix = `${agenda.slug} (${agenda.uid}):`;
 
