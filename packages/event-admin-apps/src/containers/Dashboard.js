@@ -282,7 +282,7 @@ function Dashboard() {
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
-  const filters = useFilters(intl, agendaSchema.fields, {
+  const collapsedFilters = useFilters(intl, agendaSchema.fields, {
     dateFnsLocale: dateFnsLocales[intl.locale],
     missingValue: 'null',
     mapTiles,
@@ -294,13 +294,16 @@ function Dashboard() {
     include: !isShowingAllFilters
       ? agenda.settings?.admin?.filters?.displayed
       : undefined,
-  }).map(filter =>
-    (['state', 'relative'].includes(filter.name)
-      ? {
-        ...filter,
-        defaultCollapsed: false,
-      }
-      : filter));
+  });
+
+  const filters = useMemo(
+    () =>
+      collapsedFilters.map(filter =>
+        (['state', 'relative'].includes(filter.name)
+          ? { ...filter, defaultCollapsed: false }
+          : filter)),
+    [collapsedFilters],
+  );
 
   const mapFilter = useMemo(
     () => filters.find(v => v.name === 'geo'),
