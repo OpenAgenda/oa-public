@@ -80,26 +80,35 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   const isFirstRender = useIsFirstRender();
 
   const initialValues = useConst(() => ({
-    ...initPath ? urlQuery : {},
+    ...urlQuery,
     initPath: undefined,
     filters: undefined,
   }));
 
-  const [query, setQuery] = useState<Record<string, any>>(() => initialValues);
+  const [query, setQuery] = useState<Record<string, any>>(() =>
+    (isEmbedFirstLoad ? {} : urlQuery));
+
+  const latestQuery = useLatest(query);
 
   useEffect(() => {
     if (isEmbedFirstLoad && isFirstRender) {
       setStoredPrefilter(initPath ? initQuery : urlQuery);
 
-      const newUrl = new URL(router.asPath, 'https://n');
-      newUrl.searchParams.delete('initPath');
-      newUrl.searchParams.delete('filters');
+      const newUrl = new URL(router.asPath, 'https://n').pathname
+        + qs.stringify(initialValues, { addQueryPrefix: true });
 
-      router.replace(newUrl.pathname + newUrl.search, null, { shallow: true });
+      router.replace(newUrl, null, { shallow: true });
     }
-  }, [isEmbedFirstLoad, isFirstRender, setStoredPrefilter, initQuery]);
-
-  const latestQuery = useLatest(query);
+  }, [
+    isEmbedFirstLoad,
+    isFirstRender,
+    setStoredPrefilter,
+    initQuery,
+    initialValues,
+    initPath,
+    urlQuery,
+    router,
+  ]);
 
   const isMounted = useIsMounted();
 
@@ -154,7 +163,6 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   const onFilterChange = useCallback(
     (values: Record<string, string | string[]>) => {
       startTransition(() => {
-        // TODO setQuery with only more "contraignantes" values
         setQuery(values);
       });
     },

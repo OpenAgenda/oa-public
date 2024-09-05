@@ -24,6 +24,7 @@ import useLocationQuery from 'hooks/useLocationQuery';
 import Image from 'components/Image';
 import NextChakraLink from 'components/NextChakraLink';
 import ConsentBanner from 'components/ConsentBanner';
+import { useEmbedLayoutData } from 'components/EmbedLayout';
 import { FaIcon } from 'icons';
 import {
   faShareNodes,
@@ -53,6 +54,7 @@ import Timings from 'views/EventShow/components/Timings';
 import useNcEffect from 'views/EventShow/hooks/useNcEffect';
 import mdStyle from 'utils/mdStyle';
 import { keyCDNLoader } from 'utils/imageLoader';
+import { embedAgendaUrlRegex } from 'utils/isNextUrl';
 import useEvent from './hooks/useEvent';
 import Sidebar, {
   ShareSection,
@@ -77,6 +79,13 @@ function EmbedEventShow({ preload }: EmbedEventShowProps) {
   const { event } = useEvent();
 
   const query = useLocationQuery() as any;
+
+  const { initPath } = useEmbedLayoutData();
+
+  const isViewedInAgendaContext = useMemo(
+    () => embedAgendaUrlRegex.test(initPath),
+    [initPath],
+  );
 
   const needConsentFor = useClientAnalytics(
     agenda.settings?.tracking,
@@ -145,20 +154,23 @@ function EmbedEventShow({ preload }: EmbedEventShowProps) {
 
         <GridItem area="event" display="flex" flexDirection="column" gap="12">
           <div>
-            {eventNc ? (
+            {eventNc || isViewedInAgendaContext ? (
               <Flex justify="space-between" align="center" mb="4">
                 <NextChakraLink
-                  href={`/embed/agendas/${agenda.uid}?${qs.stringify({
-                    ...eventNc,
-                    from: undefined,
-                    first: undefined,
-                    last: undefined,
-                  })}`}
+                  href={`/embed/agendas/${agenda.uid}${qs.stringify(
+                    {
+                      ...eventNc,
+                      from: undefined,
+                      first: undefined,
+                      last: undefined,
+                    },
+                    { addQueryPrefix: true },
+                  )}`}
                   colorScheme="primary"
                 >
                   {intl.formatMessage(messages.backToList)}
                 </NextChakraLink>
-                {!(eventNc.first && eventNc.last) ? (
+                {!(eventNc?.first && eventNc?.last) ? (
                   <Flex gap="4">
                     <NavigateButton direction="previous" />
                     <NavigateButton direction="next" />

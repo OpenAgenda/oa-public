@@ -10,8 +10,6 @@ export default function useSyncUrlWithParent() {
 
   useLayoutEffect(() => {
     const onMessage = (message) => {
-      console.log('Message reçu du parent:', message);
-
       if (message.type === 'urlChange') {
         const { newUrl } = message;
         const routerPath = `/${latestRouter.current.locale}${latestRouter.current.asPath}`;
