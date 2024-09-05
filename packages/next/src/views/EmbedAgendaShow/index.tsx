@@ -14,7 +14,7 @@ import qs from 'qs';
 import { chakra, useConst } from '@openagenda/uikit';
 import {
   FiltersProvider,
-  getAdditionalFilters,
+  getFilters,
   useFilters,
 } from '@openagenda/react-filters';
 import { useLatest, usePrevious } from 'react-use';
@@ -118,13 +118,10 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   );
 
   const filtersToInclude = useMemo(() => {
-    const additionalFilters = getAdditionalFilters(agenda.schema.fields).map(
-      ({ fieldSchema }) => fieldSchema.field,
-    );
-
     const requiredFilters = (prefilter.filters as string)?.split(',') ?? [];
 
-    return ['search', 'geo', 'timings', ...additionalFilters]
+    return getFilters(intl, agenda.schema.fields)
+      .map(({ name, fieldSchema }) => fieldSchema?.field || name)
       .filter((filter) => requiredFilters.includes(filter))
       .sort((a, b) => {
         // Last
