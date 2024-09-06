@@ -458,6 +458,7 @@ export function LocationSection({ event, icon = faLocationDot }) {
         </Wrap>
       </Box>
       <Map
+        key={event.uid}
         width={300}
         height={200}
         center={[event.location.latitude, event.location.longitude]}
