@@ -40,4 +40,10 @@ export default function useSyncUrlWithParent() {
       router.events.off('beforeHistoryChange', handleRouteChange);
     };
   }, [router]);
+
+  useEffect(() => {
+    if ('parentIframe' in window) {
+      window.parentIFrame.scrollToOffset(0, 0);
+    }
+  }, [router.route]);
 }
