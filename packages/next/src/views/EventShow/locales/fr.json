@@ -80,7 +80,7 @@
   "next.views.EventShow.ShareModal.copied": "Copié",
   "next.views.EventShow.ShareModal.copy": "Copier",
   "next.views.EventShow.ShareModal.import": "Importer",
-  "next.views.EventShow.ShareModal.mustSignIn": "Vous devez vous connecter pour partager cet événement",
+  "next.views.EventShow.ShareModal.mustSignIn": "Vous devez vous connecter pour partager cet événement sur un autre agenda",
   "next.views.EventShow.ShareModal.onOA": "Sur OpenAgenda",
   "next.views.EventShow.ShareModal.others": "Autres",
   "next.views.EventShow.ShareModal.selectTiming": "Sélectionner un horaire",
