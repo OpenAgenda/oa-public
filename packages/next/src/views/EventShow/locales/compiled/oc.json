@@ -747,6 +747,12 @@
       "value": "Actions"
     }
   ],
+  "next.views.EventShow.backToList": [
+    {
+      "type": 0,
+      "value": "Retour à la liste"
+    }
+  ],
   "next.views.EventShow.contactAdministrators": [
     {
       "type": 0,

@@ -13,12 +13,12 @@ import '@raruto/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
 const MAP_TILES = process.env.NEXT_PUBLIC_MAP_TILES;
 
 type MapProps = MapContainerProps & {
-  gestureHandling?: boolean,
+  gestureHandling?: boolean;
   gestureHandlingOptions?: {
-    text?: Record<string, string>
-    locale?: string
-    duration?: number
-  }
+    text?: Record<string, string>;
+    locale?: string;
+    duration?: number;
+  };
 };
 
 const StyledMapContainer = chakra(MapContainer, {
@@ -40,17 +40,14 @@ export default function Map(props: MapProps) {
 
   const { center } = props;
 
-  const onMapReady = useCallback(
-    ({ target: map }) => {
-      mapRef.current = map;
+  const onMapReady = useCallback(({ target: map }) => {
+    mapRef.current = map;
 
-      // Remove flag
-      map.attributionControl.setPrefix(
-        '<a href="https://leafletjs.com" title="A JavaScript library for interactive maps">Leaflet</a>',
-      );
-    },
-    [],
-  );
+    // Remove flag
+    map.attributionControl.setPrefix(
+      '<a href="https://leafletjs.com" title="A JavaScript library for interactive maps">Leaflet</a>',
+    );
+  }, []);
 
   return (
     <StyledMapContainer
@@ -63,7 +60,7 @@ export default function Map(props: MapProps) {
     >
       <TileLayer
         url={MAP_TILES}
-        attribution="&copy; <a href=&quot;https://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+        attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       <Marker position={center} icon={markerIcon} />
     </StyledMapContainer>

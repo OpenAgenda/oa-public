@@ -23,10 +23,15 @@ describe('02 - event search - functional: location', () => {
 
   beforeAll(async () => {
     await service('members').rebuild({
-      eventsList: async (_lastId, _limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.members.json`),
-      ),
+      eventsList: async (_lastId, _limit) =>
+        JSON.parse(
+          fs.readFileSync(`${__dirname}/fixtures/02_events.members.json`),
+        ),
     });
+  });
+
+  afterAll(async () => {
+    await service('members').clear();
   });
 
   it('when member name is not available, user name is indexed', async () => {

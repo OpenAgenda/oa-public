@@ -48,10 +48,16 @@ function EventImage({ src, loader = null, updatedAt = null }) {
       width="56"
       height="56"
       src={typeof src === 'string' ? `${src}${tsSuffix}` : src}
-      fallbackSrc={isDev && typeof src === 'string'
-        ? `${src.replace('cibuldev', 'cibul')
-          .replace(process.env.NEXT_PUBLIC_IMAGE_PREFIX, process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX)}${tsSuffix}`
-        : undefined}
+      fallbackSrc={
+        isDev && typeof src === 'string'
+          ? `${src
+            .replace('cibuldev', 'cibul')
+            .replace(
+              process.env.NEXT_PUBLIC_IMAGE_PREFIX,
+              process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX,
+            )}${tsSuffix}`
+          : undefined
+      }
       alt=""
       draggable={false}
       loader={loader}
@@ -65,12 +71,17 @@ function EventImage({ src, loader = null, updatedAt = null }) {
 function EventItem({ agenda, event }) {
   const intl = useIntl();
 
-  const imageSrc = event.image && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${event.image.filename}`;
+  const imageSrc = event.image
+    && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${event.image.filename}`;
 
   return (
     <HStack>
       {imageSrc ? (
-        <EventImage src={imageSrc} updatedAt={event.updatedAt} loader={keyCDNLoader} />
+        <EventImage
+          src={imageSrc}
+          updatedAt={event.updatedAt}
+          loader={keyCDNLoader}
+        />
       ) : (
         <EventImage src={graylogo140} />
       )}
@@ -79,12 +90,17 @@ function EventItem({ agenda, event }) {
         {event.draft ? (
           <>
             <Text fontWeight="bold">
-              {getLocaleValue(event.title, intl.locale) || intl.formatMessage(messages.undefinedTitle)}
+              {getLocaleValue(event.title, intl.locale)
+                || intl.formatMessage(messages.undefinedTitle)}
             </Text>
             <div>
-              {getLocaleValue(event.description, intl.locale) || intl.formatMessage(messages.undefinedDescription)}
+              {getLocaleValue(event.description, intl.locale)
+                || intl.formatMessage(messages.undefinedDescription)}
             </div>
-            <Link href={`/${agenda.slug}/contribute/event/${event.uid}`} color="primary.500">
+            <Link
+              href={`/${agenda.slug}/contribute/event/${event.uid}`}
+              color="primary.500"
+            >
               {intl.formatMessage(messages.complete)}
             </Link>
           </>
@@ -93,14 +109,18 @@ function EventItem({ agenda, event }) {
             <Text fontWeight="bold">
               {getLocaleValue(event.title, intl.locale)}
             </Text>
-            <div>
-              {getLocaleValue(event.dateRange, intl.locale)}
-            </div>
+            <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
             <Wrap shouldWrapChildren spacing="3">
-              <Link href={`/${agenda.slug}/events/${event.slug}`} color="primary.500">
+              <Link
+                href={`/${agenda.slug}/events/${event.slug}`}
+                color="primary.500"
+              >
                 {intl.formatMessage(messages.show)}
               </Link>
-              <Link href={`/${agenda.slug}/contribute/event/${event.uid}`} color="primary.500">
+              <Link
+                href={`/${agenda.slug}/contribute/event/${event.uid}`}
+                color="primary.500"
+              >
                 {intl.formatMessage(messages.edit)}
               </Link>
             </Wrap>
@@ -129,7 +149,13 @@ function EventsModalBody({ agenda, bundleState }) {
       if (pageIndex === 0) return ['contextBar', 'events', bundleState.key];
 
       // add the cursor to the API endpoint
-      return ['contextBar', 'events', bundleState.key, pageIndex, previousPageData.after];
+      return [
+        'contextBar',
+        'events',
+        bundleState.key,
+        pageIndex,
+        previousPageData.after,
+      ];
     },
     ([_comp, _requestId, requestedState, page, after]) => {
       if (requestedState === 'drafts') {
@@ -138,11 +164,12 @@ function EventsModalBody({ agenda, bundleState }) {
           limit: PAGE_SIZE,
           useDefaultImage: false,
         });
-        return fetch(`/api/me/agendas/${agenda.uid}/events/drafts?${searchParamsStr}`)
-          .then(r => {
-            if (r.ok) return r.json();
-            throw new Error('Can\'t list events');
-          });
+        return fetch(
+          `/api/me/agendas/${agenda.uid}/events/drafts?${searchParamsStr}`,
+        ).then((r) => {
+          if (r.ok) return r.json();
+          throw new Error("Can't list events");
+        });
       }
 
       const searchParamsStr = qs.stringify({
@@ -150,11 +177,12 @@ function EventsModalBody({ agenda, bundleState }) {
         after,
         limit: PAGE_SIZE,
       });
-      return fetch(`/api/me/agendas/${agenda.uid}/events?${searchParamsStr}`)
-        .then(r => {
-          if (r.ok) return r.json();
-          throw new Error('Can\'t list events');
-        });
+      return fetch(
+        `/api/me/agendas/${agenda.uid}/events?${searchParamsStr}`,
+      ).then((r) => {
+        if (r.ok) return r.json();
+        throw new Error("Can't list events");
+      });
     },
     {
       keepPreviousData: true,
@@ -168,12 +196,13 @@ function EventsModalBody({ agenda, bundleState }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
   const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
 
   const { ref } = useInView({
-    onChange: inView => {
+    onChange: (inView) => {
       if (inView && !isReachingEnd && !isLoadingMore) {
         setSize(size + 1).catch(() => null);
       }
@@ -192,18 +221,19 @@ function EventsModalBody({ agenda, bundleState }) {
         mb="6"
         bg="oaGray.10"
         border="1px solid"
-        borderColor={bundleState.slug === 'drafts' ? 'orange.300' : 'oaGray.100'}
+        borderColor={
+          bundleState.slug === 'drafts' ? 'orange.300' : 'oaGray.100'
+        }
         borderRadius="base"
       >
         {intl.formatMessage(messages[`${bundleState.slug}ModalInfo`])}
       </Box>
 
       <VStack spacing="4" align="start">
-        {pages.map(
-          page => page.events.map(event => (
+        {pages.map((page) =>
+          page.events.map((event) => (
             <EventItem key={event.uid} agenda={agenda} event={event} />
-          )),
-        )}
+          )))}
       </VStack>
 
       <div ref={ref} />
@@ -215,12 +245,7 @@ export default function EventsModal({ isOpen, onClose, agenda, bundleState }) {
   const intl = useIntl();
 
   return (
-    <Modal
-      size="xl"
-      isCentered
-      isOpen={isOpen}
-      onClose={onClose}
-    >
+    <Modal size="xl" isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader

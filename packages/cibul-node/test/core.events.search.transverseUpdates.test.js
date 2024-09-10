@@ -64,8 +64,8 @@ describe('core - functional (server): core.events.search', () => {
         },
       );
 
-      return new Promise(rs => {
-        core.services.tracker.on('eventSearch.otherAgendasAndTransverseUpdate.done', rs, true);
+      return new Promise((rs) => {
+        core.services.tracker.on('transverseIndex.done', rs, true);
       });
     });
 
@@ -76,7 +76,6 @@ describe('core - functional (server): core.events.search', () => {
     it('an update launches queues', async () => {
       const indexed = await core.events.search({ uid: 99999999 });
 
-      console.log('indexed', indexed);
       expect(indexed.events[0].title.fr).toBe('test');
     });
   });

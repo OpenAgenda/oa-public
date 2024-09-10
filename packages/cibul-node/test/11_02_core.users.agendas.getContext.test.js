@@ -47,9 +47,13 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       let context;
 
       beforeAll(async () => {
-        context = await core.users(63170203).agendas(17026855).events(19390293).getContext({
-          userUid: 1,
-        });
+        context = await core
+          .users(63170203)
+          .agendas(17026855)
+          .events(19390293)
+          .getContext({
+            userUid: 1,
+          });
       });
 
       it('context provides authorizations', () => {
@@ -61,6 +65,8 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
           canEditEvent: true,
           canCreateEvent: true,
           canContribute: true,
+          canRemoveEvent: false,
+          canDeleteEvent: true,
         });
       });
 
@@ -74,10 +80,14 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       });
 
       it('includes option can be used to fetch limited information', async () => {
-        const sample = await core.users(63170203).agendas(17026855).events(19390293).getContext({
-          userUid: 1,
-          includes: 'me.authorizations',
-        });
+        const sample = await core
+          .users(63170203)
+          .agendas(17026855)
+          .events(19390293)
+          .getContext({
+            userUid: 1,
+            includes: 'me.authorizations',
+          });
         expect(Object.keys(sample)).toEqual(['me']);
         expect(Object.keys(sample.me)).toEqual(['authorizations']);
       });
@@ -87,9 +97,13 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       let context;
 
       beforeAll(async () => {
-        context = await core.users(63170203).agendas(17026855).events(83902931).getContext({
-          userUid: 1,
-        });
+        context = await core
+          .users(63170203)
+          .agendas(17026855)
+          .events(83902931)
+          .getContext({
+            userUid: 1,
+          });
       });
 
       it('context of draft event is accessible', () => {
@@ -117,13 +131,13 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
           canEditEvent: false,
           canCreateEvent: true,
           canContribute: true,
+          canRemoveEvent: null,
+          canDeleteEvent: null,
         });
       });
 
       it('context provides member information', () => {
-        expect(
-          Object.keys(context.me.member).sort(),
-        ).toEqual([
+        expect(Object.keys(context.me.member).sort()).toEqual([
           'deletedUser',
           'email',
           'name',
@@ -141,13 +155,13 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       let contributorContext;
 
       beforeAll(async () => {
-        contributorContext = await core.users(63170203).agendas(17026855).getContext({
-          userUid: 63170203,
-          includes: [
-            'me.events',
-            'events',
-          ],
-        });
+        contributorContext = await core
+          .users(63170203)
+          .agendas(17026855)
+          .getContext({
+            userUid: 63170203,
+            includes: ['me.events', 'events'],
+          });
       });
 
       it('contributor does not have access to general event statistics', async () => {
@@ -159,10 +173,12 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       });
 
       it('me.events provides count of events contributed by user per state', () => {
-        expect(contributorContext.me.events.states).toEqual([{
-          eventCount: 2,
-          key: 2,
-        }]);
+        expect(contributorContext.me.events.states).toEqual([
+          {
+            eventCount: 2,
+            key: 2,
+          },
+        ]);
       });
     });
 
@@ -170,21 +186,23 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       let administratorContext;
 
       beforeAll(async () => {
-        administratorContext = await core.users(63170203).agendas(17026855).getContext({
-          userUid: 1,
-          includes: [
-            'me.events',
-            'events',
-          ],
-        });
+        administratorContext = await core
+          .users(63170203)
+          .agendas(17026855)
+          .getContext({
+            userUid: 1,
+            includes: ['me.events', 'events'],
+          });
       });
 
       it('administrator has access to general event statistics', async () => {
         expect(administratorContext.events).toEqual({
-          states: [{
-            key: 2,
-            eventCount: 3,
-          }],
+          states: [
+            {
+              key: 2,
+              eventCount: 3,
+            },
+          ],
         });
       });
     });

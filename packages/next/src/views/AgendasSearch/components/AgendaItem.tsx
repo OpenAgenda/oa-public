@@ -27,9 +27,13 @@ export default function AgendaItem({ agenda }) {
         width="96"
         height="96"
         src={imageSrc || graylogo140}
-        fallbackSrc={isDev && typeof imageSrc === 'string'
-          ? imageSrc.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
-          : undefined}
+        fallbackSrc={
+          isDev && typeof imageSrc === 'string'
+            ? imageSrc
+              .replace('cibuldev', 'cibul')
+              .replace('images-', 'imagesdev-')
+            : undefined
+        }
         alt=""
         draggable={false}
         loader={imageSrc ? keyCDNLoader : null}
@@ -75,28 +79,26 @@ export default function AgendaItem({ agenda }) {
           ) : null}
         </Text>
 
-        <Text mb="2">
-          {agenda.description}
-        </Text>
+        <Text mb="2">{agenda.description}</Text>
 
         <div>
           {currentAndUpcomingEvents ? (
-            <Tag
-              borderRadius="full"
-              variant="outline"
-              colorScheme="primary"
-            >
-              <b>{intl.formatMessage(messages.upcomingEvents, { count: currentAndUpcomingEvents })}</b>
+            <Tag borderRadius="full" variant="outline" colorScheme="primary">
+              <b>
+                {intl.formatMessage(messages.upcomingEvents, {
+                  count: currentAndUpcomingEvents,
+                })}
+              </b>
             </Tag>
           ) : null}
 
           {passedEvents && !currentAndUpcomingEvents ? (
-            <Tag
-              borderRadius="full"
-              variant="outline"
-              colorScheme="oaGray"
-            >
-              <b>{intl.formatMessage(messages.passedEvents, { count: passedEvents })}</b>
+            <Tag borderRadius="full" variant="outline" colorScheme="oaGray">
+              <b>
+                {intl.formatMessage(messages.passedEvents, {
+                  count: passedEvents,
+                })}
+              </b>
             </Tag>
           ) : null}
         </div>

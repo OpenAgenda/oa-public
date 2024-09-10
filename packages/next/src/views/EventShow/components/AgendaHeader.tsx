@@ -40,9 +40,11 @@ export default function AgendaHeader() {
           width="56"
           height="56"
           src={getImageSrc(agenda.image, updatedTs)}
-          fallbackSrc={isDev
-            ? `${agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
-            : undefined}
+          fallbackSrc={
+            isDev
+              ? `${agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
+              : undefined
+          }
           loader={keyCDNLoader}
           priority
           draggable={false}
@@ -60,7 +62,12 @@ export default function AgendaHeader() {
             &nbsp;›
           </NextChakraLink>
         ) : null}
-        <Heading as="h1" fontSize="2xl" mt={agenda.network ? '0 !important' : undefined} textAlign={{ base: 'center', md: 'start' }}>
+        <Heading
+          as="h1"
+          fontSize="2xl"
+          mt={agenda.network ? '0 !important' : undefined}
+          textAlign={{ base: 'center', md: 'start' }}
+        >
           {agenda.title}
           {agenda.official ? (
             <NoBreak>

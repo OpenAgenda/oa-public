@@ -4,14 +4,19 @@ import updateAgendaIndex from './updateAgendaIndex.js';
 const log = logs('services/eventSearch/otherUpdates');
 
 export async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
-  const {
-    agendaEvents,
-  } = services;
+  const { agendaEvents } = services;
 
   log('loadOtherUpdates');
-  const remainingAgendaUids = await agendaEvents.list.byEventUid(eventUid, {
-    excludeAgendaUid: agendaUid,
-  }, 0, 1000).then(r => r.items.map(ae => ae.agendaUid));
+  const remainingAgendaUids = await agendaEvents.list
+    .byEventUid(
+      eventUid,
+      {
+        excludeAgendaUid: agendaUid,
+      },
+      0,
+      1000,
+    )
+    .then((r) => r.items.map((ae) => ae.agendaUid));
 
   log('loadOtherUpdates: remainingAgendaUids: %j', remainingAgendaUids);
 
@@ -22,23 +27,17 @@ export async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
 }
 
 export async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
-  const {
-    core,
-    tracker,
-  } = services;
+  const { core, tracker } = services;
 
   log('  otherUpdate', agendaUid, eventUid);
 
-  const {
-    event,
-    member,
-    formSchema,
-    agenda,
-  } = await core.agendas(agendaUid).events.get(eventUid, {
-    returnPayload: true,
-    detailed: true,
-    access: 'internal',
-  });
+  const { event, member, formSchema, agenda } = await core
+    .agendas(agendaUid)
+    .events.get(eventUid, {
+      returnPayload: true,
+      detailed: true,
+      access: 'internal',
+    });
 
   if (tracker) {
     tracker(`eventSearch.otherUpdate:${agendaUid}.${eventUid}`);

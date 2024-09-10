@@ -1,7 +1,4 @@
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-} from 'next';
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 
 async function getUser(_req, _res) {
   return {
@@ -9,7 +6,9 @@ async function getUser(_req, _res) {
   };
 }
 
-export default function withUserSsr<P extends { [key: string]: unknown } = { [key: string]: unknown }>(
+export default function withUserSsr<
+  P extends { [key: string]: unknown } = { [key: string]: unknown },
+>(
   handler: (
     context: GetServerSidePropsContext,
   ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>,
@@ -19,14 +18,10 @@ export default function withUserSsr<P extends { [key: string]: unknown } = { [ke
   ) {
     const user = await getUser(context.req, context.res);
 
-    Object.defineProperty(
-      context.req,
-      'user',
-      {
-        enumerable: true,
-        value: user,
-      },
-    );
+    Object.defineProperty(context.req, 'user', {
+      enumerable: true,
+      value: user,
+    });
 
     return handler(context);
   };

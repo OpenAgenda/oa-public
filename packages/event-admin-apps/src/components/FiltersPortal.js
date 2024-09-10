@@ -9,9 +9,19 @@ const messages = defineMessages({
     id: 'EventAdminApp.FiltersPortal.filters',
     defaultMessage: 'Filters',
   },
+  showAllFilters: {
+    id: 'EventAdminApp.FiltersPortal.showAllFilters',
+    defaultMessage: 'Show all filters',
+  },
 });
 
-export default function FiltersPortal({ filtersContainerRef, ...rest }) {
+export default function FiltersPortal({
+  filtersContainerRef,
+  agenda,
+  onShowAllFilters,
+  isShowingAllFilters,
+  ...rest
+}) {
   const intl = useIntl();
 
   const filtersContainer = useConstant(() => document.createElement('div'));
@@ -30,7 +40,16 @@ export default function FiltersPortal({ filtersContainerRef, ...rest }) {
         <b>{intl.formatMessage(messages.filters)}</b>
       </div>
 
-      <FiltersPart {...rest} />
+      <FiltersPart {...rest} agenda={agenda} />
+      {!isShowingAllFilters ? (
+        <button
+          type="button"
+          className="btn btn-link padding-left-z"
+          onClick={() => onShowAllFilters()}
+        >
+          {intl.formatMessage(messages.showAllFilters)}
+        </button>
+      ) : null}
     </div>,
     filtersContainer,
   );

@@ -36,9 +36,17 @@ function Total({ total, upcomingOnly, passed: _passed, disabled: _disabled }) {
   // }, [disabled, passedUrl, router]);
 
   return (
-    <Text align="center" display={{ base: 'flex', sm: 'block' }} flexDirection="column" alignSelf="start">
+    <Text
+      align="center"
+      display={{ base: 'flex', sm: 'block' }}
+      flexDirection="column"
+      alignSelf="start"
+    >
       <chakra.span>
-        {intl.formatMessage(messages[upcomingOnly ? 'totalUpcomingEvents' : 'totalEvents'], { count: total })}
+        {intl.formatMessage(
+          messages[upcomingOnly ? 'totalUpcomingEvents' : 'totalEvents'],
+          { count: total },
+        )}
       </chakra.span>
       {/* <Button
         as="a"
@@ -54,7 +62,14 @@ function Total({ total, upcomingOnly, passed: _passed, disabled: _disabled }) {
   );
 }
 
-export default function TotalPart({ agenda, filters, query, includeFields, prefilter, referrer }) {
+export default function TotalPart({
+  agenda,
+  filters,
+  query,
+  includeFields,
+  prefilter,
+  referrer,
+}) {
   const intl = useIntl();
 
   const upcomingOnly = !query.timings && query.passed !== '1';
@@ -85,7 +100,8 @@ export default function TotalPart({ agenda, filters, query, includeFields, prefi
   });
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   // const isEmpty = pages?.[0]?.events?.length === 0;
   // const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
   // const isRefreshing = isValidating && pages && pages.length === size;

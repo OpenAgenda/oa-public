@@ -2,19 +2,22 @@ import { format, getWeekOfMonth, startOfDay } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 
 type Timing = {
-  begin: string
-  end: string
+  begin: string;
+  end: string;
 };
 
 export type SpreadTimings = {
   [month: string]: {
     [week: string]: {
-      [day: string]: Timing[]
-    }
-  }
-}
+      [day: string]: Timing[];
+    };
+  };
+};
 
-export default function spreadTimings(timings: Timing[], timezone: string): SpreadTimings {
+export default function spreadTimings(
+  timings: Timing[],
+  timezone: string,
+): SpreadTimings {
   return timings.reduce((result, timing) => {
     const zonedBegin = utcToZonedTime(timing.begin, timezone);
 

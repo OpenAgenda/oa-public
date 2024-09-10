@@ -58,7 +58,8 @@ const messages = defineMessages({
   },
   publishedModalInfo: {
     id: 'next.views.AgendaShow.ContextBar.publishedModalInfo',
-    defaultMessage: 'These events have been published and are accessible by the viewers of the agenda.',
+    defaultMessage:
+      'These events have been published and are accessible by the viewers of the agenda.',
   },
   draftsModalInfo: {
     id: 'next.views.AgendaShow.ContextBar.draftsModalInfo',

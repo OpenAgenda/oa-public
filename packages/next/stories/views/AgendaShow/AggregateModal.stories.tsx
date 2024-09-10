@@ -11,9 +11,7 @@ import aggregateModalAgendas from './fixtures/aggregateModalAgendas.json';
 export default {
   title: 'views/AgendaShow/AggregateModal',
   component: AggregateModal,
-  loaders: [
-    intlMessagesLoader(AgendaShow.fetchLocale),
-  ],
+  loaders: [intlMessagesLoader(AgendaShow.fetchLocale)],
   decorators: [ProvidersDecorator],
 };
 
@@ -23,7 +21,9 @@ export const NotConnected = {
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>Open modal</Button>
+        <Button variant="primary" onClick={onOpen}>
+          Open modal
+        </Button>
 
         <AggregateModal
           isOpen={isOpen}
@@ -48,7 +48,9 @@ export const Connected = {
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>Open modal</Button>
+        <Button variant="primary" onClick={onOpen}>
+          Open modal
+        </Button>
 
         <AggregateModal
           isOpen={isOpen}
@@ -62,7 +64,8 @@ export const Connected = {
     msw: {
       handlers: [
         http.get('/users/me', () => HttpResponse.json(userFixtures)),
-        http.get('/home/agendas', () => HttpResponse.json(aggregateModalAgendas)),
+        http.get('/home/agendas', () =>
+          HttpResponse.json(aggregateModalAgendas)),
       ],
     },
   },

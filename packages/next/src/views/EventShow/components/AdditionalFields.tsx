@@ -40,18 +40,14 @@ function LinkField({ field }) {
     email: 'mailto:',
   }[field.fieldType];
 
-  return (
-    field.value ? (
-      <Link
-        isExternal
-        href={`${prefix}${field.value}`}
-        color="primary.500"
-      >
-        {field.value}
-      </Link>
-    ) : (
-      <chakra.em color="oaGray.500">{intl.formatMessage(messages.noInput)}</chakra.em>
-    )
+  return field.value ? (
+    <Link isExternal href={`${prefix}${field.value}`} color="primary.500">
+      {field.value}
+    </Link>
+  ) : (
+    <chakra.em color="oaGray.500">
+      {intl.formatMessage(messages.noInput)}
+    </chakra.em>
   );
 }
 
@@ -60,79 +56,87 @@ function ImageField({ field, updatedAt }) {
 
   const suffix = updatedAt ? `?__ts=${updatedAt}` : '';
 
-  return (
-    field.value ? (
-      <Image
-        src={process.env.NODE_ENV === 'development'
+  return field.value ? (
+    <Image
+      src={
+        process.env.NODE_ENV === 'development'
           ? `${DEV_IMAGE_PREFIX}${field.value.filename}${suffix}`
-          : `${IMAGE_PREFIX}${field.value.filename}${suffix}`}
-        fallbackSrc={process.env.NODE_ENV === 'development'
+          : `${IMAGE_PREFIX}${field.value.filename}${suffix}`
+      }
+      fallbackSrc={
+        process.env.NODE_ENV === 'development'
           ? `${IMAGE_PREFIX}${field.value.filename}${suffix}`
-          : undefined}
-        fill
-        sizes="(max-width: 992px) 100vw, 60vw"
-        // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
-        pos="unset !important"
-        w="auto !important"
-        h="auto !important"
-        loader={keyCDNLoader}
-        alt=""
-      />
-    ) : (
-      <chakra.em color="oaGray.500">{intl.formatMessage(messages.noImage)}</chakra.em>
-    )
+          : undefined
+      }
+      fill
+      sizes="(max-width: 992px) 100vw, 60vw"
+      // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+      pos="unset !important"
+      w="auto !important"
+      h="auto !important"
+      loader={keyCDNLoader}
+      alt=""
+    />
+  ) : (
+    <chakra.em color="oaGray.500">
+      {intl.formatMessage(messages.noImage)}
+    </chakra.em>
   );
 }
 
 function FileField({ field }) {
   const intl = useIntl();
 
-  return (
-    field.value ? (
-      <Link
-        isExternal
-        href={field.value.link}
-        color="primary.500"
-        download={field.value.originalName}
-      >
-        {field.value.originalName}
-      </Link>
-    ) : (
-      <chakra.em color="oaGray.500">{intl.formatMessage(messages.noFile)}</chakra.em>
-    )
+  return field.value ? (
+    <Link
+      isExternal
+      href={field.value.link}
+      color="primary.500"
+      download={field.value.originalName}
+    >
+      {field.value.originalName}
+    </Link>
+  ) : (
+    <chakra.em color="oaGray.500">
+      {intl.formatMessage(messages.noFile)}
+    </chakra.em>
   );
 }
 
 function HtmlField({ field }) {
   const intl = useIntl();
 
-  return (
-    field.value ? (
-      <div dangerouslySetInnerHTML={{ __html: field.value }} />
-    ) : (
-      <chakra.em color="oaGray.500">{intl.formatMessage(messages.noInput)}</chakra.em>
-    )
+  return field.value ? (
+    <div dangerouslySetInnerHTML={{ __html: field.value }} />
+  ) : (
+    <chakra.em color="oaGray.500">
+      {intl.formatMessage(messages.noInput)}
+    </chakra.em>
   );
 }
 
 function OptionedField({ field }) {
   const intl = useIntl();
 
-  return (
-    field.value?.length ? <>{intl.formatList(field.value, { style: 'narrow' })}</> : (
-      <chakra.em color="oaGray.500">{intl.formatMessage(messages.noSelection)}</chakra.em>
-    )
+  return field.value?.length ? (
+    <>{intl.formatList(field.value, { style: 'narrow' })}</>
+  ) : (
+    <chakra.em color="oaGray.500">
+      {intl.formatMessage(messages.noSelection)}
+    </chakra.em>
   );
 }
 
 function DefaultField({ field }) {
   const intl = useIntl();
 
-  return (
-    field.value ? field.value : (
-      <chakra.em color="oaGray.500">{intl.formatMessage(messages.noInput)}</chakra.em>
-    )
-  );
+  return field.value
+    ? field.value
+    : (
+      <chakra.em color="oaGray.500">
+        {intl.formatMessage(messages.noInput)}
+      </chakra.em>
+    );
 }
 
 function Field({ field, updatedAt, agenda }) {
@@ -151,14 +155,22 @@ function Field({ field, updatedAt, agenda }) {
     case 'events':
       return <EventItems py="2" field={field} agenda={agenda} />;
     default:
-      return field.isOptioned ? <OptionedField field={field} /> : <DefaultField field={field} />;
+      return field.isOptioned ? (
+        <OptionedField field={field} />
+      ) : (
+        <DefaultField field={field} />
+      );
   }
 }
 
-export default function AdditionalFields({ additionalFields, updatedAt: updatedAtStrDate, agenda }) {
+export default function AdditionalFields({
+  additionalFields,
+  updatedAt: updatedAtStrDate,
+  agenda,
+}) {
   const updatedAt = new Date(updatedAtStrDate).getTime();
 
-  return additionalFields.map(field => (
+  return additionalFields.map((field) => (
     <div key={field.key}>
       <Label field={field} />
       <Field field={field} updatedAt={updatedAt} agenda={agenda} />

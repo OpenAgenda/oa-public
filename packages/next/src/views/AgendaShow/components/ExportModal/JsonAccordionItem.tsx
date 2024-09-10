@@ -26,10 +26,19 @@ export default function JsonAccordionItem({ handleSubmit, res }) {
             {intl.formatMessage(messages.modalTitle)}
           </Button>
           <Flex direction="column">
-            <Checkbox isChecked={detailed} onChange={e => setDetailed(e.target.checked)} isDisabled={!user}>
+            <Checkbox
+              isChecked={detailed}
+              onChange={(e) => setDetailed(e.target.checked)}
+              isDisabled={!user}
+            >
               {intl.formatMessage(messages.detailedFormat)}
             </Checkbox>
-            <Link href="https://developers.openagenda.com/10-lecture/" isExternal colorScheme="primary" w="fit-content">
+            <Link
+              href="https://developers.openagenda.com/10-lecture/"
+              isExternal
+              colorScheme="primary"
+              w="fit-content"
+            >
               {intl.formatMessage(messages.documentation)}
             </Link>
           </Flex>
@@ -42,7 +51,11 @@ export default function JsonAccordionItem({ handleSubmit, res }) {
               </Link>
             ),
             link2: (chunks: React.ReactNode) => (
-              <Link href="https://developers.openagenda.com/export-json-dun-agenda/" isExternal colorScheme="primary">
+              <Link
+                href="https://developers.openagenda.com/export-json-dun-agenda/"
+                isExternal
+                colorScheme="primary"
+              >
                 {chunks}
               </Link>
             ),

@@ -84,7 +84,7 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
             headers: {
               'Content-Type': 'application/json',
             },
-          }).then(response => {
+          }).then((response) => {
             if (response.ok) {
               return optimisticResponse;
             }
@@ -98,7 +98,7 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
           optimisticData: optimisticResponse,
           revalidate: false,
         },
-      ).catch(e => {
+      ).catch((e) => {
         console.log('UPDATE STATE ERROR', e);
       });
     },
@@ -234,7 +234,7 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
       {refuseModal ? (
         <RejectModal
           setRefuseModal={setRefuseModal}
-          changeState={r => changeState(-1, r)}
+          changeState={(r) => changeState(-1, r)}
         />
       ) : null}
     </Menu>

@@ -166,7 +166,9 @@ export default function Drawer(props: DrawerProps) {
         enabled={/* index === 1 && */ isOpen && isSmall && blockScrollOnMount}
         forwardProps
       >
-        <chakra.div {...containerProps} tabIndex={-1}> {/* RemoveScroll allow only one child */}
+        <chakra.div {...containerProps} tabIndex={-1}>
+          {' '}
+          {/* RemoveScroll allow only one child */}
           <Box // Overlay
             pos={{ base: 'fixed', [breakpoint]: 'relative' }}
             left="0"
@@ -192,7 +194,6 @@ export default function Drawer(props: DrawerProps) {
             }}
             transition={`opacity ${isOpen ? '.2s' : '.1s'}`}
           />
-
           <Box // Modal
             ref={ref}
             pos={{ base: 'fixed', [breakpoint]: 'relative' }}
@@ -214,7 +215,11 @@ export default function Drawer(props: DrawerProps) {
               [breakpoint]: '0',
             }}
             overflow="auto"
-            transition={isSmall ? `transform ${isOpen ? '.4s ease-in-out' : '.15s ease'}` : undefined}
+            transition={
+              isSmall
+                ? `transform ${isOpen ? '.4s ease-in-out' : '.15s ease'}`
+                : undefined
+            }
             {...dialogProps}
             {...rest}
           >

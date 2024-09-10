@@ -136,14 +136,14 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
   const now = new Date();
 
   const currentAndUpcomingTimings = event.timings.filter(
-    timing => new Date(timing.begin) > now,
+    (timing) => new Date(timing.begin) > now,
   );
 
   const [selectedTimingIndex, setSelectedTimingIndex] = useState(() =>
     (currentAndUpcomingTimings.length === 1 ? '0' : ''));
   const [service, setService] = useState('');
 
-  const onSelectTiming = e => setSelectedTimingIndex(e.target.value);
+  const onSelectTiming = (e) => setSelectedTimingIndex(e.target.value);
 
   const importUrl = getImportUrl({
     intl,
@@ -156,7 +156,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
   });
 
   const [emailValue, setEmailValue] = useState('');
-  const handleEmailsChange = e => {
+  const handleEmailsChange = (e) => {
     setEmailValue(e.target.value);
   };
 

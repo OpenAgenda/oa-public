@@ -1,16 +1,9 @@
 {
-  "after": [
-    50.529507,
-    54150505
-  ],
+  "after": [50.529507, 54150505],
   "agendas": [
     {
       "summary": {
-        "keywords": [
-          "Civaux",
-          "Vienne",
-          "Nouvelle Aquitaine"
-        ],
+        "keywords": ["Civaux", "Vienne", "Nouvelle Aquitaine"],
         "publishedEvents": {
           "current": 0,
           "passed": 1,
@@ -851,11 +844,7 @@
     },
     {
       "summary": {
-        "keywords": [
-          "Roujan",
-          "Hérault",
-          "Occitanie"
-        ],
+        "keywords": ["Roujan", "Hérault", "Occitanie"],
         "publishedEvents": {
           "current": 0,
           "passed": 5,

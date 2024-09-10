@@ -2,21 +2,32 @@ import { Forbidden, NotFound } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import createPayload from '../utils/createPayload.js';
 import getAgenda from '../utils/getAgenda.js';
+import loadAuthorizations from '../../utils/authorizations.js';
 import * as merge from '../utils/merge.js';
 import refreshAgenda from '../utils/refreshAgenda.js';
 
 const log = logs('core/agendas/events/remove');
 
-export default async (core, agendaUid, eventUid, options) => {
+export default async (core, agendaUid, eventUid, options = {}) => {
   log('removing event %s from agenda %s', eventUid, agendaUid);
 
-  const { agendaEvents, aggregators, custom, events, eventSearch } = core.services;
+  const { agendaEvents, aggregators, custom, events, eventSearch, members } = core.services;
 
   const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
   log('  loaded agenda %s', agenda.slug);
 
-  const contextUser = options?.context?.user;
-  const contextUserUid = options?.context?.userUid || contextUser?.uid;
+  const actingUser = options?.context?.user;
+  const actingUserUid = options.userUid ?? options?.context?.userUid ?? actingUser?.uid;
+
+  const actingMember = actingUserUid
+    ? await members.get(
+      {
+        agendaUid: agenda.uid,
+        userUid: actingUserUid,
+      },
+      { roleAsSlug: false },
+    )
+    : null;
 
   const {
     access,
@@ -30,7 +41,7 @@ export default async (core, agendaUid, eventUid, options) => {
     returnPayload: false,
     protectFromOriginRemove: false,
     private: false,
-    ...options || {},
+    ...options,
   };
 
   const payload = createPayload(core, agenda);
@@ -63,11 +74,38 @@ export default async (core, agendaUid, eventUid, options) => {
 
   payload.setItem('event', event);
 
+  const { canRemoveEvent, canDeleteEvent } = await loadAuthorizations(
+    core,
+    'remove',
+    {
+      agenda,
+      agendaEvent: event.draft
+        ? null
+        : await agendaEvents(agenda.uid).get(event.uid, {
+          throwOnNotFound: true,
+        }),
+      member: actingMember,
+      event,
+      access,
+    },
+  );
+
   if (isOriginAgenda) {
+    if (!canDeleteEvent) {
+      throw new Forbidden(
+        { info: { uid: event.uid } },
+        'not authorized to delete event',
+      );
+    }
     log(
       'remove request comes from agenda %s, origin is %s, proceeding with delete',
       agendaUid,
       event.agendaUid,
+    );
+  } else if (!canRemoveEvent) {
+    throw new Forbidden(
+      { info: { uid: event.uid } },
+      'not authorized to remove event',
     );
   }
 
@@ -79,8 +117,8 @@ export default async (core, agendaUid, eventUid, options) => {
         event,
         agenda,
         agendaUid,
-        user: contextUser,
-        userUid: contextUserUid,
+        user: actingUser,
+        userUid: actingUserUid,
         legacy: false,
         deletion: isOriginAgenda,
         batched,
@@ -98,8 +136,8 @@ export default async (core, agendaUid, eventUid, options) => {
       transferToLegacy: !event.draft,
       context: {
         agendaUid,
-        user: contextUser,
-        userUid: contextUserUid,
+        user: actingUser,
+        userUid: actingUserUid,
         legacy: false,
       },
     });
@@ -121,8 +159,8 @@ export default async (core, agendaUid, eventUid, options) => {
     await events.remove(eventUid, {
       context: {
         agendaUid,
-        user: contextUser,
-        userUid: contextUserUid,
+        user: actingUser,
+        userUid: actingUserUid,
       },
       private: privateOption,
     });

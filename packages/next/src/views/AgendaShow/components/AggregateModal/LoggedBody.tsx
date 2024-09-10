@@ -3,7 +3,14 @@ import React, { useCallback, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import qs from 'qs';
 import { useInView } from 'react-intersection-observer';
-import { Button, ModalBody, ModalFooter, Text, VStack, Link } from '@openagenda/uikit';
+import {
+  Button,
+  ModalBody,
+  ModalFooter,
+  Text,
+  VStack,
+  Link,
+} from '@openagenda/uikit';
 // import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import ModalLoadingBody from 'components/ModalLoadingBody';
 import SearchInput from 'components/SearchInput';
@@ -20,7 +27,7 @@ export default function LoggedBody({ agenda }) {
   const onSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
-      search: { value: string }
+      search: { value: string };
     };
 
     setSearchValue(target.search.value);
@@ -52,11 +59,10 @@ export default function LoggedBody({ agenda }) {
         useDefaultImage: false,
       });
 
-      return fetch(`/home/agendas?${searchParamsStr}`)
-        .then(r => {
-          if (r.ok) return r.json();
-          throw new Error('Can\'t list agendas');
-        });
+      return fetch(`/home/agendas?${searchParamsStr}`).then((r) => {
+        if (r.ok) return r.json();
+        throw new Error("Can't list agendas");
+      });
     },
     {
       keepPreviousData: true,
@@ -70,14 +76,15 @@ export default function LoggedBody({ agenda }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.agendas?.length === 0;
   const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
 
   const noAgendas = isEmpty && searchValue === '';
 
   const { ref } = useInView({
-    onChange: inView => {
+    onChange: (inView) => {
       if (inView && !isReachingEnd && !isLoadingMore) {
         setSize(size + 1).catch(() => null);
       }
@@ -102,18 +109,19 @@ export default function LoggedBody({ agenda }) {
         ) : null}
 
         <VStack spacing="4" pt="4" align="start">
-          {pages.map(
-            page => page.agendas.map(targetAgenda => (
+          {pages.map((page) =>
+            page.agendas.map((targetAgenda) => (
               <AgendaItem
                 key={targetAgenda.uid}
                 agenda={agenda}
                 targetAgenda={targetAgenda}
               />
-            )),
-          )}
+            )))}
 
           {noAgendas ? (
-            <Text>{intl.formatMessage(messages.noAgenda, { agenda: agenda.title })}</Text>
+            <Text>
+              {intl.formatMessage(messages.noAgenda, { agenda: agenda.title })}
+            </Text>
           ) : null}
         </VStack>
 
@@ -122,11 +130,7 @@ export default function LoggedBody({ agenda }) {
 
       {noAgendas ? (
         <ModalFooter>
-          <Button
-            as={Link}
-            href="/agendas/new"
-            colorScheme="primary"
-          >
+          <Button as={Link} href="/agendas/new" colorScheme="primary">
             {intl.formatMessage(messages.createAgenda)}
           </Button>
         </ModalFooter>

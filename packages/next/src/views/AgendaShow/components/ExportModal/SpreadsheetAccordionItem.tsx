@@ -1,18 +1,34 @@
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
-import { Button, Checkbox, CheckboxGroup, Flex, Radio, RadioGroup, SimpleGrid, Stack, Wrap } from '@openagenda/uikit';
+import {
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  Flex,
+  Radio,
+  RadioGroup,
+  SimpleGrid,
+  Stack,
+  Wrap,
+} from '@openagenda/uikit';
 import AccordionItem from './AccordionItem';
 import messages from './messages';
 
 function formatTarget(target: string[] | string) {
   if (Array.isArray(target)) {
-    const cleanedArray = [...new Set(target.map(el => el.replace(/ - [A-Z]{2}$/, '')))];
+    const cleanedArray = [
+      ...new Set(target.map((el) => el.replace(/ - [A-Z]{2}$/, ''))),
+    ];
     return cleanedArray.join(', ');
   }
   return target;
 }
 
-export default function SpreadsheetAccordionItem({ handleSubmit, languages, fields }) {
+export default function SpreadsheetAccordionItem({
+  handleSubmit,
+  languages,
+  fields,
+}) {
   const intl = useIntl();
 
   const [format, setFormat] = useState('xlsx');
@@ -26,13 +42,16 @@ export default function SpreadsheetAccordionItem({ handleSubmit, languages, fiel
   const allFieldsChecked = selectedFields.length === fields.length;
   const isFieldsIndeterminate = selectedFields.length > 0 && !allFieldsChecked;
 
-  const handleAllFields = e => {
-    setSelectedFields(e.target.checked ? fields.map(v => v.source) : []);
+  const handleAllFields = (e) => {
+    setSelectedFields(e.target.checked ? fields.map((v) => v.source) : []);
   };
 
-  const handleToggleItem = setFunction => e => {
+  const handleToggleItem = (setFunction) => (e) => {
     const { value } = e.target;
-    setFunction(prev => (prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value]));
+    setFunction((prev) =>
+      (prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value]));
   };
   return (
     <AccordionItem title={intl.formatMessage(messages.spreadsheetTitle)}>
@@ -49,15 +68,24 @@ export default function SpreadsheetAccordionItem({ handleSubmit, languages, fiel
         </RadioGroup>
 
         <Stack spacing="2">
-          <Checkbox isChecked={allLanguages} onChange={e => setAllLanguages(e.target.checked)} w="fit-content">
+          <Checkbox
+            isChecked={allLanguages}
+            onChange={(e) => setAllLanguages(e.target.checked)}
+            w="fit-content"
+          >
             {intl.formatMessage(messages.allLanguages)}
           </Checkbox>
 
           {!allLanguages ? (
             <CheckboxGroup value={selectedLanguages}>
               <Wrap shouldWrapChildren pl="6" spacing="4">
-                {languages.map(lang => (
-                  <Checkbox key={lang} value={lang} onChange={handleToggleItem(setSelectedLanguages)} w="fit-content">
+                {languages.map((lang) => (
+                  <Checkbox
+                    key={lang}
+                    value={lang}
+                    onChange={handleToggleItem(setSelectedLanguages)}
+                    w="fit-content"
+                  >
                     {lang.toUpperCase()}
                   </Checkbox>
                 ))}
@@ -67,7 +95,10 @@ export default function SpreadsheetAccordionItem({ handleSubmit, languages, fiel
         </Stack>
 
         <Stack spacing={2}>
-          <Checkbox isChecked={allFields} onChange={e => setAllFields(e.target.checked)}>
+          <Checkbox
+            isChecked={allFields}
+            onChange={(e) => setAllFields(e.target.checked)}
+          >
             {intl.formatMessage(messages.allFields)}
           </Checkbox>
           {!allFields ? (
@@ -81,7 +112,7 @@ export default function SpreadsheetAccordionItem({ handleSubmit, languages, fiel
                 >
                   <b>{intl.formatMessage(messages.selectAll)}</b>
                 </Checkbox>
-                {fields.map(field => (
+                {fields.map((field) => (
                   <Checkbox
                     key={field.source}
                     value={field.source}
@@ -99,7 +130,7 @@ export default function SpreadsheetAccordionItem({ handleSubmit, languages, fiel
         <Stack spacing={2}>
           <Checkbox
             isChecked={distributedOptions}
-            onChange={e => setDistributedOptions(e.target.checked)}
+            onChange={(e) => setDistributedOptions(e.target.checked)}
             w="fit-content"
           >
             {intl.formatMessage(messages.distributeOptions)}
@@ -107,7 +138,7 @@ export default function SpreadsheetAccordionItem({ handleSubmit, languages, fiel
           {distributedOptions ? (
             <CheckboxGroup value={distributedFields}>
               <SimpleGrid pl="6" columns={2} spacing="2">
-                {fields.map(field => {
+                {fields.map((field) => {
                   if (!field.hasOptions) return null;
                   return (
                     <Checkbox

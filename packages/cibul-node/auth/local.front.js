@@ -96,7 +96,7 @@ function signinSubmit(req, res, next) {
 
       w({ err, req, res, data, user })
         .then(
-          auth.ifUserLoaded(false, async v => {
+          auth.ifUserLoaded(false, async (v) => {
             if (v.err && v.err.name !== 'NotFound') {
               log.info('signin attempt failed', {
                 ...logBundle,
@@ -107,7 +107,7 @@ function signinSubmit(req, res, next) {
             _.merge(v.data, v.req.body);
 
             // slow down a bruteforce
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
 
             return auth.renderSignin(v);
           }),
@@ -122,7 +122,7 @@ function signinSubmit(req, res, next) {
 
         .then(auth.ifUserLoaded(true, auth.signin))
 
-        .then(v => {
+        .then((v) => {
           log.info(
             'signin attempt %s',
             v.data?.errors ? 'failed' : 'successful',
@@ -219,7 +219,7 @@ function handleSigninRequest(req, email, password, cb) {
     .verifyPassword(password, {
       query: { email },
     })
-    .then(async validPassword => {
+    .then(async (validPassword) => {
       if (!validPassword) {
         return cb(null, null, {
           email,
@@ -235,13 +235,13 @@ function handleSigninRequest(req, email, password, cb) {
 
       cb(null, user, { email, password, user });
     })
-    .catch(err => {
+    .catch((err) => {
       cb(err);
     });
 }
 
 function pLoadCaptcha(v) {
-  return w.promise(rs => {
+  return w.promise((rs) => {
     loadCaptcha(v.req, v.res, () => {
       rs(v);
     });
@@ -266,7 +266,7 @@ function signupSubmit(req, res) {
 
     .then(captchaCheck)
 
-    .then(async values => {
+    .then(async (values) => {
       if (values.data.errors) {
         log.info('signup attempt failed', {
           ...logBundle,
@@ -384,6 +384,7 @@ function signupComplete(req, res) {
   cmn.render(req, res, 'auth/activation', {
     indexed: false,
     agenda: req.agenda,
+    email: req.query.email,
     resend:
       (req.agenda
         ? `/${req.agenda.slug}/activate/resend`
@@ -530,7 +531,7 @@ async function activate(req, res) {
         if (err || !invitation) return auth.signin({ req, res, user });
 
         const actions = invitation.data.actions.filter(
-          v => v.name === 'linkMember',
+          (v) => v.name === 'linkMember',
         );
 
         if (actions.length === 1) {
@@ -560,7 +561,7 @@ async function activate(req, res) {
   }
 }
 
-export default app => {
+export default (app) => {
   const { sessions, agendas } = app.services;
 
   log('initing');

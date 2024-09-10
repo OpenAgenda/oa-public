@@ -11,24 +11,27 @@ const DEFAULT_WIDTH = 600;
 const DEFAULT_HEIGHT = 600;
 
 type MapProps = MapContainerProps & {
-  width?: number
-  height?: number
-  aspectRatioProps?: AspectRatioProps
+  width?: number;
+  height?: number;
+  aspectRatioProps?: AspectRatioProps;
 };
 
-export default function Map({ width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, aspectRatioProps, ...rest }: MapProps) {
+export default function Map({
+  width = DEFAULT_WIDTH,
+  height = DEFAULT_HEIGHT,
+  aspectRatioProps,
+  ...rest
+}: MapProps) {
   const [isVisible, setIsVisible] = useState(false);
   const mapRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.unobserve(entry.target);
+      }
+    });
 
     const map = mapRef.current;
 

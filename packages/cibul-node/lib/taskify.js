@@ -59,10 +59,6 @@ export default (run, options) => {
     params.period = 60000 * 60 * 24 * 7;
   }
 
-  if (params.period === 'monthly') {
-    params.period = 60000 * 60 * 24 * 7 * 30;
-  }
-
   setTimeout(() => {
     run();
 

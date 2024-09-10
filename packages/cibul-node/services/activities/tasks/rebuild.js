@@ -1,27 +1,19 @@
 import logs from '@openagenda/logs';
-import rebuildActivityFeeds from '@openagenda/activities/src/rebuild.js';
 
 const log = logs('activities/rebuild');
 
 const sinceKey = 'activities:rebuild:since';
 
-function runRebuild({ config, since, agendaUid, activities }) {
-  return rebuildActivityFeeds(
-    {
-      knex: config.knex,
-      schemas: config.schemas,
-      service: activities,
-      logger: config.getLogConfig('oa', 'activities', false),
-    },
-    {
-      since: since || 0,
-      agendaUid,
-    },
-  );
+function runRebuild({ since, agendaUid, services }) {
+  const { activities } = services;
+  return activities.rebuild({
+    since: since || 0,
+    agendaUid,
+  });
 }
 
 async function rebuildActivities({ config, services }) {
-  const { redis: redisClient, activities } = services;
+  const { redis: redisClient } = services;
 
   const result = await redisClient.get(sinceKey);
 
@@ -31,8 +23,8 @@ async function rebuildActivities({ config, services }) {
   try {
     await runRebuild({
       config,
-      activities,
       since,
+      services,
     });
   } catch (error) {
     log.error('Error on activities syncing', { error });
@@ -46,9 +38,9 @@ async function rebuildActivities({ config, services }) {
 
 export default ({ config, services }) => ({
   rebuild: () => rebuildActivities({ services, config }),
-  agendaRebuild: agendaUid =>
+  agendaRebuild: (agendaUid) =>
     runRebuild({
-      activities: services.activities,
+      services,
       config,
       agendaUid,
     }),

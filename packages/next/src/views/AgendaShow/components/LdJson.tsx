@@ -18,12 +18,14 @@ export default function LdJson({ agenda, filters, query, includeFields }) {
 
   const eventsLdJSON = useMemo(() => {
     const eventSchemas = pages
-      ?.flatMap(p => p.events)
-      .map(event => toEventSchema(event, {
-        locale: intl.locale,
-        formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
-        url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`,
-      }));
+      ?.flatMap((p) => p.events)
+      .map((event) =>
+        toEventSchema(event, {
+          locale: intl.locale,
+          formatDate: (date, tz = 'Europe/Paris') =>
+            formatInTimeZone(date, tz, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+          url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`,
+        }));
     return stringify({
       '@context': 'https://schema.org',
       '@graph': eventSchemas,

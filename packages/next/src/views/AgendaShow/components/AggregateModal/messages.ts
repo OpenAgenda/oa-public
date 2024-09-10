@@ -7,11 +7,13 @@ export default defineMessages({
   },
   subtitle: {
     id: 'next.views.AgendaShow.AggregateModal.subtitle',
-    defaultMessage: 'Events published by {agenda} will be automatically added to the selected calendar.',
+    defaultMessage:
+      'Events published by {agenda} will be automatically added to the selected calendar.',
   },
   shouldConnect: {
     id: 'next.views.AgendaShow.AggregateModal.shouldConnect',
-    defaultMessage: 'You need to sign in to your account to aggregate this agenda.',
+    defaultMessage:
+      'You need to sign in to your account to aggregate this agenda.',
   },
   signin: {
     id: 'next.views.AgendaShow.AggregateModal.signin',
@@ -19,7 +21,8 @@ export default defineMessages({
   },
   noAgenda: {
     id: 'next.views.AgendaShow.AggregateModal.noAgenda',
-    defaultMessage: 'Warning: You are not currently administering any agenda. You need to create one before you can aggregate {agenda}.',
+    defaultMessage:
+      'Warning: You are not currently administering any agenda. You need to create one before you can aggregate {agenda}.',
   },
   createAgenda: {
     id: 'next.views.AgendaShow.AggregateModal.createAgenda',

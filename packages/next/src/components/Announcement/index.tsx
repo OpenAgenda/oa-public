@@ -6,10 +6,15 @@ import { chakra, CloseButton, Container, Link } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
 
 const remarkPlugins = [breaks];
-const rehypePlugins = [[rehypeExternalLinks, {
-  target: '_blank',
-  rel: ['nofollow', 'noopener', 'noreferrer'],
-}]] as any; // import("unified").PluggableList;
+const rehypePlugins = [
+  [
+    rehypeExternalLinks,
+    {
+      target: '_blank',
+      rel: ['nofollow', 'noopener', 'noreferrer'],
+    },
+  ],
+] as any; // import("unified").PluggableList;
 
 const reactMdComponents = {
   a(props) {
@@ -56,7 +61,8 @@ export default function Announcement() {
   useEffect(() => {
     setDisplayAnnouncement(
       user?.announcement
-      && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY) !== user.announcement.id,
+        && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY)
+          !== user.announcement.id,
     );
   }, [user]);
 

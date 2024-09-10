@@ -12,11 +12,7 @@ import {
 } from '@openagenda/uikit';
 import { emailConfirmationAlert as messages } from '../messages';
 
-export default function EmailConfirmationAlert({
-  isOpen,
-  onClose,
-  count,
-}) {
+export default function EmailConfirmationAlert({ isOpen, onClose, count }) {
   const intl = useIntl();
   const cancelRef = useRef();
 
@@ -30,7 +26,9 @@ export default function EmailConfirmationAlert({
       <AlertDialogOverlay />
 
       <AlertDialogContent>
-        <AlertDialogHeader>{intl.formatMessage(messages.shareEvent)}</AlertDialogHeader>
+        <AlertDialogHeader>
+          {intl.formatMessage(messages.shareEvent)}
+        </AlertDialogHeader>
         <AlertDialogCloseButton />
         <AlertDialogBody>
           {intl.formatMessage(messages.shareEventInfo, { count })}

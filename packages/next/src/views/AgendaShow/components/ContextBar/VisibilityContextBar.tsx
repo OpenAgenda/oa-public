@@ -8,9 +8,11 @@ export default function VisibilityContextBar({ agenda }) {
   const getVisibilityMessage = () => {
     if (agenda.private === 1) {
       return intl.formatMessage(messages.private);
-    } if (agenda.indexed === 1) {
+    }
+    if (agenda.indexed === 1) {
       return intl.formatMessage(messages.indexed);
-    } if (agenda.indexed === 0) {
+    }
+    if (agenda.indexed === 0) {
       return intl.formatMessage(messages.unindexed);
     }
     return '';

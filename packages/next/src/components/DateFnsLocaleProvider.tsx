@@ -6,7 +6,11 @@ import context from 'contexts/dateFnsLocale';
 
 async function createProvider(value) {
   function Provider({ children }) {
-    return <context.Provider value={value.default || value}>{children}</context.Provider>;
+    return (
+      <context.Provider value={value.default || value}>
+        {children}
+      </context.Provider>
+    );
   }
   return Provider;
 }
@@ -28,15 +32,11 @@ const DateFnsLocaleProvider = ({ children }) => {
 
   const Provider = useMemo(() => {
     const fallbacks = getFallbackChain(locale);
-    return byLangs[fallbacks.find(l => byLangs[l])];
+    return byLangs[fallbacks.find((l) => byLangs[l])];
   }, [locale]);
 
   if (!Provider) {
-    return (
-      <context.Provider value={undefined}>
-        {children}
-      </context.Provider>
-    );
+    return <context.Provider value={undefined}>{children}</context.Provider>;
   }
 
   return <Provider>{children}</Provider>;

@@ -15,7 +15,7 @@ export default function Metas({ agenda, preload }) {
       <title>{`${agenda.title} | OpenAgenda Embed`}</title>
       <meta name="robots" content="noindex, nofollow" />
       <link rel="canonical" href={canonicalUrl} />
-      {SUPPORTED_LOCALES.map(key =>
+      {SUPPORTED_LOCALES.map((key) =>
         (key === 'io' ? null : (
           <link
             key={`alternate:${key}`}
@@ -24,10 +24,20 @@ export default function Metas({ agenda, preload }) {
             href={`${absUrl.origin}/${key}${absUrl.pathname}`}
           />
         )))}
-      <link rel="alternate" hrefLang="x-default" href={`${absUrl.origin}/en${absUrl.pathname}`} />
+      <link
+        rel="alternate"
+        hrefLang="x-default"
+        href={`${absUrl.origin}/en${absUrl.pathname}`}
+      />
 
-      {preload?.map(href => (
-        <link key={`preload-${href}`} rel="preload" href={href} as="fetch" crossOrigin="anonymous" />
+      {preload?.map((href) => (
+        <link
+          key={`preload-${href}`}
+          rel="preload"
+          href={href}
+          as="fetch"
+          crossOrigin="anonymous"
+        />
       ))}
     </Head>
   );

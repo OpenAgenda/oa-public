@@ -24,9 +24,15 @@ export default function EventItems({ agenda, field, py }) {
 
   return (
     <VStack spacing="4" py={py} align="start">
-      {!events.length ? <div>{intl.formatMessage(messages.emptySelection)}</div> : null}
-      {events.map(event => (
-        <EventItem agenda={agenda} key={`event-item-${event.uid}`} event={event} />
+      {!events.length ? (
+        <div>{intl.formatMessage(messages.emptySelection)}</div>
+      ) : null}
+      {events.map((event) => (
+        <EventItem
+          agenda={agenda}
+          key={`event-item-${event.uid}`}
+          event={event}
+        />
       ))}
     </VStack>
   );

@@ -59,13 +59,13 @@ mysql -h proxy.env-1445653.jcloud-ver-jpe.ik-server.com -pVRsrRHy0449pGcVf50 -uj
 
 #### Le sort buffer
 
-Il est insuffisant sur la configuration par défaut. Il faut l'augmenter à 262144. Sur chaque noeud, se connecter pour lancer la requête suivante:
+Il est insuffisant sur la configuration par défaut. Il faut l'augmenter à 4194304. Sur chaque noeud, se connecter pour lancer la requête suivante:
 
-    SET GLOBAL sort_buffer_size = 256000000;
+    SET GLOBAL sort_buffer_size = 4194304;
 
 Et éditer le fichier de configuration pour placer la même valeur (/etc/mysql/conf.d/my_custom.cnf) sous la clause [mysqld]:
 
-    sort_buffer_size=256000000
+    sort_buffer_size=4194304
 
 Si la valeur est suffisante, une erreur `ER_OUT_OF_SORTMEMORY` ne surviendra pas dans le noeud de tâches quand une resynchro d'index est lancée sur un gros agenda.
 
@@ -91,8 +91,8 @@ Sur chaque noeud, se connecter pour lancer les requêtes suivantes:
 ```sql
 SET GLOBAL table_open_cache = 4000;
 SET GLOBAL table_definition_cache = 2000;
-SET GLOBAL tmp_table_size = 256 * 1024 * 1024;
-SET GLOBAL max_heap_table_size = 256 * 1024 * 1024;
+SET GLOBAL tmp_table_size = 128 * 1024 * 1024;
+SET GLOBAL max_heap_table_size = 128 * 1024 * 1024;
 ```
 
 Et éditer le fichier de configuration pour placer la même valeur (/etc/mysql/conf.d/my_custom.cnf) sous la clause [mysqld]:
@@ -100,8 +100,8 @@ Et éditer le fichier de configuration pour placer la même valeur (/etc/mysql/c
 ```
 table_open_cache=4000
 table_definition_cache=2000
-tmp_table_size=268435456
-max_heap_table_size=268435456
+tmp_table_size=134217728
+max_heap_table_size=134217728
 ```
 
 #### Durée de vie limitée pour les sessions entre ProxySQL et MySQL:

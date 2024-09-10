@@ -16,11 +16,9 @@ import timezonedEventFixtures from '../../fixtures/events/timezoned.json';
 export default {
   title: 'views/EventShow/Sidebar',
   component: Sidebar,
-  loaders: [
-    intlMessagesLoader(EventShow.fetchLocale),
-  ],
+  loaders: [intlMessagesLoader(EventShow.fetchLocale)],
   decorators: [
-    Story => (
+    (Story) => (
       <Container maxW="md">
         <Story />
       </Container>
@@ -39,10 +37,11 @@ function Fixtures({ event, children }) {
       <SWRConfig
         value={{
           fallback: {
-            [`/api/agendas/slug/${agendaFixtures.slug}/events/slug/${event.slug}?longDescriptionFormat=HTMLWithEmbeds`]: {
-              success: true,
-              event,
-            },
+            [`/api/agendas/slug/${agendaFixtures.slug}/events/slug/${event.slug}?longDescriptionFormat=HTMLWithEmbeds`]:
+              {
+                success: true,
+                event,
+              },
           },
         }}
       >
@@ -55,7 +54,7 @@ function Fixtures({ event, children }) {
 export function Simple() {
   return (
     <Fixtures event={eventFixtures}>
-      <Sidebar contentLocale="fr" />
+      <Sidebar />
     </Fixtures>
   );
 }
@@ -63,17 +62,19 @@ export function Simple() {
 export function Private() {
   return (
     <Fixtures event={{ ...eventFixtures, private: true }}>
-      <Sidebar contentLocale="fr" />
+      <Sidebar />
     </Fixtures>
   );
 }
 
 export function Past() {
   const now = new Date();
-  const timings = [{
-    begin: startOfHour(subHours(now, 2)),
-    end: startOfHour(subHours(now, 1)),
-  }];
+  const timings = [
+    {
+      begin: startOfHour(subHours(now, 2)),
+      end: startOfHour(subHours(now, 1)),
+    },
+  ];
 
   return (
     <Fixtures
@@ -84,17 +85,19 @@ export function Past() {
         nextTiming: null,
       }}
     >
-      <Sidebar contentLocale="fr" />
+      <Sidebar />
     </Fixtures>
   );
 }
 
 export function Future() {
   const now = new Date();
-  const timings = [{
-    begin: startOfHour(addHours(now, 1)).toISOString(),
-    end: startOfHour(addHours(now, 2)).toISOString(),
-  }];
+  const timings = [
+    {
+      begin: startOfHour(addHours(now, 1)).toISOString(),
+      end: startOfHour(addHours(now, 2)).toISOString(),
+    },
+  ];
 
   return (
     <Fixtures
@@ -105,7 +108,7 @@ export function Future() {
         nextTiming: timings[0],
       }}
     >
-      <Sidebar contentLocale="fr" />
+      <Sidebar />
     </Fixtures>
   );
 }
@@ -113,7 +116,7 @@ export function Future() {
 export function Online() {
   return (
     <Fixtures event={onlineEventFixtures}>
-      <Sidebar contentLocale="fr" />
+      <Sidebar />
     </Fixtures>
   );
 }
@@ -121,7 +124,7 @@ export function Online() {
 export function PassCulture() {
   return (
     <Fixtures event={passCultureEventFixtures}>
-      <Sidebar contentLocale="fr" />
+      <Sidebar />
     </Fixtures>
   );
 }
@@ -129,7 +132,7 @@ export function PassCulture() {
 export function Timezoned() {
   return (
     <Fixtures event={timezonedEventFixtures}>
-      <Sidebar contentLocale="fr" />
+      <Sidebar />
     </Fixtures>
   );
 }
