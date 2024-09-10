@@ -28,6 +28,6 @@
     "tsup": "^8.1.0"
   },
   "dependencies": {
-    "@iframe-resizer/parent": "^5.1.4"
+    "@iframe-resizer/parent": "^5.3.1-beta.1"
   }
 }
