@@ -5446,19 +5446,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/core@npm:5.1.4":
-  version: 5.1.4
-  resolution: "@iframe-resizer/core@npm:5.1.4"
-  checksum: 10c0/adcc861109edf9265787c70f02f2599ce6eba7e6c8068d3907da68c9f862a4a073451a1d16980b7ef6bb7c90ff82694d62d80c1d9427c4cdaa4ae597616a0714
+"@iframe-resizer/core@npm:5.3.1-beta.1":
+  version: 5.3.1-beta.1
+  resolution: "@iframe-resizer/core@npm:5.3.1-beta.1"
+  checksum: 10c0/1e84e6c68c5cd786f2d2aa66fdcb69d6e7f1ed7aa8c2005d6043a628ef26e9151f957af935668b1a204b75ca1e1261f5e90a78bf91a079a02f821304b26f2f32
   languageName: node
   linkType: hard
 
-"@iframe-resizer/parent@npm:^5.1.4":
-  version: 5.1.4
-  resolution: "@iframe-resizer/parent@npm:5.1.4"
+"@iframe-resizer/parent@npm:^5.3.1-beta.1":
+  version: 5.3.1-beta.1
+  resolution: "@iframe-resizer/parent@npm:5.3.1-beta.1"
   dependencies:
-    "@iframe-resizer/core": "npm:5.1.4"
-  checksum: 10c0/5794312980950a07769332b5ff4f5f433d1e1c665f387e50437b55cc03394461d299f2a92a5085e9dffcf5a86735d61c472d1b7503bef34d67a6fda904c70748
+    "@iframe-resizer/core": "npm:5.3.1-beta.1"
+  checksum: 10c0/ca3c294cc9365b1688e588907f3ad7a5933daf43962b0bd55afd6c17d808513c0fa56178e618e18b801ab964bacb2df12231a32ec20cb0353db33355980d7966
   languageName: node
   linkType: hard
 
@@ -6899,7 +6899,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/widgets@workspace:widgets"
   dependencies:
-    "@iframe-resizer/parent": "npm:^5.1.4"
+    "@iframe-resizer/parent": "npm:^5.3.1-beta.1"
     "@openagenda/eslint-config": "npm:^1.3.1"
     "@storybook/addon-essentials": "npm:^8.1.10"
     "@storybook/html-webpack5": "npm:^8.1.10"
@@ -20916,11 +20916,11 @@ __metadata:
   linkType: hard
 
 "is-bun-module@npm:^1.0.2":
-  version: 1.1.0
-  resolution: "is-bun-module@npm:1.1.0"
+  version: 1.2.1
+  resolution: "is-bun-module@npm:1.2.1"
   dependencies:
     semver: "npm:^7.6.3"
-  checksum: 10c0/17cae968c3fe08e2bd66f8477e4d5a166d6299b5e7ce5c7558355551c50267f77dd386297fada6b68e4a32f01ce8920b0423e4d258242ea463b45901ec474beb
+  checksum: 10c0/819e63cd4468265a3e89cdc241554e37aeb85e40375a56dd559c022f4395491273267a0f843274fda6cad1eac3b0f8dc6d9e06cc349e33e2bf45098761184736
   languageName: node
   linkType: hard
 
