@@ -6,6 +6,7 @@ import { Box, Flex, LinkBox } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import Image from 'components/Image';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
+import { useEmbedLayoutData } from 'components/EmbedLayout';
 import useLocationQuery from 'hooks/useLocationQuery';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
@@ -54,11 +55,10 @@ export default function EventItem({
   last = true,
 }) {
   const intl = useIntl();
-  const router = useRouter();
 
   const query = useLocationQuery();
 
-  const { baseUrl } = router.query;
+  const { baseUrl } = useEmbedLayoutData();
 
   const upcomingOnly = !query.timings && query.passed !== '1';
 

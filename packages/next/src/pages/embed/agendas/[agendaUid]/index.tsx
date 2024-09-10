@@ -13,6 +13,7 @@ import {
 import { NextPageWithLayout } from 'pages/_app';
 import EmbedAgendaShow, { EmbedAgendaShowProps } from 'views/EmbedAgendaShow';
 import includeFields from 'views/AgendaShow/includeFields';
+import getPrefilteredQuery from 'views/EmbedAgendaShow/utils/getPrefilteredQuery';
 import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
 import EmbedLayout from 'components/EmbedLayout';
 import parseLocationQuery from 'utils/parseLocationQuery';
@@ -130,7 +131,11 @@ export const getServerSideProps: GetServerSideProps = async ({
       ({ fieldSchema }) => fieldSchema.field,
     );
 
-    const requiredFilters = (query.filters as string)?.split(',') ?? [];
+    const initQuery = query.initPath
+      ? parseLocationQuery(query.initPath as string)
+      : query;
+
+    const requiredFilters = (initQuery.filters as string)?.split(',') ?? [];
 
     const filtersToInclude = ['search', 'geo', 'timings', ...additionalFilters]
       .filter((filter) => requiredFilters.includes(filter))
@@ -150,18 +155,24 @@ export const getServerSideProps: GetServerSideProps = async ({
       include: filtersToInclude,
     });
 
-    const prefilter = !query.timings && query.passed !== '1'
+    const timingsPrefilter = !query.timings && query.passed !== '1'
       ? {
         relative: ['current', 'upcoming'],
       }
       : null;
 
+    const prefilteredQuery = getPrefilteredQuery({
+      query,
+      prefilter: initQuery,
+      filters,
+    });
+
     const paramsBase = {
       aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, true),
       size: 0,
-      ...prefilter,
-      ...query,
+      ...timingsPrefilter,
+      ...initQuery,
       passed: undefined, // omit passed
     };
 
@@ -173,13 +184,15 @@ export const getServerSideProps: GetServerSideProps = async ({
       from: 0,
       sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
       size: 12,
-      ...prefilter,
-      ...query,
+      ...timingsPrefilter,
+      ...prefilteredQuery,
       cms: 'embed',
       host: referrer,
       passed: undefined, // omit passed
       includeFields,
       includeImageTimestamps: true,
+      filters: undefined,
+      initPath: undefined,
     };
 
     const props: ShowPageProps = {

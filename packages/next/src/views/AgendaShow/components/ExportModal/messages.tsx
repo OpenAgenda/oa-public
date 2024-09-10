@@ -126,14 +126,22 @@ export default defineMessages({
   // PDF
   default: {
     id: 'next.views.AgendaShow.ExportModal.default',
-    defaultMessage: 'Par défaut',
+    defaultMessage: 'By default',
   },
   city: {
     id: 'next.views.AgendaShow.ExportModal.city',
-    defaultMessage: 'Mettre en avant la ville',
+    defaultMessage: 'Highlight the city',
   },
   locationName: {
     id: 'next.views.AgendaShow.ExportModal.locationName',
-    defaultMessage: 'Mettre en avant le lieu',
+    defaultMessage: 'Highlight the location',
+  },
+  showFilters: {
+    id: 'next.views.AgendaShow.ExportModal.showFilters',
+    defaultMessage: 'Show filters',
+  },
+  openInSamePage: {
+    id: 'next.views.AgendaShow.ExportModal.openInSamePage',
+    defaultMessage: 'Open events on the same page',
   },
 });

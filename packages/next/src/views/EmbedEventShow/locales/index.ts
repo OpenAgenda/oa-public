@@ -20,8 +20,8 @@ export default async function fetchLocale(locale) {
     fetchLocale5(locale),
     fetchLocale6(locale),
   ])
-    .then((results) => Object.assign({}, ...results))
-    .catch((e) => {
+    .then(results => Object.assign({}, ...results))
+    .catch(e => {
       console.error(`API: Failed to fetch locale ${locale}`, e);
       return null;
     });

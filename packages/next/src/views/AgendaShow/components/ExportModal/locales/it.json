@@ -24,11 +24,13 @@
   "next.views.AgendaShow.ExportModal.locationName": "Evidenziare il luogo",
   "next.views.AgendaShow.ExportModal.login": "Si prega di effettuare il login per accedere al link di esportazione direttamente da questo menu",
   "next.views.AgendaShow.ExportModal.openData": "Il contenuto di questa agenda può essere utilizzato secondo il principio <link>Open Data</link>",
+  "next.views.AgendaShow.ExportModal.openInSamePage": "",
   "next.views.AgendaShow.ExportModal.outlookStep2": "In fondo alla pagina, seleziona l'icona del calendario",
   "next.views.AgendaShow.ExportModal.outlookStep3": "Nel pannello di navigazione, seleziona \"Aggiungi calendario\"",
   "next.views.AgendaShow.ExportModal.outlookStep4": "Selezionare \"Iscriviti dal web\"",
   "next.views.AgendaShow.ExportModal.outlookStep5": "Incolla l'URL che hai copiato nel passo 1. Selezionare \"Importa\".",
   "next.views.AgendaShow.ExportModal.selectAll": "Selezionare tutto",
+  "next.views.AgendaShow.ExportModal.showFilters": "",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "",
   "next.views.AgendaShow.ExportModal.title": "Esportare"
 }

@@ -2,8 +2,10 @@ import { http, HttpResponse } from 'msw';
 import { Button, useDisclosure } from '@openagenda/uikit';
 import AgendaShow from 'views/AgendaShow';
 import ExportModal from 'views/AgendaShow/components/ExportModal';
+import { Agenda } from 'types';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
+import agendaFixtures from '../../fixtures/mel.agenda.json';
 import me from './fixtures/me.json';
 import userFixtures from './fixtures/user.json';
 import columns from './fixtures/columns.json';
@@ -28,8 +30,7 @@ export const Basic = {
         <ExportModal
           isOpen={isOpen}
           onClose={onClose}
-          agendaUid={1234}
-          agendaTitle="Titre"
+          agenda={agendaFixtures as Agenda}
         />
       </>
     );
@@ -59,8 +60,7 @@ export const OpenAccordion = {
         <ExportModal
           isOpen={isOpen}
           onClose={onClose}
-          agendaUid={1234}
-          agendaTitle="Titre"
+          agenda={agendaFixtures as Agenda}
           defaultIndex={7}
         />
       </>

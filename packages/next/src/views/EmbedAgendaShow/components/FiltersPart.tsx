@@ -56,6 +56,8 @@ export default function FiltersPart({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
       host: typeof document !== 'undefined' ? document.referrer : referrer,
+      filters: undefined,
+      initPath: undefined,
     },
     includeFields,
     pageSize: PAGE_SIZE,

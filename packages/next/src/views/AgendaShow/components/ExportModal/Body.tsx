@@ -80,8 +80,7 @@ function completeUrls(agendaUid, query) {
 }
 
 export default function Body({
-  agendaUid,
-  agendaTitle,
+  agenda,
   onClose,
   defaultIndex,
 }) {
@@ -91,8 +90,8 @@ export default function Body({
   const [mode, setMode] = useState('selection');
   const res = useMemo(() => {
     const usedQuery = mode === 'all' ? { relative: ['passed', 'current', 'upcoming'] } : query;
-    return completeUrls(agendaUid, usedQuery);
-  }, [mode, agendaUid, query]);
+    return completeUrls(agenda.uid, usedQuery);
+  }, [mode, agenda.uid, query]);
 
   const { user } = useUser();
   const { data: meData, mutate: meMutate } = useSWR<any>(res.me, fetcher);
@@ -197,7 +196,7 @@ export default function Body({
         <OutlookAccordionItem res={res} />
         <IcsAccordionItem handleSubmit={handleSubmit} />
         <RssAccordionItem handleSubmit={handleSubmit} />
-        <EmbedAccordionItem res={res} agendaTitle={agendaTitle} />
+        <EmbedAccordionItem res={res} agenda={agenda} />
       </Accordion>
     </ModalBody>
   );

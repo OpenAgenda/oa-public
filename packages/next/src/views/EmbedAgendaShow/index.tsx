@@ -85,8 +85,11 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
     filters: undefined,
   }));
 
-  const [query, setQuery] = useState<Record<string, any>>(() =>
-    (isEmbedFirstLoad ? {} : urlQuery));
+  const [query, setQuery] = useState<Record<string, any>>(() => ({
+    ...initPath ? urlQuery : {},
+    filters: undefined,
+    initPath: undefined,
+  }));
 
   const latestQuery = useLatest(query);
 
@@ -134,6 +137,8 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
       });
   }, [agenda.schema.fields, prefilter.filters]);
 
+  console.log('filtersToInclude', filtersToInclude);
+
   const filters = useFilters(intl, agenda.schema.fields, {
     dateFnsLocale,
     missingValue: 'null',
@@ -150,6 +155,8 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
       host: typeof document !== 'undefined' ? document.referrer : referrer,
+      filters: undefined,
+      initPath: undefined,
     },
     includeFields,
     pageSize: 12,

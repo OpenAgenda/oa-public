@@ -217,8 +217,7 @@ export default function AgendaHeader({ agenda }) {
         <ExportModal
           isOpen
           onClose={exportOnClose}
-          agendaUid={agenda.uid}
-          agendaTitle={agenda.title}
+          agenda={agenda}
         />
       ) : null}
       {aggregateIsOpen ? (
