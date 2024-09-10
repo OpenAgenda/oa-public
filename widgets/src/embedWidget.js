@@ -106,12 +106,12 @@ export default class EmbedLoader {
     iframe.scrolling = 'no';
     iframe.frameBorder = '0';
     iframe.allowTransparency = 'true';
-    iframe.title = 'OpenAgenda agenda';
+    iframe.title = 'OpenAgenda Embed';
     iframe.src = embedUrl;
     iframe.loading = 'lazy';
 
-    const slug = href.split('/').pop();
-    iframe.setAttribute('data-agenda-slug', slug);
+    const uid = href.split('/').pop().split('?')[0];
+    iframe.setAttribute('data-agenda-uid', uid);
 
     iframe.style.width = '100%';
     iframe.style.height = '500px';
