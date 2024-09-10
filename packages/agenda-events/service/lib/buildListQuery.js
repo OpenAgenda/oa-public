@@ -33,6 +33,24 @@ function addWheres(k, query, options = {}) {
 
   if (removed === true) k.where('removed', 1);
   if (removed === false) k.where('removed', 0);
+
+  if (query.updatedAt) {
+    Object.keys(query.updatedAt).forEach(op => {
+      if (!query.updatedAt[op]) {
+        return;
+      }
+      k.where(
+        'updated_at',
+        {
+          gt: '>',
+          gte: '>=',
+          lt: '<',
+          lte: '<=',
+        }[op],
+        query.updatedAt[op],
+      );
+    });
+  }
 }
 
 function buildListQuery(service, query, nav, options = {}) {
@@ -64,7 +82,7 @@ function buildListQuery(service, query, nav, options = {}) {
 
   if (removed || removed === null) {
     fields.push('removed');
-  } 
+  }
 
   if (decorate.includes('sourceAgendas')) {
     fields.push('source_agenda_uid');
