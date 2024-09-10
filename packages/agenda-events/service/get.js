@@ -27,7 +27,7 @@ async function _get(client, where, options = {}) {
     fieldList.push('removed');
   }
 
-  const k = client('agenda_event').first(fieldList).where(where)
+  const k = client('agenda_event').first(fieldList).where(where);
   if (removed === true) k.where('removed', 1);
   if (removed === false) k.where('removed', 0);
 
@@ -59,10 +59,14 @@ export default Object.assign(
 
     const { decorate, throwOnNotFound, removed } = validateOptions(options);
 
-    const ae = await _get(client, {
-      agenda_uid: agendaUid,
-      event_uid: eventUid,
-    }, { removed });
+    const ae = await _get(
+      client,
+      {
+        agenda_uid: agendaUid,
+        event_uid: eventUid,
+      },
+      { removed },
+    );
 
     if (!ae && !throwOnNotFound) {
       return null;
@@ -87,7 +91,7 @@ export default Object.assign(
       && config.interfaces.getSourceAgendas
     ) {
       ae.sourceAgendas = await config.interfaces.getSourceAgendas(
-        (ae.sourcePaths || []).map(p => p[p.length - 1]),
+        (ae.sourcePaths || []).map((p) => p[p.length - 1]),
       );
     }
 

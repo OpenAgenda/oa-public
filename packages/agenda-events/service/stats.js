@@ -10,8 +10,8 @@ export function countByUserUid(service, agendaUid, userUids = null) {
     k.whereIn('user_uid', userUids);
   }
 
-  return k.groupBy('user_uid').then(r =>
-    r.map(rr => ({
+  return k.groupBy('user_uid').then((r) =>
+    r.map((rr) => ({
       count: rr.event_count,
       userUid: rr.user_uid,
     })));

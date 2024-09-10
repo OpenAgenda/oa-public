@@ -35,7 +35,7 @@ function addWheres(k, query, options = {}) {
   if (removed === false) k.where('removed', 0);
 
   if (query.updatedAt) {
-    Object.keys(query.updatedAt).forEach(op => {
+    Object.keys(query.updatedAt).forEach((op) => {
       if (!query.updatedAt[op]) {
         return;
       }
@@ -102,8 +102,8 @@ function buildListQuery(service, query, nav, options = {}) {
 
   addWheres(k, query, options);
 
-  return k.then(rows =>
-    rows.map(r => _.mapKeys(r, (v, key) => _.camelCase(key))));
+  return k.then((rows) =>
+    rows.map((r) => _.mapKeys(r, (v, key) => _.camelCase(key))));
 }
 
 export default Object.assign(buildListQuery, {

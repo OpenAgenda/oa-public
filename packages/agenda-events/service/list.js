@@ -13,7 +13,7 @@ function _total(client, query, options) {
 
   buildListQuery.addWheres(k, query, options);
 
-  return k.count('id as total').then(rows => rows[0].total);
+  return k.count('id as total').then((rows) => rows[0].total);
 }
 
 async function list(service, agendaUid, query, offset, limit, options) {
@@ -36,7 +36,9 @@ async function list(service, agendaUid, query, offset, limit, options) {
       _.pick(params, ['offset', 'limit']),
       { decorate, removed },
     )
-  ).map(validate).map(i => postReadClean(i, { removed }));
+  )
+    .map(validate)
+    .map((i) => postReadClean(i, { removed }));
 
   if (decorate.length) {
     await decorateListItems(service, items, decorate);
@@ -76,9 +78,11 @@ export async function byLastId(
 
   const dirtyItems = await buildListQuery(service, cleanQuery, nav, {
     decorate,
-    removed
+    removed,
   });
-  const items = dirtyItems.map(validate).map(i => postReadClean(i, { removed }));
+  const items = dirtyItems
+    .map(validate)
+    .map((i) => postReadClean(i, { removed }));
 
   if (decorate.length) {
     await decorateListItems(service, items, decorate);

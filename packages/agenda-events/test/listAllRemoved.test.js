@@ -44,15 +44,15 @@ describe('agendaEvents - functional (server): listAllRemoved', () => {
       })('listAllRemoved'),
       interfaces: {
         ...config.interfaces,
-        getMembers: async aes =>
+        getMembers: async (aes) =>
           aes
             .map(({ agendaUid, userUid }) =>
               _.find(membersFixtures, {
                 agendaUid,
                 userUid,
               }))
-            .filter(ae => !!ae),
-        getSourceAgendas: async sourceAgendaUids =>
+            .filter((ae) => !!ae),
+        getSourceAgendas: async (sourceAgendaUids) =>
           sourceAgendasFixtures.filter(({ uid }) =>
             sourceAgendaUids.includes(uid)),
       },

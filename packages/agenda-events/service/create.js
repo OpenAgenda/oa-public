@@ -34,7 +34,7 @@ export default async (
     };
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'aggregated'].forEach(f => {
+      ['updatedAt', 'createdAt', 'aggregated'].forEach((f) => {
         if (data[f]) values[f] = data[f];
       });
     }
@@ -74,8 +74,6 @@ export default async (
       code: 'already.exists',
     };
   }
-
-  
 
   const insertIds = await client('agenda_event').insert(utils.toEntry(clean));
 

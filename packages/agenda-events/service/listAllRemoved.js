@@ -10,7 +10,7 @@ function _total(client, query, options) {
 
   buildListQuery.addWheres(k, query, options);
 
-  return k.count('id as total').then(rows => rows[0].total);
+  return k.count('id as total').then((rows) => rows[0].total);
 }
 
 async function listAllRemoved(service, query, offset, limit, options) {
