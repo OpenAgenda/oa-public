@@ -11,16 +11,17 @@ async function transverseIndexRemove(searchIndex, eventUid) {
   }
 }
 
-async function transverseIndexUpdate(searchIndex, event) {
+async function transverseIndexUpdate(services, searchIndex, event) {
   const { uid } = event;
+  const { tracker } = services;
 
-  if (await searchIndex.search({ uid }).then(r => r.total)) {
-    log('updating event %s in transverse index', uid);
-    return searchIndex.update({ uid }, event, { operation: 'index' });
-  }
+  log('updating/adding event in transverse index', { eventUid: uid });
+  const result = await searchIndex.update({ uid }, event, {
+    operation: 'index',
+  });
+  log('updated/added event in transverse index', { eventUid: uid, result });
 
-  log('adding event %s to transverse index', uid);
-  return searchIndex.add(event);
+  tracker('transverseIndex.done');
 }
 
 async function transverseIndexRebuild(services, searchIndex, options = {}) {
@@ -41,7 +42,7 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
       { limit: 1 },
       { access: 'internal' },
     )
-    .then(events => events[0].id);
+    .then((events) => events[0].id);
 
   log('info', `starting from event of id ${initialLastId}`, {
     createdSince,
@@ -105,7 +106,11 @@ export default (services, eventSearch, queue) => {
       services,
       searchIndex,
     ),
-    transverseIndexUpdate: transverseIndexUpdate.bind(null, searchIndex),
+    transverseIndexUpdate: transverseIndexUpdate.bind(
+      null,
+      services,
+      searchIndex,
+    ),
     transverseIndexRemove: transverseIndexRemove.bind(null, searchIndex),
   });
 

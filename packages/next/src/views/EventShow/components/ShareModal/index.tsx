@@ -34,11 +34,7 @@ function ShareModalBody({
 
   return (
     <ModalBody p="0">
-      <Tabs
-        isLazy
-        colorScheme="primary"
-        defaultIndex={event.state === 2 ? 1 : 0}
-      >
+      <Tabs isLazy colorScheme="primary" defaultIndex={0}>
         {event.state === 2 ? (
           <TabList>
             <Tab flex="1">{intl.formatMessage(messages.onOA)}</Tab>

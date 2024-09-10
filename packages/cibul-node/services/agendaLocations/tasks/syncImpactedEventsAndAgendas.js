@@ -2,7 +2,7 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/agendaLocations/tasks/syncImpactedEventsAndAgendas');
 
-export default services =>
+export default (services) =>
   async function syncImpactedEventsAndAgendas(before, after) {
     const { core, legacy, events: eventsSvc, agendaEvents, tracker } = services;
 
@@ -21,7 +21,7 @@ export default services =>
           draft: null,
         },
       )
-      .then(events => events.map(e => e.uid));
+      .then((events) => events.map((e) => e.uid));
 
     log(
       '%s impacted events by location %s update',
@@ -52,7 +52,7 @@ export default services =>
           await core.agendas(agendaUid).events.search.resyncEvent(eventUid);
         } catch (error) {
           if (error.name === 'NotFound') {
-            log.error(
+            log.warn(
               'failed to retrieve agenda matching evaluated agendaEvent ref',
               { error, agendaUid, eventUid },
             );
