@@ -35,6 +35,25 @@ function loadGestureHandlingLocale(gestureHandling, locale) {
     });
 }
 
+function waitMapBounds(map, interval = 16) {
+  return new Promise((resolve, _reject) => {
+    const attemptGetBounds = () => {
+      try {
+        const bounds = map.getBounds();
+        if (bounds) {
+          resolve(bounds);
+        } else {
+          throw new Error('Bounds not available');
+        }
+      } catch (error) {
+        setTimeout(attemptGetBounds, interval);
+      }
+    };
+
+    setTimeout(() => attemptGetBounds());
+  });
+}
+
 function valueToViewport(value) {
   const bounds = new L.LatLngBounds(
     new L.LatLng(value.northEast.lat, value.northEast.lng),
@@ -183,14 +202,16 @@ const Map = React.forwardRef(
         const needFitBounds = !userControlled || isEmptyValue(input.value);
 
         function reloadData() {
-          const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
-          const innerZoom = map.getBoundsZoom(map.getBounds());
+          waitMapBounds(map).then(bounds => {
+            const innerBounds = normalizeBounds(bounds, unpadRatio);
+            const innerZoom = map.getBoundsZoom(bounds);
 
-          loadGeoData(innerBounds, innerZoom)
-            .then(newData => setData(newData?.reverse() ?? []))
-            .catch(err => {
-              console.log('Failed to load geo data', err);
-            });
+            loadGeoData(innerBounds, innerZoom)
+              .then(newData => setData(newData?.reverse() ?? []))
+              .catch(err => {
+                console.log('Failed to load geo data', err);
+              });
+          });
         }
 
         if (needFitBounds) {
@@ -215,10 +236,9 @@ const Map = React.forwardRef(
           '<a href="https://leafletjs.com" title="A JavaScript library for interactive maps">Leaflet</a>',
         );
 
-        // setTimeout to avoid error with map.getBounds()
-        setTimeout(() => {
-          const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
-          const innerZoom = map.getBoundsZoom(map.getBounds());
+        waitMapBounds(map).then(bounds => {
+          const innerBounds = normalizeBounds(bounds, unpadRatio);
+          const innerZoom = map.getBoundsZoom(bounds);
 
           loadGeoData(innerBounds, innerZoom)
             .then(newData => {
