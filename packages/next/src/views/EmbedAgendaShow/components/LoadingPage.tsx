@@ -1,5 +1,11 @@
 import { useMemo } from 'react';
-import { Box, Flex, Skeleton, SkeletonText, SimpleGrid } from '@openagenda/uikit';
+import {
+  Box,
+  Flex,
+  Skeleton,
+  SkeletonText,
+  SimpleGrid,
+} from '@openagenda/uikit';
 
 export function EventSkeleton() {
   return (
@@ -15,7 +21,11 @@ export function EventSkeleton() {
 
 export function EventsSkeleton() {
   return (
-    <SimpleGrid templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))" spacingX="10" spacingY="6">
+    <SimpleGrid
+      templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))"
+      spacingX="10"
+      spacingY="6"
+    >
       <EventSkeleton />
       <EventSkeleton />
       <EventSkeleton />
@@ -32,7 +42,7 @@ export function FiltersSkeleton({ filters, filtersToInclude }) {
   const orderedFilters = useMemo(
     () =>
       filters
-        .filter(filter => filtersToInclude.includes(filter.name))
+        .filter((filter) => filtersToInclude.includes(filter.name))
         .sort((a, b) => {
           // Last
           if (a.name === 'geo') return 1;
@@ -40,15 +50,20 @@ export function FiltersSkeleton({ filters, filtersToInclude }) {
           // Second to last
           if (a.name === 'search') return 1;
           if (b.name === 'search') return -1;
-          return filtersToInclude.indexOf(a.name) - filtersToInclude.indexOf(b.name);
+          return (
+            filtersToInclude.indexOf(a.name) - filtersToInclude.indexOf(b.name)
+          );
         }),
     [filters, filtersToInclude],
   );
 
   return (
-    <SimpleGrid templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))" spacingX="10" spacingY="6">
-      {orderedFilters.map(filter => {
-        console.log(filter);
+    <SimpleGrid
+      templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))"
+      spacingX="10"
+      spacingY="6"
+    >
+      {orderedFilters.map((filter) => {
         if (filter.name === 'geo') {
           return (
             <Box key="geo" gridColumn="1 / -1">

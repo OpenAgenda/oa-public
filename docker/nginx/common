@@ -6,9 +6,14 @@ if ($http_x_forwarded_for) {
   set $client_ip $http_x_forwarded_for;
 }
 
-# script locked on offset 9400 for > 1 week
-# 52.16.191.0: wemap dev server
-#if ($client_ip = "52.31.143.17") { return 403; }
+# 2024-08-23 https://www.abuseipdb.com/check/155.133.142.67 hits old rss URL
+if ($client_ip = "155.133.142.67") { return 403; }
+# 2024-08-23 hits /agendas/59787913/settings.json every 3 seconds
+if ($client_ip = "185.172.100.42") { return 403; }
+# 2024-08-23 hits /agendas/settings.json?key=
+if ($client_ip = "54.37.121.239") { return 403; }
+# 2024-08-29 deleted account that reads settings of a deleted agenda
+if ($client_ip = "185.172.100.42") { return 403; }
 
 gzip on;
 gzip_types

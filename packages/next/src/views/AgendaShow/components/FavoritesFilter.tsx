@@ -4,7 +4,13 @@ import isEmpty from 'lodash/isEmpty';
 import { createElement, useCallback } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 import { defineMessages, useIntl } from 'react-intl';
-import { Field, FormSpy, useForm, useField, useFavoritesOnChange } from '@openagenda/react-filters';
+import {
+  Field,
+  FormSpy,
+  useForm,
+  useField,
+  useFavoritesOnChange,
+} from '@openagenda/react-filters';
 import { Checkbox, Text } from '@openagenda/uikit';
 import useIsomorphicEffect from 'hooks/useIsomorphicEffect';
 import FilterPreviewer from './FilterPreviewer';
@@ -36,7 +42,8 @@ function FavoritesComp({ agenda, input: { checked: isChecked, ...input } }) {
     if (typeof favorites === 'string') {
       try {
         setFavorites(JSON.parse(favorites));
-      } catch { // remove if json is invalid
+      } catch {
+        // remove if json is invalid
         removeFavorites();
       }
     }
@@ -68,7 +75,7 @@ export function FavoritesPreviewer({
   const agendaFavorites = favorites?.[agendaUid];
 
   const onRemove = useCallback(
-    e => {
+    (e) => {
       e.stopPropagation();
 
       if (disabled) {

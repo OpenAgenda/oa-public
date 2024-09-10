@@ -1,32 +1,41 @@
-import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState, useTransition } from 'react';
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import qs from 'qs';
 import { chakra, useConst } from '@openagenda/uikit';
-import { FiltersProvider, useFilters } from '@openagenda/react-filters';
+import {
+  FiltersProvider,
+  getFilters,
+  useFilters,
+} from '@openagenda/react-filters';
 import { useLatest, usePrevious } from 'react-use';
 import useSessionStorageState from 'use-session-storage-state';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useIsFirstRender from 'hooks/useIsFirstRender';
+import useLocationQuery from 'hooks/useLocationQuery';
+import { useEmbedLayoutData } from 'components/EmbedLayout';
 import ConsentBanner from 'components/ConsentBanner';
-// import useLocationQuery from 'hooks/useLocationQuery';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
 import includeFields from 'views/AgendaShow/includeFields';
 import { TotalSkeleton } from 'views/AgendaShow/components/LoadingPage';
 import type { Agenda } from 'types';
 import Metas from './components/Metas';
 import { EventsSkeleton, FiltersSkeleton } from './components/LoadingPage';
-
 import fetchLocale from './locales';
-import 'leaflet/dist/leaflet.css';
 import getPrefilteredQuery from './utils/getPrefilteredQuery';
 
-if (typeof window !== 'undefined') {
-  import('@iframe-resizer/child');
-}
+import 'leaflet/dist/leaflet.css';
 
 const DynamicEventsPart = dynamic(() => import('./components/EventsPart'), {
   // ssr: false,
@@ -47,56 +56,92 @@ export type EmbedAgendaShowProps = {
   agenda: Agenda;
   preload?: string[];
   referrer: string;
-  filtersToInclude?: string[];
-  prefilter?: Record<string, any>;
 };
 
-function EmbedAgendaShow({
-  agenda,
-  preload,
-  referrer,
-  filtersToInclude,
-  prefilter: originalPrefilter,
-}: EmbedAgendaShowProps) {
+const stripLangPrefix = (pathname) => pathname.replace(/^\/[a-z][a-z]\//, '/');
+const isDifferentPathname = (pathname1, pathname2) =>
+  stripLangPrefix(pathname1) !== stripLangPrefix(pathname2);
+
+function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   const intl = useIntl();
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
 
+  const { isEmbedFirstLoad, initPath, initQuery } = useEmbedLayoutData();
+
   const filtersFormRef = useRef<any>();
 
+  const urlQuery = useLocationQuery();
+
   const [prefilter, setStoredPrefilter] = useSessionStorageState('prefilter', {
-    defaultValue: originalPrefilter,
+    defaultValue: initPath ? initQuery : urlQuery,
   });
 
   const isFirstRender = useIsFirstRender();
 
-  useLayoutEffect(() => {
-    if (isFirstRender) {
-      setStoredPrefilter(originalPrefilter);
-      // router.replace(new URL(router.asPath, 'https://n').pathname, null, { shallow: true });
-    }
-  }, [isFirstRender, originalPrefilter, setStoredPrefilter]);
+  const initialValues = useConst(() => ({
+    ...urlQuery,
+    initPath: undefined,
+    filters: undefined,
+  }));
 
-  // TODO filter query before to give that to the Filters form, only more "contraignantes" parts of the urlQUery ?
-  const initialValues = useConst(() => ({}));
-
-  const [query, setQuery] = useState(() => ({}));
+  const [query, setQuery] = useState<Record<string, any>>(() =>
+    (isEmbedFirstLoad ? {} : urlQuery));
 
   const latestQuery = useLatest(query);
 
+  useEffect(() => {
+    if (isEmbedFirstLoad && isFirstRender) {
+      setStoredPrefilter(initPath ? initQuery : urlQuery);
+
+      const newUrl = new URL(router.asPath, 'https://n').pathname
+        + qs.stringify(initialValues, { addQueryPrefix: true });
+
+      router.replace(newUrl, null, { shallow: true });
+    }
+  }, [
+    isEmbedFirstLoad,
+    isFirstRender,
+    setStoredPrefilter,
+    initQuery,
+    initialValues,
+    initPath,
+    urlQuery,
+    router,
+  ]);
+
   const isMounted = useIsMounted();
 
-  const needConsentFor = useClientAnalytics(agenda.settings?.tracking);
+  const needConsentFor = useClientAnalytics(
+    agenda.settings?.tracking,
+    'localStorage',
+  );
+
+  const filtersToInclude = useMemo(() => {
+    const requiredFilters = (prefilter.filters as string)?.split(',') ?? [];
+
+    return getFilters(intl, agenda.schema.fields)
+      .map(({ name, fieldSchema }) => fieldSchema?.field || name)
+      .filter((filter) => requiredFilters.includes(filter))
+      .sort((a, b) => {
+        // Last
+        if (a === 'geo') return 1;
+        if (b === 'geo') return -1;
+        // Second to last
+        if (a === 'search') return 1;
+        if (b === 'search') return -1;
+        return requiredFilters.indexOf(a) - requiredFilters.indexOf(b);
+      });
+  }, [agenda.schema.fields, prefilter.filters]);
 
   const filters = useFilters(intl, agenda.schema.fields, {
     dateFnsLocale,
     missingValue: 'null',
-    mapTiles: 'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
+    mapTiles:
+      'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
     // exclude: adminFilters,
     include: filtersToInclude,
   });
-
-  console.log('PREFILTER', prefilter, filters);
 
   const { data: pages } = useEventsQuery({
     agenda,
@@ -112,12 +157,35 @@ function EmbedAgendaShow({
 
   const [_isPending, startTransition] = useTransition();
 
-  const onFilterChange = useCallback((values: Record<string, string | string[]>) => {
-    startTransition(() => {
-      // TODO setQuery with only more "contraignantes" values
-      setQuery(values);
-    });
-  }, []);
+  const onFilterChange = useCallback(
+    (values: Record<string, string | string[]>) => {
+      startTransition(() => {
+        setQuery(values);
+      });
+    },
+    [],
+  );
+
+  // Update filters if location change (back)
+  useEffect(() => {
+    const beforeHistoryChange = (href, { shallow }) => {
+      const currentUrl = new URL(router.asPath, 'https://n');
+      const url = new URL(href, 'https://n');
+
+      if (isDifferentPathname(currentUrl.pathname, url.pathname) || !shallow) return;
+
+      const form = filtersFormRef.current;
+      const newUrlQuery = qs.parse(url.search, { ignoreQueryPrefix: true });
+
+      form.initialize(newUrlQuery);
+      form.submit();
+    };
+    router.events.on('beforeHistoryChange', beforeHistoryChange);
+
+    return () => {
+      router.events.off('beforeHistoryChange', beforeHistoryChange);
+    };
+  }, [router]);
 
   // SWR onSuccess
   // https://github.com/vercel/swr/issues/1733
@@ -126,7 +194,7 @@ function EmbedAgendaShow({
   useEffect(() => {
     if (pages?.length > 0 && previousPages !== pages) {
       // Update map markers
-      const mapFilter = filters.find(v => v.name === 'geo');
+      const mapFilter = filters.find((v) => v.name === 'geo');
       const mapElem = mapFilter?.elemRef.current;
 
       if (mapElem) {
@@ -158,17 +226,26 @@ function EmbedAgendaShow({
         >
           {isMounted ? (
             <>
-              <Suspense fallback={<FiltersSkeleton filters={filters} filtersToInclude={filtersToInclude} />}>
-                <DynamicFiltersPart
-                  agenda={agenda}
-                  filters={filters}
-                  query={query}
-                  includeFields={includeFields}
-                  filtersToInclude={filtersToInclude}
-                  prefilter={prefilter}
-                  referrer={referrer}
-                />
-              </Suspense>
+              {filters.length ? (
+                <Suspense
+                  fallback={(
+                    <FiltersSkeleton
+                      filters={filters}
+                      filtersToInclude={filtersToInclude}
+                    />
+                  )}
+                >
+                  <DynamicFiltersPart
+                    agenda={agenda}
+                    filters={filters}
+                    query={query}
+                    includeFields={includeFields}
+                    filtersToInclude={filtersToInclude}
+                    prefilter={prefilter}
+                    referrer={referrer}
+                  />
+                </Suspense>
+              ) : null}
 
               <Suspense fallback={<TotalSkeleton />}>
                 <DynamicTotalPart
@@ -196,7 +273,12 @@ function EmbedAgendaShow({
         </FiltersProvider>
       </chakra.main>
 
-      {needConsentFor ? <ConsentBanner consentFor={needConsentFor} /> : null}
+      {needConsentFor ? (
+        <ConsentBanner
+          consentFor={needConsentFor}
+          consentSource="localStorage"
+        />
+      ) : null}
     </>
   );
 }
@@ -204,7 +286,9 @@ function EmbedAgendaShow({
 EmbedAgendaShow.fetchLocale = (locale: string) =>
   Promise.all([
     fetchLocale(locale),
-    import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(mod => mod.default),
-  ]).then(results => Object.assign({}, ...results));
+    import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(
+      (mod) => mod.default,
+    ),
+  ]).then((results) => Object.assign({}, ...results));
 
 export default EmbedAgendaShow;

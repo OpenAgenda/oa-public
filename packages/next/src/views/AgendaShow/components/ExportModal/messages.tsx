@@ -19,7 +19,8 @@ export default defineMessages({
   },
   logIn: {
     id: 'next.views.AgendaShow.ExportModal.login',
-    defaultMessage: 'Please log in to access the export link directly from this menu',
+    defaultMessage:
+      'Please log in to access the export link directly from this menu',
   },
   exportAll: {
     id: 'next.views.AgendaShow.ExportModal.exportAll',
@@ -39,11 +40,13 @@ export default defineMessages({
   },
   exportJson: {
     id: 'next.views.AgendaShow.ExportModal.exportJson',
-    defaultMessage: '<link1>Use the previous JSON export version</link1> (Documentation <link2>here</link2>)',
+    defaultMessage:
+      '<link1>Use the previous JSON export version</link1> (Documentation <link2>here</link2>)',
   },
   openDataInfo: {
     id: 'next.views.AgendaShow.ExportModal.openData',
-    defaultMessage: 'The content of this agenda can be used following the <link>Open Data principle</link>',
+    defaultMessage:
+      'The content of this agenda can be used following the <link>Open Data principle</link>',
   },
   embed: {
     id: 'next.views.AgendaShow.ExportModal.embed',
@@ -101,7 +104,8 @@ export default defineMessages({
   },
   gcalStep3: {
     id: 'next.views.AgendaShow.ExportModal.gcalStep3',
-    defaultMessage: 'Follow the instructions by pasting the link you copied in step 1',
+    defaultMessage:
+      'Follow the instructions by pasting the link you copied in step 1',
   },
   outlookStep2: {
     id: 'next.views.AgendaShow.ExportModal.outlookStep2',

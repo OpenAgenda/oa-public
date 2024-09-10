@@ -5,8 +5,5 @@ import parseLocationQuery from 'utils/parseLocationQuery';
 
 export default function useLocationQuery(): ParsedQs {
   const router = useRouter();
-  return useMemo(
-    () => parseLocationQuery(router.asPath),
-    [router.asPath],
-  );
+  return useMemo(() => parseLocationQuery(router.asPath), [router.asPath]);
 }

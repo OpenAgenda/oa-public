@@ -54,8 +54,16 @@ export default function LocationHistory() {
           </ModalHeader>
 
           <ModalBody>
-            <Activities res={`/api/agendas/${agenda.uid}/locations/${event.location.uid}/activities`}>
-              <ActivitiesList emptyElem={<Center py="12">{intl.formatMessage(messages.noActivity)}</Center>} />
+            <Activities
+              res={`/api/agendas/${agenda.uid}/locations/${event.location.uid}/activities`}
+            >
+              <ActivitiesList
+                emptyElem={(
+                  <Center py="12">
+                    {intl.formatMessage(messages.noActivity)}
+                  </Center>
+                )}
+              />
             </Activities>
           </ModalBody>
         </ModalContent>

@@ -15,9 +15,9 @@ function HelpLink() {
     <div className="help-button-canvas">
       <a
         className="btn btn-primary btn-rounded btn-bordered"
-        rel="nofollow"
+        rel="nofollow noreferrer"
         target="_blank"
-        href="/support"
+        href="https://doc.openagenda.com"
       >
         <i className="fa fa-question-circle" />{' '}
         <span>{intl.formatMessage(messages.help)}</span>

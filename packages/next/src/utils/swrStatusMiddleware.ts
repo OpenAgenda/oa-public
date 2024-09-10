@@ -1,7 +1,7 @@
 import { Middleware } from 'swr';
 import { FetchStatus } from 'config/types';
 
-const swrStatusMiddleware: Middleware = useSWRNext => (key, fetcher, config) => {
+const swrStatusMiddleware: Middleware = (useSWRNext) => (key, fetcher, config) => {
   const swr = useSWRNext(key, fetcher, config);
   return Object.defineProperty(swr, 'status', {
     get() {

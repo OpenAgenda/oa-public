@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/client/editApp';
@@ -5,13 +6,7 @@ import EditDecorator from './decorators/EditDecorator';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-const agenda = {
-  uid: 17026855,
-  slug: 'proces-d-assises-2016',
-  title: "Proces d'assices 2016",
-  settings: {},
-  credentials: {},
-};
+import agenda from './fixtures/bdm.agenda.json';
 
 const getDefaultState = () => ({
   settings: {
@@ -39,8 +34,9 @@ const getDefaultState = () => ({
 
 const wrapAppOptions = {
   extraProps: {
-    agenda,
+    agenda: _.omit(agenda, ['schema']),
     lang: 'fr',
+    agendaSchema: agenda.schema,
   },
 };
 

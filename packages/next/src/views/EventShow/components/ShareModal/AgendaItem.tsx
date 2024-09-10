@@ -14,16 +14,22 @@ export default function AgendaItem({ agenda, targetAgenda, event }) {
     && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}?__ts=${updatedTs}`;
 
   return (
-    <Link href={`/${targetAgenda.slug}/contribute/event/${event.uid}/from/${agenda.uid}`}>
+    <Link
+      href={`/${targetAgenda.slug}/contribute/event/${event.uid}/from/${agenda.uid}`}
+    >
       <HStack>
         <Image
           rounded="full"
           width="40"
           height="40"
           src={imageSrc || graylogo140}
-          fallbackSrc={isDev && typeof imageSrc === 'string'
-            ? imageSrc.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
-            : undefined}
+          fallbackSrc={
+            isDev && typeof imageSrc === 'string'
+              ? imageSrc
+                .replace('cibuldev', 'cibul')
+                .replace('images-', 'imagesdev-')
+              : undefined
+          }
           alt=""
           draggable={false}
           loader={imageSrc ? keyCDNLoader : null}

@@ -5,19 +5,22 @@ import { Flex } from '@openagenda/uikit';
 function useHandleSubmit() {
   const form = useForm();
 
-  return useCallback(event => {
-    if (event) {
-      // sometimes not true, e.g. React Native
-      if (typeof event.preventDefault === 'function') {
-        event.preventDefault();
+  return useCallback(
+    (event) => {
+      if (event) {
+        // sometimes not true, e.g. React Native
+        if (typeof event.preventDefault === 'function') {
+          event.preventDefault();
+        }
+        if (typeof event.stopPropagation === 'function') {
+          // prevent any outer forms from receiving the event too
+          event.stopPropagation();
+        }
       }
-      if (typeof event.stopPropagation === 'function') {
-        // prevent any outer forms from receiving the event too
-        event.stopPropagation();
-      }
-    }
-    return form.submit();
-  }, [form]);
+      return form.submit();
+    },
+    [form],
+  );
 }
 
 export default function Form({ children, ...rest }) {

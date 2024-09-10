@@ -9,7 +9,9 @@ export default function Footer() {
 
   return (
     <footer>
-      <Link href="/" colorScheme="primary">OpenAgenda</Link>
+      <Link href="/" colorScheme="primary">
+        OpenAgenda
+      </Link>
       {' · '}
       <Link href="https://doc.openagenda.com" isExternal colorScheme="primary">
         {intl.formatMessage(messages.help)}
@@ -19,9 +21,7 @@ export default function Footer() {
         {intl.formatMessage(messages.termsOfUse)}
       </Link>
       {' · '}
-      <chakra.span color="oaGray.500">
-        &lt;uid:{event.uid}&gt;
-      </chakra.span>
+      <chakra.span color="oaGray.500">&lt;uid:{event.uid}&gt;</chakra.span>
     </footer>
   );
 }

@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { IntlProvider } from 'react-intl';
 import { createApp } from '@openagenda/react-shared';
 import getRoutes from './editRoutes';
 
@@ -7,15 +6,15 @@ const defaults = {
   initialState: {
     settings: {
       prefix: '/agendaSettings/edit',
-      apiRoot: ''
+      apiRoot: '',
     },
     res: {
       get: '/agendas/:uid/admin/settings.json',
       slugAvailable: '/agendas/slugs/available',
       set: '/:slug/admin/settings/edit',
-      remove: '/:slug/admin/settings/remove'
-    }
-  }
+      remove: '/:slug/admin/settings/remove',
+    },
+  },
 };
 
 export default function (options) {
@@ -23,25 +22,27 @@ export default function (options) {
 
   const { apiRoot, prefix } = initialState.settings;
 
-  const getApp = () => createApp({
-    name: 'agenda-settings/edit',
-    ...options,
-    initialState,
-    apiRoot,
-    prefix,
-    getRoutes
-  });
+  const getApp = () =>
+    createApp({
+      name: 'agenda-settings/edit',
+      ...options,
+      initialState,
+      apiRoot,
+      prefix,
+      getRoutes,
+    });
 
   const result = getApp();
 
-  if (module.hot) {
-    module.hot.accept('./editRoutes', () => {
+  // causes issues in an integrated environment
+  /* if (import.meta.webpackHot) {
+    import.meta.webpackHot.accept('./editRoutes', () => {
       const newApp = getApp();
 
       result.Content = newApp.Content;
       result.triggerHooks = newApp.triggerHooks;
     });
-  }
+  } */
 
   return result;
 }

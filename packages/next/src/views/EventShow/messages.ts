@@ -37,6 +37,10 @@ export default defineMessages({
     id: 'next.views.EventShow.actions',
     defaultMessage: 'Actions',
   },
+  backToList: {
+    id: 'next.views.EventShow.backToList',
+    defaultMessage: 'Back to list',
+  },
 });
 
 export const contextBar = defineMessages({

@@ -32,12 +32,9 @@ function getImageSrcProps(image?: string, updatedAt?: string) {
 }
 
 export default function References({ agenda, event }) {
-  const {
-    data: {
-      references,
-    } = {},
-    status,
-  } = useSWRImmutable(`/api/agendas/${agenda.uid}/events/${event.uid}/references`);
+  const { data: { references } = {}, status } = useSWRImmutable(
+    `/api/agendas/${agenda.uid}/events/${event.uid}/references`,
+  );
 
   if (status === FetchStatus.Fetching) return null;
 
@@ -45,7 +42,7 @@ export default function References({ agenda, event }) {
 
   return (
     <SimpleGrid columns={3} spacing="2">
-      {references.map(agendaReference => (
+      {references.map((agendaReference) => (
         <NextChakraLink
           key={agendaReference.uid}
           href={`/${agendaReference.slug}/events/${event.slug}`}
@@ -57,7 +54,10 @@ export default function References({ agenda, event }) {
             rounded="full"
             width="70"
             height="70"
-            {...getImageSrcProps(agendaReference.image, agendaReference.updatedAt)}
+            {...getImageSrcProps(
+              agendaReference.image,
+              agendaReference.updatedAt,
+            )}
             alt=""
             draggable={false}
             loader={agendaReference.image ? keyCDNLoader : null}
@@ -67,9 +67,7 @@ export default function References({ agenda, event }) {
             m="auto"
           />
 
-          <chakra.span noOfLines={2}>
-            {agendaReference.title}
-          </chakra.span>
+          <chakra.span noOfLines={2}>{agendaReference.title}</chakra.span>
         </NextChakraLink>
       ))}
     </SimpleGrid>

@@ -1,4 +1,15 @@
-export const SUPPORTED_LOCALES = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'];
+export const SUPPORTED_LOCALES = [
+  'en',
+  'fr',
+  'de',
+  'it',
+  'es',
+  'br',
+  'ca',
+  'eu',
+  'oc',
+  'io',
+];
 
 // Used when no locale is detected
 export const DEFAULT_LOCALE = 'fr';

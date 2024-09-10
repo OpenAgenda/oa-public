@@ -43,7 +43,7 @@ function DuplicateModalBody({ agenda, event }) {
   const onSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
-      search: { value: string }
+      search: { value: string };
     };
 
     setSearchValue(target.search.value);
@@ -68,7 +68,13 @@ function DuplicateModalBody({ agenda, event }) {
       if (pageIndex === 0) return ['duplicateModal', 'agendas', searchValue, 1, 0];
 
       if (previousPageData.secondRoutePage) {
-        return ['duplicateModal', 'agendas', searchValue, pageIndex + 1, previousPageData.secondRoutePage + 1];
+        return [
+          'duplicateModal',
+          'agendas',
+          searchValue,
+          pageIndex + 1,
+          previousPageData.secondRoutePage + 1,
+        ];
       }
 
       return ['duplicateModal', 'agendas', searchValue, pageIndex + 1, 0];
@@ -85,11 +91,11 @@ function DuplicateModalBody({ agenda, event }) {
       });
 
       return fetch(`${route}?${searchParamsStr}`)
-        .then(r => {
+        .then((r) => {
           if (r.ok) return r.json();
-          throw new Error('Can\'t list agendas');
+          throw new Error("Can't list agendas");
         })
-        .then(result => ({
+        .then((result) => ({
           ...result,
           secondRoutePage,
         }));
@@ -106,18 +112,24 @@ function DuplicateModalBody({ agenda, event }) {
   );
 
   // reset page size on unmount
-  useEffect(() => () => {
-    setSize(1);
-  }, [setSize]);
+  useEffect(
+    () => () => {
+      setSize(1);
+    },
+    [setSize],
+  );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.agendas?.length === 0;
   const isReachingEnd = isEmpty
-    || (pages && pages[pages.length - 1]?.secondRoutePage && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
+    || (pages
+      && pages[pages.length - 1]?.secondRoutePage
+      && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
 
   const { ref } = useInView({
-    onChange: inView => {
+    onChange: (inView) => {
       if (inView && !isReachingEnd && !isLoadingMore) {
         setSize(size + 1).catch(() => null);
       }
@@ -132,9 +144,7 @@ function DuplicateModalBody({ agenda, event }) {
 
   return (
     <ModalBody>
-      <H3>
-        {intl.formatMessage(messages.bigSentence)}
-      </H3>
+      <H3>{intl.formatMessage(messages.bigSentence)}</H3>
 
       <Text mt="4" color="oaGray.500">
         {intl.formatMessage(messages.reminder)}
@@ -146,31 +156,30 @@ function DuplicateModalBody({ agenda, event }) {
 
       <AgendaItem agenda={agenda} targetAgenda={agenda} event={event} />
 
-      <CustomDivider my="8">
-        {intl.formatMessage(messages.or)}
-      </CustomDivider>
+      <CustomDivider my="8">{intl.formatMessage(messages.or)}</CustomDivider>
 
       <form onSubmit={onSubmit}>
         <SearchInput onChange={setSearchValue} />
       </form>
 
       <VStack spacing="4" pt="4" align="start">
-        {pages.map(
-          page => page.agendas.filter(targetAgenda => {
-            if (uniqueAgendaUids.has(targetAgenda.uid)) {
-              return false;
-            }
-            uniqueAgendaUids.add(targetAgenda.uid);
-            return true;
-          }).map(targetAgenda => (
-            <AgendaItem
-              key={targetAgenda.uid}
-              agenda={agenda}
-              targetAgenda={targetAgenda}
-              event={event}
-            />
-          )),
-        )}
+        {pages.map((page) =>
+          page.agendas
+            .filter((targetAgenda) => {
+              if (uniqueAgendaUids.has(targetAgenda.uid)) {
+                return false;
+              }
+              uniqueAgendaUids.add(targetAgenda.uid);
+              return true;
+            })
+            .map((targetAgenda) => (
+              <AgendaItem
+                key={targetAgenda.uid}
+                agenda={agenda}
+                targetAgenda={targetAgenda}
+                event={event}
+              />
+            )))}
       </VStack>
 
       <div ref={ref} />
@@ -178,12 +187,7 @@ function DuplicateModalBody({ agenda, event }) {
   );
 }
 
-export default function DuplicateModal({
-  isOpen,
-  onClose,
-  agenda,
-  event,
-}) {
+export default function DuplicateModal({ isOpen, onClose, agenda, event }) {
   const intl = useIntl();
 
   return (

@@ -11,7 +11,9 @@ describe('14 - core - functional(server): api authentication and posts', () => {
   let server;
   let accessToken;
 
-  const config = testConfig.extendWith({ cachePrefix: 'c14_api_accessTokens_test' });
+  const config = testConfig.extendWith({
+    cachePrefix: 'c14_api_accessTokens_test',
+  });
 
   beforeAll(() => loadFixtures(config.db, '015.sql.js'));
 
@@ -59,7 +61,9 @@ describe('14 - core - functional(server): api authentication and posts', () => {
   };
 
   beforeAll(async () => {
-    accessToken = await axios(axiosJSONPayload).then(r => r.data.access_token);
+    accessToken = await axios(axiosJSONPayload).then(
+      (r) => r.data.access_token,
+    );
   });
 
   afterAll(() => server.close());
@@ -90,13 +94,13 @@ describe('14 - core - functional(server): api authentication and posts', () => {
         url: 'http://localhost:3000/requestAccessToken',
         headers: form.getHeaders(),
         data: form,
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
 
       expect(typeof otherAccessToken).toBe('string');
     });
 
     it('expiry is pushed back when new request is made', async () => {
-      await new Promise(rs => setTimeout(rs, 1000));
+      await new Promise((rs) => setTimeout(rs, 1000));
 
       const { data } = await axios(axiosJSONPayload);
 
@@ -107,9 +111,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
       const longNonce = Number.MAX_SAFE_INTEGER + 1;
       let error;
       const {
-        data: {
-          access_token: token,
-        },
+        data: { access_token: token },
       } = await axios(axiosJSONPayload);
 
       try {
@@ -141,15 +143,18 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     });
 
     it('an agenda key on a /me/agendas call should throw a 403', async () => {
-      const {
-        error,
-      } = await axios({
+      const { error } = await axios({
         method: 'get',
         url: 'http://localhost:3000/me/agendas?key=e830934e9d1848189ac74de3bfa7df0a',
-      }).then(r => ({ response: r }), e => ({ error: e }));
+      }).then(
+        (r) => ({ response: r }),
+        (e) => ({ error: e }),
+      );
 
       expect(error.response.status).toBe(403);
-      expect(error.response.data.message).toBe('agenda key cannot be used for this route');
+      expect(error.response.data.message).toBe(
+        'agenda key cannot be used for this route',
+      );
     });
   });
 
@@ -157,38 +162,43 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     const userKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
     it('/me/agendas route is not accessible if no key is provided', async () => {
-      const {
-        error,
-      } = await axios({
+      const { error } = await axios({
         method: 'get',
         url: 'http://localhost:3000/me/agendas',
-      }).then(r => ({ response: r }), e => ({ error: e }));
+      }).then(
+        (r) => ({ response: r }),
+        (e) => ({ error: e }),
+      );
 
       expect(error.response.status).toBe(403);
-      expect(error.response.data.message).toBe('could not find user or calendar matching key');
+      expect(error.response.data.message).toBe(
+        'could not find user or agenda matching key',
+      );
     });
 
     it('a public key provided in query can be used to access /me/agendas route', async () => {
-      const {
-        response,
-      } = await axios({
+      const { response } = await axios({
         method: 'get',
         url: `http://localhost:3000/me/agendas?key=${userKey}`,
-      }).then(r => ({ response: r }), e => ({ error: e }));
+      }).then(
+        (r) => ({ response: r }),
+        (e) => ({ error: e }),
+      );
 
       expect(response.status).toBe(200);
     });
 
     it('a public key provided in query can be placed in headers to access /me/agendas route', async () => {
-      const {
-        response,
-      } = await axios({
+      const { response } = await axios({
         method: 'get',
         url: 'http://localhost:3000/me/agendas',
         headers: {
           key: userKey,
         },
-      }).then(r => ({ response: r }), e => ({ error: e }));
+      }).then(
+        (r) => ({ response: r }),
+        (e) => ({ error: e }),
+      );
 
       expect(response.status).toBe(200);
     });

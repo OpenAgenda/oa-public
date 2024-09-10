@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
+import qs from 'qs';
 import { Box, Flex, LinkBox } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import Image from 'components/Image';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
+import useLocationQuery from 'hooks/useLocationQuery';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
@@ -14,28 +16,71 @@ function isValidUrl(url: string) {
     // eslint-disable-next-line no-new
     new URL(url);
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 }
 
-function eventUrlMaker({ baseUrl }) {
-  return ({ agenda, event }) => {
-    if (isValidUrl(baseUrl)) {
-      const trailingSlash = baseUrl.endsWith('/');
-      return `${baseUrl}${trailingSlash ? '' : '/'}${event.slug}`;
+function useEventLink({ baseUrl, agenda, event, nc }) {
+  return useMemo(() => {
+    if (baseUrl === 'oa') {
+      return {
+        isExternal: true,
+        url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}${qs.stringify({ nc }, { addQueryPrefix: true })}`,
+      };
     }
 
-    return `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`;
-  };
+    if (isValidUrl(baseUrl)) {
+      const trailingSlash = baseUrl.endsWith('/');
+      return {
+        isExternal: true,
+        url: `${baseUrl}${trailingSlash ? '' : '/'}${event.slug}`,
+      };
+    }
+
+    return {
+      isExternal: false,
+      url: `/embed/agendas/${agenda.uid}/events/${event.slug}${qs.stringify({ nc }, { addQueryPrefix: true })}`,
+    };
+  }, [baseUrl, agenda.uid, agenda.slug, event.slug, nc]);
 }
 
-export default function EventItem({ event, agenda }) {
+export default function EventItem({
+  event,
+  agenda,
+  // nav
+  from = 0,
+  first = true,
+  last = true,
+}) {
   const intl = useIntl();
   const router = useRouter();
 
+  const query = useLocationQuery();
+
   const { baseUrl } = router.query;
-  const getEventUrl = useMemo(() => eventUrlMaker({ baseUrl }), [baseUrl]);
+
+  const upcomingOnly = !query.timings && query.passed !== '1';
+
+  const nc = useMemo(
+    () => ({
+      ...query,
+      state: [2],
+      sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+      passed: undefined,
+      ...upcomingOnly
+        ? {
+          relative: ['current', 'upcoming'],
+        }
+        : null,
+      from,
+      first: first || undefined,
+      last: last || undefined,
+    }),
+    [first, from, last, query, upcomingOnly],
+  );
+
+  const eventLink = useEventLink({ baseUrl, agenda, event, nc });
 
   return (
     <LinkBox
@@ -56,7 +101,11 @@ export default function EventItem({ event, agenda }) {
                 ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
                 : `${IMAGE_PREFIX}${event.image.filename}`
             }
-            fallbackSrc={process.env.NODE_ENV === 'development' ? `${IMAGE_PREFIX}${event.image.filename}` : undefined}
+            fallbackSrc={
+              process.env.NODE_ENV === 'development'
+                ? `${IMAGE_PREFIX}${event.image.filename}`
+                : undefined
+            }
             fill
             objectFit="cover"
             sizes="(max-width: 629px) 100vw,
@@ -71,10 +120,15 @@ export default function EventItem({ event, agenda }) {
       )}
       <Flex direction="column" p="6" gap="2" grow="1" minH="170px">
         <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
-        <NextChakraLinkOverlay isExternal href={getEventUrl({ agenda, event })}>
+        <NextChakraLinkOverlay
+          isExternal={eventLink.isExternal}
+          href={eventLink.url}
+        >
           <b>{getLocaleValue(event.title, intl.locale)}</b>
         </NextChakraLinkOverlay>
-        <Box color="#545454">{getLocaleValue(event.description, intl.locale)}</Box>
+        <Box color="#545454">
+          {getLocaleValue(event.description, intl.locale)}
+        </Box>
         <Box fontSize="sm" color="#545454" mt="auto">
           {event.location.name}
         </Box>

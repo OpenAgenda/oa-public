@@ -10,9 +10,7 @@ const main = {
     options: {},
   },
 
-  stories: [
-    '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-  ],
+  stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
   core: {
     builder: getAbsolutePath('@storybook/builder-webpack5'),
@@ -20,7 +18,7 @@ const main = {
 
   staticDirs: ['./public'],
 
-  env: config => ({
+  env: (config) => ({
     ...config,
     __NEXT_REACT_ROOT: 'true', // Fix next/dynamic with suspense
   }),

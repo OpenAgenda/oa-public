@@ -18,7 +18,7 @@ export default {
   component: AdditionalFields,
   loaders: [intlMessagesLoader(EventShow.fetchLocale)],
   decorators: [
-    Story => (
+    (Story) => (
       <Container maxW="md" bg="white" p="5" my="5">
         <Story />
       </Container>
@@ -160,7 +160,8 @@ export const EventsField = {
         http.get(`/api/agendas/${agendaFixtures.uid}/events`, ({ request }) => {
           const url = new URL(request.url);
           const { uid } = qs.parse(url.search.replace('?', ''));
-          const selection = eventsFixtures.events.filter(event => [].concat(uid).includes(`${event.uid}`));
+          const selection = eventsFixtures.events.filter((event) =>
+            [].concat(uid).includes(`${event.uid}`));
 
           return HttpResponse.json({
             total: selection.length,

@@ -40,7 +40,7 @@ export async function init(config, services) {
       }
       : null,
     interfaces: {
-      getUser: uid => services.users.get(uid, { detailed: true }),
+      getUser: (uid) => services.users.get(uid, { detailed: true }),
       isUnsubscribed: () => false,
       prepareSummary,
       sendSummary: (...args) => sendSummary(config, services, ...args),
@@ -80,7 +80,6 @@ export async function init(config, services) {
   Object.assign(activities, service);
   Object.assign(activities.tasks, RebuildTasks({ config, services }));
 
-  // plugApp = module.exports
   Object.assign(plugApp, activities);
 
   return service;

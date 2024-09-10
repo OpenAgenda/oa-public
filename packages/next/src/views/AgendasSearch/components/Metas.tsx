@@ -18,7 +18,11 @@ function usePageTitle({ networkTitle, locationSetTitle }) {
   return intl.formatMessage(messages.pageTitle);
 }
 
-export default function Metas({ networkTitle = null, locationSetTitle = null, preload }) {
+export default function Metas({
+  networkTitle = null,
+  locationSetTitle = null,
+  preload,
+}) {
   const intl = useIntl();
   const query = useLocationQuery();
   const router = useRouter();
@@ -32,10 +36,13 @@ export default function Metas({ networkTitle = null, locationSetTitle = null, pr
     <Head>
       <title>{`${pageTitle} | OpenAgenda`}</title>
 
-      <meta name="robots" content={`${query.search || query.after ? 'noindex' : 'index'}, follow`} />
+      <meta
+        name="robots"
+        content={`${query.search || query.after ? 'noindex' : 'index'}, follow`}
+      />
 
       <link rel="canonical" href={canonicalUrl} />
-      {SUPPORTED_LOCALES.map(key =>
+      {SUPPORTED_LOCALES.map((key) =>
         (key === 'io' ? null : (
           <link
             key={`alternate:${key}`}
@@ -44,10 +51,20 @@ export default function Metas({ networkTitle = null, locationSetTitle = null, pr
             href={`${absUrl.origin}/${key}${absUrl.pathname}`}
           />
         )))}
-      <link rel="alternate" hrefLang="x-default" href={`${absUrl.origin}/en${absUrl.pathname}`} />
+      <link
+        rel="alternate"
+        hrefLang="x-default"
+        href={`${absUrl.origin}/en${absUrl.pathname}`}
+      />
 
-      {preload?.map(href => (
-        <link key={`preload-${href}`} rel="preload" href={href} as="fetch" crossOrigin="anonymous" />
+      {preload?.map((href) => (
+        <link
+          key={`preload-${href}`}
+          rel="preload"
+          href={href}
+          as="fetch"
+          crossOrigin="anonymous"
+        />
       ))}
     </Head>
   );

@@ -27,10 +27,15 @@ import MemberItem from './MemberItem';
 
 const PAGE_SIZE = 20;
 
-function transferOwnership(url, { arg }: { arg: { userUid?: number, email?: string } }): Promise<any> {
-  return ky.post(url, {
-    json: arg,
-  }).json();
+function transferOwnership(
+  url,
+  { arg }: { arg: { userUid?: number; email?: string } },
+): Promise<any> {
+  return ky
+    .post(url, {
+      json: arg,
+    })
+    .json();
 }
 
 function TransferOwnershipModalBody({ onSuccess }) {
@@ -43,7 +48,7 @@ function TransferOwnershipModalBody({ onSuccess }) {
   const onSubmit = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
-      search: { value: string }
+      search: { value: string };
     };
 
     setSearchValue(target.search.value);
@@ -64,20 +69,29 @@ function TransferOwnershipModalBody({ onSuccess }) {
       if (pageIndex === 0) return ['transferOwnershipModal', 'members', searchValue];
 
       // add the cursor to the API endpoint
-      return ['transferOwnershipModal', 'members', searchValue, previousPageData.after];
+      return [
+        'transferOwnershipModal',
+        'members',
+        searchValue,
+        previousPageData.after,
+      ];
     },
     ([_comp, _requestId, search, after]) => {
-      const searchParamsStr = qs.stringify({
-        detailed: 1,
-        search: search !== '' ? search : undefined,
-        after,
-      }, { addQueryPrefix: true });
+      const searchParamsStr = qs.stringify(
+        {
+          detailed: 1,
+          search: search !== '' ? search : undefined,
+          after,
+        },
+        { addQueryPrefix: true },
+      );
 
-      return fetch(`/api/agendas/${agenda.uid}/members${searchParamsStr}`)
-        .then(r => {
+      return fetch(`/api/agendas/${agenda.uid}/members${searchParamsStr}`).then(
+        (r) => {
           if (r.ok) return r.json();
-          throw new Error('Can\'t list agendas');
-        });
+          throw new Error("Can't list agendas");
+        },
+      );
     },
     {
       keepPreviousData: true,
@@ -91,7 +105,8 @@ function TransferOwnershipModalBody({ onSuccess }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.items?.length === 0;
   const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.items?.length < PAGE_SIZE);
 
@@ -114,7 +129,7 @@ function TransferOwnershipModalBody({ onSuccess }) {
   );
 
   const { ref } = useInView({
-    onChange: inView => {
+    onChange: (inView) => {
       if (inView && !isReachingEnd && !isLoadingMore) {
         setSize(size + 1).catch(() => null);
       }
@@ -122,9 +137,7 @@ function TransferOwnershipModalBody({ onSuccess }) {
   });
 
   if (isLoadingInitialData) {
-    return (
-      <ModalLoadingBody />
-    );
+    return <ModalLoadingBody />;
   }
 
   return (
@@ -134,15 +147,14 @@ function TransferOwnershipModalBody({ onSuccess }) {
       </form>
 
       <VStack spacing="4" pt="4" align="start">
-        {pages.map(
-          page => page.items.map(member => (
+        {pages.map((page) =>
+          page.items.map((member) => (
             <MemberItem
               key={member.userUid || member.email}
               member={member}
               onTransfer={onTransfer}
             />
-          )),
-        )}
+          )))}
 
         {memberByEmail.data ? (
           <MemberItem
@@ -163,9 +175,7 @@ function ConfirmationModalBody({ onClose }) {
 
   return (
     <>
-      <ModalBody>
-        {intl.formatMessage(messages.ownershipTransfered)}
-      </ModalBody>
+      <ModalBody>{intl.formatMessage(messages.ownershipTransfered)}</ModalBody>
       <ModalFooter>
         <Button colorScheme="primary" onClick={onClose}>
           {intl.formatMessage(messages.close)}
@@ -175,10 +185,7 @@ function ConfirmationModalBody({ onClose }) {
   );
 }
 
-export default function TransferOwnershipModal({
-  isOpen,
-  onClose,
-}) {
+export default function TransferOwnershipModal({ isOpen, onClose }) {
   const intl = useIntl();
 
   const [step, setStep] = useState(0);

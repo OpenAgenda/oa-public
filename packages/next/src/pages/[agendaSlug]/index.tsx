@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async ({
             Authorization: req.headers.authorization,
           },
         },
-      ).then(r => {
+      ).then((r) => {
         if (r.ok) return r.json();
         throw new VError[r.status](r.statusText);
       }),
@@ -184,7 +184,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 };
 
-const AgendaPage: NextPageWithLayout<PageProps> = props => {
+const AgendaPage: NextPageWithLayout<PageProps> = (props) => {
   const { fallback = {} } = props;
 
   if ('statusCode' in props) {

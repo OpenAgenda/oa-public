@@ -18,13 +18,16 @@ export default function ContributorSection({ contentLocale }) {
   const { member, me } = useMember();
 
   const additionalFields = useMemo(
-    () => (member ? additionalFieldsUtils.formatAdditionalFieldData({
-      schema: agenda.memberSchema,
-      event: member,
-      locale: contentLocale,
-      defaultLocale: intl.locale,
-      dateFnsLocale,
-    }) : null),
+    () =>
+      (member
+        ? additionalFieldsUtils.formatAdditionalFieldData({
+          schema: agenda.memberSchema,
+          event: member,
+          locale: contentLocale,
+          defaultLocale: intl.locale,
+          dateFnsLocale,
+        })
+        : null),
     [agenda.memberSchema, dateFnsLocale, member, contentLocale, intl.locale],
   );
 
@@ -43,7 +46,9 @@ export default function ContributorSection({ contentLocale }) {
 
         <Box display="flex" alignItems="center" color="oaGray.500">
           <FaIcon icon={faLock} size="lg" />
-          <Text fontSize="xl" ml="2">{intl.formatMessage(messages.privateInformation)}</Text>
+          <Text fontSize="xl" ml="2">
+            {intl.formatMessage(messages.privateInformation)}
+          </Text>
         </Box>
       </Flex>
       <Flex
@@ -64,9 +69,11 @@ export default function ContributorSection({ contentLocale }) {
       >
         <Button
           as={Link}
-          href={isEventContributor
-            ? `/home?agendaUid=${agenda.uid}`
-            : `/${agenda.slug}/admin/members?userUid=${member.userUid}`}
+          href={
+            isEventContributor
+              ? `/home?agendaUid=${agenda.uid}`
+              : `/${agenda.slug}/admin/members?userUid=${member.userUid}`
+          }
           // leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
           variant="outline"
           // colorScheme="white"

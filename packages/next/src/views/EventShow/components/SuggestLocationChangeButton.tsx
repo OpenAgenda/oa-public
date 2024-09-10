@@ -6,7 +6,11 @@ import useEvent from '../hooks/useEvent';
 import useMember from '../hooks/useMember';
 import { suggestLocationChangeButton as messages } from '../messages';
 
-export default function SuggestLocationChangeButton({ canEditEvent }: { canEditEvent: boolean }) {
+export default function SuggestLocationChangeButton({
+  canEditEvent,
+}: {
+  canEditEvent: boolean;
+}) {
   const intl = useIntl();
   const agenda = useAgenda();
   const { event } = useEvent();

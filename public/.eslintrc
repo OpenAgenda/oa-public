@@ -2,8 +2,5 @@
   "root": true,
   "extends": [
     "@openagenda"
-  ],
-  "parserOptions": {
-    "sourceType": "script"
-  }
+  ]
 }

@@ -16,7 +16,7 @@
   ],
   "main": "dist/app.js",
   "scripts": {
-    "storybook": "storybook dev -p 9001 --ci",
+    "storybook": "storybook dev",
     "sb": "yarn storybook",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",

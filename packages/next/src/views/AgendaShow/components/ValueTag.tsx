@@ -16,12 +16,7 @@ const messages = {
   },
 };
 
-export default function ValueTag({
-  label,
-  title = null,
-  onRemove,
-  disabled,
-}) {
+export default function ValueTag({ label, title = null, onRemove, disabled }) {
   const intl = useIntl();
 
   const titleLabel = title?.length
@@ -44,7 +39,6 @@ export default function ValueTag({
       iconSpacing="2"
     >
       {getLocaleValue(label, intl.locale)}
-
     </Button>
   );
 }

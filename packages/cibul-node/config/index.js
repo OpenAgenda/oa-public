@@ -23,7 +23,7 @@ const config = {
   corpoLastUpdate: '2017-10-31T12:07:29.000Z',
   superAdminUids: (process.env.OA_SUPERADMIN_UIDS ?? '')
     .split(',')
-    .map(uid => parseInt(uid, 10)),
+    .map((uid) => parseInt(uid, 10)),
   jsVersion: 42,
   cssVersion: 2,
   interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br', 'oc'],
@@ -250,12 +250,12 @@ const config = {
         prod.detectLocationDuplicatesIgnoredSetUids
         ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_SET_UIDS ?? '')
           .split(',')
-          .map(i => parseInt(i, 10)),
+          .map((i) => parseInt(i, 10)),
       agendaUids:
         prod.detectLocationDuplicatesIgnoredAgendaUids
         ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_AGENDA_UIDS ?? '')
           .split(',')
-          .map(i => parseInt(i, 10)),
+          .map((i) => parseInt(i, 10)),
     },
     sleep:
       prod.detectLocationDuplicatesSleep

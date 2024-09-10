@@ -1,6 +1,17 @@
-import React, { useState, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
+import React, {
+  useState,
+  ForwardRefExoticComponent,
+  PropsWithoutRef,
+  RefAttributes,
+} from 'react';
 import { SearchFilter as ReactFiltersSearchFilter } from '@openagenda/react-filters';
-import { Button, HTMLChakraProps, Input, InputGroup, InputRightElement } from '@openagenda/uikit';
+import {
+  Button,
+  HTMLChakraProps,
+  Input,
+  InputGroup,
+  InputRightElement,
+} from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
@@ -8,7 +19,9 @@ import messages from '../messages';
 
 // Should work but don't autocomplete:
 // type ForwardRefComponent<T, P = {}> = ReturnType<typeof React.forwardRef<T, P>>;
-type ForwardRefComponent<T, P = {}> = ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+type ForwardRefComponent<T, P = {}> = ForwardRefExoticComponent<
+  PropsWithoutRef<P> & RefAttributes<T>
+>;
 
 const TypedSearchFilter = ReactFiltersSearchFilter as ForwardRefComponent<
   HTMLElement,
@@ -90,7 +103,10 @@ function SearchInput({
   );
 }
 
-const SearchFilter = React.forwardRef<any, any>(function SearchFilter({ disabled, isLoading, ...rest }, ref) {
+const SearchFilter = React.forwardRef<any, any>(function SearchFilter(
+  { disabled, isLoading, ...rest },
+  ref,
+) {
   const [filter] = useState(() => ({ name: 'search' }));
 
   return (

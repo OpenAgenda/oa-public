@@ -37,7 +37,7 @@ export default function RejectModal({ setRefuseModal, changeState }) {
           <Text pb={2}>{intl.formatMessage(messages.motiveInfo)}</Text>
           <Textarea
             value={motive}
-            onChange={e => setMotive(e.target.value)}
+            onChange={(e) => setMotive(e.target.value)}
             placeholder={intl.formatMessage(messages.motivePlaceholder)}
           />
           <ModalFooter justifyContent="center">

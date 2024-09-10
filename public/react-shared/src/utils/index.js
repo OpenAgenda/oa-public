@@ -13,3 +13,4 @@ export * as unloadWarning from './unloadWarning';
 export { default as withContext } from './withContext';
 export { default as withLayoutData } from './withLayoutData';
 export { default as wrapApp } from './wrapApp';
+export { default as defaultSelectStyles } from './defaultSelectStyles';

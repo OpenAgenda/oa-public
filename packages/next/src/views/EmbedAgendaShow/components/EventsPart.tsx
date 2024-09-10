@@ -11,7 +11,14 @@ import { EventsSkeleton } from './LoadingPage';
 
 const PAGE_SIZE = 12;
 
-export default function EventsPart({ agenda, filters, query, includeFields, prefilter, referrer }) {
+export default function EventsPart({
+  agenda,
+  filters,
+  query,
+  includeFields,
+  prefilter,
+  referrer,
+}) {
   const intl = useIntl();
   const router = useRouter();
 
@@ -34,7 +41,8 @@ export default function EventsPart({ agenda, filters, query, includeFields, pref
   });
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
   const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
 
@@ -49,9 +57,9 @@ export default function EventsPart({ agenda, filters, query, includeFields, pref
   }, [router.locale, router.asPath, query, pages]);
 
   const nextPage = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
-      setSize(s => s + 1);
+      setSize((s) => s + 1);
     },
     [setSize],
   );
@@ -66,8 +74,22 @@ export default function EventsPart({ agenda, filters, query, includeFields, pref
 
   return (
     <>
-      <SimpleGrid templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))" spacing="10">
-        {pages?.map(page => page.events.map(event => <EventItem key={event.uid} event={event} agenda={agenda} />))}
+      <SimpleGrid
+        templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))"
+        spacing="10"
+      >
+        {pages?.map((page, pageIndex) =>
+          page.events.map((event, eventIndex) => (
+            <EventItem
+              key={event.uid}
+              event={event}
+              agenda={agenda}
+              // nav
+              from={pageIndex * PAGE_SIZE + eventIndex}
+              first={pageIndex === 0 && eventIndex === 0}
+              last={pageIndex * PAGE_SIZE + eventIndex === page.total - 1}
+            />
+          )))}
       </SimpleGrid>
 
       {!isLoadingInitialData && !isReachingEnd ? (

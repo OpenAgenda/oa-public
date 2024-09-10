@@ -29,13 +29,14 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
   });
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
   const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
   // const isRefreshing = isValidating && pages && pages.length === size;
 
   const { ref } = useInView({
-    onChange: inView => {
+    onChange: (inView) => {
       if (inView && !isReachingEnd && !isLoadingMore) {
         setSize(size + 1).catch(() => null);
       }
@@ -52,10 +53,13 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
     return url.pathname + url.search;
   }, [router.locale, router.asPath, query, pages]);
 
-  const nextPage = useCallback(e => {
-    e.preventDefault();
-    setSize(s => s + 1);
-  }, [setSize]);
+  const nextPage = useCallback(
+    (e) => {
+      e.preventDefault();
+      setSize((s) => s + 1);
+    },
+    [setSize],
+  );
 
   if (isLoadingInitialData) {
     return <EventsSkeleton />;
@@ -68,18 +72,19 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
   return (
     <>
       <Flex direction="column" flex="2" gap="10" mb="12">
-        {pages?.map((page, pageIndex) => page.events.map((event, eventIndex) => (
-          <EventItem
-            key={event.uid}
-            event={event}
-            agenda={agenda}
-            imagePriority={pageIndex === 0 && eventIndex <= 1}
-            // nav
-            from={pageIndex * PAGE_SIZE + eventIndex}
-            first={pageIndex === 0 && eventIndex === 0}
-            last={pageIndex * PAGE_SIZE + eventIndex === page.total - 1}
-          />
-        )))}
+        {pages?.map((page, pageIndex) =>
+          page.events.map((event, eventIndex) => (
+            <EventItem
+              key={event.uid}
+              event={event}
+              agenda={agenda}
+              imagePriority={pageIndex === 0 && eventIndex <= 1}
+              // nav
+              from={pageIndex * PAGE_SIZE + eventIndex}
+              first={pageIndex === 0 && eventIndex === 0}
+              last={pageIndex * PAGE_SIZE + eventIndex === page.total - 1}
+            />
+          )))}
       </Flex>
 
       {!isLoadingInitialData && !isReachingEnd ? (

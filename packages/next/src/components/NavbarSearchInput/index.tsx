@@ -1,4 +1,9 @@
-import { InputGroup, Input, InputRightElement, Button } from '@openagenda/uikit';
+import {
+  InputGroup,
+  Input,
+  InputRightElement,
+  Button,
+} from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
 import { defineMessages, useIntl } from 'react-intl';
@@ -62,10 +67,7 @@ export default function NavbarSearchInput({
         name={name}
         {...input}
       />
-      <InputRightElement
-        h="full"
-        w="50px"
-      >
+      <InputRightElement h="full" w="50px">
         <Button
           type="submit"
           onClick={onButtonClick}

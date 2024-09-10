@@ -9,7 +9,12 @@ export default function IcsAccordionItem({ handleSubmit }) {
   return (
     <AccordionItem title="iCal / ICS">
       <chakra.div textAlign="center">
-        <Button type="submit" colorScheme="primary" alignSelf="center" onClick={handleSubmit('ics')}>
+        <Button
+          type="submit"
+          colorScheme="primary"
+          alignSelf="center"
+          onClick={handleSubmit('ics')}
+        >
           {intl.formatMessage(messages.modalTitle)}
         </Button>
       </chakra.div>

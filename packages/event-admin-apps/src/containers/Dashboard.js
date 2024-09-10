@@ -54,7 +54,7 @@ const sortOptions = [
   'lastTimingWithFeatured.asc',
 ];
 
-const getRedirectURL = location =>
+const getRedirectURL = (location) =>
   Base64.encode(location.pathname + location.search);
 
 const messages = defineMessages({
@@ -222,8 +222,8 @@ function Dashboard() {
 
   const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();
 
-  const res = useSelector(state => state.res);
-  const mapTiles = useSelector(state => state.settings.mapTiles);
+  const res = useSelector((state) => state.res);
+  const mapTiles = useSelector((state) => state.settings.mapTiles);
 
   const [passTabOpen, setPassTab] = useState(false);
 
@@ -259,14 +259,14 @@ function Dashboard() {
   const hasUrlQuery = useMemo(
     () =>
       Object.keys(urlQuery).length
-      && Object.keys(urlQuery).some(key => key !== 'sort'),
+      && Object.keys(urlQuery).some((key) => key !== 'sort'),
     [urlQuery],
   );
 
   const hasQuery = useMemo(
     () =>
       Object.keys(query).length
-      && Object.keys(query).some(key => key !== 'sort'),
+      && Object.keys(query).some((key) => key !== 'sort'),
     [query],
   );
 
@@ -276,35 +276,37 @@ function Dashboard() {
   const [selectedEvents, setSelectedEvents] = useState(() => new Set());
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
+  const [isShowingAllFilters, setIsShowingAllFilters] = useState(
+    !agenda.settings?.admin?.filters?.displayed,
+  );
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
-  const unorderedFilters = useFilters(intl, agendaSchema.fields, {
+  const collapsedFilters = useFilters(intl, agendaSchema.fields, {
     dateFnsLocale: dateFnsLocales[intl.locale],
     missingValue: 'null',
     mapTiles,
-    include: agenda.settings.admin?.filters?.displayed,
+    sort: agenda.settings?.admin?.filters?.displayed ?? [
+      'geo',
+      'state',
+      'relative',
+    ],
+    include: !isShowingAllFilters
+      ? agenda.settings?.admin?.filters?.displayed
+      : undefined,
   });
-  const filters = useMemo(() => {
-    const orderedFilter = unorderedFilters.sort((a, b) => {
-      const priority = ['geo', 'state', 'relative'];
-      const indexA = priority.indexOf(a.name);
-      const indexB = priority.indexOf(b.name);
-      if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-      if (indexA !== -1) return -1;
-      if (indexB !== -1) return 1;
-      return 0;
-    });
 
-    return orderedFilter.map(filter => {
-      if (filter.name === 'state' || filter.name === 'relative') {
-        return { ...filter, defaultCollapsed: false };
-      }
-      return filter;
-    });
-  }, [unorderedFilters]);
+  const filters = useMemo(
+    () =>
+      collapsedFilters.map((filter) =>
+        (['state', 'relative'].includes(filter.name)
+          ? { ...filter, defaultCollapsed: false }
+          : filter)),
+    [collapsedFilters],
+  );
+
   const mapFilter = useMemo(
-    () => filters.find(v => v.name === 'geo'),
+    () => filters.find((v) => v.name === 'geo'),
     [filters],
   );
 
@@ -318,11 +320,11 @@ function Dashboard() {
         queryClient
           .refetchQueries(['event-admin-apps', 'events', agenda.slug])
           .catch(() => null),
-      e => console.log('ERROR', e),
+      (e) => console.log('ERROR', e),
     );
 
     removeModal.close();
-  }, [agenda.slug, apiClient, queryClient, removeModal]);
+  }, [agenda.slug, apiClient, queryClient, removeModal, agenda.uid]);
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
@@ -391,7 +393,7 @@ function Dashboard() {
       // staleTime: 10000,
       notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
       keepPreviousData: true, // because query and page change
-      onSuccess: newData => {
+      onSuccess: (newData) => {
         // Cancel selection
         setSelectedEvents(new Set());
         setExtendedAllSelected(false);
@@ -441,15 +443,15 @@ function Dashboard() {
     data?.aggregations,
   );
 
-  const onFilterChange = useCallback(values => setQuery(values), [setQuery]);
+  const onFilterChange = useCallback((values) => setQuery(values), [setQuery]);
 
   // Selection
   const isSelectedEvent = useCallback(
-    uid => selectedEvents.has(uid),
+    (uid) => selectedEvents.has(uid),
     [selectedEvents],
   );
-  const selectEvent = useCallback(uid => {
-    setSelectedEvents(old => {
+  const selectEvent = useCallback((uid) => {
+    setSelectedEvents((old) => {
       const result = new Set(old);
 
       if (result.has(uid)) {
@@ -471,7 +473,7 @@ function Dashboard() {
   }, [data, selectedEvents.size]);
 
   const selectAll = useCallback(() => {
-    setSelectedEvents(old => {
+    setSelectedEvents((old) => {
       const result = new Set(old);
 
       for (const event of data.events) {
@@ -488,7 +490,7 @@ function Dashboard() {
 
   const selectExtendedAll = useCallback(
     () =>
-      setExtendedAllSelected(old => {
+      setExtendedAllSelected((old) => {
         if (old) {
           // Cancel selection
           setSelectedEvents(new Set());
@@ -514,23 +516,23 @@ function Dashboard() {
 
   const previousPage = useMemo(
     () =>
-      a11yButtonActionHandler(e => {
+      a11yButtonActionHandler((e) => {
         if (e) {
           e.preventDefault();
         }
 
-        setPage(old => Math.max(old - 1, 1));
+        setPage((old) => Math.max(old - 1, 1));
       }),
     [],
   );
   const nextPage = useMemo(
     () =>
-      a11yButtonActionHandler(e => {
+      a11yButtonActionHandler((e) => {
         if (e) {
           e.preventDefault();
         }
 
-        setPage(old => old + 1);
+        setPage((old) => old + 1);
       }),
     [],
   );
@@ -548,7 +550,7 @@ function Dashboard() {
   const filtersFormRef = useRef();
   const [initialValues] = useState(() => query);
   const validate = useCallback(
-    values => {
+    (values) => {
       try {
         validateQuery(values, {
           formSchema: flattenedAgendaSchema,
@@ -725,7 +727,7 @@ function Dashboard() {
                   <p className="text-center">
                     {intl.formatMessage(messages.allSelected, {
                       size: selectedEvents.size,
-                      b: chunks => <b>{chunks}</b>,
+                      b: (chunks) => <b>{chunks}</b>,
                     })}{' '}
                     <button
                       type="button"
@@ -734,7 +736,7 @@ function Dashboard() {
                     >
                       {intl.formatMessage(messages.selectExtendedAll, {
                         total: data.total,
-                        b: chunks => <b>{chunks}</b>,
+                        b: (chunks) => <b>{chunks}</b>,
                       })}
                     </button>
                   </p>
@@ -742,7 +744,7 @@ function Dashboard() {
                   <p className="text-center">
                     {intl.formatMessage(messages.extendedAllSelected, {
                       total: data.total,
-                      b: chunks => <b>{chunks}</b>,
+                      b: (chunks) => <b>{chunks}</b>,
                     })}{' '}
                     <button
                       type="button"
@@ -781,11 +783,11 @@ function Dashboard() {
                 ? intl.formatMessage(messages.totalWithFilters, {
                   selection: data.total,
                   total: filtersQuery.data.total,
-                  strong: chunks => <strong>{chunks}</strong>,
+                  strong: (chunks) => <strong>{chunks}</strong>,
                 })
                 : intl.formatMessage(messages.totalEvents, {
                   total: filtersQuery.data.total,
-                  strong: chunks => <strong>{chunks}</strong>,
+                  strong: (chunks) => <strong>{chunks}</strong>,
                 })}
             </span>
 
@@ -832,7 +834,7 @@ function Dashboard() {
             isLast={(page - 1) * PAGE_SIZE + index === data.total - 1}
             passRes={res.passCulture}
             passTabIsOpen={passTabOpen === event.uid}
-            setPassTab={e => setPassTab(e)}
+            setPassTab={(e) => setPassTab(e)}
           />
         ))}
       </ul>
@@ -866,6 +868,8 @@ function Dashboard() {
         query={query}
         filtersQuery={filtersQuery}
         eventsQuery={eventsQuery}
+        isShowingAllFilters={isShowingAllFilters}
+        onShowAllFilters={() => setIsShowingAllFilters(true)}
       />
     </FiltersProvider>
   );

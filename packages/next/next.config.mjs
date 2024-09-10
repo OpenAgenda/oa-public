@@ -10,11 +10,11 @@ const withBundleAnalyzer = bundleAnalyser({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const withSentry = c => withSentryConfig(c, { silent: true });
+const withSentry = (c) => withSentryConfig(c, { silent: true });
 
 function webpackCopyFiles(webpackConfig, files) {
   const CopyFilePlugin = webpackConfig.plugins.find(
-    plugin => plugin.constructor.name === 'CopyFilePlugin',
+    (plugin) => plugin.constructor.name === 'CopyFilePlugin',
   ).constructor;
 
   for (const file of files) {
