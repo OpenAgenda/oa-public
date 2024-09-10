@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import debug from 'debug';
 import sentry from '@sentry/node';
-import prod from './prod.mjs';
+import prod from './prod.js';
 
 const mailgun = {
   auth: {
