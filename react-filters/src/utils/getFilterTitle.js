@@ -1,11 +1,14 @@
 import { getLocaleValue } from '@openagenda/intl';
+import defaultMessages from '../messages/filterTitles';
 
 export default function getFilterTitle(
   intl,
-  messages,
+  providedMessages,
   messageKey,
-  fieldSchema
+  fieldSchema,
 ) {
+  const messages = providedMessages ?? defaultMessages;
+
   if (fieldSchema?.label) {
     return getLocaleValue(fieldSchema.label, intl.locale);
   }

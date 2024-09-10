@@ -2,8 +2,13 @@ import dateRanges from './dateRanges';
 import withDefaultFilterConfig from './withDefaultFilterConfig';
 import getAdditionalFilters from './getAdditionalFilters';
 
+const isNameMatching = (name1, name2) =>
+  name1.replace('.', ':') === name2.replace('.', ':');
+
 export default function getFilters(intl, fields, opts = {}) {
   const { staticRanges, inputRanges } = dateRanges(intl, opts);
+
+  const { include, sort, exclude } = opts;
 
   const standardFilters = [
     { name: 'viewport' },
@@ -33,13 +38,42 @@ export default function getFilters(intl, fields, opts = {}) {
     { name: 'accessibility' },
   ];
 
-  const additionalFilters = getAdditionalFilters(fields);
+  const defaultSortFilters = standardFilters
+    .concat(getAdditionalFilters(fields))
+    .filter(
+      (filter) =>
+        !exclude || !exclude.find((f) => isNameMatching(f, filter.name)),
+    )
+    .filter(
+      (filter) =>
+        !include || !!include.find((f) => isNameMatching(f, filter.name)),
+    );
 
-  return standardFilters
-    .concat(additionalFilters)
-    .filter(filter => opts.include?.includes(filter.name) ?? true)
-    .filter(filter => !opts.exclude?.includes(filter.name))
-    .map(filter =>
+  const finalCompleteSort = sort ?? include ?? [];
+
+  defaultSortFilters.forEach((filter) => {
+    if (finalCompleteSort.includes(filter.name)) {
+      return;
+    }
+    finalCompleteSort.push(filter.name);
+  });
+
+  return finalCompleteSort
+    .map((filterName) => {
+      const match = defaultSortFilters.find((filter) =>
+        isNameMatching(filter.name, filterName));
+
+      if (!match) {
+        console.warn(
+          'filter %s did not match any known field or filter',
+          filterName,
+        );
+      }
+
+      return match;
+    })
+    .filter((f) => !!f)
+    .map((filter) =>
       withDefaultFilterConfig(filter, intl, {
         dateFnsLocale: opts.dateFnsLocale,
         mapTiles: opts.mapTiles,
