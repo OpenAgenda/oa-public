@@ -6,12 +6,11 @@ import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
 import locales from '../locales-compiled';
 
-function App({
-  route,
-}) {
+function App({ route }) {
   const parentQueryClient = useQueryClient();
   const queryClient = useConstant(
-    () => parentQueryClient
+    () =>
+      parentQueryClient
       || new QueryClient({
         defaultOptions: {
           queries: {
@@ -37,8 +36,6 @@ function App({
   );
 }
 
-export default
-provideHooks({
-  inject: ({ store }) => store.inject({
-  }),
+export default provideHooks({
+  inject: ({ store }) => store.inject({}),
 })(App);

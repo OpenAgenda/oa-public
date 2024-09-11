@@ -8,7 +8,8 @@ const messages = defineMessages({
   },
   body: {
     id: 'AgendaSchema.AfterRedirectModal.body',
-    defaultMessage: 'Member form configuration is not activated on your calendar',
+    defaultMessage:
+      'Member form configuration is not activated on your calendar',
   },
   memberInfoAsk: {
     id: 'AgendaSchema.EmbedSelection.memberInfoAsk',
@@ -16,18 +17,18 @@ const messages = defineMessages({
   },
 });
 
-const AModal = ({
-  close,
-}) => {
+const AModal = ({ close }) => {
   const intl = useIntl();
   return (
-    <Modal
-      title={intl.formatMessage(messages.title)}
-      onClose={close}
-    >
+    <Modal title={intl.formatMessage(messages.title)} onClose={close}>
       <div>
         <p>{intl.formatMessage(messages.body)}</p>
-        <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=memberSchema`}> {intl.formatMessage(messages.memberInfoAsk)}</a>
+        <a
+          href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=memberSchema`}
+        >
+          {' '}
+          {intl.formatMessage(messages.memberInfoAsk)}
+        </a>
       </div>
     </Modal>
   );

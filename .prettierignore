@@ -4,4 +4,5 @@ packages/abilities/build
 packages/activity-apps/dist
 packages/agenda-contribute/dist
 packages/agenda-locations-app/dist
+packages/agenda-schemas-app/dist
 packages/next/.next

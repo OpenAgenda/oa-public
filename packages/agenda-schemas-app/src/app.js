@@ -1,10 +1,8 @@
-import {
-  createApp,
-} from '@openagenda/react-shared';
+import { createApp } from '@openagenda/react-shared';
 
 import getRoutes from './getRoutes';
 
-export default options => {
+export default (options) => {
   const { initialState } = options;
 
   const { apiRoot, prefix } = initialState.settings;
