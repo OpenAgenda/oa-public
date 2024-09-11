@@ -7,15 +7,18 @@ const cleanDetectCandidatesOptions = require('./cleanDetectCandidatesOptions');
 const addDuplicateCandidates = require('./addCandidates');
 
 async function getLocation(endpoints, locationOrUid) {
-  const location = locationOrUid?.constructor.name === 'Object' ? locationOrUid : await endpoints.get(locationOrUid);
+  const location = locationOrUid?.constructor.name === 'Object'
+    ? locationOrUid
+    : await endpoints.get(locationOrUid);
   return location;
 }
 
-async function detectDuplicateCandidates({ internals, endpoints }, locationOrUid, options = {}) {
-  const {
-    saveCandidates,
-    geoRange,
-  } = cleanDetectCandidatesOptions(options);
+async function detectDuplicateCandidates(
+  { internals, endpoints },
+  locationOrUid,
+  options = {},
+) {
+  const { saveCandidates, geoRange } = cleanDetectCandidatesOptions(options);
   const { config } = internals;
   const location = await getLocation(endpoints, locationOrUid);
 
@@ -40,17 +43,19 @@ async function detectDuplicateCandidates({ internals, endpoints }, locationOrUid
   let after = 0;
   const candidates = [];
   while (after !== -1) {
-    const {
-      after: nextAfter,
-      items: locations,
-    } = await endpoints.list({ geo: geoFilter, excludeUid: excludeUids }, { after });
+    const { after: nextAfter, items: locations } = await endpoints.list(
+      { geo: geoFilter, excludeUid: excludeUids },
+      { after },
+    );
     if (!locations.length) {
       after = -1;
       continue;
     }
 
     for (const focusedLocation of locations) {
-      if (buildDistancesAndEvaluate(location, focusedLocation, config.duplicates)) {
+      if (
+        buildDistancesAndEvaluate(location, focusedLocation, config.duplicates)
+      ) {
         candidates.push(focusedLocation.uid);
       }
     }

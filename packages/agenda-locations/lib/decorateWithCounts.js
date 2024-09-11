@@ -7,10 +7,10 @@ module.exports = (
   countsByUid,
   keys = ['eventCount', 'agendaEventCount'],
 ) => {
-  (locations instanceof Array ? locations : [locations]).forEach(location => {
+  (locations instanceof Array ? locations : [locations]).forEach((location) => {
     const index = _.findIndex(countsByUid, { uid: location.uid });
 
-    keys.forEach(key => {
+    keys.forEach((key) => {
       location[key] = index === -1 ? 0 : countsByUid[index][key];
     });
 

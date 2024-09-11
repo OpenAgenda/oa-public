@@ -5,10 +5,7 @@ const _ = require('lodash');
 const Files = require('@openagenda/files');
 
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 
 const fixtures = require('./fixtures');
 
@@ -59,14 +56,18 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     });
 
     it('detects one duplicate candidate through SetUid', async () => {
-      const candidates = await svc.sets(1903810).locations.duplicates.detect(location);
+      const candidates = await svc
+        .sets(1903810)
+        .locations.duplicates.detect(location);
       expect(candidates).toStrictEqual([77635823, 77635822]);
     });
 
     it('save option with sample', async () => {
       let thrownError;
       try {
-        await svc(7196947).duplicates.detect(location, { saveCandidates: true });
+        await svc(7196947).duplicates.detect(location, {
+          saveCandidates: true,
+        });
       } catch (e) {
         thrownError = e;
         return e;
@@ -102,8 +103,12 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     });
 
     it('both location uid are now in each other disqualified duplicates', () => {
-      expect(JSON.parse(entry1.duplicate_disqualified)).toStrictEqual([77164958]);
-      expect(JSON.parse(entry2.duplicate_disqualified)).toStrictEqual([90760072]);
+      expect(JSON.parse(entry1.duplicate_disqualified)).toStrictEqual([
+        77164958,
+      ]);
+      expect(JSON.parse(entry2.duplicate_disqualified)).toStrictEqual([
+        90760072,
+      ]);
     });
   });
 

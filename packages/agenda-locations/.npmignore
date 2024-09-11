@@ -9,4 +9,4 @@ yarn-error.log
 # sources are useless in npm package
 components/src/
 test/
-testconfig.js
+test/testconfig.js

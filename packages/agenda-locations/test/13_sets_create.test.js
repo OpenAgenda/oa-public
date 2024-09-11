@@ -2,10 +2,7 @@
 
 const Files = require('@openagenda/files');
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 
 const fixtures = require('./fixtures');
 
@@ -41,14 +38,18 @@ describe('agenda-locations - functional - sets create', () => {
   });
 
   it('entry is added', async () => {
-    expect(await f.client('location_set').first().where('uid', created.uid)).toBeDefined();
+    expect(
+      await f.client('location_set').first().where('uid', created.uid),
+    ).toBeDefined();
   });
 
   it('title is in entry', async () => {
-    expect(await f
-      .client('location_set')
-      .first()
-      .where('uid', created.uid)
-      .then(r => r.title)).toEqual('Un jeu de lieux');
+    expect(
+      await f
+        .client('location_set')
+        .first()
+        .where('uid', created.uid)
+        .then((r) => r.title),
+    ).toEqual('Un jeu de lieux');
   });
 });

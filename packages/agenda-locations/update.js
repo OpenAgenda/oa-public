@@ -14,9 +14,7 @@ const log = logs('update');
 
 async function update({ service, isPatch }, current, data, options = {}) {
   const {
-    decorateWithGeocodeData: {
-      shouldAttempt: shouldAttemptGeocode,
-    },
+    decorateWithGeocodeData: { shouldAttempt: shouldAttemptGeocode },
   } = service;
 
   log('received %j payload', current.uid);
@@ -62,7 +60,9 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   await service.clients
     .knex(service.config.schema)
-    .update(legacy.patch(entry, current, service.fieldUtils.fromItemToEntry(current)))
+    .update(
+      legacy.patch(entry, current, service.fieldUtils.fromItemToEntry(current)),
+    )
     .where('uid', current.uid);
 
   log('updated location with uid %s', current.uid);
@@ -89,7 +89,11 @@ module.exports = async (
   data,
   options = {},
 ) => {
-  const current = await get({ internals: service, endpoints: {} }, identifiers, options);
+  const current = await get(
+    { internals: service, endpoints: {} },
+    identifiers,
+    options,
+  );
   if (!current) {
     throw NotFound({ info: identifiers }, 'location not found');
   }
@@ -111,7 +115,10 @@ module.exports.byAgendaUid = async (
   );
 
   if (!current) {
-    throw new NotFound({ info: { identifiers, agendaUid } }, 'location not found');
+    throw new NotFound(
+      { info: { identifiers, agendaUid } },
+      'location not found',
+    );
   }
 
   return update({ service, isPatch }, current, data, options);
@@ -124,7 +131,12 @@ module.exports.bySetUid = async (
   data,
   options = {},
 ) => {
-  const current = await get.bySetUid({ internals: service, endpoints: {} }, setUid, identifiers, options);
+  const current = await get.bySetUid(
+    { internals: service, endpoints: {} },
+    setUid,
+    identifiers,
+    options,
+  );
 
   if (!current) {
     throw new NotFound({ info: { identifiers, setUid } }, 'location not found');

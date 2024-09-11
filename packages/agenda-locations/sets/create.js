@@ -9,7 +9,8 @@ module.exports = async (service, data = {}) => {
   const clean = validate(data);
 
   const entry = {
-    uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
+    uid: await defineUnique(service, 'uid', () =>
+      Math.ceil(Math.random() * 99999999)),
     title: clean.title,
     created_at: new Date(),
     updated_at: new Date(),

@@ -48,20 +48,23 @@ All agendas are linked to the set so no settings needs to be stored in an agenda
 
 
 ```
+
 [{
-    countryCode: 'FR',
-    adminLevels: [{
-        level: 1,
-        label: 'adminLevel1_FR'
-    }]
-}, {
-    countryCode: 'AF',
-    adminLevels: [{
-        level: 1 -> `adminLevel${country.adminLevels[i].level}_${countryCode}`
-    }, {
-        level: 4
-    }]
+countryCode: 'FR',
+adminLevels: [{
+level: 1,
+label: 'adminLevel1_FR'
 }]
+}, {
+countryCode: 'AF',
+adminLevels: [{
+level: 1 -> `adminLevel${country.adminLevels[i].level}_${countryCode}`
+}, {
+level: 4
+}]
+}]
+
 ```
 
 Grande région (pas clair), canton, district, commune
+```

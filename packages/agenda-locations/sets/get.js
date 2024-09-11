@@ -4,13 +4,15 @@ const cleanGetOptions = require('./lib/cleanGetOptions');
 
 module.exports = async (service, uid, options = {}) => {
   const { detailed, includeSettings } = cleanGetOptions(options);
+  const { clients, config, interfaces } = service;
+
   const selectFields = ['uid', 'title'];
   if (includeSettings) {
     selectFields.push('settings');
   }
-  const entry = await service.clients.knex
+  const entry = await clients.knex
     .first(selectFields)
-    .from(service.config.setSchema)
+    .from(config.setSchema)
     .where('uid', uid);
 
   if (!entry) return null;
@@ -24,14 +26,14 @@ module.exports = async (service, uid, options = {}) => {
   }
 
   if (detailed) {
-    set.agendasCount = await service.interfaces.getSetAgendasCount(uid);
+    set.agendasCount = await interfaces.getSetAgendasCount(uid);
 
-    set.locationsCount = await service.clients.knex
+    set.locationsCount = await clients.knex
       .count('id', { as: 'total' })
-      .from(service.config.schema)
+      .from(config.schema)
       .where('set_uid', uid)
       .where('deleted', '<>', 1)
-      .then(r => r.pop().total);
+      .then((r) => r.pop().total);
   }
 
   return set;

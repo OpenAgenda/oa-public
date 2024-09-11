@@ -38,9 +38,7 @@
     ],
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location60763721.jpg",
-    "links": [
-      "http://www.facebook.com/cheminsetdolmens"
-    ],
+    "links": ["http://www.facebook.com/cheminsetdolmens"],
     "access": {
       "fr": "Parking de la Gare"
     },
@@ -397,9 +395,7 @@
     "website": "http://www.fondationseguin.com/index.php/fr/",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location79091381.jpg",
-    "links": [
-      "https://www.facebook.com/fondation.seguin.innovation/"
-    ],
+    "links": ["https://www.facebook.com/fondation.seguin.innovation/"],
     "access": {
       "fr": "Parking gratuit à proximité"
     },
@@ -1484,9 +1480,7 @@
     "website": "http://chateaudeverchaus.com/",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location95102555.jpg",
-    "links": [
-      "https://www.facebook.com/collectifchateaudeverchaus/"
-    ],
+    "links": ["https://www.facebook.com/collectifchateaudeverchaus/"],
     "access": {
       "fr": "Parking"
     },
@@ -2410,9 +2404,7 @@
     "website": "http://www.lamoustacheetdesdentelles.blogspot.com",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location14471367.jpg",
-    "links": [
-      "https://www.facebook.com/pages/Moustache-et-Dentelles/"
-    ],
+    "links": ["https://www.facebook.com/pages/Moustache-et-Dentelles/"],
     "access": {
       "fr": "Parkings gratuits à proximité - centre ville d'Annonay"
     },
@@ -3236,9 +3228,7 @@
     "website": "http://www.train-du-vivarais.com",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location35133411.jpg",
-    "links": [
-      "https://www.facebook.com/Association.SGVA"
-    ],
+    "links": ["https://www.facebook.com/Association.SGVA"],
     "access": {
       "fr": "Par la D209",
       "en": "By D209",
@@ -3616,9 +3606,7 @@
     "website": "http://www.rhonecrussol.fr/patrimoine-tourisme/chateau-de-crussol/",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location77422964.jpg",
-    "links": [
-      "https://www.facebook.com/chateaudecrussol/"
-    ],
+    "links": ["https://www.facebook.com/chateaudecrussol/"],
     "access": {
       "fr": "Accès libre",
       "en": "free Access",
@@ -3815,9 +3803,7 @@
     "website": "http://www.cicp-viviers.com",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location89721383.jpg",
-    "links": [
-      "http://www.facebook.com/CICPViviers"
-    ],
+    "links": ["http://www.facebook.com/CICPViviers"],
     "access": {
       "fr": "La Cité Lafarge se trouve au nord de Viviers, entre la route 86 et le Rhône. En venant de Viviers, prendre la route à droite après le hameau de la Roussette. En venant du Teil, après le rond-point sud, prendre à gauche en contournant l'usine Kernéos."
     },
@@ -3888,9 +3874,7 @@
     ],
     "website": "http://www.domainedeslebres.com/",
     "countryCode": "FR",
-    "links": [
-      "https://fr-fr.facebook.com/domainedeslebres/"
-    ],
+    "links": ["https://fr-fr.facebook.com/domainedeslebres/"],
     "access": {},
     "extId": null,
     "updatedAt": "2019-04-29T16:48:26.000Z",
@@ -4038,9 +4022,7 @@
     "website": "https://www.facebook.com/chantierdeventadourardeche/",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location84857037.jpg",
-    "links": [
-      "https://www.facebook.com/chantierdeventadourardeche/"
-    ],
+    "links": ["https://www.facebook.com/chantierdeventadourardeche/"],
     "access": {
       "fr": "Chemin dallé (interdit aux véhicules étrangers au château)",
       "it": "ha pavimentato il Sentiero(Percorso) (la Strada(il Mezzo)) (vietato veicoli estranei al castello)",
@@ -4068,9 +4050,7 @@
     "state": 1,
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location47996831new.jpg",
-    "links": [
-      "https://www.facebook.com/profile.php?id=100017444071686"
-    ],
+    "links": ["https://www.facebook.com/profile.php?id=100017444071686"],
     "access": {
       "fr": "coordonnées gps: 44°27'26.5\"N 4°00'35.9\"E",
       "it": "ha coordinato GPS: 44°27 '26.5\" N 4°00' 35.9\" E",
@@ -4235,9 +4215,7 @@
     "website": "https://www.edf.fr/groupe-edf/producteur-industriel/carte-des-implantations/centrale-nucleaire-de-cruas-meysse/presentation",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location36914350.jpg",
-    "links": [
-      "https://twitter.com/edfcruasmeysse?lang=fr"
-    ],
+    "links": ["https://twitter.com/edfcruasmeysse?lang=fr"],
     "access": {
       "fr": "Visite sur inscription / 12 ans minimum",
       "en": "Visit on registration(inscription) / 12 years minimum",
@@ -4382,9 +4360,7 @@
     ],
     "website": "http://www.fetedestourbieres.fr",
     "countryCode": "FR",
-    "links": [
-      "http://www.gerbier-de-jonc.fr/FR/home.html"
-    ],
+    "links": ["http://www.gerbier-de-jonc.fr/FR/home.html"],
     "access": {},
     "updatedAt": "2019-04-29T16:45:06.000Z",
     "insee": "07235",
@@ -4595,9 +4571,7 @@
     ],
     "website": "http://www.neovinum.fr/",
     "countryCode": "FR",
-    "links": [
-      "https://www.facebook.com/neovinum/"
-    ],
+    "links": ["https://www.facebook.com/neovinum/"],
     "access": {},
     "updatedAt": "2019-04-29T16:43:34.000Z",
     "insee": "07201",
@@ -4982,9 +4956,7 @@
     "website": "http://www.bourlatier.fr",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location64119263.jpg",
-    "links": [
-      "https://www.facebook.com/ardeche.espace.montagne/"
-    ],
+    "links": ["https://www.facebook.com/ardeche.espace.montagne/"],
     "access": {},
     "updatedAt": "2019-04-29T16:42:04.000Z",
     "insee": "07209",
@@ -5071,9 +5043,7 @@
     "website": "",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location92023830.jpg",
-    "links": [
-      "https://www.facebook.com/musee.temps.de.vagnas"
-    ],
+    "links": ["https://www.facebook.com/musee.temps.de.vagnas"],
     "access": {},
     "updatedAt": "2019-04-29T16:40:50.000Z",
     "insee": "07328",
@@ -5243,9 +5213,7 @@
     "website": "http://www.les-vans.fr/musee",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location99349603.jpg",
-    "links": [
-      "https://www.facebook.com/MuseedesVans/"
-    ],
+    "links": ["https://www.facebook.com/MuseedesVans/"],
     "access": {},
     "updatedAt": "2019-04-29T16:37:51.000Z",
     "insee": "07305",
@@ -6051,9 +6019,7 @@
     ],
     "website": "http://www.chateaudevogue.net",
     "countryCode": "FR",
-    "links": [
-      "http://www.facebook.com/chateaudevogue"
-    ],
+    "links": ["http://www.facebook.com/chateaudevogue"],
     "access": {},
     "updatedAt": "2019-04-29T16:29:48.000Z",
     "insee": "07348",
@@ -8497,9 +8463,7 @@
     "tags": [],
     "website": "http://www.ht-tourisme.com",
     "countryCode": "FR",
-    "links": [
-      "https://www.facebook.com/DHermitageEnSaintJoseph/"
-    ],
+    "links": ["https://www.facebook.com/DHermitageEnSaintJoseph/"],
     "access": {
       "fr": "Haut du village.",
       "en": "Top of the village.",
@@ -8731,9 +8695,7 @@
     "state": 1,
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location96441425.jpg",
-    "links": [
-      "https://www.facebook.com/DHermitageEnSaintJoseph/"
-    ],
+    "links": ["https://www.facebook.com/DHermitageEnSaintJoseph/"],
     "access": {
       "fr": "Sur réservation avec l'Office de Tourisme"
     },
@@ -8771,9 +8733,7 @@
     "website": "http://www.ht-tourisme.com",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location7239542.jpg",
-    "links": [
-      "https://www.facebook.com/DHermitageEnSaintJoseph/"
-    ],
+    "links": ["https://www.facebook.com/DHermitageEnSaintJoseph/"],
     "access": {
       "fr": "Près de l’église, centre-ville.",
       "en": "Near(About) the church, city centre.",
@@ -9059,9 +9019,7 @@
     "website": "http://www.cie-emilievalantin.fr",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location73621696.jpg",
-    "links": [
-      "https://www.facebook.com/CompagnieEmilieValantin"
-    ],
+    "links": ["https://www.facebook.com/CompagnieEmilieValantin"],
     "access": {},
     "updatedAt": "2019-04-29T16:05:56.000Z",
     "insee": "07319",
@@ -9510,9 +9468,7 @@
     "state": 1,
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location45579110.jpg",
-    "links": [
-      "http://www.facebook.com/musee.temps.de.vagnas"
-    ],
+    "links": ["http://www.facebook.com/musee.temps.de.vagnas"],
     "access": {
       "fr": "A pied depuis le village (2 km), site accessible en voiture pour les véhicules ayant de la garde au sol (chemin d'exploitation agricole).",
       "en": "On foot since the village (2 km), accessible(approachable) site by car for vehicles having of the guarding(nurse) on the ground (path(way) of farm).",
@@ -9655,9 +9611,7 @@
     "website": "http://www.rhonecrussol.fr",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location79676182.jpg",
-    "links": [
-      "http://www.facebook.com/grottesmuseesoyons"
-    ],
+    "links": ["http://www.facebook.com/grottesmuseesoyons"],
     "access": {},
     "updatedAt": "2019-04-29T16:01:00.000Z",
     "insee": "07316",
@@ -10489,9 +10443,7 @@
     "website": "http://moulindemasmejean.jimdo.com",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location57944085.jpg",
-    "links": [
-      "https://fr-fr.facebook.com/moulindemasmejean"
-    ],
+    "links": ["https://fr-fr.facebook.com/moulindemasmejean"],
     "access": {
       "fr": "A Masméjean, entre Saint-Étienne-de-Lugdarès et le Col du Bez sur la D19.",
       "it": "In Masméjean, tra il Santo Étienne de Lugdarès e il Colletto (Passaggio) di Bez su D19.",
@@ -10664,9 +10616,7 @@
     "state": 1,
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location47338070.jpg",
-    "links": [
-      "https://fr-fr.facebook.com/museealphonsedaudet"
-    ],
+    "links": ["https://fr-fr.facebook.com/museealphonsedaudet"],
     "access": {
       "fr": "A Auriolles, tournez au camping \"Mas de Sartre\" et montez sur 1km."
     },
@@ -10699,9 +10649,7 @@
     "state": 1,
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location21886903.jpg",
-    "links": [
-      "https://www.facebook.com/ardeche.espace.montagne?ref=hl"
-    ],
+    "links": ["https://www.facebook.com/ardeche.espace.montagne?ref=hl"],
     "access": {
       "fr": "A 3 km du Mont Gerbier de Jonc, D122 - Entre Lachamp Raphael et Sainte-Eulalie"
     },
@@ -10866,9 +10814,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "links": [
-      "https://www.facebook.com/louis.bresson.3?fref=ts"
-    ],
+    "links": ["https://www.facebook.com/louis.bresson.3?fref=ts"],
     "access": {
       "fr": "Véhicule : D 450. Coordonnée GPS : 44.49552750, 4.20704170"
     },
@@ -10911,9 +10857,7 @@
     ],
     "website": "http://www.theatredeprivas.com",
     "countryCode": "FR",
-    "links": [
-      "http://www.facebook.com/theatredeprivas"
-    ],
+    "links": ["http://www.facebook.com/theatredeprivas"],
     "access": {
       "fr": "Arriver à Privas Par la route: Autoroute A7, sortie « Loriol », puis suivre « Privas » Par le train et le bus TER: Gare Valence ville ou Valence TGV, puis correspondance en car TER (SNCF). Coordonnées GPS du Théâtre Latitude : 44.7331621 / Longitude : 4.5970012",
       "en": "To arrive in Deprived By the road: Highway A7, taken(brought) out \"Loriol\", then to follow \"Deprived\" By the train and the bus TER: Park Valencia(Valence) city or Valencia(Valence) TGV(HST), then correspondence by coach TER (SNCF(FRENCH NATIONAL RAILWAY COMPANY)). GPS Address and phone number of Theatre Degree of latitude: 44.7331621 / Degree of longitude: 4.5970012",
@@ -10973,9 +10917,7 @@
     "tags": [],
     "website": "http://www.mairie-privas.fr/",
     "countryCode": "FR",
-    "links": [
-      "http://www.facebook.com/pages/Ville-de-Privas"
-    ],
+    "links": ["http://www.facebook.com/pages/Ville-de-Privas"],
     "access": {},
     "updatedAt": "2019-04-29T15:55:14.000Z",
     "insee": "07186",
@@ -11011,9 +10953,7 @@
     "website": "http://ardeche.fr",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location90672504.jpg",
-    "links": [
-      "http://www.facebook.com/cgardeche"
-    ],
+    "links": ["http://www.facebook.com/cgardeche"],
     "access": {},
     "updatedAt": "2019-04-29T15:55:13.000Z",
     "insee": "07186",
@@ -11207,9 +11147,7 @@
     "website": "http://www.orgnac.com",
     "countryCode": "FR",
     "image": "//cibuldev.s3.amazonaws.com/location87013600.jpg",
-    "links": [
-      "http://www.facebook.com/avendorgnac"
-    ],
+    "links": ["http://www.facebook.com/avendorgnac"],
     "access": {
       "fr": "Parc de stationnement Autocar Gare desservie (Pierrelatte)",
       "en": "Car park Coach harmed(served) Station (Pierrelatte)",
@@ -11793,9 +11731,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "links": [
-      "https://www.facebook.com/dolmensenardeche"
-    ],
+    "links": ["https://www.facebook.com/dolmensenardeche"],
     "access": {
       "fr": "Sans réservation"
     },

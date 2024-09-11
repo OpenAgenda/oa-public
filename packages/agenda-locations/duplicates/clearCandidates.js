@@ -4,10 +4,10 @@ async function clearCandidates(endpoints) {
   let after = 0;
 
   while (after !== -1) {
-    const {
-      after: nextAfter,
-      items: locations,
-    } = await endpoints.list({}, { after });
+    const { after: nextAfter, items: locations } = await endpoints.list(
+      {},
+      { after },
+    );
 
     if (!locations.length) {
       after = -1;

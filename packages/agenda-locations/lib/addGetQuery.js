@@ -37,14 +37,12 @@ module.exports = async (service, k, deleted, query) => {
     throw new BadRequest('Invalid location identifier', e);
   }
 
-  const {
-    setUid, agendaUid, uid, extId, slug,
-  } = cleanQuery;
+  const { setUid, agendaUid, uid, extId, slug } = cleanQuery;
 
   const agendaId = agendaUid
     ? await service.interfaces
       .getAgendaDetailsByUid(agendaUid, ['id'])
-      .then(r => (r ? r.id : null))
+      .then((r) => (r ? r.id : null))
     : null;
 
   if (agendaId) {

@@ -2,10 +2,7 @@
 
 const Files = require('@openagenda/files');
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 
 const fixtures = require('./fixtures');
 
@@ -20,7 +17,7 @@ describe('agenda-locations - functional - sets get', () => {
     svc = Service({
       knex: f.client,
       interfaces: {
-        getSetAgendasCount: async _setUid => 14,
+        getSetAgendasCount: async (_setUid) => 14,
       },
       Files: Files(dConfig.files),
     });

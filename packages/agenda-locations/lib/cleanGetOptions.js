@@ -23,7 +23,7 @@ module.exports = schema({
   },
   includeFields: {
     type: 'choice',
-    options: fields.map(f => f.field).concat('agendaUid'),
+    options: fields.map((f) => f.field).concat('agendaUid'),
   },
   throwOnNotFound: {
     type: 'boolean',

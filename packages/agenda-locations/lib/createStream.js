@@ -8,7 +8,7 @@ const processBufferedItems = (stream, service, buffer, options, cb) => {
     service,
     buffer.splice(0, buffer.length),
     options,
-  ).then(transformed => {
+  ).then((transformed) => {
     while (transformed.length) {
       stream.push(transformed.shift());
     }
@@ -25,7 +25,8 @@ module.exports = (service, knexQuery, options = {}) => {
 
   const buffer = [];
 
-  stream._flush = cb => processBufferedItems(stream, service, buffer, options, cb);
+  stream._flush = (cb) =>
+    processBufferedItems(stream, service, buffer, options, cb);
 
   stream._transform = (item, enc, cb) => {
     buffer.push(item);
@@ -37,7 +38,7 @@ module.exports = (service, knexQuery, options = {}) => {
     processBufferedItems(stream, service, buffer, options, cb);
   };
 
-  knexStream.on('error', e => stream.emit('error', e));
+  knexStream.on('error', (e) => stream.emit('error', e));
 
   stream.on('end', () => knexStream.destroy());
 

@@ -2,10 +2,7 @@
 
 const Files = require('@openagenda/files');
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 
 const fixtures = require('./fixtures');
 
@@ -19,8 +16,7 @@ describe('agenda-locations - functional - sets list', () => {
 
     svc = Service({
       knex: f.client,
-      interfaces: {
-      },
+      interfaces: {},
       Files: Files(dConfig.files),
     });
   });
@@ -31,10 +27,12 @@ describe('agenda-locations - functional - sets list', () => {
       {
         uid: 1903810,
         title: 'Les lieux du département Ardèchois',
-      }, {
+      },
+      {
         uid: 1903811,
         title: 'Les autres lieux du département Ardèchois',
-      }, {
+      },
+      {
         uid: 1903812,
         title: 'Les lieux du Bouchonnois',
       },

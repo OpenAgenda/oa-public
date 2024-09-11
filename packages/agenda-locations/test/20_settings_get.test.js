@@ -4,10 +4,7 @@ const _ = require('lodash');
 
 const Files = require('@openagenda/files');
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 
 const fixtures = require('./fixtures');
 const initSettings = require('./fixtures/agendaTestSettings');
@@ -42,10 +39,11 @@ describe('agenda-locations - functional - settings get', () => {
         knex: f.client,
         Files: Files(dConfig.files),
         interfaces: {
-          getAgendaLocationSettings: async uid => ({
-            5: initSettingsP,
-            10: null,
-          })[uid],
+          getAgendaLocationSettings: async (uid) =>
+            ({
+              5: initSettingsP,
+              10: null,
+            })[uid],
           getAgendaDetailsByUid: async () => null,
         },
       });
@@ -102,54 +100,57 @@ describe('agenda-locations - functional - settings get', () => {
     beforeAll(async () => {
       await f.load();
 
-      await f.client('location_set').where('uid', 1903810).update({
-        settings: JSON.stringify({
-          eventForm: {
-            detailed: false,
-          },
-          access: {
-            create: { ...defaultAccess, authorized: false },
-            delete: { ...defaultAccess, authorized: false },
-            merge: { ...defaultAccess, authorized: false },
-            update: defaultAccess,
-          },
-        }),
-      });
+      await f
+        .client('location_set')
+        .where('uid', 1903810)
+        .update({
+          settings: JSON.stringify({
+            eventForm: {
+              detailed: false,
+            },
+            access: {
+              create: { ...defaultAccess, authorized: false },
+              delete: { ...defaultAccess, authorized: false },
+              merge: { ...defaultAccess, authorized: false },
+              update: defaultAccess,
+            },
+          }),
+        });
 
       svc = Service({
         knex: f.client,
         Files: Files(dConfig.files),
         interfaces: {
-          getAgendaLocationSettings: async uid => ({
-            5: initSettingsP,
-            10: initSettings,
-            11: null,
-          })[uid],
+          getAgendaLocationSettings: async (uid) =>
+            ({
+              5: initSettingsP,
+              10: initSettings,
+              11: null,
+            })[uid],
           getAgendaDetailsByUid: async (_uid, _fields) => ({
             locationSetUid: 1903810,
           }),
-          getSetAgendasCount: async _setUid => 14,
+          getSetAgendasCount: async (_setUid) => 14,
         },
       });
     });
 
     describe('settings are fetched from agenda endpoint and agenda is linked to a location set', () => {
-      it(
-        'when defined, values from the set override any value defined at the agenda level',
-        async () => {
-          const settings = await svc(10).settings.get();
-          expect(settings.access).toStrictEqual({
-            create: { ...defaultAccess, authorized: false },
-            delete: { ...defaultAccess, authorized: false },
-            merge: { ...defaultAccess, authorized: false },
-            update: defaultAccess,
-          });
-        },
-      );
+      it('when defined, values from the set override any value defined at the agenda level', async () => {
+        const settings = await svc(10).settings.get();
+        expect(settings.access).toStrictEqual({
+          create: { ...defaultAccess, authorized: false },
+          delete: { ...defaultAccess, authorized: false },
+          merge: { ...defaultAccess, authorized: false },
+          update: defaultAccess,
+        });
+      });
 
       it('when not defined at set level, values from agenda are used', async () => {
         const settings = await svc(10).settings.get();
-        expect(settings.labels.translationInfo.fr).toEqual("C'est pour traduire automatiquement");
+        expect(settings.labels.translationInfo.fr).toEqual(
+          "C'est pour traduire automatiquement",
+        );
       });
     });
 
@@ -208,7 +209,7 @@ describe('agenda-locations - functional - settings get', () => {
         knex: f.client,
         Files: Files(dConfig.files),
         interfaces: {
-          getAgendaLocationSettings: async _uid => ({
+          getAgendaLocationSettings: async (_uid) => ({
             ...initSettings,
             access: {
               create: false,
@@ -236,17 +237,29 @@ describe('agenda-locations - functional - settings get', () => {
 
     it('languages in tagSet are not flattened if lang is not passed in options', async () => {
       const settings = await svc(10).settings.get();
-      expect(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
-        .tags.filter(e => e.id === 21 || e.id === 22)).toStrictEqual([
+      expect(
+        settings.tagSet.groups
+          .find((e) => e.name === 'Types de lieu')
+          .tags.filter((e) => e.id === 21 || e.id === 22),
+      ).toStrictEqual([
         { id: 21, label: { fr: 'Insolites', en: 'Unusual' } },
-        { id: 22, label: { fr: 'Société et civilisation', en: 'Society and civilization' } },
+        {
+          id: 22,
+          label: {
+            fr: 'Société et civilisation',
+            en: 'Society and civilization',
+          },
+        },
       ]);
     });
 
     it('languages in tagSet are flattened if lang is passed in options', async () => {
       const settings = await svc(10).settings.get({ lang: 'fr' });
-      expect(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
-        .tags.filter(e => e.id === 21 || e.id === 22)).toStrictEqual([
+      expect(
+        settings.tagSet.groups
+          .find((e) => e.name === 'Types de lieu')
+          .tags.filter((e) => e.id === 21 || e.id === 22),
+      ).toStrictEqual([
         { id: 21, label: 'Insolites' },
         { id: 22, label: 'Société et civilisation' },
       ]);

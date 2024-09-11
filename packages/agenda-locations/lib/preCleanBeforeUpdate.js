@@ -3,10 +3,7 @@
 const { produce } = require('immer');
 
 module.exports = produce((draft, current, options = {}) => {
-  const {
-    geocodeResult,
-    isPatch,
-  } = options;
+  const { geocodeResult, isPatch } = options;
 
   if (draft.extId === undefined && current.extId) {
     draft.extId = current.extId;

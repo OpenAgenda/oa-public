@@ -3,10 +3,7 @@
 const Files = require('@openagenda/files');
 
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 
 const fixtures = require('./fixtures');
 
@@ -53,15 +50,15 @@ describe('agenda-locations - functional - remove', () => {
       knex: f.client,
       Files: Files(dConfig.files),
       interfaces: {
-        getAgendaDetailsByUid: async uid => ({
+        getAgendaDetailsByUid: async (uid) => ({
           id: {
             7196947: 25221,
           }[uid],
         }),
-        beforeRemove: async l => {
+        beforeRemove: async (l) => {
           passedToInterface = l;
         },
-        getAgendaLocationSettings: async _uid => initSettingsDA,
+        getAgendaLocationSettings: async (_uid) => initSettingsDA,
       },
     });
   });
@@ -86,12 +83,9 @@ describe('agenda-locations - functional - remove', () => {
       expect(entry.deleted).toEqual(1);
     });
 
-    it(
-      'removed location is passed to interface before it is removed',
-      async () => {
-        expect(passedToInterface && passedToInterface.uid).toEqual(95301591);
-      },
-    );
+    it('removed location is passed to interface before it is removed', async () => {
+      expect(passedToInterface && passedToInterface.uid).toEqual(95301591);
+    });
   });
 
   describe('duplicates handling', () => {
@@ -100,7 +94,7 @@ describe('agenda-locations - functional - remove', () => {
     });
 
     it('remove removed uid from duplicates candidates', async () => {
-      await new Promise(r => setTimeout(r, 40));
+      await new Promise((r) => setTimeout(r, 40));
       const test = await svc(7196947).get(51665986);
       expect(test.duplicateCandidates).toBeNull();
     });
@@ -140,16 +134,16 @@ describe('agenda-locations - functional - remove - no rights', () => {
       knex: f.client,
       Files: Files(dConfig.files),
       interfaces: {
-        getAgendaDetailsByUid: async uid => ({
+        getAgendaDetailsByUid: async (uid) => ({
           id: {
             7196947: 25221,
           }[uid],
         }),
-        beforeRemove: async l => {
+        beforeRemove: async (l) => {
           const passedToInterface = l;
           return passedToInterface;
         },
-        getAgendaLocationSettings: async _uid => initSettingsCantRemove,
+        getAgendaLocationSettings: async (_uid) => initSettingsCantRemove,
       },
     });
   });
