@@ -18,14 +18,21 @@ for (const lang of DEFAULT_LANGS) {
 
     mkdirp.sync(path.join(__dirname, 'locales', lang, dirname));
 
-    fs.writeFileSync(path.join(__dirname, 'locales', lang, fileName), JSON.stringify(locales, null, 2));
+    fs.writeFileSync(
+      path.join(__dirname, 'locales', lang, fileName),
+      `${JSON.stringify(locales, null, 2)}\n`,
+    );
   }
 }
 
 // Remove deleted files
 for (const file of getLabelFiles.walkSync('locales', __dirname)) {
-  const labelFile = file.split('/').slice(2).join('/').replace(/\.json$/, '.js');
-  const removed = !labelFiles.find(v => v === labelFile);
+  const labelFile = file
+    .split('/')
+    .slice(2)
+    .join('/')
+    .replace(/\.json$/, '.js');
+  const removed = !labelFiles.find((v) => v === labelFile);
   if (removed) {
     fs.unlinkSync(path.join(__dirname, file));
   }

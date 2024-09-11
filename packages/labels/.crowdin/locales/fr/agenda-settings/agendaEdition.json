@@ -110,5 +110,6 @@
   "eventStatusKnowMore": "En savoir plus",
   "pass": "Pass Culture",
   "passTabDescription": "Évitez des doubles saisies en créant vos offres Pass Culture directement depuis les formulaires événement OpenAgenda",
-  "askForActivation": "Demande d'activation"
+  "askForActivation": "Demande d'activation",
+  "edit": "Modifier"
 }
