@@ -77,23 +77,19 @@ describe('activities - notifications', () => {
 
     it("get a notification that doesn't exist", () =>
       expect(
-        service
-          .feed({ entityType: 'user', entityUid: 42 })
-          .notifications.get({
-            verb: 'event.create',
-            groupBy: 'target:agenda:48648352',
-            state: 2,
-          }),
+        service.feed({ entityType: 'user', entityUid: 42 }).notifications.get({
+          verb: 'event.create',
+          groupBy: 'target:agenda:48648352',
+          state: 2,
+        }),
       ).resolves.toBeUndefined());
 
     it("get a notification of a feed that doesn't exists", () =>
       expect(
-        service
-          .feed({ entityType: 'user', entityUid: 84 })
-          .notifications.get({
-            verb: 'event.create',
-            groupBy: 'target:agenda:48648352',
-          }),
+        service.feed({ entityType: 'user', entityUid: 84 }).notifications.get({
+          verb: 'event.create',
+          groupBy: 'target:agenda:48648352',
+        }),
       ).rejects.toThrow('Feed not found'));
 
     it("get a notification of a feed that isn't a user feed", () =>
