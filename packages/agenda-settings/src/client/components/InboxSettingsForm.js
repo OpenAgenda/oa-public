@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
@@ -38,7 +38,7 @@ function getFormValues(agenda) {
   return {
     enabled: _.get(agenda, 'settings.inbox.mailto.enabled', false),
     email: _.get(agenda, 'settings.inbox.mailto.email', null),
-    subject: _.get(agenda, 'settings.inbox.mailto.subject', null)
+    subject: _.get(agenda, 'settings.inbox.mailto.subject', null),
   };
 }
 
@@ -51,18 +51,15 @@ export default function InboxSettingsForm() {
   const [initialValues] = useState(() => getFormValues(agenda));
 
   const onSubmit = useCallback(
-    (data, form) => dispatch(agendaActions.edit({ settings: { inbox: { mailto: data } } }))
-      .then(result => form.reset(getFormValues(result.data.agenda)))
-      .catch(error => catchFormErrors(error, 'settings.inbox.mailto')),
-    [dispatch]
+    (data, form) =>
+      dispatch(agendaActions.edit({ settings: { inbox: { mailto: data } } }))
+        .then((result) => form.reset(getFormValues(result.data.agenda)))
+        .catch((error) => catchFormErrors(error, 'settings.inbox.mailto')),
+    [dispatch],
   );
 
   return (
-    <Form
-      initialValues={initialValues}
-      validate={validate}
-      onSubmit={onSubmit}
-    >
+    <Form initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
       {({ handleSubmit, pristine, hasValidationError }) => (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -101,7 +98,9 @@ export default function InboxSettingsForm() {
 
           <button
             type="submit"
-            className={cn('btn btn-primary', { disabled: pristine || hasValidationError })}
+            className={cn('btn btn-primary', {
+              disabled: pristine || hasValidationError,
+            })}
             disabled={pristine || hasValidationError ? true : undefined}
           >
             {getLabel('update')}
@@ -110,4 +109,4 @@ export default function InboxSettingsForm() {
       )}
     </Form>
   );
-};
+}

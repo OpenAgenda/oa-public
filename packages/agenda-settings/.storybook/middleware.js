@@ -19,24 +19,28 @@ if (process.env.NODE_ENV !== 'test') {
   (async () => {
     agendasSvc.init(testconfig);
 
-    service.init(Object.assign(testconfig, {
-      services: {
-        agendas: agendasSvc
-      }
-    }));
+    service.init(
+      Object.assign(testconfig, {
+        services: {
+          agendas: agendasSvc,
+        },
+      }),
+    );
 
     // avoid migrations and do it in fixtures.js
-    await keysSvc.init(Object.assign(testconfig, {
-      migrations: null,
-      knex: knexLib({
-        client: 'mysql',
-        connection: testconfig.mysql
-      })
-    }));
+    await keysSvc.init(
+      Object.assign(testconfig, {
+        migrations: null,
+        knex: knexLib({
+          client: 'mysql',
+          connection: testconfig.mysql,
+        }),
+      }),
+    );
   })();
 }
 
-module.exports = router => {
+module.exports = (router) => {
   if (['development', 'test'].includes(process.env.NODE_ENV)) {
     router.use(morgan('dev'));
   }
@@ -51,10 +55,10 @@ module.exports = router => {
     req.user = { id: 2 };
     req.agenda = {
       uid: 17026855,
-      slug: 'proces-d-assises-2016'
-    }
+      slug: 'proces-d-assises-2016',
+    };
     req.app = {
-      services: {}
+      services: {},
     };
     next();
   });
@@ -67,7 +71,7 @@ module.exports = router => {
     // mw.removeAgenda,
     (req, res) => {
       res.json({ redirectTo: '/' });
-    }
+    },
   ]);
 
   router.post(
@@ -75,12 +79,12 @@ module.exports = router => {
     (req, res, next) => {
       req.identifiers = {
         type: 'agendaFullRead',
-        identifier: req.agenda.uid
+        identifier: req.agenda.uid,
       };
       next();
     },
     keysMw.create(),
-    (req, res) => res.send(req.result)
+    (req, res) => res.send(req.result),
   );
 
   router.get(
@@ -89,12 +93,12 @@ module.exports = router => {
       req.identifiers = {
         type: 'agendaFullRead',
         identifier: req.agenda.uid,
-        key: req.query.key
+        key: req.query.key,
       };
       next();
     },
     keysMw.get(),
-    (req, res) => res.send(req.result)
+    (req, res) => res.send(req.result),
   );
 
   router.get(
@@ -102,13 +106,13 @@ module.exports = router => {
     (req, res, next) => {
       req.identifiers = {
         type: 'agendaFullRead',
-        identifier: req.agenda.uid
+        identifier: req.agenda.uid,
       };
       req.options = { total: true };
       next();
     },
     keysMw.list(),
-    (req, res) => res.send(req.result)
+    (req, res) => res.send(req.result),
   );
 
   router.patch(
@@ -117,12 +121,12 @@ module.exports = router => {
       req.identifiers = {
         type: 'agendaFullRead',
         identifier: req.agenda.uid,
-        key: req.query.key
+        key: req.query.key,
       };
       next();
     },
     keysMw.update(),
-    (req, res) => res.send(req.result)
+    (req, res) => res.send(req.result),
   );
 
   router.delete(
@@ -131,12 +135,12 @@ module.exports = router => {
       req.identifiers = {
         type: 'agendaFullRead',
         identifier: req.agenda.uid,
-        key: req.query.key
+        key: req.query.key,
       };
       next();
     },
     keysMw.remove(),
-    (req, res) => res.send({ rowAffected: req.result })
+    (req, res) => res.send({ rowAffected: req.result }),
   );
 
   router.use(errorHandler({ log: true }));

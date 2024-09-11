@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Form, useForm } from 'react-final-form';
@@ -17,7 +17,7 @@ const mutators = {
     if (field) {
       field.touched = !!touched;
     }
-  }
+  },
 };
 
 function SlugUpdater() {
@@ -27,7 +27,7 @@ function SlugUpdater() {
   return (
     <>
       <OnChange name="title">
-        {value => {
+        {(value) => {
           if (!slugModified) {
             form.change('slug', slugify(value, { lower: true, strict: true }));
           }
@@ -42,7 +42,7 @@ function SlugUpdater() {
         }}
       </OnBlur>
       <OnChange name="slug">
-        {value => {
+        {(value) => {
           const slugState = form.getFieldState('slug');
 
           setSlugModified(slugState.active && value !== '');
@@ -53,7 +53,7 @@ function SlugUpdater() {
 }
 
 export default function AgendaCreation() {
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -64,28 +64,32 @@ export default function AgendaCreation() {
     settings: {
       contribution: {
         type: agendaSchema.settings.fields.contribution.fields.type.default,
-        defaultState: agendaSchema.settings.fields.contribution.fields.defaultState.default
-      }
-    }
+        defaultState:
+          agendaSchema.settings.fields.contribution.fields.defaultState.default,
+      },
+    },
   }));
 
-  const nextPage = useCallback(() => setPage(prev => prev + 1), []);
-  const previousPage = useCallback(() => setPage(prev => prev - 1), []);
+  const nextPage = useCallback(() => setPage((prev) => prev + 1), []);
+  const previousPage = useCallback(() => setPage((prev) => prev - 1), []);
 
-  const onSubmit = useCallback(async values => {
-    if (page < 2) {
-      nextPage();
-      return;
-    }
+  const onSubmit = useCallback(
+    async (values) => {
+      if (page < 2) {
+        nextPage();
+        return;
+      }
 
-    try {
-      const result = await dispatch(create(values));
+      try {
+        const result = await dispatch(create(values));
 
-      history.push(res.onCreated.replace(':slug', result.data.agenda.slug));
-    } catch (e) {
-      return catchFormErrors(e);
-    }
-  }, [page, nextPage, dispatch, res, history]);
+        history.push(res.onCreated.replace(':slug', result.data.agenda.slug));
+      } catch (e) {
+        return catchFormErrors(e);
+      }
+    },
+    [page, nextPage, dispatch, res, history],
+  );
 
   return (
     <div className="row">
@@ -94,8 +98,12 @@ export default function AgendaCreation() {
           <div className="content clearfix">
             <div className="stepper-container">
               <div className="stepper">
-                <div className={`step ${page === 1 ? 'active' : 'passed'}`}>{getLabel( 'description' )}</div>
-                <div className={`step ${page === 2 && 'active'}`}>{getLabel( 'parameters' )}</div>
+                <div className={`step ${page === 1 ? 'active' : 'passed'}`}>
+                  {getLabel('description')}
+                </div>
+                <div className={`step ${page === 2 && 'active'}`}>
+                  {getLabel('parameters')}
+                </div>
               </div>
             </div>
             <Form
@@ -108,12 +116,14 @@ export default function AgendaCreation() {
               {({ handleSubmit, values, submitting, form }) => (
                 <form onSubmit={handleSubmit}>
                   {page === 1 && <CreationFirstStep />}
-                  {page === 2 && <CreationSecondStep
-                    previousPage={previousPage}
-                    title={values.title}
-                    form={form}
-                    submitting={submitting}
-                  />}
+                  {page === 2 && (
+                    <CreationSecondStep
+                      previousPage={previousPage}
+                      title={values.title}
+                      form={form}
+                      submitting={submitting}
+                    />
+                  )}
                   <SlugUpdater />
                 </form>
               )}

@@ -16,7 +16,7 @@ const defaults = {
   },
 };
 
-export default function (options) {
+export default (options) => {
   const { initialState } = _.merge({}, defaults, options);
 
   const { apiRoot, prefix } = initialState.settings;
@@ -44,4 +44,4 @@ export default function (options) {
   } */
 
   return result;
-}
+};

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from 'react';
+import { useState, useCallback, useContext } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
@@ -13,10 +13,10 @@ export default function GettingStarted() {
 
   const getLabel = useCallback(
     (label, values = {}) => makeGetterLabel(labels)(label, values, lang),
-    [lang]
+    [lang],
   );
 
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
   const [copied, setCopied] = useState(false);
 
   const onCopy = useCallback(() => {
@@ -27,57 +27,96 @@ export default function GettingStarted() {
   return (
     <div>
       <div>
-        <h2>{getLabel( 'title' )}</h2>
-        <p className="text-muted">{getLabel( 'someActions' )}</p>
+        <h2>{getLabel('title')}</h2>
+        <p className="text-muted">{getLabel('someActions')}</p>
       </div>
 
       <div className="margin-v-lg">
-        <p><b>{getLabel( 'addYourFirstEvent' )}</b></p>
+        <p>
+          <b>{getLabel('addYourFirstEvent')}</b>
+        </p>
         <div className="margin-v-md">
-          <a className="btn btn-primary" href={res.addEvent.replace(':slug', agenda.slug)}>
-            {getLabel( 'addEvent' )}
+          <a
+            className="btn btn-primary"
+            href={res.addEvent.replace(':slug', agenda.slug)}
+          >
+            {getLabel('addEvent')}
           </a>
         </div>
       </div>
 
       <div className="margin-v-lg">
-        <b>{getLabel( 'sendLink' )}</b><br />
-        <span className="text-muted">
-            {getLabel( 'copyLinkAndSend' )}
-          </span>
+        <b>{getLabel('sendLink')}</b>
+        <br />
+        <span className="text-muted">{getLabel('copyLinkAndSend')}</span>
         <div className="row">
           <div className="input-group margin-top-md col-md-8 margin-left-sm">
             <input
               type="text"
               className="form-control"
-              defaultValue={window.location.origin + res.agenda.replace(':slug', agenda.slug)}
+              defaultValue={
+                window.location.origin
+                + res.agenda.replace(':slug', agenda.slug)
+              }
               readOnly
             />
             <span className="input-group-btn">
-                <CopyToClipboard text={window.location.origin + res.agenda.replace(':slug', agenda.slug)} onCopy={onCopy}>
-                  <button className="btn btn-primary btn-block" title={getLabel( 'copyLink' )}>
-                    <i className={`fa fa-${copied ? 'check' : 'clipboard'}`} aria-hidden="true" />
-                  </button>
-                </CopyToClipboard>
-              </span>
+              <CopyToClipboard
+                text={
+                  window.location.origin
+                  + res.agenda.replace(':slug', agenda.slug)
+                }
+                onCopy={onCopy}
+              >
+                <button
+                  type="button"
+                  className="btn btn-primary btn-block"
+                  title={getLabel('copyLink')}
+                  aria-label={getLabel('copyLink')}
+                >
+                  <i
+                    className={`fa fa-${copied ? 'check' : 'clipboard'}`}
+                    aria-hidden="true"
+                  />
+                </button>
+              </CopyToClipboard>
+            </span>
           </div>
         </div>
       </div>
 
       <div className="margin-v-lg">
-        <p><b>{getLabel( 'embedYourAgenda' )}</b></p>
+        <p>
+          <b>{getLabel('embedYourAgenda')}</b>
+        </p>
         <div className="margin-v-md">
           <a className="btn btn-primary" href={res.createEmbed}>
-            {getLabel( 'createEmbedded' )}
-          </a><span className="margin-left-md">{getLabel('or')}</span><a target="_blank" href="https://developers.openagenda.com/tag/60-plugins" className="btn btn-link">{getLabel('useAPlugin')}</a>
+            {getLabel('createEmbedded')}
+          </a>
+          <span className="margin-left-md">{getLabel('or')}</span>
+          <a
+            target="_blank"
+            href="https://developers.openagenda.com/tag/60-plugins"
+            className="btn btn-link"
+            rel="noreferrer"
+          >
+            {getLabel('useAPlugin')}
+          </a>
         </div>
       </div>
 
       <div className="margin-v-lg">
-        <p><b>{getLabel( 'needPrivate' )}</b></p>
+        <p>
+          <b>{getLabel('needPrivate')}</b>
+        </p>
         <div className="margin-v-md">
-          <a className="btn btn-primary" href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=privateAgenda`} target="_blank" rel="noopener noreferrer">
-            {getLabel( 'requestPrivate' )}
+          <a
+            className="btn btn-primary"
+            href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=privateAgenda`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {getLabel('requestPrivate')}
           </a>
 
           <a
@@ -86,16 +125,23 @@ export default function GettingStarted() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {getLabel( 'learnMore' )}
+            {getLabel('learnMore')}
           </a>
         </div>
       </div>
 
       <div className="margin-v-lg">
-        <p><b>{getLabel( 'needOfficial' )}</b></p>
+        <p>
+          <b>{getLabel('needOfficial')}</b>
+        </p>
         <div className="margin-v-md">
-          <a className="btn btn-primary" href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=officialAgenda`} target="_blank" rel="noopener noreferrer">
-            {getLabel( 'requestOfficial' )}
+          <a
+            className="btn btn-primary"
+            href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=officialAgenda`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {getLabel('requestOfficial')}
           </a>
         </div>
       </div>

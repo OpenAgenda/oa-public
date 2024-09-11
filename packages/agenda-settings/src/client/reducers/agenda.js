@@ -14,7 +14,7 @@ const REMOVE_SUCCESS = 'agenda-settings/agenda/REMOVE_SUCCESS';
 const REMOVE_FAIL = 'agenda-settings/agenda/REMOVE_FAIL';
 
 const initialState = {
-  loaded: false
+  loaded: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -22,7 +22,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOAD_SUCCESS:
       return {
@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action = {}) {
         loading: false,
         loaded: true,
         data: action.result.data,
-        error: null
+        error: null,
       };
     case LOAD_FAIL:
       return {
@@ -38,19 +38,20 @@ export default function reducer(state = initialState, action = {}) {
         loading: false,
         loaded: false,
         data: null,
-        error: typeof action.error.response.data.error === 'string'
-          ? action.error.response.data.error
-          : 'Error'
+        error:
+          typeof action.error.response.data.error === 'string'
+            ? action.error.response.data.error
+            : 'Error',
       };
     case EDIT_SUCCESS:
       return {
         ...state,
-        data: action.result.data.agenda
+        data: action.result.data.agenda,
       };
     default:
       return state;
   }
-};
+}
 
 export function create(data) {
   return {
@@ -59,7 +60,7 @@ export function create(data) {
       const { res } = getState();
 
       return client.post(res.create, toMixedMultipart(data));
-    }
+    },
   };
 }
 
@@ -69,8 +70,11 @@ export function edit(data) {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.set.replace(':slug', params.slug), toMixedMultipart(data));
-    }
+      return client.post(
+        res.set.replace(':slug', params.slug),
+        toMixedMultipart(data),
+      );
+    },
   };
 }
 
@@ -81,6 +85,6 @@ export function remove() {
       const { res } = getState();
 
       return client.post(res.remove.replace(':slug', params.slug));
-    }
+    },
   };
 }

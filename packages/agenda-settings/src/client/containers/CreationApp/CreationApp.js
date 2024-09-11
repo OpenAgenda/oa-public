@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
@@ -14,10 +14,14 @@ import I18nContext from '../../contexts/I18nContext';
 function CreationApp({ route }) {
   const { lang } = useLayoutData();
 
-  const i18nContextValue = useMemo(() => ({
-    lang,
-    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, lang)
-  }), [lang]);
+  const i18nContextValue = useMemo(
+    () => ({
+      lang,
+      getLabel: (label, values = {}) =>
+        makeGetterLabel(labels)(label, values, lang),
+    }),
+    [lang],
+  );
 
   return (
     <IntlProvider
@@ -30,7 +34,8 @@ function CreationApp({ route }) {
         <div
           className="page"
           css={css`
-            .radio label, .checkbox label {
+            .radio label,
+            .checkbox label {
               line-height: 20px;
             }
           `}
@@ -45,7 +50,8 @@ function CreationApp({ route }) {
 }
 
 export default provideHooks({
-  inject: ({ store }) => store.inject({
-    agenda: agendaActions.default,
-  }),
+  inject: ({ store }) =>
+    store.inject({
+      agenda: agendaActions.default,
+    }),
 })(CreationApp);

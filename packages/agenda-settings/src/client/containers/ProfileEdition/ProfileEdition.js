@@ -1,12 +1,17 @@
-import React, { useContext, useMemo, useCallback } from 'react';
+import { useContext, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
 import { useHistory, useLocation } from 'react-router';
-import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
+import { getSupportedLocale } from '@openagenda/intl';
 import { IntlProvider } from 'react-intl';
-import { ImageInput, Modal, useLayoutData, AuthenticateAndConfirm, locales as sharedLocales } from '@openagenda/react-shared';
+import {
+  ImageInput,
+  Modal,
+  useLayoutData,
+  AuthenticateAndConfirm,
+  locales as sharedLocales,
+} from '@openagenda/react-shared';
 import { edit } from '../../reducers/agenda';
-import * as agendaActions from '../../reducers/agenda';
 import * as modalsActions from '../../reducers/modals';
 import validate, { schema as agendaSchema } from '../../utils/validateProfile';
 import { BasicInput, BasicTextarea, InputGroup } from '../../utils/inputs';
@@ -22,52 +27,73 @@ function SubmitButton() {
   const { dirty, submitting, submitSucceeded, hasValidationError } = form.getState();
 
   if (!dirty && submitSucceeded) {
-    return <button type="submit" className="btn btn-success" disabled>{getLabel('saved')}</button>;
-  } else if (submitting) {
-    return <button type="submit" className="btn btn-primary" disabled>{getLabel('saving')}</button>;
-  } else {
     return (
-      <button type="submit" className="btn btn-primary" disabled={dirty && !hasValidationError ? undefined : true}>
-        {getLabel('saveModifications')}
+      <button type="submit" className="btn btn-success" disabled>
+        {getLabel('saved')}
       </button>
     );
   }
+  if (submitting) {
+    return (
+      <button type="submit" className="btn btn-primary" disabled>
+        {getLabel('saving')}
+      </button>
+    );
+  }
+  return (
+    <button
+      type="submit"
+      className="btn btn-primary"
+      disabled={dirty && !hasValidationError ? undefined : true}
+    >
+      {getLabel('saveModifications')}
+    </button>
+  );
 }
 
 export default function ProfileEdition() {
-  const { agenda: { title, description, url, slug, image } } = useLayoutData();
+  const {
+    agenda: { title, description, url, slug, image },
+  } = useLayoutData();
   const history = useHistory();
   const location = useLocation();
 
   const { getLabel, lang } = useContext(I18nContext);
 
-  const modals = useSelector(state => state.modals);
-  const removeRes = useSelector(state => state.res.remove.replace(':slug', slug));
+  const modals = useSelector((state) => state.modals);
+  const removeRes = useSelector((state) =>
+    state.res.remove.replace(':slug', slug));
   const dispatch = useDispatch();
 
-  const showModal = useCallback((name, options = {}) => dispatch(modalsActions.showModal(name, options)), [dispatch]);
-  const closeModal = useCallback(name => dispatch(modalsActions.closeModal(name)), [dispatch]);
-  const remove = useCallback(() => dispatch(agendaActions.remove()), [dispatch]);
+  const showModal = useCallback(
+    (name, options = {}) => dispatch(modalsActions.showModal(name, options)),
+    [dispatch],
+  );
+  const closeModal = useCallback(
+    (name) => dispatch(modalsActions.closeModal(name)),
+    [dispatch],
+  );
 
   const initialValues = useMemo(
     () => ({ title, description, url, slug, image }),
-    [title, description, url, slug, image]
+    [title, description, url, slug, image],
   );
 
   const onSubmit = useCallback(
-    (values, form) => dispatch(edit(values))
-      .then(result => {
-        const newSlug = result.data.agenda.slug;
+    (values, form) =>
+      dispatch(edit(values))
+        .then((result) => {
+          const newSlug = result.data.agenda.slug;
 
-        if (newSlug !== slug) {
-          history.push(location.pathname.replace(slug, newSlug));
-          return;
-        }
+          if (newSlug !== slug) {
+            history.push(location.pathname.replace(slug, newSlug));
+            return;
+          }
 
-        form.reset(result.data.agenda);
-      })
-      .catch(catchFormErrors),
-    [dispatch, history, location]
+          form.reset(result.data.agenda);
+        })
+        .catch(catchFormErrors),
+    [dispatch, history, location.pathname, slug],
   );
 
   return (
@@ -133,12 +159,18 @@ export default function ProfileEdition() {
                     className="form-control"
                     placeholder="URL"
                     label={getLabel('personalizedSlug')}
-                    before={<div className="input-group-addon">openagenda.com/</div>}
+                    before={
+                      <div className="input-group-addon">openagenda.com/</div>
+                    }
                     spellCheck={false}
                   />
-                  <a role="button" className="text-danger" onClick={() => showModal('removeAgenda')}>
+                  <button
+                    type="button"
+                    className="btn btn-link btn-link-inline text-danger"
+                    onClick={() => showModal('removeAgenda')}
+                  >
                     {getLabel('removeAgenda')}
-                  </a>
+                  </button>
                   <div className="pull-right">
                     <SubmitButton />
                   </div>
@@ -149,7 +181,7 @@ export default function ProfileEdition() {
         </div>
 
         <Modal
-          visible={modals['removeAgenda'] ? modals['removeAgenda'].visible : false}
+          visible={modals.removeAgenda ? modals.removeAgenda.visible : false}
           onClose={() => closeModal('removeAgenda')}
           title={getLabel('removeAgenda')}
         >

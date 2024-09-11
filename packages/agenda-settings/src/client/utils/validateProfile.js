@@ -5,11 +5,12 @@ export const schema = agendaSchema.struct;
 export async function checkSlug(client, res, slug) {
   if (!slug) return;
 
-  return client.post(res, { slug })
+  return client
+    .post(res, { slug })
     .then(() => null)
-    .catch(error => {
+    .catch((error) => {
       if (error.response?.data?.errors) {
-        return error.response.data.errors.find(v => v.field === 'slug')?.code;
+        return error.response.data.errors.find((v) => v.field === 'slug')?.code;
       }
     });
 }

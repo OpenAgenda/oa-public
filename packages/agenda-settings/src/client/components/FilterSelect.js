@@ -43,7 +43,7 @@ export function Draggable({ id, children }) {
 
   return (
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
-    <div onMouseDown={e => e.stopPropagation()}>
+    <div onMouseDown={(e) => e.stopPropagation()}>
       <button
         type="button"
         ref={setNodeRef}
@@ -123,13 +123,13 @@ export default function FilterSelect({
   const selectedOptions = useMemo(
     () =>
       value
-        .map(name => filterOptions.find(o => o.value === name))
-        .filter(v => !!v),
+        .map((name) => filterOptions.find((o) => o.value === name))
+        .filter((v) => !!v),
     [value, filterOptions],
   );
 
   const handleDragEnd = useCallback(
-    event => {
+    (event) => {
       const {
         over: { id: overOptionValue },
         active: { id: draggedOptionValue },
@@ -138,13 +138,13 @@ export default function FilterSelect({
       const to = overOptionValue === 'select'
         ? selectedOptions.length
         : selectedOptions.findIndex(
-          option => option.value === overOptionValue,
+          (option) => option.value === overOptionValue,
         );
       const from = selectedOptions.findIndex(
-        option => option.value === draggedOptionValue,
+        (option) => option.value === draggedOptionValue,
       );
 
-      onChange(arrayMove(selectedOptions, from, to).map(o => o.value));
+      onChange(arrayMove(selectedOptions, from, to).map((o) => o.value));
     },
     [selectedOptions, onChange],
   );
@@ -154,8 +154,8 @@ export default function FilterSelect({
       <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
         <Select
           value={selectedOptions}
-          onChange={update => {
-            onChange(update.map(o => o.value));
+          onChange={(update) => {
+            onChange(update.map((o) => o.value));
           }}
           options={filterOptions}
           isMulti
@@ -170,7 +170,7 @@ export default function FilterSelect({
           isDisabled={disabled}
           styles={{
             ...defaultSelectStyles,
-            multiValue: provided => ({
+            multiValue: (provided) => ({
               ...provided,
               margin: '1px',
               padding: '0px',

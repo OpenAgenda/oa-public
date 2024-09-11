@@ -18,7 +18,7 @@ export const FilterSelect = () => {
   return (
     <FilterSelectComponent
       value={selected}
-      onChange={update => {
+      onChange={(update) => {
         setSelected(update);
       }}
       schema={agenda.schema}
@@ -31,7 +31,7 @@ export const EmptyFilterSelect = () => {
   return (
     <FilterSelectComponent
       value={selected}
-      onChange={update => setSelected(update)}
+      onChange={(update) => setSelected(update)}
       schema={agenda.schema}
     />
   );
@@ -44,7 +44,7 @@ export const FiltersSettings = () => {
     <FiltersSettingsComponent
       schema={agenda.schema}
       settings={settings}
-      onSubmit={update => setSettings(update)}
+      onSubmit={(update) => setSettings(update)}
     />
   );
 };
@@ -58,7 +58,7 @@ export const FiltersSettingsAsSaved = () => {
       <FiltersSettingsComponent
         schema={agenda.schema}
         settings={settings}
-        onSubmit={update => setSettings(update)}
+        onSubmit={(update) => setSettings(update)}
       />
     </>
   );
@@ -71,7 +71,7 @@ export const LoadingFiltersSettings = () => {
     <FiltersSettingsComponent
       schema={agenda.schema}
       settings={settings}
-      onSubmit={update => setSettings(update)}
+      onSubmit={(update) => setSettings(update)}
       loading
     />
   );
@@ -84,7 +84,7 @@ export const ResettableFiltersSettings = () => {
     <FiltersSettingsComponent
       schema={agendaWithModifiedFilters.schema}
       settings={settings}
-      onSubmit={update => setSettings(update)}
+      onSubmit={(update) => setSettings(update)}
     />
   );
 };

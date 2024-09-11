@@ -1,11 +1,18 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
 import classNames from 'classnames';
 import I18nContext from '../contexts/I18nContext';
 
 export function BaseField({
-  children, input: { name, value, type }, label, subLabel, max,
-  displayError, formGroupClass = true, meta, meta: { error, submitError, touched, invalid }
+  children,
+  input: { name, value, type },
+  label,
+  subLabel,
+  max,
+  displayError,
+  formGroupClass = true,
+  meta,
+  meta: { error, submitError, touched, invalid },
 }) {
   const { getLabel } = useContext(I18nContext);
   const errorDisplayed = displayError ? displayError(meta) : touched && invalid;
@@ -15,23 +22,36 @@ export function BaseField({
     <div
       className={classNames({
         'form-group': type !== 'hidden' || !formGroupClass,
-        'has-error has-feedback': errorDisplayed && errorCode
+        'has-error has-feedback': errorDisplayed && errorCode,
       })}
     >
       {label && <label htmlFor={name}>{label}</label>}
       {subLabel}
       {children}
-      {errorDisplayed && errorCode && <div className={`text-danger ${max && 'pull-left' || ''}`}>
-        {getLabel(errorCode) || errorCode}
-      </div>}
-      {max && <div className={`text-right ${max - value.length < 0 && 'text-danger' || ''}`}>
-        {max - value.length}
-      </div>}
+      {errorDisplayed && errorCode && (
+        <div className={`text-danger ${max ? 'pull-left' : ''}`}>
+          {getLabel(errorCode) || errorCode}
+        </div>
+      )}
+      {max && (
+        <div
+          className={`text-right ${max - value.length < 0 ? 'text-danger' : ''}`}
+        >
+          {max - value.length}
+        </div>
+      )}
     </div>
   );
-};
+}
 
-export function BasicInput({ onChange = null, type, placeholder, className, spellCheck, ...props }) {
+export function BasicInput({
+  onChange = null,
+  type,
+  placeholder,
+  className,
+  spellCheck,
+  ...props
+}) {
   return (
     <BaseField {...props}>
       <input
@@ -40,16 +60,23 @@ export function BasicInput({ onChange = null, type, placeholder, className, spel
         placeholder={placeholder}
         className={className}
         spellCheck={spellCheck}
-        onChange={t => {
+        onChange={(t) => {
           props.input.onChange(t);
-          if(onChange) onChange(t.target.value);
+          if (onChange) onChange(t.target.value);
         }}
       />
     </BaseField>
   );
 }
 
-export function BasicTextarea({ placeholder, className, rows, cols, spellCheck, ...props }) {
+export function BasicTextarea({
+  placeholder,
+  className,
+  rows,
+  cols,
+  spellCheck,
+  ...props
+}) {
   return (
     <BaseField {...props}>
       <div>
@@ -66,7 +93,15 @@ export function BasicTextarea({ placeholder, className, rows, cols, spellCheck, 
   );
 }
 
-export function InputGroup({ type, placeholder, className, before, after, spellCheck, ...props }) {
+export function InputGroup({
+  type,
+  placeholder,
+  className,
+  before,
+  after,
+  spellCheck,
+  ...props
+}) {
   return (
     <BaseField {...props}>
       <div className="input-group">
@@ -82,9 +117,14 @@ export function InputGroup({ type, placeholder, className, before, after, spellC
       </div>
     </BaseField>
   );
-};
+}
 
-export function MarkdownInput({ placeholder, className = '', lang = 'fr', ...props }) {
+export function MarkdownInput({
+  placeholder,
+  className = '',
+  lang = 'fr',
+  ...props
+}) {
   return (
     <BaseField {...props}>
       <MarkdownComponent

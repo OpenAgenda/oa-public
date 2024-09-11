@@ -13,12 +13,12 @@ const findMatchingField = (schema, name) => {
   if (isSubField) {
     const [fieldName, subField] = name.split(':');
     return findMatchingField(
-      schema.fields.find(f => f.field === fieldName).schema,
+      schema.fields.find((f) => f.field === fieldName).schema,
       subField,
     );
   }
 
-  return (schema?.fields ?? []).find(f => f.field === name);
+  return (schema?.fields ?? []).find((f) => f.field === name);
 };
 
 export default function getFilterOptions(intl, schema = {}, exclude = []) {
