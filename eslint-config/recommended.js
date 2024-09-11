@@ -129,18 +129,13 @@ module.exports = {
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
     'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
 
-    'jsx-a11y/label-has-for': [
-      'error',
-      {
-        required: 'id',
-      },
-    ],
     'jsx-a11y/label-has-associated-control': [
       'error',
       {
         labelComponents: ['label'],
         labelAttributes: ['htmlFor'],
         controlComponents: ['Field', 'input', 'textarea', 'select'],
+        depth: 3,
       },
     ],
 
