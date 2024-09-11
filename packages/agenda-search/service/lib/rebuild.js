@@ -2,32 +2,47 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('rebuild');
+const { fZ } = require('@openagenda/utils');
 const mapping = require('./mapping.json');
 const analysis = require('./analysis.json');
-const { fZ } = require('@openagenda/utils');
 const bulk = require('./bulk');
 const formatAgenda = require('./formatAgenda');
 
 const LIMIT = 20;
 
-const dateStr = d => {
+const dateStr = (d) => {
   const date = d ? new Date(d) : new Date();
   return [
     [date.getFullYear(), fZ(date.getMonth() + 1), fZ(date.getDate())].join(''),
-    [fZ(date.getHours()), fZ(date.getMinutes()), fZ(date.getSeconds()), fZ(date.getMilliseconds())].join('')
+    [
+      fZ(date.getHours()),
+      fZ(date.getMinutes()),
+      fZ(date.getSeconds()),
+      fZ(date.getMilliseconds()),
+    ].join(''),
   ].join('_');
 };
 
-module.exports = async ({ alias, client, timeout, listAgendas, getDetailedAgenda }) => {
+module.exports = async ({
+  alias,
+  client,
+  timeout,
+  listAgendas,
+  getDetailedAgenda,
+}) => {
   log('rebuild');
 
-  const newIndex = alias + '_' + dateStr();
+  const newIndex = `${alias}_${dateStr()}`;
 
   let previousIndices = [];
   try {
-    previousIndices = _.keys(await client.indices.getAlias({
-      name: alias
-    }).then(r => r.body));
+    previousIndices = _.keys(
+      await client.indices
+        .getAlias({
+          name: alias,
+        })
+        .then((r) => r.body),
+    );
   } catch (err) {
     if (err.meta.statusCode !== 404) {
       console.log(err);
@@ -40,35 +55,42 @@ module.exports = async ({ alias, client, timeout, listAgendas, getDetailedAgenda
     timeout,
     body: {
       settings: {
-        analysis
+        analysis,
       },
       mappings: {
         dynamic: false,
-        properties: mapping
-      }
-    }
+        properties: mapping,
+      },
+    },
   });
 
   log('info', 'populating index');
 
-  let lastId = 0, count = 0;
+  let lastId = 0;
+  let count = 0;
 
   while (lastId !== -1) {
-    const {
-      lastId: newLastId,
-      items: agendas
-    } = await listAgendas({}, lastId, LIMIT);
+    const { lastId: newLastId, items: agendas } = await listAgendas(
+      {},
+      lastId,
+      LIMIT,
+    );
 
     const formattedAgendas = [];
     for (const agenda of agendas) {
-      formattedAgendas.push(await getDetailedAgenda(agenda).then(a => formatAgenda(a)));
+      formattedAgendas.push(
+        await getDetailedAgenda(agenda).then((a) => formatAgenda(a)),
+      );
     }
 
-    const inserted = await bulk({
-      client,
-      index: newIndex,
-      operation: 'index'
-    }, formattedAgendas);
+    const inserted = await bulk(
+      {
+        client,
+        index: newIndex,
+        operation: 'index',
+      },
+      formattedAgendas,
+    );
 
     count += inserted;
 
@@ -80,27 +102,27 @@ module.exports = async ({ alias, client, timeout, listAgendas, getDetailedAgenda
   log('info', 'indexed %s items', count);
 
   await client.indices.refresh({
-    index: newIndex
+    index: newIndex,
   });
 
   log('pointing alias %s to index %s', alias, newIndex);
 
   if (
-    await client.indices.exists({ index: alias }).then(r => r.body)
-    && !await client.indices.existsAlias({ name: alias }).then(r => r.body)
+    await client.indices.exists({ index: alias }).then((r) => r.body)
+    && !await client.indices.existsAlias({ name: alias }).then((r) => r.body)
   ) {
     log('info', 'agendas index exists.. deleting');
-    await client.indices.delete({ index: alias })
+    await client.indices.delete({ index: alias });
   }
 
   await client.indices.putAlias({
     index: newIndex,
-    name: alias
+    name: alias,
   });
 
   if (previousIndices.length) {
     await client.indices.delete({
-      index: previousIndices.join(',')
+      index: previousIndices.join(','),
     });
     log('previous indices have been deleted (%s)', previousIndices.length);
   }

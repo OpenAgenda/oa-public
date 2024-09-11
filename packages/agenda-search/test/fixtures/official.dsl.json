@@ -1,23 +1,20 @@
 {
   "_source": {
-    "exclude": [
-      "*_es"
-    ]
+    "exclude": ["*_es"]
   },
   "from": 0,
   "query": {
     "bool": {
-      "must": [ {
-        "multi_match": {
-          "fields": [
-            "title",
-            "description"
-          ],
-          "operator": "and",
-          "query": "title",
-          "type": "cross_fields"
+      "must": [
+        {
+          "multi_match": {
+            "fields": ["title", "description"],
+            "operator": "and",
+            "query": "title",
+            "type": "cross_fields"
+          }
         }
-      } ],
+      ],
       "filter": [
         {
           "term": {

@@ -1,16 +1,16 @@
-global.__CLIENT__ = false;
-global.__SERVER__ = true;
-global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
-
-import http from 'http';
+import http from 'node:http';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
 import config from './test/config';
-import Service from './';
 import listInterface from './test/app/listInterface';
 import getDetailedAgenda from './test/app/getDetailedAgenda';
+import Service from '.';
+
+global.__CLIENT__ = false;
+global.__SERVER__ = true;
+global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 const app = express();
 
@@ -22,8 +22,8 @@ app.server = server;
   const service = Service({
     alias: config.alias,
     elasticsearch: config.elasticsearch,
-    listAgendas: listInterface('story', 100, a => a),
-    getDetailedAgenda: getDetailedAgenda('story')
+    listAgendas: listInterface('story', 100, (a) => a),
+    getDetailedAgenda: getDetailedAgenda('story'),
   });
 
   service.rebuild();
@@ -60,10 +60,9 @@ app.server = server;
   server.listen(process.env.PORT || 3000, () => {
     // eslint-disable-next-line no-console
     console.log(
-      `\nDev server started on => http://localhost:${server.address().port}/`
-   );
+      `\nDev server started on => http://localhost:${server.address().port}/`,
+    );
   });
-
 })();
 
 export default app;
