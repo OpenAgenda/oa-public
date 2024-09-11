@@ -7,6 +7,8 @@ const log = logs('remove');
 async function _remove(service, where, current = null, params = null) {
   const { config, client, removeLegacy } = service;
 
+  const { soft } = params;
+
   if (current === null) {
     return {
       success: false,
@@ -24,10 +26,14 @@ async function _remove(service, where, current = null, params = null) {
   if (current.aggregated) {
     await service.getAggregatedCount.dec(current.agendaUid);
   }
-
-  const result = await client('agenda_event')
-    .update({ updated_at: new Date(), removed: 1 })
-    .where(where);
+  let result = null;
+  if (soft === false) {
+    result = await client('agenda_event').del().where(where);
+  } else {
+    result = await client('agenda_event')
+      .update({ updated_at: new Date(), removed: 1 })
+      .where(where);
+  }
 
   const success = !!result;
 
@@ -60,7 +66,7 @@ async function remove(service, agendaUid, eventUid, options = {}) {
       agenda_uid: agendaUid,
     },
     await get(agendaUid, eventUid),
-    validateOptions(options),
+    validateOptions(options, 'remove'),
   );
 }
 
