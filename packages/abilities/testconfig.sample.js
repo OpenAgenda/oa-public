@@ -174,11 +174,11 @@ module.exports = {
   },
   interfaces: {
     getEntity: {
-      agenda: uid => ({
+      agenda: (uid) => ({
         uid,
         title: "Titre de l'agenda",
       }),
-      member: id => ({
+      member: (id) => ({
         // needs agendaTitle
         id,
         agendaUid: 456789,
@@ -186,19 +186,19 @@ module.exports = {
         crendential: 1,
         userUid: 99999999,
       }),
-      user: uid => ({
+      user: (uid) => ({
         uid,
         fullName: 'Bertho',
       }),
     },
     listEntities: {
-      agenda: uids =>
-        uids.map(uid => ({
+      agenda: (uids) =>
+        uids.map((uid) => ({
           uid,
           title: "Titre de l'agenda",
         })),
-      member: ids =>
-        ids.map(id => ({
+      member: (ids) =>
+        ids.map((id) => ({
           // needs all agendaTitle
           id,
           agendaUid: 456789,
@@ -206,8 +206,8 @@ module.exports = {
           crendential: 1,
           userUid: 99999999,
         })),
-      user: uids =>
-        uids.map(uid => ({
+      user: (uids) =>
+        uids.map((uid) => ({
           uid,
           fullName: 'Bertho',
         })),
@@ -277,10 +277,10 @@ module.exports = {
         return {
           user: ability.identifier,
           // agenda: agendas.map( v => v.uid ),
-          member: members.map(v => v.id),
+          member: members.map((v) => v.id),
         };
       },
-      agenda: async ability => ({ agenda: ability.identifier }),
+      agenda: async (ability) => ({ agenda: ability.identifier }),
     },
     editableRules,
   },

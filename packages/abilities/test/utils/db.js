@@ -1,28 +1,26 @@
-import { readFile } from 'fs';
-import { promisify } from 'util';
+import { readFile } from 'node:fs';
+import { promisify } from 'node:util';
 import mysql from 'mysql';
 
-async function create(connection) {
+export async function create(connection) {
   const client = mysql.createConnection({ ...connection, database: undefined });
 
   client.connect();
 
-  const {
-    database,
-  } = connection;
+  const { database } = connection;
 
-  await new Promise(rs => {
+  await new Promise((rs) => {
     client.query(`DROP DATABASE IF EXISTS ${database}`, rs);
   });
 
-  await new Promise(rs => {
+  await new Promise((rs) => {
     client.query(`CREATE DATABASE IF NOT EXISTS ${database}`, rs);
   });
 
   client.destroy();
 }
 
-async function fixtures(connection, schemas) {
+export async function fixtures(connection, schemas) {
   const conn = mysql.createConnection({
     multipleStatements: true,
     ...connection,
@@ -36,8 +34,3 @@ async function fixtures(connection, schemas) {
 
   conn.destroy();
 }
-
-module.exports = {
-  create,
-  fixtures,
-};

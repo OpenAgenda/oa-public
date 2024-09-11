@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import createDecorator from 'final-form-calculate';
 
-export default function ({ entityName, identifier, getRules }) {
-  return form => {
+export default ({ entityName, identifier, getRules }) =>
+  (form) => {
     const {
       mutators: { setFieldData },
       getState,
@@ -18,12 +18,12 @@ export default function ({ entityName, identifier, getRules }) {
           _.matches({
             entityName,
             identifier,
-          })
+          }),
         );
-        const concernedRule = rules.find(v => v.key === field);
+        const concernedRule = rules.find((v) => v.key === field);
         const relatedRules = _.filter(
           otherRules,
-          _.matches(_.pick(concernedRule, 'actions', 'subject', 'conditions'))
+          _.matches(_.pick(concernedRule, 'actions', 'subject', 'conditions')),
         );
 
         const formState = getState();
@@ -42,7 +42,7 @@ export default function ({ entityName, identifier, getRules }) {
           if (
             fieldState.data.indeterminate
             || (relatedRules.length
-              && relatedRules.every(rule => allValues[rule.key] === true))
+              && relatedRules.every((rule) => allValues[rule.key] === true))
           ) {
             return relatedRules.reduce(
               (result, rule) => {
@@ -52,7 +52,7 @@ export default function ({ entityName, identifier, getRules }) {
 
                 return result;
               },
-              { [field]: false }
+              { [field]: false },
             );
           }
 
@@ -71,7 +71,7 @@ export default function ({ entityName, identifier, getRules }) {
 
         const relatedFirstRule = _.find(
           firstEntityRules,
-          _.matches(_.pick(concernedRule, 'actions', 'subject', 'conditions'))
+          _.matches(_.pick(concernedRule, 'actions', 'subject', 'conditions')),
         );
 
         if (relatedFirstRule && allValues[relatedFirstRule.key]) {
@@ -82,4 +82,3 @@ export default function ({ entityName, identifier, getRules }) {
       },
     })(form);
   };
-}

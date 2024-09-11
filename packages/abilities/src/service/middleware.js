@@ -13,7 +13,7 @@ export function getFormIndex(service, options) {
         identifier: 'query.identifier',
       },
     },
-    options
+    options,
   );
 
   return wrap(async (req, res) => {
@@ -46,7 +46,7 @@ export function updateFormIndex(service, options) {
         data: 'body',
       },
     },
-    options
+    options,
   );
 
   return wrap(async (req, res) => {

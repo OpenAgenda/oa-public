@@ -23,7 +23,7 @@ function getEditableRules(ability, entity) {
 
   const editableRules = editableRulesGetter(ability, entity);
 
-  return editableRules.map(rule => {
+  return editableRules.map((rule) => {
     const subject = { ...rule.conditions, [SUBJECT_NAME]: rule.subject };
     const relevantRule = ability.relevantRuleFor(
       rule.actions || rule.action,
@@ -40,8 +40,8 @@ function getEditableRules(ability, entity) {
 }
 
 function batchUpdate({ table, column }, collection) {
-  return config.knex.transaction(trx => {
-    const queries = collection.map(item =>
+  return config.knex.transaction((trx) => {
+    const queries = collection.map((item) =>
       config
         .knex(table)
         .where(column, item[column])
@@ -118,7 +118,7 @@ export async function getFormIndex(ability, options = {}) {
             const entityAbility = createAbility(entityName, identifier, rules);
 
             return result2.concat(
-              getEditableRules(entityAbility, entity).map(rule => ({
+              getEditableRules(entityAbility, entity).map((rule) => ({
                 ...rule,
                 id: undefined,
                 entityName,
@@ -139,7 +139,7 @@ export async function getFormIndex(ability, options = {}) {
 
 export async function updateFormIndex(ability, data) {
   const formIndex = await ability.getFormIndex();
-  const matchesRule = test =>
+  const matchesRule = (test) =>
     _.matches(
       _.pick(
         test,

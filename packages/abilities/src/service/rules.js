@@ -78,7 +78,7 @@ export async function list(entityName, identifier) {
     request.where('identifier', identifier);
   }
 
-  const rules = _.map(await request, row =>
+  const rules = _.map(await request, (row) =>
     _.mapKeys(row, (v, k) => _.camelCase(k)));
 
   return parse(rules);

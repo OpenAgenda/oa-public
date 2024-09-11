@@ -1,4 +1,4 @@
-import http from 'http';
+import http from 'node:http';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -36,7 +36,7 @@ app.get(
       entityName: 'query.entityName',
       identifier: 'query.identifier',
     },
-  })
+  }),
 );
 
 // PATCH http://localhost:3000/abilities/form-index?entityName=user&identifier=99999999
@@ -48,7 +48,7 @@ app.patch(
       identifier: 'query.identifier',
       data: 'body',
     },
-  })
+  }),
 );
 
 app.use(errorHandler({ log: true }));
@@ -57,7 +57,7 @@ if (process.env.NODE_ENV !== 'test') {
   server.listen(process.env.PORT || 3000, () => {
     // eslint-disable-next-line no-console
     console.log(
-      `\nDev server started on => http://localhost:${server.address().port}/`
+      `\nDev server started on => http://localhost:${server.address().port}/`,
     );
   });
 }
