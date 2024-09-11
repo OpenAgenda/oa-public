@@ -44,7 +44,7 @@
   "cibulTemplates.passwordField.required": [
     {
       "type": 0,
-      "value": "Requis."
+      "value": "Un mot de passe doit être défini"
     }
   ],
   "cibulTemplates.passwordField.tooWeak": [
