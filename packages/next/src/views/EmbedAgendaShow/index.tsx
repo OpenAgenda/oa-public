@@ -137,8 +137,6 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
       });
   }, [agenda.schema.fields, prefilter.filters]);
 
-  console.log('filtersToInclude', filtersToInclude);
-
   const filters = useFilters(intl, agenda.schema.fields, {
     dateFnsLocale,
     missingValue: 'null',
