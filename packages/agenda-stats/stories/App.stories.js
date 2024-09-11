@@ -17,9 +17,7 @@ const getDefaultState = () => ({
 
 export default {
   title: 'App',
-  decorators: [
-    PageDecorator,
-  ],
+  decorators: [PageDecorator],
 };
 
 export function All() {

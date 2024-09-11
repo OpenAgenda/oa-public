@@ -12,7 +12,7 @@ export default function rangeToCalendarInterval(range, chartWidth = 1) {
 
   const rangeDurationInDays = differenceInCalendarDays(
     range.endDate,
-    range.startDate
+    range.startDate,
   );
 
   const [dayBreakpoint, weekBreakpoint] = BREAKPOINTS_BY_WIDTH[chartWidth];

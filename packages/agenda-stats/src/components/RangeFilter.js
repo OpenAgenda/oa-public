@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { isSameDay } from 'date-fns';
@@ -25,14 +25,15 @@ export default function RangeFilter({ agenda }) {
   const intl = useIntl();
   const dispatch = useDispatch();
 
-  const stats = useSelector(state => state.stats.data);
-  const range = useSelector(state => state.stats.range);
+  const stats = useSelector((state) => state.stats.data);
+  const range = useSelector((state) => state.stats.range);
 
   const rangeModal = useModal();
 
   const onSubmit = useCallback(
-    values => dispatch(statsActions.load(agenda, stats, { range: values.range[0] })),
-    [agenda, dispatch, stats]
+    (values) =>
+      dispatch(statsActions.load(agenda, stats, { range: values.range[0] })),
+    [agenda, dispatch, stats],
   );
 
   return (

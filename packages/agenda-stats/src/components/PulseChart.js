@@ -1,11 +1,10 @@
-import React from 'react';
 import { LineChart, Line, YAxis } from 'recharts';
 import { useQuery } from 'react-query';
 import subDays from 'date-fns/subDays';
 import { useApiClient } from '@openagenda/react-shared';
 
 const defaultData = [];
-const yAxisDomain = [0, dataMax => Math.max(10, dataMax)];
+const yAxisDomain = [0, (dataMax) => Math.max(10, dataMax)];
 
 export default function PulseChart({
   agendaUid,
@@ -46,7 +45,7 @@ export default function PulseChart({
     },
     {
       refetchOnWindowFocus: false,
-    }
+    },
   );
 
   return (

@@ -1,6 +1,6 @@
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import * as statsActions from '../reducers/stats';
 import BorderBox from './BorderBox';
 
@@ -21,7 +21,7 @@ export default function Separator({ stat, editMode }) {
 
   const removeSeparator = useCallback(
     () => dispatch(statsActions.removeStat(stat.id)),
-    [dispatch, stat]
+    [dispatch, stat],
   );
 
   if (!stat || !editMode) {

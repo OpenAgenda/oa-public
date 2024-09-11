@@ -15,7 +15,7 @@ export default function mergeMultiData(data, fromDataKey, dataKey) {
     }
 
     result = tempData.reduce((res, next) => {
-      const foundIndex = res.findIndex(v => v.key === next.key);
+      const foundIndex = res.findIndex((v) => v.key === next.key);
 
       if (foundIndex !== -1) {
         return [
@@ -40,7 +40,7 @@ export default function mergeMultiData(data, fromDataKey, dataKey) {
     }, result);
   }
 
-  result = result.map(v => ({ ...requiredPart, ...v }));
+  result = result.map((v) => ({ ...requiredPart, ...v }));
 
   return result;
 }

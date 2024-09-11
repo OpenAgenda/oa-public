@@ -7,4 +7,5 @@ packages/agenda-locations-app/dist
 packages/agenda-schemas-app/dist
 packages/agenda-settings/dist
 packages/agenda-settings/stories/static
+packages/agenda-stats/dist
 packages/next/.next

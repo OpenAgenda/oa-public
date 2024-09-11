@@ -121,8 +121,8 @@ function ComposedChart({
       && dataColors !== null
       && !Array.isArray(dataColors);
 
-    labelKeys.forEach(k => {
-      result = result.map(v => {
+    labelKeys.forEach((k) => {
+      result = result.map((v) => {
         const label = _.get(v, k);
 
         return {
@@ -142,13 +142,14 @@ function ComposedChart({
   }, [
     rawData,
     labelKey,
+    dataKey,
     fromDataKey,
     restItem,
+    sort,
     dataColors,
-    dataKey,
+    state.itemsDisplayed,
     totalEvents,
     intl,
-    state.itemsDisplayed,
   ]);
 
   const ChartComponent = useMemo(() => {
@@ -166,7 +167,7 @@ function ComposedChart({
   }, [type]);
 
   const renderTooltipItem = useCallback(
-    props => {
+    (props) => {
       const agg = Array.isArray(aggregation)
         ? aggregation[props.index]
         : aggregation;

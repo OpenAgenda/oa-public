@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { ReactSelectInput } from '@openagenda/react-shared';
 
@@ -18,13 +18,13 @@ const messages = defineMessages({
 });
 
 const intervalSelectStyles = {
-  container: provided => ({
+  container: (provided) => ({
     ...provided,
     maxWidth: '150px',
     width: '150px',
     display: 'inline-block',
   }),
-  option: provided => ({
+  option: (provided) => ({
     ...provided,
     cursor: 'pointer',
     textAlign: 'left',
@@ -40,14 +40,14 @@ export default function IntervalSelect({ value, onChange }) {
       { value: 'week', label: intl.formatMessage(messages.week) },
       { value: 'month', label: intl.formatMessage(messages.month) },
     ],
-    [intl]
+    [intl],
   );
 
   const valueOption = useMemo(
-    () => intervalOptions.find(opt => opt.value === value),
-    [intervalOptions, value]
+    () => intervalOptions.find((opt) => opt.value === value),
+    [intervalOptions, value],
   );
-  const handleChange = useCallback(opt => onChange(opt.value), [onChange]);
+  const handleChange = useCallback((opt) => onChange(opt.value), [onChange]);
 
   return (
     <ReactSelectInput

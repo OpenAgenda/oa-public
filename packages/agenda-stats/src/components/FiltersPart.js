@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useLatest, useUpdateEffect } from 'react-use';
@@ -24,24 +24,25 @@ export default function FiltersPart({
 
   const { agenda, agendaSchema } = useLayoutData();
 
-  const stats = useSelector(state => state.stats.data);
-  const loading = useSelector(state => state.stats.loading);
-  const query = useSelector(state => state.stats.query);
+  const stats = useSelector((state) => state.stats.data);
+  const loading = useSelector((state) => state.stats.loading);
+  const query = useSelector((state) => state.stats.query);
   const latestStats = useLatest(stats);
   const latestQuery = useLatest(query);
 
   const getTotal = useCallback(
     (filter, option) => {
-      const stat = stats.find(s => _.isMatch(
-        s.aggregation,
-        _.omit(
-          {
-            type: filter.name,
-            ...filter.aggregation,
-          },
-          'size'
-        )
-      ));
+      const stat = stats.find((s) =>
+        _.isMatch(
+          s.aggregation,
+          _.omit(
+            {
+              type: filter.name,
+              ...filter.aggregation,
+            },
+            'size',
+          ),
+        ));
 
       if (!stat) return 0;
 
@@ -53,7 +54,7 @@ export default function FiltersPart({
       const optionKey = 'id' in option ? 'id' : 'value';
 
       const optionValue = data.find(
-        v => String(v[dataKey]) === String(option[optionKey])
+        (v) => String(v[dataKey]) === String(option[optionKey]),
       );
 
       if (optionValue) {
@@ -62,7 +63,7 @@ export default function FiltersPart({
 
       return 0;
     },
-    [stats]
+    [stats],
   );
 
   useUpdateEffect(() => {
@@ -77,7 +78,7 @@ export default function FiltersPart({
       });
       const cleanQuery = _.pick(
         baseQuery,
-        Object.keys(validateQuery(baseQuery, agendaSchema))
+        Object.keys(validateQuery(baseQuery, agendaSchema)),
       );
 
       if (!Object.keys(cleanQuery).length) {

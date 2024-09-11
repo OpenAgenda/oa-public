@@ -34,7 +34,7 @@ export default function CustomTooltip({
       return React.isValidElement(itemRenderer)
         ? React.cloneElement(itemRenderer, itemProps)
         : React.createElement(itemRenderer, itemProps);
-    }
+    },
   );
 
   return (
@@ -50,7 +50,7 @@ export default function CustomTooltip({
               white-space: nowrap;
             `,
             'recharts-default-tooltip',
-            wrapperClassName
+            wrapperClassName,
           )}
         >
           <ul
@@ -61,7 +61,7 @@ export default function CustomTooltip({
                 list-style-type: none;
               `,
               'recharts-tooltip-item-list',
-              contentStyle
+              contentStyle,
             )}
           >
             {items}

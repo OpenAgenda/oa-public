@@ -37,6 +37,6 @@ export default function useChartTitle(stat) {
 
   return useMemo(
     () => getChartTitle(stat.aggregation, stat.state.fieldSchema, intl),
-    [intl, stat.aggregation, stat.state.fieldSchema]
+    [intl, stat.aggregation, stat.state.fieldSchema],
   );
 }

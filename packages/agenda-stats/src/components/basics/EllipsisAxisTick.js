@@ -1,10 +1,4 @@
-import React, {
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-} from 'react';
+import { useMemo, useRef, useState, useEffect, useCallback } from 'react';
 import { usePrevious } from 'react-use';
 import { Text } from 'recharts';
 
@@ -20,7 +14,7 @@ export default function EllipsisAxisTick({ maxLines = 2, payload, ...rest }) {
       scaleToFit: rest.scaleToFit,
       children: rest.children,
     }),
-    [rest.children, rest.scaleToFit, rest.style, rest.width]
+    [rest.children, rest.scaleToFit, rest.style, rest.width],
   );
 
   const textRef = useRef(null);
@@ -30,7 +24,8 @@ export default function EllipsisAxisTick({ maxLines = 2, payload, ...rest }) {
     }
 
     let { wordsByLines } = textRef.current.state;
-    let biggestLine = wordsByLines.reduce((a, b) => (a.width > b.width ? a : b));
+    let biggestLine = wordsByLines.reduce((a, b) =>
+      (a.width > b.width ? a : b));
     let tempText = text;
     const tempSuffix = wordsByLines.length > maxLines || biggestLine.width > measureProps.width
       ? '…'
@@ -46,7 +41,7 @@ export default function EllipsisAxisTick({ maxLines = 2, payload, ...rest }) {
           ...measureProps,
           children: tempText + tempSuffix,
         },
-        true
+        true,
       );
       biggestLine = wordsByLines.reduce((a, b) => (a.width > b.width ? a : b));
     }

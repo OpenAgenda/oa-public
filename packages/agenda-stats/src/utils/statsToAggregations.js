@@ -9,7 +9,7 @@ function completeAggregation(stat) {
 
 export default function statsToAggregations(stats) {
   return stats
-    .map(stat => (stat.aggregation ? completeAggregation(stat) : null))
+    .map((stat) => (stat.aggregation ? completeAggregation(stat) : null))
     .filter(Boolean)
     .flat();
 }

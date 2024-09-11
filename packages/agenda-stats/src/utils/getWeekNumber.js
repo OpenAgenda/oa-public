@@ -1,7 +1,7 @@
 export default function getWeekNumber(date) {
   // Copy date so don't modify original
   const d = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
   );
   // Set to nearest Thursday: current date + 4 - current day number
   // Make Sunday's day number 7

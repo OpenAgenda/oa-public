@@ -17,14 +17,15 @@ function AggregationCharts() {
 
   const { agenda, agendaSchema } = useLayoutData();
 
-  const stats = useSelector(state => state.stats.data, shallowEqual);
-  const query = useSelector(state => state.stats.query);
-  const totalEvents = useSelector(state => state.stats.totalEvents);
-  const editMode = useSelector(state => state.stats.editing);
+  const stats = useSelector((state) => state.stats.data, shallowEqual);
+  const query = useSelector((state) => state.stats.query);
+  const totalEvents = useSelector((state) => state.stats.totalEvents);
+  const editMode = useSelector((state) => state.stats.editing);
 
   const loadStat = useCallback(
-    (statId, getOptions) => dispatch(statsActions.loadStat(agenda, statId, getOptions)),
-    [agenda, dispatch]
+    (statId, getOptions) =>
+      dispatch(statsActions.loadStat(agenda, statId, getOptions)),
+    [agenda, dispatch],
   );
 
   if (!stats) {
@@ -35,14 +36,14 @@ function AggregationCharts() {
 
   let sepCount = 0;
   let chartsFromLastSep = 0;
-  const pushSeparator = stat => {
+  const pushSeparator = (stat) => {
     result.push(
-      <Separator key={`sep-${sepCount}`} stat={stat} editMode={editMode} />
+      <Separator key={`sep-${sepCount}`} stat={stat} editMode={editMode} />,
     );
     sepCount += 1;
     chartsFromLastSep = 0;
   };
-  const pushSeparatorIfNeeded = width => {
+  const pushSeparatorIfNeeded = (width) => {
     if (chartsFromLastSep === 0) {
       return;
     }
@@ -60,7 +61,7 @@ function AggregationCharts() {
     chartsFromLastSep += width;
   };
 
-  stats.forEach(stat => {
+  stats.forEach((stat) => {
     if (stat.separator) {
       pushSeparator(stat);
     }
@@ -90,7 +91,7 @@ function AggregationCharts() {
             loadStat={loadStat}
           />
         </ChartWrapper>,
-        chartWidth
+        chartWidth,
       );
     } else {
       pushChart(
@@ -108,7 +109,7 @@ function AggregationCharts() {
           query={query}
           loadStat={loadStat}
         />,
-        chartWidth
+        chartWidth,
       );
     }
   });
@@ -121,7 +122,7 @@ function AggregationCharts() {
         agendaSchema={agendaSchema}
         stats={stats}
       />,
-      1
+      1,
     );
   }
 

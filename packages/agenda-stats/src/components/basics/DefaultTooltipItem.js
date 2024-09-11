@@ -1,4 +1,3 @@
-import React from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
 import { getLocaleValue } from '@openagenda/intl';
@@ -19,7 +18,7 @@ export default function DefaultTooltipItem({
   const intl = useIntl();
   const label = getLocaleValue(
     getValueByDataKey(entry.payload, dataKey),
-    intl.locale
+    intl.locale,
   );
 
   return (

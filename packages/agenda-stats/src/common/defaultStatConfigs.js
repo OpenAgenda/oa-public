@@ -191,7 +191,7 @@ export default function getDefaultStatConfig(aggType, fieldSchema) {
 export function getStatConfig(stat) {
   const defaultConfig = getDefaultStatConfig(
     stat.aggregation.type,
-    stat.state.fieldSchema
+    stat.state.fieldSchema,
   );
 
   return {
@@ -210,7 +210,7 @@ export function getStatConfig(stat) {
 export function getChartConfig(stat) {
   const defaultConfig = getDefaultStatConfig(
     stat.aggregation.type,
-    stat.state.fieldSchema
+    stat.state.fieldSchema,
   );
 
   return {
