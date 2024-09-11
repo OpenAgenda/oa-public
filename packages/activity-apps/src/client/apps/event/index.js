@@ -1,4 +1,3 @@
-import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 import commonLocales from '@openagenda/common-labels';
@@ -9,13 +8,13 @@ import 'moment/locale/fr';
 
 const locales = mergeLocales(appLocales, commonLocales);
 
-export default function(options) {
-
-  const { lang, activities, config } = Object.assign({
+export default function (options) {
+  const { lang, activities, config } = {
     activities: [],
     config: {},
     lang: 'fr',
-  }, options);
+    ...options,
+  };
 
   return (
     <IntlProvider
@@ -25,17 +24,18 @@ export default function(options) {
       defaultLocale={getSupportedLocale(lang)}
     >
       <div>
-        {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
-          {activities.map(a => (
-            <ActivityItem
-              key={'activity.' + a.id}
-              activity={a}
-              config={config}
-            />
-          ))}
-        </ul>}
+        {activities && activities.length > 0 && (
+          <ul className="list-unstyled activity-list">
+            {activities.map((a) => (
+              <ActivityItem
+                key={`activity.${a.id}`}
+                activity={a}
+                config={config}
+              />
+            ))}
+          </ul>
+        )}
       </div>
     </IntlProvider>
   );
-
 }

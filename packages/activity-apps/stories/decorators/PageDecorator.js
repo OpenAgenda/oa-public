@@ -1,4 +1,4 @@
-export default Story => (
+export default (Story) => (
   <div className="container top-margined">
     <div className="row wsq">
       <div className="col col-sm-3 nav">
@@ -9,7 +9,7 @@ export default Story => (
             </a>
           </li>
           <li className="menu-item js_menu_item js_menu_item_settings_contribution">
-            <a href="#">
+            <a href="#test">
               <span>Contribution</span>
             </a>
           </li>

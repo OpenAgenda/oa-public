@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderRoutes } from 'react-router-config';
 import { IntlProvider } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
@@ -19,9 +18,7 @@ function UserApp({ route }) {
       defaultLocale={getSupportedLocale(lang)}
     >
       <div className="container activity-user top-margined">
-        <div className="wsq">
-          {renderRoutes(route.routes)}
-        </div>
+        <div className="wsq">{renderRoutes(route.routes)}</div>
       </div>
     </IntlProvider>
   );

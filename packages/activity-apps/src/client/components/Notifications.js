@@ -7,29 +7,37 @@ import sessions from '@openagenda/sessions/client';
 import { Spinner, useApiClient } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import commonLocales from '@openagenda/common-labels';
-import notifications from '../../notifications';
+import notificationsConfig from '../../notifications';
 import appLocales from '../../locales-compiled';
 
 const locales = mergeLocales(appLocales, commonLocales);
 
-const ucfirst = s => s[0].toUpperCase() + s.substring(1);
+const ucfirst = (s) => s[0].toUpperCase() + s.substring(1);
 
 const messages = defineMessages({
   viewHistory: {
     id: 'ActivityApps.Notifications.viewHistory',
-    defaultMessage: 'View history'
+    defaultMessage: 'View history',
   },
   noNotif: {
     id: 'ActivityApps.Notifications.noNotif',
-    defaultMessage: 'No notification.'
+    defaultMessage: 'No notification.',
   },
   markAllAsRead: {
     id: 'ActivityApps.Notifications.markAllAsRead',
-    defaultMessage: 'Mark all as read'
+    defaultMessage: 'Mark all as read',
+  },
+  markAsRead: {
+    id: 'ActivityApps.Notifications.markAsRead',
+    defaultMessage: 'Mark as read',
   },
   next: {
     id: 'ActivityApps.Notifications.next',
-    defaultMessage: 'Next'
+    defaultMessage: 'Next',
+  },
+  delete: {
+    id: 'ActivityApps.Notifications.delete',
+    defaultMessage: 'Delete',
   },
 });
 
@@ -68,31 +76,41 @@ function NotificationItem({
   onRead,
 }) {
   const intl = useIntl();
-  const { label, url } = notifications[notification.verb]?.(
-    notification,
-    {
-      intl,
-      config: activitiesConfig[notification.verb],
-      userUid: user.uid,
-      renderHighlight: v => <b>{v}</b>,
-    },
-  );
+  const { label, url } = notificationsConfig[notification.verb]?.(notification, {
+    intl,
+    config: activitiesConfig[notification.verb],
+    userUid: user.uid,
+    renderHighlight: (v) => <b>{v}</b>,
+  }) ?? {};
 
   const date = moment(notification.updatedAt);
 
   return (
-    <a href={url} className={classNames('list-group-item', { read: notification.state === 2 })}>
+    <a
+      href={url}
+      className={classNames('list-group-item', {
+        read: notification.state === 2,
+      })}
+    >
       <div className="pull-right">
-        <button className="btn btn-link remove" onClick={() => onRemove(notification.id)}>
+        <button
+          type="button"
+          className="btn btn-link remove"
+          onClick={() => onRemove(notification.id)}
+          aria-label={intl.formatMessage(messages.delete)}
+        >
           <i className="fa fa-times" aria-hidden="true" />
         </button>
-        <button className="btn btn-link mark-read" onClick={() => onRead(notification.id)}>
+        <button
+          type="button"
+          className="btn btn-link mark-read"
+          onClick={() => onRead(notification.id)}
+          aria-label={intl.formatMessage(messages.markAsRead)}
+        >
           <i className="fa fa-check-circle" aria-hidden="true" />
         </button>
       </div>
-      <div className="notif-item">
-        {label}
-      </div>
+      <div className="notif-item">{label}</div>
       <div className="datetime text-muted">
         {ucfirst(date.locale(intl.locale).fromNow())}
       </div>
@@ -100,12 +118,10 @@ function NotificationItem({
   );
 }
 
-const NotificationsBody = React.forwardRef(function NotificationsBody({
-  user,
-  setCounter,
-  closePanel,
-  activitiesConfig,
-}, ref) {
+const NotificationsBody = React.forwardRef(function NotificationsBody(
+  { user, setCounter, closePanel, activitiesConfig },
+  ref,
+) {
   const intl = useIntl();
   const apiClient = useApiClient();
   const history = useHistory();
@@ -122,25 +138,28 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
 
   const onNext = useCallback(async () => {
     try {
-      const { data } = await apiClient.get(`/notifications/list?fromId=${notifications[notifications.length - 1].id}`);
+      const { data } = await apiClient.get(
+        `/notifications/list?fromId=${notifications[notifications.length - 1].id}`,
+      );
 
-      setNotifications(prev => [...prev, ...data.notifications]);
+      setNotifications((prev) => [...prev, ...data.notifications]);
       setLastPage(data.lastPage);
     } catch (e) {
-      console.log('Can\'t load next notifications', e);
+      console.log("Can't load next notifications", e);
     }
   }, [apiClient, notifications]);
 
   const onReadAll = useCallback(async () => {
     try {
       await apiClient.get('/notifications/mark-all-read');
-      setNotifications(prev => prev.map(n => {
-        n.state = 2;
-        return n;
-      }));
+      setNotifications((prev) =>
+        prev.map((n) => {
+          n.state = 2;
+          return n;
+        }));
       setCounter(0);
     } catch (e) {
-      console.log('Can\'t mark notifications as read', e);
+      console.log("Can't mark notifications as read", e);
     }
   }, [apiClient]);
 
@@ -149,38 +168,47 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
     history.push('/home/activities');
   }, [closePanel, history]);
 
-  const onRemove = useCallback(async id => {
-    try {
-      await apiClient.get(`/notifications/remove/${id}`);
-      const lastId = notifications[notifications.length - 1].id;
-      const { data } = apiClient.get(`/notifications/list?fromId=${lastId}&justOne=1`);
-      setNotifications(prev => [
-        ...prev.filter(v => v.id !== id),
-        ...data.notifications
-      ]);
-    } catch (e) {
-      console.log(`Can\'t remove notifications ${id}`, e);
-    }
-  }, [apiClient, notifications]);
+  const onRemove = useCallback(
+    async (id) => {
+      try {
+        await apiClient.get(`/notifications/remove/${id}`);
+        const lastId = notifications[notifications.length - 1].id;
+        const { data } = apiClient.get(
+          `/notifications/list?fromId=${lastId}&justOne=1`,
+        );
+        setNotifications((prev) => [
+          ...prev.filter((v) => v.id !== id),
+          ...data.notifications,
+        ]);
+      } catch (e) {
+        console.log(`Can't remove notifications ${id}`, e);
+      }
+    },
+    [apiClient, notifications],
+  );
 
-  const onRead = useCallback(async id => {
-    try {
-      await apiClient.get(`/notifications/mark-read/${id}`);
-      setNotifications(prev => prev.map(v => {
-        if (v.id === id) {
-          v.state = 2;
-        }
-        return v;
-      }));
-    } catch (e) {
-      console.log(`Can\'t read notifications ${id}`, e);
-    }
-  }, [apiClient]);
+  const onRead = useCallback(
+    async (id) => {
+      try {
+        await apiClient.get(`/notifications/mark-read/${id}`);
+        setNotifications((prev) =>
+          prev.map((v) => {
+            if (v.id === id) {
+              v.state = 2;
+            }
+            return v;
+          }));
+      } catch (e) {
+        console.log(`Can't read notifications ${id}`, e);
+      }
+    },
+    [apiClient],
+  );
 
   useEffect(() => {
     getNotifications()
       .then(() => setLoading(false))
-      .catch(e => console.log('Can\'t list notifications:', e));
+      .catch((e) => console.log("Can't list notifications:", e));
   }, []);
 
   if (loading) {
@@ -197,6 +225,7 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
         <div className="read-all-item">
           <div className="pull-left">
             <button
+              type="button"
               className="btn btn-link-inline see-activities"
               onClick={onSeeActivities}
             >
@@ -205,6 +234,7 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
           </div>
           <div className="text-right">
             <button
+              type="button"
               className="btn btn-link-inline read-all"
               onClick={onReadAll}
             >
@@ -218,6 +248,7 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
             {intl.formatMessage(messages.noNotif)}
           </div>
           <button
+            type="button"
             className="btn btn-link see-activities center-block"
             onClick={onSeeActivities}
           >
@@ -227,7 +258,7 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
       )}
 
       <div className="list-group">
-        {notifications?.map(notification => (
+        {notifications?.map((notification) => (
           <NotificationItem
             key={notification.id}
             notification={notification}
@@ -241,7 +272,11 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
         {!lastPage ? (
           <div className="list-group-item next-item">
             <div className="text-center">
-              <button className="btn btn-link next" onClick={onNext}>
+              <button
+                type="button"
+                className="btn btn-link next"
+                onClick={onNext}
+              >
                 {intl.formatMessage(messages.next)}
               </button>
             </div>
@@ -291,7 +326,7 @@ export default function Notifications({ user, activitiesConfig, locale }) {
         <button
           type="button"
           className="btn btn-link-inline"
-          onClick={() => setOpen(prev => !prev)}
+          onClick={() => setOpen((prev) => !prev)}
         >
           <i className="fa fa-bell" aria-hidden="true" />
           {counter ? (
@@ -310,4 +345,4 @@ export default function Notifications({ user, activitiesConfig, locale }) {
       </li>
     </IntlProvider>
   );
-};
+}

@@ -32,27 +32,33 @@ function ModalContent({ res }) {
       if (pageIndex === 0) return ['ActivityApps/HistoryModal', res];
 
       // add the cursor to the API endpoint
-      return ['ActivityApps/HistoryModal', res, previousPageData[previousPageData.length - 1].id];
+      return [
+        'ActivityApps/HistoryModal',
+        res,
+        previousPageData[previousPageData.length - 1].id,
+      ];
     },
-    ([_comp, _res, fromId]) => {
-      return fetch(`${res}?${qs.stringify({
-        fromId,
-        withConfig: fromId ? undefined : true
-      })}`)
-        .then(r => {
-          if (r.ok) return r.json();
-          throw new Error('Can\'t list activities');
-        })
-    },
+    ([_comp, _res, fromId]) =>
+      fetch(
+        `${res}?${qs.stringify({
+          fromId,
+          withConfig: fromId ? undefined : true,
+        })}`,
+      ).then((r) => {
+        if (r.ok) return r.json();
+        throw new Error("Can't list activities");
+      }),
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore = isLoadingInitialData
+    || (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.activities?.length === 0;
-  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.activities?.length < PAGE_SIZE);
+  const isReachingEnd = isEmpty
+    || (pages && pages[pages.length - 1]?.activities?.length < PAGE_SIZE);
 
   const { ref } = useInView({
-    onChange: inView => {
+    onChange: (inView) => {
       if (inView && !isReachingEnd && !isLoadingMore) {
         setSize(size + 1).catch(() => null);
       }
@@ -69,7 +75,10 @@ function ModalContent({ res }) {
 
   if (isEmpty) {
     return (
-      <div className="padding-v-md text-center" style={{ position: 'relative' }}>
+      <div
+        className="padding-v-md text-center"
+        style={{ position: 'relative' }}
+      >
         {intl.formatMessage(messages.noActivity)}
       </div>
     );
@@ -78,15 +87,14 @@ function ModalContent({ res }) {
   return (
     <>
       <ul className="list-unstyled activity-list" style={{ padding: '0' }}>
-        {pages.map(
-          page => page.activities.map(activity => (
+        {pages.map((page) =>
+          page.activities.map((activity) => (
             <ActivityItem
               key={activity.id}
               activity={activity}
               config={pages[0].config}
             />
-          )),
-        )}
+          )))}
       </ul>
 
       <div ref={ref} />
@@ -97,15 +105,21 @@ function ModalContent({ res }) {
 export default function HistoryModal({ trigger: Trigger, res, modalTitle }) {
   const activitiesModal = useModal();
 
-  const openModal = useCallback(e => {
-    e?.stopPropagation?.(); // needed in admin locations
-    activitiesModal.open();
-  }, [activitiesModal]);
+  const openModal = useCallback(
+    (e) => {
+      e?.stopPropagation?.(); // needed in admin locations
+      activitiesModal.open();
+    },
+    [activitiesModal],
+  );
 
-  const closeModal = useCallback(e => {
-    e?.stopPropagation?.(); // needed in admin locations
-    activitiesModal.close();
-  }, [activitiesModal]);
+  const closeModal = useCallback(
+    (e) => {
+      e?.stopPropagation?.(); // needed in admin locations
+      activitiesModal.close();
+    },
+    [activitiesModal],
+  );
 
   return (
     <>

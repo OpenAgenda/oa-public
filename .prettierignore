@@ -1,4 +1,5 @@
 **/.turbo
 
 packages/abilities/build
+packages/activity-apps/dist
 packages/next/.next
