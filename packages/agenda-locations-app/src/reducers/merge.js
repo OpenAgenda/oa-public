@@ -8,19 +8,19 @@ const SELECT_TARGET = 'agenda-locations/merge/SELECT_TARGET';
 const CLOSE_MERGE = 'agenda-location/merge/CLOSE_MERGE';
 const initialState = false;
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case INITIATE:
       return {
         ...state,
-        step: 1
+        step: 1,
       };
     case INITIATE_FROM_DUPLICATES:
       return {
         ...state,
         step: 1,
         locationUids: action.locationUids,
-        entryPoint: action.entryPoint
+        entryPoint: action.entryPoint,
       };
     case SELECT_LOCATIONS:
       return {
@@ -30,13 +30,13 @@ export default function reducer(state = initialState, action) {
     case VALIDATE_LOCATIONS:
       return {
         ...state,
-        step: 2
+        step: 2,
       };
     case SELECT_TARGET:
       return {
         ...state,
         step: 3,
-        target: action.target
+        target: action.target,
       };
     case CLOSE_MERGE:
       return false;
@@ -55,11 +55,17 @@ export function initiateFromDuplicates(locationUids, entryPoint) {
   return {
     type: INITIATE_FROM_DUPLICATES,
     locationUids,
-    entryPoint
+    entryPoint,
   };
 }
 
-export function disqualifyDuplicates(locationUids, res, agendaSlug, nextLocation, setErrorModal) {
+export function disqualifyDuplicates(
+  locationUids,
+  res,
+  agendaSlug,
+  nextLocation,
+  setErrorModal,
+) {
   return ({ history }, { dispatch }) => {
     fetch(res.disqualifyDuplicates.replace(':agendaSlug', agendaSlug), {
       method: 'POST',
@@ -68,7 +74,7 @@ export function disqualifyDuplicates(locationUids, res, agendaSlug, nextLocation
       },
       body: JSON.stringify({ uids: locationUids }),
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`Invalid status (${response.status})`);
         }
@@ -78,18 +84,17 @@ export function disqualifyDuplicates(locationUids, res, agendaSlug, nextLocation
         dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
         history.push(nextLocation);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         setErrorModal(err);
       });
-
   };
 }
 
 export function selectLocations(locationUids) {
   return {
     type: SELECT_LOCATIONS,
-    locationUids
+    locationUids,
   };
 }
 
@@ -102,13 +107,13 @@ export function validateLocations() {
 export function selectTarget(target) {
   return {
     type: SELECT_TARGET,
-    target
+    target,
   };
 }
 
 export function launchMerge(merge, res, nextLocation, setErrorModal, setSpin) {
   return ({ history }, { dispatch }) => {
-    const merged = merge.locationUids.filter(uid => uid !== merge.target.uid);
+    const merged = merge.locationUids.filter((uid) => uid !== merge.target.uid);
     if (!merge.target) console.log('no target for merge!!');
     if (!merge || !merge.target || !merge.locationUids.length) return;
     setSpin(true);
@@ -123,7 +128,7 @@ export function launchMerge(merge, res, nextLocation, setErrorModal, setSpin) {
       },
       body: JSON.stringify(body),
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -135,7 +140,7 @@ export function launchMerge(merge, res, nextLocation, setErrorModal, setSpin) {
         dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
         dispatch(onGoingActions.initiate('merge'));
       })
-      .catch(err => {
+      .catch((err) => {
         setSpin(false);
         console.log('error', err);
         setErrorModal(err);

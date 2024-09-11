@@ -1,4 +1,4 @@
-{ 
+{
   "eventForm": {
     "detailed": false,
     "confirm": false
@@ -111,7 +111,7 @@
           },
           {
             "id": 60,
-            "label" : "Site patrimonial remarquable"
+            "label": "Site patrimonial remarquable"
           },
           {
             "id": 39,

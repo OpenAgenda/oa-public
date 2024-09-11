@@ -23,14 +23,14 @@ const IncompleteLocationsFilterDropdown = ({
   const hasNullSearch = search.hasNull;
   const intl = useIntl();
   const { fields } = geoFields();
-  const hasHasNull = ad => !!(hasNullSearch || []).find(e => e === ad);
+  const hasHasNull = (ad) => !!(hasNullSearch || []).find((e) => e === ad);
 
   const completedLabel = (ad, countryCode) => {
     if (ad.label === geoFields(countryCode, ad.field)) return intl.formatMessage(messages[ad.label]);
     return `${intl.formatMessage(messages[ad.label])} (${intl.formatMessage(messages[geoFields(countryCode, ad.field)])})`;
   };
 
-  const elem = ad => (
+  const elem = (ad) => (
     <li key={ad.field}>
       <div className="checkbox padding-all-xs padding-h-sm">
         <label htmlFor={ad.field}>
@@ -51,7 +51,7 @@ const IncompleteLocationsFilterDropdown = ({
   return (
     <Dropdown
       className="btn-link-dropdown margin-left-z incomplete-dropdown dropdown open form-group"
-      Trigger={props => (
+      Trigger={(props) => (
         <button type="button" {...props} className="btn-link">
           <span>{intl.formatMessage(messages.incompleteLocations)}</span>&nbsp;
           <span className="caret" style={{ marginTop: '-1px' }} />
@@ -59,7 +59,7 @@ const IncompleteLocationsFilterDropdown = ({
       )}
     >
       <ul className="list-unstyled">
-        {fields.map(element => elem(element))}
+        {fields.map((element) => elem(element))}
       </ul>
     </Dropdown>
   );

@@ -17,12 +17,13 @@ const messages = defineMessages({
     id: 'AgendaLocations.Filters.hasDuplicateCandidates',
     defaultMessage: 'With duplicates candidates',
   },
+  remove: {
+    id: 'AgendaLocations.Filters.removeFilter',
+    defaultMessage: 'Remove filter',
+  },
 });
 
-const ActiveFilters = ({
-  search,
-  removeFilter,
-}) => {
+const ActiveFilters = ({ search, removeFilter }) => {
   const intl = useIntl();
   const getFilterList = () => {
     const res = Object.keys(search).reduce((acc, key) => {
@@ -32,13 +33,13 @@ const ActiveFilters = ({
     return res;
   };
 
-  const getLabel = f => {
+  const getLabel = (f) => {
     const key = Object.keys(f)[0];
     if (key === 'search') return f[key];
     return intl.formatMessage(messages[key]);
   };
 
-  const renderItem = f => {
+  const renderItem = (f) => {
     const key = Object.keys(f)[0];
     return (
       <div className="badge badge-info margin-right-sm" key={key}>
@@ -47,6 +48,7 @@ const ActiveFilters = ({
           className="btn btn-link btn-link-inline margin-left-xs"
           type="button"
           onClick={() => removeFilter(key)}
+          aria-label={intl.formatMessage(messages.removeFilter)}
         >
           <i className="fa fa-times" aria-hidden="true" />
         </button>
@@ -56,7 +58,7 @@ const ActiveFilters = ({
 
   return (
     <div className="margin-v-sm">
-      {getFilterList().map(f => renderItem(f))}
+      {getFilterList().map((f) => renderItem(f))}
     </div>
   );
 };

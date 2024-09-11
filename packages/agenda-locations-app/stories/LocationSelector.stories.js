@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import { Modal } from '@openagenda/react-shared';
-import { Provider } from 'react-redux';
 
 import LocationSelector from '../src/components/LocationSelector';
 
@@ -25,8 +24,10 @@ const res = {
   xlsx: '#xlsx',
   disqualifyDuplicates: '/api/agendas/1/locations/disqualify',
   agendaSearch: '/api/agendas/1/locations/agendas',
-  seeEvents: '/api/agendas/1/locations/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid',
-  suggestChange: 'https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create',
+  seeEvents:
+    '/api/agendas/1/locations/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid',
+  suggestChange:
+    'https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create',
 };
 
 export default {
@@ -45,7 +46,10 @@ export const SelectMode = () => {
       settings={agendaSettings}
       res={res}
       location={location}
-      onChange={(t, l) => { setMode(t); setLocation(l); }}
+      onChange={(t, l) => {
+        setMode(t);
+        setLocation(l);
+      }}
       disableChange={false}
     />
   );
@@ -56,9 +60,7 @@ export const CreateMode = () => {
   const [location, setLocation] = useState(null);
   return (
     <div className="from-group has-error">
-      <Modal
-        classNames={{ overlay: 'popup-overlay big' }}
-      >
+      <Modal classNames={{ overlay: 'popup-overlay big' }}>
         <LocationSelector
           agenda={{ uid: 1 }}
           mode={mode}
@@ -66,7 +68,10 @@ export const CreateMode = () => {
           settings={agendaSettings}
           res={res}
           location={location}
-          onChange={(t, l) => { setMode(t); setLocation(l); }}
+          onChange={(t, l) => {
+            setMode(t);
+            setLocation(l);
+          }}
           detailedInfo
         />
       </Modal>
@@ -85,7 +90,10 @@ export const SearchMode = () => {
       settings={agendaSettings}
       res={res}
       location={location}
-      onChange={(t, l) => { setMode(t); setLocation(l); }}
+      onChange={(t, l) => {
+        setMode(t);
+        setLocation(l);
+      }}
     />
   );
 };
@@ -94,23 +102,24 @@ export const ConfirmMode = () => {
   const [mode, setMode] = useState('confirm');
   const [location, setLocation] = useState(propLocation);
   return (
-    <Modal
-      title={location.name}
-      classNames={{ overlay: 'popup-overlay big' }}
-    >
+    <Modal title={location.name} classNames={{ overlay: 'popup-overlay big' }}>
       <LocationSelector
         mode={mode}
         lang="fr"
         settings={agendaSettings}
         res={{
           get: '/locations/:locationUid.json',
-          suggestChange: '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
-          staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
-
+          suggestChange:
+            '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
+          staticTiles:
+            'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
         }}
         confirmRequired
         location={location}
-        onChange={(t, l) => { setMode(t); setLocation(l); }}
+        onChange={(t, l) => {
+          setMode(t);
+          setLocation(l);
+        }}
       />
     </Modal>
   );

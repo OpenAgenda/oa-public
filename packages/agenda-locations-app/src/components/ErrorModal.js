@@ -18,18 +18,17 @@ const messages = defineMessages({
   },
 });
 
-const ErrorModal = ({
-  close,
-}) => {
+const ErrorModal = ({ close }) => {
   const intl = useIntl();
   return (
-    <Modal
-      onClose={close}
-    >
+    <Modal onClose={close}>
       <div className="text-center">
         <p>{intl.formatMessage(messages.somethingWentWrong)}</p>
         <p>{intl.formatMessage(messages.contactSupportMessage)}</p>
-        <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}`} className="btn btn-primary">
+        <a
+          href={`/support?origin=${encodeURIComponent(window.location.pathname)}`}
+          className="btn btn-primary"
+        >
           <FormattedMessage {...messages.contactSupport} />
         </a>
       </div>

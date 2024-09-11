@@ -14,7 +14,8 @@ import useSettings from '../hooks/useSettings';
 import validate from '../validate';
 import * as onGoingActions from '../reducers/onGoingModal';
 
-const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
+const completedPrefix = (agenda, prefix) =>
+  prefix.replace(':agendaSlug', agenda.slug);
 
 const messages = defineMessages({
   back: {
@@ -38,21 +39,29 @@ const messages = defineMessages({
 const UpdateFormHeader = ({ nq, history }) => (
   <div className="form-head">
     {nq ? (
-      <button type="button" className="btn btn-default" onClick={() => history.push(nq)}>
+      <button
+        type="button"
+        className="btn btn-default"
+        onClick={() => history.push(nq)}
+      >
         <i className="fa fa-angle-left margin-right-sm" />
-        <span><FormattedMessage {...messages.back} /></span>
+        <span>
+          <FormattedMessage {...messages.back} />
+        </span>
       </button>
     ) : null}
-    <h2><FormattedMessage {...messages.title} /></h2>
-    <span className="info"><FormattedMessage {...messages.info} /></span>
+    <h2>
+      <FormattedMessage {...messages.title} />
+    </h2>
+    <span className="info">
+      <FormattedMessage {...messages.info} />
+    </span>
   </div>
 );
 
-const UpdateForm = ({
-  detailedInfo = true,
-}) => {
+const UpdateForm = ({ detailedInfo = true }) => {
   const { lang, agenda } = useLayoutData();
-  const tiles = useSelector(state => state.settings.mapTiles);
+  const tiles = useSelector((state) => state.settings.mapTiles);
   const [errors, setErrors] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
   const [pageSpin, setPageSpin] = useState(false);
@@ -62,28 +71,33 @@ const UpdateForm = ({
   const { settings } = useSettings(agenda);
   const { locationUid } = useParams();
   const historyLocation = useLocation();
-  const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
-  const nq = historyLocation.state || (historyLocation.search ? `${prefix}${historyLocation.search}` : null);
+  const prefix = completedPrefix(
+    agenda,
+    useSelector((state) => state.settings.prefix),
+  );
+  const nq = historyLocation.state
+    || (historyLocation.search ? `${prefix}${historyLocation.search}` : null);
   const { isLoading, data: location } = useQuery(
     ['location', locationUid],
-    () => fetch(res.get.replace(':locationUid', locationUid))
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Invalid status (${response.status})`);
-        }
-        return response.json();
-      })
-      .then(data => data.location)
-      .catch(_err => {
-        setUnfoundLocation(true);
-      }),
+    () =>
+      fetch(res.get.replace(':locationUid', locationUid))
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Invalid status (${response.status})`);
+          }
+          return response.json();
+        })
+        .then((data) => data.location)
+        .catch((_err) => {
+          setUnfoundLocation(true);
+        }),
     { cacheTime: 0 },
   );
   const intl = useIntl();
 
   const dispatch = useDispatch();
 
-  const onSubmit = updatedLocation => {
+  const onSubmit = (updatedLocation) => {
     setPageSpin(true);
     let clean;
     try {
@@ -106,7 +120,7 @@ const UpdateForm = ({
       method: 'POST',
       body: form,
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -114,22 +128,22 @@ const UpdateForm = ({
       })
       .then(() => {
         setPageSpin(false);
-        if (nq) history.push(nq); else history.push(prefix);
+        if (nq) history.push(nq);
+        else history.push(prefix);
         dispatch(onGoingActions.initiate('update'));
         setErrors(false);
-      }).catch(err => {
+      })
+      .catch((err) => {
         setPageSpin(false);
         setErrorModal(err);
       });
   };
 
-  if (settings && (!settings?.access.update.authorized || settings?.access.update.external)) {
-    return (
-      <AccessModal
-        action="edit"
-        close={() => history.push(prefix)}
-      />
-    );
+  if (
+    settings
+    && (!settings?.access.update.authorized || settings?.access.update.external)
+  ) {
+    return <AccessModal action="edit" close={() => history.push(prefix)} />;
   }
 
   if (isLoading) {
@@ -151,10 +165,7 @@ const UpdateForm = ({
   return (
     <>
       {errorModal || unfoundLocation ? (
-        <ErrorModal
-          close={() => setErrorModal(false)}
-          error={errorModal}
-        />
+        <ErrorModal close={() => setErrorModal(false)} error={errorModal} />
       ) : null}
       {!unfoundLocation ? (
         <LocationForm
@@ -165,7 +176,10 @@ const UpdateForm = ({
           locationProp={location}
           detailedInfo={detailedInfo}
           settings={settings}
-          onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
+          onCancel={() => {
+            if (nq) history.push(nq);
+            else history.push(prefix);
+          }}
           tiles={tiles}
           mode="update"
           onSubmit={onSubmit}

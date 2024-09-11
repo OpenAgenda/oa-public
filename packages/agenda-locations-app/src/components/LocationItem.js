@@ -2,6 +2,7 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal';
 import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries';
+import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
 
 const getLabels = makeLabelGetter(countries);
 
@@ -40,11 +41,13 @@ const messages = defineMessages({
   },
   seeEvents: {
     id: 'AgendaLocations.LocationItem.seeEvents',
-    defaultMessage: '{count, plural, =0 {nothing} one {1 associated event} other {# associated events}}',
+    defaultMessage:
+      '{count, plural, =0 {nothing} one {1 associated event} other {# associated events}}',
   },
   verifyDuplicates: {
     id: 'AgendaLocations.LocationItem.verifyDuplicates',
-    defaultMessage: '{count, plural, =0 {nothing} one {1 duplicate to verify} other {# duplicates to verify}}',
+    defaultMessage:
+      '{count, plural, =0 {nothing} one {1 duplicate to verify} other {# duplicates to verify}}',
   },
   verifyAndMerge: {
     id: 'AgendaLocations.LocationItem.verifyAndMerge',
@@ -84,12 +87,12 @@ const LocationItem = ({
 }) => {
   const intl = useIntl();
 
-  const myRemove = e => {
+  const myRemove = (e) => {
     e.stopPropagation();
     onRemove(location);
   };
 
-  const myEdit = e => {
+  const myEdit = (e) => {
     e.stopPropagation();
     onEdit(location);
   };
@@ -101,37 +104,30 @@ const LocationItem = ({
 
   const isMergeEntry = () => {
     if (!merge) return false;
-    return (
-      merge?.entryPoint === location.uid
-    );
+    return merge?.entryPoint === location.uid;
   };
 
   const isMergeTarget = () => {
     if (!merge) return false;
-    return (
-      merge?.target?.uid === location.uid
-    );
+    return merge?.target?.uid === location.uid;
   };
 
-  const selectMergeTarget = e => {
+  const selectMergeTarget = (e) => {
     e.stopPropagation();
     goToMergeStep3();
   };
 
-  const goToMergeStep1FromDP = e => {
+  const goToMergeStep1FromDP = (e) => {
     e.stopPropagation();
     goToMergeStep1FromDuplicates();
   };
 
-  const seeEvents = e => {
+  const seeEvents = (e) => {
     e.stopPropagation();
-    window.location.href = seeEventsRes.replace(
-      /:locationUid/g,
-      location.uid,
-    );
+    window.location.href = seeEventsRes.replace(/:locationUid/g, location.uid);
   };
 
-  const mySeeDetails = e => {
+  const mySeeDetails = (e) => {
     e.stopPropagation();
     seeDetails();
   };
@@ -156,7 +152,11 @@ const LocationItem = ({
   const editButton = (
     <button
       type="button"
-      className={!settings.access.update.authorized ? 'btn btn-link disabled action' : 'btn btn-link action'}
+      className={
+        !settings.access.update.authorized
+          ? 'btn btn-link disabled action'
+          : 'btn btn-link action'
+      }
       onClick={myEdit.bind(this)}
     >
       <FormattedMessage {...messages.edit} />
@@ -165,7 +165,11 @@ const LocationItem = ({
   const removeButton = (
     <button
       type="button"
-      className={!settings.access.delete.authorized ? 'btn btn-link text-danger disabled action' : 'btn btn-link text-danger action'}
+      className={
+        !settings.access.delete.authorized
+          ? 'btn btn-link text-danger disabled action'
+          : 'btn btn-link text-danger action'
+      }
       onClick={myRemove}
     >
       <FormattedMessage {...messages.remove} />
@@ -183,28 +187,46 @@ const LocationItem = ({
 
   if (merge && isMergeEntry()) className.push('merge-entry');
   className.push('padding-v-sm');
+
+  const selectHandler = a11yButtonActionHandler(() => onSelect(location));
+
   return (
     <div
+      role="button"
       className={className.join(' ')}
       key={location.uid}
-      onClick={() => onSelect(location)}
+      tabIndex="0"
+      onClick={selectHandler}
+      onKeyPress={selectHandler}
     >
       <div className="col col-xs-10 col-md-auto item-body">
         <div className="title">{location.name}</div>
         <div>{location.address}</div>
         <div className="text-muted">
           {location.department ? location.department : null}
-          {location.region ? (location.department ? ', ' : '') + location.region : null}
-          {country ? (location.department || location.region ? ', ' : '') + country : null}
+          {location.region
+            ? (location.department ? ', ' : '') + location.region
+            : null}
+          {country
+            ? (location.department || location.region ? ', ' : '') + country
+            : null}
         </div>
         <div className="btn-link-group">
           <i
-            className={'indicator'.concat(' ', location.image ? 'fa fa-picture-o margin-right-xs' : 'fa fa-picture-o disabled margin-right-xs')}
+            className={'indicator'.concat(
+              ' ',
+              location.image
+                ? 'fa fa-picture-o margin-right-xs'
+                : 'fa fa-picture-o disabled margin-right-xs',
+            )}
           />
           <i
             className={'indicator'.concat(
               ' ',
-              !(location.description === null || Object.keys(location.description).length === 0)
+              !(
+                location.description === null
+                || Object.keys(location.description).length === 0
+              )
                 ? 'fa fa-file-text-o margin-right-xs'
                 : 'fa fa-file-text-o disabled margin-right-xs',
             )}
@@ -220,7 +242,10 @@ const LocationItem = ({
               className="action btn btn-link"
               onClick={seeEvents}
             >
-              <FormattedMessage values={{ count: location.agendaEventCount }} {...messages.seeEvents} />
+              <FormattedMessage
+                values={{ count: location.agendaEventCount }}
+                {...messages.seeEvents}
+              />
             </button>
           ) : (
             <span className="action text-muted">
@@ -247,25 +272,43 @@ const LocationItem = ({
           {!merge ? editButton : null}
           {!merge ? removeButton : null}
         </div>
-        {location.duplicateCandidates && location.duplicateCandidates.length > 0 ? (
+        {location.duplicateCandidates
+        && location.duplicateCandidates.length > 0 ? (
           <div>
             <span className="badge badge-warning">
-              <FormattedMessage values={{ count: location.duplicateCandidates.length }} {...messages.verifyDuplicates} />
+              <FormattedMessage
+                values={{ count: location.duplicateCandidates.length }}
+                {...messages.verifyDuplicates}
+              />
             </span>
             {!merge ? (
               <button
                 type="button"
-                className={settings.access.merge.authorized ? 'btn btn-link  action' : 'btn btn-link  action disabled'}
+                className={
+                  settings.access.merge.authorized
+                    ? 'btn btn-link  action'
+                    : 'btn btn-link  action disabled'
+                }
                 onClick={goToMergeStep1FromDP}
               >
                 <FormattedMessage {...messages.verifyAndMerge} />
               </button>
             ) : null}
           </div>
-        ) : null}
+          ) : null}
       </div>
-      {merge?.step === 1 ? <div className="col col-xs-2 col-md-1 text-center"> {renderMergeCheckbox()} </div> : null}
-      {merge?.step === 2 && !isMergeTarget() ? <div className="col col-xs-2 col-md-2 padding-v-md text-center"> {selectMergeTargetButton} </div> : null}
+      {merge?.step === 1 ? (
+        <div className="col col-xs-2 col-md-1 text-center">
+          {' '}
+          {renderMergeCheckbox()}{' '}
+        </div>
+      ) : null}
+      {merge?.step === 2 && !isMergeTarget() ? (
+        <div className="col col-xs-2 col-md-2 padding-v-md text-center">
+          {' '}
+          {selectMergeTargetButton}{' '}
+        </div>
+      ) : null}
     </div>
   );
 };

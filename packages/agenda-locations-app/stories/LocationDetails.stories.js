@@ -32,7 +32,7 @@ export const WithSIRET = () => (
   <LocationDetails
     res={{}}
     agenda={agendaFixture}
-    location={produce(locationFixture, draft => {
+    location={produce(locationFixture, (draft) => {
       draft.siret = '12345678901234';
     })}
     lang="fr"

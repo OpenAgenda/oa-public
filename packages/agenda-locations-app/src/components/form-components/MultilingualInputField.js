@@ -16,18 +16,18 @@ const MultilingualInputField = ({
   const classes = ['multilingual-input-field', 'form-group'];
   if (enabled && !enabled.length) classes.push('disable');
 
-  const myOnChange = lang => e => {
+  const myOnChange = (lang) => (e) => {
     const newValue = JSON.parse(JSON.stringify(value));
     newValue[lang] = e.target.value;
     onChange(name, newValue);
   };
 
-  const isEnabled = lang => {
+  const isEnabled = (lang) => {
     if (!utils.isArray(enabled)) return true;
     return enabled.indexOf(lang) !== -1;
   };
 
-  const renderField = lang => {
+  const renderField = (lang) => {
     const completedName = languages.length > 1 ? `${name}_${lang}` : name;
     return (
       <div>
@@ -56,17 +56,16 @@ const MultilingualInputField = ({
     );
   };
 
-  const renderLanguageBlock = lang => {
+  const renderLanguageBlock = (lang) => {
     if (languages.length > 1) {
       return (
         <div className="lang-unit">
           <label htmlFor={lang}>{lang}</label>
-          <div>
-            {renderField(lang)}
-          </div>
+          <div>{renderField(lang)}</div>
         </div>
       );
-    } return renderField(lang);
+    }
+    return renderField(lang);
   };
 
   return (
@@ -74,7 +73,7 @@ const MultilingualInputField = ({
       <label htmlFor={label}>{label || getLabel(name)}</label>
       {info ? <span className="info">{getLabel(info)}</span> : null}
       <ul className="list-unstyled">
-        {languages.map(lang => (
+        {languages.map((lang) => (
           <li key={lang} className={isEnabled(lang) ? '' : 'disabled'}>
             {renderLanguageBlock(lang)}
           </li>

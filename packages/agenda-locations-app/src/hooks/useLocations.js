@@ -4,7 +4,7 @@ import useRes from './useRes';
 
 export default (agenda, page, search) => {
   const res = useRes(agenda);
-  const size = useSelector(state => state.settings.pageSize);
+  const size = useSelector((state) => state.settings.pageSize);
   const from = size * (page - 1);
 
   const { isLoading, error, data } = useQuery(

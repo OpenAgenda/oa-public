@@ -20,7 +20,7 @@ const InputField = ({
   let classNameBis = enabled ? 'form-group' : 'form-group disabled';
   if (groupClassName) classNameBis += ` ${groupClassName}`;
 
-  const myOnChange = e => {
+  const myOnChange = (e) => {
     if (!enabled) return;
 
     setUserHasTyped(true);
@@ -43,14 +43,12 @@ const InputField = ({
       validator(value);
     } catch (errors) {
       return (
-        <p>{ errors.map(error => (
-          <span
-            key={error.code}
-            className="error"
-          >
-            {myGetLabel(error.code, error.values) || 'error'}
-          </span>
-        )) }
+        <p>
+          {errors.map((error) => (
+            <span key={error.code} className="error">
+              {myGetLabel(error.code, error.values) || 'error'}
+            </span>
+          ))}
         </p>
       );
     }
@@ -60,9 +58,7 @@ const InputField = ({
   return (
     <div className={classNameBis}>
       <label htmlFor="label">{myGetLabel(name)}</label>
-      {info && myGetLabel(info)
-        ? <div>{myGetLabel(info)}</div>
-        : null}
+      {info && myGetLabel(info) ? <div>{myGetLabel(info)}</div> : null}
       <div className={className || ''}>
         {type !== 'textarea' ? (
           <input
@@ -72,7 +68,7 @@ const InputField = ({
             value={value || ''}
             onChange={myOnChange}
             disabled={!enabled}
-            onKeyDown={e => onKeyDown(e)}
+            onKeyDown={(e) => onKeyDown(e)}
           />
         ) : (
           <textarea

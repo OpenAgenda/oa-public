@@ -1,4 +1,3 @@
-
 import '@openagenda/bs-templates/compiled/main.css';
 
 import LocationItem from '../src/components/LocationItem';
@@ -12,12 +11,12 @@ const defaultAccess = {
   authorized: true,
   external: false,
   serviceLabel: null,
-  link: null
+  link: null,
 };
 
 export default {
   title: 'LocationItem',
-  decorators: [Providers, ComponentCanvas]
+  decorators: [Providers, ComponentCanvas],
 };
 
 export const test = () => (
@@ -31,8 +30,8 @@ export const test = () => (
         create: defaultAccess,
         update: defaultAccess,
         merge: defaultAccess,
-        delete: defaultAccess
-      }
+        delete: defaultAccess,
+      },
     }}
   />
 );

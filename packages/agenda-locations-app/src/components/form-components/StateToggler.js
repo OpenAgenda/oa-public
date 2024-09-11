@@ -1,4 +1,3 @@
-
 import Switch from 'rc-switch';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
@@ -17,14 +16,16 @@ const StateToggler = ({ locationState, onChange }) => (
   <div className="state">
     <Switch
       checked={locationState === 1}
-      onChange={b => onChange(b ? 1 : 0)}
+      onChange={(b) => onChange(b ? 1 : 0)}
       checkedChildren={<i className="fa fa-check" />}
       unCheckedChildren={<i className="fa fa-bell-o" />}
     />
     <span>
-      {locationState === 1
-        ? <FormattedMessage {...messages.verified} />
-        : <FormattedMessage {...messages.toverify} />}
+      {locationState === 1 ? (
+        <FormattedMessage {...messages.verified} />
+      ) : (
+        <FormattedMessage {...messages.toverify} />
+      )}
     </span>
   </div>
 );

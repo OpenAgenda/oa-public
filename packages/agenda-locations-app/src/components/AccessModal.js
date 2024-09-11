@@ -52,16 +52,13 @@ const actionMap = {
   merge: 'merge',
 };
 
-const isExternal = (data, settings) => settings.access[actionMap[data]].external;
+const isExternal = (data, settings) =>
+  settings.access[actionMap[data]].external;
 const replacer = (tpl, d) => tpl.replace(/\{([^)]+)?\}/g, ($1, $2) => d[$2]);
-const buildActionLink = (settings, data, location) => replacer(settings.access[actionMap[data]].link, location);
+const buildActionLink = (settings, data, location) =>
+  replacer(settings.access[actionMap[data]].link, location);
 
-const AccessModal = ({
-  action,
-  close,
-  settings,
-  location = null,
-}) => {
+const AccessModal = ({ action, close, settings, location = null }) => {
   const intl = useIntl();
   const modalType = isExternal(action, settings) ? 'external' : 'unauthorized';
 
@@ -81,10 +78,7 @@ const AccessModal = ({
     };
 
     return (
-      <Modal
-        title={intl.formatMessage(messages.info)}
-        onClose={onClose}
-      >
+      <Modal title={intl.formatMessage(messages.info)} onClose={onClose}>
         <div>
           <p className="text-center">
             {`${intl.formatMessage(messages.doOn)} ${hostname}.`}
@@ -108,10 +102,7 @@ const AccessModal = ({
   }
 
   return (
-    <Modal
-      title={intl.formatMessage(messages.info)}
-      onClose={close}
-    >
+    <Modal title={intl.formatMessage(messages.info)} onClose={close}>
       <div>
         <p className="text-center">
           {`${intl.formatMessage(messages.cantDo)} ${intl.formatMessage(messages[action])}`}

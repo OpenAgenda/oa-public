@@ -70,7 +70,8 @@ const messages = defineMessages({
   },
   addressPlaceholder: {
     id: 'AgendaLocations.LocationForm.addressPlaceholder',
-    defaultMessage: 'Number Street, City ( example : 82 Boulevard de Clichy, Paris )',
+    defaultMessage:
+      'Number Street, City ( example : 82 Boulevard de Clichy, Paris )',
   },
   links: {
     id: 'AgendaLocations.LocationForm.links',
@@ -78,7 +79,8 @@ const messages = defineMessages({
   },
   linksInfo: {
     id: 'AgendaLocations.LocationForm.linksInfo',
-    defaultMessage: 'Add social media references, or any other link related to the location',
+    defaultMessage:
+      'Add social media references, or any other link related to the location',
   },
   access: {
     id: 'AgendaLocations.LocationForm.access',
@@ -118,7 +120,8 @@ const messages = defineMessages({
   },
   geocodeNoResults: {
     id: 'AgendaLocations.LocationForm.geocodeNoResults',
-    defaultMessage: 'We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed.',
+    defaultMessage:
+      'We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed.',
   },
   extId: {
     id: 'AgendaLocations.LocationForm.extId',
@@ -126,7 +129,8 @@ const messages = defineMessages({
   },
   extIdInfo: {
     id: 'AgendaLocations.LocationForm.extIdInfo',
-    defaultMessage: 'Optionnally, specify a unique identifier for this location',
+    defaultMessage:
+      'Optionnally, specify a unique identifier for this location',
   },
   extIdLink: {
     id: 'AgendaLocations.LocationForm.extIdLink',
@@ -170,7 +174,8 @@ const messages = defineMessages({
   },
   imageRights: {
     id: 'AgendaLocations.LocationForm.imageRights',
-    defaultMessage: 'I accept that the image can be freely used, on the condition of attributing it to the author by quoting his name, and shared under the same conditions.',
+    defaultMessage:
+      'I accept that the image can be freely used, on the condition of attributing it to the author by quoting his name, and shared under the same conditions.',
   },
   siret: {
     id: 'AgendaLocations.LocationForm.siret',
@@ -178,7 +183,8 @@ const messages = defineMessages({
   },
   siretInfo: {
     id: 'AgendaLocations.LocationForm.siretInfo',
-    defaultMessage: 'SIRET number of the main organization hosted by the location',
+    defaultMessage:
+      'SIRET number of the main organization hosted by the location',
   },
   invalidSIRET: {
     id: 'AgendaLocations.LocationForm.invalidSIRET',
@@ -218,7 +224,7 @@ const LocationForm = ({
     setLocation({ ...location, [name]: value });
   };
 
-  const clearRequired = str => {
+  const clearRequired = (str) => {
     if (str.includes('.required')) return str.split('.')[1];
     return str;
   };
@@ -254,20 +260,21 @@ const LocationForm = ({
     return null;
   };
 
-  const myOnCancel = e => {
+  const myOnCancel = (e) => {
     e.preventDefault();
     onCancel(location);
   };
 
   // --  multiLang fcts
-  const getMultilingual = field => {
+  const getMultilingual = (field) => {
     const data = location?.[field];
     const defaultData = {};
     defaultData[lang] = '';
 
     if (data && typeof data === 'object') {
       return data;
-    } if (typeof data === 'string') {
+    }
+    if (typeof data === 'string') {
       defaultData[lang] = data;
       return defaultData;
     }
@@ -283,7 +290,7 @@ const LocationForm = ({
     return languages;
   };
 
-  const onLanguageChange = newLanguages => {
+  const onLanguageChange = (newLanguages) => {
     const currentLanguages = getLanguages();
     // description field serves as ref for language state
     // this should change but as long as its the only multi-l
@@ -292,13 +299,13 @@ const LocationForm = ({
       JSON.stringify(getMultilingual('description')),
     );
 
-    currentLanguages.forEach(l => {
+    currentLanguages.forEach((l) => {
       if (newLanguages.indexOf(l) === -1) {
         delete description[l];
       }
     });
 
-    newLanguages.forEach(l => {
+    newLanguages.forEach((l) => {
       if (currentLanguages.indexOf(l) === -1) {
         description[l] = '';
       }
@@ -314,8 +321,10 @@ const LocationForm = ({
 
   const renderErrors = () => (
     <div className="errors">
-      <label htmlFor="err-submit"><FormattedMessage {...messages[`${mode}SubmitError`]} />:</label>
-      {errors.map(err => {
+      <label htmlFor="err-submit">
+        <FormattedMessage {...messages[`${mode}SubmitError`]} />:
+      </label>
+      {errors.map((err) => {
         const values = {};
         for (const k in err.values) {
           if (Object.prototype.hasOwnProperty.call(err.values, k)) {
@@ -327,14 +336,18 @@ const LocationForm = ({
           return (
             <div key={`err-${err.field}`}>
               <label htmlFor="required">{err.group[lang]}</label>:{' '}
-              <span><FormattedMessage {...messages.required} /></span>
+              <span>
+                <FormattedMessage {...messages.required} />
+              </span>
             </div>
           );
         }
         return (
           <div key={`err-${err.field}`}>
-            <label htmlFor="err-field">{getLabel(err.field) || err.field}</label>:{' '}
-            <span>{getLabel(err.code, values)}</span>
+            <label htmlFor="err-field">
+              {getLabel(err.field) || err.field}
+            </label>
+            : <span>{getLabel(err.code, values)}</span>
           </div>
         );
       })}
@@ -363,7 +376,7 @@ const LocationForm = ({
         <button
           type="button"
           className="btn btn-link"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             setShowExtId(true);
           }}
@@ -380,7 +393,7 @@ const LocationForm = ({
         <ImageInput
           locale={lang}
           input={{
-            onChange: file => onChange('image', file),
+            onChange: (file) => onChange('image', file),
             value: location?.image,
           }}
           info={getLabel('imageInfo')}
@@ -408,18 +421,25 @@ const LocationForm = ({
               id="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
               type="checkbox"
               name="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
-              onChange={() => onChange('imageRightsAreHeld', !location.imageRightsAreHeld)}
+              onChange={() =>
+                onChange('imageRightsAreHeld', !location.imageRightsAreHeld)}
               checked={!!location.imageRightsAreHeld}
             />
             <span className="margin-right-xs">
               {intl.formatMessage(messages.imageRights)}
             </span>
-            <span className="margin-right-xs">{intl.formatMessage(messages.requiredField)}</span>
+            <span className="margin-right-xs">
+              {intl.formatMessage(messages.requiredField)}
+            </span>
             <a
               className="margin-right-xs"
               target="_blank"
               rel="noreferrer"
-              href={lang === 'fr' ? 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr' : 'https://creativecommons.org/licenses/by-sa/4.0/'}
+              href={
+                lang === 'fr'
+                  ? 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr'
+                  : 'https://creativecommons.org/licenses/by-sa/4.0/'
+              }
             >
               {intl.formatMessage(messages.findOutMore)}
             </a>
@@ -445,7 +465,11 @@ const LocationForm = ({
           placeholder="descriptionPlaceholder"
           info="descriptionInfo"
           type="textarea"
-          groupClassName={errors && errors.find(e => e.field === 'description') ? 'has-error' : ''}
+          groupClassName={
+            errors && errors.find((e) => e.field === 'description')
+              ? 'has-error'
+              : ''
+          }
         />
 
         <MultilingualInputField
@@ -458,7 +482,11 @@ const LocationForm = ({
           placeholder="accessPlaceholder"
           info="accessInfo"
           type="textarea"
-          groupClassName={errors && errors.find(e => e.field === 'access') ? 'has-error' : ''}
+          groupClassName={
+            errors && errors.find((e) => e.field === 'access')
+              ? 'has-error'
+              : ''
+          }
         />
       </div>
 
@@ -472,7 +500,9 @@ const LocationForm = ({
         info="phoneInfo"
         placeholder="phonePlaceholder"
         validator={validate.field('phone')}
-        groupClassName={errors && errors.find(e => e.field === 'phone') ? 'has-error' : ''}
+        groupClassName={
+          errors && errors.find((e) => e.field === 'phone') ? 'has-error' : ''
+        }
       />
 
       <InputField
@@ -485,7 +515,9 @@ const LocationForm = ({
         placeholder="websitePlaceholder"
         onChange={onChange}
         validator={validate.field('website')}
-        groupClassName={errors && errors.find(e => e.field === 'website') ? 'has-error' : ''}
+        groupClassName={
+          errors && errors.find((e) => e.field === 'website') ? 'has-error' : ''
+        }
       />
 
       <InputField
@@ -498,7 +530,9 @@ const LocationForm = ({
         placeholder="emailPlaceholder"
         onChange={onChange}
         validator={validate.field('email')}
-        groupClassName={errors && errors.find(e => e.field === 'email') ? 'has-error' : ''}
+        groupClassName={
+          errors && errors.find((e) => e.field === 'email') ? 'has-error' : ''
+        }
       />
       <MultiInputField
         name="links"
@@ -510,22 +544,19 @@ const LocationForm = ({
         lang={lang}
         onChange={onChange}
         validator={validate.field('links')}
-        groupClassName={errors && errors.find(e => e.field === 'links') ? 'has-error' : ''}
+        groupClassName={
+          errors && errors.find((e) => e.field === 'links') ? 'has-error' : ''
+        }
       />
-      {Object.keys(settings).length
-        && settings.tagSet
-        ? (
-          <GroupTagSelector
-            lang={lang}
-            name="tags"
-            set={flattenTagSetLabels(
-              settings.tagSet,
-              lang,
-            )}
-            onChange={onChange}
-            value={location.tags || []}
-          />
-        ) : null}
+      {Object.keys(settings).length && settings.tagSet ? (
+        <GroupTagSelector
+          lang={lang}
+          name="tags"
+          set={flattenTagSetLabels(settings.tagSet, lang)}
+          onChange={onChange}
+          value={location.tags || []}
+        />
+      ) : null}
     </div>
   );
 
@@ -536,7 +567,7 @@ const LocationForm = ({
       {showToggler ? (
         <StateToggler
           locationState={location.state}
-          onChange={state => onChange('state', state)}
+          onChange={(state) => onChange('state', state)}
         />
       ) : null}
 
@@ -551,13 +582,15 @@ const LocationForm = ({
         onChange={onChange}
         validator={validate.field('name')}
         renderButton={false}
-        groupClassName={errors && errors.find(e => e.field === 'name') ? 'has-error' : ''}
+        groupClassName={
+          errors && errors.find((e) => e.field === 'name') ? 'has-error' : ''
+        }
       />
 
       <GeoFieldsAndMap
         location={location}
         lang={lang}
-        onChange={(l => setLocation(l))}
+        onChange={(l) => setLocation(l)}
         getLabel={getLabel}
         validate={validate}
         enableGeocode={enableGeocode}
@@ -589,18 +622,16 @@ const LocationForm = ({
 
       <div className="form-group bottom">
         {cancel || (
-          <button
-            type="button"
-            className="btn btn-link"
-            onClick={myOnCancel}
-          >
-            <span className="text-danger">{intl.formatMessage(messages.cancel)}</span>
+          <button type="button" className="btn btn-link" onClick={myOnCancel}>
+            <span className="text-danger">
+              {intl.formatMessage(messages.cancel)}
+            </span>
           </button>
         )}
         <button
           type="button"
           className="btn btn-primary"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             set();
           }}
@@ -610,9 +641,7 @@ const LocationForm = ({
         </button>
       </div>
 
-      {pageSpin ? (
-        <Spinner page messages={pageSpin.messages} />
-      ) : null}
+      {pageSpin ? <Spinner page messages={pageSpin.messages} /> : null}
     </div>
   );
 };

@@ -28,19 +28,23 @@ const messages = defineMessages({
   },
   infoSelectionFromDP: {
     id: 'AgendaLocations.stepper.infoSelectionFromDP',
-    defaultMessage: 'Check the selection and deselect those who are not duplicates',
+    defaultMessage:
+      'Check the selection and deselect those who are not duplicates',
   },
   Selection: {
     id: 'AgendaLocations.stepper.Selection',
-    defaultMessage: '{count, plural, =0 {no location selected} one {1 location selected} other {# locations selected}}',
+    defaultMessage:
+      '{count, plural, =0 {no location selected} one {1 location selected} other {# locations selected}}',
   },
   infoRefSelection: {
     id: 'AgendaLocations.stepper.infoRefSelection',
-    defaultMessage: 'Select target from your selection, it will be kept after the merge',
+    defaultMessage:
+      'Select target from your selection, it will be kept after the merge',
   },
   infoConfirmation: {
     id: 'AgendaLocations.stepper.infoConfirmation',
-    defaultMessage: 'Merged locations will be deleted and there linked events will be link to the target location',
+    defaultMessage:
+      'Merged locations will be deleted and there linked events will be link to the target location',
   },
   see: {
     id: 'AgendaLocations.stepper.see',
@@ -100,11 +104,20 @@ function MergeStepper({
   const stepInfo = () => {
     if (step === 1 && merge.entryPoint) {
       return (
-        <div> <FormattedMessage {...messages.infoSelectionFromDP} /> <br />
-          <FormattedMessage values={{ count: merge.locationUids.length }} {...messages.Selection} />
+        <div>
+          {' '}
+          <FormattedMessage {...messages.infoSelectionFromDP} /> <br />
+          <FormattedMessage
+            values={{ count: merge.locationUids.length }}
+            {...messages.Selection}
+          />
           <button
             type="button"
-            className={merge.locationUids.length ? 'btn btn-link' : 'btn btn-link disabled'}
+            className={
+              merge.locationUids.length
+                ? 'btn btn-link'
+                : 'btn btn-link disabled'
+            }
             onClick={seeSelection}
           >
             <FormattedMessage {...messages.see} />
@@ -114,11 +127,20 @@ function MergeStepper({
     }
     if (step === 1) {
       return (
-        <div> <FormattedMessage {...messages.infoSelection} /> <br />
-          <FormattedMessage values={{ count: merge?.locationUids?.length || 0 }} {...messages.Selection} />
+        <div>
+          {' '}
+          <FormattedMessage {...messages.infoSelection} /> <br />
+          <FormattedMessage
+            values={{ count: merge?.locationUids?.length || 0 }}
+            {...messages.Selection}
+          />
           <button
             type="button"
-            className={merge?.locationUids?.length ? 'btn btn-link' : 'btn btn-link disabled'}
+            className={
+              merge?.locationUids?.length
+                ? 'btn btn-link'
+                : 'btn btn-link disabled'
+            }
             onClick={seeSelection}
           >
             <FormattedMessage {...messages.see} />
@@ -129,11 +151,20 @@ function MergeStepper({
 
     if (step === 2) {
       return (
-        <div> <FormattedMessage {...messages.infoRefSelection} /> <br />
-          <FormattedMessage values={{ count: merge.locationUids.length }} {...messages.Selection} />
+        <div>
+          {' '}
+          <FormattedMessage {...messages.infoRefSelection} /> <br />
+          <FormattedMessage
+            values={{ count: merge.locationUids.length }}
+            {...messages.Selection}
+          />
           <button
             type="button"
-            className={merge.locationUids.length ? 'btn btn-link' : 'btn btn-link disabled'}
+            className={
+              merge.locationUids.length
+                ? 'btn btn-link'
+                : 'btn btn-link disabled'
+            }
             onClick={() => {
               dispatch(mergeActions.initiate());
             }}
@@ -145,7 +176,9 @@ function MergeStepper({
     }
     if (step === 3) {
       return (
-        <div> <FormattedMessage {...messages.infoConfirmation} /> <br />
+        <div>
+          {' '}
+          <FormattedMessage {...messages.infoConfirmation} /> <br />
           {merge.target.name}
           <button
             type="button"
@@ -155,10 +188,17 @@ function MergeStepper({
             <FormattedMessage {...messages.seeDetails} />
           </button>
           <br />
-          <FormattedMessage values={{ count: merge.locationUids.length }} {...messages.Selection} />
+          <FormattedMessage
+            values={{ count: merge.locationUids.length }}
+            {...messages.Selection}
+          />
           <button
             type="button"
-            className={merge.locationUids.length ? 'btn btn-link' : 'btn btn-link disabled'}
+            className={
+              merge.locationUids.length
+                ? 'btn btn-link'
+                : 'btn btn-link disabled'
+            }
             onClick={() => {
               dispatch(mergeActions.validateLocations());
             }}
@@ -172,17 +212,23 @@ function MergeStepper({
 
   return (
     <div className="info-block margin-bottom-md">
-      <h1 className="text-center margin-bottom-sm"><FormattedMessage {...messages.locationsMerge} /></h1>
+      <h1 className="text-center margin-bottom-sm">
+        <FormattedMessage {...messages.locationsMerge} />
+      </h1>
       <div className="stepper-container margin-bottom-md">
         <div className="stepper gray-bg-lightest">
-          <div className={step === 1 ? 'step active ' : 'step passed'}><FormattedMessage {...messages.duplicatesSelection} /></div>
-          <div className={step2Class}><FormattedMessage {...messages.targetChoice} /></div>
-          <div className={step === 3 ? 'step active ' : 'step'}><FormattedMessage {...messages.confirmation} /></div>
+          <div className={step === 1 ? 'step active ' : 'step passed'}>
+            <FormattedMessage {...messages.duplicatesSelection} />
+          </div>
+          <div className={step2Class}>
+            <FormattedMessage {...messages.targetChoice} />
+          </div>
+          <div className={step === 3 ? 'step active ' : 'step'}>
+            <FormattedMessage {...messages.confirmation} />
+          </div>
         </div>
       </div>
-      <div className="text-center margin-top-sm">
-        {stepInfo()}
-      </div>
+      <div className="text-center margin-top-sm">{stepInfo()}</div>
       <div className="text-center margin-top-sm">
         <button
           type="button"
@@ -203,18 +249,23 @@ function MergeStepper({
         {!(step === 2) ? (
           <button
             type="button"
-            className={step === 1 && (!merge.locationUids || merge.locationUids.length < 2) ? 'btn btn-primary disabled' : 'btn btn-primary'}
+            className={
+              step === 1
+              && (!merge.locationUids || merge.locationUids.length < 2)
+                ? 'btn btn-primary disabled'
+                : 'btn btn-primary'
+            }
             onClick={updateStep}
           >
             {step !== 3 ? <FormattedMessage {...messages.next} /> : null}
-            {step === 1 ? <FormattedMessage {...messages.targetChoice} /> : null}
+            {step === 1 ? (
+              <FormattedMessage {...messages.targetChoice} />
+            ) : null}
             {step === 3 ? <FormattedMessage {...messages.launchMerge} /> : null}
           </button>
         ) : null}
       </div>
-      {pageSpin ? (
-        <Spinner page messages={pageSpin.messages} />
-      ) : null}
+      {pageSpin ? <Spinner page messages={pageSpin.messages} /> : null}
     </div>
   );
 }
