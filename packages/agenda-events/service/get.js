@@ -78,7 +78,7 @@ export default Object.assign(
       && config.interfaces.getSourceAgendas
     ) {
       ae.sourceAgendas = await config.interfaces.getSourceAgendas(
-        (ae.sourcePaths || []).map(p => p[p.length - 1]),
+        (ae.sourcePaths || []).map((p) => p[p.length - 1]),
       );
     }
 

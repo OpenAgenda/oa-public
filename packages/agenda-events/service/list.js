@@ -12,7 +12,7 @@ function _total(client, query) {
 
   buildListQuery.addWheres(k, query);
 
-  return k.count('id as total').then(rows => rows[0].total);
+  return k.count('id as total').then((rows) => rows[0].total);
 }
 
 async function list(service, agendaUid, query, offset, limit, options) {

@@ -182,13 +182,12 @@ export async function from(service, origin, options = {}) {
     }
   }
 
-  const where =
-    typeof origin === 'object'
-      ? {
-          'ra.review_id': origin.agendaId,
-          'ra.event_id': origin.eventId,
-        }
-      : { 'ra.id': origin };
+  const where = typeof origin === 'object'
+    ? {
+      'ra.review_id': origin.agendaId,
+      'ra.event_id': origin.eventId,
+    }
+    : { 'ra.id': origin };
 
   const data = await client('agenda_event')
     .first([
@@ -244,8 +243,8 @@ export async function from(service, origin, options = {}) {
     });
     result.operation = 'create';
   } else if (
-    data &&
-    (_.get(options, 'force') || current.updatedAt < new Date(data.updatedAt))
+    data
+    && (_.get(options, 'force') || current.updatedAt < new Date(data.updatedAt))
   ) {
     result = await update(
       data.agendaUid,

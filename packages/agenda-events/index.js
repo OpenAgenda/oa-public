@@ -14,7 +14,7 @@ import interfacesTask from './tasks/interfaces.js';
 import setSourcePaths from './utils/setSourcePaths.js';
 import states from './iso/states.js';
 
-export default c => {
+export default (c) => {
   const config = {
     queueNames: {
       interfaces: 'agendaEventInterfaces',
@@ -70,7 +70,7 @@ export default c => {
   });
 
   service.exposed = Object.assign(
-    agendaUid => ({
+    (agendaUid) => ({
       list: service.list.bind(null, agendaUid),
       listByLastId: service.listByLastId.bind(null, agendaUid),
       get: service.get.bind(null, agendaUid),

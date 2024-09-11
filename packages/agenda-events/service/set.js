@@ -9,7 +9,7 @@ function _merge(options, operation) {
 
   if (!override) return options;
 
-  const updateObj = _.mapValues(override, v => ({ $set: v }));
+  const updateObj = _.mapValues(override, (v) => ({ $set: v }));
 
   updateObj.$unset = [operation];
 

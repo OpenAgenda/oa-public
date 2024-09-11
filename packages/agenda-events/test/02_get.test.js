@@ -47,18 +47,18 @@ describe('agendaEvents - 02 - functional (server): get', () => {
       })('02_get'),
       interfaces: {
         ...config.interfaces,
-        getMembers: async aes =>
-          aes.map(ae =>
+        getMembers: async (aes) =>
+          aes.map((ae) =>
             _.find(membersFixtures, {
               agendaUid: ae.agendaUid,
               userUid: ae.userUid,
             })),
-        getUsers: async aes =>
+        getUsers: async (aes) =>
           []
             .concat(aes)
-            .map(ae => usersFixtures.find(u => u.uid === ae.userUid)),
-        getSourceAgendas: async sourceAgendaUids =>
-          sourceAgendasFixtures.filter(agenda =>
+            .map((ae) => usersFixtures.find((u) => u.uid === ae.userUid)),
+        getSourceAgendas: async (sourceAgendaUids) =>
+          sourceAgendasFixtures.filter((agenda) =>
             sourceAgendaUids.includes(agenda.uid)),
       },
     });

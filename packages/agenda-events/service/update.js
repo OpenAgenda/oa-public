@@ -39,7 +39,7 @@ export default async (service, agendaUid, eventUid, data, options = {}) => {
     };
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'userUid', 'aggregated'].forEach(f => {
+      ['updatedAt', 'createdAt', 'userUid', 'aggregated'].forEach((f) => {
         if (data[f]) values[f] = data[f];
       });
     }

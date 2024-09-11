@@ -45,15 +45,15 @@ describe('agendaEvents - 01 - functional (server): list', () => {
       })('01_list'),
       interfaces: {
         ...config.interfaces,
-        getMembers: async aes =>
+        getMembers: async (aes) =>
           aes
             .map(({ agendaUid, userUid }) =>
               _.find(membersFixtures, {
                 agendaUid,
                 userUid,
               }))
-            .filter(ae => !!ae),
-        getSourceAgendas: async sourceAgendaUids =>
+            .filter((ae) => !!ae),
+        getSourceAgendas: async (sourceAgendaUids) =>
           sourceAgendasFixtures.filter(({ uid }) =>
             sourceAgendaUids.includes(uid)),
       },
@@ -108,7 +108,7 @@ describe('agendaEvents - 01 - functional (server): list', () => {
       10,
     );
 
-    expect(items.find(ae => ae.eventUid === 22175636).motive).toBe(
+    expect(items.find((ae) => ae.eventUid === 22175636).motive).toBe(
       '╚(ಠ_ಠ)=┐',
     );
   });
