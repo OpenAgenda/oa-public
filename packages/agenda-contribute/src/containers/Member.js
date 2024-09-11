@@ -14,34 +14,30 @@ import steps from '../lib/steps';
 import contributeReducer from '../reducers/contribute';
 import utils from '../lib/utils';
 
-const {
-  replaceWithStep,
-} = utils;
+const { replaceWithStep } = utils;
 
 const log = debug('Member');
 
-export default function Member({
-  agenda,
-  history,
-}) {
+export default function Member({ agenda, history }) {
   log('loading');
 
   const queryClient = useQueryClient();
   const location = useLocation();
   const prefix = usePrefix(agenda);
-  const res = useSelector(state => state.settings.apiRoot + state.res.members);
+  const res = useSelector(
+    (state) => state.settings.apiRoot + state.res.members,
+  );
 
   const dispatch = useDispatch();
 
-  const {
-    detailedAgendaIsLoading,
-    detailedAgenda,
-  } = useDetailedAgenda(agenda.uid);
+  const { detailedAgendaIsLoading, detailedAgenda } = useDetailedAgenda(
+    agenda.uid,
+  );
 
-  const {
-    agendaContextIsLoading,
-    agendaContext,
-  } = useAgendaContext(agenda.uid, 'Member');
+  const { agendaContextIsLoading, agendaContext } = useAgendaContext(
+    agenda.uid,
+    'Member',
+  );
 
   if (!agenda.settings.contribution.useFields) {
     replaceWithStep(history, location, prefix, 'event');
@@ -57,10 +53,7 @@ export default function Member({
   }
 
   return (
-    <CanvasWithStepper
-      mode="create"
-      steps={steps('member', { agenda })}
-    >
+    <CanvasWithStepper mode="create" steps={steps('member', { agenda })}>
       <div className="padding-top-sm">
         <div className="wsq padding-all-md">
           <MemberForm
@@ -68,10 +61,12 @@ export default function Member({
             member={agendaContext?.me?.member}
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {
-              dispatch(contributeReducer.memberSetSuccess({
-                agenda,
-                queryClient,
-              }));
+              dispatch(
+                contributeReducer.memberSetSuccess({
+                  agenda,
+                  queryClient,
+                }),
+              );
             }}
           />
         </div>

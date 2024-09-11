@@ -24,18 +24,32 @@ const messages = defineMessages({
 function AddHeader({ event, fromAgenda, agenda }) {
   const intl = useIntl();
 
-  const {
-    formatMessage: m,
-    locale,
-  } = intl;
+  const { formatMessage: m, locale } = intl;
 
   return (
     <div className="margin-v-lg">
       <h3 className="margin-bottom-md">{m(messages.shareEvent)}</h3>
       <div className="margin-v-md">
-        <p>{m(messages.takeEvent)} <strong>{getEventTitle(event, locale)}</strong></p>
-        <p>{m(messages.fromAgenda)} <a rel="noreferrer" target="_blank" href={`/agendas/${fromAgenda.uid}`}><span>{fromAgenda.title}</span></a></p>
-        <p>{m(messages.toAgenda)} <a rel="noreferrer" target="_blank" href={`/agendas/${agenda.uid}`}><span>{agenda.title}</span></a></p>
+        <p>
+          {m(messages.takeEvent)}{' '}
+          <strong>{getEventTitle(event, locale)}</strong>
+        </p>
+        <p>
+          {m(messages.fromAgenda)}{' '}
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href={`/agendas/${fromAgenda.uid}`}
+          >
+            <span>{fromAgenda.title}</span>
+          </a>
+        </p>
+        <p>
+          {m(messages.toAgenda)}{' '}
+          <a rel="noreferrer" target="_blank" href={`/agendas/${agenda.uid}`}>
+            <span>{agenda.title}</span>
+          </a>
+        </p>
       </div>
     </div>
   );
@@ -52,9 +66,7 @@ function EditHeader({ event }) {
 }
 
 function Header(props) {
-  const {
-    mode,
-  } = props;
+  const { mode } = props;
 
   if (mode === 'share') {
     return <AddHeader {...props} />;
@@ -68,9 +80,7 @@ function Header(props) {
 }
 
 export default function Canvas(props) {
-  const {
-    children,
-  } = props;
+  const { children } = props;
 
   return (
     <div className="container">

@@ -15,28 +15,29 @@ const bareboneEventResponse = require('./barebone.event.json');
 const agendaWithMemberSchema = require('./agenda.withMemberSchema.json');
 
 function getLocation(uid) {
-  return [basicEventResponse.event.location].filter(l => l.uid === parseInt(uid, 10)).pop();
+  return [basicEventResponse.event.location]
+    .filter((l) => l.uid === parseInt(uid, 10))
+    .pop();
 }
 
 const storySets = {};
 
 storySets.ContributorGoesToEventStepAfterMemberFormSubmit = {
   agendaContext: agendaContributorContext,
-  agenda: produce(detailedAgenda, draft => {
+  agenda: produce(detailedAgenda, (draft) => {
     draft.settings.contribution.type = 1;
   }),
   extraProps: {
     lang: 'fr',
-    agenda: produce(detailedAgenda, draft => {
+    agenda: produce(detailedAgenda, (draft) => {
       draft.uid = 1;
       draft.settings.contribution.type = 1;
     }),
   },
 };
 
-
 storySets.MemberIsAdminModAndDataIsIncomplete = {
-  agendaContext: produce(agendaIncompleteContributorContext, draft => {
+  agendaContext: produce(agendaIncompleteContributorContext, (draft) => {
     draft.me.member.role = 'administrator';
   }),
   agenda: detailedAgenda,
@@ -50,7 +51,7 @@ storySets.MemberIsAdminModAndDataIsIncomplete = {
 };
 
 storySets.MemberIsContributorAndDataIsCompleteAndFresh = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: detailedAgenda,
@@ -76,7 +77,7 @@ storySets.MemberIsContributorAndDataIsCompleteButIsOld = {
 };
 
 storySets.MemberDataRequiredAndContributorIsIncomplete = {
-  agendaContext: produce(agendaIncompleteContributorContext, draft => {
+  agendaContext: produce(agendaIncompleteContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: detailedAgenda,
@@ -90,13 +91,13 @@ storySets.MemberDataRequiredAndContributorIsIncomplete = {
 };
 
 storySets.NonMemberOnMembersOnly = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member = null;
   }),
   agenda: detailedAgenda,
   extraProps: {
     lang: 'fr',
-    agenda: produce(agenda, draft => {
+    agenda: produce(agenda, (draft) => {
       draft.uid = 6;
       draft.settings.contribution.type = 2;
     }),
@@ -104,13 +105,13 @@ storySets.NonMemberOnMembersOnly = {
 };
 
 storySets.ClosedAgendaForAdminMods = {
-  agendaContext: produce(agendaIncompleteContributorContext, draft => {
+  agendaContext: produce(agendaIncompleteContributorContext, (draft) => {
     draft.me.member.role = 'administrator';
   }),
   agenda: detailedAgenda,
   extraProps: {
     lang: 'fr',
-    agenda: produce(agenda, draft => {
+    agenda: produce(agenda, (draft) => {
       draft.uid = 7;
       draft.settings.contribution.type = 0;
     }),
@@ -122,7 +123,7 @@ storySets.ClosedAgendaForContributor = {
   agenda: detailedAgenda,
   extraProps: {
     lang: 'fr',
-    agenda: produce(agenda, draft => {
+    agenda: produce(agenda, (draft) => {
       draft.uid = 8;
       draft.settings.contribution.type = 0;
     }),
@@ -143,12 +144,12 @@ storySets.NonMemberIsShownMemberFormOnContributiveAgenda = {
 
 storySets.NonMemberIsShownEventFormOnAgendaNotRequestingMemberInfo = {
   agendaContext: null,
-  agenda: produce(basicAgenda, draft => {
+  agenda: produce(basicAgenda, (draft) => {
     draft.settings.contribution.useFields = false;
   }),
   extraProps: {
     lang: 'fr',
-    agenda: produce(basicAgenda, draft => {
+    agenda: produce(basicAgenda, (draft) => {
       draft.uid = 10;
       draft.settings.contribution.useFields = false;
     }),
@@ -156,7 +157,7 @@ storySets.NonMemberIsShownEventFormOnAgendaNotRequestingMemberInfo = {
 };
 
 storySets.NewEventForm = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
@@ -170,7 +171,7 @@ storySets.NewEventForm = {
 };
 
 storySets.EditEventForm = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
@@ -186,7 +187,7 @@ storySets.EditEventForm = {
 };
 
 storySets.NewEventFormWithDefaults = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
@@ -199,14 +200,16 @@ storySets.NewEventFormWithDefaults = {
   },
 };
 
-const agenda103 = produce(basicDetailedAgenda, draft => {
-  const languagesField = draft.schema.fields.find(f => f.field === 'languages');
+const agenda103 = produce(basicDetailedAgenda, (draft) => {
+  const languagesField = draft.schema.fields.find(
+    (f) => f.field === 'languages',
+  );
   languagesField.default = ['fr', 'en'];
   languagesField.display = true;
   draft.uid = 103;
 });
 storySets.NewEventFormWithTwoLanguageTabsOpened = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: agenda103,
@@ -217,7 +220,7 @@ storySets.NewEventFormWithTwoLanguageTabsOpened = {
 };
 
 storySets.EventCreateLeadsToCompletionStep = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
@@ -231,11 +234,11 @@ storySets.EventCreateLeadsToCompletionStep = {
 };
 
 storySets.EditDraftEventForm = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
-  event: produce(basicEventResponse, draft => {
+  event: produce(basicEventResponse, (draft) => {
     draft.event.draft = true;
   }),
   extraProps: {
@@ -248,12 +251,15 @@ storySets.EditDraftEventForm = {
   eventContext: eventContributorContext,
 };
 
-storySets.EditDraftEventFormFromEditRoute = produce(storySets.EditDraftEventForm, draft => {
-  draft.extraProps.agenda.uid = 105;
-});
+storySets.EditDraftEventFormFromEditRoute = produce(
+  storySets.EditDraftEventForm,
+  (draft) => {
+    draft.extraProps.agenda.uid = 105;
+  },
+);
 
 storySets.AdminEditEventForm = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.role = 'administrator';
     draft.me.authorizations.canChangeState = true;
   }),
@@ -266,13 +272,13 @@ storySets.AdminEditEventForm = {
       uid: 106,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canChangeState = true;
   }),
 };
 
 storySets.EditEventFormByAdminWithoutEditRights = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.role = 'administrator';
     draft.me.authorizations.canEditEvent = false;
     draft.me.authorizations.canChangeState = true;
@@ -286,7 +292,7 @@ storySets.EditEventFormByAdminWithoutEditRights = {
       uid: 107,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canChangeState = true;
     draft.me.authorizations.canEditEvent = false;
   }),
@@ -316,7 +322,7 @@ storySets.EventCreateByDuplicationOrigin = {
 };
 
 storySets.Event502 = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: {
@@ -338,7 +344,7 @@ storySets.Event502 = {
 };
 
 storySets.BasicConfirmation = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
@@ -357,13 +363,13 @@ storySets.BasicConfirmation = {
 };
 
 storySets.CustomMessageConfirmation = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
   extraProps: {
     lang: 'fr',
-    agenda: produce(basicAgenda, draft => {
+    agenda: produce(basicAgenda, (draft) => {
       draft.settings.contribution.messages.complete = 'Un message personnalisé';
       draft.uid = 201;
     }),
@@ -376,7 +382,7 @@ storySets.CustomMessageConfirmation = {
 };
 
 storySets.ConfirmationRedirect = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
@@ -390,7 +396,7 @@ storySets.ConfirmationRedirect = {
 };
 
 storySets.ShareEventForm = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: detailedAgendaWithAdditionalFields,
@@ -405,7 +411,7 @@ storySets.ShareEventForm = {
 storySets.ShareEventFormFromAgenda = {
   agenda: basicDetailedAgenda,
   event: basicEventResponse,
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   extraProps: {
@@ -414,13 +420,13 @@ storySets.ShareEventFormFromAgenda = {
       title: 'Où on va',
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = false;
   }),
 };
 
 storySets.ShareEventFormToConstrainedAgenda = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: detailedAgendaWithMoreConstraints,
@@ -435,7 +441,7 @@ storySets.ShareEventFormToConstrainedAgenda = {
 storySets.ShareEventFormToConstrainedAgendaFromAgenda = {
   agenda: basicDetailedAgenda,
   event: bareboneEventResponse,
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   extraProps: {
@@ -443,13 +449,13 @@ storySets.ShareEventFormToConstrainedAgendaFromAgenda = {
       uid: 5678,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = false;
   }),
 };
 
 storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFields = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
@@ -464,7 +470,7 @@ storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFields = {
 storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFieldsFromAgenda = {
   agenda: basicDetailedAgenda,
   event: bareboneEventResponse,
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   extraProps: {
@@ -472,13 +478,13 @@ storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFieldsFromAgenda = {
       uid: 5679,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = false;
   }),
 };
 
 storySets.EventWasShared = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
@@ -502,7 +508,7 @@ storySets.EventWasShared = {
 storySets.EventWasSharedFromAgenda = {
   agenda: basicDetailedAgenda,
   event: bareboneEventResponse,
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   extraProps: {
@@ -510,13 +516,13 @@ storySets.EventWasSharedFromAgenda = {
       uid: 5680,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = false;
   }),
 };
 
 storySets.ShareEventWithEditionRightsAndAdditionalFields = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: detailedAgendaWithAdditionalFields,
@@ -527,14 +533,14 @@ storySets.ShareEventWithEditionRightsAndAdditionalFields = {
       uid: 304,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = true;
   }),
 };
 storySets.ShareEventWithEditionRightsAndAdditionalFieldsFromAgenda = {
   agenda: basicDetailedAgenda,
   event: bareboneEventResponse,
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   extraProps: {
@@ -542,13 +548,13 @@ storySets.ShareEventWithEditionRightsAndAdditionalFieldsFromAgenda = {
       uid: 5681,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = true;
   }),
 };
 
 storySets.ShareEventWithEditionRightsAndNoAdditionalFields = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: basicDetailedAgenda,
@@ -569,13 +575,13 @@ storySets.ShareEventWithEditionRightsAndNoAdditionalFieldsFromAgenda = {
       uid: 5682,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = true;
   }),
 };
 
 storySets.AdminShareEventWithEditionRightsAndNoAdditionalFields = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
     draft.me.member.role = 'administrator';
     draft.me.authorizations.canChangeState = true;
@@ -598,13 +604,13 @@ storySets.AdminShareEventWithEditionRightsAndNoAdditionalFieldsFromAgenda = {
       uid: 5683,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = true;
   }),
 };
 
 storySets.AdminShareAlreadySharedEvent = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
     draft.me.member.role = 'administrator';
     draft.me.authorizations.canChangeState = true;
@@ -628,13 +634,13 @@ storySets.AdminShareAlreadySharedEventFromAgenda = {
       uid: 5684,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = true;
   }),
 };
 
 storySets.ShareIncompleteEventWithEditRights = {
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   agenda: detailedAgendaWithMoreConstraints,
@@ -649,7 +655,7 @@ storySets.ShareIncompleteEventWithEditRights = {
 storySets.ShareIncompleteEventWithEditRightsFromAgenda = {
   agenda: basicDetailedAgenda,
   event: bareboneEventResponse,
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   extraProps: {
@@ -657,7 +663,7 @@ storySets.ShareIncompleteEventWithEditRightsFromAgenda = {
       uid: 5685,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = true;
   }),
 };
@@ -687,11 +693,11 @@ storySets.ShareWithMemberAdditionalFields = {
 };
 
 storySets.ShareWhenNotAMemberFromAgenda = {
-  agenda: produce(basicDetailedAgenda, draft => {
+  agenda: produce(basicDetailedAgenda, (draft) => {
     draft.uid = 5686;
   }),
   event: bareboneEventResponse,
-  agendaContext: produce(agendaContributorContext, draft => {
+  agendaContext: produce(agendaContributorContext, (draft) => {
     draft.me.member.updatedAt = new Date();
   }),
   extraProps: {
@@ -699,16 +705,22 @@ storySets.ShareWhenNotAMemberFromAgenda = {
       uid: 5686,
     },
   },
-  eventContext: produce(eventContributorContext, draft => {
+  eventContext: produce(eventContributorContext, (draft) => {
     draft.me.authorizations.canEditEvent = true;
   }),
 };
 
-module.exports = Object.assign(function getFixtures(agendaUidOrSlug) {
-  return Object.keys(storySets).map(key => storySets[key]).find(set => {
-    if (Number.isNaN(parseInt(agendaUidOrSlug, 10))) {
-      return set.extraProps.agenda.slug === agendaUidOrSlug;
-    }
-    return set.extraProps.agenda.uid === parseInt(agendaUidOrSlug, 10);
-  });
-}, storySets, { getLocation });
+module.exports = Object.assign(
+  function getFixtures(agendaUidOrSlug) {
+    return Object.keys(storySets)
+      .map((key) => storySets[key])
+      .find((set) => {
+        if (Number.isNaN(parseInt(agendaUidOrSlug, 10))) {
+          return set.extraProps.agenda.slug === agendaUidOrSlug;
+        }
+        return set.extraProps.agenda.uid === parseInt(agendaUidOrSlug, 10);
+      });
+  },
+  storySets,
+  { getLocation },
+);

@@ -11,7 +11,8 @@ const messages = defineMessages({
   },
   addedEvent: {
     id: 'AgendaContribute.EventWasSuccessfullyShared.sharedEvent',
-    defaultMessage: 'The event has been added to "{agenda}". It will be reviewed before being published',
+    defaultMessage:
+      'The event has been added to "{agenda}". It will be reviewed before being published',
   },
   goBack: {
     id: 'AgendaContribute.EventWasSuccessfullyShared.goBack',
@@ -23,9 +24,7 @@ const messages = defineMessages({
   },
 });
 
-const {
-  doRedirect,
-} = utils;
+const { doRedirect } = utils;
 
 export default function EventWasSuccessfullyShared({
   event,
@@ -39,30 +38,34 @@ export default function EventWasSuccessfullyShared({
   const m = useIntl().formatMessage;
 
   return (
-    <Canvas
-      mode="share"
-      event={event}
-      fromAgenda={fromAgenda}
-      agenda={agenda}
-    >
+    <Canvas mode="share" event={event} fromAgenda={fromAgenda} agenda={agenda}>
       <div className="padding-all-md wsq text-center">
         <div className="text-center margin-bottom-sm">
-          {m(event.state === 2 ? messages.publishedEvent : messages.addedEvent, {
-            agenda: agenda.title,
-          })}
+          {m(
+            event.state === 2 ? messages.publishedEvent : messages.addedEvent,
+            {
+              agenda: agenda.title,
+            },
+          )}
         </div>
         <div className="text-center">
           <button
             type="button"
             className="btn btn-default margin-h-sm"
-            onClick={() => doRedirect(history, location, fromEventRes, { ignoreURLRedirect: true })}
+            onClick={() =>
+              doRedirect(history, location, fromEventRes, {
+                ignoreURLRedirect: true,
+              })}
           >
             {m(messages.goBack)}
           </button>
           <button
             type="button"
             className="btn btn-primary margin-h-sm"
-            onClick={() => doRedirect(history, location, toEventRes, { ignoreURLRedirect: true })}
+            onClick={() =>
+              doRedirect(history, location, toEventRes, {
+                ignoreURLRedirect: true,
+              })}
           >
             {m(messages.goTo, { agenda: agenda.title })}
           </button>

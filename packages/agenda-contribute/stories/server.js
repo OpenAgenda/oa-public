@@ -29,9 +29,7 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
 });
 
 dev.get('/api/me/agendas/:agendaUid', (req, res) => {
-  const {
-    agendaContext,
-  } = getFixtures(req.params.agendaUid);
+  const { agendaContext } = getFixtures(req.params.agendaUid);
 
   if (!agendaContext) {
     res.status(404).send();
@@ -86,9 +84,7 @@ dev.post('/:agendaSlug/contribute', [
 ]);
 
 dev.post('/:agendaSlug/contribute/event/:eventUid', (req, res) => {
-  const {
-    eventUid,
-  } = req.params;
+  const { eventUid } = req.params;
 
   const statusCode = getFixtures(req.params.agendaSlug)?.postResponseStatusCode ?? 200;
 
@@ -104,13 +100,16 @@ dev.post('/:agendaSlug/contribute/event/:eventUid', (req, res) => {
   res.json({ event: updatedEvent });
 });
 
-dev.post('/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid', (req, res) => {
-  const sharedEvent = {
-    ...getFixtures(req.params.fromAgendaUid).event.event,
-    ...req.body.data ? JSON.parse(req.body.data) : {},
-  };
+dev.post(
+  '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+  (req, res) => {
+    const sharedEvent = {
+      ...getFixtures(req.params.fromAgendaUid).event.event,
+      ...req.body.data ? JSON.parse(req.body.data) : {},
+    };
 
-  res.json({ event: sharedEvent });
-});
+    res.json({ event: sharedEvent });
+  },
+);
 
 module.exports = dev;

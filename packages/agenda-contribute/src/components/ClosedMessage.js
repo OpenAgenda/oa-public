@@ -3,7 +3,8 @@ import { defineMessages, useIntl } from 'react-intl';
 const messages = defineMessages({
   forContributors: {
     id: 'AgendaContribute.ClosedMessage.forContributors',
-    defaultMessage: 'This agenda is not or no longer open for new contributions.',
+    defaultMessage:
+      'This agenda is not or no longer open for new contributions.',
   },
   forAdminModerators: {
     id: 'AgendaContribute.ClosedMessage.forAdminModerators',
@@ -16,15 +17,23 @@ export default ({ memberRole, className }) => {
 
   if (['administrator', 'moderator'].includes(memberRole)) {
     return (
-      <div className={`event-instruction boxed warning padding-all-md ${className ?? ''}`}>
-        <p className="text-center padding-all-z margin-all-z">{m(messages.forAdminModerators)}</p>
+      <div
+        className={`event-instruction boxed warning padding-all-md ${className ?? ''}`}
+      >
+        <p className="text-center padding-all-z margin-all-z">
+          {m(messages.forAdminModerators)}
+        </p>
       </div>
     );
   }
 
   return (
-    <div className={`event-instruction boxed padding-all-md ${className ?? ''}`}>
-      <p className="text-center padding-all-z margin-all-z">{m(messages.forContributors)}</p>
+    <div
+      className={`event-instruction boxed padding-all-md ${className ?? ''}`}
+    >
+      <p className="text-center padding-all-z margin-all-z">
+        {m(messages.forContributors)}
+      </p>
     </div>
   );
 };

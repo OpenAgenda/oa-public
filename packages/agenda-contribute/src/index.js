@@ -1,6 +1,4 @@
-import {
-  createApp
-} from '@openagenda/react-shared';
+import { createApp } from '@openagenda/react-shared';
 import { createLogger } from 'redux-logger';
 
 import getRoutes from './getRoutes';
@@ -21,8 +19,6 @@ export default function contribute(options) {
     apiRoot,
     prefix,
     getRoutes,
-    reduxMiddleware: [
-      loggerMiddleware
-    ]
+    reduxMiddleware: [loggerMiddleware],
   });
 }

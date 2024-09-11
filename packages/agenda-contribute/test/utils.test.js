@@ -2,19 +2,12 @@ import utils from '../src/lib/utils';
 import filterEventDataFixtures from './fixtures/filterEventData.json';
 import filterEventDataFixturesWiths from './fixtures/filterEventDataWiths.json';
 
-const {
-  filterEventData,
-  schemaWithoutEventFields,
-  removeUnduplicatable,
-} = utils;
+const { filterEventData, schemaWithoutEventFields, removeUnduplicatable } = utils;
 
 describe('utils', () => {
   describe('filterEventData', () => {
     test('if event fields are not displayed on app, they are filtered', () => {
-      const {
-        event,
-        schema,
-      } = filterEventDataFixtures;
+      const { event, schema } = filterEventDataFixtures;
 
       const filteredEvent = filterEventData({
         event,
@@ -30,10 +23,7 @@ describe('utils', () => {
     });
 
     test('event fields are not kept if edit event authorization is not given', () => {
-      const {
-        event,
-        schema,
-      } = filterEventDataFixtures;
+      const { event, schema } = filterEventDataFixtures;
 
       const filteredEvent = filterEventData({
         event,
@@ -47,10 +37,7 @@ describe('utils', () => {
     });
 
     test('event field values are provided when linked to a field where authorization is provided', () => {
-      const {
-        event,
-        schema,
-      } = filterEventDataFixturesWiths;
+      const { event, schema } = filterEventDataFixturesWiths;
 
       const filteredEvent = filterEventData({
         event,
@@ -65,50 +52,67 @@ describe('utils', () => {
   });
   describe('schemaWithoutEventFields', () => {
     test('event fields linked to extended fields are included but not enabled', () => {
-      const filtered = schemaWithoutEventFields(filterEventDataFixturesWiths.schema);
+      const filtered = schemaWithoutEventFields(
+        filterEventDataFixturesWiths.schema,
+      );
 
-      expect(filtered.fields.find(f => f.field === 'image').enable).toBe(false);
+      expect(filtered.fields.find((f) => f.field === 'image').enable).toBe(
+        false,
+      );
     });
   });
 
   describe('removeUnduplicatable', () => {
     test('timings are removed from data to be used in duplication context', () => {
-      const duplicatableData = removeUnduplicatable({
-        title: 'Destination agenda',
-      }, {
-        title: 'Source Agenda',
-        schema: { fields: [] },
-      }, {
-        title: 'Event title',
-        timings: [{ begin: 'begin', en: 'end' }],
-      });
+      const duplicatableData = removeUnduplicatable(
+        {
+          title: 'Destination agenda',
+        },
+        {
+          title: 'Source Agenda',
+          schema: { fields: [] },
+        },
+        {
+          title: 'Event title',
+          timings: [{ begin: 'begin', en: 'end' }],
+        },
+      );
 
       expect(duplicatableData.timings).toBeUndefined();
     });
 
     test('registration items linked to specific ticketing services are filtered', () => {
-      const duplicatableData = removeUnduplicatable({
-        title: 'Destination agenda',
-      }, {
-        title: 'Source Agenda',
-        schema: { fields: [] },
-      }, {
-        title: 'Event title',
-        registration: [{
+      const duplicatableData = removeUnduplicatable(
+        {
+          title: 'Destination agenda',
+        },
+        {
+          title: 'Source Agenda',
+          schema: { fields: [] },
+        },
+        {
+          title: 'Event title',
+          registration: [
+            {
+              type: 'link',
+              value: 'https://openagenda.com',
+            },
+            {
+              type: 'link',
+              value: 'https://pass.culture.fr',
+              service: 'passCulture',
+              data: {},
+            },
+          ],
+        },
+      );
+
+      expect(duplicatableData.registration).toEqual([
+        {
           type: 'link',
           value: 'https://openagenda.com',
-        }, {
-          type: 'link',
-          value: 'https://pass.culture.fr',
-          service: 'passCulture',
-          data: {},
-        }],
-      });
-
-      expect(duplicatableData.registration).toEqual([{
-        type: 'link',
-        value: 'https://openagenda.com',
-      }]);
+        },
+      ]);
     });
   });
 });

@@ -12,13 +12,12 @@ const messages = defineMessages({
   },
   showEventFieldsInfo: {
     id: 'AgendaContribute.ShowFullEventForm.showEventFieldsInfo',
-    defaultMessage: 'You have edition rights over the event. Any edition brought to its standard fields (title, description, timings) will be visible anywhere it is published.',
+    defaultMessage:
+      'You have edition rights over the event. Any edition brought to its standard fields (title, description, timings) will be visible anywhere it is published.',
   },
 });
 
-export default function ShowFullEventForm({
-  onShowFullEvent,
-}) {
+export default function ShowFullEventForm({ onShowFullEvent }) {
   const m = useIntl().formatMessage;
 
   return (
@@ -32,7 +31,10 @@ export default function ShowFullEventForm({
         >
           {m(messages.showEventFields)}
         </button>
-        <MoreInfo className="margin-h-xs" content={m(messages.showEventFieldsInfo)} />
+        <MoreInfo
+          className="margin-h-xs"
+          content={m(messages.showEventFieldsInfo)}
+        />
       </div>
     </div>
   );

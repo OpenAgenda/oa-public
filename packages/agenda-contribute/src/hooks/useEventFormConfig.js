@@ -8,24 +8,20 @@ import useDetailedAgenda from './useDetailedAgenda';
 import useAgendaContext from './useAgendaContext';
 
 export default function useEventFormConfig(agenda) {
-  const {
-    locale,
-  } = useIntl();
+  const { locale } = useIntl();
 
-  const res = useSelector(state => state.res);
-  const apiRoot = useSelector(state => state.settings.apiRoot);
-  const files = useSelector(state => state.files);
-  const tiles = useSelector(state => state.tiles);
+  const res = useSelector((state) => state.res);
+  const apiRoot = useSelector((state) => state.settings.apiRoot);
+  const files = useSelector((state) => state.files);
+  const tiles = useSelector((state) => state.tiles);
 
-  const {
-    detailedAgendaIsLoading,
-    detailedAgenda,
-  } = useDetailedAgenda(agenda.uid);
+  const { detailedAgendaIsLoading, detailedAgenda } = useDetailedAgenda(
+    agenda.uid,
+  );
 
-  const {
-    agendaContextIsLoading,
-    agendaContext,
-  } = useAgendaContext(agenda.uid);
+  const { agendaContextIsLoading, agendaContext } = useAgendaContext(
+    agenda.uid,
+  );
 
   if (detailedAgendaIsLoading || agendaContextIsLoading) {
     return {
@@ -37,7 +33,7 @@ export default function useEventFormConfig(agenda) {
 
   if (
     agendaContext?.me?.authorizations?.canChangeState
-    && !detailedAgenda.schema.fields.find(f => f.field === 'state')
+    && !detailedAgenda.schema.fields.find((f) => f.field === 'state')
   ) {
     addStateField(detailedAgenda, locale);
   }

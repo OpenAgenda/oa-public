@@ -17,10 +17,7 @@ import useEventDataForDuplicate from '../hooks/useEventDataForDuplicate';
 
 import contributeReducer from '../reducers/contribute';
 
-const {
-  isContributionType,
-  filterState,
-} = utils;
+const { isContributionType, filterState } = utils;
 
 const log = debug('EventNew');
 
@@ -30,12 +27,8 @@ export default function EventNew({ agenda, history }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const prefix = usePrefix(agenda);
-  const {
-    config,
-    isLoading,
-    agendaContext,
-  } = useEventFormConfig(agenda);
-  const apiRoot = useSelector(state => state.settings.apiRoot);
+  const { config, isLoading, agendaContext } = useEventFormConfig(agenda);
+  const apiRoot = useSelector((state) => state.settings.apiRoot);
 
   const {
     hasReferenceForDuplicate,
@@ -52,9 +45,14 @@ export default function EventNew({ agenda, history }) {
     <CanvasWithStepper
       mode="create"
       steps={steps('event', { agenda })}
-      onSelectStep={step => history.push(`${prefix}/${step}`)}
+      onSelectStep={(step) => history.push(`${prefix}/${step}`)}
     >
-      {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={agendaContext?.me?.member?.role} className="margin-bottom-md" /> : null}
+      {isContributionType(agenda, 'CLOSED') ? (
+        <ClosedMessage
+          memberRole={agendaContext?.me?.member?.role}
+          className="margin-bottom-md"
+        />
+      ) : null}
       <Instructions
         message={agenda?.settings?.contribution?.messages?.instructions}
         className="margin-bottom-lg"
@@ -62,14 +60,19 @@ export default function EventNew({ agenda, history }) {
       <EventNewForm
         location={location}
         res={`${apiRoot}${prefix}${qs.stringify(duplicateOrigin ? { duplicateOrigin } : null, { addQueryPrefix: true })}`}
-        event={filterState(agendaContext, hasReferenceForDuplicate ? referenceData : null)}
+        event={filterState(
+          agendaContext,
+          hasReferenceForDuplicate ? referenceData : null,
+        )}
         history={history}
         config={config}
         onSuccess={(event, response) => {
-          dispatch(contributeReducer.eventCreateSuccess({
-            agenda,
-            response,
-          }));
+          dispatch(
+            contributeReducer.eventCreateSuccess({
+              agenda,
+              response,
+            }),
+          );
         }}
         memberRole={agendaContext?.me?.member?.role}
         onDraftDelete={() => {}}

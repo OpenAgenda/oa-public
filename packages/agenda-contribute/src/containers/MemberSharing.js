@@ -15,43 +15,33 @@ import usePrefix from '../hooks/usePrefix';
 import contributeReducer from '../reducers/contribute';
 import utils from '../lib/utils';
 
-const {
-  replaceWithStep,
-} = utils;
+const { replaceWithStep } = utils;
 
 const log = debug('Member');
 
-export default function MemberSharing({
-  agenda,
-  history,
-}) {
+export default function MemberSharing({ agenda, history }) {
   log('loading');
   const queryClient = useQueryClient();
   const location = useLocation();
   const prefix = usePrefix(agenda);
-  const res = useSelector(state => state.settings.apiRoot + state.res.members);
+  const res = useSelector(
+    (state) => state.settings.apiRoot + state.res.members,
+  );
 
   const dispatch = useDispatch();
 
-  const {
-    agendaContextIsLoading,
-    agendaContext,
-  } = useAgendaContext(agenda.uid, 'Member');
+  const { agendaContextIsLoading, agendaContext } = useAgendaContext(
+    agenda.uid,
+    'Member',
+  );
 
-  const {
-    eventUid,
-    fromAgendaUid,
-  } = useParams();
+  const { eventUid, fromAgendaUid } = useParams();
 
-  const {
-    eventIsLoading,
-    event,
-  } = useEvent(fromAgendaUid, eventUid);
+  const { eventIsLoading, event } = useEvent(fromAgendaUid, eventUid);
 
-  const {
-    detailedAgendaIsLoading,
-    detailedAgenda,
-  } = useDetailedAgenda(agenda.uid);
+  const { detailedAgendaIsLoading, detailedAgenda } = useDetailedAgenda(
+    agenda.uid,
+  );
 
   const {
     detailedAgendaIsLoading: fromAgendaIsLoading,
@@ -63,17 +53,17 @@ export default function MemberSharing({
     return <Loading />;
   }
 
-  if (agendaContextIsLoading || eventIsLoading || fromAgendaIsLoading || detailedAgendaIsLoading) {
+  if (
+    agendaContextIsLoading
+    || eventIsLoading
+    || fromAgendaIsLoading
+    || detailedAgendaIsLoading
+  ) {
     return <Loading />;
   }
 
   return (
-    <Canvas
-      mode="share"
-      event={event}
-      fromAgenda={fromAgenda}
-      agenda={agenda}
-    >
+    <Canvas mode="share" event={event} fromAgenda={fromAgenda} agenda={agenda}>
       <div className="padding-top-sm">
         <div className="wsq padding-all-md">
           <MemberForm
@@ -82,13 +72,15 @@ export default function MemberSharing({
             member={agendaContext?.me?.member}
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {
-              dispatch(contributeReducer.memberSetSuccess({
-                agenda,
-                queryClient,
-                mode: 'share',
-                event,
-                fromAgenda,
-              }));
+              dispatch(
+                contributeReducer.memberSetSuccess({
+                  agenda,
+                  queryClient,
+                  mode: 'share',
+                  event,
+                  fromAgenda,
+                }),
+              );
             }}
           />
         </div>

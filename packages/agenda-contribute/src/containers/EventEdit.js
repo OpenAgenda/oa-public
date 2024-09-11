@@ -18,25 +18,22 @@ import Instructions from '../components/Instructions';
 const messages = defineMessages({
   unpublishWarningWithLink: {
     id: 'AgendaContribute.EventEdit.unpublishWarningWithLink',
-    defaultMessage: 'If modified, the event will be unpublished for moderation. You can also suggest minor changes to moderators by writing a message. [Suggest Change]<a></a>',
+    defaultMessage:
+      'If modified, the event will be unpublished for moderation. You can also suggest minor changes to moderators by writing a message. [Suggest Change]<a></a>',
   },
 });
 
 const willModerateOnUpdate = (event, agendaSettings, me) => {
-  if (event.state === 2 && agendaSettings.contribution.moderateOnChangeBy.includes(me.member.role)) return true;
+  if (
+    event.state === 2
+    && agendaSettings.contribution.moderateOnChangeBy.includes(me.member.role)
+  ) return true;
   return false;
 };
 
-const {
-  replaceWithStep,
-  schemaWithoutEventFields,
-  filterEventData,
-} = utils;
+const { replaceWithStep, schemaWithoutEventFields, filterEventData } = utils;
 
-export default function EventEdit({
-  agenda,
-  history,
-}) {
+export default function EventEdit({ agenda, history }) {
   const {
     eventUid, // as a string
   } = useParams();
@@ -46,22 +43,16 @@ export default function EventEdit({
   const location = useLocation();
 
   const prefix = usePrefix(agenda);
-  const apiRoot = useSelector(state => state.settings.apiRoot);
+  const apiRoot = useSelector((state) => state.settings.apiRoot);
 
   const dispatch = useDispatch();
 
-  const {
-    eventIsLoading,
-    event,
-    eventContext,
-  } = useEvent(agenda.uid, eventUid);
+  const { eventIsLoading, event, eventContext } = useEvent(
+    agenda.uid,
+    eventUid,
+  );
 
-  const {
-    config,
-    isLoading,
-    agendaContext,
-    schema,
-  } = useEventFormConfig(agenda);
+  const { config, isLoading, agendaContext, schema } = useEventFormConfig(agenda);
 
   useEffect(() => {
     if (!eventIsLoading && event.draft) {
@@ -74,23 +65,17 @@ export default function EventEdit({
   }
 
   return (
-    <Canvas
-      mode="edit"
-      event={event}
-    >
+    <Canvas mode="edit" event={event}>
       {!eventContext.me.authorizations.canEditEvent ? (
         <div className="wsq padding-v-sm">
-          <RequestEditionRights
-            agenda={agenda}
-            schema={schema}
-            event={event}
-          />
+          <RequestEditionRights agenda={agenda} schema={schema} event={event} />
         </div>
       ) : null}
       {willModerateOnUpdate(event, agenda.settings, eventContext.me) ? (
         <Instructions
           message={m(messages.unpublishWarningWithLink, {
-            a: () => `(/${agenda.slug}/events/${event.uid}/suggest-change/conversation/create)`,
+            a: () =>
+              `(/${agenda.slug}/events/${event.uid}/suggest-change/conversation/create)`,
           })}
           className="margin-bottom-lg"
         />
@@ -101,7 +86,9 @@ export default function EventEdit({
           ...config,
           // when event cannot be edited, schema should exclude event fields
           // but when event cannot be edited but has fields linked to extended fields, schema should load disabled event fields.
-          schema: eventContext.me?.authorizations?.canEditEvent ? schema : schemaWithoutEventFields(schema),
+          schema: eventContext.me?.authorizations?.canEditEvent
+            ? schema
+            : schemaWithoutEventFields(schema),
         }}
         event={filterEventData({
           event,
@@ -113,12 +100,18 @@ export default function EventEdit({
         memberRole={agendaContext?.me?.member?.role}
         canEditEvent={eventContext.me?.authorizations?.canEditEvent}
         onSuccess={(_event, response) => {
-          dispatch(contributeReducer.eventUpdateSuccess({
-            agenda,
-            response,
-          }));
+          dispatch(
+            contributeReducer.eventUpdateSuccess({
+              agenda,
+              response,
+            }),
+          );
         }}
-        useSubmitModal={willModerateOnUpdate(event, agenda.settings, eventContext.me)}
+        useSubmitModal={willModerateOnUpdate(
+          event,
+          agenda.settings,
+          eventContext.me,
+        )}
       />
     </Canvas>
   );

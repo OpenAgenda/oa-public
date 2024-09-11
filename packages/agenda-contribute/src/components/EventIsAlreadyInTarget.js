@@ -6,7 +6,8 @@ import Canvas from './Canvas';
 const messages = defineMessages({
   eventIsInTarget: {
     id: 'AgendaContribute.EventIsAlreadyInTarget.isInTarget',
-    defaultMessage: 'The event is already referenced in the agenda you want to share it to. If you do not see it appear on the main page, it is likely that administrators haven\'t published it yet.',
+    defaultMessage:
+      "The event is already referenced in the agenda you want to share it to. If you do not see it appear on the main page, it is likely that administrators haven't published it yet.",
   },
   goBack: {
     id: 'AgendaContribute.EventIsAlreadyInTarget.goBack',
@@ -14,9 +15,7 @@ const messages = defineMessages({
   },
 });
 
-const {
-  doRedirect,
-} = utils;
+const { doRedirect } = utils;
 
 export default function EventIsAlreadyInTarget({
   event,
@@ -29,12 +28,7 @@ export default function EventIsAlreadyInTarget({
   const m = useIntl().formatMessage;
 
   return (
-    <Canvas
-      mode="share"
-      event={event}
-      fromAgenda={fromAgenda}
-      agenda={agenda}
-    >
+    <Canvas mode="share" event={event} fromAgenda={fromAgenda} agenda={agenda}>
       <div className="padding-all-md wsq text-center">
         <div className="text-center margin-bottom-sm">
           {m(messages.eventIsInTarget)}

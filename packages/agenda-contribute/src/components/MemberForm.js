@@ -8,28 +8,20 @@ const messages = defineMessages({
   },
   subtitle: {
     id: 'AgendaContribute.Member.subtitle',
-    defaultMessage: 'Present yourself to the agenda administrators before starting typing your events',
+    defaultMessage:
+      'Present yourself to the agenda administrators before starting typing your events',
   },
   share: {
     id: 'AgendaContribute.Member.share',
-    defaultMessage: 'This agenda requires some information about yourself to be entered in order to allow event shares',
+    defaultMessage:
+      'This agenda requires some information about yourself to be entered in order to allow event shares',
   },
 });
 
-export default ({
-  member,
-  agenda,
-  res,
-  role,
-  onSuccess,
-  mode = 'create',
-}) => {
+export default ({ member, agenda, res, role, onSuccess, mode = 'create' }) => {
   const intl = useIntl();
 
-  const {
-    formatMessage: m,
-    locale,
-  } = intl;
+  const { formatMessage: m, locale } = intl;
 
   return (
     <div>
@@ -39,9 +31,7 @@ export default ({
           <strong>{m(messages.subtitle)}</strong>
         </>
       ) : null}
-      {mode === 'share' ? (
-        <strong>{m(messages.share)}</strong>
-      ) : null}
+      {mode === 'share' ? <strong>{m(messages.share)}</strong> : null}
 
       <MemberFormComponent
         member={member}

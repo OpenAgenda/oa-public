@@ -14,36 +14,44 @@ const contributionTypes = {
 
 const listLinkedToFields = (fields, schema) => {
   const fieldsWiths = schema.fields
-    .filter(field => !!field.enableWith || !!field.optionalWith)
-    .map(field => {
+    .filter((field) => !!field.enableWith || !!field.optionalWith)
+    .map((field) => {
       const withType = field.enableWith ? 'enableWith' : 'optionalWith';
 
       return {
         field,
-        withName: typeof field[withType] === 'string' ? field[withType] : field[withType].field,
+        withName:
+          typeof field[withType] === 'string'
+            ? field[withType]
+            : field[withType].field,
       };
     });
 
-  return fields.filter(field => fieldsWiths.find(f => f.withName === field.field));
+  return fields.filter((field) =>
+    fieldsWiths.find((f) => f.withName === field.field));
 };
 
-const distributeBySchemaType = (fieldNames, schema) => fieldNames.reduce((distributed, fieldName) => {
-  const field = schema.fields.find(f => f.field === fieldName);
+const distributeBySchemaType = (fieldNames, schema) =>
+  fieldNames.reduce(
+    (distributed, fieldName) => {
+      const field = schema.fields.find((f) => f.field === fieldName);
 
-  if (!field) {
-    distributed.otherFieldNames.push(fieldName);
-  } else if (field.schemaType === 'event') {
-    distributed.standardFields.push(field);
-  } else {
-    distributed.extendedFields.push(field);
-  }
+      if (!field) {
+        distributed.otherFieldNames.push(fieldName);
+      } else if (field.schemaType === 'event') {
+        distributed.standardFields.push(field);
+      } else {
+        distributed.extendedFields.push(field);
+      }
 
-  return distributed;
-}, {
-  standardFields: [],
-  extendedFields: [],
-  otherFieldNames: [],
-});
+      return distributed;
+    },
+    {
+      standardFields: [],
+      extendedFields: [],
+      otherFieldNames: [],
+    },
+  );
 
 function filterState(agendaContext, event) {
   const canChangeState = agendaContext?.me?.authorizations?.canChangeState;
@@ -73,27 +81,32 @@ function filterEventData({
     otherFieldNames: usedOtherFieldNames,
   } = distributeBySchemaType(Object.keys(event), schema);
 
-  const {
-    extendedFields,
-  } = distributeBySchemaType(schema.fields.map(f => f.field), schema);
+  const { extendedFields } = distributeBySchemaType(
+    schema.fields.map((f) => f.field),
+    schema,
+  );
 
   // which standard field values are linked to extended schema
   const standardFieldsLinkedTo = listLinkedToFields(usedStandardFields, {
     fields: extendedFields,
   });
 
-  return produce(event, draft => {
+  return produce(event, (draft) => {
     if (!canChangeState) {
       delete draft.state;
     }
 
     if (!canEditEvent || !displayEventFields) {
       usedStandardFields
-        .filter(field => !standardFieldsLinkedTo.length || !standardFieldsLinkedTo.find(f => f.field === field.field))
-        .forEach(field => {
+        .filter(
+          (field) =>
+            !standardFieldsLinkedTo.length
+            || !standardFieldsLinkedTo.find((f) => f.field === field.field),
+        )
+        .forEach((field) => {
           delete draft[field.field];
         });
-      usedOtherFieldNames.forEach(fieldName => {
+      usedOtherFieldNames.forEach((fieldName) => {
         delete draft[fieldName];
       });
     }
@@ -101,11 +114,8 @@ function filterEventData({
 }
 
 function hasAdditionalFields(schema) {
-  return (
-    schema?.fields ?? []
-  ).filter(
-    field => ['network', 'agenda'].includes(field.schemaType),
-  ).length;
+  return (schema?.fields ?? []).filter((field) =>
+    ['network', 'agenda'].includes(field.schemaType)).length;
 }
 
 function hasAdditionalFieldsWithDependencies(schema) {
@@ -114,8 +124,8 @@ function hasAdditionalFieldsWithDependencies(schema) {
   }
 
   const withs = schema.fields
-    .filter(field => ['network', 'agenda'].includes(field.schemaType))
-    .filter(field => field.enableWith || field.optionalWith);
+    .filter((field) => ['network', 'agenda'].includes(field.schemaType))
+    .filter((field) => field.enableWith || field.optionalWith);
 
   return !!withs.length;
 }
@@ -134,7 +144,10 @@ function isMemberDataRequired(agenda) {
 }
 
 function isContributionType(agenda, code) {
-  return [].concat(code).map(c => contributionTypes[c]).includes(agenda.settings.contribution.type);
+  return []
+    .concat(code)
+    .map((c) => contributionTypes[c])
+    .includes(agenda.settings.contribution.type);
 }
 
 function isMemberRole(member, role) {
@@ -142,9 +155,10 @@ function isMemberRole(member, role) {
 }
 
 function matchStepPath(location, prefix, matchedSteps) {
-  return !![].concat(matchedSteps).map(s => `${prefix}/${s}`)
-    .filter(path => matchPath(location.pathname, { path }))
-    .length;
+  return !![]
+    .concat(matchedSteps)
+    .map((s) => `${prefix}/${s}`)
+    .filter((path) => matchPath(location.pathname, { path })).length;
 }
 
 const evaluateAndRedirect = (history, redirectURL) => {
@@ -159,13 +173,9 @@ const evaluateAndRedirect = (history, redirectURL) => {
 };
 
 function doRedirect(history, location, redirectTo, options = {}) {
-  const {
-    search,
-  } = location;
+  const { search } = location;
 
-  const {
-    ignoreURLRedirect = false,
-  } = options;
+  const { ignoreURLRedirect = false } = options;
 
   const { redirect } = qs.parse(search, { ignoreQueryPrefix: true });
 
@@ -179,20 +189,20 @@ function doRedirect(history, location, redirectTo, options = {}) {
 }
 
 function schemaWithoutEventFields(schema) {
-  const {
-    extendedFields,
-    standardFields,
-  } = distributeBySchemaType(schema.fields.map(f => f.field), schema);
+  const { extendedFields, standardFields } = distributeBySchemaType(
+    schema.fields.map((f) => f.field),
+    schema,
+  );
 
   // standard fields that are linked to from extended schema fields
   const standardFieldsLinkedToNames = listLinkedToFields(standardFields, {
     fields: extendedFields,
-  }).map(f => f.field);
+  }).map((f) => f.field);
 
   return {
     ...schema,
     fields: schema.fields
-      .map(field => {
+      .map((field) => {
         if (field.schemaType !== 'event') {
           return field;
         }
@@ -206,14 +216,14 @@ function schemaWithoutEventFields(schema) {
 
         return false;
       })
-      .filter(f => !!f),
+      .filter((f) => !!f),
   };
 }
 
 function shouldTriggerImmediateShare({ schema, agendaContext }) {
   const role = agendaContext.me?.member?.role;
 
-  if (!hasAdditionalFields(schema) && (role === 'contributor')) {
+  if (!hasAdditionalFields(schema) && role === 'contributor') {
     log('should trigger immediate share');
     return true;
   }
@@ -222,7 +232,11 @@ function shouldTriggerImmediateShare({ schema, agendaContext }) {
   return false;
 }
 
-function shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEventFields }) {
+function shouldShowFullEventFormLink({
+  schema,
+  eventContext,
+  requestedDisplayEventFields,
+}) {
   const canEditEvent = eventContext.me?.authorizations?.canEditEvent;
 
   if (!canEditEvent) {
@@ -231,22 +245,36 @@ function shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEve
   }
 
   if (requestedDisplayEventFields) {
-    log('requested to display event fields, show event fields is no longer needed');
+    log(
+      'requested to display event fields, show event fields is no longer needed',
+    );
     return false;
   }
 
   if (hasAdditionalFieldsWithDependencies(schema)) {
-    log('has additional fields with dependencies, event fields should be shown. link not needed');
+    log(
+      'has additional fields with dependencies, event fields should be shown. link not needed',
+    );
     return false;
   }
 
   return true;
 }
 
-function shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventFields }) {
+function shouldDisplayEventFields({
+  schema,
+  eventContext,
+  requestedDisplayEventFields,
+}) {
   const canEditEvent = eventContext.me?.authorizations?.canEditEvent;
 
-  if (shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEventFields })) {
+  if (
+    shouldShowFullEventFormLink({
+      schema,
+      eventContext,
+      requestedDisplayEventFields,
+    })
+  ) {
     return false;
   }
   if (hasAdditionalFieldsWithDependencies(schema) && canEditEvent) {
@@ -263,26 +291,34 @@ function removeUnduplicatable(destinationAgenda, agenda, data) {
   }
 
   const unduplicatableFields = [
-    'agenda', 'slug', 'uid', 'fileKey', 'state', 'timings',
+    'agenda',
+    'slug',
+    'uid',
+    'fileKey',
+    'state',
+    'timings',
   ].concat(
     agenda.schema.fields
-      .filter(f => !(f.duplicatable ?? true))
-      .map(f => f.field),
+      .filter((f) => !(f.duplicatable ?? true))
+      .map((f) => f.field),
   );
 
   const locationOriginIsDestinationAgenda = data?.location?.agendaUid === destinationAgenda.uid;
-  const sameLocationSet = !!destinationAgenda?.locationSetUid && (data?.location?.setUid === destinationAgenda?.locationSetUid);
+  const sameLocationSet = !!destinationAgenda?.locationSetUid
+    && data?.location?.setUid === destinationAgenda?.locationSetUid;
 
   if (!locationOriginIsDestinationAgenda && !sameLocationSet) {
     unduplicatableFields.push('location');
   }
 
   return Object.keys(data)
-    .filter(field => !unduplicatableFields.includes(field))
+    .filter((field) => !unduplicatableFields.includes(field))
     .reduce((filtered, field) => {
       if (field === 'registration') {
         return Object.assign(filtered, {
-          registration: (data.registration ?? []).filter(r => r.service === undefined),
+          registration: (data.registration ?? []).filter(
+            (r) => r.service === undefined,
+          ),
         });
       }
       return Object.assign(filtered, {

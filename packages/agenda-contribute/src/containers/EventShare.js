@@ -40,52 +40,41 @@ const log = debug('EventShare');
 export default function EventShare({ agenda, history }) {
   const m = useIntl().formatMessage;
   const location = useLocation();
-  const apiRoot = useSelector(state => state.settings.apiRoot);
-  const sharedEvent = useSelector(state => state.contribute.sharedEvent);
-  const requestedDisplayEventFields = useSelector(state => state.contribute.requestedDisplayEventFieldsInShare);
+  const apiRoot = useSelector((state) => state.settings.apiRoot);
+  const sharedEvent = useSelector((state) => state.contribute.sharedEvent);
+  const requestedDisplayEventFields = useSelector(
+    (state) => state.contribute.requestedDisplayEventFieldsInShare,
+  );
 
   const [reloadedForm, setReloadedForm] = useState(false);
 
   const dispatch = useDispatch();
 
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
 
-  const {
-    eventUid,
+  const { eventUid, fromAgendaUid } = useParams();
+
+  const { eventIsLoading, event, eventContext } = useEvent(
     fromAgendaUid,
-  } = useParams();
+    eventUid,
+  );
 
-  const {
-    eventIsLoading,
-    event,
-    eventContext,
-  } = useEvent(fromAgendaUid, eventUid);
-
-  const {
-    eventIsLoading: eventInTargetIsLoading,
-    event: eventInTarget,
-  } = useEvent(agenda.uid, eventUid);
+  const { eventIsLoading: eventInTargetIsLoading, event: eventInTarget } = useEvent(agenda.uid, eventUid);
 
   const {
     detailedAgendaIsLoading: fromAgendaIsLoading,
     detailedAgenda: fromAgenda,
   } = useDetailedAgenda(fromAgendaUid);
 
-  const {
-    detailedAgendaIsLoading,
-    detailedAgenda,
-  } = useDetailedAgenda(agenda.uid);
+  const { detailedAgendaIsLoading, detailedAgenda } = useDetailedAgenda(
+    agenda.uid,
+  );
 
-  const {
-    agendaContextIsLoading,
-    agendaContext,
-  } = useAgendaContext(agenda.uid);
+  const { agendaContextIsLoading, agendaContext } = useAgendaContext(
+    agenda.uid,
+  );
 
-  const {
-    config,
-    configIsLoading,
-    schema,
-  } = useEventFormConfig(agenda);
+  const { config, configIsLoading, schema } = useEventFormConfig(agenda);
 
   useEffect(() => {
     if (reloadedForm || !requestedDisplayEventFields) {
@@ -96,7 +85,14 @@ export default function EventShare({ agenda, history }) {
     }
   }, [requestedDisplayEventFields, reloadedForm, setReloadedForm]);
 
-  if (eventIsLoading || fromAgendaIsLoading || configIsLoading || agendaContextIsLoading || detailedAgendaIsLoading || eventInTargetIsLoading) {
+  if (
+    eventIsLoading
+    || fromAgendaIsLoading
+    || configIsLoading
+    || agendaContextIsLoading
+    || detailedAgendaIsLoading
+    || eventInTargetIsLoading
+  ) {
     return <Loading />;
   }
 
@@ -140,46 +136,51 @@ export default function EventShare({ agenda, history }) {
     return <Loading />;
   }
 
-  const displayEventFields = shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventFields });
+  const displayEventFields = shouldDisplayEventFields({
+    schema,
+    eventContext,
+    requestedDisplayEventFields,
+  });
 
   const canEditEvent = eventContext?.me?.authorizations?.canEditEvent;
 
   return (
-    <Canvas
-      mode="share"
-      event={event}
-      fromAgenda={fromAgenda}
-      agenda={agenda}
-    >
+    <Canvas mode="share" event={event} fromAgenda={fromAgenda} agenda={agenda}>
       {errors.length ? (
         <ErrorMessage
           canEditEvent={canEditEvent}
           event={event}
           agenda={detailedAgenda}
           onCancel={() => {
-            dispatch(contributeReducer.goBackOrToEvent({ agenda: fromAgenda, event }));
+            dispatch(
+              contributeReducer.goBackOrToEvent({ agenda: fromAgenda, event }),
+            );
           }}
           errors={errors}
-          suggestChangeRes={
-            res.suggestChangeRes
-              .replace(':agendaSlug', fromAgenda.slug)
-              .replace(':eventSlug', event.slug)
-          }
+          suggestChangeRes={res.suggestChangeRes
+            .replace(':agendaSlug', fromAgenda.slug)
+            .replace(':eventSlug', event.slug)}
         />
       ) : null}
-      {shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEventFields }) ? (
+      {shouldShowFullEventFormLink({
+        schema,
+        eventContext,
+        requestedDisplayEventFields,
+      }) ? (
         <ShowFullEventForm
           onShowFullEvent={() => {
             dispatch(contributeReducer.displayEventFieldsInShare());
           }}
         />
-      ) : null}
+        ) : null}
       {canEditEvent || !errors.length ? (
         <EventEditForm
           res={shareRes}
           config={{
             ...config,
-            schema: displayEventFields ? schema : schemaWithoutEventFields(schema),
+            schema: displayEventFields
+              ? schema
+              : schemaWithoutEventFields(schema),
           }}
           memberRole={agendaContext.me?.member?.role}
           event={filterEventData({
@@ -190,7 +191,9 @@ export default function EventShare({ agenda, history }) {
             displayEventFields,
           })}
           onSuccess={(_event, response) => {
-            dispatch(contributeReducer.displayShareSuccess(response.body.event));
+            dispatch(
+              contributeReducer.displayShareSuccess(response.body.event),
+            );
           }}
           saveButtonLabel={m(messages.share)}
         />

@@ -3,33 +3,37 @@ import { useSelector } from 'react-redux';
 
 import useEventContext from './useEventContext';
 
-const validateStatus = status => (status >= 200 && status < 300) || 404;
+const validateStatus = (status) => (status >= 200 && status < 300) || 404;
 
 export default function useEvent(agendaUid, eventUid) {
-  const res = useSelector(state => state.settings.apiRoot + state.res.event.replace(':agendaUid', agendaUid).replace(':eventUid', eventUid));
+  const res = useSelector(
+    (state) =>
+      state.settings.apiRoot
+      + state.res.event
+        .replace(':agendaUid', agendaUid)
+        .replace(':eventUid', eventUid),
+  );
 
-  const {
-    isLoading: eventIsLoading,
-    data: event,
-  } = useQuery(
+  const { isLoading: eventIsLoading, data: event } = useQuery(
     `agenda.${agendaUid}.event.${eventUid}`,
-    () => fetch(res)
-      .then(response => {
-        if (!validateStatus(response.status)) {
-          throw new Error(`Invalid status (${response.status})`);
-        }
-        return response.json();
-      })
-      .then(data => (data.event instanceof Object ? data.event : null)),
+    () =>
+      fetch(res)
+        .then((response) => {
+          if (!validateStatus(response.status)) {
+            throw new Error(`Invalid status (${response.status})`);
+          }
+          return response.json();
+        })
+        .then((data) => (data.event instanceof Object ? data.event : null)),
     {
       staleTime: 1000,
     },
   );
 
-  const {
-    eventContextIsLoading,
-    eventContext,
-  } = useEventContext(agendaUid, eventUid);
+  const { eventContextIsLoading, eventContext } = useEventContext(
+    agendaUid,
+    eventUid,
+  );
 
   if (eventIsLoading || eventContextIsLoading) {
     return {

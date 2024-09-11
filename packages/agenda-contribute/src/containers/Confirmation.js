@@ -15,15 +15,18 @@ import utils from '../lib/utils';
 const messages = defineMessages({
   recapDetailState0: {
     id: 'AgendaContribute.Confirmation.recapDetailState0',
-    defaultMessage: 'Your event has been submitted and is being moderated. You will be notified by email when it will be published.',
+    defaultMessage:
+      'Your event has been submitted and is being moderated. You will be notified by email when it will be published.',
   },
   recapDetailState1: {
     id: 'AgendaContribute.Confirmation.recapDetailState1',
-    defaultMessage: 'Your event has been submitted and is ready to be published. You will be notified as soon as it is.',
+    defaultMessage:
+      'Your event has been submitted and is ready to be published. You will be notified as soon as it is.',
   },
   recapDetailState2: {
     id: 'AgendaContribute.Confirmation.recapDetailState2',
-    defaultMessage: 'Your event has been published and is visible on the agenda.',
+    defaultMessage:
+      'Your event has been published and is visible on the agenda.',
   },
   seeEventAction: {
     id: 'AgendaContribute.Confirmation.seeEventAction',
@@ -47,30 +50,27 @@ const messages = defineMessages({
   },
 });
 
-const {
-  replaceWithStep,
-  doRedirect,
-} = utils;
+const { replaceWithStep, doRedirect } = utils;
 
 const log = debug('Confirmation');
 
 export default function Confirmation({ history, agenda }) {
-  const createdEvent = useSelector(state => state.contribute.createdEvent);
+  const createdEvent = useSelector((state) => state.contribute.createdEvent);
   const prefix = usePrefix(agenda);
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
   const location = useLocation();
 
   const confirmationCustomMessage = agenda.settings?.contribution?.messages?.complete;
 
-  const {
-    formatMessage: m,
-  } = useIntl();
+  const { formatMessage: m } = useIntl();
 
   useEffect(() => {
     if (createdEvent) {
       return;
     }
-    log('  Attempting to reach confirmation screen without a created event. Redirecting to event step');
+    log(
+      '  Attempting to reach confirmation screen without a created event. Redirecting to event step',
+    );
     replaceWithStep(history, location, prefix, 'event');
   }, [history, location, prefix, createdEvent]);
 
@@ -82,13 +82,18 @@ export default function Confirmation({ history, agenda }) {
     <CanvasWithStepper
       mode="create"
       steps={steps('confirmation', { agenda })}
-      onSelectStep={step => history.push(`${prefix}/${step}`)}
+      onSelectStep={(step) => history.push(`${prefix}/${step}`)}
     >
       {confirmationCustomMessage ? (
-        <Instructions message={confirmationCustomMessage} className="margin-bottom-lg" />
+        <Instructions
+          message={confirmationCustomMessage}
+          className="margin-bottom-lg"
+        />
       ) : (
         <div className="padding-h-md padding-top-lg padding-bottom-md wsq">
-          <p className="text-center margin-bottom-xs margin-top-sm">{m(messages[`recapDetailState${createdEvent.state}`])}</p>
+          <p className="text-center margin-bottom-xs margin-top-sm">
+            {m(messages[`recapDetailState${createdEvent.state}`])}
+          </p>
         </div>
       )}
       <PassCultureConfirmation
@@ -102,13 +107,14 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-primary btn-block"
-              onClick={() => doRedirect(
-                history,
-                location,
-                res.showEvent
-                  .replace(':agendaUid', agenda.uid)
-                  .replace(':eventUid', createdEvent.uid),
-              )}
+              onClick={() =>
+                doRedirect(
+                  history,
+                  location,
+                  res.showEvent
+                    .replace(':agendaUid', agenda.uid)
+                    .replace(':eventUid', createdEvent.uid),
+                )}
             >
               {m(messages.seeEventAction)}
             </button>
@@ -117,7 +123,10 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => doRedirect(history, location, prefix, { ignoreURLRedirect: true })}
+              onClick={() =>
+                doRedirect(history, location, prefix, {
+                  ignoreURLRedirect: true,
+                })}
             >
               {m(messages.createOtherEvent)}
             </button>
@@ -126,7 +135,13 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => doRedirect(history, location, `${prefix}?eventUid=${createdEvent.uid}&agendaUid=${agenda.uid}`, { ignoreURLRedirect: true })}
+              onClick={() =>
+                doRedirect(
+                  history,
+                  location,
+                  `${prefix}?eventUid=${createdEvent.uid}&agendaUid=${agenda.uid}`,
+                  { ignoreURLRedirect: true },
+                )}
             >
               {m(messages.duplicateEvent)}
             </button>
@@ -135,7 +150,10 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => doRedirect(history, location, res.showMyEvents, { ignoreURLRedirect: true })}
+              onClick={() =>
+                doRedirect(history, location, res.showMyEvents, {
+                  ignoreURLRedirect: true,
+                })}
             >
               {m(messages.showMyEvents)}
             </button>
@@ -144,14 +162,15 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => doRedirect(
-                history,
-                location,
-                res.contactAdministrators
-                  .replace(':agendaUid', agenda.uid)
-                  .replace(':eventUid', createdEvent.uid),
-                { ignoreURLRedirect: true },
-              )}
+              onClick={() =>
+                doRedirect(
+                  history,
+                  location,
+                  res.contactAdministrators
+                    .replace(':agendaUid', agenda.uid)
+                    .replace(':eventUid', createdEvent.uid),
+                  { ignoreURLRedirect: true },
+                )}
             >
               {m(messages.contactAdministrators)}
             </button>

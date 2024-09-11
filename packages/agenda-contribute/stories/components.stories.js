@@ -1,4 +1,3 @@
-import React from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import MemberFormComponent from '../src/components/MemberForm';
 import InstructionsComponent from '../src/components/Instructions';
@@ -16,7 +15,7 @@ const mdbDetailed = JSON.parse(JSON.stringify(immutableMdbDetailed));
 
 export default {
   title: 'Components',
-  decorators: [ProvidersDecorator, ComponentsCanvasDecorator]
+  decorators: [ProvidersDecorator, ComponentsCanvasDecorator],
 };
 
 export const MemberForm = () => (
@@ -25,7 +24,7 @@ export const MemberForm = () => (
       member={null}
       agenda={immutableMdbDetailed}
       res="http://localhost:3000/members/:userUid"
-      onSuccess={member => {
+      onSuccess={(member) => {
         // eslint-disable-next-line no-console
         console.log(member);
       }}
@@ -34,28 +33,30 @@ export const MemberForm = () => (
 );
 
 export const Instructions = () => (
-  <InstructionsComponent
-    message="Some instructions in **Markdown**"
-  />
+  <InstructionsComponent message="Some instructions in **Markdown**" />
 );
 
 export const Stepper = () => (
   <div className="wsq padding-all-md">
     <StepperComponent
-      steps={[{
-        display: true,
-        activable: true,
-        step: 'member'
-      }, {
-        display: true,
-        activable: true,
-        active: true,
-        step: 'event'
-      }, {
-        display: true,
-        activable: false,
-        step: 'confirmation'
-      }]}
+      steps={[
+        {
+          display: true,
+          activable: true,
+          step: 'member',
+        },
+        {
+          display: true,
+          activable: true,
+          active: true,
+          step: 'event',
+        },
+        {
+          display: true,
+          activable: false,
+          step: 'confirmation',
+        },
+      ]}
     />
   </div>
 );
@@ -64,13 +65,13 @@ const eventFormConfig = {
   tiles: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
   fileStore: {
     type: 's3',
-    bucket: 'oadev'
+    bucket: 'oadev',
   },
   locationRes: '/locations',
   lang: 'fr',
   maxFileSize: 200000000,
   authorizations: {
-    canEditEvent: true
+    canEditEvent: true,
   },
   schema: cleanupSchemaForForm(mdbDetailed.schema, { locale: 'fr' }),
 };
@@ -87,9 +88,9 @@ export const EventNewForm = () => (
         locationRes: {},
         maxFileSize: 0,
         fileStore: {},
-        tiles: 'til.es'
+        tiles: 'til.es',
       }}
-      onSuccess={e => {
+      onSuccess={(e) => {
         // eslint-disable-next-line no-console
         console.log(e);
       }}
@@ -103,20 +104,16 @@ export const EventEditForm = () => (
       config={eventFormConfig}
       event={{
         title: { fr: 'Un titre' },
-        description: { fr: 'Une description courte' }
+        description: { fr: 'Une description courte' },
       }}
     />
   </div>
 );
 
 export const ClosedMessageForContributors = () => (
-  <ClosedMessageComponent
-    memberRole="contributor"
-  />
+  <ClosedMessageComponent memberRole="contributor" />
 );
 
 export const ClosedMessageForAdministrators = () => (
-  <ClosedMessageComponent
-    memberRole="administrator"
-  />
+  <ClosedMessageComponent memberRole="administrator" />
 );

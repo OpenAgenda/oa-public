@@ -5,21 +5,22 @@ import { useConstant } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 
 import { locales as memberLocales } from '@openagenda/member-apps';
-import appLocales from '../../src/locales-compiled';
+import * as appLocales from '../../src/locales-compiled';
 
 const locales = mergeLocales(appLocales, memberLocales);
 
 const lang = 'fr';
 
-export default Story => {
+export default (Story) => {
   const queryClient = useConstant(
-    () => new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
         },
-      },
-    }),
+      }),
   );
 
   return (

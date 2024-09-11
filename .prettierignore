@@ -2,4 +2,5 @@
 
 packages/abilities/build
 packages/activity-apps/dist
+packages/agenda-contribute/dist
 packages/next/.next
