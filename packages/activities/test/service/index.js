@@ -1,33 +1,30 @@
-'use strict';
-
 // proxy function for service in a test env. Init does service init as well as fixture loading.
 
 const Service = require('../../src');
 
 module.exports = Service;
 
-module.exports.initAndLoad = async function(config, files, options) {
-  const defautFiles = [
-    'activity',
-    'feed',
-    'feed_activity',
-    'feed_follow',
-    'feed_notification',
-  ];
+const defaultFiles = [
+  'activity',
+  'feed',
+  'feed_activity',
+  'feed_follow',
+  'feed_notification',
+];
 
-  if (arguments.length === 2 && Array.isArray(arguments[1])) {
-    options = { reset: true };
-  } else if (arguments.length === 2) {
-    options = files;
-    files = defautFiles;
-  } else if (arguments.length === 1) {
-    options = { reset: true };
-    files = defautFiles;
+function normalizeParams(config, files, options) {
+  if (Array.isArray(files)) {
+    return { files, options: options || { reset: true } };
   }
+  if (files && typeof files === 'object') {
+    return { files: defaultFiles, options: files };
+  }
+  return { files: defaultFiles, options: { reset: true } };
+}
 
-  const params = Object.assign({
-    reset: true,
-  }, options);
+module.exports.initAndLoad = async (config, files, options) => {
+  const { files: normalizedFiles, options: normalizedOptions } = normalizeParams(config, files, options);
+  const params = { reset: true, ...normalizedOptions };
 
   const { database } = config.knex.client.config.connection;
 
@@ -39,9 +36,9 @@ module.exports.initAndLoad = async function(config, files, options) {
 
   const service = await Service(config);
 
-  for (const file of files) {
+  for (const file of normalizedFiles) {
     await config.knex.seed.run({
-      directory: __dirname + '/seeds',
+      directory: `${__dirname}/seeds`,
       specific: `${file}.js`,
     });
   }

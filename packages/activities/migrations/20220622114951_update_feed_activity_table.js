@@ -1,9 +1,11 @@
-exports.up = knex => {
-  const schemas = knex.client.config.schemas;
+exports.up = (knex) => {
+  const { schemas } = knex.client.config;
 
-  return knex.raw( `ALTER TABLE ${schemas.feed_activity} CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;` );
+  return knex.raw(
+    `ALTER TABLE ${schemas.feed_activity} CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;`,
+  );
 };
 
-exports.down = knex => {
+exports.down = (_knex) => {
   //
 };

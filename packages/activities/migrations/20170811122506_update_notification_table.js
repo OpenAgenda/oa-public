@@ -1,8 +1,7 @@
-exports.up = async knex => {
-
+exports.up = async (knex) => {
   const { schemas } = knex.client.config;
 
-  await knex.schema.alterTable(schemas.feed_notification, t => {
+  await knex.schema.alterTable(schemas.feed_notification, (t) => {
     t.timestamp('updated_at').nullable().defaultTo(null);
   });
 
@@ -11,15 +10,19 @@ exports.up = async knex => {
     .stream();
 
   for await (const item of stream) {
-    console.log(`Update notification n°${item.id}: copy created_at in updated_at`);
+    console.log(
+      `Update notification n°${item.id}: copy created_at in updated_at`,
+    );
 
-    await knex.raw(`UPDATE \`${schemas.feed_notification}\`
+    await knex.raw(
+      `UPDATE \`${schemas.feed_notification}\`
                     SET updated_at = created_at
-                    WHERE id = ?`, [item.id]);
+                    WHERE id = ?`,
+      [item.id],
+    );
   }
-
 };
 
-exports.down = knex => {
+exports.down = (_knex) => {
   //
 };

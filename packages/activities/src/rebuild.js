@@ -1,5 +1,3 @@
-'use strict';
-
 const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('activities/rebuild');
 
@@ -350,10 +348,10 @@ async function checkAgendaFollow(config, report, originFeed, targetFeed) {
           .where('uid', locationUid);
 
         if (
-          !agenda ||
-          agenda.location_set_uid ||
-          location.agenda_id !== agenda.id ||
-          location.deleted
+          !agenda
+          || agenda.location_set_uid
+          || location.agenda_id !== agenda.id
+          || location.deleted
         ) {
           log.debug(
             `Feed agenda ${agendaUid} unfollow feed location ${locationUid}`,

@@ -1,16 +1,12 @@
-exports.up = knex => {
+exports.up = (knex) => {
+  const { schemas } = knex.client.config;
 
-  const schemas = knex.client.config.schemas;
-
-  return knex.schema.alterTable( schemas.activity, t => {
-    t.index( 'target' );
-    t.index( 'object' );
-  } );
-
+  return knex.schema.alterTable(schemas.activity, (t) => {
+    t.index('target');
+    t.index('object');
+  });
 };
 
-exports.down = knex => {
-
+exports.down = (_knex) => {
   //
-
 };

@@ -1,12 +1,8 @@
-'use strict';
-
 const _ = require('lodash');
 const VError = require('@openagenda/verror');
 
 function fnOrValue(fnValue, ...params) {
-  return typeof fnValue === 'function'
-    ? fnValue(...params)
-    : fnValue;
+  return typeof fnValue === 'function' ? fnValue(...params) : fnValue;
 }
 
 function getGroupBy(groupBy, feed, activity) {
@@ -14,23 +10,24 @@ function getGroupBy(groupBy, feed, activity) {
     return null;
   }
 
-  return groupBy
-    .map(v => v + ':' + _.get(activity, v))
-    .join('|');
+  return groupBy.map((v) => `${v}:${_.get(activity, v)}`).join('|');
 }
 
-module.exports = async function addActivity(config, identifiers, activity, options) {
-  const {
-    service,
-    knex,
-    activities,
-    enableNotificationsForFeedTypes
-  } = config;
+module.exports = async function addActivity(
+  config,
+  identifiers,
+  activity,
+  options,
+) {
+  const { service, knex, activities, enableNotificationsForFeedTypes } = config;
   const activityConfig = activities[activity.verb];
 
-  const params = _.merge({
-    excludeIds: [],
-  }, options);
+  const params = _.merge(
+    {
+      excludeIds: [],
+    },
+    options,
+  );
 
   const feed = await service.feed(identifiers).get({ internal: true });
 
@@ -39,11 +36,14 @@ module.exports = async function addActivity(config, identifiers, activity, optio
   }
 
   if (!enableNotificationsForFeedTypes?.includes(feed.entityType)) {
-    throw new VError({
-      meta: {
-        code: 'FEED_REJECTS_NOTIFICATION'
-      }
-    }, `Feed of type '${feed.entityType}' can't have notifications`);
+    throw new VError(
+      {
+        meta: {
+          code: 'FEED_REJECTS_NOTIFICATION',
+        },
+      },
+      `Feed of type '${feed.entityType}' can't have notifications`,
+    );
   }
 
   // The actor is not notified of his actions
@@ -57,17 +57,23 @@ module.exports = async function addActivity(config, identifiers, activity, optio
   }
 
   // notif groups activities
-  const groupBy = fnOrValue(activityConfig.notifications.groupBy, { feed, activity });
+  const groupBy = fnOrValue(activityConfig.notifications.groupBy, {
+    feed,
+    activity,
+  });
   const groupedBy = getGroupBy(groupBy, feed, activity);
 
   const notif = groupedBy
-    ? await service.feed(feed).notifications.get({
-      feedId: feed.id,
-      verb: activity.verb,
-      groupBy: groupedBy,
-      state: 0,
-      sent: 0,
-    }, { excludeIds: params.excludeIds })
+    ? await service.feed(feed).notifications.get(
+      {
+        feedId: feed.id,
+        verb: activity.verb,
+        groupBy: groupedBy,
+        state: 0,
+        sent: 0,
+      },
+      { excludeIds: params.excludeIds },
+    )
     : null;
 
   if (!notif) {
@@ -83,11 +89,15 @@ module.exports = async function addActivity(config, identifiers, activity, optio
       },
     };
 
-    const additionalProps = _.without(groupBy, 'actor', 'object', 'target')
-      .reduce((result, path) => {
-        _.set(result, path, _.get(activity, path));
-        return result;
-      }, {});
+    const additionalProps = _.without(
+      groupBy,
+      'actor',
+      'object',
+      'target',
+    ).reduce((result, path) => {
+      _.set(result, path, _.get(activity, path));
+      return result;
+    }, {});
 
     const [id] = await knex(config.schemas.feed_notification).insert({
       feed_id: feed.id,
@@ -98,36 +108,38 @@ module.exports = async function addActivity(config, identifiers, activity, optio
     });
 
     return service.feed(feed).notifications.get(id);
-  } else {
-    const createNewStoreKey = key => {
-      const values = Array.from(notif.store[key]);
-      const value = activity[key];
-      if (!value || values.includes(value)) {
-        return values;
-      }
-      if (values.length >= 100) {
-        return { 0: values[0], length: 101 };
-      }
-      return values.concat(value);
-    };
+  }
+  const createNewStoreKey = (key) => {
+    const values = Array.from(notif.store[key]);
+    const value = activity[key];
+    if (!value || values.includes(value)) {
+      return values;
+    }
+    if (values.length >= 100) {
+      return { 0: values[0], length: 101 };
+    }
+    return values.concat(value);
+  };
 
-    const store = Object.assign({}, notif.store, {
-      actor: createNewStoreKey('actor'),
-      object: createNewStoreKey('object'),
-      target: createNewStoreKey('target'),
-      labels: {
-        ...notif.store.labels,
-        actor: activity.store?.labels?.actor,
-        object: activity.store?.labels?.object,
-        target: activity.store?.labels?.target,
-      },
-    });
+  const store = {
+    ...notif.store,
+    actor: createNewStoreKey('actor'),
+    object: createNewStoreKey('object'),
+    target: createNewStoreKey('target'),
+    labels: {
+      ...notif.store.labels,
+      actor: activity.store?.labels?.actor,
+      object: activity.store?.labels?.object,
+      target: activity.store?.labels?.target,
+    },
+  };
 
-    await knex(config.schemas.feed_notification).where({ id: notif.id }).update({
+  await knex(config.schemas.feed_notification)
+    .where({ id: notif.id })
+    .update({
       store: JSON.stringify(store),
       updated_at: new Date(),
     });
 
-    return service.feed(feed).notifications.get(notif.id);
-  }
-}
+  return service.feed(feed).notifications.get(notif.id);
+};
