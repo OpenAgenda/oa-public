@@ -1,6 +1,6 @@
 {
-  "back": "Zurück zur Kalender",
-  "contact": "die Administratoren kontaktieren",
+  "title": "Unautorisierter Zugriff",
   "content": "Der Zugriff auf diesen Kalender ist eingeschränkt. Weitere Informationen erhalten Sie vom Administrator des Kalenders.",
-  "title": "Unautorisierter Zugriff"
+  "contact": "die Administratoren kontaktieren",
+  "back": "Zurück zur Kalender"
 }

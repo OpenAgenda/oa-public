@@ -1,8 +1,8 @@
 {
-  "defaultTagGroupInfo": "Causissètz un o mai d'un mot-clau",
+  "tagsTitle": "Mots-claus",
   "defaultTagGroupName": "Grop de mots-claus",
-  "noSelection": "Pas res",
+  "defaultTagGroupInfo": "Causissètz un o mai d'un mot-clau",
   "required": "Requesit.",
   "requiredTagError": "Vos cal causir al mens un element",
-  "tagsTitle": "Mots-claus"
+  "noSelection": "Pas res"
 }

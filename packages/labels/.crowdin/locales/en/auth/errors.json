@@ -1,6 +1,4 @@
 {
-  "noAccountFound": "No account was found",
-  "accountAlreadyActivated": "The account is already activated",
   "incorrectPassword": "This password is incorrect",
   "invalidToken": "Invalid token",
   "userNotFound": "User not found",

@@ -6,6 +6,7 @@
   "passwordTooShort": "Password is too short",
   "fullNameTooLong": "The user name must not exceed 50 characters",
   "passwordNotEqual": "The passwords are not identical",
+  "passwordRequired": "A password must be defined",
   "createAccount": "Create an account",
   "captchaTryAgain": "Try this again",
   "hasAccount": "Have you already used OpenAgenda ?",

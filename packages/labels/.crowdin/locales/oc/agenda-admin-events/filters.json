@@ -1,8 +1,8 @@
 {
-  "contributor": "Contributor·a",
   "filterList": "Filtre",
-  "loading": "Cargament",
+  "title": "Títol",
   "locationName": "Nom de lòc",
   "region": "Region",
-  "title": "Títol"
+  "contributor": "Contributor·a",
+  "loading": "Cargament"
 }

@@ -1,14 +1,14 @@
 {
   "administrator": "Administrator",
+  "moderator": "Moderator",
   "contributor": "Beiträger",
-  "emailDescription": "Du wurdest eingeladen, etwas zum Veranstaltungskalender beizutragen.",
-  "emailInscription": "Registrieren",
-  "emailShowAgenda": "Show Agenda",
-  "emailSignup": "s'inscrire",
+  "reader": "Leser",
   "emailSubject": "Einladung zum Veranstaltungskalender",
   "emailTitle": "Du wurdest eingeladen, etwas zum Veranstaltungskalender %title% beizutragen.",
   "emailTitleForExistantUser": "Du bist jetzt %credential% der Veranstaltungskalender %title% ",
-  "moderator": "Moderator",
-  "newMessage": "Der Veranstaltungskalender %agenda% hat Dir eine Nachricht geschrieben.",
-  "reader": "Leser"
+  "emailInscription": "Registrieren",
+  "emailShowAgenda": "Show Agenda",
+  "emailSignup": "s'inscrire",
+  "emailDescription": "Du wurdest eingeladen, etwas zum Veranstaltungskalender beizutragen.",
+  "newMessage": "Der Veranstaltungskalender %agenda% hat Dir eine Nachricht geschrieben."
 }
