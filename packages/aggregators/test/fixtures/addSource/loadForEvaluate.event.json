@@ -13,17 +13,10 @@
     "fr": "Le champ des soins de support/confort en cancérologie est vaste et diversifié. La conférence 2019 permet de présenter d'autres possibilités d'aides pour les patients atteints de cancer que celles proposées pour la conférence 2018 (homéopathie, ostéopathie,acupuncture). Ces aides (hypnose, sophrologie, réflexologie plantaire) en complément des traitements médicaux traditionnels comme la chirurgie, la chimiothérapie et la radiothérapie permettent une meilleure tolérance des effets indésirables inhérents à ces traitements."
   },
   "keywords": {
-    "fr": [
-      "Bien être",
-      "Complément",
-      "Effets indésirables",
-      "Cancérologie"
-    ]
+    "fr": ["Bien être", "Complément", "Effets indésirables", "Cancérologie"]
   },
   "registration": [],
-  "references": [
-    49332896
-  ],
+  "references": [49332896],
   "conditions": {
     "fr": "Gratuite"
   },
@@ -85,16 +78,9 @@
   "partenaire": "Groupe Hospitalier de Bretagne Sud, La Ligue contre le Cancer, Ysaë",
   "referentscientifique": "Intervenants professionnels",
   "unitesrecherche": null,
-  "thematiques": [
-    1
-  ],
+  "thematiques": [1],
   "orientation-et-axes-transversaux": [],
-  "publics-concernes": [
-    13,
-    40,
-    14,
-    12
-  ],
+  "publics-concernes": [13, 40, 14, 12],
   "inscription-necessaire": 16,
   "public-specifique": [],
   "reconduction": 19,

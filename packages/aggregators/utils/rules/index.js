@@ -32,7 +32,7 @@ function evaluateRules(
       };
     }
     if (ruleActions) {
-      ruleActions.forEach(a => actions.push(a));
+      ruleActions.forEach((a) => actions.push(a));
     }
   }
 
@@ -74,7 +74,7 @@ function extractAutomaticValues(
 ) {
   const sourceFieldsWithData = Object.keys(data);
   const optionedSourceFieldsWithData = sourceAgendaSchema.fields.filter(
-    f => !!f.options && sourceFieldsWithData.includes(f.field),
+    (f) => !!f.options && sourceFieldsWithData.includes(f.field),
   );
 
   const labels = optionedSourceFieldsWithData.reduce(
@@ -88,7 +88,7 @@ function extractAutomaticValues(
   if (!labels.length) return [];
 
   const aggregatorField = aggregatorAgendaSchema.fields
-    .filter(f => f.field === aggregatorFieldName)
+    .filter((f) => f.field === aggregatorFieldName)
     .pop();
 
   if (!aggregatorField) return [];
@@ -110,8 +110,8 @@ function extractAutomaticValues(
   );
 
   return labels
-    .map(l => aggregatorOptionIdsByLabel[l])
-    .filter(id => !!id)
+    .map((l) => aggregatorOptionIdsByLabel[l])
+    .filter((id) => !!id)
     .reduce(
       (deduped, id) => (deduped.includes(id) ? deduped : [...deduped, id]),
       [],
@@ -177,7 +177,7 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
       (result, aggregatorSchemaField) => {
         const fieldName = aggregatorSchemaField.field;
         const matchingSourceField = sourceAgendaSchemaFields
-          .filter(f => f.schemaId === aggregatorSchemaField.schemaId)
+          .filter((f) => f.schemaId === aggregatorSchemaField.schemaId)
           .pop();
 
         if (!matchingSourceField) return result;

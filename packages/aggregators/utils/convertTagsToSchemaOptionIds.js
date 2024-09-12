@@ -3,26 +3,26 @@
 module.exports = (schema, tags = []) => {
   if (!tags || !schema) return null;
 
-  const schemaOptionedFields = (schema ? schema.fields : []).filter(
-    f => !!f.options
-  );
+  const { fields } = schema;
+  const schemaOptionedFields = (fields || []).filter((f) => !!f.options);
 
   const options = schemaOptionedFields.reduce(
-    (result, field) => result.concat(
-      field.options.map(o => ({
-        id: o.id,
-        field,
-        labels:
+    (result, field) =>
+      result.concat(
+        field.options.map((o) => ({
+          id: o.id,
+          field,
+          labels:
             typeof o.label === 'string'
               ? [o.label]
-              : Object.keys(o.label).map(l => o.label[l]),
-      }))
-    ),
-    []
+              : Object.keys(o.label).map((l) => o.label[l]),
+        })),
+      ),
+    [],
   );
 
   const matchingOptions = options.filter(
-    o => !!o.labels.filter(l => tags.includes(l)).length
+    (o) => !!o.labels.filter((l) => tags.includes(l)).length,
   );
 
   return matchingOptions.reduce(
@@ -33,6 +33,6 @@ module.exports = (schema, tags = []) => {
           ? o.id
           : (values[o.field.field] || []).concat(o.id),
     }),
-    {}
+    {},
   );
 };

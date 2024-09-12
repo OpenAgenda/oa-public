@@ -1,6 +1,6 @@
 'use strict';
 
-const customToUpper = str => {
+const customToUpper = (str) => {
   if (typeof str !== 'string') return null;
   return str.toUpperCase();
 };
@@ -16,7 +16,7 @@ const evaluateFieldData = (
       (carry, key) => carry.concat(fieldData[key]),
       [],
     )
-    : [].concat(fieldData).filter(d => d !== undefined);
+    : [].concat(fieldData).filter((d) => d !== undefined);
 
   for (const item of items) {
     if (wholeValue) {
@@ -40,7 +40,7 @@ const evaluateFieldData = (
 
 module.exports = (filter, data) => {
   for (const field of Object.keys(filter).filter(
-    e => e !== 'caseSensitive' && e !== 'wholeValue',
+    (e) => e !== 'caseSensitive' && e !== 'wholeValue',
   )) {
     if (
       evaluateFieldData(

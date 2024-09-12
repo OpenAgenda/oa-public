@@ -20,11 +20,11 @@ describe('04 - evaluateEvent', () => {
             getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () =>
             getJSON('fixtures/evaluate/getEventReference'),
-          referenceEvent: d => {
+          referenceEvent: (d) => {
             referenceData = d;
             return { success: true };
           },
-          enqueueEvaluate: q => q,
+          enqueueEvaluate: (q) => q,
         },
         { ...data, batched: false },
       );
@@ -87,11 +87,11 @@ describe('04 - evaluateEvent', () => {
             getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () =>
             getJSON('fixtures/evaluate/getEventReference.2'),
-          updateSourcePaths: d => {
+          updateSourcePaths: (d) => {
             updatePathsData = d;
             return { success: true };
           },
-          enqueueEvaluate: q => q,
+          enqueueEvaluate: (q) => q,
         },
         data,
       );
@@ -127,10 +127,10 @@ describe('04 - evaluateEvent', () => {
             getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () =>
             getJSON('fixtures/evaluate/getEventReference.5'),
-          updateEventReference: d => {
+          updateEventReference: (d) => {
             updateEventData = d;
           },
-          enqueueEvaluate: q => q,
+          enqueueEvaluate: (q) => q,
         },
         {
           aggregatorsBuffer: [
@@ -186,7 +186,7 @@ describe('04 - evaluateEvent', () => {
           referenceEvent: () => {
             called = 'referenceEvent';
           },
-          enqueueEvaluate: q => q,
+          enqueueEvaluate: (q) => q,
         },
         data,
       );
@@ -208,11 +208,11 @@ describe('04 - evaluateEvent', () => {
             getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () =>
             getJSON('fixtures/evaluate/getEventReference.4'),
-          updateSourcePaths: a => {
+          updateSourcePaths: (a) => {
             args = a;
             return { success: true };
           },
-          enqueueEvaluate: q => q,
+          enqueueEvaluate: (q) => q,
         },
         {
           ...data,
@@ -248,7 +248,7 @@ describe('04 - evaluateEvent', () => {
           enqueueRemove(a) {
             args = a;
           },
-          enqueueEvaluate: q => q,
+          enqueueEvaluate: (q) => q,
         },
         {
           ...data,
@@ -286,7 +286,7 @@ describe('04 - evaluateEvent', () => {
         getEventReference: async () =>
           getJSON('fixtures/evaluate/getEventReference.2'),
         updateSourcePaths: () => ({ success: true }),
-        enqueueEvaluate: q => q,
+        enqueueEvaluate: (q) => q,
       },
       {
         ...data,
@@ -314,7 +314,7 @@ describe('04 - evaluateEvent', () => {
         getEventReference: async () =>
           getJSON('fixtures/evaluate/getEventReference.2'),
         updateSourcePaths: () => ({ success: true }),
-        enqueueEvaluate: q => q,
+        enqueueEvaluate: (q) => q,
       },
       {
         ...data,
@@ -342,7 +342,7 @@ describe('04 - evaluateEvent', () => {
         getEventReference: async () =>
           getJSON('fixtures/evaluate/getEventReference.2'),
         updateSourcePaths: () => ({ success: true }),
-        enqueueEvaluate: q => q,
+        enqueueEvaluate: (q) => q,
       },
       {
         ...data,
@@ -353,7 +353,7 @@ describe('04 - evaluateEvent', () => {
           aggregatorRules: data.aggregatorsBuffer[0].aggregatorRules,
           sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
         },
-        log: e => e,
+        log: (e) => e,
       },
     );
 

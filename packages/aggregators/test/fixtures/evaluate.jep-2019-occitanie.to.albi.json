@@ -90,12 +90,8 @@
       },
       "types-devenement": 6,
       "theme-2019": [],
-      "conditions-de-participation": [
-        13
-      ],
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "conditions-de-participation": [13],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "8989",
       "prix-pass-culture": 9,
       "url-pass-culture": "oa.com"
@@ -148,13 +144,8 @@
         "contribution": {
           "type": 1,
           "defaultState": 0,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
-          "moderateOnChangeBy": [
-            "contributors"
-          ],
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": ["contributors"],
           "defaultLang": "fr",
           "allowLocationCreate": true,
           "message": "Quelques recommandations pour saisir votre événement :\n\n*   **Ne regroupez pas toute votre programmation dans une même fiche**. Cette simplification ne rend pas service aux visiteurs. Elle pénalisera vos événements qui ne pourront pas être interrogés par les filtres du moteur de recherche interne.\n*   **N'intitulez pas le titre de votre événement avec le nom du lieu ou de la manifestation**.\n*   Respectez au mieux les consignes de saisie figurant sur les différents champs du formulaire.\n\nLes événements proposés sur cet agenda seront validés avant publication par la coordination de l'opération.\n\nPour toute question, vous pouvez nous adresser un message via [notre formulaire de contact](https://journeesdupatrimoine.culturecommunication.gouv.fr/Nous-contacter).\n\nPour commander des affiches de la manifestation, veuillez remplir [le formulaire de demande de matériel](https://journeesdupatrimoine.culture.gouv.fr/En-pratique/Demande-de-materiel).\n\nBonne contribution,\n\nMerci!\n\nLe Ministère de la Culture",
@@ -173,18 +164,8 @@
           "sets": [
             {
               "source": "fr",
-              "target": [
-                "it",
-                "es",
-                "de",
-                "en"
-              ],
-              "checked": [
-                "it",
-                "es",
-                "de",
-                "en"
-              ]
+              "target": ["it", "es", "de", "en"],
+              "checked": ["it", "es", "de", "en"]
             }
           ],
           "service": "reverso",
@@ -1080,9 +1061,7 @@
             "display": true,
             "origin": "custom",
             "enableWith": "diffusion-sur-le-pass-culture",
-            "related": [
-              "diffusion-sur-le-pass-culture"
-            ],
+            "related": ["diffusion-sur-le-pass-culture"],
             "min": null,
             "max": 20,
             "fieldType": "text"
@@ -1102,9 +1081,7 @@
             "display": true,
             "origin": "custom",
             "enableWith": "diffusion-sur-le-pass-culture",
-            "related": [
-              "diffusion-sur-le-pass-culture"
-            ],
+            "related": ["diffusion-sur-le-pass-culture"],
             "min": null,
             "max": 100,
             "fieldType": "number"
@@ -1118,18 +1095,13 @@
             "info": "Champ réservé à l'équipe du pass Culture, ne pas modifier si vous n'en faîtes pas partie svp",
             "sub": null,
             "placeholder": null,
-            "write": [
-              "administrator",
-              "moderator"
-            ],
+            "write": ["administrator", "moderator"],
             "read": null,
             "optional": true,
             "display": true,
             "origin": "custom",
             "enableWith": "diffusion-sur-le-pass-culture",
-            "related": [
-              "diffusion-sur-le-pass-culture"
-            ],
+            "related": ["diffusion-sur-le-pass-culture"],
             "min": null,
             "max": null,
             "fieldType": "text"
@@ -1786,9 +1758,7 @@
           "display": true,
           "origin": "custom",
           "enableWith": "diffusion-sur-le-pass-culture",
-          "related": [
-            "diffusion-sur-le-pass-culture"
-          ],
+          "related": ["diffusion-sur-le-pass-culture"],
           "min": null,
           "max": 20,
           "fieldType": "text",
@@ -1809,9 +1779,7 @@
           "display": true,
           "origin": "custom",
           "enableWith": "diffusion-sur-le-pass-culture",
-          "related": [
-            "diffusion-sur-le-pass-culture"
-          ],
+          "related": ["diffusion-sur-le-pass-culture"],
           "min": null,
           "max": 100,
           "fieldType": "number",
@@ -1826,18 +1794,13 @@
           "info": "Champ réservé à l'équipe du pass Culture, ne pas modifier si vous n'en faîtes pas partie svp",
           "sub": null,
           "placeholder": null,
-          "write": [
-            "administrator",
-            "moderator"
-          ],
+          "write": ["administrator", "moderator"],
           "read": null,
           "optional": true,
           "display": true,
           "origin": "custom",
           "enableWith": "diffusion-sur-le-pass-culture",
-          "related": [
-            "diffusion-sur-le-pass-culture"
-          ],
+          "related": ["diffusion-sur-le-pass-culture"],
           "min": null,
           "max": null,
           "fieldType": "text",
@@ -2430,16 +2393,8 @@
         "info": null,
         "sub": null,
         "placeholder": null,
-        "write": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
-        "read": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
+        "write": ["administrator", "moderator", "contributor"],
+        "read": ["administrator", "moderator", "contributor"],
         "optional": true,
         "display": true,
         "origin": "tags",
@@ -2474,9 +2429,7 @@
         "display": true,
         "origin": "custom",
         "enableWith": "diffusion-sur-le-pass-culture",
-        "related": [
-          "diffusion-sur-le-pass-culture"
-        ],
+        "related": ["diffusion-sur-le-pass-culture"],
         "min": null,
         "max": 20,
         "fieldType": "text",
@@ -2491,23 +2444,13 @@
         "info": "Merci d'indiquer un nombre entier, saisissez « 0 » si l'événement est gratuit.",
         "sub": null,
         "placeholder": null,
-        "write": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
-        "read": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
+        "write": ["administrator", "moderator", "contributor"],
+        "read": ["administrator", "moderator", "contributor"],
         "optional": false,
         "display": true,
         "origin": "custom",
         "enableWith": "diffusion-sur-le-pass-culture",
-        "related": [
-          "diffusion-sur-le-pass-culture"
-        ],
+        "related": ["diffusion-sur-le-pass-culture"],
         "min": null,
         "max": 100,
         "fieldType": "number",
@@ -2522,22 +2465,13 @@
         "info": "Champ réservé à l'équipe du pass Culture, ne pas modifier si vous n'en faîtes pas partie svp",
         "sub": null,
         "placeholder": null,
-        "write": [
-          "administrator",
-          "moderator"
-        ],
-        "read": [
-          "administrator",
-          "moderator",
-          "contributor"
-        ],
+        "write": ["administrator", "moderator"],
+        "read": ["administrator", "moderator", "contributor"],
         "optional": false,
         "display": true,
         "origin": "custom",
         "enableWith": "diffusion-sur-le-pass-culture",
-        "related": [
-          "diffusion-sur-le-pass-culture"
-        ],
+        "related": ["diffusion-sur-le-pass-culture"],
         "min": null,
         "max": null,
         "fieldType": "text",
@@ -2632,12 +2566,8 @@
     },
     "types-devenement": 6,
     "theme-2019": [],
-    "conditions-de-participation": [
-      13
-    ],
-    "diffusion-sur-le-pass-culture": [
-      1
-    ],
+    "conditions-de-participation": [13],
+    "diffusion-sur-le-pass-culture": [1],
     "siret": "8989",
     "prix-pass-culture": 9,
     "url-pass-culture": "oa.com",
@@ -2734,12 +2664,8 @@
     },
     "types-devenement": 6,
     "theme-2019": [],
-    "conditions-de-participation": [
-      13
-    ],
-    "diffusion-sur-le-pass-culture": [
-      1
-    ],
+    "conditions-de-participation": [13],
+    "diffusion-sur-le-pass-culture": [1],
     "siret": "8989",
     "prix-pass-culture": 9,
     "url-pass-culture": "oa.com",

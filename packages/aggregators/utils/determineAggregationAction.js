@@ -17,7 +17,7 @@ module.exports = (type, eventBefore, eventNow) => {
     type,
     _.get(eventNow, 'slug', null),
     _.get(eventBefore, 'state', '[null]'),
-    _.get(eventNow, 'state', '[null]')
+    _.get(eventNow, 'state', '[null]'),
   );
 
   if (type === 'removeEvent') return 'removeEvent';

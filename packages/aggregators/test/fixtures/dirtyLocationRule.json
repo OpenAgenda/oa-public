@@ -1,13 +1,9 @@
 {
-    "query": {
-        "location": {
-            "city": [
-                "Rennes",
-                "La Chapelle-des-Fougeretz \t",
-                "Corps-Nuds "
-            ]
-        }
-    },
-    "actions": [],
-    "required": true
+  "query": {
+    "location": {
+      "city": ["Rennes", "La Chapelle-des-Fougeretz \t", "Corps-Nuds "]
+    }
+  },
+  "actions": [],
+  "required": true
 }

@@ -7,7 +7,7 @@ module.exports = async (
   knex,
   aggregatorAgenda,
   sourceAgenda,
-  sourceRules = []
+  sourceRules = [],
 ) => {
   const aggregator = await getAggregator(knex, aggregatorAgenda);
 
@@ -15,7 +15,7 @@ module.exports = async (
     throw new Error('Aggregator not found');
   }
 
-  const cleanSourceRules = sourceRules.map(r => cleanRule(r));
+  const cleanSourceRules = sourceRules.map((r) => cleanRule(r));
 
   const insertIds = await knex('aggregator_source').insert({
     review_id: sourceAgenda.id,

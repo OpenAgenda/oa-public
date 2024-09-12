@@ -18,14 +18,15 @@ module.exports = async ({ knex, getAgendasByUids }, sourceId, options = {}) => {
     ])
     .leftJoin('review as r', 'ags.review_id', 'r.id')
     .where('ags.id', sourceId)
-    .then(r => (r
-      ? {
-        id: r.sourceId,
-        agendaUid: r.agendaUid,
-        rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
-        aggregatorId: r.aggregatorId,
-      }
-      : null));
+    .then((r) =>
+      (r
+        ? {
+          id: r.sourceId,
+          agendaUid: r.agendaUid,
+          rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
+          aggregatorId: r.aggregatorId,
+        }
+        : null));
 
   if (detailed && source) {
     source.agenda = _.first(await getAgendasByUids(source.agendaUid));

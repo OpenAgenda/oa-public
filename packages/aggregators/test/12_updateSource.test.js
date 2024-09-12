@@ -28,7 +28,7 @@ describe('12 - updateSource', () => {
       aggregatorAgenda,
       1,
       [{ query: { categorie: 2 } }],
-      { query: { relative: 'current' } }
+      { query: { relative: 'current' } },
     );
   });
 

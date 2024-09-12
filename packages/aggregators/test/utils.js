@@ -1,10 +1,10 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 
 function getJSON(relativePath) {
   return JSON.parse(
-    fs.readFileSync(`${__dirname}/${relativePath}.json`, 'utf-8')
+    fs.readFileSync(`${__dirname}/${relativePath}.json`, 'utf-8'),
   );
 }
 
@@ -17,11 +17,12 @@ module.exports.asAsync = function asAsync(relativePath) {
 module.exports.Tracker = function Tracker() {
   const calls = [];
   return Object.assign(
-    (name, returnValue) => async (...args) => {
-      calls.push({ name, args });
-      return typeof returnValue === 'function' ? returnValue() : returnValue;
-    },
-    { calls }
+    (name, returnValue) =>
+      async (...args) => {
+        calls.push({ name, args });
+        return typeof returnValue === 'function' ? returnValue() : returnValue;
+      },
+    { calls },
   );
 };
 
@@ -29,6 +30,6 @@ module.exports.write = (fxFolder, name, data) => {
   fs.writeFileSync(
     `${__dirname}/${fxFolder}/${name}.json`,
     JSON.stringify(data, null, 2),
-    'utf-8'
+    'utf-8',
   );
 };

@@ -69,4 +69,4 @@ module.exports = (data, options = {}) => {
   return result;
 };
 
-module.exports.rule = r => validateRule(cleanRule(r));
+module.exports.rule = (r) => validateRule(cleanRule(r));

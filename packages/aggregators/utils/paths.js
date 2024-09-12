@@ -2,10 +2,10 @@
 
 const log = require('@openagenda/logs')('paths');
 
-const clean = sourcePaths =>
-  (sourcePaths ? sourcePaths.map(path => [].concat(path)) : []);
+const clean = (sourcePaths) =>
+  (sourcePaths ? sourcePaths.map((path) => [].concat(path)) : []);
 const pathIsIncluded = (paths, path) =>
-  paths.map(p => p.join('.')).includes(path.join('.'));
+  paths.map((p) => p.join('.')).includes(path.join('.'));
 
 module.exports.updateIsRequired = (
   referencePaths = [], // paths that are currently referenced in aggregator
@@ -14,8 +14,8 @@ module.exports.updateIsRequired = (
 ) => {
   log('updateIsRequired', { referencePaths, sourcePaths, leaf });
   const pathsFromSource = clean(referencePaths)
-    .filter(p => p[p.length - 1] === leaf)
-    .map(p => p.slice(0, p.length - 1));
+    .filter((p) => p[p.length - 1] === leaf)
+    .map((p) => p.slice(0, p.length - 1));
 
   const cleanSourcePaths = clean(sourcePaths);
 
@@ -28,7 +28,7 @@ module.exports.updateIsRequired = (
   }
 
   const differentSourcePaths = cleanSourcePaths.filter(
-    p => !pathIsIncluded(pathsFromSource, p),
+    (p) => !pathIsIncluded(pathsFromSource, p),
   );
 
   return !!differentSourcePaths.length;
@@ -49,7 +49,7 @@ module.exports.getAmended = (
     cleanSourcePaths.push([]);
   }
 
-  cleanSourcePaths.forEach(p => {
+  cleanSourcePaths.forEach((p) => {
     const amended = p.concat(leaf);
     if (!pathIsIncluded(paths, amended)) {
       paths.push(amended);
@@ -60,7 +60,7 @@ module.exports.getAmended = (
 
 module.exports.getFiltered = (referencePaths = [], leaf = null) => {
   log('getFiltered', { referencePaths, leaf });
-  return clean(referencePaths).filter(p => !p.includes(leaf));
+  return clean(referencePaths).filter((p) => !p.includes(leaf));
 };
 
 module.exports.endsShortestPath = (referencePaths, leaf) => {
@@ -68,6 +68,6 @@ module.exports.endsShortestPath = (referencePaths, leaf) => {
     (shortest && shortest.length < path.length ? shortest : path));
 
   return !!referencePaths.filter(
-    p => p.length === shortestPath.length && p[p.length - 1] === leaf,
+    (p) => p.length === shortestPath.length && p[p.length - 1] === leaf,
   ).length;
 };
