@@ -29,8 +29,8 @@ async function task({
       log('error', fn, args, error);
     }
   });
-  queue.on('execute', fn => log(fn, 'execute')); // (fn, args) => log(fn, 'execute'));
-  queue.on('success', fn => log(fn, 'success')); // (fn, args, result) => log(fn, 'success'));
+  queue.on('execute', (fn) => log(fn, 'execute')); // (fn, args) => log(fn, 'execute'));
+  queue.on('success', (fn) => log(fn, 'success')); // (fn, args, result) => log(fn, 'success'));
 
   queue.run();
 
@@ -92,11 +92,15 @@ export async function init(config, services) {
   const queue = queues('eventSearch');
   const rebuildQueue = queues('eventSearch:rebuild');
 
-  const transverseSearch = transverseIndex(services, eventSearch, queue);
+  const transverseSearch = transverseIndex(
+    { services, config },
+    eventSearch,
+    queue,
+  );
 
   rebuildQueue.register({
-    agenda: agenda => agendaIndexRebuild(services, eventSearch, agenda),
-    transverse: options => queue('transverseIndexRebuild', options),
+    agenda: (agenda) => agendaIndexRebuild(services, eventSearch, agenda),
+    transverse: (options) => queue('transverseIndexRebuild', options),
   });
 
   queue.register({
@@ -115,13 +119,13 @@ export async function init(config, services) {
     remove: remove(services, queue, eventSearch),
     add: add(services, queue, eventSearch),
     rebuild: rebuild.bind(null, services, rebuildQueue),
-    agendas: agenda => ({
+    agendas: (agenda) => ({
       search: agendaIndexSearch(eventSearch, agenda),
       rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),
       clear: getAgendaSearchIndex(eventSearch, agenda.uid).clear,
     }),
     transverse: {
-      rebuild: options => queue('transverseIndexRebuild', options),
+      rebuild: (options) => queue('transverseIndexRebuild', options),
       search: transverseSearch,
     },
     apps: {
