@@ -6695,46 +6695,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/child@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "@iframe-resizer/child@npm:5.3.0"
-  checksum: 10c0/0f53628fee1cbd1cebe0471e8a546b1764be30a10b24e8083bdb7c5a1b78c77b1a1cb1abf9ae5c5301d8fb89f14a52e5d491a363ae0b6854ab3dfebab407381a
+"@iframe-resizer/child@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@iframe-resizer/child@npm:5.3.1"
+  checksum: 10c0/6d28aa7bcd8c274ec783055a6b1d9bff1715f33cf8bf2f686872f6df53216f95f1de4f5fd38db04c8daa0cbff2e64be80fdd4d3f51e95fd2e293ec0738b82962
   languageName: node
   linkType: hard
 
-"@iframe-resizer/core@npm:5.3.0":
-  version: 5.3.0
-  resolution: "@iframe-resizer/core@npm:5.3.0"
-  checksum: 10c0/e3b57488512ad55cfc54856c8d0fd209dd45c71bac962b1798e50d4eaef8aa341b3b7248898a0efb3268a30c3fcc0a00bfaff52cec707998efbb5ca9c4e28202
+"@iframe-resizer/core@npm:5.3.1":
+  version: 5.3.1
+  resolution: "@iframe-resizer/core@npm:5.3.1"
+  checksum: 10c0/16060693aba7fd0081bea4e5d83e2fe1d2f1c25d47bb93b5a6426fa8ee0fc7bf91cbaf05edc6ee702552f7a86ed51244f8d79ed1a98016caa28f1e086ab1b274
   languageName: node
   linkType: hard
 
-"@iframe-resizer/core@npm:5.3.1-beta.1":
-  version: 5.3.1-beta.1
-  resolution: "@iframe-resizer/core@npm:5.3.1-beta.1"
-  checksum: 10c0/1e84e6c68c5cd786f2d2aa66fdcb69d6e7f1ed7aa8c2005d6043a628ef26e9151f957af935668b1a204b75ca1e1261f5e90a78bf91a079a02f821304b26f2f32
-  languageName: node
-  linkType: hard
-
-"@iframe-resizer/parent@npm:^5.3.1-beta.1":
-  version: 5.3.1-beta.1
-  resolution: "@iframe-resizer/parent@npm:5.3.1-beta.1"
+"@iframe-resizer/parent@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@iframe-resizer/parent@npm:5.3.1"
   dependencies:
-    "@iframe-resizer/core": "npm:5.3.1-beta.1"
-  checksum: 10c0/ca3c294cc9365b1688e588907f3ad7a5933daf43962b0bd55afd6c17d808513c0fa56178e618e18b801ab964bacb2df12231a32ec20cb0353db33355980d7966
+    "@iframe-resizer/core": "npm:5.3.1"
+  checksum: 10c0/4d742a9012883ddd45a4031dc1ad72efa77088429d97f38f1e1ae245b5dabcd90f7903c27ddc4b77990f6358f9586a1d3bf465e3fc29a093200a6e0044539203
   languageName: node
   linkType: hard
 
-"@iframe-resizer/react@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "@iframe-resizer/react@npm:5.3.0"
+"@iframe-resizer/react@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@iframe-resizer/react@npm:5.3.1"
   dependencies:
     "@babel/runtime": "npm:^7.25.6"
-    "@iframe-resizer/core": "npm:5.3.0"
+    "@iframe-resizer/core": "npm:5.3.1"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
-  checksum: 10c0/f1d61d96990d3ef8991d43c1d5fb01ba008da83bea3a6b1f3e11bd91b2502537c0d28e7a41f3118a69527a4d1c14783d3349e6760e4b9ccadfdc195a0939c3b9
+  checksum: 10c0/e9daec00efb294d6005e2407d3271f74e4b1698bad374e23f821f810bba147a5d83af8eb43bab922e51e7190282b464195d389f792860f4fc3b379f9632da0fa
   languageName: node
   linkType: hard
 
@@ -9590,8 +9583,8 @@ __metadata:
     "@fortawesome/pro-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/pro-thin-svg-icons": "npm:^6.6.0"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
-    "@iframe-resizer/child": "npm:^5.3.0"
-    "@iframe-resizer/react": "npm:^5.3.0"
+    "@iframe-resizer/child": "npm:^5.3.1"
+    "@iframe-resizer/react": "npm:^5.3.1"
     "@next/bundle-analyzer": "npm:^13.1.1"
     "@openagenda/activity-apps": "npm:^1.2.1"
     "@openagenda/browserslist-config": "npm:^1.0.0"
@@ -10621,7 +10614,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/widgets@workspace:public/widgets"
   dependencies:
-    "@iframe-resizer/parent": "npm:^5.3.1-beta.1"
+    "@iframe-resizer/parent": "npm:^5.3.1"
     "@openagenda/eslint-config": "npm:^1.3.1"
     "@storybook/addon-essentials": "npm:^8.1.10"
     "@storybook/html-webpack5": "npm:^8.1.10"
