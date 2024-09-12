@@ -1,185 +1,153 @@
-"use strict";
+'use strict';
 
 process.env.NODE_ENV = 'test';
 
-const async = require( 'async' );
-const fs = require( 'fs' );
-const mysql = require( 'mysql' );
+const fs = require('node:fs');
+const mysql = require('mysql');
 
 const Files = require('@openagenda/files');
 
 const {
   service: config,
-  dependencies: dConfig
-} = require( '../testconfig.sample.js' );
-const svc = require( '../service/index.js' );
+  dependencies: dConfig,
+} = require('../testconfig.sample');
+const svc = require('../service/index');
+const loadFixtures = require('./fixtures/load');
 
-describe( 'agendas - functional (server): instanciate', function () {
-
-  beforeAll( () => {
-
-    svc.init( {
+describe('agendas - functional (server): instanciate', () => {
+  beforeAll(() => {
+    svc.init({
       ...config,
-      Files: Files(dConfig.files)
-    } );
+      Files: Files(dConfig.files),
+    });
+  });
+
+  beforeAll(
+    loadFixtures.bind(null, {
+      mysql: config.mysql,
+      files: [
+        `${__dirname}/fixtures/resetDb.sql`,
+        `${__dirname}/../model.sql`,
+        `${__dirname}/fixtures/agenda.data.sql`,
+        `${__dirname}/fixtures/agendaEvent.data.sql`,
+        `${__dirname}/fixtures/occurrence.data.sql`,
+      ],
+      map: {
+        database: config.mysql.database,
+        agenda: 'agenda',
+        agendaEvent: 'agenda_event',
+        occurrence: 'occurrence',
+      },
+    }),
+  );
+
+  beforeEach(
+    () =>
+      new Promise((resolve) => {
+        fs.createReadStream(`${__dirname}/files/rainfrog.jpg`)
+
+          .pipe(fs.createWriteStream(`${__dirname}/files/tmp.jpg`))
+
+          .on('close', () => {
+            resolve();
+          });
+      }),
+  );
+
+  it('.getData - get public raw data', async () => {
+    const agenda = await svc.get(4826, {
+      instanciate: true,
+      internal: true,
+      private: true,
+    });
+
+    expect(agenda.getData().id).toBeUndefined();
+  });
+
+  it('.getData - get all raw data', async () => {
+    const agenda = await svc.get(4826, {
+      instanciate: true,
+      internal: true,
+      private: true,
+    });
+
+    expect(agenda.getData({ internal: true }).id).toBe(4826);
+  });
+
+  it('setImage - successful set saves image name in db', () => {
+    const con = mysql.createConnection(config.mysql);
+
+    const aId = 4922;
+
+    return new Promise((resolve, reject) => {
+      con.query('select * from agenda where id = ?', aId, (err, rows) => {
+        if (err) return reject(err);
+        expect(rows[0].image).toBeNull();
+
+        svc.get(aId, { instanciate: true }, (err1) => {
+          if (err1) return reject(err1);
+
+          svc.set(
+            aId,
+            { image: { path: `${__dirname}/files/tmp.jpg` } },
+            (err2) => {
+              if (err2) return reject(err2);
+
+              // Étape 3 : vérifier que l'image a été mise à jour correctement
+              con.query(
+                'select * from agenda where id = ?',
+                aId,
+                (err3, rows1) => {
+                  if (err3) return reject(err3);
+                  expect(rows1[0].image.split('?')[0]).toBe(
+                    `agenda${rows[0].uid}.jpg`,
+                  );
+
+                  resolve();
+                },
+              );
+            },
+          );
+        });
+      });
+    }).finally(() => con.end());
+  });
+
+  it('getImage - default get is without path', async () => {
+    const a = await svc.get(4820, { instanciate: true });
+
+    expect(a.getImage().split('?')[0]).toBe(
+      'review_planning-intervenants_00.jpg',
+    );
+  });
 
-  } );
+  it('getImage - get with true returns image name with path', async () => {
+    const a = await svc.get(4820, { instanciate: true });
 
-  beforeAll( require( './fixtures/load.js' ).bind( null, {
-    mysql: config.mysql,
-    files: [
-      __dirname + '/fixtures/resetDb.sql',
-      __dirname + '/../model.sql',
-      __dirname + '/fixtures/agenda.data.sql',
-      __dirname + '/fixtures/agendaEvent.data.sql',
-      __dirname + '/fixtures/occurrence.data.sql'
-    ],
-    map: {
-      database: config.mysql.database,
-      agenda: 'agenda',
-      agendaEvent: 'agenda_event',
-      occurrence: 'occurrence'
-    }
-  } ) );
+    expect(a.getImage(true)).toBe(
+      '//openagendatst.s3.amazonaws.com/review_planning-intervenants_00.jpg',
+    );
+  });
 
-  beforeEach( done => {
+  it('getImage - no image returns null', async () => {
+    const a = await svc.get(4832, { instanciate: true });
 
-    fs.createReadStream( __dirname + '/files/rainfrog.jpg' )
+    expect(a.getImage()).toBeNull();
+    expect(a.getImage(true)).toBeNull();
+  });
 
-      .pipe( fs.createWriteStream( __dirname + '/files/tmp.jpg' ) )
+  it('getImage - no image returns default path if config allows this', async () => {
+    svc.init({ ...config, useDefaultImage: true, Files: Files(dConfig.files) });
 
-      .on( 'close', () => {
+    const a = await svc.get(4832, { instanciate: true });
 
-        done();
+    expect(a.getImage(false, true)).toBe(config.defaultImagePath);
 
-      } );
+    expect(a.getImage(true, true)).toBe(config.defaultImagePath);
 
-  } );
-
-
-  it( '.getData - get public raw data', done => {
-
-    svc.get( 4826, { instanciate: true, internal: true, private: true }, ( err, agenda ) => {
-
-      expect( agenda.getData().id ).toBeUndefined();
-
-      done();
-
-    } );
-
-  } );
-
-  it( '.getData - get all raw data', done => {
-
-    svc.get( 4826, { instanciate: true, internal: true, private: true }, ( err, agenda ) => {
-
-      expect( agenda.getData( { internal: true } ).id ).toBe( 4826 );
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'setImage - successful set saves image name in db', done => {
-
-    let con = mysql.createConnection( config.mysql ),
-
-      aId = 4922;
-
-    async.series( [ wcb => {
-
-      con.query( 'select * from agenda where id = ?', aId, ( err, rows ) => {
-
-        expect( rows[ 0 ].image ).toBeNull();
-
-        wcb();
-
-      } );
-
-    }, wcb => {
-
-      svc.get( aId, { instanciate: true }, ( err, agenda ) => {
-
-        svc.set( aId, { image: { path: __dirname + '/files/tmp.jpg' } }, wcb );
-
-      } );
-
-    }, wcb => {
-
-      con.query( 'select * from agenda where id = ?', aId, ( err, rows ) => {
-
-        expect( rows[ 0 ].image.split('?')[0] ).toBe( 'agenda' + rows[ 0 ].uid + '.jpg' );
-
-        con.end();
-
-        wcb();
-
-      } );
-
-    } ], done );
-
-  } );
-
-
-  it( 'getImage - default get is without path', done => {
-
-    svc.get( 4820, { instanciate: true }, ( err, a ) => {
-
-      expect(a.getImage().split('?')[0]).toBe( 'review_planning-intervenants_00.jpg' );
-
-      done();
-
-    } );
-
-  } );
-
-
-  it( 'getImage - get with true returns image name with path', done => {
-
-    svc.get( 4820, { instanciate: true }, ( err, a ) => {
-
-      expect(a.getImage( true )).toBe( '//openagendatst.s3.amazonaws.com/review_planning-intervenants_00.jpg' );
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'getImage - no image returns null', done => {
-
-    svc.get( 4832, { instanciate: true }, ( err, a ) => {
-
-      expect( a.getImage() ).toBeNull();
-
-      expect( a.getImage( true ) ).toBeNull();
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'getImage - no image returns default path if config allows this', done => {
-
-    svc.init( Object.assign( {}, config, { useDefaultImage: true, Files: Files(dConfig.files) } ) );
-
-    svc.get( 4832, { instanciate: true }, ( err, a ) => {
-
-      expect( a.getImage( false, true ) ).toBe( config.defaultImagePath );
-
-      expect( a.getImage( true, true ) ).toBe( config.defaultImagePath );
-
-      svc.init( {
-        ...config,
-        Files: Files(dConfig.files)
-      } );
-
-      done();
-
-    } );
-
-  } );
-
-} );
+    svc.init({
+      ...config,
+      Files: Files(dConfig.files),
+    });
+  });
+});

@@ -1,34 +1,38 @@
-"use strict";
+'use strict';
 
-const fixtures = require( '@openagenda/fixtures' );
+const fixtures = require('@openagenda/fixtures');
 
 let config;
 
+function build(files, options, cb) {
+  fixtures(
+    [
+      {
+        table: config.schemas.agenda,
+        src: `${__dirname}/../model.sql`,
+      },
+      {
+        table: config.schemas.agenda,
+        src: `${__dirname}/agenda.data.sql`,
+      },
+      {
+        table: config.schemas.agendaEvent,
+        src: `${__dirname}/agenda_event.data.sql`,
+      },
+      {
+        table: config.schemas.occurrence,
+        src: `${__dirname}/occurrence.data.sql`,
+      },
+    ].filter((f) => files.includes(f.src.split('/').pop().split('.')[0])),
+    options,
+    cb,
+  );
+}
+
 module.exports = build;
 
-module.exports.init = c => {
-
+module.exports.init = (c) => {
   config = c;
 
-  fixtures.init( { mysql: config.mysql } );
-
+  fixtures.init({ mysql: config.mysql });
 };
-
-
-function build( files, options, cb ) {
-
-  fixtures( [ {
-    table: config.schemas.agenda,
-    src: __dirname + '/../model.sql'
-  },  {
-    table: config.schemas.agenda,
-    src: __dirname + '/agenda.data.sql'
-  }, {
-    table: config.schemas.agendaEvent,
-    src: __dirname + '/agenda_event.data.sql'
-  }, {
-    table: config.schemas.occurrence,
-    src: __dirname + '/occurrence.data.sql'
-  } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, cb );
-
-}

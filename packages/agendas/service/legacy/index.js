@@ -1,68 +1,49 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const w = require( 'when' );
+const w = require('when');
 
-const utils = require( '@openagenda/utils' );
-const log = require( '@openagenda/logs' )( 'legacy' );
+const utils = require('@openagenda/utils');
+const log = require('@openagenda/logs')('legacy');
 
-const column = require( './column' );
-const store = require( './store' );
+const column = require('./column');
+const store = require('./store');
 
+function _updateDefaultState(v) {
+  log('updating contribution default state');
 
-let schemas, knex;
+  const defaultState = utils.deep(v.data, 'settings.contribution.defaultState');
 
-module.exports = Object.assign( agenda, {
-  init: ( s, k ) => {
+  if (defaultState === undefined) return v;
 
-    schemas = s;
-    knex = k;
+  const d = w.defer();
 
-    column.init( s, k );
+  store(v.agendaId, 'moderated', defaultState !== 2, (err) => {
+    if (err) return d.reject(err);
 
-  }
-} );
+    d.resolve(v);
+  });
 
-function agenda( agendaId ) {
+  return d.promise;
+}
 
-  return {
-    applyToLegacy
-  }
-
-
+function agenda(agendaId) {
   /**
    * apply given data to legacy db stores
    */
-  function applyToLegacy( data, cb ) {
+  function applyToLegacy(data, cb) {
+    w({ agendaId, data, loaded: {} })
+      .then(_updateDefaultState)
 
-    w( { agendaId, data, loaded: {} } )
-
-    .then( _updateDefaultState )
-
-    .done( v => cb(), cb );
-
+      .done(() => cb(), cb);
   }
 
+  return {
+    applyToLegacy,
+  };
 }
 
-function _updateDefaultState( v ) {
-
-  log( 'updating contribution default state' );
-
-  let defaultState = utils.deep( v.data, 'settings.contribution.defaultState' );
-
-  if ( defaultState === undefined ) return v;
-
-  let d = w.defer();
-
-  store( v.agendaId, 'moderated', defaultState !== 2, err => {
-
-    if ( err ) return d.reject( err );
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
+module.exports = Object.assign(agenda, {
+  init: (s, k) => {
+    column.init(s, k);
+  },
+});

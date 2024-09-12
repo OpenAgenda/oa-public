@@ -207,8 +207,8 @@ function _createSlugIfNotSet(v) {
       mysql: mysqlConfig,
     },
     (previousSlug) =>
-      slugify(v.data.title || '', { lower: true, strict: true }) +
-      (previousSlug ? Math.ceil(Math.random() * 1000) : ''),
+      slugify(v.data.title || '', { lower: true, strict: true })
+      + (previousSlug ? Math.ceil(Math.random() * 1000) : ''),
     (err, slug) => {
       if (err) return d.reject(err);
 
@@ -394,8 +394,7 @@ function _update(identifiers, data, o, c) {
           updated: null,
           errors: [], // validation errors
         }),
-      ),
-    )
+      ))
 
       .then(
         _get({ target: 'current', internal: true, private: params.private }),
@@ -485,8 +484,7 @@ function _create(data, o, c) {
         identifiers: null,
         success: false,
       }),
-    ),
-  )
+    ))
 
     .then(_createUid)
 
@@ -561,12 +559,12 @@ function init(s, k) {
   upload = s.getConfig().upload;
 }
 
-function set(identifiers, data, options, cb) {
-  if (_areIdentifiers(identifiers)) {
-    return _update(identifiers, data, options, cb);
+function set(...args) {
+  if (_areIdentifiers(args[0])) {
+    return _update(...args);
   }
 
-  return _create(identifiers, data, options);
+  return _create(...args);
 }
 
 module.exports = Object.assign(set, { init });

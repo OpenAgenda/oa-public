@@ -1,24 +1,22 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const knex = require( 'knex' );
+const fs = require('node:fs');
+const _ = require('lodash');
+const knex = require('knex');
 
-module.exports = async ( { mysql, files, map } ) => {
-
-  const k = knex( {
+module.exports = async ({ mysql, files, map }) => {
+  const k = knex({
     client: 'mysql',
-    connection: _.extend( _.omit( mysql, [ 'database' ] ), { multipleStatements: true } )
-  } );
+    connection: _.extend(_.omit(mysql, ['database']), {
+      multipleStatements: true,
+    }),
+  });
 
-  let raw = files.map( file => fs.readFileSync( file, 'utf-8' ).replace( /;(\n|)$/, '' ) ).join( ';' ) + ';';
+  let raw = `${files.map((file) => fs.readFileSync(file, 'utf-8').replace(/;(\n|)$/, '')).join(';')};`;
 
-  _.forEach( map, ( value, key ) => {
+  _.forEach(map, (value, key) => {
+    raw = raw.replace(new RegExp(`\\\${${key}}`, 'g'), value);
+  });
 
-    raw = raw.replace( new RegExp( '\\${' + key + '}', 'g' ), value );
-
-  } );
-
-  const result = await k.raw( raw );
-
-}
+  await k.raw(raw);
+};

@@ -1,12 +1,9 @@
 'use strict';
 
-const assert = require('assert');
-
 const validate = require('../service/validate');
 const publicValidate = require('../service/validate/public');
 
 describe('agendas - unit (server): validate', () => {
-
   describe('public validator', () => {
     it('validates exposable agenda data', () => {
       let errors = [];
@@ -21,17 +18,17 @@ describe('agendas - unit (server): validate', () => {
 
       try {
         clean = publicValidate(data);
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
-      assert.strictEqual(clean.title, 'Title of the agenda');
-      assert.strictEqual(clean.description, 'Description of the agenda');
-      assert.strictEqual(clean.slug, 'title-of-the-agenda');
+      expect(clean.title).toBe('Title of the agenda');
+      expect(clean.description).toBe('Description of the agenda');
+      expect(clean.slug).toBe('title-of-the-agenda');
 
-      assert.strictEqual(clean.createdAt, undefined);
+      expect(clean.createdAt).toBeUndefined();
 
-      assert.equal(errors.length, 0);
+      expect(errors.length).toBe(0);
     });
 
     it('validate configured translation', () => {
@@ -48,47 +45,53 @@ describe('agendas - unit (server): validate', () => {
               enabled: false,
               email: null,
               subject: null,
-              body: null
-            }
+              body: null,
+            },
           },
           translation: {
             enabled: true,
             source: 'en',
-            sets: [{
-              source: 'fr',
-              target: ['en', 'de'],
-              checked: []
-            }, {
-              source: 'en',
-              target: ['fr', 'it'],
-              checked: ['fr', 'it']
-            }]
-          }
-        }
+            sets: [
+              {
+                source: 'fr',
+                target: ['en', 'de'],
+                checked: [],
+              },
+              {
+                source: 'en',
+                target: ['fr', 'it'],
+                checked: ['fr', 'it'],
+              },
+            ],
+          },
+        },
       };
 
       try {
         clean = publicValidate(data);
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
-      assert.strictEqual(errors.length, 0);
+      expect(errors.length).toBe(0);
 
-      assert.deepStrictEqual(clean.settings.translation, {
+      expect(clean.settings.translation).toEqual({
         enabled: true,
         source: 'en',
         options: null,
         service: 'reverso',
-        sets: [{
-          source: 'fr',
-          target: ['en', 'de'],
-          checked: []
-        }, {
-          source: 'en',
-          target: ['fr', 'it'],
-          checked: ['fr', 'it']
-        }]
+        sets: [
+          {
+            source: 'fr',
+            target: ['en', 'de'],
+            checked: [],
+          },
+          {
+            source: 'en',
+            target: ['fr', 'it'],
+            checked: ['fr', 'it'],
+          },
+        ],
       });
     });
   });
@@ -108,16 +111,16 @@ describe('agendas - unit (server): validate', () => {
           slug: 'la-gargouille',
           description: 'Un agenda de tests',
           updatedAt: now,
-          createdAt: now
+          createdAt: now,
         });
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
-      assert.strictEqual(errors.length, 0);
+      expect(errors.length).toBe(0);
 
-      assert.strictEqual(clean.title, 'La gargouille');
-      assert.strictEqual(clean.createdAt.getTime(), now.getTime());
+      expect(clean.title).toBe('La gargouille');
+      expect(clean.createdAt.getTime()).toBe(now.getTime());
     });
 
     it('validates registration passCulture data', () => {
@@ -139,15 +142,18 @@ describe('agendas - unit (server): validate', () => {
             registration: {
               passCulture: {
                 siren: ['123456789', '987654321'],
-              }
-            }
-          }
+              },
+            },
+          },
         });
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
-      assert.strictEqual(errors.length, 0);
-      assert.deepEqual(clean.settings.registration.passCulture.siren, ['123456789', '987654321']);
+      expect(errors.length).toBe(0);
+      expect(clean.settings.registration.passCulture.siren).toEqual([
+        '123456789',
+        '987654321',
+      ]);
     });
   });
 });

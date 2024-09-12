@@ -2,8 +2,6 @@
 
 process.env.NODE_ENV = 'test';
 
-const assert = require('node:assert');
-const async = require('async');
 const Files = require('@openagenda/files');
 
 const testConfig = require('../testconfig.sample');
@@ -47,35 +45,23 @@ describe('agendas - functional (server): list', () => {
     expect(agendas.length).toEqual(10);
   });
 
-  it('list with offset gets right agenda', (done) => {
-    svc.list(0, 10, { internal: true }, (err, agendas) => {
-      svc.list({}, 4, 1, { internal: true }, (err, offsetAgendas) => {
-        expect(agendas.length).toEqual(10);
-
-        expect(offsetAgendas.length).toEqual(1);
-
-        expect(agendas[4].id).toEqual(offsetAgendas[0].id);
-
-        done();
-      });
+  it('list with offset gets right agenda', async () => {
+    const { agendas } = await svc.list(0, 10, { internal: true });
+    const { agendas: offsetAgendas } = await svc.list({}, 4, 1, {
+      internal: true,
     });
+
+    expect(agendas.length).toEqual(10);
+    expect(offsetAgendas.length).toEqual(1);
+    expect(agendas[4].id).toEqual(offsetAgendas[0].id);
   });
 
-  it('list with { detailed: true } gets agendas with detailed info', (done) => {
-    svc.list(
-      {},
-      94,
-      1,
-      {
-        detailed: true,
-        private: null,
-      },
-      (err, agendas) => {
-        expect(agendas[0].publishedEvents).toEqual(9);
-
-        done();
-      },
-    );
+  it('list with { detailed: true } gets agendas with detailed info', async () => {
+    const { agendas } = await svc.list({}, 94, 1, {
+      detailed: true,
+      private: null,
+    });
+    expect(agendas[0].publishedEvents).toEqual(9);
   });
 
   it('list with { offsetAsLastId } option allows for using id value as offset base', async () => {
@@ -112,138 +98,100 @@ describe('agendas - functional (server): list', () => {
     expect(lastId).toEqual(4892);
   });
 
-  it('list with { internal: false } does not include internal fields', (done) => {
-    svc.list(
-      {},
-      0,
-      1,
-      {
-        internal: false,
-      },
-      (err, agendas) => {
-        expect(Object.keys(agendas[0])).toEqual([
-          'locationSetUid',
-          'slug',
-          'uid',
-          'official',
-          'title',
-          'description',
-          'url',
-          'image',
-          'updatedAt',
-          'createdAt',
-          'private',
-          'indexed',
-        ]);
+  it('list with { internal: false } does not include internal fields', async () => {
+    const { agendas } = await svc.list({}, 0, 1, {
+      internal: false,
+    });
 
-        done();
-      },
+    expect(Object.keys(agendas[0])).toEqual([
+      'locationSetUid',
+      'slug',
+      'uid',
+      'official',
+      'title',
+      'description',
+      'url',
+      'image',
+      'updatedAt',
+      'createdAt',
+      'private',
+      'indexed',
+    ]);
+  });
+
+  it('list with includeImagePath includes full image path', async () => {
+    const { agendas } = await svc.list({}, 0, 1, {
+      includeImagePath: true,
+      detailed: true,
+    });
+
+    expect(agendas[0].image).toEqual(
+      '//openagendatst.s3.amazonaws.com/review_sylvie-et-pascal-verger_00.jpg',
     );
   });
 
-  it('list with includeImagePath includes full image path', (done) => {
-    svc.list(
-      {},
-      0,
-      1,
-      {
-        includeImagePath: true,
-        detailed: true,
-      },
-      (err, agendas) => {
-        expect(agendas[0].image).toEqual(
-          '//openagendatst.s3.amazonaws.com/review_sylvie-et-pascal-verger_00.jpg',
-        );
-        done();
-      },
-    );
-  });
-
-  it('DEPRECATE - list with { detailed: true } gets agendas with detailed info', (done) => {
-    svc.list(
+  it('DEPRECATE - list with { detailed: true } gets agendas with detailed info', async () => {
+    const { agendas } = await svc.list(
       {
         detailed: true,
         private: null,
       },
       94,
       1,
-      (err, agendas) => {
-        expect(agendas[0].publishedEvents).toEqual(9);
-
-        done();
-      },
     );
+
+    expect(agendas[0].publishedEvents).toEqual(9);
   });
 
-  it('onlyIncludeFields option', (done) => {
-    svc.list(
-      {},
-      0,
-      1,
-      {
-        onlyIncludeFields: ['uid'],
-      },
-      (err, agendas) => {
-        assert.deepEqual(Object.keys(agendas[0]), ['uid']);
-
-        done();
-      },
-    );
-  });
-
-  it('default list does not return private agendas', (done) => {
-    svc.list(85, 10, (err, agendas) => {
-      // this agenda is private
-      expect(agendas.filter((a) => a.uid === 54289989).length).toEqual(0);
-
-      // these aren't
-      expect(agendas.filter((a) => a.uid === 24821824).length).toEqual(1);
-      expect(agendas.filter((a) => a.uid === 17582566).length).toEqual(1);
-
-      expect(agendas.length).toEqual(10);
-
-      done();
+  it('onlyIncludeFields option', async () => {
+    const { agendas } = await svc.list({}, 0, 1, {
+      onlyIncludeFields: ['uid'],
     });
+
+    expect(Object.keys(agendas[0])).toEqual(['uid']);
   });
 
-  it('default list returns unindexed agendas', (done) => {
-    svc.list(0, 30, (err, agendas) => {
-      expect(agendas.filter((a) => a.uid === 90695263).length).toEqual(1);
+  it('default list does not return private agendas', async () => {
+    const { agendas } = await svc.list(85, 10);
 
-      done();
-    });
+    // this agenda is private
+    expect(agendas.filter((a) => a.uid === 54289989).length).toEqual(0);
+
+    // these aren't
+    expect(agendas.filter((a) => a.uid === 24821824).length).toEqual(1);
+    expect(agendas.filter((a) => a.uid === 17582566).length).toEqual(1);
+
+    expect(agendas.length).toEqual(10);
   });
 
-  it('list with indexed option set to true does not return unindexed agendas', (done) => {
-    svc.list(0, 30, { indexed: true }, (err, agendas) => {
-      expect(agendas.filter((a) => a.uid === 90695263).length).toEqual(0);
+  it('default list returns unindexed agendas', async () => {
+    const { agendas } = await svc.list(0, 30);
 
-      done();
-    });
+    expect(agendas.filter((a) => a.uid === 90695263).length).toEqual(1);
   });
 
-  it('total option at true provides total in result', (done) => {
-    svc.list(0, 30, { total: true }, (err, agendas, total) => {
-      expect(total).toEqual(97);
+  it('list with indexed option set to true does not return unindexed agendas', async () => {
+    const { agendas } = await svc.list(0, 30, { indexed: true });
 
-      done();
-    });
+    expect(agendas.filter((a) => a.uid === 90695263).length).toEqual(0);
   });
 
-  it('list with empty ids returns empty list', (done) => {
-    svc.list({ ids: [] }, 0, 10, (err, agendas) => {
-      expect(agendas.length).toEqual(0);
+  it('total option at true provides total in result', async () => {
+    const { total } = await svc.list(0, 30, { total: true });
 
-      done();
-    });
+    expect(total).toEqual(97);
   });
 
-  it('list with ids gets agendas', (done) => {
-    svc.list({ ids: [4829, 4848] }, 0, 2, (err, agendas) => {
-      expect(agendas.length).toEqual(2);
+  it('list with empty ids returns empty list', async () => {
+    const { agendas } = await svc.list({ ids: [] }, 0, 10);
 
-      done();
-    });
+    expect(agendas.length).toEqual(0);
+  });
+
+  it('list with ids gets agendas', async () => {
+    const { agendas } = await svc.list({ ids: [4829, 4848] }, 0, 2);
+
+    expect(agendas.length).toEqual(2);
   });
 
   it('list by uids', async () => {
@@ -255,8 +203,8 @@ describe('agendas - functional (server): list', () => {
       1,
     );
 
-    assert.strictEqual(agendas.length, 1);
-    assert.strictEqual(agendas[0].uid, 17582566);
+    expect(agendas.length).toBe(1);
+    expect(agendas[0].uid).toBe(17582566);
   });
 
   it('list by slugs', async () => {
@@ -268,37 +216,31 @@ describe('agendas - functional (server): list', () => {
       1,
     );
 
-    assert.strictEqual(agendas.length, 1);
-    assert.strictEqual(agendas[0].slug, 'inaregions');
+    expect(agendas.length).toBe(1);
+    expect(agendas[0].slug).toBe('inaregions');
   });
 
-  it('DEPRECATE - list with ids, detailed and search gets agendas', (done) => {
-    svc.list(
+  it('DEPRECATE - list with ids, detailed and search gets agendas', async () => {
+    const { agendas } = await svc.list(
       { ids: [4828, 4848], detailed: true, private: null, search: 'gradignan' },
       0,
       2,
-      (err, agendas) => {
-        expect(agendas.length).toEqual(1);
-        expect(agendas[0].publishedEvents).toEqual(9);
-
-        done();
-      },
     );
+
+    expect(agendas.length).toEqual(1);
+    expect(agendas[0].publishedEvents).toEqual(9);
   });
 
-  it('list with ids, detailed and search gets agendas', (done) => {
-    svc.list(
+  it('list with ids, detailed and search gets agendas', async () => {
+    const { agendas } = await svc.list(
       { ids: [4828, 4848], search: 'gradignan' },
       0,
       2,
       { detailed: true, private: null },
-      (err, agendas) => {
-        expect(agendas.length).toEqual(1);
-        expect(agendas[0].publishedEvents).toEqual(9);
-
-        done();
-      },
     );
+
+    expect(agendas.length).toEqual(1);
+    expect(agendas[0].publishedEvents).toEqual(9);
   });
 
   it('list with idGreaterThan limits agendas which have an id greater than a given id', async () => {
@@ -313,76 +255,57 @@ describe('agendas - functional (server): list', () => {
       });
   });
 
-  it('list with updatedAtGreaterThan limits agendas to those updated after a given timestamp', (done) => {
-    svc.list(
+  it('list with updatedAtGreaterThan limits agendas to those updated after a given timestamp', async () => {
+    const { agendas } = await svc.list(
       {
         updatedAtGreaterThan: new Date('2016-01-29T07:55:09.000Z'),
       },
       0,
       10,
       { private: null },
-      (err, agendas) => {
-        agendas.forEach((a) => {
-          expect(a.updatedAt > new Date('2016-01-29T07:55:09.000Z')).toEqual(
-            true,
-          );
-        });
-
-        done();
-      },
     );
-  });
 
-  it('list ordered by createdAt.desc gets newest agenda listed first', (done) => {
-    svc.list({ order: 'createdAt.desc' }, 0, 10, (err, agendas) => {
-      let prevCreatedAt = agendas[0].createdAt;
-
-      agendas.forEach((a) => {
-        expect(a.createdAt.getTime()).toBeLessThanOrEqual(
-          prevCreatedAt.getTime(),
-        );
-
-        prevCreatedAt = a.createdAt;
-      });
-
-      done();
+    agendas.forEach((a) => {
+      expect(a.updatedAt > new Date('2016-01-29T07:55:09.000Z')).toEqual(true);
     });
   });
 
-  it('list ordered by updatedAt.desc gets latest agendas listed first', (done) => {
-    svc.list({ order: 'updatedAt.desc' }, 0, 10, (err, agendas) => {
-      let prevUpdatedAt = agendas[0].updatedAt;
+  it('list ordered by createdAt.desc gets newest agenda listed first', async () => {
+    const { agendas } = await svc.list({ order: 'createdAt.desc' }, 0, 10);
 
-      agendas.forEach((a) => {
-        expect(a.updatedAt.getTime()).toBeLessThanOrEqual(
-          prevUpdatedAt.getTime(),
-        );
+    let prevCreatedAt = agendas[0].createdAt;
 
-        prevUpdatedAt = a.updatedAt;
-      });
+    agendas.forEach((a) => {
+      expect(a.createdAt.getTime()).toBeLessThanOrEqual(
+        prevCreatedAt.getTime(),
+      );
 
-      done();
+      prevCreatedAt = a.createdAt;
     });
   });
 
-  it('a few lists do not leak db connections', (done) => {
+  it('list ordered by updatedAt.desc gets latest agendas listed first', async () => {
+    const { agendas } = await svc.list({ order: 'updatedAt.desc' }, 0, 10);
+
+    let prevUpdatedAt = agendas[0].updatedAt;
+
+    agendas.forEach((a) => {
+      expect(a.updatedAt.getTime()).toBeLessThanOrEqual(
+        prevUpdatedAt.getTime(),
+      );
+
+      prevUpdatedAt = a.updatedAt;
+    });
+  });
+
+  it('a few lists do not leak db connections', async () => {
     let remaining = 400;
 
-    async.whilst(
-      () => remaining,
-      (wcb) => {
-        svc.list(0, 10, (err, agendas, total) => {
-          remaining--;
+    while (remaining > 0) {
+      await svc.list(0, 10);
+      remaining -= 1;
+    }
 
-          wcb(err);
-        });
-      },
-      (err) => {
-        expect(remaining).toEqual(0);
-        expect(err).toBeNull();
-
-        done();
-      },
-    );
+    expect(remaining).toEqual(0);
   });
 });
