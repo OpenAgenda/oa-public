@@ -25,14 +25,15 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        http.get('/agendaLanguages', () => HttpResponse.json({ ...languagesJson })),
+        http.get('/agendaLanguages', () =>
+          HttpResponse.json({ ...languagesJson })),
       ],
     },
   },
 };
 
 export const NewRule = () => (
-  <Provider store={createStore(v => v, { res: {} })}>
+  <Provider store={createStore((v) => v, { res: {} })}>
     <Form
       component={RuleForm}
       onSubmit={() => {}}
@@ -48,7 +49,7 @@ export const NewRule = () => (
 NewRule.storyName = 'when the rule is new';
 
 export const RuleWithAction = () => (
-  <Provider store={createStore(v => v, { res: {} })}>
+  <Provider store={createStore((v) => v, { res: {} })}>
     <Form
       initialValues={ruleToValues(villeDeLilleToMELRules[1], MEL)}
       component={RuleForm}
@@ -64,7 +65,7 @@ export const RuleWithAction = () => (
 RuleWithAction.storyName = 'when the rule has an action';
 
 export const RuleAutomaticField = () => (
-  <Provider store={createStore(v => v, { res: {} })}>
+  <Provider store={createStore((v) => v, { res: {} })}>
     <Form
       initialValues={ruleToValues(villeDeLilleToMELRules[2], MEL)}
       component={RuleForm}

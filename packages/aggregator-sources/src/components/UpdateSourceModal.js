@@ -55,12 +55,12 @@ export default function UpdateSourceModal({
   const [selectedEvaluate, setSelectedEvaluate] = useState();
   const [step = 'defineRules', setStep] = useState();
 
-  const data = useSelector(state => state.modals.updateSource) || {
+  const data = useSelector((state) => state.modals.updateSource) || {
     source: {},
   };
 
   const handleRulesSubmit = useCallback(
-    value => {
+    (value) => {
       setRules(value);
       setStep('evaluateOptions');
     },

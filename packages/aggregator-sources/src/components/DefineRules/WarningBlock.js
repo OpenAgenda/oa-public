@@ -37,13 +37,13 @@ export default function WarningBlock({
 }) {
   const requiredFields = useMemoOne(
     () =>
-      aggregatorAgendaSchema.fields.filter(field => {
+      aggregatorAgendaSchema.fields.filter((field) => {
         if (isAggregator) {
           return false;
         }
 
         const sourceField = sourceSchema?.fields?.find(
-          v =>
+          (v) =>
             v.schemaId
             && v.field === field.field
             && v.schemaId === field.schemaId,
@@ -69,7 +69,7 @@ export default function WarningBlock({
     return null;
   }
 
-  const requiredFieldList = requiredFields.map(field => (
+  const requiredFieldList = requiredFields.map((field) => (
     <em key={field.field}>{getLocaleValue(field.label, intl.locale)}</em>
   ));
 
@@ -86,7 +86,10 @@ export default function WarningBlock({
               fields: intl.formatList(requiredFieldList),
               fieldsCount: requiredFields.length,
             })}
-            <MoreInfo className="margin-left-xs" link={externalLinks.helpRequiredAdditional} />
+            <MoreInfo
+              className="margin-left-xs"
+              link={externalLinks.helpRequiredAdditional}
+            />
           </b>
         </div>
       ) : null}
@@ -99,7 +102,10 @@ export default function WarningBlock({
             {intl.formatMessage(messages.displayAggregatorRulesExist, {
               count: aggregator.rules.length,
             })}
-            <MoreInfo className="margin-left-xs" link={externalLinks.helpRules} />
+            <MoreInfo
+              className="margin-left-xs"
+              link={externalLinks.helpRules}
+            />
           </b>
         </div>
       ) : null}

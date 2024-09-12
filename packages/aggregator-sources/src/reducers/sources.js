@@ -25,7 +25,7 @@ const SET_AGGREGATOR_RULES_FAIL = 'aggregator-sources/sources/SET_AGGREGATOR_RUL
 
 const initialState = {};
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
       return {

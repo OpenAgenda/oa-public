@@ -33,7 +33,7 @@ function SourceItem({ source }) {
   const dispatch = useDispatch();
   const apiClient = useApiClient();
 
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
 
   const rulesJSON = useMemo(
     () => JSON.stringify(source.rules, null, 2),
@@ -118,6 +118,7 @@ function SourceItem({ source }) {
                 <button
                   type="button"
                   className="btn btn-link-inline rules-copy"
+                  aria-label={intl.formatMessage(messages.copy)}
                 >
                   <i className="fa fa-sm fa-clipboard" aria-hidden="true" />
                 </button>
@@ -132,7 +133,7 @@ function SourceItem({ source }) {
 
 export default function SourcesList({ sources, aggregatorAgendaSchema }) {
   const renderSource = useCallback(
-    source => (
+    (source) => (
       <SourceItem
         key={source.id}
         source={source}

@@ -12,12 +12,12 @@ export default ({ sourceAgendaUid, res }) => {
   const [languagesOptions, setLanguagesOptions] = useState([]);
 
   useEffect(() => {
-    axios.get(res.replace(':agendaUid', sourceAgendaUid)).then(r => {
+    axios.get(res.replace(':agendaUid', sourceAgendaUid)).then((r) => {
       const langs = r.data.aggregations.languages;
       if (langs) {
         setLanguagesOptions(
           langs
-            .filter(l => l.eventCount)
+            .filter((l) => l.eventCount)
             .reduce((prev, curr) => {
               const label = intl.formatDisplayName([curr.key], {
                 type: 'language',

@@ -1,6 +1,6 @@
 [
-  { 
-    "query":{},
+  {
+    "query": {},
     "actions": [
       {
         "field": "someEmailField",
@@ -9,7 +9,7 @@
     ]
   },
   {
-    "query":{},
+    "query": {},
     "actions": [
       {
         "field": "types-devenements",
@@ -27,7 +27,7 @@
     "actions": [
       {
         "field": "someEmailField",
-        "values": {"$set": "test2@mail.com"}
+        "values": { "$set": "test2@mail.com" }
       }
     ]
   },
@@ -58,13 +58,15 @@
       }
     },
     "required": false,
-    "actions": [{
-      "field": "types-devenements",
-      "values": 15
-    }, {
-      "field": "state",
-      "values": 2
-    }]
+    "actions": [
+      {
+        "field": "types-devenements",
+        "values": 15
+      },
+      {
+        "field": "state",
+        "values": 2
+      }
+    ]
   }
-
 ]

@@ -4,7 +4,7 @@
   "nextOptionId": 29,
   "fields": [
     {
-      "field" : "customtextField",
+      "field": "customtextField",
       "fieldType": "email",
       "label": "Custom text field"
     },
@@ -251,7 +251,7 @@
           "label": {
             "fr": "Aucune catégorie"
           },
-          "display" : false
+          "display": false
         }
       ],
       "fieldType": "checkbox"

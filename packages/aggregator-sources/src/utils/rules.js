@@ -32,7 +32,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
   }
 
   if (aggregatorAgendaSchema) {
-    [].concat(actions).forEach(action => {
+    [].concat(actions).forEach((action) => {
       if (!action) {
         return;
       }
@@ -52,7 +52,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
       }
 
       const fieldSchema = aggregatorAgendaSchema.fields.find(
-        v => v.field === action.field,
+        (v) => v.field === action.field,
       );
 
       if (!fieldSchema) {
@@ -195,7 +195,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
 
   const actions = !withActions
     ? []
-    : values.actions?.map(action => {
+    : values.actions?.map((action) => {
       if (action.field === 'state') {
         return {
           field: 'state',
@@ -205,7 +205,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
       }
 
       const fieldSchema = aggregatorAgendaSchema.fields.find(
-        v => v.field === action.field,
+        (v) => v.field === action.field,
       );
 
       if (!fieldSchema) {
@@ -279,7 +279,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
     case 'choice': {
       return {
         query: {
-          [values.choiceField]: values.choiceValues.map(v =>
+          [values.choiceField]: values.choiceValues.map((v) =>
             (v === 'null' ? null : v)),
         },
         required,

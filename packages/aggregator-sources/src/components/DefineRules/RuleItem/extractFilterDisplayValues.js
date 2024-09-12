@@ -9,7 +9,7 @@ const eventTextFields = [
   'longDescription',
   'keywords',
   'conditions',
-].map(field => ({
+].map((field) => ({
   field,
   label: formLabels[field],
 }));
@@ -39,19 +39,19 @@ const attendanceModeField = {
 const findDisplayedValue = (field, rule, filterFieldName, intl) => {
   if (field.fieldType !== 'boolean') {
     return field.options
-      .filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
-      .map(o => getLocaleValue(o.label, intl.locale))
+      .filter((o) => [].concat(rule.query[filterFieldName]).includes(o.id))
+      .map((o) => getLocaleValue(o.label, intl.locale))
       .join(', ');
   }
   return [].concat(
     rule.query[filterFieldName]
-      .map(v => getLocaleValue(formLabels[`${v}Boolean`], intl.locale))
+      .map((v) => getLocaleValue(formLabels[`${v}Boolean`], intl.locale))
       .join(', '),
   );
 };
 
 const pickFieldInFields = (fields, field) =>
-  fields.filter(f => f.field === field).pop();
+  fields.filter((f) => f.field === field).pop();
 
 function getFilterType(rule) {
   if (!hasFilter(rule)) return null;
@@ -142,7 +142,7 @@ const textFilter = ({ intl, rule, sourceAgendaSchema = { fields: [] } }) => {
 };
 
 const languagesFilter = ({ intl, rule }) => {
-  const values = rule.query.languages.map(el => {
+  const values = rule.query.languages.map((el) => {
     const formated = intl.formatDisplayName(el, { type: 'language' });
     return formated.charAt(0).toUpperCase() + formated.slice(1);
   });

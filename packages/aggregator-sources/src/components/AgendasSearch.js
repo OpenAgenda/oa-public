@@ -30,7 +30,7 @@ function AgendasSearch({ res, render, fieldProps }) {
     [nextPage],
   );
 
-  const onSearch = useCallback(values => list(values.search), [list]);
+  const onSearch = useCallback((values) => list(values.search), [list]);
 
   /*    useEffect(
      () => {

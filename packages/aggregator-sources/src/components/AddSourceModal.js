@@ -124,7 +124,7 @@ function AgendaItem({ agenda, sources, onSelect, firstAction }) {
   const intl = useIntl();
   const onAgendaClick = useCallback(() => onSelect(agenda), [onSelect, agenda]);
   const alreadyInSources = useMemo(
-    () => sources.some(source => source.agenda.uid === agenda.uid),
+    () => sources.some((source) => source.agenda.uid === agenda.uid),
     [sources, agenda],
   );
   const agendaImage = useMemo(() => agenda?.image ?? DEFAULT_IMAGE, [agenda]);
@@ -260,7 +260,7 @@ export default function AddSourceModal({
   const [rules, setRules] = useState();
 
   const toggleSelectType = useCallback(
-    e => {
+    (e) => {
       if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
         e.preventDefault();
         return;
@@ -271,18 +271,18 @@ export default function AddSourceModal({
     [selectType, setSelectType],
   );
 
-  const sources = useSelector(state => state.sources.data);
-  const agendaRes = useSelector(state => state.res.agendaSearch);
-  const slugRes = useSelector(state => state.res.getAgenda);
+  const sources = useSelector((state) => state.sources.data);
+  const agendaRes = useSelector((state) => state.res.agendaSearch);
+  const slugRes = useSelector((state) => state.res.getAgenda);
 
   const isActive = useCallback((step, index, steps, selectedKey) => {
-    const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
+    const selectedStepIndex = steps.findIndex((s) => s.key === selectedKey);
 
     return index === selectedStepIndex;
   }, []);
   const isActivable = useCallback(
     (step, index, steps, selectedKey) => {
-      const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
+      const selectedStepIndex = steps.findIndex((s) => s.key === selectedKey);
 
       if (step.key === 'defineRules' && selectedAgenda) {
         return true;
@@ -293,13 +293,13 @@ export default function AddSourceModal({
     [selectedAgenda],
   );
   const isPassed = useCallback((step, index, steps, selectedKey) => {
-    const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
+    const selectedStepIndex = steps.findIndex((s) => s.key === selectedKey);
 
     return index < selectedStepIndex;
   }, []);
 
   const onSelectAgenda = useCallback(
-    async sourceAgenda => {
+    async (sourceAgenda) => {
       sourceAgenda.schema = await apiClient.get(
         `/${sourceAgenda.slug}/settings/schema`,
       );
@@ -311,7 +311,7 @@ export default function AddSourceModal({
   );
 
   const selectStep = useCallback(
-    key => {
+    (key) => {
       if (key === 'selectAgenda') {
         // setSelectedAgenda(null);
         // setRules(null);
@@ -363,7 +363,7 @@ export default function AddSourceModal({
   );
 
   const handleRulesSubmit = useCallback(
-    value => {
+    (value) => {
       setRules(value);
       selectStep('evaluation');
     },
@@ -448,7 +448,7 @@ export default function AddSourceModal({
                 </p>
 
                 {state.agendas.length
-                  ? state.agendas.map(sourceAgenda => {
+                  ? state.agendas.map((sourceAgenda) => {
                     if (sourceAgenda.uid === aggregatorAgenda.uid) {
                       return null;
                     }

@@ -18,12 +18,12 @@ export default ({ schema }) => {
           .filter(isOptionedField)
           .map(({ options: fieldOptions }) => fieldOptions)
           .flat()
-          .map(v => ({
+          .map((v) => ({
             value: v.label,
             label: getLocaleValue(v.label, intl.locale),
           }))
         : []),
-    [schema],
+    [intl.locale, schema],
   );
 
   return (
@@ -40,7 +40,7 @@ export default ({ schema }) => {
             // initialValue={initialValues?.tagValues}
             placeholder={intl.formatMessage(messages.addAValue)}
             noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-            formatCreateLabel={value =>
+            formatCreateLabel={(value) =>
               intl.formatMessage(messages.createOption, { value })}
             options={options}
             menuPosition="fixed"

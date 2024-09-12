@@ -8,4 +8,5 @@ packages/agenda-schemas-app/dist
 packages/agenda-settings/dist
 packages/agenda-settings/stories/static
 packages/agenda-stats/dist
+packages/aggregator-sources/dist
 packages/next/.next

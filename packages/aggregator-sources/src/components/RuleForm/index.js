@@ -30,7 +30,7 @@ export default function RuleForm({
   sourceAgenda,
   displayTagFilter,
 }) {
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
   const intl = useIntl();
   const formState = useFormState();
 
