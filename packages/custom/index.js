@@ -1,24 +1,30 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-
-const legacy = require( './service/legacy' );
+const _ = require('lodash');
+const legacy = require('./service/legacy');
+const get = require('./service/get');
+const list = require('./service/list');
+const create = require('./service/create');
+const update = require('./service/update');
+const set = require('./service/set');
+const remove = require('./service/remove');
+const transferFromLegacy = require('./service/legacy/transfer');
 
 const endpoints = {
-  get: require( './service/get' ),
-  list: require( './service/list' ),
-  create: require( './service/create' ),
-  update: require( './service/update' ),
-  set: require( './service/set' ),
-  remove: require( './service/remove' ),
-  transferFromLegacy: require( './service/legacy/transfer' )
+  get,
+  list,
+  create,
+  update,
+  set,
+  remove,
+  transferFromLegacy,
 };
 
-module.exports = _.assign( formSchemaId => {
-
-  return _.mapValues( endpoints, ( v, k ) => v.bind( null, formSchemaId ) );
-
-}, _.pick( require( './service/config' ), [ 'init', 'shutdown', 'getConfig' ] ), {
-  parseLegacy: require( './service/legacy/transfer' ).parse,
-  pushCustomDatasetToLegacy: legacy.setAll
-} );
+module.exports = _.assign(
+  (formSchemaId) => _.mapValues(endpoints, (v) => v.bind(null, formSchemaId)),
+  _.pick(require('./service/config'), ['init', 'shutdown', 'getConfig']),
+  {
+    parseLegacy: transferFromLegacy.parse,
+    pushCustomDatasetToLegacy: legacy.setAll,
+  },
+);

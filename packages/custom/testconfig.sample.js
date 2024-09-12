@@ -1,53 +1,39 @@
-"use strict";
+'use strict';
 
 module.exports = {
-
   mysql: {
     host: '127.0.0.1',
     database: 'oatest_custom',
     password: 'grut',
     user: 'root',
-    ssl: true
+    ssl: true,
   },
 
   schemas: {
-    custom: 'custom'
+    custom: 'custom',
   },
 
   legacy: {
     schemas: {
-      event: `legacy_event`,
-      agendaEvent: `legacy_agenda_event`,
-      agendaEventTag: `legacy_agenda_event_tag`,
-      agenda: `agenda`
+      event: 'legacy_event',
+      agendaEvent: 'legacy_agenda_event',
+      agendaEventTag: 'legacy_agenda_event_tag',
+      agenda: 'agenda',
     },
     interfaces: {
-      getFormSchemaFields: async formSchemaId => {
-
+      getFormSchemaFields: async (_formSchemaId) =>
         // need some
-        return []; // should be an array of fields
-
-      }
-    }
+        [], // should be an array of fields
+    },
   },
 
   interfaces: {
+    onCreate: () => {},
 
-    onCreate: () => {
-    },
+    onUpdate: () => {},
 
-    onUpdate: () => {
-    },
+    onRemove: () => {},
 
-    onRemove: () => {
-    },
-
-    getValidator: async formSchemaId => {
-
-      return null; // should be a validator
-
-    }
-
-  }
-
+    getValidator: async (_formSchemaId) => null, // should be a validator
+  },
 };

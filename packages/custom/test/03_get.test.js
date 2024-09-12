@@ -1,57 +1,51 @@
-"use strict";
+'use strict';
 
 process.env.NODE_ENV = 'test';
 
-const  _ = require( 'lodash' ),
+const ih = require('immutability-helper');
 
-  svc = require( './service' ),
+const schema = require('@openagenda/validators/schema');
+const integer = require('@openagenda/validators/integer');
+const text = require('@openagenda/validators/text');
+const config = require('../testconfig');
 
-  ih = require( 'immutability-helper' ),
+const svc = require('./service');
 
-  config = require( '../testconfig' ),
+schema.register({
+  integer,
+  text,
+});
 
-  schema = require( '@openagenda/validators/schema' );
+describe('extended events - functional (server): get', () => {
+  beforeEach(async () => {
+    await svc.initAndLoad(
+      ih(config, {
+        interfaces: {
+          getValidator: {
+            $set: (_formSchemaId) =>
+              schema({
+                edition: {
+                  type: 'integer',
+                },
+                contender: {
+                  type: 'text',
+                },
+              }),
+          },
+        },
+      }),
+    );
+  });
 
-schema.register( {
-  integer: require( '@openagenda/validators/integer' ),
-  text: require( '@openagenda/validators/text' )
-} );
-
-describe( 'extended events - functional (server): get', function() {
-
-  beforeEach( async () => {
-
-    await svc.initAndLoad( ih( config, {
-      interfaces: {
-        getValidator: { $set: formSchemaId => {
-
-          return schema( {
-            edition: {
-              type: 'integer'
-            },
-            contender: {
-              type: 'text'
-            }
-          } );
-
-        } }
-      }
-    } ) );
-
-  } );
-
-  it( 'get custom data by form schema id and identifier', async () => {
-
-    await svc( 12 ).create( 123, {
+  it('get custom data by form schema id and identifier', async () => {
+    await svc(12).create(123, {
       edition: 12,
-      contender: 'Phteve'
-    } );
+      contender: 'Phteve',
+    });
 
-    expect( await svc( 12 ).get( 123 ) ).toEqual( {
+    expect(await svc(12).get(123)).toEqual({
       edition: 12,
-      contender: 'Phteve'
-    } );
-
-  } );
-
-} );
+      contender: 'Phteve',
+    });
+  });
+});

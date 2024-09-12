@@ -1,40 +1,44 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
+const boolean = require('@openagenda/validators/boolean');
+const integer = require('@openagenda/validators/integer');
+const pass = require('@openagenda/validators/pass');
 
-schema.register( {
-  boolean: require( '@openagenda/validators/boolean' ),
-  integer: require( '@openagenda/validators/integer' ),
-  pass: require( '@openagenda/validators/pass' )
-} );
+schema.register({
+  boolean,
+  integer,
+  pass,
+});
 
-module.exports = schema( {
+module.exports = schema({
   transferToLegacy: {
     type: 'boolean',
-    list: { default: false }
+    list: { default: false },
   },
   // required for legacy transfer to target an agenda
   agendaId: {
     type: 'integer',
-    optional: true
+    optional: true,
   },
   draft: {
     type: 'boolean',
     optional: true,
-    default: false
+    default: false,
   },
   validate: {
     type: 'boolean',
     optional: true,
-    default: true
+    default: true,
   },
   partial: {
     type: 'boolean',
     optional: true,
-    default: false
+    default: false,
   },
-  preloaded: { // in case custom data is already in hand
+  preloaded: {
+    // in case custom data is already in hand
     type: 'pass',
-    optional: true
-  }
-} );
+    optional: true,
+  },
+});

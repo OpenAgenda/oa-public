@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "jest --runInBand --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -17,12 +17,12 @@
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.1.0",
     "immutability-helper": "^3.0.0",
+    "knex": "^2.4.2",
     "lodash": "^4.17.15",
     "mysql": "^2.13.0"
   },
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.2",
-    "jest": "^29.7.0",
-    "knex": "^2.4.2"
+    "jest": "^29.7.0"
   }
 }
