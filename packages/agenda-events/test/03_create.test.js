@@ -40,10 +40,10 @@ describe('agendaEvents - 03 - functional (server): create', () => {
 
     beforeAll(
       () =>
-        new Promise(rs => {
+        new Promise((rs) => {
           svc(1111)
             .create(2222)
-            .then(r1 => {
+            .then((r1) => {
               result = r1;
               const con = mysql.createConnection(config.mysql);
 
@@ -139,7 +139,7 @@ describe('agendaEvents - 03 - functional (server): create', () => {
   });
 
   it('context can be passed in options to be transfered to onCreate interface', () =>
-    new Promise(rs => {
+    new Promise((rs) => {
       svc = Service(
         ih(config, {
           interfaces: {
@@ -166,7 +166,7 @@ describe('agendaEvents - 03 - functional (server): create', () => {
     }));
 
   it('when no context is passed, default context values are given', () =>
-    new Promise(rs => {
+    new Promise((rs) => {
       svc = Service(
         ih(config, {
           interfaces: {

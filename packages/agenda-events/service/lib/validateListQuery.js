@@ -16,7 +16,7 @@ const validate = schema({
     optional: true,
     unique: true,
     options: _.keys(states)
-      .map(k => k.toLowerCase())
+      .map((k) => k.toLowerCase())
       .concat(_.values(states)),
   },
   eventUid: {
@@ -35,14 +35,21 @@ const validate = schema({
     type: 'boolean',
     optional: true,
   },
+  updatedAt: ['gt', 'lt', 'gte', 'lte'].reduce(
+    (updatedAt, op) => ({
+      ...updatedAt,
+      [op]: { type: 'date' },
+    }),
+    {},
+  ),
 });
 
-export default values => {
+export default (values) => {
   const clean = validate(values);
 
   if (clean.state && typeof clean.state === 'string') {
     clean.state = states[
-      Object.keys(states).filter(k => clean.state === k.toLowerCase())[0]
+      Object.keys(states).filter((k) => clean.state === k.toLowerCase())[0]
     ];
   } else if (clean.state === null) {
     return _.omit(clean, ['state']);

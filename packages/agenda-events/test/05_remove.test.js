@@ -48,7 +48,7 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
   it('simple remove', async () => {
     const before = await svc(62792452).get(10974548);
     const result = await svc(62792452).remove(10974548);
-    const after = await svc(62792452).get(10974548, {removed: null});
+    const after = await svc(62792452).get(10974548, { removed: null });
 
     expect(result.success).toBe(true);
 
@@ -65,7 +65,7 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
   it('remove by legacyId', async () => {
     const before = await svc(62792452).get(10974548);
     const result = await svc.remove.byLegacyId(42, 24);
-    const after = await svc(62792452).get(10974548, {removed: null});
+    const after = await svc(62792452).get(10974548, { removed: null });
 
     expect(result.success).toBe(true);
     expect(before).not.toBeNull();
@@ -75,7 +75,7 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
   it('remove by legacyId with eventId only', async () => {
     const before = await svc(62792452).get(10974548);
     const result = await svc.remove.byLegacyId(null, 24);
-    const after = await svc(62792452).get(10974548, {removed: null});
+    const after = await svc(62792452).get(10974548, { removed: null });
 
     expect(result.success).toBe(true);
     expect(before).not.toBeNull();

@@ -35,7 +35,7 @@ const base = {
     type: 'boolean',
     default: false,
   },
-  removed : {
+  removed: {
     type: 'boolean',
     default: false,
     allowNull: true,

@@ -1,6 +1,7 @@
 import knex from 'knex';
 import logger from '@openagenda/logs';
 import list from './service/list.js';
+import listAllRemoved from './service/listAllRemoved.js';
 import get from './service/get.js';
 import getAggregatedCount from './service/getAggregatedCount.js';
 import create from './service/create.js';
@@ -87,6 +88,7 @@ export default c => {
       list: {
         byEventUid: service.listByEventUid,
         byUserUid: service.listByUserUid,
+        allRemoved: listAllRemoved.bind(null, service),
       },
       get: {
         byLegacyId: service.getByLegacyId,
