@@ -48,7 +48,7 @@ const ActiveFilters = ({ search, removeFilter }) => {
           className="btn btn-link btn-link-inline margin-left-xs"
           type="button"
           onClick={() => removeFilter(key)}
-          aria-label={intl.formatMessage(messages.removeFilter)}
+          aria-label={intl.formatMessage(messages.remove)}
         >
           <i className="fa fa-times" aria-hidden="true" />
         </button>
