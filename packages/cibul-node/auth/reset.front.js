@@ -14,7 +14,7 @@ const getLabel = makeLabelGetter(labels);
  */
 
 function _ifValueIs(name, expected, func) {
-  return values => {
+  return (values) => {
     if (expected === values[name]) return func(values);
 
     return values;
@@ -22,7 +22,7 @@ function _ifValueIs(name, expected, func) {
 }
 
 function _ifValueIsNot(name, expected, func) {
-  return values => {
+  return (values) => {
     if (expected !== values[name]) return func(values);
 
     return values;
@@ -30,7 +30,7 @@ function _ifValueIsNot(name, expected, func) {
 }
 
 function _render(req, res, uri, _data) {
-  return values => {
+  return (values) => {
     cmn.render(req, res, uri, values);
 
     values.resolved = true;
@@ -42,7 +42,7 @@ function _render(req, res, uri, _data) {
 function _redirectToSignin(req, res, message) {
   const { sessions } = req.app.services;
 
-  return values => {
+  return (values) => {
     sessions.setFlash(req, res, message);
 
     res.redirect(302, '/signin');
@@ -74,7 +74,7 @@ async function _createAndSend(services, values) {
 
   log('loaded user %s', JSON.stringify(result));
 
-  if (!result) throw new Error(getLabel('noAccountFound', values.req.lang));
+  if (!result) throw new Error(getLabel('userNotFound', values.req.lang));
 
   values.user = result;
 
@@ -151,7 +151,7 @@ function lostPasswordSubmit(req, res) {
 
     .then(
       () => log('done'),
-      err => {
+      (err) => {
         services.sessions.setFlash(req, res, err.message);
 
         res.redirect('/');
@@ -255,7 +255,7 @@ function resetPasswordSubmit(req, res) {
     .then(() => log('done'), cmn.catchError(req, res));
 }
 
-export default app => {
+export default (app) => {
   const { sessions } = app.services;
 
   const preMw = [
