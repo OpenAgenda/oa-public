@@ -1,0 +1,73 @@
+import Services from '../services/init.js';
+import Core from '../core/index.js';
+import testConfig from './testConfig.js';
+import loadFixtures from './fixtures/load.js';
+
+describe('services - functional (server): core agendas() events.clearOldSoftRemoved()', () => {
+  let core;
+
+  beforeAll(() => loadFixtures(testConfig.db, '022.sql.js'));
+
+  beforeAll(async () => {
+    const services = await Services(testConfig, {
+      enabled: [
+        'knex',
+        'redis',
+        'simpleCache',
+        'queues',
+        'bull',
+        'files',
+        'events',
+        'agendas',
+        'agendaEvents',
+        'aggregators',
+        'agendaLocations',
+        'formSchemas',
+        'custom',
+        'eventSearch',
+        'members',
+        'networks',
+        'legacy',
+        'users',
+        'keys',
+      ],
+    });
+
+    core = Core(services, testConfig);
+
+    await core.agendas(17026855).events.search.rebuild();
+    await core.agendas(17026800).events.search.rebuild();
+  });
+
+  afterAll(async () => {
+    try {
+      await core.services.eventSearch.getConfig().client.indices.delete({
+        index: 'test',
+      });
+    } catch (e) {
+      /* */
+    }
+  });
+
+  afterAll(() => core.services.shutdown({ clear: true }));
+
+  describe('basic', () => {
+    let searchResultBefore;
+
+    beforeAll(async () => {
+      searchResultBefore = await core
+        .agendas(17026855)
+        .events.search({}, {}, { removed: true, access: 'administrator' });
+    });
+
+    it('should clear old soft removed events', async () => {
+      await core.services.agendaEvents.clearOldSoftRemoved();
+      const searchResultAfter = await core
+        .agendas(17026855)
+        .events.search({}, {}, { removed: true, access: 'administrator' });
+
+      expect(searchResultBefore.total).toBe(2);
+      expect(searchResultAfter.total).toBe(0);
+    });
+  });
+});
