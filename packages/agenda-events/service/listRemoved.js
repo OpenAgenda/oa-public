@@ -3,7 +3,7 @@ import logs from '@openagenda/logs';
 import extractListParameters from './lib/extractListParameters.js';
 import buildListQuery from './lib/buildListQuery.js';
 
-const log = logs('listAllRemoved');
+const log = logs('listRemoved');
 
 function _total(client, query, options) {
   const k = client('agenda_event');
@@ -13,7 +13,7 @@ function _total(client, query, options) {
   return k.count('id as total').then((rows) => rows[0].total);
 }
 
-async function listAllRemoved(service, query, offset, limit, options) {
+async function listRemoved(service, query, offset, limit, options) {
   const { client } = service;
 
   const params = extractListParameters(
@@ -31,11 +31,11 @@ async function listAllRemoved(service, query, offset, limit, options) {
     _.pick(params, ['offset', 'limit']),
     { removed: true },
   );
-
+  log('found', items.length, 'items');
   return {
     items,
     total: await _total(client, params.query, { removed: true }),
   };
 }
 
-export default listAllRemoved;
+export default listRemoved;

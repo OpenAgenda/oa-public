@@ -1,7 +1,7 @@
 import knex from 'knex';
 import logger from '@openagenda/logs';
 import list from './service/list.js';
-import listAllRemoved from './service/listAllRemoved.js';
+import listRemoved from './service/listRemoved.js';
 import get from './service/get.js';
 import getAggregatedCount from './service/getAggregatedCount.js';
 import create from './service/create.js';
@@ -15,7 +15,7 @@ import interfacesTask from './tasks/interfaces.js';
 import setSourcePaths from './utils/setSourcePaths.js';
 import states from './iso/states.js';
 
-export default c => {
+export default (c) => {
   const config = {
     queueNames: {
       interfaces: 'agendaEventInterfaces',
@@ -71,7 +71,7 @@ export default c => {
   });
 
   service.exposed = Object.assign(
-    agendaUid => ({
+    (agendaUid) => ({
       list: service.list.bind(null, agendaUid),
       listByLastId: service.listByLastId.bind(null, agendaUid),
       get: service.get.bind(null, agendaUid),
@@ -88,7 +88,7 @@ export default c => {
       list: {
         byEventUid: service.listByEventUid,
         byUserUid: service.listByUserUid,
-        allRemoved: listAllRemoved.bind(null, service),
+        removed: listRemoved.bind(null, service),
       },
       get: {
         byLegacyId: service.getByLegacyId,

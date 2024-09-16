@@ -8,7 +8,7 @@ async function _remove(service, where, current = null, params = null) {
   const { config, client, removeLegacy } = service;
 
   const { soft } = params;
-
+  log('called with soft', { soft }, current);
   if (current === null) {
     return {
       success: false,
@@ -27,7 +27,9 @@ async function _remove(service, where, current = null, params = null) {
     await service.getAggregatedCount.dec(current.agendaUid);
   }
   let result = null;
+
   if (soft === false) {
+    log('hard remove, deleting agenda-event', { where });
     result = await client('agenda_event').del().where(where);
   } else {
     result = await client('agenda_event')
@@ -65,7 +67,7 @@ async function remove(service, agendaUid, eventUid, options = {}) {
       event_uid: eventUid,
       agenda_uid: agendaUid,
     },
-    await get(agendaUid, eventUid),
+    await get(agendaUid, eventUid, { removed: null }),
     validateOptions(options, 'remove'),
   );
 }
