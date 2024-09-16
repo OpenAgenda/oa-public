@@ -53,7 +53,7 @@ describe('02 - event search - functional: removed', () => {
     );
 
     expect(events.length).toBe(9);
-    expect(events.filter(e => e.removed).length).toBe(0);
+    expect(events.filter((e) => e.removed).length).toBe(0);
   });
 
   it('removed null', async () => {
@@ -66,6 +66,20 @@ describe('02 - event search - functional: removed', () => {
     );
 
     expect(events.length).toBe(10);
-    expect(events.filter(e => e.removed).length).toBe(1);
+    expect(events.filter((e) => e.removed).length).toBe(1);
+  });
+
+  it('sort with removed null', async () => {
+    const { events } = await service('removed').search(
+      {},
+      { size: 10 },
+      {
+        removed: null,
+      },
+    );
+
+    expect(events.map((e) => e.uid)).toStrictEqual([
+      5, 3, 13, 14, 18, 19, 20, 21, 30, 31,
+    ]);
   });
 });
