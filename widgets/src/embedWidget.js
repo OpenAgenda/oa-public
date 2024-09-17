@@ -34,7 +34,7 @@ export default class EmbedLoader {
   }
 
   cleanupEmbeds() {
-    this.loadedEmbeds.forEach(iframe => {
+    this.loadedEmbeds.forEach((iframe) => {
       if (!document.body.contains(iframe)) {
         this.loadedEmbeds.delete(iframe);
       }
@@ -44,7 +44,7 @@ export default class EmbedLoader {
   loadEmbeds(element) {
     const agendaBlockquotes = element.querySelectorAll('blockquote.oa-agenda');
 
-    agendaBlockquotes.forEach(agendaBlockquote => {
+    agendaBlockquotes.forEach((agendaBlockquote) => {
       const link = agendaBlockquote.querySelector('a');
       if (link) {
         const href = link.getAttribute('href');

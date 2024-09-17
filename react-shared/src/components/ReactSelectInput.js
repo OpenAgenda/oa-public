@@ -5,7 +5,7 @@ import CreatableSelect from 'react-select/creatable';
 import defaultStyles from '../utils/defaultSelectStyles';
 
 function Option({ innerProps, ...props }) {
-  const onClick = e => {
+  const onClick = (e) => {
     e.nativeEvent.stopImmediatePropagation();
     innerProps.onClick(e);
   };
@@ -26,8 +26,8 @@ const spreadValue = (value, separator) =>
     return spread.concat(
       item.value
         .split(separator)
-        .map(v => v.trim())
-        .map(v => ({
+        .map((v) => v.trim())
+        .map((v) => ({
           value: v,
           label: v,
         })),
@@ -55,7 +55,7 @@ function ReactSelectInput({
   const onChangeProp = rest.onChange || input.onChange;
 
   const onChange = useCallback(
-    value => {
+    (value) => {
       if (!onChangeProp) {
         return;
       }

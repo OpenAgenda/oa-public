@@ -5,7 +5,7 @@ const LIGHTGRAY = '#f8f8f8';
 const BLACK = '#333';
 
 export default {
-  clearIndicator: provided => ({
+  clearIndicator: (provided) => ({
     ...provided,
     padding: '5px',
     cursor: 'pointer',
@@ -29,7 +29,7 @@ export default {
       borderColor: isFocused ? '#66afe9' : GRAY,
     },
   }),
-  dropdownIndicator: provided => ({
+  dropdownIndicator: (provided) => ({
     ...provided,
     padding: '5px',
     cursor: 'pointer',
@@ -46,14 +46,14 @@ export default {
         display: 'none',
       }
       : base),
-  multiValue: provided => ({
+  multiValue: (provided) => ({
     ...provided,
     margin: '1px',
     padding: '0px',
     borderRadius: '2px',
     overflow: 'hidden',
   }),
-  multiValueLabel: provided => ({
+  multiValueLabel: (provided) => ({
     ...provided,
     fontSize: '100%',
     padding: '3px',
@@ -63,7 +63,7 @@ export default {
     color: WHITE,
     borderRadius: '0',
   }),
-  multiValueRemove: provided => ({
+  multiValueRemove: (provided) => ({
     ...provided,
     cursor: 'pointer',
     backgroundColor: BLUE,
@@ -88,7 +88,7 @@ export default {
       backgroundColor,
     };
   },
-  valueContainer: provided => ({
+  valueContainer: (provided) => ({
     ...provided,
     padding: '2px 4px',
   }),
