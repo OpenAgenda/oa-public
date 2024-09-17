@@ -45,7 +45,7 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
       { limit: 1 },
       { access: 'internal' },
     )
-    .then((events) => events[0].id);
+    .then((events) => events[0]?.id ?? -1);
 
   log('info', `starting from event of id ${initialLastId}`, {
     createdSince,
