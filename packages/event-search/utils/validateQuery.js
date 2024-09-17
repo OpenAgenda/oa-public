@@ -250,24 +250,46 @@ const extractValue = (obj, fieldName) => {
   return undefined;
 };
 
-const isNumberLike = value =>
+const isNumberLike = (value) =>
   !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
 
+function getDefaultSort(clean, options) {
+  const { removed } = options;
+
+  if (removed !== false) {
+    return ['updatedAt.asc', 'uid.asc'];
+  }
+  if ((clean.search || '').length) {
+    return 'score';
+  }
+
+  return 'timingsWithFeatured.asc';
+}
+
 function cleanAdditionalField(fieldSchema, dirty, { emptyValue }) {
-  if (['radio', 'select', 'checkbox', 'multiselect'].includes(fieldSchema.fieldType)) {
+  if (
+    ['radio', 'select', 'checkbox', 'multiselect'].includes(
+      fieldSchema.fieldType,
+    )
+  ) {
     if (Array.isArray(dirty)) {
-      return dirty.map(v => (v === emptyValue ? emptyValue : parseInt(v, 10)));
+      return dirty.map((v) =>
+        (v === emptyValue ? emptyValue : parseInt(v, 10)));
     }
     return dirty === emptyValue ? emptyValue : parseInt(dirty, 10);
   }
 
   if (['number', 'integer'].includes(fieldSchema.fieldType)) {
-    const clean = ['lt', 'lte', 'gt', 'gte'].reduce((cleaned, operand) => (
-      isNumberLike(dirty[operand]) ? {
-        ...cleaned,
-        [operand]: parseInt(dirty[operand], 10),
-      } : cleaned
-    ), {});
+    const clean = ['lt', 'lte', 'gt', 'gte'].reduce(
+      (cleaned, operand) =>
+        (isNumberLike(dirty[operand])
+          ? {
+            ...cleaned,
+            [operand]: parseInt(dirty[operand], 10),
+          }
+          : cleaned),
+      {},
+    );
 
     return Object.keys(clean).length ? clean : undefined;
   }
@@ -279,14 +301,20 @@ function extractAdditionalValuesFromFields(fields, dirty, { emptyValue }) {
   return fields.reduce((additionalValues, fieldSchema) => {
     const { field } = fieldSchema;
 
-    const value = field.schema ? extractAdditionalValuesFromFields(
-      getFormSchemaAdditionalFields(field.schema).concat(field.schema.fields.filter(f => f.schema)),
-      dirty[field.field],
-      { emptyValue },
-    ) : extractValue(dirty, field);
+    const value = field.schema
+      ? extractAdditionalValuesFromFields(
+        getFormSchemaAdditionalFields(field.schema).concat(
+          field.schema.fields.filter((f) => f.schema),
+        ),
+        dirty[field.field],
+        { emptyValue },
+      )
+      : extractValue(dirty, field);
 
     if (value !== undefined) {
-      const cleanValue = cleanAdditionalField(fieldSchema, value, { emptyValue });
+      const cleanValue = cleanAdditionalField(fieldSchema, value, {
+        emptyValue,
+      });
 
       return {
         ...additionalValues,
@@ -299,32 +327,31 @@ function extractAdditionalValuesFromFields(fields, dirty, { emptyValue }) {
 }
 
 function filterNullCountryCode(dirty) {
-  if (dirty.countryCode && dirty.countryCode.length && dirty.countryCode.includes('null')) {
+  if (
+    dirty.countryCode
+    && dirty.countryCode.length
+    && dirty.countryCode.includes('null')
+  ) {
     return true;
   }
   return false;
 }
 
 function validateQuery(dirty, options = {}) {
-  const {
-    formSchema,
-    emptyValue,
-  } = options;
+  const { formSchema, emptyValue } = options;
   const isCountryCodeNull = filterNullCountryCode(dirty);
-  const preCleaned = preCleanRawQuery(dirty);
+  const preCleaned = preCleanRawQuery(dirty, options);
   const clean = validate(preCleaned);
   if (isCountryCodeNull) {
     clean.countryCode = clean.countryCode.concat(['null']);
   }
 
-  if ((clean.search || '').length && !clean.sort) {
-    clean.sort = 'score';
-  } else if (!clean.sort) {
-    clean.sort = 'timingsWithFeatured.asc';
+  if (!clean.sort) {
+    clean.sort = getDefaultSort(clean, options);
   }
 
   const additionalFields = getFormSchemaAdditionalFields(formSchema);
-  const fieldsWithSchema = (formSchema?.fields ?? []).filter(f => f.schema);
+  const fieldsWithSchema = (formSchema?.fields ?? []).filter((f) => f.schema);
 
   const additionalValues = extractAdditionalValuesFromFields(
     additionalFields.concat(fieldsWithSchema),
@@ -345,17 +372,17 @@ module.exports.inflateAndClean = (query, options = {}) => {
     set = null,
     formSchema = null,
     emptyValue,
+    removed = false,
   } = options;
 
-  const inflated = Object.keys(query).reduce((carry, key) => _.set(
-    carry,
-    key.split(/:|\./g),
-    query[key],
-  ), {});
+  const inflated = Object.keys(query).reduce(
+    (carry, key) => _.set(carry, key.split(/:|\./g), query[key]),
+    {},
+  );
 
   inflated.set = set;
 
   const derelativized = derelativize(inflated);
 
-  return validateQuery(derelativized, { formSchema, emptyValue });
+  return validateQuery(derelativized, { formSchema, emptyValue, removed });
 };

@@ -130,6 +130,11 @@ export default (config, core, services) => {
     time: '06:00',
   });
 
+  tfy(services.agendaEvents.clearOdlSoftRemoved, {
+    period: 'daily',
+    time: '06:30',
+  });
+
   // services.eventSearch.rebuild();
   // services.eventSearch.transverse.rebuild();
 

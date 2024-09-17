@@ -83,6 +83,7 @@ function mergeEvent(
       'aggregated',
       'canEdit',
       'motive',
+      'removed',
     ].forEach(aeField => {
       compiled[aeField] = agendaEvent[aeField];
     });

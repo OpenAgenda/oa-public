@@ -35,6 +35,13 @@ const validate = schema({
     type: 'boolean',
     optional: true,
   },
+  updatedAt: ['gt', 'lt', 'gte', 'lte'].reduce(
+    (updatedAt, op) => ({
+      ...updatedAt,
+      [op]: { type: 'date' },
+    }),
+    {},
+  ),
 });
 
 export default (values) => {

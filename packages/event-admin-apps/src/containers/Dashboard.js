@@ -54,7 +54,7 @@ const sortOptions = [
   'lastTimingWithFeatured.asc',
 ];
 
-const getRedirectURL = location =>
+const getRedirectURL = (location) =>
   Base64.encode(location.pathname + location.search);
 
 const messages = defineMessages({
@@ -222,8 +222,8 @@ function Dashboard() {
 
   const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();
 
-  const res = useSelector(state => state.res);
-  const mapTiles = useSelector(state => state.settings.mapTiles);
+  const res = useSelector((state) => state.res);
+  const mapTiles = useSelector((state) => state.settings.mapTiles);
 
   const [passTabOpen, setPassTab] = useState(false);
 
@@ -259,14 +259,14 @@ function Dashboard() {
   const hasUrlQuery = useMemo(
     () =>
       Object.keys(urlQuery).length
-      && Object.keys(urlQuery).some(key => key !== 'sort'),
+      && Object.keys(urlQuery).some((key) => key !== 'sort'),
     [urlQuery],
   );
 
   const hasQuery = useMemo(
     () =>
       Object.keys(query).length
-      && Object.keys(query).some(key => key !== 'sort'),
+      && Object.keys(query).some((key) => key !== 'sort'),
     [query],
   );
 
@@ -298,7 +298,7 @@ function Dashboard() {
 
   const filters = useMemo(
     () =>
-      collapsedFilters.map(filter =>
+      collapsedFilters.map((filter) =>
         (['state', 'relative'].includes(filter.name)
           ? { ...filter, defaultCollapsed: false }
           : filter)),
@@ -306,7 +306,7 @@ function Dashboard() {
   );
 
   const mapFilter = useMemo(
-    () => filters.find(v => v.name === 'geo'),
+    () => filters.find((v) => v.name === 'geo'),
     [filters],
   );
 
@@ -320,7 +320,7 @@ function Dashboard() {
         queryClient
           .refetchQueries(['event-admin-apps', 'events', agenda.slug])
           .catch(() => null),
-      e => console.log('ERROR', e),
+      (e) => console.log('ERROR', e),
     );
 
     removeModal.close();
@@ -393,7 +393,7 @@ function Dashboard() {
       // staleTime: 10000,
       notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
       keepPreviousData: true, // because query and page change
-      onSuccess: newData => {
+      onSuccess: (newData) => {
         // Cancel selection
         setSelectedEvents(new Set());
         setExtendedAllSelected(false);
@@ -443,15 +443,15 @@ function Dashboard() {
     data?.aggregations,
   );
 
-  const onFilterChange = useCallback(values => setQuery(values), [setQuery]);
+  const onFilterChange = useCallback((values) => setQuery(values), [setQuery]);
 
   // Selection
   const isSelectedEvent = useCallback(
-    uid => selectedEvents.has(uid),
+    (uid) => selectedEvents.has(uid),
     [selectedEvents],
   );
-  const selectEvent = useCallback(uid => {
-    setSelectedEvents(old => {
+  const selectEvent = useCallback((uid) => {
+    setSelectedEvents((old) => {
       const result = new Set(old);
 
       if (result.has(uid)) {
@@ -473,7 +473,7 @@ function Dashboard() {
   }, [data, selectedEvents.size]);
 
   const selectAll = useCallback(() => {
-    setSelectedEvents(old => {
+    setSelectedEvents((old) => {
       const result = new Set(old);
 
       for (const event of data.events) {
@@ -490,7 +490,7 @@ function Dashboard() {
 
   const selectExtendedAll = useCallback(
     () =>
-      setExtendedAllSelected(old => {
+      setExtendedAllSelected((old) => {
         if (old) {
           // Cancel selection
           setSelectedEvents(new Set());
@@ -516,23 +516,23 @@ function Dashboard() {
 
   const previousPage = useMemo(
     () =>
-      a11yButtonActionHandler(e => {
+      a11yButtonActionHandler((e) => {
         if (e) {
           e.preventDefault();
         }
 
-        setPage(old => Math.max(old - 1, 1));
+        setPage((old) => Math.max(old - 1, 1));
       }),
     [],
   );
   const nextPage = useMemo(
     () =>
-      a11yButtonActionHandler(e => {
+      a11yButtonActionHandler((e) => {
         if (e) {
           e.preventDefault();
         }
 
-        setPage(old => old + 1);
+        setPage((old) => old + 1);
       }),
     [],
   );
@@ -550,7 +550,7 @@ function Dashboard() {
   const filtersFormRef = useRef();
   const [initialValues] = useState(() => query);
   const validate = useCallback(
-    values => {
+    (values) => {
       try {
         validateQuery(values, {
           formSchema: flattenedAgendaSchema,
@@ -727,7 +727,7 @@ function Dashboard() {
                   <p className="text-center">
                     {intl.formatMessage(messages.allSelected, {
                       size: selectedEvents.size,
-                      b: chunks => <b>{chunks}</b>,
+                      b: (chunks) => <b>{chunks}</b>,
                     })}{' '}
                     <button
                       type="button"
@@ -736,7 +736,7 @@ function Dashboard() {
                     >
                       {intl.formatMessage(messages.selectExtendedAll, {
                         total: data.total,
-                        b: chunks => <b>{chunks}</b>,
+                        b: (chunks) => <b>{chunks}</b>,
                       })}
                     </button>
                   </p>
@@ -744,7 +744,7 @@ function Dashboard() {
                   <p className="text-center">
                     {intl.formatMessage(messages.extendedAllSelected, {
                       total: data.total,
-                      b: chunks => <b>{chunks}</b>,
+                      b: (chunks) => <b>{chunks}</b>,
                     })}{' '}
                     <button
                       type="button"
@@ -783,11 +783,11 @@ function Dashboard() {
                 ? intl.formatMessage(messages.totalWithFilters, {
                   selection: data.total,
                   total: filtersQuery.data.total,
-                  strong: chunks => <strong>{chunks}</strong>,
+                  strong: (chunks) => <strong>{chunks}</strong>,
                 })
                 : intl.formatMessage(messages.totalEvents, {
                   total: filtersQuery.data.total,
-                  strong: chunks => <strong>{chunks}</strong>,
+                  strong: (chunks) => <strong>{chunks}</strong>,
                 })}
             </span>
 
@@ -834,7 +834,7 @@ function Dashboard() {
             isLast={(page - 1) * PAGE_SIZE + index === data.total - 1}
             passRes={res.passCulture}
             passTabIsOpen={passTabOpen === event.uid}
-            setPassTab={e => setPassTab(e)}
+            setPassTab={(e) => setPassTab(e)}
           />
         ))}
       </ul>

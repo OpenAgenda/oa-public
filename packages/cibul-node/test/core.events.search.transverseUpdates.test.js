@@ -45,6 +45,10 @@ describe('core - functional (server): core.events.search', () => {
     services.eventSearch.task();
   });
 
+  beforeAll(() => {
+    core.services.tracker.flush();
+  });
+
   afterAll(() => {
     core.services.shutdown({ clear: true });
   });
@@ -67,10 +71,6 @@ describe('core - functional (server): core.events.search', () => {
       return new Promise((rs) => {
         core.services.tracker.on('transverseIndex.done', rs, true);
       });
-    });
-
-    afterEach(() => {
-      core.services.tracker.flush();
     });
 
     it('an update launches queues', async () => {

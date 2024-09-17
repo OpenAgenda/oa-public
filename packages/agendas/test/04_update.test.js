@@ -1,5 +1,3 @@
-'use strict';
-
 const Files = require('@openagenda/files');
 const {
   service: config,

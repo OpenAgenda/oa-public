@@ -51,9 +51,7 @@ function _getQueryMustParts(cleanQuery) {
   const parts = [];
 
   // term constraints
-  [
-    ['keyword', '_search_keywords', true],
-  ].forEach(field => {
+  [['keyword', '_search_keywords', true]].forEach(field => {
     const fromField = _.isArray(field) ? field[0] : field;
     const toField = _.isArray(field) ? field[1] : field;
     const and = _.isArray(field) ? field[2] : false;
@@ -69,11 +67,13 @@ function _getQueryMustParts(cleanQuery) {
 
   // accessibility constraints
   if (cleanQuery.accessibility?.length) {
-    parts.push(_mustPart(
-      'terms',
-      '_search_keywords',
-      cleanQuery.accessibility.map(a => `accessibility.${a}`),
-    ));
+    parts.push(
+      _mustPart(
+        'terms',
+        '_search_keywords',
+        cleanQuery.accessibility.map(a => `accessibility.${a}`),
+      ),
+    );
   }
 
   // add bounds constraints
@@ -151,15 +151,17 @@ function _timingsExcludingOngoing(d) {
 
 function _filterBySourceAgendaUid(sourceAgendaUid) {
   const uids = [].concat(sourceAgendaUid);
-  const filter = uids.length > 1 ? {
-    terms: {
-      'sourceAgendas.uid': uids,
-    },
-  } : {
-    term: {
-      'sourceAgendas.uid': uids[0],
-    },
-  };
+  const filter = uids.length > 1
+    ? {
+      terms: {
+        'sourceAgendas.uid': uids,
+      },
+    }
+    : {
+      term: {
+        'sourceAgendas.uid': uids[0],
+      },
+    };
 
   return {
     nested: {
@@ -218,11 +220,14 @@ function _localTime(t) {
 
 const ownerOrMemberUidPart = uid => ({
   bool: {
-    should: [{
-      terms: { ownerUid: uid },
-    }, {
-      terms: { 'member.uid': uid },
-    }],
+    should: [
+      {
+        terms: { ownerUid: uid },
+      },
+      {
+        terms: { 'member.uid': uid },
+      },
+    ],
   },
 });
 
@@ -236,11 +241,10 @@ function _terms(fieldName, value) {
 }
 
 function _extractValuesWithSchemaIds(field, cleanQuery, { emptyValue, path }) {
-  return [].concat(
-    cleanQuery[field.field],
-  ).map(
-    v => (v === emptyValue ? v : keywordizeDiscreteValue(field, v, path)),
-  );
+  return []
+    .concat(cleanQuery[field.field])
+    .map(v =>
+      (v === emptyValue ? v : keywordizeDiscreteValue(field, v, path)));
 }
 
 function _filterPart(fieldName, fieldValue, dslField, { emptyValue }) {
@@ -276,21 +280,37 @@ function _filterPart(fieldName, fieldValue, dslField, { emptyValue }) {
 
   if (hasEmptyValues) {
     // has an empty value and only one value is requested
-    return _mustPart('term', '_search_empty_fields', termsFiltersMap[fieldName] ?? fieldName);
+    return _mustPart(
+      'term',
+      '_search_empty_fields',
+      termsFiltersMap[fieldName] ?? fieldName,
+    );
   }
 
   // one value is requested and is not empty
   return _mustPart('term', dslField, value);
 }
 
-function _addAdditionalFieldsToFilterParts(parts, fields, cleanQuery, { emptyValue, path }) {
+function _addAdditionalFieldsToFilterParts(
+  parts,
+  fields,
+  cleanQuery,
+  { emptyValue, path },
+) {
   const currentPath = path ?? '';
   fields.forEach(field => {
     if (field.schema && cleanQuery[field.field]) {
-      _addAdditionalFieldsToFilterParts(parts, field.schema.fields, cleanQuery[field.field], {
-        emptyValue,
-        path: currentPath.length ? `${currentPath}.${field.field}` : field.field,
-      });
+      _addAdditionalFieldsToFilterParts(
+        parts,
+        field.schema.fields,
+        cleanQuery[field.field],
+        {
+          emptyValue,
+          path: currentPath.length
+            ? `${currentPath}.${field.field}`
+            : field.field,
+        },
+      );
       return;
     }
 
@@ -299,15 +319,23 @@ function _addAdditionalFieldsToFilterParts(parts, fields, cleanQuery, { emptyVal
     }
 
     if (['email'].includes(field.fieldType)) {
-      parts.push(_mustPart(
-        'term',
-        '_search_additional_keywords',
-        currentPath.length ? `${currentPath}.${cleanQuery[field.field]}` : cleanQuery[field.field],
-      ));
+      parts.push(
+        _mustPart(
+          'term',
+          '_search_additional_keywords',
+          currentPath.length
+            ? `${currentPath}.${cleanQuery[field.field]}`
+            : cleanQuery[field.field],
+        ),
+      );
       return;
     }
 
-    if (['radio', 'select', 'checkbox', 'multiselect', 'boolean'].includes(field.fieldType)) {
+    if (
+      ['radio', 'select', 'checkbox', 'multiselect', 'boolean'].includes(
+        field.fieldType,
+      )
+    ) {
       const filterCodes = _extractValuesWithSchemaIds(field, cleanQuery, {
         emptyValue,
         path: currentPath,
@@ -316,12 +344,11 @@ function _addAdditionalFieldsToFilterParts(parts, fields, cleanQuery, { emptyVal
       if (!filterCodes.length) {
         return;
       }
-      parts.push(_filterPart(
-        field.field,
-        filterCodes,
-        '_search_additional_keywords',
-        { emptyValue },
-      ));
+      parts.push(
+        _filterPart(field.field, filterCodes, '_search_additional_keywords', {
+          emptyValue,
+        }),
+      );
     }
 
     if (['number', 'integer'].includes(field.fieldType)) {
@@ -338,7 +365,8 @@ function _addAdditionalFieldsToFilterParts(parts, fields, cleanQuery, { emptyVal
                 },
                 {
                   range: {
-                    [`_search_additional_numbers.${field.fieldType}`]: cleanQuery[field.field],
+                    [`_search_additional_numbers.${field.fieldType}`]:
+                      cleanQuery[field.field],
                   },
                 },
               ],
@@ -352,31 +380,36 @@ function _addAdditionalFieldsToFilterParts(parts, fields, cleanQuery, { emptyVal
 
 function _filterByReferencingAgendaUid(referencingAgendaUid) {
   const uids = [].concat(referencingAgendaUid);
-  const filter = uids.length > 1 ? {
-    terms: {
-      _referencing_agenda_uids: uids,
-    },
-  } : {
-    term: {
-      _referencing_agenda_uids: uids[0],
-    },
-  };
+  const filter = uids.length > 1
+    ? {
+      terms: {
+        _referencing_agenda_uids: uids,
+      },
+    }
+    : {
+      term: {
+        _referencing_agenda_uids: uids[0],
+      },
+    };
 
   return filter;
 }
 
-function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValue }) {
+function _getQueryFilterParts(
+  cleanQuery,
+  { additionalAndSchemaFields, emptyValue, removed = false },
+) {
   const parts = [];
-  const {
-    relative,
-    addMethod,
-  } = cleanQuery;
+  const { relative, addMethod } = cleanQuery;
 
   if (_.get(cleanQuery, 'set')) {
     parts.push({ term: { _set: cleanQuery.set } });
   }
 
-  if (_.get(cleanQuery, 'localTime.gte') || _.get(cleanQuery, 'localTime.lte')) {
+  if (
+    _.get(cleanQuery, 'localTime.gte')
+    || _.get(cleanQuery, 'localTime.lte')
+  ) {
     parts.push(_localTime(cleanQuery.localTime));
   }
 
@@ -384,7 +417,11 @@ function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValu
     parts.push(_timingsExcludingOngoing(cleanQuery.timings));
   }
 
-  if (relative.includes('passed') && relative.includes('upcoming') && relative.includes('current')) {
+  if (
+    relative.includes('passed')
+    && relative.includes('upcoming')
+    && relative.includes('current')
+  ) {
     // not a filter.
   } else if (relative.includes('passed') && relative.includes('upcoming')) {
     // defined in should, not filter part
@@ -405,11 +442,21 @@ function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValu
     parts.push(_terms('featured', cleanQuery.featured));
   }
 
-  if (_.get(cleanQuery, 'createdAt.gte') || _.get(cleanQuery, 'createdAt.lte')) {
+  if (removed === true) {
+    parts.push(_terms('removed', true));
+  }
+
+  if (
+    _.get(cleanQuery, 'createdAt.gte')
+    || _.get(cleanQuery, 'createdAt.lte')
+  ) {
     parts.push(_timestampFilter('createdAt', cleanQuery.createdAt));
   }
 
-  if (_.get(cleanQuery, 'updatedAt.gte') || _.get(cleanQuery, 'updatedAt.lte')) {
+  if (
+    _.get(cleanQuery, 'updatedAt.gte')
+    || _.get(cleanQuery, 'updatedAt.lte')
+  ) {
     parts.push(_timestampFilter('updatedAt', cleanQuery.updatedAt));
   }
 
@@ -438,7 +485,15 @@ function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValu
   }
 
   if (_.get(cleanQuery, 'state', []).filter(s => s !== null).length) {
-    parts.push(_mustPart('terms', 'state', cleanQuery.state));
+    parts.push(
+      _mustPart(
+        'terms',
+        'state',
+        removed === null || removed === true
+          ? cleanQuery.state.concat(-2)
+          : cleanQuery.state,
+      ),
+    );
   }
 
   if (_.get(cleanQuery, 'status', []).length) {
@@ -449,14 +504,20 @@ function _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValu
     parts.push(_mustPart('terms', 'attendanceMode', cleanQuery.attendanceMode));
   }
 
-  _addAdditionalFieldsToFilterParts(parts, additionalAndSchemaFields, cleanQuery, { emptyValue });
+  _addAdditionalFieldsToFilterParts(
+    parts,
+    additionalAndSchemaFields,
+    cleanQuery,
+    { emptyValue },
+  );
 
   return parts;
 }
 
 function _getQueryMustNotFilterParts(cleanQuery) {
   const parts = [];
-  const hasPassedAndUpcoming = cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r)).length === 2;
+  const hasPassedAndUpcoming = cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r))
+    .length === 2;
   const hasCurrent = cleanQuery.relative.includes('current');
 
   if (hasPassedAndUpcoming && !hasCurrent) {
@@ -473,26 +534,36 @@ function _getQueryMustNotFilterParts(cleanQuery) {
   }
 
   if (_.get(cleanQuery, 'notReferencingAgendaUid', []).length) {
-    parts.push(_filterByReferencingAgendaUid(cleanQuery.notReferencingAgendaUid));
+    parts.push(
+      _filterByReferencingAgendaUid(cleanQuery.notReferencingAgendaUid),
+    );
   }
 
   return parts;
 }
 
+function shouldParts() {
+  return [
+    { bool: { must_not: { exists: { field: 'removed' } } } },
+    { term: { removed: false } },
+  ];
+}
+
 module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
-  const {
-    formSchema,
-    emptyValue,
-  } = options;
+  const { formSchema, emptyValue, removed = false } = options;
 
   const query = {};
-  const additionalAndSchemaFields = getFormSchemaAdditionalFields(formSchema).concat(
-    (formSchema?.fields ?? []).filter(f => f.schema),
-  );
+  const additionalAndSchemaFields = getFormSchemaAdditionalFields(
+    formSchema,
+  ).concat((formSchema?.fields ?? []).filter(f => f.schema));
 
   const mustParts = _getQueryMustParts(cleanQuery);
 
-  const filterParts = _getQueryFilterParts(cleanQuery, { additionalAndSchemaFields, emptyValue });
+  const filterParts = _getQueryFilterParts(cleanQuery, {
+    additionalAndSchemaFields,
+    emptyValue,
+    removed,
+  });
 
   const mustNotFilterParts = _getQueryMustNotFilterParts(cleanQuery);
 
@@ -508,6 +579,11 @@ module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
 
   if (mustNotFilterParts.length) {
     _.set(query, 'bool.must_not.bool.filter', mustNotFilterParts);
+  }
+
+  if (removed === false) {
+    _.set(query, 'bool.should', shouldParts());
+    _.set(query, 'bool.minimum_should_match', 1);
   }
 
   return query;

@@ -10,11 +10,12 @@ module.exports = (query = {}, nav = {}, options = {}) => {
     formSchema = null,
     includes = null,
     emptyValue,
+    removed = false,
   } = options;
 
   const DSL = {
     track_total_hits: true,
-    query: getDSLQueryPart(query, { formSchema, emptyValue }),
+    query: getDSLQueryPart(query, { formSchema, emptyValue, removed }),
     _source: getDSLSourcePart(includes),
   };
 

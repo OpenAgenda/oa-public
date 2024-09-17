@@ -29,7 +29,8 @@ const validate = schema({
     list: { default: null },
     type: 'pass', // aggregations are cleaned separately - see aggregation/index
   },
-  first: { // return first result only
+  first: {
+    // return first result only
     type: 'boolean',
     default: false,
   },
@@ -74,6 +75,12 @@ const validate = schema({
   },
   parser: {
     type: 'pass',
+  },
+  removed: {
+    type: 'boolean',
+    optional: true,
+    default: false,
+    allowNull: true,
   },
 });
 

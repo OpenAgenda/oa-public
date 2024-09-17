@@ -7,6 +7,8 @@ const log = logs('remove');
 async function _remove(service, where, current = null, params = null) {
   const { config, client, removeLegacy } = service;
 
+  const { soft } = params;
+  log('called with soft', { soft }, current);
   if (current === null) {
     return {
       success: false,
@@ -24,10 +26,18 @@ async function _remove(service, where, current = null, params = null) {
   if (current.aggregated) {
     await service.getAggregatedCount.dec(current.agendaUid);
   }
+  let result = null;
 
-  const removedRows = await client('agenda_event').del().where(where);
+  if (soft === false) {
+    log('hard remove, deleting agenda-event', { where });
+    result = await client('agenda_event').del().where(where);
+  } else {
+    result = await client('agenda_event')
+      .update({ updated_at: new Date(), removed: 1 })
+      .where(where);
+  }
 
-  const success = removedRows === 1;
+  const success = !!result;
 
   if (success && config.interfaces.onRemove) {
     config.interfaces.onRemove(
@@ -42,7 +52,7 @@ async function _remove(service, where, current = null, params = null) {
       log.warn('legacy ref could not be removed', { error: e });
     }
   }
-
+  log('debug', 'returning', { success, removed: current });
   return {
     success,
     removed: current,
@@ -57,8 +67,8 @@ async function remove(service, agendaUid, eventUid, options = {}) {
       event_uid: eventUid,
       agenda_uid: agendaUid,
     },
-    await get(agendaUid, eventUid),
-    validateOptions(options),
+    await get(agendaUid, eventUid, { removed: null }),
+    validateOptions(options, 'remove'),
   );
 }
 
@@ -88,13 +98,13 @@ export async function byEventUid(service, eventUid, options) {
     offset += limit;
   }
 
-  const removedRows = await client('agenda_event')
-    .del()
+  const result = await client('agenda_event')
+    .update({ updated_at: new Date(), removed: 1 })
     .where({ event_uid: eventUid });
 
   return {
-    success: removedRows >= 1,
-    removed: removedRows,
+    success: result >= 1,
+    removed: result,
   };
 }
 
@@ -135,12 +145,12 @@ export async function byLegacyId(service, agendaId = null, eventId = null) {
     await service.getAggregatedCount.dec(agendaUid, toBeRemovedCount);
   }
 
-  const removedRows = await client('agenda_event')
-    .del()
+  const result = await client('agenda_event')
+    .update({ updated_at: new Date(), removed: 1 })
     .where('legacy_id', 'like', like);
 
   return {
-    success: removedRows >= 1,
+    success: result >= 1,
   };
 }
 

@@ -5,50 +5,65 @@ const formatEvent = require('../utils/formatEvent');
 
 describe('11 - event-search - unit: formatEvent', () => {
   const formSchema = {
-    fields: [{
-      schemaId: 13,
-      field: 'someAdditionalValue',
-      fieldType: 'email',
-    }, {
-      schemaId: 13,
-      field: 'someAdditionalPlaces',
-      fieldType: 'integer',
-    }, {
-      schemaId: 13,
-      field: 'someAdditionalPrice',
-      fieldType: 'number',
-    }, {
-      schemaId: 13,
-      field: 'someAdditionalOptions',
-      fieldType: 'radio',
-      options: [{
-        id: 1,
-        label: 'One',
-      }, {
-        id: 2,
-        label: 'Two',
-      }],
-    }, {
-      schemaId: 13,
-      field: 'somAdditionalBoolean',
-      fieldType: 'boolean',
-    }, {
-      field: 'location',
-      schema: {
-        fields: [{
-          schemaId: 'location',
-          field: 'someAdditionalLocationOptions',
-          fieldType: 'radio',
-          options: [{
+    fields: [
+      {
+        schemaId: 13,
+        field: 'someAdditionalValue',
+        fieldType: 'email',
+      },
+      {
+        schemaId: 13,
+        field: 'someAdditionalPlaces',
+        fieldType: 'integer',
+      },
+      {
+        schemaId: 13,
+        field: 'someAdditionalPrice',
+        fieldType: 'number',
+      },
+      {
+        schemaId: 13,
+        field: 'someAdditionalOptions',
+        fieldType: 'radio',
+        options: [
+          {
             id: 1,
             label: 'One',
-          }, {
+          },
+          {
             id: 2,
             label: 'Two',
-          }],
-        }],
+          },
+        ],
       },
-    }],
+      {
+        schemaId: 13,
+        field: 'somAdditionalBoolean',
+        fieldType: 'boolean',
+      },
+      {
+        field: 'location',
+        schema: {
+          fields: [
+            {
+              schemaId: 'location',
+              field: 'someAdditionalLocationOptions',
+              fieldType: 'radio',
+              options: [
+                {
+                  id: 1,
+                  label: 'One',
+                },
+                {
+                  id: 2,
+                  label: 'Two',
+                },
+              ],
+            },
+          ],
+        },
+      },
+    ],
   };
 
   const event = {
@@ -81,13 +96,16 @@ describe('11 - event-search - unit: formatEvent', () => {
       hi: true,
       ii: true,
     },
-    timings: [{
-      begin: new Date('2020-01-18T10:05:00+0100'),
-      end: new Date('2020-01-18T18:30:00+0100'),
-    }, {
-      begin: new Date('2020-01-19T08:20:00+0100'),
-      end: new Date('2020-01-19T16:30:00+0100'),
-    }],
+    timings: [
+      {
+        begin: new Date('2020-01-18T10:05:00+0100'),
+        end: new Date('2020-01-18T18:30:00+0100'),
+      },
+      {
+        begin: new Date('2020-01-19T08:20:00+0100'),
+        end: new Date('2020-01-19T16:30:00+0100'),
+      },
+    ],
     conditions: {
       fr: 'Gratuit',
       en: 'Free',
@@ -95,15 +113,17 @@ describe('11 - event-search - unit: formatEvent', () => {
     status: 5,
     originAgenda: {
       uid: 123456,
-      title: 'L\'agenda d\'origine je crois',
+      title: "L'agenda d'origine je crois",
       image: 'https://fdqfdq.jpg',
     },
     registration: ['an@email.com', 'https://a.link.com', '08392878923'],
-    sourceAgendas: [{
-      uid: 7891011,
-      title: 'Un agenda source',
-      image: null,
-    }],
+    sourceAgendas: [
+      {
+        uid: 7891011,
+        title: 'Un agenda source',
+        image: null,
+      },
+    ],
     someAdditionalValue: 'oa@oa.com',
     someAdditionalPrice: 29.99,
     someAdditionalPlaces: 5,
@@ -136,30 +156,39 @@ describe('11 - event-search - unit: formatEvent', () => {
   });
 
   it('originAgenda._agg is a string with info on agenda', () => {
-    expect(formatted.originAgenda._agg).toEqual('eyJ1aWQiOjEyMzQ1NiwidGl0bGUiOiJMJ2FnZW5kYSBkJ29yaWdpbmUgamUgY3JvaXMiLCJpbWFnZSI6Imh0dHBzOi8vZmRxZmRxLmpwZyJ9');
+    expect(formatted.originAgenda._agg).toEqual(
+      'eyJ1aWQiOjEyMzQ1NiwidGl0bGUiOiJMJ2FnZW5kYSBkJ29yaWdpbmUgamUgY3JvaXMiLCJpbWFnZSI6Imh0dHBzOi8vZmRxZmRxLmpwZyJ9',
+    );
   });
 
   it('sourceAgendas[]._agg is a string with info on the agenda', () => {
-    expect(formatted.sourceAgendas[0]._agg).toEqual('eyJ1aWQiOjc4OTEwMTEsInRpdGxlIjoiVW4gYWdlbmRhIHNvdXJjZSIsImltYWdlIjpudWxsfQ==');
+    expect(formatted.sourceAgendas[0]._agg).toEqual(
+      'eyJ1aWQiOjc4OTEwMTEsInRpdGxlIjoiVW4gYWdlbmRhIHNvdXJjZSIsImltYWdlIjpudWxsfQ==',
+    );
   });
 
   it('_search_title contains the titles of the event', () => {
     expect(formatted._search_title).toEqual(['Un événement', 'An event']);
   });
 
-  it(
-    'timings._search_begin_from_midnight counts the seconds between the timing start and when the day began',
-    () => {
-      expect(formatted.timings[0]._search_begin_from_midnight).toBe(36300);
-    },
-  );
+  it('timings._search_begin_from_midnight counts the seconds between the timing start and when the day began', () => {
+    expect(formatted.timings[0]._search_begin_from_midnight).toBe(36300);
+  });
 
   it('_search_last_timing hold the end of the last timing', () => {
-    expect(formatted._search_last_timing.getTime()).toBe(event.timings[1].end.getTime());
+    expect(formatted._search_last_timing.getTime()).toBe(
+      event.timings[1].end.getTime(),
+    );
   });
 
   it('_search_keywords includes keywords from all languages', () => {
-    for (const keyword of ['jazz', 'restaurant', 'diner', 'theatre', 'theater']) {
+    for (const keyword of [
+      'jazz',
+      'restaurant',
+      'diner',
+      'theatre',
+      'theater',
+    ]) {
       expect(formatted._search_keywords.flat().includes(keyword)).toBe(true);
     }
   });
@@ -204,14 +233,11 @@ describe('11 - event-search - unit: formatEvent', () => {
     expect(formatted.status).toBe(5);
   });
 
-  it(
-    '_search_full_address_text key contains a strict with address-specific information',
-    () => {
-      expect(
-        formatted._search_full_address_text,
-      ).toBe('Alice 8 rue Alice, 92400 Courbevoie FR Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente) França (Metropolitana)');
-    },
-  );
+  it('_search_full_address_text key contains a strict with address-specific information', () => {
+    expect(formatted._search_full_address_text).toBe(
+      'Alice 8 rue Alice, 92400 Courbevoie FR Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente) França (Metropolitana)',
+    );
+  });
 
   it('_search_location contains coords', () => {
     expect(formatted._search_location).toEqual({
@@ -220,85 +246,82 @@ describe('11 - event-search - unit: formatEvent', () => {
     });
   });
 
-  it(
-    '_search_additional_numbers contains values coming from additional fields of number or integer types',
-    () => {
-      expect(formatted._search_additional_numbers).toEqual([
-        { fieldName: 'someAdditionalPlaces', integer: 5, number: 5 },
-        { fieldName: 'someAdditionalPrice', integer: 29, number: 29.99 },
-      ]);
-    },
-  );
+  it('_search_additional_numbers contains values coming from additional fields of number or integer types', () => {
+    expect(formatted._search_additional_numbers).toEqual([
+      { fieldName: 'someAdditionalPlaces', integer: 5, number: 5 },
+      { fieldName: 'someAdditionalPrice', integer: 29, number: 29.99 },
+    ]);
+  });
 
-  it(
-    'additional field of email type is indexed in _search_additional_keywords',
-    () => {
-      expect(formatted._search_additional_keywords.includes('oa@oa.com')).toBe(true);
-    },
-  );
+  it('additional field of email type is indexed in _search_additional_keywords', () => {
+    expect(formatted._search_additional_keywords.includes('oa@oa.com')).toBe(
+      true,
+    );
+  });
 
-  it(
-    'additional field of boolean type is indexed in _search_additional_keywords',
-    () => {
-      expect(formatted._search_additional_keywords.includes('13.somAdditionalBoolean.true')).toBe(true);
-    },
-  );
+  it('additional field of boolean type is indexed in _search_additional_keywords', () => {
+    expect(
+      formatted._search_additional_keywords.includes(
+        '13.somAdditionalBoolean.true',
+      ),
+    ).toBe(true);
+  });
 
-  it(
-    'additional location field of radio type is indexed in _search_additional_keywords',
-    () => {
-      expect(formatted._search_additional_keywords.includes('location.2')).toBe(true);
-    },
-  );
+  it('additional location field of radio type is indexed in _search_additional_keywords', () => {
+    expect(formatted._search_additional_keywords.includes('location.2')).toBe(
+      true,
+    );
+  });
 
   it('timestamps createdAt and updatedAt are in formatted object', () => {
     expect(formatted.createdAt).toBeDefined();
     expect(formatted.updatedAt).toBeDefined();
   });
 
-  it(
-    'timestamp _exclusiveUpdatedAt is unset if updatedAt is less than 1mn appart from createdAt',
-    () => {
-      const newEvent = produce(event, draft => {
-        draft.createdAt = new Date('2020-05-11T15:25:30+0200');
-        draft.updatedAt = new Date('2020-05-11T15:26+0200');
-      });
+  it('timestamp _exclusiveUpdatedAt is unset if updatedAt is less than 1mn appart from createdAt', () => {
+    const newEvent = produce(event, draft => {
+      draft.createdAt = new Date('2020-05-11T15:25:30+0200');
+      draft.updatedAt = new Date('2020-05-11T15:26+0200');
+    });
 
-      expect(formatEvent(newEvent, { formSchema })._exclusiveUpdatedAt).toBeUndefined();
-    },
-  );
+    expect(
+      formatEvent(newEvent, { formSchema })._exclusiveUpdatedAt,
+    ).toBeUndefined();
+  });
 
-  it(
-    'if member contains contactName, it is used as name in member data',
-    () => {
-      expect(formatEvent(produce(event, draft => {
-        draft.member = {
-          custom: {
-            contactName: 'Elf',
-          },
-        };
-        draft.user = {
-          fullName: 'Inashelf',
-        };
-      })).member.name).toBe('Elf');
-    },
-  );
+  it('if member contains contactName, it is used as name in member data', () => {
+    expect(
+      formatEvent(
+        produce(event, draft => {
+          draft.member = {
+            custom: {
+              contactName: 'Elf',
+            },
+          };
+          draft.user = {
+            fullName: 'Inashelf',
+          };
+        }),
+      ).member.name,
+    ).toBe('Elf');
+  });
 
-  it(
-    'if member does not contain contactName, user fullName is used as member name',
-    () => {
-      expect(formatEvent(produce(event, draft => {
-        draft.member = {
-          custom: {
-            contactName: null,
-          },
-        };
-        draft.user = {
-          fullName: 'Inashelf',
-        };
-      })).member.name).toBe('Inashelf');
-    },
-  );
+  it('if member does not contain contactName, user fullName is used as member name', () => {
+    expect(
+      formatEvent(
+        produce(event, draft => {
+          draft.member = {
+            custom: {
+              contactName: null,
+            },
+          };
+          draft.user = {
+            fullName: 'Inashelf',
+          };
+        }),
+      ).member.name,
+    ).toBe('Inashelf');
+  });
 
   it('fix: registration already with type is handled', () => {
     const newEvent = produce(event, draft => {
@@ -324,15 +347,27 @@ describe('11 - event-search - unit: formatEvent', () => {
     expect(formatEvent(newEvent).registration).toEqual([]);
   });
 
-  it(
-    'timestamp _exclusiveUpdatedAt is set if updatedAt is 1mn appart or more from createdAt',
-    () => {
-      const eventWithUpdate = produce(event, draft => {
-        draft.createdAt = new Date('2020-05-11T15:25:30+0200');
-        draft.updatedAt = new Date('2020-05-11T15:27+0200');
-      });
+  it('timestamp _exclusiveUpdatedAt is set if updatedAt is 1mn appart or more from createdAt', () => {
+    const eventWithUpdate = produce(event, draft => {
+      draft.createdAt = new Date('2020-05-11T15:25:30+0200');
+      draft.updatedAt = new Date('2020-05-11T15:27+0200');
+    });
 
-      expect(formatEvent(eventWithUpdate, { formSchema })._exclusiveUpdatedAt.getTime()).toBe(new Date('2020-05-11T15:27+0200').getTime());
-    },
-  );
+    expect(
+      formatEvent(eventWithUpdate, {
+        formSchema,
+      })._exclusiveUpdatedAt.getTime(),
+    ).toBe(new Date('2020-05-11T15:27+0200').getTime());
+  });
+
+  it('removed', () => {
+    const removed = formatEvent({
+      removed: true,
+      updatedAt: event.updatedAt,
+      uid: event.uid,
+    });
+    expect(removed.removed).toBe(true);
+    expect(removed.updatedAt).toBe(event.updatedAt);
+    expect(removed.uid).toBe(event.uid);
+  });
 });

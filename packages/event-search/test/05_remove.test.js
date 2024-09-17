@@ -12,15 +12,21 @@ describe('05 - event search - functional: remove', () => {
 
     await service('05_remove').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(fs.readFileSync(`${__dirname}/fixtures/05_events.${lastId}.${limit}.json`)),
-
+        JSON.parse(
+          fs.readFileSync(
+            `${__dirname}/fixtures/05_events.${lastId}.${limit}.json`,
+          ),
+        ),
     });
   });
 
   it('remove an event from set by uid', async () => {
-    const result = await service('05_remove').remove({
-      uid: 1,
-    }, { refresh: true });
+    const result = await service('05_remove').remove(
+      {
+        uid: 1,
+      },
+      { refresh: true },
+    );
 
     expect(result.success).toBe(true);
   });
@@ -28,13 +34,24 @@ describe('05 - event search - functional: remove', () => {
   it('not found is thrown', async () => {
     let error;
     try {
-      await service('05_remove').remove({
-        uid: 2903,
-      }, { refresh: true });
+      await service('05_remove').remove(
+        {
+          uid: 2903,
+        },
+        { refresh: true, soft: false },
+      );
     } catch (e) {
       error = e;
     }
 
     expect(error.name).toBe('NotFound');
+  });
+
+  it('Error is thrown when incompatible sort is provided with removed', async () => {
+    const error = await service('05_removed')
+      .search({ sort: 'timings.asc' }, {}, { removed: null })
+      .catch((e) => e);
+
+    expect(error.name).toBe('BadRequest');
   });
 });

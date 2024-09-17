@@ -1,26 +1,30 @@
 'use strict';
 
 const { produce } = require('immer');
-const {
-  BadRequest,
-} = require('@openagenda/verror');
+const { BadRequest } = require('@openagenda/verror');
 
 const convertTimingsRange = require('./convertTimingsRange');
 
-module.exports = produce((query = {}) => {
-  if (query.countryCode && query.countryCode.length && query.countryCode.includes('null')) {
-    query.countryCode = query.countryCode.filter(c => c !== 'null');
+module.exports = produce((query = {}, options = {}) => {
+  const { removed } = { removed: false, ...options };
+
+  if (
+    query.countryCode
+    && query.countryCode.length
+    && query.countryCode.includes('null')
+  ) {
+    query.countryCode = query.countryCode.filter((c) => c !== 'null');
   }
 
   try {
-    ['state', 'status'].forEach(f => {
+    ['state', 'status'].forEach((f) => {
       if (!query[f]) {
         return;
       }
 
       query[f] = []
         .concat(query[f])
-        .map(s => (typeof s === 'string' ? parseInt(s, 10) : s));
+        .map((s) => (typeof s === 'string' ? parseInt(s, 10) : s));
     });
   } catch (e) {
     // console.log('error', 'provided state is invalid %j', query);
@@ -32,10 +36,10 @@ module.exports = produce((query = {}) => {
   }
 
   if (Array.isArray(query.uid)) {
-    query.uid = query.uid.map(uid => (uid === '' ? -1 : uid));
+    query.uid = query.uid.map((uid) => (uid === '' ? -1 : uid));
   } else if (query.uid instanceof Object) {
     try {
-      query.uid = Object.values(query.uid).map(uid => parseInt(uid, 10));
+      query.uid = Object.values(query.uid).map((uid) => parseInt(uid, 10));
     } catch (e) {
       throw new Error('uids provided are invalid');
     }
@@ -45,7 +49,7 @@ module.exports = produce((query = {}) => {
     if (query.attendanceMode) {
       query.attendanceMode = []
         .concat(query.attendanceMode)
-        .map(s => (typeof s === 'string' ? parseInt(s, 10) : s));
+        .map((s) => (typeof s === 'string' ? parseInt(s, 10) : s));
     }
   } catch (e) {
     // log('error', 'provided attendanceMode is invalid %j', query);
@@ -62,10 +66,18 @@ module.exports = produce((query = {}) => {
 
   if (query.geo?.northEast && query.geo?.southWest) {
     if (
-      (query.geo?.northEast.lat === query.geo?.southWest.lat)
-      || (query.geo?.northEast.lng === query.geo?.southWest.lng)
+      query.geo?.northEast.lat === query.geo?.southWest.lat
+      || query.geo?.northEast.lng === query.geo?.southWest.lng
     ) {
-      throw new BadRequest('northEast and southWest cannot have same lat or lng values');
+      throw new BadRequest(
+        'northEast and southWest cannot have same lat or lng values',
+      );
     }
+  }
+
+  if (removed !== false && query.sort && query.sort[0] !== 'updatedAt') {
+    throw new BadRequest(
+      'updatedAt is the only allowed sort when removed events are included',
+    );
   }
 });

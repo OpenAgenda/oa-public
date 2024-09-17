@@ -11,7 +11,8 @@ const extractLocationData = require('./extractLocationData');
 const extractSchemaAdditionalSearchables = require('./extractSchemaAdditionalSearchables');
 const cleanOptionedFields = require('./cleanOptionedFields');
 
-const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r?.type);
+const registrationHasType = (registration = []) =>
+  !!registration.some(r => typeof r === 'object' && r?.type);
 
 const toSortTimingFormat = require('./toSortTimingFormat');
 
@@ -40,7 +41,11 @@ const dateRange = (timings = [], timezone = 'Europe/Paris', languages = []) =>
 
 const secondsMidnightDiff = (d, timezone) => {
   const tz = moment(d).tz(timezone || 'Europe/Paris');
-  return parseInt(tz.format('HH'), 10) * 60 * 60 + parseInt(tz.format('mm'), 10) * 60 + parseInt(tz.format('ss'), 10);
+  return (
+    parseInt(tz.format('HH'), 10) * 60 * 60
+    + parseInt(tz.format('mm'), 10) * 60
+    + parseInt(tz.format('ss'), 10)
+  );
 };
 
 const isLessThanOneMinuteApart = (d1, d2) => {
@@ -53,10 +58,20 @@ const isLessThanOneMinuteApart = (d1, d2) => {
 module.exports = (data, options = {}) => {
   const { formSchema = null } = options;
 
+  if (data.removed) {
+    return {
+      removed: true,
+      updatedAt: data.updatedAt,
+      uid: data.uid,
+      state: -2,
+    };
+  }
+
   const cleanedEvent = cleanOptionedFields(data, formSchema);
 
   return produce(cleanedEvent, event => {
     Object.assign(event, {
+      removed: false,
       attendanceMode: event.attendanceMode || 1,
       onlineAccessLink: event.onlineAccessLink || null,
       featured: !!event.featured,
@@ -94,7 +109,8 @@ module.exports = (data, options = {}) => {
         locationSearchData,
       );
     }
-    emptyLocationFields.forEach(f => event._search_empty_fields.push(`location.${f}`));
+    emptyLocationFields.forEach(f =>
+      event._search_empty_fields.push(`location.${f}`));
 
     if (event.timings) {
       const timezone = event.timezone || (event.location ? event.location.timezone : null);
@@ -109,7 +125,14 @@ module.exports = (data, options = {}) => {
       );
 
       Object.assign(event, {
-        dateRange: dateRange(event.timings, timezone, ['fr', 'ar', 'en', 'de', 'es', 'it']),
+        dateRange: dateRange(event.timings, timezone, [
+          'fr',
+          'ar',
+          'en',
+          'de',
+          'es',
+          'it',
+        ]),
         firstTiming,
         lastTiming,
         _search_last_timing: new Date(lastTiming.end),
@@ -147,18 +170,30 @@ module.exports = (data, options = {}) => {
     }
 
     if (multilingualFieldHasValue(event.keywords)) {
-      event._search_keywords = event._search_keywords.concat(Object.values(event.keywords));
+      event._search_keywords = event._search_keywords.concat(
+        Object.values(event.keywords),
+      );
       event._search_keywords_text = Object.values(event.keywords);
     } else {
       event._search_empty_fields.push('keywords');
     }
 
     if (event.originAgenda) {
-      event.originAgenda._agg = aggObjects.flatten(event.originAgenda, ['uid', 'title', 'image', 'url', 'slug']);
+      event.originAgenda._agg = aggObjects.flatten(event.originAgenda, [
+        'uid',
+        'title',
+        'image',
+        'url',
+        'slug',
+      ]);
     }
     if (event.sourceAgendas) {
       event.sourceAgendas.forEach(sourceAgenda => {
-        sourceAgenda._agg = aggObjects.flatten(sourceAgenda, ['uid', 'title', 'image']);
+        sourceAgenda._agg = aggObjects.flatten(sourceAgenda, [
+          'uid',
+          'title',
+          'image',
+        ]);
       });
     }
 
@@ -184,10 +219,12 @@ module.exports = (data, options = {}) => {
       return event;
     }
 
-    const { searchableKeywords, emptyListFields, emptyFields, searchableNumbers } = extractSchemaAdditionalSearchables(
-      formSchema,
-      event,
-    );
+    const {
+      searchableKeywords,
+      emptyListFields,
+      emptyFields,
+      searchableNumbers,
+    } = extractSchemaAdditionalSearchables(formSchema, event);
 
     emptyFields.forEach(f => {
       event._search_empty_fields.push(f);
@@ -197,7 +234,8 @@ module.exports = (data, options = {}) => {
       event[f.field] = [];
     });
 
-    searchableKeywords.forEach(k => event._search_additional_keywords.push(k));
+    searchableKeywords.forEach(k =>
+      event._search_additional_keywords.push(k));
     searchableNumbers.forEach(k => event._search_additional_numbers.push(k));
 
     return event;
