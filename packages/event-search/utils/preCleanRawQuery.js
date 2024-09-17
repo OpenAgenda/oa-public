@@ -74,9 +74,10 @@ module.exports = produce((query = {}, options = {}) => {
       );
     }
   }
+
   if (removed !== false && query.sort && query.sort[0] !== 'updatedAt') {
     throw new BadRequest(
-      'updatedAt is the only allowed sort on removed events',
+      'updatedAt is the only allowed sort when removed events are included',
     );
   }
 });

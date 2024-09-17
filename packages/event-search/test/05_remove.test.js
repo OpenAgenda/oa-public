@@ -46,4 +46,12 @@ describe('05 - event search - functional: remove', () => {
 
     expect(error.name).toBe('NotFound');
   });
+
+  it('Error is thrown when incompatible sort is provided with removed', async () => {
+    const error = await service('05_removed')
+      .search({ sort: 'timings.asc' }, {}, { removed: null })
+      .catch((e) => e);
+
+    expect(error.name).toBe('BadRequest');
+  });
 });

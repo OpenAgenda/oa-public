@@ -340,7 +340,7 @@ function filterNullCountryCode(dirty) {
 function validateQuery(dirty, options = {}) {
   const { formSchema, emptyValue } = options;
   const isCountryCodeNull = filterNullCountryCode(dirty);
-  const preCleaned = preCleanRawQuery(dirty);
+  const preCleaned = preCleanRawQuery(dirty, options);
   const clean = validate(preCleaned);
   if (isCountryCodeNull) {
     clean.countryCode = clean.countryCode.concat(['null']);
