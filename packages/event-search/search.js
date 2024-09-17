@@ -50,7 +50,7 @@ function buildEventParsers({
   const parsers = [convertToLocalTimezone];
 
   const firstNextOrLastRequested = (requestedIncludes ?? []).length
-    ? ['firstTiming', 'lastTiming', 'nextTiming'].filter(f =>
+    ? ['firstTiming', 'lastTiming', 'nextTiming'].filter((f) =>
       requestedIncludes.includes(f)).length
     : true;
 
@@ -59,9 +59,9 @@ function buildEventParsers({
   }
 
   if (!detailed) {
-    parsers.push(e =>
-      produce(e, draft => {
-        ['timings', 'timezone'].forEach(f => {
+    parsers.push((e) =>
+      produce(e, (draft) => {
+        ['timings', 'timezone'].forEach((f) => {
           if (!(requestedIncludes || []).includes(f)) {
             delete draft[f];
           }
@@ -117,7 +117,7 @@ function buildEventParsers({
 }
 
 function parseEvents(parsers, events) {
-  return events.map(e =>
+  return events.map((e) =>
     parsers.reduce((transformed, parser) => parser(transformed), e));
 }
 
@@ -176,7 +176,12 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
 
   let cleanQuery;
   try {
-    cleanQuery = inflateAndCleanQuery(query, { set, formSchema, emptyValue });
+    cleanQuery = inflateAndCleanQuery(query, {
+      set,
+      formSchema,
+      emptyValue,
+      removed,
+    });
   } catch (errors) {
     throw Array.isArray(errors)
       ? new BadRequest({ info: { errors } }, 'query is not valid')
@@ -223,8 +228,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     cleanDSL,
     cleanNav.scroll ? cleanNav : {},
   ).then(
-    r => ({ result: r }),
-    e => ({ error: e }),
+    (r) => ({ result: r }),
+    (e) => ({ error: e }),
   );
 
   if (error) {
@@ -285,8 +290,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
 }
 
 function runScroll(config, set, scrollId, scroll) {
-  return config.client.scroll({ scrollId, scroll }).then(res => ({
-    events: res.body.hits.hits.map(h => h._source),
+  return config.client.scroll({ scrollId, scroll }).then((res) => ({
+    events: res.body.hits.hits.map((h) => h._source),
     total: res.body.hits.total.value,
     scrollId: res.body._scroll_id,
   }));

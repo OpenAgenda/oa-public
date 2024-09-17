@@ -8,7 +8,7 @@ import fixtures from './fixtures/index.js';
 import membersFixtures from './fixtures/members.json';
 import sourceAgendasFixtures from './fixtures/sourceAgendas.json';
 
-describe('agendaEvents - functional (server): listAllRemoved', () => {
+describe('agendaEvents - functional (server): listRemoved', () => {
   let svc;
   let redisClient;
   let knexClient;
@@ -41,7 +41,7 @@ describe('agendaEvents - functional (server): listAllRemoved', () => {
       queue: Queues({
         redis: redisClient,
         prefix: 'agenda-events',
-      })('listAllRemoved'),
+      })('listRemoved'),
       interfaces: {
         ...config.interfaces,
         getMembers: async (aes) =>
@@ -63,7 +63,7 @@ describe('agendaEvents - functional (server): listAllRemoved', () => {
   afterAll(() => knexClient.destroy());
 
   it('simple list all removed', async () => {
-    const result = await svc.list.allRemoved(0, 10);
+    const result = await svc.list.removed(0, 10);
 
     expect(Object.keys(result)).toEqual(['items', 'total']);
     expect(result.total).toBe(2);
@@ -73,7 +73,7 @@ describe('agendaEvents - functional (server): listAllRemoved', () => {
   });
 
   it('with updatedAt query', async () => {
-    const result = await svc.list.allRemoved(
+    const result = await svc.list.removed(
       {
         updatedAt: { gte: '2020-01-01' },
       },

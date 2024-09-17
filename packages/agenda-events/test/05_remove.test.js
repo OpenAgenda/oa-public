@@ -143,4 +143,21 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
         },
       });
     }));
+
+  it('hard remove', async () => {
+    const before = await svc(62792452).get(34285341);
+    const result = await svc(62792452).remove(34285341, { soft: false });
+    const after = await svc(62792452).get(34285341, { removed: null });
+
+    expect(result.success).toBe(true);
+
+    expect(before).not.toBeNull();
+
+    expect(after).toBeNull();
+
+    expect(_.pick(result.removed, ['eventUid', 'agendaUid'])).toEqual({
+      eventUid: 34285341,
+      agendaUid: 62792452,
+    });
+  });
 });

@@ -111,6 +111,10 @@ const validates = {
   default: schema(base),
   create: schema(_.omit(base, ['context.fields.deletion'])),
   update: schema(_.omit(base, ['context.fields.deletion'])),
+  remove: schema({
+    ..._.omit(base, ['context.fields.deletion']),
+    soft: { type: 'boolean', default: true },
+  }),
 };
 
 export default (values, operation = 'default') => {
