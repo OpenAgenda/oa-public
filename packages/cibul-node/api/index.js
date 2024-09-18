@@ -5,6 +5,7 @@ import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.js';
 import * as track from '../lib/track.js';
 import * as logContextMw from '../lib/logContextMw.js';
+import boolQuery from '../lib/boolQuery.js';
 import * as mw from './middleware/index.js';
 import getSettingsEndpoint from './endpoints/settingsGet.js';
 import getSettingsResyncEndpoint from './endpoints/settingsResync.js';
@@ -91,7 +92,7 @@ export default (core, { useRouter = true } = {}) => {
   app.post('/agendas', (req, res, next) =>
     core.agendas
       .create(req.parsedData, { userUid: req.user.uid })
-      .then(agenda => res.json(agenda), next));
+      .then((agenda) => res.json(agenda), next));
 
   app.patch(
     '/agendas/:agendaUid',
@@ -101,7 +102,7 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda.uid)
         .update(req.parsedData)
-        .then(agenda => res.json(agenda), next),
+        .then((agenda) => res.json(agenda), next),
   );
 
   app.get(
@@ -135,7 +136,7 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda)
         .sources.list(req.query, req.query, req.query)
-        .then(r => {
+        .then((r) => {
           res.json(r);
         }, next),
   );
@@ -153,7 +154,7 @@ export default (core, { useRouter = true } = {}) => {
         .sources.patch(req.params.sourceAgendaUid, req.body.rules, {
           query: req.body.query,
         })
-        .then(r => {
+        .then((r) => {
           res.json(r);
         }, next),
   );
@@ -173,7 +174,7 @@ export default (core, { useRouter = true } = {}) => {
           callOrigin: 'api',
         })
         .then(
-          event =>
+          (event) =>
             res.json({
               success: true,
               event,
@@ -207,7 +208,7 @@ export default (core, { useRouter = true } = {}) => {
         },
         private: null,
       })
-      .then(event => res.json({ success: true, event }), next));
+      .then((event) => res.json({ success: true, event }), next));
 
   app.get('/agendas/:agendaUid/events/:eventUid/references', (req, res, next) =>
     core
@@ -219,7 +220,7 @@ export default (core, { useRouter = true } = {}) => {
           userUid: req.user?.uid,
         },
       )
-      .then(references => res.json({ success: true, references }), next));
+      .then((references) => res.json({ success: true, references }), next));
 
   app.get(
     ['/agendas/:agendaUid/events', '/agendas/slug/:agendaSlug/events'],
@@ -267,7 +268,7 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda.uid)
         .settings.schema.getMerged({ lang: req.lang || req.query.lang || 'fr' })
-        .then(data => res.json({ ...data }), next),
+        .then((data) => res.json({ ...data }), next),
   ]);
 
   app.get('/agendas/:agendaUid/settings/eventSchema/configure', [
@@ -278,7 +279,7 @@ export default (core, { useRouter = true } = {}) => {
         .settings.schema.getAndParents({
           lang: req.lang || req.query.lang || 'fr',
         })
-        .then(data => res.json({ ...data }), next),
+        .then((data) => res.json({ ...data }), next),
   ]);
 
   app.post('/agendas/:agendaUid/settings/eventSchema/configure', [
@@ -287,7 +288,7 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda.uid)
         .settings.schema.updateFields(req.parsedData.fields)
-        .then(updatedSchema => res.json(updatedSchema), next),
+        .then((updatedSchema) => res.json(updatedSchema), next),
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [
@@ -301,7 +302,7 @@ export default (core, { useRouter = true } = {}) => {
           lang: req.lang || req.query.lang || 'fr',
           member: req.member,
         })
-        .then(data => res.json({ ...data }), next),
+        .then((data) => res.json({ ...data }), next),
   ]);
 
   app.get('/agendas/:agendaUid/settings/passCulture', [
@@ -313,7 +314,7 @@ export default (core, { useRouter = true } = {}) => {
       core.services
         .registrations(req.agenda.settings.registration)
         .passCulture.getParameters()
-        .then(data => res.json(data), next);
+        .then((data) => res.json(data), next);
     },
   ]);
 
@@ -327,7 +328,7 @@ export default (core, { useRouter = true } = {}) => {
           userUid: req.user.uid,
           lang: req.lang || req.query.lang || 'fr',
         })
-        .then(data => res.json({ ...data }), next),
+        .then((data) => res.json({ ...data }), next),
   ]);
 
   app.post('/agendas/:agendaUid/settings/memberSchema/configure', [
@@ -344,7 +345,7 @@ export default (core, { useRouter = true } = {}) => {
             res.json({
               success: true,
             }),
-          err => {
+          (err) => {
             next(err);
           },
         ),
@@ -361,7 +362,7 @@ export default (core, { useRouter = true } = {}) => {
           detailed: req.query.detailed,
         })
         .then(
-          data =>
+          (data) =>
             res.json({
               ...data,
               success: true,
@@ -381,7 +382,7 @@ export default (core, { useRouter = true } = {}) => {
           { role: req.body.role, emails: req.body.emails },
           { context: req.context, userUid: req.user.uid },
         )
-        .then(data => res.json(data), next),
+        .then((data) => res.json(data), next),
   );
 
   app.post('/agendas/:agendaUid/members', (req, res, next) =>
@@ -393,7 +394,7 @@ export default (core, { useRouter = true } = {}) => {
         req.parsedData,
         { userUid: req.user.uid },
       )
-      .then(member => res.json(member), next));
+      .then((member) => res.json(member), next));
 
   app.get('/agendas/:agendaUid/members/email/:email', [
     mw.member.load,
@@ -410,7 +411,7 @@ export default (core, { useRouter = true } = {}) => {
             detailed: req.query.detailed,
           },
         )
-        .then(data => res.json(data), next),
+        .then((data) => res.json(data), next),
   ]);
 
   app.get('/agendas/:agendaUid/members/:userUid', [
@@ -423,7 +424,7 @@ export default (core, { useRouter = true } = {}) => {
           userUid: req.user.uid,
           access: req.access,
         })
-        .then(member => res.json(member), next),
+        .then((member) => res.json(member), next),
   ]);
 
   app.patch(
@@ -443,7 +444,7 @@ export default (core, { useRouter = true } = {}) => {
             req.parsedData,
             { userUid: req.user.uid },
           )
-          .then(member => res.json(member), next),
+          .then((member) => res.json(member), next),
     ],
   );
 
@@ -499,7 +500,7 @@ export default (core, { useRouter = true } = {}) => {
           autocomplete: (req.query.autocomplete ?? '1') === '1',
         })
         .then(
-          location =>
+          (location) =>
             res.json({
               success: true,
               location,
@@ -535,21 +536,21 @@ export default (core, { useRouter = true } = {}) => {
         countryCode: req.query.countryCode,
         language: req.lang || 'fr',
       })
-      .then(results => res.send({ results }), next));
+      .then((results) => res.send({ results }), next));
 
   app.get('/locations/geocode/reverse', (req, res, next) =>
     core.services.geocoder
       .reverse(req.query.latitude, req.query.longitude, {
         language: req.lang || 'fr',
       })
-      .then(results => res.send({ results }), next));
+      .then((results) => res.send({ results }), next));
 
   app.get('/locations/insee', (req, res, next) =>
     core.services.agendaLocations.utils
       .getINSEECode(
         _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
       )
-      .then(code => res.json({ code }), next));
+      .then((code) => res.json({ code }), next));
 
   app.get(
     '/agendas/:agendaUid/locations/:locationUid/activities',
@@ -580,7 +581,7 @@ export default (core, { useRouter = true } = {}) => {
     core
       .agendas(req.agenda.uid)
       .locations.settings.get({ includeSetInfo: req.query.includeSetInfo })
-      .then(resp => res.json(resp), next));
+      .then((resp) => res.json(resp), next));
 
   app.post('/agendas/:agendaUid/locations/merge', [
     mw.member.allow(['administrator', 'moderator']),
@@ -593,7 +594,7 @@ export default (core, { useRouter = true } = {}) => {
           },
         })
         .then(
-          location =>
+          (location) =>
             res.json({
               location,
               success: true,
@@ -618,7 +619,7 @@ export default (core, { useRouter = true } = {}) => {
             includeFields: req.method === 'HEAD' ? ['uid'] : [],
           })
           .then(
-            location =>
+            (location) =>
               (req.method === 'HEAD'
                 ? res.send()
                 : res.json({
@@ -647,7 +648,7 @@ export default (core, { useRouter = true } = {}) => {
             },
           })
           .then(
-            location =>
+            (location) =>
               res.json({
                 success: true,
                 location,
@@ -674,7 +675,7 @@ export default (core, { useRouter = true } = {}) => {
             },
           })
           .then(
-            location =>
+            (location) =>
               res.json({
                 success: true,
                 location,
@@ -701,7 +702,7 @@ export default (core, { useRouter = true } = {}) => {
             removeEvents: !!req.query.withEvents,
           })
           .then(
-            location =>
+            (location) =>
               res.json({
                 success: true,
                 location,
@@ -739,7 +740,7 @@ export default (core, { useRouter = true } = {}) => {
       .agendas(req.agenda.uid)
       .embeds(req.params.embedUid)
       .get()
-      .then(embed => res.json(embed), next));
+      .then((embed) => res.json(embed), next));
 
   app.post(
     '/agendas/:agendaUid/embeds/:embedUid',
@@ -749,7 +750,7 @@ export default (core, { useRouter = true } = {}) => {
         .agendas(req.agenda.uid)
         .embeds(req.params.embedUid)
         .update(req.parsedData)
-        .then(embed => res.json(embed), next),
+        .then((embed) => res.json(embed), next),
   );
 
   app.get(
@@ -759,7 +760,7 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda.uid)
         .embeds.list()
-        .then(embeds => res.json(embeds), next),
+        .then((embeds) => res.json(embeds), next),
   );
 
   app.post(
@@ -769,7 +770,7 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda.uid)
         .embeds.create(req.parsedData)
-        .then(embed => res.json(embed), next),
+        .then((embed) => res.json(embed), next),
   );
 
   app.post('/agendas/:agendaUid/settings/resync', [
@@ -782,7 +783,7 @@ export default (core, { useRouter = true } = {}) => {
       res.json({ logged: false });
     } else {
       core.users.get(req.user.uid, { detailed: true }).then(
-        user =>
+        (user) =>
           res.json({
             logged: true,
             ..._.pick(user, ['apiKey']),
@@ -815,7 +816,7 @@ export default (core, { useRouter = true } = {}) => {
       core
         .users(req.user)
         .agendas.list(req.query)
-        .then(data => res.json({ ...data, success: true }), next),
+        .then((data) => res.json({ ...data, success: true }), next),
   ]);
 
   app.get('/me/agendas/:agendaUid', [
@@ -833,7 +834,7 @@ export default (core, { useRouter = true } = {}) => {
           includes: req.query.includes,
           relation: ['contributed', 'owned'],
         })
-        .then(context => res.json(context), next);
+        .then((context) => res.json(context), next);
     },
   ]);
 
@@ -859,7 +860,7 @@ export default (core, { useRouter = true } = {}) => {
           },
         )
         .then(
-          result =>
+          (result) =>
             res.json({
               success: true,
               ...result,
@@ -887,7 +888,7 @@ export default (core, { useRouter = true } = {}) => {
           req.query,
         )
         .then(
-          result =>
+          (result) =>
             res.json({
               success: true,
               events: result.items,
@@ -910,7 +911,7 @@ export default (core, { useRouter = true } = {}) => {
         .agendas(req.params.agendaUid)
         .events(req.params.eventUid)
         .getContext({ userUid: req.user.uid })
-        .then(context => res.json(context), next);
+        .then((context) => res.json(context), next);
     },
   ]);
 
@@ -924,14 +925,14 @@ export default (core, { useRouter = true } = {}) => {
         ),
         includeFields: req.query.fields ? [].concat(req.query.fields) : null,
       })
-      .then(data => res.json({ ...data, success: true }), next);
+      .then((data) => res.json({ ...data, success: true }), next);
   });
 
   app.get('/networks/:uid', (req, res, next) => {
     core
       .networks(req.params.uid)
       .get()
-      .then(network => res.json(_.pick(network, ['uid', 'title'])), next);
+      .then((network) => res.json(_.pick(network, ['uid', 'title'])), next);
   });
 
   app.post('/networks/:uid/agendas', [
@@ -943,7 +944,7 @@ export default (core, { useRouter = true } = {}) => {
           { title: req.body.title, description: req.body.description },
           { userUid: req.user.uid },
         )
-        .then(agenda => res.json(agenda), next),
+        .then((agenda) => res.json(agenda), next),
   ]);
 
   app.get('/locationSets/:uid', (req, res, next) => {
@@ -951,7 +952,7 @@ export default (core, { useRouter = true } = {}) => {
       .locationSets(req.params.uid)
       .get()
       .then(
-        locationSet => res.json(_.pick(locationSet, ['uid', 'title'])),
+        (locationSet) => res.json(_.pick(locationSet, ['uid', 'title'])),
         next,
       );
   });
@@ -969,8 +970,9 @@ export default (core, { useRouter = true } = {}) => {
           includeImageTimestamp: req.query.includeImageTimestamp,
           includeLocationImagePath: req.query.includeLocationImagePath,
           useAfterKey: true,
+          removed: boolQuery(req.query.removed, { nullable: true }),
         })
-        .then(data => {
+        .then((data) => {
           const response = JSON.stringify({ ...data, success: true });
           req.result = data;
           req.contentLength = Buffer.byteLength(response, 'utf8');
@@ -995,7 +997,7 @@ export default (core, { useRouter = true } = {}) => {
           withSchema: true,
           includeSupervisorLink: true,
         })
-        .then(result => res.json(result)),
+        .then((result) => res.json(result)),
   ]);
 
   log('done');
