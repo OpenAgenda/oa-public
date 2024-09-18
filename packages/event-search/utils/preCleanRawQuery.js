@@ -75,7 +75,11 @@ module.exports = produce((query = {}, options = {}) => {
     }
   }
 
-  if (removed !== false && query.sort && query.sort[0] !== 'updatedAt') {
+  if (
+    removed !== false
+    && query.sort
+    && query.sort.split('.').shift() !== 'updatedAt'
+  ) {
     throw new BadRequest(
       'updatedAt is the only allowed sort when removed events are included',
     );

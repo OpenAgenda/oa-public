@@ -54,4 +54,13 @@ describe('05 - event search - functional: remove', () => {
 
     expect(error.name).toBe('BadRequest');
   });
+
+  it('Error is not thrown when compatible sort is provided with removed option', async () => {
+    const { error } = await service('05_removed')
+      .search({ sort: 'updatedAt.asc' }, {}, { removed: null })
+      .then((r) => ({ response: r }))
+      .catch((e) => ({ error: e }));
+
+    expect(error).toBeUndefined();
+  });
 });
