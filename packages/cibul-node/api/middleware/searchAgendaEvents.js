@@ -3,16 +3,25 @@ import boolQuery from '../../lib/boolQuery.js';
 
 const log = logs('api/middleware/searchAgendaEvents');
 
-export default function searchAgendaEvents(
-  core,
-  queryNamespace = 'convertedQuery',
-) {
+export default function searchAgendaEvents(core, options = {}) {
+  const {
+    queryNamespace = 'convertedQuery',
+    sendResponse = true,
+    forceIncludeFields,
+    stream = false,
+  } = options;
+
   return (req, res, next) =>
     core
       .agendas(req.agenda.uid)
       .events.search(req[queryNamespace], req[queryNamespace], {
         aggregations: req[queryNamespace].aggs,
         ...req[queryNamespace],
+        stream,
+        includeFields:
+          forceIncludeFields
+          ?? req[queryNamespace]?.includeFields
+          ?? req[queryNamespace]?.if,
         useAfterKey: true,
         userUid: req.user?.uid,
         includeLocationImagePath: true,
@@ -24,7 +33,11 @@ export default function searchAgendaEvents(
         removed: boolQuery(req[queryNamespace].removed, { nullable: true }),
       })
       .then(
-        result => {
+        (result) => {
+          if (!sendResponse) {
+            req.result = result;
+            return next();
+          }
           const response = JSON.stringify({ ...result, success: true });
           req.result = result;
           req.contentLength = Buffer.byteLength(response, 'utf8');
@@ -32,7 +45,7 @@ export default function searchAgendaEvents(
           res.send(response);
           next();
         },
-        err => {
+        (err) => {
           if (err.name !== 'BadRequest') {
             log.error(err);
           }

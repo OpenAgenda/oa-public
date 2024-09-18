@@ -38,9 +38,12 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
   });
 
   if (!agenda) {
-    throw new NotFound({
-      info: { uid: agendaUid },
-    }, 'agenda not found');
+    throw new NotFound(
+      {
+        info: { uid: agendaUid },
+      },
+      'agenda not found',
+    );
   }
 
   const access = await loadSearchAccess(core, agendaUid, options);
@@ -53,27 +56,38 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
 
   const parsers = [];
 
-  log('search with access "%s" on %s events with query %s, nav %s and options %s', access, agendaUid, authorizedQuery, nav, options);
+  log(
+    'search with access "%s" on %s events with query %s, nav %s and options %s',
+    access,
+    agendaUid,
+    authorizedQuery,
+    nav,
+    options,
+  );
 
-  if (longDescriptionFormat && convertLongDescription.conversions.includes(longDescriptionFormat)) {
-    parsers.push(convertLongDescription.load({
-      services: core.services,
-      conversion: longDescriptionFormat,
-      includeEmbedScripts,
-      cspNonce,
-    }));
+  if (
+    longDescriptionFormat
+    && convertLongDescription.conversions.includes(longDescriptionFormat)
+  ) {
+    parsers.push(
+      convertLongDescription.load({
+        services: core.services,
+        conversion: longDescriptionFormat,
+        includeEmbedScripts,
+        cspNonce,
+      }),
+    );
   }
 
   if (useDateHoursMinutesFormat) {
     parsers.push(convertToDateHoursMinutesTimings(core.services.events));
   }
 
-  const {
-    search: agendaIndexSearch,
-  } = core.services.eventSearch.agendas(agenda);
+  const { search: agendaIndexSearch } = core.services.eventSearch.agendas(agenda);
 
   if (parsers.length) {
-    searchOptions.parser = e => parsers.reduce((event, parser) => parser(event), e);
+    searchOptions.parser = (e) =>
+      parsers.reduce((event, parser) => parser(event), e);
   }
 
   const result = stream
@@ -85,59 +99,64 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
       ...searchOptions,
       useAfterKey,
       access,
-    }).then(r => _.omit(r, ['scrollId']));
+    }).then((r) => _.omit(r, ['scrollId']));
 
-  return returnAgenda
-    ? { agenda, result }
-    : result;
+  return returnAgenda ? { agenda, result } : result;
 }
 
 export async function get(core, agendaUid, identifier, options = {}) {
-  const {
-    userUid,
-  } = options;
+  const { userUid } = options;
 
-  const { agenda, result } = await doSearch(core, agendaUid, {
-    ...identifier,
-    state: null,
-  }, { size: 1 }, {
-    ...options,
-    access: 'internal',
-    returnAgenda: true,
-  });
+  const { agenda, result } = await doSearch(
+    core,
+    agendaUid,
+    {
+      ...identifier,
+      state: null,
+    },
+    { size: 1 },
+    {
+      ...options,
+      access: 'internal',
+      returnAgenda: true,
+    },
+  );
 
   if (!agenda) {
-    throw new NotFound({
-      info: { uid: agendaUid },
-    }, 'agenda not found');
+    throw new NotFound(
+      {
+        info: { uid: agendaUid },
+      },
+      'agenda not found',
+    );
   }
 
   const event = result?.events.pop();
 
   if (!event) {
-    throw new NotFound({
-      info: identifier,
-    }, 'event not found');
+    throw new NotFound(
+      {
+        info: identifier,
+      },
+      'event not found',
+    );
   }
 
   const isPublished = event.state === 2;
 
-  if (!userUid && (
-    event.private
-    || agenda.private
-    || !isPublished
-  )) {
+  if (!userUid && (event.private || agenda.private || !isPublished)) {
     throw new Forbidden('not authorized to read event');
   }
 
-  const context = userUid && await core
-    .users(options.userUid)
-    .agendas(agenda.uid)
-    .events(event)
-    .getContext({
-      userUid,
-      includes: ['me.authorizations', 'me.member'],
-    });
+  const context = userUid
+    && await core
+      .users(options.userUid)
+      .agendas(agenda.uid)
+      .events(event)
+      .getContext({
+        userUid,
+        includes: ['me.authorizations', 'me.member'],
+      });
 
   if (context?.me && !context.me.authorizations.canRead) {
     throw new Forbidden('not authorized to read event');
@@ -148,7 +167,13 @@ export async function get(core, agendaUid, identifier, options = {}) {
   return filterEventByRole(agenda, event, context);
 }
 
-export default async function search(core, agendaUid, query, nav, options = {}) {
+export default async function search(
+  core,
+  agendaUid,
+  query,
+  nav,
+  options = {},
+) {
   return doSearch(core, agendaUid, query, nav, options);
 }
 
@@ -160,18 +185,19 @@ export async function rebuild(core, agendaUid) {
   });
 
   if (!agenda) {
-    throw new NotFound({
-      info: { uid: agendaUid },
-    }, 'agenda not found');
+    throw new NotFound(
+      {
+        info: { uid: agendaUid },
+      },
+      'agenda not found',
+    );
   }
 
   return core.services.eventSearch.agendas(agenda).rebuild();
 }
 
 export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
-  const {
-    throwOnError,
-  } = {
+  const { throwOnError } = {
     throwOnError: true,
     ...options,
   };
@@ -184,13 +210,21 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
     });
 
     if (!eventPayload && throwOnError) {
-      throw new NotFound({
-        info: { uid: eventUid },
-      }, 'event not found');
+      throw new NotFound(
+        {
+          info: { uid: eventUid },
+        },
+        'event not found',
+      );
     }
 
     if (!eventPayload) {
-      log('warn', 'could not resync event %s of agenda %s as it was not found', eventUid, agendaUid);
+      log(
+        'warn',
+        'could not resync event %s of agenda %s as it was not found',
+        eventUid,
+        agendaUid,
+      );
       return;
     }
 
@@ -208,7 +242,10 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
 }
 
 async function batchResyncEvents(core, agendaUid, query, options = {}) {
-  const stream = await search(core, agendaUid, query, null, { ...options, stream: true });
+  const stream = await search(core, agendaUid, query, null, {
+    ...options,
+    stream: true,
+  });
 
   for await (const event of stream) {
     await resyncEvent(core, agendaUid, event.uid, { throwOnError: false });
@@ -220,5 +257,6 @@ export function resyncEvents(core) {
     batchResyncEvents: batchResyncEvents.bind(null, core),
   });
 
-  return (agendaUid, query, options = {}) => core.tasks.enqueue('batchResyncEvents', agendaUid, query, options);
+  return (agendaUid, query, options = {}) =>
+    core.tasks.enqueue('batchResyncEvents', agendaUid, query, options);
 }

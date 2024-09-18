@@ -185,7 +185,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.post('/agendas/:agendaUid/events/search', [
     track.mw('api', 'list', 'events'),
-    mw.searchAgendaEvents(core, 'parsedData'),
+    mw.searchAgendaEvents(core, { queryNamespace: 'parsedData' }),
     ...app.services.usageCounters
       ? [app.services.usageCounters.mw.increment('agendaEvents')]
       : [],
@@ -236,6 +236,37 @@ export default (core, { useRouter = true } = {}) => {
       },
     ],
   );
+
+  app.get('/agendas/:agendaUid/events.json-ld', [
+    track.mw('api', 'list', 'events'),
+    mw.searchAgendaEvents(core, {
+      sendResponse: false,
+      queryNamespace: 'query',
+      stream: true,
+      forceIncludeFields: [
+        'uid',
+        'slug',
+        'title',
+        'description',
+        'timings',
+        'status',
+        'attendanceMode',
+        'originAgenda',
+        'registration',
+        'image',
+        'location.name',
+        'location.address',
+        'location.city',
+        'location.region',
+        'location.postalCode',
+        'location.countryCode',
+        'location.latitude',
+        'location.longitude',
+        'age',
+      ],
+    }),
+    mw.sendJSONLD,
+  ]);
 
   app.get(
     [
