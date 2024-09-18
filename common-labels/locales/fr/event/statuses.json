@@ -8,7 +8,7 @@
   "common.event.statuses.postponed": "Reporté",
   "common.event.statuses.postponedInfo": "L'événement a été reporté à des dates encore non connues",
   "common.event.statuses.rescheduled": "Reprogrammé",
-  "common.event.statuses.rescheduledInfo": "Les dates et/ou horaires de l'événement ont été modifiées",
+  "common.event.statuses.rescheduledInfo": "Les horaires et/ou dates de l'événement ont été modifiées",
   "common.event.statuses.scheduled": "Programmé",
   "common.event.statuses.scheduledInfo": "L'événement est programmé au lieu et aux horaires annoncés"
 }
