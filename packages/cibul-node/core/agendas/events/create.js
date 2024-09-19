@@ -1,8 +1,11 @@
+import _ from 'lodash';
 import ih from 'immutability-helper';
 import logs from '@openagenda/logs';
 import { BadRequest, Forbidden } from '@openagenda/verror';
 import createPayload from '../utils/createPayload.js';
-import cleanDuplicateImage, { isImageToDuplicate } from '../utils/cleanDuplicateImage.js';
+import cleanDuplicateImage, {
+  isImageToDuplicate,
+} from '../utils/cleanDuplicateImage.js';
 import doAdd from '../utils/doAdd.js';
 import extractUserUid from '../utils/extractUserUid.js';
 import loadAuthorizations from '../../utils/authorizations.js';
@@ -87,9 +90,13 @@ export default async (core, agendaUid, data, options = {}) => {
     const payload = createPayload(core, agenda);
 
     try {
-      clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, {
-        current: clean.event.links,
-      });
+      clean.event.links = await processOEmbed(
+        services.oembed,
+        clean.event.longDescription,
+        {
+          current: clean.event.links,
+        },
+      );
       log('  retrieved %s links', clean.event.links.length);
     } catch (e) {
       log('error', '  could not retrieve oembeds', e);
@@ -151,6 +158,13 @@ export default async (core, agendaUid, data, options = {}) => {
         duplicateOrigin,
       },
     );
+    log.info('create successful', {
+      agendaUid,
+      eventUid: response.event.uid,
+      agenda: _.pick(agenda, ['uid', 'slug', 'title']),
+      actingUserUid: userUid,
+      callOrigin,
+    });
   } catch (e) {
     log.info('create failed', {
       error: e,
@@ -165,7 +179,8 @@ export default async (core, agendaUid, data, options = {}) => {
   if (
     !draft
     && registrations?.utils.passCulture.isMarkedAsPending(
-      response.event.registration.find(r => r.service === 'passCulture')?.data,
+      response.event.registration.find((r) => r.service === 'passCulture')
+        ?.data,
     )
   ) {
     registrations.utils.passCulture.enqueuePending({
@@ -173,13 +188,6 @@ export default async (core, agendaUid, data, options = {}) => {
       eventUid: response.event.uid,
     });
   }
-
-  log.info('create successful', {
-    agendaUid,
-    userUid,
-    eventUid: response.event.uid,
-    callOrigin,
-  });
 
   return returnPayload ? response : response.event;
 };
