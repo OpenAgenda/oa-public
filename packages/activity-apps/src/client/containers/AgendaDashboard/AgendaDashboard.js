@@ -11,7 +11,12 @@ import { ActivityItem } from '../../components';
 import messages from '../../messages/activities';
 
 class AgendaDashboard extends Component {
-  throttledNextPage = _.throttle(this.nextPage, 400, { trailing: false });
+  constructor() {
+    super();
+    this.throttledNextPage = _.throttle(this.nextPage, 400, {
+      trailing: false,
+    });
+  }
 
   nextPage = () => {
     const {
