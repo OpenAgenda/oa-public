@@ -1,0 +1,142 @@
+{
+  "events": [
+    {
+      "uid": 81527718,
+      "state": 2,
+      "slug": "rochfort-en-bulles",
+      "title": {
+        "fr": "Roch'Fort en Bulles"
+      },
+      "description": {
+        "fr": "Festival de BD de Rochefort"
+      },
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-05T08:00:00.000Z",
+          "end": "2020-09-05T08:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:07.000Z",
+      "createdAt": "2019-10-17T12:56:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 8590057,
+      "location": {
+        "uid": 8590057,
+        "slug": "A",
+        "name": "A",
+        "address": "some address",
+        "city": "A",
+        "region": "A",
+        "department": "A",
+        "countryCode": "FR",
+        "district": "A",
+        "state": 1,
+        "latitude": 45.939204,
+        "longitude": -0.958117,
+        "timezone": "Europe/Paris"
+      }
+    },
+    {
+      "state": 2,
+      "uid": 81527719,
+      "slug": "rochfort-en-bulles",
+      "title": "Roch'Fort en Bulles 2",
+      "description": "Festival de BD de Rochefort",
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-06T08:00:00.000Z",
+          "end": "2020-09-06T08:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:07.000Z",
+      "createdAt": "2019-10-17T12:56:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 8590058,
+      "location": {
+        "uid": 8590058,
+        "slug": "B",
+        "name": "B",
+        "address": "some other address",
+        "city": "B",
+        "region": "A",
+        "department": "A",
+        "countryCode": "FR",
+        "district": "B",
+        "latitude": 45.939204,
+        "longitude": -0.958117,
+        "state": 1,
+        "timezone": "Europe/Paris"
+      }
+    },
+    {
+      "state": 2,
+      "uid": 81527720,
+      "slug": "rochfort-en-bulles",
+      "title": "Roch'Fort en Bulles 3",
+      "description": "Festival de BD de Rochefort",
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-06T08:00:00.000Z",
+          "end": "2020-09-06T08:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:07.000Z",
+      "createdAt": "2019-10-17T12:56:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 8590059,
+      "location": {
+        "uid": 8590059,
+        "slug": "B",
+        "name": "B",
+        "address": "some other address",
+        "city": "A",
+        "region": "B",
+        "department": "A",
+        "countryCode": "FR",
+        "district": "B",
+        "latitude": 45.939204,
+        "longitude": -0.958117,
+        "state": 1,
+        "timezone": "Europe/Paris"
+      }
+    },
+
+    {
+      "state": 2,
+      "uid": 81527721,
+      "slug": "rochfort-en-bulles",
+      "title": "Roch'Fort en Bulles 2",
+      "description": "Festival de BD de Rochefort",
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-07T08:00:00.000Z",
+          "end": "2020-09-07T08:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:07.000Z",
+      "createdAt": "2019-10-17T12:56:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 8590060,
+      "location": {
+        "uid": 8590060,
+        "slug": "B",
+        "name": "B",
+        "address": "some other address",
+        "city": "A",
+        "region": "B",
+        "department": "A",
+        "countryCode": "FR",
+        "district": "B",
+        "latitude": 45.939204,
+        "longitude": -0.958117,
+        "state": 1,
+        "timezone": "Europe/Paris"
+      }
+    }
+  ],
+  "lastId": -1
+}

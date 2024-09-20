@@ -25,9 +25,6 @@ const timings = (query, options = {}) => {
     {
       _search_last_timing: { order: 'desc' },
     },
-    {
-      uid: { order: 'asc' }, // tie breaker
-    },
   ];
 };
 
@@ -40,48 +37,38 @@ module.exports = function getDSLSortPart(query = {}) {
     sorts.push('timings.asc');
   }
 
-  if (sorts[0] === 'score') {
-    return ['_score', { uid: { order: 'asc' } }];
-  }
-
-  const firstSortType = sorts[0].split('.')[0];
-
-  if (firstSortType === 'timingsWithFeatured') {
-    return [
-      {
-        featured: { order: 'desc' },
-      },
-    ].concat(timings(query));
-  }
-
-  if (firstSortType === 'lastTimingWithFeatured') {
-    return [
-      {
-        featured: { order: 'desc' },
-      },
-      ...timings(query, { mode: 'max' }),
-    ];
-  }
-
-  if (firstSortType === 'timings') {
-    return timings(query);
-  }
-
-  if (firstSortType === 'lastTiming') {
-    return timings(query, { mode: 'max' });
-  }
-
   return sorts
-    .map((sort) => {
+    .reduce((acc, sort) => {
+      if (sort === 'score') {
+        return acc.concat(['_score']);
+      }
+
       const split = sort.split('.');
       const order = split.pop();
       const field = split.join('.');
 
-      return {
+      if (field === 'timings' || field === 'lastTiming') {
+        return acc.concat(
+          timings(query, { mode: field === 'lastTiming' ? 'max' : 'min' }),
+        );
+      }
+
+      if (
+        field === 'timingsWithFeatured'
+        || field === 'lastTimingWithFeatured'
+      ) {
+        return acc
+          .concat([{ featured: { order: 'desc' } }])
+          .concat(
+            timings(query, {
+              mode: field === 'lastTimingWithFeatured' ? 'max' : 'min',
+            }),
+          );
+      }
+
+      return acc.concat({
         [field]: order,
-      };
-    })
-    .concat({
-      uid: { order: 'asc' }, // tie breaker
-    });
+      });
+    }, [])
+    .concat({ uid: { order: 'asc' } });
 };
