@@ -13,7 +13,12 @@ import { ActivityItem } from '../../components';
 import messages from '../../messages/activities';
 
 class UserDashboard extends Component {
-  throttledNextPage = _.throttle(this.nextPage, 400, { trailing: false });
+  constructor() {
+    super();
+    this.throttledNextPage = _.throttle(this.nextPage, 400, {
+      trailing: false,
+    });
+  }
 
   nextPage = () => {
     const { loading, nextLoading, activities, query, nextPage, lastPage } = this.props;
