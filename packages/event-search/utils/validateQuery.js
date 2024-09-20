@@ -229,12 +229,23 @@ const validate = schema({
       'updatedAt.asc',
       'location.name.asc',
       'location.city.asc',
+      'location.region.asc',
+      'location.countryCode.asc',
+      'location.departement.asc',
+      'location.adminLevel3.asc',
+      'location.adminLevel5.asc',
+      'location.district.asc',
       'location.name.desc',
       'location.city.desc',
+      'location.region.desc',
+      'location.countryCode.desc',
+      'location.departement.desc',
+      'location.adminLevel3.desc',
+      'location.adminLevel5.desc',
+      'location.district.desc',
       'score',
     ],
     optional: true,
-    unique: true,
   },
 });
 
@@ -257,7 +268,7 @@ function getDefaultSort(clean, options) {
   const { removed } = options;
 
   if (removed !== false) {
-    return ['updatedAt.asc', 'uid.asc'];
+    return 'updatedAt.asc';
   }
   if ((clean.search || '').length) {
     return 'score';
@@ -347,7 +358,7 @@ function validateQuery(dirty, options = {}) {
     clean.countryCode = clean.countryCode.concat(['null']);
   }
 
-  if (!clean.sort) {
+  if (!clean.sort || !clean.sort.length) {
     clean.sort = getDefaultSort(clean, options);
   }
 
