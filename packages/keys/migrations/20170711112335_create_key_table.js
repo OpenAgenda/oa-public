@@ -1,28 +1,26 @@
-exports.up = async knex => {
+'use strict';
 
-  const schemas = knex.client.config.schemas;
+exports.up = async (knex) => {
+  const { schemas } = knex.client.config;
 
-  const exists = await knex.schema.hasTable( schemas.key );
+  const exists = await knex.schema.hasTable(schemas.key);
 
-  if ( exists ) {
+  if (exists) {
     return;
   }
 
-  return knex.schema.createTable( schemas.key, table => {
-    table.bigIncrements( 'id' ).unsigned().primary();
-    table.string( 'type' ).notNullable();
-    table.bigInteger( 'identifier' ).unsigned().notNullable().index();
-    table.string( 'label' );
-    table.string( 'key' ).notNullable().index();
-    table.timestamp( 'created_at' ).notNullable().defaultTo( knex.fn.now() );
-  } );
-
+  return knex.schema.createTable(schemas.key, (table) => {
+    table.bigIncrements('id').unsigned().primary();
+    table.string('type').notNullable();
+    table.bigInteger('identifier').unsigned().notNullable().index();
+    table.string('label');
+    table.string('key').notNullable().index();
+    table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
+  });
 };
 
-exports.down = knex => {
+exports.down = (knex) => {
+  const { schemas } = knex.client.config;
 
-  const schemas = knex.client.config.schemas;
-
-  return knex.schema.dropTableIfExists( schemas.key );
-
+  return knex.schema.dropTableIfExists(schemas.key);
 };

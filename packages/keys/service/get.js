@@ -6,19 +6,26 @@ const config = require('./config');
 const redis = require('./lib/redis');
 const validateIdentifiers = require('./validators/identifiers');
 
-module.exports = async (identifiers, options) => {
+function parse(row) {
+  if (!row) return row;
+
+  return _.mapKeys(row, (v, k) => _.camelCase(k));
+}
+
+module.exports = async (...args) => {
+  let identifiers = args[0];
+  const options = args[1];
   const params = _.merge(
     {
       cache: false,
       optionalKey: false,
     },
-    options
+    options,
   );
 
   const { knex, schemas } = config;
 
-  if (!knex)
-    throw new VError('Db connector needs to be specified at service init');
+  if (!knex) throw new VError('Db connector needs to be specified at service init');
 
   try {
     identifiers = _.pickBy(
@@ -26,7 +33,7 @@ module.exports = async (identifiers, options) => {
         keyOrIdentifier: true,
         optionalKey: params.optionalKey,
       }),
-      (v) => v !== undefined
+      (v) => v !== undefined,
     );
   } catch (e) {
     throw new VError(
@@ -36,7 +43,7 @@ module.exports = async (identifiers, options) => {
           errors: e,
         },
       },
-      'Validation failed'
+      'Validation failed',
     );
   }
 
@@ -49,7 +56,7 @@ module.exports = async (identifiers, options) => {
   }
 
   const row = parse(
-    (await knex(schemas.key).first().where(identifiers)) || null
+    await knex(schemas.key).first().where(identifiers) || null,
   );
 
   if (params.cache && identifiers.key) {
@@ -58,9 +65,3 @@ module.exports = async (identifiers, options) => {
 
   return row;
 };
-
-function parse(row) {
-  if (!row) return row;
-
-  return _.mapKeys(row, (v, k) => _.camelCase(k));
-}
