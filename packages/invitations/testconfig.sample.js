@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   mysql: {
     host: '127.0.0.1',
@@ -7,9 +9,9 @@ module.exports = {
     ssl: true,
   },
   schemas: {
-    invitation: 'invitation'
+    invitation: 'invitation',
   },
   interfaces: {
-    onAssign: ( action, invitation, cb ) => cb( null )
-  }
+    onAssign: (action, invitation, cb) => cb(null),
+  },
 };

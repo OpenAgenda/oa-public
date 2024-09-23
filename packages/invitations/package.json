@@ -4,7 +4,7 @@
   "description": "The invitation service",
   "main": "service/index.js",
   "scripts": {
-    "test": "jest --runInBand --forceExit --testTimeout=40000 --verbose=false"
+    "test": "jest --runInBand --detectOpenHandles --forceExit --testTimeout=40000 --verbose=false"
   },
   "repository": {
     "type": "git",

@@ -1,132 +1,109 @@
-"use strict";
+'use strict';
 
-const service = require( './service' );
-const config = require( '../testconfig' );
+const config = require('../testconfig');
+const service = require('./service');
 
 const actions = {
-  setToEnglish: cb => cb( true )
+  setToEnglish: (cb) => cb(true),
 };
 
-describe( 'invitations - functional (server): assign an action to an invitation', () => {
-
-  beforeAll(done => {
-
-    service.initAndLoad( Object.assign( {}, config, { actions } ), done );
-
+describe('invitations - functional (server): assign an action to an invitation', () => {
+  beforeAll(async () => {
+    await new Promise((resolve, reject) =>
+      service.initAndLoad({ ...config, actions }, (err) => {
+        if (err) return reject(err);
+        resolve();
+      }));
   });
 
-  it('assigning an action to an inexistent invitation creates it', done => {
+  it('assigning an action to an inexistent invitation creates it', async () => {
+    const result = await service.assign(
+      { email: 'kevin.bertho@openagenda.com' },
+      'setToEnglish',
+    );
 
-    service.assign( { email: 'kevin.bertho@openagenda.com' }, 'setToEnglish' )
-      .then( result => {
-
-        expect(result.success).toBe(true);
-        expect(result.errors.length).toBe(0);
-        expect(result.invitation.data).toStrictEqual({
-          nextId: 1,
-          actions: [ { id: 1, name: 'setToEnglish', params: [] } ]
-        });
-
-        done();
-
-      } )
-      .catch( done );
-
+    expect(result.success).toBe(true);
+    expect(result.errors.length).toBe(0);
+    expect(result.invitation.data).toStrictEqual({
+      nextId: 1,
+      actions: [{ id: 1, name: 'setToEnglish', params: [] }],
+    });
   });
 
-  it('works with callback too', done => {
+  it('works with callback too', async () => {
+    const result = await service.assign(
+      { email: 'kevin@bertho.com' },
+      'setToEnglish',
+    );
 
-    service.assign( { email: 'kevin@bertho.com' }, 'setToEnglish', ( err, result ) => {
-      expect( err ).toBeNull();
-      expect( result.success ).toBe( true );
-      expect( result.errors.length ).toBe( 0 );
-      expect( result.invitation.data ).toStrictEqual( {
-        nextId: 1,
-        actions: [{ id: 1, name: 'setToEnglish', params: [] }]
-      })
-      done();
-
-    } );
-
+    expect(result.success).toBe(true);
+    expect(result.errors.length).toBe(0);
+    expect(result.invitation.data).toStrictEqual({
+      nextId: 1,
+      actions: [{ id: 1, name: 'setToEnglish', params: [] }],
+    });
   });
 
-  it('assigning an action to an invitation with params', done => {
+  it('assigning an action to an invitation with params', async () => {
+    const result = await service.assign(
+      { email: 'kaore.olafsson@gmail.com' },
+      'setToEnglish',
+      [['an', 'array', 'first'], 42],
+    );
 
-    service.assign( { email: 'kaore.olafsson@gmail.com' }, 'setToEnglish', [ [ 'an', 'array', 'first' ], 42 ] )
-      .then( result => {
-
-        expect( result.success ).toBe( true );
-        expect( result.errors.length ).toBe( 0 );
-        expect( result.invitation.data ).toStrictEqual({
-          nextId: 1,
-          actions: [{ id: 1, name: 'setToEnglish', params: [['an', 'array', 'first'], 42] }]
-        });
-        done();
-
-      } )
-      .catch( done );
-
+    expect(result.success).toBe(true);
+    expect(result.errors.length).toBe(0);
+    expect(result.invitation.data).toStrictEqual({
+      nextId: 1,
+      actions: [
+        { id: 1, name: 'setToEnglish', params: [['an', 'array', 'first'], 42] },
+      ],
+    });
   });
 
-  it(
-    'cannot assign an action to an inexistent invitation without specifing email',
-    done => {
+  it('cannot assign an action to an inexistent invitation without specifing email', async () => {
+    const result = await service.assign({ token: 'mabite' }, 'setToEnglish');
 
-      service.assign( { token: 'mabite' }, 'setToEnglish' )
-        .then( ( result ) => {
-
-          expect(result.success).toBe(false);
-          expect(result.errors.length).toBe(1);
-          expect(result.errors[0].code).toBe('invitation.notFound');
-
-          done();
-
-        } )
-        .catch( done );
-
-    }
-  );
-
-  it('cannot assign an action that not exists', done => {
-
-    service.assign( { email: 'kevin.bertho@gmail.com' }, 'notExists' )
-      .then( result => {
-
-        expect(result.success).toBe(false);
-        expect(result.errors.length).toBe(1);
-        expect(result.errors[0].code).toBe('action.notFound');
-
-        done();
-
-      } )
-      .catch( done );
-
+    expect(result.success).toBe(false);
+    expect(result.errors.length).toBe(1);
+    expect(result.errors[0].code).toBe('invitation.notFound');
   });
 
-  it('onAssign receive Invitation instance and action', done => {
+  it('cannot assign an action that not exists', async () => {
+    const result = await service.assign(
+      { email: 'kevin.bertho@gmail.com' },
+      'notExists',
+    );
 
-    const conf = Object.assign( {}, config, { actions } );
+    expect(result.success).toBe(false);
+    expect(result.errors.length).toBe(1);
+    expect(result.errors[0].code).toBe('action.notFound');
+  });
+
+  it('onAssign receive Invitation instance and action', async () => {
+    const conf = { ...config, actions };
     conf.interfaces.onAssign = (action, Invitation, cb) => {
-      expect(action).toStrictEqual({ id: 1, name: 'setToEnglish', params: [ [ 'an', 'array', 'first' ], 42 ] });
+      expect(action).toStrictEqual({
+        id: 1,
+        name: 'setToEnglish',
+        params: [['an', 'array', 'first'], 42],
+      });
       cb();
-
     };
 
-    service.initAndLoad( conf, err => {
+    await new Promise((resolve, reject) =>
+      service.initAndLoad(conf, (err) => {
+        if (err) return reject(err);
+        resolve();
+      }));
 
-      expect(err).toBeUndefined();
+    const result = await service.assign(
+      { email: 'kaore.olafsson@gmail.com' },
+      'setToEnglish',
+      [['an', 'array', 'first'], 42],
+    );
 
-      service.assign( { email: 'kaore.olafsson@gmail.com' }, 'setToEnglish', [ [ 'an', 'array', 'first' ], 42 ] )
-        .then( result => {
-          expect(result.success).toBe(true);  
-          expect(result.errors.length).toBe(0);
-          done();
-
-        } )
-        .catch( done );
-
-    } );
-
+    expect(result.success).toBe(true);
+    expect(result.errors.length).toBe(0);
   });
-
-} );
+});
