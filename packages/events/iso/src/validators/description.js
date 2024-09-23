@@ -23,6 +23,6 @@ function removeNewLines(value) {
 
 module.exports = function longDescriptionValidator(config) {
   const validate = multilingualValidator(config);
-  return value =>
+  return (value) =>
     validate(checkAndConvertToMarkdown(removeNewLines(value), config));
 };

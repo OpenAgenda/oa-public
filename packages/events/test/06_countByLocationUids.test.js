@@ -1,14 +1,9 @@
 'use strict';
 
-const assert = require('assert');
+const { service: config } = require('../testconfig.sample');
 
-const {
-  service: config,
-  dependencies: dConfig
-} = require('../testconfig.sample');
-
-const fixtures = require('./fixtures');
 const Service = require('..');
+const fixtures = require('./fixtures');
 
 describe('events - functional - countByLocationUids', () => {
   const f = fixtures(config.mysql, config.schema);
@@ -21,7 +16,7 @@ describe('events - functional - countByLocationUids', () => {
     svc = Service({
       knex: f.client,
       imagePath: config.imagePath,
-      defaultImage: '//default/image/path.png'
+      defaultImage: '//default/image/path.png',
     });
   });
 
@@ -29,12 +24,14 @@ describe('events - functional - countByLocationUids', () => {
     let counts;
 
     beforeAll(async () => {
-      counts = await svc.countByLocationUids({ locationUid: [34342835, 4395371, 43953713] }, { private: false });
+      counts = await svc.countByLocationUids(
+        { locationUid: [34342835, 4395371, 43953713] },
+        { private: false },
+      );
     });
 
     it('lists 20 items by default', () => {
-      assert.equal(counts.length, 2);
+      expect(counts.length).toBe(2);
     });
-
   });
 });

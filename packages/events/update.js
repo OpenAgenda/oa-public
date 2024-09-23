@@ -50,7 +50,10 @@ async function update({ service, isPatch }, current, data, o = {}) {
   }
 
   if (clean.timings !== undefined) {
-    clean.timings = convertAndInjectTimingsWithTimezone(clean.timings, clean.timezone || current.timezone);
+    clean.timings = convertAndInjectTimingsWithTimezone(
+      clean.timings,
+      clean.timezone || current.timezone,
+    );
   }
 
   const updated = {
@@ -58,9 +61,16 @@ async function update({ service, isPatch }, current, data, o = {}) {
     ...clean,
   };
 
-  await handleInterface(service, 'beforeUpdate', current, updated, options.context);
+  await handleInterface(
+    service,
+    'beforeUpdate',
+    current,
+    updated,
+    options.context,
+  );
 
-  await service.clients.knex(service.config.schema)
+  await service.clients
+    .knex(service.config.schema)
     .update(service.fieldUtils.fromItemToEntry(clean, current))
     .where('uid', current.uid);
 
@@ -78,13 +88,29 @@ async function update({ service, isPatch }, current, data, o = {}) {
 
   return lastClean(updated, {
     ...options,
-    locations: options.detailed ? await handleInterface(service, 'getLocations', updated.locationUid) : null,
-    agendas: options.detailed ? await handleInterface(service, 'getOriginAgendas', updated.agendaUid, { private: options.private }) : null,
+    locations: options.detailed
+      ? await handleInterface(service, 'getLocations', updated.locationUid)
+      : null,
+    agendas: options.detailed
+      ? await handleInterface(service, 'getOriginAgendas', updated.agendaUid, {
+        private: options.private,
+      })
+      : null,
     imagePath: service.config.imagePath,
   });
 }
 
-module.exports = async ({ service, isPatch }, identifier, data, options = {}) => update({
-  service,
-  isPatch,
-}, await get(service, identifier, { ...options, throwOnError: true, internal: true }), data, options);
+module.exports = async ({ service, isPatch }, identifier, data, options = {}) =>
+  update(
+    {
+      service,
+      isPatch,
+    },
+    await get(service, identifier, {
+      ...options,
+      throwOnError: true,
+      internal: true,
+    }),
+    data,
+    options,
+  );

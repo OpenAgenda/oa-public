@@ -3,10 +3,10 @@
 module.exports = require('./options')({
   total: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   useAfter: {
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 });

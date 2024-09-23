@@ -27,7 +27,8 @@ module.exports = async (service, identifiers, o = {}) => {
     .first(
       fieldUtils
         .getFieldsByAccess('read', options.access)
-        .filter(f => (includeFields.length ? includeFields.includes(f.field) : true))
+        .filter((f) =>
+          (includeFields.length ? includeFields.includes(f.field) : true))
         .map(getDatabaseFieldName),
     )
     .where(cleanGetIdentifiers(identifiers));
@@ -54,9 +55,13 @@ module.exports = async (service, identifiers, o = {}) => {
 
   return lastClean(item, {
     ...options,
-    locations: options.detailed ? await handleInterface(service, 'getLocations', item.locationUid) : null,
+    locations: options.detailed
+      ? await handleInterface(service, 'getLocations', item.locationUid)
+      : null,
     agendas: options.detailed
-      ? await handleInterface(service, 'getOriginAgendas', item.agendaUid, { private: privateOption })
+      ? await handleInterface(service, 'getOriginAgendas', item.agendaUid, {
+        private: privateOption,
+      })
       : null,
     imagePath,
     defaultImage,

@@ -17,16 +17,9 @@ module.exports = async (service, data, o = {}) => {
   log('processing');
   const options = cleanSetOptions(o);
 
-  const {
-    context,
-    private: privateOption,
-    fileKey,
-  } = options;
+  const { context, private: privateOption, fileKey } = options;
 
-  const {
-    agendaUid,
-    userUid,
-  } = context;
+  const { agendaUid, userUid } = context;
 
   const clean = await validate(data, {
     isDraft: options.draft,
@@ -35,7 +28,8 @@ module.exports = async (service, data, o = {}) => {
 
   Object.assign(clean, {
     slug: await generateSlug(service, clean),
-    uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
+    uid: await defineUnique(service, 'uid', () =>
+      Math.ceil(Math.random() * 99999999)),
     agendaUid,
     updatedAt: new Date(),
     createdAt: new Date(),
@@ -51,7 +45,10 @@ module.exports = async (service, data, o = {}) => {
     });
   }
 
-  clean.timings = convertAndInjectTimingsWithTimezone(clean.timings, clean.timezone);
+  clean.timings = convertAndInjectTimingsWithTimezone(
+    clean.timings,
+    clean.timezone,
+  );
 
   if (userUid) {
     Object.assign(clean, {
@@ -86,8 +83,14 @@ module.exports = async (service, data, o = {}) => {
 
   return lastClean(clean, {
     ...options,
-    locations: options.detailed ? await handleInterface(service, 'getLocations', clean.locationUid) : null,
-    agendas: options.detailed ? await handleInterface(service, 'getOriginAgendas', clean.agendaUid, { private: privateOption }) : null,
+    locations: options.detailed
+      ? await handleInterface(service, 'getLocations', clean.locationUid)
+      : null,
+    agendas: options.detailed
+      ? await handleInterface(service, 'getOriginAgendas', clean.agendaUid, {
+        private: privateOption,
+      })
+      : null,
     imagePath: service.config.imagePath,
   });
 };

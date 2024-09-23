@@ -7,7 +7,7 @@ module.exports = async (client, eventId, data) => {
   const id = await client('event_location')
     .first('id')
     .where('event_id', eventId)
-    .then(r => (r ? r.id : null));
+    .then((r) => (r ? r.id : null));
 
   const q = client('event_location');
 
@@ -16,7 +16,7 @@ module.exports = async (client, eventId, data) => {
     q.insert({
       ...data.event_location,
       event_id: eventId,
-      created_at: new Date()
+      created_at: new Date(),
     });
   } else {
     log('updating event_location %s', id);
@@ -25,10 +25,15 @@ module.exports = async (client, eventId, data) => {
 
   const result = await q;
   const eventLocationId = id || result.pop();
-  
-  await setTranslationEntries(client, 'event_location_translation', eventLocationId, data);
+
+  await setTranslationEntries(
+    client,
+    'event_location_translation',
+    eventLocationId,
+    data,
+  );
 
   return {
-    id: eventLocationId
+    id: eventLocationId,
   };
 };

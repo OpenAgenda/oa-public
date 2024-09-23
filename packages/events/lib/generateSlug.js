@@ -10,7 +10,7 @@ const pickARandomLetter = () =>
 function GenerateSlug(event) {
   const title = event.title?.[Object.keys(event.title ?? {}).pop()] ?? `${rand()}`;
 
-  return previous => {
+  return (previous) => {
     let slug = slugify(title, { lower: true, strict: true });
     if (!slug.length) {
       for (let i = 0; i < title.length; i += 1) {

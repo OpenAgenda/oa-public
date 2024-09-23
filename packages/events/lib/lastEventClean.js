@@ -8,7 +8,7 @@ const filterItemValuesByFieldAccess = require('./filterItemValuesByFieldAccess')
 const toHTML = require('./toHTML');
 const flatten = require('./flatten');
 
-const getPathAndFilename = file => {
+const getPathAndFilename = (file) => {
   if (!file) {
     return { filename: null, path: null };
   }
@@ -45,19 +45,22 @@ module.exports = (event, options = {}) => {
   }
 
   if (locations) {
-    event.location = [].concat(locations).filter(l => l.uid === event.locationUid).pop();
+    event.location = []
+      .concat(locations)
+      .filter((l) => l.uid === event.locationUid)
+      .pop();
     additionalFields.push('location');
   }
 
   if (agendas) {
-    event.agenda = [].concat(agendas).filter(a => a.uid === event.agendaUid).pop();
+    event.agenda = []
+      .concat(agendas)
+      .filter((a) => a.uid === event.agendaUid)
+      .pop();
     additionalFields.push('agenda');
   }
 
-  const {
-    path: defaultImagePath,
-    filename: defaultImageFilename,
-  } = getPathAndFilename(defaultImage);
+  const { path: defaultImagePath, filename: defaultImageFilename } = getPathAndFilename(defaultImage);
 
   if (event.image) {
     delete event.image.credits;
@@ -90,7 +93,10 @@ module.exports = (event, options = {}) => {
     additionalFields.push('location');
   }
 
-  if (event.age && !Object.keys(event.age).filter(k => event.age[k] !== undefined).length) {
+  if (
+    event.age
+    && !Object.keys(event.age).filter((k) => event.age[k] !== undefined).length
+  ) {
     event.age = { min: null, max: null };
   }
 

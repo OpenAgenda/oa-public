@@ -1,31 +1,29 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const date = require('@openagenda/validators/date');
 
 const compareBeginAndEnd = require('../compareBeginAndEnd');
 
 schema.register({
-  date: require('@openagenda/validators/date')
+  date,
 });
 
 const validate = schema({
   begin: {
     type: 'date',
-    optional: false
+    optional: false,
   },
   end: {
     type: 'date',
-    optional: false
-  }
+    optional: false,
+  },
 });
 
-module.exports = value => {
-  const {
-    begin,
-    end
-  } = validate(value);
+module.exports = (value) => {
+  const { begin, end } = validate(value);
 
   compareBeginAndEnd(begin, end, value);
 
   return { begin, end };
-}
+};

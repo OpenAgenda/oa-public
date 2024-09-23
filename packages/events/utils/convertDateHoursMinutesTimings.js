@@ -1,11 +1,13 @@
 'use strict';
 
 const log = require('@openagenda/logs')('convertDateMinuteHourTimings');
-const { is: isDateHoursMinutesTiming } = require('../iso/src/validators/dateHoursMinutesTiming');
+const {
+  is: isDateHoursMinutesTiming,
+} = require('../iso/src/validators/dateHoursMinutesTiming');
 
 const {
   from: convert,
-  to: convertTo
+  to: convertTo,
 } = require('../iso/src/convertDateHoursMinutesTiming');
 
 module.exports = (timings, timezone) => {
@@ -19,7 +21,7 @@ module.exports = (timings, timezone) => {
 
   log('converting from DHM timings');
 
-  timings.forEach(t => {
+  timings.forEach((t) => {
     t.begin = convert(t.begin, timezone);
     t.end = convert(t.end, timezone);
   });
@@ -36,8 +38,8 @@ module.exports.to = (timings, timezone) => {
 
   log('converting to DHM timings');
 
-  timings.forEach(t => {
+  timings.forEach((t) => {
     t.begin = convertTo(t.begin, timezone);
     t.end = convertTo(t.end, timezone);
-  })
-}
+  });
+};
