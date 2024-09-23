@@ -20,7 +20,7 @@ export default defineMessages({
   total: {
     id: 'next.views.AgendaSearch.total',
     defaultMessage:
-      '{total, number} {total, plural, one {agenda} other {agendas}} found',
+      '{count, plural, =0 {No agenda found} one {1 agenda found} other {# agendas found}}',
   },
   latestUpdated: {
     id: 'next.views.AgendaSearch.latestUpdated',
