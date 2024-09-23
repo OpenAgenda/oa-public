@@ -57,11 +57,11 @@ const validate = schema({
   },
 });
 
-module.exports = options => {
+module.exports = (options) => {
   const clean = validate(options);
 
   if (Array.isArray(clean.includeLanguages)) {
-    clean.includeLanguages = clean.includeLanguages.filter(l => !!l);
+    clean.includeLanguages = clean.includeLanguages.filter((l) => !!l);
   }
 
   return clean;

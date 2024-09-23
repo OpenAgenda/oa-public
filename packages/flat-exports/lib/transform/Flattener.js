@@ -4,21 +4,17 @@ const _ = require('lodash');
 
 function applyTransform(transformFunction, data, keys, defaultValue = null) {
   if (keys === 'timings') return transformFunction(data);
-  return transformFunction.apply(null, [].concat(keys).map(k => _.get(data, k)), defaultValue);
+  return transformFunction.apply(
+    null,
+    [].concat(keys).map((k) => _.get(data, k)),
+    defaultValue,
+  );
 }
 
 function flattenSourceValues(mapItem, src, options) {
-  const {
-    source,
-    transform,
-    languages,
-    default: defaultItem = null,
-  } = mapItem;
+  const { source, transform, languages, default: defaultItem = null } = mapItem;
 
-  const {
-    separator = ' | ',
-    includeLanguages,
-  } = options;
+  const { separator = ' | ', includeLanguages } = options;
 
   const lang = includeLanguages || languages;
 
@@ -27,13 +23,15 @@ function flattenSourceValues(mapItem, src, options) {
   }
 
   if (transform) {
-    return [].concat(
-      _.get(src, source),
-    ).map(s => _.get(transform, s, defaultItem || null)).filter(s => s).join(separator);
+    return []
+      .concat(_.get(src, source))
+      .map((s) => _.get(transform, s, defaultItem || null))
+      .filter((s) => s)
+      .join(separator);
   }
 
   if (lang && languages && _.get(src, source)) {
-    return lang.map(l => _.get(src, `${source}.${l}`));
+    return lang.map((l) => _.get(src, `${source}.${l}`));
   }
 
   return _.get(src, source, defaultItem || null);
@@ -46,10 +44,17 @@ function flatten(map, src, options = {}) {
     const flattenedValue = flattenSourceValues(mapItem, src, options);
 
     if (_.isArray(target)) {
-      Object.assign(flattened, target.reduce((carry, targetField, index) => flattenedValue && {
-        ...carry,
-        [targetField]: flattenedValue[index] || null,
-      }, {}));
+      Object.assign(
+        flattened,
+        target.reduce(
+          (carry, targetField, index) =>
+            flattenedValue && {
+              ...carry,
+              [targetField]: flattenedValue[index] || null,
+            },
+          {},
+        ),
+      );
     } else {
       flattened[target] = flattenedValue;
     }
@@ -57,7 +62,7 @@ function flatten(map, src, options = {}) {
   }, {});
 }
 
-module.exports = (map, options) => src => flatten(map, src, options);
+module.exports = (map, options) => (src) => flatten(map, src, options);
 
 module.exports.flatten = flatten;
 module.exports.flattenSourceValues = flattenSourceValues;

@@ -23,4 +23,3 @@ A Flattener in this package is a function that takes a configuration map (an ite
 To generate the transform function, the Flattener takes in a default field map mapping event standard fields (see `lib/transform/getDefaultFieldMap.js`).
 
 If provided options include a `formSchema`, the transform field map is decorated by the function `lib/transform/decorateFieldMap.js`.s
-

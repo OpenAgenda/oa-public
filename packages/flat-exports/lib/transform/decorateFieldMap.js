@@ -3,9 +3,7 @@
 const VError = require('@openagenda/verror');
 
 const {
-  utils: {
-    flattenSchema: getFlattenedSchema,
-  },
+  utils: { flattenSchema: getFlattenedSchema },
 } = require('@openagenda/form-schemas');
 
 const fieldToFlattenerMapItem = require('./fieldToFlattenerMapItem');
@@ -26,23 +24,26 @@ const handledTypes = [
   'boolean',
 ];
 
-const isIncluded = (fieldMap, includeFields, f) => includeFields.some(includeField => includeField === f.field && !fieldMap.some(field => field.source === f.field));
+const isIncluded = (fieldMap, includeFields, f) =>
+  includeFields.some(
+    (includeField) =>
+      includeField === f.field
+      && !fieldMap.some((field) => field.source === f.field),
+  );
 
 module.exports = (fieldMap, options = {}) => {
-  const {
-    formSchema = null,
-    includeFields = [],
-    spreadFields = [],
-  } = options;
+  const { formSchema = null, includeFields = [], spreadFields = [] } = options;
 
   if (!formSchema?.fields?.length) {
     return fieldMap;
   }
 
-  const flattenedFormSchema = getFlattenedSchema(formSchema, { prefixedLabels: true });
+  const flattenedFormSchema = getFlattenedSchema(formSchema, {
+    prefixedLabels: true,
+  });
 
   const decorateWith = flattenedFormSchema.fields
-    .filter(f => {
+    .filter((f) => {
       if (includeFields.length && isIncluded(fieldMap, includeFields, f)) {
         return true;
       }
@@ -55,9 +56,12 @@ module.exports = (fieldMap, options = {}) => {
         return false;
       }
 
-      return (handledTypes.includes(f.fieldType) || f.options) && Object.keys(f.label ?? {}).length;
+      return (
+        (handledTypes.includes(f.fieldType) || f.options)
+        && Object.keys(f.label ?? {}).length
+      );
     })
-    .map(f => {
+    .map((f) => {
       try {
         return fieldToFlattenerMapItem(f, options);
       } catch (e) {
@@ -65,17 +69,23 @@ module.exports = (fieldMap, options = {}) => {
       }
     });
 
-  const decoratedFieldMap = fieldMap.map(flatItem => {
-    const match = decorateWith.find(({ source }) => flatItem.source === source);
+  const decoratedFieldMap = fieldMap
+    .map((flatItem) => {
+      const match = decorateWith.find(
+        ({ source }) => flatItem.source === source,
+      );
 
-    if (!match) {
-      return flatItem;
-    }
+      if (!match) {
+        return flatItem;
+      }
 
-    return match;
-  }).concat(
-    ...decorateWith.filter(d => !fieldMap.find(f => f.source === d.source)),
-  );
+      return match;
+    })
+    .concat(
+      ...decorateWith.filter(
+        (d) => !fieldMap.find((f) => f.source === d.source),
+      ),
+    );
 
   return decoratedFieldMap;
 };

@@ -35,10 +35,7 @@
   },
   "private": 0,
   "keywords": {
-    "fr": [
-      "Expo",
-      "Jeu"
-    ]
+    "fr": ["Expo", "Jeu"]
   },
   "accessibility": {
     "hi": true,
@@ -1443,7 +1440,7 @@
     "phone": "014654123",
     "types-de-lieu": 14
   },
-  "state":  2,
+  "state": 2,
   "slug": "a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu",
   "age": {
     "min": null,

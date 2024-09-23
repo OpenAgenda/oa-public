@@ -1,20 +1,19 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const cleanString = require( '@openagenda/utils' ).cleanString;
+const _ = require('lodash');
+const { cleanString } = require('@openagenda/utils');
 
-module.exports = event => _.mapValues( event, v => {
+module.exports = (event) =>
+  _.mapValues(event, (v) => {
+    if (typeof v === 'string') {
+      return cleanString(
+        v
 
-  if ( typeof v === 'string' ) {
+          .replace(/\v/g, ' ')
 
-    return cleanString( v
+          .replace(/\n/g, '\r\n'),
+      );
+    }
 
-      .replace( /\v/g, ' ' )
-
-      .replace( /\n/g, '\r\n' ) );
-
-  }
-
-  return v;
-
-} );
+    return v;
+  });

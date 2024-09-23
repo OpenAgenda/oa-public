@@ -16,12 +16,7 @@ const flatten = (value, lang, defaultValue) => {
 };
 
 module.exports = function fieldToFlattenerMapItem(field, options = {}) {
-  const {
-    lang,
-    languages = [],
-    includeLanguages,
-    spreadFields = [],
-  } = options;
+  const { lang, languages = [], includeLanguages, spreadFields = [] } = options;
 
   const targetBaseName = flatten(field.label, lang, field.field);
 
@@ -29,15 +24,20 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
   if (field.languages) {
     return {
       source: field.field,
-      target: includeLanguages ? includeLanguages.map(l => `${targetBaseName} - ${l.toUpperCase()}`)
-        : languages.map(l => `${targetBaseName} - ${l.toUpperCase()}`),
+      target: includeLanguages
+        ? includeLanguages.map((l) => `${targetBaseName} - ${l.toUpperCase()}`)
+        : languages.map((l) => `${targetBaseName} - ${l.toUpperCase()}`),
       languages,
     };
   }
 
   // fields to spread over several columns
-  if (spreadFields.length && spreadFields.includes(field.field) && field.options) {
-    const opts = field.options.map(option => {
+  if (
+    spreadFields.length
+    && spreadFields.includes(field.field)
+    && field.options
+  ) {
+    const opts = field.options.map((option) => {
       const optionLabel = flatten(option.label, lang, option.value);
       const target = `${targetBaseName}: ${optionLabel}`;
       return {
@@ -57,10 +57,13 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
       source: field.field,
       target: targetBaseName,
       hasOptions: true,
-      transform: field.options.reduce((transform, option) => ({
-        ...transform,
-        [option.id]: flatten(option.label, lang, option.value),
-      }), {}),
+      transform: field.options.reduce(
+        (transform, option) => ({
+          ...transform,
+          [option.id]: flatten(option.label, lang, option.value),
+        }),
+        {},
+      ),
     };
   }
 

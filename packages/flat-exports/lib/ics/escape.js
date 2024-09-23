@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = txt => {
+module.exports = (txt) => {
   if (txt === null) return null;
 
   return `${txt}`

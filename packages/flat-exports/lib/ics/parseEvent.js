@@ -1,7 +1,9 @@
 'use strict';
 
 const moment = require('moment');
-const getLabel = require('@openagenda/labels')(require('@openagenda/labels/exports'));
+const getLabel = require('@openagenda/labels')(
+  require('@openagenda/labels/exports'),
+);
 const { getLocaleValue } = require('@openagenda/intl');
 const esc = require('./escape');
 const foldLine = require('./foldLine');
@@ -11,8 +13,9 @@ function defaultGenUrl(e) {
 }
 
 function getDescription(attributes, lang) {
-  return [attributes.description, attributes.url]
-    .join(` - ${getLabel('seeMore', lang)}: `);
+  return [attributes.description, attributes.url].join(
+    ` - ${getLabel('seeMore', lang)}: `,
+  );
 }
 
 function formatDate(date) {
@@ -26,10 +29,15 @@ module.exports = ({ lang, genUrl }, event) => {
     title: esc(getLocaleValue(event.title, lang)),
     description: esc(getLocaleValue(event.description, lang)),
     url: esc(url(event)),
-    location: esc([event.location?.name, event.location?.address].filter(Boolean).join(' - ')),
-    geo: event.location?.latitude && event.location?.longitude
-      ? `${event.location?.latitude};${event.location?.longitude}`
-      : '',
+    location: esc(
+      [event.location?.name, event.location?.address]
+        .filter(Boolean)
+        .join(' - '),
+    ),
+    geo:
+      event.location?.latitude && event.location?.longitude
+        ? `${event.location?.latitude};${event.location?.longitude}`
+        : '',
     organizer: esc(event.contributor?.name || 'OA'),
     timezone: esc(event.timezone),
   };
@@ -46,13 +54,15 @@ module.exports = ({ lang, genUrl }, event) => {
       `TZID:${attributes.timezone}`,
       `${foldLine(`SUMMARY:${attributes.title}`)}`,
       `${foldLine(`DESCRIPTION:${getDescription(attributes, lang)}`)}`,
-      attributes.location.length ? `${foldLine(`LOCATION:${attributes.location}`)}` : '',
+      attributes.location.length
+        ? `${foldLine(`LOCATION:${attributes.location}`)}`
+        : '',
       attributes.geo.length ? `${foldLine(`GEO:${attributes.geo}`)}` : '',
       `${foldLine(`ORGANIZER:${attributes.organizer}`)}`,
       'STATUS:CONFIRMED',
       `DTSTAMP:${formatDate()}`,
       'END:VEVENT',
-    ].forEach(line => ics.push(line));
+    ].forEach((line) => ics.push(line));
   }
 
   return `${ics.join('\r\n')}\r\n`;
