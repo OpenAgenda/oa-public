@@ -13,7 +13,7 @@ const NEXT_PAGE_FAIL = 'home/agendas/NEXT_PAGE_FAIL';
 
 const initialState = {};
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
       return {

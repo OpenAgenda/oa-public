@@ -16,18 +16,21 @@ const editedAgendasResponse = {
 
 function mswHandlers({ isNew = false } = {}) {
   return [
-    http.get('/agendas.json', () => HttpResponse.json(isNew
-      ? {
-        total: 0,
-        agendas: [],
-        isMember: false,
-      }
-      : editedAgendasResponse)),
+    http.get('/agendas.json', () =>
+      HttpResponse.json(
+        isNew
+          ? {
+            total: 0,
+            agendas: [],
+            isMember: false,
+          }
+          : editedAgendasResponse,
+      )),
     http.get('/events.json', () => HttpResponse.json(eventsJson)),
 
     http.get('/agendas/:agendaUid/members/:userUid', ({ params }) => {
       const custom = editedAgendasResponse.agendas
-        .filter(a => a.uid === parseInt(params.agendaUid, 10))
+        .filter((a) => a.uid === parseInt(params.agendaUid, 10))
         .pop().member?.custom;
 
       const member = {
@@ -40,7 +43,7 @@ function mswHandlers({ isNew = false } = {}) {
 
     http.delete('/agendas/:agendaUid/members/:userUid', ({ params }) => {
       const index = editedAgendasResponse.agendas.findIndex(
-        agenda => agenda.uid === parseInt(params.agendaUid, 10),
+        (agenda) => agenda.uid === parseInt(params.agendaUid, 10),
       );
 
       if (index !== -1) {

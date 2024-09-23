@@ -6,7 +6,7 @@ import I18nContext from '../contexts/I18nContext';
 
 export default function Wrapper({ className, tab, children }) {
   const { getLabel } = useContext(I18nContext);
-  const prefix = useSelector(state => state.settings.prefix);
+  const prefix = useSelector((state) => state.settings.prefix);
 
   return (
     <div className={cn('container top-margined home', className)}>

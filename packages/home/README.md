@@ -15,13 +15,11 @@ from review as a left join reviewer as rr on rr.review_id=a.id
 where rr.user_id = ${userId}
 order by a.updated_at desc
 
-
 credential:
 
- 1. Contributeur
- 2. Admin
- 3. Modérateur
-
+1.  Contributeur
+2.  Admin
+3.  Modérateur
 
 Le service doit être accessible de cette manière:
 
@@ -29,7 +27,7 @@ Le service doit être accessible de cette manière:
 
     // image = { default, path }
     // schemas = { agendas, member }
-    
+
     svc.init( { mysql, schemas, image } );
 
     svc( userId ).agendas.list( query, offset, limit, [ options ], ( err, agendas, total ) => {
@@ -38,10 +36,9 @@ Le service doit être accessible de cette manière:
 
     } );
 
-
-/*
-  image: {
-    path: '//cibul.s3.amazonaws.com/',
-    default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-  },
-*/
+/_
+image: {
+path: '//cibul.s3.amazonaws.com/',
+default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+},
+_/

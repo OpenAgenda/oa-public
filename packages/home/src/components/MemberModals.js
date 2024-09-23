@@ -35,7 +35,7 @@ export function MemberEditModal(props) {
       }}
       showSuccessMessage
       res={`${res.members.replace(':agendaUid', uid)}/${member.userUid}`}
-      onSuccess={update => onSuccess(member, update)}
+      onSuccess={(update) => onSuccess(member, update)}
       onRemoveSuccess={() => onRemoveSuccess()}
       onCloseModalRequest={() => closeModal()}
       schema={schema}

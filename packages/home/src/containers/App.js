@@ -33,10 +33,10 @@ function App({ route }) {
 
   const { user, lang } = useLayoutData();
 
-  const prefix = useSelector(state => state.settings.prefix);
-  const tab = useSelector(state => state.menu.tab);
+  const prefix = useSelector((state) => state.settings.prefix);
+  const tab = useSelector((state) => state.menu.tab);
   const total = useSelector(
-    state => state.agendas.homeAgendas && state.agendas.homeAgendas.total,
+    (state) => state.agendas.homeAgendas && state.agendas.homeAgendas.total,
   );
 
   const getLabel = useCallback(
