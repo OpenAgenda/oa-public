@@ -8602,7 +8602,6 @@ __metadata:
   resolution: "@openagenda/date-range@workspace:packages/date-range"
   dependencies:
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/utils": "npm:^1.3.0"
     jest: "npm:^29.7.0"
     moment-timezone: "npm:^0.5.31"
   languageName: unknown
@@ -9045,6 +9044,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
@@ -9095,6 +9095,7 @@ __metadata:
     react-router: "npm:^5.1.2"
     react-router-config: "npm:^5.1.1"
     react-router-dom: "npm:^5.1.2"
+    react-uid: "npm:^2.3.3"
     react-waypoint: "npm:^9.0.2"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
@@ -9197,6 +9198,7 @@ __metadata:
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
+    async: "npm:^3.2.6"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
@@ -17886,6 +17888,13 @@ __metadata:
   version: 3.2.4
   resolution: "async@npm:3.2.4"
   checksum: 10c0/b5d02fed64717edf49e35b2b156debd9cf524934ea670108fa5528e7615ed66a5e0bf6c65f832c9483b63aa7f0bffe3e588ebe8d58a539b833798d324516e1c9
+  languageName: node
+  linkType: hard
+
+"async@npm:^3.2.6":
+  version: 3.2.6
+  resolution: "async@npm:3.2.6"
+  checksum: 10c0/36484bb15ceddf07078688d95e27076379cc2f87b10c03b6dd8a83e89475a3c8df5848859dd06a4c95af1e4c16fc973de0171a77f18ea00be899aca2a4f85e70
   languageName: node
   linkType: hard
 
@@ -39936,6 +39945,21 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/fcb4a79ecf25ef050507ebca137da1d78da71ba823f05e322157856f7d956502c51b1856aa22657cb8a4b46a3bc73fcbb9b468215bfd311c7a26bdd373cd4b4f
+  languageName: node
+  linkType: hard
+
+"react-uid@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "react-uid@npm:2.3.3"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    "@types/react": ^16.8.0 || ^17.0.0 || ^18.0.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/8aa30e92ee03561d25779c68ba6d9409ba4ea83386a8798729b6eb5977bbdc4a5ff199b758d2a29e958d7560b2a7517cab8671932b83e8fcd50092631c209b4c
   languageName: node
   linkType: hard
 
