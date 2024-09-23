@@ -11,15 +11,16 @@ const extractLocationData = require('./extractLocationData');
 const extractSchemaAdditionalSearchables = require('./extractSchemaAdditionalSearchables');
 const cleanOptionedFields = require('./cleanOptionedFields');
 
-const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r?.type);
+const registrationHasType = (registration = []) =>
+  !!registration.some((r) => typeof r === 'object' && r?.type);
 
 const toSortTimingFormat = require('./toSortTimingFormat');
 
-const multilingualFieldHasValue = v => {
+const multilingualFieldHasValue = (v) => {
   if (!v) {
     return false;
   }
-  return Object.keys(v).filter(k => (v[k] ?? '').length);
+  return Object.keys(v).filter((k) => (v[k] ?? '').length);
 };
 
 const dateRange = (timings = [], timezone = 'Europe/Paris', languages = []) =>
@@ -27,7 +28,7 @@ const dateRange = (timings = [], timezone = 'Europe/Paris', languages = []) =>
     (ranges, lang) => ({
       ...ranges,
       [lang]: dateRangeInLocale(
-        timings.map(t => ({
+        timings.map((t) => ({
           start: new Date(t.begin),
           end: new Date(t.end),
         })),
@@ -40,7 +41,11 @@ const dateRange = (timings = [], timezone = 'Europe/Paris', languages = []) =>
 
 const secondsMidnightDiff = (d, timezone) => {
   const tz = moment(d).tz(timezone || 'Europe/Paris');
-  return parseInt(tz.format('HH'), 10) * 60 * 60 + parseInt(tz.format('mm'), 10) * 60 + parseInt(tz.format('ss'), 10);
+  return (
+    parseInt(tz.format('HH'), 10) * 60 * 60
+    + parseInt(tz.format('mm'), 10) * 60
+    + parseInt(tz.format('ss'), 10)
+  );
 };
 
 const isLessThanOneMinuteApart = (d1, d2) => {
@@ -53,21 +58,31 @@ const isLessThanOneMinuteApart = (d1, d2) => {
 module.exports = (data, options = {}) => {
   const { formSchema = null } = options;
 
+  if (data.removed) {
+    return {
+      removed: true,
+      updatedAt: data.updatedAt,
+      uid: data.uid,
+      state: -2,
+    };
+  }
+
   const cleanedEvent = cleanOptionedFields(data, formSchema);
 
-  return produce(cleanedEvent, event => {
+  return produce(cleanedEvent, (event) => {
     Object.assign(event, {
+      removed: false,
       attendanceMode: event.attendanceMode || 1,
       onlineAccessLink: event.onlineAccessLink || null,
       featured: !!event.featured,
       _search_empty_fields: [],
       _search_languages: ['title', 'description', 'longDescription']
-        .filter(f => !!event[f])
+        .filter((f) => !!event[f])
         .reduce((languages, field) => {
           if (typeof event[field] === 'string') {
             return languages;
           }
-          Object.keys(event[field]).forEach(l => {
+          Object.keys(event[field]).forEach((l) => {
             if (!languages.includes(l)) languages.push(l);
           });
           return languages;
@@ -94,7 +109,8 @@ module.exports = (data, options = {}) => {
         locationSearchData,
       );
     }
-    emptyLocationFields.forEach(f => event._search_empty_fields.push(`location.${f}`));
+    emptyLocationFields.forEach((f) =>
+      event._search_empty_fields.push(`location.${f}`));
 
     if (event.timings) {
       const timezone = event.timezone || (event.location ? event.location.timezone : null);
@@ -109,16 +125,23 @@ module.exports = (data, options = {}) => {
       );
 
       Object.assign(event, {
-        dateRange: dateRange(event.timings, timezone, ['fr', 'ar', 'en', 'de', 'es', 'it']),
+        dateRange: dateRange(event.timings, timezone, [
+          'fr',
+          'ar',
+          'en',
+          'de',
+          'es',
+          'it',
+        ]),
         firstTiming,
         lastTiming,
         _search_last_timing: new Date(lastTiming.end),
         _search_first_timing: new Date(firstTiming.begin),
-        timings: event.timings.map(t => ({
+        timings: event.timings.map((t) => ({
           ...t,
           _search_begin_from_midnight: secondsMidnightDiff(t.begin, timezone),
         })),
-        _sort_timings: event.timings.map(t => ({
+        _sort_timings: event.timings.map((t) => ({
           accessible_until: toSortTimingFormat(t.end),
           begin: toSortTimingFormat(t.begin),
         })),
@@ -141,24 +164,36 @@ module.exports = (data, options = {}) => {
 
     if (Object.keys(event.accessibility ?? {}).length) {
       Object.keys(event.accessibility ?? {})
-        .filter(a => !!event.accessibility[a])
-        .map(a => `accessibility.${a}`)
-        .forEach(key => event._search_keywords.push(key));
+        .filter((a) => !!event.accessibility[a])
+        .map((a) => `accessibility.${a}`)
+        .forEach((key) => event._search_keywords.push(key));
     }
 
     if (multilingualFieldHasValue(event.keywords)) {
-      event._search_keywords = event._search_keywords.concat(Object.values(event.keywords));
+      event._search_keywords = event._search_keywords.concat(
+        Object.values(event.keywords),
+      );
       event._search_keywords_text = Object.values(event.keywords);
     } else {
       event._search_empty_fields.push('keywords');
     }
 
     if (event.originAgenda) {
-      event.originAgenda._agg = aggObjects.flatten(event.originAgenda, ['uid', 'title', 'image', 'url', 'slug']);
+      event.originAgenda._agg = aggObjects.flatten(event.originAgenda, [
+        'uid',
+        'title',
+        'image',
+        'url',
+        'slug',
+      ]);
     }
     if (event.sourceAgendas) {
-      event.sourceAgendas.forEach(sourceAgenda => {
-        sourceAgenda._agg = aggObjects.flatten(sourceAgenda, ['uid', 'title', 'image']);
+      event.sourceAgendas.forEach((sourceAgenda) => {
+        sourceAgenda._agg = aggObjects.flatten(sourceAgenda, [
+          'uid',
+          'title',
+          'image',
+        ]);
       });
     }
 
@@ -184,21 +219,24 @@ module.exports = (data, options = {}) => {
       return event;
     }
 
-    const { searchableKeywords, emptyListFields, emptyFields, searchableNumbers } = extractSchemaAdditionalSearchables(
-      formSchema,
-      event,
-    );
+    const {
+      searchableKeywords,
+      emptyListFields,
+      emptyFields,
+      searchableNumbers,
+    } = extractSchemaAdditionalSearchables(formSchema, event);
 
-    emptyFields.forEach(f => {
+    emptyFields.forEach((f) => {
       event._search_empty_fields.push(f);
     });
 
-    emptyListFields.forEach(f => {
+    emptyListFields.forEach((f) => {
       event[f.field] = [];
     });
 
-    searchableKeywords.forEach(k => event._search_additional_keywords.push(k));
-    searchableNumbers.forEach(k => event._search_additional_numbers.push(k));
+    searchableKeywords.forEach((k) =>
+      event._search_additional_keywords.push(k));
+    searchableNumbers.forEach((k) => event._search_additional_numbers.push(k));
 
     return event;
   });

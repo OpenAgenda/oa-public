@@ -17,21 +17,13 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
     users,
   } = core.services;
 
-  const {
-    lastId,
-    limit,
-  } = {
+  const { lastId, limit } = {
     limit: 20,
     lastId: 0,
     ...nav,
   };
 
-  const {
-    load,
-    returnPayload,
-    access,
-    detailed,
-  } = {
+  const { load, returnPayload, access, detailed, removed } = {
     load: {
       event: true,
       agendaEvent: true,
@@ -42,6 +34,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
     returnPayload: false,
     access: 'public',
     detailed: false,
+    removed: false,
     ...options,
   };
 
@@ -57,106 +50,149 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
     },
   );
 
-  const {
-    lastId: newLastId,
-    items: agendaEvents,
-  } = await agendaEventsSvc(agendaUid).listByLastId(query, lastId, limit, {
+  const { lastId: newLastId, items: agendaEvents } = await agendaEventsSvc(
+    agendaUid,
+  ).listByLastId(query, lastId, limit, {
     decorate: detailed ? ['sourceAgendas'] : [],
+    removed,
   });
 
   if (load.agendaEvent) {
     fetched.agendaEvents = agendaEvents;
   }
 
-  const eventUids = agendaEvents.map(ae => ae.eventUid);
+  const eventUids = agendaEvents.map((ae) => ae.eventUid);
 
   if (load.event) {
     log('loading %s events', eventUids.length);
     fetched.events = convertLocationAdditionalFields(
       formSchema,
-      await eventsSvc.list({
-        uid: eventUids,
-      }, { limit: eventUids.length }, {
-        detailed,
-        private: null, // needed to reindex private agendas
-        access: access === 'internal' ? 'internal' : 'public',
-      }),
+      await eventsSvc.list(
+        {
+          uid: eventUids,
+        },
+        { limit: eventUids.length },
+        {
+          detailed,
+          private: null, // needed to reindex private agendas
+          access: access === 'internal' ? 'internal' : 'public',
+        },
+      ),
     );
   }
 
   if (load.custom && agenda.formSchemaId) {
     log('loading custom data');
-    fetched.custom = (await custom(agenda.formSchemaId).list({
-      identifier: eventUids,
-    })).items;
+    fetched.custom = (
+      await custom(agenda.formSchemaId).list({
+        identifier: eventUids,
+      })
+    ).items;
   }
 
   if (load.custom && agenda.network && agenda.network.formSchemaId) {
-    fetched.networkCustom = (await custom(agenda.network.formSchemaId).list({
-      identifier: eventUids,
-    })).items;
+    fetched.networkCustom = (
+      await custom(agenda.network.formSchemaId).list({
+        identifier: eventUids,
+      })
+    ).items;
   }
 
   if (detailed && load.event) {
-    fetched.originAgendas = (await agendas.list({
-      uid: fetched.events.map(e => e.agendaUid),
-    })).agendas.map(a => _.omit(a, ['id', 'indexed']));
+    fetched.originAgendas = (
+      await agendas.list({
+        uid: fetched.events.map((e) => e.agendaUid),
+      })
+    ).agendas.map((a) => _.omit(a, ['id', 'indexed']));
   }
 
-  const userUids = detailed && agendaEvents.length ? agendaEvents.map(ae => ae.userUid).filter(userUid => !!userUid) : [];
+  const userUids = detailed && agendaEvents.length
+    ? agendaEvents.map((ae) => ae.userUid).filter((userUid) => !!userUid)
+    : [];
 
   if (detailed && load.member && agendaEvents.length) {
-    fetched.members = await core.agendas(agenda).members.list(
-      { userUid: userUids },
-      { limit },
-      { detailed, access, roleAsSlug: false },
-    ).then(({ items }) => items.map(m => _.omit(m, ['deletedUser', 'createdAt', 'updatedAt', 'eventCount'])));
+    fetched.members = await core
+      .agendas(agenda)
+      .members.list(
+        { userUid: userUids },
+        { limit },
+        { detailed, access, roleAsSlug: false },
+      )
+      .then(({ items }) =>
+        items.map((m) =>
+          _.omit(m, ['deletedUser', 'createdAt', 'updatedAt', 'eventCount'])));
   }
 
   if (detailed && load.user && agendaEvents.length) {
-    fetched.users = await users.find({
-      query: {
-        uid: {
-          $in: userUids,
+    fetched.users = await users
+      .find({
+        query: {
+          uid: {
+            $in: userUids,
+          },
+          $limit: agendaEvents.length,
         },
-        $limit: agendaEvents.length,
-      },
-      detailed: false,
-    }).then(({
-      data,
-    }) => data.map(d => _.pick(d, ['uid', 'fullName', 'culture'])));
+        detailed: false,
+      })
+      .then(({ data }) =>
+        data.map((d) => _.pick(d, ['uid', 'fullName', 'culture'])));
   }
 
-  const compiledEvents = eventUids.map((uid, index) => {
-    const event = _.find(fetched.events, { uid });
-    if (load.event && !event) {
-      log('warn', 'event uid %s was not found', uid);
-      return null;
-    }
-    return {
-      uid,
-      ...merge.eventFromObject({
-        agendaEvent: fetched.agendaEvents[index],
-        event: load.event ? event : null,
-        custom: load.custom ? {
-          agenda: (_.find(fetched.custom, { identifier: uid }) || {}).custom,
-          network: (_.find(fetched.networkCustom, { identifier: uid }) || {}).custom,
-        } : null,
-      }, {
-        includeFields: formSchema.fields.map(f => f.field),
-        originAgenda: load.event ? _.find(fetched.originAgendas, { uid: event.agendaUid }) : null,
-        member: load.member ? _.find(fetched.members, { userUid: fetched.agendaEvents[index].userUid }, null) : null,
-        user: load.user && fetched.users ? fetched.users.find(u => u.uid === fetched.agendaEvents[index].userUid) : null,
-        load,
-      }),
-    };
-  }).filter(event => !!event);
+  const compiledEvents = eventUids
+    .map((uid, index) => {
+      const event = _.find(fetched.events, { uid });
+      if (load.event && !event) {
+        log('warn', 'event uid %s was not found', uid);
+        return null;
+      }
+      return {
+        uid,
+        ...merge.eventFromObject(
+          {
+            agendaEvent: fetched.agendaEvents[index],
+            event: load.event ? event : null,
+            custom: load.custom
+              ? {
+                agenda: (_.find(fetched.custom, { identifier: uid }) || {})
+                  .custom,
+                network: (
+                  _.find(fetched.networkCustom, { identifier: uid }) || {}
+                ).custom,
+              }
+              : null,
+          },
+          {
+            includeFields: formSchema.fields.map((f) => f.field),
+            originAgenda: load.event
+              ? _.find(fetched.originAgendas, { uid: event.agendaUid })
+              : null,
+            member: load.member
+              ? _.find(
+                fetched.members,
+                { userUid: fetched.agendaEvents[index].userUid },
+                null,
+              )
+              : null,
+            user:
+              load.user && fetched.users
+                ? fetched.users.find(
+                  (u) => u.uid === fetched.agendaEvents[index].userUid,
+                )
+                : null,
+            load,
+          },
+        ),
+      };
+    })
+    .filter((event) => !!event);
 
-  return returnPayload ? {
-    lastId: newLastId,
-    events: compiledEvents,
-    success: true,
-    agenda,
-    formSchema,
-  } : compiledEvents;
+  return returnPayload
+    ? {
+      lastId: newLastId,
+      events: compiledEvents,
+      success: true,
+      agenda,
+      formSchema,
+    }
+    : compiledEvents;
 };

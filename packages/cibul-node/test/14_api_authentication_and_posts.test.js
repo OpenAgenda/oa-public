@@ -62,7 +62,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
   beforeAll(async () => {
     accessToken = await axios(axiosJSONPayload).then(
-      r => r.data.access_token,
+      (r) => r.data.access_token,
     );
   });
 
@@ -94,13 +94,13 @@ describe('14 - core - functional(server): api authentication and posts', () => {
         url: 'http://localhost:3000/requestAccessToken',
         headers: form.getHeaders(),
         data: form,
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
 
       expect(typeof otherAccessToken).toBe('string');
     });
 
     it('expiry is pushed back when new request is made', async () => {
-      await new Promise(rs => setTimeout(rs, 1000));
+      await new Promise((rs) => setTimeout(rs, 1000));
 
       const { data } = await axios(axiosJSONPayload);
 
@@ -147,8 +147,8 @@ describe('14 - core - functional(server): api authentication and posts', () => {
         method: 'get',
         url: 'http://localhost:3000/me/agendas?key=e830934e9d1848189ac74de3bfa7df0a',
       }).then(
-        r => ({ response: r }),
-        e => ({ error: e }),
+        (r) => ({ response: r }),
+        (e) => ({ error: e }),
       );
 
       expect(error.response.status).toBe(403);
@@ -166,8 +166,8 @@ describe('14 - core - functional(server): api authentication and posts', () => {
         method: 'get',
         url: 'http://localhost:3000/me/agendas',
       }).then(
-        r => ({ response: r }),
-        e => ({ error: e }),
+        (r) => ({ response: r }),
+        (e) => ({ error: e }),
       );
 
       expect(error.response.status).toBe(403);
@@ -181,8 +181,8 @@ describe('14 - core - functional(server): api authentication and posts', () => {
         method: 'get',
         url: `http://localhost:3000/me/agendas?key=${userKey}`,
       }).then(
-        r => ({ response: r }),
-        e => ({ error: e }),
+        (r) => ({ response: r }),
+        (e) => ({ error: e }),
       );
 
       expect(response.status).toBe(200);
@@ -196,8 +196,8 @@ describe('14 - core - functional(server): api authentication and posts', () => {
           key: userKey,
         },
       }).then(
-        r => ({ response: r }),
-        e => ({ error: e }),
+        (r) => ({ response: r }),
+        (e) => ({ error: e }),
       );
 
       expect(response.status).toBe(200);

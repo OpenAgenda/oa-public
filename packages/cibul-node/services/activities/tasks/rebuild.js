@@ -38,7 +38,7 @@ async function rebuildActivities({ config, services }) {
 
 export default ({ config, services }) => ({
   rebuild: () => rebuildActivities({ services, config }),
-  agendaRebuild: agendaUid =>
+  agendaRebuild: (agendaUid) =>
     runRebuild({
       services,
       config,

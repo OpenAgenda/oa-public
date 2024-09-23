@@ -5,28 +5,37 @@ import NotFoundError from '@openagenda/utils/errors/NotFoundError.js';
 import validate from '../iso/validate.js';
 import * as utils from './lib/utils.js';
 import validateOptions from './lib/validateOptions.js';
+import postReadClean from './lib/postReadClean.js';
 
-async function _get(client, where) {
-  const entry = await client('agenda_event')
-    .first([
-      'agenda_uid',
-      'event_uid',
-      'user_uid',
-      'source_agenda_uid',
-      'state',
-      'motive',
-      'can_edit',
-      'featured',
-      'aggregated',
-      'created_at',
-      'updated_at',
-      'legacy_id',
-    ])
-    .where(where);
+async function _get(client, where, options = {}) {
+  const fieldList = [
+    'agenda_uid',
+    'event_uid',
+    'user_uid',
+    'source_agenda_uid',
+    'state',
+    'motive',
+    'can_edit',
+    'featured',
+    'aggregated',
+    'created_at',
+    'updated_at',
+    'legacy_id',
+  ];
+  const { removed } = options;
+  if (removed || removed === null) {
+    fieldList.push('removed');
+  }
+
+  const k = client('agenda_event').first(fieldList).where(where);
+  if (removed === true) k.where('removed', 1);
+  if (removed === false) k.where('removed', 0);
+
+  const entry = await k;
 
   if (!entry) return null;
 
-  return validate(utils.fromEntry(entry));
+  return postReadClean(validate(utils.fromEntry(entry)), options);
 }
 
 function byLegacyId(service, agendaId, eventId) {
@@ -48,12 +57,16 @@ export default Object.assign(
       throw new NotFound('Event uid is missing');
     }
 
-    const { decorate, throwOnNotFound } = validateOptions(options);
+    const { decorate, throwOnNotFound, removed } = validateOptions(options);
 
-    const ae = await _get(client, {
-      agenda_uid: agendaUid,
-      event_uid: eventUid,
-    });
+    const ae = await _get(
+      client,
+      {
+        agenda_uid: agendaUid,
+        event_uid: eventUid,
+      },
+      { removed },
+    );
 
     if (!ae && !throwOnNotFound) {
       return null;

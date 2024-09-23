@@ -958,6 +958,7 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
       can_edit: 1,
+      removed: 1,
     },
     {
       id: 2,
@@ -977,6 +978,7 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
       can_edit: 1,
+      removed: 1,
     },
     {
       id: 4,

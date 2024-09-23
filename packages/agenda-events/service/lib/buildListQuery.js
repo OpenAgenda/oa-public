@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
-function addWheres(k, query) {
+function addWheres(k, query, options = {}) {
+  const { removed = false } = options;
+
   if (query.agendaUid !== undefined) {
     k.where('agenda_uid', query.agendaUid);
   } else if (query.userUid !== undefined) {
@@ -28,12 +30,33 @@ function addWheres(k, query) {
   if (query.canEdit !== undefined) {
     k.andWhere('can_edit', query.canEdit);
   }
+
+  if (removed === true) k.where('removed', 1);
+  if (removed === false) k.where('removed', 0);
+
+  if (query.updatedAt) {
+    Object.keys(query.updatedAt).forEach((op) => {
+      if (!query.updatedAt[op]) {
+        return;
+      }
+      k.where(
+        'updated_at',
+        {
+          gt: '>',
+          gte: '>=',
+          lt: '<',
+          lte: '<=',
+        }[op],
+        query.updatedAt[op],
+      );
+    });
+  }
 }
 
 function buildListQuery(service, query, nav, options = {}) {
   const { client } = service;
 
-  const { decorate } = {
+  const { decorate, removed } = {
     decorate: [],
     ...options,
   };
@@ -57,6 +80,10 @@ function buildListQuery(service, query, nav, options = {}) {
     fields.push('id');
   }
 
+  if (removed || removed === null) {
+    fields.push('removed');
+  }
+
   if (decorate.includes('sourceAgendas')) {
     fields.push('source_agenda_uid');
   }
@@ -73,7 +100,7 @@ function buildListQuery(service, query, nav, options = {}) {
     k.offset(offset);
   }
 
-  addWheres(k, query);
+  addWheres(k, query, options);
 
   return k.then((rows) =>
     rows.map((r) => _.mapKeys(r, (v, key) => _.camelCase(key))));

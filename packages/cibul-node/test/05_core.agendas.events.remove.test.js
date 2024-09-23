@@ -154,7 +154,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     beforeAll(async () => {
@@ -166,7 +166,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
           'access-token': accessToken,
           nonce: 129038,
         },
-      }).then(r => r.data);
+      }).then((r) => r.data);
     });
 
     it('response gives success key at true if creation was a success', () => {
@@ -188,7 +188,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         },
       }).then(
         () => {},
-        err => err.response,
+        (err) => err.response,
       );
 
       expect(errorResponse.status).toBe(404);
@@ -204,7 +204,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         data: {
           code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
 
       const { error, result } = await axios({
         method: 'delete',
@@ -215,8 +215,8 @@ describe('core - functional (server): core agendas() events.remove()', () => {
           nonce: 779798,
         },
       }).then(
-        r => ({ result: r }),
-        e => ({ error: e }),
+        (r) => ({ result: r }),
+        (e) => ({ error: e }),
       );
 
       expect(result).toBeUndefined();

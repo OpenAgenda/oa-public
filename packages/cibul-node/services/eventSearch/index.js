@@ -14,7 +14,12 @@ import { loadOtherUpdates, otherUpdate } from './lib/otherUpdates.js';
 
 const log = logs('services/eventSearch');
 
-async function task({ queue, rebuildQueue, updateMapping, updateDynamicSettings }) {
+async function task({
+  queue,
+  rebuildQueue,
+  updateMapping,
+  updateDynamicSettings,
+}) {
   log('task');
 
   queue.on('error', (fn, args, error) => {
@@ -24,8 +29,8 @@ async function task({ queue, rebuildQueue, updateMapping, updateDynamicSettings 
       log('error', fn, args, error);
     }
   });
-  queue.on('execute', fn => log(fn, 'execute')); // (fn, args) => log(fn, 'execute'));
-  queue.on('success', fn => log(fn, 'success')); // (fn, args, result) => log(fn, 'success'));
+  queue.on('execute', (fn) => log(fn, 'execute')); // (fn, args) => log(fn, 'execute'));
+  queue.on('success', (fn) => log(fn, 'success')); // (fn, args, result) => log(fn, 'success'));
 
   queue.run();
 
@@ -38,18 +43,23 @@ async function task({ queue, rebuildQueue, updateMapping, updateDynamicSettings 
 
 export async function init(config, services) {
   log('init');
-  const {
-    queues,
-    tracker,
-  } = services;
+  const { queues, tracker } = services;
 
   const port = _.get(config, 'es75.port', 9200);
-  const protocol = _.get(config, 'es75.protocol', _.get(config, 'es75.ssl') ? 'https' : 'http');
+  const protocol = _.get(
+    config,
+    'es75.protocol',
+    _.get(config, 'es75.ssl') ? 'https' : 'http',
+  );
   const host = _.get(config, 'es75.host', 'localhost');
 
   const node = `${protocol}://${host}:${port}`;
 
-  log('using elasticsearch node %s, default index %s', node, config.es75.agendaEventsIndex);
+  log(
+    'using elasticsearch node %s, default index %s',
+    node,
+    config.es75.agendaEventsIndex,
+  );
 
   const eventSearch = EventSearch({
     elasticsearch: {
@@ -82,11 +92,15 @@ export async function init(config, services) {
   const queue = queues('eventSearch');
   const rebuildQueue = queues('eventSearch:rebuild');
 
-  const transverseSearch = transverseIndex(services, eventSearch, queue);
+  const transverseSearch = transverseIndex(
+    { services, config },
+    eventSearch,
+    queue,
+  );
 
   rebuildQueue.register({
-    agenda: agenda => agendaIndexRebuild(services, eventSearch, agenda),
-    transverse: options => queue('transverseIndexRebuild', options),
+    agenda: (agenda) => agendaIndexRebuild(services, eventSearch, agenda),
+    transverse: (options) => queue('transverseIndexRebuild', options),
   });
 
   queue.register({
@@ -105,18 +119,19 @@ export async function init(config, services) {
     remove: remove(services, queue, eventSearch),
     add: add(services, queue, eventSearch),
     rebuild: rebuild.bind(null, services, rebuildQueue),
-    agendas: agenda => ({
+    agendas: (agenda) => ({
       search: agendaIndexSearch(eventSearch, agenda),
       rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),
       clear: getAgendaSearchIndex(eventSearch, agenda.uid).clear,
     }),
     transverse: {
-      rebuild: options => queue('transverseIndexRebuild', options),
+      rebuild: (options) => queue('transverseIndexRebuild', options),
       search: transverseSearch,
     },
     apps: {
       agendas: agendaRoutes(config, services),
     },
     cluster: eventSearch.cluster,
+    getConfig: eventSearch.getConfig,
   };
 }

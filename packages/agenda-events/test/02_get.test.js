@@ -191,6 +191,7 @@ describe('agendaEvents - 02 - functional (server): get', () => {
       state: config.eventStates.VALIDATED,
       legacyId: '42.24',
       motive: null,
+      removed: false,
     });
   });
 
@@ -208,5 +209,38 @@ describe('agendaEvents - 02 - functional (server): get', () => {
       error = e;
     }
     expect(error.name).toBe('NotFoundError');
+  });
+
+  it('an item contains agenda & event references, state, featured bool and custom data', async () => {
+    const ref = await svc(62792452).get(10974548);
+    expect(Object.keys(ref)).toEqual([
+      'eventUid',
+      'agendaUid',
+      'userUid',
+      'aggregated',
+      'sourcePaths',
+      'featured',
+      'canEdit',
+      'state',
+      'legacyId',
+      'createdAt',
+      'updatedAt',
+      'motive',
+    ]);
+  });
+
+  it('get with removed option at true', async () => {
+    const ref = await svc(62792452).get(53117384, { removed: true });
+    expect(ref.removed).toEqual(true);
+  });
+
+  it('get with removed option null', async () => {
+    const ref = await svc(62792452).get(53117384, { removed: null });
+    expect(ref.removed).toEqual(true);
+  });
+
+  it('get without removed option does not get removed item', async () => {
+    const ref = await svc(62792452).get(53117384, {});
+    expect(ref).toEqual(null);
   });
 });

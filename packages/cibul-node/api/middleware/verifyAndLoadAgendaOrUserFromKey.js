@@ -20,7 +20,7 @@ export default async (req, res, next) => {
   }
 
   req.user = await req.app.core.users.get.byPublicKey(publicKey).then(
-    u => u,
+    (u) => u,
     () => null,
   );
 

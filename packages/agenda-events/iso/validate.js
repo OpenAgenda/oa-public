@@ -67,6 +67,10 @@ const fields = {
   updatedAt: {
     type: 'date',
   },
+  removed: {
+    type: 'boolean',
+    default: false,
+  },
   motive: {
     type: 'text',
     max: 1000,

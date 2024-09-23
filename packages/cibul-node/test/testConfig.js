@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import schemaNames from './mock/schemaNames.js';
-import getLogConfig from './mock/getLogConfig.js';
 
 const testConfig = {
   domain: 'openagenda.com',
@@ -28,7 +27,13 @@ const testConfig = {
     defaultImagePath: process.env.OA_DEFAULT_IMAGE_PATH,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/',
   },
-  getLogConfig,
+  logger: {
+    prefix: 'oa:',
+    token: false,
+  },
+  getLogConfig: (prefix, key, keyInPrefix = true) => ({
+    prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`,
+  }),
   opencage: {
     key: process.env.OPENCAGE_KEY,
   },
@@ -44,6 +49,7 @@ const testConfig = {
             !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY,
       }
       : null,
+    refreshTransverseIndexOnUpdate: true,
   },
   agendaSearchAlias: process.env.OA_AGENDA_SEARCH_TEST_ALIAS || 'agendas_test',
   oembed: {
@@ -79,6 +85,12 @@ const testConfig = {
   unsubscriptionsSecret: 'supersecretstring',
   superAdminUids: [838438477721],
 };
+
+if (process.env.DEBUG) {
+  testConfig.logger.enableDebug = Array.isArray(process.env.DEBUG)
+    ? process.env.DEBUG.join(',')
+    : process.env.DEBUG;
+}
 
 export default {
   ...testConfig,

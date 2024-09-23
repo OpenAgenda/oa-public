@@ -39,6 +39,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
     core = Core(services, testConfig);
 
+    await core.agendas(6184770).events.search.rebuild();
     await services.simpleCache.clearAll();
 
     core.services.users.tasks.processQueue();
@@ -51,7 +52,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     beforeAll(async () => {
       await core.users(99999967).remove();
 
-      await new Promise(rs => {
+      await new Promise((rs) => {
         core.services.tracker.on('users.anonymizeDeletedUser.done', rs);
       });
 
@@ -112,7 +113,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     it('user can delete his own account', async () => {
@@ -126,7 +127,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         },
       });
 
-      await new Promise(rs => {
+      await new Promise((rs) => {
         core.services.tracker.on('users.anonymizeDeletedUser.done', rs);
       });
 

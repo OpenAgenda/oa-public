@@ -12,5 +12,5 @@
   "react-layouts.MainLayout.signin": "Se connecter",
   "react-layouts.MainLayout.signout": "Se déconnecter",
   "react-layouts.MainLayout.translate": "Traduire",
-  "react-layouts.components.Search.search": "Rechercher"
+  "react-layouts.components.Search.search": "Rechercher un agenda"
 }

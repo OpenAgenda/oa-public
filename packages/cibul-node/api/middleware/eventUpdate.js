@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const parseBool = v => (typeof v === 'string' ? v === 'true' : !!v);
+const parseBool = (v) => (typeof v === 'string' ? v === 'true' : !!v);
 
 export default function eventUpdate(req, res, next) {
   // if there was an image uploaded with the post, it is loaded in req.file.path with multer
@@ -22,7 +22,8 @@ export default function eventUpdate(req, res, next) {
         access: req.access,
         defaultLang: req.headers.lang,
         private: null,
+        callOrigin: 'api',
       },
     )
-    .then(event => res.json({ success: true, event }), next);
+    .then((event) => res.json({ success: true, event }), next);
 }
