@@ -44,7 +44,7 @@ describe('Message', () => {
   });
 
   beforeEach(async () => {
-    await service.config.knex.transaction(async trx => {
+    await service.config.knex.transaction(async (trx) => {
       await trx.raw('SET foreign_key_checks = 0');
       for (const table of tables) {
         await trx(service.config.schemas[table]).truncate();
@@ -239,7 +239,7 @@ describe('Message', () => {
       const conversation = await new Inbox(1).conversations.get(1);
       const messages = await conversation.messages.list();
 
-      const result = messages.toJSON().map(v => _.omit(v, 'createdAt'));
+      const result = messages.toJSON().map((v) => _.omit(v, 'createdAt'));
 
       expect(result).toEqual([
         {
@@ -288,7 +288,7 @@ describe('Message', () => {
       const conversation = await Inbox.user(99999999).conversations.get(1);
       const messages = await conversation.messages.list();
 
-      const result = messages.toJSON().map(v => _.omit(v, 'createdAt'));
+      const result = messages.toJSON().map((v) => _.omit(v, 'createdAt'));
 
       expect(result).toEqual([
         {

@@ -2,10 +2,10 @@
 
 const uuid = require('uuid/v4');
 
-exports.up = async knex => {
+exports.up = async (knex) => {
   const { schemas } = knex.client.config;
 
-  await knex.schema.alterTable(schemas.conversation, t => {
+  await knex.schema.alterTable(schemas.conversation, (t) => {
     t.string('file_key').notNullable();
   });
 
@@ -23,15 +23,15 @@ exports.up = async knex => {
     }
   }
 
-  await knex.schema.alterTable(schemas.conversation, t => {
+  await knex.schema.alterTable(schemas.conversation, (t) => {
     t.string('file_key').unique().alter();
   });
 };
 
-exports.down = async knex => {
+exports.down = async (knex) => {
   const { schemas } = knex.client.config;
 
-  await knex.schema.alterTable(schemas.conversation, t => {
+  await knex.schema.alterTable(schemas.conversation, (t) => {
     t.dropColumn('file_key');
   });
 };

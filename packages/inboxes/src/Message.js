@@ -104,7 +104,7 @@ export default class Message {
       .column(
         mapper
           .listFields(messageFieldsMap, 'select', 'db', options, true)
-          .map(v => `${schemas.message}.${v}`),
+          .map((v) => `${schemas.message}.${v}`),
       )
       .column(
         mapper
@@ -116,12 +116,12 @@ export default class Message {
             true,
             'inboxUser.',
           )
-          .map(v => `${schemas.inboxUser}.${v}`),
+          .map((v) => `${schemas.inboxUser}.${v}`),
       )
       .column(
         mapper
           .listFields(inboxFieldsMap, 'select', 'db', options, true, 'inbox.')
-          .map(v => `${schemas.inbox}.${v}`),
+          .map((v) => `${schemas.inbox}.${v}`),
       )
       .leftJoin(
         schemas.inboxUser,

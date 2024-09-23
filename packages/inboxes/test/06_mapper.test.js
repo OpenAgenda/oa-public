@@ -49,7 +49,7 @@ describe('database mapper util', () => {
           store: { settings: 42 },
           notAllowedProperty: 'Scheiße',
           detailedField: 'test',
-        })
+        }),
       ).toEqual({
         type: 'agenda',
         identifier: 48,
@@ -73,8 +73,8 @@ describe('database mapper util', () => {
           },
           {
             protected: false,
-          }
-        )
+          },
+        ),
       ).toEqual({
         id: 12,
         type: 'agenda',
@@ -95,7 +95,7 @@ describe('database mapper util', () => {
           store: '{"settings":42}',
           not_allowed_property: 'Scheiße',
           detailedField: 'test',
-        })
+        }),
       ).toEqual({
         type: 'agenda',
         identifier: 48,
@@ -118,8 +118,8 @@ describe('database mapper util', () => {
           },
           {
             internal: true,
-          }
-        )
+          },
+        ),
       ).toEqual({
         id: 12,
         type: 'agenda',
@@ -140,7 +140,7 @@ describe('database mapper util', () => {
           deletedAt: true,
           store: { settings: 42 },
           detailedField: 'test',
-        })
+        }),
       ).toEqual({
         type: 'agenda',
         identifier: 48,
@@ -164,8 +164,8 @@ describe('database mapper util', () => {
           },
           {
             protected: false,
-          }
-        )
+          },
+        ),
       ).toEqual({
         id: 12,
         type: 'agenda',
@@ -187,7 +187,7 @@ describe('database mapper util', () => {
           deletedAt: true,
           store: { settings: 42 },
           detailedField: 'test',
-        })
+        }),
       ).toEqual({
         type: 'agenda',
         identifier: 48,
@@ -211,8 +211,8 @@ describe('database mapper util', () => {
           },
           {
             internal: true,
-          }
-        )
+          },
+        ),
       ).toEqual({
         id: 12,
         type: 'agenda',
@@ -237,8 +237,8 @@ describe('database mapper util', () => {
           },
           {
             detailed: true,
-          }
-        )
+          },
+        ),
       ).toEqual({
         type: 'agenda',
         identifier: 48,
@@ -260,7 +260,7 @@ describe('database mapper util', () => {
 
     test('listFields select for db with { internal: true } options', () => {
       expect(
-        mapper.listFields(fieldsMap, 'select', 'db', { internal: true })
+        mapper.listFields(fieldsMap, 'select', 'db', { internal: true }),
       ).toEqual(['id', 'type', 'identifier', 'deleted_at', 'store', 'unused']);
     });
 
@@ -276,7 +276,7 @@ describe('database mapper util', () => {
 
     test('listFields select for obj with { internal: true } options', () => {
       expect(
-        mapper.listFields(fieldsMap, 'select', 'obj', { internal: true })
+        mapper.listFields(fieldsMap, 'select', 'obj', { internal: true }),
       ).toEqual(['id', 'type', 'identifier', 'deletedAt', 'store', 'unused']);
     });
   });

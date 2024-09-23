@@ -98,9 +98,9 @@ export default class Conversation {
     }
 
     const destinationInboxes = await Promise.all(
-      [].concat(data.destinationInbox || []).map(v => new Inbox(v).get()),
+      [].concat(data.destinationInbox || []).map((v) => new Inbox(v).get()),
     );
-    const destinationNotFound = destinationInboxes.filter(v => !v.data);
+    const destinationNotFound = destinationInboxes.filter((v) => !v.data);
 
     if (destinationNotFound && destinationNotFound.length) {
       throw new VError(
@@ -154,7 +154,7 @@ export default class Conversation {
     });
 
     await Promise.all(
-      destinationInboxes.map(async destinationInbox => {
+      destinationInboxes.map(async (destinationInbox) => {
         if (this.inbox.data.id !== destinationInbox.data.id) {
           await Conversation.link(this.svc, {
             inboxId: destinationInbox.data.id,
@@ -191,7 +191,7 @@ export default class Conversation {
       .column(
         mapper
           .listFields(conversationFieldsMap, 'select', 'db', options, true)
-          .map(v => `${schemas.conversation}.${v}`),
+          .map((v) => `${schemas.conversation}.${v}`),
       )
       .column(`${schemas.inbox}.id as inboxContextId`)
       .column(
@@ -204,7 +204,7 @@ export default class Conversation {
             true,
             'creatorInboxUser.',
           )
-          .map(v => `creatorInboxUser.${v}`),
+          .map((v) => `creatorInboxUser.${v}`),
       )
       .column(
         mapper
@@ -216,7 +216,7 @@ export default class Conversation {
             true,
             'creatorInbox.',
           )
-          .map(v => `creatorInbox.${v}`),
+          .map((v) => `creatorInbox.${v}`),
       )
       .max(`${schemas.message}.id as latestMessageId`)
       .leftJoin(
@@ -275,9 +275,9 @@ export default class Conversation {
               true,
               'inboxUser.',
             )
-            .map(v => `${schemas.inboxUser}.${v}`),
+            .map((v) => `${schemas.inboxUser}.${v}`),
         )
-        .leftJoin(schemas.inboxUser, join =>
+        .leftJoin(schemas.inboxUser, (join) =>
           join
             .on(
               `${schemas.inboxUser}.inbox_id`,
@@ -403,7 +403,7 @@ export default class Conversation {
     }
 
     const actions = await this.getAvailableActions(this.data);
-    const action = actions.find(v => v && v.code === code);
+    const action = actions.find((v) => v && v.code === code);
 
     if (!action) {
       throw new VError(
@@ -544,7 +544,7 @@ export default class Conversation {
       );
 
     if (
-      !actions.filter(v => v.resolve !== false).length
+      !actions.filter((v) => v.resolve !== false).length
       && !conversation.closedAt
     ) {
       return [...actions, defaultAction];

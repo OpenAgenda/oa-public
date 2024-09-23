@@ -42,20 +42,21 @@ export function initAndLoad(config, files, options) {
 
   // reset before migrations if needed
   return new Promise((resolve, reject) => {
-    fixtures([], { reset: params.reset }, async err => {
+    fixtures([], { reset: params.reset }, async (err) => {
       if (err) {
         return reject(err);
       }
 
       fixtures(
         allowedTables
-          .map(tableName => ({
+          .map((tableName) => ({
             table: config.schemas[tableName],
             src: `${__dirname}/${tableName}.data.sql`,
           }))
-          .filter(f => cleanFiles.includes(f.src.split('/').pop().split('.')[0])),
+          .filter((f) =>
+            cleanFiles.includes(f.src.split('/').pop().split('.')[0])),
         { reset: false },
-        error => {
+        (error) => {
           if (error) return reject(error);
           resolve(createService(config));
         },
@@ -70,13 +71,13 @@ export function seed(config, files = defaultFiles, options = { reset: false }) {
   return new Promise((resolve, reject) => {
     fixtures(
       allowedTables
-        .map(tableName => ({
+        .map((tableName) => ({
           table: config.schemas[tableName],
           src: `${__dirname}/${tableName}.data.sql`,
         }))
-        .filter(f => files.includes(f.src.split('/').pop().split('.')[0])),
+        .filter((f) => files.includes(f.src.split('/').pop().split('.')[0])),
       options,
-      err => {
+      (err) => {
         if (err) return reject(err);
         resolve();
       },

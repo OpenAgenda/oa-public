@@ -14,11 +14,11 @@ export default async function populateLatestMessage(svc, entities, inbox) {
   // console.log( 'POPULATE LATEST MESSAGE ==>', inbox );
 
   const messages = await new Messages({ inbox }).list(
-    { id: _.uniq(entities.map(v => v.latestMessageId)) },
-    { latest: true }
+    { id: _.uniq(entities.map((v) => v.latestMessageId)) },
+    { latest: true },
   );
 
-  return entities.map(row => {
+  return entities.map((row) => {
     const id = row.latestMessageId;
     delete row.latestMessageId;
 

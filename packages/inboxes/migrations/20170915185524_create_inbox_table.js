@@ -1,13 +1,13 @@
 'use strict';
 
-exports.up = async knex => {
+exports.up = async (knex) => {
   const { schemas } = knex.client.config;
 
   if (await knex.schema.hasTable(schemas.inbox)) {
     return;
   }
 
-  return knex.schema.createTable(schemas.inbox, table => {
+  return knex.schema.createTable(schemas.inbox, (table) => {
     table.charset('utf8');
     table.collate('utf8_general_ci');
 
@@ -17,7 +17,7 @@ exports.up = async knex => {
   });
 };
 
-exports.down = knex => {
+exports.down = (knex) => {
   const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists(schemas.inbox);

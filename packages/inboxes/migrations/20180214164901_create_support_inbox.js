@@ -2,7 +2,7 @@
 
 const adminUids = [75052324, 99999999, 31046551, 7339049, 71438739];
 
-exports.up = async knex => {
+exports.up = async (knex) => {
   const { schemas } = knex.client.config;
 
   const insertedId = await knex(schemas.inbox).insert({
@@ -11,14 +11,14 @@ exports.up = async knex => {
   });
 
   await knex(schemas.inboxUser).insert(
-    adminUids.map(v => ({
+    adminUids.map((v) => ({
       inbox_id: insertedId,
       user_uid: v,
-    }))
+    })),
   );
 };
 
-exports.down = async knex => {
+exports.down = async (knex) => {
   const { schemas } = knex.client.config;
 
   await knex(schemas.inbox).del().where({

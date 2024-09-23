@@ -1,15 +1,12 @@
 'use strict';
 
-exports.up = async knex => {
+exports.up = async (knex) => {
   const { schemas } = knex.client.config;
 
-  const {
-    emailUtilsMessageIds,
-    emailUtilsReplyTos,
-  } = schemas;
+  const { emailUtilsMessageIds, emailUtilsReplyTos } = schemas;
 
   if (!await knex.schema.hasTable(emailUtilsMessageIds)) {
-    await knex.schema.createTable(emailUtilsMessageIds, t => {
+    await knex.schema.createTable(emailUtilsMessageIds, (t) => {
       t.increments('id').primary();
       t.bigint('conversation_id');
       t.string('message_id');
@@ -19,7 +16,7 @@ exports.up = async knex => {
   }
 
   if (!await knex.schema.hasTable(emailUtilsReplyTos)) {
-    await knex.schema.createTable(emailUtilsReplyTos, t => {
+    await knex.schema.createTable(emailUtilsReplyTos, (t) => {
       t.increments('id').primary();
       t.bigint('conversation_id');
       t.bigint('user_uid');
@@ -30,7 +27,7 @@ exports.up = async knex => {
   }
 };
 
-exports.down = async knex => {
+exports.down = async (knex) => {
   const { schemas } = knex.client.config;
 
   await knex.schema.dropTableIfExists(schemas.emailUtilsMessageIds);

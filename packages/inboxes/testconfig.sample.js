@@ -83,7 +83,7 @@ module.exports = {
   },
   interfaces: {
     getInboxesDetails(inboxesToBeDetailed) {
-      return inboxesToBeDetailed.map(inboxToBeDetailed => ({
+      return inboxesToBeDetailed.map((inboxToBeDetailed) => ({
         uid: inboxToBeDetailed.identifier, // uid is required for re-map
         name: inboxToBeDetailed.type === 'user' ? "L'admin" : 'La gargouille',
         avatar:
@@ -93,7 +93,7 @@ module.exports = {
       }));
     },
     getUsersDetails(usersToBeDetailed) {
-      return usersToBeDetailed.map(userToBeDetailed => ({
+      return usersToBeDetailed.map((userToBeDetailed) => ({
         uid: userToBeDetailed.userUid, // uid is required for re-map
         name: 'Jean-Roger Benbambou',
         avatar:

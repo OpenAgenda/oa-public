@@ -4,5 +4,6 @@ export default function listReplyTos({ conversationId, knex, tableName }) {
     .where({
       conversation_id: conversationId,
     })
-    .then(rows => rows.map(r => ({ userUid: r.user_uid, replyTo: r.reply_to })));
+    .then((rows) =>
+      rows.map((r) => ({ userUid: r.user_uid, replyTo: r.reply_to })));
 }
