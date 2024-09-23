@@ -6,19 +6,19 @@ The base object it handles is a form-schema object, which bundles list of field 
 
 Base functionality include:
 
- * an iso form field validator telling you if the input field definition is valid
- * an iso form schema instance with useful getters and setters to handle an form-shcema object
- * service crud operations to create, update, get and remove form schemas
- * a service to transfer legacy OA custom fields, tag set and category set to a valid form schema structure
+- an iso form field validator telling you if the input field definition is valid
+- an iso form schema instance with useful getters and setters to handle an form-shcema object
+- service crud operations to create, update, get and remove form schemas
+- a service to transfer legacy OA custom fields, tag set and category set to a valid form schema structure
 
 # Endpoints
 
- * .create
- * **.get**: get by form schema id. promise.
+- .create
+- **.get**: get by form schema id. promise.
 
 # Validation
 
- * Validate this...
+- Validate this...
 
 # Instance
 
@@ -26,15 +26,14 @@ Base functionality include:
 
 This is a quick summary. For details, check tests: `test/FormSchema.js`
 
- * **isNew()**: true if a FormSchema is new
- * **isEmpty()**: true if a FormSchema is empty
- * **addField( fieldData )**: adds a field to the schema
- * **getFieldCount()**: gives the number of fields
- * **getField( index )**: gets a field by its position index in schema
- * **getValidate( options )**: get the validation function of the form schema
- * **moveField( index, moves )**: moves field up or down in the schema by given number of moves. Minus goes up, plus goes down
- * **removeField( index )**: remove field from schema
-
+- **isNew()**: true if a FormSchema is new
+- **isEmpty()**: true if a FormSchema is empty
+- **addField( fieldData )**: adds a field to the schema
+- **getFieldCount()**: gives the number of fields
+- **getField( index )**: gets a field by its position index in schema
+- **getValidate( options )**: get the validation function of the form schema
+- **moveField( index, moves )**: moves field up or down in the schema by given number of moves. Minus goes up, plus goes down
+- **removeField( index )**: remove field from schema
 
 # Service
 
@@ -60,20 +59,15 @@ A react app to build a FormSchema form.
 
 ## Props
 
- * **schema**: Object. FormSchema to be edited
- * **extendedFrom**: List of { schema, info } values representing the schemas the current schema is extending. `schema` is the FormSchema and `info` an object of labels giving some context information on the schema.
- * **useExtendedLabelLanguages**: Boolean. Defaults at false. If true, extended schema label languages are used to determine which languages should be requested when filling in field labels.
-
-
-
-
+- **schema**: Object. FormSchema to be edited
+- **extendedFrom**: List of { schema, info } values representing the schemas the current schema is extending. `schema` is the FormSchema and `info` an object of labels giving some context information on the schema.
+- **useExtendedLabelLanguages**: Boolean. Defaults at false. If true, extended schema label languages are used to determine which languages should be requested when filling in field labels.
 
 # Front app development
 
 Just `yarn start` to start working on an app. Dev apps can be split in multiple files, they must all be placed in `/client/src/dev`. To add a new dev application, just add a file of the same name in the folder and reference it in the dev index file.
 
 This structure makes it practical to target development on specific sub parts without having to load all front scripts.
-
 
 # About file keys
 

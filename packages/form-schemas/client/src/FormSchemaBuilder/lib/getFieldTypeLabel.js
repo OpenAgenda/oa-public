@@ -5,10 +5,7 @@ import labels from './labels';
 const getLabel = makeLabelGetter(labels);
 
 export default (field, preferredLang) => {
-  const {
-    fieldType,
-    languages,
-  } = field;
+  const { fieldType, languages } = field;
 
   let labelCode = [
     fieldType,

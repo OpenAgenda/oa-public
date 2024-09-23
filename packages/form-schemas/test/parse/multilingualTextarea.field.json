@@ -2,7 +2,7 @@
   "field": "title",
   "fieldType": "textarea",
   "optional": false,
-  "languages" : [ "fr", "en" ],
+  "languages": ["fr", "en"],
   "label": {
     "fr": "Nom de l'animateur",
     "en": "Name of the presenter"

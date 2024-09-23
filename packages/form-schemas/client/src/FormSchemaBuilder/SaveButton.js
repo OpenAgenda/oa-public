@@ -1,4 +1,3 @@
-import React from 'react';
 import { Spinner } from '@openagenda/react-shared';
 import classNames from 'classnames';
 
@@ -20,9 +19,12 @@ export default ({ saveState, lang, onClick, disabled, block }) => {
 
   if (saveState === saveStates.SAVED) {
     return (
-      <button type="button" disabled className={buttonClasses}>{getLabel('buttonSaved', lang)}</button>
+      <button type="button" disabled className={buttonClasses}>
+        {getLabel('buttonSaved', lang)}
+      </button>
     );
-  } if (saveState === saveStates.LOADING) {
+  }
+  if (saveState === saveStates.LOADING) {
     return (
       <>
         <button type="button" disabled className={buttonClasses}>
@@ -31,31 +33,35 @@ export default ({ saveState, lang, onClick, disabled, block }) => {
         <Spinner page />
       </>
     );
-  } if (!disabled && saveState === saveStates.CHANGED) {
+  }
+  if (!disabled && saveState === saveStates.CHANGED) {
     return (
       <button
         type="button"
         id="save"
         className={buttonClasses}
         onClick={onClick}
-      >{getLabel('buttonSave', lang)}
+      >
+        {getLabel('buttonSave', lang)}
       </button>
     );
-  } if (!disabled && saveState === saveStates.ERROR) {
+  }
+  if (!disabled && saveState === saveStates.ERROR) {
     return (
       <>
-        <button
-          type="button"
-          className={buttonClasses}
-          onClick={onClick}
-        >{getLabel('buttonSave', lang)}
+        <button type="button" className={buttonClasses} onClick={onClick}>
+          {getLabel('buttonSave', lang)}
         </button>
-        <label className="control-label" htmlFor="save">{getLabel('buttonError', lang)}</label>
+        <label className="control-label" htmlFor="save">
+          {getLabel('buttonError', lang)}
+        </label>
       </>
     );
   }
 
   return (
-    <button type="button" disabled className={buttonClasses}>{getLabel('buttonSave', lang)}</button>
+    <button type="button" disabled className={buttonClasses}>
+      {getLabel('buttonSave', lang)}
+    </button>
   );
 };

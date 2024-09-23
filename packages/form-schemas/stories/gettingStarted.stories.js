@@ -2,12 +2,7 @@ import { useState } from 'react';
 import ih from 'immutability-helper';
 import '@openagenda/bs-templates/compiled/main.css';
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Link,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { locales } from '@openagenda/react-shared';
 
@@ -24,10 +19,7 @@ export function BlankFormWithOneTextField() {
   return (
     <div className="row">
       <div className="col-sm-offset-4 col-sm-4 wsq padding-all-sm">
-        <FormSchemaComponent
-          lang="fr"
-          schema={simplest}
-        />
+        <FormSchemaComponent lang="fr" schema={simplest} />
       </div>
     </div>
   );
@@ -35,22 +27,21 @@ export function BlankFormWithOneTextField() {
 
 export function OneRequiredField() {
   const schema = {
-    fields: [{
-      field: 'anything',
-      fieldType: 'text',
-      optional: false,
-      label: 'Pas tout à fait n\'importe quoi',
-      min: 3,
-      max: 10,
-    }],
+    fields: [
+      {
+        field: 'anything',
+        fieldType: 'text',
+        optional: false,
+        label: "Pas tout à fait n'importe quoi",
+        min: 3,
+        max: 10,
+      },
+    ],
   };
   return (
     <div className="row">
       <div className="col-sm-offset-4 col-sm-4 wsq padding-all-sm">
-        <FormSchemaComponent
-          lang="fr"
-          schema={schema}
-        />
+        <FormSchemaComponent lang="fr" schema={schema} />
       </div>
     </div>
   );
@@ -58,20 +49,19 @@ export function OneRequiredField() {
 
 export function OneFieldWithDefaultValue() {
   const schema = {
-    fields: [{
-      field: 'anything',
-      fieldType: 'text',
-      label: 'Si rien, alors quelque chose',
-      default: 'Quelque chose!',
-    }],
+    fields: [
+      {
+        field: 'anything',
+        fieldType: 'text',
+        label: 'Si rien, alors quelque chose',
+        default: 'Quelque chose!',
+      },
+    ],
   };
   return (
     <div className="row">
       <div className="col-sm-offset-4 col-sm-4 wsq padding-all-sm">
-        <FormSchemaComponent
-          lang="fr"
-          schema={schema}
-        />
+        <FormSchemaComponent lang="fr" schema={schema} />
       </div>
     </div>
   );
@@ -83,18 +73,22 @@ export function OneDisabledFieldWithValue() {
   });
 
   const schema = {
-    fields: [{
-      field: 'disabledfield',
-      fieldType: 'text',
-      label: 'This field should be disabled',
-      enable: false,
-    }],
+    fields: [
+      {
+        field: 'disabledfield',
+        fieldType: 'text',
+        label: 'This field should be disabled',
+        enable: false,
+      },
+    ],
   };
   return (
     <div className="row">
       <div className="col-sm-offset-2 col-sm-4">
         <p>
-          <strong>Value of disabled field is in update and submitted payload.</strong>
+          <strong>
+            Value of disabled field is in update and submitted payload.
+          </strong>
           &nbsp;(value should be visible on the right)
         </p>
         <div className="wsq padding-all-sm">
@@ -104,16 +98,14 @@ export function OneDisabledFieldWithValue() {
             values={{
               disabledfield: 'This value is not editable',
             }}
-            onUpdate={v => setUpdatedValues(v)}
+            onUpdate={(v) => setUpdatedValues(v)}
             onSubmit={({ clean }) => setUpdatedValues(clean)}
           />
         </div>
       </div>
       <div className="col-sm-4 padding-all-sm">
         <pre className="wsq padding-all-sm">
-          <code>
-            {JSON.stringify(values, null, 2)}
-          </code>
+          <code>{JSON.stringify(values, null, 2)}</code>
         </pre>
       </div>
     </div>
@@ -122,25 +114,25 @@ export function OneDisabledFieldWithValue() {
 
 export function OneFieldWithInfoText() {
   const schema = {
-    fields: [{
-      field: 'one',
-      fieldType: 'text',
-      label: 'Un premier champ',
-      info: 'Un texte d\'information',
-    }, {
-      field: 'two',
-      fieldType: 'text',
-      label: 'Un deuxième champ',
-      info: 'Un texte d\'information\nSur plusieurs lignes',
-    }],
+    fields: [
+      {
+        field: 'one',
+        fieldType: 'text',
+        label: 'Un premier champ',
+        info: "Un texte d'information",
+      },
+      {
+        field: 'two',
+        fieldType: 'text',
+        label: 'Un deuxième champ',
+        info: "Un texte d'information\nSur plusieurs lignes",
+      },
+    ],
   };
   return (
     <div className="row">
       <div className="col-sm-offset-4 col-sm-4 wsq padding-all-sm">
-        <FormSchemaComponent
-          lang="fr"
-          schema={schema}
-        />
+        <FormSchemaComponent lang="fr" schema={schema} />
       </div>
     </div>
   );
@@ -148,32 +140,33 @@ export function OneFieldWithInfoText() {
 
 export function OneFieldWithHelpLink() {
   const schema = {
-    fields: [{
-      field: 'anything',
-      fieldType: 'text',
-      label: 'The label',
-      help: 'This is the help message.',
-      helpLink: 'https://openagenda.com',
-    }, {
-      field: 'anythingelse',
-      fieldType: 'text',
-      label: 'The other label',
-      help: 'The link is an email',
-      helpLink: 'mailto:support@openagenda.com',
-    }, {
-      field: 'randomthings',
-      fieldType: 'text',
-      label: 'A hover on help',
-      helpContent: 'Explain the things [here](https://openagenda.com)',
-    }],
+    fields: [
+      {
+        field: 'anything',
+        fieldType: 'text',
+        label: 'The label',
+        help: 'This is the help message.',
+        helpLink: 'https://openagenda.com',
+      },
+      {
+        field: 'anythingelse',
+        fieldType: 'text',
+        label: 'The other label',
+        help: 'The link is an email',
+        helpLink: 'mailto:support@openagenda.com',
+      },
+      {
+        field: 'randomthings',
+        fieldType: 'text',
+        label: 'A hover on help',
+        helpContent: 'Explain the things [here](https://openagenda.com)',
+      },
+    ],
   };
   return (
     <div className="row">
       <div className="col-sm-offset-4 col-sm-4 wsq padding-all-sm">
-        <FormSchemaComponent
-          lang="fr"
-          schema={schema}
-        />
+        <FormSchemaComponent lang="fr" schema={schema} />
       </div>
     </div>
   );
@@ -187,38 +180,42 @@ export function FormWithLoadedValues() {
       age: 122,
     },
     schema: {
-      fields: [{
-        field: 'name',
-        fieldType: 'text',
-        optional: false,
-        label: {
-          fr: 'Votre nom',
-          en: 'Your name',
+      fields: [
+        {
+          field: 'name',
+          fieldType: 'text',
+          optional: false,
+          label: {
+            fr: 'Votre nom',
+            en: 'Your name',
+          },
         },
-      }, {
-        field: 'age',
-        fieldType: 'integer',
-        optional: false,
-        label: {
-          fr: 'Votre age',
-          en: 'Your age',
+        {
+          field: 'age',
+          fieldType: 'integer',
+          optional: false,
+          label: {
+            fr: 'Votre age',
+            en: 'Your age',
+          },
+          max: 100,
         },
-        max: 100,
-      }, {
-        field: 'multimessage',
-        fieldType: 'text',
-        optional: false,
-        languages: ['fr', 'en'],
-        label: {
-          fr: 'Un court message',
-          en: 'A short message',
+        {
+          field: 'multimessage',
+          fieldType: 'text',
+          optional: false,
+          languages: ['fr', 'en'],
+          label: {
+            fr: 'Un court message',
+            en: 'A short message',
+          },
+          sub: {
+            fr: 'Vraiment court',
+            en: 'Really short',
+          },
+          max: 50,
         },
-        sub: {
-          fr: 'Vraiment court',
-          en: 'Really short',
-        },
-        max: 50,
-      }],
+      ],
     },
   };
   return (
@@ -237,36 +234,45 @@ export function FormWithSections() {
         <FormSchemaComponent
           lang="fr"
           schema={{
-            fields: [{
-              type: 'section',
-              label: 'Identification',
-            }, {
-              field: 'firstName',
-              fieldType: 'text',
-              label: 'First name',
-            }, {
-              field: 'surname',
-              fieldType: 'integer',
-              label: 'Surname',
-              max: 100,
-            }, {
-              type: 'section',
-              label: 'Your home',
-            }, {
-              field: 'address',
-              fieldType: 'text',
-              label: 'Your address',
-            }, {
-              field: 'city',
-              fieldType: 'text',
-              label: 'Your city',
-            }, {
-              type: 'section',
-            }, {
-              field: 'gdpr',
-              fieldType: 'boolean',
-              label: 'Do whatever with my data',
-            }],
+            fields: [
+              {
+                type: 'section',
+                label: 'Identification',
+              },
+              {
+                field: 'firstName',
+                fieldType: 'text',
+                label: 'First name',
+              },
+              {
+                field: 'surname',
+                fieldType: 'integer',
+                label: 'Surname',
+                max: 100,
+              },
+              {
+                type: 'section',
+                label: 'Your home',
+              },
+              {
+                field: 'address',
+                fieldType: 'text',
+                label: 'Your address',
+              },
+              {
+                field: 'city',
+                fieldType: 'text',
+                label: 'Your city',
+              },
+              {
+                type: 'section',
+              },
+              {
+                field: 'gdpr',
+                fieldType: 'boolean',
+                label: 'Do whatever with my data',
+              },
+            ],
           }}
         />
       </div>
@@ -278,31 +284,38 @@ export function FieldsWithDifferentWriteAccesses() {
   const props = {
     lang: 'fr',
     schema: {
-      fields: [{
-        field: 'regularfield',
-        fieldType: 'text',
-        label: 'Un champ sans restriction d\'accès',
-      }, {
-        field: 'restrictedtoarole',
-        fieldType: 'text',
-        label: 'Un champ restreint au role fourchette',
-        write: ['fourchette'],
-      }, {
-        field: 'restrictedtoanotherrole',
-        fieldType: 'text',
-        label: 'Un événement restreint au role couteau',
-        write: ['couteau'],
-      }, {
-        field: 'restrictedtobothroles',
-        fieldType: 'text',
-        label: 'Un événement restreint aux rôles couteau et fourchette',
-        write: ['couteau', 'fourchette'],
-      }],
+      fields: [
+        {
+          field: 'regularfield',
+          fieldType: 'text',
+          label: "Un champ sans restriction d'accès",
+        },
+        {
+          field: 'restrictedtoarole',
+          fieldType: 'text',
+          label: 'Un champ restreint au role fourchette',
+          write: ['fourchette'],
+        },
+        {
+          field: 'restrictedtoanotherrole',
+          fieldType: 'text',
+          label: 'Un événement restreint au role couteau',
+          write: ['couteau'],
+        },
+        {
+          field: 'restrictedtobothroles',
+          fieldType: 'text',
+          label: 'Un événement restreint aux rôles couteau et fourchette',
+          write: ['couteau', 'fourchette'],
+        },
+      ],
     },
   };
   return (
     <div className="container margin-top-lg">
-      <h1 className="text-center">Un même schema chargé avec des rôles différents</h1>
+      <h1 className="text-center">
+        Un même schema chargé avec des rôles différents
+      </h1>
       <div className="row margin-v-md margin-h-sm">
         <div className="col col-sm-4 padding-top-sm">
           <div className="wsq padding-all-sm">
@@ -313,13 +326,17 @@ export function FieldsWithDifferentWriteAccesses() {
         <div className="col col-sm-4 padding-top-sm">
           <div className="wsq padding-all-sm">
             <p>role &quot;fourchette&quot; en prop</p>
-            <FormSchemaComponent {...ih(props, { role: { $set: 'fourchette' } })} />
+            <FormSchemaComponent
+              {...ih(props, { role: { $set: 'fourchette' } })}
+            />
           </div>
         </div>
         <div className="col col-sm-4 padding-top-sm">
           <div className="wsq padding-all-sm">
             <p>role &quot;couteau&quot; en prop</p>
-            <FormSchemaComponent {...ih(props, { role: { $set: 'couteau' } })} />
+            <FormSchemaComponent
+              {...ih(props, { role: { $set: 'couteau' } })}
+            />
           </div>
         </div>
       </div>
@@ -331,27 +348,33 @@ export function FieldsWithDifferentDisplays() {
   const props = {
     lang: 'fr',
     schema: {
-      fields: [{
-        field: 'regularfield',
-        fieldType: 'text',
-        label: 'Un champ sans restriction d\'accès',
-      }, {
-        field: 'hiddenfield',
-        fieldType: 'text',
-        label: 'CE CHAMP EST CACHÉ',
-        display: false,
-      }, {
-        field: 'displayedforrole',
-        fieldType: 'text',
-        label: 'Ce champ est affiché pour les camemberts et les funiculaires',
-        display: ['camemberts', 'funiculaires'],
-      }],
+      fields: [
+        {
+          field: 'regularfield',
+          fieldType: 'text',
+          label: "Un champ sans restriction d'accès",
+        },
+        {
+          field: 'hiddenfield',
+          fieldType: 'text',
+          label: 'CE CHAMP EST CACHÉ',
+          display: false,
+        },
+        {
+          field: 'displayedforrole',
+          fieldType: 'text',
+          label: 'Ce champ est affiché pour les camemberts et les funiculaires',
+          display: ['camemberts', 'funiculaires'],
+        },
+      ],
     },
   };
 
   return (
     <div className="container margin-top-lg">
-      <h1 className="text-center">Un même schema chargé avec des rôles différents</h1>
+      <h1 className="text-center">
+        Un même schema chargé avec des rôles différents
+      </h1>
       <div className="row margin-v-md margin-h-sm">
         <div className="col col-sm-4 padding-top-sm">
           <div className="wsq padding-all-sm">
@@ -362,13 +385,17 @@ export function FieldsWithDifferentDisplays() {
         <div className="col col-sm-4 padding-top-sm">
           <div className="wsq padding-all-sm">
             <p>role &quot;camemberts&quot; en prop</p>
-            <FormSchemaComponent {...ih(props, { role: { $set: 'camemberts' } })} />
+            <FormSchemaComponent
+              {...ih(props, { role: { $set: 'camemberts' } })}
+            />
           </div>
         </div>
         <div className="col col-sm-4 padding-top-sm">
           <div className="wsq padding-all-sm">
             <p>role &quot;funiculaires&quot; en prop</p>
-            <FormSchemaComponent {...ih(props, { role: { $set: 'funiculaires' } })} />
+            <FormSchemaComponent
+              {...ih(props, { role: { $set: 'funiculaires' } })}
+            />
           </div>
         </div>
       </div>
@@ -384,11 +411,13 @@ export function LeavePageWarning() {
       router: true,
     },
     schema: {
-      fields: [{
-        field: 'bewarned',
-        fieldType: 'text',
-        label: 'Soyez avertis',
-      }],
+      fields: [
+        {
+          field: 'bewarned',
+          fieldType: 'text',
+          label: 'Soyez avertis',
+        },
+      ],
     },
   };
   return (
@@ -425,36 +454,38 @@ export function MemberFormUseCase() {
     lang: 'fr',
     method: 'patch',
     schema: {
-      fields: [{
-        field: 'organization',
-        label: 'Organization',
-        fieldType: 'text',
-        optional: false,
-      },
-      {
-        field: 'contactNumber',
-        label: 'Telephone',
-        fieldType: 'phone',
-        optional: false,
-      },
-      {
-        field: 'contactName',
-        label: 'Name Surname',
-        fieldType: 'text',
-        optional: false,
-      },
-      {
-        field: 'contactPosition',
-        label: 'Position',
-        fieldType: 'text',
-        optional: false,
-      },
-      {
-        field: 'email',
-        label: 'Email',
-        fieldType: 'email',
-        optional: false,
-      }],
+      fields: [
+        {
+          field: 'organization',
+          label: 'Organization',
+          fieldType: 'text',
+          optional: false,
+        },
+        {
+          field: 'contactNumber',
+          label: 'Telephone',
+          fieldType: 'phone',
+          optional: false,
+        },
+        {
+          field: 'contactName',
+          label: 'Name Surname',
+          fieldType: 'text',
+          optional: false,
+        },
+        {
+          field: 'contactPosition',
+          label: 'Position',
+          fieldType: 'text',
+          optional: false,
+        },
+        {
+          field: 'email',
+          label: 'Email',
+          fieldType: 'email',
+          optional: false,
+        },
+      ],
     },
     onCancel: () => {
       // eslint-disable-next-line no-console
@@ -478,61 +509,66 @@ export function ProtoEventFormUseCase() {
     },
     lang: 'fr',
     schema: {
-      fields: [{
-        field: 'title',
-        fieldType: 'text',
-        languages: ['fr', 'en'],
-        optional: false,
-        label: {
-          fr: 'Titre',
-          en: 'Title',
+      fields: [
+        {
+          field: 'title',
+          fieldType: 'text',
+          languages: ['fr', 'en'],
+          optional: false,
+          label: {
+            fr: 'Titre',
+            en: 'Title',
+          },
+          max: 140,
+          placeholder: {
+            fr: 'Le titre de votre événement',
+            en: 'Title of your event',
+          },
+          sub: {
+            fr: 'Ce champ est requis.',
+            en: 'This field is required',
+          },
         },
-        max: 140,
-        placeholder: {
-          fr: 'Le titre de votre événement',
-          en: 'Title of your event',
+        {
+          field: 'description',
+          fieldType: 'text',
+          languages: ['fr', 'en'],
+          optional: false,
+          label: {
+            fr: 'Description courte',
+            en: 'Short description',
+          },
+          placeholder: {
+            fr: 'Une courte description de votre événement',
+            en: 'A short description of your event',
+          },
         },
-        sub: {
-          fr: 'Ce champ est requis.',
-          en: 'This field is required',
+        {
+          field: 'longDescription',
+          fieldType: 'textarea',
+          languages: ['fr', 'en'],
+          label: {
+            fr: 'Description longue',
+            en: 'Long description',
+          },
+          sub: {
+            fr: 'Ce champ ne doit pas exceder 10000 caractères',
+            en: 'This field should not exceed 10000 characters',
+          },
         },
-      }, {
-        field: 'description',
-        fieldType: 'text',
-        languages: ['fr', 'en'],
-        optional: false,
-        label: {
-          fr: 'Description courte',
-          en: 'Short description',
+        {
+          field: 'conditions',
+          fieldType: 'text',
+          label: {
+            fr: 'Conditions de participation, tarifs',
+            en: 'Attendence conditions, pricing',
+          },
+          sub: {
+            fr: 'Tel format est accepté',
+            en: 'Some specific format is accepted',
+          },
         },
-        placeholder: {
-          fr: 'Une courte description de votre événement',
-          en: 'A short description of your event',
-        },
-      }, {
-        field: 'longDescription',
-        fieldType: 'textarea',
-        languages: ['fr', 'en'],
-        label: {
-          fr: 'Description longue',
-          en: 'Long description',
-        },
-        sub: {
-          fr: 'Ce champ ne doit pas exceder 10000 caractères',
-          en: 'This field should not exceed 10000 characters',
-        },
-      }, {
-        field: 'conditions',
-        fieldType: 'text',
-        label: {
-          fr: 'Conditions de participation, tarifs',
-          en: 'Attendence conditions, pricing',
-        },
-        sub: {
-          fr: 'Tel format est accepté',
-          en: 'Some specific format is accepted',
-        },
-      }],
+      ],
     },
   };
   return (

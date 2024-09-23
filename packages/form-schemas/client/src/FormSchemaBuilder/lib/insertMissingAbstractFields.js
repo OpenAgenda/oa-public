@@ -7,8 +7,9 @@ import getFormItemSlug from './getFormItemSlug';
 export default function insertMissingAbstractFields(schema, updatedMerge) {
   return ih(schema ?? { fields: [] }, {
     fields: {
-      $set: updatedMerge.fields.map(f => {
-        const index = _.findIndex(schema?.fields ?? [], sf => isSameFormItem(f, sf));
+      $set: updatedMerge.fields.map((f) => {
+        const index = _.findIndex(schema?.fields ?? [], (sf) =>
+          isSameFormItem(f, sf));
 
         if (index === -1) {
           return {

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import { Modal } from '@openagenda/react-shared';
@@ -21,9 +21,7 @@ export default class LabelLanguages extends Component {
   onEdit(e) {
     e.preventDefault();
 
-    const {
-      labelLanguages,
-    } = this.props;
+    const { labelLanguages } = this.props;
 
     this.setState({
       editedLanguages: labelLanguages,
@@ -31,9 +29,7 @@ export default class LabelLanguages extends Component {
   }
 
   applyLanguages(languages = []) {
-    const {
-      onUpdate,
-    } = this.props;
+    const { onUpdate } = this.props;
 
     onUpdate(languages);
 
@@ -49,46 +45,47 @@ export default class LabelLanguages extends Component {
 
     return (
       <div>
-        {editedLanguages.length
-          ? (
-            <div>
-              <p>{getLabel('editLabelLanguagesInfo', lang)}</p>
-              <Languages
-                className="language-bar thin"
-                lang={lang}
-                value={editedLanguages}
-                onChange={editedLanguagesUpdate => this.setState({
+        {editedLanguages.length ? (
+          <div>
+            <p>{getLabel('editLabelLanguagesInfo', lang)}</p>
+            <Languages
+              className="language-bar thin"
+              lang={lang}
+              value={editedLanguages}
+              onChange={(editedLanguagesUpdate) =>
+                this.setState({
                   editedLanguages: editedLanguagesUpdate,
                 })}
-              />
-              <div className="padding-top-md">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => this.applyLanguages(editedLanguages)}
-                >
-                  {getLabel('submitLabelLanguages', lang)}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger pull-right"
-                  onClick={() => this.applyLanguages()}
-                >{getLabel('removeLabelLanguages', lang)}
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div>
-              <p>{getLabel('monolingualLabels', lang)}</p>
+            />
+            <div className="padding-top-md">
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={() => this.setState({ editedLanguages: [lang] })}
+                onClick={() => this.applyLanguages(editedLanguages)}
               >
-                {getLabel('addLabelLanguages', lang)}
+                {getLabel('submitLabelLanguages', lang)}
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger pull-right"
+                onClick={() => this.applyLanguages()}
+              >
+                {getLabel('removeLabelLanguages', lang)}
               </button>
             </div>
-          )}
+          </div>
+        ) : (
+          <div>
+            <p>{getLabel('monolingualLabels', lang)}</p>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => this.setState({ editedLanguages: [lang] })}
+            >
+              {getLabel('addLabelLanguages', lang)}
+            </button>
+          </div>
+        )}
       </div>
     );
   }
@@ -106,9 +103,16 @@ export default class LabelLanguages extends Component {
             {getLabel('multilingualLabels', lang)}
           </label>
           <div className="margin-v-xs pull-left" id="language-list">
-            {labelLanguages.length ? labelLanguages.map(l => (
-              <span key={`field-lang-${l}`} className="badge badge-default margin-right-xs">{_.toUpper(l)}</span>
-            )) : null}
+            {labelLanguages.length
+              ? labelLanguages.map((l) => (
+                <span
+                  key={`field-lang-${l}`}
+                  className="badge badge-default margin-right-xs"
+                >
+                  {_.toUpper(l)}
+                </span>
+              ))
+              : null}
           </div>
           {labelLanguages.length ? (
             <button
@@ -120,7 +124,14 @@ export default class LabelLanguages extends Component {
               {getLabel('editLabelLanguages', lang)}
             </button>
           ) : (
-            <button className="btn btn-link" type="button" disabled={disabled} onClick={this.onEdit.bind(this)}>{getLabel('monolingualLabels', lang)}</button>
+            <button
+              className="btn btn-link"
+              type="button"
+              disabled={disabled}
+              onClick={this.onEdit.bind(this)}
+            >
+              {getLabel('monolingualLabels', lang)}
+            </button>
           )}
         </div>
         {editedLanguages ? (

@@ -11,48 +11,84 @@ import unflattenLabels from './lib/unflattenLabels';
 import restrictLabelLanguages from './lib/restrictLabelLanguages';
 import optionsValidator from './lib/optionsValidator';
 
-const assignConstraintsToFields = (schema, parents) => schema.fields.reduce((carriedSchema, field) => {
-  carriedSchema.fields.push({
-    ...field,
-    constraints: parents ? parents[field.field] : null,
-  });
-  return carriedSchema;
-}, { ...schema, fields: [] });
+const assignConstraintsToFields = (schema, parents) =>
+  schema.fields.reduce(
+    (carriedSchema, field) => {
+      carriedSchema.fields.push({
+        ...field,
+        constraints: parents ? parents[field.field] : null,
+      });
+      return carriedSchema;
+    },
+    { ...schema, fields: [] },
+  );
 
-const fieldOrder = order => ({ fields: order.map(f => ({ field: f, fieldType: 'abstract' })) });
+const fieldOrder = (order) => ({
+  fields: order.map((f) => ({ field: f, fieldType: 'abstract' })),
+});
 
 const fieldSchemaTypes = {
   labels: ({ labelLanguages }) => fg.labels({ labelLanguages }),
-  textLike: ({ labelLanguages, parentsField }) => merge(
-    fg.labels({ labelLanguages }),
-    parentsField ? null : fg.minMax({ min: 0, max: 255 }),
-    !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
-    fieldOrder(['label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub']),
-  ),
-  radioLike: ({ labelLanguages, parentsField }) => merge(
-    fg.labels({ labelLanguages }),
-    !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
-    parentsField ? null : fg.options({ labelLanguages }),
-    fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub']),
-  ),
-  customLike: customFieldSchema => ({ labelLanguages }) => merge(
-    customFieldSchema.fields.some(f => f.field === 'label') ? fg.labels({ labelLanguages }) : null,
-    customFieldSchema.fields.some(f => f.field === 'optional') ? fg.optional() : null,
-    customFieldSchema,
-  ),
+  textLike: ({ labelLanguages, parentsField }) =>
+    merge(
+      fg.labels({ labelLanguages }),
+      parentsField ? null : fg.minMax({ min: 0, max: 255 }),
+      !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
+      fieldOrder([
+        'label',
+        'optional',
+        'min',
+        'max',
+        'info',
+        'placeholder',
+        'sub',
+      ]),
+    ),
+  radioLike: ({ labelLanguages, parentsField }) =>
+    merge(
+      fg.labels({ labelLanguages }),
+      !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
+      parentsField ? null : fg.options({ labelLanguages }),
+      fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub']),
+    ),
+  customLike:
+    (customFieldSchema) =>
+      ({ labelLanguages }) =>
+        merge(
+          customFieldSchema.fields.some((f) => f.field === 'label')
+            ? fg.labels({ labelLanguages })
+            : null,
+          customFieldSchema.fields.some((f) => f.field === 'optional')
+            ? fg.optional()
+            : null,
+          customFieldSchema,
+        ),
 };
 
 const schemas = (type, { customFieldConfigurationSchemas }) => {
   if (type === 'section') {
     return fg.section;
   }
-  if (['text', 'textarea', 'markdown', 'link', 'boolean', 'email', 'integer'].includes(type)) {
+  if (
+    [
+      'text',
+      'textarea',
+      'markdown',
+      'link',
+      'boolean',
+      'email',
+      'integer',
+    ].includes(type)
+  ) {
     return fieldSchemaTypes.textLike;
   }
   if (['radio', 'checkbox', 'select', 'multiselect'].includes(type)) {
     return fieldSchemaTypes.radioLike;
   }
-  if (customFieldConfigurationSchemas && customFieldConfigurationSchemas[type]) {
+  if (
+    customFieldConfigurationSchemas
+    && customFieldConfigurationSchemas[type]
+  ) {
     return fieldSchemaTypes.customLike(customFieldConfigurationSchemas[type]);
   }
   return fieldSchemaTypes.labels;
@@ -65,7 +101,9 @@ export default class FieldForm extends Component {
     const { labelLanguages, field, lang } = props;
 
     this.state = {
-      values: labelLanguages.length ? unflattenLabels(field, labelLanguages) : flattenLabels(field, lang),
+      values: labelLanguages.length
+        ? unflattenLabels(field, labelLanguages)
+        : flattenLabels(field, lang),
       errors: [],
     };
 
@@ -77,13 +115,7 @@ export default class FieldForm extends Component {
   }
 
   onSubmit(sanitize) {
-    const {
-      lang,
-      field,
-      initFieldType,
-      labelLanguages,
-      onSubmit,
-    } = this.props;
+    const { lang, field, initFieldType, labelLanguages, onSubmit } = this.props;
 
     const { values, errors: stateErrors } = this.state;
     const { errors } = sanitize(values);
@@ -127,17 +159,24 @@ export default class FieldForm extends Component {
     };
 
     const schema = assignConstraintsToFields(
-      schemas(field.fieldType ?? field.type, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
+      schemas(field.fieldType ?? field.type, {
+        customFieldConfigurationSchemas,
+      })({ labelLanguages, parentsField }),
       parentsField,
     );
 
     if (!enable) {
-      schema.fields.forEach(f => {
+      schema.fields.forEach((f) => {
         f.enable = false;
       });
     }
 
-    const customs = components ? Object.keys(components).reduce((prev, curr) => ({ ...prev, [curr]: passValidator }), {}) : null;
+    const customs = components
+      ? Object.keys(components).reduce(
+        (prev, curr) => ({ ...prev, [curr]: passValidator }),
+        {},
+      )
+      : null;
     schema.custom = {
       ...customs,
       options: optionsValidator,
@@ -156,12 +195,15 @@ export default class FieldForm extends Component {
           onChange={this.onChange}
           lang={lang}
           schema={schema}
-          actionComponents={[{
-            position: 'bottom',
-            Component: ({ sanitize }) => actionComponent({
-              onSubmit: this.onSubmit.bind(this, sanitize),
-            }),
-          }]}
+          actionComponents={[
+            {
+              position: 'bottom',
+              Component: ({ sanitize }) =>
+                actionComponent({
+                  onSubmit: this.onSubmit.bind(this, sanitize),
+                }),
+            },
+          ]}
         />
       </div>
     );

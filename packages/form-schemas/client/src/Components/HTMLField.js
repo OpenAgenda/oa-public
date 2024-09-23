@@ -5,28 +5,22 @@ import HTMLSerializer from './HTMLSerializer';
 
 export default class HTMLField extends Component {
   shouldComponentUpdate(nextProps) {
-    const {
-      value,
-    } = this.props;
+    const { value } = this.props;
     return value !== nextProps.value;
   }
 
   onChange(value) {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
     onChange(HTMLSerializer.serialize(value));
   }
 
   render() {
     const {
       value,
-      field: {
-        default: defaultValue,
-      },
+      field: { default: defaultValue },
     } = this.props;
 
-    const appliedValue = (value === null) && defaultValue ? defaultValue : value;
+    const appliedValue = value === null && defaultValue ? defaultValue : value;
 
     return (
       <SlateField
@@ -35,7 +29,7 @@ export default class HTMLField extends Component {
             $set: HTMLSerializer.deserialize(appliedValue),
           },
           onChange: {
-            $set: v => this.onChange(v),
+            $set: (v) => this.onChange(v),
           },
           raw: {
             $set: true,

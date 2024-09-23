@@ -17,37 +17,35 @@ export function ChooseFieldTypeStory() {
   return (
     <div className="col-lg-offset-2 col-lg-4 wsq">
       <p>When the choice is not made</p>
-      <ChooseFieldType
-        lang="fr"
-        onChange={() => {}}
-      />
+      <ChooseFieldType lang="fr" onChange={() => {}} />
 
       <p className="margin-top-md">When the choice is made</p>
-      <ChooseFieldType
-        value="radio"
-        lang="fr"
-        onChange={() => {}}
-      />
+      <ChooseFieldType value="radio" lang="fr" onChange={() => {}} />
     </div>
   );
 }
 
 export function FieldAddStory() {
   const consolidatedSchema = {
-    fields: [{
-      field: 'one',
-      label: 'One',
-      fieldType: 'text',
-    }, {
-      field: 'two',
-      label: 'Two',
-      fieldType: 'integer',
-    }],
+    fields: [
+      {
+        field: 'one',
+        label: 'One',
+        fieldType: 'text',
+      },
+      {
+        field: 'two',
+        label: 'Two',
+        fieldType: 'integer',
+      },
+    ],
   };
 
   return (
     <div className="col-lg-offset-2 col-lg-4 wsq">
-      <p>Type <i>One</i> as field name to see duplicate detection happen</p>
+      <p>
+        Type <i>One</i> as field name to see duplicate detection happen
+      </p>
       <FieldAdd
         modal={false}
         schema={consolidatedSchema}
@@ -76,13 +74,15 @@ export function OptionsStory() {
           custom: {
             options: optionsValidator,
           },
-          fields: [{
-            field: 'optionsfield',
-            fieldType: 'options',
-            label: 'Option values',
-            labelLanguages: ['fr', 'en'],
-            optional: false,
-          }],
+          fields: [
+            {
+              field: 'optionsfield',
+              fieldType: 'options',
+              label: 'Option values',
+              labelLanguages: ['fr', 'en'],
+              optional: false,
+            },
+          ],
         },
       },
     },
@@ -100,16 +100,18 @@ export function OptionsStory() {
           custom: {
             options: optionsValidator,
           },
-          fields: [{
-            field: 'optionsfield',
-            fieldType: 'options',
-            label: 'Option values',
-            labelLanguages: ['fr', 'en'],
-            optional: false,
-            devInitState: {
-              mode: 0,
+          fields: [
+            {
+              field: 'optionsfield',
+              fieldType: 'options',
+              label: 'Option values',
+              labelLanguages: ['fr', 'en'],
+              optional: false,
+              devInitState: {
+                mode: 0,
+              },
             },
-          }],
+          ],
         },
       },
     },
@@ -121,40 +123,46 @@ export function OptionsStory() {
         },
         lang: 'fr',
         values: {
-          optionsfield: [{
-            id: 1,
-            value: 'un',
-            label: {
-              fr: 'Un',
-              en: 'One',
+          optionsfield: [
+            {
+              id: 1,
+              value: 'un',
+              label: {
+                fr: 'Un',
+                en: 'One',
+              },
             },
-          }, {
-            id: 2,
-            value: 'deux',
-            label: {
-              fr: 'Deux',
-              en: 'Two',
+            {
+              id: 2,
+              value: 'deux',
+              label: {
+                fr: 'Deux',
+                en: 'Two',
+              },
             },
-          }, {
-            id: 3,
-            value: 'trois',
-            label: {
-              fr: 'Trois',
-              en: 'Three',
+            {
+              id: 3,
+              value: 'trois',
+              label: {
+                fr: 'Trois',
+                en: 'Three',
+              },
             },
-          }],
+          ],
         },
         schema: {
           custom: {
             options: optionsValidator,
           },
-          fields: [{
-            field: 'optionsfield',
-            fieldType: 'options',
-            label: 'Option values',
-            labelLanguages: ['fr', 'en'],
-            optional: false,
-          }],
+          fields: [
+            {
+              field: 'optionsfield',
+              fieldType: 'options',
+              label: 'Option values',
+              labelLanguages: ['fr', 'en'],
+              optional: false,
+            },
+          ],
         },
       },
     },
@@ -166,44 +174,50 @@ export function OptionsStory() {
         },
         lang: 'fr',
         values: {
-          optionsfield: [{
-            id: 1,
-            value: 'un',
-            label: {
-              fr: 'Un',
-              en: 'One',
+          optionsfield: [
+            {
+              id: 1,
+              value: 'un',
+              label: {
+                fr: 'Un',
+                en: 'One',
+              },
             },
-          }, {
-            id: 2,
-            value: 'deux',
-            label: {
-              fr: 'Deux',
-              en: 'Two',
+            {
+              id: 2,
+              value: 'deux',
+              label: {
+                fr: 'Deux',
+                en: 'Two',
+              },
             },
-          }, {
-            id: 3,
-            value: 'trois',
-            label: {
-              fr: 'Trois',
-              en: 'Three',
+            {
+              id: 3,
+              value: 'trois',
+              label: {
+                fr: 'Trois',
+                en: 'Three',
+              },
             },
-          }],
+          ],
         },
         schema: {
           custom: {
             options: optionsValidator,
           },
-          fields: [{
-            field: 'optionsfield',
-            fieldType: 'options',
-            label: 'Option values',
-            labelLanguages: ['fr', 'en'],
-            optional: false,
-            devInitState: {
-              mode: 1,
-              editedIndex: 1,
+          fields: [
+            {
+              field: 'optionsfield',
+              fieldType: 'options',
+              label: 'Option values',
+              labelLanguages: ['fr', 'en'],
+              optional: false,
+              devInitState: {
+                mode: 1,
+                editedIndex: 1,
+              },
             },
-          }],
+          ],
         },
       },
     },
@@ -215,43 +229,49 @@ export function OptionsStory() {
         },
         lang: 'fr',
         values: {
-          optionsfield: [{
-            id: 1,
-            value: 'un',
-            label: {
-              fr: 'Un',
-              en: 'One',
+          optionsfield: [
+            {
+              id: 1,
+              value: 'un',
+              label: {
+                fr: 'Un',
+                en: 'One',
+              },
             },
-          }, {
-            id: 2,
-            value: 'deux',
-            label: {
-              fr: 'Deux',
-              en: 'Two',
+            {
+              id: 2,
+              value: 'deux',
+              label: {
+                fr: 'Deux',
+                en: 'Two',
+              },
             },
-          }, {
-            id: 3,
-            value: 'trois',
-            label: {
-              fr: 'Trois',
-              en: 'Three',
+            {
+              id: 3,
+              value: 'trois',
+              label: {
+                fr: 'Trois',
+                en: 'Three',
+              },
             },
-          }],
+          ],
         },
         schema: {
           custom: {
             options: optionsValidator,
           },
-          fields: [{
-            field: 'optionsfield',
-            fieldType: 'options',
-            label: 'Option values',
-            labelLanguages: ['fr', 'en'],
-            optional: false,
-            devInitState: {
-              mode: 2,
+          fields: [
+            {
+              field: 'optionsfield',
+              fieldType: 'options',
+              label: 'Option values',
+              labelLanguages: ['fr', 'en'],
+              optional: false,
+              devInitState: {
+                mode: 2,
+              },
             },
-          }],
+          ],
         },
       },
     },
@@ -269,12 +289,14 @@ export function OptionsStory() {
           custom: {
             options: optionsValidator,
           },
-          fields: [{
-            field: 'optionsfield',
-            fieldType: 'options',
-            label: 'Option values',
-            optional: false,
-          }],
+          fields: [
+            {
+              field: 'optionsfield',
+              fieldType: 'options',
+              label: 'Option values',
+              optional: false,
+            },
+          ],
         },
       },
     },
@@ -296,7 +318,10 @@ export function OptionsStory() {
           <strong>{empty.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...empty.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
+          <FormSchemaComponent
+            {...empty.props}
+            actionComponents={[{ position: 'bottom', Component: () => null }]}
+          />
         </div>
       </div>
       <div className="col-sm-4">
@@ -304,7 +329,10 @@ export function OptionsStory() {
           <strong>{adding.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...adding.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
+          <FormSchemaComponent
+            {...adding.props}
+            actionComponents={[{ position: 'bottom', Component: () => null }]}
+          />
         </div>
       </div>
       <div className="col-sm-4">
@@ -312,7 +340,10 @@ export function OptionsStory() {
           <strong>{withOptions.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...withOptions.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
+          <FormSchemaComponent
+            {...withOptions.props}
+            actionComponents={[{ position: 'bottom', Component: () => null }]}
+          />
         </div>
       </div>
       <div className="col-sm-4">
@@ -320,7 +351,10 @@ export function OptionsStory() {
           <strong>{withEditedOption.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...withEditedOption.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
+          <FormSchemaComponent
+            {...withEditedOption.props}
+            actionComponents={[{ position: 'bottom', Component: () => null }]}
+          />
         </div>
       </div>
       <div className="col-sm-4">
@@ -328,7 +362,10 @@ export function OptionsStory() {
           <strong>{dragging.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...dragging.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
+          <FormSchemaComponent
+            {...dragging.props}
+            actionComponents={[{ position: 'bottom', Component: () => null }]}
+          />
         </div>
       </div>
       <div className="col-sm-4">
@@ -336,7 +373,10 @@ export function OptionsStory() {
           <strong>{monolingual.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...monolingual.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
+          <FormSchemaComponent
+            {...monolingual.props}
+            actionComponents={[{ position: 'bottom', Component: () => null }]}
+          />
         </div>
       </div>
     </div>
@@ -363,7 +403,7 @@ function getBuilderProps(fields) {
         en: 'Network',
       },
       detail: {
-        fr: 'Champ requis par le réseau d\'agendas',
+        fr: "Champ requis par le réseau d'agendas",
         en: 'Field required by the agenda network',
       },
     },
@@ -373,7 +413,6 @@ function getBuilderProps(fields) {
 export function FieldPreview() {
   return (
     <div className="container-fluid top-margined">
-
       <div className="row">
         <h2 className="text-center margin-v-md">Basic cases</h2>
 
@@ -385,7 +424,7 @@ export function FieldPreview() {
                 field: 'sometextfield',
                 label: { fr: 'Un champ texte' },
                 purpose: {
-                  fr: 'Ce champ sert à montrer que le role du champ s\'affiche lorsqu\'il est défini',
+                  fr: "Ce champ sert à montrer que le role du champ s'affiche lorsqu'il est défini",
                 },
                 fieldType: 'text',
               },
@@ -458,7 +497,6 @@ export function FieldPreview() {
             ])}
           />
         </div>
-
       </div>
 
       <div className="row">
@@ -476,7 +514,7 @@ export function FieldPreview() {
               },
               {
                 field: 'imageCredits',
-                label: 'Crédits de l\'image',
+                label: "Crédits de l'image",
                 fieldType: 'text',
                 optional: false,
                 enableWith: 'image',
@@ -486,12 +524,15 @@ export function FieldPreview() {
         </div>
 
         <div className="col-lg-4 col-md-6">
-          <strong>enableWith is an object containing the name of the linked field and the values triggering the enable</strong>
+          <strong>
+            enableWith is an object containing the name of the linked field and
+            the values triggering the enable
+          </strong>
           <FormSchemaBuilder
             {...getBuilderProps([
               {
                 field: 'type-d-organisateur',
-                label: 'Type d\'organisateur',
+                label: "Type d'organisateur",
                 fieldType: 'radio',
                 optional: false,
                 enableWith: null,
@@ -537,7 +578,9 @@ export function FieldPreview() {
         </div>
 
         <div className="col-lg-4 col-md-6">
-          <strong>Location is optional when attendance mode has given value</strong>
+          <strong>
+            Location is optional when attendance mode has given value
+          </strong>
           <FormSchemaBuilder
             maxFields={1}
             lang="fr"
@@ -670,40 +713,27 @@ export function FieldPreview() {
             {...getBuilderProps([
               {
                 field: 'un-premier-champ',
-                label: 'Un champ restreint aux adminmods à l\'écriture',
+                label: "Un champ restreint aux adminmods à l'écriture",
                 fieldType: 'text',
-                write: [
-                  'administrator',
-                  'moderator',
-                ],
+                write: ['administrator', 'moderator'],
               },
               {
                 field: 'un-deuxieme-champ',
                 label: 'Un champ restreint aux admincontrib en lecture',
                 fieldType: 'text',
-                read: [
-                  'administrator',
-                  'contributor',
-                ],
+                read: ['administrator', 'contributor'],
               },
               {
                 field: 'un-troisieme-champ',
-                label: 'Un champ restreint aux admin en écriture et aux adminmodscontrib en lecture',
+                label:
+                  'Un champ restreint aux admin en écriture et aux adminmodscontrib en lecture',
                 fieldType: 'text',
-                write: [
-                  'administrator',
-
-                ],
-                read: [
-                  'administrator',
-                  'moderator',
-                  'contributor',
-                ],
+                write: ['administrator'],
+                read: ['administrator', 'moderator', 'contributor'],
               },
             ])}
           />
         </div>
-
       </div>
 
       <div className="row">

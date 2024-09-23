@@ -1,6 +1,1 @@
-export default [
-  'label',
-  'info',
-  'sub',
-  'placeholder',
-];
+export default ['label', 'info', 'sub', 'placeholder'];

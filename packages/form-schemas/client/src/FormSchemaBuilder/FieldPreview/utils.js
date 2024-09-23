@@ -3,7 +3,7 @@ import { getLocaleValue } from '@openagenda/intl';
 
 import labels from '../lib/labels';
 
-export const isFieldLinked = field => {
+export const isFieldLinked = (field) => {
   if (field.enableWith || field.optionalWith) {
     return true;
   }
@@ -21,11 +21,12 @@ export const isFieldEditable = (field, { isOwn, editableExtensions }) => {
   return editableExtensions;
 };
 
-export const isFieldMultilingual = ({ languages }) => !!Array.isArray(languages);
+export const isFieldMultilingual = ({ languages }) =>
+  !!Array.isArray(languages);
 
-export const isFieldOptional = field => field?.optional ?? true;
+export const isFieldOptional = (field) => field?.optional ?? true;
 
-export const isFieldDisplayed = field => field?.display ?? true;
+export const isFieldDisplayed = (field) => field?.display ?? true;
 
 export const getLabel = makeLabelGetter(labels);
 
@@ -42,10 +43,12 @@ export function getDefaultValueLabel(field, lang) {
   }
   if (Array.isArray(field.default)) {
     if (field.fieldType === 'checkbox') {
-      return field.default.map(value => {
-        const option = field.options.find(obj => obj.id === value);
-        return getLocaleValue(option.label, lang);
-      }).join(', ');
+      return field.default
+        .map((value) => {
+          const option = field.options.find((obj) => obj.id === value);
+          return getLocaleValue(option.label, lang);
+        })
+        .join(', ');
     }
   }
   if (field.default !== null && typeof field.default === 'object') {
@@ -55,7 +58,9 @@ export function getDefaultValueLabel(field, lang) {
   const defaultValue = field.default;
 
   if (field.options) {
-    const specificValuesFromOptions = field.options.find(obj => obj.id === defaultValue);
+    const specificValuesFromOptions = field.options.find(
+      (obj) => obj.id === defaultValue,
+    );
     return getLocaleValue(specificValuesFromOptions.label, lang);
   }
 
@@ -63,24 +68,19 @@ export function getDefaultValueLabel(field, lang) {
 }
 
 export function getLinkedField(options = {}) {
-  const {
-    field,
-    schema,
-  } = options;
+  const { field, schema } = options;
 
-  const {
-    linkType = field.enableWith ? 'enableWith' : 'optionalWith',
-  } = options;
+  const { linkType = field.enableWith ? 'enableWith' : 'optionalWith' } = options;
 
   if (!field[linkType]) {
     return null;
   }
 
   if (typeof field[linkType] === 'string') {
-    return schema.fields.find(el => el.field === field[linkType]);
+    return schema.fields.find((el) => el.field === field[linkType]);
   }
 
-  return schema.fields.find(el => el.field === field[linkType].field);
+  return schema.fields.find((el) => el.field === field[linkType].field);
 }
 
 export function getFieldTypeIcon(field) {
@@ -112,8 +112,7 @@ export function allowItemDisplayToggle(field) {
   return false;
 }
 
-export const isAccessUndefined = field =>
-  !field.read && !field.write;
+export const isAccessUndefined = (field) => !field.read && !field.write;
 export function getFieldAccess(field, lang) {
   const multilingual = {
     administrator: getLabel('adminAccess', lang),
@@ -121,25 +120,37 @@ export function getFieldAccess(field, lang) {
     contributor: getLabel('contributorAccess', lang),
   };
 
-  const writeFieldAccess = field?.write?.map(access => multilingual[access]).join(', ');
-  const readFieldAccess = field?.read?.map(access => multilingual[access]).join(', ');
+  const writeFieldAccess = field?.write
+    ?.map((access) => multilingual[access])
+    .join(', ');
+  const readFieldAccess = field?.read
+    ?.map((access) => multilingual[access])
+    .join(', ');
 
   if (field.write && !field.read) {
     return (
-      <>{getLabel('writeAccess', lang)}: {writeFieldAccess}</>
+      <>
+        {getLabel('writeAccess', lang)}: {writeFieldAccess}
+      </>
     );
   }
   if (field.read && !field.write) {
     return (
-      <>{getLabel('readAccess', lang)}: {readFieldAccess}</>
+      <>
+        {getLabel('readAccess', lang)}: {readFieldAccess}
+      </>
     );
   }
   if (field.write && field.read) {
     return (
       <>
-        <span>{getLabel('readAccess', lang)}: {readFieldAccess}</span>
+        <span>
+          {getLabel('readAccess', lang)}: {readFieldAccess}
+        </span>
         <span> / </span>
-        <span>{getLabel('writeAccess', lang)}: {writeFieldAccess}</span>
+        <span>
+          {getLabel('writeAccess', lang)}: {writeFieldAccess}
+        </span>
       </>
     );
   }

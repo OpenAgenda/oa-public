@@ -20,10 +20,7 @@ describe('form-schemas -04- functional (server): get', () => {
   let secondId;
 
   beforeAll(async () => {
-    await fixtures(config.mysql, [
-      'reset.sql',
-      'form_schema.data.sql',
-    ]);
+    await fixtures(config.mysql, ['reset.sql', 'form_schema.data.sql']);
   });
 
   beforeAll(() => {
@@ -57,10 +54,12 @@ describe('form-schemas -04- functional (server): get', () => {
   it('simple getValidator', async () => {
     const validate = await svc.getValidator(id);
 
-    expect(validate({
-      participants: 1,
-      someIgnoredField: 'lol',
-    })).toStrictEqual({ participants: 1 });
+    expect(
+      validate({
+        participants: 1,
+        someIgnoredField: 'lol',
+      }),
+    ).toStrictEqual({ participants: 1 });
   });
 
   it('get merged schemas', async () => {

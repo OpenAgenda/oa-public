@@ -22,10 +22,13 @@ async function get({ client, schemas }, id, options = {}) {
   const store = await client(schemas.formSchema)
     .first(['id', 'store'])
     .where({ id })
-    .then(r => (r && r.store ? {
-      ...JSON.parse(r.store),
-      id,
-    } : null));
+    .then((r) =>
+      (r && r.store
+        ? {
+          ...JSON.parse(r.store),
+          id,
+        }
+        : null));
 
   if (!store) {
     return null;
@@ -70,9 +73,11 @@ async function create({ client, schemas }, data) {
     };
   }
 
-  const id = await client(schemas.formSchema).insert({
-    store: JSON.stringify(clean),
-  }).then(ids => ids[0]);
+  const id = await client(schemas.formSchema)
+    .insert({
+      store: JSON.stringify(clean),
+    })
+    .then((ids) => ids[0]);
 
   log('created form-schema %s', id);
 
@@ -113,8 +118,7 @@ async function update({ client, schemas }, id, data) {
 }
 
 async function remove({ client, schemas }, id) {
-  const removedId = await client(schemas.formSchema)
-    .delete({ id });
+  const removedId = await client(schemas.formSchema).delete({ id });
 
   return {
     success: true,
@@ -122,43 +126,48 @@ async function remove({ client, schemas }, id) {
   };
 }
 
-module.exports = Object.assign(config => {
-  if (config.logger) {
-    logger.setModuleConfig(config.logger);
-  }
+module.exports = Object.assign(
+  (config) => {
+    if (config.logger) {
+      logger.setModuleConfig(config.logger);
+    }
 
-  log('initializing');
+    log('initializing');
 
-  const c = {
-    client: config.knex || knex({
-      client: 'mysql',
-      connection: config.mysql,
-    }),
-    schemas: config.schemas,
-  };
+    const c = {
+      client:
+        config.knex
+        || knex({
+          client: 'mysql',
+          connection: config.mysql,
+        }),
+      schemas: config.schemas,
+    };
 
-  filesMw.init({
-    tmpFolder: config.tmpFolder,
-    s3: config.s3,
-  });
+    filesMw.init({
+      tmpFolder: config.tmpFolder,
+      s3: config.s3,
+    });
 
-  const svc = {
-    get: get.bind(null, c),
-    getMerged: getMerged.bind(null, c),
-    getValidator: getValidator.bind(null, c),
-    create: create.bind(null, c),
-    update: update.bind(null, c),
-    remove: remove.bind(null, c),
-    internals: {
-      client: c.client,
-    },
+    const svc = {
+      get: get.bind(null, c),
+      getMerged: getMerged.bind(null, c),
+      getValidator: getValidator.bind(null, c),
+      create: create.bind(null, c),
+      update: update.bind(null, c),
+      remove: remove.bind(null, c),
+      internals: {
+        client: c.client,
+      },
+      utils,
+      middleware: {
+        files: filesMw,
+      },
+    };
+
+    return svc;
+  },
+  {
     utils,
-    middleware: {
-      files: filesMw,
-    },
-  };
-
-  return svc;
-}, {
-  utils,
-});
+  },
+);

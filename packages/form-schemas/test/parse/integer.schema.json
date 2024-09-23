@@ -2,39 +2,41 @@
   "nextOptionId": 1,
   "custom": null,
   "defaultLabelLanguage": null,
-  "fields": [ {
-    "field": "participants",
-    "optional": true,
-    "display" : true,
-    "fieldType": "integer",
-    "read": [ "contributor", "moderator", "administrator" ],
-    "write" : null,
-    "min": null,
-    "max": null,
-    "label": {
-      "fr": "Participants",
-      "en": "Participants"
-    },
-    "info": {
-      "fr": "Combien de participants",
-      "en": "How many participants"
-    },
-    "help" : null,
-    "helpLink" : null,
-    "helpContent": null,
-    "placeholder" : null,
-    "sub" : null,
-    "origin" : "custom",
-    "enableWith" : null,
-    "optionalWith": null,
-    "related" : {
-      "enable": [],
-      "optional": [],
-      "other": []
-    },
-    "default" : null,
-    "constraints": "undefined",
-    "enable": true,
-    "selfHandled": []
-  } ]
+  "fields": [
+    {
+      "field": "participants",
+      "optional": true,
+      "display": true,
+      "fieldType": "integer",
+      "read": ["contributor", "moderator", "administrator"],
+      "write": null,
+      "min": null,
+      "max": null,
+      "label": {
+        "fr": "Participants",
+        "en": "Participants"
+      },
+      "info": {
+        "fr": "Combien de participants",
+        "en": "How many participants"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "placeholder": null,
+      "sub": null,
+      "origin": "custom",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": [],
+        "other": []
+      },
+      "default": null,
+      "constraints": "undefined",
+      "enable": true,
+      "selfHandled": []
+    }
+  ]
 }

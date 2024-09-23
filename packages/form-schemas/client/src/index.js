@@ -33,7 +33,11 @@ export default class FormSchemaComponent extends Component {
 
     const init = {
       labels: {
-        errors: flattenLabels(_.assign({}, errorLabels, _.get(labels, 'errors', {})), lang, true),
+        errors: flattenLabels(
+          _.assign({}, errorLabels, _.get(labels, 'errors', {})),
+          lang,
+          true,
+        ),
         main: flattenLabels(formSchemaLabels, lang, true),
       },
       defaultLabelLanguage: lang,
@@ -65,7 +69,13 @@ export default class FormSchemaComponent extends Component {
   onSubmit(e, options = {}) {
     if (e) e.preventDefault();
 
-    const { res, method, onSubmit, unloadWarning: enableUnloadWarning, onSubmitSuccess } = this.props;
+    const {
+      res,
+      method,
+      onSubmit,
+      unloadWarning: enableUnloadWarning,
+      onSubmitSuccess,
+    } = this.props;
 
     const { draft = false } = options;
 
@@ -113,7 +123,7 @@ export default class FormSchemaComponent extends Component {
       files: this.get('files'),
       query,
     })
-      .then(response => {
+      .then((response) => {
         if (response.statusCode !== 200) {
           this.onServerError(response);
           return;
@@ -136,7 +146,7 @@ export default class FormSchemaComponent extends Component {
           });
         }
       })
-      .catch(errorResponse => this.onServerError(errorResponse));
+      .catch((errorResponse) => this.onServerError(errorResponse));
   }
 
   onServerError(res) {
@@ -165,7 +175,10 @@ export default class FormSchemaComponent extends Component {
     }
 
     this.set({
-      globalError: _.get(this, globalErrorPath).replace('%max%', maxFileSize || 22),
+      globalError: _.get(this, globalErrorPath).replace(
+        '%max%',
+        maxFileSize || 22,
+      ),
       loading: false,
     });
   }
@@ -191,17 +204,17 @@ export default class FormSchemaComponent extends Component {
     updateValues[fieldName] = { $set: value };
 
     const relatedFields = formSchema.getRelatedFields(field);
-    const relatedFieldNames = relatedFields.map(f => f.field);
+    const relatedFieldNames = relatedFields.map((f) => f.field);
 
     const updatedErrors = this.get('errors', [])
-      .filter(e => !relatedFieldNames.concat(fieldName).includes(e.field)) // keep other errors
+      .filter((e) => !relatedFieldNames.concat(fieldName).includes(e.field)) // keep other errors
       .concat(this.getFieldErrors(field, value, relatedFields, currentValues));
 
     log('onChange updating errors', updatedErrors);
 
     const isFileField = formSchema
       .getFileFields()
-      .map(f => f.field)
+      .map((f) => f.field)
       .includes(fieldName);
 
     const currentFiles = this.get('files', {});
@@ -232,15 +245,16 @@ export default class FormSchemaComponent extends Component {
 
     values[field.field] = value;
 
-    relatedFields.forEach(relatedField => {
+    relatedFields.forEach((relatedField) => {
       values[relatedField.field] = currentValues[relatedField.field];
     });
 
     const { errors } = this.sanitize(values);
 
-    const keepFields = relatedFields.map(f => f.field).concat(field.field);
+    const keepFields = relatedFields.map((f) => f.field).concat(field.field);
 
-    const fieldErrors = (errors || []).filter(e => keepFields.includes(e.field));
+    const fieldErrors = (errors || []).filter((e) =>
+      keepFields.includes(e.field));
 
     log('getFieldErrors', { field, value, fieldErrors });
 
@@ -273,7 +287,9 @@ export default class FormSchemaComponent extends Component {
     // building the formSchema is a bit costly, so memoizition is useful here
 
     const hasChanged = !!['hash', 'lang'].filter(
-      memoizeKey => _.get(this.memoized, memoizeKey, '') !== _.get(this.props, memoizeKey, ''),
+      (memoizeKey) =>
+        _.get(this.memoized, memoizeKey, '')
+        !== _.get(this.props, memoizeKey, ''),
     ).length;
 
     if (hasChanged || !this.memoized) {
@@ -308,7 +324,7 @@ export default class FormSchemaComponent extends Component {
       // simpler to always keep errors as arrays.
       return {
         clean: null,
-        errors: errors.map(e => {
+        errors: errors.map((e) => {
           const field = formSchema.getField(e.field);
           if (!field) {
             throw new Error('did not find field matching validation error', e);
@@ -334,7 +350,11 @@ export default class FormSchemaComponent extends Component {
 
     if (!errors.length && !globalError) return null;
 
-    const matching = _.first(_.get(this.props, 'errorComponents', []).filter(a => a.position === 'bottom'));
+    const matching = _.first(
+      _.get(this.props, 'errorComponents', []).filter(
+        (a) => a.position === 'bottom',
+      ),
+    );
 
     if (matching) {
       const { Component: ErrorComponent } = matching;
@@ -353,9 +373,11 @@ export default class FormSchemaComponent extends Component {
       >
         {errors.length ? (
           <div>
-            <div className="padding-bottom-sm">{labels.main.groupErrorHeader}:</div>
+            <div className="padding-bottom-sm">
+              {labels.main.groupErrorHeader}:
+            </div>
             <ul className="list-unstyled margin-left-xs">
-              {errors.map(e => (
+              {errors.map((e) => (
                 <li key={`error-${e.field}-${e.lang ?? ''}-${e.code}`}>
                   <label htmlFor={e.code}>
                     {e.fieldLabel}
@@ -379,14 +401,24 @@ export default class FormSchemaComponent extends Component {
 
   renderBottomActions() {
     const { onCancel } = this.props;
-    const matching = _.first(_.get(this.props, 'actionComponents', []).filter(a => a.position === 'bottom'));
+    const matching = _.first(
+      _.get(this.props, 'actionComponents', []).filter(
+        (a) => a.position === 'bottom',
+      ),
+    );
 
     const loading = this.get('loading');
 
     if (matching) {
       const { Component: BottomActionsComponent } = matching;
 
-      return <BottomActionsComponent onSubmit={this.onSubmit} loading={loading} sanitize={this.sanitize} />;
+      return (
+        <BottomActionsComponent
+          onSubmit={this.onSubmit}
+          loading={loading}
+          sanitize={this.sanitize}
+        />
+      );
     }
 
     const { labels } = this.state;
@@ -394,14 +426,22 @@ export default class FormSchemaComponent extends Component {
     return (
       <div
         style={{ position: 'relative' }}
-        className={_.get(this.props, 'classNames.bottomActionsCanvas') || 'form-group'}
+        className={
+          _.get(this.props, 'classNames.bottomActionsCanvas') || 'form-group'
+        }
       >
         {onCancel ? (
-          <button type="button" className="btn btn-default" onClick={() => onCancel()}>
+          <button
+            type="button"
+            className="btn btn-default"
+            onClick={() => onCancel()}
+          >
             {labels.main.cancel}
           </button>
         ) : null}
-        <div className={classNames('margin-top-sm', { 'pull-right': onCancel })}>
+        <div
+          className={classNames('margin-top-sm', { 'pull-right': onCancel })}
+        >
           {loading && (
             <span className="margin-left-sm">
               <Spinner mode="inline" />
@@ -462,7 +502,11 @@ export default class FormSchemaComponent extends Component {
           <div className="padding-all-sm">
             <span>{labels.main.confirmation}</span>
           </div>
-          <button type="submit" className="btn btn-primary" onClick={this.onSubmitConfirm}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={this.onSubmitConfirm}
+          >
             {labels.main.done}
           </button>
           {this.renderUnloadWarning()}
@@ -476,7 +520,7 @@ export default class FormSchemaComponent extends Component {
           {this._getFormSchema()
             .getFields()
             .filter(isItemDisplayed.bind(null, role))
-            .map(f => {
+            .map((f) => {
               if (f.type === 'section') {
                 return <Section lang={lang} section={f} />;
               }
@@ -492,9 +536,15 @@ export default class FormSchemaComponent extends Component {
                   key={`field${f.field}`}
                   field={f}
                   value={_.get(values, f.field, null)}
-                  relatedValues={getRelatedFieldValues(f, cleanValues === null ? values : cleanValues)}
-                  error={errors.filter(e => e.field === f.field).shift()?.label}
-                  onChange={(value, files) => this.onChange(f.field, value, files)}
+                  relatedValues={getRelatedFieldValues(
+                    f,
+                    cleanValues === null ? values : cleanValues,
+                  )}
+                  error={
+                    errors.filter((e) => e.field === f.field).shift()?.label
+                  }
+                  onChange={(value, files) =>
+                    this.onChange(f.field, value, files)}
                   role={role}
                 />
               );

@@ -1,8 +1,15 @@
-const getFieldSlug = field => field.slug ?? field.field;
-const getPath = (parentPath, slug) => ((parentPath ?? '').length ? `${parentPath}.${slug}` : slug);
+const getFieldSlug = (field) => field.slug ?? field.field;
+const getPath = (parentPath, slug) =>
+  ((parentPath ?? '').length ? `${parentPath}.${slug}` : slug);
 
-const extractLanguages = label => (typeof label === 'string' || !label ? [] : Object.keys(label));
-const uniq = items => items.reduce((deduped, item) => (deduped.includes(item) ? deduped : deduped.concat(item)), []);
+const extractLanguages = (label) =>
+  (typeof label === 'string' || !label ? [] : Object.keys(label));
+const uniq = (items) =>
+  items.reduce(
+    (deduped, item) =>
+      (deduped.includes(item) ? deduped : deduped.concat(item)),
+    [],
+  );
 
 const getLabel = (label, lang) => {
   if (!label) return label;
@@ -16,41 +23,47 @@ const getMergedLabel = (fieldLabel, parentLabel) => {
     return fieldLabel;
   }
 
-  if ((typeof fieldLabel === 'string') && (typeof parentLabel === 'string')) {
+  if (typeof fieldLabel === 'string' && typeof parentLabel === 'string') {
     return [parentLabel, fieldLabel].join(': ');
   }
 
   return uniq(
     extractLanguages(fieldLabel).concat(extractLanguages(parentLabel)),
-  ).reduce((label, lang) => ({
-    ...label,
-    [lang]: getMergedLabel(getLabel(fieldLabel, lang), getLabel(parentLabel, lang)),
-  }), {});
+  ).reduce(
+    (label, lang) => ({
+      ...label,
+      [lang]: getMergedLabel(
+        getLabel(fieldLabel, lang),
+        getLabel(parentLabel, lang),
+      ),
+    }),
+    {},
+  );
 };
 
 function getFlattenedSchemaFields(schema, options = {}) {
-  const {
-    path,
-    prefixedLabels,
-    parent,
-  } = options;
+  const { path, prefixedLabels, parent } = options;
 
   return schema.fields.reduce((fields, field) => {
     const fieldPath = getPath(path, getFieldSlug(field));
 
     if (field.schema) {
-      return fields.concat(getFlattenedSchemaFields(field.schema, {
-        ...options,
-        parent: field,
-        path: getPath(path, fieldPath),
-      }));
+      return fields.concat(
+        getFlattenedSchemaFields(field.schema, {
+          ...options,
+          parent: field,
+          path: getPath(path, fieldPath),
+        }),
+      );
     }
     const flattenedField = {
       ...field,
       field: fieldPath,
     };
 
-    const label = prefixedLabels && parent ? getMergedLabel(field.label, parent.label) : field.label;
+    const label = prefixedLabels && parent
+      ? getMergedLabel(field.label, parent.label)
+      : field.label;
 
     if (label) {
       flattenedField.label = label;

@@ -2,9 +2,7 @@
 
 const fpUtils = require('../client/src/FormSchemaBuilder/FieldPreview/utils');
 
-const {
-  isAccessUndefined,
-} = fpUtils;
+const { isAccessUndefined } = fpUtils;
 
 describe('FieldPreview utils', () => {
   describe('isAccessUndefined', () => {

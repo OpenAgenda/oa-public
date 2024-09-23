@@ -1,20 +1,17 @@
 import { getLocaleValue } from '@openagenda/intl';
 
-import {
-  getLabel,
-  getLinkedField,
-} from './utils';
+import { getLabel, getLinkedField } from './utils';
 
-export function getSummary({
-  field,
-  lang,
-  schema,
-}) {
+export function getSummary({ field, lang, schema }) {
   const linkedField = getLinkedField({ field, schema });
 
-  return getLabel('linkedTo', {
-    fieldName: getLocaleValue(linkedField.label, lang),
-  }, lang);
+  return getLabel(
+    'linkedTo',
+    {
+      fieldName: getLocaleValue(linkedField.label, lang),
+    },
+    lang,
+  );
 }
 
 export function getSpecificValue({ field, schema, lang, linkType }) {
@@ -24,17 +21,19 @@ export function getSpecificValue({ field, schema, lang, linkType }) {
 
   const linkedField = getLinkedField({ field, schema, linkType });
 
-  return [].concat(field[linkType].value).map(value => {
-    const matchingOption = linkedField.options.find(o => o.id === value);
-    return matchingOption ? getLocaleValue(matchingOption.label, lang) : undefined;
-  }).filter(l => !!l).join(', ');
+  return []
+    .concat(field[linkType].value)
+    .map((value) => {
+      const matchingOption = linkedField.options.find((o) => o.id === value);
+      return matchingOption
+        ? getLocaleValue(matchingOption.label, lang)
+        : undefined;
+    })
+    .filter((l) => !!l)
+    .join(', ');
 }
 
-export function getDetailed({
-  field,
-  lang,
-  schema,
-}) {
+export function getDetailed({ field, lang, schema }) {
   const linkType = field.optionalWith ? 'optionalWith' : 'enableWith';
   const linkedField = getLinkedField({ field, schema, linkType });
   const linkedFieldName = getLocaleValue(linkedField.label, lang);
@@ -42,14 +41,18 @@ export function getDetailed({
 
   if (typeof field[linkType] === 'string') {
     return getLabel(
-      linkType === 'enableWith' ? 'enabledWhenLinkedFieldHasValue' : 'optionalWhenLinkedFieldHasValue',
+      linkType === 'enableWith'
+        ? 'enabledWhenLinkedFieldHasValue'
+        : 'optionalWhenLinkedFieldHasValue',
       { linkedFieldName },
       lang,
     );
   }
 
   return getLabel(
-    linkType === 'enableWith' ? 'enabledWhenLinkedFieldHasSpecificValue' : 'optionalWhenLinkedFieldHasSpecificValue',
+    linkType === 'enableWith'
+      ? 'enabledWhenLinkedFieldHasSpecificValue'
+      : 'optionalWhenLinkedFieldHasSpecificValue',
     { linkedFieldName, specificValue },
     lang,
   );

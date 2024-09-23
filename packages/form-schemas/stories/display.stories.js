@@ -10,18 +10,21 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        http.get('/basic', () => HttpResponse({
-          schema: {
-            fields: [{
-              field: 'name',
-              fieldType: 'text',
-              label: { fr: 'Nom', en: 'Name' },
-            }],
-          },
-          data: {
-            name: 'Gaius Helen Mohiam',
-          },
-        })),
+        http.get('/basic', () =>
+          HttpResponse({
+            schema: {
+              fields: [
+                {
+                  field: 'name',
+                  fieldType: 'text',
+                  label: { fr: 'Nom', en: 'Name' },
+                },
+              ],
+            },
+            data: {
+              name: 'Gaius Helen Mohiam',
+            },
+          })),
       ],
     },
   },
@@ -29,24 +32,31 @@ export default {
 
 export function BasicExample() {
   const schema = {
-    fields: [{
-      field: 'name',
-      fieldType: 'text',
-      label: { fr: 'Nom', en: 'Name' },
-    }, {
-      field: 'email',
-      fieldType: 'email',
-      label: { fr: 'Dernière connexion', en: 'Last signin' },
-    }, {
-      field: 'someLink',
-      fieldType: 'link',
-      label: 'Some link',
-    }],
+    fields: [
+      {
+        field: 'name',
+        fieldType: 'text',
+        label: { fr: 'Nom', en: 'Name' },
+      },
+      {
+        field: 'email',
+        fieldType: 'email',
+        label: { fr: 'Dernière connexion', en: 'Last signin' },
+      },
+      {
+        field: 'someLink',
+        fieldType: 'link',
+        label: 'Some link',
+      },
+    ],
   };
 
   return (
     <div className="margin-v-sm">
-      <p>A schema an some data is passed to the component that dispatches the data through weach fields and displays it.</p>
+      <p>
+        A schema an some data is passed to the component that dispatches the
+        data through weach fields and displays it.
+      </p>
       <DisplaySchemaData
         schema={schema}
         data={{
@@ -63,10 +73,10 @@ export function BasicExample() {
 export function BasicExampleWithRes() {
   return (
     <div className="margin-v-sm">
-      <p>Schema and data are loaded from a remote resource provided through props</p>
-      <DisplaySchemaData
-        res="/basic"
-      />
+      <p>
+        Schema and data are loaded from a remote resource provided through props
+      </p>
+      <DisplaySchemaData res="/basic" />
     </div>
   );
 }

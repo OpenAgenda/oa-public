@@ -1,28 +1,19 @@
-"use strict";
+const typeLabels = require('@openagenda/labels/custom/types');
+const types = Object.keys(require('./types'));
+const validateField = require('./validateField');
+const FormSchema = require('./FormSchema');
 
-const types = Object.keys( require( './types' ) );
-
-const _ = require( 'lodash/core' );
-
-const labels = {
-  types: require( '@openagenda/labels/custom/types' )
+function getTypeLabels(type = false) {
+  return types
+    .filter((t) => type === false || t === type)
+    .map((t) => ({
+      type: t,
+      label: typeLabels[t],
+    }));
 }
 
 module.exports = {
   getTypeLabels,
-  validateField: require( './validateField' ),
-  FormSchema: require( './FormSchema' )
-}
-
-function getTypeLabels( type = false ) {
-
-  return types
-
-    .filter( t => type === false || t === type )
-
-    .map( t => ( { 
-      type: t, 
-      label: labels.types[ t ]
-    } ) );
-
-}
+  validateField,
+  FormSchema,
+};

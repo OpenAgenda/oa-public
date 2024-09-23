@@ -1,14 +1,16 @@
-[ {
-  "name": "participants",
-  "fieldType": "integer",
-  "type": "private",
-  "optional": true,
-  "info": {
-    "fr": "Combien de participants",
-    "en": "How many participants"
-  },
-  "label": {
-    "fr": "Participants",
-    "en": "Participants"
+[
+  {
+    "name": "participants",
+    "fieldType": "integer",
+    "type": "private",
+    "optional": true,
+    "info": {
+      "fr": "Combien de participants",
+      "en": "How many participants"
+    },
+    "label": {
+      "fr": "Participants",
+      "en": "Participants"
+    }
   }
-} ]
+]
