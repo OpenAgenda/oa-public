@@ -13,11 +13,7 @@ export const Age = () => (
   <div className="wsq padding-v-xs padding-h-sm">
     <div className="margin-v-sm">Disabled age form component</div>
     <div className="form-group disabled">
-      <AgeComponent
-        onChange={() => { }}
-        lang="fr"
-        enabled={false}
-      />
+      <AgeComponent onChange={() => {}} lang="fr" enabled={false} />
     </div>
   </div>
 );

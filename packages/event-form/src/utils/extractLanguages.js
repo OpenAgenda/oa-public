@@ -1,23 +1,31 @@
-export default function extractLanguages(formSchema = null, values, options = {}) {
-  const {
-    defaultLanguage = 'en'
-  } = options;
+export default function extractLanguages(
+  formSchema = null,
+  values = null,
+  options = {},
+) {
+  const { defaultLanguage = 'en' } = options;
 
   const fields = formSchema ? formSchema.fields : null;
 
-  const languagesField = (fields ?? []).find(f => f.field === 'languages');
+  const languagesField = (fields ?? []).find((f) => f.field === 'languages');
 
-  const multilingualFields = fields ? fields.filter(f => !!f.languages).map(f => f.field) : ['title', 'description', 'longDescription', 'keywords', 'conditions'];
+  const multilingualFields = fields
+    ? fields.filter((f) => !!f.languages).map((f) => f.field)
+    : ['title', 'description', 'longDescription', 'keywords', 'conditions'];
 
   const languages = multilingualFields.reduce((carry, fieldName) => {
     const fieldValue = values?.[fieldName];
 
-    if (!fieldValue || !(fieldValue instanceof Object) || Array.isArray(fieldValue)) {
+    if (
+      !fieldValue
+      || !(fieldValue instanceof Object)
+      || Array.isArray(fieldValue)
+    ) {
       return carry;
     }
 
     return carry.concat(
-      Object.keys(fieldValue).filter(l => !carry.includes(l))
+      Object.keys(fieldValue).filter((l) => !carry.includes(l)),
     );
   }, languagesField?.required ?? []);
 

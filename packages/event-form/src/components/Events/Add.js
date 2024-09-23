@@ -23,12 +23,14 @@ export default function Add({ res, value, lang, onChange }) {
       return;
     }
     setIsLoading(true);
-    fetch(`${res}?${qs.stringify({
-      search: debouncedSearch,
-      state: [0, 1, 2],
-      relative: ['current', 'upcoming'],
-      includeFields,
-    })}`).then(response => {
+    fetch(
+      `${res}?${qs.stringify({
+        search: debouncedSearch,
+        state: [0, 1, 2],
+        relative: ['current', 'upcoming'],
+        includeFields,
+      })}`,
+    ).then((response) => {
       setIsLoading(false);
       if (!response.ok) {
         setErrored(true);
@@ -39,12 +41,15 @@ export default function Add({ res, value, lang, onChange }) {
     });
   }, [debouncedSearch, res, userHasSearched]);
 
-  const onSearchChange = useCallback(e => {
-    setSearchString(e.target.value);
-    if (!userHasSearched && e.target.value?.length) {
-      setUserHasSearched(true);
-    }
-  }, [userHasSearched]);
+  const onSearchChange = useCallback(
+    (e) => {
+      setSearchString(e.target.value);
+      if (!userHasSearched && e.target.value?.length) {
+        setUserHasSearched(true);
+      }
+    },
+    [userHasSearched],
+  );
 
   const ref = createRef();
 
@@ -61,15 +66,15 @@ export default function Add({ res, value, lang, onChange }) {
   }, [ref]);
 
   if (errored) {
-    return (
-      <p>{m(messages.loadError)}</p>
-    );
+    return <p>{m(messages.loadError)}</p>;
   }
 
   return (
     <div className={cn('dropdown', { open: displayDropdown })}>
       <div className="input-group">
-        <label className="sr-only" htmlFor="search">{m(messages.searchEvents)}</label>
+        <label className="sr-only" htmlFor="search">
+          {m(messages.searchEvents)}
+        </label>
         <input
           id="search"
           type="text"
@@ -79,8 +84,16 @@ export default function Add({ res, value, lang, onChange }) {
           onChange={onSearchChange}
         />
         <span className="input-group-btn">
-          <button className="btn btn-default" type="button">
-            <i className="fa fa-search" aria-hidden="true" style={{ display: 'block', height: '20px', paddingTop: '4px' }} />
+          <button
+            className="btn btn-default"
+            type="button"
+            aria-label={m(messages.search)}
+          >
+            <i
+              className="fa fa-search"
+              aria-hidden="true"
+              style={{ display: 'block', height: '20px', paddingTop: '4px' }}
+            />
           </button>
         </span>
       </div>
@@ -89,10 +102,12 @@ export default function Add({ res, value, lang, onChange }) {
         <ul ref={ref} className="dropdown-menu">
           {!(searchResult?.events ?? []).length ? (
             <li className="padding-v-sm" key="search-result-empty">
-              <div className="media text-center disabled">{m(messages.noResult)}</div>
+              <div className="media text-center disabled">
+                {m(messages.noResult)}
+              </div>
             </li>
           ) : null}
-          {(searchResult?.events ?? []).map(event => (
+          {(searchResult?.events ?? []).map((event) => (
             <li className="padding-v-sm" key={`search-result-${event.uid}`}>
               <div className="media">
                 <button

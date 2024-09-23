@@ -17,24 +17,21 @@ const defaults = {
 
 export default class AgeComponent extends Component {
   onChange(field, choice) {
-    const {
-      onChange,
-      value,
-    } = this.props;
+    const { onChange, value } = this.props;
 
     const clean = parseInt(choice.value, 10);
 
-    onChange(ih(value, {
-      [field]: {
-        $set: Number.isNaN(clean) ? null : clean,
-      },
-    }));
+    onChange(
+      ih(value, {
+        [field]: {
+          $set: Number.isNaN(clean) ? null : clean,
+        },
+      }),
+    );
   }
 
   getSelectOptions(minValue) {
-    const {
-      lang,
-    } = this.props;
+    const { lang } = this.props;
 
     const labels = flattenLabels(ageLabels, lang);
     const options = [];
@@ -54,10 +51,7 @@ export default class AgeComponent extends Component {
   }
 
   isEnabled() {
-    const {
-      value,
-      enabled: enabledFromProps = true,
-    } = this.props;
+    const { value, enabled: enabledFromProps = true } = this.props;
 
     if (!enabledFromProps) {
       return false;
@@ -84,9 +78,7 @@ export default class AgeComponent extends Component {
   }
 
   disable() {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
     onChange({
       min: null,
@@ -95,19 +87,13 @@ export default class AgeComponent extends Component {
   }
 
   initialize() {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
     onChange(defaults);
   }
 
   render() {
-    const {
-      lang,
-      value,
-      enabled: enabledFromProps = true,
-    } = this.props;
+    const { lang, value, enabled: enabledFromProps = true } = this.props;
 
     const labels = flattenLabels(ageLabels, lang);
 
@@ -117,18 +103,22 @@ export default class AgeComponent extends Component {
     const isEnabled = this.isEnabled();
 
     const minAgeOptions = this.getSelectOptions();
-    const minAgeValue = isEnabled ? minAgeOptions.find(option => option.value === min) : null;
+    const minAgeValue = isEnabled
+      ? minAgeOptions.find((option) => option.value === min)
+      : null;
 
     const maxAgeOptions = this.getSelectOptions(value ? min : false);
-    const maxAgeValue = isEnabled ? maxAgeOptions.find(option => option.value === max) : null;
+    const maxAgeValue = isEnabled
+      ? maxAgeOptions.find((option) => option.value === max)
+      : null;
 
     const selectStyles = {
-      container: provided => ({
+      container: (provided) => ({
         ...provided,
         width: '150px',
         display: 'inline-block',
       }),
-      menu: provided => ({
+      menu: (provided) => ({
         ...provided,
         zIndex: 3,
       }),
@@ -144,7 +134,9 @@ export default class AgeComponent extends Component {
           onChange={() => this.toggleEnabled(null)}
         />
         <div className="age-inputs">
-          <label htmlFor="minage" className="margin-right-sm">{labels.min}</label>
+          <label htmlFor="minage" className="margin-right-sm">
+            {labels.min}
+          </label>
           <Select
             isDisabled={!enabledFromProps}
             styles={selectStyles}
@@ -152,11 +144,13 @@ export default class AgeComponent extends Component {
             value={minAgeValue}
             options={minAgeOptions}
             clearable={false}
-            onChange={choice => this.onChange('min', choice)}
+            onChange={(choice) => this.onChange('min', choice)}
             onFocus={() => this.toggleEnabled(true)}
             placeholder={labels.select}
           />
-          <label className="margin-h-sm" htmlFor="maxage">{labels.max}</label>
+          <label className="margin-h-sm" htmlFor="maxage">
+            {labels.max}
+          </label>
           <Select
             isDisabled={!enabledFromProps}
             styles={selectStyles}
@@ -164,7 +158,7 @@ export default class AgeComponent extends Component {
             value={maxAgeValue}
             options={maxAgeOptions}
             clearable={false}
-            onChange={choice => this.onChange('max', choice)}
+            onChange={(choice) => this.onChange('max', choice)}
             onFocus={() => this.toggleEnabled(true)}
             placeholder={labels.select}
           />

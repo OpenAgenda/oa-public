@@ -11,9 +11,9 @@ const injectValidators = require('./utils/injectValidators');
 const eventFields = require('./fields/event');
 
 function _fillInTheBlanks(labels, defaultLang = 'en') {
-  return produce(labels, draft => {
-    Object.keys(draft).forEach(field => {
-      Object.keys(draft[field]).forEach(lang => {
+  return produce(labels, (draft) => {
+    Object.keys(draft).forEach((field) => {
+      Object.keys(draft[field]).forEach((lang) => {
         if (!draft[field][lang].length) {
           draft[field][lang] = draft[field][defaultLang];
         }
@@ -56,15 +56,23 @@ module.exports = (options = {}) => {
   const hasExtensions = Array.isArray(schemaExtensions);
 
   // here, for generating the form, provided access as write should suffice
-  const finalSchema = merge(...[eventSchema].concat(hasExtensions ? schemaExtensions : []).concat({ access }));
+  const finalSchema = merge(
+    ...[eventSchema]
+      .concat(hasExtensions ? schemaExtensions : [])
+      .concat({ access }),
+  );
 
   if (hasExtensions && !includeEventFields) {
-    const eventSchemaFields = eventSchema.fields.map(f => f.field);
-    finalSchema.fields = finalSchema.fields.filter(f => !eventSchemaFields.includes(f.field));
+    const eventSchemaFields = eventSchema.fields.map((f) => f.field);
+    finalSchema.fields = finalSchema.fields.filter(
+      (f) => !eventSchemaFields.includes(f.field),
+    );
   }
 
   if (excludeNonDataFields) {
-    finalSchema.fields = finalSchema.fields.filter(f => f.field !== 'languages');
+    finalSchema.fields = finalSchema.fields.filter(
+      (f) => f.field !== 'languages',
+    );
   }
 
   return schemaLanguages.set(finalSchema, interfaceLanguage, languages);

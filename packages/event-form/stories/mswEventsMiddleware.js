@@ -7,7 +7,9 @@ export default ({ request }) => {
   const { search = '', uid = [] } = qs.parse(url.search.replace('?', ''));
 
   if (search?.length) {
-    const matches = eventSelectionFixtures.events.filter(({ title }) => title.fr.indexOf(search) !== -1);
+    const matches = eventSelectionFixtures.events.filter(
+      ({ title }) => title.fr.indexOf(search) !== -1,
+    );
 
     // search is going on
     return HttpResponse.json({
@@ -17,7 +19,8 @@ export default ({ request }) => {
   }
 
   if (uid.length) {
-    const matches = eventSelectionFixtures.events.filter(e => uid.includes(`${e.uid}`));
+    const matches = eventSelectionFixtures.events.filter((e) =>
+      uid.includes(`${e.uid}`));
 
     // fetching a selection
     return HttpResponse.json({

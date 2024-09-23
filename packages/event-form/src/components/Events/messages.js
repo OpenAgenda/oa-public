@@ -25,4 +25,8 @@ export default defineMessages({
     id: 'event-form.components.Events.noResult',
     defaultMessage: 'No matching event found',
   },
+  search: {
+    id: 'event-form.components.Events.search',
+    defaultMessage: 'Search',
+  },
 });

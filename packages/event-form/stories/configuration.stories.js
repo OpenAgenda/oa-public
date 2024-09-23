@@ -16,7 +16,7 @@ export const Timings = () => (
         begin: '2021-07-03T07:00',
         end: '2021-07-04T06:00',
       }}
-      onChange={v => console.log(v)}
+      onChange={(v) => console.log(v)}
     />
   </div>
 );

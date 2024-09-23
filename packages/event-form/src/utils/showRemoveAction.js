@@ -1,4 +1,7 @@
-export default function showRemoveAction({ strict, pickedLanguages, required }, l) {
+export default function showRemoveAction(
+  { strict, pickedLanguages, required },
+  l,
+) {
   if (strict || pickedLanguages.length === 1) {
     return false;
   }

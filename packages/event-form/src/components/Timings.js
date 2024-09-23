@@ -14,19 +14,18 @@ function safariTimezone({ date, hours, minutes }) {
 }
 
 function loadTimings(props) {
-  return (props.value || _.get(props, 'field.default') || [])
-    .map(t => ({
-      begin: new Date(`${t.begin.date}T${t.begin.hours}:${t.begin.minutes}${safariTimezone(t.begin)}`),
-      end: new Date(`${t.end.date}T${t.end.hours}:${t.end.minutes}${safariTimezone(t.end)}`),
-    }));
+  return (props.value || _.get(props, 'field.default') || []).map((t) => ({
+    begin: new Date(
+      `${t.begin.date}T${t.begin.hours}:${t.begin.minutes}${safariTimezone(t.begin)}`,
+    ),
+    end: new Date(
+      `${t.end.date}T${t.end.hours}:${t.end.minutes}${safariTimezone(t.end)}`,
+    ),
+  }));
 }
 
 function extractDateString(d) {
-  return [
-    d.getFullYear(),
-    fZ(d.getMonth() + 1),
-    fZ(d.getDate()),
-  ].join('-');
+  return [d.getFullYear(), fZ(d.getMonth() + 1), fZ(d.getDate())].join('-');
 }
 
 export default class TimingsComponent extends Component {
@@ -51,11 +50,9 @@ export default class TimingsComponent extends Component {
     partialState.value = loadTimings(props);
 
     partialState.allowedTimings = _.get(props, 'field.enabledRanges')
-      ? props.field.enabledRanges.map(v => ({
+      ? props.field.enabledRanges.map((v) => ({
         begin: v.begin,
-        end: v.end.includes('T')
-          ? v.end
-          : `${v.end}T23:59:59.999`,
+        end: v.end.includes('T') ? v.end : `${v.end}T23:59:59.999`,
       }))
       : null;
 
@@ -63,18 +60,20 @@ export default class TimingsComponent extends Component {
   }
 
   onTimingsChange = (timings = [], beginKey = 'begin') => {
-    this.props.onChange(timings.map(t => ({
-      begin: {
-        date: extractDateString(t[beginKey]),
-        hours: fZ(t[beginKey].getHours()),
-        minutes: fZ(t[beginKey].getMinutes()),
-      },
-      end: {
-        date: extractDateString(t.end),
-        hours: fZ(t.end.getHours()),
-        minutes: fZ(t.end.getMinutes()),
-      },
-    })));
+    this.props.onChange(
+      timings.map((t) => ({
+        begin: {
+          date: extractDateString(t[beginKey]),
+          hours: fZ(t[beginKey].getHours()),
+          minutes: fZ(t[beginKey].getMinutes()),
+        },
+        end: {
+          date: extractDateString(t.end),
+          hours: fZ(t.end.getHours()),
+          minutes: fZ(t.end.getMinutes()),
+        },
+      })),
+    );
   };
 
   render() {

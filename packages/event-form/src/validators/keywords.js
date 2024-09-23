@@ -1,29 +1,24 @@
-"use strict";
+const _ = require('lodash');
+const multilingual = require('@openagenda/validators/multilingual');
 
-const multilingual = require( '@openagenda/validators/multilingual' );
-
-const _ = {
-  keys: require( 'lodash/keys' )
-};
-
-const validate = multilingual( {
+const validate = multilingual({
   max: 255,
   list: true,
-  optional: true
-} );
+  optional: true,
+});
 
-module.exports = () => value => {
-
-  const clean = validate( value );
+module.exports = () => (value) => {
+  const clean = validate(value);
 
   const splitCommas = {};
 
-  _.keys( clean ).forEach( lang => {
-
-    splitCommas[ lang ] = clean[ lang ].reduce( ( carry, value ) => carry.concat( ( value || '' ).split( ',' ).map( v => v.trim() ) ), [] );
-
-  } );
+  _.keys(clean).forEach((lang) => {
+    splitCommas[lang] = clean[lang].reduce(
+      (carry, keyword) =>
+        carry.concat((keyword || '').split(',').map((v) => v.trim())),
+      [],
+    );
+  });
 
   return splitCommas;
-
-}
+};

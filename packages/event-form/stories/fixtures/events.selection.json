@@ -1,770 +1,765 @@
 {
-    "total": 12,
-    "link": "https://openagenda.com/api/agendas/76126842/events?uid[]=2551997&uid[]=3148177&uid[]=17633693&uid[]=43628849&uid[]=60139172&uid[]=98811156&uid[]=46624658&uid[]=10828579&uid[]=91211851&uid[]=11648630&uid[]=18509250&uid[]=18872681&uid[]=80797264&if[]=uid&if[]=title&if[]=slug&if[]=state&if[]=dateRange&state[]=-1&state[]=0&state[]=0state[]=1&state[]=2&if[]=location",
-    "events": [
-        {
-            "uid": 46624658,
-            "dateRange": {
-                "ar": "٢٦ سبتمبر ٢٠٢٣ - ٣ نوفمبر ٢٠٢٤",
-                "de": "26 September 2023 - 3 November 2024",
-                "en": "26 September 2023 - 3 November 2024",
-                "it": "26 settembre 2023 - 3 novembre 2024",
-                "fr": "26 septembre 2023 - 3 novembre 2024",
-                "es": "26 septiembre 2023 - 3 noviembre 2024"
-            },
-            "location": {
-                "disqualifiedDuplicates": [],
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": [],
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 1,
-            "title": {
-                "fr": "e-LAB, espace vidéo"
-            },
-            "slug": "e-lab-espace-jeux-video"
+  "total": 12,
+  "link": "https://openagenda.com/api/agendas/76126842/events?uid[]=2551997&uid[]=3148177&uid[]=17633693&uid[]=43628849&uid[]=60139172&uid[]=98811156&uid[]=46624658&uid[]=10828579&uid[]=91211851&uid[]=11648630&uid[]=18509250&uid[]=18872681&uid[]=80797264&if[]=uid&if[]=title&if[]=slug&if[]=state&if[]=dateRange&state[]=-1&state[]=0&state[]=0state[]=1&state[]=2&if[]=location",
+  "events": [
+    {
+      "uid": 46624658,
+      "dateRange": {
+        "ar": "٢٦ سبتمبر ٢٠٢٣ - ٣ نوفمبر ٢٠٢٤",
+        "de": "26 September 2023 - 3 November 2024",
+        "en": "26 September 2023 - 3 November 2024",
+        "it": "26 settembre 2023 - 3 novembre 2024",
+        "fr": "26 septembre 2023 - 3 novembre 2024",
+        "es": "26 septiembre 2023 - 3 noviembre 2024"
+      },
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
         },
-        {
-            "uid": 2551997,
-            "dateRange": {
-                "ar": "٢١ مارس - ٣ أبريل",
-                "de": "21 März - 3 April",
-                "en": "21 March - 3 April",
-                "it": "21 marzo - 3 aprile",
-                "fr": "21 mars - 3 avril",
-                "es": "21 marzo - 3 abril"
-            },
-            "location": {
-                "disqualifiedDuplicates": null,
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": null,
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "IA et santé : gare aux biais !"
-            },
-            "slug": "ia-et-sante-gare-aux-biais-"
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
         },
-        {
-            "uid": 3148177,
-            "dateRange": {
-                "ar": "٢١ مارس - ٣ أبريل",
-                "de": "21 März - 3 April",
-                "en": "21 March - 3 April",
-                "it": "21 marzo - 3 aprile",
-                "fr": "21 mars - 3 avril",
-                "es": "21 marzo - 3 abril"
-            },
-            "location": {
-                "disqualifiedDuplicates": null,
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": null,
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "L'IA et les images"
-            },
-            "slug": "lia-et-les-images-7318909"
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 1,
+      "title": {
+        "fr": "e-LAB, espace vidéo"
+      },
+      "slug": "e-lab-espace-jeux-video"
+    },
+    {
+      "uid": 2551997,
+      "dateRange": {
+        "ar": "٢١ مارس - ٣ أبريل",
+        "de": "21 März - 3 April",
+        "en": "21 March - 3 April",
+        "it": "21 marzo - 3 aprile",
+        "fr": "21 mars - 3 avril",
+        "es": "21 marzo - 3 abril"
+      },
+      "location": {
+        "disqualifiedDuplicates": null,
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
         },
-        {
-            "uid": 17633693,
-            "dateRange": {
-                "ar": "٢١ مارس - ٣ أبريل",
-                "de": "21 März - 3 April",
-                "en": "21 March - 3 April",
-                "it": "21 marzo - 3 aprile",
-                "fr": "21 mars - 3 avril",
-                "es": "21 marzo - 3 abril"
-            },
-            "location": {
-                "disqualifiedDuplicates": null,
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": null,
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "ChatGEPETO a dit : l'intelligence artificielle vous offre un monde meilleur ! Mythe ou réalité ?"
-            },
-            "slug": "chatgepeto-a-dit-lintelligence-artificielle-vous-offre-un-monde-meilleur-mythe-ou-realite"
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
         },
-        {
-            "uid": 43628849,
-            "dateRange": {
-                "ar": "٢١ مارس - ٣ أبريل",
-                "de": "21 März - 3 April",
-                "en": "21 March - 3 April",
-                "it": "21 marzo - 3 aprile",
-                "fr": "21 mars - 3 avril",
-                "es": "21 marzo - 3 abril"
-            },
-            "location": {
-                "disqualifiedDuplicates": null,
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": null,
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "Algorithmes de recommandation et bulles de filtre, l’IA nous dit-elle ce que nous devons aimer ?"
-            },
-            "slug": "algorithmes-de-recommandation-et-bulles-de-filtre-lia-nous-dit-elle-ce-que-nous-devons-aimer"
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": null,
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "IA et santé : gare aux biais !"
+      },
+      "slug": "ia-et-sante-gare-aux-biais-"
+    },
+    {
+      "uid": 3148177,
+      "dateRange": {
+        "ar": "٢١ مارس - ٣ أبريل",
+        "de": "21 März - 3 April",
+        "en": "21 March - 3 April",
+        "it": "21 marzo - 3 aprile",
+        "fr": "21 mars - 3 avril",
+        "es": "21 marzo - 3 abril"
+      },
+      "location": {
+        "disqualifiedDuplicates": null,
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
         },
-        {
-            "uid": 98811156,
-            "dateRange": {
-                "ar": "٢٣ مارس - ٣ أبريل",
-                "de": "23 März - 3 April",
-                "en": "23 March - 3 April",
-                "it": "23 marzo - 3 aprile",
-                "fr": "23 mars - 3 avril",
-                "es": "23 marzo - 3 abril"
-            },
-            "location": {
-                "disqualifiedDuplicates": null,
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": null,
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "L'intelligence artificielle pense-t-elle ?"
-            },
-            "slug": "lintelligence-artificielle-pense-t-elle-3999932"
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
         },
-        {
-            "uid": 10828579,
-            "dateRange": {
-                "ar": "٥ فبراير ٢٠٢٢ - ١٠ أبريل ٢٠٢٤",
-                "de": "5 Februar 2022 - 10 April 2024",
-                "en": "5 February 2022 - 10 April 2024",
-                "it": "5 febbraio 2022 - 10 aprile 2024",
-                "fr": "5 février 2022 - 10 avril 2024",
-                "es": "5 febrero 2022 - 10 abril 2024"
-            },
-            "location": {
-                "disqualifiedDuplicates": null,
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": null,
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "Les jeux vidéo sont-ils plus intelligents que nous ?"
-            },
-            "slug": "les-jeux-video-sont-ils-plus-intelligents-que-nous-8200209"
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": null,
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "L'IA et les images"
+      },
+      "slug": "lia-et-les-images-7318909"
+    },
+    {
+      "uid": 17633693,
+      "dateRange": {
+        "ar": "٢١ مارس - ٣ أبريل",
+        "de": "21 März - 3 April",
+        "en": "21 March - 3 April",
+        "it": "21 marzo - 3 aprile",
+        "fr": "21 mars - 3 avril",
+        "es": "21 marzo - 3 abril"
+      },
+      "location": {
+        "disqualifiedDuplicates": null,
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
         },
-        {
-            "uid": 80797264,
-            "dateRange": {
-                "ar": "٢٩ ديسمبر ٢٠٢٢ - ٢٩ أغسطس ٢٠٢٣",
-                "de": "29 Dezember 2022 - 29 August 2023",
-                "en": "29 December 2022 - 29 August 2023",
-                "it": "29 dicembre 2022 - 29 agosto 2023",
-                "fr": "29 décembre 2022 - 29 août 2023",
-                "es": "29 diciembre 2022 - 29 agosto 2023"
-            },
-            "location": {
-                "disqualifiedDuplicates": [],
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": [],
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "Stage de science Initiation à l'astronomie"
-            },
-            "slug": "stage-de-science-initiation-a-lastronomie-2114404"
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
         },
-        {
-            "uid": 18509250,
-            "dateRange": {
-                "ar": "٣٠ ديسمبر ٢٠٢٢ - ٢٤ أغسطس ٢٠٢٣",
-                "de": "30 Dezember 2022 - 24 August 2023",
-                "en": "30 December 2022 - 24 August 2023",
-                "it": "30 dicembre 2022 - 24 agosto 2023",
-                "fr": "30 décembre 2022 - 24 août 2023",
-                "es": "30 diciembre 2022 - 24 agosto 2023"
-            },
-            "location": {
-                "disqualifiedDuplicates": [],
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": [],
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "Stage de science Initiation à l'astronomie"
-            },
-            "slug": "stage-de-science-initiation-a-lastronomie-4842345"
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": null,
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "ChatGEPETO a dit : l'intelligence artificielle vous offre un monde meilleur ! Mythe ou réalité ?"
+      },
+      "slug": "chatgepeto-a-dit-lintelligence-artificielle-vous-offre-un-monde-meilleur-mythe-ou-realite"
+    },
+    {
+      "uid": 43628849,
+      "dateRange": {
+        "ar": "٢١ مارس - ٣ أبريل",
+        "de": "21 März - 3 April",
+        "en": "21 March - 3 April",
+        "it": "21 marzo - 3 aprile",
+        "fr": "21 mars - 3 avril",
+        "es": "21 marzo - 3 abril"
+      },
+      "location": {
+        "disqualifiedDuplicates": null,
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
         },
-        {
-            "uid": 11648630,
-            "dateRange": {
-                "ar": "٣ - ٨ مايو ٢٠٢٢",
-                "de": "3 - 8 Mai 2022",
-                "en": "3 - 8 May 2022",
-                "it": "3 - 8 maggio 2022",
-                "fr": "3 - 8 mai 2022",
-                "es": "3 - 8 mayo 2022"
-            },
-            "location": {
-                "disqualifiedDuplicates": [],
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": [],
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "Astronomie pour les petits"
-            },
-            "slug": "astronomie-pour-les-petits"
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
         },
-        {
-            "uid": 91211851,
-            "dateRange": {
-                "ar": "٣ - ٨ مايو ٢٠٢٢",
-                "de": "3 - 8 Mai 2022",
-                "en": "3 - 8 May 2022",
-                "it": "3 - 8 maggio 2022",
-                "fr": "3 - 8 mai 2022",
-                "es": "3 - 8 mayo 2022"
-            },
-            "location": {
-                "disqualifiedDuplicates": [],
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": [],
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "ASTRONOMIA PARA BEBES"
-            },
-            "slug": "astronomia-para-bebes"
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": null,
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "Algorithmes de recommandation et bulles de filtre, l’IA nous dit-elle ce que nous devons aimer ?"
+      },
+      "slug": "algorithmes-de-recommandation-et-bulles-de-filtre-lia-nous-dit-elle-ce-que-nous-devons-aimer"
+    },
+    {
+      "uid": 98811156,
+      "dateRange": {
+        "ar": "٢٣ مارس - ٣ أبريل",
+        "de": "23 März - 3 April",
+        "en": "23 March - 3 April",
+        "it": "23 marzo - 3 aprile",
+        "fr": "23 mars - 3 avril",
+        "es": "23 marzo - 3 abril"
+      },
+      "location": {
+        "disqualifiedDuplicates": null,
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
         },
-        {
-            "uid": 18872681,
-            "dateRange": {
-                "ar": "٢ و ٣ مارس ٢٠٢٢ ",
-                "de": "2 und 3 März 2022",
-                "en": "2 and 3 March 2022",
-                "it": "2 e 3 marzo 2022",
-                "fr": "2 et 3 mars 2022",
-                "es": "2 i 3 marzo 2022"
-            },
-            "location": {
-                "disqualifiedDuplicates": [],
-                "access": {
-                    "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
-                },
-                "city": "Paris",
-                "timezone": "Europe/Paris",
-                "postalCode": "75019",
-                "latitude": 48.89568,
-                "imageCredits": "(c) N. Krief/EPPDCSI",
-                "description": {
-                    "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
-                },
-                "setUid": 87367536,
-                "uid": 81793998,
-                "createdAt": "2018-09-08T14:29:35.000Z",
-                "duplicateCandidates": [],
-                "countryCode": "FR",
-                "adminLevel5": null,
-                "links": [
-                    "https://www.facebook.com/Cite.des.sciences/",
-                    "https://twitter.com/citedessciences"
-                ],
-                "state": 1,
-                "extId": "1",
-                "department": "Paris",
-                "slug": "cit-des-sciences-et-de-l-industrie*66",
-                "email": null,
-                "longitude": 2.387654,
-                "updatedAt": "2023-09-26T15:03:53.000Z",
-                "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
-                "website": "http://www.cite-sciences.fr",
-                "address": "30 Avenue Corentin Cariou, 75019 Paris",
-                "adminLevel3": null,
-                "agendaUid": 76126842,
-                "adminLevel4": "Paris",
-                "adminLevel1": "Île-de-France",
-                "adminLevel2": "Paris",
-                "mergedIn": null,
-                "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
-                "tags": null,
-                "insee": "75056",
-                "phone": "0185539974",
-                "district": null,
-                "name": "Cité des sciences et de l'Industrie",
-                "region": "Île-de-France"
-            },
-            "state": 2,
-            "title": {
-                "fr": "Stage de science Initiation à l'astronomie"
-            },
-            "slug": "stage-de-science-initiation-a-lastronomie"
-        }
-    ],
-    "after": [
-        0,
-        null,
-        1646325000000,
-        18872681
-    ],
-    "sort": "timingsWithFeatured.asc",
-    "success": true
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+        },
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": null,
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "L'intelligence artificielle pense-t-elle ?"
+      },
+      "slug": "lintelligence-artificielle-pense-t-elle-3999932"
+    },
+    {
+      "uid": 10828579,
+      "dateRange": {
+        "ar": "٥ فبراير ٢٠٢٢ - ١٠ أبريل ٢٠٢٤",
+        "de": "5 Februar 2022 - 10 April 2024",
+        "en": "5 February 2022 - 10 April 2024",
+        "it": "5 febbraio 2022 - 10 aprile 2024",
+        "fr": "5 février 2022 - 10 avril 2024",
+        "es": "5 febrero 2022 - 10 abril 2024"
+      },
+      "location": {
+        "disqualifiedDuplicates": null,
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+        },
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+        },
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": null,
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "Les jeux vidéo sont-ils plus intelligents que nous ?"
+      },
+      "slug": "les-jeux-video-sont-ils-plus-intelligents-que-nous-8200209"
+    },
+    {
+      "uid": 80797264,
+      "dateRange": {
+        "ar": "٢٩ ديسمبر ٢٠٢٢ - ٢٩ أغسطس ٢٠٢٣",
+        "de": "29 Dezember 2022 - 29 August 2023",
+        "en": "29 December 2022 - 29 August 2023",
+        "it": "29 dicembre 2022 - 29 agosto 2023",
+        "fr": "29 décembre 2022 - 29 août 2023",
+        "es": "29 diciembre 2022 - 29 agosto 2023"
+      },
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+        },
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+        },
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "Stage de science Initiation à l'astronomie"
+      },
+      "slug": "stage-de-science-initiation-a-lastronomie-2114404"
+    },
+    {
+      "uid": 18509250,
+      "dateRange": {
+        "ar": "٣٠ ديسمبر ٢٠٢٢ - ٢٤ أغسطس ٢٠٢٣",
+        "de": "30 Dezember 2022 - 24 August 2023",
+        "en": "30 December 2022 - 24 August 2023",
+        "it": "30 dicembre 2022 - 24 agosto 2023",
+        "fr": "30 décembre 2022 - 24 août 2023",
+        "es": "30 diciembre 2022 - 24 agosto 2023"
+      },
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+        },
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+        },
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "Stage de science Initiation à l'astronomie"
+      },
+      "slug": "stage-de-science-initiation-a-lastronomie-4842345"
+    },
+    {
+      "uid": 11648630,
+      "dateRange": {
+        "ar": "٣ - ٨ مايو ٢٠٢٢",
+        "de": "3 - 8 Mai 2022",
+        "en": "3 - 8 May 2022",
+        "it": "3 - 8 maggio 2022",
+        "fr": "3 - 8 mai 2022",
+        "es": "3 - 8 mayo 2022"
+      },
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+        },
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+        },
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "Astronomie pour les petits"
+      },
+      "slug": "astronomie-pour-les-petits"
+    },
+    {
+      "uid": 91211851,
+      "dateRange": {
+        "ar": "٣ - ٨ مايو ٢٠٢٢",
+        "de": "3 - 8 Mai 2022",
+        "en": "3 - 8 May 2022",
+        "it": "3 - 8 maggio 2022",
+        "fr": "3 - 8 mai 2022",
+        "es": "3 - 8 mayo 2022"
+      },
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+        },
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+        },
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "ASTRONOMIA PARA BEBES"
+      },
+      "slug": "astronomia-para-bebes"
+    },
+    {
+      "uid": 18872681,
+      "dateRange": {
+        "ar": "٢ و ٣ مارس ٢٠٢٢ ",
+        "de": "2 und 3 März 2022",
+        "en": "2 and 3 March 2022",
+        "it": "2 e 3 marzo 2022",
+        "fr": "2 et 3 mars 2022",
+        "es": "2 i 3 marzo 2022"
+      },
+      "location": {
+        "disqualifiedDuplicates": [],
+        "access": {
+          "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+        },
+        "city": "Paris",
+        "timezone": "Europe/Paris",
+        "postalCode": "75019",
+        "latitude": 48.89568,
+        "imageCredits": "(c) N. Krief/EPPDCSI",
+        "description": {
+          "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+        },
+        "setUid": 87367536,
+        "uid": 81793998,
+        "createdAt": "2018-09-08T14:29:35.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "adminLevel5": null,
+        "links": [
+          "https://www.facebook.com/Cite.des.sciences/",
+          "https://twitter.com/citedessciences"
+        ],
+        "state": 1,
+        "extId": "1",
+        "department": "Paris",
+        "slug": "cit-des-sciences-et-de-l-industrie*66",
+        "email": null,
+        "longitude": 2.387654,
+        "updatedAt": "2023-09-26T15:03:53.000Z",
+        "image": "https://cibul.s3.amazonaws.com/location81793998.jpg",
+        "website": "http://www.cite-sciences.fr",
+        "address": "30 Avenue Corentin Cariou, 75019 Paris",
+        "adminLevel3": null,
+        "agendaUid": 76126842,
+        "adminLevel4": "Paris",
+        "adminLevel1": "Île-de-France",
+        "adminLevel2": "Paris",
+        "mergedIn": null,
+        "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+        "tags": null,
+        "insee": "75056",
+        "phone": "0185539974",
+        "district": null,
+        "name": "Cité des sciences et de l'Industrie",
+        "region": "Île-de-France"
+      },
+      "state": 2,
+      "title": {
+        "fr": "Stage de science Initiation à l'astronomie"
+      },
+      "slug": "stage-de-science-initiation-a-lastronomie"
+    }
+  ],
+  "after": [0, null, 1646325000000, 18872681],
+  "sort": "timingsWithFeatured.asc",
+  "success": true
 }
