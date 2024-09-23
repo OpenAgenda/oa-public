@@ -33,7 +33,7 @@ export default function SpreadsheetModal({
     fetchData();
   }, [agendaUid]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const parsedQuery = qs.parse(queryString);
@@ -56,7 +56,7 @@ export default function SpreadsheetModal({
     return onClose();
   };
 
-  const handleOptions = options => {
+  const handleOptions = (options) => {
     setSpreadsheetOptions(options);
   };
 
@@ -69,11 +69,16 @@ export default function SpreadsheetModal({
       <form className="export export-form" onSubmit={handleSubmit}>
         <SpreadsheetOptions
           languages={languages}
-          setChoice={options => handleOptions(options)}
+          setChoice={(options) => handleOptions(options)}
           fields={fields}
           options={spreadsheetOptions}
         />
-        <button className="close" type="button" onClick={onClose}>
+        <button
+          className="close"
+          type="button"
+          onClick={onClose}
+          aria-label={intl.formatMessage(exportsMessages.cancel)}
+        >
           <i className="fa fa-times fa-lg" />
         </button>
         <div className="margin-left-md">

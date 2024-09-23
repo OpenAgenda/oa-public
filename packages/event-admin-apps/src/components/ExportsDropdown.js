@@ -1,4 +1,3 @@
-import React from 'react';
 import { useIntl } from 'react-intl';
 import cn from 'classnames';
 import { Dropdown } from '@openagenda/react-shared';

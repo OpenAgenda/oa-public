@@ -12,5 +12,5 @@ export default {
     options: {},
   },
   staticDirs: ['./public'],
-  babel: config => ({ ...config, ...babelConfig }),
+  babel: (config) => ({ ...config, ...babelConfig }),
 };
