@@ -26,15 +26,15 @@ const initialState = {
   loaded: false,
   author: false,
   actionError: null,
-  actionLoading: false
+  actionLoading: false,
 };
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOAD_SUCCESS:
       return {
@@ -46,7 +46,7 @@ export default function reducer(state = initialState, action) {
         lastPage: action.result.messages.length < action.perPageLimit,
         page: 1,
         error: null,
-        loading: false
+        loading: false,
       };
     case LOAD_FAIL:
       return {
@@ -55,12 +55,12 @@ export default function reducer(state = initialState, action) {
         messages: null,
         page: 1,
         error: action.error,
-        loading: false
+        loading: false,
       };
     case NEXT_PAGE:
       return {
         ...state,
-        nextLoading: true
+        nextLoading: true,
       };
     case NEXT_PAGE_SUCCESS:
       return {
@@ -69,87 +69,92 @@ export default function reducer(state = initialState, action) {
         lastPage: action.result.messages.length < action.perPageLimit,
         page: state.page + (action.result.messages.length ? 1 : 0),
         error: null,
-        nextLoading: false
+        nextLoading: false,
       };
     case NEXT_PAGE_FAIL:
       return {
         ...state,
         error: action.error,
-        nextLoading: false
+        nextLoading: false,
       };
     case SEND_MESSAGE:
       return state;
     case SEND_MESSAGE_SUCCESS:
       return {
         ...state,
-        messages: [action.result.message, ...state.messages]
+        messages: [action.result.message, ...state.messages],
       };
     case SEND_MESSAGE_FAIL:
       return state;
     case TRIGGER_ACTION:
       return {
         ...state,
-        actionLoading: true
+        actionLoading: true,
       };
     case TRIGGER_ACTION_SUCCESS:
       return {
         ...state,
         data: action.result.conversation,
         actionError: null,
-        actionLoading: false
+        actionLoading: false,
       };
     case TRIGGER_ACTION_FAIL:
       return {
         ...state,
         actionError: action.error,
-        actionLoading: false
+        actionLoading: false,
       };
     case RESUME:
       return {
         ...state,
-        resumeLoading: true
+        resumeLoading: true,
       };
     case RESUME_SUCCESS:
       return {
         ...state,
         data: action.result.conversation,
         resumeError: null,
-        resumeLoading: false
+        resumeLoading: false,
       };
     case RESUME_FAIL:
       return {
         ...state,
         resumeError: action.error,
-        resumeLoading: false
+        resumeLoading: false,
       };
     case LOAD_AUTHOR:
       return {
         ...state,
-        authorFetching: true
+        authorFetching: true,
       };
     case LOAD_AUTHOR_SUCCESS:
       return {
         ...state,
         author: action.result,
         authorFetching: false,
-        authorFetchingError: false
+        authorFetchingError: false,
       };
     case LOAD_AUTHOR_FAIL:
       return {
         ...state,
         author: false,
         authorFetching: false,
-        authorFetchingError: action.error
+        authorFetchingError: action.error,
       };
-    case ATTACH_FILE_TO_MESSAGE_SUCCESS:
-      const messageIndex = (state.messages || []).findIndex(v => v.id === action.messageId);
+    case ATTACH_FILE_TO_MESSAGE_SUCCESS: {
+      const messageIndex = (state.messages || []).findIndex(
+        (v) => v.id === action.messageId,
+      );
 
       return messageIndex === -1 // creation of conversation or not
         ? {
           ...state,
-          messages: [action.result.message]
+          messages: [action.result.message],
         }
-        : update(state, { messages: { $splice: [[messageIndex, 1, action.result.message]] } });
+        : update(state, {
+          messages: { $splice: [[messageIndex, 1, action.result.message]] },
+        });
+    }
     default:
       return state;
   }
@@ -161,7 +166,11 @@ export function isLoaded(globalState) {
 
 export function load(conversationId, query, agenda) {
   return ({ getState, dispatch }) => {
-    const { res, event, settings: { perPageLimit } } = getState();
+    const {
+      res,
+      event,
+      settings: { perPageLimit },
+    } = getState();
 
     return dispatch({
       types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
@@ -174,8 +183,8 @@ export function load(conversationId, query, agenda) {
             .replace(':agendaUid', agenda && agenda.uid)
             .replace(':eventUid', event && event.uid)
             .replace(':conversationId', conversationId),
-          { params: query }
-        )
+          { params: query },
+        ),
     });
   };
 }
@@ -194,15 +203,20 @@ export function loadAuthor(agenda) {
         res.author
           .replace(':slug', agenda && agenda.slug)
           .replace(':agendaUid', agenda && agenda.uid)
-          .replace(':eventUid', event && event.uid)
+          .replace(':eventUid', event && event.uid),
       );
-    }
+    },
   };
 }
 
 export function nextPage(conversationId, agenda) {
   return ({ getState, dispatch }) => {
-    const { res, event, conversation, settings: { perPageLimit } } = getState();
+    const {
+      res,
+      event,
+      conversation,
+      settings: { perPageLimit },
+    } = getState();
 
     return dispatch({
       types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
@@ -217,10 +231,10 @@ export function nextPage(conversationId, agenda) {
           {
             params: {
               ...conversation.query,
-              page: conversation.page + 1
-            }
-          }
-        )
+              page: conversation.page + 1,
+            },
+          },
+        ),
     });
   };
 }
@@ -237,9 +251,9 @@ export function sendMessage(conversationId, data, agenda) {
           .replace(':agendaUid', agenda && agenda.uid)
           .replace(':eventUid', event && event.uid)
           .replace(':conversationId', conversationId),
-        data
+        data,
       );
-    }
+    },
   };
 }
 
@@ -249,22 +263,26 @@ export function triggerAction(conversationId, code, agenda) {
 
     return dispatch({
       types: [TRIGGER_ACTION, TRIGGER_ACTION_SUCCESS, TRIGGER_ACTION_FAIL],
-      promise: ({ client, history }) => client.get(
-        res.conversations.action
-          .replace(':slug', agenda && agenda.slug)
-          .replace(':agendaUid', agenda && agenda.uid)
-          .replace(':eventUid', event && event.uid)
-          .replace(':conversationId', conversationId)
-          .replace(':code', code)
-      )
-        .then(result => {
-          if (code === 'removeTechnicalSupport') {
-            history.push(settings.prefix.replace(':slug', agenda && agenda.slug));
-            return { conversation: conversation.data };
-          }
+      promise: ({ client, history }) =>
+        client
+          .get(
+            res.conversations.action
+              .replace(':slug', agenda && agenda.slug)
+              .replace(':agendaUid', agenda && agenda.uid)
+              .replace(':eventUid', event && event.uid)
+              .replace(':conversationId', conversationId)
+              .replace(':code', code),
+          )
+          .then((result) => {
+            if (code === 'removeTechnicalSupport') {
+              history.push(
+                settings.prefix.replace(':slug', agenda && agenda.slug),
+              );
+              return { conversation: conversation.data };
+            }
 
-          return result;
-        })
+            return result;
+          }),
     });
   };
 }
@@ -280,15 +298,19 @@ export function resume(conversationId, agenda) {
           .replace(':slug', agenda && agenda.slug)
           .replace(':agendaUid', agenda && agenda.uid)
           .replace(':eventUid', event && event.uid)
-          .replace(':conversationId', conversationId)
+          .replace(':conversationId', conversationId),
       );
-    }
+    },
   };
 }
 
 export function attachFileToMessage(conversationId, messageId, file, agenda) {
   return {
-    types: [ATTACH_FILE_TO_MESSAGE, ATTACH_FILE_TO_MESSAGE_SUCCESS, ATTACH_FILE_TO_MESSAGE_FAIL],
+    types: [
+      ATTACH_FILE_TO_MESSAGE,
+      ATTACH_FILE_TO_MESSAGE_SUCCESS,
+      ATTACH_FILE_TO_MESSAGE_FAIL,
+    ],
     messageId,
     promise: ({ client }, { getState }) => {
       const { res, event } = getState();
@@ -303,10 +325,10 @@ export function attachFileToMessage(conversationId, messageId, file, agenda) {
           params: {
             messageId,
             filename: file.meta.key,
-            originalName: file.name
-          }
-        }
+            originalName: file.name,
+          },
+        },
       );
-    }
+    },
   };
 }

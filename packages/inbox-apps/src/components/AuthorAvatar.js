@@ -14,21 +14,23 @@ export default function AuthorAvatar({ author: { inboxUser, inbox }, inline }) {
       <>
         <Image
           src={inboxUser.avatar}
-          fallbackSrc={isDev ? inboxUser.avatar.replace('cibuldev', 'cibul') : null}
+          fallbackSrc={
+            isDev ? inboxUser.avatar.replace('cibuldev', 'cibul') : null
+          }
           className={imgClasses}
           title={inboxUser.name}
         />
 
-        {!inline && inbox && inbox.avatar && inbox.type !== 'user'
-          ? (
-            <Image
-              src={inbox.avatar}
-              fallbackSrc={isDev ? inbox.avatar.replace('cibuldev', 'cibul') : null}
-              className={cn(imgClasses, 'belongs')}
-              title={inbox.name}
-            />
-          )
-          : null}
+        {!inline && inbox && inbox.avatar && inbox.type !== 'user' ? (
+          <Image
+            src={inbox.avatar}
+            fallbackSrc={
+              isDev ? inbox.avatar.replace('cibuldev', 'cibul') : null
+            }
+            className={cn(imgClasses, 'belongs')}
+            title={inbox.name}
+          />
+        ) : null}
       </>
     );
   }

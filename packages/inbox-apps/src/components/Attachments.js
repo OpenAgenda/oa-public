@@ -26,7 +26,7 @@ export default function Attachments({ setUppy, uploadEndpoint }) {
       allowMultipleUploadBatches: false,
     })
       .use(AwsS3, {
-        shouldUseMultipart: file => file.size > 100 * 2 ** 20,
+        shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
         companionUrl: uploadEndpoint,
       })
       .on('upload-success', (file, response) => {
@@ -51,41 +51,51 @@ export default function Attachments({ setUppy, uploadEndpoint }) {
   return (
     <>
       <p>
-        <a role="button" onClick={() => setModalOpen(true)}>
+        <button
+          type="button"
+          className="btn btn-link btn-link-inline"
+          onClick={() => setModalOpen(true)}
+        >
           {numberFiles === 0 ? getLabel('attachFile') : null}
           {numberFiles === 1 ? getLabel('oneAttachment') : null}
-          {numberFiles > 1 ? getLabel('nAttachments', { number: numberFiles }) : null}
-        </a>
+          {numberFiles > 1
+            ? getLabel('nAttachments', { number: numberFiles })
+            : null}
+        </button>
       </p>
 
       {modalOpen && (
-      <Modal
-        title={getLabel('uppyModalTitle')}
-        visible={modalOpen}
-        onClose={() => setModalOpen(false)}
-        classNames={{
-          overlay: 'popup-overlay attachments-upload',
-        }}
-        disableBodyScroll
-      >
-        <Dashboard
-          uppy={uppy}
-          closeModalOnClickOutside
-          hideUploadButton
-          hideRetryButton
-          hideCancelButton
-          disableStatusBar
-          proudlyDisplayPoweredByUppy={false}
-          height={328}
-          note={getLabel('uppyNote')}
-        />
+        <Modal
+          title={getLabel('uppyModalTitle')}
+          visible={modalOpen}
+          onClose={() => setModalOpen(false)}
+          classNames={{
+            overlay: 'popup-overlay attachments-upload',
+          }}
+          disableBodyScroll
+        >
+          <Dashboard
+            uppy={uppy}
+            closeModalOnClickOutside
+            hideUploadButton
+            hideRetryButton
+            hideCancelButton
+            disableStatusBar
+            proudlyDisplayPoweredByUppy={false}
+            height={328}
+            note={getLabel('uppyNote')}
+          />
 
-        <div className="text-center padding-top-md">
-          <button type="button" className="btn btn-info" onClick={() => setModalOpen(false)}>
-            {getLabel('validate')}
-          </button>
-        </div>
-      </Modal>
+          <div className="text-center padding-top-md">
+            <button
+              type="button"
+              className="btn btn-info"
+              onClick={() => setModalOpen(false)}
+            >
+              {getLabel('validate')}
+            </button>
+          </div>
+        </Modal>
       )}
 
       <StatusBar

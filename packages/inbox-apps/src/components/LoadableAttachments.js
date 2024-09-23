@@ -6,7 +6,5 @@ const Attachments = loadable(
 );
 
 export default function LoadableAttachments({ ...props }) {
-  return (
-    <Attachments {...props} />
-  );
+  return <Attachments {...props} />;
 }

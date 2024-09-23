@@ -29,7 +29,8 @@ const getDefaultState = ({ apiRoot, context, res } = {}) => ({
     messages: {
       list: '/user/conversations/:conversationId/messages',
       create: '/user/conversations/:conversationId/messages',
-      prepareAttachment: '/user/conversations/:conversationId/prepare-attachment',
+      prepareAttachment:
+        '/user/conversations/:conversationId/prepare-attachment',
       addAttachment: '/user/conversations/:conversationId/add-attachment',
     },
     ...res ?? {},
@@ -44,10 +45,14 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        http.get('/user/conversations', () => HttpResponse.json(conversationFixtures)),
-        http.get('/user/author.json', () => HttpResponse.json(conversationAuthorFixtures)),
-        http.get('/user/conversations/:conversationId/messages', () => HttpResponse.json(conversationMessagesFixtures)),
-        http.get('/context/:identifier', () => HttpResponse.json(conversationUserContext)),
+        http.get('/user/conversations', () =>
+          HttpResponse.json(conversationFixtures)),
+        http.get('/user/author.json', () =>
+          HttpResponse.json(conversationAuthorFixtures)),
+        http.get('/user/conversations/:conversationId/messages', () =>
+          HttpResponse.json(conversationMessagesFixtures)),
+        http.get('/context/:identifier', () =>
+          HttpResponse.json(conversationUserContext)),
       ],
     },
   },

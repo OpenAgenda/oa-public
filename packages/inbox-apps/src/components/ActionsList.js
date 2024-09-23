@@ -5,7 +5,7 @@ import I18nContext from '../contexts/I18nContext';
 class ActionsList extends Component {
   static contextType = I18nContext;
 
-  getActionLabel = action => {
+  getActionLabel = (action) => {
     const { lang } = this.context;
 
     if (action.label[lang]) {
@@ -15,7 +15,7 @@ class ActionsList extends Component {
     return action.label[Object.keys(action.label)[0]];
   };
 
-  triggerAction = action => {
+  triggerAction = (action) => {
     const { onAction, showModal } = this.props;
 
     if (action.code === 'default') {
@@ -41,9 +41,7 @@ class ActionsList extends Component {
       <>
         {actions.map((action, index) => (
           <Fragment key={action.code}>
-            {index > 0 ? (
-              <span>{getLabel('or')}</span>
-            ) : null}
+            {index > 0 ? <span>{getLabel('or')}</span> : null}
 
             {action.code === 'default' || index > 0 ? (
               <button

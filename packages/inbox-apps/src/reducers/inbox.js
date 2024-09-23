@@ -9,15 +9,15 @@ const NEXT_PAGE_FAIL = 'inbox-apps/inbox/NEXT_PAGE_FAIL';
 
 const initialState = {
   loaded: false,
-  query: {}
+  query: {},
 };
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOAD_SUCCESS:
       return {
@@ -31,7 +31,7 @@ export default function reducer( state = initialState, action ) {
         lastPage: action.result.conversations.length < action.perPageLimit,
         page: 1,
         error: null,
-        loading: false
+        loading: false,
       };
     case LOAD_FAIL:
       return {
@@ -39,83 +39,94 @@ export default function reducer( state = initialState, action ) {
         data: null,
         page: 1,
         error: action.error,
-        loading: false
+        loading: false,
       };
     case NEXT_PAGE:
       return {
         ...state,
-        nextLoading: true
+        nextLoading: true,
       };
     case NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        data: [ ...state.data, ...action.result.conversations ],
+        data: [...state.data, ...action.result.conversations],
         lastPage: action.result.conversations.length < action.perPageLimit,
         page: state.page + (action.result.conversations.length ? 1 : 0),
         error: null,
-        nextLoading: false
+        nextLoading: false,
       };
     case NEXT_PAGE_FAIL:
       return {
         ...state,
         error: action.error,
-        nextLoading: false
+        nextLoading: false,
       };
     default:
       return state;
   }
 }
 
-export function isLoaded( globalState ) {
+export function isLoaded(globalState) {
   return globalState.inbox && globalState.inbox.loaded;
 }
 
-export function load( query, agenda ) {
-  return ( { getState, dispatch } ) => {
+export function load(query, agenda) {
+  return ({ getState, dispatch }) => {
     const state = getState();
-    const { res, event, settings: { perPageLimit, defaultQuery } } = state;
+    const {
+      res,
+      event,
+      settings: { perPageLimit, defaultQuery },
+    } = state;
 
-    return dispatch( {
-      types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
+    return dispatch({
+      types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
       query,
       perPageLimit,
-      promise: ( { client } ) => client.get(
-        res.conversations.list
-          .replace( ':slug', agenda && agenda.slug )
-          .replace( ':agendaUid', agenda && agenda.uid )
-          .replace( ':eventUid', event && event.uid ),
-        {
-          params: {
-            ..._.pick( defaultQuery, 'type', 'typeIdentifier' ),
-            ...query,
-          }
-        }
-      )
-    } );
+      promise: ({ client }) =>
+        client.get(
+          res.conversations.list
+            .replace(':slug', agenda && agenda.slug)
+            .replace(':agendaUid', agenda && agenda.uid)
+            .replace(':eventUid', event && event.uid),
+          {
+            params: {
+              ..._.pick(defaultQuery, 'type', 'typeIdentifier'),
+              ...query,
+            },
+          },
+        ),
+    });
   };
 }
 
 export function nextPage(agenda) {
-  return ( { getState, dispatch } ) => {
-    const { res, inbox, event, settings: { perPageLimit, defaultQuery } } = getState();
+  return ({ getState, dispatch }) => {
+    const {
+      res,
+      inbox,
+      event,
+      settings: { perPageLimit, defaultQuery },
+    } = getState();
 
-    return dispatch( {
-      types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
+    return dispatch({
+      types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
       perPageLimit,
-      promise: ( { client } ) => client.get(
-        res.conversations.list
-          .replace( ':slug', agenda && agenda.slug )
-          .replace( ':agendaUid', agenda && agenda.uid )
-          .replace( ':eventUid', event && event.uid ),
-        {
-          params: {
-            ..._.pick( defaultQuery, 'type', 'typeIdentifier' ),
-            ...inbox.query,
-            total: undefined,
-            page: inbox.page + 1
-          }
-        }
-      )
-    } );
+      promise: ({ client }) =>
+        client.get(
+          res.conversations.list
+            .replace(':slug', agenda && agenda.slug)
+            .replace(':agendaUid', agenda && agenda.uid)
+            .replace(':eventUid', event && event.uid),
+          {
+            params: {
+              ..._.pick(defaultQuery, 'type', 'typeIdentifier'),
+              ...inbox.query,
+              total: undefined,
+              page: inbox.page + 1,
+            },
+          },
+        ),
+    });
   };
 }

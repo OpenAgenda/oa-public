@@ -7,12 +7,11 @@ import Adapter from '@cfaester/enzyme-adapter-react-18';
 import { createSerializer } from 'enzyme-to-json';
 // import 'jest-enzyme';
 
-jest.setTimeout( 15000 );
+jest.setTimeout(15000);
 
-chai.use( chaiAsPromised );
-chai.use( chaiJestDiff() );
-chai.use( chaiJestSnapshot );
+chai.use(chaiAsPromised);
+chai.use(chaiJestDiff());
+chai.use(chaiJestSnapshot);
 
-Enzyme.configure( { adapter: new Adapter() } );
-expect.addSnapshotSerializer( createSerializer( { mode: 'deep' } ) );
-
+Enzyme.configure({ adapter: new Adapter() });
+expect.addSnapshotSerializer(createSerializer({ mode: 'deep' }));
