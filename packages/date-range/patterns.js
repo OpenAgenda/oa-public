@@ -1,15 +1,16 @@
-"use strict";
+'use strict';
+
 const labels = require('@openagenda/labels/agendas/range');
 
 const moment = require('moment-timezone');
 
 function countSameWeekday(start, end, weekday) {
   let count = 0;
-  let currentDate = new Date(start);
+  const currentDate = new Date(start);
 
   while (currentDate <= end) {
     if (currentDate.getDay() === weekday) {
-      count++;
+      count += 1;
     }
     currentDate.setDate(currentDate.getDate() + 1);
   }
@@ -17,7 +18,7 @@ function countSameWeekday(start, end, weekday) {
   return count;
 }
 
-module.exports = function (timings, lang, timezone = 'Europe/Paris') {
+module.exports = (timings, lang, timezone = 'Europe/Paris') => {
   if (!timings || !timings.length || !(timings instanceof Array)) {
     return '';
   }
@@ -28,7 +29,6 @@ module.exports = function (timings, lang, timezone = 'Europe/Paris') {
     const day = moment.tz(timing.start, timezone).format('YYYY-MM-DD');
     if (weekdays.indexOf(weekday) === -1) {
       weekdays.push(weekday);
-      
     }
     if (days.indexOf(day) === -1) {
       days.push(day);
@@ -38,7 +38,11 @@ module.exports = function (timings, lang, timezone = 'Europe/Paris') {
     return '';
   }
   const weekday = weekdays[0];
-  const numberOfSameWeekday = countSameWeekday(timings[0].start, timings[timings.length - 1].start, weekday);
+  const numberOfSameWeekday = countSameWeekday(
+    timings[0].start,
+    timings[timings.length - 1].start,
+    weekday,
+  );
   if (numberOfSameWeekday === days.length) {
     return `${labels[`all-weekday-${weekday}`][lang]}`;
   }
