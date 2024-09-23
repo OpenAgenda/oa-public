@@ -1,9 +1,9 @@
 'use strict';
 
-const fs = require('fs');
-const os = require('os');
-const { join } = require('path');
-const crypto = require('crypto');
+const fs = require('node:fs');
+const os = require('node:os');
+const { join } = require('node:path');
+const crypto = require('node:crypto');
 const { mkdirp } = require('mkdirp');
 
 function getFilename(req, file, cb) {
@@ -47,7 +47,8 @@ class TempStorage {
         outStream.on('error', cb);
         outStream.on('finish', () => {
           Object.assign(file, {
-            transformAndUpload: (...args) => this.transformAndUpload(file, ...args),
+            transformAndUpload: (...args) =>
+              this.transformAndUpload(file, ...args),
             destination,
             filename,
             path: finalPath,

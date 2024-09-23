@@ -13,7 +13,7 @@ const gm = require('./gm');
 function transformAndUpload(cfg, providers, options) {
   return (file, context) => {
     const fileOptions = (Array.isArray(options) ? options : [options]).find(
-      option => option.key === file.fieldname
+      (option) => option.key === file.fieldname,
     );
 
     if (!fileOptions) {
@@ -25,7 +25,7 @@ function transformAndUpload(cfg, providers, options) {
 }
 
 function transformResult(resultKey) {
-  return value => {
+  return (value) => {
     const asArray = {};
     let result = value;
 
@@ -71,7 +71,7 @@ function abortAllUploads(filesRegistry) {
   return Promise.all(promises);
 }
 
-module.exports = cfg => {
+module.exports = (cfg) => {
   const providers = {
     s3: cfg.s3 ? s3(cfg.s3) : null,
   };
@@ -95,7 +95,7 @@ module.exports = cfg => {
           file,
           fileOptions,
           context,
-          true
+          true,
         );
 
         promises.push(promise);
@@ -127,11 +127,11 @@ module.exports = cfg => {
 
       return Promise.all(promises).then(
         transformResult(!isMultiple && !keyedData ? options.key : null),
-        async error => {
+        async (error) => {
           await abortAllUploads(filesRegistry);
 
           throw error;
-        }
+        },
       );
     }
 

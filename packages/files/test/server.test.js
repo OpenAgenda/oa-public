@@ -24,7 +24,7 @@ describe('with server', () => {
 
   beforeEach(
     () =>
-      new Promise(done => {
+      new Promise((done) => {
         app = express();
         server = app.listen(0, done);
       }),
@@ -78,7 +78,7 @@ describe('with server', () => {
     const data = await fetch(`http://localhost:${port}/upload`, {
       method: 'POST',
       body: form,
-    }).then(response => {
+    }).then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -166,7 +166,7 @@ describe('with server', () => {
     const data = await fetch(`http://localhost:${port}/upload`, {
       method: 'POST',
       body: form,
-    }).then(response => {
+    }).then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -220,7 +220,7 @@ describe('with server', () => {
     const data = await fetch(`http://localhost:${port}/upload`, {
       method: 'POST',
       body: form,
-    }).then(response => response.json());
+    }).then((response) => response.json());
 
     expect(data).toMatchObject({
       name: 'MulterError',
@@ -251,7 +251,7 @@ describe('with server', () => {
 
       try {
         const result = await Promise.all(
-          req.files.image.map(image => image.transformAndUpload()),
+          req.files.image.map((image) => image.transformAndUpload()),
         );
 
         res.send(result);
@@ -281,7 +281,7 @@ describe('with server', () => {
     const data = await fetch(`http://localhost:${port}/upload`, {
       method: 'POST',
       body: form,
-    }).then(response => {
+    }).then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -401,7 +401,7 @@ describe('with server', () => {
     const data = await fetch(`http://localhost:${port}/upload`, {
       method: 'POST',
       body: form,
-    }).then(response => {
+    }).then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -501,7 +501,7 @@ describe('with server', () => {
     const data = await fetch(`http://localhost:${port}/upload`, {
       method: 'POST',
       body: form,
-    }).then(response => {
+    }).then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -626,7 +626,7 @@ describe('with server', () => {
     const data = await fetch(`http://localhost:${port}/upload`, {
       method: 'POST',
       body: form,
-    }).then(response => {
+    }).then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -708,11 +708,11 @@ describe('with server', () => {
       });
 
       try {
-        const paths = req.files.image.map(f => f.path);
+        const paths = req.files.image.map((f) => f.path);
         expect(paths).toHaveLength(2);
 
         res.on('finish', () => {
-          paths.forEach(p => {
+          paths.forEach((p) => {
             expect(fs.existsSync(p)).toBe(false);
           });
         });
@@ -744,7 +744,7 @@ describe('with server', () => {
     await fetch(`http://localhost:${port}/upload`, {
       method: 'POST',
       body: form,
-    }).then(response => {
+    }).then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

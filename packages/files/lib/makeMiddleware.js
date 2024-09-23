@@ -68,7 +68,7 @@ function filterFakeFiles(fields) {
 
     const fieldsToCheck = fields === 'any'
       ? files.reduce((accu, key) => {
-        if (!accu.find(v => v.name === key)) {
+        if (!accu.find((v) => v.name === key)) {
           accu.push({ name: key });
         }
         return accu;
@@ -136,7 +136,7 @@ module.exports = function makeMiddleware(multer) {
 
     router.use(
       getMulterMw(multer, normalizedFields),
-      uniqueFields(normalizedFields)
+      uniqueFields(normalizedFields),
     );
 
     if (cleanup) {

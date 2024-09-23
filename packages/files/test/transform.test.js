@@ -115,7 +115,7 @@ describe('transform', () => {
     // Images removed
     await expect(
       fetch(`https://${bucket}.s3.amazonaws.com/src3_renamed.png`).then(
-        response => {
+        (response) => {
           if (!response.ok) {
             throw new Error(`Invalid status (${response.status})`);
           }
@@ -125,7 +125,7 @@ describe('transform', () => {
     ).rejects.toThrow('Invalid status (404)');
     await expect(
       fetch(`https://${bucket}.s3.amazonaws.com/josep_aff_work.jpg`).then(
-        response => {
+        (response) => {
           if (!response.ok) {
             throw new Error(`Invalid status (${response.status})`);
           }
@@ -135,7 +135,7 @@ describe('transform', () => {
     ).rejects.toThrow('Invalid status (404)');
     await expect(
       fetch(`https://${bucket}.s3.amazonaws.com/josep_aff_fail.jpg`).then(
-        response => {
+        (response) => {
           if (!response.ok) {
             throw new Error(`Invalid status (${response.status})`);
           }
@@ -166,7 +166,7 @@ describe('transform', () => {
             `${path.parse(context.originalname).name}_binary${
               path.parse(context.originalname).ext
             }`,
-          transform: info => info.stream,
+          transform: (info) => info.stream,
         },
         {
           getFilename: (info, context) =>
@@ -198,7 +198,7 @@ describe('transform', () => {
       fetch(image.uploadValue.Location),
     ]);
 
-    const headers = imagesFromS3.map(v => v.headers.get('content-type'));
+    const headers = imagesFromS3.map((v) => v.headers.get('content-type'));
 
     expect(headers).toEqual([
       'image/png',
