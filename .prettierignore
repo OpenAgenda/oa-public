@@ -9,4 +9,12 @@ packages/agenda-settings/dist
 packages/agenda-settings/stories/static
 packages/agenda-stats/dist
 packages/aggregator-sources/dist
+packages/event-admin-apps/dist
+packages/event-form/build
+packages/events/iso/build
+packages/form-schemas/client/build
+packages/home/dist
+packages/inbox-apps/coverage
+packages/inbox-apps/dist
+packages/inboxes/dist
 packages/next/.next

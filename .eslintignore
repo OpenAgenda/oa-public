@@ -1,11 +1,6 @@
 packages/admin-agendas
 packages/cibul-templates
-packages/date-range
-packages/discord
 packages/dom-utils
-packages/geocoder
-packages/invitations
-packages/keys
 packages/labels
 packages/landing
 packages/mep
@@ -17,4 +12,3 @@ packages/outdated-browser
 packages/react-form-components
 packages/utils
 packages/validators
-
