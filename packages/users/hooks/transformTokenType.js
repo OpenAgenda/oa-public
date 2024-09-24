@@ -3,7 +3,7 @@
 const _ = require('lodash');
 
 module.exports = function transformTokenType(key) {
-  return context => {
+  return (context) => {
     const obj = _.get(context, key, {});
 
     switch (obj.type) {

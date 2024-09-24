@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function searchByKey() {
-  return async context => {
+  return async (context) => {
     const { config } = context.self;
 
     context.params.query = context.params.query || {};

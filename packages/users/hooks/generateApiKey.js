@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function generateApiKey() {
-  return async context => {
+  return async (context) => {
     const { config } = context.self;
     const { keys } = config.interfaces;
     const { publicKey, secretKey } = context.params;

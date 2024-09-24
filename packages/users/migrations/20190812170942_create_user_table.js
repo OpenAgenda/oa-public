@@ -1,6 +1,6 @@
 'use strict';
 
-exports.up = async knex => {
+exports.up = async (knex) => {
   const { schemas } = knex.client.config;
 
   const exists = await knex.schema.hasTable(schemas.user);
@@ -35,7 +35,7 @@ exports.up = async knex => {
         \`is_new\` tinyint(4) DEFAULT '1',
         \`last_inbox_check\` datetime DEFAULT NULL
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-    `
+    `,
     );
 
     await knex.raw(`
@@ -55,7 +55,7 @@ exports.up = async knex => {
   }
 };
 
-exports.down = knex => {
+exports.down = (knex) => {
   const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists(schemas.user);

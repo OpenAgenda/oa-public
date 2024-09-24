@@ -7,7 +7,7 @@ const setInStore = require('./setInStore');
 module.exports = function softDelete(field, additionalParams = {}) {
   const deleteField = field || 'deleted';
 
-  return context => {
+  return (context) => {
     const service = context.self;
     context.data = context.data || {};
     context.params.query = context.params.query || {};
@@ -32,15 +32,17 @@ module.exports = function softDelete(field, additionalParams = {}) {
       params.query.$disableSoftDelete = true;
       params.query.$disableStashBefore = true;
 
-      return service.get(id, { ...params, ...additionalParams }).then(data => {
-        delete params.query.$disableSoftDelete;
+      return service
+        .get(id, { ...params, ...additionalParams })
+        .then((data) => {
+          delete params.query.$disableSoftDelete;
 
-        if (!data || data[deleteField]) {
-          throw new errors.NotFound('No record found');
-        }
+          if (!data || data[deleteField]) {
+            throw new errors.NotFound('No record found');
+          }
 
-        return data;
-      });
+          return data;
+        });
     }
 
     switch (context.method) {
@@ -48,7 +50,7 @@ module.exports = function softDelete(field, additionalParams = {}) {
         context.params.query[deleteField] = 0;
         return context;
       case 'get':
-        return throwIfItemDeleted(context.id, true).then(data => {
+        return throwIfItemDeleted(context.id, true).then((data) => {
           context.result = data;
           return context;
         });
@@ -86,7 +88,7 @@ module.exports = function softDelete(field, additionalParams = {}) {
 
             return service
               .patch(context.id, context.data, context.params)
-              .then(result => {
+              .then((result) => {
                 context.result = result;
                 return context;
               });
