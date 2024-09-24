@@ -1,4 +1,4 @@
 {
-  "ignore": [ ".git", "node_modules", "public" ],
+  "ignore": [".git", "node_modules", "public"],
   "ext": "js pug json"
 }

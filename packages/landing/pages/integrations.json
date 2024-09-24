@@ -1,22 +1,26 @@
 {
-  "keys" : [
-    { "lang" : "en", "key" : "your-website" },
-    { "lang" : "fr", "key" : "votre-site" },
-    { "lang" : "de", "key" : "deine-website" },
-    { "lang" : "es", "key" : "vuestro-sitio-web" },
-    { "lang" : "br", "key" : "votre-site-br" },
-    { "lang" : "it", "key": "il-tuo-sito" },
-    { "lang" : "oc", "key" : "votre-site-oc" }
+  "keys": [
+    { "lang": "en", "key": "your-website" },
+    { "lang": "fr", "key": "votre-site" },
+    { "lang": "de", "key": "deine-website" },
+    { "lang": "es", "key": "vuestro-sitio-web" },
+    { "lang": "br", "key": "votre-site-br" },
+    { "lang": "it", "key": "il-tuo-sito" },
+    { "lang": "oc", "key": "votre-site-oc" }
   ],
-  "head" : {
-    "title" : "embedTitle",
-    "description" : "embedDescription"
+  "head": {
+    "title": "embedTitle",
+    "description": "embedDescription"
   },
   "title": "embedTitle",
   "description": "embedDescription",
   "layout": "layout",
-  "segments": [ {
-    "key" : "integrations",
-    "embedDiscover" : "embedDiscover"
-  }, "contact", "footer" ]
+  "segments": [
+    {
+      "key": "integrations",
+      "embedDiscover": "embedDiscover"
+    },
+    "contact",
+    "footer"
+  ]
 }

@@ -1,7 +1,12 @@
 {
   "template": "basic",
   "title": "openDataTitle",
-  "text" : "openDataText",
-  "points": [ "openDataStandard", "openDataLicence", "openDataDownload", "openDataReuse" ],
-  "leftImage" : "//s3.eu-central-1.amazonaws.com/oastatic/licouv.png"
+  "text": "openDataText",
+  "points": [
+    "openDataStandard",
+    "openDataLicence",
+    "openDataDownload",
+    "openDataReuse"
+  ],
+  "leftImage": "//s3.eu-central-1.amazonaws.com/oastatic/licouv.png"
 }

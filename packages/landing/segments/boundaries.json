@@ -1,9 +1,5 @@
 {
   "template": "basic",
   "title": "boundariesTitle",
-  "points": [
-    "boundariesTime",
-    "boundariesContribution",
-    "boundariesLocation"
-  ]
+  "points": ["boundariesTime", "boundariesContribution", "boundariesLocation"]
 }

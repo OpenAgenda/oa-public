@@ -3,7 +3,7 @@
   "name": "Paola Scotton",
   "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/paola-scotton.jpg",
   "organization": "paolaScottonOrganization",
-  "role" : "paolaScottonRole",
+  "role": "paolaScottonRole",
   "testimony": "paolaScottonTestimony",
   "action": {
     "title": "getStartedTitle",
