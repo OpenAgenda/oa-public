@@ -1,43 +1,44 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const schema = require('@openagenda/validators/schema');
+const integer = require('@openagenda/validators/integer');
+const text = require('@openagenda/validators/text');
+const date = require('@openagenda/validators/date');
 
-const schema = require( '@openagenda/validators/schema' );
+schema.register({
+  integer,
+  text,
+  date,
+});
 
-schema.register( {
-  integer: require( '@openagenda/validators/integer' ),
-  text: require( '@openagenda/validators/text' ),
-  date: require( '@openagenda/validators/date' )
-} );
-
-module.exports = schema( {
+module.exports = schema({
   id: {
     type: 'integer',
     optional: false,
-    max: 99999999
+    max: 99999999,
   },
   uid: {
     type: 'integer',
     optional: false,
-    max: 99999999
+    max: 99999999,
   },
   title: {
     type: 'text',
     optional: false,
     min: 2,
-    max: 255
+    max: 255,
   },
   formSchemaId: {
     type: 'integer',
     optional: true,
-    max: 99999999
+    max: 99999999,
   },
   createdAt: {
     type: 'date',
-    optional: false
+    optional: false,
   },
   updatedAt: {
     type: 'date',
-    optional: false
-  }
-} );
+    optional: false,
+  },
+});

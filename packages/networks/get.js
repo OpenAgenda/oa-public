@@ -1,18 +1,19 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const VError = require( '@openagenda/verror' );
+const _ = require('lodash');
+const VError = require('@openagenda/verror');
 
-module.exports = async function( { knex, schema }, uid ) {
+module.exports = async ({ knex, schema }, uid) => {
+  if (!knex) throw new VError('service is not initialized');
 
-  if ( !knex ) throw new VError( 'service is not initialized' );
+  const fetched = await knex(schema)
+    .first(['form_schema_id', 'title'])
+    .where('uid', uid);
 
-  const fetched = await knex( schema ).first( [
-    'form_schema_id', 'title'
-  ] ).where( 'uid', uid );
+  if (!fetched) return null;
 
-  if ( !fetched ) return null;
-
-  return _.assign( { uid }, _.mapKeys( fetched, ( v, k ) => _.camelCase( k ) ) );
-
-}
+  return _.assign(
+    { uid },
+    _.mapKeys(fetched, (v, k) => _.camelCase(k)),
+  );
+};

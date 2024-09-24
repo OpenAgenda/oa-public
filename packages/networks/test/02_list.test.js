@@ -1,62 +1,71 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const knex = require( 'knex' );
-const mysql = require( 'mysql' );
-const { promisify } = require( 'util' );
+const { promisify } = require('node:util');
+const _ = require('lodash');
+const knex = require('knex');
+const mysql = require('mysql');
 
-const Service = require( '..' );
-const config = require( '../testconfig' );
-const fixtures = require( './fixtures' );
+const Service = require('..');
+const config = require('../testconfig');
+const fixtures = require('./fixtures');
 
-describe( 'networks - functional ( server ): list', function() {
-  let k, svc;
+describe('networks - functional ( server ): list', () => {
+  let k;
+  let svc;
 
-   beforeAll( async () => {
-    const con = mysql.createConnection( _.extend( _.pick( config.mysql, [ 'user', 'password' ] ), {
-      multipleStatements: true,
-      ssl: true,
-    } ) );
+  beforeAll(async () => {
+    const con = mysql.createConnection(
+      _.extend(_.pick(config.mysql, ['user', 'password']), {
+        multipleStatements: true,
+        ssl: true,
+      }),
+    );
 
-    const query = promisify( con.query.bind( con ) );
+    const query = promisify(con.query.bind(con));
 
-    await query( fixtures );
+    await query(fixtures);
 
     con.end();
+  });
 
-  } );
-
-  beforeAll( () => {
-    k = knex( {
+  beforeAll(() => {
+    k = knex({
       client: 'mysql',
-      connection: _.assign( {
-        database: 'networktest'
-      }, config.mysql )
-    } );
+      connection: _.assign(
+        {
+          database: 'networktest',
+        },
+        config.mysql,
+      ),
+    });
 
-    svc = Service( { knex: k } );
-  } );
+    svc = Service({ knex: k });
+  });
 
-  afterAll( () => {
+  afterAll(() => {
     k.destroy();
-  } );
+  });
 
-  it( 'list lists', async () => {
+  it('list lists', async () => {
     expect(
-      ( await svc.list() ).map( n => _.pick( n, [ 'uid', 'formSchemaId', 'title' ] ) )
-    ).toEqual([ {
+      (await svc.list()).map((n) =>
+        _.pick(n, ['uid', 'formSchemaId', 'title'])),
+    ).toEqual([
+      {
         uid: 1,
         formSchemaId: 2,
-        title: 'Métropole de Toulouse'
-      }, {
+        title: 'Métropole de Toulouse',
+      },
+      {
         uid: 13,
         formSchemaId: 12,
-        title: 'Métropole de Lille'
-      }, {
+        title: 'Métropole de Lille',
+      },
+      {
         uid: 3,
         formSchemaId: 21,
-        title: 'Orléans Métropole'
-      } ]);
-  } );
-
-} );
+        title: 'Orléans Métropole',
+      },
+    ]);
+  });
+});
