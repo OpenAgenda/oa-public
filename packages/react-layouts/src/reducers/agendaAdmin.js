@@ -5,7 +5,7 @@ const UPDATE_AGENDA = 'react-layouts/agendaAdmin/UPDATE_AGENDA';
 
 const initialState = {};
 
-export default (state = initialState, action) => {
+export default (state = initialState, action = {}) => {
   switch (action.type) {
     case VERIFY_LOCATION_COUNT:
       return {
@@ -44,7 +44,7 @@ export function verifyLocationCount(uid) {
       const { res } = getState();
 
       return client.get(
-        res.agendaAdmin.verifyLocationCount.replace(':uid', uid)
+        res.agendaAdmin.verifyLocationCount.replace(':uid', uid),
       );
     },
   };

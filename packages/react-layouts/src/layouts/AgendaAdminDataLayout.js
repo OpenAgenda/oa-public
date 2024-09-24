@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
@@ -23,21 +23,22 @@ function AgendaAdminDataLayout({
 
   const { params } = useMemo(
     () => matchPath(location.pathname, '/:slug'),
-    [location.pathname]
+    [location.pathname],
   );
 
   const { data, isLoading, error } = useQuery(
     ['react-layouts', 'agendaAdminData', { slug: params.slug }],
-    async () => (
-      await apiClient.get(`/${params.slug}/admin/layout`, {
-        params: {
-          lang: intl.locale,
-        },
-      })
-    ).data,
+    async () =>
+      (
+        await apiClient.get(`/${params.slug}/admin/layout`, {
+          params: {
+            lang: intl.locale,
+          },
+        })
+      ).data,
     {
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
-    }
+    },
   );
 
   const { user } = extraProps;

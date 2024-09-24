@@ -1,12 +1,6 @@
-import React from 'react';
 import ChildLayouts from '../components/ChildLayouts';
 
-function InboxUserLayout({
-  childLayouts,
-  children,
-  extraProps,
-  fallback,
-}) {
+function InboxUserLayout({ childLayouts, children, extraProps, fallback }) {
   return (
     <div className="container top-margined">
       <div className="row">
