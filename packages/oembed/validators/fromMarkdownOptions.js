@@ -1,12 +1,16 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const text = require('@openagenda/validators/text');
+const link = require('@openagenda/validators/link');
+const pass = require('@openagenda/validators/pass');
+const bool = require('@openagenda/validators/boolean');
 
 schema.register({
-  text: require('@openagenda/validators/text'),
-  link: require('@openagenda/validators/link'),
-  pass: require('@openagenda/validators/pass'),
-  bool: require('@openagenda/validators/boolean')
+  text,
+  link,
+  pass,
+  bool,
 });
 
 module.exports = schema({
@@ -15,24 +19,24 @@ module.exports = schema({
     fields: {
       link: {
         type: 'link',
-        optional: false
+        optional: false,
       },
       data: {
         type: 'pass',
-        optional: false
-      }
-    }
+        optional: false,
+      },
+    },
   },
   includeEmbedlessLinks: {
     type: 'bool',
-    default: false
+    default: false,
   },
   filterInvalidLinks: {
     type: 'bool',
-    default: false
+    default: false,
   },
   lazy: {
     type: 'bool',
-    default: false
+    default: false,
   },
 });

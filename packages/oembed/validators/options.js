@@ -1,25 +1,26 @@
-"use strict";
+'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const text = require('@openagenda/validators/text');
 
 schema.register({
-  text: require('@openagenda/validators/text')
+  text,
 });
 
 module.exports = schema({
   iframely: {
     key: {
       type: 'text',
-      optional: false
+      optional: false,
     },
     res: {
       type: 'text',
-      default: 'https://iframe.ly/api/oembed'
-    }
+      default: 'https://iframe.ly/api/oembed',
+    },
   },
   filters: {
     type: 'text',
     list: true,
-    default: []
-  }
+    default: [],
+  },
 });

@@ -6,7 +6,7 @@ const validateOptions = require('../validators/injectEmbedsOptions');
 
 function convertScriptToHtml(script, cspNonce) {
   let attributes = Object.keys(script)
-    .map(key => (script[key] === true ? key : `${key}="${script[key]}"`))
+    .map((key) => (script[key] === true ? key : `${key}="${script[key]}"`))
     .join(' ');
 
   if (cspNonce) {
@@ -16,7 +16,7 @@ function convertScriptToHtml(script, cspNonce) {
   return `<script ${attributes}></script>`;
 }
 
-module.exports = (html = '', linkEmbedPairs = [], options) => {
+module.exports = (html = '', linkEmbedPairs = [], options = {}) => {
   if (!linkEmbedPairs || !linkEmbedPairs.length) {
     return html;
   }
@@ -31,7 +31,9 @@ module.exports = (html = '', linkEmbedPairs = [], options) => {
       }
 
       const match = _.find(linkEmbedPairs, {
-        link: _.unescape(aNode.rawAttrs.split('href="').pop().split('"').shift())
+        link: _.unescape(
+          aNode.rawAttrs.split('href="').pop().split('"').shift(),
+        ),
       });
 
       if (!match) {
@@ -54,9 +56,12 @@ module.exports = (html = '', linkEmbedPairs = [], options) => {
   const scripts = linkEmbedPairs
     .filter((obj, index, self) => {
       if (!obj || !obj.data?.script) return false;
-      return index === self.findIndex(o => o.data?.script?.src === obj.data.script.src);
+      return (
+        index
+        === self.findIndex((o) => o.data?.script?.src === obj.data.script.src)
+      );
     })
-    .map(link => convertScriptToHtml(link.data.script, cspNonce));
+    .map((link) => convertScriptToHtml(link.data.script, cspNonce));
 
   return `${HTMLWithEmbeds}${scripts.join('')}`;
-}
+};
