@@ -486,5 +486,8 @@ module.exports = {
     "br": "Klask un deiziataer",
     "io": "crwdns15926:0crwdne15926:0",
     "oc": "Cercar una agenda"
+  },
+  "generate": {
+    "en": "Generate"
   }
 }
