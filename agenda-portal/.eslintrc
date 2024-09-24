@@ -6,7 +6,7 @@
   },
 
   "ignorePatterns": [
-    "assets"
+    "/assets"
   ],
 
   "rules": {
