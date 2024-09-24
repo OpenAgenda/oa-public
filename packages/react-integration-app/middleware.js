@@ -231,11 +231,11 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
 
       // Not found
       const notFound = Object.values(apps).every(
-        app =>
+        (app) =>
           !(
             app.routes
             && matchRoutes(app.routes, history.location.pathname).some(
-              v => v.route.component && !v.route.routes,
+              (v) => v.route.component && !v.route.routes,
             )
           ),
       );
@@ -247,8 +247,8 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
       const triggerHooks = () =>
         Promise.all(
           Object.values(apps)
-            .filter(app => app.triggerHooks)
-            .map(app => app.triggerHooks()),
+            .filter((app) => app.triggerHooks)
+            .map((app) => app.triggerHooks()),
         );
 
       // Triggers hooks
@@ -319,7 +319,7 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
       }
 
       // Get initialStateForClient
-      const initialStateForClient = _.mapValues(apps, app => {
+      const initialStateForClient = _.mapValues(apps, (app) => {
         const appState = app.store.getState();
 
         // Avoid all settings.apiRoot

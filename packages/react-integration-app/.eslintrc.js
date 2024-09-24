@@ -1,0 +1,21 @@
+'use strict';
+
+module.exports = {
+  extends: ['@openagenda'],
+
+  parserOptions: {
+    sourceType: 'script',
+  },
+
+  ignorePatterns: ['dist'],
+
+  overrides: [
+    {
+      files: ['client/**/*.js'],
+
+      parserOptions: {
+        sourceType: 'module',
+      },
+    },
+  ],
+};

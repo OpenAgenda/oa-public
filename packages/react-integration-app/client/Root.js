@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClientProvider } from 'react-query';
 import { wrapApp } from '@openagenda/react-shared';
@@ -21,17 +21,13 @@ export default function Root({
 }) {
   const Content = useCallback(
     () => (
-      <LayoutManager
-        store={layoutStore}
-        apps={apps}
-        fallback={ErrorComponent}
-      >
+      <LayoutManager store={layoutStore} apps={apps} fallback={ErrorComponent}>
         <NotFoundDisplayer history={history} apps={apps}>
           <NotFound />
         </NotFoundDisplayer>
       </LayoutManager>
     ),
-    [apps, layoutStore, history]
+    [apps, layoutStore, history],
   );
 
   return (
