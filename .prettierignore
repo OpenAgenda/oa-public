@@ -1,5 +1,16 @@
 **/.turbo
 
+# packages
+packages/admin-agendas
+packages/cibul-templates
+packages/dom-utils
+packages/labels
+packages/legacy
+packages/mep
+packages/utils
+packages/validators
+
+# builds
 packages/abilities/build
 packages/activity-apps/dist
 packages/agenda-contribute/dist
@@ -17,4 +28,18 @@ packages/home/dist
 packages/inbox-apps/coverage
 packages/inbox-apps/dist
 packages/inboxes/dist
+packages/member-apps/dist
+packages/members/build
+packages/network-apps/client/dist
 packages/next/.next
+packages/outdated-browser/dist
+packages/react-form-components/build
+packages/react-form-components/stories/static
+packages/react-integration-app/dist
+packages/react-layouts/dist
+packages/registration-apps/esm
+packages/registration-apps/lib
+packages/registrations/dist
+packages/sessions/lib
+packages/supervisor/lib
+packages/user-apps/dist

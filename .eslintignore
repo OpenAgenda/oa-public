@@ -2,13 +2,8 @@ packages/admin-agendas
 packages/cibul-templates
 packages/dom-utils
 packages/labels
-packages/landing
+packages/legacy
 packages/mep
-packages/network-apps
-packages/networks
-packages/newsletter
-packages/oembed
-packages/outdated-browser
 packages/react-form-components
 packages/utils
 packages/validators
