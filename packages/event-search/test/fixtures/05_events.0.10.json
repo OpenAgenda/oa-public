@@ -21,12 +21,8 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "en": [
-          "future"
-        ],
-        "fr": [
-          "futur"
-        ]
+        "en": ["future"],
+        "fr": ["futur"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -87,9 +83,7 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "fr": [
-          "apostrophe_event"
-        ]
+        "fr": ["apostrophe_event"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -323,9 +317,7 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "fr": [
-          "date_event"
-        ]
+        "fr": ["date_event"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -382,9 +374,7 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "fr": [
-          "date_event"
-        ]
+        "fr": ["date_event"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -551,9 +541,7 @@
       },
       "keywords": {
         "en": [],
-        "fr": [
-          "lieu"
-        ]
+        "fr": ["lieu"]
       },
       "location": {
         "address": "Grandson, Suisse",
@@ -613,12 +601,8 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "en": [
-          "last"
-        ],
-        "fr": [
-          "dernier"
-        ]
+        "en": ["last"],
+        "fr": ["dernier"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",

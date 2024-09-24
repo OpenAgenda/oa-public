@@ -19,10 +19,7 @@ const validateOptions = schema({
 });
 
 module.exports.formatDSL = (query, options = {}) => {
-  const {
-    zoom,
-    radius,
-  } = validateOptions(options);
+  const { zoom, radius } = validateOptions(options);
 
   return {
     geo_point_clustering: {
@@ -33,9 +30,10 @@ module.exports.formatDSL = (query, options = {}) => {
   };
 };
 
-module.exports.formatResult = result => result.buckets.map(b => ({
-  key: b.geohash_grids.join('.'),
-  eventCount: b.doc_count,
-  latitude: b.centroid.lat,
-  longitude: b.centroid.lon,
-}));
+module.exports.formatResult = (result) =>
+  result.buckets.map((b) => ({
+    key: b.geohash_grids.join('.'),
+    eventCount: b.doc_count,
+    latitude: b.centroid.lat,
+    longitude: b.centroid.lon,
+  }));

@@ -27,56 +27,58 @@ describe('10 - event-search - unit: dsl search', () => {
 
       await service('simple_search').rebuild({
         eventsList: async (lastId, limit) =>
-          JSON.parse(fs.readFileSync(
-            `${__dirname}/fixtures/10_events.${lastId}.${limit}.json`,
-          )),
-
+          JSON.parse(
+            fs.readFileSync(
+              `${__dirname}/fixtures/10_events.${lastId}.${limit}.json`,
+            ),
+          ),
       });
     });
 
     it('an event can be retrieved by uid', async () => {
-      const {
-        events,
-        total,
-      } = await post('test', {
+      const { events, total } = await post('test', {
         query: {
           bool: {
-            filter: [{
-              term: {
-                uid: 6,
+            filter: [
+              {
+                term: {
+                  uid: 6,
+                },
               },
-            }, {
-              term: {
-                _set: 'simple_search',
+              {
+                term: {
+                  _set: 'simple_search',
+                },
               },
-            }],
+            ],
           },
         },
       });
 
       expect(total).toBe(1);
-      expect(events[0].slug).toBe('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
+      expect(events[0].slug).toBe(
+        'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+      );
     });
 
     it('several events can be retrieved by uid at once', async () => {
-      const {
-        events,
-        total,
-      } = await post('test', {
+      const { events, total } = await post('test', {
         query: {
           bool: {
-            filter: [{
-              terms: {
-                uid: [6, 11],
+            filter: [
+              {
+                terms: {
+                  uid: [6, 11],
+                },
               },
-            }],
+            ],
           },
         },
       });
 
       expect(total).toBe(2);
 
-      expect(events.map(e => e.slug)).toEqual([
+      expect(events.map((e) => e.slug)).toEqual([
         'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
         'serres-la-claranda-cafe-citoyen',
       ]);
@@ -98,7 +100,9 @@ describe('10 - event-search - unit: dsl search', () => {
 
       expect(total).toBe(1);
 
-      expect(events[0].slug).toBe('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
+      expect(events[0].slug).toBe(
+        'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+      );
     });
 
     it('simple english title search', async () => {
@@ -117,7 +121,9 @@ describe('10 - event-search - unit: dsl search', () => {
 
       expect(total).toBe(1);
 
-      expect(events[0].slug).toBe('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
+      expect(events[0].slug).toBe(
+        'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+      );
     });
 
     it('sorting can order by update timestamp', async () => {
@@ -127,11 +133,13 @@ describe('10 - event-search - unit: dsl search', () => {
             _search_title: 'Trié',
           },
         },
-        sort: [{
-          updatedAt: {
-            order: 'desc',
+        sort: [
+          {
+            updatedAt: {
+              order: 'desc',
+            },
           },
-        }],
+        ],
       };
 
       const { events, total } = await post('test', dsl);
@@ -142,20 +150,21 @@ describe('10 - event-search - unit: dsl search', () => {
         if (i === 0) {
           return;
         }
-        expect(new Date(events[i - 1].updatedAt).getTime()).toBeGreaterThan(new Date(events[i].updatedAt).getTime());
+        expect(new Date(events[i - 1].updatedAt).getTime()).toBeGreaterThan(
+          new Date(events[i].updatedAt).getTime(),
+        );
       });
     });
 
-    it(
-      'sorting can show in order upcoming first and past second, then nearest from now first',
-      async () => {
-        const dsl = {
-          query: {
-            match: {
-              _search_title: 'Trié',
-            },
+    it('sorting can show in order upcoming first and past second, then nearest from now first', async () => {
+      const dsl = {
+        query: {
+          match: {
+            _search_title: 'Trié',
           },
-          sort: [{
+        },
+        sort: [
+          {
             'timings.end': {
               mode: 'min',
               order: 'asc',
@@ -164,41 +173,46 @@ describe('10 - event-search - unit: dsl search', () => {
                 range: { 'timings.end': { gte: 'now' } },
               },
             },
-          }, {
-            _search_last_timing: { order: 'desc' },
-          }],
-          _source: {
-            excludes: ['_search_*'],
           },
-        };
+          {
+            _search_last_timing: { order: 'desc' },
+          },
+        ],
+        _source: {
+          excludes: ['_search_*'],
+        },
+      };
 
-        const { events, total } = await post('test', dsl);
+      const { events, total } = await post('test', dsl);
 
-        expect(total).toBe(5);
+      expect(total).toBe(5);
 
-        expect(events.map(e => e.slug)).toEqual([
-          'nearest_in_the_future_0',
-          'almost_furthest_in_the_future_1',
-          'furthest_in_the_future_2',
-          'nearest_past_event_3',
-          'furthest_past_event_4',
-        ]);
-      },
-    );
+      expect(events.map((e) => e.slug)).toEqual([
+        'nearest_in_the_future_0',
+        'almost_furthest_in_the_future_1',
+        'furthest_in_the_future_2',
+        'nearest_past_event_3',
+        'furthest_past_event_4',
+      ]);
+    });
 
     it('match on title, description and keywords fields', async () => {
       const dsl = {
         query: {
           multi_match: {
             query: 'mississipi',
-            fields: ['_search_title', '_search_description', '_search_keywords_text'],
+            fields: [
+              '_search_title',
+              '_search_description',
+              '_search_keywords_text',
+            ],
           },
         },
       };
 
       const { events } = await post('test', dsl);
 
-      expect(events.map(e => e.slug)).toEqual([
+      expect(events.map((e) => e.slug)).toEqual([
         'multi_1',
         'multi_2',
         'multi_3',
@@ -206,21 +220,21 @@ describe('10 - event-search - unit: dsl search', () => {
     });
 
     it('filtering by state in agenda', async () => {
-      const {
-        events,
-        total,
-      } = await post('test', {
+      const { events, total } = await post('test', {
         query: {
           bool: {
-            filter: [{
-              term: {
-                _set: 'simple_search',
+            filter: [
+              {
+                term: {
+                  _set: 'simple_search',
+                },
               },
-            }, {
-              term: {
-                state: 1,
+              {
+                term: {
+                  state: 1,
+                },
               },
-            }],
+            ],
           },
         },
       });
@@ -229,19 +243,20 @@ describe('10 - event-search - unit: dsl search', () => {
       expect(total).toBe(1);
     });
 
-    it(
-      'filtering by timing to show only events starting within a certain time bracket ( independant of date )',
-      async () => {
-        const dsl = {
-          query: {
-            bool: {
-              must: [{
+    it('filtering by timing to show only events starting within a certain time bracket ( independant of date )', async () => {
+      const dsl = {
+        query: {
+          bool: {
+            must: [
+              {
                 match: {
                   _search_title: 'Horaires',
                 },
-              }],
-              // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
-              filter: [{
+              },
+            ],
+            // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
+            filter: [
+              {
                 nested: {
                   path: 'timings',
                   score_mode: 'min',
@@ -254,22 +269,24 @@ describe('10 - event-search - unit: dsl search', () => {
                     },
                   },
                 },
-              }],
-            },
+              },
+            ],
           },
-          _source: {
-            // excludes does not go deep.
-            excludes: ['_search_*', 'timings._search_*'],
-          },
-        };
+        },
+        _source: {
+          // excludes does not go deep.
+          excludes: ['_search_*', 'timings._search_*'],
+        },
+      };
 
-        const { events, total } = await post('test', dsl);
+      const { events, total } = await post('test', dsl);
 
-        expect(total).toBe(1);
+      expect(total).toBe(1);
 
-        expect(events.map(e => e.slug)).toEqual(['one_timing_fits_within bracket']);
-      },
-    );
+      expect(events.map((e) => e.slug)).toEqual([
+        'one_timing_fits_within bracket',
+      ]);
+    });
 
     it('date range is displayed in local time', async () => {
       const dsl = {
@@ -299,26 +316,30 @@ describe('10 - event-search - unit: dsl search', () => {
       const dsl = {
         query: {
           bool: {
-            must: [{
-              match: {
-                _search_title: 'OtherTimezoneHoraires',
+            must: [
+              {
+                match: {
+                  _search_title: 'OtherTimezoneHoraires',
+                },
               },
-            }],
+            ],
             // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
-            filter: [{
-              nested: {
-                path: 'timings',
-                score_mode: 'min',
-                query: {
-                  range: {
-                    'timings._search_begin_from_midnight': {
-                      gte: 8 * 60 * 60,
-                      lte: 8 * 60 * 60,
+            filter: [
+              {
+                nested: {
+                  path: 'timings',
+                  score_mode: 'min',
+                  query: {
+                    range: {
+                      'timings._search_begin_from_midnight': {
+                        gte: 8 * 60 * 60,
+                        lte: 8 * 60 * 60,
+                      },
                     },
                   },
                 },
               },
-            }],
+            ],
           },
         },
         _source: {
@@ -331,27 +352,24 @@ describe('10 - event-search - unit: dsl search', () => {
 
       expect(total).toBe(1);
 
-      expect(events.map(e => e.slug)).toEqual(['new_york_event']);
+      expect(events.map((e) => e.slug)).toEqual(['new_york_event']);
     });
 
-    it(
-      'filtering by region ( same for location.department, city, countryCode )',
-      async () => {
-        const dsl = {
-          query: {
-            term: {
-              'location.region': 'Auvergne-Rhône-Alpes',
-            },
+    it('filtering by region ( same for location.department, city, countryCode )', async () => {
+      const dsl = {
+        query: {
+          term: {
+            'location.region': 'Auvergne-Rhône-Alpes',
           },
-        };
+        },
+      };
 
-        const { events, total } = await post('test', dsl);
+      const { events, total } = await post('test', dsl);
 
-        expect(total).toBe(1);
+      expect(total).toBe(1);
 
-        expect(events.map(e => e.slug)).toEqual(['rhone_region_event']);
-      },
-    );
+      expect(events.map((e) => e.slug)).toEqual(['rhone_region_event']);
+    });
 
     it('filtering by geolocation', async () => {
       const dsl = {
@@ -375,7 +393,7 @@ describe('10 - event-search - unit: dsl search', () => {
 
       expect(total).toBe(1);
 
-      expect(events.map(e => e.slug)).toEqual(['verdun_bound_box']);
+      expect(events.map((e) => e.slug)).toEqual(['verdun_bound_box']);
     });
 
     it('filtering by language', async () => {
@@ -391,7 +409,7 @@ describe('10 - event-search - unit: dsl search', () => {
 
       expect(total).toBe(1);
 
-      expect(events.map(e => e.slug)).toEqual(['german_event']);
+      expect(events.map((e) => e.slug)).toEqual(['german_event']);
     });
 
     it('filtering by keyword', async () => {
@@ -407,22 +425,25 @@ describe('10 - event-search - unit: dsl search', () => {
 
       expect(total).toBe(1);
 
-      expect(events.map(e => e.slug)).toEqual(['keyword_event']);
+      expect(events.map((e) => e.slug)).toEqual(['keyword_event']);
     });
 
     it('filtering by multiple keywords', async () => {
       const dsl = {
         query: {
           bool: {
-            must: [{
-              term: {
-                _search_keywords: 'autre',
+            must: [
+              {
+                term: {
+                  _search_keywords: 'autre',
+                },
               },
-            }, {
-              term: {
-                _search_keywords: 'clé',
+              {
+                term: {
+                  _search_keywords: 'clé',
+                },
               },
-            }],
+            ],
           },
         },
       };
@@ -431,7 +452,7 @@ describe('10 - event-search - unit: dsl search', () => {
 
       expect(total).toBe(1);
 
-      expect(events.map(e => e.slug)).toEqual(['keyword_event_2']);
+      expect(events.map((e) => e.slug)).toEqual(['keyword_event_2']);
     });
 
     it('filtering to keep events in between a timestamp bracket', async () => {
@@ -439,27 +460,33 @@ describe('10 - event-search - unit: dsl search', () => {
         query: {
           bool: {
             // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
-            filter: [{
-              nested: {
-                path: 'timings',
-                score_mode: 'min',
-                query: {
-                  range: {
-                    'timings.begin': {
-                      gte: new Date('2013-02-01'),
-                      lte: new Date('2013-02-28'),
+            filter: [
+              {
+                nested: {
+                  path: 'timings',
+                  score_mode: 'min',
+                  query: {
+                    range: {
+                      'timings.begin': {
+                        gte: new Date('2013-02-01'),
+                        lte: new Date('2013-02-28'),
+                      },
                     },
                   },
                 },
               },
-            }],
+            ],
           },
         },
       };
 
       const { events } = await post('test', dsl);
 
-      expect(events.map(e => e.slug)).toEqual(['bracketed_timestamp_1', 'bracketed_timestamp_2', 'bracketed_timestamp_3']);
+      expect(events.map((e) => e.slug)).toEqual([
+        'bracketed_timestamp_1',
+        'bracketed_timestamp_2',
+        'bracketed_timestamp_3',
+      ]);
     });
 
     it('trasverse using scroll', async () => {
@@ -473,15 +500,22 @@ describe('10 - event-search - unit: dsl search', () => {
 
       const cacheFor = '1m';
 
-      const { events, scrollId } = await post('test', dsl, { scroll: cacheFor });
+      const { events, scrollId } = await post('test', dsl, {
+        scroll: cacheFor,
+      });
 
       fetchedCount += events.length;
 
-      const nextEvents = (await service('simple_search').search.scroll(scrollId, cacheFor)).events;
+      const nextEvents = (
+        await service('simple_search').search.scroll(scrollId, cacheFor)
+      ).events;
 
       fetchedCount += nextEvents.length;
 
-      const result = await service('simple_search').search.scroll(scrollId, cacheFor);
+      const result = await service('simple_search').search.scroll(
+        scrollId,
+        cacheFor,
+      );
 
       fetchedCount += result.events.length;
 
@@ -495,18 +529,21 @@ describe('10 - event-search - unit: dsl search', () => {
         query: {
           match_all: {},
         },
-        sort: [{
-          'timings.end': {
-            mode: 'min',
-            order: 'asc',
-            nested_path: 'timings',
-            nested_filter: {
-              range: { 'timings.end': { gte: 'now' } },
+        sort: [
+          {
+            'timings.end': {
+              mode: 'min',
+              order: 'asc',
+              nested_path: 'timings',
+              nested_filter: {
+                range: { 'timings.end': { gte: 'now' } },
+              },
             },
           },
-        }, {
-          _search_last_timing: { order: 'desc' },
-        }],
+          {
+            _search_last_timing: { order: 'desc' },
+          },
+        ],
       };
 
       let { events } = await post('test', dsl);

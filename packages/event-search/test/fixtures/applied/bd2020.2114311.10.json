@@ -278,9 +278,7 @@
         "min": 5,
         "max": 99
       },
-      "registration": [
-        "llevy@marseille.fr"
-      ],
+      "registration": ["llevy@marseille.fr"],
       "location": {
         "uid": 31194561,
         "slug": "bibliotheque-lalcazar866",
@@ -314,9 +312,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -428,9 +424,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "mediatheque@grand-dole.fr"
-      ],
+      "registration": ["mediatheque@grand-dole.fr"],
       "location": {
         "uid": 89689015,
         "slug": "mediatheque-de-lhotel-dieu995",
@@ -464,9 +458,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -578,9 +570,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "mediatheque@grand-dole.fr"
-      ],
+      "registration": ["mediatheque@grand-dole.fr"],
       "location": {
         "uid": 51000027,
         "slug": "bibliotheque-declans-nenon",
@@ -614,9 +604,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -933,9 +921,7 @@
         "min": 4,
         "max": 99
       },
-      "registration": [
-        "http://mediatheques.grand-dole.fr"
-      ],
+      "registration": ["http://mediatheques.grand-dole.fr"],
       "location": {
         "uid": 89689015,
         "slug": "mediatheque-de-lhotel-dieu995",
@@ -969,9 +955,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1114,9 +1098,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1208,9 +1190,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "anicom.moneteau@gmail.com"
-      ],
+      "registration": ["anicom.moneteau@gmail.com"],
       "location": {
         "uid": 69550740,
         "slug": "moneteau-skeneteau",
@@ -1244,9 +1224,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1392,9 +1370,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Nuit des idées (Institut français de Roumanie)",
       "type-de-structure": 630,
@@ -1490,10 +1466,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "hwaguet@ville-roubaix.fr",
-        "0609624006"
-      ],
+      "registration": ["hwaguet@ville-roubaix.fr", "0609624006"],
       "location": {
         "uid": 27954866,
         "slug": "salle-watremez-roubaix",
@@ -1527,12 +1500,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "21e Nuit des arts -  Ville de Roubaix - Hervé Waguet",
       "type-de-structure": 632,
       "si-autre-precisez": null,
@@ -1640,9 +1609,7 @@
         "min": 3,
         "max": 99
       },
-      "registration": [
-        "librairie.louielire@gmail.com"
-      ],
+      "registration": ["librairie.louielire@gmail.com"],
       "location": {
         "uid": 47643794,
         "slug": "librairie-louie-lire",
@@ -1676,12 +1643,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival du livre de jeunesse Occitanie",
       "type-de-structure": 626,
       "si-autre-precisez": null,
@@ -1895,9 +1858,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

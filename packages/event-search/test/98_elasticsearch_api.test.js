@@ -70,7 +70,10 @@ describe('98 - event-search - unit: used elasticsearch api calls', () => {
     });
 
     afterAll(async () => {
-      for (const i of ['99_elasticsearch_ephemeral_aliased_index', '99_elasticsearch_aliased_index']) {
+      for (const i of [
+        '99_elasticsearch_ephemeral_aliased_index',
+        '99_elasticsearch_aliased_index',
+      ]) {
         try {
           await client.indices.delete({
             index: i,
@@ -198,17 +201,22 @@ describe('98 - event-search - unit: used elasticsearch api calls', () => {
       await client.bulk({
         index: '99_elasticsearch_bulk',
         refresh: true,
-        body: [{
-          index: { _id: 99 },
-        }, {
-          title: 'Lombaires',
-        }],
+        body: [
+          {
+            index: { _id: 99 },
+          },
+          {
+            title: 'Lombaires',
+          },
+        ],
       });
 
-      const doc = await client.get({
-        index: '99_elasticsearch_bulk',
-        id: 99,
-      }).then(r => r.body);
+      const doc = await client
+        .get({
+          index: '99_elasticsearch_bulk',
+          id: 99,
+        })
+        .then((r) => r.body);
 
       expect(doc._source).toEqual({
         title: 'Lombaires',
@@ -225,27 +233,36 @@ describe('98 - event-search - unit: used elasticsearch api calls', () => {
       await client.bulk({
         index: '99_elasticsearch_doc_delete',
         refresh: true,
-        body: [{
-          create: { _id: 'one' },
-        }, {
-          title: 'I stay',
-          set: '111',
-        }, {
-          create: { _id: 'two' },
-        }, {
-          title: 'I go',
-          set: '123',
-        }, {
-          create: { _id: 'three' },
-        }, {
-          title: 'I stay',
-          set: '111',
-        }, {
-          create: { _id: 'four' },
-        }, {
-          title: 'I go',
-          set: '222',
-        }],
+        body: [
+          {
+            create: { _id: 'one' },
+          },
+          {
+            title: 'I stay',
+            set: '111',
+          },
+          {
+            create: { _id: 'two' },
+          },
+          {
+            title: 'I go',
+            set: '123',
+          },
+          {
+            create: { _id: 'three' },
+          },
+          {
+            title: 'I stay',
+            set: '111',
+          },
+          {
+            create: { _id: 'four' },
+          },
+          {
+            title: 'I go',
+            set: '222',
+          },
+        ],
       });
     });
 
@@ -273,16 +290,18 @@ describe('98 - event-search - unit: used elasticsearch api calls', () => {
       });
       expect(result.body.deleted).toBe(2);
 
-      const docs = await client.search({
-        index: '99_elasticsearch_doc_delete',
-        body: {
-          query: {
-            match_all: {},
+      const docs = await client
+        .search({
+          index: '99_elasticsearch_doc_delete',
+          body: {
+            query: {
+              match_all: {},
+            },
           },
-        },
-      }).then(r => r.body.hits.hits);
+        })
+        .then((r) => r.body.hits.hits);
 
-      expect(docs.map(d => d._id)).toEqual(['one', 'three']);
+      expect(docs.map((d) => d._id)).toEqual(['one', 'three']);
     });
   });
 });

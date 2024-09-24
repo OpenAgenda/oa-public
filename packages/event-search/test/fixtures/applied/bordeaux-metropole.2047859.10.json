@@ -15,9 +15,7 @@
         "fr": "Nouvelle tendance, la gamification est utilisée dans de nombreux domaines : éducation, marketing, civisme… Quels ressorts psychologiques mobilisent les jeux ? Pourquoi sont-ils si addictifs ? Vincent Jouanneau de Cap Sciences, nous invite à un atelier test pour comprendre la mécanique des jeux.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "game"
-        ]
+        "fr": ["game"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -234,11 +232,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        10,
-        11,
-        17
-      ],
+      "thematiques-bordeaux-metropole": [10, 11, 17],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -281,11 +275,7 @@
         "fr": "Le point commun entre la SNCF, la Poste et Médecins sans frontières ? Tous utilisent OpenStreetMap, cartographie libre du monde. Vincent Bergeot de Num&Lib nous apprend à contribuer à ce commun numérique en signalant une nouvelle borne de tri, un commerce et même l’intérieur d’une gare ou d’un musée.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "carto",
-          "opensource",
-          "openstreetmap"
-        ]
+        "fr": ["carto", "opensource", "openstreetmap"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -414,9 +404,7 @@
         "fr": "Certains objets connectés facilitent le maintien à domicile de personnes dépendantes. Face au vieillissement de la population, l’e-santé est-elle une alternative fiable à l’accompagnement humain ? Jenny Benois-Pineau du LaBRI nous parlera du projet BIRDS et des outils au chevet des plus fragiles : bracelets, caméras, détecteurs de chute…\n\nDécouvrez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "esante"
-        ]
+        "fr": ["esante"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -628,12 +616,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        10,
-        11,
-        17,
-        21
-      ],
+      "thematiques-bordeaux-metropole": [10, 11, 17, 21],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -759,12 +742,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        10,
-        11,
-        17,
-        23
-      ],
+      "thematiques-bordeaux-metropole": [10, 11, 17, 23],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -893,10 +871,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        17,
-        32
-      ],
+      "thematiques-bordeaux-metropole": [17, 32],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1172,10 +1147,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 56 84 78 90",
-        "mediatheques@talence.fr"
-      ],
+      "registration": ["05 56 84 78 90", "mediatheques@talence.fr"],
       "location": {
         "uid": 86011856,
         "slug": "mediatheque-castagnera",
@@ -1300,10 +1272,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "05 56 84 78 90",
-        "mediatheques@talence.fr"
-      ],
+      "registration": ["05 56 84 78 90", "mediatheques@talence.fr"],
       "location": {
         "uid": 86011856,
         "slug": "mediatheque-castagnera",

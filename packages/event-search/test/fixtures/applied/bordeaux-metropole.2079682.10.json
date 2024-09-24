@@ -15,11 +15,7 @@
         "fr": "Les dynamiques métropolitaines (en France, en Europe) se ressemblent-elles ? Nos grandes villes sont-elles gouvernées de la même manière ? Qu’en disent les travaux comparatifs ? Les permanences l’emportent-elles sur les ruptures ? Les déterminismes des systèmes sur les stratégies des acteurs ? L’autonomie sur la dépendance ou l’interdépendance ? La différenciation sur la standardisation ?\n\nComprendre les contraintes de tous ordres qui formatent l’action publique locale pour préciser les champs de manœuvre et les marges d’action des responsables politiques locaux, tel est l’objet de ce **colloque de l'a-urba (l’Agence d’urbanisme Bordeaux Aquitaine ) \"Quelles marges de manoeuvre pour l'action publique locale ?\" les 12 et 13 décembre 2019 à la Cité du Vin.**\n\n**L'a-urba, qu'est ce que c'est ?** Association loi 1901, ses principales missions sont d’accompagner les collectivités publiques dans le développement et l’aménagement urbain par ses diagnostics, réflexions prospectives, démarches de projets.\n\nConsultez le [programme](https://www.aurba.org/wp-content/uploads/2019/11/Programme_colloque_0811.pdf) sur le site de l'a-urba\n\nInscription obligatoire sur [a-urba](https://www.aurba.org/)"
       },
       "keywords": {
-        "fr": [
-          "colloque",
-          "urbanisme",
-          "action publique"
-        ]
+        "fr": ["colloque", "urbanisme", "action publique"]
       },
       "conditions": {
         "fr": "Inscription obligatoire"
@@ -106,15 +102,10 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 48,
-      "thematiques-bordeaux-metropole": [
-        31,
-        7
-      ],
+      "thematiques-bordeaux-metropole": [31, 7],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -234,9 +225,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "legrandbazardescreateurs@gmail.com"
-      ],
+      "registration": ["legrandbazardescreateurs@gmail.com"],
       "location": {
         "uid": 68316195,
         "slug": "le-garage-moderne615",
@@ -264,17 +253,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 57,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -321,9 +306,7 @@
         "fr": "**Du 29 novembre au 15 décembre 2019**, le musée Georges de Sonneville propose l'exposition collective _**\"Débit d'art\"**_. Cette année, découvrez des peintres, sculpteurs, photographes de Gironde sur le thème des Quatre éléments.\n\n### Informations\n\nOuverture les vendredi, samedi, dimanche et jours fériés de 14h à 18h,\n\nTél : 05 56 75 28 03"
       },
       "keywords": {
-        "fr": [
-          "exposition"
-        ]
+        "fr": ["exposition"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -411,10 +394,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 56 75 28 03",
-        "museesonneville@ville-gradignan.fr"
-      ],
+      "registration": ["05 56 75 28 03", "museesonneville@ville-gradignan.fr"],
       "location": {
         "uid": 2617794,
         "slug": "musee-georges-de-sonneville999",
@@ -443,17 +423,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        35828405
-      ],
+      "sourcePaths": [35828405],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -500,13 +476,7 @@
         "fr": "### \"DOMMAGES EST UNE SORTE D’HOMMAGE AU VAUDEVILLE, ÉNERGÉTIQUE ET DÉJANTÉ\"\n\nAttention ce spectacle contient du gluten, ainsi que des morceaux de catch, de poésie lyrique, de féminisme, un soupçon de Beethoven, une pincée de Perry Mason et des Princes de LU.\n\nUne pièce composée à 8 mains et mise en scène au cordeau.\n\nAvec **Céline Groussard, Elodie Poux et Julie Villers**\n\nTextes : Céline Groussard, Elodie Poux, Julie Villers et Michel Frenna.\n\nMise en scène : Michel Frenna\n\nDans cette pièce composée à 8 mains et mise en scène au cordeau, nous avons le plaisir de retrouver Eliodie Poux, qui avait emballé le public lors de la saison culturelle 2018 avec le syndrome du Playmobil !"
       },
       "keywords": {
-        "fr": [
-          "comédie",
-          "dommages",
-          "spectacle",
-          "théâtre",
-          "humour"
-        ]
+        "fr": ["comédie", "dommages", "spectacle", "théâtre", "humour"]
       },
       "conditions": {
         "fr": "Gratuit sur réservation obligatoire en mairie à partir du 18/11 pour les Bouliacais et à partir du 2/12 pour les habitants hors commune"
@@ -562,9 +532,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "05.57.97.18.22"
-      ],
+      "registration": ["05.57.97.18.22"],
       "location": {
         "uid": 67972195,
         "slug": "salle-des-fetes-bouliac",
@@ -590,17 +558,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        77293970
-      ],
+      "sourcePaths": [77293970],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -647,11 +611,7 @@
         "fr": "« Piano Furioso , Opus 2 » interprété par Gilles Ramade.\n\nInsatiable baroudeur, à la fois pianiste, chanteur, compositeur, chef d'orchestre auteur et comédien, Gilles Ramade a fait de la dispersion un art.\n\nSon dernier spectacle, Piano Furioso, est à son image : insolent, surprenant, inclassable. Il bouscule les codes académiques et s'attaque à la bienséance du classique. Sa rencontre avec Jérémy Ferrari était une évidence.\n\nUn show déluré et hilarant, mené de main de maître par un virtuose partageant sa passion entre Bach, Ray Charles, Gainsbourg et bien d'autres... Toutes les générations rient avec le maestro."
       },
       "keywords": {
-        "fr": [
-          "piano",
-          "spectacle",
-          "bordeaux"
-        ]
+        "fr": ["piano", "spectacle", "bordeaux"]
       },
       "conditions": {
         "fr": "30€"
@@ -707,9 +667,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "https://www.box.fr/fiche/piano-furioso-1/48187"
-      ],
+      "registration": ["https://www.box.fr/fiche/piano-furioso-1/48187"],
       "location": {
         "uid": 324741,
         "slug": "theatre-femina1",
@@ -737,19 +695,13 @@
         "extId": null
       },
       "custom_description": "Piano Furioso au Théâtre Fémina",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -796,10 +748,7 @@
         "fr": "Depuis sa création par Luke Cresswell et Steve McNicholas en 1991, STOMP a été joué plus de 20 000 fois et vu par 15 millions de spectateurs dans le monde, dont 1 million de Français ! Point d’orgue de cette success-story, STOMP a été l’un des grands événements de la cérémonie de clôture des JO 2012 de Londres ! Cette éclatante prestation qui a réuni 40 Stompers sur scène (un record !), a été vue par plus de 4 milliards de téléspectateurs dans le monde. Venus des quatre coins du globe, les Stompers sont choisis pour leur forte personnalité, chacun apportant sa touche personnelle au caractère de la troupe. Ensemble sur scène, huit trublions transforment avec virtuosité (et beaucoup d’humour !) n’importe quel ustensile lambda en véritable machine à rythmes. Tuyaux, seaux, bouées, poubelles, balais, éviers, boîtes d’allumettes, rien ne leur échappe ! Les sons s’entremêlent, se percutent, se répondent pour faire de ce spectacle, mené tambour battant, une incroyable symphonie de rythmes."
       },
       "keywords": {
-        "fr": [
-          "spectacle",
-          "bordeaux"
-        ]
+        "fr": ["spectacle", "bordeaux"]
       },
       "conditions": {
         "fr": "de 34.50 à 57.60€"
@@ -867,9 +816,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.box.fr/representations/stomp-3"
-      ],
+      "registration": ["https://www.box.fr/representations/stomp-3"],
       "location": {
         "uid": 324741,
         "slug": "theatre-femina1",
@@ -897,19 +844,13 @@
         "extId": null
       },
       "custom_description": "Stomp au Théâtre Fémina",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -956,10 +897,7 @@
         "fr": "Le parcours hilarant d’un steward qui monte... qui monte !\n\nReconversion réussie pour Jeanfi Janssens, ce steward devenu en moins d’un an la coqueluche du\n\npublic.\n\nVous l’avez peut-être déjà croisé sur un vol long courrier ou découvert lors de passages TV remarqués\n\nchez Stéphane Plaza, Arthur, Michel Drucker, ou encore à la radio aux côtés de Laurent Ruquier… Ce steward\n\nexubérant, accro à la chirurgie esthétique et victime des crédits conso, nous conte l'envers d'un décor unique et\n\ndélirant, de son enfance dans le nord de la France aux passagers qu'il sert à bord...\n\nAvec son accent ch'ti et son incroyable répartie, Jeanfi Décolle vous dépaysera à coup sûr et vous rappellera de\n\nne jamais oublier d'où l'on vient."
       },
       "keywords": {
-        "fr": [
-          "spectacle",
-          "humour"
-        ]
+        "fr": ["spectacle", "humour"]
       },
       "conditions": {
         "fr": "36 à 40€"
@@ -1015,9 +953,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.box.fr/fiche/jeanfi-janssens-33/75179"
-      ],
+      "registration": ["https://www.box.fr/fiche/jeanfi-janssens-33/75179"],
       "location": {
         "uid": 324741,
         "slug": "theatre-femina1",
@@ -1045,19 +981,13 @@
         "extId": null
       },
       "custom_description": "Jeanfi Janssens au Théâtre Fémina",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1168,9 +1098,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/dinos/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/dinos/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1200,18 +1128,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1368,18 +1291,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1538,18 +1456,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

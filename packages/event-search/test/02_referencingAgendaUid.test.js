@@ -25,9 +25,8 @@ describe('02 - event -search - functional: referencingAgendaUid Filter', () => {
 
   beforeAll(async () => {
     await service('referencingAgendaUid').rebuild({
-      eventsList: async (_lastId, _limit) => load(
-        'fixtures/02_events.referenceAgendaUid.json',
-      ),
+      eventsList: async (_lastId, _limit) =>
+        load('fixtures/02_events.referenceAgendaUid.json'),
     });
   });
 

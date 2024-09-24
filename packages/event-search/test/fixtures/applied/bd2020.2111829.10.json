@@ -109,9 +109,7 @@
         "min": 16,
         "max": 25
       },
-      "registration": [
-        "http://memoire-a-venir.org/index.html"
-      ],
+      "registration": ["http://memoire-a-venir.org/index.html"],
       "location": {
         "uid": 34742878,
         "slug": "memoire-de-lavenir784",
@@ -146,12 +144,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        616
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [616],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -888,9 +882,7 @@
       "tarif": "Tarification habituelle d'entrée du site",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1689,9 +1681,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -2900,9 +2890,7 @@
         "min": 16,
         "max": 99
       },
-      "registration": [
-        "musee.des.moulages@univ-lyon2.fr"
-      ],
+      "registration": ["musee.des.moulages@univ-lyon2.fr"],
       "location": {
         "uid": 22907223,
         "slug": "musee-des-moulages578",
@@ -2936,9 +2924,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -3050,9 +3036,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://bit.ly/PosadaMQB"
-      ],
+      "registration": ["http://bit.ly/PosadaMQB"],
       "location": {
         "uid": 21597520,
         "slug": "musee-du-quai-branly-jacques-chirac247",
@@ -3086,9 +3070,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -3142,12 +3124,7 @@
         "fr": "Samedi 17 avril 2020, dans le cadre de l'année de la BD 2020, le salon de lecture Jacques Kerchache vous donne rendez-vous à 16h:\n\nRencontre avec l’anthropologue Marie Mauzé, autrice de l'article Un mangaka au pays haïda, publié sur Revue Terrain (https://blogterrain.hypotheses.org/10531), sur le travail de l'artiste Michael Nicoll Yahgulanaas.\n\nL’appellation plutôt insolite « manga haïda » ne peut manquer d’intriguer. Inventée par l’artiste haïda Michael Nicoll Yahgulanaas, cette appellation définit une forme d’expression visuelle hybride qui permet à l’auteur non seulement de célébrer la mémoire culturelle des Haïda, leur rapport à la littérature orale et ses enseignements, leur lien consubstantiel au territoire, mais aussi de traiter des défis auxquels sont confrontés toutes les sociétés aujourd’hui, les conflits, les guerres, l’impact des activités humaines sur l’environnement et les changements climatiques, les relations interculturelles. Yahgulanaas ne limite pas sa réflexion à un domaine relevant strictement des questions autochtones. L’objectif est de montrer comment un élément graphique et stylistique appartenant aux cultures de la côte nord-ouest traduit matériellement la conviction inébranlable de l’auteur qu’au-delà des différences entre les modes de pensée autochtones et occidentales, les peuples quelle que soit leur origine peuvent s’unir autour d’interrogations communes.\n\n?En savoir plus sur l'événement:\n\n?Tout savoir sur 2020, la Bande Dessinée au musée: http://bit.ly/BD2020mqb"
       },
       "keywords": {
-        "fr": [
-          "Mangaka",
-          "haïda",
-          "Quai Branly",
-          "BD"
-        ]
+        "fr": ["Mangaka", "haïda", "Quai Branly", "BD"]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite dans la limite des places disponibles"
@@ -3274,11 +3251,7 @@
         "fr": "Samedi 4 avril 2020, dans le cadre de l'année de la BD 2020, le salon de lecture Jacques Kerchache vous donne rendez-vous à 16h:\n\nRencontre avec les scénaristes Sonia Paolini & Christian Staebler et le dessinateur Thibault Balahy autour de cette biographie publiée chez Steinkis éditions, à lire en écoutant les hits de Redbone, Come and get your love, We were all wounded at wounded knee dont la playlist figure en annexe du livre\n\nEntre biographie et documentaire cet ouvrage retrace une histoire de rock et de résistance.\n\nAlors que l’American lndian Movement est fondé en 1968, quatre musiciens amérindiens veulent, eux aussi, défendre leur culture. Soutenus par Jimi Hendrix, ils fondent Redbone et deviennent rapidement des icônes pour la jeunesse de tout un peuple. #BD2020\n\n?En savoir plus sur l'événement:\n\n?Tout savoir sur 2020, la Bande Dessinée au musée: http://bit.ly/BD2020mqb"
       },
       "keywords": {
-        "fr": [
-          "BD",
-          "Quai Branly",
-          "Redbone"
-        ]
+        "fr": ["BD", "Quai Branly", "Redbone"]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite dans la limite des places disponibles"
@@ -3405,12 +3378,7 @@
         "fr": "Samedi 15 février 2020, dans le cadre de l'année BD 2020, le salon de lecture Jacques Kerchache vous donne rendez-vous à 16h:\n\nRencontre avec et signature avec Camille Royer à l'occasion de la parution de son roman graphique aux éditions Futuropolis\n\nCamille a huit ans et elle est terrifiée par la nuit. Elle n’arrive pas à s’endormir de peur de faire des cauchemars. Ses parents doivent suivre un rituel complexe pour l’aider à trouver le sommeil.\n\nSa mère lui chante chaque soir une berceuse ou un conte en japonais qui lui créé des images dans la tête et agit contre les fantômes et ses insomnies. Sa mère, d’origine japonaise, lui apprend la langue de son pays. Mais c’est à travers les contes qu’elle lui lit le soir que Camille s’imprègne de cette culture et comprend confusément combien sa mère se sent déracinée… Dès lors, Camille devient obsédée par la peur que sa maman retourne au Japon pour ne plus jamais revenir.\n\n?En savoir plus sur l'événement: http://bit.ly/MonPremierReveEnJaponais\n\n?Tout savoir sur 2020, la Bande Dessinée au musée: http://bit.ly/BD2020mqb"
       },
       "keywords": {
-        "fr": [
-          "Quai Branly",
-          "Roman graphique",
-          "Japonais",
-          "Futuropolis"
-        ]
+        "fr": ["Quai Branly", "Roman graphique", "Japonais", "Futuropolis"]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite dans la limite des places disponibles"
@@ -3466,9 +3434,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://bit.ly/MonPremierReveEnJaponais"
-      ],
+      "registration": ["http://bit.ly/MonPremierReveEnJaponais"],
       "location": {
         "uid": 21597520,
         "slug": "musee-du-quai-branly-jacques-chirac247",
@@ -3502,9 +3468,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -3558,12 +3522,7 @@
         "fr": "Dimanche 5 avril, le salon Jacques Kerchache vous invite, dans le cadre de l'année de la BD 2020, à 16h:\n\nRencontre et signature avec l’éditeur et le dessinateur Frédéric Bihel, et le scénariste Makyo pour leur bande dessinée Malaurie, l'appel de Thulé chez les Éditions Delcourt\n\nHéros contemporain, scientifique et aventurier, Jean Malaurie étudie l’Arctique et sa population depuis plus de 70 ans.\n\nFin des années 40, la géomorphologie entraîne Jean Malaurie du désert saharien aux terres arctiques. De sa rencontre avec les Inuit naît un profond respect pour leur culture et leur approche de la spiritualité. Avec cette biographie dessinée, Makyo, Frédéric Bihel et lui-même, expriment avec force son plaidoyer pour la sauvegarde d’un peuple dont la disparition pourrait préfigurer la nôtre.\n\nRencontre avec l’éditeur et le dessinateur Frédéric Bihel, et le scénariste Makyo devenu une figure incontournable du neuvième art grâce à des séries telles que Balade au bout du monde, Grimion gant de cuir, le Cœur en Islande, Le Maître peinture, Lumière froide, Jérôme K.Jérôme Bloche ou encore le Cycle des deux horizons.\n\nUne occasion de mettre en valeur les livres de Jean Malaurie dans le fonds de la médiathèque.\n\n?En savoir plus sur l'événement:\n\n?Tout savoir sur 2020, la Bande Dessinée au musée: http://bit.ly/BD2020mqb"
       },
       "keywords": {
-        "fr": [
-          "Quai Branly",
-          "Malaurie",
-          "Thulé",
-          "BD"
-        ]
+        "fr": ["Quai Branly", "Malaurie", "Thulé", "BD"]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite dans la limite des places disponibles"

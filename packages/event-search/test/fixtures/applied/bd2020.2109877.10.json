@@ -209,9 +209,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 92 19 75 80"
-      ],
+      "registration": ["04 92 19 75 80"],
       "location": {
         "uid": 19810335,
         "slug": "mediatheque-albert-camus-dantibes918",
@@ -245,9 +243,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -704,9 +700,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 83 88 10 00"
-      ],
+      "registration": ["04 83 88 10 00"],
       "location": {
         "uid": 45211223,
         "slug": "mediatheque-sonia-delaunay",
@@ -743,12 +737,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Semaine de la Presse",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -859,9 +849,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 92 19 75 80"
-      ],
+      "registration": ["04 92 19 75 80"],
       "location": {
         "uid": 19810335,
         "slug": "mediatheque-albert-camus-dantibes918",
@@ -895,9 +883,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1040,9 +1026,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1154,9 +1138,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 92 19 76 00"
-      ],
+      "registration": ["04 92 19 76 00"],
       "location": {
         "uid": 65140044,
         "slug": "mediatheque-colette-de-valbonne-sophia-antipolis150",
@@ -1190,9 +1172,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1304,9 +1284,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 92 19 75 80"
-      ],
+      "registration": ["04 92 19 75 80"],
       "location": {
         "uid": 19810335,
         "slug": "mediatheque-albert-camus-dantibes918",
@@ -1340,12 +1318,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Semaine nationale de la Santé mentale",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1456,9 +1430,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 92 19 75 80"
-      ],
+      "registration": ["04 92 19 75 80"],
       "location": {
         "uid": 19810335,
         "slug": "mediatheque-albert-camus-dantibes918",
@@ -1492,9 +1464,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1640,9 +1610,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1791,12 +1759,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1944,12 +1908,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,

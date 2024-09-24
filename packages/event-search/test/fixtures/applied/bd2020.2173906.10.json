@@ -452,9 +452,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "mediatheque@mairie-montmerle.fr"
-      ],
+      "registration": ["mediatheque@mairie-montmerle.fr"],
       "location": {
         "uid": 93354402,
         "slug": "mediatheque-de-montmerle-sur-saone577",
@@ -600,9 +598,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "mediatheque@mairie-montmerle.fr"
-      ],
+      "registration": ["mediatheque@mairie-montmerle.fr"],
       "location": {
         "uid": 93354402,
         "slug": "mediatheque-de-montmerle-sur-saone577",
@@ -748,9 +744,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "mediatheque@mairie-montmerle.fr"
-      ],
+      "registration": ["mediatheque@mairie-montmerle.fr"],
       "location": {
         "uid": 93354402,
         "slug": "mediatheque-de-montmerle-sur-saone577",
@@ -896,9 +890,7 @@
         "min": 8,
         "max": 12
       },
-      "registration": [
-        "0299874949"
-      ],
+      "registration": ["0299874949"],
       "location": {
         "uid": 26883999,
         "slug": "le-grand-cordel-mjc",

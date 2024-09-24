@@ -73,9 +73,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 45 63 09 85"
-      ],
+      "registration": ["05 45 63 09 85"],
       "location": {
         "uid": 72659765,
         "slug": "mediatheque-de-la-rochefoucauld-en-angoumois",
@@ -109,12 +107,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix La bulle des lecteurs 2019/2020",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -225,9 +219,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 45 39 82 84"
-      ],
+      "registration": ["05 45 39 82 84"],
       "location": {
         "uid": 50919023,
         "slug": "mediatheque-de-vars",
@@ -261,12 +253,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix La bulle des lecteurs 2019/2020",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -322,11 +310,7 @@
         "en": "Comic book workshop with author Serge Carrère, cartoonist of the famous Léo Loden the Marseillais private detective!"
       },
       "keywords": {
-        "fr": [
-          "allauch",
-          "atelier bd",
-          "serge carrere"
-        ]
+        "fr": ["allauch", "atelier bd", "serge carrere"]
       },
       "conditions": {
         "fr": "Nombre limité, inscription obligatoire",
@@ -383,10 +367,7 @@
         "min": 10,
         "max": 60
       },
-      "registration": [
-        "04.91.10.49.30",
-        "bibliotheque@allauch.com"
-      ],
+      "registration": ["04.91.10.49.30", "bibliotheque@allauch.com"],
       "location": {
         "uid": 77146706,
         "slug": "bibliotheque-bernard-monge",
@@ -420,12 +401,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -481,11 +458,7 @@
         "en": "Costume contest on the theme of heroes and superheroes of comic books:\nLuky Luke, Albator, Popeye, Superman, Batman, Obelix, Wonder Woman, Mortel Adèle, Tintin etc...\nAll costumes from the world of comics, comics or mangas will be accepted, hand made or not!"
       },
       "keywords": {
-        "fr": [
-          "cosplay",
-          "concours de déguisement",
-          "bd costumes"
-        ]
+        "fr": ["cosplay", "concours de déguisement", "bd costumes"]
       },
       "conditions": {},
       "image": {
@@ -573,12 +546,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -689,9 +658,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "01 44 78 80 50"
-      ],
+      "registration": ["01 44 78 80 50"],
       "location": {
         "uid": 30019904,
         "slug": "mediatheque-musicale-de-paris593",
@@ -725,9 +692,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -839,9 +804,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "01 44 78 80 50"
-      ],
+      "registration": ["01 44 78 80 50"],
       "location": {
         "uid": 26518039,
         "slug": "bibliotheque-forney375",
@@ -875,9 +838,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -989,9 +950,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "01 44 78 80 50"
-      ],
+      "registration": ["01 44 78 80 50"],
       "location": {
         "uid": 87593292,
         "slug": "bibliotheque-marguerite-audoux844",
@@ -1025,9 +984,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1139,9 +1096,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "01 44 78 80 50"
-      ],
+      "registration": ["01 44 78 80 50"],
       "location": {
         "uid": 11785078,
         "slug": "bibliotheque-charlotte-delbo",
@@ -1175,9 +1130,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1289,9 +1242,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "01 44 78 80 50"
-      ],
+      "registration": ["01 44 78 80 50"],
       "location": {
         "uid": 1129374,
         "slug": "bibliotheque-arthur-rimbaud277",
@@ -1325,9 +1276,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1439,9 +1388,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "01 44 78 80 50"
-      ],
+      "registration": ["01 44 78 80 50"],
       "location": {
         "uid": 46511872,
         "slug": "mediatheque-de-la-canopee",
@@ -1475,9 +1422,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

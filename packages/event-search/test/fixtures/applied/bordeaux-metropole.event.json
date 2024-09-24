@@ -103,9 +103,7 @@
     "extId": null
   },
   "custom_description": null,
-  "intermunicipal_interest": [
-    1
-  ],
+  "intermunicipal_interest": [1],
   "recurring": [],
   "categories-agenda-metropolitain": 47,
   "thematiques-bordeaux-metropole": [],

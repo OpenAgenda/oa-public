@@ -111,18 +111,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -234,9 +229,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -266,18 +259,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -403,9 +391,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/kerlaveo/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/kerlaveo/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -435,18 +421,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -571,9 +552,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/niro/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/niro/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -603,18 +582,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -770,18 +744,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -906,9 +875,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/ange/10.2020.php"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/ange/10.2020.php"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -938,18 +905,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1010,10 +972,7 @@
         "fr": "Spectacle par la Cie de la Moisson\n\nPièce musicale adaptée du roman d’Anne-Laure Bondoux et Jean-Claude Mourlevat.\n\nUn roman plein d’humour et d’humanité, né d’un échange de mails entre les deux auteurs suite à leur rencontre à un salon du livre.\n\nTout public à partir de 10 ans.\n\nDans le cadre du Sivoc en lien avec une rencontre des collégiens et des auteurs la veille."
       },
       "keywords": {
-        "fr": [
-          "spectacle",
-          null
-        ]
+        "fr": ["spectacle", null]
       },
       "conditions": {},
       "image": {
@@ -1093,17 +1052,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        22478436
-      ],
+      "sourcePaths": [22478436],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1212,9 +1167,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 56 77 36 26"
-      ],
+      "registration": ["05 56 77 36 26"],
       "location": {
         "uid": 1848894,
         "slug": "pole-culturel-evsion",
@@ -1234,26 +1187,20 @@
         "description": {},
         "website": "http://evasion.ville-ambaresetlagrave.fr/",
         "phone": "05 56 77 36 26",
-        "links": [
-          "https://www.facebook.com/pole.culturel.evasion/"
-        ],
+        "links": ["https://www.facebook.com/pole.culturel.evasion/"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": "DR"
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        58816119
-      ],
+      "sourcePaths": [58816119],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1364,9 +1311,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 56 77 36 26"
-      ],
+      "registration": ["05 56 77 36 26"],
       "location": {
         "uid": 1848894,
         "slug": "pole-culturel-evsion",
@@ -1386,26 +1331,20 @@
         "description": {},
         "website": "http://evasion.ville-ambaresetlagrave.fr/",
         "phone": "05 56 77 36 26",
-        "links": [
-          "https://www.facebook.com/pole.culturel.evasion/"
-        ],
+        "links": ["https://www.facebook.com/pole.culturel.evasion/"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": "DR"
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        58816119
-      ],
+      "sourcePaths": [58816119],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1516,9 +1455,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 56 77 36 26"
-      ],
+      "registration": ["05 56 77 36 26"],
       "location": {
         "uid": 1848894,
         "slug": "pole-culturel-evsion",
@@ -1538,26 +1475,20 @@
         "description": {},
         "website": "http://evasion.ville-ambaresetlagrave.fr/",
         "phone": "05 56 77 36 26",
-        "links": [
-          "https://www.facebook.com/pole.culturel.evasion/"
-        ],
+        "links": ["https://www.facebook.com/pole.culturel.evasion/"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": "DR"
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        58816119
-      ],
+      "sourcePaths": [58816119],
       "aggregated": false,
       "sourceAgendas": [
         {

@@ -8,7 +8,8 @@ module.exports.formatDSL = (query, options = {}) => ({
   },
 });
 
-module.exports.formatResult = result => result.buckets.map(b => ({
-  key: b.key,
-  eventCount: b.doc_count,
-}));
+module.exports.formatResult = (result) =>
+  result.buckets.map((b) => ({
+    key: b.key,
+    eventCount: b.doc_count,
+  }));

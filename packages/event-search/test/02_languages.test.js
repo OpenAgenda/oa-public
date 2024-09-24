@@ -25,9 +25,8 @@ describe('02 - event -search - functional: languages filter and aggregation', ()
 
   beforeAll(async () => {
     await service('languages').rebuild({
-      eventsList: async (_lastId, _limit) => load(
-        'fixtures/02_events.languages.json',
-      ),
+      eventsList: async (_lastId, _limit) =>
+        load('fixtures/02_events.languages.json'),
     });
   });
 
@@ -36,29 +35,33 @@ describe('02 - event -search - functional: languages filter and aggregation', ()
       languages: 'fr',
     });
 
-    expect(frenchEvents.map(e => e.uid)).toEqual([1, 3]);
+    expect(frenchEvents.map((e) => e.uid)).toEqual([1, 3]);
 
     const { events: englishEvents } = await service('languages').search({
       languages: 'en',
     });
 
-    expect(englishEvents.map(e => e.uid)).toEqual([1]);
+    expect(englishEvents.map((e) => e.uid)).toEqual([1]);
   });
 
   it('languages filter filters on several languages', async () => {
-    const { events: frenchAndGermanEvents } = await service('languages').search({
-      languages: ['de', 'fr'],
-    });
+    const { events: frenchAndGermanEvents } = await service('languages').search(
+      {
+        languages: ['de', 'fr'],
+      },
+    );
 
-    expect(frenchAndGermanEvents.map(e => e.uid)).toEqual([
-      1, 3, 4,
-    ]);
+    expect(frenchAndGermanEvents.map((e) => e.uid)).toEqual([1, 3, 4]);
   });
 
   it('languages aggregation', async () => {
-    const { aggregations } = await service('languages').search({
-      state: null,
-    }, {}, { detailed: true, aggregations: 'languages' });
+    const { aggregations } = await service('languages').search(
+      {
+        state: null,
+      },
+      {},
+      { detailed: true, aggregations: 'languages' },
+    );
 
     expect(aggregations.languages).toEqual([
       { key: 'fr', eventCount: 2 },

@@ -1,26 +1,29 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const boolean = require('@openagenda/validators/boolean');
+const pass = require('@openagenda/validators/pass');
+const choice = require('@openagenda/validators/choice');
 
 schema.register({
-  boolean: require('@openagenda/validators/boolean'),
-  pass: require('@openagenda/validators/pass'),
-  choice: require('@openagenda/validators/choice')
+  boolean,
+  pass,
+  choice,
 });
 
 module.exports = schema({
   refresh: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   formSchema: {
     type: 'pass',
-    default: null
+    default: null,
   },
   operation: {
     type: 'choice',
     options: ['update', 'index'],
     default: 'update',
-    unique: true
-  }
+    unique: true,
+  },
 });

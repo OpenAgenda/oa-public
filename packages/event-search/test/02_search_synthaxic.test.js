@@ -23,19 +23,24 @@ describe('02 - event search - functional: synthaxic', () => {
 
   beforeAll(async () => {
     await service('synthaxic').rebuild({
-      eventsList: async (_lastId, _limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.synthaxic.json`),
-      ),
+      eventsList: async (_lastId, _limit) =>
+        JSON.parse(
+          fs.readFileSync(`${__dirname}/fixtures/02_events.synthaxic.json`),
+        ),
     });
   });
 
   it('Expo shows Exposition too', async () => {
-    const { events } = await service('synthaxic').search({
-      search: 'Expo',
-    }, {}, { detailed: true });
+    const { events } = await service('synthaxic').search(
+      {
+        search: 'Expo',
+      },
+      {},
+      { detailed: true },
+    );
 
     expect(
-      events.filter(e => e.title.fr.indexOf('exposition') !== -1).length,
+      events.filter((e) => e.title.fr.indexOf('exposition') !== -1).length,
     ).toBe(1);
   });
 

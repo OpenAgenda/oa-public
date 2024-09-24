@@ -2,7 +2,7 @@
 
 const { produce } = require('immer');
 
-module.exports = produce(event => {
+module.exports = produce((event) => {
   if (!event.timings || !event.timings.length) {
     return event;
   }
@@ -19,7 +19,7 @@ module.exports = produce(event => {
 
   event.nextTiming = null;
 
-  if (event.lastTiming && (new Date(event.lastTiming) < now)) {
+  if (event.lastTiming && new Date(event.lastTiming) < now) {
     return event;
   }
 

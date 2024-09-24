@@ -29,7 +29,7 @@ function validateTimezone(tz) {
   }
 }
 
-module.exports = produce(query => {
+module.exports = produce((query) => {
   const timezone = query?.date?.timezone;
 
   if (!timezone) return;
@@ -40,10 +40,9 @@ module.exports = produce(query => {
 
   delete query.date.timezone;
 
-  const timestampFieldsWithToday = Object
-    .keys(query.date || {})
-    .filter(f => f !== 'timezone')
-    .filter(f => query.date[f] === 'today');
+  const timestampFieldsWithToday = Object.keys(query.date || {})
+    .filter((f) => f !== 'timezone')
+    .filter((f) => query.date[f] === 'today');
 
   for (const field of timestampFieldsWithToday) {
     query.date[field] = localMidnightToday;

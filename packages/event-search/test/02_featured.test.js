@@ -23,9 +23,10 @@ describe('02 - event search - functional: relative filter', () => {
 
   beforeAll(async () => {
     await service('featured').rebuild({
-      eventsList: async (_lastId, _limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.featured.json`),
-      ),
+      eventsList: async (_lastId, _limit) =>
+        JSON.parse(
+          fs.readFileSync(`${__dirname}/fixtures/02_events.featured.json`),
+        ),
     });
   });
 

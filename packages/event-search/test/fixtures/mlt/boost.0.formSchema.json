@@ -20,9 +20,7 @@
       },
       "placeholder": null,
       "write": null,
-      "read": [
-        "moderator"
-      ],
+      "read": ["moderator"],
       "optional": true,
       "display": true,
       "origin": "custom",
@@ -755,9 +753,7 @@
       "display": true,
       "origin": "custom",
       "enableWith": "image",
-      "related": [
-        "image"
-      ],
+      "related": ["image"],
       "min": null,
       "max": null,
       "fieldType": "text",
@@ -779,11 +775,7 @@
       "origin": "custom",
       "enableWith": null,
       "related": [],
-      "extensions": [
-        "jpg",
-        "bmp",
-        "png"
-      ],
+      "extensions": ["jpg", "bmp", "png"],
       "store": {
         "type": "s3",
         "bucket": "oa"
@@ -806,9 +798,7 @@
       "display": true,
       "origin": "custom",
       "enableWith": "image_infocom",
-      "related": [
-        "image_infocom"
-      ],
+      "related": ["image_infocom"],
       "min": null,
       "max": null,
       "fieldType": "text",
@@ -829,9 +819,7 @@
       "display": true,
       "origin": "custom",
       "enableWith": "image_infocom",
-      "related": [
-        "image_infocom"
-      ],
+      "related": ["image_infocom"],
       "min": null,
       "max": null,
       "languages": [],
@@ -986,11 +974,7 @@
     },
     {
       "field": "references",
-      "related": [
-        "type-devenement",
-        "publics-cibles",
-        "location"
-      ],
+      "related": ["type-devenement", "publics-cibles", "location"],
       "fieldType": "abstract",
       "boost": {
         "type-devenement": 50,

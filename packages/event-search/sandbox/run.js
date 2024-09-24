@@ -1,34 +1,30 @@
 'use strict';
 
+const fs = require('node:fs');
 const elasticsearch = require('@elastic/elasticsearch');
 const debug = require('debug');
-const fs = require('node:fs');
 const prompts = require('prompts');
 
-const {
-  elasticsearch: config,
-  ssl
-} = require('../testconfig');
+const { elasticsearch: config } = require('../testconfig');
 
-const inFolderPath = __dirname + '/in/';
-const outFolderPath = __dirname + '/out/';
+const inFolderPath = `${__dirname}/in/`;
+// const outFolderPath = `${__dirname}/out/`;
 
 debug.enable('⦙');
 const log = debug('⦙');
 
 (async () => {
-  log(fs.readFileSync(__dirname + '/README.md', 'utf-8'));
+  log(fs.readFileSync(`${__dirname}/README.md`, 'utf-8'));
 
   const client = new elasticsearch.Client({
     node: config.node,
-    ssl: config.ssl
+    ssl: config.ssl,
   });
 
-  while(true) {
-    const choices = fs.readdirSync(inFolderPath)
-      .map(f => JSON.parse(
-        fs.readFileSync(inFolderPath + f)
-      ));
+  while (true) {
+    const choices = fs
+      .readdirSync(inFolderPath)
+      .map((f) => JSON.parse(fs.readFileSync(inFolderPath + f)));
 
     const { DSL } = await prompts({
       type: 'select',
@@ -36,8 +32,8 @@ const log = debug('⦙');
       message: 'Choix de la requête à executer',
       choices: choices.concat({
         title: 'Quitter',
-        value: null
-      })
+        value: null,
+      }),
     });
 
     if (!DSL) {
@@ -47,15 +43,18 @@ const log = debug('⦙');
     const { index } = await prompts({
       type: 'select',
       name: 'index',
-      message: 'Choix de l\'index',
+      message: "Choix de l'index",
       default: 'dev',
-      choices: [{
-        title: 'Dev',
-        value: 'dev'
-      }, {
-        title: 'Test',
-        value: 'test'
-      }]
+      choices: [
+        {
+          title: 'Dev',
+          value: 'dev',
+        },
+        {
+          title: 'Test',
+          value: 'test',
+        },
+      ],
     });
 
     let result;
@@ -65,23 +64,25 @@ const log = debug('⦙');
         success: true,
         returned: await client.search({
           index,
-          body: DSL
-        })
+          body: DSL,
+        }),
       };
     } catch (e) {
       result = {
         success: false,
-        returned: e
+        returned: e,
       };
     }
 
     log(JSON.stringify(result, null, 2));
 
-    fs.writeFileSync(__dirname + '/result.json', JSON.stringify(result, null, 2));
+    fs.writeFileSync(
+      `${__dirname}/result.json`,
+      JSON.stringify(result, null, 2),
+    );
   }
 
   await client.close();
 
   process.exit();
-
 })();

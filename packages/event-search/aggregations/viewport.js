@@ -13,7 +13,7 @@ module.exports.formatDSL = (/* query, options = {} */) => ({
   },
 });
 
-module.exports.formatResult = result => {
+module.exports.formatResult = (result) => {
   if (!result.bounds) {
     return null;
   }

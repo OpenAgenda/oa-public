@@ -190,9 +190,7 @@
       "tarif": "95 € par trimestre avec adhésion annuelle à l'association pour 15 €",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -337,9 +335,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -451,10 +447,7 @@
         "min": 13,
         "max": 99
       },
-      "registration": [
-        "05 56 77 02 69",
-        "biblio@mairie-ambes.fr"
-      ],
+      "registration": ["05 56 77 02 69", "biblio@mairie-ambes.fr"],
       "location": {
         "uid": 87088891,
         "slug": "mediatheque-dambes",
@@ -488,9 +481,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -638,9 +629,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Auvergne-Rhône-Alpes Livre et Lecture",
       "type-de-structure": 621,
@@ -752,9 +741,7 @@
         "min": 8,
         "max": 16
       },
-      "registration": [
-        "01.47.49.36.68"
-      ],
+      "registration": ["01.47.49.36.68"],
       "location": {
         "uid": 41954618,
         "slug": "espace-renoir749",
@@ -788,9 +775,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1179,9 +1164,7 @@
         "min": 10,
         "max": 16
       },
-      "registration": [
-        "nouvelles@quaisdupolar.com"
-      ],
+      "registration": ["nouvelles@quaisdupolar.com"],
       "location": {
         "uid": 16056508,
         "slug": "quais-du-polar-lyon",
@@ -1215,12 +1198,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Quais du polar",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -1331,9 +1310,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "01.47.49.36.68"
-      ],
+      "registration": ["01.47.49.36.68"],
       "location": {
         "uid": 41954618,
         "slug": "espace-renoir749",
@@ -1367,9 +1344,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1520,9 +1495,7 @@
       "tarif": "3 €, 5 € les 2 jours, gratuit pour les moins de 18 ans",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1708,9 +1681,7 @@
         "min": 7,
         "max": 77
       },
-      "registration": [
-        "https://www.facebook.com/FnacReunion/"
-      ],
+      "registration": ["https://www.facebook.com/FnacReunion/"],
       "location": {
         "uid": 13311561,
         "slug": "fnac-sainte-marie",
@@ -1744,9 +1715,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Fnac Réunion présente \"BD & Manga en folie\"",
       "type-de-structure": 626,
@@ -1935,9 +1904,7 @@
         "min": 7,
         "max": 77
       },
-      "registration": [
-        "https://www.facebook.com/FnacReunion/"
-      ],
+      "registration": ["https://www.facebook.com/FnacReunion/"],
       "location": {
         "uid": 43850414,
         "slug": "fnac-le-port",
@@ -1971,9 +1938,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Fnac Réunion présente \"BD & MANGA EN FOLIE\" (du 13/01 au 02/02)",
       "type-de-structure": 626,

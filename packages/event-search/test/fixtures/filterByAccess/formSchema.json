@@ -375,14 +375,8 @@
       "info": null,
       "sub": null,
       "placeholder": null,
-      "write": [
-        "administrator",
-        "moderator"
-      ],
-      "read": [
-        "administrator",
-        "moderator"
-      ],
+      "write": ["administrator", "moderator"],
+      "read": ["administrator", "moderator"],
       "optional": true,
       "display": true,
       "origin": "tags",
@@ -697,12 +691,7 @@
       "optional": true,
       "label": "Image de l'événement",
       "info": "Chargez une image d'au moins 1 Mo",
-      "extensions": [
-        "jpg",
-        "bmp",
-        "png",
-        "jpeg"
-      ],
+      "extensions": ["jpg", "bmp", "png", "jpeg"],
       "schemaId": null
     },
     {
@@ -899,9 +888,7 @@
       "display": true,
       "origin": "custom",
       "enableWith": "diffusion-sur-le-pass-culture",
-      "related": [
-        "diffusion-sur-le-pass-culture"
-      ],
+      "related": ["diffusion-sur-le-pass-culture"],
       "min": null,
       "max": 20,
       "fieldType": "text",
@@ -922,9 +909,7 @@
       "display": true,
       "origin": "custom",
       "enableWith": "diffusion-sur-le-pass-culture",
-      "related": [
-        "diffusion-sur-le-pass-culture"
-      ],
+      "related": ["diffusion-sur-le-pass-culture"],
       "min": null,
       "max": 100,
       "fieldType": "number",
@@ -939,18 +924,13 @@
       "info": "Champ réservé à l'équipe du pass Culture, ne pas modifier si vous n'en faîtes pas partie svp",
       "sub": null,
       "placeholder": null,
-      "write": [
-        "administrator",
-        "moderator"
-      ],
+      "write": ["administrator", "moderator"],
       "read": null,
       "optional": true,
       "display": true,
       "origin": "custom",
       "enableWith": "diffusion-sur-le-pass-culture",
-      "related": [
-        "diffusion-sur-le-pass-culture"
-      ],
+      "related": ["diffusion-sur-le-pass-culture"],
       "min": null,
       "max": null,
       "fieldType": "text",
@@ -960,94 +940,72 @@
       "field": "uid",
       "fieldType": "integer",
       "optional": false,
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "slug",
       "fieldType": "text",
       "optional": false,
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "private",
       "fieldType": "boolean",
       "default": false,
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "timezone",
       "fieldType": "text",
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "draft",
       "fieldType": "boolean",
       "default": false,
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "createdAt",
       "fieldType": "date",
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "creatorUid",
       "fieldType": "integer",
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "ownerUid",
       "fieldType": "integer",
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "updatedAt",
       "fieldType": "date",
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "agendaUid",
       "fieldType": "integer",
       "optional": false,
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     },
     {
       "field": "locationUid",
       "fieldType": "integer",
       "optional": false,
-      "write": [
-        "internal"
-      ],
+      "write": ["internal"],
       "schemaId": null
     }
   ]

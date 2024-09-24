@@ -498,9 +498,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "http://www.museepicassoparis.fr/"
-      ],
+      "registration": ["http://www.museepicassoparis.fr/"],
       "location": {
         "uid": 86711516,
         "slug": "musee-national-picasso-paris739",
@@ -534,9 +532,7 @@
       "tarif": "14 €",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -873,19 +869,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        619
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [619],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
       "si-autre-precisez": null,
       "structure-partenaire": "L'Orangerie de Cachan",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "20005801400016",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1132,9 +1122,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1277,9 +1265,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1443,17 +1429,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
       "si-autre-precisez": "Galerie",
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "79247897600014",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1596,9 +1578,7 @@
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
       "particularites": [],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival du \"Paris retrouvé de Marcel Proust\"",
       "type-de-structure": 635,
       "si-autre-precisez": null,
@@ -1955,9 +1935,7 @@
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
       "particularites": [],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Beire-le-Châtel invite la BD",
       "type-de-structure": 627,
       "si-autre-precisez": null,
@@ -2463,9 +2441,7 @@
         "min": 4,
         "max": 99
       },
-      "registration": [
-        "bibliotheque.frepillon@orange.fr"
-      ],
+      "registration": ["bibliotheque.frepillon@orange.fr"],
       "location": {
         "uid": 46479220,
         "slug": "bibliotheque-de-frepillon328",

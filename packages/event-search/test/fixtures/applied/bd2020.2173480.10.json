@@ -243,9 +243,7 @@
         "min": 11,
         "max": 18
       },
-      "registration": [
-        "http://mediatheques.valenceromansagglo.fr/"
-      ],
+      "registration": ["http://mediatheques.valenceromansagglo.fr/"],
       "location": {
         "uid": 69822711,
         "slug": "mediatheques-valence-romans-agglomeration",
@@ -527,9 +525,7 @@
       "type-de-structure": 636,
       "si-autre-precisez": "Galerie",
       "structure-partenaire": "Éditions Casterman",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "440 960 102 00 00 18",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -727,9 +723,7 @@
       "type-de-structure": 636,
       "si-autre-precisez": "Galerie",
       "structure-partenaire": "Éditions Casterman",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "440 960 102 00 00 18",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1204,9 +1198,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.museedelimage.fr"
-      ],
+      "registration": ["http://www.museedelimage.fr"],
       "location": {
         "uid": 84698604,
         "slug": "musee-de-limage344",
@@ -1353,9 +1345,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "https://fetedulivre.hyeres.fr/"
-      ],
+      "registration": ["https://fetedulivre.hyeres.fr/"],
       "location": {
         "uid": 86918676,
         "slug": "hyeres398",
@@ -1972,9 +1962,7 @@
         "min": 10,
         "max": 12
       },
-      "registration": [
-        "cdi.0593235w@ac-lille.fr"
-      ],
+      "registration": ["cdi.0593235w@ac-lille.fr"],
       "location": {
         "uid": 57569160,
         "slug": "college-boris-vian410",
@@ -2154,9 +2142,7 @@
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
       "particularites": [],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Hors Limites en Seine-Saint-Denis",
       "type-de-structure": 621,
       "si-autre-precisez": null,

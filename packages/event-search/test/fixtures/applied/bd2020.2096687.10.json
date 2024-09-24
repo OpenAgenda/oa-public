@@ -502,9 +502,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "https://www.instagram.com/unsoleilpoursamaa/"
-      ],
+      "registration": ["https://www.instagram.com/unsoleilpoursamaa/"],
       "location": {
         "uid": 85358464,
         "slug": "instagram",
@@ -538,9 +536,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -975,9 +971,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1454,9 +1448,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "https://mediathequedepartementale.lenord.fr/"
-      ],
+      "registration": ["https://mediathequedepartementale.lenord.fr/"],
       "location": {
         "uid": 80210990,
         "slug": "mediatheque-departementale-du-nord",
@@ -1490,9 +1482,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1628,9 +1618,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 633,
@@ -1684,9 +1672,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "pixel art"
-        ]
+        "fr": ["pixel art"]
       },
       "conditions": {
         "fr": "12 places maximum",
@@ -1751,10 +1737,7 @@
         "min": 5,
         "max": 12
       },
-      "registration": [
-        "0298193127",
-        "bibliotheque.mairie@roscoff.fr"
-      ],
+      "registration": ["0298193127", "bibliotheque.mairie@roscoff.fr"],
       "location": {
         "uid": 46351258,
         "slug": "bibliotheque-municipale-de-roscoff620",
@@ -1788,9 +1771,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1899,9 +1880,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "collectifparisbd@gmail.com"
-      ],
+      "registration": ["collectifparisbd@gmail.com"],
       "location": {
         "uid": 58902108,
         "slug": "le-bistrot-verdeau",
@@ -1935,12 +1914,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Lenoir Valérie",
       "type-de-structure": 636,
       "si-autre-precisez": "collectif de lecteurs parisiens passionnés de BD",
@@ -2089,9 +2064,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -2234,9 +2207,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2362,9 +2333,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2507,9 +2476,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

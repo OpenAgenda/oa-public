@@ -108,12 +108,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -166,9 +162,7 @@
         "fr": "_Alioth Le croqueur de nuages_ : présence des auteurs et lecture"
       },
       "keywords": {
-        "fr": [
-          "Conte enfants"
-        ]
+        "fr": ["Conte enfants"]
       },
       "conditions": {},
       "image": {
@@ -256,12 +250,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -373,10 +363,7 @@
         "min": 8,
         "max": 12
       },
-      "registration": [
-        "+37793152272",
-        "http://www.mediatheque.mc"
-      ],
+      "registration": ["+37793152272", "http://www.mediatheque.mc"],
       "location": {
         "uid": 64270803,
         "slug": "bibliotheque-princesse-caroline",
@@ -410,9 +397,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -524,10 +509,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "http://www.mediatheque.mc",
-        "+37793306448"
-      ],
+      "registration": ["http://www.mediatheque.mc", "+37793306448"],
       "location": {
         "uid": 79186773,
         "slug": "sonotheque-jose-notari-videotheque",
@@ -561,9 +543,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -675,10 +655,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "http://www.mediatheque.mc",
-        "+37793306448"
-      ],
+      "registration": ["http://www.mediatheque.mc", "+37793306448"],
       "location": {
         "uid": 79186773,
         "slug": "sonotheque-jose-notari-videotheque",
@@ -712,9 +689,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -826,10 +801,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "http://www.mediatheque.mc",
-        "+37793306448"
-      ],
+      "registration": ["http://www.mediatheque.mc", "+37793306448"],
       "location": {
         "uid": 79186773,
         "slug": "sonotheque-jose-notari-videotheque",
@@ -863,9 +835,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -974,10 +944,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "http://www.mediatheque.mc",
-        "+37793152940"
-      ],
+      "registration": ["http://www.mediatheque.mc", "+37793152940"],
       "location": {
         "uid": 74952639,
         "slug": "bibliotheque-louis-notari",
@@ -1011,9 +978,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1136,9 +1101,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
       "type-de-structure": 623,
@@ -1247,10 +1210,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "05 61 63 50 00",
-        "contact@pavillonblanc-colomiers.fr"
-      ],
+      "registration": ["05 61 63 50 00", "contact@pavillonblanc-colomiers.fr"],
       "location": {
         "uid": 4570778,
         "slug": "pavillon-blanc-henri-molina224",
@@ -1284,9 +1244,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1424,12 +1382,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 624,
       "si-autre-precisez": null,

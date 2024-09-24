@@ -133,9 +133,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -232,9 +230,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "+33556862145"
-      ],
+      "registration": ["+33556862145"],
       "location": {
         "uid": 69345614,
         "slug": "loscillo-theatroscope",
@@ -370,9 +366,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/les.frangines/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/les.frangines/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -402,16 +396,12 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624
-      ],
+      "sourcePaths": [94573624],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -527,9 +517,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/yasiin.bey/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/yasiin.bey/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -559,16 +547,12 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624
-      ],
+      "sourcePaths": [94573624],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -680,10 +664,7 @@
         "min": 1,
         "max": 99
       },
-      "registration": [
-        "0635441130",
-        "fred@friiix.club"
-      ],
+      "registration": ["0635441130", "fred@friiix.club"],
       "location": {
         "uid": 81830059,
         "slug": "theatre-la-lucarne547",
@@ -710,9 +691,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -755,9 +734,7 @@
         "fr": "Découvrez le savoir-faire des compositeurs et les enjeux de la création musicale dans une séance de moins d'une heure où instruments, technologies, langages et sons nouveaux, toujours passionnants, parfois surprenants, se mêlent sous vos yeux et vos oreilles.\n\nEmmanuel Filet, compositeur originaire de Dordogne, porte un intérêt particulier à l’improvisation et a écrit différentes pièces allant de l’instrument soliste à l’orchestre en passant par la musique de chambre, utilisant parfois les possibilités de l’électroacoustique.\n\nEntrez dans l'Atelier du Compositeur !"
       },
       "keywords": {
-        "fr": [
-          "composition"
-        ]
+        "fr": ["composition"]
       },
       "conditions": {
         "fr": "Entrée libre, dans la limite des places disponibles"
@@ -822,9 +799,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -867,9 +842,7 @@
         "fr": "Jeudi 21 novembre 2019, participez à la soirée d’appel à générosité organisée en faveur des élèves de percussions du conservatoire en finançant l’achat d’un vibraphone.\n\nÀ votre arrivée, suivez le guide pour une déambulation en musique à la découverte des Vivres de l’Art et profitez d’un cocktail proposé par nos partenaires.\n\nAssistez ensuite à un concert autour de la relation entre musique et métal, matériau de prédilection de Jean-François Buisson qui nous fait le plaisir de nous accueillir. Vibraphones, marimbas, bongos, glockenspiels, tam-tams, cloches, cymbales et bols tibétains se mêlent aux matériaux bruts récoltés dans l’atelier du sculpteur pour explorer un univers musical contemporain à la fois brut et mélodique.\n\nPour soutenir l’achat d’un vibraphone, instrument de la famille des percussions, vous pouvez faire un don du montant de votre choix.\n\nÀ partir de 20€ par adulte et de 10€ par enfant (-12 ans), vous serez invités à la soirée d’appel à générosité (cocktail et concert)."
       },
       "keywords": {
-        "fr": [
-          "percussions"
-        ]
+        "fr": ["percussions"]
       },
       "conditions": {
         "fr": "Dons et inscriptions au 05 56 33 94 35"
@@ -950,9 +923,7 @@
         "timezone": "Europe/Paris",
         "imageCredits": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -993,9 +964,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "jazz"
-        ]
+        "fr": ["jazz"]
       },
       "conditions": {
         "fr": "Entrée libre, dans la limite des places disponibles"
@@ -1061,9 +1030,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1106,9 +1073,7 @@
         "fr": "Un concert à 8h du matin ? Incroyable mais vrai. Venez partager un moment unique et convivial offert par le Conservatoire de Bordeaux et la Halle des Douves. Une formule originale pour démarrer votre journée en musique et échanger autour d’un petit déjeuner.\n\nVendredi 8 novembre : Clarinettes\n\nVendredi 29 novembre : Saxophones"
       },
       "keywords": {
-        "fr": [
-          "concerts matinaux"
-        ]
+        "fr": ["concerts matinaux"]
       },
       "conditions": {
         "fr": "Gratuit, sur réservations 15 jours avant l'événement"
@@ -1164,9 +1129,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://conservatoiredebordeaux.eventbrite.com"
-      ],
+      "registration": ["http://conservatoiredebordeaux.eventbrite.com"],
       "location": {
         "uid": 62514882,
         "slug": "marche-des-douves543",
@@ -1197,9 +1160,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1333,9 +1294,7 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "state": 2,

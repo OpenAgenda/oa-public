@@ -176,9 +176,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Lancry",
       "type-de-structure": 623,
@@ -349,9 +347,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Rainer Maria Rilke",
       "type-de-structure": 623,
@@ -551,9 +547,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -665,9 +659,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 45 36 19 50"
-      ],
+      "registration": ["05 45 36 19 50"],
       "location": {
         "uid": 5162951,
         "slug": "bibliotheque-de-cognac",
@@ -701,12 +693,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix La bulle des lecteurs 2019/2020",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -932,9 +920,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1046,9 +1032,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05.45.65.34.89"
-      ],
+      "registration": ["05.45.65.34.89"],
       "location": {
         "uid": 16974689,
         "slug": "mediatheque-la-mediaporte",
@@ -1082,12 +1066,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix La bulle des lecteurs 2019/2020",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1242,9 +1222,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1396,9 +1374,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1510,9 +1486,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 45 64 76 57"
-      ],
+      "registration": ["05 45 64 76 57"],
       "location": {
         "uid": 97033112,
         "slug": "la-caravelle-mediatheque-bernard-dissard",
@@ -1546,12 +1520,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix La bulle des lecteurs 2019/2020",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1778,9 +1748,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.lemaillon.bzh"
-      ],
+      "registration": ["http://www.lemaillon.bzh"],
       "location": {
         "uid": 42864980,
         "slug": "mediatheque-de-locmine548",
@@ -1814,9 +1782,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

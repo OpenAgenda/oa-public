@@ -73,10 +73,7 @@
         "min": 9,
         "max": 99
       },
-      "registration": [
-        "04 76 90 97 08",
-        "sandrine.leo@glenat.com"
-      ],
+      "registration": ["04 76 90 97 08", "sandrine.leo@glenat.com"],
       "location": {
         "uid": 14456052,
         "slug": "couvent-sainte-cecile612",
@@ -110,12 +107,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 628,
       "si-autre-precisez": null,
@@ -988,9 +981,7 @@
       "tarif": "5 euros",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -1047,14 +1038,7 @@
         "en": "_Come Prima_, it is the story of the reunion, at the end of the 1950s, of two Italian brothers whose characters and the arrival of fascism have irreparably separated. They haven’t seen each other for years; can their father’s death and the journey to Italy reconcile them?\nFor 85 minutes, the viewer attends a sequence of emotions, where the psychological atmospheres induced by the script and projected images are expressed and transcended by the live music of Splendor In The Grass."
       },
       "keywords": {
-        "fr": [
-          "spectacle",
-          "concert",
-          "BD",
-          "musique",
-          "cinema",
-          "projection"
-        ]
+        "fr": ["spectacle", "concert", "BD", "musique", "cinema", "projection"]
       },
       "conditions": {
         "fr": "Entrée libre dans la limite des places disponibles",
@@ -1145,9 +1129,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1760,9 +1742,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2443,9 +2423,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -3326,9 +3304,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -3873,9 +3849,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -4348,9 +4322,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -4755,9 +4727,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -4916,9 +4886,7 @@
       "tarif": "tarif individuel : 9,50 €, tarif groupe : 7,50 €. Gratuit pour les -18 ans et les -26 ans ressortissants ou résidents de l’UE, les détenteurs de la Carte blanche du château d’Angers ou du Passeport Musées/château, du Pass Education, les personnes en situation de handicap et leur accompagnateur, les demandeurs d’emploi sur présentation d’un justificatif de moins de 6 mois",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,

@@ -27,171 +27,217 @@ describe('02 - event search - functional: location', () => {
   beforeAll(async () => {
     await service('location').rebuild({
       formSchema: eventFormSchemaWithLocationSchema,
-      eventsList: async (_lastId, _limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.location.json`),
-      ),
+      eventsList: async (_lastId, _limit) =>
+        JSON.parse(
+          fs.readFileSync(`${__dirname}/fixtures/02_events.location.json`),
+        ),
     });
   });
 
   describe('data', () => {
     it('includeFields on location returns only requested data', async () => {
-      const { events: [event] } = await service('location').search({
-      }, { size: 1 }, {
-        includeFields: ['location.city', 'location.uid', 'location.name'],
-      });
+      const {
+        events: [event],
+      } = await service('location').search(
+        {},
+        { size: 1 },
+        {
+          includeFields: ['location.city', 'location.uid', 'location.name'],
+        },
+      );
 
       expect(Object.keys(event.location)).toEqual(['uid', 'city', 'name']);
     });
   });
 
   describe('filters', () => {
-    it(
-      'all location info is provided if detailed option is specified',
-      async () => {
-        const { events } = await service('location').search({
-        }, {}, { detailed: true });
-        expect(
-          _.uniq(events.filter(e => e.location).map(e => e.location.city)),
-        ).toEqual(
-          ['Paris', 'Lille'],
-        );
-      },
-    );
+    it('all location info is provided if detailed option is specified', async () => {
+      const { events } = await service('location').search(
+        {},
+        {},
+        { detailed: true },
+      );
+      expect(
+        _.uniq(events.filter((e) => e.location).map((e) => e.location.city)),
+      ).toEqual(['Paris', 'Lille']);
+    });
 
     it('city filter on "Paris"', async () => {
-      const { events } = await service('location').search({
-        city: 'Paris',
-      }, {}, { detailed: true });
-
-      expect(
-        _.uniq(events.map(e => e.location.city)),
-      ).toEqual(
-        ['Paris'],
+      const { events } = await service('location').search(
+        {
+          city: 'Paris',
+        },
+        {},
+        { detailed: true },
       );
+
+      expect(_.uniq(events.map((e) => e.location.city))).toEqual(['Paris']);
     });
 
     it('city filter on "Paris" includes fully pathed image in result with detailed & includeLocationImagePath options', async () => {
-      const { events } = await service('location').search({ locationUid: 1 }, {}, {
-        detailed: true,
-        includeLocationImagePath: true,
-      });
+      const { events } = await service('location').search(
+        { locationUid: 1 },
+        {},
+        {
+          detailed: true,
+          includeLocationImagePath: true,
+        },
+      );
 
-      expect(
-        events.filter(e => e.location?.image).pop().location.image,
-      ).toBe(
+      expect(events.filter((e) => e.location?.image).pop().location.image).toBe(
         'https://some.cdn/location123.jpg',
       );
     });
 
     it('adminLevel3 filter on "mel"', async () => {
-      const { events } = await service('location').search({
-        adminLevel3: 'mel',
-      }, {}, { detailed: true });
-
-      expect(
-        _.uniq(events.map(e => e.location.adminLevel3)),
-      ).toEqual(
-        ['mel'],
+      const { events } = await service('location').search(
+        {
+          adminLevel3: 'mel',
+        },
+        {},
+        { detailed: true },
       );
+
+      expect(_.uniq(events.map((e) => e.location.adminLevel3))).toEqual([
+        'mel',
+      ]);
     });
 
     it('adminLevel3 search on "mel"', async () => {
-      const { events } = await service('location').search({
-        search: 'mel',
-      }, {}, { detailed: true });
-
-      expect(
-        _.uniq(events.map(e => e.location.adminLevel3)),
-      ).toEqual(
-        ['mel'],
+      const { events } = await service('location').search(
+        {
+          search: 'mel',
+        },
+        {},
+        { detailed: true },
       );
+
+      expect(_.uniq(events.map((e) => e.location.adminLevel3))).toEqual([
+        'mel',
+      ]);
     });
 
     it('adminLevel5 filter on "2eme"', async () => {
-      const { events } = await service('location').search({
-        adminLevel5: '2eme',
-      }, {}, { detailed: true });
-
-      expect(
-        _.uniq(events.map(e => e.location.adminLevel5)),
-      ).toEqual(
-        ['2eme'],
+      const { events } = await service('location').search(
+        {
+          adminLevel5: '2eme',
+        },
+        {},
+        { detailed: true },
       );
+
+      expect(_.uniq(events.map((e) => e.location.adminLevel5))).toEqual([
+        '2eme',
+      ]);
     });
 
     it('adminLevel5 search on "2eme"', async () => {
-      const { events } = await service('location').search({
-        search: '2eme',
-      }, {}, { detailed: true });
-
-      expect(
-        _.uniq(events.map(e => e.location.adminLevel5)),
-      ).toEqual(
-        ['2eme'],
+      const { events } = await service('location').search(
+        {
+          search: '2eme',
+        },
+        {},
+        { detailed: true },
       );
+
+      expect(_.uniq(events.map((e) => e.location.adminLevel5))).toEqual([
+        '2eme',
+      ]);
     });
 
     it('filter on empty location data', async () => {
-      const { events } = await service('location').search({
-        city: 'null',
-      }, {}, {
-        detailed: true,
-      });
+      const { events } = await service('location').search(
+        {
+          city: 'null',
+        },
+        {},
+        {
+          detailed: true,
+        },
+      );
 
       expect(events.length).toBe(1);
       expect(events[0]?.location?.city).toBeUndefined();
     });
 
     it('filters on empty and non-empty location data', async () => {
-      const { events } = await service('location').search({
-        city: ['null', 'Paris'],
-      }, {}, {
-        detailed: true,
-      });
+      const { events } = await service('location').search(
+        {
+          city: ['null', 'Paris'],
+        },
+        {},
+        {
+          detailed: true,
+        },
+      );
 
-      expect(_.uniq(events.map(e => e?.location?.city))).toEqual(['Paris', undefined]);
+      expect(_.uniq(events.map((e) => e?.location?.city))).toEqual([
+        'Paris',
+        undefined,
+      ]);
     });
 
     it('filters on an additional field', async () => {
-      const { events: [event] } = await service('location').search({
-        'location.protections-appellation-et-labels': 41,
-      }, {
-      }, {
-        formSchema: eventFormSchemaWithLocationSchema,
-        detailed: true,
-      });
+      const {
+        events: [event],
+      } = await service('location').search(
+        {
+          'location.protections-appellation-et-labels': 41,
+        },
+        {},
+        {
+          formSchema: eventFormSchemaWithLocationSchema,
+          detailed: true,
+        },
+      );
 
       expect(event.uid).toBe(2);
 
-      expect(event.location['protections-appellation-et-labels'].includes(41)).toBe(true);
+      expect(
+        event.location['protections-appellation-et-labels'].includes(41),
+      ).toBe(true);
     });
 
     it('location additional field can be described using : as separator', async () => {
-      const { events: [event] } = await service('location').search({
-        'location:protections-appellation-et-labels': 41,
-      }, {
-      }, {
-        formSchema: eventFormSchemaWithLocationSchema,
-        detailed: true,
-      });
+      const {
+        events: [event],
+      } = await service('location').search(
+        {
+          'location:protections-appellation-et-labels': 41,
+        },
+        {},
+        {
+          formSchema: eventFormSchemaWithLocationSchema,
+          detailed: true,
+        },
+      );
 
       expect(event.uid).toBe(2);
     });
 
     it('filter on countryCode null', async () => {
-      const { events } = await service('location').search({
-        countryCode: ['null'],
-      }, {
-      }, {
-        detailed: true,
-      });
+      const { events } = await service('location').search(
+        {
+          countryCode: ['null'],
+        },
+        {},
+        {
+          detailed: true,
+        },
+      );
       expect(events.length).toBe(2);
     });
 
     it('filter on extId', async () => {
-      const { events: [event] } = await service('location').search({
-        locationExtId: '456',
-      }, { size: 1 }, { detailed: true });
+      const {
+        events: [event],
+      } = await service('location').search(
+        {
+          locationExtId: '456',
+        },
+        { size: 1 },
+        { detailed: true },
+      );
 
       expect(event.location.extId).toBe(456);
     });
@@ -199,9 +245,13 @@ describe('02 - event search - functional: location', () => {
 
   describe('aggregations', () => {
     it('adminLevel3 is a possible aggregation', async () => {
-      const { aggregations } = await service('location').search({
-        state: null,
-      }, {}, { detailed: true, aggregations: 'adminLevels3' });
+      const { aggregations } = await service('location').search(
+        {
+          state: null,
+        },
+        {},
+        { detailed: true, aggregations: 'adminLevels3' },
+      );
 
       expect(aggregations.adminLevels3).toEqual([
         { key: 'test', eventCount: 3 },
@@ -210,9 +260,13 @@ describe('02 - event search - functional: location', () => {
     });
 
     it('adminLevel5 is a possible aggregation', async () => {
-      const { aggregations } = await service('location').search({
-        state: null,
-      }, {}, { detailed: true, aggregations: 'adminLevels5' });
+      const { aggregations } = await service('location').search(
+        {
+          state: null,
+        },
+        {},
+        { detailed: true, aggregations: 'adminLevels5' },
+      );
 
       expect(aggregations.adminLevels5).toEqual([
         { key: '1er', eventCount: 1 },
@@ -221,9 +275,13 @@ describe('02 - event search - functional: location', () => {
     });
 
     it('countryCode is a possible aggregation', async () => {
-      const { aggregations } = await service('location').search({
-        state: null,
-      }, {}, { detailed: true, aggregations: 'countryCodes' });
+      const { aggregations } = await service('location').search(
+        {
+          state: null,
+        },
+        {},
+        { detailed: true, aggregations: 'countryCodes' },
+      );
 
       expect(aggregations.countryCodes).toEqual([
         { key: 'FR', eventCount: 2 },
@@ -232,14 +290,20 @@ describe('02 - event search - functional: location', () => {
     });
 
     it('missing option to count events without cities', async () => {
-      const { aggregations } = await service('location').search({}, {}, {
-        detailed: true,
-        aggregations: [{
-          key: 'littleFurryBunny',
-          type: 'cities',
-          missing: 'N/A',
-        }],
-      });
+      const { aggregations } = await service('location').search(
+        {},
+        {},
+        {
+          detailed: true,
+          aggregations: [
+            {
+              key: 'littleFurryBunny',
+              type: 'cities',
+              missing: 'N/A',
+            },
+          ],
+        },
+      );
 
       expect(aggregations).toEqual({
         littleFurryBunny: [
@@ -251,18 +315,24 @@ describe('02 - event search - functional: location', () => {
     });
 
     it('aggregations are possible on additional data', async () => {
-      const { aggregations } = await service('location').search({
-        state: null,
-      }, { size: 0 }, {
-        formSchema: eventFormSchemaWithLocationSchema,
-        detailed: true,
-        aggregations: [{
-          key: 'someLocationAdditionalField',
-          field: 'location.protections-appellation-et-labels',
-          type: 'additionalFields',
-          missing: 'N/A',
-        }],
-      });
+      const { aggregations } = await service('location').search(
+        {
+          state: null,
+        },
+        { size: 0 },
+        {
+          formSchema: eventFormSchemaWithLocationSchema,
+          detailed: true,
+          aggregations: [
+            {
+              key: 'someLocationAdditionalField',
+              field: 'location.protections-appellation-et-labels',
+              type: 'additionalFields',
+              missing: 'N/A',
+            },
+          ],
+        },
+      );
 
       expect(aggregations).toEqual({
         someLocationAdditionalField: [
@@ -285,49 +355,69 @@ describe('02 - event search - functional: location', () => {
     });
 
     it('aggregations are possible on additional data using : as separator', async () => {
-      const { aggregations } = await service('location').search({
-        state: null,
-      }, { size: 0 }, {
-        formSchema: eventFormSchemaWithLocationSchema,
-        detailed: true,
-        aggregations: [{
-          key: 'someLocationAdditionalField',
-          field: 'location:protections-appellation-et-labels',
-          type: 'additionalFields',
-          missing: 'N/A',
-        }],
-      });
+      const { aggregations } = await service('location').search(
+        {
+          state: null,
+        },
+        { size: 0 },
+        {
+          formSchema: eventFormSchemaWithLocationSchema,
+          detailed: true,
+          aggregations: [
+            {
+              key: 'someLocationAdditionalField',
+              field: 'location:protections-appellation-et-labels',
+              type: 'additionalFields',
+              missing: 'N/A',
+            },
+          ],
+        },
+      );
 
-      expect(aggregations.someLocationAdditionalField[0].value).toBe('maison-des-illustres');
+      expect(aggregations.someLocationAdditionalField[0].value).toBe(
+        'maison-des-illustres',
+      );
     });
 
     it('aggregations can be requested in their shortened format', async () => {
       const options = {
         formSchema: eventFormSchemaWithLocationSchema,
         detailed: true,
-        aggregations: [{
-          key: 'someLocationAdditionalField',
-          field: 'location:protections-appellation-et-labels',
-          type: 'additionalFields',
-          missing: 'N/A',
-        }],
+        aggregations: [
+          {
+            key: 'someLocationAdditionalField',
+            field: 'location:protections-appellation-et-labels',
+            type: 'additionalFields',
+            missing: 'N/A',
+          },
+        ],
       };
 
-      const { aggregations: aggs1 } = await service('location').search({
-        state: null,
-      }, { size: 0 }, options);
+      const { aggregations: aggs1 } = await service('location').search(
+        {
+          state: null,
+        },
+        { size: 0 },
+        options,
+      );
 
-      const { aggregations: aggs2 } = await service('location').search({
-        state: null,
-      }, { size: 0 }, {
-        ...options,
-        aggregations: [{
-          k: 'someLocationAdditionalField',
-          f: 'location.protections-appellation-et-labels',
-          t: 'af',
-          m: 'N/A',
-        }],
-      });
+      const { aggregations: aggs2 } = await service('location').search(
+        {
+          state: null,
+        },
+        { size: 0 },
+        {
+          ...options,
+          aggregations: [
+            {
+              k: 'someLocationAdditionalField',
+              f: 'location.protections-appellation-et-labels',
+              t: 'af',
+              m: 'N/A',
+            },
+          ],
+        },
+      );
 
       expect(aggs1).toEqual(aggs2);
     });

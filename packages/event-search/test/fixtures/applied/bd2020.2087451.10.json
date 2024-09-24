@@ -77,9 +77,7 @@
         "min": 0,
         "max": 121
       },
-      "registration": [
-        "http://www.lesprit-bd.com"
-      ],
+      "registration": ["http://www.lesprit-bd.com"],
       "location": {
         "uid": 21984635,
         "slug": "salle-des-catherinettes202",
@@ -113,9 +111,7 @@
       "tarif": "3 € ou 5 € le week-end",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -268,9 +264,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -416,9 +410,7 @@
       "tarif": "2,5 euros, gratuit pour les - 10 ans",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -583,9 +575,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "http://nuage-vert.com"
-      ],
+      "registration": ["http://nuage-vert.com"],
       "location": {
         "uid": 86582585,
         "slug": "nuage-vert-musee-mobile-vallee-de-la-dordogne",
@@ -619,9 +609,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -2186,9 +2174,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "jbbillieux@yahoo.fr"
-      ],
+      "registration": ["jbbillieux@yahoo.fr"],
       "location": {
         "uid": 63042516,
         "slug": "dolomieu",
@@ -2222,9 +2208,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -2367,9 +2351,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 630,
@@ -2512,9 +2494,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 630,
@@ -2657,9 +2637,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 630,
@@ -2854,9 +2832,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 630,
@@ -2972,9 +2948,7 @@
         "min": 14,
         "max": 99
       },
-      "registration": [
-        "bdchalonnesamateur@gmail.com"
-      ],
+      "registration": ["bdchalonnesamateur@gmail.com"],
       "location": {
         "uid": 40776800,
         "slug": "mediatheque-de-chalonnes-sur-loire",
@@ -3008,9 +2982,7 @@
       "tarif": "35 euros (hors repas et hébergement)",
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "CALONN'ANIM",
       "type-de-structure": 621,

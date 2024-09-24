@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  BadRequest,
-} = require('@openagenda/verror');
+const { BadRequest } = require('@openagenda/verror');
 
 const terms = require('./terms');
 const timestamp = require('./timestamp');
@@ -58,15 +56,17 @@ const aggregationTypes = {
 };
 
 function extractKeyAndType(requested) {
-  return typeof requested === 'string' ? {
-    key: requested,
-    type: requested,
-    requested,
-  } : {
-    key: requested.key || requested.type,
-    type: requested.type,
-    requested,
-  };
+  return typeof requested === 'string'
+    ? {
+      key: requested,
+      type: requested,
+      requested,
+    }
+    : {
+      key: requested.key || requested.type,
+      type: requested.type,
+      requested,
+    };
 }
 
 function getRequestedItemErrors(requestedAgg, index = null) {
@@ -95,10 +95,10 @@ function getValidationErrors(requested) {
 
   if (requested instanceof Array) {
     requested.forEach((item, index) => {
-      getRequestedItemErrors(item, index).forEach(e => errors.push(e));
+      getRequestedItemErrors(item, index).forEach((e) => errors.push(e));
     });
   } else {
-    getRequestedItemErrors(requested).forEach(e => errors.push(e));
+    getRequestedItemErrors(requested).forEach((e) => errors.push(e));
   }
 
   return errors;
@@ -116,42 +116,54 @@ module.exports = {
     const errors = getValidationErrors(requested);
 
     if (errors.length) {
-      throw new BadRequest({
-        info: { errors },
-      }, 'Invalid requested aggregations');
+      throw new BadRequest(
+        {
+          info: { errors },
+        },
+        'Invalid requested aggregations',
+      );
     }
 
     // here it is necessary to build an aggregation specifically for
     // empty values, when they are required (missing config on )
 
-    return [].concat(requested)
+    return []
+      .concat(requested)
       .map(extractKeyAndType)
-      .reduce((aggregationDSL, { key, type, requested: r }) => {
-        const formatDSL = aggregationTypes[type] && aggregationTypes[type].formatDSL;
+      .reduce(
+        (aggregationDSL, { key, type, requested: r }) => {
+          const formatDSL = aggregationTypes[type] && aggregationTypes[type].formatDSL;
 
-        if (typeof formatDSL !== 'function') {
-          throw new BadRequest({
-            info: { type },
-          }, 'Invalid requested aggregations: Unkown aggregation type');
-        }
+          if (typeof formatDSL !== 'function') {
+            throw new BadRequest(
+              {
+                info: { type },
+              },
+              'Invalid requested aggregations: Unkown aggregation type',
+            );
+          }
 
-        return {
-          ...aggregationDSL,
-          [key]: formatDSL(
-            query,
-            getOptions(r, options),
-          ),
-        };
-      }, missingAdditionalFields.formatDSL(requested, query, options));
+          return {
+            ...aggregationDSL,
+            [key]: formatDSL(query, getOptions(r, options)),
+          };
+        },
+        missingAdditionalFields.formatDSL(requested, query, options),
+      );
   },
-  formatResult: (requested, query, result, options = {}) => missingAdditionalFields.dispatchMissingCounts(
-    requested,
-    result,
-    requested
-      .map(extractKeyAndType)
-      .reduce((formatted, { key, type, requested: r }) => ({
-        ...formatted,
-        [key]: aggregationTypes[type].formatResult(result[key], { ...getOptions(r, options), query }),
-      }), {}),
-  ),
+  formatResult: (requested, query, result, options = {}) =>
+    missingAdditionalFields.dispatchMissingCounts(
+      requested,
+      result,
+      requested.map(extractKeyAndType).reduce(
+        (formatted, { key, type, requested: r }) => ({
+          ...formatted,
+          [key]: aggregationTypes[type].formatResult(result[key], {
+            ...getOptions(r, options),
+            query,
+          }),
+        }),
+        {},
+      ),
+    ),
 };

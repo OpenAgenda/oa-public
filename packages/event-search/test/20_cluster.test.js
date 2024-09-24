@@ -40,7 +40,9 @@ describe('20 - event-search - util: cluster', () => {
 
       await service.cluster.indices().replicas.set(indexReplicaCount + 1);
 
-      expect(await service.cluster.indices().replicas.get()).toBe(indexReplicaCount + 1);
+      expect(await service.cluster.indices().replicas.get()).toBe(
+        indexReplicaCount + 1,
+      );
     });
   });
 });

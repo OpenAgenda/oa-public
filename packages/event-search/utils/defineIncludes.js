@@ -3,9 +3,9 @@
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 
 function _keepHigherOrderIncludes(includes = []) {
-  const higherOrderIncludes = includes.filter(i => i.indexOf('.') === -1);
+  const higherOrderIncludes = includes.filter((i) => i.indexOf('.') === -1);
 
-  return includes.filter(include => {
+  return includes.filter((include) => {
     if (higherOrderIncludes.includes(include)) {
       return true;
     }
@@ -13,27 +13,24 @@ function _keepHigherOrderIncludes(includes = []) {
   });
 }
 
-module.exports = ({
-  baseSearchIncludes,
-  detailedSearchIncludes,
-  otherStandardFields,
-}, {
-  detailed,
-  formSchema,
-  access,
-  requested,
-}) => {
-  const additionalFields = formSchema ? getFormSchemaAdditionalFields(formSchema).map(f => f.field) : [];
-  const knownFields = baseSearchIncludes.concat(detailedSearchIncludes).concat(additionalFields).concat(otherStandardFields);
+module.exports = (
+  { baseSearchIncludes, detailedSearchIncludes, otherStandardFields },
+  { detailed, formSchema, access, requested },
+) => {
+  const additionalFields = formSchema
+    ? getFormSchemaAdditionalFields(formSchema).map((f) => f.field)
+    : [];
+  const knownFields = baseSearchIncludes
+    .concat(detailedSearchIncludes)
+    .concat(additionalFields)
+    .concat(otherStandardFields);
 
-  const includes = [].concat(
-    !requested ? baseSearchIncludes : [],
-  ).concat(
-    !requested && detailed ? detailedSearchIncludes : [],
-  ).concat(
-    requested || [],
-  ).concat(requested ? [] : additionalFields)
-    .map(field => ({
+  const includes = []
+    .concat(!requested ? baseSearchIncludes : [])
+    .concat(!requested && detailed ? detailedSearchIncludes : [])
+    .concat(requested || [])
+    .concat(requested ? [] : additionalFields)
+    .map((field) => ({
       field,
       higherOrderField: field.split('.').shift(),
       keep: knownFields.includes(field) ? field : null,
@@ -49,7 +46,7 @@ module.exports = ({
 
       return null;
     })
-    .filter(field => !!field);
+    .filter((field) => !!field);
 
   if (includes.includes('nextTiming')) {
     includes.push('timings');
@@ -59,12 +56,24 @@ module.exports = ({
     return _keepHigherOrderIncludes(includes);
   }
 
-  return _keepHigherOrderIncludes(includes.filter(fieldName => {
-    const formSchemaField = formSchema.fields.filter(f => f.field === fieldName).pop();
+  return _keepHigherOrderIncludes(
+    includes.filter((fieldName) => {
+      const formSchemaField = formSchema.fields
+        .filter((f) => f.field === fieldName)
+        .pop();
 
-    if (!formSchemaField && (baseSearchIncludes.includes(fieldName) || detailedSearchIncludes.includes(fieldName))) {
-      return true;
-    }
-    return !formSchemaField || !formSchemaField.read || formSchemaField.read.includes(access);
-  }));
+      if (
+        !formSchemaField
+        && (baseSearchIncludes.includes(fieldName)
+          || detailedSearchIncludes.includes(fieldName))
+      ) {
+        return true;
+      }
+      return (
+        !formSchemaField
+        || !formSchemaField.read
+        || formSchemaField.read.includes(access)
+      );
+    }),
+  );
 };

@@ -113,9 +113,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -397,12 +395,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -514,9 +508,7 @@
         "min": 7,
         "max": 77
       },
-      "registration": [
-        "http://www.bullesenloire.calonnanim.fr"
-      ],
+      "registration": ["http://www.bullesenloire.calonnanim.fr"],
       "location": {
         "uid": 2647342,
         "slug": "espace-layon",
@@ -550,9 +542,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -664,9 +654,7 @@
         "min": 5,
         "max": 99
       },
-      "registration": [
-        "http://mediatheques.fougeres-agglo.bzh"
-      ],
+      "registration": ["http://mediatheques.fougeres-agglo.bzh"],
       "location": {
         "uid": 54000321,
         "slug": "mediatheque-de-fougeres631",
@@ -700,9 +688,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque de Fougères",
       "type-de-structure": 623,
@@ -857,9 +843,7 @@
       "tarif": "10 € par jour - Gratuit pour les moins de 12 ans",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1313,9 +1297,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -1421,9 +1403,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "04 42 91 98 88"
-      ],
+      "registration": ["04 42 91 98 88"],
       "location": {
         "uid": 55194813,
         "slug": "bibliotheque-mejanes545",
@@ -1457,9 +1437,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
       "type-de-structure": 621,
@@ -1568,9 +1546,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "04 90 85 36 74"
-      ],
+      "registration": ["04 90 85 36 74"],
       "location": {
         "uid": 75653618,
         "slug": "librairie-la-crognotte-rieuse",
@@ -1604,9 +1580,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
       "type-de-structure": 621,
@@ -1715,9 +1689,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "04 92 31 50 19"
-      ],
+      "registration": ["04 92 31 50 19"],
       "location": {
         "uid": 51715448,
         "slug": "librairie-la-ruelle788",
@@ -1751,12 +1723,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -1864,9 +1832,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 90 85 15 59"
-      ],
+      "registration": ["04 90 85 15 59"],
       "location": {
         "uid": 37845579,
         "slug": "bibliotheque-ceccano213",
@@ -1900,12 +1866,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
       "type-de-structure": 621,
       "si-autre-precisez": null,

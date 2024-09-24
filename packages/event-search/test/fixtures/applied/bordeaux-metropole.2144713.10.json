@@ -99,14 +99,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 60,
-      "thematiques-bordeaux-metropole": [
-        40
-      ],
+      "thematiques-bordeaux-metropole": [40],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -152,10 +148,7 @@
         "fr": "Retrouvons nous à Bordeaux, le 4 février avec la maison de l'emploi pour un atelier \"comment financer sa micro-entreprise\""
       },
       "keywords": {
-        "fr": [
-          "entrepreneuriat",
-          "entreprendre"
-        ]
+        "fr": ["entrepreneuriat", "entreprendre"]
       },
       "conditions": {},
       "image": {
@@ -275,11 +268,7 @@
         "fr": "Du 3 au 7 février, l'Adie vous accompagne dans la construction et le financement de votre projet d'entreprise !\n\nFemmes, Jeunes, Seniors, des quartiers ou de la campagne, tout le monde, quel que soit son milieu, ses diplômes, son genre ou son âge, doit pouvoir accéder au financement et à l’accompagnement pour donner vie à son projet de création d’entreprise !\n\nPour informer les futurs entrepreneurs de tous horizons l’Adie et ses partenaires, organisent une semaine d’action avec chaque jour en Nouvelle-Aquitaine :\n\n• Des ateliers thématiques, des forums, des journées portes ouvertes, des cafés créateurs etc. partout en Nouvelle-Aquitaine\n\n• Des webconférences gratuites accessibles où que vous soyez !\n\nListe des évènements à venir sur www.adie.org/nos-ateliers/"
       },
       "keywords": {
-        "fr": [
-          "entrepreneuriat",
-          "entreprendre",
-          "création d'entreprise"
-        ]
+        "fr": ["entrepreneuriat", "entreprendre", "création d'entreprise"]
       },
       "conditions": {},
       "image": {
@@ -469,9 +458,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://inscription.bordeaux-metropole.fr/node/36/"
-      ],
+      "registration": ["https://inscription.bordeaux-metropole.fr/node/36/"],
       "location": {
         "uid": 51012460,
         "slug": "salle-du-point-du-jour",
@@ -499,14 +486,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 43,
-      "thematiques-bordeaux-metropole": [
-        40
-      ],
+      "thematiques-bordeaux-metropole": [40],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -552,11 +535,7 @@
         "fr": "iDi est une association qui a pour but de mettre en place des projets partagés de pratiques artistiques contemporaines. Elle propose de faire vivre et de transmettre la création numérique, autour du portrait et de l’image de soi.\n\nVous pourrez vous mettre en scène, seul ou à plusieurs, au sein d’un décor éphémère sur le thème du Brésil. Chaque participant pourra repartir avec sa photo imprimée. Un moment plein d’humour, de découverte, de rencontre et de création !\n\nSite web : [idi-asso.org](https://idi-asso.org)"
       },
       "keywords": {
-        "fr": [
-          "ateliers",
-          "photographie",
-          "creation"
-        ]
+        "fr": ["ateliers", "photographie", "creation"]
       },
       "conditions": {},
       "image": {
@@ -737,9 +716,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lettresdumonde33.com/"
-      ],
+      "registration": ["https://lettresdumonde33.com/"],
       "location": {
         "uid": 8150947,
         "slug": "archives-bordeaux-metropole834",
@@ -930,11 +907,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "maquillage",
-          "enfant",
-          "fête"
-        ]
+        "fr": ["maquillage", "enfant", "fête"]
       },
       "conditions": {},
       "image": {
@@ -1243,19 +1216,13 @@
         "extId": null
       },
       "custom_description": "La Boîte à Jouer a le plaisir de vous annoncer son festival « Les Grenadines Givrées » qui aura lieu à la Salle des Fêtes du Grand Parc du 22 au 29 février. Pendant la première semaine des vacances d’hiver, venez découvrir des spectacles variés qui s’adressent à tout le monde, petits et grands ! \n\nThéâtre, danse, musique, conte, marionnette… des ateliers et un bal qui se regroupent autour d’une même envie : vous rassembler pour partager un bon moment !\n\nPetit bonus avec la halte-garderie culturelle « Les P’tits Couch’tard » du Collectif Bordonor : 2 spectacles ont lieu en même temps, dans le même lieu, un pour les grands et un pour les bébés. Des animateurs professionnels sont là pour s’occuper des plus petits. \n\nEt on clôture les festivités avec un apéro-concert gratuit ! \n\nCôté pratique : 5€ pour tout le monde / Pour les bébés de -1 an : 2€ / Pour les familles nombreuses : 2€ à partir du 4ème enfant.\nCarte Jeune : 1 place achetée = 1 place offerte.\nPour les groupes et structures : contactez-nous.\nPaiement sur place avant le spectacle.\nModes de paiement : chèque, espèces ou carte bleue.\nCertains spectacles sont accessibles aux malvoyants et aux malentendants.  \nVous pouvez retrouver l’ensemble des spectacles sur notre site internet : www.laboiteajouer.com\nPensez à réserver au 06 14 36 47 92 ou bien sur reservation@laboiteajouer.com",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1366,9 +1333,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/volbeat/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/volbeat/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1398,18 +1363,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

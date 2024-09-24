@@ -7,7 +7,7 @@ module.exports = function injectDefaultImage({ defaultImage }, event) {
     return event;
   }
 
-  return produce(event, draft => {
+  return produce(event, (draft) => {
     draft.image = defaultImage;
-  })
-}
+  });
+};

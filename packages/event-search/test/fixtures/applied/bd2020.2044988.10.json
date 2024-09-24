@@ -70,9 +70,7 @@
         "min": 15,
         "max": 99
       },
-      "registration": [
-        "0143863783"
-      ],
+      "registration": ["0143863783"],
       "location": {
         "uid": 12029125,
         "slug": "bibliotheque-municipale-de-valenton",
@@ -106,9 +104,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -225,9 +221,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "http://www.bdcolomiers.com"
-      ],
+      "registration": ["http://www.bdcolomiers.com"],
       "location": {
         "uid": 99094900,
         "slug": "ville-de-colomiers",
@@ -261,9 +255,7 @@
       "tarif": "3 € ( Gratuit pour les moins de 18 ans, étudiants et porteurs de la carte Pastel Tisséo)",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -442,9 +434,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 630,
@@ -557,9 +547,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "festivaltousenbd@gmail.com"
-      ],
+      "registration": ["festivaltousenbd@gmail.com"],
       "location": {
         "uid": 20454432,
         "slug": "saint-beauzire",
@@ -593,9 +581,7 @@
       "tarif": "3 euros les 2 jours",
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -746,17 +732,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Association BD&VIN",
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "82110095500011",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -849,10 +831,7 @@
         "min": 5,
         "max": 99
       },
-      "registration": [
-        "autourdelabd@orange.fr",
-        "06 66 06 75 94"
-      ],
+      "registration": ["autourdelabd@orange.fr", "06 66 06 75 94"],
       "location": {
         "uid": 59425285,
         "slug": "parc-de-la-navale-83500-la-seyne-sur-mer",
@@ -886,17 +865,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": "commune de La Seyne-sur-Mer",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "509 841 201 00031",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1007,10 +982,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://bd6ne.blogspot.com/",
-        "festivalbd6ne@gmail.com"
-      ],
+      "registration": ["http://bd6ne.blogspot.com/", "festivalbd6ne@gmail.com"],
       "location": {
         "uid": 77858632,
         "slug": "mediatheque-marguerite-duras470",
@@ -1044,9 +1016,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1200,9 +1170,7 @@
       "tarif": "4 € la journée, 6 € le week-end",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1528,9 +1496,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Association Festival BD de Perros-Guirec pour le 27ème Festival BD de Perros-Guirec",
       "type-de-structure": 621,
@@ -1681,9 +1647,7 @@
       "tarif": "2 €",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,

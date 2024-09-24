@@ -15,11 +15,7 @@
         "fr": "Les Archives Bordeaux Métropole proposent un programme de conférences en partenariat avec des associations culturelles. Ces rencontres avec des intervenants experts traitent de différents sujets historiques en lien avec les fonds conservés.\n\nAgenda des conférences 2020\n\n\\> Mardi 11 février, 19h\n\n« Origine et construction des boulevards de Bordeaux »\n\nPar Marietta Dromain, docteur en archéologie\n\nEn partenariat avec l’association Tout Art faire\n\n\\> Jeudi 20 février, 18h\n\n« Géothermie : retour aux sources du territoire »\n\nPar Jérôme Barrière, chef de projet hydrogéologue au BRGM (Bureau de recherches géologiques et minières)\n\nConférence de La Mémoire de Bordeaux Métropole\n\n\\> Mardi 10 mars, 19h\n\n« Le monstre au Moyen Âge »\n\nPar Lucie Blanchard, historienne de l’art\n\nEn partenariat avec l’association Tout Art faire\n\n\\> Jeudi 26 mars, 18h\n\n« Les garages automobiles disparus »\n\nPar Frederick Llorens, président de la commission Automobile de La Mémoire de Bordeaux Métropole\n\nConférence de La Mémoire de Bordeaux Métropole\n\n\\> Mardi 31 mars, 19h\n\n« #fibre(S)ciment.com. 120 ans d’histoire d’une industrie »\n\nPar Jacques Roulland, auteur d’une histoire de l’industrie du fibre ciment depuis son invention en passant par la crise de l’amiante et son renouveau technologique aujourd’hui.\n\nPrésentation de l’ouvrage publié aux éditions\n\nMaïa suivie d’une séance de dédicace.\n\n\\> Mardi 14 avril, 19h\n\n« Les Jardins bordelais au XIXe siècle »\n\nPar Maria Paleolog, historienne de l’art\n\nEn partenariat avec l’association Tout Art faire\n\n\\> Jeudi 16 avril, 18h\n\n« Histoire d’une famille juive bordelaise : les Alitenssi - Naquet (de 1650 à nos jours) »\n\nPar Michel Alitenssi, membre de la commission religieuse de La Mémoire de Bordeaux Métropole\n\nConférence de La Mémoire de Bordeaux Métropole\n\n\\> Mardi 12 mai, 19h\n\n« Histoire et mutation du quartier de la Bastide »\n\nPar Audrey Dubernet, docteur en histoire de l’art\n\nEn partenariat avec l’association Tout Art faire\n\n\\> Jeudi 28 mai, 18h\n\n« Histoire de l’aéroport de Mérignac de 1910 aux années 1960 »\n\nPar Daniel Jousse et Gérard Taillandier, contrôleurs aériens e. r., responsables du groupe contrôle de La Mémoire Bordeaux Métropole.\n\nConférence de La Mémoire de Bordeaux Métropole.\n\n\\> Mardi 9 juin, 19h\n\n« Les bals publics à Bordeaux »\n\nPar Fabienne Labat, guide conférencière\n\n\\> Jeudi 25 juin, 18h\n\n« Les médecins du sport »\n\nPar Jean-Paul Callede, sociologue à la Maison des Sciences de l’Homme d’Aquitaine\n\nConférence de La Mémoire de Bordeaux Métropole\n\n\\> Mardi 13 octobre, 19h\n\n« Le Vandalisme : disparition ou évolution du patrimoine »\n\nPar Elody Poisson, historienne de l’art\n\nEn partenariat avec l’association Tout Art faire\n\n\\> Mardi 10 novembre, 19h\n\n« Chartreuses et vignobles de Mérignac, la vie à la campagne de l’élite bordelaise à l’époque moderne »\n\nPar Floriane Retours, guide conférencière\n\nEn partenariat avec l’association Tout Art faire\n\n\\> Mardi 8 décembre, 19h\n\n« Passion généalogie »\n\nPar Maïté Barbe, secrétaire générale du centre généalogique du Sud-Ouest\n\nEn partenariat avec le centre généalogique du Sud-Ouest\n\nEntrée libre et gratuite excepté pour les conférences en partenariat avec l’association Tout art faire : réservation en ligne [http://toutartfaire.com/](http://toutartfaire.com/)"
       },
       "keywords": {
-        "fr": [
-          "archives",
-          "histoire",
-          "conférences"
-        ]
+        "fr": ["archives", "histoire", "conférences"]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite"
@@ -161,17 +157,13 @@
         "imageCredits": "© Archives Bordeaux Métropole, photo  Bernard Rakotomanga"
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        70173944
-      ],
+      "sourcePaths": [70173944],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -314,18 +306,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -450,9 +437,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/cali/04.2020.php"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/cali/04.2020.php"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -482,18 +467,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -617,9 +597,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/ali.amran/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/ali.amran/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -649,18 +627,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -784,9 +757,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/daara.j.family/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/daara.j.family/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -816,18 +787,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -984,18 +950,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1153,18 +1114,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1321,18 +1277,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1457,9 +1408,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/meshuggah/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/meshuggah/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1489,18 +1438,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1656,18 +1600,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

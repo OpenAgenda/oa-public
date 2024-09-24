@@ -2,10 +2,7 @@
 
 module.exports = (includes = null) => {
   const source = {
-    excludes: [
-      '_*',
-      'timings._*',
-    ],
+    excludes: ['_*', 'timings._*'],
   };
 
   if (includes === null) {

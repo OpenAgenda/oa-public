@@ -48,16 +48,22 @@ describe('event-search - unit: utils', () => {
       };
 
       const { nextTiming, lastTiming } = appendFirstNextAndLastTiming({
-        timings: [{
-          begin: dateStrFromNow(-2),
-          end: dateStrFromNow(-2),
-        }, {
-          begin: dateStrFromNow(-1),
-          end: dateStrFromNow(-1),
-        }, next, {
-          begin: dateStrFromNow(2),
-          end: dateStrFromNow(2),
-        }, last],
+        timings: [
+          {
+            begin: dateStrFromNow(-2),
+            end: dateStrFromNow(-2),
+          },
+          {
+            begin: dateStrFromNow(-1),
+            end: dateStrFromNow(-1),
+          },
+          next,
+          {
+            begin: dateStrFromNow(2),
+            end: dateStrFromNow(2),
+          },
+          last,
+        ],
       });
 
       expect(nextTiming).toEqual(next);
@@ -84,27 +90,32 @@ describe('event-search - unit: utils', () => {
       });
     });
 
-    it(
-      'returns object with specified fields set from multilingual to monolingual',
-      () => {
-        const h = monolingual.bind(null, ['title', 'description', 'registration'], 'fr');
+    it('returns object with specified fields set from multilingual to monolingual', () => {
+      const h = monolingual.bind(
+        null,
+        ['title', 'description', 'registration'],
+        'fr',
+      );
 
-        const result = h({
-          title: { fr: 'Gros', en: 'Fat' },
-          description: { fr: 'Bonjour', en: 'Hello' },
-          registration: null,
-        });
+      const result = h({
+        title: { fr: 'Gros', en: 'Fat' },
+        description: { fr: 'Bonjour', en: 'Hello' },
+        registration: null,
+      });
 
-        expect(result).toEqual({
-          title: 'Gros',
-          description: 'Bonjour',
-          registration: null,
-        });
-      },
-    );
+      expect(result).toEqual({
+        title: 'Gros',
+        description: 'Bonjour',
+        registration: null,
+      });
+    });
 
     it('following languages are considered as fallback languages', () => {
-      const h = monolingual.bind(null, ['title', 'description', 'registration'], ['es', 'en']);
+      const h = monolingual.bind(
+        null,
+        ['title', 'description', 'registration'],
+        ['es', 'en'],
+      );
 
       const result = h({
         title: {
@@ -127,9 +138,11 @@ describe('event-search - unit: utils', () => {
     it('unset field is ignored', () => {
       const h = monolingual.bind(null, ['title', 'description'], ['es', 'en']);
 
-      expect(h({
-        title: { es: 'La luna llena' },
-      })).toEqual({
+      expect(
+        h({
+          title: { es: 'La luna llena' },
+        }),
+      ).toEqual({
         title: 'La luna llena',
       });
     });
@@ -137,146 +150,158 @@ describe('event-search - unit: utils', () => {
 
   describe('includeLabelsInEvent', () => {
     it('replaces option id with label/id pairs', () => {
-      const event = includeLabelsInEvent({ formSchema: fx.formSchema }, fx.multilingualLabelledEvent);
-
-      expect(
-        event['categories-agenda-metropolitain'],
-      ).toEqual(
-        {
-          id: 53,
-          label: { fr: 'Fête - Festival' },
-        },
+      const event = includeLabelsInEvent(
+        { formSchema: fx.formSchema },
+        fx.multilingualLabelledEvent,
       );
+
+      expect(event['categories-agenda-metropolitain']).toEqual({
+        id: 53,
+        label: { fr: 'Fête - Festival' },
+      });
     });
 
-    it(
-      'if monolingual option is specified, labels are flattened to requested lang when possible',
-      () => {
-        const event = includeLabelsInEvent({
+    it('if monolingual option is specified, labels are flattened to requested lang when possible', () => {
+      const event = includeLabelsInEvent(
+        {
           formSchema: fx.formSchema,
           monolingual: 'fr',
-        }, fx.multilingualLabelledEvent);
+        },
+        fx.multilingualLabelledEvent,
+      );
 
-        expect(
-          event['categories-agenda-metropolitain'],
-        ).toEqual(
-          {
-            id: 53,
-            label: 'Fête - Festival',
-          },
-        );
-      },
-    );
+      expect(event['categories-agenda-metropolitain']).toEqual({
+        id: 53,
+        label: 'Fête - Festival',
+      });
+    });
 
-    it(
-      'if monolingual option is specified but corresponding label is not multilingual, available label is provided',
-      () => {
-        const event = includeLabelsInEvent({
+    it('if monolingual option is specified but corresponding label is not multilingual, available label is provided', () => {
+      const event = includeLabelsInEvent(
+        {
           formSchema: {
-            fields: [{
-              field: 'categories',
-              options: [{
-                id: 1,
-                label: 'Spectacle',
-              }],
-            }],
+            fields: [
+              {
+                field: 'categories',
+                options: [
+                  {
+                    id: 1,
+                    label: 'Spectacle',
+                  },
+                ],
+              },
+            ],
           },
           monolingual: 'fr',
-        }, {
+        },
+        {
           categories: [1],
-        });
+        },
+      );
 
-        expect(
-          event.categories,
-        ).toEqual(
-          [{
-            id: 1,
-            label: 'Spectacle',
-          }],
-        );
-      },
-    );
-
-    it(
-      'if monolingual option is specified but corresponding label does not include corresponding language, available label is provided',
-      () => {
-        const event = includeLabelsInEvent({
-          formSchema: {
-            fields: [{
-              field: 'categories',
-              options: [{
-                id: 1,
-                label: {
-                  en: 'Spectacle',
-                },
-              }],
-            }],
-          },
-          monolingual: 'fr',
-        }, {
-          categories: 1,
-        });
-
-        expect(event.categories).toEqual({
+      expect(event.categories).toEqual([
+        {
           id: 1,
           label: 'Spectacle',
-        });
-      },
-    );
+        },
+      ]);
+    });
+
+    it('if monolingual option is specified but corresponding label does not include corresponding language, available label is provided', () => {
+      const event = includeLabelsInEvent(
+        {
+          formSchema: {
+            fields: [
+              {
+                field: 'categories',
+                options: [
+                  {
+                    id: 1,
+                    label: {
+                      en: 'Spectacle',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          monolingual: 'fr',
+        },
+        {
+          categories: 1,
+        },
+      );
+
+      expect(event.categories).toEqual({
+        id: 1,
+        label: 'Spectacle',
+      });
+    });
   });
 
   describe('convertToLocalTimezone', () => {
-    it(
-      'when timings and local timezone are available in event, timings are converted',
-      () => {
-        expect(convertToLocalTimezone({
-          timings: [{
-            begin: '2016-10-24T12:00:00.000Z',
-            end: '2016-10-24T13:00:00.000Z',
-          }],
+    it('when timings and local timezone are available in event, timings are converted', () => {
+      expect(
+        convertToLocalTimezone({
+          timings: [
+            {
+              begin: '2016-10-24T12:00:00.000Z',
+              end: '2016-10-24T13:00:00.000Z',
+            },
+          ],
           timezone: 'Europe/Paris',
-        })).toEqual({
-          timings: [{
+        }),
+      ).toEqual({
+        timings: [
+          {
             begin: '2016-10-24T14:00:00+02:00',
             end: '2016-10-24T15:00:00+02:00',
-          }],
-          timezone: 'Europe/Paris',
-        });
-      },
-    );
+          },
+        ],
+        timezone: 'Europe/Paris',
+      });
+    });
   });
 
   describe('preCleanRawQuery', () => {
     it('converts state to numbers when strings are provided', () => {
-      expect(preCleanRawQuery({
-        state: ['1', '0'],
-      })).toEqual({
+      expect(
+        preCleanRawQuery({
+          state: ['1', '0'],
+        }),
+      ).toEqual({
         state: [1, 0],
       });
     });
 
     it('converts empty string given in uid list into -1', () => {
-      expect(preCleanRawQuery({
-        uid: [''],
-      })).toEqual({ uid: [-1] });
+      expect(
+        preCleanRawQuery({
+          uid: [''],
+        }),
+      ).toEqual({ uid: [-1] });
     });
 
     it('converts object of uids into list', () => {
-      expect(preCleanRawQuery({
-        uid: {
-          0: '456',
-          1: '789',
-        },
-      })).toEqual({ uid: [456, 789] });
+      expect(
+        preCleanRawQuery({
+          uid: {
+            0: '456',
+            1: '789',
+          },
+        }),
+      ).toEqual({ uid: [456, 789] });
     });
 
     it('replaces date with timings', () => {
-      expect(preCleanRawQuery({
-        city: 'Courbevoie',
-        date: {
-          gte: '2020-11-03',
-        },
-      })).toEqual({
+      expect(
+        preCleanRawQuery({
+          city: 'Courbevoie',
+          date: {
+            gte: '2020-11-03',
+          },
+        }),
+      ).toEqual({
         city: 'Courbevoie',
         timings: {
           gte: '2020-11-03',
@@ -291,47 +316,52 @@ describe('event-search - unit: utils', () => {
       const DSLSortPart = getDSLSortPart();
 
       expect(
-        DSLSortPart[0]['_sort_timings.begin'].nested.filter.range['_sort_timings.accessible_until'].gte - now,
+        DSLSortPart[0]['_sort_timings.begin'].nested.filter.range[
+          '_sort_timings.accessible_until'
+        ].gte - now,
       ).toBeLessThan(10);
 
-      DSLSortPart[0]['_sort_timings.begin'].nested.filter.range['_sort_timings.accessible_until'].gte = 'now';
+      DSLSortPart[0]['_sort_timings.begin'].nested.filter.range[
+        '_sort_timings.accessible_until'
+      ].gte = 'now';
 
-      expect(
-        DSLSortPart,
-      ).toEqual([{
-        '_sort_timings.begin': {
-          mode: 'min',
-          order: 'asc',
-          nested: {
-            path: '_sort_timings',
-            filter: {
-              range: {
-                '_sort_timings.accessible_until': {
-                  gte: 'now', // should be a date but shifts a bit if test takes time
+      expect(DSLSortPart).toEqual([
+        {
+          '_sort_timings.begin': {
+            mode: 'min',
+            order: 'asc',
+            nested: {
+              path: '_sort_timings',
+              filter: {
+                range: {
+                  '_sort_timings.accessible_until': {
+                    gte: 'now', // should be a date but shifts a bit if test takes time
+                  },
                 },
               },
             },
           },
         },
-      }, {
-        _search_last_timing: { order: 'desc' },
-      }, {
-        uid: { order: 'asc' },
-      }]);
+        {
+          _search_last_timing: { order: 'desc' },
+        },
+        {
+          uid: { order: 'asc' },
+        },
+      ]);
     });
 
     it('sort can be on a mapped field', () => {
-      expect(
-        getDSLSortPart({ sort: 'featured.desc' }),
-      ).toEqual(
-        [{
+      expect(getDSLSortPart({ sort: 'featured.desc' })).toEqual([
+        {
           featured: 'desc',
-        }, {
+        },
+        {
           uid: {
             order: 'asc',
           },
-        }],
-      );
+        },
+      ]);
     });
 
     it('sort can be on multiple mapped fields', () => {
@@ -339,21 +369,26 @@ describe('event-search - unit: utils', () => {
         getDSLSortPart({
           sort: ['featured.desc', 'updatedAt.asc'],
         }),
-      ).toEqual(
-        [{
+      ).toEqual([
+        {
           featured: 'desc',
-        }, {
+        },
+        {
           updatedAt: 'asc',
-        }, {
+        },
+        {
           uid: {
             order: 'asc',
           },
-        }],
-      );
+        },
+      ]);
     });
 
     it('if sort is by score, score and uid are defined in DSL', () => {
-      expect(getDSLSortPart({ sort: 'score' })).toEqual(['_score', { uid: { order: 'asc' } }]);
+      expect(getDSLSortPart({ sort: 'score' })).toEqual([
+        '_score',
+        { uid: { order: 'asc' } },
+      ]);
     });
   });
 
@@ -373,16 +408,21 @@ describe('event-search - unit: utils', () => {
     it('throws BadRequest if from+size exceeds provided max', () => {
       let error;
       try {
-        validateNav({
-          from: 10,
-          size: 10,
-        }, { maxResultWindow: 19 });
+        validateNav(
+          {
+            from: 10,
+            size: 10,
+          },
+          { maxResultWindow: 19 },
+        );
       } catch (e) {
         error = e;
       }
 
       expect(error.name).toBe('BadRequest');
-      expect(error.message).toBe('from + size cannot exceed 19. Use "after" navigation for better performance.');
+      expect(error.message).toBe(
+        'from + size cannot exceed 19. Use "after" navigation for better performance.',
+      );
     });
 
     it('throws BadRequest if after provided and from is set and greater than 0', () => {
@@ -397,7 +437,9 @@ describe('event-search - unit: utils', () => {
       }
 
       expect(error.name).toBe('BadRequest');
-      expect(error.message).toBe('from and after cannot be used simultaneously');
+      expect(error.message).toBe(
+        'from and after cannot be used simultaneously',
+      );
     });
   });
 
@@ -405,9 +447,12 @@ describe('event-search - unit: utils', () => {
     it('throws error when slug is empty string', () => {
       let error;
       try {
-        validateQuery({
-          slug: [''],
-        }, {});
+        validateQuery(
+          {
+            slug: [''],
+          },
+          {},
+        );
       } catch (e) {
         error = e;
       }
@@ -422,9 +467,12 @@ describe('event-search - unit: utils', () => {
 
   describe('cleanRequestedAggregation', () => {
     it('af is additionalFields', () => {
-      const clean = cleanRequestedAggregation({}, {
-        type: 'af',
-      });
+      const clean = cleanRequestedAggregation(
+        {},
+        {
+          type: 'af',
+        },
+      );
 
       expect(clean).toEqual({
         type: 'additionalFields',
@@ -432,9 +480,12 @@ describe('event-search - unit: utils', () => {
     });
 
     it('t is type', () => {
-      const clean = cleanRequestedAggregation({}, {
-        t: 'af',
-      });
+      const clean = cleanRequestedAggregation(
+        {},
+        {
+          t: 'af',
+        },
+      );
 
       expect(clean).toEqual({
         type: 'additionalFields',
@@ -443,9 +494,12 @@ describe('event-search - unit: utils', () => {
 
     it('s is size', () => {
       expect(
-        cleanRequestedAggregation({}, {
-          s: 2000,
-        }),
+        cleanRequestedAggregation(
+          {},
+          {
+            s: 2000,
+          },
+        ),
       ).toEqual({
         size: 2000,
       });
@@ -453,10 +507,13 @@ describe('event-search - unit: utils', () => {
 
     it('k is key, f is field', () => {
       expect(
-        cleanRequestedAggregation({}, {
-          k: 'keyword',
-          f: 'keyword',
-        }),
+        cleanRequestedAggregation(
+          {},
+          {
+            k: 'keyword',
+            f: 'keyword',
+          },
+        ),
       ).toEqual({
         key: 'keyword',
         field: 'keyword',
@@ -465,9 +522,12 @@ describe('event-search - unit: utils', () => {
 
     it('m is missing', () => {
       expect(
-        cleanRequestedAggregation({}, {
-          m: 'N/A',
-        }),
+        cleanRequestedAggregation(
+          {},
+          {
+            m: 'N/A',
+          },
+        ),
       ).toEqual({
         missing: 'N/A',
       });
@@ -475,10 +535,13 @@ describe('event-search - unit: utils', () => {
 
     it('if aggsSizeLimit is provided, size limit is added to aggregation', () => {
       expect(
-        cleanRequestedAggregation({ aggsSizeLimit: 1000 }, {
-          k: 'locations',
-          m: 'N/A',
-        }),
+        cleanRequestedAggregation(
+          { aggsSizeLimit: 1000 },
+          {
+            k: 'locations',
+            m: 'N/A',
+          },
+        ),
       ).toEqual({
         key: 'locations',
         size: 1000,

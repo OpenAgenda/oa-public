@@ -69,10 +69,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "05 56 84 78 90",
-        "mediatheque@talence.fr"
-      ],
+      "registration": ["05 56 84 78 90", "mediatheque@talence.fr"],
       "location": {
         "uid": 86011856,
         "slug": "mediatheque-castagnera",
@@ -324,9 +321,7 @@
         "min": 5,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -355,9 +350,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -454,9 +447,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -485,9 +476,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -615,9 +604,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -743,9 +730,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -931,9 +916,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1052,9 +1035,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "mediation.archimuse@gmail.com"
-      ],
+      "registration": ["mediation.archimuse@gmail.com"],
       "location": {
         "uid": 49998280,
         "slug": "abbaye-de-la-sauve-majeure634",
@@ -1081,10 +1062,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9,
-        25
-      ],
+      "thematiques-bordeaux-metropole": [9, 25],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1208,9 +1186,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "mediation.archimuse@gmail.com"
-      ],
+      "registration": ["mediation.archimuse@gmail.com"],
       "location": {
         "uid": 49998280,
         "slug": "abbaye-de-la-sauve-majeure634",
@@ -1237,10 +1213,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9,
-        25
-      ],
+      "thematiques-bordeaux-metropole": [9, 25],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1339,9 +1312,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -1370,9 +1341,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],

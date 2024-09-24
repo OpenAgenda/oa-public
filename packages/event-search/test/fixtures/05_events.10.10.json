@@ -139,14 +139,8 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "en": [
-          "key",
-          "word"
-        ],
-        "fr": [
-          "mot",
-          "clé"
-        ]
+        "en": ["key", "word"],
+        "fr": ["mot", "clé"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -207,14 +201,8 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "en": [
-          "other",
-          "keyword"
-        ],
-        "fr": [
-          "autre",
-          "clé"
-        ]
+        "en": ["other", "keyword"],
+        "fr": ["autre", "clé"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -275,9 +263,7 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "fr": [
-          "local_time"
-        ]
+        "fr": ["local_time"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -334,9 +320,7 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "fr": [
-          "local_time"
-        ]
+        "fr": ["local_time"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -393,14 +377,8 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "en": [
-          "toasty",
-          "psycho"
-        ],
-        "fr": [
-          "sleepy",
-          "grumpy"
-        ]
+        "en": ["toasty", "psycho"],
+        "fr": ["sleepy", "grumpy"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -461,14 +439,8 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "en": [
-          "scorbut",
-          "ear"
-        ],
-        "fr": [
-          "phone",
-          "teapot"
-        ]
+        "en": ["scorbut", "ear"],
+        "fr": ["phone", "teapot"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",
@@ -529,14 +501,8 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "en": [
-          "freckles",
-          "mississipi chose"
-        ],
-        "fr": [
-          "jesus",
-          "blob"
-        ]
+        "en": ["freckles", "mississipi chose"],
+        "fr": ["jesus", "blob"]
       },
       "location": {
         "address": "29 passage du Ponceau, Paris",

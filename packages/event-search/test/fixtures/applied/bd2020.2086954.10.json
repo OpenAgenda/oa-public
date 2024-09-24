@@ -18,11 +18,7 @@
         "en": "Comic Book Hijacking: It’s up to you to make your favorite comic book characters talk. From 12 years old"
       },
       "keywords": {
-        "fr": [
-          "bd",
-          "bande dessinée",
-          "personnages"
-        ]
+        "fr": ["bd", "bande dessinée", "personnages"]
       },
       "conditions": {
         "fr": "Dans la limite des places disponibles.",
@@ -116,12 +112,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -339,9 +331,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -457,10 +447,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "0247952009",
-        "biblio-bouchardais@cc-tvv.fr"
-      ],
+      "registration": ["0247952009", "biblio-bouchardais@cc-tvv.fr"],
       "location": {
         "uid": 64804994,
         "slug": "college-andre-duchesne915",
@@ -494,9 +481,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -612,10 +597,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "0247952009",
-        "biblio-bouchardais@cc-tvv.fr"
-      ],
+      "registration": ["0247952009", "biblio-bouchardais@cc-tvv.fr"],
       "location": {
         "uid": 84770565,
         "slug": "le-cube236",
@@ -650,9 +632,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -764,9 +744,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://mediatheques.saintgermainenlaye.fr"
-      ],
+      "registration": ["http://mediatheques.saintgermainenlaye.fr"],
       "location": {
         "uid": 39582956,
         "slug": "mediatheque-du-jardin-des-arts-saint-germain-en-laye",
@@ -800,9 +778,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -894,9 +870,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://mediatheques.saintgermainenlaye.fr"
-      ],
+      "registration": ["http://mediatheques.saintgermainenlaye.fr"],
       "location": {
         "uid": 39582956,
         "slug": "mediatheque-du-jardin-des-arts-saint-germain-en-laye",
@@ -930,12 +904,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -2329,12 +2299,8 @@
       "tarif": "4,50 à 6,50€",
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        617
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [617],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
       "si-autre-precisez": null,
@@ -2479,9 +2445,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2709,9 +2673,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://mediatheques.saintgermainenlaye.fr"
-      ],
+      "registration": ["http://mediatheques.saintgermainenlaye.fr"],
       "location": {
         "uid": 42277361,
         "slug": "mediatheque-george-sand-saint-germain-en-laye",
@@ -2745,9 +2707,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -3026,9 +2986,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

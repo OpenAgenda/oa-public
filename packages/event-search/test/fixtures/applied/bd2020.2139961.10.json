@@ -70,9 +70,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "entraitslibres@gmail.com"
-      ],
+      "registration": ["entraitslibres@gmail.com"],
       "location": {
         "uid": 13319566,
         "slug": "en-traits-libres",
@@ -106,9 +104,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -251,9 +247,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -365,9 +359,7 @@
         "min": 11,
         "max": 17
       },
-      "registration": [
-        "04 74 42 47 01"
-      ],
+      "registration": ["04 74 42 47 01"],
       "location": {
         "uid": 64672123,
         "slug": "mediatheque-albert-camus842",
@@ -401,9 +393,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -515,9 +505,7 @@
         "min": 11,
         "max": 17
       },
-      "registration": [
-        "04.74.42.47.01"
-      ],
+      "registration": ["04.74.42.47.01"],
       "location": {
         "uid": 64672123,
         "slug": "mediatheque-albert-camus842",
@@ -551,9 +539,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -665,10 +651,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "dedicace@librairiematieregrise.fr",
-        "01.46.89.71.49"
-      ],
+      "registration": ["dedicace@librairiematieregrise.fr", "01.46.89.71.49"],
       "location": {
         "uid": 50182095,
         "slug": "librairie-matiere-grise",
@@ -702,9 +685,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -816,10 +797,7 @@
         "min": 6,
         "max": 9
       },
-      "registration": [
-        "0384478550",
-        "http://4c-lons.ecla-jura.fr"
-      ],
+      "registration": ["0384478550", "http://4c-lons.ecla-jura.fr"],
       "location": {
         "uid": 8085326,
         "slug": "mediatheque-des-4c-lons-le-saunier",
@@ -853,9 +831,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -967,10 +943,7 @@
         "min": 9,
         "max": 99
       },
-      "registration": [
-        "0384478550",
-        "http://4c-lons.ecla-jura.fr"
-      ],
+      "registration": ["0384478550", "http://4c-lons.ecla-jura.fr"],
       "location": {
         "uid": 8085326,
         "slug": "mediatheque-des-4c-lons-le-saunier",
@@ -1004,9 +977,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1159,12 +1130,8 @@
       "tarif": "2 €",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival de musique traditionnelle Es- trad franco-italien",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -1321,10 +1288,7 @@
         "min": 9,
         "max": 99
       },
-      "registration": [
-        "0384478550",
-        "http://4c-lons.ecla-jura.fr"
-      ],
+      "registration": ["0384478550", "http://4c-lons.ecla-jura.fr"],
       "location": {
         "uid": 8085326,
         "slug": "mediatheque-des-4c-lons-le-saunier",
@@ -1358,9 +1322,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1519,12 +1481,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire Ferney-Gex",
       "type-de-structure": 627,
       "si-autre-precisez": null,

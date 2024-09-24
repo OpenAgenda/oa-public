@@ -101,12 +101,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -245,12 +241,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -303,11 +295,7 @@
         "fr": "Vous rêvez de vous lancer dans la BD ? Alors venez rejoindre Guillaume Matthias, auteur des _Aventures de Bertrand Keufterian_ pour profiter de ses conseils et créer votre propre planche !"
       },
       "keywords": {
-        "fr": [
-          "BD",
-          "atelier",
-          "participatif"
-        ]
+        "fr": ["BD", "atelier", "participatif"]
       },
       "conditions": {},
       "image": {
@@ -344,9 +332,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "servicesauxpublics@mairie-metz.fr"
-      ],
+      "registration": ["servicesauxpublics@mairie-metz.fr"],
       "location": {
         "uid": 29976716,
         "slug": "lagora833",
@@ -380,12 +366,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -438,10 +420,7 @@
         "fr": "Venez rencontrer Guillaume Matthias créateur des _Aventures de Bertrand Keufterian_ et découvrir le métier d'auteur de BD.\n\nDe la création d'un personnage à la mise en page et en passant par le scénario, venez poser toutes vos questions !"
       },
       "keywords": {
-        "fr": [
-          "Rencontre",
-          "BD"
-        ]
+        "fr": ["Rencontre", "BD"]
       },
       "conditions": {},
       "image": {
@@ -512,12 +491,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -570,10 +545,7 @@
         "fr": "18.56 est un concept visuel et sonore issu de l’album du même titre. Sur scène, des projections nébuleuses font voyager le public entre atomes et galaxies, à bord d'un vaisseau spatial. Grâce à leurs voix et leurs instruments, les musiciens Julien Destange, Aurore Reichert, Rebecca Noël et Aalehx accompagnent ce conte de science-fiction surréaliste dans des ambiances musicales et des textures sonores originales."
       },
       "keywords": {
-        "fr": [
-          "entrée libre",
-          "spectacle"
-        ]
+        "fr": ["entrée libre", "spectacle"]
       },
       "conditions": {
         "fr": "Dans la limite des places disponibles"
@@ -663,12 +635,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -719,9 +687,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "BD auteur"
-        ]
+        "fr": ["BD auteur"]
       },
       "conditions": {},
       "image": {
@@ -792,12 +758,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
       "si-autre-precisez": null,
@@ -947,9 +909,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1003,11 +963,7 @@
         "fr": "L'artiste nous présente ses oeuvres autour du 9e art à l'espace muséal de la médiathèque du Nouvion pendant les horaires d'ouvertue de la médiathèque !"
       },
       "keywords": {
-        "fr": [
-          "exposition",
-          "art",
-          "oeuvres statues"
-        ]
+        "fr": ["exposition", "art", "oeuvres statues"]
       },
       "conditions": {},
       "image": {
@@ -1115,12 +1071,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1173,9 +1125,7 @@
         "fr": "L'artiste Gaëtan Antoine propose deux ateliers de dessins BD à la médiathèque du Nouvion-en-Thiérache de 13h30 à 16h30 et de 17h30 à 19h30."
       },
       "keywords": {
-        "fr": [
-          "dessins / bande dessinée / planche/ artiste"
-        ]
+        "fr": ["dessins / bande dessinée / planche/ artiste"]
       },
       "conditions": {
         "fr": "Nombre de participants 15 / Inscription obligatoire en médiathèque"
@@ -1269,12 +1219,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1419,12 +1365,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
