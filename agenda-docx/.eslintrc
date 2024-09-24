@@ -6,8 +6,8 @@
   },
 
   "ignorePatterns": [
-    "client/build",
-    "client/dist"
+    "/client/build",
+    "/client/dist"
   ],
 
   "rules": {
