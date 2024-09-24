@@ -1,88 +1,113 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import I18nContext from '../contexts/I18nContext';
 
 class ApiKeySettings extends Component {
-  static propTypes = {
-    activeTab: PropTypes.bool
-  };
-
   static contextType = I18nContext;
 
   render() {
     const { getLabel } = this.context;
     const { activeTab, displayModal, user, generateApiKey, prefix, history } = this.props;
 
-    const generateApiKeyModal = ( secret = false ) => ({
+    const generateApiKeyModal = (secret = false) => ({
       visible: true,
-      title: getLabel( 'generateNewApiKey' ),
-      content: <p>{getLabel( 'generateNewApiKeyModalText' )}</p>,
-      action: () => generateApiKey( secret ),
-      actionText: getLabel( 'generateNewApiKeyModalButton' ),
-      buttonClass: 'btn btn-primary'
+      title: getLabel('generateNewApiKey'),
+      content: <p>{getLabel('generateNewApiKeyModalText')}</p>,
+      action: () => generateApiKey(secret),
+      actionText: getLabel('generateNewApiKeyModalButton'),
+      buttonClass: 'btn btn-primary',
     });
 
     return (
       <tr
-        onClick={!activeTab ? () => history.push( prefix + '/apiKey', { fromUserApps: true } ) : null}
+        onClick={
+          !activeTab
+            ? () => history.push(`${prefix}/apiKey`, { fromUserApps: true })
+            : null
+        }
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => history.push( prefix + '/', { fromUserApps: true } ) : null}
+          role="gridcell"
+          onClick={
+            activeTab
+              ? () => history.push(`${prefix}/`, { fromUserApps: true })
+              : null
+          }
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >
-          {getLabel( 'apiKeys' )}
+          {getLabel('apiKeys')}
         </td>
-        {activeTab ? <td>
-          <div style={{ padding: '0 5px' }}>
-            <p>{getLabel( 'apiKeyInformation' )}</p>
+        {activeTab ? (
+          <td>
+            <div style={{ padding: '0 5px' }}>
+              <p>{getLabel('apiKeyInformation')}</p>
 
-            <p>
-              <a href="https://developers.openagenda.com">
-                {getLabel( 'showDocumentation' )}
-              </a>
-            </p>
+              <p>
+                <a href="https://developers.openagenda.com">
+                  {getLabel('showDocumentation')}
+                </a>
+              </p>
 
-            <div className="form-group">
-              <label htmlFor="apiKey">{getLabel( 'publicKey' )}</label>
-              <div className="input-group">
-                <input type="text" className="form-control" name="apiKey" value={user.apiKey || ''} readOnly />
-                <span className="input-group-btn">
-                  <button
-                    className="btn btn-default"
-                    type="button"
-                    onClick={() => displayModal( generateApiKeyModal() )}
-                  >
-                    <i className="fa fa-refresh" aria-hidden="true"></i>
-                  </button>
-                </span>
+              <div className="form-group">
+                <label htmlFor="apiKey">{getLabel('publicKey')}</label>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="apiKey"
+                    value={user.apiKey || ''}
+                    readOnly
+                  />
+                  <span className="input-group-btn">
+                    <button
+                      className="btn btn-default"
+                      type="button"
+                      onClick={() => displayModal(generateApiKeyModal())}
+                      aria-label={getLabel('generate')}
+                    >
+                      <i className="fa fa-refresh" aria-hidden="true" />
+                    </button>
+                  </span>
+                </div>
               </div>
+
+              {user.apiSecret && (
+                <div className="form-group">
+                  <label htmlFor="apiSecret">{getLabel('secretKey')}</label>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="apiSecret"
+                      value={user.apiSecret || ''}
+                      readOnly
+                    />
+                    <span className="input-group-btn">
+                      <button
+                        className="btn btn-default"
+                        type="button"
+                        onClick={() => displayModal(generateApiKeyModal(true))}
+                        aria-label={getLabel('generate')}
+                      >
+                        <i className="fa fa-refresh" aria-hidden="true" />
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
-
-            {user.apiSecret && <div className="form-group">
-              <label htmlFor="apiSecret">{getLabel( 'secretKey' )}</label>
-              <div className="input-group">
-                <input type="text" className="form-control" name="apiSecret" value={user.apiSecret || ''} readOnly />
-                <span className="input-group-btn">
-                  <button className="btn btn-default" type="button"
-                          onClick={() => displayModal( generateApiKeyModal( true ) )}>
-                    <i className="fa fa-refresh" aria-hidden="true"></i>
-                  </button>
-                </span>
-              </div>
-            </div>}
-          </div>
-        </td> : <td style={{ cursor: 'pointer' }}>{getLabel( 'showApiKeys' )}</td>}
+          </td>
+        ) : (
+          <td style={{ cursor: 'pointer' }}>{getLabel('showApiKeys')}</td>
+        )}
       </tr>
     );
   }
 }
 
-export default connect(state => ({
+export default connect((state) => ({
   prefix: state.settings.prefix,
-}))(
-  withRouter(ApiKeySettings),
-);
+}))(withRouter(ApiKeySettings));

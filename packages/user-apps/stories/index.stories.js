@@ -62,16 +62,19 @@ export default {
 };
 
 export function All() {
-  return wrapApp(createApp({
-    history: createMemoryHistory(),
-    initialState: getDefaultState(),
-  }), {
-    extraProps: {
-      user: {
-        id: 1,
-        uid: 75052324,
+  return wrapApp(
+    createApp({
+      history: createMemoryHistory(),
+      initialState: getDefaultState(),
+    }),
+    {
+      extraProps: {
+        user: {
+          id: 1,
+          uid: 75052324,
+        },
+        lang: 'fr',
       },
-      lang: 'fr',
     },
-  });
+  );
 }
