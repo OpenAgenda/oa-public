@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import update from 'immutability-helper';
 import MultiInputField from '../components/MultiInputField';
 import validators from '../validators';
@@ -17,9 +17,7 @@ function onChange(state, name, value) {
 
 export default {
   title: 'MultiInputField',
-  decorators: [
-    PageDecorator,
-  ],
+  decorators: [PageDecorator],
 };
 
 export function Simple() {

@@ -1,105 +1,103 @@
-"use strict";
+'use strict';
 
 module.exports = {
-
   name: {
     fr: 'Nom',
-    en: 'Name'
+    en: 'Name',
   },
 
   email: {
     fr: 'Email',
-    en: 'Email'
+    en: 'Email',
   },
 
   phone: {
     fr: 'Téléphone',
-    en: 'Phone'
+    en: 'Phone',
   },
 
   phoneInfo: {
     fr: 'Indiquez un numéro de téléphone',
-    en: 'Indicate a phone number'
+    en: 'Indicate a phone number',
   },
 
   phonePlaceholder: {
     fr: 'Ex: 00 33 6 34 32 54 32',
-    en: 'Ex: 00 33 6 82 03 23 43'
+    en: 'Ex: 00 33 6 82 03 23 43',
   },
 
   descriptionInfo: {
     fr: 'Info de description',
-    en: 'Description info'
+    en: 'Description info',
   },
 
   descriptionPlaceholder: {
     fr: 'Placeholder de description',
-    en: 'Description placeholder'
+    en: 'Description placeholder',
   },
 
-  'number.toosmall' : {
+  'number.toosmall': {
     fr: 'Le nombre doit être supérieur ou égal à %min%',
-    en: 'The number must be equal to or higher than %min%'
+    en: 'The number must be equal to or higher than %min%',
   },
 
-  'number.toobig' : {
+  'number.toobig': {
     fr: 'Le nombre doit être inférieur ou égal à %max%',
-    en: 'The number must be equal to or lower than %max%'
+    en: 'The number must be equal to or lower than %max%',
   },
 
   'multi-input.info': {
     fr: 'Saisissez une ou plusieurs valeurs',
-    en: 'Type in one or multiple values'
+    en: 'Type in one or multiple values',
   },
 
   'multi-input.error': {
     fr: 'Les saisies non valides ne seront pas sauvegardées',
-    en: 'Invalid entries will not be saved'
+    en: 'Invalid entries will not be saved',
   },
 
-  'string.tooshort' : {
+  'string.tooshort': {
     fr: 'Le champ doit comporter au moins %min% caractères',
-    en: 'The field must contain at least %min% caracters'
+    en: 'The field must contain at least %min% caracters',
   },
 
-  'string.toolong' : {
+  'string.toolong': {
     fr: 'Le champ doit comporter au plus %max% caractères',
-    en: 'The field must contain at must %max% caracters'
+    en: 'The field must contain at must %max% caracters',
   },
 
-  'email.invalid' : {
+  'email.invalid': {
     fr: 'Un email valide doit être renseigné',
-    en: 'A valid email must be input'
+    en: 'A valid email must be input',
   },
 
-  'phone.invalid' : {
+  'phone.invalid': {
     fr: 'Un numéro de télephone valide doit être renseigné',
-    en: 'A valid phone number must be input'
+    en: 'A valid phone number must be input',
   },
 
-  'link.invalid' : {
+  'link.invalid': {
     fr: 'Un lien valide doit être renseigné',
-    en: 'A valid link must be input'
+    en: 'A valid link must be input',
   },
 
-  'number.invalid' : {
+  'number.invalid': {
     fr: 'Un nombre valide doit être renseigné',
-    en: 'A valid number must be input'
+    en: 'A valid number must be input',
   },
 
-  'groupTags.required' : {
+  'groupTags.required': {
     fr: 'Au moins un élément doit être sélectionné',
-    en: 'At least one item must be selected'
+    en: 'At least one item must be selected',
   },
 
   required: {
     fr: 'Requis',
-    en: 'Required'
+    en: 'Required',
   },
 
   addLanguage: {
     fr: 'Ajouter une langue',
-    en: 'Add a language'
-  }
-
-}
+    en: 'Add a language',
+  },
+};

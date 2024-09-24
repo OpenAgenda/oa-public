@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import update from 'immutability-helper';
 import InputField from '../components/InputField';
 import makeLabelGetter from '../lib/makeLabelGetter';
@@ -9,7 +9,7 @@ import defaultState from './state';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-const getLabel = makeLabelGetter( labels );
+const getLabel = makeLabelGetter(labels);
 
 function onChange(state, name, value) {
   const change = { values: {} };
@@ -21,9 +21,7 @@ function onChange(state, name, value) {
 
 export default {
   title: 'Input',
-  decorators: [
-    PageDecorator,
-  ],
+  decorators: [PageDecorator],
 };
 
 export function Simple() {
@@ -38,7 +36,7 @@ export function Simple() {
         onChange={(name, value) => setState(onChange(state, name, value))}
         validator={validators.text({ min: 3, max: 20 })}
         getLabel={getLabel}
-        autoFocus={true}
+        autoFocus
       />
 
       <InputField
@@ -63,7 +61,7 @@ export function WithPlaceholderAndInfo() {
       getLabel={getLabel}
       placeholder="phonePlaceholder"
       info="phoneInfo"
-      validator={validators.phone( { field: 'phone' } )}
+      validator={validators.phone({ field: 'phone' })}
     />
   );
 }
@@ -75,7 +73,7 @@ export function Disabled() {
       name="email"
       value={state.values.email}
       onChange={(name, value) => setState(onChange(state, name, value))}
-      validator={validators.email( { field: 'email' } )}
+      validator={validators.email({ field: 'email' })}
       getLabel={getLabel}
       enabled={false}
     />

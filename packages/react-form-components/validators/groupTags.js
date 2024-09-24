@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var utils = require( '@openagenda/utils' );
+const utils = require('@openagenda/utils');
 
 /**
  * errors are a list of objects that contain the following fields
@@ -12,67 +12,51 @@ var utils = require( '@openagenda/utils' );
  *   - values relevent to the error ( optional )
  */
 
+module.exports = (set) => {
+  function validateGroup(group, values) {
+    if (!group.required) return;
 
-module.exports = function( set ) {
+    const ids = (values || []).map((v) => v.id);
 
-  return utils.extend( validate, {
-    field: set.field
-  } );
-
-
-  function validate( values, groupIndex ) {
-
-    if ( groupIndex !== undefined ) return validateGroup( set.groups[ groupIndex ], values );
-
-    var errors = [];
-
-    set.groups.forEach( function( group, i ) {
-
-      try {
-
-        validateGroup( group, values );
-
-      } catch( errs ) {
-
-        errors = errors.concat( errs );
-
-      }
-
-    } );
-
-    if ( errors.length ) throw errors;
-
-    // no cleaning for this
-    return values;
-
-  }
-
-  function validateGroup( group, values ) {
-
-    if ( !group.required ) return;
-
-    var ids = ( values || [] ).map( function( v ) { return v.id; } );
-
-    if ( !group.tags.filter( function( t ) {
-
-      return ids.indexOf( t.id ) !== -1;
-
-    } ).length ) {
-
-      throw [ {
-        field: set.field,
-        group: group.name ? group.name : 'Tags',
-        code: 'groupTags.required',
-        message: 'a selection is required',
-        origin: group.tags,
-        values: {}
-      } ]
-
+    if (!group.tags.filter((t) => ids.indexOf(t.id) !== -1).length) {
+      // eslint-disable-next-line no-throw-literal
+      throw [
+        {
+          field: set.field,
+          group: group.name ? group.name : 'Tags',
+          code: 'groupTags.required',
+          message: 'a selection is required',
+          origin: group.tags,
+          values: {},
+        },
+      ];
     }
 
     // no cleaning.
     return values;
-
   }
 
-}
+  function validate(values, groupIndex) {
+    if (groupIndex !== undefined)
+      return validateGroup(set.groups[groupIndex], values);
+
+    let errors = [];
+
+    set.groups.forEach((group) => {
+      try {
+        validateGroup(group, values);
+      } catch (errs) {
+        errors = errors.concat(errs);
+      }
+    });
+
+    if (errors.length) throw errors;
+
+    // no cleaning for this
+    return values;
+  }
+
+  return utils.extend(validate, {
+    field: set.field,
+  });
+};

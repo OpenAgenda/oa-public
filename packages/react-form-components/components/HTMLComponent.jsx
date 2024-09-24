@@ -4,7 +4,6 @@ import utils from '@openagenda/utils';
 import uniqueLoad from '../lib/uniqueLoad';
 
 export default class HTMLComponent extends Component {
-
   static propTypes = {
     tinymceUrl: PropTypes.string,
     className: PropTypes.string,
@@ -15,7 +14,7 @@ export default class HTMLComponent extends Component {
     tinyMceOptions: PropTypes.object,
     uniqueClassName: PropTypes.string,
     lang: PropTypes.string,
-    loadComponent: PropTypes.node
+    loadComponent: PropTypes.node,
   };
 
   static defaultProps = {
@@ -24,53 +23,45 @@ export default class HTMLComponent extends Component {
     tinyMceUrl: '/js/tinymce/tinymce.min.js',
     label: null,
     placeholder: null,
-    onChange: () => {
-    },
+    onChange: () => {},
     uniqueClassName: null,
     lang: 'fr',
-    loadComponent: null
+    loadComponent: null,
   };
 
-  constructor( props ) {
+  constructor(props) {
+    super(props);
 
-    super( props );
-
-    utils.extend( this, {
-      loadTinyMce: this.loadTinyMce.bind( this ),
-      initializeTinyMceEditor: this.initializeTinyMceEditor.bind( this ),
-      updateTinyMceEditor: this.updateTinyMceEditor.bind( this )
-    } );
+    utils.extend(this, {
+      loadTinyMce: this.loadTinyMce.bind(this),
+      initializeTinyMceEditor: this.initializeTinyMceEditor.bind(this),
+      updateTinyMceEditor: this.updateTinyMceEditor.bind(this),
+    });
 
     this.state = {
       tinyMceReady: typeof tinymce !== 'undefined',
       editorId: null,
-      uniqueClassName: this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
-    }
+      uniqueClassName:
+        this.props.uniqueClassName || 'js_' + generateUniqueIdentifier(),
+    };
 
-    if ( !this.state.tinyMceReady && typeof document !== 'undefined' ) this.loadTinyMce();
-
+    if (!this.state.tinyMceReady && typeof document !== 'undefined')
+      this.loadTinyMce();
   }
 
   componentWillUnmount() {
-
-    if ( !this.state.editorId ) return console.log( 'not loaded' );
+    if (!this.state.editorId) return console.log('not loaded');
 
     tinymce.get(this.state.editorId).remove();
-
   }
 
   render() {
+    if (!this.state.tinyMceReady) return null;
 
-    if ( !this.state.tinyMceReady ) return null;
-
-    if ( !this.state.editorId ) {
-
-      setTimeout( this.initializeTinyMceEditor )
-
+    if (!this.state.editorId) {
+      setTimeout(this.initializeTinyMceEditor);
     } else {
-
-      setTimeout( this.updateTinyMceEditor );
-
+      setTimeout(this.updateTinyMceEditor);
     }
 
     const { className, placeholder, label, value } = this.props;
@@ -81,36 +72,27 @@ export default class HTMLComponent extends Component {
         <textarea
           placeholder={placeholder}
           className={this.state.uniqueClassName}
-          value={ value || '' }
+          value={value || ''}
           style={{ minHeight: '200px', visibility: 'hidden' }}
-          onChange={() => {
-
-          }}
-        >
-        </textarea>
+          onChange={() => {}}
+        ></textarea>
       </div>
     );
-
   }
 
   updateTinyMceEditor() {
+    const editor = tinymce.get(this.state.editorId);
 
-    const editor = tinymce.get( this.state.editorId );
+    if (!editor) return;
 
-    if ( !editor ) return;
-
-    if ( this.state.html !== this.props.value ) {
-
+    if (this.state.html !== this.props.value) {
       // value in editor has diverged from value given in props. Needs to be updated
-      tinymce.get( this.state.editorId ).setContent( this.props.value || '' );
-
+      tinymce.get(this.state.editorId).setContent(this.props.value || '');
     }
-
   }
 
   initializeTinyMceEditor() {
-
-    tinymce.init( {
+    tinymce.init({
       selector: '.' + this.state.uniqueClassName,
       language: this.props.lang == 'fr' ? 'fr_FR' : 'en_EN',
       menubar: false,
@@ -128,148 +110,109 @@ export default class HTMLComponent extends Component {
       // pasted iframe are not converted in editor
       invalid_elements: 'iframe',
 
-      setup: editor => {
-
-        this.setState( {
+      setup: (editor) => {
+        this.setState({
           editorId: editor.id,
-          html: this.props.value
-        } );
+          html: this.props.value,
+        });
 
-        makeUrlConverter( editor );
+        makeUrlConverter(editor);
 
-        editor.on( 'change', e => {
-
+        editor.on('change', (e) => {
           const html = e.target.getContent();
 
-          this.setState( {
-            html
-          } );
+          this.setState({
+            html,
+          });
 
-          this.props.onChange( html );
-
-        } );
-
+          this.props.onChange(html);
+        });
       },
 
-      paste_postprocess: ( pl, o ) => {
-
+      paste_postprocess: (pl, o) => {
         // paste from word-type processors insert a mess of tags
         // in the html; these must be cleaned
-        o.node = cleanNode( o.node );
-
-      }
-
-    } );
-
+        o.node = cleanNode(o.node);
+      },
+    });
   }
 
   loadTinyMce() {
-
-    uniqueLoad( this.props.tinyMceUrl, ( err, script ) => {
-
-      this.setState( {
-        tinyMceReady: true
-      } );
-
-    } );
-
+    uniqueLoad(this.props.tinyMceUrl, (err, script) => {
+      this.setState({
+        tinyMceReady: true,
+      });
+    });
   }
-
 }
-
 
 function generateUniqueIdentifier() {
-
-  return Math.ceil( Math.random() * 100000000 );
-
+  return Math.ceil(Math.random() * 100000000);
 }
 
-
-function flattenChildren( node ) {
-
+function flattenChildren(node) {
   var flattened = '';
 
-  if ( !node.childNodes.length ) {
-
-    return getCleanTextContent( node );
-
+  if (!node.childNodes.length) {
+    return getCleanTextContent(node);
   }
 
-  for ( var i = 0; i < node.childNodes.length; i++ ) {
-
-    if ( node.childNodes[ i ].childNodes.length ) {
-
-      flattened += flattenChildren( node.childNodes[ i ] );
-
+  for (var i = 0; i < node.childNodes.length; i++) {
+    if (node.childNodes[i].childNodes.length) {
+      flattened += flattenChildren(node.childNodes[i]);
     } else {
-
-      flattened += node.childNodes[ i ].nodeValue || '';
-
+      flattened += node.childNodes[i].nodeValue || '';
     }
-
   }
 
   return flattened;
-
 }
 
+function cleanNode(node) {
+  let clean = document.createElement(node.nodeName),
+    cleanChild,
+    i,
+    type,
+    child,
+    cleanType;
 
-function cleanNode( node ) {
-
-  let clean = document.createElement( node.nodeName ),
-
-    cleanChild, i, type, child, cleanType;
-
-  for ( i = 0; i < node.childNodes.length; i++ ) {
-
-    child = node.childNodes[ i ];
+  for (i = 0; i < node.childNodes.length; i++) {
+    child = node.childNodes[i];
 
     type = child.nodeName.toLowerCase();
 
-    cleanType = [ 'p', 'h1', 'h2', 'h3' ].indexOf( type ) !== -1 ? type : 'p';
+    cleanType = ['p', 'h1', 'h2', 'h3'].indexOf(type) !== -1 ? type : 'p';
 
-    cleanChild = document.createElement( cleanType );
+    cleanChild = document.createElement(cleanType);
 
-    cleanChild.innerHTML = flattenChildren( child );
+    cleanChild.innerHTML = flattenChildren(child);
 
-    if ( cleanChild.innerHTML.length ) {
-
-      clean.appendChild( cleanChild );
-
+    if (cleanChild.innerHTML.length) {
+      clean.appendChild(cleanChild);
     }
-
   }
 
   return clean;
-
 }
 
-
-function makeUrlConverter( editor ) {
-
+function makeUrlConverter(editor) {
   var fn = editor.convertURL;
 
   editor.convertURL = convertURL_;
 
-  function convertURL_( url, name, elm ) {
+  function convertURL_(url, name, elm) {
+    fn.apply(this, arguments);
 
-    fn.apply( this, arguments );
-
-    var regex = new RegExp( "(http:|https:)?\/\/" );
-    if ( !regex.test( url ) ) {
-      return url = "http://" + url
+    var regex = new RegExp('(http:|https:)?//');
+    if (!regex.test(url)) {
+      return (url = 'http://' + url);
     }
     return url;
-
   }
-
 }
 
+function getCleanTextContent(elem) {
+  let attr = 'innerText' in elem ? 'innerText' : 'textContent';
 
-function getCleanTextContent( elem ) {
-
-  let attr = ( 'innerText' in elem ) ? 'innerText' : 'textContent';
-
-  return utils.cleanString( elem[ attr ] || '' ).trim();
-
+  return utils.cleanString(elem[attr] || '').trim();
 }
