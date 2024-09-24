@@ -3,10 +3,13 @@ import formatErrors from './lib/formatErrors.js';
 
 const log = logs('passCulture/attemptOfferCompletion');
 
-export default async function attemptOfferCompletion({ pc, interfaces }, { eventOfferId, datesPayload }, { eventUid, agendaUid }, options = {}) {
-  const {
-    simulatePending = false,
-  } = options;
+export default async function attemptOfferCompletion(
+  { pc, interfaces },
+  { eventOfferId, datesPayload },
+  { eventUid, agendaUid },
+  options = {},
+) {
+  const { simulatePending = false } = options;
 
   let dates = null;
   const offer = await pc.offers.events(eventOfferId).get();
@@ -26,17 +29,21 @@ export default async function attemptOfferCompletion({ pc, interfaces }, { event
   }
   // all good attempt dates creation
   try {
-    const {
-      dates: createdDates,
-    } = await pc.offers.events(eventOfferId).dates.create({
-      dates: datesPayload,
-    });
+    const { dates: createdDates } = await pc.offers
+      .events(eventOfferId)
+      .dates.create({
+        dates: datesPayload,
+      });
     dates = createdDates;
 
     log('%s: created %s dates', eventOfferId, createdDates.length);
 
     if (interfaces?.patchOaEventRegistration) {
-      const wasPatch = await interfaces.patchOaEventRegistration(agendaUid, eventUid, dates);
+      const wasPatch = await interfaces.patchOaEventRegistration(
+        agendaUid,
+        eventUid,
+        dates,
+      );
       log('patched event registration', { wasPatch });
     }
     return true;

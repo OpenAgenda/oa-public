@@ -5,15 +5,14 @@ import PassCultureSDK from '../lib/PassCultureSDK.js';
 
 import fixtures from './fixtures/cart.events.json';
 
-const pickEvent = slug => fixtures.find(e => slug === e.slug);
+const pickEvent = (slug) => fixtures.find((e) => slug === e.slug);
 
-const {
-  PASS_API_KEY: key,
-  PASS_API_DOMAIN: api,
-} = process.env;
+const { PASS_API_KEY: key, PASS_API_DOMAIN: api } = process.env;
 
 if (!key) {
-  throw new Error('PASS_API_KEY /* and PASS_TEST_EVENT_ID */ env vars must be defined');
+  throw new Error(
+    'PASS_API_KEY /* and PASS_TEST_EVENT_ID */ env vars must be defined',
+  );
 }
 
 describe('PassCultureSDK', () => {
@@ -23,7 +22,11 @@ describe('PassCultureSDK', () => {
   beforeAll(async () => {
     const pc = PassCultureSDK({ key, api });
 
-    const [{ venues: [{ id: venueId }] }] = await pc.offers.offererVenues();
+    const [
+      {
+        venues: [{ id: venueId }],
+      },
+    ] = await pc.offers.offererVenues();
     const formatted = await formatEvent(
       pickEvent('animation-enfant-parure-de-terre-2615625'),
       { venueId, category: 'CINE_PLEIN_AIR' },
@@ -33,21 +36,27 @@ describe('PassCultureSDK', () => {
     const { id } = await pc.offers.events.create(formatted);
     testEventId = id;
 
-    const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
-      priceCategories: [{
-        label: `Prix ${new Date().getTime()}`,
-        price: 0,
-      }],
-    });
+    const { priceCategories } = await pc.offers
+      .events(testEventId)
+      .priceCategories.create({
+        priceCategories: [
+          {
+            label: `Prix ${new Date().getTime()}`,
+            price: 0,
+          },
+        ],
+      });
     testEventPCId = priceCategories[0].id;
 
     await pc.offers.events(testEventId).dates.create({
-      dates: [{
-        beginningDatetime: '2024-09-17T14:00:00+02:00',
-        bookingLimitDatetime: '2024-09-17T14:00:00+02:00',
-        priceCategoryId: testEventPCId,
-        quantity: 3,
-      }],
+      dates: [
+        {
+          beginningDatetime: '2024-09-17T14:00:00+02:00',
+          bookingLimitDatetime: '2024-09-17T14:00:00+02:00',
+          priceCategoryId: testEventPCId,
+          quantity: 3,
+        },
+      ],
     });
   });
 
@@ -72,9 +81,8 @@ describe('PassCultureSDK', () => {
 
     it('offerer is the organization linked to a set of venues, it is defined by an id, a name and a siren', () => {
       const [{ offerer }] = items;
-      ['id', 'name', 'siren'].forEach(k => expect(
-        Object.keys(offerer).includes(k),
-      ).toBe(true));
+      ['id', 'name', 'siren'].forEach((k) =>
+        expect(Object.keys(offerer).includes(k)).toBe(true));
     });
 
     it('the venues key of an item is a list of venues', () => {
@@ -84,9 +92,14 @@ describe('PassCultureSDK', () => {
     });
 
     it('each venue contains an id, a legal name, a location and a siret among other values', () => {
-      const [{ venues: [venue] }] = items;
+      const [
+        {
+          venues: [venue],
+        },
+      ] = items;
 
-      ['id', 'legalName', 'siret', 'location'].forEach(k => expect(Object.keys(venue).includes(k)).toBe(true));
+      ['id', 'legalName', 'siret', 'location'].forEach((k) =>
+        expect(Object.keys(venue).includes(k)).toBe(true));
     });
   });
 
@@ -105,7 +118,8 @@ describe('PassCultureSDK', () => {
     });
 
     it('response provides an events list and a pagination object', () => {
-      Object.keys(response).forEach(k => expect(['events', 'pagination'].includes(k)).toBe(true));
+      Object.keys(response).forEach((k) =>
+        expect(['events', 'pagination'].includes(k)).toBe(true));
     });
   });
 
@@ -119,9 +133,7 @@ describe('PassCultureSDK', () => {
     });
 
     it('event has a name', () => {
-      expect(
-        Object.keys(event).includes('name'),
-      ).toBe(true);
+      expect(Object.keys(event).includes('name')).toBe(true);
     });
 
     it('list price categories is provided in response', () => {
@@ -133,7 +145,11 @@ describe('PassCultureSDK', () => {
     it('create provides data of created offer including its id', async () => {
       const pc = PassCultureSDK({ key, api });
 
-      const [{ venues: [{ id: venueId }] }] = await pc.offers.offererVenues();
+      const [
+        {
+          venues: [{ id: venueId }],
+        },
+      ] = await pc.offers.offererVenues();
       const formatted = await formatEvent(
         pickEvent('animation-enfant-parure-de-terre-2615625'),
         { venueId, category: 'CINE_PLEIN_AIR' },
@@ -153,7 +169,11 @@ describe('PassCultureSDK', () => {
     let image;
     beforeAll(async () => {
       pc = PassCultureSDK({ key, api });
-      const [{ venues: [{ id: venueId }] }] = await pc.offers.offererVenues();
+      const [
+        {
+          venues: [{ id: venueId }],
+        },
+      ] = await pc.offers.offererVenues();
 
       const formatted = await formatEvent(
         pickEvent('animation-enfant-parure-de-terre-2615625'),
@@ -177,17 +197,23 @@ describe('PassCultureSDK', () => {
     });
 
     it('patch updates the event bookingContact', async () => {
-      const resp = await pc.offers.events(id).patch({ bookingContact: 'clem@oa.com' });
+      const resp = await pc.offers
+        .events(id)
+        .patch({ bookingContact: 'clem@oa.com' });
       expect(resp.bookingContact).toBe('clem@oa.com');
     });
 
     it('patch updates the event bookingEmail', async () => {
-      const resp = await pc.offers.events(id).patch({ bookingEmail: 'clem@oa.com' });
+      const resp = await pc.offers
+        .events(id)
+        .patch({ bookingEmail: 'clem@oa.com' });
       expect(resp.bookingEmail).toBe('clem@oa.com');
     });
 
     it('patch updates the event enableDoubleBookings', async () => {
-      const resp = await pc.offers.events(id).patch({ enableDoubleBookings: true });
+      const resp = await pc.offers
+        .events(id)
+        .patch({ enableDoubleBookings: true });
       expect(resp.enableDoubleBookings).toBeTruthy();
     });
 
@@ -203,7 +229,9 @@ describe('PassCultureSDK', () => {
     });
 
     it('patch updates the event image', async () => {
-      const formated = await formatEvent(pickEvent('mohamed-bourouissa'), { lang: 'fr' });
+      const formated = await formatEvent(pickEvent('mohamed-bourouissa'), {
+        lang: 'fr',
+      });
       const resp = await pc.offers.events(id).patch({ image: formated.image });
       expect(resp.image.credit).toBeNull();
       expect(resp.image.url !== image.url).toBeTruthy();
@@ -221,7 +249,9 @@ describe('PassCultureSDK', () => {
       } catch (error) {
         err = error;
       }
-      expect(err.response.data).toEqual({ name: ['extra fields not permitted'] });
+      expect(err.response.data).toEqual({
+        name: ['extra fields not permitted'],
+      });
     });
 
     it('patch error on update the event hasTicket', async () => {
@@ -231,7 +261,9 @@ describe('PassCultureSDK', () => {
       } catch (error) {
         err = error;
       }
-      expect(err.response.data).toEqual({ hasTicket: ['extra fields not permitted'] });
+      expect(err.response.data).toEqual({
+        hasTicket: ['extra fields not permitted'],
+      });
     });
 
     it('patch error on update event categoryRelatedFields.category', async () => {
@@ -247,7 +279,9 @@ describe('PassCultureSDK', () => {
       } catch (error) {
         err = error;
       }
-      expect(err.response.data).toStrictEqual({ 'categoryRelatedFields.category': ['The category cannot be changed'] });
+      expect(err.response.data).toStrictEqual({
+        'categoryRelatedFields.category': ['The category cannot be changed'],
+      });
     });
 
     it('patch updates event categoryRelatedFields.author', async () => {
@@ -275,7 +309,9 @@ describe('PassCultureSDK', () => {
       } catch (error) {
         err = error;
       }
-      expect(err.response.data).toStrictEqual({ location: ['extra fields not permitted'] });
+      expect(err.response.data).toStrictEqual({
+        location: ['extra fields not permitted'],
+      });
     });
   });
 
@@ -283,16 +319,20 @@ describe('PassCultureSDK', () => {
     it('create a price category for an event offer', async () => {
       const pc = PassCultureSDK({ key, api });
 
-      const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
-        priceCategories: [{
-          label: `Prix 2 ${new Date().getTime()}`,
-          price: 0,
-        }],
-      });
+      const { priceCategories } = await pc.offers
+        .events(testEventId)
+        .priceCategories.create({
+          priceCategories: [
+            {
+              label: `Prix 2 ${new Date().getTime()}`,
+              price: 0,
+            },
+          ],
+        });
 
       expect(Array.isArray(priceCategories)).toBe(true);
 
-      Object.keys(priceCategories[0]).forEach(k => {
+      Object.keys(priceCategories[0]).forEach((k) => {
         ['label', 'price', 'id'].includes(k);
       });
     });
@@ -302,13 +342,16 @@ describe('PassCultureSDK', () => {
       let err;
       try {
         await pc.offers.events(testEventId).priceCategories.create({
-          priceCategories: [{
-            label: `Prix 2 ${new Date().getTime()}`,
-            price: 3000000,
-          }, {
-            label: `Prix 3 ${new Date().getTime()}`,
-            price: 3000000,
-          }],
+          priceCategories: [
+            {
+              label: `Prix 2 ${new Date().getTime()}`,
+              price: 3000000,
+            },
+            {
+              label: `Prix 3 ${new Date().getTime()}`,
+              price: 3000000,
+            },
+          ],
         });
       } catch (error) {
         // console.log(error);
@@ -323,21 +366,28 @@ describe('PassCultureSDK', () => {
     it('patch a price category for an event offer', async () => {
       const pc = PassCultureSDK({ key, api });
 
-      const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
-        priceCategories: [{
-          label: `Prix ${new Date().getTime()}`,
-          price: 0,
-        }],
-      });
+      const { priceCategories } = await pc.offers
+        .events(testEventId)
+        .priceCategories.create({
+          priceCategories: [
+            {
+              label: `Prix ${new Date().getTime()}`,
+              price: 0,
+            },
+          ],
+        });
 
       const priceCategory = priceCategories.pop();
       const patchedLabel = `Pas gratuit ${new Date().getTime()}`;
       let patchedPriceCategory;
       try {
-        patchedPriceCategory = await pc.offers.events(testEventId).priceCategories(priceCategory.id).patch({
-          label: patchedLabel,
-          price: 12,
-        });
+        patchedPriceCategory = await pc.offers
+          .events(testEventId)
+          .priceCategories(priceCategory.id)
+          .patch({
+            label: patchedLabel,
+            price: 12,
+          });
       } catch (error) {
         console.log('error', error.response.data);
       }
@@ -364,18 +414,18 @@ describe('PassCultureSDK', () => {
       const pc = PassCultureSDK({ key, api });
 
       const {
-        priceCategories: [{
-          id: priceCategoryId,
-        }],
+        priceCategories: [{ id: priceCategoryId }],
       } = await pc.offers.events(testEventId).get();
 
       const { dates } = await pc.offers.events(testEventId).dates.create({
-        dates: [{
-          beginningDatetime: '2024-09-17T14:00:00+02:00',
-          bookingLimitDatetime: '2024-09-17T14:00:00+02:00',
-          priceCategoryId,
-          quantity: 3,
-        }],
+        dates: [
+          {
+            beginningDatetime: '2024-09-17T14:00:00+02:00',
+            bookingLimitDatetime: '2024-09-17T14:00:00+02:00',
+            priceCategoryId,
+            quantity: 3,
+          },
+        ],
       });
 
       expect(Array.isArray(dates)).toBe(true);
@@ -385,18 +435,21 @@ describe('PassCultureSDK', () => {
       const pc = PassCultureSDK({ key, api });
 
       const {
-        priceCategories: [{
-          id: priceCategoryId,
-        }],
+        priceCategories: [{ id: priceCategoryId }],
       } = await pc.offers.events(testEventId).get();
 
-      const error = await pc.offers.events(testEventId).dates.create({
-        dates: [{
-          beginningDatetime: '2024-09-18T14:00:00+02:00',
-          priceCategoryId,
-          quantity: 3,
-        }],
-      }).catch(e => e);
+      const error = await pc.offers
+        .events(testEventId)
+        .dates.create({
+          dates: [
+            {
+              beginningDatetime: '2024-09-18T14:00:00+02:00',
+              priceCategoryId,
+              quantity: 3,
+            },
+          ],
+        })
+        .catch((e) => e);
 
       expect(error.response.data).toEqual({
         'dates.0.bookingLimitDatetime': ['field required'],
@@ -407,18 +460,18 @@ describe('PassCultureSDK', () => {
       const pc = PassCultureSDK({ key, api });
 
       const {
-        priceCategories: [{
-          id: priceCategoryId,
-        }],
+        priceCategories: [{ id: priceCategoryId }],
       } = await pc.offers.events(testEventId).get();
 
       const { dates } = await pc.offers.events(testEventId).dates.create({
-        dates: [{
-          beginningDatetime: '2024-09-19T14:00:00+02:00',
-          bookingLimitDatetime: '2024-09-19T14:00:00+02:00',
-          priceCategoryId,
-          quantity: 3,
-        }],
+        dates: [
+          {
+            beginningDatetime: '2024-09-19T14:00:00+02:00',
+            bookingLimitDatetime: '2024-09-19T14:00:00+02:00',
+            priceCategoryId,
+            quantity: 3,
+          },
+        ],
       });
 
       expect(Array.isArray(dates)).toBe(true);
@@ -433,34 +486,58 @@ describe('PassCultureSDK', () => {
     });
 
     it('increment the quantity', async () => {
-      const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
+      const {
+        dates: [date],
+      } = await pc.offers.events(testEventId).dates.list();
 
-      const dateAfterPatch = await pc.offers.events(testEventId).dates(date.id).patch({
-        quantity: date.quantity + 1,
-      }).then(r => r, e => e.response.data);
+      const dateAfterPatch = await pc.offers
+        .events(testEventId)
+        .dates(date.id)
+        .patch({
+          quantity: date.quantity + 1,
+        })
+        .then(
+          (r) => r,
+          (e) => e.response.data,
+        );
 
       expect(dateAfterPatch.quantity).toBe(date.quantity + 1);
     });
 
     it('set the quantity to 0', async () => {
-      const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
+      const {
+        dates: [date],
+      } = await pc.offers.events(testEventId).dates.list();
 
-      const dateAfterPatch = await pc.offers.events(testEventId).dates(date.id).patch({
-        quantity: 0,
-      }).then(r => r, e => e);
+      const dateAfterPatch = await pc.offers
+        .events(testEventId)
+        .dates(date.id)
+        .patch({
+          quantity: 0,
+        })
+        .then(
+          (r) => r,
+          (e) => e,
+        );
 
       expect(dateAfterPatch.quantity).toBe(0);
     });
 
     it('can change price category', async () => {
-      const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
+      const {
+        dates: [date],
+      } = await pc.offers.events(testEventId).dates.list();
 
-      const { priceCategories } = await pc.offers.events(testEventId).priceCategories.create({
-        priceCategories: [{
-          label: `Prix 3 ${new Date().getTime()}`,
-          price: 3,
-        }],
-      });
+      const { priceCategories } = await pc.offers
+        .events(testEventId)
+        .priceCategories.create({
+          priceCategories: [
+            {
+              label: `Prix 3 ${new Date().getTime()}`,
+              price: 3,
+            },
+          ],
+        });
 
       const resp = await pc.offers.events(testEventId).dates(date.id).patch({
         priceCategoryId: priceCategories[0].id,
@@ -469,13 +546,17 @@ describe('PassCultureSDK', () => {
     });
 
     it('can change beginningDateTime', async () => {
-      const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
+      const {
+        dates: [date],
+      } = await pc.offers.events(testEventId).dates.list();
 
       const resp = await pc.offers.events(testEventId).dates(date.id).patch({
         beginningDatetime: '2024-09-27T14:00:00+02:00',
       });
 
-      expect(new Date(resp.beginningDatetime)).toStrictEqual(new Date('2024-09-27T14:00:00+02:00'));
+      expect(new Date(resp.beginningDatetime)).toStrictEqual(
+        new Date('2024-09-27T14:00:00+02:00'),
+      );
     });
   });
 
@@ -487,10 +568,12 @@ describe('PassCultureSDK', () => {
     });
 
     it('deleted date does not appear in list anymore', async () => {
-      const { dates: [date] } = await pc.offers.events(testEventId).dates.list();
+      const {
+        dates: [date],
+      } = await pc.offers.events(testEventId).dates.list();
       await pc.offers.events(testEventId).dates(date.id).delete();
       const { dates } = await pc.offers.events(testEventId).dates.list();
-      expect(dates.map(d => d.id).includes(date.id)).toBeFalsy();
+      expect(dates.map((d) => d.id).includes(date.id)).toBeFalsy();
     });
   });
 
@@ -511,14 +594,14 @@ describe('PassCultureSDK', () => {
       });
 
       expect(
-        related.find(r => r.schema === 'MusicTypeEnum').options[0],
+        related.find((r) => r.schema === 'MusicTypeEnum').options[0],
       ).toEqual({
         value: 'JAZZ-ACID_JAZZ',
         label: 'Jazz - Acid Jazz',
       });
     });
   });
-/*  describe('test on booked date', () => {
+  /*  describe('test on booked date', () => {
     let pc;
 
     beforeAll(() => {

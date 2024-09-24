@@ -19,9 +19,7 @@ export default function validateSpreadLocalData(data, event, params = {}) {
 
     try {
       current.merged.clean = validateMergedLocalData(
-        getCurrentValue(
-          processed.map(({ clean }) => clean).concat(entry),
-        ),
+        getCurrentValue(processed.map(({ clean }) => clean).concat(entry)),
         event,
         params,
       );
@@ -48,9 +46,15 @@ export default function validateSpreadLocalData(data, event, params = {}) {
           validateEventOffer(entry, { ...params, partial: true }),
         );
       } else if (type === 'priceCategories') {
-        cleanEntry.priceCategories = validatePriceCategories(entry.priceCategories);
+        cleanEntry.priceCategories = validatePriceCategories(
+          entry.priceCategories,
+        );
       } else if (type === 'dates') {
-        cleanEntry.dates = validateDates(entry.dates, current.merged.clean?.priceCategories, event);
+        cleanEntry.dates = validateDates(
+          entry.dates,
+          current.merged.clean?.priceCategories,
+          event,
+        );
       }
     } catch (e) {
       if (!e.info?.errors) {
@@ -78,7 +82,10 @@ export default function validateSpreadLocalData(data, event, params = {}) {
   log('merge of spread data', merged);
 
   if (merged.errors?.length) {
-    throw new BadRequest({ info: { errors: merged.errors } }, 'entries are invalid or incomplete');
+    throw new BadRequest(
+      { info: { errors: merged.errors } },
+      'entries are invalid or incomplete',
+    );
   }
 
   return processedItems.map(({ clean }) => clean);

@@ -5,20 +5,15 @@ import createEventOffer from './createEventOffer.js';
 import getParameters from './lib/getParameters.js';
 import { getCurrentValue } from './iso/utils.js';
 
-export default function PassCulture({
-  key,
-  api,
-  offerLink,
-}, params) {
+export default function PassCulture({ key, api, offerLink }, params) {
   const pc = PassCultureSDK({ key, api, offerLink });
 
   return {
     validate: validate.bind(null, { ...params, pc }),
     createEventOffer: createEventOffer.bind(null, pc),
     getParameters: getParameters.bind(null, { ...params, pc }),
-    getEventOfferLink: eventOffer => pc.offers.events(
-      getCurrentValue(eventOffer).passId,
-    ).getLink(),
+    getEventOfferLink: (eventOffer) =>
+      pc.offers.events(getCurrentValue(eventOffer).passId).getLink(),
     apply: apply.bind(null, pc),
   };
 }

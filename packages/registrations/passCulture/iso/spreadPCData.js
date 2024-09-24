@@ -4,9 +4,11 @@ import { getEntryItemOperationType } from './getOperationType.js';
 function decorateWithInfoFields(data, entry) {
   return {
     ...data,
-    ...['response', 'appliedAt', 'operation'].reduce((info, key) => (
-      entry[key] !== undefined ? { ...info, [key]: entry[key] } : info
-    ), {}),
+    ...['response', 'appliedAt', 'operation'].reduce(
+      (info, key) =>
+        (entry[key] !== undefined ? { ...info, [key]: entry[key] } : info),
+      {},
+    ),
   };
 }
 
@@ -59,14 +61,20 @@ function spreadAccordingToOperation(data) {
       create: createOperations,
       update: updateOperations,
       delete: deleteOperations,
-    } = entry[type].reduce((carry, entryItem) => {
-      const operationKey = getEntryItemOperationType(spreadEntries, entryItem);
+    } = entry[type].reduce(
+      (carry, entryItem) => {
+        const operationKey = getEntryItemOperationType(
+          spreadEntries,
+          entryItem,
+        );
 
-      return {
-        ...carry,
-        [operationKey]: carry[operationKey].concat(entryItem),
-      };
-    }, { create: [], update: [], delete: [] });
+        return {
+          ...carry,
+          [operationKey]: carry[operationKey].concat(entryItem),
+        };
+      },
+      { create: [], update: [], delete: [] },
+    );
 
     const spread = [];
 
@@ -96,7 +104,5 @@ function spreadAccordingToOperation(data) {
 }
 
 export default function spreadPCData(data) {
-  return spreadAccordingToOperation(
-    spreadAccordingToObjectType(data),
-  );
+  return spreadAccordingToOperation(spreadAccordingToObjectType(data));
 }
