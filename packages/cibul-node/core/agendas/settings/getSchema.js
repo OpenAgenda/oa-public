@@ -8,63 +8,77 @@ import getNetwork from '../utils/getNetwork.js';
 const intlByLocale = createIntlByLocale(locales);
 
 export default async function getSchema(services, agendaOrUid) {
-  const {
-    formSchemas,
-  } = services;
+  const { formSchemas } = services;
 
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  const agenda = _.isObject(agendaOrUid)
+    ? agendaOrUid
+    : await getAgenda(services, agendaOrUid);
 
-  return agenda.formSchemaId ? {
-    id: agenda.formSchemaId,
-    ...await formSchemas.get(agenda.formSchemaId),
-  } : null;
+  return agenda.formSchemaId
+    ? {
+      id: agenda.formSchemaId,
+      ...await formSchemas.get(agenda.formSchemaId),
+    }
+    : null;
 }
 
 export const network = async function getNetworkSchema(services, agendaOrUid) {
-  const {
-    formSchemas,
-  } = services;
+  const { formSchemas } = services;
 
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  const agenda = _.isObject(agendaOrUid)
+    ? agendaOrUid
+    : await getAgenda(services, agendaOrUid);
   if (!agenda || !agenda.networkUid) {
     return null;
   }
   const dbNetwork = await getNetwork(services, agenda.networkUid);
 
-  return dbNetwork.formSchemaId ? {
-    id: dbNetwork.formSchemaId,
-    ...await formSchemas.get(dbNetwork.formSchemaId),
-  } : null;
+  return dbNetwork.formSchemaId
+    ? {
+      id: dbNetwork.formSchemaId,
+      ...await formSchemas.get(dbNetwork.formSchemaId),
+    }
+    : null;
 };
 
-export const andParents = async function getSchemaAndParents(services, agendaOrUid, options) {
-  const {
-    formSchemas,
-  } = services;
+export const andParents = async function getSchemaAndParents(
+  services,
+  agendaOrUid,
+  options,
+) {
+  const { formSchemas } = services;
 
   const { lang = 'fr' } = options;
 
   const intl = intlByLocale[lang] || intlByLocale.fr;
 
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
-  const schema = agenda?.formSchemaId ? {
-    id: agenda.formSchemaId,
-    ...await formSchemas.get(agenda.formSchemaId),
-  } : null;
+  const agenda = _.isObject(agendaOrUid)
+    ? agendaOrUid
+    : await getAgenda(services, agendaOrUid);
+  const schema = agenda?.formSchemaId
+    ? {
+      id: agenda.formSchemaId,
+      ...await formSchemas.get(agenda.formSchemaId),
+    }
+    : null;
 
   const dbNetwork = await getNetwork(services, agenda.networkUid);
-  const networkSchema = dbNetwork?.formSchemaId ? {
-    id: dbNetwork.formSchemaId,
-    ...await formSchemas.get(dbNetwork.formSchemaId),
-  } : null;
+  const networkSchema = dbNetwork?.formSchemaId
+    ? {
+      id: dbNetwork.formSchemaId,
+      ...await formSchemas.get(dbNetwork.formSchemaId),
+    }
+    : null;
 
-  const parents = [{
-    schema: { fields: eventFormSchema().fields, id: -1 },
-    info: {
-      label: intl.formatMessage({ id: 'AgendaSchema.event' }),
-      detail: intl.formatMessage({ id: 'AgendaSchema.eventDetail' }),
+  const parents = [
+    {
+      schema: { fields: eventFormSchema().fields, id: -1 },
+      info: {
+        label: intl.formatMessage({ id: 'AgendaSchema.event' }),
+        detail: intl.formatMessage({ id: 'AgendaSchema.eventDetail' }),
+      },
     },
-  }];
+  ];
 
   if (networkSchema) {
     parents.push({

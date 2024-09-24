@@ -24,19 +24,36 @@ import exportsBack from './agenda/exports.back.js';
 import facebookBack from './agenda/facebook.back.js';
 import exportsFront from './agenda/exports.front.js';
 
-export default app => {
+export default (app) => {
   app.services.users.plugApp(app);
   app.services.mails.plugApp(app);
-  app.use('/agendas/:agendaUid/events.v2.:format', app.services.eventSearch.apps.agendas.getPublic());
-  app.use('/agendas/:agendaUid/admin/events.v2.:format', app.services.eventSearch.apps.agendas.getRestricted());
-  app.use('/agendas/:agendaUid/settings/exports', app.services.eventSearch.apps.agendas.getAgendaExportsSettings());
+  app.use(
+    '/agendas/:agendaUid/events.v2.:format',
+    app.services.eventSearch.apps.agendas.getPublic(),
+  );
+  app.use(
+    '/agendas/:agendaUid/admin/events.v2.:format',
+    app.services.eventSearch.apps.agendas.getRestricted(),
+  );
+  app.use(
+    '/agendas/:agendaUid/settings/exports',
+    app.services.eventSearch.apps.agendas.getAgendaExportsSettings(),
+  );
   app.use(
     '/agendas/:agendaUid/admin/settings/exports',
-    app.services.eventSearch.apps.agendas.getAgendaExportsSettings({ admin: true }),
+    app.services.eventSearch.apps.agendas.getAgendaExportsSettings({
+      admin: true,
+    }),
   );
   app.services.agendaLocations.apps(app, '/locations');
-  app.services.agendaLocations.apps.agenda(app, '/agendas/:agendaUid/locations');
-  app.services.agendaLocations.apps.agendaAdmin(app, '/:agendaSlug/admin/locations');
+  app.services.agendaLocations.apps.agenda(
+    app,
+    '/agendas/:agendaUid/locations',
+  );
+  app.services.agendaLocations.apps.agendaAdmin(
+    app,
+    '/:agendaSlug/admin/locations',
+  );
   agendaBack(app);
   app.use('/', app.services.inboxes.plugApp());
   app.services.agendaContribute.plugApp(app);

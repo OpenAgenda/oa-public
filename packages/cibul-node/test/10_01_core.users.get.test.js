@@ -61,14 +61,20 @@ describe('10 - core - functional (server): core.users().get()', () => {
 
   describe('tokens', () => {
     it('user can be retrieved using a valid access token', async () => {
-      const janine = await core.users.get.byAccessToken('11a7946ddd256c768867ac3f2182cba0', 1);
+      const janine = await core.users.get.byAccessToken(
+        '11a7946ddd256c768867ac3f2182cba0',
+        1,
+      );
       expect(janine.uid).toBe(1);
     });
 
     it('outdated access token throws error', async () => {
       let error;
       try {
-        await core.users.get.byAccessToken('11a79182cddd2466c768867ac3f25ba0', 1);
+        await core.users.get.byAccessToken(
+          '11a79182cddd2466c768867ac3f25ba0',
+          1,
+        );
       } catch (e) {
         error = e.message;
       }
@@ -76,33 +82,45 @@ describe('10 - core - functional (server): core.users().get()', () => {
     });
 
     it('user can be retrieved using a public key', async () => {
-      const janine = await core.users.get.byPublicKey('egP36aMb0toI8hAhFOm1if8auC1Vg1N9');
+      const janine = await core.users.get.byPublicKey(
+        'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+      );
       expect(janine.uid).toBe(1);
     });
 
     it('user access token can be refreshed using the secret key', async () => {
-      await testConfig.knex('access_token').update({
-        created_at: new Date(),
-        lifespan: 100,
-      }).where('id', 2);
+      await testConfig
+        .knex('access_token')
+        .update({
+          created_at: new Date(),
+          lifespan: 100,
+        })
+        .where('id', 2);
 
-      const token = await core.users({
-        secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-      }).generateToken();
+      const token = await core
+        .users({
+          secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        })
+        .generateToken();
 
       expect(token.id).toBe(2);
       expect(token.lifespan).toBeGreaterThanOrEqual(3599);
     });
 
     it('new access token is created when previous is outdated', async () => {
-      await testConfig.knex('access_token').update({
-        created_at: new Date(),
-        lifespan: -1,
-      }).where('id', 2);
+      await testConfig
+        .knex('access_token')
+        .update({
+          created_at: new Date(),
+          lifespan: -1,
+        })
+        .where('id', 2);
 
-      const token = await core.users({
-        secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-      }).generateToken();
+      const token = await core
+        .users({
+          secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        })
+        .generateToken();
 
       expect(token.id).toBeGreaterThan(2);
       expect(token.lifespan).toBeGreaterThanOrEqual(3599);

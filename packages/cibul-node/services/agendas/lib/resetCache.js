@@ -3,9 +3,7 @@ import logs from '@openagenda/logs';
 const log = logs('services/agendas/resetCache');
 
 export default async function clearCache(services, agenda) {
-  const {
-    simpleCache,
-  } = services;
+  const { simpleCache } = services;
 
   log('resetting cache for agenda %s', agenda.slug);
 

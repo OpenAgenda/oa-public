@@ -4,16 +4,14 @@ import layouts from '../../lib/layouts/index.js';
 
 const getAgendaSearchLabel = makeLabelGetter(labels);
 
-export default config => (req, res, next) => {
+export default (config) => (req, res, next) => {
   if (req.xhr) {
     return next();
   }
 
   const scripts = {
     top: [],
-    bottom: [
-      { src: '/js/agendaSearchIndex.js' },
-    ],
+    bottom: [{ src: '/js/agendaSearchIndex.js' }],
   };
 
   const translateMode = Boolean(req.cookies.translateMode);
@@ -21,7 +19,7 @@ export default config => (req, res, next) => {
 
   if (req.cookies.translateMode) {
     scripts.top = [
-      { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
+      { body: "window._jipt = [['project', 'openagenda']];" },
       { src: 'https://cdn.crowdin.com/jipt/jipt.js' },
     ];
   }
@@ -44,24 +42,28 @@ export default config => (req, res, next) => {
     });
   }
 
-  res.send(layouts.main(`<div class="js_search_canvas">${req.content}</div>`, {
-    lang: req.lang,
-    title: getAgendaSearchLabel('searchTitle', req.lang),
-    scripts,
-    bodyAttributes: [{
-      name: 'data-options',
-      value: JSON.stringify({
-        lang: req.lang,
-        network: req.network,
-        locationSet: req.locationSet,
-        canvas: '.js_search_canvas',
-        agendas: req.result.agendas,
-        total: req.result.total,
-        res: '/agendas.json',
-      }),
-    }],
-    translateMode,
-    isTranslator,
-    cspNonce: res.locals.cspNonce,
-  }));
+  res.send(
+    layouts.main(`<div class="js_search_canvas">${req.content}</div>`, {
+      lang: req.lang,
+      title: getAgendaSearchLabel('searchTitle', req.lang),
+      scripts,
+      bodyAttributes: [
+        {
+          name: 'data-options',
+          value: JSON.stringify({
+            lang: req.lang,
+            network: req.network,
+            locationSet: req.locationSet,
+            canvas: '.js_search_canvas',
+            agendas: req.result.agendas,
+            total: req.result.total,
+            res: '/agendas.json',
+          }),
+        },
+      ],
+      translateMode,
+      isTranslator,
+      cspNonce: res.locals.cspNonce,
+    }),
+  );
 };

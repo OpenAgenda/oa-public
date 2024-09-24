@@ -102,7 +102,7 @@ function getSupportConversationType(req) {
   }
 }
 
-const initialState = async req => {
+const initialState = async (req) => {
   const { services } = req.app;
 
   const user = req.user && req.user.uid
@@ -553,7 +553,7 @@ const initialState = async req => {
   };
 };
 
-export default app => {
+export default (app) => {
   if (proxy) {
     app.use('/dist/react-integration-app', (req, res) =>
       proxy.web(req, res, {

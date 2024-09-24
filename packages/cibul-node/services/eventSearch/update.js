@@ -5,26 +5,20 @@ import updateAgendaIndex from './lib/updateAgendaIndex.js';
 const log = logs('services/eventSearch/update');
 
 export default (services, queue, eventSearch) => {
-  const {
-    agendaEvents,
-    tracker,
-  } = services;
+  const { agendaEvents, tracker } = services;
 
-  return async ({
-    agenda,
-    member,
-    formSchema,
-    event,
-  }, options = {}) => {
-    log('update', { agendaUid: agenda.uid, eventUid: event.uid, member: member?.userUid });
+  return async ({ agenda, member, formSchema, event }, options = {}) => {
+    log('update', {
+      agendaUid: agenda.uid,
+      eventUid: event.uid,
+      member: member?.userUid,
+    });
 
     if (tracker) {
       tracker(`eventSearch.update:${agenda.uid}.${event.uid}`);
     }
 
-    const {
-      updateOtherIndices = true,
-    } = options;
+    const { updateOtherIndices = true } = options;
 
     await updateAgendaIndex(eventSearch, {
       agenda,
@@ -33,7 +27,10 @@ export default (services, queue, eventSearch) => {
       event,
     });
 
-    if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)) {
+    if (
+      event.state !== 2
+      && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)
+    ) {
       await queue('transverseIndexRemove', event.uid);
     } else {
       await queue('transverseIndexUpdate', event);

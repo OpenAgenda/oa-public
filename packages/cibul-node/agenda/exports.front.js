@@ -14,7 +14,7 @@ function loadTagSet(req, res, next) {
     legacy: { getTagSet },
   } = req.app.services;
 
-  getTagSet(req.agenda.id).then(tagSet => {
+  getTagSet(req.agenda.id).then((tagSet) => {
     req.tagSet = tagSet;
 
     next();
@@ -26,7 +26,7 @@ function loadCategorySet(req, res, next) {
     legacy: { getCategorySet },
   } = req.app.services;
 
-  getCategorySet(req.agenda.id).then(categorySet => {
+  getCategorySet(req.agenda.id).then((categorySet) => {
     req.categorySet = categorySet;
     next();
   }, next);
@@ -37,8 +37,8 @@ function loadEmbedUids(req, res, next) {
     .knex('review_embed')
     .select('uid')
     .where('review_id', req.agenda.id)
-    .then(rows => {
-      req.embeds = rows.map(r => r.uid);
+    .then((rows) => {
+      req.embeds = rows.map((r) => r.uid);
 
       next();
     });
@@ -76,7 +76,7 @@ function checkKey(onError) {
   });
 }
 
-export default app => {
+export default (app) => {
   const { members } = app.services;
 
   app.options('*/events.json*', (req, res) => res.sendStatus(200));
@@ -84,7 +84,8 @@ export default app => {
   app.get(
     '/agendas/:uid/events.json',
     preMw,
-    checkKey((req, res, _next) => res.status(400).json({ error: 'Provided key is invalid' })),
+    checkKey((req, res, _next) =>
+      res.status(400).json({ error: 'Provided key is invalid' })),
     loadCredentials,
     convertFormat({ sendJSON: true, trackInfos: ['events', 'export', 'json'] }),
   );

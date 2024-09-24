@@ -10,7 +10,8 @@ const log = debug('genUrl');
 function _getUriParamNames(uri, stripped) {
   // param names start with :,
   // are smallcase and contain only letters from a to z
-  return (uri.match(/:([a-z]|[A-Z])+/g) || []).map(name => (stripped ? name.replace(':', '') : name));
+  return (uri.match(/:([a-z]|[A-Z])+/g) || []).map((name) =>
+    (stripped ? name.replace(':', '') : name));
 }
 
 function isArray(obj) {
@@ -23,7 +24,7 @@ function isArray(obj) {
 function _loadParamValues(uri, values) {
   let url = uri;
 
-  _getUriParamNames(uri).forEach(paramName => {
+  _getUriParamNames(uri).forEach((paramName) => {
     if (values[paramName.replace(':', '')] === undefined) {
       throw new Error(`missing route param: ${paramName}`);
     }
@@ -48,8 +49,8 @@ function size(obj) {
  * and place them in a query object
  */
 function _loadQueryValues(uri, values) {
-  const queryValues = {}; const
-    paramNames = _getUriParamNames(uri, true);
+  const queryValues = {};
+  const paramNames = _getUriParamNames(uri, true);
 
   for (const v in values) {
     if (!paramNames.includes(v)) {
@@ -70,7 +71,7 @@ function _clean(values) {
   if (!values) return clean;
 
   if (isArray(values)) {
-    values.forEach(valueSet => {
+    values.forEach((valueSet) => {
       _.merge(clean, {}, valueSet);
     });
   } else {
@@ -81,13 +82,16 @@ function _clean(values) {
 }
 
 function instanciate(options) {
-  const defaults = _.merge({
-    domain: false, // required ( for absolute urls )
-    protocol: 'http://', // or https:// or //
-    abs: false,
-    paths: {},
-    preloaded: {},
-  }, options || {});
+  const defaults = _.merge(
+    {
+      domain: false, // required ( for absolute urls )
+      protocol: 'http://', // or https:// or //
+      abs: false,
+      paths: {},
+      preloaded: {},
+    },
+    options || {},
+  );
   const { paths } = defaults;
   const preloaded = _.merge({}, defaults.preloaded);
 

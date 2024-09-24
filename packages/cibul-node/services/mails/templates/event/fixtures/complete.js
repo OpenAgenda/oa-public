@@ -12,13 +12,20 @@ module.exports = {
   agendaTitle: 'Sorties Grand Verdun',
   event: {
     title: 'Apéro Moovjee ça continue !',
-    description: 'Les apéros Moovjee continuent tout l\'été et prend ses quartiers au Jardin des Tuileries. Le traiteur LeCointre nous accueille une fois encore au restaurant le Médicis.',
-    longDescription: 'Ces apéros ont pour objectif de réunir la communauté des jeunes entrepreneurs, porteurs de projet, mentors et partenaires du Moovjee. Ces bulles estivales sont placées sous les signes de la convivialité et de l\'échange.\nDes tarifs spéciaux spécial Moovjee seront proposés.',
-    image: 'http://cibul.s3.amazonaws.com/evfevent_apero-moovjee-ca-continue_978399.jpg',
+    description:
+      "Les apéros Moovjee continuent tout l'été et prend ses quartiers au Jardin des Tuileries. Le traiteur LeCointre nous accueille une fois encore au restaurant le Médicis.",
+    longDescription:
+      "Ces apéros ont pour objectif de réunir la communauté des jeunes entrepreneurs, porteurs de projet, mentors et partenaires du Moovjee. Ces bulles estivales sont placées sous les signes de la convivialité et de l'échange.\nDes tarifs spéciaux spécial Moovjee seront proposés.",
+    image:
+      'http://cibul.s3.amazonaws.com/evfevent_apero-moovjee-ca-continue_978399.jpg',
     credits: '© Jean-Momo',
     conditions: 'Gratuit pour les enfants',
     ticketLink: 'https://google.fr',
-    formattedRegistration: ['https://google.fr', 'mailto:email@email.com', 'tel:010203'],
+    formattedRegistration: [
+      'https://google.fr',
+      'mailto:email@email.com',
+      'tel:010203',
+    ],
     registration: ['https://google.fr', 'email@email.com', '010203'],
     location: {
       name: 'Restaurant Le Médicis',
@@ -43,7 +50,8 @@ module.exports = {
             end: '23:30',
           },
         ],
-      }, {
+      },
+      {
         day: 'lundi 30 août',
         timings: [
           {
@@ -67,10 +75,12 @@ module.exports = {
     lat: 48.863492,
     lng: 2.327494,
     zoom: 14,
-    accessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
+    accessToken:
+      'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
   },
   link: 'https://d.openagenda.com/test-zi/events/atelier-de-fabrication-de-bombe-pour-enfant',
   isRegisteredUser: true,
-  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/email/i/kevin.bertho@gmail.com/t/eventEmail',
+  unsubscribeLink:
+    'https://d.openagenda.com/unsubscribe/u/0/s/email/i/kevin.bertho@gmail.com/t/eventEmail',
   emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed',
 };

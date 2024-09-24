@@ -3,17 +3,10 @@ import getMemberName from './utils/getMemberName.js';
 export default async (
   services,
   eventFeed,
-  {
-    agenda,
-    user,
-    event,
-    ae,
-  },
+  { agenda, user, event, ae },
   context,
 ) => {
-  const {
-    activities: activitiesSvc,
-  } = services;
+  const { activities: activitiesSvc } = services;
 
   const { sourceAgenda } = context;
 

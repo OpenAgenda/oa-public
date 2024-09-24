@@ -1,20 +1,25 @@
 {
-  "fields": [{
-    "field": "categories",
-    "label": "Catégories",
-    "fieldType": "radio",
-    "origin": "tags",
-    "read": null,
-    "optional": false,
-    "options": [{
-      "id": 1,
-      "value": "musique",
-      "label": "Musique"
-    }, {
-      "id": 2,
-      "value": "exposition",
-      "label": "Exposition"
-    }],
-    "write": ["contributor"]
-  }]
+  "fields": [
+    {
+      "field": "categories",
+      "label": "Catégories",
+      "fieldType": "radio",
+      "origin": "tags",
+      "read": null,
+      "optional": false,
+      "options": [
+        {
+          "id": 1,
+          "value": "musique",
+          "label": "Musique"
+        },
+        {
+          "id": 2,
+          "value": "exposition",
+          "label": "Exposition"
+        }
+      ],
+      "write": ["contributor"]
+    }
+  ]
 }

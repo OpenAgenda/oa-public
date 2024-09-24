@@ -20,8 +20,10 @@ export default (config, services) => {
   const { redis } = services;
 
   const limiter = rateLimiter(redis.ioRedis, {
-    keyGenerator: req =>
-      [req.ip, `export-${req.params.format}`].concat(req.params.format === 'pdf' ? [] : req.params.agendaUid).join('|'),
+    keyGenerator: (req) =>
+      [req.ip, `export-${req.params.format}`]
+        .concat(req.params.format === 'pdf' ? [] : req.params.agendaUid)
+        .join('|'),
   });
 
   return {
@@ -31,10 +33,19 @@ export default (config, services) => {
       }).get(
         '',
         ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'], limiter),
-        ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'], loadSearchEndpoint(services.core)),
-        ifFormat(['rss', 'json'], loadSearchEndpoint(services.core, { convertLegacy: true })),
+        ifFormat(
+          ['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'],
+          loadSearchEndpoint(services.core),
+        ),
+        ifFormat(
+          ['rss', 'json'],
+          loadSearchEndpoint(services.core, { convertLegacy: true }),
+        ),
         loadAgendaLanguagesAndFormSchemas(services),
-        ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'], loadSearchStream()),
+        ifFormat(
+          ['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'],
+          loadSearchStream(),
+        ),
         trackFormat,
         ifFormat('csv', streamCSV),
         ifFormat('xlsx', streamXLSX),

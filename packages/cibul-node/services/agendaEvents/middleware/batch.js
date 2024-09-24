@@ -18,12 +18,13 @@ export default function batch(req, res, next) {
     return next();
   }
 
-  req.app.services.core.agendas(req.agenda.uid).events.batch(
-    method,
-    { state: null, ...req.query },
-    req.body,
-    { search: true, userUid: req.user.uid },
-  ).then(() => {
-    res.send({ batched: true });
-  }, next);
+  req.app.services.core
+    .agendas(req.agenda.uid)
+    .events.batch(method, { state: null, ...req.query }, req.body, {
+      search: true,
+      userUid: req.user.uid,
+    })
+    .then(() => {
+      res.send({ batched: true });
+    }, next);
 }

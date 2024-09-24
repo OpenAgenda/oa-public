@@ -7,19 +7,17 @@ function _facebookShare(event, eventUrl) {
 }
 
 function _twitterShare(event, eventUrl) {
-  return `https://twitter.com/share?url=${encodeURIComponent(eventUrl)
-
-  }&text=${encodeURIComponent(event.getTitle())}`;
+  return `https://twitter.com/share?url=${encodeURIComponent(
+    eventUrl,
+  )}&text=${encodeURIComponent(event.getTitle())}`;
 }
 
 function _linkedInShare(event, eventUrl, siteUrl) {
-  return `http://www.linkedin.com/shareArticle?url=${encodeURIComponent(eventUrl)
-
-  }&title=${encodeURIComponent(event.getTitle())
-
-  }&summary=${encodeURIComponent(`${event.getDescription()} - ${eventUrl}`)
-
-  }&source=${encodeURIComponent(siteUrl)}`;
+  return `http://www.linkedin.com/shareArticle?url=${encodeURIComponent(
+    eventUrl,
+  )}&title=${encodeURIComponent(event.getTitle())}&summary=${encodeURIComponent(
+    `${event.getDescription()} - ${eventUrl}`,
+  )}&source=${encodeURIComponent(siteUrl)}`;
 }
 
 function _googleShare(event, eventUrl) {
@@ -27,9 +25,11 @@ function _googleShare(event, eventUrl) {
 }
 
 function _pinterestShare(event, eventUrl) {
-  let shareLink = `http://pinterest.com/pin/create/button/${`?url=${encodeURIComponent(eventUrl)
-  }&description=${encodeURIComponent(event.getDescription())
-  }&is_video=false`}`;
+  let shareLink = `http://pinterest.com/pin/create/button/${`?url=${encodeURIComponent(
+    eventUrl,
+  )}&description=${encodeURIComponent(
+    event.getDescription(),
+  )}&is_video=false`}`;
 
   const image = event.getImage(true);
 
@@ -41,11 +41,9 @@ function _pinterestShare(event, eventUrl) {
 }
 
 function _tumblrShare(event, eventUrl) {
-  return `http://tumblr.com/share?s=&v=3&u=${
-
-    encodeURIComponent(eventUrl)
-
-  }&title=${encodeURIComponent(event.getTitle())}`;
+  return `http://tumblr.com/share?s=&v=3&u=${encodeURIComponent(
+    eventUrl,
+  )}&title=${encodeURIComponent(event.getTitle())}`;
 }
 
 function _emailShare(event) {

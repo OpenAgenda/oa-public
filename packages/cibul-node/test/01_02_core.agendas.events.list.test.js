@@ -298,7 +298,7 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
       const events = await core
         .agendas(1)
         .events.list({ state: null }, { limit: 10 });
-      expect(events.find(e => e.uid === 2).motive).toBe('>_>');
+      expect(events.find((e) => e.uid === 2).motive).toBe('>_>');
     });
 
     it('list can indicate addMethod to be contribution', async () => {

@@ -22,13 +22,11 @@ function getCli() {
 
 function get(key, subKey, cb) {
   if (arguments.length === 3) {
-    cli.hGet(key, subKey)
-      .then(r => onResponse(null, r), onResponse);
+    cli.hGet(key, subKey).then((r) => onResponse(null, r), onResponse);
   } else {
     cb = subKey;
 
-    cli.get(key)
-      .then(r => onResponse(null, r), onResponse);
+    cli.get(key).then((r) => onResponse(null, r), onResponse);
   }
 
   function onResponse(err, data) {
@@ -60,16 +58,22 @@ function load(keys, method, expire, args, cb) {
     }
 
     if (Array.isArray(keys)) {
-      cli.hSet(keys[0], keys[1], JSON.stringify(data))
-        .then(r => onRedisResponse(null, r), onRedisResponse);
+      cli
+        .hSet(keys[0], keys[1], JSON.stringify(data))
+        .then((r) => onRedisResponse(null, r), onRedisResponse);
     } else {
-      cli.set(keys, JSON.stringify(data))
-        .then(r => onRedisResponse(null, r), onRedisResponse);
+      cli
+        .set(keys, JSON.stringify(data))
+        .then((r) => onRedisResponse(null, r), onRedisResponse);
     }
 
     function onRedisResponse(err, result) {
       // if expire is set, define it here
-      if (expire) cli.expire(Array.isArray(keys) ? keys[0] : keys, parseInt(Math.ceil(expire / 1000), 10));
+      if (expire)
+        cli.expire(
+          Array.isArray(keys) ? keys[0] : keys,
+          parseInt(Math.ceil(expire / 1000), 10),
+        );
 
       if (err) return cb(err);
 

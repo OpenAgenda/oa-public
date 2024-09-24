@@ -8,20 +8,11 @@ const log = logs('core/agendas/events/validate');
 export default async (core, agendaUid, data, options = {}) => {
   log('info', 'validating event on agenda %s', agendaUid);
 
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
-  const {
-    members,
-  } = services;
+  const { members } = services;
 
-  const {
-    access,
-    draft,
-    defaultLang,
-    filterUnauthorizedData,
-  } = {
+  const { access, draft, defaultLang, filterUnauthorizedData } = {
     access: 'public', // read or write?
     draft: false,
     defaultLang: 'en',

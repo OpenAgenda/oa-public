@@ -2,10 +2,7 @@ import { promisify } from 'node:util';
 import adminAgendas from '@openagenda/admin-agendas';
 
 export async function init(config, services) {
-  const {
-    agendas,
-    members,
-  } = services;
+  const { agendas, members } = services;
 
   await promisify(adminAgendas.init)({
     services: {

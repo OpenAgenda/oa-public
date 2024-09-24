@@ -6,7 +6,7 @@ import cmn from '../lib/commons-app.js';
 
 const getLabel = makeLabelGetter(labels);
 
-export default app => {
+export default (app) => {
   const { agendas, core, sessions, members, users: usersSvc } = app.services;
 
   app.post(
@@ -16,7 +16,11 @@ export default app => {
     mw.create,
   );
 
-  app.post('/agendas/slugs/available', sessions.mw.loadOrRedirect(), mw.slugs.available);
+  app.post(
+    '/agendas/slugs/available',
+    sessions.mw.loadOrRedirect(),
+    mw.slugs.available,
+  );
 
   app.get(
     '/agendas/:uid/admin/settings.json',
@@ -47,12 +51,12 @@ export default app => {
           internal: true,
         })
         .then(
-          agenda =>
+          (agenda) =>
             res.json({
               success: true,
               agenda,
             }),
-          err => {
+          (err) => {
             if (err.name === 'BadRequest') {
               return res.status(400).json(err);
             }

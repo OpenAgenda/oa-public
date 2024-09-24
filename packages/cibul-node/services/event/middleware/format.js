@@ -14,7 +14,11 @@ function _location(v) {
   v.formatted.location = v.req.event.getLocationDetails(v.req.lang, true);
 
   if (_.get(v, 'formatted.location.description')) {
-    v.formatted.location.description = du.nl2br(v.formatted.location.description, true, false);
+    v.formatted.location.description = du.nl2br(
+      v.formatted.location.description,
+      true,
+      false,
+    );
   }
 
   return v;
@@ -90,12 +94,12 @@ function _categories(v) {
 function _dates(v) {
   v.formatted.dates = getDates(v.formatted.timings, v.formatted.timezone);
 
-  v.formatted.dates.forEach(d => {
+  v.formatted.dates.forEach((d) => {
     d.label = v._t(d.date, 'dddd Do MMM');
 
     d.timings = d.timings.sort((a, b) => (a.start < b.start ? -1 : 1));
 
-    d.timings.forEach(t => {
+    d.timings.forEach((t) => {
       t.label = v._t(t.start, 'dddd Do - HH:mm', v.formatted.timezone);
 
       t.startLabel = v._t(t.start, 'HH:mm', v.formatted.timezone);
@@ -113,27 +117,36 @@ function _timings(v) {
   const now = new Date();
   const timings = getTimings(v.req.event);
 
-  v.formatted.timings = timings.map(t => {
+  v.formatted.timings = timings.map((t) => {
     t.label = v._t(t.start, 'dddd Do - HH:mm', v.formatted.timezone);
 
     return t;
   });
 
   if (timings.length) {
-    const jsonLdTiming = _.first(timings.filter(t => new Date(t.start) > now)) || _.last(timings);
+    const jsonLdTiming = _.first(timings.filter((t) => new Date(t.start) > now))
+      || _.last(timings);
 
     v.formatted.jsonLdTiming = {
       start: jsonLdTiming.start,
       end: jsonLdTiming.end,
-      startStr: _t(jsonLdTiming.start, 'YYYY-MM-DDTHH:mm:ss', v.formatted.timezone),
+      startStr: _t(
+        jsonLdTiming.start,
+        'YYYY-MM-DDTHH:mm:ss',
+        v.formatted.timezone,
+      ),
       endStr: _t(jsonLdTiming.end, 'YYYY-MM-DDTHH:mm:ss', v.formatted.timezone),
     };
   }
 
-  v.formatted.dateRange = range(timings.map(t => ({
-    start: new Date(t.start),
-    end: new Date(t.end),
-  })), v.req.event.getCurrentLanguage(), v.formatted.timezone);
+  v.formatted.dateRange = range(
+    timings.map((t) => ({
+      start: new Date(t.start),
+      end: new Date(t.end),
+    })),
+    v.req.event.getCurrentLanguage(),
+    v.formatted.timezone,
+  );
 
   return v;
 }
@@ -152,7 +165,7 @@ function _languages(v) {
 }
 
 function _load(namespace, fnName) {
-  return v => {
+  return (v) => {
     const d = w.defer();
 
     v.req.event[fnName]((err, r) => {
@@ -182,7 +195,10 @@ function _image(v) {
 function listifyKeywords(keywords) {
   if (typeof keywords !== 'string') return [];
 
-  return keywords.split(',').map(k => k.trim()).filter(k => !!k.length);
+  return keywords
+    .split(',')
+    .map((k) => k.trim())
+    .filter((k) => !!k.length);
 }
 
 function _keywords(v) {
@@ -211,16 +227,32 @@ function _main(v) {
 
   Object.assign(
     v.formatted,
-    _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo', 'status', 'statusLabel', 'isNotScheduled']),
-    v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang),
+    _.pick(v.req.event, [
+      'onlineAccessLink',
+      'ticketLink',
+      'pricingInfo',
+      'status',
+      'statusLabel',
+      'isNotScheduled',
+    ]),
+    v.req.app.services.legacy.utils.formatCibulModelEvent(
+      v.req.event,
+      v.req.lang,
+    ),
     {
       longDescriptionLinks,
-      freeText: renderHTMLFromMarkdown(v.req.app.services, longDescriptionLinks, v.req.event.getFreeText()),
-      isUpcoming: !!(v.req.event.timings ?? []).filter(t => new Date(t.end) > now).length,
+      freeText: renderHTMLFromMarkdown(
+        v.req.app.services,
+        longDescriptionLinks,
+        v.req.event.getFreeText(),
+      ),
+      isUpcoming: !!(v.req.event.timings ?? []).filter(
+        (t) => new Date(t.end) > now,
+      ).length,
     },
   );
 
-  Object.keys(map).forEach(k => {
+  Object.keys(map).forEach((k) => {
     v.formatted[k] = v.req.event[map[k]]();
   });
 
@@ -232,72 +264,73 @@ function _main(v) {
  * ( links & full pathed images )
  */
 
-export default _.extend((req, res, next) => {
-  if (req.event.origin) {
-    req.event.origin.oaUrl = `https://openagenda.com/agendas/${req.event.origin.uid}`;
-  }
+export default _.extend(
+  (req, res, next) => {
+    if (req.event.origin) {
+      req.event.origin.oaUrl = `https://openagenda.com/agendas/${req.event.origin.uid}`;
+    }
 
-  w({
-    req,
-    res,
-    formatted: {
-      updatedAt: req.event.updatedAt,
-      createdAt: req.event.createdAt,
-      timezone: req.event.getLocationDetails().timezone,
-      origin: req.event.origin,
-    },
-    _t: timeHelper({ lang: req.lang }),
-  })
-
-    .then(_main)
-
-    .then(_keywords)
-
-    .then(_image)
-
-    .then(_timings)
-
-    .then(_dates)
-
-    .then(_location)
-
-    .then(_registration)
-
-    .then(_load('owner', 'getOwner'))
-
-    .then(_load('agendaReferences', 'getAgendaReferences'))
-
-    .then(_load('adminAgendas', 'getAdminAgendas'))
-
-    .then(_load('currentState', 'getState'))
-
-    .then(_languages)
-
-    .then(_importUri)
-
-    .then(_uri)
-
-    .then(v => {
-      const d = w.defer();
-
-      if (!req.agenda) return v;
-
-      w(v)
-
-        .then(_categories)
-
-        .then(_featured)
-
-        .done(d.resolve, d.reject);
-
-      return d.promise;
+    w({
+      req,
+      res,
+      formatted: {
+        updatedAt: req.event.updatedAt,
+        createdAt: req.event.createdAt,
+        timezone: req.event.getLocationDetails().timezone,
+        origin: req.event.origin,
+      },
+      _t: timeHelper({ lang: req.lang }),
     })
+      .then(_main)
 
-    .done(v => {
-      req.formatted = v.formatted;
+      .then(_keywords)
 
-      next();
-    }, next);
-}, {
-  listifyKeywords,
-});
+      .then(_image)
+
+      .then(_timings)
+
+      .then(_dates)
+
+      .then(_location)
+
+      .then(_registration)
+
+      .then(_load('owner', 'getOwner'))
+
+      .then(_load('agendaReferences', 'getAgendaReferences'))
+
+      .then(_load('adminAgendas', 'getAdminAgendas'))
+
+      .then(_load('currentState', 'getState'))
+
+      .then(_languages)
+
+      .then(_importUri)
+
+      .then(_uri)
+
+      .then((v) => {
+        const d = w.defer();
+
+        if (!req.agenda) return v;
+
+        w(v)
+          .then(_categories)
+
+          .then(_featured)
+
+          .done(d.resolve, d.reject);
+
+        return d.promise;
+      })
+
+      .done((v) => {
+        req.formatted = v.formatted;
+
+        next();
+      }, next);
+  },
+  {
+    listifyKeywords,
+  },
+);

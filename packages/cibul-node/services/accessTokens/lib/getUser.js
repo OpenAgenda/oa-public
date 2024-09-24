@@ -3,7 +3,12 @@ import loadToken from './loadToken.js';
 import isTokenValid from './isTokenValid.js';
 import flagNonce from './flagNonce.js';
 
-export default async function getUser(knex, users, tokenString = null, nonce = null) {
+export default async function getUser(
+  knex,
+  users,
+  tokenString = null,
+  nonce = null,
+) {
   const token = await loadToken(knex, tokenString);
   if (!nonce) {
     throw new Error('nonce is required');
@@ -12,14 +17,14 @@ export default async function getUser(knex, users, tokenString = null, nonce = n
   await isTokenValid(knex, token);
   await flagNonce(knex, token, nonce);
 
-  const apiKeySet = await knex('api_key_set')
-    .first('user_id')
-    .where({
-      id: token.api_key_set_id,
-    });
+  const apiKeySet = await knex('api_key_set').first('user_id').where({
+    id: token.api_key_set_id,
+  });
 
   if (!apiKeySet) {
-    throw new VError('could not find api key set matching token', { token: tokenString });
+    throw new VError('could not find api key set matching token', {
+      token: tokenString,
+    });
   }
 
   return users.findOne({

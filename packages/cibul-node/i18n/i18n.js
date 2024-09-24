@@ -4,8 +4,10 @@ import fs from 'node:fs';
 
 const translations = {};
 
-['fr'].forEach(lang => {
-  translations[lang] = JSON.parse(fs.readFileSync(`${import.meta.dirname}/${lang}.json`, 'utf8'));
+['fr'].forEach((lang) => {
+  translations[lang] = JSON.parse(
+    fs.readFileSync(`${import.meta.dirname}/${lang}.json`, 'utf8'),
+  );
 });
 
 export default function i18n(label, values, lang) {
@@ -15,7 +17,7 @@ export default function i18n(label, values, lang) {
     lang = false;
 
     values = {};
-  } else if ((arguments.length === 2) && (typeof values === 'string')) {
+  } else if (arguments.length === 2 && typeof values === 'string') {
     lang = values;
 
     values = {};
@@ -23,7 +25,7 @@ export default function i18n(label, values, lang) {
     lang = false;
   }
 
-  if (lang && (lang !== 'en') && translations[lang]) {
+  if (lang && lang !== 'en' && translations[lang]) {
     translation = translations[lang][label] || label;
   } else {
     translation = label;

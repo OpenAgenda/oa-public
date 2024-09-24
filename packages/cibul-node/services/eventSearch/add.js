@@ -5,16 +5,12 @@ import hasOtherPublishedReferences from './lib/hasOtherPublishedReferences.js';
 const log = logs('services/eventSearch/add');
 
 export default (services, queue, eventSearch) => {
-  const {
-    agendaEvents,
-  } = services;
+  const { agendaEvents } = services;
 
   return async ({ agenda, member, formSchema, event }, options = {}) => {
     log('add');
 
-    const {
-      updateOtherIndices = true,
-    } = options;
+    const { updateOtherIndices = true } = options;
 
     const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
@@ -23,7 +19,11 @@ export default (services, queue, eventSearch) => {
       member,
     };
 
-    const result = await searchIndex.add(data, { refresh: true, formSchema, agenda });
+    const result = await searchIndex.add(data, {
+      refresh: true,
+      formSchema,
+      agenda,
+    });
 
     log('added', result);
 
@@ -32,7 +32,9 @@ export default (services, queue, eventSearch) => {
       return;
     }
 
-    if (!await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)) {
+    if (
+      !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)
+    ) {
       await queue('transverseIndexUpdate', event);
     }
 

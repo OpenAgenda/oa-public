@@ -30,31 +30,43 @@ function getUpdatedTags(changes, schema) {
   for (const change of changes) {
     if (change.path.length === 1 && change.path[0] === 'tags') {
       if (change.kind === 'A') {
-        if (change.item.kind === 'N') { // new item
+        if (change.item.kind === 'N') {
+          // new item
           tagIds.push(change.item.rhs.id);
         }
-        if (change.item.kind === 'D') { // deleted item
+        if (change.item.kind === 'D') {
+          // deleted item
           tagIds.push(change.item.lhs.id);
         }
-      } else if (change.kind === 'N') { // new array
-        tagIds.push(...change.item.rhs.map(tag => tag.id));
-      } else if (change.kind === 'D') { // deleted array
-        tagIds.push(...change.item.lhs.map(tag => tag.id));
+      } else if (change.kind === 'N') {
+        // new array
+        tagIds.push(...change.item.rhs.map((tag) => tag.id));
+      } else if (change.kind === 'D') {
+        // deleted array
+        tagIds.push(...change.item.lhs.map((tag) => tag.id));
       }
     }
 
-    if (change.path.length === 3 && change.path[0] === 'tags' && change.path[2] === 'id') {
-      if (change.kind !== 'N') { // not new
+    if (
+      change.path.length === 3
+      && change.path[0] === 'tags'
+      && change.path[2] === 'id'
+    ) {
+      if (change.kind !== 'N') {
+        // not new
         tagIds.push(change.lhs);
       }
-      if (change.kind !== 'D') { // not delete
+      if (change.kind !== 'D') {
+        // not delete
         tagIds.push(change.rhs);
       }
     }
   }
 
   return tagIds
-    .map(tagId => schema.fields.find(fieldSchema => fieldSchema.options?.find(option => option.id === tagId)))
+    .map((tagId) =>
+      schema.fields.find((fieldSchema) =>
+        fieldSchema.options?.find((option) => option.id === tagId)))
     .filter((v, i, a) => a.indexOf(v) === i);
 }
 
@@ -66,12 +78,11 @@ export default async function registerUpdateActivity({
   before,
   after,
 }) {
-  const {
-    members,
-    activities,
-  } = services;
+  const { members, activities } = services;
 
-  const locationSchema = agenda.schema.fields.find(v => v.field === 'location').schema;
+  const locationSchema = agenda.schema.fields.find(
+    (v) => v.field === 'location',
+  ).schema;
 
   const changes = diff(
     before,
@@ -82,39 +93,52 @@ export default async function registerUpdateActivity({
   const updatedTags = getUpdatedTags(changes, locationSchema);
 
   const allChangedFields = (changes ?? [])
-    .map(v => v.path[0])
+    .map((v) => v.path[0])
     .filter((v, i, a) => a.indexOf(v) === i && v !== 'tags');
 
-  const changedFields = allChangedFields.reduce((accu, changedField) => {
-    const fieldSchema = locationSchema.fields.find(v => v.field === changedField);
+  const changedFields = allChangedFields.reduce(
+    (accu, changedField) => {
+      const fieldSchema = locationSchema.fields.find(
+        (v) => v.field === changedField,
+      );
 
-    // skip internal fields
-    if (fieldSchema.write?.length === 1 && fieldSchema.write[0] === 'internal') {
+      // skip internal fields
+      if (
+        fieldSchema.write?.length === 1
+        && fieldSchema.write[0] === 'internal'
+      ) {
+        return accu;
+      }
+
+      const fieldAccess = getFieldReadAccess(fieldSchema);
+
+      if (!fieldAccess) {
+        return accu;
+      }
+
+      if (!accu[fieldAccess]) {
+        accu[fieldAccess] = [];
+      }
+
+      if (
+        labels[fieldSchema.field]
+        && _.isEqual(fieldSchema.label, labels[fieldSchema.field])
+      ) {
+        accu[fieldAccess].push(fieldSchema.field);
+      } else if (fieldSchema.label) {
+        accu[fieldAccess].push({ label: fieldSchema.label });
+      } else if (labels[fieldSchema.field]) {
+        accu[fieldAccess].push(fieldSchema.field);
+      }
+
       return accu;
-    }
-
-    const fieldAccess = getFieldReadAccess(fieldSchema);
-
-    if (!fieldAccess) {
-      return accu;
-    }
-
-    if (!accu[fieldAccess]) {
-      accu[fieldAccess] = [];
-    }
-
-    if (labels[fieldSchema.field] && _.isEqual(fieldSchema.label, labels[fieldSchema.field])) {
-      accu[fieldAccess].push(fieldSchema.field);
-    } else if (fieldSchema.label) {
-      accu[fieldAccess].push({ label: fieldSchema.label });
-    } else if (labels[fieldSchema.field]) {
-      accu[fieldAccess].push(fieldSchema.field);
-    }
-
-    return accu;
-  }, {
-    contributor: updatedTags.map(fieldSchema => ({ label: fieldSchema.label })),
-  });
+    },
+    {
+      contributor: updatedTags.map((fieldSchema) => ({
+        label: fieldSchema.label,
+      })),
+    },
+  );
 
   const hasChanges = changedFields.contributor?.length
     || changedFields.moderator?.length
@@ -126,27 +150,36 @@ export default async function registerUpdateActivity({
     try {
       member = await members.get({ agendaUid, userUid }, { detailed: true });
     } catch (e) {
-      return log('error', new VError(e, 'Error to get member', { agendaUid, userUid }));
+      return log(
+        'error',
+        new VError(e, 'Error to get member', { agendaUid, userUid }),
+      );
     }
 
     try {
-      await activities.addActivity({ entityType: 'location', entityUid: after.uid }, {
-        actor: `user:${userUid}`,
-        verb: 'location.update',
-        object: `location:${after.uid}`,
-        target: `agenda:${agenda.uid}`,
-        store: {
-          labels: {
-            actor: member.name ?? member.custom?.contactName ?? member.user.fullName,
-            object: before.title,
-            target: agenda.title,
+      await activities.addActivity(
+        { entityType: 'location', entityUid: after.uid },
+        {
+          actor: `user:${userUid}`,
+          verb: 'location.update',
+          object: `location:${after.uid}`,
+          target: `agenda:${agenda.uid}`,
+          store: {
+            labels: {
+              actor:
+                member.name
+                ?? member.custom?.contactName
+                ?? member.user.fullName,
+              object: before.title,
+              target: agenda.title,
+            },
+            diff: changes,
+            contributorFields: changedFields.contributor,
+            moderatorFields: changedFields.moderator,
+            administratorFields: changedFields.administrator,
           },
-          diff: changes,
-          contributorFields: changedFields.contributor,
-          moderatorFields: changedFields.moderator,
-          administratorFields: changedFields.administrator,
         },
-      });
+      );
     } catch (e) {
       log('error', 'failed to create location update activity', e);
     }

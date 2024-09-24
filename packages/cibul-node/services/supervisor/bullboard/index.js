@@ -7,7 +7,7 @@ import ExpressAdapter from './ExpressAdapter.js';
 
 const csp = contentSecurityPolicy.default({
   ...contentSecurityPolicy.defaultDirectives,
-  baseUri: ['\'self\''],
+  baseUri: ["'self'"],
   styleSrc: [
     ...contentSecurityPolicy.defaultDirectives.styleSrc,
     'https://fonts.googleapis.com',
@@ -16,27 +16,29 @@ const csp = contentSecurityPolicy.default({
     ...contentSecurityPolicy.defaultDirectives.fontSrc,
     'https://fonts.gstatic.com',
   ],
-  scriptSrc: ['\'self\''],
+  scriptSrc: ["'self'"],
 });
 
 export function plugApp(app, base = '/bullboard') {
-  const { bull: { Queue } } = app.services;
+  const {
+    bull: { Queue },
+  } = app.services;
 
   const serverAdapter = new ExpressAdapter();
   serverAdapter.setBasePath(base);
 
   createBullBoard({
     queues: [
-      new BullMQAdapter(new Queue('memberMessages', { prefix: '{memberMessages}' })),
+      new BullMQAdapter(
+        new Queue('memberMessages', { prefix: '{memberMessages}' }),
+      ),
       new BullMQAdapter(new Queue('addActivity', { prefix: '{addActivity}' })),
-      new BullMQAdapter(new Queue('prepareSummary', { prefix: '{prepareSummary}' })),
+      new BullMQAdapter(
+        new Queue('prepareSummary', { prefix: '{prepareSummary}' }),
+      ),
     ],
     serverAdapter,
   });
 
-  app.use(
-    base,
-    csp,
-    serverAdapter.getRouter(),
-  );
+  app.use(base, csp, serverAdapter.getRouter());
 }

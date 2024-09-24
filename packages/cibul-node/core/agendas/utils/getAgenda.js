@@ -3,15 +3,18 @@ import getSchemas from './getSchemas.js';
 import getNetwork from './getNetwork.js';
 
 export default async (services, agendaOrUid, options = {}) => {
-  const {
-    detailed = false,
-  } = options;
+  const { detailed = false } = options;
 
-  const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await services.agendas.get({ uid: agendaOrUid }, {
-    internal: true,
-    private: null,
-    includeImagePath: true,
-  });
+  const agenda = agendaOrUid?.constructor.name === 'Object'
+    ? agendaOrUid
+    : await services.agendas.get(
+      { uid: agendaOrUid },
+      {
+        internal: true,
+        private: null,
+        includeImagePath: true,
+      },
+    );
 
   if (!agenda) {
     throw new NotFound({ info: { uid: agendaOrUid } }, 'agenda not found');
@@ -23,10 +26,7 @@ export default async (services, agendaOrUid, options = {}) => {
 
   agenda.network = await getNetwork(services, agenda.networkUid);
 
-  const [
-    formSchema,
-    networkSchema,
-  ] = await getSchemas(services, [
+  const [formSchema, networkSchema] = await getSchemas(services, [
     agenda.formSchemaId,
     agenda?.network?.formSchemaId,
   ]);

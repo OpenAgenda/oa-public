@@ -1,21 +1,24 @@
-export default async function getAgendaUserEventStats(core, identifier, agendaUid, options = []) {
+export default async function getAgendaUserEventStats(
+  core,
+  identifier,
+  agendaUid,
+  options = [],
+) {
   const {
-    services: {
-      events,
-    },
+    services: { events },
   } = core;
 
   // list drafts
-  const {
-    total: drafts,
-  } = await events.list({
-    ownerUid: identifier,
-    agendaUid,
-  }, { limit: 0 }, { total: true, draft: true });
+  const { total: drafts } = await events.list(
+    {
+      ownerUid: identifier,
+      agendaUid,
+    },
+    { limit: 0 },
+    { total: true, draft: true },
+  );
 
-  const {
-    relation = [],
-  } = options;
+  const { relation = [] } = options;
 
   let userFilterKey = 'ownerUid';
 
@@ -30,15 +33,22 @@ export default async function getAgendaUserEventStats(core, identifier, agendaUi
   };
 
   // list events
-  const states = await core.agendas(agendaUid).events.search({
-    state: null,
-    ...userFilter,
-  }, {
-    size: 0,
-  }, {
-    aggregations: ['states'],
-    access: 'internal',
-  }).then(({ aggregations }) => aggregations.states);
+  const states = await core
+    .agendas(agendaUid)
+    .events.search(
+      {
+        state: null,
+        ...userFilter,
+      },
+      {
+        size: 0,
+      },
+      {
+        aggregations: ['states'],
+        access: 'internal',
+      },
+    )
+    .then(({ aggregations }) => aggregations.states);
 
   return {
     states,

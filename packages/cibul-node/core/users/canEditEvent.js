@@ -7,7 +7,7 @@ const log = logs('core/users/canEditEvent');
 const loadEvent = async (core, obj) => {
   const eventUid = obj instanceof Object ? obj.uid : obj;
 
-  if ((obj instanceof Object) && obj.ownerUid && (obj.draft !== undefined)) {
+  if (obj instanceof Object && obj.ownerUid && obj.draft !== undefined) {
     return obj;
   }
 
@@ -29,15 +29,9 @@ const loadEvent = async (core, obj) => {
 };
 
 export default async (core, userIdentifier, eventObj) => {
-  const {
-    agendaEvents,
-    members,
-    users,
-  } = core.services;
+  const { agendaEvents, members, users } = core.services;
 
-  const {
-    isSuperiorToOrEqual,
-  } = members.utils.compareRoles;
+  const { isSuperiorToOrEqual } = members.utils.compareRoles;
 
   const user = await users.findOne({
     query: validateIdentifier(userIdentifier, { pickOne: true }),
@@ -46,9 +40,12 @@ export default async (core, userIdentifier, eventObj) => {
   log('loaded user %s', user.uid);
 
   if (!user) {
-    throw new NotFound({
-      info: { uid: userIdentifier },
-    }, 'user not found');
+    throw new NotFound(
+      {
+        info: { uid: userIdentifier },
+      },
+      'user not found',
+    );
   }
 
   const {
@@ -62,17 +59,20 @@ export default async (core, userIdentifier, eventObj) => {
     return true;
   }
 
-  const {
-    items: agendaEventItems,
-  } = await agendaEvents.list.byEventUid(eventUid, { canEdit: true });
+  const { items: agendaEventItems } = await agendaEvents.list.byEventUid(
+    eventUid,
+    { canEdit: true },
+  );
 
   const memberItems = await members.list({
-    agendaUid: agendaEventItems.map(i => i.agendaUid),
+    agendaUid: agendaEventItems.map((i) => i.agendaUid),
     userUid: user.uid,
   });
 
   for (const ae of agendaEventItems) {
-    const member = memberItems.filter(m => m.agendaUid === ae.agendaUid).pop();
+    const member = memberItems
+      .filter((m) => m.agendaUid === ae.agendaUid)
+      .pop();
 
     if (!member) {
       // user is not member of agenda

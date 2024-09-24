@@ -29,17 +29,20 @@ export function getIndexedEventsByWeek(options, cb) {
   const dsl = {
     query: {
       bool: {
-        should: [{
-          term: {
-            original_es: true,
-          },
-        }, {
-          range: {
-            updatedAt: {
-              gte: `${params.year}-01-01T00:00:00.000Z`,
+        should: [
+          {
+            term: {
+              original_es: true,
             },
           },
-        }],
+          {
+            range: {
+              updatedAt: {
+                gte: `${params.year}-01-01T00:00:00.000Z`,
+              },
+            },
+          },
+        ],
         minimum_should_match: 2,
       },
     },
@@ -56,10 +59,13 @@ export function getIndexedEventsByWeek(options, cb) {
   es(config.es, 'event', dsl, (err, data) => {
     if (err) return cb(err);
 
-    cb(null, data.aggregations.histogram.buckets.map(d => ({
-      l: moment(d.key_as_string).format('DD MMM'),
-      v: d.doc_count,
-    })));
+    cb(
+      null,
+      data.aggregations.histogram.buckets.map((d) => ({
+        l: moment(d.key_as_string).format('DD MMM'),
+        v: d.doc_count,
+      })),
+    );
   });
 }
 
@@ -85,17 +91,21 @@ export function getIndexDiff(cb) {
     'where ra.state = 2',
   ].join(' ');
 
-  async.map([unreferencedQuery, referencedQuery], model.lib.query, (err, results) => {
-    if (err) return cb(err);
+  async.map(
+    [unreferencedQuery, referencedQuery],
+    model.lib.query,
+    (err, results) => {
+      if (err) return cb(err);
 
-    dbCount = results[0][0].unref_count + results[1][0].ref_count;
+      dbCount = results[0][0].unref_count + results[1][0].ref_count;
 
-    // total es result for events should be same.
+      // total es result for events should be same.
 
-    es(config.es, 'event', (err2, result) => {
-      if (err2) return cb(err2);
+      es(config.es, 'event', (err2, result) => {
+        if (err2) return cb(err2);
 
-      cb(null, dbCount - result.hits.total);
-    });
-  });
+        cb(null, dbCount - result.hits.total);
+      });
+    },
+  );
 }

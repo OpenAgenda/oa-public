@@ -40,13 +40,14 @@ export function init(config, services) {
           enqueue,
           services,
         }),
-        isMarkedAsPending: data => data?.[0]?.response?.isPending,
-        isNew: data => !data[0]?.appliedAt,
-        hasNonApplied: data => !!data.filter(item => !item.appliedAt).length,
+        isMarkedAsPending: (data) => data?.[0]?.response?.isPending,
+        isNew: (data) => !data[0]?.appliedAt,
+        hasNonApplied: (data) =>
+          !!data.filter((item) => !item.appliedAt).length,
         enqueuePending: enqueue,
       },
     },
-    shutdown: async options => {
+    shutdown: async (options) => {
       await shutdownTask(options);
     },
     task,

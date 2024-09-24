@@ -1,5 +1,5 @@
 export default function onGenerateApiKey(config) {
-  return async ctx => {
+  return async (ctx) => {
     // Need detailed user
     const user = await ctx.self.get(ctx.id, { detailed: true });
 
@@ -11,7 +11,10 @@ export default function onGenerateApiKey(config) {
 
     const { knex, schemas } = config;
 
-    const existingKeySet = await knex(schemas.apiKeySet).select().first().where({ user_id: user.id });
+    const existingKeySet = await knex(schemas.apiKeySet)
+      .select()
+      .first()
+      .where({ user_id: user.id });
 
     if (existingKeySet) {
       await knex(schemas.apiKeySet)
@@ -21,15 +24,14 @@ export default function onGenerateApiKey(config) {
           api_secret: user.apiSecret || null,
         });
     } else {
-      await knex(schemas.apiKeySet)
-        .insert({
-          api_key: user.apiKey || null,
-          api_secret: user.apiSecret || null,
-          user_id: user.id,
-          type: 1,
-          created_at: new Date(),
-          updated_at: new Date(),
-        });
+      await knex(schemas.apiKeySet).insert({
+        api_key: user.apiKey || null,
+        api_secret: user.apiSecret || null,
+        user_id: user.id,
+        type: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      });
     }
   };
 }

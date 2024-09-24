@@ -7,10 +7,14 @@ const log = logs('sessions/interfaces/getUser');
 export default function getUser(services, imageBucketPath, query, cb) {
   log('info', 'requested user with %j', query);
 
-  services.users.findOne({ query: _.pick(query, 'id', 'uid', 'email'), detailed: true })
-    .then(user => {
+  services.users
+    .findOne({ query: _.pick(query, 'id', 'uid', 'email'), detailed: true })
+    .then((user) => {
       if (!user) {
-        const error = new VError('failed to retrieve user: %j', _.pick(query, 'id', 'uid', 'email'));
+        const error = new VError(
+          'failed to retrieve user: %j',
+          _.pick(query, 'id', 'uid', 'email'),
+        );
 
         log('error', error);
 
@@ -31,8 +35,15 @@ export default function getUser(services, imageBucketPath, query, cb) {
         transverseApiAccess: user.transverseApiAccess,
       });
     })
-    .catch(err => {
-      log('error', new VError(err, 'failed to retrieve user: %j', _.pick(query, 'id', 'uid', 'email')));
+    .catch((err) => {
+      log(
+        'error',
+        new VError(
+          err,
+          'failed to retrieve user: %j',
+          _.pick(query, 'id', 'uid', 'email'),
+        ),
+      );
       cb(err, null);
     });
 }

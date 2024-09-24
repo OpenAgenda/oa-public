@@ -1,15 +1,17 @@
 import getAgenda from './utils/getAgenda.js';
 
-export default (core, endpoints, agendaUid) => async function agendaRebuild() {
-  const {
-    services: {
-      agendas: agendasSvc,
-    },
-  } = core;
+export default (core, endpoints, agendaUid) =>
+  async function agendaRebuild() {
+    const {
+      services: { agendas: agendasSvc },
+    } = core;
 
-  const agenda = await getAgenda(core.services, agendaUid, { detailed: true, private: null });
+    const agenda = await getAgenda(core.services, agendaUid, {
+      detailed: true,
+      private: null,
+    });
 
-  await agendasSvc.resetCache(agenda);
-  await endpoints.events.search.rebuild();
-  await endpoints.settings.legacy.update(true);
-};
+    await agendasSvc.resetCache(agenda);
+    await endpoints.events.search.rebuild();
+    await endpoints.settings.legacy.update(true);
+  };

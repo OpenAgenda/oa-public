@@ -9,7 +9,7 @@ import sendGroupMail from './sendGroupMail.js';
 
 export default (core, agendaUid) =>
   Object.assign(
-    memberOrUid => ({
+    (memberOrUid) => ({
       sendGroupMail: sendGroupMail.bind(null, core, agendaUid, memberOrUid),
     }),
     {

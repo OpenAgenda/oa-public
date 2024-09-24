@@ -1,11 +1,9 @@
 import rss from '@openagenda/flat-exports/rss.js';
 
-export default core => async (req, res, next) => {
+export default (core) => async (req, res, next) => {
   const {
     root,
-    aws: {
-      imageBucketPath,
-    },
+    aws: { imageBucketPath },
   } = core.getConfig();
 
   try {
@@ -16,9 +14,7 @@ export default core => async (req, res, next) => {
     };
 
     const {
-      result: {
-        events,
-      },
+      result: { events },
       agenda,
     } = await req.search(query, req.query, {
       ...req.searchOptions,
@@ -37,12 +33,12 @@ export default core => async (req, res, next) => {
     };
 
     if (query.embed_url) {
-      rssOptions.genUrl = e => `${query.embed_url}?oaq[uid]=${e.uid}`;
+      rssOptions.genUrl = (e) => `${query.embed_url}?oaq[uid]=${e.uid}`;
     }
 
     const feed = rss(rssOptions);
 
-    events.forEach(e => feed.addEvent(e));
+    events.forEach((e) => feed.addEvent(e));
 
     res.set('Content-Type', 'application/rss+xml');
 

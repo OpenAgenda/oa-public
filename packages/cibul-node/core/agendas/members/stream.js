@@ -20,7 +20,8 @@ class Stream extends Readable {
 
   async _read() {
     if (!this._.buffer.length) {
-      this._.buffer = (await this._loadBuffer()).map(m => (this._.transform ? this._.transform(m) : m));
+      this._.buffer = (await this._loadBuffer()).map((m) =>
+        (this._.transform ? this._.transform(m) : m));
     }
 
     return this.push(this._.buffer.length ? this._.buffer.shift() : null);
@@ -31,11 +32,9 @@ class Stream extends Readable {
       ? ih(this._.nav, { after: { $set: this._.after } })
       : this._.nav;
 
-    const { items: members, after } = await this._.core.agendas(this._.agenda).members.list(
-      this._.query,
-      nav,
-      this._.options,
-    );
+    const { items: members, after } = await this._.core
+      .agendas(this._.agenda)
+      .members.list(this._.query, nav, this._.options);
 
     if (!members.length) return [];
 
@@ -45,7 +44,13 @@ class Stream extends Readable {
   }
 }
 
-const createStream = async (core, agendaUid, query = {}, nav = {}, options = {}) => {
+const createStream = async (
+  core,
+  agendaUid,
+  query = {},
+  nav = {},
+  options = {},
+) => {
   const { userUid, includeMemberSchema = false } = options;
   const agenda = await core.agendas(agendaUid).get({
     detailed: true,
@@ -56,7 +61,11 @@ const createStream = async (core, agendaUid, query = {}, nav = {}, options = {})
     agendaUid,
     userUid,
   });
-  return new Stream({ core, agenda }, query, nav, { ...options, actingMember, detailed: true });
+  return new Stream({ core, agenda }, query, nav, {
+    ...options,
+    actingMember,
+    detailed: true,
+  });
 };
 
 export default createStream;

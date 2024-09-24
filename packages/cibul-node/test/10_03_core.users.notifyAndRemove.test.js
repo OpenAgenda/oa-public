@@ -4,9 +4,7 @@ import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
 
 async function clearRedis(services) {
-  const {
-    redis,
-  } = services;
+  const { redis } = services;
 
   const keys = await redis.keys('inactiveUsers:*');
 
@@ -57,42 +55,58 @@ describe('10 - core - functional (server): core.users().remove()', () => {
   beforeAll(() => clearRedis(services));
 
   beforeAll(async () => {
-    const {
-      redis,
-    } = services;
+    const { redis } = services;
 
-    await redis.set('inactiveUsers:3', JSON.stringify({
-      sent: [{
-        name: 'first',
-        date: '2020-01-01',
-      }],
-    }));
-    await redis.set('inactiveUsers:4', JSON.stringify({
-      sent: [{
-        name: 'first',
-        date: '2022-05-01',
-      }, {
-        name: 'second',
-        date: '2022-05-20',
-      }],
-    }));
-    await redis.set('inactiveUsers:5', JSON.stringify({
-      sent: [{
-        name: 'first',
-        date: '2022-05-01',
-      }, {
-        name: 'second',
-        date: '2022-05-20',
-      }, {
-        name: 'last',
-        date: '2022-06-05',
-      }],
-    }));
+    await redis.set(
+      'inactiveUsers:3',
+      JSON.stringify({
+        sent: [
+          {
+            name: 'first',
+            date: '2020-01-01',
+          },
+        ],
+      }),
+    );
+    await redis.set(
+      'inactiveUsers:4',
+      JSON.stringify({
+        sent: [
+          {
+            name: 'first',
+            date: '2022-05-01',
+          },
+          {
+            name: 'second',
+            date: '2022-05-20',
+          },
+        ],
+      }),
+    );
+    await redis.set(
+      'inactiveUsers:5',
+      JSON.stringify({
+        sent: [
+          {
+            name: 'first',
+            date: '2022-05-01',
+          },
+          {
+            name: 'second',
+            date: '2022-05-20',
+          },
+          {
+            name: 'last',
+            date: '2022-06-05',
+          },
+        ],
+      }),
+    );
   });
 
   beforeAll(async () => {
     result = await services.users.tasks.notifyAndRemove({
-      onStateUpdate: data => stateUpdates.push(data),
+      onStateUpdate: (data) => stateUpdates.push(data),
       send: false,
     });
   });
@@ -112,14 +126,22 @@ describe('10 - core - functional (server): core.users().remove()', () => {
   });
 
   it('users that have been notified three times with last notification made more than 24 hours ago are deleted', async () => {
-    const removedUser = await services.users.get(5, { removed: null, detailed: true });
+    const removedUser = await services.users.get(5, {
+      removed: null,
+      detailed: true,
+    });
 
     expect(removedUser.isRemoved).toBe(true);
   });
 
   it('result of task gives a count of actions taken', () => {
     expect(Object.keys(result)).toEqual([
-      'processed', 'first', 'second', 'last', 'removals', 'signedIn',
+      'processed',
+      'first',
+      'second',
+      'last',
+      'removals',
+      'signedIn',
     ]);
   });
 
@@ -128,11 +150,13 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
     const newStateUpdates = [];
     await services.users.tasks.notifyAndRemove({
-      onStateUpdate: data => newStateUpdates.push(data),
+      onStateUpdate: (data) => newStateUpdates.push(data),
       send: false,
     });
 
-    const jeanBenoitState = newStateUpdates.find(({ user }) => user.uid === 1).state;
+    const jeanBenoitState = newStateUpdates.find(
+      ({ user }) => user.uid === 1,
+    ).state;
 
     expect(jeanBenoitState.sent.length).toBe(1);
     expect(jeanBenoitState.sent[0].name).toBe('first');
@@ -143,7 +167,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
     const newStateUpdates = [];
     await services.users.tasks.notifyAndRemove({
-      onStateUpdate: data => newStateUpdates.push(data),
+      onStateUpdate: (data) => newStateUpdates.push(data),
       send: false,
     });
 

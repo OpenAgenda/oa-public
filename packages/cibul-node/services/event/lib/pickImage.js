@@ -14,9 +14,16 @@ export default (config, eventInstance, imageType) => {
   const fallbackGetter = eventInstance[fallbackGetters[imageType]];
 
   try {
-    const images = _.get(_.isObject(eventInstance.store) ? eventInstance.store : JSON.parse(eventInstance.store), 'images');
+    const images = _.get(
+      _.isObject(eventInstance.store)
+        ? eventInstance.store
+        : JSON.parse(eventInstance.store),
+      'images',
+    );
 
-    const match = _.first(_.get(images, 'variants').filter(v => v.type === imageType));
+    const match = _.first(
+      _.get(images, 'variants').filter((v) => v.type === imageType),
+    );
 
     if (!match) return fallbackGetter();
 

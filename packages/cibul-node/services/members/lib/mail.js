@@ -7,10 +7,11 @@ import extractInvitationContext from './invitationContext.js';
 
 const log = logs('services/members/mail');
 
-async function createSenderActivity(services, { agenda, invitationContext, member }) {
-  const {
-    activities,
-  } = services;
+async function createSenderActivity(
+  services,
+  { agenda, invitationContext, member },
+) {
+  const { activities } = services;
 
   const user = await services.users.findOne({
     query: {
@@ -22,32 +23,33 @@ async function createSenderActivity(services, { agenda, invitationContext, membe
     throw new Error('Sender not found');
   }
 
-  return activities.addActivity({
-    entityType: 'agenda',
-    entityUid: agenda.uid,
-  }, {
-    actor: `user:${user.uid}`,
-    verb: 'agenda.sendInvitation',
-    object: `email:${member.custom.email}`,
-    target: `agenda:${agenda.uid}`,
-    store: {
-      labels: {
-        actor: invitationContext.sender.memberName || user.fullName,
-        object: member.custom.email,
-        target: agenda.title,
-      },
-      role: member.role,
+  return activities.addActivity(
+    {
+      entityType: 'agenda',
+      entityUid: agenda.uid,
     },
-  });
+    {
+      actor: `user:${user.uid}`,
+      verb: 'agenda.sendInvitation',
+      object: `email:${member.custom.email}`,
+      target: `agenda:${agenda.uid}`,
+      store: {
+        labels: {
+          actor: invitationContext.sender.memberName || user.fullName,
+          object: member.custom.email,
+          target: agenda.title,
+        },
+        role: member.role,
+      },
+    },
+  );
 }
 
-function processSend({ config, services }, {
-  invitation, member, agenda, message, lang, footnote, redirect = null,
-}) {
-  const {
-    members,
-    mails,
-  } = services;
+function processSend(
+  { config, services },
+  { invitation, member, agenda, message, lang, footnote, redirect = null },
+) {
+  const { members, mails } = services;
 
   const isMember = !!member.userUid;
   const role = members.utils.getRoleSlug(member.role);
@@ -92,25 +94,34 @@ function processSend({ config, services }, {
   });
 }
 
-export async function send({ config, services }, {
-  member, context, agenda, message,
-}) {
+export async function send(
+  { config, services },
+  { member, context, agenda, message },
+) {
   log('send');
 
   const lang = _.get(context, 'lang', 'fr');
 
-  return processSend({ config, services }, {
-    member,
-    agenda,
-    message,
-    lang,
-  });
+  return processSend(
+    { config, services },
+    {
+      member,
+      agenda,
+      message,
+      lang,
+    },
+  );
 }
 
-export async function sendInvitation({ services, config }, {
-  invitation, member, context, agenda,
-}) {
-  const invitationContext = extractInvitationContext(invitation, agenda.uid, context);
+export async function sendInvitation(
+  { services, config },
+  { invitation, member, context, agenda },
+) {
+  const invitationContext = extractInvitationContext(
+    invitation,
+    agenda.uid,
+    context,
+  );
   try {
     await createSenderActivity(services, { agenda, invitationContext, member });
   } catch (e) {
@@ -119,21 +130,25 @@ export async function sendInvitation({ services, config }, {
 
   const lang = _.get(invitationContext, 'lang', 'fr');
 
-  return processSend({ config, services }, {
-    invitation,
-    member,
-    agenda,
-    message: invitationContext?.message,
-    footnote: agenda.settings?.contribution?.messages?.GDPRInformation,
-    lang,
-    redirect: invitationContext?.redirect,
-  });
+  return processSend(
+    { config, services },
+    {
+      invitation,
+      member,
+      agenda,
+      message: invitationContext?.message,
+      footnote: agenda.settings?.contribution?.messages?.GDPRInformation,
+      lang,
+      redirect: invitationContext?.redirect,
+    },
+  );
 }
 
-export async function resendInvitation({ services, config }, { agenda, member }) {
-  const {
-    invitation,
-  } = await invitations.get({ email: member.custom.email });
+export async function resendInvitation(
+  { services, config },
+  { agenda, member },
+) {
+  const { invitation } = await invitations.get({ email: member.custom.email });
 
   if (!invitation) {
     throw new Error('There is no invitation for this member');

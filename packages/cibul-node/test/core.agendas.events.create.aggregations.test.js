@@ -52,14 +52,19 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
     let event;
 
     beforeAll(() => {
-      core.agendas(17026855).events.create(eventFixtures[2], {
-        context: {
-          userUid: memberUserUid,
-        },
-        access: 'contributor',
-      }).then(e => { event = e; });
+      core
+        .agendas(17026855)
+        .events.create(eventFixtures[2], {
+          context: {
+            userUid: memberUserUid,
+          },
+          access: 'contributor',
+        })
+        .then((e) => {
+          event = e;
+        });
 
-      return new Promise(rs => {
+      return new Promise((rs) => {
         core.services.tracker.on('aggregators.referenceEvent.done', rs, true);
       });
     });
@@ -80,9 +85,9 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
     });
 
     it('sourceAgendas are indexed in event document of aggregator', async () => {
-      const {
-        events,
-      } = await core.agendas(55268170).events.search({ uid: event.uid }, {}, { detailed: true });
+      const { events } = await core
+        .agendas(55268170)
+        .events.search({ uid: event.uid }, {}, { detailed: true });
 
       expect(events[0].sourceAgendas.length).toBe(1);
     });
@@ -90,19 +95,23 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
     describe('update of aggregated event', () => {
       let updated;
       beforeAll(async () => {
-        updated = await core.agendas(55268170).events.update(event.uid, {
-          featured: 1,
-        }, {
-          partial: true,
-          detailed: true,
-          userUid: 1,
-        });
+        updated = await core.agendas(55268170).events.update(
+          event.uid,
+          {
+            featured: 1,
+          },
+          {
+            partial: true,
+            detailed: true,
+            userUid: 1,
+          },
+        );
       });
 
       it('update does not remove source information in indexed document', async () => {
-        const {
-          events,
-        } = await core.agendas(55268170).events.search({ uid: event.uid }, {}, { detailed: true });
+        const { events } = await core
+          .agendas(55268170)
+          .events.search({ uid: event.uid }, {}, { detailed: true });
 
         expect(events[0].sourceAgendas.length).toBe(1);
       });
@@ -127,12 +136,16 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
     });
 
     beforeAll(() => {
-      core.agendas(17026855).events.add(event.uid, {
-        'thematiques-metropolitaines': 3,
-        'categories-agenda-metropolitain': 42,
-      }, { context });
+      core.agendas(17026855).events.add(
+        event.uid,
+        {
+          'thematiques-metropolitaines': 3,
+          'categories-agenda-metropolitain': 42,
+        },
+        { context },
+      );
 
-      return new Promise(rs => {
+      return new Promise((rs) => {
         core.services.tracker.on('aggregators.referenceEvent.done', rs, true);
       });
     });
@@ -155,20 +168,28 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
         access: 'contributor',
       });
 
-      await new Promise(rs => {
+      await new Promise((rs) => {
         core.services.tracker.on('aggregators.referenceEvent.done', rs);
       });
 
       // first aggregation happened
-      await core.agendas(17026800).events.update(event.uid, {
-        'categories-agenda-metropolitain': 43,
-      }, {
-        partial: true,
-        context,
-      });
+      await core.agendas(17026800).events.update(
+        event.uid,
+        {
+          'categories-agenda-metropolitain': 43,
+        },
+        {
+          partial: true,
+          context,
+        },
+      );
 
-      return new Promise(rs => {
-        core.services.tracker.on('aggregators.updateEventReference.done', rs, true);
+      return new Promise((rs) => {
+        core.services.tracker.on(
+          'aggregators.updateEventReference.done',
+          rs,
+          true,
+        );
       });
     });
 
@@ -180,7 +201,9 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
 
   describe('list sources', () => {
     it('lists sources of an agenda', async () => {
-      const { after, sources } = await core.agendas(55268170).sources.list({}, { size: 20, after: null }, { detailed: true });
+      const { after, sources } = await core
+        .agendas(55268170)
+        .sources.list({}, { size: 20, after: null }, { detailed: true });
       expect(sources.length).toBe(1);
       expect(after).toBeNull();
     });

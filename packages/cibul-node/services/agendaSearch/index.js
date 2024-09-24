@@ -24,14 +24,13 @@ export function init(config, services) {
       image: config.logo,
     },
     listAgendas: listAgendas(services),
-    getDetailedAgenda: agenda => {
+    getDetailedAgenda: (agenda) => {
       log('getting detailed info for agenda %s', agenda.slug);
-      return services.core
-        .agendas(agenda.uid).get({
-          detailed: 1,
-          access: 'internal',
-          includeEvent: true,
-        });
+      return services.core.agendas(agenda.uid).get({
+        detailed: 1,
+        access: 'internal',
+        includeEvent: true,
+      });
     },
   });
 

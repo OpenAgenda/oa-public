@@ -12,18 +12,9 @@ export default async (core, payload, clean, options = {}) => {
   const agenda = payload.getAgenda();
   const event = payload.getEvent();
 
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
-  const {
-    aggregators,
-    agendaEvents,
-    eventSearch,
-    custom,
-    tracker,
-    legacy,
-  } = services;
+  const { aggregators, agendaEvents, eventSearch, custom, tracker, legacy } = services;
 
   log('info', 'processing agenda %s, event %s', agenda.uid, event.uid);
   tracker('core.agendas.doAdd');
@@ -51,38 +42,56 @@ export default async (core, payload, clean, options = {}) => {
 
   if (!draft) {
     try {
-      const { created, before } = await agendaEvents(agenda.uid).create(event.uid, clean.agendaEvent, {
-        transferToLegacy: true, // directive to replicate to legacy data structure
-        aggregated,
-        context: {
-          event,
-          agenda,
-          legacy: false,
-          batched,
+      const { created, before } = await agendaEvents(agenda.uid).create(
+        event.uid,
+        clean.agendaEvent,
+        {
+          transferToLegacy: true, // directive to replicate to legacy data structure
           aggregated,
-          sourceAgenda,
-          userUid: actingUserUid,
-          duplicateOrigin,
+          context: {
+            event,
+            agenda,
+            legacy: false,
+            batched,
+            aggregated,
+            sourceAgenda,
+            userUid: actingUserUid,
+            duplicateOrigin,
+          },
+          decorate: ['sourceAgendas', 'user'],
         },
-        decorate: ['sourceAgendas', 'user'],
-      });
+      );
 
       if (actingUserUid) {
-        created.member = await core.agendas(agenda).members.get(actingUserUid, { access: 'internal', roleAsSlug: false });
+        created.member = await core.agendas(agenda).members.get(actingUserUid, {
+          access: 'internal',
+          roleAsSlug: false,
+        });
       }
 
       payload.setItem('agendaEvent', before, created);
     } catch (e) {
-      throw new VError(e, 'could not create agenda-event reference for agenda uid %s and event uid %s', agenda.uid, event.uid);
+      throw new VError(
+        e,
+        'could not create agenda-event reference for agenda uid %s and event uid %s',
+        agenda.uid,
+        event.uid,
+      );
     }
   }
 
   // create custom data
   if (agenda.formSchemaId && clean.custom) {
-    const result = await setCustom(custom, agenda.formSchemaId, event.uid, clean.custom, {
-      draft,
-      agendaId: clean.agendaId,
-    });
+    const result = await setCustom(
+      custom,
+      agenda.formSchemaId,
+      event.uid,
+      clean.custom,
+      {
+        draft,
+        agendaId: clean.agendaId,
+      },
+    );
 
     if (result.errors.length) {
       log('error', 'could not set custom data', result.errors);
@@ -92,10 +101,16 @@ export default async (core, payload, clean, options = {}) => {
   }
 
   if (_.get(agenda, 'network.formSchemaId') && clean.networkCustom) {
-    const result = await setCustom(custom, agenda.network.formSchemaId, event.uid, clean.networkCustom, {
-      draft,
-      agendaId: clean.agendaId,
-    });
+    const result = await setCustom(
+      custom,
+      agenda.network.formSchemaId,
+      event.uid,
+      clean.networkCustom,
+      {
+        draft,
+        agendaId: clean.agendaId,
+      },
+    );
 
     if (result.errors.length) {
       log('error', 'could not set network custom data', result.errors);
@@ -110,23 +125,42 @@ export default async (core, payload, clean, options = {}) => {
 
   log('info', 'syncing legacy custom and tag data');
   try {
-    await legacy.tagsAndCustom.set(agenda.id, event.uid, [
-      agenda.formSchema,
-      _.get(agenda, 'network.formSchema'),
-    ], [
-      clean.custom,
-      clean.networkCustom,
-    ]);
+    await legacy.tagsAndCustom.set(
+      agenda.id,
+      event.uid,
+      [agenda.formSchema, _.get(agenda, 'network.formSchema')],
+      [clean.custom, clean.networkCustom],
+    );
   } catch (e) {
-    log('error', 'failed to set legacy tags and custom data for agenda id %s and event uid %s', agenda.id, event.uid, e);
+    log(
+      'error',
+      'failed to set legacy tags and custom data for agenda id %s and event uid %s',
+      agenda.id,
+      event.uid,
+      e,
+    );
   }
 
-  if (actingUserUid && await core.agendas(agenda).settings.isOpen() && !await core.agendas(agenda).members.is(actingUserUid, { access: 'internal' })) {
-    log('user %s is not a member on open contribution agenda that does not require member info.', actingUserUid);
-    await core.agendas(agenda).members.create(actingUserUid, 'contributor', {}, {
-      access: 'internal',
-      useAccountEmail: true,
-    });
+  if (
+    actingUserUid
+    && await core.agendas(agenda).settings.isOpen()
+    && !await core
+      .agendas(agenda)
+      .members.is(actingUserUid, { access: 'internal' })
+  ) {
+    log(
+      'user %s is not a member on open contribution agenda that does not require member info.',
+      actingUserUid,
+    );
+    await core.agendas(agenda).members.create(
+      actingUserUid,
+      'contributor',
+      {},
+      {
+        access: 'internal',
+        useAccountEmail: true,
+      },
+    );
   }
 
   const response = await payload.getResponse('event', access);
@@ -137,10 +171,18 @@ export default async (core, payload, clean, options = {}) => {
     await eventSearch.add({
       ...response,
       formSchema,
-      event: event.location ? convertLocationAdditionalFields(formSchema, compiledEvent) : compiledEvent,
+      event: event.location
+        ? convertLocationAdditionalFields(formSchema, compiledEvent)
+        : compiledEvent,
     });
   } catch (e) {
-    log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid, formatError(e));
+    log(
+      'error',
+      'could not add event %s.%s to search indices',
+      agenda.uid,
+      event.uid,
+      formatError(e),
+    );
   }
 
   await aggregators.notify('addEvent', {

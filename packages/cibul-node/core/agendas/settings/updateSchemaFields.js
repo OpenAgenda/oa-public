@@ -6,11 +6,17 @@ import getSchema from './getSchema.js';
 
 const log = logs('core/agendas/settings/updateFields');
 
-export default async function updateSchemaFields(core, agendaOrUid, updatedFields) {
+export default async function updateSchemaFields(
+  core,
+  agendaOrUid,
+  updatedFields,
+) {
   const { services, tasks } = core;
   const { formSchemas, agendas } = services;
 
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  const agenda = _.isObject(agendaOrUid)
+    ? agendaOrUid
+    : await getAgenda(services, agendaOrUid);
 
   const agendaSchema = await getSchema(services, agenda);
 

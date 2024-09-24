@@ -23,7 +23,12 @@ export default (
     return [];
   }
 
-  return oembed.fromMarkdown(Object.values(text).join('\n'), {
-    current, includeEmbedlessLinks, filterInvalidLinks, lazy,
-  }).then(links => links.map(link => _.set(link, 'type', 'oembed')));
+  return oembed
+    .fromMarkdown(Object.values(text).join('\n'), {
+      current,
+      includeEmbedlessLinks,
+      filterInvalidLinks,
+      lazy,
+    })
+    .then((links) => links.map((link) => _.set(link, 'type', 'oembed')));
 };

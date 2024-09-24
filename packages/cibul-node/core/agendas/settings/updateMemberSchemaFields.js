@@ -6,19 +6,24 @@ import getMemberSchema from '../utils/getMemberSchema.js';
 
 const log = logs('core/agendas/settings/updateMemberFields');
 
-export default async function updateSchemaFields(core, agendaOrUid, updatedFields, options = {}) {
-  const {
+export default async function updateSchemaFields(
+  core,
+  agendaOrUid,
+  updatedFields,
+  options = {},
+) {
+  const { services, tasks } = core;
+  const { formSchemas, agendas } = services;
+
+  const agenda = _.isObject(agendaOrUid)
+    ? agendaOrUid
+    : await getAgenda(services, agendaOrUid);
+
+  const { agendaSchema: agendaMemberSchema } = await getMemberSchema(
     services,
-    tasks,
-  } = core;
-  const {
-    formSchemas,
-    agendas,
-  } = services;
-
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
-
-  const { agendaSchema: agendaMemberSchema } = await getMemberSchema(services, agenda, options);
+    agenda,
+    options,
+  );
   const fs = new FormSchema(agendaMemberSchema);
 
   if (updatedFields) fs.updateFields(updatedFields);
@@ -28,11 +33,15 @@ export default async function updateSchemaFields(core, agendaOrUid, updatedField
 
     const { id } = await formSchemas.create(fs.getData());
 
-    await agendas.set({
-      uid: agenda.uid,
-    }, { memberSchemaId: id }, {
-      protected: false,
-    });
+    await agendas.set(
+      {
+        uid: agenda.uid,
+      },
+      { memberSchemaId: id },
+      {
+        protected: false,
+      },
+    );
 
     agenda.memberSchemaId = id;
   } else {

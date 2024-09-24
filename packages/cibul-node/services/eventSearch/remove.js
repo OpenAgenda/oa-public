@@ -3,7 +3,12 @@ import getAgendaSearchIndex from './lib/getAgendaSearchIndex.js';
 
 const log = logs('services/eventSearch/remove');
 
-async function removeFromAgendaIndex(eventSearch, agendaUid, eventUid, refresh = false) {
+async function removeFromAgendaIndex(
+  eventSearch,
+  agendaUid,
+  eventUid,
+  refresh = false,
+) {
   log('removeFromAgendaIndex');
 
   const searchIndex = getAgendaSearchIndex(eventSearch, agendaUid);
@@ -22,11 +27,16 @@ export default (services, queue, eventSearch) => {
     try {
       await removeFromAgendaIndex(eventSearch, agenda.uid, event.uid, true);
     } catch (e) {
-      log('error', 'failed to remove event from agenda %s index: %s', agenda.uid, e.message);
+      log(
+        'error',
+        'failed to remove event from agenda %s index: %s',
+        agenda.uid,
+        e.message,
+      );
     }
 
     log('update transverse index');
-    if (!otherAgendaReferences.filter(ae => ae.state === 2).length) {
+    if (!otherAgendaReferences.filter((ae) => ae.state === 2).length) {
       await queue('transverseIndexRemove', event.uid);
     }
 

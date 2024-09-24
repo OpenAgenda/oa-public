@@ -10,14 +10,16 @@ export default async function getByPublicKey(core, publicKey) {
   const user = await accessTokens.getUserFromKey(publicKey);
 
   log('user %s', user.uid);
-  const lastYear = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
+  const lastYear = new Date(
+    new Date().setFullYear(new Date().getFullYear() - 1),
+  );
 
   if (user.lastSignin < lastYear) {
     await users
       .refresh(user.uid, {
         lastSignin: true,
       })
-      .catch(err => {
+      .catch((err) => {
         log('error', 'could not refresh lastSignin for user %s', user.uid, err);
       });
   }

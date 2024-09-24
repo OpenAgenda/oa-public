@@ -10,31 +10,40 @@ const secureMw = (req, res, next) => {
 
   switch (req.query.entityName) {
     case 'user':
-      if (!req.user || !req.user.uid || parseInt(req.query.identifier, 10) !== req.user.uid) {
+      if (
+        !req.user
+        || !req.user.uid
+        || parseInt(req.query.identifier, 10) !== req.user.uid
+      ) {
         res.status(403);
         throw new Error('You cannot get this rules index');
       }
       return next();
     case 'agenda':
-      return async.applyEachSeries([
-        agendasSvc.middleware.load({
-          private: null,
-          internal: true,
-          namespaces: {
-            identifiers: {
-              uid: 'query.identifier',
+      return async.applyEachSeries(
+        [
+          agendasSvc.middleware.load({
+            private: null,
+            internal: true,
+            namespaces: {
+              identifiers: {
+                uid: 'query.identifier',
+              },
             },
-          },
-        }),
-        membersSvc.mw.loadAndAuthorize('moderator'),
-      ], req, res, next);
+          }),
+          membersSvc.mw.loadAndAuthorize('moderator'),
+        ],
+        req,
+        res,
+        next,
+      );
     default:
       res.status(403);
       throw new Error('You cannot get this rules index');
   }
 };
 
-export default app => {
+export default (app) => {
   // GET https://d.openagenda.com/abilities/form-index?entityName=user&identifier=99999999
   app.get(
     '/abilities/form-index',
@@ -73,19 +82,29 @@ export async function init(config, services) {
 
     interfaces: {
       getEntity: {
-        agenda: uid => services.agendas.get({ uid }, { private: null }),
-        member: id => services.members.get(id),
-        user: uid => services.users.get(uid),
+        agenda: (uid) => services.agendas.get({ uid }, { private: null }),
+        member: (id) => services.members.get(id),
+        user: (uid) => services.users.get(uid),
       },
       listEntities: {
-        agenda: uids => services.agendas.list({ uid: uids, order: 'updatedAt.desc' }, { private: null }),
-        member: ids => services.members
-          .list({ id: ids }, { limit: 200 }, { detailed: true })
-          .then(members => members.map(m => _.omit(
-            m.agenda ? Object.assign(m, { agendaTitle: m.agenda.title }) : m,
-            ['agenda', 'user'],
-          ))),
-        user: async uids => (await services.users.find({ query: { uid: { $in: uids } } })).data,
+        agenda: (uids) =>
+          services.agendas.list(
+            { uid: uids, order: 'updatedAt.desc' },
+            { private: null },
+          ),
+        member: (ids) =>
+          services.members
+            .list({ id: ids }, { limit: 200 }, { detailed: true })
+            .then((members) =>
+              members.map((m) =>
+                _.omit(
+                  m.agenda
+                    ? Object.assign(m, { agendaTitle: m.agenda.title })
+                    : m,
+                  ['agenda', 'user'],
+                ))),
+        user: async (uids) =>
+          (await services.users.find({ query: { uid: { $in: uids } } })).data,
       },
       defaultFor: {
         user({ can, cannot, rules }) {
@@ -116,9 +135,14 @@ export async function init(config, services) {
         // member = agenda + user + member
 
         async agenda(agenda, builder, options = {}) {
-          const defaultRules = options.excludeDefault ? [] : abilitiesSvc.rules.getDefaultFor('agenda');
+          const defaultRules = options.excludeDefault
+            ? []
+            : abilitiesSvc.rules.getDefaultFor('agenda');
           const agendaRules = options.rules
-            ? _.filter(options.rules, { entityName: 'agenda', identifier: agenda.id })
+            ? _.filter(options.rules, {
+              entityName: 'agenda',
+              identifier: agenda.id,
+            })
             : await abilitiesSvc.rules.list('agenda', agenda.uid);
 
           return defaultRules
@@ -126,9 +150,14 @@ export async function init(config, services) {
             .concat(agendaRules);
         },
         async user(user, builder, options = {}) {
-          const defaultRules = options.excludeDefault ? [] : abilitiesSvc.rules.getDefaultFor('user');
+          const defaultRules = options.excludeDefault
+            ? []
+            : abilitiesSvc.rules.getDefaultFor('user');
           const userRules = options.rules
-            ? _.filter(options.rules, { entityName: 'user', identifier: user.uid })
+            ? _.filter(options.rules, {
+              entityName: 'user',
+              identifier: user.uid,
+            })
             : await abilitiesSvc.rules.list('user', user.uid);
 
           return defaultRules
@@ -138,13 +167,18 @@ export async function init(config, services) {
         async member(member, builder, options = {}) {
           const defineForFns = abilitiesSvc.config.interfaces.defineFor;
 
-          const defaultRules = options.excludeDefault ? [] : [
-            ...abilitiesSvc.rules.getDefaultFor('agenda'),
-            ...abilitiesSvc.rules.getDefaultFor('user'),
-            ...abilitiesSvc.rules.getDefaultFor('member'),
-          ];
+          const defaultRules = options.excludeDefault
+            ? []
+            : [
+              ...abilitiesSvc.rules.getDefaultFor('agenda'),
+              ...abilitiesSvc.rules.getDefaultFor('user'),
+              ...abilitiesSvc.rules.getDefaultFor('member'),
+            ];
           const memberRules = options.rules
-            ? _.filter(options.rules, { entityName: 'member', identifier: member.id })
+            ? _.filter(options.rules, {
+              entityName: 'member',
+              identifier: member.id,
+            })
             : await abilitiesSvc.rules.list('member', member.id);
 
           // const agendaRules = ( await abilitiesSvc.get( 'agenda', member.agendaUid ) ).rules;
@@ -171,11 +205,14 @@ export async function init(config, services) {
         user: async (ability, options) => {
           const members = options.entities
             ? options.entities.members
-            : await services.members.list({ userUid: ability.identifier }, { limit: 200 });
+            : await services.members.list(
+              { userUid: ability.identifier },
+              { limit: 200 },
+            );
 
           return {
             user: ability.identifier,
-            member: members.map(v => v.id),
+            member: members.map((v) => v.id),
           };
         },
       },

@@ -643,7 +643,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           // contributor
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     describe('successful update', () => {
@@ -685,7 +685,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
               'categories-agenda-metropolitain': 43,
               'thematiques-bordeaux-metropole': [3],
             },
-          }).then(r => r.data);
+          }).then((r) => r.data);
         } catch (e) {
           // log if needed
         }
@@ -1002,7 +1002,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         )
         .then(
           () => {},
-          e => console.log(e),
+          (e) => console.log(e),
         );
 
       const {

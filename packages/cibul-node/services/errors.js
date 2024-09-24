@@ -28,9 +28,9 @@ function handler(namespace, err, req) {
   }
 }
 
-process.on('uncaughtException', err => handler('uncaughtException', err));
+process.on('uncaughtException', (err) => handler('uncaughtException', err));
 
-process.on('unhandledRejection', err => handler('unhandledRejection', err));
+process.on('unhandledRejection', (err) => handler('unhandledRejection', err));
 
 export default handler;
 

@@ -20,6 +20,8 @@ function parser(data) {
 }
 
 export default {
-  render: _.template(fs.readFileSync(`${import.meta.dirname}/layout.tpl`, 'utf-8')),
+  render: _.template(
+    fs.readFileSync(`${import.meta.dirname}/layout.tpl`, 'utf-8'),
+  ),
   parser,
 };

@@ -2,20 +2,13 @@ import _ from 'lodash';
 import utils from '@openagenda/utils';
 
 export default function getEventLayoutData(req) {
-  const {
-    indexedEvent: event,
-  } = req;
+  const { indexedEvent: event } = req;
 
-  const {
-    core,
-  } = req.app.services;
+  const { core } = req.app.services;
 
   const config = core.getConfig();
 
-  const descriptionParts = [
-    event.description,
-    event.dateRange,
-  ];
+  const descriptionParts = [event.description, event.dateRange];
 
   if (event.location) {
     descriptionParts.push(event.location.name);
@@ -24,7 +17,14 @@ export default function getEventLayoutData(req) {
   const hasOwnershipTransfer = req.agenda.credentials.eventOwnershipTransfer;
 
   return {
-    ..._.pick(req.agenda, ['uid', 'slug', 'title', 'description', 'url', 'image']),
+    ..._.pick(req.agenda, [
+      'uid',
+      'slug',
+      'title',
+      'description',
+      'url',
+      'image',
+    ]),
     metas: {
       title: utils.escape(event.title, false),
       keywords: utils.escape(event.keywords, false),
@@ -49,19 +49,23 @@ export default function getEventLayoutData(req) {
       'twitter:title': utils.escape(event.title, false),
       'twitter:description': utils.escape(descriptionParts.join(' - '), false),
       'twitter:domain': config.domain,
-      ...event.image ? {
-        ogImage: {
-          property: 'og:image',
-          content: `${event.image.base}${event.image.filename}`,
-        },
-        'twitter:image': `${event.image.base}${event.image.filename}`,
-      } : {},
+      ...event.image
+        ? {
+          ogImage: {
+            property: 'og:image',
+            content: `${event.image.base}${event.image.filename}`,
+          },
+          'twitter:image': `${event.image.base}${event.image.filename}`,
+        }
+        : {},
     },
-    headLinks: event.languages.filter(l => l.code !== req.lang).map(l => ({
-      rel: 'alternate',
-      href: `${config.root}${req.originalUrl.split('?').shift()}?lang=${l.code}`,
-      hreflang: l.code,
-    })),
+    headLinks: event.languages
+      .filter((l) => l.code !== req.lang)
+      .map((l) => ({
+        rel: 'alternate',
+        href: `${config.root}${req.originalUrl.split('?').shift()}?lang=${l.code}`,
+        hreflang: l.code,
+      })),
     indexed: !!req.agenda.indexed && !req.agenda.private,
     mailto: req.agenda.settings.inbox?.mailto,
     useDetailedStatusActions: req.agenda.settings.lab?.status,
@@ -73,8 +77,14 @@ export default function getEventLayoutData(req) {
       ownerUid: req.indexedEvent.ownerUid,
       lang: req.lang,
       hasOwnershipTransfer,
-      moderatorCanPublish: (req.agenda.settings.contribution?.canPublish ?? ['moderators', 'administrators']).includes('moderators'),
-      GDPRInformation: req.agenda.settings.contribution?.messages?.GDPRInformation,
+      moderatorCanPublish: (
+        req.agenda.settings.contribution?.canPublish ?? [
+          'moderators',
+          'administrators',
+        ]
+      ).includes('moderators'),
+      GDPRInformation:
+        req.agenda.settings.contribution?.messages?.GDPRInformation,
       tracking: req.agenda.settings.tracking,
     },
     settings: req.agenda.settings,

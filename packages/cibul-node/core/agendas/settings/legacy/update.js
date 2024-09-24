@@ -15,9 +15,8 @@ function _loadAgenda(services, agendaOrUid) {
   }
 
   if (
-    _.keys(agendaOrUid)
-      .filter(f => ['id', 'networkUid', 'formSchemaId'].includes(f))
-      .length !== 3
+    _.keys(agendaOrUid).filter((f) =>
+      ['id', 'networkUid', 'formSchemaId'].includes(f)).length !== 3
   ) {
     return getAgenda(services, agendaOrUid.uid);
   }
@@ -27,24 +26,23 @@ function _loadAgenda(services, agendaOrUid) {
 
 export default async (core, agendaOrUid, force = false) => {
   const agenda = await _loadAgenda(core.services, agendaOrUid);
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
-  const {
-    custom,
-  } = services;
+  const { custom } = services;
 
   if (!services.legacy) {
     log('warn', 'legacy service was not initialized');
     return;
   }
 
-  const {
-    controlData,
-  } = services.legacy;
+  const { controlData } = services.legacy;
 
-  log('syncing legacy config and data of agenda %s (%s)%s', agenda.uid, agenda.slug, force ? ' forced' : '');
+  log(
+    'syncing legacy config and data of agenda %s (%s)%s',
+    agenda.uid,
+    agenda.slug,
+    force ? ' forced' : '',
+  );
 
   await updateTagSetFromSchema(core, agenda, { force });
   await updateCategorySetFromSchema(core, agenda, { force });

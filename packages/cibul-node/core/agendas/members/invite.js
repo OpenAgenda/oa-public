@@ -23,15 +23,13 @@ export default async (core, agendaOrUid, { role, emails }, options = {}) => {
 
   const agenda = agendaOrUid?.constructor.name === 'Object'
     ? agendaOrUid
-    : await core
-      .agendas(agendaUid)
-      .get({
-        detailed: true,
-        includeMemberSchema: true,
-        includeSplitMemberSchema: true,
-        access,
-        actingMember,
-      });
+    : await core.agendas(agendaUid).get({
+      detailed: true,
+      includeMemberSchema: true,
+      includeSplitMemberSchema: true,
+      access,
+      actingMember,
+    });
 
   if (
     !canCreate(services, {

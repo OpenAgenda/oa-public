@@ -7,10 +7,12 @@ const log = logs('services/bull');
 
 function checkPrefixOption(opts) {
   if (!opts.prefix?.match(/\{.+\}/)) {
-    console.warn([
-      'BullMQ: WARNING! Your option prefix must be defined with a redis cluster hash tag.',
-      'See more at https://docs.bullmq.io/bull/patterns/redis-cluster',
-    ].join(' '));
+    console.warn(
+      [
+        'BullMQ: WARNING! Your option prefix must be defined with a redis cluster hash tag.',
+        'See more at https://docs.bullmq.io/bull/patterns/redis-cluster',
+      ].join(' '),
+    );
   }
 }
 

@@ -79,11 +79,17 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
     it('after nav value can be used to fetch next results', async () => {
       const { agendas: allAgendas } = await core.agendas.search();
-      const { agendas: firstAgendas, after } = await core.agendas.search({}, { size: 1 });
+      const { agendas: firstAgendas, after } = await core.agendas.search(
+        {},
+        { size: 1 },
+      );
 
-      const { agendas: nextAgendas } = await core.agendas.search({}, {
-        after,
-      });
+      const { agendas: nextAgendas } = await core.agendas.search(
+        {},
+        {
+          after,
+        },
+      );
 
       expect(firstAgendas[0].uid).toBe(allAgendas[0].uid);
 
@@ -91,39 +97,55 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     });
 
     it('locationSet is indexed and can be used as filter', async () => {
-      const { agendas: withLocationSet } = await core.agendas.search({
-        locationSet: 4321,
-      }, {}, {
-        detailed: true,
-        includeFields: 'locationSet',
-      });
+      const { agendas: withLocationSet } = await core.agendas.search(
+        {
+          locationSet: 4321,
+        },
+        {},
+        {
+          detailed: true,
+          includeFields: 'locationSet',
+        },
+      );
 
       expect(withLocationSet.length).toBe(1);
       expect(withLocationSet[0].locationSet.uid).toBe(4321);
     });
 
     it('use includeFields option to fetch summary of agendas', async () => {
-      const { agendas } = await core.agendas.search({}, { size: 1 }, { includeFields: ['summary'] });
+      const { agendas } = await core.agendas.search(
+        {},
+        { size: 1 },
+        { includeFields: ['summary'] },
+      );
 
       expect(Object.keys(agendas[0]).includes('summary')).toBe(true);
     });
 
     it('use indexed option to include unindexed agendas in results', async () => {
-      const { agendas } = await core.agendas.search({}, {}, {
-        indexed: null,
-        includeFields: 'indexed',
-        access: 'internal',
-      });
+      const { agendas } = await core.agendas.search(
+        {},
+        {},
+        {
+          indexed: null,
+          includeFields: 'indexed',
+          access: 'internal',
+        },
+      );
 
-      expect(agendas.filter(a => !a.indexed).length).toBeGreaterThan(0);
-      expect(agendas.filter(a => !!a.indexed).length).toBeGreaterThan(0);
+      expect(agendas.filter((a) => !a.indexed).length).toBeGreaterThan(0);
+      expect(agendas.filter((a) => !!a.indexed).length).toBeGreaterThan(0);
     });
 
     it('use access option to include restricted summary values', async () => {
-      const { agendas } = await core.agendas.search({}, { size: 1 }, {
-        includeFields: 'summary',
-        access: 'administrator',
-      });
+      const { agendas } = await core.agendas.search(
+        {},
+        { size: 1 },
+        {
+          includeFields: 'summary',
+          access: 'administrator',
+        },
+      );
 
       expect(Array.isArray(agendas[0].summary.eventCountsByState)).toBe(true);
     });
@@ -143,7 +165,9 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       let response;
 
       beforeAll(async () => {
-        response = await axios.get(`http://localhost:3000/agendas?key=${publicKey}`);
+        response = await axios.get(
+          `http://localhost:3000/agendas?key=${publicKey}`,
+        );
       });
 
       it('agendas, total, success and after keys are provided in response', async () => {
@@ -160,7 +184,9 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       let response;
 
       beforeAll(async () => {
-        response = await axios.get(`http://localhost:3000/agendas?key=${publicKey}&fields[]=summary&fields[]=schema&fields[]=settings`);
+        response = await axios.get(
+          `http://localhost:3000/agendas?key=${publicKey}&fields[]=summary&fields[]=schema&fields[]=settings`,
+        );
       });
 
       it('explicitely requested fields can be requested', () => {

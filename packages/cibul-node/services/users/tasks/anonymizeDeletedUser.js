@@ -3,18 +3,30 @@ import logs from '@openagenda/logs';
 const log = logs('services/users/tasks/anonymizeUser');
 
 async function resyncMemberEvents({ core, agendaUid, userUid }) {
-  log('resyncing events of agenda %s after user %s removal', agendaUid, userUid);
-  const stream = await core.agendas(agendaUid).events.search({
-    memberUid: userUid,
-    state: null,
-  }, null, {
-    stream: true,
-    access: 'internal',
-  });
+  log(
+    'resyncing events of agenda %s after user %s removal',
+    agendaUid,
+    userUid,
+  );
+  const stream = await core.agendas(agendaUid).events.search(
+    {
+      memberUid: userUid,
+      state: null,
+    },
+    null,
+    {
+      stream: true,
+      access: 'internal',
+    },
+  );
 
   for await (const event of stream) {
     await core.agendas(agendaUid).events.search.resyncEvent(event.uid);
-    log('event %s was resynced following removal of user %s', event.uid, userUid);
+    log(
+      'event %s was resynced following removal of user %s',
+      event.uid,
+      userUid,
+    );
   }
 }
 
@@ -27,7 +39,10 @@ export default function anonymizeDeletedUser(services) {
       tracker,
     } = services;
 
-    const members = await membersSvc.list({ userUid: user.uid }, { limit: 1000 });
+    const members = await membersSvc.list(
+      { userUid: user.uid },
+      { limit: 1000 },
+    );
 
     log('anonymize %s member refs', members.length);
 
@@ -50,19 +65,19 @@ export default function anonymizeDeletedUser(services) {
         log('error', 'could not mark member as removed', err);
       }
 
-      const {
-        agendaUid,
-      } = member;
+      const { agendaUid } = member;
 
       await resyncMemberEvents({ core, agendaUid, userUid: user.uid });
     }
 
     if (activitiesSvc) {
       log('removing user feed for user %s', user.uid);
-      await activitiesSvc.feed({
-        entityType: 'user',
-        entityUid: user.uid,
-      }).remove();
+      await activitiesSvc
+        .feed({
+          entityType: 'user',
+          entityUid: user.uid,
+        })
+        .remove();
 
       log('anonymizing activities for user %s', user.uid);
       await activitiesSvc.activities.anonymize(`user:${user.uid}`);

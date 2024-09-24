@@ -9,19 +9,23 @@ function parseArabic(str) {
     str
       .replace(
         /[٠١٢٣٤٥٦٧٨٩]/g,
-        d => d.charCodeAt(0) - 1632, // Convert Arabic numbers
+        (d) => d.charCodeAt(0) - 1632, // Convert Arabic numbers
       )
       .replace(
         /[۰۱۲۳۴۵۶۷۸۹]/g,
-        d => d.charCodeAt(0) - 1776, // Convert Persian numbers
+        (d) => d.charCodeAt(0) - 1776, // Convert Persian numbers
       ),
   );
 }
 
 function _stringifyDate(d, timezone) {
-  const stringified = moment.tz(d, timezone || 'Europe/Paris').format('YYYY-MM-DD');
+  const stringified = moment
+    .tz(d, timezone || 'Europe/Paris')
+    .format('YYYY-MM-DD');
 
-  return moment.locale() === 'ar' ? stringified.split('-').map(parseArabic).map(_fZ).join('-') : stringified;
+  return moment.locale() === 'ar'
+    ? stringified.split('-').map(parseArabic).map(_fZ).join('-')
+    : stringified;
 }
 
 export default (timings = [], timezone = 'Europe/Paris') => {
@@ -29,7 +33,7 @@ export default (timings = [], timezone = 'Europe/Paris') => {
 
   const timingsByDate = {};
 
-  timings.forEach(t => {
+  timings.forEach((t) => {
     const d = _stringifyDate(t.start, timezone);
 
     if (!dates.includes(d)) {
@@ -41,7 +45,7 @@ export default (timings = [], timezone = 'Europe/Paris') => {
     timingsByDate[d].push(t);
   });
 
-  return dates.sort().map(d => ({
+  return dates.sort().map((d) => ({
     date: new Date(d),
     timings: timingsByDate[d],
   }));

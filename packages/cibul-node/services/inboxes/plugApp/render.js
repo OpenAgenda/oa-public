@@ -22,12 +22,7 @@ function endpointToRes(endpoint) {
   };
 }
 
-export default function render({
-  template,
-  baseData,
-  endpoint,
-  initialState,
-}) {
+export default function render({ template, baseData, endpoint, initialState }) {
   return async (req, res, next) => {
     const lang = req.lang || 'fr';
     const staticContext = {};
@@ -43,7 +38,9 @@ export default function render({
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString(wrapApp(reactApp, { req, staticContext, extraProps: { lang } }));
+      const content = ReactDOM.renderToString(
+        wrapApp(reactApp, { req, staticContext, extraProps: { lang } }),
+      );
 
       const state = store.getState();
 
@@ -59,7 +56,10 @@ export default function render({
       }
 
       const { pathname } = history.location;
-      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+      if (
+        decodeURIComponent(parsePath(req.originalUrl).pathname)
+        !== decodeURIComponent(pathname)
+      ) {
         return res.redirect(302, pathname);
       }
 

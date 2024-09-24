@@ -15,7 +15,7 @@ export function init(config) {
 
   config.knex = knex;
 
-  knex.on('query-error', error => {
+  knex.on('query-error', (error) => {
     log.error('Knex query error:', { error });
   });
 

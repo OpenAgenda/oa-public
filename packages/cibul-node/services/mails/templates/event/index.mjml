@@ -11,10 +11,7 @@
 
     <mj-wrapper padding="0" border="1px solid #eeeeee">
       <!-- Event title + description -->
-      <mj-section
-        background-color="#ffffff"
-        padding="20px 40px 0 40px"
-      >
+      <mj-section background-color="#ffffff" padding="20px 40px 0 40px">
         <mj-column>
           <mj-text>
             <a href="<%= link %>" target="_blank" class="no-text-deco">
@@ -29,66 +26,56 @@
 
       <!-- Event image -->
       <% if (event.image) { %>
-        <mj-section
-          background-color="#ffffff"
-          padding="20px 0 20px 0"
-        >
-          <mj-column>
-            <mj-image
-              src="<%= event.image %>"
-              href="<%= link %>"
-              padding="0"
-              alt="event image"
-            />
+      <mj-section background-color="#ffffff" padding="20px 0 20px 0">
+        <mj-column>
+          <mj-image
+            src="<%= event.image %>"
+            href="<%= link %>"
+            padding="0"
+            alt="event image"
+          />
 
-            <% if (event.credits) { %>
-              <mj-text padding="0 15px" font-style="italic">
-                <%= event.credits %>
-              </mj-text>
-            <% } %>
-          </mj-column>
-        </mj-section>
+          <% if (event.credits) { %>
+          <mj-text padding="0 15px" font-style="italic">
+            <%= event.credits %>
+          </mj-text>
+          <% } %>
+        </mj-column>
+      </mj-section>
       <% } %>
 
       <!-- Long description + princing info + registration -->
-      <mj-section
-        background-color="#ffffff"
-        padding="0 40px 20px 40px"
-      >
+      <mj-section background-color="#ffffff" padding="0 40px 20px 40px">
         <mj-column>
           <% if (event.longDescription) { %>
-            <mj-markdown>
-              <%- event.longDescription %>
-            </mj-markdown>
+          <mj-markdown> <%- event.longDescription %> </mj-markdown>
           <% } %>
 
-          <mj-divider border-width="1px" border-style="dashed" border-color="#555555" />
+          <mj-divider
+            border-width="1px"
+            border-style="dashed"
+            border-color="#555555"
+          />
 
-          <mj-text>
-            <%= _.upperFirst(event.dateRange) %>
-          </mj-text>
+          <mj-text> <%= _.upperFirst(event.dateRange) %> </mj-text>
 
           <% if (event.conditions || event.formattedRegistration.length) { %>
-            <mj-text>
-              <% if (event.conditions) { %>
-                <%= event.conditions %>
-              <% } %>
-              <% if (event.formattedRegistration.length && event.conditions) { %>
-                &nbsp;-&nbsp;
-              <% } %>
-              <% if (event.formattedRegistration.length) { %>
-                <a href="<%= event.formattedRegistration[0] %>" target="_blank"><%= __('book') %></a>
-              <% } %>
-            </mj-text>
+          <mj-text>
+            <% if (event.conditions) { %> <%= event.conditions %> <% } %> <% if
+            (event.formattedRegistration.length && event.conditions) { %>
+            &nbsp;-&nbsp; <% } %> <% if (event.formattedRegistration.length) {
+            %>
+            <a href="<%= event.formattedRegistration[0] %>" target="_blank"
+              ><%= __('book') %></a
+            >
+            <% } %>
+          </mj-text>
           <% } %>
         </mj-column>
       </mj-section>
 
       <!-- Map -->
-      <mj-section
-        background-color="#ffffff"
-        padding="10px 0"
-      >
+      <mj-section background-color="#ffffff" padding="10px 0">
         <mj-column>
           <mj-image
             src="<%= `${map.staticMap}` %>"
@@ -100,10 +87,7 @@
       </mj-section>
 
       <!-- PlaceName + address + timings -->
-      <mj-section
-        background-color="#ffffff"
-        padding="0 40px"
-      >
+      <mj-section background-color="#ffffff" padding="0 40px">
         <mj-column>
           <mj-text padding-bottom="0">
             <a href="<%= link %>" target="_blank" class="no-text-deco">
@@ -113,39 +97,31 @@
           </mj-text>
 
           <% if (event.timings.length > 1) { %>
-            <mj-text padding="0 25px">
-              <h3><%= __('timingsDetails') %></h3>
+          <mj-text padding="0 25px">
+            <h3><%= __('timingsDetails') %></h3>
 
-              <p>
-                <% for (const date of event.dates) { %>
-                  <%= date.day %> -
-                  <%= date.timings.map(t => __('timing', { from: t.begin, to: t.end }))
-                    .join(', ') %><br />
-                <% } %>
-              </p>
-            </mj-text>
-          <% } %>
-
-          <% if (customData && Object.keys(customData).length) { %>
-            <mj-text padding="0 25px">
-              <% for (const [label, value] of Object.entries(customData)) { %>
-                <b><%= label %></b>: <% if (!value || !value.length) { %>
-                  -
-                <% } else { %>
-                  <%= Array.isArray(value) ? value.join(', ') : value %>
-                <% } %>
-                <br />
+            <p>
+              <% for (const date of event.dates) { %> <%= date.day %> - <%=
+              date.timings.map(t => __('timing', { from: t.begin, to: t.end }))
+              .join(', ') %><br />
               <% } %>
-            </mj-text>
+            </p>
+          </mj-text>
+          <% } %> <% if (customData && Object.keys(customData).length) { %>
+          <mj-text padding="0 25px">
+            <% for (const [label, value] of Object.entries(customData)) { %>
+            <b><%= label %></b>: <% if (!value || !value.length) { %> - <% }
+            else { %> <%= Array.isArray(value) ? value.join(', ') : value %> <%
+            } %>
+            <br />
+            <% } %>
+          </mj-text>
           <% } %>
         </mj-column>
       </mj-section>
 
       <!-- Action button -->
-      <mj-section
-        background-color="#ffffff"
-        padding="20px 40px"
-      >
+      <mj-section background-color="#ffffff" padding="20px 40px">
         <mj-column>
           <mj-button
             background-color="#41acdd"

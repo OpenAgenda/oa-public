@@ -7,10 +7,16 @@ import setSchemaFieldOrigins from './setSchemaFieldOrigins.js';
 const Operations = (services, log) => {
   const { legacy } = services;
 
-  const getTags = legacy?.tagsAndCustom?.getTagSet ?? (() => log('warn', 'agendaTags was not initialized'));
-  const generateTags = legacy ? legacy.tagsAndCustom.updateTags : () => log('warn', 'legacy was not initialized');
-  const getCategories = legacy?.tagsAndCustom?.getCategorySet ?? (() => log('warn', 'agendaCategories was not initialized'));
-  const generateCategories = legacy ? legacy.tagsAndCustom.updateCategories : () => log('warn', 'legacy was not initialized');
+  const getTags = legacy?.tagsAndCustom?.getTagSet
+    ?? (() => log('warn', 'agendaTags was not initialized'));
+  const generateTags = legacy
+    ? legacy.tagsAndCustom.updateTags
+    : () => log('warn', 'legacy was not initialized');
+  const getCategories = legacy?.tagsAndCustom?.getCategorySet
+    ?? (() => log('warn', 'agendaCategories was not initialized'));
+  const generateCategories = legacy
+    ? legacy.tagsAndCustom.updateCategories
+    : () => log('warn', 'legacy was not initialized');
 
   return {
     tags: {
@@ -29,19 +35,22 @@ export default function updateLegacySetFromSchema(type) {
 
   return async (core, agendaOrUid, options = {}) => {
     const config = core.getConfig();
-    const {
-      services,
-    } = core;
+    const { services } = core;
 
-    const {
-      lang,
-    } = options;
+    const { lang } = options;
 
     const operations = Operations(services, log);
 
-    const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+    const agenda = _.isObject(agendaOrUid)
+      ? agendaOrUid
+      : await getAgenda(services, agendaOrUid);
 
-    log('transferring from form-schema to %s-set and custom fields on agenda %s (%s)', type, agenda.uid, agenda.slug);
+    log(
+      'transferring from form-schema to %s-set and custom fields on agenda %s (%s)',
+      type,
+      agenda.uid,
+      agenda.slug,
+    );
 
     const schema = await getMergedSchema(services, agenda);
 
@@ -51,11 +60,18 @@ export default function updateLegacySetFromSchema(type) {
       };
     }
 
-    const { id } = await config.knex('review').first(['id']).where('uid', agenda.uid);
+    const { id } = await config
+      .knex('review')
+      .first(['id'])
+      .where('uid', agenda.uid);
 
     const legacySet = await operations[type].get(agenda.uid);
 
-    log('%sretrieved set for agenda %s', legacySet ? '' : 'did not ', agenda.uid);
+    log(
+      '%sretrieved set for agenda %s',
+      legacySet ? '' : 'did not ',
+      agenda.uid,
+    );
 
     const {
       set: updatedLegacySet,
@@ -67,7 +83,8 @@ export default function updateLegacySetFromSchema(type) {
 
     const res = {
       messages,
-      [type === 'tags' ? 'updatedTagSet' : 'updatedCategorySet']: updatedLegacySet,
+      [type === 'tags' ? 'updatedTagSet' : 'updatedCategorySet']:
+        updatedLegacySet,
     };
 
     if (!updatedLegacySet) {
@@ -79,16 +96,21 @@ export default function updateLegacySetFromSchema(type) {
     if (type === 'tags') {
       log('updated tag set has %s groups', updatedLegacySet.groups.length);
     } else {
-      log('updated category set has %s categories', updatedLegacySet.categories.length);
+      log(
+        'updated category set has %s categories',
+        updatedLegacySet.categories.length,
+      );
     }
 
     res.messages.push(`generated ${type} set at id ${id}`);
 
     if (updatedLegacySet) {
-      const {
-        message: schemaUpdateMessage,
-        schema: updatedSchema,
-      } = await setSchemaFieldOrigins(services, agenda, fields.map(f => f.field), type);
+      const { message: schemaUpdateMessage, schema: updatedSchema } = await setSchemaFieldOrigins(
+        services,
+        agenda,
+        fields.map((f) => f.field),
+        type,
+      );
 
       res.messages.push(schemaUpdateMessage);
 

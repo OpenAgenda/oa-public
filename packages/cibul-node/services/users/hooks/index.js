@@ -9,28 +9,19 @@ const { iff, isProvider, disallow: _disallow } = hookCommon;
 const log = logs('services/users/hooks');
 
 const restrictToCurrentUserIfExternal = () => async (context, next) => {
-  iff(
-    isProvider('external'),
-    restrictToCurrentUser(),
-  )(context);
+  iff(isProvider('external'), restrictToCurrentUser())(context);
 
   await next();
 };
 
 const verifyHeadersPasswordIfExternal = () => async (context, next) => {
-  await iff(
-    isProvider('external'),
-    verifyHeadersPassword(),
-  )(context);
+  await iff(isProvider('external'), verifyHeadersPassword())(context);
 
   await next();
 };
 
 const restrictToUnloggedIfExternal = () => async (context, next) => {
-  iff(
-    isProvider('external'),
-    restrictToUnlogged(),
-  )(context);
+  iff(isProvider('external'), restrictToUnlogged())(context);
 
   await next();
 };
@@ -43,7 +34,9 @@ const populateAnnouncement = () => async (context, next) => {
     return;
   }
 
-  const { supervisor: { announcements } } = context.services;
+  const {
+    supervisor: { announcements },
+  } = context.services;
 
   if (context.params.user.uid === context.id) {
     context.result.announcement = await announcements.get();
@@ -63,29 +56,22 @@ const isSuperAdmin = () => async (context, next) => {
   }
 };
 
-const disallow = (...args) => async (context, next) => {
-  _disallow(...args)(context);
-  await next();
-};
+const disallow = (...args) =>
+  async (context, next) => {
+    _disallow(...args)(context);
+    await next();
+  };
 
 export default {
-  find: [
-    disallow('external'),
-  ],
+  find: [disallow('external')],
   get: [
     restrictToCurrentUserIfExternal(),
     isSuperAdmin(),
     populateAnnouncement(),
   ],
-  create: [
-    restrictToUnloggedIfExternal(),
-  ],
-  update: [
-    disallow(),
-  ],
-  patch: [
-    restrictToCurrentUserIfExternal(),
-  ],
+  create: [restrictToUnloggedIfExternal()],
+  update: [disallow()],
+  patch: [restrictToCurrentUserIfExternal()],
   remove: [
     restrictToCurrentUserIfExternal(),
     verifyHeadersPasswordIfExternal(),
@@ -95,16 +81,8 @@ export default {
     verifyHeadersPasswordIfExternal(),
   ],
   confirmChangeEmail: [],
-  changePassword: [
-    restrictToCurrentUserIfExternal(),
-  ],
-  generateApiKey: [
-    restrictToCurrentUserIfExternal(),
-  ],
-  setNewFlag: [
-    restrictToCurrentUserIfExternal(),
-  ],
-  refresh: [
-    restrictToCurrentUserIfExternal(),
-  ],
+  changePassword: [restrictToCurrentUserIfExternal()],
+  generateApiKey: [restrictToCurrentUserIfExternal()],
+  setNewFlag: [restrictToCurrentUserIfExternal()],
+  refresh: [restrictToCurrentUserIfExternal()],
 };

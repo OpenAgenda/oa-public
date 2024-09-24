@@ -2,15 +2,9 @@ import logs from '@openagenda/logs';
 
 const log = logs('core/agendas/members/canEdit');
 
-export default ({ members }, {
-  acting,
-  userUid,
-  role,
-}) => {
+export default ({ members }, { acting, userUid, role }) => {
   const {
-    utils: {
-      getRoleSlug,
-    },
+    utils: { getRoleSlug },
   } = members;
 
   const actingRoleSlug = acting ? getRoleSlug(acting.role) : null;
@@ -20,7 +14,8 @@ export default ({ members }, {
     return true;
   }
 
-  if (role !== undefined) { // if role is unchanged, there is no issue.
+  if (role !== undefined) {
+    // if role is unchanged, there is no issue.
     log('non admin user cannot assign role');
     return false;
   }

@@ -3,24 +3,27 @@ import logs from '@openagenda/logs';
 
 const log = logs('core/events/sendUpdateEmail');
 
-const eventLink = (root, agenda, event) => `${root}/${agenda.slug}/events/${event.slug}`;
+const eventLink = (root, agenda, event) =>
+  `${root}/${agenda.slug}/events/${event.slug}`;
 
-const agendaLogo = agenda => (agenda?.image ? {
-  src: agenda.image.replace('.com/', '.com/rwtb'),
-  width: '100px',
-} : {
-  src: 'https://openagenda.com/images/openagenda.png',
-  width: '300px',
-});
+const agendaLogo = (agenda) =>
+  (agenda?.image
+    ? {
+      src: agenda.image.replace('.com/', '.com/rwtb'),
+      width: '100px',
+    }
+    : {
+      src: 'https://openagenda.com/images/openagenda.png',
+      width: '300px',
+    });
 
-export default async function sendUpdateEmail(core, { batched, agenda, event }) {
+export default async function sendUpdateEmail(
+  core,
+  { batched, agenda, event },
+) {
   const { root } = core.getConfig();
 
-  const {
-    mails,
-    members: membersSvc,
-    users: usersSvc,
-  } = core.services;
+  const { mails, members: membersSvc, users: usersSvc } = core.services;
 
   if (!mails) {
     log('warn', 'mails is not initialized');
@@ -39,20 +42,28 @@ export default async function sendUpdateEmail(core, { batched, agenda, event }) 
   const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
 
   if (!event.ownerUid) {
-    throw new Error('event owner reference is missing. Not sending update mail');
+    throw new Error(
+      'event owner reference is missing. Not sending update mail',
+    );
   }
 
   const ownerUser = await usersSvc.findOne({
     query: { uid: event.ownerUid },
   });
 
-  const ownerMember = ownerUser ? await membersSvc.get({
-    agendaUid: agenda.uid,
-    userUid: ownerUser.uid,
-  }) : null;
+  const ownerMember = ownerUser
+    ? await membersSvc.get({
+      agendaUid: agenda.uid,
+      userUid: ownerUser.uid,
+    })
+    : null;
 
   if (!ownerMember) {
-    log('owner member was not found for user of uid % in agenda %s', event.ownerUid, agenda.slug);
+    log(
+      'owner member was not found for user of uid % in agenda %s',
+      event.ownerUid,
+      agenda.slug,
+    );
   } else if (agenda.uid === event.originAgenda.uid) {
     log('agenda is origin agenda and user is owner, sending myEventUpdate');
     const ownerLang = ownerUser.culture || 'fr';
@@ -60,14 +71,17 @@ export default async function sendUpdateEmail(core, { batched, agenda, event }) 
       template: 'myEventUpdate',
       to: {
         address: ownerUser.email,
-        unsubscriptions: [{
-          rule: ['receive', 'myEventUpdate'],
-          dataPath: 'unsubscribeLink',
-        }, {
-          memberId: ownerMember.id,
-          rule: ['receive', 'myEventUpdate'],
-          dataPath: 'memberUnsubscribeLink',
-        }],
+        unsubscriptions: [
+          {
+            rule: ['receive', 'myEventUpdate'],
+            dataPath: 'unsubscribeLink',
+          },
+          {
+            memberId: ownerMember.id,
+            rule: ['receive', 'myEventUpdate'],
+            dataPath: 'memberUnsubscribeLink',
+          },
+        ],
       },
       data: {
         event: event.title[ownerLang] ?? _.find(event.title),
@@ -80,27 +94,30 @@ export default async function sendUpdateEmail(core, { batched, agenda, event }) 
   }
 
   const adminModMembers = members
-    .filter(member => !!member.user)
-    .filter(member => !ownerMember || (member.id !== ownerMember.id));
+    .filter((member) => !!member.user)
+    .filter((member) => !ownerMember || member.id !== ownerMember.id);
 
   log('sending eventUpdate to %s adminmods', adminModMembers.length);
   await mails.send({
     template: 'eventUpdate',
-    to: adminModMembers.map(member => {
+    to: adminModMembers.map((member) => {
       const lang = member.user.culture || 'fr';
       const eventTitle = event.title[lang] || _.find(event.title);
 
       return {
         address: member.user.email,
         lang: member.user.culture,
-        unsubscriptions: [{
-          rule: ['receive', 'eventUpdate'],
-          dataPath: 'unsubscribeLink',
-        }, {
-          memberId: member.id,
-          rule: ['receive', 'eventUpdate'],
-          dataPath: 'memberUnsubscribeLink',
-        }],
+        unsubscriptions: [
+          {
+            rule: ['receive', 'eventUpdate'],
+            dataPath: 'unsubscribeLink',
+          },
+          {
+            memberId: member.id,
+            rule: ['receive', 'eventUpdate'],
+            dataPath: 'memberUnsubscribeLink',
+          },
+        ],
         data: {
           event: eventTitle,
         },

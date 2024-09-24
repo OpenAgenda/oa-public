@@ -49,7 +49,7 @@ export default (req, res, next) => {
         },
       },
     )
-    .then(result => {
+    .then((result) => {
       if (hasBody) {
         return res.json(result);
       }

@@ -14,12 +14,12 @@ export async function init(config) {
 
     query
       .then(
-        result => result[0],
-        err => {
+        (result) => result[0],
+        (err) => {
           process.nextTick(() => cb(err));
         },
       )
-      .then(rows => {
+      .then((rows) => {
         process.nextTick(() => cb(null, rows));
       });
   }

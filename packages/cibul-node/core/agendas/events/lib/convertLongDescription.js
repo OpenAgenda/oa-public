@@ -7,15 +7,8 @@ const log = logs('core/agendas/events/convertLongDescription');
 export const conversions = ['HTML', 'HTMLWithEmbeds'];
 
 function convert(params, links = [], md = '') {
-  const {
-    services,
-    conversion,
-    includeEmbedScripts,
-    cspNonce,
-  } = params;
-  const {
-    oembed,
-  } = services;
+  const { services, conversion, includeEmbedScripts, cspNonce } = params;
+  const { oembed } = services;
 
   const HTML = fromMarkdownToHTML(md);
 
@@ -37,10 +30,13 @@ export default function convertField({ links, longDescription }, params) {
     return convert(params, links, longDescription);
   }
 
-  return Object.keys(longDescription)
-    .reduce((converted, lang) => Object.assign(converted, {
-      [lang]: convert(params, links, longDescription[lang]),
-    }), {});
+  return Object.keys(longDescription).reduce(
+    (converted, lang) =>
+      Object.assign(converted, {
+        [lang]: convert(params, links, longDescription[lang]),
+      }),
+    {},
+  );
 }
 
 export function shouldConvert(longDescription, conversion) {
@@ -51,19 +47,18 @@ export function shouldConvert(longDescription, conversion) {
   return !!longDescription;
 }
 
-export function load(
-  {
-    services,
-    conversion,
-    includeEmbedScripts,
-    cspNonce,
-  },
-) {
-  return event => produce(event, draft => {
-    if (!shouldConvert(event.longDescription, conversion)) {
-      return;
-    }
+export function load({ services, conversion, includeEmbedScripts, cspNonce }) {
+  return (event) =>
+    produce(event, (draft) => {
+      if (!shouldConvert(event.longDescription, conversion)) {
+        return;
+      }
 
-    draft.longDescription = convertField(event, { services, conversion, includeEmbedScripts, cspNonce });
-  });
+      draft.longDescription = convertField(event, {
+        services,
+        conversion,
+        includeEmbedScripts,
+        cspNonce,
+      });
+    });
 }

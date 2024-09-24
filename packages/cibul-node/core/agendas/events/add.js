@@ -14,26 +14,18 @@ const log = logs('core/agendas/events/add');
 const { containsEventData } = cleanEvent;
 
 export default async (core, agendaUid, eventUid, data, options = {}) => {
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
   // when the event is added on aggregation, only additional data is provided
-  const {
-    agendaEvents,
-    events,
-    members,
-  } = services;
+  const { agendaEvents, events, members } = services;
 
-  log('adding event %s to agenda %s%s', eventUid, agendaUid, options.aggregated ? ' through aggregation' : '');
-  const {
-    aggregated,
-    paths,
-    sourceAgenda,
-    batched,
-    access,
-    returnPayload,
-  } = {
+  log(
+    'adding event %s to agenda %s%s',
+    eventUid,
+    agendaUid,
+    options.aggregated ? ' through aggregation' : '',
+  );
+  const { aggregated, paths, sourceAgenda, batched, access, returnPayload } = {
     aggregated: null,
     paths: null,
     sourceAgenda: null,
@@ -46,24 +38,33 @@ export default async (core, agendaUid, eventUid, data, options = {}) => {
 
   const userUid = extractUserUid(data, options);
 
-  const member = userUid ? await members.get({
-    agendaUid,
-    userUid,
-  }) : null;
+  const member = userUid
+    ? await members.get({
+      agendaUid,
+      userUid,
+    })
+    : null;
   log(member ? '  loaded member %s' : '  member is unspecified', member?.id);
 
   // if event is already referenced on agenda, this fails
   if (await agendaEvents(agendaUid).get(eventUid)) {
-    throw new VError('event %s is already referenced by agenda %s', eventUid, agendaUid);
+    throw new VError(
+      'event %s is already referenced by agenda %s',
+      eventUid,
+      agendaUid,
+    );
   }
 
-  const event = await events.get({
-    uid: eventUid,
-  }, {
-    access: 'internal',
-    detailed: true,
-    throwOnNotFound: true,
-  });
+  const event = await events.get(
+    {
+      uid: eventUid,
+    },
+    {
+      access: 'internal',
+      detailed: true,
+      throwOnNotFound: true,
+    },
+  );
   log('  loaded event to be added');
 
   const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
@@ -88,11 +89,14 @@ export default async (core, agendaUid, eventUid, data, options = {}) => {
   });
 
   if (!authorizations.canEditEvent && containsEventData(data)) {
-    throw new Forbidden({
-      info: {
-        uid: event.uid,
+    throw new Forbidden(
+      {
+        info: {
+          uid: event.uid,
+        },
       },
-    }, 'not authorized to edit event');
+      'not authorized to edit event',
+    );
   }
 
   assignState(agenda, null, clean, data, { authorizations });

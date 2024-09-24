@@ -19,7 +19,9 @@ function parser(data) {
     data.scripts.bottom.length,
     0,
     { src: 'https://code.jquery.com/jquery-2.2.4.min.js' },
-    { src: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' },
+    {
+      src: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+    },
   );
 
   return ih(data, {
@@ -30,6 +32,8 @@ function parser(data) {
 }
 
 export default {
-  render: _.template(fs.readFileSync(`${import.meta.dirname}/layout.tpl`, 'utf-8')),
+  render: _.template(
+    fs.readFileSync(`${import.meta.dirname}/layout.tpl`, 'utf-8'),
+  ),
   parser,
 };

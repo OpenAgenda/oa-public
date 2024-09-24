@@ -18,7 +18,7 @@ export default (config, services, instance, app, base) => {
           throwNotFound: true,
           private: null,
         })
-        .then(agenda => {
+        .then((agenda) => {
           req.agenda = agenda;
           next();
         }, next);
@@ -56,7 +56,7 @@ export default (config, services, instance, app, base) => {
           ].concat(isSIRETEnabled(req.agenda) ? 'siret' : []),
         },
       )
-      .then(stream => {
+      .then((stream) => {
         req.stream = stream.pipe(
           transformLocationForFlatExport({ lang: req.lang }),
         );
@@ -86,7 +86,7 @@ export default (config, services, instance, app, base) => {
     const workbook = new ExcelJS.stream.xlsx.WorkbookWriter();
     const worksheet = workbook.addWorksheet('Locations');
     const locations = [];
-    req.stream.on('data', data => {
+    req.stream.on('data', (data) => {
       locations.push(data);
     });
 
@@ -94,7 +94,7 @@ export default (config, services, instance, app, base) => {
       worksheet.columns = [
         ...new Set(
           locations.reduce((carry, data) =>
-            Object.keys(data).map(key => ({ header: key, key, width: 10 }))),
+            Object.keys(data).map((key) => ({ header: key, key, width: 10 }))),
         ),
       ];
 
@@ -121,7 +121,7 @@ export default (config, services, instance, app, base) => {
         eventCounts: true,
         includeLinkedAgendas: true,
       })
-      .then(location => res.json(location), next);
+      .then((location) => res.json(location), next);
   });
 
   app.get(`${base}/unverified`, (req, res, next) => {
@@ -133,7 +133,7 @@ export default (config, services, instance, app, base) => {
   app.get(`${base}/terms`, (req, res) => {
     req.locations
       .terms(req.query.field.split(','), {}, { filterNulls: true })
-      .then(terms => res.json({ terms }));
+      .then((terms) => res.json({ terms }));
   });
 
   app.post(
@@ -160,7 +160,7 @@ export default (config, services, instance, app, base) => {
           },
         },
       )
-      .then(location => {
+      .then((location) => {
         res.json({
           location,
           success: true,
@@ -171,7 +171,7 @@ export default (config, services, instance, app, base) => {
   app.post(`${base}/disqualify`, (req, res, next) => {
     req.locations.duplicates
       .disqualifyCandidate(req.body.uids)
-      .then(location => {
+      .then((location) => {
         res.json({
           location,
           success: true,
@@ -185,7 +185,7 @@ export default (config, services, instance, app, base) => {
         agendaUid: req.agenda?.uid,
       })
       .then(
-        location =>
+        (location) =>
           res.json({
             location,
             success: true,
@@ -207,7 +207,7 @@ export default (config, services, instance, app, base) => {
             setUid: req.agenda?.setUid,
           },
         })
-        .then(location => {
+        .then((location) => {
           res.json({
             location,
             success: true,
@@ -225,7 +225,7 @@ export default (config, services, instance, app, base) => {
         agendaUid: req.agenda?.uid,
         removeEvents: !!req.query.removeEvents,
       })
-      .then(location => {
+      .then((location) => {
         res.json({
           location,
           success: true,

@@ -5,10 +5,7 @@ const log = logs('core/agendas/utils/clearAgendasCache');
 const STOP = -1;
 
 async function clearAgendasCache(services) {
-  const {
-    simpleCache,
-    agendas: svcAgendas,
-  } = services;
+  const { simpleCache, agendas: svcAgendas } = services;
   let offset = 0;
 
   try {

@@ -3,7 +3,9 @@ import errors from '@feathersjs/errors';
 import commons from '@feathersjs/commons';
 import logs from '@openagenda/logs';
 
-const { _: { omit } } = commons;
+const {
+  _: { omit },
+} = commons;
 
 const log = logs('services/users/getHandler');
 
@@ -25,30 +27,33 @@ function getAllowedMethods(service, routes) {
   if (routes) {
     return routes
       .filter(({ method }) => typeof service[method] === 'function')
-      .map(methodRoute => methodRoute.verb.toUpperCase())
+      .map((methodRoute) => methodRoute.verb.toUpperCase())
       .filter((value, index, list) => list.indexOf(value) === index);
   }
 
-  return Object.keys(methodMap)
-    .filter(method => typeof service[method] === 'function')
-    .map(method => methodMap[method])
-    // Filter out duplicates
-    .filter((value, index, list) => list.indexOf(value) === index);
+  return (
+    Object.keys(methodMap)
+      .filter((method) => typeof service[method] === 'function')
+      .map((method) => methodMap[method])
+      // Filter out duplicates
+      .filter((value, index, list) => list.indexOf(value) === index)
+  );
 }
 
 function makeArgsGetter(argsOrder) {
-  return (req, params) => argsOrder.map(argName => {
-    switch (argName) {
-      case 'id':
-        return req.params.__feathersId || null;
-      case 'data':
-        return req.body;
-      case 'params':
-        return params;
-      default:
-        return null;
-    }
-  });
+  return (req, params) =>
+    argsOrder.map((argName) => {
+      switch (argName) {
+        case 'id':
+          return req.params.__feathersId || null;
+        case 'data':
+          return req.body;
+        case 'params':
+          return params;
+        default:
+          return null;
+      }
+    });
 }
 
 // A function that returns the middleware for a given method and service
@@ -56,7 +61,9 @@ function makeArgsGetter(argsOrder) {
 export default function getHandler(method, argsOrder) {
   return (service, routes = []) => {
     const getArgs = makeArgsGetter(argsOrder);
-    const allowedMethods = routes.length ? getAllowedMethods(service, routes) : null;
+    const allowedMethods = routes.length
+      ? getAllowedMethods(service, routes)
+      : null;
 
     return (req, res, next) => {
       const { query } = req;
@@ -71,7 +78,11 @@ export default function getHandler(method, argsOrder) {
         log.debug(`Method '${method}' not allowed on '${req.url}'`);
         res.status(statusCodes.methodNotAllowed);
 
-        return next(new errors.MethodNotAllowed(`Method \`${method}\` is not supported by this endpoint.`));
+        return next(
+          new errors.MethodNotAllowed(
+            `Method \`${method}\` is not supported by this endpoint.`,
+          ),
+        );
       }
 
       // Grab the service parameters. Use req.feathers
@@ -92,7 +103,7 @@ export default function getHandler(method, argsOrder) {
       });
 
       service[method](...args, context)
-        .then(hook => {
+        .then((hook) => {
           const data = hook.dispatch !== undefined ? hook.dispatch : hook.result;
 
           res.data = data;
@@ -109,7 +120,7 @@ export default function getHandler(method, argsOrder) {
 
           return next();
         })
-        .catch(error => {
+        .catch((error) => {
           log.debug('Error in handler:', error);
           res.hook = context;
 

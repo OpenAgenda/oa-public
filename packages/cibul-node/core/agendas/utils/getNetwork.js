@@ -1,9 +1,7 @@
 import VError from '@openagenda/verror';
 
 export default async (services, networkUid) => {
-  const {
-    networks,
-  } = services;
+  const { networks } = services;
 
   if (!networkUid) return null;
 

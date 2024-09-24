@@ -12,12 +12,8 @@
       "min": null,
       "optional": true,
       "origin": "custom",
-      "read": [
-        "moderator"
-      ],
-      "write": [
-        "moderator"
-      ]
+      "read": ["moderator"],
+      "write": ["moderator"]
     },
     {
       "field": "title",

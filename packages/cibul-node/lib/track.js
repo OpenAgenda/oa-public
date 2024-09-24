@@ -20,13 +20,17 @@ function extractGoogleId(req, name) {
 }
 
 function extractGoogleSessionId(req) {
-  if (req.cookies && Object.keys(req.cookies).find(k => k.includes('_ga_'))) {
-    const key = Object.keys(req.cookies).find(k => k.includes('_ga_'));
+  if (req.cookies && Object.keys(req.cookies).find((k) => k.includes('_ga_'))) {
+    const key = Object.keys(req.cookies).find((k) => k.includes('_ga_'));
     const split = req.cookies[key].split('.');
     return split[3];
   }
   const date = new Date();
-  if (req?.user?.uid || req?.agenda?.uid) return hashString(`${req?.user?.uid ?? req?.agenda?.uid}${date.toJSON().substring(0, 10)}`);
+  if (req?.user?.uid || req?.agenda?.uid) {
+    return hashString(
+      `${req?.user?.uid ?? req?.agenda?.uid}${date.toJSON().substring(0, 10)}`,
+    );
+  }
   return null;
 }
 
@@ -42,23 +46,20 @@ function extractUserInfos(req) {
 }
 
 function track(req, agenda, category, action, label = null) {
-  const {
-    core,
-  } = req.app.services;
+  const { core } = req.app.services;
 
   log('tracking');
 
-  const {
-    root: rootPath,
-    env,
-  } = core.getConfig();
+  const { root: rootPath, env } = core.getConfig();
 
   if (env !== 'production') {
     return;
   }
 
   if (!agenda.settings) return;
-  const { tracking } = typeof agenda?.settings === 'string' ? JSON.parse(agenda?.settings) : agenda.settings;
+  const { tracking } = typeof agenda?.settings === 'string'
+    ? JSON.parse(agenda?.settings)
+    : agenda.settings;
   const gaId = tracking?.googleAnalytics;
   const gaSecret = tracking?.googleAnalyticsSecret;
   const matomoUrl = tracking?.matomoUrl;
@@ -72,11 +73,19 @@ function track(req, agenda, category, action, label = null) {
 
   if (gaId) {
     if (gaId.substr(0, 1) === 'G' && gaSecret) {
-      ga4TrackEvent(gaId, gaSecret, cid, sid, category, action, label, rest)
-        .catch(e => log.warn('Tracking error', e));
+      ga4TrackEvent(
+        gaId,
+        gaSecret,
+        cid,
+        sid,
+        category,
+        action,
+        label,
+        rest,
+      ).catch((e) => log.warn('Tracking error', e));
     } else {
-      gaTrackEvent(gaId, cid, category, action, label, rest)
-        .catch(e => log.warn('Tracking error', e));
+      gaTrackEvent(gaId, cid, category, action, label, rest).catch((e) =>
+        log.warn('Tracking error', e));
     }
   }
   if (matomoUrl && matomoSiteId) {
@@ -88,8 +97,9 @@ function track(req, agenda, category, action, label = null) {
       label,
       rest,
       rootPath,
-    }).then(r => log(r))
-      .catch(e => log(e));
+    })
+      .then((r) => log(r))
+      .catch((e) => log(e));
   }
 }
 

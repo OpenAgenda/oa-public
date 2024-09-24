@@ -17,7 +17,7 @@ export default function sentryErrorHandler(options) {
       }
     }
 
-    sentry.withScope(scope => {
+    sentry.withScope((scope) => {
       if (options?.tag) {
         scope.setTag(options.tag, true);
 
@@ -27,7 +27,7 @@ export default function sentryErrorHandler(options) {
           scope.setTags(store);
         }
 
-        scope.addEventProcessor(event => {
+        scope.addEventProcessor((event) => {
           event.transaction = `${options.tag}${event.transaction ? ` | ${event.transaction}` : ''}`;
           return event;
         });

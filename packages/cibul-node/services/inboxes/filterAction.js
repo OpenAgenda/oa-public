@@ -1,4 +1,9 @@
-export default async function filterAction(services, inbox, conversation, action) {
+export default async function filterAction(
+  services,
+  inbox,
+  conversation,
+  action,
+) {
   const { members: membersSvc } = services;
   if (action.code === 'involveTechnicalSupport') {
     if (inbox.type !== 'agenda') {

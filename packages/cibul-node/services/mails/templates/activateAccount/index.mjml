@@ -13,7 +13,8 @@
       <mj-column>
         <mj-text>
           <h1 class="title"><%= __('title') %></h1>
-          <%- _.escape(__('description')).replace(/(?:\r\n|\r|\n)/g, '<br />') %>
+          <%- _.escape(__('description')).replace(/(?:\r\n|\r|\n)/g, '<br />')
+          %>
         </mj-text>
 
         <mj-button

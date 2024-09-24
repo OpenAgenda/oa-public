@@ -4,21 +4,12 @@ import { BadRequest } from '@openagenda/verror';
 import labels from '@openagenda/labels/unsubscription/index.js';
 import makeLabelGetter from '@openagenda/labels';
 import incomingEmailsMw from './lib/incomingEmailsMw.js';
-import {
-  convertRuleArrayToObject,
-  cleanTarget,
-} from './lib/utils.js';
+import { convertRuleArrayToObject, cleanTarget } from './lib/utils.js';
 
 const getLabel = makeLabelGetter(labels);
 
-const matchesRule = test => _.matches(
-  _.pick(
-    test,
-    'actions',
-    'subject',
-    'conditions',
-  ),
-);
+const matchesRule = (test) =>
+  _.matches(_.pick(test, 'actions', 'subject', 'conditions'));
 
 const log = logs('services/mails/plugApp');
 
@@ -27,61 +18,61 @@ export default function plugApp(app) {
 
   app.post('/incoming-emails', incomingEmailsMw({ services }));
 
-  app.get('/unsubscribe/:token', async function unsubscribeEmail(req, res, next) {
-    const { token } = req.params;
-    const {
-      unsubscriptions,
-      abilities: abilitiesSvc,
-      sessions,
-    } = services;
+  app.get(
+    '/unsubscribe/:token',
+    async function unsubscribeEmail(req, res, next) {
+      const { token } = req.params;
+      const { unsubscriptions, abilities: abilitiesSvc, sessions } = services;
 
-    try {
-      const { target: dirtyTarget, rule } = await unsubscriptions.tokens.parse(token)
-        .catch(e => {
-          const error = new BadRequest(e, 'Malformed JWT token');
-          log.error(error);
-          throw error;
-        });
+      try {
+        const { target: dirtyTarget, rule } = await unsubscriptions.tokens
+          .parse(token)
+          .catch((e) => {
+            const error = new BadRequest(e, 'Malformed JWT token');
+            log.error(error);
+            throw error;
+          });
 
-      const target = cleanTarget(dirtyTarget);
+        const target = cleanTarget(dirtyTarget);
 
-      log('evaluating unsubscription request', { target, rule });
+        log('evaluating unsubscription request', { target, rule });
 
-      if (target.type === 'email') {
-        await unsubscriptions.registry.add(target.value);
-        sessions.setFlash(
-          req,
-          res,
-          getLabel('guestUnsubscriptionSucceed', req.lang),
-        );
-      } else {
-        const parsedRule = abilitiesSvc.rules.parse(convertRuleArrayToObject(rule));
+        if (target.type === 'email') {
+          await unsubscriptions.registry.add(target.value);
+          sessions.setFlash(
+            req,
+            res,
+            getLabel('guestUnsubscriptionSucceed', req.lang),
+          );
+        } else {
+          const parsedRule = abilitiesSvc.rules.parse(
+            convertRuleArrayToObject(rule),
+          );
 
-        log('  parsed rule %j', parsedRule);
+          log('  parsed rule %j', parsedRule);
 
-        const ability = await abilitiesSvc.get(target.type, target.value);
-        const formIndex = await ability.getFormIndex();
+          const ability = await abilitiesSvc.get(target.type, target.value);
+          const formIndex = await ability.getFormIndex();
 
-        const rulesToChange = formIndex.filter(
-          matchesRule(parsedRule),
-        );
-        const ruleToUpdate = rulesToChange.map(r => ({
-          ..._.omit(r, 'entity', 'relevantRule'),
-          inverted: true,
-        }));
+          const rulesToChange = formIndex.filter(matchesRule(parsedRule));
+          const ruleToUpdate = rulesToChange.map((r) => ({
+            ..._.omit(r, 'entity', 'relevantRule'),
+            inverted: true,
+          }));
 
-        await ability.updateFormIndex(ruleToUpdate);
+          await ability.updateFormIndex(ruleToUpdate);
 
-        sessions.setFlash(
-          req,
-          res,
-          getLabel('unsubscriptionSucceed', req.lang),
-        );
+          sessions.setFlash(
+            req,
+            res,
+            getLabel('unsubscriptionSucceed', req.lang),
+          );
+        }
+
+        res.redirect(302, req.user ? '/home' : '/');
+      } catch (e) {
+        next(e);
       }
-
-      res.redirect(302, req.user ? '/home' : '/');
-    } catch (e) {
-      next(e);
-    }
-  });
+    },
+  );
 }

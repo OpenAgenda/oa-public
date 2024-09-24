@@ -134,9 +134,7 @@
       "optional": false,
       "origin": "custom",
       "enableWith": "image",
-      "related": [
-        "image"
-      ],
+      "related": ["image"],
       "min": null,
       "max": null,
       "fieldType": "text"

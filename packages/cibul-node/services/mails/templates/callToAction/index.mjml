@@ -13,13 +13,13 @@
       <mj-column>
         <mj-text>
           <h1 class="title">Demande d'activation: <%= subject %></h1>
-          User: <%= user && user.email %><%= user && user.uid ? ` (${user.uid})` : '' %><br />
+          User: <%= user && user.email %><%= user && user.uid ? ` (${user.uid})`
+          : '' %><br />
           Url: <%= url %><br />
-          Agenda: <%= agenda %>
-          <% if (message) { %><br />Message de l'utilisateur:<br />
+          Agenda: <%= agenda %> <% if (message) { %><br />Message de
+          l'utilisateur:<br />
           <br />
-          <%= message %>
-          <% } %>
+          <%= message %> <% } %>
         </mj-text>
       </mj-column>
     </mj-content>

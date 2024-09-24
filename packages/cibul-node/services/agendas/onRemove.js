@@ -19,12 +19,18 @@ export default async (services, agenda) => {
     await agendaSearch.remove(agenda);
     log.info('removed agenda from search', logBundle);
   } catch (error) {
-    log.error('failed to remove agenda from agenda search', { ...logBundle, error });
+    log.error('failed to remove agenda from agenda search', {
+      ...logBundle,
+      error,
+    });
   }
 
   try {
     const { deleted } = await eventSearch.agendas(agenda).clear();
-    log.info('removed agenda event documents from index', { ...logBundle, deleted });
+    log.info('removed agenda event documents from index', {
+      ...logBundle,
+      deleted,
+    });
   } catch (error) {
     log.error('failed to agenda events index', { ...logBundle, error });
   }
@@ -37,7 +43,9 @@ export default async (services, agenda) => {
   }
 
   try {
-    await activities.feed({ entityType: 'agenda', entityUid: agenda.uid }).remove();
+    await activities
+      .feed({ entityType: 'agenda', entityUid: agenda.uid })
+      .remove();
     log.info('remove agenda feed', logBundle);
   } catch (error) {
     log.error('failed to remove agenda feed', { ...logBundle, error });

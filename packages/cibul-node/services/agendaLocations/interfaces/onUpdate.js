@@ -13,10 +13,7 @@ export default function onUpdate(queue, services) {
   return async (before, after, context) => {
     log('location %s', before.uid);
     try {
-      if (diff(
-        _.omit(before, ['updatedAt']),
-        _.omit(after, ['updatedAt']),
-      )) {
+      if (diff(_.omit(before, ['updatedAt']), _.omit(after, ['updatedAt']))) {
         queue('syncImpactedEventsAndAgendas', before, after);
       }
     } catch (e) {
@@ -36,12 +33,17 @@ export default function onUpdate(queue, services) {
         private: null,
       });
     } catch (e) {
-      return log.error(new VError({
-        cause: e,
-        info: {
-          agendaUid,
-        },
-      }, 'Cannot get agenda'));
+      return log.error(
+        new VError(
+          {
+            cause: e,
+            info: {
+              agendaUid,
+            },
+          },
+          'Cannot get agenda',
+        ),
+      );
     }
 
     try {
@@ -51,14 +53,19 @@ export default function onUpdate(queue, services) {
         locationUid: after.uid,
       });
     } catch (e) {
-      return log.error(new VError({
-        cause: e,
-        info: {
-          agendaUid,
-          setUid: agenda.setUid,
-          locationUid: after.uid,
-        },
-      }, 'Cannot create location feeds'));
+      return log.error(
+        new VError(
+          {
+            cause: e,
+            info: {
+              agendaUid,
+              setUid: agenda.setUid,
+              locationUid: after.uid,
+            },
+          },
+          'Cannot create location feeds',
+        ),
+      );
     }
 
     if (userUid) {
@@ -72,13 +79,18 @@ export default function onUpdate(queue, services) {
           after,
         });
       } catch (e) {
-        log.error(new VError({
-          cause: e,
-          info: {
-            agendaUid,
-            locationUid: before.uid,
-          },
-        }, 'Failed to register update activity'));
+        log.error(
+          new VError(
+            {
+              cause: e,
+              info: {
+                agendaUid,
+                locationUid: before.uid,
+              },
+            },
+            'Failed to register update activity',
+          ),
+        );
       }
     } else {
       log.debug('no userUid in context, not registering activity');

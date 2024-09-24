@@ -1,14 +1,12 @@
-export default service => (req, res, next) => {
-  const {
-    mails,
-    core,
-  } = req.app.services;
+export default (service) => (req, res, next) => {
+  const { mails, core } = req.app.services;
 
   const config = core.getConfig();
 
   if (res.data) {
-    service.get(res.data.uid, { internal: true })
-      .then(user => {
+    service
+      .get(res.data.uid, { internal: true })
+      .then((user) => {
         const email = user.store && user.store.newEmail;
         const token = user.store && user.store.newEmailToken;
 

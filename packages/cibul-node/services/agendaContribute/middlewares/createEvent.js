@@ -4,17 +4,24 @@ import handleError from '../lib/handleError.js';
 const log = logs('services/agendaContribute/createEvent');
 
 export default function createEvent(req, res) {
-  const {
-    core,
-  } = req.app;
+  const { core } = req.app;
 
-  log(req.draft ? 'creating draft with %j' : 'creating event with %j', req.dataWithFiles);
+  log(
+    req.draft ? 'creating draft with %j' : 'creating event with %j',
+    req.dataWithFiles,
+  );
 
-  core.agendas(req.agenda.uid).events.create(req.dataWithFiles, {
-    draft: req.draft,
-    userUid: req.user.uid,
-    filterUnauthorizedData: true,
-    fileKey: req.fileKey,
-    duplicateOrigin: req.query.duplicateOrigin,
-  }).then(event => res.json({ success: true, event }), error => handleError({ res, log }, error));
+  core
+    .agendas(req.agenda.uid)
+    .events.create(req.dataWithFiles, {
+      draft: req.draft,
+      userUid: req.user.uid,
+      filterUnauthorizedData: true,
+      fileKey: req.fileKey,
+      duplicateOrigin: req.query.duplicateOrigin,
+    })
+    .then(
+      (event) => res.json({ success: true, event }),
+      (error) => handleError({ res, log }, error),
+    );
 }

@@ -9,15 +9,9 @@ const log = logs('core/agendas/events/get');
 export default async (core, agendaUid, eventUid, options = {}) => {
   log('info', 'getting', { agendaUid, eventUid });
 
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
-  const {
-    events,
-    custom,
-    agendaEvents,
-  } = services;
+  const { events, custom, agendaEvents } = services;
 
   const {
     lang,
@@ -72,7 +66,12 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       private: loadPrivate,
     });
 
-    if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {
+    if (
+      convertLongDescription.shouldConvert(
+        event?.longDescription,
+        longDescriptionFormat,
+      )
+    ) {
       event.longDescription = convertLongDescription.default(event, {
         services,
         conversion: longDescriptionFormat,

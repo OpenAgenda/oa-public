@@ -11,9 +11,7 @@ const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 
 export function allow(roles = defaultRoles) {
   return async (req, res, next) => {
-    const {
-      members,
-    } = req.app.services;
+    const { members } = req.app.services;
 
     if (!req.user) {
       return next(new NotAuthenticated('User is not authenticated'));
@@ -42,14 +40,14 @@ export function allow(roles = defaultRoles) {
 }
 
 export async function load(req, _res, next) {
-  const {
-    members,
-  } = req.app.services;
+  const { members } = req.app.services;
 
-  req.member = req.user ? await members.get({
-    agendaUid: req.agenda.uid,
-    userUid: req.user.uid,
-  }) : null;
+  req.member = req.user
+    ? await members.get({
+      agendaUid: req.agenda.uid,
+      userUid: req.user.uid,
+    })
+    : null;
 
   if (!req.member) {
     log('not a member');
@@ -70,14 +68,17 @@ export function moderatorCannotInviteAdministrator(req, res, next) {
 }
 
 export function loadContext(req, res, next) {
-  req.context = _.merge({
-    lang: req.lang || 'fr',
-    sender: {
-      userUid: req.user.uid,
-      memberName: _.get(req, 'member.custom.contactName') || req.user.name,
+  req.context = _.merge(
+    {
+      lang: req.lang || 'fr',
+      sender: {
+        userUid: req.user.uid,
+        memberName: _.get(req, 'member.custom.contactName') || req.user.name,
+      },
+      message: req.body?.message || null,
+      redirect: req.body?.redirect || null,
     },
-    message: req.body?.message || null,
-    redirect: req.body?.redirect || null,
-  }, req.body.context);
+    req.body.context,
+  );
   next();
 }

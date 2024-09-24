@@ -86,7 +86,8 @@ async function toggleActivationMode({ app, query }, res) {
 
   try {
     await redis.set('accountActivationMode', query.mode);
-  } catch (e) { /* e */
+  } catch (e) {
+    /* e */
   }
   return res.redirect('/admin/users');
 }
@@ -145,11 +146,11 @@ function userUpdate({ app, loadedUser, body }, res, next) {
         patchedData.transverseApiAccess = body.transverseApiAccess === 'true';
       }
 
-      const respUser = await usersSvc.patch(
-        uid,
-        patchedData,
-        { detailed: true, removed: null, internal: true },
-      );
+      const respUser = await usersSvc.patch(uid, patchedData, {
+        detailed: true,
+        removed: null,
+        internal: true,
+      });
 
       res.json({
         success: true,
@@ -160,9 +161,7 @@ function userUpdate({ app, loadedUser, body }, res, next) {
 }
 
 function userSignin(req, res) {
-  const {
-    sessions,
-  } = req.app.services;
+  const { sessions } = req.app.services;
 
   sessions.open(req, res, req.loadedUser, () => {
     if (req.xhr) return cmn.renderJson(req, res, { success: true });
@@ -188,7 +187,7 @@ function _loadUser(type = 'get') {
 
     usersSvc
       .get(uid, { removed: null, detailed: true })
-      .then(user => {
+      .then((user) => {
         req.loadedUser = user;
 
         next();
@@ -228,16 +227,14 @@ function _searchUsers(req, res) {
           if (err1) return cmn.catchError(req, res)(err1);
 
           cmn.renderJson(req, res, {
-            users: rows1.map(({
-              uid,
-              full_name: fullName, email,
-              is_removed: isRemoved,
-            }) => ({
-              uid,
-              fullName,
-              email,
-              isRemoved,
-            })),
+            users: rows1.map(
+              ({ uid, full_name: fullName, email, is_removed: isRemoved }) => ({
+                uid,
+                fullName,
+                email,
+                isRemoved,
+              }),
+            ),
             page,
             total,
             perPage,
@@ -328,7 +325,7 @@ async function getUsers(req, res, next) {
             { limit: 1000, order: 'id.desc' },
             { userOptions: { detailed: true } },
           )
-          .then(members => {
+          .then((members) => {
             agendasSvc.list(
               {
                 uid: members.map(({ agendaUid }) => agendaUid),
@@ -339,11 +336,11 @@ async function getUsers(req, res, next) {
               (err, agendas) => {
                 model.lib.query(
                   'SELECT count(*) as nbrEvents, agenda_uid as agendaUid '
-                  + 'FROM agenda_event WHERE user_uid = ? GROUP BY agenda_uid',
+                    + 'FROM agenda_event WHERE user_uid = ? GROUP BY agenda_uid',
                   [req.loadedUser.uid],
                   (err1, counters) => {
                     // eslint-disable-next-line no-param-reassign
-                    members = members.map(member => {
+                    members = members.map((member) => {
                       [member.agenda] = agendas.filter(
                         ({ uid }) => uid === member.agendaUid,
                       );
@@ -371,11 +368,12 @@ async function getUsers(req, res, next) {
   }
 
   cmn.render(req, res, 'admin/users', {
-    accountActivationMode: await redis.get('accountActivationMode') ?? 'manual',
+    accountActivationMode:
+      await redis.get('accountActivationMode') ?? 'manual',
   });
 }
 
-export default app => {
+export default (app) => {
   const preMw = PreMw(app.services);
 
   app.get('/admin', preMw, index);

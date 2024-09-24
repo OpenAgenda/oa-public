@@ -5,25 +5,28 @@ import validateOptions from './lib/validateEventContextOptions.js';
 
 const log = logs('core/users/getEventUserContext');
 
-export default async (core, identifier, agendaUid, eventOrUid, options = {}) => {
-  const {
-    agendaEvents,
-    events,
-  } = core.services;
+export default async (
+  core,
+  identifier,
+  agendaUid,
+  eventOrUid,
+  options = {},
+) => {
+  const { agendaEvents, events } = core.services;
 
   const eventUid = eventOrUid?.constructor.name === 'Object' ? eventOrUid.uid : eventOrUid;
 
-  const {
-    includes,
-  } = validateOptions(options);
+  const { includes } = validateOptions(options);
 
   const ae = await agendaEvents(agendaUid).get(eventUid);
 
-  const event = await eventOrUid?.constructor.name === 'Object' ? eventOrUid : await events.get(eventOrUid, {
-    private: null,
-    access: 'internal',
-    includeFields: ['uid', 'private', 'ownerUid', 'draft'],
-  });
+  const event = await eventOrUid?.constructor.name === 'Object'
+    ? eventOrUid
+    : await events.get(eventOrUid, {
+      private: null,
+      access: 'internal',
+      includeFields: ['uid', 'private', 'ownerUid', 'draft'],
+    });
 
   if (!ae && !event.draft) {
     throw new NotFound('event reference not found');
@@ -32,9 +35,15 @@ export default async (core, identifier, agendaUid, eventOrUid, options = {}) => 
   const response = { me: {} };
 
   if (includes.includes('me.authorizations')) {
-    response.me.authorizations = await getUserAuthorizationsOnAgenda(core, identifier, agendaUid, event, {
-      agendaEvent: ae,
-    });
+    response.me.authorizations = await getUserAuthorizationsOnAgenda(
+      core,
+      identifier,
+      agendaUid,
+      event,
+      {
+        agendaEvent: ae,
+      },
+    );
   }
 
   if (includes.includes('me.member')) {
@@ -46,7 +55,9 @@ export default async (core, identifier, agendaUid, eventOrUid, options = {}) => 
 
   if (includes.includes('member')) {
     try {
-      response.member = ae?.userUid ? await core.agendas(agendaUid).members.get(ae.userUid, options) : null;
+      response.member = ae?.userUid
+        ? await core.agendas(agendaUid).members.get(ae.userUid, options)
+        : null;
     } catch (e) {
       if (e.name === 'Forbidden') {
         log('event member data is not accessible to requesting user');

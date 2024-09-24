@@ -12,12 +12,11 @@ import plugApp from './plugApp.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const stripHtml = html => sanitizeHTML(html, { allowedTags: [], allowedAttributes: {} });
+const stripHtml = (html) =>
+  sanitizeHTML(html, { allowedTags: [], allowedAttributes: {} });
 
 export async function init(config, services) {
-  const {
-    queues,
-  } = services;
+  const { queues } = services;
 
   const mails = await createMails({
     // Templating
@@ -46,7 +45,7 @@ export async function init(config, services) {
 
     // Unsubscription
     sendFilter: filterBouncingAndUnsubscribed.bind(null, services, config),
-    beforeSend: params => defineUnsubscriptionLinks(services, config, params),
+    beforeSend: (params) => defineUnsubscriptionLinks(services, config, params),
   });
 
   return Object.assign(mails, {

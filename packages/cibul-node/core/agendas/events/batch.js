@@ -9,14 +9,20 @@ const { patch } = update;
 
 const log = logs('core/agendas/events/batch');
 
-const getTaskName = operation => `batched${_.capitalize(operation)}`;
+const getTaskName = (operation) => `batched${_.capitalize(operation)}`;
 
 async function agendaBatchSearch(core, agendaUid, operation, query, ...args) {
   const { tasks } = core;
   const options = args[args.length - 1];
-  const stream = await search(core, agendaUid, query, null, { ...options, stream: true });
+  const stream = await search(core, agendaUid, query, null, {
+    ...options,
+    stream: true,
+  });
   for await (const event of stream) {
-    await tasks.enqueue.apply(null, [getTaskName(operation), agendaUid, event.uid].concat(args).flat());
+    await tasks.enqueue.apply(
+      null,
+      [getTaskName(operation), agendaUid, event.uid].concat(args).flat(),
+    );
   }
   log('done looping');
 }
@@ -29,61 +35,57 @@ async function agendaBatchList(core, agendaUid, operation, query, ...args) {
   const options = args[args.length - 1];
 
   while (lastId !== -1) {
-    const {
-      events,
-      lastId: nextLastId,
-    } = await list(core, agendaUid, query, { lastId }, {
-      ...options,
-      load: {
-        agendaEvent: true,
+    const { events, lastId: nextLastId } = await list(
+      core,
+      agendaUid,
+      query,
+      { lastId },
+      {
+        ...options,
+        load: {
+          agendaEvent: true,
+        },
+        returnPayload: true,
       },
-      returnPayload: true,
-    });
+    );
 
     for (const event of events) {
-      await tasks.enqueue.apply(null, [getTaskName(operation), agendaUid, event.uid].concat(args).flat());
+      await tasks.enqueue.apply(
+        null,
+        [getTaskName(operation), agendaUid, event.uid].concat(args).flat(),
+      );
     }
 
     lastId = events.length ? nextLastId : -1;
   }
 }
 
-export default core => {
+export default (core) => {
   core.tasks.register({
     agendaBatchList: agendaBatchList.bind(null, core),
     agendaBatchSearch: agendaBatchSearch.bind(null, core),
-    batchedPatch: (agendaUid, eventUid, data, options = {}) => patch(
-      core,
-      agendaUid,
-      eventUid,
-      data,
-      { ...options, batched: true },
-    ),
-    batchedUpdate: (agendaUid, eventUid, data, options = {}) => update(
-      core,
-      agendaUid,
-      eventUid,
-      data,
-      { ...options, batched: true },
-    ),
-    batchedRemove: (agendaUid, eventUid, options = {}) => remove(
-      core.services,
-      agendaUid,
-      eventUid,
-      { ...options, batched: true },
-    ),
+    batchedPatch: (agendaUid, eventUid, data, options = {}) =>
+      patch(core, agendaUid, eventUid, data, { ...options, batched: true }),
+    batchedUpdate: (agendaUid, eventUid, data, options = {}) =>
+      update(core, agendaUid, eventUid, data, { ...options, batched: true }),
+    batchedRemove: (agendaUid, eventUid, options = {}) =>
+      remove(core.services, agendaUid, eventUid, { ...options, batched: true }),
   });
 
   return (agendaUid, operation, query, ...args) => {
     const options = args[args.length - 1];
 
-    const {
-      search: useSearchIndex,
-    } = {
+    const { search: useSearchIndex } = {
       search: false,
       ...options,
     };
 
-    return core.tasks.enqueue(useSearchIndex ? 'agendaBatchSearch' : 'agendaBatchList', agendaUid, operation, query, ...args);
+    return core.tasks.enqueue(
+      useSearchIndex ? 'agendaBatchSearch' : 'agendaBatchList',
+      agendaUid,
+      operation,
+      query,
+      ...args,
+    );
   };
 };

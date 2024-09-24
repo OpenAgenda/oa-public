@@ -1,7 +1,9 @@
 import express from 'express';
 import loadAgendaMw from '../members/middleware/loadAgenda.js';
 import loadEventMw from '../members/middleware/loadEvent.js';
-import changeStateMw, { batched as batchedChangeStateMw } from './middleware/changeState.js';
+import changeStateMw, {
+  batched as batchedChangeStateMw,
+} from './middleware/changeState.js';
 import removeMw from './middleware/remove.js';
 import changeFeaturedMw from './middleware/changeFeatured.js';
 import updateStatusMw from './middleware/updateStatus.js';
@@ -12,24 +14,18 @@ import loadAgendaEventMw from './middleware/load.js';
 // TODO supprimer les .get qui font des modifications ☠️
 
 export default function plugApp(parentApp) {
-  const {
-    sessions,
-    members,
-    agendas,
-  } = parentApp.services;
+  const { sessions, members, agendas } = parentApp.services;
 
-  const requireLoggedMw = sessions.mw.ifUnlogged((req, res, next) => next({
-    code: 403,
-    error: 'requiredLogged',
-    message: 'You need to be logged',
-  }));
+  const requireLoggedMw = sessions.mw.ifUnlogged((req, res, next) =>
+    next({
+      code: 403,
+      error: 'requiredLogged',
+      message: 'You need to be logged',
+    }));
 
-  const loadMw = express.Router({ mergeParams: true })
-    .use(
-      loadAgendaMw,
-      loadEventMw,
-      loadAgendaEventMw,
-    );
+  const loadMw = express
+    .Router({ mergeParams: true })
+    .use(loadAgendaMw, loadEventMw, loadAgendaEventMw);
 
   parentApp.get('/:agendaSlug/events/:eventSlug/state/:state', [
     requireLoggedMw,

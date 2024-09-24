@@ -4,9 +4,7 @@ import makeLabelGetter from '@openagenda/labels';
 const getLabel = makeLabelGetter(labels);
 
 export default () => (req, res, next) => {
-  const {
-    sessions,
-  } = req.app.services;
+  const { sessions } = req.app.services;
 
   if (res.data) {
     sessions.setFlash(

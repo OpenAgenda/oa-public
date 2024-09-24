@@ -3,9 +3,7 @@ import { NotFound } from '@openagenda/verror';
 export default async (core, networkUid, options = {}) => {
   const { networks } = core.services;
 
-  const {
-    throwNotFound,
-  } = {
+  const { throwNotFound } = {
     throwNotFound: false,
     ...options,
   };

@@ -24,11 +24,7 @@ import plugApp from './plugApp.js';
 const log = logs('services/users');
 
 export async function init(config, services) {
-  const {
-    agendas,
-    keys,
-    queues,
-  } = services;
+  const { agendas, keys, queues } = services;
 
   const queue = queues('users');
 
@@ -59,7 +55,11 @@ export async function init(config, services) {
     multi: true,
     schemas: _.pick(config.schemas, [
       // explicit list schemas used by service
-      'user', 'apiKeySet', 'unsubscribed', 'key', 'userToken',
+      'user',
+      'apiKeySet',
+      'unsubscribed',
+      'key',
+      'userToken',
     ]),
     imagePath: config.aws.imageBucketPath,
     Files: services.files,
@@ -76,9 +76,10 @@ export async function init(config, services) {
       sendToken: sendToken.bind(null, config, services),
       getAgenda: (agendaUid, cb) => agendas.get({ uid: agendaUid }, cb),
       keys: {
-        get: identifiers => keys(identifiers).get({ optionalKey: !('key' in identifiers) }),
+        get: (identifiers) =>
+          keys(identifiers).get({ optionalKey: !('key' in identifiers) }),
         create: (identifiers, data) => keys(identifiers).create(data),
-        remove: identifiers => keys(identifiers).remove(),
+        remove: (identifiers) => keys(identifiers).remove(),
       },
     },
     logger: config.getLogConfig('svc', 'users', false),
@@ -87,9 +88,7 @@ export async function init(config, services) {
 
   registerContextUpdater(service, withProps({ services }));
 
-  hooks(service, [
-    replaceIdMe(),
-  ]);
+  hooks(service, [replaceIdMe()]);
   hooks(service, svcHooks);
 
   service.mw = {

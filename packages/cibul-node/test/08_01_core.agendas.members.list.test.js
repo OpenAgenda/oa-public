@@ -46,9 +46,13 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     let result;
 
     beforeAll(async () => {
-      result = await core.agendas(2).members.list({}, { limit: 2 }, {
-        userUid: 50073466,
-      });
+      result = await core.agendas(2).members.list(
+        {},
+        { limit: 2 },
+        {
+          userUid: 50073466,
+        },
+      );
     });
 
     it('total, items and after keys are part of results', () => {
@@ -59,20 +63,26 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     });
 
     it('next result set can be fetched using "after" value', async () => {
-      const nextResult = await core.agendas(2)
-        .members.list({}, { after: result.after }, {
+      const nextResult = await core.agendas(2).members.list(
+        {},
+        { after: result.after },
+        {
           userUid: 50073466,
-        });
+        },
+      );
 
       expect(nextResult.items.length).toBe(4);
     });
 
     it('customAtRoot option', async () => {
-      const { items } = await core.agendas(2)
-        .members.list({}, {}, {
+      const { items } = await core.agendas(2).members.list(
+        {},
+        {},
+        {
           customAtRoot: true,
           userUid: 50073466,
-        });
+        },
+      );
 
       expect(_.omit(items[0], 'updatedAt')).toEqual({
         deletedUser: false,
@@ -88,11 +98,15 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
   });
 
   it('list custom values', async () => {
-    const result = await core.agendas(3).members.list({}, { limit: 2 }, {
-      userUid: 1,
-    });
+    const result = await core.agendas(3).members.list(
+      {},
+      { limit: 2 },
+      {
+        userUid: 1,
+      },
+    );
 
-    expect(result.items.find(e => e.userUid === 6887).num_orga).toBe('30org');
+    expect(result.items.find((e) => e.userUid === 6887).num_orga).toBe('30org');
     expect(_.isArray(result.items)).toBe(true);
     expect(_.isInteger(result.after)).toBe(true);
   });
@@ -101,9 +115,13 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     it('non-member user does not have access to list', async () => {
       let error;
       try {
-        await core.agendas(2).members.list({}, { limit: 2 }, {
-          userUid: 99999967,
-        });
+        await core.agendas(2).members.list(
+          {},
+          { limit: 2 },
+          {
+            userUid: 99999967,
+          },
+        );
       } catch (e) {
         error = e;
       }
@@ -113,9 +131,13 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     it('contributor user does not have access to list', async () => {
       let error;
       try {
-        await core.agendas(2).members.list({}, { limit: 2 }, {
-          userUid: 1,
-        });
+        await core.agendas(2).members.list(
+          {},
+          { limit: 2 },
+          {
+            userUid: 1,
+          },
+        );
       } catch (e) {
         error = e;
       }
@@ -130,13 +152,13 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         { limit: 1 },
         {
           userUid: 1,
-          transform: m => m.userUid,
+          transform: (m) => m.userUid,
         },
       );
 
-      return new Promise(rs => {
+      return new Promise((rs) => {
         const result = [];
-        stream.on('data', b => {
+        stream.on('data', (b) => {
           result.push(b);
         });
 
@@ -167,7 +189,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         response = await axios({
           method: 'get',
           url: `http://localhost:3000/agendas/2/members?key=${administratorKey}`,
-        }).then(r => r.data);
+        }).then((r) => r.data);
       });
 
       it('response includes a success, total, a list of items and an after key', () => {
@@ -194,13 +216,15 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
 
         expect(response.status).toBe(400);
 
-        expect(response.data.errors).toEqual([{
-          code: 'integer.toobig',
-          message: 'the integer is too big',
-          values: { max: 100 },
-          origin: '1111',
-          field: 'limit',
-        }]);
+        expect(response.data.errors).toEqual([
+          {
+            code: 'integer.toobig',
+            message: 'the integer is too big',
+            values: { max: 100 },
+            origin: '1111',
+            field: 'limit',
+          },
+        ]);
       });
 
       it('Contributor does not have access to list', async () => {

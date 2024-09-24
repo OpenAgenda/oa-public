@@ -2,7 +2,11 @@ import { NotAuthenticated } from '@openagenda/verror';
 import membersSvc from '@openagenda/members';
 import logs from '@openagenda/logs';
 
-const { utils: { compareRoles: { isSuperiorTo } } } = membersSvc;
+const {
+  utils: {
+    compareRoles: { isSuperiorTo },
+  },
+} = membersSvc;
 
 const log = logs('services/members/middleware/authorize');
 
@@ -15,7 +19,8 @@ export function adminModOrEventOwner(req, res, next) {
   );
   if (req.member && isSuperiorTo(req.member.role, 'contributor')) {
     return next();
-  } if (req.member && (req.member.userUid === req.event.ownerUid)) {
+  }
+  if (req.member && req.member.userUid === req.event.ownerUid) {
     return next();
   }
   next({
@@ -49,14 +54,17 @@ export function adminModOrKey({ agendaUidPath } = {}) {
   return (req, res, next) => {
     const { agendas, users, members } = req.app.services;
 
-    agendas.mw.authorizeByKey.or([
-      users.mw.loadBySessionOrKey(),
-      members.mw.loadAndAuthorize('moderator', {
-        or: (_req, _res, n) => {
-          n(new NotAuthenticated('Authentication is required'));
-        },
-        agendaUidPath,
-      }),
-    ], { agendaUidPath })(req, res, next);
+    agendas.mw.authorizeByKey.or(
+      [
+        users.mw.loadBySessionOrKey(),
+        members.mw.loadAndAuthorize('moderator', {
+          or: (_req, _res, n) => {
+            n(new NotAuthenticated('Authentication is required'));
+          },
+          agendaUidPath,
+        }),
+      ],
+      { agendaUidPath },
+    )(req, res, next);
   };
 }

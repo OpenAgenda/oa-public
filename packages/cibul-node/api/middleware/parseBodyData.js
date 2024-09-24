@@ -10,7 +10,7 @@ function parseTalendBody(req, res, next) {
   let rawBody = '';
   req.setEncoding('utf8');
 
-  req.on('data', chunk => {
+  req.on('data', (chunk) => {
     rawBody += chunk;
   });
   req.on('end', () => {
@@ -36,7 +36,7 @@ export default [
       log('applying talend body parser');
       parser = parseTalendBody;
     } else if (
-      (req.headers['content-type'] !== 'application/json')
+      req.headers['content-type'] !== 'application/json'
       && req.method !== 'PATCH'
     ) {
       log('applying raw body parser with inflate');
@@ -50,7 +50,7 @@ export default [
       parser = bodyParser.json();
     }
 
-    parser(req, res, err => {
+    parser(req, res, (err) => {
       if (err?.type === 'entity.parse.failed') {
         next(new BadRequest(err.message));
         return;

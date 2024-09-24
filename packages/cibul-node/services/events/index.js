@@ -17,9 +17,15 @@ export function init(config, services) {
       onUpdate: onUpdate.bind(null, services),
       beforeRemove: beforeRemove.bind(null, services),
       onRemove: onRemove.bind(null, services),
-      getOriginAgendas: (uids, options) => services.agendas.list({
-        uid: uids,
-      }, options).then(({ agendas }) => agendas),
+      getOriginAgendas: (uids, options) =>
+        services.agendas
+          .list(
+            {
+              uid: uids,
+            },
+            options,
+          )
+          .then(({ agendas }) => agendas),
       getLocations: getLocations.promise.bind(null, services),
     },
   });

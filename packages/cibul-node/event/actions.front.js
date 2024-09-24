@@ -22,7 +22,7 @@ function getDates(event, lang) {
       .tz(val.begin, event.timezone)
       .locale(lang)
       .format('dddd D MMMM');
-    const foundDay = accu.find(v => v === day);
+    const foundDay = accu.find((v) => v === day);
 
     if (foundDay) {
       foundDay.timings.push({
@@ -52,7 +52,7 @@ function getDates(event, lang) {
 }
 
 function actionDatesJson(req, res, next) {
-  const service = ['google', 'yahoo', 'live', 'ics'].find(v => v === req.query.service)
+  const service = ['google', 'yahoo', 'live', 'ics'].find((v) => v === req.query.service)
     || 'google';
 
   try {
@@ -81,7 +81,7 @@ function actionDatesJson(req, res, next) {
       url: `/${req.agenda.slug}/events/${req.event.slug}`,
       timezone: req.event.timezone,
       params: req.eventUriParams,
-      timings: req.event.timings.map(timing => ({
+      timings: req.event.timings.map((timing) => ({
         date: timing.date,
         begin: timing.begin,
         end: timing.end,
@@ -143,7 +143,7 @@ async function eventMailSend(req, res, next) {
     });
 
     const dateRange = range(
-      req.event.timings.map(t => ({
+      req.event.timings.map((t) => ({
         start: new Date(t.begin),
         end: new Date(t.end),
       })),
@@ -153,7 +153,7 @@ async function eventMailSend(req, res, next) {
 
     const staticMap = config.staticTiles?.replace(
       /{w}|{h}|{lon}|{lat}|{z}/gi,
-      matched =>
+      (matched) =>
         ({
           '{w}': 600,
           '{h}': 140,
@@ -167,7 +167,7 @@ async function eventMailSend(req, res, next) {
 
     await mails.send({
       template: 'event',
-      to: emails.map(email => ({
+      to: emails.map((email) => ({
         address: email,
         unsubscriptions: [
           {
@@ -206,7 +206,7 @@ async function eventMailSend(req, res, next) {
               'city',
               'postalCode',
             ),
-            v => (v && typeof v.toString === 'function' ? v.toString() : v),
+            (v) => (v && typeof v.toString === 'function' ? v.toString() : v),
           ),
           dates: getDates(req.event, req.lang),
         },
@@ -233,7 +233,7 @@ async function eventMailSend(req, res, next) {
   }
 }
 
-export default app => {
+export default (app) => {
   const {
     events: eventsSvc,
     members: membersSvc,
@@ -254,14 +254,14 @@ export default app => {
         .agendas(req.agenda.uid)
         .events.get(req.params.eventUid, { detailed: true })
         .then(
-          result => {
+          (result) => {
             if (!result) {
               return next({ code: 404 });
             }
             req.event = result;
             next();
           },
-          err => {
+          (err) => {
             next(err.name === 'BadRequestError' ? { code: 404 } : err);
           },
         ),
@@ -280,11 +280,11 @@ export default app => {
     (req, res, next) =>
       eventsSvc
         .get({ uid: req.params.eventUid }, { includeFields: ['uid'] })
-        .then(event =>
+        .then((event) =>
           req.app.services.core
             .agendas(req.agenda.uid)
             .events.get(event?.uid, { detailed: true })
-            .then(result => {
+            .then((result) => {
               if (!result) {
                 return next({ code: 404 });
               }
@@ -303,11 +303,11 @@ export default app => {
     (req, res, next) =>
       eventsSvc
         .get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
-        .then(event =>
+        .then((event) =>
           req.app.services.core
             .agendas(req.agenda.uid)
             .events.get(event?.uid, { detailed: true }))
-        .then(result => {
+        .then((result) => {
           if (!result) {
             return next({ code: 404 });
           }

@@ -9,9 +9,7 @@ export default async (req, res, next) => {
     core,
     members: {
       utils: {
-        compareRoles: {
-          isInferiorTo,
-        },
+        compareRoles: { isInferiorTo },
       },
     },
   } = req.app.services;
@@ -20,24 +18,41 @@ export default async (req, res, next) => {
     return next(new NotAuthenticated('Authentication is required'));
   }
 
-  if (await core.agendas(req.agenda).settings.isClosed() && isInferiorTo(req.member?.role, 'moderator')) {
+  if (
+    await core.agendas(req.agenda).settings.isClosed()
+    && isInferiorTo(req.member?.role, 'moderator')
+  ) {
     return next({
       code: 403,
       message: getLabel('noAccessToClosedAgenda', req.lang),
     });
   }
 
-  if (await core.agendas(req.agenda).settings.isMembersOnly() && !req.member) {
-    return res.redirect(302, `/${req.agenda.slug}/request-contribute/conversation/create`);
+  if (
+    await core.agendas(req.agenda).settings.isMembersOnly()
+    && !req.member
+  ) {
+    return res.redirect(
+      302,
+      `/${req.agenda.slug}/request-contribute/conversation/create`,
+    );
   }
 
   if (!req.member) {
-    req.member = await core.agendas(req.agenda).members.create(req.user.uid, 'contributor', {}, {
-      userUid: req.user.uid,
-    });
+    req.member = await core.agendas(req.agenda).members.create(
+      req.user.uid,
+      'contributor',
+      {},
+      {
+        userUid: req.user.uid,
+      },
+    );
   }
 
-  req.authorizations = await core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations();
+  req.authorizations = await core
+    .users(req.user.uid)
+    .agendas(req.agenda.uid)
+    .getAuthorizations();
 
   if (!req.authorizations.canCreateEvent) {
     return next({
@@ -50,16 +65,21 @@ export default async (req, res, next) => {
 };
 
 export async function edit(req, res, next) {
-  const {
-    core,
-  } = req.app.services;
+  const { core } = req.app.services;
 
   core
     .users(req.user.uid)
     .agendas(req.agenda.uid)
     .getAuthorizations(req.event)
-    .then(authorizations => {
-      if (!['canChangeState', 'canPublish', 'canEditEvent', 'canContribute'].filter(a => authorizations[a]).length) {
+    .then((authorizations) => {
+      if (
+        ![
+          'canChangeState',
+          'canPublish',
+          'canEditEvent',
+          'canContribute',
+        ].filter((a) => authorizations[a]).length
+      ) {
         return next({
           code: 403,
           message: getLabel('noAccessToEdit', req.lang),

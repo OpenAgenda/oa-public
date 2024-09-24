@@ -12,9 +12,7 @@ export default (config, services, agendaSearch, app, base) => {
     agendaSearchPage(config),
   ]);
 
-  app.get(`${base}.:format`, [
-    agendaSearch.mw.list,
-  ]);
+  app.get(`${base}.:format`, [agendaSearch.mw.list]);
 
   app.get(`${base}/rebuild`, [
     agendaSearch.mw.rebuild,
@@ -23,6 +21,8 @@ export default (config, services, agendaSearch, app, base) => {
 
   app.get(`${base}/update`, [
     agendaSearch.mw.update,
-    redirect('updating agenda search index (with agendas updated less than 1 hour ago)'),
+    redirect(
+      'updating agenda search index (with agendas updated less than 1 hour ago)',
+    ),
   ]);
 };

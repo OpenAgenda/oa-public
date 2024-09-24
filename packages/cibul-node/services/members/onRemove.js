@@ -3,7 +3,11 @@ import membersSvc from '@openagenda/members';
 import logs from '@openagenda/logs';
 import clearCache from './lib/clearCache.js';
 
-const { utils: { compareRoles: { isSuperiorToOrEqual } } } = membersSvc;
+const {
+  utils: {
+    compareRoles: { isSuperiorToOrEqual },
+  },
+} = membersSvc;
 
 const log = logs('services/members/onRemove');
 
@@ -12,7 +16,9 @@ async function removeInvitationsToMember({ invitations }, member) {
 
   if (!invitation) return;
 
-  const action = invitation.data.actions.find(v => v.name === 'linkMember' && v.params[0].id === member.id);
+  const action = invitation.data.actions.find(
+    (v) => v.name === 'linkMember' && v.params[0].id === member.id,
+  );
 
   if (!action) return;
 
@@ -33,20 +39,22 @@ export default function onRemove({ services, members, activityQueue }) {
       agendas,
       invitations,
       inboxes,
-      legacy: {
-        controlData: controlDataSvc,
-      },
+      legacy: { controlData: controlDataSvc },
     } = services;
 
     const { Inbox } = inboxes;
 
     try {
       const { user } = context; // user removing
-      const agenda = await agendas.get({ uid: member.agendaUid }, { private: null });
+      const agenda = await agendas.get(
+        { uid: member.agendaUid },
+        { private: null },
+      );
 
       if (!agenda) throw new Error('Agenda not found');
 
-      if (!member.userUid) { // member removed
+      if (!member.userUid) {
+        // member removed
         log('removed member is not linked to a user account', member);
         return;
       }
@@ -79,7 +87,10 @@ export default function onRemove({ services, members, activityQueue }) {
           memberUser, // user removed
         });
       } catch (e) {
-        log('error', 'failed adding activity of type agenda.removeMember', { member, exception: e });
+        log('error', 'failed adding activity of type agenda.removeMember', {
+          member,
+          exception: e,
+        });
       }
 
       try {
@@ -88,19 +99,27 @@ export default function onRemove({ services, members, activityQueue }) {
           userUid: memberUser.uid,
         });
       } catch (e) {
-        log('error', 'failed removing member from control data', { member, exception: e });
+        log('error', 'failed removing member from control data', {
+          member,
+          exception: e,
+        });
       }
 
       try {
-        await activities.feed({
-          entityType: 'user',
-          entityUid: memberUser.uid,
-        }).unfollow({
-          entityType: 'agenda',
-          entityUid: agenda.uid,
-        });
+        await activities
+          .feed({
+            entityType: 'user',
+            entityUid: memberUser.uid,
+          })
+          .unfollow({
+            entityType: 'agenda',
+            entityUid: agenda.uid,
+          });
       } catch (e) {
-        log('error', 'failed user unfollow on agenda', { member, exception: e });
+        log('error', 'failed user unfollow on agenda', {
+          member,
+          exception: e,
+        });
       }
 
       if (isSuperiorToOrEqual(member.role, 'moderator')) {
@@ -112,7 +131,10 @@ export default function onRemove({ services, members, activityQueue }) {
             userUid: memberUser.uid,
           });
         } catch (e) {
-          log('error', 'failed to remove user from agenda inbox', { member, exception: e });
+          log('error', 'failed to remove user from agenda inbox', {
+            member,
+            exception: e,
+          });
         }
       }
 
@@ -120,7 +142,10 @@ export default function onRemove({ services, members, activityQueue }) {
         try {
           await removeInvitationsToMember({ invitations }, member);
         } catch (e) {
-          log('error', 'failed to remove invitations made to member', { member, exception: e });
+          log('error', 'failed to remove invitations made to member', {
+            member,
+            exception: e,
+          });
         }
       }
     } catch (e) {

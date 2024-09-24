@@ -29,7 +29,7 @@ export default (req, res) => {
     identifier: req.agenda.uid,
     title: req.agenda.title,
     description: req.agenda.description,
-    genUrl: e => `https://openagenda.com/${req.agenda.slug}/events/${e.slug}`,
+    genUrl: (e) => `https://openagenda.com/${req.agenda.slug}/events/${e.slug}`,
   });
 
   req.stream.pipe(stream).pipe(res);

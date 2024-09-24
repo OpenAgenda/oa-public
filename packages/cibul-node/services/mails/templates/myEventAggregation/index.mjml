@@ -17,12 +17,9 @@
           </mj-text>
 
           <mj-text>
-            <%- __('body', {
-              event: _.escape(event),
-              sourceAgenda: _.escape(sourceAgenda),
-              state: __(state),
-              b: chunks => `<b>${chunks}</b>`
-            }) %>
+            <%- __('body', { event: _.escape(event), sourceAgenda:
+            _.escape(sourceAgenda), state: __(state), b: chunks =>
+            `<b>${chunks}</b>` }) %>
           </mj-text>
         </mj-column>
       </mj-section>
@@ -41,17 +38,17 @@
         </mj-column>
 
         <% if (typeof contactLink !== 'undefined') { %>
-          <mj-column>
-            <mj-button
-              align="left"
-              background-color="#41acdd"
-              color="white"
-              align="center"
-              href="<%= contactLink %>"
-            >
-              <%= __('contactAgenda') %>
-            </mj-button>
-          </mj-column>
+        <mj-column>
+          <mj-button
+            align="left"
+            background-color="#41acdd"
+            color="white"
+            align="center"
+            href="<%= contactLink %>"
+          >
+            <%= __('contactAgenda') %>
+          </mj-button>
+        </mj-column>
         <% } %>
       </mj-section>
     </mj-content>

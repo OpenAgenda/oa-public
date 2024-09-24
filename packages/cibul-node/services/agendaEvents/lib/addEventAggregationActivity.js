@@ -1,7 +1,5 @@
 export default async (services, eventFeed, { agenda, event, ae }, context) => {
-  const {
-    activities: activitiesSvc,
-  } = services;
+  const { activities: activitiesSvc } = services;
 
   const { sourceAgenda } = context;
 

@@ -11,25 +11,20 @@ const layout = loadLayout('main', {
 
 const { router } = NetworkApps;
 
-export default parentApp => {
-  parentApp.use(
-    '/dist/networkApps',
-    router.dist,
-    (req, res) => res.send(404),
-  );
+export default (parentApp) => {
+  parentApp.use('/dist/networkApps', router.dist, (req, res) => res.send(404));
 
   parentApp.use(
     '/admin/networks',
-    parentApp.services.sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
+    parentApp.services.sessions.mw.ifUnlogged((req, res) =>
+      res.redirect(302, '/')),
     parentApp.services.users.mw.requireSuperAdmin(),
     router,
   );
 };
 
 async function createAgenda(services, networkUid, data, user) {
-  const {
-    core,
-  } = services;
+  const { core } = services;
 
   return core.networks(networkUid).agendas.create(data, {
     userUid: user.uid,
@@ -37,13 +32,9 @@ async function createAgenda(services, networkUid, data, user) {
 }
 
 async function addAgendaToNetwork(services, uid, dirtySlug) {
-  const {
-    agendas,
-    core,
-  } = services;
+  const { agendas, core } = services;
 
-  const slug = dirtySlug.split('?').shift()
-    .split('/').pop();
+  const slug = dirtySlug.split('?').shift().split('/').pop();
 
   log('extracted slug %s', slug);
 
@@ -61,22 +52,27 @@ async function addAgendaToNetwork(services, uid, dirtySlug) {
 export function init(config, services) {
   router.setLayout(layout);
 
-  router.setService(NetworkApps({
-    CDNPath: config.aws.servicesBucketPath,
-    frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/networkApps' : null,
-    logger: config.getLogConfig('svc', 'networkApps'),
-    interfaces: {
-      getEventSchema: () => eventFormSchema({ languages: true }),
-      listNetworks: () => services.core.networks.list(),
-      getNetwork: uid => services.core.networks(uid).get(),
-      getNetworkSchema: uid => services.core.networks(uid).schema.get(),
-      setNetworkSchemaFields: (uid, fields) => services.core.networks(uid).schema.updateFields(fields),
-      getNetworkAgendas: uid => services.core.networks(uid).agendas(),
-      getLoggedUser: async req => req.user,
-      addAgendaToNetwork: addAgendaToNetwork.bind(null, services),
-      removeAgendaFromNetwork: (uid, agendaUid) => services.core.networks(uid).agendas.remove(agendaUid),
-      createAgenda: createAgenda.bind(null, services),
-      createNetwork: data => services.networks.create(data),
-    },
-  }));
+  router.setService(
+    NetworkApps({
+      CDNPath: config.aws.servicesBucketPath,
+      frontAppPath:
+        process.env.NODE_ENV !== 'production' ? '/dist/networkApps' : null,
+      logger: config.getLogConfig('svc', 'networkApps'),
+      interfaces: {
+        getEventSchema: () => eventFormSchema({ languages: true }),
+        listNetworks: () => services.core.networks.list(),
+        getNetwork: (uid) => services.core.networks(uid).get(),
+        getNetworkSchema: (uid) => services.core.networks(uid).schema.get(),
+        setNetworkSchemaFields: (uid, fields) =>
+          services.core.networks(uid).schema.updateFields(fields),
+        getNetworkAgendas: (uid) => services.core.networks(uid).agendas(),
+        getLoggedUser: async (req) => req.user,
+        addAgendaToNetwork: addAgendaToNetwork.bind(null, services),
+        removeAgendaFromNetwork: (uid, agendaUid) =>
+          services.core.networks(uid).agendas.remove(agendaUid),
+        createAgenda: createAgenda.bind(null, services),
+        createNetwork: (data) => services.networks.create(data),
+      },
+    }),
+  );
 }

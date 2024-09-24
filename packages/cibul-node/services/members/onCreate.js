@@ -5,18 +5,21 @@ import membersSvc from '@openagenda/members';
 import { send, sendInvitation } from './lib/mail.js';
 import clearCache from './lib/clearCache.js';
 
-const { utils: { compareRoles: { isSuperiorToOrEqual } } } = membersSvc;
+const {
+  utils: {
+    compareRoles: { isSuperiorToOrEqual },
+  },
+} = membersSvc;
 
 const log = logs('services/members/onCreate');
 
-async function _memberIsExistingUser({ services, config, activityQueue }, { member, user, agenda, context }) {
+async function _memberIsExistingUser(
+  { services, config, activityQueue },
+  { member, user, agenda, context },
+) {
   log('member is existing user', member);
 
-  const {
-    inboxes,
-    activities,
-    legacy,
-  } = services;
+  const { inboxes, activities, legacy } = services;
 
   const { Inbox } = inboxes || {};
   const controlDataSvc = (legacy || {}).controlData;
@@ -26,11 +29,14 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
   }
 
   if (controlDataSvc) {
-    controlDataSvc.memberSet({
-      agendaUid: agenda.uid,
-      userUid: user.uid,
-      role: member.role,
-    }).catch(e => log('error', 'could not set member in control data', member, e));
+    controlDataSvc
+      .memberSet({
+        agendaUid: agenda.uid,
+        userUid: user.uid,
+        role: member.role,
+      })
+      .catch((e) =>
+        log('error', 'could not set member in control data', member, e));
   } else {
     log('warn', 'legacy service was not initialized');
   }
@@ -60,7 +66,8 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
   const userFeedId = { entityType: 'user', entityUid: user.uid };
   const agendaFeedId = { entityType: 'agenda', entityUid: agenda.uid };
   try {
-    await activities.feed(userFeedId)
+    await activities
+      .feed(userFeedId)
       .follow(agendaFeedId, { credential: member.role });
   } catch (e) {
     log('error', 'could not make user feed follow agenda feed', member.id);
@@ -80,26 +87,40 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
 
   if (!senderUser) throw new VError('Sender user %j not found', { uid: senderUserUid });
 
-  await send({ config, services }, {
-    member,
-    agenda,
-    context,
-    message: context.message,
-  });
+  await send(
+    { config, services },
+    {
+      member,
+      agenda,
+      context,
+      message: context.message,
+    },
+  );
 
   try {
     await activityQueue('addMemberCreate', {
-      user, member, agenda, context, senderUser,
+      user,
+      member,
+      agenda,
+      context,
+      senderUser,
     });
   } catch (e) {
-    log('error', 'could not add addMember activity to agenda feed', agenda, member, e);
+    log(
+      'error',
+      'could not add addMember activity to agenda feed',
+      agenda,
+      member,
+      e,
+    );
   }
 }
 
-async function _memberIsInvitedNonUser({ services, config }, { member, agenda, context }) {
-  const {
-    invitations,
-  } = services;
+async function _memberIsInvitedNonUser(
+  { services, config },
+  { member, agenda, context },
+) {
+  const { invitations } = services;
 
   if (!invitations) {
     log('warn', 'invitations service was not initialized');
@@ -108,13 +129,23 @@ async function _memberIsInvitedNonUser({ services, config }, { member, agenda, c
 
   log('member is not existing user, is invited');
 
-  const { invitation } = await invitations.assign({
-    email: member.custom.email,
-  }, 'linkMember', [member, context]);
+  const { invitation } = await invitations.assign(
+    {
+      email: member.custom.email,
+    },
+    'linkMember',
+    [member, context],
+  );
 
-  return sendInvitation({ services, config }, {
-    invitation, member, context, agenda,
-  });
+  return sendInvitation(
+    { services, config },
+    {
+      invitation,
+      member,
+      context,
+      agenda,
+    },
+  );
 }
 
 export default async ({ services, config, activityQueue }, member, context) => {
@@ -125,30 +156,41 @@ export default async ({ services, config, activityQueue }, member, context) => {
   await clearCache(services, member);
 
   try {
-    const agenda = await agendas.get({
-      uid: member.agendaUid,
-    }, {
-      private: null,
-      includeImagePath: true,
-    });
+    const agenda = await agendas.get(
+      {
+        uid: member.agendaUid,
+      },
+      {
+        private: null,
+        includeImagePath: true,
+      },
+    );
 
     if (!agenda) {
       throw new Error('Agenda not found');
     }
 
-    const user = member.userUid ? await services.users.findOne({
-      query: { uid: member.userUid },
-      removed: null,
-    }) : null;
+    const user = member.userUid
+      ? await services.users.findOne({
+        query: { uid: member.userUid },
+        removed: null,
+      })
+      : null;
 
     if (!user && member.userUid) {
       throw new Error('User not found');
     }
 
     if (member.userUid) {
-      return _memberIsExistingUser({ services, config, activityQueue }, { member, user, agenda, context });
+      return _memberIsExistingUser(
+        { services, config, activityQueue },
+        { member, user, agenda, context },
+      );
     }
-    return _memberIsInvitedNonUser({ services, config, activityQueue }, { member, agenda, context });
+    return _memberIsInvitedNonUser(
+      { services, config, activityQueue },
+      { member, agenda, context },
+    );
   } catch (e) {
     log('error', 'failed', { member, exception: e });
   }

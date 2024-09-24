@@ -1,4 +1,4 @@
-export default extension => {
+export default (extension) => {
   function _loadNamespace(loadedInstance, m) {
     const names = m.split('.');
 
@@ -20,7 +20,7 @@ export default extension => {
   return (loadedInstance, instance, methods) => {
     const ext = extension(loadedInstance, instance);
 
-    methods.forEach(m => {
+    methods.forEach((m) => {
       const namespace = _loadNamespace(loadedInstance, m);
 
       const name = _loadName(m);
