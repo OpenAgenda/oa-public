@@ -1,12 +1,8 @@
-import security from '..';
+import security from '../index.js';
 
 describe('passwords', () => {
   test('really bad password returns object with valid value set to false', () => {
-    const {
-      valid,
-      score,
-      message,
-    } = security.passwords.evaluate('oui');
+    const { valid, score, message } = security.passwords.evaluate('oui');
 
     expect(valid).toBe(false);
     expect(score).toBe(0);
@@ -17,22 +13,19 @@ describe('passwords', () => {
   });
 
   test('password cannot be the same as an associated identifier value', () => {
-    const {
-      valid,
-      isSameAs,
-    } = security.passwords.evaluate('hambourg@allemagne.de', {
-      identifiers: { email: 'hambourg@allemagne.de' },
-    });
+    const { valid, isSameAs } = security.passwords.evaluate(
+      'hambourg@allemagne.de',
+      {
+        identifiers: { email: 'hambourg@allemagne.de' },
+      },
+    );
 
     expect(valid).toBe(false);
     expect(isSameAs).toBe('email');
   });
 
   test('usual password returns object with valid value set to false', () => {
-    const {
-      valid,
-      message,
-    } = security.passwords.evaluate('09876543211');
+    const { valid, message } = security.passwords.evaluate('09876543211');
 
     expect(valid).toBe(false);
     expect(message).toEqual({
@@ -42,11 +35,7 @@ describe('passwords', () => {
   });
 
   test('mediocre password returns score 1 and warning but it is valid.', () => {
-    const {
-      valid,
-      score,
-      message,
-    } = security.passwords.evaluate('betterpassword');
+    const { valid, score, message } = security.passwords.evaluate('betterpassword');
 
     expect(valid).toBe(true);
     expect(score).toBe(1);
@@ -57,11 +46,9 @@ describe('passwords', () => {
   });
 
   test('great password', () => {
-    const {
-      valid,
-      score,
-      message,
-    } = security.passwords.evaluate('anevenbetterpasswordthatisverydifficulttoguess');
+    const { valid, score, message } = security.passwords.evaluate(
+      'anevenbetterpasswordthatisverydifficulttoguess',
+    );
 
     expect(valid).toBe(true);
     expect(score).toBe(4);
