@@ -3,15 +3,22 @@
 const { callbackify } = require('./helpers');
 
 async function scan(config, cursor, limit) {
-  let iterationFetches = []; let
-    updatedCursor = -1;
+  let iterationFetches = [];
+  let updatedCursor = -1;
 
   while (iterationFetches.length < limit && updatedCursor !== 0) {
     if (updatedCursor === -1) {
       updatedCursor = cursor;
     }
 
-    const result = await config.redisClient.sendCommand(['SCAN', `${updatedCursor}`, 'match', `${config.redis.prefix}*`, 'count', `${limit}`]);
+    const result = await config.redisClient.sendCommand([
+      'SCAN',
+      `${updatedCursor}`,
+      'match',
+      `${config.redis.prefix}*`,
+      'count',
+      `${limit}`,
+    ]);
 
     updatedCursor = parseInt(result[0], 10);
 
@@ -65,13 +72,7 @@ function extractArgs([config, cursor, count, options, cb]) {
 }
 
 module.exports = function callbackifiedScan(...args) {
-  const {
-    config,
-    cursor,
-    count,
-    options,
-    cb,
-  } = extractArgs(args);
+  const { config, cursor, count, options, cb } = extractArgs(args);
 
   callbackify(scan(config, cursor, count, options), (err, r) => {
     if (err) return cb(err);

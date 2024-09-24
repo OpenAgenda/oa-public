@@ -16,11 +16,14 @@ describe('session - functional (client): session', () => {
 
   describe('.getUser', () => {
     it('returns user data if logged', () => {
-      cookie.set(isoConfig.cookies.session, base64.encode(JSON.stringify({ user: { uid: 123, name: 'tony', culture: 'en' } })));
+      cookie.set(
+        isoConfig.cookies.session,
+        base64.encode(
+          JSON.stringify({ user: { uid: 123, name: 'tony', culture: 'en' } }),
+        ),
+      );
 
-      expect(
-        clientSession.getUser(),
-      ).toEqual({
+      expect(clientSession.getUser()).toEqual({
         uid: 123,
         name: 'tony',
         culture: 'en',
@@ -35,25 +38,24 @@ describe('session - functional (client): session', () => {
 
   describe('.isLogged', () => {
     it('returns true if user is logged', () => {
-      cookie.set(isoConfig.cookies.session, base64.encode(JSON.stringify({ user: { uid: 123, name: 'tony', culture: 'en' } })));
+      cookie.set(
+        isoConfig.cookies.session,
+        base64.encode(
+          JSON.stringify({ user: { uid: 123, name: 'tony', culture: 'en' } }),
+        ),
+      );
 
-      expect(
-        clientSession.isLogged(),
-      ).toBe(true);
+      expect(clientSession.isLogged()).toBe(true);
     });
 
     it('... and false if not', () => {
-      expect(
-        clientSession.isLogged(),
-      ).toBe(false);
+      expect(clientSession.isLogged()).toBe(false);
     });
   });
 
   describe('.inbox', () => {
     it('getSummary - returns times at zero by default', () => {
-      expect(
-        clientSession.inbox.getSummary(),
-      ).toEqual({
+      expect(clientSession.inbox.getSummary()).toEqual({
         lastRequestTime: 0,
         lastKnownState: false,
       });
@@ -65,9 +67,7 @@ describe('session - functional (client): session', () => {
         lastKnownState: true,
       });
 
-      expect(
-        clientSession.inbox.getSummary(),
-      ).toEqual({
+      expect(clientSession.inbox.getSummary()).toEqual({
         lastRequestTime: 1000,
         lastKnownState: true,
       });
@@ -104,13 +104,19 @@ describe('session - functional (client): session', () => {
     });
 
     it('if a flash is set, returns the flash value', () => {
-      cookie.set(isoConfig.cookies.writable, base64.encode(JSON.stringify({ flash: 'grut' })));
+      cookie.set(
+        isoConfig.cookies.writable,
+        base64.encode(JSON.stringify({ flash: 'grut' })),
+      );
 
       expect(clientSession.flash()).toBe('grut');
     });
 
     it('if a flash is set, clears the value after call', () => {
-      cookie.set(isoConfig.cookies.writable, base64.encode(JSON.stringify({ flash: 'grut' })));
+      cookie.set(
+        isoConfig.cookies.writable,
+        base64.encode(JSON.stringify({ flash: 'grut' })),
+      );
 
       clientSession.flash();
 

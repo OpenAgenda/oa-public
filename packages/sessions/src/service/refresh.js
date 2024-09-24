@@ -2,20 +2,14 @@
 
 const logger = require('@openagenda/logs');
 
-const {
-  getUser,
-  generateSessionUser,
-} = require('./helpers');
+const { getUser, generateSessionUser } = require('./helpers');
 
 const log = logger('refresh');
 
 module.exports = async (config, identifier) => {
-  const {
-    redisClient,
-    interfaces,
-  } = config;
+  const { redisClient, interfaces, redis } = config;
 
-  const sessionKey = [config.redis.prefix, identifier].join(':');
+  const sessionKey = [redis.prefix, identifier].join(':');
 
   log('refreshing session for key %s', sessionKey);
 
@@ -27,11 +21,9 @@ module.exports = async (config, identifier) => {
 
   log('fetched user %j', user);
 
-  const {
-    sessionUser,
-  } = generateSessionUser(config, user);
+  const { sessionUser } = generateSessionUser(config, user);
 
   log('generated %j', sessionUser);
 
-  await config.redisClient.set(sessionKey, JSON.stringify(sessionUser));
+  await redisClient.set(sessionKey, JSON.stringify(sessionUser));
 };

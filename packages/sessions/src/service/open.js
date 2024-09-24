@@ -32,9 +32,7 @@ function extractArgs(config, request, response, identifier, cb) {
 }
 
 async function open(config, request, response, identifier) {
-  const {
-    interfaces,
-  } = config;
+  const { interfaces } = config;
 
   log('attempting session open for user %j', identifier);
 
@@ -43,7 +41,11 @@ async function open(config, request, response, identifier) {
   let cookieData = null;
 
   if (!user) {
-    log('info', 'no user matching user was found for identifier %j', identifier);
+    log(
+      'info',
+      'no user matching user was found for identifier %j',
+      identifier,
+    );
 
     return {
       success: false,
@@ -52,11 +54,7 @@ async function open(config, request, response, identifier) {
   }
 
   // load clean user session data
-  const {
-    sessionUser,
-    expires,
-    errors,
-  } = generateSessionUser(config, user);
+  const { sessionUser, expires, errors } = generateSessionUser(config, user);
 
   if (errors.length) {
     log('error', 'user validation failed on %j', user, errors);
@@ -72,7 +70,11 @@ async function open(config, request, response, identifier) {
   } catch (e) {
     log('error', 'session could not be stored in redis for user %s', user);
 
-    throw new VError(e, 'sessions could not be stored in redis for user %j', user);
+    throw new VError(
+      e,
+      'sessions could not be stored in redis for user %j',
+      user,
+    );
   }
 
   // store session in cookie
@@ -103,13 +105,13 @@ async function open(config, request, response, identifier) {
 }
 
 module.exports = (cf, rq, rs, id, c) => {
-  const {
-    config,
-    request,
-    response,
-    identifier,
-    cb,
-  } = extractArgs(cf, rq, rs, id, c);
+  const { config, request, response, identifier, cb } = extractArgs(
+    cf,
+    rq,
+    rs,
+    id,
+    c,
+  );
 
   callbackify(open(config, request, response, identifier), cb);
 };

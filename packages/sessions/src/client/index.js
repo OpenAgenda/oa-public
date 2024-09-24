@@ -9,8 +9,8 @@ const config = require('../../iso/config');
 const validate = require('../../iso/cookie.validate');
 
 function _get(name, validateFn, useDefault = false) {
-  const cookieValue = cookies.get(name); let
-    clean;
+  const cookieValue = cookies.get(name);
+  let clean;
 
   if (!cookieValue) return useDefault ? validateFn.default : null;
 
@@ -24,7 +24,10 @@ function _get(name, validateFn, useDefault = false) {
 }
 
 function _getSession() {
-  return _get(config.cookies.session, validate) || validate.validateUnlogged.defaultValue;
+  return (
+    _get(config.cookies.session, validate)
+    || validate.validateUnlogged.defaultValue
+  );
 }
 
 function _getWritable() {
@@ -69,7 +72,10 @@ function getNotificationCount(n = null) {
     return null;
   }
 
-  if (session.notifications.updatedAt.getTime() + config.notificationMaxAge < now.getTime()) {
+  if (
+    session.notifications.updatedAt.getTime() + config.notificationMaxAge
+    < now.getTime()
+  ) {
     return null;
   }
 

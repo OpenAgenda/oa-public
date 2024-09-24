@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const redis = require( 'redis' );
-const express = require( 'express' );
+const redis = require('redis');
+const express = require('express');
 
 let config;
 
@@ -9,46 +9,33 @@ module.exports = {
   redisHGet,
   redisGet,
   roundTrip,
-  launchTestApp
+  launchTestApp,
+};
+
+function _readAgentSequencePart(s) {
+  let parsed = s.split(':');
+
+  return { method: parsed[0], route: parsed[1] };
 }
 
-
-
-function _readAgentSequencePart( s ) {
-
-  let parsed = s.split( ':' );
-
-  return { method: parsed[ 0 ], route: parsed[ 1 ] };
-
-}
-
-
-function launchTestApp( routes ) {
-
+function launchTestApp(routes) {
   let app = express();
 
-  Object.keys( routes ).forEach( k => {
-
-    if ( k === 'use' ) {
-
-      return app.use( routes[ k ] );
-
+  Object.keys(routes).forEach((k) => {
+    if (k === 'use') {
+      return app.use(routes[k]);
     }
 
-    let [ method, path ] = k.split( ':' );
+    let [method, path] = k.split(':');
 
-    [].concat( routes[ k ] ).forEach( r => app[ method ]( path, r ) );
+    [].concat(routes[k]).forEach((r) => app[method](path, r));
+  });
 
-  } );
-
-  return app.listen( 3000 );
-
+  return app.listen(3000);
 }
 
-function roundTrip( req, res ) {
-
-  res.send( 'ok' );
-
+function roundTrip(req, res) {
+  res.send('ok');
 }
 
 module.exports.clearRedis = async function clearRedis(redisConfig, client) {
@@ -57,45 +44,37 @@ module.exports.clearRedis = async function clearRedis(redisConfig, client) {
   for (const key of keys) {
     await client.del(key);
   }
-}
+};
 
 module.exports.createClient = async function createClient(redisConfig) {
   const client = await redis.createClient({
     socket: {
       port: redisConfig.port,
-      host: redisConfig.host
+      host: redisConfig.host,
     },
   });
 
   await client.connect();
 
   return client;
-}
+};
 
-function redisHGet( hash, key, cb ) {
-
+function redisHGet(hash, key, cb) {
   let cli = _createClient();
 
-  cli.hget( hash, key, ( err, result ) => {
-
+  cli.hget(hash, key, (err, result) => {
     cli.quit();
 
-    cb( err, result );
-
-  } );
-
+    cb(err, result);
+  });
 }
 
-function redisGet( key, cb ) {
-
+function redisGet(key, cb) {
   let cli = _createClient();
 
-  cli.get( key, ( err, result ) => {
-
+  cli.get(key, (err, result) => {
     cli.quit();
 
-    cb( err, result );
-
-  } );
-
+    cb(err, result);
+  });
 }

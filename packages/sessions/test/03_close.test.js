@@ -1,15 +1,11 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const Sessions = require('../src/service');
+const isoConfig = require('../src/iso/config');
+const config = require('../testconfig');
+const h = require('./lib/helpers');
 
-const Sessions = require( '../src/service' );
-const isoConfig = require( '../src/iso/config' );
-const config = require( '../testconfig' );
-const h = require( './lib/helpers' );
-
-const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
-
-describe( 'session - functional (server): close', () => {
+describe('session - functional (server): close', () => {
   let client;
   let request;
   let sessions;
@@ -20,7 +16,7 @@ describe( 'session - functional (server): close', () => {
 
   beforeEach(() => h.clearRedis(config.redis, client));
 
-  beforeAll( () => {
+  beforeAll(() => {
     sessions = Sessions({
       ...config,
       redisClient: client,
@@ -30,7 +26,7 @@ describe( 'session - functional (server): close', () => {
   beforeEach(() => {
     request = {
       cookies: {},
-      session: {}
+      session: {},
     };
 
     request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
@@ -38,65 +34,59 @@ describe( 'session - functional (server): close', () => {
 
   afterAll(() => client.quit());
 
-  it( 'close ends the session using the request object', done => {
+  it('close ends the session using the request object', async () => {
+    await new Promise((resolve, reject) => {
+      sessions.open(request, { uid: 12345678 }, (err) => {
+        if (err) return reject(err);
 
-    sessions.open( request, { uid: 12345678 }, ( err, result ) => {
+        sessions.close(request, (err1, result) => {
+          if (err1) return reject(err1);
 
-      sessions.close( request, ( err, result ) => {
+          expect(result.success).toBe(true);
 
-        expect(result.success).toBe(true);
+          resolve();
+        });
+      });
+    });
+  });
 
-        done();
+  it('request session is nulled', async () => {
+    await new Promise((resolve, reject) => {
+      sessions.open(request, { uid: 12345678 }, (err) => {
+        if (err) return reject(err);
 
-      } );
+        sessions.close(request, (err1, _result) => {
+          if (err1) return reject(err1);
 
-    } );
+          expect(request.session).toBe(null);
 
-  } );
+          resolve();
+        });
+      });
+    });
+  });
 
-  it( 'request session is nulled', done => {
+  it('redis store of session is emptied', async () => {
+    await new Promise((resolve, reject) => {
+      sessions.open(request, { uid: 12345678 }, (err) => {
+        if (err) return reject(err);
 
-    sessions.open( request, { uid: 12345678 }, ( err, result ) => {
+        client.get([config.redis.prefix, 12345678].join(':')).then((result) => {
+          expect(JSON.parse(result).email).toBe('gaetan@cibul.net');
 
-      sessions.close( request, ( err, result ) => {
+          sessions.close(request, (err1) => {
+            if (err1) return reject(err1);
+            client
+              .get([config.redis.prefix, 12345678].join(':'))
+              .then((result1) => {
+                expect(err).toBe(null);
+                expect(result1).toBe(null);
 
-        expect(request.session).toBe(null);
-
-        done();
-
-      } );
-
-    } );
-
-  } );
-
-  it( 'redis store of session is emptied', done => {
-
-    sessions.open( request, { uid: 12345678 }, ( err, result ) => {
-
-      client.get([config.redis.prefix, 12345678].join(':')).then(result => {
-
-        expect(
-          JSON.parse( result ).email
-        ).toBe( 'gaetan@cibul.net' );
-
-        sessions.close( request, ( err, result ) => {
-
-          client.get([config.redis.prefix, 12345678].join(':')).then(result => {
-
-            expect(err).toBe(null);
-            expect(result).toBe(null);
-
-            done();
-
-          } );
-
-        } );
-
-      } );
-
-    } );
-
-  } );
-
-} );
+                resolve();
+              });
+          });
+        }, reject);
+      });
+    });
+  });
+});

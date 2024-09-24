@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
-module.exports = require( '../lib/iso/cookie.validate' );
+module.exports = require('../lib/iso/cookie.validate');

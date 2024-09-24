@@ -6,21 +6,27 @@ const validator = require('../validator');
 const cookieValidate = require('../../../iso/cookie.validate');
 
 function callbackify(p, cb) {
-  p.then(result => {
-    // do not handle sync errors in callback with promise
-    process.nextTick(cb.bind(null, null, result));
-  }, err => {
-    process.nextTick(cb.bind(null, err));
-  });
+  p.then(
+    (result) => {
+      // do not handle sync errors in callback with promise
+      process.nextTick(cb.bind(null, null, result));
+    },
+    (err) => {
+      process.nextTick(cb.bind(null, err));
+    },
+  );
 }
 
 function callInterface(interfaces, name, args) {
   return new Promise((rs, rj) => {
-    interfaces[name].apply(null, (_.isArray(args) ? args : [args]).concat((err, result) => {
-      if (err) return rj(err);
+    interfaces[name].apply(
+      null,
+      (_.isArray(args) ? args : [args]).concat((err, result) => {
+        if (err) return rj(err);
 
-      rs(result);
-    }));
+        rs(result);
+      }),
+    );
   });
 }
 
@@ -41,9 +47,11 @@ function cleanSession(session = {}, data = {}) {
 
   try {
     clean = cookieValidate(_.extend(filtered, data));
-  } catch (e) { log('error', e); }
+  } catch (e) {
+    log('error', e);
+  }
 
-  Object.keys(clean).forEach(k => {
+  Object.keys(clean).forEach((k) => {
     session[k] = clean[k];
   });
 
@@ -51,10 +59,7 @@ function cleanSession(session = {}, data = {}) {
 }
 
 function generateSessionUser(config, user) {
-  const {
-    cultures,
-    expire,
-  } = config;
+  const { cultures, expire } = config;
 
   const latestActivity = new Date();
   const expires = new Date(latestActivity.getTime() + expire * 1000);

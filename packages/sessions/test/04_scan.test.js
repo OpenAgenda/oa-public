@@ -33,52 +33,54 @@ describe('session - functional (server): scan', () => {
   });
 
   beforeEach(async () => {
-    let i = 0;
-
-    while (i < 10) {
-      await new Promise((resolve, reject) => {
-        sessions.open(request, { uid: i }, (err) => {
-          if (err) reject(err);
-          else {
-            i += 1;
-            resolve();
-          }
+    function asyncOpen(...args) {
+      return new Promise((resolve, reject) => {
+        sessions.open(...args, (err) => {
+          if (err) return reject(err);
+          return resolve();
         });
       });
+    }
+
+    for (let i = 0; i < 10; i++) {
+      await asyncOpen(request, { uid: i });
     }
   });
 
   afterAll(() => client.quit());
 
-  it('scans through open sessions', () => new Promise((rs, rj) => {
-    sessions.scan(0, 2, (err, existingSessions, nextCursor) => {
-      try {
+  it('scans through open sessions', () =>
+    new Promise((rs, rj) => {
+      sessions.scan(0, 2, (err, existingSessions, nextCursor) => {
+        try {
+          expect(err).toBeNull();
+
+          expect(nextCursor).not.toBe(0);
+
+          expect(existingSessions.length).toBeGreaterThanOrEqual(2);
+
+          rs();
+        } catch (e) {
+          return rj(e);
+        }
+      });
+    }));
+
+  it('default fetch count is 10', () =>
+    new Promise((rs) => {
+      sessions.scan(0, (err, _sessions, _nextCursor) => {
         expect(err).toBeNull();
 
-        expect(nextCursor).not.toBe(0);
+        rs();
+      });
+    }));
 
-        expect(existingSessions.length).toBeGreaterThanOrEqual(2);
+  it('nextCursor is 0 when end of scan is reached', () =>
+    new Promise((rs) => {
+      sessions.scan(6, 10, (err, _sessions, cursor) => {
+        expect(cursor).toBe(0);
 
         rs();
-      } catch (e) {
-        return rj(e);
-      }
-    });
-  }));
-
-  it('default fetch count is 10', () => new Promise(rs => {
-    sessions.scan(0, (err, _sessions, _nextCursor) => {
-      expect(err).toBeNull();
-
-      rs();
-    });
-  }));
-
-  it('nextCursor is 0 when end of scan is reached', () => new Promise(rs => {
-    sessions.scan(6, 10, (err, _sessions, cursor) => {
-      expect(cursor).toBe(0);
-
-      rs();
-    });
-  }));
+      });
+    }));
 });
