@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-import Unsubscriptions from '..';
+import Unsubscriptions from '../index.js';
 import fixtures from './fixtures/index.js';
 
 const dbConfig = {
@@ -27,7 +27,9 @@ describe('tokens', () => {
       this: 'isThePayload',
     });
 
-    expect(token.split('.').shift()).toBe('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9');
+    expect(token.split('.').shift()).toBe(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+    );
   });
 
   it('Token can be parsed by calling parse method', async () => {
@@ -35,13 +37,13 @@ describe('tokens', () => {
       this: 'isThePayload',
     });
 
-    expect(
-      await service.tokens.parse(token),
-    ).toEqual({ this: 'isThePayload' });
+    expect(await service.tokens.parse(token)).toEqual({ this: 'isThePayload' });
   });
 
   it('Token can be verified against legacy db entries', async () => {
-    const payload = await service.tokens.parse('f319173c-e1b8-4a81-98f8-b130f7a72cc1');
+    const payload = await service.tokens.parse(
+      'f319173c-e1b8-4a81-98f8-b130f7a72cc1',
+    );
 
     expect(payload).toEqual({
       target: 'user:63496533',
