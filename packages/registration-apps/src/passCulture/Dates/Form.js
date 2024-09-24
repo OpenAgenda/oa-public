@@ -15,14 +15,9 @@ export default function DateForm({
   submitLabel = 'Ajouter',
   mode = 'add',
 }) {
-  const {
-    Select,
-    Input,
-    Button,
-    EmbeddedForm,
-  } = useContext(ComponentsContext);
+  const { Select, Input, Button, EmbeddedForm } = useContext(ComponentsContext);
 
-  const timingOptions = timings.map(t => ({
+  const timingOptions = timings.map((t) => ({
     value: getTime(t.begin),
     label: `${getTimingLabel(t)} `,
   }));
@@ -46,20 +41,22 @@ export default function DateForm({
   }, []);
 
   return (
-    <EmbeddedForm title={mode === 'edit' ? 'Modification de date' : 'Nouvelle date'}>
+    <EmbeddedForm
+      title={mode === 'edit' ? 'Modification de date' : 'Nouvelle date'}
+    >
       <Select
         id="date-timing"
         label="Plage horaire"
         value={value.timingId}
         options={timingOptions}
-        onChange={o => onChange({ ...value, timingId: o.value })}
+        onChange={(o) => onChange({ ...value, timingId: o.value })}
       />
       <Select
         id="date-price-category"
         label="Catégorie de prix"
         value={value?.priceCategoryId}
         options={priceCategoriesOptions}
-        onChange={o => onChange({ ...value, priceCategoryId: o.value })}
+        onChange={(o) => onChange({ ...value, priceCategoryId: o.value })}
       />
       <Input
         id="date-quantity"
@@ -67,22 +64,19 @@ export default function DateForm({
         label="Quantité"
         type="number"
         min="0"
-        onChange={e => onChange({ ...value, quantity: e.target.value })}
+        onChange={(e) => onChange({ ...value, quantity: e.target.value })}
       />
       <Button
         type="submit"
         disabled={!isValid}
         shape="primary"
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           onSubmit();
         }}
         label={submitLabel}
       />
-      <Button
-        onClick={onCancel}
-        label="Annuler"
-      />
+      <Button onClick={onCancel} label="Annuler" />
     </EmbeddedForm>
   );
 }

@@ -15,8 +15,12 @@ export default {
     msw: {
       handlers: [
         http.get('/settings', () => HttpResponse.json(passSettings)),
-        http.get('/contextForAdminMod', () => HttpResponse.json({ me: { member: { role: 'administrator' } } })),
-        http.get('/contextForContribOrNonMember', () => new HttpResponse(null, { status: 404 })),
+        http.get('/contextForAdminMod', () =>
+          HttpResponse.json({ me: { member: { role: 'administrator' } } })),
+        http.get(
+          '/contextForContribOrNonMember',
+          () => new HttpResponse(null, { status: 404 }),
+        ),
       ],
     },
   },
@@ -27,7 +31,9 @@ export function EmptyAtLoad() {
 
   return (
     <div className="oa-form col-lg-offset-3 col-lg-6">
-      <p>Form will be preloaded with one pricing `Tarif unique` with price at 0.</p>
+      <p>
+        Form will be preloaded with one pricing `Tarif unique` with price at 0.
+      </p>
       <Registration
         value={value}
         lang="fr"
@@ -100,10 +106,12 @@ export function EmptyAtLoadWithPreslectedLocation() {
         userRole="moderator"
         relatedValues={{
           other: {
-            timings: [{
-              begin: { date: '2024-09-30', hours: 15, minutes: 0 },
-              end: { date: '2024-09-30', hours: 17, minutes: 0 },
-            }],
+            timings: [
+              {
+                begin: { date: '2024-09-30', hours: 15, minutes: 0 },
+                end: { date: '2024-09-30', hours: 17, minutes: 0 },
+              },
+            ],
             location: { name: 'Lieu Oa 2' },
           },
         }}
@@ -129,7 +137,9 @@ export function EmptyAtLoadSeenByContributor() {
 
   return (
     <div className="oa-form col-lg-offset-3 col-lg-6">
-      <p>Contributor (or not member at all) does not have access to pass checkbox</p>
+      <p>
+        Contributor (or not member at all) does not have access to pass checkbox
+      </p>
       <Registration
         value={value}
         lang="fr"
@@ -165,27 +175,34 @@ export function WithData() {
       type: 'link',
       value: 'https://passCulture.com/offers/2199832',
       service: 'passCulture',
-      data: [{
-        editing: true,
-        venueId: 548,
-        category: 'CINE_PLEIN_AIR',
-        priceCategories: [{
-          id: 0,
-          label: 'Tarif normal',
-          price: '12000',
-        }],
-        dates: [{
-          id: 1,
-          timingId: 1696078800000,
-          priceCategoryId: 0,
-          quantity: 15,
-        }, {
-          id: 2,
-          timingId: 2012990400000,
-          priceCategoryId: 0,
-          quantity: 20,
-        }],
-      }],
+      data: [
+        {
+          editing: true,
+          venueId: 548,
+          category: 'CINE_PLEIN_AIR',
+          priceCategories: [
+            {
+              id: 0,
+              label: 'Tarif normal',
+              price: '12000',
+            },
+          ],
+          dates: [
+            {
+              id: 1,
+              timingId: 1696078800000,
+              priceCategoryId: 0,
+              quantity: 15,
+            },
+            {
+              id: 2,
+              timingId: 2012990400000,
+              priceCategoryId: 0,
+              quantity: 20,
+            },
+          ],
+        },
+      ],
     },
   ]);
 
@@ -228,35 +245,44 @@ export function WithDataWithoutTimings() {
       type: 'link',
       value: 'https://passCulture.com/offers/2199832',
       service: 'passCulture',
-      data: [{
-        venueId: 548,
-        editing: true,
-        category: 'CONCERT',
-        musicType: 'JAZZ-BEBOP',
-        priceCategories: [{
-          id: 0,
-          label: 'Tarif normal',
-          price: '12000',
-        }],
-        dates: [{
-          id: 1,
-          timingId: 1696078800000,
-          priceCategoryId: 0,
-          quantity: 15,
-        }, {
-          id: 2,
-          timingId: 1697371200000,
-          priceCategoryId: 0,
-          quantity: 20,
-        }],
-      }],
+      data: [
+        {
+          venueId: 548,
+          editing: true,
+          category: 'CONCERT',
+          musicType: 'JAZZ-BEBOP',
+          priceCategories: [
+            {
+              id: 0,
+              label: 'Tarif normal',
+              price: '12000',
+            },
+          ],
+          dates: [
+            {
+              id: 1,
+              timingId: 1696078800000,
+              priceCategoryId: 0,
+              quantity: 15,
+            },
+            {
+              id: 2,
+              timingId: 1697371200000,
+              priceCategoryId: 0,
+              quantity: 20,
+            },
+          ],
+        },
+      ],
     },
   ]);
 
   return (
     <>
       <div className="col-lg-offset-3 col-lg-6 margin-v-lg">
-        When there is data a warning message indicates that timings must be defined and it is possible to edit the data. An additional message shows that the data is invalid.
+        When there is data a warning message indicates that timings must be
+        defined and it is possible to edit the data. An additional message shows
+        that the data is invalid.
       </div>
       <div className="oa-form col-lg-offset-3 col-lg-6">
         <Registration
@@ -295,7 +321,8 @@ export function WithoutDataWithoutTimings() {
   return (
     <>
       <div className="col-lg-offset-3 col-lg-6 margin-v-lg">
-        When there is no data nor any timings a warning message indicates that timings must be defined and the checkbox is disabled.
+        When there is no data nor any timings a warning message indicates that
+        timings must be defined and the checkbox is disabled.
       </div>
       <div className="oa-form col-lg-offset-3 col-lg-6">
         <Registration
@@ -334,7 +361,8 @@ export function WithoutDataWithPassedTimings() {
   return (
     <>
       <div className="col-lg-offset-3 col-lg-6 margin-v-lg">
-        When there are only timings beginning in the past, a message is displayed and the PassCulture checkbox is disabled
+        When there are only timings beginning in the past, a message is
+        displayed and the PassCulture checkbox is disabled
       </div>
       <div className="oa-form col-lg-offset-3 col-lg-6">
         <Registration
@@ -344,7 +372,9 @@ export function WithoutDataWithPassedTimings() {
           userRole="moderator"
           relatedValues={{
             other: {
-              timings: event.timings.filter(t => new Date(t.date) < new Date()),
+              timings: event.timings.filter(
+                (t) => new Date(t.date) < new Date(),
+              ),
             },
           }}
           field={{
@@ -368,28 +398,36 @@ export function WithoutDataWithPassedTimings() {
 }
 
 export function WithAlreadyCreatedPassOffer() {
-  const [value, setValue] = useState([{
-    type: 'link',
-    value: 'https://integration.passculture.app/offre/49397',
-    service: 'passCulture',
-    data: [{
-      venueId: 548,
-      category: 'CONFERENCE',
-      priceCategories: [{
-        id: 0,
-        price: 89,
-        label: 'Tarfi narlmo',
-      }],
-      dates: [{
-        id: 1,
-        timingId: 1727701200000,
-        priceCategoryId: 0,
-        quantity: 879,
-      }],
-      passId: 49397,
-      appliedAt: '2024-07-16T10:57:14.056Z',
-    }],
-  }]);
+  const [value, setValue] = useState([
+    {
+      type: 'link',
+      value: 'https://integration.passculture.app/offre/49397',
+      service: 'passCulture',
+      data: [
+        {
+          venueId: 548,
+          category: 'CONFERENCE',
+          priceCategories: [
+            {
+              id: 0,
+              price: 89,
+              label: 'Tarfi narlmo',
+            },
+          ],
+          dates: [
+            {
+              id: 1,
+              timingId: 1727701200000,
+              priceCategoryId: 0,
+              quantity: 879,
+            },
+          ],
+          passId: 49397,
+          appliedAt: '2024-07-16T10:57:14.056Z',
+        },
+      ],
+    },
+  ]);
 
   return (
     <>
@@ -428,31 +466,41 @@ export function WithAlreadyCreatedPassOffer() {
 }
 
 export function WithPendingPassOffer() {
-  const [value, setValue] = useState([{
-    type: 'link',
-    value: 'https://integration.passculture.app/offre/49397',
-    service: 'passCulture',
-    data: [{
-      venueId: 548,
-      isPending: true,
-      category: 'CONFERENCE',
-      passId: 49397,
-      appliedAt: '2024-07-16T10:57:14.056Z',
-    }, {
-      priceCategories: [{
-        id: 0,
-        price: 89,
-        label: 'Tarfi narlmo',
-      }],
-    }, {
-      dates: [{
-        id: 1,
-        timingId: 1727701200000,
-        priceCategoryId: 0,
-        quantity: 879,
-      }],
-    }],
-  }]);
+  const [value, setValue] = useState([
+    {
+      type: 'link',
+      value: 'https://integration.passculture.app/offre/49397',
+      service: 'passCulture',
+      data: [
+        {
+          venueId: 548,
+          isPending: true,
+          category: 'CONFERENCE',
+          passId: 49397,
+          appliedAt: '2024-07-16T10:57:14.056Z',
+        },
+        {
+          priceCategories: [
+            {
+              id: 0,
+              price: 89,
+              label: 'Tarfi narlmo',
+            },
+          ],
+        },
+        {
+          dates: [
+            {
+              id: 1,
+              timingId: 1727701200000,
+              priceCategoryId: 0,
+              quantity: 879,
+            },
+          ],
+        },
+      ],
+    },
+  ]);
 
   return (
     <>
@@ -491,28 +539,36 @@ export function WithPendingPassOffer() {
 }
 
 export function WithRejectedPassOffer() {
-  const [value, setValue] = useState([{
-    type: 'link',
-    value: 'https://integration.passculture.app/offre/49397',
-    service: 'passCulture',
-    data: [{
-      venueId: 548,
-      isRejected: true,
-      category: 'CONFERENCE',
-      priceCategories: [{
-        id: 0,
-        price: 89,
-        label: 'Tarfi narlmo',
-      }],
-      dates: [{
-        id: 1,
-        timingId: 1727701200000,
-        priceCategoryId: 0,
-        quantity: 879,
-      }],
-      passId: 49397,
-    }],
-  }]);
+  const [value, setValue] = useState([
+    {
+      type: 'link',
+      value: 'https://integration.passculture.app/offre/49397',
+      service: 'passCulture',
+      data: [
+        {
+          venueId: 548,
+          isRejected: true,
+          category: 'CONFERENCE',
+          priceCategories: [
+            {
+              id: 0,
+              price: 89,
+              label: 'Tarfi narlmo',
+            },
+          ],
+          dates: [
+            {
+              id: 1,
+              timingId: 1727701200000,
+              priceCategoryId: 0,
+              quantity: 879,
+            },
+          ],
+          passId: 49397,
+        },
+      ],
+    },
+  ]);
 
   return (
     <>
@@ -551,44 +607,46 @@ export function WithRejectedPassOffer() {
 }
 
 export function WithErroredPassOffer() {
-  const [value, setValue] = useState([{
-    type: 'link',
-    value: 'https://integration.passculture.app/offre/49397',
-    service: 'passCulture',
-    data: [
-      {
-        eventDuration: 90,
-        bookingContact: 'clem@oa.com',
-        response: {
-          passId: 73696,
-          isPending: false,
-        },
-        venueId: 548,
-        category: 'ATELIER_PRATIQUE_ART',
-        operation: 'create',
-        appliedAt: '2024-07-16T10:57:14.056Z',
-        duo: true,
-      },
-      {
-        priceCategories: [
-          {
-            price: 3000,
-            label: 'Tarif unique',
-            id: 0,
+  const [value, setValue] = useState([
+    {
+      type: 'link',
+      value: 'https://integration.passculture.app/offre/49397',
+      service: 'passCulture',
+      data: [
+        {
+          eventDuration: 90,
+          bookingContact: 'clem@oa.com',
+          response: {
+            passId: 73696,
+            isPending: false,
           },
-        ],
-        error: {
-          code: 400,
-          name: 'BadRequest',
-          shortMessage: 'priceCategories create',
-          className: 'bad-request',
-          message: 'priceCategories create',
-          info: {},
-          statusCode: 400,
+          venueId: 548,
+          category: 'ATELIER_PRATIQUE_ART',
+          operation: 'create',
+          appliedAt: '2024-07-16T10:57:14.056Z',
+          duo: true,
         },
-      },
-    ],
-  }]);
+        {
+          priceCategories: [
+            {
+              price: 3000,
+              label: 'Tarif unique',
+              id: 0,
+            },
+          ],
+          error: {
+            code: 400,
+            name: 'BadRequest',
+            shortMessage: 'priceCategories create',
+            className: 'bad-request',
+            message: 'priceCategories create',
+            info: {},
+            statusCode: 400,
+          },
+        },
+      ],
+    },
+  ]);
 
   return (
     <>

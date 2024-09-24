@@ -30,7 +30,7 @@ export default function PriceCategories({
         value={value.priceCategories}
         onRemove={onRemove}
         disabled={newItem || disabled}
-        onToggleEditing={edit => {
+        onToggleEditing={(edit) => {
           setEditing(edit);
           onSubFormToggle(edit);
         }}
@@ -38,7 +38,7 @@ export default function PriceCategories({
       />
       {error
         && error.length > 0
-        && error.map(e => (
+        && error.map((e) => (
           <div key={e.code} className="text-danger">
             {e.label}
           </div>
@@ -46,11 +46,14 @@ export default function PriceCategories({
       {newItem ? (
         <PriceCategoryForm
           value={newItem}
-          onChange={v => {
+          onChange={(v) => {
             setNewItem(v);
             onSubFormToggle(false);
           }}
-          isValid={validatePriceCategory({ ...newItem, price: newItem.price * 100 }, { boolMode: true })}
+          isValid={validatePriceCategory(
+            { ...newItem, price: newItem.price * 100 },
+            { boolMode: true },
+          )}
           onCancel={() => {
             setNewItem(false);
             onSubFormToggle(false);

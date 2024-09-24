@@ -1,9 +1,6 @@
 import classNames from 'classnames';
 
-export default function FieldCounter({
-  max,
-  value,
-}) {
+export default function FieldCounter({ max, value }) {
   const remaining = () => {
     const nValue = Array.isArray(value) ? value.join('') : value;
 
@@ -13,6 +10,10 @@ export default function FieldCounter({
   };
 
   return (
-    <div className={classNames({ 'field-counter': true, error: remaining() < 0 })}>{remaining()}</div>
+    <div
+      className={classNames({ 'field-counter': true, error: remaining() < 0 })}
+    >
+      {remaining()}
+    </div>
   );
 }

@@ -32,7 +32,7 @@ function Registration(props) {
   const [inputValue, setInputValue] = useState('');
 
   const appendValue = useCallback(
-    item => {
+    (item) => {
       setInputValue('');
 
       propsOnChange([].concat(value ?? []).concat(item));
@@ -41,7 +41,7 @@ function Registration(props) {
   );
 
   const onInputChange = useCallback(
-    e => {
+    (e) => {
       const parts = e.target.value.split(/;|,|\|/);
 
       if (parts.length < 2) {
@@ -54,7 +54,7 @@ function Registration(props) {
   );
 
   const onStandardChange = useCallback(
-    updatedValue => {
+    (updatedValue) => {
       setInputValue('');
       propsOnChange(
         mergeSpreadRegistrationValues({
@@ -93,7 +93,7 @@ function Registration(props) {
             || relatedValues?.other?.conditions
             || null
           }
-          onChange={updatedPassCultureValue =>
+          onChange={(updatedPassCultureValue) =>
             propsOnChange(
               mergeSpreadRegistrationValues({
                 standard: standardValue,

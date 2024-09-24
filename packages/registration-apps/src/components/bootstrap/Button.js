@@ -1,4 +1,4 @@
-const buttonClass = shape => {
+const buttonClass = (shape) => {
   if (shape === 'primary') {
     return 'btn-primary';
   }
