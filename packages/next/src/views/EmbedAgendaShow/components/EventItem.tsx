@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import qs from 'qs';
 import { Box, Flex, LinkBox } from '@openagenda/uikit';
