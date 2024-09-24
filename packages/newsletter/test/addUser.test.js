@@ -1,6 +1,6 @@
 'use strict';
 
-const Newsletter = require('../index.js');
+const Newsletter = require('../index');
 
 const config = {
   apiKey: process.env.API_KEY,
@@ -25,7 +25,7 @@ describe('Add user', () => {
 
   it('add to list - fail', async () => {
     await expect(newsletter.addSubscriber()).rejects.toMatchObject({
-      code: 'ERR_BAD_REQUEST'
+      code: 'ERR_BAD_REQUEST',
     });
   });
 });
