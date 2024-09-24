@@ -1,4 +1,6 @@
-const path = require('path');
+'use strict';
+
+const path = require('node:path');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -12,10 +14,7 @@ module.exports = (env = {}, argv = {}) => {
   return {
     mode: envName === 'production' ? 'production' : 'development',
     entry: {
-      main: [
-        './src/index.js',
-        './src/style.scss',
-      ],
+      main: ['./src/index.js', './src/style.scss'],
     },
     output: {
       filename: '[name].js',

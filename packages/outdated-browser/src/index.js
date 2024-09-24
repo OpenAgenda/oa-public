@@ -6,7 +6,7 @@ function getOutdatedElem() {
   if (outdatedUI) return outdatedUI;
 
   const div = document.createElement('div');
-  div.id = 'outdated'
+  div.id = 'outdated';
   document.body.insertAdjacentElement('afterbegin', div);
 
   return div;
@@ -15,11 +15,17 @@ function getOutdatedElem() {
 function getUpdateMessage(messages) {
   const parsedUserAgent = new UserAgentParser(navigator.userAgent).getResult();
 
-  if (parsedUserAgent.os.name === 'Android' && parsedUserAgent.browser.name === 'Chrome') {
-    return `<p>${messages.updateGooglePlay}<a id="buttonUpdateBrowser" rel="nofollow" href="https://play.google.com/store/apps/details?id=com.android.chrome">${messages.callToAction}</a></p>`
+  if (
+    parsedUserAgent.os.name === 'Android'
+    && parsedUserAgent.browser.name === 'Chrome'
+  ) {
+    return `<p>${messages.updateGooglePlay}<a id="buttonUpdateBrowser" rel="nofollow" href="https://play.google.com/store/apps/details?id=com.android.chrome">${messages.callToAction}</a></p>`;
   }
 
-  if (parsedUserAgent.os.name === 'iOS' && parsedUserAgent.browser.name === 'Safari') {
+  if (
+    parsedUserAgent.os.name === 'iOS'
+    && parsedUserAgent.browser.name === 'Safari'
+  ) {
     return `<p>${messages.updateAppStore}</p>`;
   }
 
@@ -48,10 +54,13 @@ function fadeIn(elem, opacityValue) {
   }
 }
 
-
 function main(options = {}) {
   const outdatedUI = getOutdatedElem();
-  const messages = { ...locales.en, ...locales[options.locale], ...options.messages };
+  const messages = {
+    ...locales.en,
+    ...locales[options.locale],
+    ...options.messages,
+  };
 
   // This is an outdated browser and the banner needs to show
   if (outdatedUI.style.opacity !== '1') {
