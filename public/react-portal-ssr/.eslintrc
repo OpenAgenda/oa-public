@@ -8,8 +8,8 @@
   },
 
   "ignorePatterns": [
-    "lib",
-    "esm"
+    "/lib",
+    "/esm"
   ],
 
   "overrides": [

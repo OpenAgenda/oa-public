@@ -1,5 +1,5 @@
 module.exports = {
-  extends: '@openagenda',
+  extends: '../../.eslintrc',
 
   parserOptions: {
     sourceType: 'module',

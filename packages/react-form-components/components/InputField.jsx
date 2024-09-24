@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react'),
-  createReactClass = require('create-react-class'),
-  PropTypes = require('prop-types'),
-  getLabel = require('../lib/makeLabelGetter')(require('../labels'));
+const React = require('react');
+const createReactClass = require('create-react-class');
+const PropTypes = require('prop-types');
+const getLabel = require('../lib/makeLabelGetter')(require('../labels'));
 
 module.exports = createReactClass({
   displayName: 'InputField',
@@ -39,13 +39,13 @@ module.exports = createReactClass({
     enabled: PropTypes.bool,
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       userHasTyped: false,
     };
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       type: 'text',
 
@@ -55,7 +55,7 @@ module.exports = createReactClass({
     };
   },
 
-  onChange: function (e) {
+  onChange(e) {
     if (!this.props.enabled) {
       return;
     }
@@ -67,8 +67,8 @@ module.exports = createReactClass({
     this.props.onChange(this.props.name, e.target.value);
   },
 
-  getLabel: function (label, values) {
-    var str;
+  getLabel(label, values) {
+    let str;
 
     if (this.props.getLabel) {
       str = this.props.getLabel(label, values, this.props.lang);
@@ -77,8 +77,8 @@ module.exports = createReactClass({
     return str || getLabel(label, values, this.props.lang);
   },
 
-  renderErrors: function () {
-    var self = this;
+  renderErrors() {
+    const self = this;
 
     if (!this.props.validator) return null;
 
@@ -93,13 +93,11 @@ module.exports = createReactClass({
     } catch (errors) {
       return (
         <p>
-          {errors.map(function (error) {
-            return (
-              <span key={error.code} className="error">
-                {self.getLabel(error.code, error.values, self.props.lang)}
-              </span>
-            );
-          })}
+          {errors.map((error) => (
+            <span key={error.code} className="error">
+              {self.getLabel(error.code, error.values, self.props.lang)}
+            </span>
+          ))}
         </p>
       );
     }
@@ -107,10 +105,10 @@ module.exports = createReactClass({
     return null;
   },
 
-  render: function () {
-    var className = this.props.enabled ? 'form-group' : 'form-group disabled';
+  render() {
+    let className = this.props.enabled ? 'form-group' : 'form-group disabled';
 
-    if (this.props.groupClassName) className += ' ' + this.props.groupClassName;
+    if (this.props.groupClassName) className += ` ${this.props.groupClassName}`;
 
     return (
       <div className={className}>

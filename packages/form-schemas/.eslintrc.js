@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports = {
-  extends: '@openagenda',
+  extends: '../../.eslintrc',
 
   parserOptions: {
     sourceType: 'script',
   },
 
-  ignorePatterns: ['client/build'],
+  ignorePatterns: ['/client/build'],
 
   rules: {
     'import/no-extraneous-dependencies': [

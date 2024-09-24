@@ -1,10 +1,10 @@
 'use strict';
 
-var React = require('react'),
-  createReactClass = require('create-react-class'),
-  PropTypes = require('prop-types'),
-  getLabel = require('../lib/makeLabelGetter')(require('../labels')),
-  TagsInput = require('react-tagsinput');
+const React = require('react');
+const createReactClass = require('create-react-class');
+const PropTypes = require('prop-types');
+const getLabel = require('../lib/makeLabelGetter')(require('../labels'));
+const TagsInput = require('react-tagsinput');
 
 module.exports = createReactClass({
   displayName: 'MultiInputField',
@@ -19,13 +19,13 @@ module.exports = createReactClass({
     enabled: PropTypes.bool,
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       inputValue: '',
     };
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       name: 'multi_input',
 
@@ -44,12 +44,12 @@ module.exports = createReactClass({
     };
   },
 
-  decorate: function (values) {
+  decorate(values) {
     return this.props.validator.decorate(values);
   },
 
-  getLabel: function (label, values) {
-    var str;
+  getLabel(label, values) {
+    let str;
 
     if (this.props.getLabel) {
       str = this.props.getLabel(label, values, this.props.lang);
@@ -58,25 +58,23 @@ module.exports = createReactClass({
     return str || getLabel(label, values, this.props.lang);
   },
 
-  onChange: function (v) {
+  onChange(v) {
     if (!this.props.enabled) return;
 
     this.setState({ inputValue: '' });
 
     this.props.onChange(
       this.props.name,
-      v.map(function (decoratedItem) {
-        return typeof decoratedItem == 'string'
-          ? decoratedItem
-          : decoratedItem.value;
-      }),
+      v.map((decoratedItem) =>
+        typeof decoratedItem === 'string' ? decoratedItem : decoratedItem.value,
+      ),
     );
   },
 
-  onBlur: function (v) {
+  onBlur(v) {
     if (!this.props.enabled) return;
 
-    var value = this.state.inputValue;
+    const value = this.state.inputValue;
 
     if (!value.length) return;
 
@@ -86,8 +84,8 @@ module.exports = createReactClass({
     this.onChange(this.decorate((this.props.value || []).concat(value)));
   },
 
-  onInputChange: function (v) {
-    var value = v.target.value;
+  onInputChange(v) {
+    let { value } = v.target;
 
     if (value.indexOf(',') !== -1) {
       this.onChange(
@@ -100,23 +98,21 @@ module.exports = createReactClass({
     this.setState({ inputValue: value });
   },
 
-  renderItem: function (t) {
+  renderItem(t) {
     if (t.tag.errors) t.className += ' error';
 
     return (
       <span key={t.key} className={t.className}>
-        <i className={this.props.typeIconClassNames[t.tag.type || 'error']}></i>
+        <i className={this.props.typeIconClassNames[t.tag.type || 'error']} />
         {t.tag.value}
         <a onClick={t.onRemove.bind(null, t.key)} />
       </span>
     );
   },
 
-  render: function () {
-    var values = this.decorate(this.props.value || []),
-      error = !!values.filter(function (v) {
-        return !!v.errors;
-      }).length;
+  render() {
+    const values = this.decorate(this.props.value || []);
+    const error = !!values.filter((v) => !!v.errors).length;
 
     return (
       <div

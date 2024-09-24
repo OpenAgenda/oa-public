@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react'),
-  createReactClass = require('create-react-class'),
-  PropTypes = require('prop-types'),
-  { Spinner } = require('@openagenda/react-shared');
+const React = require('react');
+const createReactClass = require('create-react-class');
+const PropTypes = require('prop-types');
+const { Spinner } = require('@openagenda/react-shared');
 
 module.exports = createReactClass({
   displayName: 'SearchField',
@@ -20,7 +20,7 @@ module.exports = createReactClass({
     onFocus: PropTypes.func,
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       value: '',
       name: 'search',
@@ -32,14 +32,14 @@ module.exports = createReactClass({
     };
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       value: this.props.value,
       edit: this.props.value,
     };
   },
 
-  componentDidUpdate: function () {
+  componentDidUpdate() {
     if (this.props.value !== this.state.value) {
       this.setState({
         value: this.props.value,
@@ -48,7 +48,7 @@ module.exports = createReactClass({
     }
   },
 
-  clearTimeout: function () {
+  clearTimeout() {
     if (this.timeout) {
       clearTimeout(this.timeout);
 
@@ -56,14 +56,14 @@ module.exports = createReactClass({
     }
   },
 
-  onFocus: function (e) {
+  onFocus(e) {
     if (!this.props.onFocus) return;
 
     this.props.onFocus(e.target.value);
   },
 
-  onChange: function (e) {
-    var self = this;
+  onChange(e) {
+    const self = this;
 
     this.setState({
       edit: e.target.value.length ? e.target.value : undefined,
@@ -72,7 +72,7 @@ module.exports = createReactClass({
     /**
      * A change call should be delayed only if the previous
      * change has been called less than a threshold delay
-     **/
+     * */
 
     if (e.target.value.length < this.props.threshold) {
       return;
@@ -85,13 +85,13 @@ module.exports = createReactClass({
         value: self.state.edit,
       });
 
-      this.timeout = setTimeout(function () {
+      this.timeout = setTimeout(() => {
         self.timeout = undefined;
       }, this.props.timeout);
     } else {
       this.clearTimeout();
 
-      this.timeout = setTimeout(function () {
+      this.timeout = setTimeout(() => {
         self.props.onChange(self.props.name, self.state.edit);
 
         self.setState({
@@ -103,10 +103,10 @@ module.exports = createReactClass({
     }
   },
 
-  onCommit: function (e) {
+  onCommit(e) {
     e.preventDefault();
 
-    if (typeof e.keyCode == 'undefined' || e.keyCode == 13) {
+    if (typeof e.keyCode === 'undefined' || e.keyCode == 13) {
       this.clearTimeout();
 
       this.props.onChange(this.props.name, this.state.edit);
@@ -117,13 +117,13 @@ module.exports = createReactClass({
     }
   },
 
-  isLoading: function () {
+  isLoading() {
     if (!this.props.enableLoadingDisplay) return false;
 
     return !!(this.props.loading || this.timeout);
   },
 
-  renderSpinner: function () {
+  renderSpinner() {
     return (
       <div className="input-spinner">
         {this.isLoading() ? (
@@ -140,7 +140,7 @@ module.exports = createReactClass({
     );
   },
 
-  renderButton: function () {
+  renderButton() {
     return (
       <span className="input-group-btn">
         <button
@@ -151,14 +151,14 @@ module.exports = createReactClass({
           {this.props.loading ? (
             this.renderSpinner()
           ) : (
-            <i className="fa fa-search"></i>
+            <i className="fa fa-search" />
           )}
         </button>
       </span>
     );
   },
 
-  render: function () {
+  render() {
     return (
       <div
         className={

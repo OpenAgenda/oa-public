@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react'),
-  createReactClass = require('create-react-class'),
-  PropTypes = require('prop-types'),
-  makeLabelGetter = require('../lib/makeLabelGetter'),
-  labels = require('../labels'),
-  utils = require('@openagenda/utils');
+const React = require('react');
+const createReactClass = require('create-react-class');
+const PropTypes = require('prop-types');
+const utils = require('@openagenda/utils');
+const makeLabelGetter = require('../lib/makeLabelGetter');
+const labels = require('../labels');
 
 module.exports = createReactClass({
   displayName: 'MultilingualInputField',
@@ -55,7 +55,7 @@ module.exports = createReactClass({
 
   onChange(lang) {
     return (e) => {
-      var newValue = JSON.parse(JSON.stringify(this.props.value));
+      const newValue = JSON.parse(JSON.stringify(this.props.value));
 
       newValue[lang] = e.target.value;
 
@@ -64,9 +64,9 @@ module.exports = createReactClass({
   },
 
   renderField(lang) {
-    var name =
+    const name =
       this.props.languages.length > 1
-        ? this.props.name + '_' + lang
+        ? `${this.props.name}_${lang}`
         : this.props.name;
 
     return (
@@ -118,13 +118,12 @@ module.exports = createReactClass({
           <div>{this.renderField(lang)}</div>
         </div>
       );
-    } else {
-      return this.renderField(lang);
     }
+    return this.renderField(lang);
   },
 
   render() {
-    let classes = ['multilingual-input-field', 'form-group'];
+    const classes = ['multilingual-input-field', 'form-group'];
 
     if (this.props.enabled && !this.props.enabled.length) {
       classes.push('disabled');
@@ -141,13 +140,11 @@ module.exports = createReactClass({
           </span>
         ) : null}
         <ul className="list-unstyled">
-          {this.props.languages.map((lang) => {
-            return (
-              <li key={lang} className={this.isEnabled(lang) ? '' : 'disabled'}>
-                {this.renderLanguageBlock(lang)}
-              </li>
-            );
-          })}
+          {this.props.languages.map((lang) => (
+            <li key={lang} className={this.isEnabled(lang) ? '' : 'disabled'}>
+              {this.renderLanguageBlock(lang)}
+            </li>
+          ))}
         </ul>
       </div>
     );
