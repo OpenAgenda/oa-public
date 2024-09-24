@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
 import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges';
 
-import reducers from '../reducers';
+import * as reducers from '../reducers';
 
 import Canvas from '../components/Canvas';
 
@@ -95,10 +95,10 @@ export class NetworkEditComponent extends Component {
 }
 
 const NetworkEdit = connect(
-  state => state,
-  dispatch => ({
+  (state) => state,
+  (dispatch) => ({
     onMount: () => dispatch(reducers.network.load()),
-    onUpdate: updated => dispatch(reducers.network.updateSchema(updated)),
+    onUpdate: (updated) => dispatch(reducers.network.updateSchema(updated)),
   }),
 )(NetworkEditComponent);
 

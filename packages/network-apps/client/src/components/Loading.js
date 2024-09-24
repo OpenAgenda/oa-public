@@ -1,3 +1,1 @@
-import React, { Component } from 'react';
-
-export default () => <div>Ca charge...</div>
+export default () => <div>Ca charge...</div>;

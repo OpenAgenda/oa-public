@@ -8,10 +8,9 @@ const { createElement } = require('react');
 const ReactDOM = require('react-dom/server');
 const { Spinner } = require('@openagenda/react-shared');
 const log = require('@openagenda/logs')('router');
+const manifest = require('../client/dist/manifest.json');
 
 const router = express.Router({ mergeParams: true });
-
-const manifest = require(`${__dirname}/../client/dist/manifest.json`);
 
 function _getClientAppPath(serviceName, config) {
   const distFileName = manifest['main.js'];
@@ -56,16 +55,16 @@ async function _renderPage(req, res) {
 
 module.exports = Object.assign(router, {
   dist: express.static(`${__dirname}/../client/dist`),
-  setService: service => {
+  setService: (service) => {
     router.service = service;
   },
-  setLayout: layout => {
+  setLayout: (layout) => {
     router.layout = layout;
   },
 });
 
 router.get('/config.json', (req, res) => {
-  router.service.getEventSchema().then(eventSchema => {
+  router.service.getEventSchema().then((eventSchema) => {
     res.json({ eventSchema });
   });
 });

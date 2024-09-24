@@ -31,13 +31,13 @@ export default (props) => {
     <>
       {secondaryNavLinks
         ? secondaryNavLinks.map(({ path, label }) => (
-            <Link
-              className="pull-right margin-all-xs margin-right-sm"
-              to={path}
-            >
-              {label}
-            </Link>
-          ))
+          <Link
+            className="pull-right margin-all-xs margin-right-sm"
+            to={path}
+          >
+            {label}
+          </Link>
+        ))
         : null}
       <ol className="margin-v-z breadcrumb">
         {extractCrumbs(Object.values(getPaths(base)), match).map((crumb) => (

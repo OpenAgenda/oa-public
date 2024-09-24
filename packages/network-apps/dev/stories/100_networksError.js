@@ -1,21 +1,19 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
 // simple dev db
-const fixtures = require( './fixtures.json' );
+const fixtures = require('./fixtures.json');
 
 // dev interface functions
-const interfaces = require( './interfaces' )( fixtures );
-
-module.exports = {
-  interfaces: _.assign( {}, interfaces, {
-    listNetworks
-  } )
-}
+const interfaces = require('./interfaces')(fixtures);
 
 async function listNetworks() {
-
-  throw new Error( 'Could not load network list' );
-
+  throw new Error('Could not load network list');
 }
+
+module.exports = {
+  interfaces: _.assign({}, interfaces, {
+    listNetworks,
+  }),
+};

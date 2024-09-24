@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import reducers from '../reducers';
+import * as reducers from '../reducers';
 
 import AddAgenda from '../components/AddAgenda';
 import CreateAgenda from '../components/CreateAgenda';

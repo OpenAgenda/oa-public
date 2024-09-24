@@ -1,21 +1,19 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
 // simple dev db
-const fixtures = require( './fixtures.json' );
+const fixtures = require('./fixtures.json');
 
 // dev interface functions
-const interfaces = require( './interfaces' )( fixtures );
+const interfaces = require('./interfaces')(fixtures);
+
+async function getNetworkSchema(_uid) {
+  throw new Error('Could not load network details');
+}
 
 module.exports = {
-  interfaces: _.assign( {}, interfaces, {
-    getNetworkSchema
-  } )
-}
-
-async function getNetworkSchema( uid ) {
-
-  throw new Error( 'Could not load network details' );
-
-}
+  interfaces: _.assign({}, interfaces, {
+    getNetworkSchema,
+  }),
+};

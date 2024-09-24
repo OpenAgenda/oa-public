@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
 // simple dev db
-const fixtures = require( './fixtures.json' );
+const fixtures = require('./fixtures.json');
 
 // dev interface functions
-const interfaces = require( './interfaces' )( fixtures );
+const interfaces = require('./interfaces')(fixtures);
 
 module.exports = {
-  interfaces
-}
+  interfaces,
+};

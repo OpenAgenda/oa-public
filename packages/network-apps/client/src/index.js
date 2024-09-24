@@ -1,27 +1,23 @@
-import _ from 'lodash';
 import axios from 'axios';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 
-if (module.hot) module.hot.accept();
+// if (import.meta.webpackHot) import.meta.webpackHot();
 
 const init = JSON.parse(document.getElementById('init').innerHTML);
 
 (async () => {
-  const initState = _.get(init, 'state');
-
   const config = {
     ...init.config,
-    ...(await axios.get(init.config.base + '/config.json')).data
+    ...(await axios.get(`${init.config.base}/config.json`)).data,
   };
 
-  ReactDOM.render(<App {...config} />, document.getElementById('app'));
+  createRoot(document.getElementById('app')).render(<App {...config} />);
 
-  if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      const nextRootReducer = require('./reducers');
-      store.replaceReducer(nextRootReducer);
-    });
-  }
+  // if (import.meta.webpackHot) {
+  //   import.meta.webpackHot.accept('./reducers', () => {
+  //     const nextRootReducer = require('./reducers');
+  //     store.replaceReducer(nextRootReducer);
+  //   });
+  // }
 })();
