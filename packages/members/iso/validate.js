@@ -72,7 +72,7 @@ const fields = {
   },
 };
 
-const custom = required => ({
+const custom = (required) => ({
   organization: {
     type: 'text',
     optional: !required,
@@ -101,6 +101,7 @@ const custom = required => ({
 
 module.exports = Object.assign(schema(fields.base), {
   withLegacy: schema({ ...fields.base, ...fields.legacy }),
-  withCustom: required => schema({ ...fields.base, custom: custom(required) }),
-  custom: required => schema(custom(required)),
+  withCustom: (required) =>
+    schema({ ...fields.base, custom: custom(required) }),
+  custom: (required) => schema(custom(required)),
 });

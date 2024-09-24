@@ -11,7 +11,7 @@ module.exports = (input, options = {}) => {
   };
 
   const code = toRoleCode(input);
-  const role = roleValues.find(v => v.code === code);
+  const role = roleValues.find((v) => v.code === code);
   const slug = role && role.slugs && role.slugs[0];
 
   if (!slug && throwIfUnknown) {

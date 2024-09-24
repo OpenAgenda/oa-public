@@ -46,7 +46,7 @@ const validate = schema({
   },
 });
 
-module.exports = nav => {
+module.exports = (nav) => {
   const clean = validate(nav);
 
   if (clean.order === null) {

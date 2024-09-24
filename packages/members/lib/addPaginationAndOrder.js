@@ -4,7 +4,7 @@ const _ = require('lodash');
 const roleValues = require('../iso/roleValues');
 const cleanNav = require('./cleanNav');
 
-const rolesOrder = roleValues.map(v => v.code);
+const rolesOrder = roleValues.map((v) => v.code);
 
 function _isMonoFieldSeek(after) {
   return _.isArray(after) && after.length === 1;
@@ -63,7 +63,7 @@ module.exports = (k, nav) => {
   if (_isMonoFieldSeek(after)) {
     k.where('id', '>', after[0]);
   } else if (_isMultiFieldSeek(after)) {
-    k.where(builder =>
+    k.where((builder) =>
       builder
         .where(column, _operator(orderDirection), after[0] || 0)
         .whereRaw(

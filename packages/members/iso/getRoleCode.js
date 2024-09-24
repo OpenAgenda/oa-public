@@ -2,8 +2,10 @@
 
 const roleValues = require('./roleValues');
 
-module.exports = value => {
-  const role = roleValues.find(v => value === v.key || v.slugs.includes(value));
+module.exports = (value) => {
+  const role = roleValues.find(
+    (v) => value === v.key || v.slugs.includes(value),
+  );
   const code = role && role.code;
 
   if (code === undefined) {

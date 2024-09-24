@@ -1,6 +1,6 @@
 'use strict';
 
-const { Readable } = require('stream');
+const { Readable } = require('node:stream');
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
@@ -23,7 +23,8 @@ class Stream extends Readable {
 
   async _read() {
     if (!this._.buffer.length) {
-      this._.buffer = (await this._loadBuffer()).map(m => (this._.transform ? this._.transform(m) : m));
+      this._.buffer = (await this._loadBuffer()).map((m) =>
+        (this._.transform ? this._.transform(m) : m));
     }
 
     return this.push(this._.buffer.length ? this._.buffer.shift() : null);
@@ -38,7 +39,7 @@ class Stream extends Readable {
       this._.config,
       this._.query,
       nav,
-      this._.options
+      this._.options,
     );
 
     if (!members.length) return [];
@@ -49,4 +50,5 @@ class Stream extends Readable {
   }
 }
 
-module.exports = (config, query = {}, nav = {}, options = {}) => new Stream(config, query, nav, options);
+module.exports = (config, query = {}, nav = {}, options = {}) =>
+  new Stream(config, query, nav, options);

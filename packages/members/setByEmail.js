@@ -19,9 +19,9 @@ async function setByEmail(config, data, options = {}) {
   const userUid = _.get(member, 'userUid')
     || (config.interfaces
       && config.interfaces.getUserByEmail
-      && (await config.interfaces
+      && await config.interfaces
         .getUserByEmail(data.email)
-        .then(u => (u ? u.uid : null))));
+        .then((u) => (u ? u.uid : null)));
 
   const clean = {};
 
@@ -35,7 +35,7 @@ async function setByEmail(config, data, options = {}) {
 
   if (member && Object.keys(clean).length) {
     return {
-      ...(await patch(config, member.id, clean, options)),
+      ...await patch(config, member.id, clean, options),
       operation: 'patch',
     };
   }
@@ -49,15 +49,15 @@ async function setByEmail(config, data, options = {}) {
   }
 
   return {
-    ...(await create(
+    ...await create(
       config,
       {
         agendaUid: data.agendaUid,
         ...clean,
         custom: { email: data.email },
       },
-      options
-    )),
+      options,
+    ),
     operation: 'create',
   };
 }

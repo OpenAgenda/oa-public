@@ -31,7 +31,7 @@ module.exports = async ({ knex, schema, interfaces }, data, options = {}) => {
   if (clean.agendaUid && interfaces.getAgendasByUid) {
     clean.agendaId = _.get(
       await interfaces.getAgendasByUid(clean.agendaUid),
-      '0.id'
+      '0.id',
     );
   }
 

@@ -63,12 +63,15 @@ function _legacyCustomFromDB(store) {
 
 module.exports.fromDB = (
   { includeLegacyFields, orderField, customDataAtRoot },
-  entry
+  entry,
 ) => {
   if (!entry) return null;
 
   return Object.keys(entry)
-    .filter(field => dbFields.concat(includeLegacyFields ? legacyDbFields : []).includes(field))
+    .filter((field) =>
+      dbFields
+        .concat(includeLegacyFields ? legacyDbFields : [])
+        .includes(field))
     .reduce((mapped, field) => {
       if (field === 'store' && customDataAtRoot) {
         Object.assign(mapped, _legacyCustomFromDB(entry.store));
@@ -93,14 +96,14 @@ module.exports.fromDB = (
     }, {});
 };
 
-module.exports.toDB = member => {
+module.exports.toDB = (member) => {
   const allFields = { ...map, ...legacyFieldsMap };
 
   const entry = _.uniq(dbFields.concat(legacyDbFields))
-    .filter(f => member[allFields[f]] !== undefined)
+    .filter((f) => member[allFields[f]] !== undefined)
     .reduce(
       (result, field) => _.set(result, field, member[allFields[field]]),
-      {}
+      {},
     );
 
   if (member.role) {
