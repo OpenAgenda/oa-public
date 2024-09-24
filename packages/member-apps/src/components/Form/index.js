@@ -62,7 +62,7 @@ const messages = defineMessages({
   },
 });
 
-const BlankComponent = schema => <FormSchemaComponent schema={schema} />;
+const BlankComponent = (schema) => <FormSchemaComponent schema={schema} />;
 
 const Canvas = (title, content, { mode, onClose }) =>
   (mode === 'modal' ? (
@@ -126,7 +126,7 @@ export default ({
     setStep('confirmRemove');
   }, [operation]);
 
-  const onSubmitSuccess = data => {
+  const onSubmitSuccess = (data) => {
     onSuccess(data);
     if (showSuccessMessage) {
       setStep('success');

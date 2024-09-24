@@ -61,7 +61,11 @@ const messages = defineMessages({
 function changeModalTitle(agenda, userRole) {
   if (agenda.private) return false;
   if (userRole === 2) return false;
-  if (agenda.credentials.moderators && userRole === 3 && agenda.settings.contribution.modoCanInviteModo) return false;
+  if (
+    agenda.credentials.moderators
+    && userRole === 3
+    && agenda.settings.contribution.modoCanInviteModo
+  ) return false;
   return true;
 }
 
@@ -72,7 +76,7 @@ const Loading = () => (
 );
 
 function SimpleSelect({ action, children, input, meta, ...otherProps }) {
-  const onChange = e => {
+  const onChange = (e) => {
     input.onChange(e);
 
     if (typeof action === 'function') {
@@ -88,7 +92,7 @@ function SimpleSelect({ action, children, input, meta, ...otherProps }) {
 }
 
 function OrderField({ action, input, title }) {
-  const onChange = value => e => {
+  const onChange = (value) => (e) => {
     input.onChange(e);
 
     if (typeof action === 'function') {
@@ -103,6 +107,7 @@ function OrderField({ action, input, title }) {
       type="button"
       className="btn btn-default"
       title={title}
+      aria-label={title}
       onClick={onClick}
     >
       <i
@@ -246,7 +251,7 @@ class Dashboard extends Component {
 
     const label = key + (nbr > 1 ? 's' : '');
 
-    const toggleFilter = e =>
+    const toggleFilter = (e) =>
       (credFilters.includes(key) ? this.removeFilter : this.addFilter)(e, key);
 
     if (!nbr) return null;
@@ -333,7 +338,7 @@ class Dashboard extends Component {
           <div className="btn-group">
             <Dropdown
               className="dropdown btn-group open"
-              Trigger={props => (
+              Trigger={(props) => (
                 <button type="button" {...props} className="btn btn-default">
                   {getLabel('export')}&nbsp;
                   <span className="caret" />
@@ -373,7 +378,7 @@ class Dashboard extends Component {
             {agenda.credentials.invitationMessage ? null : (
               <Dropdown
                 className="dropdown btn-group open"
-                Trigger={props => (
+                Trigger={(props) => (
                   <button className="btn btn-default" type="button" {...props}>
                     <i className="fa fa-ellipsis-v" aria-hidden="true" />
                   </button>
@@ -442,6 +447,7 @@ class Dashboard extends Component {
                     <button
                       type="button"
                       title={getLabel('removeFilter')}
+                      aria-label={getLabel('removeFilter')}
                       className="btn btn-link btn-link-inline margin-left-xs"
                       onClick={this.removeMemberFilter}
                     >
@@ -540,14 +546,14 @@ class Dashboard extends Component {
 
         <div>
           {members
-            && members.map(m => (
+            && members.map((m) => (
               <MemberItem
                 user={user}
                 userRole={member.role}
                 key={`member-${m.id}`}
                 member={m}
                 showModal={showModal}
-                patchRole={role => patch(agenda, m.id, { role })}
+                patchRole={(role) => patch(agenda, m.id, { role })}
                 resendInvitation={resendInvitation}
                 agenda={agenda}
                 i18n={i18n}
@@ -595,7 +601,7 @@ class Dashboard extends Component {
             saveRes={`${res.update
               .replace(':agendaUid', agenda.uid)
               .replace(':memberId', editModal.member.id)}`}
-            onSuccess={update => {
+            onSuccess={(update) => {
               dispatch(membersActions.updateListItem(update));
 
               getStats(agenda);
@@ -650,7 +656,11 @@ class Dashboard extends Component {
 
         {inviteMembersModal.visible && (
           <Modal
-            title={changeModalTitle(agenda, member.role) ? getLabel('inviteContributors') : getLabel('inviteMembers')}
+            title={
+              changeModalTitle(agenda, member.role)
+                ? getLabel('inviteContributors')
+                : getLabel('inviteMembers')
+            }
             onClose={() => {
               closeModal('inviteMembers');
               cleanInviteResult();
@@ -682,8 +692,8 @@ class Dashboard extends Component {
               <InviteMembersForm
                 agenda={agenda}
                 userCredential={member.role}
-                onSubmit={data =>
-                  invite(agenda, data).then(async result => {
+                onSubmit={(data) =>
+                  invite(agenda, data).then(async (result) => {
                     await this.search({ search });
                     await getStats(agenda);
                     return result;
@@ -730,7 +740,7 @@ class Dashboard extends Component {
             </p>
             {!writeToMembersModal.confirmation ? (
               <SendMessageForm
-                onSubmit={data =>
+                onSubmit={(data) =>
                   sendMessage(agenda, data, writeToMembersModal.query).then(
                     () => setModal('writeToMembers', { confirmation: true }),
                   )}
@@ -755,9 +765,17 @@ class Dashboard extends Component {
   }
 }
 
-export default withContext(I18nContext, 'i18n')(
+export default withContext(
+  I18nContext,
+  'i18n',
+)(
   injectIntl(
-    withLayoutData('agenda', 'member', 'role', 'user')(
+    withLayoutData(
+      'agenda',
+      'member',
+      'role',
+      'user',
+    )(
       connect(
         (state, props) => {
           const query = qs.parse(props.location.search, {
@@ -785,12 +803,11 @@ export default withContext(I18nContext, 'i18n')(
         },
         { ...membersActions, ...modalsActions },
       )(
-        withContext(ReactReduxContext, 'reactReduxContext')(
-          withRouter(
-            Dashboard
-          )
-        )
-      )
-    )
-  )
+        withContext(
+          ReactReduxContext,
+          'reactReduxContext',
+        )(withRouter(Dashboard)),
+      ),
+    ),
+  ),
 );
