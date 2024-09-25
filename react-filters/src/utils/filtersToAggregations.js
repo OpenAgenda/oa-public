@@ -2,11 +2,14 @@ import minimizeAggregation from './minimizeAggregation';
 
 export default function filtersToAggregations(filters, base = false) {
   const usedFilters = base
-    ? filters.filter(filter => filter.type === 'choice' && (!filter.options || filter.missingValue))
+    ? filters.filter(
+      (filter) =>
+        filter.type === 'choice' && (!filter.options || filter.missingValue),
+    )
     : filters;
 
   const aggregations = usedFilters
-    .map(filter => {
+    .map((filter) => {
       if (filter.aggregation === null) {
         return false;
       }
@@ -18,9 +21,9 @@ export default function filtersToAggregations(filters, base = false) {
         ...filter.aggregation,
       };
     })
-    .filter(filter => filter?.key);
+    .filter((filter) => filter?.key);
 
-  const needViewport = usedFilters.some(filter => filter.type === 'map');
+  const needViewport = usedFilters.some((filter) => filter.type === 'map');
 
   if (needViewport) {
     aggregations.unshift({

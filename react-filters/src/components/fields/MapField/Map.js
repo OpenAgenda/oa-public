@@ -1,6 +1,19 @@
-import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import cn from 'classnames';
-import { MapContainer, Marker, TileLayer, useMapEvents, useMap } from 'react-leaflet';
+import {
+  MapContainer,
+  Marker,
+  TileLayer,
+  useMapEvents,
+  useMap,
+} from 'react-leaflet';
 import L from 'leaflet';
 import { useIntl } from 'react-intl';
 import { usePrevious } from 'react-use';
@@ -22,15 +35,23 @@ const worldViewport = {
 
 function loadGestureHandlingLocale(gestureHandling, locale) {
   import(`@raruto/leaflet-gesture-handling/dist/locales/${locale}.js`)
-    .then(m => {
+    .then((m) => {
       const content = m.default || m;
-      const scrollWarning = gestureHandling._isMacUser() ? content.scrollMac : content.scroll;
-      gestureHandling._map._container.setAttribute('data-gesture-handling-touch-content', content.touch);
-      gestureHandling._map._container.setAttribute('data-gesture-handling-scroll-content', scrollWarning);
+      const scrollWarning = gestureHandling._isMacUser()
+        ? content.scrollMac
+        : content.scroll;
+      gestureHandling._map._container.setAttribute(
+        'data-gesture-handling-touch-content',
+        content.touch,
+      );
+      gestureHandling._map._container.setAttribute(
+        'data-gesture-handling-scroll-content',
+        scrollWarning,
+      );
       gestureHandling._touchWarning = content.touch;
       gestureHandling._scrollWarning = scrollWarning;
     })
-    .catch(e => {
+    .catch((e) => {
       console.log(`Cannot load gestureHandling locale "${locale}"`, e);
     });
 }
@@ -102,7 +123,10 @@ function normalizeBounds(bounds, bufferRatio = 1) {
   const north = height > 170 ? ne.lat : ne.lat + heightBuffer;
   const east = width > 360 ? 180 : ne.lng + widthBuffer;
 
-  return new L.LatLngBounds(new L.LatLng(south, west), new L.LatLng(north, east));
+  return new L.LatLngBounds(
+    new L.LatLng(south, west),
+    new L.LatLng(north, east),
+  );
 }
 
 function isEmptyValue(value) {
@@ -189,26 +213,30 @@ const Map = React.forwardRef(
     const mapRef = useRef();
     const programmaticMoveRef = useRef(false);
 
-    const [viewport] = useState(() => (input.value ? valueToViewport(input.value) : initialViewport));
+    const [viewport] = useState(() =>
+      (input.value ? valueToViewport(input.value) : initialViewport));
     const [data, setData] = useState(() => []);
 
     const [displayedMarkers, setDisplayedMarkers] = useState(false);
-    const [bounds] = useState(() => viewportToBounds(viewport || defaultViewport || worldViewport).pad(padRatio));
+    const [bounds] = useState(() =>
+      viewportToBounds(viewport || defaultViewport || worldViewport).pad(
+        padRatio,
+      ));
     useImperativeHandle(ref, () => ({
       setData,
-      onQueryChange: newViewport => {
+      onQueryChange: (newViewport) => {
         // Just reload data if it's user controlled
         const map = mapRef.current;
         const needFitBounds = !userControlled || isEmptyValue(input.value);
 
         function reloadData() {
-          waitMapBounds(map).then(bounds => {
-            const innerBounds = normalizeBounds(bounds, unpadRatio);
-            const innerZoom = map.getBoundsZoom(bounds);
+          waitMapBounds(map).then((bounds1) => {
+            const innerBounds = normalizeBounds(bounds1, unpadRatio);
+            const innerZoom = map.getBoundsZoom(bounds1);
 
             loadGeoData(innerBounds, innerZoom)
-              .then(newData => setData(newData?.reverse() ?? []))
-              .catch(err => {
+              .then((newData) => setData(newData?.reverse() ?? []))
+              .catch((err) => {
                 console.log('Failed to load geo data', err);
               });
           });
@@ -218,7 +246,11 @@ const Map = React.forwardRef(
           map.once('moveend', () => reloadData());
 
           programmaticMoveRef.current = true;
-          map.fitBounds(viewportToBounds(newViewport || defaultViewport || worldViewport).pad(padRatio));
+          map.fitBounds(
+            viewportToBounds(
+              newViewport || defaultViewport || worldViewport,
+            ).pad(padRatio),
+          );
         } else {
           reloadData();
         }
@@ -236,16 +268,16 @@ const Map = React.forwardRef(
           '<a href="https://leafletjs.com" title="A JavaScript library for interactive maps">Leaflet</a>',
         );
 
-        waitMapBounds(map).then(bounds => {
-          const innerBounds = normalizeBounds(bounds, unpadRatio);
-          const innerZoom = map.getBoundsZoom(bounds);
+        waitMapBounds(map).then((bounds1) => {
+          const innerBounds = normalizeBounds(bounds1, unpadRatio);
+          const innerZoom = map.getBoundsZoom(bounds1);
 
           loadGeoData(innerBounds, innerZoom)
-            .then(newData => {
+            .then((newData) => {
               setData(newData?.reverse() ?? []);
               setDisplayedMarkers(true);
             })
-            .catch(err => {
+            .catch((err) => {
               console.log('Failed to load geo data', err);
             });
         });
@@ -258,7 +290,11 @@ const Map = React.forwardRef(
 
     useEffect(() => {
       // Become not user controlled if value is cleared
-      if (!isEmptyValue(previousValue) && isEmptyValue(input.value) && userControlled) {
+      if (
+        !isEmptyValue(previousValue)
+        && isEmptyValue(input.value)
+        && userControlled
+      ) {
         setUserControlled(false);
       }
     });
@@ -305,7 +341,7 @@ const Map = React.forwardRef(
         <TileLayer attribution={tileAttribution} url={tileUrl} />
 
         {displayedMarkers
-          ? data.map(entry => (
+          ? data.map((entry) => (
             <MarkerClusterIcon
               key={entry.key}
               eventCount={entry.eventCount}
@@ -315,7 +351,10 @@ const Map = React.forwardRef(
           ))
           : null}
 
-        <OnMapMove onChange={onChange} programmaticMoveRef={programmaticMoveRef} />
+        <OnMapMove
+          onChange={onChange}
+          programmaticMoveRef={programmaticMoveRef}
+        />
       </MapContainer>
     );
   },

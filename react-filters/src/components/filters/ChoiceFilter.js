@@ -50,8 +50,8 @@ function Preview({
     }
 
     return [].concat(input.value).map(
-      v =>
-        options.find(option => option.value === v) ?? {
+      (v) =>
+        options.find((option) => option.value === v) ?? {
           value: v,
           label: intl.formatMessage(messages.unrecognizedOption, { value: v }),
         },
@@ -59,7 +59,7 @@ function Preview({
   }, [input.value, options, intl]);
 
   const onRemove = useCallback(
-    option => e => {
+    (option) => (e) => {
       e.stopPropagation();
 
       if (disabled) {
@@ -72,7 +72,7 @@ function Preview({
         return;
       }
 
-      const newValue = input.value.filter(v => v !== option.value);
+      const newValue = input.value.filter((v) => v !== option.value);
 
       input.onChange(newValue.length ? newValue : undefined);
     },

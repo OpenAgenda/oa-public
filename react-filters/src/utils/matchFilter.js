@@ -17,7 +17,7 @@ export default function matchFilter(filter, values, entry) {
   // Matching staticRanges
   if (filter.type === 'definedRange' && filter.name === key) {
     const formattedValue = formatDateRangeValue(value)[0];
-    return !!filter.staticRanges.find(v => v.isSelected(formattedValue));
+    return !!filter.staticRanges.find((v) => v.isSelected(formattedValue));
   }
 
   // Same name

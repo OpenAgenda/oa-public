@@ -1,9 +1,4 @@
-import React, {
-  useMemo,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react';
+import React, { useMemo, useCallback, useEffect, useRef } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
 import { useLatest } from 'react-use';
 import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
@@ -29,20 +24,26 @@ function Preview({
   const [value] = useFavoriteState(filter.agendaUid || agendaUid);
 
   const onRemove = useCallback(
-    e => {
+    (e) => {
       e.stopPropagation();
 
       if (disabled) {
         return;
       }
 
-      updateFormValues(form, {
-        uid: undefined,
-        favorites: undefined,
-      }, false);
+      updateFormValues(
+        form,
+        {
+          uid: undefined,
+          favorites: undefined,
+        },
+        false,
+      );
 
       const handlerElem = filter.handlerElem || filter.elem;
-      const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
+      const innerCheckboxes = handlerElem.querySelectorAll(
+        'input[type="checkbox"]',
+      );
 
       if (innerCheckboxes.length === 1 && !filter.handlerElem) {
         innerCheckboxes[0].checked = false;
@@ -77,16 +78,24 @@ function Preview({
 }
 
 // Favorite + uid
-const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, filter }, _ref) {
+const FavoritesFilter = React.forwardRef(function FavoritesFilter(
+  { agendaUid, filter },
+  _ref,
+) {
   const form = useForm();
   const firstRender = useRef(true);
   const [value] = useFavoriteState(filter.agendaUid || agendaUid);
 
   const latestValue = useLatest(value);
 
-  const updateForm = useFavoritesOnChange(value, { isExclusive: filter.exclusive });
+  const updateForm = useFavoritesOnChange(value, {
+    isExclusive: filter.exclusive,
+  });
 
-  const onChange = useMemo(() => a11yButtonActionHandler(updateForm), [updateForm]);
+  const onChange = useMemo(
+    () => a11yButtonActionHandler(updateForm),
+    [updateForm],
+  );
 
   useEffect(() => {
     if (firstRender.current) {
@@ -96,28 +105,41 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, f
       const registeredFields = form.getRegisteredFields();
 
       if (!registeredFields.includes('uid')) {
-        form.registerField('uid', () => {
-        }, { value: true }, {
-          initialValue: query.uid,
-        });
+        form.registerField(
+          'uid',
+          () => {},
+          { value: true },
+          {
+            initialValue: query.uid,
+          },
+        );
       }
 
       if (!registeredFields.includes('favorites')) {
-        form.registerField('favorites', () => {
-        }, { value: true }, {
-          initialValue: query.favorites,
-        });
+        form.registerField(
+          'favorites',
+          () => {},
+          { value: true },
+          {
+            initialValue: query.favorites,
+          },
+        );
       }
     }
 
     const handlerElem = filter.handlerElem || filter.elem;
-    const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
+    const innerCheckboxes = handlerElem.querySelectorAll(
+      'input[type="checkbox"]',
+    );
 
     const handlerIsLabelWithCheckbox = innerCheckboxes.length === 1
       && handlerElem.tagName === 'LABEL'
       && handlerElem.contains(innerCheckboxes[0]);
 
-    if (innerCheckboxes.length === 1 && (!filter.handlerElem || handlerIsLabelWithCheckbox)) {
+    if (
+      innerCheckboxes.length === 1
+      && (!filter.handlerElem || handlerIsLabelWithCheckbox)
+    ) {
       innerCheckboxes[0].addEventListener('change', updateForm, false);
     } else {
       handlerElem.addEventListener('click', onChange, false);
@@ -126,15 +148,22 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, f
     handlerElem.addEventListener('keydown', onChange, false);
 
     const unsubscribe = form.subscribe(
-      ({ values }) => updateCustomFilter(filter, matchQuery(values, {
-        uid: latestValue.current || ['-1'],
-        favorites: '1',
-      })),
+      ({ values }) =>
+        updateCustomFilter(
+          filter,
+          matchQuery(values, {
+            uid: latestValue.current || ['-1'],
+            favorites: '1',
+          }),
+        ),
       { values: true },
     );
 
     return () => {
-      if (innerCheckboxes.length === 1 && (!filter.handlerElem || handlerIsLabelWithCheckbox)) {
+      if (
+        innerCheckboxes.length === 1
+        && (!filter.handlerElem || handlerIsLabelWithCheckbox)
+      ) {
         innerCheckboxes[0].removeEventListener('change', updateForm, false);
       } else {
         handlerElem.removeEventListener('click', onChange, false);

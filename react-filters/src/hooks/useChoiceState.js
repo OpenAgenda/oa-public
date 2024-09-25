@@ -27,7 +27,7 @@ function filterOptions({ options, fuse, searchValue, sort, collator }) {
     return options;
   }
 
-  return fuse.search(searchValue).map(v => v.item);
+  return fuse.search(searchValue).map((v) => v.item);
 }
 
 export default function useChoiceState({
@@ -68,7 +68,7 @@ export default function useChoiceState({
   );
 
   const moreOptions = useCallback(
-    () => setCountOptions(v => v + pageSize),
+    () => setCountOptions((v) => v + pageSize),
     [pageSize],
   );
   const lessOptions = useCallback(() => setCountOptions(pageSize), [pageSize]);
@@ -83,7 +83,7 @@ export default function useChoiceState({
 
   const hasMoreOptions = countOptions < foundOptions.length;
 
-  const onSearchChange = useCallback(e => setSearchValue(e.target.value), []);
+  const onSearchChange = useCallback((e) => setSearchValue(e.target.value), []);
 
   // Update fuse docs if options change
   useIsomorphicLayoutEffect(() => {

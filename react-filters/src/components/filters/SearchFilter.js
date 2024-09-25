@@ -28,7 +28,7 @@ function Preview({
   const { input } = useField(name, { subscription });
 
   const onRemove = useCallback(
-    e => {
+    (e) => {
       e.stopPropagation();
 
       if (disabled) {

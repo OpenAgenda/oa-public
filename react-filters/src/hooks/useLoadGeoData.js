@@ -34,20 +34,21 @@ export default function useLoadGeoData(
         },
       };
 
-      const result = await (searchMethod === 'get'
-        ? fetch(
-          `${res}${getQuerySeparator(res)}${qs.stringify(params, {
-            skipNulls: true,
-          })}`,
-        )
-        : fetch(res, {
-          method: 'post',
-          body: JSON.stringify(params),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-      ).then(r => {
+      const result = await (
+        searchMethod === 'get'
+          ? fetch(
+            `${res}${getQuerySeparator(res)}${qs.stringify(params, {
+              skipNulls: true,
+            })}`,
+          )
+          : fetch(res, {
+            method: 'post',
+            body: JSON.stringify(params),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+      ).then((r) => {
         if (r.ok) return r.json();
         throw new Error("Can't load geo data");
       });

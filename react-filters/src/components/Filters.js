@@ -31,7 +31,7 @@ function Filters({
 
   return (
     <>
-      {filters.map(filter => {
+      {filters.map((filter) => {
         let elem;
 
         switch (filter.type) {

@@ -16,19 +16,27 @@ export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
 
   const eventUidStr = String(eventUid);
 
-  const updateForm = useCallback(e => {
-    e.preventDefault();
-    e.stopPropagation();
+  const updateForm = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    const active = latestValue.current?.includes(eventUidStr);
-    const newValue = active
-      ? latestValue.current.filter(v => v !== eventUidStr)
-      : [...(latestValue.current || []), eventUidStr].filter(v => v !== '-1');
+      const active = latestValue.current?.includes(eventUidStr);
+      const newValue = active
+        ? latestValue.current.filter((v) => v !== eventUidStr)
+        : [...latestValue.current || [], eventUidStr].filter(
+          (v) => v !== '-1',
+        );
 
-    setValue(newValue.length ? newValue : undefined);
-  }, [eventUidStr, latestValue, setValue]);
+      setValue(newValue.length ? newValue : undefined);
+    },
+    [eventUidStr, latestValue, setValue],
+  );
 
-  const onChange = useMemo(() => a11yButtonActionHandler(updateForm), [updateForm]);
+  const onChange = useMemo(
+    () => a11yButtonActionHandler(updateForm),
+    [updateForm],
+  );
 
   // Add & remove click listener
   useEffect(() => {
@@ -41,13 +49,18 @@ export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
     }
 
     const handlerElem = widget.handlerElem || widget.elem;
-    const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
+    const innerCheckboxes = handlerElem.querySelectorAll(
+      'input[type="checkbox"]',
+    );
 
     const handlerIsLabelWithCheckbox = innerCheckboxes.length === 1
       && handlerElem.tagName === 'LABEL'
       && handlerElem.contains(innerCheckboxes[0]);
 
-    if (innerCheckboxes.length === 1 && (!widget.handlerElem || handlerIsLabelWithCheckbox)) {
+    if (
+      innerCheckboxes.length === 1
+      && (!widget.handlerElem || handlerIsLabelWithCheckbox)
+    ) {
       innerCheckboxes[0].addEventListener('change', updateForm, false);
     } else {
       handlerElem.addEventListener('click', onChange, false);
@@ -56,7 +69,10 @@ export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
     handlerElem.addEventListener('keydown', onChange, false);
 
     return () => {
-      if (innerCheckboxes.length === 1 && (!widget.handlerElem || handlerIsLabelWithCheckbox)) {
+      if (
+        innerCheckboxes.length === 1
+        && (!widget.handlerElem || handlerIsLabelWithCheckbox)
+      ) {
         innerCheckboxes[0].removeEventListener('change', updateForm, false);
       } else {
         handlerElem.removeEventListener('click', onChange, false);
@@ -77,7 +93,7 @@ export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
     // if favorties filter checked
     if (formValues.favorites && !isEqual(formValues.uid, value)) {
       updateFormValues(form, {
-        uid: value || ['-1']
+        uid: value || ['-1'],
       });
     }
   }, [form, eventUidStr, value, widget]);

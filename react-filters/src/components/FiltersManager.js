@@ -82,7 +82,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     ['react-filters', 'filtersBase', agendaUid],
     async () => {
       const filtersToLoad = filters.filter(
-        filter => filter.type === 'choice' && !filter.options,
+        (filter) => filter.type === 'choice' && !filter.options,
       );
 
       if (!filtersToLoad.length) {
@@ -94,7 +94,9 @@ const FiltersManager = React.forwardRef(function FiltersManager(
           null, // apiClient
           res,
           { uid: agendaUid },
-          filters.filter(filter => filter.type === 'choice' && !filter.options),
+          filters.filter(
+            (filter) => filter.type === 'choice' && !filter.options,
+          ),
           { size: 0 },
           null, // pageParam
           false, // filtersBase
@@ -128,14 +130,14 @@ const FiltersManager = React.forwardRef(function FiltersManager(
       const widgetsOnPage = extractWidgetsFromDom();
       const filtersOnPage = extractFiltersFromDom();
 
-      const newFilters = filtersOnPage.map(nextFilter => {
+      const newFilters = filtersOnPage.map((nextFilter) => {
         const completedNext = withDefaultFilterConfig(
           nextFilter,
           intl,
           filtersOptions,
         );
         const found = filters.find(
-          v =>
+          (v) =>
             JSON.stringify(omit(v, 'elemRef'))
             === JSON.stringify(omit(completedNext, 'elemRef')),
         );
@@ -146,9 +148,9 @@ const FiltersManager = React.forwardRef(function FiltersManager(
           : completedNext;
       });
 
-      const newWidgets = widgetsOnPage.map(nextWidget => {
+      const newWidgets = widgetsOnPage.map((nextWidget) => {
         const found = widgets.find(
-          v =>
+          (v) =>
             JSON.stringify(omit(v, 'elemRef'))
             === JSON.stringify(omit(nextWidget, 'elemRef')),
         );
@@ -171,7 +173,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         setTotal(result.total || 0);
       });
 
-      const mapFilter = filters.find(v => v.type === 'map');
+      const mapFilter = filters.find((v) => v.type === 'map');
       const mapElem = mapFilter?.elemRef?.current;
       const viewport = result.aggregations?.viewport;
 
@@ -179,7 +181,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         mapElem.onQueryChange(viewport);
       }
     },
-    updateLocation: values => {
+    updateLocation: (values) => {
       const queryStr = qs.stringify(values, {
         addQueryPrefix: true,
         skipNulls: true,
@@ -201,7 +203,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const widgetElems = widgets.map(widget => {
+  const widgetElems = widgets.map((widget) => {
     switch (widget.name) {
       case 'total':
         return (

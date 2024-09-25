@@ -1,8 +1,18 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
+import { defineMessages, useIntl } from 'react-intl';
+
+const messages = defineMessages({
+  ariaLabel: {
+    id: 'ReactFilters.components.fields.SearchInput.ariaLabel',
+    defaultMessage: 'Search',
+  },
+});
 
 function Input({ input, placeholder, onButtonClick }) {
+  const intl = useIntl();
+
   return (
     <div className="input-group mb-3">
       <input
@@ -16,6 +26,7 @@ function Input({ input, placeholder, onButtonClick }) {
           type="submit"
           className="btn btn-outline-secondary"
           onClick={onButtonClick}
+          aria-label={intl.formatMessage(messages.ariaLabel)}
         >
           <i className="fa fa-search" aria-hidden="true" />
         </button>
@@ -34,7 +45,7 @@ export default function SearchInput({
   const form = useForm();
   const [tmpValue, setTmpValue] = useState(input.value);
 
-  const debouncedOnChange = useDebouncedCallback(e => {
+  const debouncedOnChange = useDebouncedCallback((e) => {
     if (manualSearch) {
       return;
     }
@@ -46,7 +57,7 @@ export default function SearchInput({
   }, 400);
 
   const inputOnChange = useCallback(
-    e => {
+    (e) => {
       e.persist();
 
       setTmpValue(e.target.value);
@@ -56,7 +67,7 @@ export default function SearchInput({
   );
 
   const onButtonClick = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (manualSearch) {
         input.onChange(tmpValue);

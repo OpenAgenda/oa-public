@@ -18,15 +18,15 @@ $oa-warning: #f6bb42;
 $oa-dark: #333;
 
 $theme-colors: (
-  "primary": $oa-blue,
-  "danger": $oa-red,
+  'primary': $oa-blue,
+  'danger': $oa-red,
 );
 
-@import "bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
 
 body {
   min-height: 100%;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 a:hover {
@@ -48,24 +48,24 @@ a:hover {
   }
 }
 
-@import "./header";
-@import "./sidebar";
-@import "./activeFilters";
-@import "./exports";
-@import "./eventItem";
-@import "./spinner";
-@import "./pagination";
-@import "./timings";
-@import "./maps";
-@import "./event/share";
+@import './header';
+@import './sidebar';
+@import './activeFilters';
+@import './exports';
+@import './eventItem';
+@import './spinner';
+@import './pagination';
+@import './timings';
+@import './maps';
+@import './event/share';
 
-@import "./widgets/tags";
-@import "./widgets/calendar";
-@import "./widgets/relative";
-@import "./widgets/preview";
+@import './widgets/tags';
+@import './widgets/calendar';
+@import './widgets/relative';
+@import './widgets/preview';
 
-@import "./filters";
-@import "@openagenda/react-shared/scss/react-date-range";
+@import './filters';
+@import '@openagenda/react-shared/scss/react-date-range';
 
 header {
   background-color: $oa-dark-purple;
