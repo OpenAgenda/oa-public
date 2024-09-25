@@ -8,7 +8,7 @@
     "start": "storybook dev -p 9001  --ci",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",
-    "prepack": "yarn clean && yarn oa-intl compile && yarn build",
+    "prepack": "yarn clean && yarn oa-intl compile --esm && yarn build",
     "extract-messages": "yarn oa-intl --esm"
   },
   "dependencies": {
