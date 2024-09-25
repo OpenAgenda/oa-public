@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Field, Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
@@ -216,7 +216,8 @@ class MultiRecurrencerForm extends Component {
     }
   };
 
-  forceSubmit = form => {
+  // eslint-disable-next-line class-methods-use-this
+  forceSubmit = (form) => {
     form.change('forceTimingsCreation', true);
     form.submit();
   };
@@ -261,7 +262,7 @@ class MultiRecurrencerForm extends Component {
       );
     }
 
-    const onUntilLabelClick = a11yButtonActionHandler(e => {
+    const onUntilLabelClick = a11yButtonActionHandler((e) => {
       if (formState.values.endType === 'until') {
         e.preventDefault();
         return;
@@ -269,7 +270,7 @@ class MultiRecurrencerForm extends Component {
       form.change('endType', 'until');
     });
 
-    const onCountLabelClick = a11yButtonActionHandler(e => {
+    const onCountLabelClick = a11yButtonActionHandler((e) => {
       if (formState.values.endType === 'count') {
         e.preventDefault();
         return;
@@ -320,7 +321,12 @@ class MultiRecurrencerForm extends Component {
             {intl.formatMessage(messages.ends)}
             <br />
 
-            <div className={cn(`${classNamePrefix}recurrencer-until__radio`, classNames?.radio)}>
+            <div
+              className={cn(
+                `${classNamePrefix}recurrencer-until__radio`,
+                classNames?.radio,
+              )}
+            >
               <label
                 role="presentation"
                 htmlFor="endType-until"
@@ -348,7 +354,12 @@ class MultiRecurrencerForm extends Component {
               </label>
             </div>
 
-            <div className={cn(`${classNamePrefix}recurrencer-count__radio`, classNames?.radio)}>
+            <div
+              className={cn(
+                `${classNamePrefix}recurrencer-count__radio`,
+                classNames?.radio,
+              )}
+            >
               <label
                 role="presentation"
                 htmlFor="endType-count"
@@ -409,7 +420,7 @@ class MultiRecurrencerForm extends Component {
                   className={`${classNamePrefix}recurrencer-error__disabledTimings`}
                 >
                   <ul>
-                    {submitError.disabledTimings.map(v => (
+                    {submitError.disabledTimings.map((v) => (
                       <li key={v.begin.toISOString()}>
                         {intl.formatDate(v.begin)}
                       </li>
@@ -433,13 +444,7 @@ class MultiRecurrencerForm extends Component {
   };
 
   render() {
-    const {
-      classNamePrefix,
-      classNames,
-      intl,
-      closeModal,
-      onDayPickerHide,
-    } = this.props;
+    const { classNamePrefix, classNames, intl, closeModal, onDayPickerHide } = this.props;
     const { initialValues, activeWeek, weekStartsOn } = this.state;
 
     return (

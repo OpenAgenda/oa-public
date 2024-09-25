@@ -6,8 +6,8 @@ describe('unit - DST', () => {
       expect(
         DST.hasSwitched(
           new Date('2019-10-27T00:00:00Z'),
-          new Date('2019-10-27T10:00:00Z')
-        )
+          new Date('2019-10-27T10:00:00Z'),
+        ),
       ).toBe(true);
     });
 
@@ -15,8 +15,8 @@ describe('unit - DST', () => {
       expect(
         DST.hasSwitched(
           new Date('2019-10-27T00:00:00Z'),
-          new Date('2019-10-25T10:00:00Z')
-        )
+          new Date('2019-10-25T10:00:00Z'),
+        ),
       ).toBe(false);
     });
   });

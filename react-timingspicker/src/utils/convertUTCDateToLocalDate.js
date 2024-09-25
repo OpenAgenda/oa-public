@@ -5,6 +5,6 @@ export default function convertUTCDateToLocalDate(date) {
     date.getUTCDate(),
     date.getUTCHours(),
     date.getUTCMinutes(),
-    date.getUTCSeconds()
+    date.getUTCSeconds(),
   );
 }

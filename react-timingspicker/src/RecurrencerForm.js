@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Field, Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
@@ -6,6 +6,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import * as dateFns from 'date-fns';
 import { FaRegTimesCircle, FaCheck } from 'react-icons/fa';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
+import cn from 'classnames';
 import SelectField from './SelectField';
 import WeekdayInput from './WeekdayInput';
 import NumberInput from './NumberInput';
@@ -14,7 +15,6 @@ import getWeekOfMonth from './utils/getWeekOfMonth';
 import isValidDate from './utils/isValidDate';
 import parseNumber from './utils/parseNumber';
 import formatNumber from './utils/formatNumber';
-import cn from 'classnames';
 
 const numberMask = createNumberMask({
   prefix: '',
@@ -234,7 +234,8 @@ class RecurrencerForm extends Component {
     }
   };
 
-  forceSubmit = form => {
+  // eslint-disable-next-line class-methods-use-this
+  forceSubmit = (form) => {
     form.change('forceTimingsCreation', true);
     form.submit();
   };
@@ -280,7 +281,7 @@ class RecurrencerForm extends Component {
       );
     }
 
-    const onUntilLabelClick = a11yButtonActionHandler(e => {
+    const onUntilLabelClick = a11yButtonActionHandler((e) => {
       if (formState.values.endType === 'until') {
         e.preventDefault();
         return;
@@ -288,7 +289,7 @@ class RecurrencerForm extends Component {
       form.change('endType', 'until');
     });
 
-    const onCountLabelClick = a11yButtonActionHandler(e => {
+    const onCountLabelClick = a11yButtonActionHandler((e) => {
       if (formState.values.endType === 'count') {
         e.preventDefault();
         return;
@@ -358,7 +359,12 @@ class RecurrencerForm extends Component {
             {intl.formatMessage(messages.ends)}
             <br />
 
-            <div className={cn(`${classNamePrefix}recurrencer-until__radio`, classNames?.radio)}>
+            <div
+              className={cn(
+                `${classNamePrefix}recurrencer-until__radio`,
+                classNames?.radio,
+              )}
+            >
               <label
                 role="presentation"
                 htmlFor="endType-until"
@@ -386,7 +392,12 @@ class RecurrencerForm extends Component {
               </label>
             </div>
 
-            <div className={cn(`${classNamePrefix}recurrencer-count__radio`, classNames?.radio)}>
+            <div
+              className={cn(
+                `${classNamePrefix}recurrencer-count__radio`,
+                classNames?.radio,
+              )}
+            >
               <label
                 role="presentation"
                 htmlFor="endType-count"
@@ -434,13 +445,10 @@ class RecurrencerForm extends Component {
           </section>
           <Field name="forceTimingsCreation" component="input" type="hidden" />
           <div>
-            <button
-              type="submit"
-              className={classNames?.recurrencerSubmitBtn}
-            >
-              {intl.formatMessage(messages.submit)}</button>
+            <button type="submit" className={classNames?.recurrencerSubmitBtn}>
+              {intl.formatMessage(messages.submit)}
+            </button>
           </div>
-
           {submitError && !dirtySinceLastSubmit ? (
             <div className={`${classNamePrefix}error`}>
               {intl.formatMessage(messages[submitError.message])}
@@ -452,7 +460,7 @@ class RecurrencerForm extends Component {
                   className={`${classNamePrefix}recurrencer-error__disabledTimings`}
                 >
                   <ul>
-                    {submitError.disabledTimings.map(v => (
+                    {submitError.disabledTimings.map((v) => (
                       <li key={v.begin.toISOString()}>
                         {/* TODO more detailed date */}
                         {intl.formatDate(v.begin)}
@@ -473,13 +481,7 @@ class RecurrencerForm extends Component {
   };
 
   render() {
-    const {
-      classNamePrefix,
-      classNames,
-      intl,
-      closeModal,
-      onDayPickerHide,
-    } = this.props;
+    const { classNamePrefix, classNames, intl, closeModal, onDayPickerHide } = this.props;
     const { initialValues, valueToDuplicate, weekStartsOn } = this.state;
 
     return (

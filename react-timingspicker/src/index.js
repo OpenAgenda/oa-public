@@ -1,2 +1,4 @@
-export { default } from './TimingsPicker';
+import TimingsPicker from './TimingsPicker';
+
+export default TimingsPicker;
 export { default as classNames } from './classNames';

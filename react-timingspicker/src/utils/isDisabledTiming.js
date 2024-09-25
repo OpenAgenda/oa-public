@@ -2,7 +2,7 @@ import * as dateFns from 'date-fns';
 
 export default (timing, disabled, enabled) => {
   const inEnabled = enabled && enabled.length
-    ? enabled.some(enabledTiming => {
+    ? enabled.some((enabledTiming) => {
       const start = typeof enabledTiming.begin === 'string'
         ? dateFns.parseISO(enabledTiming.begin)
         : enabledTiming.begin;
@@ -19,7 +19,7 @@ export default (timing, disabled, enabled) => {
 
   const isDisabled = disabled
     && disabled.length
-    && disabled.some(disabledTiming => {
+    && disabled.some((disabledTiming) => {
       const start = typeof disabledTiming.begin === 'string'
         ? dateFns.parseISO(disabledTiming.begin)
         : disabledTiming.begin;

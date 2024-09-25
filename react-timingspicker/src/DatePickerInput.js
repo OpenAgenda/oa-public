@@ -1,4 +1,3 @@
-import React from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { DateUtils } from 'react-day-picker';
 import * as dateFns from 'date-fns';
@@ -43,7 +42,8 @@ export default function DatePickerInput({
   };
 
   const startDate = dateFns.startOfWeek(new Date());
-  const formatMonth = val => intl.formatDate(new Date(startDate.getFullYear(), val), { month: 'long' });
+  const formatMonth = (val) =>
+    intl.formatDate(new Date(startDate.getFullYear(), val), { month: 'long' });
   dayPickerProps.months = Array(12)
     .fill()
     .map((e, i) => formatMonth(i));
@@ -53,7 +53,7 @@ export default function DatePickerInput({
 
     dayPickerProps.weekdaysLong.push(intl.formatDate(day, { weekday: 'long' }));
     dayPickerProps.weekdaysShort.push(
-      intl.formatDate(day, { weekday: 'short' })
+      intl.formatDate(day, { weekday: 'short' }),
     );
   }
 

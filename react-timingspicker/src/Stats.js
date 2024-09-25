@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import * as dateFns from 'date-fns';
 
@@ -25,7 +25,7 @@ export default class Stats extends Component {
         }
         return result;
       },
-      { first: null, last: null }
+      { first: null, last: null },
     );
 
     return {
@@ -81,10 +81,7 @@ export default class Stats extends Component {
               onKeyPress={reset}
               className={`${classNamePrefix}reset`}
             >
-              <FormattedMessage
-                id="rtp.reset"
-                defaultMessage="Clear"
-              />
+              <FormattedMessage id="rtp.reset" defaultMessage="Clear" />
             </div>
           ) : null}
         </div>
