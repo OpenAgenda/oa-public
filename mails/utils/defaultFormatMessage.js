@@ -13,7 +13,9 @@ module.exports = (config, templateName, lang) => (code, values) => {
     }
 
     if (!intl) {
-      throw new VError(`Missing locale '${lang}' for template '${templateName}'`);
+      throw new VError(
+        `Missing locale '${lang}' for template '${templateName}'`,
+      );
     }
 
     throw e;

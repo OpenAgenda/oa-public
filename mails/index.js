@@ -32,7 +32,7 @@ class Mails {
 
   static recipientToArray(recipient) {
     return typeof recipient === 'object' && recipient !== null
-      ? addressParser(recipient.address).map(v => ({ ...recipient, ...v }))
+      ? addressParser(recipient.address).map((v) => ({ ...recipient, ...v }))
       : recipient;
   }
 
