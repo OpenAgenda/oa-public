@@ -11,5 +11,5 @@ module.exports = [
   'firefox >= 67',
   'opera >= 51',
   'safari >= 12',
-  'unreleased versions'
+  'unreleased versions',
 ];
