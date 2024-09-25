@@ -1,3 +1,5 @@
+'use strict';
+
 const Discord = require('..');
 
 let svc;
