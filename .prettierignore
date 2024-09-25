@@ -1,4 +1,6 @@
 **/.turbo
+.yarn
+public/.yarn
 
 # packages
 packages/admin-agendas

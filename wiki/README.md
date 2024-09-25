@@ -2,79 +2,75 @@
 
 Find your way in the OpenAgenda code
 
-
 # Table of Contents
 
 This document is a work in progress. Here are the main sections:
 
- * Integrating application
- * Services ( common crud, testing )
- * Agenda
- * Aggregation
- * Integration
- * Coding Rules
- * Repositories & build processes
- * Production servers
- * Locations
- * Files & Images
- * Error handling
- * Projects
- * Installation
-
+- Integrating application
+- Services ( common crud, testing )
+- Agenda
+- Aggregation
+- Integration
+- Coding Rules
+- Repositories & build processes
+- Production servers
+- Locations
+- Files & Images
+- Error handling
+- Projects
+- Installation
 
 # Launch ssh of an ec2 instance
 
 ## Installation
 
-  1. Install `aws` with `pip` (python)
-  2. Create an user and/or keys on https://aws.amazon.com/fr/iam/
-  3. Run `aws configure`
-  4. Add this script in your home directory (`ssh-ec2`):
+1. Install `aws` with `pip` (python)
+2. Create an user and/or keys on https://aws.amazon.com/fr/iam/
+3. Run `aws configure`
+4. Add this script in your home directory (`ssh-ec2`):
 
 ```js
 #!/usr/bin/env node
 'use strict';
 
-const spawn = require( 'child_process' ).spawn;
-const { exec, execSync } = require( 'child_process' );
+const spawn = require('child_process').spawn;
+const { exec, execSync } = require('child_process');
 const options = {
-  encoding: 'utf8'
+  encoding: 'utf8',
 };
 const instanceName = process.argv[2];
 
 const cmd = `aws ec2 describe-instances --filters "Name=tag-value,Values=${instanceName}" --query "Reservations[*].Instances[*].[PublicIpAddress,KeyName]"`;
 
-const ipResult = JSON.parse( execSync( cmd, options ) );
+const ipResult = JSON.parse(execSync(cmd, options));
 
-if ( !ipResult.length ) process.exit();
+if (!ipResult.length) process.exit();
 
-const [ ip, key ] = ipResult[ 0 ][ 0 ];
+const [ip, key] = ipResult[0][0];
 
 /*************/
 
-console.log( `ssh -i ${require('os').homedir()}/.ssh/${key}.pem ubuntu@${ip}` );
+console.log(`ssh -i ${require('os').homedir()}/.ssh/${key}.pem ubuntu@${ip}`);
 ```
 
-  5. Add this alias in your `.bashrc` or `.zshrc`: `alias ec2='f() { eval $($HOME/ssh-ec2 $1) };f'`
-  6. Use `ec2 janine` for lauch a ssh terminal on janine instance
-
+5. Add this alias in your `.bashrc` or `.zshrc`: `alias ec2='f() { eval $($HOME/ssh-ec2 $1) };f'`
+6. Use `ec2 janine` for lauch a ssh terminal on janine instance
 
 # Integrating application
 
 ## Integration of services
 
-The cibul-node project integrates the OpenAgenda project on the node-js side and provides logging and support features to the legacy php application. The configuration of the app is distributed to all service modules at the app launch using their ```.init``` endpoints.
+The cibul-node project integrates the OpenAgenda project on the node-js side and provides logging and support features to the legacy php application. The configuration of the app is distributed to all service modules at the app launch using their `.init` endpoints.
 
-This initialization, together with any service interfacing logic is explicited in the flat files and folder structure in the services/ root folder of ```cibul-node```.
+This initialization, together with any service interfacing logic is explicited in the flat files and folder structure in the services/ root folder of `cibul-node`.
 
 ### Details on the service initialization process
 
-The ```services/init.js``` script will list all files and folders found in the ```services``` folder and will require each one of them ( folders in ```services/``` must contain an index.js file ), calling in every case an optional ```.init``` function to give them the app configuration object. These initialization functions can either be syncronous - in which case they take one argument for the config, or asyncronous, where they need 2 arguments: the configuration and a callback.
+The `services/init.js` script will list all files and folders found in the `services` folder and will require each one of them ( folders in `services/` must contain an index.js file ), calling in every case an optional `.init` function to give them the app configuration object. These initialization functions can either be syncronous - in which case they take one argument for the config, or asyncronous, where they need 2 arguments: the configuration and a callback.
 
 Legacy in-app services do not have an .init function and are explicitly marked as .initless. These will progressively be deprecated.
 
-For other services, initialization and interfacing can be defined in a single file as long as interfacing is light. As interfacing becomes heavier, it is easy to break files within a folder with one main index.js file for passing configuration and one file per interface. See ```services/members/index.js``` for an example of a complete initialization/interface configuration of an external service.
-
+For other services, initialization and interfacing can be defined in a single file as long as interfacing is light. As interfacing becomes heavier, it is easy to break files within a folder with one main index.js file for passing configuration and one file per interface. See `services/members/index.js` for an example of a complete initialization/interface configuration of an external service.
 
 # Services
 
@@ -88,11 +84,10 @@ List operations are used to fetch a list of objects handled by a given service. 
 
     service.list( query, offset, limit, [ options ], [ cb ] )
 
- * **query**: used to return a subset of objects
- * **limit & offset**: used to get a segment of the result set. These are not systematically offset and limits but can depend on the data model used. The key requirement is to limit the size of results
- * **options**: optional options object ( details about this given below )
- * **cb**: callback for result of list. If list returns a promise, no callback is required.
-
+- **query**: used to return a subset of objects
+- **limit & offset**: used to get a segment of the result set. These are not systematically offset and limits but can depend on the data model used. The key requirement is to limit the size of results
+- **options**: optional options object ( details about this given below )
+- **cb**: callback for result of list. If list returns a promise, no callback is required.
 
 ## Testing
 
@@ -114,11 +109,7 @@ Both jest & mocha test suites group tests by describe statements. These are labe
 
 Example: 'images - unit (server): resize'
 
-
 ## Initialization of a service development environment
-
-
-
 
 # Agenda
 
@@ -136,11 +127,9 @@ By default, the contact link on the agenda page addresses a OA message to admini
 }
 ```
 
-
 ### Contribution
 
- * **moderators**: set moderators.canPublish to false in agenda store to remove right of moderators to publish events. Example: `{"moderators":{"canPublish":false}}`
-
+- **moderators**: set moderators.canPublish to false in agenda store to remove right of moderators to publish events. Example: `{"moderators":{"canPublish":false}}`
 
 ### Customizing the event form
 
@@ -170,19 +159,18 @@ Example:
 
 #### Possible field configurations:
 
- * timings, "defaultWeek" key: sets the default displayed week. Set a day of the week to display. Does not prevent the user to define timings outside that week.
- * timings, "activeDays" key: defines which days can take timing inputs. Several periods of days can be defined. Example: `{"name":"timings","activeDays":[{"startDate":"2016-09-16","endDate":"2016-09-23"}]}`
- * ( keywords, age ) - display: set to false to hide the field
- * keywords: label, placeholder - multilingual text
- * longDescription, placeholder or label: multilingual text to change the placeholder or label
- * description, label: multilingual text to change the label of the description field
- * description, **fixed**: preset a value and hide the field. Must be multilingual.
- * title, label: multilingul text to change the label of the title field
- * title, placeholder: same for the placeholder
- * image, info: multilingual text
- * conditions, label: multilingul text to change the label of the title field
- * conditions, placeholder: multilingul text to change the placeholder of the title field
-
+- timings, "defaultWeek" key: sets the default displayed week. Set a day of the week to display. Does not prevent the user to define timings outside that week.
+- timings, "activeDays" key: defines which days can take timing inputs. Several periods of days can be defined. Example: `{"name":"timings","activeDays":[{"startDate":"2016-09-16","endDate":"2016-09-23"}]}`
+- ( keywords, age ) - display: set to false to hide the field
+- keywords: label, placeholder - multilingual text
+- longDescription, placeholder or label: multilingual text to change the placeholder or label
+- description, label: multilingual text to change the label of the description field
+- description, **fixed**: preset a value and hide the field. Must be multilingual.
+- title, label: multilingul text to change the label of the title field
+- title, placeholder: same for the placeholder
+- image, info: multilingual text
+- conditions, label: multilingul text to change the label of the title field
+- conditions, placeholder: multilingul text to change the placeholder of the title field
 
 ### Agenda location settings
 
@@ -192,7 +180,6 @@ Agenda location have their own settings record in a table named 'location-agenda
 
 By default, the country code displayed in a location form is Metropolitan France. This can be changed by setting a value in the location settings store: `defaultCountryCode` will take a 2 letter country code ( example: CH for switzerland ).
 
-
 ### Custom fields ( legacy )
 
 Custom fields can be defined in the `customFields` key of the agenda store.
@@ -201,16 +188,16 @@ Possible types are: integer, text, textarea, number, url, email, image, multicho
 
 The configuration is a list of field definitions, each with the following key:
 
- * **name**: the name of the field as it will appear in keyed data representation ( like the json export for example )
- * **fieldType**: the type of the field. One of the possible types given above
- * **type**: public (default) or private. Public fields will be viewable to all users, private fields will be visible to agenda administrators and moderators only
- * **optional**: true or false. true by default.
- * **max**: the maximum size when it is applicable
- * **label**: language code keyed object for the label displayed above the field. Keys should be at least 'fr' and 'en'.
- * **placeholder**: same as label, but for the placeholder
- * **options**: for select, multichoice, radio field types. A list with each item being an object with label ( multilingual ) and value keys.
+- **name**: the name of the field as it will appear in keyed data representation ( like the json export for example )
+- **fieldType**: the type of the field. One of the possible types given above
+- **type**: public (default) or private. Public fields will be viewable to all users, private fields will be visible to agenda administrators and moderators only
+- **optional**: true or false. true by default.
+- **max**: the maximum size when it is applicable
+- **label**: language code keyed object for the label displayed above the field. Keys should be at least 'fr' and 'en'.
+- **placeholder**: same as label, but for the placeholder
+- **options**: for select, multichoice, radio field types. A list with each item being an object with label ( multilingual ) and value keys.
 
- An example:
+An example:
 
 ```js
 {
@@ -254,23 +241,22 @@ The configuration is a list of field definitions, each with the following key:
 
 Available types include:
 
- * **file**: pdf only.
+- **file**: pdf only.
 
-     {
-        "name": "somepdf",
-        "fieldType": "file",
-        "extension": "pdf",
-        "type": "public",
-        "label": {
-          "fr": "Charger un pdf, n'importe",
-          "en": "Load a pdf, any pdf"
-        },
-        "info": {
-          "fr": "Parce qu'on peut charger des fichiers maintenant",
-          "en": "Because we can load files now"
-        }
-      }
-
+  {
+  "name": "somepdf",
+  "fieldType": "file",
+  "extension": "pdf",
+  "type": "public",
+  "label": {
+  "fr": "Charger un pdf, n'importe",
+  "en": "Load a pdf, any pdf"
+  },
+  "info": {
+  "fr": "Parce qu'on peut charger des fichiers maintenant",
+  "en": "Because we can load files now"
+  }
+  }
 
 # Aggregation
 
@@ -284,8 +270,8 @@ Rules come as lists and define wether an event evaluated for aggregation should 
 
 Each item ( a rule ) is an object comprising of a query key and value key.
 
- * **query**: an object that is tested against the event values to define wether the event passes or not. If no query is defined in the rule, it automatically passes
- * **value**: the rule evaluation returns the list of passing rule values. If no value is specified, null will be returned for the passing rule. Returning values can impact how the event is aggregated. For the time being, only state key is considered and define what state the event should take at the moment of the aggregation.
+- **query**: an object that is tested against the event values to define wether the event passes or not. If no query is defined in the rule, it automatically passes
+- **value**: the rule evaluation returns the list of passing rule values. If no value is specified, null will be returned for the passing rule. Returning values can impact how the event is aggregated. For the time being, only state key is considered and define what state the event should take at the moment of the aggregation.
 
 ### Examples
 
@@ -327,8 +313,6 @@ The following event..
 
 ... on the other hand will pass and be aggregated. As the second rule of the aggregator specifies a state 0 ( to be completed ), the event will be added to the aggregator with that state.
 
-
-
 # Integration
 
 ## Customizing an integrated agenda
@@ -339,8 +323,8 @@ To enable this, a feature needs to be activated: 'Customize embed templates'
 
 Two views can be customized:
 
- * the agenda view: the customizable part is the event item as it appears in the iframe
- * the event view: when an event item from the list is clicked
+- the agenda view: the customizable part is the event item as it appears in the iframe
+- the event view: when an event item from the list is clicked
 
 Each view has its base template and base data mapping, both of which can be found in the cibul-node project under the embeds in-app service.
 
@@ -348,11 +332,9 @@ Custom fields are not part of the default mapping so any requirement to embed cu
 
 See the agenda https://openagenda.com/equipauto for an example.
 
-
 # Mailer
 
 In development environment, [mailcatcher](https://mailcatcher.me/) is used to visualize mails. Once installed, run it with the command `mailcatcher start`. It is not compulsory to have it running when running the main node app in development.
-
 
 # Coding rules
 
@@ -360,15 +342,15 @@ When coding on a repository for OpenAgenda, the following rules apply: https://g
 
 With the following variations:
 
- * Unnamed functions take spaces before and after arg parenthesis: `function () { ... `
- * Indent with two spaces. Even in html.
- * promise flows are indented after the opening promise function
- * functions internal to a module have their names starting with and underscore: ```_internalFunction```
- * Build only client scripts. ISO scripts should be written to be used as is by node
+- Unnamed functions take spaces before and after arg parenthesis: `function () { ... `
+- Indent with two spaces. Even in html.
+- promise flows are indented after the opening promise function
+- functions internal to a module have their names starting with and underscore: `_internalFunction`
+- Build only client scripts. ISO scripts should be written to be used as is by node
 
 ## HTML
 
- * As a convention, anchors to attach javascript application on server-rendered are snake-cased, `js_` prefixed classes. For example: `<button class="btn btn-defaul js_do_stuff_here"></div>`
+- As a convention, anchors to attach javascript application on server-rendered are snake-cased, `js_` prefixed classes. For example: `<button class="btn btn-defaul js_do_stuff_here"></div>`
 
 #Repositories & build processes
 
@@ -378,14 +360,12 @@ With the following variations:
 
 The node-sass module includes a time-consuming build that slows down library installations significantly. To avoid having to wait too long everytime a repo with a node-sass dependency has to be upgraded, the module can be linked globally on the dev environment. Follow this: https://github.com/sass/node-sass#rebuilding-binaries
 
-
-
 ## Naming conventions
 
- * service repositories: plural.
- * repo grouping front applications which are focused on the presentation of a service: <singularnameoftheservice>-apps
- * names are smallcased, with dashes used for word separation. ex: member-apps or agenda-docx
- * requires are made at the beginning of a file, grouped by origin: first external references, second openagenda repos, third and last the current repo requires. Second degree order is alphabetical ( [reference](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md) )
+- service repositories: plural.
+- repo grouping front applications which are focused on the presentation of a service: <singularnameoftheservice>-apps
+- names are smallcased, with dashes used for word separation. ex: member-apps or agenda-docx
+- requires are made at the beginning of a file, grouped by origin: first external references, second openagenda repos, third and last the current repo requires. Second degree order is alphabetical ( [reference](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md) )
 
 ## Building process
 
@@ -393,7 +373,7 @@ All repositories are stored on bitbucket and most are referenced in a private np
 
 ### Referencing a repo on npm
 
-See installation procedure section for logging on to npm and configuring yarn.  The oa account is for now a single account named 'gaetanlatouche', credentials are available in the technical keepass
+See installation procedure section for logging on to npm and configuring yarn. The oa account is for now a single account named 'gaetanlatouche', credentials are available in the technical keepass
 
 Now for a repo: change the package name by pre-fixing it with the npm org name:
 
@@ -452,16 +432,15 @@ Do a first major release:
 
     yarn release:major # or npm run release:major
 
-
 # Production servers
 
 ## Running the web node process
 
 In production, the node process manager **forever** is used. The command requires an explicit environment and needs to take the list of application sections to be executed. These can be:
 
- * web: all parts of the application used by a web server are loaded
- * admin: all parts used by the super-administration are loaded
- * task: worker processes are launched.
+- web: all parts of the application used by a web server are loaded
+- admin: all parts used by the super-administration are loaded
+- task: worker processes are launched.
 
 Typically, before the process is launched, it is useful to check if there isn't one that is already running
 
@@ -472,8 +451,6 @@ If there isn't, on a web server the commands would be:
     cd /home/ubuntu/www/cibul-node && NODE_ENV=production forever start -c "node --max_old_space_size=3072" server.js web admin
 
 For a worker server, replace the 'web admin' part with 'task'
-
-
 
 ## Logging
 
@@ -489,9 +466,9 @@ Here is an article laying out the procedure in a nutshell: https://nodejs.org/en
 
 And in very short:
 
- * On a server, the app should be launched with a --prof option to start the profiler.
- * Once the app has run for a while, stop it ( and relaunch it normally if need be ). You'll see new log files added to the current directory.
- * Execute the prof process on any of the generated log files to get a recap: ```node --prof-process isolate-0xnnnnnnnnnnnn-v8.log > processed.txt```
+- On a server, the app should be launched with a --prof option to start the profiler.
+- Once the app has run for a while, stop it ( and relaunch it normally if need be ). You'll see new log files added to the current directory.
+- Execute the prof process on any of the generated log files to get a recap: `node --prof-process isolate-0xnnnnnnnnnnnn-v8.log > processed.txt`
 
 ### data exports over-usage
 
@@ -499,8 +476,7 @@ At the time this is written, json exports represent the main load on the servers
 
 ## Miscellaneous
 
- * node process ( max_old_space_size ) - avoid heap allocation overflows by specifying a larger memory size for nodejs: http://stackoverflow.com/questions/26094420/fatal-error-call-and-retry-last-allocation-failed-process-out-of-memory
-
+- node process ( max_old_space_size ) - avoid heap allocation overflows by specifying a larger memory size for nodejs: http://stackoverflow.com/questions/26094420/fatal-error-call-and-retry-last-allocation-failed-process-out-of-memory
 
 # Locations
 
@@ -597,7 +573,6 @@ Sometimes the geocoder service gives bad information. The following queries fix 
     update location set city='Villeneuve-d\'Ascq' where city='Villeneuve-d’Ascq';
     update location set city='Villeneuve-d\'Ascq' where city='VILLENEUVE D ASCQ';
 
-
 # Files and Images
 
 Files and images are stored in buckets hosted by amazon aws.
@@ -649,12 +624,11 @@ For custom images, the variant is simply the name of the custom field. Here a ra
 
 v4 of this, stripping out dashes: https://www.npmjs.com/package/uuid
 
-
 # Error handling
 
 Some random guidelines:
 
- * use verror when passing on errors
+- use verror when passing on errors
 
 Each service is subject to errors. When these occur, three scenarios arrise:
 
@@ -663,7 +637,6 @@ Each service is subject to errors. When these occur, three scenarios arrise:
 2/ The error is handled by the service. A service interface can be used to pass on the error to the integrating app: `.onError`, defined at service initialization. The in-app errors service exposes a function taking a namespace and the error to log it in the proper place ( logentries ).
 
 3/ The error is asynchronously passed to a queue from the queue repository. This queue can be initialized with an onError callback which can be plugged to the in-app error service.
-
 
 # Projects
 
@@ -680,7 +653,6 @@ At the end of projects, they ask for a report distributing contribution over reg
     group by r.slug, l.city
     having contributions > 0
     order by contributions desc
-
 
 # Installation
 

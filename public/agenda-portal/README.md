@@ -4,46 +4,46 @@ This library provides functionalities to build a fully customizable events websi
 
 Here are a few websites built with this library:
 
- * INHA: [https://agenda.inha.fr/](https://agenda.inha.fr/)
- * L'agenda d'Albi: [https://agenda.albi.fr](https://agenda.albi.fr)
- * Arles | Agenda: [https://arles-agenda.fr/](https://arles-agenda.fr/)
- * 50 ans de Francophonie: [https://agenda50ans.francophonie.org/](https://agenda50ans.francophonie.org/)
+- INHA: [https://agenda.inha.fr/](https://agenda.inha.fr/)
+- L'agenda d'Albi: [https://agenda.albi.fr](https://agenda.albi.fr)
+- Arles | Agenda: [https://arles-agenda.fr/](https://arles-agenda.fr/)
+- 50 ans de Francophonie: [https://agenda50ans.francophonie.org/](https://agenda50ans.francophonie.org/)
 
 [Handlebars](https://handlebarsjs.com/) is the main templating engine.
 [Sass](https://sass-lang.com/) for styling. Default templates use [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/theming/)
 
 Table of contents:
 
- * [Features](#features)
- * [Quick start](#quick-start)
- * [Options](#options)
- * [Templates and styling](#templates-and-styling)
-   * [Available data](#available-data)
-   * [I18n](#i18n)
-   * [Helpers](#helpers)
-   * [Customizing data](#customizing-data)
-   * [Navigation and Filters](#navigation-and-filters)
-   * [Favorites](#favorites)
- * [IFrames](#iframes)
- * [Preview](#preview)
- * [Miscellaneous](#miscellaneous)
+- [Features](#features)
+- [Quick start](#quick-start)
+- [Options](#options)
+- [Templates and styling](#templates-and-styling)
+  - [Available data](#available-data)
+  - [I18n](#i18n)
+  - [Helpers](#helpers)
+  - [Customizing data](#customizing-data)
+  - [Navigation and Filters](#navigation-and-filters)
+  - [Favorites](#favorites)
+- [IFrames](#iframes)
+- [Preview](#preview)
+- [Miscellaneous](#miscellaneous)
 
 ## Features
 
 ### For site users
 
- * **Event search** : mirrors search featured available on [OpenAgenda](https://openagenda.com) by forwarding filters to the matching agenda **JSON** export
- * **Event list pagination**: event lists can be either paginated or loaded progressively as the user scrolls
- * **Lateral navigation**: When a search is made and an event is opened, the user can shuffle through events of the current search without going back to the list
- * **Caching**: redis caching
+- **Event search** : mirrors search featured available on [OpenAgenda](https://openagenda.com) by forwarding filters to the matching agenda **JSON** export
+- **Event list pagination**: event lists can be either paginated or loaded progressively as the user scrolls
+- **Lateral navigation**: When a search is made and an event is opened, the user can shuffle through events of the current search without going back to the list
+- **Caching**: redis caching
 
 ### For developers
 
- * **Bootstrap client**: to start working on a sandbox project in a matter of minutes
- * **Live reload for integrators**: The portal reloads as templates or styles are customized on file saves
- * **Structured event data**: ready-to-use `json+ld` sets are ready for use on templates for search engine indexing
- * **Filter widgets**: Customizable map, tag, search field, calendar components
- * **View variables**: add `?data` to current url to see available data for use in templates
+- **Bootstrap client**: to start working on a sandbox project in a matter of minutes
+- **Live reload for integrators**: The portal reloads as templates or styles are customized on file saves
+- **Structured event data**: ready-to-use `json+ld` sets are ready for use on templates for search engine indexing
+- **Filter widgets**: Customizable map, tag, search field, calendar components
+- **View variables**: add `?data` to current url to see available data for use in templates
 
 ## Quick start
 
@@ -60,9 +60,9 @@ Create a new project and add agenda-portal in your dependencies:
 
 To get your project quickly operational, make sure you have the following information in hand:
 
- * **uid**: the unique identifier of the agenda the portal will get its events from
- * **lang**: the main language of your portal
- * **key**: your OpenAgenda account public key ( available in your user settings ).
+- **uid**: the unique identifier of the agenda the portal will get its events from
+- **lang**: the main language of your portal
+- **key**: your OpenAgenda account public key ( available in your user settings ).
 
 **Note**: if the agenda portal is expected to run inside an iframe, answer "Yes" to the corresponding deploy question to activate additional scripts that will communicate with the parent page to adjust iframe height and url updates. See the [iframe section below](#iframes) for details.
 
@@ -86,37 +86,37 @@ You can then edit handlebar templates available in the views folder and the sass
 
 These define general portal settings. Default options set in your `server.js` file are a good baseline.
 
- * **assets**: path to the assets folder
- * **cache**: Optional. Cache management related options. See below for details
- * **defaultFilter**: Optional. Set a filter to be applied to search when no other filter is set. For example: if featured events are displayed in a section other than the main list, it is not desired to load them in the list view at the first list load, to avoid displaying duplicate content.
- * **eventsPerPage**: Optional. Number of events to be loaded in the event list view. 20 is the default value
- * **eventHook**: Optional. event item parse function. Useful to transform event item data before it reaches the template. See more on this in the [Customizing data](#customizing-data) section.
- * **key**: Required. OpenAgenda account public key
- * **lang**: Optional. Main portal language
- * **map**: map filter widget settings ( tiles, default center ... )
- * **root**: Required. website root. Used in production
- * **sass**: main sass file path
- * **uid**: Required. UID of the agenda
- * **views**: Required. Path to the handlebar views folder
- * **refreshInterval**: interval with which the cache is cleared in milliseconds. Defaults on 1000*60*60 (1 hour)
- * **iframable**: false by default. True if the portal is to be displayed within an iframe.
- * **tracking**: enable or disable Google Analytics tracking. Set useAgendaGoogleAnalytics to true to activate Google Analytics tracking. CookieBannerLink is the URL of the link displayed in the cookie consent banner and defaults to the Google Analytics help URL.
- * **longDescriptionFormat**: Optional. `HTMLWithEmbeds` (default), `markdown` or `HTML`.
- * **visibilityPastEvents**: false by default. True if past events are to be displayed when the relative or temporal filter is specified
+- **assets**: path to the assets folder
+- **cache**: Optional. Cache management related options. See below for details
+- **defaultFilter**: Optional. Set a filter to be applied to search when no other filter is set. For example: if featured events are displayed in a section other than the main list, it is not desired to load them in the list view at the first list load, to avoid displaying duplicate content.
+- **eventsPerPage**: Optional. Number of events to be loaded in the event list view. 20 is the default value
+- **eventHook**: Optional. event item parse function. Useful to transform event item data before it reaches the template. See more on this in the [Customizing data](#customizing-data) section.
+- **key**: Required. OpenAgenda account public key
+- **lang**: Optional. Main portal language
+- **map**: map filter widget settings ( tiles, default center ... )
+- **root**: Required. website root. Used in production
+- **sass**: main sass file path
+- **uid**: Required. UID of the agenda
+- **views**: Required. Path to the handlebar views folder
+- **refreshInterval**: interval with which the cache is cleared in milliseconds. Defaults on 1000*60*60 (1 hour)
+- **iframable**: false by default. True if the portal is to be displayed within an iframe.
+- **tracking**: enable or disable Google Analytics tracking. Set useAgendaGoogleAnalytics to true to activate Google Analytics tracking. CookieBannerLink is the URL of the link displayed in the cookie consent banner and defaults to the Google Analytics help URL.
+- **longDescriptionFormat**: Optional. `HTMLWithEmbeds` (default), `markdown` or `HTML`.
+- **visibilityPastEvents**: false by default. True if past events are to be displayed when the relative or temporal filter is specified
 
 ### Cache options
 
- * **refreshInterval**: interval at which the cache is cleared. Every hour by default.
+- **refreshInterval**: interval at which the cache is cleared. Every hour by default.
 
 ## Templates and styling
 
-Templates are written in handlebars. See [official documentation](https://handlebarsjs.com/guide) for syntax details. 
+Templates are written in handlebars. See [official documentation](https://handlebarsjs.com/guide) for syntax details.
 
 When working on your portal, you should only really need to edit files that are either:
 
- * In your sass folder for styling
- * In your views folder for templating
- * In your assets folder for static assets such as images or javascripts
+- In your sass folder for styling
+- In your views folder for templating
+- In your assets folder for static assets such as images or javascripts
 
 ### Available data
 
@@ -186,11 +186,11 @@ In the event template, you can now use:
 
 A set of ready-to-use utilities is available through the module `@openagenda/agenda-portal/utils`:
 
- * `decorateTimings`: uses [momentjs](https://momentjs.com) to decorate timings with custom formats
- * `markdownToHTML`: returns html content corresponding to the provided markdown
- * `spreadRegistration`: spreads registration values to specified keys according to their types
- * `cloudimage`: generates cloud image links for event images given cloudimage options
- * `decorateOptionedFieldValues`: replaces basic ids with { label, id, link } objects
+- `decorateTimings`: uses [momentjs](https://momentjs.com) to decorate timings with custom formats
+- `markdownToHTML`: returns html content corresponding to the provided markdown
+- `spreadRegistration`: spreads registration values to specified keys according to their types
+- `cloudimage`: generates cloud image links for event images given cloudimage options
+- `decorateOptionedFieldValues`: replaces basic ids with { label, id, link } objects
 
 #### utils - decorateTimings
 
@@ -233,9 +233,9 @@ Object.assign(event, spreadRegistration(event.registration));
 
 The following lists will be available in your templates:
 
- * `registrationEmails`
- * `registrationLinks`
- * `registrationPhones`
+- `registrationEmails`
+- `registrationLinks`
+- `registrationPhones`
 
 #### utils - cloudimage
 
@@ -255,13 +255,13 @@ For details on possible options, refer to the cloudimage documentation [here](ht
 
 Use in the event hook.
 
-Useful for agendas with optioned additional fields. By default, an additional field value is the id(s) of the option(s) selected for the evaluated event. Often, the need in templates is to display the corresponding label and provide  a link allowing the user to limit results to all events matching that id.
+Useful for agendas with optioned additional fields. By default, an additional field value is the id(s) of the option(s) selected for the evaluated event. Often, the need in templates is to display the corresponding label and provide a link allowing the user to limit results to all events matching that id.
 
 Provide the event, the agenda configuration and the preferred languages as parameters as such:
+
 ```
 const decoratedEvent = decorateOptionedFieldValues(event, { agenda, lang });
 ```
-
 
 ### Navigation and filters
 
@@ -287,11 +287,11 @@ Displays a map geolocating events. Place the following code where the map is to 
 
 ###### Properties
 
- * **className**: classes to be assigned to the map container. The container should have a non-zero surface at initialization
- * **searchMessage**: text associated with search-on-move checkbox
- * **searchWithMap**: control whether search-on-move checkbox should be checked by default
- * **tileUrl**: map tiles to be used
- * **tileAttribution**: tiles attribution displayed on the bottom right of the map
+- **className**: classes to be assigned to the map container. The container should have a non-zero surface at initialization
+- **searchMessage**: text associated with search-on-move checkbox
+- **searchWithMap**: control whether search-on-move checkbox should be checked by default
+- **tileUrl**: map tiles to be used
+- **tileAttribution**: tiles attribution displayed on the bottom right of the map
 
 ##### Calendar
 
@@ -306,7 +306,7 @@ Displays a date selector in the form of a days-of-the-month calendar. Place the 
 Displays a synthaxic search field.
 
 ```hbs
-{{filter type="search" name="search"}}
+{{filter type='search' name='search'}}
 ```
 
 ##### Choice
@@ -319,9 +319,9 @@ Displays a list of selectable values to filter the events from. This filter work
 
 ###### Properties
 
- * **inputType**: 'radio' for single selection or 'checkbox' for multiple selection
- * **name**: possible values are 'attendanceMode', 'relative' or any additional fields of discrete type (radio, checkbox, select...)
- * **pageSize**: 10 by default. Number of values to display by default and per subsequent load. If more than `pageSize` values exist, a "Load more options" is displayed to load following values
+- **inputType**: 'radio' for single selection or 'checkbox' for multiple selection
+- **name**: possible values are 'attendanceMode', 'relative' or any additional fields of discrete type (radio, checkbox, select...)
+- **pageSize**: 10 by default. Number of values to display by default and per subsequent load. If more than `pageSize` values exist, a "Load more options" is displayed to load following values
 
 ###### Additional fields
 
@@ -341,16 +341,17 @@ Custom filters can be defined using the `{{#customFilter}}` helper. A filter is 
 
 ###### Properties
 
- * **query**: The filter value when activated
- * **activeClass**: Class associated with the container div of the filter when it is active.
- * **inactiveClass**: Class associated with the container div of the filter when it is inactive.
- * **className**: Invariable class associated to the container div of the filter.
- * **handlerSelector**: selector used to target the element that will be listened for onclick events, toggling the filter between active and inactive states. By default, the container of the whole filter is listened.
- * **activeFilterLabel**: Label to display in the active filters widget when the custom filter is active.
+- **query**: The filter value when activated
+- **activeClass**: Class associated with the container div of the filter when it is active.
+- **inactiveClass**: Class associated with the container div of the filter when it is inactive.
+- **className**: Invariable class associated to the container div of the filter.
+- **handlerSelector**: selector used to target the element that will be listened for onclick events, toggling the filter between active and inactive states. By default, the container of the whole filter is listened.
+- **activeFilterLabel**: Label to display in the active filters widget when the custom filter is active.
 
 ###### Example 1: filtering on upcoming offline events
 
 The following custom filter is defined to show ongoing and upcoming events that can be attended to at a physical location only:
+
 ```hbs
 {{#customFilter
   query=(object relative=(array 'current' 'upcoming') attendanceMode='1')
@@ -358,8 +359,8 @@ The following custom filter is defined to show ongoing and upcoming events that 
   inactiveClass='inactive'
   className='custom-example checkbox'
 }}
-  <label for="custom-example">
-    <input type="checkbox" id="custom-example">
+  <label for='custom-example'>
+    <input type='checkbox' id='custom-example' />
     En cours + à venir + hors ligne
   </label>
 {{/customFilter}}
@@ -371,14 +372,18 @@ If a checkbox input is inserted in the body of the custom filter and no handlerS
 
 ```hbs
 {{#customFilter
-  query=(object timings=(object gte='2021-06-23T22:00:00.000Z' lte='2021-06-24T21:59:59.999Z'))
+  query=(object
+    timings=(object
+      gte='2021-06-23T22:00:00.000Z' lte='2021-06-24T21:59:59.999Z'
+    )
+  )
   handlerSelector='.checkboxes'
   activeClass='active'
   inactiveClass='inactive'
   className='custom-example checkbox'
 }}
-  <label for="jeudi">
-    <input type="checkbox" id="jeudi">
+  <label for='jeudi'>
+    <input type='checkbox' id='jeudi' />
     Jeudi 24 juin
   </label>
 {{/customFilter}}
@@ -420,7 +425,6 @@ When a search is done on the main agenda page and an event is selected, it is lo
 
 The partial illustrating this is `navigation.hbs`
 
-
 ### Favorites
 
 An event selection utility that stores a selection of events in the local storage of the user can be implemented using the following widget/filter codes. With this functionality, the user can select events as he navigates on the portal and then filter the list to see his selection.
@@ -452,8 +456,8 @@ In the example above, a star is displayed, full when the event is a favorite, em
 
 The required properties are:
 
- * **eventUid**: the event to be added or removed to/from the favorites selection
- * **name**: Must be "favorite"
+- **eventUid**: the event to be added or removed to/from the favorites selection
+- **name**: Must be "favorite"
 
 The remaining properties function as the ones documented in the [section dedicated to the custom filter](#custom-filters).
 
@@ -491,8 +495,8 @@ You can use the `iframe-canvas.html` locally when working in a development envir
 
 Attributes:
 
-  * `data-scroll-offset`: when an event is opened, the page scrolls to the top of the page. Adjust positionning by specifying this offset.
-  * `allowtransparency, frameborder`: avoid ugly borders and preset background on the iframe
+- `data-scroll-offset`: when an event is opened, the page scrolls to the top of the page. Adjust positionning by specifying this offset.
+- `allowtransparency, frameborder`: avoid ugly borders and preset background on the iframe
 
 ## Preview
 
@@ -510,13 +514,13 @@ If you need to display an extract / a preview of the content of the portal, say 
 
 The specified iframe attributes:
 
- * `data-oa-preview`: route to the preview endpoint of your portal
- * `data-target-url`: base url where the portal is deployed
- * `data-count`: number of events to show in the preview
- * `data-random-from-set`: randomize selection of `data-count` events to display from a set of `data-random-from-set` events
- * `data-target-iframe`: set this attribute only if the portal is hosted within an iframe on the target page.
- * `data-query`: query to filter events to be displayed in preview widget
- * `allowtransparency, frameborder`: avoid ugly borders and preset background on the iframe
+- `data-oa-preview`: route to the preview endpoint of your portal
+- `data-target-url`: base url where the portal is deployed
+- `data-count`: number of events to show in the preview
+- `data-random-from-set`: randomize selection of `data-count` events to display from a set of `data-random-from-set` events
+- `data-target-iframe`: set this attribute only if the portal is hosted within an iframe on the target page.
+- `data-query`: query to filter events to be displayed in preview widget
+- `allowtransparency, frameborder`: avoid ugly borders and preset background on the iframe
 
 ## Miscellaneous
 
@@ -583,32 +587,31 @@ It is then possible in an event item or page to target the group like this:
       <a href="?oaq[tags][]={{slug}}">{{label}}</span>
     {{/each}}
 
-
 ## Migration
 
 ### From 1.x.x to 2.0.0
 
- * `In server.js`: the Portal call returns an object containing the express app instead of the app itself. Replace `.then( app => ... )` with `.then( ( { app } ) => ... )`
- * `In server.js`: ensure the protocol is specified in dev environment: `http://localhost:3000` instead of `localhost:3000`
- * Timing labels have moved in a 'labels' key. For example, `start.label` becomes `labels.start.time`.
- * 2.0.0 provides a JSON LD for each timing and for each event. Add the following to your event template:
+- `In server.js`: the Portal call returns an object containing the express app instead of the app itself. Replace `.then( app => ... )` with `.then( ( { app } ) => ... )`
+- `In server.js`: ensure the protocol is specified in dev environment: `http://localhost:3000` instead of `localhost:3000`
+- Timing labels have moved in a 'labels' key. For example, `start.label` becomes `labels.start.time`.
+- 2.0.0 provides a JSON LD for each timing and for each event. Add the following to your event template:
 
-    <script type="application/ld+json">
-      {{{event.JSONLD}}}
-    </script>
+   <script type="application/ld+json">
+     {{{event.JSONLD}}}
+   </script>
 
 ## Changelog
 
 2.7.0 - 19/05/2020
 
- * Utilities for formatting events before they are handed to templates
- * Option to use v2 OpenAgenda JSON export
+- Utilities for formatting events before they are handed to templates
+- Option to use v2 OpenAgenda JSON export
 
 ... other stuff.
 
 2.0.0 - 08/07/2019
 
- * eventParser option is now called eventHook
- * added progressive load alternative to list view
- * added rich snippets to event view
- * miscellaneous refactors
+- eventParser option is now called eventHook
+- added progressive load alternative to list view
+- added rich snippets to event view
+- miscellaneous refactors

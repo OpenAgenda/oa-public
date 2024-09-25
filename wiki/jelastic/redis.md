@@ -45,7 +45,7 @@ Puis dans la config nginx du noeud d'admin, rajouter une section serveur pour pr
 
 Utiliser `sudo certbot --nginx` pour créer les certificats
 
-Et mettre en place le proxy et l'authentification client. On se retrouve avec une config serveur qui ressemble à ça: 
+Et mettre en place le proxy et l'authentification client. On se retrouve avec une config serveur qui ressemble à ça:
 
 ```
 server {

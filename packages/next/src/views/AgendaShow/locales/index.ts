@@ -16,8 +16,7 @@ import fetchLocale10 from 'views/AgendaShow/components/locales';
 
 export default async function fetchLocale(locale) {
   return Promise.all([
-    import(`./compiled/${locale}.json`)
-      .then(mod => mod.default),
+    import(`./compiled/${locale}.json`).then((mod) => mod.default),
     fetchLocale0(locale),
     fetchLocale1(locale),
     fetchLocale2(locale),
@@ -30,8 +29,8 @@ export default async function fetchLocale(locale) {
     fetchLocale9(locale),
     fetchLocale10(locale),
   ])
-    .then(results => Object.assign({}, ...results))
-    .catch(e => {
+    .then((results) => Object.assign({}, ...results))
+    .catch((e) => {
       console.error(`API: Failed to fetch locale ${locale}`, e);
       return null;
     });

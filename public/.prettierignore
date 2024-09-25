@@ -1,4 +1,5 @@
 **/.turbo
+.yarn
 
 # packages
 bs-templates

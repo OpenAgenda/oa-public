@@ -34,9 +34,12 @@ export default function EmbedLayout({ children }: LayoutProps) {
   const initPath = useConst(() =>
     (router.query.initPath?.length ? (router.query.initPath as string) : null));
 
-  const initQuery = useConst(() => (initPath ? parseLocationQuery(initPath) : {}));
+  const initQuery = useConst(() =>
+    (initPath ? parseLocationQuery(initPath) : {}));
 
-  const baseUrl = useConst(() => (initPath ? initQuery.baseUrl : router.query.baseUrl) as string);
+  const baseUrl = useConst(
+    () => (initPath ? initQuery.baseUrl : router.query.baseUrl) as string,
+  );
 
   const value = useMemo(
     () => ({

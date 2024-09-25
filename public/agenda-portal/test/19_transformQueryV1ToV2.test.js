@@ -21,9 +21,12 @@ describe('19 - lib/utils - transformQueryV1ToV2', () => {
   });
 
   test('oaq featured filter is maintained', () => {
-    const v2Query = transformQueryV1ToV2({
-      featured: 1,
-    }, { timezone: 'Europe/Paris' });
+    const v2Query = transformQueryV1ToV2(
+      {
+        featured: 1,
+      },
+      { timezone: 'Europe/Paris' },
+    );
 
     expect(v2Query).toEqual({
       featured: 1,

@@ -8,7 +8,7 @@ export OA_PUBLIC_LOCKFILE="yarn.lock"
 ```
 
 > If you want to install both oa and oa-public separately, you must install [`direnv`](https://direnv.net/) and add an `.envrc` with the following content in your `oa-public` repo (outside of oa):
-> 
+>
 > ```bash
 > export OA_PUBLIC_LOCKFILE="yarn.lock-workspace"
 > ```
@@ -40,6 +40,7 @@ git config alias.supdate 'submodule update --remote --merge'
 For more details about git submodules see https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
 > Note: If you use `oh-my-zsh` you can add this line in your `.zshrc`:
+>
 > ```bash
 > export GIT_STATUS_IGNORE_SUBMODULES=none
 > ```
@@ -59,8 +60,8 @@ gss() {
 
 ## Commit Message Guidelines
 
-We have very precise rules over how our git commit messages can be formatted.  This leads to **more
-readable messages** that are easy to follow when looking through the **project history**.  ~~But also,
+We have very precise rules over how our git commit messages can be formatted. This leads to **more
+readable messages** that are easy to follow when looking through the **project history**. ~~But also,
 we use the git commit messages to **generate the change log**~~.
 
 [commitlint](https://github.com/conventional-changelog/commitlint) checks if your commit messages meet the [conventional commit format](https://www.conventionalcommits.org/).
@@ -68,10 +69,10 @@ we use the git commit messages to **generate the change log**~~.
 ## Release workflow
 
 The publication can be summarized in three steps:
+
 - we mark the versions to create during the next release (`yarn version <strategy>`)
 - `yarn release` to prepare and publish everything
 - `git push && git push --tags`
-
 
 For the example we modified mails, which is used by cibul-node.
 Once you've made your commits and you're on a clean branch you will want to create the necessary versions.

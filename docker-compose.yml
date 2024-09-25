@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   nginx:
     container_name: nginx
     image: nginx:1.17
@@ -9,8 +8,7 @@ services:
     ports:
       - 80:80
       - 443:443
-    env_file:
-      .env
+    env_file: .env
     volumes:
       - ./docker/nginx:/tmp/nginx
       - ${ASSETS_PATH}:/static
@@ -185,10 +183,10 @@ services:
     environment:
       - cluster.name=es-docker-cluster
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "http.host=0.0.0.0"
-      - "transport.host=127.0.0.1"
-      - "xpack.security.enabled=false"
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+      - 'http.host=0.0.0.0'
+      - 'transport.host=127.0.0.1'
+      - 'xpack.security.enabled=false'
     ulimits:
       memlock:
         soft: -1

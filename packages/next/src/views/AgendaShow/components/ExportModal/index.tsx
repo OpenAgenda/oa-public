@@ -39,11 +39,7 @@ export default function ExportModal({
           {intl.formatMessage(messages.modalTitle)}
           <ModalCloseButton />
         </ModalHeader>
-        <Body
-          agenda={agenda}
-          onClose={onClose}
-          defaultIndex={defaultIndex}
-        />
+        <Body agenda={agenda} onClose={onClose} defaultIndex={defaultIndex} />
       </ModalContent>
     </Modal>
   );

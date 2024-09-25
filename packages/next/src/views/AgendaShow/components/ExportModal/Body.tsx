@@ -79,11 +79,7 @@ function completeUrls(agendaUid, query) {
   };
 }
 
-export default function Body({
-  agenda,
-  onClose,
-  defaultIndex,
-}) {
+export default function Body({ agenda, onClose, defaultIndex }) {
   const intl = useIntl();
   const query = useLocationQuery();
 

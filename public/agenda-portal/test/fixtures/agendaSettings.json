@@ -19,9 +19,7 @@
       },
       "placeholder": null,
       "write": null,
-      "read": [
-        "moderator"
-      ],
+      "read": ["moderator"],
       "optional": true,
       "display": false,
       "origin": "custom",
@@ -552,9 +550,7 @@
       "display": true,
       "origin": "custom",
       "enableWith": "image",
-      "related": [
-        "image"
-      ],
+      "related": ["image"],
       "min": null,
       "max": null,
       "fieldType": "text",
@@ -728,11 +724,7 @@
     },
     {
       "field": "references",
-      "related": [
-        "type-devenement",
-        "publics-cibles",
-        "location"
-      ],
+      "related": ["type-devenement", "publics-cibles", "location"],
       "fieldType": "abstract",
       "boost": {
         "type-devenement": 50,

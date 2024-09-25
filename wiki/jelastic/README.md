@@ -4,13 +4,13 @@ Je voudrais tester: un cluster db de dev lowcost (peu de cloudlets mini), idem p
 
 Pour avoir une installation complète d'OpenAgenda sur jelastic il faut:
 
- * Le cluster MySQL
- * Un cluster elasticsearch: voir jelastic/elasticsearch.md (variante locale)
- * Un cluster redis
- * Deux environnements pour les serveurs web
- * Un environnement pour les serveurs de tâche
- * Un environnement Traffic Distributor pour la bascule lors des mises en production
- * Un environnement pour l'application de mise en production et les outils d'administration
+- Le cluster MySQL
+- Un cluster elasticsearch: voir jelastic/elasticsearch.md (variante locale)
+- Un cluster redis
+- Deux environnements pour les serveurs web
+- Un environnement pour les serveurs de tâche
+- Un environnement Traffic Distributor pour la bascule lors des mises en production
+- Un environnement pour l'application de mise en production et les outils d'administration
 
 ## Le cluster MySQL
 
@@ -58,9 +58,9 @@ La configuration est détaillée dans `redis.md`
 
 Comportent un serveur http qui reçoit les requêtes et les transfère vers les sous-noeuds qui doivent les traiter. Il y en a 3:
 
- * API: contient les noeuds qui traitent les requêtes API
- * Web: contient les noeuds qui traitent les requêtes non-next (cibul-node)
- * Next: voilà.
+- API: contient les noeuds qui traitent les requêtes API
+- Web: contient les noeuds qui traitent les requêtes non-next (cibul-node)
+- Next: voilà.
 
 Les process node dans chaque sous groupe sont gérés par pm2 en mode cluster. Par défaut, ce sont 4 process qui sont lancés par noeud. Mais selon la charge et le nombre de core de disponibles, il peut être utile d'adapter ce nombre. Les commandes utiles:
 
@@ -73,24 +73,24 @@ Ce n'est à priori pas dramatique s'il y a plus de process que de noeuds. Ce qu'
 
 Cet environnement héberge plusieurs outils d'administration de la plateforme:
 
- * Le script de mise à jour de l'application
- * PHPMyAdmin (sur le même sous groupe)
- * proxy pour P3X (outil de monitoring de cluster redis)
- * pmm2 (monitoring des performances de la base de données)
- * ElasticHQ pour surveiller le cluster elasticsearch
+- Le script de mise à jour de l'application
+- PHPMyAdmin (sur le même sous groupe)
+- proxy pour P3X (outil de monitoring de cluster redis)
+- pmm2 (monitoring des performances de la base de données)
+- ElasticHQ pour surveiller le cluster elasticsearch
 
 ### Mise en production
 
 Les variables d'environnement qui seront chargées sur les noeuds applicatifs sont distribuées dans des fichiers dans le dossier home du noeud de MEP. Elles sont jointes pour générer un fichier de config pour pm2 qui sera installé sur les noeuds web et de tâche:
 
- * `ENV_FILE_PATH`: pointe vers le json listant les variables en commun
- * `LOCAL_ENV_FILE_PATH`: point vers le json des variables particulières
+- `ENV_FILE_PATH`: pointe vers le json listant les variables en commun
+- `LOCAL_ENV_FILE_PATH`: point vers le json des variables particulières
 
 Si la mise en production n'est pas en phase de test, les 3 variables suivantes sont lues par le script et doivent prendre les valeurs suivantes:
 
- * `NODE_ENV`: `production`
- * `CI`: `1`
- * `CDN`: `1`
+- `NODE_ENV`: `production`
+- `CI`: `1`
+- `CDN`: `1`
 
 Pour lancer une mise en prod, il faut `ssh` sur le serveur de mep et lancer la commande `run.sh`. Il y a 2 environnements web, la mise en prod vise l'environnement qui ne reçoit pas de traffic. Leur noms découlent de la manière dont ils sont présenter sur le menu de bascule du distributeur: bleu et orange.
 
