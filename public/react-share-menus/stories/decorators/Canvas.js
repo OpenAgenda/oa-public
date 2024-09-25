@@ -1,9 +1,8 @@
-import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
 import locales from '../../src/locales-compiled';
 
-export default Story => {
+export default (Story) => {
   const lang = 'fr';
 
   return (
@@ -29,7 +28,7 @@ export default Story => {
               <div className="col-sm-7 title-container">
                 <a href="#agendaShow%7B%22slug%22:%22la-gargouille%22%7D">
                   <div className="agenda-title">
-                    <h1>L'agenda de la Gargouille</h1>
+                    <h1>L&apos;agenda de la Gargouille</h1>
                     <div className="agenda-badges">
                       <div className="tooltip-icon big">
                         <i className="fa fa-unlock-alt" />
@@ -42,7 +41,11 @@ export default Story => {
                   <p>Evénements sur Paris</p>
                 </a>
                 <p>
-                  <a target="_blank" href="http://openagenda.com">
+                  <a
+                    target="_blank"
+                    href="http://openagenda.com"
+                    rel="noreferrer"
+                  >
                     http://openagenda.com
                   </a>
                 </p>

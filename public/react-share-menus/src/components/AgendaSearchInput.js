@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { debounce, throttle } from 'lodash';
 import axios from 'axios';
@@ -10,13 +10,13 @@ import {
   reset as resetNav,
   defineParams,
   loadNext as loadNextNav,
-  isStart as isNavStart
+  isStart as isNavStart,
 } from './lib/navState';
 
 const appendNewAgendas = (agendas, newAgendas) => {
   const appended = [...agendas];
-  newAgendas.forEach(n => {
-    if (agendas.some(a => a.uid === n.uid)) {
+  newAgendas.forEach((n) => {
+    if (agendas.some((a) => a.uid === n.uid)) {
       return;
     }
     appended.push(n);
@@ -25,7 +25,7 @@ const appendNewAgendas = (agendas, newAgendas) => {
   return appended;
 };
 
-const AgendaSearchInput = props => {
+const AgendaSearchInput = (props) => {
   const {
     targetAgenda,
     getTitleLink,
@@ -33,7 +33,7 @@ const AgendaSearchInput = props => {
     noAgendas,
     res,
     perPageLimit,
-    filter
+    filter,
   } = props;
 
   const [initialLoad, setInitialLoad] = useState(true);
@@ -65,7 +65,7 @@ const AgendaSearchInput = props => {
   });
 
   const fetchAgendas = useCallback(
-    async navPatch => {
+    async (navPatch) => {
       setLoading(true);
 
       const updatedNav = navPatch ? { ...nav, ...navPatch } : nav;
@@ -78,7 +78,9 @@ const AgendaSearchInput = props => {
         params: defineParams(updatedNav),
       });
 
-      const results = response.data.agendas.filter(agenda => agenda.slug !== targetAgenda.slug);
+      const results = response.data.agendas.filter(
+        (agenda) => agenda.slug !== targetAgenda.slug,
+      );
 
       setLoading(false);
 
@@ -97,13 +99,20 @@ const AgendaSearchInput = props => {
         return setAgendas([]);
       }
 
-      if (isNavStart(updatedNav) && (results.length < nav.perPageLimit) && Array.isArray(res)) {
+      if (
+        isNavStart(updatedNav)
+        && results.length < nav.perPageLimit
+        && Array.isArray(res)
+      ) {
         fetchAgendas(loadNextNav(updatedNav));
       }
 
-      return setAgendas(prevAgendas => (isNavStart(updatedNav) ? results : appendNewAgendas(prevAgendas, results)));
+      return setAgendas((prevAgendas) =>
+        (isNavStart(updatedNav)
+          ? results
+          : appendNewAgendas(prevAgendas, results)));
     },
-    [preFetchAgendas, targetAgenda.slug, noAgendas, nav, res]
+    [preFetchAgendas, targetAgenda.slug, noAgendas, nav, res],
   );
 
   useEffect(() => {
@@ -129,12 +138,12 @@ const AgendaSearchInput = props => {
 
   const handleVisibility = () => visibility;
 
-  const getLabel = str => {
+  const getLabel = (str) => {
     if (str === 'noResult') return '';
     return intl.formatMessage(messages[str]);
   };
 
-  const debouncedSearch = debounce(search => {
+  const debouncedSearch = debounce((search) => {
     fetchAgendas(resetNav({ ...props, search }));
   }, 400);
 
@@ -159,14 +168,14 @@ const AgendaSearchInput = props => {
 export default AgendaSearchInput;
 
 AgendaSearchInput.propTypes = {
-  targetAgenda: PropTypes.shape({ title: PropTypes.string, slug: PropTypes.string }).isRequired,
+  targetAgenda: PropTypes.shape({
+    title: PropTypes.string,
+    slug: PropTypes.string,
+  }).isRequired,
   getTitleLink: PropTypes.func.isRequired,
   preFetchAgendas: PropTypes.bool,
   perPageLimit: PropTypes.number,
-  res: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
-  ]).isRequired,
+  res: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
   noAgendas: PropTypes.func,
   filter: PropTypes.shape({ role: PropTypes.string }),
 };

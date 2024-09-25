@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
@@ -39,7 +39,11 @@ export const ExportLoggedIn = () => {
 
   return (
     <div className="ctas export-container">
-      <button className="btn btn-default export-btn" type="button" onClick={() => setDisplay(true)}>
+      <button
+        className="btn btn-default export-btn"
+        type="button"
+        onClick={() => setDisplay(true)}
+      >
         <i className="fa fa-external-link" />
         <span>&nbsp; Exporter</span>
       </button>
@@ -51,7 +55,7 @@ export const ExportLoggedIn = () => {
             all: urls,
             selection: urls,
             me: '/api/me',
-            agendaExportSettings: '/columns'
+            agendaExportSettings: '/columns',
           }}
           languages={['fr', 'de', 'en', 'es', 'it', 'nl']}
           userLogged
@@ -66,7 +70,11 @@ export const ExportLoggedOut = () => {
 
   return (
     <div className="ctas export-container">
-      <button className="btn btn-default export-btn" type="button" onClick={() => setDisplay(true)}>
+      <button
+        className="btn btn-default export-btn"
+        type="button"
+        onClick={() => setDisplay(true)}
+      >
         <i className="fa fa-external-link" />
         <span>&nbsp; Exporter</span>
       </button>
@@ -77,7 +85,7 @@ export const ExportLoggedOut = () => {
             all: urls,
             selection: urls,
             me: '/api/me',
-            agendaExportSettings: '/columns'
+            agendaExportSettings: '/columns',
           }}
           languages={['fr', 'de', 'en', 'es', 'it', 'nl']}
           userLogged={false}
