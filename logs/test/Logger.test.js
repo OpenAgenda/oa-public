@@ -1,17 +1,16 @@
-"use strict";
+'use strict';
 
-const { createLogger2 } = require('../');
+const { createLogger2 } = require('..');
 
 describe('Logger', () => {
   describe('basic logger', () => {
     it('should works', async () => {
-      const logger = createLogger2('req')
-        .loadMetadata({
-          module: 'home',
-          ip: '1.2.3.4',
-        });
+      const logger = createLogger2('req').loadMetadata({
+        module: 'home',
+        ip: '1.2.3.4',
+      });
 
-      const promise = new Promise(resolve => {
+      const promise = new Promise((resolve) => {
         logger.on('logging', (_logger, level, msg, meta) => {
           resolve({ level, msg, meta });
         });

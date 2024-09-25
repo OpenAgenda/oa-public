@@ -1,13 +1,8 @@
-"use strict";
+'use strict';
 
-const path = require( 'path' );
+const path = require('node:path');
 
-module.exports = {
-  getCallerFile,
-  getModule
-};
-
-function getCallerFile( stackFilePosition = 1 ) {
+function getCallerFile(stackFilePosition = 1) {
   const originalFunc = Error.prepareStackTrace;
   let callerfile;
   let pos = 0;
@@ -16,20 +11,21 @@ function getCallerFile( stackFilePosition = 1 ) {
     const err = new Error();
     let currentfile;
 
-    Error.prepareStackTrace = ( err, stack ) => stack;
+    Error.prepareStackTrace = (err1, stack) => stack;
 
     currentfile = err.stack.shift().getFileName();
 
-    while ( err.stack.length ) {
+    while (err.stack.length) {
       callerfile = err.stack.shift().getFileName();
 
-      if ( currentfile !== callerfile ) {
+      if (currentfile !== callerfile) {
         pos += 1;
         currentfile = callerfile;
-      };
-      if ( stackFilePosition === pos ) break;
+      }
+      if (stackFilePosition === pos) break;
     }
-  } catch ( e ) {
+  } catch (e) {
+    //
   }
 
   Error.prepareStackTrace = originalFunc;
@@ -37,21 +33,27 @@ function getCallerFile( stackFilePosition = 1 ) {
   return callerfile.replace('file://', '');
 }
 
-
-function getModule( dir ) {
-  if ( dir === '/' ) {
-    throw new Error( 'Could not find package.json up from ' + dir );
-  } else if ( !dir || dir === '.' ) {
-    throw new Error( 'Cannot find package.json from unspecified directory' );
+function getModule(dir) {
+  if (dir === '/') {
+    throw new Error(`Could not find package.json up from ${dir}`);
+  } else if (!dir || dir === '.') {
+    throw new Error('Cannot find package.json from unspecified directory');
   }
 
   let contents;
   try {
-    contents = require( dir + '/package.json' );
-  } catch ( error ) {
+    // eslint-disable-next-line global-require,import/no-dynamic-require
+    contents = require(`${dir}/package.json`);
+  } catch (error) {
+    //
   }
 
-  if ( contents ) return dir;
+  if (contents) return dir;
 
-  return getModule( path.dirname( dir ) );
+  return getModule(path.dirname(dir));
+}
+
+module.exports = {
+  getCallerFile,
+  getModule,
 };

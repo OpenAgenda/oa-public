@@ -2,8 +2,8 @@
 
 This logger lib adds some functionality to the base winston library:
 
-* log function generator with namespace initialization
-* value loader to be reprinted at each subsequent log (for example, if the log function is attached to the req object, it is useful to load user data once only and have it reprinted at each following log)
+- log function generator with namespace initialization
+- value loader to be reprinted at each subsequent log (for example, if the log function is attached to the req object, it is useful to load user data once only and have it reprinted at each following log)
 
 ## API
 
@@ -14,19 +14,21 @@ This logger lib adds some functionality to the base winston library:
 Initialization must be done before any call of **basic logger**.
 
 `config`:
-  * namespace: *(string)* namespace for the basic logger
-  * debug:
-    * enable: *(string|false)*
-    * prefix: *(string)* the prefix used before all namespaces for the debug logs (eg: `oa:`)
-  * token: *(string)* aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
-  
- #### `setModuleConfig( config )`
+
+- namespace: _(string)_ namespace for the basic logger
+- debug:
+  - enable: _(string|false)_
+  - prefix: _(string)_ the prefix used before all namespaces for the debug logs (eg: `oa:`)
+- token: _(string)_ aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+
+#### `setModuleConfig( config )`
 
 Can be used as an **init** inside each module to modify the configuration of all the loggers used in this module.
 
 ### Enable debug
 
 You can enable the debug log display with the environment variable `DEBUG`, for example:
+
 ```bash
 DEBUG=service* yarn test
 ```
@@ -36,7 +38,7 @@ DEBUG=service* yarn test
 The basic logger is available by doing:
 
 ```js
-const log = require( 'logs' );
+const log = require('logs');
 ```
 
 ### Namespaced logger
@@ -44,23 +46,24 @@ const log = require( 'logs' );
 A namespaced logger is gettable by doing:
 
 ```js
-const log = require( 'logs' )( 'namespace' );
+const log = require('logs')('namespace');
 
 // or
 
-const log = require( 'logs' )( 'namespace', preloadedData );
+const log = require('logs')('namespace', preloadedData);
 ```
 
 ### Common methods
-*Usable with basic logger and namespaced loggers.*
 
-* `setConfig( config )`: configure the transports of logger with a specific new config, same shape of config as in init
+_Usable with basic logger and namespaced loggers._
 
-* `loadMetadata( data )`: preload metadata
+- `setConfig( config )`: configure the transports of logger with a specific new config, same shape of config as in init
 
-* `clearMetadata()`: clear preloaded metadata
+- `loadMetadata( data )`: preload metadata
 
-* `getTransports()`: get the transports used by logger, can be `{ debug, logentries }`
+- `clearMetadata()`: clear preloaded metadata
+
+- `getTransports()`: get the transports used by logger, can be `{ debug, logentries }`
 
 #### Logging methods
 
@@ -86,25 +89,25 @@ Each level is given a specific integer priority. The higher the priority the mor
 `logger.log( 'warn', 'message %s %j %d', ...placeholderTokens, meta )`  
 `logger.log( 'info', 'message %s %j %d', ...placeholderTokens, meta )`  
 `logger.log( 'verbose', 'message %s %j %d', ...placeholderTokens, meta )`  
-`logger.log( 'debug', 'message %s %j %d', ...placeholderTokens, meta )`  
+`logger.log( 'debug', 'message %s %j %d', ...placeholderTokens, meta )`
 
 The message argument can be omitted for log only metadata.
 
-The message argument is a string containing zero or more *placeholder* tokens. Each placeholder token is replaced with the converted value from the corresponding argument. Supported placeholders are:
+The message argument is a string containing zero or more _placeholder_ tokens. Each placeholder token is replaced with the converted value from the corresponding argument. Supported placeholders are:
 
 %s - String.  
 %d - Number (integer or floating point value).  
 %i - Integer.  
 %f - Floating point value.  
 %j - JSON. Replaced with the string '[Circular]' if the argument contains circular references.  
-%% - single percent sign ('%'). This does not consume an argument.  
+%% - single percent sign ('%'). This does not consume an argument.
 
 If the placeholder does not have a corresponding argument, the placeholder is not replaced.
 
 To log an error you can use one of the following methods:
 
 ```js
-logs( 'error', new Error( 'Une erreur ici !' ) );
+logs('error', new Error('Une erreur ici !'));
 /*
 Error: Une erreur ici !
   at Context.it (/home/bertho/OpenAgenda/logs/test/index.js:133:45)
@@ -121,7 +124,7 @@ Error: Une erreur ici !
   at processImmediate [as _immediateCallback] (timers.js:722:5) +0ms
 */
 
-logs( 'error', 'On a eu une erreur:', new Error( 'Une erreur ici !' ) );
+logs('error', 'On a eu une erreur:', new Error('Une erreur ici !'));
 /*
 On a eu une erreur: Error: Une erreur ici !
   at Context.it (/home/bertho/OpenAgenda/logs/test/index.js:133:45)
@@ -138,7 +141,7 @@ On a eu une erreur: Error: Une erreur ici !
   at processImmediate [as _immediateCallback] (timers.js:722:5) +0ms
 */
 
-logs( 'error', 'On a eu une erreur: %s', new Error( 'Une erreur ici !' ) ); // Logs only message of the error
+logs('error', 'On a eu une erreur: %s', new Error('Une erreur ici !')); // Logs only message of the error
 /*
 On a eu une erreur: Error: Une erreur ici !
 */
