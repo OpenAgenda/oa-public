@@ -14,7 +14,7 @@ function useMemoOne(getResult, inputs, equalityFn = shallowEqual) {
   const isInputMatch = Boolean(
     inputs
       && committed.current.inputs
-      && equalityFn(inputs, committed.current.inputs)
+      && equalityFn(inputs, committed.current.inputs),
   );
   const cache = isInputMatch
     ? committed.current

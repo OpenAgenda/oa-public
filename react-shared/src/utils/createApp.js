@@ -40,9 +40,9 @@ export default function createApp(options) {
       applyMiddleware(
         clientMiddleware(helpers),
         // ... other middlewares ... (like redux-logger)
-        ...(Array.isArray(reduxMiddleware)
+        ...Array.isArray(reduxMiddleware)
           ? reduxMiddleware
-          : [reduxMiddleware])
+          : [reduxMiddleware],
       ),
       typeof window !== 'undefined'
         && process.env.NODE_ENV === 'development'
@@ -50,8 +50,8 @@ export default function createApp(options) {
         ? window.__REDUX_DEVTOOLS_EXTENSION__({
           name: name ? `${name} — ${document.title}` : document.title,
         })
-        : v => v
-    )
+        : (v) => v,
+    ),
   );
 
   const routes = getRoutes(prefix);

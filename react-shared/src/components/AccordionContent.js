@@ -1,5 +1,3 @@
-import React from 'react';
-
 const AccordionContent = ({ content }) => (
   <div className="accordion-content">
     <div className="wrapper">

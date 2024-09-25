@@ -1,4 +1,3 @@
-import React from 'react';
 import { mount } from 'enzyme';
 import { Form, Field } from 'react-final-form';
 import ReactSelectField from '../src/components/ReactSelectField';
@@ -31,7 +30,7 @@ describe('ReactSelectField', () => {
             <ReactSelectField Field={Field} name="type" options={options} />
           </form>
         )}
-      />
+      />,
     );
 
     const selectWrapper = wrapper.find('Select');
@@ -42,7 +41,7 @@ describe('ReactSelectField', () => {
     expect(wrapper.exists('[className$="-singleValue"]')).toBe(true);
     // good value
     expect(wrapper.find('[className$="-singleValue"]').text()).toBe(
-      option.label
+      option.label,
     );
   });
 });

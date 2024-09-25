@@ -10,7 +10,7 @@ $bg: none;
 // Header
 $header-wrapper-bg: none;
 
-$header-item-bg:rgb(255, 255, 255);
+$header-item-bg: rgb(255, 255, 255);
 $header-item-border: 1px solid transparent;
 $header-item-border-radius: 0px;
 
@@ -61,12 +61,12 @@ $preview-bg: transparent;
 // Today
 $today-weight: 500;
 
-$today-color-not-selected:#41acdd;
-$today-color-selected:#fff;
+$today-color-not-selected: #41acdd;
+$today-color-selected: #fff;
 
 $today-content-selected: #fff;
-$today-content: "";
-$today-content-bg:#41acdd;
+$today-content: '';
+$today-content-bg: #41acdd;
 
 // Disabled dates
 $passive-bg: transparent;

@@ -21,12 +21,12 @@ export default function apiClient(baseURL = null, req = null, { legacy } = {}) {
     paramsSerializer: qs.stringify,
   });
 
-  instance.setJwtToken = newToken => {
+  instance.setJwtToken = (newToken) => {
     token = newToken;
   };
 
   instance.interceptors.request.use(
-    conf => {
+    (conf) => {
       if (isServer) {
         const cookieHeader = getHeaderValue(req, 'cookie');
         if (cookieHeader) {
@@ -45,15 +45,16 @@ export default function apiClient(baseURL = null, req = null, { legacy } = {}) {
 
       return conf;
     },
-    error => Promise.reject(error),
+    (error) => Promise.reject(error),
   );
 
   if (legacy) {
     instance.interceptors.response.use(
-      response => response.data,
-      error => Promise.reject(
-        error.response && error.response.data ? error.response.data : error,
-      ),
+      (response) => response.data,
+      (error) =>
+        Promise.reject(
+          error.response && error.response.data ? error.response.data : error,
+        ),
     );
   }
 

@@ -12,9 +12,7 @@ const FILE_TOO_LARGE = 'file-too-large';
 const FILE_TOO_SMALL = 'file-too-small';
 const TOO_MANY_FILES = 'too-many-files';
 
-function FileError({
-  file, errors, minSize, maxSize,
-}) {
+function FileError({ file, errors, minSize, maxSize }) {
   const intl = useIntl();
 
   let errorLabel;
@@ -124,6 +122,16 @@ function ImageInput({
 
   const rootProps = getRootProps();
 
+  const updateLabel = intl.formatMessage({
+    id: 'ReactShared.ImageInput.update',
+    defaultMessage: 'Update the image',
+  });
+
+  const removeLabel = intl.formatMessage({
+    id: 'ReactShared.ImageInput.remove',
+    defaultMessage: 'Remove',
+  });
+
   return (
     <>
       <div
@@ -133,7 +141,7 @@ function ImageInput({
       >
         {label ? <label htmlFor="image">{label}</label> : null}
 
-        {info ? (<div>{info}</div>) : null}
+        {info ? <div>{info}</div> : null}
         <div
           css={css`
             text-align: center;
@@ -156,19 +164,17 @@ function ImageInput({
             <>
               <div
                 css={css`
-              position: absolute;
-              top: 5px;
-              right: 5px;
-            `}
+                  position: absolute;
+                  top: 5px;
+                  right: 5px;
+                `}
               >
                 <button
                   type="button"
                   onClick={rootProps.onClick}
                   className="btn btn-default margin-all-xs"
-                  title={intl.formatMessage({
-                    id: 'ReactShared.ImageInput.update',
-                    defaultMessage: 'Update the image',
-                  })}
+                  title={updateLabel}
+                  aria-label={updateLabel}
                 >
                   <i className="fa fa-upload" />
                 </button>
@@ -178,10 +184,8 @@ function ImageInput({
                   type="button"
                   onClick={onRemove}
                   className="btn btn-danger margin-all-xs"
-                  title={intl.formatMessage({
-                    id: 'ReactShared.ImageInput.remove',
-                    defaultMessage: 'Remove',
-                  })}
+                  title={removeLabel}
+                  aria-label={removeLabel}
                 >
                   <i className="fa fa-trash" />
                 </button>
@@ -249,7 +253,6 @@ function ImageInput({
             </div>
           )}
         </div>
-
       </div>
 
       {extensions?.length ? (
@@ -266,6 +269,7 @@ function ImageInput({
         <div className="margin-top-xs">
           {rejections.map(({ file, errors }, index) => (
             <FileError
+              // eslint-disable-next-line react/no-array-index-key
               key={String(index)}
               file={file}
               errors={errors}

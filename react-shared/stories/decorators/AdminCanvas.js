@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default Story => (
+export default (Story) => (
   <div className="container-fluid top-margined agenda-admin agenda-admin-filters-layout">
     <div className="row">
       <div className="col-md-offset-2 col-md-7 wsq">

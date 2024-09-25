@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from 'redux';
 
-const noopReducer = injectedReducers => injectedReducers;
+const noopReducer = (injectedReducers) => injectedReducers;
 
 function inject(store, getReducers, newReducers) {
   for (const name in newReducers) {
@@ -48,7 +48,7 @@ export default (getReducers, initialState, enhancer) => {
   const store = createStore(rootReducer, initialState, enhancer);
 
   store.injectedReducers = {};
-  store.inject = inject.bind(null, store, injectedReducers => ({
+  store.inject = inject.bind(null, store, (injectedReducers) => ({
     ...noopReducers,
     ...getter(injectedReducers),
   }));

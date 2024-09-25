@@ -1,4 +1,3 @@
-import React from 'react';
 import DateRangePicker from '../src/components/DateRangePicker';
 import SimpleCanvas from './decorators/SimpleCanvas';
 import IntlProvider from './decorators/IntlProvider';
@@ -42,16 +41,20 @@ export const Simple = () => (
             },
           ],
         }}
-        staticRanges={[{
-          isSelected: () => {},
-          label: 'Today',
-        }, {
-          isSelected: () => {},
-          label: 'Tomorrow',
-        }, {
-          isSelected: () => {},
-          label: 'Next month',
-        }]}
+        staticRanges={[
+          {
+            isSelected: () => {},
+            label: 'Today',
+          },
+          {
+            isSelected: () => {},
+            label: 'Tomorrow',
+          },
+          {
+            isSelected: () => {},
+            label: 'Next month',
+          },
+        ]}
       />
     </div>
   </div>

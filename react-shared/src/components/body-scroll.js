@@ -1,7 +1,7 @@
 function parseStyle(style) {
   const parsed = {};
 
-  (style || '').split(';').forEach(part => {
+  (style || '').split(';').forEach((part) => {
     if (!part.length) return;
 
     const [name, value] = part.split(':');
@@ -14,8 +14,8 @@ function parseStyle(style) {
 
 function stringifyStyle(style) {
   return Object.keys(style)
-    .filter(k => style[k]?.length)
-    .map(k => `${k}:${style[k]}`)
+    .filter((k) => style[k]?.length)
+    .map((k) => `${k}:${style[k]}`)
     .join(';');
 }
 

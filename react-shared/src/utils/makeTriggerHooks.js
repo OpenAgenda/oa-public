@@ -2,51 +2,65 @@ import { trigger } from 'redial';
 import asyncMatchRoutes from './asyncMatchRoutes';
 
 function haveHooks(hooks, components) {
-  return hooks.some(hook => components.some(v => v['@@redial-hooks'] && v['@@redial-hooks'][hook]));
+  return hooks.some((hook) =>
+    components.some((v) => v['@@redial-hooks'] && v['@@redial-hooks'][hook]));
 }
 
 export default function makeTriggerHooks({ routes, history, helpers, req }) {
-  return async ({ pathname, hooks = ['inject', 'fetch', 'defer'], onStart, onFinish } = {}) => {
+  return async ({
+    pathname,
+    hooks = ['inject', 'fetch', 'defer'],
+    onStart,
+    onFinish,
+  } = {}) => {
     let notFound = null;
     let isStarted = false;
     let isFinished = false;
 
     // Avoid synchronous onStart -> onFinish
-    const start = () => setTimeout(() => {
-      if (!isStarted && !isFinished) {
-        isStarted = true;
-        onStart();
-      }
-    });
+    const start = () =>
+      setTimeout(() => {
+        if (!isStarted && !isFinished) {
+          isStarted = true;
+          onStart();
+        }
+      });
 
     const { components, match, params } = await asyncMatchRoutes(
       routes,
       pathname || (req ? req.originalUrl : history.location.pathname),
       {
-        skipPreload: result => {
+        skipPreload: (result) => {
           const { components: comps } = result;
 
-          notFound = !result.match.some(v => v.route.component && !v.route.routes);
+          notFound = !result.match.some(
+            (v) => v.route.component && !v.route.routes,
+          );
 
           if (
             typeof onStart === 'function'
             && !notFound // is found
-            && comps.some(v => v.load) // at least one have load fn
+            && comps.some((v) => v.load) // at least one have load fn
             && !comps // not already loaded
-              .filter(v => v.load)
-              .every(v => (typeof v.isReady === 'function' && v.isReady()))
+              .filter((v) => v.load)
+              .every((v) => typeof v.isReady === 'function' && v.isReady())
           ) {
             start();
           }
 
           return notFound;
-        }
-      }
+        },
+      },
     );
 
     const compsHaveHooks = haveHooks(hooks, components);
 
-    if (!notFound && !isStarted && typeof onStart === 'function' && compsHaveHooks) {
+    if (
+      !notFound
+      && !isStarted
+      && typeof onStart === 'function'
+      && compsHaveHooks
+    ) {
       start();
     }
 

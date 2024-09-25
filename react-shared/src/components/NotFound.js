@@ -1,4 +1,3 @@
-import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 
 const NotFound = ({ staticContext, route, location }) => {
@@ -18,12 +17,13 @@ const NotFound = ({ staticContext, route, location }) => {
   return <Redirect to={{ state: newLocationState }} />;
 };
 
-NotFound.Capture = withRouter(({ children, location, notFoundKey }) => (location
+NotFound.Capture = withRouter(({ children, location, notFoundKey }) =>
+  (location
   && location.state
   && location.state.notFound
   && location.state.notFound[notFoundKey]
-  ? null
-  : children));
+    ? null
+    : children));
 
 NotFound.isNotFound = true;
 

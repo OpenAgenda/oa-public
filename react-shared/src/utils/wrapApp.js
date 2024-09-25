@@ -1,4 +1,3 @@
-import React from 'react';
 import { Router, StaticRouter } from 'react-router-dom';
 import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED as LoadableSecret } from '@loadable/component';
 import { LayoutDataContext } from '../contexts';
@@ -9,13 +8,7 @@ const { Context: LoadableContext } = LoadableSecret;
 
 export default function wrapApp(app, options = {}) {
   const { Content, history, triggerHooks } = app;
-  const {
-    req,
-    staticContext,
-    extractor,
-    extraProps,
-    disableScrollToTop,
-  } = options;
+  const { req, staticContext, extractor, extraProps, disableScrollToTop } = options;
 
   let baseElement = (
     <RouterTrigger trigger={triggerHooks}>

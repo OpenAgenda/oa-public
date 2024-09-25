@@ -2,7 +2,7 @@ import { useCallback, useMemo, useRef } from 'react';
 import ReactSelectInput from './ReactSelectInput';
 import { hasNewValues, appendNewValues } from './lib/selectUtils';
 
-const getValue = arg => arg?.value ?? arg;
+const getValue = (arg) => arg?.value ?? arg;
 
 function WrappedReactSelectInput({ defaultOption, ...props }) {
   const { value } = props.input;
@@ -61,19 +61,19 @@ function ReactSelectField({
   );
 
   const format = useCallback(
-    selectedOption => {
+    (selectedOption) => {
       if ([undefined, null, ''].includes(selectedOption)) {
         return null;
       }
 
       return Array.isArray(selectedOption)
-        ? selectedOption.map(v => findOption(v))
+        ? selectedOption.map((v) => findOption(v))
         : findOption(selectedOption);
     },
     [findOption],
   );
 
-  const parse = useCallback(value => {
+  const parse = useCallback((value) => {
     if (value === '') {
       return undefined;
     }
@@ -125,7 +125,7 @@ function ReactSelectField({
     [onBlur, isCreatable, separator],
   );
   const isValidNewOption = useCallback(
-    value => ![undefined, null, ''].includes(value),
+    (value) => ![undefined, null, ''].includes(value),
     [],
   );
 
