@@ -4,16 +4,16 @@ This app allows the generation of a Microsoft word docx document listing the eve
 
 It provides the following functionality:
 
- * Front app for configuring and launching new jobs
- * Backend app for processing a job queue
+- Front app for configuring and launching new jobs
+- Backend app for processing a job queue
 
 # Getting started
 
 Requirements:
 
- * nodejs
- * An amazon bucket
- * An available redis implementation
+- nodejs
+- An amazon bucket
+- An available redis implementation
 
 Install the things:
 
@@ -53,7 +53,6 @@ Alternatively, a basic cli tool can be used to run a docx generation from a term
 
     yarn cli
 
-
 # Bits and pieces
 
 This repo implements every functionality required to have a working docx generation mechanism
@@ -63,7 +62,7 @@ This repo implements every functionality required to have a working docx generat
             v
       Express app -> [ redis queue ] -> block pop task
             |                                |
-         updates                           updates,  
+         updates                           updates,
             |                                |   generates docx,
             |                                |        uploads docx on s3
             --->state of docx export         |                |
@@ -71,6 +70,6 @@ This repo implements every functionality required to have a working docx generat
 
 Here are the different parts:
 
- * **UI Component**: Allows users to see the state of the export, download a file when available, and queue requests to generate updated exports
- * **Express app**: Provides all endpoints required to interface with the UI. It enqueues any new request to generate a new export on a redis queue.
- * **Task**: Monitors the queue using a blocking pop. Processes docx generation request and uploads resulting documents on S3
+- **UI Component**: Allows users to see the state of the export, download a file when available, and queue requests to generate updated exports
+- **Express app**: Provides all endpoints required to interface with the UI. It enqueues any new request to generate a new export on a redis queue.
+- **Task**: Monitors the queue using a blocking pop. Processes docx generation request and uploads resulting documents on S3

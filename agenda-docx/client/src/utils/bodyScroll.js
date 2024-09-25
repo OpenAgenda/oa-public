@@ -2,15 +2,15 @@ import * as du from './dom';
 
 function _stringifyStyle(style) {
   return Object.keys(style)
-    .filter(k => !!k.length)
-    .map(k => `${k}:${style[k]}`)
+    .filter((k) => !!k.length)
+    .map((k) => `${k}:${style[k]}`)
     .join(';');
 }
 
 function _parseStyle(style) {
   const parsed = {};
 
-  (style || '').split(';').forEach(part => {
+  (style || '').split(';').forEach((part) => {
     if (!part.length) return;
 
     const [key, value] = part.split('=');

@@ -1,7 +1,7 @@
 'use strict';
 
-const fs = require('fs');
-const { promisify } = require('util');
+const fs = require('node:fs');
+const { promisify } = require('node:util');
 const _ = require('lodash');
 const Docxtemplater = require('docxtemplater');
 const PizZip = require('pizzip');
@@ -45,13 +45,14 @@ module.exports = async ({
 
   const { title, description, url } = await loadAgendaDetails(agendaUid);
 
-  const content = templateContent || (await readFile(templatePath, 'binary'));
+  const content = templateContent || await readFile(templatePath, 'binary');
 
   const doc = new Docxtemplater();
 
   doc.loadZip(new PizZip(content));
 
-  let formattedEvents = events.map(e => formatEvent(e, { lang: language, from: query.from, to: query.to }));
+  let formattedEvents = events.map((e) =>
+    formatEvent(e, { lang: language, from: query.from, to: query.to }));
   let reduced = reduceByDeep(formattedEvents, reducer);
 
   // fs.writeFileSync(
@@ -76,10 +77,10 @@ module.exports = async ({
   expressions.filters.join = (input, delimiter) => input.join(delimiter);
   expressions.filters.map = (input, propName) => _.map(input, propName);
   expressions.filters.sortBy = (input, keys) => sortBy(input, keys);
-  expressions.filters.removeMd = input => removeMd(input);
-  expressions.filters.upperFirst = input => _.upperFirst(input);
+  expressions.filters.removeMd = (input) => removeMd(input);
+  expressions.filters.upperFirst = (input) => _.upperFirst(input);
 
-  const parser = tag => ({
+  const parser = (tag) => ({
     get(scope, context) {
       if (tag === '.') {
         return scope;

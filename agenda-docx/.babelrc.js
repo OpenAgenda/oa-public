@@ -5,9 +5,9 @@ module.exports = {
     [
       require.resolve('@openagenda/babel-preset'),
       {
-        modules: 'commonjs'
-      }
-    ]
+        modules: 'commonjs',
+      },
+    ],
   ],
-  sourceType: 'unambiguous'
+  sourceType: 'unambiguous',
 };

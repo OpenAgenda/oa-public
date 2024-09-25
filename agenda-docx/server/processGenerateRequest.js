@@ -1,17 +1,16 @@
 'use strict';
 
 const _ = require('lodash');
+const log = require('@openagenda/logs')('processGenerateRequest');
 const cleanString = require('./lib/cleanString');
 const agendaFiles = require('./lib/agendaFiles');
 const defaultState = require('./defaultState');
 const generateDocument = require('./generateDocument');
 
-const log = require('@openagenda/logs')('processGenerateRequest');
-
-module.exports = async function processGenerateRequest({
-  s3,
-  localTmpPath,
-}, data) {
+module.exports = async function processGenerateRequest(
+  { s3, localTmpPath },
+  data,
+) {
   const files = agendaFiles({
     s3,
     bucket: s3.bucket,
@@ -20,7 +19,7 @@ module.exports = async function processGenerateRequest({
 
   const state = await files.getJSON('state.json', defaultState);
   const template = (state.templates || []).find(
-    v => v.name === data.templateName,
+    (v) => v.name === data.templateName,
   );
   const templatePath = template ? template.path : 'template.docx';
 

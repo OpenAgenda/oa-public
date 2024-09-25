@@ -5,7 +5,14 @@ const moment = require('moment-timezone');
 const countries = require('./countries');
 
 const charsToClean = [
-  1, 2, 3, 4, 5, 6, 7, 8,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
   11, // VT
   12, // form feed - https://www.compart.com/en/unicode/U+000C
   15, // shift in
@@ -22,10 +29,10 @@ const charsToClean = [
   8232,
   8233,
   769, // U+0301
-].map(c => String.fromCharCode(c));
+].map((c) => String.fromCharCode(c));
 
 function _accessibility(acc, lang) {
-  return acc.map(a => ({
+  return acc.map((a) => ({
     label: {
       hi: {
         en: 'Hearing impairment',
@@ -60,8 +67,9 @@ function _customData(event) {
   if (!event.tagGroups) return null;
 
   return event.tagGroups.reduce(
-    (reduced, g) => _.set(reduced, g.slug, g.tags.map(t => t.label).join(', ')),
-    {}
+    (reduced, g) =>
+      _.set(reduced, g.slug, g.tags.map((t) => t.label).join(', ')),
+    {},
   );
 }
 
@@ -77,13 +85,13 @@ function _countryLabel(code, lang) {
 }
 
 function _singleLanguage(fields, language, event) {
-  fields.forEach(field => {
+  fields.forEach((field) => {
     const defaultLang = _.first(_.keys(_.get(event, field)));
 
     const value = _.get(
       event,
       `${field}.${language}`,
-      _.get(event, `${field}.${defaultLang}`, null)
+      _.get(event, `${field}.${defaultLang}`, null),
     );
 
     _.set(event, field, value);
@@ -97,7 +105,7 @@ function _formattedDates(timings, timezone, { from, to, lang = 'fr' } = {}) {
   const toDate = to ? moment(to) : to;
 
   return timings
-    .map(timing => {
+    .map((timing) => {
       const begin = moment.tz(timing.start, timezone).locale(lang);
       const end = moment.tz(timing.end, timezone).locale(lang);
 
@@ -112,7 +120,7 @@ function _formattedDates(timings, timezone, { from, to, lang = 'fr' } = {}) {
 
       return timing;
     })
-    .filter(timing => {
+    .filter((timing) => {
       const start = moment.tz(timing.start, timezone);
       const end = moment.tz(timing.end, timezone);
 
@@ -127,7 +135,7 @@ function _formattedDates(timings, timezone, { from, to, lang = 'fr' } = {}) {
       return true;
     })
     .reduce((dates, timing) => {
-      let dateIndex = dates.findIndex(d => d.date === timing.date);
+      let dateIndex = dates.findIndex((d) => d.date === timing.date);
 
       if (dateIndex === -1) {
         dates.push(_.pick(timing, ['date', 'day', 'weekday', 'year']));
@@ -136,7 +144,7 @@ function _formattedDates(timings, timezone, { from, to, lang = 'fr' } = {}) {
       }
 
       dates[dateIndex].timings.push(
-        _.omit(timing, ['date', 'day', 'weekday', 'year'])
+        _.omit(timing, ['date', 'day', 'weekday', 'year']),
       );
 
       return dates;
@@ -146,7 +154,9 @@ function _formattedDates(timings, timezone, { from, to, lang = 'fr' } = {}) {
 function _passedFlag(timings, timezone) {
   const now = moment.tz(timezone);
 
-  return timings.every(timing => moment.tz(timing.end, timezone).diff(now) < 0);
+  return timings.every(
+    (timing) => moment.tz(timing.end, timezone).diff(now) < 0,
+  );
 }
 
 function _closestDiffWithNow(timings, passed, timezone) {
@@ -155,17 +165,17 @@ function _closestDiffWithNow(timings, passed, timezone) {
   if (passed) {
     return Math.abs(
       timings
-        .map(timing => moment.tz(timing.end, timezone).diff(now))
+        .map((timing) => moment.tz(timing.end, timezone).diff(now))
         .sort((a, b) => a - b)
-        .pop()
+        .pop(),
     );
   }
 
   const diffs = timings
-    .map(timing => moment.tz(timing.start, timezone).diff(now))
+    .map((timing) => moment.tz(timing.start, timezone).diff(now))
     .sort((a, b) => a - b);
 
-  const firstNext = diffs.find(v => v >= 0);
+  const firstNext = diffs.find((v) => v >= 0);
 
   return firstNext || diffs.shift();
 }
@@ -176,29 +186,34 @@ function cleanString(str) {
 }
 
 function cleanStrings(obj) {
-  return Object.keys(obj).reduce((carry, key) => ({
-    ...carry,
-    [key]: cleanString(obj[key]),
-  }), {});
+  return Object.keys(obj).reduce(
+    (carry, key) => ({
+      ...carry,
+      [key]: cleanString(obj[key]),
+    }),
+    {},
+  );
 }
 
 module.exports = (event, options) => {
   const { from, to, lang } = _.merge({ lang: 'fr' }, options);
 
-  const flattened = cleanStrings(_singleLanguage(
-    [
-      'title',
-      'description',
-      'longDescription',
-      'html',
-      'range',
-      'conditions',
-      'location.description',
-      'location.access',
-    ],
-    lang,
-    event,
-  ));
+  const flattened = cleanStrings(
+    _singleLanguage(
+      [
+        'title',
+        'description',
+        'longDescription',
+        'html',
+        'range',
+        'conditions',
+        'location.description',
+        'location.access',
+      ],
+      lang,
+      event,
+    ),
+  );
 
   const timezone = _.get(event, 'timezone', 'Europe/Paris');
   const passed = _passedFlag(flattened.timings, timezone);
@@ -212,15 +227,16 @@ module.exports = (event, options) => {
     location: _.set(
       flattened.location,
       'country',
-      _countryLabel(_.get(event, 'location.countryCode', null), lang)
+      _countryLabel(_.get(event, 'location.countryCode', null), lang),
     ),
     hasAccessibility: !!event.accessibility.length,
   });
 
-  const thematiqueSlug = event.custom && Object.keys(event.custom).find(v => v.startsWith('thematique-'));
+  const thematiqueSlug = event.custom
+    && Object.keys(event.custom).find((v) => v.startsWith('thematique-'));
 
   if (thematiqueSlug) {
-    const tagGroup = event.tagGroups.find(v => v.slug === thematiqueSlug);
+    const tagGroup = event.tagGroups.find((v) => v.slug === thematiqueSlug);
 
     flattened.thematiqueGroup = tagGroup.name;
     flattened.thematiqueValue = tagGroup.tags[0].label;

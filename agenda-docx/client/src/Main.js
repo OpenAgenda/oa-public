@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import DocxExportModal from '../build/ExportModal';
+import { Component } from 'react';
 import flattenLabels from './utils/flattenLabels';
 import ExportModal from './ExportModal';
 
@@ -27,10 +26,8 @@ export default class Main extends Component {
         fr: "Aucun fichier n'est encore disponible au téléchargement",
       },
       queued: {
-        en:
-          'Your request has been queued and your file will be available shortly. Please check this menu again in a short while',
-        fr:
-          'Votre demande est en cours de traitement. Rechargez ce menu dans quelques instants.',
+        en: 'Your request has been queued and your file will be available shortly. Please check this menu again in a short while',
+        fr: 'Votre demande est en cours de traitement. Rechargez ce menu dans quelques instants.',
       },
       launch: {
         en: 'Generate a new word file',
@@ -41,10 +38,8 @@ export default class Main extends Component {
         fr: 'Générez un nouveau fichier word à partir du gabarit :',
       },
       downloadInfo: {
-        en:
-          'Update the table of content the first time you open the file with a right click on the table of content segment followed with a click on "Update"',
-        fr:
-          'Mettez à jour le sommaire lors de la première ouverture du fichier en cliquant-droit dessus puis en selectionnant "Mettre à jour l\'index"',
+        en: 'Update the table of content the first time you open the file with a right click on the table of content segment followed with a click on "Update"',
+        fr: 'Mettez à jour le sommaire lors de la première ouverture du fichier en cliquant-droit dessus puis en selectionnant "Mettre à jour l\'index"',
       },
       or: {
         en: 'Or',

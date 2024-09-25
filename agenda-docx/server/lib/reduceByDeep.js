@@ -29,10 +29,10 @@ function reduceByDeep(items, deepReduceByOptions = []) {
     return reducedItems;
   }
 
-  return reducedItems.map(item => {
+  return reducedItems.map((item) => {
     item[reduceByOptions.childrenKey] = reduceByDeep(
       item[reduceByOptions.childrenKey],
-      remainingOptions
+      remainingOptions,
     );
 
     return item;

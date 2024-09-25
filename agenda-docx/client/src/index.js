@@ -1,8 +1,7 @@
-import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Main from './Main';
 
-if (module.hot) module.hot.accept();
+// if (import.meta.webpackHot) import.meta.webpackHot.accept();
 
 const anchor = document.getElementsByClassName('js_oa_docx_anchor')[0];
 
@@ -13,4 +12,4 @@ const props = {
   res: anchor.getAttribute('data-res') || '#res',
 };
 
-render(<Main {...props} />, anchor);
+createRoot(anchor).render(<Main {...props} />);
