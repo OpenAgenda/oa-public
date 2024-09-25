@@ -7,13 +7,18 @@ export default function cityPositioning(doc, cursor, event, options = {}) {
   let cityHeight = 0;
 
   if (event.location?.city) {
-    const { width: cityWidth, height } = addText(doc, cursor, cleanString(event.location.city), {
-      width: columnMaxWidth,
-      fontSize,
-      base,
-      underline: false,
-      simulate,
-    });
+    const { width: cityWidth, height } = addText(
+      doc,
+      cursor,
+      cleanString(event.location.city),
+      {
+        width: columnMaxWidth,
+        fontSize,
+        base,
+        underline: false,
+        simulate,
+      },
+    );
     cursor.x += cityWidth;
     cityHeight = height;
   }

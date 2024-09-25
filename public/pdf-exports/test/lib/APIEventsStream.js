@@ -46,16 +46,29 @@ export default class APIEventsStream extends Readable {
 
     this.requestInProgress = true;
 
-    const url = [API.replace('{agendaUID}', this.agendaUID).replace('{APIKey}', this.APIKey)]
-      .concat(this.after ? `&${qs.stringify({ ...this.query, after: this.after })}` : [])
-      .concat(!this.after && Object.keys(this.query).length ? `&${qs.stringify(this.query)}` : [])
+    const url = [
+      API.replace('{agendaUID}', this.agendaUID).replace(
+        '{APIKey}',
+        this.APIKey,
+      ),
+    ]
+      .concat(
+        this.after
+          ? `&${qs.stringify({ ...this.query, after: this.after })}`
+          : [],
+      )
+      .concat(
+        !this.after && Object.keys(this.query).length
+          ? `&${qs.stringify(this.query)}`
+          : [],
+      )
       .join('');
 
     https
-      .get(url, response => {
+      .get(url, (response) => {
         let rawData = '';
         response.setEncoding('utf8');
-        response.on('data', chunk => {
+        response.on('data', (chunk) => {
           rawData += chunk;
         });
         response.on('end', () => {
@@ -69,7 +82,7 @@ export default class APIEventsStream extends Readable {
               return;
             }
 
-            this.after = newAfter.map(a => `${a}`);
+            this.after = newAfter.map((a) => `${a}`);
             this.buffer = events;
             this.requestInProgress = false;
 
@@ -80,7 +93,7 @@ export default class APIEventsStream extends Readable {
           }
         });
       })
-      .on('error', error => {
+      .on('error', (error) => {
         this.emit('error', error);
         this.requestInProgress = false;
       });

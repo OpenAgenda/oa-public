@@ -1,5 +1,3 @@
 module.exports = {
-  presets: [
-    '@openagenda/babel-preset',
-  ],
+  presets: ['@openagenda/babel-preset'],
 };
