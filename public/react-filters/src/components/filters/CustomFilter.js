@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
 import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
 import matchQuery from '../../utils/matchQuery';
@@ -25,7 +20,7 @@ function Preview({
   const form = useForm();
 
   const onRemove = useCallback(
-    e => {
+    (e) => {
       e.stopPropagation();
 
       if (disabled) {
@@ -61,16 +56,22 @@ function CustomFilter({ filter }) {
   const form = useForm();
   const firstRender = useRef(true);
 
-  const updateForm = useCallback(e => {
-    e.preventDefault();
-    e.stopPropagation();
+  const updateForm = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    const query = form.getState().values;
+      const query = form.getState().values;
 
-    updateFormValues(form, filter.query, !matchQuery(query, filter.query));
-  }, [filter.query, form]);
+      updateFormValues(form, filter.query, !matchQuery(query, filter.query));
+    },
+    [filter.query, form],
+  );
 
-  const onChange = useMemo(() => a11yButtonActionHandler(updateForm), [updateForm]);
+  const onChange = useMemo(
+    () => a11yButtonActionHandler(updateForm),
+    [updateForm],
+  );
 
   useEffect(() => {
     if (firstRender.current) {
@@ -83,23 +84,32 @@ function CustomFilter({ filter }) {
       for (const key in filter.query) {
         if (Object.prototype.hasOwnProperty.call(filter.query, key)) {
           if (!registeredFields.includes(key)) {
-            form.registerField(key, () => {
-            }, { value: true }, {
-              initialValue: matchInitialQuery ? filter.query[key] : undefined,
-            });
+            form.registerField(
+              key,
+              () => {},
+              { value: true },
+              {
+                initialValue: matchInitialQuery ? filter.query[key] : undefined,
+              },
+            );
           }
         }
       }
     }
 
     const handlerElem = filter.handlerElem || filter.elem;
-    const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
+    const innerCheckboxes = handlerElem.querySelectorAll(
+      'input[type="checkbox"]',
+    );
 
     const handlerIsLabelWithCheckbox = innerCheckboxes.length === 1
       && handlerElem.tagName === 'LABEL'
       && handlerElem.contains(innerCheckboxes[0]);
 
-    if (innerCheckboxes.length === 1 && (!filter.handlerElem || handlerIsLabelWithCheckbox)) {
+    if (
+      innerCheckboxes.length === 1
+      && (!filter.handlerElem || handlerIsLabelWithCheckbox)
+    ) {
       innerCheckboxes[0].addEventListener('change', updateForm, false);
     } else {
       handlerElem.addEventListener('click', onChange, false);
@@ -108,12 +118,16 @@ function CustomFilter({ filter }) {
     handlerElem.addEventListener('keydown', onChange, false);
 
     const unsubscribe = form.subscribe(
-      ({ values }) => updateCustomFilter(filter, matchQuery(values, filter.query)),
+      ({ values }) =>
+        updateCustomFilter(filter, matchQuery(values, filter.query)),
       { values: true },
     );
 
     return () => {
-      if (innerCheckboxes.length === 1 && (!filter.handlerElem || handlerIsLabelWithCheckbox)) {
+      if (
+        innerCheckboxes.length === 1
+        && (!filter.handlerElem || handlerIsLabelWithCheckbox)
+      ) {
         innerCheckboxes[0].removeEventListener('change', updateForm, false);
       } else {
         handlerElem.removeEventListener('click', onChange, false);

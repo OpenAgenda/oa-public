@@ -7,7 +7,7 @@ import FilterPreviewer from '../FilterPreviewer';
 
 const subscription = { value: true };
 
-const isDefined = v => ![undefined, null, ''].includes(v);
+const isDefined = (v) => ![undefined, null, ''].includes(v);
 
 function formatPreviewLabel(value) {
   if (!isDefined(value.gte) && isDefined(value.lte)) {
@@ -43,7 +43,7 @@ function Preview({ name, component = FilterPreviewer, disabled, ...rest }) {
   const { input } = useField(name, { subscription });
 
   const onRemove = useCallback(
-    e => {
+    (e) => {
       e.stopPropagation();
 
       if (disabled) {

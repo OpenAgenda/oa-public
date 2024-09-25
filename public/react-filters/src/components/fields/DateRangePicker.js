@@ -31,7 +31,7 @@ function normalizeValue(value) {
     return value;
   }
 
-  return value.map(v => ({
+  return value.map((v) => ({
     startDate: isDate(v.startDate) ? v.startDate.getTime() : v.startDate,
     endDate: isDate(v.endDate) ? v.endDate.getTime() : v.endDate,
     key: v.key,
@@ -93,7 +93,7 @@ function DateRangePicker(
 
   // Update state for re-calculate rdrNoSelection
   const onSelectPreviewChange = useCallback(
-    value => {
+    (value) => {
       const dateRange = dateRangeRef.current;
 
       setDragStatus(dateRangeRef.current?.calendar.state.drag.status);
@@ -103,7 +103,7 @@ function DateRangePicker(
   );
 
   const onDefinedPreviewChange = useCallback(
-    value => {
+    (value) => {
       const dateRange = dateRangeRef.current;
 
       return dateRange.updatePreview(
@@ -116,7 +116,7 @@ function DateRangePicker(
   );
 
   const onTemporaryChange = useCallback(
-    item => {
+    (item) => {
       const value = [item?.selection ? item.selection : item.range1];
 
       setRanges(value);
@@ -140,7 +140,7 @@ function DateRangePicker(
   );
 
   const onDefinedRangeChange = useCallback(
-    item => {
+    (item) => {
       const value = [item?.selection ? item.selection : item.range1];
 
       setRanges(value);

@@ -57,7 +57,7 @@ function NumberRangeField({ input }, _ref) {
           className="form-control"
           id={`number-range-${input.name}-gte`}
           placeholder={m(messages.min)}
-          onChange={e => onInputChange('gte', e.target.value)}
+          onChange={(e) => onInputChange('gte', e.target.value)}
         />
       </div>
       <div className="form-group col-xs-6">
@@ -70,7 +70,7 @@ function NumberRangeField({ input }, _ref) {
           className="form-control"
           id={`number-range-${input.name}-lte`}
           placeholder={m(messages.max)}
-          onChange={e => onInputChange('lte', e.target.value)}
+          onChange={(e) => onInputChange('lte', e.target.value)}
         />
       </div>
     </div>

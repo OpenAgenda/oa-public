@@ -385,7 +385,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       },
     });
 
-  // additional number field
+    // additional number field
   } else if (['number', 'integer'].includes(fieldSchema?.fieldType)) {
     defaults(filter, {
       type: 'numberRange',
@@ -394,13 +394,13 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       aggregation: null,
     });
 
-  // additional optioned field
+    // additional optioned field
   } else if (fieldSchema) {
     defaults(filter, {
       name: fieldSchema.field,
       type: 'choice',
       fieldSchema,
-      options: fieldSchema.options.map(option => ({
+      options: fieldSchema.options.map((option) => ({
         ...option,
         label: getLocaleValue(option.label, intl.locale),
         value: String(option.id),
