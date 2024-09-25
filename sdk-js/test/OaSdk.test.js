@@ -57,7 +57,7 @@ describe('refresh expired token', () => {
 
     expect(spy.callCount).toBe(1);
 
-    clock.tick((oa.expiresIn * 1000) + 1);
+    clock.tick(oa.expiresIn * 1000 + 1);
 
     await oa.refreshToken();
 

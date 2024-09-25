@@ -43,19 +43,23 @@ describe('locations', () => {
     ).rejects.toMatchObject({
       response: {
         data: {
-          errors: [{
-            code: 'required',
-            field: 'countryCode',
-            message: 'a string is required',
-          }, {
-            code: 'latitude.invalid',
-            field: 'latitude',
-            message: 'not a number',
-          }, {
-            code: 'longitude.invalid',
-            field: 'longitude',
-            message: 'not a number',
-          }],
+          errors: [
+            {
+              code: 'required',
+              field: 'countryCode',
+              message: 'a string is required',
+            },
+            {
+              code: 'latitude.invalid',
+              field: 'latitude',
+              message: 'not a number',
+            },
+            {
+              code: 'longitude.invalid',
+              field: 'longitude',
+              message: 'not a number',
+            },
+          ],
         },
       },
     });
@@ -68,7 +72,10 @@ describe('locations', () => {
       countryCode: 'fr',
     });
 
-    const location = await oa.locations.get(testconfig.agendaUid, createdLocation.uid);
+    const location = await oa.locations.get(
+      testconfig.agendaUid,
+      createdLocation.uid,
+    );
 
     expect(parseInt(location.uid, 10)).toBe(createdLocation.uid);
   });
@@ -80,11 +87,7 @@ describe('locations', () => {
       countryCode: 'fr',
     });
 
-    const {
-      total,
-      locations,
-      after,
-    } = await oa.locations.list(
+    const { total, locations, after } = await oa.locations.list(
       testconfig.agendaUid,
       { size: 1, sort: 'updatedAt.desc' },
     );

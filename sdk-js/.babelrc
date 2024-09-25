@@ -1,5 +1,3 @@
 {
-  "presets": [
-    "@openagenda"
-  ]
+  "presets": ["@openagenda"]
 }

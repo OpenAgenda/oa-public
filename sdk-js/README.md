@@ -44,7 +44,7 @@ const OaSdk = require('@openagenda/sdk-js');
 
 const oa = new OaSdk({
   publicKey: 'YOUR-PUBLIC-KEY',
-  secretKey: 'YOUR-PRIVATE-KEY'
+  secretKey: 'YOUR-PRIVATE-KEY',
 });
 await oa.connect();
 ```
@@ -85,22 +85,23 @@ const event = await oa.events.create(agendaUid, {
   slug: 'a-title',
   title: {
     fr: 'Un titre',
-    en: 'A title'
+    en: 'A title',
   },
   description: {
     fr: 'La description de votre événement',
-    en: 'The description of your event'
+    en: 'The description of your event',
   },
   locationUid: 78372099,
   timings: [
     {
       begin: moment(),
-      end: moment().add(1, 'hour')
-    }, {
+      end: moment().add(1, 'hour'),
+    },
+    {
       begin: moment().add(1, 'day'),
-      end: moment().add(1, 'day').add(1, 'hour')
-    }
-  ]
+      end: moment().add(1, 'day').add(1, 'hour'),
+    },
+  ],
 });
 ```
 
@@ -113,17 +114,13 @@ object.
 const agendaUid = 12345678;
 const eventUid = 87654321;
 
-const updatedEvent = await oa.events.update(
-  agendaUid,
-  eventUid,
-  {
-    ...event,
-    title: {
-      fr: 'Titre mise à jour',
-      en: 'Updated title'
-    }
-  }
-);
+const updatedEvent = await oa.events.update(agendaUid, eventUid, {
+  ...event,
+  title: {
+    fr: 'Titre mise à jour',
+    en: 'Updated title',
+  },
+});
 ```
 
 <h4 id="events-patch">patch</h4>
@@ -132,16 +129,12 @@ const updatedEvent = await oa.events.update(
 const agendaUid = 12345678;
 const eventUid = 87654321;
 
-const patchedEvent = await oa.events.patch(
-  agendaUid,
-  eventUid,
-  {
-    title: {
-      fr: 'Titre mise à jour',
-      en: 'Updated title'
-    }
-  }
-);
+const patchedEvent = await oa.events.patch(agendaUid, eventUid, {
+  title: {
+    fr: 'Titre mise à jour',
+    en: 'Updated title',
+  },
+});
 ```
 
 <h4 id="events-delete">delete</h4>
@@ -181,7 +174,7 @@ const location = await oa.locations.create(agendaUid, {
   name: 'Gare Meuse TGV',
   address: 'Lieu dit Le Cugnet, 55220 Les Trois-Domaines',
   latitude: 48.9736458,
-  longitude: 5.2723537
+  longitude: 5.2723537,
 });
 ```
 
@@ -193,7 +186,7 @@ const locationUid = 87654321;
 
 const location = await oa.locations.update(agendaUid, locationUid, {
   ...location,
-  address: 'Lieu dit Le Cugnet, 55220 Les Trois-Domaines'
+  address: 'Lieu dit Le Cugnet, 55220 Les Trois-Domaines',
 });
 ```
 
@@ -232,18 +225,19 @@ try {
     slug: 'a-title',
     description: {
       fr: 'La description de votre événement',
-      en: 'The description of your event'
+      en: 'The description of your event',
     },
     locationUid: 87654321,
     timings: [
       {
         begin: moment(),
-        end: moment().add(1, 'hour')
-      }, {
+        end: moment().add(1, 'hour'),
+      },
+      {
         begin: moment().add(1, 'day'),
-        end: moment().add(1, 'day').add(1, 'hour')
-      }
-    ]
+        end: moment().add(1, 'day').add(1, 'hour'),
+      },
+    ],
   });
 } catch (e) {
   expect(e.response.data).to.be.eql({
@@ -251,9 +245,9 @@ try {
       {
         field: 'title',
         code: 'required',
-        message: 'at least one language entry is required'
-      }
-    ]
+        message: 'at least one language entry is required',
+      },
+    ],
   });
 }
 ```
@@ -261,35 +255,37 @@ try {
 Promise example:
 
 ```js
-oa.events.create(12345678, {
-  slug: 'a-title',
-  description: {
-    fr: 'La description de votre événement',
-    en: 'The description of your event'
-  },
-  locationUid: 87654321,
-  timings: [
-    {
-      begin: moment(),
-      end: moment().add(1, 'hour')
-    }, {
-      begin: moment().add(1, 'day'),
-      end: moment().add(1, 'day').add(1, 'hour')
-    }
-  ]
-})
-  .then(result => {
+oa.events
+  .create(12345678, {
+    slug: 'a-title',
+    description: {
+      fr: 'La description de votre événement',
+      en: 'The description of your event',
+    },
+    locationUid: 87654321,
+    timings: [
+      {
+        begin: moment(),
+        end: moment().add(1, 'hour'),
+      },
+      {
+        begin: moment().add(1, 'day'),
+        end: moment().add(1, 'day').add(1, 'hour'),
+      },
+    ],
+  })
+  .then((result) => {
     //
   })
-  .catch(error => {
+  .catch((error) => {
     expect(error.response.data).to.be.eql({
       errors: [
         {
           field: 'title',
           code: 'required',
-          message: 'at least one language entry is required'
-        }
-      ]
+          message: 'at least one language entry is required',
+        },
+      ],
     });
   });
 ```
