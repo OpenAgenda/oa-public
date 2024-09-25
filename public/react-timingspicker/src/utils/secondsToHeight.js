@@ -1,1 +1,2 @@
-export default ({ selectableStep, step, cellHeight }, seconds) => (seconds / selectableStep) * ((cellHeight / step) * selectableStep);
+export default ({ selectableStep, step, cellHeight }, seconds) =>
+  (seconds / selectableStep) * ((cellHeight / step) * selectableStep);

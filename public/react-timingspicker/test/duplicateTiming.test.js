@@ -21,8 +21,8 @@ describe('unit - duplicateTiming', () => {
         },
         {
           frequence: 'weekly',
-        }
-      )
+        },
+      ),
     ).toEqual([
       {
         begin: new Date('2019-09-15T09:30:00.000Z'),
@@ -42,8 +42,8 @@ describe('unit - duplicateTiming', () => {
           frequence: 'weekly',
           endType: 'until',
           until: '2019-10-08T21:59:59.999Z',
-        }
-      )
+        },
+      ),
     ).toEqual([
       {
         begin: new Date('2019-09-15T09:30:00.000Z'),
@@ -75,8 +75,8 @@ describe('unit - duplicateTiming', () => {
           frequence: 'weekly',
           endType: 'count',
           count: 3,
-        }
-      )
+        },
+      ),
     ).toEqual([
       {
         begin: new Date('2019-09-15T09:30:00.000Z'),

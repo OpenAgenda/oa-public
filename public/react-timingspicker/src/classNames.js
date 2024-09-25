@@ -6,7 +6,7 @@ const classNames = {
     multiRecurrencerBtn: 'btn btn-link',
     recurrencerSubmitBtn: 'btn btn-primary',
     multiRecurrencerSubmitBtn: 'btn btn-primary',
-    radio: 'radio'
+    radio: 'radio',
   },
 };
 

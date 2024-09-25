@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import * as dateFns from 'date-fns';
 import WeekdayPicker from './WeekdayPicker';
 
@@ -42,12 +42,12 @@ export default class WeekdayInput extends Component {
   }
 
   localeUtils = {
-    formatWeekdayLong: weekday => {
+    formatWeekdayLong: (weekday) => {
       const { weekdays } = this.state;
 
       return weekdays.long[weekday];
     },
-    formatWeekdayShort: weekday => {
+    formatWeekdayShort: (weekday) => {
       const { weekdays } = this.state;
 
       return weekdays.short[weekday];
@@ -55,7 +55,7 @@ export default class WeekdayInput extends Component {
   };
 
   modifiers = {
-    selected: weekday => {
+    selected: (weekday) => {
       const { selected } = this.state;
 
       return selected.includes(weekday);
@@ -75,7 +75,7 @@ export default class WeekdayInput extends Component {
     const { selected } = this.state;
 
     const newValue = selected.includes(value)
-      ? selected.filter(v => v !== value)
+      ? selected.filter((v) => v !== value)
       : [...selected, value].sort();
 
     this.setState({ selected: newValue }, () => {
