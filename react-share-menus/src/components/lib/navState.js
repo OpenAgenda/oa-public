@@ -1,10 +1,4 @@
-export function reset({
-  res,
-  page,
-  perPageLimit,
-  filter,
-  search
-}) {
+export function reset({ res, page, perPageLimit, filter, search }) {
   const currentRes = Array.isArray(res) ? res[0] : res;
 
   return {
@@ -13,13 +7,13 @@ export function reset({
     search: search ?? '',
     currentRes,
     perPageLimit,
-    filter
+    filter,
   };
 }
 
 export function defineParams(nav) {
   const params = {
-    search: nav.search
+    search: nav.search,
   };
 
   if (nav.filter) {
@@ -34,15 +28,9 @@ export function defineParams(nav) {
 }
 
 export function hasMore(nav) {
-  const {
-    currentRes,
-    res,
-    perPageLimit,
-    total,
-    page
-  } = nav;
+  const { currentRes, res, perPageLimit, total, page } = nav;
 
-  if (Array.isArray(res) && (res.indexOf(currentRes) < res.length - 1)) {
+  if (Array.isArray(res) && res.indexOf(currentRes) < res.length - 1) {
     // last res has not been solicited yet
     return true;
   }
@@ -55,20 +43,14 @@ export function hasMore(nav) {
 }
 
 export function loadNext(nav) {
-  const {
-    currentRes,
-    res,
-    perPageLimit,
-    page,
-    total
-  } = nav;
+  const { currentRes, res, perPageLimit, page, total } = nav;
 
   const totalReached = !!(perPageLimit * page >= total);
 
   if (!totalReached) {
     return {
       ...nav,
-      page: page + 1
+      page: page + 1,
     };
   }
 
@@ -86,7 +68,7 @@ export function loadNext(nav) {
     ...nav,
     currentRes: res[currentResIndex + 1],
     page: 1,
-    total: null
+    total: null,
   };
 }
 

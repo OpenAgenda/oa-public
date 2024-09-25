@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
@@ -14,14 +14,15 @@ export default {
   decorators: [Canvas],
 };
 
-const filterResults = searchText => {
+const filterResults = (searchText) => {
   if (searchText === '') return apiAgendas;
   let total = 0;
   return {
     total,
-    agendas: apiAgendas.agendas.filter(agenda => {
+    agendas: apiAgendas.agendas.filter((agenda) => {
       if (
-        agenda.description.toLowerCase().includes(searchText.toLowerCase()) || agenda.title.toLowerCase().includes(searchText.toLowerCase())
+        agenda.description.toLowerCase().includes(searchText.toLowerCase())
+        || agenda.title.toLowerCase().includes(searchText.toLowerCase())
       ) {
         total += 1;
         return agenda;
@@ -35,7 +36,12 @@ const mockApi = () => {
   const mock = new MockAdapter(axios, {
     delayResponse: 1000,
   });
-  mock.onGet('/agendas').reply(req => [200, req.params.search === '' ? apiAgendas : filterResults(req.params.search)]);
+  mock
+    .onGet('/agendas')
+    .reply((req) => [
+      200,
+      req.params.search === '' ? apiAgendas : filterResults(req.params.search),
+    ]);
   mock.onGet('/noAgendas').reply(200, noAgendas);
 };
 
@@ -64,7 +70,10 @@ export const Aggregator = () => {
       {display ? (
         <AggregatorModal
           onClose={() => setDisplay(false)}
-          targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
+          targetAgenda={{
+            title: "L'agenda de la Gargouille",
+            slug: 'notre-agenda',
+          }}
           res="/agendas"
           userLogged
         />
@@ -94,7 +103,10 @@ export const NoAgendas = () => {
       {display ? (
         <AggregatorModal
           onClose={() => setDisplay(false)}
-          targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
+          targetAgenda={{
+            title: "L'agenda de la Gargouille",
+            slug: 'notre-agenda',
+          }}
           res="/noAgendas"
           userLogged
         />
@@ -124,7 +136,10 @@ export const NotLoggedIn = () => {
       {display ? (
         <AggregatorModal
           onClose={() => setDisplay(false)}
-          targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
+          targetAgenda={{
+            title: "L'agenda de la Gargouille",
+            slug: 'notre-agenda',
+          }}
           res="/agendas"
           userLogged={false}
           root="localhost:9001"

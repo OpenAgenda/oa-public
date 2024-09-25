@@ -27,7 +27,8 @@ const messages = defineMessages({
   },
   logIn: {
     id: 'ReactShareMenus.ExportModal.login',
-    defaultMessage: 'Please log in to access the export link directly from this menu',
+    defaultMessage:
+      'Please log in to access the export link directly from this menu',
   },
   exportJson: {
     id: 'ReactShareMenus.ExportModal.exportJson',
@@ -123,7 +124,7 @@ const ExportModal = ({
     setDisplayButton(true);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (userLogged && formatChoice.id === 'jsonV2') {
       const jsonUrl = new URL(res[mode].jsonV2);
@@ -143,18 +144,23 @@ const ExportModal = ({
     }
 
     if (formatChoice.id === 'spreadsheet') {
-      const formatUrl = spreadsheetOptions.format === 'xlsx' ? new URL(res[mode].xlsx) : new URL(res[mode].csv);
+      const formatUrl = spreadsheetOptions.format === 'xlsx'
+        ? new URL(res[mode].xlsx)
+        : new URL(res[mode].csv);
 
       if (spreadsheetOptions.languages.length) {
-        spreadsheetOptions.languages.map(l => formatUrl.searchParams.append('includeLanguages[]', l));
+        spreadsheetOptions.languages.map((l) =>
+          formatUrl.searchParams.append('includeLanguages[]', l));
       }
 
       if (spreadsheetOptions.fields.length) {
-        spreadsheetOptions.fields.map(f => formatUrl.searchParams.append('includeFields[]', f));
+        spreadsheetOptions.fields.map((f) =>
+          formatUrl.searchParams.append('includeFields[]', f));
       }
 
       if (spreadsheetOptions.distributeFields) {
-        spreadsheetOptions.distributeFields.map(f => formatUrl.searchParams.append('distributeOptionalFields[]', f));
+        spreadsheetOptions.distributeFields.map((f) =>
+          formatUrl.searchParams.append('distributeOptionalFields[]', f));
       }
 
       window.open(formatUrl, '_self');
@@ -165,27 +171,48 @@ const ExportModal = ({
     return onClose();
   };
 
-  const handleSpreadsheetOptions = options => {
+  const handleSpreadsheetOptions = (options) => {
     setSpreadsheetOptions(options);
   };
 
   return (
-    <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
+    <Modal
+      classNames={{ overlay: 'popup-overlay big' }}
+      disableBodyScroll
+      onClose={onClose}
+    >
       <form className="export export-form" onSubmit={handleSubmit}>
-        <button className="close" type="button" onClick={onClose}>
+        <button
+          className="close"
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+        >
           <i className="margin-right-z fa fa-times fa-lg" />
         </button>
-        <h2 className="export-title">{intl.formatMessage(messages.modalTitle)}</h2>
+        <h2 className="export-title">
+          {intl.formatMessage(messages.modalTitle)}
+        </h2>
         <div className="form-group margin-top-sm">
           <div className="radio" onChange={() => setMode('all')}>
             <label htmlFor="export-all">
-              <input defaultChecked={mode === 'all'} name="mode" type="radio" id="export-all" />
+              <input
+                defaultChecked={mode === 'all'}
+                name="mode"
+                type="radio"
+                id="export-all"
+              />
               {intl.formatMessage(messages.exportAll)}
             </label>
           </div>
           <div className="radio" onChange={() => setMode('selection')}>
             <label htmlFor="export-selection">
-              <input defaultChecked={mode === 'selection'} name="mode" type="radio" id="export-selection" />
+              <input
+                defaultChecked={mode === 'selection'}
+                name="mode"
+                type="radio"
+                id="export-selection"
+              />
               {intl.formatMessage(messages.exportSelection)}
             </label>
           </div>
@@ -194,14 +221,19 @@ const ExportModal = ({
         <div className="form-group">
           {formats.map(({ type, id }) => (
             <React.Fragment key={id}>
-              <Radio content={type} name="format" id={id} setChoice={setChoice} />
-              {spreadsheetForm && id === formatChoice.id && (
-              <SpreadsheetOptions
-                languages={languages}
-                setChoice={handleSpreadsheetOptions}
-                fields={fields}
-                options={spreadsheetOptions}
+              <Radio
+                content={type}
+                name="format"
+                id={id}
+                setChoice={setChoice}
               />
+              {spreadsheetForm && id === formatChoice.id && (
+                <SpreadsheetOptions
+                  languages={languages}
+                  setChoice={handleSpreadsheetOptions}
+                  fields={fields}
+                  options={spreadsheetOptions}
+                />
               )}
               {gCal && id === 'gcal' && (
                 <ExternalCalendarOptions type={id} exportUrl={res[mode].gcal} />
@@ -213,17 +245,55 @@ const ExportModal = ({
                 <>
                   {!userLogged && <p>{intl.formatMessage(messages.logIn)}</p>}
                   <div className="flex-container margin-bottom-xs margin-left-md">
-                    <button type="submit" className="btn btn-primary" disabled={!userLogged}>
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={!userLogged}
+                    >
                       {intl.formatMessage(messages.modalTitle)}
                     </button>
                     <div className="checkbox margin-left-sm">
-                      <label htmlFor="detailed" className={userLogged ? '' : 'text-muted'}>
-                        <input id="detailed" type="checkbox" name="detailed" disabled={!userLogged} onChange={() => setJsonDetailed(!jsonDetailed)} /> {intl.formatMessage(messages.detailedFormat)}
-                      </label><br />
-                      <a href="https://developers.openagenda.com/10-lecture/" target="_blank" rel="noreferrer">{intl.formatMessage(messages.documentation)}</a>
+                      <label
+                        htmlFor="detailed"
+                        className={userLogged ? '' : 'text-muted'}
+                      >
+                        <input
+                          id="detailed"
+                          type="checkbox"
+                          name="detailed"
+                          disabled={!userLogged}
+                          onChange={() => setJsonDetailed(!jsonDetailed)}
+                        />{' '}
+                        {intl.formatMessage(messages.detailedFormat)}
+                      </label>
+                      <br />
+                      <a
+                        href="https://developers.openagenda.com/10-lecture/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {intl.formatMessage(messages.documentation)}
+                      </a>
                     </div>
                   </div>
-                  <a href={res[mode].jsonV1} target="_blank" rel="noreferrer" className="margin-left-md">{intl.formatMessage(messages.exportJson)}</a> ({intl.formatMessage(messages.jsonDoc1)}<a href="https://developers.openagenda.com/export-json-dun-agenda/" target="_blank" rel="noreferrer"> {intl.formatMessage(messages.jsonDoc2)}</a>)
+                  <a
+                    href={res[mode].jsonV1}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="margin-left-md"
+                  >
+                    {intl.formatMessage(messages.exportJson)}
+                  </a>{' '}
+                  ({intl.formatMessage(messages.jsonDoc1)}
+                  <a
+                    href="https://developers.openagenda.com/export-json-dun-agenda/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {' '}
+                    {intl.formatMessage(messages.jsonDoc2)}
+                  </a>
+                  )
                 </>
               )}
               {displayButton && id === formatChoice.id && (

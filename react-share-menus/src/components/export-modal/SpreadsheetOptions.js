@@ -4,9 +4,7 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import Radio from '../Radio';
 
-const SpreadsheetOptions = ({
-  languages, setChoice, fields, options,
-}) => {
+const SpreadsheetOptions = ({ languages, setChoice, fields, options }) => {
   const [displayLanguages, setDisplayLanguages] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
   const [checkedState, setCheckedState] = useState([]);
@@ -44,9 +42,12 @@ const SpreadsheetOptions = ({
     }
   }, [fields]);
 
-  const handleLanguage = e => {
+  const handleLanguage = (e) => {
     if (e.target.checked) {
-      return setChoice({ ...options, languages: [...options.languages, e.target.value] });
+      return setChoice({
+        ...options,
+        languages: [...options.languages, e.target.value],
+      });
     }
     const index = options.languages.indexOf(e.target.value);
 
@@ -56,7 +57,7 @@ const SpreadsheetOptions = ({
     }
   };
 
-  const handleCheckAll = e => {
+  const handleCheckAll = (e) => {
     if (e.target.checked) {
       const updatedCheckedState = checkedState.map(() => true);
       setCheckAll(true);
@@ -75,26 +76,34 @@ const SpreadsheetOptions = ({
   };
 
   const handleFields = (event, index = null) => {
-    const updatedCheckedState = checkedState.map((item, i) => (index === i ? !item : item));
+    const updatedCheckedState = checkedState.map((item, i) =>
+      (index === i ? !item : item));
     setCheckedState(updatedCheckedState);
 
     if (event.target.checked) {
-      return setChoice({ ...options, fields: [...options.fields, event.target.value] });
+      return setChoice({
+        ...options,
+        fields: [...options.fields, event.target.value],
+      });
     }
     setCheckAll(false);
 
-    const updatedOptions = options.fields.filter(field => field !== event.target.value);
+    const updatedOptions = options.fields.filter(
+      (field) => field !== event.target.value,
+    );
     return setChoice({ ...options, fields: updatedOptions });
   };
 
-  const handleDistributedFields = event => {
+  const handleDistributedFields = (event) => {
     if (event.target.checked) {
       const selectedFields = [...distributedFields, event.target.value];
       setDistributedFields(selectedFields);
       return setChoice({ ...options, distributeFields: selectedFields });
     }
 
-    const selectedFields = distributedFields.filter(f => f !== event.target.value);
+    const selectedFields = distributedFields.filter(
+      (f) => f !== event.target.value,
+    );
     setDistributedFields(selectedFields);
     return setChoice({ ...options, distributeFields: selectedFields });
   };
@@ -103,9 +112,9 @@ const SpreadsheetOptions = ({
     setChoice({ ...options, format: id });
   };
 
-  const formatTarget = target => {
+  const formatTarget = (target) => {
     if (Array.isArray(target)) {
-      const removeLang = target.map(el => {
+      const removeLang = target.map((el) => {
         if (el.indexOf('-') >= 0) return el.substring(0, el.indexOf('-') - 1);
         return el;
       });
@@ -117,8 +126,19 @@ const SpreadsheetOptions = ({
 
   return (
     <div className="spreadsheet-options">
-      <Radio content="XLSX (MS Excel)" name="spreadsheet-format" id="xlsx" setChoice={handleFormat} defaultChecked />
-      <Radio content="CSV" name="spreadsheet-format" id="csv" setChoice={handleFormat} />
+      <Radio
+        content="XLSX (MS Excel)"
+        name="spreadsheet-format"
+        id="xlsx"
+        setChoice={handleFormat}
+        defaultChecked
+      />
+      <Radio
+        content="CSV"
+        name="spreadsheet-format"
+        id="csv"
+        setChoice={handleFormat}
+      />
       <div>
         <label htmlFor="languages">
           <input
@@ -127,13 +147,18 @@ const SpreadsheetOptions = ({
             type="checkbox"
             defaultChecked={!displayLanguages}
             onChange={() => setDisplayLanguages(!displayLanguages)}
-          />&nbsp;
+          />
+          &nbsp;
           {intl.formatMessage(messages.allLanguages)}
         </label>
         {displayLanguages && (
           <div className="margin-left-sm">
-            {languages.map(lang => (
-              <div className="margin-left-sm" style={{ display: 'inline-block' }} key={lang}>
+            {languages.map((lang) => (
+              <div
+                className="margin-left-sm"
+                style={{ display: 'inline-block' }}
+                key={lang}
+              >
                 <label htmlFor={lang}>
                   <input
                     name="languages"
@@ -142,7 +167,8 @@ const SpreadsheetOptions = ({
                     onChange={handleLanguage}
                     value={lang}
                     className="margin-right-sm"
-                  />&nbsp;
+                  />
+                  &nbsp;
                   {lang.toUpperCase()}
                 </label>
               </div>
@@ -157,38 +183,41 @@ const SpreadsheetOptions = ({
           type="checkbox"
           defaultChecked={!displayFields}
           onChange={() => setDisplayFields(!displayFields)}
-        />&nbsp;
+        />
+        &nbsp;
         {intl.formatMessage(messages.allFields)}
       </label>
       {displayFields && (
-      <div className="margin-left-md checkbox-list">
-        <label htmlFor="allFields">
-          <input
-            name="fields"
-            id="allFields"
-            type="checkbox"
-            onChange={handleCheckAll}
-            value="allFields"
-            className="margin-right-sm"
-            checked={checkAll}
-          />&nbsp;
-          {intl.formatMessage(messages.selectAll)}
-        </label>
-        {fields.map((field, index) => (
-          <label htmlFor={field.source} key={field.source}>
+        <div className="margin-left-md checkbox-list">
+          <label htmlFor="allFields">
             <input
               name="fields"
-              id={field.source}
+              id="allFields"
               type="checkbox"
-              onChange={event => handleFields(event, index)}
-              value={field.source}
+              onChange={handleCheckAll}
+              value="allFields"
               className="margin-right-sm"
-              checked={checkedState[index]}
-            />&nbsp;
-            {formatTarget(field.target)}
+              checked={checkAll}
+            />
+            &nbsp;
+            {intl.formatMessage(messages.selectAll)}
           </label>
-        ))}
-      </div>
+          {fields.map((field, index) => (
+            <label htmlFor={field.source} key={field.source}>
+              <input
+                name="fields"
+                id={field.source}
+                type="checkbox"
+                onChange={(event) => handleFields(event, index)}
+                value={field.source}
+                className="margin-right-sm"
+                checked={checkedState[index]}
+              />
+              &nbsp;
+              {formatTarget(field.target)}
+            </label>
+          ))}
+        </div>
       )}
       <div>
         <label htmlFor="distributedOptions">
@@ -198,7 +227,8 @@ const SpreadsheetOptions = ({
             type="checkbox"
             defaultChecked={distributeOptions}
             onChange={() => setDistributeOptions(!distributeOptions)}
-          />&nbsp;
+          />
+          &nbsp;
           {intl.formatMessage(messages.distributeOptions)}
         </label>
         {distributeOptions && (
@@ -212,10 +242,12 @@ const SpreadsheetOptions = ({
                       name="distributedFields"
                       id={key}
                       type="checkbox"
-                      onChange={event => handleDistributedFields(event, index)}
+                      onChange={(event) =>
+                        handleDistributedFields(event, index)}
                       value={field.source}
                       className="margin-right-sm"
-                    />&nbsp;
+                    />
+                    &nbsp;
                     {formatTarget(field.target)}
                   </label>
                 );
@@ -239,8 +271,13 @@ SpreadsheetOptions.propTypes = {
   }).isRequired,
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
   setChoice: PropTypes.func.isRequired,
-  fields: PropTypes.arrayOf(PropTypes.shape({
-    source: PropTypes.string,
-    target: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  })).isRequired,
+  fields: PropTypes.arrayOf(
+    PropTypes.shape({
+      source: PropTypes.string,
+      target: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string),
+      ]),
+    }),
+  ).isRequired,
 };

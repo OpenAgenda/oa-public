@@ -3,7 +3,8 @@ import { defineMessages } from 'react-intl';
 import AgendaSearchInput from '../../AgendaSearchInput';
 import encodeURL from '../../lib/encodeURL';
 
-const getTitleLink = (agenda, event) => `/${agenda.slug}/contribute/event/${event.uid}/from/${event.agendaUid}?redirect=${encodeURL(`${event.root}/agendas/${event.agendaUid}/events/${event.uid}`)}`;
+const getTitleLink = (agenda, event) =>
+  `/${agenda.slug}/contribute/event/${event.uid}/from/${event.agendaUid}?redirect=${encodeURL(`${event.root}/agendas/${event.agendaUid}/events/${event.uid}`)}`;
 
 const messages = defineMessages({
   shareOA: {
@@ -12,7 +13,8 @@ const messages = defineMessages({
   },
   signIn: {
     id: 'sign-in',
-    defaultMessage: 'You need to sign in to your account to add this event to your OpenAgendas',
+    defaultMessage:
+      'You need to sign in to your account to add this event to your OpenAgendas',
   },
   connectionBtn: {
     id: 'connection-btn',
@@ -21,20 +23,14 @@ const messages = defineMessages({
 });
 
 export default function OpenAgendaShare(props) {
-  const {
-    userLogged,
-    res,
-    event,
-    preFetch,
-    intl,
-  } = props;
+  const { userLogged, res, event, preFetch, intl } = props;
 
   return (
     <div className="margin-bottom-md">
       <h2 className="export-title">{intl.formatMessage(messages.shareOA)}</h2>
       {userLogged ? (
         <AgendaSearchInput
-          getTitleLink={agenda => getTitleLink(agenda, event)}
+          getTitleLink={(agenda) => getTitleLink(agenda, event)}
           preFetchAgendas={preFetch}
           res={res}
           targetAgenda={{ title: event.agendaTitle, slug: event.agendaSlug }}

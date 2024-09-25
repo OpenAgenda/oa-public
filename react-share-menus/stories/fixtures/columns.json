@@ -8,45 +8,32 @@
     {
       "hasOptions": false,
       "source": "title",
-      "target": [
-        "Titre - FR"
-      ]
+      "target": ["Titre - FR"]
     },
     {
       "hasOptions": false,
       "source": "description",
-      "target": [
-        "Description courte - FR"
-      ]
+      "target": ["Description courte - FR"]
     },
     {
       "hasOptions": false,
       "source": "longDescription",
-      "target": [
-        "Description longue"
-      ]
+      "target": ["Description longue"]
     },
     {
       "hasOptions": false,
       "source": "keywords",
-      "target": [
-        "Mots clés"
-      ]
+      "target": ["Mots clés"]
     },
     {
       "hasOptions": false,
       "source": "dateRange",
-      "target": [
-        "Résumé horaires"
-      ]
+      "target": ["Résumé horaires"]
     },
     {
       "hasOptions": false,
       "source": "timings",
-      "target": [
-        "Horaires ISO",
-        "Horaires détaillés - FR"
-      ]
+      "target": ["Horaires ISO", "Horaires détaillés - FR"]
     },
     {
       "hasOptions": false,
@@ -59,9 +46,7 @@
     {
       "hasOptions": false,
       "source": "accessibility",
-      "target": [
-        "Accessibilité"
-      ]
+      "target": ["Accessibilité"]
     },
     {
       "hasOptions": false,
@@ -106,9 +91,7 @@
     {
       "hasOptions": false,
       "source": "country",
-      "target": [
-        "Pays"
-      ]
+      "target": ["Pays"]
     },
     {
       "hasOptions": false,
