@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const mjml = require('mjml');
 const ejs = require('ejs');
 const VError = require('@openagenda/verror');
@@ -35,13 +35,16 @@ async function render(config, templateName, data = {}, opts = {}) {
 
     if (templateDir) {
       try {
-        rawHtml = await cachedReadFile(config.cache, path.join(templateDir, 'index.mjml'));
+        rawHtml = await cachedReadFile(
+          config.cache,
+          path.join(templateDir, 'index.mjml'),
+        );
       } catch (e) {
         log.error(
           new VError(
             e,
-            `Error rendering html of the template '${templateName}'`
-          )
+            `Error rendering html of the template '${templateName}'`,
+          ),
         );
       }
     }
@@ -58,7 +61,7 @@ async function render(config, templateName, data = {}, opts = {}) {
           {
             info: { errors },
           },
-          `Invalid MJML (template: '${templateName})'`
+          `Invalid MJML (template: '${templateName})'`,
         );
       }
 
@@ -72,13 +75,16 @@ async function render(config, templateName, data = {}, opts = {}) {
 
     if (templateDir) {
       try {
-        rawText = await cachedReadFile(config.cache, path.join(templateDir, 'text.ejs'));
+        rawText = await cachedReadFile(
+          config.cache,
+          path.join(templateDir, 'text.ejs'),
+        );
       } catch (e) {
         log.error(
           new VError(
             e,
-            `Error rendering text of the template '${templateName}'`
-          )
+            `Error rendering text of the template '${templateName}'`,
+          ),
         );
       }
     }
@@ -97,13 +103,16 @@ async function render(config, templateName, data = {}, opts = {}) {
 
     if (templateDir) {
       try {
-        rawSubject = await cachedReadFile(config.cache, path.join(templateDir, 'subject.ejs'));
+        rawSubject = await cachedReadFile(
+          config.cache,
+          path.join(templateDir, 'subject.ejs'),
+        );
       } catch (e) {
         log.error(
           new VError(
             e,
-            `Error rendering subject of the template '${templateName}'`
-          )
+            `Error rendering subject of the template '${templateName}'`,
+          ),
         );
       }
     }
