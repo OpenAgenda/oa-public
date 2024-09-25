@@ -58,10 +58,13 @@ export default (pageProps, values) => {
 
         bodyUrl.search = qs.stringify(values, { addQueryPrefix: true });
 
-        url.search = qs.stringify({
-          ...qs.parse(url.search, { ignoreQueryPrefix: true }),
-          body: bodyUrl.toString(),
-        }, { addQueryPrefix: true });
+        url.search = qs.stringify(
+          {
+            ...qs.parse(url.search, { ignoreQueryPrefix: true }),
+            body: bodyUrl.toString(),
+          },
+          { addQueryPrefix: true },
+        );
 
         shareMailElem.attr('href', url);
       } catch (e) {

@@ -1,18 +1,18 @@
-<div class="row">
-  <div class="col-md-2 text-center">
-    <span class="text-muted">
+<div class='row'>
+  <div class='col-md-2 text-center'>
+    <span class='text-muted'>
       {{#if nextTiming}}
-      {{nextTiming.label}}
+        {{nextTiming.label}}
       {{else if lastTiming}}
-      {{lastTiming.label}}
+        {{lastTiming.label}}
       {{else}}
-      {{i18n 'noAvailableTiming'}}
+        {{i18n 'noAvailableTiming'}}
       {{/if}}
     </span>
   </div>
-  <div class="col-md-10">
-    <a href="{{link}}" class="event-item">
-      <div class="wbg px-4 py-3">
+  <div class='col-md-10'>
+    <a href='{{link}}' class='event-item'>
+      <div class='wbg px-4 py-3'>
         <h3>
           {{title}}
           {{#customWidget
@@ -26,7 +26,7 @@
             activeTargetSelector='i'
             handlerSelector='i'
           }}
-            <i class="far fa-star" tabindex="0"></i>
+            <i class='far fa-star' tabindex='0'></i>
           {{/customWidget}}
         </h3>
         <p>{{description}}</p>
@@ -41,12 +41,12 @@
 
       </div>
       {{#if image}}
-      <div class="text-center">
-        <img class="img-fluid" src="{{image image}}" alt="{{description}}" />
-      </div>
+        <div class='text-center'>
+          <img class='img-fluid' src='{{image image}}' alt='{{description}}' />
+        </div>
       {{/if}}
-      <script type="application/ld+json">
-      {{{JSONLD}}}
+      <script type='application/ld+json'>
+        {{{JSONLD}}}
       </script>
     </a>
   </div>

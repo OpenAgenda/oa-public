@@ -19,12 +19,12 @@
   "searchPlaceholder": "Search",
   "searchWhenMoving": "Search when I move the map",
 
-  "offline":  "Offline",
+  "offline": "Offline",
   "online": "Online",
-  "mixed":  "Mixed",
+  "mixed": "Mixed",
   "passed": "Passed",
   "current": "Current",
-  "upcoming":  "Upcoming",
+  "upcoming": "Upcoming",
 
   "noAvailableTiming": "No timing is available",
   "addToFavorites": "Add to favorites",

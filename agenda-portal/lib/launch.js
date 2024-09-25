@@ -18,7 +18,9 @@ module.exports = (app, port = 80) => {
       throw new Error('app root is not set');
     }
 
-    log(`launching in ${process.env.NODE_ENV === 'development' ? 'development' : 'production'} environment`);
+    log(
+      `launching in ${process.env.NODE_ENV === 'development' ? 'development' : 'production'} environment`,
+    );
 
     _ready(port);
   });
