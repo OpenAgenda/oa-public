@@ -13,7 +13,5 @@ export default defineConfig({
   clean: true,
   splitting: false,
   external: [],
-  noExternal: [
-    '@iframe-resizer/parent',
-  ],
+  noExternal: ['@iframe-resizer/parent'],
 });

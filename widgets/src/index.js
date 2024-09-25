@@ -21,7 +21,10 @@ function init() {
     };
   }
 
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  if (
+    document.readyState === 'complete'
+    || document.readyState === 'interactive'
+  ) {
     readyHandler();
   } else {
     window.addEventListener('DOMContentLoaded', readyHandler);
