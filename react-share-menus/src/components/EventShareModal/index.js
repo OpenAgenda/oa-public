@@ -5,16 +5,15 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import { Modal } from '@openagenda/react-shared';
 import OpenAgendaShare from './lib/OpenAgendaShare';
-import {
-  EmailShareMenu,
-  EmailSentMessage,
-} from './lib/EmailShare';
+import { EmailShareMenu, EmailSentMessage } from './lib/EmailShare';
 import CalendarShare from './lib/CalendarShare';
 
-const EventShareModal = ({
-  onClose, res, segment, event, userLogged,
-}) => {
-  const [emailState, setEmailState] = useState({ sent: false, count: 0, email: '' });
+const EventShareModal = ({ onClose, res, segment, event, userLogged }) => {
+  const [emailState, setEmailState] = useState({
+    sent: false,
+    count: 0,
+    email: '',
+  });
 
   const intl = useIntl();
 
@@ -25,9 +24,12 @@ const EventShareModal = ({
     },
   });
 
-  const onEmailSubmit = async e => {
+  const onEmailSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post(`/${event.agendaSlug}/events/${event.uid}/email`, { mailsend: emailState.email });
+    const response = await axios.post(
+      `/${event.agendaSlug}/events/${event.uid}/email`,
+      { mailsend: emailState.email },
+    );
     setEmailState({
       sent: true,
       count: response.data.count,
@@ -37,7 +39,11 @@ const EventShareModal = ({
 
   if (emailState.sent) {
     return (
-      <Modal classNames={{ overlay: 'popup-overlay big' }} onClose={onClose} disableBodyScroll>
+      <Modal
+        classNames={{ overlay: 'popup-overlay big' }}
+        onClose={onClose}
+        disableBodyScroll
+      >
         <EmailSentMessage
           count={emailState.count}
           intl={intl}
@@ -49,9 +55,18 @@ const EventShareModal = ({
   }
 
   return (
-    <Modal classNames={{ overlay: 'popup-overlay big' }} onClose={onClose} disableBodyScroll>
+    <Modal
+      classNames={{ overlay: 'popup-overlay big' }}
+      onClose={onClose}
+      disableBodyScroll
+    >
       <div className="export-form">
-        <button className="close" type="button" onClick={onClose}>
+        <button
+          className="close"
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+        >
           <i className="fa fa-times fa-lg" />
         </button>
         {segment.includes('openagenda') && (
@@ -66,19 +81,16 @@ const EventShareModal = ({
         {userLogged && segment.includes('email') && (
           <EmailShareMenu
             intl={intl}
-            onChange={email => setEmailState({
-              ...emailState,
-              email,
-            })}
+            onChange={(email) =>
+              setEmailState({
+                ...emailState,
+                email,
+              })}
             onSubmit={onEmailSubmit}
           />
         )}
         {segment.includes('calendar') && (
-          <CalendarShare
-            event={event}
-            intl={intl}
-            onClose={onClose}
-          />
+          <CalendarShare event={event} intl={intl} onClose={onClose} />
         )}
       </div>
     </Modal>
@@ -97,10 +109,7 @@ EventShareModal.propTypes = {
     root: PropTypes.string,
   }).isRequired,
   onClose: PropTypes.func.isRequired,
-  res: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
+  res: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   segment: PropTypes.string,
   userLogged: PropTypes.bool,
 };

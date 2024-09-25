@@ -28,11 +28,7 @@ const messages = defineMessages({
 });
 
 export default function CalendarShare(props) {
-  const {
-    intl,
-    onClose,
-    event,
-  } = props;
+  const { intl, onClose, event } = props;
 
   const [link, setLink] = useState('');
   const [calendarValue, setCalendarValue] = useState('');
@@ -41,11 +37,11 @@ export default function CalendarShare(props) {
   const [noFutureEvents, setNoFutureEvents] = useState(false);
   const [dates, setDates] = useState({});
 
-  const selectDate = date => {
+  const selectDate = (date) => {
     if (Object.keys(dates).length === 0 || dates?.days.length === 1) {
       return setLink(date[0].link);
     }
-    const calendarLink = dates.days.find(d => d.begin === date.begin).link;
+    const calendarLink = dates.days.find((d) => d.begin === date.begin).link;
     return setLink(calendarLink);
   };
 
@@ -56,16 +52,23 @@ export default function CalendarShare(props) {
       `/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=${service}`,
     );
 
-    const today = moment().tz(response.data.event.timezone).format('YYYY-MM-DD');
+    const today = moment()
+      .tz(response.data.event.timezone)
+      .format('YYYY-MM-DD');
 
-    const upcomingDates = response.data.event.timings.filter(date => date.begin > today);
+    const upcomingDates = response.data.event.timings.filter(
+      (date) => date.begin > today,
+    );
 
     setDates({ timezone: response.data.event.timezone, days: upcomingDates });
 
     if (upcomingDates.length === 0) setNoFutureEvents(true);
 
     if (upcomingDates.length === 1) {
-      selectDate(response.data.event.timings, response.data.event.timings[0].begin);
+      selectDate(
+        response.data.event.timings,
+        response.data.event.timings[0].begin,
+      );
       return setOptions(true);
     }
 
@@ -75,9 +78,11 @@ export default function CalendarShare(props) {
 
   return (
     <div className="margin-top-sm margin-bottom-md">
-      <h2 className="export-title">{intl.formatMessage(messages.shareCalendar)}</h2>
+      <h2 className="export-title">
+        {intl.formatMessage(messages.shareCalendar)}
+      </h2>
       <form>
-        {calendars.map(calendar => (
+        {calendars.map((calendar) => (
           <Fragment key={calendar.service}>
             <Radio
               content={calendar.name}
@@ -89,12 +94,15 @@ export default function CalendarShare(props) {
               <div className="calendars-options">
                 {datesOptions && (
                   <ul className="calendars-list">
-                    {dates.days.map(date => {
+                    {dates.days.map((date) => {
                       const begin = moment
                         .tz(date.begin, dates.timezone)
                         .locale(event.lang)
                         .format('dddd D MMMM YYYY, HH:mm - ');
-                      const end = moment.tz(date.end, dates.timezone).locale(event.lang).format('HH:mm');
+                      const end = moment
+                        .tz(date.end, dates.timezone)
+                        .locale(event.lang)
+                        .format('HH:mm');
                       return (
                         <Radio
                           content={begin + end}

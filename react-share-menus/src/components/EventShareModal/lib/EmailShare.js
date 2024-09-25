@@ -21,16 +21,13 @@ const messages = defineMessages({
 });
 
 export function EmailShareMenu(props) {
-  const {
-    email: emailValue,
-    onSubmit,
-    onChange,
-    intl,
-  } = props;
+  const { email: emailValue, onSubmit, onChange, intl } = props;
 
   return (
     <form onSubmit={onSubmit}>
-      <h2 className="export-title">{intl.formatMessage(messages.shareEmail)}</h2>
+      <h2 className="export-title">
+        {intl.formatMessage(messages.shareEmail)}
+      </h2>
       <div className="form-group">
         <div className="input-group input-textarea">
           <textarea
@@ -40,7 +37,7 @@ export function EmailShareMenu(props) {
             id="textarea"
             placeholder={intl.formatMessage(messages.emailPlaceholder)}
             value={emailValue}
-            onChange={e => onChange(e.target.value)}
+            onChange={(e) => onChange(e.target.value)}
           />
         </div>
       </div>
@@ -52,21 +49,27 @@ export function EmailShareMenu(props) {
 }
 
 export function EmailSentMessage(props) {
-  const {
-    onClose,
-    intl,
-    title,
-    count,
-  } = props;
+  const { onClose, intl, title, count } = props;
 
   return (
     <div className="export-form">
-      <button className="export-close" type="button" onClick={onClose}>
+      <button
+        className="export-close"
+        type="button"
+        onClick={onClose}
+        aria-label="Close"
+      >
         <i className="fa fa-times fa-lg" />
       </button>
       <h2 className="export-title">{title}</h2>
-      <p className="confirmation-message">{intl.formatMessage(messages.emailSuccess, { count })}</p>
-      <button className="btn btn-primary export-button" type="button" onClick={onClose}>
+      <p className="confirmation-message">
+        {intl.formatMessage(messages.emailSuccess, { count })}
+      </p>
+      <button
+        className="btn btn-primary export-button"
+        type="button"
+        onClick={onClose}
+      >
         OK
       </button>
     </div>
