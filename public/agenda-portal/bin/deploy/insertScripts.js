@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 
-module.exports = cwd => {
+module.exports = (cwd) => {
   const fileStr = `${cwd}/package.json`;
   const packageStr = fs.readFileSync(fileStr, 'utf-8');
 
@@ -14,7 +14,7 @@ module.exports = cwd => {
     "start": "start-portal",
     "prepack": "build-portal"
   },
-  "dependencies": {`
-    )
+  "dependencies": {`,
+    ),
   );
 };
