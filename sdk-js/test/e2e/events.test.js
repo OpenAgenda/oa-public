@@ -140,31 +140,28 @@ describe('events', () => {
   });
 
   it('get an event', async () => {
-    createdEvent = await oa.events.create(
-      testconfig.agendaUid,
-      {
-        slug: `a-title-${_.random(10 ** 6)}`,
-        title: {
-          fr: 'Un titre',
-          en: 'A title',
-        },
-        description: {
-          fr: 'On va faire un truc',
-          en: 'We make a truc',
-        },
-        locationUid: 78372099,
-        timings: [
-          {
-            begin: moment(),
-            end: moment().add(1, 'hour'),
-          },
-          {
-            begin: moment().add(1, 'day'),
-            end: moment().add(1, 'day').add(1, 'hour'),
-          },
-        ],
+    createdEvent = await oa.events.create(testconfig.agendaUid, {
+      slug: `a-title-${_.random(10 ** 6)}`,
+      title: {
+        fr: 'Un titre',
+        en: 'A title',
       },
-    );
+      description: {
+        fr: 'On va faire un truc',
+        en: 'We make a truc',
+      },
+      locationUid: 78372099,
+      timings: [
+        {
+          begin: moment(),
+          end: moment().add(1, 'hour'),
+        },
+        {
+          begin: moment().add(1, 'day'),
+          end: moment().add(1, 'day').add(1, 'hour'),
+        },
+      ],
+    });
 
     const event = await oa.events.get(testconfig.agendaUid, createdEvent.uid);
 
@@ -172,71 +169,64 @@ describe('events', () => {
   });
 
   it('get an event - publicKey only', async () => {
-    createdEvent = await oa.events.create(
-      testconfig.agendaUid,
-      {
-        slug: `a-title-${_.random(10 ** 6)}`,
-        title: {
-          fr: 'Un titre',
-          en: 'A title',
-        },
-        description: {
-          fr: 'On va faire un truc',
-          en: 'We make a truc',
-        },
-        locationUid: 78372099,
-        timings: [
-          {
-            begin: moment(),
-            end: moment().add(1, 'hour'),
-          },
-          {
-            begin: moment().add(1, 'day'),
-            end: moment().add(1, 'day').add(1, 'hour'),
-          },
-        ],
+    createdEvent = await oa.events.create(testconfig.agendaUid, {
+      slug: `a-title-${_.random(10 ** 6)}`,
+      title: {
+        fr: 'Un titre',
+        en: 'A title',
       },
-    );
+      description: {
+        fr: 'On va faire un truc',
+        en: 'We make a truc',
+      },
+      locationUid: 78372099,
+      timings: [
+        {
+          begin: moment(),
+          end: moment().add(1, 'hour'),
+        },
+        {
+          begin: moment().add(1, 'day'),
+          end: moment().add(1, 'day').add(1, 'hour'),
+        },
+      ],
+    });
 
     const oaPublic = new OaSdk({ publicKey: testconfig.publicKey });
 
-    const event = await oaPublic.events.get(testconfig.agendaUid, createdEvent.uid);
+    const event = await oaPublic.events.get(
+      testconfig.agendaUid,
+      createdEvent.uid,
+    );
 
     expect(parseInt(event.uid, 10)).toBe(createdEvent.uid);
   });
 
   it('list events', async () => {
-    createdEvent = await oa.events.create(
-      testconfig.agendaUid,
-      {
-        slug: `a-title-${_.random(10 ** 6)}`,
-        title: {
-          fr: 'Un titre',
-          en: 'A title',
-        },
-        description: {
-          fr: 'On va faire un truc',
-          en: 'We make a truc',
-        },
-        locationUid: 78372099,
-        timings: [
-          {
-            begin: moment(),
-            end: moment().add(1, 'hour'),
-          },
-          {
-            begin: moment().add(1, 'day'),
-            end: moment().add(1, 'day').add(1, 'hour'),
-          },
-        ],
+    createdEvent = await oa.events.create(testconfig.agendaUid, {
+      slug: `a-title-${_.random(10 ** 6)}`,
+      title: {
+        fr: 'Un titre',
+        en: 'A title',
       },
-    );
+      description: {
+        fr: 'On va faire un truc',
+        en: 'We make a truc',
+      },
+      locationUid: 78372099,
+      timings: [
+        {
+          begin: moment(),
+          end: moment().add(1, 'hour'),
+        },
+        {
+          begin: moment().add(1, 'day'),
+          end: moment().add(1, 'day').add(1, 'hour'),
+        },
+      ],
+    });
 
-    const {
-      total,
-      events,
-      after,
-    } = await oa.events.list(
+    const { total, events, after } = await oa.events.list(
       testconfig.agendaUid,
       { size: 1, sort: 'updatedAt.desc' },
     );
@@ -356,21 +346,21 @@ describe('events', () => {
       ],
     });
 
-    await expect(oa.events.update(
-      testconfig.agendaUid,
-      createdEvent.uid,
-      {
+    await expect(
+      oa.events.update(testconfig.agendaUid, createdEvent.uid, {
         ...createdEvent,
         image: { url: 'https://google.fr' },
-      },
-    )).rejects.toMatchObject({
+      }),
+    ).rejects.toMatchObject({
       response: {
         data: {
-          errors: [{
-            code: 'format.unknown',
-            field: 'image',
-            message: 'provided format is unknown',
-          }],
+          errors: [
+            {
+              code: 'format.unknown',
+              field: 'image',
+              message: 'provided format is unknown',
+            },
+          ],
         },
       },
     });

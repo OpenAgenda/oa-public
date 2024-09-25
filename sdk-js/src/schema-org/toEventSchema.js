@@ -1,35 +1,42 @@
 import { getLocaleValue, DEFAULT_LANG } from '@openagenda/intl';
 
 function getEventAttendanceMode(attendanceMode) {
-  return {
-    1: 'OfflineEventAttendanceMode',
-    2: 'OnlineEventAttendanceMode',
-    3: 'MixedEventAttendanceMode',
-  }[attendanceMode?.id ?? attendanceMode] ?? 'OfflineEventAttendanceMode';
+  return (
+    {
+      1: 'OfflineEventAttendanceMode',
+      2: 'OnlineEventAttendanceMode',
+      3: 'MixedEventAttendanceMode',
+    }[attendanceMode?.id ?? attendanceMode] ?? 'OfflineEventAttendanceMode'
+  );
 }
 
 function getEventStatus(status) {
-  return {
-    1: 'EventScheduled',
-    2: 'EventRescheduled',
-    3: 'EventMovedOnline',
-    4: 'EventPostponed',
-    5: 'EventScheduled', // but full.
-    6: 'EventCancelled',
-  }[status?.id ?? status] ?? 'EventScheduled';
+  return (
+    {
+      1: 'EventScheduled',
+      2: 'EventRescheduled',
+      3: 'EventMovedOnline',
+      4: 'EventPostponed',
+      5: 'EventScheduled', // but full.
+      6: 'EventCancelled',
+    }[status?.id ?? status] ?? 'EventScheduled'
+  );
 }
 
 function imageToUrl(image, type) {
   if (!image) return;
 
   const variant = typeof type === 'string'
-    ? image.variants?.find(img => img.type === type) ?? image
+    ? image.variants?.find((img) => img.type === type) ?? image
     : image;
 
   return `${image.base}${variant.filename}`;
 }
 
-export default function toEventSchema(event, { url, locale, defaultLocale = DEFAULT_LANG, formatDate }) {
+export default function toEventSchema(
+  event,
+  { url, locale, defaultLocale = DEFAULT_LANG, formatDate },
+) {
   const { timings } = event;
 
   const { begin } = timings[0];
@@ -46,11 +53,11 @@ export default function toEventSchema(event, { url, locale, defaultLocale = DEFA
     endDate: formatDate(end, timezone),
     eventAttendanceMode: `https://schema.org/${getEventAttendanceMode(event.attendanceMode)}`,
     eventStatus: `https://schema.org/${getEventStatus(event.status)}`,
-    ...event.registration?.some(r => r.type === 'link')
+    ...event.registration?.some((r) => r.type === 'link')
       ? {
         offers: {
           '@type': 'Offer',
-          url: event.registration.find(r => r.type === 'link').value,
+          url: event.registration.find((r) => r.type === 'link').value,
           availability: `https://schema.org/${event.status === 5 ? 'SoldOut' : 'InStock'}`,
         },
       }
