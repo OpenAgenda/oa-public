@@ -18,9 +18,7 @@ const config: StorybookConfig = {
 
   stories: ['../stories/*.mdx', '../stories/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
-  addons: [
-    getAbsolutePath('@storybook/addon-essentials'),
-  ],
+  addons: [getAbsolutePath('@storybook/addon-essentials')],
 
   refs: {
     '@chakra-ui/react': {

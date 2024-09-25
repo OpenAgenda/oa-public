@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "@openagenda"
-  ],
+  "extends": "../.eslintrc",
 
   "parserOptions": {
     "sourceType": "module"

@@ -2,7 +2,7 @@ import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 import { mode, transparentize } from '@chakra-ui/theme-tools';
 import { runIfFn } from '@chakra-ui/shared-utils';
 
-const variantGhost = defineStyle(props => {
+const variantGhost = defineStyle((props) => {
   const { colorScheme: c, theme } = props;
 
   if (c === 'gray') {
@@ -30,7 +30,7 @@ const variantGhost = defineStyle(props => {
   };
 });
 
-const variantOutline = defineStyle(props => {
+const variantOutline = defineStyle((props) => {
   const { colorScheme: c } = props;
   const borderColor = mode('gray.200', 'whiteAlpha.300')(props);
   return {
@@ -63,7 +63,7 @@ const solidColorMap: { [key: string]: AccessibleColor } = {
   },
 };
 
-const variantSolid = defineStyle(props => {
+const variantSolid = defineStyle((props) => {
   const { colorScheme: c } = props;
 
   const {
@@ -98,7 +98,7 @@ const linkColorMap: { [key: string]: AccessibleColor } = {
   },
 };
 
-const variantLink = defineStyle(props => {
+const variantLink = defineStyle((props) => {
   const { colorScheme: c } = props;
 
   const {
