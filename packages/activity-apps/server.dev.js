@@ -10,10 +10,6 @@ import sessionsMw from '@openagenda/sessions/middleware';
 import Activities from '@openagenda/activities/test/service';
 import testconfig from './testconfig';
 
-global.__CLIENT__ = false;
-global.__SERVER__ = true;
-global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
-
 testconfig.knex = knexLib({
   client: 'mysql',
   connection: testconfig.mysql,
