@@ -1,6 +1,5 @@
 # @openagenda/eslint-config
 
-
 ## ESLint
 
 ### Add dependencies
@@ -12,6 +11,7 @@ yarn add -D eslint @openagenda/eslint-config
 ### Create `.eslintrc` and `.eslintignore`
 
 `.eslintrc`:
+
 ```json
 {
   "extends": "@openagenda",
@@ -34,10 +34,10 @@ yarn add -D eslint @openagenda/eslint-config
     ]
   }
 }
-
 ```
 
 `.eslintignore`:
+
 ```ignore
 !.*
 node_modules/
@@ -59,7 +59,6 @@ The first line are useful for does not ignore the dotfiles (.storybook, .babelrc
 
 And run `yarn lint`.
 
-
 ## Prettier
 
 ### Add dependencies
@@ -80,7 +79,6 @@ yarn add -D prettier-eslint-cli
 
 And run `yarn prettier`.
 
-
 ## Lint-staged
 
 ### Add dependencies
@@ -97,11 +95,7 @@ yarn add -D lint-staged
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "**/*.js": [
-      "prettier-eslint --write",
-      "eslint -c .eslintrc",
-      "git add"
-    ]
+    "**/*.js": ["prettier-eslint --write", "eslint -c .eslintrc", "git add"]
   }
 }
 ```

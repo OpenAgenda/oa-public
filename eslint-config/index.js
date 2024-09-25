@@ -1,14 +1,9 @@
-'use strict';
-
-const path = require('path');
+const path = require('node:path');
 
 module.exports = {
   parser: '@babel/eslint-parser',
 
-  extends: [
-    '@openagenda/eslint-config/recommended',
-    'plugin:jest/recommended'
-  ],
+  extends: ['@openagenda/eslint-config/recommended', 'plugin:jest/recommended'],
 
   overrides: [
     {
@@ -18,16 +13,22 @@ module.exports = {
       extends: [
         'plugin:@typescript-eslint/recommended',
         '@openagenda/eslint-config/recommended',
-        'plugin:jest/recommended'
+        'plugin:jest/recommended',
       ],
-    }
+    },
+    {
+      files: ['*.{cjs,cts}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
   ],
 
   env: {
     browser: true,
     es6: true,
     jest: true,
-    node: true
+    node: true,
   },
 
   parserOptions: {
@@ -36,7 +37,7 @@ module.exports = {
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
-      legacyDecorators: true
+      legacyDecorators: true,
     },
     jsxPragma: null, // for @typescript/eslint-parser
     babelOptions: {
@@ -46,13 +47,13 @@ module.exports = {
 
   settings: {
     react: {
-      version: 'detect'
+      version: 'detect',
     },
     'import/resolver': {
       [path.resolve(__dirname, './resolver')]: {},
       node: {
-        extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node']
-      }
-    }
+        extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node'],
+      },
+    },
   },
 };
