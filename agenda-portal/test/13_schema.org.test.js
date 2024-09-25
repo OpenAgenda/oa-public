@@ -68,21 +68,21 @@ describe('13 - schema.org', () => {
     });
 
     it('eventAttendanceMode is mixed', () => {
-      expect(
-        parsedEventJSONLD.eventAttendanceMode,
-      ).toBe('https://schema.org/MixedEventAttendanceMode');
+      expect(parsedEventJSONLD.eventAttendanceMode).toBe(
+        'https://schema.org/MixedEventAttendanceMode',
+      );
     });
 
     it('availability is sold out', () => {
-      expect(
-        parsedEventJSONLD.offers.availability,
-      ).toBe('https://schema.org/SoldOut');
+      expect(parsedEventJSONLD.offers.availability).toBe(
+        'https://schema.org/SoldOut',
+      );
     });
 
     it('eventStatus is scheduled', () => {
-      expect(
-        parsedEventJSONLD.eventStatus,
-      ).toBe('https://schema.org/EventScheduled');
+      expect(parsedEventJSONLD.eventStatus).toBe(
+        'https://schema.org/EventScheduled',
+      );
     });
   });
 
@@ -127,7 +127,9 @@ describe('13 - schema.org', () => {
       });
 
       it('image is a repeated URL', () => {
-        expect(parsedEventJSONLD.image).toEqual(`${event.image.base}${event.image.filename}`);
+        expect(parsedEventJSONLD.image).toEqual(
+          `${event.image.base}${event.image.filename}`,
+        );
       });
 
       it('location.name is the detailed name of the place or venue where the event is being held.', () => {

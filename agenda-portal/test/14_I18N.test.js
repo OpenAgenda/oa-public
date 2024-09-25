@@ -27,6 +27,8 @@ describe('labels', () => {
       hash: true, // values === true returns no translated message
     };
 
-    expect(i18n.handlebarsHelper('total', { data })).toEqual('{total} événements');
+    expect(i18n.handlebarsHelper('total', { data })).toEqual(
+      '{total} événements',
+    );
   });
 });

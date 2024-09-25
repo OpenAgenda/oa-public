@@ -2,7 +2,7 @@ name: Crowdin Action
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   synchronize-with-crowdin:
@@ -11,7 +11,6 @@ jobs:
     environment: Crowdin
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v2
 

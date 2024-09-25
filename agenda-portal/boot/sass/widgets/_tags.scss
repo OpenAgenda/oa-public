@@ -1,10 +1,8 @@
 .tags {
-
   list-style-type: none;
   padding: 0;
 
   li {
-
     cursor: pointer;
     display: inline-block;
     background: white;
@@ -17,13 +15,10 @@
     }
 
     &.oa-group-first-tag {
-
       margin-top: 30px;
-
     }
 
     .count {
-
       margin-left: 10px;
       color: $oa-blue;
       border-top-right-radius: 10px;
@@ -32,11 +27,9 @@
       font-size: 0.8em;
       display: inline-block;
       padding: 4px 10px 4px 8px;
-
     }
 
     &.selected {
-
       background: $oa-blue;
       color: white;
 
@@ -44,10 +37,6 @@
         background: $oa-blue;
         color: $oa-white;
       }
-
     }
-
   }
-
-
 }

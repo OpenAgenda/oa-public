@@ -19,13 +19,13 @@
   "searchPlaceholder": "Suchen",
   "searchWhenMoving": "Suche beim Verschieben der Karte",
 
-  "offline":  "Offline",
+  "offline": "Offline",
   "online": "Online",
-  "mixed":  "Gemischt",
+  "mixed": "Gemischt",
   "passed": "Vergangen",
   "current": "Aktuell",
-  "upcoming":  "Kommend",
-  
+  "upcoming": "Kommend",
+
   "noAvailableTiming": "Keine verfügbare Zeitplanung",
   "addToFavorites": "Zu Favoriten hinzufügen",
   "accessOnlineEvent": "Zugriff auf die Veranstaltung",
