@@ -1,3 +1,5 @@
+'use strict';
+
 exports.up = (knex) => {
   const { schemas } = knex.client.config;
 

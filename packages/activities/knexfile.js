@@ -1,3 +1,5 @@
+'use strict';
+
 const config = require('./testconfig');
 
 module.exports = {

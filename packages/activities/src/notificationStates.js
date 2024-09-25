@@ -1,3 +1,5 @@
+'use strict';
+
 // TODO just this => { NEW: 0, SEEN: 1, READ: 2 }
 
 module.exports = ['new', 'seen', 'read'];

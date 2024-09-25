@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const VError = require('@openagenda/verror');
 const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');

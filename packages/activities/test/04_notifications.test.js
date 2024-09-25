@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const knexLib = require('knex');
 const config = require('../testconfig');

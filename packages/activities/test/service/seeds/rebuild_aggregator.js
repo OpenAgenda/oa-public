@@ -1,3 +1,5 @@
+'use strict';
+
 exports.seed = async (knex) => {
   const { schemas } = knex.client.config;
 

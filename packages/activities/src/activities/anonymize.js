@@ -1,3 +1,5 @@
+'use strict';
+
 const logs = require('@openagenda/logs');
 
 const log = logs('activities/anonymize');

@@ -1,3 +1,5 @@
+'use strict';
+
 const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');
 const log = require('@openagenda/logs')('activities/feeds/remove');
 

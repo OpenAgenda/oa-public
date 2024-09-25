@@ -1,3 +1,5 @@
+'use strict';
+
 const cleanOld = require('../../utils/cleanOld');
 
 module.exports = (config) =>

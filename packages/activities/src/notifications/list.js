@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const parseListArguments = require('@openagenda/service-utils/parseListArguments');
 const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');

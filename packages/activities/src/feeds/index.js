@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const create = require('./create');
 const get = require('./get');

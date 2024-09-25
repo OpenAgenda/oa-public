@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const VError = require('@openagenda/verror');
 const schema = require('@openagenda/validators/schema');

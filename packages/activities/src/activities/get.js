@@ -1,3 +1,5 @@
+'use strict';
+
 const schema = require('@openagenda/validators/schema');
 const validators = require('@openagenda/validators');
 const log = require('@openagenda/logs')('activities/get');

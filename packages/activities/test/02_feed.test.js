@@ -1,3 +1,5 @@
+'use strict';
+
 const knexLib = require('knex');
 const config = require('../testconfig');
 const Service = require('./service');

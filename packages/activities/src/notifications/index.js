@@ -1,3 +1,5 @@
+'use strict';
+
 const addActivity = require('./addActivity');
 const count = require('./count');
 const get = require('./get');
