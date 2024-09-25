@@ -14,7 +14,7 @@ module.exports.command = '$0 [files...]';
 
 module.exports.describe = 'Extract and compile locales.';
 
-module.exports.builder = yargsBuilder => {
+module.exports.builder = (yargsBuilder) => {
   yargsBuilder.positional('files', {
     default: ['src/**/*.js'],
     desc: 'Glob paths to extract translations from, the source files.',
@@ -46,12 +46,12 @@ module.exports.builder = yargsBuilder => {
     },
     langs: {
       default: DEFAULT_LANGS.join(','),
-      coerce: arg => arg.split(','),
+      coerce: (arg) => arg.split(','),
       desc: 'The target languages of the translations.',
     },
     definedDefault: {
       default: 'fr',
-      coerce: arg => arg.split(','),
+      coerce: (arg) => arg.split(','),
       desc: 'Languages that are populated with messages set to "" for ease of translation.',
     },
     idInterpolationPattern: {
@@ -83,7 +83,7 @@ module.exports.builder = yargsBuilder => {
   });
 };
 
-module.exports.handler = async argv => {
+module.exports.handler = async (argv) => {
   if (!argv.compileOnly) {
     await extract.handler({
       files: argv.files,

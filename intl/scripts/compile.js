@@ -89,7 +89,7 @@ async function compileLang({
         }),
       );
 
-      compiledLocales = _.mapValues(compiledLocales, item =>
+      compiledLocales = _.mapValues(compiledLocales, (item) =>
         (Array.isArray(item) && item.length === 0 ? null : item));
     } catch (e) {
       console.log(`Error while compiling ${lang}`, e);
@@ -112,7 +112,7 @@ module.exports.command = 'compile [locales]';
 
 module.exports.describe = 'Compile locales.';
 
-module.exports.builder = yargs => {
+module.exports.builder = (yargs) => {
   yargs.positional('locales', {
     default: defaults.locales,
     desc: 'Glob path to compile locales from.',
@@ -132,7 +132,7 @@ module.exports.builder = yargs => {
     },
     langs: {
       default: defaults.langs.join(','),
-      coerce: arg => arg.split(','),
+      coerce: (arg) => arg.split(','),
       desc: 'The target languages of the translations.',
     },
     fallbackMap: {
@@ -158,7 +158,7 @@ module.exports.builder = yargs => {
   });
 };
 
-module.exports.handler = async argv => {
+module.exports.handler = async (argv) => {
   const {
     locales = defaults.locales,
     output = defaults.output,
@@ -174,7 +174,7 @@ module.exports.handler = async argv => {
 
   // Compile
   const compileResults = await Promise.allSettled(
-    langs.map(lang =>
+    langs.map((lang) =>
       compileLang({
         locales,
         output,
@@ -186,7 +186,7 @@ module.exports.handler = async argv => {
       })),
   );
 
-  compileResults.forEach(result => {
+  compileResults.forEach((result) => {
     if (result.status === 'rejected') {
       console.log('Compile error:', result.reason);
     }
