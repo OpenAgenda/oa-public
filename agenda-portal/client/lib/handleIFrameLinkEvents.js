@@ -29,7 +29,7 @@ export default (jQuery, iframeHandler) => {
       return;
     }
 
-    if (registeredLinks.filter(registered => registered.is(el)).length) {
+    if (registeredLinks.filter((registered) => registered.is(el)).length) {
       log('already registered, ignoring', href);
       return;
     }
@@ -46,7 +46,7 @@ export default (jQuery, iframeHandler) => {
       });
     } else {
       log('external link', href);
-      el.on('click', e => {
+      el.on('click', (e) => {
         e.preventDefault();
         iframeHandler.sendExternalLinkClick(href);
       });

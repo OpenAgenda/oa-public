@@ -32,10 +32,12 @@ function handlebarsHelper(intlByLocale) {
   };
 }
 
-module.exports = path => {
+module.exports = (path) => {
   // eslint-disable-next-line global-require,import/no-dynamic-require
   const userLocales = require(path);
-  const locales = getFallbackedMessages(mergeLocales(filtersLocales, userLocales));
+  const locales = getFallbackedMessages(
+    mergeLocales(filtersLocales, userLocales),
+  );
   const intlByLocale = createIntlByLocale(locales);
 
   return {

@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const _ = require('lodash');
 
 const spreadPerMonth = require('../lib/events/spreadPerMonthPerDay');
@@ -63,7 +63,7 @@ describe('10 - spreadPerMonthPerDay', () => {
 
       expect(
         JSON.stringify(
-          result.map(m => _.omit(m, 'diff')),
+          result.map((m) => _.omit(m, 'diff')),
           null,
           2,
         ),
@@ -75,7 +75,7 @@ describe('10 - spreadPerMonthPerDay', () => {
 
       expect(
         JSON.stringify(
-          result.map(m => _.omit(m, 'diff')),
+          result.map((m) => _.omit(m, 'diff')),
           null,
           2,
         ),
@@ -85,9 +85,7 @@ describe('10 - spreadPerMonthPerDay', () => {
 
   describe('invalid timings', () => {
     it('null timings are filtered out', () => {
-      const timings = [
-        { begin: null, end: null },
-      ];
+      const timings = [{ begin: null, end: null }];
 
       expect(spreadPerMonth(timings, 'Europe/Paris', 'fr')).toEqual([]);
     });
@@ -97,12 +95,14 @@ describe('10 - spreadPerMonthPerDay', () => {
     it('spread timings must appear sorted', () => {
       const result = spreadPerMonth(inputTimings, 'Europe/Paris', 'fr');
 
-      expect(result[0].weeks[1].days.map(d => d.day).join(',')).toEqual('05,06,07,08,09,10,11');
+      expect(result[0].weeks[1].days.map((d) => d.day).join(',')).toEqual(
+        '05,06,07,08,09,10,11',
+      );
     });
 
     it('spread must not make timings disappear', () => {
       const months = spreadPerMonth(inputTimings2, 'Europe/Paris', 'fr');
-      expect(months.map(m => m.key).join(',')).toBe('2022-10,2022-11');
+      expect(months.map((m) => m.key).join(',')).toBe('2022-10,2022-11');
     });
   });
 });

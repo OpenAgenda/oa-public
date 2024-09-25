@@ -2,8 +2,8 @@
 
 'use strict';
 
-const path = require('path');
-const { fork } = require('child_process');
+const path = require('node:path');
+const { fork } = require('node:child_process');
 const concurrently = require('concurrently');
 const loadEnvironment = require('../utils/loadEnvironment');
 
@@ -20,7 +20,9 @@ if (process.env.NODE_ENV === 'production') {
 
 const script = process.env.PORTAL_DEV ? 'dev' : 'server';
 
-const browserRefreshBin = require.resolve('browser-refresh/bin/browser-refresh');
+const browserRefreshBin = require.resolve(
+  'browser-refresh/bin/browser-refresh',
+);
 const webpackBin = require.resolve('webpack/bin/webpack');
 
 concurrently([
@@ -28,8 +30,8 @@ concurrently([
     name: 'server',
     command: `${browserRefreshBin} ${script}`,
     env: {
-      NODE_ENV: 'development'
-    }
+      NODE_ENV: 'development',
+    },
   },
   {
     name: 'build',
@@ -37,7 +39,7 @@ concurrently([
     cwd: path.dirname(__dirname), // to use the good webpack
     env: {
       PORTAL_DIR: portalDir,
-      NODE_ENV: process.env.NODE_ENV ?? 'development'
-    }
-  }
+      NODE_ENV: process.env.NODE_ENV ?? 'development',
+    },
+  },
 ]);

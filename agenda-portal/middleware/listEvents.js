@@ -5,7 +5,7 @@ const qs = require('qs');
 const { filtersToAggregations } = require('@openagenda/react-filters');
 const paginate = require('../lib/paginate');
 
-module.exports = withAggs => async (req, res, next) => {
+module.exports = (withAggs) => async (req, res, next) => {
   const proxy = req.app.get('proxy');
   const transform = req.app.get('transforms').event.listItem;
   const { filters, agendaUid } = res.locals;

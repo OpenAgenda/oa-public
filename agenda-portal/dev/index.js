@@ -15,7 +15,7 @@ const compiler = webpack(webpackConfig);
 dev.use(
   webpackDevMiddleware(compiler, {
     publicPath: '/js',
-  })
+  }),
 );
 
 dev.use(webpackHotReloadMiddleware(compiler));

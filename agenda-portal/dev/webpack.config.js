@@ -1,11 +1,11 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const webpack = require('webpack');
 
 const jsEntryFiles = fs
   .readdirSync(`${__dirname}/../client`)
-  .filter(filesAndFolders => filesAndFolders.split('.').length > 1);
+  .filter((filesAndFolders) => filesAndFolders.split('.').length > 1);
 
 module.exports = {
   mode: 'development',
@@ -18,7 +18,7 @@ module.exports = {
         `./client/${filename}`,
       ],
     }),
-    {}
+    {},
   ),
   output: {
     publicPath: '/js/',

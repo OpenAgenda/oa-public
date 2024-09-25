@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
     res.json({
       html,
       total: req.data.total,
-      aggregations: req.data.aggregations
+      aggregations: req.data.aggregations,
     });
   });
 };

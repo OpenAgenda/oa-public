@@ -4,7 +4,7 @@ function extractQueryPart() {
   return parts.length > 1 ? parts[1] : null;
 }
 
-export default pageProps => {
+export default (pageProps) => {
   const query = extractQueryPart();
 
   const { iframeParent, root: rootPage } = pageProps;
