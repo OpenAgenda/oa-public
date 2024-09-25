@@ -30,14 +30,16 @@ export function All() {
           <ModalCloseButton />
           <ModalBody>
             <div>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores ducimus, ea eligendi eveniet
-              excepturi fuga magnam magni nam nulla quae quidem rem repellendus sequi sint voluptatem! Adipisci animi
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores
+              ducimus, ea eligendi eveniet excepturi fuga magnam magni nam nulla
+              quae quidem rem repellendus sequi sint voluptatem! Adipisci animi
               dignissimos nobis?
             </div>
             <div>
-              Accusantium, ad deleniti dolorum eaque earum eius, labore omnis quo quod reprehenderit repudiandae sunt
-              velit veniam? Consequuntur cum debitis eaque eveniet harum molestiae nulla numquam quasi quo, suscipit
-              unde, voluptatem.
+              Accusantium, ad deleniti dolorum eaque earum eius, labore omnis
+              quo quod reprehenderit repudiandae sunt velit veniam? Consequuntur
+              cum debitis eaque eveniet harum molestiae nulla numquam quasi quo,
+              suscipit unde, voluptatem.
             </div>
           </ModalBody>
 

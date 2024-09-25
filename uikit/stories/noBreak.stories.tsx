@@ -1,10 +1,4 @@
-import {
-  NoBreak,
-  Box,
-  Code,
-  VStack,
-  createIcon,
-} from '../src';
+import { NoBreak, Box, Code, VStack, createIcon } from '../src';
 import Provider from './decorators/Provider';
 
 export default {
@@ -27,7 +21,9 @@ export function All() {
       <Box w="320px" bg="green.400">
         With <Code>NoBreak</Code>.<br />
         This is too long to keep the icon on the same line
-        <NoBreak><CheckIcon ml="2" /></NoBreak>
+        <NoBreak>
+          <CheckIcon ml="2" />
+        </NoBreak>
       </Box>
 
       <Box w="320px" bg="red.400">

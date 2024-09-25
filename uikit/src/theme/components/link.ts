@@ -1,7 +1,7 @@
 import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 import { mode } from '@chakra-ui/theme-tools';
 
-const baseStyle = defineStyle(props => {
+const baseStyle = defineStyle((props) => {
   const { colorScheme: c } = props;
 
   if (!c) {
