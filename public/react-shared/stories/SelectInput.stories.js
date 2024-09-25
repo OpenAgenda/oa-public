@@ -14,7 +14,7 @@ export default {
 };
 
 export const SelectInput = () => {
-  const onChange = value => console.log('onChange:', value);
+  const onChange = (value) => console.log('onChange:', value);
 
   return (
     <div style={{ flex: '0 0 60%' }}>
@@ -52,7 +52,7 @@ export const CreatableMultiSelectInput = () => {
         isMulti
         separator=","
         options={[{ label: 'first option', value: 'first option' }]}
-        onChange={v => {
+        onChange={(v) => {
           setValue(v);
         }}
       />
@@ -92,7 +92,7 @@ const Component = ({ handleSubmit }) => (
 );
 
 export const InReactFinalForm = () => {
-  const onSubmit = v => {
+  const onSubmit = (v) => {
     console.log('onSubmit', v);
   };
 

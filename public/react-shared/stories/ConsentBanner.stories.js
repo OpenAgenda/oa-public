@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import { IntlProvider } from 'react-intl';
 
 import ConsentBanner from '../src/components/ConsentBanner';
 import locales from '../src/locales-compiled';
 import AdminCanvas from './decorators/AdminCanvas';
+
+const CustomContent = () => <p>Tu veux un cookie?</p>;
 
 export default {
   title: 'ConsentBanner',
@@ -17,7 +19,11 @@ export const Default = () => {
 
   return (
     <IntlProvider locale="fr" key="fr" messages={locales.fr}>
-      <ConsentBanner onAccept={() => setConsentValue(!consentValue)} show lang="fr" />
+      <ConsentBanner
+        onAccept={() => setConsentValue(!consentValue)}
+        show
+        lang="fr"
+      />
     </IntlProvider>
   );
 };
@@ -35,16 +41,21 @@ export const Custom = () => {
 
   const customMessages = {
     'trackConsent.informationText': 'Cookies?',
-    'trackConsent.moreInfoLink': 'Plus d\'infos',
+    'trackConsent.moreInfoLink': "Plus d'infos",
     'trackConsent.accept': 'Oui',
     'trackConsent.decline': 'Non merci',
   };
 
-  const CustomContent = () => (<p>Tu veux un cookie?</p>);
-
   return (
     <IntlProvider locale="fr" key="fr">
-      <ConsentBanner onAccept={() => setConsentValue(!consentValue)} customMessages={customMessages} customStyle={styles} CustomContent={CustomContent} show lang="fr" />
+      <ConsentBanner
+        onAccept={() => setConsentValue(!consentValue)}
+        customMessages={customMessages}
+        customStyle={styles}
+        CustomContent={CustomContent}
+        show
+        lang="fr"
+      />
     </IntlProvider>
   );
 };

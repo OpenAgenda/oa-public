@@ -13,18 +13,23 @@ function getParams(match) {
   }, {});
 }
 
-const asyncMatchRoutes = (routes, pathname, { preloadPropName = 'load', skipPreload } = {}) => {
+const asyncMatchRoutes = (
+  routes,
+  pathname,
+  { preloadPropName = 'load', skipPreload } = {},
+) => {
   const match = matchRoutes(routes, pathname.split('?')[0]);
   const params = getParams(match);
-  let components = match.map(v => v.route.component);
+  const components = match.map((v) => v.route.component);
 
-  const skip = typeof skipPreload === 'function' && skipPreload({ components, match, params });
+  const skip = typeof skipPreload === 'function'
+    && skipPreload({ components, match, params });
 
   if (skip) {
     return {
       components: [],
       match: [],
-      params: {}
+      params: {},
     };
   }
 
@@ -32,13 +37,14 @@ const asyncMatchRoutes = (routes, pathname, { preloadPropName = 'load', skipPrel
     return Promise.all(
       components.reduce((accu, component) => {
         if (typeof component[preloadPropName] === 'function') {
-          return accu.concat(Promise.resolve(component[preloadPropName]()).then(esModuleInterop));
+          return accu.concat(
+            Promise.resolve(component[preloadPropName]()).then(esModuleInterop),
+          );
         }
 
         return accu.concat(component);
-      }, [])
-    )
-      .then(comps => ({ components: comps, match, params }));
+      }, []),
+    ).then((comps) => ({ components: comps, match, params }));
   }
 };
 
