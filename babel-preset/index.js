@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable global-require */
+
 const { declare } = require('@babel/helper-plugin-utils');
 
 // caller: {
@@ -32,24 +34,29 @@ module.exports = declare((api, options) => {
     shippedProposals: true,
   };
 
-  const transformRuntime =
-    'transformRuntime' in options ? options.transformRuntime : true;
-  const useBuiltIns =
-    'useBuiltIns' in options
-      ? options.useBuiltIns
-      : transformRuntime
-        ? 'usage'
-        : false;
-  const corejs =
-    'corejs' in options
-      ? options.corejs
-      : useBuiltIns
-        ? { version: 3, proposals: true }
-        : undefined;
-  const development =
-    'development' in options
-      ? options.development
-      : api.cache(() => process.env.NODE_ENV !== 'production');
+  const transformRuntime = 'transformRuntime' in options ? options.transformRuntime : true;
+
+  let useBuiltIns;
+
+  if ('useBuiltIns' in options) {
+    useBuiltIns = options.useBuiltIns;
+  } else if (transformRuntime) {
+    useBuiltIns = 'usage';
+  } else {
+    useBuiltIns = false;
+  }
+
+  let corejs;
+
+  if ('corejs' in options) {
+    corejs = options.corejs;
+  } else if (useBuiltIns) {
+    corejs = { version: 3, proposals: true };
+  }
+
+  const development = 'development' in options
+    ? options.development
+    : api.cache(() => process.env.NODE_ENV !== 'production');
   let reactIntlOpts = null;
 
   switch (env) {
@@ -103,12 +110,12 @@ module.exports = declare((api, options) => {
     require('babel-plugin-add-module-exports'),
     transformRuntime
       ? [
-          require('@babel/plugin-transform-runtime'),
-          {
-            corejs,
-            version: require('@babel/helpers/package.json').version,
-          },
-        ]
+        require('@babel/plugin-transform-runtime'),
+        {
+          corejs,
+          version: require('@babel/helpers/package.json').version,
+        },
+      ]
       : null,
 
     isWebpack && supportHotReload ? require('react-refresh/babel') : null,
