@@ -50,4 +50,4 @@ module.exports = function getTransporters(...configs) {
   }
 
   return transports;
-}
+};

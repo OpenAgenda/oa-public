@@ -18,7 +18,7 @@ class SentryTransport extends winston.Transport {
         verbose: 'debug',
         info: 'info',
         warn: 'warning',
-        error: 'error'
+        error: 'error',
       },
       ...options,
     };
@@ -35,7 +35,7 @@ class SentryTransport extends winston.Transport {
   log(level, msg, meta, cb) {
     const namespace = meta.namespace || this.namespace;
     let error;
-    let displayedMeta = {
+    const displayedMeta = {
       prefix: this.prefix,
       namespace,
     };
@@ -62,7 +62,8 @@ class SentryTransport extends winston.Transport {
         error = new Error(msg);
 
         const stacktrace = error.stack.split('\n');
-        const index = stacktrace.findIndex(ligne => ligne.includes(`[as ${level}]`));
+        const index = stacktrace.findIndex((ligne) =>
+          ligne.includes(`[as ${level}]`));
         stacktrace.splice(1, index);
 
         error.stack = stacktrace.join('\n');
@@ -73,7 +74,7 @@ class SentryTransport extends winston.Transport {
       return cb(null, true);
     }
 
-    this.sentry.withScope(scope => {
+    this.sentry.withScope((scope) => {
       const ns = this.prefix + namespace;
 
       scope.setLevel(this.levelsMap[level]);
@@ -87,7 +88,7 @@ class SentryTransport extends winston.Transport {
 
       scope.setContext('data', displayedMeta);
 
-      scope.addEventProcessor(event => {
+      scope.addEventProcessor((event) => {
         const txName = event.transaction || '';
         const separator = ns.length && txName.length ? ' | ' : '';
         event.transaction = `${ns}${separator}${txName}`;

@@ -34,7 +34,10 @@ function errorToJSON(error) {
 
   // Conserve keys order in obj
   for (const key in error['@@verror/meta']) {
-    if (Object.prototype.hasOwnProperty.call(error['@@verror/meta'], key) && !(key in obj)) {
+    if (
+      Object.prototype.hasOwnProperty.call(error['@@verror/meta'], key)
+      && !(key in obj)
+    ) {
       obj[key] = error['@@verror/meta'][key];
     }
   }
@@ -84,17 +87,19 @@ class InsightOpsTransport extends winston.Transport {
       region: params.region,
       minLevel: params.level,
       // Winston and Insight levels are reversed
-      levels: Object.entries(winston.config.npm.levels)
-        .reduce((acc, [key, value], index, array) => {
-          acc[key] = array[array.length - 1 - index][1];
+      levels: Object.entries(winston.config.npm.levels).reduce(
+        (acc, [key], index, array) => {
+          [, acc[key]] = array[array.length - 1 - index];
           return acc;
-        }, {}),
+        },
+        {},
+      ),
       json: true,
       takeLevelFromLog: true,
       withLevel: false,
       withStack: true,
     });
-    this.logger.on('error', err => this.emit(err));
+    this.logger.on('error', (err) => this.emit(err));
 
     this.name = 'insightOps';
     this.level = params.level;
@@ -104,7 +109,7 @@ class InsightOpsTransport extends winston.Transport {
 
   log(level, msg, meta, cb) {
     let error;
-    let displayedMeta = {};
+    const displayedMeta = {};
 
     if (meta instanceof Error) {
       error = meta;
@@ -124,14 +129,16 @@ class InsightOpsTransport extends winston.Transport {
       Object.assign(displayedMeta, store);
     }
 
-    this.logger.log(cloneAndReplaceErrors({
-      level,
-      prefix: this.prefix,
-      namespace: meta.namespace || this.namespace,
-      message: msg,
-      error,
-      meta: !isEmptyObject(displayedMeta) ? displayedMeta : undefined,
-    }));
+    this.logger.log(
+      cloneAndReplaceErrors({
+        level,
+        prefix: this.prefix,
+        namespace: meta.namespace || this.namespace,
+        message: msg,
+        error,
+        meta: !isEmptyObject(displayedMeta) ? displayedMeta : undefined,
+      }),
+    );
 
     cb(null, true);
   }
