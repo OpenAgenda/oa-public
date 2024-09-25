@@ -12,18 +12,19 @@ const __dirname = dirname(__filename);
 const locationIconPath = `${__dirname}/../../images/location.png`;
 
 export default function locationPositioning(doc, cursor, event, options = {}) {
-  const { columnMaxWidth, fontSize, base, margin, iconHeightAndWidth, simulate } = options;
+  const {
+    columnMaxWidth,
+    fontSize,
+    base,
+    margin,
+    iconHeightAndWidth,
+    simulate,
+  } = options;
 
   let locationHeightTotal = 0;
 
   if (event.location?.name || event.location?.address) {
-    const { width: widthOfLocationIcon, height: heightOfLocationIcon } = addIcon(
-      doc,
-      locationIconPath,
-      cursor,
-      iconHeightAndWidth,
-      { simulate },
-    );
+    const { width: widthOfLocationIcon, height: heightOfLocationIcon } = addIcon(doc, locationIconPath, cursor, iconHeightAndWidth, { simulate });
 
     cursor.x += widthOfLocationIcon + margin;
     cursor.y -= base.margin / 16;
@@ -36,14 +37,19 @@ export default function locationPositioning(doc, cursor, event, options = {}) {
       ? `${event.location.name} ${event.location.address}`
       : event.location.name || event.location.address;
 
-    const { width: locationWidth, height: locationHeight } = addText(doc, cursor, cleanString(locationString), {
-      width: columnMaxWidth - (iconHeightAndWidth + margin),
-      fontSize,
-      base,
-      underline: false,
-      link: generateGoogleMapsLink(googleMapsLink),
-      simulate,
-    });
+    const { width: locationWidth, height: locationHeight } = addText(
+      doc,
+      cursor,
+      cleanString(locationString),
+      {
+        width: columnMaxWidth - (iconHeightAndWidth + margin),
+        fontSize,
+        base,
+        underline: false,
+        link: generateGoogleMapsLink(googleMapsLink),
+        simulate,
+      },
+    );
 
     cursor.x += locationWidth;
     cursor.y += base.margin / 16;

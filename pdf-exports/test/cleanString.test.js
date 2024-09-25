@@ -3,7 +3,7 @@ import cleanString from '../lib/cleanString.js';
 function testCleanString() {
   const inputStrings = ['É', 'Â'];
 
-  inputStrings.forEach(str => {
+  inputStrings.forEach((str) => {
     const cleanedStr = cleanString(str);
     console.log('Original string characters and char codes:');
     console.log(str.length);

@@ -12,7 +12,7 @@ export default async function thumbnail(event, options = {}) {
   const imageHeight = 200;
 
   const thumbnailFilename = event.image?.variants.find(
-    el => el.type === 'thumbnail',
+    (el) => el.type === 'thumbnail',
   )?.filename;
 
   const newVersionThumbnail = thumbnailFilename?.includes('.thumb.image.jpg');

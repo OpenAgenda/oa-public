@@ -10,8 +10,21 @@ import messages from './messages.js';
 
 const log = logs('GenerateExportStream');
 
-export default async function GenerateExportStream(config, eventStream, writeStream, options = {}) {
-  const { agenda, lang = 'fr', includeEventImages = true, little, medium, mode, logBundle } = options;
+export default async function GenerateExportStream(
+  config,
+  eventStream,
+  writeStream,
+  options = {},
+) {
+  const {
+    agenda,
+    lang = 'fr',
+    includeEventImages = true,
+    little,
+    medium,
+    mode,
+    logBundle,
+  } = options;
 
   const startTime = Date.now();
   let count = 0;
@@ -40,10 +53,15 @@ export default async function GenerateExportStream(config, eventStream, writeStr
 
   cursor.x += margin;
 
-  const simulateFooter = addFooter(doc, `${intl.formatMessage(messages.page)} ${pageNumber}`, margin, {
-    simulate: true,
-    fontSize,
-  });
+  const simulateFooter = addFooter(
+    doc,
+    `${intl.formatMessage(messages.page)} ${pageNumber}`,
+    margin,
+    {
+      simulate: true,
+      fontSize,
+    },
+  );
 
   simulateFooterHeight = simulateFooter.height;
 
@@ -62,47 +80,81 @@ export default async function GenerateExportStream(config, eventStream, writeStr
       currentPageNumber = pageNumber;
 
       if (isFirstPage) {
-        const { height: documentHeaderHeight } = await addDocumentHeader(agenda, event, doc, cursor, {
-          little,
-          medium,
-          mode,
-        });
+        const { height: documentHeaderHeight } = await addDocumentHeader(
+          agenda,
+          event,
+          doc,
+          cursor,
+          {
+            little,
+            medium,
+            mode,
+          },
+        );
         cursor.y += documentHeaderHeight + margin;
         isFirstPage = false;
       }
-      addFooter(doc, `${intl.formatMessage(messages.page)} ${pageNumber}`, margin, { fontSize });
+      addFooter(
+        doc,
+        `${intl.formatMessage(messages.page)} ${pageNumber}`,
+        margin,
+        { fontSize },
+      );
     }
 
-    const { height: simulatedHeight } = await addEventItem(agenda, event, doc, cursor, {
-      simulate: true,
-      intl,
-      lang,
-      includeEventImages,
-      little,
-      medium,
-      mode,
-    });
-
-    if (cursorYOverflowing(doc, cursor.y + simulatedHeight + simulateFooterHeight)) {
-      doc.addPage();
-      cursor.y = margin / 6;
-      const { height: pageHeaderHeight } = await addPageHeader(agenda, doc, cursor, {
+    const { height: simulatedHeight } = await addEventItem(
+      agenda,
+      event,
+      doc,
+      cursor,
+      {
+        simulate: true,
+        intl,
+        lang,
+        includeEventImages,
         little,
         medium,
-      });
+        mode,
+      },
+    );
+
+    if (
+      cursorYOverflowing(doc, cursor.y + simulatedHeight + simulateFooterHeight)
+    ) {
+      doc.addPage();
+      cursor.y = margin / 6;
+      const { height: pageHeaderHeight } = await addPageHeader(
+        agenda,
+        doc,
+        cursor,
+        {
+          little,
+          medium,
+        },
+      );
       cursor.y += pageHeaderHeight + margin;
       pageNumber += 1;
-      addFooter(doc, `${intl.formatMessage(messages.page)} ${pageNumber}`, margin);
+      addFooter(
+        doc,
+        `${intl.formatMessage(messages.page)} ${pageNumber}`,
+        margin,
+      );
     }
 
-    const { height: eventItemHeight } = await addEventItem(agenda, event, doc, cursor, {
-      intl,
-      lang,
-      includeEventImages,
-      little,
-      medium,
-      mode,
-    });
+    const { height: eventItemHeight } = await addEventItem(
+      agenda,
+      event,
+      doc,
+      cursor,
+      {
+        intl,
+        lang,
+        includeEventImages,
+        little,
+        medium,
+        mode,
+      },
+    );
 
     const endTime = Date.now();
     const responseTime = endTime - startTime;

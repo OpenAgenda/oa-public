@@ -3,7 +3,13 @@ import addText from './addText.js';
 import addSeparatorLine from './addSeparatorLine.js';
 import cleanString from './cleanString.js';
 
-export default async function addDocumentHeader(agenda, firstEvent, doc, cursor, options = {}) {
+export default async function addDocumentHeader(
+  agenda,
+  firstEvent,
+  doc,
+  cursor,
+  options = {},
+) {
   const {
     base = {
       margin: 20,
@@ -50,7 +56,12 @@ export default async function addDocumentHeader(agenda, firstEvent, doc, cursor,
   localCursor.y += margin;
 
   if (agenda.image) {
-    const logo = await addAgendaLogo(doc, agenda.image, localCursor, logoHeightAndWidth);
+    const logo = await addAgendaLogo(
+      doc,
+      agenda.image,
+      localCursor,
+      logoHeightAndWidth,
+    );
 
     logoHeight = logo.height;
     logoWidth = logo.width;
@@ -58,12 +69,17 @@ export default async function addDocumentHeader(agenda, firstEvent, doc, cursor,
   }
   const textMaxWidth = doc.page.width - logoWidth - base.margin * 3;
 
-  const { height: heightOfTitle, width: widthOfTitle } = addText(doc, localCursor, agenda.title, {
-    width: textMaxWidth,
-    fontSize,
-    base,
-    bold: true,
-  });
+  const { height: heightOfTitle, width: widthOfTitle } = addText(
+    doc,
+    localCursor,
+    agenda.title,
+    {
+      width: textMaxWidth,
+      fontSize,
+      base,
+      bold: true,
+    },
+  );
 
   localCursor.y += heightOfTitle + base.margin / 10;
 
@@ -82,11 +98,16 @@ export default async function addDocumentHeader(agenda, firstEvent, doc, cursor,
     widthOfLocation = widthLocation;
   }
 
-  const { height: heightOfDescription, width: widthOfDescription } = addText(doc, localCursor, agenda.description, {
-    width: textMaxWidth,
-    fontSize,
-    base,
-  });
+  const { height: heightOfDescription, width: widthOfDescription } = addText(
+    doc,
+    localCursor,
+    agenda.description,
+    {
+      width: textMaxWidth,
+      fontSize,
+      base,
+    },
+  );
   localCursor.y += heightOfDescription + base.margin / 10;
 
   if (agenda.url) {
@@ -133,7 +154,15 @@ export default async function addDocumentHeader(agenda, firstEvent, doc, cursor,
   localCursor.y += separatorLineHeight;
 
   return {
-    width: logoWidth + Math.max(widthOfTitle, widthOfLocation, widthOfDescription, widthOfURL, widthOfOaAgendaURL),
+    width:
+      logoWidth
+      + Math.max(
+        widthOfTitle,
+        widthOfLocation,
+        widthOfDescription,
+        widthOfURL,
+        widthOfOaAgendaURL,
+      ),
     height: Math.max(logoHeight, localCursor.y - cursor.y),
     cursor: localCursor,
   };
