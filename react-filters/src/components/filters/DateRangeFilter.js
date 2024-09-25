@@ -58,7 +58,7 @@ export function formatValue(value) {
     - getTimezoneOffset(currentTz, value.gte);
 
   if (Array.isArray(value)) {
-    return value.map(v => {
+    return value.map((v) => {
       const startDate = formatDateValue(v.gte);
       const endDate = formatDateValue(v.lte);
 
@@ -128,7 +128,7 @@ function Preview({
   const value = formatValue(input.value)[0];
 
   const selectedStaticRange = useMemo(
-    () => value && staticRanges.find(v => v.isSelected(value, tz)),
+    () => value && staticRanges.find((v) => v.isSelected(value, tz)),
     [value, staticRanges, tz],
   );
 
@@ -141,7 +141,7 @@ function Preview({
   );
 
   const onRemove = useCallback(
-    e => {
+    (e) => {
       e.stopPropagation();
 
       if (disabled) {
@@ -159,7 +159,7 @@ function Preview({
     return null;
   }
 
-  const formatDate = v => intl.formatDate(v /* , { timeZone: tz } */);
+  const formatDate = (v) => intl.formatDate(v /* , { timeZone: tz } */);
 
   if (selectedStaticRange) {
     label = selectedStaticRange.label;

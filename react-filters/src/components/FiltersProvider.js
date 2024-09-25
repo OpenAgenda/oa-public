@@ -81,18 +81,18 @@ const IntlProvided = React.forwardRef(
       [missingValue, mapTiles, dateFnsLocale],
     );
     const [filters, setFilters] = useState(() =>
-      (rawFilters ?? []).map(rawFilter =>
+      (rawFilters ?? []).map((rawFilter) =>
         withDefaultFilterConfig(rawFilter, intl, filtersOptions)));
     const [widgets, setWidgets] = useState(() => rawWidgets);
 
     const updateFilters = useCallback(
-      newFilters => {
+      (newFilters) => {
         setFilters(
-          newFilters.map(rawFilter =>
+          newFilters.map((rawFilter) =>
             withDefaultFilterConfig(rawFilter, intl, filtersOptions)),
         );
       },
-      [intl, mapTiles, missingValue],
+      [filtersOptions, intl],
     );
 
     const filtersAndWidgets = useMemo(

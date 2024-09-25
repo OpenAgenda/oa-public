@@ -14,8 +14,6 @@ module.exports = {
       },
     ],
   ],
-  plugins: [
-    require.resolve('@emotion/babel-plugin'),
-  ],
+  plugins: [require.resolve('@emotion/babel-plugin')],
   sourceType: 'unambiguous',
 };

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import cn from 'classnames';
 import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
 
@@ -15,12 +15,13 @@ export default function Panel({
   const updater = typeof setCollapsed === 'function' ? setCollapsed : internalState[1];
 
   const toggleCollapsed = useMemo(
-    () => a11yButtonActionHandler(e => {
-      e.preventDefault();
+    () =>
+      a11yButtonActionHandler((e) => {
+        e.preventDefault();
 
-      updater(v => !v);
-    }),
-    [updater]
+        updater((v) => !v);
+      }),
+    [updater],
   );
 
   return (

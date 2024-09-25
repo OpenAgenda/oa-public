@@ -7,13 +7,13 @@ export default function useMapOnChange({
   userControlled,
 }) {
   return useCallback(
-    value => {
+    (value) => {
       if (!userControlled) {
         if (value) {
           const { current: mapElem } = ref;
           loadGeoData(value.bounds, value.zoom)
-            .then(data => mapElem.setData(data?.reverse() ?? []))
-            .catch(err => {
+            .then((data) => mapElem.setData(data?.reverse() ?? []))
+            .catch((err) => {
               console.log('Failed to geo data', err);
             });
         }

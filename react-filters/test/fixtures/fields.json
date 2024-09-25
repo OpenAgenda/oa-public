@@ -1,174 +1,174 @@
 [
   {
-      "field": "title",
-      "label": "Nom de l’événement",
-      "info": "Précisez le type et le nom de l'activité",
-      "sub": null,
-      "placeholder": "Visite guidée du ministère de la Culture",
-      "fieldType": "abstract",
-      "schemaId": null,
-      "schemaType": null
+    "field": "title",
+    "label": "Nom de l’événement",
+    "info": "Précisez le type et le nom de l'activité",
+    "sub": null,
+    "placeholder": "Visite guidée du ministère de la Culture",
+    "fieldType": "abstract",
+    "schemaId": null,
+    "schemaType": null
   },
   {
-      "field": "types-devenement",
-      "label": "Types d'événement",
-      "help": null,
-      "helpLink": null,
-      "helpContent": null,
-      "info": null,
-      "sub": null,
-      "placeholder": null,
-      "write": null,
-      "read": null,
-      "optional": false,
-      "display": true,
-      "origin": "tags",
-      "enableWith": null,
-      "related": [],
-      "options": [
-          {
-              "id": 1,
-              "value": "animation-jeune-public",
-              "label": {
-                  "fr": "Animation Jeune public"
-              }
-          },
-          {
-              "id": 2,
-              "value": "animation-pour-scolaires",
-              "label": {
-                  "fr": "Animation pour scolaires / Levez les yeux !"
-              }
-          },
-          {
-              "id": 3,
-              "value": "atelier-demonstration-savoir-faire",
-              "label": {
-                  "fr": "Atelier / Démonstration / Savoir-faire"
-              }
-          },
-          {
-              "id": 4,
-              "value": "circuit",
-              "label": {
-                  "fr": "Circuit"
-              }
-          },
-          {
-              "id": 5,
-              "value": "concert",
-              "label": {
-                  "fr": "Concert"
-              }
-          },
-          {
-              "id": 6,
-              "value": "exposition",
-              "label": {
-                  "fr": "Exposition"
-              }
-          },
-          {
-              "id": 7,
-              "value": "fouille-archeologique",
-              "label": {
-                  "fr": "Fouille archéologique"
-              }
-          },
-          {
-              "id": 8,
-              "value": "projection",
-              "label": {
-                  "fr": "Projection"
-              }
-          },
-          {
-              "id": 9,
-              "value": "spectacle-lecture",
-              "label": {
-                  "fr": "Spectacle / Lecture"
-              }
-          },
-          {
-              "id": 10,
-              "value": "visite-libre",
-              "label": {
-                  "fr": "Visite libre"
-              }
-          },
-          {
-              "id": 11,
-              "value": "visite-commentee-conference",
-              "label": {
-                  "fr": "Visite commentée / Conférence"
-              }
-          }
-      ],
-      "fieldType": "radio",
-      "schemaId": 32870,
-      "schemaType": "network"
-  },
-  {
-      "field": "location",
-      "label": "Lieu",
-      "fieldType": "abstract",
-      "schemaId": null,
-      "schemaType": null,
-      "schema": {
-          "fields": [
-              {
-                  "field": "specificite",
-                  "label": {
-                      "fr": "Spécificité",
-                      "en": "Specificity"
-                  },
-                  "fieldType": "checkbox",
-                  "info": null,
-                  "options": [
-                      {
-                          "id": 33,
-                          "value": "premiere-participation",
-                          "label": {
-                              "fr": "Première participation",
-                              "en": "First participation"
-                          }
-                      },
-                      {
-                          "id": 32,
-                          "value": "ouverture-exceptionnelle",
-                          "label": {
-                              "fr": "Ouverture exceptionnelle",
-                              "en": "Exceptional opening"
-                          }
-                      }
-                  ],
-                  "schemaId": "location"
-              },
-              {
-                  "field": "protections-appellation-et-labels",
-                  "label": "Protections, appellation et labels",
-                  "fieldType": "checkbox",
-                  "info": null,
-                  "options": [
-                      {
-                          "id": 50,
-                          "value": "architecture-contemporaine-remarquable",
-                          "label": "Architecture contemporaine remarquable"
-                      },
-                      {
-                          "id": 38,
-                          "value": "jardin-remarquable",
-                          "label": "Jardin remarquable"
-                      },
-                      {
-                          "id": 41,
-                          "value": "maison-des-illustres",
-                          "label": "Maison des illustres"
-                      }
-                  ],
-                  "schemaId": "location"
-              }
-          ]
+    "field": "types-devenement",
+    "label": "Types d'événement",
+    "help": null,
+    "helpLink": null,
+    "helpContent": null,
+    "info": null,
+    "sub": null,
+    "placeholder": null,
+    "write": null,
+    "read": null,
+    "optional": false,
+    "display": true,
+    "origin": "tags",
+    "enableWith": null,
+    "related": [],
+    "options": [
+      {
+        "id": 1,
+        "value": "animation-jeune-public",
+        "label": {
+          "fr": "Animation Jeune public"
+        }
+      },
+      {
+        "id": 2,
+        "value": "animation-pour-scolaires",
+        "label": {
+          "fr": "Animation pour scolaires / Levez les yeux !"
+        }
+      },
+      {
+        "id": 3,
+        "value": "atelier-demonstration-savoir-faire",
+        "label": {
+          "fr": "Atelier / Démonstration / Savoir-faire"
+        }
+      },
+      {
+        "id": 4,
+        "value": "circuit",
+        "label": {
+          "fr": "Circuit"
+        }
+      },
+      {
+        "id": 5,
+        "value": "concert",
+        "label": {
+          "fr": "Concert"
+        }
+      },
+      {
+        "id": 6,
+        "value": "exposition",
+        "label": {
+          "fr": "Exposition"
+        }
+      },
+      {
+        "id": 7,
+        "value": "fouille-archeologique",
+        "label": {
+          "fr": "Fouille archéologique"
+        }
+      },
+      {
+        "id": 8,
+        "value": "projection",
+        "label": {
+          "fr": "Projection"
+        }
+      },
+      {
+        "id": 9,
+        "value": "spectacle-lecture",
+        "label": {
+          "fr": "Spectacle / Lecture"
+        }
+      },
+      {
+        "id": 10,
+        "value": "visite-libre",
+        "label": {
+          "fr": "Visite libre"
+        }
+      },
+      {
+        "id": 11,
+        "value": "visite-commentee-conference",
+        "label": {
+          "fr": "Visite commentée / Conférence"
+        }
       }
+    ],
+    "fieldType": "radio",
+    "schemaId": 32870,
+    "schemaType": "network"
+  },
+  {
+    "field": "location",
+    "label": "Lieu",
+    "fieldType": "abstract",
+    "schemaId": null,
+    "schemaType": null,
+    "schema": {
+      "fields": [
+        {
+          "field": "specificite",
+          "label": {
+            "fr": "Spécificité",
+            "en": "Specificity"
+          },
+          "fieldType": "checkbox",
+          "info": null,
+          "options": [
+            {
+              "id": 33,
+              "value": "premiere-participation",
+              "label": {
+                "fr": "Première participation",
+                "en": "First participation"
+              }
+            },
+            {
+              "id": 32,
+              "value": "ouverture-exceptionnelle",
+              "label": {
+                "fr": "Ouverture exceptionnelle",
+                "en": "Exceptional opening"
+              }
+            }
+          ],
+          "schemaId": "location"
+        },
+        {
+          "field": "protections-appellation-et-labels",
+          "label": "Protections, appellation et labels",
+          "fieldType": "checkbox",
+          "info": null,
+          "options": [
+            {
+              "id": 50,
+              "value": "architecture-contemporaine-remarquable",
+              "label": "Architecture contemporaine remarquable"
+            },
+            {
+              "id": 38,
+              "value": "jardin-remarquable",
+              "label": "Jardin remarquable"
+            },
+            {
+              "id": 41,
+              "value": "maison-des-illustres",
+              "label": "Maison des illustres"
+            }
+          ],
+          "schemaId": "location"
+        }
+      ]
+    }
   }
 ]

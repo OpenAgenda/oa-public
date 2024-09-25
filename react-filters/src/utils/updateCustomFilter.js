@@ -4,7 +4,9 @@ export default function updateCustomFilter(filter, active) {
   const { classList } = filter.activeTargetElem || filter.elem;
 
   const handlerElem = filter.handlerElem || filter.elem;
-  const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
+  const innerCheckboxes = handlerElem.querySelectorAll(
+    'input[type="checkbox"]',
+  );
   const checkbox = innerCheckboxes.length === 1 ? innerCheckboxes[0] : null;
 
   if (active) {

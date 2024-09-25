@@ -57,7 +57,7 @@ export const CompleteExample = ({ onSubmit }) => (
               filters={filters}
               dateRangeComponent={DateRangeFilter}
               choiceComponent={ChoiceFilter}
-              getOptions={filter => filter.options}
+              getOptions={(filter) => filter.options}
             />
           </div>
         </div>

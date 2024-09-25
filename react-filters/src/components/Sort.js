@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Field, useForm } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
@@ -27,7 +27,7 @@ const messages = defineMessages({
 
 const stateSelectStyles = {
   ...defaultReactSelectStyles,
-  container: provided => ({
+  container: (provided) => ({
     ...provided,
     display: 'inline-block',
     width: '180px',
@@ -40,7 +40,7 @@ const stateSelectStyles = {
     ...defaultReactSelectStyles.valueContainer(provided, state),
     padding: '0 4px',
   }),
-  option: provided => ({
+  option: (provided) => ({
     ...provided,
     cursor: 'pointer',
   }),
@@ -55,25 +55,26 @@ export default function Sort({ options = defaultOptions }) {
   const [userSort, setUserSort] = useState(() => form.getState().values.sort);
 
   const orderOptions = useMemo(
-    () => [
-      {
-        label: intl.formatMessage(messages.relevance),
-        value: 'score',
-        // isDisabled: true
-      },
-      {
-        label: intl.formatMessage(messages.chronological),
-        value: 'timings.asc',
-      },
-      {
-        label: intl.formatMessage(messages.recentlyUpdated),
-        value: 'updatedAt.desc',
-      },
-      {
-        label: intl.formatMessage(messages.publicView),
-        value: 'lastTimingWithFeatured.asc',
-      },
-    ].filter(option => options.includes(option.value)),
+    () =>
+      [
+        {
+          label: intl.formatMessage(messages.relevance),
+          value: 'score',
+          // isDisabled: true
+        },
+        {
+          label: intl.formatMessage(messages.chronological),
+          value: 'timings.asc',
+        },
+        {
+          label: intl.formatMessage(messages.recentlyUpdated),
+          value: 'updatedAt.desc',
+        },
+        {
+          label: intl.formatMessage(messages.publicView),
+          value: 'lastTimingWithFeatured.asc',
+        },
+      ].filter((option) => options.includes(option.value)),
     [intl, options],
   );
 
@@ -89,7 +90,7 @@ export default function Sort({ options = defaultOptions }) {
         defaultValue="updatedAt.desc"
       />
       <OnChange name="sort">
-        {value => {
+        {(value) => {
           // user change
           if (form.getState().active === 'sort') {
             setUserSort(value);
@@ -106,7 +107,10 @@ export default function Sort({ options = defaultOptions }) {
             form.change('sort', 'score');
           } else if (sort === 'score' && previousValue !== '' && value === '') {
             // search removed
-            form.change('sort', userSort && userSort !== '' ? userSort : undefined);
+            form.change(
+              'sort',
+              userSort && userSort !== '' ? userSort : undefined,
+            );
           }
         }}
       </OnChange>

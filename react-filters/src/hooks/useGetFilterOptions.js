@@ -12,22 +12,26 @@ const messages = defineMessages({
 
 export default function useGetFilterOptions(intl, filtersBase, aggregations) {
   return useCallback(
-    filter => {
+    (filter) => {
       const missingLabel = intl.formatMessage(messages.emptyOption);
 
       if (filter.options) {
         const missingOption = filter.missingValue
-          ? filtersBase?.[filter.name]?.find(v => {
+          ? filtersBase?.[filter.name]?.find((v) => {
             const dataKey = 'id' in v ? 'id' : 'key';
             return v[dataKey] === filter.missingValue;
           })
           : null;
 
-        return missingOption ? [{
-          label: missingLabel,
-          key: filter.missingValue,
-          value: filter.missingValue,
-        }].concat(filter.options) : filter.options;
+        return missingOption
+          ? [
+            {
+              label: missingLabel,
+              key: filter.missingValue,
+              value: filter.missingValue,
+            },
+          ].concat(filter.options)
+          : filter.options;
       }
 
       if (!filtersBase?.[filter.name]) return [];
@@ -37,22 +41,25 @@ export default function useGetFilterOptions(intl, filtersBase, aggregations) {
       const aggregation = aggregations[filter.name];
 
       if (aggregation) {
-        aggregation.forEach(entry => {
+        aggregation.forEach((entry) => {
           const dataKey = 'id' in entry ? 'id' : 'key';
-          const found = baseAgg.find(v => v[dataKey] === entry[dataKey]);
+          const found = baseAgg.find((v) => v[dataKey] === entry[dataKey]);
           if (!found) baseAgg.push(entry);
         });
       }
 
       const labelKey = filter.labelKey || 'key';
 
-      return baseAgg.map(entry => {
+      return baseAgg.map((entry) => {
         const dataKey = 'id' in entry ? 'id' : 'key';
         const labelValue = get(entry, labelKey);
 
         return {
           ...entry,
-          label: labelValue === filter.missingValue ? missingLabel : getLocaleValue(labelValue, intl.locale),
+          label:
+            labelValue === filter.missingValue
+              ? missingLabel
+              : getLocaleValue(labelValue, intl.locale),
           value: String(entry[dataKey]),
         };
       });

@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 import { defineMessages, useIntl } from 'react-intl';
 import { css } from '@emotion/react';
@@ -15,12 +14,7 @@ const messages = defineMessages({
   },
 });
 
-export default function ValueBadge({
-  label,
-  title,
-  onRemove,
-  disabled
-}) {
+export default function ValueBadge({ label, title, onRemove, disabled }) {
   const intl = useIntl();
 
   const titleLabel = title?.length
