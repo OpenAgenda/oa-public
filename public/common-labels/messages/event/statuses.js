@@ -1,6 +1,6 @@
-const { defineMessages } = require('react-intl');
+import { defineMessages } from 'react-intl';
 
-module.exports = defineMessages({
+export default defineMessages({
   scheduled: {
     id: 'common.event.statuses.scheduled',
     defaultMessage: 'Scheduled',
@@ -23,7 +23,8 @@ module.exports = defineMessages({
   },
   movedOnlineInfo: {
     id: 'common.event.statuses.movedOnlineInfo',
-    defaultMessage: 'The event will no longer be attended to at a physical location',
+    defaultMessage:
+      'The event will no longer be attended to at a physical location',
   },
   postponed: {
     id: 'common.event.statuses.postponed',

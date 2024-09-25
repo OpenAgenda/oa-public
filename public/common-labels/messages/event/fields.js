@@ -1,6 +1,6 @@
-const { defineMessages } = require('react-intl');
+import { defineMessages } from 'react-intl';
 
-module.exports = defineMessages({
+export default defineMessages({
   slug: {
     id: 'common.event.fields.slug',
     defaultMessage: 'Slug',
@@ -66,4 +66,3 @@ module.exports = defineMessages({
     defaultMessage: 'Timings',
   },
 });
-

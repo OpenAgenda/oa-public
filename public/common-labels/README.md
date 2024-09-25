@@ -34,5 +34,5 @@ intl.formatMessage(stateMessages.published);
 
 1. Define messages in `messages` directory
 2. Build with `yarn prepack`
-4. Translate in `locales` (with Crowdin)
-5. Compile locales with `yarn prepack`
+3. Translate in `locales` (with Crowdin)
+4. Compile locales with `yarn prepack`

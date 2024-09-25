@@ -2,8 +2,8 @@
 
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const _ = require('lodash');
 const yargs = require('yargs');
 const glob = require('glob');
@@ -19,14 +19,22 @@ async function duplicateLangs({ locales, langs, defaultLang, definedDefault }) {
   const defaultLocalesPaths = glob.sync(defaultLocalesGlobPath);
 
   for (const localesPath of defaultLocalesPaths) {
-    const defaults = _.mapValues(getMessages(path.join(process.cwd(), localesPath)), () => '');
+    const defaults = _.mapValues(
+      getMessages(path.join(process.cwd(), localesPath)),
+      () => '',
+    );
 
     for (const lang of langs) {
-      const { inputPath } = inputToOuputPath(locales, localesPath, locales, lang);
+      const { inputPath } = inputToOuputPath(
+        locales,
+        localesPath,
+        locales,
+        lang,
+      );
       const destPath = inputPath.replace('%lang%', lang);
 
       const existingMessages = getMessages(path.join(process.cwd(), destPath));
-      const withDefault = definedDefault.includes(lang)
+      const withDefault = definedDefault.includes(lang);
 
       const messages = _.pickBy(
         existingMessages,
@@ -72,9 +80,16 @@ async function createIndex(langs, locales) {
     
     const { mergeLocales } = require('@openagenda/intl');
 
-    ${dedent(langs.sort().map(lang => `const ${lang} = mergeLocales(
-      ${filesPerLang[lang].map(file => `    require('../${file}')`).join(`,\n${' '.repeat(6)}`)}
-    );`).join(`\n${' '.repeat(4)}`))}
+    ${dedent(
+    langs
+      .sort()
+      .map(
+        (lang) => `const ${lang} = mergeLocales(
+      ${filesPerLang[lang].map((file) => `    require('../${file}')`).join(`,\n${' '.repeat(6)}`)}
+    );`,
+      )
+      .join(`\n${' '.repeat(4)}`),
+  )}
 
     module.exports = {
       ${langs.sort().join(`,\n${' '.repeat(6)}`)},
@@ -84,7 +99,7 @@ async function createIndex(langs, locales) {
 }
 
 (async () => {
-  const langs = ['en','fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'];
+  const langs = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'];
   const defaultLang = 'en';
   const definedDefault = ['fr'];
 
@@ -92,17 +107,19 @@ async function createIndex(langs, locales) {
   const locales = 'locales/%lang%/**/*.json';
 
   // 1. Extract messages
-  await yargs.command(extract).parse(
-    `extract ${messages} -o locales/%lang%/**/%original_file_name%`
-  );
+  await yargs
+    .command(extract)
+    .parse(`extract ${messages} -o locales/%lang%/**/%original_file_name%`);
 
   // 2. Duplicate from 'en' to others langs, only define empty keys for fr
   await duplicateLangs({ locales, langs, defaultLang, definedDefault });
 
   // 3. Compile all
-  await yargs.command(compile).parse(
-    `compile ${locales} -o locales-compiled/%lang%/**/%original_file_name%`,
-  );
+  await yargs
+    .command(compile)
+    .parse(
+      `compile ${locales} -o locales-compiled/%lang%/**/%original_file_name%`,
+    );
 
   // 4. Create index
   await createIndex(langs, 'locales-compiled/%lang%/**/*.json');
