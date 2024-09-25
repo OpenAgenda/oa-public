@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { load } from 'cheerio';
 import { portalSelector } from './common';
@@ -35,15 +34,13 @@ export class PortalServer {
         map.set(JSON.stringify(item.content), true);
         result.push({
           content: item.content,
-          selector: item.selector
+          selector: item.selector,
         });
       }
     }
 
     result.forEach(({ content, selector }) => {
-      dom(renderToString(content))
-        .attr(portalSelector, '')
-        .appendTo(selector);
+      dom(renderToString(content)).attr(portalSelector, '').appendTo(selector);
     });
 
     this.portals.length = 0;

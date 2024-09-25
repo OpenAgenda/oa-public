@@ -8,9 +8,9 @@ Simple implementation of server side rendering of portals.
 
 ## Features
 
--   Server side rendered portals
--   Simple API
--   Support multiple portals
+- Server side rendered portals
+- Simple API
+- Support multiple portals
 
 ## Installation
 
@@ -28,15 +28,15 @@ npm install @openagenda/react-portal-ssr --save
 
 ### `@openagenda/react-portal-ssr`
 
--   `Portal`
--   `prepareClientPortals`
--   `PortalContext`
+- `Portal`
+- `prepareClientPortals`
+- `PortalContext`
 
 ### `@openagenda/react-portal-ssr/server`
 
 - `PortalServer(PortalContext)`
-    -   `collectPortals`
-    -   `appendPortals`
+  - `collectPortals`
+  - `appendPortals`
 - `PortalContext`
 
 ## Example
@@ -63,27 +63,27 @@ app.use((req, res, next) => {
   const portal = new PortalServer(PortalContext);
 
   // 2. Render content and collect portals
-  const content = renderToString(portal.collectPortals(<App/>));
+  const content = renderToString(portal.collectPortals(<App />));
 
   const html = renderToStaticMarkup(
     <html lang="en">
       <head>
-        <meta charSet="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>React Portal SSR</title>
       </head>
       <body>
-        <div id="app" dangerouslySetInnerHTML={{ __html: content }}/>
-        <div id="portal"/>
-        <script src="/vendor.js"/>
-        <script src="/main.js"/>
+        <div id="app" dangerouslySetInnerHTML={{ __html: content }} />
+        <div id="portal" />
+        <script src="/vendor.js" />
+        <script src="/main.js" />
       </body>
-    </html>
+    </html>,
   );
 
   // 3. Append portals
   return res.send('<!DOCTYPE html>' + portal.appendPortals(html));
-})
+});
 
 app.listen(PORT, () => {
   console.log(`SSR running on port ${PORT}`);
@@ -101,7 +101,7 @@ import { App } from './App';
 // Flush rendered portals
 prepareClientPortals();
 
-hydrate(<App/>, document.getElementById('app'));
+hydrate(<App />, document.getElementById('app'));
 ```
 
 ### `App.js`
