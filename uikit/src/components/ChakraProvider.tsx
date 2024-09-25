@@ -20,7 +20,7 @@ export interface ChakraProviderProps
   /**
    * a theme. if omitted, uses the default theme provided by chakra
    */
-  theme?: Dict
+  theme?: Dict;
   /**
    * Common z-index to use for `Portal`
    *
@@ -57,7 +57,7 @@ export interface ChakraProviderProps
  * The global provider that must be added to make all Chakra components
  * work correctly
  */
-export const ChakraProvider: React.FC<ChakraProviderProps> = props => {
+export const ChakraProvider: React.FC<ChakraProviderProps> = (props) => {
   const {
     children,
     portalZIndex,
@@ -83,7 +83,8 @@ export const ChakraProvider: React.FC<ChakraProviderProps> = props => {
       <GlobalStyle />
       {portalZIndex ? (
         <PortalManager zIndex={portalZIndex}>{_children}</PortalManager>
-      ) : _children}
+      )
+        : _children}
     </ThemeProvider>
   );
 };

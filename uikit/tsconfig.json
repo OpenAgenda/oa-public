@@ -1,6 +1,4 @@
 {
   "extends": "@openagenda/tsconfig/react-library",
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

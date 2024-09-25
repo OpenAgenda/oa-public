@@ -9,7 +9,11 @@ interface NoBreakProps extends HTMLChakraProps<'span'> {
   char?: keyof typeof charMap;
 }
 
-export function NoBreak({ char = 'zeroWidthSpace', children, ...props }: NoBreakProps) {
+export function NoBreak({
+  char = 'zeroWidthSpace',
+  children,
+  ...props
+}: NoBreakProps) {
   const styles: SystemStyleObject = {
     whiteSpace: 'nowrap',
   };
