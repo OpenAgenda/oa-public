@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Accordion from '../src/components/Accordion';
 
 export default {
@@ -9,8 +9,8 @@ export default {
 export const Simple = () => {
   const [active, setActive] = useState(false);
   const onToggle = useCallback(
-    value => setActive(prev => (value === prev ? false : value)),
-    []
+    (value) => setActive((prev) => (value === prev ? false : value)),
+    [],
   );
 
   return (

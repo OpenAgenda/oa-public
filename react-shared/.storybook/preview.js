@@ -18,9 +18,11 @@ initialize({
     if (sameOrigin && url.pathname.startsWith('/static')) return;
 
     if (
-      ['unpkg.com', 'amazonaws.com'].filter(h => url.hostname.indexOf(h) !== -1)
-        .length
-    ) return;
+      ['unpkg.com', 'amazonaws.com'].filter(
+        (h) => url.hostname.indexOf(h) !== -1,
+      ).length
+    )
+      return;
 
     print.warning();
   },

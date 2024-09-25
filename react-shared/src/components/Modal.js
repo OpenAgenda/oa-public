@@ -40,10 +40,7 @@ export default class Modal extends Component {
   }
 
   componentDidMount() {
-    const {
-      visible,
-      disableBodyScroll,
-    } = this.props;
+    const { visible, disableBodyScroll } = this.props;
     if (!visible) {
       return;
     }
@@ -58,10 +55,7 @@ export default class Modal extends Component {
   }
 
   componentDidUpdate() {
-    const {
-      visible,
-      disableBodyScroll,
-    } = this.props;
+    const { visible, disableBodyScroll } = this.props;
 
     if (visible) {
       if (disableBodyScroll) {
@@ -88,9 +82,7 @@ export default class Modal extends Component {
   }
 
   componentWillUnmount() {
-    const {
-      disableBodyScroll,
-    } = this.props;
+    const { disableBodyScroll } = this.props;
 
     if (this.clickListener) {
       this.clickListener.shutdown();
@@ -110,9 +102,7 @@ export default class Modal extends Component {
   }
 
   render() {
-    const {
-      title, children, visible, classNames, contentRef,
-    } = this.props;
+    const { title, children, visible, classNames, contentRef } = this.props;
 
     if (!visible) {
       return null;
@@ -127,7 +117,10 @@ export default class Modal extends Component {
     }
 
     return (
-      <div className={classNames.overlay ?? 'popup-overlay'} ref={this.overlayRef}>
+      <div
+        className={classNames.overlay ?? 'popup-overlay'}
+        ref={this.overlayRef}
+      >
         <section ref={this.ref}>
           {title ? (
             <header className={classNames.title ?? 'popup-title'}>
@@ -136,6 +129,7 @@ export default class Modal extends Component {
                 type="button"
                 onClick={this.handleClose}
                 className="close-link"
+                aria-label="Close"
               >
                 <i className="fa fa-times fa-lg" />
               </button>

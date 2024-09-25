@@ -43,7 +43,7 @@ export default ({
   const [error, setError] = useState(null);
 
   const postPayload = useCallback(
-    password => {
+    (password) => {
       setLoading(true);
       fetch(res, {
         method,
@@ -53,7 +53,8 @@ export default ({
         },
         body: payload ? JSON.stringify(payload) : null,
       })
-        .then(response => response.text().then(body => ({ response, body })))
+        .then((response) =>
+          response.text().then((body) => ({ response, body })))
         .then(({ response: { ok, status }, body }) => {
           setLoading(false);
           if (ok) {
@@ -103,7 +104,7 @@ export default ({
       {message ? <p>{nl2br(message)}</p> : null}
       <form
         method="post"
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           postPayload(e.target.password.value);
         }}

@@ -1,4 +1,3 @@
-import React from 'react';
 import cn from 'classnames';
 import { css } from '@emotion/react';
 
@@ -14,12 +13,12 @@ export default function Pager({
   propsRangeSize,
 }) {
   const lastPage = Math.floor(
-    total % pageSize !== 0 ? total / pageSize + 1 : total / pageSize
+    total % pageSize !== 0 ? total / pageSize + 1 : total / pageSize,
   );
 
   const previousDisabled = page === 1;
   const nextDisabled = page === lastPage;
-  const calculedRangeSize = page === lastPage ? total - ((lastPage - 1) * pageSize) : pageSize;
+  const calculedRangeSize = page === lastPage ? total - (lastPage - 1) * pageSize : pageSize;
   const rangeSize = propsRangeSize !== undefined ? propsRangeSize : calculedRangeSize;
 
   return (
@@ -43,6 +42,7 @@ export default function Pager({
               role="button"
               onClick={previousPage}
               onKeyPress={previousPage}
+              aria-label="Previous page"
             >
               <i className="fa fa-lg fa-angle-left" />
             </span>
@@ -66,6 +66,7 @@ export default function Pager({
               role="button"
               onClick={nextPage}
               onKeyPress={nextPage}
+              aria-label="Next page"
             >
               <i className="fa fa-lg fa-angle-right" />
             </span>

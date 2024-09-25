@@ -1,215 +1,215 @@
 {
-    "success": true,
-    "events": [
+  "success": true,
+  "events": [
+    {
+      "uid": 24192932,
+      "slug": "stand-de-presentation",
+      "timezone": "Europe/Paris",
+      "draft": 1,
+      "updatedAt": "2022-07-27T16:45:59.000Z",
+      "agendaUid": 520499,
+      "attendanceMode": 1,
+      "onlineAccessLink": null,
+      "locationUid": 91781569,
+      "image": {
+        "filename": "7bd5e46a08d442be99c087540db437bd.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1064
+        },
+        "variants": [
+          {
+            "filename": "7bd5e46a08d442be99c087540db437bd.full.image.jpg",
+            "size": {
+              "width": 720,
+              "height": 1094
+            },
+            "type": "full"
+          },
+          {
+            "filename": "7bd5e46a08d442be99c087540db437bd.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "imageCredits": "© Herbier Tragus - Bibliothèque de Caen",
+      "title": {
+        "fr": "Démonstration : stand de présentation des trésors de la bibliothèque",
+        "en": "Demonstration: Library Treasure Display Booth",
+        "it": "Dimostrazione: stand di presentazione dei tesori della biblioteca",
+        "de": "Demonstration: Präsentationsstand der Schätze der Bibliothek",
+        "es": "Demostración: stand de presentación de los tesoros de la biblioteca"
+      },
+      "description": {
+        "fr": "Venez découvrir certains documents précieux conservés par la bibliothèque dans ses réserves, habituellement inaccessibles au public.",
+        "en": "Come and discover some of the library’s precious documents in its reserves, usually inaccessible to the public.",
+        "it": "Venite a scoprire alcuni documenti preziosi conservati dalla biblioteca nelle sue riserve, di solito inaccessibili al pubblico.",
+        "de": "Kommen Sie und entdecken Sie einige wertvolle Dokumente, die von der Bibliothek in ihren Reservaten aufbewahrt werden, die normalerweise für die Öffentlichkeit unzugänglich sind.",
+        "es": "Venga a descubrir algunos documentos valiosos conservados por la biblioteca en sus reservas, generalmente inaccesibles al público."
+      },
+      "longDescription": {
+        "fr": "Venez découvrir certains documents précieux conservés par la bibliothèque dans ses réserves, habituellement inaccessibles au public : livres anciens, herbiers mais aussi des gravures anciennes représentant nos plus beaux sites patrimoniaux régionaux.",
+        "en": "Come and discover some of the library’s precious documents, usually inaccessible to the public: ancient books, herbaria but also old prints representing our most beautiful regional heritage sites.",
+        "it": "Venite a scoprire alcuni documenti preziosi conservati dalla biblioteca nelle sue riserve, solitamente inaccessibili al pubblico: libri antichi, erbari ma anche incisioni antiche che rappresentano i nostri più bei siti patrimoniali regionali.",
+        "de": "Entdecken Sie einige wertvolle Dokumente, die die Bibliothek in ihren Reservaten aufbewahrt, die normalerweise für die Öffentlichkeit unzugänglich sind: alte Bücher, Herbarien, aber auch alte Stiche, die unsere schönsten regionalen Kulturerbestätten darstellen.",
+        "es": "Venga a descubrir algunos documentos valiosos conservados por la biblioteca en sus reservas, generalmente inaccesibles al público: libros antiguos, herbarios pero también grabados antiguos que representan nuestros lugares patrimoniales regionales más bellos."
+      },
+      "keywords": {},
+      "conditions": {},
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [],
+      "accessibility": {
+        "hi": false,
+        "ii": false,
+        "vi": false,
+        "mi": true,
+        "pi": false
+      },
+      "timings": [
         {
-            "uid": 24192932,
-            "slug": "stand-de-presentation",
-            "timezone": "Europe/Paris",
-            "draft": 1,
-            "updatedAt": "2022-07-27T16:45:59.000Z",
-            "agendaUid": 520499,
-            "attendanceMode": 1,
-            "onlineAccessLink": null,
-            "locationUid": 91781569,
-            "image": {
-                "filename": "7bd5e46a08d442be99c087540db437bd.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 1064
-                },
-                "variants": [
-                    {
-                        "filename": "7bd5e46a08d442be99c087540db437bd.full.image.jpg",
-                        "size": {
-                            "width": 720,
-                            "height": 1094
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "7bd5e46a08d442be99c087540db437bd.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "imageCredits": "© Herbier Tragus - Bibliothèque de Caen",
-            "title": {
-                "fr": "Démonstration : stand de présentation des trésors de la bibliothèque",
-                "en": "Demonstration: Library Treasure Display Booth",
-                "it": "Dimostrazione: stand di presentazione dei tesori della biblioteca",
-                "de": "Demonstration: Präsentationsstand der Schätze der Bibliothek",
-                "es": "Demostración: stand de presentación de los tesoros de la biblioteca"
-            },
-            "description": {
-                "fr": "Venez découvrir certains documents précieux conservés par la bibliothèque dans ses réserves, habituellement inaccessibles au public.",
-                "en": "Come and discover some of the library’s precious documents in its reserves, usually inaccessible to the public.",
-                "it": "Venite a scoprire alcuni documenti preziosi conservati dalla biblioteca nelle sue riserve, di solito inaccessibili al pubblico.",
-                "de": "Kommen Sie und entdecken Sie einige wertvolle Dokumente, die von der Bibliothek in ihren Reservaten aufbewahrt werden, die normalerweise für die Öffentlichkeit unzugänglich sind.",
-                "es": "Venga a descubrir algunos documentos valiosos conservados por la biblioteca en sus reservas, generalmente inaccesibles al público."
-            },
-            "longDescription": {
-                "fr": "Venez découvrir certains documents précieux conservés par la bibliothèque dans ses réserves, habituellement inaccessibles au public : livres anciens, herbiers mais aussi des gravures anciennes représentant nos plus beaux sites patrimoniaux régionaux.",
-                "en": "Come and discover some of the library’s precious documents, usually inaccessible to the public: ancient books, herbaria but also old prints representing our most beautiful regional heritage sites.",
-                "it": "Venite a scoprire alcuni documenti preziosi conservati dalla biblioteca nelle sue riserve, solitamente inaccessibili al pubblico: libri antichi, erbari ma anche incisioni antiche che rappresentano i nostri più bei siti patrimoniali regionali.",
-                "de": "Entdecken Sie einige wertvolle Dokumente, die die Bibliothek in ihren Reservaten aufbewahrt, die normalerweise für die Öffentlichkeit unzugänglich sind: alte Bücher, Herbarien, aber auch alte Stiche, die unsere schönsten regionalen Kulturerbestätten darstellen.",
-                "es": "Venga a descubrir algunos documentos valiosos conservados por la biblioteca en sus reservas, generalmente inaccesibles al público: libros antiguos, herbarios pero también grabados antiguos que representan nuestros lugares patrimoniales regionales más bellos."
-            },
-            "keywords": {},
-            "conditions": {},
-            "age": {
-                "min": 0,
-                "max": 99
-            },
-            "registration": [],
-            "accessibility": {
-                "hi": false,
-                "ii": false,
-                "vi": false,
-                "mi": true,
-                "pi": false
-            },
-            "timings": [
-                {
-                    "begin": "2022-09-17T09:30:00.000Z",
-                    "end": "2022-09-17T11:00:00.000Z"
-                },
-                {
-                    "begin": "2022-09-17T13:00:00.000Z",
-                    "end": "2022-09-17T16:00:00.000Z"
-                },
-                {
-                    "begin": "2022-09-18T13:00:00.000Z",
-                    "end": "2022-09-18T16:00:00.000Z"
-                }
-            ],
-            "status": 1,
-            "references": [],
-            "links": []
+          "begin": "2022-09-17T09:30:00.000Z",
+          "end": "2022-09-17T11:00:00.000Z"
         },
         {
-            "uid": 36787314,
-            "slug": "exposition-photographique-3827847",
-            "timezone": "Europe/Paris",
-            "draft": 1,
-            "updatedAt": "2022-07-27T16:29:05.000Z",
-            "agendaUid": 520499,
-            "attendanceMode": 1,
-            "onlineAccessLink": null,
-            "locationUid": 91781569,
-            "image": {
-                "filename": "2e768cd479fc4649ac0a2183c7fccae2.base.image.jpg",
-                "size": {
-                    "width": 700,
-                    "height": 467
-                },
-                "variants": [
-                    {
-                        "filename": "2e768cd479fc4649ac0a2183c7fccae2.full.image.jpg",
-                        "size": {
-                            "width": 3539,
-                            "height": 2362
-                        },
-                        "type": "full"
-                    },
-                    {
-                        "filename": "2e768cd479fc4649ac0a2183c7fccae2.thumb.image.jpg",
-                        "size": {
-                            "width": 200,
-                            "height": 200
-                        },
-                        "type": "thumbnail"
-                    }
-                ],
-                "base": "https://cibul.s3.amazonaws.com/"
-            },
-            "imageCredits": "Antoine Cardi - 2017 - Bibliothèque de Caen",
-            "title": {
-                "fr": "Exposition photographique",
-                "en": "Photographic exhibition",
-                "it": "Mostra fotografica",
-                "de": "Photographische Ausstellung",
-                "es": "Exposición fotográfica"
-            },
-            "description": {
-                "fr": "Photos de Julien Gracq, l’œil géographique",
-                "en": "Photos of Julien Gracq, the geographical eye",
-                "it": "Foto di Julien Gracq, l'occhio geografico",
-                "de": "Fotos von Julien Gracq, das geografische Auge",
-                "es": "Fotos de Julien Gracq, el ojo geográfico"
-            },
-            "longDescription": {
-                "fr": "« Soixante-dix ans après le refus du Prix Goncourt qui a fait de lui cet écrivain à la fois si secret et si reconnu dans le monde entier, la Maison Julien Gracq, la Bibliothèque Nationale de France, la\nBibliothèque Alexis de Tocqueville de Caen, l’Université et la Ville d’Angers, ont souhaité rendre hommage au grand écrivain français en dévoilant une part de son travail restée longtemps en marge de son oeuvre littéraire et géographique. Il s’agit d’une sélection inédite d’une cinquantaine de photographies parmi les centaines de clichés pris par Julien Gracq lui-même à l’aide d’un appareil Zeiss Ikon Contessa. Ces diapositives numérisées et aujourd’hui conservées à la Bibliothèque universitaire d’Angers ou dans des fonds privés constituent un ensemble exceptionnel qui reflète la curiosité de cet arpenteur du grand chemin et nous donne à voir des paysages d’Europe et d’Amérique très divers – de la Normandie au Wiscousin, de la Castille au Latium, en passant par l’Anjou et le Massif Central ».\nEmmanuel Ruben, Écrivain, Géographe,\nDirecteur artistique et littéraire de la Maison Julien Gracq de 2017 à 2021",
-                "en": "Seventy years after the refusal of the Prix Goncourt, which has made him a writer who is both so secret and so recognized around the world, the Maison Julien Gracq, the Bibliothèque Nationale de France, the Bibliothèque Alexis de Tocqueville de Caen, the University and the City of Angers, have wished to pay homage to the great French writer by revealing a part of his long-standing work in the margins of his literary and geographical work. This is an unpublished selection of fifty photographs among the hundreds of photographs taken by Julien Gracq himself using a Zeiss Ikon Contessa camera. These digitized slides, now kept in the University Library of Angers or in private collections, are an exceptional collection that reflects the curiosity of this Great Road Surveyor and gives us a glimpse of the diverse landscapes of Europe and America. from Normandy to Wiscousin, from Castile to Lazio, via Anjou and the Massif Central». Emmanuel Ruben, Writer, Geographer, Artistic and Literary Director of the Maison Julien Gracq from 2017 to 2021",
-                "it": "Settant'anni dopo il rifiuto del Prix Goncourt, che lo ha reso uno scrittore così segreto e riconosciuto in tutto il mondo, la Maison Julien Gracq, la Bibliothèque Nationale de France, la Bibliothèque Alexis de Tocqueville de Caen, l'Università e la Ville d'Angers, hanno voluto rendere omaggio al grande scrittore francese svelando una parte del suo lavoro rimasta a lungo ai margini della sua opera letteraria e geografica. Si tratta di una selezione inedita di una cinquantina di fotografie tra le centinaia di fotografie scattate dallo stesso Julien Gracq con una macchina Zeiss Ikon Contessa. Queste diapositive digitalizzate e oggi conservate nella Biblioteca universitaria di Angers o in fondi privati costituiscono un insieme eccezionale che riflette la curiosità di questo ispettore del grande cammino e ci permette di vedere paesaggi d'Europa e d'America molto diversi - dalla Normandia al Wiscousin, dalla Castiglia al Lazio, passando per l'Angiò e il Massiccio Centrale». Emmanuel Ruben, Scrittore, Geografo, Direttore artistico e letterario della Maison Julien Gracq dal 2017 al 2021",
-                "de": "Siebzig Jahre nach der Ablehnung des Prix Goncourt, der ihn zu einem so geheimen und weltweit anerkannten Schriftsteller gemacht hat, das Haus Julien Gracq, die Bibliothèque Nationale de France, die Bibliothek Alexis de Tocqueville de Caen, die Universität und die Stadt Angers, Sie wollten dem großen französischen Schriftsteller Tribut zollen, indem sie einen Teil seiner Arbeit enthüllten, der lange Zeit am Rande seines literarischen und geographischen Werkes stand. Es handelt sich um eine einzigartige Auswahl von etwa fünfzig Fotos aus Hunderten von Aufnahmen, die Julien Gracq selbst mit einer Zeiss Ikon Contessa-Kamera aufgenommen hat. Diese digitalisierten Dias, die heute in der Universitätsbibliothek von Angers oder in privaten Beständen aufbewahrt werden, sind ein außergewöhnliches Ensemble, das die Neugier dieses Vermessers des Großen Weges widerspiegelt und uns die Möglichkeit gibt, sehr unterschiedliche Landschaften Europas und Amerikas zu sehen - von der Normandie bis zur Wiscousin, Von Kastilien über das Anjou und das Zentralmassiv nach Latium». Emmanuel Ruben, Schriftsteller, Geograph, künstlerischer und literarischer Leiter des Hauses Julien Gracq von 2017 bis 2021",
-                "es": "Setenta años después del rechazo del Premio Goncourt que hizo de él un escritor tan secreto y tan reconocido en todo el mundo, la Casa Julien Gracq, la Biblioteca Nacional de Francia, la Biblioteca Alexis de Tocqueville de Caen, la Universidad y la Ciudad de Angers, han querido rendir homenaje al gran escritor francés desvelando una parte de su trabajo que permaneció durante mucho tiempo al margen de su obra literaria y geográfica. Se trata de una selección inédita de unas cincuenta fotografías entre las cientos de fotografías tomadas por el propio Julien Gracq con ayuda de un aparato Zeiss Ikon Contessa. Estas diapositivas digitalizadas y hoy conservadas en la Biblioteca Universitaria de Angers o en fondos privados constituyen un conjunto excepcional que refleja la curiosidad de este topógrafo del gran camino y nos da a ver paisajes de Europa y América muy diversos - de Normandía a Wiscousin, de Castilla al Lacio, pasando por Anjou y el Macizo Central». Emmanuel Ruben, Escritor, Geógrafo, Director artístico y literario de la Maison Julien Gracq de 2017 a 2021"
-            },
-            "keywords": {},
-            "conditions": {},
-            "age": {
-                "min": 0,
-                "max": 99
-            },
-            "registration": [],
-            "accessibility": {
-                "hi": false,
-                "ii": false,
-                "vi": false,
-                "mi": true,
-                "pi": false
-            },
-            "timings": [
-                {
-                    "begin": "2022-09-17T08:00:00.000Z",
-                    "end": "2022-09-17T16:30:00.000Z"
-                },
-                {
-                    "begin": "2022-09-18T13:00:00.000Z",
-                    "end": "2022-09-18T16:30:00.000Z"
-                }
-            ],
-            "status": 1,
-            "references": [],
-            "links": []
+          "begin": "2022-09-17T13:00:00.000Z",
+          "end": "2022-09-17T16:00:00.000Z"
         },
         {
-            "uid": 15030678,
-            "slug": "2270637",
-            "timezone": "Europe/Paris",
-            "draft": 1,
-            "updatedAt": "2022-08-12T09:21:26.000Z",
-            "agendaUid": 520499,
-            "attendanceMode": 1,
-            "onlineAccessLink": null,
-            "locationUid": null,
-            "image": {
-                "filename": "graylogo140.png",
-                "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
-            },
-            "title": null,
-            "description": null,
-            "longDescription": null,
-            "keywords": [],
-            "conditions": null,
-            "age": null,
-            "registration": null,
-            "accessibility": {
-                "mi": false,
-                "hi": false,
-                "pi": false,
-                "vi": false,
-                "ii": false
-            },
-            "timings": null,
-            "status": 1,
-            "references": null,
-            "links": []
+          "begin": "2022-09-18T13:00:00.000Z",
+          "end": "2022-09-18T16:00:00.000Z"
         }
-    ],
-    "total": 3
+      ],
+      "status": 1,
+      "references": [],
+      "links": []
+    },
+    {
+      "uid": 36787314,
+      "slug": "exposition-photographique-3827847",
+      "timezone": "Europe/Paris",
+      "draft": 1,
+      "updatedAt": "2022-07-27T16:29:05.000Z",
+      "agendaUid": 520499,
+      "attendanceMode": 1,
+      "onlineAccessLink": null,
+      "locationUid": 91781569,
+      "image": {
+        "filename": "2e768cd479fc4649ac0a2183c7fccae2.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "2e768cd479fc4649ac0a2183c7fccae2.full.image.jpg",
+            "size": {
+              "width": 3539,
+              "height": 2362
+            },
+            "type": "full"
+          },
+          {
+            "filename": "2e768cd479fc4649ac0a2183c7fccae2.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "imageCredits": "Antoine Cardi - 2017 - Bibliothèque de Caen",
+      "title": {
+        "fr": "Exposition photographique",
+        "en": "Photographic exhibition",
+        "it": "Mostra fotografica",
+        "de": "Photographische Ausstellung",
+        "es": "Exposición fotográfica"
+      },
+      "description": {
+        "fr": "Photos de Julien Gracq, l’œil géographique",
+        "en": "Photos of Julien Gracq, the geographical eye",
+        "it": "Foto di Julien Gracq, l'occhio geografico",
+        "de": "Fotos von Julien Gracq, das geografische Auge",
+        "es": "Fotos de Julien Gracq, el ojo geográfico"
+      },
+      "longDescription": {
+        "fr": "« Soixante-dix ans après le refus du Prix Goncourt qui a fait de lui cet écrivain à la fois si secret et si reconnu dans le monde entier, la Maison Julien Gracq, la Bibliothèque Nationale de France, la\nBibliothèque Alexis de Tocqueville de Caen, l’Université et la Ville d’Angers, ont souhaité rendre hommage au grand écrivain français en dévoilant une part de son travail restée longtemps en marge de son oeuvre littéraire et géographique. Il s’agit d’une sélection inédite d’une cinquantaine de photographies parmi les centaines de clichés pris par Julien Gracq lui-même à l’aide d’un appareil Zeiss Ikon Contessa. Ces diapositives numérisées et aujourd’hui conservées à la Bibliothèque universitaire d’Angers ou dans des fonds privés constituent un ensemble exceptionnel qui reflète la curiosité de cet arpenteur du grand chemin et nous donne à voir des paysages d’Europe et d’Amérique très divers – de la Normandie au Wiscousin, de la Castille au Latium, en passant par l’Anjou et le Massif Central ».\nEmmanuel Ruben, Écrivain, Géographe,\nDirecteur artistique et littéraire de la Maison Julien Gracq de 2017 à 2021",
+        "en": "Seventy years after the refusal of the Prix Goncourt, which has made him a writer who is both so secret and so recognized around the world, the Maison Julien Gracq, the Bibliothèque Nationale de France, the Bibliothèque Alexis de Tocqueville de Caen, the University and the City of Angers, have wished to pay homage to the great French writer by revealing a part of his long-standing work in the margins of his literary and geographical work. This is an unpublished selection of fifty photographs among the hundreds of photographs taken by Julien Gracq himself using a Zeiss Ikon Contessa camera. These digitized slides, now kept in the University Library of Angers or in private collections, are an exceptional collection that reflects the curiosity of this Great Road Surveyor and gives us a glimpse of the diverse landscapes of Europe and America. from Normandy to Wiscousin, from Castile to Lazio, via Anjou and the Massif Central». Emmanuel Ruben, Writer, Geographer, Artistic and Literary Director of the Maison Julien Gracq from 2017 to 2021",
+        "it": "Settant'anni dopo il rifiuto del Prix Goncourt, che lo ha reso uno scrittore così segreto e riconosciuto in tutto il mondo, la Maison Julien Gracq, la Bibliothèque Nationale de France, la Bibliothèque Alexis de Tocqueville de Caen, l'Università e la Ville d'Angers, hanno voluto rendere omaggio al grande scrittore francese svelando una parte del suo lavoro rimasta a lungo ai margini della sua opera letteraria e geografica. Si tratta di una selezione inedita di una cinquantina di fotografie tra le centinaia di fotografie scattate dallo stesso Julien Gracq con una macchina Zeiss Ikon Contessa. Queste diapositive digitalizzate e oggi conservate nella Biblioteca universitaria di Angers o in fondi privati costituiscono un insieme eccezionale che riflette la curiosità di questo ispettore del grande cammino e ci permette di vedere paesaggi d'Europa e d'America molto diversi - dalla Normandia al Wiscousin, dalla Castiglia al Lazio, passando per l'Angiò e il Massiccio Centrale». Emmanuel Ruben, Scrittore, Geografo, Direttore artistico e letterario della Maison Julien Gracq dal 2017 al 2021",
+        "de": "Siebzig Jahre nach der Ablehnung des Prix Goncourt, der ihn zu einem so geheimen und weltweit anerkannten Schriftsteller gemacht hat, das Haus Julien Gracq, die Bibliothèque Nationale de France, die Bibliothek Alexis de Tocqueville de Caen, die Universität und die Stadt Angers, Sie wollten dem großen französischen Schriftsteller Tribut zollen, indem sie einen Teil seiner Arbeit enthüllten, der lange Zeit am Rande seines literarischen und geographischen Werkes stand. Es handelt sich um eine einzigartige Auswahl von etwa fünfzig Fotos aus Hunderten von Aufnahmen, die Julien Gracq selbst mit einer Zeiss Ikon Contessa-Kamera aufgenommen hat. Diese digitalisierten Dias, die heute in der Universitätsbibliothek von Angers oder in privaten Beständen aufbewahrt werden, sind ein außergewöhnliches Ensemble, das die Neugier dieses Vermessers des Großen Weges widerspiegelt und uns die Möglichkeit gibt, sehr unterschiedliche Landschaften Europas und Amerikas zu sehen - von der Normandie bis zur Wiscousin, Von Kastilien über das Anjou und das Zentralmassiv nach Latium». Emmanuel Ruben, Schriftsteller, Geograph, künstlerischer und literarischer Leiter des Hauses Julien Gracq von 2017 bis 2021",
+        "es": "Setenta años después del rechazo del Premio Goncourt que hizo de él un escritor tan secreto y tan reconocido en todo el mundo, la Casa Julien Gracq, la Biblioteca Nacional de Francia, la Biblioteca Alexis de Tocqueville de Caen, la Universidad y la Ciudad de Angers, han querido rendir homenaje al gran escritor francés desvelando una parte de su trabajo que permaneció durante mucho tiempo al margen de su obra literaria y geográfica. Se trata de una selección inédita de unas cincuenta fotografías entre las cientos de fotografías tomadas por el propio Julien Gracq con ayuda de un aparato Zeiss Ikon Contessa. Estas diapositivas digitalizadas y hoy conservadas en la Biblioteca Universitaria de Angers o en fondos privados constituyen un conjunto excepcional que refleja la curiosidad de este topógrafo del gran camino y nos da a ver paisajes de Europa y América muy diversos - de Normandía a Wiscousin, de Castilla al Lacio, pasando por Anjou y el Macizo Central». Emmanuel Ruben, Escritor, Geógrafo, Director artístico y literario de la Maison Julien Gracq de 2017 a 2021"
+      },
+      "keywords": {},
+      "conditions": {},
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [],
+      "accessibility": {
+        "hi": false,
+        "ii": false,
+        "vi": false,
+        "mi": true,
+        "pi": false
+      },
+      "timings": [
+        {
+          "begin": "2022-09-17T08:00:00.000Z",
+          "end": "2022-09-17T16:30:00.000Z"
+        },
+        {
+          "begin": "2022-09-18T13:00:00.000Z",
+          "end": "2022-09-18T16:30:00.000Z"
+        }
+      ],
+      "status": 1,
+      "references": [],
+      "links": []
+    },
+    {
+      "uid": 15030678,
+      "slug": "2270637",
+      "timezone": "Europe/Paris",
+      "draft": 1,
+      "updatedAt": "2022-08-12T09:21:26.000Z",
+      "agendaUid": 520499,
+      "attendanceMode": 1,
+      "onlineAccessLink": null,
+      "locationUid": null,
+      "image": {
+        "filename": "graylogo140.png",
+        "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+      },
+      "title": null,
+      "description": null,
+      "longDescription": null,
+      "keywords": [],
+      "conditions": null,
+      "age": null,
+      "registration": null,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "ii": false
+      },
+      "timings": null,
+      "status": 1,
+      "references": null,
+      "links": []
+    }
+  ],
+  "total": 3
 }

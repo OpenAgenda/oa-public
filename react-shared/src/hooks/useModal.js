@@ -31,23 +31,23 @@ export default function useModal() {
   const [state, dispatch] = useReducer(modalReducer, initialState);
 
   const open = useCallback(
-    data => {
+    (data) => {
       dispatch({
         type: 'open',
         data,
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const update = useCallback(
-    data => {
+    (data) => {
       dispatch({
         type: 'update',
         data,
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const close = useCallback(() => {
@@ -62,6 +62,6 @@ export default function useModal() {
       update,
       close,
     }),
-    [state.isOpen, state.data, open, update, close]
+    [state.isOpen, state.data, open, update, close],
   );
 }

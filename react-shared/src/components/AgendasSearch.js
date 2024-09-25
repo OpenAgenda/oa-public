@@ -32,19 +32,13 @@ export default class AgendasSearch extends Component {
   static defaultProps = {
     Header: () => null,
     AgendaActionsComponent: () => null,
-    fieldIsVisible: () => true
+    fieldIsVisible: () => true,
   };
 
-  submit = values => this.props.search(values.search);
+  submit = (values) => this.props.search(values.search);
 
   renderForm = ({ handleSubmit }) => {
-    const {
-      search,
-      getLabel,
-      listLoading,
-      fieldIsVisible,
-      Field
-    } = this.props;
+    const { search, getLabel, listLoading, fieldIsVisible, Field } = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
@@ -57,9 +51,9 @@ export default class AgendasSearch extends Component {
           placeholder={getLabel('searchAgenda')}
           loading={listLoading}
           visible={fieldIsVisible()}
-          action={value => search(value === '' ? undefined : value)}
-          parse={value => (value === '' ? undefined : value)}
-          format={value => (value == null ? '' : value)}
+          action={(value) => search(value === '' ? undefined : value)}
+          parse={(value) => (value === '' ? undefined : value)}
+          format={(value) => (value == null ? '' : value)}
           getLabel={getLabel}
         />
       </form>
@@ -78,7 +72,7 @@ export default class AgendasSearch extends Component {
       agendas,
       nextLoading,
       createButtonIfEmpty,
-      initialValues
+      initialValues,
     } = this.props;
 
     return (
@@ -105,7 +99,9 @@ export default class AgendasSearch extends Component {
 
         {(!agendas || !agendas.length) && createButtonIfEmpty ? (
           <div className="text-center text-muted margin-top-md">
-            <a className="btn btn-primary" href={agendaCreateRes}>{getLabel('createAgenda')}</a>
+            <a className="btn btn-primary" href={agendaCreateRes}>
+              {getLabel('createAgenda')}
+            </a>
           </div>
         ) : null}
 

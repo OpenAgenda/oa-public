@@ -12,7 +12,7 @@ import Case from './Case';
  * */
 
 export default function Switch({ test, children }) {
-  return children.find(child => child.props.value === test);
+  return children.find((child) => child.props.value === test);
 }
 
 Switch.Case = Case;

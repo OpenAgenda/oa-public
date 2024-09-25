@@ -1,11 +1,15 @@
 const extractNewValues = (current, value, separator) => {
-  const spread = separator ? value
-    .split(separator)
-    .map(p => p.trim())
-    .filter(p => p?.length) : value;
+  const spread = separator
+    ? value
+      .split(separator)
+      .map((p) => p.trim())
+      .filter((p) => p?.length)
+    : value;
 
-  return spread.filter(part => !current?.some(({ value }) => part === value));
-}
+  return spread.filter(
+    (part) => !current?.some(({ value1 }) => part === value1),
+  );
+};
 
 export function hasNewValues(current, value, separator) {
   return !!extractNewValues(current, value, separator).length;
@@ -14,5 +18,5 @@ export function hasNewValues(current, value, separator) {
 export function appendNewValues(current, value, separator) {
   const newValues = extractNewValues(current, value, separator);
 
-  return (current ?? []).concat(newValues.map(v => ({ value: v, label: v })));
+  return (current ?? []).concat(newValues.map((v) => ({ value: v, label: v })));
 }

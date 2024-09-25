@@ -9,7 +9,13 @@ const Icon = forwardRef(function Icon({ link, className, style }, ref) {
   };
 
   return link ? (
-    <a ref={ref} href={link} rel="noopener noreferrer" target="_blank">
+    <a
+      ref={ref}
+      href={link}
+      rel="noopener noreferrer"
+      target="_blank"
+      aria-label="More info"
+    >
       <i
         className={`fa fa-question-circle ${className}`}
         aria-hidden="true"
@@ -77,9 +83,7 @@ export default function MoreInfo({
             {title}
           </h3>
         ) : null}
-        <div style={{ padding: '8px 14px' }}>
-          {content}
-        </div>
+        <div style={{ padding: '8px 14px' }}>{content}</div>
       </TooltipContent>
     </Tooltip>
   );

@@ -155,7 +155,11 @@ export const TooltipContent = React.forwardRef(function TooltipContent(
         }}
         {...floatingProps}
       >
-        <FloatingArrow {...arrowProps} ref={context.arrowRef} context={context} />
+        <FloatingArrow
+          {...arrowProps}
+          ref={context.arrowRef}
+          context={context}
+        />
         {children}
       </div>
     </FloatingPortal>

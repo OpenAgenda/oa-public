@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const defaultLocation = {};
@@ -22,14 +22,11 @@ export default function ScrollToTop({ children }) {
   const location = useLocation();
   const prevLocation = usePrevious(location);
 
-  useEffect(
-    () => {
-      if (location.pathname !== prevLocation.pathname) {
-        window.scrollTo(0, 0);
-      }
-    },
-    [location.pathname, prevLocation.pathname]
-  );
+  useEffect(() => {
+    if (location.pathname !== prevLocation.pathname) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, prevLocation.pathname]);
 
   return children || null;
 }

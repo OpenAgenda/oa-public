@@ -73,6 +73,7 @@ export const NoHeader = () => {
               className="close"
               type="button"
               onClick={() => setDisplay(false)}
+              aria-label="Close"
             >
               <i className="fa fa-times fa-lg" />
             </button>

@@ -1,10 +1,7 @@
-import React from 'react';
 import AccordionHead from './AccordionHead';
 import AccordionContent from './AccordionContent';
 
-const Accordion = ({
-  active, onToggle, head, content
-}) => (
+const Accordion = ({ active, onToggle, head, content }) => (
   <div className="accordion">
     <div className={`accordion-item ${active ? 'active' : ''}`}>
       <AccordionHead

@@ -1,7 +1,7 @@
 export default function a11yButtonActionHandler(fn) {
   if (typeof fn !== 'function') {
     throw new Error(
-      `@a11yButtonActionHandler decorator can only be applied to function, not '${typeof fn}'`
+      `@a11yButtonActionHandler decorator can only be applied to function, not '${typeof fn}'`,
     );
   }
 
