@@ -1,10 +1,12 @@
-import React from 'react';
 import ReactDom from 'react-dom';
 import { getCookieConsentValue } from 'react-cookie-consent';
 import { IntlProvider } from 'react-intl';
 import ConsentBanner from '@openagenda/react-shared/lib/components/ConsentBanner';
 
-export default ({ lang, locales, cookieBannerLink }, { onConsentConfirmed }) => {
+export default (
+  { lang, locales, cookieBannerLink },
+  { onConsentConfirmed },
+) => {
   const consentValue = getCookieConsentValue();
 
   if (consentValue === 'false') {
@@ -25,13 +27,19 @@ export default ({ lang, locales, cookieBannerLink }, { onConsentConfirmed }) => 
     buttonClasses: 'accept-btn btn btn-primary',
     declineButtonClasses: 'decline-btn btn btn-danger',
     contentClasses: 'banner-content',
-    location: 'none'
+    location: 'none',
   };
 
   return ReactDom.render(
     <IntlProvider locale={lang} key={lang}>
-      <ConsentBanner onAccept={onConsentConfirmed} customMessages={locales[lang]} customStyle={styles} lang={lang} link={cookieBannerLink} />
+      <ConsentBanner
+        onAccept={onConsentConfirmed}
+        customMessages={locales[lang]}
+        customStyle={styles}
+        lang={lang}
+        link={cookieBannerLink}
+      />
     </IntlProvider>,
-    div
+    div,
   );
 };

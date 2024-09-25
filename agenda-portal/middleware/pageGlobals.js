@@ -9,9 +9,11 @@ function middleware(options, req, res, next) {
     ...options || {},
   };
 
-  const stylesheets = [`${req.app.locals.assetsRoot}/dist/main.css`].map(s => ({
-    href: s,
-  }));
+  const stylesheets = [`${req.app.locals.assetsRoot}/dist/main.css`].map(
+    (s) => ({
+      href: s,
+    }),
+  );
 
   const topScripts = [
     // 'https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js',
@@ -40,8 +42,8 @@ function middleware(options, req, res, next) {
   req.data = _.assign(req.data || {}, {
     stylesheets,
     scripts: {
-      top: topScripts.map(src => ({ src })),
-      bottom: bottomScripts.map(src => ({ src })),
+      top: topScripts.map((src) => ({ src })),
+      bottom: bottomScripts.map((src) => ({ src })),
     },
   });
 
@@ -49,5 +51,5 @@ function middleware(options, req, res, next) {
 }
 
 module.exports = Object.assign(middleware.bind(null, {}), {
-  withOptions: options => middleware.bind(null, options),
+  withOptions: (options) => middleware.bind(null, options),
 });

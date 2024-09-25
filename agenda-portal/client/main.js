@@ -22,12 +22,12 @@ const listSelector = '.events';
 let nextProgressiveLoadPage = 2;
 let rockBottom;
 
-if (module.hot) {
-  module.hot.accept();
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
 }
 
 const iframeHandler = require('./lib/iframe.child')({
-  onParentNavUpdate: updatedHref => {
+  onParentNavUpdate: (updatedHref) => {
     window.location.href = updatedHref;
   },
 });
@@ -78,7 +78,7 @@ function progressiveLoad(pageProps, canvasSelector) {
     const scrollHeight = $(document).height();
     const scrollPosition = $(window).height() + $(window).scrollTop();
 
-    if ((scrollHeight - scrollPosition) > 10) {
+    if (scrollHeight - scrollPosition > 10) {
       return;
     }
 
@@ -111,7 +111,12 @@ function progressiveLoad(pageProps, canvasSelector) {
   });
 }
 
-function onFilterController(pageProps, filtersRef, values = {}, aggregations) {
+function onFilterController(
+  pageProps,
+  filtersRef,
+  values = {},
+  aggregations = null,
+) {
   log('onFilterChange from %s, %j', origin, values);
   nextProgressiveLoadPage = 2;
   rockBottom = false;
@@ -119,7 +124,7 @@ function onFilterController(pageProps, filtersRef, values = {}, aggregations) {
   if (pageProps.pageType === 'event') {
     window.location.href = setListPageHrefFromContext(
       window.location.href,
-      values
+      values,
     );
     return;
   }
@@ -142,7 +147,7 @@ function onFilterController(pageProps, filtersRef, values = {}, aggregations) {
       window.history.pushState(
         {},
         '',
-        window.location.href.replace(pageMatch[0], '/p/1')
+        window.location.href.replace(pageMatch[0], '/p/1'),
       );
     }
 
@@ -171,7 +176,7 @@ $(() => {
           window.onFilterChange(values, pageProps, aggregations);
         }
       },
-      filtersBase: pageProps.filtersBase
+      filtersBase: pageProps.filtersBase,
     });
   } catch (e) {
     console.error('ERROR: Cannot render filters:', e);
@@ -179,7 +184,10 @@ $(() => {
 
   $('.js_trigger_spin').on('click', spin);
 
-  updateShare(pageProps, qs.parse(window.location.search, { ignoreQueryPrefix: true }));
+  updateShare(
+    pageProps,
+    qs.parse(window.location.search, { ignoreQueryPrefix: true }),
+  );
 
   if (pageProps.pageType === 'list') {
     progressiveLoad(pageProps, '.js_progressive_load');
@@ -191,7 +199,8 @@ $(() => {
 
   if (pageProps.gaId) {
     trackConsent(pageProps, {
-      onConsentConfirmed: () => addGoogleAnalyticsTracker({ googleAnalyticsID: pageProps.gaId })
+      onConsentConfirmed: () =>
+        addGoogleAnalyticsTracker({ googleAnalyticsID: pageProps.gaId }),
     });
   }
 });

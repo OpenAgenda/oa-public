@@ -15,7 +15,8 @@ module.exports = async (req, res, next) => {
   const lang = req.query.lang || defaultLang;
   const intl = intlByLocale[lang] || intlByLocale[defaultLang];
 
-  const filters = rawFilters.map(rawFilter => withDefaultFilterConfig(rawFilter, intl));
+  const filters = rawFilters.map((rawFilter) =>
+    withDefaultFilterConfig(rawFilter, intl));
 
   Object.assign(res.locals, {
     intl,

@@ -5,12 +5,12 @@ export default (href, query = {}) => {
   const current = {};
   const contextPart = href
     .split(/\?|&/)
-    .filter(part => part.match(/^nc=/))
+    .filter((part) => part.match(/^nc=/))
     .pop();
 
   if (contextPart) {
     const context = JSON.parse(
-      base64.decode(decodeURIComponent(contextPart.split('nc=').pop()))
+      base64.decode(decodeURIComponent(contextPart.split('nc=').pop())),
     );
 
     if (Object.keys((context || {}).search || {}).length) {

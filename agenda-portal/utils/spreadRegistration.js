@@ -17,7 +17,7 @@ module.exports = (registration, options = {}) => {
         ...obj,
         [value]: [],
       }),
-      {}
-    )
+      {},
+    ),
   );
 };

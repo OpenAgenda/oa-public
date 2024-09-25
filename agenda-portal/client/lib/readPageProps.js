@@ -1,6 +1,6 @@
 const log = require('debug')('readPageProps');
 
-export default jQuery => {
+export default (jQuery) => {
   try {
     return JSON.parse(jQuery('#page-props').html());
   } catch (e) {

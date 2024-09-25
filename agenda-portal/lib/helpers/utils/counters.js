@@ -9,7 +9,7 @@ function init(data) {
       widgets: {},
     };
   }
-};
+}
 
 function increment(data, key, name) {
   const namespace = `root.__filtersAndWidgetsCounter.${key}.${name}`;
@@ -20,5 +20,5 @@ function increment(data, key, name) {
 
 module.exports = {
   init,
-  increment
+  increment,
 };

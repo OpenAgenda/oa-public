@@ -40,11 +40,11 @@ function _postEventTransform(options, event, req, res) {
 
   return [
     applySchemaJSONLD,
-    eventHook ? _.partialRight(eventHook, res.locals) : e => e,
+    eventHook ? _.partialRight(eventHook, res.locals) : (e) => e,
   ].reduce((e, fn) => fn(e, options), event);
 }
 
-module.exports = options => {
+module.exports = (options) => {
   const preTransform = _preEventTransform.bind(null, options);
   const postTransform = _postEventTransform.bind(null, options);
 
@@ -63,7 +63,7 @@ module.exports = options => {
     show: (event, req, res) => {
       const transformed = preTransform(event, req, res);
 
-      transformed.timings = transformed.timings.map(t =>
+      transformed.timings = transformed.timings.map((t) =>
         detailedTiming({ event: transformed, req }, t, res.locals.lang));
 
       transformed.months = spreadPerMonthPerDay(
@@ -75,7 +75,7 @@ module.exports = options => {
       if (_.get(req, 'params.timing')) {
         transformed.timing = _.find(
           transformed.timings,
-          t =>
+          (t) =>
             `${new Date(getBeginValue(t)).getTime()}` === req.params.timing,
         );
       }

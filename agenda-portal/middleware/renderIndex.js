@@ -3,21 +3,31 @@
 const React = require('react');
 const ReactDOM = require('react-dom/server');
 const _ = require('lodash');
-const { PortalServer, PortalContext } = require('@openagenda/react-portal-ssr/server');
-const { FiltersProvider, FiltersManager } = require('@openagenda/react-filters');
+const {
+  PortalServer,
+  PortalContext,
+} = require('@openagenda/react-portal-ssr/server');
+const {
+  FiltersProvider,
+  FiltersManager,
+} = require('@openagenda/react-filters');
 
 const setPageProp = require('../lib/utils/setPageProp');
 
 function withProvider(req, res, children) {
   const { intl } = res.locals;
 
-  return React.createElement(FiltersProvider, {
-    intl,
-    filters: res.locals.filters,
-    widgets: res.locals.widgets,
-    initialValues: _.omit(req.query, 'sort'),
-    onSubmit: () => {}
-  }, children);
+  return React.createElement(
+    FiltersProvider,
+    {
+      intl,
+      filters: res.locals.filters,
+      widgets: res.locals.widgets,
+      initialValues: _.omit(req.query, 'sort'),
+      onSubmit: () => {},
+    },
+    children,
+  );
 }
 
 module.exports = async (req, res, next) => {
@@ -38,7 +48,11 @@ module.exports = async (req, res, next) => {
 
   if (req.app.locals.tracking?.useAgendaGoogleAnalytics) {
     const gaId = res.locals.agenda.settings.tracking?.googleAnalytics || null;
-    if (!gaId) console.log('Warning: no Google Analytics ID found. Set one in your agenda settings or disable tracking.');
+    if (!gaId) {
+      console.log(
+        'Warning: no Google Analytics ID found. Set one in your agenda settings or disable tracking.',
+      );
+    }
     const { cookieBannerLink } = req.app.locals.tracking;
     setPageProp(req, 'gaId', gaId);
     setPageProp(req, 'cookieBannerLink', cookieBannerLink);
@@ -53,14 +67,14 @@ module.exports = async (req, res, next) => {
     aggregations: req.data.aggregations,
     total: req.data.total,
     filtersBase: req.data.filtersBase,
-    query: req.query
+    query: req.query,
   });
 
   ReactDOM.renderToString(portal.collectPortals(withProvider(req, res, elem)));
 
   portal.portals = portal.portals.map(({ content, selector }) => ({
     selector,
-    content: withProvider(req, res, content)
+    content: withProvider(req, res, content),
   }));
 
   // Render index with filters
