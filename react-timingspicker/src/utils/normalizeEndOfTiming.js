@@ -1,6 +1,6 @@
 import * as dateFns from 'date-fns';
 
-export default datetime => {
+export default (datetime) => {
   const laterDate = dateFns.addMilliseconds(datetime, 1);
 
   if (dateFns.isEqual(dateFns.startOfDay(datetime), datetime)) {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { injectIntl, defineMessages } from 'react-intl';
 import { Form, Field } from 'react-final-form';
 import MaskedInput from 'react-text-mask';
@@ -89,13 +89,13 @@ class EditForm extends Component {
     return {
       begin: dateFns.setHours(
         dateFns.setMinutes(valueToEdit.begin, parseInt(beginMinutes, 10)),
-        parseInt(beginHours, 10)
+        parseInt(beginHours, 10),
       ),
       end: dateFns.setHours(
         dateFns.setMinutes(valueToEdit.end, parseInt(endMinutes, 10)),
-        parseInt(endHours, 10)
+        parseInt(endHours, 10),
       ),
-      ...rest
+      ...rest,
     };
   };
 
@@ -114,6 +114,7 @@ class EditForm extends Component {
     }
   };
 
+  // eslint-disable-next-line class-methods-use-this
   renderForm = ({
     handleSubmit,
     submitError,
@@ -121,9 +122,9 @@ class EditForm extends Component {
     classNames,
     intl,
     closeModal,
-    form
+    form,
   }) => {
-    const openRecurrencer = e => {
+    const openRecurrencer = (e) => {
       if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
         e.preventDefault();
         return;
@@ -167,10 +168,7 @@ class EditForm extends Component {
           intl={intl}
         />
 
-        <button
-          type="submit"
-          className={classNames?.editSubmitBtn}
-        >
+        <button type="submit" className={classNames?.editSubmitBtn}>
           {intl.formatMessage(messages.adjust)}
         </button>
 
@@ -179,7 +177,10 @@ class EditForm extends Component {
           tabIndex={0}
           onClick={openRecurrencer}
           onKeyPress={openRecurrencer}
-          className={cn(`${classNamePrefix}recurrencer-button`, classNames?.recurrencerBtn)}
+          className={cn(
+            `${classNamePrefix}recurrencer-button`,
+            classNames?.recurrencerBtn,
+          )}
         >
           {intl.formatMessage(messages.openRecurrencerModal)}
         </div>
@@ -194,13 +195,7 @@ class EditForm extends Component {
   };
 
   render() {
-    const {
-      initialValues,
-      classNamePrefix,
-      classNames,
-      intl,
-      closeModal,
-    } = this.props;
+    const { initialValues, classNamePrefix, classNames, intl, closeModal } = this.props;
 
     return (
       <Form

@@ -3,7 +3,7 @@ import DST from './DST';
 
 export default (
   { activeWeek, weekStartsOn, selectableStep },
-  { begin, end }
+  { begin, end },
 ) => {
   const startOfActiveWeek = dateFns.startOfWeek(activeWeek, { weekStartsOn });
   const startOfBeginDay = dateFns.startOfDay(begin);
@@ -21,7 +21,7 @@ export default (
 
   const beginLeft = dateFns.differenceInDays(
     startOfBeginDay,
-    startOfActiveWeek
+    startOfActiveWeek,
   );
   const endLeft = dateFns.differenceInDays(startOfEndDay, startOfActiveWeek);
 

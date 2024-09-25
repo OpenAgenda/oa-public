@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { injectIntl /* , defineMessages */ } from 'react-intl';
 import Select from 'react-select';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -49,7 +49,8 @@ class Header extends Component {
 
     const month = dateFns.getMonth(activeWeek);
     const year = dateFns.getYear(activeWeek);
-    const formatMonth = val => intl.formatDate(new Date(year, val), { month: 'long' });
+    const formatMonth = (val) =>
+      intl.formatDate(new Date(year, val), { month: 'long' });
 
     const monthOptions = Array(12)
       .fill()
@@ -66,13 +67,13 @@ class Header extends Component {
     };
   }
 
-  onMonthChange = option => {
+  onMonthChange = (option) => {
     const { onMonthChange } = this.props;
 
     return onMonthChange(option.value);
   };
 
-  onYearChange = option => {
+  onYearChange = (option) => {
     const { onYearChange } = this.props;
 
     return onYearChange(option.value);
@@ -80,12 +81,7 @@ class Header extends Component {
 
   render() {
     const { classNamePrefix, onPrevWeek, onNextWeek } = this.props;
-    const {
-      monthOptions,
-      yearOptions,
-      selectedMonth,
-      selectedYear,
-    } = this.state;
+    const { monthOptions, yearOptions, selectedMonth, selectedYear } = this.state;
 
     return (
       <div className={`${classNamePrefix}header`}>

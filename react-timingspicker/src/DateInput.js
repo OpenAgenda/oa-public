@@ -1,4 +1,3 @@
-import React from 'react';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
 import deriveDateFormat from './utils/deriveDateFormat';
@@ -13,7 +12,7 @@ export default function DateInput({
 }) {
   const derivedDateFormat = deriveDateFormat(intl)
     .split('')
-    .map(v => {
+    .map((v) => {
       // Reverse MM and mm for text-mask (see https://github.com/text-mask/text-mask/issues/951)
       switch (v) {
         case 'M':
@@ -29,7 +28,7 @@ export default function DateInput({
   const pipe = createAutoCorrectedDatePipe(derivedDateFormat);
   const mask = derivedDateFormat
     .split('')
-    .map(char => (/[a-z]/gi.test(char) ? /\d/ : char));
+    .map((char) => (/[a-z]/gi.test(char) ? /\d/ : char));
 
   return (
     <section className={`${classNamePrefix}section`}>

@@ -8,10 +8,10 @@ module.exports = {
         reactIntl: {
           idInterpolationPattern: '[sha512:contenthash:base64:6]',
           extractFromFormatMessageCall: true,
-          ast: true
-        }
-      }
-    ]
+          ast: true,
+        },
+      },
+    ],
   ],
-  sourceType: 'unambiguous'
+  sourceType: 'unambiguous',
 };

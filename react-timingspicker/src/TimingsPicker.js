@@ -51,7 +51,7 @@ function getClosestTiming(value) {
 
       return result;
     },
-    { first: null, next: null }
+    { first: null, next: null },
   );
 
   return next || first;
@@ -109,7 +109,7 @@ export default class TimingsPicker extends Component {
         }
 
         derivedState.activeWeek = new Date(
-          closestValue || getClosestTiming(props.allowedTimings) || Date.now()
+          closestValue || getClosestTiming(props.allowedTimings) || Date.now(),
         );
       }
     }
@@ -119,12 +119,12 @@ export default class TimingsPicker extends Component {
       derivedState.locales = props.locales;
       derivedState.messages = {
         ...locales[props.locale],
-        ...(props.locales && props.locales[props.locale]),
+        ...props.locales && props.locales[props.locale],
       };
     }
 
     if (props.value !== state.value) {
-      derivedState.value = (props.value || state.value || []).map(v => ({
+      derivedState.value = (props.value || state.value || []).map((v) => ({
         begin:
           typeof v.begin === 'string' ? dateFns.parseISO(v.begin) : v.begin,
         end: typeof v.end === 'string' ? dateFns.parseISO(v.end) : v.end,
@@ -138,7 +138,7 @@ export default class TimingsPicker extends Component {
     return null;
   }
 
-  updateActiveWeek = fn => {
+  updateActiveWeek = (fn) => {
     const { onChangeActiveWeek } = this.props;
     const { activeWeek } = this.state;
 
@@ -153,29 +153,31 @@ export default class TimingsPicker extends Component {
     }
   };
 
-  onPrevWeek = e => {
+  onPrevWeek = (e) => {
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
       e.preventDefault();
       return;
     }
 
-    return this.updateActiveWeek(date => dateFns.subDays(date, 7));
+    return this.updateActiveWeek((date) => dateFns.subDays(date, 7));
   };
 
-  onNextWeek = e => {
+  onNextWeek = (e) => {
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
       e.preventDefault();
       return;
     }
 
-    return this.updateActiveWeek(date => dateFns.addDays(date, 7));
+    return this.updateActiveWeek((date) => dateFns.addDays(date, 7));
   };
 
-  onMonthChange = month => this.updateActiveWeek(date => dateFns.setMonth(date, month));
+  onMonthChange = (month) =>
+    this.updateActiveWeek((date) => dateFns.setMonth(date, month));
 
-  onYearChange = month => this.updateActiveWeek(date => dateFns.setYear(date, month));
+  onYearChange = (month) =>
+    this.updateActiveWeek((date) => dateFns.setYear(date, month));
 
-  onChange = value => {
+  onChange = (value) => {
     const { onChange } = this.props;
 
     if (typeof onChange === 'function') {
@@ -185,7 +187,7 @@ export default class TimingsPicker extends Component {
     }
   };
 
-  reset = e => {
+  reset = (e) => {
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
       e.preventDefault();
       return;
@@ -204,7 +206,7 @@ export default class TimingsPicker extends Component {
     this.onChange([]);
   };
 
-  onResize = width => {
+  onResize = (width) => {
     const { breakpoints } = this.props;
     const breakpoint = widthToBreakpoint(breakpoints, width);
 

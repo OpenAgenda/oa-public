@@ -55,7 +55,7 @@ export default function duplicateTiming(timing, options) {
   } else if (options.frequence === 'weekly') {
     if (options.weekday?.length) {
       ruleOptions.byweekday = options.weekday.map(
-        v => RRule[UTCweekdays[dayToUTCDay(v, weekStartsOn)]]
+        (v) => RRule[UTCweekdays[dayToUTCDay(v, weekStartsOn)]],
       );
     }
   }
@@ -64,7 +64,7 @@ export default function duplicateTiming(timing, options) {
   const begins = rule.all().map(convertUTCDateToLocalDate);
   const duration = timing.end.getTime() - timing.begin.getTime();
 
-  return begins.map(v => ({
+  return begins.map((v) => ({
     begin: v,
     end: new Date(v.getTime() + duration),
   }));

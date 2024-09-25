@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 const keys = {
   LEFT: 37,
@@ -19,8 +19,8 @@ const WEEKDAYS_LONG = [
 const WEEKDAYS_SHORT = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const defaultLocaleUtils = {
-  formatWeekdayLong: weekday => WEEKDAYS_LONG[weekday],
-  formatWeekdayShort: weekday => WEEKDAYS_SHORT[weekday],
+  formatWeekdayLong: (weekday) => WEEKDAYS_LONG[weekday],
+  formatWeekdayShort: (weekday) => WEEKDAYS_SHORT[weekday],
 };
 
 export default class WeekdayPicker extends Component {
@@ -51,58 +51,6 @@ export default class WeekdayPicker extends Component {
   //   onWeekdayMouseLeave: PropTypes.func,
   //   onWeekdayTouchTap: PropTypes.func,
   // }
-
-  getModifiersForDay = (weekday, modifierFunctions) => {
-    const modifiers = [];
-    if (modifierFunctions) {
-      for (const modifier in modifierFunctions) {
-        if (Object.prototype.hasOwnProperty.call(modifierFunctions, modifier)) {
-          const func = modifierFunctions[modifier];
-          if (func(weekday)) {
-            modifiers.push(modifier);
-          }
-        }
-      }
-    }
-    return modifiers;
-  };
-
-  focusPreviousDay(dayNode) {
-    const { classNamePrefix } = this.props;
-    const body = dayNode.parentNode;
-    const dayNodes = body.querySelectorAll(
-      `.${classNamePrefix}WeekdayPicker-Weekday:not(.${classNamePrefix}WeekdayPicker-Weekday--outside)`
-    );
-    let nodeIndex;
-    for (let i = 0; i < dayNodes.length; i++) {
-      if (dayNodes[i] === dayNode) {
-        nodeIndex = i;
-        break;
-      }
-    }
-    if (nodeIndex !== 0) {
-      dayNodes[nodeIndex - 1].focus();
-    }
-  }
-
-  focusNextDay(dayNode) {
-    const { classNamePrefix } = this.props;
-    const body = dayNode.parentNode;
-    const dayNodes = body.querySelectorAll(
-      `.${classNamePrefix}WeekdayPicker-Weekday:not(.${classNamePrefix}WeekdayPicker-Weekday--outside)`
-    );
-    let nodeIndex;
-    for (let i = 0; i < dayNodes.length; i++) {
-      if (dayNodes[i] === dayNode) {
-        nodeIndex = i;
-        break;
-      }
-    }
-
-    if (nodeIndex !== dayNodes.length - 1) {
-      dayNodes[nodeIndex + 1].focus();
-    }
-  }
 
   // Event handlers
   handleDayKeyDown(e, day, modifiers) {
@@ -160,6 +108,59 @@ export default class WeekdayPicker extends Component {
     onWeekdayMouseLeave(e, weekday, modifiers);
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  getModifiersForDay = (weekday, modifierFunctions) => {
+    const modifiers = [];
+    if (modifierFunctions) {
+      for (const modifier in modifierFunctions) {
+        if (Object.prototype.hasOwnProperty.call(modifierFunctions, modifier)) {
+          const func = modifierFunctions[modifier];
+          if (func(weekday)) {
+            modifiers.push(modifier);
+          }
+        }
+      }
+    }
+    return modifiers;
+  };
+
+  focusPreviousDay(dayNode) {
+    const { classNamePrefix } = this.props;
+    const body = dayNode.parentNode;
+    const dayNodes = body.querySelectorAll(
+      `.${classNamePrefix}WeekdayPicker-Weekday:not(.${classNamePrefix}WeekdayPicker-Weekday--outside)`,
+    );
+    let nodeIndex;
+    for (let i = 0; i < dayNodes.length; i++) {
+      if (dayNodes[i] === dayNode) {
+        nodeIndex = i;
+        break;
+      }
+    }
+    if (nodeIndex !== 0) {
+      dayNodes[nodeIndex - 1].focus();
+    }
+  }
+
+  focusNextDay(dayNode) {
+    const { classNamePrefix } = this.props;
+    const body = dayNode.parentNode;
+    const dayNodes = body.querySelectorAll(
+      `.${classNamePrefix}WeekdayPicker-Weekday:not(.${classNamePrefix}WeekdayPicker-Weekday--outside)`,
+    );
+    let nodeIndex;
+    for (let i = 0; i < dayNodes.length; i++) {
+      if (dayNodes[i] === dayNode) {
+        nodeIndex = i;
+        break;
+      }
+    }
+
+    if (nodeIndex !== dayNodes.length - 1) {
+      dayNodes[nodeIndex + 1].focus();
+    }
+  }
+
   renderWeekDays() {
     const weekdays = [];
 
@@ -185,13 +186,13 @@ export default class WeekdayPicker extends Component {
     if (modifierFunctions) {
       const customModifiers = this.getModifiersForDay(
         weekday,
-        modifierFunctions
+        modifierFunctions,
       );
       modifiers = [...modifiers, ...customModifiers];
     }
 
     className += modifiers
-      .map(modifier => ` ${className}--${modifier}`)
+      .map((modifier) => ` ${className}--${modifier}`)
       .join('');
 
     const ariaSelected = modifiers.indexOf(ariaModifier) > -1;
@@ -215,15 +216,15 @@ export default class WeekdayPicker extends Component {
 
     let onClick = null;
     if (onWeekdayClick) {
-      onClick = e => this.handleWeekdayClick(e, weekday, modifiers);
+      onClick = (e) => this.handleWeekdayClick(e, weekday, modifiers);
     }
     let onMouseEnter = null;
     if (onWeekdayMouseEnter) {
-      onMouseEnter = e => this.handleWeekdayMouseEnter(e, weekday, modifiers);
+      onMouseEnter = (e) => this.handleWeekdayMouseEnter(e, weekday, modifiers);
     }
     let onMouseLeave = null;
     if (onWeekdayMouseLeave) {
-      onMouseLeave = e => this.handleWeekdayMouseLeave(e, weekday, modifiers);
+      onMouseLeave = (e) => this.handleWeekdayMouseLeave(e, weekday, modifiers);
     }
 
     return (
@@ -234,7 +235,7 @@ export default class WeekdayPicker extends Component {
         tabIndex={tabIndex}
         aria-pressed={ariaSelected}
         onClick={onClick}
-        onKeyDown={e => this.handleDayKeyDown(e, weekday, modifiers)}
+        onKeyDown={(e) => this.handleDayKeyDown(e, weekday, modifiers)}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         title={localeUtils.formatWeekdayLong(weekday, locale)}
