@@ -36,5 +36,9 @@
     "mkdirp": "^3.0.1",
     "rimraf": "^3.0.2",
     "yargs": "^17.4.1"
+  },
+  "dependencies": {
+    "dedent": "^0.7.0",
+    "react-intl": "^5.12.2"
   }
 }

@@ -1,6 +1,6 @@
-const { defineMessages } = require('react-intl');
+import { defineMessages } from 'react-intl';
 
-module.exports = defineMessages({
+export default defineMessages({
   refused: {
     id: 'common.event.states.refused',
     defaultMessage: 'Refused',
