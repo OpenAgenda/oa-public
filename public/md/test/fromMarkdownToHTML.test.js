@@ -4,8 +4,14 @@ import { fromMarkdownToHTML } from '../src/index.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-const withSubtitleMarkdown = await fs.readFile(`${__dirname}/fixtures/withSubtitle.md`, 'utf-8');
-const withSubtitleHTML = await fs.readFile(`${__dirname}/fixtures/withSubtitle.html`, 'utf-8');
+const withSubtitleMarkdown = await fs.readFile(
+  `${__dirname}/fixtures/withSubtitle.md`,
+  'utf-8',
+);
+const withSubtitleHTML = await fs.readFile(
+  `${__dirname}/fixtures/withSubtitle.html`,
+  'utf-8',
+);
 
 describe('fromMarkdownToHTML', () => {
   test('from can handle nothingness', () => {
@@ -13,44 +19,39 @@ describe('fromMarkdownToHTML', () => {
   });
 
   test('basic', () => {
-    expect(
-      fromMarkdownToHTML('Yeay\n===='),
-    ).toBe(
-      '<h1>Yeay</h1>\n',
-    );
+    expect(fromMarkdownToHTML('Yeay\n====')).toBe('<h1>Yeay</h1>\n');
   });
 
   test('href are maintained in links', () => {
-    expect(
-      fromMarkdownToHTML('Here is a link: [Kaoré](https://kao.re)'),
-    ).toBe(
+    expect(fromMarkdownToHTML('Here is a link: [Kaoré](https://kao.re)')).toBe(
       '<p>Here is a link: <a href="https://kao.re">Kaoré</a></p>\n',
     );
   });
 
   test('A line break inserts a <br>', () => {
-    const r = fromMarkdownToHTML([
-      'Here is a line',
-      'Next line',
-    ].join('\n'));
+    const r = fromMarkdownToHTML(['Here is a line', 'Next line'].join('\n'));
 
     expect(r).toBe('<p>Here is a line<br>Next line</p>\n');
   });
 
   test('multiple links', () => {
-    const r = fromMarkdownToHTML([
-      'Nothing worked. Here is a first one: [https://le_monde.fr](https://le_monde.fr)',
-      'And the same [https://le_monde.fr](https://le_monde.fr)',
-      '',
-      '[https://le_monde.fr](https://le_monde.fr) and a [https://www.youtube.com/watch?v=io2d_cpoLDg](https://www.youtube.com/watch?v=io2d_cpoLDg) link and one with a [label](https://www.youtube.com/watch?v=io2d_cpoLDg)',
-    ].join('\n'));
+    const r = fromMarkdownToHTML(
+      [
+        'Nothing worked. Here is a first one: [https://le_monde.fr](https://le_monde.fr)',
+        'And the same [https://le_monde.fr](https://le_monde.fr)',
+        '',
+        '[https://le_monde.fr](https://le_monde.fr) and a [https://www.youtube.com/watch?v=io2d_cpoLDg](https://www.youtube.com/watch?v=io2d_cpoLDg) link and one with a [label](https://www.youtube.com/watch?v=io2d_cpoLDg)',
+      ].join('\n'),
+    );
 
-    expect(r).toBe([
-      '<p>Nothing worked. Here is a first one: <a href="https://le_monde.fr">https://le_monde.fr</a><br>And the same <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
-      '<p></p>',
-      '<p><a href="https://le_monde.fr">https://le_monde.fr</a> and a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">https://www.youtube.com/watch?v=io2d_cpoLDg</a> link and one with a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">label</a></p>',
-      '',
-    ].join('\n'));
+    expect(r).toBe(
+      [
+        '<p>Nothing worked. Here is a first one: <a href="https://le_monde.fr">https://le_monde.fr</a><br>And the same <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
+        '<p></p>',
+        '<p><a href="https://le_monde.fr">https://le_monde.fr</a> and a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">https://www.youtube.com/watch?v=io2d_cpoLDg</a> link and one with a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">label</a></p>',
+        '',
+      ].join('\n'),
+    );
   });
 
   test('list', () => {
@@ -72,19 +73,17 @@ describe('fromMarkdownToHTML', () => {
   });
 
   test('Subtitle', () => {
-    expect(
-      fromMarkdownToHTML(withSubtitleMarkdown),
-    ).toBe(
-      withSubtitleHTML,
-    );
+    expect(fromMarkdownToHTML(withSubtitleMarkdown)).toBe(withSubtitleHTML);
   });
 
   describe('selfDomain option', () => {
     test('same domain gives no target blank links', () => {
-      expect(fromMarkdownToHTML(
-        'Un site qui marche à peu près: [OpenAgenda](https://openagenda.com)',
-        { selfDomain: 'https://openagenda.com' },
-      )).toBe(
+      expect(
+        fromMarkdownToHTML(
+          'Un site qui marche à peu près: [OpenAgenda](https://openagenda.com)',
+          { selfDomain: 'https://openagenda.com' },
+        ),
+      ).toBe(
         '<p>Un site qui marche à peu près: <a href="https://openagenda.com">OpenAgenda</a></p>\n',
       );
     });

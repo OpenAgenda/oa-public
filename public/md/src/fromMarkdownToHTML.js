@@ -19,21 +19,24 @@ function isSelfDomain(domain, link) {
 }
 
 export default function fromMarkdownToHTML(md, options = {}) {
-  const {
-    selfDomain = null,
-  } = options;
+  const { selfDomain = null } = options;
 
-  const markedWithRenderer = selfDomain ? new Marked({
-    renderer: {
-      link(href, title, text) {
-        return `<a href="${href}" ${isSelfDomain(selfDomain, href) ? '' : 'target="_blank"'}>${text}</a>`;
+  const markedWithRenderer = selfDomain
+    ? new Marked({
+      renderer: {
+        link(href, title, text) {
+          return `<a href="${href}" ${isSelfDomain(selfDomain, href) ? '' : 'target="_blank"'}>${text}</a>`;
+        },
       },
-    },
-  }) : undefined;
+    })
+    : undefined;
 
   const HTML = (md || '')
     .split('\n\n')
-    .map(markdown => (selfDomain ? markedWithRenderer.parse(markdown, { breaks: true }) : marked(markdown, { breaks: true })))
+    .map((markdown) =>
+      (selfDomain
+        ? markedWithRenderer.parse(markdown, { breaks: true })
+        : marked(markdown, { breaks: true })))
     .join('<p></p>\n');
 
   return DOMPurify.sanitize(HTML, {
