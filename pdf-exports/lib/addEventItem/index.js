@@ -18,7 +18,7 @@ import eventLinkPositioning from './eventLinkPositioning.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const extractModeOptions = mode =>
+const extractModeOptions = (mode) =>
   (typeof mode === 'string'
     ? {
       bold: false,
@@ -46,7 +46,14 @@ const modes = {
     'registration',
     'eventLink',
   ],
-  locationName: ['title', 'description', ['dateRange', 'accessibility'], 'registration', 'location', 'eventLink'],
+  locationName: [
+    'title',
+    'description',
+    ['dateRange', 'accessibility'],
+    'registration',
+    'location',
+    'eventLink',
+  ],
 };
 
 const positioningFunctions = {
@@ -61,7 +68,13 @@ const positioningFunctions = {
   accessibility: accessibilityPositioning,
 };
 
-export default async function addEventItem(agenda, event, doc, cursor, options = {}) {
+export default async function addEventItem(
+  agenda,
+  event,
+  doc,
+  cursor,
+  options = {},
+) {
   const {
     base = {
       margin: 20,
@@ -111,7 +124,9 @@ export default async function addEventItem(agenda, event, doc, cursor, options =
     margin = base.margin / 3;
   }
 
-  const nextLineX = includeEventImages ? imageWidth + base.margin * 2 : base.margin;
+  const nextLineX = includeEventImages
+    ? imageWidth + base.margin * 2
+    : base.margin;
 
   if (includeEventImages) {
     columnMaxWidth = doc.page.width - imageWidth - base.margin * 3;
@@ -150,20 +165,25 @@ export default async function addEventItem(agenda, event, doc, cursor, options =
     for (const lineItem of [].concat(line)) {
       const lineItemOptions = extractModeOptions(lineItem);
 
-      const { width, height } = positioningFunctions[lineItemOptions.name](doc, localCursor, event, {
-        columnMaxWidth,
-        fontSize,
-        base,
-        iconHeightAndWidth,
-        margin,
-        secondaryColor,
-        intl,
-        simulate,
-        lang,
-        agenda,
-        mode,
-        ..._.omit(lineItemOptions),
-      });
+      const { width, height } = positioningFunctions[lineItemOptions.name](
+        doc,
+        localCursor,
+        event,
+        {
+          columnMaxWidth,
+          fontSize,
+          base,
+          iconHeightAndWidth,
+          margin,
+          secondaryColor,
+          intl,
+          simulate,
+          lang,
+          agenda,
+          mode,
+          ..._.omit(lineItemOptions),
+        },
+      );
       lineWidth += width;
       lineHeight = Math.max(lineHeight, height);
 

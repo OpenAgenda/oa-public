@@ -15,7 +15,9 @@ const {
   TEST_LANG: testLang = 'fr',
 } = process.env;
 
-const query = testQueryString ? qs.parse(testQueryString.replace(/\?/, '')) : {};
+const query = testQueryString
+  ? qs.parse(testQueryString.replace(/\?/, ''))
+  : {};
 
 const eventStream = new APIEventsStream({
   agendaUID,
@@ -24,7 +26,9 @@ const eventStream = new APIEventsStream({
   query,
 });
 
-const writeStream = fs.createWriteStream(`${pdfTestFolder}/streamOutputTest.pdf`);
+const writeStream = fs.createWriteStream(
+  `${pdfTestFolder}/streamOutputTest.pdf`,
+);
 
 const pdfExports = PDFExports({});
 

@@ -10,7 +10,15 @@ const __dirname = dirname(__filename);
 const dateRangeIconPath = `${__dirname}/../../images/calendar.png`;
 
 export default function dateRangePositioning(doc, cursor, event, options = {}) {
-  const { columnMaxWidth, fontSize, base, iconHeightAndWidth, margin, simulate, lang } = options;
+  const {
+    columnMaxWidth,
+    fontSize,
+    base,
+    iconHeightAndWidth,
+    margin,
+    simulate,
+    lang,
+  } = options;
 
   const { width: dateRangeWidthIcon, height: dateRangeIconHeight } = addIcon(
     doc,
