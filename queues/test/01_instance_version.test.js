@@ -1,15 +1,13 @@
-"use strict";
+'use strict';
 
-const queues = require( '..' );
-const redis = require( 'redis' );
+const redis = require('redis');
+const queues = require('..');
 
-describe( 'instance version', () => {
-
+describe('instance version', () => {
   let q;
   let redisCli;
 
-  beforeEach( async () => {
-
+  beforeEach(async () => {
     redisCli = redis.createClient({
       host: 'localhost',
       port: 6379,
@@ -17,97 +15,79 @@ describe( 'instance version', () => {
 
     await redisCli.connect();
 
-    const v2Queues = queues( { redis: redisCli, prefix: 'v2q:' } );
+    const v2Queues = queues({ redis: redisCli, prefix: 'v2q:' });
 
-    q = v2Queues( '02_instance_version' );
+    q = v2Queues('02_instance_version');
+  });
 
-  } );
-
-  afterEach( async () => {
-
+  afterEach(async () => {
     await q.stop();
     await q.clear();
 
     await redisCli.quit();
+  });
 
-  } );
+  it('instance queues up what it is given', async () => {
+    await q('doThing', 1, 2, 3);
 
-  it( 'instance queues up what it is given', async () => {
+    expect(await q.len()).toBe(1);
 
-    await q( 'doThing', 1, 2, 3 );
-
-    expect(
-      await q.len()
-    ).toBe(1);
-
-    expect(
-      await redisCli.lPop( 'v2q:02_instance_version' )
-    ).toBe(
-      '{"method":"doThing","args":[1,2,3]}'
+    expect(await redisCli.lPop('v2q:02_instance_version')).toBe(
+      '{"method":"doThing","args":[1,2,3]}',
     );
+  });
 
-  } );
+  it('registered function matching queued name are called when queue is run', async () => {
+    await new Promise((resolve) => {
+      function doOtherThing(one, two, three) {
+        expect(one).toBe(1);
+        expect(two).toBe(2);
+        expect(three).toBe(3);
 
-  it( 'registered function matching queued name are called when queue is run', done => {
+        resolve();
+      }
 
-    function doOtherThing( one, two, three ) {
+      q.register({ doOtherThing });
 
-      expect(one).toBe( 1 );
-      expect(two).toBe( 2 );
-      expect(three).toBe( 3 );
+      q.run();
 
-      done();
+      q('doOtherThing', 1, 2, 3);
+    });
+  });
 
-    }
+  it('if no matching function corresponds to queued emthod, it is discarded', async () => {
+    await new Promise((resolve) => {
+      q.run();
 
-    q.register( { doOtherThing } );
+      q.on('error', (method, args, error) => {
+        expect(error.message).toBe('Unregistered method: doUnkownThing');
 
-    q.run();
+        resolve();
+      });
 
-    q( 'doOtherThing', 1, 2, 3 );
+      q('doUnkownThing', 1);
+    });
+  });
 
-  } );
+  it('a method throwing an exception does not interrupt queue processing', async () => {
+    await new Promise((resolve) => {
+      function throwsError() {
+        throw new Error('Oh nos!');
+      }
 
-  it( 'if no matching function corresponds to queued emthod, it is discarded', done => {
+      function doesThings(message) {
+        expect(message).toBe('ok');
 
-    q.run();
+        resolve();
+      }
 
-    q.on( 'error', ( method, args, error ) => {
+      q.register({ throwsError, doesThings });
 
-      expect(error.message).toBe( 'Unregistered method: doUnkownThing' );
+      q.run();
 
-      done();
+      q('throwsErrors');
 
-    } );
-
-    q( 'doUnkownThing', 1 );
-
-  } );
-
-  it( 'a method throwing an exception does not interrupt queue processing', done => {
-
-    function throwsError() {
-
-      throw new Error( 'Oh nos!' );
-
-    }
-
-    function doesThings( message ) {
-
-      expect(message).toBe( 'ok' );
-
-      done();
-
-    }
-
-    q.register( { throwsError, doesThings } );
-
-    q.run();
-
-    q( 'throwsErrors' );
-
-    q( 'doesThings', 'ok' );
-
-  } );
-
-} );
+      q('doesThings', 'ok');
+    });
+  });
+});
