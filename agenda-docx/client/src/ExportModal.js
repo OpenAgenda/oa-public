@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import sa from 'superagent';
 import { Form, Field } from 'react-final-form';
 import DatePicker from 'react-datepicker';
@@ -36,10 +36,8 @@ export default class ExportModal extends Component {
         fr: "Aucun fichier n'est encore disponible au téléchargement",
       },
       queued: {
-        en:
-          'Your request has been queued and your file will be available shortly. Please check this menu again in a short while',
-        fr:
-          'Votre demande est en cours de traitement. Rechargez ce menu dans quelques instants.',
+        en: 'Your request has been queued and your file will be available shortly. Please check this menu again in a short while',
+        fr: 'Votre demande est en cours de traitement. Rechargez ce menu dans quelques instants.',
       },
       launch: {
         en: 'Generate a new word file',
@@ -50,10 +48,8 @@ export default class ExportModal extends Component {
         fr: 'Générez un nouveau fichier word à partir du gabarit :',
       },
       downloadInfo: {
-        en:
-          'Update the table of content the first time you open the file with a right click on the table of content segment followed with a click on "Update"',
-        fr:
-          'Mettez à jour le sommaire lors de la première ouverture du fichier en cliquant-droit dessus puis en selectionnant "Mettre à jour l\'index"',
+        en: 'Update the table of content the first time you open the file with a right click on the table of content segment followed with a click on "Update"',
+        fr: 'Mettez à jour le sommaire lors de la première ouverture du fichier en cliquant-droit dessus puis en selectionnant "Mettre à jour l\'index"',
       },
       or: {
         en: 'Or',
@@ -112,20 +108,20 @@ export default class ExportModal extends Component {
     this.open();
   }
 
-  dateToString = date => {
+  dateToString = (date) => {
     const { locale } = this.props;
 
     return distanceInWordsToNow(date, { locale: locales[locale] });
   };
 
   open = () => {
-    this.send('get', '/state').then(body => {
+    this.send('get', '/state').then((body) => {
       this.setState({ service: body, open: true });
     });
   };
 
-  queue = data => {
-    this.send('post', '/queue', data).then(body => {
+  queue = (data) => {
+    this.send('post', '/queue', data).then((body) => {
       this.setState({ service: body });
     });
   };
@@ -155,7 +151,9 @@ export default class ExportModal extends Component {
     }
 
     return request.then(
-      ({ body }) => new Promise(resolve => this.setState({ loading: false }, () => resolve(body)))
+      ({ body }) =>
+        new Promise((resolve) =>
+          this.setState({ loading: false }, () => resolve(body))),
     );
   };
 
@@ -180,7 +178,8 @@ export default class ExportModal extends Component {
                   id="limitDates"
                   type="checkbox"
                   checked={limitDates}
-                  onChange={e => this.setState({ limitDates: e.target.checked })}
+                  onChange={(e) =>
+                    this.setState({ limitDates: e.target.checked })}
                 />
                 {labels.limitDates}
               </label>
@@ -190,8 +189,9 @@ export default class ExportModal extends Component {
               <>
                 <Field
                   name="from"
-                  format={value => value && value.startOf('day').toISOString()}
-                  parse={value => value && moment(value)}
+                  format={(value) =>
+                    value && value.startOf('day').toISOString()}
+                  parse={(value) => value && moment(value)}
                   validate={(value, values) => {
                     if (values.to && moment(value).isAfter(values.to)) {
                       return labels.fromBeforeToError;
@@ -226,8 +226,8 @@ export default class ExportModal extends Component {
 
                 <Field
                   name="to"
-                  format={value => value && value.endOf('day').toISOString()}
-                  parse={value => value && moment(value)}
+                  format={(value) => value && value.endOf('day').toISOString()}
+                  parse={(value) => value && moment(value)}
                   validate={(value, values) => {
                     if (values.from && moment(value).isBefore(values.from)) {
                       return labels.toAfterFromError;
@@ -267,7 +267,7 @@ export default class ExportModal extends Component {
                 <p className="margin-top-sm">{labels.template}</p>
 
                 <div className="form-group">
-                  {service.templates.map(template => (
+                  {service.templates.map((template) => (
                     <div className="radio" key={template.name}>
                       <label
                         htmlFor="templateName"

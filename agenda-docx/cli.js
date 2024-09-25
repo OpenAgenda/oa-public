@@ -69,7 +69,7 @@ function _term(message, options = {}) {
         ...options,
       },
     ])
-    .then(answers => answers.response);
+    .then((answers) => answers.response);
 }
 
 (async () => {
@@ -117,7 +117,7 @@ function _term(message, options = {}) {
     console.log('generation failed', e);
 
     if (e.properties && e.properties.errors) {
-      e.properties.errors.forEach(error => {
+      e.properties.errors.forEach((error) => {
         console.log('Error:', error);
       });
     }

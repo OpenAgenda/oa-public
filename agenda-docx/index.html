@@ -1,118 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>dev</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://unpkg.com/react-datepicker@1.6.0/dist/react-datepicker.min.css">
-</head>
-<body>
-  <div class="container">
-    <div class="row" style="margin-top: 100px;">
-      <div class="col-md-offset-3 col-md-6">
-        <!-- the important bit -->
-        <div
-          class="js_oa_docx_anchor"
-          data-agenda-uid="59272362"
-          data-res="/docx"
-          data-locale="fr"></div>
-        <script type="text/javascript" src="/js/index.js"></script>
-        <!-- end of the important bit -->
+  <head>
+    <title>dev</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/react-datepicker@1.6.0/dist/react-datepicker.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" style="margin-top: 100px">
+        <div class="col-md-offset-3 col-md-6">
+          <!-- the important bit -->
+          <div
+            class="js_oa_docx_anchor"
+            data-agenda-uid="59272362"
+            data-res="/docx"
+            data-locale="fr"
+          ></div>
+          <script type="text/javascript" src="/js/index.js"></script>
+          <!-- end of the important bit -->
+        </div>
       </div>
     </div>
-  </div>
-</body>
-<style>
+  </body>
+  <style>
+    .margin-top-xs {
+      margin-top: 6px;
+    }
+    .margin-top-sm {
+      margin-top: 12px;
+    }
+    .margin-top-md {
+      margin-top: 24px;
+    }
+    .margin-top-lg {
+      margin-top: 36px;
+    }
 
-.margin-top-xs { margin-top: 6px; }
-.margin-top-sm { margin-top: 12px; }
-.margin-top-md { margin-top: 24px; }
-.margin-top-lg { margin-top: 36px; }
+    .margin-bottom-xs {
+      margin-bottom: 6px;
+    }
+    .margin-bottom-sm {
+      margin-bottom: 12px;
+    }
+    .margin-bottom-md {
+      margin-bottom: 24px;
+    }
+    .margin-bottom-lg {
+      margin-bottom: 36px;
+    }
 
-.margin-bottom-xs { margin-bottom: 6px; }
-.margin-bottom-sm { margin-bottom: 12px; }
-.margin-bottom-md { margin-bottom: 24px; }
-.margin-bottom-lg { margin-bottom: 36px; }
+    .margin-left-xs {
+      margin-left: 6px;
+    }
+    .margin-left-sm {
+      margin-left: 12px;
+    }
+    .margin-left-md {
+      margin-left: 24px;
+    }
+    .margin-left-lg {
+      margin-left: 36px;
+    }
 
+    .margin-right-xs {
+      margin-right: 6px;
+    }
+    .margin-right-sm {
+      margin-right: 12px;
+    }
+    .margin-right-md {
+      margin-right: 24px;
+    }
+    .margin-right-lg {
+      margin-right: 36px;
+    }
 
-.margin-left-xs { margin-left: 6px; }
-.margin-left-sm { margin-left: 12px; }
-.margin-left-md { margin-left: 24px; }
-.margin-left-lg { margin-left: 36px; }
+    .margin-all-xs {
+      margin: 6px;
+    }
+    .margin-all-sm {
+      margin: 12px;
+    }
+    .margin-all-md {
+      margin: 24px;
+    }
+    .margin-all-lg {
+      margin: 36px;
+    }
 
+    .margin-h-xs {
+      margin: 0 6px;
+    }
+    .margin-h-sm {
+      margin: 0 12px;
+    }
+    .margin-h-md {
+      margin: 0 24px;
+    }
+    .margin-h-lg {
+      margin: 0 36px;
+    }
 
-.margin-right-xs { margin-right: 6px; }
-.margin-right-sm { margin-right: 12px; }
-.margin-right-md { margin-right: 24px; }
-.margin-right-lg { margin-right: 36px; }
+    .margin-v-xs {
+      margin: 6px 0;
+    }
+    .margin-v-sm {
+      margin: 12px 0;
+    }
+    .margin-v-md {
+      margin: 24px 0;
+    }
+    .margin-v-lg {
+      margin: 36px 0;
+    }
 
-.margin-all-xs { margin: 6px; }
-.margin-all-sm { margin: 12px; }
-.margin-all-md { margin: 24px; }
-.margin-all-lg { margin: 36px; }
-
-.margin-h-xs { margin: 0 6px; }
-.margin-h-sm { margin: 0 12px; }
-.margin-h-md { margin: 0 24px; }
-.margin-h-lg { margin: 0 36px; }
-
-.margin-v-xs { margin: 6px 0; }
-.margin-v-sm { margin: 12px 0; }
-.margin-v-md { margin: 24px 0; }
-.margin-v-lg { margin: 36px 0; }
-
-.popup-overlay {
-  background: rgba(0, 0, 0, 0.62);
-  height: 100%;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 3000; }
-  .popup-overlay .popup-content {
-    padding: 1em 2em 2em; }
-  .popup-overlay label {
-    border-radius: 2px 0 0 2px;
-    color: gray; }
-  .popup-overlay section {
-    background: #eee;
-    max-width: 500px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    /* bring your own prefixes */
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%); }
-  .popup-overlay.big label {
-    border-radius: inherit;
-    color: inherit; }
-  .popup-overlay.big section {
-    overflow-y: auto;
-    max-height: 90%;
-    background: #fff; }
-    .popup-overlay.big section i {
-      color: inherit; }
-  @media screen and (min-width: 0) and (min-resolution: 0.001dpcm) {
+    .popup-overlay {
+      background: rgba(0, 0, 0, 0.62);
+      height: 100%;
+      left: 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 3000;
+    }
+    .popup-overlay .popup-content {
+      padding: 1em 2em 2em;
+    }
+    .popup-overlay label {
+      border-radius: 2px 0 0 2px;
+      color: gray;
+    }
+    .popup-overlay section {
+      background: #eee;
+      max-width: 500px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      /* bring your own prefixes */
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    .popup-overlay.big label {
+      border-radius: inherit;
+      color: inherit;
+    }
     .popup-overlay.big section {
-      -ms-transform: translate(0, -50%); } }
-  .popup-overlay textarea {
-    resize: vertical; }
-  .popup-overlay .btn-submit {
-    width: 100%; }
-  .popup-overlay .legend {
-    margin: 10px 0 5px; }
-  .popup-overlay .popup-title {
-    background-color: #41acdd;
-    border-radius: 3px 3px 0 0;
-    color: #fff;
-    display: block;
-    padding: 10px 2em;
-    text-align: left;
-    width: 100%; }
+      overflow-y: auto;
+      max-height: 90%;
+      background: #fff;
+    }
+    .popup-overlay.big section i {
+      color: inherit;
+    }
+    @media screen and (min-width: 0) and (min-resolution: 0.001dpcm) {
+      .popup-overlay.big section {
+        -ms-transform: translate(0, -50%);
+      }
+    }
+    .popup-overlay textarea {
+      resize: vertical;
+    }
+    .popup-overlay .btn-submit {
+      width: 100%;
+    }
+    .popup-overlay .legend {
+      margin: 10px 0 5px;
+    }
+    .popup-overlay .popup-title {
+      background-color: #41acdd;
+      border-radius: 3px 3px 0 0;
+      color: #fff;
+      display: block;
+      padding: 10px 2em;
+      text-align: left;
+      width: 100%;
+    }
     .popup-overlay .popup-title h2 {
       font-size: 16px;
       line-height: 20px;
-      margin: 0; }
+      margin: 0;
+    }
     .popup-overlay .popup-title .close-link {
       color: #fff;
       line-height: 40px;
@@ -121,53 +197,59 @@
       right: 0;
       top: 0;
       vertical-align: middle;
-      cursor: pointer; }
-  .popup-overlay .preview {
-    border: 1px solid silver;
-    display: block;
-    margin-top: -1px;
-    padding: 10px; }
-  .popup-overlay .preview-title {
-    font-size: 14px;
-    margin: 0;
-    padding: 0; }
-  .popup-overlay .preview-infos {
-    color: silver; }
-  @media (min-width: 768px) {
-    .popup-overlay section {
-      border-radius: 3px;
-      width: 38.2%; } }
+      cursor: pointer;
+    }
+    .popup-overlay .preview {
+      border: 1px solid silver;
+      display: block;
+      margin-top: -1px;
+      padding: 10px;
+    }
+    .popup-overlay .preview-title {
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+    }
+    .popup-overlay .preview-infos {
+      color: silver;
+    }
+    @media (min-width: 768px) {
+      .popup-overlay section {
+        border-radius: 3px;
+        width: 38.2%;
+      }
+    }
 
-.react-datepicker {
-  font-size: 1em;
-}
-.react-datepicker__header {
-  padding-top: 0.8em;
-}
-.react-datepicker__month {
-  margin: 0.4em 1em;
-}
-.react-datepicker__day-name, .react-datepicker__day {
-  width: 1.9em;
-  line-height: 1.9em;
-  margin: 0.166em;
-}
-.react-datepicker__current-month {
-  font-size: 1em;
-}
-.react-datepicker__navigation {
-  top: 1em;
-  line-height: 1.7em;
-  border: 0.45em solid transparent;
-}
-.react-datepicker__navigation--previous {
-  border-right-color: #ccc;
-  left: 1em;
-}
-.react-datepicker__navigation--next {
-  border-left-color: #ccc;
-  right: 1em;
-}
-
-</style>
+    .react-datepicker {
+      font-size: 1em;
+    }
+    .react-datepicker__header {
+      padding-top: 0.8em;
+    }
+    .react-datepicker__month {
+      margin: 0.4em 1em;
+    }
+    .react-datepicker__day-name,
+    .react-datepicker__day {
+      width: 1.9em;
+      line-height: 1.9em;
+      margin: 0.166em;
+    }
+    .react-datepicker__current-month {
+      font-size: 1em;
+    }
+    .react-datepicker__navigation {
+      top: 1em;
+      line-height: 1.7em;
+      border: 0.45em solid transparent;
+    }
+    .react-datepicker__navigation--previous {
+      border-right-color: #ccc;
+      left: 1em;
+    }
+    .react-datepicker__navigation--next {
+      border-left-color: #ccc;
+      right: 1em;
+    }
+  </style>
 </html>

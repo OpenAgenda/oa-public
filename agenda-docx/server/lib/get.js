@@ -13,11 +13,12 @@ const reEscapeChar = /\\(\\)?/g;
 /** Used to match property names within property paths. */
 const reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/;
 const reIsPlainProp = /^\w*$/;
-const rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+const rePropName =
+  /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
 
 const { isArray } = Array;
 
-const isNumberLike = value =>
+const isNumberLike = (value) =>
   !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
 
 /**
@@ -27,14 +28,14 @@ const isNumberLike = value =>
  * @param {string} string The string to convert.
  * @returns {Array} Returns the property path array.
  */
-const stringToPath = memoizeCapped(string => {
+const stringToPath = memoizeCapped((string) => {
   const result = [];
   if (string.charCodeAt(0) === 46 /* . */) {
     result.push('');
   }
   string.replace(rePropName, (match, number, quote, subString) => {
     result.push(
-      quote ? subString.replace(reEscapeChar, '$1') : number || match
+      quote ? subString.replace(reEscapeChar, '$1') : number || match,
     );
   });
   return result;
@@ -109,10 +110,10 @@ function baseGet(object, path) {
             result,
             index && index == length
               ? nextObject
-              : baseGet(nextObject, leftPath)
+              : baseGet(nextObject, leftPath),
           );
         },
-        []
+        [],
       );
 
       return result;
@@ -191,7 +192,7 @@ function toKey(value) {
  * @returns {Function} Returns the new memoized function.
  */
 function memoizeCapped(func) {
-  const result = _.memoize(func, key => {
+  const result = _.memoize(func, (key) => {
     if (cache.size === MAX_MEMOIZE_SIZE) {
       cache.clear();
     }

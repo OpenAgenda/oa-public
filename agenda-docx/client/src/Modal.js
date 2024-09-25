@@ -66,7 +66,7 @@ export default class Modal extends Component {
     }
   }
 
-  handleEsc = event => {
+  handleEsc = (event) => {
     if (event.key === 'Escape') this.handleClose();
   };
 
@@ -112,9 +112,7 @@ export default class Modal extends Component {
   };
 
   render() {
-    const {
-      title, children, visible, classNames
-    } = this.props;
+    const { title, children, visible, classNames } = this.props;
 
     if (!visible) {
       return null;
@@ -134,7 +132,7 @@ export default class Modal extends Component {
               <h2>{title}</h2>
               <button
                 type="button"
-                tabIndex={0}
+                aria-label="Close"
                 onClick={this.handleClose}
                 className="btn btn-link close-link"
               >

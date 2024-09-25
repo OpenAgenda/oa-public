@@ -9,7 +9,7 @@ const defaultGetValue = _.get;
 module.exports = (array, keys, getValue = defaultGetValue) => {
   let result = array;
 
-  (Array.isArray(keys) ? keys : [keys]).reverse().forEach(sortByKey => {
+  (Array.isArray(keys) ? keys : [keys]).reverse().forEach((sortByKey) => {
     result = stableSort(result, (a, b) => {
       const valA = getValue(a, sortByKey);
       const valB = getValue(b, sortByKey);
