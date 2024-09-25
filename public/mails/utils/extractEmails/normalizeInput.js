@@ -14,7 +14,7 @@ const isLookbehindSupported = (() => {
   }
 })();
 
-module.exports = input => {
+module.exports = (input) => {
   let result = decodeURIComponent(input).replace(emojiRegex, ' ');
 
   if (isLookbehindSupported) {
