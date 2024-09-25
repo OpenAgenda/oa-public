@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const { URL, URLSearchParams } = require('url');
+const fs = require('node:fs');
+const path = require('node:path');
+const { URL, URLSearchParams } = require('node:url');
 const _ = require('lodash');
 const express = require('express');
 const morgan = require('morgan');
@@ -20,7 +20,7 @@ function recursiveListPaths(base, type, filters) {
     filters: [
       'node_modules',
       '.git',
-      ...(Array.isArray(filters) ? filters : [filters]),
+      ...Array.isArray(filters) ? filters : [filters],
     ],
   });
 
@@ -31,16 +31,17 @@ function recursiveListPaths(base, type, filters) {
     next();
   });
 
-  return new Promise(resolve => walker.on('end', () => resolve(paths)));
+  return new Promise((resolve) => walker.on('end', () => resolve(paths)));
 }
 
 function getLangsFromTemplateDir(templateDir) {
   const localesDir = path.join(templateDir, 'locales');
 
   if (fs.existsSync(localesDir)) {
-    return fs.readdirSync(localesDir)
-      .map(v => path.parse(v).name)
-      .filter(lang => lang !== 'io');
+    return fs
+      .readdirSync(localesDir)
+      .map((v) => path.parse(v).name)
+      .filter((lang) => lang !== 'io');
   }
 
   return [];
@@ -51,7 +52,7 @@ function renderLangsList(langs, query) {
     '<ul style="text-align: center; padding-left: 0">',
     '<b>Language</b><br />',
     langs
-      .map(l => {
+      .map((l) => {
         const searchParams = new URLSearchParams(query);
         searchParams.set('lang', l);
 
@@ -67,12 +68,12 @@ function renderFixturesList(paths, query) {
     '<ul style="text-align: center; padding-left: 0">',
     '<b>Fixtures</b><br />',
     paths
-      .map(p => {
+      .map((p) => {
         const searchParams = new URLSearchParams(query);
         searchParams.set('fixtures', p.slice(1));
 
         return `<li style="display: inline"><a href="?${searchParams}">${p.slice(
-          1
+          1,
         )}</a></li>`;
       })
       .join('&nbsp;&nbsp;'),
@@ -83,7 +84,7 @@ function renderFixturesList(paths, query) {
 function withReload(html) {
   return html.replace(
     '</body>',
-    '<script src="/reload/reload.js"></script></body>'
+    '<script src="/reload/reload.js"></script></body>',
   );
 }
 
@@ -91,8 +92,8 @@ const app = express();
 
 app.use(
   morgan('dev', {
-    skip: req => ['/reload/reload.js', '/robots.txt'].includes(req.path),
-  })
+    skip: (req) => ['/reload/reload.js', '/robots.txt'].includes(req.path),
+  }),
 );
 
 app.get('/', async (req, res, next) => {
@@ -101,11 +102,12 @@ app.get('/', async (req, res, next) => {
       await recursiveListPaths(
         mails.config.templatesDir,
         'directory',
-        /^((?!fixtures).)*$/
+        /^((?!fixtures).)*$/,
       )
-    ).filter(filepath => fs.existsSync(
-      path.join(mails.config.templatesDir, filepath, 'index.mjml')
-    ));
+    ).filter((filepath) =>
+      fs.existsSync(
+        path.join(mails.config.templatesDir, filepath, 'index.mjml'),
+      ));
 
     res.send(
       [
@@ -114,11 +116,11 @@ app.get('/', async (req, res, next) => {
         '<body>',
         '<h1>Templates list</h1>',
         '<ul>',
-        paths.map(p => `<li><a href="${p}.mjml">${p}</a></li>`).join(''),
+        paths.map((p) => `<li><a href="${p}.mjml">${p}</a></li>`).join(''),
         '</ul>',
         '</body>',
         '</html>',
-      ].join('')
+      ].join(''),
     );
   } catch (err) {
     return next(err);
@@ -143,10 +145,9 @@ app.get(/.mjml$/, async (req, res, next) => {
   try {
     if (fixturesPaths.length) {
       // eslint-disable-next-line import/no-dynamic-require, global-require
-      data = require(path.join(
-        fixturesDir,
-        req.query.fixtures || fixturesPaths[0]
-      ));
+      data = require(
+        path.join(fixturesDir, req.query.fixtures || fixturesPaths[0]),
+      );
     } else {
       // eslint-disable-next-line import/no-dynamic-require, global-require
       data = require(path.join(templateDir, 'fixtures.js'));
@@ -165,7 +166,9 @@ app.get(/.mjml$/, async (req, res, next) => {
   let text;
   let subject;
   try {
-    ({ html, text, subject } = await mails.render(templateName, data, { lang }));
+    ({ html, text, subject } = await mails.render(templateName, data, {
+      lang,
+    }));
   } catch (error) {
     return next(error);
   }
@@ -181,14 +184,14 @@ app.get(/.mjml$/, async (req, res, next) => {
     case 'subject': {
       const subjectPage = `<html><body>${subject}</body></html>`;
       return res.send(
-        req.query.ignoreReload ? subjectPage : withReload(subjectPage)
+        req.query.ignoreReload ? subjectPage : withReload(subjectPage),
       );
     }
     default:
   }
 
   const baseUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-  const getRawUrl = type => {
+  const getRawUrl = (type) => {
     const url = new URL(baseUrl);
     url.searchParams.set('raw', type);
     return url;
@@ -215,46 +218,46 @@ app.get(/.mjml$/, async (req, res, next) => {
     '    setTimeout(() => resizeIframe(obj), 32)',
     '  }',
     '</script>',
-    ...(langs.length
+    ...langs.length
       ? [renderLangsList(langs, req.query), '<hr style="max-width: 600px" />']
-      : []),
-    ...(fixturesPaths.length
+      : [],
+    ...fixturesPaths.length
       ? [
         renderFixturesList(fixturesPaths, req.query),
         '<hr style="max-width: 600px" />',
       ]
-      : []),
-    ...(subject !== null
+      : [],
+    ...subject !== null
       ? [
         `<div style="text-align: center"><b>Subject <small>(<a href="${getRawUrl(
-          'subject'
+          'subject',
         )}">raw</a>)</small>:</b>`,
         subject,
         `<p><small>${preview}</small></p>`,
         '</div>',
         '<hr style="max-width: 600px" />',
       ]
-      : []),
+      : [],
     '<div style="display: flex">',
     '<div style="margin: 0 auto">',
     `<h2 style="text-align: center">Html version <small>(<a href="${getRawUrl(
-      'html'
+      'html',
     )}">raw</a>)</small></h2>`,
     `<iframe src="${iframeSrc}" frameborder="0" scrolling="no" width="600px" onload="resizeIframe(this)">`,
     '</iframe>',
     '</div>',
-    ...(text !== null
+    ...text !== null
       ? [
         '<div style="margin: 0 auto">',
         `<h2 style="text-align: center">Text version <small>(<a href="${getRawUrl(
-          'text'
+          'text',
         )}">raw</a>)</small></h2>`,
         `<div style="max-width: 600px; margin: 0 auto;">${_.escape(
-          text
+          text,
         ).replace(/(?:\r\n|\r|\n)/g, '<br>')}</div>`,
         '</div>',
       ]
-      : []),
+      : [],
     '</div></body></html>',
   ].join('');
 
@@ -275,7 +278,8 @@ app.use((err, req, res, next) => {
 });
 
 (async () => {
-  mails = await createMails({ disableVerify: true }).catch(error => console.log('Initializing error:', error));
+  mails = await createMails({ disableVerify: true }).catch((error) =>
+    console.log('Initializing error:', error));
 
   app.listen(3000);
 
