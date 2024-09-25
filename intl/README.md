@@ -9,10 +9,7 @@ yarn add @openagenda/intl
 ## Usage
 
 ```js
-import {
-  getLocaleValue,
-  mergeLocales,
-} from '@openagenda/intl';
+import { getLocaleValue, mergeLocales } from '@openagenda/intl';
 
 // or
 
@@ -93,7 +90,7 @@ expect(locales).toEqual({
     title: 'Title',
     desc: 'Description',
     other: 'Other',
-  }
+  },
 });
 ```
 
@@ -120,9 +117,9 @@ const messagesMap = {
     signin: 'Signin',
   },
   fr: {
-    signup: 'S\'inscrire',
+    signup: "S'inscrire",
   },
-  br: {}
+  br: {},
 };
 
 const fallbackedMessages = getFallbackedMessages(messagesMap, userLocales);
@@ -135,13 +132,13 @@ expect(fallbackedMessages).toEqual({
     signin: 'Signin',
   },
   fr: {
-    signup: 'S\'inscrire',
+    signup: "S'inscrire",
     signin: 'Signin',
   },
   br: {
-    signup: 'S\'inscrire',
+    signup: "S'inscrire",
     signin: 'Signin',
-  }
+  },
 });
 ```
 
@@ -193,13 +190,23 @@ const fallbacks = getFallbackChain('br');
 expect(fallbacks).toEqual(['br', 'fr', 'en']);
 ```
 
-
 ## Default constants
 
 ```js
 const DEFAULT_LANG = 'en';
 
-const DEFAULT_LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'];
+const DEFAULT_LANGS = [
+  'en',
+  'fr',
+  'de',
+  'it',
+  'es',
+  'br',
+  'ca',
+  'eu',
+  'oc',
+  'io',
+];
 
 const DEFAULT_FALLBACK_MAP = {
   br: 'fr',
@@ -274,6 +281,7 @@ Options:
 ```
 
 Compile:
+
 ```
 oa-intl compile [locales]
 

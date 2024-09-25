@@ -144,7 +144,7 @@ async function extractLang({
   const localesFiles = glob.sync(localesBasePath);
 
   for (const localesFile of localesFiles) {
-    const hasInput = files.some(globFiles => {
+    const hasInput = files.some((globFiles) => {
       const { result: messageFilePath, originalFileName } = inputToOuputPath(
         localesBasePath,
         localesFile,
@@ -174,7 +174,7 @@ module.exports.command = 'extract [files...]';
 
 module.exports.describe = 'Extract messages.';
 
-module.exports.builder = yargs => {
+module.exports.builder = (yargs) => {
   yargs.positional('files', {
     default: defaults.files,
     desc: 'Glob paths to extract translations from, the source files.',
@@ -195,12 +195,12 @@ module.exports.builder = yargs => {
     },
     langs: {
       default: defaults.langs.join(','),
-      coerce: arg => arg.split(','),
+      coerce: (arg) => arg.split(','),
       desc: 'The target languages of the translations.',
     },
     definedDefault: {
       default: defaults.definedDefault.join(','),
-      coerce: arg => arg.split(','),
+      coerce: (arg) => arg.split(','),
       desc: 'Languages that are populated with messages set to "" for ease of translation.',
     },
     idInterpolationPattern: {
@@ -228,7 +228,7 @@ module.exports.builder = yargs => {
   });
 };
 
-module.exports.handler = async argv => {
+module.exports.handler = async (argv) => {
   const {
     files = defaults.files,
     output = defaults.output,
@@ -250,7 +250,7 @@ module.exports.handler = async argv => {
   });
 
   const extractResults = await Promise.allSettled(
-    langs.map(lang =>
+    langs.map((lang) =>
       extractLang({
         files,
         output,
@@ -262,7 +262,7 @@ module.exports.handler = async argv => {
       })),
   );
 
-  extractResults.forEach(result => {
+  extractResults.forEach((result) => {
     if (result.status === 'rejected') {
       console.log('Extract error:', result.reason);
     }
