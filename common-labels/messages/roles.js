@@ -1,6 +1,8 @@
-import { defineMessages } from 'react-intl';
+'use strict';
 
-export default defineMessages({
+const { defineMessages } = require('react-intl');
+
+module.exports = defineMessages({
   reader: {
     id: 'common.roles.reader',
     defaultMessage: 'Reader',

@@ -1,9 +1,7 @@
+'use strict';
+
 module.exports = {
   extends: '../.eslintrc',
-
-  parserOptions: {
-    sourceType: 'module',
-  },
 
   ignorePatterns: ['/build'],
 
@@ -18,10 +16,10 @@ module.exports = {
 
   overrides: [
     {
-      files: ['scripts/**/*.js'],
+      files: ['fetchLocale.js'],
 
       parserOptions: {
-        sourceType: 'script',
+        sourceType: 'module',
       },
     },
   ],
