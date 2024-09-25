@@ -12,7 +12,7 @@ export default function getLocaleValue(
 
   const keys = Object.keys(labels);
 
-  if (keys.find(v => v === lang)) {
+  if (keys.find((v) => v === lang)) {
     return labels[lang];
   }
 
