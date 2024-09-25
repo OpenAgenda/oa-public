@@ -7,10 +7,8 @@ module.exports = {
 
     // Also consider monorepo packages "root" and load their .babelrc files.
     'packages/*',
-    'public/*'
+    'public/*',
   ],
-  presets: [
-    require.resolve('@openagenda/babel-preset')
-  ],
-  sourceType: 'unambiguous'
+  presets: [require.resolve('@openagenda/babel-preset')],
+  sourceType: 'unambiguous',
 };

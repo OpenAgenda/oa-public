@@ -7,3 +7,6 @@ packages/mep
 packages/react-form-components
 packages/utils
 packages/validators
+
+public/bs-templates
+public/polyfills

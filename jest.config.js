@@ -11,7 +11,7 @@ module.exports = {
     '<rootDir>/packages/react-timingspicker',
     '<rootDir>/packages/sdk-js',
     '<rootDir>/packages/users',
-    '<rootDir>/packages/validators'
+    '<rootDir>/packages/validators',
   ],
   collectCoverage: true,
 };

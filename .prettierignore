@@ -7,10 +7,13 @@ packages/dom-utils
 packages/labels
 packages/legacy
 packages/mep
+packages/react-form-components
 packages/utils
 packages/validators
+# public packages
+public/bs-templates
+public/polyfills
 
-# builds
 packages/abilities/build
 packages/activity-apps/dist
 packages/agenda-contribute/dist
@@ -33,8 +36,6 @@ packages/members/build
 packages/network-apps/client/dist
 packages/next/.next
 packages/outdated-browser/dist
-packages/react-form-components/build
-packages/react-form-components/stories/static
 packages/react-integration-app/dist
 packages/react-layouts/dist
 packages/registration-apps/esm
@@ -43,3 +44,25 @@ packages/registrations/dist
 packages/sessions/lib
 packages/supervisor/lib
 packages/user-apps/dist
+
+public/agenda-docx/client/build
+public/agenda-docx/client/dist
+public/agenda-portal/assets
+public/common-labels/build
+public/date-utils/dist
+public/intl/dist
+public/md/dist
+public/react-filters/dist
+public/react-filters/esm
+public/react-filters/lib
+public/react-portal-ssr/esm
+public/react-portal-ssr/lib
+public/react-share-menus/lib
+public/react-shared/css
+public/react-shared/esm
+public/react-shared/lib
+public/react-timingspicker/dist
+public/sdk-js/esm
+public/sdk-js/lib
+public/uikit/dist
+public/widgets/dist

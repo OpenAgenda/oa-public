@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
+'use strict';
+
+const fs = require('node:fs');
+const path = require('node:path');
+const https = require('node:https');
+const { fork } = require('node:child_process');
 const tmp = require('tmp');
 const JSZip = require('jszip');
 const { default: Crowdin } = require('@crowdin/crowdin-api-client');
-const { fork } = require('child_process');
 
 const { CROWDIN_KEY } = process.env;
 
@@ -27,7 +29,7 @@ const rootsMap = new Map([
 const crowdin = new Crowdin({ token: CROWDIN_KEY });
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function sortObj(obj) {
@@ -43,24 +45,28 @@ async function downloadFile(url, to) {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(to);
 
-    https.get(url, response => {
-      if (response.statusCode !== 200) {
-        return reject(new Error(`Error with status code ${response.statusCode}`));
-      }
+    https
+      .get(url, (response) => {
+        if (response.statusCode !== 200) {
+          return reject(
+            new Error(`Error with status code ${response.statusCode}`),
+          );
+        }
 
-      response.pipe(file);
+        response.pipe(file);
 
-      file.on('finish', () => {
-        file.close(resolve);
-      });
-    })
-      .on('error', error => reject(error));
+        file.on('finish', () => {
+          file.close(resolve);
+        });
+      })
+      .on('error', (error) => reject(error));
   });
 }
 
 (async () => {
-  let { data: build } = await crowdin.translationsApi.buildProject(PROJECT_ID)
-    .catch(e => {
+  let { data: build } = await crowdin.translationsApi
+    .buildProject(PROJECT_ID)
+    .catch((e) => {
       console.log('Failed to start build', e);
       process.exit(1);
     });
@@ -73,7 +79,10 @@ async function downloadFile(url, to) {
     while (1) {
       await sleep(1000);
 
-      ({ data: build } = await crowdin.translationsApi.checkBuildStatus(PROJECT_ID, build.id));
+      ({ data: build } = await crowdin.translationsApi.checkBuildStatus(
+        PROJECT_ID,
+        build.id,
+      ));
 
       if (build.progress !== lastProgress) {
         console.log(`Build progress: ${build.progress}%`);
@@ -86,18 +95,20 @@ async function downloadFile(url, to) {
     }
   }
 
-  const { data: download } = await crowdin.translationsApi.downloadTranslations(PROJECT_ID, build.id);
+  const { data: download } = await crowdin.translationsApi.downloadTranslations(
+    PROJECT_ID,
+    build.id,
+  );
 
   console.log('Download build');
 
   tmp.setGracefulCleanup();
   const tmpFile = tmp.fileSync();
 
-  await downloadFile(download.url, tmpFile.name)
-    .catch(e => {
-      console.log('Cannot download:', e);
-      process.exit(1);
-    });
+  await downloadFile(download.url, tmpFile.name).catch((e) => {
+    console.log('Cannot download:', e);
+    process.exit(1);
+  });
 
   console.log('Build downloaded');
 
@@ -108,6 +119,10 @@ async function downloadFile(url, to) {
   let translationsCounter = 0;
 
   for (const fileKey in zip.files) {
+    if (!Object.hasOwn(zip.files, fileKey)) {
+      continue;
+    }
+
     const file = zip.files[fileKey];
 
     if (file.dir) {
@@ -127,7 +142,10 @@ async function downloadFile(url, to) {
     let rawProjectLabels = '{}';
 
     try {
-      rawProjectLabels = fs.readFileSync(path.join(PROJECT, root, filePath), 'utf-8');
+      rawProjectLabels = fs.readFileSync(
+        path.join(PROJECT, root, filePath),
+        'utf-8',
+      );
     } catch (e) {
       console.log(`File '${file.name}' does not exists in project`);
     }
@@ -141,10 +159,15 @@ async function downloadFile(url, to) {
       ...crowdinLabels,
     });
 
-    fs.writeFileSync(path.join(PROJECT, root, filePath), `${start}${JSON.stringify(labels, null, 2)}${end}`);
+    fs.writeFileSync(
+      path.join(PROJECT, root, filePath),
+      `${start}${JSON.stringify(labels, null, 2)}${end}`,
+    );
   }
 
-  console.log(`Successfully ${translationsCounter} translations extracted in ${fileCounter} files.`);
+  console.log(
+    `Successfully ${translationsCounter} translations extracted in ${fileCounter} files.`,
+  );
 
   fork(path.join(PROJECT, 'packages/labels/.crowdin/dispatch'));
 

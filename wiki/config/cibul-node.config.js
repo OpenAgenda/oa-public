@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   root: 'https://domain.com',
@@ -10,58 +10,58 @@ module.exports = {
       main: 'nameofmainbucket',
       temporary: 'nameoftmpbucket',
       static: 'nameofstaticbucket',
-      services: 'nameofservicesbucket'
-    }
+      services: 'nameofservicesbucket',
+    },
   },
   db: {
     name: 'nameofdb',
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: "dbpassword"
+    password: 'dbpassword',
   },
   domains: {
     main: 'domain.com',
-    mailer: 'mailgun.domain.com'
+    mailer: 'mailgun.domain.com',
   },
   elasticsearch: {
-    v1_3 : {
+    v1_3: {
       host: 'elasticsearchserverip',
-      port: 9200
+      port: 9200,
     },
-    v5_3 : {
+    v5_3: {
       host: 'es53IP',
-      port: 9205
+      port: 9205,
     },
     indices: {
       legacyEvents: 'cibul',
-      locations: 'location'
-    }
+      locations: 'location',
+    },
   },
   facebook: {
     appId: 'facebookappid',
-    appSecret: 'facebooksecret'
+    appSecret: 'facebooksecret',
   },
   opencage: {
-    key: 'opencagekey'
+    key: 'opencagekey',
   },
   googleAnalytics: {
     // for main site
     id: 'ga-id-string',
     // for embedded views
-    embedId: 'ga-id-string-2'
+    embedId: 'ga-id-string-2',
   },
   mtCaptcha: {
     verifyUrl: 'https://service.mtcaptcha.com/mtcv1/api/checktoken',
     siteKey: 'MTPublic-key',
-    privateKey: 'MTPrivat-key'
+    privateKey: 'MTPrivat-key',
   },
   googleApps: {
     id: '{your-google-apps-id}.apps.googleusercontent.com',
-    secret: '{your-google-apps-secret}'
+    secret: '{your-google-apps-secret}',
   },
   iframely: {
-    key: '{iframelykey}'
+    key: '{iframelykey}',
   },
   insightOps: {
     main: null,
@@ -74,10 +74,10 @@ module.exports = {
     unsubscribed: null,
     custom: null,
     mails: null,
-    agendaEvents:null
+    agendaEvents: null,
   },
   mailgun: {
-    key: 'mailgunkey'
+    key: 'mailgunkey',
   },
   mails: {
     transport: {
@@ -87,44 +87,43 @@ module.exports = {
       secure: true,
       auth: {
         user: 'postmaster@yourmaildomain.com',
-        pass: 'yourmgpwd'
+        pass: 'yourmgpwd',
       },
       maxMessages: Infinity,
       maxConnections: 1,
       rateLimit: 14,
-      rateDelta: 1000
-    }
+      rateDelta: 1000,
+    },
   },
   redis: {
     host: 'redishostaddress',
-    port: 6379
+    port: 6379,
   },
   session: {
-    keys: [ 'hellomada', 'hellofada', 'iamnowat', 'campgranada' ],
-    secret: 'yeepeekayaymadafaka'
+    keys: ['hellomada', 'hellofada', 'iamnowat', 'campgranada'],
+    secret: 'yeepeekayaymadafaka',
   },
   sendinblue: {
     key: 'sendinbluekey',
-    list: 1 // id of list
+    list: 1, // id of list
   },
   mailjet: {
-    apiKey: null
+    apiKey: null,
   },
   sentry: {
-    dsn: 'sentrydnsurl'
+    dsn: 'sentrydnsurl',
   },
   twitter: {
     name: '@yourtwitteraccount',
     key: 'twitterconnectappkey',
-    secret: 'twitterconnectappsecret'
+    secret: 'twitterconnectappsecret',
   },
   sales: {
-    emails: [
-      'sales.guy@domain.com',
-    ],
-    pipedriveForm: 'https://pipedrivewebforms.com/form/dd36e7d663fe7c77e3ac65b3bada24e0',
+    emails: ['sales.guy@domain.com'],
+    pipedriveForm:
+      'https://pipedrivewebforms.com/form/dd36e7d663fe7c77e3ac65b3bada24e0',
   },
   mapbox: {
-    token: 'mapboxtoken'
-  }
-}
+    token: 'mapboxtoken',
+  },
+};
