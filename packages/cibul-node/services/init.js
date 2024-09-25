@@ -4,8 +4,6 @@ import logs from '@openagenda/logs';
 import schema from '@openagenda/validators/schema/index.js';
 import passValidator from '@openagenda/validators/pass.js';
 
-import './lib/loadGlobalEnvVars.js';
-
 const log = logs('services/init');
 
 schema.register({
