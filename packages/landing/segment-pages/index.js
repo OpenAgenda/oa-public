@@ -208,7 +208,9 @@ module.exports = (config) => {
     return r;
   }
 
-  return (page = 'root') => {
+  return (pageArg) => {
+    const page = pageArg || 'root';
+
     const pageParams = params.pages.filter(_matchPageKey(page));
 
     if (!pageParams.length) {
