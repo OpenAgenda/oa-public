@@ -53,12 +53,13 @@ module.exports = ({
     }
     const upcomingEvents = app.locals.agenda.summary.publishedEvents.upcoming;
 
+    const hasVisibilityPastEvents = visibilityPastEvents === '1' || visibilityPastEvents === 1;
+
     if (upcomingEvents > 0) {
       if (
-        (!userQuery.relative
-          && !userQuery.timings
-          && visibilityPastEvents === '1')
-        || !visibilityPastEvents
+        !userQuery.relative
+        && !userQuery.timings
+        && hasVisibilityPastEvents
       ) {
         const relativeFilter = { relative: ['current', 'upcoming'] };
         Object.assign(query, relativeFilter);
