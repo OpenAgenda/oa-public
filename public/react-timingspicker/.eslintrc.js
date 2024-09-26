@@ -37,11 +37,5 @@ module.exports = {
         sourceType: 'module',
       },
     },
-    {
-      files: ['**/*.{test,spec}.js', 'scripts/**/*.js'],
-      rules: {
-        'import/default': 'off',
-      },
-    },
   ],
 };
