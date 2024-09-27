@@ -1,4 +1,3 @@
-import groupTags from '@openagenda/react-form-components/validators/groupTags';
 import set from '@openagenda/validators/set';
 import text from '@openagenda/validators/text';
 import link from '@openagenda/validators/link';
@@ -12,6 +11,66 @@ import pass from '@openagenda/validators/pass';
 import multilingual from '@openagenda/validators/multilingual';
 import regex from '@openagenda/validators/regex';
 import choice from '@openagenda/validators/choice';
+// TODO use `groupTagsValidator`
+// import groupTagsValidator from './groupTagsValidator';
+
+/**
+ * errors are a list of objects that contain the following fields
+ *   - a message
+ *   - a field name
+ *   - a group name
+ *   - a code
+ *   - the origin value of the error
+ *   - values relevent to the error ( optional )
+ */
+
+function groupTags(set1) {
+  function validateGroup(group, values) {
+    if (!group.required) return;
+
+    const ids = (values || []).map((v) => v.id);
+
+    if (!group.tags.filter((t) => ids.indexOf(t.id) !== -1).length) {
+      // eslint-disable-next-line no-throw-literal
+      throw [
+        {
+          field: set1.field,
+          group: group.name ? group.name : 'Tags',
+          code: 'groupTags.required',
+          message: 'a selection is required',
+          origin: group.tags,
+          values: {},
+        },
+      ];
+    }
+
+    // no cleaning.
+    return values;
+  }
+
+  function validate1(values, groupIndex) {
+    if (groupIndex !== undefined) return validateGroup(set1.groups[groupIndex], values);
+
+    let errors = [];
+
+    set1.groups.forEach((group) => {
+      try {
+        validateGroup(group, values);
+      } catch (errs) {
+        errors = errors.concat(errs);
+      }
+    });
+
+    if (errors.length) throw errors;
+
+    // no cleaning for this
+    return values;
+  }
+
+  validate1.fields = set1.field;
+
+  return validate1;
+}
 
 const validators = {
   groupTags,
