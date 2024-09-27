@@ -89,6 +89,9 @@ module.exports = ( { entry, output } ) => ({
     new CleanWebpackPlugin( {
       cleanOnceBeforeBuildPatterns: [ '**/*.chunk.js', '**/webapp*.js' ]
     } ),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify({ NODE_ENV: 'development' }),
+    }),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),

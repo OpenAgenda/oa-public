@@ -2,7 +2,7 @@
 
 const ReactDOM = require( 'react-dom' );
 
-const du = require( '@openagenda/dom-utils' );
+const du = require( '../../js/lib/domUtils' );
 
 const labels = require( '@openagenda/labels/event/show' );
 
@@ -38,12 +38,12 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
     ReactDOM.render(
       activitiesEventApp( { activities, config, lang } ),
-      du.el( '.js_event_activities' )
+      document.querySelector( '.js_event_activities' )
     );
 
-    buttonCanvas = du.el( '.js_more_activities' );
+    buttonCanvas = document.querySelector( '.js_more_activities' );
 
-    button = du.el( buttonCanvas, 'button' );
+    button = buttonCanvas.querySelector( 'button' );
 
     nextUrl = result.nextUrl;
 
@@ -71,7 +71,7 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
         ReactDOM.render(
           activitiesEventApp( { activities, lang } ),
-          du.el( '.js_event_activities' )
+          document.querySelector( '.js_event_activities' )
         );
 
         if ( result.nextUrl ) {

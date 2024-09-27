@@ -6,7 +6,7 @@
 
 var utils = require( '@openagenda/utils' ),
 
-du = require( '@openagenda/dom-utils' ),
+du = require( '../../js/lib/domUtils' ),
 
 params = {
   attributes: {
@@ -45,9 +45,9 @@ module.exports = function( options ) {
 
   displayedIndex = _initDisplayedIndex( monthElems );
 
-  _remove( du.el( monthElems[ 0 ], params.selectors.left ) );
+  _remove( monthElems[ 0 ].querySelector( params.selectors.left ) );
 
-  _remove( du.el( monthElems[ monthElems.length -1 ], params.selectors.right ) );
+  _remove( monthElems[ monthElems.length -1 ].querySelector( params.selectors.right ) );
 
   _behaviorize( monthElems, {
     next: function() {
@@ -76,11 +76,11 @@ module.exports = function( options ) {
 
 function _showMonth( monthElem ) {
 
-  var elem = du.el( params.selectors.destination ),
+  var elem = document.querySelector( params.selectors.destination ),
 
-  canvas = du.el( elem, 'ul' ),
+  canvas = elem.querySelector( 'ul' ),
 
-  currentMonth = du.el( canvas, 'li' );
+  currentMonth = canvas.querySelector( 'li' );
 
   du.removeClass( elem, params.classes.displayNone );
 
@@ -94,13 +94,13 @@ function _behaviorize( monthElems, cbs ) {
 
   monthElems.forEach( function( month ) {
 
-    var nextElem = du.el( month, params.selectors.right ),
+    var nextElem = month.querySelector( params.selectors.right ),
 
-    previousElem = du.el( month, params.selectors.left );
+    previousElem = month.querySelector( params.selectors.left );
 
     if ( nextElem ) du.addEvent( nextElem, 'click', cbs.next );
 
-    if ( previousElem ) du.addEvent( previousElem, 'click', cbs.previous );    
+    if ( previousElem ) du.addEvent( previousElem, 'click', cbs.previous );
 
   } );
 
@@ -152,14 +152,14 @@ function _initDisplayedIndex( monthElems ) {
 
 function _removeStatic() {
 
-  var staticNode = du.el( params.selectors.origin );
+  var staticNode = document.querySelector( params.selectors.origin );
 
   if ( !staticNode ) return;
 
   if ( params.selectors.destination ) {
 
     staticNode.parentNode.removeChild( staticNode );
-    
+
   }
 
 }
@@ -168,7 +168,7 @@ function _extractMonths() {
 
   var months = [], month = null,
 
-  staticCanvas = du.el( params.selectors.months );
+  staticCanvas = document.querySelector( params.selectors.months );
 
   if ( !staticCanvas ) return [];
 

@@ -10,7 +10,6 @@ const debug = require( 'debug' );
 
 const qs = require( 'qs' );
 
-const du = require( '@openagenda/dom-utils' );
 const utils = require( '@openagenda/utils' );
 
 const bottomHit = require( '../lib/bottomHit' );
@@ -77,6 +76,13 @@ require( '../lib/loader' )( {
 /**
  * define widget
  */
+
+function isSafari() {
+
+  return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+    navigator.userAgent && !navigator.userAgent.match('CriOS');
+
+}
 
 function widget( elem, options ) {
 
@@ -301,7 +307,7 @@ function widget( elem, options ) {
 
       log( 'message is an external link' );
 
-      if ( ( typeof message.target !== 'undefined' ) && ( message.target === '_blank' ) && !du.isSafari() ) {
+      if ( ( typeof message.target !== 'undefined' ) && ( message.target === '_blank' ) && !isSafari() ) {
 
         return window.open( message.load, '_blank' );
 
