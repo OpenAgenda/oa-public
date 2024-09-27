@@ -1,10 +1,4 @@
-'use strict';
-
-/**
- * >>>>> ES5 AS IS NOT TRANSPILED <<<<<<<<<<<
- */
-
-const load = require('load-script');
+import load from 'load-script';
 
 const loads = {};
 
@@ -36,7 +30,7 @@ function _loader(res, cb) {
   };
 }
 
-module.exports = (res, cb) => {
+export default (res, cb) => {
   if (loads[res]) {
     loads[res].add(cb);
   } else {
