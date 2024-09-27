@@ -14,7 +14,6 @@ import localFront from './auth/local.front.js';
 import resetFront from './auth/reset.front.js';
 import settingsBack from './agenda/settings.back.js';
 import members from './services/members/index.js';
-import activitiesBack from './agenda/activities.back.js';
 import webapp from './webapp/index.js';
 import activities from './services/activities/index.js';
 import sentry from './services/sentry.js';
@@ -24,19 +23,36 @@ import exportsBack from './agenda/exports.back.js';
 import facebookBack from './agenda/facebook.back.js';
 import exportsFront from './agenda/exports.front.js';
 
-export default app => {
+export default (app) => {
   app.services.users.plugApp(app);
   app.services.mails.plugApp(app);
-  app.use('/agendas/:agendaUid/events.v2.:format', app.services.eventSearch.apps.agendas.getPublic());
-  app.use('/agendas/:agendaUid/admin/events.v2.:format', app.services.eventSearch.apps.agendas.getRestricted());
-  app.use('/agendas/:agendaUid/settings/exports', app.services.eventSearch.apps.agendas.getAgendaExportsSettings());
+  app.use(
+    '/agendas/:agendaUid/events.v2.:format',
+    app.services.eventSearch.apps.agendas.getPublic(),
+  );
+  app.use(
+    '/agendas/:agendaUid/admin/events.v2.:format',
+    app.services.eventSearch.apps.agendas.getRestricted(),
+  );
+  app.use(
+    '/agendas/:agendaUid/settings/exports',
+    app.services.eventSearch.apps.agendas.getAgendaExportsSettings(),
+  );
   app.use(
     '/agendas/:agendaUid/admin/settings/exports',
-    app.services.eventSearch.apps.agendas.getAgendaExportsSettings({ admin: true }),
+    app.services.eventSearch.apps.agendas.getAgendaExportsSettings({
+      admin: true,
+    }),
   );
   app.services.agendaLocations.apps(app, '/locations');
-  app.services.agendaLocations.apps.agenda(app, '/agendas/:agendaUid/locations');
-  app.services.agendaLocations.apps.agendaAdmin(app, '/:agendaSlug/admin/locations');
+  app.services.agendaLocations.apps.agenda(
+    app,
+    '/agendas/:agendaUid/locations',
+  );
+  app.services.agendaLocations.apps.agendaAdmin(
+    app,
+    '/:agendaSlug/admin/locations',
+  );
   agendaBack(app);
   app.use('/', app.services.inboxes.plugApp());
   app.services.agendaContribute.plugApp(app);
@@ -58,11 +74,11 @@ export default app => {
   app.services.aggregators.plugApp(app);
   settingsBack(app);
   members(app);
-  activitiesBack(app);
   app.services.stats.plugApp(app);
   app.services.supervisor.plugApp(app, '/supervisor');
   app.services.reports.plugApp(app);
   app.services.dynamicScripts.plugApp(app);
+  app.services.activities.plugApp(app);
   webapp(app);
   app.services.agendas.plugApp(app);
   activities(app);
