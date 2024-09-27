@@ -5,11 +5,9 @@ public/.yarn
 # packages
 packages/admin-agendas
 packages/cibul-templates
-packages/dom-utils
 packages/labels
 packages/legacy
 packages/mep
-packages/react-form-components
 packages/utils
 packages/validators
 # public packages

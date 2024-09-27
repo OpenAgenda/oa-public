@@ -7720,7 +7720,6 @@ __metadata:
     "@openagenda/agendas": "npm:^1.7.0"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/files": "npm:^3.1.0"
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/labels": "npm:^2.3.0"
@@ -7903,7 +7902,6 @@ __metadata:
     "@openagenda/files": "npm:^3.1.0"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -8143,7 +8141,6 @@ __metadata:
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/react-filters": "npm:^2.10.9"
-    "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/registration-apps": "npm:^0.0.0"
     "@openagenda/utils": "npm:^1.3.0"
@@ -8454,7 +8451,6 @@ __metadata:
     "@openagenda/aggregator-sources": "npm:^1.3.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/home": "npm:^2.2.1"
     "@openagenda/inbox-apps": "npm:^1.2.1"
     "@openagenda/intl": "npm:^1.1.3"
@@ -8638,16 +8634,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/dom-utils@npm:^2.2.12, @openagenda/dom-utils@workspace:packages/dom-utils":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/dom-utils@workspace:packages/dom-utils"
-  dependencies:
-    "@openagenda/utils": "npm:^1.3.0"
-    es6-promise: "npm:^4.1.1"
-    qs: "npm:^6.9.1"
-  languageName: unknown
-  linkType: soft
-
 "@openagenda/eslint-config@npm:^1.3.1, @openagenda/eslint-config@npm:^1.4.0, @openagenda/eslint-config@workspace:public/eslint-config":
   version: 0.0.0-use.local
   resolution: "@openagenda/eslint-config@workspace:public/eslint-config"
@@ -8748,7 +8734,6 @@ __metadata:
     "@openagenda/form-schemas": "npm:^1.9.2"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/react-timingspicker": "npm:^1.4.0"
     "@openagenda/registration-apps": "npm:^0.0.0"
@@ -9049,7 +9034,6 @@ __metadata:
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/sessions": "npm:^4.1.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -9373,19 +9357,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/md@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@openagenda/md@npm:1.0.1"
-  dependencies:
-    html-tags: "npm:^3.3.1"
-    isomorphic-dompurify: "npm:^2.8.0"
-    markdown-link-extractor: "npm:^4.0.2"
-    marked: "npm:^12.0.2"
-    turndown: "npm:^7.1.3"
-  checksum: 10c0/a6db1305f87368a04a701f979d65745cf75f708c7757935b218d9466c239275d091b50d855606065c7aab951ffb3d0b1a7d803f40f731ae98903b556b6c1e2e0
-  languageName: node
-  linkType: hard
-
 "@openagenda/member-apps@npm:^2.1.1, @openagenda/member-apps@workspace:packages/member-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/member-apps@workspace:packages/member-apps"
@@ -9398,7 +9369,6 @@ __metadata:
     "@openagenda/activity-apps": "npm:^1.2.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/form-schemas": "npm:^1.9.2"
     "@openagenda/intl": "npm:^1.1.3"
@@ -9850,41 +9820,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-form-components@npm:^2.1.14, @openagenda/react-form-components@workspace:packages/react-form-components":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/react-form-components@workspace:packages/react-form-components"
-  dependencies:
-    "@babel/cli": "npm:^7.23.0"
-    "@babel/core": "npm:^7.23.3"
-    "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@openagenda/babel-preset": "npm:^1.5.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/md": "npm:^1.0.1"
-    "@openagenda/react-shared": "npm:^2.4.1"
-    "@openagenda/utils": "npm:^1.3.0"
-    "@openagenda/validators": "npm:^2.4.0"
-    "@storybook/react-webpack5": "npm:^7.4.2"
-    core-js: "npm:^3.29.1"
-    create-react-class: "npm:^15.5.3"
-    immutability-helper: "npm:^3.0.0"
-    jest: "npm:^29.7.0"
-    languages: "npm:0.1.3"
-    load-script: "npm:^1.0.0"
-    marked: "npm:^12.0.2"
-    prop-types: "npm:^15.5.8"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    react-select: "npm:^3.0.8"
-    react-tagsinput: "npm:^3.16.1"
-    react-uid: "npm:^2.3.3"
-    rimraf: "npm:^3.0.1"
-    storybook: "npm:^7.6.4"
-    turndown: "npm:^7.1.2"
-  peerDependencies:
-    react: ^18.2.0
-  languageName: unknown
-  linkType: soft
-
 "@openagenda/react-integration-app@npm:^1.6.1, @openagenda/react-integration-app@workspace:packages/react-integration-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-integration-app@workspace:packages/react-integration-app"
@@ -10080,6 +10015,7 @@ __metadata:
     "@openagenda/common-labels": "npm:^1.0.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/md": "npm:^1.0.0"
     "@storybook/addon-actions": "npm:^7.4.2"
     "@storybook/preset-scss": "npm:^1.0.3"
     "@storybook/react-webpack5": "npm:^7.4.2"
@@ -10095,6 +10031,7 @@ __metadata:
     hoist-non-react-statics: "npm:^3.3.1"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
+    load-script: "npm:^2.0.0"
     lodash: "npm:^4.17.20"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.2"
@@ -10121,6 +10058,7 @@ __metadata:
     sass: "npm:^1.69.5"
     shallowequal: "npm:^1.1.0"
     storybook: "npm:^7.6.4"
+    turndown: "npm:^7.1.2"
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^18.2.0
@@ -10507,7 +10445,6 @@ __metadata:
     "@openagenda/abilities": "npm:^1.3.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
@@ -20109,7 +20046,6 @@ __metadata:
     "@openagenda/custom": "npm:^1.3.14"
     "@openagenda/date-range": "npm:^2.3.0"
     "@openagenda/discord": "npm:^1.0.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/event-form": "npm:^1.5.1"
     "@openagenda/event-search": "npm:^2.8.0"
     "@openagenda/events": "npm:^2.0.0"
@@ -24250,7 +24186,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es6-promise@npm:^4.1.1, es6-promise@npm:^4.2.5":
+"es6-promise@npm:^4.2.5":
   version: 4.2.8
   resolution: "es6-promise@npm:4.2.8"
   checksum: 10c0/2373d9c5e9a93bdd9f9ed32ff5cb6dd3dd785368d1c21e9bbbfd07d16345b3774ae260f2bd24c8f836a6903f432b4151e7816a7fa8891ccb4e1a55a028ec42c3
@@ -32175,10 +32111,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"load-script@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "load-script@npm:1.0.0"
-  checksum: 10c0/9919c777fe83f8a3a917f65c9c3ab186ad8b194248c57f413ef6e610194abc8484d123a6838d77ab33e5fa1a05a676b5dfe779c38cfe602bdd27c239423d0acd
+"load-script@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "load-script@npm:2.0.0"
+  checksum: 10c0/118bd891f0b3a463e87c774603c32773f56e1ce260245858dd3e7d03ff5fce83acaa5d6c32c66944ed9e91da945ee0150d25730f0346b5768118a76fcf1ef3e9
   languageName: node
   linkType: hard
 
