@@ -199,6 +199,9 @@ const DateRangeFilter = React.forwardRef(function DateRangeFilter(
     className,
     dateFormatStyle,
     dateFormat,
+    minDate,
+    maxDate,
+    shownDate,
   },
   ref,
 ) {
@@ -220,6 +223,9 @@ const DateRangeFilter = React.forwardRef(function DateRangeFilter(
       className={className}
       dateFormatStyle={dateFormatStyle}
       dateFormat={dateFormat}
+      minDate={minDate}
+      maxDate={maxDate}
+      shownDate={shownDate}
     />
   );
 });
