@@ -55,6 +55,14 @@ export default defineMessages({
       + '<someDiff>The fields <fields></fields> of <event>{eventName}</event> was updated on <agenda>{agendaName}</agenda>.</someDiff>'
       + '<manyDiff>The fields <fields></fields> of <event>{eventName}</event> was updated on <agenda>{agendaName}</agenda>.</manyDiff>',
   },
+  'eventUpdate.detailButton': {
+    id: 'ActivityApps.eventUpdate.detailButton',
+    defaultMessage: 'See updated fields',
+  },
+  'eventUpdate.detailtModalTitle': {
+    id: 'ActivityApps.eventUpdate.detailModalTitle',
+    defaultMessage: 'Updated fields detail',
+  },
   // event.delete
   'eventDelete.full': {
     id: 'ActivityApps.eventDelete.full',
@@ -118,6 +126,14 @@ export default defineMessages({
     id: 'ActivityApps.refuseEvent.target',
     defaultMessage:
       '<event>{eventName}</event> was refused on <agenda>{agendaName}</agenda>.',
+  },
+  'refuseEvent.detailButton': {
+    id: 'ActivityApps.refuseEvent.detailButton',
+    defaultMessage: 'see Motive',
+  },
+  'refuseEvent.detailModalTitle': {
+    id: 'ActivityApps.refuseEvent.detailModalTitle',
+    defaultMessage: 'Motive of refusal',
   },
   // agenda.removeEvent
   'removeEvent.full': {
@@ -425,7 +441,14 @@ export default defineMessages({
     defaultMessage:
       '<user>{userName}</user> sent <subj>{subject}</subj> to <recipientRoles></recipientRoles>.',
   },
-
+  'agendaSendMessage.detailButton': {
+    id: 'ActivityApps.agendaSendMessage.detailButton',
+    defaultMessage: 'See message',
+  },
+  'agendaSendMessage.detailModalTitle': {
+    id: 'ActivityApps.agendaSendMessage.detailModalTitle',
+    defaultMessage: 'Message',
+  },
   XOthers: {
     id: 'ActivityApps.XOthers',
     defaultMessage: '{count, plural, =1 {# other} other {# others}}',

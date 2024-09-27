@@ -36,33 +36,36 @@ class AgendaDashboard extends Component {
     const { activitiesConfig, activities, nextLoading, intl } = this.props;
 
     return (
-      <div className="padding-top-md">
-        {activities && activities.length > 0 && (
-          <ul className="list-unstyled activity-list">
-            {activities.map((a) => (
-              <ActivityItem
-                key={`activity.${a.id}`}
-                activity={a}
-                config={activitiesConfig}
-              />
-            ))}
-          </ul>
-        )}
+      <>
+        <div>HELLO THERE</div>
+        <div className="padding-top-md">
+          {activities && activities.length > 0 && (
+            <ul className="list-unstyled activity-list">
+              {activities.map((a) => (
+                <ActivityItem
+                  key={`activity.${a.id}`}
+                  activity={a}
+                  config={activitiesConfig}
+                />
+              ))}
+            </ul>
+          )}
 
-        {(!activities || activities.length === 0) && (
-          <div className="margin-bottom-sm">
-            {intl.formatMessage(messages.noAgendaActivity)}
-          </div>
-        )}
+          {(!activities || activities.length === 0) && (
+            <div className="margin-bottom-sm">
+              {intl.formatMessage(messages.noAgendaActivity)}
+            </div>
+          )}
 
-        {nextLoading && (
-          <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner />
-          </div>
-        )}
+          {nextLoading && (
+            <div className="padding-v-md" style={{ position: 'relative' }}>
+              <Spinner />
+            </div>
+          )}
 
-        <Waypoint onEnter={this.throttledNextPage} />
-      </div>
+          <Waypoint onEnter={this.throttledNextPage} />
+        </div>
+      </>
     );
   }
 }
@@ -79,7 +82,7 @@ export default injectIntl(
           dispatch(activitiesActions.load(query, { slug: params.slug })),
         );
         // }
-
+        console.log('pilling promises', promises);
         return Promise.all(typeof window !== 'undefined' ? [] : promises);
       },
     })(

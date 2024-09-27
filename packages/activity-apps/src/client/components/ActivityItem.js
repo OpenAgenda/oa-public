@@ -8,6 +8,7 @@ import { formatRole, formatXRole } from '../utils/formatRole';
 import createFormatActivity from '../utils/formatActivity';
 import messages from '../messages/activities';
 import useSsr from '../hooks/useSSR';
+import ActivityDetail from './ActivityDetail';
 
 function getDiffFields(activity) {
   const {
@@ -196,6 +197,9 @@ export default function ActivityItem({
           dateStyle="long"
           timeStyle="short"
         />
+        {activity.detail ? (
+          <ActivityDetail activity={activity} config={config} />
+        ) : null}
       </span>
     </li>
   );

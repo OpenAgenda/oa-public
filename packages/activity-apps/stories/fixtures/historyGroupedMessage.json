@@ -1,0 +1,103 @@
+{
+  "activities": [
+    {
+      "id": 17063823,
+      "actor": "user:39649408",
+      "verb": "agenda.sendMessage",
+      "object": null,
+      "target": "agenda:2028662",
+      "store": {
+        "labels": {
+          "actor": "Someone great"
+        },
+        "subject": "Vigilance sur mesures Vigipirate dans le cadre des Journées européennes du patrimoine",
+        "recipientRoles": {
+          "1": 2469,
+          "2": 11,
+          "3": 17
+        }
+      },
+      "createdAt": "2024-09-17T10:28:11.000Z",
+      "updatedAt": null,
+      "detail": true
+    },
+    {
+      "id": 16443014,
+      "actor": "user:39649408",
+      "verb": "agenda.sendMessage",
+      "object": null,
+      "target": "agenda:2028662",
+      "store": {
+        "labels": {
+          "actor": "Someone great"
+        },
+        "subject": "Les ateliers \"Cultivons notre avenir\" à l'occasion des Journées européennes du patrimoine 2024",
+        "recipientRoles": {
+          "1": 2429,
+          "2": 10,
+          "3": 17
+        }
+      },
+      "createdAt": "2024-07-31T08:58:03.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16376954,
+      "actor": "user:39649408",
+      "verb": "agenda.sendMessage",
+      "object": null,
+      "target": "agenda:2028662",
+      "store": {
+        "labels": {
+          "actor": "Someone great"
+        },
+        "subject": "Il est encore temps d’inscrire vos événements à l’occasion des Journées européennes du patrimoine",
+        "recipientRoles": {
+          "1": 1734,
+          "2": 10,
+          "3": 10
+        }
+      },
+      "createdAt": "2024-07-25T07:55:46.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16032785,
+      "actor": "user:39649408",
+      "verb": "agenda.sendMessage",
+      "object": null,
+      "target": "agenda:2028662",
+      "store": {
+        "labels": {
+          "actor": "Someone great"
+        },
+        "subject": "Avis aux retardataires : un délai supplémentaire pour inscrire vos événements pour les Journées européennes du patrimoine 2024 !",
+        "recipientRoles": {
+          "1": 1821
+        }
+      },
+      "createdAt": "2024-07-01T15:14:09.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16026176,
+      "actor": "user:39649408",
+      "verb": "agenda.sendMessage",
+      "object": null,
+      "target": "agenda:2028662",
+      "store": {
+        "labels": {
+          "actor": "Someone great"
+        },
+        "subject": "Avis aux retardataires : un délai supplémentaire pour inscrire vos événements pour les Journées européennes du patrimoine 2024 !",
+        "recipientRoles": {
+          "1": 1832,
+          "2": 10,
+          "3": 10
+        }
+      },
+      "createdAt": "2024-07-01T11:09:32.000Z",
+      "updatedAt": null
+    }
+  ]
+}
