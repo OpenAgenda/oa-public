@@ -8,7 +8,11 @@ export function hasAdditionalFields(schema) {
   return !!schema.fields.filter(f => f.schemaType !== 'event').length;
 }
 
-function formatValue(field, value, { locale, defaultLocale, timezone, dateFnsLocale }) {
+function formatValue(
+  field,
+  value,
+  { locale, defaultLocale, timezone, dateFnsLocale },
+) {
   if (Array.isArray(value) && value.length === 1 && value[0] === null) {
     return null;
   }
@@ -29,14 +33,19 @@ function formatValue(field, value, { locale, defaultLocale, timezone, dateFnsLoc
       if (!option) {
         return;
       }
-      return getLocaleValue(option.label, locale, [defaultLocale, FALLBACK_LOCALE]);
+      return getLocaleValue(option.label, locale, [
+        defaultLocale,
+        FALLBACK_LOCALE,
+      ]);
     });
 
     return labels.length ? labels : null;
   }
 
   if (field.fieldType === 'date') {
-    return formatInTimeZone(value, timezone, 'PPPPp', { locale: dateFnsLocale });
+    return formatInTimeZone(value, timezone, 'PPPPp', {
+      locale: dateFnsLocale,
+    });
   }
 
   if (field.fieldType === 'markdown' && value) {
@@ -57,7 +66,13 @@ function formatValue(field, value, { locale, defaultLocale, timezone, dateFnsLoc
   return value;
 }
 
-export function formatAdditionalFieldData({ schema, event, locale, defaultLocale, dateFnsLocale }) {
+export function formatAdditionalFieldData({
+  schema,
+  event,
+  locale,
+  defaultLocale,
+  dateFnsLocale,
+}) {
   const additionalFields = schema.fields
     .filter(f => f.schemaType !== 'event')
     .filter(f => f.fieldType !== 'abstract')
@@ -70,8 +85,17 @@ export function formatAdditionalFieldData({ schema, event, locale, defaultLocale
 
     const formattedValue = value
       .filter(v => !field.options || field.options.some(o => o.id === v))
-      .map(v => formatValue(field, v, { locale, defaultLocale, timezone, dateFnsLocale }));
-    const label = getLocaleValue(field.label, locale, [defaultLocale, FALLBACK_LOCALE]);
+      .map(v =>
+        formatValue(field, v, {
+          locale,
+          defaultLocale,
+          timezone,
+          dateFnsLocale,
+        }));
+    const label = getLocaleValue(field.label, locale, [
+      defaultLocale,
+      FALLBACK_LOCALE,
+    ]);
 
     return {
       key: field.field,
@@ -79,7 +103,7 @@ export function formatAdditionalFieldData({ schema, event, locale, defaultLocale
       label,
       fieldType: field.fieldType,
       isOptioned: !!field.options,
-      value: formattedValue.length > 0 ? formattedValue[0] : null,
+      value: formattedValue.length > 0 ? formattedValue : null,
       isRestricted: !!field.read,
       raw: value,
     };
