@@ -15,12 +15,7 @@
         "fr": "Le yoga permet au pratiquant de se confronter à l’essence du temps. En faisant l’expérience dans la posture et dans l’assise de la présence consciente à l’instant. Dans la pratique du Yoga Vinyasa, nous faisons lâcher le mental par l’action !\n\nVinyasa signifie littéralement « synchronisation du mouvement sur la respiration ». C’est un Yoga rythmé, tonique et créatif, qui apporte l’apaisement du mental par l’action. Le souffle est lié aux mouvements au sein d’enchaînements aussi structurés que fluides. Ce Yoga développe force, endurance et sens de l’équilibre. Il tonifie la musculature et redonne de la souplesse à la colonne vertébrale. En contribuant à la gestion du stress et à l’accroissement des capacités de concentration, il offre la base d’un développement spirituel.\n\nIl vous sera proposé une trame de 2h30 sur l’ouverture du cœur. L’attention sera également portée sur l’auto grandissement, la respiration et l’alignement postural adapté aux particularités physiques de chacun."
       },
       "keywords": {
-        "fr": [
-          "yoga",
-          "vinyasa",
-          "yoga vinyasa",
-          "stage"
-        ]
+        "fr": ["yoga", "vinyasa", "yoga vinyasa", "stage"]
       },
       "conditions": {
         "fr": "adhérent AGJA : 22 €/personne ; Non adhérent : 27 €/personne"
@@ -106,17 +101,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 51,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -253,19 +244,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 60,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -312,10 +297,7 @@
         "fr": "### L'association Ornon natation a le plaisir de vous inviter à sa première grande compétition.\n\nOuverte aux nageurs licenciés de la Fédération française de natation et des fédérations affiliées (LEN, FINA).\n\nLes catégories Avenirs, Jeunes, Juniors et Seniors seront représentées.\n\n**Programme**\n\nMatin : 400 NL D - 100 Dos D/M - 100 Br D/M - 200 Nl D/M - 50 Dos D/M - 50 Pap D/M - 2 km Indoor (organisé par le comité départemental de Gironde de natation).\n\nAprès-midi : 400 Nl D/M - 100 Pap D/M - 100 Nl D/M - 200 4n D/M - 50 Br D/M - 50 Nl D/M - Relais 6x100 TC\n\n**Récompense**\n\nUn podium par épreuve, médailles et cadezaux décernés pour les courses individuelles et relais.\n\nBuvette et restauration sur place. Tombola"
       },
       "keywords": {
-        "fr": [
-          "Meeting",
-          "Natation"
-        ]
+        "fr": ["Meeting", "Natation"]
       },
       "conditions": {},
       "image": {
@@ -369,9 +351,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://asso-ornon-natation.comiti-sport.fr/"
-      ],
+      "registration": ["https://asso-ornon-natation.comiti-sport.fr/"],
       "location": {
         "uid": 43464215,
         "slug": "piscine-olympique-municipale895",
@@ -400,17 +380,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 51,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        26283955
-      ],
+      "sourcePaths": [26283955],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -457,9 +433,7 @@
         "fr": "### Le Rotary club de Villenave d'Ornon vous attend pour une soirée d'aide au profit de l'association d'aide à l'enfance COPIPAS.\n\n**A partir de 19 h** : restauration en musique avec les planches gourmandes de Tradition & Terroir.\n\n**A partir de 20 h 30** : concert avec Ricky Norton Band.\n\nExposition d'oeuvres de jeunes artistes."
       },
       "keywords": {
-        "fr": [
-          "Concert"
-        ]
+        "fr": ["Concert"]
       },
       "conditions": {
         "fr": "Entrée 20 € - Billeterie en ligne"
@@ -515,9 +489,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "http://www-hello-asso.fr"
-      ],
+      "registration": ["http://www-hello-asso.fr"],
       "location": {
         "uid": 80023147,
         "slug": "le-cube350",
@@ -546,17 +518,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        26283955
-      ],
+      "sourcePaths": [26283955],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -603,9 +571,7 @@
         "fr": "Le Salon Maison Neuve Bordeaux et Les Constructeurs et Aménageurs de la Fédération Française du Bâtiments (LCA-FFB) s’associe afin de proposer à une clientèle ciblée une manifestation professionnelle, pertinente et dynamique. Pour la première fois, les adhérents et partenaires LCA-FFB 33 ouvrent leurs portes aux professionnels de l’équipement de la maison, permettant de réunir plus de 60 exposants au sein du Hall 3 du Parc des Expositions de Bordeaux du 20 au 22 mars 2020.\n\nL’occasion d’étudier votre projet de construction de A à Z : recherche de terrain, analyse de vos possibilités, étude de financement, mise ne place d’un planning, gestion des différents acteurs de la constructions… Les 60 professionnels présents sur ces 2,5 jours de salon sauront répondre à toutes les questions que vous vous posez et vous accompagneront dans la réalisation de la maison qui vos correspond !"
       },
       "keywords": {
-        "fr": [
-          "Salon / Maison / Immobilier"
-        ]
+        "fr": ["Salon / Maison / Immobilier"]
       },
       "conditions": {
         "fr": "Prix entrée : 5€"
@@ -669,9 +635,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.salonmaisonneuvebordeaux.fr/"
-      ],
+      "registration": ["http://www.salonmaisonneuvebordeaux.fr/"],
       "location": {
         "uid": 24190534,
         "slug": "parc-des-exposition-de-bordeaux-hall-3",
@@ -905,18 +869,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1072,18 +1031,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1207,9 +1161,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/expositions/omar.malas/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/expositions/omar.malas/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1239,18 +1191,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1369,9 +1316,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.fub.fr/evenements/congres-fub"
-      ],
+      "registration": ["https://www.fub.fr/evenements/congres-fub"],
       "location": {
         "uid": 14412879,
         "slug": "palais-de-la-bourse-bordeaux",
@@ -1399,17 +1344,13 @@
         "extId": null
       },
       "custom_description": "20e Congrès de la FUB à Bordeaux\n\"Système vélo, du local au global\"",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 48,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        78626564
-      ],
+      "sourcePaths": [78626564],
       "aggregated": false,
       "sourceAgendas": [
         {

@@ -3,17 +3,15 @@ import inboxMw from '@openagenda/inboxes/dist/middleware.js';
 import makeErrorHandler from './makeErrorHandler.js';
 
 export default (config, services) => {
-  const {
-    sessions,
-    users,
-  } = services;
+  const { sessions, users } = services;
 
   const errorHandler = makeErrorHandler(services);
 
   const preMw = [
-    sessions.mw.ifUnlogged((req, res) => res.status(400).json({
-      error: 'Not logged',
-    })),
+    sessions.mw.ifUnlogged((req, res) =>
+      res.status(400).json({
+        error: 'Not logged',
+      })),
     (req, res, next) => {
       req.type = 'support';
       req.identifier = 1;

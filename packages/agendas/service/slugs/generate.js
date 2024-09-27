@@ -1,9 +1,10 @@
-"use strict";
+'use strict';
 
-var slug = require( 'slugify' );
+const slug = require('slugify');
 
-module.exports = function( text, randomize ) {
-
-  return slug( text, { lower: true, strict: true } ) + ( randomize ? Math.ceil( Math.random() * 1000 ) : '' );
-
-}
+module.exports = function (text, randomize) {
+  return (
+    slug(text, { lower: true, strict: true })
+    + (randomize ? Math.ceil(Math.random() * 1000) : '')
+  );
+};

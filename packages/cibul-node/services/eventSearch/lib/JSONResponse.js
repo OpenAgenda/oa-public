@@ -3,13 +3,9 @@ import logs from '@openagenda/logs';
 const log = logs('services/eventSearch/JSONResponse');
 
 function JSONResponse(req, res) {
-  req.search(
-    req.searchQuery,
-    req.query,
-    req.searchOptions,
-  ).then(
-    result => res.json(result),
-    err => {
+  req.search(req.searchQuery, req.query, req.searchOptions).then(
+    (result) => res.json(result),
+    (err) => {
       if (err.name === 'NotFound') {
         return res.status(404).send(null);
       }

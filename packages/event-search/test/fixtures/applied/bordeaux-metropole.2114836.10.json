@@ -80,9 +80,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/nicolas.saez/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/nicolas.saez/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -112,18 +110,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -275,17 +268,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        54892589
-      ],
+      "sourcePaths": [54892589],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -330,9 +319,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "Concert / Littérature / Conférence"
-        ]
+        "fr": ["Concert / Littérature / Conférence"]
       },
       "conditions": {
         "fr": "Entrée libre, participation libre"
@@ -456,21 +443,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
-      "recurring": [
-        2
-      ],
+      "intermunicipal_interest": [1],
+      "recurring": [2],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -517,13 +496,7 @@
         "fr": "Celle qui écrit, chante, clame, revendique, légifère, dans l’ombre ou la lumière.\n\nColette côtoie Duras, Despentes, Albert Cohen... Sans doute vous retrouverez ou découvrirez quelques pépites incontournables.\n\nSur ce chemin, trois femmes vous conduisent, Arièle Maloumian a écrit certains textes et sélectionné d’autres, Laure Dallet a imaginé une scénographie et Domie Garras prête sa voix.\n\nRecherche de textes et écriture : Arièle Maloumian / Sélection, montage textes et Interprétation : Dominique Garras Scénographie et Régie son : Laure Dallet"
       },
       "keywords": {
-        "fr": [
-          "#théâtre",
-          "#spectacle",
-          "#feminin",
-          "#martignas",
-          "#clam!"
-        ]
+        "fr": ["#théâtre", "#spectacle", "#feminin", "#martignas", "#clam!"]
       },
       "conditions": {
         "fr": "TOUT PUBLIC // DURÉE 1h15 // TARIF : 15/13/10 €"
@@ -579,10 +552,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "reservations@leclam-martignas.fr",
-        "06 61 26 30 99"
-      ],
+      "registration": ["reservations@leclam-martignas.fr", "06 61 26 30 99"],
       "location": {
         "uid": 29289901,
         "slug": "complexe-dolange-salle-gerard-philipe-et-exterieur-avenue-de-verdun",
@@ -610,17 +580,13 @@
         "extId": null
       },
       "custom_description": "Festival \"Humour au Féminin\"",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        13738634
-      ],
+      "sourcePaths": [13738634],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -751,14 +717,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 60,
-      "thematiques-bordeaux-metropole": [
-        40
-      ],
+      "thematiques-bordeaux-metropole": [40],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -888,14 +850,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 43,
-      "thematiques-bordeaux-metropole": [
-        40
-      ],
+      "thematiques-bordeaux-metropole": [40],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -993,9 +951,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 29012956,
         "slug": "place-du-parvis",
@@ -1023,17 +979,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        41375362
-      ],
+      "sourcePaths": [41375362],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1162,14 +1114,10 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        13
-      ],
+      "thematiques-bordeaux-metropole": [13],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1269,9 +1217,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.be-a-boss.com/nouvelle-aquitaine"
-      ],
+      "registration": ["https://www.be-a-boss.com/nouvelle-aquitaine"],
       "location": {
         "uid": 41656706,
         "slug": "hotel-de-bordeaux-metropole",
@@ -1297,14 +1243,10 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        13
-      ],
+      "thematiques-bordeaux-metropole": [13],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1442,18 +1384,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

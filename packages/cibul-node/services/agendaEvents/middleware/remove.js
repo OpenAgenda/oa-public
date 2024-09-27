@@ -9,7 +9,10 @@ const log = logs('services/agendaEvents/middleware/remove');
 export default [
   (req, res, next) => {
     req.isOwner = req.user.uid === req.event.ownerUid;
-    req.isAdminMod = req.app.services.members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator');
+    req.isAdminMod = req.app.services.members.utils.compareRoles.isSuperiorToOrEqual(
+      req.member.role,
+      'moderator',
+    );
     if (req.isOwner || req.isAdminMod) {
       return next();
     }
@@ -18,8 +21,12 @@ export default [
   (req, res, next) => {
     req.app.services.core
       .agendas(req.agenda.uid)
-      .events.remove(req.event.uid, { returnPayload: true, context: { user: req.user }, private: !!req.agenda.private })
-      .then(result => {
+      .events.remove(req.event.uid, {
+        returnPayload: true,
+        context: { user: req.user },
+        private: !!req.agenda.private,
+      })
+      .then((result) => {
         req.result = result;
         next();
       }, next);
@@ -29,7 +36,9 @@ export default [
       return res.sendStatus(200);
     }
 
-    const redirect = req.query.redirect ? base64.decode(req.query.redirect) : null;
+    const redirect = req.query.redirect
+      ? base64.decode(req.query.redirect)
+      : null;
 
     req.app.services.sessions.setFlash(
       req,

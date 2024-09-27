@@ -9,7 +9,7 @@ async function initialize({ knex }) {
     return;
   }
 
-  return knex.schema.createTable('unsubscription', table => {
+  return knex.schema.createTable('unsubscription', (table) => {
     table.increments('id').primary().notNullable();
     table.string('email', 255).notNullable();
     table.datetime('created_at').notNullable().defaultTo(knex.fn.now());
@@ -20,13 +20,11 @@ function isRegistered({ knex }, email) {
   return knex('unsubscription')
     .first(['id'])
     .where('email', hash(email))
-    .then(r => !!r);
+    .then((r) => !!r);
 }
 
 async function add({ knex }, email, options = {}) {
-  const {
-    createdAt = new Date(),
-  } = options;
+  const { createdAt = new Date() } = options;
 
   if (await isRegistered({ knex }, email)) {
     return;

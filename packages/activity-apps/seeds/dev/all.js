@@ -1,29 +1,37 @@
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import fixtures from '@openagenda/fixtures';
 import activitiesSvc from '@openagenda/activities';
 
-exports.seed = async knex => {
+export async function seed(knex) {
   const { testconfig, schemas } = knex.client.config;
 
-  fixtures.init( testconfig );
+  fixtures.init(testconfig);
 
-  await activitiesSvc.init( testconfig );
+  await activitiesSvc.init(testconfig);
 
-  await promisify( fixtures )( [ {
-    table: schemas.activity,
-    src: __dirname + '/activity.sql'
-  }, {
-    table: schemas.feed,
-    src: __dirname + '/feed.sql'
-  }, {
-    table: schemas.feed_activity,
-    src: __dirname + '/feed_activity.sql'
-  }, {
-    table: schemas.feed_follow,
-    src: __dirname + '/feed_follow.sql'
-  }, {
-    table: schemas.feed_notification,
-    src: __dirname + '/feed_notification.sql'
-  } ], { reset: false } );
-
-};
+  await promisify(fixtures)(
+    [
+      {
+        table: schemas.activity,
+        src: `${import.meta.dirname}/activity.sql`,
+      },
+      {
+        table: schemas.feed,
+        src: `${import.meta.dirname}/feed.sql`,
+      },
+      {
+        table: schemas.feed_activity,
+        src: `${import.meta.dirname}/feed_activity.sql`,
+      },
+      {
+        table: schemas.feed_follow,
+        src: `${import.meta.dirname}/feed_follow.sql`,
+      },
+      {
+        table: schemas.feed_notification,
+        src: `${import.meta.dirname}/feed_notification.sql`,
+      },
+    ],
+    { reset: false },
+  );
+}

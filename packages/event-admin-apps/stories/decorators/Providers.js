@@ -9,7 +9,7 @@ import locales from '../../src/locales-compiled';
 
 const lang = 'fr';
 
-export default Story => {
+export default (Story) => {
   const queryClient = useConstant(
     () =>
       new QueryClient({

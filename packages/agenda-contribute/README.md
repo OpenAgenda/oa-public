@@ -4,9 +4,9 @@ This project provides the front application and the middleware required for the 
 
 Folders:
 
- * **client**: contains code for the client side contribution application
- * **dev**: client & server code required to run the development application
- * **server**: application for server side integration
+- **client**: contains code for the client side contribution application
+- **dev**: client & server code required to run the development application
+- **server**: application for server side integration
 
 # Development
 

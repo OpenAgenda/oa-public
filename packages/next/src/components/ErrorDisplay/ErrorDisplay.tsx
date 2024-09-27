@@ -3,18 +3,18 @@ import { Button, chakra, Flex, Link, Text, HStack } from '@openagenda/uikit';
 import ErrorContainer from './ErrorContainer';
 
 export interface JsonError {
-  name: string
-  message: string
-  shortMessage?: string
-  stack?: string
-  cause?: JsonError
-  info?: Record<string, any>
+  name: string;
+  message: string;
+  shortMessage?: string;
+  stack?: string;
+  cause?: JsonError;
+  info?: Record<string, any>;
 }
 
 interface ErrorProps {
-  error?: Error | JsonError
-  errorTrackingId?: string
-  resetError?: () => void
+  error?: Error | JsonError;
+  errorTrackingId?: string;
+  resetError?: () => void;
 }
 
 const messages = defineMessages({
@@ -55,7 +55,11 @@ function getFullStack(error) {
   return error.stack;
 }
 
-export function ErrorDisplay({ error, errorTrackingId, resetError }: ErrorProps) {
+export function ErrorDisplay({
+  error,
+  errorTrackingId,
+  resetError,
+}: ErrorProps) {
   const intl = useIntl();
 
   const errorStack = error ? getFullStack(error) : null;

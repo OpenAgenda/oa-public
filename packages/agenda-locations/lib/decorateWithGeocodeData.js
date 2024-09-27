@@ -4,14 +4,22 @@ const log = require('@openagenda/logs')('lib/decorateWithGeocodeData');
 const { BadRequest } = require('@openagenda/verror');
 const deduceLanguageFromCountry = require('./deduceLanguageFromCountry');
 
-const hasCityAndDept = (g = {}) => (!!g.city && !!g.department) || (!!g.adminLevel4 && !!g.adminLevel2);
+const hasCityAndDept = (g = {}) =>
+  (!!g.city && !!g.department) || (!!g.adminLevel4 && !!g.adminLevel2);
 
 function isDefinedAndDifferent(data, current, field) {
   return data[field] && data[field] !== current?.[field];
 }
 
 function addAdminLevels(data) {
-  const { adminLevel1, adminLevel2, adminLevel3, adminLevel4, adminLevel5, adminLevel6 } = data;
+  const {
+    adminLevel1,
+    adminLevel2,
+    adminLevel3,
+    adminLevel4,
+    adminLevel5,
+    adminLevel6,
+  } = data;
   return {
     ...data,
     region: adminLevel1 || data.region,
@@ -27,7 +35,11 @@ function incompleteAdminLevels(current) {
   if (!current) {
     return true;
   }
-  const { adminLevel1 = false, adminLevel2 = false, adminLevel4 = false } = current;
+  const {
+    adminLevel1 = false,
+    adminLevel2 = false,
+    adminLevel4 = false,
+  } = current;
   return !(adminLevel1 && adminLevel2 && adminLevel4);
 }
 
@@ -52,7 +64,7 @@ async function geocode(interfaces, data, current) {
     });
 
     if (!results.length) {
-      throw new BadRequest('geocoder didn\'t find address');
+      throw new BadRequest("geocoder didn't find address");
     }
 
     return results[0];
@@ -78,10 +90,13 @@ async function reverseGeocode(interfaces, data, current) {
       throw new Error('longitude is unspecified');
     }
 
-    const results = await interfaces.reverseGeocode(reverseGeocodeData.latitude, reverseGeocodeData.longitude);
+    const results = await interfaces.reverseGeocode(
+      reverseGeocodeData.latitude,
+      reverseGeocodeData.longitude,
+    );
 
     if (!results.length) {
-      throw new BadRequest('geocoder didn\'t find address');
+      throw new BadRequest("geocoder didn't find address");
     }
 
     return results[0];
@@ -93,11 +108,17 @@ async function reverseGeocode(interfaces, data, current) {
 }
 
 async function getGeocodeData(interfaces, data, current) {
-  if (isDefinedAndDifferent(data, current, 'latitude') || isDefinedAndDifferent(data, current, 'longitude')) {
+  if (
+    isDefinedAndDifferent(data, current, 'latitude')
+    || isDefinedAndDifferent(data, current, 'longitude')
+  ) {
     return reverseGeocode(interfaces, data, current);
   }
 
-  if (isDefinedAndDifferent(data, current, 'address') || isDefinedAndDifferent(data, current, 'countryCode')) {
+  if (
+    isDefinedAndDifferent(data, current, 'address')
+    || isDefinedAndDifferent(data, current, 'countryCode')
+  ) {
     return geocode(interfaces, data, current);
   }
 
@@ -107,50 +128,61 @@ async function getGeocodeData(interfaces, data, current) {
   return {};
 }
 
-module.exports = service => Object.assign(async (pdata, current = {}) => {
-  const data = addAdminLevels(pdata);
+module.exports = (service) =>
+  Object.assign(
+    async (pdata, current = {}) => {
+      const data = addAdminLevels(pdata);
 
-  if (!data && !incompleteAdminLevels(current)) {
-    return data;
-  }
-  const geocodeResult = await getGeocodeData(service.interfaces, data, current);
+      if (!data && !incompleteAdminLevels(current)) {
+        return data;
+      }
+      const geocodeResult = await getGeocodeData(
+        service.interfaces,
+        data,
+        current,
+      );
 
-  const inseeResult = service.getINSEECode && hasCityAndDept(geocodeResult) && { ...current, ...geocodeResult, ...data }.countryCode === 'FR'
-    ? {
-      insee: await service.getINSEECode({
+      const inseeResult = service.getINSEECode
+        && hasCityAndDept(geocodeResult)
+        && { ...current, ...geocodeResult, ...data }.countryCode === 'FR'
+        ? {
+          insee: await service.getINSEECode({
+            ...geocodeResult,
+            region: geocodeResult.region || geocodeResult.adminLevel1,
+            department:
+                  geocodeResult.department || geocodeResult.adminLevel2,
+            city: geocodeResult.city || geocodeResult.adminLevel4,
+          }),
+        }
+        : {};
+
+      return {
+        ...current,
         ...geocodeResult,
-        region: geocodeResult.region || geocodeResult.adminLevel1,
-        department: geocodeResult.department || geocodeResult.adminLevel2,
-        city: geocodeResult.city || geocodeResult.adminLevel4,
-      }),
-    }
-    : {};
+        ...inseeResult,
+        ...JSON.parse(JSON.stringify(data)),
+      };
+    },
+    {
+      shouldAttempt: (autocomplete, data, isPatch, current = {}) => {
+        if (!autocomplete) {
+          return false;
+        }
+        if (!isPatch) {
+          return true;
+        }
 
-  return {
-    ...current,
-    ...geocodeResult,
-    ...inseeResult,
-    ...JSON.parse(JSON.stringify(data)),
-  };
-}, {
-  shouldAttempt: (autocomplete, data, isPatch, current = {}) => {
-    if (!autocomplete) {
-      return false;
-    }
-    if (!isPatch) {
-      return true;
-    }
+        if (incompleteAdminLevels(current)) {
+          return true;
+        }
 
-    if (incompleteAdminLevels(current)) {
-      return true;
-    }
-
-    if (data?.address || data?.countryCode) {
-      return true;
-    }
-    if (data?.latitude || data?.longitude) {
-      return true;
-    }
-    return false;
-  },
-});
+        if (data?.address || data?.countryCode) {
+          return true;
+        }
+        if (data?.latitude || data?.longitude) {
+          return true;
+        }
+        return false;
+      },
+    },
+  );

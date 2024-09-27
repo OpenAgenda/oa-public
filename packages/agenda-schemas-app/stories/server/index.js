@@ -8,30 +8,42 @@ dev.use(express.json());
 
 dev.use(cors());
 
-dev.get('/api/agendas/:agendaUid/settings/eventSchema/configure', (req, res) => {
-  const response = getFixtures(req.params.agendaUid).schema;
-  res.json({
-    ...response,
-  });
-});
+dev.get(
+  '/api/agendas/:agendaUid/settings/eventSchema/configure',
+  (req, res) => {
+    const response = getFixtures(req.params.agendaUid).schema;
+    res.json({
+      ...response,
+    });
+  },
+);
 
-dev.post('/api/agendas/:agendaUid/settings/eventSchema/configure', (req, res) => {
-  res.json({
-    ...true,
-  });
-});
+dev.post(
+  '/api/agendas/:agendaUid/settings/eventSchema/configure',
+  (req, res) => {
+    res.json({
+      ...true,
+    });
+  },
+);
 
-dev.get('/api/agendas/:agendaUid/settings/memberSchema/configure', (req, res) => {
-  const response = getFixtures(req.params.agendaUid).memberSchema;
-  res.json({
-    ...response,
-  });
-});
+dev.get(
+  '/api/agendas/:agendaUid/settings/memberSchema/configure',
+  (req, res) => {
+    const response = getFixtures(req.params.agendaUid).memberSchema;
+    res.json({
+      ...response,
+    });
+  },
+);
 
-dev.post('/api/agendas/:agendaUid/settings/memberSchema/configure', (req, res) => {
-  res.json({
-    ...true,
-  });
-});
+dev.post(
+  '/api/agendas/:agendaUid/settings/memberSchema/configure',
+  (req, res) => {
+    res.json({
+      ...true,
+    });
+  },
+);
 
 module.exports = dev;

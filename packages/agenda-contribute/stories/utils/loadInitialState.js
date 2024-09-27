@@ -10,11 +10,14 @@ export default function loadInitialState() {
     res: {
       agenda: '/api/agendas/:agendaUid',
       agendaContext: '/api/me/agendas/:agendaUid',
-      event: '/api/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
+      event:
+        '/api/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
       eventContext: '/api/me/agendas/:agendaUid/events/:eventUid',
-      requestContribute: '/:agendaSlug/request-contribute/conversation/create/thiswillbreakthestorybook',
+      requestContribute:
+        '/:agendaSlug/request-contribute/conversation/create/thiswillbreakthestorybook',
       members: '/api/agendas/:agendaUid/members',
-      detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema=1',
+      detailedAgenda:
+        '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema=1',
       locations: {
         get: '/locations/:locationUid.json',
         index: '/api/agendas/:agendaUid/locations?itemsKey=items',
@@ -39,9 +42,9 @@ export default function loadInitialState() {
       maxSize: 200000000,
       store: {
         type: 's3',
-        bucket: 'cibul' // 'oadev'
-      }
+        bucket: 'cibul', // 'oadev'
+      },
     },
-    tiles: 'https://map.tiles'
+    tiles: 'https://map.tiles',
   };
 }

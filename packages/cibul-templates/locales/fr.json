@@ -6,7 +6,7 @@
   "cibulTemplates.passwordField.good": "Suffisamment sécurisé 🙂",
   "cibulTemplates.passwordField.great": "Très sécurisé 🥳",
   "cibulTemplates.passwordField.isSameAs": "Doit être différent du nom d'utilisateur et de l'email 🙄",
-  "cibulTemplates.passwordField.required": "Requis.",
+  "cibulTemplates.passwordField.required": "Un mot de passe doit être défini",
   "cibulTemplates.passwordField.tooWeak": "Pas assez sûr 😑",
   "cibulTemplates.passwordField.usual": "Trop commun 🤖",
   "cibulTemplates.passwordField.weak": "Peu sécurisé 😐",

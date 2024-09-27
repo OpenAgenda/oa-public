@@ -13,10 +13,13 @@ export default async (core, networkUid, agendaUid) => {
     throw new BadRequest('agenda is not in network');
   }
 
-  return core.agendas(agenda).update({
-    networkUid: null,
-  }, {
-    protected: false,
-    updateLegacy: true,
-  });
+  return core.agendas(agenda).update(
+    {
+      networkUid: null,
+    },
+    {
+      protected: false,
+      updateLegacy: true,
+    },
+  );
 };

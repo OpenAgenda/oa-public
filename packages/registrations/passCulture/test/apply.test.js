@@ -22,9 +22,9 @@ import withPendingOffer from './fixtures/data.withPendingOffer.pc.json';
 import settings from './fixtures/settings.json';
 
 const applyValidTimingId = (entries, event) => {
-  const validTimingIds = event.timings.map(t => new Date(t.begin).getTime());
+  const validTimingIds = event.timings.map((t) => new Date(t.begin).getTime());
 
-  return produce(entries, draft => {
+  return produce(entries, (draft) => {
     for (const entry of draft) {
       if (entry.dates) {
         entry.dates = entry.dates.map((date, index) => ({
@@ -41,7 +41,7 @@ const api = 'https://pc.local';
 const mockSuccessfullPriceCategoriesPostResponse = async ({ request }) =>
   HttpResponse.json({
     priceCategories: (await request.json()).priceCategories.map(
-      priceCategory => ({
+      (priceCategory) => ({
         ...priceCategory,
         id: Math.ceil(Math.random() * 10000),
       }),
@@ -50,7 +50,7 @@ const mockSuccessfullPriceCategoriesPostResponse = async ({ request }) =>
 
 const mockSuccessfullDatesPostResponse = async ({ request }) =>
   HttpResponse.json({
-    dates: (await request.json()).dates.map(date => ({
+    dates: (await request.json()).dates.map((date) => ({
       ...date,
       id: Math.ceil(Math.random() * 10000),
     })),
@@ -116,7 +116,7 @@ describe('apply', () => {
         beforeAll(async () => {
           const [CArtEvent] = CArtEvents;
           const timingId = CArtEvent.timings
-            .map(t => new Date(t.begin).getTime())
+            .map((t) => new Date(t.begin).getTime())
             .pop();
 
           processed = await apply(
@@ -192,7 +192,7 @@ describe('apply', () => {
       let server;
 
       beforeAll(() => {
-        const statusForId = id => {
+        const statusForId = (id) => {
           if (id === '123456') {
             return 'PENDING';
           }
@@ -245,7 +245,7 @@ describe('apply', () => {
 
       describe('no longer pending', () => {
         let processed;
-        const noLongerPending = produce(withPendingOffer, draft => {
+        const noLongerPending = produce(withPendingOffer, (draft) => {
           draft[0].response.passId = 5421;
         });
 
@@ -254,7 +254,7 @@ describe('apply', () => {
         });
 
         test('all remaining operations are executed', () => {
-          expect(processed.filter(item => item.appliedAt).length).toBe(4);
+          expect(processed.filter((item) => item.appliedAt).length).toBe(4);
         });
 
         test('isPending is switched to false in newly inserted response item', () => {
@@ -266,7 +266,7 @@ describe('apply', () => {
 
       describe('rejected', () => {
         let processed;
-        const rejected = produce(withPendingOffer, draft => {
+        const rejected = produce(withPendingOffer, (draft) => {
           draft[0].response.passId = 654321;
         });
 
@@ -275,8 +275,8 @@ describe('apply', () => {
         });
 
         test('all remaining operations stopped', () => {
-          expect(processed.filter(item => item.appliedAt).length).toBe(
-            rejected.filter(item => item.appliedAt).length + 1,
+          expect(processed.filter((item) => item.appliedAt).length).toBe(
+            rejected.filter((item) => item.appliedAt).length + 1,
           );
         });
 
@@ -329,7 +329,7 @@ describe('apply', () => {
 
         beforeAll(async () => {
           const timingId = CArtEvents[0].timings
-            .map(t => new Date(t.begin).getTime())
+            .map((t) => new Date(t.begin).getTime())
             .pop();
           processed = await apply(
             pc,

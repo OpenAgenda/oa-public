@@ -36,10 +36,13 @@ export default function List({
   }, [addRules]);
 
   const setModeAdd = useCallback(() => setMode('add'), [setMode]);
-  const setModeUpdate = useCallback(id => setMode('update', { id }), [setMode]);
+  const setModeUpdate = useCallback(
+    (id) => setMode('update', { id }),
+    [setMode],
+  );
 
   const onDragEnd = useCallback(
-    result => {
+    (result) => {
       if (!result.destination) {
         return;
       }
@@ -70,7 +73,7 @@ export default function List({
         <div className="margin-v-sm">
           <DragDropContext className="list-group" onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable">
-              {provided => (
+              {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   {rules.map((rule, index) => (
                     <Draggable
@@ -134,7 +137,10 @@ export default function List({
                   {intl.formatMessage(messages.manualPasteRules)}
                 </em>
               )}
-              <MoreInfo className="margin-left-xs" link={externalLinks.helpCopyPaste} />
+              <MoreInfo
+                className="margin-left-xs"
+                link={externalLinks.helpCopyPaste}
+              />
             </div>
           ) : null}
         </div>
@@ -158,7 +164,7 @@ export default function List({
               return;
             }
 
-            return onSubmit(rules.map(rule => _.omit(rule, 'id')));
+            return onSubmit(rules.map((rule) => _.omit(rule, 'id')));
           }}
           rules={rules}
           onCancel={onCancel}

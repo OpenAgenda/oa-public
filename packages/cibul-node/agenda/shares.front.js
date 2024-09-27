@@ -10,7 +10,12 @@ function share(req, res, next) {
     return next({ code: 404, message: 'This share type does not exist' });
   }
 
-  req.log.info({ message: 'sharing agenda', uid: req.agenda.uid, slug: req.agenda.slug, service: req.params.service });
+  req.log.info({
+    message: 'sharing agenda',
+    uid: req.agenda.uid,
+    slug: req.agenda.slug,
+    service: req.params.service,
+  });
 
   res.redirect(
     shares.getLink(req.params.service, {
@@ -22,14 +27,23 @@ function share(req, res, next) {
           { uid: req.agenda.uid, embedUid: req.embed.uid },
           { abs: true, protocol: 'https://' },
         )
-        : req.genUrl('agendaShow', { slug: req.agenda.slug }, { abs: true, protocol: 'https://' }),
+        : req.genUrl(
+          'agendaShow',
+          { slug: req.agenda.slug },
+          { abs: true, protocol: 'https://' },
+        ),
       siteUrl: config.root,
     }),
   );
 }
 
-export default app => {
+export default (app) => {
   app.get('/:slug/share/:service', agendaSvc.mw.load('slug'), share);
 
-  app.get('/agendas/:uid/embed/share/:service', agendaSvc.mw.load('uid'), embedSvc.mw.load('embedUid', 'uid'), share);
+  app.get(
+    '/agendas/:uid/embed/share/:service',
+    agendaSvc.mw.load('uid'),
+    embedSvc.mw.load('embedUid', 'uid'),
+    share,
+  );
 };

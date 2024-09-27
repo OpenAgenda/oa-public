@@ -55,9 +55,7 @@
       "end": "2020-03-22T17:00:00+01:00"
     }
   ],
-  "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-    616
-  ],
+  "si-autre-manifestation-du-ministere-de-la-culture-precisez": [616],
   "type-devenement": 686,
   "gratuite": 66,
   "animation-accessible-aux-publics-empeches": 741,
@@ -72,9 +70,7 @@
     "variants": [],
     "base": "https://cibuldev.s3.amazonaws.com/"
   },
-  "particularites": [
-    776
-  ],
+  "particularites": [776],
   "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
   "type-de-public-concerne": 760,
   "type-de-public-empeche": null,

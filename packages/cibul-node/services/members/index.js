@@ -22,26 +22,27 @@ export function init(config, services) {
 
   const activityQueue = queues('memberActivities');
 
-  Object.assign(members, Service({
-    knex: config.knex,
-    schema: 'reviewer',
-    queues,
-    bulkThreshold: 10,
-    logger: config.getLogConfig('svc', 'members'),
-    interfaces: {
-      getEventCountByUserUid: getEventCountByUserUid.bind(null, services),
-      getUsersByUid: getUsersByUid.bind(null, services),
-      getUserByEmail: getUserByEmail.bind(null, services),
-      getAgendasByUid: getAgendasByUid.bind(null, services),
-      onCreate: onCreate.bind(null, { services, config, activityQueue }),
-      onRemove: onRemove({ services, members, activityQueue }),
-      onPatch: onPatch.bind(null, { services, config, activityQueue }),
-    },
-  }));
+  Object.assign(
+    members,
+    Service({
+      knex: config.knex,
+      schema: 'reviewer',
+      queues,
+      bulkThreshold: 10,
+      logger: config.getLogConfig('svc', 'members'),
+      interfaces: {
+        getEventCountByUserUid: getEventCountByUserUid.bind(null, services),
+        getUsersByUid: getUsersByUid.bind(null, services),
+        getUserByEmail: getUserByEmail.bind(null, services),
+        getAgendasByUid: getAgendasByUid.bind(null, services),
+        onCreate: onCreate.bind(null, { services, config, activityQueue }),
+        onRemove: onRemove({ services, members, activityQueue }),
+        onPatch: onPatch.bind(null, { services, config, activityQueue }),
+      },
+    }),
+  );
 
-  const {
-    task: activityTask,
-  } = activitiesTask({ queue: activityQueue });
+  const { task: activityTask } = activitiesTask({ queue: activityQueue });
 
   members.utils.listAllAdminMods = listAllAdminMods(members);
 

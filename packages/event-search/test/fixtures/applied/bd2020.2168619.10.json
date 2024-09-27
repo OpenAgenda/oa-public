@@ -345,9 +345,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "https://mediatheque.caba.fr/"
-      ],
+      "registration": ["https://mediatheque.caba.fr/"],
       "location": {
         "uid": 84252639,
         "slug": "mediatheque-du-bassin-daurillac844",
@@ -518,9 +516,7 @@
         "min": 18,
         "max": 99
       },
-      "registration": [
-        "contact@domaine-mauler.fr"
-      ],
+      "registration": ["contact@domaine-mauler.fr"],
       "location": {
         "uid": 13492070,
         "slug": "salle-des-fetes244",
@@ -646,10 +642,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "06.23.32.71.39",
-        "animation.stedl@gmail.com"
-      ],
+      "registration": ["06.23.32.71.39", "animation.stedl@gmail.com"],
       "location": {
         "uid": 19486464,
         "slug": "mairie-de-saint-etienne-de-lugdares",
@@ -772,10 +765,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "06.23.32.71.39",
-        "animation.stedl@gmail.com"
-      ],
+      "registration": ["06.23.32.71.39", "animation.stedl@gmail.com"],
       "location": {
         "uid": 19486464,
         "slug": "mairie-de-saint-etienne-de-lugdares",
@@ -898,10 +888,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "animation.stedl@gmail.com",
-        "06.23.32.71.39"
-      ],
+      "registration": ["animation.stedl@gmail.com", "06.23.32.71.39"],
       "location": {
         "uid": 19486464,
         "slug": "mairie-de-saint-etienne-de-lugdares",
@@ -1027,10 +1014,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "animation.stedl@gmail.com",
-        "06.23.32.71.39"
-      ],
+      "registration": ["animation.stedl@gmail.com", "06.23.32.71.39"],
       "location": {
         "uid": 19486464,
         "slug": "mairie-de-saint-etienne-de-lugdares",
@@ -1153,10 +1137,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "06.23.32.71.39",
-        "animation.stedl@gmail.com"
-      ],
+      "registration": ["06.23.32.71.39", "animation.stedl@gmail.com"],
       "location": {
         "uid": 19486464,
         "slug": "mairie-de-saint-etienne-de-lugdares",
@@ -1296,9 +1277,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 78 39 45 04"
-      ],
+      "registration": ["04 78 39 45 04"],
       "location": {
         "uid": 22299570,
         "slug": "librairie-la-bande-dessinee",
@@ -1448,9 +1427,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "librairie@lavirevolte.com"
-      ],
+      "registration": ["librairie@lavirevolte.com"],
       "location": {
         "uid": 25409839,
         "slug": "librairie-la-virevolte",

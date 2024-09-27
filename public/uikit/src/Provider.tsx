@@ -6,8 +6,8 @@ import defaultTheme from './theme';
 import { defaultCache } from './cache';
 
 type UIKitProviderProps = React.PropsWithChildren<{
-  theme?: Dict
-  cache?: EmotionCache
+  theme?: Dict;
+  cache?: EmotionCache;
 }>;
 
 export default function UIKitProvider({
@@ -17,9 +17,7 @@ export default function UIKitProvider({
 }: UIKitProviderProps) {
   return (
     <CacheProvider value={cache}>
-      <ChakraProvider theme={theme}>
-        {children}
-      </ChakraProvider>
+      <ChakraProvider theme={theme}>{children}</ChakraProvider>
     </CacheProvider>
   );
 }

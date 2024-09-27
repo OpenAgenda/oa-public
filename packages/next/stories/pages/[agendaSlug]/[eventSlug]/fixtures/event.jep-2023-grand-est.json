@@ -37,9 +37,7 @@
     "fr": "Visite libre des riches vitraux d'une église 🇩🇪"
   },
   "types-devenement": 10,
-  "theme": [
-    16
-  ],
+  "theme": [16],
   "image": {
     "filename": "a6ed275f25df440b8da0ff82c9684cfe.base.image.jpg",
     "size": {
@@ -79,9 +77,7 @@
       "fr": "Parking devant l'édifice, accès handicapés.",
       "es": "Aparcamiento delante del edificio, acceso para discapacitados."
     },
-    "types-de-lieu": [
-      3
-    ],
+    "types-de-lieu": [3],
     "city": "Rittershoffen",
     "timezone": "Europe/Paris",
     "postalCode": "67690",
@@ -141,9 +137,7 @@
   "longDescription": {
     "fr": "Visitez librement cette église et découvrez ses riches vitraux. Des dépliants explicatifs gratuits sont à disposition en Français, Allemand, Anglais et Italien."
   },
-  "conditions-de-participation": [
-    12
-  ],
+  "conditions-de-participation": [12],
   "type-de-public": 40,
   "conditions": {},
   "registration": [],

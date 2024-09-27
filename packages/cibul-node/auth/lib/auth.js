@@ -14,7 +14,11 @@ import loadCaptcha from './captcha.js';
 const log = logs('auth/lib/auth');
 const getLabel = makeLabelGetter(labels);
 const emailValidator = EmailValidator();
-const loadAgenda = agendaSvc.mw.load('slug', { basicLoad: true, cache: true, required: false });
+const loadAgenda = agendaSvc.mw.load('slug', {
+  basicLoad: true,
+  cache: true,
+  required: false,
+});
 
 const authenticateFields = {
   facebook: 'facebookUid',
@@ -68,8 +72,13 @@ function serviceCreate(fieldName, activate = false) {
 
     const { services } = values.req.app;
 
-    services.users.create(createData, { detailed: true, tokenOptionals: optionals, optionals })
-      .then(user => {
+    services.users
+      .create(createData, {
+        detailed: true,
+        tokenOptionals: optionals,
+        optionals,
+      })
+      .then((user) => {
         if (user) {
           log('user successfully created');
         }
@@ -80,7 +89,7 @@ function serviceCreate(fieldName, activate = false) {
           service: { [fieldName]: data.id },
         };
       })
-      .then(values2 => cb(null, values2.user, values2), cb);
+      .then((values2) => cb(null, values2.user, values2), cb);
   };
 }
 
@@ -94,14 +103,15 @@ function serviceAuthenticate(fieldName) {
 
     const { services } = _values.req.app;
 
-    services.users.findOne({
-      query: { [fieldName]: id },
-      detailed: true,
-    })
-      .then(user => {
+    services.users
+      .findOne({
+        query: { [fieldName]: id },
+        detailed: true,
+      })
+      .then((user) => {
         values.user = user;
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.name !== 'NotFound') {
           log('error', err);
         }
@@ -123,10 +133,7 @@ function serviceAuthenticate(fieldName) {
 
         return values;
       })
-      .then(
-        () => cb(null, values.user, values),
-        cb,
-      );
+      .then(() => cb(null, values.user, values), cb);
   };
 }
 
@@ -162,11 +169,13 @@ export function signin(values) {
 
     let redirectUrl;
 
-    services.users.refresh(user.uid, {
-      lastSignin: true,
-    }).catch(err2 => {
-      req.log.error({ message: 'could not refresh lastSignin', error: err2 });
-    });
+    services.users
+      .refresh(user.uid, {
+        lastSignin: true,
+      })
+      .catch((err2) => {
+        req.log.error({ message: 'could not refresh lastSignin', error: err2 });
+      });
 
     if (req.query.redirect) {
       try {
@@ -197,7 +206,7 @@ export function signin(values) {
 }
 
 export function ifUnresolved(cb) {
-  return values => {
+  return (values) => {
     if (!values.resolved) {
       return cb(values);
     }
@@ -206,7 +215,7 @@ export function ifUnresolved(cb) {
 }
 
 export function ifUserActivated(expected, cb) {
-  return values => {
+  return (values) => {
     if (!!values.user.isActivated === expected) {
       return cb(values);
     }
@@ -215,7 +224,7 @@ export function ifUserActivated(expected, cb) {
 }
 
 export function ifUserLoaded(loaded, cb) {
-  return values => {
+  return (values) => {
     if (!!values.user === loaded) {
       return cb(values);
     }
@@ -243,7 +252,10 @@ async function errorExistingEmail(values) {
   values.req.log.debug('checking if account with same email exists');
 
   if (values?.data?.errors?.email) {
-    values.req.log.debug('an account exists with email: %s', JSON.stringify(values.profile));
+    values.req.log.debug(
+      'an account exists with email: %s',
+      JSON.stringify(values.profile),
+    );
 
     delete values.data.errors.email;
 
@@ -266,11 +278,14 @@ export function redirectToComplete(values) {
     res = '/signup/complete';
   }
 
-  values.res.redirect(302, `${res}?${qs.stringify({
-    ...loadOptionals(values.req),
-    email: values.user.email,
-    ...values.req.agenda ? { slug: values.req.agenda.slug } : {},
-  })}`);
+  values.res.redirect(
+    302,
+    `${res}?${qs.stringify({
+      ...loadOptionals(values.req),
+      email: values.user.email,
+      ...values.req.agenda ? { slug: values.req.agenda.slug } : {},
+    })}`,
+  );
 
   values.resolved = true;
 
@@ -303,7 +318,7 @@ export function fullNameFromEmail(emailInput) {
 
   const name = parts[0]
     .split(/[._]/g)
-    .map(s => s[0].toUpperCase() + s.substr(1))
+    .map((s) => s[0].toUpperCase() + s.substr(1))
     .join(' ');
 
   const at = (parts[1][0].toUpperCase() + parts[1].substr(1)).split('.')[0];
@@ -316,7 +331,10 @@ export function done(values) {
 }
 
 function saveOptionals(req, res, additionals) {
-  cmn.writeToCookie(req, res, 'signin-optionals', { ...loadOptionals(req), ...additionals });
+  cmn.writeToCookie(req, res, 'signin-optionals', {
+    ...loadOptionals(req),
+    ...additionals,
+  });
 }
 
 function restoreOptionals(req, res) {
@@ -351,7 +369,7 @@ function serviceCallback(cb) {
 }
 
 function _pLoadCaptcha(v) {
-  return w.promise(rs => {
+  return w.promise((rs) => {
     loadCaptcha(v.req, v.res, () => {
       rs(v);
     });
@@ -387,7 +405,11 @@ function init(service) {
   const create = serviceCreate(createFields[service]);
 
   function attemptAuth(values) {
-    values.req.log.debug('attempting authentication for %s with %s', service, JSON.stringify(values.profile));
+    values.req.log.debug(
+      'attempting authentication for %s with %s',
+      service,
+      JSON.stringify(values.profile),
+    );
 
     if (values.resolved) {
       values.req.log.debug('already resolved, returning values');
@@ -395,7 +417,7 @@ function init(service) {
       return values;
     }
 
-    return w.promise(resolve => {
+    return w.promise((resolve) => {
       if (!values.profile) {
         values.req.log.debug('profile is not set');
 
@@ -425,34 +447,50 @@ function init(service) {
 
   function attemptCreate(values) {
     if (!values.profile) {
-      values.req.log.debug('profile data is not in hand, aborting attemptCreate', {
-        service,
-        values,
-      });
+      values.req.log.debug(
+        'profile data is not in hand, aborting attemptCreate',
+        {
+          service,
+          values,
+        },
+      );
 
       if (!values.data) values.data = {};
 
-      values.data.message = getLabel('abortedAuth', { service }, values.req.lang);
+      values.data.message = getLabel(
+        'abortedAuth',
+        { service },
+        values.req.lang,
+      );
 
       return values;
     }
 
     if (service === 'facebook' && !values.profile.email) {
-      values.req.log.debug('profile email is not in hand, aborting attemptCreate', {
-        service,
-        values,
-      });
+      values.req.log.debug(
+        'profile email is not in hand, aborting attemptCreate',
+        {
+          service,
+          values,
+        },
+      );
 
       if (!values.data) values.data = {};
 
-      values.err = { message: getLabel('facebookEmailMissing', values.req.lang) };
+      values.err = {
+        message: getLabel('facebookEmailMissing', values.req.lang),
+      };
 
       return values;
     }
 
-    values.req.log.debug('%s attempting account creation with %s', service, JSON.stringify(values.profile));
+    values.req.log.debug(
+      '%s attempting account creation with %s',
+      service,
+      JSON.stringify(values.profile),
+    );
 
-    return w.promise(resolve => {
+    return w.promise((resolve) => {
       const options = loadOptionals(values.req);
 
       const fullName = values.profile.fullName.length
@@ -465,34 +503,39 @@ function init(service) {
         return resolve(values);
       }
 
-      create(values, {
-        id: values.profile.id,
-        email: values.profile.email,
-        fullName,
-        culture: values.req.lang,
-      }, options, (err, user, data) => {
-        if (err) values.err = err;
+      create(
+        values,
+        {
+          id: values.profile.id,
+          email: values.profile.email,
+          fullName,
+          culture: values.req.lang,
+        },
+        options,
+        (err, user, data) => {
+          if (err) values.err = err;
 
-        if (user) {
-          values.req.log.debug('account was created');
+          if (user) {
+            values.req.log.debug('account was created');
 
-          values.user = user;
-        } else {
-          values.req.log.debug('no account was created');
-        }
+            values.user = user;
+          } else {
+            values.req.log.debug('no account was created');
+          }
 
-        if (data) {
-          values.data = _.merge(values.data ? values.data : {}, data);
-        }
+          if (data) {
+            values.data = _.merge(values.data ? values.data : {}, data);
+          }
 
-        values.req.log.debug(
-          'creation attempt completed with user %s and data %s',
-          JSON.stringify(values.user),
-          JSON.stringify(values.data),
-        );
+          values.req.log.debug(
+            'creation attempt completed with user %s and data %s',
+            JSON.stringify(values.user),
+            JSON.stringify(values.data),
+          );
 
-        resolve(values);
-      });
+          resolve(values);
+        },
+      );
     });
   }
 
@@ -503,48 +546,72 @@ function init(service) {
 
   function process(authService, name) {
     return serviceCallback((req, res, next) => {
-      passport.authenticate(`${authService}-${name}`, {}, (err, profile, data) => {
-        w({
-          req,
-          res,
-          err,
-          profile,
-          data,
-        })
+      passport.authenticate(
+        `${authService}-${name}`,
+        {},
+        (err, profile, data) => {
+          w({
+            req,
+            res,
+            err,
+            profile,
+            data,
+          })
+            .then(attemptAuth)
 
-          .then(attemptAuth)
+            .then(ifUserLoaded(false, attemptCreate))
 
-          .then(ifUserLoaded(false, attemptCreate))
+            .then(ifUserLoaded(false, errorExistingEmail))
 
-          .then(ifUserLoaded(false, errorExistingEmail))
+            .then(
+              ifUnresolved(
+                ifUserLoaded(true, ifUserActivated(false, redirectToComplete)),
+              ),
+            )
 
-          .then(ifUnresolved(ifUserLoaded(true, ifUserActivated(false, redirectToComplete))))
+            .then(
+              ifUnresolved(ifUserLoaded(true, ifUserActivated(true, signin))),
+            )
 
-          .then(ifUnresolved(ifUserLoaded(true, ifUserActivated(true, signin))))
+            .then(ifUnresolved(ifUserLoaded(false, errorDefaultMessage)))
 
-          .then(ifUnresolved(ifUserLoaded(false, errorDefaultMessage)))
+            .then(
+              ifUnresolved(
+                ifUserLoaded(
+                  false,
+                  name === 'signup' ? _pLoadCaptcha : (v) => v,
+                ),
+              ),
+            )
 
-          .then(ifUnresolved(ifUserLoaded(false, name === 'signup' ? _pLoadCaptcha : v => v)))
+            .then(
+              ifUnresolved(
+                ifUserLoaded(
+                  false,
+                  name === 'signup' ? renderSignup : renderSignin,
+                ),
+              ),
+            )
 
-          .then(ifUnresolved(ifUserLoaded(false, name === 'signup' ? renderSignup : renderSignin)))
-
-          .done(done, cmn.catchError(req, res));
-      })(req, res, next);
+            .done(done, cmn.catchError(req, res));
+        },
+      )(req, res, next);
     });
   }
 
-  return _.merge({
-    create,
-    authenticate,
-    attemptAuth,
-    attemptCreate,
-    process,
-    errors: {},
-  }, exposed);
+  return _.merge(
+    {
+      create,
+      authenticate,
+      attemptAuth,
+      attemptCreate,
+      process,
+      errors: {},
+    },
+    exposed,
+  );
 }
 
 export default init;
 
-export {
-  loadOptionals,
-};
+export { loadOptionals };

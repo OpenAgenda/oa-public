@@ -18,7 +18,7 @@ export function init(config, services) {
     queues: services.queues,
     logger: config.getLogConfig('svc', 'aggregators'),
     interfaces: {
-      getMergedSchema: agendaUid =>
+      getMergedSchema: (agendaUid) =>
         services.core.agendas(agendaUid).settings.schema.getMerged(),
       updateSourcePaths: ({
         aggregatorAgendaUid,
@@ -139,7 +139,7 @@ export function init(config, services) {
         services
           .agendaEvents(agendaUid)
           .get(eventUid)
-          .then(ae =>
+          .then((ae) =>
             (ae
               ? {
                 sourcePaths: ae.sourcePaths,
@@ -160,7 +160,7 @@ export function init(config, services) {
           .events.get(eventUid, { detailed: true }),
       getAgendasByUids: (agendaUids, options = {}) => {
         const query = ['search', 'slug']
-          .filter(k => !!options[k])
+          .filter((k) => !!options[k])
           .reduce((q, k) => ({ ...q, [k]: options[k] }), { uid: agendaUids });
 
         log('getting agendas for %j', query);
@@ -172,7 +172,7 @@ export function init(config, services) {
             useDefaultImage: true,
           })
           .then(({ agendas }) =>
-            agendas.map(a =>
+            agendas.map((a) =>
               _.pick(a, [
                 'id',
                 'uid',
@@ -184,7 +184,7 @@ export function init(config, services) {
                 'updatedAt',
               ])));
       },
-      getAggregatedCount: agendaUid =>
+      getAggregatedCount: (agendaUid) =>
         services.agendaEvents(agendaUid).getAggregatedCount(),
       onAddSource: ({ aggregatorAgenda, sourceAgenda }, { user, member }) => {
         onAddSource(services, {
@@ -211,7 +211,7 @@ export function init(config, services) {
   return {
     plugApp: plugApp.bind(null, config),
     ...aggregators,
-    shutdown: async options => {
+    shutdown: async (options) => {
       if (!task) return;
       return options.clear ? task.stopAndClear() : task.stop();
     },

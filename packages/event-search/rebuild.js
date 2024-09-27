@@ -19,10 +19,7 @@ module.exports = async function rebuild(config, set, options = {}) {
   let lastId = 0;
   let error = null;
 
-  const {
-    client,
-    defaultIndex,
-  } = config;
+  const { client, defaultIndex } = config;
 
   const {
     eventsList = null,
@@ -35,7 +32,7 @@ module.exports = async function rebuild(config, set, options = {}) {
 
   const index = getIndexName(set, defaultIndex);
 
-  if (!await client.indices.exists({ index }).then(r => r.body)) {
+  if (!await client.indices.exists({ index }).then((r) => r.body)) {
     log('creating index', index);
     await client.indices.create({
       index,
@@ -66,43 +63,52 @@ module.exports = async function rebuild(config, set, options = {}) {
 
   try {
     do {
-      const {
-        lastId: nextLastId,
-        events,
-      } = await eventsList(lastId, limit);
+      const { lastId: nextLastId, events } = await eventsList(lastId, limit);
 
       log('bulk indexing %s events from %s', events.length, lastId);
 
       if (events.length) {
-        const r = await client.bulk({
-          index,
-          body: events.reduce((bulkOperations, event) => {
-            try {
-              return bulkOperations.concat([{
-                index: {
-                  _id: getDocumentId(set, event.uid),
-                  routing: set,
-                },
-              }, {
-                ...formatEvent(event, { formSchema }),
-                _build: build,
-                _set: set,
-              }]);
-            } catch (e) {
-              counts.errored += 1;
-              log('error', 'event %s could not be formatted', event.uid, e);
-              return bulkOperations;
-            }
-          }, []),
-        }).then(({ body }) => body);
+        const r = await client
+          .bulk({
+            index,
+            body: events.reduce((bulkOperations, event) => {
+              try {
+                return bulkOperations.concat([
+                  {
+                    index: {
+                      _id: getDocumentId(set, event.uid),
+                      routing: set,
+                    },
+                  },
+                  {
+                    ...formatEvent(event, { formSchema }),
+                    _build: build,
+                    _set: set,
+                  },
+                ]);
+              } catch (e) {
+                counts.errored += 1;
+                log('error', 'event %s could not be formatted', event.uid, e);
+                return bulkOperations;
+              }
+            }, []),
+          })
+          .then(({ body }) => body);
 
         if (r.errors) {
-          log('error', r.items.map(i => i.index.error));
+          log(
+            'error',
+            r.items.map((i) => i.index.error),
+          );
           throw new Error('bulk index failed');
         }
 
-        counts.created += r.items.filter(i => i.index.result === 'created').length;
-        counts.updated += r.items.filter(i => i.index.result === 'updated').length;
+        counts.created += r.items.filter(
+          (i) => i.index.result === 'created',
+        ).length;
+        counts.updated += r.items.filter(
+          (i) => i.index.result === 'updated',
+        ).length;
       }
 
       if (nextLastId === -1) {
@@ -112,7 +118,9 @@ module.exports = async function rebuild(config, set, options = {}) {
       }
     } while (hasMore);
 
-    operations.push(`indexed ${counts.updated + counts.created} events, ${counts.updated} updated, ${counts.created} created, ${counts.errored} errored`);
+    operations.push(
+      `indexed ${counts.updated + counts.created} events, ${counts.updated} updated, ${counts.created} created, ${counts.errored} errored`,
+    );
   } catch (e) {
     log('error', e);
     error = e;
@@ -121,26 +129,28 @@ module.exports = async function rebuild(config, set, options = {}) {
 
   await client.indices.refresh({ index });
 
-  counts.deleted = await client.deleteByQuery({
-    index,
-    refresh: true,
-    body: {
-      query: {
-        bool: {
-          must_not: {
-            term: {
-              _build: build,
+  counts.deleted = await client
+    .deleteByQuery({
+      index,
+      refresh: true,
+      body: {
+        query: {
+          bool: {
+            must_not: {
+              term: {
+                _build: build,
+              },
             },
-          },
-          filter: {
-            term: {
-              _set: set,
+            filter: {
+              term: {
+                _set: set,
+              },
             },
           },
         },
       },
-    },
-  }).then(r => r.body.deleted);
+    })
+    .then((r) => r.body.deleted);
 
   operations.push(`deleted ${counts.deleted} events from previous builds`);
 

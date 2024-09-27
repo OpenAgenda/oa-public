@@ -3,10 +3,7 @@
 const Files = require('@openagenda/files');
 
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 const fixtures = require('./fixtures');
 
 // const payload = require('./fixtures/mergeData.json');
@@ -53,13 +50,13 @@ describe('agenda-locations - functional - merge', () => {
       knex: f.client,
       Files: Files(dConfig.files),
       interfaces: {
-        getAgendaDetailsByUid: async uid => ({
+        getAgendaDetailsByUid: async (uid) => ({
           id: {
             7196947: 25221,
           }[uid],
         }),
         beforeMerge: async (_mergeIn, _merged) => {},
-        getAgendaLocationSettings: async _uid => initSettingsDA,
+        getAgendaLocationSettings: async (_uid) => initSettingsDA,
       },
     });
   });
@@ -70,7 +67,7 @@ describe('agenda-locations - functional - merge', () => {
         .client('location')
         .count()
         .where('deleted', 0)
-        .then(r => r[0]['count(*)']);
+        .then((r) => r[0]['count(*)']);
     });
 
     beforeAll(async () => {
@@ -90,7 +87,7 @@ describe('agenda-locations - functional - merge', () => {
         .client('location')
         .count()
         .where('deleted', 0)
-        .then(r => r[0]['count(*)']);
+        .then((r) => r[0]['count(*)']);
 
       expect(afterCount).toEqual(beforeCount - 2);
     });
@@ -102,7 +99,7 @@ describe('agenda-locations - functional - merge', () => {
         .client('location')
         .count()
         .where('deleted', 0)
-        .then(r => r[0]['count(*)']);
+        .then((r) => r[0]['count(*)']);
     });
 
     beforeAll(async () => {
@@ -122,7 +119,7 @@ describe('agenda-locations - functional - merge', () => {
         .client('location')
         .count()
         .where('deleted', 0)
-        .then(r => r[0]['count(*)']);
+        .then((r) => r[0]['count(*)']);
 
       expect(afterCount).toEqual(beforeCount - 2);
     });
@@ -132,7 +129,7 @@ describe('agenda-locations - functional - merge', () => {
         .client('location')
         .first('merged_in')
         .where('uid', 13470871)
-        .then(r => r);
+        .then((r) => r);
       expect(mergedInObj.merged_in).toEqual(95301591);
     });
   });
@@ -143,7 +140,7 @@ describe('agenda-locations - functional - merge', () => {
         .client('location')
         .count()
         .where('deleted', 0)
-        .then(r => r[0]['count(*)']);
+        .then((r) => r[0]['count(*)']);
     });
 
     beforeAll(async () => {
@@ -167,7 +164,7 @@ describe('agenda-locations - functional - merge', () => {
         .client('location')
         .count()
         .where('deleted', 0)
-        .then(r => r[0]['count(*)']);
+        .then((r) => r[0]['count(*)']);
 
       expect(afterCount).toEqual(beforeCount - 2);
     });
@@ -186,13 +183,13 @@ describe('agenda-locations - functional - merge - no rights', () => {
       knex: f.client,
       Files: Files(dConfig.files),
       interfaces: {
-        getAgendaDetailsByUid: async uid => ({
+        getAgendaDetailsByUid: async (uid) => ({
           id: {
             7196947: 25221,
           }[uid],
         }),
         beforeMerge: async (_mergeIn, _merged) => {},
-        getAgendaLocationSettings: async _uid => initSettingsCantMerge,
+        getAgendaLocationSettings: async (_uid) => initSettingsCantMerge,
       },
     });
   });
@@ -253,13 +250,13 @@ describe('agenda-locations - functional - merge - duplicates', () => {
       knex: f.client,
       Files: Files(dConfig.files),
       interfaces: {
-        getAgendaDetailsByUid: async uid => ({
+        getAgendaDetailsByUid: async (uid) => ({
           id: {
             7196947: 30907,
           }[uid],
         }),
         beforeMerge: async (_mergeIn, _merged) => {},
-        getAgendaLocationSettings: async _uid => initSettings,
+        getAgendaLocationSettings: async (_uid) => initSettings,
       },
     });
   });
@@ -273,8 +270,7 @@ describe('agenda-locations - functional - merge - duplicates', () => {
     });
 
     it('clean duplicates candidata of merge Target', async () => {
-      const target = await f.client('location').first()
-        .where('uid', 52174054);
+      const target = await f.client('location').first().where('uid', 52174054);
       expect(target.duplicate_candidates).toBeNull();
       expect(target.duplicate_disqualified).toBeNull();
     });

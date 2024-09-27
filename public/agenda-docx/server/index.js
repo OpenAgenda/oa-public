@@ -18,11 +18,7 @@ function getState({ s3 }, agendaUid) {
 }
 
 module.exports = function AgendaDocx(options = {}) {
-  const {
-    queue,
-    localTmpPath,
-    s3,
-  } = options;
+  const { queue, localTmpPath, s3 } = options;
 
   if (options.logger) {
     logger.setModuleConfig(options.logger);

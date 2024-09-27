@@ -12,7 +12,7 @@ module.exports = async ({ queue, knex }, action, data) => {
 
   const aggregatorsBuffer = (
     await getSourceAndAggregatorPairs(knex, agenda)
-  ).map(ag => {
+  ).map((ag) => {
     if (action === 'evaluateEvent') {
       return {
         aggregatorLimit: ag.limit === null ? DEFAULT_LIMIT : ag.limit,

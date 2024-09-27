@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { useLatest } from 'react-use';
 import { useIntl, defineMessages } from 'react-intl';
 import { DateRangePicker } from 'react-date-range';
@@ -25,9 +25,10 @@ export default function RangeModal({ initialValues, onSubmit, onClose }) {
   const intl = useIntl();
 
   const { staticRanges, inputRanges } = useMemo(() => dateRanges(intl), [intl]);
-  const [ranges, setRanges] = useState(() => (Array.isArray(initialValues.range)
-    ? initialValues.range
-    : [initialValues.range]));
+  const [ranges, setRanges] = useState(() =>
+    (Array.isArray(initialValues.range)
+      ? initialValues.range
+      : [initialValues.range]));
   const latestRange = useLatest(ranges);
   const [submitting, setSubmitting] = useState(false);
 
@@ -44,8 +45,8 @@ export default function RangeModal({ initialValues, onSubmit, onClose }) {
   }, [latestRange, onClose, onSubmit]);
 
   const onChange = useCallback(
-    item => setRanges([item?.selection ? item.selection : item.range1]),
-    []
+    (item) => setRanges([item?.selection ? item.selection : item.range1]),
+    [],
   );
 
   return (

@@ -13,7 +13,8 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        http.get('/locations', () => HttpResponse.json({ success: true, total: 0, items: [] })),
+        http.get('/locations', () =>
+          HttpResponse.json({ success: true, total: 0, items: [] })),
         http.get('/events', mswEventsMiddleware),
       ],
     },
@@ -53,8 +54,9 @@ export const FormWithAdditionalFields = () => {
 
   const schemaWithoutInternals = {
     ...schema,
-    fields: schema.fields
-      .filter(field => ![].concat(field.write).includes('internal')),
+    fields: schema.fields.filter(
+      (field) => ![].concat(field.write).includes('internal'),
+    ),
   };
 
   return (
@@ -82,14 +84,17 @@ export const FormWithEventsTypeAdditionalFields = () => {
 
   const schemaWithEventsField = {
     ...schema,
-    fields: [{
-      fieldType: 'events',
-      field: 'subEvents',
-      label: 'Sub events',
-      res: '/events',
-    }].concat(
-      schema.fields
-        .filter(field => ![].concat(field.write).includes('internal')),
+    fields: [
+      {
+        fieldType: 'events',
+        field: 'subEvents',
+        label: 'Sub events',
+        res: '/events',
+      },
+    ].concat(
+      schema.fields.filter(
+        (field) => ![].concat(field.write).includes('internal'),
+      ),
     ),
   };
 

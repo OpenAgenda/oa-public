@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
-module.exports = require( '../client/src/iso/getSchema' );
+module.exports = require('../client/src/iso/getSchema');

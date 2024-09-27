@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@openagenda/labels": "^2.3.0",
+    "@openagenda/md": "^1.0.0",
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.1.0",
     "express": "^4.17.1",

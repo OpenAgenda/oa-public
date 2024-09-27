@@ -1,6 +1,8 @@
-"use strict";
+'use strict';
 
 module.exports = [
-  'userPublic', 'userPrivate', 'agendaPrivate',
-  'agendaFullRead'
+  'userPublic',
+  'userPrivate',
+  'agendaPrivate',
+  'agendaFullRead',
 ];

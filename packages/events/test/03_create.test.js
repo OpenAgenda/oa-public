@@ -63,7 +63,7 @@ describe('events - functional - create', () => {
         .client('event_2')
         .first(['title'])
         .where('uid', created.uid)
-        .then(r => r.title);
+        .then((r) => r.title);
 
       expect(title).toBe('{"en":"An event"}');
     });
@@ -86,7 +86,7 @@ describe('events - functional - create', () => {
 
     beforeAll(
       () =>
-        new Promise(done => {
+        new Promise((done) => {
           fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
             .pipe(fs.createWriteStream('/tmp/dog.png'))
             .on('close', done);
@@ -95,7 +95,7 @@ describe('events - functional - create', () => {
 
     beforeAll(
       () =>
-        new Promise(done => {
+        new Promise((done) => {
           fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
             .pipe(fs.createWriteStream('/tmp/notanimage.txt'))
             .on('close', done);
@@ -128,7 +128,7 @@ describe('events - functional - create', () => {
       expect(
         await fetch(`https:${config.imagePath}${created.image.filename}`, {
           method: 'HEAD',
-        }).then(r => r.status),
+        }).then((r) => r.status),
       ).toBe(200);
     });
 
@@ -147,7 +147,7 @@ describe('events - functional - create', () => {
           ],
           image: fs.createReadStream('/tmp/notanimage.txt'),
         })
-        .catch(e => e);
+        .catch((e) => e);
 
       expect(error instanceof ValidationError).toBeTruthy();
     });
@@ -197,7 +197,7 @@ describe('events - functional - create', () => {
         })
         .then(
           () => {},
-          e => e,
+          (e) => e,
         );
 
       expect(error.name).toBe('ValidationError');
@@ -219,7 +219,7 @@ describe('events - functional - create', () => {
     });
 
     it('image can be passed through a local file path, deleted after upload', () =>
-      new Promise(done => {
+      new Promise((done) => {
         fs.copyFile(
           `${__dirname}/fixtures/images/dog.png`,
           TMP_IMG_PATH,
@@ -330,7 +330,7 @@ describe('events - functional - create', () => {
             },
           ],
         })
-        .catch(e => e);
+        .catch((e) => e);
 
       expect(error instanceof ValidationError).toBe(true);
     });
@@ -398,7 +398,7 @@ describe('events - functional - create', () => {
         .client('event_2')
         .first(['private'])
         .where('uid', event.uid)
-        .then(r => r.private);
+        .then((r) => r.private);
 
       expect(isPrivate).toBeTruthy();
     });
@@ -410,7 +410,7 @@ describe('events - functional - create', () => {
         .client('event_2')
         .first(['file_key'])
         .where('uid', event.uid)
-        .then(r => r.file_key);
+        .then((r) => r.file_key);
 
       expect(fileKey.length).toBe(32);
     });
@@ -422,7 +422,7 @@ describe('events - functional - create', () => {
         .client('event_2')
         .first(['file_key'])
         .where('uid', event.uid)
-        .then(r => r.file_key);
+        .then((r) => r.file_key);
 
       expect(fileKey).toBe('blaireau');
     });
@@ -469,7 +469,7 @@ describe('events - functional - create', () => {
         .client('event_2')
         .first('registration')
         .where('uid', event.uid)
-        .then(r => JSON.parse(r.registration));
+        .then((r) => JSON.parse(r.registration));
 
       expect(parsedRegistrationColValue).toEqual([
         {
@@ -492,7 +492,7 @@ describe('events - functional - create', () => {
           .client('event_2')
           .first('long_description')
           .where('uid', event.uid)
-          .then(r => JSON.parse(r.long_description).en),
+          .then((r) => JSON.parse(r.long_description).en),
       ).toBe('**This should not be HTML**');
     });
 
@@ -509,7 +509,7 @@ describe('events - functional - create', () => {
           .client('event_2')
           .first('description')
           .where('uid', event.uid)
-          .then(r => JSON.parse(r.description).en),
+          .then((r) => JSON.parse(r.description).en),
       ).toBe('**This should not be HTML**');
     });
 
@@ -526,7 +526,7 @@ describe('events - functional - create', () => {
           .client('event_2')
           .first('description')
           .where('uid', event.uid)
-          .then(r => JSON.parse(r.description).en),
+          .then((r) => JSON.parse(r.description).en),
       ).toBe('There should not be any new lines');
     });
 
@@ -538,14 +538,14 @@ describe('events - functional - create', () => {
           },
           { draft: true },
         )
-        .catch(e => e);
+        .catch((e) => e);
 
       expect(error instanceof ValidationError).toBeTruthy();
       expect(error.detail[0].code).toBe('timezone.invalid');
     });
 
     it('provided context is passed to interface call', () =>
-      new Promise(done => {
+      new Promise((done) => {
         const onCreate = (_, context) => {
           expect(context.agendaUid).toBe(123);
           done();
@@ -606,7 +606,7 @@ describe('events - functional - create', () => {
         knex: f.client,
         interfaces: {
           onCreate: async () => {
-            await new Promise(rs => setTimeout(rs, 10));
+            await new Promise((rs) => setTimeout(rs, 10));
             calledOnCreate = true;
           },
         },

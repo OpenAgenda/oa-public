@@ -9,10 +9,7 @@ import MapFilter from './filters/MapFilter';
 import CustomFilter from './filters/CustomFilter';
 import FavoritesFilter from './filters/FavoritesFilter';
 
-export default function ActiveFilters({
-  filters,
-  ...rest
-}) {
+export default function ActiveFilters({ filters, ...rest }) {
   const activeFilters = useActiveFilters(filters);
 
   return (

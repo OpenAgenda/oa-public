@@ -132,10 +132,6 @@ module.exports = (env = {}, argv = {}) => {
       new ProgressBar({ basic: false }),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify({ NODE_ENV: envName }),
-        __CLIENT__: true,
-        __SERVER__: false,
-        __DEVELOPMENT__: envName === 'development',
-        __DEVTOOLS__: envName === 'development',
       }),
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],

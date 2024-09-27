@@ -9,15 +9,16 @@ module.exports.formatDSL = (query, options = {}) => ({
   },
 });
 
-module.exports.formatResult = ({ buckets }) => buckets.map(bucket => {
-  const location = inflate(bucket.key);
+module.exports.formatResult = ({ buckets }) =>
+  buckets.map((bucket) => {
+    const location = inflate(bucket.key);
 
-  const key = location.uid;
-  location.uid = parseInt(location.uid, 10);
+    const key = location.uid;
+    location.uid = parseInt(location.uid, 10);
 
-  return {
-    key,
-    location,
-    eventCount: bucket.doc_count,
-  };
-});
+    return {
+      key,
+      location,
+      eventCount: bucket.doc_count,
+    };
+  });

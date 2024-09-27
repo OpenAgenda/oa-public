@@ -8,7 +8,7 @@ function isOutdatedBrowser(userAgent, opts = {}) {
     ignorePatch: true,
     allowHigherVersions: true,
     ...opts,
-  })
+  });
 }
 
 module.exports = function outdatedBrowserMw(req, res, next) {
@@ -25,6 +25,6 @@ module.exports = function outdatedBrowserMw(req, res, next) {
   if (typeof next === 'function') {
     next();
   }
-}
+};
 
 module.exports.isOutdatedBrowser = isOutdatedBrowser;

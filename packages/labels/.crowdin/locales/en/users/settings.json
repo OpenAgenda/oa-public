@@ -51,5 +51,6 @@
   "emails": "Emails",
   "allNotifications": "All notifications",
   "chooseEmailsSent": "Choose the emails that OpenAgenda sends me",
-  "filterInputPlaceholder": "Search an agenda"
+  "filterInputPlaceholder": "Search an agenda",
+  "generate": "Generate"
 }

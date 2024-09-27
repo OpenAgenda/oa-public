@@ -22,24 +22,27 @@ export default function useEventsQuery({
       // add the cursor to the API endpoint
       return ['AgendaShow', 'events', agenda.slug, query, pageIndex];
     },
-    ([_page, _requestId, _slug, _query, pageIndex]) => getEvents(
-      null, // apiClient
-      `/api/agendas/slug/${agenda.slug}/events`,
-      agenda,
-      pageIndex === 0 ? filters : [], // need aggs only for first page
-      {
-        sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
-        size: pageSize,
-        ...upcomingOnly ? {
-          relative: ['current', 'upcoming'],
-        } : null,
-        ...query,
-        from: pageIndex * 10,
-        passed: undefined, // omit passed
-        includeFields,
-        includeImageTimestamps: true,
-      },
-    ),
+    ([_page, _requestId, _slug, _query, pageIndex]) =>
+      getEvents(
+        null, // apiClient
+        `/api/agendas/slug/${agenda.slug}/events`,
+        agenda,
+        pageIndex === 0 ? filters : [], // need aggs only for first page
+        {
+          sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+          size: pageSize,
+          ...upcomingOnly
+            ? {
+              relative: ['current', 'upcoming'],
+            }
+            : null,
+          ...query,
+          from: pageIndex * pageSize,
+          passed: undefined, // omit passed
+          includeFields,
+          includeImageTimestamps: true,
+        },
+      ),
     {
       suspense,
       keepPreviousData: true,

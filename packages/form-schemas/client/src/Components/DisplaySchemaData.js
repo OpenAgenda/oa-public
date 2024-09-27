@@ -16,11 +16,8 @@ export default function DisplaySchemaData({
   useEffect(() => {
     if (!res) return;
 
-    fetch(res).then(response => {
-      response.json().then(({
-        schema: schemaFromRes,
-        data: dataFromRes,
-      }) => {
+    fetch(res).then((response) => {
+      response.json().then(({ schema: schemaFromRes, data: dataFromRes }) => {
         setSchema(schemaFromRes);
         setData(dataFromRes);
         setIsLoading(false);
@@ -34,14 +31,16 @@ export default function DisplaySchemaData({
 
   return (
     <ul className="list-unstyled">
-      {schema.fields.map(field => {
+      {schema.fields.map((field) => {
         const { label } = flatten(field, lang);
         const value = data?.[field.field];
 
         if (field.fieldType === 'link') {
           return (
             <li className="margin-bottom-xs" key={`value-${field.field}`}>
-              <a rel="noreferrer" href={value} target="_blank">{label}</a>
+              <a rel="noreferrer" href={value} target="_blank">
+                {label}
+              </a>
             </li>
           );
         }

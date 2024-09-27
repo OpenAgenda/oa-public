@@ -1,58 +1,56 @@
-"use strict";
+'use strict';
 
-const knex = require( 'knex' );
-const _ = require( 'lodash' );
-const mysql = require( 'mysql' );
-const { promisify } = require( 'util' );
+const { promisify } = require('node:util');
+const knex = require('knex');
+const _ = require('lodash');
+const mysql = require('mysql');
 
-const Service = require( '..' );
-const config = require( '../testconfig' );
-const fixtures = require( './fixtures' );
+const Service = require('..');
+const config = require('../testconfig');
+const fixtures = require('./fixtures');
 
-describe( 'network - functional ( server ): get', function() {
+describe('network - functional ( server ): get', () => {
+  let k;
+  let svc;
 
-  let k, svc;
+  beforeAll(async () => {
+    const con = mysql.createConnection(
+      _.extend(_.pick(config.mysql, ['user', 'password']), {
+        multipleStatements: true,
+        ssl: true,
+      }),
+    );
 
-   beforeAll( async () => {
-    const con = mysql.createConnection( _.extend( _.pick( config.mysql, [ 'user', 'password' ] ), {
-      multipleStatements: true,
-      ssl: true
-    } ) );
+    const query = promisify(con.query.bind(con));
 
-    const query = promisify( con.query.bind( con ) );
-
-    const result = await query( fixtures );
+    await query(fixtures);
 
     con.end();
-  } );
+  });
 
-  beforeAll( () => {
-
-    k = knex( {
+  beforeAll(() => {
+    k = knex({
       client: 'mysql',
-      connection: _.assign( {
-        database: 'networktest'
-      }, config.mysql )
-    } );
+      connection: _.assign(
+        {
+          database: 'networktest',
+        },
+        config.mysql,
+      ),
+    });
 
-    svc = Service( { knex: k } );
+    svc = Service({ knex: k });
+  });
 
-  } );
-
-  afterAll( () => {
-
+  afterAll(() => {
     k.destroy();
+  });
 
-  } );
-
-  it( 'get gets', async () => {
-
-    expect( await svc.get( 1 ) ).toEqual( {
+  it('get gets', async () => {
+    expect(await svc.get(1)).toEqual({
       uid: 1,
       formSchemaId: 2,
-      title: 'Métropole de Toulouse'
-    } );
-
-  } );
-
-} );
+      title: 'Métropole de Toulouse',
+    });
+  });
+});

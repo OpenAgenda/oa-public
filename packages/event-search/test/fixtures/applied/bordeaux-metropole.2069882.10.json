@@ -78,9 +78,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/takfarinas/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/takfarinas/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -110,18 +108,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -246,9 +239,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/oboy/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/oboy/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -278,18 +269,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -402,9 +388,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "http://william-theviot.fr"
-      ],
+      "registration": ["http://william-theviot.fr"],
       "location": {
         "uid": 61128772,
         "slug": "cinema-le-cyrano-bergerac",
@@ -432,19 +416,13 @@
         "extId": null
       },
       "custom_description": "Récital de William THEVIOT, pianiste aux multiples facettes (chroniques musicales, fonds sonores d'émission TV, très investi dans des projets caritatifs). Ce sera l'occasion de présenter son nouveau programme époustouflant avec des œuvres de : Beethoven, Chopin, Fauré, Grieg, Liszt, Rachmaninov, Satie. En osmose avec son public et son compagnon de toujours (le piano ! ), il incarne le renouveau de la musique classique qu'il décloisonne pour la mettre à la portée de tous. Tarif : 10 €.",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -569,10 +547,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "f.castet@me.com",
-        "0608637327"
-      ],
+      "registration": ["f.castet@me.com", "0608637327"],
       "location": {
         "uid": 60696565,
         "slug": "theatre-linox",
@@ -598,19 +573,13 @@
         "imageCredits": null
       },
       "custom_description": "Serge Moulinier pianiste de Jazz présente ses deux projets en trio et quintet, du 14 au 17 Nov, à l'inox",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -657,10 +626,7 @@
         "fr": "### Les Pot'ries de Berly vous invitent à son marché des potiers au domaine de Sourreil.\n\nCette 4è édition accueille cette année 24 potiers céramistes, et une invitée d'honneur : Juana Maillot."
       },
       "keywords": {
-        "fr": [
-          "Marché",
-          "Poterie"
-        ]
+        "fr": ["Marché", "Poterie"]
       },
       "conditions": {
         "fr": "Entrée libre - Pour tous"
@@ -720,10 +686,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "berlande.borne@club.fr",
-        "06 12 49 88 67"
-      ],
+      "registration": ["berlande.borne@club.fr", "06 12 49 88 67"],
       "location": {
         "uid": 36200236,
         "slug": "maison-des-arts-vivants",
@@ -752,17 +715,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        26283955
-      ],
+      "sourcePaths": [26283955],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -809,13 +768,7 @@
         "fr": "Les Foulées littéraires, salon du livre et des littératures sportives, créent une passerelle entre sport, littérature et culture.\n\nIncarnation de l’esprit lormontais, les Foulées littéraires, créées en 2011, sont le symbole d’une ambivalence. Celle du sport, profondément ancré dans l’ADN de la ville et d’une richesse culturelle portée par des acteurs régionaux et une population aux nombreux horizons.\n\nPendant deux jours, le dernier week-end de novembre, le Pôle culturel et sportif du Bois fleuri accueille ces Foulées, et devient le théâtre de rencontres, d’échanges, d’animations et de démonstrations, d’une curiosité aiguisée, de vocations parfois.\n\nDes entraîneurs aux bancs des supporters, des journalistes et commentateurs aux auteurs, la 9e édition du salon, rendra hommage aux mots mais aussi au silence qui ponctuent le Sport. La Parole sous toutes ses formes, sera mise à l’honneur, à travers une exposition inédite, créée spécialement pour les Foulées, des rencontres avec de grands sportifs comme Michaël Jérémiasz et Vincent Mathieu, et une dizaine d’auteurs, illustrateurs et journalistes, tels que Lionel Rosso, Virginie Troussier, Fanny Wallendorf, ou encore Ismaël Méziane."
       },
       "keywords": {
-        "fr": [
-          "sport",
-          "littérature",
-          "lormont",
-          "salon",
-          "livre"
-        ]
+        "fr": ["sport", "littérature", "lormont", "salon", "livre"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -903,14 +856,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 54,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -956,11 +905,7 @@
         "fr": "30e édition du Festival international du film d'Histoire sur le thème « L’Amérique Latine, Terres de feu » : 70 longs métrages, fictions, documentaires et plus de 40 rencontres-débats.\n\nRetrouvez le [programme](http://www.cinema-histoire-pessac.com/festival/programme-complet)\n\n[Billeterie](http://www.cinema-histoire-pessac.com/guide/tarif_billeterie) pour les séances\n\nToutes les rencontres et tous les débats d’histoire sont gratuits et accessibles à tous, dans la limite des places disponibles."
       },
       "keywords": {
-        "fr": [
-          "histoire",
-          "festival",
-          "pessac"
-        ]
+        "fr": ["histoire", "festival", "pessac"]
       },
       "conditions": {},
       "image": {
@@ -1069,14 +1014,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1186,9 +1127,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/kaiser/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/kaiser/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1218,18 +1157,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1354,9 +1288,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/lemma/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/lemma/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1386,18 +1318,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1554,18 +1481,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

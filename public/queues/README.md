@@ -2,7 +2,6 @@
 
 Utility sitting on top of redis queues to provide queue functionality
 
-
 # V2
 
 New iteration of queue system works as an instanciating call and handles exceptions thrown by called methods to prevent queue from stopping.
@@ -22,8 +21,8 @@ Getting a handle on an individual v2 queue is done by specifying its identifying
 
 From there, two distinct scenarios take place:
 
- * When tasks are queued
- * When tasks are processed
+- When tasks are queued
+- When tasks are processed
 
 Typically, each are called in different places of the application: the tasks can be queued from anywhere, they are typically processed in a script dedicated to job processing.
 
@@ -60,7 +59,6 @@ Track them by calling the `.on` method of the queue instance running the queued 
     q.on( 'error', ( registeredFunctionName, args, error ) => {
       // log it here
     } );
-
 
 # V1
 

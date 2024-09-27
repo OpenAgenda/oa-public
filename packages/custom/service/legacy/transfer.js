@@ -1,92 +1,103 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const log = require( '@openagenda/logs' )( 'legacy/transfer' );
+const log = require('@openagenda/logs')('legacy/transfer');
 
-const load = require( './load' );
-const serviceCreate = require( '../create' );
-const serviceUpdate = require( '../update' );
-const serviceGet = require( '../get' );
-const serviceRemove = require( '../remove' );
+const serviceCreate = require('../create');
+const serviceUpdate = require('../update');
+const serviceGet = require('../get');
+const serviceRemove = require('../remove');
+const load = require('./load');
+const serviceCategories = require('./categories');
+const serviceCustom = require('./custom');
+const serviceTags = require('./tags');
 
 const libs = {
-  categories: require( './categories' ),
-  custom: require( './custom' ),
-  tags: require( './tags' )
-}
+  categories: serviceCategories,
+  custom: serviceCustom,
+  tags: serviceTags,
+};
 
-
-module.exports = _.assign( transfer, {
-  parse
-} );
-
-function parse( fields, { custom, tags, category } ) {
-
+function parse(fields, { custom, tags, category }) {
   return _.assign(
-    libs.custom.parse( fields.filter( f => f.origin === 'custom' ), custom ),
-    libs.tags.parse( fields.filter( f => f.origin === 'tags' ), tags ),
-    libs.categories.parse( fields.filter( f => f.origin === 'categories' ), category )
+    libs.custom.parse(
+      fields.filter((f) => f.origin === 'custom'),
+      custom,
+    ),
+    libs.tags.parse(
+      fields.filter((f) => f.origin === 'tags'),
+      tags,
+    ),
+    libs.categories.parse(
+      fields.filter((f) => f.origin === 'categories'),
+      category,
+    ),
   );
-
 }
 
-async function transfer( formSchemaId, identifier, defaultAgendaId = null ) {
-
-  log( 'info', 'transfering event %s legacy to %s', identifier, formSchemaId );
+async function transfer(formSchemaId, identifier, defaultAgendaId = null) {
+  log('info', 'transfering event %s legacy to %s', identifier, formSchemaId);
 
   const {
-    agendaId,
+    // agendaId,
     fields,
-    eventId,
+    // eventId,
     agendaEventId,
     custom,
-    categoryId
-  } = await load( formSchemaId, identifier, { agendaId: defaultAgendaId } );
+    categoryId,
+  } = await load(formSchemaId, identifier, { agendaId: defaultAgendaId });
 
-  const legacyTags = await libs.tags.load( agendaEventId );
+  const legacyTags = await libs.tags.load(agendaEventId);
 
-  const legacyCategory = await libs.categories.load( categoryId );
+  const legacyCategory = await libs.categories.load(categoryId);
 
-  const toTransfer = parse( fields, {
+  const toTransfer = parse(fields, {
     custom,
     tags: legacyTags,
-    category: legacyCategory
-  } );
+    category: legacyCategory,
+  });
 
-  const emptyLegacyCustom = !_.keys( toTransfer ).length;
-  const current = await serviceGet( formSchemaId, identifier );
+  const emptyLegacyCustom = !_.keys(toTransfer).length;
+  const current = await serviceGet(formSchemaId, identifier);
 
-  if ( emptyLegacyCustom && current ) {
+  if (emptyLegacyCustom && current) {
+    log('info', 'removing custom %s.%s', formSchemaId, identifier);
 
-    log( 'info', 'removing custom %s.%s', formSchemaId, identifier );
+    await serviceRemove(formSchemaId, identifier);
+  } else if (emptyLegacyCustom && !current) {
+    log('info', 'no custom values to transfer');
+  } else if (current) {
+    log('info', 'updating custom %s.%s', formSchemaId, identifier);
 
-    await serviceRemove( formSchemaId, identifier );
-
-  } else if ( emptyLegacyCustom && !current ) {
-
-    log( 'info', 'no custom values to transfer' );
-
-  } else if ( current ) {
-
-    log( 'info', 'updating custom %s.%s', formSchemaId, identifier );
-
-    await serviceUpdate( formSchemaId, identifier, toTransfer, {
-      draft: true
-    } );
-
+    await serviceUpdate(formSchemaId, identifier, toTransfer, {
+      draft: true,
+    });
   } else {
+    log(
+      'info',
+      'creating custom %s.%s: %j',
+      formSchemaId,
+      identifier,
+      toTransfer,
+    );
 
-    log( 'info', 'creating custom %s.%s: %j', formSchemaId, identifier, toTransfer );
+    const result = await serviceCreate(formSchemaId, identifier, toTransfer, {
+      draft: true,
+    });
 
-    const result = await serviceCreate( formSchemaId, identifier, toTransfer, {
-      draft: true
-    } );
-
-    if ( !_.get( result, 'success' ) ) {
-      log( 'warn', 'could not transfer custom %s.%s: %j', formSchemaId, identifier, result );
+    if (!_.get(result, 'success')) {
+      log(
+        'warn',
+        'could not transfer custom %s.%s: %j',
+        formSchemaId,
+        identifier,
+        result,
+      );
     }
-
   }
-
 }
+
+module.exports = _.assign(transfer, {
+  parse,
+});

@@ -39,9 +39,14 @@ function AbilitiesEditor({
   const fetchAbilities = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${res.formIndex}?entityName=${entityName}&identifier=${identifier}`);
+      const response = await fetch(
+        `${res.formIndex}?entityName=${entityName}&identifier=${identifier}`,
+      );
       const fetchedData = await response.json();
-      const formattedData = fetchedData.map(v => ({ ...v, key: `rule${getUniqueId()}` }));
+      const formattedData = fetchedData.map((v) => ({
+        ...v,
+        key: `rule${getUniqueId()}`,
+      }));
       setData(formattedData);
       setError(null);
     } catch (err) {
@@ -56,7 +61,7 @@ function AbilitiesEditor({
   }, [fetchAbilities]);
 
   const handleSubmit = async (values, form) => {
-    const formIndex = data.map(rule => ({
+    const formIndex = data.map((rule) => ({
       ...rule,
       inverted: !values[rule.key],
     }));
@@ -66,14 +71,20 @@ function AbilitiesEditor({
     }
 
     try {
-      const response = await fetch(`${res.formIndex}?entityName=${entityName}&identifier=${identifier}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formIndex),
-      });
+      const response = await fetch(
+        `${res.formIndex}?entityName=${entityName}&identifier=${identifier}`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formIndex),
+        },
+      );
       const responseData = await response.json();
       if (Array.isArray(responseData)) {
-        const formattedData = responseData.map(v => ({ ...v, key: `rule${getUniqueId()}` }));
+        const formattedData = responseData.map((v) => ({
+          ...v,
+          key: `rule${getUniqueId()}`,
+        }));
         setData(formattedData);
         form.initialize(getInitialValues(formattedData));
       }
@@ -83,15 +94,26 @@ function AbilitiesEditor({
   };
 
   const latestData = useLatest(data);
-  const childCheckboxDecorator = useMemo(() => getChildCheckboxDecorator({
-    entityName,
-    identifier,
-    getRules: () => latestData.current,
-  }), [latestData, entityName, identifier]);
+  const childCheckboxDecorator = useMemo(
+    () =>
+      getChildCheckboxDecorator({
+        entityName,
+        identifier,
+        getRules: () => latestData.current,
+      }),
+    [latestData, entityName, identifier],
+  );
 
   const renderContent = () => {
     if (loading) return <Spinner />;
-    if (error) return <FormattedMessage id="Abilities.AbilitiesEditor.error" defaultMessage="Error." />;
+    if (error) {
+      return (
+        <FormattedMessage
+          id="Abilities.AbilitiesEditor.error"
+          defaultMessage="Error."
+        />
+      );
+    }
 
     return (
       <Form

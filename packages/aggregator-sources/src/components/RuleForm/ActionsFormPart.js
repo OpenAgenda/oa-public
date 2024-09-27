@@ -23,7 +23,7 @@ export default ({ aggregatorAgendaSchema, sourceSchema }) => {
       aggregatorAgendaSchema.fields
         .filter(isOptionedField)
         .concat({ field: 'state' })
-        .filter(v => !values.actions?.find(w => w && v.field === w.field))
+        .filter((v) => !values.actions?.find((w) => w && v.field === w.field))
         .length,
     [aggregatorAgendaSchema.fields, values.actions],
   );
@@ -79,6 +79,7 @@ export default ({ aggregatorAgendaSchema, sourceSchema }) => {
                   className="btn btn-link-inline"
                   onClick={() => fields.remove(index, undefined)}
                   title={intl.formatMessage(messages.removeAction)}
+                  aria-label={intl.formatMessage(messages.removeAction)}
                 >
                   <i className="fa fa-times text-danger" aria-hidden="true" />
                 </button>

@@ -37,7 +37,7 @@ export default function EventStateSelector({ agenda, event }) {
   const intl = useIntl();
 
   const mutation = useMutation(
-    value =>
+    (value) =>
       apiClient.post(`/${agenda.slug}/events/${event.slug}/state`, {
         state: value,
         motive: value === -1 ? motive : null,
@@ -53,7 +53,7 @@ export default function EventStateSelector({ agenda, event }) {
   );
 
   const onChange = useCallback(
-    option => {
+    (option) => {
       if (option.value === -1) return rejectionModal.open();
       return mutation.mutate(option.value);
     },
@@ -83,7 +83,7 @@ export default function EventStateSelector({ agenda, event }) {
             className="form-control"
             rows={6}
             value={motive}
-            onChange={v => setMotive(v.target.value)}
+            onChange={(v) => setMotive(v.target.value)}
             placeholder={intl.formatMessage(messages.motivePlaceholder)}
           />
           <div className="margin-top-sm text-center">

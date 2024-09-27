@@ -1,24 +1,10 @@
-packages/activity-apps
 packages/admin-agendas
-packages/agenda-contribute
-packages/agenda-search
 packages/cibul-templates
-packages/custom
-packages/date-range
-packages/discord
-packages/dom-utils
-packages/geocoder
-packages/invitations
-packages/keys
 packages/labels
-packages/landing
+packages/legacy
 packages/mep
-packages/network-apps
-packages/networks
-packages/newsletter
-packages/oembed
-packages/outdated-browser
-packages/react-form-components
 packages/utils
 packages/validators
 
+public/bs-templates
+public/polyfills

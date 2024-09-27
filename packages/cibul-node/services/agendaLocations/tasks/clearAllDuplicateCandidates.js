@@ -1,8 +1,5 @@
-export default async services => {
-  const {
-    agendas: agendasSVC,
-    agendaLocations,
-  } = services;
+export default async (services) => {
+  const { agendas: agendasSVC, agendaLocations } = services;
   const sets = await agendaLocations.sets.list();
   for (const set of sets) {
     await agendaLocations.sets(set.uid).locations.duplicates.clearCandidates();
@@ -18,7 +15,7 @@ export default async services => {
       continue;
     }
     Offset = lastId;
-    for (const agenda of agendas.filter(a => a.locationSetUid === null)) {
+    for (const agenda of agendas.filter((a) => a.locationSetUid === null)) {
       await agendaLocations(agenda.uid).duplicates.clearCandidates();
     }
   }

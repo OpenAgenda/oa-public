@@ -5,20 +5,23 @@ const flattenLabels = require('../client/src/lib/flatten');
 
 describe('17 - unit - flatten labels', () => {
   it('flattens field labels', () => {
-    const flattened = flattenLabels({
-      label: {
-        fr: 'Un champ',
-        en: 'A field'
+    const flattened = flattenLabels(
+      {
+        label: {
+          fr: 'Un champ',
+          en: 'A field',
+        },
+        info: {
+          fr: 'Un peu plus sur le champ',
+          en: 'A bit more about the field',
+        },
       },
-      info: {
-        fr: 'Un peu plus sur le champ',
-        en: 'A bit more about the field'
-      }
-    }, 'fr');
+      'fr',
+    );
 
     expect(flattened).toStrictEqual({
       label: 'Un champ',
-      info: 'Un peu plus sur le champ'
+      info: 'Un peu plus sur le champ',
     });
   });
 
@@ -26,44 +29,56 @@ describe('17 - unit - flatten labels', () => {
     const flattened = flattenLabels({
       label: {
         fr: 'Un autre champ',
-        en: 'Another field'
+        en: 'Another field',
       },
-      options: [{
-        label: {
-          fr: 'Un'
-        }
-      }, {
-        label: {
-          fr: 'Deux'
-        }
-      }]
+      options: [
+        {
+          label: {
+            fr: 'Un',
+          },
+        },
+        {
+          label: {
+            fr: 'Deux',
+          },
+        },
+      ],
     });
 
     expect(flattened).toStrictEqual({
       label: 'Un autre champ',
-      options: [{
-        label: 'Un'
-      }, {
-        label: 'Deux'
-      }]
+      options: [
+        {
+          label: 'Un',
+        },
+        {
+          label: 'Deux',
+        },
+      ],
     });
   });
 
   it('does not flatten option values if already flat', () => {
     const flattened = flattenLabels({
-      options: [{
-        label: 'Un'
-      }, {
-        label: 'Deux'
-      }]
+      options: [
+        {
+          label: 'Un',
+        },
+        {
+          label: 'Deux',
+        },
+      ],
     });
 
     expect(flattened).toStrictEqual({
-      options: [{
-        label: 'Un'
-      }, {
-        label: 'Deux'
-      }]
+      options: [
+        {
+          label: 'Un',
+        },
+        {
+          label: 'Deux',
+        },
+      ],
     });
   });
 });

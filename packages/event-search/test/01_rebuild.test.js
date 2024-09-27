@@ -10,7 +10,9 @@ describe('01 - event-search - functional: rebuild', () => {
 
     async function eventsList(lastId, limit) {
       return JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/01_events.${lastId}.${limit}.json`),
+        fs.readFileSync(
+          `${__dirname}/fixtures/01_events.${lastId}.${limit}.json`,
+        ),
       );
     }
 
@@ -37,7 +39,9 @@ describe('01 - event-search - functional: rebuild', () => {
         });
 
         it('index is created if not existing', async () => {
-          const r = await service.getConfig().client.indices.exists({ index: 'test' });
+          const r = await service
+            .getConfig()
+            .client.indices.exists({ index: 'test' });
           expect(r.body).toBe(true);
         });
 
@@ -67,7 +71,9 @@ describe('01 - event-search - functional: rebuild', () => {
           result = await service('someagendaidentifier').rebuild({
             eventsList: async (lastId, limit) => {
               const payload = JSON.parse(
-                fs.readFileSync(`${__dirname}/fixtures/01_events.${lastId}.${limit}.json`),
+                fs.readFileSync(
+                  `${__dirname}/fixtures/01_events.${lastId}.${limit}.json`,
+                ),
               );
               payload.events.pop(); // removing an event
               return payload;

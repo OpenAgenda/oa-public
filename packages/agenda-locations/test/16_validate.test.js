@@ -2,7 +2,9 @@
 
 const fs = require('node:fs');
 
-const imageStream = fs.createReadStream(`${__dirname}/fixtures/images/vieilles_pierres.jpg`);
+const imageStream = fs.createReadStream(
+  `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+);
 
 const validate = require('../lib/validate');
 
@@ -27,13 +29,16 @@ describe('validate', () => {
     });
 
     test('is not dropped when ignoreImage is used', () => {
-      const { imageRightsAreHeld } = validate({
-        ...fixture,
-        image: imageStream,
-        imageRightsAreHeld: true,
-      }, {
-        ignoreImage: true,
-      });
+      const { imageRightsAreHeld } = validate(
+        {
+          ...fixture,
+          image: imageStream,
+          imageRightsAreHeld: true,
+        },
+        {
+          ignoreImage: true,
+        },
+      );
       expect(imageRightsAreHeld).toBe(true);
     });
   });

@@ -33,23 +33,31 @@ describe('02 - event search - functional: filter on integer or number additional
   });
 
   it('filters on a number bracket', async () => {
-    const { events } = await service('additionalNumbers').search({
-      price: { gt: 15, lt: 50 },
-    }, {}, {
-      formSchema: fixtures.formSchema,
-      detailed: true,
-    });
+    const { events } = await service('additionalNumbers').search(
+      {
+        price: { gt: 15, lt: 50 },
+      },
+      {},
+      {
+        formSchema: fixtures.formSchema,
+        detailed: true,
+      },
+    );
 
-    expect(events.map(e => e.uid)).toEqual([1, 2]);
+    expect(events.map((e) => e.uid)).toEqual([1, 2]);
   });
 
   it('if lt is greater then gt, no error is generated but no result is returned', async () => {
-    const { events } = await service('additionalNumbers').search({
-      price: { gt: 50, lt: 15 },
-    }, {}, {
-      formSchema: fixtures.formSchema,
-      detailed: true,
-    });
+    const { events } = await service('additionalNumbers').search(
+      {
+        price: { gt: 50, lt: 15 },
+      },
+      {},
+      {
+        formSchema: fixtures.formSchema,
+        detailed: true,
+      },
+    );
 
     expect(events.length).toBe(0);
   });

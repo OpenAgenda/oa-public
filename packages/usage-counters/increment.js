@@ -4,7 +4,7 @@ import lifespanToBeginAndEnd from './utils/lifespanToBeginAndEnd.js';
 
 const log = logs('usageCounters/increment');
 
-const initValue = lifespan => ({
+const initValue = (lifespan) => ({
   ...lifespanToBeginAndEnd(lifespan),
   store: {
     volume: 0,

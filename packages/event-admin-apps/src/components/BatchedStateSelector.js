@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useMutation } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useApiClient, useModal, Modal } from '@openagenda/react-shared';
@@ -30,21 +30,23 @@ export default function BatchedStateSelector({
   const confirmationModal = useModal();
 
   const mutation = useMutation(
-    variables => apiClient.patch(`/${agenda.slug}/admin/events/batch${queryString}`, {
-      state: variables.state,
-    }),
+    (variables) =>
+      apiClient.patch(`/${agenda.slug}/admin/events/batch${queryString}`, {
+        state: variables.state,
+      }),
     {
       onSuccess: (/* result, value */) => {
         confirmationModal.open();
       },
-    }
+    },
   );
 
   const onChange = useCallback(
-    option => mutation.mutate({
-      state: option.value,
-    }),
-    [mutation]
+    (option) =>
+      mutation.mutate({
+        state: option.value,
+      }),
+    [mutation],
   );
 
   return (

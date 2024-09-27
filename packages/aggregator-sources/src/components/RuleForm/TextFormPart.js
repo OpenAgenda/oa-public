@@ -14,7 +14,7 @@ const eventFields = [
   'longDescription',
   'keywords',
   'conditions',
-].map(field => ({
+].map((field) => ({
   field,
   label: formLabels[field],
 }));
@@ -28,7 +28,7 @@ export default ({ sourceSchema = { fields: [] } }) => {
   const options = useMemoOne(
     () =>
       sourceSchema.fields
-        .filter(v => stringType.includes(v.fieldType))
+        .filter((v) => stringType.includes(v.fieldType))
         .concat(eventFields)
         .map(({ field, label }) => ({
           value: field,

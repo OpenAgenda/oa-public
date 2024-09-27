@@ -1,12 +1,16 @@
 'use strict';
 
 const schemas = require('@openagenda/validators/schema');
+const text = require('@openagenda/validators/text');
+const boolean = require('@openagenda/validators/boolean');
+const integer = require('@openagenda/validators/integer');
+const date = require('@openagenda/validators/date');
 
 schemas.register({
-  text: require('@openagenda/validators/text'),
-  boolean: require('@openagenda/validators/boolean'),
-  integer: require('@openagenda/validators/integer'),
-  date: require('@openagenda/validators/date')
+  text,
+  boolean,
+  integer,
+  date,
 });
 
 const { BadRequest } = require('@openagenda/verror');
@@ -15,53 +19,53 @@ const validate = schemas({
   search: {
     type: 'text',
     optional: true,
-    default: null
+    default: null,
   },
   official: {
     type: 'boolean',
     optional: true,
-    default: null
+    default: null,
   },
   contributionType: {
     type: 'integer',
-    list: { default: null }
+    list: { default: null },
   },
   updatedAt: {
     fields: {
       gte: {
         type: 'date',
-        default: null
+        default: null,
       },
       lte: {
         type: 'date',
-        default: null
-      }
-    }
+        default: null,
+      },
+    },
   },
   network: {
     type: 'integer',
     optional: true,
-    default: null
+    default: null,
   },
   locationSet: {
     type: 'integer',
     optional: true,
-    default: null
+    default: null,
   },
   uid: {
     type: 'integer',
-    list: { default: null }
+    list: { default: null },
   },
   slug: {
     type: 'text',
     optional: true,
-    list: { default: null }
-  }
+    list: { default: null },
+  },
 });
 
 module.exports = (values = {}) => {
   const preClean = {
-    ...values,   
+    ...values,
   };
 
   if (preClean?.updatedAt?.gte === '') {
@@ -76,4 +80,4 @@ module.exports = (values = {}) => {
   } catch (errors) {
     throw new BadRequest({ info: { errors } }, 'invalid query parameters');
   }
-}
+};

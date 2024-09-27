@@ -5,7 +5,7 @@ interface CollapseProps extends HTMLChakraProps<'div'> {
   children: React.ReactNode;
   in?: boolean;
   breakpoint?: ThemeTypings['breakpoints'] | string;
-  transition?: string
+  transition?: string;
 }
 
 const defaultTransition = 'max-height .3s, opacity .4s';

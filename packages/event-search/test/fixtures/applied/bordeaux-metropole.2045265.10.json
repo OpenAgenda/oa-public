@@ -193,16 +193,12 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624
-      ],
+      "sourcePaths": [94573624],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -320,9 +316,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/kompromat/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/kompromat/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -397,12 +391,7 @@
         "fr": "**Macron, président des ultra-riches? Deux sociologues de la grande bourgeoisie s'attaquent à cette question, étudient le profil du président de la République et l'oligarchie qui l'entoure.**\n\nVous pensez ne jamais pouvoir lire ce livre de sociologie, par manque de temps, par manque d'énergie? Venez participer à un arpentage, une ancienne technique ouvrière de lecture collective!\n\nAprès un petit temps de lecture individuelle, et une restitution collective, vous allez pouvoir, en quelques heures, venir à bout d'un ouvrage passionnant que vous n'aurez peut-être jamais lu seul!\n\nLe livre qui sera épluché est **Le Président des Ultra-riches** de Monique Pinçon-Charlot et Michel Charlot, sociologues. Toujours en lien avec [Le Grand Plan](https://www.bordeaux-metropole.fr/Agenda/Le-Grand-Plan2)\n\nArpentage du livre **Le président des ultra-riches: Chronique du mépris de classe dans la politique d'Emmanuel Macron** le 19 novembre à 18h30 à la ludo-médiathèque."
       },
       "keywords": {
-        "fr": [
-          "Lecture",
-          "politique",
-          "inégalités",
-          "sociologie"
-        ]
+        "fr": ["Lecture", "politique", "inégalités", "sociologie"]
       },
       "conditions": {
         "fr": "Sur réservation"
@@ -458,10 +447,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 77 31 77",
-        "mediatheque.jriviere@ville-cenon.fr"
-      ],
+      "registration": ["05 57 77 31 77", "mediatheque.jriviere@ville-cenon.fr"],
       "location": {
         "uid": 57686300,
         "slug": "mediatheque-jacques-riviere183",
@@ -753,9 +739,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -854,9 +838,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -885,9 +867,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1051,9 +1031,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1152,9 +1130,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -1183,9 +1159,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1284,9 +1258,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -1315,9 +1287,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1360,13 +1330,7 @@
         "fr": "Projection du film de Sarah Trouche \"Je ne peux pas rester silencieuse\" tourné au musée cette année. Durée 20 mn. \n\nTrois jeunes boxeuses, trois championnes françaises, issues de milieux populaires ruraux de nouvelle Aquitaine se confrontent aux représentations féminines des tableaux d’un grand musée national. Viol, deuil, agonie, allégorie, les femmes y sont systématiquement montrées en situation d’infériorité au fil des siècles. Les trois jeunes femmes rejettent radicalement ses représentations sexistes. \n\nPrésentation par Sarah Trouche, artiste, et Caroline Corbal, créatrice de la Hack collection, série de films réalisés autour des œuvres de la collection du musée dont fait partie ce film."
       },
       "keywords": {
-        "fr": [
-          "Film",
-          "vidéo",
-          "musée",
-          "peintures",
-          "boxeuses"
-        ]
+        "fr": ["Film", "vidéo", "musée", "peintures", "boxeuses"]
       },
       "conditions": {
         "fr": "Entrèe libre"
@@ -1449,9 +1413,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],

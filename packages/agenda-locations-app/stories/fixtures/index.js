@@ -6,14 +6,14 @@ const defaultAccess = {
   authorized: true,
   external: false,
   serviceLabel: null,
-  link: null
+  link: null,
 };
 
 const externalAccess = {
   authorized: false,
   external: true,
   serviceLabel: 'google',
-  link: 'google.com'
+  link: 'google.com',
 };
 
 const Locations = {
@@ -24,8 +24,8 @@ const Locations = {
       create: defaultAccess,
       update: defaultAccess,
       merge: defaultAccess,
-      delete: defaultAccess
-    }
+      delete: defaultAccess,
+    },
   },
   extraProps: {
     lang: 'fr',
@@ -33,7 +33,7 @@ const Locations = {
       ...agenda,
       uid: 1,
     },
-  }
+  },
 };
 
 const LocationsSet = {
@@ -44,8 +44,8 @@ const LocationsSet = {
       create: defaultAccess,
       update: defaultAccess,
       merge: defaultAccess,
-      delete: defaultAccess
-    }
+      delete: defaultAccess,
+    },
   },
   extraProps: {
     lang: 'fr',
@@ -53,7 +53,7 @@ const LocationsSet = {
       ...agenda,
       uid: 2,
     },
-  }
+  },
 };
 
 const ExternalAccessLocations = {
@@ -64,8 +64,8 @@ const ExternalAccessLocations = {
       create: externalAccess,
       update: externalAccess,
       merge: externalAccess,
-      delete: externalAccess
-    }
+      delete: externalAccess,
+    },
   },
   extraProps: {
     lang: 'fr',
@@ -73,7 +73,7 @@ const ExternalAccessLocations = {
       ...agenda,
       uid: 3,
     },
-  }
+  },
 };
 
 const ErrorLocations = {
@@ -84,8 +84,8 @@ const ErrorLocations = {
       create: defaultAccess,
       update: defaultAccess,
       merge: defaultAccess,
-      delete: defaultAccess
-    }
+      delete: defaultAccess,
+    },
   },
   extraProps: {
     lang: 'fr',
@@ -93,7 +93,7 @@ const ErrorLocations = {
       ...agenda,
       uid: 4,
     },
-  }
+  },
 };
 
 const sets = {
@@ -104,5 +104,7 @@ const sets = {
 };
 
 module.exports = Object.assign(function getFixtures(agendaUid) {
-  return Object.keys(sets).map(key => sets[key]).find(set => set.extraProps.agenda.uid === parseInt(agendaUid, 10));
+  return Object.keys(sets)
+    .map((key) => sets[key])
+    .find((set) => set.extraProps.agenda.uid === parseInt(agendaUid, 10));
 }, sets);

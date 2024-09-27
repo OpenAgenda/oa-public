@@ -12,17 +12,17 @@ const REMOVE_SUCCESS = 'agenda-settings/keys/REMOVE_SUCCESS';
 const REMOVE_FAIL = 'agenda-settings/keys/REMOVE_FAIL';
 
 const initialState = {
-  loaded: false
+  loaded: false,
 };
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action = {}) {
   let index;
 
   switch (action.type) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOAD_SUCCESS:
       return {
@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action) {
         loading: false,
         loaded: true,
         data: action.result.data,
-        error: null
+        error: null,
       };
     case LOAD_FAIL:
       return {
@@ -38,13 +38,13 @@ export default function reducer(state = initialState, action) {
         loading: false,
         loaded: false,
         data: null,
-        error: action.error.response.data.error
+        error: action.error.response.data.error,
       };
     case CREATE:
       return {
         ...state,
         createLoading: true,
-        createError: null
+        createError: null,
       };
     case CREATE_SUCCESS:
       return {
@@ -54,23 +54,23 @@ export default function reducer(state = initialState, action) {
         data: {
           ...state.data,
           total: state.data.total + 1,
-          items: [...state.data.items, action.result.data]
-        }
+          items: [...state.data.items, action.result.data],
+        },
       };
     case CREATE_FAIL:
       return {
         ...state,
         updateLoading: false,
-        updateError: action.error.response.data.error
+        updateError: action.error.response.data.error,
       };
     case UPDATE:
       return {
         ...state,
         updateLoading: true,
-        updateError: null
+        updateError: null,
       };
     case UPDATE_SUCCESS:
-      index = state.data.items.findIndex(v => v.key === action.key);
+      index = state.data.items.findIndex((v) => v.key === action.key);
       return {
         ...state,
         updateLoading: false,
@@ -80,24 +80,24 @@ export default function reducer(state = initialState, action) {
           items: [
             ...state.data.items.slice(0, index),
             action.result.data,
-            ...state.data.items.slice(index + 1)
-          ]
-        }
+            ...state.data.items.slice(index + 1),
+          ],
+        },
       };
     case UPDATE_FAIL:
       return {
         ...state,
         updateLoading: false,
-        updateError: action.error.response.data.error
+        updateError: action.error.response.data.error,
       };
     case REMOVE:
       return {
         ...state,
         removeLoading: true,
-        removeError: null
+        removeError: null,
       };
     case REMOVE_SUCCESS:
-      index = state.data.items.findIndex(v => v.key === action.key);
+      index = state.data.items.findIndex((v) => v.key === action.key);
       return {
         ...state,
         removeLoading: false,
@@ -106,19 +106,18 @@ export default function reducer(state = initialState, action) {
           ...state.data,
           items: [
             ...state.data.items.slice(0, index),
-            ...state.data.items.slice(index + 1)
-          ]
-        }
+            ...state.data.items.slice(index + 1),
+          ],
+        },
       };
     case REMOVE_FAIL:
       return {
         ...state,
         removeLoading: false,
-        removeError: action.error.response.data.error
+        removeError: action.error.response.data.error,
       };
     default:
       return state;
-
   }
 }
 
@@ -133,7 +132,7 @@ export function load() {
       const { res } = getState();
 
       return client.get(res.keys.list.replace(':slug', params.slug));
-    }
+    },
   };
 }
 
@@ -144,8 +143,8 @@ export function create(values) {
       const { res } = getState();
 
       return client.post(res.keys.create.replace(':slug', params.slug), values);
-    }
-  }
+    },
+  };
 }
 
 export function update(key, values) {
@@ -155,11 +154,15 @@ export function update(key, values) {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.patch(res.keys.update.replace(':slug', params.slug), values, {
-        params: { key }
-      });
-    }
-  }
+      return client.patch(
+        res.keys.update.replace(':slug', params.slug),
+        values,
+        {
+          params: { key },
+        },
+      );
+    },
+  };
 }
 
 export function remove(key) {
@@ -170,8 +173,8 @@ export function remove(key) {
       const { res } = getState();
 
       return client.delete(res.keys.remove.replace(':slug', params.slug), {
-        params: { key }
+        params: { key },
       });
-    }
+    },
   };
 }

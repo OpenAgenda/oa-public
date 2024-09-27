@@ -39,9 +39,9 @@ function agendaMailTo(agenda) {
   if (!_.get(config2, 'enabled')) return null;
 
   const queryParts = ['subject', 'body']
-    .map(key => ({ key, value: _.get(config2, key) }))
-    .filter(item => item.value)
-    .map(item => `${item.key}=${encodeURIComponent(item.value)}`);
+    .map((key) => ({ key, value: _.get(config2, key) }))
+    .filter((item) => item.value)
+    .map((item) => `${item.key}=${encodeURIComponent(item.value)}`);
 
   if (!queryParts.length) return `mailto:${config2.email}`;
 
@@ -103,7 +103,7 @@ function lang(req, res, next) {
   req.lang = 'fr';
   const { sessions } = req.app.services;
 
-  sessions.isLogged(req).then(isLogged => {
+  sessions.isLogged(req).then((isLogged) => {
     if (isLogged) {
       req.lang = sessions.getCulture(req);
     }
@@ -327,7 +327,7 @@ function errorResponse(req, res, err, jsr) {
 }
 
 function catchError(req, res, jsonResponse) {
-  return err => {
+  return (err) => {
     // For send directly a json error with next( err )
     if (err.json) {
       return res.status(err.code || 400).send(err.json);
@@ -468,7 +468,7 @@ function redirectTo(route, params = {}, options = {}) {
   );
 
   return (req, res, _next) => {
-    const paramValues = _.mapValues(params, k => {
+    const paramValues = _.mapValues(params, (k) => {
       if (!_.isObject(k)) {
         return _.get(req.params, k);
       }
@@ -482,7 +482,7 @@ function redirectTo(route, params = {}, options = {}) {
 
         let v = req.genUrl(
           key[0],
-          _.mapValues(key[1], r => _.get(req.params, r)),
+          _.mapValues(key[1], (r) => _.get(req.params, r)),
         );
 
         if (k.$base64Route) {
@@ -548,7 +548,7 @@ function loadAgendaBy(param) {
         internal: true,
         includeImagePath: true,
       })
-      .then(agenda => {
+      .then((agenda) => {
         if (!agenda) return next({ code: 404 });
 
         _.assign(req, { agenda });

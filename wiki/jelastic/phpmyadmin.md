@@ -30,14 +30,12 @@ Note pour l'install de snapd: le guide d'install ne dit pas qu'il faut lancer sn
 
 Et là, le sous-domaine pointe sur la page par défaut proposée par nginx. En sécurisé. Vérifier que le http redirige bien vers le https.
 
-
 Dans la config "default" de nginx, décommenter la partie qui envoie à php les requêtes php et ajouter `index.php` dans la liste des fichiers en face de la clause `index`.
 
 Ça peut être utile de vérifier si php-fpm tourne et éventuellement le lancer.
 
     service php7.4-fpm status
     service php7.4-fpm start
-
 
 ## PHPMyAdmin
 

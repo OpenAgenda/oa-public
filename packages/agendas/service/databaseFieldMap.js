@@ -1,18 +1,18 @@
-"use strict";
+'use strict';
 
 module.exports = [
   {
     db: 'id',
     obj: 'id',
     internal: true,
-    protected: true
+    protected: true,
   },
   {
     db: 'owner_id',
     obj: 'ownerId',
     internal: true,
     protected: true,
-    list: false
+    list: false,
   },
   {
     db: 'member_schema_id',
@@ -26,30 +26,30 @@ module.exports = [
     obj: 'formSchemaId',
     internal: true,
     protected: true,
-    list: false
+    list: false,
   },
   {
     db: 'network_uid',
     obj: 'networkUid',
     protected: true,
-    list: false
+    list: false,
   },
   {
     db: 'location_set_uid',
     obj: 'locationSetUid',
     protected: true,
-    list: true
+    list: true,
   },
   'slug',
   {
     db: 'uid',
     obj: 'uid',
-    protected: true
+    protected: true,
   },
   {
     db: 'official',
     obj: 'official',
-    protected: true
+    protected: true,
   },
   'title',
   'description',
@@ -57,32 +57,32 @@ module.exports = [
   'image',
   {
     db: 'updated_at',
-    obj: 'updatedAt'
+    obj: 'updatedAt',
   },
   {
     db: 'created_at',
-    obj: 'createdAt'
+    obj: 'createdAt',
   },
   {
     db: 'officialized_at',
     obj: 'officializedAt',
     internal: true,
-    protected: true
+    protected: true,
   },
   {
     db: 'settings',
     obj: 'settings',
     type: 'json',
-    list: false
+    list: false,
   },
   {
     db: 'private',
     obj: 'private',
-    protected: true
+    protected: true,
   },
   {
     db: 'indexed',
-    obj: 'indexed'
+    obj: 'indexed',
   },
   {
     db: 'credentials',
@@ -90,7 +90,7 @@ module.exports = [
     type: 'json',
     internal: true,
     protected: true,
-    list: false
+    list: false,
   },
   {
     db: 'store',
@@ -98,6 +98,6 @@ module.exports = [
     type: 'json',
     internal: true,
     protected: true,
-    list: false
-  }
+    list: false,
+  },
 ];

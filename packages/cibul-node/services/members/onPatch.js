@@ -7,7 +7,15 @@ import { sendInvitation } from './lib/mail.js';
 
 const log = logs('services/members/onPatch');
 
-async function onNewMember({ services, agenda, user, senderUser, context, member, activityQueue }) {
+async function onNewMember({
+  services,
+  agenda,
+  user,
+  senderUser,
+  context,
+  member,
+  activityQueue,
+}) {
   const usersSvc = services.users;
   const {
     activities,
@@ -75,7 +83,12 @@ async function onNewMember({ services, agenda, user, senderUser, context, member
   });
 }
 
-export default async function onPatch({ services, config, activityQueue }, before, member, context) {
+export default async function onPatch(
+  { services, config, activityQueue },
+  before,
+  member,
+  context,
+) {
   log('patched', member);
 
   const {
@@ -124,8 +137,12 @@ export default async function onPatch({ services, config, activityQueue }, befor
 
     const isNewMember = member.userUid && !before.userUid;
     const hasChangedRole = member.userUid && before.role !== member.role;
-    const isPromotedToAdminMod = hasChangedRole && !isSuperiorToOrEqual(before.role, 'moderator') && isSuperiorToOrEqual(member.role, 'moderator');
-    const isDemotedToContributor = hasChangedRole && isSuperiorToOrEqual(before.role, 'moderator') && !isSuperiorToOrEqual(member.role, 'moderator');
+    const isPromotedToAdminMod = hasChangedRole
+      && !isSuperiorToOrEqual(before.role, 'moderator')
+      && isSuperiorToOrEqual(member.role, 'moderator');
+    const isDemotedToContributor = hasChangedRole
+      && isSuperiorToOrEqual(before.role, 'moderator')
+      && !isSuperiorToOrEqual(member.role, 'moderator');
     const isDeleted = member.deletedUser && !before.deletedUser;
     const emailChanged = before.custom.email !== member.custom.email;
     const isAdminMod = isSuperiorToOrEqual(before.role, 'moderator');
@@ -134,14 +151,29 @@ export default async function onPatch({ services, config, activityQueue }, befor
       log('user is a newly associated member');
       if (!senderUser) throw new Error('Sender user not found');
       try {
-        await onNewMember({ services, agenda, user, senderUser, context, member, activityQueue });
+        await onNewMember({
+          services,
+          agenda,
+          user,
+          senderUser,
+          context,
+          member,
+          activityQueue,
+        });
       } catch (e) {
         log('error', 'failed to register new member', e);
       }
     } else if (hasChangedRole) {
       log('member has changed role');
       try {
-        await activityQueue('addMemberRoleChange', { user, before, member, agenda, context, senderUser });
+        await activityQueue('addMemberRoleChange', {
+          user,
+          before,
+          member,
+          agenda,
+          context,
+          senderUser,
+        });
       } catch (e) {
         log('error', 'failed to process role change', e);
       }
@@ -154,7 +186,10 @@ export default async function onPatch({ services, config, activityQueue }, befor
           userUid: user.uid,
         });
       } catch (e) {
-        log('error', 'failed to remove user from agenda inbox', { member, exception: e });
+        log('error', 'failed to remove user from agenda inbox', {
+          member,
+          exception: e,
+        });
       }
     } else if (agendaInbox && isPromotedToAdminMod) {
       log('promotion');
@@ -163,7 +198,10 @@ export default async function onPatch({ services, config, activityQueue }, befor
           userUid: user.uid,
         });
       } catch (e) {
-        log('error', 'failed to add user to agenda inbox', { member, exception: e });
+        log('error', 'failed to add user to agenda inbox', {
+          member,
+          exception: e,
+        });
       }
     }
 

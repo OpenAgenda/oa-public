@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
@@ -42,11 +43,10 @@ function SubmitButton({
     initialValues,
   } = form.getState();
 
-  const messageUnchecked =
-    (!!initialValues?.messages?.instructions?.length && !hasInstructions) ||
-    (!!initialValues?.messages?.complete?.length && !hasComplete) ||
-    (!!initialValues?.messages?.publication?.length && !hasPublication) ||
-    (!!initialValues?.messages?.GDPRInformation?.length && !hasGDPRInformation);
+  const messageUnchecked = (!!initialValues?.messages?.instructions?.length && !hasInstructions)
+    || (!!initialValues?.messages?.complete?.length && !hasComplete)
+    || (!!initialValues?.messages?.publication?.length && !hasPublication)
+    || (!!initialValues?.messages?.GDPRInformation?.length && !hasGDPRInformation);
 
   const hasChanged = dirty || messageUnchecked;
 
@@ -176,8 +176,7 @@ export default function ContributionEdition() {
                         value="1"
                         format={(v) => (v == null ? '' : v.toString())}
                         parse={(value) =>
-                          value === undefined ? undefined : parseInt(value)
-                        }
+                          (value === undefined ? undefined : parseInt(value, 10))}
                       />
                       <FormattedMessage
                         id="AgendaSettings.contribution.openContribution"
@@ -200,8 +199,7 @@ export default function ContributionEdition() {
                         value="2"
                         format={(v) => (v == null ? '' : v.toString())}
                         parse={(value) =>
-                          value === undefined ? undefined : parseInt(value)
-                        }
+                          (value === undefined ? undefined : parseInt(value, 10))}
                       />
                       <FormattedMessage
                         id="AgendaSettings.contribution.reducedContribution"
@@ -224,8 +222,7 @@ export default function ContributionEdition() {
                         value="0"
                         format={(v) => (v == null ? '' : v.toString())}
                         parse={(value) =>
-                          value === undefined ? undefined : parseInt(value)
-                        }
+                          (value === undefined ? undefined : parseInt(value, 10))}
                       />
                       <FormattedMessage
                         id="AgendaSettings.contribution.closedContibution"
@@ -266,7 +263,7 @@ export default function ContributionEdition() {
                         type="radio"
                         value="1"
                         format={(v) => (v ? '1' : '0')}
-                        parse={(v) => Boolean(parseInt(v))}
+                        parse={(v) => Boolean(parseInt(v, 10))}
                       />
                       {getLabel('yes')}
                     </label>
@@ -278,7 +275,7 @@ export default function ContributionEdition() {
                         type="radio"
                         value="0"
                         format={(v) => (v ? '1' : '0')}
-                        parse={(v) => Boolean(parseInt(v))}
+                        parse={(v) => Boolean(parseInt(v, 10))}
                       />
                       {getLabel('no')}
                     </label>
@@ -424,8 +421,7 @@ export default function ContributionEdition() {
                         value="2"
                         format={(v) => (v == null ? '' : v.toString())}
                         parse={(value) =>
-                          value === undefined ? undefined : parseInt(value)
-                        }
+                          (value === undefined ? undefined : parseInt(value, 10))}
                       />
                       {getLabel('contribDefaultStatePublished')}
                       <br />
@@ -442,8 +438,7 @@ export default function ContributionEdition() {
                         value="0"
                         format={(v) => (v == null ? '' : v.toString())}
                         parse={(value) =>
-                          value === undefined ? undefined : parseInt(value)
-                        }
+                          (value === undefined ? undefined : parseInt(value, 10))}
                       />
                       {getLabel('contribDefaultStateUnpublished')}
                       <br />
@@ -467,8 +462,7 @@ export default function ContributionEdition() {
                         component="input"
                         type="checkbox"
                         format={(v) =>
-                          Array.isArray(v) ? v.includes('contributor') : false
-                        }
+                          (Array.isArray(v) ? v.includes('contributor') : false)}
                         parse={(value) => (value ? ['contributor'] : null)}
                       />
                       {getLabel('contribModerateOnChangeByUnpublish')}

@@ -1,11 +1,17 @@
 import { useIntl } from 'react-intl';
-import { Modal, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from '@openagenda/uikit';
+import {
+  Modal,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+} from '@openagenda/uikit';
+import { Agenda } from 'types';
 import Body from './Body';
 import messages from './messages';
 
 interface ExportModalProps {
-  agendaUid: number;
-  agendaTitle: string;
+  agenda: Agenda;
   isOpen: boolean;
   onClose: () => void;
   defaultIndex?: number | number[];
@@ -14,8 +20,7 @@ interface ExportModalProps {
 export default function ExportModal({
   isOpen,
   onClose,
-  agendaUid,
-  agendaTitle,
+  agenda,
   defaultIndex = null,
 }: ExportModalProps) {
   const intl = useIntl();
@@ -34,7 +39,7 @@ export default function ExportModal({
           {intl.formatMessage(messages.modalTitle)}
           <ModalCloseButton />
         </ModalHeader>
-        <Body agendaUid={agendaUid} agendaTitle={agendaTitle} onClose={onClose} defaultIndex={defaultIndex} />
+        <Body agenda={agenda} onClose={onClose} defaultIndex={defaultIndex} />
       </ModalContent>
     </Modal>
   );

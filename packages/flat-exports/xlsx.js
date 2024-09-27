@@ -12,20 +12,24 @@ function xlsx(_xlsxOptions, inStream, options = {}) {
 
   const events = [];
 
-  transformed.on('data', data => {
+  transformed.on('data', (data) => {
     events.push(clean(data));
   });
 
   transformed.on('end', () => {
-    worksheet.columns = events.reduce((cols, event) => cols.concat(
-      Object.keys(event)
-        .filter(key => !cols.find(c => c.key === key))
-        .map(key => ({
-          header: key,
-          key,
-          width: 20,
-        })),
-    ), []);
+    worksheet.columns = events.reduce(
+      (cols, event) =>
+        cols.concat(
+          Object.keys(event)
+            .filter((key) => !cols.find((c) => c.key === key))
+            .map((key) => ({
+              header: key,
+              key,
+              width: 20,
+            })),
+        ),
+      [],
+    );
 
     for (const event of events) {
       worksheet.addRow(event).commit();

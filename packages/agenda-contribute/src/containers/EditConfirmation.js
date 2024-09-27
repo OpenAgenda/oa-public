@@ -20,14 +20,12 @@ const messages = defineMessages({
   },
 });
 
-const {
-  doRedirect,
-} = utils;
+const { doRedirect } = utils;
 
 export default function EditConfirmation({ history, agenda }) {
-  const updatedEvent = useSelector(state => state.contribute.updatedEvent);
+  const updatedEvent = useSelector((state) => state.contribute.updatedEvent);
   const prefix = usePrefix(agenda);
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
   const location = useLocation();
 
   const {
@@ -36,15 +34,15 @@ export default function EditConfirmation({ history, agenda }) {
 
   const log = debug('Confirmation');
 
-  const {
-    formatMessage: m,
-  } = useIntl();
+  const { formatMessage: m } = useIntl();
 
   useEffect(() => {
     if (updatedEvent) {
       return;
     }
-    log('  Attempting to reach confirmation screen without a created event. Redirecting to edit');
+    log(
+      '  Attempting to reach confirmation screen without a created event. Redirecting to edit',
+    );
 
     history.replace({
       ...location,
@@ -53,12 +51,11 @@ export default function EditConfirmation({ history, agenda }) {
   }, [history, location, prefix, updatedEvent, eventUid, log]);
 
   return (
-    <Canvas
-      mode="edit"
-      event={updatedEvent}
-    >
+    <Canvas mode="edit" event={updatedEvent}>
       <div className="padding-all-md wsq">
-        <p className="text-center margin-bottom-xs margin-top-sm">{m(messages.eventUpdateSuccessInfo)}</p>
+        <p className="text-center margin-bottom-xs margin-top-sm">
+          {m(messages.eventUpdateSuccessInfo)}
+        </p>
       </div>
       <PassCultureConfirmation
         className="event-instruction padding-all-md padding-v-sm"
@@ -69,13 +66,14 @@ export default function EditConfirmation({ history, agenda }) {
         <button
           type="button"
           className="btn btn-primary btn-block"
-          onClick={() => doRedirect(
-            history,
-            location,
-            res.showEvent
-              .replace(':agendaUid', agenda.uid)
-              .replace(':eventUid', updatedEvent.uid),
-          )}
+          onClick={() =>
+            doRedirect(
+              history,
+              location,
+              res.showEvent
+                .replace(':agendaUid', agenda.uid)
+                .replace(':eventUid', updatedEvent.uid),
+            )}
         >
           {m(messages.end)}
         </button>

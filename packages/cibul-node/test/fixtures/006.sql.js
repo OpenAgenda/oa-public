@@ -29,8 +29,8 @@ raw.push(
 
 raw.push(
   knex('form_schema').insert([
-    load('form-schemas/2.json', fs => ({ id: 2, store: JSON.stringify(fs) })),
-    load('form-schemas/4.json', fs => ({ id: 4, store: JSON.stringify(fs) })),
+    load('form-schemas/2.json', (fs) => ({ id: 2, store: JSON.stringify(fs) })),
+    load('form-schemas/4.json', (fs) => ({ id: 4, store: JSON.stringify(fs) })),
   ]),
 );
 

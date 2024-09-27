@@ -74,17 +74,17 @@ const LocationSelector = ({
   useEffect(() => {
     if (seeDetails && location?.uid) {
       fetch(res.get.replace(':locationUid', location.uid))
-        .then(response => {
+        .then((response) => {
           if (!response.ok) return;
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           setDetailedLocation(data);
         });
     }
   }, [res.get, location?.uid, seeDetails]);
 
-  const onSelect = l => {
+  const onSelect = (l) => {
     onChange(confirmRequired ? 'confirm' : 'show', l);
   };
 
@@ -92,15 +92,15 @@ const LocationSelector = ({
     onChange('show', location);
   };
 
-  const onCreateRequest = value => {
+  const onCreateRequest = (value) => {
     onChange('create', { name: value });
   };
 
-  const switchToSearch = l => {
+  const switchToSearch = (l) => {
     onChange('search', l);
   };
 
-  const onSubmit = loc => {
+  const onSubmit = (loc) => {
     let clean;
     try {
       clean = validate(loc, settings, {
@@ -122,16 +122,16 @@ const LocationSelector = ({
       method: 'POST',
       body: form,
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         return response.json();
       })
-      .then(result => {
+      .then((result) => {
         onSelect(result.location);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -163,7 +163,11 @@ const LocationSelector = ({
             onClick={() => switchToSearch()}
             className="btn btn-default"
           >
-            {location ? <FormattedMessage {...messages.change} /> : <FormattedMessage {...messages.find} />}
+            {location ? (
+              <FormattedMessage {...messages.change} />
+            ) : (
+              <FormattedMessage {...messages.find} />
+            )}
           </button>
         </div>
       ) : null}
@@ -187,7 +191,9 @@ const LocationSelector = ({
         </div>
       ) : (
         <div>
-          <p className="nolocation"><FormattedMessage {...messages.noLocation} /></p>
+          <p className="nolocation">
+            <FormattedMessage {...messages.noLocation} />
+          </p>
         </div>
       )}
     </div>
@@ -199,15 +205,19 @@ const LocationSelector = ({
       res={res}
       allowCreate={allowCreate}
       onCreateRequest={onCreateRequest}
-      onSelect={e => onSelect(e)}
+      onSelect={(e) => onSelect(e)}
       placeholder={placeholder}
     />
   );
 
   const renderHeader = () => (
     <div className="head">
-      <h2><FormattedMessage {...messages.title} /></h2>
-      <span className="info"><FormattedMessage {...messages.info} /></span>
+      <h2>
+        <FormattedMessage {...messages.title} />
+      </h2>
+      <span className="info">
+        <FormattedMessage {...messages.info} />
+      </span>
     </div>
   );
 
@@ -218,9 +228,7 @@ const LocationSelector = ({
       lang={lang}
       locationProp={location}
       detailedInfo={
-        (settings.eventForm
-          && settings.eventForm.detailed)
-        || detailedInfo
+        (settings.eventForm && settings.eventForm.detailed) || detailedInfo
       }
       settings={settings}
       onCancel={switchToSearch}
@@ -249,19 +257,17 @@ const LocationSelector = ({
   const renderComponent = () => {
     if (mode === 'search') {
       return renderSearch();
-    } if (mode === 'create') {
+    }
+    if (mode === 'create') {
       return renderCreateForm();
-    } if (mode === 'confirm') {
+    }
+    if (mode === 'confirm') {
       return renderConfirmation();
     }
     return renderSelected();
   };
 
-  return (
-    <div className="location-selector">
-      {renderComponent()}
-    </div>
-  );
+  return <div className="location-selector">{renderComponent()}</div>;
 };
 
 export default LocationSelector;

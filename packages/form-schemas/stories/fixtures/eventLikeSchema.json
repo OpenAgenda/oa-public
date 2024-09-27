@@ -1,97 +1,85 @@
 {
-    "id": -1,
-    "fields": [
-        {
-            "field": "image",
-            "fieldType": "image",
-            "label": "Image",
-            "purpose": "Image principale de l'événement",
-            "optional": true,
-            "display": false,
-            "write": [
-                "administrator",
-                "moderator"
-            ],
-            "read": [
-                "administrator",
-                "moderator"
-            ]
-        },
-        {
-            "field": "imageCredits",
-            "fieldType": "text",
-            "label": "Crédits image",
-            "optional": true,
-            "write" : null,
-            "read": null
-        },
-        {
-            "field": "languages",
-            "fieldType": "languages",
-            "label": "Langues",
-            "read": [
-                "administrator",
-                "moderator"
-            ]
-        },
-        {
-            "field": "title",
-            "fieldType": "text",
-            "optional": false,
-            "label": {
-                "en": "Title",
-                "fr": "Titre"
-            },
-            "write": [
-                "administrator",
-                "moderator"
-            ]
-        },
-        {
-            "field": "description",
-            "fieldType": "text",
-            "label": "Description"
-        },
-        {
-            "field": "keywords",
-            "fieldType": "text",
-            "label": "Keywords"
-        },
-        {
-            "field": "longDescription",
-            "fieldType": "markdown",
-            "label": "Long description"
-        },
-        {
-            "field": "conditions",
-            "fieldType": "text",
-            "label": "Conditions"
-        },
-        {
-            "field": "age",
-            "fieldType": "text",
-            "label": "Age"
-        },
-        {
-            "field": "registration",
-            "fieldType": "registration",
-            "label": "Registration"
-        },
-        {
-            "field": "accessibility",
-            "fieldType": "accessibility",
-            "label": "Accessibility conditions",
-            "display": false
-        },
-        {
-            "field": "location",
-            "fieldType": "location",
-            "label": "Location"
-        },
-        {
-            "field": "timings",
-            "fieldType": "timings",
-            "label": "Horaires"
-        }
-    ]
+  "id": -1,
+  "fields": [
+    {
+      "field": "image",
+      "fieldType": "image",
+      "label": "Image",
+      "purpose": "Image principale de l'événement",
+      "optional": true,
+      "display": false,
+      "write": ["administrator", "moderator"],
+      "read": ["administrator", "moderator"]
+    },
+    {
+      "field": "imageCredits",
+      "fieldType": "text",
+      "label": "Crédits image",
+      "optional": true,
+      "write": null,
+      "read": null
+    },
+    {
+      "field": "languages",
+      "fieldType": "languages",
+      "label": "Langues",
+      "read": ["administrator", "moderator"]
+    },
+    {
+      "field": "title",
+      "fieldType": "text",
+      "optional": false,
+      "label": {
+        "en": "Title",
+        "fr": "Titre"
+      },
+      "write": ["administrator", "moderator"]
+    },
+    {
+      "field": "description",
+      "fieldType": "text",
+      "label": "Description"
+    },
+    {
+      "field": "keywords",
+      "fieldType": "text",
+      "label": "Keywords"
+    },
+    {
+      "field": "longDescription",
+      "fieldType": "markdown",
+      "label": "Long description"
+    },
+    {
+      "field": "conditions",
+      "fieldType": "text",
+      "label": "Conditions"
+    },
+    {
+      "field": "age",
+      "fieldType": "text",
+      "label": "Age"
+    },
+    {
+      "field": "registration",
+      "fieldType": "registration",
+      "label": "Registration"
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "accessibility",
+      "label": "Accessibility conditions",
+      "display": false
+    },
+    {
+      "field": "location",
+      "fieldType": "location",
+      "label": "Location"
+    },
+    {
+      "field": "timings",
+      "fieldType": "timings",
+      "label": "Horaires"
+    }
+  ]
 }

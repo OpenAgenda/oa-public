@@ -10,12 +10,8 @@ import locationSetFixtures from './fixtures/locationSet.json';
 export default {
   title: 'pages/agendas',
   component: AgendaSearch,
-  loaders: [
-    intlMessagesLoader(AgendaSearchView.fetchLocale),
-  ],
-  decorators: [
-    ProvidersDecorator,
-  ],
+  loaders: [intlMessagesLoader(AgendaSearchView.fetchLocale)],
+  decorators: [ProvidersDecorator],
 };
 
 export const Search = {

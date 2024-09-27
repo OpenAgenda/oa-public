@@ -7,7 +7,7 @@ const limit = require('../utils/limit');
 module.exports = async (
   { knex, getAggregatedCount },
   agendaUid,
-  options = {}
+  options = {},
 ) => {
   const { detailed } = {
     detailed: false,
@@ -23,7 +23,7 @@ module.exports = async (
   const aggregator = await knex('aggregator')
     .first('*')
     .where('review_id', agendaId)
-    .then(r => (r ? db.fromEntry(r) : null));
+    .then((r) => (r ? db.fromEntry(r) : null));
 
   if (!aggregator || !detailed) {
     return aggregator;

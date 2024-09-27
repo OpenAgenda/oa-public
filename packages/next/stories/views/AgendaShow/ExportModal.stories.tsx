@@ -2,8 +2,10 @@ import { http, HttpResponse } from 'msw';
 import { Button, useDisclosure } from '@openagenda/uikit';
 import AgendaShow from 'views/AgendaShow';
 import ExportModal from 'views/AgendaShow/components/ExportModal';
+import { Agenda } from 'types';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
+import agendaFixtures from '../../fixtures/mel.agenda.json';
 import me from './fixtures/me.json';
 import userFixtures from './fixtures/user.json';
 import columns from './fixtures/columns.json';
@@ -25,7 +27,11 @@ export const Basic = {
           Open modal
         </Button>
 
-        <ExportModal isOpen={isOpen} onClose={onClose} agendaUid={1234} agendaTitle="Titre" />
+        <ExportModal
+          isOpen={isOpen}
+          onClose={onClose}
+          agenda={agendaFixtures as Agenda}
+        />
       </>
     );
   },
@@ -34,7 +40,8 @@ export const Basic = {
       handlers: [
         http.get('/users/me', () => HttpResponse.json(userFixtures)),
         http.get('/api/me', () => HttpResponse.json(me)),
-        http.get('/agendas/1234/settings/exports', () => HttpResponse.json(columns)),
+        http.get('/agendas/1234/settings/exports', () =>
+          HttpResponse.json(columns)),
       ],
     },
   },
@@ -50,7 +57,12 @@ export const OpenAccordion = {
           Open modal
         </Button>
 
-        <ExportModal isOpen={isOpen} onClose={onClose} agendaUid={1234} agendaTitle="Titre" defaultIndex={7} />
+        <ExportModal
+          isOpen={isOpen}
+          onClose={onClose}
+          agenda={agendaFixtures as Agenda}
+          defaultIndex={7}
+        />
       </>
     );
   },
@@ -59,7 +71,8 @@ export const OpenAccordion = {
       handlers: [
         http.get('/users/me', () => HttpResponse.json(userFixtures)),
         http.get('/api/me', () => HttpResponse.json(me)),
-        http.get('/agendas/1234/settings/exports', () => HttpResponse.json(columns)),
+        http.get('/agendas/1234/settings/exports', () =>
+          HttpResponse.json(columns)),
       ],
     },
   },

@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const queryValidator = require('../validators/query');
 
 /**
@@ -11,9 +10,8 @@ const queryValidator = require('../validators/query');
  */
 
 describe('11 - validators - query', () => {
-
   it('give it nothing and get default query values', () => {
-    assert.deepEqual(queryValidator(), {
+    expect(queryValidator()).toEqual({
       uid: null,
       contributionType: null,
       search: null,
@@ -22,9 +20,9 @@ describe('11 - validators - query', () => {
       locationSet: null,
       updatedAt: {
         gte: null,
-        lte: null
+        lte: null,
       },
-      slug: null
+      slug: null,
     });
   });
 
@@ -32,11 +30,11 @@ describe('11 - validators - query', () => {
     let error;
     try {
       queryValidator({
-        network: 'Truc'
+        network: 'Truc',
       });
     } catch (e) {
       error = e;
     }
-    assert.equal(error.name, 'BadRequest');
+    expect(error.name).toEqual('BadRequest');
   });
 });

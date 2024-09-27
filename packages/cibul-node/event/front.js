@@ -66,7 +66,10 @@ function cspTracking(req) {
 
 const csp = contentSecurityPolicy.default({
   ...contentSecurityPolicy.defaultDirectives,
-  connectSrc: [...contentSecurityPolicy.defaultDirectives.connectSrc, cspTracking],
+  connectSrc: [
+    ...contentSecurityPolicy.defaultDirectives.connectSrc,
+    cspTracking,
+  ],
   imgSrc: [...contentSecurityPolicy.defaultDirectives.imgSrc, cspTracking],
   frameSrc: [
     ...contentSecurityPolicy.defaultDirectives.frameSrc,
@@ -99,15 +102,17 @@ function removeCsp(req, res, next) {
 function getRouteValues(req, keys) {
   const routeValues = [];
 
-  [].concat(keys).forEach(k => {
+  [].concat(keys).forEach((k) => {
     routeValues[k] = req.params[k];
   });
 
   return routeValues;
 }
 
-const googleItineraryLink = (lat, lng) => `https://www.google.com/maps/dir//${lat},${lng}/@${lat},${lng},17z`;
-const OSMItineraryLink = (lat, lng) => `https://www.openstreetmap.org/directions?to=${lat}%2C${lng}`;
+const googleItineraryLink = (lat, lng) =>
+  `https://www.google.com/maps/dir//${lat},${lng}/@${lat},${lng},17z`;
+const OSMItineraryLink = (lat, lng) =>
+  `https://www.openstreetmap.org/directions?to=${lat}%2C${lng}`;
 
 function redirect(req, res, next) {
   if (!req.agenda || !req.event) {
@@ -145,7 +150,10 @@ function formatSocialLinks(req, res, next) {
     }
   }
 
-  _.merge(req.formatted, legacyEventSvc.getSocialLinks(req.event, eventUrl, siteUrl));
+  _.merge(
+    req.formatted,
+    legacyEventSvc.getSocialLinks(req.event, eventUrl, siteUrl),
+  );
 
   if (req.embed) {
     req.formatted.facebookShare = `https://www.facebook.com/sharer.php?u=${encodeURIComponent(`${config.root}/agendas/${req.agenda.uid}/events/${req.event.uid}/share`)}`;
@@ -178,12 +186,23 @@ function formatAgendaLinks(uri, keys) {
     // link to results for event location in agenda
     req.formatted.locationLink = req.genUrl(uri, [
       routeValues,
-      { oaq: _.extend({ location: req.event.getLocationUid() }, baseSearchQuery) },
+      {
+        oaq: _.extend(
+          { location: req.event.getLocationUid() },
+          baseSearchQuery,
+        ),
+      },
       { lang: req.lang },
     ]);
 
-    req.formatted.googleItineraryLink = googleItineraryLink(req.event.getLatitude(), req.event.getLongitude());
-    req.formatted.osmItineraryLink = OSMItineraryLink(req.event.getLatitude(), req.event.getLongitude());
+    req.formatted.googleItineraryLink = googleItineraryLink(
+      req.event.getLatitude(),
+      req.event.getLongitude(),
+    );
+    req.formatted.osmItineraryLink = OSMItineraryLink(
+      req.event.getLatitude(),
+      req.event.getLongitude(),
+    );
 
     // link to results for same category in agenda
     req.formatted.categoryLink = false;
@@ -191,7 +210,12 @@ function formatAgendaLinks(uri, keys) {
     if (req.formatted.categorySlug) {
       req.formatted.categoryLink = req.genUrl(uri, [
         routeValues,
-        { oaq: _.extend({ category: req.formatted.categorySlug }, baseSearchQuery) },
+        {
+          oaq: _.extend(
+            { category: req.formatted.categorySlug },
+            baseSearchQuery,
+          ),
+        },
         { lang: req.lang },
       ]);
     }
@@ -239,19 +263,21 @@ function _appendSettings(req, res, next) {
       includeFields: ['settings', 'indexed', 'private', 'credentials'],
     },
     (err, agendas) => {
-      const agenda = agendas.filter(a => a.uid === agendaUid).shift();
+      const agenda = agendas.filter((a) => a.uid === agendaUid).shift();
 
       if (err) return next(err);
 
       req.baseData = ih(req.baseData, {
         indexed: {
-          $set: _.get(agenda, 'indexed', true) && !_.get(agenda, 'private', false),
+          $set:
+            _.get(agenda, 'indexed', true) && !_.get(agenda, 'private', false),
         },
         scriptParams: {
           moderatorCanPublish: {
-            $set: _.get(agenda, 'settings.contribution.canPublish', ['moderators', 'administrators']).includes(
+            $set: _.get(agenda, 'settings.contribution.canPublish', [
               'moderators',
-            ),
+              'administrators',
+            ]).includes('moderators'),
           },
           GDPRInformation: {
             $set: agenda?.settings?.contribution?.messages?.GDPRInformation,
@@ -322,7 +348,9 @@ async function agendaEventShow(req, res) {
       root: config.root,
       contributor: member ? { uid: member.userUid } : null,
       agendaSlug: req.agenda.slug,
-      agendaImage: req.agenda.image ? req.agenda.image : config.aws.defaultImagePath,
+      agendaImage: req.agenda.image
+        ? req.agenda.image
+        : config.aws.defaultImagePath,
     },
     oaRoot: config.root,
     agendaId: req.agenda.id,
@@ -331,7 +359,9 @@ async function agendaEventShow(req, res) {
     private: req.agenda.private,
     adminNav: req.query.nc,
     isOriginAgenda: req.indexedEvent?.originAgenda?.uid === req.agenda.uid,
-    removeRedirect: req.query.nc ? base64.encode(`/${req.agenda.slug}/admin?${qs.stringify(req.query.nc)}`) : null,
+    removeRedirect: req.query.nc
+      ? base64.encode(`/${req.agenda.slug}/admin?${qs.stringify(req.query.nc)}`)
+      : null,
     redirect: cmn.makeRedirect(req),
     isCancelled: determineEventCancellationFromTitle(req.indexedEvent.title),
     event: req.formatted,
@@ -389,7 +419,7 @@ const middlewares = {
         detailed: true,
         includeEmbedScripts: true,
         cspNonce: res.locals.cspNonce,
-      }).then(indexedEvent => {
+      }).then((indexedEvent) => {
         if (!indexedEvent) {
           return next({ code: 404 });
         }
@@ -402,7 +432,7 @@ const middlewares = {
     (req, res, next) => {
       getAgendaReferences(req.app.services, req.indexedEvent.uid, {
         excludeAgendaUid: req.agenda.uid,
-      }).then(agendaReferences => {
+      }).then((agendaReferences) => {
         req.agendaReferences = agendaReferences;
         next();
       }, next);
@@ -429,7 +459,7 @@ const middlewares = {
 
 const preMw = [cmn.loadLogger('event front'), cmn.redirectLegacySearch];
 
-export default app => {
+export default (app) => {
   const { agendas: agendasSvc, sessions } = app.services;
 
   app.get(
@@ -448,15 +478,22 @@ export default app => {
     cmn.ifIsNot('agenda.private', (req, res) => {
       const query = qs.stringify(req.query, { addQueryPrefix: true });
 
-      res.redirect(302, `/${req.params.slug}/events/${req.params.eventSlug}${query}`);
+      res.redirect(
+        302,
+        `/${req.params.slug}/events/${req.params.eventSlug}${query}`,
+      );
     }),
     sessions.mw.ifUnlogged((req, res) => {
       const query = qs.stringify(req.query, { addQueryPrefix: true });
-      const redirectTo = Buffer.from(`/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8').toString(
-        'base64',
-      );
+      const redirectTo = Buffer.from(
+        `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`,
+        'utf8',
+      ).toString('base64');
 
-      res.redirect(302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirectTo}`);
+      res.redirect(
+        302,
+        `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirectTo}`,
+      );
     }),
     members.mw.load,
     (req, res, next) => {
@@ -473,12 +510,20 @@ export default app => {
     cmn.ifIs('agenda.private', (req, res) => {
       const query = qs.stringify(req.query, { addQueryPrefix: true });
 
-      res.redirect(302, `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`);
+      res.redirect(
+        302,
+        `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`,
+      );
     }),
     middlewares.agendaEventShow,
   );
 
-  app.get('/agendas/:agendaUid/events/:eventUid', preMw, redirectMiddelware.loadEvent, redirect);
+  app.get(
+    '/agendas/:agendaUid/events/:eventUid',
+    preMw,
+    redirectMiddelware.loadEvent,
+    redirect,
+  );
 
   app.get(
     '/agendas/:uid/embed/events/:eventUid',
@@ -539,7 +584,10 @@ export default app => {
     (req, res, next) => {
       const integer = parseInt(req.params.eventSlug, 10);
 
-      if (Number.isInteger(integer) && `${integer}`.length === req.params.eventSlug.length) {
+      if (
+        Number.isInteger(integer)
+        && `${integer}`.length === req.params.eventSlug.length
+      ) {
         return next('route');
       }
 

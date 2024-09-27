@@ -1,90 +1,76 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const logger = require( '@openagenda/logs' );
+const logger = require('@openagenda/logs');
 
-const publicValidate = require( '../validate/public' );
+const publicValidate = require('../validate/public');
 
-let service, log = console.log;
+let service;
+let { log } = console;
 
-module.exports = Object.assign( Agenda, { init } );
-
-function Agenda( data ) {
-
-  if ( !service ) {
-
-    return new Error( 'instanciation service was not initialized' );
-
+function Agenda(data) {
+  if (!service) {
+    return new Error('instanciation service was not initialized');
   }
 
-  if ( !data.uid ) {
-
-    return new Error( 'identifier uid is not set' );
-
+  if (!data.uid) {
+    return new Error('identifier uid is not set');
   }
 
-  Object.assign( this, { data, service, log } );
-
+  Object.assign(this, { data, service, log });
 }
 
-Object.assign(
-  Agenda.prototype,
-  {
-    getData,
-    getImage,
-    _loadInternals
-  }
-);
+function _loadInternals(cb) {
+  service.get(
+    { uid: this.data.uid },
+    { internal: true, private: null },
+    (err, agenda) => {
+      if (err) return cb(err);
 
-function _loadInternals( cb ) {
+      if (!agenda) return cb();
 
-  service.get( { uid: this.data.uid }, { internal: true, private: null }, ( err, agenda ) => {
+      _.forIn(agenda, (value, field) => {
+        if (this.data[field] !== undefined) return;
 
-    if ( err ) return cb( err );
+        this.data[field] = value;
+      });
 
-    if ( !agenda ) return cb();
-
-    _.forIn( agenda, ( value, field ) => {
-
-      if ( this.data[ field ] !== undefined ) return;
-
-      this.data[ field ] = value;
-
-    } );
-
-    cb();
-
-  } );
-
+      cb();
+    },
+  );
 }
 
-function getData( options ) {
+function getData(options) {
+  const params = _.extend(
+    {
+      internal: false,
+    },
+    options || {},
+  );
 
-  const params = _.extend( {
-    internal: false
-  }, options || {} );
-
-  return params.internal ? this.data : publicValidate( this.data );
-
+  return params.internal ? this.data : publicValidate(this.data);
 }
 
-function getImage( includePath = false, useDefaultImage = false ) {
-
+function getImage(includePath = false, useDefaultImage = false) {
   const { defaultImagePath } = this.service.getConfig();
   const path = this.service.getConfig().imagePath;
-  const image = this.data.image ? this.data.image.split( '/' ).pop() : null;
+  const image = this.data.image ? this.data.image.split('/').pop() : null;
 
-  if ( image === null ) return useDefaultImage ? defaultImagePath : null;
+  if (image === null) return useDefaultImage ? defaultImagePath : null;
 
-  return ( includePath ? path : '' ) + image;
-
+  return (includePath ? path : '') + image;
 }
 
-function init( svc ) {
-
-  log = logger( 'agendas/instanciate' ),
-
-    service = svc;
-
+function init(svc) {
+  log = logger('agendas/instanciate');
+  service = svc;
 }
+
+Object.assign(Agenda.prototype, {
+  getData,
+  getImage,
+  _loadInternals,
+});
+
+module.exports = Object.assign(Agenda, { init });

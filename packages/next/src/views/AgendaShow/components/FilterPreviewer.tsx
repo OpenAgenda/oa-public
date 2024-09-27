@@ -16,7 +16,7 @@ export default function FilterPreviewer({
   if (valueOptions?.length) {
     return (
       <>
-        {valueOptions.map(option => (
+        {valueOptions.map((option) => (
           <ValueTag
             key={option.value}
             label={option.label}

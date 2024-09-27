@@ -1,86 +1,77 @@
-"use strict";
+'use strict';
 
 process.env.NODE_ENV = 'test';
 
-const  _ = require( 'lodash' ),
+const ih = require('immutability-helper');
 
-  svc = require( './service' ),
+const mysql = require('mysql');
 
-  ih = require( 'immutability-helper' ),
+const schema = require('@openagenda/validators/schema');
+const integer = require('@openagenda/validators/integer');
+const text = require('@openagenda/validators/text');
+const config = require('../testconfig');
 
-  mysql = require( 'mysql' ),
+const svc = require('./service');
 
-  config = require( '../testconfig' ),
+schema.register({
+  integer,
+  text,
+});
 
-  schema = require( '@openagenda/validators/schema' );
+describe('extended events - functional (server): remove', () => {
+  beforeEach(async () => {
+    await svc.initAndLoad(
+      ih(config, {
+        interfaces: {
+          getValidator: {
+            $set: (_formSchemaId) =>
+              schema({
+                edition: {
+                  type: 'integer',
+                },
+                contender: {
+                  type: 'text',
+                },
+              }),
+          },
+        },
+      }),
+    );
+  });
 
-schema.register( {
-  integer: require( '@openagenda/validators/integer' ),
-  text: require( '@openagenda/validators/text' )
-} );
-
-describe( 'extended events - functional (server): remove', function() {
-
-  beforeEach( async () => {
-
-    await svc.initAndLoad( ih( config, {
-      interfaces: {
-        getValidator: { $set: formSchemaId => {
-
-          return schema( {
-            edition: {
-              type: 'integer'
-            },
-            contender: {
-              type: 'text'
-            }
-          } );
-
-        } }
-      }
-    } ) );
-
-  } );
-
-  beforeEach( async () => {
-
-    await svc( 12 ).create( 123, {
+  beforeEach(async () => {
+    await svc(12).create(123, {
       edition: 12,
-      contender: 'Phteve'
-    } );
+      contender: 'Phteve',
+    });
+  });
 
-  } );
-
-  it( 'remove custom data by form schema id and identifier', async () => {
-
-    expect( await svc( 12 ).remove( 123 ) ).toEqual( {
+  it('remove custom data by form schema id and identifier', async () => {
+    expect(await svc(12).remove(123)).toEqual({
       success: true,
       removed: {
         contender: 'Phteve',
-        edition: 12
-      }
-    } );
+        edition: 12,
+      },
+    });
+  });
 
-  } );
+  it('remove effectively removes', async () => {
+    await svc(12).remove(123);
 
-  it( 'remove effectively removes', done => {
+    const con = mysql.createConnection(config.mysql);
 
-    svc( 12 ).remove( 123 ).then( () => {
+    return new Promise((resolve, reject) => {
+      con.query(
+        `select * from ${config.schemas.custom} where form_schema_id = ? and identifier = ?`,
+        [12, 123],
+        (err, rows) => {
+          if (err) return reject(err);
 
-      let con = mysql.createConnection( config.mysql );
-
-      con.query( `select * from ${config.schemas.custom} where form_schema_id = ? and identifier = ?`, [ 12, 123 ], ( err, rows ) => {
-
-        con.end();
-
-        expect(rows.length).toBe( 0 );
-
-        done();
-
-      } );
-
-    } );
-
-  } );
-
-} );
+          expect(rows.length).toBe(0);
+          resolve();
+        },
+      );
+    }).finally(() => con.end());
+  });
+});

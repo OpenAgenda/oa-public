@@ -5,9 +5,7 @@ const _ = require('lodash');
 const { cleanSession, callbackify } = require('./helpers');
 
 async function _getFromUid(config, uid) {
-  const {
-    redisClient,
-  } = config;
+  const { redisClient } = config;
 
   const result = await redisClient.get([config.redis.prefix, uid].join(':'));
 

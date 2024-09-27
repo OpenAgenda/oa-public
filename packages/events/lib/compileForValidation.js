@@ -1,27 +1,27 @@
 'use strict';
 
-const _ = require('lodash');
 const fs = require('node:fs');
 const https = require('node:https');
 const { PassThrough } = require('node:stream');
+const _ = require('lodash');
 
 const log = require('@openagenda/logs')('compileForValidation');
 
-const fields = require('./fields');
-const statusSlugs = fields.find(f => f.field === 'status').options.map(o => o.value);
-const fieldNames = fields.filter(f => (f.write || []).includes('public')).map(f => f.field);
-const ValidationError = require('./ValidationError');
-const cleanImageURL = require('./cleanImageURL');
-
 const replaceAccents = require('@openagenda/utils/replaceAccents');
 
-const {
-  is: isDHM,
-} = require('../iso/src/validators/dateHoursMinutesTiming');
+const { is: isDHM } = require('../iso/src/validators/dateHoursMinutesTiming');
 
-const {
-  from: fromDHM
-} = require('../iso/src/convertDateHoursMinutesTiming');
+const { from: fromDHM } = require('../iso/src/convertDateHoursMinutesTiming');
+const cleanImageURL = require('./cleanImageURL');
+const ValidationError = require('./ValidationError');
+const fields = require('./fields');
+
+const statusSlugs = fields
+  .find((f) => f.field === 'status')
+  .options.map((o) => o.value);
+const fieldNames = fields
+  .filter((f) => (f.write || []).includes('public'))
+  .map((f) => f.field);
 
 const fetchImageAsStream = async (url, maxContentLength) => {
   const agent = new https.Agent({
@@ -57,7 +57,9 @@ const fetchImageAsStream = async (url, maxContentLength) => {
         }
         contentLength += value.length;
         if (contentLength > maxContentLength) {
-          passThrough.destroy(new Error('Content length exceeded the maximum limit'));
+          passThrough.destroy(
+            new Error('Content length exceeded the maximum limit'),
+          );
           reader.cancel();
           break;
         }
@@ -66,23 +68,24 @@ const fetchImageAsStream = async (url, maxContentLength) => {
     } catch (error) {
       passThrough.destroy(error);
     }
-  })()
-    .catch(() => null);
+  })().catch(() => null);
 
   return passThrough;
 };
 
-module.exports = async function compileForValidation(current, data, options = {}) {
-  const {
-    maxImageSize = 20971520,
-    protectedMode = true,
-  } = options;
+module.exports = async function compileForValidation(
+  current,
+  data,
+  options = {},
+) {
+  const { maxImageSize = 20971520, protectedMode = true } = options;
 
-  const editedFields = Object.keys(_.omit(data, ['draft'])).filter(f => protectedMode ? fieldNames.includes(f) : true);
+  const editedFields = Object.keys(_.omit(data, ['draft'])).filter((f) =>
+    (protectedMode ? fieldNames.includes(f) : true));
 
   const compiled = {
-    ...(current || {}),
-    ...data
+    ...current || {},
+    ...data,
   };
 
   const image = data?.image;
@@ -112,32 +115,37 @@ module.exports = async function compileForValidation(current, data, options = {}
   } else if (image?.filename === null) {
     log('image is unset through filename value %s', image?.filename);
     compiled.image = null;
-  } else if (typeof data?.image?.filename === 'string' && !('transformAndUpload' in image)) {
+  } else if (
+    typeof data?.image?.filename === 'string'
+    && !('transformAndUpload' in image)
+  ) {
     compiled.image = current?.image || data?.image;
   }
 
   // edge case: if DHM timings are being validated, their timezone must be
   // known for correctly evaluating time between beginning and end on DST days
   if ((compiled?.timings || []).length && isDHM(compiled.timings[0])) {
-    compiled.timings.forEach(t => {
+    compiled.timings.forEach((t) => {
       t.timezone = compiled.timezone;
     });
   }
 
   if ((compiled?.timings ?? []).length) {
-    compiled?.timings.forEach(t => {
-      const timing = isDHM(t) ? {
-        begin: fromDHM(t.begin, compiled.timezone),
-        end: fromDHM(t.end, compiled.timezone)
-      } : t;
+    compiled?.timings.forEach((t) => {
+      const timing = isDHM(t)
+        ? {
+          begin: fromDHM(t.begin, compiled.timezone),
+          end: fromDHM(t.end, compiled.timezone),
+        }
+        : t;
       if (timing.begin >= timing.end) {
         throw new ValidationError({
           field: 'timings',
           code: 'timings.invalid',
-          message: 'timing end must be superior to begin'
+          message: 'timing end must be superior to begin',
         });
       }
-    })
+    });
   }
 
   if (data?.location instanceof Object && !data?.locationUid) {
@@ -150,7 +158,11 @@ module.exports = async function compileForValidation(current, data, options = {}
     editedFields.push('locationUid');
   }
 
-  if (data?.location instanceof Object && !data?.timezone && data.location.timezone) {
+  if (
+    data?.location instanceof Object
+    && !data?.timezone
+    && data.location.timezone
+  ) {
     compiled.timezone = data.location.timezone;
     editedFields.push('timezone');
   }
@@ -159,20 +171,22 @@ module.exports = async function compileForValidation(current, data, options = {}
     compiled.longDescription = replaceAccents(data.longDescription);
   }
 
-  if (data.age && !Object.keys(data.age).filter(k => data.age[k] !== undefined).length) {
+  if (
+    data.age
+    && !Object.keys(data.age).filter((k) => data.age[k] !== undefined).length
+  ) {
     compiled.age = { min: null, max: null };
     editedFields.push('age');
   }
 
   if (statusSlugs.includes(data?.status)) {
     compiled.status = fields
-      .find(f => f.field === 'status')
-      .options
-      .find(o => o.value === data.status).id;
+      .find((f) => f.field === 'status')
+      .options.find((o) => o.value === data.status).id;
   }
 
   return {
     compiled,
-    editedFields
+    editedFields,
   };
-}
+};

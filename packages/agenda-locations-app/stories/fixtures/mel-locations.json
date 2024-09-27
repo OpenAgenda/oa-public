@@ -395,9 +395,7 @@
       "state": 0,
       "imageCredits": null,
       "extId": null,
-      "duplicateCandidates": [
-        17409186
-      ],
+      "duplicateCandidates": [17409186],
       "disqualifiedDuplicates": null,
       "mergedIn": null
     },
@@ -821,8 +819,10 @@
       "website": "www.openagenda.comgsdjhfgblskdbhfmksbndlkfbslqkdbflksdbfklbsdklfjbsqdkbflksdbfkjsdbfkjbsdlkdbfkmsqbdfklbskmdfblksqbdflksqbdfklqsbflkbjdsqkbflqksbdfkmqsbdflbqmsdfbqsmdbfmqsb",
       "email": "clement.lecroart@openagenda.com",
       "phone": "+330683477606",
-      "links": ["https://www.facebook.com/ChateauDeChampsSurMarne",
-        "https://twitter.com/hashtag/coronaravirus"],
+      "links": [
+        "https://www.facebook.com/ChateauDeChampsSurMarne",
+        "https://twitter.com/hashtag/coronaravirus"
+      ],
       "access": {},
       "state": 0,
       "imageCredits": null,
@@ -1024,9 +1024,7 @@
       "state": null,
       "imageCredits": null,
       "extId": "f66d9f32-b9d9-43e4-8ccb-6c3806b069e7",
-      "duplicateCandidates": [
-        33448838
-      ],
+      "duplicateCandidates": [33448838],
       "disqualifiedDuplicates": null,
       "mergedIn": null
     },

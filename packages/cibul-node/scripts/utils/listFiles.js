@@ -9,7 +9,10 @@ const require = createRequire(import.meta.url);
 function getDependencies(filePath) {
   try {
     const code = fs.readFileSync(filePath, 'utf-8');
-    const ast = acorn.parse(code, { sourceType: 'module', ecmaVersion: 'latest' });
+    const ast = acorn.parse(code, {
+      sourceType: 'module',
+      ecmaVersion: 'latest',
+    });
 
     const dependencies = [];
     walk.simple(ast, {
@@ -27,7 +30,11 @@ function getDependencies(filePath) {
         }
       },
       CallExpression(node) {
-        if (node.callee.name === 'require' && node.arguments.length > 0 && node.arguments[0].type === 'Literal') {
+        if (
+          node.callee.name === 'require'
+          && node.arguments.length > 0
+          && node.arguments[0].type === 'Literal'
+        ) {
           dependencies.push(node.arguments[0].value);
         }
       },
@@ -59,10 +66,16 @@ export default function listFiles(entryFile, jsOnly = false) {
 
   function visit(file) {
     const resolvedFile = resolveModule(path.dirname(file), file);
-    if (resolvedFile && !visitedFiles.has(resolvedFile) && fs.existsSync(resolvedFile)) {
+    if (
+      resolvedFile
+      && !visitedFiles.has(resolvedFile)
+      && fs.existsSync(resolvedFile)
+    ) {
       visitedFiles.add(resolvedFile);
-      const dependencies = getDependencies(resolvedFile).map(dep => resolveModule(path.dirname(resolvedFile), dep)).filter(Boolean);
-      dependencies.forEach(dep => visit(dep));
+      const dependencies = getDependencies(resolvedFile)
+        .map((dep) => resolveModule(path.dirname(resolvedFile), dep))
+        .filter(Boolean);
+      dependencies.forEach((dep) => visit(dep));
       if (!jsOnly || path.extname(resolvedFile) === '.js') {
         fileList.push(resolvedFile);
       }

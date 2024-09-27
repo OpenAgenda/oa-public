@@ -78,7 +78,7 @@ export const Presentation = {
           async ({ request, params }) => {
             const event = JSON.parse(
               JSON.stringify(
-                mainData.events.find(e => e.slug === params.eventSlug),
+                mainData.events.find((e) => e.slug === params.eventSlug),
               ),
             );
             return HttpResponse.json({ ...event, ...await request.json() });
@@ -123,7 +123,7 @@ export const WithSelectionOfFilters = {
                   settings: {
                     admin: {
                       filters: {
-                        displayed: ['search', 'keyword', 'map', 'state'],
+                        displayed: ['search', 'keyword', 'geo', 'state'],
                       },
                     },
                   },
@@ -148,7 +148,7 @@ export const WithSelectionOfFilters = {
           async ({ request, params }) => {
             const event = JSON.parse(
               JSON.stringify(
-                mainData.events.find(e => e.slug === params.eventSlug),
+                mainData.events.find((e) => e.slug === params.eventSlug),
               ),
             );
             return HttpResponse.json({ ...event, ...await request.json() });

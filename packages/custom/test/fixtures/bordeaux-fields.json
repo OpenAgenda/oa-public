@@ -365,13 +365,15 @@
     "origin": null,
     "min": null,
     "max": null,
-    "options": [ {
-      "id": 61,
-      "value": "une-valeur",
-      "label": {
-        "fr": "Une valeur"
+    "options": [
+      {
+        "id": 61,
+        "value": "une-valeur",
+        "label": {
+          "fr": "Une valeur"
+        }
       }
-    } ],
+    ],
     "fieldType": "checkbox"
   },
   {

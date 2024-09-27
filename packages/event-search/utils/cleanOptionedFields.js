@@ -1,6 +1,6 @@
 'use strict';
 
-const includesAll = (arr, values) => values.every(v => arr.includes(v));
+const includesAll = (arr, values) => values.every((v) => arr.includes(v));
 
 module.exports = (event, formSchema) => {
   if (!formSchema) {
@@ -8,16 +8,18 @@ module.exports = (event, formSchema) => {
   }
   return Object.keys(event).reduce((acc, curr) => {
     if (
-      formSchema.fields.find(f => f.field === curr)?.options
+      formSchema.fields.find((f) => f.field === curr)?.options
       && !includesAll(
-        formSchema.fields.find(f => f.field === curr).options.map(o => o.id),
+        formSchema.fields
+          .find((f) => f.field === curr)
+          .options.map((o) => o.id),
         [].concat(event[curr]),
       )
     ) {
-      const remaining = [].concat(event[curr]).filter(x =>
+      const remaining = [].concat(event[curr]).filter((x) =>
         formSchema.fields
-          .find(f => f.field === curr)
-          .options.map(o => o.id)
+          .find((f) => f.field === curr)
+          .options.map((o) => o.id)
           .includes(x));
       if (remaining.length) {
         return { ...acc, [curr]: remaining };

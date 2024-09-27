@@ -74,9 +74,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://madeincomics.com/"
-      ],
+      "registration": ["https://madeincomics.com/"],
       "location": {
         "uid": 92392838,
         "slug": "salle-jules-fromont",
@@ -110,9 +108,7 @@
       "tarif": "3",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -384,9 +380,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://quefaire.paris.fr/94364/concours-de-strips"
-      ],
+      "registration": ["https://quefaire.paris.fr/94364/concours-de-strips"],
       "location": {
         "uid": 12306661,
         "slug": "bibliotheque-buffon720",
@@ -420,9 +414,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Buffon",
       "type-de-structure": 623,
@@ -534,9 +526,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "+33 5 45 38 65 65"
-      ],
+      "registration": ["+33 5 45 38 65 65"],
       "location": {
         "uid": 68236007,
         "slug": "bibliotheque-de-la-cite-internationale-de-la-bande-dessinee-et-de-limage",
@@ -570,12 +560,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix La bulle des lecteurs 2019/2020",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -720,9 +706,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Françoise Sagan",
       "type-de-structure": 623,
@@ -1153,12 +1137,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        731
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [731],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Françoise Sagan",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1372,9 +1352,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Saint-Simon",
       "type-de-structure": 623,
@@ -1490,9 +1468,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "mediatheque-orangerie@mairie-claye-souilly.fr"
-      ],
+      "registration": ["mediatheque-orangerie@mairie-claye-souilly.fr"],
       "location": {
         "uid": 84050672,
         "slug": "mediatheque-de-lorangerie787",
@@ -1526,9 +1502,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1800,9 +1774,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://quefaire.paris.fr/94364/concours-de-strips"
-      ],
+      "registration": ["https://quefaire.paris.fr/94364/concours-de-strips"],
       "location": {
         "uid": 4967929,
         "slug": "bibliotheque-lheure-joyeuse934",
@@ -1836,9 +1808,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Buffon",
       "type-de-structure": 623,
@@ -2110,9 +2080,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://quefaire.paris.fr/94364/concours-de-strips"
-      ],
+      "registration": ["https://quefaire.paris.fr/94364/concours-de-strips"],
       "location": {
         "uid": 20846715,
         "slug": "bibliotheque-mohammed-arkoun461",
@@ -2146,9 +2114,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Buffon",
       "type-de-structure": 623,
@@ -2420,9 +2386,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://quefaire.paris.fr/94364/concours-de-strips"
-      ],
+      "registration": ["https://quefaire.paris.fr/94364/concours-de-strips"],
       "location": {
         "uid": 23575266,
         "slug": "bibliotheque-rainer-maria-rilke624",
@@ -2456,9 +2420,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Buffon",
       "type-de-structure": 623,

@@ -20,13 +20,14 @@ export default class OaSdk {
     this.expiresIn = null;
 
     this.api = axios.create({
-      baseURL: process.env.NODE_ENV !== 'development'
-        ? 'https://api.openagenda.com/v2'
-        : 'https://dapi.openagenda.com/v2',
+      baseURL:
+        process.env.NODE_ENV !== 'development'
+          ? 'https://api.openagenda.com/v2'
+          : 'https://dapi.openagenda.com/v2',
       paramsSerializer: qs.stringify,
     });
 
-    this.api.interceptors.request.use(async config => {
+    this.api.interceptors.request.use(async (config) => {
       if (!config.skipRefreshToken && this.params.secretKey) {
         await this.refreshToken();
       }
@@ -45,7 +46,11 @@ export default class OaSdk {
         };
       }
 
-      if (!config.skipPublicKey && config.method === 'get' && !this.accessToken) {
+      if (
+        !config.skipPublicKey
+        && config.method === 'get'
+        && !this.accessToken
+      ) {
         config.params = {
           key: this.params.publicKey,
           ...config.params,
@@ -67,13 +72,16 @@ export default class OaSdk {
       this.params.secretKey = secretKey;
     }
 
-    const response = await this.api
-      .post('/requestAccessToken', {
+    const response = await this.api.post(
+      '/requestAccessToken',
+      {
         'grant-type': 'authorization_code',
         code: secretKey || this.params.secretKey,
-      }, {
+      },
+      {
         skipRefreshToken: true, // avoid loop
-      });
+      },
+    );
 
     this.accessToken = response.data.access_token;
     this.expiresIn = response.data.expires_in;

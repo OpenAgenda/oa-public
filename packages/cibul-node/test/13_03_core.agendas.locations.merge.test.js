@@ -43,25 +43,38 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
 
   beforeAll(async () => {
     // the merge does not find the locations as they are not listed in the agenda.
-    await core.agendas(55268170).locations.merge(76464022, {
-      uids: [95155140, 97506318],
-    }, {
-      name: 'Fusionné',
-    });
-    return new Promise(rs => {
-      core.services.tracker.on('agendaLocations.updateEventLocationReferences.done', rs, true);
+    await core.agendas(55268170).locations.merge(
+      76464022,
+      {
+        uids: [95155140, 97506318],
+      },
+      {
+        name: 'Fusionné',
+      },
+    );
+    return new Promise((rs) => {
+      core.services.tracker.on(
+        'agendaLocations.updateEventLocationReferences.done',
+        rs,
+        true,
+      );
     });
   });
 
   it('merge location name is updated', async () => {
     expect(
-      await core.services.knex('location').first('placename').where('uid', 76464022).then(({ placename }) => placename),
+      await core.services
+        .knex('location')
+        .first('placename')
+        .where('uid', 76464022)
+        .then(({ placename }) => placename),
     ).toBe('Fusionné');
   });
 
   it('merged locations have been soft removed', async () => {
     expect(
-      await core.services.knex('location')
+      await core.services
+        .knex('location')
         .select('id')
         .whereIn('uid', [95155140, 97506318])
         .where('deleted', 1)
@@ -71,7 +84,8 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
 
   it('event linked to merged location has been updated', async () => {
     expect(
-      await core.services.knex('event_2')
+      await core.services
+        .knex('event_2')
         .first('location_uid')
         .where('slug', 'que-ferons-nous-de-nos-deserts')
         .then(({ location_uid: locationUID }) => locationUID),
@@ -80,7 +94,8 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
 
   it('legacy event reference linked to merged location also has been updated', async () => {
     expect(
-      await core.services.knex('event_location')
+      await core.services
+        .knex('event_location')
         .first('location_id')
         .where('event_id', 802994)
         .then(({ location_id: locationID }) => locationID),

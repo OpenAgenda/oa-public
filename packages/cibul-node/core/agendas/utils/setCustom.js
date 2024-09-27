@@ -1,4 +1,10 @@
-export default async (customService, formSchemaId, itemUid, data, { agendaId }) => {
+export default async (
+  customService,
+  formSchemaId,
+  itemUid,
+  data,
+  { agendaId },
+) => {
   const result = {
     errors: [],
   };

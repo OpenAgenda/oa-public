@@ -1,14 +1,9 @@
 export default function updateContext(context, member, options = {}) {
   const { role } = member;
 
-  const {
-    setSentToMe = false,
-  } = options;
+  const { setSentToMe = false } = options;
 
-  const {
-    recipientRoles = {},
-    sendCount = 0,
-  } = context;
+  const { recipientRoles = {}, sendCount = 0 } = context;
 
   const update = {
     ...context,

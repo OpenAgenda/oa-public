@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { wrapApp } from '@openagenda/react-shared';
 import '@openagenda/bs-templates/compiled/main.css';
 import { createMemoryHistory } from 'history';
@@ -21,9 +21,7 @@ const res = {
 export function AdminWithoutPremium() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -59,9 +57,7 @@ export function AdminWithoutPremium() {
 export function AdminWithPremium() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -114,7 +110,9 @@ export function AdminWithSideBarAndMemberCredential() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/schema/member'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/schema/member',
+              ],
             }),
           }),
           {
@@ -156,7 +154,9 @@ export function AdminWithSideBarAndNoMemberCredential() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/schema/member'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/schema/member',
+              ],
             }),
           }),
           {
@@ -198,7 +198,9 @@ export function AdminMemberWithNoMemberCredential() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/schema/member'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/schema/member',
+              ],
             }),
           }),
           {

@@ -12,12 +12,7 @@ const messages = defineMessages({
   },
 });
 
-const getTitle = ({
-  event,
-  locale,
-  title,
-  labels,
-}) => {
+const getTitle = ({ event, locale, title, labels }) => {
   if (title) return title;
 
   const draft = event?.draft === undefined ? false : event.draft;
@@ -28,7 +23,9 @@ const getTitle = ({
 
   const titleLanguages = Object.keys(event.title || {});
 
-  const eventLanguage = titleLanguages.includes(locale) ? locale : titleLanguages.shift();
+  const eventLanguage = titleLanguages.includes(locale)
+    ? locale
+    : titleLanguages.shift();
 
   const titleParts = [];
 
@@ -51,30 +48,25 @@ export default function CanvasWithStepper({
 }) {
   const intl = useIntl();
 
-  const {
-    formatMessage: m,
-    locale,
-  } = intl;
+  const { formatMessage: m, locale } = intl;
 
   return (
     <div className="container">
       <div className="row">
         <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
           <div className="text-center padding-top-lg">
-            <h2 className="margin-top-md">{getTitle({
-              event,
-              locale,
-              labels: {
-                editDraftTitle: m(messages.editDraftTitle),
-                addEvent: m(messages.addEvent),
-              },
-            })}
+            <h2 className="margin-top-md">
+              {getTitle({
+                event,
+                locale,
+                labels: {
+                  editDraftTitle: m(messages.editDraftTitle),
+                  addEvent: m(messages.addEvent),
+                },
+              })}
             </h2>
             <div className="padding-h-md stepper-gray-background padding-v-md">
-              <Stepper
-                steps={steps}
-                onSelectStep={onSelectStep}
-              />
+              <Stepper steps={steps} onSelectStep={onSelectStep} />
             </div>
           </div>
           {children}

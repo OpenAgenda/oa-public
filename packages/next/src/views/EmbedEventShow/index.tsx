@@ -1,0 +1,457 @@
+import { useMemo } from 'react';
+import { useIntl } from 'react-intl';
+import {
+  Box,
+  chakra,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Link,
+  List,
+  ListIcon,
+  ListItem,
+  Wrap,
+  WrapItem,
+} from '@openagenda/uikit';
+import { nl2br } from '@openagenda/react-shared';
+import qs from 'qs';
+import useSessionStorageState from 'use-session-storage-state';
+import useClientAnalytics from 'hooks/useClientAnalytics';
+import useSearchParams from 'hooks/useSearchParams';
+import useDateFnsLocale from 'hooks/useDateFnsLocale';
+import useLocationQuery from 'hooks/useLocationQuery';
+import Image from 'components/Image';
+import NextChakraLink from 'components/NextChakraLink';
+import ConsentBanner from 'components/ConsentBanner';
+import { useEmbedLayoutData } from 'components/EmbedLayout';
+import { FaIcon } from 'icons';
+import {
+  faShareNodes,
+  faGlobe,
+  faPhone,
+  faLink,
+  faClock,
+  faClockRotateLeft,
+  faSquareCheck,
+  faTicket,
+} from 'icons/thin';
+import { useAgenda } from 'views/EventShow/contexts/agenda';
+import getContentLocale from 'views/EventShow/utils/getContentLocale';
+import {
+  ConditionsSection,
+  DateRangeSection,
+  OnlineAccessSection,
+  RegistrationSection,
+} from 'views/EventShow/components/Sidebar';
+import StatusTag from 'views/EventShow/components/StatusTag';
+import EventImage from 'views/EventShow/components/EventImage';
+import AdditionalFields from 'views/EventShow/components/AdditionalFields';
+import * as additionalFieldsUtils from 'views/EventShow/utils/additionalFields';
+import messages from 'views/EventShow/messages';
+import Map from 'views/EventShow/components/Map';
+import Timings from 'views/EventShow/components/Timings';
+import useNcEffect from 'views/EventShow/hooks/useNcEffect';
+import mdStyle from 'utils/mdStyle';
+import { keyCDNLoader } from 'utils/imageLoader';
+import { embedAgendaUrlRegex } from 'utils/isNextUrl';
+import useEvent from './hooks/useEvent';
+import Sidebar, {
+  ShareSection,
+  getRegistrationIcon,
+} from './components/Sidebar';
+import NavigateButton from './components/NavigateButton';
+import Metas from './components/Metas';
+import fetchLocale from './locales';
+
+const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
+const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
+
+export type EmbedEventShowProps = {
+  preload?: string[];
+};
+
+function EmbedEventShow({ preload }: EmbedEventShowProps) {
+  const intl = useIntl();
+  const dateFnsLocale = useDateFnsLocale();
+
+  const agenda = useAgenda();
+  const { event } = useEvent();
+
+  const query = useLocationQuery() as any;
+
+  const { initPath } = useEmbedLayoutData();
+
+  const isViewedInAgendaContext = useMemo(
+    () => embedAgendaUrlRegex.test(initPath),
+    [initPath],
+  );
+
+  const needConsentFor = useClientAnalytics(
+    agenda.settings?.tracking,
+    'localStorage',
+  );
+
+  const languages = Object.keys(event.title);
+
+  const searchParams = useSearchParams() as { cl?: string };
+  const contentLocale = getContentLocale(
+    languages,
+    searchParams.cl,
+    intl.locale,
+  );
+
+  const hasAdditionalFields = useMemo(
+    () => additionalFieldsUtils.hasAdditionalFields(agenda.schema),
+    [agenda.schema],
+  );
+
+  const additionalFields = useMemo(
+    () =>
+      additionalFieldsUtils.formatAdditionalFieldData({
+        schema: agenda.schema,
+        event,
+        locale: contentLocale,
+        defaultLocale: intl.locale,
+        dateFnsLocale,
+      }),
+    [agenda.schema, dateFnsLocale, event, contentLocale, intl.locale],
+  );
+
+  useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
+
+  const [nc] = useSessionStorageState('EventShow:nc');
+  const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
+
+  const updatedTs = new Date(event.updatedAt).getTime();
+
+  return (
+    <>
+      <Metas preload={preload} contentLocale={contentLocale} />
+
+      <Grid
+        templateAreas={{
+          base: '"event"',
+          lg: '"event sidebar"',
+        }}
+        templateColumns={{
+          base: '1fr',
+          lg: '2fr minmax(300px, 1fr)',
+        }}
+        columnGap="10"
+        maxW="container.lg"
+        mx="auto"
+      >
+        <GridItem
+          area="sidebar"
+          display={{ base: 'none', lg: 'flex' }}
+          gap="8"
+          flexDirection="column"
+          flexGrow="1"
+        >
+          <Sidebar />
+        </GridItem>
+
+        <GridItem area="event" display="flex" flexDirection="column" gap="12">
+          <div>
+            {eventNc || isViewedInAgendaContext ? (
+              <Flex justify="space-between" align="center" mb="4">
+                <NextChakraLink
+                  href={`/embed/agendas/${agenda.uid}${qs.stringify(
+                    {
+                      ...eventNc,
+                      from: undefined,
+                      first: undefined,
+                      last: undefined,
+                    },
+                    { addQueryPrefix: true },
+                  )}`}
+                  colorScheme="primary"
+                >
+                  {intl.formatMessage(messages.backToList)}
+                </NextChakraLink>
+                {!(eventNc?.first && eventNc?.last) ? (
+                  <Flex gap="4">
+                    <NavigateButton direction="previous" />
+                    <NavigateButton direction="next" />
+                  </Flex>
+                ) : null}
+              </Flex>
+            ) : null}
+
+            <Flex
+              as="main"
+              display="flex"
+              direction="column"
+              gap="4"
+              position="relative"
+              // border="1px solid"
+              // borderColor="oaGray.100"S
+              // borderRadius="sm"
+              // _hover={{
+              //   borderColor: 'primary.500',
+              // }}
+            >
+              {event.status !== 1 ? (
+                <chakra.div>
+                  <StatusTag status={event.status} />
+                </chakra.div>
+              ) : null}
+
+              {event.title?.[contentLocale] ? (
+                <Heading as="h1" fontSize="4xl">
+                  {event.title[contentLocale]}
+                </Heading>
+              ) : null}
+
+              {event.description?.[contentLocale] ? (
+                <Box fontSize="xl">{event.description[contentLocale]}</Box>
+              ) : null}
+
+              <ShareSection
+                event={event}
+                display={{ base: 'grid', lg: 'none' }}
+                justifyItems="flex-start"
+                icon={faShareNodes}
+              />
+              <OnlineAccessSection
+                event={event}
+                display={{ base: 'grid', lg: 'none' }}
+                icon={faLink}
+              />
+              <DateRangeSection
+                event={event}
+                display={{ base: 'grid', lg: 'none' }}
+                upcomingIcon={faClock}
+                pastIcon={faClockRotateLeft}
+              />
+              <ConditionsSection
+                event={event}
+                display={{ base: 'grid', lg: 'none' }}
+                icon={faTicket}
+              />
+              <RegistrationSection
+                event={event}
+                display={{ base: 'grid', lg: 'none' }}
+                icon={faSquareCheck}
+                getRegistrationIcon={getRegistrationIcon}
+              />
+
+              {event.image || event.imageCredits ? (
+                <div>
+                  <EventImage event={event} />
+
+                  {event.imageCredits ? (
+                    <Flex justify="flex-end" color="oaGray.500" px="2">
+                      {event.imageCredits}
+                    </Flex>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {event.longDescription?.[contentLocale] ? (
+                <chakra.div
+                  sx={mdStyle}
+                  // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={{
+                    __html: event.longDescription[contentLocale],
+                  }}
+                />
+              ) : null}
+
+              {event.keywords?.[contentLocale]?.length ? (
+                <chakra.div color="oaGray.500">
+                  {intl.formatList(event.keywords[contentLocale], {
+                    style: 'narrow',
+                  })}
+                </chakra.div>
+              ) : null}
+            </Flex>
+          </div>
+
+          {/* additional fields */}
+          {hasAdditionalFields ? (
+            <Flex direction="column" gap="4">
+              <AdditionalFields
+                agenda={agenda}
+                additionalFields={additionalFields}
+                updatedAt={
+                  event.updatedAt !== event.createdAt ? event.updatedAt : null
+                }
+              />
+            </Flex>
+          ) : null}
+
+          {/* timings */}
+          <chakra.div display={{ base: 'block', lg: 'none' }}>
+            <Timings timings={event.timings} timezone={event.timezone} />
+          </chakra.div>
+
+          {/* location */}
+          {event.location ? (
+            <div>
+              <Heading as="h2" fontSize="2xl" mb="4">
+                {intl.formatMessage(messages.aboutLocation)}
+              </Heading>
+              <Flex direction="column" gap="4">
+                <div>
+                  <chakra.div fontWeight="bold">
+                    {event.location.name}
+                  </chakra.div>
+                  <chakra.div>{event.location.address}</chakra.div>
+                  <Wrap color="oaGray.500">
+                    {['department', 'region', 'country'].map((part) => (
+                      <WrapItem key={part}>{event.location[part]}</WrapItem>
+                    ))}
+                  </Wrap>
+                </div>
+
+                {event.location.description?.[contentLocale] ? (
+                  <div>{nl2br(event.location.description[contentLocale])}</div>
+                ) : null}
+
+                {event.location.tags?.length ? (
+                  <div>
+                    <chakra.div fontWeight="bold">
+                      {intl.formatMessage(messages.tags)}
+                    </chakra.div>
+                    {intl.formatList(
+                      event.location.tags.map((tag) => tag.label),
+                      { style: 'narrow' },
+                    )}
+                  </div>
+                ) : null}
+
+                {event.location.access?.[contentLocale] ? (
+                  <div>
+                    <chakra.div fontWeight="bold">
+                      {intl.formatMessage(messages.access)}
+                    </chakra.div>
+                    {event.location.access[contentLocale]}
+                  </div>
+                ) : null}
+
+                {event.location.image || event.location.imageCredits ? (
+                  <div>
+                    {event.location.image ? (
+                      <Image
+                        src={
+                          process.env.NODE_ENV === 'development'
+                            ? `${DEV_IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                            : `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                        }
+                        fallbackSrc={
+                          process.env.NODE_ENV === 'development'
+                            ? `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                            : undefined
+                        }
+                        fill
+                        // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+                        pos="unset !important"
+                        w="full !important"
+                        h="auto !important"
+                        loader={keyCDNLoader}
+                        alt=""
+                        m="auto"
+                        priority
+                      />
+                    ) : null}
+
+                    {event.location.imageCredits ? (
+                      <Flex justify="flex-end" color="oaGray.500" px="2">
+                        {event.location.imageCredits}
+                      </Flex>
+                    ) : null}
+                  </div>
+                ) : null}
+
+                {event.location.website || event.location.phone ? (
+                  <List spacing="2">
+                    {event.location.website ? (
+                      <ListItem>
+                        <ListIcon
+                          as={FaIcon}
+                          icon={faGlobe}
+                          verticalAlign="middle"
+                        />
+                        <Link
+                          isExternal
+                          href={event.location.website}
+                          colorScheme="primary"
+                          wordBreak="break-all"
+                        >
+                          {event.location.website}
+                        </Link>
+                      </ListItem>
+                    ) : null}
+
+                    {event.location.phone ? (
+                      <ListItem>
+                        <ListIcon
+                          as={FaIcon}
+                          icon={faPhone}
+                          verticalAlign="middle"
+                        />
+                        <Link
+                          isExternal
+                          href={`tel:${event.location.phone}`}
+                          colorScheme="primary"
+                        >
+                          {event.location.phone}
+                        </Link>
+                      </ListItem>
+                    ) : null}
+                  </List>
+                ) : null}
+
+                {event.location.links?.length ? (
+                  <chakra.div>
+                    {intl.formatMessage(messages.moreLinks)}
+                    <List>
+                      {event.location.links?.map((link) => (
+                        <ListItem key={link}>
+                          <Link
+                            isExternal
+                            href={link}
+                            colorScheme="primary"
+                            wordBreak="break-all"
+                          >
+                            {link}
+                          </Link>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </chakra.div>
+                ) : null}
+
+                <Map
+                  width={600}
+                  height={300}
+                  center={[event.location.latitude, event.location.longitude]}
+                  zoom={14}
+                  aspectRatioProps={{
+                    gridColumn: 2,
+                    display: { base: 'block', lg: 'none' },
+                  }}
+                />
+              </Flex>
+            </div>
+          ) : null}
+        </GridItem>
+      </Grid>
+
+      {needConsentFor ? (
+        <ConsentBanner
+          consentFor={needConsentFor}
+          consentSource="localStorage"
+        />
+      ) : null}
+    </>
+  );
+}
+
+EmbedEventShow.fetchLocale = (locale: string) =>
+  Promise.all([fetchLocale(locale)]).then((results) =>
+    Object.assign({}, ...results));
+
+export default EmbedEventShow;

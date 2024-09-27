@@ -9,35 +9,55 @@ const update = require('./update');
 const remove = require('./remove');
 const authorize = require('./lib/authorize');
 
-async function merge({ internals, endpoints }, mergeInItem, items, data = null, options = {}) {
+async function merge(
+  { internals, endpoints },
+  mergeInItem,
+  items,
+  data = null,
+  options = {},
+) {
   log('mergin ', items.length, 'location in ', mergeInItem.uid);
 
   await authorize(internals, 'merge', mergeInItem.uid, options);
 
-  const toBeMerged = items.filter(i => i.uid !== mergeInItem.uid);
+  const toBeMerged = items.filter((i) => i.uid !== mergeInItem.uid);
 
   if (!toBeMerged.length) {
     throw new BadRequest('Nothing to merge');
   }
 
   if (internals.interfaces.beforeMerge) {
-    await internals.interfaces.beforeMerge(mergeInItem, toBeMerged, options.context);
+    await internals.interfaces.beforeMerge(
+      mergeInItem,
+      toBeMerged,
+      options.context,
+    );
   }
 
-  const removeFromDuplicates = toBeMerged.map(l => l.uid);
+  const removeFromDuplicates = toBeMerged.map((l) => l.uid);
 
   log('updating merged location');
-  const newDuplicateCandidates = (mergeInItem.duplicateCandidates ?? []).filter(el => !removeFromDuplicates.includes(el));
+  const newDuplicateCandidates = (mergeInItem.duplicateCandidates ?? []).filter(
+    (el) => !removeFromDuplicates.includes(el),
+  );
   const updatedMerged = await update(
     { service: internals, isPatch: true },
     mergeInItem.uid,
-    { ...data || {}, duplicateCandidates: newDuplicateCandidates.length ? newDuplicateCandidates : null },
+    {
+      ...data || {},
+      duplicateCandidates: newDuplicateCandidates.length
+        ? newDuplicateCandidates
+        : null,
+    },
     { ...options },
   );
 
   log('removing other locations');
   for (const location of toBeMerged) {
-    await remove({ internals, endpoints }, location, { ...options, mergedIn: mergeInItem.uid });
+    await remove({ internals, endpoints }, location, {
+      ...options,
+      mergedIn: mergeInItem.uid,
+    });
   }
 
   log('merge complete');
@@ -45,12 +65,24 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
   return updatedMerged;
 }
 
-module.exports = async ({ internals, endpoints }, mergeInUid, query, data, options) => merge(
+module.exports = async (
   { internals, endpoints },
-  await get({ internals, endpoints }, mergeInUid),
-  await list(internals, query, {}, { ...options, total: null, detailed: true }),
+  mergeInUid,
+  query,
   data,
-);
+  options,
+) =>
+  merge(
+    { internals, endpoints },
+    await get({ internals, endpoints }, mergeInUid),
+    await list(
+      internals,
+      query,
+      {},
+      { ...options, total: null, detailed: true },
+    ),
+    data,
+  );
 
 module.exports.byAgendaUid = async (
   { internals, endpoints },
@@ -59,19 +91,20 @@ module.exports.byAgendaUid = async (
   query,
   data,
   options = {},
-) => merge(
-  { internals, endpoints },
-  await get.byAgendaUid({ internals, endpoints }, agendaUid, mergeInUid),
-  await list.byAgendaUid(
-    internals,
-    agendaUid,
-    query,
-    {},
-    { ...options, total: null, detailed: true },
-  ),
-  data,
-  options,
-);
+) =>
+  merge(
+    { internals, endpoints },
+    await get.byAgendaUid({ internals, endpoints }, agendaUid, mergeInUid),
+    await list.byAgendaUid(
+      internals,
+      agendaUid,
+      query,
+      {},
+      { ...options, total: null, detailed: true },
+    ),
+    data,
+    options,
+  );
 
 module.exports.bySetUid = async (
   { internals, endpoints },
@@ -80,16 +113,17 @@ module.exports.bySetUid = async (
   query,
   data,
   options = {},
-) => merge(
-  { internals, endpoints },
-  await get.bySetUid({ internals, endpoints }, setUid, mergeInUid),
-  await list.bySetUid(
-    internals,
-    setUid,
-    query,
-    {},
-    { ...options, total: null, detailed: true },
-  ),
-  data,
-  options,
-);
+) =>
+  merge(
+    { internals, endpoints },
+    await get.bySetUid({ internals, endpoints }, setUid, mergeInUid),
+    await list.bySetUid(
+      internals,
+      setUid,
+      query,
+      {},
+      { ...options, total: null, detailed: true },
+    ),
+    data,
+    options,
+  );

@@ -29,77 +29,94 @@ describe('02 - event search - functional: boolean type', () => {
   });
 
   it('filter on empty', async () => {
-    const { events } = await service('boolean').search({
-      trueOrFalse: 'null',
-    }, {}, {
-      formSchema: fixtures.formSchema,
-      detailed: true,
-    });
+    const { events } = await service('boolean').search(
+      {
+        trueOrFalse: 'null',
+      },
+      {},
+      {
+        formSchema: fixtures.formSchema,
+        detailed: true,
+      },
+    );
 
     expect(events.length).toBeGreaterThan(0);
-    events.forEach(event => {
+    events.forEach((event) => {
       expect(event.trueOrFalse).toBeUndefined();
     });
   });
 
   it('filter on true', async () => {
-    const { events } = await service('boolean').search({
-      trueOrFalse: true,
-    }, {}, {
-      formSchema: fixtures.formSchema,
-      detailed: true,
-    });
+    const { events } = await service('boolean').search(
+      {
+        trueOrFalse: true,
+      },
+      {},
+      {
+        formSchema: fixtures.formSchema,
+        detailed: true,
+      },
+    );
 
     expect(events.length).toBeGreaterThan(0);
 
-    events.forEach(event => {
+    events.forEach((event) => {
       expect(event.trueOrFalse).toBe(true);
     });
   });
 
   it('filter on false', async () => {
-    const { events } = await service('boolean').search({
-      trueOrFalse: false,
-    }, {}, {
-      formSchema: fixtures.formSchema,
-      detailed: true,
-    });
+    const { events } = await service('boolean').search(
+      {
+        trueOrFalse: false,
+      },
+      {},
+      {
+        formSchema: fixtures.formSchema,
+        detailed: true,
+      },
+    );
 
     expect(events.length).toBeGreaterThan(0);
 
-    events.forEach(event => {
+    events.forEach((event) => {
       expect(event.trueOrFalse).toBe(false);
     });
   });
 
-  it(
-    'aggregation on boolean field provides count for events including unset values count',
-    async () => {
-      const {
-        aggregations,
-      } = await service('boolean').search({
+  it('aggregation on boolean field provides count for events including unset values count', async () => {
+    const { aggregations } = await service('boolean').search(
+      {
         state: null,
-      }, { size: 0 }, {
+      },
+      { size: 0 },
+      {
         formSchema: fixtures.formSchema,
         detailed: true,
-        aggregations: [{
-          key: 'kayonashi',
-          field: 'trueOrFalse',
-          type: 'additionalFields',
-          missing: 'N/A',
-        }],
-      });
+        aggregations: [
+          {
+            key: 'kayonashi',
+            field: 'trueOrFalse',
+            type: 'additionalFields',
+            missing: 'N/A',
+          },
+        ],
+      },
+    );
 
-      expect(aggregations.kayonashi).toEqual([{
+    expect(aggregations.kayonashi).toEqual([
+      {
         key: 'N/A',
         eventCount: 1,
-      }, {
+      },
+      {
         key: 'true',
         eventCount: 2,
-      }, {
+      },
+      {
         key: 'false',
         eventCount: 1,
-      }]);
-    },
-  );
+      },
+    ]);
+  });
 });

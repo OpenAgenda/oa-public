@@ -1,9 +1,7 @@
 import { fromMarkdownToHTML } from '@openagenda/md';
 
 export function renderHTMLFromMarkdown(services, links = null, md = '') {
-  const {
-    oembed,
-  } = services;
+  const { oembed } = services;
 
   const html = fromMarkdownToHTML(md);
 
@@ -15,11 +13,7 @@ export function renderHTMLFromMarkdown(services, links = null, md = '') {
 }
 
 export default (options, multilingualText = {}, links = []) => {
-  const {
-    services,
-    lang,
-    useFallbackLang,
-  } = {
+  const { services, lang, useFallbackLang } = {
     services: null,
     lang: null,
     useFallbackLang: true,
@@ -31,10 +25,13 @@ export default (options, multilingualText = {}, links = []) => {
   if (typeof multilingualText === 'string') return render(multilingualText);
 
   if (!lang) {
-    return Object.keys(multilingualText).reduce((htmlObj, l) => ({
-      ...htmlObj,
-      [l]: render(multilingualText[l]),
-    }), {});
+    return Object.keys(multilingualText).reduce(
+      (htmlObj, l) => ({
+        ...htmlObj,
+        [l]: render(multilingualText[l]),
+      }),
+      {},
+    );
   }
 
   if (Object.keys(multilingualText).includes(lang)) {

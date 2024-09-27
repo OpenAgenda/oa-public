@@ -43,7 +43,7 @@ function Step({
   );
 
   const onSelectStep = useCallback(
-    e => {
+    (e) => {
       if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
         e.preventDefault();
         return;

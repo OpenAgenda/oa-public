@@ -7,8 +7,6 @@
       }
     ]
   ],
-  "plugins": [
-    "handlebars-inline-precompile"
-  ],
+  "plugins": ["handlebars-inline-precompile"],
   "sourceType": "unambiguous"
 }

@@ -1,5 +1,5 @@
 export default function onRemove({ queue }) {
-  return async ctx => {
+  return async (ctx) => {
     const user = ctx.params.before;
 
     if (!user) {

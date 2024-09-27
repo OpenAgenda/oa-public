@@ -5,6 +5,7 @@ import languages from 'languages';
 
 import flattenLabels from '@openagenda/labels/flatten';
 import languageLabels from '@openagenda/labels/event/form';
+import { a11yButtonActionHandler } from '@openagenda/react-shared';
 
 import languageCodesAndLabels from '../utils/languageCodesAndLabels';
 import showRemoveAction from '../utils/showRemoveAction';
@@ -19,6 +20,10 @@ export default class Languages extends Component {
     };
 
     this.onChangeStart = this.onChangeStart.bind(this);
+    this.onAddSelectStart = this.onAddSelectStart.bind(this);
+    this.onAdd = this.onAdd.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onCancelChange = this.onCancelChange.bind(this);
   }
 
   onAddSelectStart() {
@@ -26,18 +31,14 @@ export default class Languages extends Component {
   }
 
   onChangeStart() {
-    const {
-      value,
-    } = this.props;
+    const { value } = this.props;
     if (value.length !== 1) return;
 
     this.setState({ changing: true });
   }
 
   onChange(l) {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
     onChange([l.value]);
 
@@ -49,42 +50,26 @@ export default class Languages extends Component {
   }
 
   onRemove(l) {
-    const {
-      onChange,
-      value,
-    } = this.props;
-    onChange(value.filter(current => current !== l));
+    const { onChange, value } = this.props;
+    onChange(value.filter((current) => current !== l));
   }
 
   onAdd(l) {
-    const {
-      onChange,
-      value,
-    } = this.props;
+    const { onChange, value } = this.props;
     onChange(value.concat(l.value));
 
     this.setState({ adding: false });
   }
 
   getRemainingLanguages() {
-    const {
-      value,
-    } = this.props;
-    return languageCodesAndLabels
-      .filter(l => !value.includes(l.value));
+    const { value } = this.props;
+    return languageCodesAndLabels.filter((l) => !value.includes(l.value));
   }
 
   render() {
-    const {
-      value,
-      lang,
-      field,
-    } = this.props;
+    const { value, lang, field } = this.props;
 
-    const {
-      changing,
-      adding,
-    } = this.state;
+    const { changing, adding } = this.state;
 
     const pickedLanguages = value;
 
@@ -94,53 +79,82 @@ export default class Languages extends Component {
 
     return (
       <div className="language-bar">
-        { !changing ? (
+        {!changing ? (
           <ul>
-            {pickedLanguages.map(l => (
-              <li key={`language-${l}`} onClick={this.onChangeStart}>
+            {pickedLanguages.map((l) => (
+              <li
+                key={`language-${l}`}
+                role="presentation"
+                onClick={a11yButtonActionHandler(this.onChangeStart)}
+                onKeyPress={a11yButtonActionHandler(this.onChangeStart)}
+              >
                 <div className="language-item">
                   <span>{languages.getLanguageInfo(l).nativeName}</span>
-                  {showRemoveAction({ strict, pickedLanguages, required }, l) ? <span className="remove" onClick={this.onRemove.bind(this, l)}>&#10005;</span> : null}
-                  {!strict && pickedLanguages.length === 1 && <span className="margin-right-xs"><i className="fa fa-angle-down" /></span>}
+                  {showRemoveAction(
+                    { strict, pickedLanguages, required },
+                    l,
+                  ) ? (
+                    <span
+                      role="button"
+                      tabIndex="0"
+                      className="remove"
+                      onClick={a11yButtonActionHandler(
+                        this.onRemove.bind(this, l),
+                      )}
+                      onKeyPress={a11yButtonActionHandler(
+                        this.onRemove.bind(this, l),
+                      )}
+                    >
+                      &#10005;
+                    </span>
+                    ) : null}
+                  {!strict && pickedLanguages.length === 1 ? (
+                    <span className="margin-right-xs">
+                      <i className="fa fa-angle-down" />
+                    </span>
+                  ) : null}
                 </div>
               </li>
             ))}
           </ul>
-        ) : null }
-        { !strict && !adding && !changing ? (
+        ) : null}
+        {!strict && !adding && !changing ? (
           <span className="language-add">
-            <a onClick={this.onAddSelectStart.bind(this)}>{labels.addLanguage}</a>
+            {/* eslint-disable-next-line */}
+            <a onClick={this.onAddSelectStart}>{labels.addLanguage}</a>
           </span>
-        ) : null }
+        ) : null}
         {adding && (
-        <span className="language-add">
+          <span className="language-add">
+            <Select
+              placeholder={labels.selectLanguage}
+              options={this.getRemainingLanguages()}
+              onChange={this.onAdd}
+              classNamePrefix="language-select"
+              clearable={false}
+            />
+          </span>
+        )}
+        {changing && (
           <Select
             placeholder={labels.selectLanguage}
+            value={_.first(
+              languageCodesAndLabels.filter(
+                (c) => _.first(pickedLanguages) === c.value,
+              ),
+            )}
             options={this.getRemainingLanguages()}
-            onChange={this.onAdd.bind(this)}
-            classNamePrefix="language-select"
+            onChange={this.onChange}
+            className="change-select margin-right-sm"
             clearable={false}
           />
-        </span>
-        ) }
+        )}
         {changing && (
-        <Select
-          placeholder={labels.selectLanguage}
-          value={_.first(
-            languageCodesAndLabels
-              .filter(c => _.first(pickedLanguages) === c.value),
-          )}
-          options={this.getRemainingLanguages()}
-          onChange={this.onChange.bind(this)}
-          className="change-select margin-right-sm"
-          clearable={false}
-        />
-        ) }
-        {changing && (
-        <span className="change-cancel">
-          <a onClick={this.onCancelChange.bind(this)}>{labels.cancelLanguageChange}</a>
-        </span>
-        ) }
+          <span className="change-cancel">
+            {/* eslint-disable-next-line */}
+            <a onClick={this.onCancelChange}>{labels.cancelLanguageChange}</a>
+          </span>
+        )}
       </div>
     );
   }

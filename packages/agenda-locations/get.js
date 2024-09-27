@@ -39,10 +39,12 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
   }
   const entry = await k;
 
-  const location = entry ? internals.fieldUtils.fromEntryToItem(entry, {
-    includeFields,
-    access: 'public',
-  }) : null;
+  const location = entry
+    ? internals.fieldUtils.fromEntryToItem(entry, {
+      includeFields,
+      access: 'public',
+    })
+    : null;
   if (returnMergeTarget) {
     return getMergedLocation(endpoints, identifiers, location, options);
   }
@@ -60,14 +62,19 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
     );
   }
 
-  if (internals.interfaces.getAgendaUidsByIds && (includeFields ?? []).includes('agendaUid')) {
+  if (
+    internals.interfaces.getAgendaUidsByIds
+    && (includeFields ?? []).includes('agendaUid')
+  ) {
     location.agendaUid = (
       await internals.interfaces.getAgendaUidsByIds(entry.agenda_id)
     )?.uid;
   }
 
   if (internals.interfaces.getLinkedAgendas && includeLinkedAgendas) {
-    location.linkedAgendas = await internals.interfaces.getLinkedAgendas(location.uid);
+    location.linkedAgendas = await internals.interfaces.getLinkedAgendas(
+      location.uid,
+    );
   }
 
   if (includeImagePath && internals.config.imagePath && location.image) {
@@ -88,12 +95,23 @@ module.exports.byAgendaUid = async (
   if (!agendaUid) {
     throw new BadRequest('agenda identifier is missing');
   }
-  return get({ internals, endpoints }, identifiers, { ...options, endpointId: { agendaUid } });
+  return get({ internals, endpoints }, identifiers, {
+    ...options,
+    endpointId: { agendaUid },
+  });
 };
 
-module.exports.bySetUid = async ({ internals, endpoints }, setUid, identifiers, options = {}) => {
+module.exports.bySetUid = async (
+  { internals, endpoints },
+  setUid,
+  identifiers,
+  options = {},
+) => {
   if (!setUid) {
     throw new BadRequest('set identifier is missing');
   }
-  return get({ internals, endpoints }, identifiers, { ...options, endpointId: { setUid } });
+  return get({ internals, endpoints }, identifiers, {
+    ...options,
+    endpointId: { setUid },
+  });
 };

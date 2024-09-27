@@ -1,14 +1,20 @@
 import _ from 'lodash';
 import membersPkg from '@openagenda/members';
 
-const { utils: { compareRoles: { isSuperiorToOrEqual } } } = membersPkg;
+const {
+  utils: {
+    compareRoles: { isSuperiorToOrEqual },
+  },
+} = membersPkg;
 
 function and(...args) {
-  return props => args.reduce(async (accu, fn) => await accu && fn(props), true);
+  return (props) =>
+    args.reduce(async (accu, fn) => await accu && fn(props), true);
 }
 
 function or(...args) {
-  return props => args.reduce(async (accu, fn) => await accu || fn(props), false);
+  return (props) =>
+    args.reduce(async (accu, fn) => await accu || fn(props), false);
 }
 
 // function not(a) {
@@ -16,7 +22,11 @@ function or(...args) {
 // }
 
 function getActivityEntity(activity, entity) {
-  if (entity.startsWith('actor.') || entity.startsWith('object.') || entity.startsWith('target.')) {
+  if (
+    entity.startsWith('actor.')
+    || entity.startsWith('object.')
+    || entity.startsWith('target.')
+  ) {
     const [name, key] = entity.split('.');
     const identifier = activity[name];
 
@@ -39,12 +49,14 @@ function getActivityEntity(activity, entity) {
 
 function toUser(key) {
   return ({ targetFeed, activity }) =>
-    targetFeed.entityType === 'user' && [].concat(getActivityEntity(activity, key)).includes(targetFeed.entityUid);
+    targetFeed.entityType === 'user'
+    && [].concat(getActivityEntity(activity, key)).includes(targetFeed.entityUid);
 }
 
 function toAgenda(key) {
   return ({ targetFeed, activity }) =>
-    targetFeed.entityType === 'agenda' && [].concat(getActivityEntity(activity, key)).includes(targetFeed.entityUid);
+    targetFeed.entityType === 'agenda'
+    && [].concat(getActivityEntity(activity, key)).includes(targetFeed.entityUid);
 }
 
 function toLocationSet() {
@@ -71,17 +83,25 @@ function isAdminMod({ follow }) {
 }
 
 function isSuperiorMod({ follow, activity }) {
-  return isAdminMod({ follow }) && isSuperiorToOrEqual(follow.store.credential, activity.store.credential);
+  return (
+    isAdminMod({ follow })
+    && isSuperiorToOrEqual(follow.store.credential, activity.store.credential)
+  );
 }
 
 function fromAgendaToAdminMod({ originFeed, targetFeed, follow }) {
-  return originFeed.entityType === 'agenda'
+  return (
+    originFeed.entityType === 'agenda'
     && targetFeed.entityType === 'user'
-    && isAdminMod({ follow });
+    && isAdminMod({ follow })
+  );
 }
 
 function fromLocationSetToAgenda({ originFeed, targetFeed }) {
-  return originFeed.entityType === 'locationSet' && targetFeed.entityType === 'agenda';
+  return (
+    originFeed.entityType === 'locationSet'
+    && targetFeed.entityType === 'agenda'
+  );
 }
 
 // function fromAgendaToContributor({ originFeed, targetFeed, follow }) {
@@ -99,15 +119,24 @@ function hasVisibleDiff({ activity, targetFeed, follow }) {
     return !!activity.store.diff;
   }
 
-  if (isSuperiorToOrEqual(follow.store.credential, 'contributor') && activity.store.contributorFields?.length) {
+  if (
+    isSuperiorToOrEqual(follow.store.credential, 'contributor')
+    && activity.store.contributorFields?.length
+  ) {
     return true;
   }
 
-  if (isSuperiorToOrEqual(follow.store.credential, 'moderator') && activity.store.moderatorFields?.length) {
+  if (
+    isSuperiorToOrEqual(follow.store.credential, 'moderator')
+    && activity.store.moderatorFields?.length
+  ) {
     return true;
   }
 
-  if (isSuperiorToOrEqual(follow.store.credential, 'administrator') && activity.store.administratorFields?.length) {
+  if (
+    isSuperiorToOrEqual(follow.store.credential, 'administrator')
+    && activity.store.administratorFields?.length
+  ) {
     return true;
   }
 
@@ -119,29 +148,31 @@ async function getMember(membersSvc, userUid, agendaUid) {
 }
 
 function toOwner({ activity, targetFeed }) {
-  return targetFeed.entityType === 'user' && targetFeed.entityUid === activity.store.ownerUid;
+  return (
+    targetFeed.entityType === 'user'
+    && targetFeed.entityUid === activity.store.ownerUid
+  );
 }
 
-async function maskUserIsNotAdminModOf({
-  norActor,
-  key,
-  omit,
-}, {
-  activity,
-  targetFeed,
-  config: { services },
-  preloadedRole,
-}) {
-  if (norActor && targetFeed.entityUid === getActivityEntity(activity, 'actor.uid')) {
+async function maskUserIsNotAdminModOf(
+  { norActor, key, omit },
+  { activity, targetFeed, config: { services }, preloadedRole },
+) {
+  if (
+    norActor
+    && targetFeed.entityUid === getActivityEntity(activity, 'actor.uid')
+  ) {
     return;
   }
 
   const role = preloadedRole === undefined
-    ? (await getMember(
-      services.members,
-      targetFeed.entityUid,
-      getActivityEntity(activity, key),
-    ))?.role
+    ? (
+      await getMember(
+        services.members,
+        targetFeed.entityUid,
+        getActivityEntity(activity, key),
+      )
+    )?.role
     : preloadedRole;
 
   if (!role || !isSuperiorToOrEqual(role, 'moderator')) {
@@ -150,12 +181,7 @@ async function maskUserIsNotAdminModOf({
 }
 
 function maskFor({ sameAgenda, otherAgenda, userIsNotAdminModOf }) {
-  return async ({
-    activity,
-    targetFeed,
-    config,
-    preloadedRole,
-  }) => {
+  return async ({ activity, targetFeed, config, preloadedRole }) => {
     // on the agenda
     if (
       sameAgenda
@@ -229,7 +255,11 @@ const activitiesConfig = {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        norActor: true,
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       fromEventToUser,
@@ -282,23 +312,32 @@ const activitiesConfig = {
     },
   },
   'event.update': {
-    mask: async props => {
+    mask: async (props) => {
       const { activity, targetFeed, config } = props;
       const membersSvc = config.services.members;
 
       // preload member role, avoid double get
       const role = targetFeed.entityType === 'user'
-        ? (await getMember(
-          membersSvc,
-          targetFeed.entityUid,
-          getActivityEntity(activity, 'target.uid'),
-        ))?.role
+        ? (
+          await getMember(
+            membersSvc,
+            targetFeed.entityUid,
+            getActivityEntity(activity, 'target.uid'),
+          )
+        )?.role
         : null;
 
       const toOmit = await maskFor({
         sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
-        otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-        userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+        otherAgenda: {
+          key: 'target.uid',
+          omit: ['actor', 'store.labels.actor'],
+        },
+        userIsNotAdminModOf: {
+          norActor: true,
+          key: 'target.uid',
+          omit: ['actor', 'store.labels.actor'],
+        },
       })({ ...props, preloadedRole: role }) || [];
 
       // Always omit the diff object and userUid (owner)
@@ -314,11 +353,7 @@ const activitiesConfig = {
     },
     filterFollows: [
       hasVisibleDiff,
-      or(
-        toAgenda('target.uid'),
-        toUser('store.userUid'),
-        fromAgendaToAdminMod,
-      ),
+      or(toAgenda('target.uid'), toUser('store.userUid'), fromAgendaToAdminMod),
     ],
     labelIds: [
       ['ActivityApps.eventUpdate.full', ['actor', 'store.labels.target']],
@@ -359,7 +394,11 @@ const activitiesConfig = {
   'event.delete': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
-      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        norActor: true,
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       fromEventToUser,
@@ -399,19 +438,22 @@ const activitiesConfig = {
     },
   },
   /*
-  * agenda.publishEvent:
-  *   event -> agenda target -> adminMods
-  *         -> contributor
-  *         if agenda target is public:
-  *           -> source agenda -> adminMods
-  *           -> origin agenda -> adminMods
-  *           -> event owner
-  * */
+   * agenda.publishEvent:
+   *   event -> agenda target -> adminMods
+   *         -> contributor
+   *         if agenda target is public:
+   *           -> source agenda -> adminMods
+   *           -> origin agenda -> adminMods
+   *           -> event owner
+   * */
   'agenda.publishEvent': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-      userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -461,7 +503,10 @@ const activitiesConfig = {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-      userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -511,7 +556,10 @@ const activitiesConfig = {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-      userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -558,19 +606,23 @@ const activitiesConfig = {
     },
   },
   /*
-  * agenda.removeEvent:
-  *   event -> agenda target -> adminMods
-  *         -> contributor
-  *         if is published and agenda target is public:
-  *           -> source agendas -> adminMods
-  *           -> origin agenda -> adminMods
-  *           -> event owner
-  * */
+   * agenda.removeEvent:
+   *   event -> agenda target -> adminMods
+   *         -> contributor
+   *         if is published and agenda target is public:
+   *           -> source agendas -> adminMods
+   *           -> origin agenda -> adminMods
+   *           -> event owner
+   * */
   'agenda.removeEvent': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        norActor: true,
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -619,10 +671,10 @@ const activitiesConfig = {
     },
   },
   /*
-  * agenda.removeDeletedEvent:
-  *   event -> agenda target -> adminMods
-  *         -> contributor
-  * */
+   * agenda.removeDeletedEvent:
+   *   event -> agenda target -> adminMods
+   *         -> contributor
+   * */
   'agenda.removeDeletedEvent': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
@@ -633,7 +685,10 @@ const activitiesConfig = {
       toUser('store.contributorUid'), // to contributor
     ),
     labelIds: [
-      ['ActivityApps.removeDeletedEvent.full', ['actor', 'store.labels.target']],
+      [
+        'ActivityApps.removeDeletedEvent.full',
+        ['actor', 'store.labels.target'],
+      ],
       ['ActivityApps.removeDeletedEvent.withoutTarget', []],
     ],
     entities: {
@@ -692,9 +747,9 @@ const activitiesConfig = {
     },
   },
   /*
-  * agenda.changeEventState:
-  *   event -> agenda target -> adminMods
-  * */
+   * agenda.changeEventState:
+   *   event -> agenda target -> adminMods
+   * */
   'agenda.changeEventState': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
@@ -739,10 +794,10 @@ const activitiesConfig = {
     },
   },
   /*
-  * agenda.systemUnpublishEvent:
-  *   event -> agenda target -> adminMods
-  *         -> contributor
-  * */
+   * agenda.systemUnpublishEvent:
+   *   event -> agenda target -> adminMods
+   *         -> contributor
+   * */
   'agenda.systemUnpublishEvent': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
@@ -777,10 +832,10 @@ const activitiesConfig = {
     },
   },
   /*
-  * agenda.systemChangeEventState:
-  *   event -> agenda target -> adminMods
-  *         -> contributor
-  * */
+   * agenda.systemChangeEventState:
+   *   event -> agenda target -> adminMods
+   *         -> contributor
+   * */
   'agenda.systemChangeEventState': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
@@ -889,12 +944,12 @@ const activitiesConfig = {
   'agenda.addMember': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
-      userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
-    filterFollows: or(
-      toUser('object.uid'),
-      isSuperiorMod,
-    ),
+    filterFollows: or(toUser('object.uid'), isSuperiorMod),
     labelIds: [
       ['ActivityApps.addMember.full', ['actor', 'store.labels.target']],
       ['ActivityApps.addMember.actor', ['actor']],
@@ -933,12 +988,12 @@ const activitiesConfig = {
   'agenda.setMemberRole': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
-      userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
-    filterFollows: or(
-      toUser('object.uid'),
-      isSuperiorMod,
-    ),
+    filterFollows: or(toUser('object.uid'), isSuperiorMod),
     labelIds: [
       ['ActivityApps.setMemberRole.full', ['actor', 'store.labels.target']],
       ['ActivityApps.setMemberRole.actor', ['actor']],
@@ -977,12 +1032,12 @@ const activitiesConfig = {
   'agenda.removeMember': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
-      userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
-    filterFollows: or(
-      toUser('object.uid'),
-      isSuperiorMod,
-    ),
+    filterFollows: or(toUser('object.uid'), isSuperiorMod),
     labelIds: [
       ['ActivityApps.removeMember.full', ['actor', 'store.labels.target']],
       ['ActivityApps.removeMember.actor', ['actor']],
@@ -1154,13 +1209,13 @@ const activitiesConfig = {
     },
   },
   /*
-  * agenda.aggregateEvent:
-  *   event -> agenda target -> adminMods
-  *         if is published and agenda target is public:
-  *           -> source agenda -> adminMods
-  *           -> origin agenda -> adminMods
-  *           -> event owner
-  * */
+   * agenda.aggregateEvent:
+   *   event -> agenda target -> adminMods
+   *         if is published and agenda target is public:
+   *           -> source agenda -> adminMods
+   *           -> origin agenda -> adminMods
+   *           -> event owner
+   * */
   'agenda.aggregateEvent': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
@@ -1209,19 +1264,23 @@ const activitiesConfig = {
     },
   },
   /*
-  * agenda.addEvent:
-  *   event -> agenda target -> adminMods
-  *         -> contributor
-  *         if is published and agenda target is public:
-  *           -> source agenda -> adminMods
-  *           -> origin agenda -> adminMods
-  *           -> event owner
-  * */
+   * agenda.addEvent:
+   *   event -> agenda target -> adminMods
+   *         -> contributor
+   *         if is published and agenda target is public:
+   *           -> source agenda -> adminMods
+   *           -> origin agenda -> adminMods
+   *           -> event owner
+   * */
   'agenda.addEvent': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        norActor: true,
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -1275,17 +1334,21 @@ const activitiesConfig = {
     },
   },
   /*
-  * location.create:
-  *   location -> agenda target -> adminMods
-  *            -> locationSet
-  *              -> agendas -> adminMods
-  *            -> creator
-  * */
+   * location.create:
+   *   location -> agenda target -> adminMods
+   *            -> locationSet
+   *              -> agendas -> adminMods
+   *            -> creator
+   * */
   'location.create': {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        norActor: true,
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       toLocationSet(), // to location set
@@ -1324,23 +1387,32 @@ const activitiesConfig = {
     notifications: null,
   },
   'location.update': {
-    mask: async props => {
+    mask: async (props) => {
       const { activity, targetFeed, config } = props;
       const membersSvc = config.services.members;
 
       // preload member role, avoid double get
       const role = targetFeed.entityType === 'user'
-        ? (await getMember(
-          membersSvc,
-          targetFeed.entityUid,
-          getActivityEntity(activity, 'target.uid'),
-        ))?.role
+        ? (
+          await getMember(
+            membersSvc,
+            targetFeed.entityUid,
+            getActivityEntity(activity, 'target.uid'),
+          )
+        )?.role
         : null;
 
       const toOmit = await maskFor({
         sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
-        otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-        userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+        otherAgenda: {
+          key: 'target.uid',
+          omit: ['actor', 'store.labels.actor'],
+        },
+        userIsNotAdminModOf: {
+          norActor: true,
+          key: 'target.uid',
+          omit: ['actor', 'store.labels.actor'],
+        },
       })({ ...props, preloadedRole: role }) || [];
 
       // Always omit the diff object
@@ -1399,7 +1471,11 @@ const activitiesConfig = {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        norActor: true,
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       toLocationSet(), // to location set
@@ -1443,7 +1519,11 @@ const activitiesConfig = {
     mask: maskFor({
       sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
-      userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
+      userIsNotAdminModOf: {
+        norActor: true,
+        key: 'target.uid',
+        omit: ['actor', 'store.labels.actor'],
+      },
     }),
     filterFollows: or(
       toLocationSet(), // to location set
@@ -1489,9 +1569,15 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
     ),
     labelIds: [
-      ['ActivityApps.agendaSendMessage.fullWithSubject', ['actor', 'store.labels.target', 'store.subject']],
+      [
+        'ActivityApps.agendaSendMessage.fullWithSubject',
+        ['actor', 'store.labels.target', 'store.subject'],
+      ],
       ['ActivityApps.agendaSendMessage.full', ['actor', 'store.labels.target']],
-      ['ActivityApps.agendaSendMessage.withoutTargetWithSubject', ['store.subject']],
+      [
+        'ActivityApps.agendaSendMessage.withoutTargetWithSubject',
+        ['store.subject'],
+      ],
       ['ActivityApps.agendaSendMessage.withoutTarget', []],
     ],
     entities: {

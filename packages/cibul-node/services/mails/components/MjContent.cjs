@@ -8,7 +8,7 @@ class MjContent extends BodyComponent {
 
   render() {
     return this.renderMJML(`
-	  	<mj-wrapper padding="0" css-class="content-wrapper">
+      <mj-wrapper padding="0" css-class="content-wrapper">
         <mj-section
           background-color="#ffffff"
           padding="20px 40px"
@@ -16,7 +16,7 @@ class MjContent extends BodyComponent {
           ${this.getContent()}
         </mj-section>
       </mj-wrapper>
-	  `);
+    `);
   }
 }
 

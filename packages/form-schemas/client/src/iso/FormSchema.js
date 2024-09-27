@@ -3,9 +3,7 @@ const ih = require('immutability-helper');
 
 const isObject = require('./isObject');
 
-const {
-  extractNextOptionId,
-} = require('./fieldOptions');
+const { extractNextOptionId } = require('./fieldOptions');
 
 const validateFieldAndAssignOptionIds = require('./validateFieldAndAssignOptionIds');
 const validateSection = require('./validateSection');
@@ -13,21 +11,20 @@ const validateSection = require('./validateSection');
 const getSchema = require('./getSchema');
 const getWithFieldName = require('./getWithFieldName');
 
-const isNew = data => data.id === null;
+const isNew = (data) => data.id === null;
 
-const getItemSlug = f => f.slug ?? f.field;
-const getItemType = f => f.type ?? 'field';
+const getItemSlug = (f) => f.slug ?? f.field;
+const getItemType = (f) => f.type ?? 'field';
 
 function validate(data, options = {}) {
-  const {
-    client,
-    requireLabels,
-  } = {
+  const { client, requireLabels } = {
     client: false,
     requireLabels: true,
-    ...typeof options === 'boolean' ? {
-      client: options,
-    } : options,
+    ...typeof options === 'boolean'
+      ? {
+        client: options,
+      }
+      : options,
   };
 
   let errors = [];
@@ -43,29 +40,21 @@ function validate(data, options = {}) {
   };
 
   // these we take as is
-  const clean = _.pick(dirty, [
-    'id',
-    'res',
-    'custom',
-    'defaultLabelLanguage',
-  ]);
+  const clean = _.pick(dirty, ['id', 'res', 'custom', 'defaultLabelLanguage']);
 
   clean.nextOptionId = extractNextOptionId(data);
 
   clean.fields = [];
 
   // clean each field
-  dirty.fields.forEach(f => {
+  dirty.fields.forEach((f) => {
     try {
       if (f.type === 'section') {
         clean.fields.push(validateSection(f));
         return;
       }
 
-      const {
-        field: cleanField,
-        nextOptionId: updatedNextOptionId,
-      } = validateFieldAndAssignOptionIds(f, {
+      const { field: cleanField, nextOptionId: updatedNextOptionId } = validateFieldAndAssignOptionIds(f, {
         requireLabels,
         custom: clean.custom,
         defaultLabelLanguage: clean.defaultLabelLanguage,
@@ -115,12 +104,10 @@ module.exports = class {
       return;
     }
 
-    const {
-      field: clean,
-      nextOptionId,
-    } = validateFieldAndAssignOptionIds(fieldData, _.pick(this.data, [
-      'custom', 'defaultLabelLanguage', 'nextOptionId',
-    ]));
+    const { field: clean, nextOptionId } = validateFieldAndAssignOptionIds(
+      fieldData,
+      _.pick(this.data, ['custom', 'defaultLabelLanguage', 'nextOptionId']),
+    );
 
     if (!this.isItemSlugAvailable(clean)) {
       const error = `This slug is taken! : ${clean.field}`;
@@ -136,20 +123,14 @@ module.exports = class {
     if (getItemType(fieldData) === 'section') {
       const clean = validateSection(fieldData);
 
-      this.data.fields.splice(
-        this._getFieldIndex(clean.slug),
-        1,
-        clean,
-      );
+      this.data.fields.splice(this._getFieldIndex(clean.slug), 1, clean);
       return;
     }
 
-    const {
-      field: clean,
-      nextOptionId,
-    } = validateFieldAndAssignOptionIds(fieldData, _.pick(this.data, [
-      'custom', 'defaultLabelLanguage', 'nextOptionId',
-    ]));
+    const { field: clean, nextOptionId } = validateFieldAndAssignOptionIds(
+      fieldData,
+      _.pick(this.data, ['custom', 'defaultLabelLanguage', 'nextOptionId']),
+    );
 
     const fieldIndex = this._getFieldIndex(getItemSlug(clean));
 
@@ -175,7 +156,7 @@ module.exports = class {
     const optionalWithFieldName = getWithFieldName(field.optionalWith);
     const enableWithFieldName = getWithFieldName(field.enableWith);
 
-    return this.data.fields.filter(f => {
+    return this.data.fields.filter((f) => {
       if (optionalWithFieldName === f.field) {
         return true;
       }
@@ -197,7 +178,8 @@ module.exports = class {
   }
 
   getFileFields() {
-    return this.data.fields.filter(f => ['image', 'file'].includes(f.fieldType));
+    return this.data.fields.filter((f) =>
+      ['image', 'file'].includes(f.fieldType));
   }
 
   moveField(indexOrSlug, moves) {
@@ -225,7 +207,8 @@ module.exports = class {
   }
 
   isItemSlugAvailable(item) {
-    return !this.data.fields.filter(f => getItemSlug(f) === getItemSlug(item)).length;
+    return !this.data.fields.filter((f) => getItemSlug(f) === getItemSlug(item))
+      .length;
   }
 
   getFieldCount() {
@@ -241,20 +224,20 @@ module.exports = class {
   }
 
   updateFields(fields) {
-    const updatedFieldSlugs = fields.map(f => getItemSlug(f));
+    const updatedFieldSlugs = fields.map((f) => getItemSlug(f));
 
     // remove
     _.get(this, 'data.fields')
-      .filter(f => !updatedFieldSlugs.includes(getItemSlug(f)))
-      .forEach(fieldToRemove => this.removeField(getItemSlug(fieldToRemove)));
+      .filter((f) => !updatedFieldSlugs.includes(getItemSlug(f)))
+      .forEach((fieldToRemove) => this.removeField(getItemSlug(fieldToRemove)));
 
     // add and update
-    fields.forEach(f => {
+    fields.forEach((f) => {
       if (this.getFieldExists(getItemSlug(f))) {
         try {
           this.updateField(f);
         } catch (errors) {
-          throw errors.map(e => ({ ...e, field: `${f.field}.${e.field}` }));
+          throw errors.map((e) => ({ ...e, field: `${f.field}.${e.field}` }));
         }
       } else {
         this.addField(f);
@@ -267,15 +250,17 @@ module.exports = class {
   }
 
   getValidate(accessType = null, accessLevel = null, options = {}) {
-    const args = isObject(accessType) ? {
-      accessType: null,
-      accessLevel: null,
-      options: accessType,
-    } : {
-      accessType,
-      accessLevel,
-      options,
-    };
+    const args = isObject(accessType)
+      ? {
+        accessType: null,
+        accessLevel: null,
+        options: accessType,
+      }
+      : {
+        accessType,
+        accessLevel,
+        options,
+      };
 
     return getSchema(
       this.data.fields,
@@ -298,9 +283,11 @@ module.exports = class {
   }
 
   _getFieldIndex(indexOrSlug) {
-    const fieldNames = this.data.fields.map(f => f.slug ?? f.field);
+    const fieldNames = this.data.fields.map((f) => f.slug ?? f.field);
 
-    return typeof indexOrSlug === 'string' ? fieldNames.indexOf(indexOrSlug) : indexOrSlug;
+    return typeof indexOrSlug === 'string'
+      ? fieldNames.indexOf(indexOrSlug)
+      : indexOrSlug;
   }
 
   _checkFieldIndex(index, errorMessage = 'Index exceeds schema size') {

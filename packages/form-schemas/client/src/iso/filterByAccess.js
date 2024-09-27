@@ -3,8 +3,9 @@ module.exports = function filterByAccess(formSchema, access) {
     return formSchema;
   }
 
-  formSchema.fields = formSchema.fields
-    .filter(f => !(f.read ?? []).length || f.read.includes(access));
+  formSchema.fields = formSchema.fields.filter(
+    (f) => !(f.read ?? []).length || f.read.includes(access),
+  );
 
   return formSchema;
 };

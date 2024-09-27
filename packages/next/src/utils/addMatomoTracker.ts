@@ -1,6 +1,6 @@
 declare const window: {
-  Matomo?: any
-  matomoPluginAsyncInit?: any
+  Matomo?: any;
+  matomoPluginAsyncInit?: any;
 } & Window;
 
 export function normalizeUrl(url: string) {
@@ -17,16 +17,16 @@ export function normalizeUrl(url: string) {
   return result;
 }
 
-export function addMatomoTracker({
-  matomoUrl,
-  matomoSiteId,
-}) {
+export function addMatomoTracker({ matomoUrl, matomoSiteId }) {
   const matomoDomain = normalizeUrl(matomoUrl);
 
   window.matomoPluginAsyncInit = [
     () => {
       try {
-        const matomoTracker = window.Matomo.getTracker(`https://${matomoDomain}/matomo.php`, matomoSiteId);
+        const matomoTracker = window.Matomo.getTracker(
+          `https://${matomoDomain}/matomo.php`,
+          matomoSiteId,
+        );
         matomoTracker.disableCookies();
         matomoTracker.trackPageView();
         matomoTracker.enableLinkTracking();
@@ -51,7 +51,10 @@ export function addMatomoClientTracker({
   function addTracker() {
     try {
       const matomoDomain = normalizeUrl(matomoUrl);
-      const matomoTracker = window.Matomo.getTracker(`https://${matomoDomain}/matomo.php`, matomoSiteId);
+      const matomoTracker = window.Matomo.getTracker(
+        `https://${matomoDomain}/matomo.php`,
+        matomoSiteId,
+      );
 
       if (matomoCustom.length) {
         for (const instruction of matomoCustom) {
@@ -72,8 +75,6 @@ export function addMatomoClientTracker({
   } else if (Array.isArray(window.matomoPluginAsyncInit)) {
     window.matomoPluginAsyncInit.push(addTracker);
   } else {
-    window.matomoPluginAsyncInit = [
-      addTracker,
-    ];
+    window.matomoPluginAsyncInit = [addTracker];
   }
 }

@@ -31,7 +31,7 @@ export default function AdminSections({ sections, agenda, role }) {
   const location = useLocation();
   const intl = useIntl();
 
-  const locationCount = useSelector(state =>
+  const locationCount = useSelector((state) =>
     _.get(state, 'agendaAdmin.locationCount', null));
 
   if (!sections) {
@@ -40,14 +40,14 @@ export default function AdminSections({ sections, agenda, role }) {
 
   return (
     <ul className="list-unstyled">
-      {sections.map(section =>
+      {sections.map((section) =>
         (section && section.tabs.length ? (
           <React.Fragment key={section.label}>
             <li>
               <h2>{section.label}</h2>
             </li>
 
-            {section.tabs.map(tab => {
+            {section.tabs.map((tab) => {
               const { name, label, link, newFeature } = tab;
               const selected = matchPath(location.pathname, {
                 path: link,

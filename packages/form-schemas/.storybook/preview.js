@@ -10,10 +10,10 @@ export const parameters = {
         'Displaying errors',
         'Other',
         'Form builder components',
-        'Form builder'
+        'Form builder',
       ],
-    }
-  }
+    },
+  },
 };
 
 initialize({
@@ -30,9 +30,11 @@ initialize({
     if (sameOrigin && url.pathname.startsWith('/static')) return;
 
     if (
-      ['unpkg.com', 'amazonaws.com'].filter(h => url.hostname.indexOf(h) !== -1)
-        .length
-    ) return;
+      ['unpkg.com', 'amazonaws.com'].filter(
+        (h) => url.hostname.indexOf(h) !== -1,
+      ).length
+    )
+      return;
 
     print.warning();
   },

@@ -3,7 +3,15 @@ import { useIntl } from 'react-intl';
 import useSWR from 'swr';
 import ky from 'ky';
 import qs from 'qs';
-import { Accordion, Box, Link, ModalBody, Radio, RadioGroup, VStack } from '@openagenda/uikit';
+import {
+  Accordion,
+  Box,
+  Link,
+  ModalBody,
+  Radio,
+  RadioGroup,
+  VStack,
+} from '@openagenda/uikit';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
 import ModalLoadingBody from 'components/ModalLoadingBody';
@@ -17,7 +25,7 @@ import RssAccordionItem from './RssAccordionItem';
 import EmbedAccordionItem from './EmbedAccordionItem';
 import messages from './messages';
 
-const fetcher = url =>
+const fetcher = (url) =>
   ky(url, {
     hooks: {
       afterResponse: [
@@ -51,7 +59,9 @@ function completeUrls(agendaUid, query) {
   }; // JSONv1
 
   const apiQueryString = qs.stringify(apiQuery, { addQueryPrefix: true });
-  const jsonLegacyQueryString = qs.stringify(jsonLegacyQuery, { addQueryPrefix: true });
+  const jsonLegacyQueryString = qs.stringify(jsonLegacyQuery, {
+    addQueryPrefix: true,
+  });
 
   return {
     agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
@@ -69,15 +79,15 @@ function completeUrls(agendaUid, query) {
   };
 }
 
-export default function Body({ agendaUid, agendaTitle, onClose, defaultIndex }) {
+export default function Body({ agenda, onClose, defaultIndex }) {
   const intl = useIntl();
   const query = useLocationQuery();
 
   const [mode, setMode] = useState('selection');
   const res = useMemo(() => {
     const usedQuery = mode === 'all' ? { relative: ['passed', 'current', 'upcoming'] } : query;
-    return completeUrls(agendaUid, usedQuery);
-  }, [mode, agendaUid, query]);
+    return completeUrls(agenda.uid, usedQuery);
+  }, [mode, agenda.uid, query]);
 
   const { user } = useUser();
   const { data: meData, mutate: meMutate } = useSWR<any>(res.me, fetcher);
@@ -87,7 +97,7 @@ export default function Body({ agendaUid, agendaTitle, onClose, defaultIndex }) 
   const languages = exportSettingsData?.languages;
   const fields = exportSettingsData?.spreadsheetColumns;
 
-  const handleSubmit = (type, options) => async e => {
+  const handleSubmit = (type, options) => async (e) => {
     e.preventDefault();
 
     let exportUrl = res.export[type];
@@ -114,15 +124,20 @@ export default function Body({ agendaUid, agendaTitle, onClose, defaultIndex }) 
     }
 
     if (type === 'spreadsheet') {
-      exportUrl = new URL(options.format === 'xlsx' ? res.export.xlsx : res.export.csv);
+      exportUrl = new URL(
+        options.format === 'xlsx' ? res.export.xlsx : res.export.csv,
+      );
       if (!options.allLanguages) {
-        options.selectedLanguages.map(l => exportUrl.searchParams.append('includeLanguages[]', l));
+        options.selectedLanguages.map((l) =>
+          exportUrl.searchParams.append('includeLanguages[]', l));
       }
       if (!options.allFields) {
-        options.selectedFields.map(f => exportUrl.searchParams.append('includeFields[]', f));
+        options.selectedFields.map((f) =>
+          exportUrl.searchParams.append('includeFields[]', f));
       }
       if (options.distributedOptions) {
-        options.distributedFields.map(f => exportUrl.searchParams.append('distributeOptionalFields[]', f));
+        options.distributedFields.map((f) =>
+          exportUrl.searchParams.append('distributeOptionalFields[]', f));
       }
     }
 
@@ -159,19 +174,25 @@ export default function Body({ agendaUid, agendaTitle, onClose, defaultIndex }) 
       <RadioGroup value={mode} onChange={setMode}>
         <VStack spacing="2" ml="6" alignItems="start">
           <Radio value="all">{intl.formatMessage(messages.exportAll)}</Radio>
-          <Radio value="selection">{intl.formatMessage(messages.exportSelection)}</Radio>
+          <Radio value="selection">
+            {intl.formatMessage(messages.exportSelection)}
+          </Radio>
         </VStack>
       </RadioGroup>
 
       <Accordion as="form" allowToggle defaultIndex={defaultIndex} mt="4">
-        <SpreadsheetAccordionItem handleSubmit={handleSubmit} languages={languages} fields={fields} />
+        <SpreadsheetAccordionItem
+          handleSubmit={handleSubmit}
+          languages={languages}
+          fields={fields}
+        />
         <PdfAccordionItem handleSubmit={handleSubmit} />
         <JsonAccordionItem handleSubmit={handleSubmit} res={res} />
         <GcalAccordionItem res={res} />
         <OutlookAccordionItem res={res} />
         <IcsAccordionItem handleSubmit={handleSubmit} />
         <RssAccordionItem handleSubmit={handleSubmit} />
-        <EmbedAccordionItem res={res} agendaTitle={agendaTitle} />
+        <EmbedAccordionItem res={res} agenda={agenda} />
       </Accordion>
     </ModalBody>
   );

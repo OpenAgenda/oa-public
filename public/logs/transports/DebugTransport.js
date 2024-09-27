@@ -1,6 +1,6 @@
 'use strict';
 
-const util = require('util');
+const util = require('node:util');
 const winston = require('winston');
 const debug = require('debug');
 const context = require('../context');
@@ -45,7 +45,7 @@ class DebugTransport extends winston.Transport {
     } else {
       const { namespace, error, ...metaToKeep } = meta;
       if (error && Object.keys(metaToKeep).length === 0) {
-        displayedMeta = error
+        displayedMeta = error;
       } else {
         displayedMeta = metaToKeep;
       }

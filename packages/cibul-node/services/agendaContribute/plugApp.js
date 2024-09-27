@@ -12,13 +12,11 @@ import verifyMemberAuthorization, {
 } from './middlewares/verifyMemberAuthorization.js';
 import addNewMember from './middlewares/addNewMember.js';
 
-export default (_config, services) => parentApp => {
+export default (_config, services) => (parentApp) => {
   const {
     agendas,
     formSchemas: {
-      middleware: {
-        files: formSchemaFilesMw,
-      },
+      middleware: { files: formSchemaFilesMw },
     },
   } = services;
 
@@ -37,41 +35,47 @@ export default (_config, services) => parentApp => {
     createEvent,
   );
 
-  parentApp.post([
-    '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft',
-  ], [
-    agendas.mw.load,
-    loadMember,
-    getAgendaSchema,
-    loadEvent,
-    loadOrDefineFileKey,
-    verifyMemberAuthorizationEdit,
-    isDraftRequested({ draft: true }),
-    formSchemaFilesMw.cleanFileValues.bind(null, {}),
-    formSchemaFilesMw.putInTemporary.bind(null, {}),
-    formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
-    mergeDataWithFiles,
-    updateEvent,
-  ]);
+  parentApp.post(
+    [
+      '/:agendaSlug/contribute/event/:eventUid',
+      '/:agendaSlug/contribute/event/:eventUid/draft',
+    ],
+    [
+      agendas.mw.load,
+      loadMember,
+      getAgendaSchema,
+      loadEvent,
+      loadOrDefineFileKey,
+      verifyMemberAuthorizationEdit,
+      isDraftRequested({ draft: true }),
+      formSchemaFilesMw.cleanFileValues.bind(null, {}),
+      formSchemaFilesMw.putInTemporary.bind(null, {}),
+      formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
+      mergeDataWithFiles,
+      updateEvent,
+    ],
+  );
 
-  parentApp.post('/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid', [
-    agendas.mw.load,
-    loadMember,
-    getAgendaSchema,
-    agendas.mw.loadBy({
-      path: 'params.fromAgendaUid',
-      field: 'uid',
-      target: 'fromAgenda',
-    }),
-    loadEvent,
-    loadOrDefineFileKey,
-    verifyMemberAuthorizationEdit,
-    addNewMember,
-    formSchemaFilesMw.cleanFileValues.bind(null, {}),
-    formSchemaFilesMw.putInTemporary.bind(null, {}),
-    formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
-    mergeDataWithFiles,
-    addEvent,
-  ]);
+  parentApp.post(
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+    [
+      agendas.mw.load,
+      loadMember,
+      getAgendaSchema,
+      agendas.mw.loadBy({
+        path: 'params.fromAgendaUid',
+        field: 'uid',
+        target: 'fromAgenda',
+      }),
+      loadEvent,
+      loadOrDefineFileKey,
+      verifyMemberAuthorizationEdit,
+      addNewMember,
+      formSchemaFilesMw.cleanFileValues.bind(null, {}),
+      formSchemaFilesMw.putInTemporary.bind(null, {}),
+      formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
+      mergeDataWithFiles,
+      addEvent,
+    ],
+  );
 };

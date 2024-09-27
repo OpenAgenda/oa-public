@@ -7,12 +7,11 @@ import {
 } from '@openagenda/uikit';
 
 export type NextChakraLinkOverlayProps = PropsWithChildren<
-  Omit<NextLinkProps, 'as'>
-  & ChakraLinkOverlayProps
-  & {
-    hrefAs?: string | UrlObject
-  }
->
+  Omit<NextLinkProps, 'as'> &
+    ChakraLinkOverlayProps & {
+      hrefAs?: string | UrlObject;
+    }
+>;
 
 //  Has to be a new component because both chakra and next share the `as` keyword
 export default function NextChakraLinkOverlay({

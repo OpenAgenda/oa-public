@@ -20,7 +20,7 @@ const validate = schema({
   },
 });
 
-module.exports = identifiers => {
+module.exports = (identifiers) => {
   try {
     const clean = validate(
       ['number', 'string'].includes(typeof identifiers)
@@ -30,7 +30,7 @@ module.exports = identifiers => {
         : identifiers,
     );
     const getFieldName = Object.keys(clean)
-      .filter(f => ![null, undefined].includes(clean[f]))
+      .filter((f) => ![null, undefined].includes(clean[f]))
       .pop();
 
     if (!getFieldName) {

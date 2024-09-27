@@ -30,7 +30,7 @@ export default function useFilters(agendaSchema) {
         value: 2,
       },
     ],
-    [intl]
+    [intl],
   );
 
   return useMemo(() => {
@@ -113,13 +113,13 @@ export default function useFilters(agendaSchema) {
 
     const additionalFilters = agendaSchema.fields
       .filter(
-        fieldSchema => fieldSchema.options && fieldSchema.options.length > 0
+        (fieldSchema) => fieldSchema.options && fieldSchema.options.length > 0,
       )
-      .map(fieldSchema => ({
+      .map((fieldSchema) => ({
         name: fieldSchema.field,
         type: 'choice',
         fieldSchema,
-        options: fieldSchema.options.map(option => ({
+        options: fieldSchema.options.map((option) => ({
           ...option,
           label: getLocaleValue(option.label, intl.locale),
           value: option.id,
@@ -131,7 +131,7 @@ export default function useFilters(agendaSchema) {
         },
       }));
 
-    return standardFilters.concat(additionalFilters).map(v => ({
+    return standardFilters.concat(additionalFilters).map((v) => ({
       ...v,
       id: seed(v),
     }));

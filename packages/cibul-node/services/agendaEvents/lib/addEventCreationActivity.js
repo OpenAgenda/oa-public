@@ -4,12 +4,12 @@ import getMemberName from './utils/getMemberName.js';
 
 const log = logs('agendaEvents/addEventCreationActivity');
 
-export default async function addEventCreationActivity(services, eventFeed, {
-  ae,
-  agenda,
-  event,
-  user,
-}, context) {
+export default async function addEventCreationActivity(
+  services,
+  eventFeed,
+  { ae, agenda, event, user },
+  context,
+) {
   log('processing');
   const {
     activities: activitiesSvc,
@@ -19,17 +19,23 @@ export default async function addEventCreationActivity(services, eventFeed, {
   } = services;
 
   if (!user) {
-    return log('error', new VError('user of uid %s not found', context.userUid));
+    return log(
+      'error',
+      new VError('user of uid %s not found', context.userUid),
+    );
   }
 
   const { duplicateOrigin } = context;
 
   // Duplication
   if (duplicateOrigin) {
-    const duplicateOriginAgenda = await agendasSvc.get({ uid: duplicateOrigin.agendaUid }, {
-      internal: true,
-      private: null,
-    });
+    const duplicateOriginAgenda = await agendasSvc.get(
+      { uid: duplicateOrigin.agendaUid },
+      {
+        internal: true,
+        private: null,
+      },
+    );
 
     const originEvent = await eventsSvc.get(duplicateOrigin.eventUid, {
       includeFields: ['ownerUid'],

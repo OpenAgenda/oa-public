@@ -42,12 +42,20 @@ function _esc(txt) {
     .replace(/;/g, '\\;');
 }
 
-export default (agenda, eData /* event data */, ev /* event instance */, lang, timingIndex) => {
+export default (
+  agenda,
+  eData /* event data */,
+  ev /* event instance */,
+  lang,
+  timingIndex,
+) => {
   const l = ev.getLocationDetails();
 
   const url = `${config.root}/${agenda.slug}/events/${ev.slug}`;
 
-  const truncatedDescription = _esc(utils.truncate(ev.getFreeText(), 30, '...'));
+  const truncatedDescription = _esc(
+    utils.truncate(ev.getFreeText(), 30, '...'),
+  );
 
   const timings = ev.getTimings();
 
@@ -93,16 +101,17 @@ export default (agenda, eData /* event data */, ev /* event instance */, lang, t
       return i <= 10 || start.split('T')[0] >= today;
     })
 
-    .forEach(t => {
-      icaled = icaled.concat([
-        'BEGIN:VEVENT',
-        `UID:${agenda.uid}//${ev.uid}//${_date(t.start, 'YYYY-MM-DD//HH:mm:00')}`,
-        `DTSTART:${_date(t.start)}`,
-        `DTEND:${_date(t.end)}`,
-      ], repeated, [
-        'ORGANIZER:OA',
-        'END:VEVENT',
-      ]);
+    .forEach((t) => {
+      icaled = icaled.concat(
+        [
+          'BEGIN:VEVENT',
+          `UID:${agenda.uid}//${ev.uid}//${_date(t.start, 'YYYY-MM-DD//HH:mm:00')}`,
+          `DTSTART:${_date(t.start)}`,
+          `DTEND:${_date(t.end)}`,
+        ],
+        repeated,
+        ['ORGANIZER:OA', 'END:VEVENT'],
+      );
     });
 
   return icaled.join('\r\n');

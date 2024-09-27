@@ -5,7 +5,6 @@ import createApp from '@openagenda/inbox-apps/src/app';
 import { wrapApp } from '@openagenda/react-shared';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
-import du from '@openagenda/dom-utils';
 import React from 'react';
 import session from '@openagenda/sessions/client';
 import { getLocaleValue } from '@openagenda/intl';
@@ -78,7 +77,7 @@ window.hook(options => {
     }
   })();
 
-  const root = createRoot(du.el('.js_canvas'));
+  const root = createRoot(document.querySelector('.js_canvas'));
 
   root.render(
     wrapApp(

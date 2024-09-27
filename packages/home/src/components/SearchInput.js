@@ -28,7 +28,7 @@ export default function SearchInput({
     autoComplete,
   };
   const onChange = useCallback(
-    e => {
+    (e) => {
       input.onChange(e.target.value);
       action(e.target.value);
     },

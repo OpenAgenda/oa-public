@@ -109,18 +109,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -181,12 +176,7 @@
         "fr": "Présentation en mots et en images, par la réalisatrice Hala Alabdalla, du cinéaste et écrivain syrien Omar Amiralay, figure majeure de la production cinématographique du monde arabe. Dans le cadre de MINA : Port d'escales artistiques. Ce sera donc une première fois en Europe pour ce festival imaginé par l’organisation culturelle syrienne Ettijahat-Independent Culture, véritable plateforme réunissant de talentueux artistes syriens. Mina proposera à cette occasion une programmation artistique multidisciplinaire bilingue (français/arabe) tournée vers la problématique des ressources linguistiques et géographiques : comment vivre, penser et créer dans deux langues, la langue d’origine et celle du pays d’accueil ? Quel est le rôle de la géographie et du déplacement dans l’appréhension du foyer, de la ville, de la nation, des frontières que les artistes ont laissés derrière eux ? Des questions qui résonnent avec force dans la capitale de Nouvelle-Aquitaine, ville portuaire portant la mémoire de larges mouvements de migrations et de sédentarisation. Mina abordera ces thématiques avec les producteurs, artistes et publics présents lors de l’événement, pour débattre de la place des arts dans un monde où les frontières se déplacent quotidiennement."
       },
       "keywords": {
-        "fr": [
-          "rocher de palmer",
-          "cenon",
-          "rencontre",
-          "musique"
-        ]
+        "fr": ["rocher de palmer", "cenon", "rencontre", "musique"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -242,9 +232,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/mina/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/mina/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -274,18 +262,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -410,9 +393,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/mina/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/mina/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -442,18 +423,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -577,9 +553,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/mina/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/mina/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -609,18 +583,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -744,9 +713,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/mina/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/mina/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -776,18 +743,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -942,18 +904,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 45,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1108,18 +1065,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1274,18 +1226,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1410,9 +1357,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/vso/04.2020.php"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/vso/04.2020.php"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1442,18 +1387,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1608,18 +1548,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

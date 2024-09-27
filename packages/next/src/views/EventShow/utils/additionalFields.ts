@@ -5,7 +5,7 @@ import { getLocaleValue } from '@openagenda/intl';
 import { FALLBACK_LOCALE } from 'config/constants';
 
 export function hasAdditionalFields(schema) {
-  return !!schema.fields.filter(f => f.schemaType !== 'event').length;
+  return !!schema.fields.filter((f) => f.schemaType !== 'event').length;
 }
 
 function formatValue(
@@ -28,8 +28,8 @@ function formatValue(
 
   // handle all optioned types
   if (field.options) {
-    const labels = [].concat(value).map(v => {
-      const option = field.options.find(o => o.id === v);
+    const labels = [].concat(value).map((v) => {
+      const option = field.options.find((o) => o.id === v);
       if (!option) {
         return;
       }
@@ -74,18 +74,18 @@ export function formatAdditionalFieldData({
   dateFnsLocale,
 }) {
   const additionalFields = schema.fields
-    .filter(f => f.schemaType !== 'event')
-    .filter(f => f.fieldType !== 'abstract')
-    .filter(f => f.type !== 'section');
+    .filter((f) => f.schemaType !== 'event')
+    .filter((f) => f.fieldType !== 'abstract')
+    .filter((f) => f.type !== 'section');
 
   const timezone = event.timezone ?? event.location?.timezone ?? 'Europe/Paris';
 
-  return additionalFields.map(field => {
+  return additionalFields.map((field) => {
     const value = [].concat(event[field.field]);
 
     const formattedValue = value
-      .filter(v => !field.options || field.options.some(o => o.id === v))
-      .map(v =>
+      .filter((v) => !field.options || field.options.some((o) => o.id === v))
+      .map((v) =>
         formatValue(field, v, {
           locale,
           defaultLocale,

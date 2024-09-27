@@ -12,7 +12,8 @@ import InputField from './InputField';
 const messages = defineMessages({
   disabledGeocode: {
     id: 'AgendaLocations.LocationForm.disabledGeocode',
-    defaultMessage: 'The automatic localisation is temporarily unavailable. Drag the marker to the correct location on the map manually.',
+    defaultMessage:
+      'The automatic localisation is temporarily unavailable. Drag the marker to the correct location on the map manually.',
   },
 });
 
@@ -36,92 +37,100 @@ const GeoFieldsAndMap = ({
   const [geocodeError, setGeocodeError] = useState(false);
   const [manualMode, setManualMode] = useState(false);
 
-  const fetchINSEE = useCallback(async loc => {
-    const params = new URLSearchParams({
-      latitude: loc.latitude || '',
-      longitude: loc.longitude || '',
-      city: loc.adminLevel4 || '',
-      department: loc.adminLevel2 || '',
-    });
-
-    try {
-      const response = await fetch(`${res.insee}${res.insee.includes('?') ? '&' : '?'}${params}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-
-      onChange({
-        ...location,
-        adminLevel1: loc.adminLevel1,
-        adminLevel2: loc.adminLevel2,
-        adminLevel3: loc.adminLevel3,
-        adminLevel4: loc.adminLevel4,
-        adminLevel5: loc.adminLevel5,
-        adminLevel6: loc.adminLevel6,
-        country: loc.country,
-        countryCode: loc.countryCode.toUpperCase(),
-        postalCode: loc.postalCode,
-        latitude: loc.latitude,
-        longitude: loc.longitude,
-        timezone: loc.timezone,
-        insee: data.code,
+  const fetchINSEE = useCallback(
+    async (loc) => {
+      const params = new URLSearchParams({
+        latitude: loc.latitude || '',
+        longitude: loc.longitude || '',
+        city: loc.adminLevel4 || '',
+        department: loc.adminLevel2 || '',
       });
-      return data.code;
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
-  }, [location, res.insee, onChange]);
 
-  const updateLocationGeocode = useCallback(async value => {
-    setGeocodeEdit(false);
-    if (value === undefined) return;
+      try {
+        const response = await fetch(
+          `${res.insee}${res.insee.includes('?') ? '&' : '?'}${params}`,
+        );
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
 
-    const params = new URLSearchParams({
-      address: value,
-      countryCode: location?.countryCode,
-    });
-
-    try {
-      const response = await fetch(`${res.geocode}?${params}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-
-      if (!data.results[0]) {
-        setGeocodeNoResults(true);
-        if (setDisabled) setDisabled(true);
-        return;
-      }
-
-      const obj = data.results[0];
-      if (obj.countryCode === 'fr') {
-        fetchINSEE(obj);
-      } else {
         onChange({
           ...location,
-          adminLevel1: obj.adminLevel1,
-          adminLevel2: obj.adminLevel2,
-          adminLevel3: obj.adminLevel3,
-          adminLevel4: obj.adminLevel4,
-          adminLevel5: obj.adminLevel5,
-          adminLevel6: obj.adminLevel6,
-          country: obj.country,
-          countryCode: obj.countryCode.toUpperCase(),
-          postalCode: obj.postalCode,
-          latitude: obj.latitude,
-          longitude: obj.longitude,
-          timezone: obj.timezone,
+          adminLevel1: loc.adminLevel1,
+          adminLevel2: loc.adminLevel2,
+          adminLevel3: loc.adminLevel3,
+          adminLevel4: loc.adminLevel4,
+          adminLevel5: loc.adminLevel5,
+          adminLevel6: loc.adminLevel6,
+          country: loc.country,
+          countryCode: loc.countryCode.toUpperCase(),
+          postalCode: loc.postalCode,
+          latitude: loc.latitude,
+          longitude: loc.longitude,
+          timezone: loc.timezone,
+          insee: data.code,
         });
+        return data.code;
+      } catch (error) {
+        console.error('Fetch error:', error);
       }
-      setGeocodeNoResults(false);
-      setGeocodeLoading(false);
-      if (setDisabled) setDisabled(false);
-    } catch (err) {
-      setGeocodeError(err);
-    }
-  }, [location, onChange, res.geocode, fetchINSEE, setDisabled]);
+    },
+    [location, res.insee, onChange],
+  );
+
+  const updateLocationGeocode = useCallback(
+    async (value) => {
+      setGeocodeEdit(false);
+      if (value === undefined) return;
+
+      const params = new URLSearchParams({
+        address: value,
+        countryCode: location?.countryCode,
+      });
+
+      try {
+        const response = await fetch(`${res.geocode}?${params}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+
+        if (!data.results[0]) {
+          setGeocodeNoResults(true);
+          if (setDisabled) setDisabled(true);
+          return;
+        }
+
+        const obj = data.results[0];
+        if (obj.countryCode === 'fr') {
+          fetchINSEE(obj);
+        } else {
+          onChange({
+            ...location,
+            adminLevel1: obj.adminLevel1,
+            adminLevel2: obj.adminLevel2,
+            adminLevel3: obj.adminLevel3,
+            adminLevel4: obj.adminLevel4,
+            adminLevel5: obj.adminLevel5,
+            adminLevel6: obj.adminLevel6,
+            country: obj.country,
+            countryCode: obj.countryCode.toUpperCase(),
+            postalCode: obj.postalCode,
+            latitude: obj.latitude,
+            longitude: obj.longitude,
+            timezone: obj.timezone,
+          });
+        }
+        setGeocodeNoResults(false);
+        setGeocodeLoading(false);
+        if (setDisabled) setDisabled(false);
+      } catch (err) {
+        setGeocodeError(err);
+      }
+    },
+    [location, onChange, res.geocode, fetchINSEE, setDisabled],
+  );
 
   const updateLocationReverseGeocode = async (lat, long) => {
     setGeocodeEdit(false);
@@ -170,27 +179,30 @@ const GeoFieldsAndMap = ({
     }
   };
 
-  const debouncedOnChange = useDebouncedCallback(value => {
+  const debouncedOnChange = useDebouncedCallback((value) => {
     const doGeocode = value && value.trim().length > 2;
     setGeocodeLoading(doGeocode);
     if (doGeocode) updateLocationGeocode(value);
   }, 1500);
 
-  const onAddressChange = useCallback((v, disableManualMode) => {
-    onChange({ ...location, address: v });
-    if (disableManualMode) {
-      const doGeocode = v && v.trim().length > 2;
-      setGeocodeLoading(doGeocode);
-      if (doGeocode) updateLocationGeocode(v);
-      setManualMode(false);
-      return;
-    }
-    if (!manualMode) {
-      debouncedOnChange(v);
-    }
-  }, [debouncedOnChange, onChange, location, manualMode, updateLocationGeocode]);
+  const onAddressChange = useCallback(
+    (v, disableManualMode) => {
+      onChange({ ...location, address: v });
+      if (disableManualMode) {
+        const doGeocode = v && v.trim().length > 2;
+        setGeocodeLoading(doGeocode);
+        if (doGeocode) updateLocationGeocode(v);
+        setManualMode(false);
+        return;
+      }
+      if (!manualMode) {
+        debouncedOnChange(v);
+      }
+    },
+    [debouncedOnChange, onChange, location, manualMode, updateLocationGeocode],
+  );
 
-  const onMarkerDragged = pos => {
+  const onMarkerDragged = (pos) => {
     if (!enableGeocode) onChange({ ...location, longitude: pos.lng, latitude: pos.lat });
     else updateLocationReverseGeocode(pos.lat, pos.lng);
   };
@@ -210,7 +222,9 @@ const GeoFieldsAndMap = ({
       <button
         className="btn btn-default"
         type="button"
-        onClick={() => { onAddressChange(location.address, true); }}
+        onClick={() => {
+          onAddressChange(location.address, true);
+        }}
       >
         {geocodeLoading ? (
           <i style={{ padding: '0.2em 0.65em' }}>
@@ -237,7 +251,7 @@ const GeoFieldsAndMap = ({
         enabled
         pValue={location?.countryCode}
         lang={lang}
-        onChange={v => onChange({ ...location, countryCode: v })}
+        onChange={(v) => onChange({ ...location, countryCode: v })}
         getLabel={getLabel}
       />
 
@@ -251,15 +265,15 @@ const GeoFieldsAndMap = ({
         validator={validate.field('address')}
         lang={lang}
         getLabel={getLabel}
-        groupClassName={errors && errors.find(e => e.field === 'name') ? 'has-error margin-bottom-xs' : 'margin-bottom-xs'}
+        groupClassName={
+          errors && errors.find((e) => e.field === 'name')
+            ? 'has-error margin-bottom-xs'
+            : 'margin-bottom-xs'
+        }
         className={enableGeocode ? 'input-group' : 'form-group'}
         errors={geocodeError ? [{ code: 'geocodeError' }] : false}
-        renderButton={
-            enableGeocode
-              ? renderGeocodeButton
-              : false
-          }
-        onKeyDown={e => {
+        renderButton={enableGeocode ? renderGeocodeButton : false}
+        onKeyDown={(e) => {
           if (e.key === 'Enter') onAddressChange(e.target.value, true);
         }}
       />

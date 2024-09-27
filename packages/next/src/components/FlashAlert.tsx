@@ -5,7 +5,8 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogOverlay,
-  Button, useDisclosure,
+  Button,
+  useDisclosure,
 } from '@openagenda/uikit';
 import session from '@openagenda/sessions/client';
 import { useRouter } from 'next/router';

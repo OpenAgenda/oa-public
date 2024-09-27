@@ -4,7 +4,7 @@ import agendasSvc from '@openagenda/agendas';
 
 const removeAgenda = promisify(agendasSvc.remove);
 
-export default async agendaOrUid => {
+export default async (agendaOrUid) => {
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
   const { success } = await removeAgenda({ uid: agendaUid });

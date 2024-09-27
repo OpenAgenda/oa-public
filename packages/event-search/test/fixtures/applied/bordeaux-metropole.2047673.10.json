@@ -71,9 +71,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 93510656,
         "slug": "eglise-saint-pierre569",
@@ -102,9 +100,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -147,11 +143,7 @@
         "fr": "Rose, lavande, pissenlit, romarin, tilleul, menthe, figue… ces ingrédients naturels qui poussent dans nos jardins ont aussi des vertus insoupçonnées ! Monique Delaux des Jardins Cuisiniers vient nous initier à la fabrication maison de nos futurs cosmétiques, plus économiques et écologiques.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "bio",
-          "homemade",
-          "ecologie"
-        ]
+        "fr": ["bio", "homemade", "ecologie"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -282,10 +274,7 @@
         "fr": "Open space, atelier partagé, fablab, services hybrides… les tiers-lieux se développent à la ville mais aussi à la campagne. Comment fonctionnent-ils ? Que nous disent-ils de notre rapport au travail ? Chloé Rivolet de la Coopérative tiers-lieu(x) nous présente ces nouveaux espaces du « faire ensemble ».\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "tiers-lieu",
-          "coworking"
-        ]
+        "fr": ["tiers-lieu", "coworking"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -470,9 +459,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -501,9 +488,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -546,10 +531,7 @@
         "fr": "Comment se servir d’un visuel pour se faire comprendre ou résumer tout un débat ? Nathalie Latrille de Sur les murs nous fera découvrir et expérimenter la prise de note graphique et la carte mentale. Ces outils permettent de mieux appréhender des sujets complexes, organiser des idées, synthétiser, communiquer, capter l’attention, mémoriser…\n\nDécouvrez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "sketchnote",
-          "facilitation graphique"
-        ]
+        "fr": ["sketchnote", "facilitation graphique"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -678,11 +660,7 @@
         "fr": "Thymio, Nao, Arduino ne vous disent rien ? Stéphane Brunel du laboratoire IMS au CNRS et Laurent Verdier de la Robocup Junior font les présentations : histoire, composition, fonction… avant de se lancer dans la mécanique et la programmation.\n\nDécouvrez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "robot",
-          "codage",
-          "thymio"
-        ]
+        "fr": ["robot", "codage", "thymio"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -811,10 +789,7 @@
         "fr": "La quantité de données accessibles sur le Web a fait émerger un nouveau type de journalisme. Il s’appuie sur la datavisualisation pour décrypter les faits et les rendre accessibles au public. Rayya Roumanos de l’IJBA, nous éclaire sur les coulisses du datajournalisme.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019*)"
       },
       "keywords": {
-        "fr": [
-          "data",
-          "datajournalisme"
-        ]
+        "fr": ["data", "datajournalisme"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -943,10 +918,7 @@
         "fr": "Le code et la programmation informatiques ne sont pas réservés aux experts ! Yoan Mollard nous le démontre grâce au système Arbalet Frontage et nous invite à mettre en lumière, de manière ludique et créative, une façade de plus de 200 m².\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "codage",
-          "pixelart"
-        ]
+        "fr": ["codage", "pixelart"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -1077,9 +1049,7 @@
         "fr": "Format d’accélération labellisé Google pour résoudre tout type de problème en moins de 5 jours, le Design Sprint favorise l’innovation en adoptant une démarche collaborative centrée sur l’utilisateur (d’une appli, d’un espace public…). Hélène Desliens d’Experteez, sera notre Sprint Master pour cet atelier.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "design"
-        ]
+        "fr": ["design"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -1210,10 +1180,7 @@
         "fr": "Zones d’échanges entre les écosystèmes terrestre et aquatique, les rives des lacs et leurs zones littorales abritent une forte biodiversité. Vincent Bertrin de l’IRSTEA nous explique comment évoluent ces écosystèmes lacustres et comment les protéger du changement climatique et de l’activité humaine.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "biodiversité",
-          "écologie"
-        ]
+        "fr": ["biodiversité", "écologie"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"

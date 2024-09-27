@@ -15,9 +15,7 @@
   {
     "name": "sources",
     "section": "manage",
-    "roles": [
-      "administrator"
-    ]
+    "roles": ["administrator"]
   },
   {
     "name": "inbox",
@@ -36,39 +34,29 @@
     "name": "embeds",
     "section": "export",
     "route": "/embeds",
-    "roles": [
-      "administrator"
-    ]
+    "roles": ["administrator"]
   },
   {
     "name": "settings_profile",
     "section": "settings",
     "route": "/settings/profile",
-    "roles": [
-      "administrator"
-    ]
+    "roles": ["administrator"]
   },
   {
     "name": "schema",
     "section": "settings",
-    "roles": [
-      "administrator"
-    ]
+    "roles": ["administrator"]
   },
   {
     "name": "settings_contribution",
     "section": "settings",
     "route": "/settings/contribution",
-    "roles": [
-      "administrator"
-    ]
+    "roles": ["administrator"]
   },
   {
     "name": "settings_advanced",
     "section": "settings",
     "route": "/settings/advanced",
-    "roles": [
-      "administrator"
-    ]
+    "roles": ["administrator"]
   }
 ]

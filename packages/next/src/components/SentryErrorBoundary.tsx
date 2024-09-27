@@ -5,7 +5,11 @@ export default function SentryErrorBoundary({ children }) {
   return (
     <SErrorBoundary
       fallback={({ error, eventId, resetError }) => (
-        <ErrorDisplay error={error} errorTrackingId={eventId} resetError={resetError} />
+        <ErrorDisplay
+          error={error}
+          errorTrackingId={eventId}
+          resetError={resetError}
+        />
       )}
     >
       {children}

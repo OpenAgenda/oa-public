@@ -9,13 +9,13 @@ export default (res, agendaUid, memberEditModal) => {
         includes: ['me.member', 'agenda'],
       })}`,
     )
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`Invalid status (${response.status})`);
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         memberEditModal.open({
           uid: data.agenda.uid,
           settings: data.agenda.settings,
@@ -25,7 +25,7 @@ export default (res, agendaUid, memberEditModal) => {
         });
         return data;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Error fetching agenda:', err);
       });
   }

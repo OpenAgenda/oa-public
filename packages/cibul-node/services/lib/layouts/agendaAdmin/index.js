@@ -8,7 +8,9 @@ import headerLabels from '@openagenda/labels/agenda-admin/header.js';
 import tabLabels from '@openagenda/labels/agenda-admin/tabs.js';
 import agendaLayout from '../agenda/index.js';
 
-const tabReference = JSON.parse(fs.readFileSync(new URL('./tabs.json', import.meta.url), 'utf-8'));
+const tabReference = JSON.parse(
+  fs.readFileSync(new URL('./tabs.json', import.meta.url), 'utf-8'),
+);
 
 const getHeaderLabels = makeLabelGetter(headerLabels);
 const getTabLabels = makeLabelGetter(tabLabels);
@@ -41,16 +43,21 @@ function parser(data) {
   const { agenda, lang, selectedTab, role } = data;
 
   const tabs = tabReference
-    .filter(tab => _includeTab(agenda, tab, typeof role === 'string' ? role : getRoleSlug(role)))
-    .map(tab => _formatTab({ agenda, tab, lang, selectedTab }));
+    .filter((tab) =>
+      _includeTab(
+        agenda,
+        tab,
+        typeof role === 'string' ? role : getRoleSlug(role),
+      ))
+    .map((tab) => _formatTab({ agenda, tab, lang, selectedTab }));
 
   const adminData = ih(agendaLayout.parser(data), {
     adminLabels: { $set: flattenLabels(headerLabels, data.lang, 'en') },
     tabLabels: { $set: flattenLabels(tabLabels, data.lang, 'en') },
     sections: {
-      $set: ['manage', 'export', 'settings'].map(s => ({
+      $set: ['manage', 'export', 'settings'].map((s) => ({
         label: getHeaderLabels(s, lang),
-        tabs: tabs.filter(t => t.section === s),
+        tabs: tabs.filter((t) => t.section === s),
       })),
     },
   });
@@ -68,6 +75,8 @@ function parser(data) {
 
 export default {
   parent: 'main',
-  render: _.template(fs.readFileSync(`${import.meta.dirname}/layout.tpl`, 'utf-8')),
+  render: _.template(
+    fs.readFileSync(`${import.meta.dirname}/layout.tpl`, 'utf-8'),
+  ),
   parser,
 };

@@ -1,10 +1,10 @@
 import messages from './messages';
 import extract from './extractFilterDisplayValues';
 
-const extractTextField = textRule => {
+const extractTextField = (textRule) => {
   if (!textRule) return null;
   const unwantedKeys = ['caseSensitive', 'wholeValue', 'required'];
-  const keys = Object.keys(textRule).filter(k => !unwantedKeys.includes(k));
+  const keys = Object.keys(textRule).filter((k) => !unwantedKeys.includes(k));
   return keys[0];
 };
 

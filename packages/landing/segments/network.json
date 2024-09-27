@@ -7,6 +7,6 @@
     "networkSupport",
     "networkExport"
   ],
-  "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/francenetwork.png",
-  "imageWidth" : 300
+  "rightImage": "//s3.eu-central-1.amazonaws.com/oastatic/francenetwork.png",
+  "imageWidth": 300
 }

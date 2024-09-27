@@ -98,11 +98,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        17,
-        22,
-        25
-      ],
+      "thematiques-bordeaux-metropole": [17, 22, 25],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -199,9 +195,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -230,9 +224,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -329,9 +321,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -456,9 +446,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -487,9 +475,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 56,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -615,10 +601,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        17,
-        38
-      ],
+      "thematiques-bordeaux-metropole": [17, 38],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -744,10 +727,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 45,
-      "thematiques-bordeaux-metropole": [
-        17,
-        25
-      ],
+      "thematiques-bordeaux-metropole": [17, 25],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -924,9 +904,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/expositions/wogdog.blues/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/expositions/wogdog.blues/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -956,9 +934,7 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "state": 2,
@@ -1057,9 +1033,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -1184,9 +1158,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -1338,9 +1310,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],

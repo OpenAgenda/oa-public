@@ -48,7 +48,7 @@ function _loadGoogleProfile(req, token, refreshToken, profile, done) {
   done(null, extracted);
 }
 
-export default app => {
+export default (app) => {
   const { sessions, agendas, genUrl } = app.services;
 
   const preMw = [
@@ -57,31 +57,45 @@ export default app => {
   ];
 
   if (_.get(config, 'auth.google.id')) {
-    passport.use('google-signin', new GoogleStrategy(
-      {
-        callbackURL: genUrl.abs('googleSigninCallback'),
-        ...googleOptions,
-      },
-      _loadGoogleProfile,
-    ));
-    passport.use('google-signup', new GoogleStrategy(
-      {
-        callbackURL: genUrl.abs('googleSignupCallback'),
-        ...googleOptions,
-      },
-      _loadGoogleProfile,
-    ));
+    passport.use(
+      'google-signin',
+      new GoogleStrategy(
+        {
+          callbackURL: genUrl.abs('googleSigninCallback'),
+          ...googleOptions,
+        },
+        _loadGoogleProfile,
+      ),
+    );
+    passport.use(
+      'google-signup',
+      new GoogleStrategy(
+        {
+          callbackURL: genUrl.abs('googleSignupCallback'),
+          ...googleOptions,
+        },
+        _loadGoogleProfile,
+      ),
+    );
   }
 
   app.get('/google/signin', preMw, signin);
 
   app.get('/:agendaSlug/google/signin', agendas.mw.load, preMw, signin);
 
-  app.get('/google/signin/callback', preMw, auth.serviceCallback(auth.process('google', 'signin')));
+  app.get(
+    '/google/signin/callback',
+    preMw,
+    auth.serviceCallback(auth.process('google', 'signin')),
+  );
 
   app.post('/google/signup', preMw, signup);
 
   app.post('/:agendaSlug/google/signup', agendas.mw.load, preMw, signup);
 
-  app.get('/google/signup/callback', preMw, auth.serviceCallback(auth.process('google', 'signup')));
+  app.get(
+    '/google/signup/callback',
+    preMw,
+    auth.serviceCallback(auth.process('google', 'signup')),
+  );
 };

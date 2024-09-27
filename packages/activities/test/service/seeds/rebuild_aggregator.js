@@ -1,6 +1,6 @@
 'use strict';
 
-exports.seed = async knex => {
+exports.seed = async (knex) => {
   const { schemas } = knex.client.config;
 
   await knex.raw(`
@@ -18,9 +18,9 @@ exports.seed = async knex => {
   await knex(schemas.rebuild_aggregator).del();
 
   await knex(schemas.rebuild_aggregator).insert({
-    "id": 1,
-    "review_id": 7707,
-    "created_at": "1970-01-01 00:00:00",
-    "updated_at": "1970-01-01 00:00:00"
+    id: 1,
+    review_id: 7707,
+    created_at: '1970-01-01 00:00:00',
+    updated_at: '1970-01-01 00:00:00',
   });
 };

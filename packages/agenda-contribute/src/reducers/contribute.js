@@ -3,9 +3,7 @@ import utils from '../lib/utils';
 
 const log = debug('contribute');
 
-const {
-  doRedirect,
-} = utils;
+const { doRedirect } = utils;
 
 const EVENT_CREATE_SUCCESS = 'agenda-contribute/EVENT_CREATE_SUCCESS';
 const EVENT_UPDATE_SUCCESS = 'agenda-contribute/EVENT_UPDATE_SUCCESS';
@@ -60,13 +58,13 @@ function launchImmediateEventShare(shareRes) {
         'Content-Type': 'application/json',
       },
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`Invalid status (${response.status})`);
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         dispatch(displayShareSuccess(data.event));
       });
   };
@@ -82,14 +80,10 @@ function eventCreateSuccess({ agenda, response }) {
   return ({ history, location }, { dispatch, getState }) => {
     const {
       res,
-      settings: {
-        prefix,
-      },
+      settings: { prefix },
     } = getState();
 
-    const {
-      event,
-    } = response.body;
+    const { event } = response.body;
 
     if (event.draft) {
       return doRedirect(history, location, res.showMyEvents);
@@ -110,10 +104,7 @@ function eventCreateSuccess({ agenda, response }) {
 function eventDelete({ agenda, event }) {
   return ({ history, location }, { getState, dispatch }) => {
     const {
-      res: {
-        removeEvent: removeRes,
-        showMyEvents: showMyEventsRes,
-      },
+      res: { removeEvent: removeRes, showMyEvents: showMyEventsRes },
     } = getState();
 
     const deleteUrl = removeRes
@@ -126,7 +117,7 @@ function eventDelete({ agenda, event }) {
         'Content-Type': 'application/json',
       },
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`Invalid status (${response.status})`);
         }
@@ -145,16 +136,14 @@ function eventUpdateSuccess({ agenda, response }) {
   return ({ history, location }, { dispatch, getState }) => {
     const {
       res,
-      settings: {
-        prefix,
-      },
+      settings: { prefix },
     } = getState();
 
-    const {
-      event,
-    } = response.body;
+    const { event } = response.body;
 
-    const hasPassCultureData = !!event.registration.find(r => r.service === 'passCulture');
+    const hasPassCultureData = !!event.registration.find(
+      (r) => r.service === 'passCulture',
+    );
 
     if (!hasPassCultureData) {
       return doRedirect(
@@ -187,9 +176,7 @@ function memberSetSuccess({
 }) {
   return ({ history, location }, { getState }) => {
     const {
-      settings: {
-        prefix,
-      },
+      settings: { prefix },
     } = getState();
     queryClient.removeQueries(`agendaContext.${agenda.uid}`);
     const newPathname = mode === 'create'

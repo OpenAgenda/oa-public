@@ -78,10 +78,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "bdmedoc33@gmail.com",
-        "06 83 49 04 86"
-      ],
+      "registration": ["bdmedoc33@gmail.com", "06 83 49 04 86"],
       "location": {
         "uid": 89955462,
         "slug": "salle-des-sports941",
@@ -115,9 +112,7 @@
       "tarif": "3 €",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -267,9 +262,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -435,9 +428,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -587,9 +578,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -797,9 +786,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -912,9 +899,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "chateau-de-voltaire@monuments-nationaux.fr"
-      ],
+      "registration": ["chateau-de-voltaire@monuments-nationaux.fr"],
       "location": {
         "uid": 4258258,
         "slug": "chateau-de-voltaire-01210-ferney-voltaire",
@@ -948,17 +933,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": "En partenariat avec le Centre des monuments nationaux et avec le soutien de la ville de Ferney-Voltaire",
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "18004601300017",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1271,9 +1252,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 630,
@@ -1426,9 +1405,7 @@
       "tarif": "14 € - 1 jour 32 € - 3 jours  49 € Pass famille (2 adultes + 2 enfants) 59 € - Pass VIP",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -1545,9 +1522,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "jean-luc.thouvenin@monuments-nationaux.fr"
-      ],
+      "registration": ["jean-luc.thouvenin@monuments-nationaux.fr"],
       "location": {
         "uid": 57238166,
         "slug": "saint-remy-de-provence562",
@@ -1581,12 +1556,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Arelate, journées romaines d'Arles",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -1694,9 +1665,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "jean-luc.thouvenin@monuments-nationaux.fr"
-      ],
+      "registration": ["jean-luc.thouvenin@monuments-nationaux.fr"],
       "location": {
         "uid": 61623545,
         "slug": "bibliotheque-joseph-roumanille44",
@@ -1730,12 +1699,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Arelate, journées romaines d'Arles",
       "type-de-structure": 621,
       "si-autre-precisez": null,

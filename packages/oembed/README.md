@@ -6,18 +6,18 @@ Service that relies on iframely to provide fonctionnality to extract urls from t
 
 ## Instanciate
 
-  const OEmbed = require('@openagenda/oembed');
+const OEmbed = require('@openagenda/oembed');
 
-  const oe = new OEmbed({
-    iframely: {
-      key: 'youriframelykey'
-    },
-    filters: [
-      'youtube',
-      'calameo',
-      `twitter\.com\/.+\/status\/[0-9]+$` // regex
-    ]
-  });
+const oe = new OEmbed({
+iframely: {
+key: 'youriframelykey'
+},
+filters: [
+'youtube',
+'calameo',
+`twitter\.com\/.+\/status\/[0-9]+$` // regex
+]
+});
 
 ## Get
 

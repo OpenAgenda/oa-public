@@ -33,12 +33,12 @@ const Radio = ({ id, input, children }) => (
 export default function RemoveSourceModal({ onRemove, onClose }) {
   const intl = useIntl();
 
-  const data = useSelector(state => state.modals.removeSource) || {
+  const data = useSelector((state) => state.modals.removeSource) || {
     source: {},
   };
 
   const confirmRemove = useCallback(
-    values => onRemove(data.source, values.evaluate),
+    (values) => onRemove(data.source, values.evaluate),
     [onRemove, data.source],
   );
 

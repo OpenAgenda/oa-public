@@ -19,7 +19,8 @@ export default defineMessages({
   },
   total: {
     id: 'next.views.AgendaSearch.total',
-    defaultMessage: '{total, number} {total, plural, one {agenda} other {agendas}} found',
+    defaultMessage:
+      '{count, plural, =0 {No agenda found} one {1 agenda found} other {# agendas found}}',
   },
   latestUpdated: {
     id: 'next.views.AgendaSearch.latestUpdated',
@@ -27,10 +28,12 @@ export default defineMessages({
   },
   upcomingEvents: {
     id: 'next.views.AgendaSearch.upcomingEvents',
-    defaultMessage: '{count, plural, =0 {No upcoming event} one {1 upcoming event} other {# upcoming events}}',
+    defaultMessage:
+      '{count, plural, =0 {No upcoming event} one {1 upcoming event} other {# upcoming events}}',
   },
   passedEvents: {
     id: 'next.views.AgendaSearch.passedEvents',
-    defaultMessage: '{count, plural, =0 {No passed event} one {1 passed event} other {# passed events}}',
+    defaultMessage:
+      '{count, plural, =0 {No passed event} one {1 passed event} other {# passed events}}',
   },
 });

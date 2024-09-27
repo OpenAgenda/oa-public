@@ -1,5 +1,5 @@
 "use strict";
-import du from '@openagenda/dom-utils';
+import du from '../../js/lib/domUtils';
 import displayShareButtons from './displayShareButtons';
 import displayContributorSection from './displayContributorSection';
 import addTrackers from '../../agenda/js/addTrackers';

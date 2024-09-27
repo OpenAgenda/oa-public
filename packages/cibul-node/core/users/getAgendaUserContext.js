@@ -3,20 +3,25 @@ import loadSearchAccess from '../agendas/events/lib/loadSearchAccess.js';
 import getAgendaUserEventStats from './lib/getAgendaUserEventStats.js';
 import validateOptions from './lib/validateAgendaContextOptions.js';
 
-export default async function getAgendaUserContext(core, identifier, agendaUid, options = {}) {
-  const {
-    includes,
-  } = validateOptions(options);
+export default async function getAgendaUserContext(
+  core,
+  identifier,
+  agendaUid,
+  options = {},
+) {
+  const { includes } = validateOptions(options);
 
   const context = {};
 
-  if (includes.filter(i => i.indexOf('me') === 0)) {
+  if (includes.filter((i) => i.indexOf('me') === 0)) {
     context.me = {};
   }
 
-  const { isValid, member } = includes.includes('me.member') || includes.includes('events') ? await core
-    .agendas(agendaUid).members
-    .get(identifier, { ...options, returnIsValid: true }) : undefined;
+  const { isValid, member } = includes.includes('me.member') || includes.includes('events')
+    ? await core
+      .agendas(agendaUid)
+      .members.get(identifier, { ...options, returnIsValid: true })
+    : undefined;
 
   if (includes.includes('me.member')) {
     context.me.member = member;
@@ -24,25 +29,45 @@ export default async function getAgendaUserContext(core, identifier, agendaUid, 
   }
 
   if (includes.includes('me.authorizations')) {
-    context.me.authorizations = await getUserAuthorizationsOnAgenda(core, identifier, agendaUid);
+    context.me.authorizations = await getUserAuthorizationsOnAgenda(
+      core,
+      identifier,
+      agendaUid,
+    );
   }
 
   if (includes.includes('me.events')) {
-    context.me.events = await getAgendaUserEventStats(core, identifier, agendaUid, options);
+    context.me.events = await getAgendaUserEventStats(
+      core,
+      identifier,
+      agendaUid,
+      options,
+    );
   }
 
   if (includes.includes('agenda')) {
-    context.agenda = await core.agendas(agendaUid).get({ includeMemberSchema: true, actingMember: member });
+    context.agenda = await core
+      .agendas(agendaUid)
+      .get({ includeMemberSchema: true, actingMember: member });
   }
 
   const access = await loadSearchAccess(core, agendaUid, options);
 
-  if (includes.includes('events') && ['administrator', 'moderator'].includes(access)) {
-    context.events = await core.agendas(agendaUid).events
-      .search({ state: null }, { size: 0 }, {
-        aggregations: ['states'],
-        access,
-      }).then(({ aggregations }) => aggregations);
+  if (
+    includes.includes('events')
+    && ['administrator', 'moderator'].includes(access)
+  ) {
+    context.events = await core
+      .agendas(agendaUid)
+      .events.search(
+        { state: null },
+        { size: 0 },
+        {
+          aggregations: ['states'],
+          access,
+        },
+      )
+      .then(({ aggregations }) => aggregations);
   }
 
   return context;

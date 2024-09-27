@@ -15,7 +15,7 @@ module.exports = function feed(config, identifiersOrId) {
       activities: activities(identifiers),
       notifications: notifications(identifiers),
     }),
-    v => {
+    (v) => {
       if (typeof v !== 'function') return v;
 
       return (...args) => {
@@ -40,7 +40,7 @@ _.mixin({
   deeply(map) {
     return (obj, fn) =>
       map(
-        _.mapValues(obj, v =>
+        _.mapValues(obj, (v) =>
           (_.isPlainObject(v) ? _.deeply(map)(v, fn) : v)),
         fn,
       );

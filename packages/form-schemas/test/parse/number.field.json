@@ -2,8 +2,8 @@
   "field": "pi",
   "optional": true,
   "fieldType": "number",
-  "read": [ "moderator" ],
-  "write": [ "contributor" ],
+  "read": ["moderator"],
+  "write": ["contributor"],
   "min": null,
   "max": null,
   "label": {
@@ -11,6 +11,6 @@
     "en": "What is the value of PI"
   },
   "info": null,
-  "placeholder" : null,
-  "origin" : "custom"
+  "placeholder": null,
+  "origin": "custom"
 }

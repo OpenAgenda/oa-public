@@ -49,9 +49,7 @@ export default class Messages {
   async list(...args) {
     const { knex, schemas } = this.svc.config;
 
-    const {
-      query, offset, limit, options
-    } = parseListArguments(...args);
+    const { query, offset, limit, options } = parseListArguments(...args);
 
     if (!query || !query.id) {
       await this._loadConversation();
@@ -64,7 +62,7 @@ export default class Messages {
       .column(
         mapper
           .listFields(messageFieldsMap, 'select', 'db', options, true)
-          .map(v => `${schemas.message}.${v}`)
+          .map((v) => `${schemas.message}.${v}`),
       )
       .column(
         mapper
@@ -74,24 +72,24 @@ export default class Messages {
             'db',
             options,
             true,
-            'inboxUser.'
+            'inboxUser.',
           )
-          .map(v => `${schemas.inboxUser}.${v}`)
+          .map((v) => `${schemas.inboxUser}.${v}`),
       )
       .column(
         mapper
           .listFields(inboxFieldsMap, 'select', 'db', options, true, 'inbox.')
-          .map(v => `${schemas.inbox}.${v}`)
+          .map((v) => `${schemas.inbox}.${v}`),
       )
       .leftJoin(
         schemas.inboxUser,
         `${schemas.inboxUser}.id`,
-        `${schemas.message}.inbox_user_id`
+        `${schemas.message}.inbox_user_id`,
       )
       .leftJoin(
         schemas.inbox,
         `${schemas.inbox}.id`,
-        `${schemas.inboxUser}.inbox_id`
+        `${schemas.inboxUser}.inbox_id`,
       )
       .orderBy('created_at', 'desc')
       .offset(offset)
@@ -100,17 +98,18 @@ export default class Messages {
     if (query && query.id) {
       rows = await request.whereIn(
         `${schemas.message}.id`,
-        [].concat(query.id)
+        [].concat(query.id),
       );
     } else {
       rows = await request.where('conversation_id', this.conversation.data.id);
     }
 
-    const result = rows.map(row => _.reduce(
-      { ...row, ...mapper.toObj(messageFieldsMap, row, options) },
-      (accu, value, key) => _.set(accu, key, value),
-      {}
-    ));
+    const result = rows.map((row) =>
+      _.reduce(
+        { ...row, ...mapper.toObj(messageFieldsMap, row, options) },
+        (accu, value, key) => _.set(accu, key, value),
+        {},
+      ));
 
     this.data = await populateDetails(this.svc, result, this.inbox);
 
@@ -127,7 +126,7 @@ export default class Messages {
     if (!this.conversation.data) {
       throw new VError(
         'Conversation %j not found',
-        this.conversation.identifiers
+        this.conversation.identifiers,
       );
     }
   }

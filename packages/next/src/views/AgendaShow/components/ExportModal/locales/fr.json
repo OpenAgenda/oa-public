@@ -24,11 +24,13 @@
   "next.views.AgendaShow.ExportModal.locationName": "Mettre en avant le lieu",
   "next.views.AgendaShow.ExportModal.login": "Connectez-vous pour accéder au lien d'export directement depuis ce menu",
   "next.views.AgendaShow.ExportModal.openData": "Le contenu de cet agenda est utilisable selon le principe de <link>la licence ouverte</link>",
+  "next.views.AgendaShow.ExportModal.openInSamePage": "Ouvrir les événements sur la même page",
   "next.views.AgendaShow.ExportModal.outlookStep2": "En bas de page, sélectionnez l'icône calendrier",
   "next.views.AgendaShow.ExportModal.outlookStep3": "Dans le volet de navigation, sélectionnez \"Ajouter un calendrier\"",
   "next.views.AgendaShow.ExportModal.outlookStep4": "Sélectionnez \"S'abonner à partir du web\"",
   "next.views.AgendaShow.ExportModal.outlookStep5": "Collez le lien et sélectionnez \"Importer\"",
   "next.views.AgendaShow.ExportModal.selectAll": "Tout sélectionner",
+  "next.views.AgendaShow.ExportModal.showFilters": "Afficher les filtres",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "Tableur (Excel / CSV)",
   "next.views.AgendaShow.ExportModal.title": "Exporter"
 }

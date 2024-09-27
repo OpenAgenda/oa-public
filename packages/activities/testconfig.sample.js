@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const path = require( 'path' );
+const path = require('node:path');
 
 module.exports = {
   root: 'http://localhost:3000/',
@@ -13,7 +13,7 @@ module.exports = {
   },
   migrations: {
     tableName: 'activity_migrations',
-    directory: path.resolve( __dirname, 'migrations' )
+    directory: path.resolve(__dirname, 'migrations'),
   },
   schemas: {
     activity: 'activity',
@@ -30,7 +30,7 @@ module.exports = {
     rebuild_aggregator: 'rebuild_aggregator',
   },
   interfaces: {
-    sendSummary: ({ user, notifications }) => {}
+    sendSummary: (/* { user, notifications } */) => {},
   },
   activities: {
     'event.create': {
@@ -39,10 +39,10 @@ module.exports = {
       },
     },
     'event.publish': {
-      filterFollows: () => true
+      filterFollows: () => true,
     },
     'event.withMask': {
-      mask: () => ['actor, store.labels.actor']
+      mask: () => ['actor, store.labels.actor'],
     },
     'agenda.changeEventState': {
       notifications: {

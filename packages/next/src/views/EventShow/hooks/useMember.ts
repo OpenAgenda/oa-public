@@ -6,10 +6,9 @@ export default function useMember() {
   const agenda = useAgenda();
   const { event } = useEvent();
 
-  const {
-    data,
-    ...rest
-  } = useSWR(`/api/me/agendas/${agenda.uid}/events/${event.uid}`); // ?includes[]=me.member&includes[]=me.authorizations
+  const { data, ...rest } = useSWR(
+    `/api/me/agendas/${agenda.uid}/events/${event.uid}`,
+  ); // ?includes[]=me.member&includes[]=me.authorizations
 
   return {
     me: data?.me,

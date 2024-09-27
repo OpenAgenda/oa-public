@@ -1,10 +1,9 @@
-Date Ranges
-===========
+# Date Ranges
 
 OpenAgenda is a platform where anyone can publish calendars of events: for instance a conference center or a concert hall.
 One event, such as a concert or an exhibition , may have simple or complex timings. Date ranges are a sum up of these timings.
-A *date* is a day with at least one occurrence.
-An *occurrence* is defined by a start and end time.
+A _date_ is a day with at least one occurrence.
+An _occurrence_ is defined by a start and end time.
 
 # Overview
 
@@ -13,46 +12,47 @@ An *occurrence* is defined by a start and end time.
 - The year is displayed only if it is not the current year
 - The month and year are not repeated of they are the same on start and end date, for instance: "3-12 december 2024" instead of "3 december 2024 - 12 december 2024"
 
-
 We offer 4 types of date ranges
 
-If one date
------------
+## If one date
 
 we display [date] [month] [start time(s)]
+
 > 10 december, 15:00
-  10 décembre, 15:00
+> 10 décembre, 15:00
 
 An event may have several occurrences in the same day, for instance a movie projection. In this case we display all start times, separated by comas.
-> 10 december, 15:00, 17:00, 19:00
-  10 décembre, 15:00, 17:00, 19:00
 
-If two dates
-------------
+> 10 december, 15:00, 17:00, 19:00
+> 10 décembre, 15:00, 17:00, 19:00
+
+## If two dates
 
 we display [first date] and [last date] [month]. Start times are not displayed.
+
 > 4 and 10 december
-  4 et 10 décembre
+> 4 et 10 décembre
 
-If more than 2 dates
---------------------
+## If more than 2 dates
+
 We display [first date] - [last date] [month]. Start times are not displayed.
-> 4-10 december
-  4-10 décembre
 
-Additionnal information in case of timings patterns
----------------------------------------------------
+> 4-10 december
+> 4-10 décembre
+
+## Additionnal information in case of timings patterns
+
 For events with numerous dates, it is useful to indicate eventual regularities /timing patterns.
 Patterns to observe are:
 
 - WeekDays
-> 1-29 december, *on tuesdays*
+
+  > 1-29 december, _on tuesdays_
 
 - MonthDate
-> 1 january - 1 december, *the 1st day of the month*
+  > 1 january - 1 december, _the 1st day of the month_
 
 It should be possible to add other patterns later.
-
 
 # Implementation
 
@@ -65,9 +65,9 @@ The lib will be used by browserify and should be lightweight; the requirements a
 Input sample ( there can be multiple timings on same day )
 
 var timings = [ {
-  start: new Date( '2014-11-12T17:00:00Z' ),
-  end: new Date( '2014-11-12T18:00:00Z' )
+start: new Date( '2014-11-12T17:00:00Z' ),
+end: new Date( '2014-11-12T18:00:00Z' )
 }, {
-  start: new Date( '2014-11-12T19:00:00Z' ),
-  end: new Date( '2014-11-12T21:00:00Z' )
+start: new Date( '2014-11-12T19:00:00Z' ),
+end: new Date( '2014-11-12T21:00:00Z' )
 }, /** and so on */ ];

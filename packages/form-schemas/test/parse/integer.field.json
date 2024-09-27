@@ -2,8 +2,8 @@
   "field": "participants",
   "optional": true,
   "fieldType": "integer",
-  "read": [ "moderator" ],
-  "write": [ "contributor" ],
+  "read": ["moderator"],
+  "write": ["contributor"],
   "min": null,
   "max": null,
   "label": {
@@ -14,5 +14,5 @@
     "fr": "Combien de participants",
     "en": "How many participants"
   },
-  "placeholder" : null
+  "placeholder": null
 }

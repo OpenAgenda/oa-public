@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
 import cn from 'classnames';
@@ -10,7 +10,7 @@ function useOnChoiceChange(input, preventDefault) {
 
   const onChange = useMemo(
     () =>
-      a11yButtonActionHandler(e => {
+      a11yButtonActionHandler((e) => {
         if (e.target === inputRef.current) {
           return;
         }
@@ -43,7 +43,7 @@ function useOnChoiceChange(input, preventDefault) {
           },
         });
       }),
-    [input.onChange, input.type, input.value],
+    [input.onChange, input.type, input.value, preventDefault],
   );
 
   return {

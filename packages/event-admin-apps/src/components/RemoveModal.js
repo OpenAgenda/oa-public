@@ -1,4 +1,3 @@
-import React from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { Modal } from '@openagenda/react-shared';
 
@@ -27,9 +26,7 @@ const messages = defineMessages({
   },
 });
 
-export default function RemoveModal({
-  agenda, event, onRemove, onClose
-}) {
+export default function RemoveModal({ agenda, event, onRemove, onClose }) {
   const intl = useIntl();
 
   const isDeletion = event.member && event.originAgenda?.uid === agenda.uid;
@@ -37,7 +34,7 @@ export default function RemoveModal({
   return (
     <Modal
       title={intl.formatMessage(
-        isDeletion ? messages.deleteEvent : messages.removeEvent
+        isDeletion ? messages.deleteEvent : messages.removeEvent,
       )}
       onClose={onClose}
       // classNames={{
@@ -47,7 +44,7 @@ export default function RemoveModal({
     >
       <p className="text-center margin-top-sm">
         {intl.formatMessage(
-          isDeletion ? messages.deleteDesc : messages.removeDesc
+          isDeletion ? messages.deleteDesc : messages.removeDesc,
         )}
       </p>
 

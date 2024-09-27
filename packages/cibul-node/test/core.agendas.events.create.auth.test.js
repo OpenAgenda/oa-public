@@ -77,7 +77,10 @@ describe('core - functional (server): core.agendas().events.create api authentic
           data: {
             code: 'N0ty3poxNSTtdPJHUG6896UseQhM',
           },
-        }).then(() => {}, e => e);
+        }).then(
+          () => {},
+          (e) => e,
+        );
 
         response = result.response;
       });
@@ -105,7 +108,7 @@ describe('core - functional (server): core.agendas().events.create api authentic
           data: {
             code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
           },
-        }).then(r => r.data.access_token);
+        }).then((r) => r.data.access_token);
       });
 
       beforeAll(async () => {
@@ -117,8 +120,13 @@ describe('core - functional (server): core.agendas().events.create api authentic
             nonce: 123,
             'content-type': 'application/json',
           },
-          data: {/* should not reach validation */},
-        }).then(() => {}, e => e.response);
+          data: {
+            /* should not reach validation */
+          },
+        }).then(
+          () => {},
+          (e) => e.response,
+        );
       });
 
       it('response status is 403', () => {

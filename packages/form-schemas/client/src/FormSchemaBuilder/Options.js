@@ -32,21 +32,21 @@ export default class OptionsField extends Component {
   }
 
   onDragEnd({ source, destination }) {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
     if (!destination) return;
 
     const options = this.getOptions();
     const forward = source.index < destination.index;
 
-    onChange(ih(options, {
-      $splice: [
-        [destination.index + (forward ? 1 : 0), 0, options[source.index]],
-        [source.index + (forward ? 0 : 1), 1],
-      ],
-    }));
+    onChange(
+      ih(options, {
+        $splice: [
+          [destination.index + (forward ? 1 : 0), 0, options[source.index]],
+          [source.index + (forward ? 0 : 1), 1],
+        ],
+      }),
+    );
   }
 
   setMode(newMode) {
@@ -54,16 +54,12 @@ export default class OptionsField extends Component {
   }
 
   getOptions() {
-    const {
-      value,
-    } = this.props;
+    const { value } = this.props;
     return value || [];
   }
 
   addOption(newOption) {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
     onChange(this.getOptions().concat(newOption));
   }
@@ -73,16 +69,12 @@ export default class OptionsField extends Component {
   }
 
   removeOption(index) {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
     onChange(ih(this.getOptions(), { $splice: [[index, 1]] }));
   }
 
   updateOption(index, option) {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
     const options = this.getOptions();
 
@@ -94,22 +86,17 @@ export default class OptionsField extends Component {
   }
 
   isOptionActionable() {
-    const {
-      mode,
-    } = this.state;
+    const { mode } = this.state;
 
     return ![modes.EDITING].includes(mode);
   }
 
   isOptionDisabled(index) {
-    const {
-      mode,
-      editedIndex,
-    } = this.state;
+    const { mode, editedIndex } = this.state;
 
     if (mode === modes.ADDING) return false;
 
-    if ((mode === modes.EDITING) && (index !== editedIndex)) return true;
+    if (mode === modes.EDITING && index !== editedIndex) return true;
 
     return false;
   }
@@ -139,7 +126,11 @@ export default class OptionsField extends Component {
             otherOptions={this.getOptions()}
             onSubmit={(i, o) => this.addOption(o)}
             lang={lang}
-            languages={_.isArray(field.labelLanguages) && field.labelLanguages.length ? field.labelLanguages : null}
+            languages={
+              _.isArray(field.labelLanguages) && field.labelLanguages.length
+                ? field.labelLanguages
+                : null
+            }
           />
         </div>
       );
@@ -148,15 +139,10 @@ export default class OptionsField extends Component {
 
   renderDraggableOptions() {
     const { field, value, lang } = this.props;
-    const {
-      mode,
-      editedIndex,
-    } = this.state;
+    const { mode, editedIndex } = this.state;
 
     return (
-      <DragDropContext
-        onDragEnd={values => this.onDragEnd(values)}
-      >
+      <DragDropContext onDragEnd={(values) => this.onDragEnd(values)}>
         <Droppable droppableId="droppable-options">
           {(provided, snapshot) => (
             <ul
@@ -178,10 +164,10 @@ export default class OptionsField extends Component {
                       option={option}
                       otherOptions={value.filter((o, i) => i !== index)}
                       index={index}
-                      isEdited={(mode === modes.EDITING) && (index === editedIndex)}
+                      isEdited={mode === modes.EDITING && index === editedIndex}
                       actionable={this.isOptionActionable()}
                       disabled={this.isOptionDisabled(index)}
-                      onEdit={i => this.editOption(i)}
+                      onEdit={(i) => this.editOption(i)}
                       onEditCancel={() => this.setState({ mode: null })}
                       onRemove={() => this.removeOption(index)}
                       onUpdate={(i, o) => this.updateOption(i, o)}
@@ -200,13 +186,17 @@ export default class OptionsField extends Component {
   }
 
   render() {
-    const {
-      lang,
-    } = this.props;
+    const { lang } = this.props;
 
     return (
       <div className="options-field-form">
-        {this.getOptions().length ? this.renderDraggableOptions() : <div className="margin-top-md margin-bottom-sm text-center">{getLabel('emptyOptions', lang)}</div> }
+        {this.getOptions().length
+          ? this.renderDraggableOptions()
+          : (
+            <div className="margin-top-md margin-bottom-sm text-center">
+              {getLabel('emptyOptions', lang)}
+            </div>
+          )}
         {this.renderAdd()}
       </div>
     );

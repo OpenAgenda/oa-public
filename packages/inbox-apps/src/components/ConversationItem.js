@@ -10,7 +10,8 @@ import AuthorAvatar from './AuthorAvatar';
 import ConversationTitle from './ConversationTitle';
 import Link from './Link';
 
-const getInboxUserName = entity => entity.inboxUser?.name ?? entity.inbox.name;
+const getInboxUserName = (entity) =>
+  entity.inboxUser?.name ?? entity.inbox.name;
 
 function isCreator(creator, user) {
   if (creator.inboxUser?.userUid === user.uid) {
@@ -33,13 +34,28 @@ class ConversationItem extends Component {
   }
 
   TitleEntityComponent({ children, type, agendaUid, eventUid, locationUid }) {
-    const { agenda, settings: { context } } = this.props;
+    const {
+      agenda,
+      settings: { context },
+    } = this.props;
 
     switch (type) {
       case 'agenda':
-        return <Link to={`/agendas/${agendaUid}`} agenda={agenda} external>{children}</Link>;
+        return (
+          <Link to={`/agendas/${agendaUid}`} agenda={agenda} external>
+            {children}
+          </Link>
+        );
       case 'event':
-        return <Link to={`/agendas/${agendaUid}/events/${eventUid}`} agenda={agenda} external>{children}</Link>;
+        return (
+          <Link
+            to={`/agendas/${agendaUid}/events/${eventUid}`}
+            agenda={agenda}
+            external
+          >
+            {children}
+          </Link>
+        );
       case 'location':
         if (context === 'agenda') {
           return (
@@ -67,44 +83,48 @@ class ConversationItem extends Component {
     const creationDate = moment(latestMessage.createdAt).locale(lang);
     const firstMessage = creationDate.diff(moment(conversation.createdAt), 'seconds') <= 2;
     const creator = {
-      inbox: conversation.latestMessage && conversation.latestMessage.inbox
-        ? conversation.latestMessage.inbox
-        : null,
-      inboxUser: conversation.latestMessage && conversation.latestMessage.inboxUser
-        ? conversation.latestMessage.inboxUser
-        : null,
+      inbox:
+        conversation.latestMessage && conversation.latestMessage.inbox
+          ? conversation.latestMessage.inbox
+          : null,
+      inboxUser:
+        conversation.latestMessage && conversation.latestMessage.inboxUser
+          ? conversation.latestMessage.inboxUser
+          : null,
     };
 
     if (firstMessage) {
       return (
-        <div className="margin-bottom-sm padding-top-xs text-muted" title={creationDate.format('LLL')}>
+        <div
+          className="margin-bottom-sm padding-top-xs text-muted"
+          title={creationDate.format('LLL')}
+        >
           {getLabel('postedAgo', { date: creationDate.fromNow(true) })}
         </div>
       );
     }
     if (isCreator(creator, user)) {
       return (
-        <div className="margin-bottom-sm padding-top-xs text-muted" title={creationDate.format('LLL')}>
+        <div
+          className="margin-bottom-sm padding-top-xs text-muted"
+          title={creationDate.format('LLL')}
+        >
           {getLabel('youRepliedAgo', { date: creationDate.fromNow(true) })}
         </div>
       );
     }
     return (
       <div
-        className={cn(
-          'margin-bottom-sm',
-          'text-muted',
-          { 'padding-top-xs': destinationInbox.id === latestMessage.inbox.id },
-        )}
+        className={cn('margin-bottom-sm', 'text-muted', {
+          'padding-top-xs': destinationInbox.id === latestMessage.inbox.id,
+        })}
         title={creationDate.format('LLL')}
       >
-        {destinationInbox.id !== latestMessage.inbox.id
-          ? (
-            <>
-              <AuthorAvatar author={latestMessage} inline />{' '}
-            </>
-          )
-          : null}
+        {destinationInbox.id !== latestMessage.inbox.id ? (
+          <>
+            <AuthorAvatar author={latestMessage} inline />{' '}
+          </>
+        ) : null}
         {getInboxUserName(latestMessage)}{' '}
         {getLabel('repliedAgo', { date: creationDate.fromNow(true) })}
       </div>
@@ -121,10 +141,14 @@ class ConversationItem extends Component {
     return (
       <div>
         <i className="fa fa-paperclip" aria-hidden="true" />{' '}
-        {getLabel(attachments && attachments.length > 1 ? 'attachments' : 'attachment')}:
-
+        {getLabel(
+          attachments && attachments.length > 1 ? 'attachments' : 'attachment',
+        )}
+        :
         {attachments.map((attachment, i) => {
-          const isImage = /\.(jpeg|jpg|gif|png|svg|bmp)$/i.test(attachment.filename);
+          const isImage = /\.(jpeg|jpg|gif|png|svg|bmp)$/i.test(
+            attachment.filename,
+          );
           const link = `/home/inbox/download-attachment?${qs.stringify({
             filename: attachment.filename,
             id: attachment.id,
@@ -139,8 +163,14 @@ class ConversationItem extends Component {
                 rel="noopener noreferrer"
                 {...(isImage ? {} : { download: attachment.originalName })}
               >
-                {isImage
-                  ? <img src={link} alt={attachment.filename} className="attachment-image" /> : attachment.originalName}
+                {isImage ? (
+                  <img
+                    src={link}
+                    alt={attachment.filename}
+                    className="attachment-image"
+                  />
+                )
+                  : attachment.originalName}
               </a>
             </Fragment>
           );
@@ -150,7 +180,12 @@ class ConversationItem extends Component {
   }
 
   render() {
-    const { user, conversation, agenda, settings: { domain } } = this.props;
+    const {
+      user,
+      conversation,
+      agenda,
+      settings: { domain },
+    } = this.props;
     const { getLabel } = this.context;
 
     if (!conversation.latestMessage) {
@@ -168,7 +203,9 @@ class ConversationItem extends Component {
           <i className="fa fa-check" aria-hidden="true" />
           <div className="tooltip right" role="tooltip">
             <div className="tooltip-arrow" />
-            <div className="tooltip-inner">{getLabel('resolvedConversation')}</div>
+            <div className="tooltip-inner">
+              {getLabel('resolvedConversation')}
+            </div>
           </div>
         </div>
       </>
@@ -197,7 +234,13 @@ class ConversationItem extends Component {
 
             {origin ? (
               <div className="text-muted">
-                ({getLabel('from')} <em><a href={origin} target="_blank" rel="noreferrer">{origin}</a></em>)
+                ({getLabel('from')}{' '}
+                <em>
+                  <a href={origin} target="_blank" rel="noreferrer">
+                    {origin}
+                  </a>
+                </em>
+                )
               </div>
             ) : null}
           </div>
@@ -208,7 +251,9 @@ class ConversationItem extends Component {
             <div
               className="message padding-bottom-xs"
               dangerouslySetInnerHTML={{
-                __html: fromMarkdownToHTML(latestMessage.body, { selfDomain: domain }),
+                __html: fromMarkdownToHTML(latestMessage.body, {
+                  selfDomain: domain,
+                }),
               }}
             />
 
@@ -224,8 +269,6 @@ class ConversationItem extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    settings: state.settings,
-  }),
-)(ConversationItem);
+export default connect((state) => ({
+  settings: state.settings,
+}))(ConversationItem);

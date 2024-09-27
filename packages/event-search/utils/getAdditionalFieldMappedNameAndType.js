@@ -5,12 +5,15 @@
  * Additional fields can only be searchable if their
  * values are added to a mapped ES field.
  */
-module.exports = additionalField => {
-  if (['email', 'radio', 'select', 'checkbox', 'multiselect'].includes(additionalField.fieldType)) {
+module.exports = (additionalField) => {
+  const { fieldType } = additionalField;
+  if (
+    ['email', 'radio', 'select', 'checkbox', 'multiselect'].includes(fieldType)
+  ) {
     return {
       name: '_search_additional_keywords',
-      type: 'keyword'
-    }
+      type: 'keyword',
+    };
   }
   return null;
-}
+};

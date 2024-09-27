@@ -1,5 +1,3 @@
-'use strict';
-
 const eventSchema = require('../src/schema');
 const mdbLegacyFixtures = require('./fixtures/mdb.legacy.json');
 const mdbFixtures = require('./fixtures/mdb.json');
@@ -12,10 +10,10 @@ describe('event schema formatting', () => {
         schemaExtensions: mdbLegacyFixtures.schemaExtensions,
       });
 
-      expect(
-        es.fields.map(f => f.field),
-      ).toEqual(
-        mdbFixtures.schema.fields.filter(f => !(f.write ?? []).includes('internal')).map(f => f.field),
+      expect(es.fields.map((f) => f.field)).toEqual(
+        mdbFixtures.schema.fields
+          .filter((f) => !(f.write ?? []).includes('internal'))
+          .map((f) => f.field),
       );
     });
   });

@@ -2,10 +2,12 @@
 
 module.exports = {
   schema: {
-    fields: [{
-      field: 'anything',
-      fieldType: 'text',
-      label: "N'importe quoi",
-    }],
+    fields: [
+      {
+        field: 'anything',
+        fieldType: 'text',
+        label: "N'importe quoi",
+      },
+    ],
   },
 };

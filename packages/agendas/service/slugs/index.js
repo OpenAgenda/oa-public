@@ -1,87 +1,80 @@
-"use strict";
+'use strict';
 
-var utils = require( '@openagenda/utils' );
+const utils = require('@openagenda/utils');
+const generate = require('./generate');
+const validateSlug = require('./validator')();
 
-var validateSlug = require( './validator' )(),
+let schemas;
+let knex;
 
-  schemas,
+function isTaken(...args) {
+  let slug;
+  let options;
+  let cb;
 
-  knex;
-
-module.exports = {
-  init: function( s, k ) { schemas = s; knex = k; },
-  isTaken: isTaken,
-  generate: require( './generate' )
-}
-
-
-function isTaken( slug, options, cb ) {
-
-  if ( arguments.length === 2 ) {
-
-    cb = options;
+  if (arguments.length === 2) {
+    [slug, cb] = args;
     options = {};
-
+  } else {
+    [slug, options, cb] = args;
   }
 
-  var params = utils.extend( {
-    excludeUid: false
-  }, options ),
+  const params = utils.extend(
+    {
+      excludeUid: false,
+    },
+    options,
+  );
 
-    cleanSlug = null,
+  let cleanSlug = null;
 
-    errors = [];
+  let errors = [];
 
-  if ( !knex ) {
-
-    return cb( 'service was not initialized' );
-
+  if (!knex) {
+    return cb('service was not initialized');
   }
 
   try {
-
-    cleanSlug = validateSlug( slug );
-
-  } catch( e ) {
-
+    cleanSlug = validateSlug(slug);
+  } catch (e) {
     errors = e;
-
   }
 
-  if ( errors.length ) {
-
-    return cb( null, {
+  if (errors.length) {
+    return cb(null, {
       taken: null,
       valid: false,
-      errors: errors
-    } );
-
+      errors,
+    });
   }
 
   // look up in db
-  
-  var knexQuery = knex( schemas.agenda )
 
-  .select( 'id' )
+  const knexQuery = knex(schemas.agenda)
+    .select('id')
 
-  .where( { slug: cleanSlug } );
+    .where({ slug: cleanSlug });
 
-  if ( params.excludeUid ) {
+  if (params.excludeUid) {
+    knexQuery.andWhereNot({
+      uid: params.excludeUid,
+    });
+  }
 
-    knexQuery.andWhereNot( {
-      uid: params.excludeUid
-    } )
-
-  };
-
-  knexQuery.then( function( rows ) {
-
-    cb( null, {
+  knexQuery.then((rows) => {
+    cb(null, {
       taken: !!rows.length,
       valid: true,
-      errors: []
-    } );
-
-  }, cb );
-
+      errors: [],
+    });
+  }, cb);
 }
+
+module.exports = {
+  init(s, k) {
+    schemas = s;
+    knex = k;
+  },
+  isTaken,
+  generate,
+};

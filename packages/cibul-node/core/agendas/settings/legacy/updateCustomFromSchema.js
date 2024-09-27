@@ -10,13 +10,13 @@ const { generateCustomSet } = utils;
 const log = logs('core/agendas/settings/legacy/updateCustom');
 
 export default async (core, agendaOrUid, force = false) => {
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
   const config = core.getConfig();
 
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  const agenda = _.isObject(agendaOrUid)
+    ? agendaOrUid
+    : await getAgenda(services, agendaOrUid);
 
   log('transferring from form-schema to custom fields', agenda.uid);
 
@@ -29,14 +29,10 @@ export default async (core, agendaOrUid, force = false) => {
     };
   }
 
-  const {
-    customFields,
-    messages,
-  } = generateCustomSet(schema);
+  const { customFields, messages } = generateCustomSet(schema);
 
-  const {
-    store,
-  } = await config.knex('review')
+  const { store } = await config
+    .knex('review')
     .first(['id', 'store'])
     .where('uid', agenda.uid);
 
@@ -44,15 +40,19 @@ export default async (core, agendaOrUid, force = false) => {
 
   if (!force && _.get(parsedStore, 'customFields', []).length) {
     return {
-      message: 'custom fields already exist for agenda. ?force to force operation',
+      message:
+        'custom fields already exist for agenda. ?force to force operation',
     };
   }
 
   parsedStore.customFields = customFields;
 
-  await config.knex('review').update({
-    store: JSON.stringify(parsedStore),
-  }).where('uid', agenda.uid);
+  await config
+    .knex('review')
+    .update({
+      store: JSON.stringify(parsedStore),
+    })
+    .where('uid', agenda.uid);
 
   messages.push('generated customFields');
 
@@ -62,10 +62,12 @@ export default async (core, agendaOrUid, force = false) => {
   };
 
   if (customFields.length) {
-    const {
-      message: schemaUpdateMessage,
-      schema: updatedSchema,
-    } = await setSchemaFieldOrigins(services, agenda, customFields.map(f => f.name), 'custom');
+    const { message: schemaUpdateMessage, schema: updatedSchema } = await setSchemaFieldOrigins(
+      services,
+      agenda,
+      customFields.map((f) => f.name),
+      'custom',
+    );
 
     res.messages.push(schemaUpdateMessage);
 

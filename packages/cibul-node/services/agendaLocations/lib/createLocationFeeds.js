@@ -2,7 +2,10 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/agendaLocations/lib/createLocationFeeds');
 
-export default async function createLocationFeeds(services, { agendaUid, locationUid, setUid }) {
+export default async function createLocationFeeds(
+  services,
+  { agendaUid, locationUid, setUid },
+) {
   const { activities } = services;
 
   if (!activities) {
@@ -15,10 +18,12 @@ export default async function createLocationFeeds(services, { agendaUid, locatio
 
   // create location feed
   try {
-    locationFeed = await activities.feed({
-      entityType: 'location',
-      entityUid: locationUid,
-    }).create();
+    locationFeed = await activities
+      .feed({
+        entityType: 'location',
+        entityUid: locationUid,
+      })
+      .create();
   } catch (err) {
     if (err.message !== 'Feed already exists') {
       throw err;
@@ -28,10 +33,12 @@ export default async function createLocationFeeds(services, { agendaUid, locatio
   // create locationSet feed
   if (setUid) {
     try {
-      setFeed = await activities.feed({
-        entityType: 'locationSet',
-        entityUid: setUid,
-      }).create();
+      setFeed = await activities
+        .feed({
+          entityType: 'locationSet',
+          entityUid: setUid,
+        })
+        .create();
     } catch (err) {
       if (err.message !== 'Feed already exists') {
         throw err;
@@ -52,18 +59,22 @@ export default async function createLocationFeeds(services, { agendaUid, locatio
 
   // agenda follows location or locationSet
   try {
-    const feedToFollow = setUid ? {
-      entityType: 'locationSet',
-      entityUid: setUid,
-    } : {
-      entityType: 'location',
-      entityUid: locationUid,
-    };
+    const feedToFollow = setUid
+      ? {
+        entityType: 'locationSet',
+        entityUid: setUid,
+      }
+      : {
+        entityType: 'location',
+        entityUid: locationUid,
+      };
 
-    await activities.feed({
-      entityType: 'agenda',
-      entityUid: agendaUid,
-    }).follow(feedToFollow);
+    await activities
+      .feed({
+        entityType: 'agenda',
+        entityUid: agendaUid,
+      })
+      .follow(feedToFollow);
   } catch (err) {
     if (err.message !== 'Feed already followed') {
       throw err;

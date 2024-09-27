@@ -41,7 +41,8 @@ export default {
       handlers: [
         http.get('/empty-sources', () => HttpResponse.json({ sources: [] })),
         http.get('/non-empty-sources', () => HttpResponse.json(sourcesJson)),
-        http.get('/existing-aggregator', () => HttpResponse.json({ agenda: agendasJson.agendas[0] })),
+        http.get('/existing-aggregator', () =>
+          HttpResponse.json({ agenda: agendasJson.agendas[0] })),
       ],
     },
   },

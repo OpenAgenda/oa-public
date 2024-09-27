@@ -60,7 +60,7 @@ const staticRangeHandler = {
 };
 
 export function createStaticRanges(ranges) {
-  return ranges.map(range => ({ ...staticRangeHandler, ...range }));
+  return ranges.map((range) => ({ ...staticRangeHandler, ...range }));
 }
 
 export default function dateRanges(intl) {
@@ -133,7 +133,7 @@ export default function dateRanges(intl) {
           return {
             startDate: addDays(
               defineds.startOfToday,
-              (Math.max(Number(value), 1) - 1) * -1
+              (Math.max(Number(value), 1) - 1) * -1,
             ),
             endDate: defineds.endOfToday,
           };

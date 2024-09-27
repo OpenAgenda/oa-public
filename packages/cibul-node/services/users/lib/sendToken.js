@@ -4,11 +4,8 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/users/sendToken');
 
-export default (config, services) => async context => {
-  const {
-    mails,
-    genUrl,
-  } = services;
+export default (config, services) => async (context) => {
+  const { mails, genUrl } = services;
 
   try {
     const token = context.result;
@@ -19,9 +16,12 @@ export default (config, services) => async context => {
     }
 
     if (token.type === 'aa') {
-      const query = qs.stringify(_.pickBy(_.pick(optionals || {}, 'iToken', 'invitation', 'redirect')), {
-        addQueryPrefix: true,
-      });
+      const query = qs.stringify(
+        _.pickBy(_.pick(optionals || {}, 'iToken', 'invitation', 'redirect')),
+        {
+          addQueryPrefix: true,
+        },
+      );
 
       const link = _.get(optionals, 'agenda')
         ? `${config.root}/${optionals.agenda.slug}/activate/${token.token}${query}`

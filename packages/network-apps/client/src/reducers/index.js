@@ -1,6 +1,2 @@
-"use strict";
-
-module.exports = {
-  main: require( './main' ),
-  network: require( './network' )
-}
+export * as main from './main';
+export * as network from './network';

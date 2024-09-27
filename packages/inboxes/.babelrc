@@ -1,6 +1,4 @@
 {
-  "presets": [
-    "@openagenda"
-  ],
+  "presets": ["@openagenda"],
   "sourceType": "unambiguous"
 }

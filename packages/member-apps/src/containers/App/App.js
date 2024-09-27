@@ -45,7 +45,7 @@ export default withLayoutData('lang')(
         modals: modalsReducer,
       }),
   })(
-    connect(state => ({
+    connect((state) => ({
       res: state.res,
     }))(App),
   ),

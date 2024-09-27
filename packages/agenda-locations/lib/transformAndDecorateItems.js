@@ -14,7 +14,7 @@ module.exports = async (service, items, options = {}) => {
     includeImagePath,
   } = options;
 
-  const transformed = items.map(entry => {
+  const transformed = items.map((entry) => {
     const location = service.fieldUtils.fromEntryToItem(entry, {
       access: detailed ? 'public' : 'list',
       includeFields,
@@ -32,18 +32,21 @@ module.exports = async (service, items, options = {}) => {
     decorateWithCounts(
       transformed,
       await service.interfaces.getEventCounts(
-        transformed.map(i => i.uid),
+        transformed.map((i) => i.uid),
         context,
       ),
     );
   }
 
-  if (service.interfaces.getAgendaUidsByIds && (includeFields ?? []).includes('agendaUid')) {
+  if (
+    service.interfaces.getAgendaUidsByIds
+    && (includeFields ?? []).includes('agendaUid')
+  ) {
     decorateWithAgendaUids(
       items,
       transformed,
       await service.interfaces.getAgendaUidsByIds(
-        items.map(i => i.agenda_id).filter(id => !!id),
+        items.map((i) => i.agenda_id).filter((id) => !!id),
       ),
     );
   }

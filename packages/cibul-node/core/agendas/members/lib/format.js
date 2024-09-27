@@ -1,27 +1,30 @@
 import _ from 'lodash';
 
-const map = [{
-  legacy: 'contactName',
-  field: 'name',
-}, {
-  legacy: 'contactNumber',
-  field: 'phone',
-}, {
-  legacy: 'email',
-  field: 'email',
-}, {
-  legacy: 'contactPosition',
-  field: 'position',
-}, {
-  legacy: 'organization',
-  field: 'organization',
-}];
+const map = [
+  {
+    legacy: 'contactName',
+    field: 'name',
+  },
+  {
+    legacy: 'contactNumber',
+    field: 'phone',
+  },
+  {
+    legacy: 'email',
+    field: 'email',
+  },
+  {
+    legacy: 'contactPosition',
+    field: 'position',
+  },
+  {
+    legacy: 'organization',
+    field: 'organization',
+  },
+];
 
 export default (membersSvc, item, options) => {
-  const {
-    detailed = false,
-    roleAsSlug = true,
-  } = options;
+  const { detailed = false, roleAsSlug = true } = options;
   const result = {
     userUid: item?.userUid,
     deletedUser: item?.deletedUser ?? null,
@@ -44,9 +47,12 @@ export default (membersSvc, item, options) => {
 
 export function custom(item) {
   return map
-    .filter(m => item[m.field] !== undefined)
-    .reduce((carry, mapItem) => ({
-      ...carry,
-      [mapItem.legacy]: item[mapItem.field],
-    }), {});
+    .filter((m) => item[m.field] !== undefined)
+    .reduce(
+      (carry, mapItem) => ({
+        ...carry,
+        [mapItem.legacy]: item[mapItem.field],
+      }),
+      {},
+    );
 }

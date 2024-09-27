@@ -11,13 +11,12 @@ export default async function sendMessageChain(
   { queue, services },
   jobData,
 ) {
-  const {
-    mails,
-    tracker,
-  } = services;
+  const { mails, tracker } = services;
 
   if (!mails) {
-    log.warn('mails services is not initialized. Interrupting sendMessageChange');
+    log.warn(
+      'mails services is not initialized. Interrupting sendMessageChange',
+    );
     return;
   }
 
@@ -50,9 +49,7 @@ export default async function sendMessageChain(
   });
 
   const isSender = member?.id === senderMember.id;
-  const sendingToSender = (
-    isSender || !member
-  ) && data.sendToMe && !context.isSentToMe;
+  const sendingToSender = (isSender || !member) && data.sendToMe && !context.isSentToMe;
 
   if (sendingToSender) {
     log.info('sending to sender', logBundle);
@@ -75,7 +72,13 @@ export default async function sendMessageChain(
 
   if (!member) {
     log.info('message chain was processed successfully.', logBundle);
-    await addActivity(services, agenda, senderMember, data, context.recipientRoles);
+    await addActivity(
+      services,
+      agenda,
+      senderMember,
+      data,
+      context.recipientRoles,
+    );
     tracker('members.sendGroupMail.successful', logBundle);
     return;
   }

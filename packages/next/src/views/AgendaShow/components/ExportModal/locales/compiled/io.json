@@ -165,6 +165,12 @@
       "value": "crwdns33341:0crwdne33341:0"
     }
   ],
+  "next.views.AgendaShow.ExportModal.openInSamePage": [
+    {
+      "type": 0,
+      "value": "Open events on the same page"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [
     {
       "type": 0,
@@ -193,6 +199,12 @@
     {
       "type": 0,
       "value": "crwdns33968:0crwdne33968:0"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.showFilters": [
+    {
+      "type": 0,
+      "value": "Show filters"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [

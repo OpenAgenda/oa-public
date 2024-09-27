@@ -16,9 +16,7 @@ import usePrefix from '../hooks/usePrefix';
 
 import contributeReducer from '../reducers/contribute';
 
-const {
-  isContributionType,
-} = utils;
+const { isContributionType } = utils;
 
 export default function EventDraft({ agenda, history }) {
   const location = useLocation();
@@ -27,21 +25,17 @@ export default function EventDraft({ agenda, history }) {
     eventUid, // as a string
   } = useParams();
 
-  const {
-    agendaContextIsLoading,
-    agendaContext,
-  } = useAgendaContext(agenda.uid);
+  const { agendaContextIsLoading, agendaContext } = useAgendaContext(
+    agenda.uid,
+  );
 
-  const {
-    eventIsLoading,
-    event,
-  } = useEvent(agenda.uid, eventUid);
+  const { eventIsLoading, event } = useEvent(agenda.uid, eventUid);
 
   const dispatch = useDispatch();
   const prefix = usePrefix(agenda);
   const { config, isLoading } = useEventFormConfig(agenda);
-  const apiRoot = useSelector(state => state.settings.apiRoot);
-  const redirecting = useSelector(state => state.contribute.redirecting);
+  const apiRoot = useSelector((state) => state.settings.apiRoot);
+  const redirecting = useSelector((state) => state.contribute.redirecting);
 
   if (isLoading || agendaContextIsLoading || eventIsLoading || redirecting) {
     return <Loading />;
@@ -51,9 +45,14 @@ export default function EventDraft({ agenda, history }) {
     <CanvasWithStepper
       mode="create"
       steps={steps('event', { agenda })}
-      onSelectStep={step => history.push(`${prefix}/${step}`)}
+      onSelectStep={(step) => history.push(`${prefix}/${step}`)}
     >
-      {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={agendaContext.me.member.role} className="margin-bottom-md" /> : null}
+      {isContributionType(agenda, 'CLOSED') ? (
+        <ClosedMessage
+          memberRole={agendaContext.me.member.role}
+          className="margin-bottom-md"
+        />
+      ) : null}
       <Instructions
         message={agenda?.settings?.contribution?.messages?.instructions}
         className="margin-bottom-lg"
@@ -65,15 +64,21 @@ export default function EventDraft({ agenda, history }) {
         event={event}
         config={config}
         onSuccess={(_event, response) => {
-          dispatch(contributeReducer.eventCreateSuccess({
-            agenda,
-            response,
-          }));
+          dispatch(
+            contributeReducer.eventCreateSuccess({
+              agenda,
+              response,
+            }),
+          );
         }}
         memberRole={agendaContext.me.member.role}
-        onDraftDelete={() => dispatch(contributeReducer.eventDelete({
-          agenda, event,
-        }))}
+        onDraftDelete={() =>
+          dispatch(
+            contributeReducer.eventDelete({
+              agenda,
+              event,
+            }),
+          )}
       />
     </CanvasWithStepper>
   );

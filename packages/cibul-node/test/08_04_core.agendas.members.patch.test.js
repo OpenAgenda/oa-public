@@ -44,21 +44,28 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
 
   describe('results contents', () => {
     it('basic patch', async () => {
-      await core.agendas(2).members.patch(1, {
-        name: 'Janine',
-        phone: '01',
-        position: 'Gardienne',
-        email: 'jan@ee.ne',
-        organization: 'Ponceau Corp',
-      }, {
-        userUid: 1,
-      });
+      await core.agendas(2).members.patch(
+        1,
+        {
+          name: 'Janine',
+          phone: '01',
+          position: 'Gardienne',
+          email: 'jan@ee.ne',
+          organization: 'Ponceau Corp',
+        },
+        {
+          userUid: 1,
+        },
+      );
 
-      const result = await core.services.knex('reviewer').first()
+      const result = await core.services
+        .knex('reviewer')
+        .first()
         .where({
           agenda_uid: 2,
           user_uid: 1,
-        }).then(r => JSON.parse(r.store).custom_fields);
+        })
+        .then((r) => JSON.parse(r.store).custom_fields);
 
       expect(result).toEqual({
         organization: 'Ponceau Corp',
@@ -70,22 +77,29 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
     });
 
     it('basic patch with custom fields', async () => {
-      await core.agendas(3).members.patch(1, {
-        name: 'Jam',
-        phone: '02',
-        position: 'Gardien',
-        email: 'jam@ee.ne',
-        organization: 'Ponceau Corp',
-        num_orga: '30org',
-      }, {
-        userUid: 1,
-      });
+      await core.agendas(3).members.patch(
+        1,
+        {
+          name: 'Jam',
+          phone: '02',
+          position: 'Gardien',
+          email: 'jam@ee.ne',
+          organization: 'Ponceau Corp',
+          num_orga: '30org',
+        },
+        {
+          userUid: 1,
+        },
+      );
 
-      const result = await core.services.knex('reviewer').first()
+      const result = await core.services
+        .knex('reviewer')
+        .first()
         .where({
           agenda_uid: 3,
           user_uid: 1,
-        }).then(r => JSON.parse(r.store).custom_fields);
+        })
+        .then((r) => JSON.parse(r.store).custom_fields);
 
       const custom = await core.services.custom(8).get(1);
       expect(custom.num_orga).toBe('30org');
@@ -105,11 +119,15 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       let error;
 
       try {
-        await core.agendas(2).members.patch(1, {
-          name: 'Jayneen',
-        }, {
-          userUid: 99999967,
-        });
+        await core.agendas(2).members.patch(
+          1,
+          {
+            name: 'Jayneen',
+          },
+          {
+            userUid: 99999967,
+          },
+        );
       } catch (e) {
         error = e;
       }
@@ -121,11 +139,15 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       let error;
 
       try {
-        await core.agendas(2).members.patch(1, {
-          name: 'Jayneen',
-        }, {
-          userUid: 5,
-        });
+        await core.agendas(2).members.patch(
+          1,
+          {
+            name: 'Jayneen',
+          },
+          {
+            userUid: 5,
+          },
+        );
       } catch (e) {
         error = e;
       }
@@ -137,11 +159,15 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       let error;
 
       try {
-        await core.agendas(2).members.patch(1, {
-          role: 'moderator',
-        }, {
-          userUid: 1,
-        });
+        await core.agendas(2).members.patch(
+          1,
+          {
+            role: 'moderator',
+          },
+          {
+            userUid: 1,
+          },
+        );
       } catch (e) {
         error = e;
       }
@@ -170,7 +196,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     describe('successfull call', () => {
@@ -191,19 +217,19 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
             email: 'el@h.en',
             organization: 'Très',
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
       });
 
       it('member data is patched', async () => {
-        const entry = await core.services.knex('reviewer')
-          .first()
-          .where({
-            user_uid: 1,
-            agenda_uid: 2,
-          });
+        const entry = await core.services.knex('reviewer').first().where({
+          user_uid: 1,
+          agenda_uid: 2,
+        });
 
         expect(entry.credential).toBe(2);
-        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe('Hélène');
+        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe(
+          'Hélène',
+        );
       });
     });
   });

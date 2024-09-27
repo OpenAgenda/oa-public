@@ -34,36 +34,40 @@ const {
 
 const log = debug('App');
 
-const mergedLocales = mergeLocales(locales, memberLocales, sharedLocales, commonLocales);
+const mergedLocales = mergeLocales(
+  locales,
+  memberLocales,
+  sharedLocales,
+  commonLocales,
+);
 
 function App(props) {
-  const {
-    route,
-    agenda,
-    lang,
-    history,
-  } = props;
+  const { route, agenda, lang, history } = props;
 
   const location = useLocation();
   log('Requested %s', location.pathname);
 
-  const {
-    agendaContextIsLoading,
-    agendaContext,
-  } = useAgendaContext(agenda.uid, 'App');
+  const { agendaContextIsLoading, agendaContext } = useAgendaContext(
+    agenda.uid,
+    'App',
+  );
 
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
 
   const prefix = usePrefix(agenda);
 
-  const isAtShare = matchPath(location.pathname, { path: `${prefix}/event/:eventUid/from/:fromAgendaUid` })?.isExact;
+  const isAtShare = matchPath(location.pathname, {
+    path: `${prefix}/event/:eventUid/from/:fromAgendaUid`,
+  })?.isExact;
 
   const shouldGoToShareMember = !agendaContextIsLoading
     && isAtShare
     && isMemberDataRequired(agenda)
     && (!agendaContext?.me?.member || !agendaContext?.me?.isValid);
 
-  const isAtShareMember = matchPath(location.pathname, { path: `${prefix}/event/:eventUid/from/:fromAgendaUid/member` })?.isExact;
+  const isAtShareMember = matchPath(location.pathname, {
+    path: `${prefix}/event/:eventUid/from/:fromAgendaUid/member`,
+  })?.isExact;
 
   const shouldGoToCreateFirstStep = !agendaContextIsLoading
     && !shouldGoToShareMember
@@ -88,11 +92,24 @@ function App(props) {
       return;
     }
 
-    log('  Base path is requested, user is not a member. Redirecting to member step');
+    log(
+      '  Base path is requested, user is not a member. Redirecting to member step',
+    );
     replaceWithStep(history, location, prefix, 'member');
-  }, [shouldGoToCreateFirstStep, shouldGoToShareMember, history, prefix, location, isAtShareMember]);
+  }, [
+    shouldGoToCreateFirstStep,
+    shouldGoToShareMember,
+    history,
+    prefix,
+    location,
+    isAtShareMember,
+  ]);
 
-  if (agendaContextIsLoading || shouldGoToCreateFirstStep || shouldGoToShareMember) {
+  if (
+    agendaContextIsLoading
+    || shouldGoToCreateFirstStep
+    || shouldGoToShareMember
+  ) {
     return <Loading />;
   }
 
@@ -101,8 +118,15 @@ function App(props) {
     && isContributionType(agenda, 'MEMBERS_ONLY')
     && !isAtShareMember
   ) {
-    log('  This is a members only agenda, redirecting to request to become a member');
-    doRedirect(history, location, res.requestContribute.replace(':agendaSlug', agenda.slug), { ignoreURLRedirect: true });
+    log(
+      '  This is a members only agenda, redirecting to request to become a member',
+    );
+    doRedirect(
+      history,
+      location,
+      res.requestContribute.replace(':agendaSlug', agenda.slug),
+      { ignoreURLRedirect: true },
+    );
     return <Loading />;
   }
 
@@ -116,8 +140,8 @@ function App(props) {
       locale={lang}
       messages={mergedLocales[lang]}
       defaultLocale={getSupportedLocale(lang)}
-    >{
-      showClosedMessage ? (
+    >
+      {showClosedMessage ? (
         <Canvas>
           <div className="margin-top-lg">
             <ClosedMessage memberRole="contributor" />
@@ -126,15 +150,14 @@ function App(props) {
       )
         : renderRoutes(route.routes, {
           agenda,
-        })
-
-    }
+        })}
     </IntlProvider>
   );
 }
 
 export default provideHooks({
-  inject: ({ store }) => store.inject({
-    contribute: contributeReducer,
-  }),
+  inject: ({ store }) =>
+    store.inject({
+      contribute: contributeReducer,
+    }),
 })(App);

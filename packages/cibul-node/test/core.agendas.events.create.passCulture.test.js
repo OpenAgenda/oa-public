@@ -55,7 +55,9 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test',
       });
-    } catch (e) { /* */ }
+    } catch (e) {
+      /* */
+    }
   });
 
   afterAll(() => core.services.simpleCache.clearAll());
@@ -68,10 +70,8 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
 
       beforeAll(() => {
         server = setupServer(
-          http.get(
-            `${testConfig.passCulture.api}/openapi.json`,
-            () => HttpResponse.json(passAPIFixtures.openapi),
-          ),
+          http.get(`${testConfig.passCulture.api}/openapi.json`, () =>
+            HttpResponse.json(passAPIFixtures.openapi)),
           http.get(
             `${testConfig.passCulture.api}/public/offers/v1/offerer_venues`,
             () => HttpResponse.json(passAPIFixtures.offererVenuesGetResponse),
@@ -82,7 +82,8 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
           ),
           http.post(
             `${testConfig.passCulture.api}/public/offers/v1/events/72585/price_categories`,
-            () => HttpResponse.json(passAPIFixtures.priceCategoriesPostResponse),
+            () =>
+              HttpResponse.json(passAPIFixtures.priceCategoriesPostResponse),
           ),
           http.post(
             `${testConfig.passCulture.api}/public/offers/v1/events/72585/dates`,
@@ -98,13 +99,13 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
       });
 
       it('offer is created and registration data is updated', async () => {
-        const event = await core.agendas(2010).events.create(freshEventWithPassData, {
-          access: 'moderator',
-        });
+        const event = await core
+          .agendas(2010)
+          .events.create(freshEventWithPassData, {
+            access: 'moderator',
+          });
 
-        expect(
-          event.registration[0].value,
-        ).toBe(
+        expect(event.registration[0].value).toBe(
           testConfig.passCulture.offerLink.replace(':id', 72585),
         );
       });
@@ -116,58 +117,62 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
 
       beforeAll(() => {
         server = setupServer(
-          http.get(
-            `${testConfig.passCulture.api}/openapi.json`,
-            () => HttpResponse.json(passAPIFixtures.openapi),
-          ),
+          http.get(`${testConfig.passCulture.api}/openapi.json`, () =>
+            HttpResponse.json(passAPIFixtures.openapi)),
           http.get(
             `${testConfig.passCulture.api}/public/offers/v1/offerer_venues`,
             () => HttpResponse.json(passAPIFixtures.offererVenuesGetResponse),
           ),
           http.post(
             `${testConfig.passCulture.api}/public/offers/v1/events`,
-            () => HttpResponse.json({
-              ...passAPIFixtures.eventPostResponse,
-              status: 'PENDING',
-            }),
+            () =>
+              HttpResponse.json({
+                ...passAPIFixtures.eventPostResponse,
+                status: 'PENDING',
+              }),
           ),
           http.get(
             `${testConfig.passCulture.api}/public/offers/v1/events/:id`,
-            () => HttpResponse.json({
-              ...passAPIFixtures.eventGetResponse,
-              status: 'PENDING',
-            }),
+            () =>
+              HttpResponse.json({
+                ...passAPIFixtures.eventGetResponse,
+                status: 'PENDING',
+              }),
           ),
         );
 
         server.listen();
       });
 
-      it(
-        'when pending offer goes through task until max retries is reached, it stays marked as pending',
-        () => new Promise(rs => {
-          core.services.tracker.on('registrations.passCulture.enqueue.max', async () => {
-            const { registration } = await core.agendas(2010).events.get(event.uid);
-            const appliedPassProcessItems = registration
-              .find(r => r.service === 'passCulture').data
-              .filter(e => e.appliedAt);
+      it('when pending offer goes through task until max retries is reached, it stays marked as pending', () =>
+        new Promise((rs) => {
+          core.services.tracker.on(
+            'registrations.passCulture.enqueue.max',
+            async () => {
+              const { registration } = await core
+                .agendas(2010)
+                .events.get(event.uid);
+              const appliedPassProcessItems = registration
+                .find((r) => r.service === 'passCulture')
+                .data.filter((e) => e.appliedAt);
 
-            expect(
-              appliedPassProcessItems.length,
-            ).toBe(1);
+              expect(appliedPassProcessItems.length).toBe(1);
 
-            expect(appliedPassProcessItems[0].response.isPending).toBe(true);
+              expect(appliedPassProcessItems[0].response.isPending).toBe(true);
 
-            rs();
-          });
+              rs();
+            },
+          );
 
-          core.agendas(2010).events.create(freshEventWithPassData, {
-            access: 'moderator',
-          }).then(e => {
-            event = e;
-          });
-        }),
-      );
+          core
+            .agendas(2010)
+            .events.create(freshEventWithPassData, {
+              access: 'moderator',
+            })
+            .then((e) => {
+              event = e;
+            });
+        }));
 
       afterAll(() => {
         server.close();
@@ -180,24 +185,24 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
 
       beforeAll(() => {
         server = setupServer(
-          http.get(
-            `${testConfig.passCulture.api}/openapi.json`,
-            () => HttpResponse.json(passAPIFixtures.openapi),
-          ),
+          http.get(`${testConfig.passCulture.api}/openapi.json`, () =>
+            HttpResponse.json(passAPIFixtures.openapi)),
           http.get(
             `${testConfig.passCulture.api}/public/offers/v1/offerer_venues`,
             () => HttpResponse.json(passAPIFixtures.offererVenuesGetResponse),
           ),
           http.post(
             `${testConfig.passCulture.api}/public/offers/v1/events`,
-            () => HttpResponse.json({
-              ...passAPIFixtures.eventPostResponse,
-              status: 'PENDING',
-            }),
+            () =>
+              HttpResponse.json({
+                ...passAPIFixtures.eventPostResponse,
+                status: 'PENDING',
+              }),
           ),
           http.post(
             `${testConfig.passCulture.api}/public/offers/v1/events/72585/price_categories`,
-            () => HttpResponse.json(passAPIFixtures.priceCategoriesPostResponse),
+            () =>
+              HttpResponse.json(passAPIFixtures.priceCategoriesPostResponse),
           ),
           http.post(
             `${testConfig.passCulture.api}/public/offers/v1/events/72585/dates`,
@@ -216,31 +221,35 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
         server.close();
       });
 
-      it(
-        'pending offer that is retried and no longer pending sees its reference data updated in stored event',
-        () => new Promise(rs => {
-          core.services.tracker.on('registrations.passCulture.pendingOffer.processed.notPending', async () => {
-            const { registration } = await core.agendas(2010).events.get(event.uid);
-            const appliedPassProcessItems = registration
-              .find(r => r.service === 'passCulture').data
-              .filter(e => e.appliedAt);
+      it('pending offer that is retried and no longer pending sees its reference data updated in stored event', () =>
+        new Promise((rs) => {
+          core.services.tracker.on(
+            'registrations.passCulture.pendingOffer.processed.notPending',
+            async () => {
+              const { registration } = await core
+                .agendas(2010)
+                .events.get(event.uid);
+              const appliedPassProcessItems = registration
+                .find((r) => r.service === 'passCulture')
+                .data.filter((e) => e.appliedAt);
 
-            expect(
-              appliedPassProcessItems.length,
-            ).toBe(4);
+              expect(appliedPassProcessItems.length).toBe(4);
 
-            expect(appliedPassProcessItems[1].response.isPending).toBe(false);
+              expect(appliedPassProcessItems[1].response.isPending).toBe(false);
 
-            rs();
-          });
+              rs();
+            },
+          );
 
-          core.agendas(2010).events.create(freshEventWithPassData, {
-            access: 'moderator',
-          }).then(e => {
-            event = e;
-          });
-        }),
-      );
+          core
+            .agendas(2010)
+            .events.create(freshEventWithPassData, {
+              access: 'moderator',
+            })
+            .then((e) => {
+              event = e;
+            });
+        }));
     });
   });
 });

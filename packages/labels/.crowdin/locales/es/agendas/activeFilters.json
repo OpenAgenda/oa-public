@@ -1,7 +1,7 @@
 {
-  "fromTo": "de %start% a %end%",
-  "location": "lugar",
   "map": "mapa",
   "passed": "eventos pasados",
+  "location": "lugar",
+  "fromTo": "de %start% a %end%",
   "selection": "selección de eventos"
 }

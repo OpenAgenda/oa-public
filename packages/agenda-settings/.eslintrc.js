@@ -1,11 +1,11 @@
 'use strict';
 
 module.exports = {
-  extends: ['@openagenda'],
+  extends: '../../.eslintrc',
   parserOptions: {
     sourceType: 'script',
   },
-  ignorePatterns: ['dist'],
+  ignorePatterns: ['/dist', '/stories/static'],
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
@@ -15,7 +15,7 @@ module.exports = {
           `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
           `${__dirname}/server.dev.js`,
-          `${__dirname}/test/**/*.js`,
+          `${__dirname}/seeds/**/*.js`,
           `${__dirname}/testconfig.sample.js`,
           `${__dirname}/testconfig.js`,
           `${__dirname}/scripts/**/*.js`,
@@ -31,16 +31,9 @@ module.exports = {
         'stories/**/*.js',
         'server.dev.js',
         'seeds/**/*.js',
-        'test/**/*.js',
       ],
       parserOptions: {
         sourceType: 'module',
-      },
-    },
-    {
-      files: ['**/*.{test,spec}.js', 'scripts/**/*.js'],
-      rules: {
-        'import/default': 'off',
       },
     },
   ],

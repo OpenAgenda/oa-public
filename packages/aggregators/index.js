@@ -72,7 +72,7 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
   });
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
-  queue.on('execute', fn => log('processing "%s" from queue', fn));
+  queue.on('execute', (fn) => log('processing "%s" from queue', fn));
   queue.on('success', (fn, args, result) =>
     log('done processing "%s" from queue', fn, result));
 

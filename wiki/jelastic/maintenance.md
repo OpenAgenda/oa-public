@@ -12,7 +12,7 @@ name: Root Access
 
 targetNodes:
   nodeGroup: '*'
-      
+
 onInstall:
   - cmd[${targetNodes.nodeGroup}]: |-
       TARGET_UID=$(id -u jelastic 2>/dev/null) || TARGET_UID="700"

@@ -10,7 +10,7 @@ export default function ContentGrid({ total, events, filters }) {
         lg: `"total ."
              "events filters"`,
       }}
-      gridTemplateColumns={{
+      templateColumns={{
         base: '1fr',
         lg: '2fr minmax(380px, 1fr)',
       }}
@@ -37,13 +37,9 @@ export default function ContentGrid({ total, events, filters }) {
         </Flex>
       </GridItem>
 
-      <GridItem area="filters">
-        {filters}
-      </GridItem>
+      <GridItem area="filters">{filters}</GridItem>
 
-      <GridItem area="events">
-        {events}
-      </GridItem>
+      <GridItem area="events">{events}</GridItem>
     </Grid>
   );
 }

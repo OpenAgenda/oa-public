@@ -24,18 +24,19 @@ export default (state, action) => {
     case 'updateRule': {
       return {
         ...state,
-        rules: state.rules.map(rule => (rule.id === action.payload.id
-          ? {
-            id: action.payload.id,
-            ...action.payload.rule,
-          }
-          : rule)),
+        rules: state.rules.map((rule) =>
+          (rule.id === action.payload.id
+            ? {
+              id: action.payload.id,
+              ...action.payload.rule,
+            }
+            : rule)),
       };
     }
     case 'removeRule': {
       return {
         ...state,
-        rules: state.rules.filter(rule => rule.id !== action.payload.id),
+        rules: state.rules.filter((rule) => rule.id !== action.payload.id),
       };
     }
     case 'reorderRules': {

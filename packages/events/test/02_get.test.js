@@ -46,7 +46,7 @@ describe('events - functional - get', () => {
       expect(
         await svc
           .get({ slug: 'kara-okay-live_429424' })
-          .then(e => e.title.fr),
+          .then((e) => e.title.fr),
       ).toBe('Kara Okay live');
     });
 
@@ -89,7 +89,7 @@ describe('events - functional - get', () => {
 
     it('deleted true returns a soflty-deleted event', async () => {
       expect(
-        await svc.get(44822046, { deleted: true }).then(e => e.uid),
+        await svc.get(44822046, { deleted: true }).then((e) => e.uid),
       ).toBe(44822046);
     });
 
@@ -97,7 +97,7 @@ describe('events - functional - get', () => {
       expect(
         await svc
           .get(6789679673, { throwOnNotFound: true })
-          .catch(e => e.message),
+          .catch((e) => e.message),
       ).toBe('Not found');
     });
 
@@ -122,7 +122,7 @@ describe('events - functional - get', () => {
         knex: f.client,
         interfaces: {
           getOriginAgendas: async (_identifiers, _options) => [agenda],
-          getLocations: async _identifiers => [location],
+          getLocations: async (_identifiers) => [location],
         },
       });
 
@@ -151,24 +151,24 @@ describe('events - functional - get', () => {
 
     it('default access value is public', async () => {
       const publicFieldNames = fields
-        .filter(field => field.read.includes('public'))
-        .map(field => field.field);
+        .filter((field) => field.read.includes('public'))
+        .map((field) => field.field);
 
       const event = await svc.get({ slug: 'les-contes-de-lhyper-climat' });
 
-      publicFieldNames.forEach(field => {
+      publicFieldNames.forEach((field) => {
         expect(Object.keys(event).includes(field)).toBe(true);
       });
     });
 
     it('null credit and null image appear as null in events', async () => {
-      expect(await svc.get(66724283).then(e => e.image)).toBeNull();
+      expect(await svc.get(66724283).then((e) => e.image)).toBeNull();
     });
 
     it('if access is internal, internal fields are returned', async () => {
       const internalFieldNames = fields
-        .filter(field => field.read.includes('internal'))
-        .map(field => field.field);
+        .filter((field) => field.read.includes('internal'))
+        .map((field) => field.field);
 
       const event = await svc.get(
         {
@@ -179,7 +179,7 @@ describe('events - functional - get', () => {
         },
       );
 
-      internalFieldNames.forEach(field => {
+      internalFieldNames.forEach((field) => {
         expect(Object.keys(event).includes(field)).toBe(true);
       });
     });
@@ -237,7 +237,7 @@ describe('events - functional - get', () => {
     });
 
     it('main text fields are flattened', () => {
-      ['title', 'description', 'longDescription', 'html'].forEach(field => {
+      ['title', 'description', 'longDescription', 'html'].forEach((field) => {
         expect(typeof event[field]).toBe('string');
       });
     });

@@ -3,7 +3,10 @@ import { readFile } from 'node:fs/promises';
 import zxcvbn from 'zxcvbn';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const usualPasswords = await readFile(`${__dirname}usualPasswords.json`, 'utf8').then(JSON.parse);
+const usualPasswords = await readFile(
+  `${__dirname}usualPasswords.json`,
+  'utf8',
+).then(JSON.parse);
 
 const getMessageDetails = ({ score, length, isUsual, isSameAs }) => {
   if (!length) {
@@ -53,21 +56,16 @@ const getMessageDetails = ({ score, length, isUsual, isSameAs }) => {
 };
 
 export function evaluate(password, options = {}) {
-  const {
-    score,
-  } = zxcvbn(password);
+  const { score } = zxcvbn(password);
 
-  const {
-    identifiers = {},
-  } = options;
+  const { identifiers = {} } = options;
 
   let valid = score > 0;
 
-  const isSameAs = Object.keys(identifiers)
-    .reduce(
-      (is, field) => (identifiers[field] === password ? field : is),
-      false,
-    );
+  const isSameAs = Object.keys(identifiers).reduce(
+    (is, field) => (identifiers[field] === password ? field : is),
+    false,
+  );
 
   if (isSameAs) {
     valid = false;
@@ -84,6 +82,11 @@ export function evaluate(password, options = {}) {
     score,
     isUsual,
     isSameAs,
-    message: getMessageDetails({ score, length: password?.length, isUsual, isSameAs }),
+    message: getMessageDetails({
+      score,
+      length: password?.length,
+      isUsual,
+      isSameAs,
+    }),
   };
 }

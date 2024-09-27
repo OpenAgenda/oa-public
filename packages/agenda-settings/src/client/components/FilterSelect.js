@@ -1,15 +1,61 @@
-import { useCallback, useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import {
-  SortableContainer,
-  SortableElement,
-  SortableHandle,
-} from 'react-sortable-hoc';
+  DndContext,
+  useDroppable,
+  useDraggable,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import Select, { components } from 'react-select';
 import { useIntl } from 'react-intl';
-
 import { defaultSelectStyles } from '@openagenda/react-shared';
 
 import getFilterOptions from '../utils/getFilterOptions';
+
+export function Droppable({ id, children }) {
+  const { isOver, setNodeRef } = useDroppable({ id });
+  const style = {
+    opacity: isOver ? '0.8' : undefined,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style}>
+      {children}
+    </div>
+  );
+}
+
+export function Draggable({ id, children }) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    border: 'none',
+    background: 'inherit',
+    margin: 0,
+    padding: 0,
+    display: 'flex',
+  };
+
+  return (
+    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
+    <div onMouseDown={(e) => e.stopPropagation()}>
+      <button
+        type="button"
+        ref={setNodeRef}
+        style={style}
+        {...listeners}
+        {...attributes}
+      >
+        {children}
+      </button>
+    </div>
+  );
+}
 
 function arrayMove(arr, from, to) {
   const slicedArray = arr.slice();
@@ -21,89 +67,120 @@ function arrayMove(arr, from, to) {
   return slicedArray;
 }
 
-const onMouseDown = e => {
-  e.preventDefault();
-  e.stopPropagation();
-};
+function MultiValueContainer(props) {
+  const {
+    innerProps,
+    data: { value },
+  } = props;
 
-const SortableMultiValue = SortableElement(props => (
-  <components.MultiValue
-    {...props}
-    innerProps={{ ...props.innerProps, onMouseDown }}
-  />
-));
+  return (
+    <Droppable id={value}>
+      <Draggable id={value}>
+        <components.MultiValueContainer
+          {...props}
+          innerProps={{ ...innerProps }}
+        />
+      </Draggable>
+    </Droppable>
+  );
+}
 
-const SortableMultiValueLabel = SortableHandle(props => (
-  <components.MultiValueLabel {...props} />
-));
-
-const SortableSelect = SortableContainer(Select);
-
-const styles = {
-  ...defaultSelectStyles,
-  multiValue: provided => ({
-    ...provided,
-    margin: '1px',
-    padding: '0px',
-    borderRadius: '2px',
-    overflow: 'hidden',
-    cursor: 'grab',
-  }),
-};
+function SelectContainer(props) {
+  const { innerProps } = props;
+  return (
+    <Droppable id="select">
+      <components.SelectContainer {...props} innerProps={{ ...innerProps }} />
+    </Droppable>
+  );
+}
 
 export default function FilterSelect({
+  schema,
   value,
   onChange,
-  sub,
-  disabled,
   exclude,
-  schema,
+  sub,
+  placeholder,
+  disabled,
 }) {
   const intl = useIntl();
+
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  });
+  const touchSensor = useSensor(TouchSensor);
+  const keyboardSensor = useSensor(KeyboardSensor);
+
+  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
   const filterOptions = useMemo(
     () => getFilterOptions(intl, schema, exclude),
     [intl, schema, exclude],
   );
+
   const selectedOptions = useMemo(
     () =>
       value
-        .map(name => filterOptions.find(o => o.value === name))
-        .filter(v => !!v),
+        .map((name) => filterOptions.find((o) => o.value === name))
+        .filter((v) => !!v),
     [value, filterOptions],
   );
 
-  const onSortEnd = useCallback(
-    ({ oldIndex, newIndex }) => {
-      onChange(
-        arrayMove(selectedOptions, oldIndex, newIndex).map(o => o.value),
+  const handleDragEnd = useCallback(
+    (event) => {
+      const {
+        over: { id: overOptionValue },
+        active: { id: draggedOptionValue },
+      } = event;
+
+      const to = overOptionValue === 'select'
+        ? selectedOptions.length
+        : selectedOptions.findIndex(
+          (option) => option.value === overOptionValue,
+        );
+      const from = selectedOptions.findIndex(
+        (option) => option.value === draggedOptionValue,
       );
+
+      onChange(arrayMove(selectedOptions, from, to).map((o) => o.value));
     },
     [selectedOptions, onChange],
   );
 
   return (
     <>
-      <SortableSelect
-        useDragHandle
-        axis="xy"
-        onSortEnd={onSortEnd}
-        distance={4}
-        getHelperDimensions={({ node }) => node.getBoundingClientRect()}
-        isMulti
-        options={filterOptions}
-        value={selectedOptions}
-        onChange={update => {
-          onChange(update.map(o => o.value));
-        }}
-        components={{
-          MultiValue: SortableMultiValue,
-          MultiValueLabel: SortableMultiValueLabel,
-        }}
-        closeMenuOnSelect
-        styles={styles}
-        isDisabled={disabled}
-      />
+      <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+        <Select
+          value={selectedOptions}
+          onChange={(update) => {
+            onChange(update.map((o) => o.value));
+          }}
+          options={filterOptions}
+          isMulti
+          closeMenuOnSelect
+          /* openMenuOnClick={false} */
+          openMenuOnFocus
+          placeholder={placeholder}
+          components={{
+            MultiValueContainer,
+            SelectContainer,
+          }}
+          isDisabled={disabled}
+          styles={{
+            ...defaultSelectStyles,
+            multiValue: (provided) => ({
+              ...provided,
+              margin: '1px',
+              padding: '0px',
+              borderRadius: '2px',
+              overflow: 'hidden',
+              cursor: 'grab',
+            }),
+          }}
+        />
+      </DndContext>
       {sub ? <span>{sub}</span> : null}
     </>
   );

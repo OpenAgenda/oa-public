@@ -47,11 +47,10 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
         userUid: 1,
       });
 
-      const rows = await core.services.knex('reviewer').select()
-        .where({
-          agenda_uid: 2,
-          user_uid: 1,
-        });
+      const rows = await core.services.knex('reviewer').select().where({
+        agenda_uid: 2,
+        user_uid: 1,
+      });
 
       expect(rows.length).toBe(0);
     });
@@ -77,7 +76,7 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     describe('successfull call', () => {
@@ -90,11 +89,12 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
             nonce: 12382108,
             'content-type': 'application/json',
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
       });
 
       it('member was removed', async () => {
-        const entries = await core.services.knex('reviewer')
+        const entries = await core.services
+          .knex('reviewer')
           .select()
           .where({ user_uid: 5, agenda_uid: 2 });
 

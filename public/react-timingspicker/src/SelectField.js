@@ -1,4 +1,3 @@
-import React from 'react';
 import { Field } from 'react-final-form';
 import Select from 'react-select';
 
@@ -17,8 +16,8 @@ export default function SelectField({
   return (
     <Field
       name={name}
-      parse={val => val && val.value}
-      format={val => options.find(o => o.value === val)}
+      parse={(val) => val && val.value}
+      format={(val) => options.find((o) => o.value === val)}
       render={({ input, meta, ...rest }) => (
         <Select
           {...input}

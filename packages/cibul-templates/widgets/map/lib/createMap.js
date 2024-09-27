@@ -1,9 +1,7 @@
 'use strict';
 
-const du = require('@openagenda/dom-utils');
 const mapLib = require('../../../js/lib/osm.maps');
 const tpl = require('./main.ejs');
-const promisify = require('./promisify');
 
 const SYNC_SECTION_SELECTOR = '.js_map_sync';
 
@@ -28,15 +26,15 @@ module.exports = async (props, state, { labels }) => {
     labels: labels[props.lang]
   });
 
-  if (du.el(elem, SYNC_SECTION_SELECTOR)) {
-    div.removeChild(du.el(div, SYNC_SECTION_SELECTOR));
+  if (elem.querySelector(SYNC_SECTION_SELECTOR)) {
+    div.removeChild(div.querySelector(SYNC_SECTION_SELECTOR));
 
-    div.appendChild(du.el(elem, SYNC_SECTION_SELECTOR));
+    div.appendChild(elem.querySelector(SYNC_SECTION_SELECTOR));
   }
 
   elem.innerHTML = div.innerHTML;
 
-  const map = await createMap(mapUtils, du.el(elem, 'div'), {
+  const map = await createMap(mapUtils, elem.querySelector('div'), {
     center: state.center,
     zoom: state.zoom
   });

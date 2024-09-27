@@ -1,5 +1,3 @@
-'use strict';
-
 const { getLocaleValue } = require('@openagenda/intl');
 const { defineMessages } = require('react-intl');
 const get = require('lodash/get');
@@ -11,19 +9,23 @@ const { formatRole } = require('./client/utils/formatRole');
 const subjectTypeLabels = defineMessages({
   user: {
     id: 'ActivityApps.notifications.user',
-    defaultMessage: '{others, plural, =0 {{user}} one {{user} and 1 other user} other {{user} and {others} other users}}',
+    defaultMessage:
+      '{others, plural, =0 {{user}} one {{user} and 1 other user} other {{user} and {others} other users}}',
   },
   agenda: {
     id: 'ActivityApps.notifications.agenda',
-    defaultMessage: '{others, plural, =0 {{agenda}} one {{agenda} and 1 other agenda} other {{agenda} and {others} other agendas}}',
+    defaultMessage:
+      '{others, plural, =0 {{agenda}} one {{agenda} and 1 other agenda} other {{agenda} and {others} other agendas}}',
   },
   event: {
     id: 'ActivityApps.notifications.event',
-    defaultMessage: '{others, plural, =0 {{event}} one {{event} and 1 other event} other {{event} and {others} other events}}',
+    defaultMessage:
+      '{others, plural, =0 {{event}} one {{event} and 1 other event} other {{event} and {others} other events}}',
   },
   email: {
     id: 'ActivityApps.notifications.email',
-    defaultMessage: '{others, plural, =0 {{email}} one {{email} and 1 other} other {{email} and {others} others}}',
+    defaultMessage:
+      '{others, plural, =0 {{email}} one {{email} and 1 other} other {{email} and {others} others}}',
   },
 });
 
@@ -34,7 +36,7 @@ function isAdminMod(role) {
 function getGroupBy(notification) {
   if (!notification.groupBy) return [];
 
-  return notification.groupBy.split('|').map(v => v.split(':')[0]);
+  return notification.groupBy.split('|').map((v) => v.split(':')[0]);
 }
 
 // actor, object, target related
@@ -45,7 +47,7 @@ function getSubjectsProps(notification) {
       return accu;
     }
 
-    const columnStore = notification.store[columnName];// array like with 0 and length keys
+    const columnStore = notification.store[columnName]; // array like with 0 and length keys
     const [type, firstUid] = columnStore[0].split(':');
     const counter = columnStore.length;
     const label = notification.store.labels[columnName];
@@ -71,9 +73,11 @@ function getSubjects(intl, notification, subjectsProps) {
 
     const { type, label, counter } = subjectsProps[columnName];
 
-    if (groupBy.includes(columnName)) { // unique
+    if (groupBy.includes(columnName)) {
+      // unique
       accu[columnName] = getLocaleValue(label, intl.locale);
-    } else { // multiple
+    } else {
+      // multiple
       accu[columnName] = intl.formatMessage(subjectTypeLabels[type], {
         [type]: getLocaleValue(label, intl.locale),
         others: counter >= 100 ? '99+' : counter - 1,
@@ -91,7 +95,9 @@ function getAdditionalSubjects(intl, config, notification) {
     const path = entities[key];
 
     if (
-      path.startsWith('actor.') || path.startsWith('object.') || path.startsWith('target.')
+      path.startsWith('actor.')
+      || path.startsWith('object.')
+      || path.startsWith('target.')
       || path.match(/store\.labels\.((actor)|(object)|(target))/)
     ) {
       return result;
@@ -111,7 +117,9 @@ function formatUrl(url, subjectsProps) {
   let result = url;
 
   for (const key in subjectsProps) {
-    result = result.replace(`:${key}`, subjectsProps[key].firstUid);
+    if (Object.hasOwn(subjectsProps, key)) {
+      result = result.replace(`:${key}`, subjectsProps[key].firstUid);
+    }
   }
 
   return result;
@@ -119,36 +127,43 @@ function formatUrl(url, subjectsProps) {
 
 // xCount, xMore for subjects
 // highlight, state, role
-function getLabelValues(intl, { subjects, subjectsProps, additionalSubjects }, options) {
-  const {
-    renderHighlight,
-    escape: isEscaped,
-  } = options;
+function getLabelValues(
+  intl,
+  { subjects, subjectsProps, additionalSubjects },
+  options,
+) {
+  const { renderHighlight, escape: isEscaped } = options;
   const renders = {
-    hl: chunks => renderHighlight(chunks[0]),
-    state: chunks => formatState(intl, chunks[0]),
-    role: chunks => formatRole(intl, chunks[0]),
+    hl: (chunks) => renderHighlight(chunks[0]),
+    state: (chunks) => formatState(intl, chunks[0]),
+    role: (chunks) => formatRole(intl, chunks[0]),
   };
 
-  const additionalValues = Object.keys(additionalSubjects).reduce((result, key) => {
-    const value = additionalSubjects[key];
-    if (typeof value === 'number') {
-      result[key] = value;
+  const additionalValues = Object.keys(additionalSubjects).reduce(
+    (result, key) => {
+      const value = additionalSubjects[key];
+      if (typeof value === 'number') {
+        result[key] = value;
+        return result;
+      }
+
+      result[key] = isEscaped ? escape(value) : value;
       return result;
-    }
+    },
+    {},
+  );
 
-    result[key] = isEscaped ? escape(value) : value;
-    return result;
-  }, {});
-
-  return Object.keys(subjects).reduce((result, key) => {
-    const { counter } = subjectsProps[key];
-    const value = isEscaped ? escape(subjects[key]) : subjects[key];
-    result[key] = renderHighlight(value);
-    result[`${key}Count`] = counter;
-    result[`${key}More`] = counter - 1;
-    return result;
-  }, { ...renders, ...additionalValues });
+  return Object.keys(subjects).reduce(
+    (result, key) => {
+      const { counter } = subjectsProps[key];
+      const value = isEscaped ? escape(subjects[key]) : subjects[key];
+      result[key] = renderHighlight(value);
+      result[`${key}Count`] = counter;
+      result[`${key}More`] = counter - 1;
+      return result;
+    },
+    { ...renders, ...additionalValues },
+  );
 }
 
 function getProps(notification, options) {
@@ -157,7 +172,11 @@ function getProps(notification, options) {
   const subjectsProps = getSubjectsProps(notification);
   const subjects = getSubjects(intl, notification, subjectsProps);
   const additionalSubjects = getAdditionalSubjects(intl, config, notification);
-  const values = getLabelValues(intl, { subjects, subjectsProps, additionalSubjects }, options);
+  const values = getLabelValues(
+    intl,
+    { subjects, subjectsProps, additionalSubjects },
+    options,
+  );
 
   return {
     subjectsProps,
@@ -171,7 +190,10 @@ exports['event.create'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const label = intl.formatMessage(notificationsMessages['event.create'], values);
+  const label = intl.formatMessage(
+    notificationsMessages['event.create'],
+    values,
+  );
 
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
@@ -191,7 +213,9 @@ exports['event.duplicate'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const messageKey = subjectsProps.actor ? 'event.duplicate' : 'event.duplicate.withoutActor';
+  const messageKey = subjectsProps.actor
+    ? 'event.duplicate'
+    : 'event.duplicate.withoutActor';
   const label = intl.formatMessage(notificationsMessages[messageKey], values);
 
   // If 1 event, go to the event
@@ -212,7 +236,9 @@ exports['event.update'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const messageKey = subjectsProps.actor ? 'event.update' : 'event.update.withoutActor';
+  const messageKey = subjectsProps.actor
+    ? 'event.update'
+    : 'event.update.withoutActor';
   const label = intl.formatMessage(notificationsMessages[messageKey], values);
 
   // If 1 event, go to the event
@@ -233,7 +259,9 @@ exports['event.delete'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const messageKey = subjectsProps.actor ? 'event.delete' : 'event.delete.withoutActor';
+  const messageKey = subjectsProps.actor
+    ? 'event.delete'
+    : 'event.delete.withoutActor';
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
@@ -245,7 +273,9 @@ exports['agenda.publishEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const messageKey = subjectsProps.actor ? 'agenda.publishEvent' : 'agenda.publishEvent.withoutActor';
+  const messageKey = subjectsProps.actor
+    ? 'agenda.publishEvent'
+    : 'agenda.publishEvent.withoutActor';
   const label = intl.formatMessage(notificationsMessages[messageKey], values);
 
   // If 1 event, go to the event
@@ -266,7 +296,9 @@ exports['agenda.unpublishEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const messageKey = subjectsProps.actor ? 'agenda.unpublishEvent' : 'agenda.unpublishEvent.withoutActor';
+  const messageKey = subjectsProps.actor
+    ? 'agenda.unpublishEvent'
+    : 'agenda.unpublishEvent.withoutActor';
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
@@ -278,7 +310,9 @@ exports['agenda.refuseEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const messageKey = subjectsProps.actor ? 'agenda.refuseEvent' : 'agenda.refuseEvent.withoutActor';
+  const messageKey = subjectsProps.actor
+    ? 'agenda.refuseEvent'
+    : 'agenda.refuseEvent.withoutActor';
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
@@ -290,7 +324,9 @@ exports['agenda.removeEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const messageKey = subjectsProps.actor ? 'agenda.removeEvent' : 'agenda.removeEvent.withoutActor';
+  const messageKey = subjectsProps.actor
+    ? 'agenda.removeEvent'
+    : 'agenda.removeEvent.withoutActor';
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
@@ -304,7 +340,10 @@ exports['agenda.removeDeletedEvent'] = (notification, options) => {
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.removeDeletedEvent'], values),
+    label: intl.formatMessage(
+      notificationsMessages['agenda.removeDeletedEvent'],
+      values,
+    ),
   };
 };
 
@@ -314,7 +353,10 @@ exports['agenda.systemRemoveEvent'] = (notification, options) => {
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.systemRemoveEvent'], values),
+    label: intl.formatMessage(
+      notificationsMessages['agenda.systemRemoveEvent'],
+      values,
+    ),
   };
 };
 
@@ -322,7 +364,10 @@ exports['agenda.changeEventState'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const label = intl.formatMessage(notificationsMessages['agenda.systemRemoveEvent'], values);
+  const label = intl.formatMessage(
+    notificationsMessages['agenda.systemRemoveEvent'],
+    values,
+  );
 
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
@@ -342,7 +387,10 @@ exports['agenda.systemUnpublishEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const label = intl.formatMessage(notificationsMessages['agenda.systemUnpublishEvent'], values);
+  const label = intl.formatMessage(
+    notificationsMessages['agenda.systemUnpublishEvent'],
+    values,
+  );
 
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
@@ -362,7 +410,10 @@ exports['agenda.systemChangeEventState'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const label = intl.formatMessage(notificationsMessages['agenda.systemChangeEventState'], values);
+  const label = intl.formatMessage(
+    notificationsMessages['agenda.systemChangeEventState'],
+    values,
+  );
 
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
@@ -384,7 +435,10 @@ exports['agenda.sendInvitation'] = (notification, options) => {
 
   return {
     url: formatUrl('/agendas/:target/admin/members', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.sendInvitation'], values),
+    label: intl.formatMessage(
+      notificationsMessages['agenda.sendInvitation'],
+      values,
+    ),
   };
 };
 
@@ -394,13 +448,19 @@ exports['agenda.acceptInvitation'] = (notification, options) => {
 
   return {
     url: formatUrl('/agendas/:target/admin/members', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.acceptInvitation'], values),
+    label: intl.formatMessage(
+      notificationsMessages['agenda.acceptInvitation'],
+      values,
+    ),
   };
 };
 
 exports['agenda.addMember'] = (notification, options, userUid) => {
   const { intl } = options;
-  const { subjectsProps, additionalSubjects, values } = getProps(notification, options);
+  const { subjectsProps, additionalSubjects, values } = getProps(
+    notification,
+    options,
+  );
 
   const url = isAdminMod(additionalSubjects.invitedRole)
     ? '/agendas/:target/admin/members'
@@ -412,7 +472,7 @@ exports['agenda.addMember'] = (notification, options, userUid) => {
     messageKey += '.withYou';
   }
   if (!subjectsProps.actor) {
-    messageKey +=  '.withoutActor';
+    messageKey += '.withoutActor';
   }
 
   return {
@@ -423,7 +483,10 @@ exports['agenda.addMember'] = (notification, options, userUid) => {
 
 exports['agenda.setMemberRole'] = (notification, options, userUid) => {
   const { intl } = options;
-  const { subjectsProps, additionalSubjects, values } = getProps(notification, options);
+  const { subjectsProps, additionalSubjects, values } = getProps(
+    notification,
+    options,
+  );
 
   const url = isAdminMod(additionalSubjects.afterRole)
     ? '/agendas/:target/admin/members'
@@ -435,7 +498,7 @@ exports['agenda.setMemberRole'] = (notification, options, userUid) => {
     messageKey += '.withYou';
   }
   if (!subjectsProps.actor) {
-    messageKey +=  '.withoutActor';
+    messageKey += '.withoutActor';
   }
 
   return {
@@ -446,7 +509,10 @@ exports['agenda.setMemberRole'] = (notification, options, userUid) => {
 
 exports['agenda.removeMember'] = (notification, options, userUid) => {
   const { intl } = options;
-  const { subjectsProps, additionalSubjects, values } = getProps(notification, options);
+  const { subjectsProps, additionalSubjects, values } = getProps(
+    notification,
+    options,
+  );
 
   const url = isAdminMod(additionalSubjects.removedRole)
     ? '/agendas/:target/admin/members'
@@ -458,7 +524,7 @@ exports['agenda.removeMember'] = (notification, options, userUid) => {
     messageKey += '.withYou';
   }
   if (!subjectsProps.actor) {
-    messageKey +=  '.withoutActor';
+    messageKey += '.withoutActor';
   }
 
   return {
@@ -483,7 +549,10 @@ exports['agenda.addSource'] = (notification, options) => {
 
   return {
     url: formatUrl('/agendas/:target/admin/sources', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.addSource'], values),
+    label: intl.formatMessage(
+      notificationsMessages['agenda.addSource'],
+      values,
+    ),
   };
 };
 
@@ -493,7 +562,10 @@ exports['agenda.removeSource'] = (notification, options) => {
 
   return {
     url: formatUrl('/agendas/:target/admin/sources', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.removeSource'], values),
+    label: intl.formatMessage(
+      notificationsMessages['agenda.removeSource'],
+      values,
+    ),
   };
 };
 
@@ -513,7 +585,10 @@ exports['agenda.setOfficial'] = (notification, options) => {
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.setOfficial'], values),
+    label: intl.formatMessage(
+      notificationsMessages['agenda.setOfficial'],
+      values,
+    ),
   };
 };
 
@@ -521,7 +596,10 @@ exports['agenda.aggregateEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const label = intl.formatMessage(notificationsMessages['agenda.aggregateEvent'], values);
+  const label = intl.formatMessage(
+    notificationsMessages['agenda.aggregateEvent'],
+    values,
+  );
 
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
@@ -541,7 +619,9 @@ exports['agenda.addEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
-  const messageKey = subjectsProps.actor ? 'agenda.addEvent' : 'agenda.addEvent.withoutActor';
+  const messageKey = subjectsProps.actor
+    ? 'agenda.addEvent'
+    : 'agenda.addEvent.withoutActor';
   const label = intl.formatMessage(notificationsMessages[messageKey], values);
 
   // If 1 event, go to the event

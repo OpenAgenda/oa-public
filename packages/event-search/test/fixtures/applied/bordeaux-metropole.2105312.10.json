@@ -107,18 +107,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -467,9 +462,7 @@
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        5598423
-      ],
+      "sourcePaths": [5598423],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -804,9 +797,7 @@
       "thematiques-bordeaux-metropole": [],
       "state": 1,
       "featured": false,
-      "sourcePaths": [
-        5598423
-      ],
+      "sourcePaths": [5598423],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -2345,9 +2336,7 @@
       "thematiques-bordeaux-metropole": [],
       "state": 0,
       "featured": false,
-      "sourcePaths": [
-        5598423
-      ],
+      "sourcePaths": [5598423],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -2459,9 +2448,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/aragon/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/aragon/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -2491,18 +2478,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -2659,18 +2641,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 45,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -2826,19 +2803,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -2980,19 +2951,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -3039,11 +3004,7 @@
         "fr": "CINÉMA UTOPIA, BORDEAUX\n\nL'ÂGE D'OR\n\nEric Minh Cuong Castaing\n\nFiction, expérimental\n\n21,46 minutes\n\nLors d’une série d’ateliers, des enfants handicapés moteurs expérimentent diverses techniques de danse et des lunettes de réalité virtuelle leur permettant de voir ce que voient des danseurs.\n\nAVEC THELMA\n\nAnn Sirot et Raphaël Balboni\n\nFiction\n\n14 minutes\n\nJean est le copain de Vincent et Vincent est l'oncle de Thelma, une enfant de 3 ans. Les parents de la fillette sont coincés à l’étranger.\n\nCE N'EST QU'APRÈS\n\nVincent Pouplard\n\nDocumentaire\n\n29 minutes\n\nlls ont à peine 20 ans. Ils sont robustes, fragiles, habiles. Ils sont Allia, Hamza, Kilian et Maelis. Ils passent du temps à se dire, à nommer ce qu’ils sont, creux et pleins.\n\nMALANKA\n\nPaul-Louis Léger, Pascal Messaoudi\n\nDocumentaire\n\n13 minutes\n\nQuelque-part dans les collines ukrainiennes, près de la frontière roumaine, Gigi célèbre Malanka, une fête païenne dont les ours sont les héros.\n\n────────────────────────────────\n\n• Toute la programmation : www.trentetrente.com\n\n────────────────────────────────\n\n• Nous suivre :\n\ninsta : http://www.instagram.com/trentetrente.lesrencontres/\n\nfb : Trente Trente - Les Rencontres\n\n#trentetrente2020"
       },
       "keywords": {
-        "fr": [
-          "cinéma",
-          "projection",
-          "art"
-        ]
+        "fr": ["cinéma", "projection", "art"]
       },
       "conditions": {
         "fr": "7€"
@@ -3130,19 +3091,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -3283,19 +3238,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {

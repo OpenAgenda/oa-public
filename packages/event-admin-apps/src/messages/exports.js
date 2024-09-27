@@ -42,4 +42,8 @@ export default defineMessages({
     id: 'EventAdminApp.messages.exports.toDOCX',
     defaultMessage: 'to DOCX',
   },
+  cancel: {
+    id: 'EventAdminApp.messages.exports.cancel',
+    defaultMessage: 'Cancel',
+  },
 });

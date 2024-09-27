@@ -1,5 +1,3 @@
-import React from 'react';
-
 function AgendaHeader(props) {
   const { agenda } = props;
   return (

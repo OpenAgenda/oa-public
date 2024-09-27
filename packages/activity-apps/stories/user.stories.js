@@ -5,33 +5,37 @@ import PageDecorator from './decorators/PageDecorator';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
+const getHostname = () =>
+  (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
-const getDefaultState = ( { apiRoot } = {} ) => ({
+const getDefaultState = ({ apiRoot } = {}) => ({
   settings: {
     apiRoot,
     prefix: '',
     perPageLimit: 20,
   },
   res: {
-    list: '/user/list'
-  }
+    list: '/user/list',
+  },
 });
 
 export default {
   title: 'User',
-  decorators: [
-    PageDecorator,
-  ],
-}
+  decorators: [PageDecorator],
+};
 
 export function App() {
-  return wrapApp(createApp({
-    history: createMemoryHistory(),
-    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` }),
-  }), {
-    extraProps: {
-      lang: 'fr',
+  return wrapApp(
+    createApp({
+      history: createMemoryHistory(),
+      initialState: getDefaultState({
+        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}`,
+      }),
+    }),
+    {
+      extraProps: {
+        lang: 'fr',
+      },
     },
-  });
+  );
 }

@@ -1,10 +1,10 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 
 function _cleanup(file) {
   if (Array.isArray(file)) {
-    return file.forEach(f => _cleanup(f));
+    return file.forEach((f) => _cleanup(f));
   }
 
   if (fs.existsSync(file.path)) {
@@ -20,7 +20,7 @@ module.exports = function createCleanupMw() {
       }
 
       if (req.files) {
-        Object.keys(req.files).forEach(name => _cleanup(req.files[name]));
+        Object.keys(req.files).forEach((name) => _cleanup(req.files[name]));
       }
     });
 

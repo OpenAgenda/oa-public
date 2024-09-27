@@ -1,8 +1,8 @@
-import React, { useCallback, useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { Form, Field } from 'react-final-form';
 import { useDispatch } from 'react-redux';
-import I18nContext from '../contexts/I18nContext';
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
+import I18nContext from '../contexts/I18nContext';
 import * as agendaActions from '../reducers/agenda';
 import catchFormErrors from '../utils/catchFormErrors';
 
@@ -13,17 +13,15 @@ export default function LabSettingsForm() {
   const dispatch = useDispatch();
 
   const onSubmit = useCallback(
-    (data, form) => dispatch(agendaActions.edit({ settings: { lab: data } }))
-      .then(result => form.reset(result.data.agenda.settings.lab))
-      .catch(error => catchFormErrors(error, 'settings.lab')),
-    [dispatch]
+    (data, form) =>
+      dispatch(agendaActions.edit({ settings: { lab: data } }))
+        .then((result) => form.reset(result.data.agenda.settings.lab))
+        .catch((error) => catchFormErrors(error, 'settings.lab')),
+    [dispatch],
   );
 
   return (
-    <Form
-      onSubmit={onSubmit}
-      initialValues={agenda.settings.lab}
-    >
+    <Form onSubmit={onSubmit} initialValues={agenda.settings.lab}>
       {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
           <Field
@@ -33,12 +31,24 @@ export default function LabSettingsForm() {
               <div className="checkbox">
                 <label>
                   <input {...input} />
-                  {getLabel('eventStatusDesc')}<br/><a target="_blank" href="https://doc.openagenda.com/les-etats-dun-evenement/">En savoir plus</a>
+                  {getLabel('eventStatusDesc')}
+                  <br />
+                  <a
+                    target="_blank"
+                    href="https://doc.openagenda.com/les-etats-dun-evenement/"
+                    rel="noreferrer"
+                  >
+                    En savoir plus
+                  </a>
                 </label>
               </div>
             )}
           />
-          <button className="btn btn-primary" type="submit" disabled={submitting}>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            disabled={submitting}
+          >
             {getLabel('update')}
 
             {submitting ? (
@@ -51,4 +61,4 @@ export default function LabSettingsForm() {
       )}
     </Form>
   );
-};
+}

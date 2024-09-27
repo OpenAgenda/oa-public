@@ -6,5 +6,5 @@ const parseEvent = require('./parseEvent');
 module.exports = {
   head,
   parseEvent,
-  tail: () => ''
+  tail: () => '',
 };

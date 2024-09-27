@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const es = require('@elastic/elasticsearch');
 const logger = require('@openagenda/logs');
 
@@ -18,15 +17,16 @@ module.exports = (config = {}) => {
     listAgendas,
     elasticsearch,
     defaultImage,
-    site
+    site,
   } = {
     alias: 'agendas',
     defaultImage: null,
     site: {
       url: 'https://openagenda.com',
-      image: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png'
+      image:
+        'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png',
     },
-    ...config
+    ...config,
   };
 
   if (!listAgendas) {
@@ -51,25 +51,26 @@ module.exports = (config = {}) => {
     client,
     listAgendas,
     getDetailedAgenda,
-    cleanIndexedAgenda: cleanIndexedAgenda({ defaultImage })
+    cleanIndexedAgenda: cleanIndexedAgenda({ defaultImage }),
   };
 
   const service = {
     list: list.bind(null, utilities),
     rebuild: rebuild.bind(null, utilities),
     resyncUpdated: resyncUpdated.bind(null, utilities),
-    set: set.bind(null ,utilities),
-    remove: agenda => client.delete({
-      index: alias,
-      id: agenda.uid
-    }),
+    set: set.bind(null, utilities),
+    remove: (agenda) =>
+      client.delete({
+        index: alias,
+        id: agenda.uid,
+      }),
     getElasticsearchClient: () => client,
     getConfig: () => ({
-      site
-    })
+      site,
+    }),
   };
 
   service.mw = mw(service);
 
   return Object.assign(service.list, service);
-}
+};

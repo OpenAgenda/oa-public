@@ -4,7 +4,7 @@ import { useIntl, defineMessages } from 'react-intl';
 const messages = defineMessages({
   search: {
     id: 'react-layouts.components.Search.search',
-    defaultMessage: 'Search',
+    defaultMessage: 'Search an agenda',
   },
 });
 
@@ -21,7 +21,11 @@ function Search() {
       />
       {/* <input type="hidden" name="lang" value="<%= lang %>" /> */}
       <div className="search-button">
-        <button className="search-submit" type="submit">
+        <button
+          className="search-submit"
+          type="submit"
+          aria-label={intl.formatMessage(messages.search)}
+        >
           <i className="fa fa-search" />
         </button>
       </div>

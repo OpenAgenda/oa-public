@@ -9,9 +9,7 @@ import addEventAggregationActivity from './lib/addEventAggregationActivity.js';
 const log = logs('agendaEvents/onUpdate');
 
 export default async ({ config, services }, before, after, context) => {
-  const {
-    legacy: legacySvc,
-  } = services;
+  const { legacy: legacySvc } = services;
 
   const controlDataSvc = legacySvc.controlData;
 
@@ -22,7 +20,12 @@ export default async ({ config, services }, before, after, context) => {
     _.pick(context, ['legacy', 'aggregated', 'batched', 'stateChangeType']),
   );
 
-  const { agenda, event, user } = await fallbackContextGet({ services }, 'onUpdate', after, context);
+  const { agenda, event, user } = await fallbackContextGet(
+    { services },
+    'onUpdate',
+    after,
+    context,
+  );
 
   if (after.state === 2) {
     try {
@@ -30,7 +33,7 @@ export default async ({ config, services }, before, after, context) => {
     } catch (e) {
       log('error', 'control data set failed', e);
     }
-  } else if ((before.state === 2) && (after.state !== 2)) {
+  } else if (before.state === 2 && after.state !== 2) {
     try {
       await controlDataSvc.remove(before);
     } catch (e) {
@@ -59,9 +62,16 @@ export default async ({ config, services }, before, after, context) => {
     // eventChangeState
     // myEventChangeState
     try {
-      await sendEventChangeState({ config, services }, {
-        agendaEvent: after, before, context, agenda, event,
-      });
+      await sendEventChangeState(
+        { config, services },
+        {
+          agendaEvent: after,
+          before,
+          context,
+          agenda,
+          event,
+        },
+      );
     } catch (error) {
       log.error(new VError(error, 'Cannot send event change state emails'));
     }
@@ -69,7 +79,13 @@ export default async ({ config, services }, before, after, context) => {
 
   if (stateChanged && user) {
     try {
-      await addEventUpdateActivity(services, { agenda, event, user }, before, after, context.stateChangeType);
+      await addEventUpdateActivity(
+        services,
+        { agenda, event, user },
+        before,
+        after,
+        context.stateChangeType,
+      );
     } catch (e) {
       log.error(new VError(e, 'Cannot create state change activities'));
     }

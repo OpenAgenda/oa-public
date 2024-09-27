@@ -1,10 +1,6 @@
 export default function CheckboxField(props) {
   const {
-    field: {
-      options,
-      field: name,
-      default: defaultValue,
-    },
+    field: { options, field: name, default: defaultValue },
     value,
     onChange,
     enabled,
@@ -16,24 +12,28 @@ export default function CheckboxField(props) {
 
   return (
     <>
-      {options.filter(o => o.display).map(o => (
-        <div
-          className="checkbox"
-          key={[name, o.value].join('.')}
-        >
-          <label htmlFor={`${name}.${o.value}`}>
-            <input
-              id={`${name}.${o.value}`}
-              type="checkbox"
-              onChange={onChange.bind(null, checked.includes(o.id) ? checked.filter(cId => cId !== o.id) : checked.concat(o.id))}
-              checked={checked.includes(o.id)}
-              disabled={!enabled}
-            />
-            {o.label}
-            {o.info && <div className="text-muted">{o.info}</div>}
-          </label>
-        </div>
-      ))}
+      {options
+        .filter((o) => o.display)
+        .map((o) => (
+          <div className="checkbox" key={[name, o.value].join('.')}>
+            <label htmlFor={`${name}.${o.value}`}>
+              <input
+                id={`${name}.${o.value}`}
+                type="checkbox"
+                onChange={onChange.bind(
+                  null,
+                  checked.includes(o.id)
+                    ? checked.filter((cId) => cId !== o.id)
+                    : checked.concat(o.id),
+                )}
+                checked={checked.includes(o.id)}
+                disabled={!enabled}
+              />
+              {o.label}
+              {o.info && <div className="text-muted">{o.info}</div>}
+            </label>
+          </div>
+        ))}
     </>
   );
 }

@@ -120,9 +120,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -245,9 +243,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -356,9 +352,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.la-sirene.fr/"
-      ],
+      "registration": ["http://www.la-sirene.fr/"],
       "location": {
         "uid": 28703040,
         "slug": "la-sirene879",
@@ -392,9 +386,7 @@
       "tarif": "Tarif sur place : 25 € (plein tarif 22 €, tarif réduit 20 €, 19 € pour les abonnés)",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -448,11 +440,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "BD",
-          "Johan Troïanowski",
-          "jeune public"
-        ]
+        "fr": ["BD", "Johan Troïanowski", "jeune public"]
       },
       "conditions": {
         "fr": "Nombre de places limité, sur inscription auprès de la bibliothèque",
@@ -509,9 +497,7 @@
         "min": 6,
         "max": 18
       },
-      "registration": [
-        "04 90 91 51 52"
-      ],
+      "registration": ["04 90 91 51 52"],
       "location": {
         "uid": 42389535,
         "slug": "musee-dart-et-dhistoire-couvent-des-cordeliers550",
@@ -545,12 +531,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
       "si-autre-precisez": null,
@@ -606,12 +588,7 @@
         "en": "Exhibition on the history of comic books in Reunion Island. Exhibition produced by the departmental library of La Réunion in collaboration with Natacha Eloy and Maca Rosee."
       },
       "keywords": {
-        "fr": [
-          "Exposition",
-          "lemurie",
-          "Bande dessinée",
-          null
-        ]
+        "fr": ["Exposition", "lemurie", "Bande dessinée", null]
       },
       "conditions": {},
       "image": {
@@ -791,12 +768,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -923,10 +896,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "contact@citebd.org",
-        "0545386565"
-      ],
+      "registration": ["contact@citebd.org", "0545386565"],
       "location": {
         "uid": 89126825,
         "slug": "cite-de-la-bande-dessinee-dangouleme",
@@ -960,12 +930,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1107,9 +1073,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1612,9 +1576,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1743,9 +1705,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Quai du Polar",
       "type-de-structure": 633,
@@ -1873,12 +1833,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,

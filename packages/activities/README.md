@@ -1,11 +1,10 @@
-
 # Feed
 
 ## activities.feed( { entityType, entityUid } ) / .feed( id )
 
 Permet de pré-sélectionner un feed, sans faire de requête à la BDD pour le moment.
 
-***params:***  
+**_params:_**  
 entityType: Le type de l'entité qui sera utilisée, peut être 'user', 'agenda', 'event', ou 'network' par exemple  
 entityUid: L'uid de l'entité concernée
 
@@ -17,21 +16,20 @@ Créé un feed.
 
 Récupère les données du feed pré-sélectionné
 
-options *(object)*: 
+options _(object)_:
 
- - follow *(bool)*: Récupère aussi ses follows
- - followedBy *(bool)*: Récupère aussi les feeds par lesquels ce feed est suivi
+- follow _(bool)_: Récupère aussi ses follows
+- followedBy _(bool)_: Récupère aussi les feeds par lesquels ce feed est suivi
 
-return **data** *(object)*:
+return **data** _(object)_:
 
- - id
- - type: 'user', 'agenda', 'event', ou 'network' par exemple'
- - entityUid
-
+- id
+- type: 'user', 'agenda', 'event', ou 'network' par exemple'
+- entityUid
 
 ### .feed( { entityType, entityUid } ).remove( [cb] )
 
-Supprime le feed de manière *soft*.
+Supprime le feed de manière _soft_.
 
 ### .feed( { entityType, entityUid } ).follow( feedId [, cb] )
 
@@ -39,7 +37,7 @@ Supprime le feed de manière *soft*.
 
 Follow un autre feed.
 
-*Note*: Par la suite on pourrait ajouter un champ `private` à la table activity qui rend ou non l'activité followable par d'autres.
+_Note_: Par la suite on pourrait ajouter un champ `private` à la table activity qui rend ou non l'activité followable par d'autres.
 
 ### .feed( { entityType, entityUid } ).unfollow( feedId [, cb] )
 
@@ -53,24 +51,24 @@ Arrête de suivre un autre feed, tout en gardant l'historique qui a été suivi 
 
 Ajoute une activité à un feed. Puis l'ajoute à une notification ou en créé une nouvelle si besoin.
 
-activity *(object)*:
+activity _(object)_:
 
-- actor *(string)*: le sujet qui effectue l'action
-- verb *(string)*: le type d'action effectuée
-- object *(string)*: le sujet concerné par l'activité
-- additional_infos *(object)*: des informations supplémentaires si besoin, utile pour le formatage des notifications
+- actor _(string)_: le sujet qui effectue l'action
+- verb _(string)_: le type d'action effectuée
+- object _(string)_: le sujet concerné par l'activité
+- additional*infos *(object)\_: des informations supplémentaires si besoin, utile pour le formatage des notifications
 
 ### .feed( { entityType, entityUid } ).activities.list( [query,] fromId, limit, [options, cb] )
 
 Liste les activités d'un feed.
 
-query *(object)*:
+query _(object)_:
 
 - actor
 - verb
 - object
 
-options *(object)*: ??
+options _(object)_: ??
 
 ### .feed( { entityType, entityUid } ).activities.get( activityId [, cb] )
 
@@ -84,11 +82,11 @@ Les notifications sont limitées aux feeds utilisateurs.
 
 Liste les notifications d'un feed.
 
-query *(object)*:
+query _(object)_:
 
 - verb
 
-options *(object)*: ??
+options _(object)_: ??
 
 ### .feed( { entityType, entityUid } ).notifications.get( notificationId [, cb] )
 
@@ -98,10 +96,10 @@ Récupère une notification.
 
 Permet de marquer une notification comme vue ou lue.
 
-data *(object)*:
+data _(object)_:
 
-- mark_seen *(bool)*
-- mark_read *(bool)*
+- mark*seen *(bool)\_
+- mark*read *(bool)\_
 
 ### .feed( { entityType, entityUid } ).notifications.remove( notificationId [, cb] )
 

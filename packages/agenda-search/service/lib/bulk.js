@@ -7,14 +7,23 @@ module.exports = async ({ client, index, operation }, agendas) => {
 
   const result = await client.bulk({
     index,
-    body: agendas.reduce((carry, agenda) => carry.concat([{
-      [operation]: { _id: agenda.uid },
-    }, operation === 'index' ? agenda : { doc: agenda }]), [])
+    body: agendas.reduce(
+      (carry, agenda) =>
+        carry.concat([
+          {
+            [operation]: { _id: agenda.uid },
+          },
+          operation === 'index' ? agenda : { doc: agenda },
+        ]),
+      [],
+    ),
   });
 
-  for (const issue of result.body.items.filter(item => ![200, 201].includes(item.index.status))) {
+  for (const issue of result.body.items.filter(
+    (item) => ![200, 201].includes(item.index.status),
+  )) {
     log('error', `could not bulk index agenda ${issue.index._id}`, issue.index);
   }
 
   return (result.body.items || []).length;
-}
+};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 import base64 from 'base-64';
@@ -7,9 +7,7 @@ import utf8 from 'utf8';
 import { Modal } from '@openagenda/react-shared';
 import AgendaSearchInput from './AgendaSearchInput';
 
-const AggregatorModal = ({
-  targetAgenda, onClose, res, userLogged, root
-}) => {
+const AggregatorModal = ({ targetAgenda, onClose, res, userLogged, root }) => {
   const [noAgendas, setNoAgendas] = useState(false);
 
   const intl = useIntl();
@@ -21,7 +19,8 @@ const AggregatorModal = ({
     },
     aggregatorDescription: {
       id: 'aggregator-description',
-      defaultMessage: 'Events published by {targetAgenda} will be automatically added to the selected calendar.',
+      defaultMessage:
+        'Events published by {targetAgenda} will be automatically added to the selected calendar.',
     },
     noAgenda: {
       id: 'no-agenda',
@@ -34,7 +33,8 @@ const AggregatorModal = ({
     },
     signIn: {
       id: 'sign-in-agg',
-      defaultMessage: 'You need to sign in to your account to aggregate this event.',
+      defaultMessage:
+        'You need to sign in to your account to aggregate this event.',
     },
     connectionBtn: {
       id: 'connection-btn',
@@ -42,7 +42,7 @@ const AggregatorModal = ({
     },
   });
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     return onClose();
   };
@@ -53,19 +53,33 @@ const AggregatorModal = ({
     return base64.encode(bytes);
   };
 
-  const getTitleLink = agenda => `/${agenda.slug}/admin/sources?source=${targetAgenda.slug}&redirect=/${targetAgenda.slug}`;
+  const getTitleLink = (agenda) =>
+    `/${agenda.slug}/admin/sources?source=${targetAgenda.slug}&redirect=/${targetAgenda.slug}`;
 
   return (
     <div id="event">
-      <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
+      <Modal
+        classNames={{ overlay: 'popup-overlay big' }}
+        disableBodyScroll
+        onClose={onClose}
+      >
         <div className="export-form" onSubmit={handleSubmit}>
-          <button className="close" type="button" onClick={onClose}>
+          <button
+            className="close"
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+          >
             <i className="fa fa-times fa-lg" />
           </button>
-          <h2 className="export-title">{intl.formatMessage(messages.aggregatorTitle)}</h2>
+          <h2 className="export-title">
+            {intl.formatMessage(messages.aggregatorTitle)}
+          </h2>
           <div className="padding-right-sm">
             <p className="text-muted">
-              {intl.formatMessage(messages.aggregatorDescription, { targetAgenda: targetAgenda.title })}
+              {intl.formatMessage(messages.aggregatorDescription, {
+                targetAgenda: targetAgenda.title,
+              })}
             </p>
             <div className="search margin-top-md margin-bottom-sm">
               {!userLogged && (
@@ -81,7 +95,11 @@ const AggregatorModal = ({
               )}
               {userLogged && noAgendas && (
                 <>
-                  <p>{intl.formatMessage(messages.noAgenda, { targetAgenda: targetAgenda.title })}</p>
+                  <p>
+                    {intl.formatMessage(messages.noAgenda, {
+                      targetAgenda: targetAgenda.title,
+                    })}
+                  </p>
                   <a className="btn btn-primary" href="/agendas/new">
                     {intl.formatMessage(messages.createAgenda)}
                   </a>
@@ -90,11 +108,11 @@ const AggregatorModal = ({
               {userLogged && (
                 <AgendaSearchInput
                   filter={{ role: 'administrator' }}
-                  getTitleLink={agenda => getTitleLink(agenda)}
+                  getTitleLink={(agenda) => getTitleLink(agenda)}
                   res={res}
                   targetAgenda={targetAgenda}
                   preFetchAgendas
-                  noAgendas={bool => setNoAgendas(bool)}
+                  noAgendas={(bool) => setNoAgendas(bool)}
                 />
               )}
             </div>
@@ -115,8 +133,7 @@ AggregatorModal.propTypes = {
     slug: PropTypes.string,
   }).isRequired,
   userLogged: PropTypes.bool.isRequired,
-  root: PropTypes.string.isRequired
+  root: PropTypes.string.isRequired,
 };
 
-AggregatorModal.defaultProps = {
-};
+AggregatorModal.defaultProps = {};

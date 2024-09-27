@@ -14,11 +14,12 @@ function _logLoad(req, data) {
 
 function ifLoggedState(sessions, state, fn) {
   return (req, res, next) => {
-    sessions.isLogged(req)
+    sessions
+      .isLogged(req)
 
       .catch(next)
 
-      .then(is => {
+      .then((is) => {
         if (state === is) return fn(req, res, next);
 
         next();
@@ -27,8 +28,8 @@ function ifLoggedState(sessions, state, fn) {
 }
 
 function use(config, { cookieSession, cookieParser }, req, res, next) {
-  cookieParser(req, res, _err => {
-    cookieSession(req, res, err => {
+  cookieParser(req, res, (_err) => {
+    cookieSession(req, res, (err) => {
       if (err) return next(err);
 
       onHeaders(res, () => {
@@ -49,7 +50,7 @@ function use(config, { cookieSession, cookieParser }, req, res, next) {
               config.userCookie.name,
               Buffer.from(JSON.stringify(sess)).toString('base64'),
               {
-                encode: v => v,
+                encode: (v) => v,
                 expires: sess.expires ? new Date(sess.expires) : null,
                 secure: config.userCookie.secure,
                 sameSite: config.userCookie.sameSite,
@@ -65,7 +66,7 @@ function use(config, { cookieSession, cookieParser }, req, res, next) {
         return next();
       }
 
-      Object.keys(validateCookie.validateUnlogged.default).forEach(k => {
+      Object.keys(validateCookie.validateUnlogged.default).forEach((k) => {
         req.session[k] = validateCookie.validateUnlogged.default[k];
       });
 
@@ -74,7 +75,11 @@ function use(config, { cookieSession, cookieParser }, req, res, next) {
   });
 }
 
-function open({ sessions }, identifierNamespace = 'userIdentifier', targetNamespace = 'result') {
+function open(
+  { sessions },
+  identifierNamespace = 'userIdentifier',
+  targetNamespace = 'result',
+) {
   return (req, res, next) => {
     sessions.open(req, req[identifierNamespace], (err, result) => {
       if (err) return next(err);
@@ -91,10 +96,13 @@ function open({ sessions }, identifierNamespace = 'userIdentifier', targetNamesp
  */
 
 function load({ sessions }, options) {
-  const params = _.extend({
-    target: 'user',
-    detailed: false,
-  }, options || {});
+  const params = _.extend(
+    {
+      target: 'user',
+      detailed: false,
+    },
+    options || {},
+  );
 
   return (req, res, next) => {
     sessions.get(req, { detailed: params.detailed }, (err, user) => {

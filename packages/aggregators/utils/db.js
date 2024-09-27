@@ -4,10 +4,10 @@ const _ = require('lodash');
 const cleanRules = require('./rules/clean');
 const limit = require('./limit');
 
-module.exports.toEntry = agg => {
+module.exports.toEntry = (agg) => {
   const entry = { review_id: agg.agendaId };
 
-  ['createdAt', 'updatedAt', 'limit'].forEach(af => {
+  ['createdAt', 'updatedAt', 'limit'].forEach((af) => {
     if (af in agg) entry[_.snakeCase(af)] = agg[af];
   });
 
@@ -20,10 +20,10 @@ module.exports.toEntry = agg => {
   return entry;
 };
 
-module.exports.fromEntry = entry => {
+module.exports.fromEntry = (entry) => {
   const agg = {};
 
-  ['created_at', 'updated_at', 'limit'].forEach(ef => {
+  ['created_at', 'updated_at', 'limit'].forEach((ef) => {
     if (ef in entry) agg[_.camelCase(ef)] = entry[ef];
   });
 

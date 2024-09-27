@@ -4,8 +4,8 @@ import { isFuture, compareAsc, parseISO } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import capitalize from 'lodash/capitalize';
 import { Flex, Box, Grid, IconButton } from '@openagenda/uikit';
+import { spreadTimings, SpreadTimings } from '@openagenda/date-utils';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
-import spreadTimings, { SpreadTimings } from 'utils/spreadTimings';
 import { FaIcon } from 'icons';
 import { faChevronLeft, faChevronRight } from 'icons/regular';
 import { timings as messages } from '../messages';
@@ -13,12 +13,16 @@ import { timings as messages } from '../messages';
 function findNextOrLastTiming(timingsPerMonth: SpreadTimings) {
   let lastTiming = null;
 
-  const sortedMonths = Object.entries(timingsPerMonth).sort((a, b) => compareAsc(parseISO(a[0]), parseISO(b[0])));
+  const sortedMonths = Object.entries(timingsPerMonth).sort((a, b) =>
+    compareAsc(parseISO(a[0]), parseISO(b[0])));
 
   for (const [month, weeks] of sortedMonths) {
-    const sortedWeeks = Object.entries(weeks).sort((a, b) => Number(a[0]) - Number(b[0]));
+    const sortedWeeks = Object.entries(weeks).sort(
+      (a, b) => Number(a[0]) - Number(b[0]),
+    );
     for (const [week, days] of sortedWeeks) {
-      const sortedDays = Object.entries(days).sort((a, b) => compareAsc(parseISO(a[0]), parseISO(b[0])));
+      const sortedDays = Object.entries(days).sort((a, b) =>
+        compareAsc(parseISO(a[0]), parseISO(b[0])));
       for (const [day, timings] of sortedDays) {
         for (const timing of timings) {
           lastTiming = { month, week, day, timing };
@@ -34,7 +38,8 @@ function findNextOrLastTiming(timingsPerMonth: SpreadTimings) {
 }
 
 function findPreviousMonth(timingsPerMonth: SpreadTimings, month: string) {
-  const sortedMonths = Object.keys(timingsPerMonth).sort((a, b) => compareAsc(parseISO(a), parseISO(b)));
+  const sortedMonths = Object.keys(timingsPerMonth).sort((a, b) =>
+    compareAsc(parseISO(a), parseISO(b)));
   const currentIndex = sortedMonths.indexOf(month);
 
   if (currentIndex <= 0) {
@@ -45,7 +50,8 @@ function findPreviousMonth(timingsPerMonth: SpreadTimings, month: string) {
 }
 
 function findNextMonth(timingsPerMonth: SpreadTimings, month: string) {
-  const sortedMonths = Object.keys(timingsPerMonth).sort((a, b) => compareAsc(parseISO(a), parseISO(b)));
+  const sortedMonths = Object.keys(timingsPerMonth).sort((a, b) =>
+    compareAsc(parseISO(a), parseISO(b)));
   const currentIndex = sortedMonths.indexOf(month);
 
   if (currentIndex === -1 || currentIndex >= sortedMonths.length - 1) {
@@ -60,16 +66,26 @@ function TimingsDisplay({ timingsPerWeek, timezone }) {
 
   return (
     <Flex direction="column" gap="2">
-      {Object.values(timingsPerWeek).map(week =>
+      {Object.values(timingsPerWeek).map((week) =>
         Object.entries(week).map(([day, dayTimings]) => (
           <Flex key={day} justify="space-between">
-            <div>{capitalize(formatInTimeZone(new Date(day), 'UTC', 'eeee d', { locale: dateFnsLocale }))}</div>
             <div>
-              {dayTimings.map(timing => (
+              {capitalize(
+                formatInTimeZone(new Date(day), 'UTC', 'eeee d', {
+                  locale: dateFnsLocale,
+                }),
+              )}
+            </div>
+            <div>
+              {dayTimings.map((timing) => (
                 <div key={timing.begin}>
-                  {formatInTimeZone(new Date(timing.begin), timezone, 'HH:mm', { locale: dateFnsLocale })}
+                  {formatInTimeZone(new Date(timing.begin), timezone, 'HH:mm', {
+                    locale: dateFnsLocale,
+                  })}
                   &nbsp;-&nbsp;
-                  {formatInTimeZone(new Date(timing.end), timezone, 'HH:mm', { locale: dateFnsLocale })}
+                  {formatInTimeZone(new Date(timing.end), timezone, 'HH:mm', {
+                    locale: dateFnsLocale,
+                  })}
                 </div>
               ))}
             </div>
@@ -83,10 +99,18 @@ function TimingsWithNavigation({ timings, timezone }) {
   const intl = useIntl();
   const dateFnsLocale = useDateFnsLocale();
 
-  const timingsPerMonth = useMemo(() => spreadTimings(timings, timezone), [timings, timezone]);
-  const nextOrLastTiming = useMemo(() => findNextOrLastTiming(timingsPerMonth), [timingsPerMonth]);
+  const timingsPerMonth = useMemo(
+    () => spreadTimings(timings, timezone),
+    [timings, timezone],
+  );
+  const nextOrLastTiming = useMemo(
+    () => findNextOrLastTiming(timingsPerMonth),
+    [timingsPerMonth],
+  );
 
-  const [currentMonth, setCurrentMonth] = useState(() => nextOrLastTiming.month);
+  const [currentMonth, setCurrentMonth] = useState(
+    () => nextOrLastTiming.month,
+  );
 
   const previousMonth = useMemo(
     () => findPreviousMonth(timingsPerMonth, currentMonth),
@@ -121,7 +145,11 @@ function TimingsWithNavigation({ timings, timezone }) {
           />
         ) : null}
         <Box gridColumn="2" fontWeight="bold">
-          {capitalize(formatInTimeZone(new Date(currentMonth), 'UTC', 'MMMM yyyy', { locale: dateFnsLocale }))}
+          {capitalize(
+            formatInTimeZone(new Date(currentMonth), 'UTC', 'MMMM yyyy', {
+              locale: dateFnsLocale,
+            }),
+          )}
         </Box>
         {nextMonth ? (
           <IconButton
@@ -138,7 +166,10 @@ function TimingsWithNavigation({ timings, timezone }) {
         ) : null}
       </Grid>
 
-      <TimingsDisplay timingsPerWeek={timingsPerMonth[currentMonth]} timezone={timezone} />
+      <TimingsDisplay
+        timingsPerWeek={timingsPerMonth[currentMonth]}
+        timezone={timezone}
+      />
     </>
   );
 }
@@ -146,7 +177,10 @@ function TimingsWithNavigation({ timings, timezone }) {
 function TimingsWithoutNavigation({ timings, timezone }) {
   const dateFnsLocale = useDateFnsLocale();
 
-  const timingsPerMonth = useMemo(() => spreadTimings(timings, timezone), [timings, timezone]);
+  const timingsPerMonth = useMemo(
+    () => spreadTimings(timings, timezone),
+    [timings, timezone],
+  );
 
   return (
     <Flex direction="column" gap="4">
@@ -161,7 +195,11 @@ function TimingsWithoutNavigation({ timings, timezone }) {
             justify="center"
             mb="4"
           >
-            {capitalize(formatInTimeZone(new Date(month), 'UTC', 'MMMM yyyy', { locale: dateFnsLocale }))}
+            {capitalize(
+              formatInTimeZone(new Date(month), 'UTC', 'MMMM yyyy', {
+                locale: dateFnsLocale,
+              }),
+            )}
           </Flex>
 
           <TimingsDisplay timingsPerWeek={weeks} timezone={timezone} />

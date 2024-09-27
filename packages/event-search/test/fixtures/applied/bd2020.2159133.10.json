@@ -73,10 +73,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "odrozd@ville-melun.fr",
-        "01-64-52-10-95"
-      ],
+      "registration": ["odrozd@ville-melun.fr", "01-64-52-10-95"],
       "location": {
         "uid": 10196542,
         "slug": "mediatheque-astrolabe237",
@@ -110,12 +107,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48 h BD",
       "type-de-structure": 632,
       "si-autre-precisez": null,
@@ -223,9 +216,7 @@
         "min": 0,
         "max": 4
       },
-      "registration": [
-        "01-60-56-04-70"
-      ],
+      "registration": ["01-60-56-04-70"],
       "location": {
         "uid": 10196542,
         "slug": "mediatheque-astrolabe237",
@@ -259,12 +250,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -449,9 +436,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "01-60-56-04-70"
-      ],
+      "registration": ["01-60-56-04-70"],
       "location": {
         "uid": 10196542,
         "slug": "mediatheque-astrolabe237",
@@ -485,12 +470,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48 h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -601,9 +582,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "g.lamarque@europe-bordeaux.eu"
-      ],
+      "registration": ["g.lamarque@europe-bordeaux.eu"],
       "location": {
         "uid": 17185453,
         "slug": "cap-sciences43",
@@ -637,19 +616,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Fête de l'Europe 2020",
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": "Cap Sciences",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "51779186900012",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -998,9 +971,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1117,9 +1088,7 @@
         "min": 12,
         "max": 24
       },
-      "registration": [
-        "eukkiyev@gmail.com"
-      ],
+      "registration": ["eukkiyev@gmail.com"],
       "location": {
         "uid": 20444012,
         "slug": "region-de-tachkent-boustanlik",
@@ -1153,19 +1122,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        616
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [616],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
       "si-autre-precisez": null,
       "structure-partenaire": "Ecole n'14",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "Ecole n'19",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1334,12 +1297,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon International de l'Edition et du Livre de Casablanca",
       "type-de-structure": 629,
       "si-autre-precisez": null,
@@ -1482,12 +1441,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        616
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [616],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 629,
       "si-autre-precisez": null,
@@ -1598,9 +1553,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "elina.absalyamova@univ-paris13.fr"
-      ],
+      "registration": ["elina.absalyamova@univ-paris13.fr"],
       "location": {
         "uid": 48188032,
         "slug": "iut-de-saint-denis811",
@@ -1634,17 +1587,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
       "si-autre-precisez": "Université (IUT)",
       "structure-partenaire": "Laboratoire Pléiade, structure fédérative Medialect",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "19931238000017",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1750,9 +1699,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "elina.absalyamova@univ-paris13.fr"
-      ],
+      "registration": ["elina.absalyamova@univ-paris13.fr"],
       "location": {
         "uid": 48188032,
         "slug": "iut-de-saint-denis811",
@@ -1786,17 +1733,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
       "si-autre-precisez": "Université (IUT)",
       "structure-partenaire": "Laboratoire Pléiade, structure fédérative Medialect",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "19931238000017",
       "prix-pass-culture": 0,
       "url-pass-culture": null,

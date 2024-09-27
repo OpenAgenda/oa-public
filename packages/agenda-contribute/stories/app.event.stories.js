@@ -20,35 +20,34 @@ export default {
 };
 
 const mswHandlers = {
-  getContributorAgendaContext: http.get(
-    '/api/me/agendas/56500817',
-    () => HttpResponse.json(agendaContributorContext),
-  ),
+  getContributorAgendaContext: http.get('/api/me/agendas/56500817', () =>
+    HttpResponse.json(agendaContributorContext)),
   getContributorEventContext: http.get(
     '/api/me/agendas/56500817/events/20231103',
     () => HttpResponse.json(eventContributorContext),
   ),
-  getAgendaDetails: http.get(
-    '/api/agendas/56500817',
-    () => HttpResponse.json(agenda),
-  ),
+  getAgendaDetails: http.get('/api/agendas/56500817', () =>
+    HttpResponse.json(agenda)),
   searchAgendaLocations: http.get(
     '/api/agendas/56500817/locations',
     ({ request }) => {
       const url = new URL(request.url);
-      return HttpResponse.json(qs.parse(url.search, { ignoreQueryPrefix: true }).itemsKey === 'items' ? {
-        ..._.omit(locationsAPIResponse, 'locations'),
-        items: locationsAPIResponse.locations,
-      } : locationsAPIResponse);
+      return HttpResponse.json(
+        qs.parse(url.search, { ignoreQueryPrefix: true }).itemsKey === 'items'
+          ? {
+            ..._.omit(locationsAPIResponse, 'locations'),
+            items: locationsAPIResponse.locations,
+          }
+          : locationsAPIResponse,
+      );
     },
   ),
-  getLocationDetail: http.get(
-    '/locations/27156847.json',
-    () => HttpResponse.json(locationsAPIResponse.locations.find(l => l.uid === 27156847)),
-  ),
-  getEventDetails: http.get(
-    '/api/agendas/56500817/events/20231103',
-    () => HttpResponse.json({
+  getLocationDetail: http.get('/locations/27156847.json', () =>
+    HttpResponse.json(
+      locationsAPIResponse.locations.find((l) => l.uid === 27156847),
+    )),
+  getEventDetails: http.get('/api/agendas/56500817/events/20231103', () =>
+    HttpResponse.json({
       event: {
         title: { fr: 'Un titre' },
         description: { fr: 'Une description courte' },
@@ -60,8 +59,7 @@ const mswHandlers = {
         ],
         location: { uid: 27156847 },
       },
-    }),
-  ),
+    })),
 };
 
 /**
@@ -84,15 +82,18 @@ export const NewEventFormWithDefaults = componentFromFixtures(
   'Contributor is shown event form with default values loaded through URL',
   102,
 
-  qs.stringify({
-    defaults: {
-      event: {
-        title: {
-          fr: 'Un titre par défaut',
+  qs.stringify(
+    {
+      defaults: {
+        event: {
+          title: {
+            fr: 'Un titre par défaut',
+          },
         },
       },
     },
-  }, { addQueryPrefix: true }),
+    { addQueryPrefix: true },
+  ),
 );
 
 export const NewEventFormWithTwoLanguageTabsOpened = componentFromFixtures(
@@ -104,35 +105,38 @@ export const EventCreateLeadsToCompletionStep = componentFromFixtures(
   'When event is created, contributor goes to completing step',
   103,
 
-  qs.stringify({
-    defaults: {
-      event: {
-        title: {
-          fr: 'Un titre par défaut',
-        },
-        description: {
-          fr: 'Une description par défaut',
-        },
-        location: {
-          uid: 28723185,
-        },
-        timings: [
-          {
-            begin: {
-              date: '2022-06-17',
-              hours: 13,
-              minutes: 30,
-            },
-            end: {
-              date: '2022-06-17',
-              hours: 17,
-              minutes: 30,
-            },
+  qs.stringify(
+    {
+      defaults: {
+        event: {
+          title: {
+            fr: 'Un titre par défaut',
           },
-        ],
+          description: {
+            fr: 'Une description par défaut',
+          },
+          location: {
+            uid: 28723185,
+          },
+          timings: [
+            {
+              begin: {
+                date: '2022-06-17',
+                hours: 13,
+                minutes: 30,
+              },
+              end: {
+                date: '2022-06-17',
+                hours: 17,
+                minutes: 30,
+              },
+            },
+          ],
+        },
       },
     },
-  }, { addQueryPrefix: true }),
+    { addQueryPrefix: true },
+  ),
 );
 
 export const EditDraftEventForm = componentFromFixtures(
@@ -186,8 +190,9 @@ export const EditConfirmation = {
 
     return (
       <>
-        <p className="text-center">Submit form to see confirmation screen displayed before redirect. Happens when a pass
-          offer has been created.
+        <p className="text-center">
+          Submit form to see confirmation screen displayed before redirect.
+          Happens when a pass offer has been created.
         </p>
         {wrapApp(
           createApp({
@@ -213,9 +218,8 @@ export const EditConfirmation = {
         mswHandlers.searchAgendaLocations,
         mswHandlers.getLocationDetail,
         mswHandlers.getEventDetails,
-        http.post(
-          '/ile-de-france/contribute/event/20231103',
-          () => HttpResponse.json({
+        http.post('/ile-de-france/contribute/event/20231103', () =>
+          HttpResponse.json({
             success: true,
             event: {
               uid: 123,
@@ -230,8 +234,7 @@ export const EditConfirmation = {
                 },
               ],
             },
-          }),
-        ),
+          })),
       ],
     },
   },
@@ -247,24 +250,30 @@ export const ServerValidationErrors = {
 
     return (
       <>
-        <p className="text-center">Submit form to see server validation errors appear on bottom of form. The server
-          responds with the following payload:
+        <p className="text-center">
+          Submit form to see server validation errors appear on bottom of form.
+          The server responds with the following payload:
         </p>
         <pre>
           <code>
-            {JSON.stringify({
-              success: false,
-              errors: [
-                {
-                  message: 'failed to create pass offer',
-                  code: 'registration.pass',
-                  field: 'registration',
-                  fieldLabel: 'Pass Culture',
-                  label: 'Il y a eu une erreur lors de la création de l\'offre Pass',
-                },
-              ],
-              event: null,
-            }, null, 2)}
+            {JSON.stringify(
+              {
+                success: false,
+                errors: [
+                  {
+                    message: 'failed to create pass offer',
+                    code: 'registration.pass',
+                    field: 'registration',
+                    fieldLabel: 'Pass Culture',
+                    label:
+                      "Il y a eu une erreur lors de la création de l'offre Pass",
+                  },
+                ],
+                event: null,
+              },
+              null,
+              2,
+            )}
           </code>
         </pre>
         {wrapApp(
@@ -291,9 +300,8 @@ export const ServerValidationErrors = {
         mswHandlers.searchAgendaLocations,
         mswHandlers.getLocationDetail,
         mswHandlers.getEventDetails,
-        http.post(
-          '/ile-de-france/contribute/event/20231103',
-          () => HttpResponse.json({
+        http.post('/ile-de-france/contribute/event/20231103', () =>
+          HttpResponse.json({
             success: false,
             errors: [
               {
@@ -301,12 +309,12 @@ export const ServerValidationErrors = {
                 code: 'registration.pass',
                 field: 'registration',
                 fieldLabel: 'Pass Culture',
-                label: 'Il y a eu une erreur lors de la création de l\'offre Pass',
+                label:
+                  "Il y a eu une erreur lors de la création de l'offre Pass",
               },
             ],
             event: null,
-          }),
-        ),
+          })),
       ],
     },
   },

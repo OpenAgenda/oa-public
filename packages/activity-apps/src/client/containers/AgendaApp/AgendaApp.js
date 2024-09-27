@@ -1,4 +1,3 @@
-import React from 'react';
 import { provideHooks } from 'redial';
 import { renderRoutes } from 'react-router-config';
 import { reducer as formReducer } from 'redux-form';
@@ -22,17 +21,16 @@ function AgendaApp({ route }) {
       messages={locales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >
-      <div className="activity-agenda-admin">
-        {renderRoutes(route.routes)}
-      </div>
+      <div className="activity-agenda-admin">{renderRoutes(route.routes)}</div>
     </IntlProvider>
   );
 }
 
 export default provideHooks({
-  inject: ({ store }) => store.inject({
-    form: formReducer,
-    modals: modalsReducer,
-    activities: activitiesReducer
-  })
+  inject: ({ store }) =>
+    store.inject({
+      form: formReducer,
+      modals: modalsReducer,
+      activities: activitiesReducer,
+    }),
 })(AgendaApp);

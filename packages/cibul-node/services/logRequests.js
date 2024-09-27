@@ -3,14 +3,15 @@ import logs from '@openagenda/logs';
 
 const log = logs('incoming');
 
-const blacklist = [
-  /^\/legacy/,
-];
+const blacklist = [/^\/legacy/];
 
-morgan.token('client-ip', req => {
+morgan.token('client-ip', (req) => {
   let clientIp;
 
-  if (req.headers['cf-connecting-ip'] && req.headers['cf-connecting-ip'].length) {
+  if (
+    req.headers['cf-connecting-ip']
+    && req.headers['cf-connecting-ip'].length
+  ) {
     [clientIp] = req.headers['cf-connecting-ip'].split(', ');
   }
 
@@ -25,7 +26,7 @@ morgan.token('client-ip', req => {
   return clientIp;
 });
 
-morgan.token('path', req => req.path);
+morgan.token('path', (req) => req.path);
 
 function headersSent(res) {
   return typeof res.headersSent !== 'boolean'
@@ -38,13 +39,18 @@ function withColor(txt) {
 }
 
 function colored(txt, color = 0) {
-  return process.env.NODE_ENV === 'development' ? `\x1b[${color}m${txt}\x1b[0m` : txt;
+  return process.env.NODE_ENV === 'development'
+    ? `\x1b[${color}m${txt}\x1b[0m`
+    : txt;
 }
 
 const mags = ' KMGTPEZY';
 
 function humanSize(bytes, precision) {
-  const magnitude = Math.min(Math.log(bytes) / Math.log(1024) | 0, mags.length - 1);
+  const magnitude = Math.min(
+    (Math.log(bytes) / Math.log(1024)) | 0,
+    mags.length - 1,
+  );
   const result = bytes / 1024 ** magnitude;
   const suffix = `${mags[magnitude].trim()}B`;
 
@@ -53,9 +59,7 @@ function humanSize(bytes, precision) {
 
 export const middleware = morgan(
   (tokens, req, res) => {
-    const statusCode = headersSent(res)
-      ? res.statusCode
-      : undefined;
+    const statusCode = headersSent(res) ? res.statusCode : undefined;
 
     // get status color
     let color;
@@ -91,22 +95,32 @@ export const middleware = morgan(
     if (process.env.NODE_ENV === 'production') {
       log.info(data);
     } else {
-      const { method, url, httpVersion, ip, status, contentLength, responseTime } = data;
+      const {
+        method,
+        url,
+        httpVersion,
+        ip,
+        status,
+        contentLength,
+        responseTime,
+      } = data;
 
-      log.info(withColor(
-        [
-          `"${method} ${colored(url, 1)} HTTP/${httpVersion}"`,
-          ip,
-          colored(colored(status, color), 1),
-          contentLength ? humanSize(contentLength, 2) : '-',
-          '~',
-          `${responseTime}ms`,
-        ].join(' '),
-      ));
+      log.info(
+        withColor(
+          [
+            `"${method} ${colored(url, 1)} HTTP/${httpVersion}"`,
+            ip,
+            colored(colored(status, color), 1),
+            contentLength ? humanSize(contentLength, 2) : '-',
+            '~',
+            `${responseTime}ms`,
+          ].join(' '),
+        ),
+      );
     }
   },
   {
-    skip: req => blacklist.some(regexp => regexp.test(req.originalUrl)),
+    skip: (req) => blacklist.some((regexp) => regexp.test(req.originalUrl)),
   },
 );
 

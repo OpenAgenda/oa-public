@@ -8,7 +8,7 @@ const boolean = require('@openagenda/validators/boolean');
 
 schema.register({ integer, text, date, boolean });
 
-const isNumber = a => typeof a === 'number';
+const isNumber = (a) => typeof a === 'number';
 
 const validate = schema({
   agendaUid: {
@@ -25,14 +25,20 @@ const validate = schema({
     type: 'integer',
     default: null,
   },
-  updatedAt: ['gt', 'lt', 'gte', 'lte'].reduce((updatedAt, op) => ({
-    ...updatedAt,
-    [op]: { type: 'date' },
-  }), {}),
-  createdAt: ['gt', 'lt', 'gte', 'lte'].reduce((createdAt, op) => ({
-    ...createdAt,
-    [op]: { type: 'date' },
-  }), {}),
+  updatedAt: ['gt', 'lt', 'gte', 'lte'].reduce(
+    (updatedAt, op) => ({
+      ...updatedAt,
+      [op]: { type: 'date' },
+    }),
+    {},
+  ),
+  createdAt: ['gt', 'lt', 'gte', 'lte'].reduce(
+    (createdAt, op) => ({
+      ...createdAt,
+      [op]: { type: 'date' },
+    }),
+    {},
+  ),
   uids: {
     type: 'integer',
     list: {
@@ -83,7 +89,7 @@ const validate = schema({
   },
 });
 
-const preCleanAndValidate = query => {
+const preCleanAndValidate = (query) => {
   const cleanQuery = { ...query };
   if (query.uids && typeof query.uids === 'string') {
     cleanQuery.uids = query.uids.split(',');
@@ -93,12 +99,22 @@ const preCleanAndValidate = query => {
 
 module.exports = async (service, k, deleted, query) => {
   const {
-    agendaUid, setUid, search, state, updatedAt, createdAt, uids, excludeUid, geo, hasNull, hasDuplicateCandidates,
+    agendaUid,
+    setUid,
+    search,
+    state,
+    updatedAt,
+    createdAt,
+    uids,
+    excludeUid,
+    geo,
+    hasNull,
+    hasDuplicateCandidates,
   } = preCleanAndValidate(query);
   const agendaId = agendaUid
     ? await service.interfaces
       .getAgendaDetailsByUid(agendaUid, ['id'])
-      .then(r => (r ? r.id : null))
+      .then((r) => (r ? r.id : null))
     : null;
 
   if (agendaId) {
@@ -120,29 +136,50 @@ module.exports = async (service, k, deleted, query) => {
   }
 
   Object.keys(updatedAt)
-    .filter(op => !!updatedAt[op])
-    .forEach(op => {
-      k.where('updated_at', {
-        gt: '>', gte: '>=', lt: '<', lte: '<=',
-      }[op], updatedAt[op]);
+    .filter((op) => !!updatedAt[op])
+    .forEach((op) => {
+      k.where(
+        'updated_at',
+        {
+          gt: '>',
+          gte: '>=',
+          lt: '<',
+          lte: '<=',
+        }[op],
+        updatedAt[op],
+      );
     });
 
   Object.keys(createdAt)
-    .filter(op => !!createdAt[op])
-    .forEach(op => {
-      k.where('created_at', {
-        gt: '>', gte: '>=', lt: '<', lte: '<=',
-      }[op], createdAt[op]);
+    .filter((op) => !!createdAt[op])
+    .forEach((op) => {
+      k.where(
+        'created_at',
+        {
+          gt: '>',
+          gte: '>=',
+          lt: '<',
+          lte: '<=',
+        }[op],
+        createdAt[op],
+      );
     });
 
   if (uids) {
-    k.whereIn('uid', uids.filter(uid => !!uid));
+    k.whereIn(
+      'uid',
+      uids.filter((uid) => !!uid),
+    );
   }
   if (excludeUid) {
     k.whereNotIn('uid', excludeUid);
   }
-  if (isNumber(geo?.northEast?.lat) && isNumber(geo?.northEast?.lng)
-    && isNumber(geo?.southWest?.lat) && isNumber(geo?.southWest?.lng)) {
+  if (
+    isNumber(geo?.northEast?.lat)
+    && isNumber(geo?.northEast?.lng)
+    && isNumber(geo?.southWest?.lat)
+    && isNumber(geo?.southWest?.lng)
+  ) {
     k.whereBetween('latitude', [geo.southWest.lat, geo.northEast.lat]);
     k.whereBetween('longitude', [geo.southWest.lng, geo.northEast.lng]);
   }
@@ -159,17 +196,20 @@ module.exports = async (service, k, deleted, query) => {
     k.whereNotNull('duplicate_candidates');
   }
   if (hasNull) {
-    const mapped = hasNull.map(e => ({
-      adminLevel1: 'region',
-      adminLevel2: 'department',
-      adminLevel3: 'admin_level_3',
-      adminLevel4: 'city',
-      adminLevel5: 'admin_level_5',
-      adminLevel6: 'city_district',
-      postalCode: 'postal_code',
-    })[e] ?? e);
+    const mapped = hasNull.map(
+      (e) =>
+        ({
+          adminLevel1: 'region',
+          adminLevel2: 'department',
+          adminLevel3: 'admin_level_3',
+          adminLevel4: 'city',
+          adminLevel5: 'admin_level_5',
+          adminLevel6: 'city_district',
+          postalCode: 'postal_code',
+        })[e] ?? e,
+    );
     k.where(function or() {
-      mapped.forEach(e => this.orWhere(e, null));
+      mapped.forEach((e) => this.orWhere(e, null));
     });
   }
 };

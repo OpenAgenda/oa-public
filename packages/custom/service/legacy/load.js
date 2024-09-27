@@ -1,79 +1,78 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const log = require( '@openagenda/logs' )( 'legacy/load' );
+const log = require('@openagenda/logs')('legacy/load');
 
-const agendaEvents = require( './agendaEvents' );
-const config = require( '../config' );
+const config = require('../config');
+const agendaEvents = require('./agendaEvents');
 
-module.exports = async ( formSchemaId, identifier, options = {} ) => {
+module.exports = async (formSchemaId, identifier, options = {}) => {
+  const { insertIfNotExists, agendaId } = _.assign(
+    {
+      insertIfNotExists: false,
+      agendaId: null,
+    },
+    options,
+  );
 
-  const { insertIfNotExists, agendaId } = _.assign( {
-    insertIfNotExists: false,
-    agendaId: null
-  }, options );
-
-  log( 'info', 'loading legacy data for formSchema %s', formSchemaId );
+  log('info', 'loading legacy data for formSchema %s', formSchemaId);
 
   const { knex } = config;
 
   const { schemas, interfaces } = config.legacy;
 
-  const fields = (
-    await interfaces.getFormSchemaFields( formSchemaId )
-  ).filter( f => f.fieldType !== 'abstract' );
+  const fields = (await interfaces.getFormSchemaFields(formSchemaId)).filter(
+    (f) => f.fieldType !== 'abstract',
+  );
 
-  log( 'info', 'fetched form schema fields', fields.map( f => f.field ).join( ', ' ) );
+  log(
+    'info',
+    'fetched form schema fields',
+    fields.map((f) => f.field).join(', '),
+  );
 
   let aId = agendaId;
 
-  if ( !agendaId ) {
+  if (!agendaId) {
+    log('info', 'Agenda is not specified. Retrieving.');
 
-    log( 'info', 'Agenda is not specified. Retrieving.' );
-
-    aId = _.get( await knex( schemas.agenda )
-      .first( 'id' )
-      .where( 'form_schema_id', formSchemaId ), 'id' );
-
+    aId = _.get(
+      await knex(schemas.agenda)
+        .first('id')
+        .where('form_schema_id', formSchemaId),
+      'id',
+    );
   }
 
-  const {
-    id: eventId,
-    custom_fields: customFieldsStr
-  } = await knex( schemas.event )
-    .first( [ 'id', 'custom_fields' ] )
-    .where( 'uid', identifier );
+  const { id: eventId, custom_fields: customFieldsStr } = await knex(
+    schemas.event,
+  )
+    .first(['id', 'custom_fields'])
+    .where('uid', identifier);
 
-  log( 'info', 'loaded legacy custom data for %s', formSchemaId );
+  log('info', 'loaded legacy custom data for %s', formSchemaId);
 
-  const {
-    id: agendaEventId,
-    categoryId
-  } = await agendaEvents( aId, eventId, insertIfNotExists );
+  const { id: agendaEventId, categoryId } = await agendaEvents(
+    aId,
+    eventId,
+    insertIfNotExists,
+  );
 
-  if ( agendaEventId === null ) {
-
-    throw new Error( `Did not find review_article ${aId}.${eventId}` );
-
+  if (agendaEventId === null) {
+    throw new Error(`Did not find review_article ${aId}.${eventId}`);
   }
 
-  log( 'info', 'loaded legacy agenda-event reference %s.%s', aId, eventId );
+  log('info', 'loaded legacy agenda-event reference %s.%s', aId, eventId);
 
   const custom = {};
 
   try {
-
-    if ( _.isString( customFieldsStr ) && customFieldsStr.length ) {
-
-      _.assign( custom, JSON.parse( customFieldsStr ) );
-
+    if (_.isString(customFieldsStr) && customFieldsStr.length) {
+      _.assign(custom, JSON.parse(customFieldsStr));
     }
-
-  } catch( e ) {
-
-    log( 'error', 'could not parse legacy custom fields: %j', customFieldsStr );
-
+  } catch (e) {
+    log('error', 'could not parse legacy custom fields: %j', customFieldsStr);
   }
 
   return {
@@ -82,7 +81,6 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
     eventId,
     agendaEventId,
     categoryId,
-    custom
-  }
-
-}
+    custom,
+  };
+};

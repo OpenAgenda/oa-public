@@ -11,12 +11,15 @@ const log = logs('services/activities/sendSummary');
 
 const intlByLocale = createIntlByLocale(locales);
 
-export default async function sendSummary(config, services, { user, notifications }, svcConfig) {
+export default async function sendSummary(
+  config,
+  services,
+  { user, notifications },
+  svcConfig,
+) {
   if (!notifications.length) return;
 
-  const {
-    mails,
-  } = services;
+  const { mails } = services;
 
   const activitiesConfig = svcConfig.activities;
 
@@ -25,12 +28,12 @@ export default async function sendSummary(config, services, { user, notification
 
     const intl = intlByLocale[lang] || intlByLocale.fr;
 
-    const notifs = notifications.map(notif => {
+    const notifs = notifications.map((notif) => {
       const { label, url } = formatters[notif.verb](notif, {
         intl,
         config: activitiesConfig[notif.verb],
         userUid: user.uid,
-        renderHighlight: v => `<span style="color: #413a42">${v}</span>`,
+        renderHighlight: (v) => `<span style="color: #413a42">${v}</span>`,
         escape: true,
       });
 
@@ -74,7 +77,9 @@ export default async function sendSummary(config, services, { user, notification
       data: {
         notifications: notifs,
         nbr: notifications.length,
-        date: moment(notifications[notifications.length - 1].updatedAt).locale(lang).format('LLL'),
+        date: moment(notifications[notifications.length - 1].updatedAt)
+          .locale(lang)
+          .format('LLL'),
         link: config.root,
         logo: {
           src: `${config.root}/images/openagenda.png`,
@@ -83,6 +88,11 @@ export default async function sendSummary(config, services, { user, notification
       },
     });
   } catch (err) {
-    log.error('Error to send daily notification email to the user %s (%s):', user.email, user.uid, err);
+    log.error(
+      'Error to send daily notification email to the user %s (%s):',
+      user.email,
+      user.uid,
+      err,
+    );
   }
 }

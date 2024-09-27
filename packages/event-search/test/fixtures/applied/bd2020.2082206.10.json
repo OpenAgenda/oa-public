@@ -15,9 +15,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "Jeu"
-        ]
+        "fr": ["Jeu"]
       },
       "conditions": {},
       "image": {
@@ -105,12 +103,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -163,11 +157,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "Scénaristes",
-          "Dessinateurs",
-          "Bandes dessinées"
-        ]
+        "fr": ["Scénaristes", "Dessinateurs", "Bandes dessinées"]
       },
       "conditions": {},
       "image": {
@@ -246,9 +236,7 @@
         "website": "http://avallon.sezhame.decalog.net/",
         "email": null,
         "phone": "03 86 34 46 18",
-        "links": [
-          "http://facebook.com/mediathequeavallon"
-        ],
+        "links": ["http://facebook.com/mediathequeavallon"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
@@ -262,12 +250,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -323,11 +307,7 @@
         "en": "Around his exhibition of original plates, the author of comic books Jean-Christophe Morandeau, offers guided tours - 2 sessions, at 11 am and 2:30 pm - and a signing meeting over the afternoon."
       },
       "keywords": {
-        "fr": [
-          "bande dessinée",
-          "dédicaces",
-          "exposition"
-        ]
+        "fr": ["bande dessinée", "dédicaces", "exposition"]
       },
       "conditions": {},
       "image": {
@@ -415,12 +395,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -562,12 +538,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1083,9 +1055,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "05 55 45 84 44"
-      ],
+      "registration": ["05 55 45 84 44"],
       "location": {
         "uid": 63087260,
         "slug": "musee-de-la-resistance590",
@@ -1119,9 +1089,7 @@
       "tarif": "4 euros (gratuit pour les moins de 26 ans)",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Musée de la Résistance - Ville de Limoges",
       "type-de-structure": 635,
@@ -1268,9 +1236,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1370,9 +1336,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "contact.mediatheque@ville-auverssuroise.fr"
-      ],
+      "registration": ["contact.mediatheque@ville-auverssuroise.fr"],
       "location": {
         "uid": 57198344,
         "slug": "auvers-sur-oise483",
@@ -1406,9 +1370,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1542,9 +1504,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1653,9 +1613,7 @@
         "min": 7,
         "max": 97
       },
-      "registration": [
-        "01 53 79 49 49"
-      ],
+      "registration": ["01 53 79 49 49"],
       "location": {
         "uid": 15749155,
         "slug": "bibliotheque-natinale-de-france-francois-mitterrand",
@@ -1689,9 +1647,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1914,9 +1870,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Rainer Maria Rilke",
       "type-de-structure": 623,

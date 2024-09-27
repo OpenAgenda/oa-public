@@ -6,10 +6,7 @@ const redis = require('redis');
 
 const Files = require('@openagenda/files');
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 
 const fixtures = require('./fixtures');
 
@@ -62,18 +59,19 @@ describe('agenda-locations - functional - create', () => {
       knex: f.client,
       redis: redisClient,
       interfaces: {
-        getAgendaDetailsByUid: async (uid, fields = []) => _.pick(
-          {
-            id: {
-              7196947: 25221,
-            }[uid],
-            locationSetUid: {
-              7196947: 1903810,
-            }[uid],
-          },
-          fields,
-        ),
-        geocode: async _address => [
+        getAgendaDetailsByUid: async (uid, fields = []) =>
+          _.pick(
+            {
+              id: {
+                7196947: 25221,
+              }[uid],
+              locationSetUid: {
+                7196947: 1903810,
+              }[uid],
+            },
+            fields,
+          ),
+        geocode: async (_address) => [
           {
             latitude: 47.6576571,
             longitude: -2.7834928,
@@ -82,14 +80,16 @@ describe('agenda-locations - functional - create', () => {
             adminLevel4: 'Vannes',
           },
         ],
-        reverseGeocode: async (_latitude, _longitude) => [{
-          address: 'an address',
-          adminLevel1: 'La région2',
-          adminLevel2: 'Morbihan2',
-          adminLevel4: 'Vannes2',
-          countryCode: 'FR',
-        }],
-        getAgendaLocationSettings: async _uid => initSettingsDA,
+        reverseGeocode: async (_latitude, _longitude) => [
+          {
+            address: 'an address',
+            adminLevel1: 'La région2',
+            adminLevel2: 'Morbihan2',
+            adminLevel4: 'Vannes2',
+            countryCode: 'FR',
+          },
+        ],
+        getAgendaLocationSettings: async (_uid) => initSettingsDA,
       },
       Files: Files(dConfig.files),
     });
@@ -187,36 +187,30 @@ describe('agenda-locations - functional - create', () => {
         .client('location')
         .first('set_uid')
         .where('uid', created.uid)
-        .then(r => r.set_uid);
+        .then((r) => r.set_uid);
       expect(entrySetUid).toBe(1903810);
     });
 
-    it(
-      'location cannot be created if specified set does not exist',
-      async () => {
-        let error;
-        try {
-          await svc.sets(90389033829).locations.create(
-            {
-              name: 'Bruchon',
-              address: 'Bruchon, Lamastre',
-              countryCode: 'FR',
-            },
-            { autocomplete: true },
-          );
-        } catch (e) {
-          error = e;
-        }
-        expect(error.message).toBe('set not found');
-      },
-    );
+    it('location cannot be created if specified set does not exist', async () => {
+      let error;
+      try {
+        await svc.sets(90389033829).locations.create(
+          {
+            name: 'Bruchon',
+            address: 'Bruchon, Lamastre',
+            countryCode: 'FR',
+          },
+          { autocomplete: true },
+        );
+      } catch (e) {
+        error = e;
+      }
+      expect(error.message).toBe('set not found');
+    });
 
-    it(
-      'location created on agendas endpoints and on an agenda associated with set is also associated to set',
-      async () => {
-        expect((await svc(7196947).create(payload)).setUid).toBe(1903810);
-      },
-    );
+    it('location created on agendas endpoints and on an agenda associated with set is also associated to set', async () => {
+      expect((await svc(7196947).create(payload)).setUid).toBe(1903810);
+    });
   });
 
   describe('with image', () => {
@@ -244,14 +238,17 @@ describe('agenda-locations - functional - create', () => {
     it('fix: image full path is not inserted in db', async () => {
       let created;
       try {
-        created = await svc(7196947).create({
-          ...payload,
-          image: fs.createReadStream(
-            `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
-          ),
-        }, {
-          includeImagePath: true,
-        });
+        created = await svc(7196947).create(
+          {
+            ...payload,
+            image: fs.createReadStream(
+              `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+            ),
+          },
+          {
+            includeImagePath: true,
+          },
+        );
       } catch (e) {
         // console.log(e);
       }
@@ -295,15 +292,18 @@ describe('agenda-locations - functional - create', () => {
     let location;
 
     beforeAll(async () => {
-      location = await svc(7196947).create({
-        name: 'Le Colisée',
-        address: '33 rue de l’Epeule Parvis du Colisée, Roubaix',
-        countryCode: 'FR',
-        latitude: 48.6576571,
-        longitude: -2.7834928,
-      }, {
-        autocomplete: true,
-      });
+      location = await svc(7196947).create(
+        {
+          name: 'Le Colisée',
+          address: '33 rue de l’Epeule Parvis du Colisée, Roubaix',
+          countryCode: 'FR',
+          latitude: 48.6576571,
+          longitude: -2.7834928,
+        },
+        {
+          autocomplete: true,
+        },
+      );
     });
 
     it('adminlevels are completed', () => {
@@ -317,40 +317,33 @@ describe('agenda-locations - functional - create', () => {
   });
 
   describe('fixes', () => {
-    it(
-      'long name does not trigger an exception due to slug overflow',
-      async () => {
-        const l = await svc(7196947).create({
-          name:
-            'Voie gallo-romaine dite voie de Jules César ou chemin de Chartres (également sur communes de Séme...',
-          address: '41160 Membrolles',
-          latitude: '47.996436',
-          longitude: '1.48131',
-          city: 'Membrolles',
-          department: 'Loir-et-Cher',
-          region: 'Centre-Val de Loire',
-          postalCode: '41160',
-          insee: '41173',
-          countryCode: 'FR',
-        });
-        expect(l).toBeDefined();
-      },
-    );
+    it('long name does not trigger an exception due to slug overflow', async () => {
+      const l = await svc(7196947).create({
+        name: 'Voie gallo-romaine dite voie de Jules César ou chemin de Chartres (également sur communes de Séme...',
+        address: '41160 Membrolles',
+        latitude: '47.996436',
+        longitude: '1.48131',
+        city: 'Membrolles',
+        department: 'Loir-et-Cher',
+        region: 'Centre-Val de Loire',
+        postalCode: '41160',
+        insee: '41173',
+        countryCode: 'FR',
+      });
+      expect(l).toBeDefined();
+    });
 
-    it(
-      'if name is an integer, it should be converted to string at slug conversion',
-      async () => {
-        const { name } = await svc(7196947).create({
-          name: 1083,
-          address: '114 Rue de Turenne, 75003 Paris',
-          latitude: 48.8632801,
-          longitude: 2.3622204,
-          countryCode: 'FR',
-        });
+    it('if name is an integer, it should be converted to string at slug conversion', async () => {
+      const { name } = await svc(7196947).create({
+        name: 1083,
+        address: '114 Rue de Turenne, 75003 Paris',
+        latitude: 48.8632801,
+        longitude: 2.3622204,
+        countryCode: 'FR',
+      });
 
-        expect(name).toBe('1083');
-      },
-    );
+      expect(name).toBe('1083');
+    });
   });
 });
 
@@ -366,18 +359,19 @@ describe('agenda-locations - functional - create - no rights', () => {
       knex: f.client,
       redis: redis.createClient(),
       interfaces: {
-        getAgendaDetailsByUid: async (uid, fields = []) => _.pick(
-          {
-            id: {
-              7196947: 25221,
-            }[uid],
-            locationSetUid: {
-              7196947: 1903811,
-            }[uid],
-          },
-          fields,
-        ),
-        geocode: async _address => [
+        getAgendaDetailsByUid: async (uid, fields = []) =>
+          _.pick(
+            {
+              id: {
+                7196947: 25221,
+              }[uid],
+              locationSetUid: {
+                7196947: 1903811,
+              }[uid],
+            },
+            fields,
+          ),
+        geocode: async (_address) => [
           {
             latitude: 47.6576571,
             longitude: -2.7834928,
@@ -386,7 +380,7 @@ describe('agenda-locations - functional - create - no rights', () => {
             city: 'Vannes',
           },
         ],
-        getAgendaLocationSettings: async _uid => initSettingsCantCreate,
+        getAgendaLocationSettings: async (_uid) => initSettingsCantCreate,
       },
       Files: Files(dConfig.files),
     });

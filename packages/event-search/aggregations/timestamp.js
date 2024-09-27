@@ -41,16 +41,9 @@ const validateOptions = schema({
 });
 
 function formatDSL(field, query, options = {}) {
-  const {
-    interval,
-    fixedInterval,
-    format,
-    extendedBounds,
-  } = validateOptions(options);
+  const { interval, fixedInterval, format, extendedBounds } = validateOptions(options);
 
-  const calendarInterval = interval === undefined && fixedInterval === undefined
-    ? '1d'
-    : interval;
+  const calendarInterval = interval === undefined && fixedInterval === undefined ? '1d' : interval;
 
   return {
     date_histogram: {
@@ -67,10 +60,11 @@ function formatDSL(field, query, options = {}) {
   };
 }
 
-module.exports = field => ({
+module.exports = (field) => ({
   formatDSL: formatDSL.bind(null, field),
-  formatResult: ({ buckets }) => buckets.map(b => ({
-    key: b.key_as_string,
-    eventCount: b.doc_count,
-  })),
+  formatResult: ({ buckets }) =>
+    buckets.map((b) => ({
+      key: b.key_as_string,
+      eventCount: b.doc_count,
+    })),
 });

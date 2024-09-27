@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
 import { ConversationTitle } from '../src/components';
@@ -13,595 +12,601 @@ import fixturesData from './01_ConversationTitle.data';
 const mockStore = configureStore();
 let store;
 
-function wrapWithApp( element ) {
+function wrapWithApp(element) {
   return (
     <Provider store={store}>
-      <I18nContext.Provider value={{
-        lang: 'fr',
-        getLabel: ( label, values = {} ) => makeGetterLabel( labels )( label, values, 'fr' )
-      }}>
+      <I18nContext.Provider
+        value={{
+          lang: 'fr',
+          getLabel: (label, values = {}) =>
+            makeGetterLabel(labels)(label, values, 'fr'),
+        }}
+      >
         {element}
       </I18nContext.Provider>
     </Provider>
   );
 }
 
-function makeTest( state, props ) {
-  store = mockStore( _.merge( state, { user: props.user } ) );
+function makeTest(state, props) {
+  store = mockStore(_.merge(state, { user: props.user }));
 
-  const wrapper = mount( wrapWithApp(
-    <p><ConversationTitle {...props} /></p>
-  ) );
+  const wrapper = mount(
+    wrapWithApp(
+      <p>
+        <ConversationTitle {...props} />
+      </p>,
+    ),
+  );
 
-  expect( wrapper.text() ).to.matchSnapshot();
+  expect(wrapper.text()).to.matchSnapshot();
 }
 
-it( 'returns null', () => {
+it('returns null', () => {
   makeTest(
     { settings: {} },
     {
       user: {},
-      conversation: { inboxes: [] }
-    }
+      conversation: { inboxes: [] },
+    },
   );
-} );
+});
 
-
-describe( 'conversation of type event', () => {
-  describe( 'context event', () => {
+describe('conversation of type event', () => {
+  describe('context event', () => {
     const initialState = {
       settings: {
-        context: 'event'
-      }
+        context: 'event',
+      },
     };
 
-    it( 'created by me, destinated to a user', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me, destinated to a user', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'event',
         creator: true,
-        destination: 'me'
-      } );
+        destination: 'me',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by me, destinated to the agenda', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me, destinated to the agenda', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'event',
         creator: true,
-        destination: 'agenda'
-      } );
+        destination: 'agenda',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'event',
         creator: false,
-        destination: 'me'
-      } );
+        destination: 'me',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to contributor+agenda', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to contributor+agenda', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'event',
         creator: false,
-        destination: 'contributor+agenda'
-      } );
+        destination: 'contributor+agenda',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to contributor', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to contributor', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'event',
         creator: false,
-        destination: 'contributor'
-      } );
+        destination: 'contributor',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
+      makeTest(initialState, { user, conversation });
+    });
+  });
 
-  describe( 'context agenda', () => {
+  describe('context agenda', () => {
     const initialState = {
       settings: {
-        context: 'agenda'
-      }
+        context: 'agenda',
+      },
     };
 
-    it( 'created by me, destinated to contributor', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me, destinated to contributor', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'agenda',
         creator: true,
-        destination: 'contributor'
-      } );
+        destination: 'contributor',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by me, destinated to the agenda', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me, destinated to the agenda', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'agenda',
         creator: true,
-        destination: 'agenda'
-      } );
+        destination: 'agenda',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to contributor', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to contributor', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'agenda',
         creator: false,
-        destination: 'contributor'
-      } );
+        destination: 'contributor',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to contributor+agenda', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to contributor+agenda', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'agenda',
         creator: false,
-        destination: 'contributor+agenda'
-      } );
+        destination: 'contributor+agenda',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'agenda',
         creator: false,
-        destination: 'me'
-      } );
+        destination: 'me',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
+      makeTest(initialState, { user, conversation });
+    });
+  });
 
-  describe( 'context user', () => {
+  describe('context user', () => {
     const initialState = {
       settings: {
-        context: 'user'
-      }
+        context: 'user',
+      },
     };
 
-    it( 'created by me, destinated to contributor', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me, destinated to contributor', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'user',
         creator: true,
-        destination: 'contributor'
-      } );
+        destination: 'contributor',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by me, destinated to the agenda', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me, destinated to the agenda', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'user',
         creator: true,
-        destination: 'agenda'
-      } );
+        destination: 'agenda',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to contributor', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to contributor', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'user',
         creator: false,
-        destination: 'contributor'
-      } );
+        destination: 'contributor',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to contributor+agenda', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to contributor+agenda', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'user',
         creator: false,
-        destination: 'contributor+agenda'
-      } );
+        destination: 'contributor+agenda',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'event',
         context: 'user',
         creator: false,
-        destination: 'me'
-      } );
+        destination: 'me',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
-} );
+      makeTest(initialState, { user, conversation });
+    });
+  });
+});
 
-describe( 'conversation of type contact_form', () => {
-  describe( 'context agenda', () => {
+describe('conversation of type contact_form', () => {
+  describe('context agenda', () => {
     const initialState = {
       settings: {
-        context: 'agenda'
-      }
+        context: 'agenda',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'contact_form',
         context: 'agenda',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'contact_form',
         context: 'agenda',
-        creator: false
-      } );
+        creator: false,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
+      makeTest(initialState, { user, conversation });
+    });
+  });
 
-  describe( 'context user', () => {
+  describe('context user', () => {
     const initialState = {
       settings: {
-        context: 'user'
-      }
+        context: 'user',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'contact_form',
         context: 'user',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'contact_form',
         context: 'user',
-        creator: false
-      } );
+        creator: false,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
-} );
+      makeTest(initialState, { user, conversation });
+    });
+  });
+});
 
-describe( 'conversation of type request_contribute', () => {
-  describe( 'context agenda', () => {
+describe('conversation of type request_contribute', () => {
+  describe('context agenda', () => {
     const initialState = {
       settings: {
-        context: 'agenda'
-      }
+        context: 'agenda',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'request_contribute',
         context: 'agenda',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'request_contribute',
         context: 'agenda',
-        creator: false
-      } );
+        creator: false,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
+      makeTest(initialState, { user, conversation });
+    });
+  });
 
-  describe( 'context user', () => {
+  describe('context user', () => {
     const initialState = {
       settings: {
-        context: 'user'
-      }
+        context: 'user',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'request_contribute',
         context: 'user',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'request_contribute',
         context: 'user',
-        creator: false
-      } );
+        creator: false,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
-} );
+      makeTest(initialState, { user, conversation });
+    });
+  });
+});
 
-describe( 'conversation of type edition_request', () => {
-  describe( 'context event', () => {
+describe('conversation of type edition_request', () => {
+  describe('context event', () => {
     const initialState = {
       settings: {
-        context: 'event'
-      }
+        context: 'event',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'edition_request',
         context: 'event',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'edition_request',
         context: 'event',
-        creator: false
-      } );
+        creator: false,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
+      makeTest(initialState, { user, conversation });
+    });
+  });
 
-  describe( 'context agenda', () => {
+  describe('context agenda', () => {
     const initialState = {
       settings: {
-        context: 'agenda'
-      }
+        context: 'agenda',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'edition_request',
         context: 'agenda',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'edition_request',
         context: 'agenda',
-        creator: false
-      } );
+        creator: false,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
+      makeTest(initialState, { user, conversation });
+    });
+  });
 
-  describe( 'context user', () => {
+  describe('context user', () => {
     const initialState = {
       settings: {
-        context: 'user'
-      }
+        context: 'user',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'edition_request',
         context: 'user',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'edition_request',
         context: 'user',
-        creator: false
-      } );
+        creator: false,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
-} );
+      makeTest(initialState, { user, conversation });
+    });
+  });
+});
 
-describe( 'conversation of type suggest_location_change', () => {
-  describe( 'context agenda', () => {
+describe('conversation of type suggest_location_change', () => {
+  describe('context agenda', () => {
     const initialState = {
       settings: {
-        context: 'agenda'
-      }
+        context: 'agenda',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'suggest_location_change',
         context: 'agenda',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'suggest_location_change',
         context: 'agenda',
-        creator: false
-      } );
+        creator: false,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
+      makeTest(initialState, { user, conversation });
+    });
+  });
 
-  describe( 'context user', () => {
+  describe('context user', () => {
     const initialState = {
       settings: {
-        context: 'user'
-      }
+        context: 'user',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'suggest_location_change',
         context: 'user',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'suggest_location_change',
         context: 'user',
-        creator: false
-      } );
+        creator: false,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
-} );
+      makeTest(initialState, { user, conversation });
+    });
+  });
+});
 
-describe( 'conversation of type contact_member', () => {
-  describe( 'context agenda', () => {
+describe('conversation of type contact_member', () => {
+  describe('context agenda', () => {
     const initialState = {
       settings: {
-        context: 'agenda'
-      }
+        context: 'agenda',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'contact_member',
         context: 'agenda',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'contact_member',
         context: 'agenda',
         creator: false,
-        destination: 'me'
-      } );
+        destination: 'me',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to other', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to other', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'contact_member',
         context: 'agenda',
         creator: false,
-        destination: 'member'
-      } );
+        destination: 'member',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
+      makeTest(initialState, { user, conversation });
+    });
+  });
 
-  describe( 'context user', () => {
+  describe('context user', () => {
     const initialState = {
       settings: {
-        context: 'user'
-      }
+        context: 'user',
+      },
     };
 
-    it( 'created by me', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'contact_member',
         context: 'user',
-        creator: true
-      } );
+        creator: true,
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
+      makeTest(initialState, { user, conversation });
+    });
 
-    it( 'created by someone else, destinated to me', () => {
-      const { user, conversation } = _.find( fixturesData, {
-        type: 'contact_member',
-        context: 'user',
-        creator: false,
-        destination: 'me'
-      } );
-
-      makeTest( initialState, { user, conversation } );
-    } );
-
-    it( 'created by someone else, destinated to other', () => {
-      const { user, conversation } = _.find( fixturesData, {
+    it('created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find(fixturesData, {
         type: 'contact_member',
         context: 'user',
         creator: false,
-        destination: 'member'
-      } );
+        destination: 'me',
+      });
 
-      makeTest( initialState, { user, conversation } );
-    } );
-  } );
-} );
+      makeTest(initialState, { user, conversation });
+    });
 
-describe( 'conversation of type support', () => {
+    it('created by someone else, destinated to other', () => {
+      const { user, conversation } = _.find(fixturesData, {
+        type: 'contact_member',
+        context: 'user',
+        creator: false,
+        destination: 'member',
+      });
+
+      makeTest(initialState, { user, conversation });
+    });
+  });
+});
+
+describe('conversation of type support', () => {
   const initialState = {
     settings: {
-      context: 'user'
-    }
+      context: 'user',
+    },
   };
 
-  it( 'created by me', () => {
-    const { user, conversation } = _.find( fixturesData, {
+  it('created by me', () => {
+    const { user, conversation } = _.find(fixturesData, {
       type: 'support',
-      creator: true
-    } );
+      creator: true,
+    });
 
-    makeTest( initialState, { user, conversation } );
-  } );
+    makeTest(initialState, { user, conversation });
+  });
 
-  it( 'created by someone else', () => {
-    const { user, conversation } = _.find( fixturesData, {
+  it('created by someone else', () => {
+    const { user, conversation } = _.find(fixturesData, {
       type: 'support',
-      creator: false
-    } );
+      creator: false,
+    });
 
-    makeTest( initialState, { user, conversation } );
-  } );
-} );
+    makeTest(initialState, { user, conversation });
+  });
+});

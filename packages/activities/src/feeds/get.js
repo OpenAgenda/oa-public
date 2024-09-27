@@ -1,17 +1,15 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const schema = require( '@openagenda/validators/schema' );
-const validators = require( '@openagenda/validators' );
+const _ = require('lodash');
+const schema = require('@openagenda/validators/schema');
+const validators = require('@openagenda/validators');
 
-const FEED_TYPES = require( '../feedTypes' );
+const FEED_TYPES = require('../feedTypes');
 
-schema.register( {
+schema.register({
   choice: validators.choice,
-  number: validators.number
-} );
-
-module.exports = get;
+  number: validators.number,
+});
 
 async function get(config, identifiers, options = {}) {
   const { knex } = config;
@@ -27,28 +25,35 @@ async function get(config, identifiers, options = {}) {
     {
       name: 'id',
       internal: true,
-      schema: 'id' in identifiers ? {
-        type: 'number',
-        optional: false
-      } : null,
+      schema:
+        'id' in identifiers
+          ? {
+            type: 'number',
+            optional: false,
+          }
+          : null,
     },
     {
       name: 'entity_type',
       dataKey: 'entityType',
-      schema: !('id' in identifiers) ? {
-        type: 'choice',
-        options: FEED_TYPES,
-        unique: true,
-        optional: false
-      } : null
+      schema: !('id' in identifiers)
+        ? {
+          type: 'choice',
+          options: FEED_TYPES,
+          unique: true,
+          optional: false,
+        }
+        : null,
     },
     {
       name: 'entity_uid',
       dataKey: 'entityUid',
-      schema: !('id' in identifiers) ? {
-        type: 'number',
-        optional: false
-      } : null
+      schema: !('id' in identifiers)
+        ? {
+          type: 'number',
+          optional: false,
+        }
+        : null,
     },
   ];
 
@@ -67,7 +72,9 @@ async function get(config, identifiers, options = {}) {
   const columnToSelect = fieldSchema.reduce((prev, field) => {
     if (!params.internal && field.internal) return prev;
 
-    prev.push((field.table ? `${field.table}.${field.name}` : field.name) + ` as ${field.dataKey || field.name}`);
+    prev.push(
+      `${field.table ? `${field.table}.${field.name}` : field.name} as ${field.dataKey || field.name}`,
+    );
     return prev;
   }, []);
 
@@ -82,12 +89,16 @@ async function get(config, identifiers, options = {}) {
     return prev;
   }, {});
 
-  const feed = await knex(config.schemas.feed).first(columnToSelect).where(where);
+  const feed = await knex(config.schemas.feed)
+    .first(columnToSelect)
+    .where(where);
 
   if (feed && params.followed) {
-    const follows = await knex(config.schemas.feed_follow).select().where({ target_feed: feed.id });
+    const follows = await knex(config.schemas.feed_follow)
+      .select()
+      .where({ target_feed: feed.id });
 
-    feed.followed = follows.map(follow => {
+    feed.followed = follows.map((follow) => {
       const mappedFeed = _.mapKeys(follow, (v, k) => _.camelCase(k));
       mappedFeed.store = JSON.parse(mappedFeed.store || '{}');
       return mappedFeed;
@@ -95,9 +106,11 @@ async function get(config, identifiers, options = {}) {
   }
 
   if (feed && params.followedBy) {
-    const follows = await knex(config.schemas.feed_follow).select().where({ origin_feed: feed.id });
+    const follows = await knex(config.schemas.feed_follow)
+      .select()
+      .where({ origin_feed: feed.id });
 
-    feed.followedBy = follows.map(follow => {
+    feed.followedBy = follows.map((follow) => {
       const mappedFeed = _.mapKeys(follow, (v, k) => _.camelCase(k));
       mappedFeed.store = JSON.parse(mappedFeed.store || '{}');
       return mappedFeed;
@@ -112,3 +125,5 @@ async function get(config, identifiers, options = {}) {
 
   return feed;
 }
+
+module.exports = get;

@@ -67,8 +67,8 @@ raw.push(
 
 raw.push(
   knex('form_schema').insert(
-    [2, 5, 6, 41].map(id =>
-      load(`form-schemas/${id}.json`, fs => ({
+    [2, 5, 6, 41].map((id) =>
+      load(`form-schemas/${id}.json`, (fs) => ({
         id,
         store: JSON.stringify(fs),
       }))),
@@ -139,7 +139,7 @@ raw.push(
         review_id: 218,
         tag: 'Aéronotique',
       },
-    ].map(rt => ({
+    ].map((rt) => ({
       ...rt,
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
@@ -165,7 +165,7 @@ raw.push(
         uid: 19390294,
         slug: 'et-un-autre-event',
       },
-    ].map(e => ({
+    ].map((e) => ({
       ...e,
       owner_id: 50304,
       created_at: '2019-12-14 10:00:00',
@@ -176,7 +176,7 @@ raw.push(
 
 raw.push(
   knex('event_location').insert(
-    [1, 2, 3].map(id => ({
+    [1, 2, 3].map((id) => ({
       id,
       event_id: id,
       location_id: 1,
@@ -201,7 +201,7 @@ raw.push(
         id: 3,
         date: '2019-12-18',
       },
-    ].map(o => ({
+    ].map((o) => ({
       ...o,
       event_id: o.id,
       time_start: '10:00:00',
@@ -534,7 +534,7 @@ raw.push(
 
 raw.push(
   knex('form_schema').insert([
-    load('form-schemas/374.json', fs => ({
+    load('form-schemas/374.json', (fs) => ({
       id: 374,
       store: JSON.stringify(fs),
     })),

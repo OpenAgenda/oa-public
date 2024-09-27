@@ -36,7 +36,7 @@ async function _load(dbConfig) {
   con.end();
 }
 
-export default dbConfig => {
+export default (dbConfig) => {
   const client = knex({
     client: 'mysql',
     connection: {

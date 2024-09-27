@@ -35,25 +35,19 @@ describe('simple-cache - functional (service): clear all', () => {
     });
   });
 
-  beforeEach(async () => cli.del(
-    await cli
-      .keys(`${config.prefix}*`)
-      .then(k => k.join(' ')),
-  ));
+  beforeEach(async () =>
+    cli.del(await cli.keys(`${config.prefix}*`).then((k) => k.join(' '))));
 
   afterAll(() => cli.quit());
 
-  it(
-    'clears all keys in service namespace',
-    async () => {
-      await cache.hash('king', 'kong').set('size', 'tiny');
-      await cache.hash('brique', 1).set('verte');
+  it('clears all keys in service namespace', async () => {
+    await cache.hash('king', 'kong').set('size', 'tiny');
+    await cache.hash('brique', 1).set('verte');
 
-      await cache.clearAll();
+    await cache.clearAll();
 
-      const keys = await cli.keys(`${prefix}*`);
+    const keys = await cli.keys(`${prefix}*`);
 
-      expect(keys.length).toBe(0);
-    },
-  );
+    expect(keys.length).toBe(0);
+  });
 });

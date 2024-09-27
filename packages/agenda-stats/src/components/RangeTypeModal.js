@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { Field, Form } from 'react-final-form';
 import { Modal, Spinner } from '@openagenda/react-shared';
@@ -17,9 +16,7 @@ const Radio = ({ id, input, children }) => (
   </label>
 );
 
-function RangeTypeForm({
-  range, handleSubmit, onClose, submitting
-}) {
+function RangeTypeForm({ range, handleSubmit, onClose, submitting }) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="margin-v-sm">
@@ -28,7 +25,7 @@ function RangeTypeForm({
             id="AgendaStats.RangeTypeModal.rangeTypeDesc"
             defaultMessage="The period from <b>{startDate, date}</b> to <b>{endDate, date}</b> applies to:"
             values={{
-              b: txt => <b>{txt}</b>,
+              b: (txt) => <b>{txt}</b>,
               startDate: range.startDate,
               endDate: range.endDate,
             }}

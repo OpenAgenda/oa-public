@@ -16,18 +16,23 @@ const locationFields = [
   'district',
 ];
 
-const searchFullAddressText = (location, country) => locationFields
-  .map(f => location[f])
-  .filter(f => !!f)
-  .concat(Object.values(country))
-  .join(' ');
+const searchFullAddressText = (location, country) =>
+  locationFields
+    .map((f) => location[f])
+    .filter((f) => !!f)
+    .concat(Object.values(country))
+    .join(' ');
 
-const clearEmptyLabels = labels => Object.keys(labels)
-  .filter(lang => labels[lang].length)
-  .reduce((filtered, lang) => ({
-    ...filtered,
-    [lang]: labels[lang],
-  }), {});
+const clearEmptyLabels = (labels) =>
+  Object.keys(labels)
+    .filter((lang) => labels[lang].length)
+    .reduce(
+      (filtered, lang) => ({
+        ...filtered,
+        [lang]: labels[lang],
+      }),
+      {},
+    );
 
 function formatLocation(data) {
   const location = {
@@ -66,6 +71,8 @@ module.exports = function extractLocationData(location) {
     country: Object.keys(country).length ? country : undefined,
     location: formattedLocation,
     search: extractSearchData(formattedLocation, country),
-    emptyFields: locationFields.filter(f => !(formattedLocation[f] ?? '').length),
+    emptyFields: locationFields.filter(
+      (f) => !(formattedLocation[f] ?? '').length,
+    ),
   };
 };

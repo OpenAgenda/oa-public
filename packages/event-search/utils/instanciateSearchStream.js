@@ -1,19 +1,15 @@
-"use strict";
+'use strict';
 
-const { Readable } = require( 'stream' );
+const { Readable } = require('node:stream');
 const log = require('@openagenda/logs')('stream');
-
-module.exports = ({ search, scroll, clearScroll }, alias, query, options) => {
-  return new SearchStream(search, scroll, clearScroll, alias, query, options);
-}
 
 class SearchStream extends Readable {
   constructor(search, scroll, clearScroll, alias, query = {}, options = {}) {
     log('instanciated stream for alias %s', alias);
 
-    super( {
-      objectMode: true
-    } );
+    super({
+      objectMode: true,
+    });
 
     this._scrollId = null;
     this._alias = alias;
@@ -28,7 +24,7 @@ class SearchStream extends Readable {
 
     this._nav = {
       scroll: options.scroll || '10m',
-      size: options.size || null
+      size: options.size || null,
     };
   }
 
@@ -47,20 +43,28 @@ class SearchStream extends Readable {
 
   async _firstRead() {
     try {
-      const { total, events, scrollId } = await this._search(this._query, this._nav, this._options);
+      const { total, events, scrollId } = await this._search(
+        this._query,
+        this._nav,
+        this._options,
+      );
 
       log('fetched first %s events for a total of %s', events.length, total);
 
       this._total = total;
       this._bufferedEvents = events;
       this._scrollId = scrollId;
-    } catch ( err ) {
-      process.nextTick( () => this.emit( 'error', err ) );
+    } catch (err) {
+      process.nextTick(() => this.emit('error', err));
     }
   }
 
   async _popBuffer() {
-    log('popping buffer: cursor at %s on a total at %s', this._cursor, this._total);
+    log(
+      'popping buffer: cursor at %s on a total at %s',
+      this._cursor,
+      this._total,
+    );
 
     const next = this._bufferedEvents.shift();
 
@@ -69,18 +73,18 @@ class SearchStream extends Readable {
     }
 
     if (next) {
-      this._cursor++;
-      return this.push( next );
+      this._cursor += 1;
+      return this.push(next);
     }
 
     this._refillBuffer();
   }
 
   async _refillBuffer() {
-    this.emit( 'reloading', {
+    this.emit('reloading', {
       cursor: this._cursor,
-      total: this._total
-    } );
+      total: this._total,
+    });
 
     const { total, events } = await this._scroll(this._scrollId, '10m');
 
@@ -100,3 +104,6 @@ class SearchStream extends Readable {
     return !this._scrollId;
   }
 }
+
+module.exports = ({ search, scroll, clearScroll }, alias, query, options) =>
+  new SearchStream(search, scroll, clearScroll, alias, query, options);

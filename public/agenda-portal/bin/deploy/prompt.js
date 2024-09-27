@@ -12,7 +12,7 @@ module.exports = {
           message,
         },
       ])
-      .then(answers => answers.response);
+      .then((answers) => answers.response);
   },
   confirm(message) {
     return inquirer
@@ -23,6 +23,6 @@ module.exports = {
           message,
         },
       ])
-      .then(answers => answers.confirmation);
+      .then((answers) => answers.confirmation);
   },
 };

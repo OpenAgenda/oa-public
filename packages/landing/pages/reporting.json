@@ -1,25 +1,30 @@
 {
-  "keys" : [
-    { "lang" : "en", "key" : "your-reporting" },
-    { "lang" : "fr", "key" : "votre-reporting" },
-    { "lang" : "de", "key" : "ihre-berichterstattung" },
-    { "lang" : "es", "key" : "reporting-es" },
-    { "lang" : "br", "key" : "reporting-br" },
-    { "lang" : "it", "key" : "reporting-it" },
-    { "lang" : "oc", "key" : "reporting-oc" }
+  "keys": [
+    { "lang": "en", "key": "your-reporting" },
+    { "lang": "fr", "key": "votre-reporting" },
+    { "lang": "de", "key": "ihre-berichterstattung" },
+    { "lang": "es", "key": "reporting-es" },
+    { "lang": "br", "key": "reporting-br" },
+    { "lang": "it", "key": "reporting-it" },
+    { "lang": "oc", "key": "reporting-oc" }
   ],
-  "head" : {
-    "title" : "reportingToolDescription",
-    "description" : "reportingToolDescription"
+  "head": {
+    "title": "reportingToolDescription",
+    "description": "reportingToolDescription"
   },
   "title": "reportingToolTitle",
   "description": "reportingToolDescription",
   "layout": "layout",
-  "segments": [ {
-    "key" : "customized",
-    "background" : "white"
-  }, {
-    "key" : "private",
-    "background" : "gray"
-  }, "testimony", "footer" ]
+  "segments": [
+    {
+      "key": "customized",
+      "background": "white"
+    },
+    {
+      "key": "private",
+      "background": "gray"
+    },
+    "testimony",
+    "footer"
+  ]
 }

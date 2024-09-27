@@ -67,21 +67,31 @@ function icsBody(agenda, event, lang, timingIndex = -1) {
   const repeatedParts = [
     `DTSTAMP:${formatIcsDate(now)}`,
     `TZID:${event.timezone.replace('/', '-')}`,
-    formatIcsText(`SUMMARY:${espaceIcsValue(getLocaleValue(event.title, lang))}`),
-    formatIcsText(`DESCRIPTION:${espaceIcsValue(description)} ${getLabel('seeMore', lang)}: ${url}`),
+    formatIcsText(
+      `SUMMARY:${espaceIcsValue(getLocaleValue(event.title, lang))}`,
+    ),
+    formatIcsText(
+      `DESCRIPTION:${espaceIcsValue(description)} ${getLabel('seeMore', lang)}: ${url}`,
+    ),
     'STATUS:CONFIRMED',
     formatIcsText(`URL:${url}`),
     `LAST-MODIFIED:${formatIcsDate(event.updatedAt)}`,
   ];
 
   if (event.location) {
-    repeatedParts.push(formatIcsText(`LOCATION:${espaceIcsValue(`${event.location.name} - ${event.location.address}`)}`));
-    repeatedParts.push(`GEO:${event.location.latitude};${event.location.longitude}`);
+    repeatedParts.push(
+      formatIcsText(
+        `LOCATION:${espaceIcsValue(`${event.location.name} - ${event.location.address}`)}`,
+      ),
+    );
+    repeatedParts.push(
+      `GEO:${event.location.latitude};${event.location.longitude}`,
+    );
   }
 
   return usedTimings(event, timingIndex)
     .filter((t, i) => i < 10)
-    .map(timing => [
+    .map((timing) => [
       'BEGIN:VEVENT',
       `UID:${agenda.uid}//${event.uid}//${formatIcsDate(timing.begin, 'YYYY-MM-DD//HH:mm:00')}`,
       `DTSTART:${formatIcsDate(timing.begin)}`,

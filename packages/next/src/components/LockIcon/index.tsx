@@ -11,23 +11,22 @@ const messages = defineMessages({
 });
 
 export interface LockIconProps extends IconProps {
-  type?: string
-  label?: string
-  tooltipProps?: Omit<TooltipProps, 'children'>
+  type?: string;
+  label?: string;
+  tooltipProps?: Omit<TooltipProps, 'children'>;
 }
 
-export default function LockIcon({ tooltipProps, type, label, ...props }: LockIconProps) {
+export default function LockIcon({
+  tooltipProps,
+  type,
+  label,
+  ...props
+}: LockIconProps) {
   const intl = useIntl();
 
   const message = messages[type] ? intl.formatMessage(messages[type]) : label;
 
-  const icon = (
-    <Icon
-      as={FontAwesomeIcon}
-      icon={faLock}
-      {...props}
-    />
-  );
+  const icon = <Icon as={FontAwesomeIcon} icon={faLock} {...props} />;
 
   if (!message) {
     return icon;

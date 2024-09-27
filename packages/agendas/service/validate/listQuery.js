@@ -1,57 +1,70 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
+const integer = require('@openagenda/validators/integer');
+const date = require('@openagenda/validators/date');
+const choice = require('@openagenda/validators/choice');
 
-schema.register( {
-  integer: require( '@openagenda/validators/integer' ),
-  date: require( '@openagenda/validators/date' ),
-  choice: require( '@openagenda/validators/choice' )
-} );
+schema.register({
+  integer,
+  date,
+  choice,
+});
 
-module.exports = schema( {
-  ids: { // DEPRECATED
+module.exports = schema({
+  ids: {
+    // DEPRECATED
     type: 'integer',
-    list: { default: null }
+    list: { default: null },
   },
-  detailed: { // deprecated
+  detailed: {
+    // deprecated
     type: 'boolean',
-    default: false
+    default: false,
   },
-  private: { // deprecated
+  private: {
+    // deprecated
     type: 'boolean',
     nullable: true,
-    default: false
+    default: false,
   },
   search: {
-    type: 'text'
+    type: 'text',
   },
   id: {
     type: 'integer',
-    list: { default: null }
+    list: { default: null },
   },
   uid: {
     type: 'integer',
-    list: { default: null }
+    list: { default: null },
   },
   slug: {
     type: 'text',
-    list: { default: null }
+    list: { default: null },
   },
   networkUid: {
-    type: 'integer'
+    type: 'integer',
   },
   updatedAtGreaterThan: {
     type: 'date',
-    default: null
+    default: null,
   },
   idGreaterThan: {
     type: 'integer',
-    default: null
+    default: null,
   },
   order: {
     type: 'choice',
-    options: [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc', 'id.desc', 'id.asc' ],
+    options: [
+      'updatedAt.desc',
+      'createdAt.desc',
+      'updatedAt.asc',
+      'updatedAt.desc',
+      'id.desc',
+      'id.asc',
+    ],
     default: null,
-    unique: true
-  }
-} );
+    unique: true,
+  },
+});

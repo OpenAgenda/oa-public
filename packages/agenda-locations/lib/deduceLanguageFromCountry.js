@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = countryCode => {
+module.exports = (countryCode) => {
   if (
     ['fr', 'ch', 'be', 'lu', 'ga', 'sn', 'dz'].includes(
       (countryCode || '').toLowerCase(),

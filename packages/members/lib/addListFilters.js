@@ -137,7 +137,7 @@ module.exports = (k, query) => {
   if (role.length) {
     k.whereIn(
       'credential',
-      role.map(r => (_.isInteger(r) ? r : roles[r.toUpperCase()])),
+      role.map((r) => (_.isInteger(r) ? r : roles[r.toUpperCase()])),
     );
   }
 };

@@ -25,9 +25,8 @@ export function init(config, services) {
         agendaTag: config.schemas.agendaTag,
       },
       interfaces: {
-        getFormSchemaFields: formSchemaId => formSchemas
-          .get(formSchemaId)
-          .then(fs => (fs ? fs.fields : [])),
+        getFormSchemaFields: (formSchemaId) =>
+          formSchemas.get(formSchemaId).then((fs) => (fs ? fs.fields : [])),
       },
     },
   });

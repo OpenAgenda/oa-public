@@ -27,18 +27,20 @@
     "references": "[]",
     "links": "[]"
   },
-  "agendaEvents": [{
-    "id": "1",
-    "agenda_uid": "99501607",
-    "event_uid": "89898798",
-    "state": "0",
-    "featured": "0",
-    "created_at": "2020-06-30 14:59:08",
-    "updated_at": "2020-06-30 14:59:08",
-    "legacy_id": "7136.802994",
-    "user_uid": "56659395",
-    "can_edit": "1",
-    "source_agenda_uid": "[]",
-    "aggregated": "0"
-  }]
+  "agendaEvents": [
+    {
+      "id": "1",
+      "agenda_uid": "99501607",
+      "event_uid": "89898798",
+      "state": "0",
+      "featured": "0",
+      "created_at": "2020-06-30 14:59:08",
+      "updated_at": "2020-06-30 14:59:08",
+      "legacy_id": "7136.802994",
+      "user_uid": "56659395",
+      "can_edit": "1",
+      "source_agenda_uid": "[]",
+      "aggregated": "0"
+    }
+  ]
 }

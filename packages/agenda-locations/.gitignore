@@ -3,7 +3,7 @@
 node_modules/
 npm-debug.log
 yarn-error.log
-testconfig.js
+test/testconfig.js
 coverage/
 .cache/
 .eslintignore

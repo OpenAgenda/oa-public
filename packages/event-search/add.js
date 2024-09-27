@@ -9,15 +9,9 @@ const getIndexName = require('./utils/getIndexName');
 const log = logs('add');
 
 module.exports = async function add(config, set, event, options = {}) {
-  const {
-    refresh = false,
-    formSchema = null,
-  } = options;
+  const { refresh = false, formSchema = null } = options;
 
-  const {
-    client,
-    defaultIndex,
-  } = config;
+  const { client, defaultIndex } = config;
 
   if (!event) {
     throw new Error('data is unavailable');
@@ -47,9 +41,21 @@ module.exports = async function add(config, set, event, options = {}) {
   };
 
   if (result.body.result === 'created') {
-    log('info', 'event %j was added to set %s', { uid: event.uid }, set, logPayload);
+    log(
+      'info',
+      'event %j was added to set %s',
+      { uid: event.uid },
+      set,
+      logPayload,
+    );
   } else if (result.body.result === 'updated') {
-    log('info', 'event %j was already on set %s and was updated', { uid: event.uid }, set, logPayload);
+    log(
+      'info',
+      'event %j was already on set %s and was updated',
+      { uid: event.uid },
+      set,
+      logPayload,
+    );
   } else {
     log('warn', 'event %j was not added to set %s', event.uid, set, {
       ...logPayload,

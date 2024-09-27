@@ -10,7 +10,7 @@ function filterFields(fieldsMap, type, options) {
     ...options,
   };
 
-  return fieldsMap.filter(field => {
+  return fieldsMap.filter((field) => {
     if (['insert', 'update'].includes(type)) {
       if (field.protected && params.protected) {
         return false;
@@ -66,9 +66,9 @@ export function listFields(
   from,
   options,
   aliased = false,
-  outputPrefix = ''
+  outputPrefix = '',
 ) {
-  return filterFields(fieldsMap, type, options).map(field => {
+  return filterFields(fieldsMap, type, options).map((field) => {
     const alias = aliased ? ` as ${outputPrefix}${field.obj}` : '';
     return field[from] + alias;
   });

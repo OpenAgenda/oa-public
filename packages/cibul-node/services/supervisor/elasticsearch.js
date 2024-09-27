@@ -3,23 +3,25 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/supervisor/task');
 
-const redirectToSignin = (req, res) => res.redirect(
-  302,
-  `/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`,
-);
+const redirectToSignin = (req, res) =>
+  res.redirect(
+    302,
+    `/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`,
+  );
 
 function task(services) {
-  const {
-    eventSearch,
-  } = services;
+  const { eventSearch } = services;
 
   return () => {
     setInterval(() => {
-      eventSearch.cluster.stats().then(data => {
-        log.info(data);
-      }, error => {
-        log.error('failed to fetch stats from cluster', { error });
-      });
+      eventSearch.cluster.stats().then(
+        (data) => {
+          log.info(data);
+        },
+        (error) => {
+          log.error('failed to fetch stats from cluster', { error });
+        },
+      );
     }, 1000 * 60);
   };
 }
@@ -34,7 +36,11 @@ export function init(config, services) {
 }
 
 export function plugApp(app, base = '/elasticsearch') {
-  const { sessions, supervisor: { elasticsearch }, users } = app.services;
+  const {
+    sessions,
+    supervisor: { elasticsearch },
+    users,
+  } = app.services;
 
   app.get(
     `${base}/cluster`,

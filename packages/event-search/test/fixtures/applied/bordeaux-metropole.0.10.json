@@ -192,9 +192,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "+33556862145"
-      ],
+      "registration": ["+33556862145"],
       "location": {
         "uid": 69345614,
         "slug": "loscillo-theatroscope",
@@ -487,9 +485,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourceAgendaUid": [],
@@ -529,11 +525,7 @@
         "fr": "La philosophie et l’art reposent sur l’étonnement et l’émerveillement. Les deux disciplines ouvrent les voies d’accès aux joies de la pensée et à la saveur du sensible.\n\nÀ partir d’une sélection d’œuvres issues de la collection du Frac, la philosophe Sophie Geoffrion initie une causerie philosophique, un moment d’échanges et de partages pour faire vivre les idées. Nul besoin d’érudition pour s’interroger ou pour réfléchir. Ces causeries philosophiques permettent le mélange des genres, éveillent la réflexion et réveillent les sens."
       },
       "keywords": {
-        "fr": [
-          "philosophie",
-          "art contemporain",
-          "Frac MÉCA"
-        ]
+        "fr": ["philosophie", "art contemporain", "Frac MÉCA"]
       },
       "conditions": {
         "fr": "Prix libre (1€ min), sur réservation ( jauge limitée )."
@@ -589,9 +581,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "reservation@frac-meca.fr"
-      ],
+      "registration": ["reservation@frac-meca.fr"],
       "location": {
         "uid": 47316842,
         "slug": "la-meca221",
@@ -618,9 +608,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourceAgendaUid": [],
@@ -755,9 +743,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourceAgendaUid": [],
@@ -861,9 +847,7 @@
         "min": 2,
         "max": 99
       },
-      "registration": [
-        "reservation@frac-meca.fr"
-      ],
+      "registration": ["reservation@frac-meca.fr"],
       "location": {
         "uid": 47316842,
         "slug": "la-meca221",
@@ -890,9 +874,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourceAgendaUid": [],
@@ -932,12 +914,7 @@
         "fr": "Avec les deux premiers spectacles, qui ne cessent de faire le tour du Monde depuis une décennie, la troupe des DANCEPERADOS OF IRELAND mêle l’Histoire avec le charme de la danse irlandaise, et l'enthousiasme du chant et de la musique. Les artistes s’attachent à présenter un spectacle de qualité, sincère et vivant, fidèle à l’esprit et à la sensibilité artistique si particulière des Irlandais, en privilégiant l’authenticité du spectacle, qui fait la beauté de la danse et de la musique traditionnelle irlandaise.\n\nLe spectacle \"Whiskey you are the Devil\" est une performance 100 % Live d'une durée de 2 heures, qui raconte l'histoire Whiskey irlandais par la musique, les chansons et la danse qui sont trois éléments chevillés à l'ADN de chaque irlandais. La direction musicale du spectacle est assurée par Eimhin Liddy, et la chorégraphie a été confiée à Michael Donnellan, deux fois champion du Monde de danse et danseur principal des compagnies Riverdance et Lord of the Dance. Avec les Danceperados of Ireland, il a relevé le défi de créer un spectacle parfait sur le plan de la technique chorégraphique, et d'’adapter l’histoire dramatique, écrite par le Directeur artistique Petr Pandula.\n\nChants, Musiques, Danses, découvrez le spectacle \"Whiskey you are the Devil !\" et embarquez pour un grand voyage en Irlande !"
       },
       "keywords": {
-        "fr": [
-          "musique",
-          "danse",
-          "irlande",
-          "spectacle"
-        ]
+        "fr": ["musique", "danse", "irlande", "spectacle"]
       },
       "conditions": {
         "fr": "35.20 à 48.20 euros selon placement"
@@ -1022,9 +999,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourceAgendaUid": [],
@@ -1064,12 +1039,7 @@
         "fr": "Le groupe Kassav' se produira le 9 novembre 2019 à l'Arkéa Arena de Bordeaux. Cette prestation sera l’occasion de fêter les 40 ans de ce groupe mythique.  \n\nKassav' a longtemps été considéré comme l’un des groupes français les plus célèbres au monde. Le groupe a joué sur les cinq continents et a donné des concerts aussi bien au Congo-Brazzaville, au Sénégal, aux États-Unis, au Japon et même en URSS. La musique de Kassav' a révolutionné la musique antillaise."
       },
       "keywords": {
-        "fr": [
-          "musique",
-          "antilles",
-          "show",
-          "spectacle"
-        ]
+        "fr": ["musique", "antilles", "show", "spectacle"]
       },
       "conditions": {
         "fr": "42 à 50 euros selon placement"
@@ -1125,9 +1095,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.box.fr/fiche/kassav-4/143777"
-      ],
+      "registration": ["https://www.box.fr/fiche/kassav-4/143777"],
       "location": {
         "uid": 85320355,
         "slug": "arkea-arena",
@@ -1154,9 +1122,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourceAgendaUid": [],
@@ -1196,12 +1162,7 @@
         "fr": "À tout juste 23 ans, Rilès a déjà monté son propre studio d’enregistrement en parallèle de son activité d’auteur, compositeur et interprète. On le situe à la frontière entre rap, R&B et pop, sous une palette d’influences qui s’étend de la musique kabyle de ses origines et de la capoeira, jusqu’aux mastodontes américains (Kanye West, Chance The Rapper, Timbaland…). Pour bien débuter 2019, Riles annonce une tournée des Zéniths en novembre prochain à l’occasion du TIGER TOUR. »\n\nCATÉGORIE 1 : ASSIS / PLACEMENT LIBRE\n\nCATÉGORIE 2 : FOSSE / DEBOUT\n\nEARLY : FOSSE / DEBOUT - ACCÈS PRIORITAIRE À LA SALLE"
       },
       "keywords": {
-        "fr": [
-          "RAP",
-          "concert",
-          "spectacle",
-          "musique"
-        ]
+        "fr": ["RAP", "concert", "spectacle", "musique"]
       },
       "conditions": {
         "fr": "33 à 34 euros selon placement"
@@ -1257,9 +1218,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.box.fr/fiche/riles-9/48156"
-      ],
+      "registration": ["https://www.box.fr/fiche/riles-9/48156"],
       "location": {
         "uid": 85320355,
         "slug": "arkea-arena",
@@ -1286,9 +1245,7 @@
         "imageCredits": null,
         "extId": null
       },
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourceAgendaUid": [],

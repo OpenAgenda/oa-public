@@ -44,8 +44,8 @@ module.exports = async (
     .where('ags.aggregator_id', aggregatorId)
     .limit(size)
     .where('ags.id', '>', after)
-    .then(rows =>
-      rows.map(r => ({
+    .then((rows) =>
+      rows.map((r) => ({
         id: r.sourceId,
         agendaUid: r.agendaUid,
         rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
@@ -53,16 +53,16 @@ module.exports = async (
 
   if ((detailed || cleanQuery.search || cleanQuery.slug) && sources.length) {
     const agendas = await getAgendasByUids(
-      sources.map(s => s.agendaUid),
+      sources.map((s) => s.agendaUid),
       cleanQuery,
     );
 
-    sources.forEach(s => {
+    sources.forEach((s) => {
       s.agenda = _.find(agendas, { uid: s.agendaUid });
       delete s.agendaUid;
     });
 
-    const filteredSources = sources.filter(s => !!s.agenda);
+    const filteredSources = sources.filter((s) => !!s.agenda);
     if (!filteredSources || filteredSources.length < size) {
       return { sources: filteredSources ?? [], after: null };
     }
@@ -71,7 +71,7 @@ module.exports = async (
       after: filteredSources[filteredSources.length - 1].id,
     };
   }
-  sources.forEach(s => {
+  sources.forEach((s) => {
     s.agenda = { uid: s.agendaUid };
     delete s.agendaUid;
   });

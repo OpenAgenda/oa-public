@@ -1,8 +1,5 @@
 {
   "template": "basic",
   "title": "stakeholderTitle",
-  "points": [
-    "stakeholderInvitation",
-    "stakeholderInfo"
-  ]
+  "points": ["stakeholderInvitation", "stakeholderInfo"]
 }

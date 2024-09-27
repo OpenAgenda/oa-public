@@ -3,6 +3,6 @@
 module.exports = require('./options')({
   throwOnNotFound: {
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 });

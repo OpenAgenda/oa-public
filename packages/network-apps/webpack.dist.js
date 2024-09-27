@@ -1,15 +1,15 @@
-"use strict";
+'use strict';
 
-const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
-const CompressionPlugin = require( 'compression-webpack-plugin' );
-const S3Plugin = require( 'webpack-s3-plugin' );
-const WebpackAssetsManifest = require( 'webpack-assets-manifest' );
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const S3Plugin = require('webpack-s3-plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 
-const serviceName = require( './package.json' ).name.split( '/' ).pop();
+const serviceName = require('./package.json').name.split('/').pop();
 
-const pushToCDN = process.env.NODE_ENV === 'production' && parseInt( process.env.CDN );
+const pushToCDN = process.env.NODE_ENV === 'production' && parseInt(process.env.CDN, 10);
 
-const localDistPath = __dirname + '/client/dist';
+const localDistPath = `${__dirname}/client/dist`;
 
 module.exports = {
   // better to have a dist file in dev mode for local troubleshooting
@@ -20,7 +20,7 @@ module.exports = {
   entry: [
     'core-js/stable',
     'regenerator-runtime/runtime',
-    './client/src/index.js'
+    './client/src/index.js',
   ],
   output: {
     path: localDistPath,
@@ -29,30 +29,34 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new WebpackAssetsManifest( {
-      output: __dirname + '/client/dist/manifest.json'
-    } )
+    new WebpackAssetsManifest({
+      output: `${__dirname}/client/dist/manifest.json`,
+    }),
   ].concat(
-    pushToCDN ? [
-      new CompressionPlugin( {
-        test: /\.js$/,
-        filename ( asset ) {
-          return asset.file.replace( '.gz', '' );
-        }
-      } ), new S3Plugin( {
-        include: /\.js$/,
-        s3Options: {
-          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-          region: 'eu-west-1'
-        },
-        s3UploadOptions: {
-          Bucket: 'oasvc',
-          ContentEncoding: 'gzip'
-        },
-        basePathTransform: f => [ serviceName, f ].join( '/' )
-      } )
-  ] : [] ),
+    pushToCDN
+      ? [
+        new CompressionPlugin({
+          test: /\.js$/,
+          filename(asset) {
+            return asset.file.replace('.gz', '');
+          },
+        }),
+        new S3Plugin({
+          include: /\.js$/,
+          s3Options: {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            region: 'eu-west-1',
+          },
+          s3UploadOptions: {
+            Bucket: 'oasvc',
+            ContentEncoding: 'gzip',
+          },
+          basePathTransform: (f) => [serviceName, f].join('/'),
+        }),
+      ]
+      : [],
+  ),
   module: {
     rules: [
       {
@@ -60,35 +64,30 @@ module.exports = {
         enforce: 'pre',
         loader: require.resolve('source-map-loader'),
         resolve: {
-          fullySpecified: false
+          fullySpecified: false,
         },
-        exclude: [
-          /\/node_modules\/nth-check\//,
-        ],
+        exclude: [/\/node_modules\/nth-check\//],
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: require.resolve('babel-loader')
-        }
+          loader: require.resolve('babel-loader'),
+        },
       },
       {
         test: /\.css$/,
-        use: [
-          require.resolve('style-loader'),
-          require.resolve('css-loader')
-        ]
+        use: [require.resolve('style-loader'), require.resolve('css-loader')],
       },
       {
         test: /\.scss$/,
         use: [
           require.resolve('style-loader'),
           require.resolve('css-loader'),
-          require.resolve('sass-loader')
-        ]
-      }
-    ]
+          require.resolve('sass-loader'),
+        ],
+      },
+    ],
   },
   resolve: {
     extensions: ['.js', '.mjs', '.json', '.wasm'],

@@ -1,19 +1,15 @@
 import { useState } from 'react';
 import TagsInput from 'react-tagsinput';
 
-const KeywordsComponent = ({
-  field,
-  value = [],
-  onChange,
-}) => {
+const KeywordsComponent = ({ field, value = [], onChange }) => {
   const [inputValues, setInputValues] = useState(null);
 
-  const myOnChange = v => {
+  const myOnChange = (v) => {
     setInputValues();
     onChange([...new Set(v)]); // only push uniq tags
   };
 
-  const onInputChange = e => {
+  const onInputChange = (e) => {
     const parts = e.target.value.split(',');
     if (parts.length === 2) {
       if (parts[0].length >= 1) {
@@ -31,12 +27,12 @@ const KeywordsComponent = ({
       <div>
         <TagsInput
           value={value}
-          onChange={v => myOnChange(v)}
+          onChange={(v) => myOnChange(v)}
           inputProps={{
             value: inputValues || '',
-            onChange: e => onInputChange(e),
+            onChange: (e) => onInputChange(e),
             placeholder: field.placeholder,
-            onBlur: e => {
+            onBlur: (e) => {
               if (!e.target.value.length) return;
               setInputValues();
               value.push(e.target.value);

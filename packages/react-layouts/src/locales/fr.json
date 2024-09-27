@@ -2,9 +2,11 @@
   "react-layouts.AdminHeader.administration": "Administration",
   "react-layouts.AdminHeader.return": "Aller à l'accueil de l'agenda",
   "react-layouts.AdminSections.newTab": "Nouveau !",
+  "react-layouts.Announcement.close": "",
   "react-layouts.MainLayout.createAgenda": "Créer un agenda",
   "react-layouts.MainLayout.general": "Général",
   "react-layouts.MainLayout.help": "Aide",
+  "react-layouts.MainLayout.menu": "",
   "react-layouts.MainLayout.myAgendas": "Mes agendas",
   "react-layouts.MainLayout.myEvents": "Mes événements",
   "react-layouts.MainLayout.searchAgenda": "Rechercher un agenda",
@@ -12,5 +14,5 @@
   "react-layouts.MainLayout.signin": "Se connecter",
   "react-layouts.MainLayout.signout": "Se déconnecter",
   "react-layouts.MainLayout.translate": "Traduire",
-  "react-layouts.components.Search.search": "Rechercher"
+  "react-layouts.components.Search.search": "Rechercher un agenda"
 }

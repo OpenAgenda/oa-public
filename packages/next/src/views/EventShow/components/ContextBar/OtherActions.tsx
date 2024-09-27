@@ -30,7 +30,12 @@ import TransferOwnershipModal from '../TransferOwnershipModal';
 import ContextBarButton from './ContextBarButton';
 import { fullWidth } from './popperModifiers';
 
-function ButtonMenuItem({ action, description = null, onClick, disabled = false }) {
+function ButtonMenuItem({
+  action,
+  description = null,
+  onClick,
+  disabled = false,
+}) {
   return (
     <MenuItem onClick={onClick} isDisabled={disabled}>
       <Flex direction="column">
@@ -71,9 +76,17 @@ export default function OtherActions({ agenda }) {
   const isOriginAgenda = event.originAgenda?.uid === agenda.uid;
   const { canEditEvent = false } = me?.authorizations ?? {};
 
-  const { isOpen: removeIsOpen, onOpen: removeOnOpen, onClose: removeOnClose } = useDisclosure();
+  const {
+    isOpen: removeIsOpen,
+    onOpen: removeOnOpen,
+    onClose: removeOnClose,
+  } = useDisclosure();
 
-  const { isOpen: duplicateIsOpen, onOpen: duplicateOnOpen, onClose: duplicateOnClose } = useDisclosure();
+  const {
+    isOpen: duplicateIsOpen,
+    onOpen: duplicateOnOpen,
+    onClose: duplicateOnClose,
+  } = useDisclosure();
 
   const {
     isOpen: transferOwnershipIsOpen,
@@ -81,7 +94,7 @@ export default function OtherActions({ agenda }) {
     onClose: transferOwnershipOnClose,
   } = useDisclosure();
 
-  const patchEvent = async data => {
+  const patchEvent = async (data) => {
     try {
       const optimisticResponse = {
         success: true,
@@ -93,13 +106,16 @@ export default function OtherActions({ agenda }) {
 
       await mutate(
         async () => {
-          const response = await fetch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
-            method: 'PATCH',
-            body: JSON.stringify(data),
-            headers: {
-              'Content-Type': 'application/json',
+          const response = await fetch(
+            `/api/agendas/${agenda.uid}/events/${event.uid}`,
+            {
+              method: 'PATCH',
+              body: JSON.stringify(data),
+              headers: {
+                'Content-Type': 'application/json',
+              },
             },
-          });
+          );
 
           if (response.ok) return optimisticResponse;
           throw new Error('Error');
@@ -116,9 +132,12 @@ export default function OtherActions({ agenda }) {
 
   const onRemove = async () => {
     try {
-      const response = await fetch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `/api/agendas/${agenda.uid}/events/${event.uid}`,
+        {
+          method: 'DELETE',
+        },
+      );
 
       if (response.ok) {
         return router.push(`/${agenda.slug}`);
@@ -138,8 +157,15 @@ export default function OtherActions({ agenda }) {
 
   return (
     <>
-      <Menu matchWidth gutter={0} modifiers={isMobile ? (fullWidth as any) : null}>
-        <Tooltip label={intl.formatMessage(messages.otherActions)} isDisabled={!isMobile}>
+      <Menu
+        matchWidth
+        gutter={0}
+        modifiers={isMobile ? (fullWidth as any) : null}
+      >
+        <Tooltip
+          label={intl.formatMessage(messages.otherActions)}
+          isDisabled={!isMobile}
+        >
           <MenuButton
             as={ContextBarButton}
             textAlign={{ base: 'center', md: 'start' }}
@@ -181,7 +207,9 @@ export default function OtherActions({ agenda }) {
                 action={intl.formatMessage(messages.transferOwnership)}
                 description={intl.formatMessage(
                   messages[
-                    allowTransferOwnership ? 'transferOwnershipDescription' : 'transferOwnershipDescriptionDisabled'
+                    allowTransferOwnership
+                      ? 'transferOwnershipDescription'
+                      : 'transferOwnershipDescriptionDisabled'
                   ],
                 )}
               />
@@ -208,7 +236,9 @@ export default function OtherActions({ agenda }) {
               <ButtonMenuItem
                 onClick={() => patchEvent({ status: 3 })}
                 action={intl.formatMessage(messages.markAsMovedOnline)}
-                description={intl.formatMessage(messages.markAsMovedOnlineStatus)}
+                description={intl.formatMessage(
+                  messages.markAsMovedOnlineStatus,
+                )}
               />
               <ButtonMenuItem
                 onClick={() => patchEvent({ status: 4 })}
@@ -227,13 +257,17 @@ export default function OtherActions({ agenda }) {
               />
             </>
           ) : null}
-          {displayRemove || displayRequestEditionRights ? <MenuDivider /> : null}
+          {displayRemove || displayRequestEditionRights ? (
+            <MenuDivider />
+          ) : null}
           {displayRequestEditionRights ? (
             <LinkMenuItem
               href={requestEditionRightsUrl}
               rel="nofollow"
               action={intl.formatMessage(messages.requestEditionRights)}
-              description={intl.formatMessage(messages.requestEditionRightsInfo)}
+              description={intl.formatMessage(
+                messages.requestEditionRightsInfo,
+              )}
             />
           ) : null}
           {displayRemove ? (
@@ -267,7 +301,9 @@ export default function OtherActions({ agenda }) {
 
           <ModalFooter justifyContent="center">
             <Button colorScheme="danger" mr={3} onClick={onRemove}>
-              {isOriginAgenda ? intl.formatMessage(messages.delete) : intl.formatMessage(messages.remove)}
+              {isOriginAgenda
+                ? intl.formatMessage(messages.delete)
+                : intl.formatMessage(messages.remove)}
             </Button>
             <Button variant="ghost" onClick={removeOnClose}>
               {intl.formatMessage(messages.cancel)}
@@ -276,9 +312,18 @@ export default function OtherActions({ agenda }) {
         </ModalContent>
       </Modal>
 
-      {duplicateIsOpen ? <DuplicateModal isOpen onClose={duplicateOnClose} agenda={agenda} event={event} /> : null}
+      {duplicateIsOpen ? (
+        <DuplicateModal
+          isOpen
+          onClose={duplicateOnClose}
+          agenda={agenda}
+          event={event}
+        />
+      ) : null}
 
-      {transferOwnershipIsOpen ? <TransferOwnershipModal isOpen onClose={transferOwnershipOnClose} /> : null}
+      {transferOwnershipIsOpen ? (
+        <TransferOwnershipModal isOpen onClose={transferOwnershipOnClose} />
+      ) : null}
     </>
   );
 }

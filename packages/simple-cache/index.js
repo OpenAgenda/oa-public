@@ -6,11 +6,15 @@ const VError = require('@openagenda/verror');
 
 const log = logger('index');
 
-const stringifyKey = keyObj => JSON.stringify(
-  Object.keys(keyObj || {})
-    .sort()
-    .reduce((sorted, key) => Object.assign(sorted, { [key]: keyObj[key] }), {}),
-);
+const stringifyKey = (keyObj) =>
+  JSON.stringify(
+    Object.keys(keyObj || {})
+      .sort()
+      .reduce(
+        (sorted, key) => Object.assign(sorted, { [key]: keyObj[key] }),
+        {},
+      ),
+  );
 
 const resolve = (v, cb) => {
   if (cb) {
@@ -59,21 +63,22 @@ const getRedisKey = (prefix, namespace, identifier = null, key = null) => {
   return parts.join(':');
 };
 
-const getValueKey = (key = '') => (key instanceof Object ? stringifyKey(key) : key);
+const getValueKey = (key = '') =>
+  (key instanceof Object ? stringifyKey(key) : key);
 
 function get(...args) {
   const cb = typeof args[args.length - 1] === 'function' ? args.pop() : null;
   const [svc, namespace, identifier, key] = args;
-  const {
-    client,
-    prefix,
-  } = svc;
+  const { client, prefix } = svc;
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
   log('getting on %s', redisKey);
 
-  return client.get(redisKey).then(v => resolve(v, cb), e => reject(e, cb));
+  return client.get(redisKey).then(
+    (v) => resolve(v, cb),
+    (e) => reject(e, cb),
+  );
 }
 
 function set(...args) {
@@ -84,38 +89,39 @@ function set(...args) {
   const ttlValue = args.pop();
   const value = args.pop();
 
-  const {
-    client,
-    prefix,
-  } = svc;
+  const { client, prefix } = svc;
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
-  return client.set(redisKey, value instanceof Object ? JSON.stringify(value) : value, {
-    EX: `${ttlValue}`,
-  }).then(() => resolve(value, cb), e => reject(new VError({
-    cause: e,
-    info: {
-      namespace,
-      identifier,
-      key,
-      ttlValue,
-      value,
-    },
-  }), cb));
+  return client
+    .set(redisKey, value instanceof Object ? JSON.stringify(value) : value, {
+      EX: `${ttlValue}`,
+    })
+    .then(
+      () => resolve(value, cb),
+      (e) =>
+        reject(
+          new VError({
+            cause: e,
+            info: {
+              namespace,
+              identifier,
+              key,
+              ttlValue,
+              value,
+            },
+          }),
+          cb,
+        ),
+    );
 }
 
 async function hget(...args) {
   const options = typeof args[args.length - 1] === 'object' ? args.pop() : {};
   const [svc, namespace, identifier, key] = args;
-  const {
-    client,
-    prefix,
-  } = svc;
+  const { client, prefix } = svc;
 
-  const {
-    json = false,
-  } = options;
+  const { json = false } = options;
 
   const hash = getHashKey(prefix, namespace, identifier);
   const valueKey = getValueKey(key);
@@ -143,10 +149,7 @@ function hset(...args) {
   const key = args.length === 5 ? args[3] : '';
   const value = args.pop();
 
-  const {
-    client,
-    prefix,
-  } = svc;
+  const { client, prefix } = svc;
 
   const hash = getHashKey(prefix, namespace, identifier);
   const valueKey = getValueKey(key);
@@ -154,24 +157,32 @@ function hset(...args) {
   log('setting on hash %s, key %s', hash, valueKey);
 
   return client
-    .hSet(hash, valueKey, value instanceof Object ? JSON.stringify(value) : value)
-    .then(() => resolve(value, cb), e => reject(new VError({
-      cause: e,
-      info: {
-        prefix,
-        namespace,
-        identifier,
-        key,
-        value,
-      },
-    }), cb));
+    .hSet(
+      hash,
+      valueKey,
+      value instanceof Object ? JSON.stringify(value) : value,
+    )
+    .then(
+      () => resolve(value, cb),
+      (e) =>
+        reject(
+          new VError({
+            cause: e,
+            info: {
+              prefix,
+              namespace,
+              identifier,
+              key,
+              value,
+            },
+          }),
+          cb,
+        ),
+    );
 }
 
 function ttl(svc, namespace, identifier, key, cb) {
-  const {
-    client,
-    prefix,
-  } = svc;
+  const { client, prefix } = svc;
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
@@ -183,21 +194,18 @@ function ttl(svc, namespace, identifier, key, cb) {
 }
 
 function del(svc, namespace, identifier, cb) {
-  const {
-    client,
-    prefix,
-  } = svc;
+  const { client, prefix } = svc;
 
   const hashKey = getHashKey(prefix, namespace, identifier);
 
-  return client.del(hashKey).then(() => resolve(null, cb), e => reject(e, cb));
+  return client.del(hashKey).then(
+    () => resolve(null, cb),
+    (e) => reject(e, cb),
+  );
 }
 
 async function hashReset(svc, namespace, identifier, expire, cb) {
-  const {
-    client,
-    prefix,
-  } = svc;
+  const { client, prefix } = svc;
 
   const hash = getHashKey(prefix, namespace, identifier);
 
@@ -213,23 +221,22 @@ async function hashReset(svc, namespace, identifier, expire, cb) {
 }
 
 async function clearAll(svc) {
-  const {
-    client,
-    prefix,
-  } = svc;
+  const { client, prefix } = svc;
 
   let count = 0;
   for (const key of await client.keys(`${prefix}:*`)) {
     try {
       await client.del(key);
       count += 1;
-    } catch (e) { /* */ }
+    } catch (e) {
+      /* */
+    }
   }
 
   log('cleared all %s stored items', count);
 }
 
-module.exports = c => {
+module.exports = (c) => {
   if (!c.redis && !c.client) {
     throw new Error('redis configuration is missing');
   }
@@ -241,18 +248,21 @@ module.exports = c => {
     logger.setModuleConfig(c.logger);
   }
 
-  return Object.assign((namespace, identifier = null) => ({
-    get: get.bind(null, { client, prefix }, namespace, identifier),
-    set: set.bind(null, { client, prefix }, namespace, identifier),
-    ttl: ttl.bind(null, { client, prefix }, namespace, identifier),
-    del: del.bind(null, { client, prefix }, namespace, identifier),
-  }), {
-    hash: (namespace, identifier = null) => ({
-      get: hget.bind(null, { client, prefix }, namespace, identifier),
-      set: hset.bind(null, { client, prefix }, namespace, identifier),
+  return Object.assign(
+    (namespace, identifier = null) => ({
+      get: get.bind(null, { client, prefix }, namespace, identifier),
+      set: set.bind(null, { client, prefix }, namespace, identifier),
+      ttl: ttl.bind(null, { client, prefix }, namespace, identifier),
       del: del.bind(null, { client, prefix }, namespace, identifier),
-      reset: hashReset.bind(null, { client, prefix }, namespace, identifier),
     }),
-    clearAll: clearAll.bind(null, { client, prefix }),
-  });
+    {
+      hash: (namespace, identifier = null) => ({
+        get: hget.bind(null, { client, prefix }, namespace, identifier),
+        set: hset.bind(null, { client, prefix }, namespace, identifier),
+        del: del.bind(null, { client, prefix }, namespace, identifier),
+        reset: hashReset.bind(null, { client, prefix }, namespace, identifier),
+      }),
+      clearAll: clearAll.bind(null, { client, prefix }),
+    },
+  );
 };

@@ -3,23 +3,25 @@ import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import I18nContext from '../contexts/I18nContext';
 import { AuthenticateAndConfirm } from '@openagenda/react-shared';
+import I18nContext from '../contexts/I18nContext';
 
 class ProfileSettings extends Component {
   static contextType = I18nContext;
 
-  renderFullNameInput = field => (
+  renderFullNameInput = (field) => (
     <div className="form-group">
       <label htmlFor="fullName">{this.context.getLabel('fullname')} *</label>
       <input {...field.input} type={field.type} className="form-control" />
       {field.meta.touched && field.meta.error && (
-        <div className="text-danger">{_.upperFirst(this.context.getLabel(field.meta.error))}</div>
+        <div className="text-danger">
+          {_.upperFirst(this.context.getLabel(field.meta.error))}
+        </div>
       )}
     </div>
   );
 
-  renderCultureInput = field => (
+  renderCultureInput = (field) => (
     <div className="form-group">
       <label htmlFor="culture">{this.context.getLabel('language')} *</label>
       <select {...field.input} className="form-control">
@@ -32,7 +34,9 @@ class ProfileSettings extends Component {
         <option value="oc">Occitan</option>
       </select>
       {field.meta.touched && field.meta.error && (
-        <div className="text-danger">{_.upperFirst(this.context.getLabel(field.meta.error))}</div>
+        <div className="text-danger">
+          {_.upperFirst(this.context.getLabel(field.meta.error))}
+        </div>
       )}
     </div>
   );
@@ -40,8 +44,14 @@ class ProfileSettings extends Component {
   render() {
     const { getLabel } = this.context;
     const {
-      user, activeTab, handleSubmit, displayModal, deleteAccountRes,
-      successMessageDisplayed, prefix, history,
+      user,
+      activeTab,
+      handleSubmit,
+      displayModal,
+      deleteAccountRes,
+      successMessageDisplayed,
+      prefix,
+      history,
     } = this.props;
 
     const deleteModal = {
@@ -62,11 +72,20 @@ class ProfileSettings extends Component {
 
     return (
       <tr
-        onClick={!activeTab ? () => history.push(`${prefix}/profile`, { fromUserApps: true }) : null}
+        onClick={
+          !activeTab
+            ? () => history.push(`${prefix}/profile`, { fromUserApps: true })
+            : null
+        }
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => history.push(`${prefix}/`, { fromUserApps: true }) : null}
+          role="gridcell"
+          onClick={
+            activeTab
+              ? () => history.push(`${prefix}/`, { fromUserApps: true })
+              : null
+          }
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >
@@ -80,13 +99,17 @@ class ProfileSettings extends Component {
                 <Field name="culture" component={this.renderCultureInput} />
 
                 <div className="form-inline pull-left">
-                  <button type="submit" className="btn btn-primary">{getLabel('save')}</button>
-                  {successMessageDisplayed
-                && (
-                <strong className="text-success" style={{ marginLeft: '10px' }}>
-                  <b>{getLabel('updateProfileSuccess')}</b>
-                </strong>
-                )}
+                  <button type="submit" className="btn btn-primary">
+                    {getLabel('save')}
+                  </button>
+                  {successMessageDisplayed && (
+                    <strong
+                      className="text-success"
+                      style={{ marginLeft: '10px' }}
+                    >
+                      <b>{getLabel('updateProfileSuccess')}</b>
+                    </strong>
+                  )}
                 </div>
               </form>
               <div className="pull-right">
@@ -94,12 +117,17 @@ class ProfileSettings extends Component {
                   type="button"
                   className="btn btn-link text-danger"
                   onClick={() => displayModal(deleteModal)}
-                >{getLabel('deleteMyAccount')}
+                >
+                  {getLabel('deleteMyAccount')}
                 </button>
               </div>
             </div>
           </td>
-        ) : <td style={{ cursor: 'pointer' }}><b className="text-muted">{user.fullName}</b></td>}
+        ) : (
+          <td style={{ cursor: 'pointer' }}>
+            <b className="text-muted">{user.fullName}</b>
+          </td>
+        )}
       </tr>
     );
   }
@@ -109,10 +137,8 @@ export default reduxForm({
   form: 'profileSettings',
   destroyOnUnmount: false,
 })(
-  connect(state => ({
+  connect((state) => ({
     prefix: state.settings.prefix,
     deleteAccountRes: state.res.deleteAccount,
-  }))(
-    withRouter(ProfileSettings),
-  ),
+  }))(withRouter(ProfileSettings)),
 );

@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
 import endOfWeek from 'date-fns/endOfWeek';

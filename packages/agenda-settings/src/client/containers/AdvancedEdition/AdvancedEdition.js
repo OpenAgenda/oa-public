@@ -2,7 +2,11 @@ import { useContext, useState } from 'react';
 import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { useIntl, defineMessages } from 'react-intl';
-import { Modal, useLayoutData } from '@openagenda/react-shared';
+import {
+  a11yButtonActionHandler,
+  Modal,
+  useLayoutData,
+} from '@openagenda/react-shared';
 import {
   KeysManager,
   InboxSettingsForm,
@@ -41,15 +45,32 @@ function TableRow({
   closedComponent,
   openedComponent,
 }) {
+  const selectTab = a11yButtonActionHandler(() => {
+    if (activeTab !== tabName) {
+      setActiveTab(tabName);
+    }
+  });
+
+  const unselectTab = a11yButtonActionHandler(() => {
+    if (activeTab === tabName) {
+      setActiveTab(null);
+    }
+  });
+
   return (
     <tr
+      role="button"
       className={classNames({ inactive: activeTab !== tabName })}
-      onClick={activeTab !== tabName ? () => setActiveTab(tabName) : null}
+      onClick={selectTab}
+      onKeyPress={selectTab}
+      tabIndex="0"
     >
       <td
+        role="gridcell"
         className="col-md-3"
         style={{ cursor: 'pointer' }}
-        onClick={activeTab === tabName ? () => setActiveTab(null) : null}
+        onClick={unselectTab}
+        onKeyPress={unselectTab}
       >
         {description}
       </td>
@@ -87,8 +108,8 @@ export default function AdvancedEdition() {
 
   const dispatch = useDispatch();
 
-  const removeModal = useSelector(state => state.modals.removeKey || {});
-  const loading = useSelector(state => state.agenda.loading);
+  const removeModal = useSelector((state) => state.modals.removeKey || {});
+  const loading = useSelector((state) => state.agenda.loading);
 
   const [activeTab, setActiveTab] = useState(null);
 
@@ -97,7 +118,7 @@ export default function AdvancedEdition() {
   return (
     <div className="advanced">
       <div className="table-responsive">
-        <table className="table">
+        <table role="grid" className="table">
           <tbody>
             <TableRow
               activeTab={activeTab}
@@ -226,7 +247,7 @@ export default function AdvancedEdition() {
               openedComponent={(
                 <FiltersSettings
                   settings={agenda.settings}
-                  onSubmit={patch =>
+                  onSubmit={(patch) =>
                     dispatch(agendaActions.edit({ settings: patch }))}
                   loading={loading}
                   schema={agendaSchema}

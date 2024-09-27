@@ -8,12 +8,16 @@ import locationFixtures from './fixtures/location.json';
 describe('validate', () => {
   describe('siret', () => {
     test('displaySIRETInput option includes siret validation', () => {
-      const clean = validate(produce(locationFixtures, draft => {
-        draft.siret = '12345678901234';
-      }), settingsFixtures, {
-        optional: true,
-        displaySIRETInput: true,
-      });
+      const clean = validate(
+        produce(locationFixtures, (draft) => {
+          draft.siret = '12345678901234';
+        }),
+        settingsFixtures,
+        {
+          optional: true,
+          displaySIRETInput: true,
+        },
+      );
 
       expect(clean.siret).toBe('12345678901234');
     });
@@ -30,12 +34,16 @@ describe('validate', () => {
     test('siret must be 14 characters long', () => {
       let errors = [];
       try {
-        validate(produce(locationFixtures, draft => {
-          draft.siret = '12345678901';
-        }), settingsFixtures, {
-          optional: true,
-          displaySIRETInput: true,
-        });
+        validate(
+          produce(locationFixtures, (draft) => {
+            draft.siret = '12345678901';
+          }),
+          settingsFixtures,
+          {
+            optional: true,
+            displaySIRETInput: true,
+          },
+        );
       } catch (e) {
         errors = e;
       }

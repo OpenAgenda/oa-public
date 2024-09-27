@@ -18,7 +18,7 @@ module.exports.formatDSL = () => ({
   },
 });
 
-module.exports.formatResult = result => ({
+module.exports.formatResult = (result) => ({
   first: new Date(result.first.value_as_string),
   last: new Date(result.last.value_as_string),
 });

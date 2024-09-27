@@ -10,7 +10,7 @@ function top({ selectableStep, step, cellHeight }, { begin }) {
 
   const offsetTop = secondsToHeight(
     { selectableStep, step, cellHeight },
-    firstColumnTop
+    firstColumnTop,
   );
 
   // DST switch means there is one dead cell

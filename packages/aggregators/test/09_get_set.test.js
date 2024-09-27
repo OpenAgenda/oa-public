@@ -1,9 +1,9 @@
 'use strict';
 
 const config = require('../testconfig');
+const createInstance = require('..');
 const { Tracker } = require('./utils');
 const fixtures = require('./fixtures');
-const createInstance = require('..');
 
 describe('09 - set and get', () => {
   let svc;
@@ -23,10 +23,11 @@ describe('09 - set and get', () => {
   beforeAll(async () => {
     svc = createInstance({
       knex: f.client,
-      queues: () => Object.assign(tracker.bind(null, 'queue'), {
-        register: tracker('register'),
-        on: tracker('on'),
-      }),
+      queues: () =>
+        Object.assign(tracker.bind(null, 'queue'), {
+          register: tracker('register'),
+          on: tracker('on'),
+        }),
       interfaces: {
         getAggregatedCount: () => 12, // interface arg is agenda uid
       },
@@ -72,7 +73,7 @@ describe('09 - set and get', () => {
       { limit: 2 },
       {
         patch: true,
-      }
+      },
     );
 
     const entry = await f.client('aggregator').first('*').where('review_id', 3);
@@ -87,7 +88,7 @@ describe('09 - set and get', () => {
       {
         patch: true,
         protected: false,
-      }
+      },
     );
 
     const entry = await f.client('aggregator').first('*').where('review_id', 4);
@@ -102,7 +103,7 @@ describe('09 - set and get', () => {
       .where('review_id', 218);
 
     expect(entry.store).toBe(
-      '{"rules":[{"value":{"state":2}, "required":false}]}'
+      '{"rules":[{"value":{"state":2}, "required":false}]}',
     );
   });
 
@@ -113,7 +114,7 @@ describe('09 - set and get', () => {
       {
         patch: true,
         protected: false,
-      }
+      },
     );
 
     const result = await svc.get(999);

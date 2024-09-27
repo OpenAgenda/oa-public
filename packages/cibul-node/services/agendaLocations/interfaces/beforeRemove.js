@@ -2,7 +2,7 @@ import VError from '@openagenda/verror';
 import log from '@openagenda/logs';
 import createLocationFeeds from '../lib/createLocationFeeds.js';
 
-export default services =>
+export default (services) =>
   async (location, options = {}) => {
     const { events: eventSvc, core, activities, members } = services;
     const { removeEvents } = options;
@@ -26,7 +26,7 @@ export default services =>
             { offset: offsetErrored, limit: 1 },
             { private: null, draft: null, includeFields: ['uid', 'agendaUid'] },
           )
-          .then(events => events.pop());
+          .then((events) => events.pop());
 
         if (!event) {
           hasMore = false;

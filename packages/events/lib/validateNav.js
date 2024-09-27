@@ -8,31 +8,26 @@ const boolean = require('@openagenda/validators/boolean');
 schema.register({
   integer,
   text,
-  boolean
+  boolean,
 });
 
 module.exports = schema({
   after: {
     type: 'integer',
-    default: null
+    default: null,
   },
   offset: {
     type: 'integer',
-    default: null
+    default: null,
   },
   limit: {
     type: 'integer',
-    default: 20
+    default: 20,
   },
   order: {
     type: 'choice',
     default: 'id.asc',
     unique: true,
-    options: [
-      'id.asc',
-      'id.desc',
-      'updatedAt.asc',
-      'updatedAt.desc'
-    ]
-  }
+    options: ['id.asc', 'id.desc', 'updatedAt.asc', 'updatedAt.desc'],
+  },
 });

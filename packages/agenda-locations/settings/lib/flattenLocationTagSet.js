@@ -1,7 +1,7 @@
 'use strict';
 
-const makeFlatten = (lang, defaultLang) => label => {
-  if (!label || (typeof label === 'string')) {
+const makeFlatten = (lang, defaultLang) => (label) => {
+  if (!label || typeof label === 'string') {
     return label;
   }
 
@@ -20,10 +20,10 @@ module.exports = (tagSet, lang, defaultLang = 'en') => {
   const flatten = makeFlatten(lang, defaultLang);
 
   return {
-    groups: tagSet.groups.map(g => ({
+    groups: tagSet.groups.map((g) => ({
       name: flatten(g.name),
       info: flatten(g.info),
-      tags: g.tags.map(t => ({ id: t.id, label: flatten(t.label) })),
+      tags: g.tags.map((t) => ({ id: t.id, label: flatten(t.label) })),
     })),
   };
 };

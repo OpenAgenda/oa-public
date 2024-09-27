@@ -1,21 +1,28 @@
-[{
-  "query": {
-    "categories": 1
+[
+  {
+    "query": {
+      "categories": 1
+    },
+    "actions": [
+      {
+        "types-devenements": {
+          "$set": 24
+        }
+      }
+    ],
+    "required": false
   },
-  "actions": [{
-    "types-devenements": {
-      "$set": 24
-    }
-  }],
-  "required": false
-}, {
-  "query": {
-    "categories": 2
-  },
-  "actions": [{
-    "types-devenements": {
-      "$set": 19
-    }
-  }],
-  "required": false
-}]
+  {
+    "query": {
+      "categories": 2
+    },
+    "actions": [
+      {
+        "types-devenements": {
+          "$set": 19
+        }
+      }
+    ],
+    "required": false
+  }
+]

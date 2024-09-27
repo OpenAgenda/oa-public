@@ -82,10 +82,6 @@ module.exports = ( { entry, output } ) => ({
     }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify({ NODE_ENV: 'development' }),
-      __CLIENT__: true,
-      __SERVER__: false,
-      __DEVELOPMENT__: true,
-      __DEVTOOLS__: true
     }),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],

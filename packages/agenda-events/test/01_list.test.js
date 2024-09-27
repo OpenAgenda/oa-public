@@ -45,15 +45,15 @@ describe('agendaEvents - 01 - functional (server): list', () => {
       })('01_list'),
       interfaces: {
         ...config.interfaces,
-        getMembers: async aes =>
+        getMembers: async (aes) =>
           aes
             .map(({ agendaUid, userUid }) =>
               _.find(membersFixtures, {
                 agendaUid,
                 userUid,
               }))
-            .filter(ae => !!ae),
-        getSourceAgendas: async sourceAgendaUids =>
+            .filter((ae) => !!ae),
+        getSourceAgendas: async (sourceAgendaUids) =>
           sourceAgendasFixtures.filter(({ uid }) =>
             sourceAgendaUids.includes(uid)),
       },
@@ -108,7 +108,7 @@ describe('agendaEvents - 01 - functional (server): list', () => {
       10,
     );
 
-    expect(items.find(ae => ae.eventUid === 22175636).motive).toBe(
+    expect(items.find((ae) => ae.eventUid === 22175636).motive).toBe(
       '╚(ಠ_ಠ)=┐',
     );
   });
@@ -262,5 +262,25 @@ describe('agendaEvents - 01 - functional (server): list', () => {
       'updatedAt',
       'motive',
     ]);
+  });
+
+  it('list only removed items', async () => {
+    const { items, total } = await svc(62792452).list(0, 100, {
+      removed: true,
+    });
+    expect(items.length).toBe(1);
+    expect(total).toBe(1);
+  });
+
+  it('list all items', async () => {
+    const { items } = await svc(62792452).list(0, 100, { removed: null });
+    expect(items.filter((i) => i.removed === true).length).toBe(1);
+    expect(items.length > 1).toBeTruthy();
+  });
+
+  it('list only not removed items', async () => {
+    const { items } = await svc(62792452).list(0, 10000, {});
+    expect(items.filter((i) => i.eventUid === 53117384).length).toBe(0);
+    expect(items.length < 10000).toBeTruthy();
   });
 });

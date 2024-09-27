@@ -4,11 +4,7 @@ import logs from '@openagenda/logs';
 const log = logs('agendaEvents/fallbackContextGet');
 
 export default async ({ services }, interfaceName, ref, context) => {
-  const {
-    users,
-    events: eventsSvc,
-    agendas: agendasSvc,
-  } = services;
+  const { users, events: eventsSvc, agendas: agendasSvc } = services;
 
   let event = _.get(context, 'event');
   let agenda = _.get(context, 'agenda');
@@ -17,14 +13,24 @@ export default async ({ services }, interfaceName, ref, context) => {
   if (!event) {
     log('warn', 'event is missing in context', ref);
 
-    event = await eventsSvc.get({ uid: ref.eventUid }, {
-      private: null,
-      deleted: null,
-      access: 'internal',
-      detailed: true,
-    });
+    event = await eventsSvc.get(
+      { uid: ref.eventUid },
+      {
+        private: null,
+        deleted: null,
+        access: 'internal',
+        detailed: true,
+      },
+    );
 
-    if (!event) log('error', 'event of uid %s could not be retrieved', _.get(ref, 'uid'), ref);
+    if (!event) {
+      log(
+        'error',
+        'event of uid %s could not be retrieved',
+        _.get(ref, 'uid'),
+        ref,
+      );
+    }
   } else {
     log('event %s, %s is in context', event.uid, event.slug);
   }
@@ -32,11 +38,14 @@ export default async ({ services }, interfaceName, ref, context) => {
   if (!agenda) {
     log('warn', 'agenda is missing in context', ref);
 
-    agenda = await agendasSvc.get({ uid: ref.agendaUid }, {
-      internal: true,
-      private: null,
-      includeImagePath: true,
-    });
+    agenda = await agendasSvc.get(
+      { uid: ref.agendaUid },
+      {
+        internal: true,
+        private: null,
+        includeImagePath: true,
+      },
+    );
   } else {
     log('agenda %s, %s is in context', agenda.uid, agenda.slug);
   }

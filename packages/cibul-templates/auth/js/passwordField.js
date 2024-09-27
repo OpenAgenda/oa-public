@@ -1,13 +1,9 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { useDebounce } from 'use-debounce';
 import { Spinner } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import {
-  IntlProvider,
-  defineMessages,
-  useIntl,
-} from 'react-intl';
+import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 
 import {
   getTypeFromClass,
@@ -33,7 +29,7 @@ const messages = defineMessages({
   },
   weakish: {
     id: 'cibulTemplates.passwordField.weakish',
-    defaultMessage: 'A bit better 😬'
+    defaultMessage: 'A bit better 😬',
   },
   good: {
     id: 'cibulTemplates.passwordField.good',
@@ -49,8 +45,8 @@ const messages = defineMessages({
   },
   isSameAs: {
     id: 'cibulTemplates.passwordField.isSameAs',
-    defaultMessage: 'Must be different from name or email 🙄'
-  }
+    defaultMessage: 'Must be different from name or email 🙄',
+  },
 });
 
 function PasswordField({
@@ -67,41 +63,51 @@ function PasswordField({
   const [subText, setSubText] = useState(initSubText);
   const [isLoading, setIsLoading] = useState(false);
   const [debouncedValue] = useDebounce(value, 1000);
+  const firstRender = useRef(true);
 
   const classes = useMemo(() => getClassesFromType(type), [type]);
 
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
     setIsLoading(true);
     fetchFn(debouncedValue, {
       identifiers: {
         full_name: document.querySelector(selectors.fullName).value,
         email: document.querySelector(selectors.email).value,
       },
-    }).then(({
-      message,
-    }) => {
-      setSubText(message.code);
-      setType(message.type);
-      setIsLoading(false);
-    }, () => setIsLoading(false));
+    }).then(
+      ({ message }) => {
+        setSubText(message.code);
+        setType(message.type);
+        setIsLoading(false);
+      },
+      () => setIsLoading(false),
+    );
   }, [debouncedValue]);
 
-  return (<div className={classes.group}>
-    <label htmlFor="password" className="control-label">{labelText}</label>
-    <input
-      name="password"
-      className="form-control"
-      type="password"
-      value={value}
-      onChange={e => setValue(e.target.value)}
-    />
-    {subText ? (
-      <div className={classes.sub}>
-        {messages[subText] ? intl.formatMessage(messages[subText]) : subText} 
-        {isLoading ? <Spinner mode="inline"/> : null}
-      </div>
-    ) : null}
-  </div>);
+  return (
+    <div className={classes.group}>
+      <label htmlFor="password" className="control-label">
+        {labelText}
+      </label>
+      <input
+        name="password"
+        className="form-control"
+        type="password"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      {subText ? (
+        <div className={classes.sub}>
+          {messages[subText] ? intl.formatMessage(messages[subText]) : subText} 
+          {isLoading ? <Spinner mode="inline" /> : null}
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 export default function passwordField({ lang }) {
@@ -117,10 +123,15 @@ export default function passwordField({ lang }) {
 
   const props = {
     value: document.querySelector(`${selector} input`).value,
-    type: getTypeFromClass(Array.from(elem.classList)),
+    type: getTypeFromClass(
+      Array.from(elem.querySelector('.form-group').classList),
+    ),
     labelText: document.querySelector(`${selector} label`).innerHTML,
     subText: document.querySelector(subSelector)?.innerHTML,
-    fetch: (pwd, options) => window.env === 'tpl' ? testPostEvaluate(pwd, options) : postEvaluate('/api/password/evaluate', pwd, options),
+    fetch: (pwd, options) =>
+      window.env === 'tpl'
+        ? testPostEvaluate(pwd, options)
+        : postEvaluate('/api/password/evaluate', pwd, options),
     selectors: {
       email: emailSelector,
       fullName: fullNameSelector,

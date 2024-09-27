@@ -22,7 +22,7 @@ export default (dirty, options = {}) => {
   const clean = validate(dirty instanceof Object ? dirty : { uid: dirty });
 
   if (options.pickOne) {
-    const field = Object.keys(clean).filter(key => !!clean[key])[0];
+    const field = Object.keys(clean).filter((key) => !!clean[key])[0];
     return {
       [field]: clean[field],
     };

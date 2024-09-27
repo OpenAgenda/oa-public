@@ -5,7 +5,13 @@ import { useMutation, useQueryClient } from 'react-query';
 import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 import qs from 'qs';
 import { css } from '@emotion/react';
-import { useApiClient, MoreInfo, useModal, Modal, nl2br } from '@openagenda/react-shared';
+import {
+  useApiClient,
+  MoreInfo,
+  useModal,
+  Modal,
+  nl2br,
+} from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
 import toggleEventItemValue from '../utils/toggleEventItemValue';
 import EventStateSelector from './EventStateSelector';
@@ -125,23 +131,23 @@ export default function EventItem({
   const queryClient = useQueryClient();
   const intl = useIntl();
 
-  const passId = event.registration.find(r => r.service === 'passCulture')
+  const passId = event.registration.find((r) => r.service === 'passCulture')
     ?.data?.[0]?.response?.passId;
   const passPending = passId
     ? getCurrentValue(
-      event.registration.find(r => r.service === 'passCulture')?.data,
+      event.registration.find((r) => r.service === 'passCulture')?.data,
     )?.isPending
     : undefined;
 
   const passErrored = passId
     ? getCurrentValue(
-      event.registration.find(r => r.service === 'passCulture')?.data,
+      event.registration.find((r) => r.service === 'passCulture')?.data,
     )?.error
     : undefined;
 
   const passRejected = passId
     ? getCurrentValue(
-      event.registration.find(r => r.service === 'passCulture')?.data,
+      event.registration.find((r) => r.service === 'passCulture')?.data,
     )?.isRejected
     : undefined;
 
@@ -166,7 +172,7 @@ export default function EventItem({
   );
 
   const mutation = useMutation(
-    value =>
+    (value) =>
       apiClient.patch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
         featured: value,
       }),
@@ -213,7 +219,7 @@ export default function EventItem({
     [index, isFirst, isLast, page, query],
   );
 
-  const memberPlaceholderMsg = member =>
+  const memberPlaceholderMsg = (member) =>
     event.member?.name ?? (
       <span title={intl.formatMessage(messages.unnamedMemberInfo)}>
         {member?.role
@@ -290,7 +296,7 @@ export default function EventItem({
         <div className="margin-top-xs">
           {intl.formatMessage(messages.createdBy, {
             name: memberPlaceholderMsg(event.member),
-            link: chunks =>
+            link: (chunks) =>
               (event.member ? (
                 <a
                   href={`/${agenda.slug}/admin/members?userUid=${event.member.uid}`}
@@ -318,7 +324,7 @@ export default function EventItem({
         <div className="margin-top-xs">
           {intl.formatMessage(messages.aggregatedFrom, {
             title: event.sourceAgendas[0].title,
-            link: chunks => (
+            link: (chunks) => (
               <a href={`/${event.sourceAgendas[0].slug}`}>{chunks}</a>
             ),
           })}
@@ -380,16 +386,16 @@ export default function EventItem({
           </li>
 
           {event.member
-            && event.originAgenda?.uid === agenda.uid
-            && event.location ? (
-              <li>
-                <a
-                  className="btn btn-link btn-link-inline"
-                  href={`/${agenda.slug}/admin/locations/${event.location.uid}?uids[]=${event.location.uid}`}
-                >
-                  {intl.formatMessage(messages.showLocation)}
-                </a>
-              </li>
+          && event.originAgenda?.uid === agenda.uid
+          && event.location ? (
+            <li>
+              <a
+                className="btn btn-link btn-link-inline"
+                href={`/${agenda.slug}/admin/locations/${event.location.uid}?uids[]=${event.location.uid}`}
+              >
+                {intl.formatMessage(messages.showLocation)}
+              </a>
+            </li>
             ) : null}
 
           {event.onlineAccessLink ? (
@@ -463,9 +469,7 @@ export default function EventItem({
               title: 'popup-title padding-bottom-z',
             }}
           >
-            <div>
-              {nl2br(event.motive)}
-            </div>
+            <div>{nl2br(event.motive)}</div>
           </Modal>
         ) : null}
       </div>

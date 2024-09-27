@@ -83,10 +83,11 @@
     },
     "state": 2,
     "featured": false,
-    "sourcePaths": [[120, 19023], [92893, 90193]],
-    "categories": [
-      1
-    ]
+    "sourcePaths": [
+      [120, 19023],
+      [92893, 90193]
+    ],
+    "categories": [1]
   },
   "after": {
     "uid": 28304431,
@@ -172,9 +173,10 @@
     },
     "state": 2,
     "featured": false,
-    "sourcePaths": [[120, 19023], [92893, 90193]],
-    "categories": [
-      2
-    ]
+    "sourcePaths": [
+      [120, 19023],
+      [92893, 90193]
+    ],
+    "categories": [2]
   }
 }

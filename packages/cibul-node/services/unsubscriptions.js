@@ -10,7 +10,9 @@ export async function init(config, services) {
   });
 
   if (!config.unsubscriptionsSecret) {
-    log.warn('unsubscriptionsSecret config is not set, aborting service initialization');
+    log.warn(
+      'unsubscriptionsSecret config is not set, aborting service initialization',
+    );
     return;
   }
 

@@ -4,15 +4,18 @@ const _ = require('lodash');
 const Mailjet = require('node-mailjet');
 const logger = require('@openagenda/logs');
 
-module.exports = c => {
-  const config = _.merge({
-    logger: false,
-    mailjet: {
-      apiKey: 'CanardLaKey',
-      apiSecret: 'FranceToner',
-      contactsListId: 'JM-France',
+module.exports = (c) => {
+  const config = _.merge(
+    {
+      logger: false,
+      mailjet: {
+        apiKey: 'CanardLaKey',
+        apiSecret: 'FranceToner',
+        contactsListId: 'JM-France',
+      },
     },
-  }, c);
+    c,
+  );
 
   if (c.logger) logger.setModuleConfig(c.logger);
 

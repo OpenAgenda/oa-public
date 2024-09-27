@@ -1,62 +1,63 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const date = require('@openagenda/validators/date');
+const regex = require('@openagenda/validators/regex');
+const integer = require('@openagenda/validators/integer');
 
 schema.register({
-  date: require('@openagenda/validators/date'),
-  regex: require('@openagenda/validators/regex'),
-  integer: require('@openagenda/validators/integer')
+  date,
+  regex,
+  integer,
 });
 
 const compareBeginAndEnd = require('../compareBeginAndEnd');
 const {
-  from: convertFromDateHoursMinutesTiming
- } = require('../convertDateHoursMinutesTiming');
-const fZ = n => (n < 10 ? '0' : '') + n;
-
+  from: convertFromDateHoursMinutesTiming,
+} = require('../convertDateHoursMinutesTiming');
 
 const validate = schema({
   begin: {
     date: {
       type: 'regex',
-      regex: /^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-3][0-9]$/,
-      optional: false
+      regex: /^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-3][0-9]$/,
+      optional: false,
     },
     hours: {
       type: 'integer',
       min: 0,
       max: 23,
-      optional: false
+      optional: false,
     },
     minutes: {
       type: 'integer',
       min: 0,
       max: 59,
-      optional: false
-    }
+      optional: false,
+    },
   },
   end: {
     date: {
       type: 'regex',
-      regex: /^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-3][0-9]$/,
-      optional: false
+      regex: /^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-3][0-9]$/,
+      optional: false,
     },
     hours: {
       type: 'integer',
       min: 0,
       max: 23,
-      optional: false
+      optional: false,
     },
     minutes: {
       type: 'integer',
       min: 0,
       max: 59,
-      optional: false
-    }
-  }
+      optional: false,
+    },
+  },
 });
 
-module.exports = v => {
+module.exports = (v) => {
   const clean = validate(v);
 
   const errors = [];
@@ -69,7 +70,7 @@ module.exports = v => {
       code: 'date.invalid',
       message: 'Invalid Date',
       origin: v.begin.date,
-      field: 'begin.date'
+      field: 'begin.date',
     });
   }
   if (end === null) {
@@ -77,7 +78,7 @@ module.exports = v => {
       code: 'date.invalid',
       message: 'Invalid Date',
       origin: v.end.date,
-      field: 'end.date'
+      field: 'end.date',
     });
   }
 
@@ -90,4 +91,4 @@ module.exports = v => {
   return clean;
 };
 
-module.exports.is = t => t && t.begin && (typeof t.begin.hours !== 'undefined');
+module.exports.is = (t) => t && t.begin && typeof t.begin.hours !== 'undefined';

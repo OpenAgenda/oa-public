@@ -15,11 +15,7 @@
         "fr": "Jeudi 19 mars le salon Jacques Kerchache vous invite, dans le cadre de l'année de la BD 2020, à 18h30:\n\nRencontre Nicolas Finet et Kate Amuroso, éditeur et traductrice de ce deuxième tome publié aux Éditions Rue de l'échiquier de la série \"Intraitable\" de l'auteur coréeen Choi Kyu-Sok.\n\nCe deuxième tome de Choi Kyu-Sok publié aux éditions L'Echiquier poursuit la transposition en fiction de l’implantation conflictuelle – et finalement ratée – de Carrefour en Corée. Cet opus montre comment les salariés peuvent se fédérer face au pouvoir des multinationales, et notamment à quel point cette organisation collective peut se révéler difficile quand on est face à un patron passé maître dans la technique de « diviser pour mieux régner ».\n\nRemarquable de maîtrise et de brio, Choi Kyu-sok continue de dépeindre avec finesse les rouages du système propre aux grandes entreprises et de brosser un portrait complexe et nuancé de la société coréenne contemporaine, en mettant en lumière, plus particulièrement dans ce volume, le rôle essentiel du syndicalisme coréen.\n\nAvec Nicolas Finet, directeur du domaine BD aux éditions l’Echiquier, est un auteur, éditeur, documentariste, consultant, journaliste et conférencier français. Il valorise aujourd’hui, à travers ces différentes activités, sa connaissance approfondie des cultures asiatiques contemporaines ainsi que son compagnonnage de longue date avec la bande dessinée et Kette Amoruso, la traductrice.\n\n?En savoir plus sur l'événement: http://bit.ly/Intraitable\n\n?Tout savoir sur 2020, la Bande Dessinée au musée: http://bit.ly/BD2020mqb"
       },
       "keywords": {
-        "fr": [
-          "Inttraitable",
-          "Choi Kyu-Sok",
-          "Quai Branly"
-        ]
+        "fr": ["Inttraitable", "Choi Kyu-Sok", "Quai Branly"]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite dans la limite des places disponibles"
@@ -75,9 +71,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://bit.ly/Intraitable"
-      ],
+      "registration": ["http://bit.ly/Intraitable"],
       "location": {
         "uid": 85456772,
         "slug": "musee-du-quai-branly-jacques-chirac455",
@@ -148,11 +142,7 @@
         "fr": "Mercredi 19 février le salon de lecture Jacques Kerchache, dans le cadre de l'année de la BD 2020, vous donne rendez-vous à 16h:\n\nRencontre et signature avec aseyn et Boulet (Bouletcorp) à l'occasion de la parution du 2e tome de \"Bolchoï Arena\" aux Éditions Delcourt\n\nDans un futur proche, le Bolchoi, réseau mondial de réalité virtuelle, a remplacé Internet et pris le dessus sur le monde réel. Réplique parfaite de notre univers, il a relancé l’exploration spatiale car c’est aussi un immense simulateur pour les technologies futures. Marje, étudiante en astrophysique, va y faire ses premiers pas, guidée par son amie Dana, et découvrir les limites du Bolchoi et du réel…\n\nRencontre et signature avec Aseyn, talentueux dessinateur (Libération, Le Monde Diplomatique…) qui reviendra sur la conception de cette série BD éditée chez Delcourt qui puise notamment une partie de ses influences dans le manga d’action des années 90 : Katsuhiro Otomo (Akira), Masamune Shirow Ghost in the Shell et Appleseed, mais aussi les comic books ou le jeux vidéo…\n\nEt Boulet, auteur du scénario, dessinateur connu surtout pour son blog (http://www.bouletcorp.com/), où il publie des récits sur sa vie quotidienne - dont est tirée la série Notes (chez Delcourt) – et partage ses coups de cœur, jeunes talents et petites pépites.\n\n?En savoir plus sur l'événement: http://bit.ly/BolchoiArena\n\n?Tout savoir sur 2020, la Bande Dessinée au musée: http://bit.ly/BD2020mqb"
       },
       "keywords": {
-        "fr": [
-          "Bolchoi Arena",
-          "BD",
-          "Quai Branly"
-        ]
+        "fr": ["Bolchoi Arena", "BD", "Quai Branly"]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite dans la limite des places disponibles"
@@ -208,9 +198,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://bit.ly/BolchoiArena"
-      ],
+      "registration": ["http://bit.ly/BolchoiArena"],
       "location": {
         "uid": 85456772,
         "slug": "musee-du-quai-branly-jacques-chirac455",
@@ -355,9 +343,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "0557524170"
-      ],
+      "registration": ["0557524170"],
       "location": {
         "uid": 96339431,
         "slug": "bibliotheque-municipale-de-la-teste-de-buch271",
@@ -391,9 +377,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon BD organisé par la ville La Teste de Buch",
       "type-de-structure": 623,
@@ -502,9 +486,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "0557524122"
-      ],
+      "registration": ["0557524122"],
       "location": {
         "uid": 64367015,
         "slug": "la-centrale531",
@@ -538,9 +520,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -683,12 +663,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Époque salon des livres de Caen",
       "type-de-structure": 632,
       "si-autre-precisez": null,
@@ -830,9 +806,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -987,9 +961,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Époque, salon des livres de Caen",
       "type-de-structure": 632,
@@ -1148,9 +1120,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1317,9 +1287,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1466,9 +1434,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

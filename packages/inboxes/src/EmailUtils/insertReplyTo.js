@@ -1,6 +1,10 @@
 import validateEmail from './validateEmail';
 
-function insertReplyTo({ conversationId, knex, tableName }, userUid, replyToEmail) {
+function insertReplyTo(
+  { conversationId, knex, tableName },
+  userUid,
+  replyToEmail,
+) {
   validateEmail(replyToEmail);
 
   return knex(tableName).insert({

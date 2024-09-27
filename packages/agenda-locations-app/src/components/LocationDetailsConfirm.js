@@ -26,7 +26,8 @@ const messages = {
     },
     hoverInfo: {
       id: 'AgendaLocations.LocationDetails.hoverInfo',
-      defaultMessage: 'This information is not correct? Click on the button on top of this menu to detail the changes to bring',
+      defaultMessage:
+        'This information is not correct? Click on the button on top of this menu to detail the changes to bring',
     },
     emptyGeo: {
       id: 'AgendaLocations.LocationDetails.emptyGeo',
@@ -70,11 +71,13 @@ const messages = {
     },
     refAgendas: {
       id: 'AgendaLocations.LocationDetails.refAgendas',
-      defaultMessage: '{count, plural, =0 {nothing} one {This place is also referenced on the agenda} other {This place is also referenced on the agendas}}',
+      defaultMessage:
+        '{count, plural, =0 {nothing} one {This place is also referenced on the agenda} other {This place is also referenced on the agendas}}',
     },
     others: {
       id: 'AgendaLocations.LocationDetails.others',
-      defaultMessage: '{count, plural, =0 {nothing} one {one other} other {#  others}}',
+      defaultMessage:
+        '{count, plural, =0 {nothing} one {one other} other {#  others}}',
     },
     noContent: {
       id: 'AgendaLocations.LocationDetails.noContent',
@@ -99,7 +102,7 @@ const messages = {
   }),
 };
 
-const mapValues = location => ({
+const mapValues = (location) => ({
   '{w}': 500,
   '{h}': 160,
   '{z}': 14,
@@ -107,12 +110,13 @@ const mapValues = location => ({
   '{lat}': location.latitude,
 });
 
-const getPreferredLang = (obj, lang) => (Object.keys(obj || {}).includes(lang)
-  ? lang
-  : Object.keys(obj || {}).pop()) || lang;
+const getPreferredLang = (obj, lang) =>
+  (Object.keys(obj || {}).includes(lang)
+    ? lang
+    : Object.keys(obj || {}).pop()) || lang;
 
-const getExistingLangs = location => ['description', 'access']
-  .reduce((langs, field) => {
+const getExistingLangs = (location) =>
+  ['description', 'access'].reduce((langs, field) => {
     for (const fieldLang of Object.keys(location[field] || {})) {
       if (!langs.includes(fieldLang)) {
         langs.push(fieldLang);
@@ -121,16 +125,16 @@ const getExistingLangs = location => ['description', 'access']
     return langs;
   }, []);
 
-const LocationDetail = ({
-  location,
-  settings,
-  lang,
-  staticTiles,
-}) => {
+const LocationDetail = ({ location, settings, lang, staticTiles }) => {
   const intl = useIntl();
-  const [contentLang, setContentLang] = useState(getPreferredLang(location.description, lang));
+  const [contentLang, setContentLang] = useState(
+    getPreferredLang(location.description, lang),
+  );
   const existingLangs = getExistingLangs(location);
-  const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi, matched => mapValues(location)[matched]);
+  const staticMap = staticTiles?.replace(
+    /{w}|{h}|{lon}|{lat}|{z}/gi,
+    (matched) => mapValues(location)[matched],
+  );
 
   const toggleCurrentLang = (newContentLang, e) => {
     e.preventDefault();
@@ -144,8 +148,16 @@ const LocationDetail = ({
     <>
       <div className="margin-bottom-md">
         <ul className="list-unstyled" title={location.address}>
-          <li><label htmlFor="name">{intl.formatMessage(messages.name)}</label>:{' '} <span>{location.name}</span> </li>
-          <li><label htmlFor="address">{intl.formatMessage(messages.address)}</label>:{' '} <span>{location.address}</span></li>
+          <li>
+            <label htmlFor="name">{intl.formatMessage(messages.name)}</label>:{' '}
+            <span>{location.name}</span>{' '}
+          </li>
+          <li>
+            <label htmlFor="address">
+              {intl.formatMessage(messages.address)}
+            </label>
+            : <span>{location.address}</span>
+          </li>
         </ul>
         <a
           title={location.address}
@@ -153,24 +165,20 @@ const LocationDetail = ({
           rel="noopener noreferrer"
           href={`https://www.openstreetmap.org/?mlat=${location.latitude}&mlon=${location.longitude}#map=17/${location.latitude}/${location.longitude}`}
         >
-          <img
-            className="img-responsive"
-            src={staticMap}
-            alt=""
-          />
+          <img className="img-responsive" src={staticMap} alt="Map" />
         </a>
       </div>
       <div className="margin-bottom-md">
         <ul className="list-inline">
-          {geoFields(location.countryCode).fields.map(f => (
+          {geoFields(location.countryCode).fields.map((f) => (
             <li key={`geo-${f.field}`}>
               <div
-                className={
-                  `badge badge-default margin-bottom-xs
-                    ${location[f.field]
-                    ? 'badge-outline-primary'
-                    : 'badge-outline-default'}`
-                }
+                className={`badge badge-default margin-bottom-xs
+                    ${
+                      location[f.field]
+                        ? 'badge-outline-primary'
+                        : 'badge-outline-default'
+                    }`}
               >
                 <span>
                   {intl.formatMessage(messages[f.label])}:
@@ -181,92 +189,93 @@ const LocationDetail = ({
           ))}
         </ul>
       </div>
-      {
-        settings?.tagSet
-          ? flattenTagSetLabels(settings.tagSet, lang).groups.map(
-            group => (
-              <div key={`tag-group-${group.name}`} className="margin-top-sm">
-                <label htmlFor="group-name">{group.name}</label>
-                <ul
-                  className="list-unstyled"
-                  title={location.address}
-                >
-                  {group.tags.map(tag => (
-                    <li key={`tag-${tag.id}`}>
-                      <div
-                        className={
-                          (location.tags || []).filter(t => t.id === tag.id)
-                            .length
-                            ? 'badge badge-default badge-outline-primary margin-bottom-xs'
-                            : 'badge badge-muted margin-bottom-xs'
-                        }
-                      >
-                        <span>{tag.label}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ),
-          )
-          : null
-      }
+      {settings?.tagSet
+        ? flattenTagSetLabels(settings.tagSet, lang).groups.map((group) => (
+          <div key={`tag-group-${group.name}`} className="margin-top-sm">
+            <label htmlFor="group-name">{group.name}</label>
+            <ul className="list-unstyled" title={location.address}>
+              {group.tags.map((tag) => (
+                <li key={`tag-${tag.id}`}>
+                  <div
+                    className={
+                        (location.tags || []).filter((t) => t.id === tag.id)
+                          .length
+                          ? 'badge badge-default badge-outline-primary margin-bottom-xs'
+                          : 'badge badge-muted margin-bottom-xs'
+                      }
+                  >
+                    <span>{tag.label}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+        : null}
       <ul className="list-unstyled" title={location.address}>
         {location.extId ? (
           <li>
-            <label htmlFor="extId">{intl.formatMessage(messages.extId)} </label>:{' '}
-            <span>{location.extId}</span>
+            <label htmlFor="extId">{intl.formatMessage(messages.extId)} </label>
+            : <span>{location.extId}</span>
           </li>
         ) : null}
         <li>
           <label htmlFor="phone">{intl.formatMessage(messages.phone)} </label>:{' '}
-          {location.phone
-            ? (
-              <span><a href={`tel:${location.phone}`}>{location.phone}</a></span>
-            )
-            : (
-              <span><i>{intl.formatMessage(messages.noValue)}</i></span>
-            )}
+          {location.phone ? (
+            <span>
+              <a href={`tel:${location.phone}`}>{location.phone}</a>
+            </span>
+          ) : (
+            <span>
+              <i>{intl.formatMessage(messages.noValue)}</i>
+            </span>
+          )}
         </li>
         <li>
           <label htmlFor="email">{intl.formatMessage(messages.email)} </label>:{' '}
-          {location.email
-            ? (
-              <span><a href={`mailto:${location.email}`}>{location.email}</a></span>
-            )
-            : (
-              <span><i>{intl.formatMessage(messages.noValue)}</i></span>
-            )}
+          {location.email ? (
+            <span>
+              <a href={`mailto:${location.email}`}>{location.email}</a>
+            </span>
+          ) : (
+            <span>
+              <i>{intl.formatMessage(messages.noValue)}</i>
+            </span>
+          )}
         </li>
         {(location.siret ?? '').length ? (
           <li>
-            <label htmlFor="siret">{intl.formatMessage(messages.siret)} </label>:{' '}
-            <span>{location.siret}</span>
+            <label htmlFor="siret">{intl.formatMessage(messages.siret)} </label>
+            : <span>{location.siret}</span>
           </li>
         ) : null}
-        <li style={{
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          width: '400px',
-          whiteSpace: 'nowrap',
-          display: 'block',
-        }}
+        <li
+          style={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            width: '400px',
+            whiteSpace: 'nowrap',
+            display: 'block',
+          }}
         >
-          <label htmlFor="website">{intl.formatMessage(messages.website)} </label>:{' '}
-          {location.website
-            ? (
-              <span>
-                <a href={location.website}>{location.website}</a>
-              </span>
-            )
-            : (
-              <span><i>{intl.formatMessage(messages.noValue)}</i></span>
-            )}
+          <label htmlFor="website">
+            {intl.formatMessage(messages.website)}{' '}
+          </label>
+          :{' '}
+          {location.website ? (
+            <span>
+              <a href={location.website}>{location.website}</a>
+            </span>
+          ) : (
+            <span>
+              <i>{intl.formatMessage(messages.noValue)}</i>
+            </span>
+          )}
         </li>
         <li>
           <label htmlFor="links">{intl.formatMessage(messages.links)} </label>:
           {(location.links || []).length
-            ? location.links.map(l => (
+            ? location.links.map((l) => (
               <div
                 className="margin-bottom-xs"
                 key={`l-link-${l}`}
@@ -300,29 +309,39 @@ const LocationDetail = ({
       </div>
       <div>
         <ul className="nav nav-pills pull-right">
-          {existingLangs.map(fieldLang => (
+          {existingLangs.map((fieldLang) => (
             <li
               key={`lang-tab-${fieldLang}`}
               onClick={toggleCurrentLang.bind(this, fieldLang)}
               role="presentation"
               className={fieldLang === contentLang ? 'active' : ''}
             >
-              <button type="button" className="btn btn-link"> {fieldLang.toUpperCase()} </button>
+              <button type="button" className="btn btn-link">
+                {' '}
+                {fieldLang.toUpperCase()}{' '}
+              </button>
             </li>
           ))}
         </ul>
         <div className="padding-top-md" title={location.address}>
-          {['description', 'access'].map(mlField => (
+          {['description', 'access'].map((mlField) => (
             <div key={`field-${mlField}`}>
-              <label htmlFor="mlField"><FormattedMessage {...messages[mlField]} /></label>
+              <label htmlFor="mlField">
+                <FormattedMessage {...messages[mlField]} />
+              </label>
               <p>
                 {location[mlField] && location[mlField][contentLang]
                   ? location[mlField][contentLang]
                   : (
                     <i>
-                      {existingLangs.length
-                        ? <FormattedMessage values={{ lang: contentLang.toUpperCase() }} {...messages.noContent} />
-                        : <FormattedMessage {...messages.noValue} />}
+                      {existingLangs.length ? (
+                        <FormattedMessage
+                          values={{ lang: contentLang.toUpperCase() }}
+                          {...messages.noContent}
+                        />
+                      ) : (
+                        <FormattedMessage {...messages.noValue} />
+                      )}
                     </i>
                   )}
               </p>

@@ -1,9 +1,7 @@
 import _ from 'lodash';
-import React from 'react';
 import ReactDOM from 'react-dom';
 import createApp from '@openagenda/inbox-apps/src/app';
 import { wrapApp } from '@openagenda/react-shared';
-import du from '@openagenda/dom-utils';
 
 const defaults = {
   initialState: {
@@ -27,5 +25,5 @@ window.hook(options => {
   ReactDOM.render(wrapApp(
     createApp({ initialState }),
     { extraProps }
-  ), du.el('.js_canvas'));
+  ), document.querySelector('.js_canvas'));
 });

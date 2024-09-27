@@ -72,6 +72,10 @@ module.exports = {
     io: 'crwdns13140:0crwdne13140:0',
     oc: 'Los senhals son pas parièrs',
   },
+  passwordRequired: {
+    fr: 'Un mot de passe doit être défini',
+    en: 'A password must be defined',
+  },
   createAccount: {
     fr: "Création d'un nouveau compte",
     en: 'Create an account',

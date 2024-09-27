@@ -33,26 +33,35 @@ const messages = defineMessages({
   },
 });
 
-const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
+const completedPrefix = (agenda, prefix) =>
+  prefix.replace(':agendaSlug', agenda.slug);
 
 const CreateFormHeader = ({ nq, history }) => (
   <div className="head padding-bottom-md">
     {nq ? (
-      <button type="button" className="btn btn-default" onClick={() => history.push(nq)}>
+      <button
+        type="button"
+        className="btn btn-default"
+        onClick={() => history.push(nq)}
+      >
         <i className="fa fa-angle-left margin-right-sm" />
-        <span><FormattedMessage {...messages.back} /></span>
+        <span>
+          <FormattedMessage {...messages.back} />
+        </span>
       </button>
     ) : null}
-    <h2><FormattedMessage {...messages.title} /></h2>
-    <span className="info"><FormattedMessage {...messages.info} /></span>
+    <h2>
+      <FormattedMessage {...messages.title} />
+    </h2>
+    <span className="info">
+      <FormattedMessage {...messages.info} />
+    </span>
   </div>
 );
 
-const CreateForm = ({
-  detailedInfo = true,
-}) => {
+const CreateForm = ({ detailedInfo = true }) => {
   const { lang, agenda } = useLayoutData();
-  const tiles = useSelector(state => state.settings.mapTiles);
+  const tiles = useSelector((state) => state.settings.mapTiles);
   const [errors, setErrors] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
   const [pageSpin, setPageSpin] = useState(false);
@@ -61,11 +70,14 @@ const CreateForm = ({
   const { settings, isLoading } = useSettings(agenda);
   const historyLocation = useLocation();
   const nq = historyLocation.state;
-  const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
+  const prefix = completedPrefix(
+    agenda,
+    useSelector((state) => state.settings.prefix),
+  );
   const dispatch = useDispatch();
   const intl = useIntl();
 
-  const onSubmit = location => {
+  const onSubmit = (location) => {
     setPageSpin(true);
     let clean;
     try {
@@ -90,30 +102,27 @@ const CreateForm = ({
       .then(() => {
         setPageSpin(false);
         dispatch(onGoingActions.initiate('create'));
-        if (nq) history.push(nq); else history.push(prefix);
+        if (nq) history.push(nq);
+        else history.push(prefix);
         setErrors(false);
-      }).catch(err => {
+      })
+      .catch((err) => {
         setPageSpin(false);
         setErrorModal(err);
       });
   };
 
-  if (settings && (!settings?.access.create.authorized || settings?.access.create.external)) {
-    return (
-      <AccessModal
-        action="create"
-        close={() => history.push(prefix)}
-      />
-    );
+  if (
+    settings
+    && (!settings?.access.create.authorized || settings?.access.create.external)
+  ) {
+    return <AccessModal action="create" close={() => history.push(prefix)} />;
   }
 
   return (
     <>
       {errorModal ? (
-        <ErrorModal
-          close={() => setErrorModal(false)}
-          error={errorModal}
-        />
+        <ErrorModal close={() => setErrorModal(false)} error={errorModal} />
       ) : null}
       {!isLoading ? (
         <LocationForm
@@ -124,7 +133,10 @@ const CreateForm = ({
           location={null}
           detailedInfo={detailedInfo}
           settings={settings}
-          onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
+          onCancel={() => {
+            if (nq) history.push(nq);
+            else history.push(prefix);
+          }}
           onSubmit={onSubmit}
           tiles={tiles}
           mode="create"

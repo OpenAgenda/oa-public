@@ -2,10 +2,14 @@ import _ from 'lodash';
 import getMatchingPassId from '../iso/getMatchingPassId.js';
 import handleError from './handleError.js';
 
-const formatPriceCategory = priceCategory => _.omit({
-  ...priceCategory,
-  price: parseFloat(priceCategory.price),
-}, ['id']);
+const formatPriceCategory = (priceCategory) =>
+  _.omit(
+    {
+      ...priceCategory,
+      price: parseFloat(priceCategory.price),
+    },
+    ['id'],
+  );
 
 async function update(pc, passEventOfferId, _OAEvent, processedEntries, entry) {
   const succeeded = { priceCategories: [] };
@@ -13,10 +17,10 @@ async function update(pc, passEventOfferId, _OAEvent, processedEntries, entry) {
 
   for (const priceCategory of entry.priceCategories) {
     try {
-      await pc.offers.events(passEventOfferId)
-        .priceCategories(
-          getMatchingPassId(processedEntries, priceCategory.id),
-        ).patch(_.omit(priceCategory, ['id']));
+      await pc.offers
+        .events(passEventOfferId)
+        .priceCategories(getMatchingPassId(processedEntries, priceCategory.id))
+        .patch(_.omit(priceCategory, ['id']));
       succeeded.priceCategories.push(priceCategory);
     } catch (e) {
       error = handleError('priceCategories update', e);
@@ -26,27 +30,38 @@ async function update(pc, passEventOfferId, _OAEvent, processedEntries, entry) {
 
   return {
     succeeded,
-    remaining: succeeded.priceCategories.length === entry.priceCategories.length ? [] : entry.priceCategories.slice(succeeded.priceCategories.length),
+    remaining:
+      succeeded.priceCategories.length === entry.priceCategories.length
+        ? []
+        : entry.priceCategories.slice(succeeded.priceCategories.length),
     error,
   };
 }
 
-async function create(pc, passEventOfferId, _OAEvent, _processedEntries, entry) {
-  const {
-    priceCategories: createdPriceCategories,
-    error,
-  } = await pc.offers.events(passEventOfferId).priceCategories.create({
-    priceCategories: entry.priceCategories.map(formatPriceCategory),
-  }).catch(e => ({ error: handleError('priceCategories create', e) }));
+async function create(
+  pc,
+  passEventOfferId,
+  _OAEvent,
+  _processedEntries,
+  entry,
+) {
+  const { priceCategories: createdPriceCategories, error } = await pc.offers
+    .events(passEventOfferId)
+    .priceCategories.create({
+      priceCategories: entry.priceCategories.map(formatPriceCategory),
+    })
+    .catch((e) => ({ error: handleError('priceCategories create', e) }));
 
   return {
     succeeded: error ? undefined : entry,
-    response: error ? undefined : {
-      priceCategories: entry.priceCategories.map(({ id }, index) => ({
-        id,
-        passId: createdPriceCategories[index].id,
-      })),
-    },
+    response: error
+      ? undefined
+      : {
+        priceCategories: entry.priceCategories.map(({ id }, index) => ({
+          id,
+          passId: createdPriceCategories[index].id,
+        })),
+      },
     remaining: error ? entry.priceCategories : undefined,
     error,
   };

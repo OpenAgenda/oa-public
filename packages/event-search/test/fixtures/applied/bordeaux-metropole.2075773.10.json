@@ -109,18 +109,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -275,18 +270,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -399,9 +389,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.fft.fr"
-      ],
+      "registration": ["http://www.fft.fr"],
       "location": {
         "uid": 97531234,
         "slug": "2-allee-pierre-de-coubertin",
@@ -429,17 +417,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 51,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        54892589
-      ],
+      "sourcePaths": [54892589],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -484,11 +468,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "troc",
-          "plantes",
-          "SEL"
-        ]
+        "fr": ["troc", "plantes", "SEL"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -573,17 +553,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 57,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        41375362
-      ],
+      "sourcePaths": [41375362],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -720,17 +696,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 55,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        99562884
-      ],
+      "sourcePaths": [99562884],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -873,18 +845,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1042,18 +1009,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1210,18 +1172,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1282,12 +1239,7 @@
         "fr": "### Dans le cadre des jeudis de la transition, la Maison Écocitoyenne et l'Échoppe s'associent pour proposer un cycle de conférence sur la sobriété numérique.\n\n**▶ RDV JEUDI 28 NOV :**\n------------------------\n\n**LA DATA : MENACE POUR L'ENVIRONNEMENT** ?\n-------------------------------------------\n\nQuel est l'empreinte carbone d'un data-center ? Très gourmand en ressources lors de la fabrication des équipements, sujet à une obsolescence programmée, Data-center et environnement sont-ils antinomiques ?\n\nLes perspectives des besoins de données avec la montée en puissance de la e-santé, de la SmartCity, de la mobilité connectée, et l'arrivée de la technologie 5G sont autant de raisons de concilier centre de données et écologie.\n\n**Oui mais comment ?**\n\nPour nous éclairer et répondre à nos questions :\n\n*   **Hugues Ferreboeuf, Directeur du numérique à** [**ShiftProject**](https://theshiftproject.org/)\n\nIngénieur polytechnicien et diplômé de Télécom ParisTech, Hugues Ferreboeuf a dirigé plusieurs sociétés du secteur numérique et est directeur associé au sein de Virtus Management. Il coordonne par ailleurs au sein du Shift Project, think tank qui oeuvre en faveur d’une économie libérée de la contrainte carbone.\n\n*   **Nicolas SAINTHERANT, Responsable innovation de** [**Qarnot**](https://www.qarnot.com/fr/home-fr/)\n\nQarnot est la première entreprise au monde à chauffer des bâtiments et de l'eau grâce à la chaleur des ordinateurs, la chaleur fatale informatique.\n\nQarnot a récemment installé près de 350 radiateurs-ordinateurs pour chauffer une résidence de 49 logements sociaux et deux niveaux de bureaux, à Bordeaux.\n\n*   **Nathalie QUENEL-TUEUX, coordonnatrice du** [**Groupe Santé Numérique de l'Institut Bergonié**](https://www.bergonie.fr/essais_cliniques/e-domsante/)\n\nMédecin-pilote du projet e-Domsanté : suivi et aide à distance grâce au numérique de patients atteints de cancer métastatique, pour éviter des consultations inutiles et des passages aux urgences dans le but d'améliorer la qualité de vie de ces patients."
       },
       "keywords": {
-        "fr": [
-          "numerique",
-          "conference",
-          "web",
-          "ecologie"
-        ]
+        "fr": ["numerique", "conference", "web", "ecologie"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -1471,9 +1423,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.gironde.gouv.fr"
-      ],
+      "registration": ["http://www.gironde.gouv.fr"],
       "location": {
         "uid": 64215784,
         "slug": "salle-des-fetes-de-bassens",
@@ -1499,17 +1449,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 58,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        41375362
-      ],
+      "sourcePaths": [41375362],
       "aggregated": false,
       "sourceAgendas": [
         {

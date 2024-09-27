@@ -6,10 +6,7 @@ const _ = require('lodash');
 const Files = require('@openagenda/files');
 
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 
 const fixtures = require('./fixtures');
 
@@ -55,13 +52,13 @@ describe('agenda-locations - functional - patch & update', () => {
     svc = Service({
       knex: f.client,
       interfaces: {
-        getAgendaDetailsByUid: async uid => ({
+        getAgendaDetailsByUid: async (uid) => ({
           id: {
             7196947: 25221,
           }[uid],
         }),
-        geocode: async _address => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async _uid => initSettingsDA,
+        geocode: async (_address) => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async (_uid) => initSettingsDA,
       },
       Files: Files(dConfig.files),
     });
@@ -97,7 +94,9 @@ describe('agenda-locations - functional - patch & update', () => {
     });
 
     it('updatedAt is updated', async () => {
-      expect(JSON.stringify(entry.before.updated_at)).not.toEqual(JSON.stringify(entry.after.updated_at));
+      expect(JSON.stringify(entry.before.updated_at)).not.toEqual(
+        JSON.stringify(entry.after.updated_at),
+      );
     });
   });
 
@@ -115,7 +114,9 @@ describe('agenda-locations - functional - patch & update', () => {
     });
 
     it('saves uploaded image name in db', () => {
-      expect(JSON.parse(entry.store).image.split('?').shift()).toEqual('location94482437.jpg');
+      expect(JSON.parse(entry.store).image.split('?').shift()).toEqual(
+        'location94482437.jpg',
+      );
     });
 
     it('patching image in store does not affect other store fields', () => {
@@ -145,15 +146,13 @@ describe('agenda-locations - functional - patch & update', () => {
 
   describe('set', () => {
     it('updates', async () => {
-      await svc
-        .sets(1903810)
-        .locations.update(30433085, payload);
+      await svc.sets(1903810).locations.update(30433085, payload);
       expect(
         await f
           .client('location')
           .first()
           .where('uid', 30433085)
-          .then(r => r.placename),
+          .then((r) => r.placename),
       ).toEqual(payload.name);
     });
 
@@ -166,7 +165,7 @@ describe('agenda-locations - functional - patch & update', () => {
           .client('location')
           .first()
           .where('uid', 30433085)
-          .then(r => r.placename),
+          .then((r) => r.placename),
       ).toEqual('Patched');
     });
 
@@ -177,7 +176,7 @@ describe('agenda-locations - functional - patch & update', () => {
           .client('location')
           .first()
           .where('uid', 30433085)
-          .then(r => r.set_uid),
+          .then((r) => r.set_uid),
       ).toEqual(1903810);
     });
   });
@@ -231,100 +230,100 @@ describe('agenda-locations - functional - patch & update', () => {
       expect(entry.ext_id).toEqual('leg_ard_03');
     });
 
-    it(
-      'if extId is part of patch, it is synced to legacy and set in dedicated field',
-      async () => {
-        const updated = await svc.sets(1903810).locations.patch(60763721, {
-          extId: 'ard_leg_1200',
-        });
+    it('if extId is part of patch, it is synced to legacy and set in dedicated field', async () => {
+      const updated = await svc.sets(1903810).locations.patch(60763721, {
+        extId: 'ard_leg_1200',
+      });
 
-        const { store } = await f
-          .client('location')
-          .first(['store'])
-          .where('uid', 60763721)
-          .then(r => ({
-            store: JSON.parse(r.store),
-            extId: r.ext_id,
-          }));
+      const { store } = await f
+        .client('location')
+        .first(['store'])
+        .where('uid', 60763721)
+        .then((r) => ({
+          store: JSON.parse(r.store),
+          extId: r.ext_id,
+        }));
 
-        expect(store.extId).toEqual('ard_leg_1200');
-        expect(updated.extId).toEqual('ard_leg_1200');
-      },
-    );
+      expect(store.extId).toEqual('ard_leg_1200');
+      expect(updated.extId).toEqual('ard_leg_1200');
+    });
 
-    it(
-      'fix: patch should not break unspecified image',
-      async () => {
-        await svc(7196947).patch(86591143, {
+    it('fix: patch should not break unspecified image', async () => {
+      await svc(7196947).patch(
+        86591143,
+        {
           description: 'Une petite description',
-        }, { includeImagePath: true });
+        },
+        { includeImagePath: true },
+      );
 
-        const image = await f.client('location')
-          .first()
-          .where('uid', 86591143)
-          .then(e => JSON.parse(e.store).image);
+      const image = await f
+        .client('location')
+        .first()
+        .where('uid', 86591143)
+        .then((e) => JSON.parse(e.store).image);
 
-        expect(image).toBe(null);
-      },
-    );
+      expect(image).toBe(null);
+    });
 
-    it(
-      'fix: extId should be cleared when specifying null in patch',
-      async () => {
-        const patched = await svc(7196947).patch(14471367, {
+    it('fix: extId should be cleared when specifying null in patch', async () => {
+      const patched = await svc(7196947).patch(
+        14471367,
+        {
           extId: null,
-        }, { includeImagePath: true });
+        },
+        { includeImagePath: true },
+      );
 
-        expect(patched.extId).toBeNull();
-      },
-    );
+      expect(patched.extId).toBeNull();
+    });
 
-    it(
-      'fix: adminLevels should be patchable',
-      async () => {
-        const prePatch = await svc(7196947).get(14471367, { detailed: true });
+    it('fix: adminLevels should be patchable', async () => {
+      const prePatch = await svc(7196947).get(14471367, { detailed: true });
 
-        expect(prePatch.adminLevel5).toBeNull();
+      expect(prePatch.adminLevel5).toBeNull();
 
-        const patched = await svc(7196947).patch(14471367, { adminLevel5: 'Centre' });
+      const patched = await svc(7196947).patch(14471367, {
+        adminLevel5: 'Centre',
+      });
 
-        expect(patched.adminLevel5).toBe('Centre');
+      expect(patched.adminLevel5).toBe('Centre');
 
-        const postPatch = await svc(7196947).get(14471367, { detailed: true });
+      const postPatch = await svc(7196947).get(14471367, { detailed: true });
 
-        expect(postPatch.adminLevel5).toBe('Centre');
-      },
-    );
+      expect(postPatch.adminLevel5).toBe('Centre');
+    });
 
-    it(
-      'fix: patch without countryCode or address in payload and with autocomplete option should not attempt to patch latitude & longitude',
-      async () => {
-        let error;
-        try {
-          await svc(7196947).patch(86591143, {
+    it('fix: patch without countryCode or address in payload and with autocomplete option should not attempt to patch latitude & longitude', async () => {
+      let error;
+      try {
+        await svc(7196947).patch(
+          86591143,
+          {
             website: 'https://oa.com',
-          }, { autocomplete: true });
-        } catch (e) {
-          error = e;
-        }
-
-        expect(error).toBeUndefined();
-      },
-    );
-
-    it(
-      'if a new adress is provided at update and autocomplete option is set, a geocoding is made to derive them from address',
-      async () => {
-        const updated = await svc(7196947).update(
-          95301591,
-          { ..._.omit(payload, ['latitude', 'longitude']), address: 'something new' },
+          },
           { autocomplete: true },
         );
+      } catch (e) {
+        error = e;
+      }
 
-        expect(updated.latitude).toEqual(10);
-        expect(updated.longitude).toEqual(11);
-      },
-    );
+      expect(error).toBeUndefined();
+    });
+
+    it('if a new adress is provided at update and autocomplete option is set, a geocoding is made to derive them from address', async () => {
+      const updated = await svc(7196947).update(
+        95301591,
+        {
+          ..._.omit(payload, ['latitude', 'longitude']),
+          address: 'something new',
+        },
+        { autocomplete: true },
+      );
+
+      expect(updated.latitude).toEqual(10);
+      expect(updated.longitude).toEqual(11);
+    });
   });
 });
 
@@ -339,13 +338,13 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
     svc = Service({
       knex: f.client,
       interfaces: {
-        getAgendaDetailsByUid: async uid => ({
+        getAgendaDetailsByUid: async (uid) => ({
           id: {
             7196947: 25221,
           }[uid],
         }),
-        geocode: async _address => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async _uid => initSettingsCantUpdate,
+        geocode: async (_address) => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async (_uid) => initSettingsCantUpdate,
       },
       Files: Files(dConfig.files),
     });

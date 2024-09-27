@@ -1,6 +1,11 @@
 'use strict';
 
-const event = JSON.parse(require('fs').readFileSync(`${__dirname}/fixtures/acces-libre.json`, 'utf-8'));
+const event = JSON.parse(
+  require('node:fs').readFileSync(
+    `${__dirname}/fixtures/acces-libre.json`,
+    'utf-8',
+  ),
+);
 const md = require('../lib/markdown');
 
 describe('flat-exports - unit - markdown and text', () => {
@@ -12,7 +17,7 @@ describe('flat-exports - unit - markdown and text', () => {
         type: 'agenda',
         lang: 'fr',
         title: 'La Gargouille',
-        description: 'Evénements à Paris'
+        description: 'Evénements à Paris',
       });
 
       expect(head).toBe(
@@ -21,12 +26,17 @@ Evénements à Paris
 https://openagenda.com/la-gargouille
 =============================
 
-`
+`,
       );
     });
 
     test('text event', () => {
-      const markdownEventItem = md.parseEvent('txt', { lang: 'fr', genUrl: e => `#${e.uid}` }, event, { previous: event });
+      const markdownEventItem = md.parseEvent(
+        'txt',
+        { lang: 'fr', genUrl: (e) => `#${e.uid}` },
+        event,
+        { previous: event },
+      );
       expect(markdownEventItem).toBe(
         `Accès libre
 #48919824
@@ -49,18 +59,23 @@ Image: https://cibul.s3.amazonaws.com/event_acces-libre_337_329719.jpg
 
 -----------------------------
 
-`
+`,
       );
     });
   });
 
   describe('helpers - markdown', () => {
     test('markdown event', () => {
-      const markdownEventItem = md.parseEvent('md', {
-        lang: 'fr',
-        genUrl: e => `#${e.uid}`,
-        section: null
-      }, event, { previous: event });
+      const markdownEventItem = md.parseEvent(
+        'md',
+        {
+          lang: 'fr',
+          genUrl: (e) => `#${e.uid}`,
+          section: null,
+        },
+        event,
+        { previous: event },
+      );
 
       expect(markdownEventItem).toBe(
         `### [Accès libre](#48919824)
@@ -82,7 +97,7 @@ Accès libre accompagné
 
 ---
 
-`
+`,
       );
     });
   });

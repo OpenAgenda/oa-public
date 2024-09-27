@@ -1,19 +1,11 @@
 import { BadRequest } from '@openagenda/verror';
 
-import {
-  isFloatable,
-} from '../utils.js';
+import { isFloatable } from '../utils.js';
 
 export default function validatePriceCategory(value, options = {}) {
-  const {
-    boolMode = false,
-  } = options;
+  const { boolMode = false } = options;
 
-  const {
-    price,
-    label,
-    id,
-  } = value;
+  const { price, label, id } = value;
 
   const clean = {};
 
@@ -60,7 +52,7 @@ export function validatePriceCategories(priceCategories) {
     try {
       clean.push(validatePriceCategory(priceCategory));
     } catch (pcError) {
-      pcError.info.errors.forEach(error => errors.push({ ...error, index }));
+      pcError.info.errors.forEach((error) => errors.push({ ...error, index }));
     }
   }
 

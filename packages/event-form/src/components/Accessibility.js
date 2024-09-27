@@ -6,10 +6,14 @@ import flatten from '@openagenda/labels/flatten';
 
 const TYPES = ['hi', 'vi', 'pi', 'mi', 'ii'];
 
-const getDefault = () => TYPES.reduce((c, t) => ({
-  ...c,
-  [t]: false,
-}), {});
+const getDefault = () =>
+  TYPES.reduce(
+    (c, t) => ({
+      ...c,
+      [t]: false,
+    }),
+    {},
+  );
 
 export default class AccessibilityComponent extends Component {
   constructor(props) {
@@ -21,22 +25,16 @@ export default class AccessibilityComponent extends Component {
   }
 
   hasAccessibility() {
-    const {
-      value: currentValue,
-    } = this.props;
+    const { value: currentValue } = this.props;
     const value = currentValue ?? getDefault();
 
-    return !!_.keys(value).filter(k => value[k]).length;
+    return !!_.keys(value).filter((k) => value[k]).length;
   }
 
   toggleEnabled() {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
-    const {
-      enabled,
-    } = this.state;
+    const { enabled } = this.state;
 
     const toggled = !enabled;
 
@@ -50,10 +48,7 @@ export default class AccessibilityComponent extends Component {
   }
 
   toggleAccessibility(type) {
-    const {
-      onChange,
-      value: currentValue,
-    } = this.props;
+    const { onChange, value: currentValue } = this.props;
 
     const value = currentValue ?? getDefault();
 
@@ -64,16 +59,11 @@ export default class AccessibilityComponent extends Component {
   }
 
   render() {
-    const {
-      value,
-      lang,
-    } = this.props;
+    const { value, lang } = this.props;
 
     const labels = flatten(mLabels, lang, true);
 
-    const {
-      enabled,
-    } = this.state;
+    const { enabled } = this.state;
 
     return (
       <div className="accessibility form-group">
@@ -89,8 +79,8 @@ export default class AccessibilityComponent extends Component {
           </label>
         </div>
         {enabled ? (
-          <div className="accessibility-detail margin-left-md margin-top-md">{
-            TYPES.map((type, i) => (
+          <div className="accessibility-detail margin-left-md margin-top-md">
+            {TYPES.map((type, i) => (
               <div
                 className={`checkbox ${type + (i + 1 < TYPES.length ? ' margin-bottom-md' : ' margin-bottom-xs')}`}
                 key={type}
@@ -103,11 +93,11 @@ export default class AccessibilityComponent extends Component {
                     checked={!!value?.[type]}
                     onChange={this.toggleAccessibility.bind(this, type)}
                   />
-                  <i />{labels[type]}
+                  <i />
+                  {labels[type]}
                 </label>
               </div>
-            ))
-          }
+            ))}
           </div>
         ) : null}
       </div>

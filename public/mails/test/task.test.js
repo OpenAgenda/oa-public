@@ -10,7 +10,7 @@ const createMails = require('../index');
 const templatesDir = path.join(__dirname, '..', 'templates');
 
 function _sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 describe('task', () => {

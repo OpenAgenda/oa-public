@@ -20,7 +20,7 @@ function index(req, res) {
   cmn.render(req, res, 'admin/agendas', req.templateData);
 }
 
-export default app => {
+export default (app) => {
   const { aggregators, agendas: agendasSvc } = app.services;
 
   const preMw = PreMw(app.services);

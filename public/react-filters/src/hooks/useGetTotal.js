@@ -10,7 +10,9 @@ export default function useGetTotal(aggregations) {
       const dataKey = 'id' in option ? 'id' : 'key';
       const optionKey = 'id' in option ? 'id' : 'value';
 
-      const optionValue = aggregation.find(v => String(v[dataKey]) === String(option[optionKey]));
+      const optionValue = aggregation.find(
+        (v) => String(v[dataKey]) === String(option[optionKey]),
+      );
 
       if (optionValue) {
         return optionValue.eventCount || 0;

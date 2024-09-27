@@ -6,54 +6,58 @@ const CREATE_CONVERSATION_FAIL = 'inbox-apps/conversationForm/CREATE_CONVERSATIO
 
 const initialState = {
   opened: false,
-  data: {}
+  data: {},
 };
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
     case OPEN_CONVERSATION_FORM:
       return {
         ...state,
         opened: true,
-        data: action.data
+        data: action.data,
       };
     case CLOSE_CONVERSATION_FORM:
       return {
         ...state,
         opened: false,
-        data: {}
-      }
+        data: {},
+      };
     default:
       return state;
   }
-};
+}
 
-export function openConversationForm( data ) {
+export function openConversationForm(data) {
   return {
     type: OPEN_CONVERSATION_FORM,
-    data
+    data,
   };
 }
 
 export function closeConversationForm() {
   return {
-    type: CLOSE_CONVERSATION_FORM
+    type: CLOSE_CONVERSATION_FORM,
   };
 }
 
-export function createConversation( data, agenda ) {
+export function createConversation(data, agenda) {
   return {
-    types: [ CREATE_CONVERSATION, CREATE_CONVERSATION_SUCCESS, CREATE_CONVERSATION_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [
+      CREATE_CONVERSATION,
+      CREATE_CONVERSATION_SUCCESS,
+      CREATE_CONVERSATION_FAIL,
+    ],
+    promise: ({ client }, { getState }) => {
       const { res, event } = getState();
 
       return client.post(
         res.conversations.create
-          .replace( ':slug', agenda && agenda.slug )
-          .replace( ':agendaUid', agenda && agenda.uid )
-          .replace( ':eventUid', event && event.uid ),
-        data
+          .replace(':slug', agenda && agenda.slug)
+          .replace(':agendaUid', agenda && agenda.uid)
+          .replace(':eventUid', event && event.uid),
+        data,
       );
-    }
+    },
   };
 }

@@ -9,17 +9,16 @@ const webpack = require('webpack');
 const webpackDevMw = require('webpack-dev-middleware');
 const webpackHotMw = require('webpack-hot-middleware');
 
+const style = require('@openagenda/bs-templates').getCss('main');
+
+const Service = require('..');
 const webpackConfig = require('./webpack');
+
+const devLayout = require('./layout');
 
 const compiler = webpack(webpackConfig);
 
 const dev = express();
-
-const style = require('@openagenda/bs-templates').getCss('main');
-
-const Service = require('..');
-
-const devLayout = require('./layout');
 
 Service.router.setLayout(devLayout);
 
@@ -80,8 +79,7 @@ dev.use(
 );
 
 dev.get('/style.css', (req, res) =>
-  res.set('Content-Type', 'text/css').send(style),
-);
+  res.set('Content-Type', 'text/css').send(style));
 dev.get('/favicon.ico', (req, res) => res.sendStatus(404));
 dev.use(
   '/fonts',

@@ -7,13 +7,16 @@ import { IntlProvider } from 'react-intl';
 import locales from '../locales-compiled';
 
 export default function LocationsProvider({ children, lang }) {
-  const queryClient = useConstant(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      },
-    },
-  }));
+  const queryClient = useConstant(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
   return (
     <IntlProvider
       key={lang}
@@ -22,9 +25,7 @@ export default function LocationsProvider({ children, lang }) {
       defaultLocale={getSupportedLocale(lang)}
     >
       <QueryClientProvider client={queryClient}>
-        <HelmetProvider>
-          {children}
-        </HelmetProvider>
+        <HelmetProvider>{children}</HelmetProvider>
       </QueryClientProvider>
     </IntlProvider>
   );

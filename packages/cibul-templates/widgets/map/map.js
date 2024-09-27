@@ -8,7 +8,7 @@ const loadInitialState = require('./lib/loadInitialState');
 const applyLeafletStylesheet = require('./lib/applyLeafletStylesheet');
 const promisify = require('./lib/promisify');
 const styler = require('../lib/widgetStyler');
-const du = require('@openagenda/dom-utils');
+const du = require('../../js/lib/domUtils');
 const utils = require('@openagenda/utils');
 
 import style from './lib/style.css';
@@ -885,9 +885,9 @@ function widget( elem, options ) {
       labels : config.labels[state.lang]
     } );
 
-    if (du.el(elem, SYNC_SECTION_SELECTOR)) {
-      div.removeChild(du.el(div, SYNC_SECTION_SELECTOR));
-      div.appendChild(du.el( elem, SYNC_SECTION_SELECTOR));
+    if (elem.querySelector(SYNC_SECTION_SELECTOR)) {
+      div.removeChild(div.querySelector(SYNC_SECTION_SELECTOR));
+      div.appendChild(elem.querySelector(SYNC_SECTION_SELECTOR));
     }
 
     elem.innerHTML = div.innerHTML;
@@ -899,7 +899,7 @@ function widget( elem, options ) {
       });
     });
 
-    map = await createMap(du.el(elem, 'div'), {
+    map = await createMap(elem.querySelector('div'), {
       center: state.center,
       zoom: state.zoom
     });
@@ -1117,10 +1117,10 @@ function widget( elem, options ) {
   function _bindAutoRefresh(state) {
 
     if (state.auto) {
-      du.el( elem, config.selectors.sync ).checked = true;
+      elem.querySelector(config.selectors.sync).checked = true;
     }
 
-    du.addEvent( du.el( elem, config.selectors.sync ), 'change', function( e ) {
+    du.addEvent( elem.querySelector( config.selectors.sync ), 'change', function( e ) {
 
       state.auto = !state.auto;
 

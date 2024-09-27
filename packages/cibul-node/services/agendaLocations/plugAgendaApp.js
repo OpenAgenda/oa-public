@@ -6,11 +6,7 @@ import loadLocationEndpoints from './lib/loadLocationEndpoints.js';
 const log = logs('locations/plugAgendaApp');
 
 export default (services, service, app, base) => {
-  const {
-    members,
-    agendas,
-    agendaContribute,
-  } = services;
+  const { members, agendas, agendaContribute } = services;
 
   app.use(
     `${base}*`,
@@ -32,16 +28,22 @@ export default (services, service, app, base) => {
     track.mw('locations', 'export', 'json'),
     loadLocationEndpoints(service),
     (req, res, next) => {
-      req.locations.list(
-        req.query,
-        _.pick(req.query, ['offset', 'limit']),
-        { total: true, detailed: !req.query.sample, includeImagePath: true },
-      ).then(({ items, total }) => res.json({
-        total,
-        offset: parseInt(req.query.offset ?? 0, 10),
-        limit: parseInt(req.query.limit ?? 20, 10),
-        items,
-      }), next);
+      req.locations
+        .list(req.query, _.pick(req.query, ['offset', 'limit']), {
+          total: true,
+          detailed: !req.query.sample,
+          includeImagePath: true,
+        })
+        .then(
+          ({ items, total }) =>
+            res.json({
+              total,
+              offset: parseInt(req.query.offset ?? 0, 10),
+              limit: parseInt(req.query.limit ?? 20, 10),
+              items,
+            }),
+          next,
+        );
     },
     (err, req, res) => {
       res.status(500).json();
@@ -54,28 +56,35 @@ export default (services, service, app, base) => {
     members.mw.load,
     agendaContribute.mw.verifyMemberAuthorization,
     loadLocationEndpoints(service),
-    service.imageTransformAndUpload.middleware([{
-      name: 'image',
-      unique: true,
-    }]),
+    service.imageTransformAndUpload.middleware([
+      {
+        name: 'image',
+        unique: true,
+      },
+    ]),
     (req, res, next) => {
-      req.locations.create({
-        ...req.body,
-        state: 0,
-      }, {
-        includeImagePath: true,
-        agendaUid: req.agenda.uid,
-        context: {
-          userUid: req.user.uid,
-          agendaUid: req.agenda.uid,
-          setUid: req.agenda.setUid,
-        },
-      }).then(location => {
-        res.json({
-          location,
-          success: true,
-        });
-      }, next);
+      req.locations
+        .create(
+          {
+            ...req.body,
+            state: 0,
+          },
+          {
+            includeImagePath: true,
+            agendaUid: req.agenda.uid,
+            context: {
+              userUid: req.user.uid,
+              agendaUid: req.agenda.uid,
+              setUid: req.agenda.setUid,
+            },
+          },
+        )
+        .then((location) => {
+          res.json({
+            location,
+            success: true,
+          });
+        }, next);
     },
   );
 

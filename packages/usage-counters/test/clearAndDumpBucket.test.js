@@ -1,9 +1,9 @@
 import redis from 'redis';
-import clearAndDumbBucket from '../clearAndDumpBucket';
-import createRedisKey from '../utils/createRedisKey';
-import clearRedisKeys from '../clearRedisKeys';
-import config from '../testconfig';
-import fixtures from './fixtures';
+import clearAndDumbBucket from '../clearAndDumpBucket.js';
+import createRedisKey from '../utils/createRedisKey.js';
+import clearRedisKeys from '../clearRedisKeys.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/index.js';
 
 describe('clearAndDumpBucket', () => {
   const f = fixtures(config.mysql);

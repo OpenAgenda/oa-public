@@ -9,11 +9,11 @@ function blacklistByDomain(config, context) {
 }
 
 async function isInvitedFromAnOfficialAgenda(services, invitation) {
-  const {
-    agendas: agendasSvc,
-  } = services;
+  const { agendas: agendasSvc } = services;
 
-  const linkMemberActions = invitation.data.actions.filter(v => v.name === 'linkMember');
+  const linkMemberActions = invitation.data.actions.filter(
+    (v) => v.name === 'linkMember',
+  );
 
   let result = false;
 
@@ -31,10 +31,8 @@ async function isInvitedFromAnOfficialAgenda(services, invitation) {
   return result;
 }
 
-export default (config, services) => async context => {
-  const {
-    invitations: invitationsSvc,
-  } = services;
+export default (config, services) => async (context) => {
+  const { invitations: invitationsSvc } = services;
 
   const { data } = context;
 
@@ -61,7 +59,10 @@ export default (config, services) => async context => {
     }));
   }
 
-  if (invitation && await isInvitedFromAnOfficialAgenda(services, invitation)) {
+  if (
+    invitation
+    && await isInvitedFromAnOfficialAgenda(services, invitation)
+  ) {
     data.isActivated = true;
   }
 

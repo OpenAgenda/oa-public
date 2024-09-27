@@ -926,9 +926,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/eslint-parser@npm:^7.24.6":
-  version: 7.24.6
-  resolution: "@babel/eslint-parser@npm:7.24.6"
+"@babel/eslint-parser@npm:^7.25.1":
+  version: 7.25.1
+  resolution: "@babel/eslint-parser@npm:7.25.1"
   dependencies:
     "@nicolo-ribaudo/eslint-scope-5-internals": "npm:5.1.1-v1"
     eslint-visitor-keys: "npm:^2.1.0"
@@ -936,7 +936,7 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.11.0
     eslint: ^7.5.0 || ^8.0.0 || ^9.0.0
-  checksum: 10c0/9c2e79e4cd68ba46e219dc2a5f55e74f843333707f3834e1a66aefb5a05f3509798de02abf436fd15decbc56e7d7cacef94473467576d9fb487134cc31633fb8
+  checksum: 10c0/9f98351b32edfced9e6308a80ad69af1210d9c9780f19339cb286d0c9be0a9afac80d1df3b3793112e720675ce5b927920b19454d0f48ddf8370d08ab62d0dc2
   languageName: node
   linkType: hard
 
@@ -3255,21 +3255,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.2.0":
-  version: 7.25.4
-  resolution: "@babel/runtime@npm:7.25.4"
-  dependencies:
-    regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/33e937e685f0bfc2d40c219261e2e50d0df7381a6e7cbf56b770e0c5d77cb0c21bf4d97da566cf0164317ed7508e992082c7b6cce7aaa3b17da5794f93fbfb46
-  languageName: node
-  linkType: hard
-
 "@babel/runtime@npm:^7.23.2":
   version: 7.24.6
   resolution: "@babel/runtime@npm:7.24.6"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
   checksum: 10c0/224ad205de33ea28979baaec89eea4c4d4e9482000dd87d15b97859365511cdd4d06517712504024f5d33a5fb9412f9b91c96f1d923974adf9359e1575cde049
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.25.6":
+  version: 7.25.6
+  resolution: "@babel/runtime@npm:7.25.6"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10c0/d6143adf5aa1ce79ed374e33fdfd74fa975055a80bc6e479672ab1eadc4e4bfd7484444e17dd063a1d180e051f3ec62b357c7a2b817e7657687b47313158c3d2
   languageName: node
   linkType: hard
 
@@ -4924,6 +4924,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dnd-kit/accessibility@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@dnd-kit/accessibility@npm:3.1.0"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/4f9d24e801d66d4fbb551ec389ed90424dd4c5bbdf527000a618e9abb9833cbd84d9a79e362f470ccbccfbd6d00217a9212c92f3cef66e01c951c7f79625b9d7
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/core@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "@dnd-kit/core@npm:6.1.0"
+  dependencies:
+    "@dnd-kit/accessibility": "npm:^3.1.0"
+    "@dnd-kit/utilities": "npm:^3.2.2"
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/c793eb97cb59285ca8937ebcdfcd27cff09d750ae06722e36ca5ed07925e41abc36a38cff98f9f6056f7a07810878d76909826142a2968330e7e22060e6be584
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/utilities@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "@dnd-kit/utilities@npm:3.2.2"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/9aa90526f3e3fd567b5acc1b625a63177b9e8d00e7e50b2bd0e08fa2bf4dba7e19529777e001fdb8f89a7ce69f30b190c8364d390212634e0afdfa8c395e85a0
+  languageName: node
+  linkType: hard
+
 "@edge-runtime/cookies@npm:^3.0.5":
   version: 3.0.5
   resolution: "@edge-runtime/cookies@npm:3.0.5"
@@ -5905,10 +5941,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint-community/regexpp@npm:^4.5.1":
-  version: 4.10.0
-  resolution: "@eslint-community/regexpp@npm:4.10.0"
-  checksum: 10c0/c5f60ef1f1ea7649fa7af0e80a5a79f64b55a8a8fa5086de4727eb4c86c652aedee407a9c143b8995d2c0b2d75c1222bec9ba5d73dbfc1f314550554f0979ef4
+"@eslint-community/regexpp@npm:^4.10.0":
+  version: 4.11.0
+  resolution: "@eslint-community/regexpp@npm:4.11.0"
+  checksum: 10c0/0f6328869b2741e2794da4ad80beac55cba7de2d3b44f796a60955b0586212ec75e6b0253291fd4aad2100ad471d1480d8895f2b54f1605439ba4c875e05e523
   languageName: node
   linkType: hard
 
@@ -6538,10 +6574,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-common-types@npm:6.5.1":
-  version: 6.5.1
-  resolution: "@fortawesome/fontawesome-common-types@npm:6.5.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-common-types%2F-%2F6.5.1%2Ffontawesome-common-types-6.5.1.tgz"
-  checksum: 10c0/afd4e6de0af60b1dc1557877f8f5fa95ee9f0fb0558581d25c46d24c2946bbcf54e351451d0ca2d6b043a283a66526450da7cf052a45702237b0c8383823a825
+"@fortawesome/fontawesome-common-types@npm:6.6.0":
+  version: 6.6.0
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-common-types%2F-%2F6.6.0%2Ffontawesome-common-types-6.6.0.tgz"
+  checksum: 10c0/f76e5959f6ce01355f599126a3a68facba578dc8ebb7ad40fbd22417b7056364a577c1887720ec9653d4efa5b704a01150f5064fc7de237d697fd80e3d9c83aa
   languageName: node
   linkType: hard
 
@@ -6552,69 +6588,78 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-svg-core@npm:^6.5.1":
-  version: 6.5.1
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.5.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-svg-core%2F-%2F6.5.1%2Ffontawesome-svg-core-6.5.1.tgz"
+"@fortawesome/fontawesome-svg-core@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-svg-core%2F-%2F6.6.0%2Ffontawesome-svg-core-6.6.0.tgz"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.5.1"
-  checksum: 10c0/ba4f4f4f1a98a154ff89ed9a24c586809cd277e147d177fcdc5a76c0ea315087d5e383487d0658b9d27cfcb26971a45364f567c475b4e2df16cfb50cde4a83af
+    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
+  checksum: 10c0/38e2840791711524a3c57d9ea48a5a2e99da6fa3c657ba6beaad7ec3b8da31489a9e38f42b23d70584c75b579dc1ff8c67e075bc9789032278e4da54bb86ecfe
   languageName: node
   linkType: hard
 
-"@fortawesome/free-brands-svg-icons@npm:^6.5.1":
-  version: 6.5.1
-  resolution: "@fortawesome/free-brands-svg-icons@npm:6.5.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffree-brands-svg-icons%2F-%2F6.5.1%2Ffree-brands-svg-icons-6.5.1.tgz"
+"@fortawesome/free-brands-svg-icons@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@fortawesome/free-brands-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffree-brands-svg-icons%2F-%2F6.6.0%2Ffree-brands-svg-icons-6.6.0.tgz"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.5.1"
-  checksum: 10c0/cc4c8b5618d8d92c0d3fc174b05cad78307f88e5258f8a880c03539c590aef00fb2a29c158597e15b7487575f0df7e7674ce8119847ff21561f590f73fbc5a47
+    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
+  checksum: 10c0/1135a22ff274939da477496f550b6750a1b5fd0ddd0c09bddb1874f2c183a5c8edb519de2cebf6454b12a8457c3eec587bdb6f68e96140cceeb6d02c1ec35479
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-duotone-svg-icons@npm:^6.5.1":
-  version: 6.5.1
-  resolution: "@fortawesome/pro-duotone-svg-icons@npm:6.5.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-duotone-svg-icons%2F-%2F6.5.1%2Fpro-duotone-svg-icons-6.5.1.tgz"
+"@fortawesome/pro-duotone-svg-icons@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@fortawesome/pro-duotone-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-duotone-svg-icons%2F-%2F6.6.0%2Fpro-duotone-svg-icons-6.6.0.tgz"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.5.1"
-  checksum: 10c0/a06f145caaf206e3bbb98971a34f00eae49743e7654c73b1d22fc029e275a5427c0e8bb64ca5e7bc18ef1b59d3744dd453c62aeb5d44337d321b26761a0e4a57
+    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
+  checksum: 10c0/8e278ded5127c2158e7ebe95bdb9a635359cd92d5b94864eabf54021ee6c691c1b30e0a55719154322be229771c9c2bd5232c3abc29439f7e0d2eb1b49e80c1b
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-light-svg-icons@npm:^6.5.1":
-  version: 6.5.1
-  resolution: "@fortawesome/pro-light-svg-icons@npm:6.5.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-light-svg-icons%2F-%2F6.5.1%2Fpro-light-svg-icons-6.5.1.tgz"
+"@fortawesome/pro-light-svg-icons@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@fortawesome/pro-light-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-light-svg-icons%2F-%2F6.6.0%2Fpro-light-svg-icons-6.6.0.tgz"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.5.1"
-  checksum: 10c0/1f66f670944b94b0c554d728bc5252657b82d554c096b28b876a25cb97106978858d0f6c278031a556e2f6e655a0f2ce534df8cd5a809b42dfcb52915f59d318
+    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
+  checksum: 10c0/fbf51e6517e57657b7c9ea5730c2cbbd184377509282f922ec7fdd408dfe821820fa5a04c65f5db5ee79a3da583a50182a487594b4216a76edc144b753ca7fc4
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-regular-svg-icons@npm:^6.5.1":
-  version: 6.5.1
-  resolution: "@fortawesome/pro-regular-svg-icons@npm:6.5.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-regular-svg-icons%2F-%2F6.5.1%2Fpro-regular-svg-icons-6.5.1.tgz"
+"@fortawesome/pro-regular-svg-icons@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@fortawesome/pro-regular-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-regular-svg-icons%2F-%2F6.6.0%2Fpro-regular-svg-icons-6.6.0.tgz"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.5.1"
-  checksum: 10c0/1d27358b2b23059beacd89e6041206d0e94d2e0117f83c970e24bd824d0316e4b7de5f03b8659a7f3bce3e96ff8c723d6c3314774a8eb0738a14956653d93822
+    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
+  checksum: 10c0/0f051410718d3c8cdd17fb3aa8b22db954e131d769de325f9abb3e6c1625472bb96838cef71974a36bfadb32604762217c6b49ac0d28377c0d23a37e7639caa9
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-solid-svg-icons@npm:^6.5.1":
-  version: 6.5.1
-  resolution: "@fortawesome/pro-solid-svg-icons@npm:6.5.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-solid-svg-icons%2F-%2F6.5.1%2Fpro-solid-svg-icons-6.5.1.tgz"
+"@fortawesome/pro-solid-svg-icons@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@fortawesome/pro-solid-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-solid-svg-icons%2F-%2F6.6.0%2Fpro-solid-svg-icons-6.6.0.tgz"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.5.1"
-  checksum: 10c0/8bc03fe04b51c77f1e5a5f7e301eddfa14952cc7cd706f05b9bc9a888cf3c3c9578952a26b5172b7128e0a41a27008f3f86120f11a38a22d2e74408a2f670563
+    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
+  checksum: 10c0/9bdf705e571a963e61023bfaa862ead6d51548a5101f3ae30b4214f8be56e44f3792ca289314321f5cb7843717f0d8e7d4c381d812e772da8f841753010ded7e
   languageName: node
   linkType: hard
 
-"@fortawesome/react-fontawesome@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@fortawesome/react-fontawesome@npm:0.2.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Freact-fontawesome%2F-%2F0.2.0%2Freact-fontawesome-0.2.0.tgz"
+"@fortawesome/pro-thin-svg-icons@npm:^6.6.0":
+  version: 6.6.0
+  resolution: "@fortawesome/pro-thin-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-thin-svg-icons%2F-%2F6.6.0%2Fpro-thin-svg-icons-6.6.0.tgz"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
+  checksum: 10c0/faf809d8c3ee3a088772f9cb1e11b45d38328a631a68f8b4c89696be2b77ae406c236b7e63fe81a4eedc6abfde272c276529cef3235f16c088502a9e775b294c
+  languageName: node
+  linkType: hard
+
+"@fortawesome/react-fontawesome@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@fortawesome/react-fontawesome@npm:0.2.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Freact-fontawesome%2F-%2F0.2.2%2Freact-fontawesome-0.2.2.tgz"
   dependencies:
     prop-types: "npm:^15.8.1"
   peerDependencies:
     "@fortawesome/fontawesome-svg-core": ~1 || ~6
     react: ">=16.3"
-  checksum: 10c0/cf1bd3840dfe1b39d2d5ee92ac49ba3aabad95d05dd6374368a5a1e5f140c8e497d11599290cb70afc6c856bb3228628269199e9659ce8f3132692a2d1e464a5
+  checksum: 10c0/824f96cd9be2e637738de3073450b30fe6b5a91b4f95df804c162b47ddf7d1a43df5ed7439a01e7236e888edc093efad1e61322ac693ddc3ae01147b90318745
   languageName: node
   linkType: hard
 
@@ -6650,32 +6695,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/core@npm:5.1.4":
-  version: 5.1.4
-  resolution: "@iframe-resizer/core@npm:5.1.4"
-  checksum: 10c0/adcc861109edf9265787c70f02f2599ce6eba7e6c8068d3907da68c9f862a4a073451a1d16980b7ef6bb7c90ff82694d62d80c1d9427c4cdaa4ae597616a0714
+"@iframe-resizer/child@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@iframe-resizer/child@npm:5.3.1"
+  checksum: 10c0/6d28aa7bcd8c274ec783055a6b1d9bff1715f33cf8bf2f686872f6df53216f95f1de4f5fd38db04c8daa0cbff2e64be80fdd4d3f51e95fd2e293ec0738b82962
   languageName: node
   linkType: hard
 
-"@iframe-resizer/parent@npm:^5.1.4":
-  version: 5.1.4
-  resolution: "@iframe-resizer/parent@npm:5.1.4"
-  dependencies:
-    "@iframe-resizer/core": "npm:5.1.4"
-  checksum: 10c0/5794312980950a07769332b5ff4f5f433d1e1c665f387e50437b55cc03394461d299f2a92a5085e9dffcf5a86735d61c472d1b7503bef34d67a6fda904c70748
+"@iframe-resizer/core@npm:5.3.1":
+  version: 5.3.1
+  resolution: "@iframe-resizer/core@npm:5.3.1"
+  checksum: 10c0/16060693aba7fd0081bea4e5d83e2fe1d2f1c25d47bb93b5a6426fa8ee0fc7bf91cbaf05edc6ee702552f7a86ed51244f8d79ed1a98016caa28f1e086ab1b274
   languageName: node
   linkType: hard
 
-"@iframe-resizer/react@npm:^5.1.4":
-  version: 5.1.4
-  resolution: "@iframe-resizer/react@npm:5.1.4"
+"@iframe-resizer/parent@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@iframe-resizer/parent@npm:5.3.1"
   dependencies:
-    "@iframe-resizer/core": "npm:5.1.4"
-    warning: "npm:^4.0.3"
+    "@iframe-resizer/core": "npm:5.3.1"
+  checksum: 10c0/4d742a9012883ddd45a4031dc1ad72efa77088429d97f38f1e1ae245b5dabcd90f7903c27ddc4b77990f6358f9586a1d3bf465e3fc29a093200a6e0044539203
+  languageName: node
+  linkType: hard
+
+"@iframe-resizer/react@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@iframe-resizer/react@npm:5.3.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.25.6"
+    "@iframe-resizer/core": "npm:5.3.1"
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/966a33a9f14e6a92d0951062f2aa364e17db777a6f91cee1df67ba079e45952d6f26fc7c9637be4277e4486e3bccc8d10efd4b2b3828095456f7acb67149a7ec
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
+  checksum: 10c0/e9daec00efb294d6005e2407d3271f74e4b1698bad374e23f821f810bba147a5d83af8eb43bab922e51e7190282b464195d389f792860f4fc3b379f9632da0fa
   languageName: node
   linkType: hard
 
@@ -7599,13 +7651,13 @@ __metadata:
     "@openagenda/activities": "npm:^2.3.0"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/members": "npm:^1.15.13"
     "@openagenda/react-bootstrap-datetimerangepicker": "npm:^2.0.5"
-    "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/sessions": "npm:^4.1.0"
     "@storybook/react-webpack5": "npm:^7.4.2"
@@ -7668,7 +7720,6 @@ __metadata:
     "@openagenda/agendas": "npm:^1.7.0"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/files": "npm:^3.1.0"
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/labels": "npm:^2.3.0"
@@ -7851,7 +7902,6 @@ __metadata:
     "@openagenda/files": "npm:^3.1.0"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -7933,7 +7983,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@npm:^6.10.2, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@npm:^6.10.3, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -8056,9 +8106,13 @@ __metadata:
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
+    cors: "npm:^2.8.5"
+    errorhandler: "npm:^1.5.0"
+    express: "npm:^4.17.1"
     immer: "npm:^10.0.3"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"
+    morgan: "npm:^1.9.1"
     rss: "npm:^1.2.1"
   languageName: unknown
   linkType: soft
@@ -8071,6 +8125,8 @@ __metadata:
     "@babel/core": "npm:^7.23.3"
     "@babel/node": "npm:^7.22.19"
     "@babel/runtime-corejs3": "npm:^7.23.2"
+    "@dnd-kit/core": "npm:^6.1.0"
+    "@dnd-kit/utilities": "npm:^3.2.2"
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@loadable/babel-plugin": "npm:^5.13.2"
@@ -8085,7 +8141,6 @@ __metadata:
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/react-filters": "npm:^2.10.9"
-    "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/registration-apps": "npm:^0.0.0"
     "@openagenda/utils": "npm:^1.3.0"
@@ -8115,7 +8170,6 @@ __metadata:
     react-router-config: "npm:^5.1.1"
     react-router-dom: "npm:^5.1.2"
     react-select: "npm:^5.7.4"
-    react-sortable-hoc: "npm:^2.0.0"
     react-use: "npm:^15.3.4"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
@@ -8202,7 +8256,6 @@ __metadata:
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
-    async: "npm:^1.5.2"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
@@ -8398,7 +8451,6 @@ __metadata:
     "@openagenda/aggregator-sources": "npm:^1.3.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/home": "npm:^2.2.1"
     "@openagenda/inbox-apps": "npm:^1.2.1"
     "@openagenda/intl": "npm:^1.1.3"
@@ -8488,9 +8540,11 @@ __metadata:
   resolution: "@openagenda/common-labels@workspace:public/common-labels"
   dependencies:
     "@openagenda/intl": "npm:^1.1.3"
+    dedent: "npm:^0.7.0"
     glob: "npm:^8.0.1"
     lodash: "npm:^4.17.21"
     mkdirp: "npm:^3.0.1"
+    react-intl: "npm:^5.12.2"
     rimraf: "npm:^3.0.2"
     yargs: "npm:^17.4.1"
   languageName: unknown
@@ -8545,13 +8599,12 @@ __metadata:
   resolution: "@openagenda/date-range@workspace:packages/date-range"
   dependencies:
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/utils": "npm:^1.3.0"
     jest: "npm:^29.7.0"
     moment-timezone: "npm:^0.5.31"
   languageName: unknown
   linkType: soft
 
-"@openagenda/date-utils@workspace:public/date-utils":
+"@openagenda/date-utils@npm:^0.0.1, @openagenda/date-utils@workspace:public/date-utils":
   version: 0.0.0-use.local
   resolution: "@openagenda/date-utils@workspace:public/date-utils"
   dependencies:
@@ -8581,29 +8634,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/dom-utils@npm:^2.2.12, @openagenda/dom-utils@workspace:packages/dom-utils":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/dom-utils@workspace:packages/dom-utils"
-  dependencies:
-    "@openagenda/utils": "npm:^1.3.0"
-    es6-promise: "npm:^4.1.1"
-    qs: "npm:^6.9.1"
-  languageName: unknown
-  linkType: soft
-
 "@openagenda/eslint-config@npm:^1.3.1, @openagenda/eslint-config@npm:^1.4.0, @openagenda/eslint-config@workspace:public/eslint-config":
   version: 0.0.0-use.local
   resolution: "@openagenda/eslint-config@workspace:public/eslint-config"
   dependencies:
-    "@babel/eslint-parser": "npm:^7.24.6"
-    "@typescript-eslint/eslint-plugin": "npm:^6.21.0"
-    "@typescript-eslint/parser": "npm:^6.21.0"
+    "@babel/eslint-parser": "npm:^7.25.1"
+    "@typescript-eslint/eslint-plugin": "npm:^8.4.0"
+    "@typescript-eslint/parser": "npm:^8.4.0"
     enhanced-resolve: "npm:^5.16.1"
     eslint: "npm:^8.57.0"
     eslint-config-airbnb: "npm:^19.0.4"
-    eslint-plugin-import: "npm:^2.29.1"
+    eslint-import-resolver-typescript: "npm:^3.6.3"
+    eslint-plugin-import: "npm:^2.30.0"
     eslint-plugin-jest: "npm:^27.9.0"
-    eslint-plugin-jsx-a11y: "npm:^6.8.0"
+    eslint-plugin-jsx-a11y: "npm:^6.10.0"
     eslint-plugin-react: "npm:^7.34.2"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     eslint-plugin-unicorn: "npm:^53.0.0"
@@ -8690,7 +8734,6 @@ __metadata:
     "@openagenda/form-schemas": "npm:^1.9.2"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/react-timingspicker": "npm:^1.4.0"
     "@openagenda/registration-apps": "npm:^0.0.0"
@@ -8987,10 +9030,10 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/react-form-components": "npm:^2.1.14"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/sessions": "npm:^4.1.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -9037,6 +9080,7 @@ __metadata:
     react-router: "npm:^5.1.2"
     react-router-config: "npm:^5.1.1"
     react-router-dom: "npm:^5.1.2"
+    react-uid: "npm:^2.3.3"
     react-waypoint: "npm:^9.0.2"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
@@ -9139,6 +9183,7 @@ __metadata:
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
+    async: "npm:^3.2.6"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
@@ -9168,6 +9213,7 @@ __metadata:
   dependencies:
     "@openagenda/bs-templates": "npm:^2.5.0"
     "@openagenda/labels": "npm:^2.3.0"
+    "@openagenda/md": "npm:^1.0.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     express: "npm:^4.17.1"
@@ -9311,19 +9357,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/md@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@openagenda/md@npm:1.0.1"
-  dependencies:
-    html-tags: "npm:^3.3.1"
-    isomorphic-dompurify: "npm:^2.8.0"
-    markdown-link-extractor: "npm:^4.0.2"
-    marked: "npm:^12.0.2"
-    turndown: "npm:^7.1.3"
-  checksum: 10c0/a6db1305f87368a04a701f979d65745cf75f708c7757935b218d9466c239275d091b50d855606065c7aab951ffb3d0b1a7d803f40f731ae98903b556b6c1e2e0
-  languageName: node
-  linkType: hard
-
 "@openagenda/member-apps@npm:^2.1.1, @openagenda/member-apps@workspace:packages/member-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/member-apps@workspace:packages/member-apps"
@@ -9336,7 +9369,6 @@ __metadata:
     "@openagenda/activity-apps": "npm:^1.2.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/form-schemas": "npm:^1.9.2"
     "@openagenda/intl": "npm:^1.1.3"
@@ -9517,19 +9549,21 @@ __metadata:
   dependencies:
     "@edge-runtime/cookies": "npm:^3.0.5"
     "@emotion/server": "npm:^11.11.0"
-    "@fortawesome/fontawesome-svg-core": "npm:^6.5.1"
-    "@fortawesome/free-brands-svg-icons": "npm:^6.5.1"
-    "@fortawesome/pro-duotone-svg-icons": "npm:^6.5.1"
-    "@fortawesome/pro-light-svg-icons": "npm:^6.5.1"
-    "@fortawesome/pro-regular-svg-icons": "npm:^6.5.1"
-    "@fortawesome/pro-solid-svg-icons": "npm:^6.5.1"
-    "@fortawesome/react-fontawesome": "npm:^0.2.0"
-    "@iframe-resizer/child": "npm:^5.1.4"
-    "@iframe-resizer/react": "npm:^5.1.4"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
+    "@fortawesome/free-brands-svg-icons": "npm:^6.6.0"
+    "@fortawesome/pro-duotone-svg-icons": "npm:^6.6.0"
+    "@fortawesome/pro-light-svg-icons": "npm:^6.6.0"
+    "@fortawesome/pro-regular-svg-icons": "npm:^6.6.0"
+    "@fortawesome/pro-solid-svg-icons": "npm:^6.6.0"
+    "@fortawesome/pro-thin-svg-icons": "npm:^6.6.0"
+    "@fortawesome/react-fontawesome": "npm:^0.2.2"
+    "@iframe-resizer/child": "npm:^5.3.1"
+    "@iframe-resizer/react": "npm:^5.3.1"
     "@next/bundle-analyzer": "npm:^13.1.1"
     "@openagenda/activity-apps": "npm:^1.2.1"
     "@openagenda/browserslist-config": "npm:^1.0.0"
     "@openagenda/common-labels": "npm:^1.2.4"
+    "@openagenda/date-utils": "npm:^0.0.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/mails": "npm:^4.0.1"
@@ -9559,7 +9593,6 @@ __metadata:
     fast-json-stable-stringify: "npm:^2.1.0"
     ftp: "npm:^0.3.10"
     globby: "npm:^13.1.3"
-    iframe-resizer-react: "npm:^1.0.11"
     ky: "npm:^1.1.3"
     leaflet: "npm:^1.9.3"
     lodash: "npm:^4.17.21"
@@ -9569,7 +9602,7 @@ __metadata:
     qs: "npm:^6.11.0"
     react: "npm:^18.3.1"
     react-content-loader: "npm:^6.2.0"
-    react-cookie: "npm:^4.1.1"
+    react-cookie: "npm:^7.2.0"
     react-dom: "npm:^18.3.1"
     react-intersection-observer: "npm:^9.4.1"
     react-intl: "npm:^5.12.2"
@@ -9583,7 +9616,7 @@ __metadata:
     swr: "npm:^2.1.1"
     tlds: "npm:^1.247.0"
     typescript: "npm:^4.8.4"
-    universal-cookie: "npm:^4.0.4"
+    universal-cookie: "npm:^7.2.0"
     use-local-storage-state: "npm:^18.1.2"
     use-session-storage-state: "npm:^18.2.0"
     webpack: "npm:^5.72.0"
@@ -9787,40 +9820,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-form-components@npm:^2.1.14, @openagenda/react-form-components@workspace:packages/react-form-components":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/react-form-components@workspace:packages/react-form-components"
-  dependencies:
-    "@babel/cli": "npm:^7.23.0"
-    "@babel/core": "npm:^7.23.3"
-    "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@openagenda/babel-preset": "npm:^1.5.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/md": "npm:^1.0.1"
-    "@openagenda/react-shared": "npm:^2.4.1"
-    "@openagenda/utils": "npm:^1.3.0"
-    "@openagenda/validators": "npm:^2.4.0"
-    "@storybook/react-webpack5": "npm:^7.4.2"
-    core-js: "npm:^3.29.1"
-    create-react-class: "npm:^15.5.3"
-    immutability-helper: "npm:^3.0.0"
-    jest: "npm:^29.7.0"
-    languages: "npm:0.1.3"
-    load-script: "npm:^1.0.0"
-    marked: "npm:^12.0.2"
-    prop-types: "npm:^15.5.8"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    react-select: "npm:^3.0.8"
-    react-tagsinput: "npm:^3.16.1"
-    rimraf: "npm:^3.0.1"
-    storybook: "npm:^7.6.4"
-    turndown: "npm:^7.1.2"
-  peerDependencies:
-    react: ^18.2.0
-  languageName: unknown
-  linkType: soft
-
 "@openagenda/react-integration-app@npm:^1.6.1, @openagenda/react-integration-app@workspace:packages/react-integration-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-integration-app@workspace:packages/react-integration-app"
@@ -10016,6 +10015,7 @@ __metadata:
     "@openagenda/common-labels": "npm:^1.0.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/md": "npm:^1.0.0"
     "@storybook/addon-actions": "npm:^7.4.2"
     "@storybook/preset-scss": "npm:^1.0.3"
     "@storybook/react-webpack5": "npm:^7.4.2"
@@ -10031,6 +10031,7 @@ __metadata:
     hoist-non-react-statics: "npm:^3.3.1"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
+    load-script: "npm:^2.0.0"
     lodash: "npm:^4.17.20"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.2"
@@ -10057,6 +10058,7 @@ __metadata:
     sass: "npm:^1.69.5"
     shallowequal: "npm:^1.1.0"
     storybook: "npm:^7.6.4"
+    turndown: "npm:^7.1.2"
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^18.2.0
@@ -10147,6 +10149,7 @@ __metadata:
     rimraf: "npm:^3.0.1"
     slugify: "npm:^1.4.6"
     storybook: "npm:^7.6.4"
+    validator: "npm:^12.2.0"
     why: "npm:^0.6.2"
   peerDependencies:
     react: ^18.2.0
@@ -10442,7 +10445,6 @@ __metadata:
     "@openagenda/abilities": "npm:^1.3.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
@@ -10555,7 +10557,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/widgets@workspace:public/widgets"
   dependencies:
-    "@iframe-resizer/parent": "npm:^5.1.4"
+    "@iframe-resizer/parent": "npm:^5.3.1"
     "@openagenda/eslint-config": "npm:^1.3.1"
     "@storybook/addon-essentials": "npm:^8.1.10"
     "@storybook/html-webpack5": "npm:^8.1.10"
@@ -11740,6 +11742,13 @@ __metadata:
   version: 4.9.6
   resolution: "@rollup/rollup-win32-x64-msvc@npm:4.9.6"
   conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rtsao/scc@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@rtsao/scc@npm:1.1.0"
+  checksum: 10c0/b5bcfb0d87f7d1c1c7c0f7693f53b07866ed9fec4c34a97a8c948fb9a7c0082e416ce4d3b60beb4f5e167cbe04cdeefbf6771320f3ede059b9ce91188c409a5b
   languageName: node
   linkType: hard
 
@@ -14796,13 +14805,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cookie@npm:^0.3.3":
-  version: 0.3.3
-  resolution: "@types/cookie@npm:0.3.3"
-  checksum: 10c0/96521593ca46d865d03b04b4af0324a45a1da8312b13aa2026d97a284cd6f559cc0d695a4f3255405cd301a8c93c13b22e77400ad42a0b903e06056202d49fed
-  languageName: node
-  linkType: hard
-
 "@types/cookie@npm:^0.4.1":
   version: 0.4.1
   resolution: "@types/cookie@npm:0.4.1"
@@ -15060,13 +15062,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hoist-non-react-statics@npm:^3.0.1, @types/hoist-non-react-statics@npm:^3.3.0, @types/hoist-non-react-statics@npm:^3.3.1":
+"@types/hoist-non-react-statics@npm:^3.3.0, @types/hoist-non-react-statics@npm:^3.3.1":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
   dependencies:
     "@types/react": "npm:*"
     hoist-non-react-statics: "npm:^3.3.0"
   checksum: 10c0/5ed808e5fbf0979fe07acd631147420c30319383f4388a57e0fb811c6ff30abef286e937a84c7b00f4647ca7f1ab390cc42af0bfc7547a87d2e59e0e7072d92b
+  languageName: node
+  linkType: hard
+
+"@types/hoist-non-react-statics@npm:^3.3.5":
+  version: 3.3.5
+  resolution: "@types/hoist-non-react-statics@npm:3.3.5"
+  dependencies:
+    "@types/react": "npm:*"
+    hoist-non-react-statics: "npm:^3.3.0"
+  checksum: 10c0/2a3b64bf3d9817d7830afa60ee314493c475fb09570a64e7737084cd482d2177ebdddf888ce837350bac51741278b077683facc9541f052d4bbe8487b4e3e618
   languageName: node
   linkType: hard
 
@@ -15157,7 +15169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:^7.0.12, @types/json-schema@npm:^7.0.5":
+"@types/json-schema@npm:^7.0.5":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: 10c0/a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
@@ -15470,7 +15482,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/semver@npm:^7.3.12, @types/semver@npm:^7.5.0":
+"@types/semver@npm:^7.3.12":
   version: 7.5.8
   resolution: "@types/semver@npm:7.5.8"
   checksum: 10c0/8663ff927234d1c5fcc04b33062cb2b9fcfbe0f5f351ed26c4d1e1581657deebd506b41ff7fdf89e787e3d33ce05854bc01686379b89e9c49b564c4cfa988efa
@@ -15650,32 +15662,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^6.21.0":
-  version: 6.21.0
-  resolution: "@typescript-eslint/eslint-plugin@npm:6.21.0"
+"@typescript-eslint/eslint-plugin@npm:^8.4.0":
+  version: 8.4.0
+  resolution: "@typescript-eslint/eslint-plugin@npm:8.4.0"
   dependencies:
-    "@eslint-community/regexpp": "npm:^4.5.1"
-    "@typescript-eslint/scope-manager": "npm:6.21.0"
-    "@typescript-eslint/type-utils": "npm:6.21.0"
-    "@typescript-eslint/utils": "npm:6.21.0"
-    "@typescript-eslint/visitor-keys": "npm:6.21.0"
-    debug: "npm:^4.3.4"
+    "@eslint-community/regexpp": "npm:^4.10.0"
+    "@typescript-eslint/scope-manager": "npm:8.4.0"
+    "@typescript-eslint/type-utils": "npm:8.4.0"
+    "@typescript-eslint/utils": "npm:8.4.0"
+    "@typescript-eslint/visitor-keys": "npm:8.4.0"
     graphemer: "npm:^1.4.0"
-    ignore: "npm:^5.2.4"
+    ignore: "npm:^5.3.1"
     natural-compare: "npm:^1.4.0"
-    semver: "npm:^7.5.4"
-    ts-api-utils: "npm:^1.0.1"
+    ts-api-utils: "npm:^1.3.0"
   peerDependencies:
-    "@typescript-eslint/parser": ^6.0.0 || ^6.0.0-alpha
-    eslint: ^7.0.0 || ^8.0.0
+    "@typescript-eslint/parser": ^8.0.0 || ^8.0.0-alpha.0
+    eslint: ^8.57.0 || ^9.0.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/f911a79ee64d642f814a3b6cdb0d324b5f45d9ef955c5033e78903f626b7239b4aa773e464a38c3e667519066169d983538f2bf8e5d00228af587c9d438fb344
+  checksum: 10c0/c75e9bb176e9e0277c9f9c4c006bc2c31ac91984e555de1390a9bbe876e3b6787d59d96015b3f0cd083fd22c814aea4ed4858910d3afdd24d64ab79815da31e5
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.4.2 || ^6.0.0 || 7.0.0 - 7.2.0, @typescript-eslint/parser@npm:^6.21.0":
+"@typescript-eslint/parser@npm:^5.4.2 || ^6.0.0 || 7.0.0 - 7.2.0":
   version: 6.21.0
   resolution: "@typescript-eslint/parser@npm:6.21.0"
   dependencies:
@@ -15690,6 +15700,24 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/a8f99820679decd0d115c0af61903fb1de3b1b5bec412dc72b67670bf636de77ab07f2a68ee65d6da7976039bbf636907f9d5ca546db3f0b98a31ffbc225bc7d
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/parser@npm:^8.4.0":
+  version: 8.4.0
+  resolution: "@typescript-eslint/parser@npm:8.4.0"
+  dependencies:
+    "@typescript-eslint/scope-manager": "npm:8.4.0"
+    "@typescript-eslint/types": "npm:8.4.0"
+    "@typescript-eslint/typescript-estree": "npm:8.4.0"
+    "@typescript-eslint/visitor-keys": "npm:8.4.0"
+    debug: "npm:^4.3.4"
+  peerDependencies:
+    eslint: ^8.57.0 || ^9.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/19f3358e5bc4bbad693183eefe1a90ea64be054a934bc2c8a972ff4738b94580b55ad4955af5797db42298628caa59b3ba3f9fd960582b5fc2c836da3a4578a5
   languageName: node
   linkType: hard
 
@@ -15713,20 +15741,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/type-utils@npm:6.21.0":
-  version: 6.21.0
-  resolution: "@typescript-eslint/type-utils@npm:6.21.0"
+"@typescript-eslint/scope-manager@npm:8.4.0":
+  version: 8.4.0
+  resolution: "@typescript-eslint/scope-manager@npm:8.4.0"
   dependencies:
-    "@typescript-eslint/typescript-estree": "npm:6.21.0"
-    "@typescript-eslint/utils": "npm:6.21.0"
+    "@typescript-eslint/types": "npm:8.4.0"
+    "@typescript-eslint/visitor-keys": "npm:8.4.0"
+  checksum: 10c0/95188c663df7db106529c6b93c4c7c61647ed34ab6dd48114e41ddf49140ff606c5501ce2ae451a988ec49b5d3874ea96ff212fc102802327b10affd2ff80a37
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/type-utils@npm:8.4.0":
+  version: 8.4.0
+  resolution: "@typescript-eslint/type-utils@npm:8.4.0"
+  dependencies:
+    "@typescript-eslint/typescript-estree": "npm:8.4.0"
+    "@typescript-eslint/utils": "npm:8.4.0"
     debug: "npm:^4.3.4"
-    ts-api-utils: "npm:^1.0.1"
-  peerDependencies:
-    eslint: ^7.0.0 || ^8.0.0
+    ts-api-utils: "npm:^1.3.0"
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/7409c97d1c4a4386b488962739c4f1b5b04dc60cf51f8cd88e6b12541f84d84c6b8b67e491a147a2c95f9ec486539bf4519fb9d418411aef6537b9c156468117
+  checksum: 10c0/ae51100594d9ca61c7577b5aed0bd10c1959725df5c38cd9653eed1fd3dbdfff9146b6e48f3409994b4c8d781b9d95025c36b30f73a5a1b3dbdee6d142cecc87
   languageName: node
   linkType: hard
 
@@ -15741,6 +15777,13 @@ __metadata:
   version: 6.21.0
   resolution: "@typescript-eslint/types@npm:6.21.0"
   checksum: 10c0/020631d3223bbcff8a0da3efbdf058220a8f48a3de221563996ad1dcc30d6c08dadc3f7608cc08830d21c0d565efd2db19b557b9528921c78aabb605eef2d74d
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/types@npm:8.4.0":
+  version: 8.4.0
+  resolution: "@typescript-eslint/types@npm:8.4.0"
+  checksum: 10c0/15e09ced84827c349553530a31822f06ae5bad456c03d561b7d0c64b6ad9b5d7ca795e030bd93e65d5a2cd41bfde36ed08dcd2ff9feaa8b60a67080827f47ecb
   languageName: node
   linkType: hard
 
@@ -15781,20 +15824,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:6.21.0":
-  version: 6.21.0
-  resolution: "@typescript-eslint/utils@npm:6.21.0"
+"@typescript-eslint/typescript-estree@npm:8.4.0":
+  version: 8.4.0
+  resolution: "@typescript-eslint/typescript-estree@npm:8.4.0"
+  dependencies:
+    "@typescript-eslint/types": "npm:8.4.0"
+    "@typescript-eslint/visitor-keys": "npm:8.4.0"
+    debug: "npm:^4.3.4"
+    fast-glob: "npm:^3.3.2"
+    is-glob: "npm:^4.0.3"
+    minimatch: "npm:^9.0.4"
+    semver: "npm:^7.6.0"
+    ts-api-utils: "npm:^1.3.0"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/170702b024121cff9268f53de8054796b0ce025f9a78d6f2bc850a360e5f3f7032ba3ee9d4b7392726308273a5f3ade5ab31b1788b504b514bc15afc07302b37
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/utils@npm:8.4.0":
+  version: 8.4.0
+  resolution: "@typescript-eslint/utils@npm:8.4.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.4.0"
-    "@types/json-schema": "npm:^7.0.12"
-    "@types/semver": "npm:^7.5.0"
-    "@typescript-eslint/scope-manager": "npm:6.21.0"
-    "@typescript-eslint/types": "npm:6.21.0"
-    "@typescript-eslint/typescript-estree": "npm:6.21.0"
-    semver: "npm:^7.5.4"
+    "@typescript-eslint/scope-manager": "npm:8.4.0"
+    "@typescript-eslint/types": "npm:8.4.0"
+    "@typescript-eslint/typescript-estree": "npm:8.4.0"
   peerDependencies:
-    eslint: ^7.0.0 || ^8.0.0
-  checksum: 10c0/ab2df3833b2582d4e5467a484d08942b4f2f7208f8e09d67de510008eb8001a9b7460f2f9ba11c12086fd3cdcac0c626761c7995c2c6b5657d5fa6b82030a32d
+    eslint: ^8.57.0 || ^9.0.0
+  checksum: 10c0/8c9c36b3aa23f9bcc28cc4b10f0fa2996f1bc6cdd75135f08c2ef734baa30dbd2a8b92f344b90518e1fd07a486936734789fc7e90b780221a7707dad8e9c9364
   languageName: node
   linkType: hard
 
@@ -15833,6 +15892,16 @@ __metadata:
     "@typescript-eslint/types": "npm:6.21.0"
     eslint-visitor-keys: "npm:^3.4.1"
   checksum: 10c0/7395f69739cfa1cb83c1fb2fad30afa2a814756367302fb4facd5893eff66abc807e8d8f63eba94ed3b0fe0c1c996ac9a1680bcbf0f83717acedc3f2bb724fbf
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/visitor-keys@npm:8.4.0":
+  version: 8.4.0
+  resolution: "@typescript-eslint/visitor-keys@npm:8.4.0"
+  dependencies:
+    "@typescript-eslint/types": "npm:8.4.0"
+    eslint-visitor-keys: "npm:^3.4.3"
+  checksum: 10c0/339199b7fbb9ac83b530d03ab25f6bc5ceb688c9cd0ae460112cd14ee78ca7284a845aef5620cdf70170980123475ec875e85ebf595c60255ba3c0d6fe48c714
   languageName: node
   linkType: hard
 
@@ -17251,6 +17320,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"aria-query@npm:~5.1.3":
+  version: 5.1.3
+  resolution: "aria-query@npm:5.1.3"
+  dependencies:
+    deep-equal: "npm:^2.0.5"
+  checksum: 10c0/edcbc8044c4663d6f88f785e983e6784f98cb62b4ba1e9dd8d61b725d0203e4cfca38d676aee984c31f354103461102a3d583aa4fbe4fd0a89b679744f4e5faf
+  languageName: node
+  linkType: hard
+
 "arr-diff@npm:^2.0.0":
   version: 2.0.0
   resolution: "arr-diff@npm:2.0.0"
@@ -17456,7 +17534,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"array.prototype.findlastindex@npm:^1.2.3":
+"array.prototype.findlastindex@npm:^1.2.5":
   version: 1.2.5
   resolution: "array.prototype.findlastindex@npm:1.2.5"
   dependencies:
@@ -17731,7 +17809,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^1.5.0, async@npm:^1.5.2":
+"async@npm:^1.5.0":
   version: 1.5.2
   resolution: "async@npm:1.5.2"
   checksum: 10c0/9ee84592c393aad1047d1223004317ecc65a9a3f76101e0f4614a0818eac962e666510353400a3c9ea158df540579a293f486f3578e918c5e90a0f5ed52e8aea
@@ -17751,6 +17829,13 @@ __metadata:
   version: 3.2.4
   resolution: "async@npm:3.2.4"
   checksum: 10c0/b5d02fed64717edf49e35b2b156debd9cf524934ea670108fa5528e7615ed66a5e0bf6c65f832c9483b63aa7f0bffe3e588ebe8d58a539b833798d324516e1c9
+  languageName: node
+  linkType: hard
+
+"async@npm:^3.2.6":
+  version: 3.2.6
+  resolution: "async@npm:3.2.6"
+  checksum: 10c0/36484bb15ceddf07078688d95e27076379cc2f87b10c03b6dd8a83e89475a3c8df5848859dd06a4c95af1e4c16fc973de0171a77f18ea00be899aca2a4f85e70
   languageName: node
   linkType: hard
 
@@ -17853,6 +17938,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axe-core@npm:^4.10.0":
+  version: 4.10.0
+  resolution: "axe-core@npm:4.10.0"
+  checksum: 10c0/732c171d48caaace5e784895c4dacb8ca6155e9d98045138ebe3952f78457dd05b92c57d05b41ce2a570aff87dbd0471e8398d2c0f6ebe79617b746c8f658998
+  languageName: node
+  linkType: hard
+
 "axios-mock-adapter@npm:^1.19.0":
   version: 1.19.0
   resolution: "axios-mock-adapter@npm:1.19.0"
@@ -17931,6 +18023,13 @@ __metadata:
   dependencies:
     dequal: "npm:^2.0.3"
   checksum: 10c0/f7debc2012e456139b57d888c223f6d3cb4b61eb104164a85e3d346273dd6ef0bc9a04b6660ca9407704a14a8e05fa6b6eb9d55f44f348c7210de7ffb350c3a7
+  languageName: node
+  linkType: hard
+
+"axobject-query@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "axobject-query@npm:4.1.0"
+  checksum: 10c0/c470e4f95008f232eadd755b018cb55f16c03ccf39c027b941cd8820ac6b68707ce5d7368a46756db4256fbc91bb4ead368f84f7fb034b2b7932f082f6dc0775
   languageName: node
   linkType: hard
 
@@ -19934,7 +20033,7 @@ __metadata:
     "@openagenda/agenda-events": "npm:^1.11.14"
     "@openagenda/agenda-locations": "npm:^2.1.2"
     "@openagenda/agenda-locations-app": "npm:^0.0.0"
-    "@openagenda/agenda-portal": "npm:^6.10.2"
+    "@openagenda/agenda-portal": "npm:^6.10.3"
     "@openagenda/agenda-schemas-app": "npm:^0.0.0"
     "@openagenda/agenda-search": "npm:^1.4.0"
     "@openagenda/agenda-settings": "npm:^1.4.0"
@@ -19947,7 +20046,6 @@ __metadata:
     "@openagenda/custom": "npm:^1.3.14"
     "@openagenda/date-range": "npm:^2.3.0"
     "@openagenda/discord": "npm:^1.0.0"
-    "@openagenda/dom-utils": "npm:^2.2.12"
     "@openagenda/event-form": "npm:^1.5.1"
     "@openagenda/event-search": "npm:^2.8.0"
     "@openagenda/events": "npm:^2.0.0"
@@ -21192,7 +21290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:0.4.2, cookie@npm:^0.4.0, cookie@npm:^0.4.1, cookie@npm:~0.4.1":
+"cookie@npm:0.4.2, cookie@npm:^0.4.1, cookie@npm:~0.4.1":
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
   checksum: 10c0/beab41fbd7c20175e3a2799ba948c1dcc71ef69f23fe14eeeff59fc09f50c517b0f77098db87dbb4c55da802f9d86ee86cdc1cd3efd87760341551838d53fca2
@@ -21203,6 +21301,13 @@ __metadata:
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
   checksum: 10c0/c01ca3ef8d7b8187bae434434582288681273b5a9ed27521d4d7f9f7928fe0c920df0decd9f9d3bbd2d14ac432b8c8cf42b98b3bdd5bfe0e6edddeebebe8b61d
+  languageName: node
+  linkType: hard
+
+"cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: 10c0/f2318b31af7a31b4ddb4a678d024514df5e705f9be5909a192d7f116cfb6d45cbacf96a473fa733faa95050e7cff26e7832bb3ef94751592f1387b71c8956686
   languageName: node
   linkType: hard
 
@@ -23873,7 +23978,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-abstract@npm:^1.22.1, es-abstract@npm:^1.22.3, es-abstract@npm:^1.23.0, es-abstract@npm:^1.23.1, es-abstract@npm:^1.23.2, es-abstract@npm:^1.23.3":
+"es-abstract@npm:^1.17.5, es-abstract@npm:^1.22.1, es-abstract@npm:^1.22.3, es-abstract@npm:^1.23.0, es-abstract@npm:^1.23.1, es-abstract@npm:^1.23.2, es-abstract@npm:^1.23.3":
   version: 1.23.3
   resolution: "es-abstract@npm:1.23.3"
   dependencies:
@@ -24081,7 +24186,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es6-promise@npm:^4.1.1, es6-promise@npm:^4.2.5":
+"es6-promise@npm:^4.2.5":
   version: 4.2.8
   resolution: "es6-promise@npm:4.2.8"
   checksum: 10c0/2373d9c5e9a93bdd9f9ed32ff5cb6dd3dd785368d1c21e9bbbfd07d16345b3774ae260f2bd24c8f836a6903f432b4151e7816a7fa8891ccb4e1a55a028ec42c3
@@ -24827,42 +24932,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-module-utils@npm:^2.8.0":
-  version: 2.8.1
-  resolution: "eslint-module-utils@npm:2.8.1"
+"eslint-module-utils@npm:^2.9.0":
+  version: 2.9.0
+  resolution: "eslint-module-utils@npm:2.9.0"
   dependencies:
     debug: "npm:^3.2.7"
   peerDependenciesMeta:
     eslint:
       optional: true
-  checksum: 10c0/1aeeb97bf4b688d28de136ee57c824480c37691b40fa825c711a4caf85954e94b99c06ac639d7f1f6c1d69223bd21bcb991155b3e589488e958d5b83dfd0f882
+  checksum: 10c0/7c45c5b54402a969e99315890c10e9bf8c8bee16c7890573343af05dfa04566d61546585678c413e5228af0550e39461be47e35a8ff0d1863e113bdbb28d1d29
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.28.1, eslint-plugin-import@npm:^2.29.1":
-  version: 2.29.1
-  resolution: "eslint-plugin-import@npm:2.29.1"
+"eslint-plugin-import@npm:^2.28.1, eslint-plugin-import@npm:^2.30.0":
+  version: 2.30.0
+  resolution: "eslint-plugin-import@npm:2.30.0"
   dependencies:
-    array-includes: "npm:^3.1.7"
-    array.prototype.findlastindex: "npm:^1.2.3"
+    "@rtsao/scc": "npm:^1.1.0"
+    array-includes: "npm:^3.1.8"
+    array.prototype.findlastindex: "npm:^1.2.5"
     array.prototype.flat: "npm:^1.3.2"
     array.prototype.flatmap: "npm:^1.3.2"
     debug: "npm:^3.2.7"
     doctrine: "npm:^2.1.0"
     eslint-import-resolver-node: "npm:^0.3.9"
-    eslint-module-utils: "npm:^2.8.0"
-    hasown: "npm:^2.0.0"
-    is-core-module: "npm:^2.13.1"
+    eslint-module-utils: "npm:^2.9.0"
+    hasown: "npm:^2.0.2"
+    is-core-module: "npm:^2.15.1"
     is-glob: "npm:^4.0.3"
     minimatch: "npm:^3.1.2"
-    object.fromentries: "npm:^2.0.7"
-    object.groupby: "npm:^1.0.1"
-    object.values: "npm:^1.1.7"
+    object.fromentries: "npm:^2.0.8"
+    object.groupby: "npm:^1.0.3"
+    object.values: "npm:^1.2.0"
     semver: "npm:^6.3.1"
     tsconfig-paths: "npm:^3.15.0"
   peerDependencies:
     eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-  checksum: 10c0/5f35dfbf4e8e67f741f396987de9504ad125c49f4144508a93282b4ea0127e052bde65ab6def1f31b6ace6d5d430be698333f75bdd7dca3bc14226c92a083196
+  checksum: 10c0/4c9dcb1f27505c4d5dd891d2b551f56c70786d136aa3992a77e785bdc67c9f60200a2c7fb0ce55b7647fe550b12bc433d5dfa59e2c00ab44227791c5ab86badf
   languageName: node
   linkType: hard
 
@@ -24884,7 +24990,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsx-a11y@npm:^6.7.1, eslint-plugin-jsx-a11y@npm:^6.8.0":
+"eslint-plugin-jsx-a11y@npm:^6.10.0":
+  version: 6.10.0
+  resolution: "eslint-plugin-jsx-a11y@npm:6.10.0"
+  dependencies:
+    aria-query: "npm:~5.1.3"
+    array-includes: "npm:^3.1.8"
+    array.prototype.flatmap: "npm:^1.3.2"
+    ast-types-flow: "npm:^0.0.8"
+    axe-core: "npm:^4.10.0"
+    axobject-query: "npm:^4.1.0"
+    damerau-levenshtein: "npm:^1.0.8"
+    emoji-regex: "npm:^9.2.2"
+    es-iterator-helpers: "npm:^1.0.19"
+    hasown: "npm:^2.0.2"
+    jsx-ast-utils: "npm:^3.3.5"
+    language-tags: "npm:^1.0.9"
+    minimatch: "npm:^3.1.2"
+    object.fromentries: "npm:^2.0.8"
+    safe-regex-test: "npm:^1.0.3"
+    string.prototype.includes: "npm:^2.0.0"
+  peerDependencies:
+    eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9
+  checksum: 10c0/9f8e29a3317fb6a82e2ecd333fe0fab3a69fff786d087eb65dc723d6e954473ab681d14a252d7cb2971f5e7f68816cb6f7731766558e1833a77bd73af1b5ab34
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-jsx-a11y@npm:^6.7.1":
   version: 6.8.0
   resolution: "eslint-plugin-jsx-a11y@npm:6.8.0"
   dependencies:
@@ -28033,7 +28165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.1.0, hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
+"hoist-non-react-statics@npm:^3.1.0, hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -28570,21 +28702,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iframe-resizer-react@npm:^1.0.11":
-  version: 1.1.0
-  resolution: "iframe-resizer-react@npm:1.1.0"
-  dependencies:
-    iframe-resizer: "npm:^4.3.0"
-    warning: "npm:^4.0.3"
-  peerDependencies:
-    prop-types: ">=15.7.2"
-    react: ">=16.8.0"
-    react-dom: ">=16.8.0"
-  checksum: 10c0/2f3d7b1b0bb1a64353554f53d3e8266136a6c8b76fec9f601d05d70909dc44b4acc4cff330a7c0fac75ccf6b2a532c93d1fc078076f25c7802daafa0902b6e6f
-  languageName: node
-  linkType: hard
-
-"iframe-resizer@npm:^4.2.10, iframe-resizer@npm:^4.3.0":
+"iframe-resizer@npm:^4.2.10":
   version: 4.3.7
   resolution: "iframe-resizer@npm:4.3.7"
   checksum: 10c0/81cc1b0aa735cfd372c62340c2ad1407bd2df4a2719785294ab157ebd5a334f9dfbab6156e51fb6917448e6cef949c0414771d0e1d2321cc5f36ba001647d3ae
@@ -28618,6 +28736,13 @@ __metadata:
   version: 5.3.1
   resolution: "ignore@npm:5.3.1"
   checksum: 10c0/703f7f45ffb2a27fb2c5a8db0c32e7dee66b33a225d28e8db4e1be6474795f606686a6e3bcc50e1aa12f2042db4c9d4a7d60af3250511de74620fbed052ea4cd
+  languageName: node
+  linkType: hard
+
+"ignore@npm:^5.3.1":
+  version: 5.3.2
+  resolution: "ignore@npm:5.3.2"
+  checksum: 10c0/f9f652c957983634ded1e7f02da3b559a0d4cc210fca3792cb67f1b153623c9c42efdc1c4121af171e295444459fc4a9201101fb041b1104a3c000bccb188337
   languageName: node
   linkType: hard
 
@@ -29362,12 +29487,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.10.0, is-core-module@npm:^2.13.0, is-core-module@npm:^2.13.1, is-core-module@npm:^2.5.0":
+"is-core-module@npm:^2.10.0, is-core-module@npm:^2.13.0, is-core-module@npm:^2.5.0":
   version: 2.13.1
   resolution: "is-core-module@npm:2.13.1"
   dependencies:
     hasown: "npm:^2.0.0"
   checksum: 10c0/2cba9903aaa52718f11c4896dabc189bab980870aae86a62dc0d5cedb546896770ee946fb14c84b7adf0735f5eaea4277243f1b95f5cefa90054f92fbcac2518
+  languageName: node
+  linkType: hard
+
+"is-core-module@npm:^2.15.1":
+  version: 2.15.1
+  resolution: "is-core-module@npm:2.15.1"
+  dependencies:
+    hasown: "npm:^2.0.2"
+  checksum: 10c0/53432f10c69c40bfd2fa8914133a68709ff9498c86c3bf5fca3cdf3145a56fd2168cbf4a43b29843a6202a120a5f9c5ffba0a4322e1e3441739bc0b641682612
   languageName: node
   linkType: hard
 
@@ -31977,10 +32111,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"load-script@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "load-script@npm:1.0.0"
-  checksum: 10c0/9919c777fe83f8a3a917f65c9c3ab186ad8b194248c57f413ef6e610194abc8484d123a6838d77ab33e5fa1a05a676b5dfe779c38cfe602bdd27c239423d0acd
+"load-script@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "load-script@npm:2.0.0"
+  checksum: 10c0/118bd891f0b3a463e87c774603c32773f56e1ce260245858dd3e7d03ff5fce83acaa5d6c32c66944ed9e91da945ee0150d25730f0346b5768118a76fcf1ef3e9
   languageName: node
   linkType: hard
 
@@ -35633,7 +35767,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lint-staged: "npm:^15.2.7"
     mime: "npm:^2.4.4"
-    prettier: "npm:^3.3.2"
+    prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.13.7"
   languageName: unknown
   linkType: soft
@@ -35664,7 +35798,7 @@ __metadata:
     jszip: "npm:^3.9.1"
     lint-staged: "npm:^15.2.7"
     mime: "npm:^2.4.4"
-    prettier: "npm:^3.3.2"
+    prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.13.8"
     tmp: "npm:^0.2.1"
     turbo: "npm:^1.10.14"
@@ -35832,7 +35966,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object.groupby@npm:^1.0.1":
+"object.groupby@npm:^1.0.3":
   version: 1.0.3
   resolution: "object.groupby@npm:1.0.3"
   dependencies:
@@ -35884,7 +36018,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object.values@npm:^1.1.6, object.values@npm:^1.1.7, object.values@npm:^1.2.0":
+"object.values@npm:^1.1.6, object.values@npm:^1.2.0":
   version: 1.2.0
   resolution: "object.values@npm:1.2.0"
   dependencies:
@@ -37868,7 +38002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-fallback@npm:prettier@^3, prettier@npm:^3.1.1, prettier@npm:^3.3.2":
+"prettier-fallback@npm:prettier@^3, prettier@npm:^3.1.1":
   version: 3.3.2
   resolution: "prettier@npm:3.3.2"
   bin:
@@ -37883,6 +38017,15 @@ __metadata:
   bin:
     prettier: bin-prettier.js
   checksum: 10c0/373fda1908c8f7f06e6b9966986f35784152d4f10c907c7153062fe36542358d696433450f3efb356b7438c855a8d8b4133c3e486057dc63117d94596ff3f5f1
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^3.3.3":
+  version: 3.3.3
+  resolution: "prettier@npm:3.3.3"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 10c0/b85828b08e7505716324e4245549b9205c0cacb25342a030ba8885aba2039a115dbcf75a0b7ca3b37bc9d101ee61fab8113fc69ca3359f2a226f1ecc07ad2e26
   languageName: node
   linkType: hard
 
@@ -38057,7 +38200,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:15, prop-types@npm:^15.0.0, prop-types@npm:^15.5.10, prop-types@npm:^15.5.4, prop-types@npm:^15.5.6, prop-types@npm:^15.5.7, prop-types@npm:^15.5.8, prop-types@npm:^15.5.9, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:15, prop-types@npm:^15.0.0, prop-types@npm:^15.5.10, prop-types@npm:^15.5.4, prop-types@npm:^15.5.6, prop-types@npm:^15.5.8, prop-types@npm:^15.5.9, prop-types@npm:^15.6.0, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -38816,16 +38959,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-cookie@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "react-cookie@npm:4.1.1"
+"react-cookie@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "react-cookie@npm:7.2.0"
   dependencies:
-    "@types/hoist-non-react-statics": "npm:^3.0.1"
-    hoist-non-react-statics: "npm:^3.0.0"
-    universal-cookie: "npm:^4.0.0"
+    "@types/hoist-non-react-statics": "npm:^3.3.5"
+    hoist-non-react-statics: "npm:^3.3.2"
+    universal-cookie: "npm:^7.0.0"
   peerDependencies:
     react: ">= 16.3.0"
-  checksum: 10c0/b98a79cd9369c13d9106cd9ee4e954276bb72676b1de3cfbd5cafc118881f973456087191bba2f241797fcb95f1df82e0cc6227f814a53707303714abf3d8c84
+  checksum: 10c0/434e8d8a4836ca14cc00edc06c55afdb291ed99f7ea0703e88e50b5071df0ff1773c06a1b516e7f5353886ed866a195dfb9baa07cf60affd2336b8b7eaf8498b
   languageName: node
   linkType: hard
 
@@ -39613,21 +39756,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-sortable-hoc@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "react-sortable-hoc@npm:2.0.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.2.0"
-    invariant: "npm:^2.2.4"
-    prop-types: "npm:^15.5.7"
-  peerDependencies:
-    prop-types: ^15.5.7
-    react: ^16.3.0 || ^17.0.0
-    react-dom: ^16.3.0 || ^17.0.0
-  checksum: 10c0/084c80d984d2b69886580c9de800b5e2f21edbe9244a7b9bf7d0cae24d568296b76e3e2a95c9f46bd2ecd686a61341f4a68bbe0e2b6eb22c1a32981d3609808a
-  languageName: node
-  linkType: hard
-
 "react-style-singleton@npm:^2.2.1":
   version: 2.2.1
   resolution: "react-style-singleton@npm:2.2.1"
@@ -39757,6 +39885,21 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/fcb4a79ecf25ef050507ebca137da1d78da71ba823f05e322157856f7d956502c51b1856aa22657cb8a4b46a3bc73fcbb9b468215bfd311c7a26bdd373cd4b4f
+  languageName: node
+  linkType: hard
+
+"react-uid@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "react-uid@npm:2.3.3"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    "@types/react": ^16.8.0 || ^17.0.0 || ^18.0.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/8aa30e92ee03561d25779c68ba6d9409ba4ea83386a8798729b6eb5977bbdc4a5ff199b758d2a29e958d7560b2a7517cab8671932b83e8fcd50092631c209b4c
   languageName: node
   linkType: hard
 
@@ -41579,6 +41722,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semver@npm:^7.6.0":
+  version: 7.6.3
+  resolution: "semver@npm:7.6.3"
+  bin:
+    semver: bin/semver.js
+  checksum: 10c0/88f33e148b210c153873cb08cfe1e281d518aaa9a666d4d148add6560db5cd3c582f3a08ccb91f38d5f379ead256da9931234ed122057f40bb5766e65e58adaf
+  languageName: node
+  linkType: hard
+
 "semver@npm:^7.6.1":
   version: 7.6.2
   resolution: "semver@npm:7.6.2"
@@ -43168,6 +43320,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"string.prototype.includes@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "string.prototype.includes@npm:2.0.0"
+  dependencies:
+    define-properties: "npm:^1.1.3"
+    es-abstract: "npm:^1.17.5"
+  checksum: 10c0/32dff118c9e9dcc87e240b05462fa8ee7248d9e335c0015c1442fe18152261508a2146d9bb87ddae56abab69148a83c61dfaea33f53853812a6a2db737689ed2
+  languageName: node
+  linkType: hard
+
 "string.prototype.matchall@npm:^4.0.11":
   version: 4.0.11
   resolution: "string.prototype.matchall@npm:4.0.11"
@@ -44439,7 +44601,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-api-utils@npm:^1.0.1":
+"ts-api-utils@npm:^1.0.1, ts-api-utils@npm:^1.3.0":
   version: 1.3.0
   resolution: "ts-api-utils@npm:1.3.0"
   peerDependencies:
@@ -45528,13 +45690,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"universal-cookie@npm:^4.0.0, universal-cookie@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "universal-cookie@npm:4.0.4"
+"universal-cookie@npm:^7.0.0, universal-cookie@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "universal-cookie@npm:7.2.0"
   dependencies:
-    "@types/cookie": "npm:^0.3.3"
-    cookie: "npm:^0.4.0"
-  checksum: 10c0/db5950601c2f0dbb22af930656bd6abe1f3a9eee4c488703fa806c38b27b98e2ad212445c152a4721c84ee05d1a8dd26decd13690f1c9870fac355682e17998a
+    "@types/cookie": "npm:^0.6.0"
+    cookie: "npm:^0.6.0"
+  checksum: 10c0/70dec5aaae247bd1e5b310097226be45464ef1b701da17ff4598180c205320871584dcee2021ab71339c47cbee0227ca7f327475b93641160f986f631fd6b8e0
   languageName: node
   linkType: hard
 

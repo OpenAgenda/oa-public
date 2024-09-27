@@ -1,6 +1,6 @@
 {
   "nextOptionId": 20,
-  "custom" : null,
+  "custom": null,
   "defaultLabelLanguage": null,
   "fields": [
     {
@@ -9,8 +9,8 @@
         "fr": "Qui suis-je?"
       },
       "info": null,
-      "placeholder" : null,
-      "sub" : null,
+      "placeholder": null,
+      "sub": null,
       "help": null,
       "helpLink": null,
       "helpContent": null,
@@ -18,7 +18,7 @@
       "read": null,
       "optional": false,
       "optionalWith": null,
-      "display" : true,
+      "display": true,
       "options": [
         {
           "id": 1,
@@ -193,10 +193,10 @@
         }
       ],
       "fieldType": "radio",
-      "origin" : "custom",
-      "enableWith" : null,
-      "default" : null,
-      "related" : {
+      "origin": "custom",
+      "enableWith": null,
+      "default": null,
+      "related": {
         "optional": [],
         "enable": []
       }

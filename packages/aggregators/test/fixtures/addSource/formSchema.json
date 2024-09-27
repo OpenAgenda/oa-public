@@ -37,14 +37,8 @@
       },
       "sub": null,
       "placeholder": null,
-      "write": [
-        "administrator",
-        "moderator"
-      ],
-      "read": [
-        "administrator",
-        "moderator"
-      ],
+      "write": ["administrator", "moderator"],
+      "read": ["administrator", "moderator"],
       "optional": true,
       "display": true,
       "origin": "custom",

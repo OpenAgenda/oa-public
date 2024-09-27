@@ -31,8 +31,8 @@ const extractType = (value, options = {}) => {
 function toListOfObjects(v) {
   return []
     .concat(v)
-    .filter(item => ![null, undefined].includes(item))
-    .map(item =>
+    .filter((item) => ![null, undefined].includes(item))
+    .map((item) =>
       (typeof item === 'string'
         ? {
           value: item,
@@ -44,7 +44,7 @@ function toListOfObjects(v) {
 const knownServices = ['passCulture'];
 
 module.exports = function validateRegistration({ field }) {
-  return v => {
+  return (v) => {
     const result = toListOfObjects(v).reduce(
       ({ clean, errors }, item, index) => {
         const { type, value } = item;

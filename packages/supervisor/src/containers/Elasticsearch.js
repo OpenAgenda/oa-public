@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useIntl } from 'react-intl';
 import { css } from '@emotion/react';
@@ -17,24 +17,25 @@ export default function Elasticsearch() {
     async () => (await apiClient('/supervisor/elasticsearch/cluster')).data,
     {
       refetchInterval: 1000,
-      onSuccess: data2 => {
+      onSuccess: (data2) => {
         if (isLoading) {
           // first load
           setReplicas(data2.replicas);
         }
       },
-    }
+    },
   );
 
   const replicasMutation = useMutation(
-    value => apiClient.post('/supervisor/elasticsearch/cluster/replicas', {
-      value: parseInt(value, 10),
-    }),
+    (value) =>
+      apiClient.post('/supervisor/elasticsearch/cluster/replicas', {
+        value: parseInt(value, 10),
+      }),
     {
       // Optimistically update the cache value on mutate, but store
       // the old value and return it so that it's accessible in case of
       // an error
-      onMutate: value => {
+      onMutate: (value) => {
         queryClient
           .cancelQueries(['supervisor', 'esCluster'])
           .catch(() => null);
@@ -44,7 +45,7 @@ export default function Elasticsearch() {
           'esCluster',
         ]);
 
-        queryClient.setQueryData(['supervisor', 'esCluster'], old => ({
+        queryClient.setQueryData(['supervisor', 'esCluster'], (old) => ({
           ...old,
           replicas: value,
         }));
@@ -61,25 +62,25 @@ export default function Elasticsearch() {
           .invalidateQueries(['supervisor', 'esCluster'])
           .catch(() => null);
       },
-    }
+    },
   );
 
   const onReplicasSubmit = useCallback(
-    event => {
+    (event) => {
       event.preventDefault();
       replicasMutation.mutate(replicas);
     },
-    [replicasMutation, replicas]
+    [replicasMutation, replicas],
   );
 
-  const onReplicasChange = useCallback(event => {
+  const onReplicasChange = useCallback((event) => {
     setReplicas(event.target.value);
   }, []);
 
   // Remove queries on unmout for reload on remount
   useEffect(
     () => () => queryClient.removeQueries(['supervisor', 'esCluster']),
-    [queryClient]
+    [queryClient],
   );
 
   if (isLoading) {
@@ -161,7 +162,7 @@ export default function Elasticsearch() {
 
       <h2>Nœuds</h2>
 
-      {data.nodes.map(node => (
+      {data.nodes.map((node) => (
         <div className="margin-top-sm" key={node.key}>
           <div>Clé: {node.key}</div>
           <div>Nom: {node.name}</div>

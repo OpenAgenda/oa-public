@@ -6,7 +6,9 @@ const log = logs('services/eventSearch/agendaIndexSearch');
 
 export default (eventSearch, agenda) => {
   // loadSummary does not provide schema
-  const formSchema = agenda.schema ? amendRestrictedFieldsWithInternalAccess(agenda.schema) : undefined;
+  const formSchema = agenda.schema
+    ? amendRestrictedFieldsWithInternalAccess(agenda.schema)
+    : undefined;
 
   async function search(query, nav, options = {}) {
     const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);

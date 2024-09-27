@@ -1,7 +1,13 @@
 import useSWRImmutable from 'swr/immutable';
 import { getEvents } from '@openagenda/react-filters';
 
-export default function useFiltersBaseQuery({ agenda, filters, query, suspense = false, prefilter = null }) {
+export default function useFiltersBaseQuery({
+  agenda,
+  filters,
+  query,
+  suspense = false,
+  prefilter = null,
+}) {
   const upcomingOnly = !query.timings && query.passed !== '1';
 
   return useSWRImmutable(

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = Files => {
+module.exports = (Files) => {
   const { gm } = Files;
 
   return [

@@ -22,7 +22,7 @@ import {
   getNextId,
 } from './utils';
 
-const hasPriceCategories = value => !!(value?.priceCategories ?? []).length;
+const hasPriceCategories = (value) => !!(value?.priceCategories ?? []).length;
 
 const checkForLocationMatch = (oaLocation, venues) => {
   const resp = venues.reduce((carry, item) => {
@@ -93,7 +93,7 @@ export default function Form({
     [initialValue],
   );
   const currentValue = useMemo(
-    () => getCurrentValue(initialValue.filter(v => !v.editing).concat(patch)),
+    () => getCurrentValue(initialValue.filter((v) => !v.editing).concat(patch)),
     [initialValue, patch],
   );
   const nextId = useMemo(() => getNextId(currentValue), [currentValue]);
@@ -110,7 +110,7 @@ export default function Form({
   );
   const venuesOptions = offererVenues
     .reduce((carry, item) => carry.concat(item.venues), [])
-    .map(v => ({
+    .map((v) => ({
       value: v.id,
       label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
     }));
@@ -171,14 +171,14 @@ export default function Form({
           value={currentValue?.venueId}
           placeholder="Sélectionner un lieu"
           options={venuesOptions}
-          onChange={option =>
+          onChange={(option) =>
             setPatch({
               ...patch,
               venueId: option.value,
             })}
           error={
             showErrors
-              ? (errors || []).filter(e => e?.field === 'venueId')
+              ? (errors || []).filter((e) => e?.field === 'venueId')
               : false
           }
           optional={false}
@@ -191,14 +191,14 @@ export default function Form({
           value={currentValue?.category}
           placeholder="Choix requis"
           options={categories}
-          onChange={option =>
+          onChange={(option) =>
             setPatch({
               ...patch,
               category: option.value,
             })}
           error={
             showErrors
-              ? (errors || []).filter(e => e?.field === 'category')
+              ? (errors || []).filter((e) => e?.field === 'category')
               : false
           }
           optional={false}
@@ -215,7 +215,7 @@ export default function Form({
             value={currentValue[relatedCategoryFieldName]}
             placeholder="Choix requis"
             options={relatedCategoryOptions}
-            onChange={option =>
+            onChange={(option) =>
               setPatch({
                 ...patch,
                 [relatedCategoryFieldName]: option.value,
@@ -223,7 +223,7 @@ export default function Form({
             error={
               showErrors
                 ? (errors || []).filter(
-                  e => e?.field === 'musicType' || e?.field === 'showType',
+                  (e) => e?.field === 'musicType' || e?.field === 'showType',
                 )
                 : false
             }
@@ -234,20 +234,20 @@ export default function Form({
         <PriceCategories
           disabled={openSubForm && openSubForm !== 'priceCategories'}
           value={currentValue}
-          onAdd={pc => {
+          onAdd={(pc) => {
             setPatch(addPriceCategory(patch, nextId, pc));
             setOpenSubForm(false);
           }}
-          onRemove={pc => setPatch(removePriceCategory(patch, pc))}
-          onSubFormToggle={open =>
+          onRemove={(pc) => setPatch(removePriceCategory(patch, pc))}
+          onSubFormToggle={(open) =>
             setOpenSubForm(open ? 'priceCategories' : false)}
-          onChange={pc => {
+          onChange={(pc) => {
             setPatch(changePriceCategory(patch, pc, currentValue));
             setOpenSubForm(false);
           }}
           error={
             showErrors
-              ? (errors || []).filter(e => e?.field === 'priceCategories')
+              ? (errors || []).filter((e) => e?.field === 'priceCategories')
               : false
           }
         />
@@ -256,23 +256,23 @@ export default function Form({
         <Dates
           disabled={openSubForm && openSubForm !== 'dates'}
           value={currentValue}
-          onAdd={d => {
+          onAdd={(d) => {
             setPatch({
               ...patch,
               dates: (patch.dates ?? []).concat({ id: nextId, ...d }),
             });
             setOpenSubForm(false);
           }}
-          onRemove={d => setPatch(removeDate(patch, d, currentValue))}
-          onChange={d => {
+          onRemove={(d) => setPatch(removeDate(patch, d, currentValue))}
+          onChange={(d) => {
             setPatch(changeDate(patch, d));
             setOpenSubForm(false);
           }}
-          onSubFormToggle={open => setOpenSubForm(open ? 'dates' : false)}
+          onSubFormToggle={(open) => setOpenSubForm(open ? 'dates' : false)}
           timings={timings}
           error={
             showErrors
-              ? (errors || []).filter(e => e?.field === 'dates')
+              ? (errors || []).filter((e) => e?.field === 'dates')
               : false
           }
         />
@@ -280,7 +280,7 @@ export default function Form({
       <Section>
         <Duration
           value={currentValue}
-          onChange={v => setPatch({ ...patch, eventDuration: v })}
+          onChange={(v) => setPatch({ ...patch, eventDuration: v })}
           timings={timings}
         />
       </Section>
@@ -288,7 +288,7 @@ export default function Form({
         <Section>
           <Name
             value={currentValue}
-            onChange={v => setPatch({ ...patch, name: v })}
+            onChange={(v) => setPatch({ ...patch, name: v })}
             title={title}
           />
         </Section>
@@ -296,7 +296,7 @@ export default function Form({
       <Section>
         <Description
           value={currentValue}
-          onChange={v => setPatch({ ...patch, description: v })}
+          onChange={(v) => setPatch({ ...patch, description: v })}
           longDesc={longDesc}
           longDescWarning={longDescWarning}
         />
@@ -304,7 +304,7 @@ export default function Form({
       <Section>
         <Conditions
           value={currentValue}
-          onChange={v => setPatch({ ...patch, itemCollectionDetails: v })}
+          onChange={(v) => setPatch({ ...patch, itemCollectionDetails: v })}
           conditions={conditions}
         />
       </Section>
@@ -314,12 +314,12 @@ export default function Form({
           value={currentValue.bookingContact}
           label="Email de contact"
           type="email"
-          onChange={e =>
+          onChange={(e) =>
             setPatch({ ...patch, bookingContact: e.target.value })}
           sub="Cette adresse email sera communiquée aux bénéficiaires ayant réservé votre offre."
           error={
             showErrors
-              ? (errors || []).filter(e => e?.field === 'bookingContact')
+              ? (errors || []).filter((e) => e?.field === 'bookingContact')
               : false
           }
           optional={false}
@@ -328,7 +328,7 @@ export default function Form({
       <Section>
         <BookingEmail
           value={currentValue}
-          onChange={v => setPatch({ ...patch, bookingEmail: v })}
+          onChange={(v) => setPatch({ ...patch, bookingEmail: v })}
           settingsBookingEmail={bookingEmail}
         />
       </Section>
@@ -345,7 +345,7 @@ export default function Form({
           <div className="error-summary boxed padding-all-md">
             <b>Certaines saisies doivent être corrigées:</b>
             <ul className="list-unstyled margin-left-xs">
-              {errors.map(e => (
+              {errors.map((e) => (
                 <li key={e.code}>{e.label}</li>
               ))}
             </ul>

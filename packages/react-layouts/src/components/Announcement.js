@@ -1,11 +1,22 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import breaks from 'remark-breaks';
+import { defineMessages, useIntl } from 'react-intl';
 
-const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
+const messages = defineMessages({
+  close: {
+    id: 'react-layouts.Announcement.close',
+    defaultMessage: 'Close',
+  },
+});
+
+const getTarget = (uri) =>
+  (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
 const remarkPlugins = [breaks];
 
 function Announcement({ kind = 'info', content, onClose }) {
+  const intl = useIntl();
+
   return (
     <div className={`announcement bg-${kind}`}>
       <div className={`container text-${kind}`}>
@@ -13,6 +24,7 @@ function Announcement({ kind = 'info', content, onClose }) {
           <div className="pull-right">
             <button
               type="button"
+              aria-label={intl.formatMessage(messages.close)}
               className={`btn btn-link-inline text-${kind}`}
               onClick={onClose}
             >

@@ -55,7 +55,7 @@ const fields = {
     default: eventStates.PUBLISHED,
     unique: true,
     optional: false,
-    options: _.keys(eventStates).map(k => eventStates[k]),
+    options: _.keys(eventStates).map((k) => eventStates[k]),
   },
   legacyId: {
     type: 'text',
@@ -66,6 +66,10 @@ const fields = {
   },
   updatedAt: {
     type: 'date',
+  },
+  removed: {
+    type: 'boolean',
+    default: false,
   },
   motive: {
     type: 'text',
@@ -90,7 +94,7 @@ const internalValidateData = schema(
 function _pickSetFields(preCleaned) {
   const aeFields = Object.keys(internalValidateData.fields);
 
-  return Object.keys(preCleaned).filter(field => aeFields.includes(field));
+  return Object.keys(preCleaned).filter((field) => aeFields.includes(field));
 }
 
 function _postClean(v, c, { optionalSecondaryFields }) {
@@ -99,7 +103,7 @@ function _postClean(v, c, { optionalSecondaryFields }) {
   return _.omit(
     c,
     ['state', 'featured', 'sourcePaths', 'aggregated', 'motive'].filter(
-      f => _.get(v, f, null) === null,
+      (f) => _.get(v, f, null) === null,
     ),
   );
 }
@@ -139,7 +143,7 @@ function _preClean(v) {
   return ih(v, update);
 }
 
-export default v => validate(_preClean(v));
+export default (v) => validate(_preClean(v));
 
 export function validateData(v, options = {}) {
   const { optionalSecondaryFields, partial } = {

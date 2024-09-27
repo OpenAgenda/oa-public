@@ -41,6 +41,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
     core = Core(services, testConfig);
 
     await services.simpleCache.clearAll();
+    await core.agendas(1).events.search.rebuild();
     await core.agendas.rebuildIndex();
   });
 
@@ -77,11 +78,11 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
     });
 
     it('detailed option provides more data per item', async () => {
-      const {
-        items,
-      } = await core.users({ uid: 1 }).agendas.list({ limit: 2 }, { detailed: 1 });
+      const { items } = await core
+        .users({ uid: 1 })
+        .agendas.list({ limit: 2 }, { detailed: 1 });
 
-      ['summary', 'schema', 'settings'].forEach(field => {
+      ['summary', 'schema', 'settings'].forEach((field) => {
         expect(Object.keys(items[0]).includes(field)).toBe(true);
       });
     });
@@ -93,12 +94,14 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
     beforeAll(async () => {
       let after = null;
       do {
-        const result = await core.users({
-          uid: 1,
-        }).agendas.list({
-          limit: 2,
-          after,
-        });
+        const result = await core
+          .users({
+            uid: 1,
+          })
+          .agendas.list({
+            limit: 2,
+            after,
+          });
 
         after = result.after;
 
@@ -107,7 +110,10 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
     });
 
     it('provided after key can be used to fetch next results', () => {
-      const titles = results.reduce((carry, { items }) => carry.concat(items.map(item => item.title)), []);
+      const titles = results.reduce(
+        (carry, { items }) => carry.concat(items.map((item) => item.title)),
+        [],
+      );
 
       expect(titles).toEqual([
         'Un agenda thématique',
@@ -138,7 +144,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
         response = await axios({
           method: 'get',
           url: `http://localhost:3000/me/agendas?key=${key}`,
-        }).then(r => r.data);
+        }).then((r) => r.data);
       });
 
       it('response includes a success, total, a list of items and an after key', () => {

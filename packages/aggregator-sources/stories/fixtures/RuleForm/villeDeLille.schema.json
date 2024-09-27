@@ -16,7 +16,7 @@
       "label": "Visuel",
       "info": "Chargez une image d'au moins 300 pixels de large",
       "fieldType": "abstract",
-      "optional" : false
+      "optional": false
     },
     {
       "field": "imageCredits",
@@ -46,7 +46,7 @@
       "sub": "Le contenu de ce champ doit avoir une longueur d'au moins 250 caractères.",
       "placeholder": "Saisissez une description détaillée de votre événement.",
       "min": 250,
-      "optional" : false,
+      "optional": false,
       "fieldType": "abstract"
     },
     {
@@ -283,12 +283,8 @@
       "info": null,
       "sub": "Champ privé",
       "placeholder": "(inauguration , remise de prix , discours, cocktail)",
-      "write": [
-        "administrator", "moderator"
-      ],
-      "read": [
-        "administrator", "moderator"
-      ],
+      "write": ["administrator", "moderator"],
+      "read": ["administrator", "moderator"],
       "optional": true,
       "display": true,
       "origin": "custom",
@@ -307,12 +303,8 @@
       "info": null,
       "sub": "Champ privé",
       "placeholder": null,
-      "write": [
-        "administrator", "moderator"
-      ],
-      "read": [
-        "administrator", "moderator"
-      ],
+      "write": ["administrator", "moderator"],
+      "read": ["administrator", "moderator"],
       "optional": true,
       "display": true,
       "origin": "custom",
@@ -331,12 +323,8 @@
       "info": null,
       "sub": "Champ privé",
       "placeholder": null,
-      "write": [
-        "administrator", "moderator"
-      ],
-      "read": [
-        "administrator", "moderator"
-      ],
+      "write": ["administrator", "moderator"],
+      "read": ["administrator", "moderator"],
       "optional": true,
       "display": true,
       "origin": "custom",
@@ -355,12 +343,8 @@
       "info": null,
       "sub": "Champ privé",
       "placeholder": null,
-      "write": [
-        "administrator", "moderator"
-      ],
-      "read": [
-        "administrator", "moderator"
-      ],
+      "write": ["administrator", "moderator"],
+      "read": ["administrator", "moderator"],
       "optional": true,
       "display": true,
       "origin": "custom",
@@ -379,12 +363,8 @@
       "info": null,
       "sub": "Champ privé",
       "placeholder": null,
-      "write": [
-        "administrator", "moderator"
-      ],
-      "read": [
-        "administrator", "moderator"
-      ],
+      "write": ["administrator", "moderator"],
+      "read": ["administrator", "moderator"],
       "optional": true,
       "display": true,
       "origin": "custom",
@@ -403,12 +383,8 @@
       "info": null,
       "sub": "Champ privé",
       "placeholder": null,
-      "write": [
-        "administrator", "moderator"
-      ],
-      "read": [
-        "administrator", "moderator"
-      ],
+      "write": ["administrator", "moderator"],
+      "read": ["administrator", "moderator"],
       "optional": true,
       "display": true,
       "origin": "custom",

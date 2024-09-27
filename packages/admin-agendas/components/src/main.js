@@ -2,7 +2,6 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom' );
-const du = require( '@openagenda/dom-utils' );
 const Body = require( './Body' );
 
 module.exports = options => {
@@ -25,5 +24,5 @@ module.exports = options => {
     return elem;
   }
 
-  ReactDOM.render( elem, du.el( params.canvas ) );
+  ReactDOM.render( elem, document.querySelector(params.canvas) );
 };

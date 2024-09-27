@@ -1,7 +1,4 @@
-const {
-  optionedTypes,
-  minMaxedTypes,
-} = require('./fieldTypes');
+const { optionedTypes, minMaxedTypes } = require('./fieldTypes');
 
 function buildFieldSchema(type, options = {}) {
   const {
@@ -151,7 +148,6 @@ function buildFieldSchema(type, options = {}) {
       optional: true,
       options: ['label', 'help', 'max', 'info', 'sub'],
     },
-
   };
 
   if (minMaxedTypes.includes(type)) {
@@ -176,7 +172,8 @@ function buildFieldSchema(type, options = {}) {
         optional: true,
         list: true,
       },
-      store: { // store variables depend on type (s3 needs a region and a bucket)
+      store: {
+        // store variables depend on type (s3 needs a region and a bucket)
         type: 'pass',
         optional: true,
       },

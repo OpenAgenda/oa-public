@@ -1,21 +1,18 @@
 {
-  "extends": [
-    "@openagenda"
-  ],
+  "extends": "../.eslintrc",
 
   "parserOptions": {
     "sourceType": "script"
   },
 
   "ignorePatterns": [
-    "dist"
+    "/dist"
   ],
 
   "overrides": [
     {
       "files": [
-        "src/**/*.js",
-        "test/**/*.js"
+        "src/**/*.js"
       ],
 
       "parserOptions": {

@@ -2,15 +2,15 @@
 
 module.exports = async (knex, legacyIdentifiers) => {
   const entries = {};
-  
+
   entries.event = await knex('event').first('*').where(legacyIdentifiers);
-  
+
   const legacyEventId = entries.event?.id;
-  
+
   if (!legacyEventId) {
     throw new Error('legacy event not found');
   }
-  
+
   entries.eventTranslations = await knex('event_translation')
     .select('*')
     .where('id', legacyEventId);
@@ -31,4 +31,4 @@ module.exports = async (knex, legacyIdentifiers) => {
     .where('id', entries.eventLocation?.location_id);
 
   return entries;
-}
+};

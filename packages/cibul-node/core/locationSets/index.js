@@ -4,6 +4,6 @@ function get(core, locationSetUid) {
   return services.agendaLocations.sets.get(locationSetUid);
 }
 
-export default core => locationSetUid => ({
+export default (core) => (locationSetUid) => ({
   get: get.bind(null, core, locationSetUid),
 });

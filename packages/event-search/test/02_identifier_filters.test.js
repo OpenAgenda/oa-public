@@ -21,16 +21,15 @@ describe('02 - event search - funcional: identifier filters', () => {
 
   beforeAll(async () => {
     await service('identifier').rebuild({
-      eventsList: async (_lastId, _limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.identifier.json`),
-      ),
+      eventsList: async (_lastId, _limit) =>
+        JSON.parse(
+          fs.readFileSync(`${__dirname}/fixtures/02_events.identifier.json`),
+        ),
     });
   });
 
   it('filter by event uid', async () => {
-    const {
-      events,
-    } = await service('identifier').search({
+    const { events } = await service('identifier').search({
       uid: 1,
     });
 
@@ -39,51 +38,43 @@ describe('02 - event search - funcional: identifier filters', () => {
   });
 
   it('filter by multiple event uids', async () => {
-    const {
-      events,
-    } = await service('identifier').search({
+    const { events } = await service('identifier').search({
       uid: [1, 2],
     });
 
     expect(events.length).toBe(2);
-    expect(events.map(e => e.uid)).toEqual([1, 2]);
+    expect(events.map((e) => e.uid)).toEqual([1, 2]);
   });
 
   it('filter by owner uid', async () => {
-    const {
-      events,
-    } = await service('identifier').search({
+    const { events } = await service('identifier').search({
       ownerUid: 1,
     });
 
     expect(events.length).toBe(2);
-    expect(events.map(e => e.uid)).toEqual([1, 2]);
+    expect(events.map((e) => e.uid)).toEqual([1, 2]);
   });
 
   it('filter by multiple owner uids', async () => {
-    const {
-      events,
-    } = await service('identifier').search({
+    const { events } = await service('identifier').search({
       ownerUid: [1, 2],
     });
 
     expect(events.length).toBe(4);
-    expect(events.map(e => e.uid)).toEqual([1, 2, 3, 4]);
+    expect(events.map((e) => e.uid)).toEqual([1, 2, 3, 4]);
   });
 
   it('filter by ownerOrMemberUid', async () => {
-    const {
-      events,
-    } = await service('identifier').search({
-      ownerOrMemberUid: 1,
-    }, {}, {
-      detailed: 1,
-    });
-
-    expect(
-      events.map(e => e.uid),
-    ).toEqual(
-      [1, 2, 5],
+    const { events } = await service('identifier').search(
+      {
+        ownerOrMemberUid: 1,
+      },
+      {},
+      {
+        detailed: 1,
+      },
     );
+
+    expect(events.map((e) => e.uid)).toEqual([1, 2, 5]);
   });
 });

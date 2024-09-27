@@ -1,9 +1,7 @@
 import _ from 'lodash';
 
-export default services => async uid => {
-  const {
-    core,
-  } = services;
+export default (services) => async (uid) => {
+  const { core } = services;
 
   const schema = await core.agendas(uid).settings.get({ access: 'internal' });
 
@@ -11,7 +9,9 @@ export default services => async uid => {
     return null;
   }
 
-  const locationField = _.first(schema.fields.filter(f => (f.slug ?? f.field) === 'location'));
+  const locationField = _.first(
+    schema.fields.filter((f) => (f.slug ?? f.field) === 'location'),
+  );
 
   const legacy = _.get(locationField, 'legacy', null);
 

@@ -10,12 +10,12 @@ import remove from './remove.js';
 import generateToken from './generateToken.js';
 import getByPublicKey from './getByPublicKey.js';
 
-export default core =>
+export default (core) =>
   Object.assign(
-    identifier => ({
+    (identifier) => ({
       remove: remove(core, identifier),
       agendas: Object.assign(
-        agendaUid => ({
+        (agendaUid) => ({
           getAuthorizations: getUserAuthorizationsOnAgenda.bind(
             null,
             core,
@@ -25,7 +25,7 @@ export default core =>
           getContext: (options = {}) =>
             getAgendaUserContext(core, identifier, agendaUid, options),
           events: Object.assign(
-            eventOrUid => ({
+            (eventOrUid) => ({
               getContext: (options = {}) =>
                 getEventUserContext(
                   core,
@@ -52,7 +52,7 @@ export default core =>
       get: Object.assign(get(core), {
         byAccessToken: (token, nonce) =>
           core.services.accessTokens.getUser(token, nonce),
-        byPublicKey: key => getByPublicKey(core, key),
+        byPublicKey: (key) => getByPublicKey(core, key),
       }),
     },
   );

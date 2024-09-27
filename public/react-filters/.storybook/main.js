@@ -13,7 +13,7 @@ export default {
   },
   staticDirs: ['../dist'],
   addons: [getAbsolutePath('@storybook/addon-essentials')],
-  webpackFinal: async config => {
+  webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.scss$/,
       use: [

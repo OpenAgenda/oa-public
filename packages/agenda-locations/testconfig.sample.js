@@ -41,7 +41,7 @@ module.exports = {
         accessKeyId: process.env.AWS_KEY,
         secretAccessKey: process.env.AWS_SECRET,
         region: process.env.AWS_REGION,
-        defaultBucket: process.env.AWS_BUCKET,
+        defaultBucket: process.env.AWS_TEST_BUCKET,
       },
       defaultProvider: 's3',
     },

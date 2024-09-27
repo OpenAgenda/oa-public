@@ -1,29 +1,40 @@
 'use strict';
 
-const shortKeys = [{
-  short: 'm',
-  key: 'missing',
-}, {
-  short: 's',
-  key: 'size',
-}, {
-  short: 't',
-  key: 'type',
-}, {
-  short: 'k',
-  key: 'key',
-}, {
-  short: 'f',
-  key: 'field',
-}];
+const shortKeys = [
+  {
+    short: 'm',
+    key: 'missing',
+  },
+  {
+    short: 's',
+    key: 'size',
+  },
+  {
+    short: 't',
+    key: 'type',
+  },
+  {
+    short: 'k',
+    key: 'key',
+  },
+  {
+    short: 'f',
+    key: 'field',
+  },
+];
 
-const shortValues = [{
-  key: 'type',
-  short: 'af',
-  value: 'additionalFields',
-}];
+const shortValues = [
+  {
+    key: 'type',
+    short: 'af',
+    value: 'additionalFields',
+  },
+];
 
-module.exports = function cleanRequestedAggregation({ aggsSizeLimit }, aggregation) {
+module.exports = function cleanRequestedAggregation(
+  { aggsSizeLimit },
+  aggregation,
+) {
   if (typeof aggregation === 'string') {
     return aggregation;
   }
@@ -33,10 +44,10 @@ module.exports = function cleanRequestedAggregation({ aggsSizeLimit }, aggregati
 
     return {
       ...carry,
-      [key]: shortValues.find(({
-        key: itemKey,
-        short,
-      }) => (itemKey === key) && (short === v))?.value ?? v,
+      [key]:
+        shortValues.find(
+          ({ key: itemKey, short }) => itemKey === key && short === v,
+        )?.value ?? v,
     };
   }, {});
 

@@ -139,7 +139,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         member = await axios({
           method: 'get',
           url: `http://localhost:3000/agendas/2/members/1?key=${contributorKey}`,
-        }).then(r => r.data);
+        }).then((r) => r.data);
       });
 
       it('member data is provided', () => {
@@ -162,7 +162,6 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       const res = await axios({
         method: 'get',
         url: `http://localhost:3000/agendas/2/members/email/${mail}?key=${administratorKey}`,
-
       });
       expect(res.data).toEqual({
         userUid: 50073466,

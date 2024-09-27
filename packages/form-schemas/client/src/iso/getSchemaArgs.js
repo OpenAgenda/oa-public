@@ -19,23 +19,27 @@ module.exports = (fields, accessType = null, al = null, options = {}) => {
 
   const accessLevel = al === null ? [] : [].concat(al);
 
-  return fields.filter(f => {
-    if (accessType === null) return true;
+  return fields
+    .filter((f) => {
+      if (accessType === null) return true;
 
-    if (f[accessType] === null && params.includeUnspecified) return true;
+      if (f[accessType] === null && params.includeUnspecified) return true;
 
-    return !!(_.get(f, accessType, []) || [])
-      .filter(t => accessLevel.includes(t))
-      .length;
-  })
-    .filter(f => {
+      return !!(_.get(f, accessType, []) || []).filter((t) =>
+        accessLevel.includes(t)).length;
+    })
+    .filter((f) => {
       if (f.type && f.type !== 'field') {
         return false;
       }
       return f.fieldType !== 'abstract';
     })
-    .map(f => {
+    .map((f) => {
       const validatorConfiguration = getValidatorFromField(f, params);
       return validatorConfiguration;
-    }).reduce((schemaConfiguration, f) => _.set(schemaConfiguration, f.field, f), {});
+    })
+    .reduce(
+      (schemaConfiguration, f) => _.set(schemaConfiguration, f.field, f),
+      {},
+    );
 };

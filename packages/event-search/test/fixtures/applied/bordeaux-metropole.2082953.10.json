@@ -15,13 +15,7 @@
         "fr": "[Cap sciences](http://www.cap-sciences.net/au-programme/exposition/gaiactica) accueille le vaisseau de Gaïactica.\n\nNous sommes en 2085. La Terre présente déjà les signes d'un climat planétaire déréglé et chaotique. Il y a pourtant un espoir... Montez à bord de Gaïactica, un vaisseau spatial grandeur nature, et tentez de prendre les bonnes décisions pour limiter l'ampleur du changement climatique.\n\nPendant 60 minutes au cœur de cet escape game immersif, votre équipage (de 3 à 9 joueurs) détient peut-être la clé d'une transition climatique réussie. Votre mission commence en 2019 et se termine en 2100."
       },
       "keywords": {
-        "fr": [
-          "escape game",
-          "jeu",
-          "science",
-          "environnement",
-          "espace"
-        ]
+        "fr": ["escape game", "jeu", "science", "environnement", "espace"]
       },
       "conditions": {
         "fr": "Réservation obligatoire"
@@ -793,9 +787,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "https://www.gaiactica.net/"
-      ],
+      "registration": ["https://www.gaiactica.net/"],
       "location": {
         "uid": 97665476,
         "slug": "cap-sciences90",
@@ -825,10 +817,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 60,
-      "thematiques-bordeaux-metropole": [
-        23,
-        17
-      ],
+      "thematiques-bordeaux-metropole": [23, 17],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -874,9 +863,7 @@
         "fr": "Participez à la soirée de clôture de la Quizaine de l'Egalité à l'occasion d'une soirée festive et conviviale de remerciement des acteurs.\n\n**Mardi 3 décembre à partir de 18h30 à la Mairie de Mérignac**\n\n**Plus d'infos** sur [http://www.merignac.com/actualites/la-diversite-au-coeur-de-la-quinzaine-de-legalite-2019](http://www.merignac.com/actualites/la-diversite-au-coeur-de-la-quinzaine-de-legalite-2019)"
       },
       "keywords": {
-        "fr": [
-          "egalite"
-        ]
+        "fr": ["egalite"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -960,14 +947,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        7
-      ],
+      "thematiques-bordeaux-metropole": [7],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1077,9 +1060,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.salonsimi.com/"
-      ],
+      "registration": ["http://www.salonsimi.com/"],
       "location": {
         "uid": 72903844,
         "slug": "palais-des-congres-de-paris36",
@@ -1108,13 +1089,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 54,
-      "thematiques-bordeaux-metropole": [
-        13,
-        15,
-        19,
-        24,
-        35
-      ],
+      "thematiques-bordeaux-metropole": [13, 15, 19, 24, 35],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1286,19 +1261,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1441,18 +1410,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1631,19 +1595,13 @@
         "extId": null
       },
       "custom_description": "Le Salon du Jardin de Bordeaux sera le lieu ressourçant de ce début de printemps 2020 : mises en scène inspirantes, professionnels passionnés, échanges avec les artisans, conférences, expositions et ateliers pour tous. Ce sera également l’occasion de découvrir les nouvelles tendances et innovations. En tout, 6 univers seront mis à l’honneur : horticulture, jardinage, aménagement, loisirs extérieurs, spas et piscines et enfin artisanat et nouvelles technologies.\nLes 20, 21 et 22 Mars 2020, le Salon du Jardin de Bordeaux répondra aux attentes et besoins de tous les visiteurs quel que soit leur profil (jardiniers experts, ou amateurs, adeptes du jardinage urbain, porteurs de projets ou simples visiteurs en quête de découvertes).",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 54,
-      "thematiques-bordeaux-metropole": [
-        25
-      ],
+      "thematiques-bordeaux-metropole": [25],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1754,9 +1712,7 @@
         "min": 14,
         "max": 99
       },
-      "registration": [
-        "animation-culture@taillan-medoc.fr"
-      ],
+      "registration": ["animation-culture@taillan-medoc.fr"],
       "location": {
         "uid": 54591162,
         "slug": "auditorium-du-pole-culturel-de-la-haye",
@@ -1784,17 +1740,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        82433240
-      ],
+      "sourcePaths": [82433240],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1841,11 +1793,7 @@
         "fr": "Un petit garçon continue à croire en l'existence du Père Noël, et ce malgré les doutes et les moqueries de ses camarades. Au soir de Noël, un mystérieux train vient le chercher et l'emmène au Pôle Nord à la rencontre du légendaire personnage...\n\n**Goûter offert pour les petits et les grands.**\n\n[https://www.ville-bouliac.fr/cinema-de-noel-6/](https://www.ville-bouliac.fr/cinema-de-noel-6/)"
       },
       "keywords": {
-        "fr": [
-          "cinéma",
-          "noël",
-          "dessin animé"
-        ]
+        "fr": ["cinéma", "noël", "dessin animé"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -1927,19 +1875,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
-      "recurring": [
-        2
-      ],
+      "intermunicipal_interest": [1],
+      "recurring": [2],
       "categories-agenda-metropolitain": 45,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        77293970
-      ],
+      "sourcePaths": [77293970],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1986,11 +1928,7 @@
         "fr": "Tournoi ouvert à toutes les personnes en situation de handicap en mixité (handivalide) doublette ou triplette selon le nombre des participants. Tombola au profit du Téléthon."
       },
       "keywords": {
-        "fr": [
-          "tournoi",
-          "pétanque",
-          "Téléthon"
-        ]
+        "fr": ["tournoi", "pétanque", "Téléthon"]
       },
       "conditions": {
         "fr": "Sur inscription"
@@ -2046,9 +1984,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "06 32 15 15 24"
-      ],
+      "registration": ["06 32 15 15 24"],
       "location": {
         "uid": 91737305,
         "slug": "espace-garonne636",
@@ -2074,19 +2010,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
-      "recurring": [
-        2
-      ],
+      "intermunicipal_interest": [1],
+      "recurring": [2],
       "categories-agenda-metropolitain": 51,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        41375362
-      ],
+      "sourcePaths": [41375362],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -2198,9 +2128,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/cine.notes/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/cine.notes/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -2230,18 +2158,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

@@ -2,7 +2,7 @@ import logs from '@openagenda/logs';
 
 const log = logs('usageCounters/clearAndDumpBucket');
 
-const splitKey = key => {
+const splitKey = (key) => {
   const split = key.split(':');
 
   if (split.length === 3) {

@@ -29,7 +29,7 @@ const statuses = [
 ];
 
 export default function StatusBadge({ status, intl }) {
-  const { slug, className } = statuses.find(s => s.id === status) ?? {};
+  const { slug, className } = statuses.find((s) => s.id === status) ?? {};
 
   if (!slug) {
     return null;

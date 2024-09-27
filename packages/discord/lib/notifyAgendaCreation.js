@@ -2,7 +2,7 @@
 
 const Discord = require('discord.js');
 
-module.exports = channel => (agenda, user) => {
+module.exports = (channel) => (agenda, user) => {
   const { uid, title } = agenda;
   const { fullName, email, uid: userUid } = user;
   const embed = new Discord.MessageEmbed()
@@ -15,7 +15,10 @@ module.exports = channel => (agenda, user) => {
         inline: true,
       },
       { name: 'Email', value: email, inline: true },
-      { name: 'Admin', value: `[Admin agenda](https://openagenda.com/admin/agendas?agendaUid=${uid})` }
+      {
+        name: 'Admin',
+        value: `[Admin agenda](https://openagenda.com/admin/agendas?agendaUid=${uid})`,
+      },
     )
     .setURL(`https://openagenda.com/agendas/${uid}`);
   return channel.send(`@everyone Nouvel agenda: ${title}`, { embed });

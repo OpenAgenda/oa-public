@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { ReactSelectInput } from '@openagenda/react-shared';
 import classNames from 'classnames';
 
@@ -6,24 +6,24 @@ import labels from '@openagenda/labels/form-schemas/index';
 import flattenLabels from '@openagenda/labels/flatten';
 
 const getSelectOptions = (field, opts = {}) => {
-  const {
-    value
-  } = opts;
+  const { value } = opts;
   const { options } = field;
 
-  return options.filter(o => {
-    if (!o.display) {
-      return false;
-    }
-    if ([undefined, null].includes(value)) {
-      return true;
-    }
-    return [].concat(value).includes(o.id);
-  }).map(o => ({
-    value: o.id,
-    label: o.label,
-    info: o.info
-  }));
+  return options
+    .filter((o) => {
+      if (!o.display) {
+        return false;
+      }
+      if ([undefined, null].includes(value)) {
+        return true;
+      }
+      return [].concat(value).includes(o.id);
+    })
+    .map((o) => ({
+      value: o.id,
+      label: o.label,
+      info: o.info,
+    }));
 };
 
 const getCurrentValue = ({ isFresh, field, value }) => {
@@ -36,7 +36,7 @@ const getCurrentValue = ({ isFresh, field, value }) => {
   }
 };
 
-const Option = props => {
+const Option = (props) => {
   const {
     className,
     cx,
@@ -46,13 +46,10 @@ const Option = props => {
     isSelected,
     innerRef,
     innerProps,
-    data
+    data,
   } = props;
 
-  const {
-    label,
-    info
-  } = data;
+  const { label, info } = data;
 
   return (
     <div
@@ -64,44 +61,40 @@ const Option = props => {
           'option--is-focused': isFocused,
           'option--is-selected': isSelected,
         },
-        className
+        className,
       )}
       ref={innerRef}
       aria-disabled={isDisabled}
       {...innerProps}
     >
       <div>{label}</div>
-      {info && <div className={classNames({ 'text-muted': !isSelected })}>{info}</div>}
+      {info && (
+        <div className={classNames({ 'text-muted': !isSelected })}>{info}</div>
+      )}
     </div>
   );
 };
 
 export default function SelectField(props) {
-  const {
-    onChange: propsOnChange,
-    field,
-    value,
-    lang,
-    isMulti
-  } = props;
+  const { onChange: propsOnChange, field, value, lang, isMulti } = props;
 
   const [isFresh, setIsFresh] = useState(true);
 
-  const onChange = useCallback(selected => {
-    setIsFresh(false);
+  const onChange = useCallback(
+    (selected) => {
+      setIsFresh(false);
 
-    if (selected === null) {
-      propsOnChange(isMulti ? [] : undefined);
-      return;
-    }
+      if (selected === null) {
+        propsOnChange(isMulti ? [] : undefined);
+        return;
+      }
 
-    propsOnChange(isMulti ? selected.map(o => o.value) : selected.value);
-  }, [propsOnChange, isMulti]);
+      propsOnChange(isMulti ? selected.map((o) => o.value) : selected.value);
+    },
+    [propsOnChange, isMulti],
+  );
 
-  const {
-    noOption,
-    selectPlaceholder: defaultSelectPlaceholder
-  } = flattenLabels(labels, lang);
+  const { noOption, selectPlaceholder: defaultSelectPlaceholder } = flattenLabels(labels, lang);
 
   return (
     <ReactSelectInput

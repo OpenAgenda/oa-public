@@ -12,17 +12,15 @@
     <mj-content>
       <mj-column>
         <mj-text>
-          <h1 class="title" align="center"><%= __('title', { user, agenda, event }) %></h1>
+          <h1 class="title" align="center">
+            <%= __('title', { user, agenda, event }) %>
+          </h1>
         </mj-text>
 
         <mj-text>
-          <%- __('body', {
-            user: _.escape(user),
-            event: _.escape(event),
-            sourceAgenda: _.escape(sourceAgenda),
-            state: __(state),
-            b: chunks => `<b>${chunks}</b>`
-          }) %>
+          <%- __('body', { user: _.escape(user), event: _.escape(event),
+          sourceAgenda: _.escape(sourceAgenda), state: __(state), b: chunks =>
+          `<b>${chunks}</b>` }) %>
         </mj-text>
 
         <mj-button

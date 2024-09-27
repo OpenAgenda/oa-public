@@ -69,9 +69,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://inscription.bordeaux-metropole.fr"
-      ],
+      "registration": ["http://inscription.bordeaux-metropole.fr"],
       "location": {
         "uid": 88524565,
         "slug": "maison-ecocitoyenne251",
@@ -100,11 +98,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        10,
-        11,
-        17
-      ],
+      "thematiques-bordeaux-metropole": [10, 11, 17],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -230,9 +224,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -343,9 +335,7 @@
         "min": 15,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -374,9 +364,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 43,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -505,12 +493,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        11,
-        17,
-        23,
-        32
-      ],
+      "thematiques-bordeaux-metropole": [11, 17, 23, 32],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -638,9 +621,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -739,9 +720,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -770,9 +749,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 43,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -912,9 +889,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1044,9 +1019,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1175,11 +1148,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        17,
-        20,
-        39
-      ],
+      "thematiques-bordeaux-metropole": [17, 20, 39],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1365,9 +1334,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],

@@ -112,18 +112,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -281,18 +276,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -417,9 +407,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/roots.urban/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/roots.urban/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -449,18 +437,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -616,18 +599,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -688,11 +666,7 @@
         "fr": "**Du 10 janvier au 16 février 2020, le musée Georges de Sonneville accueille l'exposition \"Sur un chemin... dans le bois\", sculptures de François Lacoste.**\n\nLes sculptures proposées par François Lacoste sont le fruit d’un travail de création et de recherche de plusieurs années s’appuyant sur des intuitions et des interrogations personnelles. Cette recherche s’effectue en utilisant un matériau, le bois connu pour sa plasticité mais avec le désir de s’affranchir de sa présentation conventionnelle et de fait, de troubler voire d’égarer le spectateur.\n\n### Informations\n\nOuverture les vendredi, samedi, dimanche et jours fériés de 14h à 18h,\n\nTél : 05 56 75 28 03"
       },
       "keywords": {
-        "fr": [
-          "exposition",
-          "sculpture",
-          "Gradignan"
-        ]
+        "fr": ["exposition", "sculpture", "Gradignan"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -816,10 +790,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 56 75 28 03",
-        "museesonneville@ville-gradignan.fr"
-      ],
+      "registration": ["05 56 75 28 03", "museesonneville@ville-gradignan.fr"],
       "location": {
         "uid": 2617794,
         "slug": "musee-georges-de-sonneville999",
@@ -854,9 +825,7 @@
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        35828405
-      ],
+      "sourcePaths": [35828405],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1010,10 +979,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.trentetrente.com",
-        "05 56 17 03 83"
-      ],
+      "registration": ["http://www.trentetrente.com", "05 56 17 03 83"],
       "location": {
         "uid": 34349414,
         "slug": "atelier-des-marches",
@@ -1041,19 +1007,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1100,11 +1060,7 @@
         "fr": "Voyage gourmand dans les boutiques participantes, avec la participation du Père Noël et de Minnie, séance photo avec l'association \"Ombres & Lumières\".\n\nChez Jéjé : Père Noël et pop-corn. Chocolatier ASPA : découverte du chocolat. Snack & Cook : chocolat chaud. Bassens Presse : barbe à papa. LiLaFleurs : pêche aux bonbons. L comme Belle : maquillage. Au pays des Merveilles : merveilles."
       },
       "keywords": {
-        "fr": [
-          "animations",
-          "Noël",
-          "enfant"
-        ]
+        "fr": ["animations", "Noël", "enfant"]
       },
       "conditions": {},
       "image": {
@@ -1184,17 +1140,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 42,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        41375362
-      ],
+      "sourcePaths": [41375362],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1241,12 +1193,7 @@
         "fr": "Faisant suite à l'exposition Garage Europa (Prologue) qui s'est tenue en décembre 2019 à Bordeaux, à la galerie 5un7, ces deux expositions présentent d’une part les œuvres (film et installation) de l'artiste hongrois Szabolcs KissPál et d'autre part un ensemble de travaux réalisés par des jeunes artistes français et hongrois autour de l'héritage culturel européen. Ces deux expositions tentent de tracer, d'identifier et d'articuler les éléments constituants d’un possible héritage culturel commun, en prêtant une attention particulière à la question de la mémoire du passé colonial d’une part, et de l’autre aux formes de représentation de l’unité/division culturelle entre l’Europe de l’Est et l’Europe de l’Ouest au sein de l’Union Européenne aujourd’hui. L’exposition The Colonial Warehouse des étudiants des deux écoles a été réalisée à l’occasion d’un workshop donné par Szabolcs KissPál à Bordeaux et à Budapest en octobre 2019.\n\nEtudiants :\n\nBarnabás Bácsi, Benoit Barsacq, Camille Benbournane, Charles Berriot, Jules Cartier, Cristiano Codeco De Amorim, Adél Csököly, Jean-Baptiste Favreau, Anna Míra Finta, Ulysse Feigne, Simon Gabourg, Ádám Jeneses, Àine Limache, Dániel Németh, Tra Nguyen, Victoria Orechko, Fanni Papp, Sirui Peng, Romain Rivière, Manon Tardy, Xing Xiao."
       },
       "keywords": {
-        "fr": [
-          "exposition",
-          "europe",
-          "archives",
-          "art contemporain"
-        ]
+        "fr": ["exposition", "europe", "archives", "art contemporain"]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite"
@@ -1562,9 +1509,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://archives.bordeaux-metropole.fr/"
-      ],
+      "registration": ["http://archives.bordeaux-metropole.fr/"],
       "location": {
         "uid": 8150947,
         "slug": "archives-bordeaux-metropole834",
@@ -1598,17 +1543,13 @@
         "imageCredits": "© Archives Bordeaux Métropole, photo  Bernard Rakotomanga"
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        70173944
-      ],
+      "sourcePaths": [70173944],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1751,18 +1692,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1885,9 +1821,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/julie.zenatti/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/julie.zenatti/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1917,18 +1851,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

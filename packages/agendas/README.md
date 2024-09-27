@@ -27,18 +27,17 @@ List agendas
 
 ## Query parameters
 
- * **uid**: one or multiple agenda uids
- * **search**: sql like search in title, description and slug
- * **order** : order by last update or creation date - possible values: 'updatedAt.desc', 'updatedAt.asc', 'createdAt.desc', 'createdAt.asc' ( default ).
+- **uid**: one or multiple agenda uids
+- **search**: sql like search in title, description and slug
+- **order** : order by last update or creation date - possible values: 'updatedAt.desc', 'updatedAt.asc', 'createdAt.desc', 'createdAt.asc' ( default ).
 
 ## Options
 
- * **total**: include total in result ( requires an extra query )
- * **detailed**: include stats about agendas ( query more costly )
- * **private**: if true, gets private agendas only, false ( default ) get public agendas, null gets both.
+- **total**: include total in result ( requires an extra query )
+- **detailed**: include stats about agendas ( query more costly )
+- **private**: if true, gets private agendas only, false ( default ) get public agendas, null gets both.
 
 If count was requested, it is given in third param
-
 
 # Get
 
@@ -50,14 +49,13 @@ If identifiers is an integer, it is used as if it were the id of the requested a
 
 ## Options
 
- * **detailed**: get detailed information on the agenda ( stats )
- * **internal**: include strictly internal info, such as id, ownerid, credentials
- * **instanciate**: gives agenda instance instead of data if true. Defaults at false
+- **detailed**: get detailed information on the agenda ( stats )
+- **internal**: include strictly internal info, such as id, ownerid, credentials
+- **instanciate**: gives agenda instance instead of data if true. Defaults at false
 
 ## Callback
 
     cb( err, agenda )
-
 
 # Set
 
@@ -73,8 +71,7 @@ The data used for the creation. Check test/service.set.create.js for an example,
 
 ### Options
 
- * **internal**: defaults at false - if true allows to set values defined as 'internal' in the service/validate.js map
-
+- **internal**: defaults at false - if true allows to set values defined as 'internal' in the service/validate.js map
 
 ## Update
 
@@ -88,10 +85,9 @@ The data to be updated; Check test/service.set.update.js for an example, and the
 
 ### Options
 
- * **protected**: defaults at false - if true, allows update of values defined as protected in the service/validate map ( ex: uid, id, ownerId, credentials )
+- **protected**: defaults at false - if true, allows update of values defined as protected in the service/validate map ( ex: uid, id, ownerId, credentials )
 
- * **internal**: defaults at false - if true, returned updated agenda includes internal data ( see validate map )
-
+- **internal**: defaults at false - if true, returned updated agenda includes internal data ( see validate map )
 
 ## Slugs
 
@@ -125,8 +121,6 @@ Can be used on client. Makes a slug out of a string
 
     genSlug( 'This is a string' ); // returns this-is-a-string
 
-
-
 # Instanciate
 
 Agenda instances are useful to do operations on specific agendas. They are objects with getters and setters.
@@ -143,18 +137,16 @@ Or by giving agenda data to the .instanciate interface
 
 See tests for examples
 
- * getImage( absolutePath = false ): get the image value. If no image, returns null.
- * setImage( options, cb ): set the image. options are url or path. Gives a result in callback with the list of image paths on aws s3.
- * clearImage( cb ): clears the image.
-
+- getImage( absolutePath = false ): get the image value. If no image, returns null.
+- setImage( options, cb ): set the image. options are url or path. Gives a result in callback with the list of image paths on aws s3.
+- clearImage( cb ): clears the image.
 
 # Random dev notes
 
-
 ## Migration
 
- * official table entry needs to be added
- * credentials need to go from review_credentials to credentials
+- official table entry needs to be added
+- credentials need to go from review_credentials to credentials
 
 ## Settings
 
@@ -194,7 +186,6 @@ This service usage is not documentation. More like todos.
         .fields
           .standard: []
           .custom: []
-
 
 #Sample config
 

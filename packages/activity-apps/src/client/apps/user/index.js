@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import React from 'react';
 import { createApp } from '@openagenda/react-shared';
 import getRoutes from './getRoutes';
 
@@ -8,38 +7,39 @@ const defaults = {
     settings: {
       prefix: '/home',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
-      perPageLimit: 20
+      perPageLimit: 20,
     },
     res: {
-      list: '/:uid/list'
-    }
-  }
+      list: '/:uid/list',
+    },
+  },
 };
 
-export default function ( options ) {
-  const { initialState } = _.merge( {}, defaults, options );
+export default function (options) {
+  const { initialState } = _.merge({}, defaults, options);
 
   const { apiRoot, prefix } = initialState.settings;
 
-  const getApp = () => createApp({
-    ...options,
-    initialState,
-    apiRoot,
-    prefix,
-    getRoutes,
-    legacyApiClient: true
-  });
+  const getApp = () =>
+    createApp({
+      ...options,
+      initialState,
+      apiRoot,
+      prefix,
+      getRoutes,
+      legacyApiClient: true,
+    });
 
   const result = getApp();
 
-  if (module.hot) {
-    module.hot.accept('./getRoutes', () => {
-      const newApp = getApp();
-
-      result.Content = newApp.Content;
-      result.triggerHooks = newApp.triggerHooks;
-    });
-  }
+  // if (import.meta.webpackHot) {
+  //   import.meta.webpackHot.accept('./getRoutes', () => {
+  //     const newApp = getApp();
+  //
+  //     result.Content = newApp.Content;
+  //     result.triggerHooks = newApp.triggerHooks;
+  //   });
+  // }
 
   return result;
-};
+}

@@ -59,7 +59,7 @@ describe('02 - event search - functional: search', () => {
 
         expect(total).toBe(2);
 
-        expect(events.map(e => e.slug)).toEqual([
+        expect(events.map((e) => e.slug)).toEqual([
           'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
           'serres-la-claranda-cafe-citoyen',
         ]);
@@ -82,7 +82,7 @@ describe('02 - event search - functional: search', () => {
         });
 
         expect(total).toBe(2);
-        expect(events.map(e => e.uid)).toEqual([6, 11]);
+        expect(events.map((e) => e.uid)).toEqual([6, 11]);
       });
 
       it('country code search', async () => {
@@ -91,7 +91,7 @@ describe('02 - event search - functional: search', () => {
         });
 
         expect(total).toBe(1);
-        expect(events.map(e => e.slug)).toEqual(['evenement_suisse']);
+        expect(events.map((e) => e.slug)).toEqual(['evenement_suisse']);
       });
 
       it('keyword search', async () => {
@@ -100,7 +100,7 @@ describe('02 - event search - functional: search', () => {
         });
 
         expect(total).toBe(1);
-        expect(events.map(e => e.slug)).toEqual(['keyword_event']);
+        expect(events.map((e) => e.slug)).toEqual(['keyword_event']);
       });
 
       it('keywords search', async () => {
@@ -109,7 +109,7 @@ describe('02 - event search - functional: search', () => {
         });
 
         expect(total).toBe(1);
-        expect(events.map(e => e.slug)).toEqual(['keyword_event_2']);
+        expect(events.map((e) => e.slug)).toEqual(['keyword_event_2']);
       });
 
       it('lang search', async () => {
@@ -118,7 +118,7 @@ describe('02 - event search - functional: search', () => {
         });
 
         expect(total).toBe(1);
-        expect(events.map(e => e.slug)).toEqual(['german_event']);
+        expect(events.map((e) => e.slug)).toEqual(['german_event']);
       });
 
       it('region search', async () => {
@@ -130,7 +130,7 @@ describe('02 - event search - functional: search', () => {
           { detailed: true },
         );
 
-        const regions = _.uniq(events.map(e => e.location.region));
+        const regions = _.uniq(events.map((e) => e.location.region));
 
         expect(regions.length).toBe(1);
 
@@ -146,7 +146,7 @@ describe('02 - event search - functional: search', () => {
           { detailed: true },
         );
 
-        const regions = _.uniq(events.map(e => e.location.region));
+        const regions = _.uniq(events.map((e) => e.location.region));
 
         expect(regions).toEqual(['Ile-de-France', 'New York']);
       });
@@ -168,11 +168,11 @@ describe('02 - event search - functional: search', () => {
         const expectedFields = service
           .getConfig()
           .baseSearchIncludes.concat(postParseFields)
-          .map(f => f.split('.')[0]);
+          .map((f) => f.split('.')[0]);
 
         expect(
           Object.keys(events[0]).filter(
-            field => !expectedFields.includes(field),
+            (field) => !expectedFields.includes(field),
           ),
         ).toEqual([]);
       });
@@ -216,8 +216,8 @@ describe('02 - event search - functional: search', () => {
         );
 
         ['title', 'description', 'dateRange', 'country', 'longDescription']
-          .map(f => events[0][f])
-          .forEach(data => {
+          .map((f) => events[0][f])
+          .forEach((data) => {
             expect(typeof data).toBe('string');
           });
       });
@@ -275,7 +275,7 @@ describe('02 - event search - functional: search', () => {
         });
 
         expect(total).toBe(3);
-        expect(events.map(e => e.slug)).toEqual([
+        expect(events.map((e) => e.slug)).toEqual([
           'multi_1',
           'multi_2',
           'multi_3',
@@ -304,7 +304,7 @@ describe('02 - event search - functional: search', () => {
         });
 
         expect(total).toBe(1);
-        expect(events.map(e => e.slug)).toEqual(['quimper_event']);
+        expect(events.map((e) => e.slug)).toEqual(['quimper_event']);
       });
 
       it('open search on a location name', async () => {
@@ -322,7 +322,7 @@ describe('02 - event search - functional: search', () => {
         });
 
         expect(total).toBe(1);
-        expect(events.map(e => e.slug)).toEqual(['evenement_suisse']);
+        expect(events.map((e) => e.slug)).toEqual(['evenement_suisse']);
       });
 
       it('open search on country name in english', async () => {
@@ -331,7 +331,7 @@ describe('02 - event search - functional: search', () => {
         });
 
         expect(total).toBe(1);
-        expect(events.map(e => e.slug)).toEqual(['evenement_suisse']);
+        expect(events.map((e) => e.slug)).toEqual(['evenement_suisse']);
       });
     });
 
@@ -529,7 +529,7 @@ describe('02 - event search - functional: search', () => {
         );
         expect(aggregations.eventsByDateRanges.length).toBeLessThanOrEqual(31);
         expect(
-          aggregations.eventsByDateRanges.filter(h => h.eventCount !== 0)
+          aggregations.eventsByDateRanges.filter((h) => h.eventCount !== 0)
             .length,
         ).toBe(0);
       });
@@ -578,11 +578,11 @@ describe('02 - event search - functional: search', () => {
 
         let count = 0;
 
-        stream.on('data', _event => {
+        stream.on('data', (_event) => {
           count += 1;
         });
 
-        return new Promise(rs => {
+        return new Promise((rs) => {
           stream.on('end', () => {
             expect(count).toBe(total);
             rs();
@@ -593,30 +593,30 @@ describe('02 - event search - functional: search', () => {
       it('buffer loads from elasticsearch can be tracked with "reloading" event', async () => {
         const stream = service('simple_search').search.stream();
 
-        stream.on('data', _event => {});
+        stream.on('data', (_event) => {});
 
-        stream.on('reloading', data => {
+        stream.on('reloading', (data) => {
           expect(Object.keys(data)).toEqual(['cursor', 'total']);
         });
 
-        return new Promise(rs => stream.on('end', rs));
+        return new Promise((rs) => stream.on('end', rs));
       });
 
       it('size of buffer reload chunks can be set in options', async () => {
         const stream = service('simple_search').search.stream({}, { size: 1 });
 
-        stream.on('data', _event => {});
+        stream.on('data', (_event) => {});
 
         let total;
         let count = 0;
 
-        stream.on('reloading', data => {
+        stream.on('reloading', (data) => {
           total = data.total;
 
           count += 1;
         });
 
-        return new Promise(rs => {
+        return new Promise((rs) => {
           stream.on('end', () => {
             expect(total).toBe(count + 1);
             rs();
@@ -640,7 +640,7 @@ describe('02 - event search - functional: search', () => {
       });
 
       expect(total).toBe(1);
-      expect(events.map(e => e.slug)).toEqual(['verdun_bound_box']);
+      expect(events.map((e) => e.slug)).toEqual(['verdun_bound_box']);
     });
 
     it('sorting can show in order upcoming first and past second, then nearest from now first', async () => {
@@ -650,7 +650,7 @@ describe('02 - event search - functional: search', () => {
       });
 
       expect(total).toBe(5);
-      expect(events.map(e => e.slug)).toEqual([
+      expect(events.map((e) => e.slug)).toEqual([
         'nearest_in_the_future_0',
         'almost_furthest_in_the_future_1',
         'furthest_in_the_future_2',
@@ -705,7 +705,7 @@ describe('02 - event search - functional: search', () => {
       );
 
       expect(
-        events.map(e => _.pick(e, ['location.city']).location?.city),
+        events.map((e) => _.pick(e, ['location.city']).location?.city),
       ).toEqual([
         'Quimper',
         'New York',
@@ -725,7 +725,7 @@ describe('02 - event search - functional: search', () => {
       );
 
       expect(
-        events.map(e => _.pick(e, ['location.city']).location?.city),
+        events.map((e) => _.pick(e, ['location.city']).location?.city),
       ).toEqual([
         'Grandson',
         'New York',
@@ -764,7 +764,7 @@ describe('02 - event search - functional: search', () => {
           {},
           { size: 1 },
           {
-            parser: produce(e => {
+            parser: produce((e) => {
               e.title = 'Bim!';
             }),
           },
@@ -896,7 +896,7 @@ describe('02 - event search - functional: search', () => {
         { detailed: true },
       );
 
-      expect(_.uniq(events.map(e => e.originAgenda.uid)).sort()).toEqual([
+      expect(_.uniq(events.map((e) => e.originAgenda.uid)).sort()).toEqual([
         21475128, 7678114,
       ]);
     });

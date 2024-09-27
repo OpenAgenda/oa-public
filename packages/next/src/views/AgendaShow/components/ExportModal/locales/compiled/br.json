@@ -191,6 +191,12 @@
       "value": "link"
     }
   ],
+  "next.views.AgendaShow.ExportModal.openInSamePage": [
+    {
+      "type": 0,
+      "value": "Ouvrir les événements sur le même page"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [
     {
       "type": 0,
@@ -219,6 +225,12 @@
     {
       "type": 0,
       "value": "Tout sélectionner"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.showFilters": [
+    {
+      "type": 0,
+      "value": "Afficher les filtres"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [

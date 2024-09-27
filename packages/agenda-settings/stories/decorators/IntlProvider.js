@@ -8,7 +8,7 @@ const locales = mergeLocales(appLocales, reactFilterLocales);
 
 const lang = 'fr';
 
-export default Story => (
+export default (Story) => (
   <IntlProvider
     key={lang}
     locale={lang}

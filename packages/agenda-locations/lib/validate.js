@@ -37,7 +37,8 @@ schema.register({
 
 const validateStream = stream({ optional: false });
 
-const fields = require('./fields').filter(field => field.write.includes('contributor'))
+const fields = require('./fields')
+  .filter((field) => field.write.includes('contributor'))
   .reduce(
     (sch, field) => ({
       ...sch,
@@ -50,14 +51,16 @@ const fields = require('./fields').filter(field => field.write.includes('contrib
   );
 
 const validate = schema(fields);
-validate.withoutImageCreditsAndRightsDeps = schema(ih(fields, {
-  imageCredits: {
-    $unset: ['enableWith'],
-  },
-  imageRightsAreHeld: {
-    $unset: ['enableWith'],
-  },
-}));
+validate.withoutImageCreditsAndRightsDeps = schema(
+  ih(fields, {
+    imageCredits: {
+      $unset: ['enableWith'],
+    },
+    imageRightsAreHeld: {
+      $unset: ['enableWith'],
+    },
+  }),
+);
 
 module.exports = (values, options = {}) => {
   const { isPatch, ignoreImage } = {
@@ -66,16 +69,20 @@ module.exports = (values, options = {}) => {
     ...options,
   };
 
-  const fn = ignoreImage && values.image ? validate.withoutImageCreditsAndRightsDeps : validate;
+  const fn = ignoreImage && values.image
+    ? validate.withoutImageCreditsAndRightsDeps
+    : validate;
 
   try {
-    return (isPatch ? fn.part.bind(null, Object.keys(values)) : fn)(ignoreImage ? _.omit(values, ['image']) : values);
+    return (isPatch ? fn.part.bind(null, Object.keys(values)) : fn)(
+      ignoreImage ? _.omit(values, ['image']) : values,
+    );
   } catch (errors) {
     throw new BadRequest({ info: { errors } }, 'data is invalid');
   }
 };
 
-module.exports.isStream = v => {
+module.exports.isStream = (v) => {
   try {
     validateStream(v);
   } catch (e) {

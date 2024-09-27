@@ -61,7 +61,7 @@ export default class InboxUser {
     }
 
     const [insertedId] = await knex(schemas.inboxUser).insert(
-      mapper.toDb(fieldsMap, 'insert', finalData, { protected: false })
+      mapper.toDb(fieldsMap, 'insert', finalData, { protected: false }),
     );
 
     this.identifiers = { id: insertedId };
@@ -81,7 +81,7 @@ export default class InboxUser {
         detailed: false,
         createOnNull: false,
       },
-      options
+      options,
     );
 
     if (this.inbox) {
@@ -114,7 +114,7 @@ export default class InboxUser {
             inboxUser: this.data,
             inboxUserId: this.data.id,
           },
-          this.inbox
+          this.inbox,
         )
       ).inboxUser;
     }
@@ -130,7 +130,7 @@ export default class InboxUser {
     if (!this.data) {
       throw new VError(
         'You can not remove a user inbox that does not exists: %j',
-        this.identifiers
+        this.identifiers,
       );
     }
 

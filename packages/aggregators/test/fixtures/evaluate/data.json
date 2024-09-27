@@ -1,10 +1,12 @@
 {
-  "aggregatorsBuffer": [{
-    "aggregatorAgendaUid": 50522407,
-    "sourceRules": [],
-    "aggregatorRules": [],
-    "aggregatorLimit": null
-  }],
+  "aggregatorsBuffer": [
+    {
+      "aggregatorAgendaUid": 50522407,
+      "sourceRules": [],
+      "aggregatorRules": [],
+      "aggregatorLimit": null
+    }
+  ],
 
   "event": {
     "id": 678407,
@@ -91,22 +93,15 @@
     },
     "state": 2,
     "featured": false,
-    "sourcePaths": [[120, 19023], [92893, 90193]],
+    "sourcePaths": [
+      [120, 19023],
+      [92893, 90193]
+    ],
     "entreelibre": [],
-    "thematiques-metropolitaines": [
-      8,
-      9
-    ],
-    "types-devenements": [
-      15,
-      23
-    ],
-    "public": [
-      26
-    ],
-    "organisateur": [
-      33
-    ],
+    "thematiques-metropolitaines": [8, 9],
+    "types-devenements": [15, 23],
+    "public": [26],
+    "organisateur": [33],
     "participation": null,
     "evenement-ponctuel": null
   },
@@ -157,10 +152,7 @@
       "contribution": {
         "type": 2,
         "defaultState": 2,
-        "canPublish": [
-          "administrators",
-          "moderators"
-        ],
+        "canPublish": ["administrators", "moderators"],
         "moderateOnChangeBy": [],
         "defaultLang": null,
         "allowLocationCreate": true,
@@ -249,9 +241,7 @@
             "help": null,
             "helpLink": null,
             "helpContent": null,
-            "default": [
-              8
-            ],
+            "default": [8],
             "info": {
               "fr": "*Merci de saisir un champ ci-dessous (il apparaîtra dans l’étiquette rose-orangée de la vignette de présentation et permet d'effectuer une recherche pertinente)"
             },
@@ -369,9 +359,7 @@
             "help": null,
             "helpLink": null,
             "helpContent": null,
-            "default": [
-              15
-            ],
+            "default": [15],
             "info": {
               "fr": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)"
             },
@@ -475,9 +463,7 @@
             "help": null,
             "helpLink": null,
             "helpContent": null,
-            "default": [
-              26
-            ],
+            "default": [26],
             "info": {
               "fr": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)"
             },
@@ -695,9 +681,7 @@
         "help": null,
         "helpLink": null,
         "helpContent": null,
-        "default": [
-          8
-        ],
+        "default": [8],
         "info": {
           "fr": "*Merci de saisir un champ ci-dessous (il apparaîtra dans l’étiquette rose-orangée de la vignette de présentation et permet d'effectuer une recherche pertinente)"
         },
@@ -816,9 +800,7 @@
         "help": null,
         "helpLink": null,
         "helpContent": null,
-        "default": [
-          15
-        ],
+        "default": [15],
         "info": {
           "fr": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)"
         },
@@ -923,9 +905,7 @@
         "help": null,
         "helpLink": null,
         "helpContent": null,
-        "default": [
-          26
-        ],
+        "default": [26],
         "info": {
           "fr": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)"
         },

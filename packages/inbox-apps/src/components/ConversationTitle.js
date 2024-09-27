@@ -24,12 +24,14 @@ function isUser(entity, user) {
 }
 
 function isInInboxes(inboxes, user) {
-  return inboxes.some(inbox => isUser({ inbox }, user));
+  return inboxes.some((inbox) => isUser({ inbox }, user));
 }
 
 class ConversationTitle extends Component {
   static defaultProps = {
-    EntityComponent: ({ children }) => <span className="text-muted">{children}</span>,
+    EntityComponent: ({ children }) => (
+      <span className="text-muted">{children}</span>
+    ),
   };
 
   static contextType = I18nContext;
@@ -65,21 +67,27 @@ class ConversationTitle extends Component {
               return <>{getLabel('youContactedTheAgenda')}</>;
             }
             if (
-              (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id)
-                || (destinationInbox.type === 'agenda' && destinationInbox.id === creator.inbox.id)
+              (destinationInbox.type === 'user'
+                && destinationInbox.id !== creator.inbox.id)
+              || (destinationInbox.type === 'agenda'
+                && destinationInbox.id === creator.inbox.id)
             ) {
               return (
                 <>
                   <EntityComponent type="user">
                     {getInboxUserName(creator)}
                   </EntityComponent>{' '}
-                  {userIsInConversation ? getLabel('contactedYou') : getLabel('contactedTheContributor')}
+                  {userIsInConversation
+                    ? getLabel('contactedYou')
+                    : getLabel('contactedTheContributor')}
                 </>
               );
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('contactedTheAgenda')}
               </>
             );
@@ -90,7 +98,11 @@ class ConversationTitle extends Component {
                 return (
                   <>
                     {getLabel('youContactedTheContributorOf')}{' '}
-                    <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    <EntityComponent
+                      type="event"
+                      eventUid={typeIdentifier}
+                      agendaUid={store.params.agendaUid}
+                    >
                       {store.params.eventTitle}
                     </EntityComponent>
                   </>
@@ -99,19 +111,27 @@ class ConversationTitle extends Component {
               return (
                 <>
                   {getLabel('youContactedTheAgenda')} {getLabel('on')}{' '}
-                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="event"
+                    eventUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.eventTitle}
                   </EntityComponent>
                 </>
               );
             }
             if (
-              (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id)
-                || (destinationInbox.type === 'agenda' && destinationInbox.id === creator.inbox.id)
+              (destinationInbox.type === 'user'
+                && destinationInbox.id !== creator.inbox.id)
+              || (destinationInbox.type === 'agenda'
+                && destinationInbox.id === creator.inbox.id)
             ) {
               return (
                 <>
-                  <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                  <EntityComponent type="user">
+                    {getInboxUserName(creator)}
+                  </EntityComponent>{' '}
                   {userIsInConversation ? (
                     <>
                       {getLabel('contactedYou')} {getLabel('on')}{' '}
@@ -121,7 +141,11 @@ class ConversationTitle extends Component {
                       {getLabel('contactedTheContributor')} {getLabel('of')}{' '}
                     </>
                   )}
-                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="event"
+                    eventUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.eventTitle}
                   </EntityComponent>
                 </>
@@ -129,10 +153,15 @@ class ConversationTitle extends Component {
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
-                {getLabel('contactedTheAgenda')}{' '}
-                {getLabel('on')}{' '}
-                <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
+                {getLabel('contactedTheAgenda')} {getLabel('on')}{' '}
+                <EntityComponent
+                  type="event"
+                  eventUid={typeIdentifier}
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.eventTitle}
                 </EntityComponent>
               </>
@@ -144,7 +173,11 @@ class ConversationTitle extends Component {
                 return (
                   <>
                     {getLabel('youContactedTheContributorOf')}{' '}
-                    <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    <EntityComponent
+                      type="event"
+                      eventUid={typeIdentifier}
+                      agendaUid={store.params.agendaUid}
+                    >
                       {store.params.eventTitle}
                     </EntityComponent>
                   </>
@@ -153,23 +186,34 @@ class ConversationTitle extends Component {
               return (
                 <>
                   {getLabel('youContactedTheAgenda')}{' '}
-                  <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="agenda"
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.agendaTitle}
                   </EntityComponent>{' '}
                   {getLabel('on')}{' '}
-                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="event"
+                    eventUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.eventTitle}
                   </EntityComponent>
                 </>
               );
             }
             if (
-              (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id)
-                || (destinationInbox.type === 'agenda' && destinationInbox.id === creator.inbox.id)
+              (destinationInbox.type === 'user'
+                && destinationInbox.id !== creator.inbox.id)
+              || (destinationInbox.type === 'agenda'
+                && destinationInbox.id === creator.inbox.id)
             ) {
               return (
                 <>
-                  <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                  <EntityComponent type="user">
+                    {getInboxUserName(creator)}
+                  </EntityComponent>{' '}
                   {userIsInConversation ? (
                     <>
                       {getLabel('contactedYou')} {getLabel('on')}{' '}
@@ -179,7 +223,11 @@ class ConversationTitle extends Component {
                       {getLabel('contactedTheContributor')} {getLabel('of')}{' '}
                     </>
                   )}
-                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="event"
+                    eventUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.eventTitle}
                   </EntityComponent>
                 </>
@@ -187,13 +235,22 @@ class ConversationTitle extends Component {
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('contactedTheAgenda')}{' '}
-                <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                <EntityComponent
+                  type="agenda"
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.agendaTitle}
                 </EntityComponent>{' '}
                 {getLabel('on')}{' '}
-                <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                <EntityComponent
+                  type="event"
+                  eventUid={typeIdentifier}
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.eventTitle}
                 </EntityComponent>
               </>
@@ -210,7 +267,9 @@ class ConversationTitle extends Component {
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('contactedTheAgenda')}
               </>
             );
@@ -228,7 +287,9 @@ class ConversationTitle extends Component {
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('contactedTheAgenda')}{' '}
                 <EntityComponent type="agenda" agendaUid={typeIdentifier}>
                   {store.params.agendaTitle}
@@ -246,7 +307,9 @@ class ConversationTitle extends Component {
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('wantsToContributeToTheAgenda')}
               </>
             );
@@ -264,7 +327,9 @@ class ConversationTitle extends Component {
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('wantsToContributeToTheAgenda')}{' '}
                 <EntityComponent type="agenda" agendaUid={typeIdentifier}>
                   {store.params.agendaTitle}
@@ -282,7 +347,9 @@ class ConversationTitle extends Component {
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('requestedEditingRights')}
               </>
             );
@@ -291,9 +358,12 @@ class ConversationTitle extends Component {
             if (isUser(creator, user)) {
               return (
                 <>
-                  {getLabel('youRequestedEditingRights')}{' '}
-                  {getLabel('on')}{' '}
-                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  {getLabel('youRequestedEditingRights')} {getLabel('on')}{' '}
+                  <EntityComponent
+                    type="event"
+                    eventUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.eventTitle}
                   </EntityComponent>
                 </>
@@ -301,10 +371,15 @@ class ConversationTitle extends Component {
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
-                {getLabel('requestedEditingRights')}{' '}
-                {getLabel('on')}{' '}
-                <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
+                {getLabel('requestedEditingRights')} {getLabel('on')}{' '}
+                <EntityComponent
+                  type="event"
+                  eventUid={typeIdentifier}
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.eventTitle}
                 </EntityComponent>
               </>
@@ -314,15 +389,22 @@ class ConversationTitle extends Component {
             if (isUser(creator, user)) {
               return (
                 <>
-                  {getLabel('youRequestedEditingRights')}{' '}
-                  {getLabel('on')}{' '}
-                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  {getLabel('youRequestedEditingRights')} {getLabel('on')}{' '}
+                  <EntityComponent
+                    type="event"
+                    eventUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.eventTitle}
                   </EntityComponent>
                   {creator.inboxUser ? (
                     <>
-                      {' '}{getLabel('ofTheAgenda')}{' '}
-                      <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                      {' '}
+                      {getLabel('ofTheAgenda')}{' '}
+                      <EntityComponent
+                        type="agenda"
+                        agendaUid={store.params.agendaUid}
+                      >
                         {store.params.agendaTitle}
                       </EntityComponent>
                     </>
@@ -332,16 +414,25 @@ class ConversationTitle extends Component {
             }
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
-                {getLabel('requestedEditingRights')}{' '}
-                {getLabel('on')}{' '}
-                <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
+                {getLabel('requestedEditingRights')} {getLabel('on')}{' '}
+                <EntityComponent
+                  type="event"
+                  eventUid={typeIdentifier}
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.eventTitle}
                 </EntityComponent>
                 {creator.inboxUser ? (
                   <>
-                    {' '}{getLabel('ofTheAgenda')}{' '}
-                    <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                    {' '}
+                    {getLabel('ofTheAgenda')}{' '}
+                    <EntityComponent
+                      type="agenda"
+                      agendaUid={store.params.agendaUid}
+                    >
                       {store.params.agendaTitle}
                     </EntityComponent>
                   </>
@@ -359,7 +450,11 @@ class ConversationTitle extends Component {
               return (
                 <>
                   {getLabel('youSuggestedAEventChange')}{' '}
-                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="event"
+                    eventUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.eventTitle}
                   </EntityComponent>
                 </>
@@ -368,9 +463,15 @@ class ConversationTitle extends Component {
             // XXX a suggeré une modification sur l'évenment YYY
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('suggestedAEventChange')}{' '}
-                <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                <EntityComponent
+                  type="event"
+                  eventUid={typeIdentifier}
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.eventTitle}
                 </EntityComponent>
               </>
@@ -382,11 +483,18 @@ class ConversationTitle extends Component {
               return (
                 <>
                   {getLabel('youSuggestedAEventChange')}{' '}
-                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="event"
+                    eventUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.eventTitle}
-                  </EntityComponent>
-                  {' '}{getLabel('ofTheAgenda')}{' '}
-                  <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                  </EntityComponent>{' '}
+                  {getLabel('ofTheAgenda')}{' '}
+                  <EntityComponent
+                    type="agenda"
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.agendaTitle}
                   </EntityComponent>
                 </>
@@ -395,13 +503,22 @@ class ConversationTitle extends Component {
             // XXX a suggeré une modification sur l'événement YYY de l'agenda ZZZ
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('suggestedAEventChange')}{' '}
-                <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                <EntityComponent
+                  type="event"
+                  eventUid={typeIdentifier}
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.eventTitle}
-                </EntityComponent>
-                {' '}{getLabel('ofTheAgenda')}{' '}
-                <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                </EntityComponent>{' '}
+                {getLabel('ofTheAgenda')}{' '}
+                <EntityComponent
+                  type="agenda"
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.agendaTitle}
                 </EntityComponent>
               </>
@@ -417,7 +534,11 @@ class ConversationTitle extends Component {
               return (
                 <>
                   {getLabel('youSuggestedALocationChange')}{' '}
-                  <EntityComponent type="location" locationUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="location"
+                    locationUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.locationName}
                   </EntityComponent>
                 </>
@@ -426,9 +547,15 @@ class ConversationTitle extends Component {
             // XXX a suggeré une modification sur le lieu YYY
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('suggestedALocationChange')}{' '}
-                <EntityComponent type="location" locationUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                <EntityComponent
+                  type="location"
+                  locationUid={typeIdentifier}
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.locationName}
                 </EntityComponent>
               </>
@@ -440,11 +567,18 @@ class ConversationTitle extends Component {
               return (
                 <>
                   {getLabel('youSuggestedALocationChange')}{' '}
-                  <EntityComponent type="location" locationUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="location"
+                    locationUid={typeIdentifier}
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.locationName}
-                  </EntityComponent>
-                  {' '}{getLabel('ofTheAgenda')}{' '}
-                  <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                  </EntityComponent>{' '}
+                  {getLabel('ofTheAgenda')}{' '}
+                  <EntityComponent
+                    type="agenda"
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.agendaTitle}
                   </EntityComponent>
                 </>
@@ -453,13 +587,22 @@ class ConversationTitle extends Component {
             // XXX a suggeré une modification sur le lieu YYY de l'agenda ZZZ
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('suggestedALocationChange')}{' '}
-                <EntityComponent type="location" locationUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                <EntityComponent
+                  type="location"
+                  locationUid={typeIdentifier}
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.locationName}
-                </EntityComponent>
-                {' '}{getLabel('ofTheAgenda')}{' '}
-                <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                </EntityComponent>{' '}
+                {getLabel('ofTheAgenda')}{' '}
+                <EntityComponent
+                  type="agenda"
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.agendaTitle}
                 </EntityComponent>
               </>
@@ -475,7 +618,9 @@ class ConversationTitle extends Component {
               return (
                 <>
                   {getLabel('youContacted')}{' '}
-                  <EntityComponent type="user">{store.params.userName}</EntityComponent>
+                  <EntityComponent type="user">
+                    {store.params.userName}
+                  </EntityComponent>
                 </>
               );
             }
@@ -483,7 +628,9 @@ class ConversationTitle extends Component {
               // Kévin vous a contacté
               return (
                 <>
-                  <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                  <EntityComponent type="user">
+                    {getInboxUserName(creator)}
+                  </EntityComponent>{' '}
                   {getLabel('contactedYou')}
                 </>
               );
@@ -491,9 +638,13 @@ class ConversationTitle extends Component {
             // Kévin a contacté Jean-Phil
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('contacted')}{' '}
-                <EntityComponent type="user">{store.params.userName}</EntityComponent>
+                <EntityComponent type="user">
+                  {store.params.userName}
+                </EntityComponent>
               </>
             );
 
@@ -503,9 +654,14 @@ class ConversationTitle extends Component {
               return (
                 <>
                   {getLabel('youContacted')}{' '}
-                  <EntityComponent type="user">{store.params.userName}</EntityComponent>{' '}
+                  <EntityComponent type="user">
+                    {store.params.userName}
+                  </EntityComponent>{' '}
                   {getLabel('onTheAgenda')}{' '}
-                  <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                  <EntityComponent
+                    type="agenda"
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.agendaTitle}
                   </EntityComponent>
                 </>
@@ -515,10 +671,14 @@ class ConversationTitle extends Component {
               // Kévin vous a contacté sur l'agenda XXX
               return (
                 <>
-                  <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
-                  {getLabel('contactedYou')}{' '}
-                  {getLabel('onTheAgenda')}{' '}
-                  <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                  <EntityComponent type="user">
+                    {getInboxUserName(creator)}
+                  </EntityComponent>{' '}
+                  {getLabel('contactedYou')} {getLabel('onTheAgenda')}{' '}
+                  <EntityComponent
+                    type="agenda"
+                    agendaUid={store.params.agendaUid}
+                  >
                     {store.params.agendaTitle}
                   </EntityComponent>
                 </>
@@ -527,11 +687,18 @@ class ConversationTitle extends Component {
             // Kévin a contacté Jean-Phil sur l'agenda XXX
             return (
               <>
-                <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {getInboxUserName(creator)}
+                </EntityComponent>{' '}
                 {getLabel('contacted')}{' '}
-                <EntityComponent type="user">{store.params.userName}</EntityComponent>{' '}
+                <EntityComponent type="user">
+                  {store.params.userName}
+                </EntityComponent>{' '}
                 {getLabel('onTheAgenda')}{' '}
-                <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                <EntityComponent
+                  type="agenda"
+                  agendaUid={store.params.agendaUid}
+                >
                   {store.params.agendaTitle}
                 </EntityComponent>
               </>
@@ -556,16 +723,14 @@ class ConversationTitle extends Component {
       case 'support':
         if (isUser(creator, user)) {
           // Vous avez contacté le support
-          return (
-            <>
-              {getLabel('youContactedSupport')}
-            </>
-          );
+          return <>{getLabel('youContactedSupport')}</>;
         }
         // XXX a contacté le support
         return (
           <>
-            <EntityComponent type="user">{getInboxUserName(creator)}</EntityComponent>{' '}
+            <EntityComponent type="user">
+              {getInboxUserName(creator)}
+            </EntityComponent>{' '}
             {getLabel('contactedSupport')}
           </>
         );
@@ -576,8 +741,6 @@ class ConversationTitle extends Component {
   }
 }
 
-export default connect(state => ({
+export default connect((state) => ({
   settings: state.settings,
-}))(
-  ConversationTitle,
-);
+}))(ConversationTitle);

@@ -1,16 +1,5 @@
-import {
-  useState,
-  useRef,
-  useMemo,
-  useEffect,
-  useCallback
-} from 'react';
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  useMap
-} from 'react-leaflet';
+import { useState, useRef, useMemo, useEffect, useCallback } from 'react';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import '@raruto/leaflet-gesture-handling';
 import { useIntl } from 'react-intl';
@@ -37,40 +26,41 @@ const gestureHandlingStyle = css`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1001;
     pointer-events: none;
     text-align: center;
-    -webkit-transition: opacity .8s ease-in-out;
-    transition: opacity .8s ease-in-out;
+    -webkit-transition: opacity 0.8s ease-in-out;
+    transition: opacity 0.8s ease-in-out;
     opacity: 0;
-    content: ""
+    content: '';
   }
-  
+
   &.leaflet-gesture-handling-warning:after {
-    -webkit-transition-duration: .3s;
-    transition-duration: .3s;
-    opacity: 1
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    opacity: 1;
   }
-  
+
   &.leaflet-gesture-handling-touch:after {
-    content: attr(data-gesture-handling-touch-content)
+    content: attr(data-gesture-handling-touch-content);
   }
-  
+
   &.leaflet-gesture-handling-scroll:after {
-    content: attr(data-gesture-handling-scroll-content)
+    content: attr(data-gesture-handling-scroll-content);
   }
 `;
 
 const defaults = {
   tiles:
     '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
-  markerIcon: 'https://oastatic.s3.eu-central-1.amazonaws.com/oa-blue-marker.png',
+  markerIcon:
+    'https://oastatic.s3.eu-central-1.amazonaws.com/oa-blue-marker.png',
   markerShadow: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
   iconAnchor: [12, 41],
   pos: [40, 0],
   focusedZoom: 13,
-  iconSize: [25, 41]
+  iconSize: [25, 41],
 };
 
 const posDiff = (pos1, pos2) => {
@@ -83,10 +73,10 @@ const MapContent = ({
   pos,
   onMarkerDragged,
   isGeolocated,
-  defaultZoom,
+  defaultZoom: _defaultZoom,
   manualMode,
   setManualMode,
-  locationPos
+  locationPos,
 }) => {
   const map = useMap();
   const markerRef = useRef(null);
@@ -114,7 +104,10 @@ const MapContent = ({
   );
 
   if (isGeolocated() && !manualMode && posDiff(pos, locationPos)) {
-    map.setView({ lat: locationPos[0], lng: locationPos[1] }, defaults.focusedZoom);
+    map.setView(
+      { lat: locationPos[0], lng: locationPos[1] },
+      defaults.focusedZoom,
+    );
   }
   if (isGeolocated()) {
     return (
@@ -142,10 +135,20 @@ const LocationMap = ({
   setManualMode,
 }) => {
   const intl = useIntl();
-  const getLocationPos = useCallback(() => [location?.latitude, location?.longitude], [location]);
-  const isGeolocated = useCallback(() => location?.latitude !== undefined, [location]);
-  const [pos, setPos] = useState(isGeolocated() ? getLocationPos() : defaults.pos);
-  const [defaultZoom, setDefaultZoom] = useState(isGeolocated() ? defaults.focusedZoom : defaultUnZoom);
+  const getLocationPos = useCallback(
+    () => [location?.latitude, location?.longitude],
+    [location],
+  );
+  const isGeolocated = useCallback(
+    () => location?.latitude !== undefined,
+    [location],
+  );
+  const [pos, setPos] = useState(
+    isGeolocated() ? getLocationPos() : defaults.pos,
+  );
+  const [defaultZoom, setDefaultZoom] = useState(
+    isGeolocated() ? defaults.focusedZoom : defaultUnZoom,
+  );
   useEffect(() => {
     if (isGeolocated() && posDiff(pos, getLocationPos())) {
       setPos(getLocationPos());
@@ -153,9 +156,12 @@ const LocationMap = ({
     }
   }, [location, isGeolocated, getLocationPos, pos]);
 
-  const gestureHandlingOptions = useMemo(() => ({
-    locale: intl.locale
-  }), [intl.locale]);
+  const gestureHandlingOptions = useMemo(
+    () => ({
+      locale: intl.locale,
+    }),
+    [intl.locale],
+  );
 
   return (
     <>
@@ -174,9 +180,9 @@ const LocationMap = ({
         gestureHandling
         gestureHandlingOptions={gestureHandlingOptions}
         css={css`
-        height: 100%;
-        ${gestureHandlingStyle}
-      `}
+          height: 100%;
+          ${gestureHandlingStyle}
+        `}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

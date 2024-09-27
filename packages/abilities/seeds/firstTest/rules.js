@@ -1,6 +1,6 @@
 'use strict';
 
-exports.seed = async knex => {
+exports.seed = async (knex) => {
   const { schemas } = knex.client.config;
 
   // Deletes ALL existing entries

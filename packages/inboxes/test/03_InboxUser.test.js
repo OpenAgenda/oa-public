@@ -39,7 +39,7 @@ describe('InboxUser', () => {
   });
 
   beforeEach(async () => {
-    await service.config.knex.transaction(async trx => {
+    await service.config.knex.transaction(async (trx) => {
       await trx.raw('SET foreign_key_checks = 0');
       for (const table of tables) {
         await trx(service.config.schemas[table]).truncate();

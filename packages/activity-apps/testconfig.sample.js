@@ -1,9 +1,11 @@
+'use strict';
+
 module.exports = {
   mysql: {
     database: 'oa_members_test',
     host: 'localhost',
     user: 'root',
-    password: 'grut'
+    password: 'grut',
   },
   schemas: {
     activity: 'activity',
@@ -19,56 +21,54 @@ module.exports = {
     occurrence: 'occurrence',
     stakeholder: 'stakeholder',
     stakeholderSettings: 'agenda_stakeholder_settings',
-    user: 'user'
+    user: 'user',
   },
 
   mw: {
-    limit: 20
+    limit: 20,
   },
 
   queue: {
     names: {
       addActivity: 'notificationAddActivityTest',
-      sendSummary: 'notificationSendSummaryTest'
+      sendSummary: 'notificationSendSummaryTest',
     },
     redis: {
       host: 'localhost',
-      port: 6379
-    }
+      port: 6379,
+    },
   },
 
   services: {
     sessions: {
       sessionCookie: {
         name: 'oa',
-        keys: [ 'k', 'e', 'y', 's' ],
+        keys: ['k', 'e', 'y', 's'],
         maxAge: 1000 * 60 * 60 * 48, // 2 days
         signed: true,
         secure: false,
-        httpOnly: false
+        httpOnly: false,
       },
       writableCookie: {
         maxAge: 1000 * 60 * 60 * 48,
-        name: 'oa.rw' // overriden by iso configuration
+        name: 'oa.rw', // overriden by iso configuration
       },
       expire: 60 * 60 * 48,
       redis: {
         host: 'localhost',
         port: 6379,
-        hash: 'sessionstest'
+        hash: 'sessionstest',
       },
       interfaces: {
-        getUser: ( query, cb ) => {
-
-          cb( null, {
+        getUser: (query, cb) => {
+          cb(null, {
             id: 2,
             uid: 99999999,
             culture: 'fr',
-            name: 'Kévin'
-          } );
-
-        }
-      }
-    }
-  }
+            name: 'Kévin',
+          });
+        },
+      },
+    },
+  },
 };

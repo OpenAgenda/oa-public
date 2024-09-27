@@ -42,7 +42,7 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   }
 
   const otherRuleFields = Object.keys(query).filter(
-    f => !['location', 'tags', 'text', 'languages', 'timings'].includes(f),
+    (f) => !['location', 'tags', 'text', 'languages', 'timings'].includes(f),
   );
   log('evaluating remaining %s rule query fields', otherRuleFields?.length);
 
@@ -50,7 +50,7 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
     const values = [].concat(data[ruleField]) || [];
     const ruleQuery = [].concat(query[ruleField]);
     if (
-      !values.filter(v => {
+      !values.filter((v) => {
         if (v === undefined) return ruleQuery.includes(null);
         return ruleQuery.includes(v);
       }).length

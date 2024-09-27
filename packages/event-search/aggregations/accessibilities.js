@@ -10,7 +10,7 @@ module.exports.formatDSL = function formatDSL() {
 };
 
 module.exports.formatResult = function formatResult(result) {
-  return result.buckets.map(b => ({
+  return result.buckets.map((b) => ({
     key: b.key.split('.').pop(),
     eventCount: b.doc_count,
   }));

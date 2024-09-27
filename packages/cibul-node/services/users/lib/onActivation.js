@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 export default function onActivation() {
-  return async context => {
+  return async (context) => {
     const {
       invitations,
       activities,
@@ -21,10 +21,12 @@ export default function onActivation() {
     new Inbox().create({ type: 'user', identifier: user.uid }).then(_.noop);
 
     try {
-      await activities.feed({
-        entityType: 'user',
-        entityUid: user.uid,
-      }).create();
+      await activities
+        .feed({
+          entityType: 'user',
+          entityUid: user.uid,
+        })
+        .create();
     } catch (err) {
       if (err.message !== 'Feed already exists') {
         throw err;

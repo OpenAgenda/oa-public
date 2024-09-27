@@ -8,15 +8,9 @@ import canEdit from './lib/canEdit.js';
 
 export default async (core, agendaOrUid, identifiers, data, options = {}) => {
   const { services } = core;
-  const {
-    members,
-    custom,
-  } = services;
+  const { members, custom } = services;
 
-  const {
-    userUid: actingUserUid,
-    access,
-  } = options;
+  const { userUid: actingUserUid, access } = options;
 
   if (!actingUserUid) {
     throw new BadRequest('userUid option is required');
@@ -31,7 +25,10 @@ export default async (core, agendaOrUid, identifiers, data, options = {}) => {
     ...identifiers,
   });
 
-  if (data.role !== undefined && (members.utils.getRoleCode(data.role) !== member.role)) {
+  if (
+    data.role !== undefined
+    && members.utils.getRoleCode(data.role) !== member.role
+  ) {
     patchData.role = members.utils.getRoleCode(data.role);
   }
 
@@ -40,11 +37,13 @@ export default async (core, agendaOrUid, identifiers, data, options = {}) => {
     userUid: actingUserUid,
   });
 
-  if (!canEdit(services, {
-    acting: actingMember,
-    userUid: member.userUid,
-    role: patchData.role,
-  })) {
+  if (
+    !canEdit(services, {
+      acting: actingMember,
+      userUid: member.userUid,
+      role: patchData.role,
+    })
+  ) {
     throw new Forbidden('Not authorized to patch member');
   }
 
@@ -59,15 +58,21 @@ export default async (core, agendaOrUid, identifiers, data, options = {}) => {
       actingMember,
     });
 
-  const schemas = await getMemberSchema(services, agenda, { access, actingMember });
+  const schemas = await getMemberSchema(services, agenda, {
+    access,
+    actingMember,
+  });
   let cleanMemberData = null;
   try {
     const validate = new FormSchema(schemas.merged).getValidate();
     cleanMemberData = validate(data);
   } catch (error) {
-    throw new BadRequest({
-      info: { error },
-    }, 'data is invalid');
+    throw new BadRequest(
+      {
+        info: { error },
+      },
+      'data is invalid',
+    );
   }
   const customData = format.custom(data, {});
 
@@ -77,8 +82,15 @@ export default async (core, agendaOrUid, identifiers, data, options = {}) => {
 
   try {
     if (schemas.agendaSchema) {
-      const dispatchedData = dispatchDataPerSchemas(cleanMemberData, [schemas.schema, schemas.agendaSchema]);
-      await custom(agenda.memberSchemaId).set(member.userUid, dispatchedData[1], { validate: false });
+      const dispatchedData = dispatchDataPerSchemas(cleanMemberData, [
+        schemas.schema,
+        schemas.agendaSchema,
+      ]);
+      await custom(agenda.memberSchemaId).set(
+        member.userUid,
+        dispatchedData[1],
+        { validate: false },
+      );
     }
     await members.patch(member.id, patchData, {
       throwOnError: true,
@@ -94,10 +106,13 @@ export default async (core, agendaOrUid, identifiers, data, options = {}) => {
     throw new GeneralError(error, 'something went wrong');
   }
 
-  await core.agendas(agendaUid).events.search.resyncEvents({
-    state: null,
-    memberUid: member.userUid,
-  }, { access: 'internal' });
+  await core.agendas(agendaUid).events.search.resyncEvents(
+    {
+      state: null,
+      memberUid: member.userUid,
+    },
+    { access: 'internal' },
+  );
 
   return { ...cleanMemberData };
 };

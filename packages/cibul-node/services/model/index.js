@@ -11,13 +11,13 @@ const log = logs('legacyModel');
 function query(sql, dirtyArgs = [], cb = () => {}) {
   const arr = _.isArray(dirtyArgs) ? dirtyArgs : [dirtyArgs];
 
-  log('running \'%s\' with values [%s]', sql, [].concat(arr).join(','));
+  log("running '%s' with values [%s]", sql, [].concat(arr).join(','));
 
   const p = config.knex.raw(...arr.length ? [sql, arr] : [sql]);
 
   w(p).done(
-    result => cb(null, result[0]),
-    err => {
+    (result) => cb(null, result[0]),
+    (err) => {
       onError('legacyModel', err);
 
       cb(err);

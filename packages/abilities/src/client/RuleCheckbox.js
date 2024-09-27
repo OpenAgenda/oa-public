@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useRef } from 'react';
 import _ from 'lodash';
 import { Field } from 'react-final-form';
 import { defineMessages, FormattedMessage } from 'react-intl';
@@ -90,21 +90,26 @@ const ruleMessages = defineMessages({
   },
 });
 
-const RuleLabel = React.memo(({ rule }) => {
-  const values = {};
+const RuleLabel = React.memo(
+  ({ rule }) => {
+    const values = {};
 
-  if (rule.actions === 'receive' && rule.subject === 'eventChangeState') {
-    values.state = <FormattedMessage {...stateMessages[rule.conditions.state]} />;
-  }
+    if (rule.actions === 'receive' && rule.subject === 'eventChangeState') {
+      values.state = (
+        <FormattedMessage {...stateMessages[rule.conditions.state]} />
+      );
+    }
 
-  const messageKey = `${rule.actions}${_.upperFirst(rule.subject)}`;
+    const messageKey = `${rule.actions}${_.upperFirst(rule.subject)}`;
 
-  if (!ruleMessages[messageKey]) {
-    return messageKey;
-  }
+    if (!ruleMessages[messageKey]) {
+      return messageKey;
+    }
 
-  return <FormattedMessage {...ruleMessages[messageKey]} values={values} />;
-}, (prevProps, nextProps) => _.isEqual(prevProps.rule, nextProps.rule));
+    return <FormattedMessage {...ruleMessages[messageKey]} values={values} />;
+  },
+  (prevProps, nextProps) => _.isEqual(prevProps.rule, nextProps.rule),
+);
 
 function RuleField({ rule, input, meta }) {
   const checkboxRef = useRef(null);
@@ -116,12 +121,7 @@ function RuleField({ rule, input, meta }) {
   return (
     <div className="checkbox">
       <label htmlFor={rule.key}>
-        <input
-          type="checkbox"
-          id={rule.key}
-          ref={checkboxRef}
-          {...input}
-        />{' '}
+        <input type="checkbox" id={rule.key} ref={checkboxRef} {...input} />{' '}
         <RuleLabel rule={rule} />
       </label>
     </div>

@@ -5,10 +5,7 @@ import URLDefaults from '../lib/URLDefaults';
 
 import ButtonSpinner from './ButtonSpinner';
 
-const {
-  eventWithDefaults,
-  get: getURLDefaults,
-} = URLDefaults;
+const { eventWithDefaults, get: getURLDefaults } = URLDefaults;
 
 const messages = defineMessages({
   create: {
@@ -48,40 +45,42 @@ function EventNewForm({
       includeEventFields
       values={eventWithDefaults(event, getURLDefaults(location))}
       onSubmitSuccess={onSuccess}
-      actionComponents={[{
-        position: 'bottom',
-        Component: ({ onSubmit, loading }) => (
-          <div className="wsq padding-all-md">
-            {event?.draft ? (
+      actionComponents={[
+        {
+          position: 'bottom',
+          Component: ({ onSubmit, loading }) => (
+            <div className="wsq padding-all-md">
+              {event?.draft ? (
+                <button
+                  type="button"
+                  className="btn btn-danger btn-block margin-bottom-md"
+                  disabled={loading}
+                  onClick={() => onDraftDelete()}
+                >
+                  {m(messages.deleteDraft)}
+                </button>
+              ) : null}
               <button
                 type="button"
-                className="btn btn-danger btn-block margin-bottom-md"
+                className="btn btn-default btn-block margin-bottom-md"
                 disabled={loading}
-                onClick={() => onDraftDelete()}
+                onClick={(e) => onSubmit(e, { draft: true })}
               >
-                {m(messages.deleteDraft)}
+                {m(messages[event?.draft ? 'updateDraft' : 'draft'])}
               </button>
-            ) : null}
-            <button
-              type="button"
-              className="btn btn-default btn-block margin-bottom-md"
-              disabled={loading}
-              onClick={e => onSubmit(e, { draft: true })}
-            >
-              {m(messages[event?.draft ? 'updateDraft' : 'draft'])}
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary btn-block"
-              disabled={loading}
-              onClick={onSubmit}
-            >
-              {m(messages.create)}
-            </button>
-            {loading ? <ButtonSpinner /> : null}
-          </div>
-        ),
-      }]}
+              <button
+                type="button"
+                className="btn btn-primary btn-block"
+                disabled={loading}
+                onClick={onSubmit}
+              >
+                {m(messages.create)}
+              </button>
+              {loading ? <ButtonSpinner /> : null}
+            </div>
+          ),
+        },
+      ]}
     />
   );
 }

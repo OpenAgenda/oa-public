@@ -1,7 +1,7 @@
 import errors from '@feathersjs/errors';
 
 export default function restrictToCurrentUser() {
-  return context => {
+  return (context) => {
     if (!context.params.user) {
       throw new errors.NotAuthenticated('You are not authenticated.');
     }
@@ -11,7 +11,9 @@ export default function restrictToCurrentUser() {
     }
 
     if (context.params.user.uid !== context.id) {
-      throw new errors.Forbidden('You do not have the permissions to access this.');
+      throw new errors.Forbidden(
+        'You do not have the permissions to access this.',
+      );
     }
   };
 }

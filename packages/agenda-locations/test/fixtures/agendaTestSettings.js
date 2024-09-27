@@ -32,10 +32,8 @@ module.exports = {
       en: 'Ex : Ministry of culture',
     },
     addressInfo: {
-      en:
-        'Indicate the number, name of the street, the name and postal code of the city',
-      fr:
-        'Indiquez le numéro, le nom de la voie, le nom et le code postal de la commune. Une fois le champ « Adresse » complété, vérifiez sur la carte ci-dessous que le pointeur est correctement situé. Vous pouvez le déplacer manuellement si nécessaire.',
+      en: 'Indicate the number, name of the street, the name and postal code of the city',
+      fr: 'Indiquez le numéro, le nom de la voie, le nom et le code postal de la commune. Une fois le champ « Adresse » complété, vérifiez sur la carte ci-dessous que le pointeur est correctement situé. Vous pouvez le déplacer manuellement si nécessaire.',
     },
     addressPlaceholder: {
       en: 'Ex : 03 rue de Valois 75001 Paris',
@@ -46,16 +44,12 @@ module.exports = {
       fr: 'Crédits de l’image',
     },
     imageCreditsInfo: {
-      en:
-        'Indicate the owner of the image. If the image is under an open license, please specify which.',
-      fr:
-        "Indiquez le propriétaire de l'image. Si l'image est sous licence libre, merci de le préciser.",
+      en: 'Indicate the owner of the image. If the image is under an open license, please specify which.',
+      fr: "Indiquez le propriétaire de l'image. Si l'image est sous licence libre, merci de le préciser.",
     },
     descriptionInfo: {
-      en:
-        'Describe your garden (its history, particularities, the type of offered activities, etc).',
-      fr:
-        'Présentez votre jardin (son histoire, ses particularités, le type d’activités proposé, etc).',
+      en: 'Describe your garden (its history, particularities, the type of offered activities, etc).',
+      fr: 'Présentez votre jardin (son histoire, ses particularités, le type d’activités proposé, etc).',
     },
     descriptionPlaceholder: {
       en: 'a custom placeholder',
@@ -63,18 +57,15 @@ module.exports = {
     },
     accessInfo: {
       en: 'Indicate the access conditions to your location',
-      fr:
-        'Indiquez les conditions d’accès à votre lieu (transports à proximité, présence de parkings, aménagements spécifiques, etc).',
+      fr: 'Indiquez les conditions d’accès à votre lieu (transports à proximité, présence de parkings, aménagements spécifiques, etc).',
     },
     phoneInfo: {
       en: 'Indicate a contact phone number for the public',
-      fr:
-        'Indiquez un numéro de téléphone pour les demandes du public (standard, tél. fixe).',
+      fr: 'Indiquez un numéro de téléphone pour les demandes du public (standard, tél. fixe).',
     },
     websiteInfo: {
       en: 'indicate the website of the location if any',
-      fr:
-        'Indiquez l’adresse de votre site Internet, si existant (inclure le http://).',
+      fr: 'Indiquez l’adresse de votre site Internet, si existant (inclure le http://).',
     },
     create: {
       info: {
@@ -224,11 +215,14 @@ module.exports = {
           },
           {
             id: 21,
-            label: { fr: 'Insolites', en: 'Unusual' },
+            label: { fr: 'Insolites', en: 'Unusual' },
           },
           {
             id: 22,
-            label: { fr: 'Société et civilisation', en: 'Society and civilization' },
+            label: {
+              fr: 'Société et civilisation',
+              en: 'Society and civilization',
+            },
           },
           {
             id: 23,

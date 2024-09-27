@@ -1,11 +1,11 @@
-import React from 'react';
 import CookieConsent from 'react-cookie-consent';
 import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
   informationText: {
     id: 'ReactShared.ConsentBanner.informationText',
-    defaultMessage: 'This agenda uses cookies from the {service} tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?',
+    defaultMessage:
+      'This agenda uses cookies from the {service} tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?',
   },
   moreInfoLink: {
     id: 'ReactShared.ConsentBanner.moreInfoLink',
@@ -29,13 +29,21 @@ const defaultStyle = {
 };
 
 export default ({
-  onAccept, customMessages = null, customStyle = null, show = false, link = '', consentFor = 'ga', cookieName,
+  onAccept,
+  customMessages = null,
+  customStyle = null,
+  show = false,
+  link = '',
+  consentFor = 'ga',
+  cookieName,
 }) => {
   const intl = useIntl();
 
-  const defineMessage = msg => customMessages?.[`trackConsent.${msg}`] ?? intl.formatMessage(messages[msg]);
+  const defineMessage = (msg) =>
+    customMessages?.[`trackConsent.${msg}`]
+    ?? intl.formatMessage(messages[msg]);
 
-  const defineStyle = style => {
+  const defineStyle = (style) => {
     if (customStyle?.[style]) return customStyle[style];
     return defaultStyle[style] || '';
   };
@@ -56,18 +64,16 @@ export default ({
       contentClasses={defineStyle('contentClasses')}
       containerClasses={defineStyle('containerClasses')}
       overlayClasses={defineStyle('overlayClasses')}
-      onAccept={onScroll => (onScroll ? null : onAccept())}
+      onAccept={(onScroll) => (onScroll ? null : onAccept())}
       expires={100}
       cookieName={cookieName}
     >
-      {intl.formatMessage(messages.informationText, { service: consentFor === 'ga' ? 'Google Analytics' : 'Matomo' })}
+      {intl.formatMessage(messages.informationText, {
+        service: consentFor === 'ga' ? 'Google Analytics' : 'Matomo',
+      })}
       {link ? (
         <div className="margin-top-xs">
-          <a
-            href={link}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={link} target="_blank" rel="noreferrer">
             {defineMessage('moreInfoLink')}
           </a>
         </div>

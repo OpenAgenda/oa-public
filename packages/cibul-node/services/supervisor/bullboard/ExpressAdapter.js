@@ -4,7 +4,7 @@ import path from 'node:path';
 import ejs from 'ejs';
 import express from 'express';
 
-const wrapAsync = fn => async (req, res, next) =>
+const wrapAsync = (fn) => async (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
 
 export default class ExpressAdapter {
@@ -37,15 +37,17 @@ export default class ExpressAdapter {
 
   setApiRoutes(routes) {
     if (!this.errorHandler) {
-      throw new Error('Please call \'setErrorHandler\' before using \'registerPlugin\'');
+      throw new Error(
+        "Please call 'setErrorHandler' before using 'registerPlugin'",
+      );
     } else if (!this.bullBoardQueues) {
-      throw new Error('Please call \'setQueues\' before using \'registerPlugin\'');
+      throw new Error("Please call 'setQueues' before using 'registerPlugin'");
     }
     const router = express.Router();
 
-    routes.forEach(route =>
+    routes.forEach((route) =>
       (Array.isArray(route.method) ? route.method : [route.method]).forEach(
-        method => {
+        (method) => {
           router[method](
             route.route,
             wrapAsync(async (req, res) => {
@@ -78,21 +80,27 @@ export default class ExpressAdapter {
     const { name } = routeDef.handler();
 
     const viewHandler = (_req, res, next) => {
-      const basePath = this.basePath.endsWith('/') ? this.basePath : `${this.basePath}/`;
+      const basePath = this.basePath.endsWith('/')
+        ? this.basePath
+        : `${this.basePath}/`;
       const uiConfig = JSON.stringify(this.uiConfig)
         .replace(/</g, '\\u003c')
         .replace(/>/g, '\\u003e');
 
-      ejs.renderFile(path.join(this.viewPath, name), {
-        basePath,
-        uiConfig,
-      }, (err, renderedHtml) => {
-        if (err) {
-          next(err);
-        } else {
-          res.send(renderedHtml);
-        }
-      });
+      ejs.renderFile(
+        path.join(this.viewPath, name),
+        {
+          basePath,
+          uiConfig,
+        },
+        (err, renderedHtml) => {
+          if (err) {
+            next(err);
+          } else {
+            res.send(renderedHtml);
+          }
+        },
+      );
     };
 
     this.app[routeDef.method](routeDef.route, viewHandler);

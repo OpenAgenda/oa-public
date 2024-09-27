@@ -9,10 +9,8 @@ function isValidTimezone(tz) {
   }
 }
 
-module.exports = function timezoneValidator({
-  default: defaultValue,
-}) {
-  return value => {
+module.exports = function timezoneValidator({ default: defaultValue }) {
+  return (value) => {
     const errors = [];
     if (!value) {
       return defaultValue;
@@ -32,5 +30,5 @@ module.exports = function timezoneValidator({
     }
 
     return value;
-  }
-}
+  };
+};

@@ -29,8 +29,14 @@ module.exports = (options = {}) => {
     initialized: false,
     redisClient: null,
     interfaces: {},
-    sessionCookie: { ...options.sessionCookie ?? null, name: isoConfig.cookies.session },
-    writableCookie: { ...options.writableCookie, name: isoConfig.cookies.writable },
+    sessionCookie: {
+      ...options.sessionCookie ?? null,
+      name: isoConfig.cookies.session,
+    },
+    writableCookie: {
+      ...options.writableCookie,
+      name: isoConfig.cookies.writable,
+    },
     ...options,
   };
 
@@ -45,8 +51,9 @@ module.exports = (options = {}) => {
     close: close.bind(null, config),
     sync: sync.bind(null, config),
     scan: scan.bind(null, config),
-    setFlash: (req, res, message) => expressCookie(config, req, res).set('flash', message),
-    isLogged: async request => !!await get.promise(config, request),
+    setFlash: (req, res, message) =>
+      expressCookie(config, req, res).set('flash', message),
+    isLogged: async (request) => !!await get.promise(config, request),
     getCulture,
   };
 

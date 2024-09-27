@@ -1,15 +1,8 @@
-import {
-  useState,
-  useEffect,
-  useMemo,
-} from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { useHistory, useLocation } from 'react-router';
-import {
-  Spinner,
-  useLayoutData,
-} from '@openagenda/react-shared';
+import { Spinner, useLayoutData } from '@openagenda/react-shared';
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
 import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges';
 import DefaultLocation from '@openagenda/event-form/build/components/configuration/DefaultLocation';
@@ -21,7 +14,8 @@ import useMemberSchemas from '../hooks/useMemberSchemas';
 import EmbedSelection from '../components/EmbedSelection';
 import AfterRedirectModal from '../components/AfterRedirectModal';
 
-const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
+const completedPrefix = (agenda, prefix) =>
+  prefix.replace(':agendaSlug', agenda.slug);
 
 const messages = defineMessages({
   network: {
@@ -66,7 +60,8 @@ const messages = defineMessages({
   },
   warning: {
     id: 'AgendaSchema.warning',
-    defaultMessage: 'Your calendar\'s contribution settings do not require your members to enter an identification card.',
+    defaultMessage:
+      "Your calendar's contribution settings do not require your members to enter an identification card.",
   },
   goToContrib: {
     id: 'AgendaSchema.goToContrib',
@@ -75,12 +70,21 @@ const messages = defineMessages({
 });
 
 function Dashboard() {
-  const { lang, agenda, filtersContainerRef: selectionMenuContainerRef } = useLayoutData();
+  const {
+    lang,
+    agenda,
+    filtersContainerRef: selectionMenuContainerRef,
+  } = useLayoutData();
   const maxFields = agenda?.credentials?.premiumCustomFields ? 100 : 1;
   const memberCredential = agenda?.credentials?.memberCustom || false;
-  const editableParents = agenda?.credentials?.premiumCustomFields || ['timings'];
+  const editableParents = agenda?.credentials?.premiumCustomFields || [
+    'timings',
+  ];
   const useFields = agenda?.settings?.contribution?.useFields || false;
-  const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
+  const prefix = completedPrefix(
+    agenda,
+    useSelector((state) => state.settings.prefix),
+  );
   const intl = useIntl();
   const res = useRes(agenda);
   const history = useHistory();
@@ -116,7 +120,9 @@ function Dashboard() {
     refetch: refetchMemberSchema,
   } = useMemberSchemas(agenda, memberMode);
 
-  const [currentFieldCount, setCurrentFieldCount] = useState(getSchemaFieldCount(schema));
+  const [currentFieldCount, setCurrentFieldCount] = useState(
+    getSchemaFieldCount(schema),
+  );
 
   useEffect(() => {
     if (schema?.fields) setCurrentFieldCount(getSchemaFieldCount(schema));
@@ -130,17 +136,23 @@ function Dashboard() {
     }
   };
 
-  const onUpdate = updatedSchema => {
+  const onUpdate = (updatedSchema) => {
     setCurrentFieldCount(getSchemaFieldCount(updatedSchema));
   };
 
   const renderHeadComponent = () => (
     <div className="padding-all-sm">
-      <label htmlFor="adaptForm-label">{intl.formatMessage(memberMode ? messages.adaptMemberForm : messages.adaptForm)}</label>
+      <label htmlFor="adaptForm-label">
+        {intl.formatMessage(
+          memberMode ? messages.adaptMemberForm : messages.adaptForm,
+        )}
+      </label>
       {!useFields && memberMode ? (
         <div className="info-block-sm warning-outline text-warning">
           <p>{intl.formatMessage(messages.warning)}</p>
-          <a href={`${prefix.replace('schema', 'settings/contribution')}`}>{intl.formatMessage(messages.goToContrib)}</a>
+          <a href={`${prefix.replace('schema', 'settings/contribution')}`}>
+            {intl.formatMessage(messages.goToContrib)}
+          </a>
         </div>
       ) : null}
       {maxFields === 1 ? (
@@ -150,7 +162,9 @@ function Dashboard() {
       ) : null}
       {maxFields === 1 && maxFields >= currentFieldCount ? (
         <div>
-          <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
+          <a
+            href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}
+          >
             {intl.formatMessage(messages.needMoreFields)}
           </a>
         </div>
@@ -173,9 +187,11 @@ function Dashboard() {
           addEnabled={maxFields > currentFieldCount || memberMode}
           settingsEnabled
           editableExtensions={editableParents}
-          devState={{
-            // editedField: 'title'
-          }}
+          devState={
+            {
+              // editedField: 'title'
+            }
+          }
           schema={memberMode ? memberSchema : schema}
           extendedFrom={memberMode ? memberParents : parents}
           onUpdate={onUpdate}
@@ -184,67 +200,79 @@ function Dashboard() {
             enabledRanges: EnabledRanges,
             defaultLocation: DefaultLocation,
           }}
-          customFieldConfigurationSchemas={({
+          customFieldConfigurationSchemas={{
             timings: {
-              fields: [{
-                field: 'label',
-                fieldType: 'abstract',
-              }, {
-                field: 'sub',
-                fieldType: 'abstract',
-              }, {
-                field: 'enabledRanges',
-                fieldType: 'enabledRanges',
-                label: 'a Label',
-                selfHandled: ['label', 'info', 'help', 'sub'],
-              }],
+              fields: [
+                {
+                  field: 'label',
+                  fieldType: 'abstract',
+                },
+                {
+                  field: 'sub',
+                  fieldType: 'abstract',
+                },
+                {
+                  field: 'enabledRanges',
+                  fieldType: 'enabledRanges',
+                  label: 'a Label',
+                  selfHandled: ['label', 'info', 'help', 'sub'],
+                },
+              ],
             },
             location: {
-              fields: [{
-                field: 'label',
-                fieldType: 'abstract',
-              }, {
-                field: 'sub',
-                fieldType: 'abstract',
-              }, {
-                field: 'default',
-                fieldType: 'defaultLocation',
-                label: 'another label',
-                selfHandled: ['label', 'info', 'help', 'sub'],
-                res,
-              }, {
-                field: 'allowCreate',
-                fieldType: 'boolean',
-                label: {
-                  fr: 'Les contributeurs peuvent créer de nouveaux lieux',
-                  en: 'Contributors can create new locations',
+              fields: [
+                {
+                  field: 'label',
+                  fieldType: 'abstract',
                 },
-                selfHandled: ['label', 'info', 'help', 'sub'],
-                default: true,
-                info: {
-                  fr: 'Les contributeurs ne trouvant pas le lieu à associer à leur événement à la suite d\'une recherche sur la base de lieux de l\'agenda peuvent en définir un nouveau',
-                  en: 'When creating or editing an event, contributors that do not find the location to link to their event after doing a search on the agenda index can create a new one.',
+                {
+                  field: 'sub',
+                  fieldType: 'abstract',
                 },
-              }, {
-                field: 'disableChange',
-                fieldType: 'boolean',
-                label: {
-                  fr: 'Les contributeurs ne peuvent pas changer un lieu sélectionné',
-                  en: 'Contributors cannot change a pre-defined location',
+                {
+                  field: 'default',
+                  fieldType: 'defaultLocation',
+                  label: 'another label',
+                  selfHandled: ['label', 'info', 'help', 'sub'],
+                  res,
                 },
-                selfHandled: ['label', 'info', 'help', 'sub'],
-                default: false,
-                info: {
-                  fr: 'Il n\'est pas possible au contributeur de changer la sélection d\'un lieu sur le formulaire événement lorsque celui-ci est déjà défini.',
-                  en: 'Contributors cannot change an already selected (by default or not) location from the event form.',
+                {
+                  field: 'allowCreate',
+                  fieldType: 'boolean',
+                  label: {
+                    fr: 'Les contributeurs peuvent créer de nouveaux lieux',
+                    en: 'Contributors can create new locations',
+                  },
+                  selfHandled: ['label', 'info', 'help', 'sub'],
+                  default: true,
+                  info: {
+                    fr: "Les contributeurs ne trouvant pas le lieu à associer à leur événement à la suite d'une recherche sur la base de lieux de l'agenda peuvent en définir un nouveau",
+                    en: 'When creating or editing an event, contributors that do not find the location to link to their event after doing a search on the agenda index can create a new one.',
+                  },
                 },
-              }],
+                {
+                  field: 'disableChange',
+                  fieldType: 'boolean',
+                  label: {
+                    fr: 'Les contributeurs ne peuvent pas changer un lieu sélectionné',
+                    en: 'Contributors cannot change a pre-defined location',
+                  },
+                  selfHandled: ['label', 'info', 'help', 'sub'],
+                  default: false,
+                  info: {
+                    fr: "Il n'est pas possible au contributeur de changer la sélection d'un lieu sur le formulaire événement lorsque celui-ci est déjà défini.",
+                    en: 'Contributors cannot change an already selected (by default or not) location from the event form.',
+                  },
+                },
+              ],
             },
-          })}
+          }}
         />
         {maxFields === 1 && maxFields >= currentFieldCount ? (
           <div>
-            <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
+            <a
+              href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}
+            >
               {intl.formatMessage(messages.needMoreFields)}
             </a>
           </div>
@@ -255,13 +283,15 @@ function Dashboard() {
           containerRef={selectionMenuContainerRef}
           activeMenu={memberMode ? 'member' : 'event'}
           memberCredential={memberCredential}
-          onChange={m => {
+          onChange={(m) => {
             if (memberMode && m === 'event') history.push(prefix);
             if (!memberMode && m === 'member') history.push(`${prefix}/member`);
           }}
         />
       ) : null}
-      {search && search.includes('redirected') ? (<AfterRedirectModal close={() => history.push({ search: null })} />) : null}
+      {search && search.includes('redirected') ? (
+        <AfterRedirectModal close={() => history.push({ search: null })} />
+      ) : null}
     </div>
   );
 }

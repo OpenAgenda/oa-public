@@ -1,9 +1,8 @@
-import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
 import locales from '../../src/locales-compiled';
 
-export default Story => {
+export default (Story) => {
   const lang = 'fr';
 
   return (

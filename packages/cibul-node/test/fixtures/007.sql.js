@@ -5,16 +5,18 @@ const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 const raw = resetAndCreateTables();
 
-raw.push(knex('agenda').insert([{
-  id: 13901,
-  title: 'Custom fielded agenda',
-  slug: 'custom_fielded_agenda',
-  owner_id: 1,
-  uid: 60934473,
-  form_schema_id: 26,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  store: JSON.stringify(`{
+raw.push(
+  knex('agenda').insert([
+    {
+      id: 13901,
+      title: 'Custom fielded agenda',
+      slug: 'custom_fielded_agenda',
+      owner_id: 1,
+      uid: 60934473,
+      form_schema_id: 26,
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+      store: JSON.stringify(`{
     "customFields": [ {
       "name": "cle_session",
       "label": {
@@ -30,18 +32,19 @@ raw.push(knex('agenda').insert([{
       "type": "private"
     } ]
   }`),
-}, {
-  id: 13902,
-  title: 'Custom fielded agenda with network',
-  slug: 'custom_fielded_agenda_with_network',
-  owner_id: 1,
-  uid: 60935574,
-  form_schema_id: 26,
-  network_uid: 1,
-  member_schema_id: 8,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  store: JSON.stringify(`{
+    },
+    {
+      id: 13902,
+      title: 'Custom fielded agenda with network',
+      slug: 'custom_fielded_agenda_with_network',
+      owner_id: 1,
+      uid: 60935574,
+      form_schema_id: 26,
+      network_uid: 1,
+      member_schema_id: 8,
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+      store: JSON.stringify(`{
     "customFields": [ {
       "name": "cle_session",
       "label": {
@@ -57,78 +60,99 @@ raw.push(knex('agenda').insert([{
       "type": "private"
     } ]
   }`),
-}]));
+    },
+  ]),
+);
 
-raw.push(knex('network').insert({
-  id: 1,
-  uid: 1,
-  title: 'My very second network',
-  form_schema_id: 27,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-}));
+raw.push(
+  knex('network').insert({
+    id: 1,
+    uid: 1,
+    title: 'My very second network',
+    form_schema_id: 27,
+    created_at: '2016-01-11 13:07:08',
+    updated_at: '2016-01-18 16:14:06',
+  }),
+);
 
-raw.push(knex('user').insert([{
-  id: 1,
-  full_name: 'Kevin B.',
-  uid: 92,
-  password: 'xxx',
-  salt: 'xxx',
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-}, {
-  id: 2,
-  full_name: 'Clement L.',
-  uid: 93,
-  password: 'xxxx',
-  salt: 'xxxx',
-  created_at: '2018-01-11 13:07:08',
-  updated_at: '2018-01-18 16:14:06',
-}]));
+raw.push(
+  knex('user').insert([
+    {
+      id: 1,
+      full_name: 'Kevin B.',
+      uid: 92,
+      password: 'xxx',
+      salt: 'xxx',
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+    },
+    {
+      id: 2,
+      full_name: 'Clement L.',
+      uid: 93,
+      password: 'xxxx',
+      salt: 'xxxx',
+      created_at: '2018-01-11 13:07:08',
+      updated_at: '2018-01-18 16:14:06',
+    },
+  ]),
+);
 
-raw.push(knex('api_key_set').insert([
-  load('./sql/apiKeySets/01.json', { user_id: 1 }),
-  load('./sql/apiKeySets/02.json', { user_id: 2 }),
-]));
+raw.push(
+  knex('api_key_set').insert([
+    load('./sql/apiKeySets/01.json', { user_id: 1 }),
+    load('./sql/apiKeySets/02.json', { user_id: 2 }),
+  ]),
+);
 
-raw.push(knex('reviewer').insert([{
-  id: 1,
-  user_id: 1,
-  review_id: 1,
-  credential: 2,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  agenda_uid: 60935574,
-  user_uid: 92,
-}, {
-  id: 2,
-  user_id: 2,
-  review_id: 1,
-  credential: 1,
-  created_at: '2018-01-11 13:07:08',
-  updated_at: '2018-01-18 16:14:06',
-  agenda_uid: 60935574,
-  user_uid: 93,
-}]));
+raw.push(
+  knex('reviewer').insert([
+    {
+      id: 1,
+      user_id: 1,
+      review_id: 1,
+      credential: 2,
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+      agenda_uid: 60935574,
+      user_uid: 92,
+    },
+    {
+      id: 2,
+      user_id: 2,
+      review_id: 1,
+      credential: 1,
+      created_at: '2018-01-11 13:07:08',
+      updated_at: '2018-01-18 16:14:06',
+      agenda_uid: 60935574,
+      user_uid: 93,
+    },
+  ]),
+);
 
-raw.push(knex('location').insert({
-  id: 1,
-  slug: 'la-boutique',
-  placename: 'La boutique',
-  address: '29 passage du ponceau, Paris',
-  latitude: 1,
-  longitude: 1,
-  uid: 65208887,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-}));
+raw.push(
+  knex('location').insert({
+    id: 1,
+    slug: 'la-boutique',
+    placename: 'La boutique',
+    address: '29 passage du ponceau, Paris',
+    latitude: 1,
+    longitude: 1,
+    uid: 65208887,
+    created_at: '2016-01-11 13:07:08',
+    updated_at: '2016-01-18 16:14:06',
+  }),
+);
 
-raw.push(knex('form_schema').insert([{
-  id: 8,
-  store: JSON.stringify(load('./form-schemas/memberFormSchema.json')),
-}, {
-  id: 27,
-  store: `{
+raw.push(
+  knex('form_schema').insert([
+    {
+      id: 8,
+      store: JSON.stringify(load('./form-schemas/memberFormSchema.json')),
+    },
+    {
+      id: 27,
+      store: `{
     "nextOptionId": 1,
     "fields": [ {
       "field" : "edition",
@@ -141,9 +165,10 @@ raw.push(knex('form_schema').insert([{
       "fieldType" : "text"
     } ]
   }`,
-}, {
-  id: 26,
-  store: `{
+    },
+    {
+      id: 26,
+      store: `{
   "nextOptionId": 37,
   "fields": [
     {
@@ -567,6 +592,8 @@ raw.push(knex('form_schema').insert([{
     }
   ]
 }`,
-}]));
+    },
+  ]),
+);
 
 export default `${raw.join(';\n')};`;

@@ -22,9 +22,7 @@ describe('session - unit (server): validate', () => {
       cultures: ['fr'],
     });
 
-    expect(
-      validate(sessionData),
-    ).toEqual(sessionData);
+    expect(validate(sessionData)).toEqual(sessionData);
   });
 
   it('unknown culture triggers exception', () => {

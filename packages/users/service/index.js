@@ -245,9 +245,7 @@ class Users extends Service {
     const tokensSvc = await this.config.getTokensService();
     let user;
 
-    const {
-      ignoreToken = false,
-    } = options;
+    const { ignoreToken = false } = options;
 
     if (uid) {
       user = await this.get(uid);
@@ -257,12 +255,14 @@ class Users extends Service {
       }
     }
 
-    const token = !ignoreToken ? await tokensSvc.findOne({
-      query: {
-        token: data.token,
-        ...user ? { userId: user.id } : {},
-      },
-    }) : null;
+    const token = !ignoreToken
+      ? await tokensSvc.findOne({
+        query: {
+          token: data.token,
+          ...user ? { userId: user.id } : {},
+        },
+      })
+      : null;
 
     if (!token && !ignoreToken) {
       throw new errors.NotFound('Token not found for `activate`');
@@ -337,7 +337,7 @@ hooks(Users.prototype, {
         generateHash('salt'),
         generateUniqueToken('replyToken'),
         iff(
-          context => _.get(context.data, 'password'),
+          (context) => _.get(context.data, 'password'),
           hashPassword('data.password', 'data.salt'),
         ),
         setNow('createdAt', 'updatedAt'),
@@ -353,7 +353,7 @@ hooks(Users.prototype, {
         createActivationToken(),
         callInterface('onCreate'),
         iff(
-          context => context.result && context.result.isActivated,
+          (context) => context.result && context.result.isActivated,
           callInterface('onActivation'),
           fastJoin({ joins: resolvers }),
         ),
@@ -372,8 +372,8 @@ hooks(Users.prototype, {
       before: [
         stashBefore('before', { internal: true, provider: undefined }),
         iff(
-          context => context.params.internal !== true,
-          context =>
+          (context) => context.params.internal !== true,
+          (context) =>
             validate(_.pick(patchSchema, Object.keys(context.data)))(context),
           keep('fullName', 'culture', 'image'),
         ),
@@ -390,7 +390,7 @@ hooks(Users.prototype, {
         populateAccountTypes(),
         callInterface('onPatch'),
         iff(
-          context =>
+          (context) =>
             !context.params.before.isActivated && context.result.isActivated,
           callInterface('onActivation'),
           fastJoin({ joins: resolvers }),
@@ -503,9 +503,12 @@ hooks(Users.prototype, {
     middleware: wrap({
       before: [
         softDelete(),
-        iff(ctx => _.has(ctx.data, 'lastSignin'), setNow('lastSignin')),
-        iff(ctx => _.has(ctx.data, 'lastInboxCheck'), setNow('lastInboxCheck')),
-        iff(ctx => _.has(ctx.data, 'lastNotified'), setNow('lastNotified')),
+        iff((ctx) => _.has(ctx.data, 'lastSignin'), setNow('lastSignin')),
+        iff(
+          (ctx) => _.has(ctx.data, 'lastInboxCheck'),
+          setNow('lastInboxCheck'),
+        ),
+        iff((ctx) => _.has(ctx.data, 'lastNotified'), setNow('lastNotified')),
         keep('lastSignin', 'lastInboxCheck', 'lastNotified'),
         snakeCase(),
       ],

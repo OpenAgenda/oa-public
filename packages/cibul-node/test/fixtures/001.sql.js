@@ -201,6 +201,34 @@ raw.push(
       created_at: new Date(),
       updated_at: new Date(),
     },
+    {
+      id: 5,
+      owner_uid: 1,
+      creator_uid: 1,
+      agenda_uid: 1,
+      slug: 'event-removed-2',
+      uid: 5,
+      draft: 0,
+      title: JSON.stringify({
+        fr: 'Evénement 2 supprimé',
+      }),
+      description: JSON.stringify({
+        fr: 'Description 2',
+      }),
+      long_description: JSON.stringify(embeddedContent.longDescription),
+      links: JSON.stringify(embeddedContent.links),
+      timings: JSON.stringify([
+        {
+          begin: new Date('2019-09-27T10:00:00+0200'),
+          end: new Date('2019-09-27T12:00:00+0200'),
+        },
+      ]),
+      location_uid: 1,
+      timezone: 'Europe/Paris',
+      image: null,
+      created_at: new Date('2022-06-01T09:00:00.000Z'),
+      updated_at: new Date('2022-06-22T09:00:00.000Z'),
+    },
   ]),
 );
 
@@ -244,6 +272,16 @@ raw.push(
       motive: '>_>',
       created_at: new Date(),
       updated_at: new Date(),
+    },
+    {
+      id: 5,
+      user_uid: 1,
+      agenda_uid: 1,
+      event_uid: 5,
+      state: 0,
+      created_at: new Date('2022-06-01T14:00:00.000Z'),
+      updated_at: new Date('2022-06-30T09:00:00.000Z'),
+      removed: true,
     },
   ]),
 );

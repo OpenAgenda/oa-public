@@ -11,10 +11,8 @@ schema.register({
   pass: validators.pass,
 });
 
-module.exports = add;
-
 function parseArguments(identifiers, data, feedsIdentifiers, cb) {
-
+  // eslint-disable-next-line prefer-rest-params
   const args = Array.isArray(arguments) ? arguments : Array.from(arguments);
 
   if (typeof args[args.length - 1] !== 'function') {
@@ -22,14 +20,12 @@ function parseArguments(identifiers, data, feedsIdentifiers, cb) {
   }
 
   if (args.length === 3) {
-
     return {
       identifiers: args[0],
       data: args[1],
       feedsIdentifiers: null,
       cb: args[2],
     };
-
   }
 
   return {
@@ -38,7 +34,6 @@ function parseArguments(identifiers, data, feedsIdentifiers, cb) {
     feedsIdentifiers,
     cb,
   };
-
 }
 
 const fieldsSchema = [
@@ -49,28 +44,32 @@ const fieldsSchema = [
       max: 255,
       optional: false,
     },
-  }, {
+  },
+  {
     name: 'verb',
     schema: {
       type: 'text',
       max: 255,
       optional: false,
     },
-  }, {
+  },
+  {
     name: 'object',
     schema: {
       type: 'text',
       max: 255,
       optional: true,
     },
-  }, {
+  },
+  {
     name: 'target',
     schema: {
       type: 'text',
       max: 255,
       optional: true,
     },
-  }, {
+  },
+  {
     name: 'store',
     schema: {
       type: 'pass',
@@ -79,11 +78,14 @@ const fieldsSchema = [
   },
 ];
 
-async function getActivityMask(config, { activity, targetFeed, originFeed, follow }) {
+async function getActivityMask(
+  config,
+  { activity, targetFeed, originFeed, follow },
+) {
   const maskFn = config.activities[activity.verb]?.mask;
 
   return maskFn
-    ? await maskFn({ activity, targetFeed, originFeed, follow, config })
+    ? maskFn({ activity, targetFeed, originFeed, follow, config })
     : null;
 }
 
@@ -101,7 +103,9 @@ async function addActivityToFeed(config, { activity, targetFeed, mask }) {
 
   if (enableNotificationsForFeedTypes?.includes(targetFeed.entityType)) {
     try {
-      await service.feed(targetFeed).notifications.addActivity(_.omit(activity, mask));
+      await service
+        .feed(targetFeed)
+        .notifications.addActivity(_.omit(activity, mask));
     } catch (e) {
       if (e.code !== 'FEED_REJECTS_NOTIFICATION') {
         log.error(new VError(e, 'Error in addActivity task'));
@@ -110,10 +114,10 @@ async function addActivityToFeed(config, { activity, targetFeed, mask }) {
   }
 }
 
-async function add(config) {
+async function add(config, ...rest) {
   const { service, knex } = config;
 
-  const args = parseArguments.apply(null, Array.prototype.slice.call(arguments, 1));
+  const args = parseArguments(...rest);
   const { identifiers, feedsIdentifiers } = args;
   let { data } = args;
 
@@ -138,32 +142,39 @@ async function add(config) {
     return prev;
   }, {});
 
-  const feedsToGet = (identifiers ? [identifiers] : []).concat(feedsIdentifiers || []);
+  const feedsToGet = (identifiers ? [identifiers] : []).concat(
+    feedsIdentifiers || [],
+  );
 
   const feeds = [];
 
   for (const feedToGet of feedsToGet) {
-    feeds.push(await service.feed(feedToGet).get({
-      internal: true,
-      followedBy: true,
-    }));
+    feeds.push(
+      await service.feed(feedToGet).get({
+        internal: true,
+        followedBy: true,
+      }),
+    );
   }
 
   if (!feeds.length) {
     throw new Error('You should choose at least one feed for add activity');
   }
 
-  if (feeds.filter(v => !v).length) {
-    throw new VError({
-      info: {
-        feeds: feedsToGet
-      }
-    }, 'One or more feeds doesn\'t exist');
+  if (feeds.filter((v) => !v).length) {
+    throw new VError(
+      {
+        info: {
+          feeds: feedsToGet,
+        },
+      },
+      "One or more feeds doesn't exist",
+    );
   }
 
   const [activityId] = await knex(config.schemas.activity).insert(fields);
 
-  log.info('Activity inserted:', activityId)
+  log.info('Activity inserted:', activityId);
 
   const activity = await service.activities.get(activityId);
 
@@ -175,15 +186,21 @@ async function add(config) {
     feedContainsActivity.push(feed);
   }
 
-  let followers = feeds.flatMap(v => v.followedBy);
+  let followers = feeds.flatMap((v) => v.followedBy);
 
   const activityConfig = config.activities[activity.verb];
-  const filterFollows = activityConfig?.filterFollows ? [].concat(activityConfig.filterFollows) : [];
+  const filterFollows = activityConfig?.filterFollows
+    ? [].concat(activityConfig.filterFollows)
+    : [];
 
   while (followers.length) {
     for (const follower of followers) {
-      if (feedContainsActivity.some(v => v.targetFeed === follower.targetFeed)) {
-        followers = followers.filter(v => v.targetFeed !== follower.targetFeed);
+      if (
+        feedContainsActivity.some((v) => v.targetFeed === follower.targetFeed)
+      ) {
+        followers = followers.filter(
+          (v) => v.targetFeed !== follower.targetFeed,
+        );
         continue;
       }
 
@@ -204,14 +221,21 @@ async function add(config) {
         });
 
         if (!acceptedFilter) {
-          followers = followers.filter(v => v.targetFeed !== follower.targetFeed);
+          followers = followers.filter(
+            (v) => v.targetFeed !== follower.targetFeed,
+          );
           allowedFollow = false;
           break;
         }
       }
 
       if (allowedFollow) {
-        const mask = await getActivityMask(config, { activity, targetFeed, originFeed, follow: follower });
+        const mask = await getActivityMask(config, {
+          activity,
+          targetFeed,
+          originFeed,
+          follow: follower,
+        });
         await addActivityToFeed(config, { activity, targetFeed, mask });
         feedContainsActivity.push(follower);
       }
@@ -232,4 +256,6 @@ async function add(config) {
   }
 
   return activity;
-};
+}
+
+module.exports = add;

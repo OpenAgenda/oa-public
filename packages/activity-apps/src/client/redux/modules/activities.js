@@ -9,15 +9,15 @@ const NEXT_PAGE_SUCCESS = 'activity-apps/activities/NEXT_PAGE_SUCCESS';
 const NEXT_PAGE_FAIL = 'activity-apps/activities/NEXT_PAGE_FAIL';
 
 const initialState = {
-  loaded: false
+  loaded: false,
 };
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOAD_SUCCESS:
       return {
@@ -27,7 +27,7 @@ export default function reducer( state = initialState, action ) {
         lastPage: action.result.activities.length < action.perPageLimit,
         fromId: 0,
         error: null,
-        loading: false
+        loading: false,
       };
     case LOAD_FAIL:
       return {
@@ -35,7 +35,7 @@ export default function reducer( state = initialState, action ) {
         data: null,
         fromId: 0,
         error: action.error,
-        loading: false
+        loading: false,
       };
     case LIST:
       return {
@@ -49,7 +49,7 @@ export default function reducer( state = initialState, action ) {
         lastPage: action.result.activities.length < action.perPageLimit,
         fromId: 0,
         error: null,
-        loading: false
+        loading: false,
       };
     case LIST_FAIL:
       return {
@@ -57,75 +57,82 @@ export default function reducer( state = initialState, action ) {
         data: null,
         fromId: 0,
         error: action.error,
-        loading: false
+        loading: false,
       };
     case NEXT_PAGE:
       return {
         ...state,
-        nextLoading: true
+        nextLoading: true,
       };
     case NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        data: [ ...state.data, ...action.result.activities ],
+        data: [...state.data, ...action.result.activities],
         lastPage: action.result.activities.length < action.perPageLimit,
         fromId: action.fromId,
         error: null,
-        nextLoading: false
+        nextLoading: false,
       };
     case NEXT_PAGE_FAIL:
       return {
         ...state,
         error: action.error,
-        nextLoading: false
+        nextLoading: false,
       };
     default:
       return state;
   }
 }
 
-export function isLoaded( globalState ) {
+export function isLoaded(globalState) {
   return globalState.activities && globalState.activities.loaded;
 }
 
-export function load( query, agenda ) {
-  return ( { dispatch, getState } ) => {
+export function load(query, agenda) {
+  return ({ dispatch, getState }) => {
     const { settings, res } = getState();
 
-    return dispatch( {
-      types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
+    return dispatch({
+      types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
       perPageLimit: settings.perPageLimit,
-      promise: ( { client } ) => client.get( res.list.replace(':slug', agenda && agenda.slug), { params: query } )
-    } );
+      promise: ({ client }) =>
+        client.get(res.list.replace(':slug', agenda && agenda.slug), {
+          params: query,
+        }),
+    });
   };
 }
 
-export function list( query, agenda ) {
-  return ( { dispatch, getState } ) => {
+export function list(query, agenda) {
+  return ({ dispatch, getState }) => {
     const { settings, res } = getState();
 
-    return dispatch( {
-      types: [ LIST, LIST_SUCCESS, LIST_FAIL ],
+    return dispatch({
+      types: [LIST, LIST_SUCCESS, LIST_FAIL],
       perPageLimit: settings.perPageLimit,
-      promise: ( { client } ) => client.get( res.list.replace(':slug', agenda && agenda.slug), { params: query } )
-    } );
+      promise: ({ client }) =>
+        client.get(res.list.replace(':slug', agenda && agenda.slug), {
+          params: query,
+        }),
+    });
   };
 }
 
-export function nextPage( query, fromId, agenda ) {
-  return ( { dispatch, getState } ) => {
+export function nextPage(query, fromId, agenda) {
+  return ({ dispatch, getState }) => {
     const { settings, res } = getState();
 
-    return dispatch( {
-      types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
+    return dispatch({
+      types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
       fromId,
       perPageLimit: settings.perPageLimit,
-      promise: ( { client } ) => client.get( res.list.replace(':slug', agenda && agenda.slug), {
-        params: {
-          ...query,
-          fromId
-        }
-      } )
-    } );
+      promise: ({ client }) =>
+        client.get(res.list.replace(':slug', agenda && agenda.slug), {
+          params: {
+            ...query,
+            fromId,
+          },
+        }),
+    });
   };
 }

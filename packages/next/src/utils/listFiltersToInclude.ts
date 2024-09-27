@@ -1,8 +1,14 @@
 import { getAdditionalFilters } from '@openagenda/react-filters';
 
 export default function listFiltersToInclude(agenda) {
-  if (agenda.settings?.public?.filters?.displayed) {
-    return agenda.settings.public.filters.displayed;
+  const displayedFilters = agenda?.settings?.public?.filters?.displayed;
+
+  if (displayedFilters) {
+    const defaultFilters = ['search', 'geo'];
+    return [
+      ...defaultFilters,
+      ...displayedFilters.filter((name) => !defaultFilters.includes(name)),
+    ];
   }
 
   const additionalFilters = getAdditionalFilters(agenda.schema.fields).map(

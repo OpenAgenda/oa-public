@@ -1,13 +1,17 @@
 'use strict';
 
 const schemas = require('@openagenda/validators/schema');
+const number = require('@openagenda/validators/number');
+const integer = require('@openagenda/validators/integer');
+const regex = require('@openagenda/validators/regex');
+const text = require('@openagenda/validators/text');
 const { BadRequest } = require('@openagenda/verror');
 
 schemas.register({
-  number: require('@openagenda/validators/number'),
-  integer: require('@openagenda/validators/integer'),
-  regex: require('@openagenda/validators/regex'),
-  text: require('@openagenda/validators/text')
+  number,
+  integer,
+  regex,
+  text,
 });
 
 const schema = schemas({
@@ -15,53 +19,55 @@ const schema = schemas({
     type: 'integer',
     optional: true,
     default: null,
-    min: 1
+    min: 1,
   },
   from: {
     type: 'integer',
     optional: true,
-    default: 0
+    default: 0,
   },
   size: {
     type: 'integer',
     optional: true,
     default: 20,
-    max: 100
+    max: 100,
   },
   after: {
     type: 'text',
     list: { default: null },
-    optional: true
+    optional: true,
   },
   sort: {
     type: 'regex',
     optional: true,
     error: {
       code: 'sort.invalid',
-      message: 'sort value is not valid'
+      message: 'sort value is not valid',
     },
     regex: /(createdAt|recentlyAddedEvents)\.desc/,
-    default: null
-  }
+    default: null,
+  },
 });
 
-module.exports =(navQuery, options= {}) => {
+module.exports = (navQuery, options = {}) => {
   let clean;
 
-  const {
-    maxResultWindow = 10000,
-  } = options;
+  const { maxResultWindow = 10000 } = options;
 
   try {
     clean = schema(navQuery);
-  } catch(errors) {
+  } catch (errors) {
     throw new BadRequest({ info: { errors } }, 'invalid navigation parameters');
   }
 
   if ((clean.from ?? 0) + (clean.size ?? 20) > maxResultWindow) {
-    const fromKey = Object.keys(navQuery).includes('offset') ? 'offset' : 'from';
+    const fromKey = Object.keys(navQuery).includes('offset')
+      ? 'offset'
+      : 'from';
     const toKey = Object.keys(navQuery).includes('limit') ? 'limit' : 'size';
-    throw new BadRequest(`${fromKey} + ${toKey} cannot exceed ${maxResultWindow}. Use "after" navigation for better performance.`);
+    throw new BadRequest(
+      `${fromKey} + ${toKey} cannot exceed ${maxResultWindow}. Use "after" navigation for better performance.`,
+    );
   }
 
   if (clean.page !== null) {
@@ -74,9 +80,9 @@ module.exports =(navQuery, options= {}) => {
     return {
       after: clean.after,
       size: clean.size,
-      sort: clean.sort
+      sort: clean.sort,
     };
-  };
+  }
 
   return Object.keys(clean).reduce((nav, field) => {
     if (clean[field] !== null) {

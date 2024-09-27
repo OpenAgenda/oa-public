@@ -46,7 +46,12 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
   afterAll(() => core.services.shutdown({ clear: true }));
 
   it('updateMemberFields', async () => {
-    await core.agendas(60935574).settings.schema.updateMemberFields([{ field: 'phone', optional: false }], { access: 'administrator' });
+    await core
+      .agendas(60935574)
+      .settings.schema.updateMemberFields(
+        [{ field: 'phone', optional: false }],
+        { access: 'administrator' },
+      );
     const result = await core.agendas(60935574).settings.schema.get();
     expect(result).toBeTruthy();
   });
@@ -70,7 +75,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
 
       try {
         contribAccessToken = await axios({
@@ -82,7 +87,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
           data: {
             code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
           },
-        }).then(r => r.data.access_token);
+        }).then((r) => r.data.access_token);
       } catch (e) {
         // console.log(e.response);
       }
@@ -91,13 +96,19 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
     afterAll(() => server.close());
 
     it('get settings memberSchema for configuration with adminKey', async () => {
-      const res = await axios.get(`http://localhost:3000/agendas/60935574/settings/memberSchema/configure?key=${administratorKey}`, { params: {} });
+      const res = await axios.get(
+        `http://localhost:3000/agendas/60935574/settings/memberSchema/configure?key=${administratorKey}`,
+        { params: {} },
+      );
       expect(res.data.parents.length).toBe(1);
       expect(res.data.schema).toBeTruthy();
     });
 
     it('get settings memberSchema for member with andminKey', async () => {
-      const res = await axios.get(`http://localhost:3000/agendas/60935574/settings/memberSchema?key=${administratorKey}`, { params: {} });
+      const res = await axios.get(
+        `http://localhost:3000/agendas/60935574/settings/memberSchema?key=${administratorKey}`,
+        { params: {} },
+      );
       expect(res.data.merged.fields).toBeTruthy();
     });
 
@@ -113,9 +124,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
             'content-type': 'application/json',
           },
           data: {
-            fields: [
-              { field: 'phone', optional: false },
-            ],
+            fields: [{ field: 'phone', optional: false }],
           },
         });
       } catch (error) {
@@ -136,9 +145,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
             'content-type': 'application/json',
           },
           data: {
-            fields: [
-              { field: 'phone', optional: false },
-            ],
+            fields: [{ field: 'phone', optional: false }],
           },
         });
       } catch (error) {

@@ -1,31 +1,31 @@
-"use strict";
+'use strict';
 
 module.exports = {
   service: {
-
-    mysql : {
-      host : '127.0.0.1',
-      database : 'agenda_test',
-      password : 'grut',
-      user : 'root',
-      ssl: true
+    mysql: {
+      host: '127.0.0.1',
+      database: 'agenda_test',
+      password: 'grut',
+      user: 'root',
+      ssl: true,
     },
 
-    schemas : {
+    schemas: {
       agenda: 'agenda',
       occurrence: 'occurrence',
-      agendaEvent: 'agenda_event'
+      agendaEvent: 'agenda_event',
     },
 
     imagePath: '//openagendatst.s3.amazonaws.com/',
 
     interfaces: {
-      onCreate: agenda => {},
-      onUpdate: ( before, after ) => {},
-      beforeRemove: ( agenda, cb ) => { cb() },
-      onRemove: agenda => {}
-    }
-
+      onCreate: (_agenda) => {},
+      onUpdate: (_before, _after) => {},
+      beforeRemove: (agenda, cb) => {
+        cb();
+      },
+      onRemove: (_agenda) => {},
+    },
   },
 
   dependencies: {
@@ -34,9 +34,9 @@ module.exports = {
         accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
         region: process.env.AWS_DEV_REGION,
-        defaultBucket: process.env.AWS_DEV_BUCKET
+        defaultBucket: process.env.AWS_DEV_BUCKET,
       },
-      defaultProvider: 's3'
-    }
-  }
+      defaultProvider: 's3',
+    },
+  },
 };

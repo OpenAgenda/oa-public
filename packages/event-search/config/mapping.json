@@ -113,7 +113,7 @@
     "type": "nested",
     "properties": {
       "uid": {
-        "type" : "integer"
+        "type": "integer"
       },
       "title": {
         "type": "text"
@@ -134,6 +134,9 @@
   },
   "updatedAt": {
     "type": "date"
+  },
+  "removed": {
+    "type": "boolean"
   },
   "_exclusiveUpdatedAt": {
     "type": "date"
@@ -200,6 +203,6 @@
     "type": "keyword"
   },
   "_referencing_agenda_uids": {
-      "type": "keyword"
+    "type": "keyword"
   }
 }

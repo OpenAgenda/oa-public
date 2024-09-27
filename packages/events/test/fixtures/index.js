@@ -1,8 +1,8 @@
 'use strict';
 
+const fs = require('node:fs');
+const { promisify } = require('node:util');
 const _ = require('lodash');
-const fs = require('fs');
-const { promisify } = require('util');
 const knex = require('knex');
 const mysql = require('mysql');
 
@@ -12,9 +12,15 @@ const creditsEventUpdate = require('./creditsEventUpdate.json');
 function _sql(schema, SQLDataRelativePath) {
   const raw = [
     fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8'),
-    fs.readFileSync(`${__dirname}/../../model.sql`, 'utf-8').replace('${schema}', schema),
+    fs.readFileSync(`${__dirname}/../../model.sql`, 'utf-8').replace(
+      // eslint-disable-next-line no-template-curly-in-string
+      '${schema}',
+      schema,
+    ),
     fs.readFileSync(`${__dirname}/legacy.sql`, 'utf-8'),
-    fs.readFileSync(`${__dirname}/mel.sql`, 'utf-8').replace(/\$\{schema\}/g, schema)
+    fs
+      .readFileSync(`${__dirname}/mel.sql`, 'utf-8')
+      .replace(/\$\{schema\}/g, schema),
   ];
 
   if (SQLDataRelativePath) {
@@ -39,13 +45,13 @@ async function _load(dbConfig, schema, SQLDataRelativePath) {
 module.exports = (dbConfig, SQLDataRelativePath) => {
   const client = knex({
     client: 'mysql',
-    connection: dbConfig
+    connection: dbConfig,
   });
 
   return {
     destroyClient: () => client.destroy(),
     client,
-    load: () => _load(dbConfig, SQLDataRelativePath)
+    load: () => _load(dbConfig, SQLDataRelativePath),
   };
 };
 

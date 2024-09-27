@@ -20,7 +20,7 @@ function normalizeValue(value) {
     return value;
   }
 
-  return value.map(v => ({
+  return value.map((v) => ({
     startDate: _.isDate(v.startDate) ? v.startDate.getTime() : v.startDate,
     endDate: _.isDate(v.endDate) ? v.endDate.getTime() : v.endDate,
     key: v.key,
@@ -37,14 +37,14 @@ function DateRangePicker(
     disabled,
     ...otherProps
   },
-  ref
+  ref,
 ) {
   const intl = useIntl();
 
   const dateRangeRef = useConstant(() => ref || React.createRef());
 
   const [ranges, setRanges] = useState(
-    () => input.value ?? defaultGetInitialValue()
+    () => input.value ?? defaultGetInitialValue(),
   );
   const [dragStatus, setDragStatus] = useState(false);
   const [focusedRange, setFocusedRange] = useState([0, 0]);
@@ -57,30 +57,30 @@ function DateRangePicker(
 
   // Update state for re-calculate rdrNoSelection
   const onSelectPreviewChange = useCallback(
-    value => {
+    (value) => {
       const dateRange = dateRangeRef.current;
 
       setDragStatus(dateRangeRef.current?.calendar.state.drag.status);
       dateRange.updatePreview(value ? dateRange.calcNewSelection(value) : null);
     },
-    [dateRangeRef]
+    [dateRangeRef],
   );
 
   const onDefinedPreviewChange = useCallback(
-    value => {
+    (value) => {
       const dateRange = dateRangeRef.current;
 
       return dateRange.updatePreview(
         value
           ? dateRange.calcNewSelection(value, typeof value === 'string')
-          : null
+          : null,
       );
     },
-    [dateRangeRef]
+    [dateRangeRef],
   );
 
   const onTemporaryChange = useCallback(
-    item => {
+    (item) => {
       const value = [item?.selection ? item.selection : item.range1];
 
       setRanges(value);
@@ -100,17 +100,17 @@ function DateRangePicker(
         onChange(value);
       }
     },
-    [latestFocusedRange, onChange]
+    [latestFocusedRange, onChange],
   );
 
   const onDefinedRangeChange = useCallback(
-    item => {
+    (item) => {
       const value = [item?.selection ? item.selection : item.range1];
 
       setRanges(value);
       onChange(value);
     },
-    [onChange]
+    [onChange],
   );
 
   const disabledDay = useCallback(() => disabled, [disabled]);
@@ -129,7 +129,7 @@ function DateRangePicker(
       && !_.isEqual(normalizeValue(input.value), normalizeValue(previousValue))
       && !_.isEqual(
         normalizeValue(input.value),
-        normalizeValue(latestRanges.current)
+        normalizeValue(latestRanges.current),
       )
     ) {
       setRanges(input.value);

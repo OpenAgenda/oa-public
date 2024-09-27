@@ -15,19 +15,24 @@ const DefaultLocation = ({
   enabled = true,
 }) => {
   const labels = flattenLabels(defaultLocationLabels, lang);
-  const extractCountryNames = () => countries.map(c => ({
-    value: c.code,
-    label: c[lang],
-  }));
+  const extractCountryNames = () =>
+    countries.map((c) => ({
+      value: c.code,
+      label: c[lang],
+    }));
 
   const options = extractCountryNames();
-  const selectValue = options.find(option => option.value === value?.countryCode);
+  const selectValue = options.find(
+    (option) => option.value === value?.countryCode,
+  );
   const [mode, setMode] = useState(value?.uid ? 'show' : 'search');
   const [loc, setLoc] = useState(null);
 
   useEffect(() => {
     if (value?.uid) {
-      axios.get(field.res.getLocationDetails.replace(':locationUid', value.uid)).then(r => setLoc(r.data));
+      axios
+        .get(field.res.getLocationDetails.replace(':locationUid', value.uid))
+        .then((r) => setLoc(r.data));
     }
   }, []);
 
@@ -40,9 +45,7 @@ const DefaultLocation = ({
   return (
     <>
       <div className="margin-bottom-md">
-        <label htmlFor="DefaultLocation">
-          {labels.chooseDefaultLocation}
-        </label>
+        <label htmlFor="DefaultLocation">{labels.chooseDefaultLocation}</label>
         <Provider lang={lang}>
           <LocationSelector
             enableDetails={false}
@@ -75,20 +78,16 @@ const DefaultLocation = ({
       </div>
       <div
         className={
-          enabled
-            ? 'form-group country'
-            : 'form-group country disabled'
+          enabled ? 'form-group country' : 'form-group country disabled'
         }
       >
-        <label htmlFor="Country">
-          {labels.chooseDefaultCountry}
-        </label>
+        <label htmlFor="Country">{labels.chooseDefaultCountry}</label>
 
         <Select
           disabled={!enabled}
           options={options}
           value={selectValue}
-          onChange={val => {
+          onChange={(val) => {
             onChange({ ...value, countryCode: val.value });
           }}
           clearable={false}

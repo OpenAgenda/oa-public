@@ -11,7 +11,7 @@ import isOptionedField from '../../utils/isOptionedField';
 import messages from './messages';
 import Radio from './Radio';
 
-const isMultiLang = field => !!field.languages;
+const isMultiLang = (field) => !!field.languages;
 
 export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
   const intl = useIntl();
@@ -19,7 +19,7 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
   const { values, initialValues: initials } = form.getState();
 
   const action = useMemo(
-    () => values.actions.find(v => v.id === id),
+    () => values.actions.find((v) => v.id === id),
     [id, values.actions],
   );
   const fieldName = useMemoOne(() => action?.field, [action]);
@@ -29,14 +29,14 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
   const automatic = useMemoOne(() => !!action?.automatic, [action]);
   const prevAutomatic = usePrevious(automatic);
   const [initialAction] = useState(() =>
-    initialValues?.actions?.find(v => v.field === fieldName));
+    initialValues?.actions?.find((v) => v.field === fieldName));
   const textFieldOptions = aggregatorAgendaSchema.fields.filter(
-    v => stringType.includes(v.fieldType) && !isMultiLang(v),
+    (v) => stringType.includes(v.fieldType) && !isMultiLang(v),
   );
 
   const textFieldCopyOptions = (sourceSchema?.fields ?? [])
-    .filter(v => stringType.includes(v.fieldType))
-    .map(f => ({ value: f.field, label: f.label[intl.locale] || f.label }));
+    .filter((v) => stringType.includes(v.fieldType))
+    .map((f) => ({ value: f.field, label: f.label[intl.locale] || f.label }));
 
   const [textFieldMode, setTextFieldMode] = useState(
     initialAction?.values?.$copy ? 'copy' : 'set',
@@ -56,11 +56,11 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
         })
         .concat(textFieldOptions)
         .filter(
-          v =>
+          (v) =>
             v.field === fieldName
-            || !values.actions.find(w => w && v.field === w.field),
+            || !values.actions.find((w) => w && v.field === w.field),
         )
-        .map(v => ({
+        .map((v) => ({
           value: v.field,
           label: getLocaleValue(v.label, intl.locale),
         })),
@@ -76,7 +76,7 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
   const fieldSchema = useMemoOne(
     () =>
       fieldName
-      && aggregatorAgendaSchema.fields.find(v => v.field === fieldName),
+      && aggregatorAgendaSchema.fields.find((v) => v.field === fieldName),
     [aggregatorAgendaSchema.fields, fieldName],
   );
   const valuesOptions = useMemoOne(() => {
@@ -98,7 +98,7 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
     }
 
     if (fieldSchema?.options) {
-      return fieldSchema.options.map(v => ({
+      return fieldSchema.options.map((v) => ({
         value: v.id,
         label: getLocaleValue(v.label, intl.locale),
       }));
@@ -153,7 +153,7 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
         menuPosition="fixed"
         className="margin-bottom-xs"
         isSearchable
-        onChange={e => {
+        onChange={(e) => {
           if (prevFieldName !== e.value) {
             form.batch(() => {
               form.change(`${name}.field`, e.value);
@@ -257,7 +257,7 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
                           placeholder={intl.formatMessage(
                             messages[`${fieldSchema.fieldType}Placeholder`],
                           )}
-                          onChange={e => {
+                          onChange={(e) => {
                             form.batch(() => {
                               form.change(`${name}.values`, e.target.value);
                               form.change(`${name}.copyValues`, undefined);
@@ -287,7 +287,7 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
                   menuPosition="fixed"
                   isDisabled={action?.automatic}
                   isSearchable
-                  onChange={e => {
+                  onChange={(e) => {
                     form.batch(() => {
                       form.change(`${name}.values`, undefined);
                       form.change(`${name}.copyValues`, e.value);

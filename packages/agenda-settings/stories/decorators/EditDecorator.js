@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default Story => (
+export default (Story) => (
   <div className="container agenda-admin top-margined">
     <div className="row wsq">
       <div className="col col-sm-3 nav">

@@ -13,9 +13,19 @@ import { Wrap } from '@openagenda/uikit';
 import FilterPreviewer from './FilterPreviewer';
 import { FavoritesPreviewer } from './FavoritesFilter';
 
-export default function FiltersPreview({ agenda, filters, getOptions, disabled, component = FilterPreviewer }) {
+export default function FiltersPreview({
+  agenda,
+  filters,
+  getOptions,
+  disabled,
+  component = FilterPreviewer,
+}) {
   const completedFilters = useMemo(
-    () => [{ type: 'search', name: 'search' }, { type: 'favorites', name: 'favorites' }, ...filters],
+    () => [
+      { type: 'search', name: 'search' },
+      { type: 'favorites', name: 'favorites' },
+      ...filters,
+    ],
     [filters],
   );
 

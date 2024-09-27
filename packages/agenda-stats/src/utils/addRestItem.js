@@ -18,11 +18,11 @@ export default function addRestItem(
   intl,
   dataKey = 'eventCount',
   labelKey = 'key',
-  noValue = false
+  noValue = false,
 ) {
   const itemsInData = data.reduce(
     (res, next) => res + (next.eventCount || 0),
-    0
+    0,
   );
   const diff = total - itemsInData;
 
@@ -31,7 +31,7 @@ export default function addRestItem(
   }
 
   const message = intl.formatMessage(
-    noValue ? messages.noValue : messages.others
+    noValue ? messages.noValue : messages.others,
   );
 
   const otherItem = {};

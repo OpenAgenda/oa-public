@@ -12,8 +12,7 @@ function getDistance(l1, l2) {
   const Δλ = ((l2.longitude - l1.longitude) * Math.PI) / 180;
 
   const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2)
-    + Math.cos(radlat1) * Math.cos(radlat2)
-    * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    + Math.cos(radlat1) * Math.cos(radlat2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 }
@@ -25,7 +24,8 @@ module.exports = (location1, location2) => {
     _.pick(location1, ['latitude', 'longitude']),
     _.pick(location2, ['latitude', 'longitude']),
   );
-  const levenshteinPercent = (levenshteinName * 100) / Math.max(location1.name.length, location2.name.length);
+  const levenshteinPercent = (levenshteinName * 100)
+    / Math.max(location1.name.length, location2.name.length);
 
   return { geoDistance, levenshteinPercent, jaroName };
 };

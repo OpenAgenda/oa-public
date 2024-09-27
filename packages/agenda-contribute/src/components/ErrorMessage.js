@@ -8,7 +8,8 @@ const log = debug('ErrorMessage');
 const messages = defineMessages({
   shareRestrictionInfo: {
     id: 'AgendaContribute.ErrorMessage.shareRestrictionInfo',
-    defaultMessage: 'The following issues must be addressed to allow make the event "{event}" shareable on the agenda "{agenda}"',
+    defaultMessage:
+      'The following issues must be addressed to allow make the event "{event}" shareable on the agenda "{agenda}"',
   },
   suggestChange: {
     id: 'AgendaContribute.ErrorMessage.suggestChange',
@@ -48,7 +49,8 @@ const messages = defineMessages({
   },
 });
 
-const renderErrorLabel = ({ err, m }) => `${messages?.[err.field] ? m(messages[err.field]) : err.field}${err.lang ? ` (${err.lang.toUpperCase()})` : ''}`;
+const renderErrorLabel = ({ err, m }) =>
+  `${messages?.[err.field] ? m(messages[err.field]) : err.field}${err.lang ? ` (${err.lang.toUpperCase()})` : ''}`;
 
 export default function ErrorMessage({
   errors,
@@ -58,10 +60,7 @@ export default function ErrorMessage({
   onCancel,
   canEditEvent,
 }) {
-  const {
-    locale,
-    formatMessage: m,
-  } = useIntl();
+  const { locale, formatMessage: m } = useIntl();
 
   log('displaying errors %j', errors);
 
@@ -73,16 +72,25 @@ export default function ErrorMessage({
           agenda: agenda.title,
         })}
       </strong>
-      <ul className={canEditEvent ? 'padding-top-md padding-h-md' : 'padding-v-md padding-h-md'}>
-        {errors.map(err => (
+      <ul
+        className={
+          canEditEvent
+            ? 'padding-top-md padding-h-md'
+            : 'padding-v-md padding-h-md'
+        }
+      >
+        {errors.map((err) => (
           <li>
-            <strong>{renderErrorLabel({ err, m })}</strong>: {errorMessages?.[err.code] ? m(errorMessages[err.code]) : err.code}
+            <strong>{renderErrorLabel({ err, m })}</strong>:{' '}
+            {errorMessages?.[err.code] ? m(errorMessages[err.code]) : err.code}
           </li>
         ))}
       </ul>
       {canEditEvent ? null : (
         <div className="text-center">
-          <a href={suggestChangeRes} className="btn btn-primary margin-h-sm">{m(messages.suggestChange)}</a>
+          <a href={suggestChangeRes} className="btn btn-primary margin-h-sm">
+            {m(messages.suggestChange)}
+          </a>
           <button
             type="button"
             className="btn btn-default margin-h-sm"

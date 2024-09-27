@@ -1,21 +1,24 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
+const pass = require('@openagenda/validators/pass');
+const text = require('@openagenda/validators/text');
+const integer = require('@openagenda/validators/integer');
 
-schema.register( {
-  pass: require( '@openagenda/validators/pass' ),
-  text: require( '@openagenda/validators/text' ),
-  integer: require( '@openagenda/validators/integer' )
-} );
+schema.register({
+  pass,
+  text,
+  integer,
+});
 
-module.exports = schema( {
+module.exports = schema({
   genUrl: {
     type: 'pass',
-    default: null
+    default: null,
   },
   lang: {
     type: 'text',
-    default: 'fr'
+    default: 'fr',
   },
   slug: {
     type: 'text',
@@ -23,20 +26,20 @@ module.exports = schema( {
   },
   identifier: {
     type: 'integer',
-    optional: false
+    optional: false,
   },
   type: {
     type: 'text',
-    default: 'agenda'
+    default: 'agenda',
   },
   title: {
     type: 'text',
-    optional: false
+    optional: false,
   },
   description: {
-    type: 'text'
+    type: 'text',
   },
   section: {
-    type: 'text'
-  }
-} );
+    type: 'text',
+  },
+});

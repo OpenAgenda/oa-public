@@ -43,12 +43,13 @@ const settings = {
 module.exports = Object.assign(
   (c = {}) => {
     const config = Object.keys(c).reduce(
-      (obj, key) => (obj[key] !== undefined && c[key] !== undefined
-        ? {
-          ...obj,
-          [key]: c[key],
-        }
-        : obj),
+      (obj, key) =>
+        (obj[key] !== undefined && c[key] !== undefined
+          ? {
+            ...obj,
+            [key]: c[key],
+          }
+          : obj),
       {
         redis: null,
         imagePath: '//cdn.to.images/',
@@ -112,20 +113,35 @@ module.exports = Object.assign(
       list: sets.list.bind(null, service),
     };
 
-    const setEndpoints = Object.assign(setUid => {
-      const svc = { ...service, getSettings: settings.get.bySetUid.bind(null, service, setUid) };
+    const setEndpoints = Object.assign((setUid) => {
+      const svc = {
+        ...service,
+        getSettings: settings.get.bySetUid.bind(null, service, setUid),
+      };
       const endpoints = {};
       Object.assign(endpoints, {
         list: list.bySetUid.bind(null, svc, setUid),
         get: get.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
-        patch: update.bySetUid.bind(null, { service: svc, isPatch: true }, setUid),
+        patch: update.bySetUid.bind(
+          null,
+          { service: svc, isPatch: true },
+          setUid,
+        ),
       });
       return {
         locations: {
           ...endpoints,
           create: create.bySetUid.bind(null, svc, setUid),
-          merge: merge.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
-          remove: remove.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
+          merge: merge.bySetUid.bind(
+            null,
+            { internals: svc, endpoints },
+            setUid,
+          ),
+          remove: remove.bySetUid.bind(
+            null,
+            { internals: svc, endpoints },
+            setUid,
+          ),
           update: update.bySetUid.bind(
             null,
             { service: svc, isPatch: false },
@@ -133,7 +149,10 @@ module.exports = Object.assign(
           ),
           duplicates: {
             detect: detectCandidates.bind(null, { internals: svc, endpoints }),
-            detectAll: detectAllCandidates.bind(null, { internals: svc, endpoints }),
+            detectAll: detectAllCandidates.bind(null, {
+              internals: svc,
+              endpoints,
+            }),
             disqualifyCandidate: disqualifyCandidate.bind(null, endpoints),
             clearCandidates: clearCandidates.bind(null, endpoints),
           },
@@ -144,12 +163,19 @@ module.exports = Object.assign(
       };
     }, service.sets);
 
-    const agendaEndpoints = agendaUid => {
-      const svc = { ...service, getSettings: settings.get.byAgendaUid.bind(null, service, agendaUid) };
+    const agendaEndpoints = (agendaUid) => {
+      const svc = {
+        ...service,
+        getSettings: settings.get.byAgendaUid.bind(null, service, agendaUid),
+      };
       const endpoints = {};
       Object.assign(endpoints, {
         list: list.byAgendaUid.bind(null, svc, agendaUid),
-        get: get.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
+        get: get.byAgendaUid.bind(
+          null,
+          { internals: svc, endpoints },
+          agendaUid,
+        ),
         patch: update.byAgendaUid.bind(
           null,
           { service: svc, isPatch: true },
@@ -165,14 +191,25 @@ module.exports = Object.assign(
           { service: svc, isPatch: false },
           agendaUid,
         ),
-        remove: remove.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
-        merge: merge.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
+        remove: remove.byAgendaUid.bind(
+          null,
+          { internals: svc, endpoints },
+          agendaUid,
+        ),
+        merge: merge.byAgendaUid.bind(
+          null,
+          { internals: svc, endpoints },
+          agendaUid,
+        ),
         settings: {
           get: settings.get.byAgendaUid.bind(null, svc, agendaUid),
         },
         duplicates: {
           detect: detectCandidates.bind(null, { internals: svc, endpoints }),
-          detectAll: detectAllCandidates.bind(null, { internals: svc, endpoints }),
+          detectAll: detectAllCandidates.bind(null, {
+            internals: svc,
+            endpoints,
+          }),
           disqualifyCandidate: disqualifyCandidate.bind(null, endpoints),
           clearCandidates: clearCandidates.bind(null, endpoints),
         },

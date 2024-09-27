@@ -28,7 +28,6 @@ export default {
 };
 
 export const Bim = () => <p>Et bim.</p>;
-
 ```
 
 La dépendance `@openagenda/bs-templates` est utile pour charger le style d'OpenAgenda.
@@ -125,7 +124,7 @@ Il ressemble à ça:
 ```js
 import React from 'react';
 
-export default Story => (
+export default (Story) => (
   <div className="container top-margined">
     <div className="row wsq">
       <div className="col col-sm-3 nav">
@@ -148,6 +147,7 @@ export default Story => (
 ```
 
 Le fichier `stories/sandbox.stories.js`:
+
 ```
 import React from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
@@ -182,10 +182,11 @@ Une première execution du script créé les dossiers locales précisés en argu
 
 `yarn extract-messages`
 
-Pour que les labels soient gérés dans le storybook, je le place dans le décorateur *Providers* avec les autres (j'en ai pour le moment 2: Helmet qui me permet de charger les js/css pour leaflet et *QueryClientProvider* utilisé par *react-query*):
+Pour que les labels soient gérés dans le storybook, je le place dans le décorateur _Providers_ avec les autres (j'en ai pour le moment 2: Helmet qui me permet de charger les js/css pour leaflet et _QueryClientProvider_ utilisé par _react-query_):
 
 Donc dans `stories/decorators/Providers.js`, j'ai maintenant:
-```js 
+
+```js
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -196,14 +197,17 @@ import locales from '../../src/locales-compiled';
 
 const lang = 'fr';
 
-export default Story => {
-  const queryClient = useConstant(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      }
-    }
-  }));
+export default (Story) => {
+  const queryClient = useConstant(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
 
   return (
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
@@ -215,10 +219,10 @@ export default Story => {
     </IntlProvider>
   );
 };
-
 ```
 
 Je devrais pouvoir placer mes labels dans mes composants. Un premier: (TilesMapMenu.js):
+
 ```js
 import React from 'react';
 
@@ -233,13 +237,10 @@ const messages = defineMessages({
   tilesInputPlaceholder: {
     id: 'LegacyEmbed.TilesMapMenu.tilesInputPlaceholder',
     defaultMessage: 'Paste the tile link template here',
-  }
+  },
 });
 
-export default ({
-  embed,
-  onChange
-}) => {
+export default ({ embed, onChange }) => {
   const intl = useIntl();
 
   return (
@@ -254,7 +255,6 @@ export default ({
     </div>
   );
 };
-
 ```
 
 Storybook fait désormais apparaitre les labels par défaut, en anglais.
@@ -269,9 +269,8 @@ Une nouvelle execution du script chargera ces modifications dans les fichiers co
 
 Les labels restants peuvent être saisis. La documentation utile pour en savoir plus sur les possibilités de formattage:
 
- * https://formatjs.io/docs/react-intl/components
- * https://formatjs.io/docs/core-concepts/icu-syntax
-
+- https://formatjs.io/docs/react-intl/components
+- https://formatjs.io/docs/core-concepts/icu-syntax
 
 ## Intégration dans cibul-node
 
@@ -283,13 +282,13 @@ Dans notre cas, l'application react n'a pas de routes, ce n'est qu'un composant 
 
 Les paquets suivants doivent être dans les dépendences:
 
- * `react-router-config`
- * `@openagenda/react-shared`
- * `react-redux`
+- `react-router-config`
+- `@openagenda/react-shared`
+- `react-redux`
 
 ... dans les dépendences dev & peer:
 
- * `redux`
+- `redux`
 
 Je commence par faire une application minimaliste qui affiche juste un texte pour la voir s'afficher dans le storybook et en intégré.
 
@@ -298,6 +297,7 @@ Je commence par faire une application minimaliste qui affiche juste un texte pou
 D'abord le storybook. Il charge le fichier qui sera l'interface avec l'application intégrée:
 
 `stories/integrated.stories.js`
+
 ```
 import { wrapApp } from '@openagenda/react-shared';
 import '@openagenda/bs-templates/compiled/main.css';
@@ -339,6 +339,7 @@ export function Integrated() {
 Le fichier d'interface. Il charge un fichier répertoriant les routes, qu'il créé et passe à l'application intégrée:
 
 `src/index.js`
+
 ```
 import {
   createApp
@@ -363,11 +364,12 @@ export default function embeds(options) {
 
 ```
 
-Le fichier listant les routes. Dans le cas de l'application 'embed', il n'y a pas plusieurs routes, le fichier ne répertorie que 2 containers: 
- 
- * `App` qui contient les providers utiles à l'application, puis le container principal de l'application. Je crée un container temporaire `Temporary` pour arriver plus rapidement à une application intégrée et poursuivre ensuite sur le chargement de l'application complète.
+Le fichier listant les routes. Dans le cas de l'application 'embed', il n'y a pas plusieurs routes, le fichier ne répertorie que 2 containers:
+
+- `App` qui contient les providers utiles à l'application, puis le container principal de l'application. Je crée un container temporaire `Temporary` pour arriver plus rapidement à une application intégrée et poursuivre ensuite sur le chargement de l'application complète.
 
 `src/getRoutes.js`
+
 ```
 import {
   loadable
@@ -395,6 +397,7 @@ export default (prefix = '') => ([
 ```
 
 `src/containers/App.js`
+
 ```
 import React from 'react';
 import { IntlProvider } from 'react-intl';
@@ -421,6 +424,7 @@ export default function App({
 ```
 
 `src/containers/Temporary.js`
+
 ```
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -438,11 +442,11 @@ Ce composant temporaire me permet de vérifier que je reçois bien des données 
 
 A ce stade, mon storybook affiche déjà le container temporaire. Je créé 5 fichiers:
 
- * `embeds/stories/integrated.stories.js`
- * `embeds/app/src/index.js`
- * `embeds/app/src/getRoutes.js`
- * `embeds/app/src/containers/App.js`
- * `embeds/app/src/containers/Temporary.js`
+- `embeds/stories/integrated.stories.js`
+- `embeds/app/src/index.js`
+- `embeds/app/src/getRoutes.js`
+- `embeds/app/src/containers/App.js`
+- `embeds/app/src/containers/Temporary.js`
 
 #### Hot reload
 
@@ -466,6 +470,7 @@ return app;
 ```
 
 Et on rajoute le hot reload avant le return
+
 ```
 if (module.hot) {
   module.hot.accept('./getRoutes', () => {
@@ -483,16 +488,17 @@ Les dépendences pour babel doivent être présentes dans le `package.json`:
 
 Les dépendences:
 
- * @babel/runtime-corejs3
+- @babel/runtime-corejs3
 
 Les dépendences dev:
 
- * @babel/cli
- * @babel/core
- * @loadable/babel-plugin
- * @openagenda/babel-preset
+- @babel/cli
+- @babel/core
+- @loadable/babel-plugin
+- @openagenda/babel-preset
 
 Le `.babelrc.js` doit être présent dans le package
+
 ```
 'use strict';
 
@@ -533,10 +539,13 @@ On ajoute l'app à intégrer dans les dépendences
 Il faut référencer l'app à intégrer à 2 endroits:
 
 Dans `client/src/index.js`:
+
 ```
 import createLegacyEmbedsApp from '@openagenda/legacy/embeds/src';
 ```
+
 et dans la liste des `apps`:
+
 ```
   ],
   [
@@ -555,6 +564,6 @@ Dans le 2ème cas, on fait référence à la version transpilée de l'app.
 
 Les ajouts sont à apporter à `webapp/index.js`. Un premier ajout doit compléter l'état initial de l'application intégrée (initialState), un deuxième s'assure que la route correspondant à la nouvelle application est bien attrapée (dernier 'get').
 
- ## Références
+## Références
 
-  * Commits 'guide' sur trello: https://trello.com/c/v5QV1qS6/1123-commit-minimaliste-qui-ajoute-une-app-a-react-integration-apps
+- Commits 'guide' sur trello: https://trello.com/c/v5QV1qS6/1123-commit-minimaliste-qui-ajoute-une-app-a-react-integration-apps

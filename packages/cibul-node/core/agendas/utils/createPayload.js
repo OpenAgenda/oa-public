@@ -4,7 +4,7 @@ import getMemberSchema from './getMemberSchema.js';
 
 // const log = require('@openagenda/logs')('core/agendas/utils/createPayload');
 
-const cleanAccess = dirty => {
+const cleanAccess = (dirty) => {
   if (!dirty) {
     return null;
   }
@@ -32,12 +32,15 @@ async function getOriginAgenda(services, data) {
     return null;
   }
 
-  if (!data.agendas.origin && (data.agendas.current.uid === event.agendaUid)) {
+  if (!data.agendas.origin && data.agendas.current.uid === event.agendaUid) {
     data.agendas.origin = data.agendas.current;
   } else if (!data.agendas.origin) {
-    data.agendas.origin = await services.agendas.get({
-      uid: event.agendaUid,
-    }, { private: null });
+    data.agendas.origin = await services.agendas.get(
+      {
+        uid: event.agendaUid,
+      },
+      { private: null },
+    );
   }
 
   return _.pick(data.agendas.origin, [
@@ -50,7 +53,14 @@ async function getOriginAgenda(services, data) {
   ]);
 }
 
-async function getCompiledEvent(core, data, key = 'after', access = null, formSchema = null, loadOption = null) {
+async function getCompiledEvent(
+  core,
+  data,
+  key = 'after',
+  access = null,
+  formSchema = null,
+  loadOption = null,
+) {
   const load = loadOption || {
     custom: true,
     event: true,
@@ -59,9 +69,11 @@ async function getCompiledEvent(core, data, key = 'after', access = null, formSc
     member: true,
     user: true,
   };
-  const includeFields = access === null ? null : (
-    formSchema || getFormSchema(data.agendas.current, { access })
-  ).fields.map(f => f.field);
+  const includeFields = access === null
+    ? null
+    : (
+      formSchema || getFormSchema(data.agendas.current, { access })
+    ).fields.map((f) => f.field);
 
   return merge.eventFromObject(data.services[key], {
     includeFields,
@@ -86,10 +98,7 @@ function getMember(data) {
 
 function makeGetResponse(core, data) {
   return async (primaryKey = 'event', options = {}) => {
-    const {
-      access,
-      load,
-    } = {
+    const { access, load } = {
       access: null,
       load: {
         custom: true,
@@ -104,18 +113,21 @@ function makeGetResponse(core, data) {
     const formSchema = getFormSchema(data.agendas.current, {
       access,
       memberSchema: (
-        await getMemberSchema(core.services, data.agendas.current, { access: 'internal' })
+        await getMemberSchema(core.services, data.agendas.current, {
+          access: 'internal',
+        })
       ).merged,
     });
 
-    const member = data.services.after?.agendaEvent?.userUid ? await core.agendas(data.agendas.current.uid).members.get(
-      data.services.after.agendaEvent?.userUid,
-      {
-        access: 'internal',
-        roleAsSlug: false,
-        throwOnNotFound: false,
-      },
-    ) : null;
+    const member = data.services.after?.agendaEvent?.userUid
+      ? await core
+        .agendas(data.agendas.current.uid)
+        .members.get(data.services.after.agendaEvent?.userUid, {
+          access: 'internal',
+          roleAsSlug: false,
+          throwOnNotFound: false,
+        })
+      : null;
 
     if (!['public', 'contributor'].includes(access) && load.member) {
       data.member = member;
@@ -127,8 +139,17 @@ function makeGetResponse(core, data) {
       originAgenda: await getOriginAgenda(core.services, data),
       member,
       formSchema,
-      [primaryKey]: await getCompiledEvent(core, data, 'after', access, formSchema, load),
-      before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null,
+      [primaryKey]: await getCompiledEvent(
+        core,
+        data,
+        'after',
+        access,
+        formSchema,
+        load,
+      ),
+      before: data.services.before.agendaEvent
+        ? merge.eventFromObject(data.services.before)
+        : null,
     };
   };
 }
@@ -150,7 +171,7 @@ export default function createPayload(core, agenda, primaryKey) {
     },
   };
 
-  const getItem = key => _.get(data.services.after, key);
+  const getItem = (key) => _.get(data.services.after, key);
 
   return {
     setItem: setItem.bind(null, data),
@@ -159,14 +180,17 @@ export default function createPayload(core, agenda, primaryKey) {
     getCompiledEvent: getCompiledEvent.bind(null, core, data),
     getEvent: getEvent.bind(null, data),
     getMember: getMember.bind(null, data),
-    getFormSchema: async (options = {}) => getFormSchema(data.agendas.current, {
-      ...options,
-      memberSchema: (
-        await getMemberSchema(core.services, data.agendas.current, { access: 'internal' })
-      ).merged,
-    }),
+    getFormSchema: async (options = {}) =>
+      getFormSchema(data.agendas.current, {
+        ...options,
+        memberSchema: (
+          await getMemberSchema(core.services, data.agendas.current, {
+            access: 'internal',
+          })
+        ).merged,
+      }),
     getItem,
-    hasItem: key => getItem(key),
+    hasItem: (key) => getItem(key),
     getPrimaryKey: () => primaryKey,
   };
 }

@@ -7,7 +7,7 @@ export default function parseAcceptLanguage(acceptLanguage: string = '') {
 
   return acceptLanguage
     .match(regex)
-    .map(m => {
+    .map((m) => {
       if (!m) return;
 
       const bits = m.split(';');
@@ -21,6 +21,6 @@ export default function parseAcceptLanguage(acceptLanguage: string = '') {
         quality: bits[1] ? parseFloat(bits[1].split('=')[1]) : 1.0,
       };
     })
-    .filter(r => r)
+    .filter((r) => r)
     .sort((a, b) => b.quality - a.quality);
 }

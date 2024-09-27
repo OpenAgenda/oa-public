@@ -16,8 +16,10 @@ module.exports = {
   state: 'published',
   beforeState: 'published',
   afterState: 'tocontrol',
-  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
-  memberUnsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
+  unsubscribeLink:
+    'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
+  memberUnsubscribeLink:
+    'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
   emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed',
   isRegisteredUser: true,
 };

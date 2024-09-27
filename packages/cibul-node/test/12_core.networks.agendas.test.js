@@ -56,7 +56,10 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
 
       it('db entry has network reference', async () => {
-        const entry = await testConfig.knex('review').first(['network_uid']).where('uid', 3);
+        const entry = await testConfig
+          .knex('review')
+          .first(['network_uid'])
+          .where('uid', 3);
 
         expect(entry.network_uid).toBe(1);
       });
@@ -100,7 +103,10 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
 
       it('db entry for agenda no longer holds network reference', async () => {
-        const entry = await testConfig.knex('review').first(['network_uid']).where('uid', 2);
+        const entry = await testConfig
+          .knex('review')
+          .first(['network_uid'])
+          .where('uid', 2);
 
         expect(entry.network_uid).toBe(null);
       });
@@ -142,7 +148,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         data: {
           code: superAdminSecret,
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     afterAll(() => server.close());
@@ -159,7 +165,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
           title: 'new agenda',
           description: 'new agenda description',
         },
-      }).then(r => r.data);
+      }).then((r) => r.data);
 
       expect(resp.title).toBe('new agenda');
     });

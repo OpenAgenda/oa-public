@@ -15,14 +15,7 @@
   "featured": false,
   "private": 0,
   "keywords": {
-    "fr": [
-      "brocante",
-      "livres",
-      "litterature",
-      "braderie",
-      "foire",
-      "romans"
-    ]
+    "fr": ["brocante", "livres", "litterature", "braderie", "foire", "romans"]
   },
   "accessibility": {
     "ii": false,
@@ -68,9 +61,7 @@
   ],
   "links": [],
   "state": 2,
-  "categories-metropolitaines": [
-    4
-  ],
+  "categories-metropolitaines": [4],
   "slug": "foire-aux-livres-1001720",
   "updatedAt": "2022-12-04T11:24:12.000Z",
   "addMethod": "aggregation",
@@ -121,9 +112,7 @@
   ],
   "label": [],
   "creatorUid": 49494899,
-  "recurringevent": [
-    2
-  ],
+  "recurringevent": [2],
   "registration": [],
   "location": {
     "disqualifiedDuplicates": null,

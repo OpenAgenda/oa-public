@@ -64,18 +64,21 @@ export default class ConversationForm extends Component {
 
     uppy.removePlugin(awsS3MultipartPlugin);
     uppy.use(AwsS3MultipartPlugin, {
-      shouldUseMultipart: file => file.size > 100 * 2 ** 20,
+      shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
       companionUrl: uploadEndpoint.replace(':conversationId', conversation.id),
     });
 
     const uppyState = uppy.getState();
-    const uncompleteUploads = Object.values(uppyState.files).filter(v => !v.progress.uploadComplete);
+    const uncompleteUploads = Object.values(uppyState.files).filter(
+      (v) => !v.progress.uploadComplete,
+    );
 
     if (uncompleteUploads.length) {
       try {
         const uploadResult = await uppy.upload();
 
-        if (uploadResult.failed.length) { // or uppyState.totalProgress !== 100
+        if (uploadResult.failed.length) {
+          // or uppyState.totalProgress !== 100
           if (onConversationCreate) {
             onConversationCreate(conversation, form);
           }
@@ -121,21 +124,9 @@ export default class ConversationForm extends Component {
               handleSubmit,
             },
             <>
-              <Field
-                name="destinationInbox"
-                component="input"
-                type="hidden"
-              />
-              <Field
-                name="type"
-                component="input"
-                type="hidden"
-              />
-              <Field
-                name="params"
-                component="input"
-                type="hidden"
-              />
+              <Field name="destinationInbox" component="input" type="hidden" />
+              <Field name="type" component="input" type="hidden" />
+              <Field name="params" component="input" type="hidden" />
               <Field
                 component={renderTextarea}
                 name="message"
@@ -143,22 +134,25 @@ export default class ConversationForm extends Component {
                 classNameGroup="margin-v-xs"
                 rows="3"
                 getErrorLabel={getLabel}
-                onKeyDown={e => {
+                onKeyDown={(e) => {
                   if (e.keyCode === 13 && e.ctrlKey) {
                     form.submit();
                   }
                 }}
                 placeholder={
-                  _.isMatch(this.initialValues, { destinationInbox: { identifier: 1, type: 'support' }, type: 'support' })
+                  _.isMatch(this.initialValues, {
+                    destinationInbox: { identifier: 1, type: 'support' },
+                    type: 'support',
+                  })
                     ? getLabel('supportPlaceholder')
                     : getLabel('yourMessage')
                 }
                 autoFocus={autoFocus}
-                displayError={meta => meta.modified && meta.submitFailed}
+                displayError={(meta) => meta.modified && meta.submitFailed}
               />
 
               <Attachments
-                setUppy={uppy => this.setState({ uppy })}
+                setUppy={(uppy) => this.setState({ uppy })}
                 uploadEndpoint={uploadEndpoint}
               />
             </>,

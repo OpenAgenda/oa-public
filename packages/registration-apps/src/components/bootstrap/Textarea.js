@@ -18,7 +18,11 @@ export default function Textarea({
 
   return (
     <div className="form-group margin-right-sm">
-      {label ? (<label htmlFor={id} className="margin-right-xs">{label}</label>) : null}
+      {label ? (
+        <label htmlFor={id} className="margin-right-xs">
+          {label}
+        </label>
+      ) : null}
       <textarea
         ref={ref}
         id={id}
@@ -29,7 +33,7 @@ export default function Textarea({
         maxLength={max}
         rows={3}
       />
-      {max ? (<FieldCounter value={value} max={max} />) : null}
+      {max ? <FieldCounter value={value} max={max} /> : null}
     </div>
   );
 }

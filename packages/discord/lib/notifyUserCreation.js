@@ -2,7 +2,7 @@
 
 const Discord = require('discord.js');
 
-module.exports = channel => user => {
+module.exports = (channel) => (user) => {
   const { fullName, email, uid } = user;
   const embed = new Discord.MessageEmbed()
     .setColor('#0d944a')

@@ -1,52 +1,54 @@
-"use strict";
+'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const boolean = require('@openagenda/validators/boolean');
+const text = require('@openagenda/validators/text');
 
 schema.register({
-  boolean: require('@openagenda/validators/boolean'),
-  text: require('@openagenda/validators/text')
+  boolean,
+  text,
 });
 
 module.exports = schema({
   private: {
     type: 'boolean',
     default: false,
-    allowNull: true
+    allowNull: true,
   },
   indexed: {
     type: 'boolean',
-    default: null
+    default: null,
   },
   total: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   detailed: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   internal: {
     type: 'boolean',
-    default: null
+    default: null,
   },
   includeImagePath: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   useDefaultImage: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   includeFields: {
     type: 'text',
-    list: true
+    list: true,
   },
   onlyIncludeFields: {
     type: 'text',
-    list: true
+    list: true,
   },
   offsetAsLastId: {
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 });

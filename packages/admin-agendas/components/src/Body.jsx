@@ -16,15 +16,17 @@ var React = require( 'react' ),
 
   debounce = require( 'lodash/debounce' ),
 
-  _updateHref = require( '@openagenda/dom-utils/documentLocation' ).setQueryPart,
-
-  getQuery = require( '@openagenda/dom-utils/documentLocation' ).getQuery;
+  qs = require( 'qs' );
 
 const searchSpinner = {
   width: 1,
   length: 3,
   radius: 4
 };
+
+function getQuery() {
+  return qs.parse(location.search, { ignoreQueryPrefix: true });
+}
 
 export default class Body extends React.Component {
 
@@ -273,6 +275,8 @@ function updateHref( query ) {
   if ( q.membersPage <= 1 ) delete q.membersPage;
   if ( q.tab == 'members' ) delete q.tab;
 
-  _updateHref( q );
+  const qStr = qs.stringify(q, { addQueryPrefix: true });
+
+  window.history.pushState(q, '', window.location.pathname + qStr);
 
 }

@@ -25,23 +25,27 @@ function pickPreferredLang(value, lang) {
   const existingLangs = Object.keys(value);
 
   return value[
-    ['fr', 'en', 'es', 'it', 'de'].filter(l => existingLangs.includes(l)).concat(existingLangs).shift()
+    ['fr', 'en', 'es', 'it', 'de']
+      .filter((l) => existingLangs.includes(l))
+      .concat(existingLangs)
+      .shift()
   ];
 }
 
-export default async function getAndDecorateIndexedEvent(services, {
-  eventSlug,
-  eventUid,
-  agendaUid,
-  userUid,
-  lang,
-  originalUrl,
-  detailed = false,
-  cspNonce,
-}) {
-  const {
-    core,
-  } = services;
+export default async function getAndDecorateIndexedEvent(
+  services,
+  {
+    eventSlug,
+    eventUid,
+    agendaUid,
+    userUid,
+    lang,
+    originalUrl,
+    detailed = false,
+    cspNonce,
+  },
+) {
+  const { core } = services;
 
   const { root } = core.getConfig();
 
@@ -57,29 +61,28 @@ export default async function getAndDecorateIndexedEvent(services, {
     identifier.uid = eventUid;
   }
 
-  const event = await core.agendas(agendaUid)
-    .events
-    .search.get(identifier, {
-      userUid,
-      detailed,
-      longDescriptionFormat: 'HTMLWithEmbeds',
-      includeLabels: true,
-      includeLocationImagePath: true,
-      includeImageTimestamps: true,
-      includeEmbedScripts: true,
-      cspNonce,
-    });
+  const event = await core.agendas(agendaUid).events.search.get(identifier, {
+    userUid,
+    detailed,
+    longDescriptionFormat: 'HTMLWithEmbeds',
+    includeLabels: true,
+    includeLocationImagePath: true,
+    includeImageTimestamps: true,
+    includeEmbedScripts: true,
+    cspNonce,
+  });
 
   if (!event) {
     return null;
   }
 
-  return produce(event, draft => {
+  return produce(event, (draft) => {
     if (detailed) {
       // timings component data structure
       try {
         draft.months = agendaPortalUtils.spreadTimingsPerMonthPerDay(
-          event.timings.map(t => agendaPortalUtils.detailedTiming({ event }, t, lang)),
+          event.timings.map((t) =>
+            agendaPortalUtils.detailedTiming({ event }, t, lang)),
           event.timezone,
           lang,
         );
@@ -91,62 +94,80 @@ export default async function getAndDecorateIndexedEvent(services, {
 
       draft.isUpcoming = new Date(event.timings[event.timings.length - 1].begin) > new Date();
 
-      draft.availableAccessibilities = Object.keys(event.accessibility).filter(key => !!event.accessibility[key]);
+      draft.availableAccessibilities = Object.keys(event.accessibility).filter(
+        (key) => !!event.accessibility[key],
+      );
 
-      draft.JSONLD = JSON.stringify(toEventSchema(event, {
-        locale: lang,
-        formatDate: (date, tz = 'Europe/Paris') => formatInTimeZone(date, tz, 'yyyy-MM-dd\'T\'HH:mm:ssXXX'),
-        url: `${root}/agendas/${agendaUid}/events/${event.uid}`,
-      }));
+      draft.JSONLD = JSON.stringify(
+        toEventSchema(event, {
+          locale: lang,
+          formatDate: (date, tz = 'Europe/Paris') =>
+            formatInTimeZone(date, tz, "yyyy-MM-dd'T'HH:mm:ssXXX"),
+          url: `${root}/agendas/${agendaUid}/events/${event.uid}`,
+        }),
+      );
     }
 
     // flatten main multilingual fields
-    ['title', 'description', 'keywords', 'conditions', 'longDescription', 'dateRange'].forEach(field => {
+    [
+      'title',
+      'description',
+      'keywords',
+      'conditions',
+      'longDescription',
+      'dateRange',
+    ].forEach((field) => {
       draft[field] = pickPreferredLang(event[field], lang);
     });
 
     if (draft.location) {
-      const {
-        latitude,
-        longitude,
-      } = event.location;
+      const { latitude, longitude } = event.location;
 
-      ['description', 'access'].forEach(field => {
+      ['description', 'access'].forEach((field) => {
         draft.location[field] = pickPreferredLang(event.location[field], lang);
       });
       draft.location.googleItineraryLink = `https://www.google.com/maps/dir//${latitude},${longitude}/@${latitude},${longitude},17z`;
       draft.location.OSMItineraryLink = `https://www.openstreetmap.org/directions?to=${latitude}%2C${longitude}`;
     }
 
-    if (event.registration?.length && event.registration.filter(r => r.service === 'passCulture').length) {
+    if (
+      event.registration?.length
+      && event.registration.filter((r) => r.service === 'passCulture').length
+    ) {
       draft.passCulture = {
         img: 'https://oasvc.s3.eu-west-1.amazonaws.com/registration-apps/pass-culture-22.png',
         label: getLabel('accessPassOffer', lang),
-        ...event.registration.find(r => r.service === 'passCulture'),
+        ...event.registration.find((r) => r.service === 'passCulture'),
       };
     }
 
     if (draft.registration?.length) {
-      draft.registration = draft.registration.filter(r => !r.service).map(r => Object.assign(r, {
-        phone: {
-          icon: 'fa-phone',
-          prefix: 'tel:',
-        },
-        link: {
-          icon: 'fa-link',
-          prefix: '',
-          label: getLabel('registerBook', lang),
-        },
-        email: {
-          icon: 'fa-envelope',
-          prefix: 'mailto:',
-        },
-      }[r.type]));
+      draft.registration = draft.registration
+        .filter((r) => !r.service)
+        .map((r) =>
+          Object.assign(
+            r,
+            {
+              phone: {
+                icon: 'fa-phone',
+                prefix: 'tel:',
+              },
+              link: {
+                icon: 'fa-link',
+                prefix: '',
+                label: getLabel('registerBook', lang),
+              },
+              email: {
+                icon: 'fa-envelope',
+                prefix: 'mailto:',
+              },
+            }[r.type],
+          ));
     }
 
     const permalink = `${root}/agendas/${agendaUid}/events/${event.uid}`;
 
-    draft.languages = Object.keys(event.title).map(code => ({
+    draft.languages = Object.keys(event.title).map((code) => ({
       code,
       label: languages.getLanguageInfo(code).nativeName,
       link: `${permalink}?lang=${code}`,

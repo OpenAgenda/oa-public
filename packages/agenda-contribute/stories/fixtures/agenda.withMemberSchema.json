@@ -35,20 +35,17 @@
     "contribution": {
       "type": 2,
       "defaultState": 2,
-      "canPublish": [
-          "administrators",
-          "moderators"
-      ],
+      "canPublish": ["administrators", "moderators"],
       "moderateOnChangeBy": [],
       "defaultLang": null,
       "allowLocationCreate": true,
       "messages": {
-          "instructions": "**Ex de titre de l'événement :**\n\nVille, type d'action, thème.\n\nEx :\n\n*   Colombes, Balade dans le Vexin\n*   Massy, rencontre débat, le vélo et l'emploi.\n*   Paris, projection, le vélo au Japon\n*   Paris, marquage #Bicycode\n\n**Lieux et heures**\n\nêtre le plus précis possible.\n\n**Si contact pas d'adresse mail ou tel de bénévoles JAMAIS ** la solution ?\n\nEn lien hypertexte : lien vers la page contact de l'antenne ou de la perm sur le site MDB.\n\nTexte court (dire l'essentiel) mais lien vers l'article du site qui en parle.",
-          "complete": null,
-          "publication": null
+        "instructions": "**Ex de titre de l'événement :**\n\nVille, type d'action, thème.\n\nEx :\n\n*   Colombes, Balade dans le Vexin\n*   Massy, rencontre débat, le vélo et l'emploi.\n*   Paris, projection, le vélo au Japon\n*   Paris, marquage #Bicycode\n\n**Lieux et heures**\n\nêtre le plus précis possible.\n\n**Si contact pas d'adresse mail ou tel de bénévoles JAMAIS ** la solution ?\n\nEn lien hypertexte : lien vers la page contact de l'antenne ou de la perm sur le site MDB.\n\nTexte court (dire l'essentiel) mais lien vers l'article du site qui en parle.",
+        "complete": null,
+        "publication": null
       },
       "useFields": true
-  },
+    },
     "translation": {
       "enabled": false,
       "source": "fr",
@@ -57,10 +54,7 @@
     }
   },
   "summary": {
-    "keywords": [
-      "Paris",
-      "Île-de-France"
-    ],
+    "keywords": ["Paris", "Île-de-France"],
     "publishedEvents": {
       "current": 0,
       "passed": 1,
@@ -102,11 +96,7 @@
     "fields": [
       {
         "field": "member",
-        "read": [
-          "administrator",
-          "moderator",
-          "internal"
-        ],
+        "read": ["administrator", "moderator", "internal"],
         "label": {
           "fr": "Membre",
           "en": "Member",
@@ -303,13 +293,7 @@
         "allowURL": true,
         "allowPath": true,
         "imageWithSizeAndVariants": true,
-        "extensions": [
-          "jpg",
-          "bmp",
-          "png",
-          "jpeg",
-          "webp"
-        ],
+        "extensions": ["jpg", "bmp", "png", "jpeg", "webp"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -694,14 +678,8 @@
               "field": "uid",
               "fieldType": "integer",
               "optional": false,
-              "read": [
-                "internal",
-                "public",
-                "list"
-              ],
-              "write": [
-                "internal"
-              ],
+              "read": ["internal", "public", "list"],
+              "write": ["internal"],
               "label": {
                 "en": "Id",
                 "fr": "Identifiant",
@@ -715,25 +693,15 @@
               "fieldType": "integer",
               "optional": true,
               "default": null,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ]
+              "read": ["internal", "public"],
+              "write": ["internal"]
             },
             {
               "field": "slug",
               "fieldType": "text",
               "optional": false,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ],
+              "read": ["internal", "public"],
+              "write": ["internal"],
               "max": 100
             },
             {
@@ -1170,40 +1138,22 @@
               "field": "timezone",
               "optional": true,
               "fieldType": "text",
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal",
-                "administrator",
-                "moderator",
-                "contributor"
-              ]
+              "read": ["internal", "public"],
+              "write": ["internal", "administrator", "moderator", "contributor"]
             },
             {
               "field": "updatedAt",
               "optional": false,
               "fieldType": "date",
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ]
+              "read": ["internal", "public"],
+              "write": ["internal"]
             },
             {
               "field": "createdAt",
               "optional": false,
               "fieldfieldType": "date",
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ]
+              "read": ["internal", "public"],
+              "write": ["internal"]
             },
             {
               "field": "image",
@@ -1402,10 +1352,7 @@
                 "contributor"
               ],
               "default": 0,
-              "options": [
-                0,
-                1
-              ]
+              "options": [0, 1]
             },
             {
               "field": "imageCredits",
@@ -1430,10 +1377,7 @@
               "field": "imageRightsAreHeld",
               "optional": true,
               "fieldType": "text",
-              "read": [
-                "internal",
-                "public"
-              ],
+              "read": ["internal", "public"],
               "write": [
                 "internal",
                 "administrator",
@@ -1446,16 +1390,8 @@
               "field": "extId",
               "optional": true,
               "fieldType": "text",
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal",
-                "administrator",
-                "moderator",
-                "contributor"
-              ]
+              "read": ["internal", "public"],
+              "write": ["internal", "administrator", "moderator", "contributor"]
             },
             {
               "field": "duplicateCandidates",
@@ -1465,14 +1401,8 @@
               },
               "default": null,
               "optional": true,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal",
-                "contributor"
-              ]
+              "read": ["internal", "public"],
+              "write": ["internal", "contributor"]
             },
             {
               "field": "disqualifiedDuplicates",
@@ -1482,27 +1412,16 @@
               },
               "default": null,
               "optional": true,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal",
-                "contributor"
-              ]
+              "read": ["internal", "public"],
+              "write": ["internal", "contributor"]
             },
             {
               "field": "mergedIn",
               "fieldType": "integer",
               "optional": true,
               "default": null,
-              "read": [
-                "internal",
-                "public"
-              ],
-              "write": [
-                "internal"
-              ]
+              "read": ["internal", "public"],
+              "write": ["internal"]
             }
           ],
           "schemaId": "location"
@@ -1524,10 +1443,7 @@
         "optional": false,
         "enableWith": {
           "field": "attendanceMode",
-          "value": [
-            2,
-            3
-          ]
+          "value": [2, 3]
         },
         "schemaId": null,
         "schemaType": "event"
@@ -1639,9 +1555,7 @@
         "field": "uid",
         "fieldType": "integer",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -1649,9 +1563,7 @@
         "field": "slug",
         "fieldType": "text",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -1659,18 +1571,14 @@
         "field": "private",
         "fieldType": "boolean",
         "default": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "timezone",
         "fieldType": "text",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -1678,45 +1586,35 @@
         "field": "draft",
         "fieldType": "boolean",
         "default": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "createdAt",
         "fieldType": "date",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "creatorUid",
         "fieldType": "integer",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "ownerUid",
         "fieldType": "integer",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "updatedAt",
         "fieldType": "date",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -1724,18 +1622,14 @@
         "field": "agendaUid",
         "fieldType": "integer",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
       {
         "field": "fileKey",
         "fieldType": "text",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -1743,9 +1637,7 @@
         "field": "locationUid",
         "fieldType": "integer",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       },
@@ -1753,9 +1645,7 @@
         "field": "links",
         "fieldType": "pass",
         "optional": true,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null,
         "schemaType": "event"
       }

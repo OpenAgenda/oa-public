@@ -7,7 +7,7 @@ const loadCustom = require('./loadCustom');
 const loadWidget = require('./loadWidget');
 
 const fieldSchema = (fieldName, { data }) =>
-  data.root.agenda.schema.fields.find(v => v.field === fieldName);
+  data.root.agenda.schema.fields.find((v) => v.field === fieldName);
 
 function loadHelpers(hbs) {
   return {
@@ -27,4 +27,4 @@ function loadHelpers(hbs) {
 
 module.exports = loadHelpers;
 
-module.exports.register = hbs => hbs.registerHelper(loadHelpers(hbs));
+module.exports.register = (hbs) => hbs.registerHelper(loadHelpers(hbs));

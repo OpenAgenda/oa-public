@@ -54,7 +54,7 @@ export default ({ sourceSchema }) => {
         options: AttendanceOptions,
       };
     }
-    return sourceSchema.fields.find(v => v.field === chosenFieldName);
+    return sourceSchema.fields.find((v) => v.field === chosenFieldName);
   }, [sourceSchema, chosenFieldName]);
 
   useIsomorphicLayoutEffect(() => {
@@ -69,7 +69,7 @@ export default ({ sourceSchema }) => {
 
   const ChoiceValuesOptions = useMemoOne(() => {
     if (chosenField?.options) {
-      return chosenField.options.map(v => ({
+      return chosenField.options.map((v) => ({
         value: v.id,
         label: getLocaleValue(v.label, intl.locale),
       }));

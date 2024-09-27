@@ -26,16 +26,27 @@ describe('02 - event search - functional: clear a set', () => {
   beforeAll(async () => {
     await service('bdx2clear').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(fs.readFileSync(`${__dirname}/fixtures/applied/bordeaux-metropole.${lastId}.${limit}.json`)),
+        JSON.parse(
+          fs.readFileSync(
+            `${__dirname}/fixtures/applied/bordeaux-metropole.${lastId}.${limit}.json`,
+          ),
+        ),
     });
     await service('bd20202notCleared').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(fs.readFileSync(`${__dirname}/fixtures/applied/bd2020.${lastId}.${limit}.json`)),
+        JSON.parse(
+          fs.readFileSync(
+            `${__dirname}/fixtures/applied/bd2020.${lastId}.${limit}.json`,
+          ),
+        ),
     });
   });
 
   beforeAll(async () => {
-    const response = await service('bdx2clear').search({ state: null }, { size: 0 });
+    const response = await service('bdx2clear').search(
+      { state: null },
+      { size: 0 },
+    );
 
     totalBefore = response.total;
 
@@ -53,7 +64,10 @@ describe('02 - event search - functional: clear a set', () => {
   });
 
   test('events of neighboring set are not affected', async () => {
-    const { total } = await service('bd20202notCleared').search({ state: null }, { size: 0 });
+    const { total } = await service('bd20202notCleared').search(
+      { state: null },
+      { size: 0 },
+    );
 
     expect(total).toBeGreaterThan(0);
   });

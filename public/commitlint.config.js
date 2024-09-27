@@ -17,7 +17,7 @@ async function getPackages(context) {
     .toString('utf-8')
     .trimEnd()
     .split('\n')
-    .map(line => JSON.parse(line));
+    .map((line) => JSON.parse(line));
 
   return workspaces
     .filter(({ location }) => {
@@ -34,13 +34,13 @@ module.exports = {
   rules: {
     'header-max-length': [0],
     'subject-case': [0],
-    'scope-enum': async ctx => {
+    'scope-enum': async (ctx) => {
       const packages = await getPackages(ctx);
       return [2, 'always', packages];
     },
   },
   ignores: [
-    commit => /^(Merge commit (.*?))(?:\r?\n)*$/m.test(commit),
-    commit => /^(Split '(.*?)' into commit (.*?))(?:\r?\n)*$/m.test(commit),
+    (commit) => /^(Merge commit (.*?))(?:\r?\n)*$/m.test(commit),
+    (commit) => /^(Split '(.*?)' into commit (.*?))(?:\r?\n)*$/m.test(commit),
   ],
 };

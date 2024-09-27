@@ -1,39 +1,39 @@
-import React from 'react';
 import { IntlProvider } from 'react-intl';
-import {
-  Switch, Route, Link, useRouteMatch
-} from 'react-router-dom';
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { loadable, useConstant, useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
 import locales from '../locales-compiled';
 
 const AnnouncementManager = loadable(
-  () => import(
-    /* webpackChunkName: "supervisor-AnnouncementManager" */
-    './AnnouncementManager'
-  ),
-  { ssr: false }
+  () =>
+    import(
+      /* webpackChunkName: "supervisor-AnnouncementManager" */
+      './AnnouncementManager'
+    ),
+  { ssr: false },
 );
 
 const Elasticsearch = loadable(
-  () => import(
-    /* webpackChunkName: "supervisor-Elasticsearch" */
-    './Elasticsearch'
-  ),
-  { ssr: false }
+  () =>
+    import(
+      /* webpackChunkName: "supervisor-Elasticsearch" */
+      './Elasticsearch'
+    ),
+  { ssr: false },
 );
 
 function App({ user }) {
   const { lang } = useLayoutData();
   const queryClient = useConstant(
-    () => new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
         },
-      },
-    })
+      }),
   );
 
   const { path, url } = useRouteMatch();
@@ -69,9 +69,7 @@ function App({ user }) {
                       </Link>
                     </li>
                     <li>
-                      <a href={`${normalizedPath}/bullboard`}>
-                        Bullboard
-                      </a>
+                      <a href={`${normalizedPath}/bullboard`}>Bullboard</a>
                     </li>
                   </ul>
                 </div>

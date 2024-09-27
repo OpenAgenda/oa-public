@@ -1,16 +1,14 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
 const config = {
   knex: null, // required
-  schema: 'network'
+  schema: 'network',
 };
 
-module.exports = _.assign( config, { init } );
-
-function init( c ) {
-
+function init(c) {
   config.knex = c.knex;
-
 }
+
+module.exports = _.assign(config, { init });

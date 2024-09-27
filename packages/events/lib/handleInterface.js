@@ -1,6 +1,6 @@
 'use strict';
 
-const { promisify } = require('util');
+const { promisify } = require('node:util');
 const log = require('@openagenda/logs')('lib/handleInterface');
 
 module.exports = async ({ interfaces }, interfaceName, ...args) => {
@@ -8,11 +8,13 @@ module.exports = async ({ interfaces }, interfaceName, ...args) => {
     return;
   }
 
-  const fn = interfaces?.[interfaceName]?.callback ? promisify(interfaces?.[interfaceName]) : interfaces?.[interfaceName];
+  const fn = interfaces?.[interfaceName]?.callback
+    ? promisify(interfaces?.[interfaceName])
+    : interfaces?.[interfaceName];
 
   try {
     return fn(...args);
   } catch (e) {
     log.error(e);
   }
-}
+};

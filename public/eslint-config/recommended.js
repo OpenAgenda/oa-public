@@ -36,7 +36,6 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     // 'space-in-parens': [ 'error', 'always' ],
     'max-len': ['off', 80],
-    'arrow-parens': ['error', 'as-needed'],
     'function-call-argument-newline': 'error',
     'object-curly-newline': [
       'error',
@@ -130,18 +129,13 @@ module.exports = {
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
     'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
 
-    'jsx-a11y/label-has-for': [
-      'error',
-      {
-        required: 'id',
-      },
-    ],
     'jsx-a11y/label-has-associated-control': [
       'error',
       {
         labelComponents: ['label'],
         labelAttributes: ['htmlFor'],
         controlComponents: ['Field', 'input', 'textarea', 'select'],
+        depth: 3,
       },
     ],
 
@@ -174,27 +168,13 @@ module.exports = {
         ],
         'no-shadow': 'off',
         '@typescript-eslint/no-shadow': 'error',
-        'no-extra-parens': 'off',
-        '@typescript-eslint/no-extra-parens': [
-          'error',
-          'all',
-          {
-            ignoreJSX: 'all',
-            nestedBinaryExpressions: false,
-            enforceForArrowConditionals: false,
-            conditionalAssign: false,
-          },
-        ],
-        'react/require-default-props': 'off'
+        'react/require-default-props': 'off',
       },
     },
     {
       files: ['*.mjs'],
       rules: {
-        'import/extensions': [
-          'error',
-          'ignorePackages',
-        ],
+        'import/extensions': ['error', 'ignorePackages'],
         'unicorn/prefer-module': ['error'],
       },
     },

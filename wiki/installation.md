@@ -10,16 +10,15 @@ Needed to complete the installation.
 
 ### System
 
- 1. ubuntu 14.04 LTS ( clean install with ubuntu as user with sudo access, 16GB storage available ) with an internet access
- 2. A bitbucket account with access to OA repos ( accessible on a laptop connected to the internet )
- 3. Access to npm account - required as long as repositories are not opensourced
- 4. Have signed certificates handy. OR, an account on cacert.org - only required if certificates need to be signed during installation procedure
- 5. A domain that points to the IP address of the server. The configuration of an http server is part of the procedure. If none is provided, the server should at least be accessible from the internet.
+1.  ubuntu 14.04 LTS ( clean install with ubuntu as user with sudo access, 16GB storage available ) with an internet access
+2.  A bitbucket account with access to OA repos ( accessible on a laptop connected to the internet )
+3.  Access to npm account - required as long as repositories are not opensourced
+4.  Have signed certificates handy. OR, an account on cacert.org - only required if certificates need to be signed during installation procedure
+5.  A domain that points to the IP address of the server. The configuration of an http server is part of the procedure. If none is provided, the server should at least be accessible from the internet.
 
 A note: Items 2, 3, 4 will be provided by OpenAgenda for test installation in client premises.
 
 Installation procedure describes installation of mysql, redis, php, nodejs, elasticsearch 1.3 & 5.3 on an ubuntu 14.04 lts machine
-
 
 ### Third-party service accounts
 
@@ -27,28 +26,28 @@ Installation procedure describes installation of mysql, redis, php, nodejs, elas
 
 Thes services are necessary for the platform to function
 
- * **AWS S3** : ( Monthly cost ~ 10€ ) - Static file/website hosting service. Images uploaded on the platform are stored on an s3 bucket.
- * **geocode farm** : ( Monthly cost ~ 100€ ) - Geocoding service. Used for localising locations when users type in their addresses during a location edit / create operation .
- * **mailgun** : an account key is required
- * **Google captcha**: ( Basic usage. Free ) Used for account creation. Prevents bots from creating accounts
+- **AWS S3** : ( Monthly cost ~ 10€ ) - Static file/website hosting service. Images uploaded on the platform are stored on an s3 bucket.
+- **geocode farm** : ( Monthly cost ~ 100€ ) - Geocoding service. Used for localising locations when users type in their addresses during a location edit / create operation .
+- **mailgun** : an account key is required
+- **Google captcha**: ( Basic usage. Free ) Used for account creation. Prevents bots from creating accounts
 
 #### Secondary services
 
 These are not necessary but provide useful features to the platform users and administrators
 
- * **Iframely** : ( Monthly cost: ~ 20€ ) Service that provides a unified api to fetch oembed codes matching given multimedia content urls. Used for links placed in the description texts of events. [https://iframely.com/](website)
- * **Mapbox**: ( Low usage. Free ) Used for rendering static map images that are added to event email renders. [website](https://www.mapbox.com/)
- * **Logentries**: ( Monthly cost: ~ 40€ ) For logs. Provides a powerful logs search engine. [website](https://docs.logentries.com/docs/security)
- * **Sentry**: ( Low usage. Free ) For client logs. [website](https://sentry.io/privacy/)
- * **Pipedrive**: ( N/A ) For sales.
- * **Google analytics**: ( Basic usage. Free ) Site traffic statistics
- * **Google apps**: ( Basic usage. Free ) Used for authentication through a google account.
- * **Facebook app**: ( Basic usage. Free ) Used for authentication through a facebook account.
- * **Sendinblue**: ( 19€/month ) Tool for sending newsletters. Integration allows the integration of a newsletter input field for new subscribers
- * **Twitter account**: ( Free ) Used for authentication through a twitter account
- * **Bitbucket**: Free. ( with an access to the openagenda repo ): Git repo hosting service where all OpenAgenda repositories are stored. [website](https://bitbucket.org)
- * **Zendesk**: Helpdesk platform used for user support. Use is deprecated.
- * **Npm**: ( 7€ monthly ) An access to the [openagenda](https://www.npmjs.com/org/openagenda) organization is required in the event repos are not publicly available.
+- **Iframely** : ( Monthly cost: ~ 20€ ) Service that provides a unified api to fetch oembed codes matching given multimedia content urls. Used for links placed in the description texts of events. [https://iframely.com/](website)
+- **Mapbox**: ( Low usage. Free ) Used for rendering static map images that are added to event email renders. [website](https://www.mapbox.com/)
+- **Logentries**: ( Monthly cost: ~ 40€ ) For logs. Provides a powerful logs search engine. [website](https://docs.logentries.com/docs/security)
+- **Sentry**: ( Low usage. Free ) For client logs. [website](https://sentry.io/privacy/)
+- **Pipedrive**: ( N/A ) For sales.
+- **Google analytics**: ( Basic usage. Free ) Site traffic statistics
+- **Google apps**: ( Basic usage. Free ) Used for authentication through a google account.
+- **Facebook app**: ( Basic usage. Free ) Used for authentication through a facebook account.
+- **Sendinblue**: ( 19€/month ) Tool for sending newsletters. Integration allows the integration of a newsletter input field for new subscribers
+- **Twitter account**: ( Free ) Used for authentication through a twitter account
+- **Bitbucket**: Free. ( with an access to the openagenda repo ): Git repo hosting service where all OpenAgenda repositories are stored. [website](https://bitbucket.org)
+- **Zendesk**: Helpdesk platform used for user support. Use is deprecated.
+- **Npm**: ( 7€ monthly ) An access to the [openagenda](https://www.npmjs.com/org/openagenda) organization is required in the event repos are not publicly available.
 
 Account identifiers for thes services are to be set in the configuration files associated with this installation procedure.
 
@@ -81,12 +80,12 @@ Install utilities
 
 Configure php 1: make the following changes to /etc/php5/fpm/php.ini
 
- * change memory limit: `memory_limit = 512M`
- * change max upload file size: `upload_max_filesize = 12M`
+- change memory limit: `memory_limit = 512M`
+- change max upload file size: `upload_max_filesize = 12M`
 
 Configure php 2: make the following changes to /etc/php5/fpm/pool.d/www.conf
 
- * change listen: `listen = 127.0.0.1:9000`
+- change listen: `listen = 127.0.0.1:9000`
 
 Install [nvm](https://github.com/creationix/nvm)
 
@@ -121,7 +120,6 @@ Install java
     sudo apt-get install openjdk-8-jdk
 
     java -version
-
 
 ### Database
 
@@ -161,14 +159,13 @@ Tweak configuration by following the [official documentation](https://www.elasti
 
 1. Change the heap size. On a dedicated ES server, half of available memory is recommended:
 
-  Edit `/etc/init.d/elasticsearch`, uncomment the ES_HEAP_SIZE and adjust the value
+Edit `/etc/init.d/elasticsearch`, uncomment the ES_HEAP_SIZE and adjust the value
 
 2. Reduce swappiness
 
-  Add `vm.swappiness=1` in `/etc/sysctl.conf`
+Add `vm.swappiness=1` in `/etc/sysctl.conf`
 
 When data is already loaded in Elasticsearch, the service may take a while to boot up before being operational ( particularly for write operations )
-
 
 ### Elasticsearch 5.3
 
@@ -211,7 +208,6 @@ Create log&lib folders:
     sudo chown ubuntu:elasticsearch /var/lib/elasticsearch-5.3.0
     sudo chmod 775 /var/lib/elasticsearch-5.3.0
 
-
 And phantom config folder, for some reason elasticsearch needs it but does not include it:
 
     cd /usr/share/elasticsearch-5.3.0/config
@@ -223,8 +219,6 @@ https://www.elastic.co/guide/en/elasticsearch/reference/5.3/heap-size.html
 Run ES 5.3 as a process
 
     cd /usr/share/elasticsearch-5.3.0 && sudo -H -u elasticsearch bash -c './bin/elasticsearch -d -p /tmp/pid'
-
-
 
 ### Redis server
 
@@ -267,7 +261,7 @@ Create a www directory
     mkdir www
     cd www
 
->> access bitbucket
+> > access bitbucket
 
 Clone cibul-node, cibul-symfony and cibul-templates repos
 
@@ -280,7 +274,6 @@ Clone cibul-node, cibul-symfony and cibul-templates repos
     mv oa/packages/cibul-node ./
     mkdir tmp/front && mv oa/packages/cibul-templates tmp/front/cibul-templates
     rm -rf oa
-
 
 Install node projects dependencies
 
@@ -308,7 +301,6 @@ Create the certificate sign request ( csr )
 
 Log on to CACert and post the csr. The signed certificate will be given to you on submission of the csr. Place it in the crt file in the .ssh folder.
 
-
 Edit ~/www/nginx/openagenda.com and set the new certificate path
 
 Update domain entries in the file.
@@ -318,8 +310,6 @@ Remove the final 301 section.
 Restart the nginx process
 
     sudo service nginx restart
-
-
 
 ### OpenAgenda applications configuration
 
@@ -337,21 +327,19 @@ First edit the domain.js file in `www/tmp/front/cibul-templates` at the root of 
 
 Copy the production configuration file: set all production values in the file `config/cibul-node.config.js` associated with this guide and place the file here `www/cibul-node/config/prod.js`
 
-
 #### php application
 
 The php application is being deprecated. It is built on top the symfony 1.4 framework and requires a functional node app to be running. The php legacy app relies on the nodejs app for authorization, logging and access to an increasing number of data configurations.
 
- * Copy the production configuration file: set all production values in the file `config/cibul-symfony.config.yml` associated with this guide and place the file here `www/cibul-symfony/config/app.yml`
- * Copy database configuration file: set db parameters in the file `config/symfony.db.yml` and place the file here: `www/cibul-symfony/config/databases.yml`
- * A cache folder must be write-accessible to the php user ( www-data ) at the path `/home/ubuntu/tmp/cibul-cache`. Likewise for logs, the path is `/home/ubuntu/tmp/cibul-log`. The path can be changed in the file `/config/ProjectConfiguration.class.php`.
+- Copy the production configuration file: set all production values in the file `config/cibul-symfony.config.yml` associated with this guide and place the file here `www/cibul-symfony/config/app.yml`
+- Copy database configuration file: set db parameters in the file `config/symfony.db.yml` and place the file here: `www/cibul-symfony/config/databases.yml`
+- A cache folder must be write-accessible to the php user ( www-data ) at the path `/home/ubuntu/tmp/cibul-cache`. Likewise for logs, the path is `/home/ubuntu/tmp/cibul-log`. The path can be changed in the file `/config/ProjectConfiguration.class.php`.
 
 #### php api application
 
- * Copy the production configuration file: set all production values in the file `config/cibulapi-symfony.config.yml` associated with this guide and place the file here `www/cibulapi-symfony/apps/frontend/config/app.yml`
- * Copy database configuration file: set db parameters in the file `config/symfony.db.yml` ( same file as before ) and place the file here: `www/cibulapi-symfony/config/databases.yml`
- * Cache and logs folders must be ready at the paths `/home/ubuntu/tmp/cibulapi-cache` and `/home/ubuntu/tmp/cibulapi-log` respectively
-
+- Copy the production configuration file: set all production values in the file `config/cibulapi-symfony.config.yml` associated with this guide and place the file here `www/cibulapi-symfony/apps/frontend/config/app.yml`
+- Copy database configuration file: set db parameters in the file `config/symfony.db.yml` ( same file as before ) and place the file here: `www/cibulapi-symfony/config/databases.yml`
+- Cache and logs folders must be ready at the paths `/home/ubuntu/tmp/cibulapi-cache` and `/home/ubuntu/tmp/cibulapi-log` respectively
 
 ### Launch the application
 
@@ -390,7 +378,6 @@ There is one index per agenda. Existing agendas need their location index rebuil
 If the location admin page of the agenda is {agenda}/admin/locations, add /resync at the end: {agenda}/admin/locations/resync
 
 At this stage configure your dns zone file so that they point to the IP of the server.
-
 
 ### Defining super-administrators
 
@@ -465,9 +452,9 @@ Otherwise, the nginx log can provide useful information: `/var/logs/nginx/errors
 
 Images displayed on event, agenda and user pages are stored in S3. Their names are stored in the respective object tables:
 
- * agenda -> review table, image field
- * user -> user table, image field
- * event -> event table, image field
+- agenda -> review table, image field
+- user -> user table, image field
+- event -> event table, image field
 
 Agenda images have 2 variant. One for the main image, the other for thumbails: these keep the same name and are prefixed with 'rwtb'
 
@@ -483,7 +470,6 @@ Thumbnail and full:
     https://cibul.s3.amazonaws.com/evfevent_manege-allee-sainte-lucie_108_483345.jpg
 
 3 loops ( review, user and event ), with 2 fetches for agendas, 1 for users and 3 for events. Images are optional and fields are at null when no image is associated.
-
 
 ### Tweaking the email application
 
@@ -508,13 +494,11 @@ If mails cannot be sent with smtp, a configuration change can be brought in conf
 
 The mails service provides a detailed documentation to change the configuration: [https://github.com/OpenAgenda/oa-public/tree/main/mails#configuration](https://github.com/OpenAgenda/oa-public/tree/main/mails#configuration)
 
-
 ## References
 
- * Elasticsearch installation: https://www.elastic.co/guide/en/elasticsearch/reference/1.3/setup.html
-
+- Elasticsearch installation: https://www.elastic.co/guide/en/elasticsearch/reference/1.3/setup.html
 
 ## Changelog
 
- * 24/08 - details on initialisation of search indices after install, troubleshoot tips for php app, superadmin definition, guidelines for writing a thorough download script for event, agenda and user images, changing the email service, this changelog
- * 05/08 - redis server configuration details in case of remote, troubleshoot info for elasticsearch 1.3
+- 24/08 - details on initialisation of search indices after install, troubleshoot tips for php app, superadmin definition, guidelines for writing a thorough download script for event, agenda and user images, changing the email service, this changelog
+- 05/08 - redis server configuration details in case of remote, troubleshoot info for elasticsearch 1.3

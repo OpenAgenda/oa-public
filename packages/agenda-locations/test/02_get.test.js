@@ -5,10 +5,7 @@ const _ = require('lodash');
 const Files = require('@openagenda/files');
 
 const Service = require('..');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('./testconfig');
+const { service: config, dependencies: dConfig } = require('./testconfig');
 
 const fixtures = require('./fixtures');
 
@@ -25,17 +22,18 @@ describe('agenda-locations - functional - get', () => {
       Files: Files(dConfig.files),
       imagePath: '//cibuldev.s3.amazonaws.com/',
       interfaces: {
-        getAgendaDetailsByUid: async (uid, fields = []) => _.pick(
-          {
-            id: {
-              7196947: 25221,
-            }[uid],
-            locationSetUid: {
-              7196947: 1903810,
-            }[uid],
-          },
-          fields,
-        ),
+        getAgendaDetailsByUid: async (uid, fields = []) =>
+          _.pick(
+            {
+              id: {
+                7196947: 25221,
+              }[uid],
+              locationSetUid: {
+                7196947: 1903810,
+              }[uid],
+            },
+            fields,
+          ),
         getEventCounts: async (/* locationUids, { agendaUid } */) => [
           {
             uid: 60763721,
@@ -58,7 +56,10 @@ describe('agenda-locations - functional - get', () => {
             title: 'BLIBLI',
           },
         ],
-        getAgendaUidsByIds: async agendaId => ({ uid: 789327189, id: agendaId }),
+        getAgendaUidsByIds: async (agendaId) => ({
+          uid: 789327189,
+          id: agendaId,
+        }),
       },
     });
   });
@@ -83,9 +84,13 @@ describe('agenda-locations - functional - get', () => {
     });
 
     it('duplicates candidates && disqualified are in result', () => {
-      expect({ duplicateCandidates: location.duplicateCandidates, disqualifiedDuplicates: location.disqualifiedDuplicates }).toStrictEqual(
-        { duplicateCandidates: [51665986], disqualifiedDuplicates: [5] },
-      );
+      expect({
+        duplicateCandidates: location.duplicateCandidates,
+        disqualifiedDuplicates: location.disqualifiedDuplicates,
+      }).toStrictEqual({
+        duplicateCandidates: [51665986],
+        disqualifiedDuplicates: [5],
+      });
     });
     it('admin lvl1', () => {
       expect(location.adminLevel1).toBe('Auvergne-Rhône-Alpes');
@@ -96,42 +101,30 @@ describe('agenda-locations - functional - get', () => {
   });
 
   describe('deleted', () => {
-    it(
-      'soft-deleted location is not accessible through get by default',
-      async () => {
-        const location = await svc.get(7630652);
-        expect(location).toBeNull();
-      },
-    );
+    it('soft-deleted location is not accessible through get by default', async () => {
+      const location = await svc.get(7630652);
+      expect(location).toBeNull();
+    });
 
-    it(
-      'soft-deleted location is accessible through get with option deleted:true',
-      async () => {
-        const location = await svc.get(7630652, { deleted: true });
-        expect(location.uid).toBe(7630652);
-      },
-    );
+    it('soft-deleted location is accessible through get with option deleted:true', async () => {
+      const location = await svc.get(7630652, { deleted: true });
+      expect(location.uid).toBe(7630652);
+    });
 
-    it(
-      'Not soft-deleted location is not accessible through get with option deleted:true',
-      async () => {
-        const location = await svc.get(51665987, { deleted: true });
-        expect(location).toBeNull();
-      },
-    );
+    it('Not soft-deleted location is not accessible through get with option deleted:true', async () => {
+      const location = await svc.get(51665987, { deleted: true });
+      expect(location).toBeNull();
+    });
 
     it('soft-deleted location is accessible through get with option deleted:null', async () => {
       const location = await svc.get(7630652, { deleted: null });
       expect(location.uid).toBe(7630652);
     });
 
-    it(
-      'Not soft-deleted location is accessible through get with option deleted:null',
-      async () => {
-        const location = await svc.get(51665987, { deleted: null });
-        expect(location.uid).toBe(51665987);
-      },
-    );
+    it('Not soft-deleted location is accessible through get with option deleted:null', async () => {
+      const location = await svc.get(51665987, { deleted: null });
+      expect(location.uid).toBe(51665987);
+    });
   });
 
   describe('set', () => {
@@ -177,56 +170,43 @@ describe('agenda-locations - functional - get', () => {
       expect(location.name).toBe('Grotte Chauvet 2 - Ardèche');
     });
 
-    it(
-      'if throwOnNotFound option is true, throws NotFound when location is not found',
-      async () => {
-        let error;
-        try {
-          await svc.get(67894564878453456, { throwOnNotFound: true });
-        } catch (e) {
-          error = e;
-        }
-        expect(error.code).toBe(404);
-      },
-    );
+    it('if throwOnNotFound option is true, throws NotFound when location is not found', async () => {
+      let error;
+      try {
+        await svc.get(67894564878453456, { throwOnNotFound: true });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.code).toBe(404);
+    });
 
-    it(
-      'if getEventCounts interface is set and eventCount option is true, location includes interface-provided event counts',
-      async () => {
-        const location = await svc(7196947).get(60763721, {
-          eventCounts: true,
-        });
+    it('if getEventCounts interface is set and eventCount option is true, location includes interface-provided event counts', async () => {
+      const location = await svc(7196947).get(60763721, {
+        eventCounts: true,
+      });
 
-        expect(location.eventCount).toBe(12);
-        expect(location.agendaEventCount).toBe(8);
-      },
-    );
+      expect(location.eventCount).toBe(12);
+      expect(location.agendaEventCount).toBe(8);
+    });
 
-    it(
-      'when includeImagePath is provided, image path is in image value',
-      async () => {
-        const { image } = await svc.get(51665987, { includeImagePath: true });
+    it('when includeImagePath is provided, image path is in image value', async () => {
+      const { image } = await svc.get(51665987, { includeImagePath: true });
 
-        expect(image.split('/').length).toBeGreaterThan(1);
-      },
-    );
+      expect(image.split('/').length).toBeGreaterThan(1);
+    });
 
-    it(
-      'when includeFields is set and includes "agendaUid", agendaUid key is in result',
-      async () => {
-        const l = await svc.get(51665987, { includeFields: ['agendaUid'] });
-        expect(l.agendaUid).toBe(789327189);
-      },
-    );
+    it('when includeFields is set and includes "agendaUid", agendaUid key is in result', async () => {
+      const l = await svc.get(51665987, { includeFields: ['agendaUid'] });
+      expect(l.agendaUid).toBe(789327189);
+    });
 
-    it(
-      'fix: when includeImagePath is provided but location has no image, path is not added',
-      async () => {
-        const { image } = await svc(7196947).get(86591143, { includeImagePath: true });
+    it('fix: when includeImagePath is provided but location has no image, path is not added', async () => {
+      const { image } = await svc(7196947).get(86591143, {
+        includeImagePath: true,
+      });
 
-        expect(image).toBe(null);
-      },
-    );
+      expect(image).toBe(null);
+    });
 
     it('if extId is stored in store, it is loaded', async () => {
       const { extId } = await svc.get(87202261);
@@ -234,23 +214,25 @@ describe('agenda-locations - functional - get', () => {
       expect(extId).toBe('ard_leg_01');
     });
 
-    it(
-      'agenda identifiers must be provided when agenda endpoint is used',
-      async () => {
-        let error;
-        try {
-          await svc().get(60763721);
-        } catch (e) {
-          error = e;
-        }
-        expect(error.name).toBe('BadRequest');
-        expect(error.message).toBe('agenda identifier is missing');
-      },
-    );
+    it('agenda identifiers must be provided when agenda endpoint is used', async () => {
+      let error;
+      try {
+        await svc().get(60763721);
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('BadRequest');
+      expect(error.message).toBe('agenda identifier is missing');
+    });
 
     it('when includeLinkedAgendas is provided', async () => {
-      const { linkedAgendas } = await svc.get(87202261, { includeLinkedAgendas: true });
-      expect(linkedAgendas).toStrictEqual([{ uid: 100000, title: 'BLABLA' }, { uid: 200000, title: 'BLIBLI' }]);
+      const { linkedAgendas } = await svc.get(87202261, {
+        includeLinkedAgendas: true,
+      });
+      expect(linkedAgendas).toStrictEqual([
+        { uid: 100000, title: 'BLABLA' },
+        { uid: 200000, title: 'BLIBLI' },
+      ]);
     });
 
     it('when returnMergeTarget is provided', async () => {

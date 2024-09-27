@@ -17,19 +17,27 @@ function getImageSrc(src, updatedAt) {
 export default function AgendaItem({ agenda, targetAgenda, event }) {
   const isDev = process.env.NODE_ENV === 'development';
 
-  const imageSrc = targetAgenda.image ? getImageSrc(targetAgenda.image, targetAgenda.updatedAt) : null;
+  const imageSrc = targetAgenda.image
+    ? getImageSrc(targetAgenda.image, targetAgenda.updatedAt)
+    : null;
 
   return (
-    <Link href={`/${targetAgenda.slug}/contribute?agendaUid=${agenda.uid}&eventUid=${event.uid}`}>
+    <Link
+      href={`/${targetAgenda.slug}/contribute?agendaUid=${agenda.uid}&eventUid=${event.uid}`}
+    >
       <HStack>
         <Image
           rounded="full"
           width="40"
           height="40"
           src={imageSrc || graylogo140}
-          fallbackSrc={isDev && typeof imageSrc === 'string'
-            ? imageSrc.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')
-            : undefined}
+          fallbackSrc={
+            isDev && typeof imageSrc === 'string'
+              ? imageSrc
+                .replace('cibuldev', 'cibul')
+                .replace('images-', 'imagesdev-')
+              : undefined
+          }
           alt=""
           draggable={false}
           loader={imageSrc ? keyCDNLoader : null}

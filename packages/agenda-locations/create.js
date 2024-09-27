@@ -28,15 +28,16 @@ async function create(service, data, options = {}) {
 
   await authorize(service, 'create', null, options);
 
-  const { endpointId, includeImagePath, autocomplete } = cleanOptions(
-    options,
-  );
+  const { endpointId, includeImagePath, autocomplete } = cleanOptions(options);
 
   const clean = {
     ...validate(
-      autocomplete && isDataIncomplete(data) ? await service.decorateWithGeocodeData(data) : data,
+      autocomplete && isDataIncomplete(data)
+        ? await service.decorateWithGeocodeData(data)
+        : data,
     ),
-    uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
+    uid: await defineUnique(service, 'uid', () =>
+      Math.ceil(Math.random() * 99999999)),
     createdAt: new Date(),
     updatedAt: new Date(),
   };
@@ -44,10 +45,11 @@ async function create(service, data, options = {}) {
   clean.slug = await defineUnique(
     service,
     'slug',
-    () => `${slug(clean.name.substr(0, 90), {
-      lower: true,
-      strict: true,
-    })}_${Math.ceil(Math.random() * 9999999)}`,
+    () =>
+      `${slug(clean.name.substr(0, 90), {
+        lower: true,
+        strict: true,
+      })}_${Math.ceil(Math.random() * 9999999)}`,
   );
 
   if (endpointId.agendaUid) {
@@ -55,7 +57,7 @@ async function create(service, data, options = {}) {
       clean,
       await service.interfaces
         .getAgendaDetailsByUid(endpointId.agendaUid, ['id', 'locationSetUid'])
-        .then(a => ({
+        .then((a) => ({
           agendaId: a.id,
           setUid: a.locationSetUid,
         })),
@@ -91,10 +93,11 @@ async function create(service, data, options = {}) {
   return filterFieldsByAccess(clean);
 }
 
-module.exports.byAgendaUid = async (service, agendaUid, data, options = {}) => create(service, data, {
-  ...options,
-  endpointId: { agendaUid },
-});
+module.exports.byAgendaUid = async (service, agendaUid, data, options = {}) =>
+  create(service, data, {
+    ...options,
+    endpointId: { agendaUid },
+  });
 
 module.exports.bySetUid = async (service, setUid, data, options = {}) => {
   if (!await service.sets.get(setUid)) {

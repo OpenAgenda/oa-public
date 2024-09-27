@@ -4,11 +4,11 @@ import logs from '@openagenda/logs';
 const log = logs('services/registrations/ProcessPassPendingOffers');
 
 function isStillPending(data) {
-  return !data.filter(d => d.response?.isPending === false).length;
+  return !data.filter((d) => d.response?.isPending === false).length;
 }
 
 function isRejected(data) {
-  return data.filter(d => d.response?.isRejected === true).length;
+  return data.filter((d) => d.response?.isRejected === true).length;
 }
 
 function Enqueue({ queue, pendingConfig, tracker }) {
@@ -47,7 +47,7 @@ function task({ enqueue, services, registrations, queue }) {
 
   const worker = new bull.Worker(
     queue.name,
-    async job => {
+    async (job) => {
       if (job.name !== 'pendingOffer') {
         log.error('unknown job', job.name);
       }
@@ -83,7 +83,7 @@ function task({ enqueue, services, registrations, queue }) {
       ).passCulture;
 
       const passCultureData = (event?.registration ?? []).find(
-        r => r.service === 'passCulture',
+        (r) => r.service === 'passCulture',
       )?.data;
 
       const applied = await passCultureService.apply(event, passCultureData);
@@ -109,7 +109,7 @@ function task({ enqueue, services, registrations, queue }) {
       await core.agendas(agendaUid).events.patch(
         eventUid,
         {
-          registration: event.registration.map(r =>
+          registration: event.registration.map((r) =>
             (r.service === 'passCulture'
               ? {
                 ...r,
@@ -135,7 +135,7 @@ function task({ enqueue, services, registrations, queue }) {
     },
   );
 
-  worker.on('error', failedReason => log.error('error', failedReason));
+  worker.on('error', (failedReason) => log.error('error', failedReason));
   worker.on('failed', (job, error) =>
     log.error(job.name, 'failed', job.data, error));
   // worker.on('active', job => {});

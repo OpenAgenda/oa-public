@@ -1,6 +1,6 @@
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Form } from 'react-final-form';
 import * as statsActions from '../reducers/stats';
 import getDefaultStatConfig from '../common/defaultStatConfigs';
@@ -23,7 +23,7 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
   const enableAddChartMode = useCallback(() => setAddChartMode(true), []);
   const onCancel = useCallback(() => setAddChartMode(false), []);
   const addChart = useCallback(
-    async values => {
+    async (values) => {
       if (!values.type) {
         return;
       }
@@ -76,7 +76,7 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
 
       setAddChartMode(false);
     },
-    [agenda, dispatch]
+    [agenda, dispatch],
   );
 
   return (

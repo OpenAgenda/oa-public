@@ -1,3 +1,5 @@
+'use strict';
+
 const { defineMessages } = require('react-intl');
 
 module.exports = defineMessages({
@@ -23,7 +25,8 @@ module.exports = defineMessages({
   },
   movedOnlineInfo: {
     id: 'common.event.statuses.movedOnlineInfo',
-    defaultMessage: 'The event will no longer be attended to at a physical location',
+    defaultMessage:
+      'The event will no longer be attended to at a physical location',
   },
   postponed: {
     id: 'common.event.statuses.postponed',

@@ -25,7 +25,7 @@ describe('07 - removeSource', () => {
         },
         aggregatorAgenda,
         1,
-        { evaluate: true }
+        { evaluate: true },
       );
     });
 
@@ -59,7 +59,7 @@ describe('07 - removeSource', () => {
             const json = getJSON(
               `fixtures/removeSource/listEventReferences${
                 loops > 0 ? 'Empty' : ''
-              }`
+              }`,
             );
 
             loops += 1;
@@ -69,7 +69,7 @@ describe('07 - removeSource', () => {
           enqueueRemove: tracker('enqueueRemove'),
         },
         123,
-        456
+        456,
       );
     });
 
@@ -79,8 +79,8 @@ describe('07 - removeSource', () => {
 
     test('enqueueRemove is called for each event', () => {
       expect(
-        tracker.calls.slice(1, 21).filter(c => c.name === 'enqueueRemove')
-          .length
+        tracker.calls.slice(1, 21).filter((c) => c.name === 'enqueueRemove')
+          .length,
       ).toBe(20);
     });
   });

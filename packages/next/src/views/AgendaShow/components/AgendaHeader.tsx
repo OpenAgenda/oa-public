@@ -1,7 +1,17 @@
 import qs from 'qs';
 import { defineMessages, useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
-import { Stack, VStack, Text, Wrap, Button, Heading, useDisclosure, NoBreak, Link } from '@openagenda/uikit';
+import {
+  Stack,
+  VStack,
+  Text,
+  Wrap,
+  Button,
+  Heading,
+  useDisclosure,
+  NoBreak,
+  Link,
+} from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
 import { faEnvelope, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { faShareNodes } from '@fortawesome/pro-regular-svg-icons';
@@ -85,8 +95,14 @@ export default function AgendaHeader({ agenda }) {
 
   const [cookies] = useCookies();
   const sessionUser = getSession(cookies)?.user;
-  const contactHref = hrefWithLang(`/${agenda.slug}/contact`, sessionUser ? null : intl.locale);
-  const contributeHref = hrefWithLang(`/${agenda.slug}/contribute`, sessionUser ? null : intl.locale);
+  const contactHref = hrefWithLang(
+    `/${agenda.slug}/contact`,
+    sessionUser ? null : intl.locale,
+  );
+  const contributeHref = hrefWithLang(
+    `/${agenda.slug}/contribute`,
+    sessionUser ? null : intl.locale,
+  );
 
   const updatedTs = new Date(agenda.updatedAt).getTime();
 
@@ -186,16 +202,23 @@ export default function AgendaHeader({ agenda }) {
           >
             {intl.formatMessage(messages.aggregate)}
           </Button>
-          <Button as={Link} href={contributeHref} leftIcon={<FontAwesomeIcon icon={faPlus} />} colorScheme="primary">
+          <Button
+            as={Link}
+            href={contributeHref}
+            leftIcon={<FontAwesomeIcon icon={faPlus} />}
+            colorScheme="primary"
+          >
             {intl.formatMessage(messages.addEvent)}
           </Button>
         </Wrap>
       </VStack>
 
       {exportIsOpen ? (
-        <ExportModal isOpen onClose={exportOnClose} agendaUid={agenda.uid} agendaTitle={agenda.title} />
+        <ExportModal isOpen onClose={exportOnClose} agenda={agenda} />
       ) : null}
-      {aggregateIsOpen ? <AggregateModal isOpen onClose={aggregateOnClose} agenda={agenda} /> : null}
+      {aggregateIsOpen ? (
+        <AggregateModal isOpen onClose={aggregateOnClose} agenda={agenda} />
+      ) : null}
     </Stack>
   );
 }

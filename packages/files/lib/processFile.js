@@ -1,7 +1,7 @@
 'use strict';
 
-const fs = require('fs');
-const { PassThrough } = require('stream');
+const fs = require('node:fs');
+const { PassThrough } = require('node:stream');
 const FileType = require('file-type');
 const isStream = require('is-stream');
 const VError = require('@openagenda/verror');
@@ -50,9 +50,7 @@ function extractStreamAndContext(data) {
   // from multer
   if (!isStream(file) && file.path) {
     const stream = fs.createReadStream(file.path);
-    const {
-      fieldname, originalname, encoding, mimetype
-    } = file;
+    const { fieldname, originalname, encoding, mimetype } = file;
 
     const context = {
       fieldname,
@@ -123,7 +121,7 @@ module.exports = async function processFile(
   data,
   options,
   context,
-  returnRegistry
+  returnRegistry,
 ) {
   // Get file's stream and context
   const [fileStream, fileContext] = extractStreamAndContext(data);
@@ -137,7 +135,7 @@ module.exports = async function processFile(
 
   if (!provider) {
     throw new Error(
-      `Provider '${providerKey}' is not configured or does not exist`
+      `Provider '${providerKey}' is not configured or does not exist`,
     );
   }
 
@@ -164,7 +162,7 @@ module.exports = async function processFile(
       key: variant.key,
       provider: providerKey,
       revert: () => provider.remove(response.filename),
-      abort: error => abortUpload(response, error),
+      abort: (error) => abortUpload(response, error),
     };
 
     variantsRegistry.set(variant, response);
@@ -175,34 +173,34 @@ module.exports = async function processFile(
         .then(async () => {
           response.filename = await variant.getFilename(response, ctx);
 
+          response.existedBefore = await provider.exists(response.filename);
+
           if (typeof variant.transform === 'function') {
             response.stream = await variant.transform(response, ctx);
           }
 
           const variantStream = response.stream.pipe(pass);
 
-          response.existedBefore = await provider.exists(response.filename);
-
           const managedUpload = provider.upload(
             variantStream,
             response.filename,
-            ctx.providerParams
+            ctx.providerParams,
           );
 
-          response.abort = error => {
+          response.abort = (error) => {
             managedUpload.abort();
             return abortUpload(response, error);
           };
 
           return managedUpload.promise();
         })
-        .then(result => {
+        .then((result) => {
           response.uploadStatus = 'fulfilled';
           response.uploadValue = result;
 
           return response;
         })
-        .catch(error => {
+        .catch((error) => {
           response.uploadStatus = 'rejected';
           response.uploadReason = error;
 
@@ -213,13 +211,12 @@ module.exports = async function processFile(
         })
         .finally(() => {
           pass.destroy();
-        })
+        }),
     );
   }
 
-  const ret = (!Array.isArray(options.variants)
-    ? promises[0]
-    : Promise.all(promises)
+  const ret = (
+    !Array.isArray(options.variants) ? promises[0] : Promise.all(promises)
   ).finally(() => {
     info.stream.destroy();
     fileStream.destroy();
@@ -232,7 +229,7 @@ module.exports = async function processFile(
     };
   }
 
-  return ret.catch(async error => {
+  return ret.catch(async (error) => {
     await abortAllVariants(variantsRegistry, error);
 
     throw error;

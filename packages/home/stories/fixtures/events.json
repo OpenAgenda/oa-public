@@ -14,10 +14,7 @@
         "fr": "Rejoignez-nous pour redonner une nouvelle jeunesse à une mare, un moment convivial auquel toute la famille est conviée !\n\nN'oubliez pas votre panier repas à partager !\n\nAmenez vos bottes, sécateurs et gants."
       },
       "keywords": {
-        "fr": [
-          "mare",
-          "environnement"
-        ]
+        "fr": ["mare", "environnement"]
       },
       "conditions": {
         "fr": "Gratuit -  sur inscription auprès de Myriam Tamine"
@@ -73,10 +70,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "mtamine@agglo-lisieux.fr",
-        "0779429440"
-      ],
+      "registration": ["mtamine@agglo-lisieux.fr", "0779429440"],
       "references": [],
       "links": [],
       "fileKey": null,
@@ -134,12 +128,7 @@
         "fr": "Avec l’association Contes Vallée d’Auge"
       },
       "keywords": {
-        "fr": [
-          "conte",
-          "lecture jeunesse",
-          "lecture",
-          "jeunesse"
-        ]
+        "fr": ["conte", "lecture jeunesse", "lecture", "jeunesse"]
       },
       "conditions": {
         "fr": "gratuit - entrée libre"
@@ -232,9 +221,7 @@
         "website": "https://www.mediatheque-livarot.fr/",
         "email": "mediatheque-livarot@agglo-lisieux.fr",
         "phone": "06 67 60 68 24",
-        "links": [
-          "https://www.facebook.com/mediathequelivarot/"
-        ],
+        "links": ["https://www.facebook.com/mediathequelivarot/"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
@@ -762,12 +749,7 @@
         "fr": "Avec un guide du Pôle Muséal venez découvrir le travail de Norman Rockwell, né à New York le 3 février 1894 et mort\n\nle 8 novembre 1978 à Stockbridge (Massachusetts). Il est un\n\nillustrateur américain, peintre figuratif de la vie américaine, il\n\nest célèbre pour avoir illustré de 1916 à 1963 les couvertures\n\ndu magazine Saturday Evening Post. Aux États-Unis, il est l’un\n\ndes artistes les plus populaires du 20e siècle."
       },
       "keywords": {
-        "fr": [
-          "Exposition",
-          "Norman Rockwell",
-          "Illustrateur",
-          "guide"
-        ]
+        "fr": ["Exposition", "Norman Rockwell", "Illustrateur", "guide"]
       },
       "conditions": {
         "fr": "Visite guidée gratuite"
@@ -887,12 +869,7 @@
         "fr": "Avec un guide du Pôle Muséal venez découvrir le travail de Norman Rockwell, né à New York le 3 février 1894 et mort\n\nle 8 novembre 1978 à Stockbridge (Massachusetts). Il est un\n\nillustrateur américain, peintre figuratif de la vie américaine, il\n\nest célèbre pour avoir illustré de 1916 à 1963 les couvertures\n\ndu magazine Saturday Evening Post. Aux États-Unis, il est l’un\n\ndes artistes les plus populaires du 20e siècle.\n\nTous les premiers dimanches du mois jusqu'en novembre !"
       },
       "keywords": {
-        "fr": [
-          "Exposition",
-          "Norman Rockwell",
-          "Illustrateur",
-          "guide"
-        ]
+        "fr": ["Exposition", "Norman Rockwell", "Illustrateur", "guide"]
       },
       "conditions": {
         "fr": "Visite guidée gratuite"
@@ -1262,10 +1239,7 @@
         "fr": "_**Papa ou maman 2**_, de Martin Bourboulon (2017, 86 min, à partir de 10 ans) : Deux ans ont passé. Après avoir raté leur séparation, les Leroy semblent parfaitement réussir leur divorce. Mais l’apparition de deux nouveaux amoureux dans la vie de Vincent et de Florence va mettre le feu aux\n\npoudres. Le match entre les ex-époux reprend. Victimes de cette nouvelle guerre entre deux papas et deux mamans, les enfants Leroy vont être obligés d’intervenir pour mettre fin à ce cercle infernal.\n\n« Un rythme soutenu, une mécanique bien huilée, des dialogues percutants et des situations rocambolesques : rien ne manque. » (Femme Actuelle)\n\n« Voilà une comédie avec ce qu’il faut de rires et de piques vachardes » (L’Express)"
       },
       "keywords": {
-        "fr": [
-          "cinéma",
-          "famille"
-        ]
+        "fr": ["cinéma", "famille"]
       },
       "conditions": {
         "fr": "Gratuit - entrée libre"
@@ -1384,10 +1358,7 @@
         "fr": "Les participants à l’atelier d’écriture vous proposent\n\nd’écouter leur travail à l’occasion d’une lecture\n\npublique, et d’échanger avec eux autour de la pratique\n\nde l’écriture. Et si c’était vous, l’année prochaine ? Avec\n\nBérénice Marie."
       },
       "keywords": {
-        "fr": [
-          "atelier d'écriture",
-          "lecture"
-        ]
+        "fr": ["atelier d'écriture", "lecture"]
       },
       "conditions": {
         "fr": "Gratuit"
@@ -1489,11 +1460,7 @@
         "fr": "Sur une île au large de la Nouvelle-Angleterre, au\n\ncoeur de l’été 1965, Suzy et Sam, douze ans, tombent\n\namoureux, concluent un pacte secret et s’enfuient\n\nensemble. Alors que chacun se mobilise pour les\n\nretrouver, une violente tempête s’approche des côtes\n\net va bouleverser davantage encore la vie de la\n\ncommunauté...\n\n« Un bien joli film, visible en famille » (La Croix)\n\n« Un moment de cinéma rare et gracile »\n\n(CinemaTeaser)"
       },
       "keywords": {
-        "fr": [
-          "cinéma",
-          "famille",
-          "jeune public"
-        ]
+        "fr": ["cinéma", "famille", "jeune public"]
       },
       "conditions": {
         "fr": "Gratuit"

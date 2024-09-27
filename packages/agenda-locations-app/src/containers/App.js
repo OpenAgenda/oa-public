@@ -1,4 +1,3 @@
-
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
@@ -9,19 +8,18 @@ import locales from '../locales-compiled';
 import mergeReducer from '../reducers/merge';
 import onGoingReducer from '../reducers/onGoingModal';
 
-function App({
-  route,
-}) {
+function App({ route }) {
   const parentQueryClient = useQueryClient();
   const queryClient = useConstant(
-    () => parentQueryClient
+    () =>
+      parentQueryClient
       || new QueryClient({
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
           },
         },
-      })
+      }),
   );
 
   const { lang } = useLayoutData();
@@ -40,10 +38,10 @@ function App({
   );
 }
 
-export default
-provideHooks({
-  inject: ({ store }) => store.inject({
-    merge: mergeReducer,
-    onGoing: onGoingReducer
-  }),
+export default provideHooks({
+  inject: ({ store }) =>
+    store.inject({
+      merge: mergeReducer,
+      onGoing: onGoingReducer,
+    }),
 })(App);

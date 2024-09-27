@@ -12,7 +12,8 @@ const messages = defineMessages({
   },
   unpublishWarning: {
     id: 'AgendaContribute.EventEdit.unpublishWarning',
-    defaultMessage: 'Carefull updating this event will unpublish it for moderators to review',
+    defaultMessage:
+      'Carefull updating this event will unpublish it for moderators to review',
   },
   unpublishWarningTitle: {
     id: 'AgendaContribute.EventEdit.unpublishWarningTitle',
@@ -39,39 +40,44 @@ function EventEditForm({
       role={memberRole}
       values={event}
       onSubmitSuccess={onSuccess}
-      actionComponents={[{
-        position: 'bottom',
-        Component: ({ onSubmit, loading }) => (
-          <>
-            {showModal ? (
-              <Modal
-                title={m(messages.unpublishWarningTitle)}
-                onClose={() => setShowModal(false)}
-              >
-                <div className="margin-bottom-md">{m(messages.unpublishWarning)}</div>
+      actionComponents={[
+        {
+          position: 'bottom',
+          Component: ({ onSubmit, loading }) => (
+            <>
+              {showModal ? (
+                <Modal
+                  title={m(messages.unpublishWarningTitle)}
+                  onClose={() => setShowModal(false)}
+                >
+                  <div className="margin-bottom-md">
+                    {m(messages.unpublishWarning)}
+                  </div>
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-block"
+                    disabled={loading}
+                    onClick={onSubmit}
+                  >
+                    {saveButtonLabel || m(messages.update)}
+                  </button>
+                </Modal>
+              ) : null}
+              <div className="wsq padding-all-md">
                 <button
                   type="button"
                   className="btn btn-primary btn-block"
                   disabled={loading}
-                  onClick={onSubmit}
-                >{saveButtonLabel || m(messages.update)}
+                  onClick={useSubmitModal ? () => setShowModal(true) : onSubmit}
+                >
+                  {saveButtonLabel || m(messages.update)}
                 </button>
-              </Modal>
-            ) : null}
-            <div className="wsq padding-all-md">
-              <button
-                type="button"
-                className="btn btn-primary btn-block"
-                disabled={loading}
-                onClick={useSubmitModal ? () => setShowModal(true) : onSubmit}
-              >
-                {saveButtonLabel || m(messages.update)}
-              </button>
-              {loading && <ButtonSpinner />}
-            </div>
-          </>
-        ),
-      }]}
+                {loading && <ButtonSpinner />}
+              </div>
+            </>
+          ),
+        },
+      ]}
     />
   );
 }

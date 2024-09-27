@@ -6,10 +6,7 @@ const logs = require('@openagenda/logs');
 
 const addListQuery = require('./lib/addListQuery');
 const addPaginationAndOrder = require('./lib/paginationAndOrder');
-const {
-  make: makeAfter,
-  include: includeAfterFields,
-} = require('./lib/after');
+const { make: makeAfter, include: includeAfterFields } = require('./lib/after');
 const addSelect = require('./lib/addSelect');
 const createStream = require('./lib/createStream');
 const validateNav = require('./lib/validateNav');
@@ -42,7 +39,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
     ? await k
       .clone()
       .count('id as total')
-      .then(r => r[0].total)
+      .then((r) => r[0].total)
     : null;
 
   log('total: %s', total);

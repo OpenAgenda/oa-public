@@ -11,9 +11,11 @@ async function sync(config, request) {
   if (!user) {
     return {
       success: false,
-      errors: [{
-        code: 'session.notfound',
-      }],
+      errors: [
+        {
+          code: 'session.notfound',
+        },
+      ],
     };
   }
 

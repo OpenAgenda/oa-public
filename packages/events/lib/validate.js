@@ -30,7 +30,7 @@ const eventCustomValidators = {
   description,
 };
 
-const publicFields = fields.filter(f => (f.write || []).includes('public'));
+const publicFields = fields.filter((f) => (f.write || []).includes('public'));
 
 const validate = {
   protected: new FormSchema({
@@ -45,11 +45,11 @@ const validate = {
 
 const draftValidate = {
   protected: new FormSchema({
-    fields: publicFields.map(f => ({ ...f, optional: true })),
+    fields: publicFields.map((f) => ({ ...f, optional: true })),
     custom: eventCustomValidators,
   }).getValidate(),
   unprotected: new FormSchema({
-    fields: fields.map(f => ({ ...f, optional: true })),
+    fields: fields.map((f) => ({ ...f, optional: true })),
     custom: eventCustomValidators,
   }).getValidate(),
 };

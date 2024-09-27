@@ -104,9 +104,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -216,9 +214,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "jotaboulet@orange.fr"
-      ],
+      "registration": ["jotaboulet@orange.fr"],
       "location": {
         "uid": 9994565,
         "slug": "ambierle-salle-de-sport",
@@ -252,9 +248,7 @@
       "tarif": "2 € (gratuit pour les moins de 12 ans)",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -366,9 +360,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "01 86 63 13 10"
-      ],
+      "registration": ["01 86 63 13 10"],
       "location": {
         "uid": 30769022,
         "slug": "fontenay-aux-roses298",
@@ -402,12 +394,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -534,10 +522,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "03 88 81 49 47",
-        "courdesboecklin@ville-bischheim.fr"
-      ],
+      "registration": ["03 88 81 49 47", "courdesboecklin@ville-bischheim.fr"],
       "location": {
         "uid": 85330043,
         "slug": "cour-des-boecklin430",
@@ -571,12 +556,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Cycle de rencontres \"Quand la BD décrypte...\"",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -918,9 +899,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Rock This Town, cinéma Le Méliès de Pau",
       "type-de-structure": 623,
@@ -1076,9 +1055,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -1232,17 +1209,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Association Bande de Bulles",
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "872010687",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1348,9 +1321,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "mediatheque@ville-suresnes.fr"
-      ],
+      "registration": ["mediatheque@ville-suresnes.fr"],
       "location": {
         "uid": 48365289,
         "slug": "suresnes913",
@@ -1384,12 +1355,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -1500,9 +1467,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "01 47 84 85 46"
-      ],
+      "registration": ["01 47 84 85 46"],
       "location": {
         "uid": 21134583,
         "slug": "colombes619",
@@ -1536,12 +1501,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -1652,9 +1613,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "01 46 12 75 96"
-      ],
+      "registration": ["01 46 12 75 96"],
       "location": {
         "uid": 42011083,
         "slug": "montrouge980",
@@ -1688,12 +1647,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
       "type-de-structure": 621,
       "si-autre-precisez": null,

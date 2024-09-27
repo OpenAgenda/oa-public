@@ -11,27 +11,33 @@ export default function validateRelatedField({ categories, related }, data) {
   if (relatedFieldName && !data[relatedFieldName]) {
     throw new BadRequest({
       info: {
-        errors: [{
-          message: `${relatedFieldName} is required`,
-          code: `registration.pass.${relatedFieldName}.required`,
-          label: 'Une sous-catégorie doit être définie',
-          field: relatedFieldName,
-        }],
+        errors: [
+          {
+            message: `${relatedFieldName} is required`,
+            code: `registration.pass.${relatedFieldName}.required`,
+            label: 'Une sous-catégorie doit être définie',
+            field: relatedFieldName,
+          },
+        ],
       },
     });
   }
 
-  const matchingOption = getRelatedFieldOptions(related, relatedFieldName).find(({ value }) => value === data[relatedFieldName]);
+  const matchingOption = getRelatedFieldOptions(related, relatedFieldName).find(
+    ({ value }) => value === data[relatedFieldName],
+  );
 
   if (!matchingOption) {
     throw new BadRequest({
       info: {
-        errors: [{
-          message: `${relatedFieldName} is invalid`,
-          code: `registration.pass.${relatedFieldName}.invalid`,
-          label: 'Une sous-catégorie valide doit être définie',
-          field: relatedFieldName,
-        }],
+        errors: [
+          {
+            message: `${relatedFieldName} is invalid`,
+            code: `registration.pass.${relatedFieldName}.invalid`,
+            label: 'Une sous-catégorie valide doit être définie',
+            field: relatedFieldName,
+          },
+        ],
       },
     });
   }

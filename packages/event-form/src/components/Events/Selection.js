@@ -13,43 +13,46 @@ export default function Selection({ res, value, lang, onChange }) {
   const m = useIntl().formatMessage;
 
   useEffect(() => {
-    const identifiers = [].concat(value).filter(v => !!v);
+    const identifiers = [].concat(value).filter((v) => !!v);
 
     if (!identifiers.length) {
       return;
     }
     setIsLoading(true);
 
-    fetch(`${res}?${qs.stringify({
-      uid: identifiers,
-      state: [0, 1, 2],
-      includeFields,
-    })}`).then(r => {
+    fetch(
+      `${res}?${qs.stringify({
+        uid: identifiers,
+        state: [0, 1, 2],
+        includeFields,
+      })}`,
+    ).then((r) => {
       setIsLoading(false);
       if (!r.ok) {
         setErrored(true);
         return;
       }
-      r.json().then(data => {
+      r.json().then((data) => {
         setEvents(data.events);
       });
     });
   }, [res, value]);
 
-  const onRemove = useCallback(uidToRemove => {
-    const filteredSelection = events.filter(e => e.uid !== uidToRemove);
-    setEvents(filteredSelection);
-    onChange(filteredSelection.map(e => e.uid));
-  }, [events, onChange]);
+  const onRemove = useCallback(
+    (uidToRemove) => {
+      const filteredSelection = events.filter((e) => e.uid !== uidToRemove);
+      setEvents(filteredSelection);
+      onChange(filteredSelection.map((e) => e.uid));
+    },
+    [events, onChange],
+  );
 
   if (isLoading) {
     return <Spinner />;
   }
 
   if (errored) {
-    return (
-      <p>{m(messages.loadError)}</p>
-    );
+    return <p>{m(messages.loadError)}</p>;
   }
 
   if (!events.length) {
@@ -62,12 +65,9 @@ export default function Selection({ res, value, lang, onChange }) {
 
   return (
     <ul className="list-unstyled">
-      {events.map(event => (
+      {events.map((event) => (
         <li className="margin-v-sm" key={`selected-event-${event.uid}`}>
-          <EventItem
-            event={event}
-            lang={lang}
-          >
+          <EventItem event={event} lang={lang}>
             <a
               href={`/events/${event.slug}`}
               target="_blank"

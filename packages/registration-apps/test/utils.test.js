@@ -20,12 +20,14 @@ describe('utils', () => {
 
     test('passCulture item is placed in its own key', () => {
       expect(
-        spreadRegistrationValuesByService([{
-          type: 'link',
-          value: 'https://pass.culture.fr/offers/1234',
-          service: 'passCulture',
-          data: { stuff: 'test' },
-        }]),
+        spreadRegistrationValuesByService([
+          {
+            type: 'link',
+            value: 'https://pass.culture.fr/offers/1234',
+            service: 'passCulture',
+            data: { stuff: 'test' },
+          },
+        ]),
       ).toEqual({
         standard: [],
         passCulture: { stuff: 'test' },
@@ -33,13 +35,13 @@ describe('utils', () => {
     });
 
     test('invalid value is given "error" type', () => {
-      expect(
-        spreadRegistrationValuesByService(['schmilblick']),
-      ).toEqual({
-        standard: [{
-          type: 'error',
-          value: 'schmilblick',
-        }],
+      expect(spreadRegistrationValuesByService(['schmilblick'])).toEqual({
+        standard: [
+          {
+            type: 'error',
+            value: 'schmilblick',
+          },
+        ],
         passCulture: null,
       });
     });
@@ -49,25 +51,31 @@ describe('utils', () => {
     test('merges passCulture value with other values in single array', () => {
       expect(
         mergeSpreadRegistrationValues({
-          standard: [{
-            type: 'email',
-            value: 'name@domain.com',
-          }],
+          standard: [
+            {
+              type: 'email',
+              value: 'name@domain.com',
+            },
+          ],
           passCulture: {
             someParam: 'bisounours',
           },
         }),
-      ).toEqual([{
-        type: 'email',
-        value: 'name@domain.com',
-      }, {
-        type: 'link',
-        value: null,
-        service: 'passCulture',
-        data: {
-          someParam: 'bisounours',
+      ).toEqual([
+        {
+          type: 'email',
+          value: 'name@domain.com',
         },
-      }]);
+        {
+          type: 'link',
+          value: null,
+          service: 'passCulture',
+          data: {
+            someParam: 'bisounours',
+          },
+          lastProcessedAt: null,
+        },
+      ]);
     });
   });
 });

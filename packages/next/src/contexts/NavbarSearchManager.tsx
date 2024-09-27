@@ -19,12 +19,15 @@ function useNavbarSearchManager() {
     }
   }, [router.query, searchValue]);
 
-  return useMemo(() => ({
-    searchValue,
-    setSearchValue,
-    inputValue,
-    setInputValue,
-  }), [inputValue, searchValue]);
+  return useMemo(
+    () => ({
+      searchValue,
+      setSearchValue,
+      inputValue,
+      setInputValue,
+    }),
+    [inputValue, searchValue],
+  );
 }
 
 export function NavbarSearchProvider({ children }) {
@@ -44,9 +47,12 @@ export const useNavbarSearch = () => {
   const inputValue = context ? context.inputValue : localInputValue;
   const setInputValue = context ? context.setInputValue : setLocalInputValue;
 
-  return useMemo(() => ({
-    ...context,
-    inputValue,
-    setInputValue,
-  }), [context, inputValue, setInputValue]);
+  return useMemo(
+    () => ({
+      ...context,
+      inputValue,
+      setInputValue,
+    }),
+    [context, inputValue, setInputValue],
+  );
 };

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import qs from 'qs';
@@ -31,25 +31,27 @@ export default function Actions({
   const [displaySpreadsheetModal, setDisplaySpreadsheetModal] = useState(false);
 
   const toggleDocxModal = useMemo(
-    () => a11yButtonActionHandler(e => {
-      if (e) {
-        e.preventDefault();
-      }
+    () =>
+      a11yButtonActionHandler((e) => {
+        if (e) {
+          e.preventDefault();
+        }
 
-      setDisplayDocxModal(previous => !previous);
-    }),
-    []
+        setDisplayDocxModal((previous) => !previous);
+      }),
+    [],
   );
 
   const toggleSpreadsheetModal = useMemo(
-    () => a11yButtonActionHandler(e => {
-      if (e) {
-        e.preventDefault();
-      }
+    () =>
+      a11yButtonActionHandler((e) => {
+        if (e) {
+          e.preventDefault();
+        }
 
-      setDisplaySpreadsheetModal(previous => !previous);
-    }),
-    []
+        setDisplaySpreadsheetModal((previous) => !previous);
+      }),
+    [],
   );
 
   const queryString = qs.stringify(
@@ -57,7 +59,7 @@ export default function Actions({
     {
       addQueryPrefix: true,
       skipNulls: true,
-    }
+    },
   );
 
   return (

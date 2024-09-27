@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  Forbidden,
-} = require('@openagenda/verror');
+const { Forbidden } = require('@openagenda/verror');
 
 module.exports = async (service, action, identifier = null, options = {}) => {
   const settings = await service.getSettings(options);

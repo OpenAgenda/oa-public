@@ -15,10 +15,18 @@ export default function instanciate(data) {
 
   const svcInstance = {
     ...instance,
-    searchStream: () => { throw new Error('legacy searchStream is no longer available'); },
-    resync: () => { throw new Error('resync of legacy search is no longer available'); },
-    search: () => { throw new Error('legacy search is no longer available'); },
-    aggregate: () => { throw new Error('legacy aggregate search is no longer available'); },
+    searchStream: () => {
+      throw new Error('legacy searchStream is no longer available');
+    },
+    resync: () => {
+      throw new Error('resync of legacy search is no longer available');
+    },
+    search: () => {
+      throw new Error('legacy search is no longer available');
+    },
+    aggregate: () => {
+      throw new Error('legacy aggregate search is no longer available');
+    },
     events: {
       new: newEvent,
       list: instance.events.list,

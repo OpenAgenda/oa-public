@@ -11,24 +11,28 @@ type User = {
     id: string;
     kind: 'primary' | 'info' | 'success' | 'warning' | 'danger';
     content: string;
-  }
+  };
 };
 
 // TODO wrap getServerSideProps with withUserSsr (https://github.com/vvo/iron-session/blob/main/next/index.ts#L54)
 //   -> add req.session, getServerSideProps add the user to page props
 // TODO layout to getLayout(pageProps) to use user
 
-const fetcher = url => ky(url, {
-  hooks: {
-    afterResponse: [
-      (_request, _options, response) => {
-        if (response.status === 401) return new Response();
-      },
-    ],
-  },
-}).json();
+const fetcher = (url) =>
+  ky(url, {
+    hooks: {
+      afterResponse: [
+        (_request, _options, response) => {
+          if (response.status === 401) return new Response();
+        },
+      ],
+    },
+  }).json();
 
-export default function useUser({ redirectTo = null, redirectIfFound = false } = {}) {
+export default function useUser({
+  redirectTo = null,
+  redirectIfFound = false,
+} = {}) {
   // return typeof window !== 'undefined'
   //   ? session.getUser()
   //   : null;

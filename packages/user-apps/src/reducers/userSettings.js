@@ -1,4 +1,8 @@
-import { SubmissionError, change as changeFieldValue, reset as resetForm } from 'redux-form';
+import {
+  SubmissionError,
+  change as changeFieldValue,
+  reset as resetForm,
+} from 'redux-form';
 import toMixedMultipart from '@openagenda/utils/toMixedMultipart';
 
 const LOAD = 'user-apps/userSettings/LOAD';
@@ -16,17 +20,16 @@ const GENERATE_APIKEY_FAIL = 'user-apps/userSettings/GENERATE_APIKEY_FAIL';
 const DISPLAY_MODAL = 'user-apps/userSettings/DISPLAY_MODAL';
 const DISPLAY_MESSAGE = 'user-apps/userSettings/DISPLAY_MESSAGE';
 
+function getFormFirstErrors(validatorErrors) {
+  const errors = {};
 
-function getFormFirstErrors( validatorErrors ) {
-  let errors = {};
+  if (Array.isArray(validatorErrors)) {
+    const oneErrorPerField = validatorErrors.filter(
+      (e, i, a) => a.findIndex((_e) => e.field === _e.field) === i,
+    );
 
-  if ( Array.isArray(validatorErrors) ) {
-    let oneErrorPerField = validatorErrors.filter( ( e, i, a ) => {
-      return a.findIndex( _e => e.field === _e.field ) === i
-    } );
-
-    for ( let error of oneErrorPerField ) {
-      errors[ error.field ] = error.code;
+    for (const error of oneErrorPerField) {
+      errors[error.field] = error.code;
     }
   }
 
@@ -40,73 +43,73 @@ const initialState = {
   modal: {},
   successMessagesDisplayed: {
     updateProfile: false,
-    changePassword: false
-  }
+    changePassword: false,
+  },
 };
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOAD_SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        user: action.result
+        user: action.result,
       };
     case LOAD_FAIL:
       return {
         ...state,
         user: null,
         error: action.error,
-        loading: false
+        loading: false,
       };
     case UPDATE_USER_SUCCESS:
       return {
         ...state,
         user: {
           ...state.user,
-          ...action.result
-        }
+          ...action.result,
+        },
       };
     case GENERATE_APIKEY_SUCCESS:
       return {
         ...state,
         user: {
           ...state.user,
-          ...action.result
-        }
+          ...action.result,
+        },
       };
     case DISPLAY_MODAL:
       return {
         ...state,
-        modal: action.modal
+        modal: action.modal,
       };
     case DISPLAY_MESSAGE:
       return {
         ...state,
         successMessagesDisplayed: {
           ...state.successMessagesDisplayed,
-          [ action.name ]: action.visible
-        }
+          [action.name]: action.visible,
+        },
       };
     default:
       return state;
   }
 }
 
-export function isLoaded( globalState ) {
+export function isLoaded(globalState) {
   return globalState.userSettings && globalState.userSettings.loaded;
 }
 
 export function load() {
   return {
-    types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: async ( { client, history }, { getState, dispatch } ) => {
+    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    promise: async ({ client, history }, { getState, dispatch }) => {
       const { res, userSettings } = getState();
 
       const { fromUserApps } = history.location.state || {};
@@ -115,126 +118,136 @@ export function load() {
         return userSettings.user;
       }
 
-      const user = await client.get( res.getMe, {
-        params: {
-          $client: {
-            includeImagePath: true,
-            detailed: true
-          }
-        }
-      } );
-
-      dispatch( changeFieldValue( 'profileSettings', 'fullName', user.fullName ) );
-      dispatch( changeFieldValue( 'profileSettings', 'culture', user.culture ) );
-      // dispatch( changeFieldValue( 'emailSettings', 'newEmail', user.email ) );
-      dispatch( changeFieldValue( 'apiKeySettings', 'apiKey', user.apiKey ) );
-      dispatch( changeFieldValue( 'apiKeySettings', 'apiSecret', user.apiSecret ) );
-
-      return user;
-    }
-  };
-}
-
-export function displayMessage( name, visible ) {
-  return {
-    type: DISPLAY_MESSAGE,
-    name,
-    visible
-  };
-}
-
-export function displayModal( modal ) {
-  return {
-    type: DISPLAY_MODAL,
-    modal
-  }
-}
-
-export function updateUser( data = {} ) {
-  return {
-    types: [ UPDATE_USER, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL ],
-    promise: async ( { client }, { getState, dispatch } ) => {
-      const { res, userSettings } = getState();
-
-      try {
-        const result = await client.patch( res.updateProfile, toMixedMultipart(data), {
-          params: {
-            $client: {
-              includeImagePath: true,
-              detailed: true
-            }
-          }
-        } );
-
-        dispatch( displayMessage( 'updateProfile', true ) );
-        // if ( userSettings.user.culture !== result.culture ) {
-        //   location.reload();
-        // }
-        setTimeout( () => dispatch( displayMessage( 'updateProfile', false ) ), 2000 );
-
-        return result;
-      } catch ( error ) {
-        const errors = getFormFirstErrors( error.errors );
-
-        if ( Object.keys( errors ).length ) {
-          throw new SubmissionError( errors );
-        } else if ( error.message ) {
-          throw new SubmissionError( { _error: error.message } );
-        }
-      }
-    }
-  };
-}
-
-export function changePassword( data ) {
-  return {
-    types: [ CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAIL ],
-    promise: async ( { client }, { getState, dispatch } ) => {
-      const { res } = getState();
-
-      try {
-        const result = await client.patch( res.changePassword, data, {
-          params: {
-            $client: {
-              includeImagePath: true,
-              detailed: true
-            }
-          }
-        } );
-
-        dispatch( displayMessage( 'changePassword', true ) );
-        setTimeout( () => dispatch( displayMessage( 'changePassword', false ) ), 2000 );
-        dispatch( resetForm( 'passwordSettings' ) );
-
-        return result;
-      } catch ( error ) {
-        const errors = getFormFirstErrors( error.errors );
-
-        if ( Object.keys( errors ).length ) {
-          throw new SubmissionError( errors );
-        } else if ( error.message ) {
-          throw new SubmissionError( { _error: error.message } );
-        }
-      }
-    }
-  };
-}
-
-export function generateApiKey( secret ) {
-  return {
-    types: [ GENERATE_APIKEY, GENERATE_APIKEY_SUCCESS, GENERATE_APIKEY_FAIL ],
-    promise: async ( { client }, { getState } ) => {
-      const { res } = getState();
-
-      return client.get( res.generateApiKey, {
+      const user = await client.get(res.getMe, {
         params: {
           $client: {
             includeImagePath: true,
             detailed: true,
-            [ secret ? 'secretKey' : 'publicKey' ]: true
-          }
+          },
+        },
+      });
+
+      dispatch(changeFieldValue('profileSettings', 'fullName', user.fullName));
+      dispatch(changeFieldValue('profileSettings', 'culture', user.culture));
+      // dispatch( changeFieldValue( 'emailSettings', 'newEmail', user.email ) );
+      dispatch(changeFieldValue('apiKeySettings', 'apiKey', user.apiKey));
+      dispatch(changeFieldValue('apiKeySettings', 'apiSecret', user.apiSecret));
+
+      return user;
+    },
+  };
+}
+
+export function displayMessage(name, visible) {
+  return {
+    type: DISPLAY_MESSAGE,
+    name,
+    visible,
+  };
+}
+
+export function displayModal(modal) {
+  return {
+    type: DISPLAY_MODAL,
+    modal,
+  };
+}
+
+export function updateUser(data = {}) {
+  return {
+    types: [UPDATE_USER, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL],
+    promise: async ({ client }, { getState, dispatch }) => {
+      const { res } = getState();
+
+      try {
+        const result = await client.patch(
+          res.updateProfile,
+          toMixedMultipart(data),
+          {
+            params: {
+              $client: {
+                includeImagePath: true,
+                detailed: true,
+              },
+            },
+          },
+        );
+
+        dispatch(displayMessage('updateProfile', true));
+        // if ( userSettings.user.culture !== result.culture ) {
+        //   location.reload();
+        // }
+        setTimeout(
+          () => dispatch(displayMessage('updateProfile', false)),
+          2000,
+        );
+
+        return result;
+      } catch (error) {
+        const errors = getFormFirstErrors(error.errors);
+
+        if (Object.keys(errors).length) {
+          throw new SubmissionError(errors);
+        } else if (error.message) {
+          throw new SubmissionError({ _error: error.message });
         }
-      } );
-    }
+      }
+    },
+  };
+}
+
+export function changePassword(data) {
+  return {
+    types: [CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAIL],
+    promise: async ({ client }, { getState, dispatch }) => {
+      const { res } = getState();
+
+      try {
+        const result = await client.patch(res.changePassword, data, {
+          params: {
+            $client: {
+              includeImagePath: true,
+              detailed: true,
+            },
+          },
+        });
+
+        dispatch(displayMessage('changePassword', true));
+        setTimeout(
+          () => dispatch(displayMessage('changePassword', false)),
+          2000,
+        );
+        dispatch(resetForm('passwordSettings'));
+
+        return result;
+      } catch (error) {
+        const errors = getFormFirstErrors(error.errors);
+
+        if (Object.keys(errors).length) {
+          throw new SubmissionError(errors);
+        } else if (error.message) {
+          throw new SubmissionError({ _error: error.message });
+        }
+      }
+    },
+  };
+}
+
+export function generateApiKey(secret) {
+  return {
+    types: [GENERATE_APIKEY, GENERATE_APIKEY_SUCCESS, GENERATE_APIKEY_FAIL],
+    promise: async ({ client }, { getState }) => {
+      const { res } = getState();
+
+      return client.get(res.generateApiKey, {
+        params: {
+          $client: {
+            includeImagePath: true,
+            detailed: true,
+            [secret ? 'secretKey' : 'publicKey']: true,
+          },
+        },
+      });
+    },
   };
 }

@@ -13,12 +13,8 @@
       <mj-column>
         <mj-text align="center">
           <h2>
-            <%- __('body', {
-              agenda: _.escape(agenda),
-              event: _.escape(event),
-              b: chunks => `<b>${chunks}</b>`
-            })
-            %>
+            <%- __('body', { agenda: _.escape(agenda), event: _.escape(event),
+            b: chunks => `<b>${chunks}</b>` }) %>
           </h2>
         </mj-text>
 

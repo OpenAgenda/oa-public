@@ -2,15 +2,15 @@
 
 L'authentification d'un client via une clé ssl est utile dans les cas suivants:
 
- * Un cluster elasticsearch est accessible sur internet et contient des informations sensibles.
- * Limiter l'accès à une ressource aux membres de l'équipe OA, comme un site de dev, une page d'admin.
+- Un cluster elasticsearch est accessible sur internet et contient des informations sensibles.
+- Limiter l'accès à une ressource aux membres de l'équipe OA, comme un site de dev, une page d'admin.
 
 Pour y parvenir, nous créons une autorité de certification qui servira à signer les certificats client qui ont accès aux ressources protégées.
 
 Ce guide détaille:
 
- * La création de l'autorité de certification
- * La création d'un certificat client
+- La création de l'autorité de certification
+- La création d'un certificat client
 
 La structure de dossiers proposée pour gérer ces certificats est la suivante:
 
@@ -153,8 +153,6 @@ echo "-> clients/$1.p12"
 Vérifier le client à partir de l'autorité:
 
     openssl verify -verbose -CAfile certs/ca.crt clients/kaore.crt
-
-
 
 ## Astuces
 

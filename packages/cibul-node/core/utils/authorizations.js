@@ -9,7 +9,7 @@ const canPublish = (agenda, access) =>
       'moderators',
     ]
   )
-    .map(v => v.replace(/s$/, ''))
+    .map((v) => v.replace(/s$/, ''))
     .includes(access);
 
 function canRead(compareRoles, agendaEvent, event, member) {

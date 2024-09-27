@@ -5,16 +5,22 @@ import listReplyTos from './listReplyTos';
 import insertReplyTo from './insertReplyTo';
 
 export default function EmailUtils({ knex, schemas, mailsDomain }) {
-  return conversationId => ({
+  return (conversationId) => ({
     replyTos: {
       list: listReplyTos.bind(null, {
-        conversationId, knex, tableName: schemas.emailUtilsReplyTos,
+        conversationId,
+        knex,
+        tableName: schemas.emailUtilsReplyTos,
       }),
       insert: insertReplyTo.bind(null, {
-        conversationId, knex, tableName: schemas.emailUtilsReplyTos,
+        conversationId,
+        knex,
+        tableName: schemas.emailUtilsReplyTos,
       }),
       insertIfDifferent: insertReplyTo.ifDifferent.bind(null, {
-        conversationId, knex, tableName: schemas.emailUtilsReplyTos,
+        conversationId,
+        knex,
+        tableName: schemas.emailUtilsReplyTos,
       }),
     },
     messageIds: {
@@ -30,7 +36,9 @@ export default function EmailUtils({ knex, schemas, mailsDomain }) {
         tableName: schemas.emailUtilsMessageIds,
       }),
       list: listMessageIds.bind(null, {
-        conversationId, knex, tableName: schemas.emailUtilsMessageIds,
+        conversationId,
+        knex,
+        tableName: schemas.emailUtilsMessageIds,
       }),
     },
   });

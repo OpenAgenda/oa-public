@@ -10,10 +10,10 @@ function _decode(req, name) {
   if (!encoded) return decoded;
 
   try {
-    decoded = JSON.parse(
-      Buffer.from(encoded, 'base64').toString('utf8'),
-    );
-  } catch (e) { /* console.log(e) */ }
+    decoded = JSON.parse(Buffer.from(encoded, 'base64').toString('utf8'));
+  } catch (e) {
+    /* console.log(e) */
+  }
 
   return decoded;
 }
@@ -26,13 +26,19 @@ module.exports = (config, request, response) => {
   function clear() {
     if (typeof response.cookie !== 'function') return;
 
-    response.cookie(name, Buffer.from(JSON.stringify({}), 'utf8').toString('base64'), { maxAge: 1 });
+    response.cookie(
+      name,
+      Buffer.from(JSON.stringify({}), 'utf8').toString('base64'),
+      { maxAge: 1 },
+    );
   }
 
   function set(key, update) {
     _.set(values, key, update);
 
-    const encoded = Buffer.from(JSON.stringify(values), 'utf8').toString('base64');
+    const encoded = Buffer.from(JSON.stringify(values), 'utf8').toString(
+      'base64',
+    );
 
     request.cookies[name] = encoded;
 
@@ -40,7 +46,7 @@ module.exports = (config, request, response) => {
       maxAge: config.writableCookie.maxAge,
       secure: config.writableCookie.secure,
       sameSite: config.writableCookie.sameSite,
-      encode: str => str
+      encode: (str) => str,
     });
   }
 

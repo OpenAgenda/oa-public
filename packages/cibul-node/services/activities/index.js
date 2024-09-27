@@ -40,7 +40,7 @@ export async function init(config, services) {
       }
       : null,
     interfaces: {
-      getUser: uid => services.users.get(uid, { detailed: true }),
+      getUser: (uid) => services.users.get(uid, { detailed: true }),
       isUnsubscribed: () => false,
       prepareSummary,
       sendSummary: (...args) => sendSummary(config, services, ...args),

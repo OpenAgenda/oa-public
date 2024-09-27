@@ -8,24 +8,24 @@ Two main objects are needed for this library to create a generator: first a full
 
 Here is a little illustration:
 
-  const features = require( 'features' );
+const features = require( 'features' );
 
-  // generate the renderer
-  let renderer = features( {
-    templates: {
-      'basic': fs.readFileSync( __dirname + '/basic.pug', 'utf-8' )
-    },
-    features: [ {
-      key: 'agenda-contribution',
-      template: 'basic',
-      illustration: 'https://image.path.jpg',
-      title: 'Customize the contribution rules of your agenda'
-    } ]
-    themes: [ {
-      key: 'configuration',
-      features: [ 'agenda-contribution', 'iframe' ]
-    } ]
-  } );
+// generate the renderer
+let renderer = features( {
+templates: {
+'basic': fs.readFileSync( \_\_dirname + '/basic.pug', 'utf-8' )
+},
+features: [ {
+key: 'agenda-contribution',
+template: 'basic',
+illustration: 'https://image.path.jpg',
+title: 'Customize the contribution rules of your agenda'
+} ]
+themes: [ {
+key: 'configuration',
+features: [ 'agenda-contribution', 'iframe' ]
+} ]
+} );
 
-  // use it by providing the theme to render
-  let renderedTheme = renderer( 'configuration' );
+// use it by providing the theme to render
+let renderedTheme = renderer( 'configuration' );

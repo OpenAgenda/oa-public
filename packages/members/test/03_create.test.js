@@ -72,7 +72,7 @@ describe('members - functional - create', () => {
           agendaUid: 1,
           role: 1,
         },
-        { requireCustom: false }
+        { requireCustom: false },
       );
     } catch (e) {
       error = e;
@@ -96,7 +96,7 @@ describe('members - functional - create', () => {
         userUid: 1,
         role: 1,
       },
-      { requireCustom: false }
+      { requireCustom: false },
     );
 
     expect(result.errors).toHaveLength(0);
@@ -108,7 +108,7 @@ describe('members - functional - create', () => {
         agendaUid: 123,
         role: 1,
       },
-      { requireCustom: false }
+      { requireCustom: false },
     );
 
     expect(result.member.invited).toBe(true);
@@ -121,7 +121,7 @@ describe('members - functional - create', () => {
         userUid: 193,
         role: 1,
       },
-      { requireCustom: false }
+      { requireCustom: false },
     );
 
     expect(member.invited).toBe(false);

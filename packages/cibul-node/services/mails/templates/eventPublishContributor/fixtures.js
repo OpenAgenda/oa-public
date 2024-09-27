@@ -10,8 +10,10 @@ module.exports = {
   agendaTitle: 'test zi',
   eventTitle: 'Atelier de fabrication de bombe pour enfant',
   message: 'Hmm\n\nOK !',
-  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',
-  memberUnsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
+  unsubscribeLink:
+    'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',
+  memberUnsubscribeLink:
+    'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
   emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed',
   isRegisteredUser: true,
 };

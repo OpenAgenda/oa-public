@@ -34,7 +34,6 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
   const intl = useIntl();
 
   const upcomingOnly = !query.timings && query.passed !== '1';
-  const displaySearchFilter = !!filters.find(({ name }) => name === 'search');
 
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
@@ -86,13 +85,7 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
 
   return (
     <Form gap="8" mb={{ base: '0', lg: '12' }}>
-      {displaySearchFilter ? (
-        <Search
-          disabled={false}
-          isLoading={false}
-          mx={{ base: '4', lg: '0' }}
-        />
-      ) : null}
+      <Search disabled={false} isLoading={false} mx={{ base: '4', lg: '0' }} />
 
       <div>
         {/* Useful to remove gap for the drawer on mobile */}

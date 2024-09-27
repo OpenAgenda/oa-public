@@ -45,7 +45,7 @@ function ChartWrapper(
     className,
     children,
   },
-  ref
+  ref,
 ) {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -58,17 +58,17 @@ function ChartWrapper(
 
   const removeStat = useCallback(
     () => dispatch(statsActions.removeStat(stat.id)),
-    [dispatch, stat.id]
+    [dispatch, stat.id],
   );
   const startStatUpdate = useCallback(() => {
     statEditModal.open();
   }, [statEditModal]);
   const updateStat = useCallback(
-    values => {
+    (values) => {
       dispatch(statsActions.updateStat(stat.id, values));
       statEditModal.close();
     },
-    [dispatch, stat.id, statEditModal]
+    [dispatch, stat.id, statEditModal],
   );
 
   const titleMessage = useChartTitle(stat);
@@ -90,7 +90,7 @@ function ChartWrapper(
     }
 
     setLoading(true);
-    loadStat(stat.id, prevStat => ({
+    loadStat(stat.id, (prevStat) => ({
       ...prevStat,
       state: {
         ...prevStat.state,

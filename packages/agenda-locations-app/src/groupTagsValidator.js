@@ -10,11 +10,11 @@ import utils from '@openagenda/utils';
  *   - values relevent to the error ( optional )
  */
 
-const groupTagsValidator = set => {
+const groupTagsValidator = (set) => {
   const validateGroup = (group, values) => {
     if (!group.required) return;
-    const ids = (values || []).map(v => v.id);
-    if (!group.tags.filter(t => ids.indexOf(t.id) !== -1).length) {
+    const ids = (values || []).map((v) => v.id);
+    if (!group.tags.filter((t) => ids.indexOf(t.id) !== -1).length) {
       throw Error('a selection is required');
       /* [{
         field: set.field,
@@ -31,7 +31,7 @@ const groupTagsValidator = set => {
   const validate = (values, groupIndex) => {
     if (groupIndex !== undefined) return validateGroup(set.groups[groupIndex], values);
     let errors = [];
-    set.groups.forEach(group => {
+    set.groups.forEach((group) => {
       try {
         validateGroup(group, values);
       } catch (err) {

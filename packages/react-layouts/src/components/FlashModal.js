@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { Modal } from '@openagenda/react-shared';
 import session from '@openagenda/sessions/client';
@@ -9,7 +9,7 @@ export default function FlashModal() {
 
   const removeMessage = useCallback(
     () => setFlashMessage(null),
-    [setFlashMessage]
+    [setFlashMessage],
   );
 
   // On location change

@@ -21,7 +21,7 @@ function loadBy(agendasSvc, { path, field, target }) {
           includeImagePath: true,
         },
       )
-      .then(agenda => {
+      .then((agenda) => {
         if (!agenda) return next({ code: 404 });
         req[target || 'agenda'] = agenda;
         next();
@@ -53,7 +53,7 @@ function authorizeByKey(options) {
 }
 
 authorizeByKey.or = (orMw, options) => (req, res, next) => {
-  _authorizeByKey(options, req).then(authorized => {
+  _authorizeByKey(options, req).then((authorized) => {
     if (!authorized) {
       return express.Router({ mergeParams: true }).use(orMw)(req, res, next);
     }
@@ -136,7 +136,7 @@ function authorizeByIPAddress(options = {}) {
   };
 }
 
-export default agendasSvc => ({
+export default (agendasSvc) => ({
   load: loadBy.bind(
     null,
     agendasSvc,

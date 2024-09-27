@@ -6,10 +6,8 @@ export default function addStateField(agenda, locale) {
   const {
     schema,
     settings: {
-      contribution: {
-        defaultState,
-      }
-    }
+      contribution: { defaultState },
+    },
   } = agenda;
   const getLabel = makeLabelGetter(labels, locale);
 
@@ -20,19 +18,24 @@ export default function addStateField(agenda, locale) {
     info: getLabel('stateFieldInfo'),
     sub: getLabel('stateFieldSub'),
     default: defaultState,
-    options: [{
-      id: -1,
-      value: 'refused',
-    }, {
-      id: 0,
-      value: 'tocontrol',
-    }, {
-      id: 1,
-      value: 'controlled',
-    }, {
-      id: 2,
-      value: 'published',
-    }].map(o => ({
+    options: [
+      {
+        id: -1,
+        value: 'refused',
+      },
+      {
+        id: 0,
+        value: 'tocontrol',
+      },
+      {
+        id: 1,
+        value: 'controlled',
+      },
+      {
+        id: 2,
+        value: 'published',
+      },
+    ].map((o) => ({
       ...o,
       label: _.capitalize(getLabel(o.value)),
     })),

@@ -19,13 +19,13 @@ describe('08 - removeEvent', () => {
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
         unreferenceEvent: tracker('unreferenceEvent', { success: true }),
-        enqueueRemove: q => q,
+        enqueueRemove: (q) => q,
       },
       {
         aggregatorAgendaUid,
         event: { uid: eventUid },
         sourceAgendaUid,
-        log: r => r,
+        log: (r) => r,
       },
     );
 
@@ -49,7 +49,7 @@ describe('08 - removeEvent', () => {
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
         unreferenceEvent: tracker('unreferenceEvent', { success: true }),
-        enqueueRemove: q => q,
+        enqueueRemove: (q) => q,
       },
       {
         sourceAgendaUid: 71413881,
@@ -75,7 +75,7 @@ describe('08 - removeEvent', () => {
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
         unreferenceEvent: tracker('unreferenceEvent', { success: true }),
-        enqueueRemove: q => q,
+        enqueueRemove: (q) => q,
       },
       {
         sourceAgendaUid: 71413881,
@@ -106,13 +106,13 @@ describe('08 - removeEvent', () => {
           success: false,
           errors: ['error1'],
         }),
-        enqueueRemove: q => q,
+        enqueueRemove: (q) => q,
       },
       {
         sourceAgendaUid: 71413881,
         event: { uid: 1 },
         aggregatorAgendaUid: 123,
-        log: r => r,
+        log: (r) => r,
       },
     );
 

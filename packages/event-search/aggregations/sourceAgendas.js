@@ -17,4 +17,5 @@ module.exports.formatDSL = (query, options = {}) => ({
   },
 });
 
-module.exports.formatResult = result => _.get(result, 'sourceAgendas.buckets', []).map(parseAgendaBucket);
+module.exports.formatResult = (result) =>
+  _.get(result, 'sourceAgendas.buckets', []).map(parseAgendaBucket);

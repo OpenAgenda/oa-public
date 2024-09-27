@@ -13,9 +13,10 @@ if (ENV === 'production') {
   init({
     dsn: SENTRY_DSN,
     environment: ENV === 'production' ? 'production' : 'development',
-    integrations: integrations => [
-      ...integrations
-        .filter(({ name }) => !['OnUncaughtException', 'Modules'].includes(name)),
+    integrations: (integrations) => [
+      ...integrations.filter(
+        ({ name }) => !['OnUncaughtException', 'Modules'].includes(name),
+      ),
       new Integrations.OnUncaughtException({
         exitEvenIfOtherHandlersAreRegistered: false,
       }),

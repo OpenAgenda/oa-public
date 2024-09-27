@@ -8,16 +8,17 @@ import getStateSlug from './utils/getStateSlug.js';
 const log = logs('agendaEvents/sendEventAggregation');
 
 async function getCreatorInfo(services, { agenda, event, agendaEvent }) {
-  const {
-    agendas,
-    users: usersSvc,
-    members: membersSvc,
-  } = services;
+  const { agendas, users: usersSvc, members: membersSvc } = services;
 
-  const originAgenda = await agendas.get({
-    uid: event.agendaUid,
-  }, { private: null, internal: true, includeImagePath: true });
-  const creatorUser = await usersSvc.findOne({ query: { uid: event.creatorUid } });
+  const originAgenda = await agendas.get(
+    {
+      uid: event.agendaUid,
+    },
+    { private: null, internal: true, includeImagePath: true },
+  );
+  const creatorUser = await usersSvc.findOne({
+    query: { uid: event.creatorUid },
+  });
 
   if (!creatorUser) {
     return {
@@ -41,14 +42,9 @@ async function getCreatorInfo(services, { agenda, event, agendaEvent }) {
 }
 
 export default async ({ config, services }, { agendaEvent, context }) => {
-  const {
-    root,
-  } = config;
+  const { root } = config;
 
-  const {
-    mails,
-    members: membersSvc,
-  } = services;
+  const { mails, members: membersSvc } = services;
 
   log('processing');
   const { sourceAgenda, agenda, event } = context;
@@ -60,14 +56,15 @@ export default async ({ config, services }, { agendaEvent, context }) => {
 
   const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
 
-  const {
-    creator,
-    creatorUser,
-    visibleForCreator,
-  } = await getCreatorInfo(services, { agenda, event, agendaEvent });
+  const { creator, creatorUser, visibleForCreator } = await getCreatorInfo(
+    services,
+    { agenda, event, agendaEvent },
+  );
 
   const creatorIsInDestination = creatorUser
-    && members.includes(member => member.user && member.user.uid !== creatorUser.uid);
+    && members.includes(
+      (member) => member.user && member.user.uid !== creatorUser.uid,
+    );
 
   if (creatorIsInDestination || visibleForCreator) {
     const creatorLang = creatorUser.culture || 'fr';
@@ -80,7 +77,8 @@ export default async ({ config, services }, { agendaEvent, context }) => {
           {
             rule: ['receive', 'myEventAggregation'],
             dataPath: 'unsubscribeLink',
-          }, {
+          },
+          {
             memberId: creator.id,
             rule: ['receive', 'myEventAggregation'],
             dataPath: 'memberUnsubscribeLink',
@@ -100,17 +98,21 @@ export default async ({ config, services }, { agendaEvent, context }) => {
     });
   }
 
-  const targetedMembers = members.filter(member =>
-    member.user
-    && !(
-      visibleForCreator && member.user.uid === creatorUser.uid
-    ));
+  const targetedMembers = members.filter(
+    (member) =>
+      member.user
+      && !(visibleForCreator && member.user.uid === creatorUser.uid),
+  );
 
-  log('%s: sending aggregation email to %s members', agendaEvent.agendaUid, targetedMembers.length);
+  log(
+    '%s: sending aggregation email to %s members',
+    agendaEvent.agendaUid,
+    targetedMembers.length,
+  );
 
   await mails.send({
     template: 'eventAggregation',
-    to: targetedMembers.map(member => {
+    to: targetedMembers.map((member) => {
       const lang = member.user.culture || 'fr';
       const eventTitle = event.title[lang] || _.find(event.title);
 
@@ -121,7 +123,8 @@ export default async ({ config, services }, { agendaEvent, context }) => {
           {
             rule: ['receive', 'eventAggregation'],
             dataPath: 'unsubscribeLink',
-          }, {
+          },
+          {
             memberId: member.id,
             rule: ['receive', 'eventAggregation'],
             dataPath: 'memberUnsubscribeLink',

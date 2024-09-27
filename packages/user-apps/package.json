@@ -8,13 +8,12 @@
     "start": "storybook dev -p 9001  --ci",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",
-    "prepack": "yarn clean && yarn oa-intl compile && yarn build",
+    "prepack": "yarn clean && yarn oa-intl compile --esm && yarn build",
     "extract-messages": "yarn oa-intl --esm"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.23.2",
     "@openagenda/abilities": "^1.3.1",
-    "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/intl": "^1.1.3",
     "@openagenda/labels": "^2.3.0",

@@ -108,9 +108,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -323,9 +321,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "entraitslibres@gmail.com"
-      ],
+      "registration": ["entraitslibres@gmail.com"],
       "location": {
         "uid": 13319566,
         "slug": "en-traits-libres",
@@ -359,9 +355,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -507,12 +501,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival \"Arles se Livre\" (ville d'Arles), festival \"Les Suds, en Hiver\" (SUDS à Arles))",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -643,9 +633,7 @@
         "min": 13,
         "max": 18
       },
-      "registration": [
-        "cieacetes@gmail.com"
-      ],
+      "registration": ["cieacetes@gmail.com"],
       "location": {
         "uid": 87521858,
         "slug": "les-docks711",
@@ -679,12 +667,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        616
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [616],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -789,9 +773,7 @@
         "min": 15,
         "max": 99
       },
-      "registration": [
-        "04 86 63 68 79"
-      ],
+      "registration": ["04 86 63 68 79"],
       "location": {
         "uid": 66486438,
         "slug": "librairie-arles-bd234",
@@ -825,9 +807,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -939,9 +919,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "lettre.informations@critic.fr"
-      ],
+      "registration": ["lettre.informations@critic.fr"],
       "location": {
         "uid": 30483199,
         "slug": "librairie-critic",
@@ -975,9 +953,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -1089,9 +1065,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "lettre.informations@critic.fr"
-      ],
+      "registration": ["lettre.informations@critic.fr"],
       "location": {
         "uid": 30483199,
         "slug": "librairie-critic",
@@ -1125,9 +1099,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -1349,9 +1321,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1654,9 +1624,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1872,10 +1840,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://biblideols.wordpress.com",
-        "0254273276"
-      ],
+      "registration": ["http://biblideols.wordpress.com", "0254273276"],
       "location": {
         "uid": 49112464,
         "slug": "bibliotheque-municipale-eugene-hubert",
@@ -1909,9 +1874,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

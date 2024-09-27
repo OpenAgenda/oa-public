@@ -19,9 +19,11 @@ const updateMapping = require('./utils/updateMapping');
 const updateDynamicSettings = require('./utils/updateDynamicSettings');
 const geoJSON = require('./utils/geoJSON');
 
-module.exports = c => {
+module.exports = (c) => {
   const config = {
-    client: new elasticsearch.Client(_.pick(c.elasticsearch, ['node', 'log', 'ssl'])),
+    client: new elasticsearch.Client(
+      _.pick(c.elasticsearch, ['node', 'log', 'ssl']),
+    ),
     type: 'event',
     baseSearchIncludes: searchIncludes.base,
     detailedSearchIncludes: searchIncludes.detailed,
@@ -35,25 +37,38 @@ module.exports = c => {
     logger.setModuleConfig(c.logger);
   }
 
-  return Object.assign(alias => {
-    const search = Search(config, alias);
+  return Object.assign(
+    (alias) => {
+      const search = Search(config, alias);
 
-    return {
-      name: alias,
-      rebuild: rebuild.bind(null, config, alias),
-      search,
-      moreLikeThis: moreLikeThis.bind(null, search),
-      add: add.bind(null, config, alias),
-      update: update.bind(null, config, alias),
-      remove: remove.bind(null, config, alias),
-      clear: clear.bind(null, config, alias),
-    };
-  }, {
-    getConfig: () => config,
-    cluster: Cluster(config),
-    updateMapping: updateMapping.bind(null, config, config.defaultIndex, mapping),
-    updateDynamicSettings: updateDynamicSettings.bind(null, config, config.defaultIndex, config.dynamicSettings),
-  });
+      return {
+        name: alias,
+        rebuild: rebuild.bind(null, config, alias),
+        search,
+        moreLikeThis: moreLikeThis.bind(null, search),
+        add: add.bind(null, config, alias),
+        update: update.bind(null, config, alias),
+        remove: remove.bind(null, config, alias),
+        clear: clear.bind(null, config, alias),
+      };
+    },
+    {
+      getConfig: () => config,
+      cluster: Cluster(config),
+      updateMapping: updateMapping.bind(
+        null,
+        config,
+        config.defaultIndex,
+        mapping,
+      ),
+      updateDynamicSettings: updateDynamicSettings.bind(
+        null,
+        config,
+        config.defaultIndex,
+        config.dynamicSettings,
+      ),
+    },
+  );
 };
 
 module.exports.utils = {

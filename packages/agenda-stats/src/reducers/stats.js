@@ -39,7 +39,7 @@ function addState(stat) {
 }
 
 function addInterval(query) {
-  return stat => {
+  return (stat) => {
     if (!stat.chart) {
       return stat;
     }
@@ -66,7 +66,7 @@ function addInterval(query) {
 }
 
 function addSize(size) {
-  return stat => ({
+  return (stat) => ({
     ...stat,
     state: {
       ...stat.state,
@@ -89,7 +89,7 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loading: true,
-        data: action.stats.map(v => {
+        data: action.stats.map((v) => {
           if (!v.aggregation) {
             return v;
           }
@@ -109,12 +109,12 @@ export default function reducer(state = initialState, action = {}) {
         agendaUid: action.agendaUid,
         loaded: true,
         totalEvents: action.result.data.total,
-        data: action.stats.map(v => {
+        data: action.stats.map((v) => {
           if (!v.aggregation) {
             return v;
           }
 
-          const getData = agg =>
+          const getData = (agg) =>
             action.result.data.aggregations[`${agg.type}-${v.id}`];
 
           return {
@@ -141,7 +141,7 @@ export default function reducer(state = initialState, action = {}) {
         loading: false,
       };
     case LOAD_STAT: {
-      const statIndex = state.data.findIndex(v => v.id === action.statId);
+      const statIndex = state.data.findIndex((v) => v.id === action.statId);
       const newStat = {
         ...action.stat,
         state: {
@@ -160,7 +160,7 @@ export default function reducer(state = initialState, action = {}) {
       };
     }
     case LOAD_STAT_FAIL: {
-      const statIndex = state.data.findIndex(v => v.id === action.statId);
+      const statIndex = state.data.findIndex((v) => v.id === action.statId);
       const newStat = {
         ...action.stat,
         state: {
@@ -179,8 +179,8 @@ export default function reducer(state = initialState, action = {}) {
       };
     }
     case LOAD_STAT_SUCCESS: {
-      const statIndex = state.data.findIndex(v => v.id === action.statId);
-      const getData = agg =>
+      const statIndex = state.data.findIndex((v) => v.id === action.statId);
+      const getData = (agg) =>
         action.result.data.aggregations[`${agg.type}-${action.statId}`];
 
       const newStat = {
@@ -226,7 +226,7 @@ export default function reducer(state = initialState, action = {}) {
     case REMOVE_STAT: {
       return {
         ...state,
-        data: state.data.filter(stat => stat.id !== action.statId),
+        data: state.data.filter((stat) => stat.id !== action.statId),
       };
     }
     case ADD_STAT: {
@@ -236,7 +236,7 @@ export default function reducer(state = initialState, action = {}) {
       };
     }
     case UPDATE_STAT: {
-      const statIndex = state.data.findIndex(v => v.id === action.statId);
+      const statIndex = state.data.findIndex((v) => v.id === action.statId);
       const actualStat = state.data[statIndex];
       const newStat = {
         ...actualStat,
@@ -273,7 +273,7 @@ export default function reducer(state = initialState, action = {}) {
     case REORDER_STATS: {
       return {
         ...state,
-        data: action.statIds.map(id => state.data.find(v => v.id === id)),
+        data: action.statIds.map((id) => state.data.find((v) => v.id === id)),
       };
     }
     default:
@@ -287,9 +287,9 @@ export function load(agenda, stats, filters, query) {
 
     const filterAggregations = filters
       .filter(
-        filter =>
+        (filter) =>
           filter.aggregation !== null
-          && !stats.find(stat =>
+          && !stats.find((stat) =>
             _.isMatch(
               stat.aggregation,
               _.omit(
@@ -301,7 +301,7 @@ export function load(agenda, stats, filters, query) {
               ),
             )),
       )
-      .map(filter => ({
+      .map((filter) => ({
         // like stats
         id: filter.id,
         aggregation: {
@@ -342,7 +342,7 @@ export function loadStat(agenda, statId, getStat = _.identity) {
   return ({ getState, dispatch }) => {
     const { stats, res } = getState();
 
-    const actualStat = stats.data.find(v => v.id === statId);
+    const actualStat = stats.data.find((v) => v.id === statId);
     const newStat = getStat(actualStat);
 
     const decoratedStats = decorateStats([newStat]);
@@ -389,8 +389,8 @@ export function save(agenda) {
         return client.put(
           url,
           data
-            .filter(v => v.chart || v.separator)
-            .map(v => ({
+            .filter((v) => v.chart || v.separator)
+            .map((v) => ({
               id: v.id,
               aggregation: v.aggregation,
               chart: v.chart,

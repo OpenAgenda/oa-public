@@ -1,4 +1,3 @@
-import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -12,15 +11,16 @@ import appLocales from '../../src/locales-compiled';
 
 const lang = 'fr';
 
-export default Story => {
+export default (Story) => {
   const queryClient = useConstant(
-    () => new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
         },
-      },
-    })
+      }),
   );
 
   const axios = useConstant(() => apiClient());

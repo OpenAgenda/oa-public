@@ -34,15 +34,13 @@ describe('agendas - functional (server): set (update)', () => {
     svc.init({
       ...config,
       Files: Files(dConfig.files),
-    }),
-  );
+    }));
 
   afterEach(() =>
     svc.init({
       ...config,
       Files: Files(dConfig.files),
-    }),
-  );
+    }));
 
   it('set returns a promise', async () => {
     const { agenda } = await svc.set(4875, {

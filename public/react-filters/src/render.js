@@ -50,11 +50,13 @@ export default function renderFiltersAndWidgets({
     : query;
 
   function bindRef() {
-    return Object.keys(ref.current)
-      .reduce((accu, key) => ({
+    return Object.keys(ref.current).reduce(
+      (accu, key) => ({
         ...accu,
-        [key]: (...args) => ref.current[key](...args)
-      }), {});
+        [key]: (...args) => ref.current[key](...args),
+      }),
+      {},
+    );
   }
 
   function wrapCallback(fn) {
@@ -68,10 +70,7 @@ export default function renderFiltersAndWidgets({
   const root = ReactDOM.createRoot(container);
 
   root.render(
-    <IntlProvider
-      locale={locale}
-      userLocales={userLocales}
-    >
+    <IntlProvider locale={locale} userLocales={userLocales}>
       <Provider
         filters={filters}
         widgets={widgets}
@@ -93,6 +92,6 @@ export default function renderFiltersAndWidgets({
           {...rest}
         />
       </Provider>
-    </IntlProvider>
+    </IntlProvider>,
   );
 }

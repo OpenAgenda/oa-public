@@ -15,7 +15,7 @@ const messages = defineMessages({
   },
 });
 
-export default options =>
+export default (options) =>
   ({ handleSubmit, onCancel }) => {
     const buttonLabel = (options || {}).primary || 'save';
     const intl = useIntl();

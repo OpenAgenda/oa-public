@@ -3,40 +3,40 @@ const CLOSE = 'activity-apps/modals/CLOSE';
 
 const initialState = {};
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
     case SHOW:
       return {
         ...state,
         [action.name]: {
           ...action.options,
-          visible: true
-        }
+          visible: true,
+        },
       };
     case CLOSE:
       return {
         ...state,
         [action.name]: {
           ...state[action.name],
-          visible: false
-        }
+          visible: false,
+        },
       };
     default:
       return state;
   }
 }
 
-export function showModal( name, options = {} ) {
+export function showModal(name, options = {}) {
   return {
     type: SHOW,
     name,
-    options
+    options,
   };
 }
 
-export function closeModal( name ) {
+export function closeModal(name) {
   return {
     type: CLOSE,
-    name
+    name,
   };
 }

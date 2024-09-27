@@ -12,13 +12,14 @@ import flattenLocationTagSet from '../utils/flattenLocationTagSet';
 const getResItem = (res, key, suffix) => {
   if (typeof res === 'string') {
     return res + suffix;
-  } if (res[key]) {
+  }
+  if (res[key]) {
     return res[key];
   }
   return res.default + suffix;
 };
 
-const getResObject = res => ({
+const getResObject = (res) => ({
   ...res,
   index: getResItem(res, 'index', ''),
   get: getResItem(res, 'get', '/:locationUid'),
@@ -60,9 +61,7 @@ class LocationComponent extends Component {
   }
 
   onChange(mode, location) {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
     this.setState({ mode });
 
@@ -70,9 +69,7 @@ class LocationComponent extends Component {
   }
 
   getSettings() {
-    const {
-      lang,
-    } = this.props;
+    const { lang } = this.props;
 
     const settings = _.get(this.props, 'field.legacy', {});
 
@@ -86,44 +83,35 @@ class LocationComponent extends Component {
   }
 
   loadLocation(locationUid) {
-    const {
-      res,
-    } = this.state;
+    const { res } = this.state;
 
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
-    sa.get(res.get.replace(':locationUid', locationUid)).then(response => {
-      this.setState({
-        initing: false,
-        mode: response.body ? 'show' : 'search',
-      });
+    sa.get(res.get.replace(':locationUid', locationUid)).then(
+      (response) => {
+        this.setState({
+          initing: false,
+          mode: response.body ? 'show' : 'search',
+        });
 
-      onChange(response.body);
-    }, err => {
-      console.log('could not load %s', locationUid);
-      console.log(err);
+        onChange(response.body);
+      },
+      (err) => {
+        console.log('could not load %s', locationUid);
+        console.log(err);
 
-      this.setState({
-        initing: false,
-        mode: 'search',
-      });
-    });
+        this.setState({
+          initing: false,
+          mode: 'search',
+        });
+      },
+    );
   }
 
   renderSelector() {
-    const {
-      lang,
-      value,
-      relatedValues,
-      field,
-    } = this.props;
+    const { lang, value, relatedValues, field } = this.props;
 
-    const {
-      mode,
-      res,
-    } = this.state;
+    const { mode, res } = this.state;
 
     const allowRemove = relatedValues?.optional?.attendanceMode === 2;
 
@@ -164,10 +152,7 @@ class LocationComponent extends Component {
   render() {
     const { field } = this.props;
 
-    const {
-      initing,
-      mode,
-    } = this.state;
+    const { initing, mode } = this.state;
 
     const spinnerCanvasStyle = {
       height: 37,
@@ -188,9 +173,7 @@ class LocationComponent extends Component {
           <div className="text-center" style={spinnerCanvasStyle}>
             <Spinner mode="inline" />
           </div>
-          <Modal
-            classNames={{ overlay: 'popup-overlay big' }}
-          >
+          <Modal classNames={{ overlay: 'popup-overlay big' }}>
             {this.renderSelector()}
           </Modal>
         </div>
@@ -203,11 +186,8 @@ class LocationComponent extends Component {
           {this.renderSelector()}
         </div>
         {!field.disableChange && field.sub ? (
-          <div className="sub">
-            {field.sub}
-          </div>
-        )
-          : null}
+          <div className="sub">{field.sub}</div>
+        ) : null}
       </div>
     );
   }

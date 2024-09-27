@@ -29,7 +29,7 @@ describe('06 - addSource', () => {
             return _async('fixtures/addSource/addSourceEntry')();
           },
           getMergedSchema: _async('fixtures/addSource/formSchema'),
-          enqueueLoadSourceEvaluates: async data => {
+          enqueueLoadSourceEvaluates: async (data) => {
             enqueuedData = data;
           },
         },
@@ -73,7 +73,7 @@ describe('06 - addSource', () => {
             looped = true;
             return _async('fixtures/addSource/listEventReferences')();
           },
-          enqueueEvaluate: data => {
+          enqueueEvaluate: (data) => {
             enqueuedForEvaluate.push(data);
           },
         },

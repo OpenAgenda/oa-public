@@ -37,16 +37,16 @@ const res = {
   xlsx: '#xlsx',
   disqualifyDuplicates: '/api/agendas/:agendaUid/locations/disqualify',
   agendaSearch: '/api/agendas/:agendaUid/locations/agendas',
-  seeEvents: '/api/agendas/:agendaUid/locations/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid',
-  suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
+  seeEvents:
+    '/api/agendas/:agendaUid/locations/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid',
+  suggestChange:
+    '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create',
 };
 
 export function Admin() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -61,7 +61,9 @@ export function Admin() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations?page=2&state=0&hasNull[0]=adminLevel1&hasNull[1]=adminLevel2'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/locations?page=2&state=0&hasNull[0]=adminLevel1&hasNull[1]=adminLevel2',
+              ],
             }),
           }),
           {
@@ -77,9 +79,7 @@ export function Admin() {
 export function AdminUidFilter() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -94,7 +94,9 @@ export function AdminUidFilter() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations?uids[]=29605170'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/locations?uids[]=29605170',
+              ],
             }),
           }),
           {
@@ -110,9 +112,7 @@ export function AdminUidFilter() {
 export function DetailModal() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -127,7 +127,9 @@ export function DetailModal() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations/29605170'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/locations/29605170',
+              ],
             }),
           }),
           {
@@ -143,9 +145,7 @@ export function DetailModal() {
 export function Merge() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -160,7 +160,9 @@ export function Merge() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations/merge'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/locations/merge',
+              ],
             }),
           }),
           {
@@ -176,9 +178,7 @@ export function Merge() {
 export function CreateForm() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -192,7 +192,9 @@ export function CreateForm() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations/create'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/locations/create',
+              ],
             }),
           }),
           {
@@ -208,9 +210,7 @@ export function CreateForm() {
 export function UpdateForm() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -224,7 +224,9 @@ export function UpdateForm() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations/29605170/edit'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/locations/29605170/edit',
+              ],
             }),
           }),
           {
@@ -240,9 +242,7 @@ export function UpdateForm() {
 export function AdminLocationSet() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -258,7 +258,9 @@ export function AdminLocationSet() {
               set,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/locations',
+              ],
             }),
           }),
           {
@@ -274,9 +276,7 @@ export function AdminLocationSet() {
 export function AdminExternal() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -291,7 +291,9 @@ export function AdminExternal() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/locations',
+              ],
             }),
           }),
           {
@@ -307,9 +309,7 @@ export function AdminExternal() {
 export function AdminErrors() {
   return (
     <>
-      <div
-        className="col-md-3 col-md-push-5 col-sm-12"
-      />
+      <div className="col-md-3 col-md-push-5 col-sm-12" />
       <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
@@ -324,7 +324,9 @@ export function AdminErrors() {
               res,
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations'],
+              initialEntries: [
+                '/metropole-europeenne-de-lille/admin/locations',
+              ],
             }),
           }),
           {

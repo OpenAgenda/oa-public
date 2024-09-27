@@ -15,7 +15,7 @@ export default function createLayoutStore(initialState, history) {
   const client = apiClient(initialState.main.apiRoot);
 
   const store = createStore(
-    asyncReducers => ({
+    (asyncReducers) => ({
       main: mainReducer,
       agendaAdmin: agendaAdminReducer,
       ...asyncReducers,
@@ -25,8 +25,8 @@ export default function createLayoutStore(initialState, history) {
       applyMiddleware(clientMiddleware({ client })),
       CLIENT && DEVELOPMENT && window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
-        : v => v
-    )
+        : (v) => v,
+    ),
   );
 
   Object.assign(helpers, {

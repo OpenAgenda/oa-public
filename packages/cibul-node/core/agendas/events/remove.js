@@ -110,6 +110,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   }
 
   if (!event.draft) {
+    log('calling event service to remove event %s', eventUid);
     const result = await agendaEvents(agendaUid).remove(eventUid, {
       transferToLegacy: true,
       context: {
@@ -125,7 +126,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     });
 
     if (result.success) {
-      log('agendaEvent ref deleted');
+      log('  removed from agenda events');
       payload.setItem('agendaEvent', result.removed);
     }
   }
@@ -152,6 +153,9 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   log('  agenda %s event origin agenda', isOriginAgenda ? 'is' : 'is not');
 
   if (!remaining.total || isOriginAgenda) {
+    log(
+      '  no remaining references or origin agenda, removing from event service',
+    );
     await events.remove(eventUid, {
       context: {
         agendaUid,

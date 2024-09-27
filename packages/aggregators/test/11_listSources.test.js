@@ -39,7 +39,7 @@ describe('11 - list sources', () => {
   test('unfiltered list', async () => {
     const { sources } = await svc.sources.list(agenda);
 
-    expect(sources.map(s => s.agenda.uid)).toEqual([222, 333, 444]);
+    expect(sources.map((s) => s.agenda.uid)).toEqual([222, 333, 444]);
   });
 
   test('filtered list', async () => {
@@ -47,7 +47,7 @@ describe('11 - list sources', () => {
       search: 'Martinique',
     });
 
-    expect(sources.map(s => s.agenda.uid)).toEqual([333]);
+    expect(sources.map((s) => s.agenda.uid)).toEqual([333]);
   });
 
   test('filtered list by slug', async () => {
@@ -55,7 +55,7 @@ describe('11 - list sources', () => {
       slug: 'fds-martinique',
     });
 
-    expect(sources.map(s => s.agenda.uid)).toEqual([333]);
+    expect(sources.map((s) => s.agenda.uid)).toEqual([333]);
   });
 
   test('list cleans rules before returning them', async () => {

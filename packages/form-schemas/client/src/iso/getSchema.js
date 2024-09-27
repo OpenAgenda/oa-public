@@ -25,6 +25,5 @@ schema.register({
   choice,
 });
 
-module.exports = (fields, accessType, accessLevel, options) => schema(
-  getSchemaArgs(fields, accessType, accessLevel, options),
-);
+module.exports = (fields, accessType, accessLevel, options) =>
+  schema(getSchemaArgs(fields, accessType, accessLevel, options));

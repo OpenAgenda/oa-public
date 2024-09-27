@@ -1,19 +1,19 @@
 {
-    "inbox": {
-        "id": 55558,
-        "type": "agenda",
-        "identifier": 11317568,
-        "uid": 11317568,
-        "name": "Département du Calvados",
-        "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
-    },
-    "inboxUser": {
-        "id": 94227,
-        "inboxId": 55558,
-        "userUid": 75052324,
-        "leftAt": null,
-        "uid": 75052324,
-        "name": "Kaoré OpenAgenda",
-        "avatar": "https://cibul.s3.amazonaws.com/user.profile.75052324.jpg"
-    }
+  "inbox": {
+    "id": 55558,
+    "type": "agenda",
+    "identifier": 11317568,
+    "uid": 11317568,
+    "name": "Département du Calvados",
+    "avatar": "https://cibul.s3.amazonaws.com/review_calvados_00.jpg"
+  },
+  "inboxUser": {
+    "id": 94227,
+    "inboxId": 55558,
+    "userUid": 75052324,
+    "leftAt": null,
+    "uid": 75052324,
+    "name": "Kaoré OpenAgenda",
+    "avatar": "https://cibul.s3.amazonaws.com/user.profile.75052324.jpg"
+  }
 }

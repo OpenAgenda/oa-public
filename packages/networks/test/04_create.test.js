@@ -1,62 +1,65 @@
-"use strict";
+'use strict';
 
-const knex = require( 'knex' );
-const _ = require( 'lodash' );
-const mysql = require( 'mysql' );
-const { promisify } = require( 'util' );
+const { promisify } = require('node:util');
+const knex = require('knex');
+const _ = require('lodash');
+const mysql = require('mysql');
 
-const Service = require( '..' );
-const config = require( '../testconfig' );
-const fixtures = require( './fixtures' );
+const Service = require('..');
+const config = require('../testconfig');
+const fixtures = require('./fixtures');
 
-describe( 'networks - functional ( server ): create', function() {
+describe('networks - functional ( server ): create', () => {
+  let k;
+  let svc;
+  let network;
 
-  let k, svc, network;
+  beforeAll(async () => {
+    const con = mysql.createConnection(
+      _.extend(_.pick(config.mysql, ['user', 'password']), {
+        multipleStatements: true,
+        ssl: true,
+      }),
+    );
 
-   beforeAll( async () => {
+    const query = promisify(con.query.bind(con));
 
-    const con = mysql.createConnection( _.extend( _.pick( config.mysql, [ 'user', 'password' ] ), {
-      multipleStatements: true,
-      ssl: true,
-    } ) );
-
-    const query = promisify( con.query.bind( con ) );
-
-    await query( fixtures );
+    await query(fixtures);
 
     con.end();
+  });
 
-  } );
-
-  beforeAll( () => {
-    k = knex( {
+  beforeAll(() => {
+    k = knex({
       client: 'mysql',
-      connection: _.assign( {
-        database: 'networktest'
-      }, config.mysql )
-    } );
+      connection: _.assign(
+        {
+          database: 'networktest',
+        },
+        config.mysql,
+      ),
+    });
 
-    svc = Service( { knex: k } );
-  } );
+    svc = Service({ knex: k });
+  });
 
-  beforeAll( async () => {
-    network = await svc.create( { title: 'Reykjavik Métropole' } );
-  } );
+  beforeAll(async () => {
+    network = await svc.create({ title: 'Reykjavik Métropole' });
+  });
 
-  afterAll( () => {
+  afterAll(() => {
     k.destroy();
-  } );
+  });
 
-  it( 'create returns created network object', async () => {
-    expect(network.title).toBe( 'Reykjavik Métropole' );
+  it('create returns created network object', async () => {
+    expect(network.title).toBe('Reykjavik Métropole');
 
-    expect(network.uid).toBeGreaterThan( 0 );
-  } );
+    expect(network.uid).toBeGreaterThan(0);
+  });
 
-  it( 'create commits network to db', async () => {
-    const fromDb = await k( 'network' ).first( 'title' ).where( 'uid', network.uid );
+  it('create commits network to db', async () => {
+    const fromDb = await k('network').first('title').where('uid', network.uid);
 
-    expect(fromDb.title).toBe( 'Reykjavik Métropole' );
-  } );
-
-} );
+    expect(fromDb.title).toBe('Reykjavik Métropole');
+  });
+});

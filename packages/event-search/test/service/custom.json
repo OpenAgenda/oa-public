@@ -10,8 +10,8 @@
     "organizername": "SAFI, filiale de Reed Expositions France et des Ateliers d'Art de France",
     "organizerurl": "http://www.maison-objet.com",
     "authortestimony": "",
-    "singlechoice" : 1,
-    "multichoice" : [ 2, 3, 4 ]
+    "singlechoice": 1,
+    "multichoice": [2, 3, 4]
   },
   {
     "periodicity": "biannual",
@@ -24,8 +24,8 @@
     "organizername": "Reed Expositions France",
     "organizerurl": "http://www.reedexpo.fr/",
     "authortestimony": "Florence GOSSET (France) - Détaillante bijouterie fantaisie et accessoires de mode",
-    "singlechoice" : 5,
-    "multichoice" : [ 6, 7, 8 ]
+    "singlechoice": 5,
+    "multichoice": [6, 7, 8]
   },
   {
     "periodicity": "annual",
@@ -38,7 +38,7 @@
     "organizername": "Reed Expositions France, Paris",
     "organizerurl": "http://www.reedexpo.fr/",
     "authortestimony": "",
-    "multichoice" : [ 7 ]
+    "multichoice": [7]
   },
   {
     "periodicity": "biennal",
@@ -51,8 +51,8 @@
     "organizername": "ADNOC",
     "organizerurl": "http://www.reedexpo.fr/",
     "authortestimony": "",
-    "singlechoice" : 1,
-    "multichoice" : [ 10, 11 ]
+    "singlechoice": 1,
+    "multichoice": [10, 11]
   },
   {
     "periodicity": "annual",
@@ -65,8 +65,8 @@
     "organizername": "OpenAgenda",
     "organizerurl": "http://www.reedexpo.fr",
     "authortestimony": "",
-    "singlechoice" : 2,
-    "multichoice" : [ 12, 13 ]
+    "singlechoice": 2,
+    "multichoice": [12, 13]
   },
   {
     "periodicity": "annual",

@@ -11,8 +11,6 @@ schema.register({
   number: validators.number,
 });
 
-module.exports = create;
-
 const fieldsSchema = [
   {
     name: 'entity_type',
@@ -31,16 +29,13 @@ const fieldsSchema = [
       type: 'number',
       optional: false,
     },
-  }
+  },
 ];
 
 async function create(config, identifiers, options = {}) {
   const { service, knex } = config;
 
-  const {
-    entityType,
-    entityUid,
-  } = identifiers;
+  const { entityType, entityUid } = identifiers;
 
   const dataSchema = fieldsSchema.reduce((prev, field) => {
     if (!field.schema) return prev;
@@ -62,7 +57,7 @@ async function create(config, identifiers, options = {}) {
 
     if (feed) throw new Error('Feed already exists');
   } catch (e) {
-    if (e && e.message !== 'Feed doesn\'t exists') {
+    if (e && e.message !== "Feed doesn't exists") {
       throw e;
     }
   }
@@ -82,3 +77,5 @@ async function create(config, identifiers, options = {}) {
 
   return feed;
 }
+
+module.exports = create;

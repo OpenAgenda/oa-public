@@ -8,12 +8,14 @@ export default function validateEmail(dirty, field, options = {}) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dirty)) {
     throw new BadRequest({
       info: {
-        errors: [{
-          message: 'email is invalid',
-          code: `registration.pass.${field}.invalid`,
-          label: 'L\'email est invalide',
-          field,
-        }],
+        errors: [
+          {
+            message: 'email is invalid',
+            code: `registration.pass.${field}.invalid`,
+            label: "L'email est invalide",
+            field,
+          },
+        ],
       },
     });
   }

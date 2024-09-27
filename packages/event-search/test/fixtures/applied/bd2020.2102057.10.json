@@ -77,10 +77,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "contact@bmi.agglo-epinal.fr",
-        "0329290203"
-      ],
+      "registration": ["contact@bmi.agglo-epinal.fr", "0329290203"],
       "location": {
         "uid": 19727425,
         "slug": "bibliotheque-multimedia-intercommunale-depinal",
@@ -114,12 +111,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -295,10 +288,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "contact@bmi.agglo-epinal.fr",
-        "0329348079"
-      ],
+      "registration": ["contact@bmi.agglo-epinal.fr", "0329348079"],
       "location": {
         "uid": 43238691,
         "slug": "mediatheque-de-deyvillers579",
@@ -332,12 +322,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -637,10 +623,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "contact@bmi.agglo-epinal.fr",
-        "0329399820"
-      ],
+      "registration": ["contact@bmi.agglo-epinal.fr", "0329399820"],
       "location": {
         "uid": 19727425,
         "slug": "bibliotheque-multimedia-intercommunale-depinal",
@@ -674,12 +657,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1111,9 +1090,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "http://www.bd-aix.com/"
-      ],
+      "registration": ["http://www.bd-aix.com/"],
       "location": {
         "uid": 35272739,
         "slug": "abbaye-de-silvacane162",
@@ -1147,9 +1124,7 @@
       "tarif": "De 6 à 7,5 € - gratuit pour les moins de 12 ans",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -1295,9 +1270,7 @@
       "tarif": "5 €",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1474,10 +1447,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "contact@bmi.agglo-epinal.fr",
-        "0329399820"
-      ],
+      "registration": ["contact@bmi.agglo-epinal.fr", "0329399820"],
       "location": {
         "uid": 19727425,
         "slug": "bibliotheque-multimedia-intercommunale-depinal",
@@ -1511,12 +1481,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1636,9 +1602,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "http://www.bd-aix.com/"
-      ],
+      "registration": ["http://www.bd-aix.com/"],
       "location": {
         "uid": 20380923,
         "slug": "office-de-tourisme680",
@@ -1672,9 +1636,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -1907,10 +1869,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "contact@bmi.agglo-epinal.fr",
-        "0329290203"
-      ],
+      "registration": ["contact@bmi.agglo-epinal.fr", "0329290203"],
       "location": {
         "uid": 13188246,
         "slug": "mediatheque-de-thaon-les-vosges615",
@@ -1944,9 +1903,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2147,10 +2104,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "contact@bmi.agglo-epinal.fr",
-        "0329346986"
-      ],
+      "registration": ["contact@bmi.agglo-epinal.fr", "0329346986"],
       "location": {
         "uid": 26808255,
         "slug": "relais-bmi-de-golbey",
@@ -2184,9 +2138,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2388,9 +2340,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

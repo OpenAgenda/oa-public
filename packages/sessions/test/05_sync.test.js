@@ -1,13 +1,11 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const Sessions = require('../src/service');
+const isoConfig = require('../src/iso/config');
+const config = require('../testconfig');
+const h = require('./lib/helpers');
 
-const Sessions = require( '../src/service' );
-const isoConfig = require( '../src/iso/config' );
-const config = require( '../testconfig' );
-const h = require( './lib/helpers' );
-
-describe( 'session - functional (server): sync', () => {
+describe('session - functional (server): sync', () => {
   let client;
   let request;
   let sessions;
@@ -18,7 +16,7 @@ describe( 'session - functional (server): sync', () => {
 
   beforeEach(() => h.clearRedis(config.redis, client));
 
-  beforeAll( () => {
+  beforeAll(() => {
     sessions = Sessions({
       ...config,
       redisClient: client,
@@ -28,7 +26,7 @@ describe( 'session - functional (server): sync', () => {
   beforeEach(() => {
     request = {
       cookies: {},
-      session: {}
+      session: {},
     };
 
     request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
@@ -36,50 +34,57 @@ describe( 'session - functional (server): sync', () => {
 
   afterAll(() => client.quit());
 
-  it( 'sync is used only when a session is open', done => {
+  it('sync is used only when a session is open', async () => {
+    await new Promise((resolve, reject) => {
+      sessions.sync(request, (err, result) => {
+        if (err) return reject(err);
 
-    sessions.sync( request, ( err, result ) => {
+        expect(result.success).toBe(false);
 
-      expect(result.success).toBe(false);
+        resolve();
+      });
+    });
+  });
 
-      done();
-
-    } );
-
-  } );
-
-  it( 'sync updates session with data fetched from getUser interface', done => {
-
+  it('sync updates session with data fetched from getUser interface', async () => {
     const getUserResult = {
       id: 1,
       uid: 1234,
       email: 'blorg@cibul.net',
       culture: 'fr',
       name: 'Gaetanne',
-      thumbnail: null
+      thumbnail: null,
     };
 
     const sessionsWithDifferentGetUser = Sessions({
       ...config,
       redisClient: client,
       interfaces: {
-        getUser: (query, cb) => cb(null, getUserResult)
-      }
+        getUser: (query, cb) => cb(null, getUserResult),
+      },
     });
 
-    sessionsWithDifferentGetUser.open( request, { uid: 1234 }, (err, result) => {
-      expect(result.data.culture).toBe('fr');
+    await new Promise((resolve, reject) => {
+      sessionsWithDifferentGetUser.open(
+        request,
+        { uid: 1234 },
+        (err, result) => {
+          if (err) return reject(err);
 
-      getUserResult.culture = 'en';
+          expect(result.data.culture).toBe('fr');
 
-      sessionsWithDifferentGetUser.sync(request, ( err, result ) => {
-        expect(result.success).toBe(true);
-        expect(result.data.culture).toBe('en');
+          getUserResult.culture = 'en';
 
-        done();
-      });
+          sessionsWithDifferentGetUser.sync(request, (err1, result1) => {
+            if (err1) return reject(err1);
+
+            expect(result1.success).toBe(true);
+            expect(result1.data.culture).toBe('en');
+
+            resolve();
+          });
+        },
+      );
     });
-
-  } );
-
-} );
+  });
+});

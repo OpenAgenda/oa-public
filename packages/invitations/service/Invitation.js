@@ -1,26 +1,23 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const schema = require( '@openagenda/validators/schema' );
-const { text, email, pass, number } = require( '@openagenda/validators' );
-const { mapSeries } = require( 'async' );
+const _ = require('lodash');
+const schema = require('@openagenda/validators/schema');
+const { text, email, pass, number } = require('@openagenda/validators');
+const { mapSeries } = require('async');
 
 let config;
-let service;
 let knex;
 
-schema.register( {
+schema.register({
   text,
   email,
   pass,
-  number
-} );
-
+  number,
+});
 
 class Invitation {
-
-  constructor( data ) {
-    data.store = JSON.parse( data.store || '{}' );
+  constructor(data) {
+    data.store = JSON.parse(data.store || '{}');
     this._data = data;
   }
 
@@ -32,6 +29,10 @@ class Invitation {
     return this._data.email;
   }
 
+  set email(value) {
+    this._data.email = value;
+  }
+
   get token() {
     return this._data.token;
   }
@@ -40,172 +41,145 @@ class Invitation {
     return this._data.store;
   }
 
-  set email( value ) {
-    this._data.email = value;
-  }
-
-  addAction( name, params ) {
-
+  addAction(name, params) {
     const { store } = this._data;
 
-    if ( !store.actions ) store.actions = [];
+    if (!store.actions) store.actions = [];
 
-    if ( !_.get( config.actions, name ) ) {
-
-      return Promise.resolve( {
-        errors: [ {
-          code: 'action.notFound',
-          message: 'action not found in config',
-          origin: name
-        } ]
-      } );
-
+    if (!_.get(config.actions, name)) {
+      return Promise.resolve({
+        errors: [
+          {
+            code: 'action.notFound',
+            message: 'action not found in config',
+            origin: name,
+          },
+        ],
+      });
     }
 
-    const id = store.nextId = ++store.nextId || 1;
+    const id = (store.nextId += 1) || 1;
+    store.nextId = id;
     const action = {
       id,
       name,
-      params: [].concat( params )
+      params: [].concat(params),
     };
 
-    store.actions.push( action );
+    store.actions.push(action);
 
     try {
-
-      Invitation.validate( this._data );
-
-    } catch ( e ) {
-
-      console.log( 'NOT VALID', e );
-
+      Invitation.validate(this._data);
+    } catch (e) {
       store.actions.pop();
-      return Promise.resolve( { errors: e } );
-
+      return Promise.resolve({ errors: e });
     }
 
-    return this.save()
-      .then( () => new Promise( ( resolve, reject ) => {
-
-        config.interfaces.onAssign( action, this, err => err ? reject( err ) : resolve( this ) );
-
-      } ) );
-
+    return this.save().then(
+      () =>
+        new Promise((resolve, reject) => {
+          config.interfaces.onAssign(action, this, (err) =>
+            (err ? reject(err) : resolve(this)));
+        }),
+    );
   }
 
-  removeAction( id ) {
-
+  removeAction(id) {
     const { store } = this._data;
 
-    if ( !store.actions ) store.actions = [];
+    if (!store.actions) store.actions = [];
 
-    store.actions = store.actions.filter( action => action.id !== id );
+    store.actions = store.actions.filter((action) => action.id !== id);
 
-    return this.save().then( () => this );
-
+    return this.save().then(() => this);
   }
 
-  execute( data ) {
-
+  execute(data) {
     const { store } = this._data;
     const errors = [];
 
-    if ( !store.actions ) store.actions = [];
+    if (!store.actions) store.actions = [];
 
-    return new Promise( ( resolve, reject ) => {
+    return new Promise((resolve, reject) => {
+      mapSeries(
+        store.actions,
+        (item, cb) => {
+          const action = _.get(config.actions, item.name);
 
-      mapSeries( store.actions, ( item, cb ) => {
+          if (!action) {
+            errors.push({
+              name: item.name,
+              code: 'action.notExists',
+              message: 'action is not found in config',
+            });
 
-        const action = _.get( config.actions, item.name );
+            return cb(null);
+          }
 
-        if ( !action ) {
+          action(data, [].concat(item.params), cb);
+        },
+        (err, results) => {
+          if (err) reject(err);
 
-          errors.push( {
-            name: item.name,
-            code: 'action.notExists',
-            message: 'action is not found in config'
-          } );
-
-          return cb( null );
-
-        }
-
-        action.apply( null, [data, [].concat( item.params )].concat( cb ) );
-
-      }, ( err, results ) => {
-
-        if ( err ) reject( err );
-
-        resolve( { results, errors } );
-
-      } );
-
-    } )
-      .then( results => {
-
-        return knex( config.schemas.invitation ).where( { id: this.id } )
-          .update( { processedAt: new Date() } )
-          .then( () => results );
-
-      } );
-
+          resolve({ results, errors });
+        },
+      );
+    }).then((results) =>
+      knex(config.schemas.invitation)
+        .where({ id: this.id })
+        .update({ processedAt: new Date() })
+        .then(() => results));
   }
 
   remove() {
-
-    return knex( config.schemas.invitation ).where( { id: this.id } )
-      .del();
-
+    return knex(config.schemas.invitation).where({ id: this.id }).del();
   }
 
   save() {
-
-    return knex( config.schemas.invitation ).where( { id: this.id } )
-      .update( {
-        store: JSON.stringify( this.data ),
+    return knex(config.schemas.invitation)
+      .where({ id: this.id })
+      .update({
+        store: JSON.stringify(this.data),
         email: this.email,
-        token: this.token
-      } );
-
+        token: this.token,
+      });
   }
-
 }
 
-Invitation.init = ( c, s, k ) => {
+Invitation.init = (c, s, k) => {
   config = c;
-  service = s;
   knex = k;
-}
+};
 
-Invitation.validate = schema( {
+Invitation.validate = schema({
   email: {
     type: 'email',
-    optional: false
+    optional: false,
   },
   token: {
     type: 'text',
-    optional: false
+    optional: false,
   },
   store: {
     fields: {
       nextId: {
-        type: 'number'
+        type: 'number',
       },
       actions: {
         list: true,
         fields: {
           name: {
             type: 'text',
-            optional: false
+            optional: false,
           },
           params: {
             type: 'pass',
-            list: true
-          }
-        }
-      }
-    }
-  }
-} );
+            list: true,
+          },
+        },
+      },
+    },
+  },
+});
 
 module.exports = Invitation;

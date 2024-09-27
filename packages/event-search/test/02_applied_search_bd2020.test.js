@@ -56,7 +56,7 @@ describe('02 - event search - functional: bd2020', () => {
           {},
           { formSchema },
         )
-        .then(r => r.events[0]);
+        .then((r) => r.events[0]);
 
       eventForAdmin = await service('bd2020')
         .search(
@@ -66,7 +66,7 @@ describe('02 - event search - functional: bd2020', () => {
           {},
           { formSchema, access: 'administrator' },
         )
-        .then(r => r.events[0]);
+        .then((r) => r.events[0]);
     });
 
     it('info of restricted access is not provided if access is not provided', () => {
@@ -97,7 +97,7 @@ describe('02 - event search - functional: bd2020', () => {
             maintainedFields: ['dateRange', 'country'],
           },
         )
-        .then(r => r.events[0]);
+        .then((r) => r.events[0]);
 
       eventForAdmin = await service('bd2020')
         .search(
@@ -112,7 +112,7 @@ describe('02 - event search - functional: bd2020', () => {
             maintainedFields: ['dateRange', 'country'],
           },
         )
-        .then(r => r.events[0]);
+        .then((r) => r.events[0]);
     });
 
     it('explicit includes limit returned fields to specified values and of public access', () => {
@@ -149,7 +149,7 @@ describe('02 - event search - functional: bd2020', () => {
             ],
           },
         )
-        .then(r => r.aggregations.des_metriques_sur_les_places);
+        .then((r) => r.aggregations.des_metriques_sur_les_places);
 
       expect(agg).toEqual({
         max: 1324,

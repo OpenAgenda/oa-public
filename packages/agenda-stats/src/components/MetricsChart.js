@@ -1,4 +1,3 @@
-import React from 'react';
 import { useIntl } from 'react-intl';
 import ContentLoader from 'react-content-loader';
 import { css } from '@emotion/react';
@@ -58,24 +57,22 @@ export default function MetricsChart({ stat }) {
         </>
       ) : null}
       {metrics.length > 1 ? (
-        <>
-          <div>
-            <table className="table">
-              <tbody>
-                {metrics.map(metric => (
-                  <tr key={metric}>
-                    <td>{intl.formatMessage(form[metric])}</td>
-                    <td className="text-right">
-                      {intl.formatNumber(data[metric], {
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </>
+        <div>
+          <table className="table">
+            <tbody>
+              {metrics.map((metric) => (
+                <tr key={metric}>
+                  <td>{intl.formatMessage(form[metric])}</td>
+                  <td className="text-right">
+                    {intl.formatNumber(data[metric], {
+                      maximumFractionDigits: 2,
+                    })}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : null}
     </div>
   );

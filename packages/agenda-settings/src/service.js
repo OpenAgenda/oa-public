@@ -1,22 +1,17 @@
-const mw = require( './middleware' );
+'use strict';
 
-let config;
+const mw = require('./middleware');
+
+function init(c, cb) {
+  Promise.resolve(c)
+    .then(() => {
+      mw.init(module.exports, c);
+    })
+
+    .then(() => (cb ? cb() : null), cb || null);
+}
 
 module.exports = {
   init,
-  mw
+  mw,
 };
-
-function init( c, cb ) {
-
-  config = c;
-
-  Promise.resolve( c )
-    .then( () => {
-
-      mw.init( require( './service' ), c );
-
-    } )
-
-    .then( () => cb ? cb() : null, cb ? cb : null );
-}

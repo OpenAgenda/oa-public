@@ -1,38 +1,41 @@
 'use strict';
 
 const schemas = require('@openagenda/validators/schema');
+const boolean = require('@openagenda/validators/boolean');
+const text = require('@openagenda/validators/text');
+const choice = require('@openagenda/validators/choice');
 const { paths } = require('../service/lib/fields');
 
 schemas.register({
-  boolean: require('@openagenda/validators/boolean'),
-  text: require('@openagenda/validators/text'),
-  choice: require('@openagenda/validators/choice')
+  boolean,
+  text,
+  choice,
 });
 
 module.exports = schemas({
   detailed: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   includeFields: {
     type: 'choice',
-    options: paths
+    options: paths,
   },
   useDefaultImage: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   includeImagePath: {
     type: 'boolean',
-    default: true
+    default: true,
   },
   indexed: {
     type: 'boolean',
     allowNull: true,
-    default: true
+    default: true,
   },
   access: {
     type: 'text',
-    default: 'public'
-  }
+    default: 'public',
+  },
 });

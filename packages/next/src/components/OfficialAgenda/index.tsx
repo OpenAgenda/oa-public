@@ -11,10 +11,13 @@ const messages = defineMessages({
 });
 
 export interface OfficialAgendaProps extends IconProps {
-  tooltipProps?: Omit<TooltipProps, 'children'>
+  tooltipProps?: Omit<TooltipProps, 'children'>;
 }
 
-export default function OfficialAgenda({ tooltipProps, ...props }: OfficialAgendaProps) {
+export default function OfficialAgenda({
+  tooltipProps,
+  ...props
+}: OfficialAgendaProps) {
   const intl = useIntl();
 
   return (

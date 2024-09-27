@@ -11,15 +11,12 @@ const controllers = require('../../widgets/controller/main'),
   debug = require('debug'),
   // deprecate this
   cn = require('../../js/lib/common'),
-  // in favor of this
-  du = require('@openagenda/dom-utils'),
   _ = {
     includes: require('lodash/includes'),
   },
   get = require('@openagenda/utils/get'),
   list = require('./list'),
   timeliner = require('./timeliner'),
-  documentLocation = require('@openagenda/dom-utils/documentLocation'),
   config = require('./config'),
   favorites = require('./favorites'),
   widgets = {
@@ -121,7 +118,7 @@ window.asap(options => {
           rss: `${options.root}/agendas/:agendaUid/events.rss`,
         }
       };
-      
+
       displayExportButton(exportRef, params, routes, uid, controller, options, 'exportListHead', !!sessionUser);
       displayExportButton(exportRef, params, routes, uid, controller, options, 'exportPageHead', !!sessionUser);
       displayAggregateButton(params, options, initialQuery, !!sessionUser);
@@ -142,7 +139,7 @@ window.asap(options => {
       if (ctl.prv && me?.authorizations?.canContribute) {
         _displayAddButton();
       }
-  
+
       if (['administrator', 'moderator'].includes(role)) {
         _displayAdminButton();
         _removeAddButtonAsPrimary();
@@ -196,15 +193,19 @@ window.asap(options => {
         oaq: newSearchValues,
       };
 
-      if (documentLocation.getQueryPart('lang')) {
-        newQuery.lang = documentLocation.getQueryPart('lang');
+      const locationLang = new URL(document.location).searchParams.get('lang');
+
+      if (locationLang) {
+        newQuery.lang = locationLang;
       }
 
       if (exportRef.current) {
         exportRef.current.displayButton(!!Object.keys(newSearchValues).length);
       }
 
-      documentLocation.setQueryPart(newQuery);
+      const q = qs.stringify(newQuery, { addQueryPrefix: true });
+
+      window.history.pushState(newQuery, '', window.location.pathname + q);
 
       list.reset(window.location.href);
 

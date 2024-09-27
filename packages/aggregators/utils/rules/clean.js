@@ -18,10 +18,10 @@ const validateTimingsAsDates = schema({
   },
 });
 
-const trimTabsAndSpaces = v =>
+const trimTabsAndSpaces = (v) =>
   (typeof v === 'string' ? v.replace(/^(\s|\t)+|(\s|\t)+$/g, '') : v);
 
-const validateTimings = t => {
+const validateTimings = (t) => {
   const asDates = validateTimingsAsDates(t);
 
   return {
@@ -45,7 +45,7 @@ function _cleanQuery(dirty) {
     if (key === 'location' && dirty.location instanceof Array) {
       const geoKey = Object.keys(dirty.location[0])[0];
       result.location = {
-        [geoKey]: dirty.location.map(l => l[geoKey]),
+        [geoKey]: dirty.location.map((l) => l[geoKey]),
       };
     } else {
       result[key] = dirty[key];
@@ -58,7 +58,7 @@ function _cleanQuery(dirty) {
           ...lQuery,
           [lKey]: []
             .concat(result.location[lKey])
-            .map(v => trimTabsAndSpaces(v)),
+            .map((v) => trimTabsAndSpaces(v)),
         }),
         {},
       );
@@ -80,7 +80,7 @@ function clean(dirty) {
   const actions = [];
 
   if (dirty[actionKey] instanceof Array) {
-    dirty[actionKey].forEach(a => {
+    dirty[actionKey].forEach((a) => {
       if (typeof a !== 'object' || a === null) {
         return;
       }
@@ -96,7 +96,7 @@ function clean(dirty) {
       }
     });
   } else if (dirty[actionKey] instanceof Object) {
-    Object.keys(dirty[actionKey]).forEach(f =>
+    Object.keys(dirty[actionKey]).forEach((f) =>
       actions.push({
         field: f,
         values: dirty[actionKey][f],

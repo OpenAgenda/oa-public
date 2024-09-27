@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { Spinner } from '@openagenda/react-shared';
@@ -21,14 +21,15 @@ export default function LoadMore({ stat }) {
   const dispatch = useDispatch();
 
   const loadMore = useCallback(
-    () => dispatch(
-      statsActions.updateStat(stat.id, {
-        state: {
-          itemsDisplayed: stat.state.itemsDisplayed + 5,
-        },
-      })
-    ),
-    [dispatch, stat.id, stat.state.itemsDisplayed]
+    () =>
+      dispatch(
+        statsActions.updateStat(stat.id, {
+          state: {
+            itemsDisplayed: stat.state.itemsDisplayed + 5,
+          },
+        }),
+      ),
+    [dispatch, stat.id, stat.state.itemsDisplayed],
   );
 
   const handleClick = useCallback(() => {

@@ -1,9 +1,4 @@
-import {
-  useMemo,
-  useCallback,
-  useState,
-  useEffect,
-} from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router';
 import qs from 'qs';
@@ -33,15 +28,17 @@ import SetHeader from '../components/SetHeader';
 import * as mergeActions from '../reducers/merge';
 import * as onGoingActions from '../reducers/onGoingModal';
 
-const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
+const completedPrefix = (agenda, prefix) =>
+  prefix.replace(':agendaSlug', agenda.slug);
 
-const betterQsParse = search => qs.parse(search, { ignoreQueryPrefix: true });
+const betterQsParse = (search) => qs.parse(search, { ignoreQueryPrefix: true });
 
-const betterQsStringify = searchObj => qs.stringify(searchObj, {
-  addQueryPrefix: true,
-  arrayFormat: 'brackets',
-  skipNulls: true,
-});
+const betterQsStringify = (searchObj) =>
+  qs.stringify(searchObj, {
+    addQueryPrefix: true,
+    arrayFormat: 'brackets',
+    skipNulls: true,
+  });
 
 const messages = defineMessages({
   postalCode: {
@@ -58,11 +55,13 @@ const messages = defineMessages({
   },
   duplicatesFilterHelp: {
     id: 'AgendaLocations.AgendaAdminLocation.duplicatesFilterHelp',
-    defaultMessage: 'Limit the selection to potential duplicates that were detected automatically',
+    defaultMessage:
+      'Limit the selection to potential duplicates that were detected automatically',
   },
   verifiedInfo: {
     id: 'AgendaLocations.AgendaAdminLocation.verifiedInfo',
-    defaultMessage: 'Locations that were created on the fly on the event form get a "to be verified" status to allow agenda administrators to control them',
+    defaultMessage:
+      'Locations that were created on the fly on the event form get a "to be verified" status to allow agenda administrators to control them',
   },
   create: {
     id: 'AgendaLocations.AgendaAdminLocation.create',
@@ -82,7 +81,8 @@ const messages = defineMessages({
   },
   somethingWentWrong: {
     id: 'AgendaLocations.AgendaAdminLocation.somethingWentWrong',
-    defaultMessage: 'An error has occurred, please contact support if it happens again',
+    defaultMessage:
+      'An error has occurred, please contact support if it happens again',
   },
   mergeInProgress: {
     id: 'AgendaLocations.AgendaAdminLocation.mergeInProgress',
@@ -90,7 +90,8 @@ const messages = defineMessages({
   },
   total: {
     id: 'AgendaLocations.AgendaAdminLocation.total',
-    defaultMessage: '{itemCount, plural, =0 {No location matches this search} one {Total: one location} other {Total: # locations}}',
+    defaultMessage:
+      '{itemCount, plural, =0 {No location matches this search} one {Total: one location} other {Total: # locations}}',
   },
   contactSupport: {
     id: 'AgendaLocations.AgendaAdminLocation.contactSupport',
@@ -142,8 +143,8 @@ function Dashboard() {
   const { lang, agenda } = useLayoutData();
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
-  const merge = useSelector(state => state.merge);
-  const onGoing = useSelector(state => state.onGoing);
+  const merge = useSelector((state) => state.merge);
+  const onGoing = useSelector((state) => state.onGoing);
   const [accessModal, setAccessModal] = useState(false);
   const [openDetails, setOpenDetails] = useState(false);
   const [removeModal, setRemoveModal] = useState(false);
@@ -153,7 +154,10 @@ function Dashboard() {
   const res = useRes(agenda);
   const { locationUid: detailLocationUid } = useParams();
   const { settings } = useSettings(agenda);
-  const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
+  const prefix = completedPrefix(
+    agenda,
+    useSelector((state) => state.settings.prefix),
+  );
   const history = useHistory();
   const historyLocation = useLocation();
   const { pathname } = historyLocation;
@@ -179,13 +183,11 @@ function Dashboard() {
     };
   }, [historyLocation.search]);
 
-  const {
-    isLoading,
-    error,
-    locations,
-    total,
-    size,
-  } = useLocations(agenda, page, search);
+  const { isLoading, error, locations, total, size } = useLocations(
+    agenda,
+    page,
+    search,
+  );
   if (error) setErrorModal(error);
 
   const nextPage = useCallback(() => {
@@ -202,38 +204,51 @@ function Dashboard() {
     }
   }, [history, page, search]);
 
-  const removeFilter = useCallback(key => {
-    history.push({ search: betterQsStringify({ ...search, page: 1, [key]: undefined }) });
-  }, [history, search]);
+  const removeFilter = useCallback(
+    (key) => {
+      history.push({
+        search: betterQsStringify({ ...search, page: 1, [key]: undefined }),
+      });
+    },
+    [history, search],
+  );
 
-  const removeHasNull = useCallback(field => {
-    history.push({
-      search: betterQsStringify({
-        ...search,
-        page: 1,
-        hasNull: search.hasNull.filter(e => e !== field),
-      }),
-    });
-  }, [history, search]);
+  const removeHasNull = useCallback(
+    (field) => {
+      history.push({
+        search: betterQsStringify({
+          ...search,
+          page: 1,
+          hasNull: search.hasNull.filter((e) => e !== field),
+        }),
+      });
+    },
+    [history, search],
+  );
 
-  const addHasNull = useCallback(field => {
-    history.push({
-      search: betterQsStringify({
-        ...search,
-        page: 1,
-        hasNull: [...search.hasNull || [], field],
-      }),
-    });
-  }, [history, search]);
+  const addHasNull = useCallback(
+    (field) => {
+      history.push({
+        search: betterQsStringify({
+          ...search,
+          page: 1,
+          hasNull: [...search.hasNull || [], field],
+        }),
+      });
+    },
+    [history, search],
+  );
 
   const onRemoveLocation = async (location, withEvents) => {
     try {
-      await fetch(`${res.remove.replace(':locationUid', location.uid)}${withEvents ? '?withEvents=1' : ''}`, {
-        method: 'DELETE',
-      })
-        .then(response => {
-          if (!response.ok) throw new Error(`Invalid status (${response.status})`);
-        });
+      await fetch(
+        `${res.remove.replace(':locationUid', location.uid)}${withEvents ? '?withEvents=1' : ''}`,
+        {
+          method: 'DELETE',
+        },
+      ).then((response) => {
+        if (!response.ok) throw new Error(`Invalid status (${response.status})`);
+      });
     } catch (err) {
       setErrorModal(err);
       return;
@@ -243,37 +258,53 @@ function Dashboard() {
     queryClient.resetQueries('locations');
   };
 
-  const confirmRemove = useCallback(l => {
-    if (settings.access.delete.authorized && !settings.access.delete.external)setRemoveModal({ data: { location: l } });
-    else setAccessModal({ action: 'remove' });
-  }, [settings]);
+  const confirmRemove = useCallback(
+    (l) => {
+      if (settings.access.delete.authorized && !settings.access.delete.external) setRemoveModal({ data: { location: l } });
+      else setAccessModal({ action: 'remove' });
+    },
+    [settings],
+  );
 
-  const onLocationItemEdit = useCallback(location => {
-    if (settings?.access?.update?.authorized && !settings.access.update.external) {
-      const nq = `${pathname}${betterQsStringify({ ...search, page })}`;
-      history.push({
-        pathname: `${prefix}/${location.uid}/edit`,
-        state: nq,
-      });
-    } else {
-      setAccessModal({ action: 'edit', location });
-      return false;
-    }
-  }, [history, page, pathname, prefix, search, settings]);
-
-  const onLocationItemSelect = useCallback(location => {
-    // handle merge behavior
-    if (mergeMode) {
-      if (merge?.step !== 1) return;
-      const newLocationsUids = merge?.locationUids || [];
-      if (!newLocationsUids.find(e => e === location.uid)) {
-        newLocationsUids.push(location.uid);
-        dispatch(mergeActions.selectLocations(newLocationsUids));
-        return;
+  const onLocationItemEdit = useCallback(
+    (location) => {
+      if (
+        settings?.access?.update?.authorized
+        && !settings.access.update.external
+      ) {
+        const nq = `${pathname}${betterQsStringify({ ...search, page })}`;
+        history.push({
+          pathname: `${prefix}/${location.uid}/edit`,
+          state: nq,
+        });
+      } else {
+        setAccessModal({ action: 'edit', location });
+        return false;
       }
-      dispatch(mergeActions.selectLocations(newLocationsUids.filter(e => e !== location.uid)));
-    }
-  }, [onLocationItemEdit, dispatch, merge, mergeMode]);
+    },
+    [history, page, pathname, prefix, search, settings],
+  );
+
+  const onLocationItemSelect = useCallback(
+    (location) => {
+      // handle merge behavior
+      if (mergeMode) {
+        if (merge?.step !== 1) return;
+        const newLocationsUids = merge?.locationUids || [];
+        if (!newLocationsUids.find((e) => e === location.uid)) {
+          newLocationsUids.push(location.uid);
+          dispatch(mergeActions.selectLocations(newLocationsUids));
+          return;
+        }
+        dispatch(
+          mergeActions.selectLocations(
+            newLocationsUids.filter((e) => e !== location.uid),
+          ),
+        );
+      }
+    },
+    [dispatch, merge, mergeMode],
+  );
 
   const renderMergeAction = useCallback(() => {
     if (mergeMode) {
@@ -283,7 +314,10 @@ function Dashboard() {
           className="btn btn-danger"
           onClick={() => {
             dispatch(mergeActions.closeMerge());
-            history.push({ pathname: `${prefix}`, search: betterQsStringify({ ...search, page }) });
+            history.push({
+              pathname: `${prefix}`,
+              search: betterQsStringify({ ...search, page }),
+            });
           }}
         >
           <FormattedMessage {...messages.cancelMerge} />
@@ -293,12 +327,22 @@ function Dashboard() {
     return (
       <button
         type="button"
-        className={settings?.access.merge.authorized ? 'btn btn-default' : 'btn btn-default disabled'}
+        className={
+          settings?.access.merge.authorized
+            ? 'btn btn-default'
+            : 'btn btn-default disabled'
+        }
         onClick={() => {
-          if (!settings?.access.merge.authorized || settings?.access.merge.external) {
+          if (
+            !settings?.access.merge.authorized
+            || settings?.access.merge.external
+          ) {
             setAccessModal({ action: 'merge' });
           } else {
-            history.push({ pathname: `${prefix}/merge`, search: betterQsStringify({ ...search, page }) });
+            history.push({
+              pathname: `${prefix}/merge`,
+              search: betterQsStringify({ ...search, page }),
+            });
           }
         }}
       >
@@ -308,28 +352,51 @@ function Dashboard() {
   }, [mergeMode, settings, search, page, prefix, history, dispatch]);
 
   const launchMerge = () => {
-    dispatch(mergeActions.launchMerge(merge, res, { pathname: prefix, search: betterQsStringify({ ...search, page, uids: null }) }, setErrorModal, setSpinMerge));
+    dispatch(
+      mergeActions.launchMerge(
+        merge,
+        res,
+        {
+          pathname: prefix,
+          search: betterQsStringify({ ...search, page, uids: null }),
+        },
+        setErrorModal,
+        setSpinMerge,
+      ),
+    );
   };
 
   const disqualifyMergeCandidates = () => {
     const data = merge.locationUids;
-    dispatch(mergeActions.disqualifyDuplicates(data, res, agenda.slug, { pathname: prefix, search: betterQsStringify({ ...search, page }) }, setErrorModal));
+    dispatch(
+      mergeActions.disqualifyDuplicates(
+        data,
+        res,
+        agenda.slug,
+        { pathname: prefix, search: betterQsStringify({ ...search, page }) },
+        setErrorModal,
+      ),
+    );
   };
 
   return (
     <div className="agenda-admin-locations">
-      {settings?.set ? (
-        <SetHeader set={settings.set} res={res} />
-      ) : null}
+      {settings?.set ? <SetHeader set={settings.set} res={res} /> : null}
       <div className="row list-actions">
         <div className="col col-sm-12">
           <div className="form-inline">
             <div className="form-group">
               <div className="btn-group margin-left-sm">
-                <a href={res.csv.replace(':agendaSlug', agenda.slug)} className="btn btn-default">
+                <a
+                  href={res.csv.replace(':agendaSlug', agenda.slug)}
+                  className="btn btn-default"
+                >
                   <span>csv</span>
                 </a>
-                <a href={res.xlsx.replace(':agendaSlug', agenda.slug)} className="btn btn-default">
+                <a
+                  href={res.xlsx.replace(':agendaSlug', agenda.slug)}
+                  className="btn btn-default"
+                >
                   <span>xlsx</span>
                 </a>
               </div>
@@ -337,9 +404,16 @@ function Dashboard() {
             <div className="form-group">
               <button
                 type="button"
-                className={settings?.access?.create?.authorized ? 'btn btn-primary' : 'btn btn-primary disabled'}
+                className={
+                  settings?.access?.create?.authorized
+                    ? 'btn btn-primary'
+                    : 'btn btn-primary disabled'
+                }
                 onClick={() => {
-                  if (!settings?.access.create.authorized || settings?.access.create.external) {
+                  if (
+                    !settings?.access.create.authorized
+                    || settings?.access.create.external
+                  ) {
                     setAccessModal({ action: 'create' });
                   } else {
                     const nq = `${pathname}${betterQsStringify({ ...search, page })}`;
@@ -353,9 +427,7 @@ function Dashboard() {
                 <FormattedMessage {...messages.create} />
               </button>
             </div>
-            <div className="form-group">
-              {renderMergeAction()}
-            </div>
+            <div className="form-group">{renderMergeAction()}</div>
           </div>
         </div>
       </div>
@@ -365,10 +437,16 @@ function Dashboard() {
           dispatch={dispatch}
           mergeActions={mergeActions}
           seeDetails={setOpenDetails}
-          seeSelection={() => history.push({ search: betterQsStringify({ uids: merge.locationUids }) })}
+          seeSelection={() =>
+            history.push({
+              search: betterQsStringify({ uids: merge.locationUids }),
+            })}
           closeMerge={() => {
             dispatch(mergeActions.closeMerge());
-            history.push({ pathname: prefix, search: betterQsStringify({ ...search, page }) });
+            history.push({
+              pathname: prefix,
+              search: betterQsStringify({ ...search, page }),
+            });
           }}
           disqualifyDuplicates={disqualifyMergeCandidates}
           launchMerge={launchMerge}
@@ -382,13 +460,22 @@ function Dashboard() {
               <div className="form-inline">
                 <div className="form-group">
                   <SearchInput
-                    onChange={value => {
+                    onChange={(value) => {
                       if (value !== '') {
                         return history.push({
-                          search: betterQsStringify({ ...search, page: 1, search: value }),
+                          search: betterQsStringify({
+                            ...search,
+                            page: 1,
+                            search: value,
+                          }),
                         });
-                      } return history.push({
-                        search: betterQsStringify({ ...search, page: 1, search: null }),
+                      }
+                      return history.push({
+                        search: betterQsStringify({
+                          ...search,
+                          page: 1,
+                          search: null,
+                        }),
                       });
                     }}
                     placeholder={intl.formatMessage(messages.filterList)}
@@ -405,15 +492,17 @@ function Dashboard() {
                         if (search.state) removeFilter('state');
                         else {
                           history.push({
-                            search: betterQsStringify({ ...search, page, state: 0 }),
+                            search: betterQsStringify({
+                              ...search,
+                              page,
+                              state: 0,
+                            }),
                           });
                         }
                       }}
                       checked={!!search.state}
                     />{' '}
-                    <FormattedMessage
-                      {...messages.toVerify}
-                    />
+                    <FormattedMessage {...messages.toVerify} />
                   </label>
                   <MoreInfo
                     className="margin-left-xs"
@@ -430,15 +519,17 @@ function Dashboard() {
                         if (search.hasDuplicateCandidates) removeFilter('hasDuplicateCandidates');
                         else {
                           history.push({
-                            search: betterQsStringify({ ...search, page, hasDuplicateCandidates: true }),
+                            search: betterQsStringify({
+                              ...search,
+                              page,
+                              hasDuplicateCandidates: true,
+                            }),
                           });
                         }
                       }}
                       checked={!!search.hasDuplicateCandidates}
                     />{' '}
-                    <FormattedMessage
-                      {...messages.duplicatesFilter}
-                    />
+                    <FormattedMessage {...messages.duplicatesFilter} />
                   </label>
                   <MoreInfo
                     className="margin-h-xs"
@@ -452,14 +543,18 @@ function Dashboard() {
                   removeHasNull={removeHasNull}
                   addHasNull={addHasNull}
                 />
-                <ActiveFilters
-                  removeFilter={removeFilter}
-                  search={search}
-                />
+                <ActiveFilters removeFilter={removeFilter} search={search} />
               </div>
             </div>
           </div>
-          {!isLoading ? <p><FormattedMessage values={{ itemCount: total }} {...messages.total} /></p> : null}
+          {!isLoading ? (
+            <p>
+              <FormattedMessage
+                values={{ itemCount: total }}
+                {...messages.total}
+              />
+            </p>
+          ) : null}
         </>
       )}
 
@@ -489,35 +584,56 @@ function Dashboard() {
         </i>
       ) : null}
       <ul className="list-unstyled">
-        {settings && locations && merge?.step !== 3 ? locations.map(location => (
-          <li key={location.uid}>
-            <LocationItem
-              merge={merge}
-              lang={lang}
-              agendaUid={agenda.uid}
-              location={location}
-              onSelect={onLocationItemSelect}
-              onEdit={onLocationItemEdit}
-              settings={settings}
-              seeEventsRes={res.seeEvents}
-              onRemove={confirmRemove}
-              seeDetails={() => {
-                if (!mergeMode) history.push({ pathname: `${prefix}/${location.uid}`, search: betterQsStringify({ ...search, page }) });
-                else setOpenDetails(location.uid);
-              }}
-              goToMergeStep3={() => { dispatch(mergeActions.selectTarget(location)); }}
-              goToMergeStep1FromDuplicates={() => {
-                if (!settings?.access.merge.authorized || settings?.access.merge.external) {
-                  setAccessModal({ action: 'merge' });
-                } else {
-                  const locationUids = location.duplicateCandidates.concat(location.uid);
-                  dispatch(mergeActions.initiateFromDuplicates(locationUids, location.uid));
-                  history.push({ pathname: `${prefix}/merge`, search: betterQsStringify({ uids: locationUids }) });
-                }
-              }}
-            />
-          </li>
-        )) : null}
+        {settings && locations && merge?.step !== 3
+          ? locations.map((location) => (
+            <li key={location.uid}>
+              <LocationItem
+                merge={merge}
+                lang={lang}
+                agendaUid={agenda.uid}
+                location={location}
+                onSelect={onLocationItemSelect}
+                onEdit={onLocationItemEdit}
+                settings={settings}
+                seeEventsRes={res.seeEvents}
+                onRemove={confirmRemove}
+                seeDetails={() => {
+                  if (!mergeMode) {
+                    history.push({
+                      pathname: `${prefix}/${location.uid}`,
+                      search: betterQsStringify({ ...search, page }),
+                    });
+                  } else setOpenDetails(location.uid);
+                }}
+                goToMergeStep3={() => {
+                  dispatch(mergeActions.selectTarget(location));
+                }}
+                goToMergeStep1FromDuplicates={() => {
+                  if (
+                    !settings?.access.merge.authorized
+                      || settings?.access.merge.external
+                  ) {
+                    setAccessModal({ action: 'merge' });
+                  } else {
+                    const locationUids = location.duplicateCandidates.concat(
+                      location.uid,
+                    );
+                    dispatch(
+                      mergeActions.initiateFromDuplicates(
+                        locationUids,
+                        location.uid,
+                      ),
+                    );
+                    history.push({
+                      pathname: `${prefix}/merge`,
+                      search: betterQsStringify({ uids: locationUids }),
+                    });
+                  }
+                }}
+              />
+            </li>
+          ))
+          : null}
       </ul>
       {total > 20 && !!(merge.step !== 3) ? (
         <Pager
@@ -544,7 +660,10 @@ function Dashboard() {
           }}
           closeDetail={() => {
             if (!mergeMode) {
-              history.push({ pathname: `${prefix}`, search: betterQsStringify({ ...search, page }) });
+              history.push({
+                pathname: `${prefix}`,
+                search: betterQsStringify({ ...search, page }),
+              });
             } else {
               setOpenDetails(false);
             }
@@ -563,26 +682,31 @@ function Dashboard() {
         <RemoveModal
           modal={removeModal}
           lang={lang}
-          seeEventsLink={res.seeEvents.replace(':locationUid', removeModal.data.location.uid)}
+          seeEventsLink={res.seeEvents.replace(
+            ':locationUid',
+            removeModal.data.location.uid,
+          )}
           onClose={() => setRemoveModal(false)}
-          onRemove={withEvents => onRemoveLocation(removeModal.data.location, withEvents)}
+          onRemove={(withEvents) =>
+            onRemoveLocation(removeModal.data.location, withEvents)}
         />
       ) : null}
       {onGoing ? (
-        <Modal
-          onClose={() => dispatch(onGoingActions.close())}
-        >
+        <Modal onClose={() => dispatch(onGoingActions.close())}>
           <div className="text-center">
             <p>{`${intl.formatMessage(messages[`${onGoing.name}Action`])} ${onGoing.name !== 'merge' ? intl.formatMessage(messages.wentWell) : intl.formatMessage(messages.onGoing)}`}</p>
-            <button className="btn btn-primary" type="button" onClick={() => dispatch(onGoingActions.close())}>Ok</button>
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={() => dispatch(onGoingActions.close())}
+            >
+              Ok
+            </button>
           </div>
         </Modal>
       ) : null}
       {errorModal ? (
-        <ErrorModal
-          close={() => setErrorModal(false)}
-          error={errorModal}
-        />
+        <ErrorModal close={() => setErrorModal(false)} error={errorModal} />
       ) : null}
     </div>
   );

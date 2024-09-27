@@ -33,11 +33,8 @@ describe('simple-cache - functional (service): hash del', () => {
     });
   });
 
-  beforeEach(async () => cli.del(
-    await cli
-      .keys(`${config.prefix}*`)
-      .then(k => k.join(' ')),
-  ));
+  beforeEach(async () =>
+    cli.del(await cli.keys(`${config.prefix}*`).then((k) => k.join(' '))));
 
   afterAll(() => cli.quit());
 
@@ -49,11 +46,11 @@ describe('simple-cache - functional (service): hash del', () => {
 
     await cache.hash(ns, id).set('key', 'value');
 
-    await new Promise(rs => setTimeout(rs, 1000));
+    await new Promise((rs) => setTimeout(rs, 1000));
 
     expect(await cache.hash(ns, id).get('key')).toBe('value');
 
-    await new Promise(rs => setTimeout(rs, 1001));
+    await new Promise((rs) => setTimeout(rs, 1001));
 
     expect(await cache.hash(ns, id).get('key')).toBe(null);
   });

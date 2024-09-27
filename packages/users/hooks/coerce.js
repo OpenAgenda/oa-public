@@ -6,15 +6,15 @@ const { alterItems } = require('feathers-hooks-common');
 // const fields = require( '../service/fields' );
 
 module.exports = function validate(_schema) {
-  return context => {
+  return (context) => {
     const _coerce = schema(
-      _schema
+      _schema,
       // !context.params.detailed
       //   ? _.pick( _schema, fields.basic )
       //   : _schema
     );
 
-    return alterItems(rec => {
+    return alterItems((rec) => {
       if (rec) {
         return Object.assign(rec, _.pick(_coerce(rec), Object.keys(rec)));
       }

@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Field } from 'react-final-form';
 import { ReactSelectField } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
@@ -18,10 +18,11 @@ export default function AddChartForm({
 
   const chartOptions = useMemo(() => {
     const additionalFieldOpts = agendaSchema.fields
-      .filter(fieldSchema => ['radio', 'checkbox', 'integer', 'boolean'].includes(
-        fieldSchema.fieldType
-      ))
-      .map(fieldSchema => ({
+      .filter((fieldSchema) =>
+        ['radio', 'checkbox', 'integer', 'boolean'].includes(
+          fieldSchema.fieldType,
+        ))
+      .map((fieldSchema) => ({
         label: getLocaleValue(fieldSchema.label, intl.locale),
         value: {
           additionalField: true,
@@ -70,21 +71,22 @@ export default function AddChartForm({
         ]
           .concat(additionalFieldOpts)
           .filter(
-            v => !stats.find(stat => {
-              if (!stat.chart) {
-                return false;
-              }
+            (v) =>
+              !stats.find((stat) => {
+                if (!stat.chart) {
+                  return false;
+                }
 
-              if (
-                v.value.additionalField
+                if (
+                  v.value.additionalField
                   && (stat.aggregation.type === 'additionalFields'
                     || stat.aggregation.type === 'additionalFieldMetrics')
-              ) {
-                return stat.aggregation.field === v.value.fieldSchema.field;
-              }
+                ) {
+                  return stat.aggregation.field === v.value.fieldSchema.field;
+                }
 
-              return stat.aggregation.type === v.value;
-            })
+                return stat.aggregation.type === v.value;
+              }),
           ),
       },
       {
@@ -107,7 +109,7 @@ export default function AddChartForm({
         value: 2,
       },
     ],
-    [intl]
+    [intl],
   );
 
   return (

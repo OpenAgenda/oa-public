@@ -2,7 +2,10 @@ import _ from 'lodash';
 import { getLocaleValue } from '@openagenda/intl';
 
 function multiReplace(str, obj) {
-  return Object.keys(obj).reduce((accu, key) => accu.replaceAll(`:${key}`, obj[key]), str);
+  return Object.keys(obj).reduce(
+    (accu, key) => accu.replaceAll(`:${key}`, obj[key]),
+    str,
+  );
 }
 
 function getActivityEntity(activity, entity) {
@@ -25,7 +28,11 @@ function getEntities(activity, entityMap, lang) {
   return Object.keys(entityMap).reduce((accu, entityKey) => {
     const entity = entityMap[entityKey];
 
-    if (entity.startsWith('actor.') || entity.startsWith('object.') || entity.startsWith('target.')) {
+    if (
+      entity.startsWith('actor.')
+      || entity.startsWith('object.')
+      || entity.startsWith('target.')
+    ) {
       accu[entityKey] = getActivityEntity(activity, entity);
       return accu;
     }
@@ -43,15 +50,16 @@ function getTags(activity, tagMap, render, entities, intl) {
 
     const link = tagProps.link ? multiReplace(tagProps.link, entities) : null;
 
-    accu[tagName] = chunks => render({
-      chunks,
-      tagName,
-      activity,
-      entities,
-      intl,
-      ...tagProps,
-      link,
-    });
+    accu[tagName] = (chunks) =>
+      render({
+        chunks,
+        tagName,
+        activity,
+        entities,
+        intl,
+        ...tagProps,
+        link,
+      });
 
     return accu;
   }, {});
@@ -59,7 +67,9 @@ function getTags(activity, tagMap, render, entities, intl) {
 
 function getLabelId({ labelId, labelIds = [] }, data) {
   for (const [partialLabelId, requestedEntities] of labelIds) {
-    const missing = requestedEntities.some(requestedEntity => !_.get(data, requestedEntity));
+    const missing = requestedEntities.some(
+      (requestedEntity) => !_.get(data, requestedEntity),
+    );
 
     if (!missing) {
       return partialLabelId;
@@ -76,7 +86,13 @@ export default function createActivityFormatter(config) {
     try {
       const activityMap = activities[activity.verb];
       const entities = getEntities(activity, activityMap.entities, intl.locale);
-      const tags = getTags(activity, activityMap.tags, renderTag, entities, intl);
+      const tags = getTags(
+        activity,
+        activityMap.tags,
+        renderTag,
+        entities,
+        intl,
+      );
 
       const labelId = getLabelId(activityMap, activity);
 
@@ -89,4 +105,3 @@ export default function createActivityFormatter(config) {
     }
   };
 }
-

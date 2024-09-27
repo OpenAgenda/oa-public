@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
@@ -9,14 +9,19 @@ export async function init(c = {}) {
     logs.setModuleConfig(c.logger);
   }
 
-  Object.assign(config, _.pick(
-    c,
-    ['mysql', 'schemas', 'migrations', 'interfaces', 'entityMapping', 'knex'],
-  ));
+  Object.assign(
+    config,
+    _.pick(c, [
+      'mysql',
+      'schemas',
+      'migrations',
+      'interfaces',
+      'entityMapping',
+      'knex',
+    ]),
+  );
 
-  const {
-    knex,
-  } = config;
+  const { knex } = config;
 
   if (c.migrations) {
     try {

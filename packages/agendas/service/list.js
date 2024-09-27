@@ -1,101 +1,24 @@
 'use strict';
 
 const _ = require('lodash');
-
-const map = require('./databaseFieldMap');
-const dbParse = require('@openagenda/mysql-utils/mapper')(map);
+const mapper = require('@openagenda/mysql-utils/mapper');
 const parseListArguments = require('@openagenda/service-utils/parseListArguments');
+const map = require('./databaseFieldMap');
 
-const { promisify } = require('util');
+const dbParse = mapper(map);
 
-const loadDetails = promisify(require('./details').load);
+const loadDetails = require('./details').load;
 
 const validateQuery = require('./validate/listQuery');
 const validateOptions = require('./validate/listOptions');
 
-let service, schemas, imagePath, knex;
-
-module.exports = Object.assign(list, {
-  init
-});
-
-function list(q, off, l, op, c) {
-  const {
-    query,
-    offset,
-    limit,
-    options,
-    cb
-  } = parseListArguments.apply(null, arguments);
-
-  const p = promise(query, offset, limit, options);
-
-  if (cb) {
-    return p.then(( { agendas, total }) => cb(null, agendas, total ), cb);
-  }
-
-  return p;
-}
-
-
-async function promise(query, offset, limit, options = {}) {
-  const config = service.getConfig();
-
-  const cleanOptions = validateOptions(options);
-
-  _includeLegacyQuery(cleanOptions, options, query);
-
-  const cleanQuery = validateQuery( query);
-
-  if (!knex) throw new Error('service is not initialized');
-
-  const k = _search(knex(schemas.agenda), cleanQuery, cleanOptions);
-
-  const total = cleanOptions.total ? await _total(k) : null;
-
-  if (cleanQuery.order) {
-    k.orderBy.apply(k, cleanQuery.order.split('.').map(_.snakeCase));
-  } else if (cleanOptions.offsetAsLastId) {
-    k.orderBy('id', 'asc');
-  } else {
-    k.orderBy('updated_at', 'desc');
-  }
-
-  k.limit(limit || 0);
-
-  if (cleanOptions.offsetAsLastId && (cleanQuery.order === 'id.desc')) {
-    k.where('id', '<', offset);
-  } else if (cleanOptions.offsetAsLastId) {
-    k.where('id', '>', offset);
-  } else {
-    k.offset(offset || 0);
-  }
-
-  const agendas = await k
-    .select(_listFields(cleanOptions))
-    .then(r => r.map(_parseDbEntry.bind(null, cleanOptions, config)));
-
-  const lastId = _.get(_.last(agendas), 'id', -1);
-
-  for (const agenda of agendas) {
-    if (cleanOptions.detailed) {
-      await loadDetails(agenda);
-    }
-    if (!cleanOptions.internal) {
-      delete agenda.id;
-    }
-  }
-
-  return {
-    agendas,
-    total,
-    ...(cleanOptions.offsetAsLastId ? { lastId } : {})
-  };
-}
-
+let service;
+let schemas;
+let imagePath;
+let knex;
 
 function _includeLegacyQuery(clean, options, query) {
-  _.keys(clean).forEach(k => {
+  _.keys(clean).forEach((k) => {
     if (options[k] === undefined && query[k] !== undefined) {
       console.log('%s in query is DEPRECATED. set in options instead', k);
       clean[k] = query[k];
@@ -105,7 +28,6 @@ function _includeLegacyQuery(clean, options, query) {
 
   return options;
 }
-
 
 function _search(k, query, options) {
   if (options.private !== null) {
@@ -118,10 +40,16 @@ function _search(k, query, options) {
     k.whereIn('id', query.id || query.ids);
   }
   if (query.uid) {
-    k.whereIn('uid', query.uid.filter(uid => !!uid));
+    k.whereIn(
+      'uid',
+      query.uid.filter((uid) => !!uid),
+    );
   }
   if (query.slug) {
-    k.whereIn('slug', query.slug.filter(slug => !!slug));
+    k.whereIn(
+      'slug',
+      query.slug.filter((slug) => !!slug),
+    );
   }
   if (query.networkUid) {
     k.where('network_uid', query.networkUid);
@@ -145,41 +73,44 @@ function _search(k, query, options) {
 }
 
 async function _total(k) {
-  return knex.transaction(trx => k.clone()
-    .count('id as total')
-    .transacting(trx)
-  ).then(r => _.get(r, '0.total'));
+  return knex
+    .transaction((trx) => k.clone().count('id as total').transacting(trx))
+    .then((r) => _.get(r, '0.total'));
 }
 
 function _listFields(options) {
-  return map.filter(field => {
-    
-    if (field?.db === 'id') {
+  return map
+    .filter((field) => {
+      if (field?.db === 'id') {
+        return true;
+      }
+
+      if (
+        options.onlyIncludeFields.length
+        && !options.onlyIncludeFields.includes(field.obj || field)
+      ) {
+        return false;
+      }
+
+      if (typeof field === 'string') {
+        return true;
+      }
+
+      if (options.includeFields.includes(field.obj)) {
+        return true;
+      }
+
+      if (field.list === false) {
+        return false;
+      }
+
+      if (field.internal && options.internal === false) {
+        return false;
+      }
+
       return true;
-    }
-    
-    if (options.onlyIncludeFields.length && !options.onlyIncludeFields.includes(field.obj || field)) {
-      return false;
-    }
-
-    if (typeof field === 'string') {
-      return true;
-    }
-
-    if (options.includeFields.includes(field.obj)) {
-      return true;
-    }
-
-    if (field.list === false) {
-      return false;
-    }
-
-    if (field.internal && options.internal === false) {
-      return false;
-    }
-
-    return true;
-  }).map(f => typeof f === 'string' ? f : f.db);
+    })
+    .map((f) => (typeof f === 'string' ? f : f.db));
 }
 
 function _parseDbEntry(options, config, row) {
@@ -194,6 +125,72 @@ function _parseDbEntry(options, config, row) {
   return agenda;
 }
 
+async function promise(query, offset, limit, options = {}) {
+  const config = service.getConfig();
+
+  const cleanOptions = validateOptions(options);
+
+  _includeLegacyQuery(cleanOptions, options, query);
+
+  const cleanQuery = validateQuery(query);
+
+  if (!knex) throw new Error('service is not initialized');
+
+  const k = _search(knex(schemas.agenda), cleanQuery, cleanOptions);
+
+  const total = cleanOptions.total ? await _total(k) : null;
+
+  if (cleanQuery.order) {
+    k.orderBy.call(k, ...cleanQuery.order.split('.').map(_.snakeCase));
+  } else if (cleanOptions.offsetAsLastId) {
+    k.orderBy('id', 'asc');
+  } else {
+    k.orderBy('updated_at', 'desc');
+  }
+
+  k.limit(limit || 0);
+
+  if (cleanOptions.offsetAsLastId && cleanQuery.order === 'id.desc') {
+    k.where('id', '<', offset);
+  } else if (cleanOptions.offsetAsLastId) {
+    k.where('id', '>', offset);
+  } else {
+    k.offset(offset || 0);
+  }
+
+  const agendas = await k
+    .select(_listFields(cleanOptions))
+    .then((r) => r.map(_parseDbEntry.bind(null, cleanOptions, config)));
+
+  const lastId = _.get(_.last(agendas), 'id', -1);
+
+  for (const agenda of agendas) {
+    if (cleanOptions.detailed) {
+      await loadDetails(agenda);
+    }
+    if (!cleanOptions.internal) {
+      delete agenda.id;
+    }
+  }
+
+  return {
+    agendas,
+    total,
+    ...cleanOptions.offsetAsLastId ? { lastId } : {},
+  };
+}
+
+function list(...args) {
+  const { query, offset, limit, options, cb } = parseListArguments(...args);
+
+  const p = promise(query, offset, limit, options);
+
+  if (cb) {
+    return p.then(({ agendas, total }) => cb(null, agendas, total), cb);
+  }
+
+  return p;
+}
 
 function init(svc, k) {
   service = svc;
@@ -204,3 +201,7 @@ function init(svc, k) {
 
   knex = k;
 }
+
+module.exports = Object.assign(list, {
+  init,
+});

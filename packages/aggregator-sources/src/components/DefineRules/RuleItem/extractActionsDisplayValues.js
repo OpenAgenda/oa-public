@@ -30,10 +30,10 @@ function getValues(action, sourceAgendaSchema, local) {
   if (
     action.values instanceof Object
     && action.values.$copy
-    && sourceAgendaSchema?.fields.find(f => f.field === action.values.$copy)
+    && sourceAgendaSchema?.fields.find((f) => f.field === action.values.$copy)
   ) {
     const label = sourceAgendaSchema?.fields.find(
-      f => f.field === action.values.$copy,
+      (f) => f.field === action.values.$copy,
     ).label;
     return [].concat(label[local] || label);
   }
@@ -106,7 +106,7 @@ export default ({
   }
 
   const field = (aggregatorAgendaSchema?.fields || [])
-    .filter(f => f.field === action.field)
+    .filter((f) => f.field === action.field)
     .pop();
 
   if (!field) {
@@ -133,8 +133,8 @@ export default ({
     };
   }
 
-  const matchingOptions = getValues(action).map(value =>
-    field.options?.filter(o => o.id === value).pop());
+  const matchingOptions = getValues(action).map((value) =>
+    field.options?.filter((o) => o.id === value).pop());
 
   return {
     ...base,
@@ -142,7 +142,7 @@ export default ({
     value:
       matchingOptions[0] !== undefined
         ? matchingOptions
-          .map(o => getLocaleValue(o?.label, intl.locale))
+          .map((o) => getLocaleValue(o?.label, intl.locale))
           .join(', ')
         : getValues(action, sourceAgendaSchema, intl.locale)[0],
     detail: intl.formatMessage(

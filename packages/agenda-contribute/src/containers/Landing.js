@@ -16,18 +16,10 @@ const {
 
 const log = debug('Landing');
 
-export default function Landing({
-  agenda,
-  history,
-  location,
-}) {
+export default function Landing({ agenda, history, location }) {
   const prefix = usePrefix(agenda);
 
-  const {
-    agendaContextIsLoading,
-    memberIsFresh,
-    agendaContext,
-  } = useAgendaContext(agenda.uid);
+  const { agendaContextIsLoading, memberIsFresh, agendaContext } = useAgendaContext(agenda.uid);
 
   useEffect(() => {
     const member = agendaContext?.me?.member;
@@ -37,19 +29,20 @@ export default function Landing({
       isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
       && !isMemberDataRequired(agenda)
     ) {
-      log('  Contributor data is not required by agenda. Redirecting to event step');
+      log(
+        '  Contributor data is not required by agenda. Redirecting to event step',
+      );
       return replaceWithStep(history, location, prefix, 'event');
     }
 
     if (
       isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
       && isMemberRole(member, 'contributor')
-      && (
-        !isMemberDataRequired(agenda)
-        || (isValid && memberIsFresh)
-      )
+      && (!isMemberDataRequired(agenda) || (isValid && memberIsFresh))
     ) {
-      log('  Contributor is not required to fill member form or his data is complete. Redirecting to event step');
+      log(
+        '  Contributor is not required to fill member form or his data is complete. Redirecting to event step',
+      );
       return replaceWithStep(history, location, prefix, 'event');
     }
 
@@ -61,7 +54,15 @@ export default function Landing({
     if (!agendaContextIsLoading) {
       replaceWithStep(history, location, prefix, 'member');
     }
-  }, [agendaContextIsLoading, agendaContext, agenda, history, memberIsFresh, prefix, location]);
+  }, [
+    agendaContextIsLoading,
+    agendaContext,
+    agenda,
+    history,
+    memberIsFresh,
+    prefix,
+    location,
+  ]);
 
   return <Loading />;
 }

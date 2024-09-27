@@ -69,12 +69,12 @@ Est-ce qu'on a le lien de l'offre à la création? Non, mais à regarder, les li
 
 ## Todo
 
- * Le registration-apps doit lire et placer les données pass dans un item de la liste registration
- * Un validateur d'une donnée pass doit savoir controler la structure de la donnée pass pour qu'elle soit évaluée parmi les items de registration
- 
- * Le validateur de registration dans le formulaire event doit garder les données pass et les considérer comme étant valides
- * Le package events doit stocker les données pass sous forme de liste
- * L'API doit pouvoir prendre des données Pass lors de la création d'un événement et lancer la création. Ça simplifiera les tests.
- * form-schemas doit savoir gérer relatedTo en plus de optionalWith et enableWith
- * La lib core doit faire appel a une instance de registrations pour lancer la création de l'offre pass juste avant la création de l'événement
- * Premier test intégré
+- Le registration-apps doit lire et placer les données pass dans un item de la liste registration
+- Un validateur d'une donnée pass doit savoir controler la structure de la donnée pass pour qu'elle soit évaluée parmi les items de registration
+
+- Le validateur de registration dans le formulaire event doit garder les données pass et les considérer comme étant valides
+- Le package events doit stocker les données pass sous forme de liste
+- L'API doit pouvoir prendre des données Pass lors de la création d'un événement et lancer la création. Ça simplifiera les tests.
+- form-schemas doit savoir gérer relatedTo en plus de optionalWith et enableWith
+- La lib core doit faire appel a une instance de registrations pour lancer la création de l'offre pass juste avant la création de l'événement
+- Premier test intégré

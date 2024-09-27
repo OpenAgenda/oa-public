@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest } from 'react-use';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -62,13 +62,14 @@ function Separator() {
 export default function OrderModal({ onSubmit, onClose }) {
   const intl = useIntl();
 
-  const initialStats = useSelector(state => state.stats.data);
+  const initialStats = useSelector((state) => state.stats.data);
 
-  const [stats, setStats] = useState(() => initialStats.filter(v => v.chart || v.separator));
+  const [stats, setStats] = useState(() =>
+    initialStats.filter((v) => v.chart || v.separator));
   const latestStats = useLatest(stats);
 
   const onDragEnd = useCallback(
-    result => {
+    (result) => {
       if (!result.destination) {
         return;
       }
@@ -79,11 +80,11 @@ export default function OrderModal({ onSubmit, onClose }) {
 
       setStats(tempStats);
     },
-    [latestStats]
+    [latestStats],
   );
 
   const handleSubmit = useCallback(() => {
-    onSubmit(latestStats.current.map(stat => stat.id));
+    onSubmit(latestStats.current.map((stat) => stat.id));
     onClose();
   }, [latestStats, onSubmit, onClose]);
 
@@ -99,7 +100,7 @@ export default function OrderModal({ onSubmit, onClose }) {
       <div className="margin-top-sm">
         <DragDropContext className="list-group" onDragEnd={onDragEnd}>
           <Droppable droppableId="droppable">
-            {provided => (
+            {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 {stats.map((stat, index) => (
                   <Draggable key={stat.id} draggableId={stat.id} index={index}>

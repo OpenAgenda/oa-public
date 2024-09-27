@@ -16,18 +16,16 @@ Stores custom data and associated reference identifier and form_schema reference
       }
     } );
 
-
-
 # CRUD Operations
 
 CRUD operations are accessible through a generic endpoint taking the id of the reference form schema:
 
     let formSchemaId = 12; // why not.
 
-  * `custom( formSchemaId ).create( identifier, customData )`
-  * `custom( formSchemaId ).update( identifier, customData )`
-  * `custom( formSchemaId ).get( identifier )`
-  * `custom( formSchemaId ).list( offset, limit )`
-  * `custom( formSchemaId ).remove( identifier )`
+- `custom( formSchemaId ).create( identifier, customData )`
+- `custom( formSchemaId ).update( identifier, customData )`
+- `custom( formSchemaId ).get( identifier )`
+- `custom( formSchemaId ).list( offset, limit )`
+- `custom( formSchemaId ).remove( identifier )`
 
 .

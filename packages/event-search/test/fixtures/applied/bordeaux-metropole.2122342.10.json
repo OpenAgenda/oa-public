@@ -79,9 +79,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/groundation/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/groundation/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -111,18 +109,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -251,9 +244,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.adie.org/nos-ateliers/"
-      ],
+      "registration": ["https://www.adie.org/nos-ateliers/"],
       "location": {
         "uid": 5325812,
         "slug": "ville-de-talence703",
@@ -279,17 +270,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 43,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        54892589
-      ],
+      "sourcePaths": [54892589],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -452,9 +439,7 @@
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        82433240
-      ],
+      "sourcePaths": [82433240],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -604,19 +589,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
-      "recurring": [
-        2
-      ],
+      "intermunicipal_interest": [1],
+      "recurring": [2],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        82433240
-      ],
+      "sourcePaths": [82433240],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -745,14 +724,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
-      "thematiques-bordeaux-metropole": [
-        23
-      ],
+      "thematiques-bordeaux-metropole": [23],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -798,13 +773,7 @@
         "fr": "Ici. On vit. Loin des prisons illégitimes et administratives. Ici. On vit. Librement. Fortement. Ici. Pas de frontière entre terre et coeur."
       },
       "keywords": {
-        "fr": [
-          "rocher de palmer",
-          "cenon",
-          "exposition",
-          "ken",
-          "photographie"
-        ]
+        "fr": ["rocher de palmer", "cenon", "exposition", "ken", "photographie"]
       },
       "conditions": {
         "fr": "Entrée libre, du lundi au vendredi et les soirs de concerts"
@@ -992,18 +961,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1128,9 +1092,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/malaa/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/malaa/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1160,18 +1122,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1328,18 +1285,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1523,9 +1475,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/expositions/omar.malas/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/expositions/omar.malas/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1555,18 +1505,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1747,17 +1692,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        41375362
-      ],
+      "sourcePaths": [41375362],
       "aggregated": false,
       "sourceAgendas": [
         {

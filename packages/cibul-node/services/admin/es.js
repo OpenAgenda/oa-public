@@ -3,12 +3,12 @@
 import http from 'node:http';
 
 function _handleResponse(cb) {
-  return res => {
+  return (res) => {
     const response = [];
 
     res.setEncoding('utf8');
 
-    res.on('data', chunk => {
+    res.on('data', (chunk) => {
       response.push(chunk);
     });
 
@@ -27,16 +27,19 @@ function _handleResponse(cb) {
 function _request(config, method, path, data, cb) {
   const clean = typeof data !== 'string' ? JSON.stringify(data) : data;
 
-  const req = http.request({
-    host: config.host,
-    port: config.port,
-    path,
-    method,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': clean ? Buffer.byteLength(clean) : 0,
+  const req = http.request(
+    {
+      host: config.host,
+      port: config.port,
+      path,
+      method,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': clean ? Buffer.byteLength(clean) : 0,
+      },
     },
-  }, _handleResponse(cb));
+    _handleResponse(cb),
+  );
 
   req.write(clean);
 

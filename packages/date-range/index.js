@@ -1,195 +1,156 @@
-"use strict";
+'use strict';
 
-var labels = require( '@openagenda/labels/agendas/range' ),
+const labels = require('@openagenda/labels/agendas/range');
+const moment = require('moment-timezone');
+const partterns = require('./patterns');
 
-partterns = require( './patterns' ),
+const ucfirst = (str) => str.substr(0, 1).toUpperCase() + str.substr(1);
 
-moment = require( 'moment-timezone' ),
+function _render(template, data) {
+  let out = template;
 
-utils = require( '@openagenda/utils' );
-
-
-const ucfirst = str => str.substr( 0, 1 ).toUpperCase() + str.substr( 1 );
-
-
-module.exports = function( timings, lang, timezone ) {
-
-  if ( ['fr', 'en', 'ar', 'de', 'it', 'es'].indexOf( lang ) == -1 ) {
-
-    lang = 'en';
-
-  }
-
-  var dateMap = {},
-
-  uniqueDates = [],
-
-  firstDate, lastDate;
-
-  if ( !timings || !timings.length || ! ( timings instanceof Array ) ) {
-
-    return _render( labels.noDates[ lang ] );
-
-  }
-
-
-  timings.forEach( function( t ) {
-
-    var d = moment.tz( t.start, timezone ).locale(lang).format( 'YYYY-MM-DD' );
-
-    dateMap[ d ] = t.start;
-
-    if ( uniqueDates.indexOf( d ) == -1 ) {
-
-      uniqueDates.push( d );
-
-    }
-
-  } );
-
-  firstDate = dateMap[ uniqueDates[ 0 ] ];
-
-  lastDate = dateMap[ uniqueDates[ uniqueDates.length - 1 ] ];
-
-  if ( uniqueDates.length == 1 ) {
-
-    return _render( labels.oneDate[ lang ], {
-      day: _renderDate( {
-        date: firstDate,
-        relativeTo: false,
-        isLast: true,
-        lang,
-        timezone,
-        oneDate: true
-      } ),
-      times: _getTimes( timings, lang, timezone )
-    } )
-
-  } else if ( uniqueDates.length == 2 ) {
-
-    return _render( labels.twoDates[ lang ], {
-      firstDate: _renderDate( {
-        date: firstDate,
-        relativeTo: lastDate,
-        isLast: false,
-        lang,
-        timezone,
-        oneDate: false
-      } ),
-      lastDate: _renderDate( {
-        date: lastDate,
-        relativeTo: firstDate,
-        isLast: true,
-        lang,
-        timezone,
-        oneDate: false
-      } )
-    } );
-
-  } else {
-
-    return _render( labels.moreDates[ lang ], {
-      firstDate: _renderDate( {
-        date: firstDate,
-        relativeTo: lastDate,
-        isLast: false,
-        lang,
-        timezone,
-        oneDate: false
-      } ),
-      lastDate: _renderDate( {
-        date: lastDate,
-        relativeTo: firstDate,
-        isLast: true,
-        lang,
-        timezone,
-        oneDate: false
-      } )
-    } ) + partterns(timings, lang, timezone);
-
-  }
-
-}
-
-
-function _render( template, data ){
-
-  var out = template;
-
-  Object.keys( data || {} ).forEach( function( key ) {
-
-    var regex = new RegExp( '%' + key + '%' );
-    out = out.replace( regex, data[ key ], 'g' );
-
+  Object.keys(data || {}).forEach((key) => {
+    const regex = new RegExp(`%${key}%`);
+    out = out.replace(regex, data[key], 'g');
   });
 
   return out;
 }
 
+function _renderDate({ date, relativeTo, isLast, lang, timezone, oneDate }) {
+  const render = { day: oneDate, month: true, year: false };
 
-function _renderDate( { date, relativeTo, isLast, lang, timezone, oneDate } ) {
+  const now = new Date();
 
-  var render = { day: oneDate, month: true, year: false },
+  const momentDate = moment.tz(date, timezone);
 
-  now = new Date(),
+  const momentRelativeDate = relativeTo
+    ? moment.tz(relativeTo, timezone)
+    : relativeTo;
 
-  momentDate = moment.tz( date, timezone ),
-
-  momentRelativeDate = relativeTo ? moment.tz( relativeTo, timezone ) : relativeTo;
-
-  if ( !relativeTo ) {
-
+  if (!relativeTo) {
     render.year = now.getUTCFullYear() !== date.getUTCFullYear();
-
   } else {
-
     render.year = date.getUTCFullYear() !== relativeTo.getUTCFullYear()
+      || (isLast && now.getUTCFullYear() !== date.getUTCFullYear());
 
-                || ( isLast && now.getUTCFullYear() !== date.getUTCFullYear() );
-
-    render.month = render.year || momentDate.month() !== momentRelativeDate.month() || isLast;
-
+    render.month = render.year
+      || momentDate.month() !== momentRelativeDate.month()
+      || isLast;
   }
 
   let template = 'D';
 
-  if ( render.day ) template = 'dddd ' + template;
-  if ( render.month ) template = template + ' MMMM';
-  if ( render.year ) template = template + ' YYYY';
+  if (render.day) template = `dddd ${template}`;
+  if (render.month) template += ' MMMM';
+  if (render.year) template += ' YYYY';
 
-  return ucfirst( momentDate.locale(lang).format( template ) );
-
+  return ucfirst(momentDate.locale(lang).format(template));
 }
 
-
-
-function _pad( str ){
-
-  return ( '0' + str ).slice( -2 );
-
+function _pad(str) {
+  return `0${str}`.slice(-2);
 }
 
+function _getTimes(timings, lang, timezone) {
+  return timings
+    .map((timing) => {
+      let hours = timing.start.getUTCHours();
 
-function _getTimes( timings, lang, timezone ) {
+      let minutes = timing.start.getUTCMinutes();
 
-  return timings.map( function( timing ) {
+      if (timezone) {
+        const t = moment(timing.start);
 
-    let hours = timing.start.getUTCHours(),
+        hours = t.tz(timezone).hours();
 
-    minutes = timing.start.getUTCMinutes();
+        minutes = t.tz(timezone).minutes();
+      }
 
-    if ( timezone ) {
+      return [hours, minutes].map(_pad).join(labels.minuteSeparator[lang]);
+    })
+    .join(', ');
+}
 
-      let t = moment( timing.start );
+module.exports = (timings, lang, timezone) => {
+  if (!['fr', 'en', 'ar', 'de', 'it', 'es'].includes(lang)) {
+    // eslint-disable-next-line no-param-reassign
+    lang = 'en';
+  }
 
-      hours = t.tz( timezone ).hours();
+  const dateMap = {};
 
-      minutes = t.tz( timezone ).minutes();
+  const uniqueDates = [];
 
+  if (!timings || !timings.length || !(timings instanceof Array)) {
+    return _render(labels.noDates[lang]);
+  }
+
+  timings.forEach((t) => {
+    const d = moment.tz(t.start, timezone).locale(lang).format('YYYY-MM-DD');
+
+    dateMap[d] = t.start;
+
+    if (!uniqueDates.includes(d)) {
+      uniqueDates.push(d);
     }
+  });
 
-    return [ hours, minutes ].map( _pad ).join( labels.minuteSeparator[ lang ] );
+  const firstDate = dateMap[uniqueDates[0]];
+  const lastDate = dateMap[uniqueDates[uniqueDates.length - 1]];
 
-  } ).join( ', ' );
+  if (uniqueDates.length === 1) {
+    return _render(labels.oneDate[lang], {
+      day: _renderDate({
+        date: firstDate,
+        relativeTo: false,
+        isLast: true,
+        lang,
+        timezone,
+        oneDate: true,
+      }),
+      times: _getTimes(timings, lang, timezone),
+    });
+  }
+  if (uniqueDates.length === 2) {
+    return _render(labels.twoDates[lang], {
+      firstDate: _renderDate({
+        date: firstDate,
+        relativeTo: lastDate,
+        isLast: false,
+        lang,
+        timezone,
+        oneDate: false,
+      }),
+      lastDate: _renderDate({
+        date: lastDate,
+        relativeTo: firstDate,
+        isLast: true,
+        lang,
+        timezone,
+        oneDate: false,
+      }),
+    });
+  }
 
-}
+  return (
+    _render(labels.moreDates[lang], {
+      firstDate: _renderDate({
+        date: firstDate,
+        relativeTo: lastDate,
+        isLast: false,
+        lang,
+        timezone,
+        oneDate: false,
+      }),
+      lastDate: _renderDate({
+        date: lastDate,
+        relativeTo: firstDate,
+        isLast: true,
+        lang,
+        timezone,
+        oneDate: false,
+      }),
+    }) + partterns(timings, lang, timezone)
+  );
+};

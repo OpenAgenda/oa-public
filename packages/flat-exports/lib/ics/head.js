@@ -37,15 +37,11 @@ const validate = schema({
   },
 });
 
-module.exports = data => {
-  const {
-    slug,
-    identifier,
-    type,
-    lang,
-    title,
-    description,
-  } = _.mapValues(validate(data), esc);
+module.exports = (data) => {
+  const { slug, identifier, type, lang, title, description } = _.mapValues(
+    validate(data),
+    esc,
+  );
 
   return `${[
     'BEGIN:VCALENDAR',

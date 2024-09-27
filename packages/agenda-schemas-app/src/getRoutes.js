@@ -1,16 +1,20 @@
-import {
-  loadable,
-} from '@openagenda/react-shared';
+import { loadable } from '@openagenda/react-shared';
 
-const App = loadable(() => import(
-  /* webpackChunkName: "legacyEmbeds-App" */
-  './containers/App'
-));
+const App = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "legacyEmbeds-App" */
+      './containers/App'
+    ),
+);
 
-const Dashboard = loadable(() => import(
-  /* webpackChunkName: "legacyEmbeds-App" */
-  './containers/Dashboard'
-));
+const Dashboard = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "legacyEmbeds-App" */
+      './containers/Dashboard'
+    ),
+);
 
 export default (prefix = '') => [
   {

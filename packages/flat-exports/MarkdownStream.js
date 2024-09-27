@@ -11,7 +11,7 @@ module.exports = class MarkdownStream extends FlatTransform {
     super({
       options,
       head: head.bind(null, _.get(options, 'format', 'md')),
-      parseEvent: parseEvent.bind(null, _.get(options, 'format', 'md'))
+      parseEvent: parseEvent.bind(null, _.get(options, 'format', 'md')),
     });
   }
 };

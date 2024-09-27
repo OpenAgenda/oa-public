@@ -33,9 +33,7 @@
       "help": null,
       "helpLink": null,
       "helpContent": null,
-      "default": [
-        15
-      ],
+      "default": [15],
       "info": {
         "fr": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)",
         "en": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)"

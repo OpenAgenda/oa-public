@@ -495,7 +495,7 @@ export const messages = {
           id: parseInt(_.get(req, namespaces.id, null), 10),
           filename,
         })
-        .then(v => _.mapKeys(v, (value, key) => _.camelCase(key)));
+        .then((v) => _.mapKeys(v, (value, key) => _.camelCase(key)));
 
       try {
         const { data, headers } = await axios({

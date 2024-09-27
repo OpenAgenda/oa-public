@@ -8,16 +8,9 @@ import canCreate from './lib/canCreate.js';
 
 export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
   const { services } = core;
-  const {
-    members,
-    users,
-    custom,
-  } = services;
+  const { members, users, custom } = services;
 
-  const {
-    userUid: actingUserUid,
-    access = null,
-  } = options;
+  const { userUid: actingUserUid, access = null } = options;
 
   if (!actingUserUid && access !== 'internal') {
     throw new BadRequest('userUid option is required');
@@ -25,25 +18,38 @@ export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
-  const actingMember = actingUserUid ? await members.get({
-    agendaUid,
-    userUid: actingUserUid,
-  }) : null;
+  const actingMember = actingUserUid
+    ? await members.get({
+      agendaUid,
+      userUid: actingUserUid,
+    })
+    : null;
 
   const agenda = agendaOrUid?.constructor.name === 'Object'
     ? agendaOrUid
-    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplitMemberSchema: true, access, actingMember });
+    : await core.agendas(agendaUid).get({
+      detailed: true,
+      includeMemberSchema: true,
+      includeSplitMemberSchema: true,
+      access,
+      actingMember,
+    });
 
-  const schemas = await getMemberSchema(services, agenda, { access, actingMember });
-
-  if (!canCreate(services, {
-    agenda,
-    acting: actingMember,
-    actingUserUid,
-    userUid,
-    role,
+  const schemas = await getMemberSchema(services, agenda, {
     access,
-  })) {
+    actingMember,
+  });
+
+  if (
+    !canCreate(services, {
+      agenda,
+      acting: actingMember,
+      actingUserUid,
+      userUid,
+      role,
+      access,
+    })
+  ) {
     throw new Forbidden('Not authorized to add a member');
   }
 
@@ -52,7 +58,7 @@ export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
   };
 
   if (options.useAccountEmail) {
-    memberData.email = await users.get(userUid).then(u => u.email);
+    memberData.email = await users.get(userUid).then((u) => u.email);
   }
 
   let cleanMemberData = null;
@@ -60,22 +66,31 @@ export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
     const validate = new FormSchema(schemas.merged).getValidate();
     cleanMemberData = validate(memberData);
   } catch (error) {
-    throw new BadRequest({
-      info: { error },
-    }, 'data is invalid');
+    throw new BadRequest(
+      {
+        info: { error },
+      },
+      'data is invalid',
+    );
   }
 
   try {
     if (agenda.memberSchemaId) {
-      const dispatchedData = dispatchDataPerSchemas(memberData, [schemas.schema, schemas.agendaSchema]);
+      const dispatchedData = dispatchDataPerSchemas(memberData, [
+        schemas.schema,
+        schemas.agendaSchema,
+      ]);
       await custom(agenda.memberSchemaId).set(userUid, dispatchedData[1]);
     }
-    await members.create({
-      agendaUid,
-      userUid,
-      role: members.utils.getRoleCode(role ?? 'contributor'),
-      custom: format.custom(memberData, {}),
-    }, { requireCustom: false });
+    await members.create(
+      {
+        agendaUid,
+        userUid,
+        role: members.utils.getRoleCode(role ?? 'contributor'),
+        custom: format.custom(memberData, {}),
+      },
+      { requireCustom: false },
+    );
   } catch (error) {
     throw new GeneralError(error, 'something went wrong');
   }

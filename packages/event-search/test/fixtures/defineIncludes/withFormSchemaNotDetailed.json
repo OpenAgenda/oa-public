@@ -607,78 +607,60 @@
         "field": "uid",
         "fieldType": "integer",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null
       },
       {
         "field": "slug",
         "fieldType": "text",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null
       },
       {
         "field": "private",
         "fieldType": "boolean",
         "default": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null
       },
       {
         "field": "timezone",
         "fieldType": "text",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null
       },
       {
         "field": "draft",
         "fieldType": "boolean",
         "default": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null
       },
       {
         "field": "createdAt",
         "fieldType": "date",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null
       },
       {
         "field": "updatedAt",
         "fieldType": "date",
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null
       },
       {
         "field": "agendaUid",
         "fieldType": "integer",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null
       },
       {
         "field": "locationUid",
         "fieldType": "integer",
         "optional": false,
-        "write": [
-          "internal"
-        ],
+        "write": ["internal"],
         "schemaId": null
       },
       {
@@ -701,12 +683,7 @@
           "es": "Cargar una imagen de al menos 300 píxeles de ancho",
           "br": "Kargit ur skeudenn gant 300 piksel a ledander d'an nebeutañ"
         },
-        "extensions": [
-          "jpg",
-          "bmp",
-          "png",
-          "jpeg"
-        ],
+        "extensions": ["jpg", "bmp", "png", "jpeg"],
         "schemaId": null
       },
       {

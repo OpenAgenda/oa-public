@@ -103,15 +103,15 @@ function Dashboard() {
 
   const { agenda: aggregatorAgenda, agendaSchema: aggregatorAgendaSchema } = useLayoutData();
 
-  const res = useSelector(state => state.res);
-  const loading = useSelector(state => _.get(state, 'sources.loading', true));
-  const loaded = useSelector(state => _.get(state, 'sources.loaded'));
-  const listLoading = useSelector(state => state.sources.listLoading);
-  const aggregator = useSelector(state => state.sources.aggregator);
-  const agendaSources = useSelector(state => state.sources.data);
-  const nextLoading = useSelector(state => state.sources.nextLoading);
-  const modals = useSelector(state => state.modals);
-  const dev = useSelector(state => state.dev);
+  const res = useSelector((state) => state.res);
+  const loading = useSelector((state) => _.get(state, 'sources.loading', true));
+  const loaded = useSelector((state) => _.get(state, 'sources.loaded'));
+  const listLoading = useSelector((state) => state.sources.listLoading);
+  const aggregator = useSelector((state) => state.sources.aggregator);
+  const agendaSources = useSelector((state) => state.sources.data);
+  const nextLoading = useSelector((state) => state.sources.nextLoading);
+  const modals = useSelector((state) => state.modals);
+  const dev = useSelector((state) => state.dev);
 
   const fuse = useMemo(
     () => new Fuse(agendaSources || [], fuseOptions),
@@ -127,7 +127,7 @@ function Dashboard() {
   }, [fuse, value, agendaSources]);
 
   const search = useCallback(
-    v => {
+    (v) => {
       setPreviousValue(value);
       setValue(v);
 
@@ -170,7 +170,7 @@ function Dashboard() {
 
   const debouncedSearch = useMemo(() => _.debounce(search, 400), [search]);
 
-  const onSearch = useCallback(values => search(values.search), [search]);
+  const onSearch = useCallback((values) => search(values.search), [search]);
 
   const refresh = useCallback(
     () => dispatch(sourcesActions.list({ query: value })),
@@ -185,7 +185,7 @@ function Dashboard() {
   );
 
   const setAggregatorRules = useCallback(
-    rules =>
+    (rules) =>
       dispatch(sourcesActions.setAggregatorRules(rules)).then(() => {
         closeModalSetAggregatorRules();
 
@@ -202,8 +202,9 @@ function Dashboard() {
   );
   const updateSource = useCallback(
     (sourceAgendaUid, rules, evaluate) =>
-      dispatch(sourcesActions.update(sourceAgendaUid, { rules, evaluate })).then(() =>
-        refresh()),
+      dispatch(
+        sourcesActions.update(sourceAgendaUid, { rules, evaluate }),
+      ).then(() => refresh()),
     [dispatch, refresh],
   );
   const removeSource = useCallback(
@@ -298,7 +299,7 @@ function Dashboard() {
     (async () => {
       // search agenda in sources
       const source = agendaSources.find(
-        v => v.agenda.slug === query.removeSource,
+        (v) => v.agenda.slug === query.removeSource,
       );
 
       if (source?.id) {
@@ -345,7 +346,7 @@ function Dashboard() {
           {intl.formatMessage(messages.aggregationCountWarning, {
             limit: aggregator.limit,
             br: <br />,
-            'support-link': chunks => (
+            'support-link': (chunks) => (
               <a
                 className="btn btn-primary"
                 href={`/support?origin=${encodeURIComponent(
@@ -379,7 +380,7 @@ function Dashboard() {
                   classNameGroup="form-group search margin-v-z"
                   className="form-control"
                   placeholder={intl.formatMessage(messages.searchAgenda)}
-                  action={v => debouncedSearch(v === '' ? undefined : v)}
+                  action={(v) => debouncedSearch(v === '' ? undefined : v)}
                   loading={listLoading}
                   intl={intl}
                   visible={

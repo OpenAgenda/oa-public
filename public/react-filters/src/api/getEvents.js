@@ -38,7 +38,7 @@ export default async function getEvents(
       },
     });
 
-  return p.then(r => {
+  return p.then((r) => {
     if (r.ok) return r.json();
     throw new Error("Can't list events");
   });

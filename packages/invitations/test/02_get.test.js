@@ -1,8 +1,7 @@
-"use strict";
+'use strict';
 
-const service = require( './service' );
-const config = require( '../testconfig' );
-const _ = require( 'lodash' );
+const config = require('../testconfig');
+const service = require('./service');
 
 const invitationSample = {
   id: 1,
@@ -10,76 +9,59 @@ const invitationSample = {
   token: '066LREi0S3hUA2Uh273a6b147C15rMV2',
   store: {
     nextId: 3,
-    actions: [ {
-      id: 1,
-      name: 'createStakeholder',
-      params: { role: 'admin' }
-    }, {
-      id: 2,
-      name: 'uneActionBidon',
-      params: [
-        'firstParams',
-        { second: 'caca' }
-      ]
-    } ]
-  }
+    actions: [
+      {
+        id: 1,
+        name: 'createStakeholder',
+        params: { role: 'admin' },
+      },
+      {
+        id: 2,
+        name: 'uneActionBidon',
+        params: ['firstParams', { second: 'caca' }],
+      },
+    ],
+  },
 };
 
-describe( 'invitations - functional (server): get an invitation', () => {
-
-  beforeAll(done => {
-
-    service.initAndLoad( config, done );
-
+describe('invitations - functional (server): get an invitation', () => {
+  beforeAll(async () => {
+    await new Promise((resolve, reject) =>
+      service.initAndLoad(config, (err) => {
+        if (err) return reject(err);
+        resolve();
+      }));
   });
 
-  it('get with email', done => {
+  it('get with email', async () => {
+    const { invitation } = await service.get({
+      email: 'kevin.bertho@gmail.com',
+    });
 
-    service.get( { email: 'kevin.bertho@gmail.com' } )
-      .then( ( { invitation } ) => {
-
-        expect(invitation._data).toStrictEqual(invitationSample);
-        expect(invitation.id).toBe(invitationSample.id);
-        expect(invitation.email).toBe(invitationSample.email);
-        expect(invitation.token).toBe(invitationSample.token); 
-        expect(invitation.data).toStrictEqual(invitationSample.store);
-
-        done();
-
-      } )
-      .catch( done );
-
+    expect(invitation._data).toStrictEqual(invitationSample);
+    expect(invitation.id).toBe(invitationSample.id);
+    expect(invitation.email).toBe(invitationSample.email);
+    expect(invitation.token).toBe(invitationSample.token);
+    expect(invitation.data).toStrictEqual(invitationSample.store);
   });
 
-  it('get with token', done => {
+  it('get with token', async () => {
+    const { invitation } = await service.get({
+      token: '066LREi0S3hUA2Uh273a6b147C15rMV2',
+    });
 
-    service.get( { token: '066LREi0S3hUA2Uh273a6b147C15rMV2' } )
-      .then( ( { invitation } ) => {
-
-        expect(invitation._data).toStrictEqual(invitationSample);
-        expect(invitation.id).toBe(invitationSample.id);
-        expect(invitation.email).toBe(invitationSample.email);
-        expect(invitation.token).toBe(invitationSample.token);
-        expect(invitation.data).toStrictEqual(invitationSample.store);
-
-        done();
-
-      } )
-      .catch( done );
-
+    expect(invitation._data).toStrictEqual(invitationSample);
+    expect(invitation.id).toBe(invitationSample.id);
+    expect(invitation.email).toBe(invitationSample.email);
+    expect(invitation.token).toBe(invitationSample.token);
+    expect(invitation.data).toStrictEqual(invitationSample.store);
   });
 
-  it('get with bad token return null', done => {
+  it('get with bad token return null', async () => {
+    const { invitation } = await service.get({
+      token: '066LREi0S3hUA2Uh273a6b147C1kaore',
+    });
 
-    service.get( { token: '066LREi0S3hUA2Uh273a6b147C1mabite' } )
-      .then( ( { invitation } ) => {
-
-        expect(invitation).toBeNull();
-        done();
-
-      } )
-      .catch( done );
-
+    expect(invitation).toBeNull();
   });
-
-} );
+});

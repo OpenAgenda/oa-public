@@ -10,10 +10,12 @@ async function remove(service, current, options = {}) {
 
   await handleInterface(service, 'beforeRemove', current, options.context);
 
-  await service.clients.knex(service.config.schema)
+  await service.clients
+    .knex(service.config.schema)
     .update({
-      deleted_at: new Date()
-    }).where('uid', current.uid);
+      deleted_at: new Date(),
+    })
+    .where('uid', current.uid);
 
   if (!current.draft) {
     try {
@@ -28,11 +30,12 @@ async function remove(service, current, options = {}) {
   return current;
 }
 
-module.exports = async (service, identifier, options = {}) => remove(
-  service,
-  await get(service, identifier, {
-    ...options,
-    throwOnNotFound: true
-  }),
-  options
-);
+module.exports = async (service, identifier, options = {}) =>
+  remove(
+    service,
+    await get(service, identifier, {
+      ...options,
+      throwOnNotFound: true,
+    }),
+    options,
+  );

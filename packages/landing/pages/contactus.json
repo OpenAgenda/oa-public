@@ -1,23 +1,26 @@
 {
-  "keys" : [
-    { "lang" : "en", "key" : "contact-us" },
-    { "lang" : "fr", "key" : "contactez-nous" },
-    { "lang" : "de", "key" : "kontaktiere-uns" },
-    { "lang" : "es", "key" : "contactos" },
-    { "lang" : "br", "key" : "contactez-nous-br" },
-    { "lang": "it", "key" : "contattaci" },
-    { "lang" : "oc", "key" : "contactez-nous-oc" }
+  "keys": [
+    { "lang": "en", "key": "contact-us" },
+    { "lang": "fr", "key": "contactez-nous" },
+    { "lang": "de", "key": "kontaktiere-uns" },
+    { "lang": "es", "key": "contactos" },
+    { "lang": "br", "key": "contactez-nous-br" },
+    { "lang": "it", "key": "contattaci" },
+    { "lang": "oc", "key": "contactez-nous-oc" }
   ],
-  "head" : {
-    "title" : "contactHeadTitle",
-    "description" : "contactDescription"
+  "head": {
+    "title": "contactHeadTitle",
+    "description": "contactDescription"
   },
   "title": "contactTitle",
   "description": "contactDescription",
   "layout": "layout",
-  "segments": [ {
-    "key" : "contact",
-    "background" : "white",
-    "action" : false
-  }, "footer" ]
+  "segments": [
+    {
+      "key": "contact",
+      "background": "white",
+      "action": false
+    },
+    "footer"
+  ]
 }

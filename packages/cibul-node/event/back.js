@@ -1,11 +1,7 @@
 import getAndDecorateIndexedEvent from './lib/getAndDecorateIndexedEvent.js';
 
-export default app => {
-  const {
-    sessions,
-    members,
-    agendas: agendasSvc,
-  } = app.services;
+export default (app) => {
+  const { sessions, members, agendas: agendasSvc } = app.services;
 
   app.get(
     '/agendas/:uid/events/:eventUid/custom',
@@ -13,16 +9,22 @@ export default app => {
     sessions.mw.loadOrRedirect(),
     members.mw.load,
     (req, res) => {
-      req.app.services.core.agendas(req.agenda.uid).events.get(req.params.eventUid, {
-        load: {
-          custom: true,
-        },
-        returnPayload: true,
-        access: req.member ? members.utils.getRoleSlug(req.member.role) : 'nobody',
-      }).then(result => res.json({
-        event: result.event,
-        schema: result.formSchema,
-      }));
+      req.app.services.core
+        .agendas(req.agenda.uid)
+        .events.get(req.params.eventUid, {
+          load: {
+            custom: true,
+          },
+          returnPayload: true,
+          access: req.member
+            ? members.utils.getRoleSlug(req.member.role)
+            : 'nobody',
+        })
+        .then((result) =>
+          res.json({
+            event: result.event,
+            schema: result.formSchema,
+          }));
     },
   );
 
@@ -37,7 +39,7 @@ export default app => {
         userUid: req.user?.uid,
         lang: req.lang,
         originalUrl: req.originalUrl,
-      }).then(indexedEvent => {
+      }).then((indexedEvent) => {
         if (!indexedEvent) {
           return next({ code: 404 });
         }
@@ -52,9 +54,7 @@ export default app => {
         return res.json({ count: 0 });
       }
 
-      const {
-        activities: activitiesSvc,
-      } = req.app.services;
+      const { activities: activitiesSvc } = req.app.services;
 
       const limit = 20;
 
@@ -63,21 +63,26 @@ export default app => {
         entityUid: req.user.uid,
       });
 
-      feed.get().then(data => {
+      feed.get().then((data) => {
         if (!data) return res.json({});
 
-        feed.activities.list(
-          { object: `event:${req.event.uid}`/* , target: `agenda:${req.agenda.uid}` */ },
-          req.query.fromId || 0,
-          limit,
-        )
+        feed.activities
+          .list(
+            {
+              object: `event:${req.event.uid}` /* , target: `agenda:${req.agenda.uid}` */,
+            },
+            req.query.fromId || 0,
+            limit,
+          )
 
-          .then(activities => {
+          .then((activities) => {
             const lastPage = activities.length < limit;
 
             res.json({
               activities,
-              config: req.query.withConfig ? activitiesSvc.getFormatConfig() : undefined,
+              config: req.query.withConfig
+                ? activitiesSvc.getFormatConfig()
+                : undefined,
               count: activities.length,
               nextUrl: lastPage
                 ? null

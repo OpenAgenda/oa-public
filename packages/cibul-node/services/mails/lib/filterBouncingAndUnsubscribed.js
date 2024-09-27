@@ -1,9 +1,17 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
-import { convertRuleArrayToObject, isMailgunBounced, ccIsDestinary } from './utils.js';
+import {
+  convertRuleArrayToObject,
+  isMailgunBounced,
+  ccIsDestinary,
+} from './utils.js';
 
-export default async function filterBouncingAndUnsubscribed(services, config, params) {
+export default async function filterBouncingAndUnsubscribed(
+  services,
+  config,
+  params,
+) {
   const { unsubscriptions: unsubscriptionsSvc, users, abilities } = services;
 
   const {
@@ -20,11 +28,15 @@ export default async function filterBouncingAndUnsubscribed(services, config, pa
   });
 
   const abilityArgs = unsubscriptions?.length
-    ? _.find(unsubscriptions, 'memberId') || unsubscriptions[unsubscriptions.length - 1]
+    ? _.find(unsubscriptions, 'memberId')
+      || unsubscriptions[unsubscriptions.length - 1]
     : null;
 
   if (!abilityArgs || !abilityArgs.rule) {
-    log('  no ability has been found for unsubscriptions instructions %j', unsubscriptions);
+    log(
+      '  no ability has been found for unsubscriptions instructions %j',
+      unsubscriptions,
+    );
     return true;
   }
 
@@ -35,8 +47,17 @@ export default async function filterBouncingAndUnsubscribed(services, config, pa
   const ruleObj = convertRuleArrayToObject(rule);
 
   if (memberAbility) {
-    const sendEmail = memberAbility.can(ruleObj.action, ruleObj.subject, ruleObj.conditions, ruleObj.fields);
-    log('  user is a member (%s) and %s to receive email', memberId, sendEmail ? 'wants' : 'does not want');
+    const sendEmail = memberAbility.can(
+      ruleObj.action,
+      ruleObj.subject,
+      ruleObj.conditions,
+      ruleObj.fields,
+    );
+    log(
+      '  user is a member (%s) and %s to receive email',
+      memberId,
+      sendEmail ? 'wants' : 'does not want',
+    );
     return sendEmail;
   }
 
@@ -47,20 +68,32 @@ export default async function filterBouncingAndUnsubscribed(services, config, pa
   if (user) {
     const sendEmail = await abilities
       .get('user', user.uid)
-      .then(ability => ability.can(ruleObj.action, ruleObj.subject, ruleObj.conditions, ruleObj.fields));
+      .then((ability) =>
+        ability.can(
+          ruleObj.action,
+          ruleObj.subject,
+          ruleObj.conditions,
+          ruleObj.fields,
+        ));
 
-    log('  an account exists for email, abilities svc is reference for filtering email', {
-      email,
-      userUid: user.uid,
-      sendEmail,
-    });
+    log(
+      '  an account exists for email, abilities svc is reference for filtering email',
+      {
+        email,
+        userUid: user.uid,
+        sendEmail,
+      },
+    );
     return sendEmail;
   }
 
   if (await unsubscriptionsSvc.registry.isRegistered(email)) {
-    log.info('  no account is associated with email but it is registered in the unsubscription registry. Filtering.', {
-      email,
-    });
+    log.info(
+      '  no account is associated with email but it is registered in the unsubscription registry. Filtering.',
+      {
+        email,
+      },
+    );
     return false;
   }
 
@@ -69,7 +102,10 @@ export default async function filterBouncingAndUnsubscribed(services, config, pa
     return false;
   }
 
-  log('not filtering, send can proceed', JSON.stringify(params.template, null, 2));
+  log(
+    'not filtering, send can proceed',
+    JSON.stringify(params.template, null, 2),
+  );
 
   return true;
 }

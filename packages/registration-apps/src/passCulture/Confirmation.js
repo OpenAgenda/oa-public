@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { Image } from '@openagenda/react-shared';
 import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 
@@ -20,7 +19,7 @@ function ConfirmationBody({
         <b>
           L&apos;offre pass a été créée mais n&apos;a pas pu être complétée.
         </b>
-        <p>{errors[0]?.label}</p>
+        <p>{errors[0]?.label || 'Une erreur est survenue.'}</p>
         <p>
           Rendez-vous sur son administration pour compléter la configuration.
         </p>
@@ -38,8 +37,8 @@ function ConfirmationBody({
     return (
       <>
         <i className="fa fa-warning text-danger margin-right-xs" />
-        <b>L&apos; offre pass n&apos; a pas pu être créée.</b>
-        <p>{errors[0]?.label}</p>
+        <b>L&apos;offre pass n&apos;a pas pu être créée.</b>
+        <p>{errors[0]?.label || 'Une erreur est survenue.'}</p>
         <p>
           Rendez-vous sur son administration pour compléter la configuration.
         </p>
@@ -62,7 +61,7 @@ function ConfirmationBody({
         </b>
         <p>
           La validation de l&apos;offre sera faite dans moins de 72h, la
-          completion de l&apos;offre sera faite automatiquement
+          complétion de l&apos;offre sera faite automatiquement.
         </p>
         <a
           href={editLink}
@@ -87,8 +86,8 @@ function ConfirmationBody({
     return (
       <>
         <p>
-          L&apos; offre pass Culture a été mise à jour avec succès. Vous pouvez
-          y accéder depuis la barre latérale de la fiche détaillée de
+          L&apos;offre pass Culture a été mise à jour avec succès. Vous pouvez y
+          accéder depuis la barre latérale de la fiche détaillée de
           l&apos;événement ou en cliquant sur un des liens suivants.
         </p>
         <a
@@ -138,40 +137,34 @@ function ConfirmationBody({
 }
 
 export default function Confirmation({ event, res, className }) {
-  const passRegistrartion = event.registration.find(
+  const passRegistration = event.registration.find(
     (r) => r.service === 'passCulture',
   );
-  const passData = passRegistrartion?.data;
+  const passData = passRegistration?.data;
 
   if (!passData) {
     return null;
   }
 
-  const lastProcessed = passRegistrartion?.lastProcessedAt;
+  const lastProcessed = passRegistration?.lastProcessedAt;
   const thirtySecAgo = new Date(new Date().getTime() - 30 * 1000);
 
   if (new Date(lastProcessed) < thirtySecAgo) {
     return null;
   }
 
-  const editLink = useMemo(
-    () => (res?.edit ?? '').replace(':id', passData[0]?.response?.passId),
-    [res, passData],
+  const editLink = (res?.edit ?? '').replace(
+    ':id',
+    passData[0]?.response?.passId,
   );
-  const showLink = useMemo(
-    () => (res?.show ?? '').replace(':id', passData[0]?.response?.passId),
-    [res, passData],
+  const showLink = (res?.show ?? '').replace(
+    ':id',
+    passData[0]?.response?.passId,
   );
-  const isPatch = useMemo(() => passData.length > 3, [passData]);
-  const hasErrors = useMemo(
-    () => (getCurrentValue(passData)?.errors ?? []).length,
-    [passData],
-  );
-  const isPending = useMemo(
-    () => passData[0]?.response.isPending ?? null,
-    [passData],
-  );
-  const isCreated = useMemo(() => passData[0]?.response?.passId, [passData]);
+  const isPatch = passData.length > 3;
+  const hasErrors = (getCurrentValue(passData)?.errors ?? []).length > 0;
+  const isPending = passData[0]?.response.isPending ?? null;
+  const isCreated = !!passData[0]?.response?.passId;
 
   return (
     <div className={className ?? 'panel panel-default'}>

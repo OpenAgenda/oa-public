@@ -70,9 +70,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "0545945600"
-      ],
+      "registration": ["0545945600"],
       "location": {
         "uid": 32666371,
         "slug": "lalpha897",
@@ -106,9 +104,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -217,9 +213,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "0545945600"
-      ],
+      "registration": ["0545945600"],
       "location": {
         "uid": 32666371,
         "slug": "lalpha897",
@@ -253,9 +247,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -780,9 +772,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "0545945600"
-      ],
+      "registration": ["0545945600"],
       "location": {
         "uid": 32666371,
         "slug": "lalpha897",
@@ -816,9 +806,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -875,9 +863,7 @@
         "en": "**Comics with Fabien Rypert for the 6th, albums by Sylvain Victor for a CM2/6th match... the sessions are expected to be rich, funny and touching.**\nHazebrouck’s library, in partnership with the Inspectorate of National Education of its constituency, conducts a meeting operation in schools, \"Authors are classy!\". This action consists in making schoolchildren discover the works of an author proposed by the library as early as October. Then in January, on the occasion of the Nuit de la lecture and the salon Les Bouquinales, the library team organizes meetings between these authors and students in their classes."
       },
       "keywords": {
-        "fr": [
-          "rencontres d'auteur"
-        ]
+        "fr": ["rencontres d'auteur"]
       },
       "conditions": {
         "fr": "Inscription clôturée",
@@ -976,12 +962,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1034,10 +1016,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "BD",
-          "Petit dejeuner"
-        ]
+        "fr": ["BD", "Petit dejeuner"]
       },
       "conditions": {},
       "image": {
@@ -1125,12 +1104,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1183,10 +1158,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "BD",
-          "lectures"
-        ]
+        "fr": ["BD", "lectures"]
       },
       "conditions": {},
       "image": {
@@ -1261,9 +1233,7 @@
         "website": "http://avallon.sezhame.decalog.net/",
         "email": null,
         "phone": "03 86 34 46 18",
-        "links": [
-          "http://facebook.com/mediathequeavallon"
-        ],
+        "links": ["http://facebook.com/mediathequeavallon"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
@@ -1277,12 +1247,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1335,10 +1301,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "BD",
-          "lectures"
-        ]
+        "fr": ["BD", "lectures"]
       },
       "conditions": {},
       "image": {
@@ -1413,9 +1376,7 @@
         "website": "http://avallon.sezhame.decalog.net/",
         "email": null,
         "phone": "03 86 34 46 18",
-        "links": [
-          "http://facebook.com/mediathequeavallon"
-        ],
+        "links": ["http://facebook.com/mediathequeavallon"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
@@ -1429,12 +1390,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1490,9 +1447,7 @@
         "en": "Zenzika was born in 2004 from the encounter between a triplet of blowers – Serge Hildesheim, Olivier Ricard, Jean Lamur – and an outstanding percussionist – Hervé Catil.\nA music to listen to but also to see because the five musicians are dedicated to exploring the links between graphic arts and music, especially through the form of concert comics.\n\"An ocean of love\" by Grégory Panaccione and Wilfrid Lupano\nThis comic is a great story full of twists and surprises.\nShe borrows from the most scruffy burlesque, her rhythm, her funny situations and her duo of puny man/robust housekeeper. Wilfrid Lupano and Grégory Panaccione compose a silent story that sparkles with malice to invent sequences served by a high-flying cutting.\nThe two accomplices work to create and stage episodes that will geographically distance a couple that everyone imagines inseparable since the first day of their union.\nA story without words carried by a music that crosses influences pop, jazz, traditional and improvised."
       },
       "keywords": {
-        "fr": [
-          "bd concert"
-        ]
+        "fr": ["bd concert"]
       },
       "conditions": {
         "fr": "Nombre de place limité - Inscription indispensable",
@@ -1549,9 +1504,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "0432611016"
-      ],
+      "registration": ["0432611016"],
       "location": {
         "uid": 89629155,
         "slug": "bibliotheque-de-molleges",
@@ -1571,9 +1524,7 @@
         "description": {},
         "email": null,
         "phone": null,
-        "links": [
-          "https://www.facebook.com/bibmolleges/"
-        ],
+        "links": ["https://www.facebook.com/bibmolleges/"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
@@ -1587,12 +1538,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1648,9 +1595,7 @@
         "en": "In order to celebrate the Nuit de la lecture as well as the Year of the comic strip, the SPIP de l'Aude will propose to ten people detained at the Maison d'arrêt de Carcassonne to meet a comic book author in the library of the establishment, where participants can exchange with the invited author about his/her work(s), his or her career as a writer and any questions related to his or her achievements as a writer and co-author of comic books. The meeting will be punctuated with a snack and closed with a signing session."
       },
       "keywords": {
-        "fr": [
-          "Rencontre d'auteur / dédicace / bande-dessinée"
-        ]
+        "fr": ["Rencontre d'auteur / dédicace / bande-dessinée"]
       },
       "conditions": {
         "fr": "Nombre de place limité - Inscriptions extérieures à l'établissement impossibles",
@@ -1724,12 +1669,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 633,
       "si-autre-precisez": null,
@@ -1782,11 +1723,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "bande dessinée",
-          "atelier",
-          "bd"
-        ]
+        "fr": ["bande dessinée", "atelier", "bd"]
       },
       "conditions": {},
       "image": {
@@ -1857,12 +1794,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,

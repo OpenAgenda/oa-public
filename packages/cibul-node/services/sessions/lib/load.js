@@ -8,16 +8,25 @@ function load(sessions, { detailed, redirect, msg } = {}) {
     sessions.get(req, { detailed }, (err, user) => {
       if (err) return next(err);
       if (!user && redirect) {
-        const redirectURL = Buffer.from(req.originalUrl, 'utf-8').toString('base64');
-        return res.redirect(302, `${req.agenda ? `/${req.agenda.slug}` : ''}/signin?redirect=${redirectURL}&msg=${msg}`);
+        const redirectURL = Buffer.from(req.originalUrl, 'utf-8').toString(
+          'base64',
+        );
+        return res.redirect(
+          302,
+          `${req.agenda ? `/${req.agenda.slug}` : ''}/signin?redirect=${redirectURL}&msg=${msg}`,
+        );
       }
 
       if (user && user.isBlacklisted) {
-        sessions.setFlash(req, res, `
+        sessions.setFlash(
+          req,
+          res,
+          `
           <div class="text-center margin-top-sm">
             <strong>${getAuthMessageLabel('isBlacklisted', user.culture)}</strong>
             <p>${getAuthMessageLabel('isBlacklistedInfo', user.culture)}</p>
-          </div>`);
+          </div>`,
+        );
         sessions.close(req, () => {
           res.redirect(302, '/');
         });

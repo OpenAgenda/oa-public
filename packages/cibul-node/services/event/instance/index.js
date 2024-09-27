@@ -41,7 +41,7 @@ export default function instanciate(data) {
     }
 
     return range(
-      timings.map(t => ({
+      timings.map((t) => ({
         start: new Date(t.start),
         end: new Date(t.end),
       })),

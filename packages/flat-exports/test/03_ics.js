@@ -34,10 +34,12 @@ describe('flat-exports - unit - ics', () => {
     });
 
     test('multiple timings show as multiple events', () => {
-      const lines = ics.parseEvent({ lang: 'fr' }, foireAuxLivres).split('\r\n');
+      const lines = ics
+        .parseEvent({ lang: 'fr' }, foireAuxLivres)
+        .split('\r\n');
 
-      expect(lines.filter(l => l === 'BEGIN:VEVENT').length).toBe(2);
-      expect(lines.filter(l => l === 'END:VEVENT').length).toBe(2);
+      expect(lines.filter((l) => l === 'BEGIN:VEVENT').length).toBe(2);
+      expect(lines.filter((l) => l === 'END:VEVENT').length).toBe(2);
     });
   });
 });

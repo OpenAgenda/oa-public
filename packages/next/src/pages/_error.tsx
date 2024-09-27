@@ -17,6 +17,7 @@
  */
 
 import NextErrorComponent, { ErrorProps } from 'next/error';
+import { NextPageContext } from 'next';
 import { captureUnderscoreErrorException } from '@sentry/nextjs';
 import { ErrorDisplay } from 'components/ErrorDisplay';
 
@@ -25,12 +26,10 @@ function CustomErrorComponent(_props: ErrorProps) {
   // compensate for https://github.com/vercel/next.js/issues/8592
   // Sentry.captureUnderscoreErrorException(props);
 
-  return (
-    <ErrorDisplay />
-  );
+  return <ErrorDisplay />;
 }
 
-CustomErrorComponent.getInitialProps = async contextData => {
+CustomErrorComponent.getInitialProps = async (contextData: NextPageContext) => {
   // In case this is running in a serverless function, await this in order to give Sentry
   // time to send the error before the lambda exits
 

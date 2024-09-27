@@ -34,32 +34,32 @@ const messages = defineMessages({
   },
   notRemove: {
     id: 'AgendaLocations.RemoveModal.notRemove',
-    defaultMessage: '{count, plural, =0 {nothing} one { Do not delete the event} other {Do not delete # events}}',
+    defaultMessage:
+      '{count, plural, =0 {nothing} one { Do not delete the event} other {Do not delete # events}}',
   },
   notRemoveInfo: {
     id: 'AgendaLocations.RemoveModal.notRemoveInfo',
-    defaultMessage: '{count, plural, =0 {nothing} one {This will continue to display the data of the deleted location until it is updated the next time.} other {These will continue to display the data of the deleted location until their next update.}}',
+    defaultMessage:
+      '{count, plural, =0 {nothing} one {This will continue to display the data of the deleted location until it is updated the next time.} other {These will continue to display the data of the deleted location until their next update.}}',
   },
   removeEvents: {
     id: 'AgendaLocations.RemoveModal.removeEvents',
-    defaultMessage: '{count, plural, =0 {nothing} one {Delete the event.} other {Delete the # events.}}',
+    defaultMessage:
+      '{count, plural, =0 {nothing} one {Delete the event.} other {Delete the # events.}}',
   },
   infoText: {
     id: 'AgendaLocations.RemoveModal.infoText',
-    defaultMessage: 'The location is associated to {eventCount, plural, =0 {nothing} one {one event} other {# events}}, {agendaEventCount, plural, =0 {none of which has been contributed on the agenda.} one {<link>one of which</link> has been contributed on the agenda.} other {<link># of which</link> have been contributed on the agenda.}}',
+    defaultMessage:
+      'The location is associated to {eventCount, plural, =0 {nothing} one {one event} other {# events}}, {agendaEventCount, plural, =0 {none of which has been contributed on the agenda.} one {<link>one of which</link> has been contributed on the agenda.} other {<link># of which</link> have been contributed on the agenda.}}',
   },
   infoTextEq: {
     id: 'AgendaLocations.RemoveModal.infoTextEq',
-    defaultMessage: 'The location is associated to {eventCount, plural, =0 {nothing} one {<link>one event.</link> By deleting the location, the associated event will also be deleted.} other {<link># events.</link> By deleting the location, the associated events will also be deleted.}}',
+    defaultMessage:
+      'The location is associated to {eventCount, plural, =0 {nothing} one {<link>one event.</link> By deleting the location, the associated event will also be deleted.} other {<link># events.</link> By deleting the location, the associated events will also be deleted.}}',
   },
 });
 
-const RemoveLocationModal = ({
-  modal,
-  onClose,
-  onRemove,
-  seeEventsLink,
-}) => {
+const RemoveLocationModal = ({ modal, onClose, onRemove, seeEventsLink }) => {
   const [removeEvents, setRemoveEvents] = useState(false);
   const intl = useIntl();
   const { isRemoved } = modal.data;
@@ -75,11 +75,7 @@ const RemoveLocationModal = ({
         <FormattedMessage {...messages.removeComplete} />
       </p>
       <div className="text-center">
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={onClose}
-        >
+        <button type="button" className="btn btn-primary" onClick={onClose}>
           <FormattedMessage {...messages.closeModal} />
         </button>
       </div>
@@ -107,14 +103,23 @@ const RemoveLocationModal = ({
     let infoText = (
       <div className="margin-bottom-sm">
         <p className="text-left">
-          {intl.formatMessage(messages.infoText, { eventCount, agendaEventCount, link: chunks => <a href={seeEventsLink}>{chunks}</a> })}
+          {intl.formatMessage(messages.infoText, {
+            eventCount,
+            agendaEventCount,
+            link: (chunks) => <a href={seeEventsLink}>{chunks}</a>,
+          })}
         </p>
       </div>
     );
     if (eventCount === agendaEventCount) {
       infoText = (
         <span>
-          <p>{intl.formatMessage(messages.infoTextEq, { eventCount, link: chunks => <a href={seeEventsLink}>{chunks}</a> })}</p>
+          <p>
+            {intl.formatMessage(messages.infoTextEq, {
+              eventCount,
+              link: (chunks) => <a href={seeEventsLink}>{chunks}</a>,
+            })}
+          </p>
         </span>
       );
     }
@@ -123,15 +128,38 @@ const RemoveLocationModal = ({
         {infoText}
         <div className="radio margin-v-sm">
           <label htmlFor="withoutEvents">
-            <input type="radio" id="withoutEvents" name="withoutEvents" checked={removeEvents === false} onClick={() => setRemoveEvents(false)} />
-            <FormattedMessage values={{ count: eventCount }} {...messages.notRemove} />
-            <div className="text-muted"><FormattedMessage values={{ count: eventCount }} {...messages.notRemoveInfo} /></div>
+            <input
+              type="radio"
+              id="withoutEvents"
+              name="withoutEvents"
+              checked={removeEvents === false}
+              onClick={() => setRemoveEvents(false)}
+            />
+            <FormattedMessage
+              values={{ count: eventCount }}
+              {...messages.notRemove}
+            />
+            <div className="text-muted">
+              <FormattedMessage
+                values={{ count: eventCount }}
+                {...messages.notRemoveInfo}
+              />
+            </div>
           </label>
         </div>
         <div className="radio margin-v-sm">
           <label htmlFor="withEvents">
-            <input type="radio" id="withEvents" name="withEvents" checked={removeEvents === true} onClick={() => setRemoveEvents(true)} />
-            <FormattedMessage values={{ count: eventCount }} {...messages.removeEvents} />
+            <input
+              type="radio"
+              id="withEvents"
+              name="withEvents"
+              checked={removeEvents === true}
+              onClick={() => setRemoveEvents(true)}
+            />
+            <FormattedMessage
+              values={{ count: eventCount }}
+              {...messages.removeEvents}
+            />
           </label>
         </div>
         <div>

@@ -2,7 +2,8 @@ import AbilitiesEditor from '../src/client/AbilitiesEditor';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
+const getHostname = () =>
+  (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
 export default {
   title: 'AbilitiesEditor',

@@ -55,7 +55,8 @@ export const ConfirmationWithPass = {
                     message: 'failed to create all dates',
                     fieldLabel: 'Pass Culture',
                     code: 'registration.pass.invalidDate.quantity',
-                    label: 'Certaines dates n\'ont pas pu être créées: les quantités saisies doivent être des entiers positifs',
+                    label:
+                      "Certaines dates n'ont pas pu être créées: les quantités saisies doivent être des entiers positifs",
                   },
                 ],
               },
@@ -71,7 +72,9 @@ export const ConfirmationWithPass = {
 
     return (
       <>
-        <p className="text-center">Info regarding Pass Culture creation should appear</p>
+        <p className="text-center">
+          Info regarding Pass Culture creation should appear
+        </p>
         {wrapApp(
           createApp({
             initialState,
@@ -90,7 +93,8 @@ export const ConfirmationWithPass = {
   parameters: {
     msw: {
       handlers: [
-        http.get('/api/me/agendas/56500817', () => HttpResponse.json(agendaContributorContext)),
+        http.get('/api/me/agendas/56500817', () =>
+          HttpResponse.json(agendaContributorContext)),
         http.get('/api/agendas/56500817', () => HttpResponse.json(agenda)),
       ],
     },

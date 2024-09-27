@@ -103,7 +103,8 @@ export default defineMessages({
   },
   requiredFilter: {
     id: 'aggregator-sources.RuleForm.requiredFilter',
-    defaultMessage: 'Aggregation only occurs if the event matches the criteria for this rule.',
+    defaultMessage:
+      'Aggregation only occurs if the event matches the criteria for this rule.',
   },
   addAnAction: {
     id: 'aggregator-sources.RuleForm.addAnAction',
@@ -115,7 +116,8 @@ export default defineMessages({
   },
   helpFilterLocation: {
     id: 'aggregator-sources.RuleForm.helpFilterLocation',
-    defaultMessage: 'Apply the rule to events corresponding to one or more cities, departments or regions.',
+    defaultMessage:
+      'Apply the rule to events corresponding to one or more cities, departments or regions.',
   },
   helpFilterChoice: {
     id: 'aggregator-sources.RuleForm.helpFilterChoice',
@@ -124,19 +126,23 @@ export default defineMessages({
   },
   helpFilterText: {
     id: 'aggregator-sources.RuleForm.helpFilterText',
-    defaultMessage: 'Apply the rule to events corresponding to one value coming from text fields of the source.',
+    defaultMessage:
+      'Apply the rule to events corresponding to one value coming from text fields of the source.',
   },
   helpFilterLanguages: {
     id: 'aggregator-sources.RuleForm.helpFilterLanguages',
-    defaultMessage: 'Apply the rule to events having a specific language defined in the source.',
+    defaultMessage:
+      'Apply the rule to events having a specific language defined in the source.',
   },
   helpFilterTimings: {
     id: 'aggregator-sources.RuleForm.helpFilterTimings',
-    defaultMessage: 'Apply the rule to events that have at least one timing matching the limits',
+    defaultMessage:
+      'Apply the rule to events that have at least one timing matching the limits',
   },
   helpFilterTag: {
     id: 'aggregator-sources.RuleForm.helpFilterTag',
-    defaultMessage: 'Apply the rule to events associated with optional values whose labels correspond.',
+    defaultMessage:
+      'Apply the rule to events associated with optional values whose labels correspond.',
   },
   automaticAssignment: {
     id: 'aggregator-sources.RuleForm.automaticAssignment',
@@ -199,7 +205,8 @@ export default defineMessages({
   },
   setTextTitle: {
     id: 'aggregator-sources.RuleForm.setTextTitle',
-    defaultMessage: 'Your entry will be applied to the targeted field when aggregating the event on your agenda',
+    defaultMessage:
+      'Your entry will be applied to the targeted field when aggregating the event on your agenda',
   },
   copyTextTitle: {
     id: 'aggregator-sources.RuleForm.copyTextTitle',

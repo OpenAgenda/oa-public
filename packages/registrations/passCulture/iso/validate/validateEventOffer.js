@@ -8,7 +8,8 @@ export default function validateEventOffer(data, options = {}) {
   const { bookingContact, venueId, bookingEmail, itemCollectionDetails } = data;
 
   const clean = ['name', 'description', 'duo', 'eventDuration'].reduce(
-    (usedData, field) => (data[field] ? { ...usedData, [field]: data[field] } : usedData),
+    (usedData, field) =>
+      (data[field] ? { ...usedData, [field]: data[field] } : usedData),
     {},
   );
 
@@ -23,7 +24,9 @@ export default function validateEventOffer(data, options = {}) {
     });
   }
 
-  const matchingSettingsCategory = (categories ?? []).find(({ value }) => data.category === value);
+  const matchingSettingsCategory = (categories ?? []).find(
+    ({ value }) => data.category === value,
+  );
 
   if (data.category && !matchingSettingsCategory && !partial) {
     errors.push({
@@ -45,7 +48,7 @@ export default function validateEventOffer(data, options = {}) {
       clean[relatedFieldName] = relatedFieldValue;
     }
   } catch (error) {
-    error.info.errors.forEach(e => errors.push(e));
+    error.info.errors.forEach((e) => errors.push(e));
   }
 
   if (venueId || !partial) {
@@ -63,25 +66,33 @@ export default function validateEventOffer(data, options = {}) {
 
   if ((partial && bookingContact) || !partial) {
     try {
-      clean.bookingContact = validateEmail(bookingContact, 'bookingContact', { optional: false });
+      clean.bookingContact = validateEmail(bookingContact, 'bookingContact', {
+        optional: false,
+      });
     } catch (error) {
-      error.info.errors.forEach(e => errors.push(e));
+      error.info.errors.forEach((e) => errors.push(e));
     }
   }
 
   if ((partial && bookingEmail) || !partial) {
     try {
-      clean.bookingEmail = validateEmail(bookingEmail, 'bookingEmail', { optional: true });
+      clean.bookingEmail = validateEmail(bookingEmail, 'bookingEmail', {
+        optional: true,
+      });
     } catch (error) {
-      error.info.errors.forEach(e => errors.push(e));
+      error.info.errors.forEach((e) => errors.push(e));
     }
   }
 
   if ((partial && itemCollectionDetails) || !partial) {
     try {
-      clean.itemCollectionDetails = validateEmail(itemCollectionDetails, 'itemCollectionDetails', { optional: true });
+      clean.itemCollectionDetails = validateEmail(
+        itemCollectionDetails,
+        'itemCollectionDetails',
+        { optional: true },
+      );
     } catch (error) {
-      error.info.errors.forEach(e => errors.push(e));
+      error.info.errors.forEach((e) => errors.push(e));
     }
   }
 

@@ -45,10 +45,14 @@ const validateStandardType = choice({
   unique: true,
 });
 
-const stripUndefinedSchemaFields = (fieldSchema, value) => Object.keys(fieldSchema)
-  .reduce((stripped, key) => (
-    value[key] !== undefined ? _.set(stripped, key, fieldSchema[key]) : stripped
-  ), {});
+const stripUndefinedSchemaFields = (fieldSchema, value) =>
+  Object.keys(fieldSchema).reduce(
+    (stripped, key) =>
+      (value[key] !== undefined
+        ? _.set(stripped, key, fieldSchema[key])
+        : stripped),
+    {},
+  );
 
 function validateType(value, custom = {}) {
   const dirtyType = _.get(value, 'fieldType', 'abstract');
@@ -78,45 +82,53 @@ function validate(value, options = {}) {
 
   let errors = [];
 
-  const fieldSchema = buildFieldSchema(
-    isCustomField ? 'custom' : type,
-    {
-      defaultLabelLanguage: options.defaultLabelLanguage,
-      isMultilingual: areLabelsMultilingual(value),
-      requireLabels,
-    },
-  );
+  const fieldSchema = buildFieldSchema(isCustomField ? 'custom' : type, {
+    defaultLabelLanguage: options.defaultLabelLanguage,
+    isMultilingual: areLabelsMultilingual(value),
+    requireLabels,
+  });
 
-  const clean = schema(isAbstract ? stripUndefinedSchemaFields(fieldSchema, value) : fieldSchema)(value);
+  const clean = schema(
+    isAbstract ? stripUndefinedSchemaFields(fieldSchema, value) : fieldSchema,
+  )(value);
 
   // enableWith tells validator it is active if field specified has a value.
   // if set, the field must be part of related fields
   if (clean.enableWith) {
     const fieldName = getWithFieldName(clean.enableWith);
     if (!_.get(clean, 'related.enable', []).includes(fieldName)) {
-      _.set(clean, 'related.enable', _.get(clean, 'related.enable', []).concat(fieldName));
+      _.set(
+        clean,
+        'related.enable',
+        _.get(clean, 'related.enable', []).concat(fieldName),
+      );
     }
   }
 
   if (clean.optionalWith) {
     const fieldName = getWithFieldName(clean.optionalWith);
     if (!_.get(clean, 'related.optional', []).includes(fieldName)) {
-      _.set(clean, 'related.optional', _.get(clean, 'related.optional', []).concat(fieldName));
+      _.set(
+        clean,
+        'related.optional',
+        _.get(clean, 'related.optional', []).concat(fieldName),
+      );
     }
   }
 
   // if is custom or abstract field, do not filter out remaining values
   if (isCustomField || isAbstract) {
-    Object.keys(value || {}).forEach(key => {
+    Object.keys(value || {}).forEach((key) => {
       clean[key] = value[key];
     });
   }
 
   // validate any optioned type
   if (optionedTypes.includes(type)) {
-    const unique = _.get(value, 'options', []).reduce((u, v) => (
-      u.indexOf(v.value) === -1 ? u.concat(v.value) : u
-    ), []);
+    const unique = _.get(value, 'options', []).reduce(
+      (u, v) => (u.indexOf(v.value) === -1 ? u.concat(v.value) : u),
+      [],
+    );
 
     if (unique.length !== _.get(value, 'options', []).length) {
       errors = errors.concat({
@@ -129,7 +141,11 @@ function validate(value, options = {}) {
   }
 
   // validate any
-  if ((minMaxedTypes.includes(type) || isCustomField) && value.min !== undefined && value.max !== undefined) {
+  if (
+    (minMaxedTypes.includes(type) || isCustomField)
+    && value.min !== undefined
+    && value.max !== undefined
+  ) {
     if (value.max < value.min) {
       errors = errors.concat({
         field: 'max',

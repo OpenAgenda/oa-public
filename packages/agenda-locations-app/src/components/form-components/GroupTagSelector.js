@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
 import validator from '../../groupTagsValidator';
 
 const GroupTagSelector = ({
@@ -7,13 +8,13 @@ const GroupTagSelector = ({
   value,
   tagBottom,
   disabledTagIds = [],
-  onChange
+  onChange,
 }) => {
   const [userHasTyped, setUserHasTyped] = useState([]);
 
   const addUniqueItem = (item, groupIndex) => {
-    const groupTags = set.groups[groupIndex].tags.map(e => e.id);
-    const newSelection = value.filter(v => !groupTags.includes(v.id));
+    const groupTags = set.groups[groupIndex].tags.map((e) => e.id);
+    const newSelection = value.filter((v) => !groupTags.includes(v.id));
     setUserHasTyped(userHasTyped.concat([groupIndex]));
     onChange(name, newSelection.concat(item));
   };
@@ -24,19 +25,25 @@ const GroupTagSelector = ({
   };
 
   const removeItem = (item, groupIndex) => {
-    const newSelection = value.filter(vItem => item.id !== vItem.id);
+    const newSelection = value.filter((vItem) => item.id !== vItem.id);
     setUserHasTyped(userHasTyped.concat([groupIndex]));
     onChange(name, newSelection);
   };
 
   const renderItem = (item, groupIndex, itemIndex) => {
-    const checked = value.map(v => v.id).indexOf(item.id) !== -1;
+    const checked = value.map((v) => v.id).indexOf(item.id) !== -1;
     const isDisabled = disabledTagIds.indexOf(item.id) !== -1;
+    const toggleItem = a11yButtonActionHandler(
+      (checked ? removeItem : addItem).bind(null, item, groupIndex),
+    );
     return (
       <div
+        role="button"
         className={isDisabled ? 'checkbox disabled' : 'checkbox'}
         key={item.id}
-        onClick={(checked ? removeItem : addItem).bind(null, item, groupIndex)}
+        tabIndex="0"
+        onClick={toggleItem}
+        onKeyPress={toggleItem}
       >
         <label htmlFor="item">
           <input type="checkbox" checked={checked} />
@@ -48,13 +55,19 @@ const GroupTagSelector = ({
   };
 
   const renderUniqueItem = (item, groupIndex, itemIndex) => {
-    const checked = value.map(v => v.id).indexOf(item.id) !== -1;
+    const checked = value.map((v) => v.id).indexOf(item.id) !== -1;
     const isDisabled = disabledTagIds.indexOf(item.id) !== -1;
+    const toggleItem = a11yButtonActionHandler(
+      (checked ? removeItem : addUniqueItem).bind(null, item, groupIndex),
+    );
     return (
       <div
+        role="button"
         className={isDisabled ? 'radio disabled' : 'radio'}
         key={item.id}
-        onClick={(checked ? removeItem : addUniqueItem).bind(null, item, groupIndex)}
+        tabIndex="0"
+        onClick={toggleItem}
+        onKeyPress={toggleItem}
       >
         <label htmlFor="item">
           <input type="radio" checked={checked} />
@@ -76,27 +89,34 @@ const GroupTagSelector = ({
     if (errors.length && userHasTyped.indexOf(i) !== -1) displayError = true;
     return (
       <div className="gt-head">
-        <label htmlFor="group-head" className={displayError ? 'error' : ''}>{group.name}{group.required ? ' (*)' : ''}</label>
+        <label htmlFor="group-head" className={displayError ? 'error' : ''}>
+          {group.name}
+          {group.required ? ' (*)' : ''}
+        </label>
         {group.info ? <p>{group.info}</p> : null}
       </div>
     );
   };
 
   const renderGroup = (group, i) => {
-    const groupIsDisabled = !group.tags.filter(t => disabledTagIds.indexOf(t.id) === -1).length;
+    const groupIsDisabled = !group.tags.filter(
+      (t) => disabledTagIds.indexOf(t.id) === -1,
+    ).length;
     return (
-      <div className={groupIsDisabled ? 'gt-group disabled' : 'gt-group'} key={i}>
+      <div
+        className={groupIsDisabled ? 'gt-group disabled' : 'gt-group'}
+        key={i}
+      >
         {renderGroupHead(group, i)}
-        <div className="list-unstyled gt-selector-items">{group.tags.map((t, ti) => (group?.unique ? renderUniqueItem(t, i, ti) : renderItem(t, i, ti)))}</div>
+        <div className="list-unstyled gt-selector-items">
+          {group.tags.map((t, ti) =>
+            (group?.unique ? renderUniqueItem(t, i, ti) : renderItem(t, i, ti)))}
+        </div>
       </div>
     );
   };
 
-  return (
-    <div className="gt-selector">
-      {set.groups.map(renderGroup)}
-    </div>
-  );
+  return <div className="gt-selector">{set.groups.map(renderGroup)}</div>;
 };
 
 export default GroupTagSelector;

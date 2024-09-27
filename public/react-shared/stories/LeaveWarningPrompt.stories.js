@@ -1,10 +1,5 @@
-import React, { useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Link,
-  Route
-} from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 import LeaveWarningPrompt from '../src/components/LeaveWarningPrompt';
 import SimpleCanvas from './decorators/SimpleCanvas';
 import IntlProvider from './decorators/IntlProvider';
@@ -15,7 +10,7 @@ import '@openagenda/bs-templates/compiled/main.css';
 export default {
   title: 'LeaveWarningPrompt',
   component: LeaveWarningPrompt,
-  decorators: [IntlProvider, SimpleCanvas]
+  decorators: [IntlProvider, SimpleCanvas],
 };
 
 function ToggleButtons({ enabled, setEnabled }) {
@@ -26,14 +21,16 @@ function ToggleButtons({ enabled, setEnabled }) {
         disabled={enabled}
         className="btn btn-primary margin-right-sm"
         onClick={() => setEnabled(true)}
-      >Enable
+      >
+        Enable
       </button>
       <button
         type="button"
         disabled={!enabled}
         className="btn btn-default margin-right-sm"
         onClick={() => setEnabled(false)}
-      >Disable
+      >
+        Disable
       </button>
     </>
   );
@@ -45,29 +42,33 @@ export const PageLeaveWarningOnly = () => {
   return (
     <div className="col-md-6 col-md-offset-3 col-sm-12 wsq padding-v-sm">
       <p>
-        When enabled, a warning prompt appears when user attempts to leave page. Storybook uses an iframe, so click on the reload page to test.
+        When enabled, a warning prompt appears when user attempts to leave page.
+        Storybook uses an iframe, so click on the reload page to test.
       </p>
       <ToggleButtons enabled={enabled} setEnabled={setEnabled} />
       <button
         type="button"
         className="btn btn-default"
         onClick={() => window.location.reload()}
-      >Reload page
+      >
+        Reload page
       </button>
-      <LeaveWarningPrompt
-        enabled={enabled}
-      />
+      <LeaveWarningPrompt enabled={enabled} />
     </div>
   );
 };
 
 export const RouteLeaveWarningOnly = () => {
+  // eslint-disable-next-line react/no-unstable-nested-components
   function Main() {
     const [enabled, setEnabled] = useState(false);
 
     return (
       <div>
-        <p>Click on other link to leave main app. If WarningPrompt is enabled, a confirmation prompt will appear.</p>
+        <p>
+          Click on other link to leave main app. If WarningPrompt is enabled, a
+          confirmation prompt will appear.
+        </p>
         <ToggleButtons enabled={enabled} setEnabled={setEnabled} />
         <LeaveWarningPrompt
           enabled={enabled}
@@ -103,18 +104,24 @@ export const RouteLeaveWarningOnly = () => {
 };
 
 export const RouteAndPageLeaveWarning = () => {
+  // eslint-disable-next-line react/no-unstable-nested-components
   function Main() {
     const [enabled, setEnabled] = useState(false);
 
     return (
       <div>
-        <p>Click on other link to leave main app. If WarningPrompt is enabled, a confirmation prompt will appear. If page is reloaded, a prompt also appears.</p>
+        <p>
+          Click on other link to leave main app. If WarningPrompt is enabled, a
+          confirmation prompt will appear. If page is reloaded, a prompt also
+          appears.
+        </p>
         <ToggleButtons enabled={enabled} setEnabled={setEnabled} />
         <button
           type="button"
           className="btn btn-default"
           onClick={() => window.location.reload()}
-        >Reload page
+        >
+          Reload page
         </button>
         <LeaveWarningPrompt
           enabled={enabled}

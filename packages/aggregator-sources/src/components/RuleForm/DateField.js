@@ -11,7 +11,7 @@ const getContent = (value, intl) => {
   return format(value, 'yyyy-MM-dd');
 };
 
-const getValueAsDate = v => {
+const getValueAsDate = (v) => {
   if (!v) return v;
 
   return typeof v === 'string' ? new Date(v) : v;
@@ -25,7 +25,7 @@ export default function DateField({ value, onChange }) {
   return (
     <Dropdown
       className="dropdown btn-group open"
-      Trigger={props => (
+      Trigger={(props) => (
         <button
           type="button"
           {...props}

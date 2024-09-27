@@ -50,9 +50,7 @@
         "min": 8,
         "max": 12
       },
-      "registration": [
-        "biblio.mespaul@orange.fr"
-      ],
+      "registration": ["biblio.mespaul@orange.fr"],
       "location": {
         "uid": 29780283,
         "slug": "bibliotheque-de-mespaul483",
@@ -86,9 +84,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -275,9 +271,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -432,9 +426,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival du Polar Bloody Fleury",
       "type-de-structure": 632,
@@ -1339,9 +1331,7 @@
         "min": 14,
         "max": 99
       },
-      "registration": [
-        "http://www.castafiore.org"
-      ],
+      "registration": ["http://www.castafiore.org"],
       "location": {
         "uid": 1122839,
         "slug": "internet962",
@@ -1375,9 +1365,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1483,9 +1471,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "mediatheque@sixt-sur-aff.fr"
-      ],
+      "registration": ["mediatheque@sixt-sur-aff.fr"],
       "location": {
         "uid": 40023872,
         "slug": "mediatheque-de-sixt-sur-aff",
@@ -1519,9 +1505,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1575,12 +1559,7 @@
         "fr": "À l'occasion des 25 ans de la bande dessinée _Vick et Vicky_, venez continuer l'aventure lors d'un atelier pratique avec l'auteur, Bruno Bertin.\n\nPrésentation de la réalisation d’une bande dessinée, du scénariste, du dessinateur et du coloriste. Les jeunes participants auront entre leurs mains des originaux qui leur permettront de voir les différentes étapes de réalisation d’une bande dessinée.\n\nDurant cet atelier, Bruno expliquera quelles sont les différentes étapes pour réaliser une bande dessinée. Les participants bénéficieront des astuces de dessinateur et dessineront de nombreux personnages de BD.\n\nAtelier gratuit ouvert aux jeunes curieux. À partir de 10 ans."
       },
       "keywords": {
-        "fr": [
-          "bande dessinée",
-          "atelier",
-          "animation",
-          "rencontre"
-        ]
+        "fr": ["bande dessinée", "atelier", "animation", "rencontre"]
       },
       "conditions": {},
       "image": {
@@ -1634,10 +1613,7 @@
         "min": 10,
         "max": 16
       },
-      "registration": [
-        "0299382825",
-        "mediationruedeslivres@gmail.com"
-      ],
+      "registration": ["0299382825", "mediationruedeslivres@gmail.com"],
       "location": {
         "uid": 69227385,
         "slug": "bibliotheque-de-maurepas",
@@ -1671,9 +1647,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1848,9 +1822,7 @@
       "tarif": "4,5 € / 3,6 € / Gratuit pour les Arlésiens et moins de 18 ans",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Arles se livre",
       "type-de-structure": 632,
@@ -2010,12 +1982,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Foire du livre de Leipzig",
       "type-de-structure": 629,
       "si-autre-precisez": null,
@@ -2430,9 +2398,7 @@
         "min": 18,
         "max": 99
       },
-      "registration": [
-        "Brigitte.Zinke@institutfrancais.de"
-      ],
+      "registration": ["Brigitte.Zinke@institutfrancais.de"],
       "location": {
         "uid": 31668211,
         "slug": "hamburg-institut-francais-de-hambourg",
@@ -2466,9 +2432,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 629,
@@ -2811,9 +2775,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 624,

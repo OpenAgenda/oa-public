@@ -1,12 +1,13 @@
-import React, { useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Prompt } from 'react-router-dom';
 
 const messages = defineMessages({
   areYouSure: {
     id: 'ReactShared.LeaveWarningPrompt.areYouSure',
-    defaultMessage: 'Are you sure you want to leave this page? All unsaved data will be lost.'
-  }
+    defaultMessage:
+      'Are you sure you want to leave this page? All unsaved data will be lost.',
+  },
 });
 
 function preventUnload(e) {
@@ -21,7 +22,7 @@ export default function WarningPrompt(props = {}) {
   const {
     enabled,
     warnBeforePageUnload = true,
-    warnBeforeRouteTransition = false
+    warnBeforeRouteTransition = false,
   } = props;
 
   useLayoutEffect(() => {
@@ -40,7 +41,7 @@ export default function WarningPrompt(props = {}) {
   }, [enabled, warnBeforePageUnload]);
 
   if (!warnBeforeRouteTransition) {
-    return <></>;
+    return null;
   }
 
   return (

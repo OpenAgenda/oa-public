@@ -87,7 +87,7 @@ export default function renderSearchInput({
     className,
     spellCheck,
   };
-  const onChange = e => {
+  const onChange = (e) => {
     props.input.onChange(e.target.value);
     action();
   };

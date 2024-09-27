@@ -1,10 +1,10 @@
 'use strict'
 
 const copy = require('copy-to-clipboard');
-const du = require('@openagenda/dom-utils');
+const du = require('../../js/lib/domUtils');
 
 module.exports = (selector = '.js_permalink') => {
-  const el = du.el(selector);
+  const el = document.querySelector(selector);
 
   du.addEvent(el, 'click', e => {
     e.preventDefault();

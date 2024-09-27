@@ -5,19 +5,14 @@ import getAgendas from './getAgendas.js';
 
 const log = logs('core/networks/updateSchemaFields');
 
-export default core => {
-  const {
-    services,
-    tasks,
-  } = core;
+export default (core) => {
+  const { services, tasks } = core;
 
   tasks.register({
-    agendaRebuild: agendaUid => core.agendas(agendaUid).rebuild(),
+    agendaRebuild: (agendaUid) => core.agendas(agendaUid).rebuild(),
   });
 
-  const {
-    formSchemas,
-  } = services;
+  const { formSchemas } = services;
 
   return async (networkUid, updatedFields) => {
     const network = await core.networks(networkUid).get(networkUid);

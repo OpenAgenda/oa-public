@@ -9,8 +9,9 @@ module.exports = (field, aggOptions = {}) => ({
       ...aggOptions,
     },
   }),
-  formatResult: result => result.buckets.map(b => ({
-    key: b.key,
-    eventCount: b.doc_count,
-  })),
+  formatResult: (result) =>
+    result.buckets.map((b) => ({
+      key: b.key,
+      eventCount: b.doc_count,
+    })),
 });

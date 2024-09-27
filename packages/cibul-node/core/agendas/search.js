@@ -1,8 +1,6 @@
-export default core => (query, nav, options) => {
+export default (core) => (query, nav, options) => {
   const {
-    services: {
-      agendaSearch,
-    },
+    services: { agendaSearch },
   } = core;
 
   return agendaSearch(query, nav, options);

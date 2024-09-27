@@ -4,33 +4,28 @@ import Help from './Help';
 const hasHelp = require('../lib/hasHelp');
 const isFieldOptional = require('../lib/isFieldOptional');
 
-export default props => {
+export default (props) => {
   const {
     lang,
     labels,
     relatedValues,
-    field: {
-      field: name,
-      label,
-      info,
-    },
+    field: { field: name, label, info },
     onChange,
     value,
     error,
     enabled,
   } = props;
 
-  const {
-    field,
-  } = props;
+  const { field } = props;
 
-  const {
-    default: defaultValue,
-  } = field;
+  const { default: defaultValue } = field;
 
   const isOptional = isFieldOptional(field, relatedValues.optional);
   const falsyValue = isOptional ? false : undefined;
-  const checked = !!([null, undefined].includes(value) && (defaultValue !== undefined) ? defaultValue : value);
+  const checked = !!([null, undefined].includes(value)
+  && defaultValue !== undefined
+    ? defaultValue
+    : value);
 
   return (
     <div className="checkbox">
@@ -43,7 +38,13 @@ export default props => {
           checked={checked}
           disabled={!enabled}
         />
-        <span className={classNames({ 'margin-right-xs': hasHelp(field) || !isOptional })}>{label}</span>
+        <span
+          className={classNames({
+            'margin-right-xs': hasHelp(field) || !isOptional,
+          })}
+        >
+          {label}
+        </span>
         {isOptional ? null : (
           <span
             className={classNames({

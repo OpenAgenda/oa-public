@@ -21,7 +21,7 @@ function getVisibleAppsByLayout(apps, pathname, firstOnly) {
     const app = apps[appName];
 
     if (match.length) {
-      const found = accu.find(v => shallowEqual(v.layout, app.layout));
+      const found = accu.find((v) => shallowEqual(v.layout, app.layout));
 
       if (found) {
         found.apps[appName] = app;
@@ -49,10 +49,12 @@ function getVisibleAppsByLayout(apps, pathname, firstOnly) {
 
 const AppsDisplayer = React.memo(
   function AppsDisplayer({ layout: FirstLayout, apps, ...props }) {
-    const Comp = componentProps => Object.keys(apps).map(name => React.createElement(apps[name].Content, {
-      key: name,
-      ...componentProps,
-    }));
+    const Comp = (componentProps) =>
+      Object.keys(apps).map((name) =>
+        React.createElement(apps[name].Content, {
+          key: name,
+          ...componentProps,
+        }));
 
     return <FirstLayout {...props}>{Comp}</FirstLayout>;
   },
@@ -73,7 +75,7 @@ const AppsDisplayer = React.memo(
       && shallowEqual(prevLayouts, nextLayouts)
       && shallowEqual(prevOthers, nextOthers)
     );
-  }
+  },
 );
 
 AppsDisplayer.displayName = 'AppsDisplayer';
@@ -82,20 +84,21 @@ function Layout({ firstOnly = true, apps, ...props }) {
   const history = useHistory();
   const location = useLocation();
 
-  const translateMode = useSelector(state => state.main.translateMode);
-  const userCulture = useSelector(state => state.main.user?.culture);
-  const ssrLang = useSelector(state => state.main.lang);
+  const translateMode = useSelector((state) => state.main.translateMode);
+  const userCulture = useSelector((state) => state.main.user?.culture);
+  const ssrLang = useSelector((state) => state.main.lang);
 
   const userLang = useMemo(
-    () => (
-      qs.parse(location.search, { ignoreQueryPrefix: true }).lang
+    () =>
+      (
+        qs.parse(location.search, { ignoreQueryPrefix: true }).lang
         || (translateMode && 'io')
         || userCulture
         || ssrLang
         || (typeof navigator === 'object' && navigator.language)
         || defaultLocale
-    ).split('-')[0],
-    [location.search, ssrLang, userCulture]
+      ).split('-')[0],
+    [location.search, ssrLang, translateMode, userCulture],
   );
 
   const i18n = useMemo(() => {
@@ -109,7 +112,7 @@ function Layout({ firstOnly = true, apps, ...props }) {
 
   const layouts = useMemo(
     () => getVisibleAppsByLayout(apps, location.pathname, firstOnly),
-    [apps, location.pathname, firstOnly]
+    [apps, location.pathname, firstOnly],
   );
 
   return (
@@ -119,7 +122,7 @@ function Layout({ firstOnly = true, apps, ...props }) {
       locale={i18n.locale}
       defaultLocale={getSupportedLocale(i18n.locale)}
     >
-      {layouts.map(layoutProps => (
+      {layouts.map((layoutProps) => (
         <AppsDisplayer
           {...props}
           {...layoutProps}

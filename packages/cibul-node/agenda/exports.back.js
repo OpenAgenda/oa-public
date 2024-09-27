@@ -4,7 +4,7 @@ import loadCredentials from './loadCredentials.js';
 
 const preMw = [agendaSvc.mw.load('uid')];
 
-export default app => {
+export default (app) => {
   const { members } = app.services;
 
   app.get(

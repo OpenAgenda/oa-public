@@ -7,7 +7,7 @@ import pickEventImage from './lib/pickImage.js';
 import getLongDescriptionHTML from './lib/getLongDescriptionHTML.js';
 import instanciate from './instance/index.js';
 
-const toUTC = str => new Date(str).toJSON();
+const toUTC = (str) => new Date(str).toJSON();
 
 const legacyLocationFieldsMap = {
   conditions: 'pricingInfo',
@@ -71,8 +71,13 @@ function _extractKeywords(e) {
   const keywords = {};
 
   try {
-    Object.keys(e.tags).forEach(l => {
-      keywords[l] = e.tags[l] ? e.tags[l].split(',').map(k => k.trim()).filter(k => k.length) : [];
+    Object.keys(e.tags).forEach((l) => {
+      keywords[l] = e.tags[l]
+        ? e.tags[l]
+          .split(',')
+          .map((k) => k.trim())
+          .filter((k) => k.length)
+        : [];
     });
   } catch {
     //
@@ -92,12 +97,20 @@ export function clean(services, eInst, options, cb) {
   const c = {
     uid: eInst.uid,
     slug: eInst.slug,
-    canonicalUrl: genUrl('eventShow', { eventSlug: eInst.slug }, { protocol: 'https://' }),
+    canonicalUrl: genUrl(
+      'eventShow',
+      { eventSlug: eInst.slug },
+      { protocol: 'https://' },
+    ),
     title: eInst.title,
     description: eInst.description,
     longDescription: eInst.freeText || {},
     keywords: _extractKeywords(eInst),
-    html: getLongDescriptionHTML({ services }, eInst.freeText || {}, opts.includeEmbedded ? OEmbedLinks : null),
+    html: getLongDescriptionHTML(
+      { services },
+      eInst.freeText || {},
+      opts.includeEmbedded ? OEmbedLinks : null,
+    ),
     longDescriptionLinks: OEmbedLinks,
     image: eInst.getImage(),
     thumbnail: pickEventImage(config, eInst, 'thumbnail'),
@@ -128,7 +141,11 @@ export function clean(services, eInst, options, cb) {
   if (eInst.origin) {
     c.origin = eInst.origin;
 
-    c.origin.oaUrl = genUrl('agendaRedirect', { uid: c.origin.uid }, { protocol: 'https://' });
+    c.origin.oaUrl = genUrl(
+      'agendaRedirect',
+      { uid: c.origin.uid },
+      { protocol: 'https://' },
+    );
   }
 
   if (l && l.uid) {
@@ -144,7 +161,11 @@ export function clean(services, eInst, options, cb) {
   }
 
   c.registration = registration(c.registrationUrl);
-  c.registrationUrl = ((c.registration || []).filter(v => v.type === 'link').pop() || { value: null }).value;
+  c.registrationUrl = (
+    (c.registration || []).filter((v) => v.type === 'link').pop() || {
+      value: null,
+    }
+  ).value;
 
   const { timezone } = eInst.getLocationDetails();
 
@@ -152,8 +173,7 @@ export function clean(services, eInst, options, cb) {
     if (err) return callback(err);
 
     let tFirst;
-    let
-      tLast;
+    let tLast;
 
     _.extend(c, {
       firstDate: null,
@@ -176,7 +196,7 @@ export function clean(services, eInst, options, cb) {
       };
 
       _.extend(c, {
-        timings: timings.map(t => ({
+        timings: timings.map((t) => ({
           start: toUTC(t.start),
           end: toUTC(t.end),
         })),
@@ -197,7 +217,11 @@ export function cleanEvents(services, events, options, cb) {
   const callback = arguments.length === 2 ? options : cb;
   const opts = arguments.length === 2 ? {} : options;
 
-  async.map(events, (e, mcb) => {
-    clean(services, instanciate(e), opts, mcb);
-  }, callback);
+  async.map(
+    events,
+    (e, mcb) => {
+      clean(services, instanciate(e), opts, mcb);
+    },
+    callback,
+  );
 }

@@ -6,11 +6,13 @@ import eventFormLocales from '../../src/locales';
 
 const lang = 'fr';
 
-export default Story => (
+export default (Story) => (
   <IntlProvider
     key={lang}
     locale={lang}
-    messages={mergeLocales(sharedLocales, commonLocales, eventFormLocales)[lang]}
+    messages={
+      mergeLocales(sharedLocales, commonLocales, eventFormLocales)[lang]
+    }
     defaultLocale={getSupportedLocale(lang)}
   >
     <Story />

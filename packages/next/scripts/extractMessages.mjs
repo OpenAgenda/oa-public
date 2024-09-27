@@ -21,11 +21,15 @@ const ignoredDirs = ['src/pages']; // Don't create locales
 
 const configPath = ts.findConfigFile(root, ts.sys.fileExists, 'tsconfig.json');
 if (!configPath) {
-  throw new Error('Could not find a valid \'tsconfig.json\'.');
+  throw new Error("Could not find a valid 'tsconfig.json'.");
 }
 
 const configFile = ts.readConfigFile(configPath, ts.sys.readFile);
-const compilerOptions = ts.parseJsonConfigFileContent(configFile.config, ts.sys, root);
+const compilerOptions = ts.parseJsonConfigFileContent(
+  configFile.config,
+  ts.sys,
+  root,
+);
 
 function getSourceFiles(fileNames, options) {
   const program = ts.createProgram(fileNames, options);
@@ -35,12 +39,20 @@ function getSourceFiles(fileNames, options) {
     .getPreEmitDiagnostics(program)
     .concat(emitResult.diagnostics);
 
-  allDiagnostics.forEach(diagnostic => {
-    const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+  allDiagnostics.forEach((diagnostic) => {
+    const message = ts.flattenDiagnosticMessageText(
+      diagnostic.messageText,
+      '\n',
+    );
 
     if (diagnostic.file) {
-      const { line, character } = ts.getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start);
-      console.log(`❌ Error TS${diagnostic.code}: ${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+      const { line, character } = ts.getLineAndCharacterOfPosition(
+        diagnostic.file,
+        diagnostic.start,
+      );
+      console.log(
+        `❌ Error TS${diagnostic.code}: ${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`,
+      );
     } else {
       console.log(`❌ Error TS${diagnostic.code}: ${message}`);
     }
@@ -50,15 +62,19 @@ function getSourceFiles(fileNames, options) {
     return null;
   }
 
-  return program.getSourceFiles()
-    .filter(sourceFile => !sourceFile.isDeclarationFile);
+  return program
+    .getSourceFiles()
+    .filter((sourceFile) => !sourceFile.isDeclarationFile);
 }
 
 function getDepModules(sourceFile) {
   const depModules = [];
 
-  sourceFile.resolvedModules?.forEach(resolvedModule => {
-    if (resolvedModule?.resolvedFileName && !resolvedModule.isExternalLibraryImport) {
+  sourceFile.resolvedModules?.forEach((resolvedModule) => {
+    if (
+      resolvedModule?.resolvedFileName
+      && !resolvedModule.isExternalLibraryImport
+    ) {
       depModules.push(resolvedModule.resolvedFileName);
     }
   });
@@ -72,7 +88,9 @@ function isInDir(from, to) {
 
 function isDirectSubDir(from, to) {
   const relativePath = path.relative(from, to);
-  return !relativePath.startsWith('..') && relativePath.split(path.sep).length === 1;
+  return (
+    !relativePath.startsWith('..') && relativePath.split(path.sep).length === 1
+  );
 }
 
 function isInPackage(filePath) {
@@ -103,7 +121,9 @@ function relativeToCwd(file) {
 }
 
 function isIgnoredDir(directory) {
-  return ignoredDirs.some(ignoredDir => !path.relative(ignoredDir, directory).startsWith('..'));
+  return ignoredDirs.some(
+    (ignoredDir) => !path.relative(ignoredDir, directory).startsWith('..'),
+  );
 }
 
 async function fileExists(filepath) {
@@ -119,12 +139,18 @@ function collectDeps(depsMap, sourceFiles, viewDir) {
   const result = [...sourceFiles];
 
   for (const sourceFile of sourceFiles) {
-    const deps = depsMap.get(sourceFile)
+    const deps = depsMap
+      .get(sourceFile)
       // exclude deps from other views
-      .filter(dep => !viewDir || !(isInDir(viewsDir, dep) && !isInDir(viewDir, dep)));
+      .filter(
+        (dep) =>
+          !viewDir || !(isInDir(viewsDir, dep) && !isInDir(viewDir, dep)),
+      );
 
     if (deps?.length) {
-      result.push(...collectDeps(depsMap, deps).filter(v => !result.includes(v)));
+      result.push(
+        ...collectDeps(depsMap, deps).filter((v) => !result.includes(v)),
+      );
     }
   }
 
@@ -159,7 +185,7 @@ async function createIndex(localesRoot) {
 async function createViewIndex(viewDir, deps, hasLocales) {
   const indexPath = path.join(viewDir, 'locales/index.ts');
   const relativeDeps = deps
-    .map(dep => path.relative(path.join(root, 'src'), dep))
+    .map((dep) => path.relative(path.join(root, 'src'), dep))
     .sort();
 
   /* eslint-disable no-template-curly-in-string */
@@ -170,13 +196,25 @@ async function createViewIndex(viewDir, deps, hasLocales) {
 
     ${relativeDeps
     .map((v, i) => `import fetchLocale${i} from '${v}';`)
-    .join('\n    ')}${relativeDeps.length ? `
+    .join('\n    ')}${
+  relativeDeps.length
+    ? `
     
-    ` : ''}export default async function fetchLocale(locale) {
-      return Promise.all([${hasLocales ? `
+    `
+    : ''
+}export default async function fetchLocale(locale) {
+      return Promise.all([${
+  hasLocales
+    ? `
         import(\`./compiled/${'${locale}'}.json\`)
-          .then(mod => mod.default),` : ''}${relativeDeps.length ? `
-        ` : ''}${relativeDeps
+          .then(mod => mod.default),`
+    : ''
+}${
+  relativeDeps.length
+    ? `
+        `
+    : ''
+}${relativeDeps
   .map((v, i) => `fetchLocale${i}(locale),`)
   .join('\n        ')}
       ])
@@ -213,13 +251,13 @@ const dependenciesMap = new Map();
 const dependentsMap = new Map();
 
 const packageSourceFiles = sourceFiles
-  .filter(sourceFile => isInPackage(sourceFile.path))
-  .filter(sourceFile => !sourceFile.path.endsWith('/locales/index.ts'));
+  .filter((sourceFile) => isInPackage(sourceFile.path))
+  .filter((sourceFile) => !sourceFile.path.endsWith('/locales/index.ts'));
 
 for (const sourceFile of packageSourceFiles) {
   const deps = getDepModules(sourceFile)
     .filter(isInPackage)
-    .filter(dep => !dep.endsWith('/locales/index.ts'));
+    .filter((dep) => !dep.endsWith('/locales/index.ts'));
   dependenciesMap.set(sourceFile.path, deps);
 
   for (const dep of deps) {
@@ -233,10 +271,7 @@ const sourceFilesByDir = groupByDir(dependenciesMap);
 for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
   const relativeDir = relativeToCwd(directory);
 
-  if (
-    isIgnoredDir(relativeDir)
-    || path.basename(relativeDir) === 'locales'
-  ) {
+  if (isIgnoredDir(relativeDir) || path.basename(relativeDir) === 'locales') {
     continue;
   }
 
@@ -254,7 +289,9 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
     skipEmpty: true,
   });
 
-  const hasLocales = await fileExists(path.join(localesDir, `${DEFAULT_LANG}.json`));
+  const hasLocales = await fileExists(
+    path.join(localesDir, `${DEFAULT_LANG}.json`),
+  );
 
   const isView = isDirectSubDir(viewsDir, relativeDir);
 
@@ -284,23 +321,32 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
         accu.push(
           ...dependents
             // exclude deps from other views
-            .filter(dep => !(isInDir(viewsDir, dep) && !isInDir(directory, dep))),
+            .filter(
+              (dep) => !(isInDir(viewsDir, dep) && !isInDir(directory, dep)),
+            ),
         );
       }
       return accu;
     }, []);
-    const viewDeps = collectDeps(dependenciesMap, [
-      ...dependentsOfView,
-      ...sourceFilesInDir,
-    ], directory);
+    const viewDeps = collectDeps(
+      dependenciesMap,
+      [...dependentsOfView, ...sourceFilesInDir],
+      directory,
+    );
 
     const depsLocalesDirs = [];
     for (const viewDep of viewDeps) {
       const depLocalesDir = path.join(path.dirname(viewDep), 'locales');
       if (depLocalesDir === localesDir) continue;
 
-      const depDefaultLocalePath = path.join(depLocalesDir, `${DEFAULT_LANG}.json`);
-      if (!depsLocalesDirs.includes(depLocalesDir) && await fileExists(depDefaultLocalePath)) {
+      const depDefaultLocalePath = path.join(
+        depLocalesDir,
+        `${DEFAULT_LANG}.json`,
+      );
+      if (
+        !depsLocalesDirs.includes(depLocalesDir)
+        && await fileExists(depDefaultLocalePath)
+      ) {
         depsLocalesDirs.push(depLocalesDir);
       }
     }

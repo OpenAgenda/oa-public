@@ -148,9 +148,7 @@
         "min": 6,
         "max": 14
       },
-      "registration": [
-        "partenariat-epmoo@musee-orsay.fr"
-      ],
+      "registration": ["partenariat-epmoo@musee-orsay.fr"],
       "location": {
         "uid": 13801620,
         "slug": "musee-dorsay156",
@@ -184,12 +182,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "C'est mon patrimoine",
       "type-de-structure": 636,
       "si-autre-precisez": "Centres de loisirs",
@@ -377,17 +371,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
       "si-autre-precisez": null,
       "structure-partenaire": "Toutes les librairies Momie de France",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "44355876200029",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -540,12 +530,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "EM FEST, festival essonnien sur la culture d'Afrique de l'Ouest",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -656,9 +642,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://bibliotheque.bordeaux.fr"
-      ],
+      "registration": ["http://bibliotheque.bordeaux.fr"],
       "location": {
         "uid": 13329053,
         "slug": "bibliotheque-meriadeck502",
@@ -692,9 +676,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2187,12 +2169,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Présence lors de salons, du PREAC BD d'Angoulême, mises en place de formations...",
       "type-de-structure": 628,
       "si-autre-precisez": null,
@@ -2378,9 +2356,7 @@
         "min": 6,
         "max": 14
       },
-      "registration": [
-        "partenariat-epmoo@musee-orsay.fr"
-      ],
+      "registration": ["partenariat-epmoo@musee-orsay.fr"],
       "location": {
         "uid": 14861469,
         "slug": "musee-de-lorangerie772",
@@ -2414,12 +2390,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "C'est mon patrimoine",
       "type-de-structure": 636,
       "si-autre-precisez": "Centres de loisirs",
@@ -2564,9 +2536,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2712,9 +2682,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2809,9 +2777,7 @@
         "min": 16,
         "max": 99
       },
-      "registration": [
-        "https://www.sncf.com/fr/groupe/prix-sncf-polar"
-      ],
+      "registration": ["https://www.sncf.com/fr/groupe/prix-sncf-polar"],
       "location": {
         "uid": 85198712,
         "slug": "mediatheque-de-donzy238",
@@ -2845,12 +2811,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        731
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [731],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Myriam Pichon médiathèque de Donzy",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -2961,10 +2923,7 @@
         "min": 9,
         "max": 11
       },
-      "registration": [
-        "04 76 90 97 08",
-        "sandrine.leo@glenat.com"
-      ],
+      "registration": ["04 76 90 97 08", "sandrine.leo@glenat.com"],
       "location": {
         "uid": 14456052,
         "slug": "couvent-sainte-cecile612",
@@ -2998,12 +2957,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 628,
       "si-autre-precisez": null,

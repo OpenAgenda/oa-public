@@ -29,7 +29,7 @@ const validate = schema({
   },
   includeFields: {
     type: 'choice',
-    options: fields.map(f => f.field).concat('agendaUid'),
+    options: fields.map((f) => f.field).concat('agendaUid'),
   },
   includeImagePath: {
     type: 'boolean',
@@ -69,7 +69,7 @@ const validateStreamOptions = schema({
   },
 });
 
-module.exports = values => {
+module.exports = (values) => {
   const clean = validate(values);
 
   if (clean.stream) {

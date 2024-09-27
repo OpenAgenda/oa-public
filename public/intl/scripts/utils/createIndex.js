@@ -8,14 +8,14 @@ const fileExists = require('./fileExists');
 
 function getCjsIndex(existingLangs, langs) {
   const requires = existingLangs
-    .filter(v => langs.includes(v))
+    .filter((v) => langs.includes(v))
     .sort()
-    .map(v => `const ${v} = require('./${v}.json');`)
+    .map((v) => `const ${v} = require('./${v}.json');`)
     .join('\n');
 
   const exports = langs
     .sort()
-    .map(lang => (existingLangs.includes(lang) ? lang : `${lang}: {}`))
+    .map((lang) => (existingLangs.includes(lang) ? lang : `${lang}: {}`))
     .join(',\n');
 
   return `${dedent`
@@ -36,7 +36,7 @@ function getCjsIndex(existingLangs, langs) {
 function getEsmIndex(existingLangs, langs) {
   const exports = langs
     .sort()
-    .map(lang =>
+    .map((lang) =>
       (existingLangs.includes(lang)
         ? `export { default as ${lang} } from './${lang}.json' assert { type: 'json' }`
         : `export const ${lang} = {}`))
@@ -59,7 +59,7 @@ module.exports = async function createIndex(dest, langs, isEsm) {
 
   await mkdirp(path.dirname(dest));
 
-  const existingLangs = langs.filter(lang =>
+  const existingLangs = langs.filter((lang) =>
     fileExists(dest.replace('%lang%.json', `${lang}.json`)));
 
   fs.writeFileSync(

@@ -1,14 +1,23 @@
-'use strict';
+const registration = require('@openagenda/events/iso/build/validators/registration');
+const age = require('@openagenda/events/iso/build/validators/age');
+const timings = require('@openagenda/events/iso/build/validators/timings');
+const longDescription = require('@openagenda/events/iso/build/validators/longDescription');
+const enrichedLinks = require('@openagenda/events/iso/build/validators/enrichedLinks');
+const accessibility = require('./accessibility');
+const keywords = require('./keywords');
+const location = require('./location');
+const languages = require('./languages');
+const events = require('./events');
 
 module.exports = {
-  registration: require('@openagenda/events/iso/build/validators/registration'),
-  age: require('@openagenda/events/iso/build/validators/age'),
-  accessibility: require('../validators/accessibility'),
-  keywords: require('../validators/keywords'),
-  timings: require('@openagenda/events/iso/build/validators/timings'),
-  location: require('../validators/location'),
-  languages: require('../validators/languages'),
-  events: require('../validators/events'),
-  longDescription: require('@openagenda/events/iso/build/validators/longDescription'),
-  enrichedLinks: require('@openagenda/events/iso/build/validators/enrichedLinks'),
+  registration,
+  age,
+  accessibility,
+  keywords,
+  timings,
+  location,
+  languages,
+  events,
+  longDescription,
+  enrichedLinks,
 };

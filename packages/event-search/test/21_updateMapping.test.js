@@ -70,10 +70,10 @@ describe('21 - event-search - updateMapping', () => {
   it('mapping is updated', async () => {
     const updated = await client.indices.getMapping({ index: indexName });
 
-    expect(
-      Object.keys(updated.body[indexName].mappings.properties),
-    ).toEqual(
-      ['location', 'slug', 'uid'],
-    );
+    expect(Object.keys(updated.body[indexName].mappings.properties)).toEqual([
+      'location',
+      'slug',
+      'uid',
+    ]);
   });
 });

@@ -3,9 +3,7 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import utils from '../lib/utils';
 
-const {
-  hasAdditionalFields,
-} = utils;
+const { hasAdditionalFields } = utils;
 
 const messages = defineMessages({
   noEditionRights: {
@@ -18,7 +16,8 @@ const messages = defineMessages({
   },
   onlyAdditionalFieldsCanBeEditedInfo: {
     id: 'AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo',
-    defaultMessage: 'This event was added to the agenda "%agenda%" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content.',
+    defaultMessage:
+      'This event was added to the agenda "%agenda%" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content.',
   },
   requestEditionRights: {
     id: 'AgendaContribute.RequestEditionRights.requestEditionRights',
@@ -26,23 +25,27 @@ const messages = defineMessages({
   },
   requestEditionRightsInfo: {
     id: 'AgendaContribute.RequestEditionRights.requestEditionRightsInfo',
-    defaultMessage: 'This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)',
+    defaultMessage:
+      'This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)',
   },
 });
 
-function RequestEditionRights({
-  agenda,
-  event,
-  schema,
-}) {
+function RequestEditionRights({ agenda, event, schema }) {
   const m = useIntl().formatMessage;
 
   return (
     <div className="margin-h-md padding-top-md">
       <p>
-        <span>{m(messages.noEditionRights)} </span> {hasAdditionalFields(schema) ? <span>{m(messages.onlyAdditionalFieldsCanBeEdited)}</span> : null}
+        <span>{m(messages.noEditionRights)} </span>{' '}
+        {hasAdditionalFields(schema) ? (
+          <span>{m(messages.onlyAdditionalFieldsCanBeEdited)}</span>
+        ) : null}
         <span>
-          <MoreInfo content={m(messages.onlyAdditionalFieldsCanBeEditedInfo, { agenda: agenda.title })} />
+          <MoreInfo
+            content={m(messages.onlyAdditionalFieldsCanBeEditedInfo, {
+              agenda: agenda.title,
+            })}
+          />
         </span>
       </p>
       <p>

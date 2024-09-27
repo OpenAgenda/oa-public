@@ -24,10 +24,12 @@
     ]
   },
   "formSchema": {
-    "fields": [{
-      "field": "trueOrFalse",
-      "fieldType": "boolean",
-      "schemaId": 12
-    }]
-  } 
+    "fields": [
+      {
+        "field": "trueOrFalse",
+        "fieldType": "boolean",
+        "schemaId": 12
+      }
+    ]
+  }
 }

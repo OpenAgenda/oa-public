@@ -82,7 +82,7 @@ function EmptyDashoard() {
             id="AgendaStats.EmptyDashboard.creationHelp"
             defaultMessage="<link>Click here</link> to learn more about adding events to your agenda."
             values={{
-              link: chunks => (
+              link: (chunks) => (
                 <a
                   rel="noreferrer"
                   target="_blank"
@@ -119,15 +119,15 @@ function Dashboard() {
 
   const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();
 
-  const res = useSelector(state => state.res);
-  const loading = useSelector(state => _.get(state, 'stats.loading'));
+  const res = useSelector((state) => state.res);
+  const loading = useSelector((state) => _.get(state, 'stats.loading'));
   const loaded = useSelector(
-    state => _.get(state, 'stats.agendaUid') === agenda.uid,
+    (state) => _.get(state, 'stats.agendaUid') === agenda.uid,
   );
-  const error = useSelector(state => _.get(state, 'stats.error'));
-  const totalEvents = useSelector(state => state.stats.totalEvents);
-  const editing = useSelector(state => state.stats.editing);
-  const stats = useSelector(state => state.stats.data);
+  const error = useSelector((state) => _.get(state, 'stats.error'));
+  const totalEvents = useSelector((state) => state.stats.totalEvents);
+  const editing = useSelector((state) => state.stats.editing);
+  const stats = useSelector((state) => state.stats.data);
 
   const latestStats = useLatest(stats);
 
@@ -153,7 +153,7 @@ function Dashboard() {
   const orderModal = useModal();
 
   const onOrderChange = useCallback(
-    statIds => dispatch(statsActions.reorderStats(statIds)),
+    (statIds) => dispatch(statsActions.reorderStats(statIds)),
     [dispatch],
   );
 
@@ -191,7 +191,7 @@ function Dashboard() {
   const latestLocation = useLatest(location);
 
   const onFilterChange = useCallback(
-    async values =>
+    async (values) =>
       dispatch(
         statsActions.load(agenda, latestStats.current, filters, values),
       ).then(() => {
@@ -208,12 +208,12 @@ function Dashboard() {
   );
 
   const getOptions = useCallback(
-    filter => {
+    (filter) => {
       const missingLabel = intl.formatMessage(emptyOptionMessage);
 
       if (filter.options) {
         const missingOption = filter.missingValue
-          ? filtersBase[filter.name]?.find(v => {
+          ? filtersBase[filter.name]?.find((v) => {
             const dataKey = 'id' in v ? 'id' : 'key';
             return v[dataKey] === filter.missingValue;
           })
@@ -234,7 +234,7 @@ function Dashboard() {
 
       const baseAgg = [...filtersBase[filter.name]];
 
-      const aggregation = stats.find(s =>
+      const aggregation = stats.find((s) =>
         _.isMatch(
           s.aggregation,
           _.omit(
@@ -247,16 +247,16 @@ function Dashboard() {
         ))?.state?.data;
 
       if (aggregation) {
-        aggregation.forEach(entry => {
+        aggregation.forEach((entry) => {
           const dataKey = 'id' in entry ? 'id' : 'key';
-          const found = baseAgg.find(v => v[dataKey] === entry[dataKey]);
+          const found = baseAgg.find((v) => v[dataKey] === entry[dataKey]);
           if (!found) baseAgg.push(entry);
         });
       }
 
       const labelKey = filter.labelKey || 'key';
 
-      return baseAgg.map(entry => {
+      return baseAgg.map((entry) => {
         const dataKey = 'id' in entry ? 'id' : 'key';
         const labelValue = _.get(entry, labelKey);
 

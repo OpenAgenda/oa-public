@@ -1,4 +1,3 @@
-import { SWRConfig } from 'swr';
 import EventShow from 'pages/[agendaSlug]/events/[eventSlug]';
 import EventShowView from 'views/EventShow';
 import { Agenda } from 'types';
@@ -12,32 +11,24 @@ import eventJEPFixtures from './fixtures/event.jep-2023-grand-est.json';
 export default {
   title: 'pages/[agendaSlug]/events/[eventSlug]',
   component: EventShow,
-  loaders: [
-    intlMessagesLoader(EventShowView.fetchLocale),
-  ],
-  decorators: [
-    ProvidersDecorator,
-  ],
+  loaders: [intlMessagesLoader(EventShowView.fetchLocale)],
+  decorators: [ProvidersDecorator],
 };
 
 export const Sample = {
   render: (_args, { loaded: { intlMessages } }) => (
     <EventShow.Layout>
-      <SWRConfig
-        value={{
-          fallback: {
-            [`/api/agendas/slug/${agendaFixtures.slug}/events/slug/${eventFixtures.slug}?longDescriptionFormat=HTMLWithEmbeds`]: {
+      <EventShow
+        intlMessages={intlMessages}
+        agenda={agendaFixtures as Agenda}
+        fallback={{
+          [`/api/agendas/slug/${agendaFixtures.slug}/events/slug/${eventFixtures.slug}?longDescriptionFormat=HTMLWithEmbeds`]:
+            {
               success: true,
               event: eventFixtures,
             },
-          },
         }}
-      >
-        <EventShow
-          intlMessages={intlMessages}
-          agenda={agendaFixtures as Agenda}
-        />
-      </SWRConfig>
+      />
     </EventShow.Layout>
   ),
   parameters: {
@@ -57,21 +48,17 @@ export const Sample = {
 export const JEP2023 = {
   render: (_args, { loaded: { intlMessages } }) => (
     <EventShow.Layout>
-      <SWRConfig
-        value={{
-          fallback: {
-            [`/api/agendas/slug/${agendaJEPFixtures.slug}/events/slug/${eventJEPFixtures.slug}?longDescriptionFormat=HTMLWithEmbeds`]: {
+      <EventShow
+        intlMessages={intlMessages}
+        agenda={agendaJEPFixtures as Agenda}
+        fallback={{
+          [`/api/agendas/slug/${agendaJEPFixtures.slug}/events/slug/${eventJEPFixtures.slug}?longDescriptionFormat=HTMLWithEmbeds`]:
+            {
               success: true,
               event: eventJEPFixtures,
             },
-          },
         }}
-      >
-        <EventShow
-          intlMessages={intlMessages}
-          agenda={agendaJEPFixtures as Agenda}
-        />
-      </SWRConfig>
+      />
     </EventShow.Layout>
   ),
   parameters: {

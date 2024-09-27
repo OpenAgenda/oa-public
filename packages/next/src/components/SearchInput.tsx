@@ -1,7 +1,12 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import debounce from 'lodash/debounce';
-import { InputGroup, Input, InputRightElement, Button } from '@openagenda/uikit';
+import {
+  InputGroup,
+  Input,
+  InputRightElement,
+  Button,
+} from '@openagenda/uikit';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -17,7 +22,7 @@ interface SearchInputProps {
   onChange: (value: string) => void;
   initialValue?: string;
   onButtonClick?: () => void;
-  placeholder?: string
+  placeholder?: string;
 }
 
 export default function SearchInput({
@@ -35,10 +40,13 @@ export default function SearchInput({
     [onChangeCallback],
   );
 
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-    debouncedOnChange(e.target.value);
-  }, [debouncedOnChange]);
+  const onChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchText(e.target.value);
+      debouncedOnChange(e.target.value);
+    },
+    [debouncedOnChange],
+  );
 
   useEffect(() => {
     if (initialValue) {

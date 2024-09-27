@@ -1,40 +1,40 @@
 {
   "data": {
-      "uid": 8929606,
-      "fullName": "Steevie Kiehns",
-      "email": "steevieh@gmx.de",
-      "culture": "fr",
-      "image": null,
-      "createdAt": "2019-05-03T05:36:11.000Z",
-      "updatedAt": "2019-05-06T11:25:10.000Z"
+    "uid": 8929606,
+    "fullName": "Steevie Kiehns",
+    "email": "steevieh@gmx.de",
+    "culture": "fr",
+    "image": null,
+    "createdAt": "2019-05-03T05:36:11.000Z",
+    "updatedAt": "2019-05-06T11:25:10.000Z"
   },
   "schema": {
-      "fields": [
-          {
-              "field": "uid",
-              "fieldType": "integer",
-              "label": "UID"
-          },
-          {
-              "field": "fullName",
-              "fieldType": "text",
-              "label": "Full name"
-          },
-          {
-              "field": "email",
-              "fieldType": "email",
-              "label": "Email"
-          },
-          {
-              "field": "createdAt",
-              "fieldType": "date",
-              "label": "Created at"
-          },
-          {
-              "field": "updatedAt",
-              "fieldType": "date",
-              "label": "Updated at"
-          }
-      ]
+    "fields": [
+      {
+        "field": "uid",
+        "fieldType": "integer",
+        "label": "UID"
+      },
+      {
+        "field": "fullName",
+        "fieldType": "text",
+        "label": "Full name"
+      },
+      {
+        "field": "email",
+        "fieldType": "email",
+        "label": "Email"
+      },
+      {
+        "field": "createdAt",
+        "fieldType": "date",
+        "label": "Created at"
+      },
+      {
+        "field": "updatedAt",
+        "fieldType": "date",
+        "label": "Updated at"
+      }
+    ]
   }
 }

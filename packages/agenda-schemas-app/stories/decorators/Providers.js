@@ -9,14 +9,17 @@ import locales from '../../src/locales-compiled';
 
 const lang = 'fr';
 
-export default Story => {
-  const queryClient = useConstant(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      },
-    },
-  }));
+export default (Story) => {
+  const queryClient = useConstant(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
 
   return (
     <IntlProvider

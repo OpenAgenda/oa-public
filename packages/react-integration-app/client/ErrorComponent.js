@@ -1,4 +1,3 @@
-import React from 'react';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
 
@@ -70,7 +69,11 @@ export default function ErrorComponent({
           && typeof resetError === 'function' ? (
             <>
               {' '}
-              <button onClick={resetError} type="button" className="btn btn-default">
+              <button
+                onClick={resetError}
+                type="button"
+                className="btn btn-default"
+              >
                 <FormattedMessage id="retry" defaultMessage="Retry" />
               </button>
             </>

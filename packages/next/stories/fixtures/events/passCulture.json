@@ -41,7 +41,7 @@
   "html": "Oulala c'est la décadence <b>han</b> !",
   "un-champ-test": "Je voulais écrire \"Un champ texte\"",
   "cases-a-cocher": 3,
-  "checkbox": [2,3],
+  "checkbox": [2, 3],
   "image-custom": {
     "extension": "jpg",
     "filename": "271c4d3347fd4c4ebf5e3bd09a9dac98.joindre-une-photo-des-toilettes.jpg",
@@ -62,11 +62,7 @@
     "fr": "Desc"
   },
   "keywords": {
-    "fr": [
-      "Mot",
-      "clé",
-      "trousseau"
-    ]
+    "fr": ["Mot", "clé", "trousseau"]
   },
   "longDescription": {
     "fr": "Une description un peu plus longue"
@@ -134,10 +130,7 @@
     "duplicateCandidates": [],
     "countryCode": "FR",
     "adminLevel5": null,
-    "links": [
-      "https://google.com",
-      "https://x.com"
-    ],
+    "links": ["https://google.com", "https://x.com"],
     "state": 1,
     "extId": null,
     "department": "Manche",

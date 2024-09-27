@@ -86,7 +86,7 @@ export default class Conversations {
       .column(
         mapper
           .listFields(conversationFieldsMap, 'select', 'db', options, true)
-          .map(v => `${schemas.conversation}.${v}`),
+          .map((v) => `${schemas.conversation}.${v}`),
       )
       .column(`${schemas.inbox}.id as inboxContextId`)
       .column(
@@ -99,7 +99,7 @@ export default class Conversations {
             true,
             'creatorInboxUser.',
           )
-          .map(v => `creatorInboxUser.${v}`),
+          .map((v) => `creatorInboxUser.${v}`),
       )
       .column(
         mapper
@@ -111,7 +111,7 @@ export default class Conversations {
             true,
             'creatorInbox.',
           )
-          .map(v => `creatorInbox.${v}`),
+          .map((v) => `creatorInbox.${v}`),
       )
       .max(`${schemas.message}.id as latestMessageId`)
       .leftJoin(
@@ -166,9 +166,9 @@ export default class Conversations {
               true,
               'inboxUser.',
             )
-            .map(v => `${schemas.inboxUser}.${v}`),
+            .map((v) => `${schemas.inboxUser}.${v}`),
         )
-        .leftJoin(schemas.inboxUser, join =>
+        .leftJoin(schemas.inboxUser, (join) =>
           join
             .on(
               `${schemas.inboxUser}.inbox_id`,
@@ -205,8 +205,8 @@ export default class Conversations {
     let result = await request
       .offset(offset)
       .limit(limit)
-      .then(rows =>
-        rows.map(row =>
+      .then((rows) =>
+        rows.map((row) =>
           _.reduce(
             { ...row, ...mapper.toObj(conversationFieldsMap, row, options) },
             (accu, value, key) => _.set(accu, key, value),

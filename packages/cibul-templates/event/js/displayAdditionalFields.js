@@ -1,10 +1,7 @@
 import debug from 'debug';
 import React from 'react';
 import ReactDom from 'react-dom';
-import du from '@openagenda/dom-utils';
-import get from '@openagenda/utils/get';
 import { getSupportedLocale } from '@openagenda/intl';
-import { Portal } from '@openagenda/react-portal-ssr';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import locales from '../../locales-compiled';
 
@@ -194,7 +191,7 @@ function displayAdditionalFields({ agenda, event, lang }) {
         updatedAt={updatedAt.getTime()}
       />
     </IntlProvider>,
-    du.el('.js_additional_fields')
+    document.querySelector('.js_additional_fields')
   );
 }
 

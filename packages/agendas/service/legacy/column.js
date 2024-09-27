@@ -1,72 +1,63 @@
-"use strict";
+'use strict';
 
-const logger = require( '@openagenda/logs' );
+const logger = require('@openagenda/logs');
 
-let knex, schemas, log = () => {};
+let knex;
+let schemas;
+let log = () => {};
 
-module.exports = Object.assign( column, { init, get } );
-
-function column( schema, agendaId, columnName, value, cb ) {
+function column(...args) {
+  let schema;
+  let agendaId;
+  let columnName;
+  let value;
+  let cb;
 
   // schema is optional.
-  if ( arguments.length === 4 ) {
-
-    cb = arguments[ 3 ];
-    value = arguments[ 2 ];
-    columnName = arguments[ 1 ];
-    agendaId = arguments[ 0 ];
+  if (arguments.length === 4) {
     schema = schemas.agenda;
-
+    [agendaId, columnName, value, cb] = args;
+  } else {
+    [schema, agendaId, columnName, value, cb] = args;
   }
 
-  if ( !knex ) return cb( 'legacy column not inited' );
+  if (!knex) return cb('legacy column not inited');
 
-  log( 'updating column %s of schema %s at id %s', columnName, schema, agendaId );
+  log('updating column %s of schema %s at id %s', columnName, schema, agendaId);
 
-  let updateData = {};
+  const updateData = {};
 
-  updateData[ columnName ] = value;
+  updateData[columnName] = value;
 
-  knex( schema )
+  knex(schema)
+    .where({ id: agendaId })
 
-  .where( { id: agendaId } )
+    .update(updateData)
 
-  .update( updateData )
-
-  .then( affected => {
-
-    cb( null, { affected } );
-
-  }, cb );
-
+    .then((affected) => {
+      cb(null, { affected });
+    }, cb);
 }
 
+function get(agendaId, columnName, cb) {
+  if (!knex) return cb('legacy column not inited');
 
-function get( agendaId, columnName, cb ) {
+  knex(schemas.agenda)
+    .select(columnName)
 
-  if ( !knex ) return cb( 'legacy column not inited' );
+    .where({ id: agendaId })
 
-  knex( schemas.agenda )
-
-  .select( columnName )
-
-  .where( { id: agendaId } )
-
-  .then( rows => {
-
-    cb( null, rows.length ? rows[ 0 ][ columnName ] : null );
-
-  }, cb );
-
+    .then((rows) => {
+      cb(null, rows.length ? rows[0][columnName] : null);
+    }, cb);
 }
 
-
-function init( s, k ) {
-
+function init(s, k) {
   knex = k;
 
   schemas = s;
 
-  log = logger( 'agendas service.legacy.column' );
-
+  log = logger('agendas service.legacy.column');
 }
+
+module.exports = Object.assign(column, { init, get });

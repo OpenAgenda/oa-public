@@ -4,8 +4,6 @@ const fs = require('node:fs');
 const http = require('node:http');
 const _ = require('lodash');
 const cors = require('cors');
-const errorHandler = require('errorhandler');
-const knex = require('knex');
 const redis = require('redis');
 const express = require('express');
 const morgan = require('morgan');
@@ -49,7 +47,7 @@ const Service = require('.');
     }),
     imagePath: '//oadev.s3.amazonaws.com/',
     interfaces: {
-      getAgendaDetailsByUid: async uid => ({
+      getAgendaDetailsByUid: async (uid) => ({
         id: {
           25221: 7196947,
         }[uid],
@@ -109,75 +107,80 @@ const Service = require('.');
     next();
   });
 
-  app.get('/locations/', (req, res, _next) => svc(7196947)
-    .list(req.query, _.pick(req.query, ['offset', 'limit']), {
-      total: true,
-      eventCounts: true,
-      detailed: true,
-      includeImagePath: true,
-    })
-    .then(result => res.json({
-      success: true,
-      ...result,
-    })));
+  app.get('/locations/', (req, res, _next) =>
+    svc(7196947)
+      .list(req.query, _.pick(req.query, ['offset', 'limit']), {
+        total: true,
+        eventCounts: true,
+        detailed: true,
+        includeImagePath: true,
+      })
+      .then((result) =>
+        res.json({
+          success: true,
+          ...result,
+        })));
 
-  app.get('/locations/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
-    ({ total }) => res.json({ count: total }),
-    next,
-  ));
+  app.get('/locations/unverified', (req, res, next) =>
+    svc(7196947)
+      .list({ state: 0 }, { limit: 0 }, { total: true })
+      .then(({ total }) => res.json({ count: total }), next));
 
-  app.get('/locations/geocode', (req, res, _next) => res.json({
-    results: [
-      {
-        address: 'Rue Alice, 92400 Courbevoie, France',
-        adminLevel1: 'Île-de-France',
-        adminLevel2: 'Hauts-de-Seine',
-        adminLevel4: 'Courbevoie',
-        adminLevel6: 'Quartier de Bécon',
-        postalCode: '92400',
-        timezone: 'Europe/Paris',
-        latitude: 48.9025825,
-        longitude: 2.279693,
-        country: 'France',
-        countryCode: 'fr',
-      },
-    ],
-  }));
+  app.get('/locations/geocode', (req, res, _next) =>
+    res.json({
+      results: [
+        {
+          address: 'Rue Alice, 92400 Courbevoie, France',
+          adminLevel1: 'Île-de-France',
+          adminLevel2: 'Hauts-de-Seine',
+          adminLevel4: 'Courbevoie',
+          adminLevel6: 'Quartier de Bécon',
+          postalCode: '92400',
+          timezone: 'Europe/Paris',
+          latitude: 48.9025825,
+          longitude: 2.279693,
+          country: 'France',
+          countryCode: 'fr',
+        },
+      ],
+    }));
 
-  app.get('/locations/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
-    ({ total }) => res.json({ count: total }),
-    next,
-  ));
+  app.get('/locations/unverified', (req, res, next) =>
+    svc(7196947)
+      .list({ state: 0 }, { limit: 0 }, { total: true })
+      .then(({ total }) => res.json({ count: total }), next));
 
-  app.get('/locations/insee', (req, res, next) => svc.utils
-    .getINSEECode(
-      _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
-    )
-    .then(code => res.json({ code }), next));
+  app.get('/locations/insee', (req, res, next) =>
+    svc.utils
+      .getINSEECode(
+        _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
+      )
+      .then((code) => res.json({ code }), next));
 
-  app.get('/locations/geocode/reverse', (req, res, _next) => res.json({
-    results: [
-      {
-        address:
+  app.get('/locations/geocode/reverse', (req, res, _next) =>
+    res.json({
+      results: [
+        {
+          address:
             'École Maternelle Alphonse Daudet, Rue Fallet, 92400 Courbevoie, France',
-        adminLevel1: 'Île-de-France',
-        adminLevel2: 'Hauts-de-Seine',
-        adminLevel4: 'Courbevoie',
-        adminLevel6: 'Quartier de Bécon',
-        postalCode: '92400',
-        timezone: 'Europe/Paris',
-        latitude: 48.9019071,
-        longitude: 2.2789371,
-        country: 'France',
-        countryCode: 'fr',
-      },
-    ],
-  }));
+          adminLevel1: 'Île-de-France',
+          adminLevel2: 'Hauts-de-Seine',
+          adminLevel4: 'Courbevoie',
+          adminLevel6: 'Quartier de Bécon',
+          postalCode: '92400',
+          timezone: 'Europe/Paris',
+          latitude: 48.9019071,
+          longitude: 2.2789371,
+          country: 'France',
+          countryCode: 'fr',
+        },
+      ],
+    }));
 
   app.get('/locations/terms', (req, res, _next) => {
     svc(7196947)
       .terms(req.query.field.split(','), {}, { filterNulls: true })
-      .then(terms => res.json({ terms }));
+      .then((terms) => res.json({ terms }));
   });
 
   app.get('/locations/:locationUid', (req, res, next) => {
@@ -188,7 +191,7 @@ const Service = require('.');
         eventCounts: req.query.detailed === '1',
         includeLinkedAgendas: true,
       })
-      .then(location => res.json(location), next);
+      .then((location) => res.json(location), next);
   });
 
   app.post(
@@ -219,15 +222,13 @@ const Service = require('.');
       });
     } else {
       svc(7196947)
-        .merge(
-          req.body.mergeIn,
-          req.body.merged,
-        )
+        .merge(req.body.mergeIn, req.body.merged)
         .then(
-          location => res.json({
-            location,
-            success: true,
-          }),
+          (location) =>
+            res.json({
+              location,
+              success: true,
+            }),
           next,
         );
     }
@@ -241,7 +242,7 @@ const Service = require('.');
           includeImagePath: true,
         },
       )
-      .then(location => {
+      .then((location) => {
         res.json({
           location,
           success: true,
@@ -251,10 +252,8 @@ const Service = require('.');
 
   app.post('/locations/disqualify', (req, res, next) => {
     svc(7196947)
-      .duplicates.disqualifyCandidate(
-        req.data.uids,
-      )
-      .then(location => {
+      .duplicates.disqualifyCandidate(req.data.uids)
+      .then((location) => {
         res.json({
           location,
           success: true,
@@ -268,7 +267,7 @@ const Service = require('.');
         includeImagePath: true,
         eventCounts: true,
       })
-      .then(location => {
+      .then((location) => {
         res.json({
           location,
           success: true,
@@ -283,7 +282,7 @@ const Service = require('.');
         includeImagePath: true,
         removeEvents: !!req.query.removeEvents,
       })
-      .then(location => {
+      .then((location) => {
         res.json({
           location,
           success: true,

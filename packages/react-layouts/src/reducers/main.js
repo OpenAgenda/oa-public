@@ -11,7 +11,7 @@ const CHECK_INBOX_NEWS_SUCCESS = 'react-layouts/main/CHECK_INBOX_NEWS_SUCCESS';
 const CHECK_INBOX_NEWS_FAIL = 'react-layouts/main/CHECK_INBOX_NEWS_FAIL';
 const UPDATE_USER = 'react-layouts/main/UPDATE_USER';
 
-export default (state = initialState, action) => {
+export default (state = initialState, action = {}) => {
   switch (action.type) {
     case GET_USER:
       return {

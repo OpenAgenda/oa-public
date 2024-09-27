@@ -1,57 +1,55 @@
-"use strict";
+'use strict';
 
-const _ = require('lodash');
-
-module.exports = {
-  agenda,
-  network,
-  contribute
-}
-
-function contribute(agenda, options = {}) {
-  const params ={
+function contribute(agendaArg, options = {}) {
+  const params = {
     path: undefined,
     lang: undefined,
-    ...options
+    ...options,
   };
 
   const prefix = params.path === undefined ? '' : params.path;
 
-  return prefix + '/agendas/' + agenda.uid + '/contribute' + (params.lang ? '?lang=' + params.lang : '');
+  return `${prefix}/agendas/${agendaArg.uid}/contribute${params.lang ? `?lang=${params.lang}` : ''}`;
 }
 
-function network(network, options) {
+function network(networkArg, options) {
   const params = {
     paths: undefined,
     lang: undefined,
-    ...options
+    ...options,
   };
 
   const prefix = params.path === undefined ? '' : params.path;
 
-  return prefix + '?network=' + network.uid;
+  return `${prefix}?network=${networkArg.uid}`;
 }
 
-function agenda(agenda, options = {}) {
-  const params ={
+function agenda(agendaArg, options = {}) {
+  const params = {
     path: undefined,
     lang: undefined,
-    ...options
+    ...options,
   };
 
   const prefix = params.path === undefined ? '' : params.path;
 
-  if (!agenda) {
-    return prefix + '#' + (params.lang ? '?lang=' + params.lang : '');
+  if (!agendaArg) {
+    return `${prefix}#${params.lang ? `?lang=${params.lang}` : ''}`;
   }
 
-  if (agenda.slug) {
-    return prefix  + '/' + agenda.slug + (params.lang ? '?lang=' + params.lang : '');
+  if (agendaArg.slug) {
+    return `${prefix}/${agendaArg.slug}${params.lang ? `?lang=${params.lang}` : ''}`;
   }
 
-  if (agenda.uid) {
-    return prefix + '/agendas/' + agenda.uid + (params.lang ? '?lang=' + params.lang : '');
+  if (agendaArg.uid) {
+    return `${prefix}/agendas/${agendaArg.uid}${params.lang ? `?lang=${params.lang}` : ''}`;
   }
 
   return '#';
 }
+
+module.exports = {
+  agenda,
+  network,
+  contribute,
+};

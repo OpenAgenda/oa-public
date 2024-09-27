@@ -10,7 +10,10 @@ import SearchWithMap from './SearchWithMap';
 
 type SetUserControlled = (userControlled: boolean) => void;
 type ToggleUserControlled = () => void;
-type UseMapUserControl = (name: string, searchWithMap: string) => [boolean, SetUserControlled, ToggleUserControlled];
+type UseMapUserControl = (
+  name: string,
+  searchWithMap: string,
+) => [boolean, SetUserControlled, ToggleUserControlled];
 
 const DynamicMap = dynamic(() => import('./Map'), { ssr: false });
 
@@ -30,7 +33,9 @@ const MapField = React.forwardRef<any, any>(function MapField(
   },
   ref,
 ) {
-  const [userControlled, setUserControlled, toggleUserControlled] = (useMapUserControl as UseMapUserControl)(input.name, searchWithMap);
+  const [userControlled, setUserControlled, toggleUserControlled] = (
+    useMapUserControl as UseMapUserControl
+  )(input.name, searchWithMap);
   const onChange = useMapOnChange({ input, loadGeoData, ref, userControlled });
 
   return (
@@ -62,13 +67,10 @@ const MapField = React.forwardRef<any, any>(function MapField(
   );
 });
 
-const MapFilter = React.forwardRef<any, any>(function MapFilter({
-  name,
-  filter,
-  disabled,
-  className,
-  ...rest
-}, ref) {
+const MapFilter = React.forwardRef<any, any>(function MapFilter(
+  { name, filter, disabled, className, ...rest },
+  ref,
+) {
   return (
     <ReactFiltersMapFilter
       name={name}

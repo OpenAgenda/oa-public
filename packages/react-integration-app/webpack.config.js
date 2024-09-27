@@ -115,7 +115,7 @@ module.exports = (env = {}, argv = {}) => {
       liveReload: false,
       devMiddleware: {
         publicPath: `/dist/${serviceName}/`,
-        writeToDisk: filePath => /loadable-stats\.json$/.test(filePath),
+        writeToDisk: (filePath) => /loadable-stats\.json$/.test(filePath),
       },
     },
     stats: {
@@ -250,10 +250,6 @@ module.exports = (env = {}, argv = {}) => {
       new ProgressBar({ basic: false }),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify({ NODE_ENV: envName }),
-        __CLIENT__: true,
-        __SERVER__: false,
-        __DEVELOPMENT__: envName === 'development',
-        __DEVTOOLS__: envName === 'development',
       }),
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],

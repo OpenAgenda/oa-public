@@ -19,27 +19,30 @@ export function init({ track }) {
     return flushed;
   };
 
-  return Object.assign(message => {
-    if (!track) {
-      return;
-    }
-    log('received %s', message);
-    stack.push(message);
-    if (on && (on[0] === message)) {
-      on[1](stack.concat([]));
-      if (on[2]) flush();
-      on = null;
-    }
-  }, {
-    flush,
-    getStack: () => stack,
-    on: (message, fn, flushStack = false) => {
-      log('listening to %s', message);
-      on = [message, fn, flushStack];
+  return Object.assign(
+    (message) => {
+      if (!track) {
+        return;
+      }
+      log('received %s', message);
+      stack.push(message);
+      if (on && on[0] === message) {
+        on[1](stack.concat([]));
+        if (on[2]) flush();
+        on = null;
+      }
     },
-    shutdown: async () => {
-      log('shutting down');
-      flush();
+    {
+      flush,
+      getStack: () => stack,
+      on: (message, fn, flushStack = false) => {
+        log('listening to %s', message);
+        on = [message, fn, flushStack];
+      },
+      shutdown: async () => {
+        log('shutting down');
+        flush();
+      },
     },
-  });
+  );
 }

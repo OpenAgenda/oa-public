@@ -20,7 +20,8 @@ export default {
 
 const res = {
   geocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode',
-  reverseGeocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse',
+  reverseGeocode:
+    'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse',
 };
 
 export const BasicForm = () => (
@@ -35,7 +36,7 @@ export const BasicForm = () => (
 export const FormWithImageRightsCheckbox = () => (
   <LocationForm
     locationProp={location}
-    settings={produce(agendaSettings, draft => {
+    settings={produce(agendaSettings, (draft) => {
       draft.displayImageRightsConfirmCheckbox = true;
     })}
     mode="update"
@@ -46,12 +47,12 @@ export const FormWithImageRightsCheckbox = () => (
 export const FormWithSIRETInput = () => (
   <LocationForm
     locationProp={location}
-    settings={produce(agendaSettings, draft => {
+    settings={produce(agendaSettings, (draft) => {
       draft.displaySIRETInput = true;
     })}
     mode="update"
     res={res}
-    onSubmit={data => {
+    onSubmit={(data) => {
       console.log(data);
     }}
   />
@@ -75,8 +76,5 @@ export const BasicGeoFieldsAndMap = () => {
 };
 
 export const BasicMap = () => (
-  <LocationMap
-    location={location}
-    draggableMarker
-  />
+  <LocationMap location={location} draggableMarker />
 );

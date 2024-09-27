@@ -15,7 +15,7 @@ test('notifying a user creation', async () => {
   const response = await svc.notifyUserCreation({
     fullName: 'Olivia',
     email: 'email@email.com',
-    userUid: 123456
+    userUid: 123456,
   });
   expect(response).toBeDefined();
 });

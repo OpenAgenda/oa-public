@@ -18,7 +18,7 @@ export default function SlugSearch({ res, render }) {
   const apiClient = useApiClient();
 
   const validSlugRequest = useCallback(
-    v => {
+    (v) => {
       try {
         const { pathname } = new URL(v, 'https://openagenda.com');
         const slug = pathname && pathname !== '/' ? pathname.split('/')[1] : null;
@@ -29,7 +29,7 @@ export default function SlugSearch({ res, render }) {
 
         return apiClient
           .get(res.replace(':slug', slug))
-          .then(agenda => (agenda?.uid ? agenda : null));
+          .then((agenda) => (agenda?.uid ? agenda : null));
       } catch (e) {
         // console.log(e);
         return Promise.reject(new Error('badAgendaUrl'));
@@ -42,7 +42,7 @@ export default function SlugSearch({ res, render }) {
 
   const debouncedGet = useMemo(() => _.debounce(get, 400), [get]);
 
-  const onSearch = useCallback(values => get(values.slug), [get]);
+  const onSearch = useCallback((values) => get(values.slug), [get]);
 
   const renderForm = useCallback(
     ({ handleSubmit }) => (

@@ -16,31 +16,27 @@ const config = require('./testconfig');
 
 // normally done through init of service
 filesMw.init({
-  tmpFolder: __dirname + '/dev/tmp',
-  s3: _.pick(config.s3, ['accessKeyId', 'secretAccessKey', 'region', 'bucket'])
+  tmpFolder: `${__dirname}/dev/tmp`,
+  s3: _.pick(config.s3, ['accessKeyId', 'secretAccessKey', 'region', 'bucket']),
 });
 
 const devSchemas = require('./dev/schemas');
 
 const dev = express();
 
-dev.post('/formbuilder',
+dev.post('/formbuilder', bodyParser.json(), (req, res) => {
+  console.log(req.body);
+  console.log('waiting for a while...');
+
+  setTimeout(() => {
+    res.status(200).send();
+  }, 3000);
+});
+
+dev.post(
+  '/:page',
   bodyParser.json(),
   (req, res, next) => {
-
-    console.log(req.body);
-    console.log('waiting for a while...');
-
-    setTimeout(() => {
-      res.status(200).send();
-    }, 3000);
-  }
-);
-
-dev.post('/:page',
-  bodyParser.json(),
-  (req, res, next) => {
-
     if (req.params.page === 'imageuploadtoolarge') {
       return res.status(413).send();
     }
@@ -58,28 +54,27 @@ dev.post('/:page',
     req.fileKey = fileKey;
 
     next();
-
   },
-  filesMw.putInTemporary.bind(null, { /* use defaults */ }),
-  filesMw.uploadFilesToS3.bind(null, { /* defaults */ }),
+  filesMw.putInTemporary.bind(null, {
+    /* use defaults */
+  }),
+  filesMw.uploadFilesToS3.bind(null, {
+    /* defaults */
+  }),
   filesMw.cleanFileValues.bind(null, {}),
   schemaMw.clean.bind(null, {}),
   devMw,
   (req, res, next) => {
-
     // this here should include file values
     console.log('clean', req.clean);
 
     next();
-
   },
   (req, res) => {
-
     res.json({
-      message: 'ok, ' + req.params.page
+      message: `ok, ${req.params.page}`,
     });
-
-  }
+  },
 );
 
 dev.listen(3000);

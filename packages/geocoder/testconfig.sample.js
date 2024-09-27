@@ -2,6 +2,6 @@
 
 module.exports = {
   opencage: {
-    key: 'opencagekey'
-  }
+    key: 'opencagekey',
+  },
 };

@@ -32,13 +32,8 @@
         "contribution": {
           "type": 2,
           "defaultState": 0,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
-          "moderateOnChangeBy": [
-            "contributor"
-          ],
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": ["contributor"],
           "defaultLang": null,
           "allowLocationCreate": true,
           "messages": {
@@ -113,10 +108,7 @@
         "contribution": {
           "type": 1,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -192,10 +184,7 @@
         "contribution": {
           "type": 1,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -271,10 +260,7 @@
         "contribution": {
           "type": 1,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -350,10 +336,7 @@
         "contribution": {
           "type": 1,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -429,13 +412,8 @@
         "contribution": {
           "type": 2,
           "defaultState": 0,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
-          "moderateOnChangeBy": [
-            "contributor"
-          ],
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": ["contributor"],
           "defaultLang": null,
           "allowLocationCreate": true,
           "messages": {
@@ -510,10 +488,7 @@
         "contribution": {
           "type": 1,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -589,10 +564,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -665,10 +637,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -741,13 +710,8 @@
         "contribution": {
           "type": 2,
           "defaultState": 0,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
-          "moderateOnChangeBy": [
-            "contributor"
-          ],
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": ["contributor"],
           "defaultLang": null,
           "allowLocationCreate": false,
           "messages": {
@@ -822,10 +786,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -895,10 +856,7 @@
         "contribution": {
           "type": 1,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -974,10 +932,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -1050,10 +1005,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -1123,10 +1075,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -1199,10 +1148,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -1272,10 +1218,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -1345,10 +1288,7 @@
         "contribution": {
           "type": 1,
           "defaultState": 0,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -1419,10 +1359,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,
@@ -1492,10 +1429,7 @@
         "contribution": {
           "type": 2,
           "defaultState": 2,
-          "canPublish": [
-            "administrators",
-            "moderators"
-          ],
+          "canPublish": ["administrators", "moderators"],
           "moderateOnChangeBy": [],
           "defaultLang": null,
           "allowLocationCreate": true,

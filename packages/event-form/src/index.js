@@ -48,9 +48,7 @@ class EventForm extends Component {
   constructor(props) {
     super(props);
 
-    const {
-      values: propsValues,
-    } = this.props;
+    const { values: propsValues } = this.props;
 
     this.onChange = this.onChange.bind(this);
 
@@ -58,10 +56,7 @@ class EventForm extends Component {
       defaultLanguage: props.lang,
     });
 
-    const {
-      schema,
-      hash,
-    } = this.buildEventSchema(languages, props);
+    const { schema, hash } = this.buildEventSchema(languages, props);
 
     const values = ih(props.values ?? {}, {
       languages: {
@@ -79,52 +74,60 @@ class EventForm extends Component {
   }
 
   onChange({ values, errors, files, loading, globalError }) {
-    const {
-      lang,
-      devOnChange,
-    } = this.props;
-    const {
-      values: stateValues,
-    } = this.state;
+    const { lang, devOnChange } = this.props;
+    const { values: stateValues } = this.state;
 
     const languageChanges = identifyLanguageChanges(
       _.get(this.state, 'values.languages'), // before
       _.get(values, 'languages'), // now
     );
 
-    const update = _.omitBy({
-      errors,
-      globalError,
-      files,
-      loading,
-    }, _.isUndefined);
+    const update = _.omitBy(
+      {
+        errors,
+        globalError,
+        files,
+        loading,
+      },
+      _.isUndefined,
+    );
 
     if (values) update.values = values;
 
-    const multilingualFieldNames = getMultilingualFieldNames(eventSchema({ languages: true }));
+    const multilingualFieldNames = getMultilingualFieldNames(
+      eventSchema({ languages: true }),
+    );
 
     // if a unique language has been switcheds, content should not be lost
     if (languageChanges.swapped.length) {
-      update.values = ih(transferMultilingualValues(
-        stateValues,
-        multilingualFieldNames,
-        _.get(this, 'state.values.languages.0'),
-        _.first(languageChanges.swapped),
-      ), {
-        languages: {
-          $set: [languageChanges.swapped[0]],
+      update.values = ih(
+        transferMultilingualValues(
+          stateValues,
+          multilingualFieldNames,
+          _.get(this, 'state.values.languages.0'),
+          _.first(languageChanges.swapped),
+        ),
+        {
+          languages: {
+            $set: [languageChanges.swapped[0]],
+          },
         },
-      });
+      );
     } else if (languageChanges.removed.length) {
-      update.values = ih(removeMultilingualValues(
-        stateValues,
-        multilingualFieldNames,
-        languageChanges.removed,
-      ), {
-        languages: {
-          $set: stateValues.languages.filter(l => !languageChanges.removed.includes(l)),
+      update.values = ih(
+        removeMultilingualValues(
+          stateValues,
+          multilingualFieldNames,
+          languageChanges.removed,
+        ),
+        {
+          languages: {
+            $set: stateValues.languages.filter(
+              (l) => !languageChanges.removed.includes(l),
+            ),
+          },
         },
-      });
+      );
     }
 
     if (languageChanges.has) {
@@ -145,20 +148,19 @@ class EventForm extends Component {
   buildEventSchema(languages, props = null) {
     const p = props || this.props;
 
-    const {
-      schema: propsSchema,
-    } = this.props;
+    const { schema: propsSchema } = this.props;
 
-    const schema = propsSchema || eventSchema({
-      includeEventFields: p.includeEventFields,
-      interfaceLanguage: p.lang,
-      suggestionsRes: p.suggestionsRes,
-      languages,
-      schemaExtensions: p.schemaExtensions,
-      access: {
-        write: p.role,
-      },
-    });
+    const schema = propsSchema
+      || eventSchema({
+        includeEventFields: p.includeEventFields,
+        interfaceLanguage: p.lang,
+        suggestionsRes: p.suggestionsRes,
+        languages,
+        schemaExtensions: p.schemaExtensions,
+        access: {
+          write: p.role,
+        },
+      });
 
     appendFormConfigurations(schema, {
       locationRes: p.locationRes,
@@ -187,15 +189,7 @@ class EventForm extends Component {
       res,
     } = this.props;
 
-    const {
-      values,
-      schema,
-      hash,
-      errors,
-      globalError,
-      loading,
-      files,
-    } = this.state;
+    const { values, schema, hash, errors, globalError, loading, files } = this.state;
 
     return (
       <IntlProvider

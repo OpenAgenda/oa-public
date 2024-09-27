@@ -21,7 +21,7 @@ export default async function processPassCultureApply(
     imageBasePath: core.getConfig().aws.imageBucketPath,
   });
 
-  return event.registration.map(r =>
+  return event.registration.map((r) =>
     (r.service === 'passCulture'
       ? {
         ...r,

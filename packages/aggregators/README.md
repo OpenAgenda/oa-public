@@ -82,15 +82,15 @@ This section maps out what a collection of routes could look like to handle the 
 
     /agendas/:agendaUid/admin/sources
 
- * List: `${base}` (get): takes an optional ?search= query part to filter listed sources by their agenda names, returns a list `[{id, agendaUid, agenda: { uid, title, slug }, rules: [] }]`
+- List: `${base}` (get): takes an optional ?search= query part to filter listed sources by their agenda names, returns a list `[{id, agendaUid, agenda: { uid, title, slug }, rules: [] }]`
 
- * Create a source: `${base}` (post): Provide a body containing `{ agendaUid, rules: [], evaluate: bool }`
+- Create a source: `${base}` (post): Provide a body containing `{ agendaUid, rules: [], evaluate: bool }`
 
- * Update a source: `${base}/${sourceId}` (post or put): Provide a body containing `{ rules: [], evaluate: bool }`
+- Update a source: `${base}/${sourceId}` (post or put): Provide a body containing `{ rules: [], evaluate: bool }`
 
- * Remove a source: `${base}/${sourceId}` (delete): There is no body in a delete request. Provide evaluate in the query: `?evaluate=1/0`.
+- Remove a source: `${base}/${sourceId}` (delete): There is no body in a delete request. Provide evaluate in the query: `?evaluate=1/0`.
 
- * Get details of a source: `${base}/${sourceId}` (get): Probably not needed as list provides all needed detail.
+- Get details of a source: `${base}/${sourceId}` (get): Probably not needed as list provides all needed detail.
 
 The route for updating general rules for an aggregator could be
 
@@ -106,10 +106,9 @@ They are processed when an event is evaluated for aggregation. They are stored e
 
 Each rule can have the following values:
 
- * `query`: determines whether the rule matches or not
- * `required`: defaults to true, determines if the rule is required for aggregating the event
- * `transform`: changes ( using immutability helper synthax ) to bring to provided value when the query matches
-
+- `query`: determines whether the rule matches or not
+- `required`: defaults to true, determines if the rule is required for aggregating the event
+- `transform`: changes ( using immutability helper synthax ) to bring to provided value when the query matches
 
 ## Aggregation filter examples
 
@@ -214,6 +213,7 @@ An aggregator that filters events from a list of city names
 ```
 
 An aggregator that makes source tag values correspond to aggregator tag values
+
 ```
 {
   "rules": [
@@ -344,7 +344,6 @@ An aggregator that makes source tag values correspond to aggregator tag values
   ]
 }
 ```
-
 
 An aggregator that filters on a city and adapts tags
 

@@ -29,7 +29,7 @@ function EditionApp({ route }) {
     [lang],
   );
 
-  const loading = useSelector(state => state.agenda.loading);
+  const loading = useSelector((state) => state.agenda.loading);
 
   return (
     <IntlProvider

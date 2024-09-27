@@ -45,12 +45,17 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
   describe('results contents', () => {
     it('basic create', async () => {
-      const member = await core.agendas(2).members.create(82253124, 'administrator', {
-        name: 'Fred',
-        phone: '06',
-      }, {
-        userUid: 50073466,
-      });
+      const member = await core.agendas(2).members.create(
+        82253124,
+        'administrator',
+        {
+          name: 'Fred',
+          phone: '06',
+        },
+        {
+          userUid: 50073466,
+        },
+      );
 
       expect(_.omit(member, 'updatedAt')).toEqual({
         deletedUser: false,
@@ -65,41 +70,68 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     });
 
     it('user can add himself on open agenda', async () => {
-      const member = await core.agendas(93399464).members.create(99999967, 'contributor', {
-        name: 'Jean-Benoit',
-      }, {
-        userUid: 99999967,
-      });
+      const member = await core.agendas(93399464).members.create(
+        99999967,
+        'contributor',
+        {
+          name: 'Jean-Benoit',
+        },
+        {
+          userUid: 99999967,
+        },
+      );
 
       expect(member.role).toBe('contributor');
     });
 
     it('admin can add contributor with values to custom fields', async () => {
-      await core.agendas(3).members.create(63460, 'contributor', {
-        name: 'JayBee',
-        organization: 'thingy',
-        position: 'boss',
-        email: 'my@mail.com',
-        num_orga: '30org',
-      }, {
-        userUid: 1, // actingUserIid
-      });
+      await core.agendas(3).members.create(
+        63460,
+        'contributor',
+        {
+          name: 'JayBee',
+          organization: 'thingy',
+          position: 'boss',
+          email: 'my@mail.com',
+          num_orga: '30org',
+        },
+        {
+          userUid: 1, // actingUserIid
+        },
+      );
       const custom = await services.custom(8).get(63460);
-      const member = await services.members.get({ agendaUid: 3, userUid: 63460 });
-      expect({ customValue: custom.num_orga, memberName: member.custom.contactName }).toStrictEqual({ customValue: '30org', memberName: 'JayBee' });
+      const member = await services.members.get({
+        agendaUid: 3,
+        userUid: 63460,
+      });
+      expect({
+        customValue: custom.num_orga,
+        memberName: member.custom.contactName,
+      }).toStrictEqual({ customValue: '30org', memberName: 'JayBee' });
     });
 
     it('admin can add admin with values to custom fields', async () => {
-      await core.agendas(3).members.create(9090, 'administrator', {
-        name: 'JayBee',
-        organization: 'thingy',
-        num_orga: '30org',
-      }, {
-        userUid: 1, // actingUserUid
-      });
+      await core.agendas(3).members.create(
+        9090,
+        'administrator',
+        {
+          name: 'JayBee',
+          organization: 'thingy',
+          num_orga: '30org',
+        },
+        {
+          userUid: 1, // actingUserUid
+        },
+      );
       const custom = await services.custom(8).get(9090);
-      const member = await services.members.get({ agendaUid: 3, userUid: 9090 });
-      expect({ customValue: custom.num_orga, memberName: member.custom.contactName }).toStrictEqual({ customValue: '30org', memberName: 'JayBee' });
+      const member = await services.members.get({
+        agendaUid: 3,
+        userUid: 9090,
+      });
+      expect({
+        customValue: custom.num_orga,
+        memberName: member.custom.contactName,
+      }).toStrictEqual({ customValue: '30org', memberName: 'JayBee' });
     });
   });
 
@@ -108,11 +140,16 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       let error;
 
       try {
-        await core.agendas(2).members.create(10866730, 'contributor', {
-          name: 'Hélène',
-        }, {
-          userUid: 5,
-        });
+        await core.agendas(2).members.create(
+          10866730,
+          'contributor',
+          {
+            name: 'Hélène',
+          },
+          {
+            userUid: 5,
+          },
+        );
       } catch (e) {
         error = e;
       }
@@ -124,11 +161,16 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       let error;
 
       try {
-        await core.agendas(2).members.create(99999967, 'contributor', {
-          name: 'JayBee',
-        }, {
-          userUid: 99999967,
-        });
+        await core.agendas(2).members.create(
+          99999967,
+          'contributor',
+          {
+            name: 'JayBee',
+          },
+          {
+            userUid: 99999967,
+          },
+        );
       } catch (e) {
         error = e;
       }
@@ -158,7 +200,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
 
       nonMemberAccessToken = await axios({
         method: 'post',
@@ -169,7 +211,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         data: {
           code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     describe('successfull call', () => {
@@ -188,16 +230,19 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
             role: 'administrator',
             userUid: 10866730,
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
       });
 
       it('member data is saved', async () => {
-        const entry = await core.services.knex('reviewer')
+        const entry = await core.services
+          .knex('reviewer')
           .first()
           .where({ user_uid: 10866730, agenda_uid: 2 });
 
         expect(entry.credential).toBe(2);
-        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe('Hélène');
+        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe(
+          'Hélène',
+        );
       });
 
       it('member invite', async () => {
@@ -211,11 +256,20 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           },
           data: {
             role: 1,
-            emails: ['clement.lecroart@openagenda.com', 'clement.lecro@bidul.chouette'],
+            emails: [
+              'clement.lecroart@openagenda.com',
+              'clement.lecro@bidul.chouette',
+            ],
           },
         });
-        const member = await services.members.get.byEmail({ agendaUid: 2, email: 'clement.lecroart@openagenda.com' });
-        const member2 = await services.members.get.byEmail({ agendaUid: 2, email: 'clement.lecro@bidul.chouette' });
+        const member = await services.members.get.byEmail({
+          agendaUid: 2,
+          email: 'clement.lecroart@openagenda.com',
+        });
+        const member2 = await services.members.get.byEmail({
+          agendaUid: 2,
+          email: 'clement.lecro@bidul.chouette',
+        });
         expect(member.id).toBeTruthy();
         expect(member2.id).toBeTruthy();
       });
@@ -237,17 +291,17 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
             role: 'contributor',
             userUid: 24372732,
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
-        const entry = await core.services.knex('reviewer')
-          .first()
-          .where({
-            user_uid: 24372732,
-            agenda_uid: 48353388,
-          });
+        const entry = await core.services.knex('reviewer').first().where({
+          user_uid: 24372732,
+          agenda_uid: 48353388,
+        });
 
         expect(entry.credential).toBe(1);
-        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe('Chris sie');
+        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe(
+          'Chris sie',
+        );
       });
     });
 
@@ -289,7 +343,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           data: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
-        }).then(r => r.data.access_token);
+        }).then((r) => r.data.access_token);
 
         try {
           await axios({

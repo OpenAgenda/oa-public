@@ -3,7 +3,7 @@
 const { produce } = require('immer');
 
 module.exports = function reduxMiddleware(layoutStore, queryClient) {
-  return (/* store */) => next => async action => {
+  return (/* store */) => (next) => async (action) => {
     try {
       switch (action.type) {
         case 'user-apps/userSettings/UPDATE_USER_SUCCESS': {
@@ -31,9 +31,9 @@ module.exports = function reduxMiddleware(layoutStore, queryClient) {
 
           queryClient.setQueryData(
             query.queryKey,
-            produce(draft => {
+            produce((draft) => {
               draft.agenda = action.result.data.agenda;
-            })
+            }),
           );
           break;
         }

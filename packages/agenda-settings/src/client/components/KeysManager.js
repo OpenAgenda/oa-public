@@ -1,11 +1,11 @@
-import React, { useContext, useState, useCallback } from 'react';
+import { useContext, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { MoreInfo } from '@openagenda/react-shared';
-import EditKeyForm from './EditKeyForm';
 import * as keysActions from '../reducers/keys';
 import * as modalsActions from '../reducers/modals';
 import I18nContext from '../contexts/I18nContext';
+import EditKeyForm from './EditKeyForm';
 
 function Key({ item, index }) {
   const { getLabel } = useContext(I18nContext);
@@ -25,15 +25,18 @@ function Key({ item, index }) {
   return (
     <div className="row margin-bottom-sm" key={index}>
       <div className="col-md-4">
-        {inEdition
-          ? <EditKeyForm
+        {inEdition ? (
+          <EditKeyForm
             index={index}
             item={item}
             initialValues={{ label: item.label }}
-            onSubmit={values => dispatch(keysActions.update(item.key, values)).then(() => setInEdition(false))}
+            onSubmit={(values) =>
+              dispatch(keysActions.update(item.key, values)).then(() =>
+                setInEdition(false))}
             form={`edit-key-${item.id}`}
             cancel={() => setInEdition(false)}
-          /> :
+          />
+        ) : (
           <div className="input-group">
             <input
               type="text"
@@ -43,13 +46,16 @@ function Key({ item, index }) {
             />
             <span className="input-group-btn">
               <button
+                type="button"
                 className="btn btn-default"
                 onClick={() => setInEdition(true)}
+                aria-label={getLabel('edit')}
               >
-                <i className="fa fa-pencil" aria-hidden="true"></i>
+                <i className="fa fa-pencil" aria-hidden="true" />
               </button>
             </span>
-          </div>}
+          </div>
+        )}
       </div>
 
       <div className="col-md-8">
@@ -61,20 +67,29 @@ function Key({ item, index }) {
             readOnly
           />
           <span className="input-group-btn">
-              <MoreInfo content={copied ? getLabel('copied') : getLabel('copy')}>
-                <CopyToClipboard text={item.key} onCopy={onCopy}>
-                  <button className="btn btn-primary">
-                    <i className="fa fa-clipboard" aria-hidden="true"></i>
-                  </button>
-                </CopyToClipboard>
-              </MoreInfo>
+            <MoreInfo content={copied ? getLabel('copied') : getLabel('copy')}>
+              <CopyToClipboard text={item.key} onCopy={onCopy}>
                 <button
-                  className="btn btn-default"
-                  onClick={() => dispatch(modalsActions.showModal('removeKey', { key: item.key }))}
+                  type="button"
+                  className="btn btn-primary"
+                  aria-label={getLabel('copy')}
                 >
-                  <i className="fa fa-trash text-danger" aria-hidden="true"></i>
+                  <i className="fa fa-clipboard" aria-hidden="true" />
                 </button>
-            </span>
+              </CopyToClipboard>
+            </MoreInfo>
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={() =>
+                dispatch(
+                  modalsActions.showModal('removeKey', { key: item.key }),
+                )}
+              aria-label={getLabel('remove')}
+            >
+              <i className="fa fa-trash text-danger" aria-hidden="true" />
+            </button>
+          </span>
         </div>
       </div>
     </div>
@@ -85,17 +100,20 @@ export default function KeysManager() {
   const { getLabel } = useContext(I18nContext);
 
   const dispatch = useDispatch();
-  const keys = useSelector(state => state.keys.data.items);
+  const keys = useSelector((state) => state.keys.data.items);
 
   return (
     <div>
-      {keys.map((item, index) => <Key key={item.id} item={item} index={index} />)}
-      <a
-        style={{ cursor: 'pointer' }}
+      {keys.map((item, index) => (
+        <Key key={item.id} item={item} index={index} />
+      ))}
+      <button
+        type="button"
+        className="btn btn-link btn-link-inline"
         onClick={() => dispatch(keysActions.create())}
       >
         {getLabel('generateKey')}
-      </a>
+      </button>
     </div>
   );
 }

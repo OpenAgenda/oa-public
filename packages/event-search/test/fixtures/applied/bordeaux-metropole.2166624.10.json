@@ -111,10 +111,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "culture@talence.fr",
-        "05 57 12 29 00"
-      ],
+      "registration": ["culture@talence.fr", "05 57 12 29 00"],
       "location": {
         "uid": 1973393,
         "slug": "forum-des-arts-and-de-la-culture810",
@@ -142,17 +139,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 60,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        54892589
-      ],
+      "sourcePaths": [54892589],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -199,13 +192,7 @@
         "fr": "Projection du film «Mamá», réalisé par Philippe Van Hassenhoven, en version espagnole, sous-titrée en français.\n\nSynopsis: Victoria reçoit la visite de sa fille Saraha, dont elle n'avait plus de nouvelles. Celle-ci lui demande de s'occuper de son enfant de 7 ans. Mais Victoria apprécie sa solitude et son indépendance. Peu à peu, au contact de sa petite-fille qu'elle découvre, sa vie va être transformée."
       },
       "keywords": {
-        "fr": [
-          "cinéma",
-          "Colombie",
-          "maman",
-          "femmes",
-          "enfants"
-        ]
+        "fr": ["cinéma", "Colombie", "maman", "femmes", "enfants"]
       },
       "conditions": {
         "fr": "Entrée libre dans la mesure des places disponibles"
@@ -292,19 +279,13 @@
         "extId": null
       },
       "custom_description": "Projection d'un film colombien, en collaboration avec l'Ambassade de Colombie en France, dans le cadre du ciné-club de l'Instituto Cervantes de Bordeaux Cycle cinéma colombien",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 45,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -351,11 +332,7 @@
         "fr": "Raquel Santanera, Felipe Juaristi, Alba Cid et Juan Carlos Abril, 4 poétes provenant de 4 régions d'Espagne différentes parleront de leur travail, de leur parcours et liront quelques poèmes écrits dans une des 4 langues officielles de l´état espagnol: basque, catalan, galicien et castillan.\n\nActivité organisée en collaboration avec l'Université Bordeaux-Montaigne et l'Office Culturel de l'Ambassade d'Espagne à Paris"
       },
       "keywords": {
-        "fr": [
-          "poésie",
-          "littérature espagnole",
-          "récital poétique."
-        ]
+        "fr": ["poésie", "littérature espagnole", "récital poétique."]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -439,9 +416,7 @@
         "min": 17,
         "max": 99
       },
-      "registration": [
-        "0557142614"
-      ],
+      "registration": ["0557142614"],
       "location": {
         "uid": 75101604,
         "slug": "institut-cervantes586",
@@ -469,19 +444,13 @@
         "extId": null
       },
       "custom_description": "À l'occasion du Mois de la poésie, en collaboration avec l'Université Bordeaux-Montaigne",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -528,12 +497,7 @@
         "fr": "Paola Farinetti a été la femme de Gianmaria Testa, musicien et chanteur piémontais très apprécié dans toute la France qui nous a quittés prématurément le 30 mars 2016. Avec Fuorivie, fruit de son imagination, le spectacle est présenté sous toutes ses formes, de celle théâtrale à celle musicale en passant par la littérature. Paola a toujours travaillé avec Gianmaria et ensemble ils ont réussi à impliquer dans leur projet des artistes de premier plan de la scène italienne et internationale parmi lesquels Erri De Luca, Paolo Rossi, Greg Cohen, Stefano Bollani, Gabriele Mirabassi, Paolo Fresu et Enrico Rava. Lors de cette rencontre, Paola Farinetti dialoguera avec Patrick Duval, directeur du Rocher Palmer. Seront aussi lus, en français et en italien, des extraits du livre de Gianmaria Testa « Da questa parte del mare » (« De ce côté-ci de la mer » aux éditions Du Sonneur) par Luciana Carraretto e Christiane Rateau (actrices de théâtre amateur à Bordeaux). Enfin, des extraits du spectacle « Chichiotte et les invisibles » avec Gianmaria Testa, Gabriele Mirabassi et Erri de Luca seront projetés."
       },
       "keywords": {
-        "fr": [
-          "rocher de palmer",
-          "cenon",
-          "rencontre",
-          "musique"
-        ]
+        "fr": ["rocher de palmer", "cenon", "rencontre", "musique"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -621,18 +585,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -782,17 +741,13 @@
         "extId": null
       },
       "custom_description": "19ÈME SALON DU LIVRE JEUNESSE",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 54,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94362290
-      ],
+      "sourcePaths": [94362290],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -924,17 +879,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        35828405
-      ],
+      "sourcePaths": [35828405],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -981,11 +932,7 @@
         "fr": "Venez encourager les meilleurs footworkers et breakers de Bordeaux, de France et d'Europe, au tROCKé le **samedi 15 février 2020 dès 14h30** pour la neuvième édition du **tROCKé Dance Battle.**\n\nPour cette 9e édition, la scène du tROCKé accueillera **une cinquantaine de danseurs de hip-hop venus de toute la France et d'Europe** pour se défier. Les meilleures équipes de Bordeaux mais aussi de toute la France (Paris, Montpellier Cholet, Limoges, ....) et d'Europe (Espagne, Suisse, Portugal..) seront au rendez-vous.\n\nAu programme, deux catégories 1 contre 1 « Footwork » et 2 contre 2 « Breakdance ».\n\nLe jury est composé cette année de 3 artistes reconnus mondialement :\n\n*   WINGZERO du Japon (il participera à la Hip Hop Session à Nantes le week-end suivant, l'un des événements les plus importants en France),\n*   INSIDE de Russie\n*   et MENDIGO de Bordeaux.\n\nAux platines, DJ Davy Jones (Bordeaux) et DJ KRIS.\n\nAu micro El Pistolero & Hassan Sarr (Les Associés Crew)."
       },
       "keywords": {
-        "fr": [
-          "danse",
-          "battle",
-          "gradignan"
-        ]
+        "fr": ["danse", "battle", "gradignan"]
       },
       "conditions": {
         "fr": "Adhérents : 5 € - Non adhérents : 7 €  (- 12 ans : 2€ , - 6 ans : gratuit)"
@@ -1062,9 +1009,7 @@
         "website": "https://www.gradignan.fr/enfance-jeunesse/jeunesse/le-trocke-cafe-608.html",
         "email": "epajgtrocke@ville-gradignan.fr",
         "phone": "05 56 89 17 12",
-        "links": [
-          "http://facebook.com/trocke.cafe.jeunes"
-        ],
+        "links": ["http://facebook.com/trocke.cafe.jeunes"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
@@ -1072,17 +1017,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 51,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        35828405
-      ],
+      "sourcePaths": [35828405],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1209,17 +1150,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        35828405
-      ],
+      "sourcePaths": [35828405],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1355,17 +1292,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        35828405
-      ],
+      "sourcePaths": [35828405],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1474,9 +1407,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/leonie/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/leonie/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1506,18 +1437,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

@@ -1,6 +1,6 @@
 {
-  "back": "Tornare all'agenda",
-  "contact": "Contattare l'amministratore",
+  "title": "Accesso non autorizzato",
   "content": "L'accesso a questo calendario è limitato, contatta l'amministratore del calendario per ulteriori informazioni.",
-  "title": "Accesso non autorizzato"
+  "contact": "Contattare l'amministratore",
+  "back": "Tornare all'agenda"
 }

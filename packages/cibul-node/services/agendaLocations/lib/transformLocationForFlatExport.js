@@ -8,10 +8,13 @@ export default ({ lang }) => {
   return new Transform({
     objectMode: true,
     transform(location, encoding, cb) {
-      cb(null, Object.keys(location).reduce((mapped, field) => {
-        mapped[flatLabels[field] || field] = location[field];
-        return mapped;
-      }, {}));
+      cb(
+        null,
+        Object.keys(location).reduce((mapped, field) => {
+          mapped[flatLabels[field] || field] = location[field];
+          return mapped;
+        }, {}),
+      );
     },
   });
 };

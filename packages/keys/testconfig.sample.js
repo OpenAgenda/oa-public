@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const path = require( 'path' );
+const path = require('node:path');
 
 module.exports = {
   mysql: {
@@ -12,21 +12,21 @@ module.exports = {
   },
   migrations: {
     tableName: 'key_migrations',
-    directory: path.resolve( __dirname, 'migrations' )
+    directory: path.resolve(__dirname, 'migrations'),
   },
   schemas: {
-    key: 'key'
+    key: 'key',
   },
   redis: {
     prefix: 'keys',
     connection: {
       socket: {
         host: 'localhost',
-        port: 6379
-      }
-    }
+        port: 6379,
+      },
+    },
   },
   cache: {
-    duration: 60
-  }
+    duration: 60,
+  },
 };

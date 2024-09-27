@@ -1,10 +1,8 @@
-import groupTags from '@openagenda/react-form-components/validators/groupTags';
 import set from '@openagenda/validators/set';
 import text from '@openagenda/validators/text';
 import link from '@openagenda/validators/link';
 import phone from '@openagenda/validators/phone';
 import email from '@openagenda/validators/email';
-import timezone from '@openagenda/validators/text';
 import list from '@openagenda/validators/list';
 import number from '@openagenda/validators/number';
 import latitude from '@openagenda/validators/latitude';
@@ -13,6 +11,66 @@ import pass from '@openagenda/validators/pass';
 import multilingual from '@openagenda/validators/multilingual';
 import regex from '@openagenda/validators/regex';
 import choice from '@openagenda/validators/choice';
+// TODO use `groupTagsValidator`
+// import groupTagsValidator from './groupTagsValidator';
+
+/**
+ * errors are a list of objects that contain the following fields
+ *   - a message
+ *   - a field name
+ *   - a group name
+ *   - a code
+ *   - the origin value of the error
+ *   - values relevent to the error ( optional )
+ */
+
+function groupTags(set1) {
+  function validateGroup(group, values) {
+    if (!group.required) return;
+
+    const ids = (values || []).map((v) => v.id);
+
+    if (!group.tags.filter((t) => ids.indexOf(t.id) !== -1).length) {
+      // eslint-disable-next-line no-throw-literal
+      throw [
+        {
+          field: set1.field,
+          group: group.name ? group.name : 'Tags',
+          code: 'groupTags.required',
+          message: 'a selection is required',
+          origin: group.tags,
+          values: {},
+        },
+      ];
+    }
+
+    // no cleaning.
+    return values;
+  }
+
+  function validate1(values, groupIndex) {
+    if (groupIndex !== undefined) return validateGroup(set1.groups[groupIndex], values);
+
+    let errors = [];
+
+    set1.groups.forEach((group) => {
+      try {
+        validateGroup(group, values);
+      } catch (errs) {
+        errors = errors.concat(errs);
+      }
+    });
+
+    if (errors.length) throw errors;
+
+    // no cleaning for this
+    return values;
+  }
+
+  validate1.fields = set1.field;
+
+  return validate1;
+}
 
 const validators = {
   groupTags,
@@ -21,7 +79,7 @@ const validators = {
   link,
   phone,
   email,
-  timezone,
+  timezone: text,
   list,
   number,
   latitude,
@@ -40,22 +98,24 @@ const STATES = {
 const utils = require('@openagenda/utils');
 
 function validateImageCredits(value, otherValues = {}, options = {}) {
-  const {
-    isEnabled = false,
-  } = options;
+  const { isEnabled = false } = options;
 
   const hasImage = !!otherValues?.image;
   if (hasImage && isEnabled) {
-    return validators.text({ field: 'imageCredits', max: 255, optional: false })(value);
+    return validators.text({
+      field: 'imageCredits',
+      max: 255,
+      optional: false,
+    })(value);
   }
 
-  return validators.text({ field: 'imageCredits', max: 255, optional: true })(value);
+  return validators.text({ field: 'imageCredits', max: 255, optional: true })(
+    value,
+  );
 }
 
 function validateImageRights(value, otherValues = {}, options = {}) {
-  const {
-    isEnabled = false,
-  } = options;
+  const { isEnabled = false } = options;
   if (!isEnabled) return;
 
   const hasImage = !!otherValues?.image;
@@ -96,50 +156,89 @@ validateSIRET.field = 'siret';
 const baseValidators = [
   validators.number({ field: 'agendaId', optional: true }),
   validators.text({
-    field: 'name', min: 3, max: 100, optional: false,
+    field: 'name',
+    min: 3,
+    max: 100,
+    optional: false,
   }),
   validators.pass({ field: 'image' }),
   validateImageCredits,
   validateImageRights,
   validateSIRET,
   validators.text({
-    field: 'address', min: 3, max: 255, optional: false,
+    field: 'address',
+    min: 3,
+    max: 255,
+    optional: false,
   }),
   validators.text({
-    field: 'adminLevel1', min: 0, max: 300, optional: true,
+    field: 'adminLevel1',
+    min: 0,
+    max: 300,
+    optional: true,
   }),
   validators.text({
-    field: 'adminLevel2', min: 3, max: 300, optional: true,
+    field: 'adminLevel2',
+    min: 3,
+    max: 300,
+    optional: true,
   }),
   validators.text({
-    field: 'adminLevel3', min: 3, max: 300, optional: true,
+    field: 'adminLevel3',
+    min: 3,
+    max: 300,
+    optional: true,
   }),
   validators.text({
-    field: 'adminLevel4', min: 2, max: 300, optional: true,
+    field: 'adminLevel4',
+    min: 2,
+    max: 300,
+    optional: true,
   }),
   validators.text({
-    field: 'city', min: 2, max: 300, optional: true,
+    field: 'city',
+    min: 2,
+    max: 300,
+    optional: true,
   }),
   validators.text({ field: 'adminLevel5', optional: true }),
   validators.text({ field: 'adminLevel6', optional: true }),
   validators.text({ field: 'district', optional: true }),
   validators.text({
-    field: 'department', min: 3, max: 300, optional: true,
+    field: 'department',
+    min: 3,
+    max: 300,
+    optional: true,
   }),
   validators.text({
-    field: 'region', min: 0, max: 300, optional: true,
+    field: 'region',
+    min: 0,
+    max: 300,
+    optional: true,
   }),
   validators.text({
-    field: 'postalCode', min: 3, max: 20, optional: true,
+    field: 'postalCode',
+    min: 3,
+    max: 20,
+    optional: true,
   }),
   validators.text({
-    field: 'insee', min: 3, max: 20, optional: true,
+    field: 'insee',
+    min: 3,
+    max: 20,
+    optional: true,
   }),
   validators.text({
-    field: 'countryCode', min: 2, max: 2, optional: false,
+    field: 'countryCode',
+    min: 2,
+    max: 2,
+    optional: false,
   }),
   validators.text({
-    field: 'eveId', min: 0, max: 42, optional: true,
+    field: 'eveId',
+    min: 0,
+    max: 42,
+    optional: true,
   }),
   validators.multilingual({
     field: 'description',
@@ -156,11 +255,17 @@ const baseValidators = [
   validators.link({ field: 'website', min: 0, optional: true }),
   validators.email({ field: 'email', min: 0, optional: true }),
   validators.text({
-    field: 'extId', min: 0, max: 255, optional: true,
+    field: 'extId',
+    min: 0,
+    max: 255,
+    optional: true,
   }),
   validators.text({ field: 'timezone', min: 0, optional: true }),
   validators.phone({
-    field: 'phone', min: 0, max: 42, optional: true,
+    field: 'phone',
+    min: 0,
+    max: 42,
+    optional: true,
   }),
   validators.latitude({ field: 'latitude', optional: true }),
   validators.longitude({ field: 'longitude', optional: true }),
@@ -187,14 +292,18 @@ function _getValidators(settings) {
   if (settings.forceTags) {
     locationValidators.push(validators.pass({ field: 'tags' }));
   } else if (settings.tagSet) {
-    const groupTagValidator = validators.groupTags(utils.extend({ field: 'tags' }, settings.tagSet));
-    locationValidators.push(Object.assign(v => groupTagValidator(v), { field: 'tags' }));
+    const groupTagValidator = validators.groupTags(
+      utils.extend({ field: 'tags' }, settings.tagSet),
+    );
+    locationValidators.push(
+      Object.assign((v) => groupTagValidator(v), { field: 'tags' }),
+    );
   }
 
   return locationValidators;
 }
 
-function validate(data, pSettings/* , pPartial */, options = {}) {
+function validate(data, pSettings /* , pPartial */, options = {}) {
   let locationValidators = [];
   let settings = pSettings;
   /* let partial = pPartial; */
@@ -217,28 +326,26 @@ function validate(data, pSettings/* , pPartial */, options = {}) {
   locationValidators = _getValidators(settings);
   /* } */
 
-  const {
-    clean,
-    errors,
-  } = locationValidators.reduce((carry, validator) => {
-    const {
-      field: fieldName,
-    } = validator;
-    try {
-      return {
-        ...carry,
-        clean: {
-          ...carry.clean,
-          [fieldName]: validator(data?.[fieldName], data, options),
-        },
-      };
-    } catch (fieldErrors) {
-      return {
-        ...carry,
-        errors: carry.errors.concat(fieldErrors),
-      };
-    }
-  }, { clean: {}, errors: [] });
+  const { clean, errors } = locationValidators.reduce(
+    (carry, validator) => {
+      const { field: fieldName } = validator;
+      try {
+        return {
+          ...carry,
+          clean: {
+            ...carry.clean,
+            [fieldName]: validator(data?.[fieldName], data, options),
+          },
+        };
+      } catch (fieldErrors) {
+        return {
+          ...carry,
+          errors: carry.errors.concat(fieldErrors),
+        };
+      }
+    },
+    { clean: {}, errors: [] },
+  );
 
   if (errors.length) {
     throw errors;
@@ -252,23 +359,7 @@ function validate(data, pSettings/* , pPartial */, options = {}) {
  */
 
 function field(name) {
-  return baseValidators.filter(v => v.field === name)[0];
-}
-
-function _customImageValidator(options) {
-  const v = validators.text(options);
-  function imageValidate(value) {
-    const clean = v(value);
-
-    if (!clean) return null;
-
-    return clean.split('/').pop();
-  }
-
-  return utils.extend(imageValidate, {
-    field: options.field,
-    type: 'text',
-  });
+  return baseValidators.filter((v) => v.field === name)[0];
 }
 
 export default utils.extend(validate, { field });

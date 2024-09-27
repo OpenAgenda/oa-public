@@ -20,8 +20,17 @@ import { getLocaleValue } from '@openagenda/intl';
 import { useForm } from '@openagenda/react-filters';
 import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faStar, faLocationDot } from '@fortawesome/pro-regular-svg-icons';
-import { faLink, faThumbtack, faShare, faStar as fasStar } from '@fortawesome/pro-solid-svg-icons';
+import {
+  faClock,
+  faStar,
+  faLocationDot,
+} from '@fortawesome/pro-regular-svg-icons';
+import {
+  faLink,
+  faThumbtack,
+  faShare,
+  faStar as fasStar,
+} from '@fortawesome/pro-solid-svg-icons';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useLocationQuery from 'hooks/useLocationQuery';
@@ -62,20 +71,19 @@ function FavoriteButton({ agenda, event }) {
   const isFavorite = agendaFavorites?.includes(event.uid);
 
   const toggleFavorite = useCallback(() => {
-    setFavorites(prev => {
-      if (isFavorite) { // remove favorite
-        const newValue = prev[agenda.uid].filter(v => v !== event.uid);
+    setFavorites((prev) => {
+      if (isFavorite) {
+        // remove favorite
+        const newValue = prev[agenda.uid].filter((v) => v !== event.uid);
         return {
           ...prev,
           [agenda.uid]: newValue.length ? newValue : undefined,
         };
       }
-      return { // add favorite
+      return {
+        // add favorite
         ...prev,
-        [agenda.uid]: [
-          ...prev?.[agenda.uid] || [],
-          event.uid,
-        ],
+        [agenda.uid]: [...prev?.[agenda.uid] || [], event.uid],
       };
     });
   }, [agenda.uid, event.uid, isFavorite, setFavorites]);
@@ -97,7 +105,9 @@ function FavoriteButton({ agenda, event }) {
 
   return (
     <IconButton
-      aria-label={intl.formatMessage(messages[isFavorite ? 'removeFromFavorites' : 'addToFavorites'])}
+      aria-label={intl.formatMessage(
+        messages[isFavorite ? 'removeFromFavorites' : 'addToFavorites'],
+      )}
       variant="link"
       colorScheme={isFavorite ? 'primary' : 'oaGray'}
       onClick={toggleFavorite}
@@ -117,11 +127,14 @@ function RelativeTime({ closestTiming }) {
 
   return (
     <Text color="oaGray.500">
-      {isMounted ? upperFirst(formatDistance(
-        new Date(closestTiming.begin),
-        new Date(),
-        { locale: dateFnsLocale, addSuffix: true },
-      )) : null}
+      {isMounted
+        ? upperFirst(
+          formatDistance(new Date(closestTiming.begin), new Date(), {
+            locale: dateFnsLocale,
+            addSuffix: true,
+          }),
+        )
+        : null}
     </Text>
   );
 }
@@ -182,28 +195,43 @@ function EventItem({
           // border="1px solid"
           // borderColor="oaGray.100"
           borderRadius="sm"
-        // _hover={{
-        //   borderColor: 'primary.500',
-        // }}
+          // _hover={{
+          //   borderColor: 'primary.500',
+          // }}
         >
-          <Flex direction="row" align="center" px="6" justify="space-between" alignItems="flex-start">
+          <Flex
+            direction="row"
+            align="center"
+            px="6"
+            justify="space-between"
+            alignItems="flex-start"
+          >
             <Heading as="h2" fontSize="xl">
-              {event.status !== 1 ? <EventStatusBadge intl={intl} status={event.status} /> : null}
+              {event.status !== 1 ? (
+                <EventStatusBadge intl={intl} status={event.status} />
+              ) : null}
               <NextChakraLinkOverlay
-                href={`/${agenda.slug}/events/${event.slug}${qs.stringify({
-                  nc: {
-                    ...query,
-                    state: [2],
-                    sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
-                    passed: undefined,
-                    ...upcomingOnly ? {
-                      relative: ['current', 'upcoming'],
-                    } : null,
-                    from,
-                    first: first || undefined,
-                    last: last || undefined,
+                href={`/${agenda.slug}/events/${event.slug}${qs.stringify(
+                  {
+                    nc: {
+                      ...query,
+                      state: [2],
+                      sort: query.search?.length
+                        ? 'score'
+                        : 'lastTimingWithFeatured.asc',
+                      passed: undefined,
+                      ...upcomingOnly
+                        ? {
+                          relative: ['current', 'upcoming'],
+                        }
+                        : null,
+                      from,
+                      first: first || undefined,
+                      last: last || undefined,
+                    },
                   },
-                }, { addQueryPrefix: true })}`}
+                  { addQueryPrefix: true },
+                )}`}
                 _hover={{
                   _before: {
                     border: '1px solid',
@@ -222,12 +250,16 @@ function EventItem({
           {event.image
             ? event.image?.size?.width && event.image?.size?.height ? (
               <Image
-                src={process.env.NODE_ENV === 'development'
-                  ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                  : `${IMAGE_PREFIX}${event.image.filename}`}
-                fallbackSrc={process.env.NODE_ENV === 'development'
-                  ? `${IMAGE_PREFIX}${event.image.filename}`
-                  : undefined}
+                src={
+                  process.env.NODE_ENV === 'development'
+                    ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                    : `${IMAGE_PREFIX}${event.image.filename}`
+                }
+                fallbackSrc={
+                  process.env.NODE_ENV === 'development'
+                    ? `${IMAGE_PREFIX}${event.image.filename}`
+                    : undefined
+                }
                 width={event.image.size.width}
                 height={event.image.size.height}
                 loader={keyCDNLoader}
@@ -238,12 +270,16 @@ function EventItem({
               />
             ) : (
               <Image
-                src={process.env.NODE_ENV === 'development'
-                  ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                  : `${IMAGE_PREFIX}${event.image.filename}`}
-                fallbackSrc={process.env.NODE_ENV === 'development'
-                  ? `${IMAGE_PREFIX}${event.image.filename}`
-                  : undefined}
+                src={
+                  process.env.NODE_ENV === 'development'
+                    ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
+                    : `${IMAGE_PREFIX}${event.image.filename}`
+                }
+                fallbackSrc={
+                  process.env.NODE_ENV === 'development'
+                    ? `${IMAGE_PREFIX}${event.image.filename}`
+                    : undefined
+                }
                 fill
                 // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
                 pos="unset !important"
@@ -258,26 +294,40 @@ function EventItem({
             : null}
 
           {/* TODO: add a title with a precise date */}
-          <Text px="6">
-            {getLocaleValue(event.description, intl.locale)}
-          </Text>
+          <Text px="6">{getLocaleValue(event.description, intl.locale)}</Text>
 
           <Flex justify="space-between">
             <List spacing="2" px="6" color="oaGray.500" pb="4">
               <ListItem ml="6">
-                <ListIcon as={FontAwesomeIcon} icon={faClock} verticalAlign="" ml="-6" />
+                <ListIcon
+                  as={FontAwesomeIcon}
+                  icon={faClock}
+                  verticalAlign=""
+                  ml="-6"
+                />
                 {getLocaleValue(event.dateRange, intl.locale)}
               </ListItem>
               {event.onlineAccessLink ? (
                 <ListItem ml="6">
-                  <ListIcon as={FontAwesomeIcon} icon={faLink} verticalAlign="" ml="-6" />
+                  <ListIcon
+                    as={FontAwesomeIcon}
+                    icon={faLink}
+                    verticalAlign=""
+                    ml="-6"
+                  />
                   {intl.formatMessage(attendanceModesMessages.online)}
                 </ListItem>
               ) : null}
               {event.location ? (
                 <ListItem ml="6">
-                  <ListIcon as={FontAwesomeIcon} icon={faLocationDot} verticalAlign="" ml="-6" />
-                  {event.location.name}{event.location.city ? `, ${event.location.city}` : ''}
+                  <ListIcon
+                    as={FontAwesomeIcon}
+                    icon={faLocationDot}
+                    verticalAlign=""
+                    ml="-6"
+                  />
+                  {event.location.name}
+                  {event.location.city ? `, ${event.location.city}` : ''}
                 </ListItem>
               ) : null}
             </List>

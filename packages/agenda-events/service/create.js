@@ -34,7 +34,7 @@ export default async (
     };
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'aggregated'].forEach(f => {
+      ['updatedAt', 'createdAt', 'aggregated'].forEach((f) => {
         if (data[f]) values[f] = data[f];
       });
     }

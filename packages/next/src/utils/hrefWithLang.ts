@@ -5,7 +5,5 @@ export default function hrefWithLang(href, locale = null) {
     url.searchParams.set('lang', locale);
   }
 
-  return url.origin === 'https://n'
-    ? `${url.pathname}${url.search}`
-    : url.href;
+  return url.origin === 'https://n' ? `${url.pathname}${url.search}` : url.href;
 }

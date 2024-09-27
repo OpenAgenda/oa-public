@@ -1,8 +1,5 @@
 {
   "template": "basic",
   "title": "validationProcessTitle",
-  "points": [
-    "validationProcessThree",
-    "validationProcessDetail"
-  ]
+  "points": ["validationProcessThree", "validationProcessDetail"]
 }

@@ -26,7 +26,7 @@ export default ({
       </span>
     )}
     <ul className="padding-left-md margin-bottom-z list-unstyled">
-      {rule.actions.map(action => {
+      {rule.actions.map((action) => {
         const { label, value, detail, key, set, copy } = extract({
           intl,
           aggregatorAgendaSchema,

@@ -107,9 +107,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -412,9 +410,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -560,9 +556,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -671,9 +665,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "monatelierorigami@gmail.com"
-      ],
+      "registration": ["monatelierorigami@gmail.com"],
       "location": {
         "uid": 98434253,
         "slug": "salle-des-fetes-la-pastourelle",
@@ -707,17 +699,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "12es Journées de la BD Saint-Saturnin-lès-Avignon",
       "type-de-structure": 636,
       "si-autre-precisez": "Ateliers artistiques et poétiques autour du papier",
       "structure-partenaire": "Ville de Saint-Saturnin-lès-Avignon",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "48896087300039",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -820,9 +808,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "0322971017"
-      ],
+      "registration": ["0322971017"],
       "location": {
         "uid": 41069991,
         "slug": "bibliotheque-pierre-garnier",
@@ -856,9 +842,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -954,9 +938,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "http://www.niortenbulles.fr"
-      ],
+      "registration": ["http://www.niortenbulles.fr"],
       "location": {
         "uid": 9298909,
         "slug": "pelouse-du-moulin-du-roc-niort833",
@@ -990,9 +972,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1088,10 +1068,7 @@
         "min": 3,
         "max": 99
       },
-      "registration": [
-        "geraldine.gransard@ville-luisant.fr",
-        "02-37-28-12-20"
-      ],
+      "registration": ["geraldine.gransard@ville-luisant.fr", "02-37-28-12-20"],
       "location": {
         "uid": 61572562,
         "slug": "salle-malraux-28600-luisant",
@@ -1125,9 +1102,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1268,9 +1243,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1382,10 +1355,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "atlas@atlas-citl.org",
-        "0490520550"
-      ],
+      "registration": ["atlas@atlas-citl.org", "0490520550"],
       "location": {
         "uid": 17931092,
         "slug": "atlas-college-international-des-traducteurs-litteraires",
@@ -1419,12 +1389,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "\"Arles se livre\" 2020, festival coordonné par la ville d’Arles et soutenu par l’office de tourisme d’Arles",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -1642,9 +1608,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

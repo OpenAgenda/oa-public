@@ -35,25 +35,27 @@ export default function useSlugSearch({ request }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const get = useCallback(
-    v => {
+    (v) => {
       dispatch({ type: 'get' });
 
       return Promise.resolve(request(v)).then(
-        data => dispatch({
-          type: 'getSuccess',
-          payload: {
-            agenda: data,
-          },
-        }),
-        error => dispatch({
-          type: 'getFail',
-          payload: {
-            error,
-          },
-        })
+        (data) =>
+          dispatch({
+            type: 'getSuccess',
+            payload: {
+              agenda: data,
+            },
+          }),
+        (error) =>
+          dispatch({
+            type: 'getFail',
+            payload: {
+              error,
+            },
+          }),
       );
     },
-    [request]
+    [request],
   );
 
   return {

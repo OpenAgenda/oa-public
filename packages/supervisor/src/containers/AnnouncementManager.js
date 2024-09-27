@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { createForm } from 'final-form';
 import { Form, Field } from 'react-final-form';
 import ReactMarkdown from 'react-markdown';
@@ -7,7 +7,8 @@ import { css } from '@emotion/react';
 import { useConstant, useApiClient } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
 
-const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
+const getTarget = (uri) =>
+  (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
 const remarkPlugins = [breaks];
 
 function AnnouncementPreview({ kind = 'info', content }) {
@@ -19,6 +20,7 @@ function AnnouncementPreview({ kind = 'info', content }) {
             <button
               type="button"
               className={`btn btn-link-inline text-${kind}`}
+              aria-label="Fermer"
             >
               <i className="fa fa-times" aria-hidden="true" />
             </button>
@@ -41,23 +43,24 @@ export default function AnnouncementManager({ user }) {
       content: user.announcement?.content,
       kind: user.announcement?.kind ?? 'primary',
     }),
-    [user]
+    [user],
   );
   const onSubmit = useCallback(
-    async data => {
+    async (data) => {
       await apiClient.post('/supervisor/announcement', {
         id: user.announcement?.id || new Date().toISOString(),
         ...data,
       });
       window.location.reload();
     },
-    [apiClient, user]
+    [apiClient, user],
   );
 
-  const form = useConstant(() => createForm({
-    initialValues,
-    onSubmit,
-  }));
+  const form = useConstant(() =>
+    createForm({
+      initialValues,
+      onSubmit,
+    }));
 
   const onRemove = useCallback(async () => {
     await apiClient.delete('/supervisor/announcement');

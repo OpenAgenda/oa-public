@@ -4,7 +4,7 @@
     "fr": "Nom de l'animateur",
     "en": "Name of the presenter"
   },
-  "placeholder" : null,
+  "placeholder": null,
   "info": null,
   "optional": false,
   "fieldType": "text",

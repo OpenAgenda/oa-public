@@ -7,19 +7,15 @@ import extractMemberSchema from './utils/extractMemberSchema.js';
 const log = logs('core/agendas/get');
 
 function cacheAndReturn(services, options, agendaUid, result) {
-  const {
-    simpleCache,
-  } = services;
-  const {
-    useCache,
-  } = options;
+  const { simpleCache } = services;
+  const { useCache } = options;
 
   if (useCache) {
     simpleCache.hash('core.agendas.get', agendaUid).set(options, result);
   }
 
   if (options.serializable) {
-    ['updatedAt', 'createdAt', 'officializedAt'].forEach(key => {
+    ['updatedAt', 'createdAt', 'officializedAt'].forEach((key) => {
       result[key] = result[key].toISOString();
     });
   }
@@ -28,14 +24,9 @@ function cacheAndReturn(services, options, agendaUid, result) {
 }
 
 async function get(core, agendaUid, options = {}) {
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
-  const {
-    agendas,
-    simpleCache,
-  } = services;
+  const { agendas, simpleCache } = services;
 
   const {
     access = 'public',
@@ -57,18 +48,23 @@ async function get(core, agendaUid, options = {}) {
   log('getting agenda %s, info with access %s', agendaUid, access);
 
   if (useCache) {
-    const cached = await simpleCache.hash('core.agendas.get', agendaUid).get(options, { json: true });
+    const cached = await simpleCache
+      .hash('core.agendas.get', agendaUid)
+      .get(options, { json: true });
     if (cached) {
       return cached;
     }
   }
 
-  const agenda = await agendas.get({ uid: agendaUid }, {
-    includeImagePath: true,
-    ...options,
-    detailed: false,
-    internal: true,
-  });
+  const agenda = await agendas.get(
+    { uid: agendaUid },
+    {
+      includeImagePath: true,
+      ...options,
+      detailed: false,
+      internal: true,
+    },
+  );
 
   if (!agenda) {
     if (throwNotFound) {
@@ -87,7 +83,9 @@ async function get(core, agendaUid, options = {}) {
       services,
       options,
       agendaUid,
-      access === 'internal' ? agenda : agendas.utils.filterByAccess(agenda, 'read', access),
+      access === 'internal'
+        ? agenda
+        : agendas.utils.filterByAccess(agenda, 'read', access),
     );
   }
 
@@ -100,8 +98,12 @@ async function get(core, agendaUid, options = {}) {
   }
 
   if (detailed) {
-    related.network = detailed && agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
-    related.locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
+    related.network = detailed && agenda.networkUid
+      ? await services.networks.get(agenda.networkUid)
+      : null;
+    related.locationSet = await services.agendaLocations.sets.get(
+      agenda.locationSetUid,
+    );
     related.schema = await getMergedSchema(services, agenda, {
       includeNonDataFields,
       includeEvent,
@@ -127,36 +129,26 @@ async function get(core, agendaUid, options = {}) {
   }
 
   if (access === 'internal') {
-    return cacheAndReturn(
-      services,
-      options,
-      agendaUid,
-      { ...agenda, ...related },
-    );
+    return cacheAndReturn(services, options, agendaUid, {
+      ...agenda,
+      ...related,
+    });
   }
 
-  return cacheAndReturn(
-    services,
-    options,
-    agendaUid,
-    {
-      ...agendas.utils.filterByAccess(agenda, 'read', access),
-      ...related,
-    },
-  );
+  return cacheAndReturn(services, options, agendaUid, {
+    ...agendas.utils.filterByAccess(agenda, 'read', access),
+    ...related,
+  });
 }
 
 async function bySlug(core, slug, options = {}) {
-  const {
-    services,
-  } = core;
+  const { services } = core;
 
-  const {
-    simpleCache,
-    agendas,
-  } = services;
+  const { simpleCache, agendas } = services;
 
-  const cachedAgenda = await simpleCache.hash('agendas', slug).get('api', { json: true });
+  const cachedAgenda = await simpleCache
+    .hash('agendas', slug)
+    .get('api', { json: true });
 
   if (cachedAgenda) {
     return get(core, cachedAgenda.uid, options);

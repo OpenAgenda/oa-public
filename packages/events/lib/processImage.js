@@ -1,7 +1,13 @@
 'use strict';
 
 const ValidationError = require('./ValidationError');
-const isUnknownFormatException = error => (error?.info?.uploadReason?.message || error?.jse_info?.uploadReason?.message || '').indexOf('no decode delegate for this image format') !== -1;
+
+const isUnknownFormatException = (error) =>
+  (
+    error?.info?.uploadReason?.message
+    || error?.jse_info?.uploadReason?.message
+    || ''
+  ).indexOf('no decode delegate for this image format') !== -1;
 
 module.exports = async function processImage(service, { image, fileKey }) {
   if (image?.filename && !('transformAndUpload' in image)) {
@@ -15,14 +21,16 @@ module.exports = async function processImage(service, { image, fileKey }) {
   let result;
   try {
     result = await service.imageTransformAndUpload(image, {
-      fileKey
+      fileKey,
     });
   } catch (error) {
-    throw isUnknownFormatException(error) ? new ValidationError({
-      field: 'image',
-      code: 'format.unknown',
-      message: 'provided format is unknown'
-    }): error;
+    throw isUnknownFormatException(error)
+      ? new ValidationError({
+        field: 'image',
+        code: 'format.unknown',
+        message: 'provided format is unknown',
+      })
+      : error;
   }
 
   const base = result.shift();
@@ -31,10 +39,10 @@ module.exports = async function processImage(service, { image, fileKey }) {
   return {
     filename: `${base.filename}?_ts=${timestamp}`,
     size: base.size,
-    variants: result.map(r => ({
+    variants: result.map((r) => ({
       filename: `${r.filename}?_ts=${timestamp}`,
       size: r.size,
-      type: r.type
-    }))
+      type: r.type,
+    })),
   };
-}
+};

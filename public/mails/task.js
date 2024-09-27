@@ -7,7 +7,7 @@ const defaultFormatMessage = require('./utils/defaultFormatMessage');
 const log = logs('mails/task');
 
 function _sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function runFilterTask(config, params) {

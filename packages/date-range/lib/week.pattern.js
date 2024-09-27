@@ -1,41 +1,34 @@
-"use strict";
+'use strict';
 
-var labels = require('@openagenda/labels/agendas/range');
+const labels = require('@openagenda/labels/agendas/range');
 const moment = require('moment-timezone');
 
-module.exports = function(timezone = 'Europe/Paris') {
+module.exports = (timezone = 'Europe/Paris') => {
+  const weekdays = [];
+  let count = 0;
 
-  var weekdays = [], count = 0;
+  function add(timing) {
+    const day = moment.tz(timing.start, timezone).day();
 
-  return {
-    add: add,
-    render: render
-  }
+    count += 1;
 
-  function add( timing ) {
-
-    var day = moment.tz(timing.start, timezone).day();
-
-    count++;
-
-    if ( weekdays.indexOf( day ) == -1 ) {
-
-      weekdays.push( day );
-
+    if (!weekdays.includes(day)) {
+      weekdays.push(day);
     }
-
   }
 
-  function render( lang ) {
+  function render(lang) {
+    if (weekdays.length > 1) return;
 
-    if ( weekdays.length > 1 ) return;
-
-    if ( count < 3 ) return;
+    if (count < 3) return;
 
     const weekdayIndex = weekdays[0];
 
-    return labels[ 'weekday-' + weekdayIndex ][ lang ];
-
+    return labels[`weekday-${weekdayIndex}`][lang];
   }
 
-}
+  return {
+    add,
+    render,
+  };
+};

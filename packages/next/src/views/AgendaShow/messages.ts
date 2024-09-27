@@ -3,11 +3,13 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   totalEvents: {
     id: 'next.views.AgendaShow.totalEvents',
-    defaultMessage: '{count, plural, =0 {No event} one {1 event} other {# events}}',
+    defaultMessage:
+      '{count, plural, =0 {No event} one {1 event} other {# events}}',
   },
   totalUpcomingEvents: {
     id: 'next.views.AgendaShow.totalUpcomingEvents',
-    defaultMessage: '{count, plural, =0 {No upcoming event} one {1 upcoming event} other {# upcoming events}}',
+    defaultMessage:
+      '{count, plural, =0 {No upcoming event} one {1 upcoming event} other {# upcoming events}}',
   },
   showUpcomingEventsOnly: {
     id: 'next.views.AgendaShow.showUpcomingEventsOnly',

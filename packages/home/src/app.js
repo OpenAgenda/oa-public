@@ -24,31 +24,32 @@ const defaults = {
   },
 };
 
-export default function (options) {
+export default (options) => {
   const { initialState } = _.merge({}, defaults, options);
 
   const { apiRoot, prefix, rootPrefix } = initialState.settings;
 
-  const getApp = () => createApp({
-    name: 'home',
-    ...options,
-    initialState,
-    apiRoot,
-    prefix,
-    getRoutes: () => getRoutes(prefix, rootPrefix),
-    legacyApiClient: true,
-  });
+  const getApp = () =>
+    createApp({
+      name: 'home',
+      ...options,
+      initialState,
+      apiRoot,
+      prefix,
+      getRoutes: () => getRoutes(prefix, rootPrefix),
+      legacyApiClient: true,
+    });
 
   const result = getApp();
 
-  if (module.hot) {
-    module.hot.accept('./getRoutes', () => {
-      const newApp = getApp();
-
-      result.Content = newApp.Content;
-      result.triggerHooks = newApp.triggerHooks;
-    });
-  }
+  // if (import.meta.webpackHot) {
+  //   import.meta.webpackHot.accept('./getRoutes', () => {
+  //     const newApp = getApp();
+  //
+  //     result.Content = newApp.Content;
+  //     result.triggerHooks = newApp.triggerHooks;
+  //   });
+  // }
 
   return result;
-}
+};

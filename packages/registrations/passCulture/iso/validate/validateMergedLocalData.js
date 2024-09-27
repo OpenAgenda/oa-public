@@ -7,16 +7,11 @@ import validateEventOffer from './validateEventOffer.js';
 const fieldLabel = 'Pass Culture';
 
 export default function validateMergedLocalData(data, event, options = {}) {
-  const {
-    boolMode = false,
-  } = options;
+  const { boolMode = false } = options;
 
   const errors = [];
 
-  const {
-    priceCategories = [],
-    dates = [],
-  } = data ?? {};
+  const { priceCategories = [], dates = [] } = data ?? {};
 
   const clean = {
     priceCategories: [],
@@ -25,12 +20,9 @@ export default function validateMergedLocalData(data, event, options = {}) {
   };
 
   try {
-    Object.assign(
-      clean,
-      validateEventOffer(data, options),
-    );
+    Object.assign(clean, validateEventOffer(data, options));
   } catch (error) {
-    error.info.errors.forEach(e => errors.push(e));
+    error.info.errors.forEach((e) => errors.push(e));
   }
 
   if (boolMode && errors.length) {
@@ -50,7 +42,7 @@ export default function validateMergedLocalData(data, event, options = {}) {
 
     throw new BadRequest({
       info: {
-        errors: errors.map(e => ({ ...e, fieldLabel })),
+        errors: errors.map((e) => ({ ...e, fieldLabel })),
       },
     });
   }
@@ -58,7 +50,7 @@ export default function validateMergedLocalData(data, event, options = {}) {
   try {
     clean.priceCategories = validatePriceCategories(priceCategories);
   } catch (error) {
-    error.info.errors.forEach(e => errors.push(e));
+    error.info.errors.forEach((e) => errors.push(e));
   }
 
   if (errors.length && boolMode) {
@@ -83,7 +75,7 @@ export default function validateMergedLocalData(data, event, options = {}) {
   try {
     clean.dates = validateDates(dates, clean.priceCategories, event);
   } catch (error) {
-    error.info.errors.forEach(e => errors.push(e));
+    error.info.errors.forEach((e) => errors.push(e));
   }
 
   if (errors.length && boolMode) {
@@ -93,7 +85,7 @@ export default function validateMergedLocalData(data, event, options = {}) {
   if (errors.length) {
     throw new BadRequest({
       info: {
-        errors: errors.map(e => ({ ...e, fieldLabel })),
+        errors: errors.map((e) => ({ ...e, fieldLabel })),
       },
     });
   }

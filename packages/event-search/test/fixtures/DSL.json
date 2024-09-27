@@ -27,10 +27,7 @@
                   "top_hits": {
                     "size": 3,
                     "_source": {
-                      "excludes": [
-                        "_*",
-                        "timings._*"
-                      ],
+                      "excludes": ["_*", "timings._*"],
                       "includes": [
                         "uid",
                         "title",

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useLayoutData } from '@openagenda/react-shared';
 import ListVenues from '@openagenda/registration-apps/lib/components/bootstrap/ListVenues';
 import I18nContext from '../contexts/I18nContext';
@@ -30,16 +30,14 @@ export default function PassSettings() {
           {getLabel('askForActivation')}
         </a>
       </>
-    )
+    );
   }
 
   return (
-    <>
-      <ListVenues
-        res={{
-          settings: `/api/agendas/${agenda.uid}/settings/passCulture`
-        }}
-      />
-    </>
-  )
+    <ListVenues
+      res={{
+        settings: `/api/agendas/${agenda.uid}/settings/passCulture`,
+      }}
+    />
+  );
 }

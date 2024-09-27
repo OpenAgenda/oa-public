@@ -110,7 +110,7 @@
   "common.event.fields.imageCredits": [
     {
       "type": 0,
-      "value": "Image credits"
+      "value": "Bildnachweis"
     }
   ],
   "common.event.fields.keywords": [
@@ -128,7 +128,7 @@
   "common.event.fields.longDescription": [
     {
       "type": 0,
-      "value": "Long description"
+      "value": "Lange Beschreibung"
     }
   ],
   "common.event.fields.onlineAccessLink": [
@@ -140,7 +140,7 @@
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Registrierung"
     }
   ],
   "common.event.fields.slug": [
@@ -164,7 +164,7 @@
   "common.event.fields.title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "Titel"
     }
   ],
   "common.event.states.published": [
@@ -188,7 +188,7 @@
   "common.event.states.toModerate": [
     {
       "type": 0,
-      "value": "To moderate"
+      "value": "Zu moderieren"
     }
   ],
   "common.roles.administrator": [

@@ -11,10 +11,7 @@
     }
   },
   "_source": {
-    "excludes": [
-      "_*",
-      "timings._*"
-    ],
+    "excludes": ["_*", "timings._*"],
     "includes": [
       "uid",
       "title",
@@ -58,9 +55,9 @@
         "nested": {
           "path": "_sort_timings",
           "filter": {
-            "range" : {
+            "range": {
               "_sort_timings.accessible_until": {
-                "gte" : "now"
+                "gte": "now"
               }
             }
           }

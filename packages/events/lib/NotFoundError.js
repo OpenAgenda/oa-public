@@ -8,4 +8,4 @@ module.exports = class NotFoundError extends Error {
     this.objectName = objectName;
     this.identifier = identifier;
   }
-}
+};

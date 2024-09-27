@@ -15,7 +15,7 @@ import validate from './validate';
 
 function getInitialState(initialRules) {
   const rules = initialRules
-    ? initialRules.map(rule => ({
+    ? initialRules.map((rule) => ({
       id: _.uniqueId(), // for react key prop
       ...rule,
     }))
@@ -64,7 +64,7 @@ export default function DefineRules({
   const setModeList = useCallback(() => setMode('list'), [setMode]);
 
   const addRule = useCallback(
-    values => {
+    (values) => {
       const errors = validate(
         intl,
         values,
@@ -90,7 +90,7 @@ export default function DefineRules({
     [intl, aggregatorAgendaSchema, sourceSchema, setMode],
   );
   const updateRule = useCallback(
-    values => {
+    (values) => {
       const errors = validate(
         intl,
         values,
@@ -117,7 +117,7 @@ export default function DefineRules({
     [intl, aggregatorAgendaSchema, sourceSchema, state.modeOptions.id, setMode],
   );
   const removeRule = useCallback(
-    id =>
+    (id) =>
       dispatch({
         type: 'removeRule',
         payload: {
@@ -128,7 +128,7 @@ export default function DefineRules({
   );
 
   const addRules = useCallback(
-    async data => {
+    async (data) => {
       if (!data) {
         return;
       }
@@ -171,7 +171,7 @@ export default function DefineRules({
   );
 
   useEffect(() => {
-    const pasteHandler = event => {
+    const pasteHandler = (event) => {
       addRules((event.clipboardData || window.clipboardData).getData('text'));
     };
 
@@ -182,7 +182,7 @@ export default function DefineRules({
 
   const initialValues = useMemo(() => {
     const ruleToUpdate = state.rules.find(
-      rule => rule.id === state.modeOptions.id,
+      (rule) => rule.id === state.modeOptions.id,
     );
 
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema);
@@ -193,7 +193,7 @@ export default function DefineRules({
       return false;
     }
     const ruleToUpdate = state.rules.find(
-      rule => rule.id === state.modeOptions.id,
+      (rule) => rule.id === state.modeOptions.id,
     );
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema).type === 'tags';
   }, [state.rules, state.mode, state.modeOptions.id, aggregatorAgendaSchema]);

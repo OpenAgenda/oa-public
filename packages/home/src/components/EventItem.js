@@ -20,9 +20,9 @@ const getEventShowLink = (res, event) => {
     .replace(':eventSlug', event.slug);
 };
 
-const getImagePath = image => {
+const getImagePath = (image) => {
   const thumbnail = Array.isArray(image.variants)
-    ? image.variants.find(v => v.type === 'thumbnail')
+    ? image.variants.find((v) => v.type === 'thumbnail')
     : null;
 
   const { filename } = thumbnail || image;

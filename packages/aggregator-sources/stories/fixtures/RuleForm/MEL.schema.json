@@ -246,7 +246,7 @@
           "label": {
             "fr": "Aucune catégorie"
           },
-          "display" : false
+          "display": false
         }
       ],
       "fieldType": "checkbox"

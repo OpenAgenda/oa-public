@@ -1,4 +1,3 @@
-import React from 'react';
 import EventItem from '../src/components/EventItem';
 import SimplePageDecorator from './decorators/SimplePage';
 import ProvidersDecorator from './decorators/Providers';
@@ -98,7 +97,11 @@ export function RefusedWithMotiveEventItem() {
       <EventItem
         key={2}
         agenda={agenda}
-        event={{ ...contributedEvent, motive: 'testMotive\n this is why.', state: -1 }}
+        event={{
+          ...contributedEvent,
+          motive: 'testMotive\n this is why.',
+          state: -1,
+        }}
         openRemoveModal={() => {}}
         selected={false}
         selectEvent={() => {}}

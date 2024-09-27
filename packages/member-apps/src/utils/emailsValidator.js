@@ -2,7 +2,7 @@ import extractEmails from '@openagenda/mails/extractEmails';
 import requiredEmailsError from './requiredEmailsError';
 
 export default function emailsValidator() {
-  return input => {
+  return (input) => {
     const clean = extractEmails(input);
 
     if (!clean.length) {

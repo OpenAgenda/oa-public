@@ -53,18 +53,21 @@ const messages = defineMessages({
     id: 'AgendaSettings.Components.FiltersSettings.resetModalConfirm',
     defaultMessage: 'Confirm',
   },
+  selectPlaceholder: {
+    id: 'AgendaSettings.Components.FiltersSettings.selectPlaceholder',
+    defaultMessage: 'Select one or more filters',
+  },
 });
 
-const strfy = filters =>
-  [...filters || []].sort((f1, f2) => (f1 < f2 ? 1 : -1)).join('|');
+const strfy = (filters) => [...filters || []].join('|');
 
 const getHasChanges = (settings, publicFilters, adminFilters) =>
   strfy(publicFilters) !== strfy(settings.public?.filters?.displayed)
   || strfy(adminFilters) !== strfy(settings.admin?.filters?.displayed);
-const getDefaultPublicFilters = schema => {
+const getDefaultPublicFilters = (schema) => {
   const defaultFilters = ['search', 'geo', 'timings'];
   if (schema?.fields) {
-    schema.fields.forEach(field => {
+    schema.fields.forEach((field) => {
       if (field.fieldType === 'event') {
         return;
       }
@@ -78,14 +81,14 @@ const getDefaultPublicFilters = schema => {
 };
 const loadPublicFilters = (schema, settings) =>
   settings.public?.filters?.displayed ?? getDefaultPublicFilters(schema);
-const getIsAsDefault = settings =>
+const getIsAsDefault = (settings) =>
   !(settings.public?.filters?.displayed ?? []).length
   && !(settings.admin?.filters?.displayed ?? []).length;
 const loadAdminFilters = (schema, settings, intl) => {
   if ((settings.admin?.filters?.displayed ?? []).length) {
     return settings.admin.filters.displayed;
   }
-  return getFilterOptions(intl, schema).map(o => o.value);
+  return getFilterOptions(intl, schema).map((o) => o.value);
 };
 
 export default function FiltersSettings({
@@ -126,7 +129,7 @@ export default function FiltersSettings({
   const onReset = useCallback(() => {
     const resetPublicFilters = getDefaultPublicFilters(schema);
     const resetAdminFilters = getFilterOptions(intl, schema).map(
-      o => o.value,
+      (o) => o.value,
     );
     setDisplayResetConfirm(false);
     setPublicFilters(resetPublicFilters);
@@ -137,7 +140,7 @@ export default function FiltersSettings({
     });
   }, [intl, schema, onSubmitFromProps]);
 
-  const m = c => intl.formatMessage(messages[c]);
+  const m = (c) => intl.formatMessage(messages[c]);
 
   return (
     <>
@@ -148,8 +151,9 @@ export default function FiltersSettings({
           value={publicFilters}
           schema={schema}
           disabled={loading}
-          exclude={['viewport', 'memberUid']}
-          onChange={update => {
+          exclude={['viewport', 'memberUid', 'search', 'geo']}
+          placeholder={m('selectPlaceholder')}
+          onChange={(update) => {
             setPublicFilters(update);
           }}
           sub={m('sub')}
@@ -161,9 +165,10 @@ export default function FiltersSettings({
         <FilterSelect
           value={adminFilters}
           schema={schema}
-          exclude={['viewport']}
+          exclude={['viewport', 'search']}
           disabled={loading}
-          onChange={update => {
+          placeholder={m('selectPlaceholder')}
+          onChange={(update) => {
             setAdminFilters(update);
           }}
           sub={m('sub')}

@@ -19,13 +19,13 @@
   "searchPlaceholder": "Rechercher",
   "searchWhenMoving": "Rechercher quand je déplace la carte",
 
-  "offline":  "Hors ligne",
+  "offline": "Hors ligne",
   "online": "En ligne",
-  "mixed":  "Mixte",
+  "mixed": "Mixte",
   "passed": "Passé",
   "current": "En cours",
-  "upcoming":  "À venir",
-  
+  "upcoming": "À venir",
+
   "noAvailableTiming": "Aucun horaire n'est disponible",
   "addToFavorites": "Ajouter aux favoris",
   "accessOnlineEvent": "Accéder à l'événement",

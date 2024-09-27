@@ -18,7 +18,7 @@ yarn add @openagenda/mails
 
 ### Initializing
 
-Before using it you must initialize the service, the configuration needs to know where to find the templates, how to send them and optionally the default values for each send (for example: *domain*, *lang*).
+Before using it you must initialize the service, the configuration needs to know where to find the templates, how to send them and optionally the default values for each send (for example: _domain_, _lang_).
 
 ```js
 const createMails = require('@openagenda/mails');
@@ -27,7 +27,8 @@ const createMails = require('@openagenda/mails');
 
 const config = {
   // Templating
-  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
+  templatesDir:
+    process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
   mjmlConfigPath: process.cwd(),
 
   // Mailing
@@ -38,24 +39,23 @@ const config = {
     maxMessages: Infinity,
     maxConnections: 20,
     rateLimit: 14, // 14 emails/second max
-    rateDelta: 1000
+    rateDelta: 1000,
   },
   defaults: {},
 
   // Queuing
   redis: {
     host: 'localhost',
-    port: 6379
+    port: 6379,
   },
   queueName: 'mails',
-  disableVerify: false
+  disableVerify: false,
 };
 
-const mails = await createMails(config)
-  .catch(error => {
-    console.log('Error on initializing service mails', error);
-    throw error;
-  });
+const mails = await createMails(config).catch((error) => {
+  console.log('Error on initializing service mails', error);
+  throw error;
+});
 
 console.log('Service mails initialized');
 ```
@@ -70,8 +70,8 @@ const { results, errors } = await mails.send({
   to: {
     address: 'user@example.com',
     data: { username: 'bertho' },
-    lang: 'fr'
-  }
+    lang: 'fr',
+  },
 });
 ```
 
@@ -90,6 +90,7 @@ Each template has a folder with its name, in there must be at least one file `in
 **locales** folder with `%lang%.json` files, where `%lang%` is the language code (`en.json`, `fr.json`, etc).
 
 The structure of your templates folder can look like this:
+
 ```
 /templates
   /helloWorld
@@ -107,7 +108,7 @@ The structure of your templates folder can look like this:
     index.mjml
     text.ejs
     subject.ejs
-``` 
+```
 
 ## API
 
@@ -116,6 +117,7 @@ The structure of your templates folder can look like this:
 #### `createMails(options)`
 
 **Usage**
+
 ```js
 const createMails = require('@openagenda/mails');
 
@@ -123,7 +125,8 @@ const createMails = require('@openagenda/mails');
 
 const mails = await createMails({
   // Templating
-  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
+  templatesDir:
+    process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
   mjmlConfigPath: process.cwd(),
 
   // Mailing
@@ -134,37 +137,37 @@ const mails = await createMails({
     maxMessages: Infinity,
     maxConnections: 20,
     rateLimit: 14, // 14 emails/second max
-    rateDelta: 1000
+    rateDelta: 1000,
   },
   defaults: {},
 
   // Queuing
   redis: {
     host: 'localhost',
-    port: 6379
+    port: 6379,
   },
-  queueName: 'mails'
+  queueName: 'mails',
 });
 ```
 
 **Arguments**
 
-| Name | Type | Description |
-|---|:---:|---|
+| Name      |   Type   | Description                              |
+| --------- | :------: | ---------------------------------------- |
 | `options` | `Object` | The options to initializing the service. |
 
 **options**
 
-Value | Required | Description |
-|---|:---:|---|
-|`templatesDir` | * | The folder path containing your templates.
-|`mjmlConfigPath` |  | Uses the .mjmlconfig file in the specified path or directory to include custom components.
-|`transport` | * | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).
-|`defaults` |  | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`.
-|`redis` | * | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/OpenAgenda/oa-public/tree/main/queues))
-|`queueName` | * | A string that is the name of your Redis queue.
-|`disableVerify` |  | A Boolean that allows to disable the verification of the transporter connection, it is done in the init.
-|`logger` |  | An object for the method `setModuleConfig` of [@openagenda/logs](https://github.com/OpenAgenda/oa-public/tree/main/logs)
+| Value            | Required | Description                                                                                                                                                                                                                        |
+| ---------------- | :------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `templatesDir`   |    \*    | The folder path containing your templates.                                                                                                                                                                                         |
+| `mjmlConfigPath` |          | Uses the .mjmlconfig file in the specified path or directory to include custom components.                                                                                                                                         |
+| `transport`      |    \*    | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).                                             |
+| `defaults`       |          | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`. |
+| `redis`          |    \*    | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/OpenAgenda/oa-public/tree/main/queues))                              |
+| `queueName`      |    \*    | A string that is the name of your Redis queue.                                                                                                                                                                                     |
+| `disableVerify`  |          | A Boolean that allows to disable the verification of the transporter connection, it is done in the init.                                                                                                                           |
+| `logger`         |          | An object for the method `setModuleConfig` of [@openagenda/logs](https://github.com/OpenAgenda/oa-public/tree/main/logs)                                                                                                           |
 
 During initialization a `queue` and a `transporter` are added to the config, you can use them raw from anywhere with a require of `@openagenda/mails/config`.
 
@@ -185,45 +188,45 @@ This is a nodemailer `sendMail` overload with some notable differences:
 - Emails can be stored in an external queue while waiting for their turn.
 
 **Usage**
+
 ```js
 await mails({
   template: 'helloWorld',
   to: {
     address: 'user@example.com',
     data: { username: 'bertho' },
-    lang: 'fr'
+    lang: 'fr',
   },
-  queue: false
+  queue: false,
 });
 ```
 
 **Arguments**
 
-Name | Type | Description |
-|---|:---:|---|
+| Name      |   Type   | Description                      |
+| --------- | :------: | -------------------------------- |
 | `options` | `Object` | The options to sending email(s). |
 
-***Options***
+**_Options_**
 
-| Value | Required | Description |
-|---|:---:|---|
-| template |  | A string that is the name of the template, is equal to the folder name. |
-| data |  | An object that contains the data to passed to the template, this can be overloaded for each recipient. |
-| lang |  | A string that defines the default language that will be applied to all recipients without lang. |
-| to | * | A recipient or array of recipients. |
-| queue |  | A Boolean, if false do not queue job and execute directly. |
-| **...** |  | **All other nodemailer options are normally handled by nodemailer, see the other options [here](https://nodemailer.com/message/).** |
+| Value    | Required | Description                                                                                                                         |
+| -------- | :------: | ----------------------------------------------------------------------------------------------------------------------------------- |
+| template |          | A string that is the name of the template, is equal to the folder name.                                                             |
+| data     |          | An object that contains the data to passed to the template, this can be overloaded for each recipient.                              |
+| lang     |          | A string that defines the default language that will be applied to all recipients without lang.                                     |
+| to       |    \*    | A recipient or array of recipients.                                                                                                 |
+| queue    |          | A Boolean, if false do not queue job and execute directly.                                                                          |
+| **...**  |          | **All other nodemailer options are normally handled by nodemailer, see the other options [here](https://nodemailer.com/message/).** |
 
-
-
-***Error handling***  
+**_Error handling_**  
 `sendMail` does not throw an error in case of problem, it returns an object `{ results, errors }`.  
 It allows not to block the sending of emails for all when there is only a malformed email address in the batch, for example.
 
-***Recipients***  
+**_Recipients_**  
 You will find more information on the nodemailer documention (https://nodemailer.com/message/addresses/).  
 The main difference is that the email is sent separately to each recipient, one mail/one recipient.  
 If you want to add specific data to a recipient for the template (for example: its name, age, role, etc.) you must use an object with the data key, the language of the recipient can be in the lang key:
+
 ```js
 {
   address: 'user@example.com',
@@ -232,22 +235,22 @@ If you want to add specific data to a recipient for the template (for example: i
 }
 ```
 
-***Defaults***  
+**_Defaults_**  
 It's an object that is going to be merged into every message object. This allows you to specify shared options, for example to set a default _from_ address for every message.
 
-***Data order***  
+**_Data order_**  
 The data come from several sources, they are `Object.assign`ed in this order:
 
- - `data` from the `send` options
- - `data` from the current recipient (`recipient.data`)
- - `data` from `defaults.data` lastly for conserve values like *domain*, etc
+- `data` from the `send` options
+- `data` from the current recipient (`recipient.data`)
+- `data` from `defaults.data` lastly for conserve values like _domain_, etc
 
-***Language***  
+**_Language_**  
 As for data, the language can be overloaded in several places, in this order:
 
- - `{ lang }` from `defaults`.
- - `lang` from the `send` options
- - `lang` from the current recipient (`recipient.lang`)
+- `{ lang }` from `defaults`.
+- `lang` from the `send` options
+- `lang` from the current recipient (`recipient.lang`)
 
 The `__` and `lang` values are passed to the template.
 
@@ -281,49 +284,51 @@ The `opts` argument corresponds to the EJS argument described [here](https://git
 #### `render(templateName [, data = {}, opts = {}])`
 
 Returns a Promise that resolves an Object containing three strings:
+
 - `html`
 - `text`
 - `subject`.
 
 **Arguments**
 
-Name | Type | Description |
-|---|:---:|---|
-| `templateName` | `string` | The name of the template, is equal to the folder name. |
-| `data` | `object` | An object that contains the data to passed to the template. |
-| `options` | `Object` | The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options). <br /><br />With the ability to add `disableHtml`, `disableText` and `disableSubject`, all three booleans. |
+| Name           |   Type   | Description                                                                                                                                                                                                          |
+| -------------- | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `templateName` | `string` | The name of the template, is equal to the folder name.                                                                                                                                                               |
+| `data`         | `object` | An object that contains the data to passed to the template.                                                                                                                                                          |
+| `options`      | `Object` | The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options). <br /><br />With the ability to add `disableHtml`, `disableText` and `disableSubject`, all three booleans. |
 
 **Options**
 
-| Value | Required | Description |
-|---|:---:|---|
-| disableHtml |  | A Boolean, if true then `html` is not rendered and is equal null. |
-| disableText |  | A Boolean, if true then `text` is not rendered and is equal null. |
-| disableSubject |  | A Boolean, if true then `subject` is not rendered and is equal null. |
-| **...** |  | **All other EJS options are normally handled by EJS, see the other options [here](https://github.com/mde/ejs#options).** |
+| Value          | Required | Description                                                                                                              |
+| -------------- | :------: | ------------------------------------------------------------------------------------------------------------------------ |
+| disableHtml    |          | A Boolean, if true then `html` is not rendered and is equal null.                                                        |
+| disableText    |          | A Boolean, if true then `text` is not rendered and is equal null.                                                        |
+| disableSubject |          | A Boolean, if true then `subject` is not rendered and is equal null.                                                     |
+| **...**        |          | **All other EJS options are normally handled by EJS, see the other options [here](https://github.com/mde/ejs#options).** |
 
 #### `compile(templateName [, opts = {}])`
 
 Returns a Promise that resolves an Object containing three functions:
+
 - `html(data)`
 - `text(data)`
 - `subject(data)`.
 
 **Arguments**
 
-Name | Type | Description |
-|---|:---:|---|
-| `templateName` | `string` | The name of the template, is equal to the folder name. |
-| `options` | `Object` | The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options). <br /><br />With the ability to add `disableHtml`, `disableText` and `disableSubject`, all three booleans. |
+| Name           |   Type   | Description                                                                                                                                                                                                          |
+| -------------- | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `templateName` | `string` | The name of the template, is equal to the folder name.                                                                                                                                                               |
+| `options`      | `Object` | The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options). <br /><br />With the ability to add `disableHtml`, `disableText` and `disableSubject`, all three booleans. |
 
 **Options**
 
-| Value | Required | Description |
-|---|:---:|---|
-| disableHtml |  | A Boolean, if true then `html` is not compiled and is equal null. |
-| disableText |  | A Boolean, if true then `text` is not compiled and is equal null. |
-| disableSubject |  | A Boolean, if true then `subject` is not compiled and is equal null. |
-| **...** |  | **All other EJS options are normally handled by EJS, see the other options [here](https://github.com/mde/ejs#options).** |
+| Value          | Required | Description                                                                                                              |
+| -------------- | :------: | ------------------------------------------------------------------------------------------------------------------------ |
+| disableHtml    |          | A Boolean, if true then `html` is not compiled and is equal null.                                                        |
+| disableText    |          | A Boolean, if true then `text` is not compiled and is equal null.                                                        |
+| disableSubject |          | A Boolean, if true then `subject` is not compiled and is equal null.                                                     |
+| **...**        |          | **All other EJS options are normally handled by EJS, see the other options [here](https://github.com/mde/ejs#options).** |
 
 ## Testing
 
@@ -334,6 +339,7 @@ For a single run of all suites of tests:
 ```
 yarn test
 ```
+
 You can add the `--watch` option to watch the tests related to the files you modify, or `--watchAll` to run all tests with each change.
 
 `--coverage` option is available to indicates that test coverage information should be collected and reported in the output.

@@ -30,7 +30,7 @@ const states = [
 export default function EventState({ value, displayLabel = true }) {
   const intl = useIntl();
   const { slug, badge } = states.find(
-    s => value === s.slug || parseInt(value, 10) === s.code,
+    (s) => value === s.slug || parseInt(value, 10) === s.code,
   );
 
   return (

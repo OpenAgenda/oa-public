@@ -1,15 +1,13 @@
-exports.up = knex => {
+'use strict';
 
-  const schemas = knex.client.config.schemas;
+exports.up = (knex) => {
+  const { schemas } = knex.client.config;
 
-  return knex.schema.alterTable( schemas.feed, t => {
-    t.index( [ 'entity_type', 'entity_uid' ] );
-  } );
-
+  return knex.schema.alterTable(schemas.feed, (t) => {
+    t.index(['entity_type', 'entity_uid']);
+  });
 };
 
-exports.down = knex => {
-
+exports.down = (_knex) => {
   //
-
 };

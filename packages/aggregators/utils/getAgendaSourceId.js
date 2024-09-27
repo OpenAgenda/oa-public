@@ -15,5 +15,5 @@ module.exports = async (knex, agenda, aggregatorAgenda = null) => {
     }
   }
 
-  return query.then(r => (r ? r.id : null));
+  return query.then((r) => (r ? r.id : null));
 };

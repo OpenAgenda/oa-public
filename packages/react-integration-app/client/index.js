@@ -196,12 +196,12 @@ const apps = [
 loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
-    Object.values(apps).map(app => app.triggerHooks({ hooks: ['inject'] })),
+    Object.values(apps).map((app) => app.triggerHooks({ hooks: ['inject'] })),
   );
 
   const triggerHooks = () =>
     Promise.all(
-      Object.values(apps).map(app =>
+      Object.values(apps).map((app) =>
         app.triggerHooks({
           onStart: onLocationChangeStart,
           onFinish: onLocationChangeFinish,

@@ -4,7 +4,7 @@ const _ = require('lodash');
 const uuid = require('uuid/v4');
 
 module.exports = function generateUniqueToken(key) {
-  return async context => {
+  return async (context) => {
     const token = uuid();
 
     const query = {};

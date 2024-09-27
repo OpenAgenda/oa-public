@@ -96,7 +96,7 @@ function signinSubmit(req, res, next) {
 
       w({ err, req, res, data, user })
         .then(
-          auth.ifUserLoaded(false, async v => {
+          auth.ifUserLoaded(false, async (v) => {
             if (v.err && v.err.name !== 'NotFound') {
               log.info('signin attempt failed', {
                 ...logBundle,
@@ -107,7 +107,7 @@ function signinSubmit(req, res, next) {
             _.merge(v.data, v.req.body);
 
             // slow down a bruteforce
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
 
             return auth.renderSignin(v);
           }),
@@ -122,7 +122,7 @@ function signinSubmit(req, res, next) {
 
         .then(auth.ifUserLoaded(true, auth.signin))
 
-        .then(v => {
+        .then((v) => {
           log.info(
             'signin attempt %s',
             v.data?.errors ? 'failed' : 'successful',
@@ -141,6 +141,11 @@ function signinSubmit(req, res, next) {
 
 function passwordComplexity(values) {
   const { security } = values.req.app.services;
+
+  if (!values.req.body.password) {
+    _.set(values, 'data.errors.password', 'passwordRequired');
+    return values;
+  }
 
   const { score, isSameAs } = security.passwords.evaluate(
     values.req.body.password,
@@ -219,7 +224,7 @@ function handleSigninRequest(req, email, password, cb) {
     .verifyPassword(password, {
       query: { email },
     })
-    .then(async validPassword => {
+    .then(async (validPassword) => {
       if (!validPassword) {
         return cb(null, null, {
           email,
@@ -235,13 +240,13 @@ function handleSigninRequest(req, email, password, cb) {
 
       cb(null, user, { email, password, user });
     })
-    .catch(err => {
+    .catch((err) => {
       cb(err);
     });
 }
 
 function pLoadCaptcha(v) {
-  return w.promise(rs => {
+  return w.promise((rs) => {
     loadCaptcha(v.req, v.res, () => {
       rs(v);
     });
@@ -266,7 +271,7 @@ function signupSubmit(req, res) {
 
     .then(captchaCheck)
 
-    .then(async values => {
+    .then(async (values) => {
       if (values.data.errors) {
         log.info('signup attempt failed', {
           ...logBundle,
@@ -306,10 +311,8 @@ function signupSubmit(req, res) {
         values.data.errors = {};
 
         if (
-          (err.errors ?? []).find(
-            ({ code, field }) =>
-              field === 'fullName' && code === 'string.toolong',
-          )
+          err
+          && _.find(err.errors, { field: 'fullName', code: 'string.toolong' })
         ) {
           values.data.errors.fullName = 'fullNameTooLong';
         }
@@ -318,25 +321,25 @@ function signupSubmit(req, res) {
           err
           && _.find(err.errors, { field: 'email', code: 'email.invalid' })
         ) {
-          values.data.errors = { email: 'invalidEmail' };
+          values.data.errors.email = 'invalidEmail';
         }
 
         if (
           err
           && _.find(err.errors, { field: 'password', code: 'string.tooshort' })
         ) {
-          values.data.errors = { password: 'passwordTooShort' };
+          values.data.errors.password = 'passwordTooShort';
         }
 
         if (
           err
           && _.find(err.errors, { field: 'fullName', code: 'required' })
         ) {
-          values.data.errors = { fullName: 'fieldCannotBeEmpty' };
+          values.data.errors.fullName = 'fieldCannotBeEmpty';
         }
 
         if (err && err.message === 'Already exist') {
-          values.data.errors = { email: 'usedEmail' };
+          values.data.errors.email = 'usedEmail';
         }
 
         if (_.isObject(err.errors) && Object.keys(err.errors) > 0) {
@@ -531,7 +534,7 @@ async function activate(req, res) {
         if (err || !invitation) return auth.signin({ req, res, user });
 
         const actions = invitation.data.actions.filter(
-          v => v.name === 'linkMember',
+          (v) => v.name === 'linkMember',
         );
 
         if (actions.length === 1) {
@@ -561,7 +564,7 @@ async function activate(req, res) {
   }
 }
 
-export default app => {
+export default (app) => {
   const { sessions, agendas } = app.services;
 
   log('initing');

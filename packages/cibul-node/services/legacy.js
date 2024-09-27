@@ -17,38 +17,47 @@ function task() {
 }
 
 export function init(config, services) {
-  const {
-    knex,
-    redis,
-    queues: Queues,
-    agendas,
-  } = services;
+  const { knex, redis, queues: Queues, agendas } = services;
 
   const interfaces = {
-    getAgendaId: agendaUid => agendas.get({
-      uid: agendaUid,
-    }, {
-      internal: true,
-      private: null,
-    }).then(a => a?.id),
+    getAgendaId: (agendaUid) =>
+      agendas
+        .get(
+          {
+            uid: agendaUid,
+          },
+          {
+            internal: true,
+            private: null,
+          },
+        )
+        .then((a) => a?.id),
   };
 
   ControlData.updateLoggerConfig(config.getLogConfig('svc', 'controlData'));
-  TagsAndCustom.updateLoggerConfig(config.getLogConfig('svc', 'legacyTagsAndCustom'));
+  TagsAndCustom.updateLoggerConfig(
+    config.getLogConfig('svc', 'legacyTagsAndCustom'),
+  );
   Embeds.updateLoggerConfig(config.getLogConfig('svc', 'embeds'));
 
-  Object.assign(controlData, ControlData({
-    knex,
-    redis,
-    prefix: 'agendaControlData:',
-    imagePath: config.aws.imageBucketPath,
-  }));
+  Object.assign(
+    controlData,
+    ControlData({
+      knex,
+      redis,
+      prefix: 'agendaControlData:',
+      imagePath: config.aws.imageBucketPath,
+    }),
+  );
 
-  Object.assign(tagsAndCustom, TagsAndCustom({
-    knex,
-    queue: Queues('legacyTagsAndCustom'),
-    interfaces,
-  }));
+  Object.assign(
+    tagsAndCustom,
+    TagsAndCustom({
+      knex,
+      queue: Queues('legacyTagsAndCustom'),
+      interfaces,
+    }),
+  );
 
   const getTagSet = GetTagSet({ knex });
   const getCategorySet = GetCategorySet({ knex });
@@ -62,9 +71,18 @@ export function init(config, services) {
     knex,
     interfaces,
     defaultTemplates: {
-      eventitem: fs.readFileSync(new URL('./embed/templates/eventItem.tblr', import.meta.url), 'utf-8'),
-      event: fs.readFileSync(new URL('./embed/templates/event.tblr', import.meta.url), 'utf-8'),
-      header: fs.readFileSync(new URL('./embed/templates/header.tblr', import.meta.url), 'utf-8'),
+      eventitem: fs.readFileSync(
+        new URL('./embed/templates/eventItem.tblr', import.meta.url),
+        'utf-8',
+      ),
+      event: fs.readFileSync(
+        new URL('./embed/templates/event.tblr', import.meta.url),
+        'utf-8',
+      ),
+      header: fs.readFileSync(
+        new URL('./embed/templates/header.tblr', import.meta.url),
+        'utf-8',
+      ),
     },
   });
 

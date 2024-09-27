@@ -45,7 +45,9 @@ describe('core - functional (server): core.agendas().events add()', () => {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test',
       });
-    } catch (e) { /**/ }
+    } catch (e) {
+      /**/
+    }
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -54,17 +56,21 @@ describe('core - functional (server): core.agendas().events add()', () => {
     let event;
 
     beforeAll(async () => {
-      event = await core.agendas(17026800).events.add(19201989, {
-        title: {
-          fr: 'Nouveau titre',
+      event = await core.agendas(17026800).events.add(
+        19201989,
+        {
+          title: {
+            fr: 'Nouveau titre',
+          },
+          'thematiques-metropolitaines': 3,
+          image_alt_text: "Un texte obligatoire si l'image est présente",
         },
-        'thematiques-metropolitaines': 3,
-        image_alt_text: 'Un texte obligatoire si l\'image est présente',
-      }, {
-        context: {
-          userUid: 63170203,
+        {
+          context: {
+            userUid: 63170203,
+          },
         },
-      });
+      );
     });
 
     it('title is edited', () => {
@@ -80,15 +86,16 @@ describe('core - functional (server): core.agendas().events add()', () => {
     });
 
     it('event is indexed in agenda', async () => {
-      const {
-        total,
-        events,
-      } = await core.agendas(17026800).events.search({
-        uid: 19201989,
-        state: null,
-      }, {}, {
-        access: 'administrator',
-      });
+      const { total, events } = await core.agendas(17026800).events.search(
+        {
+          uid: 19201989,
+          state: null,
+        },
+        {},
+        {
+          access: 'administrator',
+        },
+      );
 
       expect(total).toBe(1);
       expect(events[0].uid).toBe(19201989);
@@ -100,11 +107,15 @@ describe('core - functional (server): core.agendas().events add()', () => {
       let error;
 
       try {
-        await core.agendas(17026800).events.add(11111, {}, {
-          context: {
-            userUid: 63170203,
+        await core.agendas(17026800).events.add(
+          11111,
+          {},
+          {
+            context: {
+              userUid: 63170203,
+            },
           },
-        });
+        );
       } catch (e) {
         error = e;
       }
@@ -117,16 +128,20 @@ describe('core - functional (server): core.agendas().events add()', () => {
     let result;
 
     beforeAll(async () => {
-      result = await core.agendas(17026800).events.add(18992812, {
-        state: 1,
-        'thematiques-metropolitaines': 3,
-        image_alt_text: 'Un texte',
-      }, {
-        paths: [[82910283, 17026855]],
-        aggregated: 'f9fdqs3',
-        returnPayload: true,
-        access: 'contributor',
-      });
+      result = await core.agendas(17026800).events.add(
+        18992812,
+        {
+          state: 1,
+          'thematiques-metropolitaines': 3,
+          image_alt_text: 'Un texte',
+        },
+        {
+          paths: [[82910283, 17026855]],
+          aggregated: 'f9fdqs3',
+          returnPayload: true,
+          access: 'contributor',
+        },
+      );
     });
 
     it('agenda event reference is flagged as aggregated', () => {
@@ -146,14 +161,18 @@ describe('core - functional (server): core.agendas().events add()', () => {
     });
 
     it('fix: add with unspecified required additional field linked to image is successful when image is not specified', async () => {
-      const { success } = await core.agendas(17026800).events.add(18992813, {
-        state: 1,
-        'thematiques-metropolitaines': 3,
-      }, {
-        paths: [[82910283, 17026855]],
-        aggregated: true,
-        returnPayload: true,
-      });
+      const { success } = await core.agendas(17026800).events.add(
+        18992813,
+        {
+          state: 1,
+          'thematiques-metropolitaines': 3,
+        },
+        {
+          paths: [[82910283, 17026855]],
+          aggregated: true,
+          returnPayload: true,
+        },
+      );
 
       expect(success).toEqual(true);
     });

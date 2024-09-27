@@ -16,8 +16,14 @@ export default function MemberItem({ member, email = null, onTransfer }) {
     <Flex w="full" align="center" justify="space-between">
       <div>
         <HStack>
-          <Text fontWeight="bold">{member.name || member.user?.fullName || intl.formatMessage(messages.nameless)}</Text>
-          <Text color="oaGray.500">{intl.formatMessage(roleMessages[member.role])}</Text>
+          <Text fontWeight="bold">
+            {member.name
+              || member.user?.fullName
+              || intl.formatMessage(messages.nameless)}
+          </Text>
+          <Text color="oaGray.500">
+            {intl.formatMessage(roleMessages[member.role])}
+          </Text>
           {!member.userUid ? (
             <Tag
               borderRadius="full"
@@ -34,13 +40,15 @@ export default function MemberItem({ member, email = null, onTransfer }) {
         </HStack>
 
         {memberEmail ? (
-          <chakra.div color="oaGray.500">
-            {memberEmail}
-          </chakra.div>
+          <chakra.div color="oaGray.500">{memberEmail}</chakra.div>
         ) : null}
       </div>
 
-      <Button onClick={() => onTransfer({ userUid: member.userUid, email: memberEmail })} colorScheme="primary">
+      <Button
+        onClick={() =>
+          onTransfer({ userUid: member.userUid, email: memberEmail })}
+        colorScheme="primary"
+      >
         {intl.formatMessage(messages.transfer)}
       </Button>
     </Flex>

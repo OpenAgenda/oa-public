@@ -5,12 +5,20 @@ const log = require('@openagenda/logs')('resyncUpdated');
 const bulk = require('./bulk');
 const formatAgenda = require('./formatAgenda');
 
-module.exports = async ({
-  client,
-  alias,
-  listAgendas,
-  getDetailedAgenda
-}, since = null) => {
+function _cleanTimestamp(since) {
+  if (since) return since;
+
+  const anHourAgo = new Date();
+
+  anHourAgo.setHours(anHourAgo.getHours() - 1);
+
+  return anHourAgo;
+}
+
+module.exports = async (
+  { client, alias, listAgendas, getDetailedAgenda },
+  since = null,
+) => {
   let updated = 0;
   let indexed = 0;
 
@@ -18,22 +26,26 @@ module.exports = async ({
 
   log('info', 'launching update from %s', updatedAtGreaterThan);
 
-  const {
-    items: agendas
-  } = await listAgendas({ updatedAtGreaterThan }, 0, 20);
+  const { items: agendas } = await listAgendas({ updatedAtGreaterThan }, 0, 20);
 
   const formattedAgendas = [];
   for (const agenda of agendas) {
-    const formatted = await getDetailedAgenda(agenda).then(a => formatAgenda(a));
+    const formatted = await getDetailedAgenda(agenda).then((a) =>
+      formatAgenda(a));
     formattedAgendas.push(formatted);
   }
 
-  log('info', '%s agendas to update since %s', agendas.length, updatedAtGreaterThan);
+  log(
+    'info',
+    '%s agendas to update since %s',
+    agendas.length,
+    updatedAtGreaterThan,
+  );
 
   if (!formattedAgendas.length) {
     return {
       updated,
-      indexed
+      indexed,
     };
   }
 
@@ -41,56 +53,51 @@ module.exports = async ({
     index: alias,
     type: 'agenda',
     body: {
-      ids: formattedAgendas.map(a => a.uid)
-    }
+      ids: formattedAgendas.map((a) => a.uid),
+    },
   });
 
   const uids = _.get(existing, 'docs', [])
-    .filter(item => item.found)
-    .map(item => parseInt(item._id));
+    .filter((item) => item.found)
+    .map((item) => parseInt(item._id, 10));
 
-  const {
-    toUpdate,
-    toIndex
-  } = formattedAgendas.reduce((split, agenda) => {
-    split[uids.includes(agenda.uid) ? 'toUpdate' : 'toIndex'].push(agenda);
+  const { toUpdate, toIndex } = formattedAgendas.reduce(
+    (split, agenda) => {
+      split[uids.includes(agenda.uid) ? 'toUpdate' : 'toIndex'].push(agenda);
 
-    return split;
-  }, { toUpdate: [], toIndex: [] });
+      return split;
+    },
+    { toUpdate: [], toIndex: [] },
+  );
 
   if (toUpdate.length) {
-    updated = await bulk({
-      client,
-      index: alias,
-      operation: 'update'
-    }, toUpdate);
+    updated = await bulk(
+      {
+        client,
+        index: alias,
+        operation: 'update',
+      },
+      toUpdate,
+    );
 
     log('info', 'bulk updated %s agendas', updated);
   }
 
   if (toIndex.length) {
-    indexed = await bulk({
-      client,
-      index: alias,
-      operation: 'index'
-    }, toIndex);
+    indexed = await bulk(
+      {
+        client,
+        index: alias,
+        operation: 'index',
+      },
+      toIndex,
+    );
 
     log('info', 'bulk indexed %s agendas', indexed);
   }
 
   return {
     indexed,
-    updated
-  }
-}
-
-
-function _cleanTimestamp(since) {
-  if (since) return since;
-
-  const anHourAgo = new Date();
-
-  anHourAgo.setHours(anHourAgo.getHours() -1);
-
-  return anHourAgo;
-}
+    updated,
+  };
+};

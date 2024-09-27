@@ -10,10 +10,7 @@ describe('form-schemas -02- functional (server): update', () => {
   let svc;
 
   beforeAll(async () => {
-    await fixtures(config.mysql, [
-      'reset.sql',
-      'form_schema.data.sql'
-    ]);
+    await fixtures(config.mysql, ['reset.sql', 'form_schema.data.sql']);
   });
 
   beforeAll(() => {
@@ -31,7 +28,7 @@ describe('form-schemas -02- functional (server): update', () => {
     expect(result).toStrictEqual({
       id: 1,
       success: true,
-      formSchema: formSchemaData
+      formSchema: formSchemaData,
     });
   });
 });

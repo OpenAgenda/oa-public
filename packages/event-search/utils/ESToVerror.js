@@ -2,10 +2,7 @@
 
 const VError = require('@openagenda/verror');
 
-const {
-  BadRequest,
-  NotFound
-} = VError;
+const { BadRequest, NotFound } = VError;
 
 module.exports = (err, message) => {
   if (err.meta?.statusCode === 404) {
@@ -15,4 +12,4 @@ module.exports = (err, message) => {
     return new BadRequest(err, message);
   }
   return new VError(err);
-}
+};

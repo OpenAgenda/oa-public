@@ -9,8 +9,10 @@ const validate = ajv.compile({
   minLength: 1,
 });
 
-export default value => {
+export default (value) => {
   if (!validate(value)) {
-    throw new BadRequest('is not a string of length between 1 and 255 characters');
+    throw new BadRequest(
+      'is not a string of length between 1 and 255 characters',
+    );
   }
 };

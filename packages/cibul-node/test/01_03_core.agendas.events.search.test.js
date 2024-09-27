@@ -55,7 +55,6 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
     it('event item contains description field by default', async () => {
       const { events } = await core.agendas(2).events.search({});
-
       expect(Object.keys(events[0]).includes('description')).toBeTruthy();
     });
 
@@ -74,8 +73,8 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         .agendas(2)
         .events.search({ state: null }, {}, { detailed: true });
 
-      expect(events.filter(e => e.state === 2).length).toBeGreaterThan(0);
-      expect(events.filter(e => e.state !== 2).length).toBe(0);
+      expect(events.filter((e) => e.state === 2).length).toBeGreaterThan(0);
+      expect(events.filter((e) => e.state !== 2).length).toBe(0);
     });
 
     it('if access is adminmod, unpublished events are returned when requested', async () => {
@@ -88,7 +87,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         },
       );
 
-      expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
+      expect(events.filter((e) => e.state !== 2).length).toBeGreaterThan(0);
     });
 
     it('if search part of query contains an integer, a uid filter is applied', async () => {
@@ -171,12 +170,12 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         },
       );
 
-      expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
+      expect(events.filter((e) => e.state !== 2).length).toBeGreaterThan(0);
     });
 
     it('fix: image credits are provided', async () => {
       const { events } = await core.agendas(2).events.search();
-      expect(events.filter(e => e.uid === 2)[0].imageCredits).toEqual(
+      expect(events.filter((e) => e.uid === 2)[0].imageCredits).toEqual(
         'Gaetan Latouche',
       );
     });
@@ -345,7 +344,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     describe('successful list for adminmod user', () => {
@@ -365,7 +364,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
               state: [-1, 0, 1, 2],
               detailed: 1,
             },
-          }).then(r => r.data);
+          }).then((r) => r.data);
         } catch (e) {
           // console.log(e);
         }
@@ -373,7 +372,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('keys provided in response are success, sort, total, after and events', () => {
         expect(
-          Object.keys(response).filter(key =>
+          Object.keys(response).filter((key) =>
             ['success', 'sort', 'total', 'after', 'events'].includes(key)).length,
         ).toEqual(5);
       });
@@ -381,7 +380,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('if user is adminmod, unpublished events can be provided', () => {
         expect(response.events.length).toBeGreaterThan(0);
         expect(
-          response.events.filter(e => e.state !== 2).length,
+          response.events.filter((e) => e.state !== 2).length,
         ).toBeGreaterThan(0);
       });
     });
@@ -404,8 +403,8 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             uid: 2,
           },
         }).then(
-          r => r.data,
-          err => err.response.data,
+          (r) => r.data,
+          (err) => err.response.data,
         );
       });
 
@@ -428,7 +427,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
               nonce: 123989,
               'content-type': 'application/json',
             },
-          }).then(r => r.data);
+          }).then((r) => r.data);
         } catch (e) {
           // console.log(e);
         }
@@ -455,7 +454,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             'access-token': accessToken,
             nonce: 789789,
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(response.event.note).toBe(
           'Une note interne pour les administrateurs',
@@ -475,7 +474,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             nonce: 1239789,
             'content-type': 'application/json',
           },
-        }).then(r => r.data.event);
+        }).then((r) => r.data.event);
       });
 
       it('useDateHoursMinutesFormat', async () => {
@@ -503,7 +502,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
               state: [-1, 0, 1, 2],
               detailed: 1,
             },
-          }).then(r => r.data);
+          }).then((r) => r.data);
         } catch (e) {
           // console.log(e);
         }
@@ -511,7 +510,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('does not contain unpublished events', () => {
         expect(response.events.length).toBeGreaterThan(0);
-        expect(response.events.filter(e => e.state !== 2).length).toBe(0);
+        expect(response.events.filter((e) => e.state !== 2).length).toBe(0);
       });
     });
 
@@ -549,7 +548,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           params: {
             key: nonAdminModKey,
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(response.event.uid).toBe(2);
       });
@@ -564,7 +563,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(response.event.note).toBeUndefined();
       });
@@ -579,7 +578,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           params: {
             key: nonAdminModKey,
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(response.event.uid).toBe(2);
       });
@@ -594,7 +593,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           params: {
             key: nonAdminModKey,
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(response.event.uid).toBe(2);
       });
@@ -609,7 +608,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(response.event.thematique).toEqual({
           id: 2,
@@ -627,7 +626,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(event.uid).toEqual(1);
       });
@@ -716,7 +715,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             params: {
               key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
             },
-          }).then(r => r.data);
+          }).then((r) => r.data);
         } catch (e) {
           error = e;
         }
@@ -744,7 +743,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         };
 
         try {
-          responses.push(await axios(axiosParams).then(r => r.data));
+          responses.push(await axios(axiosParams).then((r) => r.data));
 
           const { after } = responses[0];
 
@@ -755,7 +754,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
                   after: { $set: after },
                 },
               }),
-            ).then(r => r.data),
+            ).then((r) => r.data),
           );
         } catch (e) {
           // console.log(e);
@@ -764,11 +763,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           responses.push(
             await axios(
-              produce(axiosParams, draft => {
+              produce(axiosParams, (draft) => {
                 draft.params.size = 2;
                 draft.params.from = 1;
               }),
-            ).then(r => r.data),
+            ).then((r) => r.data),
           );
         } catch (e) {
           // console.log(e);
@@ -799,9 +798,53 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             detailed: 1,
             aggregations: 'states',
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(response.aggregations).toBeDefined();
+      });
+
+      it('removed option at true', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/1/events',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+            removed: 1,
+          },
+        }).then((r) => r.data);
+        expect(response.total).toBe(1);
+      });
+
+      it('default removed option at false', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/1/events',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+          },
+        }).then((r) => r.data);
+        expect(response.total).toBe(1);
+      });
+
+      it('removed option at null', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/1/events',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+            removed: 'null',
+          },
+        }).then((r) => r.data);
+        expect(response.total).toBe(2);
       });
     });
   });

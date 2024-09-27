@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Field } from 'react-final-form';
 import { FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
@@ -8,13 +8,13 @@ export default function CreationSecondStep({
   previousPage,
   title,
   submitting,
-  form
+  form,
 }) {
   const { getLabel } = useContext(I18nContext);
 
-  const getError = fieldname => {
+  const getError = (fieldname) => {
     const fieldState = form.getFieldState(fieldname);
-    const errors = form.getState().errors;
+    const { errors } = form.getState();
 
     return fieldState?.touched && errors?.[fieldname];
   };
@@ -23,21 +23,26 @@ export default function CreationSecondStep({
     <div>
       <h2 className="margin-bottom-md">{title}</h2>
       <div className="form-group">
-        <div className={`radio ${getError('settings.contribution.type') ? 'has-error' : ''}`}>
-          <p><b>
-            <FormattedMessage
-              id="AgendaSettings.contribution.contribution"
-              defaultMessage="Contribution"
-            />
-          </b></p>
+        <div
+          className={`radio ${getError('settings.contribution.type') ? 'has-error' : ''}`}
+        >
+          <p>
+            <b>
+              <FormattedMessage
+                id="AgendaSettings.contribution.contribution"
+                defaultMessage="Contribution"
+              />
+            </b>
+          </p>
           <label>
             <Field
               name="settings.contribution.type"
               component="input"
               type="radio"
               value="1"
-              format={v => v == null ? '' : v.toString()}
-              parse={value => value === undefined ? undefined : parseInt(value)}
+              format={(v) => (v == null ? '' : v.toString())}
+              parse={(value) =>
+                (value === undefined ? undefined : parseInt(value, 10))}
             />
             <FormattedMessage
               id="AgendaSettings.contribution.openContribution"
@@ -50,15 +55,17 @@ export default function CreationSecondStep({
                 defaultMessage="Any user can add events, under your moderation"
               />
             </span>
-          </label><br />
+          </label>
+          <br />
           <label>
             <Field
               name="settings.contribution.type"
               component="input"
               type="radio"
               value="2"
-              format={v => v == null ? '' : v.toString()}
-              parse={value => value === undefined ? undefined : parseInt(value)}
+              format={(v) => (v == null ? '' : v.toString())}
+              parse={(value) =>
+                (value === undefined ? undefined : parseInt(value, 10))}
             />
             <FormattedMessage
               id="AgendaSettings.contribution.reducedContribution"
@@ -75,45 +82,59 @@ export default function CreationSecondStep({
         </div>
       </div>
       <div className="form-group">
-        <div className={`radio ${getError('settings.contribution.defaultState') ? 'has-error' : ''}`}>
-          <p><b>{getLabel('contribDefaultState')}</b></p>
+        <div
+          className={`radio ${getError('settings.contribution.defaultState') ? 'has-error' : ''}`}
+        >
+          <p>
+            <b>{getLabel('contribDefaultState')}</b>
+          </p>
           <label>
             <Field
               name="settings.contribution.defaultState"
               component="input"
               type="radio"
               value="2"
-              format={v => v == null ? '' : v.toString()}
-              parse={value => value === undefined ? undefined : parseInt(value)}
+              format={(v) => (v == null ? '' : v.toString())}
+              parse={(value) =>
+                (value === undefined ? undefined : parseInt(value, 10))}
             />
-            {getLabel('contribDefaultStatePublished')}<br />
-            <span className="text-muted">{getLabel('contribDefaultStatePublishedText')}</span>
-          </label><br />
+            {getLabel('contribDefaultStatePublished')}
+            <br />
+            <span className="text-muted">
+              {getLabel('contribDefaultStatePublishedText')}
+            </span>
+          </label>
+          <br />
           <label>
             <Field
               name="settings.contribution.defaultState"
               component="input"
               type="radio"
               value="0"
-              format={v => v == null ? '' : v.toString()}
-              parse={value => value === undefined ? undefined : parseInt(value)}
+              format={(v) => (v == null ? '' : v.toString())}
+              parse={(value) =>
+                (value === undefined ? undefined : parseInt(value, 10))}
             />
-            {getLabel('contribDefaultStateUnpublished')}<br />
-            <span className="text-muted">{getLabel('contribDefaultStateUnpublishedText')}</span>
+            {getLabel('contribDefaultStateUnpublished')}
+            <br />
+            <span className="text-muted">
+              {getLabel('contribDefaultStateUnpublishedText')}
+            </span>
           </label>
         </div>
       </div>
       <div className="form-group">
         <div className="checkbox">
-          <p><b>
-            <FormattedMessage id="AgendaSettings.CreationSecondStep.formEvent" defaultMessage="Form event" />
-          </b></p>
+          <p>
+            <b>
+              <FormattedMessage
+                id="AgendaSettings.CreationSecondStep.formEvent"
+                defaultMessage="Form event"
+              />
+            </b>
+          </p>
           <label>
-            <Field
-              name="onlineEvents"
-              component="input"
-              type="checkbox"
-            />
+            <Field name="onlineEvents" component="input" type="checkbox" />
             <FormattedMessage
               id="AgendaSettings.CreationSecondStep.onlineEvents"
               defaultMessage="Allow online event entry"
@@ -137,11 +158,7 @@ export default function CreationSecondStep({
         {getLabel('previous')}
       </button>
       <div className="pull-right">
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={submitting}
-        >
+        <button type="submit" className="btn btn-primary" disabled={submitting}>
           {getLabel('createAgenda')}
 
           {submitting ? (

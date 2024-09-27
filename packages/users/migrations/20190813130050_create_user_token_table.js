@@ -1,6 +1,6 @@
 'use strict';
 
-exports.up = async knex => {
+exports.up = async (knex) => {
   const { schemas } = knex.client.config;
 
   const exists = await knex.schema.hasTable(schemas.userToken);
@@ -22,7 +22,7 @@ exports.up = async knex => {
         \`image\` varchar(255) DEFAULT NULL,
         \`store\` longtext
       ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-    `
+    `,
     );
 
     await knex.raw(`
@@ -43,7 +43,7 @@ exports.up = async knex => {
   }
 };
 
-exports.down = knex => {
+exports.down = (knex) => {
   const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists(schemas.userToken);

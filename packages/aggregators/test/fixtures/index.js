@@ -1,7 +1,7 @@
 'use strict';
 
-const { promisify } = require('util');
-const fs = require('fs');
+const { promisify } = require('node:util');
+const fs = require('node:fs');
 const _ = require('lodash');
 const knex = require('knex');
 
@@ -19,20 +19,21 @@ function _parseSQL(fx) {
 }
 
 async function _load(config, files) {
-  const getCon = (omitDB = false) => mysql.createConnection({
-    ..._.omit(config, omitDB ? ['database'] : []),
-    multipleStatements: true,
-  });
+  const getCon = (omitDB = false) =>
+    mysql.createConnection({
+      ..._.omit(config, omitDB ? ['database'] : []),
+      multipleStatements: true,
+    });
 
   const con = getCon(true);
 
   const compiledSQL = `${files
-    .map(f => ({
+    .map((f) => ({
       path: f,
       type: f.split('.').pop(),
       content: fs.readFileSync(`${__dirname}/${f}`, 'utf-8'),
     }))
-    .map(fx => (fx.type === 'sql' ? _parseSQL : _parseJSON)(fx))
+    .map((fx) => (fx.type === 'sql' ? _parseSQL : _parseJSON)(fx))
     .join(';\n')};`;
 
   await promisify(con.query.bind(con))(compiledSQL);
@@ -50,7 +51,7 @@ async function _load(config, files) {
   };
 }
 
-module.exports = dbConfig => {
+module.exports = (dbConfig) => {
   const client = knex({
     client: 'mysql',
     connection: {
@@ -62,6 +63,6 @@ module.exports = dbConfig => {
   return {
     destroyClient: () => client.destroy(),
     client,
-    load: files => _load(dbConfig, files),
+    load: (files) => _load(dbConfig, files),
   };
 };

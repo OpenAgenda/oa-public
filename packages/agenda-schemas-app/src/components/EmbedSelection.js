@@ -18,7 +18,8 @@ const messages = defineMessages({
   },
   memberInfo: {
     id: 'AgendaSchema.EmbedSelection.memberInfo',
-    defaultMessage: 'Members configuration. Add, remove, change order of member fields.',
+    defaultMessage:
+      'Members configuration. Add, remove, change order of member fields.',
   },
   memberInfoAsk: {
     id: 'AgendaSchema.EmbedSelection.memberInfoAsk',
@@ -30,12 +31,7 @@ const messages = defineMessages({
   },
 });
 
-export default ({
-  activeMenu,
-  onChange,
-  containerRef,
-  memberCredential,
-}) => {
+export default ({ activeMenu, onChange, containerRef, memberCredential }) => {
   const m = useIntl().formatMessage;
 
   const componentElem = useConstant(() => document.createElement('div'));
@@ -76,14 +72,17 @@ export default ({
               />
               {m(messages.member)}
               <div className="text-muted">{m(messages.memberInfo)}</div>
-              {!memberCredential
-                ? (
-                  <div className="text-muted">
-                    <p>{m(messages.notActivated)}</p>
-                    <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=memberSchema`}> {m(messages.memberInfoAsk)}</a>
-                  </div>
-                )
-                : null}
+              {!memberCredential ? (
+                <div className="text-muted">
+                  <p>{m(messages.notActivated)}</p>
+                  <a
+                    href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=memberSchema`}
+                  >
+                    {' '}
+                    {m(messages.memberInfoAsk)}
+                  </a>
+                </div>
+              ) : null}
             </label>
           </div>
         </div>

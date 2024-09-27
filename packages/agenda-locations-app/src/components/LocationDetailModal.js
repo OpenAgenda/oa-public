@@ -26,18 +26,19 @@ const LocationDetailModal = ({
   onEdit,
 }) => {
   const intl = useIntl();
-  const staticTiles = useSelector(state => state.settings.staticTiles);
+  const staticTiles = useSelector((state) => state.settings.staticTiles);
   const [detailedLocation, setDetailedLocation] = useState();
   const [removedLocation, setRemovedLocation] = useState(false);
 
   useEffect(() => {
-    fetch(`${res.get.replace(':locationUid', locationUid)}${res.get.includes('?') ? '&' : '?'}includeLinkedAgendas=true`)
-      .then(async response => {
-        if (!response.ok) return;
-        const data = await response.json();
-        if (data.location) setDetailedLocation(data.location);
-        else setRemovedLocation(true);
-      });
+    fetch(
+      `${res.get.replace(':locationUid', locationUid)}${res.get.includes('?') ? '&' : '?'}includeLinkedAgendas=true`,
+    ).then(async (response) => {
+      if (!response.ok) return;
+      const data = await response.json();
+      if (data.location) setDetailedLocation(data.location);
+      else setRemovedLocation(true);
+    });
   }, [res.get, locationUid]);
 
   if (detailedLocation) {
@@ -71,11 +72,7 @@ const LocationDetailModal = ({
       </Modal>
     );
   }
-  return (
-    <Spinner
-      page
-    />
-  );
+  return <Spinner page />;
 };
 
 export default LocationDetailModal;

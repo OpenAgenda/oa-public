@@ -43,7 +43,7 @@ function mergeEvent(
   const compiled = {};
 
   if (event && load.event) {
-    Object.keys(event).forEach(eventField => {
+    Object.keys(event).forEach((eventField) => {
       if (includeFields && !includeFields.includes(eventField)) {
         return;
       }
@@ -65,9 +65,9 @@ function mergeEvent(
   }
 
   [networkCustom, agendaCustom]
-    .filter(d => !!d)
-    .forEach(data => {
-      Object.keys(data).forEach(field => {
+    .filter((d) => !!d)
+    .forEach((data) => {
+      Object.keys(data).forEach((field) => {
         if (includeFields && !includeFields.includes(field)) {
           return;
         }
@@ -83,7 +83,8 @@ function mergeEvent(
       'aggregated',
       'canEdit',
       'motive',
-    ].forEach(aeField => {
+      'removed',
+    ].forEach((aeField) => {
       compiled[aeField] = agendaEvent[aeField];
     });
 
@@ -119,7 +120,7 @@ function mergeEvent(
 }
 
 function appendLocationSchema(schema, options = {}) {
-  const locationField = schema.fields.find(f => f.field === 'location');
+  const locationField = schema.fields.find((f) => f.field === 'location');
 
   const locationSchema = getLocationSchema({
     includeLegacyAdminLevels: options.includeLocationLegacyAdminLevels,

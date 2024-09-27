@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import abilities from '../src/service';
 import testconfig from '../testconfig';
-import db from './utils/db';
+import * as db from './utils/db';
 
 const database = `${testconfig.mysql.database}_getFormIndex`;
 
@@ -47,9 +47,11 @@ describe('getFormIndex', () => {
     const ability = await abilities.get('user', 99999999);
     const index = await ability.getFormIndex();
 
-    const strippedOfIds = index.map(i => ({
+    const strippedOfIds = index.map((i) => ({
       ..._.omit(i, ['id']),
-      relevantRule: i.relevantRule ? _.omit(i.relevantRule, ['id']) : i.relevantRule,
+      relevantRule: i.relevantRule
+        ? _.omit(i.relevantRule, ['id'])
+        : i.relevantRule,
     }));
 
     expect(strippedOfIds).toMatchSnapshot();
@@ -59,6 +61,6 @@ describe('getFormIndex', () => {
     const ability = await abilities.get('agenda', 48959239);
     const index = await ability.getFormIndex();
 
-    expect(index.map(i => _.omit(i, ['id']))).toMatchSnapshot();
+    expect(index.map((i) => _.omit(i, ['id']))).toMatchSnapshot();
   });
 });

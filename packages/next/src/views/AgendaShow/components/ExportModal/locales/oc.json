@@ -24,11 +24,13 @@
   "next.views.AgendaShow.ExportModal.locationName": "",
   "next.views.AgendaShow.ExportModal.login": "Mercés de vos connectar per accedir al ligam d'exportacion dirèctament a partir d'aqueste menut",
   "next.views.AgendaShow.ExportModal.openData": "Lo contengut d'aquesta agenda se pòt utilizar en seguissent lo <link>Principi de la donada obèrta</link>",
+  "next.views.AgendaShow.ExportModal.openInSamePage": "",
   "next.views.AgendaShow.ExportModal.outlookStep2": "Al pè de la pagina, seleccionatz l'icòna de calendièr",
   "next.views.AgendaShow.ExportModal.outlookStep3": "Dins lo panèl de navigacion, causissètz \"Apondre calendièr\"",
   "next.views.AgendaShow.ExportModal.outlookStep4": "Causissètz \"Soscriure a partir del web\"",
   "next.views.AgendaShow.ExportModal.outlookStep5": "Pegats l'URL que copièretz a l'etapa 1. Causissètz \"Impòrt\".",
   "next.views.AgendaShow.ExportModal.selectAll": "Seleccionar tot",
+  "next.views.AgendaShow.ExportModal.showFilters": "",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "",
   "next.views.AgendaShow.ExportModal.title": "Exportar"
 }

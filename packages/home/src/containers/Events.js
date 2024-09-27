@@ -111,9 +111,9 @@ class Events extends Component {
       });
     });
 
-  onSearch = value =>
+  onSearch = (value) =>
     this.setState(
-      prevState => ({
+      (prevState) => ({
         previousValue: prevState.value,
         value,
       }),
@@ -213,7 +213,7 @@ class Events extends Component {
                   classNameGroup="search"
                   className="form-control"
                   placeholder={getLabel('searchEvent')}
-                  action={value =>
+                  action={(value) =>
                     this.onSearch(value === '' ? undefined : value)}
                   loading={listLoading}
                   visible={this.fieldIsVisible()}
@@ -222,7 +222,7 @@ class Events extends Component {
               <div className="clearfix" />
               <ul className="list-unstyled padding-top-sm">
                 {events
-                  && events.map(event => (
+                  && events.map((event) => (
                     <EventItem
                       key={`event-${event.uid}`}
                       event={event}
@@ -270,7 +270,7 @@ class Events extends Component {
 
                         <div>
                           {state.agendas.length
-                            ? state.agendas.map(agenda => (
+                            ? state.agendas.map((agenda) => (
                               <AgendaItem
                                 key={agenda.uid}
                                 agenda={agenda}
@@ -337,7 +337,8 @@ export default withLayoutData('lang')(
         events: state.events.data,
         page: state.events.page,
         total: state.events.total,
-        loading: state.events.loading === undefined ? true : state.events.loading,
+        loading:
+          state.events.loading === undefined ? true : state.events.loading,
         listLoading: state.events.listLoading,
         nextLoading: state.events.nextLoading,
         perPageLimit: state.settings.perPageLimit,

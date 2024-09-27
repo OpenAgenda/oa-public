@@ -53,7 +53,7 @@ export default function validate(
   }
 
   const hasSomeActions = values.withActions
-    && values.actions?.some(v => !['', null, undefined].includes(v.field));
+    && values.actions?.some((v) => !['', null, undefined].includes(v.field));
 
   if (!hasSomeActions) {
     if (values.type === 'all') {
@@ -64,14 +64,14 @@ export default function validate(
   }
 
   aggregatorAgendaSchema.fields
-    .filter(v => v.fieldType !== 'abstract')
+    .filter((v) => v.fieldType !== 'abstract')
     .concat({
       field: 'state',
       optional: false,
     })
-    .forEach(fieldSchema => {
+    .forEach((fieldSchema) => {
       const aggActionIndex = values.actions?.findIndex(
-        v => v?.field && v.field === fieldSchema.field,
+        (v) => v?.field && v.field === fieldSchema.field,
       );
       const aggAction = values.actions?.[aggActionIndex];
 

@@ -1,8 +1,5 @@
 {
   "template": "basic",
   "title": "customizedTitle",
-  "points": [
-    "customizedChoice",
-    "customizedExportable"
-  ]
+  "points": ["customizedChoice", "customizedExportable"]
 }

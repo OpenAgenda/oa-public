@@ -5,19 +5,19 @@ export default function mergeSpreadRegistrationValues(spreadValues = {}) {
         ? {
           type: 'link',
           value:
-              spreadValues.OGValue.find(i => i.service === 'passCulture')
+              spreadValues.OGValue?.find((i) => i.service === 'passCulture')
                 ?.value || null,
           service: 'passCulture',
           data: spreadValues.passCulture,
           lastProcessedAt:
-              spreadValues.OGValue.find(i => i.service === 'passCulture')
+              spreadValues.OGValue?.find((i) => i.service === 'passCulture')
                 ?.lastProcessedAt || null,
         }
         : [],
     )
     .reduce(
       (deduped, item) =>
-        (deduped.find(d => d.value === item.value)
+        (deduped.find((d) => d.value === item.value)
           ? deduped
           : deduped.concat(item)),
       [],

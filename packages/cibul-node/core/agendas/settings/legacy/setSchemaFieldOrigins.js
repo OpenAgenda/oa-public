@@ -3,9 +3,7 @@ import ih from 'immutability-helper';
 import getSchema from '../getSchema.js';
 
 export default async (services, agenda, fieldNames = [], origin = null) => {
-  const {
-    formSchemas,
-  } = services;
+  const { formSchemas } = services;
 
   if (!fieldNames.length) {
     return {
@@ -21,15 +19,18 @@ export default async (services, agenda, fieldNames = [], origin = null) => {
     };
   }
 
-  const schemaFieldNames = schema.fields.map(f => f.field);
+  const schemaFieldNames = schema.fields.map((f) => f.field);
 
   const update = fieldNames
-    .map(f => schemaFieldNames.indexOf(f))
-    .reduce((update2, fieldIndex) => {
-      if (fieldIndex === -1) return update2;
+    .map((f) => schemaFieldNames.indexOf(f))
+    .reduce(
+      (update2, fieldIndex) => {
+        if (fieldIndex === -1) return update2;
 
-      return _.set(update2, `fields.${fieldIndex}.origin`, { $set: origin });
-    }, { fields: {} });
+        return _.set(update2, `fields.${fieldIndex}.origin`, { $set: origin });
+      },
+      { fields: {} },
+    );
 
   if (!_.keys(update.fields).length) {
     return {

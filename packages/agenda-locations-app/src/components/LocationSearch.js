@@ -23,7 +23,7 @@ const messages = defineMessages({
   },
 });
 
-const initialState = init => ({
+const initialState = (init) => ({
   showDropdown: false,
   page: 1,
   query: { search: init },
@@ -42,7 +42,7 @@ function reducer(state, action) {
         locations: action.locations,
         isLoading: false,
         hasNext: action.hasNext,
-        hasPrev: action.hasPrev
+        hasPrev: action.hasPrev,
       };
     case 'setQuery':
       return {
@@ -110,34 +110,44 @@ const LocationSearch = ({
     if (state.query.search !== undefined) params.append('search', state.query.search);
 
     fetch(`${res.index}${res.index.includes('?') ? '&' : '?'}${params}`)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) return;
         return response.json();
-      }).then(data => {
+      })
+      .then((data) => {
         dispatch({
           type: 'setResult',
           locations: data.items,
           hasNext: data.total > state.page * 10,
-          hasPrev: state.page !== 1
+          hasPrev: state.page !== 1,
         });
       });
   }, [state.query, state.from, state.page, res.index]);
 
-  const onFocus = value => {
+  const onFocus = (value) => {
     dispatch({ type: 'setQuery', query: { search: value } });
     dispatch({ type: 'showDropdown' });
   };
 
-  const getAdjacentPage = type => {
-    dispatch({ type: 'adjacentPages', page: type === 'prev' ? state.page - 1 : state.page + 1, from: type === 'prev' ? state.from - 10 : state.from + 10 });
+  const getAdjacentPage = (type) => {
+    dispatch({
+      type: 'adjacentPages',
+      page: type === 'prev' ? state.page - 1 : state.page + 1,
+      from: type === 'prev' ? state.from - 10 : state.from + 10,
+    });
   };
 
-  const renderEmpty = () => (<li className="no-search-result"><FormattedMessage {...messages.noResult} /></li>);
+  const renderEmpty = () => (
+    <li className="no-search-result">
+      <FormattedMessage {...messages.noResult} />
+    </li>
+  );
 
-  const renderNav = type => {
+  const renderNav = (type) => {
     if (type === 'next' ? state.hasNext : state.hasPrev) {
       return (
         <li
+          role="presentation"
           className="nav-item"
           onClick={() => getAdjacentPage(type)}
         >
@@ -148,8 +158,9 @@ const LocationSearch = ({
     return '';
   };
 
-  const renderItem = l => (
+  const renderItem = (l) => (
     <li
+      role="presentation"
       onClick={() => onSelect(l)}
       className="search-item"
       key={l.uid}
@@ -162,9 +173,7 @@ const LocationSearch = ({
   const renderCreateItem = () => {
     if (state.locations.length === 0) {
       return (
-        <li
-          className="no-search-button"
-        >
+        <li className="no-search-button">
           <button
             onClick={onCreateRequest.bind(null, state.query.search)}
             type="button"
@@ -177,10 +186,13 @@ const LocationSearch = ({
     }
     return (
       <li
+        role="presentation"
         className="search-item"
         onClick={onCreateRequest.bind(null, state.query.search)}
       >
-        <div><FormattedMessage {...messages.create} /></div>
+        <div>
+          <FormattedMessage {...messages.create} />
+        </div>
       </li>
     );
   };
@@ -192,8 +204,10 @@ const LocationSearch = ({
     >
       <SearchInput
         initValue={init}
-        placeholder={placeholder || intl.formatMessage(messages.namePlaceholder)}
-        onChange={v => dispatch({ type: 'setQuery', query: { search: v } })}
+        placeholder={
+          placeholder || intl.formatMessage(messages.namePlaceholder)
+        }
+        onChange={(v) => dispatch({ type: 'setQuery', query: { search: v } })}
         onFocus={onFocus}
       />
       {state.isLoading ? (

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useIntl, FormattedDate } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
 import fieldsMessages from '@openagenda/common-labels/event/fields';
@@ -10,7 +10,11 @@ import messages from '../messages/activities';
 import useSsr from '../hooks/useSSR';
 
 function getDiffFields(activity) {
-  const { contributorFields = [], moderatorFields = [], administratorFields = [] } = activity.store;
+  const {
+    contributorFields = [],
+    moderatorFields = [],
+    administratorFields = [],
+  } = activity.store;
   return [...contributorFields, ...moderatorFields, ...administratorFields];
 }
 
@@ -29,17 +33,20 @@ function getLocationFieldLabel(field, intl) {
     if (!locationFieldsMessages[field]) {
       console.log(`Missing message for field "${field}"`);
     }
-    return getLocaleValue(locationFieldsMessages[field], intl.locale).toLowerCase();
+    return getLocaleValue(
+      locationFieldsMessages[field],
+      intl.locale,
+    ).toLowerCase();
   }
   return getLocaleValue(field.label, intl.locale);
 }
 
 function defaultRenderHighlight(text) {
-  return <span className="activity-highlight">{text}</span>
+  return <span className="activity-highlight">{text}</span>;
 }
 
 function defaultRenderLink(link, text) {
-  return <a href={link}>{text}</a>
+  return <a href={link}>{text}</a>;
 }
 
 function renderTag({
@@ -50,7 +57,7 @@ function renderTag({
   entities,
   link,
   highlight,
-  filter,
+  filter: _filter,
   renderHighlight = defaultRenderHighlight,
   renderLink = defaultRenderLink,
 }) {
@@ -77,11 +84,17 @@ function renderTag({
   if (tagName === 'fields') {
     const diffFields = getDiffFields(activity);
     if (diffFields.length <= 3) {
-      return intl.formatList(diffFields.map(v => renderHighlight(getFieldLabel(v, intl))));
+      return intl.formatList(
+        diffFields.map((v) => renderHighlight(getFieldLabel(v, intl))),
+      );
     }
     return intl.formatList([
-      ...diffFields.slice(0, 3).map(v => renderHighlight(getFieldLabel(v, intl))),
-      renderHighlight(intl.formatMessage(messages.XOthers, { count: diffFields.length - 3 }))
+      ...diffFields
+        .slice(0, 3)
+        .map((v) => renderHighlight(getFieldLabel(v, intl))),
+      renderHighlight(
+        intl.formatMessage(messages.XOthers, { count: diffFields.length - 3 }),
+      ),
     ]);
   }
   // location update
@@ -92,22 +105,30 @@ function renderTag({
   if (tagName === 'locationFields') {
     const diffFields = getDiffFields(activity);
     if (diffFields.length <= 3) {
-      return intl.formatList(diffFields.map(v => renderHighlight(getLocationFieldLabel(v, intl))));
+      return intl.formatList(
+        diffFields.map((v) => renderHighlight(getLocationFieldLabel(v, intl))),
+      );
     }
     return intl.formatList([
-      ...diffFields.slice(0, 3).map(v => renderHighlight(getLocationFieldLabel(v, intl))),
-      renderHighlight(intl.formatMessage(messages.XOthers, { count: diffFields.length - 3 }))
+      ...diffFields
+        .slice(0, 3)
+        .map((v) => renderHighlight(getLocationFieldLabel(v, intl))),
+      renderHighlight(
+        intl.formatMessage(messages.XOthers, { count: diffFields.length - 3 }),
+      ),
     ]);
   }
   // location merge
   if (tagName === 'mergedOthers') {
-    return renderHighlight(intl.formatMessage(messages.XOthers, { count: entities.mergedCount }));
+    return renderHighlight(
+      intl.formatMessage(messages.XOthers, { count: entities.mergedCount }),
+    );
   }
   // agenda sendMessage
   if (tagName === 'recipientRoles') {
     const translatedRoles = Object.entries(activity.store.recipientRoles)
       .sort(([, a], [, b]) => b - a)
-      .map(([role, count]) => renderHighlight(formatXRole(intl, role, count)))
+      .map(([role, count]) => renderHighlight(formatXRole(intl, role, count)));
     return intl.formatList(translatedRoles);
   }
 
@@ -143,7 +164,8 @@ export default function ActivityItem({
       createFormatActivity({
         intl,
         activities: config,
-        renderTag: options => renderTag({ ...options, renderHighlight, renderLink }),
+        renderTag: (options) =>
+          renderTag({ ...options, renderHighlight, renderLink }),
       }),
     [config],
   );
@@ -154,17 +176,26 @@ export default function ActivityItem({
 
   if (Component) {
     return (
-      <Component formattedActivity={formattedActivity} activity={activity} isBrowser={isBrowser} />
+      <Component
+        formattedActivity={formattedActivity}
+        activity={activity}
+        isBrowser={isBrowser}
+      />
     );
   }
 
   return (
     <li>
-      <span className="activity-info activity-item">
-        {formattedActivity}
-      </span>
-      <span className="activity-time" style={{ visibility: isBrowser ? 'visible' : 'hidden' }}>
-        <FormattedDate value={activity.createdAt} dateStyle="long" timeStyle="short" />
+      <span className="activity-info activity-item">{formattedActivity}</span>
+      <span
+        className="activity-time"
+        style={{ visibility: isBrowser ? 'visible' : 'hidden' }}
+      >
+        <FormattedDate
+          value={activity.createdAt}
+          dateStyle="long"
+          timeStyle="short"
+        />
       </span>
     </li>
   );

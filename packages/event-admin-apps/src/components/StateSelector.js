@@ -5,7 +5,7 @@ const { defaultStyles: defaultReactSelectStyles } = ReactSelectInput;
 
 const stateSelectStyles = {
   ...defaultReactSelectStyles,
-  container: provided => ({
+  container: (provided) => ({
     ...provided,
     display: 'inline-block',
   }),
@@ -23,7 +23,7 @@ const stateSelectStyles = {
     ...defaultReactSelectStyles.valueContainer(provided, state),
     padding: 0,
   }),
-  singleValue: provided => ({
+  singleValue: (provided) => ({
     ...provided,
     top: 0,
     transform: 'none',
@@ -31,12 +31,12 @@ const stateSelectStyles = {
     overflow: 'visible',
     marginRight: 0,
   }),
-  option: provided => ({
+  option: (provided) => ({
     ...provided,
     cursor: 'pointer',
     display: 'flex',
   }),
-  dropdownIndicator: provided => ({
+  dropdownIndicator: (provided) => ({
     ...provided,
     padding: 0,
     verticalAlign: 'middle',
@@ -48,7 +48,7 @@ const stateSelectStyles = {
     ...defaultReactSelectStyles.menu(provided, state),
     minWidth: '150px',
   }),
-  placeholder: provided => ({
+  placeholder: (provided) => ({
     ...provided,
     position: 'relative',
     transform: 'none',
@@ -59,17 +59,15 @@ const stateSelectStyles = {
 export default function StateSelector({ value, onChange, ...otherProps }) {
   const stateOptions = useMemo(
     () =>
-      [-1, 0, 1, 2].map(v => ({
-        label: (
-          <EventState value={v} />
-        ),
+      [-1, 0, 1, 2].map((v) => ({
+        label: <EventState value={v} />,
         value: v,
       })),
     [],
   );
 
   const selectValue = useMemo(
-    () => stateOptions.find(o => o.value === value),
+    () => stateOptions.find((o) => o.value === value),
     [value, stateOptions],
   );
 
