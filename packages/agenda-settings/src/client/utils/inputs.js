@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
+import { MarkdownComponent } from '@openagenda/react-shared';
 import classNames from 'classnames';
 import I18nContext from '../contexts/I18nContext';
 
