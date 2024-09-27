@@ -41,12 +41,14 @@
     "@floating-ui/react": "^0.26.13",
     "@openagenda/common-labels": "^1.0.0",
     "@openagenda/intl": "^1.1.3",
+    "@openagenda/md": "^1.0.0",
     "axios": "^0.21.1",
     "bytes": "^3.1.0",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
     "history": "^4.10.1",
     "hoist-non-react-statics": "^3.3.1",
+    "load-script": "^2.0.0",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "qs": "^6.9.1",
@@ -60,7 +62,8 @@
     "react-use": "^17.3.2",
     "react-waypoint": "^9.0.2",
     "redial": "^0.5.0",
-    "shallowequal": "^1.1.0"
+    "shallowequal": "^1.1.0",
+    "turndown": "^7.1.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",

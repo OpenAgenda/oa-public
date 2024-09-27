@@ -21,4 +21,5 @@ export { default as Dropdown } from './Dropdown';
 export { default as AuthenticateAndConfirm } from './AuthenticateAndConfirm';
 export { default as Accordion } from './Accordion';
 export { default as EventState } from './EventState';
+export { default as MarkdownComponent } from './MarkdownComponent';
 export * as bodyScroll from './body-scroll';
