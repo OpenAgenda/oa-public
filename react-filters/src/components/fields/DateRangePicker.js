@@ -67,6 +67,9 @@ function DateRangePicker(
     className,
     dateFormatStyle,
     dateFormat,
+    minDate,
+    maxDate,
+    shownDate,
     ...otherProps
   },
   ref,
@@ -185,6 +188,9 @@ function DateRangePicker(
     focusedRange,
     onRangeFocusChange: setFocusedRange,
     rangeColors: [rangeColor],
+    minDate: minDate ? new Date(minDate) : undefined,
+    maxDate: maxDate ? new Date(maxDate) : undefined,
+    shownDate: shownDate ? new Date(shownDate) : undefined,
     ...otherProps,
   };
 
