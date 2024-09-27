@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import { Spinner } from '@openagenda/react-shared';
-import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
 
 const searchSpinner = {
   width: 1,
@@ -143,20 +142,6 @@ export function renderSearchInput({
       </button>
     </div>
   );
-
-  return renderField({ content, ...props });
-}
-
-export function renderMarkdownInput({
-  lang = 'fr',
-  label,
-  placeholder,
-  className,
-  ...props
-}) {
-  const inputAttrs = { lang, placeholder, label, className };
-
-  const content = <MarkdownComponent {...props.input} {...inputAttrs} />;
 
   return renderField({ content, ...props });
 }
