@@ -66,7 +66,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(otf|ttf|eot|woff|woff2|svg)$/,
+        test: /\.(otf|ttf|eot|woff|woff2)$/,
         loader: require.resolve('file-loader'),
         options: {
           name: '[name].[contenthash:8].[ext]',
