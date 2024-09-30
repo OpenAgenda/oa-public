@@ -172,7 +172,6 @@ function DateRangePicker(
       )
     ) {
       setRanges(input.value);
-      // TODO fix this
       if (shownDate) {
         setTimeout(() =>
           dateRangeRef.current.calendar.focusToDate(new Date(shownDate)));

@@ -5,6 +5,7 @@ import {
   DateRangeFilter,
   ChoiceFilter,
   NumberRangeFilter,
+  ActiveFilters,
 } from '../src';
 
 require('./scss/main.scss');
@@ -81,6 +82,26 @@ export const FilterByFilter = ({ onSubmit }) => (
               dateFormatStyle="php"
             />
             <ChoiceFilter name="state" getOptions={() => filters[3].options} />
+          </div>
+        </div>
+      </div>
+    </FiltersProvider>
+  </IntlProvider>
+);
+
+export const FocusedDateRange = ({ onSubmit }) => (
+  <IntlProvider locale={lang}>
+    <FiltersProvider onSubmit={onSubmit}>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-4">
+            <ActiveFilters filters={[{ name: 'timings', type: 'dateRange' }]} />
+            <DateRangeFilter
+              name="timings"
+              minDate="2024-10-23T12:00:00.000Z"
+              maxDate="2024-10-27T12:00:00.000Z"
+              shownDate="2024-10-23T12:00:00.000Z"
+            />
           </div>
         </div>
       </div>
