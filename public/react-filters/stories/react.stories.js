@@ -1,3 +1,4 @@
+import dateFnsLocale from 'date-fns/locale/fr';
 import {
   IntlProvider,
   FiltersProvider,
@@ -91,7 +92,7 @@ export const FilterByFilter = ({ onSubmit }) => (
 
 export const FocusedDateRange = ({ onSubmit }) => (
   <IntlProvider locale={lang}>
-    <FiltersProvider onSubmit={onSubmit}>
+    <FiltersProvider onSubmit={onSubmit} dateFnsLocale={dateFnsLocale}>
       <div className="container">
         <div className="row">
           <div className="col-sm-4">

@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import isDate from 'lodash/isDate';
 import React, { useCallback, useState } from 'react';
-import { DefinedRange } from 'react-date-range';
+import { DefinedRange } from '@openagenda/react-date-range';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 
 const defaultGetInitialValue = () => [

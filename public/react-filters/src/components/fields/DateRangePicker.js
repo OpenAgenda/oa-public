@@ -2,9 +2,10 @@ import isEqual from 'lodash/isEqual';
 import isDate from 'lodash/isDate';
 import React, { useCallback, useMemo, useState, useContext } from 'react';
 import { useIntl } from 'react-intl';
-import { DateRange, DefinedRange } from 'react-date-range';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
+import dateFnsLocaleEN from 'date-fns/locale/en-US';
+import { DateRange, DefinedRange } from '@openagenda/react-date-range';
 import { getFallbackChain } from '@openagenda/intl';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext';
@@ -172,10 +173,6 @@ function DateRangePicker(
       )
     ) {
       setRanges(input.value);
-      if (shownDate) {
-        setTimeout(() =>
-          dateRangeRef.current.calendar.focusToDate(new Date(shownDate)));
-      }
     }
   }, [input.value, previousValue, latestRanges, dateRangeRef, shownDate]);
 
@@ -186,7 +183,7 @@ function DateRangePicker(
     months: 1,
     ranges,
     direction: 'horizontal',
-    locale: dateFnsLocale,
+    locale: dateFnsLocale || dateFnsLocaleEN,
     staticRanges,
     inputRanges,
     focusedRange,
