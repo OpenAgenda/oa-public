@@ -83,6 +83,7 @@
   "EventAdminApp.messages.exports.toICS": "ics",
   "EventAdminApp.messages.exports.toJSON": "json",
   "EventAdminApp.messages.exports.toMD": "md",
+  "EventAdminApp.messages.exports.toPDF": "to PDF",
   "EventAdminApp.messages.exports.toRSS": "rss",
   "EventAdminApp.messages.exports.toSpreadsheet": "to spreadsheet (csv / xlsx)",
   "EventAdminApp.messages.exports.toTXT": "txt",
