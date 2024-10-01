@@ -124,7 +124,7 @@ MyDocument.getInitialProps = async (
   const responseCookies = new ResponseCookies(responseHeaders);
 
   const outdatedBrowser = responseCookies.get('outdatedBrowser')?.value === 'true'
-    || cookies.get('outdatedBrowser') === 'true';
+    || cookies.get('outdatedBrowser') === true;
 
   // CSP
   let nonce = responseHeaders.get('X-Nonce');

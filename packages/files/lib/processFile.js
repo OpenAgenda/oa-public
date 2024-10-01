@@ -173,13 +173,13 @@ module.exports = async function processFile(
         .then(async () => {
           response.filename = await variant.getFilename(response, ctx);
 
-          response.existedBefore = await provider.exists(response.filename);
-
           if (typeof variant.transform === 'function') {
             response.stream = await variant.transform(response, ctx);
           }
 
           const variantStream = response.stream.pipe(pass);
+
+          response.existedBefore = await provider.exists(response.filename);
 
           const managedUpload = provider.upload(
             variantStream,

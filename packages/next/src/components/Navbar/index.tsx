@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
-import { Button, Container, Flex, Link } from '@openagenda/uikit';
+import { Container, Flex } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/NavbarSearchInput';
@@ -14,10 +14,8 @@ import HelpButton from './HelpButton';
 import ProfileLoader from './ProfileLoader';
 import ProfileMenu from './ProfileMenu';
 import useSearch from './useSearch';
-import messages from './messages';
 
 function ProfileBar({ portalRef }) {
-  const intl = useIntl();
   const { user, status } = useUser();
 
   if (status === FetchStatus.Fetching) {
@@ -26,36 +24,7 @@ function ProfileBar({ portalRef }) {
 
   // TODO error?.response?.status != 401 THEN toast error
 
-  // Authenticated
-  if (user) {
-    return <ProfileMenu portalRef={portalRef} user={user} />;
-  }
-
-  // Not authenticated
-  return (
-    <>
-      <Button
-        as={Link}
-        href={hrefWithLang('/signin', intl.locale)}
-        variant="link"
-        colorScheme="primary"
-        px="4"
-        alignItems="center"
-      >
-        {intl.formatMessage(messages.signIn)}
-      </Button>
-      <Button
-        as={Link}
-        href={hrefWithLang('/signup', intl.locale)}
-        variant="link"
-        colorScheme="primary"
-        px="4"
-        alignItems="center"
-      >
-        {intl.formatMessage(messages.signUp)}
-      </Button>
-    </>
-  );
+  return <ProfileMenu portalRef={portalRef} user={user} />;
 }
 
 export default function Navbar() {

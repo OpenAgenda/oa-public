@@ -52,7 +52,10 @@ export default function useClientAnalytics(
       matomoCustom,
     } = trackingSettings;
 
-    if (!storageAvailable || (googleAnalytics && gaConsent === 'true')) {
+    if (
+      !storageAvailable
+      || (googleAnalytics && (gaConsent === true || gaConsent === 'true'))
+    ) {
       addGoogleAnalyticsTracker({ googleAnalyticsID: googleAnalytics });
     }
 
@@ -60,7 +63,8 @@ export default function useClientAnalytics(
       if (
         !storageAvailable
         || !matomoAskForConsent
-        || (matomoAskForConsent && matomoConsent === 'true')
+        || (matomoAskForConsent
+          && (matomoConsent === true || matomoConsent === 'true'))
       ) {
         addMatomoClientTracker({ matomoUrl, matomoSiteId, matomoCustom });
       }
