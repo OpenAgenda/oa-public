@@ -15,9 +15,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "Jeu"
-        ]
+        "fr": ["Jeu"]
       },
       "conditions": {
         "fr": "Inscriptions directement à la bibliothèque ou par téléphone.",
@@ -74,9 +72,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "01 60 0 5 60 55"
-      ],
+      "registration": ["01 60 0 5 60 55"],
       "location": {
         "uid": 43924013,
         "slug": "mediatheque-du-ru-de-nesles592",
@@ -110,12 +106,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -257,19 +249,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "20005267800014",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -406,19 +392,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "200052667800014",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -555,12 +535,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -616,10 +592,7 @@
         "en": "Games devised by the students of the CDI club will be offered to registered students (from 6th to 3rd). They will be arranged on different tables and participants will be able to test them one after the other. All the games will share the theme of the comic book."
       },
       "keywords": {
-        "fr": [
-          "Jeux",
-          "BD"
-        ]
+        "fr": ["Jeux", "BD"]
       },
       "conditions": {
         "fr": "30 élèves maximum",
@@ -659,9 +632,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 74 86 28 38"
-      ],
+      "registration": ["04 74 86 28 38"],
       "location": {
         "uid": 76740816,
         "slug": "cdi-du-college-jeanne-darc",
@@ -696,12 +667,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
       "si-autre-precisez": null,
@@ -823,12 +790,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -884,9 +847,7 @@
         "en": "Treasure hunt of type track game in the media library with theme comic book and its characters."
       },
       "keywords": {
-        "fr": [
-          "bd chasse aux trésors jeu de piste"
-        ]
+        "fr": ["bd chasse aux trésors jeu de piste"]
       },
       "conditions": {
         "fr": "Nombre limité de places, sur inscription",
@@ -943,9 +904,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "0495511150"
-      ],
+      "registration": ["0495511150"],
       "location": {
         "uid": 73103499,
         "slug": "mediatheque-sampiero327",
@@ -979,12 +938,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1112,9 +1067,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "prospection@ferrailleprod.com"
-      ],
+      "registration": ["prospection@ferrailleprod.com"],
       "location": {
         "uid": 3114859,
         "slug": "mediatheque-francoise-sagan795",
@@ -1148,17 +1101,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": "Médiathèque Françoise Sagan, Point Éphémère, Galerie d'Art, Espace Jemmapes, Le Louvre, Canal de l'Ourcq",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "509 494 902 00034",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1206,9 +1155,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "Japon Mangas"
-        ]
+        "fr": ["Japon Mangas"]
       },
       "conditions": {
         "fr": "Inscriptions directement à la bibliothèque ou par téléphone.",
@@ -1269,9 +1216,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "01 60 37 78 90"
-      ],
+      "registration": ["01 60 37 78 90"],
       "location": {
         "uid": 93986877,
         "slug": "mediatheque-du-segrais799",
@@ -1305,12 +1250,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1366,10 +1307,7 @@
         "en": "Guided by Michel Falardeau’s drawings, which symbolize the stages of comic book writing, discover or rediscover the codes that govern the 9th art and learn the indispensable steps that make it possible to create in comic book."
       },
       "keywords": {
-        "fr": [
-          "exposition",
-          "bande dessinée"
-        ]
+        "fr": ["exposition", "bande dessinée"]
       },
       "conditions": {},
       "image": {
@@ -1457,12 +1395,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,

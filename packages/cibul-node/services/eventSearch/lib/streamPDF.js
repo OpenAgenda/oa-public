@@ -1,24 +1,24 @@
 export default function streamPDF(config, req, res) {
   const {
-    services: {
-      pdfExports,
-    },
+    services: { pdfExports },
   } = req.app;
 
-  const {
-    withImageLimit = 200,
-  } = config;
+  const { withImageLimit = 200 } = config;
 
-  req.search(req.searchQuery, { size: 0 }, req.searchOptions).then(({ total }) => {
-    pdfExports.GenerateExportStream(req.stream, res, {
-      agenda: req.agenda,
-      includeEventImages: total < withImageLimit,
-      mode: ['locationName', 'city'].includes(req.query.mode) ? req.query.mode : undefined,
-    });
+  req
+    .search(req.searchQuery, { size: 0 }, req.searchOptions)
+    .then(({ total }) => {
+      pdfExports.GenerateExportStream(req.stream, res, {
+        agenda: req.agenda,
+        includeEventImages: total < withImageLimit,
+        mode: ['locationName', 'city'].includes(req.query.mode)
+          ? req.query.mode
+          : undefined,
+      });
 
-    res.writeHead(200, {
-      'Content-Type': 'application/pdf',
-      'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.pdf"`,
+      res.writeHead(200, {
+        'Content-Type': 'application/pdf',
+        'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.pdf"`,
+      });
     });
-  });
 }

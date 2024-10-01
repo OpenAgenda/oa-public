@@ -1,9 +1,5 @@
-'use strict';
-
 const { BodyComponent } = require('mjml-core');
-const {
-  fromMarkdownToHTML,
-} = require('@openagenda/md');
+const { fromMarkdownToHTML } = require('@openagenda/md');
 const dedent = require('dedent');
 
 class MjMarkdown extends BodyComponent {
@@ -31,7 +27,8 @@ class MjMarkdown extends BodyComponent {
   */
   render() {
     return `
-      <div ${this.htmlAttributes({ // this.htmlAttributes() is the recommended way to pass attributes to html tags
+      <div ${this.htmlAttributes({
+    // this.htmlAttributes() is the recommended way to pass attributes to html tags
     class: this.getAttribute('css-class'),
     style: 'wrapperDiv', // This will add the 'wrapperDiv' attributes from getStyles() as inline style
   })}>

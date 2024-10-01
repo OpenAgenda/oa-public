@@ -107,9 +107,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -252,9 +250,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -370,9 +366,7 @@
         "min": 18,
         "max": 30
       },
-      "registration": [
-        "http://historyboards.org/prix_jeune_auteur_bd_2020/"
-      ],
+      "registration": ["http://historyboards.org/prix_jeune_auteur_bd_2020/"],
       "location": {
         "uid": 13036544,
         "slug": "universite854",
@@ -406,9 +400,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Collectif HistoryBoards Projet Europe creative",
       "type-de-structure": 636,
@@ -517,9 +509,7 @@
         "min": 15,
         "max": 99
       },
-      "registration": [
-        "martine@laboate.com"
-      ],
+      "registration": ["martine@laboate.com"],
       "location": {
         "uid": 55194813,
         "slug": "bibliotheque-mejanes545",
@@ -553,9 +543,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Collectif Historyboards - Projet Europe creative",
       "type-de-structure": 636,
@@ -692,9 +680,7 @@
         "min": 15,
         "max": 99
       },
-      "registration": [
-        "martine@laboate.com"
-      ],
+      "registration": ["martine@laboate.com"],
       "location": {
         "uid": 55194813,
         "slug": "bibliotheque-mejanes545",
@@ -728,12 +714,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
       "si-autre-precisez": "Collectif HistoryBoards - Programme Europe creative",
@@ -917,9 +899,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -1072,9 +1052,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -1248,9 +1226,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1424,9 +1400,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1572,9 +1546,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,

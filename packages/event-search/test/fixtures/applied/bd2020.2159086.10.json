@@ -135,9 +135,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "01-60-56-04-70"
-      ],
+      "registration": ["01-60-56-04-70"],
       "location": {
         "uid": 10196542,
         "slug": "mediatheque-astrolabe237",
@@ -171,12 +169,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -304,9 +298,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "01-64-09-72-92"
-      ],
+      "registration": ["01-64-09-72-92"],
       "location": {
         "uid": 56750046,
         "slug": "la-boussole-2-rue-claude-bernard-77000-melun",
@@ -340,12 +332,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -575,12 +563,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -719,12 +703,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -835,10 +815,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "contact@astrolabe-melun.fr",
-        "01-60-56-04-70"
-      ],
+      "registration": ["contact@astrolabe-melun.fr", "01-60-56-04-70"],
       "location": {
         "uid": 10196542,
         "slug": "mediatheque-astrolabe237",
@@ -872,12 +849,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -988,10 +961,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "contact@astrolabe-melun.fr",
-        "01-60-56-04-70"
-      ],
+      "registration": ["contact@astrolabe-melun.fr", "01-60-56-04-70"],
       "location": {
         "uid": 10196542,
         "slug": "mediatheque-astrolabe237",
@@ -1025,12 +995,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1138,10 +1104,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "contact@astrolabe-melun.fr",
-        "01-60-56-04-70"
-      ],
+      "registration": ["contact@astrolabe-melun.fr", "01-60-56-04-70"],
       "location": {
         "uid": 10196542,
         "slug": "mediatheque-astrolabe237",
@@ -1175,12 +1138,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1319,12 +1278,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48 H BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1481,9 +1436,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "01-60-56-04-70"
-      ],
+      "registration": ["01-60-56-04-70"],
       "location": {
         "uid": 10196542,
         "slug": "mediatheque-astrolabe237",
@@ -1517,12 +1470,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1681,12 +1630,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
       "type-de-structure": 623,
       "si-autre-precisez": null,

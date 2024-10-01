@@ -1,33 +1,35 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
+const choice = require('@openagenda/validators/choice');
+const text = require('@openagenda/validators/text');
+const number = require('@openagenda/validators/number');
+const pass = require('@openagenda/validators/pass');
 
-schema.register( {
-  choice: require( '@openagenda/validators/choice' ),
-  text: require( '@openagenda/validators/text' ),
-  number: require( '@openagenda/validators/number' ),
-  pass: require( '@openagenda/validators/pass' )
-} );
+schema.register({
+  choice,
+  text,
+  number,
+  pass,
+});
 
-module.exports = args => {
-
-  const validate = schema( {
+module.exports = (args) => {
+  const validate = schema({
     query: {
-      type: 'pass'
+      type: 'pass',
     },
     offset: {
       type: 'number',
-      default: 0
+      default: 0,
     },
     limit: {
       type: 'number',
-      default: 20
+      default: 20,
     },
     options: {
-      type: 'pass'
-    }
-  } );
+      type: 'pass',
+    },
+  });
 
-  return validate( args );
-
+  return validate(args);
 };

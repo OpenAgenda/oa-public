@@ -16,7 +16,7 @@ global.__CLIENT__ = false;
 global.__SERVER__ = true;
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
-module.exports = router => {
+module.exports = (router) => {
   if (['development', 'test'].includes(process.env.NODE_ENV)) {
     router.use(morgan('dev'));
   }
@@ -80,9 +80,9 @@ module.exports = router => {
     const reg = new RegExp(search, 'i');
 
     const members = memberListResult.members.filter(
-      v =>
-        (v.custom.contactName && v.custom.contactName.match(reg))
-        || (v.user.fullName && v.user.fullName.match(reg)),
+      (v) =>
+        (v.custom.contactName && v.custom.contactName.match(reg)) ||
+        (v.user.fullName && v.user.fullName.match(reg)),
     );
     const total = members.length;
 
@@ -99,7 +99,8 @@ module.exports = router => {
         contributor: 14,
         administrator: 3,
       },
-    }));
+    }),
+  );
 
   router.patch(
     '/update/:id',
@@ -147,7 +148,7 @@ module.exports = router => {
     console.log('received %j', req.body);
 
     const memberIndex = memberListResult.members.findIndex(
-      m => m.userUid === parseInt(req.params.userUid, 10),
+      (m) => m.userUid === parseInt(req.params.userUid, 10),
     );
 
     let data;
@@ -186,7 +187,7 @@ module.exports = router => {
 
   router.get('/api/agendas/:agendaUid/members/:userUid', (req, res) => {
     const legacyFormatMember = memberListResult.members.find(
-      m => m.userUid === parseInt(req.params.userUid, 10),
+      (m) => m.userUid === parseInt(req.params.userUid, 10),
     );
 
     const map = {

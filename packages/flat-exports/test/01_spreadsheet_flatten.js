@@ -7,14 +7,16 @@ const event = require('./fixtures/sortir-a-boulogne-billancourt.json');
 const formSchema = require('./fixtures/formSchema.json');
 
 const simpleFormSchema = {
-  fields: [{
-    field: 'description',
-    fieldType: 'text',
-    languages: [],
-    label: {
-      fr: 'Chapô',
+  fields: [
+    {
+      field: 'description',
+      fieldType: 'text',
+      languages: [],
+      label: {
+        fr: 'Chapô',
+      },
     },
-  }],
+  ],
 };
 
 describe('flat-exports - unit - spreadsheet_flatten', () => {
@@ -35,14 +37,15 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     });
 
     test('flatten registration info', () => {
-      expect(flat.Inscription).toEqual('http://www.cnjeu.fr/, 0145707532, reservation@email.com');
+      expect(flat.Inscription).toEqual(
+        'http://www.cnjeu.fr/, 0145707532, reservation@email.com',
+      );
     });
 
     test('dateRange is part of result', () => {
       expect(
-        Object.keys(flat)
-          .filter(item =>
-            ['Résumé horaires - FR', 'Résumé horaires - EN'].includes(item)).length,
+        Object.keys(flat).filter((item) =>
+          ['Résumé horaires - FR', 'Résumé horaires - EN'].includes(item)).length,
       ).toEqual(2);
     });
 
@@ -60,7 +63,9 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     });
 
     test('permalink is part of result', () => {
-      expect(flat.Permalien).toEqual('https://openagenda.com/agendas/49692513/events/67651180');
+      expect(flat.Permalien).toEqual(
+        'https://openagenda.com/agendas/49692513/events/67651180',
+      );
     });
   });
 
@@ -83,7 +88,11 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         languages: ['fr'],
         labels,
         formSchema,
-        includeFields: ['location.uid', 'location.types-de-lieu', 'location.phone'],
+        includeFields: [
+          'location.uid',
+          'location.types-de-lieu',
+          'location.phone',
+        ],
       });
 
       const flat = flatten(event);
@@ -139,8 +148,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       const flat = flatten(event);
 
       expect(
-        Object.keys(flat)
-          .filter(item => ['Résumé horaires'].includes(item))
+        Object.keys(flat).filter((item) => ['Résumé horaires'].includes(item))
           .length,
       ).toEqual(1);
     });
@@ -154,7 +162,9 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       });
 
       const flat = flatten(event);
-      expect(flat['Lieu: Types de lieu']).toBe('Lieu de spectacles, sports et loisirs');
+      expect(flat['Lieu: Types de lieu']).toBe(
+        'Lieu de spectacles, sports et loisirs',
+      );
     });
 
     test('spreadFields option distributes additional fields values in one column each', () => {
@@ -171,7 +181,9 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       expect(flat["Type d'événement: Atelier"]).toEqual('Atelier');
       expect(flat["Type d'événement: Exposition"]).toEqual('');
       expect(flat['Lieu: Types de lieu: Archives']).toEqual('');
-      expect(flat['Lieu: Types de lieu: Lieu de spectacles, sports et loisirs']).toEqual('Lieu de spectacles, sports et loisirs');
+      expect(
+        flat['Lieu: Types de lieu: Lieu de spectacles, sports et loisirs'],
+      ).toEqual('Lieu de spectacles, sports et loisirs');
     });
 
     test('optioned additional field provides values in requested language', () => {
@@ -180,21 +192,25 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         languages: ['fr'],
         labels,
         formSchema: {
-          fields: [{
-            field: 'category',
-            fieldType: 'radio',
-            label: {
-              fr: 'Catégorie',
-            },
-            options: [{
-              id: 1,
-              value: 'nap',
+          fields: [
+            {
+              field: 'category',
+              fieldType: 'radio',
               label: {
-                fr: 'Sieste',
-                en: 'Nap',
+                fr: 'Catégorie',
               },
-            }],
-          }],
+              options: [
+                {
+                  id: 1,
+                  value: 'nap',
+                  label: {
+                    fr: 'Sieste',
+                    en: 'Nap',
+                  },
+                },
+              ],
+            },
+          ],
         },
       });
 
@@ -212,22 +228,27 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         labels,
         separator: ' 😊 ',
         formSchema: {
-          fields: [{
-            field: 'categories',
-            fieldType: 'checkbox',
-            label: {
-              fr: 'Catégories',
+          fields: [
+            {
+              field: 'categories',
+              fieldType: 'checkbox',
+              label: {
+                fr: 'Catégories',
+              },
+              options: [
+                {
+                  id: 1,
+                  value: 'fork',
+                  label: 'Fourchette',
+                },
+                {
+                  id: 2,
+                  value: 'toe',
+                  label: 'Orteil',
+                },
+              ],
             },
-            options: [{
-              id: 1,
-              value: 'fork',
-              label: 'Fourchette',
-            }, {
-              id: 2,
-              value: 'toe',
-              label: 'Orteil',
-            }],
-          }],
+          ],
         },
       });
 
@@ -246,15 +267,17 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         includeFields: ['accessibility'],
         includeLanguages: ['fr'],
         formSchema: {
-          fields: [{
-            field: 'accessibility',
-            fieldType: 'accessibility',
-            label: {
-              fr: 'Accessibilité particulière',
-              en: 'Accessibilité particulière',
+          fields: [
+            {
+              field: 'accessibility',
+              fieldType: 'accessibility',
+              label: {
+                fr: 'Accessibilité particulière',
+                en: 'Accessibilité particulière',
+              },
+              schemaType: 'event',
             },
-            schemaType: 'event',
-          }],
+          ],
         },
       });
 
@@ -281,7 +304,13 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         lang: 'fr',
         languages: ['fr', 'en'],
         labels,
-        includeFields: ['permalink', 'uid', 'timings', 'type-devenement', 'location.name'],
+        includeFields: [
+          'permalink',
+          'uid',
+          'timings',
+          'type-devenement',
+          'location.name',
+        ],
         includeLanguages: ['fr'],
         formSchema,
       });
@@ -299,10 +328,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         {
           hasOptions: false,
           source: 'timings',
-          target: [
-            'Horaires ISO',
-            'Horaires détaillés - FR',
-          ],
+          target: ['Horaires ISO', 'Horaires détaillés - FR'],
         },
         {
           hasOptions: true,

@@ -62,7 +62,7 @@ function _loadTagGroups(req, res, next) {
 
   if (!req.agenda) return next();
 
-  getTagSet(req.agenda.id).then(tagSet => {
+  getTagSet(req.agenda.id).then((tagSet) => {
     req.agenda.tagSet = tagSet;
     next();
   }, next);
@@ -121,7 +121,7 @@ function show(req, res) {
     },
     { private: null, internal: true },
     (err, agenda) => {
-      req.templateData = produce(req.templateData, draft => {
+      req.templateData = produce(req.templateData, (draft) => {
         draft.tiles = config.tiles;
 
         draft.agenda = {
@@ -280,7 +280,7 @@ function _formatEventItem(event, req, cb) {
       organization: organization ? organization.label : null,
     },
     favorite: cmn.favoriteLinkHTML(inst.uid),
-    location: _.mapValues(_.first(inst.locations), value =>
+    location: _.mapValues(_.first(inst.locations), (value) =>
       (_.isObject(value) ? _.get(value, req.lang) : value)),
   });
 
@@ -366,7 +366,7 @@ function _loadAgendaByAgendaId(req, res, next) {
 }
 
 function _formatShowLinks(req, res, next) {
-  req.templateData.events.forEach(e => {
+  req.templateData.events.forEach((e) => {
     const params = {
       lang: req.lang,
     };
@@ -399,7 +399,7 @@ function _formatEmbedHeadLinks(req, res, next) {
 }
 
 function _formatEmbedLinks(req, res, next) {
-  req.templateData.events.forEach(e => {
+  req.templateData.events.forEach((e) => {
     const params = { lang: req.lang };
 
     if (req.query.fb) params.fb = 1;
@@ -420,7 +420,7 @@ function _formatEmbedLinks(req, res, next) {
     }
 
     if (e.tags) {
-      e.tags.forEach(t => {
+      e.tags.forEach((t) => {
         t.link = req.genUrl('agendaEmbedShow', {
           uid: req.params.uid,
           oaq: {
@@ -431,8 +431,8 @@ function _formatEmbedLinks(req, res, next) {
     }
 
     if (e.tagGroups) {
-      e.tagGroups.forEach(tg => {
-        tg.tags.forEach(t => {
+      e.tagGroups.forEach((tg) => {
+        tg.tags.forEach((t) => {
           t.link = req.genUrl('agendaEmbedShow', {
             uid: req.params.uid,
             oaq: {
@@ -448,7 +448,7 @@ function _formatEmbedLinks(req, res, next) {
 }
 
 function _formatCustomEmbedLinks(req, res, next) {
-  req.templateData.events.forEach(e => {
+  req.templateData.events.forEach((e) => {
     const params = {
       lang: req.lang,
     };
@@ -478,7 +478,7 @@ function _formatCustomEmbedLinks(req, res, next) {
     }
 
     if (e.tags) {
-      e.tags.forEach(t => {
+      e.tags.forEach((t) => {
         t.link = req.genUrl(
           req.preview ? 'customEmbedShowPreview' : 'customEmbedShow',
           {
@@ -495,8 +495,8 @@ function _formatCustomEmbedLinks(req, res, next) {
     }
 
     if (e.tagGroups) {
-      e.tagGroups.forEach(tg => {
-        tg.tags.forEach(t => {
+      e.tagGroups.forEach((tg) => {
+        tg.tags.forEach((t) => {
           t.link = req.genUrl('agendaEmbedShow', {
             uid: req.params.uid,
             oaq: {
@@ -643,7 +643,7 @@ const middlewares = {
   ],
 };
 
-export default app => {
+export default (app) => {
   const {
     sessions,
     legacy: { controlData: controlDataSvc },

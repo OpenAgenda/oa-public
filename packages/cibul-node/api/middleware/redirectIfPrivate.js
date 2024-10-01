@@ -1,4 +1,4 @@
-const redirectURL = req => {
+const redirectURL = (req) => {
   const path = `${req.baseUrl}/agendas/${req.agenda.uid}.prv`;
 
   const queryPart = req.url.split('?')[1];

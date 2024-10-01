@@ -9,11 +9,11 @@ import update from './update.js';
 import references from './references.js';
 import validate, { eventFields as validateEventFields } from './validate.js';
 
-export default core => {
+export default (core) => {
   const batch = Batch(core);
   const resyncEvents = search.resyncEvents(core);
 
-  return agendaUid => ({
+  return (agendaUid) => ({
     get: get.bind(null, core, agendaUid),
     list: list.bind(null, core, agendaUid),
     create: create.bind(null, core, agendaUid),
@@ -22,10 +22,9 @@ export default core => {
     update: update.bind(null, core, agendaUid),
     patch: update.patch.bind(null, core, agendaUid),
     references: references.bind(null, core, agendaUid),
-    validate: Object.assign(
-      validate.bind(null, core, agendaUid),
-      { eventFields: validateEventFields },
-    ),
+    validate: Object.assign(validate.bind(null, core, agendaUid), {
+      eventFields: validateEventFields,
+    }),
     batch: batch.bind(null, agendaUid),
     search: Object.assign(search.default.bind(null, core, agendaUid), {
       rebuild: search.rebuild.bind(null, core, agendaUid),

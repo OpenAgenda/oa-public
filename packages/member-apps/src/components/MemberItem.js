@@ -132,7 +132,7 @@ function MemberItemComponent({
               {userRole !== 3 ? (
                 <Dropdown
                   className="btn-link-dropdown dropdown open"
-                  Trigger={props => (
+                  Trigger={(props) => (
                     <button
                       type="button"
                       {...props}
@@ -145,7 +145,7 @@ function MemberItemComponent({
                 >
                   <ul className="list-unstyled margin-v-z">
                     {['administrator', 'moderator', 'contributor'].map(
-                      targetRole => (
+                      (targetRole) => (
                         <li key={targetRole}>
                           <button
                             type="button"

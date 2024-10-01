@@ -81,9 +81,7 @@
         "min": 11,
         "max": 99
       },
-      "registration": [
-        "salondulivre@hossegor.fr"
-      ],
+      "registration": ["salondulivre@hossegor.fr"],
       "location": {
         "uid": 62436022,
         "slug": "sporting-casino",
@@ -117,9 +115,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -274,9 +270,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -520,9 +514,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -701,9 +693,7 @@
       "tarif": "Majorité d'activités gratuites et prix variables pour certaines activités",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -812,9 +802,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://bibliotheques.annecy.fr/"
-      ],
+      "registration": ["http://bibliotheques.annecy.fr/"],
       "location": {
         "uid": 54038720,
         "slug": "mediatheque-louise-michel203",
@@ -848,9 +836,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "75e anniversaire de la libération de camps de concentration",
       "type-de-structure": 623,
@@ -966,9 +952,7 @@
         "min": 12,
         "max": 18
       },
-      "registration": [
-        "contact@ifchypre.org"
-      ],
+      "registration": ["contact@ifchypre.org"],
       "location": {
         "uid": 63130924,
         "slug": "institut-francais-de-chypre37",
@@ -1002,12 +986,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        616
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [616],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Institut français de Chypre",
       "type-de-structure": 629,
       "si-autre-precisez": null,
@@ -1155,12 +1135,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 624,
       "si-autre-precisez": null,
@@ -1408,9 +1384,7 @@
         "min": 14,
         "max": 99
       },
-      "registration": [
-        "05-65-32-67-92"
-      ],
+      "registration": ["05-65-32-67-92"],
       "location": {
         "uid": 66603456,
         "slug": "bibliotheque-de-souillac",
@@ -1444,9 +1418,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1759,9 +1731,7 @@
         "min": 7,
         "max": 77
       },
-      "registration": [
-        "dmcblamont@yahoo.fr"
-      ],
+      "registration": ["dmcblamont@yahoo.fr"],
       "location": {
         "uid": 91412550,
         "slug": "chapelle-saint-jean677",
@@ -1795,9 +1765,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1909,9 +1877,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "mediatheques@mairie-puteaux.fr"
-      ],
+      "registration": ["mediatheques@mairie-puteaux.fr"],
       "location": {
         "uid": 58558461,
         "slug": "mediatheque-jules-verne-puteaux",
@@ -1945,12 +1911,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020, Département des Hauts-de-Seine",
       "type-de-structure": 621,
       "si-autre-precisez": null,

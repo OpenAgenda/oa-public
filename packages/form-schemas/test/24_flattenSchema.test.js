@@ -3,24 +3,30 @@
 const flattenSchema = require('../client/src/iso/flattenSchema');
 
 const schema = {
-  fields: [{
-    field: 'title',
-    fieldType: 'text',
-    label: 'Titre',
-  }, {
-    field: 'location',
-    label: 'Lieu',
-    schema: {
-      fields: [{
-        field: 'name',
-        fieldType: 'text',
-        label: 'Nom',
-      }, {
-        field: 'region',
-        fieldType: 'text',
-      }],
+  fields: [
+    {
+      field: 'title',
+      fieldType: 'text',
+      label: 'Titre',
     },
-  }],
+    {
+      field: 'location',
+      label: 'Lieu',
+      schema: {
+        fields: [
+          {
+            field: 'name',
+            fieldType: 'text',
+            label: 'Nom',
+          },
+          {
+            field: 'region',
+            fieldType: 'text',
+          },
+        ],
+      },
+    },
+  ],
 };
 
 describe('flattenSchema', () => {
@@ -51,25 +57,33 @@ describe('flattenSchema', () => {
   });
 
   it('prefixedLabels option on multilingual labels', () => {
-    const flatSchema = flattenSchema({
-      fields: [{
-        field: 'title',
-        fieldType: 'text',
-        label: 'Titre',
-      }, {
-        field: 'location',
-        label: 'Lieu',
-        schema: {
-          fields: [{
-            field: 'name',
+    const flatSchema = flattenSchema(
+      {
+        fields: [
+          {
+            field: 'title',
             fieldType: 'text',
-            label: { fr: 'Nom', en: 'Name' },
-          }],
-        },
-      }],
-    }, {
-      prefixedLabels: true,
-    });
+            label: 'Titre',
+          },
+          {
+            field: 'location',
+            label: 'Lieu',
+            schema: {
+              fields: [
+                {
+                  field: 'name',
+                  fieldType: 'text',
+                  label: { fr: 'Nom', en: 'Name' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+      {
+        prefixedLabels: true,
+      },
+    );
 
     expect(flatSchema.fields[1].label).toEqual({
       fr: 'Lieu: Nom',

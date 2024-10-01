@@ -1,125 +1,127 @@
-[ {
-  "name": "quisuisje",
-  "fieldType": "radio",
-  "type": "public",
-  "optional": false,
-  "label": {
-    "fr": "Qui suis-je?"
-  },
-  "options": [
-    {
-      "label": {
-        "fr": "Clubs"
-      },
-      "value": "club"
+[
+  {
+    "name": "quisuisje",
+    "fieldType": "radio",
+    "type": "public",
+    "optional": false,
+    "label": {
+      "fr": "Qui suis-je?"
     },
-    {
-      "label": {
-        "fr": "Comités"
+    "options": [
+      {
+        "label": {
+          "fr": "Clubs"
+        },
+        "value": "club"
       },
-      "value": "comite"
-    },
-    {
-      "label": {
-        "fr": "Ligues"
+      {
+        "label": {
+          "fr": "Comités"
+        },
+        "value": "comite"
       },
-      "value": "ligue"
-    },
-    {
-      "label": {
-        "fr": "Clubs / Comités"
+      {
+        "label": {
+          "fr": "Ligues"
+        },
+        "value": "ligue"
       },
-      "value": "clubcomite"
-    },
-    {
-      "label": {
-        "fr": "Clubs / Ligues"
+      {
+        "label": {
+          "fr": "Clubs / Comités"
+        },
+        "value": "clubcomite"
       },
-      "value": "clubligue"
-    },
-    {
-      "label": {
-        "fr": "Comités / Ligues"
+      {
+        "label": {
+          "fr": "Clubs / Ligues"
+        },
+        "value": "clubligue"
       },
-      "value": "comiteligue"
-    },
-    {
-      "label": {
-        "fr": "Fédérations scolaires et universitaires : UNSS"
+      {
+        "label": {
+          "fr": "Comités / Ligues"
+        },
+        "value": "comiteligue"
       },
-      "value": "unss"
-    },
-    {
-      "label": {
-        "fr": "Fédérations scolaires et universitaires : USEP"
+      {
+        "label": {
+          "fr": "Fédérations scolaires et universitaires : UNSS"
+        },
+        "value": "unss"
       },
-      "value": "usep"
-    },
-    {
-      "label": {
-        "fr": "Fédérations scolaires et universitaires : éducation nationale"
+      {
+        "label": {
+          "fr": "Fédérations scolaires et universitaires : USEP"
+        },
+        "value": "usep"
       },
-      "value": "edunat"
-    },
-    {
-      "label": {
-        "fr": "Fédérations scolaires et universitaires : UGSEL"
+      {
+        "label": {
+          "fr": "Fédérations scolaires et universitaires : éducation nationale"
+        },
+        "value": "edunat"
       },
-      "value": "ugsel"
-    },
-    {
-      "label": {
-        "fr": "Fédérations scolaires et universitaires : FFSU"
+      {
+        "label": {
+          "fr": "Fédérations scolaires et universitaires : UGSEL"
+        },
+        "value": "ugsel"
       },
-      "value": "ffsu"
-    },
-    {
-      "label": {
-        "fr": "Autre association sportive"
+      {
+        "label": {
+          "fr": "Fédérations scolaires et universitaires : FFSU"
+        },
+        "value": "ffsu"
       },
-      "value": "AutreAssociationSportive"
-    },
-    {
-      "label": {
-        "fr": "Association étudiante"
+      {
+        "label": {
+          "fr": "Autre association sportive"
+        },
+        "value": "AutreAssociationSportive"
       },
-      "value": "AssoEtudiante"
-    },
-    {
-      "label": {
-        "fr": "École"
+      {
+        "label": {
+          "fr": "Association étudiante"
+        },
+        "value": "AssoEtudiante"
       },
-      "value": "Ecole"
-    },
-    {
-      "label": {
-        "fr": "Collectivité"
+      {
+        "label": {
+          "fr": "École"
+        },
+        "value": "Ecole"
       },
-      "value": "Collectivite"
-    },
-    {
-      "label": {
-        "fr": "Association culturelle"
+      {
+        "label": {
+          "fr": "Collectivité"
+        },
+        "value": "Collectivite"
       },
-      "value": "AssoCulturelle"
-    },
-    {
-      "label": {
-        "fr": "Bar-restaurant-boîte de nuit"
+      {
+        "label": {
+          "fr": "Association culturelle"
+        },
+        "value": "AssoCulturelle"
       },
-      "value": "BarRestoBoite"
-    },
-    {
-      "label": {
-        "fr": "Entreprises"
+      {
+        "label": {
+          "fr": "Bar-restaurant-boîte de nuit"
+        },
+        "value": "BarRestoBoite"
       },
-      "value": "Entreprises"
-    },
-    {
-      "label": {
-        "fr": "Autre"
+      {
+        "label": {
+          "fr": "Entreprises"
+        },
+        "value": "Entreprises"
       },
-      "value": "Autre"
-    }
-  ]
-} ]
+      {
+        "label": {
+          "fr": "Autre"
+        },
+        "value": "Autre"
+      }
+    ]
+  }
+]

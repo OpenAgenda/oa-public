@@ -51,7 +51,7 @@ function _getQueryMustParts(cleanQuery) {
   const parts = [];
 
   // term constraints
-  [['keyword', '_search_keywords', true]].forEach(field => {
+  [['keyword', '_search_keywords', true]].forEach((field) => {
     const fromField = _.isArray(field) ? field[0] : field;
     const toField = _.isArray(field) ? field[1] : field;
     const and = _.isArray(field) ? field[2] : false;
@@ -61,7 +61,7 @@ function _getQueryMustParts(cleanQuery) {
     } else {
       _.get(cleanQuery, fromField, [])
         .map(_mustPart.bind(null, 'term', toField))
-        .forEach(p => parts.push(p));
+        .forEach((p) => parts.push(p));
     }
   });
 
@@ -71,7 +71,7 @@ function _getQueryMustParts(cleanQuery) {
       _mustPart(
         'terms',
         '_search_keywords',
-        cleanQuery.accessibility.map(a => `accessibility.${a}`),
+        cleanQuery.accessibility.map((a) => `accessibility.${a}`),
       ),
     );
   }
@@ -218,7 +218,7 @@ function _localTime(t) {
   };
 }
 
-const ownerOrMemberUidPart = uid => ({
+const ownerOrMemberUidPart = (uid) => ({
   bool: {
     should: [
       {
@@ -243,7 +243,7 @@ function _terms(fieldName, value) {
 function _extractValuesWithSchemaIds(field, cleanQuery, { emptyValue, path }) {
   return []
     .concat(cleanQuery[field.field])
-    .map(v =>
+    .map((v) =>
       (v === emptyValue ? v : keywordizeDiscreteValue(field, v, path)));
 }
 
@@ -254,7 +254,7 @@ function _filterPart(fieldName, fieldValue, dslField, { emptyValue }) {
   const value = hasMultipleValues ? fieldValue : [].concat(fieldValue).pop();
 
   if (hasMultipleValues && hasEmptyValues) {
-    const nonEmptyValues = value.filter(v => v !== emptyValue);
+    const nonEmptyValues = value.filter((v) => v !== emptyValue);
     return {
       bool: {
         should: [
@@ -298,7 +298,7 @@ function _addAdditionalFieldsToFilterParts(
   { emptyValue, path },
 ) {
   const currentPath = path ?? '';
-  fields.forEach(field => {
+  fields.forEach((field) => {
     if (field.schema && cleanQuery[field.field]) {
       _addAdditionalFieldsToFilterParts(
         parts,
@@ -473,8 +473,8 @@ function _getQueryFilterParts(
   }
 
   Object.keys(termsFiltersMap)
-    .filter(key => cleanQuery[key] && cleanQuery[key].length)
-    .forEach(key => {
+    .filter((key) => cleanQuery[key] && cleanQuery[key].length)
+    .forEach((key) => {
       parts.push(
         _filterPart(key, cleanQuery[key], termsFiltersMap[key], { emptyValue }),
       );
@@ -484,7 +484,7 @@ function _getQueryFilterParts(
     parts.push(ownerOrMemberUidPart(cleanQuery.ownerOrMemberUid));
   }
 
-  if (_.get(cleanQuery, 'state', []).filter(s => s !== null).length) {
+  if (_.get(cleanQuery, 'state', []).filter((s) => s !== null).length) {
     parts.push(
       _mustPart(
         'terms',
@@ -516,7 +516,7 @@ function _getQueryFilterParts(
 
 function _getQueryMustNotFilterParts(cleanQuery) {
   const parts = [];
-  const hasPassedAndUpcoming = cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r))
+  const hasPassedAndUpcoming = cleanQuery.relative.filter((r) => ['passed', 'upcoming'].includes(r))
     .length === 2;
   const hasCurrent = cleanQuery.relative.includes('current');
 
@@ -555,7 +555,7 @@ module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
   const query = {};
   const additionalAndSchemaFields = getFormSchemaAdditionalFields(
     formSchema,
-  ).concat((formSchema?.fields ?? []).filter(f => f.schema));
+  ).concat((formSchema?.fields ?? []).filter((f) => f.schema));
 
   const mustParts = _getQueryMustParts(cleanQuery);
 

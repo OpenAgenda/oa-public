@@ -4,10 +4,7 @@ import resetCache from './lib/resetCache.js';
 const { diff } = deepDiff;
 
 export default async (services, before, after, context) => {
-  const {
-    activities,
-    core,
-  } = services;
+  const { activities, core } = services;
 
   // settings.{tracking,lab,inbox,contribution,translation}
 
@@ -23,43 +20,46 @@ export default async (services, before, after, context) => {
   }
 
   const profileFields = ['title', 'slug', 'description', 'image', 'url'];
-  const changes = diff(
-    before,
-    after,
-    (path, key) => { // reversed filter, WHY ?
-      if (path.length !== 0) return false; // keep deep
-      return ![...profileFields, 'credentials', 'settings'].includes(key);
-    },
-  );
+  const changes = diff(before, after, (path, key) => {
+    // reversed filter, WHY ?
+    if (path.length !== 0) return false; // keep deep
+    return ![...profileFields, 'credentials', 'settings'].includes(key);
+  });
 
   if (changes?.length) {
-    activities.addActivity({ entityType: 'agenda', entityUid: after.uid }, {
-      actor: `user:${context.user.uid}`,
-      verb: 'agenda.update',
-      target: `agenda:${after.uid}`,
-      store: {
-        labels: {
-          actor: context.user.name,
-          target: after.title,
+    activities.addActivity(
+      { entityType: 'agenda', entityUid: after.uid },
+      {
+        actor: `user:${context.user.uid}`,
+        verb: 'agenda.update',
+        target: `agenda:${after.uid}`,
+        store: {
+          labels: {
+            actor: context.user.name,
+            target: after.title,
+          },
+          diff: changes,
         },
-        diff: changes,
       },
-    });
+    );
   }
 
   if (before.official !== after.official && after.official) {
-    activities.addActivity({ entityType: 'agenda', entityUid: after.uid }, {
-      actor: `user:${context.user.uid}`,
-      verb: 'agenda.setOfficial',
-      target: `agenda:${after.uid}`,
-      store: {
-        labels: {
-          actor: context.user.name,
-          target: after.title,
+    activities.addActivity(
+      { entityType: 'agenda', entityUid: after.uid },
+      {
+        actor: `user:${context.user.uid}`,
+        verb: 'agenda.setOfficial',
+        target: `agenda:${after.uid}`,
+        store: {
+          labels: {
+            actor: context.user.name,
+            target: after.title,
+          },
+          officialized: !!after.official,
         },
-        officialized: !!after.official,
       },
-    });
+    );
   }
 
   if (
@@ -67,6 +67,8 @@ export default async (services, before, after, context) => {
     && after.credentials.memberCustom
     && !before.memberSchemaId
   ) {
-    core.agendas(before.uid).settings.schema.updateMemberFields(null, { access: 'internal' });
+    core
+      .agendas(before.uid)
+      .settings.schema.updateMemberFields(null, { access: 'internal' });
   }
 };

@@ -4,7 +4,7 @@ const _ = require('lodash');
 const errors = require('@feathersjs/errors');
 
 module.exports = function checkUnicity(field, dataKey = `data.${field}`) {
-  return async context => {
+  return async (context) => {
     if (!_.get(context, dataKey)) {
       return;
     }

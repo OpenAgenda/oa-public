@@ -15,7 +15,10 @@ export const pendingLogoPath = 'https://oasvc.s3.eu-west-1.amazonaws.com/registr
 export function getNextId(data) {
   return Object.keys(data).reduce((acc, curr) => {
     if (Array.isArray(data[curr])) {
-      const maxId = data[curr].reduce((max, { id }) => (id > max ? id : max), -1);
+      const maxId = data[curr].reduce(
+        (max, { id }) => (id > max ? id : max),
+        -1,
+      );
       return maxId + 1 > acc ? maxId + 1 : acc;
     }
 
@@ -29,24 +32,32 @@ export function isConfigured(data) {
 
 export function addPriceCategory(value, nextId, { price, label }) {
   const centsPrice = price * 100;
-  return produce(value, draft => {
-    draft.priceCategories = (draft.priceCategories ?? []).concat({ price: centsPrice, label, id: nextId });
+  return produce(value, (draft) => {
+    draft.priceCategories = (draft.priceCategories ?? []).concat({
+      price: centsPrice,
+      label,
+      id: nextId,
+    });
   });
 }
 
 export function removePriceCategory(value, { id }) {
-  return produce(value, draft => {
-    draft.priceCategories = draft.priceCategories.filter(pc => pc.id !== id);
+  return produce(value, (draft) => {
+    draft.priceCategories = draft.priceCategories.filter((pc) => pc.id !== id);
 
-    draft.dates = (draft.dates ?? []).filter(({ priceCategoryId }) => priceCategoryId !== id);
+    draft.dates = (draft.dates ?? []).filter(
+      ({ priceCategoryId }) => priceCategoryId !== id,
+    );
   });
 }
 
 export function changePriceCategory(value, { price, label, id, passId }) {
   const centsPrice = price * 100;
-  return produce(value, draft => {
+  return produce(value, (draft) => {
     if (!draft.priceCategories) {
-      draft.priceCategories = passId ? [{ price: centsPrice, label, id, passId }] : [{ price: centsPrice, label, id }];
+      draft.priceCategories = passId
+        ? [{ price: centsPrice, label, id, passId }]
+        : [{ price: centsPrice, label, id }];
     }
     draft.priceCategories.reduce((acc, current) => {
       if (current.id === id) {
@@ -56,16 +67,26 @@ export function changePriceCategory(value, { price, label, id, passId }) {
       }
       return acc.concat(current);
     }, []);
-    if (passId && !draft.priceCategories.find(pc => pc.passId === passId)) {
-      draft.priceCategories = (draft.priceCategories || []).concat({ price: centsPrice, label, id, passId });
+    if (passId && !draft.priceCategories.find((pc) => pc.passId === passId)) {
+      draft.priceCategories = (draft.priceCategories || []).concat({
+        price: centsPrice,
+        label,
+        id,
+        passId,
+      });
     }
   });
 }
 
-export function changeDate(value, { timingId, priceCategoryId, quantity, id, passId }) {
-  return produce(value, draft => {
+export function changeDate(
+  value,
+  { timingId, priceCategoryId, quantity, id, passId },
+) {
+  return produce(value, (draft) => {
     if (!draft.dates) {
-      draft.dates = passId ? [{ timingId, priceCategoryId, quantity, id, passId }] : [{ timingId, priceCategoryId, quantity, id }];
+      draft.dates = passId
+        ? [{ timingId, priceCategoryId, quantity, id, passId }]
+        : [{ timingId, priceCategoryId, quantity, id }];
     }
     draft.dates.reduce((acc, current) => {
       if (current.id === id) {
@@ -77,25 +98,37 @@ export function changeDate(value, { timingId, priceCategoryId, quantity, id, pas
       }
       return acc.concat(current);
     }, []);
-    if (passId && !draft.dates.find(d => d.passId === passId)) {
-      draft.dates = (draft.dates || []).concat({ timingId, priceCategoryId, quantity, id, passId });
+    if (passId && !draft.dates.find((d) => d.passId === passId)) {
+      draft.dates = (draft.dates || []).concat({
+        timingId,
+        priceCategoryId,
+        quantity,
+        id,
+        passId,
+      });
     }
   });
 }
 
 export function removeDate(value, { id, passId }, currentValue) {
-  return produce(value, draft => {
-    if (!passId) draft.dates = draft.dates.filter(d => d.id !== id);
+  return produce(value, (draft) => {
+    if (!passId) draft.dates = draft.dates.filter((d) => d.id !== id);
     if (passId) {
-      draft.dates = (draft.dates ? draft.dates.filter(d => d.passId !== passId) : [])
-        .concat({ ...currentValue.dates.find(d => d.passId === passId), deleted: true });
+      draft.dates = (
+        draft.dates ? draft.dates.filter((d) => d.passId !== passId) : []
+      ).concat({
+        ...currentValue.dates.find((d) => d.passId === passId),
+        deleted: true,
+      });
     }
   });
 }
 
 export function decorateDates(dates = [], timings = []) {
-  return dates.map(date => {
-    const timingLabel = findTimingLabel(timings, date.timingId, { throwNotFound: false });
+  return dates.map((date) => {
+    const timingLabel = findTimingLabel(timings, date.timingId, {
+      throwNotFound: false,
+    });
 
     return {
       timingLabel,

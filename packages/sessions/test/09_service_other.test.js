@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const Sessions = require('../src/service');
 const expressCookie = require('../src/service/expressCookie');
 const config = require('../testconfig');
@@ -24,8 +23,6 @@ describe('session - functional (server): isLogged & getCulture', () => {
       ...config,
       redisClient: client,
     });
-
-    mw = sessions.mw;
   });
 
   beforeEach(() => {
@@ -40,8 +37,13 @@ describe('session - functional (server): isLogged & getCulture', () => {
   afterAll(() => client.quit());
 
   describe('.isLogged', () => {
-    beforeEach(done => {
-      sessions.open(request, { uid: 12345678 }, done.bind(null, null));
+    beforeEach(async () => {
+      await new Promise((resolve, reject) => {
+        sessions.open(request, { uid: 12345678 }, (err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+      });
     });
 
     it('determines based on request when user is logged', async () => {
@@ -58,9 +60,7 @@ describe('session - functional (server): isLogged & getCulture', () => {
 
       req.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
 
-      expect(
-        await sessions.isLogged(req),
-      ).toBe(true);
+      expect(await sessions.isLogged(req)).toBe(true);
     });
 
     it('.. and when the user is not logged', async () => {
@@ -71,9 +71,7 @@ describe('session - functional (server): isLogged & getCulture', () => {
 
       req.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
 
-      expect(
-        await sessions.isLogged(req),
-      ).toBe(false);
+      expect(await sessions.isLogged(req)).toBe(false);
     });
   });
 
@@ -81,9 +79,10 @@ describe('session - functional (server): isLogged & getCulture', () => {
     it('helpers.cleanSession does not remove keys from session object', () => {
       const session = { somekey: '123' };
 
-      expect(
-        serviceHelpers.cleanSession(session),
-      ).toEqual({ somekey: '123', expires: undefined });
+      expect(serviceHelpers.cleanSession(session)).toEqual({
+        somekey: '123',
+        expires: undefined,
+      });
     });
   });
 
@@ -95,9 +94,7 @@ describe('session - functional (server): isLogged & getCulture', () => {
         },
       };
 
-      expect(
-        sessions.getCulture(req),
-      ).toBe('en');
+      expect(sessions.getCulture(req)).toBe('en');
     });
 
     it('returns null when user is not logged', () => {
@@ -105,9 +102,7 @@ describe('session - functional (server): isLogged & getCulture', () => {
         session: {},
       };
 
-      expect(
-        sessions.getCulture(req),
-      ).toBeNull();
+      expect(sessions.getCulture(req)).toBeNull();
     });
   });
 
@@ -121,13 +116,15 @@ describe('session - functional (server): isLogged & getCulture', () => {
       const res = {
         cookies: {},
       };
-      res.cookie = (name, values) => res.cookies[name] = values;
+      res.cookie = (name, values) => {
+        res.cookies[name] = values;
+      };
 
-      sessions.setFlash(req, res, 'pédo-phile d\'ici');
+      sessions.setFlash(req, res, "pédo-phile d'ici");
 
-      expect(
-        expressCookie(config, req, res).get().flash,
-      ).toBe('pédo-phile d\'ici');
+      expect(expressCookie(config, req, res).get().flash).toBe(
+        "pédo-phile d'ici",
+      );
     });
   });
 });

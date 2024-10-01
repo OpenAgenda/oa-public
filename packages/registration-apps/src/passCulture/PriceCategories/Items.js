@@ -12,33 +12,29 @@ export default function PriceCategoryItems({
   onToggleEditing,
   disabled = false,
 }) {
-  const {
-    Button,
-    ListItem,
-    ListItemPart,
-    List,
-  } = useContext(ComponentsContext);
+  const { Button, ListItem, ListItemPart, List } = useContext(ComponentsContext);
 
   const [editValue, setEditValue] = useState(false);
   const [editedItemId, setEditedItemId] = useState(-1);
 
   if (!value.length) {
-    return (
-      <div>
-        Aucun tarif n&apos;a encore été enregistré
-      </div>
-    );
+    return <div>Aucun tarif n&apos;a encore été enregistré</div>;
   }
   return (
     <List>
       {value.map(({ label, price, id, passId }) => (
-        <ListItem key={slug(`${label} ${price}`, { lower: true, strict: true })}>
+        <ListItem
+          key={slug(`${label} ${price}`, { lower: true, strict: true })}
+        >
           {editedItemId === id ? (
             <PriceCategoryForm
               mode="edit"
               value={editValue}
-              onChange={v => setEditValue({ passId, ...v })}
-              isValid={validatePriceCategory({ ...editValue, price: editValue.price * 100 }, { boolMode: true })}
+              onChange={(v) => setEditValue({ passId, ...v })}
+              isValid={validatePriceCategory(
+                { ...editValue, price: editValue.price * 100 },
+                { boolMode: true },
+              )}
               onCancel={() => {
                 setEditedItemId(-1);
                 setEditValue(false);

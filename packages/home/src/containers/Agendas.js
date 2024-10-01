@@ -32,8 +32,8 @@ function Agendas() {
     dispatch(setTab('agendas'));
   }, [dispatch]);
 
-  const res = useSelector(state => state.res);
-  const prefix = useSelector(state => state.settings.prefix);
+  const res = useSelector((state) => state.res);
+  const prefix = useSelector((state) => state.settings.prefix);
 
   const initialState = useMemo(
     () => ({
@@ -47,7 +47,7 @@ function Agendas() {
   const latestQuery = useLatest(query);
 
   const onAgendaSearch = useCallback(
-    value => {
+    (value) => {
       history.push({
         search: qs.stringify({
           ...latestQuery.current,
@@ -143,14 +143,15 @@ function Agendas() {
 
               <div>
                 {state.agendas.length
-                  ? state.agendas.map(agenda => (
+                  ? state.agendas.map((agenda) => (
                     <AgendaItem
                       key={agenda.uid}
                       agenda={agenda}
                       res={res}
                       getLabel={getLabel}
-                      onDisplayMemberForm={item => memberEditModal.open(item)}
-                      onDisplayRemoveMember={item =>
+                      onDisplayMemberForm={(item) =>
+                        memberEditModal.open(item)}
+                      onDisplayRemoveMember={(item) =>
                         memberRemoveModal.open(item)}
                     />
                   ))

@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 
@@ -51,14 +50,14 @@ export default function EmptyDashboard({ agenda }) {
         <ul className="margin-v-md">
           <li className="margin-v-xs">
             {intl.formatMessage(messages.inviteMembers, {
-              link: chunks => (
+              link: (chunks) => (
                 <Link to={`/${agenda.slug}/admin/members`}>{chunks}</Link>
               ),
             })}
           </li>
           <li className="margin-v-xs">
             {intl.formatMessage(messages.addSources, {
-              link: chunks => (
+              link: (chunks) => (
                 <Link to={`/${agenda.slug}/admin/sources`}>{chunks}</Link>
               ),
             })}
@@ -66,7 +65,7 @@ export default function EmptyDashboard({ agenda }) {
         </ul>
 
         {intl.formatMessage(messages.visitDoc, {
-          link: chunks => (
+          link: (chunks) => (
             <a
               href="https://doc.openagenda.com/ajouter-des-evenements-a-un-agenda/"
               target="_blank"

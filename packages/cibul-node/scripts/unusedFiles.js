@@ -16,10 +16,10 @@ function findJavaScriptFiles() {
 const allFiles = await findJavaScriptFiles();
 
 const entryFile = path.join(import.meta.dirname, '../server.js');
-const usedFiles = listFiles(entryFile)
-  .map(v => v.replace(path.join(import.meta.dirname, '../'), ''));
+const usedFiles = listFiles(entryFile).map((v) =>
+  v.replace(path.join(import.meta.dirname, '../'), ''));
 
-const unusedFiles = allFiles.filter(file => !usedFiles.includes(file));
+const unusedFiles = allFiles.filter((file) => !usedFiles.includes(file));
 
 console.log('Fichiers potentiellement inutilisés:');
 console.log(unusedFiles.join('\n'));

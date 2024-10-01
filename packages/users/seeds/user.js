@@ -1,6 +1,6 @@
 'use strict';
 
-exports.seed = async knex => {
+exports.seed = async (knex) => {
   const { schemas } = knex.client.config;
 
   // Deletes ALL existing entries
@@ -24,7 +24,8 @@ exports.seed = async knex => {
       updated_at: '2015-11-19 06:32:33',
       last_notified: '2012-05-10 10:48:10',
       is_removed: '0',
-      store: '{"ES_cibul":false,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"205":"205"},"uid":"35004666"}',
+      store:
+        '{"ES_cibul":false,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"205":"205"},"uid":"35004666"}',
       api_key: '8d1140cd0f9e060321b2d4d456588690',
       reply_token: null,
       is_basic: '0',
@@ -54,7 +55,8 @@ exports.seed = async knex => {
       updated_at: '2015-11-19 06:32:31',
       last_notified: '2015-04-25 16:21:34',
       is_removed: '0',
-      store: '{"p_order":"date","p_passed":"0","ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"149":"149"},"enable_secret":false,"announcement":false,"uid":"88644561"}',
+      store:
+        '{"p_order":"date","p_passed":"0","ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"149":"149"},"enable_secret":false,"announcement":false,"uid":"88644561"}',
       api_key: '856f1b3a6a8e9e4c5b035dc106bd6c99',
       reply_token: null,
       is_basic: '0',
@@ -204,7 +206,8 @@ exports.seed = async knex => {
       updated_at: '2016-03-31 15:53:57',
       last_notified: '2016-03-25 11:50:31',
       is_removed: '0',
-      store: '{"ES_cibul":false,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"2741":"2741"},"p_order":"publication","p_passed":1,"enable_secret":true,"api_max_event_published":100,"announcement":false,"uid":"36234263","newEmail":"jean-bernard@gmail.com","newEmailToken":"e4a0f1c97b2f4ca7966f069e7b090c0d"}',
+      store:
+        '{"ES_cibul":false,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"2741":"2741"},"p_order":"publication","p_passed":1,"enable_secret":true,"api_max_event_published":100,"announcement":false,"uid":"36234263","newEmail":"jean-bernard@gmail.com","newEmailToken":"e4a0f1c97b2f4ca7966f069e7b090c0d"}',
       api_key: '',
       reply_token: null,
       is_basic: '0',
@@ -234,7 +237,8 @@ exports.seed = async knex => {
       updated_at: '2015-11-19 06:32:38',
       last_notified: '2012-10-01 15:08:33',
       is_removed: '0',
-      store: '{"p_order":"publication","p_passed":"0","uid":"72344760","newEmail":"kaoreolafsson@gmail.com","newEmailToken":"87071649646742ee8dce48e4eb1dc0b0"}',
+      store:
+        '{"p_order":"publication","p_passed":"0","uid":"72344760","newEmail":"kaoreolafsson@gmail.com","newEmailToken":"87071649646742ee8dce48e4eb1dc0b0"}',
       api_key: '',
       reply_token: null,
       is_basic: '0',
@@ -324,7 +328,8 @@ exports.seed = async knex => {
       updated_at: '2016-03-31 12:22:09',
       last_notified: '2016-03-31 11:32:01',
       is_removed: '0',
-      store: '{"ES_cibul":false,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"3387":"3387"},"p_order":"publication","p_passed":1,"enable_secret":false,"announcement":false,"reviewtheme":[],"uid":"93892242"}',
+      store:
+        '{"ES_cibul":false,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"3387":"3387"},"p_order":"publication","p_passed":1,"enable_secret":false,"announcement":false,"reviewtheme":[],"uid":"93892242"}',
       api_key: '',
       reply_token: null,
       is_basic: '0',
@@ -504,7 +509,8 @@ exports.seed = async knex => {
       updated_at: '2016-01-22 09:35:17',
       last_notified: '2016-01-11 09:23:17',
       is_removed: '0',
-      store: '{"ES_facebook":false,"ES_reviews":{"2794":"2794"},"ES_twitter":false}',
+      store:
+        '{"ES_facebook":false,"ES_reviews":{"2794":"2794"},"ES_twitter":false}',
       api_key: '',
       reply_token: null,
       is_basic: '0',
@@ -534,7 +540,8 @@ exports.seed = async knex => {
       updated_at: '2015-11-19 06:32:38',
       last_notified: null,
       is_removed: '0',
-      store: '{"ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":[],"uid":"93617718"}',
+      store:
+        '{"ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":[],"uid":"93617718"}',
       api_key: '',
       reply_token: null,
       is_basic: '0',
@@ -774,7 +781,8 @@ exports.seed = async knex => {
       updated_at: '2016-03-15 17:39:55',
       last_notified: '2015-02-24 16:46:14',
       is_removed: '0',
-      store: '{"ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"429":"429"},"p_order":"publication","p_passed":"1","announcement":false,"uid":"50306799"}',
+      store:
+        '{"ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"429":"429"},"p_order":"publication","p_passed":"1","announcement":false,"uid":"50306799"}',
       api_key: null,
       reply_token: null,
       is_basic: '0',
@@ -789,7 +797,7 @@ exports.seed = async knex => {
     },
     {
       id: '1198391',
-      full_name: 'Gudlaug l\'inactive',
+      full_name: "Gudlaug l'inactive",
       email: 'gud@laug.net',
       culture: 'fr',
       is_activated: '0',
@@ -799,7 +807,8 @@ exports.seed = async knex => {
       created_at: '2024-08-09 07:52:37',
       updated_at: '2024-08-09 07:52:37',
       is_removed: '0',
-      store: '{"ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"429":"429"},"p_order":"publication","p_passed":"1","announcement":false,"uid":"50306799"}',
+      store:
+        '{"ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"429":"429"},"p_order":"publication","p_passed":"1","announcement":false,"uid":"50306799"}',
       uid: '898928392',
     },
   ]);

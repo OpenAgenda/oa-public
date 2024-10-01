@@ -38,15 +38,19 @@ const legacyPages = {
 function setLang(req, res, next) {
   if (req.query.lang) return res.redirect(301, `/${req.query.lang}`);
 
-  req.lang = _.get({
-    '/': 'fr',
-    '/en': 'en',
-    '/de': 'de',
-    '/es': 'es',
-    '/br': 'br',
-    '/it': 'it',
-    '/oc': 'oc',
-  }, req.originalUrl, null);
+  req.lang = _.get(
+    {
+      '/': 'fr',
+      '/en': 'en',
+      '/de': 'de',
+      '/es': 'es',
+      '/br': 'br',
+      '/it': 'it',
+      '/oc': 'oc',
+    },
+    req.originalUrl,
+    null,
+  );
 
   if (!req.lang) return res.redirect(302, '/');
 
@@ -82,21 +86,22 @@ function setCSPHeader(hashes, req, res) {
       'https://client.crisp.chat',
       'wss://client.relay.crisp.chat',
     ],
-  })(req, res, err => {
+  })(req, res, (err) => {
     cspError = err;
   });
   return cspError;
 }
 
-const preMw = [
-  cmn.loadLogger('general'),
-  cmn.loadBaseData('oa-main.css'),
-];
+const preMw = [cmn.loadLogger('general'), cmn.loadBaseData('oa-main.css')];
 
 function getStat(schema, lang) {
-  return config.knex(schema)
+  return config
+    .knex(schema)
     .count('id as items')
-    .then(r => _.get(r, '0.items').toLocaleString(lang).replace(',', lang === 'fr' ? ' ' : ','));
+    .then((r) =>
+      _.get(r, '0.items')
+        .toLocaleString(lang)
+        .replace(',', lang === 'fr' ? ' ' : ','));
 }
 
 async function corpo(cache, req, res, next) {
@@ -153,20 +158,17 @@ async function corpo(cache, req, res, next) {
     assetsManifest['landing.js'],
   );
 
-  const scriptCSPHashes = pageScripts.map(s => `'${s.integrity}'`);
+  const scriptCSPHashes = pageScripts.map((s) => `'${s.integrity}'`);
 
   const cspError = setCSPHeader(scriptCSPHashes, req, res);
   if (cspError) return next(cspError);
 
-  const content = layout(
-    page.render(stats),
-    {
-      lang: page.getLang(),
-      metas: page.getHeadPart(),
-      scripts: pageScripts,
-      // cspNonce: res.locals.cspNonce,
-    },
-  );
+  const content = layout(page.render(stats), {
+    lang: page.getLang(),
+    metas: page.getHeadPart(),
+    scripts: pageScripts,
+    // cspNonce: res.locals.cspNonce,
+  });
 
   // cache.set(req.originalUrl, { content, scriptCSPHashes }, 60 * 60, err => {
   //   if (err) req.log.error('could not cache %s', err);
@@ -183,16 +185,14 @@ async function corpo(cache, req, res, next) {
 }
 
 async function newsletterSubscribe(req, res) {
-  const {
-    newsletter,
-    sessions,
-    mails,
-  } = req.app.services;
+  const { newsletter, sessions, mails } = req.app.services;
 
   try {
     await newsletter.addSubscriber(req.body.email);
 
-    log('info', 'Nouvel inscrit à la newsletter: %s', req.body.email, { email: req.body.email });
+    log('info', 'Nouvel inscrit à la newsletter: %s', req.body.email, {
+      email: req.body.email,
+    });
 
     sessions.setFlash(req, res, __('subscribed', req.lang));
 
@@ -218,14 +218,20 @@ function serviceConnectCallback(req, res) {
   try {
     stateObj = JSON.parse(Buffer.from(req.query.state, 'base64').toString());
   } catch (e) {
-    return cmn.catchError(req, res)({ code: 500, message: 'invalid parameters' });
+    return cmn.catchError(
+      req,
+      res,
+    )({ code: 500, message: 'invalid parameters' });
   }
 
-  res.redirect(302, req.genUrl('serviceSynchronize', {
-    slug: stateObj.slug,
-    service: req.params.service,
-    code: req.query.code,
-  }));
+  res.redirect(
+    302,
+    req.genUrl('serviceSynchronize', {
+      slug: stateObj.slug,
+      service: req.params.service,
+      code: req.query.code,
+    }),
+  );
 }
 
 function start(req, res) {
@@ -242,7 +248,7 @@ function start(req, res) {
     newsletter: '/home',
   };
 
-  let action = Object.keys(actions).filter(v => req.query.a === v);
+  let action = Object.keys(actions).filter((v) => req.query.a === v);
 
   if (!action.length) {
     return res.redirect(301, '/');
@@ -268,7 +274,11 @@ function corpoBrowserCache(req, res, next) {
 }
 
 function redirectLang(req, res, next) {
-  if (req.query && req.query.lang && !config.interfaceLanguages.includes(req.query.lang)) {
+  if (
+    req.query
+    && req.query.lang
+    && !config.interfaceLanguages.includes(req.query.lang)
+  ) {
     return res.redirect(301, `/discover/${req.params.page}?lang=en`);
   }
 
@@ -277,16 +287,17 @@ function redirectLang(req, res, next) {
 
 function redirectLegacyLinks(req, res, next) {
   if (legacyPages[req.params.page]) {
-    return res.redirect(301, `/discover/${legacyPages[req.params.page]}?lang=${req.lang}`);
+    return res.redirect(
+      301,
+      `/discover/${legacyPages[req.params.page]}?lang=${req.lang}`,
+    );
   }
 
   next();
 }
 
-export default app => {
-  const {
-    sessions,
-  } = app.services;
+export default (app) => {
+  const { sessions } = app.services;
   const cache = app.services.simpleCache('landing');
   const cacheMw = (req, res, next) => {
     cache.get(req.originalUrl, (err, cached) => {
@@ -321,31 +332,31 @@ export default app => {
     (req, res) => res.redirect(302, '/'),
   );
 
-  app.post(
-    '/newsletter/subscribe',
-    preMw,
-    newsletterSubscribe,
-  );
+  app.post('/newsletter/subscribe', preMw, newsletterSubscribe);
 
-  app.get(
-    '/services/:service/connect/callback',
-    preMw,
-    serviceConnectCallback,
-  );
+  app.get('/services/:service/connect/callback', preMw, serviceConnectCallback);
 
   app.get('/flash', (req, res) => {
-    req.app.services.sessions.setFlash(req, res, req.query.message || 'Flash! Aaanhaaan!');
+    req.app.services.sessions.setFlash(
+      req,
+      res,
+      req.query.message || 'Flash! Aaanhaaan!',
+    );
     res.redirect('/');
   });
 
-  app.get(
-    '/start',
-    preMw,
-    start,
-  );
+  app.get('/start', preMw, start);
 
   app.get(
-    ['/decouvrir/:page', '/discover/:page', '/entdecken/:page', '/scoprire/:page', 'descubrir/:page', '/decouvrirbr/:page', 'decouvriroc/:page'],
+    [
+      '/decouvrir/:page',
+      '/discover/:page',
+      '/entdecken/:page',
+      '/scoprire/:page',
+      'descubrir/:page',
+      '/decouvrirbr/:page',
+      'decouvriroc/:page',
+    ],
     preMw,
     corpoBrowserCache,
     cacheMw,

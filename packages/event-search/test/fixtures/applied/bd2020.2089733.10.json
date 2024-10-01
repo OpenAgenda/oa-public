@@ -73,9 +73,7 @@
         "min": 8,
         "max": 14
       },
-      "registration": [
-        "04 74 06 11 14"
-      ],
+      "registration": ["04 74 06 11 14"],
       "location": {
         "uid": 70554203,
         "slug": "mediatheque-le-singuliers669",
@@ -109,9 +107,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -254,9 +250,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -765,10 +759,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "info@mjb-jmb.org",
-        "02 512 19 63"
-      ],
+      "registration": ["info@mjb-jmb.org", "02 512 19 63"],
       "location": {
         "uid": 61645509,
         "slug": "musee-juif-de-belgique65",
@@ -802,9 +793,7 @@
       "tarif": "10 € tarif plein - 7 € tarif réduit - 1,25 € (article 27) - Gratuit (- 12 ans, ICOM, journalistes)",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -1009,9 +998,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.bulleberry.com/"
-      ],
+      "registration": ["http://www.bulleberry.com/"],
       "location": {
         "uid": 1318854,
         "slug": "chateau-deau-chateau-dart757",
@@ -1045,9 +1032,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1163,9 +1148,7 @@
         "min": 14,
         "max": 99
       },
-      "registration": [
-        "festibdchalonnesamateur@gmail.com"
-      ],
+      "registration": ["festibdchalonnesamateur@gmail.com"],
       "location": {
         "uid": 2647342,
         "slug": "espace-layon",
@@ -1199,9 +1182,7 @@
       "tarif": "Droit d'entrée de 25 euros (avec deux repas, hors hébergement)",
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "CALONN'ANIMM",
       "type-de-structure": 621,
@@ -1310,9 +1291,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "lautrelieu@ville-lerheu.fr"
-      ],
+      "registration": ["lautrelieu@ville-lerheu.fr"],
       "location": {
         "uid": 20491493,
         "slug": "mediatheque-lautre-lieu61",
@@ -1346,9 +1325,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1637,9 +1614,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "lautrelieu@ville-lerheu.fr"
-      ],
+      "registration": ["lautrelieu@ville-lerheu.fr"],
       "location": {
         "uid": 20491493,
         "slug": "mediatheque-lautre-lieu61",
@@ -1673,9 +1648,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1792,9 +1765,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.lyonbd.com"
-      ],
+      "registration": ["http://www.lyonbd.com"],
       "location": {
         "uid": 64200317,
         "slug": "hote-de-ville-de-lyon",
@@ -1828,9 +1799,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Lyon BD Organisation",
       "type-de-structure": 621,
@@ -1887,11 +1856,7 @@
         "en": "Meeting of authors of fanzines and comic books\n_Around the world in 80 days_, _The three robbers_, _The old man who read love novels... as_ many book titles as Manon and Daniel, authors of fanzines and comic books, will be responsible to illustrate them for us to guess! Who of Manon or Daniel will be the fastest and who among you will find the most titles? A fun and graphic duel to share with the family! _**With Manon Raupp and Daniel Selig from Les Machines**_"
       },
       "keywords": {
-        "fr": [
-          "Battle",
-          "dessins",
-          "romans"
-        ]
+        "fr": ["Battle", "dessins", "romans"]
       },
       "conditions": {
         "fr": "Sur inscription",
@@ -1948,9 +1913,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 63 76 06 48"
-      ],
+      "registration": ["05 63 76 06 48"],
       "location": {
         "uid": 26956376,
         "slug": "mediatheque-de-lescure-dalbigeois461",
@@ -1984,9 +1947,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2459,9 +2420,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,

@@ -26,6 +26,7 @@
     "prop-types": "^15.5.8",
     "react-select": "^3.0.8",
     "react-tagsinput": "^3.16.1",
+    "react-uid": "^2.3.3",
     "turndown": "^7.1.2"
   },
   "devDependencies": {

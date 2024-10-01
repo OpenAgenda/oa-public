@@ -4,17 +4,17 @@ import labels from '@openagenda/labels/auth/messages.js';
 import cmn from '../../lib/commons-app.js';
 import config from '../../config/index.js';
 
-export const loadOptionals = req => [
-  'iToken',
-  'invitation',
-  'redirect',
-  'defaults',
-  'agenda',
-  'lang',
-].reduce((optionals, key) => (req.query[key] ? {
-  ...optionals,
-  [key]: req.query[key],
-} : optionals), {});
+export const loadOptionals = (req) =>
+  ['iToken', 'invitation', 'redirect', 'defaults', 'agenda', 'lang'].reduce(
+    (optionals, key) =>
+      (req.query[key]
+        ? {
+          ...optionals,
+          [key]: req.query[key],
+        }
+        : optionals),
+    {},
+  );
 
 /* eslint-disable prefer-rest-params */
 export function render(template, defaults) {
@@ -52,17 +52,25 @@ export function render(template, defaults) {
     }
 
     if (req.query.msg) {
-      data.headMessage = labels[req.query.msg] ? labels[req.query.msg][req.lang] : false;
+      data.headMessage = labels[req.query.msg]
+        ? labels[req.query.msg][req.lang]
+        : false;
     }
 
     data.enabledServices = [];
 
-    data.signin = `${req.agenda ? `/${req.agenda.slug}` : ''}/signin${qs.stringify({
-      ...loadOptionals(req),
-    }, { addQueryPrefix: true })}`;
-    data.signup = `${req.agenda ? `/${req.agenda.slug}` : ''}/signup${qs.stringify({
-      ...loadOptionals(req),
-    }, { addQueryPrefix: true })}`;
+    data.signin = `${req.agenda ? `/${req.agenda.slug}` : ''}/signin${qs.stringify(
+      {
+        ...loadOptionals(req),
+      },
+      { addQueryPrefix: true },
+    )}`;
+    data.signup = `${req.agenda ? `/${req.agenda.slug}` : ''}/signup${qs.stringify(
+      {
+        ...loadOptionals(req),
+      },
+      { addQueryPrefix: true },
+    )}`;
 
     if (_.get(config, 'auth.facebook.id')) data.enabledServices.push('facebook');
     if (_.get(config, 'auth.google.id')) data.enabledServices.push('google');

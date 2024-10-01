@@ -1,5 +1,6 @@
 # Overview
-The invitation service 
+
+The invitation service
 
 ```js
 invitations.init( {
@@ -21,7 +22,7 @@ invitations.init( {
   .get( { email ou token }, ( err, actions ) => {
 
     actions.executeAll( /**/ );
-  
+
   } )
 } )
 ```

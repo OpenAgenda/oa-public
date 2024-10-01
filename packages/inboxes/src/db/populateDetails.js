@@ -13,7 +13,7 @@ export default async function populateDetails(svc, entities, inbox) {
   }
 
   const result = await Promise.all(
-    entities.map(async row => {
+    entities.map(async (row) => {
       if (row.inboxUserId) {
         delete row.inboxUserId;
       }
@@ -51,7 +51,7 @@ export default async function populateDetails(svc, entities, inbox) {
       }
 
       return row;
-    })
+    }),
   );
 
   const listsToPopulate = result.reduce(
@@ -72,7 +72,7 @@ export default async function populateDetails(svc, entities, inbox) {
 
       return prev;
     },
-    { users: [], inboxes: [] }
+    { users: [], inboxes: [] },
   );
 
   listsToPopulate.users = _.uniqWith(listsToPopulate.users, _.isEqual);
@@ -80,22 +80,24 @@ export default async function populateDetails(svc, entities, inbox) {
 
   const usersDetails = await interfaces.getUsersDetails(listsToPopulate.users);
   const inboxesDetails = await interfaces.getInboxesDetails(
-    listsToPopulate.inboxes
+    listsToPopulate.inboxes,
   );
 
-  return result.map(entity => {
+  return result.map((entity) => {
     const inboxUserIndex = entity.inboxUser
-      ? usersDetails.findIndex(v => entity.inboxUser.userUid === v.uid)
+      ? usersDetails.findIndex((v) => entity.inboxUser.userUid === v.uid)
       : -1;
     const inboxIndex = entity.inbox
-      ? inboxesDetails.findIndex(v => entity.inbox.identifier === v.uid)
+      ? inboxesDetails.findIndex((v) => entity.inbox.identifier === v.uid)
       : -1;
 
     const creatorInboxUserIndex = entity.creatorInboxUser
-      ? usersDetails.findIndex(v => entity.creatorInboxUser.userUid === v.uid)
+      ? usersDetails.findIndex((v) => entity.creatorInboxUser.userUid === v.uid)
       : -1;
     const creatorInboxIndex = entity.creatorInbox
-      ? inboxesDetails.findIndex(v => entity.creatorInbox.identifier === v.uid)
+      ? inboxesDetails.findIndex(
+        (v) => entity.creatorInbox.identifier === v.uid,
+      )
       : -1;
 
     if (inboxUserIndex !== -1) {
@@ -113,7 +115,7 @@ export default async function populateDetails(svc, entities, inbox) {
     if (creatorInboxUserIndex !== -1) {
       Object.assign(
         entity.creatorInboxUser,
-        usersDetails[creatorInboxUserIndex]
+        usersDetails[creatorInboxUserIndex],
       );
     }
     if (creatorInboxIndex !== -1) {

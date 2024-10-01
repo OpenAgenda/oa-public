@@ -1,12 +1,16 @@
 {
-  "attributes" : [ { 
-    "name" : "ShareUrl", 
-    "mapTo" : "actionLink" 
-  }, {
-    "name" : "ShareLabel",
-    "mapTo" : "actionLabel"
-  }, {
-    "name" : "InterfaceLanguage",
-    "mapTo" : "lang"
-  } ]
+  "attributes": [
+    {
+      "name": "ShareUrl",
+      "mapTo": "actionLink"
+    },
+    {
+      "name": "ShareLabel",
+      "mapTo": "actionLabel"
+    },
+    {
+      "name": "InterfaceLanguage",
+      "mapTo": "lang"
+    }
+  ]
 }

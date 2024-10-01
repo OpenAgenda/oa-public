@@ -1,174 +1,88 @@
 {
-  "Only agenda administrators may publish events"
-  : "Seuls les administateurs de l'agenda peuvent publier des événements",
-  "no dates available"
-  : "aucune date disponible",
-  "%firstDate% and until the %lastDate%"
-  : "le %firstDate% et jusqu'au %lastDate%",
-  "%firstDate% and the %secondDate%"
-  : "le %firstDate% et le %secondDate%",
-  "%firstDate% + %count% other dates"
-  : "%firstDate% + %count% autres dates",
-  "%date% at %times%"
-  : "%date% à %times%",
-  "%date% from %start% to %end%"
-  : "%date% de %start% à %end%",
-  "campaign updated"
-  : "campagne mise à jour",
-  "The contact was removed"
-  : "Le contact a été retiré",
-  "The contacts were added"
-  : "Les contacts ont été ajoutés",
-  "The contact list was deleted"
-  : "La liste de contact a été supprimée",
-  "The contact list was created"
-  : "La liste de contacts a été créée",
-  "The campaign was deleted"
-  : "La campagne a été supprimée",
-  "You do not have access to the administration of this agenda."
-  : "Vous n'avez pas accès à l'administration de cet agenda.",
-  "Whoops. Could not retrieve the agenda."
-  : "Oups. L'agenda n'a pas été retrouvé.",
-  "You have been added to the newsletter list. Thanks!"
-  : "Vous avez été ajouté à notre liste d'envoi de lettre d'information. Merci!",
-  "Either the email is invalid or the newsletter service is unavailable. Please try again later."
-  : "Soit l'email saisi est invalide, soit le service de lettre d'information est indisponible. Veuillez retenter l'inscription dans quelques minutes.",
-  "You're not an Administrator"
-  : "Vous n'êtes pas administrateur",
-  "the campaign was updated"
-  : "la campagne a été mise à jour",
-  "Your account has been created, you can now login"
-  : "Votre compte a été crée, vous pouvez vous connecter",
-  "Activate your OpenAgenda account"
-  : "Activez votre compte OpenAgenda",
-  "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%"
-  : "Félicitations! Vous venez de créer votre compte OpenAgenda. Cliquez sur le lien suivant pour l'activer et commencer à utiliser votre agenda \n %link%",
-  "The activation email is being sent again"
-  : "Le mail d'activation est en cours d'envoi",
-  "Done"
-  : "Ok",
-  "Something went wrong. We will fix this shortly."
-  : "Quelque chose ne s'est pas correctement déroulé. Nous corrigeons ça rapidement.",
-  "No new invitation was sent"
-  : "Aucune nouvelle invitation a été envoyée",
-  "Sent invitations: %s"
-  : "Invitations envoyées: %s",
-  "You are now %astakeholder% of agenda %agenda%"
-  : "Vous êtes désormais %astakeholder% de l'agenda %agenda%",
-  "Click here to start %stakeholderaction% the agenda %agenda%"
-  : "Cliquez ici pour commencer à %stakeholderaction% l'agenda %agenda%",
-  "You are already %stakeholder%"
-  : "Vous êtes déjà %stakeholder",
-  "a contributor"
-  : "contributeur",
-  "an administrator"
-  : "administrateur",
-  "a moderator"
-  : "un modérateur",
-  "You have been invited to become %stakeholder% of the agenda %agenda%"
-  : "Vous avez été invité à devenir %stakeholder% de l'agenda %agenda%",
-  "contributor"
-  : "contributeur",
-  "administrator"
-  : "administrateur",
-  "moderator"
-  : "modérateur",
-  "contributing to"
-  : "contribuer à",
-  "administering"
-  : "administrer",
-  "contributing"
-  : "contribuer",
-  "moderating"
-  : "modérer",
-  "Follow this link to reset your password: %link%"
-  : "Suivez ce lien pour réinitialiser votre mot de passe: %link%",
-  "Reset your password"
-  : "Réinitialisez votre mot de passe",
-  "A password reset link is being sent to your email"
-  : "Un lien de réinitialisation de mot de passe est en cours d'envoi à votre adresse",
-  "The link is outdated. Try again."
-  : "Le lien n'est plus à jour. Veuillez ré-essayer.",
-  "Your password has been updated."
-  : "Votre mot de passe a été mis à jour.",
-  "A password reset is being sent to your email"
-  : "Un mot de passe est en cours d'envoi vers votre email",
-  "Something went wrong. We will fix this shortly."
-  : "Quelque chose ne s'est pas bien passé. Nous réglerons ceci d'ici peu",
-  "Invitation could not be sent"
-  : "L'invitation n'a pas pu être envoyée",
-  "The invitation is being resent"
-  : "L'invitation est en cours d'envoi",
-  "the event could not be added"
-  : "l'événement n'a pas pu être ajouté à l'agenda",
-  "the event was added to the agenda"
-  : "l'événement a été ajouté à l'agenda",
-  "the event could not be removed"
-  : "l'événement n'a pas pu être retiré de l'agenda",
-  "the event was removed from the agenda"
-  : "l'événement a été retiré de l'agenda",
-  "%start% to %finish%"
-  : "du %start% au %finish%",
-  "%start%, %time%"
-  : "%start%, %time%",
-  "%date% from %start% to %end%"
-  : "%date% de %start% à %end%",
-  "back"
-  : "retour",
-  "The info has been updated"
-  : "L'info a été mise à jour",
-  "The event state has changed"
-  : "L'état de l'événement a changé",
-  "The event is no longer featured"
-  : "L'événement n'est plus en une",
-  "The event is now featured"
-  : "L'événement est désormais en une",
-  "The event is being sent to %count% emails"
-  : "L'événement est en cours d'envoi à %count% adresses mail",
-  "You will from now on no longer receive event emails at the address %email%"
-  : "Vous ne recevrez désormais plus d'événements à l'adresse %email%",
-  "The agenda tab was added to your page"
-  : "L'onglet agenda a été ajouté à votre page",
-  "%source% was added to the sources of %agg%. Its upcoming events will be added shortly."
-  : "%source% a été ajouté aux sources de %agg%. Les événements à venir seront rajoutés dans un instant.",
-  "%source% was removed from the sources of %agg%."
-  : "%source% a été retiré des sources de %agg%.",
-  "to be completed"
-  : "à compléter",
-  "ready to publish"
-  : "prêt à être publié",
-  "published"
-  : "publié",
-  "Your action is being processed. Events in the state %oldstate% will shortly be changed to %newstate%."
-  : "Votre action est en cours de traitement. Vos événements ayant pour statut %oldstate% passeront à %newstate% au cours des prochaines minutes",
-  "Select an action to execute before pressing the button"
-  : "Selectionnez une action à executer avant de cliquer sur le bouton",
-  "You can now configure and use the latest embed codes on your website"
-  : "Vous pouvez désormais configurer et utiliser la dernière version des codes d'agendas integrés",
-  "embed configuration not found"
-  : "configuration de la vue integrée introuvable",
-  "Export"
-  : "Exporter",
-  "ownership is transfered"
-  : "la propriété est transférée",
-  "from the %firstDate% to the %lastDate%"
-  : "du %firstDate% au %lastDate%",
-  "The agenda %title% published your event %event%"
-  : "L'agenda %title% a publié votre événement %event%",
-  "see more"
-  : "voir plus",
-  "%s invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours"
-  : "%s invitations sont en cours d'envoi. <br/><br/>Notez que les invitations ne peuvent être relancés qu'une fois toutes les 24h.",
-  "Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb"
-  : "Votre enregistrement est trop volumineux: le maximum autorisé est %max%kb, vous avez enregistré %sub%kb",
-  "Your %s submitted emails are being processed"
-  : "Les %s emails enregistrés sont en cours de traitement",
-  "the action you requested is unknown"
-  : "l'action que vous avez demandé est inconne",
-  "Activate your OpenAgenda Account"
-  : "Activez votre compte OpenAgenda",
-  "Register"
-  : "Réserver",
-  "Your account was successfully deleted"
-  : "Votre compte a bien été supprimé"
+  "Only agenda administrators may publish events": "Seuls les administateurs de l'agenda peuvent publier des événements",
+  "no dates available": "aucune date disponible",
+  "%firstDate% and until the %lastDate%": "le %firstDate% et jusqu'au %lastDate%",
+  "%firstDate% and the %secondDate%": "le %firstDate% et le %secondDate%",
+  "%firstDate% + %count% other dates": "%firstDate% + %count% autres dates",
+  "%date% at %times%": "%date% à %times%",
+  "%date% from %start% to %end%": "%date% de %start% à %end%",
+  "campaign updated": "campagne mise à jour",
+  "The contact was removed": "Le contact a été retiré",
+  "The contacts were added": "Les contacts ont été ajoutés",
+  "The contact list was deleted": "La liste de contact a été supprimée",
+  "The contact list was created": "La liste de contacts a été créée",
+  "The campaign was deleted": "La campagne a été supprimée",
+  "You do not have access to the administration of this agenda.": "Vous n'avez pas accès à l'administration de cet agenda.",
+  "Whoops. Could not retrieve the agenda.": "Oups. L'agenda n'a pas été retrouvé.",
+  "You have been added to the newsletter list. Thanks!": "Vous avez été ajouté à notre liste d'envoi de lettre d'information. Merci!",
+  "Either the email is invalid or the newsletter service is unavailable. Please try again later.": "Soit l'email saisi est invalide, soit le service de lettre d'information est indisponible. Veuillez retenter l'inscription dans quelques minutes.",
+  "You're not an Administrator": "Vous n'êtes pas administrateur",
+  "the campaign was updated": "la campagne a été mise à jour",
+  "Your account has been created, you can now login": "Votre compte a été crée, vous pouvez vous connecter",
+  "Activate your OpenAgenda account": "Activez votre compte OpenAgenda",
+  "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%": "Félicitations! Vous venez de créer votre compte OpenAgenda. Cliquez sur le lien suivant pour l'activer et commencer à utiliser votre agenda \n %link%",
+  "The activation email is being sent again": "Le mail d'activation est en cours d'envoi",
+  "Done": "Ok",
+  "Something went wrong. We will fix this shortly.": "Quelque chose ne s'est pas correctement déroulé. Nous corrigeons ça rapidement.",
+  "No new invitation was sent": "Aucune nouvelle invitation a été envoyée",
+  "Sent invitations: %s": "Invitations envoyées: %s",
+  "You are now %astakeholder% of agenda %agenda%": "Vous êtes désormais %astakeholder% de l'agenda %agenda%",
+  "Click here to start %stakeholderaction% the agenda %agenda%": "Cliquez ici pour commencer à %stakeholderaction% l'agenda %agenda%",
+  "You are already %stakeholder%": "Vous êtes déjà %stakeholder",
+  "a contributor": "contributeur",
+  "an administrator": "administrateur",
+  "a moderator": "un modérateur",
+  "You have been invited to become %stakeholder% of the agenda %agenda%": "Vous avez été invité à devenir %stakeholder% de l'agenda %agenda%",
+  "contributor": "contributeur",
+  "administrator": "administrateur",
+  "moderator": "modérateur",
+  "contributing to": "contribuer à",
+  "administering": "administrer",
+  "contributing": "contribuer",
+  "moderating": "modérer",
+  "Follow this link to reset your password: %link%": "Suivez ce lien pour réinitialiser votre mot de passe: %link%",
+  "Reset your password": "Réinitialisez votre mot de passe",
+  "A password reset link is being sent to your email": "Un lien de réinitialisation de mot de passe est en cours d'envoi à votre adresse",
+  "The link is outdated. Try again.": "Le lien n'est plus à jour. Veuillez ré-essayer.",
+  "Your password has been updated.": "Votre mot de passe a été mis à jour.",
+  "A password reset is being sent to your email": "Un mot de passe est en cours d'envoi vers votre email",
+  "Something went wrong. We will fix this shortly.": "Quelque chose ne s'est pas bien passé. Nous réglerons ceci d'ici peu",
+  "Invitation could not be sent": "L'invitation n'a pas pu être envoyée",
+  "The invitation is being resent": "L'invitation est en cours d'envoi",
+  "the event could not be added": "l'événement n'a pas pu être ajouté à l'agenda",
+  "the event was added to the agenda": "l'événement a été ajouté à l'agenda",
+  "the event could not be removed": "l'événement n'a pas pu être retiré de l'agenda",
+  "the event was removed from the agenda": "l'événement a été retiré de l'agenda",
+  "%start% to %finish%": "du %start% au %finish%",
+  "%start%, %time%": "%start%, %time%",
+  "%date% from %start% to %end%": "%date% de %start% à %end%",
+  "back": "retour",
+  "The info has been updated": "L'info a été mise à jour",
+  "The event state has changed": "L'état de l'événement a changé",
+  "The event is no longer featured": "L'événement n'est plus en une",
+  "The event is now featured": "L'événement est désormais en une",
+  "The event is being sent to %count% emails": "L'événement est en cours d'envoi à %count% adresses mail",
+  "You will from now on no longer receive event emails at the address %email%": "Vous ne recevrez désormais plus d'événements à l'adresse %email%",
+  "The agenda tab was added to your page": "L'onglet agenda a été ajouté à votre page",
+  "%source% was added to the sources of %agg%. Its upcoming events will be added shortly.": "%source% a été ajouté aux sources de %agg%. Les événements à venir seront rajoutés dans un instant.",
+  "%source% was removed from the sources of %agg%.": "%source% a été retiré des sources de %agg%.",
+  "to be completed": "à compléter",
+  "ready to publish": "prêt à être publié",
+  "published": "publié",
+  "Your action is being processed. Events in the state %oldstate% will shortly be changed to %newstate%.": "Votre action est en cours de traitement. Vos événements ayant pour statut %oldstate% passeront à %newstate% au cours des prochaines minutes",
+  "Select an action to execute before pressing the button": "Selectionnez une action à executer avant de cliquer sur le bouton",
+  "You can now configure and use the latest embed codes on your website": "Vous pouvez désormais configurer et utiliser la dernière version des codes d'agendas integrés",
+  "embed configuration not found": "configuration de la vue integrée introuvable",
+  "Export": "Exporter",
+  "ownership is transfered": "la propriété est transférée",
+  "from the %firstDate% to the %lastDate%": "du %firstDate% au %lastDate%",
+  "The agenda %title% published your event %event%": "L'agenda %title% a publié votre événement %event%",
+  "see more": "voir plus",
+  "%s invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours": "%s invitations sont en cours d'envoi. <br/><br/>Notez que les invitations ne peuvent être relancés qu'une fois toutes les 24h.",
+  "Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb": "Votre enregistrement est trop volumineux: le maximum autorisé est %max%kb, vous avez enregistré %sub%kb",
+  "Your %s submitted emails are being processed": "Les %s emails enregistrés sont en cours de traitement",
+  "the action you requested is unknown": "l'action que vous avez demandé est inconne",
+  "Activate your OpenAgenda Account": "Activez votre compte OpenAgenda",
+  "Register": "Réserver",
+  "Your account was successfully deleted": "Votre compte a bien été supprimé"
 }

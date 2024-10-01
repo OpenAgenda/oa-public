@@ -94,7 +94,7 @@
   "aggregator-sources.DefineRules.sourceAgendaFieldValueDetail": "Field & Value of the source \"{agendaTitle}\"",
   "aggregator-sources.DefineRules.sourceAgendaTagsDetail": "Label of an additional field of the source \"{agendaTitle}\"",
   "aggregator-sources.DefineRules.startAfterEnd": "The beginning must be before the end.",
-  "aggregator-sources.DefineRules.state": "Status",
+  "aggregator-sources.DefineRules.state": "State",
   "aggregator-sources.DefineRules.tags": "Labels",
   "aggregator-sources.DefineRules.textFilterNotDefined": "not defined",
   "aggregator-sources.DefineRules.textFilterValue": "contains \"{value}\"",

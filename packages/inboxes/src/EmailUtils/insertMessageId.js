@@ -1,6 +1,9 @@
 import validateMessageId from './validateMessageId';
 
-export default function insertMessageId({ conversationId, knex, tableName }, messageIdString) {
+export default function insertMessageId(
+  { conversationId, knex, tableName },
+  messageIdString,
+) {
   const messageId = messageIdString.replace(/((.+|)<|>$)/g, '');
   validateMessageId(messageId);
 

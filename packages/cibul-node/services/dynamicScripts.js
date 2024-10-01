@@ -9,7 +9,8 @@ function hash(input) {
 
 export function init(config) {
   const scripts = {
-    crisp: config.crisp ? dedent`
+    crisp: config.crisp
+      ? dedent`
       window.$crisp=[];
       window.CRISP_WEBSITE_ID='${config.crisp}';
       (function(){
@@ -18,8 +19,10 @@ export function init(config) {
         s.src="https://client.crisp.chat/l.js";
         s.async=1;d.getElementsByTagName("head")[0].appendChild(s);
       })();
-    ` : '',
-    matomo: config.matomoCloudId ? dedent`
+    `
+      : '',
+    matomo: config.matomoCloudId
+      ? dedent`
       var _paq = window._paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
       _paq.push(['disableCookies']);
@@ -32,7 +35,8 @@ export function init(config) {
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
         g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
       })();
-    ` : '',
+    `
+      : '',
   };
 
   const hashes = {

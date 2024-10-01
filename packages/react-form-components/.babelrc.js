@@ -1,8 +1,6 @@
 'use strict';
 
 module.exports = {
-  presets: [
-    require.resolve('@openagenda/babel-preset')
-  ],
-  sourceType: 'unambiguous'
+  presets: [require.resolve('@openagenda/babel-preset')],
+  sourceType: 'unambiguous',
 };

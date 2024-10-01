@@ -59,13 +59,17 @@ const messages = defineMessages({
     id: 'react-layouts.MainLayout.translate',
     defaultMessage: 'Translate',
   },
+  menu: {
+    id: 'react-layouts.MainLayout.menu',
+    defaultMessage: 'Menu',
+  },
 });
 
 function TranslateLink() {
   const intl = useIntl();
 
   // Not come from cookie because of SSR
-  const translateMode = useSelector(state => state.main.translateMode);
+  const translateMode = useSelector((state) => state.main.translateMode);
 
   const [, setTranslateMode, deleteTranslateMode] = useCookie('translateMode');
 
@@ -89,6 +93,7 @@ function TranslateLink() {
         line-height: 14px;
       `}
       title={intl.formatMessage(messages.translate)}
+      aria-label={intl.formatMessage(messages.translate)}
       onClick={toggleTranslateMode}
     >
       <i className="fa fa-language" />
@@ -103,15 +108,15 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
 
   const [userPanelOpened, setUserPanelOpened] = useState(false);
 
-  const user = useSelector(state => state.main.user, shallowEqual);
-  const userLoaded = useSelector(state => state.main.userLoaded);
-  const userLoading = useSelector(state =>
+  const user = useSelector((state) => state.main.user, shallowEqual);
+  const userLoaded = useSelector((state) => state.main.userLoaded);
+  const userLoading = useSelector((state) =>
     _.get(state, 'main.userLoading', true));
-  const inboxLoaded = useSelector(state => state.main.inboxLoaded);
-  const hasInboxNews = useSelector(state => state.main.hasInboxNews);
-  const isTranslator = useSelector(state => state.main.isTranslator);
-  const translateMode = useSelector(state => state.main.translateMode);
-  const activitiesConfig = useSelector(state => state.settings.activities);
+  const inboxLoaded = useSelector((state) => state.main.inboxLoaded);
+  const hasInboxNews = useSelector((state) => state.main.hasInboxNews);
+  const isTranslator = useSelector((state) => state.main.isTranslator);
+  const translateMode = useSelector((state) => state.main.translateMode);
+  const activitiesConfig = useSelector((state) => state.settings.activities);
 
   const dispatch = useDispatch();
 
@@ -126,7 +131,7 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
   );
 
   const toggleUserPanel = useCallback(
-    () => setUserPanelOpened(state => !state),
+    () => setUserPanelOpened((state) => !state),
     [setUserPanelOpened],
   );
 
@@ -137,7 +142,7 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
   }, [userPanelOpened, setUserPanelOpened]);
 
   const panelLink = useCallback(
-    path => event => {
+    (path) => (event) => {
       event.preventDefault();
       toggleUserPanel();
       history.push(path);
@@ -146,7 +151,7 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
   );
 
   const ErrorComponent = useCallback(
-    props => React.createElement(fallback, { ...props, lang: intl.locale }),
+    (props) => React.createElement(fallback, { ...props, lang: intl.locale }),
     [fallback, intl.locale],
   );
 
@@ -220,6 +225,7 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
               data-toggle="collapse"
               data-target="#oa-navbar-collapse"
               aria-expanded="false"
+              aria-label={intl.formatMessage(messages.menu)}
             >
               <i className="fa fa-bars" />
             </button>

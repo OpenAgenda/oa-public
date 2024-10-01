@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-import Unsubscriptions from '..';
+import Unsubscriptions from '../index.js';
 import fixtures from './fixtures/index.js';
 
 const dbConfig = {
@@ -27,21 +27,23 @@ describe('registry', () => {
 
     const row = await client('unsubscription').first().where('id', insertId);
 
-    expect(row.email).toBe('cf3d8259741b19a2b09e17d4fa9a97c63adc44bf2a5fa075cdcb5491f525feaa');
+    expect(row.email).toBe(
+      'cf3d8259741b19a2b09e17d4fa9a97c63adc44bf2a5fa075cdcb5491f525feaa',
+    );
   });
 
   test('isRegistered on email that is not registered returns false', async () => {
-    expect(
-      await service.registry.isRegistered('unregistered@email.com'),
-    ).toBe(false);
+    expect(await service.registry.isRegistered('unregistered@email.com')).toBe(
+      false,
+    );
   });
 
   test('isRegistered on email that is registered returns true', async () => {
     await service.registry.add('registered@email.com');
 
-    expect(
-      await service.registry.isRegistered('registered@email.com'),
-    ).toBe(true);
+    expect(await service.registry.isRegistered('registered@email.com')).toBe(
+      true,
+    );
   });
 
   test('add does not add same email multiple times', async () => {
@@ -49,9 +51,7 @@ describe('registry', () => {
 
     expect(typeof insertId).toBe('number');
 
-    expect(
-      await service.registry.add('plouign@email.com'),
-    ).toBeUndefined();
+    expect(await service.registry.add('plouign@email.com')).toBeUndefined();
   });
 
   test('transfer transfers legacy table emails to registry', async () => {

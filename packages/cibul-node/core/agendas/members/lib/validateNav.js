@@ -19,7 +19,7 @@ const validate = schema({
   },
 });
 
-export default data => {
+export default (data) => {
   try {
     return validate(data);
   } catch (errors) {

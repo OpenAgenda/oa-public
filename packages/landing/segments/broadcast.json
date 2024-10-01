@@ -1,7 +1,7 @@
 {
   "template": "basic",
   "title": "broadcastTitle",
-  "text" : "broadcastText",
+  "text": "broadcastText",
   "points": [
     "broadcastWebsite",
     "broadcastFacebook",

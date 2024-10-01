@@ -2,15 +2,11 @@ import { BadRequest } from '@openagenda/verror';
 
 export default async (core, data, options = {}) => {
   const {
-    services: {
-      agendas,
-    },
+    services: { agendas },
     users,
   } = core;
 
-  const {
-    userUid,
-  } = options;
+  const { userUid } = options;
 
   if (!userUid) {
     throw new BadRequest('userUid must be defined');
@@ -22,11 +18,7 @@ export default async (core, data, options = {}) => {
     throw new BadRequest('provided userUid matches no account');
   }
 
-  const {
-    success,
-    agenda,
-    errors,
-  } = await agendas.set({
+  const { success, agenda, errors } = await agendas.set({
     ...data,
     ownerId: user.id,
   });

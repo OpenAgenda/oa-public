@@ -4,11 +4,7 @@ import VError from '@openagenda/verror';
 import makeErrorHandler from './makeErrorHandler.js';
 
 export default (config, services) => {
-  const {
-    sessions,
-    agendas,
-    members,
-  } = services;
+  const { sessions, agendas, members } = services;
 
   const errorHandler = makeErrorHandler(services);
 

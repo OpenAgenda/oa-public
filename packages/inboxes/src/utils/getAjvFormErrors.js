@@ -1,5 +1,5 @@
 function getErrorPath(errors) {
-  return errors.map(error => {
+  return errors.map((error) => {
     if (error.dataPath) {
       return error.dataPath;
     }
@@ -39,7 +39,7 @@ export default function getAjvFormErrors(errors) {
 
     if (
       ['errorMessage', 'type', 'required', 'additionalProperties'].includes(
-        err.keyword
+        err.keyword,
       )
     ) {
       result[path] = Object.assign(err, {

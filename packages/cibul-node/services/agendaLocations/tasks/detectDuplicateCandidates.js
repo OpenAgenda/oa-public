@@ -3,16 +3,17 @@ import logs from '@openagenda/logs';
 const log = logs('services/agendaLocations/detectDuplicateCandidates');
 
 export default async (services, options) => {
-  const {
-    agendas: agendasSVC,
-    agendaLocations,
-  } = services;
+  const { agendas: agendasSVC, agendaLocations } = services;
 
   const sets = await agendaLocations.sets.list();
-  for (const set of sets.filter(s => !options.ignoredUids.setUids.includes(s.uid))) {
+  for (const set of sets.filter(
+    (s) => !options.ignoredUids.setUids.includes(s.uid),
+  )) {
     log('info', `detection started in locationSet ${set.uid}`);
     try {
-      await agendaLocations.sets(set.uid).locations.duplicates.detectAll(options);
+      await agendaLocations
+        .sets(set.uid)
+        .locations.duplicates.detectAll(options);
     } catch (e) {
       log(e);
     }
@@ -25,17 +26,26 @@ export default async (services, options) => {
       onlyIncludeFields: ['uid', 'locationSetUid'],
       offsetAsLastId: true,
     });
-    const { agendas, lastId } = await agendasSVC.list({ order: 'id.desc' }, offset, 20, {
-      onlyIncludeFields: ['uid', 'locationSetUid'],
-      offsetAsLastId: true,
-    });
+    const { agendas, lastId } = await agendasSVC.list(
+      { order: 'id.desc' },
+      offset,
+      20,
+      {
+        onlyIncludeFields: ['uid', 'locationSetUid'],
+        offsetAsLastId: true,
+      },
+    );
     log(res);
     if (!agendas || agendas.length === 0) {
       offset = null;
       continue;
     }
     offset = lastId;
-    for (const agenda of agendas.filter(a => a.locationSetUid === null && !options.ignoredUids.agendaUids.includes(a.uid))) {
+    for (const agenda of agendas.filter(
+      (a) =>
+        a.locationSetUid === null
+        && !options.ignoredUids.agendaUids.includes(a.uid),
+    )) {
       log('info', `detection started in agenda ${agenda.uid}`);
       try {
         await agendaLocations(agenda.uid).duplicates.detectAll({

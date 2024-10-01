@@ -35,10 +35,7 @@
   },
   "private": 0,
   "keywords": {
-    "fr": [
-      "aide",
-      "accès"
-    ]
+    "fr": ["aide", "accès"]
   },
   "accessibility": {
     "hi": true,

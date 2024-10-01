@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import AbilitiesEditor from '@openagenda/abilities/build/client/AbilitiesEditor';
@@ -13,53 +13,63 @@ class UnsubscribedSettings extends Component {
 
     return (
       <tr
-        onClick={!activeTab ? () => history.push( prefix + '/emails', { fromUserApps: true } ) : null}
+        onClick={
+          !activeTab
+            ? () => history.push(`${prefix}/emails`, { fromUserApps: true })
+            : null
+        }
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => history.push( prefix + '/', { fromUserApps: true } ) : null}
+          role="gridcell"
+          onClick={
+            activeTab
+              ? () => history.push(`${prefix}/`, { fromUserApps: true })
+              : null
+          }
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >
-          {getLabel( 'emails' )}
+          {getLabel('emails')}
         </td>
-        {activeTab ? <td>
-          <div style={{ padding: '0 5px' }}>
-            <div>
-              <AbilitiesEditor
-                locale={lang}
-                entityName="user"
-                identifier={user.uid}
-                res={{
-                  // get + patch
-                  formIndex: '/abilities/form-index'
-                }}
-                searchChildKey="entity.agendaTitle"
-                filterInputPlaceholder={getLabel( 'filterInputPlaceholder' )}
-                HeaderComponent={( { filterInput, saveButton } ) => (
-                  <div className="clearfix margin-bottom-sm">
-                    <div className="pull-right">
-                      {saveButton}
+        {activeTab ? (
+          <td>
+            <div style={{ padding: '0 5px' }}>
+              <div>
+                <AbilitiesEditor
+                  locale={lang}
+                  entityName="user"
+                  identifier={user.uid}
+                  res={{
+                    // get + patch
+                    formIndex: '/abilities/form-index',
+                  }}
+                  searchChildKey="entity.agendaTitle"
+                  filterInputPlaceholder={getLabel('filterInputPlaceholder')}
+                  HeaderComponent={({
+                    filterInput: _filterInput,
+                    saveButton,
+                  }) => (
+                    <div className="clearfix margin-bottom-sm">
+                      <div className="pull-right">{saveButton}</div>
+
+                      <p>{getLabel('chooseEmailsSent')}</p>
+
+                      {/* <div className="margin-top-md">{filterInput}</div> */}
                     </div>
-
-                    <p>{getLabel( 'chooseEmailsSent' )}</p>
-
-                    {/*<div className="margin-top-md">{filterInput}</div>*/}
-                  </div>
-                )}
-              />
+                  )}
+                />
+              </div>
             </div>
-          </div>
-        </td> : <td style={{ cursor: 'pointer' }}>{getLabel( 'chooseEmailsSent' )}</td>}
+          </td>
+        ) : (
+          <td style={{ cursor: 'pointer' }}>{getLabel('chooseEmailsSent')}</td>
+        )}
       </tr>
     );
   }
 }
 
-export default connect(state => ({
+export default connect((state) => ({
   prefix: state.settings.prefix,
-}))(
-  withRouter(
-    UnsubscribedSettings,
-  ),
-);
+}))(withRouter(UnsubscribedSettings));

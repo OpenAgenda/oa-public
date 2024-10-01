@@ -1,33 +1,32 @@
-"use strict";
+'use strict';
 
-const webpack = require( 'webpack' );
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
   context: __dirname,
-  entry: [
-    'webpack-hot-middleware/client',
-    '../client/src/index.js'
-  ],
+  entry: ['webpack-hot-middleware/client', '../client/src/index.js'],
   output: {
     publicPath: '/js/',
-    filename: 'app.js'
+    filename: 'app.js',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
   module: {
-    rules: [ {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
-      }
-    } ]
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+    ],
   },
   resolve: {
     extensions: ['.js', '.mjs', '.json', '.wasm'],
     symlinks: false,
-  }
+  },
 };

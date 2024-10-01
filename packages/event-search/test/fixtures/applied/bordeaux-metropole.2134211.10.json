@@ -97,9 +97,7 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
       "state": 2,
@@ -229,15 +227,10 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 49,
-      "thematiques-bordeaux-metropole": [
-        3,
-        24
-      ],
+      "thematiques-bordeaux-metropole": [3, 24],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -345,9 +338,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/berywam/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/berywam/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -377,18 +368,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -449,10 +435,7 @@
         "fr": "Comédie en 2 actes de J. Dubois par le théâtre À Pas de Loup\n\nEntrée 8€ directement sur place au Cinéma Favols\n\nBrigitte accueille sa mère qui vient lui annoncer son prochain divorce d’avec Barnabé.\n\nMaurice, le gentil mari de Brigitte, apprend au détour d’un article dans son journal préféré, qu’un dangereux malfaiteur rôde dans le quartier.\n\nBrigitte doit également et dans le même temps annoncer à Maurice qu’ils vont bientôt être trois dans leur foyer. Le futur papa est fou de joie : joie qui va se transformer très vite en cauchemar pour lui...\n\nVont s’inviter et s’incruster sa mère, deux flics, une voisine et Jacques sous ce même toit. Au menu de cette pièce, quiproquos et rebondissements vont se succéder."
       },
       "keywords": {
-        "fr": [
-          "théâtre",
-          "comédie"
-        ]
+        "fr": ["théâtre", "comédie"]
       },
       "conditions": {
         "fr": "Tarif 8€"
@@ -534,17 +517,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        22478436
-      ],
+      "sourcePaths": [22478436],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -688,18 +667,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -858,19 +832,13 @@
         "extId": null
       },
       "custom_description": "Conférence sur l'oeuvre et la vie de Max Linder, présentée par Marie-Agnès Bordes et Youen Bernard, administratrice et gérant de salles de cinéma en Gironde avec la projection de trois courts métrages muets du comédien-réalisateur né à Saint-Loubès en 1883.",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 45,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -988,9 +956,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.salonmaisonneuvebordeaux.fr/"
-      ],
+      "registration": ["http://www.salonmaisonneuvebordeaux.fr/"],
       "location": {
         "uid": 46044317,
         "slug": "parc-des-exposition-de-bordeaux-hall-3602",
@@ -1018,17 +984,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 54,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1176,9 +1138,7 @@
         "extId": null
       },
       "custom_description": "« MOZART sacré, un autre visage »\nSamedi 04 avril 2020 à 20h30\nEglise Notre-Dame de Bordeaux",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "state": 2,
@@ -1317,18 +1277,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -2607,15 +2562,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
-      "thematiques-bordeaux-metropole": [
-        36,
-        9
-      ],
+      "thematiques-bordeaux-metropole": [36, 9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],

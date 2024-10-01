@@ -66,7 +66,7 @@ function _onComplete(req, res, next) {
   );
 }
 
-export default app => {
+export default (app) => {
   const { sessions, agendas, members } = app.services;
 
   app.get(
@@ -86,5 +86,10 @@ export default app => {
     fb.tab.create,
   );
 
-  app.get('/facebook/tab/create/:state', sessions.mw.loadOrRedirect(), fb.tab.redirect, _onComplete);
+  app.get(
+    '/facebook/tab/create/:state',
+    sessions.mw.loadOrRedirect(),
+    fb.tab.redirect,
+    _onComplete,
+  );
 };

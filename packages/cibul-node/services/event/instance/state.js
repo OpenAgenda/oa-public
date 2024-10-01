@@ -19,28 +19,25 @@ function _publish(instance, cb) {
 
   log('publishing event on agenda');
 
-  async.series([
-    async.apply(instance.undraft, true),
-    async.apply(instance.setPublished, true),
-  ], cb);
+  async.series(
+    [
+      async.apply(instance.undraft, true),
+      async.apply(instance.setPublished, true),
+    ],
+    cb,
+  );
 }
 
 function _refuse(instance, cb) {
-  async.series([
-    async.apply(instance.setRefused, true),
-  ], cb);
+  async.series([async.apply(instance.setRefused, true)], cb);
 }
 
 function _validate(instance, cb) {
-  async.series([
-    async.apply(instance.setValidated, true),
-  ], cb);
+  async.series([async.apply(instance.setValidated, true)], cb);
 }
 
 function _unvalidate(instance, cb) {
-  async.series([
-    async.apply(instance.setNotValidated, true),
-  ], cb);
+  async.series([async.apply(instance.setNotValidated, true)], cb);
 }
 
 export default instanceLoader((loaded, instance) => {
@@ -63,12 +60,18 @@ export default instanceLoader((loaded, instance) => {
       options = {};
     }
 
-    const params = utils.extend({
-      labelized: true,
-    }, options);
+    const params = utils.extend(
+      {
+        labelized: true,
+      },
+      options,
+    );
 
     if (!instance.isInAgendaContext()) {
-      return cb(null, instance.getIsDraft() ? 'draft' : _labelize(TYPES.PUBLISHED));
+      return cb(
+        null,
+        instance.getIsDraft() ? 'draft' : _labelize(TYPES.PUBLISHED),
+      );
     }
 
     instance.getState((err, state) => {
@@ -94,7 +97,14 @@ export default instanceLoader((loaded, instance) => {
       stateModifiers[TYPES.VALIDATED] = _validate;
       stateModifiers[TYPES.NOTVALIDATED] = _unvalidate;
 
-      if (![TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED, TYPES.REFUSED].includes(parseInt(newState, 10))) {
+      if (
+        ![
+          TYPES.NOTVALIDATED,
+          TYPES.VALIDATED,
+          TYPES.PUBLISHED,
+          TYPES.REFUSED,
+        ].includes(parseInt(newState, 10))
+      ) {
         return cb('this state is unknown');
       }
 

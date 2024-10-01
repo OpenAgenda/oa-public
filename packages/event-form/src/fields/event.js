@@ -255,7 +255,8 @@ module.exports = ({ labels }) => [
     optional: false,
     label: labels?.timings,
     info: labels?.timingsInfo,
-    helpLink: 'https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/',
+    helpLink:
+      'https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/',
   },
   {
     field: 'registration',
@@ -265,7 +266,9 @@ module.exports = ({ labels }) => [
     info: labels?.registrationInfo,
     placeholder: labels?.registrationPlaceholder,
     sub: labels?.registrationSub,
-    related: { other: ['timings', 'location', 'longDescription', 'title', 'conditions'] },
+    related: {
+      other: ['timings', 'location', 'longDescription', 'title', 'conditions'],
+    },
     selfHandled: ['info'],
   },
   {

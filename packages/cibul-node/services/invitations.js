@@ -19,13 +19,17 @@ async function linkMember(services, { user }, [member, context]) {
     currentMember?.custom?.contactName ?? user.fullName,
   );
 
-  return members.patch(member.id, {
-    userUid: user.uid,
-    custom: customData,
-  }, {
-    context,
-    requireCustom: false,
-  });
+  return members.patch(
+    member.id,
+    {
+      userUid: user.uid,
+      custom: customData,
+    },
+    {
+      context,
+      requireCustom: false,
+    },
+  );
 }
 
 export function init(config, services) {

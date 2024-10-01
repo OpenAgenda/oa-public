@@ -13,8 +13,9 @@ import { ActivityItem } from '../../components';
 import messages from '../../messages/activities';
 
 class UserDashboard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.nextPage = this.nextPage.bind(this);
     this.throttledNextPage = _.throttle(this.nextPage, 400, {
       trailing: false,
     });

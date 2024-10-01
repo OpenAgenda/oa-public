@@ -5,7 +5,7 @@ const { NotFound } = require('@openagenda/verror');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const { fromDB } = require('./lib/transformDBEntry');
 
-const cleanEmail = email => email.replace(/‐/g, '-');
+const cleanEmail = (email) => email.replace(/‐/g, '-');
 
 async function _decorateWithDetailed({ interfaces }, member) {
   if (!member.userUid) {
@@ -95,7 +95,7 @@ async function getByEmail(config, identifier, options = {}) {
   if (!member && _.get(config, 'interfaces.getUserByEmail')) {
     const userUid = await config.interfaces
       .getUserByEmail(identifier.email)
-      .then(u => (u ? u.uid : null));
+      .then((u) => (u ? u.uid : null));
 
     member = userUid
       ? await get(config, { ...identifier, userUid }, options)

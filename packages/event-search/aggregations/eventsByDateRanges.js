@@ -11,11 +11,7 @@ function fZ(str) {
 function stringifyDate(dirty) {
   const d = validateDate(dirty);
 
-  return [
-    d.getFullYear(),
-    fZ(d.getMonth() + 1),
-    fZ(d.getDate()),
-  ].join('-');
+  return [d.getFullYear(), fZ(d.getMonth() + 1), fZ(d.getDate())].join('-');
 }
 
 function iterateCursor(c) {
@@ -56,10 +52,7 @@ function range(fromDate, toDate) {
 }
 
 module.exports.formatDSL = (query, { includes }) => {
-  const {
-    lte,
-    gte,
-  } = {
+  const { lte, gte } = {
     ...defaultDateBounds(),
     ...(query || {}).date || {},
   };
@@ -84,10 +77,7 @@ module.exports.formatDSL = (query, { includes }) => {
                 top_hits: {
                   size: 3,
                   _source: {
-                    excludes: [
-                      '_*',
-                      'timings._*',
-                    ],
+                    excludes: ['_*', 'timings._*'],
                     includes,
                   },
                 },
@@ -100,8 +90,9 @@ module.exports.formatDSL = (query, { includes }) => {
   };
 };
 
-module.exports.formatResult = ({ timings }) => timings.buckets.map(b => ({
-  key: b.key.substr(0, 10),
-  eventCount: b.doc_count,
-  sampleEvents: b.timing_to_event.top.hits.hits.map(h => h._source),
-}));
+module.exports.formatResult = ({ timings }) =>
+  timings.buckets.map((b) => ({
+    key: b.key.substr(0, 10),
+    eventCount: b.doc_count,
+    sampleEvents: b.timing_to_event.top.hits.hits.map((h) => h._source),
+  }));

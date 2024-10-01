@@ -23,13 +23,15 @@ function calculateTimeDifference(timing) {
 
 export default function Duration({ value, onChange, timings }) {
   const { Input } = useContext(ComponentsContext);
-  const TimingsWithId = timings.map(t => ({ ...t, id: getTimingId(t) }));
+  const TimingsWithId = timings.map((t) => ({ ...t, id: getTimingId(t) }));
 
   const [duration, setDuration] = useState(value.eventDuration || null);
 
   useEffect(() => {
     if (value?.dates?.length && !value.eventDuration) {
-      const choseTiming = TimingsWithId.find(t => t.id === value.dates[0].timingId);
+      const choseTiming = TimingsWithId.find(
+        (t) => t.id === value.dates[0].timingId,
+      );
       const preloadedDuration = calculateTimeDifference(choseTiming);
       setDuration(preloadedDuration);
       onChange(preloadedDuration);
@@ -42,7 +44,7 @@ export default function Duration({ value, onChange, timings }) {
       placeholder="Durée de l'offre en minutes"
       value={duration}
       type="number"
-      onChange={e => {
+      onChange={(e) => {
         setDuration(e.target.value);
         onChange(e.target.value);
       }}

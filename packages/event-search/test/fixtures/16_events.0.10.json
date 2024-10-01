@@ -74,11 +74,7 @@
       "organizerurl": "http://www.maison-objet.com",
       "authortestimony": "",
       "singlechoice": 1,
-      "multichoice": [
-        2,
-        3,
-        4
-      ],
+      "multichoice": [2, 3, 4],
       "featured": false,
       "member": {
         "role": 1,
@@ -105,11 +101,7 @@
         "fr": ""
       },
       "keywords": {
-        "fr": [
-          "doigts",
-          "nez",
-          "ailleurs"
-        ],
+        "fr": ["doigts", "nez", "ailleurs"],
         "en": []
       },
       "image": {
@@ -165,11 +157,7 @@
       "organizerurl": "http://www.reedexpo.fr/",
       "authortestimony": "Florence GOSSET (France) - Détaillante bijouterie fantaisie et accessoires de mode",
       "singlechoice": 5,
-      "multichoice": [
-        6,
-        7,
-        8
-      ],
+      "multichoice": [6, 7, 8],
       "featured": false,
       "member": {
         "role": 1,
@@ -252,9 +240,7 @@
       "organizername": "Reed Expositions France, Paris",
       "organizerurl": "http://www.reedexpo.fr/",
       "authortestimony": "",
-      "multichoice": [
-        7
-      ],
+      "multichoice": [7],
       "featured": false,
       "member": {
         "role": 1,
@@ -281,12 +267,8 @@
         "fr": "lDescription"
       },
       "keywords": {
-        "fr": [
-          "vin chaud"
-        ],
-        "en": [
-          "hot wine"
-        ]
+        "fr": ["vin chaud"],
+        "en": ["hot wine"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -342,10 +324,7 @@
       "organizerurl": "http://www.reedexpo.fr/",
       "authortestimony": "",
       "singlechoice": 1,
-      "multichoice": [
-        10,
-        11
-      ],
+      "multichoice": [10, 11],
       "featured": false,
       "member": {
         "role": 1,
@@ -372,14 +351,8 @@
         "fr": "lDescription"
       },
       "keywords": {
-        "fr": [
-          "vin chaud",
-          "bières",
-          "janine"
-        ],
-        "en": [
-          "hot wine"
-        ]
+        "fr": ["vin chaud", "bières", "janine"],
+        "en": ["hot wine"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -435,10 +408,7 @@
       "organizerurl": "http://www.reedexpo.fr",
       "authortestimony": "",
       "singlechoice": 2,
-      "multichoice": [
-        12,
-        13
-      ],
+      "multichoice": [12, 13],
       "featured": false,
       "member": {
         "role": 1,

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Provider } from 'react-redux';
 import { QueryClientProvider, QueryClient, useQueryClient } from 'react-query';
 import {
@@ -9,21 +8,20 @@ import {
 
 import Layout from './Layout';
 
-export default function LayoutManager({
-  store, apps, children, ...props
-}) {
+export default function LayoutManager({ store, apps, children, ...props }) {
   const client = useConstant(() => apiClient('', null));
 
   const parentQueryClient = useQueryClient();
   const queryClient = useConstant(
-    () => parentQueryClient
+    () =>
+      parentQueryClient
       || new QueryClient({
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
           },
         },
-      })
+      }),
   );
 
   return (

@@ -6,10 +6,17 @@ const log = logs('services/inboxes');
 export default async function onInboxCreate(inbox) {
   switch (inbox.data.type) {
     case 'user': {
-      const inboxUser = await inbox.users.add({ userUid: inbox.data.identifier });
+      const inboxUser = await inbox.users.add({
+        userUid: inbox.data.identifier,
+      });
 
       if (!inboxUser.data) {
-        log('warn', 'Cannot get/create InboxUser (%j) on inbox (%j)', { userUid: inbox.data.identifier }, inbox.data);
+        log(
+          'warn',
+          'Cannot get/create InboxUser (%j) on inbox (%j)',
+          { userUid: inbox.data.identifier },
+          inbox.data,
+        );
       }
 
       break;
@@ -22,14 +29,15 @@ export default async function onInboxCreate(inbox) {
       const limit = 100;
       let pos = 0;
       let result;
-      const shList = () => membersSvc.list(
-        {
-          agendaUid: inbox.data.identifier,
-          role: ['administrator', 'moderator'],
-          deletedUser: false,
-        },
-        { offset: pos, limit },
-      );
+      const shList = () =>
+        membersSvc.list(
+          {
+            agendaUid: inbox.data.identifier,
+            role: ['administrator', 'moderator'],
+            deletedUser: false,
+          },
+          { offset: pos, limit },
+        );
 
       while ((result = await shList())) {
         if (!result.length) break;

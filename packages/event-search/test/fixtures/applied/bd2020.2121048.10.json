@@ -756,9 +756,7 @@
       "tarif": "Entrée du musée: 4 euros (accès aux collections permanentes et temporaires)",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -948,9 +946,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1153,9 +1149,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1394,9 +1388,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 624,
@@ -1772,9 +1764,7 @@
         "min": 10,
         "max": 15
       },
-      "registration": [
-        "hermine.murgia@ac-orleans-tours.fr"
-      ],
+      "registration": ["hermine.murgia@ac-orleans-tours.fr"],
       "location": {
         "uid": 44170877,
         "slug": "college-jules-verne-18000-bourges",
@@ -1808,9 +1798,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -2186,9 +2174,7 @@
         "min": 10,
         "max": 15
       },
-      "registration": [
-        "hermine.murgia@ac-orleans-tours.fr"
-      ],
+      "registration": ["hermine.murgia@ac-orleans-tours.fr"],
       "location": {
         "uid": 61444392,
         "slug": "college-victor-hugo725",
@@ -2222,9 +2208,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -2604,9 +2588,7 @@
         "min": 10,
         "max": 15
       },
-      "registration": [
-        "hermine.murgia@ac-orleans-tours.fr"
-      ],
+      "registration": ["hermine.murgia@ac-orleans-tours.fr"],
       "location": {
         "uid": 47748616,
         "slug": "college-irene-joliot-curie",
@@ -2640,9 +2622,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -3018,9 +2998,7 @@
         "min": 10,
         "max": 15
       },
-      "registration": [
-        "hermine.murgia@ac-orleans-tours.fr"
-      ],
+      "registration": ["hermine.murgia@ac-orleans-tours.fr"],
       "location": {
         "uid": 99024924,
         "slug": "college-voltaire833",
@@ -3054,9 +3032,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -3432,9 +3408,7 @@
         "min": 10,
         "max": 15
       },
-      "registration": [
-        "hermine.murgia@ac-orleans-tours.fr"
-      ],
+      "registration": ["hermine.murgia@ac-orleans-tours.fr"],
       "location": {
         "uid": 84645737,
         "slug": "college-albert-camus613",
@@ -3468,9 +3442,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -3693,9 +3665,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

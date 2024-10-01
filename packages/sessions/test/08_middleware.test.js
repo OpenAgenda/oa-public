@@ -34,6 +34,15 @@ describe('session - functional (server): middleware', () => {
 
     let culture = 'fr';
 
+    function _runClientSyncRoutine() {
+      const agent = sa.agent();
+
+      return agent
+        .get('http://localhost:3000/land')
+        .then(() => agent.post('http://localhost:3000/signin'))
+        .then(() => agent.post('http://localhost:3000/sync'));
+    }
+
     beforeEach(() => {
       sessionsWithGetUser = Sessions({
         ...config,
@@ -46,9 +55,16 @@ describe('session - functional (server): middleware', () => {
       });
     });
 
-    afterEach(done => server.close(done.bind(null)));
+    afterEach(async () => {
+      await new Promise((resolve, reject) => {
+        server.close((err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+      });
+    });
 
-    it('updates session with data fetched from getUser interface', done => {
+    it('updates session with data fetched from getUser interface', async () => {
       server = helpers.launchTestApp({
         use: sessionsWithGetUser.mw,
         'get:/land': helpers.roundTrip,
@@ -59,7 +75,9 @@ describe('session - functional (server): middleware', () => {
             next();
           },
           sessionsWithGetUser.mw.open(),
-          (req, res) => { res.send('ok'); },
+          (req, res) => {
+            res.send('ok');
+          },
         ],
         'post:/sync': [
           (req, res, next) => {
@@ -74,25 +92,13 @@ describe('session - functional (server): middleware', () => {
         ],
       });
 
-      _runClientSyncRoutine().then(res => {
-        const dc = base64.decode(res.header['set-cookie'][0].split('=')[1].split(';')[0]).replace(String.fromCharCode(0), '');
-        expect(
-          JSON.parse(dc).user.culture,
-        ).toBe('en');
+      const res = await _runClientSyncRoutine();
+      const dc = base64
+        .decode(res.header['set-cookie'][0].split('=')[1].split(';')[0])
+        .replace(String.fromCharCode(0), '');
 
-        done();
-      });
+      expect(JSON.parse(dc).user.culture).toBe('en');
     });
-
-    function _runClientSyncRoutine() {
-      const agent = sa.agent();
-
-      return agent.get('http://localhost:3000/land')
-
-        .then(() => agent.post('http://localhost:3000/signin'))
-
-        .then(() => agent.post('http://localhost:3000/sync'));
-    }
   });
 
   describe('.open', () => {
@@ -103,10 +109,9 @@ describe('session - functional (server): middleware', () => {
     function _runClientOpenRoutine() {
       const agent = sa.agent();
 
-      return agent.get('http://localhost:3000/land')
-
+      return agent
+        .get('http://localhost:3000/land')
         .then(() => agent.post('http://localhost:3000/signin'))
-
         .then(() => agent.get('http://localhost:3000/cookied'));
     }
 
@@ -119,43 +124,49 @@ describe('session - functional (server): middleware', () => {
       mw = sessions.mw;
     });
 
-    afterEach(done => server.close(done.bind(null)));
-
-    it('a session can be opened using service.open', () => new Promise(rs => {
-      server = helpers.launchTestApp({
-        use: mw,
-        'get:/land': helpers.roundTrip,
-        'post:/signin': (req, res) => {
-          sessions.open(req, { uid: 12345678 }, () => {
-            res.send('ok');
-          });
-        },
-        'get:/cookied': (req, res) => {
-          sessions.get(req, (err, session) => {
-            expect(
-              _.omit(session, ['expires']),
-            ).toEqual({
-              culture: 'fr',
-              uid: 12345678,
-              name: 'Gaetan Latouche',
-              isNew: false,
-              thumbnail: '//graph.facebook.com/100002280111541/picture',
-              id: 1,
-              email: 'gaetan@cibul.net',
-              latestActivity: session.latestActivity,
-              isBlacklisted: false,
-              transverseApiAccess: false,
-            });
-
-            res.send('ok');
-          });
-        },
+    afterEach(async () => {
+      await new Promise((resolve, reject) => {
+        server.close((err) => {
+          if (err) return reject(err);
+          resolve();
+        });
       });
+    });
 
-      _runClientOpenRoutine().then(() => rs());
-    }));
+    it('a session can be opened using service.open', () =>
+      new Promise((rs) => {
+        server = helpers.launchTestApp({
+          use: mw,
+          'get:/land': helpers.roundTrip,
+          'post:/signin': (req, res) => {
+            sessions.open(req, { uid: 12345678 }, () => {
+              res.send('ok');
+            });
+          },
+          'get:/cookied': (req, res) => {
+            sessions.get(req, (err, session) => {
+              expect(_.omit(session, ['expires'])).toEqual({
+                culture: 'fr',
+                uid: 12345678,
+                name: 'Gaetan Latouche',
+                isNew: false,
+                thumbnail: '//graph.facebook.com/100002280111541/picture',
+                id: 1,
+                email: 'gaetan@cibul.net',
+                latestActivity: session.latestActivity,
+                isBlacklisted: false,
+                transverseApiAccess: false,
+              });
 
-    it('.. or using the open middleware', done => {
+              res.send('ok');
+            });
+          },
+        });
+
+        _runClientOpenRoutine().then(() => rs());
+      }));
+
+    it('.. or using the open middleware', async () => {
       server = helpers.launchTestApp({
         use: mw,
         'get:/land': helpers.roundTrip,
@@ -172,9 +183,7 @@ describe('session - functional (server): middleware', () => {
             expect(req.result.success).toBe(true);
 
             // resut will contain result of session open operation
-            expect(
-              _.omit(req.result.cookieData, ['expires']),
-            ).toEqual({
+            expect(_.omit(req.result.cookieData, ['expires'])).toEqual({
               user: {
                 culture: 'fr',
                 uid: 123,
@@ -186,11 +195,9 @@ describe('session - functional (server): middleware', () => {
             res.send('ok');
           },
         ],
-        'get:/cookied': (req, res, next) => {
+        'get:/cookied': (req, res, _next) => {
           sessions.get(req, (err, session) => {
-            expect(
-              _.omit(session, ['expires']),
-            ).toEqual({
+            expect(_.omit(session, ['expires'])).toEqual({
               culture: 'fr',
               uid: 123,
               name: 'Gaetan Latouche',
@@ -208,7 +215,7 @@ describe('session - functional (server): middleware', () => {
         },
       });
 
-      _runClientOpenRoutine().then(res => done());
+      await _runClientOpenRoutine();
     });
   });
 
@@ -216,6 +223,16 @@ describe('session - functional (server): middleware', () => {
     let sessions;
     let mw;
     let server;
+
+    function _runClientIfLoggedRoutine(signin = false) {
+      const agent = sa.agent();
+
+      return agent
+        .get('http://localhost:3000/land')
+        .then(() =>
+          (signin ? agent.post('http://localhost:3000/signin') : () => {}))
+        .then(() => agent.post('http://localhost:3000/any'));
+    }
 
     beforeAll(() => {
       sessions = Sessions({
@@ -228,111 +245,127 @@ describe('session - functional (server): middleware', () => {
 
     beforeEach(() => helpers.clearRedis(config.redis, client));
 
-    afterEach(done => server.close(done.bind(null)));
+    afterEach(async () => {
+      await new Promise((resolve, reject) => {
+        server.close((err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+      });
+    });
 
-    it('.ifUnlogged calls given middleware if user is unlogged', done => {
+    it('.ifUnlogged calls given middleware if user is unlogged', async () => {
       server = helpers.launchTestApp({
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin': helpers.roundTrip,
         'post:/any': [
-          mw.ifUnlogged((req, res, next) => {
+          mw.ifUnlogged((req, res, _next) => {
             res.send({ ladida: true });
           }),
-          (req, res, next) => { res.send({ ladida: false }); },
+          (req, res, _next) => {
+            res.send({ ladida: false });
+          },
         ],
       });
 
-      _runClientIfLoggedRoutine(false).then(res => {
-        expect(res.body).toEqual({ ladida: true });
+      const res = await _runClientIfLoggedRoutine(false);
 
-        done();
-      });
+      expect(res.body).toEqual({ ladida: true });
     });
 
-    it('.ifUnlogged calls next if user is logged', done => {
+    it('.ifUnlogged calls next if user is logged', async () => {
       server = helpers.launchTestApp({
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin': [
-          (req, res, next) => { req.userIdentifier = { uid: 123 }; next(); },
+          (req, res, next) => {
+            req.userIdentifier = { uid: 123 };
+            next();
+          },
           mw.open(),
-          (req, res) => { res.send('ok'); },
+          (req, res) => {
+            res.send('ok');
+          },
         ],
         'post:/any': [
-          mw.ifUnlogged((req, res, next) => {
+          mw.ifUnlogged((req, res, _next) => {
             res.send({ ladida: true });
           }),
-          (req, res, next) => { res.send({ ladida: false }); },
+          (req, res, _next) => {
+            res.send({ ladida: false });
+          },
         ],
       });
 
-      _runClientIfLoggedRoutine(true).then(res => {
-        expect(res.body).toEqual({ ladida: false });
+      const res = await _runClientIfLoggedRoutine(true);
 
-        done();
-      });
+      expect(res.body).toEqual({ ladida: false });
     });
 
-    it('.ifLogged calls next if user is not logged', done => {
+    it('.ifLogged calls next if user is not logged', async () => {
       server = helpers.launchTestApp({
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin': helpers.roundTrip,
         'post:/any': [
-          mw.ifLogged((req, res, next) => {
+          mw.ifLogged((req, res, _next) => {
             res.send({ ladida: true });
           }),
-          (req, res, next) => { res.send({ ladida: false }); },
+          (req, res, _next) => {
+            res.send({ ladida: false });
+          },
         ],
       });
 
-      _runClientIfLoggedRoutine(false).then(res => {
-        expect(res.body).toEqual({ ladida: false });
+      const res = await _runClientIfLoggedRoutine(false);
 
-        done();
-      });
+      expect(res.body).toEqual({ ladida: false });
     });
 
-    it('.ifLogged calls given middleware if user is logged', done => {
+    it('.ifLogged calls given middleware if user is logged', async () => {
       server = helpers.launchTestApp({
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin': [
-          (req, res, next) => { req.userIdentifier = { uid: 123 }; next(); },
+          (req, res, next) => {
+            req.userIdentifier = { uid: 123 };
+            next();
+          },
           mw.open(),
-          (req, res) => { res.send('ok'); },
+          (req, res) => {
+            res.send('ok');
+          },
         ],
         'post:/any': [
-          mw.ifLogged((req, res, next) => {
+          mw.ifLogged((req, res, _next) => {
             res.send({ ladida: true });
           }),
-          (req, res, next) => { res.send({ ladida: false }); },
+          (req, res, _next) => {
+            res.send({ ladida: false });
+          },
         ],
       });
 
-      _runClientIfLoggedRoutine(true).then(res => {
-        expect(res.body).toEqual({ ladida: true });
+      const res = await _runClientIfLoggedRoutine(true);
 
-        done();
-      });
+      expect(res.body).toEqual({ ladida: true });
     });
-
-    function _runClientIfLoggedRoutine(signin = false) {
-      const agent = sa.agent();
-
-      return agent.get('http://localhost:3000/land')
-
-        .then(() => (signin ? agent.post('http://localhost:3000/signin') : () => {}))
-
-        .then(() => agent.post('http://localhost:3000/any'));
-    }
   });
 
   describe('.close', () => {
     let sessions;
     let mw;
     let server;
+
+    function _runClientCloseRoutine() {
+      const agent = sa.agent();
+
+      return agent
+        .get('http://localhost:3000/land')
+        .then(() => agent.post('http://localhost:3000/signin'))
+        .then(() => agent.post('http://localhost:3000/signout'));
+    }
 
     beforeAll(() => {
       sessions = Sessions({
@@ -343,18 +376,30 @@ describe('session - functional (server): middleware', () => {
       mw = sessions.mw;
     });
 
-    afterEach(done => server.close(done.bind(null)));
+    afterEach(async () => {
+      await new Promise((resolve, reject) => {
+        server.close((err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+      });
+    });
 
-    it('a session can be closed using service.close', done => {
+    it('a session can be closed using service.close', async () => {
       server = helpers.launchTestApp({
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin': [
-          (req, res, next) => { req.userIdentifier = { uid: 123 }; next(); },
+          (req, res, next) => {
+            req.userIdentifier = { uid: 123 };
+            next();
+          },
           mw.open(),
-          (req, res) => { res.send('ok'); },
+          (req, res) => {
+            res.send('ok');
+          },
         ],
-        'post:/signout': (req, res, next) => {
+        'post:/signout': (req, res, _next) => {
           sessions.close(req, (err, result) => {
             expect(result.success).toBe(true);
 
@@ -365,22 +410,30 @@ describe('session - functional (server): middleware', () => {
         },
       });
 
-      _runClientCloseRoutine().then(res => { done(); });
+      await _runClientCloseRoutine();
     });
 
-    it('.. or using the close middleware', done => {
+    it('.. or using the close middleware', async () => {
       server = helpers.launchTestApp({
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin': [
-          (req, res, next) => { req.userIdentifier = { uid: 123 }; next(); },
+          (req, res, next) => {
+            req.userIdentifier = { uid: 123 };
+            next();
+          },
           mw.open(),
-          (req, res) => { res.send('ok'); },
+          (req, res) => {
+            res.send('ok');
+          },
         ],
         'post:/signout': [
-          (req, res, next) => { req.userIdentifier = { uid: 123 }; next(); },
-          mw.close(),
           (req, res, next) => {
+            req.userIdentifier = { uid: 123 };
+            next();
+          },
+          mw.close(),
+          (req, res, _next) => {
             expect(req.result.success).toBe(true);
 
             expect(req.session).toBeNull();
@@ -390,24 +443,23 @@ describe('session - functional (server): middleware', () => {
         ],
       });
 
-      _runClientCloseRoutine().then(res => { done(); });
+      await _runClientCloseRoutine();
     });
-
-    function _runClientCloseRoutine() {
-      const agent = sa.agent();
-
-      return agent.get('http://localhost:3000/land')
-
-        .then(() => agent.post('http://localhost:3000/signin'))
-
-        .then(() => agent.post('http://localhost:3000/signout'));
-    }
   });
 
   describe('.load', () => {
     let sessions;
     let mw;
     let server;
+
+    function _runClientGetRoutine() {
+      const agent = sa.agent();
+
+      return agent
+        .get('http://localhost:3000/land')
+        .then(() => agent.post('http://localhost:3000/signin'))
+        .then(() => agent.get('http://localhost:3000/get'));
+    }
 
     beforeAll(() => {
       sessions = Sessions({
@@ -418,23 +470,33 @@ describe('session - functional (server): middleware', () => {
       mw = sessions.mw;
     });
 
-    afterEach(done => server.close(done.bind(null)));
+    afterEach(async () => {
+      await new Promise((resolve, reject) => {
+        server.close((err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+      });
+    });
 
-    it('loads logged user cookie info in req.user', done => {
+    it('loads logged user cookie info in req.user', async () => {
       server = helpers.launchTestApp({
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin': [
-          (req, res, next) => { req.userIdentifier = { uid: 123 }; next(); },
+          (req, res, next) => {
+            req.userIdentifier = { uid: 123 };
+            next();
+          },
           mw.open(),
-          (req, res) => { res.send('ok'); },
+          (req, res) => {
+            res.send('ok');
+          },
         ],
         'get:/get': [
           mw.load(),
           (req, res) => {
-            expect(
-              _.omit(req.user, ['expires']),
-            ).toEqual({
+            expect(_.omit(req.user, ['expires'])).toEqual({
               culture: 'fr',
               uid: 123,
               name: 'Gaetan Latouche',
@@ -452,15 +514,18 @@ describe('session - functional (server): middleware', () => {
         ],
       });
 
-      _runClientGetRoutine().then(res => { done(); });
+      await _runClientGetRoutine();
     });
 
-    it('loads all user info when detailed: true option is set', done => {
+    it('loads all user info when detailed: true option is set', async () => {
       server = helpers.launchTestApp({
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin': [
-          (req, res, next) => { req.userIdentifier = { uid: 123 }; next(); },
+          (req, res, next) => {
+            req.userIdentifier = { uid: 123 };
+            next();
+          },
           mw.open(),
           (req, res) => {
             res.send('ok');
@@ -469,9 +534,7 @@ describe('session - functional (server): middleware', () => {
         'get:/get': [
           mw.load({ detailed: true }),
           (req, res) => {
-            expect(
-              _.omit(req.user, ['latestActivity', 'expires']),
-            ).toEqual({
+            expect(_.omit(req.user, ['latestActivity', 'expires'])).toEqual({
               id: 1,
               culture: 'fr',
               uid: 123,
@@ -488,17 +551,7 @@ describe('session - functional (server): middleware', () => {
         ],
       });
 
-      _runClientGetRoutine().then(res => { done(); });
+      await _runClientGetRoutine();
     });
-
-    function _runClientGetRoutine() {
-      const agent = sa.agent();
-
-      return agent.get('http://localhost:3000/land')
-
-        .then(() => agent.post('http://localhost:3000/signin'))
-
-        .then(() => agent.get('http://localhost:3000/get'));
-    }
   });
 });

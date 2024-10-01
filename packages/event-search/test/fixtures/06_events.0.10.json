@@ -17,12 +17,8 @@
         "fr": "Presque le plus dans le futur"
       },
       "keywords": {
-        "fr": [
-          "futur"
-        ],
-        "en": [
-          "future"
-        ]
+        "fr": ["futur"],
+        "en": ["future"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -84,9 +80,7 @@
         "fr": "This is a story"
       },
       "keywords": {
-        "fr": [
-          "apostrophe_event"
-        ]
+        "fr": ["apostrophe_event"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -324,9 +318,7 @@
         "fr": "Un événement le 28 février 1981 à Reykjavik"
       },
       "keywords": {
-        "fr": [
-          "date_event"
-        ]
+        "fr": ["date_event"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -384,9 +376,7 @@
         "fr": "Un événement le 14 juillet à Paris"
       },
       "keywords": {
-        "fr": [
-          "date_event"
-        ]
+        "fr": ["date_event"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -554,9 +544,7 @@
         "fr": "Boire à la montagne"
       },
       "keywords": {
-        "fr": [
-          "lieu"
-        ],
+        "fr": ["lieu"],
         "en": []
       },
       "image": {
@@ -618,12 +606,8 @@
         "fr": "Dernier"
       },
       "keywords": {
-        "fr": [
-          "dernier"
-        ],
-        "en": [
-          "last"
-        ]
+        "fr": ["dernier"],
+        "en": ["last"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"

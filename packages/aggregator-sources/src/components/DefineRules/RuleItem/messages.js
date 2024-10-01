@@ -80,7 +80,7 @@ export default defineMessages({
   },
   state: {
     id: 'aggregator-sources.DefineRules.state',
-    defaultMessage: 'Status',
+    defaultMessage: 'State',
   },
   other: {
     id: 'aggregator-sources.DefineRules.otherFilter',

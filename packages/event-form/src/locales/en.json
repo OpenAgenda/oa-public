@@ -3,6 +3,7 @@
   "event-form.components.Events.loadError": "Load error, please try again",
   "event-form.components.Events.noResult": "No matching event found",
   "event-form.components.Events.remove": "Remove",
+  "event-form.components.Events.search": "Search",
   "event-form.components.Events.searchEvents": "Event search",
   "event-form.components.Events.show": "Show"
 }

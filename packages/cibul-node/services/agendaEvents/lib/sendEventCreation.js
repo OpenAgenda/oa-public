@@ -7,15 +7,9 @@ import eventLink from './utils/eventLink.js';
 const log = logs('agendaEvents/sendEventCreation');
 
 export default async ({ config, services }, { agendaEvent, context }) => {
-  const {
-    root,
-  } = config;
+  const { root } = config;
 
-  const {
-    mails,
-    users,
-    members: membersSvc,
-  } = services;
+  const { mails, users, members: membersSvc } = services;
 
   log('processing');
   const { agenda, event } = context;
@@ -23,14 +17,20 @@ export default async ({ config, services }, { agendaEvent, context }) => {
     throw new Error('event creator reference is missing');
   }
   const creatorUser = await users.findOne({ query: { uid: event.creatorUid } });
-  const creatorMemberId = await membersSvc.get({
-    agendaUid: agendaEvent.agendaUid,
-    userUid: creatorUser.uid,
-  }).then(r => (r ? r.id : null));
+  const creatorMemberId = await membersSvc
+    .get({
+      agendaUid: agendaEvent.agendaUid,
+      userUid: creatorUser.uid,
+    })
+    .then((r) => (r ? r.id : null));
   const creatorLang = creatorUser.culture || 'fr';
 
   if (!creatorMemberId) {
-    log('warn', 'no member reference was retrieved', _.pick(agendaEvent, ['agendaUid', 'eventUid']));
+    log(
+      'warn',
+      'no member reference was retrieved',
+      _.pick(agendaEvent, ['agendaUid', 'eventUid']),
+    );
   }
 
   let stateLabel;
@@ -59,7 +59,10 @@ export default async ({ config, services }, { agendaEvent, context }) => {
   }
 
   if (creatorMemberId) {
-    log('acting member is event creator, sending myEventCreation mail to %s', creatorUser.email);
+    log(
+      'acting member is event creator, sending myEventCreation mail to %s',
+      creatorUser.email,
+    );
     await mails.send({
       template: 'myEventCreation',
       to: {
@@ -68,7 +71,8 @@ export default async ({ config, services }, { agendaEvent, context }) => {
           {
             rule: ['receive', 'myEventCreation'],
             dataPath: 'unsubscribeLink',
-          }, {
+          },
+          {
             memberId: creatorMemberId,
             rule: ['receive', 'myEventCreation'],
             dataPath: 'memberUnsubscribeLink',
@@ -86,26 +90,31 @@ export default async ({ config, services }, { agendaEvent, context }) => {
     });
   }
 
-  const nonCreatorMembers = members.filter(member => member.user && member.user.uid !== creatorUser.uid);
+  const nonCreatorMembers = members.filter(
+    (member) => member.user && member.user.uid !== creatorUser.uid,
+  );
 
   if (!nonCreatorMembers.length) {
     log('there are no members other than creator to send email to');
     return;
   }
 
-  log('sending eventCreation email to %s members other than creator', nonCreatorMembers.length);
+  log(
+    'sending eventCreation email to %s members other than creator',
+    nonCreatorMembers.length,
+  );
 
   await mails.send({
     template: 'eventCreation',
     to: nonCreatorMembers
-      .filter(member => {
+      .filter((member) => {
         if (!member.user) {
           log('warn', 'no user was found matching member %s', member.id);
         }
 
         return !!member.user;
       })
-      .map(member => {
+      .map((member) => {
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[lang] || _.find(event.title);
 
@@ -116,7 +125,8 @@ export default async ({ config, services }, { agendaEvent, context }) => {
             {
               rule: ['receive', 'eventCreation'],
               dataPath: 'unsubscribeLink',
-            }, {
+            },
+            {
               memberId: member.id,
               rule: ['receive', 'eventCreation'],
               dataPath: 'memberUnsubscribeLink',

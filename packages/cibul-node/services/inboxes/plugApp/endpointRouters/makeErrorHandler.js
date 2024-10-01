@@ -1,4 +1,4 @@
-export default services => (err, req, res, next) => {
+export default (services) => (err, req, res, next) => {
   if (err) {
     if (err.name === 'BadRequest') {
       return res.status(400).json(err);

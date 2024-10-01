@@ -3,11 +3,13 @@ import _ from 'lodash';
 import mysql from 'mysql';
 
 export default async (config, jsFile) => {
-  const sql = await import(`./${jsFile}`).then(mod => mod.default);
+  const sql = await import(`./${jsFile}`).then((mod) => mod.default);
 
-  const con = mysql.createConnection(Object.assign(_.pick(config, ['user', 'password', 'host', 'ssl']), {
-    multipleStatements: true,
-  }));
+  const con = mysql.createConnection(
+    Object.assign(_.pick(config, ['user', 'password', 'host', 'ssl']), {
+      multipleStatements: true,
+    }),
+  );
 
   const query = promisify(con.query.bind(con));
 

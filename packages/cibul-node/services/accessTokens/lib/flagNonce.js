@@ -16,12 +16,10 @@ export default async (knex, token = {}, nonce = null) => {
     throw new BadRequest({ info: { errors } }, 'nonce is not valid');
   }
 
-  const record = await knex('access_token_nonce')
-    .first('id')
-    .where({
-      access_token_id: token.id,
-      nonce,
-    });
+  const record = await knex('access_token_nonce').first('id').where({
+    access_token_id: token.id,
+    nonce,
+  });
 
   if (record) {
     log('info', 'nonce has already been used', { token: token.token, nonce });

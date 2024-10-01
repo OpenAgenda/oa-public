@@ -23,5 +23,5 @@ export default async (services, userUids, userOptions = {}) => {
     return data;
   }
 
-  return data.map(d => _.pick(d, ['id', 'uid', 'fullName', 'culture']));
+  return data.map((d) => _.pick(d, ['id', 'uid', 'fullName', 'culture']));
 };

@@ -33,11 +33,8 @@ describe('simple-cache - functional (service): set', () => {
     });
   });
 
-  beforeEach(async () => cli.del(
-    await cli
-      .keys(`${config.prefix}*`)
-      .then(k => k.join(' ')),
-  ));
+  beforeEach(async () =>
+    cli.del(await cli.keys(`${config.prefix}*`).then((k) => k.join(' '))));
 
   afterAll(() => cli.quit());
 
@@ -66,69 +63,85 @@ describe('simple-cache - functional (service): set', () => {
       expect(value).toBe('{"thisIsJSON":true}');
     });
 
-    it(
-      'set stores value in specific namespace, id, key redis key',
-      async () => {
-        const value = await cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`);
+    it('set stores value in specific namespace, id, key redis key', async () => {
+      const value = await cli.get(
+        `${config.prefix}:agenda:123:http://ponceau.paris`,
+      );
 
-        expect(value).toBeNull();
+      expect(value).toBeNull();
 
-        await cache('agenda', 123).set('http://ponceau.paris', '<html>Chiiriie!</html>', 1);
+      await cache('agenda', 123).set(
+        'http://ponceau.paris',
+        '<html>Chiiriie!</html>',
+        1,
+      );
 
-        const updatedValue = await cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`);
+      const updatedValue = await cli.get(
+        `${config.prefix}:agenda:123:http://ponceau.paris`,
+      );
 
-        expect(updatedValue).toBe('<html>Chiiriie!</html>');
-      },
-    );
+      expect(updatedValue).toBe('<html>Chiiriie!</html>');
+    });
   });
 
   describe('callback', () => {
-    it(
-      'set stores value in specific namespace, id, key redis key',
-      () => new Promise(rs => {
-        cli.get(`${config.prefix}:agenda:123`).then(value => {
+    it('set stores value in specific namespace, id, key redis key', () =>
+      new Promise((rs) => {
+        cli.get(`${config.prefix}:agenda:123`).then((value) => {
           expect(value).toBeNull();
 
-          cache('agenda', 123).set('http://ponceau.paris', '<html>Chiiriie!</html>', 1, _err => {
-            cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`).then(value2 => {
-              expect(value2).toBe('<html>Chiiriie!</html>');
-              rs();
-            });
-          });
+          cache('agenda', 123).set(
+            'http://ponceau.paris',
+            '<html>Chiiriie!</html>',
+            1,
+            (_err) => {
+              cli
+                .get(`${config.prefix}:agenda:123:http://ponceau.paris`)
+                .then((value2) => {
+                  expect(value2).toBe('<html>Chiiriie!</html>');
+                  rs();
+                });
+            },
+          );
         });
-      }),
-    );
+      }));
 
-    it(
-      'set stores value with defined ttl',
-      () => new Promise(rs => {
-        cache('agenda', 123).set('http://ponceau.paris', '<html>Blob</html>', 1, _err => {
-          setTimeout(() => {
-            cli.get(`${config.prefix}:agenda:123:http://ponceau.paris`).then(value => {
-              expect(value).toBe(null);
-              rs();
-            });
-          }, 2000);
-        });
-      }),
-    );
+    it('set stores value with defined ttl', () =>
+      new Promise((rs) => {
+        cache('agenda', 123).set(
+          'http://ponceau.paris',
+          '<html>Blob</html>',
+          1,
+          (_err) => {
+            setTimeout(() => {
+              cli
+                .get(`${config.prefix}:agenda:123:http://ponceau.paris`)
+                .then((value) => {
+                  expect(value).toBe(null);
+                  rs();
+                });
+            }, 2000);
+          },
+        );
+      }));
 
-    it(
-      'set converts object to JSON',
-      () => new Promise(rs => {
-        cache('blaaaa').set('rgh', { thisIsJSON: true }, 10, _err => {
-          cli.get(`${config.prefix}:blaaaa:rgh`).then(value => {
+    it('set converts object to JSON', () =>
+      new Promise((rs) => {
+        cache('blaaaa').set('rgh', { thisIsJSON: true }, 10, (_err) => {
+          cli.get(`${config.prefix}:blaaaa:rgh`).then((value) => {
             expect(value).toBe('{"thisIsJSON":true}');
             rs();
           });
         });
-      }),
-    );
+      }));
   });
 
   describe('error handling', () => {
     it('VError adds arguments in redis error when thrown', async () => {
-      const info = await cache('blob').set('value').catch(e => e).then(e => e.info);
+      const info = await cache('blob')
+        .set('value')
+        .catch((e) => e)
+        .then((e) => e.info);
       expect(info).toEqual({
         namespace: 'blob',
         identifier: null,

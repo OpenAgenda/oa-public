@@ -1,11 +1,15 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const _ = require('lodash');
 
-const txtRender = _.template(fs.readFileSync(`${__dirname}/txtEvent.tpl`, 'utf-8'));
+const txtRender = _.template(
+  fs.readFileSync(`${__dirname}/txtEvent.tpl`, 'utf-8'),
+);
 
-const mdRender = _.template(fs.readFileSync(`${__dirname}//mdEvent.tpl`, 'utf-8'));
+const mdRender = _.template(
+  fs.readFileSync(`${__dirname}//mdEvent.tpl`, 'utf-8'),
+);
 
 const labels = require('@openagenda/labels/exports/text');
 const accessibilityLabels = require('@openagenda/labels/event/accessibility');
@@ -29,12 +33,12 @@ module.exports = (format, { genUrl, lang, section }, data, { previous }) => {
   const labelsByMode = [
     {
       code: 2,
-      label: flatAttendanceModeLabels.onlineAttendanceMode
+      label: flatAttendanceModeLabels.onlineAttendanceMode,
     },
     {
       code: 3,
-      label: flatAttendanceModeLabels.mixedAttendanceMode
-    }
+      label: flatAttendanceModeLabels.mixedAttendanceMode,
+    },
   ];
 
   return (format === 'md' ? mdRender : txtRender)({
@@ -54,16 +58,20 @@ module.exports = (format, { genUrl, lang, section }, data, { previous }) => {
       }
       : null,
     accessibility: _.keys(data.accessibility)
-      .filter(k => data.accessibility[k])
-      .map(k => flatAccessibilityLabels[k]),
+      .filter((k) => data.accessibility[k])
+      .map((k) => flatAccessibilityLabels[k]),
     longDescription: get(data.longDescription, lang),
-    sectionValue: _.get(previous, section) !== _.get(data, section) ? _.get(data, section) : null,
+    sectionValue:
+      _.get(previous, section) !== _.get(data, section)
+        ? _.get(data, section)
+        : null,
     image: data.image ? data.image.base + data.image.filename : null,
     onlineAccessLink: data.onlineAccessLink,
     attendanceMode: {
       onlineAccessLinkLabel: flatAttendanceModeLabels.onlineAccessLink,
       attendanceModeLabel: flatAttendanceModeLabels.attendanceMode,
-      mode: labelsByMode.find(label => label.code === data.attendanceMode)?.label,
+      mode: labelsByMode.find((label) => label.code === data.attendanceMode)
+        ?.label,
     },
   });
 };

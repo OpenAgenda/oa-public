@@ -1,8 +1,8 @@
 {
-  "template" : "action",
-  "action" : {
-    "title" : "getStartedTitle",
-    "link" : "/signup",
-    "label" : "getStartedButton"
+  "template": "action",
+  "action": {
+    "title": "getStartedTitle",
+    "link": "/signup",
+    "label": "getStartedButton"
   }
 }

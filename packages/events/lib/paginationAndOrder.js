@@ -3,13 +3,9 @@
 const _ = require('lodash');
 
 module.exports = (k, nav, options = {}) => {
-  const {
-    after, offset, limit, order
-  } = nav;
+  const { after, offset, limit, order } = nav;
 
-  const {
-    useAfter
-  } = options;
+  const { useAfter } = options;
 
   if (useAfter) {
     k.where('id', '>', after);

@@ -38,7 +38,7 @@ $secondaryColor: white;
     display: inline-block;
     white-space: nowrap;
     &:hover {
-      background-color:$secondaryColor;
+      background-color: $secondaryColor;
       color: $primaryColor;
     }
   }

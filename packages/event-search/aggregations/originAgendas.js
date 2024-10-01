@@ -9,6 +9,4 @@ module.exports.formatDSL = (field, options = {}) => ({
   },
 });
 
-module.exports.formatResult = ({
-  buckets,
-}) => buckets.map(parseAgendaBucket);
+module.exports.formatResult = ({ buckets }) => buckets.map(parseAgendaBucket);

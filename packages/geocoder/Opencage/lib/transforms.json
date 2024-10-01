@@ -84,42 +84,35 @@
     }
   },
   {
-    "matchAny" : {
-      "adminLevel4" : "Saint-Aubin-de-Médoc"
+    "matchAny": {
+      "adminLevel4": "Saint-Aubin-de-Médoc"
     },
-    "update" : {
-      "adminLevel4" : "Saint-Aubin de Médoc"
+    "update": {
+      "adminLevel4": "Saint-Aubin de Médoc"
     }
   },
   {
-    "matchAny" : {
-      "adminLevel4" : [
-        "Villeneuve-d’Ascq",
-        "VILLENEUVE D ASCQ"
-      ]
+    "matchAny": {
+      "adminLevel4": ["Villeneuve-d’Ascq", "VILLENEUVE D ASCQ"]
     },
-    "update" : {
-      "adminLevel4" : "Villeneuve-d'Ascq"
+    "update": {
+      "adminLevel4": "Villeneuve-d'Ascq"
     }
   },
   {
-    "matchAny" : {
-      "adminLevel1" : [
-        "Provence-Alpes-Côte-d'Azur"
-      ]
+    "matchAny": {
+      "adminLevel1": ["Provence-Alpes-Côte-d'Azur"]
     },
-    "update" : {
-      "adminLevel1" : "Provence-Alpes-Côte d'Azur"
+    "update": {
+      "adminLevel1": "Provence-Alpes-Côte d'Azur"
     }
   },
   {
-    "matchAny" : {
-      "adminLevel1" : [
-        "Grand-Est"
-      ]
+    "matchAny": {
+      "adminLevel1": ["Grand-Est"]
     },
-    "update" : {
-      "adminLevel1" : "Grand Est"
+    "update": {
+      "adminLevel1": "Grand Est"
     }
   }
 ]

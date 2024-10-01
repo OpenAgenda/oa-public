@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import * as ReactIs from 'react-is';
 import { LayoutDataContext } from '@openagenda/react-shared';
 
@@ -15,10 +15,13 @@ export default function ChildLayouts({
   fallback,
   ...newExtraProps
 }) {
-  const props = {
-    extraProps: { ...extraProps, ...newExtraProps },
-    fallback,
-  };
+  const props = useMemo(
+    () => ({
+      extraProps: { ...extraProps, ...newExtraProps },
+      fallback,
+    }),
+    [extraProps, fallback, newExtraProps],
+  );
 
   // has child layout
   if (layouts?.[0] && ReactIs.isValidElementType(layouts[0])) {
@@ -28,7 +31,7 @@ export default function ChildLayouts({
         ...props,
         childLayouts: layouts.slice(1),
       },
-      children
+      children,
     );
   }
 

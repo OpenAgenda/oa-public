@@ -17,12 +17,13 @@ export default async function populateAttachments(svc, entities) {
   let result = await knex(schemas.messageAttachment)
     .select()
     .whereIn('message_id', messageIds)
-    .then(rows => rows.map(row => _.mapKeys(row, (value, key) => _.camelCase(key))));
+    .then((rows) =>
+      rows.map((row) => _.mapKeys(row, (value, key) => _.camelCase(key))));
 
-  return entities.map(entity => {
+  return entities.map((entity) => {
     [attachments, result] = _.partition(result, ['messageId', entity.id]);
 
-    entity.attachments = attachments.map(attachment => ({
+    entity.attachments = attachments.map((attachment) => ({
       ...attachment,
       path: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${attachment.filename}`,
     }));

@@ -130,10 +130,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "mediatheque@ville-floirac33.fr",
-        "0556869928"
-      ],
+      "registration": ["mediatheque@ville-floirac33.fr", "0556869928"],
       "location": {
         "uid": 61018395,
         "slug": "mediatheque-roland-barthes850",
@@ -167,9 +164,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -281,9 +276,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "0247961253"
-      ],
+      "registration": ["0247961253"],
       "location": {
         "uid": 35282828,
         "slug": "salle-inox855",
@@ -317,9 +310,7 @@
       "tarif": "5 € l'entrée au spectacle pour les plus de 16 ans / Tout le reste est gratuit",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -432,9 +423,7 @@
         "min": 4,
         "max": 99
       },
-      "registration": [
-        "http://www.aubenasbdimage.com"
-      ],
+      "registration": ["http://www.aubenasbdimage.com"],
       "location": {
         "uid": 10094628,
         "slug": "espace-lienhart873",
@@ -468,9 +457,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Service culturel de la ville d'Aubenas",
       "type-de-structure": 632,
@@ -707,9 +694,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05-49-65-29-27"
-      ],
+      "registration": ["05-49-65-29-27"],
       "location": {
         "uid": 19983479,
         "slug": "mediatheque-de-bressuire486",
@@ -743,9 +728,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "MEDIATHEQUE DE BRESSUIRE",
       "type-de-structure": 623,
@@ -854,10 +837,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "0493874922",
-        "nice@bdfugue.com"
-      ],
+      "registration": ["0493874922", "nice@bdfugue.com"],
       "location": {
         "uid": 69748552,
         "slug": "librairie-bdfugue",
@@ -891,9 +871,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -1005,9 +983,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05-49-65-29-27"
-      ],
+      "registration": ["05-49-65-29-27"],
       "location": {
         "uid": 19983479,
         "slug": "mediatheque-de-bressuire486",
@@ -1041,12 +1017,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La bulle médiathèque de Mazé",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1185,12 +1157,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
       "si-autre-precisez": null,
@@ -1332,9 +1300,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1496,9 +1462,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1590,10 +1554,7 @@
         "min": 8,
         "max": 14
       },
-      "registration": [
-        "bibliotheque@orlienas.fr",
-        "0472311723"
-      ],
+      "registration": ["bibliotheque@orlienas.fr", "0472311723"],
       "location": {
         "uid": 39668025,
         "slug": "bibliotheque-dorlienas792",
@@ -1627,9 +1588,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

@@ -1,8 +1,11 @@
 <mjml>
   <mj-head>
-    <mj-title><%= __('title', { agenda: agendaTitle, event: eventTitle }) %></mj-title>
+    <mj-title
+      ><%= __('title', { agenda: agendaTitle, event: eventTitle }) %></mj-title
+    >
     <mj-prev>
-      <%= typeof message !== 'undefined' ? message : __('title', { agenda: agendaTitle, event: eventTitle }) %>
+      <%= typeof message !== 'undefined' ? message : __('title', { agenda:
+      agendaTitle, event: eventTitle }) %>
     </mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
@@ -14,13 +17,13 @@
     <mj-content>
       <mj-column>
         <mj-text>
-          <h1 class="title"><%= __('title', { agenda: agendaTitle, event: eventTitle }) %></h1>
+          <h1 class="title">
+            <%= __('title', { agenda: agendaTitle, event: eventTitle }) %>
+          </h1>
         </mj-text>
 
         <% if (typeof message !== 'undefined') { %>
-          <mj-markdown padding-top="0">
-            <%- message %>
-          </mj-markdown>
+        <mj-markdown padding-top="0"> <%- message %> </mj-markdown>
         <% } %>
 
         <mj-button

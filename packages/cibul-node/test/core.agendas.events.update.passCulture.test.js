@@ -56,7 +56,9 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test',
       });
-    } catch (e) { /* */ }
+    } catch (e) {
+      /* */
+    }
   });
 
   afterAll(() => core.services.simpleCache.clearAll());
@@ -76,10 +78,8 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
 
       beforeAll(() => {
         server = setupServer(
-          http.get(
-            `${testConfig.passCulture.api}/openapi.json`,
-            () => HttpResponse.json(passAPIFixtures.openapi),
-          ),
+          http.get(`${testConfig.passCulture.api}/openapi.json`, () =>
+            HttpResponse.json(passAPIFixtures.openapi)),
           http.get(
             `${testConfig.passCulture.api}/public/offers/v1/offerer_venues`,
             () => HttpResponse.json(passAPIFixtures.offererVenuesGetResponse),
@@ -90,11 +90,13 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
           ),
           http.post(
             `${testConfig.passCulture.api}/public/offers/v1/events/72585/price_categories`,
-            () => HttpResponse.json(passAPIFixtures.priceCategoriesPostResponse),
+            () =>
+              HttpResponse.json(passAPIFixtures.priceCategoriesPostResponse),
           ),
           http.patch(
             `${testConfig.passCulture.api}/public/offers/v1/events/72585/price_categories/:priceCategoryId`,
-            () => HttpResponse.json(passAPIFixtures.priceCategoriesPatchResponse),
+            () =>
+              HttpResponse.json(passAPIFixtures.priceCategoriesPatchResponse),
           ),
           http.post(
             `${testConfig.passCulture.api}/public/offers/v1/events/72585/dates`,
@@ -116,41 +118,56 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
       });
 
       test('new items in pass data are processed by update', async () => {
-        const passData = event.registration.find(({ service }) => service === 'passCulture').data;
+        const passData = event.registration.find(
+          ({ service }) => service === 'passCulture',
+        ).data;
 
-        const passDataWithUpdates = produce(passData, draft => {
+        const passDataWithUpdates = produce(passData, (draft) => {
           draft.push({
-            priceCategories: [{
-              id: 1,
-              price: 13,
-              label: 'Tarif normal ajusté l\'inflation',
-            }, {
-              id: 3,
-              price: 15,
-              label: 'Tarif universel',
-            }],
+            priceCategories: [
+              {
+                id: 1,
+                price: 13,
+                label: "Tarif normal ajusté l'inflation",
+              },
+              {
+                id: 3,
+                price: 15,
+                label: 'Tarif universel',
+              },
+            ],
           });
           draft.push({
-            dates: [{
-              id: 4,
-              timingId: passData.find(entry => entry.dates).dates[0].timingId,
-              priceCategoryId: 3,
-              quantity: 2,
-            }],
+            dates: [
+              {
+                id: 4,
+                timingId: passData.find((entry) => entry.dates).dates[0]
+                  .timingId,
+                priceCategoryId: 3,
+                quantity: 2,
+              },
+            ],
           });
         });
 
-        const updated = await core.agendas(2010).events.patch(event.uid, {
-          registration: [{
-            type: 'link',
-            value: 'https://passlink.fr',
-            service: 'passCulture',
-            data: passDataWithUpdates,
-          }],
-        }, { access: 'moderator' });
+        const updated = await core.agendas(2010).events.patch(
+          event.uid,
+          {
+            registration: [
+              {
+                type: 'link',
+                value: 'https://passlink.fr',
+                service: 'passCulture',
+                data: passDataWithUpdates,
+              },
+            ],
+          },
+          { access: 'moderator' },
+        );
 
         expect(
-          updated.registration.find(r => r.service === 'passCulture').data.length,
+          updated.registration.find((r) => r.service === 'passCulture').data
+            .length,
         ).toBe(passData.length + 3);
       });
     });

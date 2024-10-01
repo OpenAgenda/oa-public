@@ -17,7 +17,7 @@ const i18nContextValue = {
     makeGetterLabel(labels)(label, values, lang),
 };
 
-export default Story => {
+export default (Story) => {
   const queryClient = useConstant(
     () =>
       new QueryClient({

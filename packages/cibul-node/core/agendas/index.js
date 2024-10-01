@@ -13,11 +13,11 @@ import flattenMemberInfo from './utils/flattenMemberInfo.js';
 import clearAgendasCache from './utils/clearAgendasCache.js';
 import sources from './sources/index.js';
 
-export default core => {
+export default (core) => {
   const settings = Settings(core);
   const events = Events(core);
 
-  const agendaEndpoints = agendaUid => {
+  const agendaEndpoints = (agendaUid) => {
     const endpoints = {
       get: get.bind(null, core, agendaUid),
       update: update.bind(null, core, agendaUid),
@@ -39,7 +39,7 @@ export default core => {
     search: search(core),
     create: create.bind(null, core),
     rebuildIndex: () => core.services.agendaSearch.rebuild(),
-    slug: agendaSlug => ({
+    slug: (agendaSlug) => ({
       get: get.slug.bind(null, core, agendaSlug),
     }),
     utils: {

@@ -50,16 +50,17 @@ describe('07 - core - functional (server): core.agendas().update', () => {
         access: 'administrator',
       });
 
-      const {
-        settings: updatedSettings,
-        title: unchangedTitle,
-      } = await core.agendas(92983929).update({
-        settings: produce(settings, draft => {
-          draft.contribution.messages.instructions = 'Une instruction';
-        }),
-      });
+      const { settings: updatedSettings, title: unchangedTitle } = await core
+        .agendas(92983929)
+        .update({
+          settings: produce(settings, (draft) => {
+            draft.contribution.messages.instructions = 'Une instruction';
+          }),
+        });
 
-      expect(updatedSettings.contribution.messages.instructions).toBe('Une instruction');
+      expect(updatedSettings.contribution.messages.instructions).toBe(
+        'Une instruction',
+      );
       expect(title).toBe(unchangedTitle);
     });
   });

@@ -16,37 +16,46 @@ import * as contributionTypes from './contributionTypes.js';
 
 const log = logs('core/agendas/settings');
 
-export default core => {
-  const {
-    tasks,
-    services,
-  } = core;
+export default (core) => {
+  const { tasks, services } = core;
 
-  const {
-    legacy: legacySvc,
-  } = services;
+  const { legacy: legacySvc } = services;
 
   const updateCategorySetFromSchema = updateLegacyFromSchema('categories');
   const updateTagSetFromSchema = updateLegacyFromSchema('tags');
 
   const resyncFn = {
-    updateTagSet: (agendaUid, options) => updateTagSetFromSchema(core, agendaUid, options),
-    updateCategorySet: agendaUid => updateCategorySetFromSchema(core, agendaUid),
-    updateCustomFromSchema: (agendaUid, force = false) => updateCustomFromSchema(core, agendaUid, force),
-    updateLegacy: (agendaUid, options) => updateLegacy(core, agendaUid, options),
-    rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
-    resyncInbox: agendaUid => resyncInbox(services, agendaUid),
-    createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
-    rebuildActivities: agendaUid => services.activities.tasks.agendaRebuild(agendaUid),
+    updateTagSet: (agendaUid, options) =>
+      updateTagSetFromSchema(core, agendaUid, options),
+    updateCategorySet: (agendaUid) =>
+      updateCategorySetFromSchema(core, agendaUid),
+    updateCustomFromSchema: (agendaUid, force = false) =>
+      updateCustomFromSchema(core, agendaUid, force),
+    updateLegacy: (agendaUid, options) =>
+      updateLegacy(core, agendaUid, options),
+    rebuildControlData: (agendaUid) => legacySvc.controlData.rebuild(agendaUid),
+    resyncInbox: (agendaUid) => resyncInbox(services, agendaUid),
+    createFormSchemaFromLegacy: (agendaUid) =>
+      createFormSchemaFromLegacy(services, agendaUid),
+    rebuildActivities: (agendaUid) =>
+      services.activities.tasks.agendaRebuild(agendaUid),
   };
 
   tasks.register(resyncFn);
 
-  return agendaUid => ({
+  return (agendaUid) => ({
     isOpen: contributionTypes.isOpen.bind(null, services, agendaUid),
     isClosed: contributionTypes.isClosed.bind(null, services, agendaUid),
-    isMembersOnly: contributionTypes.isMembersOnly.bind(null, services, agendaUid),
-    isMemberDataRequired: contributionTypes.isMemberDataRequired.bind(null, services, agendaUid),
+    isMembersOnly: contributionTypes.isMembersOnly.bind(
+      null,
+      services,
+      agendaUid,
+    ),
+    isMemberDataRequired: contributionTypes.isMemberDataRequired.bind(
+      null,
+      services,
+      agendaUid,
+    ),
     get: getMergedSchema.bind(null, services, agendaUid), // deprecate
     schema: {
       get: getSchema.bind(null, services, agendaUid),
@@ -55,7 +64,11 @@ export default core => {
       getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind(null, core, agendaUid),
       getMember: getMemberSchema.default.bind(null, services, agendaUid),
-      getMemberAndParents: getMemberSchema.andParents.bind(null, services, agendaUid),
+      getMemberAndParents: getMemberSchema.andParents.bind(
+        null,
+        services,
+        agendaUid,
+      ),
       updateMemberFields: updateMemberSchemaFields.bind(null, core, agendaUid),
     },
     legacy: {
@@ -64,7 +77,10 @@ export default core => {
       updateCustom: resyncFn.updateCustomFromSchema.bind(null, agendaUid),
       update: resyncFn.updateLegacy.bind(null, agendaUid),
       rebuildControlData: resyncFn.rebuildControlData.bind(null, agendaUid),
-      createFormSchema: resyncFn.createFormSchemaFromLegacy.bind(null, agendaUid),
+      createFormSchema: resyncFn.createFormSchemaFromLegacy.bind(
+        null,
+        agendaUid,
+      ),
     },
     resyncInbox: resyncFn.resyncInbox.bind(null, agendaUid),
     batchResync: async (resyncs = []) => {

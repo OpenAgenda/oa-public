@@ -8,7 +8,7 @@ const dom = new JSDOM('', {
   ProcessExternalResources: false,
 }).window.document;
 
-export default reqBody => {
+export default (reqBody) => {
   const body = planer.extractFrom(reqBody['stripped-html'], 'text/html', dom);
   return turndownService.turndown(body);
 };

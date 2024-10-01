@@ -6,20 +6,28 @@ import { Waypoint } from 'react-waypoint';
 import { withContext, withLayoutData, Spinner } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 import {
-  MessageList, MessageForm, AuthorAvatar, ActionsList,
-  Link, ConversationTitle, Breadcrumb,
+  MessageList,
+  MessageForm,
+  AuthorAvatar,
+  ActionsList,
+  Link,
+  ConversationTitle,
+  Breadcrumb,
 } from '../components';
 import * as conversationActions from '../reducers/conversation';
 import * as inboxActions from '../reducers/inbox';
 import * as modalActions from '../reducers/modals';
 import showBackLink from '../utils/showBackLink';
-import {
-  enable as enableUserContext,
-} from '../utils/userContext';
+import { enable as enableUserContext } from '../utils/userContext';
 
-const getAuthorName = obj => obj.inboxUser?.name ?? obj.inbox.name;
+const getAuthorName = (obj) => obj.inboxUser?.name ?? obj.inbox.name;
 
-function asyncLoad({ store: { getState, dispatch }, history, conversationId, agenda }) {
+function asyncLoad({
+  store: { getState, dispatch },
+  history,
+  conversationId,
+  agenda,
+}) {
   const state = getState();
   const promises = [];
 
@@ -36,8 +44,8 @@ function asyncLoad({ store: { getState, dispatch }, history, conversationId, age
 
   // if ( !conversationActions.isLoaded( state ) ) {
   promises.push(
-    dispatch(conversationActions.load(conversationId, null, agenda))
-      .catch(() => history.replace(prefix.replace(':slug', agenda && agenda.slug))),
+    dispatch(conversationActions.load(conversationId, null, agenda)).catch(() =>
+      history.replace(prefix.replace(':slug', agenda && agenda.slug))),
   );
   // }
 
@@ -51,7 +59,13 @@ class ConversationContainer extends Component {
     const { reactReduxContext, location, history, agenda, match } = this.props;
     const { store } = reactReduxContext;
 
-    asyncLoad({ store, history, location, agenda, conversationId: match.params.conversationId }).catch(() => null);
+    asyncLoad({
+      store,
+      history,
+      location,
+      agenda,
+      conversationId: match.params.conversationId,
+    }).catch(() => null);
   }
 
   throttledNextPage = () => _.throttle(this.nextPage, 400, { trailing: false });
@@ -66,7 +80,7 @@ class ConversationContainer extends Component {
     this.props.nextPage(match.params.conversationId, agenda);
   };
 
-  sendMessage = data => {
+  sendMessage = (data) => {
     const { match, sendMessage, agenda } = this.props;
     return sendMessage(match.params.conversationId, data, agenda);
   };
@@ -75,7 +89,10 @@ class ConversationContainer extends Component {
     const { author, messages, conversation } = this.props;
     const { getLabel } = this.context;
 
-    const contextInbox = _.find(conversation.inboxes, ['id', conversation.inboxContextId]);
+    const contextInbox = _.find(conversation.inboxes, [
+      'id',
+      conversation.inboxContextId,
+    ]);
 
     if (contextInbox) {
       author.inbox = contextInbox;
@@ -90,18 +107,21 @@ class ConversationContainer extends Component {
         <div className="media-body">
           <p className="author-name">{getAuthorName(author)}</p>
 
-          <form onSubmit={handleSubmit} className="message-form margin-bottom-md">
+          <form
+            onSubmit={handleSubmit}
+            className="message-form margin-bottom-md"
+          >
             {children}
 
             {submitError ? <p className="text-danger">{submitError}</p> : null}
 
-            {author.inbox && author.inbox.type !== 'user' && author.inboxUser
-              ? (
-                <div className="margin-bottom-sm">
-                  {getLabel('yourMessageWillBeSigned')} <b>{author.inbox.name}</b>
-                </div>
-              )
-              : null}
+            {author.inbox
+            && author.inbox.type !== 'user'
+            && author.inboxUser ? (
+              <div className="margin-bottom-sm">
+                {getLabel('yourMessageWillBeSigned')} <b>{author.inbox.name}</b>
+              </div>
+              ) : null}
 
             <button
               type="submit"
@@ -146,7 +166,11 @@ class ConversationContainer extends Component {
             return null;
         }
       default:
-        return getLabel(conversation.closedAt ? 'conversationAreClosed' : 'conversationAreResolved');
+        return getLabel(
+          conversation.closedAt
+            ? 'conversationAreClosed'
+            : 'conversationAreResolved',
+        );
     }
   };
 
@@ -155,7 +179,13 @@ class ConversationContainer extends Component {
     inboxLoad({}, agenda).catch(() => null);
   };
 
-  TitleEntityComponent = ({ children, type, agendaUid, eventUid, locationUid }) => {
+  TitleEntityComponent = ({
+    children,
+    type,
+    agendaUid,
+    eventUid,
+    locationUid,
+  }) => {
     const { agenda, settings } = this.props;
     const { context } = settings;
 
@@ -229,121 +259,139 @@ class ConversationContainer extends Component {
       ? decodeURIComponent(conversation.store.params.origin)
       : null;
 
-    const content = loading || !loaded
-      ? (
-        <div className="text-center padding-v-md">
-          <Spinner
-            loading={loading}
-            mode="inline"
-            options={{
-              width: 1,
-              length: 6,
-              radius: 10,
-              color: '#666',
-            }}
-          />
-        </div>
-      )
-      : (
-        <>
-          <div className="inbox-head">
-            <Breadcrumb
-              agenda={agenda}
-              breadParts={[
-                {
-                  component: <ConversationTitle
+    const content = loading || !loaded ? (
+      <div className="text-center padding-v-md">
+        <Spinner
+          loading={loading}
+          mode="inline"
+          options={{
+            width: 1,
+            length: 6,
+            radius: 10,
+            color: '#666',
+          }}
+        />
+      </div>
+    ) : (
+      <>
+        <div className="inbox-head">
+          <Breadcrumb
+            agenda={agenda}
+            breadParts={[
+              {
+                component: (
+                  <ConversationTitle
                     agenda={agenda}
                     user={user}
                     conversation={conversation}
                     EntityComponent={this.TitleEntityComponent}
-                  />,
-                  className: 'text-muted',
-                },
-              ]}
-              disableFirstPartLink={!showBackLink(settings, conversations)}
-            />
+                  />
+                ),
+                className: 'text-muted',
+              },
+            ]}
+            disableFirstPartLink={!showBackLink(settings, conversations)}
+          />
 
-            {origin ? (
-              <div className="text-muted">
-                ({getLabel('from')} <em><a href={origin} target="_blank" rel="noreferrer">{origin}</a></em>)
-              </div>
-            ) : null}
-
-            <div className="inbox-actions well margin-top-lg">
-              {conversation.resolvedAt && (
-                <>
-                  {conversation.closedAt && (
-                    <>
-                      <i className="fa fa-lock text-muted" aria-hidden="true" />{' '}
-                    </>
-                  )}
-                  {this.getResolvedLabel()}
-                  <br />
-                </>
-              )}
-
-              {conversation.closedAt ? (
-                <button type="button" className="btn btn-link btn-resume" onClick={() => resume(conversation.id, agenda)}>
-                  {getLabel('resumeConversation')}
-                </button>
-              ) : (
-                <ActionsList
-                  onAction={
-                    code => triggerAction(conversation.id, code, agenda)
-                      .then(this.reloadInbox)
-                  }
-                  actions={conversation.actions}
-                  showModal={showModal}
-                />
-              )}
-            </div>
-          </div>
-
-          {!conversation.closedAt && (
-            <MessageForm
-              Wrapper={this.FormWrapper}
-              uploadEndpoint={
-                res.messages.prepareAttachment
-                  .replace(':conversationId', conversation.id)
-                  .replace(':agendaUid', agenda && agenda.uid)
-              }
-              onSubmit={this.sendMessage}
-              onMessageSent={() => {
-                showModal('messageSent');
-              }}
-              onFileUploaded={(...args) => attachFileToMessage(...args, agenda)}
-              conversation={conversation}
-              autoFocus={settings.autoFocus}
-            />
-          )}
-
-          {messages && messages.length ? <MessageList messages={messages} res={res} domain={settings.domain} /> : null}
-
-          {!messages || !messages.length ? (
-            <div className="text-center text-muted margin-v-md">
-              {getLabel('noResult')}
+          {origin ? (
+            <div className="text-muted">
+              ({getLabel('from')}{' '}
+              <em>
+                <a href={origin} target="_blank" rel="noreferrer">
+                  {origin}
+                </a>
+              </em>
+              )
             </div>
           ) : null}
 
-          {nextLoading && (
-          <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner />
+          <div className="inbox-actions well margin-top-lg">
+            {conversation.resolvedAt && (
+            <>
+              {conversation.closedAt && (
+              <>
+                <i className="fa fa-lock text-muted" aria-hidden="true" />{' '}
+              </>
+              )}
+              {this.getResolvedLabel()}
+              <br />
+            </>
+            )}
+
+            {conversation.closedAt ? (
+              <button
+                type="button"
+                className="btn btn-link btn-resume"
+                onClick={() => resume(conversation.id, agenda)}
+              >
+                {getLabel('resumeConversation')}
+              </button>
+            ) : (
+              <ActionsList
+                onAction={(code) =>
+                  triggerAction(conversation.id, code, agenda).then(
+                    this.reloadInbox,
+                  )}
+                actions={conversation.actions}
+                showModal={showModal}
+              />
+            )}
           </div>
-          )}
+        </div>
 
-          <Waypoint onEnter={this.throttledNextPage} />
-        </>
-      );
+        {!conversation.closedAt && (
+        <MessageForm
+          Wrapper={this.FormWrapper}
+          uploadEndpoint={res.messages.prepareAttachment
+            .replace(':conversationId', conversation.id)
+            .replace(':agendaUid', agenda && agenda.uid)}
+          onSubmit={this.sendMessage}
+          onMessageSent={() => {
+            showModal('messageSent');
+          }}
+          onFileUploaded={(...args) => attachFileToMessage(...args, agenda)}
+          conversation={conversation}
+          autoFocus={settings.autoFocus}
+        />
+        )}
 
-    return ContentWrapper
-      ? <ContentWrapper>{content}</ContentWrapper>
+        {messages && messages.length ? (
+          <MessageList
+            messages={messages}
+            res={res}
+            domain={settings.domain}
+          />
+        ) : null}
+
+        {!messages || !messages.length ? (
+          <div className="text-center text-muted margin-v-md">
+            {getLabel('noResult')}
+          </div>
+        ) : null}
+
+        {nextLoading && (
+        <div className="padding-v-md" style={{ position: 'relative' }}>
+          <Spinner />
+        </div>
+        )}
+
+        <Waypoint onEnter={this.throttledNextPage} />
+      </>
+    );
+
+    return ContentWrapper ? (
+      <ContentWrapper>{content}</ContentWrapper>
+    )
       : content;
   }
 }
 
-export default withLayoutData('user', 'agenda')(
+export default withLayoutData(
+  'user',
+  'agenda',
+)(
   connect(
-    state => ({
+    (state) => ({
       settings: state.settings,
       author: state.conversation.author,
       conversations: state.inbox.data,
@@ -357,8 +405,9 @@ export default withLayoutData('user', 'agenda')(
     }),
     { ...conversationActions, ...modalActions, inboxLoad: inboxActions.load },
   )(
-    withContext(ReactReduxContext, 'reactReduxContext')(
-      withRouter(ConversationContainer),
-    ),
+    withContext(
+      ReactReduxContext,
+      'reactReduxContext',
+    )(withRouter(ConversationContainer)),
   ),
 );

@@ -6,52 +6,45 @@ const textValidator = require('@openagenda/validators/text');
 
 schema.register({
   integer: integerValidator,
-  text: textValidator
+  text: textValidator,
 });
 
 const validate = schema({
   agendaUid: {
-    type: 'integer'
+    type: 'integer',
   },
   locationUid: {
     type: 'integer',
     list: {
-      default: null
-    }
+      default: null,
+    },
   },
   ownerUid: {
-    type: 'integer'
+    type: 'integer',
   },
   search: {
     type: 'text',
-    max: 255
+    max: 255,
   },
-  createdAt: ['gt', 'lt', 'gte', 'lte'].reduce((createdAt, op) => ({
-    ...createdAt,
-    [op]: { type: 'date' }
-  }), {}),
+  createdAt: ['gt', 'lt', 'gte', 'lte'].reduce(
+    (createdAt, op) => ({
+      ...createdAt,
+      [op]: { type: 'date' },
+    }),
+    {},
+  ),
   uid: {
     type: 'integer',
     list: {
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 });
 
 module.exports = (k, query, options = {}) => {
-  const {
-    agendaUid,
-    createdAt,
-    locationUid,
-    ownerUid,
-    search,
-    uid
-  } = validate(query);
+  const { agendaUid, createdAt, locationUid, ownerUid, search, uid } = validate(query);
 
-  const {
-    private: privateOption,
-    draft
-  } = options;
+  const { private: privateOption, draft } = options;
 
   if (agendaUid) {
     k.where('agenda_uid', agendaUid);
@@ -69,13 +62,20 @@ module.exports = (k, query, options = {}) => {
     k.whereIn('uid', uid);
   }
 
-  Object.keys(createdAt).forEach(op => {
+  Object.keys(createdAt).forEach((op) => {
     if (!createdAt[op]) {
       return;
     }
-    k.where('created_at', ({
-      gt: '>', gte: '>=', lt: '<', lte: '<='
-    })[op], createdAt[op]);
+    k.where(
+      'created_at',
+      {
+        gt: '>',
+        gte: '>=',
+        lt: '<',
+        lte: '<=',
+      }[op],
+      createdAt[op],
+    );
   });
 
   if (privateOption !== null) {

@@ -4,5 +4,5 @@ export default function listMessageIds({ conversationId, knex, tableName }) {
     .where({
       conversation_id: conversationId,
     })
-    .then(rows => rows.map(r => r.message_id));
+    .then((rows) => rows.map((r) => r.message_id));
 }

@@ -111,18 +111,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -263,9 +258,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.larondedesquartiers.com"
-      ],
+      "registration": ["http://www.larondedesquartiers.com"],
       "location": {
         "uid": 94200986,
         "slug": "rue-sainte-catherine134",
@@ -293,19 +286,13 @@
         "extId": null
       },
       "custom_description": "La Braderie d'Hiver se tiendra jeudi 6, vendredi 7 et samedi 8 février ! Venez faire de bonnes affaires auprès de vos commerçants habituels mais aussi de bradeurs venus de toute la France !",
-      "intermunicipal_interest": [
-        1
-      ],
-      "recurring": [
-        2
-      ],
+      "intermunicipal_interest": [1],
+      "recurring": [2],
       "categories-agenda-metropolitain": 57,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -352,11 +339,7 @@
         "fr": "Les plantes sauvages poussent tout autour de nous et certaines ont des vertus inattendues ! Elodie vous emmène à la rencontre de la flore spontanée de nos rues, parcs et espaces naturels.\n\nA travers une balade ludique et botanique, vous apprendrez à reconnaître les espèces comestibles les plus communes. La sortie se terminera par un atelier cuisine (pensez à emmener 2 petits bocaux en verre) !\n\nGratuit - Pour adultes et enfants à partir de 10 ans - Inscription obligatoire\n\nRenseignements et inscription : elodie.malavialle\\[@\\]cistude\\[point\\]org (retirer les crochets) - 07 83 40 14 81\n\nLieu : Cistude Nature, Chemin du Moulinat (se garer RUE du Moulinat et venir à pieds), Le Haillan\n\nEn partenariat avec le département de la Gironde et la Ville du Haillan."
       },
       "keywords": {
-        "fr": [
-          "Flore",
-          "Cuisine",
-          "Nature"
-        ]
+        "fr": ["Flore", "Cuisine", "Nature"]
       },
       "conditions": {
         "fr": "Gratuit - Inscription obligatoire"
@@ -412,10 +395,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "07 83 40 14 81",
-        "elodie.malavialle@cistude.org"
-      ],
+      "registration": ["07 83 40 14 81", "elodie.malavialle@cistude.org"],
       "location": {
         "uid": 5840501,
         "slug": "cistude-nature248",
@@ -441,17 +421,13 @@
         "imageCredits": null
       },
       "custom_description": "Balade botanique suivie d'un atelier cuisine",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 60,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        72869717
-      ],
+      "sourcePaths": [72869717],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -567,9 +543,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 56 52 18 77"
-      ],
+      "registration": ["05 56 52 18 77"],
       "location": {
         "uid": 42610172,
         "slug": "jardin-botanique-bastide",
@@ -709,9 +683,7 @@
         "min": 18,
         "max": 99
       },
-      "registration": [
-        "05 56 52 18 77"
-      ],
+      "registration": ["05 56 52 18 77"],
       "location": {
         "uid": 42610172,
         "slug": "jardin-botanique-bastide",
@@ -737,16 +709,12 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 43,
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        99562884
-      ],
+      "sourcePaths": [99562884],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -804,14 +772,7 @@
         "fr": "Métamorphone\n------------\n\nJaune, bleu, violet, les couleurs pulsent dans cette pièce qui ne manque pas de peps. Un beatboxer et un danseur électro rapide comme l’éclair, immergés dans un environnement 100% numérique, s’emparent de L’après midi d’un faune. En remixant ce ballet mythique qui a fait scandale à sa création en 1912, et sa musique originale signée Debussy, MetamorPhone rêve des étincelles que le chorégraphe d’avant-garde Nijinski aurait pu faire avec les technologies et de la danse de notre temps.\n\nConcept – Chorégraphie Christophe Béranger et Jonathan Pranlas Descours / Danse Brice Rouchet / Beatbox Loop Tioneb / Création numérique Olivier Bauer / Régie vidéo Pierre Hébras\n\nPhotos © Sine qua non art\n\nEn partenariat avec l'OARA et la Ville d'Ambarès-et-Lagrave"
       },
       "keywords": {
-        "fr": [
-          "danse",
-          "musique",
-          "atelier",
-          "enfant",
-          "jeune",
-          "contemporain"
-        ]
+        "fr": ["danse", "musique", "atelier", "enfant", "jeune", "contemporain"]
       },
       "conditions": {
         "fr": "tarif unique 6€"
@@ -897,21 +858,13 @@
         "extId": null
       },
       "custom_description": "POUCE ! Festival danse jeune public\n\nTous les ans depuis 9 ans, au creux de l'hiver, le festival POUCE ! convie les enfants, dès 2 ans et leurs parents à découvrir la danse. \n\nhttps://www.lamanufacture-cdcn.org",
-      "intermunicipal_interest": [
-        1
-      ],
-      "recurring": [
-        2
-      ],
+      "intermunicipal_interest": [1],
+      "recurring": [2],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -958,9 +911,7 @@
         "fr": "Le Thème choisi pour le carnaval de l’année 2020 est : « LES DENTS DE LA MER ».\n\nIl se déroulera le samedi 7 MARS 2020 dans le Parc Favols.\n\nNous souhaitons la participation du plus grand nombre !!\n\nC’est une manifestation où tout le monde peut se retrouver, elle appartient à tous : aux associations, aux écoles, aux quartiers, aux particuliers, aux groupements d’amis, aux services, aux entreprises, aux commerçants, …\n\nDes groupes de musiques, des percussions, des chants, des costumes, des bulles ou tout autres propositions peuvent enrichir ce moment.\n\nDurant cette journée, l’ambiance au parc Favols est à la détente, au partage et à la fête.\n\n14h30 : Rendez-vous des carnavaleux, devant l’Hôtel de Ville\n\n15h : Départ du défilé\n\n16h : Goûter et animations dans le Parc Favols\n\n17h : Crémation de Monsieur Carnaval\n\nDes confettis seront distribués en poches gratuitement.\n\nLes confettis, ça se jette, mais pas les poches en papier !\n\nLes parents sont invités à être également costumés et à apporter des gâteaux pour le goûter.\n\nChaque année, cet événement est une réussite collective grâce au travail accompli durant de longs mois, grâce à l’investissement des bénévoles, des nombreuses associations, des partenaires, des parents, des services de la Municipalité de Carbon-Blanc.\n\nEn cas d'intempéries, le carnaval sera reporté à une date ultérieure.\n\nRappel : penser à vous faire connaitre si vous souhaitez faire partie de l’équipe qui sécurise le parcours emprunté par M. Carnaval !!\n\nPartenaires : Association O fil du jeu, Ecole de Musique de l’ASCJB, Action Jeunes, ALSH, APS, ACAP…"
       },
       "keywords": {
-        "fr": [
-          "carnaval"
-        ]
+        "fr": ["carnaval"]
       },
       "conditions": {},
       "image": {
@@ -1040,17 +991,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        22478436
-      ],
+      "sourcePaths": [22478436],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1097,13 +1044,7 @@
         "fr": "Organisé par Cartoon Media en partenariat avec Bordeaux Métropole, la Région Nouvelle Aquitaine, le pôle Image Magelis, le CNC et le programme Media de l’Union européenne.\n\nCe forum majeur de la co-production réunit producteurs, investisseurs, distributeurs, sociétés de jeux vidéo, new media players… pour établir des coopérations, permettant le financement d’une vingtaine de longs métrages d’animation. Au programme, 66 projets de longs métrages en sélection dont 4 du territoire, le coaching programme réunissant les écoles du numérique et de l’animation, le Cartoon Games etc. Un événement #magneticbordeaux !\n\n[Plus d'info](http://cartoon-media.eu/cartoon-movie-event/cartoon-movie-2020.htm)\n\n[Découvrez la sélection 2020](http://cartoon-media.eu/cartoon-movie-event/cartoon-movie-2020/discover-the-projects-2020.htm)\n\nProjection grand public\n-----------------------\n\nUne projection d'un film d’animation sera offerte au grand public bordelais : « Terra Willy », une aventure très spatiale, produit par TAT Productions."
       },
       "keywords": {
-        "fr": [
-          "Cartoon",
-          "Movie",
-          "Film",
-          "Animation",
-          "Numérique"
-        ]
+        "fr": ["Cartoon", "Movie", "Film", "Animation", "Numérique"]
       },
       "conditions": {},
       "image": {
@@ -1194,17 +1135,10 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 48,
-      "thematiques-bordeaux-metropole": [
-        27,
-        23,
-        15,
-        13
-      ],
+      "thematiques-bordeaux-metropole": [27, 23, 15, 13],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1350,19 +1284,13 @@
         "extId": null
       },
       "custom_description": "Dé-vernissage de l'artiste peintre Jenny Rys à l'Espace Servandoni, espace dédié aux ateliers et conférences sur le bien-être, le développement personnel et l'art",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        1108324
-      ],
+      "sourcePaths": [1108324],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1409,13 +1337,7 @@
         "fr": "Dans le cadre de la [3ème édition de notre festival « Territoires Sauvages »](https://www.territoires-sauvages.fr/), nous nous lançons dans la fabrication d’un habitat léger, fait avec des matériaux naturels, recyclés et ré-utilisables, la [FLEX YOURTE](http://www.flexyourte.com/plans-flex-yourte.html) !\n\nRéalisée à base de bambous, cette structure compacte et mobile nous sera utile au festival mais aussi dans bien d'autres occasions pour vous accueillir en animation. Vous avez un esprit pratique et des bras costauds ? ou alors vous faites preuve d'une certaine dextérité ? Vous êtes simplement très motivé ?\n\nRejoignez-nous vendredi 6 mars de 9h30 à 17h (et pensez à apporter quelques outils si vous en avez) !\n\nConditions de la journée : Repas, boissons chaudes et/ou fraîches, offerts.\n\nRenseignements et inscriptions : 07 83 40 14 81 / elodie.malavialle\\[@\\]cistude\\[point\\]org (remplacer les crochets)\n\nContact : Elodie Malavialle\n\nLieu : Cistude Nature, chemin du moulinat, 33185 Le Haillan"
       },
       "keywords": {
-        "fr": [
-          "atelier",
-          "bénévolat",
-          "construction",
-          "yourte",
-          "nature"
-        ]
+        "fr": ["atelier", "bénévolat", "construction", "yourte", "nature"]
       },
       "conditions": {
         "fr": "gratuit - inscription obligatoire - repas et boissons offerts"
@@ -1471,10 +1393,7 @@
         "min": 15,
         "max": 99
       },
-      "registration": [
-        "07 83 40 14 81",
-        "elodie.malavialle@cistude.org"
-      ],
+      "registration": ["07 83 40 14 81", "elodie.malavialle@cistude.org"],
       "location": {
         "uid": 5840501,
         "slug": "cistude-nature248",
@@ -1500,18 +1419,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 43,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        72869717,
-        1108324
-      ],
+      "sourcePaths": [72869717, 1108324],
       "aggregated": false,
       "sourceAgendas": [
         {

@@ -10,22 +10,15 @@ export default class WigglyPoofComponent extends Component {
   onChange(e) {
     e.preventDefault();
 
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
     onChange(e.target.value);
   }
 
   render() {
-    const {
-      field,
-    } = this.props;
+    const { field } = this.props;
 
-    const {
-      field: name,
-      placeholder,
-    } = field;
+    const { field: name, placeholder } = field;
 
     const { value } = this.props;
 

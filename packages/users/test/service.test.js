@@ -17,7 +17,7 @@ let knex;
 
 const kaoreUid = 75052324;
 
-const getConfig = options => ({
+const getConfig = (options) => ({
   Model: knex,
   name: config.schemas.user,
   paginate: config.paginate,
@@ -203,7 +203,7 @@ describe('methods', () => {
       });
 
       expect(total).toBe(2);
-      expect(users.map(v => v.uid)).toEqual(
+      expect(users.map((v) => v.uid)).toEqual(
         expect.arrayContaining([27639980, 54505079]),
       );
     });

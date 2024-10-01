@@ -2,21 +2,16 @@ import logs from '@openagenda/logs';
 
 const log = logs('core/agendas/members/canRead');
 
-export default ({ members }, {
-  access,
-  actingMember,
-  actingUserUid,
-  userUid,
-  list,
-}) => {
+export default (
+  { members },
+  { access, actingMember, actingUserUid, userUid, list },
+) => {
   if (access === 'internal') {
     return true;
   }
 
   const {
-    utils: {
-      getRoleSlug,
-    },
+    utils: { getRoleSlug },
   } = members;
 
   const actingRoleSlug = actingMember ? getRoleSlug(actingMember.role) : null;

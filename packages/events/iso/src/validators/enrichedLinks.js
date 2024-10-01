@@ -1,44 +1,51 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const link = require('@openagenda/validators/link');
+const pass = require('@openagenda/validators/pass');
 
 schema.register({
-  link: require('@openagenda/validators/link'),
-  pass: require('@openagenda/validators/pass')
+  link,
+  pass,
 });
 
 const validateSingle = schema({
   link: {
     type: 'link',
-    optional: false
+    optional: false,
   },
   data: {
-    type: 'pass'
-  }
+    type: 'pass',
+  },
 });
 
-module.exports = ({ field }) => v => {
-  const clean = [];
-  const errors = [];
-  const arrayOfValues = [].concat(v).filter(v => v !== undefined);
+module.exports = ({ field: _field }) =>
+  (v) => {
+    const clean = [];
+    const errors = [];
+    const arrayOfValues = [].concat(v).filter((v1) => v1 !== undefined);
 
-  for (const index in arrayOfValues) {
-    try {
-      const cleanSingle = validateSingle(arrayOfValues[index]);
-      if (cleanSingle.data === undefined) {
-        delete cleanSingle.data;
+    for (const index in arrayOfValues) {
+      if (!Object.hasOwn(arrayOfValues, index)) {
+        continue;
       }
-      clean.push(cleanSingle);
-    } catch (e) {
-      if (!Array.isArray(e)) {
-        throw e;
-      } else {
-        e.forEach(error => errors.push({ ...error, index }));
+
+      try {
+        const cleanSingle = validateSingle(arrayOfValues[index]);
+        if (cleanSingle.data === undefined) {
+          delete cleanSingle.data;
+        }
+        clean.push(cleanSingle);
+      } catch (e) {
+        if (!Array.isArray(e)) {
+          throw e;
+        } else {
+          e.forEach((error) => errors.push({ ...error, index }));
+        }
       }
     }
-  }
 
-  if (errors.length) throw errors;
+    if (errors.length) throw errors;
 
-  return clean;
-}
+    return clean;
+  };

@@ -6,20 +6,17 @@ import agendaSettings from './settings/index.js';
 const log = logs('core/agendas/update');
 
 export default async (core, agendaOrUid, data, options = {}) => {
-  const {
-    agendas,
-    agendaSearch,
-  } = core.services;
+  const { agendas, agendaSearch } = core.services;
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
   log('updating agenda of uid %s', agendaUid);
 
-  const {
-    success,
-    errors,
-    agenda,
-  } = await agendas.set({ uid: agendaUid }, data, options);
+  const { success, errors, agenda } = await agendas.set(
+    { uid: agendaUid },
+    data,
+    options,
+  );
 
   if (errors?.length) throw new BadRequest({ info: { errors } }, 'invalid data');
 
@@ -28,7 +25,12 @@ export default async (core, agendaOrUid, data, options = {}) => {
   try {
     await agendaSearch.set(agenda);
   } catch (e) {
-    log('error', 'could not update search index for agenda %s', agenda.uid, e?.meta?.body?.error ?? e);
+    log(
+      'error',
+      'could not update search index for agenda %s',
+      agenda.uid,
+      e?.meta?.body?.error ?? e,
+    );
   }
 
   if (options.updateLegacy) {

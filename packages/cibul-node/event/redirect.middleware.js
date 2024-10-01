@@ -64,7 +64,7 @@ function loadEvent(config, req, res, next) {
       private: null,
     })
     .then(
-      payload => {
+      (payload) => {
         const { event, agenda } = payload || {};
 
         if (!event) {
@@ -76,7 +76,7 @@ function loadEvent(config, req, res, next) {
 
         next();
       },
-      err => {
+      (err) => {
         req.log.error(err);
 
         next({
@@ -91,7 +91,7 @@ function loadSiteURL(config, req, res, next) {
     .knex('review_embed')
     .first(['uid', 'store'])
     .where('review_id', req.agenda.id)
-    .then(embed => {
+    .then((embed) => {
       if (!embed) return next();
 
       try {
@@ -111,7 +111,7 @@ function loadSiteURL(config, req, res, next) {
     });
 }
 
-export default config => ({
+export default (config) => ({
   loadEvent: loadEvent.bind(null, config),
   loadSiteURL: loadSiteURL.bind(null, config),
   loadFacebookMetas: loadFacebookMetas.bind(null, config),

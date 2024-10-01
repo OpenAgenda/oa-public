@@ -19,30 +19,23 @@ export default async function navigate(req, res, next) {
     const { agenda } = req;
     const { core } = req.app.services;
 
-    const {
-      nav,
-      nc: dirtyNc,
-      ...restQuery
-    } = req.query;
-    const {
-      from: pos,
-      first,
-      last,
-      ...query
-    } = dirtyNc;
+    const { nav, nc: dirtyNc, ...restQuery } = req.query;
+    const { from: pos, first, last, ...query } = dirtyNc;
 
     const from = nav === 'prev' ? parseInt(pos, 10) - 1 : parseInt(pos, 10) + 1;
 
-    const { total, events } = await core
-      .agendas(req.agenda.uid)
-      .events.search(query, {
+    const { total, events } = await core.agendas(req.agenda.uid).events.search(
+      query,
+      {
         from,
         size: nav === 'next' ? 2 : 1, // need 2 for isLast
-      }, {
+      },
+      {
         ...query,
         userUid: req.user?.uid,
         includeFields: ['uid', 'slug'],
-      });
+      },
+    );
 
     if (!events.length) {
       next({ code: 404 });
@@ -60,17 +53,20 @@ export default async function navigate(req, res, next) {
 
     log('redirecting to %s event %s', nav, events[0]?.slug);
 
-    const queryString = qs.stringify({
-      ...restQuery,
-      nc: {
-        ...query,
-        ...getRequestedNc(nav, total, from),
+    const queryString = qs.stringify(
+      {
+        ...restQuery,
+        nc: {
+          ...query,
+          ...getRequestedNc(nav, total, from),
+        },
       },
-    }, {
-      addQueryPrefix: true,
-      arrayFormat: 'brackets',
-      skipNulls: true,
-    });
+      {
+        addQueryPrefix: true,
+        arrayFormat: 'brackets',
+        skipNulls: true,
+      },
+    );
 
     res.redirect(`/${agenda.slug}/events/${events[0].slug}${queryString}`);
   } catch (e) {

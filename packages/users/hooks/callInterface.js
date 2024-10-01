@@ -3,7 +3,7 @@
 const log = require('@openagenda/logs')('users/hooks/callInterface');
 
 module.exports = function callInterface(name, options) {
-  return context => {
+  return (context) => {
     const { config } = context.self;
 
     if (!config.interfaces || typeof config.interfaces[name] !== 'function') {

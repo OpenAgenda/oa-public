@@ -1,6 +1,6 @@
-
 Formulaire de configuration d'un champ custom
 notreChampCustom
+
 ```
 [{
   label: 'Label',
@@ -70,6 +70,7 @@ Dans le cas du champ timings:
 ```
 
 L'appel du builder qui utilise timings:
+
 ```
 <FormSchemaBuilder
   lang="fr"

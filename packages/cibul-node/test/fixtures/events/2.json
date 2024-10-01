@@ -12,11 +12,7 @@
     }
   ],
   "keywords": {
-    "fr": [
-      "un",
-      "deux",
-      "trois"
-    ]
+    "fr": ["un", "deux", "trois"]
   },
   "location": {
     "uid": 123
@@ -25,9 +21,6 @@
     "sl": true
   },
   "categories-agenda-metropolitain": 42,
-  "thematiques-bordeaux-metropole": [
-    3,
-    4
-  ],
+  "thematiques-bordeaux-metropole": [3, 4],
   "custom_description": "Oui bah non"
 }

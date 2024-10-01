@@ -33,11 +33,8 @@ describe('simple-cache - functional (service): hash set', () => {
     });
   });
 
-  beforeEach(async () => cli.del(
-    await cli
-      .keys(`${config.prefix}*`)
-      .then(k => k.join(' ')),
-  ));
+  beforeEach(async () =>
+    cli.del(await cli.keys(`${config.prefix}*`).then((k) => k.join(' '))));
 
   afterAll(() => cli.quit());
 
@@ -62,19 +59,22 @@ describe('simple-cache - functional (service): hash set', () => {
     expect(value).toEqual('{"iam":"json"}');
   });
 
-  it(
-    'set stores value in specific namespace, id, key redis key',
-    () => new Promise(rs => {
-      cli.get(`${config.prefix}:agenda:123`).then(value => {
+  it('set stores value in specific namespace, id, key redis key', () =>
+    new Promise((rs) => {
+      cli.get(`${config.prefix}:agenda:123`).then((value) => {
         expect(value).toBeNull();
 
-        cache.hash('agenda', 123).set('http://ponceau.paris', '<html>Chiiriie!</html>').then(() => {
-          cli.hGet(`${config.prefix}:agenda:123`, 'http://ponceau.paris').then(value2 => {
-            expect(value2).toBe('<html>Chiiriie!</html>');
-            rs();
+        cache
+          .hash('agenda', 123)
+          .set('http://ponceau.paris', '<html>Chiiriie!</html>')
+          .then(() => {
+            cli
+              .hGet(`${config.prefix}:agenda:123`, 'http://ponceau.paris')
+              .then((value2) => {
+                expect(value2).toBe('<html>Chiiriie!</html>');
+                rs();
+              });
           });
-        });
       });
-    }),
-  );
+    }));
 });

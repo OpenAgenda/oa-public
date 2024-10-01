@@ -26,7 +26,7 @@ async function patch(config, identifiers, data, options = {}) {
     Object.assign(
       clean,
       validate.withCustom(requireCustom).part(_.keys(data), data),
-      { updatedAt: new Date() }
+      { updatedAt: new Date() },
     );
   } catch (errors) {
     if (throwOnError) {
@@ -45,7 +45,7 @@ async function patch(config, identifiers, data, options = {}) {
   if (clean.agendaUid !== undefined && interfaces.getAgendasByUid) {
     clean.agendaId = _.get(
       await interfaces.getAgendasByUid(clean.agendaUid),
-      '0.id'
+      '0.id',
     );
   }
 

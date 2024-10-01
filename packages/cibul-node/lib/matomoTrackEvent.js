@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const completeUrl = url => {
+const completeUrl = (url) => {
   if (url.includes('/matomo.php')) return url;
   if (url.slice(-1) === '/') return `${url}matomo.php`;
   return `${url}/matomo.php`;

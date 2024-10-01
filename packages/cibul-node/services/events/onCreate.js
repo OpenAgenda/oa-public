@@ -3,13 +3,14 @@ import logs from '@openagenda/logs';
 const log = logs('events/interfaces/onCreate');
 
 function unsetNewUser(usersSvc, event) {
-  usersSvc.get(event.creatorUid)
-    .then(async user => {
+  usersSvc
+    .get(event.creatorUid)
+    .then(async (user) => {
       if (user && user.isNew) {
         await usersSvc.setNewFlag(event.creatorUid, { isNew: false });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       log('error', err);
     });
 }
@@ -21,10 +22,12 @@ async function registerActivity(activitiesSvc, event) {
   }
 
   try {
-    await activitiesSvc.feed({
-      entityType: 'event',
-      entityUid: event.uid,
-    }).create();
+    await activitiesSvc
+      .feed({
+        entityType: 'event',
+        entityUid: event.uid,
+      })
+      .create();
   } catch (err) {
     log('error', err);
   }

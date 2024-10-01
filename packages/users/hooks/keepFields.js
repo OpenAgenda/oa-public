@@ -4,7 +4,7 @@ const { keep } = require('feathers-hooks-common');
 const fields = require('../service/fields');
 
 module.exports = function keepFields() {
-  return context => {
+  return (context) => {
     if (context.result === null || context.params.internal === true) {
       return context;
     }
@@ -13,9 +13,9 @@ module.exports = function keepFields() {
     const apiFields = ['apiKey', 'apiSecret'];
 
     return keep(
-      ...(context.params.detailed
+      ...context.params.detailed
         ? [...fields.basic, ...fields.detailed, ...socialFields, ...apiFields]
-        : [...fields.basic, ...socialFields])
+        : [...fields.basic, ...socialFields],
     )(context);
   };
 };

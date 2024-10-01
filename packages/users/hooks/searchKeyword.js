@@ -3,7 +3,7 @@
 const errors = require('@feathersjs/errors');
 
 module.exports = function searchKeyword() {
-  return context => {
+  return (context) => {
     if ('$search' in context.params.query) {
       const search = context.params.query.$search;
 

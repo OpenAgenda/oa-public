@@ -1,40 +1,36 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const pug = require( 'pug' );
 const { fromMarkdownToHTML } = require('@openagenda/md');
-const linkValidate = require( '@openagenda/validators/link' )();
-const emailValidate = require( '@openagenda/validators/email' )();
+const linkValidate = require('@openagenda/validators/link')();
+const emailValidate = require('@openagenda/validators/email')();
 
-module.exports = text => {
-
+module.exports = (text) => {
   let markIt = true;
 
   // if is not a string, do not treat as markdown
-  if ( typeof text !== 'string' ) return text;
+  if (typeof text !== 'string') return text;
 
   // if is a bare link, do not treat as markdown
   try {
-
-    linkValidate( text );
+    linkValidate(text);
 
     markIt = false;
-
-  } catch ( e ) {  }
+  } catch (e) {
+    //
+  }
 
   // if is a bare email, do not treat as markdown
   try {
-
-    emailValidate( text );
+    emailValidate(text);
 
     markIt = false;
+  } catch (e) {
+    //
+  }
 
-  } catch ( e ) { }
+  if (!markIt) return text;
 
-  if ( !markIt ) return text;
-
-  let rendered = fromMarkdownToHTML( text ).replace( /^<p>|<\/p>\n$/g, '' );
+  const rendered = fromMarkdownToHTML(text).replace(/^<p>|<\/p>\n$/g, '');
 
   return rendered;
-
-}
+};

@@ -2,8 +2,8 @@ import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AuthenticateAndConfirm, Modal } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
 import qs from 'qs';
+import I18nContext from '../contexts/I18nContext';
 
 class EmailSettings extends Component {
   static contextType = I18nContext;
@@ -27,20 +27,9 @@ class EmailSettings extends Component {
 
   render() {
     const { getLabel } = this.context;
-    const {
-      activeTab,
-      prefix,
-      history,
-      user,
-      changeEmailRes,
-      onSuccess,
-    } = this.props;
+    const { activeTab, prefix, history, user, changeEmailRes, onSuccess } = this.props;
 
-    const {
-      payload,
-      error,
-      success,
-    } = this.state;
+    const { payload, error, success } = this.state;
 
     return (
       <>
@@ -71,11 +60,20 @@ class EmailSettings extends Component {
           </Modal>
         ) : null}
         <tr
-          onClick={!activeTab ? () => history.push(`${prefix}/email`, { fromUserApps: true }) : null}
+          onClick={
+            !activeTab
+              ? () => history.push(`${prefix}/email`, { fromUserApps: true })
+              : null
+          }
           className={!activeTab ? 'inactive' : ''}
         >
           <td
-            onClick={activeTab ? () => history.push(`${prefix}/`, { fromUserApps: true }) : null}
+            role="gridcell"
+            onClick={
+              activeTab
+                ? () => history.push(`${prefix}/`, { fromUserApps: true })
+                : null
+            }
             className="col-md-3"
             style={{ cursor: 'pointer' }}
           >
@@ -84,14 +82,25 @@ class EmailSettings extends Component {
           {activeTab ? (
             <td>
               <div style={{ padding: '0 5px' }}>
-                <form onSubmit={e => this.handleEmailFormSubmit(e)} style={{ paddingBottom: '8px' }}>
+                <form
+                  onSubmit={(e) => this.handleEmailFormSubmit(e)}
+                  style={{ paddingBottom: '8px' }}
+                >
                   <div className="form-group">
                     <label htmlFor="newEmail">{getLabel('newEmail')}</label>
-                    <input id="newEmail" className="form-control" type="email" />
-                    {error ? <div className="text-danger">{getLabel(error)}</div> : null}
+                    <input
+                      id="newEmail"
+                      className="form-control"
+                      type="email"
+                    />
+                    {error ? (
+                      <div className="text-danger">{getLabel(error)}</div>
+                    ) : null}
                   </div>
                   <div className="form-inline pull-left">
-                    <button type="submit" className="btn btn-primary">{getLabel('save')}</button>
+                    <button type="submit" className="btn btn-primary">
+                      {getLabel('save')}
+                    </button>
                     {success ? (
                       <div className="text-success">
                         <b>{getLabel('updateEmailSuccess')}</b>
@@ -101,16 +110,18 @@ class EmailSettings extends Component {
                 </form>
               </div>
             </td>
-          ) : <td style={{ cursor: 'pointer' }}><b className="text-muted">{user.email}</b></td>}
+          ) : (
+            <td style={{ cursor: 'pointer' }}>
+              <b className="text-muted">{user.email}</b>
+            </td>
+          )}
         </tr>
       </>
     );
   }
 }
 
-export default connect(state => ({
+export default connect((state) => ({
   prefix: state.settings.prefix,
   changeEmailRes: state.res.changeEmail,
-}))(
-  withRouter(EmailSettings),
-);
+}))(withRouter(EmailSettings));

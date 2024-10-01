@@ -35,7 +35,8 @@ export const OpenModal = () => {
 OpenModal.parameters = {
   msw: {
     handlers: [
-      http.get('/agendas/123456/admin/settings/exports', () => HttpResponse.json(exportSettings)),
+      http.get('/agendas/123456/admin/settings/exports', () =>
+        HttpResponse.json(exportSettings)),
     ],
   },
 };

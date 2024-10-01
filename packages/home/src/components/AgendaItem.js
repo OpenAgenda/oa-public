@@ -6,16 +6,16 @@ const loadSchemaAndOpenModal = (agenda, res, onDisplayMemberForm) => {
   const url = res.memberSchema.replace(':agendaUid', agenda.uid);
 
   fetch(url)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         throw new Error(`Invalid status (${response.status})`);
       }
       return response.json();
     })
-    .then(data => {
+    .then((data) => {
       onDisplayMemberForm({ ...agenda, schema: data.merged });
     })
-    .catch(err => {
+    .catch((err) => {
       console.error('Error fetching schema:', err);
     });
 };
@@ -115,7 +115,7 @@ function AgendaItem({
           )}
           <Dropdown
             className="dropdown btn-link-dropdown open"
-            Trigger={props => (
+            Trigger={(props) => (
               <button
                 {...props}
                 className="btn btn-link padding-top-z padding-left-z"

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import FormSchemaComponent from '..';
@@ -21,61 +21,60 @@ export default class OptionAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      option: this.isEdit() ? {
-        label: props.option.label
-      } : {},
-      error: null
+      option: this.isEdit()
+        ? {
+          label: props.option.label,
+        }
+        : {},
+      error: null,
     };
   }
 
   onChange({ values, errors }) {
     this.setState({
       option: values,
-      error: errors.length ? this.getErrorLabel(_.first(errors).code) : null
+      error: errors.length ? this.getErrorLabel(_.first(errors).code) : null,
     });
   }
 
   onSubmit() {
-    const {
-      error
-    } = this.state;
+    const { error } = this.state;
 
-    const {
-      lang,
-      otherOptions,
-      onSubmit,
-      index
-    } = this.props;
+    const { lang, otherOptions, onSubmit, index } = this.props;
 
     if (error) return;
 
     const optionLabel = _.get(this, 'state.option.label');
 
-    const isEmpty = !optionLabel || (
-      _.isString(optionLabel) ? !optionLabel.length
-        : _.keys(optionLabel).filter(k => _.isString(optionLabel[k]) && optionLabel[k].length).length !== _.keys(optionLabel).length
-    );
+    const isEmpty = !optionLabel
+      || (_.isString(optionLabel)
+        ? !optionLabel.length
+        : _.keys(optionLabel).filter(
+          (k) => _.isString(optionLabel[k]) && optionLabel[k].length,
+        ).length !== _.keys(optionLabel).length);
 
     // add option must be unique
-    const option = isEmpty ? null : {
-      value: slugFromLabel(optionLabel, lang),
-      label: optionLabel
-    };
+    const option = isEmpty
+      ? null
+      : {
+        value: slugFromLabel(optionLabel, lang),
+        label: optionLabel,
+      };
 
     if (isEmpty) {
       this.setState({
-        error: this.getErrorLabel('optionEmpty')
+        error: this.getErrorLabel('optionEmpty'),
       });
-    } else if (otherOptions.filter(o => o.value === option.value).length) {
+    } else if (otherOptions.filter((o) => o.value === option.value).length) {
       this.setState({
-        error: this.getErrorLabel('optionDuplicate')
+        error: this.getErrorLabel('optionDuplicate'),
       });
     } else {
       onSubmit(index, option);
 
       this.setState({
         option: null,
-        error: null
+        error: null,
       });
 
       focusOnFirstInput();
@@ -83,9 +82,7 @@ export default class OptionAdd extends Component {
   }
 
   getErrorLabel(errorCode) {
-    const {
-      lang
-    } = this.props;
+    const { lang } = this.props;
 
     if (labels[`${errorCode}Error`]) {
       return getLabel(`${errorCode}Error`, lang);
@@ -95,23 +92,14 @@ export default class OptionAdd extends Component {
   }
 
   isEdit() {
-    const {
-      option
-    } = this.props;
+    const { option } = this.props;
     return !!option;
   }
 
   render() {
-    const {
-      languages,
-      lang,
-      onCancel
-    } = this.props;
+    const { languages, lang, onCancel } = this.props;
 
-    const {
-      error,
-      option
-    } = this.state;
+    const { error, option } = this.state;
 
     return (
       <FormSchemaComponent
@@ -121,40 +109,47 @@ export default class OptionAdd extends Component {
         values={option}
         lang={this.lang}
         schema={{
-          fields: [{
-            label: this.isEdit() ? labels.optionEdit : labels.optionAdd,
-            field: 'label',
-            fieldType: 'text',
-            languages
-          }]
+          fields: [
+            {
+              label: this.isEdit() ? labels.optionEdit : labels.optionAdd,
+              field: 'label',
+              fieldType: 'text',
+              languages,
+            },
+          ],
         }}
         classNames={{
           field: 'js_add_option_input',
-          bottomErrorsCanvas: 'error margin-bottom-sm'
+          bottomErrorsCanvas: 'error margin-bottom-sm',
         }}
-        actionComponents={[{
-          position: 'bottom',
-          Component: () => (
-            <div>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => this.onSubmit()}
-              >
-                {getLabel(this.isEdit() ? 'optionUpdateAction' : 'optionAddAction', lang)}
-              </button>
-              { onCancel ? (
+        actionComponents={[
+          {
+            position: 'bottom',
+            Component: () => (
+              <div>
                 <button
                   type="button"
-                  className="btn btn-default pull-right"
-                  onClick={() => onCancel()}
+                  className="btn btn-primary"
+                  onClick={() => this.onSubmit()}
                 >
-                  {getLabel('optionEditCancel', lang)}
+                  {getLabel(
+                    this.isEdit() ? 'optionUpdateAction' : 'optionAddAction',
+                    lang,
+                  )}
                 </button>
-              ) : null }
-            </div>
-          )
-        }]}
+                {onCancel ? (
+                  <button
+                    type="button"
+                    className="btn btn-default pull-right"
+                    onClick={() => onCancel()}
+                  >
+                    {getLabel('optionEditCancel', lang)}
+                  </button>
+                ) : null}
+              </div>
+            ),
+          },
+        ]}
       />
     );
   }

@@ -298,10 +298,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "+33556863843",
-        "+33684530805"
-      ],
+      "registration": ["+33556863843", "+33684530805"],
       "location": {
         "uid": 76036473,
         "slug": "centre-culturel-chateau-palmer",
@@ -482,14 +479,10 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -535,11 +528,7 @@
         "fr": "Le **Mois Sans Tabac** de Bordeaux approche !\n\nEntretiens gratuits, ateliers, conseils de professionnels de la santé, documentation et goodies sont au programme ! Sans oublier le défi #FillTheBottle (collecte participative des mégots) dans les rues bordelaises ainsi que la marche nocturne ! ?‍♂️?‍♀️\n\n[Inscrivez-vous](https://www.facebook.com/events/402692703754089/) à l'événement !"
       },
       "keywords": {
-        "fr": [
-          "santé",
-          "tabac",
-          "prévention"
-        ]
+        "fr": ["santé", "tabac", "prévention"]
       },
       "conditions": {},
       "image": {
@@ -619,14 +608,10 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        32
-      ],
+      "thematiques-bordeaux-metropole": [32],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -802,9 +787,7 @@
         "fr": "**organisé par le service environnement et paysages**\n\nLa mairie de Talence s’est engagée depuis de nombreuses années dans une démarche globale de développement durable.\n\nDans le cadre de la végétalisation des logements Talençais, jardins, façades et balcons, 440 plantes grimpantes seront distribuées par la Municipalité :\n\nLe dimanche 24 novembre 2019 au marché de Thouars.\n\nÀ cette occasion, les agents du service environnement et paysages répondront à vos questions sur la plantation et l’entretien de ces végétaux.\n\nSachez d’ores et déjà que vous pourrez les planter soit en pleine terre, sur votre balcon en pot ou en jardinière. Les variétés proposées ont été choisies pour leur floraison ou pour leur feuillage décoratif. Ces végétaux sont globalement robustes et ne demandent que peu de soins, cependant certaines variétés doivent être guidées par des supports adéquats (grille).\n\nCes plantes offriront une belle couverture végétale sous réserve d’être entretenues et nourries régulièrement.\n\nIl faudra également surveiller l’arrosage pour les végétaux mis en pot ou en jardinière :\n\n➤ Pour un arrosage « régulier » : ne pas laisser sécher la terre.\n\n➤ Ne pas laisser d’eau dans les coupelles sous les pots et arroser de préférence avec de l’eau de pluie.\n\n**LES VARIÉ TÉS OFFERTES...**\n\n**Akebia - Clématite - Lierre - Jasmin - Chevrefeuille - Locinéra - Vigne vierge - Solanum**"
       },
       "keywords": {
-        "fr": [
-          "organisé par le service environnement et paysages"
-        ]
+        "fr": ["organisé par le service environnement et paysages"]
       },
       "conditions": {},
       "image": {
@@ -1301,9 +1284,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.weezevent.com/the-vox-corner-party-3"
-      ],
+      "registration": ["https://www.weezevent.com/the-vox-corner-party-3"],
       "location": {
         "uid": 40364527,
         "slug": "sortie-13-expos-and-concerts",
@@ -1323,9 +1304,7 @@
         "description": {},
         "website": "http://www.sortie-13.com",
         "phone": "0556364843",
-        "links": [
-          "https://www.facebook.com/sortie13pessac/"
-        ],
+        "links": ["https://www.facebook.com/sortie13pessac/"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",

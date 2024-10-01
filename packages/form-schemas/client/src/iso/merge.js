@@ -8,9 +8,9 @@ const getIsAbstract = ({ fieldType, type }) => {
   return (fieldType ?? 'abstract') === 'abstract';
 };
 
-const assignSchemaValuesToNonAbstractFields = schema => ({
+const assignSchemaValuesToNonAbstractFields = (schema) => ({
   custom: schema?.custom || {},
-  fields: (schema?.fields || []).map(f => {
+  fields: (schema?.fields || []).map((f) => {
     const isAbstract = getIsAbstract(f);
     return {
       ...f,
@@ -26,8 +26,8 @@ function mergeField(field, mergeWithField) {
   const protectedKeys = ['field', 'fieldType', 'origin', 'type', 'slug'];
 
   const update = _.keys(mergeWithField)
-    .filter(k => !protectedKeys.includes(k))
-    .filter(f => mergeWithField[f] !== undefined)
+    .filter((k) => !protectedKeys.includes(k))
+    .filter((f) => mergeWithField[f] !== undefined)
     .reduce((c, f) => _.set(c, f, { $set: mergeWithField[f] }), {});
 
   if (field.optional && mergeWithField.optional === false) {
@@ -36,7 +36,8 @@ function mergeField(field, mergeWithField) {
 
   if (_.get(mergeWithField, 'allowedOptions')) {
     update.options = {
-      $set: _.get(field, 'options').filter(o => mergeWithField.allowedOptions.includes(o.id)),
+      $set: _.get(field, 'options').filter((o) =>
+        mergeWithField.allowedOptions.includes(o.id)),
     };
 
     update.$unset = ['allowedOptions'];
@@ -66,17 +67,21 @@ function reduceFields(mergedIn, mergeWith) {
 
   return {
     ...mergedIn,
-    fields: assignSchemaValuesToNonAbstractFields(mergeWith).fields.concat(mergedIn.fields).reduce((fields, field) => {
-      const index = fields.map(f => f.slug ?? f.field).indexOf(field.slug ?? field.field);
+    fields: assignSchemaValuesToNonAbstractFields(mergeWith)
+      .fields.concat(mergedIn.fields)
+      .reduce((fields, field) => {
+        const index = fields
+          .map((f) => f.slug ?? f.field)
+          .indexOf(field.slug ?? field.field);
 
-      if (index === -1) {
-        fields.push(field);
-      } else {
-        fields[index] = mergeField(field, fields[index]);
-      }
+        if (index === -1) {
+          fields.push(field);
+        } else {
+          fields[index] = mergeField(field, fields[index]);
+        }
 
-      return fields;
-    }, []),
+        return fields;
+      }, []),
   };
 }
 
@@ -91,10 +96,9 @@ function mergeAll(...args) {
     Object.assign(options, args.pop());
   }
 
-  const merged = args.slice(1).reduce(
-    reduceFields,
-    assignSchemaValuesToNonAbstractFields(args[0]),
-  );
+  const merged = args
+    .slice(1)
+    .reduce(reduceFields, assignSchemaValuesToNonAbstractFields(args[0]));
 
   if (!options.access) return merged;
 
@@ -102,7 +106,15 @@ function mergeAll(...args) {
 
   return {
     ...merged,
-    fields: merged.fields.filter(f => accessTypes.length === accessTypes.filter(accessType => !f[accessType] || f[accessType].includes(options.access[accessType])).length),
+    fields: merged.fields.filter(
+      (f) =>
+        accessTypes.length
+        === accessTypes.filter(
+          (accessType) =>
+            !f[accessType]
+            || f[accessType].includes(options.access[accessType]),
+        ).length,
+    ),
   };
 }
 

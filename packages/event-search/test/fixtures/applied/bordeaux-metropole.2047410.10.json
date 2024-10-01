@@ -15,10 +15,7 @@
         "fr": "A la maison, au travail, à l’école, les portables sont partout. Plutôt que de les bannir, comment s’en servir à des fins utiles ou pédagogiques ? Jean-Charles Bouniol de l’IJBA décrypte les avantages et inconvénients du phénomène BYOD (Bring Your Own Device : apportez votre appareil personnel).\n\nDécouvrez le reste du programme de TesterDemain : \n\nhttps://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019"
       },
       "keywords": {
-        "fr": [
-          "BYOD",
-          "smartphone"
-        ]
+        "fr": ["BYOD", "smartphone"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -147,10 +144,7 @@
         "fr": "Premier pollueur de nos océans, le plastique nous rend service autant qu’il nous menace. Comment s’en passer ? Comment le recycler ? Matthieu Pedros et Nicolas Berger de l’IUT de Bordeaux – SGM nous présentent les alternatives à privilégier et les solutions à l’utilisation massive de ce matériau.\n\nDécouvrez le reste du programme : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "zéro déchet",
-          "écologie"
-        ]
+        "fr": ["zéro déchet", "écologie"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -279,11 +273,7 @@
         "fr": "Et si on essayait de passer nos données informatiques à la moulinette pour les rendre incompréhensibles et nous protéger ? Bienvenue dans le monde du cryptage et du chiffrage pour un atelier d’initiation aux bases de la protection de données avec Bruno Vuillemin du CLEMI.\n\nDécouvrez le reste du programme : \n\nhttps://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019"
       },
       "keywords": {
-        "fr": [
-          "crypto",
-          "data",
-          "codage"
-        ]
+        "fr": ["crypto", "data", "codage"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -412,10 +402,7 @@
         "fr": "Doit-on réduire le transhumanisme à un débat polarisé entre ceux qui fantasment et ceux qui craignent ? Pas sûr. Suivons le philosophe Cédric Brun du laboratoire SPH à l’Université Bordeaux-Montaigne : inscrire le transhumanisme dans l’histoire de notre rapport aux sciences et à la nature.\n\nDécouvrez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
       },
       "keywords": {
-        "fr": [
-          "transhumanisme",
-          "esante"
-        ]
+        "fr": ["transhumanisme", "esante"]
       },
       "conditions": {
         "fr": "Gratuit - sur inscription"
@@ -719,9 +706,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -820,9 +805,7 @@
         "min": 3,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -851,9 +834,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -952,9 +933,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -983,9 +962,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1084,9 +1061,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -1115,9 +1090,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1214,9 +1187,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -1245,9 +1216,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1346,9 +1315,7 @@
         "min": 8,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",

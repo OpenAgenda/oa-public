@@ -71,9 +71,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -102,9 +100,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -963,9 +959,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 78"
-      ],
+      "registration": ["05 57 80 81 78"],
       "location": {
         "uid": 79717109,
         "slug": "mediatheque111",
@@ -994,9 +988,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 43,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1198,9 +1190,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -1326,9 +1316,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
-      "thematiques-bordeaux-metropole": [
-        9
-      ],
+      "thematiques-bordeaux-metropole": [9],
       "state": 2,
       "featured": false,
       "sourcePaths": [],

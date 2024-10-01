@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
-module.exports = require( '../client/src/iso/getDecorate' );
+module.exports = require('../client/src/iso/getDecorate');

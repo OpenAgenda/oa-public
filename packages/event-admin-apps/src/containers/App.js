@@ -1,4 +1,3 @@
-import React from 'react';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
@@ -23,8 +22,9 @@ const locales = mergeLocales(
 function App({ route }) {
   // const parentQueryClient = useQueryClient();
   const queryClient = useConstant(
-    () => /* parentQueryClient
-      || */new QueryClient({
+    () =>
+      /* parentQueryClient
+      || */ new QueryClient({
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
@@ -58,7 +58,8 @@ function App({ route }) {
 }
 
 export default provideHooks({
-  inject: ({ store }) => store.inject({
-    events: eventsReducer,
-  }),
+  inject: ({ store }) =>
+    store.inject({
+      events: eventsReducer,
+    }),
 })(App);

@@ -28,9 +28,12 @@ describe('16 - event search - functional: more like this', () => {
 
   beforeAll(async () => {
     await service('simple_search').rebuild({
-      eventsList: async (lastId, limit) => JSON.parse(fs.readFileSync(
-        `${__dirname}/fixtures/16_events.${lastId}.${limit}.json`,
-      )),
+      eventsList: async (lastId, limit) =>
+        JSON.parse(
+          fs.readFileSync(
+            `${__dirname}/fixtures/16_events.${lastId}.${limit}.json`,
+          ),
+        ),
     });
   });
 
@@ -48,24 +51,28 @@ describe('16 - event search - functional: more like this', () => {
       const { events } = await dslSearch('test', {
         query: {
           bool: {
-            must: [{
-              more_like_this: {
-                fields: ['_search_keywords'],
-                min_term_freq: 1,
-                min_doc_freq: 1,
-                like: ['vin chaud'],
+            must: [
+              {
+                more_like_this: {
+                  fields: ['_search_keywords'],
+                  min_term_freq: 1,
+                  min_doc_freq: 1,
+                  like: ['vin chaud'],
+                },
               },
-            }],
-            filter: [{
-              term: {
-                _set: 'simple_search',
+            ],
+            filter: [
+              {
+                term: {
+                  _set: 'simple_search',
+                },
               },
-            }],
+            ],
           },
         },
       });
 
-      expect(events.map(e => e.uid).sort()).toEqual([57, 82]);
+      expect(events.map((e) => e.uid).sort()).toEqual([57, 82]);
     });
   });
 
@@ -79,7 +86,7 @@ describe('16 - event search - functional: more like this', () => {
 
       expect(total).toBe(2);
 
-      expect(events.map(e => e.uid).sort()).toEqual([57, 82]);
+      expect(events.map((e) => e.uid).sort()).toEqual([57, 82]);
     });
 
     it('mlt on two keywords', async () => {
@@ -118,7 +125,7 @@ describe('16 - event search - functional: more like this', () => {
         },
       });
 
-      expect(events.map(e => e.uid)).toEqual([132, 157]);
+      expect(events.map((e) => e.uid)).toEqual([132, 157]);
     });
 
     it('mlt on title and keywords with boosts', async () => {
@@ -131,13 +138,25 @@ describe('16 - event search - functional: more like this', () => {
         },
       };
 
-      expect((await service('simple_search').moreLikeThis(mltRequest, {
-        boost: { title: 20, keywords: 50 },
-      })).events.map(e => e.uid).sort()).toEqual([132, 157]);
+      expect(
+        (
+          await service('simple_search').moreLikeThis(mltRequest, {
+            boost: { title: 20, keywords: 50 },
+          })
+        ).events
+          .map((e) => e.uid)
+          .sort(),
+      ).toEqual([132, 157]);
 
-      expect((await service('simple_search').moreLikeThis(mltRequest, {
-        boost: { title: 50, keywords: 30 },
-      })).events.map(e => e.uid).sort()).toEqual([132, 157]);
+      expect(
+        (
+          await service('simple_search').moreLikeThis(mltRequest, {
+            boost: { title: 50, keywords: 30 },
+          })
+        ).events
+          .map((e) => e.uid)
+          .sort(),
+      ).toEqual([132, 157]);
     });
 
     it('mlt on nothing should return empty result', async () => {
@@ -149,40 +168,46 @@ describe('16 - event search - functional: more like this', () => {
     });
 
     it('mlt on department with title in different department', async () => {
-      const { events } = await service('simple_search').moreLikeThis({
-        keywords: {
-          fr: ['janine'], // like shop_event_2
+      const { events } = await service('simple_search').moreLikeThis(
+        {
+          keywords: {
+            fr: ['janine'], // like shop_event_2
+          },
+          location: {
+            department: 'Finistère', // like finger_event_2
+          },
         },
-        location: {
-          department: 'Finistère', // like finger_event_2
+        {
+          boost: {
+            keywords: 10,
+            'location.department': 20,
+          },
         },
-      }, {
-        boost: {
-          keywords: 10,
-          'location.department': 20,
-        },
-      });
+      );
 
-      expect(events.map(e => e.slug)).toEqual([
+      expect(events.map((e) => e.slug)).toEqual([
         'finger_event_2',
         'shop_event_2',
       ]);
     });
 
-    it(
-      'mlt on department with title in different department with different boost',
-      async () => {
-        const { events } = await service('simple_search').moreLikeThis({
+    it('mlt on department with title in different department with different boost', async () => {
+      const { events } = await service('simple_search').moreLikeThis(
+        {
           keywords: {
             fr: ['janine'],
           },
           location: {
             department: 'Finistère',
           },
-        }, { boost: { keywords: 20, 'location.department': 10 } });
+        },
+        { boost: { keywords: 20, 'location.department': 10 } },
+      );
 
-        expect(events.map(e => e.slug)).toEqual(['shop_event_2', 'finger_event_2']);
-      },
-    );
+      expect(events.map((e) => e.slug)).toEqual([
+        'shop_event_2',
+        'finger_event_2',
+      ]);
+    });
   });
 });

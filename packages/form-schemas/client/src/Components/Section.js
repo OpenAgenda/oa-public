@@ -1,14 +1,9 @@
 import flattenSectionLabels from '../lib/flatten';
 
 export default function Section(props) {
-  const {
-    lang,
-    section,
-  } = props;
+  const { lang, section } = props;
 
-  const {
-    label,
-  } = flattenSectionLabels(section, lang);
+  const { label } = flattenSectionLabels(section, lang);
 
   if (!section.display) return;
 
@@ -16,7 +11,5 @@ export default function Section(props) {
     return <div className="divider margin-bottom-lg margin-top-sm" />;
   }
 
-  return (
-    <h3 className="margin-v-md">{label}</h3>
-  );
+  return <h3 className="margin-v-md">{label}</h3>;
 }

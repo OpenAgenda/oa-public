@@ -6,9 +6,10 @@ module.exports = (labels, field, error) => {
   if (!matchingLabel) return message;
 
   return Object.keys(field)
-    .filter(fieldKey => ['min', 'max'].includes(fieldKey))
-    .reduce((rendered, fieldKey) => rendered.replace(
-      `%${fieldKey}%`,
-      field[fieldKey]
-    ), matchingLabel);
+    .filter((fieldKey) => ['min', 'max'].includes(fieldKey))
+    .reduce(
+      (rendered, fieldKey) =>
+        rendered.replace(`%${fieldKey}%`, field[fieldKey]),
+      matchingLabel,
+    );
 };

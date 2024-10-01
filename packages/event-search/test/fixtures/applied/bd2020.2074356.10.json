@@ -15,12 +15,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "bande-dessinée",
-          "science-fiction",
-          "exposition",
-          "dystopie"
-        ]
+        "fr": ["bande-dessinée", "science-fiction", "exposition", "dystopie"]
       },
       "conditions": {},
       "image": {
@@ -91,12 +86,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -279,9 +270,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -469,9 +458,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -601,9 +588,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -660,12 +645,7 @@
         "en": "Participants will draw the fable after listening to it in 2 voices.\nEveryone will have 3 vignettes, in which they will draw the course of the history which will be attributed to them, or which they will have chosen in order to reconstruct all the fable, at the end of this B.D. and allow its exposure to the public."
       },
       "keywords": {
-        "fr": [
-          "BD",
-          "Atelier",
-          "Fables",
-          "La Fontaine"
-        ]
+        "fr": ["BD", "Atelier", "Fables", "La Fontaine"]
       },
       "conditions": {},
       "image": {
@@ -753,12 +733,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -811,11 +787,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "atelier",
-          "bd",
-          "conte"
-        ]
+        "fr": ["atelier", "bd", "conte"]
       },
       "conditions": {},
       "image": {
@@ -886,12 +858,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
       "si-autre-precisez": null,
@@ -1033,12 +1001,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
       "si-autre-precisez": "Festival du Livre de Jeunesse Occitanie",
@@ -1177,12 +1141,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
       "si-autre-precisez": "Festival du Livre de Jeunesse Occitanie",
@@ -1324,9 +1284,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -1472,9 +1430,7 @@
       "tarif": "3.50 euros l'heure",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

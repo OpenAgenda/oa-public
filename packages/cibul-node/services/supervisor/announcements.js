@@ -35,7 +35,11 @@ export function init(config, services) {
 }
 
 export function plugApp(app, base = '/announcement') {
-  const { sessions, supervisor: { announcements }, users } = app.services;
+  const {
+    sessions,
+    supervisor: { announcements },
+    users,
+  } = app.services;
 
   app.post(
     base,

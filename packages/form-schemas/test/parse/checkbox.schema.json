@@ -1,6 +1,6 @@
 {
   "nextOptionId": 17,
-  "custom" : null,
+  "custom": null,
   "defaultLabelLanguage": null,
   "fields": [
     {
@@ -10,19 +10,19 @@
         "en": "Organizers type"
       },
       "info": null,
-      "placeholder" : null,
+      "placeholder": null,
       "sub": null,
       "help": null,
       "helpContent": null,
-      "helpLink" : null,
+      "helpLink": null,
       "write": null,
       "read": null,
       "optional": false,
       "optionalWith": null,
-      "display" : true,
+      "display": true,
       "min": null,
       "max": null,
-      "default" : null,
+      "default": null,
       "options": [
         {
           "id": 1,
@@ -186,9 +186,9 @@
         }
       ],
       "fieldType": "checkbox",
-      "origin" : "custom",
-      "enableWith" : null,
-      "related" : {
+      "origin": "custom",
+      "enableWith": null,
+      "related": {
         "enable": [],
         "optional": []
       }

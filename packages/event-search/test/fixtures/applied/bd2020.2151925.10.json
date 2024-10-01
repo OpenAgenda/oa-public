@@ -73,10 +73,7 @@
         "min": 13,
         "max": 99
       },
-      "registration": [
-        "04 81 91 89 50",
-        "contact@mediatheque-saone-vallee.fr"
-      ],
+      "registration": ["04 81 91 89 50", "contact@mediatheque-saone-vallee.fr"],
       "location": {
         "uid": 29937273,
         "slug": "mediatheque-intercommunale-la-passerelle",
@@ -110,9 +107,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Quai du Polar  (Lyon)",
       "type-de-structure": 623,
@@ -225,10 +220,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "bibliotheque@taluyers.com",
-        "04 78 48 74 85"
-      ],
+      "registration": ["bibliotheque@taluyers.com", "04 78 48 74 85"],
       "location": {
         "uid": 75717707,
         "slug": "bibliotheque-de-taluyers",
@@ -262,9 +254,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -381,10 +371,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "bibliotheque@orlienas.fr",
-        "0472311723"
-      ],
+      "registration": ["bibliotheque@orlienas.fr", "0472311723"],
       "location": {
         "uid": 39668025,
         "slug": "bibliotheque-dorlienas792",
@@ -418,9 +405,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -532,9 +517,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.pennarbd.bzh/"
-      ],
+      "registration": ["https://www.pennarbd.bzh/"],
       "location": {
         "uid": 12080764,
         "slug": "parc-des-expositions-de-quimper-cornouaille",
@@ -568,9 +551,7 @@
       "tarif": "3 €",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Association Ujap BD",
       "type-de-structure": 621,
@@ -682,9 +663,7 @@
         "min": 6,
         "max": 17
       },
-      "registration": [
-        "https://www.pennarbd.bzh/les-prix/ptit-dessinateur/"
-      ],
+      "registration": ["https://www.pennarbd.bzh/les-prix/ptit-dessinateur/"],
       "location": {
         "uid": 12080764,
         "slug": "parc-des-expositions-de-quimper-cornouaille",
@@ -718,9 +697,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Association Ujap BD",
       "type-de-structure": 621,
@@ -886,9 +863,7 @@
       "tarif": "7 euros",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -1000,10 +975,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 45 38 95 00",
-        "mediatheque@saintyrieix-16.fr"
-      ],
+      "registration": ["05 45 38 95 00", "mediatheque@saintyrieix-16.fr"],
       "location": {
         "uid": 48654611,
         "slug": "mediatheque-lesplanade",
@@ -1037,9 +1009,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1263,9 +1233,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -1873,9 +1841,7 @@
         "min": 6,
         "max": 17
       },
-      "registration": [
-        "https://www.pennarbd.bzh/les-prix/ptit-dessinateur/"
-      ],
+      "registration": ["https://www.pennarbd.bzh/les-prix/ptit-dessinateur/"],
       "location": {
         "uid": 81502690,
         "slug": "librairie-bd-lintrouvable",
@@ -1909,9 +1875,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Association Ujap BD",
       "type-de-structure": 621,
@@ -2105,12 +2069,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        616
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [616],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,

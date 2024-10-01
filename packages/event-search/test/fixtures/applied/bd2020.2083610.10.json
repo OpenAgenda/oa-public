@@ -73,9 +73,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 46 84 29 31"
-      ],
+      "registration": ["05 46 84 29 31"],
       "location": {
         "uid": 75607953,
         "slug": "mediatheque-de-fouras-les-bains657",
@@ -109,9 +107,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix BD Bulles d'Océan - Communauté d'agglomération Rochefort Océan",
       "type-de-structure": 623,
@@ -260,12 +256,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -376,9 +368,7 @@
         "min": 8,
         "max": 10
       },
-      "registration": [
-        "bibliotheque@ville-tcv.fr"
-      ],
+      "registration": ["bibliotheque@ville-tcv.fr"],
       "location": {
         "uid": 73853139,
         "slug": "bibliotheque-michel-butor825",
@@ -412,9 +402,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -563,9 +551,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -714,9 +700,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -859,9 +843,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Marguerite Yourcenar",
       "type-de-structure": 623,
@@ -1099,12 +1081,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival du film de Marly (thème 2020 : la bande dessinée)",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1498,9 +1476,7 @@
       "tarif": "Plein tarif : 5 € - Tarif réduit : 3 €",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -1631,9 +1607,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1742,9 +1716,7 @@
         "min": 8,
         "max": 14
       },
-      "registration": [
-        "03 28 29 66 33"
-      ],
+      "registration": ["03 28 29 66 33"],
       "location": {
         "uid": 73972358,
         "slug": "mediatheque-emile-zola352",
@@ -1778,9 +1750,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

@@ -1,18 +1,21 @@
 import getAgenda from '../utils/getAgenda.js';
 
-export default (core, agendaOrUid) => async (mergeInItem, query, data, options = {}) => {
-  const { agendaLocations } = core.services;
+export default (core, agendaOrUid) =>
+  async (mergeInItem, query, data, options = {}) => {
+    const { agendaLocations } = core.services;
 
-  const agenda = await getAgenda(core.services, agendaOrUid);
+    const agenda = await getAgenda(core.services, agendaOrUid);
 
-  const endpoints = agenda.locationSetUid ? agendaLocations.sets(agenda.locationSetUid).locations : agendaLocations(agenda.uid);
+    const endpoints = agenda.locationSetUid
+      ? agendaLocations.sets(agenda.locationSetUid).locations
+      : agendaLocations(agenda.uid);
 
-  return endpoints.merge(mergeInItem, query, data, {
-    ...options,
-    agendaUid: agenda.uid,
-    context: {
-      ...options.context,
+    return endpoints.merge(mergeInItem, query, data, {
+      ...options,
       agendaUid: agenda.uid,
-    },
-  });
-};
+      context: {
+        ...options.context,
+        agendaUid: agenda.uid,
+      },
+    });
+  };

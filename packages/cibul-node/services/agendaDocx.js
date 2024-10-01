@@ -1,11 +1,7 @@
 import AgendaDocx from '@openagenda/agenda-docx';
 
 function plugApp(agendaDocx, app) {
-  const {
-    agendas,
-    members,
-    sessions,
-  } = app.services;
+  const { agendas, members, sessions } = app.services;
 
   app.use('/docx/dist', agendaDocx.dist);
 
@@ -37,7 +33,7 @@ export function init(config, services) {
     localTmpPath: config.tmpFolderPath,
   });
 
-  agendaDocx.plugApp = app => plugApp(agendaDocx, app);
+  agendaDocx.plugApp = (app) => plugApp(agendaDocx, app);
 
   agendaDocx.task = queue.run;
 

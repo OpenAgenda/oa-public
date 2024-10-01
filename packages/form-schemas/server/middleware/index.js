@@ -1,6 +1,9 @@
-"use strict";
+'use strict';
+
+const files = require('./files');
+const schema = require('./schema');
 
 module.exports = {
-  files: require( './files' ),
-  schema: require( './schema' )
-}
+  files,
+  schema,
+};

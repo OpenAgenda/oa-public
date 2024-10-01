@@ -1,4 +1,11 @@
-export default async function userEventsSearch(core, identifier, agendaUid, query, nav, options = {}) {
+export default async function userEventsSearch(
+  core,
+  identifier,
+  agendaUid,
+  query,
+  nav,
+  options = {},
+) {
   const isOwn = parseInt(options.userUid, 10) === parseInt(identifier, 10);
   const searchOptions = {
     ...options,
@@ -8,9 +15,7 @@ export default async function userEventsSearch(core, identifier, agendaUid, quer
     searchOptions.access = 'internal';
   }
 
-  const {
-    relation = [],
-  } = query ?? {};
+  const { relation = [] } = query ?? {};
 
   let filterKey = 'ownerUid';
 
@@ -24,8 +29,12 @@ export default async function userEventsSearch(core, identifier, agendaUid, quer
     [filterKey]: identifier,
   };
 
-  return core.agendas(agendaUid).events.search({
-    ...query,
-    ...userFilter,
-  }, nav, searchOptions);
+  return core.agendas(agendaUid).events.search(
+    {
+      ...query,
+      ...userFilter,
+    },
+    nav,
+    searchOptions,
+  );
 }

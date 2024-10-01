@@ -8,7 +8,7 @@ export default function Registrations({
   if (logger) {
     logs.setModuleConfig(logger);
   }
-  return settings => ({
+  return (settings) => ({
     passCulture: PassCulture(passCultureParams, settings.passCulture),
   });
 }

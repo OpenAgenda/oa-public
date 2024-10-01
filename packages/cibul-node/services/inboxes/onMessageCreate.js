@@ -18,7 +18,7 @@ async function inboxIdsToInboxUsers(services, inboxes, ids) {
         10000,
       )
     ).data,
-    o => ({ ...o, inbox: _.find(inboxes, ['id', o.inboxId]) }),
+    (o) => ({ ...o, inbox: _.find(inboxes, ['id', o.inboxId]) }),
   );
 }
 
@@ -66,18 +66,9 @@ async function getSenderName(services, { inboxUser, conversation, message }) {
 
 async function sendMail(
   { services, mailsDomain, replyTos },
-  {
-    inboxUser,
-    conversation,
-    message,
-    messageId,
-    references,
-    inReplyTo,
-  },
+  { inboxUser, conversation, message, messageId, references, inReplyTo },
 ) {
-  const {
-    agendas: agendasSvc, members: membersSvc, mails, genUrl,
-  } = services;
+  const { agendas: agendasSvc, members: membersSvc, mails, genUrl } = services;
 
   const getAgenda = promisify(agendasSvc.get);
 
@@ -185,7 +176,7 @@ async function sendMail(
         ? member.custom.contactName
         : user.fullName,
       address:
-        replyTos.find(rt => rt.userUid === user.uid)?.replyTo ?? user.email,
+        replyTos.find((rt) => rt.userUid === user.uid)?.replyTo ?? user.email,
       unsubscriptions,
     },
     data: {
@@ -269,7 +260,7 @@ export default async function onMessageCreate(
       const { messageId, references, inReplyTo } = await inboxes
         .emailUtils(conversation.id)
         .messageIds.generateMailBundle(message)
-        .catch(error => {
+        .catch((error) => {
           log.error('failed to list References to add to created message', {
             error,
             conversationId: conversation.id,
@@ -303,7 +294,7 @@ export default async function onMessageCreate(
         );
       }
 
-      Promise.all(sendMailPromises).catch(e => {
+      Promise.all(sendMailPromises).catch((e) => {
         log('error', e);
       });
 

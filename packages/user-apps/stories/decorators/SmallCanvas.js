@@ -5,11 +5,12 @@ import * as locales from '../../src/locales-compiled';
 
 const lang = 'fr';
 
-export default Story => (
+export default (Story) => (
   <IntlProvider
     key={lang}
     locale={lang}
-    messages={locales[lang]}
+    // eslint-disable-next-line import/namespace
+    messages={locales.fr}
     defaultLocale={getSupportedLocale(lang)}
   >
     <div className="container">

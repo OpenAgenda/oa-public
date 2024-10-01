@@ -20,7 +20,7 @@ function streamToBlob(stream, mimeType) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     stream
-      .on('data', chunk => chunks.push(chunk))
+      .on('data', (chunk) => chunks.push(chunk))
       .once('end', () => {
         const blob = mimeType != null
           ? new Blob(chunks, { type: mimeType })

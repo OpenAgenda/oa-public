@@ -1,24 +1,24 @@
-"use strict";
+'use strict';
 
 module.exports = {
   title: {
     en: 'Title',
-    fr: 'Titre'
+    fr: 'Titre',
   },
   description: {
     en: 'Description',
-    fr: 'Description'
+    fr: 'Description',
   },
   longDescription: {
     en: 'Long description',
-    fr: 'Description longue'
+    fr: 'Description longue',
   },
   keywords: {
     en: 'Keywords',
-    fr: 'Mots clés'
+    fr: 'Mots clés',
   },
   range: {
     en: 'Timings summary',
-    fr: 'Résumé horaires'
-  }
-}
+    fr: 'Résumé horaires',
+  },
+};

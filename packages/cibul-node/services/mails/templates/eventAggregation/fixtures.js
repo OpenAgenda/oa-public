@@ -14,8 +14,10 @@ module.exports = {
   event: 'Rando à Gnagnaville',
   sourceAgenda: 'Un agenda source',
   state: 'published',
-  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
-  memberUnsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
+  unsubscribeLink:
+    'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
+  memberUnsubscribeLink:
+    'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
   emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed',
   isRegisteredUser: true,
 };

@@ -8,81 +8,96 @@ import labels from './lib/labels';
 
 const getLabel = makeLabelGetter(labels);
 
-const fieldTypeChoices = [{
-  id: 1,
-  value: 'text',
-  label: labels.textFieldType,
-}, {
-  id: 4,
-  value: 'textarea',
-  label: labels.textareaFieldType,
-}, {
-  id: 5,
-  value: 'markdown',
-  label: labels.markdownFieldType,
-  info: labels.markdownFieldTypeInfo,
-}, {
-  id: 6,
-  value: 'integer',
-  label: labels.integerFieldType,
-}, {
-  id: 10,
-  value: 'link',
-  label: labels.linkFieldType,
-}, {
-  id: 9,
-  value: 'email',
-  label: labels.emailFieldType,
-}, {
-  id: 7,
-  value: 'boolean',
-  label: labels.booleanFieldType,
-  info: labels.booleanFieldTypeInfo,
-}, {
-  id: 3,
-  value: 'checkbox',
-  label: labels.checkboxFieldType,
-  info: labels.checkboxFieldTypeInfo,
-}, {
-  id: 12,
-  value: 'multiselect',
-  label: labels.multiselectFieldType,
-  info: labels.multiselectFieldTypeInfo,
-}, {
-  id: 2,
-  value: 'radio',
-  label: labels.radioFieldType,
-  info: labels.radioFieldTypeInfo,
-}, {
-  id: 11,
-  value: 'select',
-  label: labels.selectFieldType,
-  info: labels.selectFieldTypeInfo,
-}, {
-  id: 13,
-  value: 'date',
-  label: labels.dateFieldType,
-  info: labels.dateFieldTypeInfo,
-}, {
-  id: 14,
-  value: 'section',
-  label: labels.sectionType,
-  info: labels.sectionTypeInfo,
-}];
+const fieldTypeChoices = [
+  {
+    id: 1,
+    value: 'text',
+    label: labels.textFieldType,
+  },
+  {
+    id: 4,
+    value: 'textarea',
+    label: labels.textareaFieldType,
+  },
+  {
+    id: 5,
+    value: 'markdown',
+    label: labels.markdownFieldType,
+    info: labels.markdownFieldTypeInfo,
+  },
+  {
+    id: 6,
+    value: 'integer',
+    label: labels.integerFieldType,
+  },
+  {
+    id: 10,
+    value: 'link',
+    label: labels.linkFieldType,
+  },
+  {
+    id: 9,
+    value: 'email',
+    label: labels.emailFieldType,
+  },
+  {
+    id: 7,
+    value: 'boolean',
+    label: labels.booleanFieldType,
+    info: labels.booleanFieldTypeInfo,
+  },
+  {
+    id: 3,
+    value: 'checkbox',
+    label: labels.checkboxFieldType,
+    info: labels.checkboxFieldTypeInfo,
+  },
+  {
+    id: 12,
+    value: 'multiselect',
+    label: labels.multiselectFieldType,
+    info: labels.multiselectFieldTypeInfo,
+  },
+  {
+    id: 2,
+    value: 'radio',
+    label: labels.radioFieldType,
+    info: labels.radioFieldTypeInfo,
+  },
+  {
+    id: 11,
+    value: 'select',
+    label: labels.selectFieldType,
+    info: labels.selectFieldTypeInfo,
+  },
+  {
+    id: 13,
+    value: 'date',
+    label: labels.dateFieldType,
+    info: labels.dateFieldTypeInfo,
+  },
+  {
+    id: 14,
+    value: 'section',
+    label: labels.sectionType,
+    info: labels.sectionTypeInfo,
+  },
+];
 
-const flatChoices = lang => fieldTypeChoices.map(c => ({
-  ...c,
-  label: c.label[lang] || c.label.en,
-  info: c.info?.[lang] || c.info?.en,
-}));
+const flatChoices = (lang) =>
+  fieldTypeChoices.map((c) => ({
+    ...c,
+    label: c.label[lang] || c.label.en,
+    info: c.info?.[lang] || c.info?.en,
+  }));
 
-const getFieldType = valueOrId => fieldTypeChoices
-  .find(choice => choice[isInteger(valueOrId) ? 'id' : 'value'] === valueOrId);
+const getFieldType = (valueOrId) =>
+  fieldTypeChoices.find(
+    (choice) => choice[isInteger(valueOrId) ? 'id' : 'value'] === valueOrId,
+  );
 
 const ChosenType = ({ lang, value, onReset }) => {
-  const {
-    label, info,
-  } = getFieldType(value);
+  const { label, info } = getFieldType(value);
 
   return (
     <div>
@@ -104,14 +119,17 @@ export default function ChooseFieldType({
   onChange: propsOnChange,
   lang,
 }) {
-  const onChange = useCallback(choice => {
-    if (!choice) {
-      propsOnChange(null);
-      return;
-    }
-    const fieldTypeChoice = getFieldType(choice.values.fieldType);
-    propsOnChange(fieldTypeChoice.value);
-  }, [propsOnChange]);
+  const onChange = useCallback(
+    (choice) => {
+      if (!choice) {
+        propsOnChange(null);
+        return;
+      }
+      const fieldTypeChoice = getFieldType(choice.values.fieldType);
+      propsOnChange(fieldTypeChoice.value);
+    },
+    [propsOnChange],
+  );
 
   if (value) {
     return (
@@ -130,19 +148,23 @@ export default function ChooseFieldType({
       values={value ? { fieldType: getFieldType(value).id } : {}}
       onChange={onChange}
       schema={{
-        fields: [{
-          field: 'fieldType',
-          placeholder: getLabel('chooseFieldTypePlaceholder', lang),
-          fieldType: 'select',
-          label: getLabel('chooseFieldType', lang),
-          optional: false,
-          options: flatChoices(lang),
-        }],
+        fields: [
+          {
+            field: 'fieldType',
+            placeholder: getLabel('chooseFieldTypePlaceholder', lang),
+            fieldType: 'select',
+            label: getLabel('chooseFieldType', lang),
+            optional: false,
+            options: flatChoices(lang),
+          },
+        ],
       }}
-      actionComponents={[{
-        position: 'bottom',
-        Component: () => null,
-      }]}
+      actionComponents={[
+        {
+          position: 'bottom',
+          Component: () => null,
+        },
+      ]}
     />
   );
 }

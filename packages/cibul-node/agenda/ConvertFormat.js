@@ -21,7 +21,9 @@ export default function ConvertFormat({
 
     const tagSet = await tagsAndCustom.getTagSet(req.params.uid);
     const categorySet = await tagsAndCustom.getCategorySet(req.params.uid);
-    const formSchema = await req.app.core.agendas(req.params.uid).settings.get({ access: 'internal' });
+    const formSchema = await req.app.core
+      .agendas(req.params.uid)
+      .settings.get({ access: 'internal' });
 
     const nav = req.query.page
       ? {
@@ -30,12 +32,20 @@ export default function ConvertFormat({
       }
       : {
         from: parseInt(req.query.offset ?? 0, 10),
-        size: forceLimit === null ? parseInt(req.query.limit ?? 20, 10) : forceLimit,
+        size:
+            forceLimit === null
+              ? parseInt(req.query.limit ?? 20, 10)
+              : forceLimit,
       };
 
     req.query = _.omit(
       {
-        ...convertLegacyFilter(req.query.oaq ?? {}, { formSchema, tagSet, categorySet, query: req.query }),
+        ...convertLegacyFilter(req.query.oaq ?? {}, {
+          formSchema,
+          tagSet,
+          categorySet,
+          query: req.query,
+        }),
         ...req.query,
       },
       ['page', 'oaq'],
@@ -55,10 +65,13 @@ export default function ConvertFormat({
 
     const { result: eventsList, error } = await req.app.core
       .agendas(req.params.uid)
-      .events.search(req.query, nav, { detailed: true, access: 'administrator' })
+      .events.search(req.query, nav, {
+        detailed: true,
+        access: 'administrator',
+      })
       .then(
-        result => ({ result }),
-        e => ({ error: e }),
+        (result) => ({ result }),
+        (e) => ({ error: e }),
       );
 
     if (error) {
@@ -71,15 +84,21 @@ export default function ConvertFormat({
       legacy: { tagSet, categorySet },
       formSchema,
       interfaces: {
-        renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(null, req.app.services, {
-          includeEmbedded: forceIncludeEmbedded || req.query.include_embedded === '1',
-        }),
+        renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(
+          null,
+          req.app.services,
+          {
+            includeEmbedded:
+              forceIncludeEmbedded || req.query.include_embedded === '1',
+          },
+        ),
       },
       admin,
       root: config.root,
     };
 
-    const convertedEvents = eventsList.events.map(event => convertEventToLegacyFormat(agendaSettings, event));
+    const convertedEvents = eventsList.events.map((event) =>
+      convertEventToLegacyFormat(agendaSettings, event));
 
     const response = {
       total: eventsList.total,

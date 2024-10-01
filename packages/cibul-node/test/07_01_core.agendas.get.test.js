@@ -66,7 +66,10 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         access: 'administrator',
       });
 
-      expect(agenda.schema.fields.map(f => f.field)).toEqual(['categories', 'organisation-interne']);
+      expect(agenda.schema.fields.map((f) => f.field)).toEqual([
+        'categories',
+        'organisation-interne',
+      ]);
     });
 
     it('detailed get provides information on network', async () => {
@@ -102,9 +105,8 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       expect(
         agenda.schema.fields
-          .map(f => f.field)
-          .filter(f => f === 'organisation-interne')
-          .length,
+          .map((f) => f.field)
+          .filter((f) => f === 'organisation-interne').length,
       ).toBe(1);
     });
 
@@ -117,9 +119,8 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       expect(
         agenda.schema.fields
-          .map(f => f.field)
-          .filter(f => f === 'organisation-interne')
-          .length,
+          .map((f) => f.field)
+          .filter((f) => f === 'organisation-interne').length,
       ).toBe(1);
     });
 
@@ -133,9 +134,8 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       expect(
         agenda.schema.fields
-          .map(f => f.field)
-          .filter(f => f === 'languages')
-          .length,
+          .map((f) => f.field)
+          .filter((f) => f === 'languages').length,
       ).toBe(1);
     });
 
@@ -145,9 +145,10 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         includeEvent: true,
       });
 
-      expect(
-        _.uniq(agenda.schema.fields.map(f => f.schemaType)),
-      ).toEqual(['agenda', 'event']);
+      expect(_.uniq(agenda.schema.fields.map((f) => f.schemaType))).toEqual([
+        'agenda',
+        'event',
+      ]);
     });
 
     it('schema fields include state', async () => {
@@ -160,9 +161,9 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         includeMemberSchema: true,
       });
 
-      expect(
-        !!agenda.schema.fields.find(el => el.field === 'state'),
-      ).toBe(true);
+      expect(!!agenda.schema.fields.find((el) => el.field === 'state')).toBe(
+        true,
+      );
     });
 
     it('detailed gets returns a summary object', async () => {
@@ -192,7 +193,8 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       expect(
         _.omit(
-          agenda.schema.fields.find(({ field }) => field === 'registration').settings.passCulture,
+          agenda.schema.fields.find(({ field }) => field === 'registration')
+            .settings.passCulture,
           ['res'],
         ),
       ).toEqual(agenda.settings.registration.passCulture);
@@ -213,7 +215,9 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       let agenda;
 
       beforeAll(async () => {
-        const result = await axios.get(`http://localhost:3000/agendas/92983929?key=${contributorKey}`);
+        const result = await axios.get(
+          `http://localhost:3000/agendas/92983929?key=${contributorKey}`,
+        );
         agenda = result.data;
       });
 
@@ -224,11 +228,16 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       });
 
       it('get from non-administrator does not provide administrator access field', () => {
-        expect(agenda.settings.contribution.authorizedIPAddresses).toBe(undefined);
+        expect(agenda.settings.contribution.authorizedIPAddresses).toBe(
+          undefined,
+        );
       });
 
       it('get from non-administrator with includeMemberSchema option', async () => {
-        const res = await axios.get(`http://localhost:3000/agendas/92983929?key=${contributorKey}`, { params: { includeMemberSchema: true } });
+        const res = await axios.get(
+          `http://localhost:3000/agendas/92983929?key=${contributorKey}`,
+          { params: { includeMemberSchema: true } },
+        );
         expect(res.data.memberSchema.fields[1].optional).toBeFalsy();
       });
     });
@@ -237,17 +246,24 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       const administratorKey = '0toI8hA1if8auC1hFOmegP36aMbVg1N9';
 
       it('get from administrator provides administrator-access field', async () => {
-        const { data: agenda } = await axios.get(`http://localhost:3000/agendas/92983929?key=${administratorKey}`);
+        const { data: agenda } = await axios.get(
+          `http://localhost:3000/agendas/92983929?key=${administratorKey}`,
+        );
         expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
       });
 
       it('fix: get on private agenda', async () => {
-        const { data: agenda } = await axios.get(`http://localhost:3000/agendas/78971487?key=${administratorKey}`);
+        const { data: agenda } = await axios.get(
+          `http://localhost:3000/agendas/78971487?key=${administratorKey}`,
+        );
         expect(agenda.title).toBe('Un agenda privé');
       });
 
       it('get from administrator with includeMemberSchema option', async () => {
-        const res = await axios.get('http://localhost:3000/agendas/92983929?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9', { params: { includeMemberSchema: true } });
+        const res = await axios.get(
+          'http://localhost:3000/agendas/92983929?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9',
+          { params: { includeMemberSchema: true } },
+        );
         expect(res.data.memberSchema.fields[0].optional).toBeTruthy();
       });
     });

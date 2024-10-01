@@ -43,7 +43,7 @@ function _loadFacebookProfile(accessToken, refreshToken, profile, done) {
   done(null, extracted);
 }
 
-export default app => {
+export default (app) => {
   const { sessions, agendas, genUrl } = app.services;
 
   const preMw = [
@@ -52,32 +52,46 @@ export default app => {
   ];
 
   if (_.get(config, 'auth.facebook.id')) {
-    passport.use('facebook-signin', new FacebookStrategy(
-      {
-        callbackURL: genUrl.abs('facebookSigninCallback'),
-        ...facebookOptions,
-      },
-      _loadFacebookProfile,
-    ));
+    passport.use(
+      'facebook-signin',
+      new FacebookStrategy(
+        {
+          callbackURL: genUrl.abs('facebookSigninCallback'),
+          ...facebookOptions,
+        },
+        _loadFacebookProfile,
+      ),
+    );
 
-    passport.use('facebook-signup', new FacebookStrategy(
-      {
-        callbackURL: genUrl.abs('facebookSignupCallback'),
-        ...facebookOptions,
-      },
-      _loadFacebookProfile,
-    ));
+    passport.use(
+      'facebook-signup',
+      new FacebookStrategy(
+        {
+          callbackURL: genUrl.abs('facebookSignupCallback'),
+          ...facebookOptions,
+        },
+        _loadFacebookProfile,
+      ),
+    );
   }
 
   app.get('/facebook/signin', preMw, signin);
 
   app.get('/:agendaSlug/facebook/signin', agendas.mw.load, preMw, signin);
 
-  app.get('/facebook/signin/callback', preMw, auth.process('facebook', 'signin'));
+  app.get(
+    '/facebook/signin/callback',
+    preMw,
+    auth.process('facebook', 'signin'),
+  );
 
   app.post('/facebook/signup', preMw, signup);
 
   app.post('/:agendaSlug/facebook/signup', agendas.mw.load, preMw, signup);
 
-  app.get('/facebook/signup/callback', preMw, auth.process('facebook', 'signup'));
+  app.get(
+    '/facebook/signup/callback',
+    preMw,
+    auth.process('facebook', 'signup'),
+  );
 };

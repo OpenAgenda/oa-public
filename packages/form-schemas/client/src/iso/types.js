@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = {
   radio: 'choice.unique',
   checkbox: 'choice',

@@ -99,12 +99,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        5,
-        7,
-        17,
-        32
-      ],
+      "thematiques-bordeaux-metropole": [5, 7, 17, 32],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -201,9 +196,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://inscription.bordeaux-metropole.fr"
-      ],
+      "registration": ["http://inscription.bordeaux-metropole.fr"],
       "location": {
         "uid": 88524565,
         "slug": "maison-ecocitoyenne251",
@@ -232,11 +225,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        10,
-        11,
-        17
-      ],
+      "thematiques-bordeaux-metropole": [10, 11, 17],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -365,10 +354,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        17,
-        32
-      ],
+      "thematiques-bordeaux-metropole": [17, 32],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -647,11 +633,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        11,
-        17,
-        20
-      ],
+      "thematiques-bordeaux-metropole": [11, 17, 20],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -777,10 +759,7 @@
       "intermunicipal_interest": [],
       "recurring": [],
       "categories-agenda-metropolitain": null,
-      "thematiques-bordeaux-metropole": [
-        17,
-        38
-      ],
+      "thematiques-bordeaux-metropole": [17, 38],
       "state": 2,
       "featured": false,
       "sourcePaths": [],
@@ -821,9 +800,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "théatre"
-        ]
+        "fr": ["théatre"]
       },
       "conditions": {
         "fr": "participation libre au chapeau"
@@ -1216,10 +1193,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "+33556863843",
-        "http://www.culture-cenon.fr"
-      ],
+      "registration": ["+33556863843", "http://www.culture-cenon.fr"],
       "location": {
         "uid": 79787708,
         "slug": "centre-culturel-chateau-palmer853",
@@ -1356,9 +1330,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 56 77 34 70"
-      ],
+      "registration": ["05 56 77 34 70"],
       "location": {
         "uid": 1848894,
         "slug": "pole-culturel-evsion",
@@ -1378,9 +1350,7 @@
         "description": {},
         "website": "http://evasion.ville-ambaresetlagrave.fr/",
         "phone": "05 56 77 36 26",
-        "links": [
-          "https://www.facebook.com/pole.culturel.evasion/"
-        ],
+        "links": ["https://www.facebook.com/pole.culturel.evasion/"],
         "access": {},
         "state": 1,
         "timezone": "Europe/Paris",
@@ -1428,11 +1398,7 @@
         "fr": "« D’une guerre à l’autre » : exposition prêtée par l’ONAC (Office Nationale des Anciens Combattants) avec 40 panneaux présentant la France de l’Entre-deux-guerres, la paix ratée, la reconstruction, la Société traumatisée, ses évolutions, la montée des périls et la spirale vers la guerre. À la salle polyvalente Favols du 5 au 11 novembre de 14h30 à 17h30 avec le 6 novembre à 18h30 une visite commentée de l’exposition par Yves Castex et Jean-Paul Grasset.\n\nEntrée libre et gratuite."
       },
       "keywords": {
-        "fr": [
-          "exposition",
-          "seconde guerre",
-          null
-        ]
+        "fr": ["exposition", "seconde guerre", null]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite"
@@ -1542,9 +1508,7 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "state": 2,

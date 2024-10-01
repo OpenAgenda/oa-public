@@ -1,8 +1,6 @@
 import { BadRequest } from '@openagenda/verror';
 
-import {
-  getTimingId,
-} from '../utils.js';
+import { getTimingId } from '../utils.js';
 
 export default function validateDate(value, params = {}) {
   const {
@@ -19,23 +17,19 @@ export default function validateDate(value, params = {}) {
     }
     throw new BadRequest({
       info: {
-        errors: [{
-          message: 'date must be a defined object',
-          code: 'invalid.object',
-          label: 'Une date ne peut pas être vide',
-          field: 'dates',
-        }],
+        errors: [
+          {
+            message: 'date must be a defined object',
+            code: 'invalid.object',
+            label: 'Une date ne peut pas être vide',
+            field: 'dates',
+          },
+        ],
       },
     });
   }
 
-  const {
-    id,
-    timingId,
-    priceCategoryId,
-    quantity,
-    deleted,
-  } = value;
+  const { id, timingId, priceCategoryId, quantity, deleted } = value;
 
   const errors = [];
   const clean = {};
@@ -58,11 +52,11 @@ export default function validateDate(value, params = {}) {
     };
   }
 
-  if (!priceCategories.find(pc => pc.id === priceCategoryId)) {
+  if (!priceCategories.find((pc) => pc.id === priceCategoryId)) {
     errors.push({
       message: 'date is not associated to a defined price category',
       code: 'invalid.priceCategoryId',
-      label: 'La date n\'est pas associée à une catégorie de prix valide',
+      label: "La date n'est pas associée à une catégorie de prix valide",
       field: 'dates',
     });
   } else {
@@ -80,7 +74,7 @@ export default function validateDate(value, params = {}) {
     });
   }
 
-  if (!(timings ?? []).find(t => getTimingId(t, timezone) === timingId)) {
+  if (!(timings ?? []).find((t) => getTimingId(t, timezone) === timingId)) {
     errors.push({
       message: 'date must match a timing',
       code: 'invalid.timingId',
@@ -109,15 +103,18 @@ export function validateDates(dates, priceCategories, event) {
 
   for (const [index, date] of [].concat(dates).entries()) {
     try {
-      clean.push(validateDate(date, {
-        priceCategories,
-        timings,
-      }));
+      clean.push(
+        validateDate(date, {
+          priceCategories,
+          timings,
+        }),
+      );
     } catch (error) {
-      error.info.errors.forEach(e => errors.push({
-        ...e,
-        index,
-      }));
+      error.info.errors.forEach((e) =>
+        errors.push({
+          ...e,
+          index,
+        }));
     }
   }
 

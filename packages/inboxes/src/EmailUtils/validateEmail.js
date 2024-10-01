@@ -8,7 +8,7 @@ const validate = ajv.compile({
   format: 'email',
 });
 
-export default value => {
+export default (value) => {
   if (!validate(value)) {
     throw new BadRequest('is not email');
   }

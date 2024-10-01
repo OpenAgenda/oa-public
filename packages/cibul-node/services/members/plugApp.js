@@ -113,7 +113,7 @@ export default function plugApp(app) {
           context: req.context,
           requireCustom: false,
         })
-        .then(result => {
+        .then((result) => {
           res.status(200).json(_.pick(result.member, ['custom', 'role']));
         }, next),
   );
@@ -170,7 +170,7 @@ export default function plugApp(app) {
         .getContext({
           userUid: req.user.uid,
         })
-        .then(context => {
+        .then((context) => {
           if (context.me?.authorizations?.canEditEvent) {
             return next();
           }

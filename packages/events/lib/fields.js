@@ -312,10 +312,10 @@ module.exports = [
       type: 'json',
     },
   },
-].map(f => {
+].map((f) => {
   f.label = f.field;
   if (f.options) {
-    f.options = f.options.map(o => ({ ...o, label: o.value }));
+    f.options = f.options.map((o) => ({ ...o, label: o.value }));
   }
   return f;
 });

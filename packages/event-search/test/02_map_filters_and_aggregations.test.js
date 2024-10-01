@@ -23,18 +23,21 @@ describe('02 - event search - functional: relative filter', () => {
 
   beforeAll(async () => {
     await service('map').rebuild({
-      eventsList: async (_lastId, _limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.map.json`),
-      ),
+      eventsList: async (_lastId, _limit) =>
+        JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_events.map.json`)),
     });
   });
 
   it('filter on the region', async () => {
-    const { events } = await service('map').search({
-      region: 'Hauts-de-France',
-    }, {}, { detailed: true });
+    const { events } = await service('map').search(
+      {
+        region: 'Hauts-de-France',
+      },
+      {},
+      { detailed: true },
+    );
 
-    events.forEach(event => {
+    events.forEach((event) => {
       expect(event.location.region).toBe('Hauts-de-France');
     });
   });
@@ -57,30 +60,36 @@ describe('02 - event search - functional: relative filter', () => {
   });
 
   it('filter on a volume-less rectangle triggers a bad request exception', async () => {
-    const error = await service('map').search({
-      geo: {
-        northEast: {
-          lat: 51,
-          lng: 3,
+    const error = await service('map')
+      .search({
+        geo: {
+          northEast: {
+            lat: 51,
+            lng: 3,
+          },
+          southWest: {
+            lat: 51,
+            lng: 3,
+          },
         },
-        southWest: {
-          lat: 51,
-          lng: 3,
-        },
-      },
-    }).catch(e => e);
+      })
+      .catch((e) => e);
 
-    expect(error.message).toBe('northEast and southWest cannot have same lat or lng values');
+    expect(error.message).toBe(
+      'northEast and southWest cannot have same lat or lng values',
+    );
   });
 
   it('default geohash aggregation', async () => {
     const {
-      aggregations: {
-        geohash,
+      aggregations: { geohash },
+    } = await service('map').search(
+      {},
+      { size: 0 },
+      {
+        aggregations: 'geohash',
       },
-    } = await service('map').search({}, { size: 0 }, {
-      aggregations: 'geohash',
-    });
+    );
 
     expect(geohash).toEqual([
       {
@@ -94,15 +103,17 @@ describe('02 - event search - functional: relative filter', () => {
 
   it('geohash with non-default precision', async () => {
     const {
-      aggregations: {
-        geohash,
+      aggregations: { geohash },
+    } = await service('map').search(
+      {},
+      { size: 0 },
+      {
+        aggregations: {
+          type: 'geohash',
+          zoom: 6,
+        },
       },
-    } = await service('map').search({}, { size: 0 }, {
-      aggregations: {
-        type: 'geohash',
-        zoom: 6,
-      },
-    });
+    );
 
     expect(geohash).toEqual([
       {
@@ -134,18 +145,23 @@ describe('02 - event search - functional: relative filter', () => {
 
   it('viewport', async () => {
     const {
-      aggregations: {
-        viewport,
+      aggregations: { viewport },
+    } = await service('map').search(
+      {},
+      { size: 0 },
+      {
+        aggregations: {
+          type: 'viewport',
+        },
       },
-    } = await service('map').search({}, { size: 0 }, {
-      aggregations: {
-        type: 'viewport',
-      },
-    });
+    );
 
     expect(viewport).toEqual({
       topLeft: { latitude: 50.652663968503475, longitude: -0.5585790798068047 },
-      bottomRight: { latitude: 43.92484896350652, longitude: 3.1450939178466797 },
+      bottomRight: {
+        latitude: 43.92484896350652,
+        longitude: 3.1450939178466797,
+      },
     });
   });
 });

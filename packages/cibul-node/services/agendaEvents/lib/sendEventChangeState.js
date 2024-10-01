@@ -158,7 +158,7 @@ export default async (
 
   const creatorIsAdminmod = creatorUser
     && members.includes(
-      member => member.user && member.user.uid !== creatorUser.uid,
+      (member) => member.user && member.user.uid !== creatorUser.uid,
     );
   const visibleForCreator = creatorIsAdminmod || (!agenda.private && eventIsPublished);
 
@@ -224,14 +224,14 @@ export default async (
   await mails.send({
     template: 'eventChangeState',
     to: members
-      .filter(member => {
+      .filter((member) => {
         if (!member.user) {
           log('warn', 'no user was found matching member %s', member.id);
         }
 
         return !!member.user;
       })
-      .filter(member => {
+      .filter((member) => {
         if (sentToCreator && member.user.uid === creatorUser.uid) {
           // if notification was sent to creator and creator is member, should not receive eventChangeState.
           return false;
@@ -242,7 +242,7 @@ export default async (
         }
         return true;
       })
-      .map(member => {
+      .map((member) => {
         log('sending to member %s', member.id);
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[lang] || _.find(event.title);

@@ -7,14 +7,16 @@ export default {
   title: 'PassCulture/ListVenues',
   parameters: {
     msw: {
-      handlers: [
-        http.get('/settings', () => HttpResponse.json(passSettings)),
-      ],
+      handlers: [http.get('/settings', () => HttpResponse.json(passSettings))],
     },
   },
-  decorators: [Story => (
-    <BootstrapComponentsProvider><Story /></BootstrapComponentsProvider>
-  )],
+  decorators: [
+    (Story) => (
+      <BootstrapComponentsProvider>
+        <Story />
+      </BootstrapComponentsProvider>
+    ),
+  ],
 };
 
 export const Default = () => (

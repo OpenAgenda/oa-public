@@ -92,9 +92,7 @@
       },
       "keywords": {
         "en": [],
-        "fr": [
-          "lieu"
-        ]
+        "fr": ["lieu"]
       },
       "location": {
         "address": "43 West 13th Street Manhattan",
@@ -211,15 +209,8 @@
         "base": "//openagendatst.s3.amazonaws.com/"
       },
       "keywords": {
-        "en": [
-          "ouest",
-          "poster"
-        ],
-        "fr": [
-          "prise",
-          "panneau",
-          "lieu"
-        ]
+        "en": ["ouest", "poster"],
+        "fr": ["prise", "panneau", "lieu"]
       },
       "location": {
         "address": "Place Saint-Corentin, Quimper",
@@ -280,9 +271,7 @@
       },
       "keywords": {
         "en": [],
-        "fr": [
-          "lieu"
-        ]
+        "fr": ["lieu"]
       },
       "location": {
         "address": "4 place des Ormeaux, 26000 Valence",

@@ -6,10 +6,7 @@ export default async function onAction(services, conversation, action) {
   const {
     agendaEvents: agendaEventsSvc,
     members: membersSvc,
-    inboxes: {
-      Inbox,
-      Conversation,
-    },
+    inboxes: { Inbox, Conversation },
   } = services;
 
   if (action.code === 'involveTechnicalSupport') {
@@ -18,7 +15,10 @@ export default async function onAction(services, conversation, action) {
       identifier: 1,
     }).get();
 
-    await Conversation.link({ conversationId: conversation.id, inboxId: supportInbox.data.id });
+    await Conversation.link({
+      conversationId: conversation.id,
+      inboxId: supportInbox.data.id,
+    });
   }
 
   if (action.code === 'removeTechnicalSupport') {
@@ -27,13 +27,19 @@ export default async function onAction(services, conversation, action) {
       identifier: 1,
     }).get();
 
-    await Conversation.unlink({ conversationId: conversation.id, inboxId: supportInbox.data.id });
+    await Conversation.unlink({
+      conversationId: conversation.id,
+      inboxId: supportInbox.data.id,
+    });
   }
 
   switch (conversation.type) {
     case 'request_contribute': {
       if (action.code === 'accept') {
-        if (conversation.creatorInbox && conversation.creatorInbox.type === 'user') {
+        if (
+          conversation.creatorInbox
+          && conversation.creatorInbox.type === 'user'
+        ) {
           try {
             const userUid = conversation.creatorInbox.identifier;
             const agendaUid = conversation.typeIdentifier;
@@ -52,7 +58,9 @@ export default async function onAction(services, conversation, action) {
                 },
                 { requireCustom: false },
               );
-              log('info', 'Contribution request accepted', { member: newMember });
+              log('info', 'Contribution request accepted', {
+                member: newMember,
+              });
             }
           } catch (err) {
             log('error', 'Cannot accept a contribution request', err);
@@ -64,12 +72,11 @@ export default async function onAction(services, conversation, action) {
     case 'edition_request': {
       if (action.code === 'accept') {
         try {
-          await agendaEventsSvc(conversation.store.params.agendaUid)
-            .update(
-              conversation.typeIdentifier,
-              { canEdit: true },
-              { transferToLegacy: true },
-            );
+          await agendaEventsSvc(conversation.store.params.agendaUid).update(
+            conversation.typeIdentifier,
+            { canEdit: true },
+            { transferToLegacy: true },
+          );
 
           log('info', 'Edition rights request accepted', {
             agendaUid: conversation.store.params.agendaUid,
@@ -82,6 +89,6 @@ export default async function onAction(services, conversation, action) {
       break;
     }
     default:
-      // nothing
+    // nothing
   }
 }

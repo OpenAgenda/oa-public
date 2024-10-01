@@ -5,51 +5,56 @@ module.exports.formatDSL = () => ({
     filters: {
       upcoming: {
         bool: {
-          filter: [{
-            range: {
-              _search_first_timing: {
-                gt: 'now',
+          filter: [
+            {
+              range: {
+                _search_first_timing: {
+                  gt: 'now',
+                },
               },
             },
-          }],
+          ],
         },
       },
       passed: {
         bool: {
-          filter: [{
-            range: {
-              _search_last_timing: {
-                lt: 'now',
+          filter: [
+            {
+              range: {
+                _search_last_timing: {
+                  lt: 'now',
+                },
               },
             },
-          }],
+          ],
         },
       },
       current: {
         bool: {
-          filter: [{
-            range: {
-              _search_last_timing: {
-                gt: 'now',
+          filter: [
+            {
+              range: {
+                _search_last_timing: {
+                  gt: 'now',
+                },
               },
             },
-          }, {
-            range: {
-              _search_first_timing: {
-                lt: 'now',
+            {
+              range: {
+                _search_first_timing: {
+                  lt: 'now',
+                },
               },
             },
-          }],
+          ],
         },
       },
     },
   },
 });
 
-module.exports.formatResult = ({
-  buckets,
-}) => Object.keys(buckets)
-  .map(key => ({
+module.exports.formatResult = ({ buckets }) =>
+  Object.keys(buckets).map((key) => ({
     key,
     eventCount: buckets[key].doc_count,
   }));

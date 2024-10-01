@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
-import SelectField from './SelectField'
+import SelectField from './SelectField';
 
-export default props => <SelectField {...props} isMulti={false} />;
+export default (props) => <SelectField {...props} isMulti={false} />;

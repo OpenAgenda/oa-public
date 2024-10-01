@@ -3,16 +3,9 @@ import canEdit from './lib/canEdit.js';
 
 export default async (core, agendaOrUid, identifiers, options = {}) => {
   const { services } = core;
-  const {
-    members,
-    users,
-    custom,
-    agendas,
-  } = services;
+  const { members, users, custom, agendas } = services;
 
-  const {
-    userUid: actingUserUid,
-  } = options;
+  const { userUid: actingUserUid } = options;
 
   if (!actingUserUid) {
     throw new BadRequest('userUid option is required');
@@ -32,10 +25,12 @@ export default async (core, agendaOrUid, identifiers, options = {}) => {
 
   const actingUser = await users.findOne({ query: { uid: actingUserUid } });
 
-  if (!canEdit(services, {
-    acting: actingMember,
-    userUid: member.userUid,
-  })) {
+  if (
+    !canEdit(services, {
+      acting: actingMember,
+      userUid: member.userUid,
+    })
+  ) {
     throw new Forbidden('Not authorized to patch member');
   }
 

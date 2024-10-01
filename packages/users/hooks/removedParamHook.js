@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function removedParamHook() {
-  return context => {
+  return (context) => {
     context.params.query = context.params.query || {};
 
     if (context.params.removed === true) {

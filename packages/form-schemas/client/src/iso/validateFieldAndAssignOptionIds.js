@@ -8,12 +8,7 @@ const {
 
 module.exports = function validateFieldAndAssignOptionIds(
   dirtyField,
-  {
-    custom,
-    defaultLabelLanguage,
-    nextOptionId,
-    requireLabels,
-  },
+  { custom, defaultLabelLanguage, nextOptionId, requireLabels },
 ) {
   let updatedNextOptionId = nextOptionId;
 

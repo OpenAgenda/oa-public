@@ -8,10 +8,7 @@ describe('form-schemas -01- functional (server): create', () => {
   let svc;
 
   beforeAll(async () => {
-    await fixtures(config.mysql, [
-      'reset.sql',
-      'form_schema.data.sql'
-    ]);
+    await fixtures(config.mysql, ['reset.sql', 'form_schema.data.sql']);
   });
 
   beforeAll(() => {
@@ -25,7 +22,7 @@ describe('form-schemas -01- functional (server): create', () => {
 
   it('simple create', async () => {
     const result = await svc.create({
-      data: true
+      data: true,
     });
 
     expect(result).toStrictEqual({
@@ -35,8 +32,8 @@ describe('form-schemas -01- functional (server): create', () => {
         custom: null,
         defaultLabelLanguage: null,
         nextOptionId: 1,
-        fields: []
-      }
+        fields: [],
+      },
     });
   });
 });

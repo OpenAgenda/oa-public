@@ -28,7 +28,9 @@ async function getDbValues(knex, token) {
 }
 
 async function parseToken({ secret, knex }, token) {
-  return isDbToken(token) ? getDbValues(knex, token) : _.omit(jwt.verify(token, secret, { ignoreExpiration: true }), ['iat']);
+  return isDbToken(token)
+    ? getDbValues(knex, token)
+    : _.omit(jwt.verify(token, secret, { ignoreExpiration: true }), ['iat']);
 }
 
 export default function Tokens(params) {

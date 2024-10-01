@@ -16,7 +16,7 @@ export default async (knex, options = {}) => {
     .orderBy('updated_at', 'asc');
   log.info(
     'oldTokens',
-    oldTokens.map(token => ({ id: token.id, updated_at: token.updated_at })),
+    oldTokens.map((token) => ({ id: token.id, updated_at: token.updated_at })),
   );
   for (const token of oldTokens) {
     log.info(`Handling token ${token.id}, last updated at ${token.updated_at}`);

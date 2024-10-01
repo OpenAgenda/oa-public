@@ -87,9 +87,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
       "type-de-structure": 623,
@@ -184,9 +182,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "info@bdlezoux.fr"
-      ],
+      "registration": ["info@bdlezoux.fr"],
       "location": {
         "uid": 77154959,
         "slug": "lezoux298",
@@ -220,9 +216,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -388,9 +382,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "0553904460"
-      ],
+      "registration": ["0553904460"],
       "location": {
         "uid": 12880348,
         "slug": "mediatheque-jean-mace481",
@@ -424,9 +416,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Jean Macé",
       "type-de-structure": 623,
@@ -542,9 +532,7 @@
         "min": 7,
         "max": 11
       },
-      "registration": [
-        "0483083040"
-      ],
+      "registration": ["0483083040"],
       "location": {
         "uid": 7026317,
         "slug": "mediatheque-dagglomeration-pole-culturel-chabran",
@@ -578,9 +566,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -692,9 +678,7 @@
         "min": 7,
         "max": 11
       },
-      "registration": [
-        "0483083033"
-      ],
+      "registration": ["0483083033"],
       "location": {
         "uid": 86702674,
         "slug": "mediatheque-du-muy110",
@@ -728,9 +712,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -876,9 +858,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -991,9 +971,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://www.preenbulles.fr"
-      ],
+      "registration": ["https://www.preenbulles.fr"],
       "location": {
         "uid": 43303016,
         "slug": "bedee-complexe-sportif",
@@ -1027,17 +1005,13 @@
       "tarif": "6 €, gratuit pour les moins de 18 ans",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "514 538 453 000 10",
       "prix-pass-culture": 6,
       "url-pass-culture": null,
@@ -1154,9 +1128,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
       "type-de-structure": 623,
@@ -1279,9 +1251,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
       "type-de-structure": 623,
@@ -1407,9 +1377,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
       "type-de-structure": 623,

@@ -1,23 +1,26 @@
 'use strict';
 
-
 const integerValidator = require('@openagenda/validators/integer');
 
 module.exports = ({ field }) => {
   const validateSingle = integerValidator(field);
 
-  return v => {
+  return (v) => {
     const clean = [];
     const errors = [];
     const arr = [].concat(v);
     for (const index in arr) {
+      if (!Object.hasOwn(arr, index)) {
+        continue;
+      }
+
       try {
         clean.push(validateSingle(arr[index]));
       } catch (e) {
         if (!Array.isArray(e)) {
           throw e;
         } else {
-          e.forEach(error => errors.push({ ...error, index }));
+          e.forEach((error) => errors.push({ ...error, index }));
         }
       }
     }
@@ -25,5 +28,5 @@ module.exports = ({ field }) => {
     if (errors.length) throw errors;
 
     return clean;
-  }
-}
+  };
+};

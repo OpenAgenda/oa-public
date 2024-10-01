@@ -24,13 +24,16 @@
       }
     ],
     "response": {
-      "priceCategories": [{
-        "id": 0,
-        "passId": 456456
-      }, {
-        "id": 1,
-        "passId": 789789
-      }]
+      "priceCategories": [
+        {
+          "id": 0,
+          "passId": 456456
+        },
+        {
+          "id": 1,
+          "passId": 789789
+        }
+      ]
     },
     "appliedAt": "2024-05-29T10:00:01.OOOZ"
   },
@@ -44,10 +47,12 @@
       }
     ],
     "response": {
-      "dates": [{
-        "id": 2,
-        "passId": 891792
-      }]
+      "dates": [
+        {
+          "id": 2,
+          "passId": 891792
+        }
+      ]
     },
     "appliedAt": "2024-05-29T10:00:02.OOOZ"
   },

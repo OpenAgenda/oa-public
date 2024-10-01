@@ -1,9 +1,7 @@
-'use strict';
-
 module.exports = {
   root: true,
 
-  extends: '@openagenda',
+  extends: '../../.eslintrc',
 
   parserOptions: {
     sourceType: 'module',

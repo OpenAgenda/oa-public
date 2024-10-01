@@ -49,7 +49,7 @@ const AgendasSearch = forwardRef(
       [nextPage],
     );
 
-    const handleSearch = useCallback(values => list(values.search), [list]);
+    const handleSearch = useCallback((values) => list(values.search), [list]);
 
     useEffect(() => {
       list(state.searchValue).catch(_.noop);

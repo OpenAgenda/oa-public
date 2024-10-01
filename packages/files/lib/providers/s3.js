@@ -30,7 +30,7 @@ module.exports = function createS3Provider(cfg) {
 
       const s3Params = {
         Delete: {
-          Objects: keys.map(Key => ({ Key })),
+          Objects: keys.map((Key) => ({ Key })),
         },
         ...params,
         Bucket: params.bucket || defaultBucket,
@@ -50,13 +50,13 @@ module.exports = function createS3Provider(cfg) {
         .promise()
         .then(
           () => true,
-          err => {
+          (err) => {
             if (err.name === 'NotFound') {
               return false;
             }
 
             throw err;
-          }
+          },
         );
     },
   };

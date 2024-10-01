@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { css } from '@emotion/react';
 import { ErrorBoundary } from '@sentry/react';
 import ChildLayouts from '../components/ChildLayouts';

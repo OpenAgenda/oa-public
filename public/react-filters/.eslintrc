@@ -8,9 +8,9 @@
   },
 
   "ignorePatterns": [
-    "lib",
-    "esm",
-    "dist"
+    "/lib",
+    "/esm",
+    "/dist"
   ],
 
   "rules": {

@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import reducers from '../reducers';
+import * as reducers from '../reducers';
 
 import Canvas from '../components/Canvas';
 import ListHead from '../components/ListHead';
@@ -49,13 +49,13 @@ class Main extends Component {
     return (
       <Canvas {...this.props}>
         <ListHead className="text-center">
-          {add ? (
-            this.renderAdd()
-          ) : (
-            <button type="button" className="btn btn-primary" onClick={onAdd}>
-              Ajouter un nouveau réseau
-            </button>
-          )}
+          {add
+            ? this.renderAdd()
+            : (
+              <button type="button" className="btn btn-primary" onClick={onAdd}>
+                Ajouter un nouveau réseau
+              </button>
+            )}
         </ListHead>
         <ul className="list-unstyled">
           {networks.map((n) => (

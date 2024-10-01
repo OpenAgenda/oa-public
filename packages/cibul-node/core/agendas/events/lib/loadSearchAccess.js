@@ -4,14 +4,9 @@ const log = logs('core/agendas/events/loadSearchAccess');
 
 export default async (core, agendaUid, options = {}) => {
   const { services } = core;
-  const {
-    members,
-    simpleCache,
-  } = services;
+  const { members, simpleCache } = services;
 
-  const {
-    getRoleSlug,
-  } = members.utils;
+  const { getRoleSlug } = members.utils;
 
   if (options.access) {
     log('using provided access: %s', options.access);
@@ -26,16 +21,20 @@ export default async (core, agendaUid, options = {}) => {
     return null;
   }
 
-  const cached = await simpleCache.hash('members', `${agendaUid}.${options.userUid}`).get('role');
+  const cached = await simpleCache
+    .hash('members', `${agendaUid}.${options.userUid}`)
+    .get('role');
 
   if (cached) {
     return cached;
   }
 
-  const member = options.userUid ? await members.get({
-    agendaUid,
-    userUid: options.userUid,
-  }) : null;
+  const member = options.userUid
+    ? await members.get({
+      agendaUid,
+      userUid: options.userUid,
+    })
+    : null;
 
   let role = 'public';
 
@@ -44,7 +43,9 @@ export default async (core, agendaUid, options = {}) => {
     log('member is loaded, using role as access', role);
   }
 
-  simpleCache.hash('members', `${agendaUid}.${options.userUid}`).set('role', role);
+  simpleCache
+    .hash('members', `${agendaUid}.${options.userUid}`)
+    .set('role', role);
 
   return role;
 };

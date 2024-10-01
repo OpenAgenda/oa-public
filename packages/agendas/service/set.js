@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const w = require('when');
 const slugify = require('slugify');

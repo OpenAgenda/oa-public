@@ -124,9 +124,7 @@
       "tarif": "Droit d'entrée du musée : 5 € plein tarif et 3 € tarif réduit",
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -381,9 +379,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -932,10 +928,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "03 22 97 14 00",
-        "resa.mp@amiens-metropole.com"
-      ],
+      "registration": ["03 22 97 14 00", "resa.mp@amiens-metropole.com"],
       "location": {
         "uid": 37450992,
         "slug": "musee-de-picardie575",
@@ -969,9 +962,7 @@
       "tarif": "indéterminé pour le moment",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -1657,9 +1648,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -1771,9 +1760,7 @@
         "min": 15,
         "max": 99
       },
-      "registration": [
-        "musee-resitance@cd31.fr"
-      ],
+      "registration": ["musee-resitance@cd31.fr"],
       "location": {
         "uid": 84453462,
         "slug": "musee-departemental-de-la-resistance-et-de-la-deportation-de-haute-garonne",
@@ -1807,12 +1794,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Inauguration du Musée départemental de la Résistance et de la Déportation de la Haute-Garonne, du 26 février au 1er mars",
       "type-de-structure": 635,
       "si-autre-precisez": null,
@@ -1920,9 +1903,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 16 09 50 14"
-      ],
+      "registration": ["05 16 09 50 14"],
       "location": {
         "uid": 48654611,
         "slug": "mediatheque-lesplanade",
@@ -1956,9 +1937,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2064,9 +2043,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "arlesbd@canalbd.net"
-      ],
+      "registration": ["arlesbd@canalbd.net"],
       "location": {
         "uid": 66486438,
         "slug": "librairie-arles-bd234",
@@ -2100,9 +2077,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -2298,9 +2273,7 @@
         "min": 15,
         "max": 21
       },
-      "registration": [
-        "fiona.guillet@laposte.net"
-      ],
+      "registration": ["fiona.guillet@laposte.net"],
       "location": {
         "uid": 54051827,
         "slug": "lycee-marcel-cachin",
@@ -2334,9 +2307,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -2448,9 +2419,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "musee-resistance@cd31.fr"
-      ],
+      "registration": ["musee-resistance@cd31.fr"],
       "location": {
         "uid": 84453462,
         "slug": "musee-departemental-de-la-resistance-et-de-la-deportation-de-haute-garonne",
@@ -2484,9 +2453,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Inauguration du Musée départemental de la Résistance & de la Déportation de la Haute-Garonne",
       "type-de-structure": 635,
@@ -2685,9 +2652,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

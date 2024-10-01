@@ -38,19 +38,14 @@ const checkUser = (req, res, next) => {
 };
 
 function beforeRemove(agenda, cb) {
-  legacy.controlData.clear(agenda.uid).then(cb.bind(null, null), err => {
+  legacy.controlData.clear(agenda.uid).then(cb.bind(null, null), (err) => {
     log('warn', 'could not clear agenda control data', agenda.uid, err);
     cb();
   });
 }
 
 function plugApp(app) {
-  const {
-    agendas,
-    sessions,
-    members,
-    core,
-  } = app.services;
+  const { agendas, sessions, members, core } = app.services;
 
   app.get(
     '/:slug/admin/layout',
@@ -85,11 +80,13 @@ function plugApp(app) {
     cmn.loadAgenda,
     async (req, res, next) => {
       try {
-        const schema = await req.app.services.core.agendas(req.agenda.uid).settings.schema.getMerged();
+        const schema = await req.app.services.core
+          .agendas(req.agenda.uid)
+          .settings.schema.getMerged();
 
         res.send({
           ...schema,
-          fields: schema.fields.filter(field => field.read === null), // Filter public fields
+          fields: schema.fields.filter((field) => field.read === null), // Filter public fields
         });
       } catch (e) {
         next(e);

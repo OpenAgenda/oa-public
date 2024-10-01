@@ -32,13 +32,16 @@ export default class MessageForm extends Component {
     uppy.setMeta({ messageId: message.id });
 
     const uppyState = uppy.getState();
-    const uncompleteUploads = Object.values(uppyState.files).filter(v => !v.progress.uploadComplete);
+    const uncompleteUploads = Object.values(uppyState.files).filter(
+      (v) => !v.progress.uploadComplete,
+    );
 
     if (uncompleteUploads.length) {
       try {
         const uploadResult = await uppy.upload();
 
-        if (uploadResult.failed.length) { // or uppyState.totalProgress !== 100
+        if (uploadResult.failed.length) {
+          // or uppyState.totalProgress !== 100
           if (onMessageSent) {
             onMessageSent(message, form);
           }
@@ -92,17 +95,17 @@ export default class MessageForm extends Component {
                 classNameGroup="margin-v-xs"
                 rows="3"
                 getErrorLabel={getLabel}
-                onKeyDown={e => {
+                onKeyDown={(e) => {
                   if (e.keyCode === 13 && e.ctrlKey) {
                     form.submit();
                   }
                 }}
                 placeholder={getLabel('yourMessage')}
-                displayError={meta => meta.modified && meta.submitFailed}
+                displayError={(meta) => meta.modified && meta.submitFailed}
               />
 
               <Attachments
-                setUppy={uppy => this.setState({ uppy })}
+                setUppy={(uppy) => this.setState({ uppy })}
                 uploadEndpoint={uploadEndpoint}
               />
             </>,

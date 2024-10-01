@@ -21,14 +21,15 @@ export default function pulseSvg() {
       const now = new Date();
       const startOfPastYear = subDays(now, 364);
 
-      const searchResult = await core
-        .agendas(agendaUid)
-        .events.search({
+      const searchResult = await core.agendas(agendaUid).events.search(
+        {
           updatedAt: {
             gte: startOfPastYear,
             lte: now,
           },
-        }, { size: 0 }, {
+        },
+        { size: 0 },
+        {
           userUid: req.user.uid,
           aggregations: [
             {
@@ -41,31 +42,33 @@ export default function pulseSvg() {
               },
             },
           ],
-        });
+        },
+      );
 
-      const prefetchedData = searchResult && searchResult.aggregations && searchResult.aggregations.pulse;
+      const prefetchedData = searchResult
+        && searchResult.aggregations
+        && searchResult.aggregations.pulse;
 
-      queryCache.setQueryData(['AgendaStats.PulseChart', agendaUid], prefetchedData);
+      queryCache.setQueryData(
+        ['AgendaStats.PulseChart', agendaUid],
+        prefetchedData,
+      );
 
       const element = React.createElement(
         ReactQueryCacheProvider,
         { queryCache },
-        React.createElement(
-          PulseChart,
-          {
-            agendaUid,
-            height: parseInt(height, 10) || undefined,
-            width: parseInt(width, 10) || undefined,
-          },
-        ),
+        React.createElement(PulseChart, {
+          agendaUid,
+          height: parseInt(height, 10) || undefined,
+          width: parseInt(width, 10) || undefined,
+        }),
       );
       const result = ReactDOMServer.renderToStaticMarkup(element);
 
-      res.data = result
-        .replace(
-          /^.*<svg([^>]*)>(.*)<\/svg>.*$/,
-          `${xmlHead}\n${svgDoctype}\n<svg xmlns="http://www.w3.org/2000/svg"$1>$2</svg>`,
-        );
+      res.data = result.replace(
+        /^.*<svg([^>]*)>(.*)<\/svg>.*$/,
+        `${xmlHead}\n${svgDoctype}\n<svg xmlns="http://www.w3.org/2000/svg"$1>$2</svg>`,
+      );
 
       next();
     } catch (e) {

@@ -11,7 +11,7 @@ const locationLille = {
   adminLevel2: 'Nord',
   adminLevel1: 'Hauts-de-France',
   country: 'France',
-  countryCode: 'fr'
+  countryCode: 'fr',
 };
 
 describe('completeData', () => {
@@ -20,25 +20,31 @@ describe('completeData', () => {
     expect(result.adminLevel3).toBeTruthy();
   });
   test('Location in Bordeaux gets AdminLevel3', () => {
-    const result = completeData({
-      address: 'blabla, France',
-      adminLevel4: 'Bordeaux',
-      adminLevel2: 'Gironde',
-      adminLevel1: 'Nouvelle-Aquitaine',
-      country: 'France',
-      countryCode: 'fr'
-    }, geoTreeEx);
+    const result = completeData(
+      {
+        address: 'blabla, France',
+        adminLevel4: 'Bordeaux',
+        adminLevel2: 'Gironde',
+        adminLevel1: 'Nouvelle-Aquitaine',
+        country: 'France',
+        countryCode: 'fr',
+      },
+      geoTreeEx,
+    );
     expect(result.adminLevel3).toBe('Bordeaux Métropole');
   });
   test('Location in Anthenay gets AdminLevel3', () => {
-    const result = completeData({
-      address: 'blabla, France',
-      adminLevel4: 'Anthenay',
-      adminLevel2: 'Marne',
-      adminLevel1: 'Grand Est',
-      country: 'France',
-      countryCode: 'fr'
-    }, geoTreeEx);
+    const result = completeData(
+      {
+        address: 'blabla, France',
+        adminLevel4: 'Anthenay',
+        adminLevel2: 'Marne',
+        adminLevel1: 'Grand Est',
+        country: 'France',
+        countryCode: 'fr',
+      },
+      geoTreeEx,
+    );
     expect(result.adminLevel3).toBe('Grand Reims');
   });
   test('Location in Bordeaux with no AdminLevel2', () => {
@@ -47,7 +53,7 @@ describe('completeData', () => {
       adminLevel4: 'Bordeaux',
       adminLevel1: 'Nouvelle-Aquitaine',
       country: 'France',
-      countryCode: 'fr'
+      countryCode: 'fr',
     };
     const result = completeData(entry, geoTreeEx);
     expect(result).toEqual(entry);

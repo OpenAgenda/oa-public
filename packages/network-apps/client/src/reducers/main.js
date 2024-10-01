@@ -8,87 +8,84 @@ const actionTypes = [
   'ADD',
   'ADD_CHANGE',
   'ADD_SUBMIT',
-  'SERVER_ERROR'
-].reduce( ( a, v ) => _.set( a, v, `network-apps/network/${v}` ), {} );
+  'SERVER_ERROR',
+].reduce((a, v) => _.set(a, v, `network-apps/network/${v}`), {});
 
-export default _.assign( ( state = {}, action = {} ) => {
-
-  switch ( action.type ) {
-    case actionTypes.LOAD_SUCCESS:
-      return _.pick( action, [ 'networks' ] );
-
-    case actionTypes.ADD:
-      return ih( state, { add: { $set: {} } } );
-
-    case actionTypes.ADD_CHANGE:
-      return ih( state, { add: _.set( {}, action.field, { $set: action.value } ) } );
-
-    case actionTypes.SERVER_ERROR:
-      return ih( state, {
-        error: { $set: action.error }
-      } );
-
-    default:
-      return state;
-  }
-
-}, {
-  load,
-  add: () => ( { type: actionTypes.ADD } ),
-  addChange: ( field, value ) => ( { type: actionTypes.ADD_CHANGE, field, value } ),
-  addSubmit,
-  dispatchError
-} );
-
-function addSubmit( e ) {
-
-  e.preventDefault();
-
-  return async ( dispatch, getState ) => {
-
-    const { main: { add } } = getState();
-
-    await axios.post(getState().config.base, add);
-
-    return load()( dispatch, getState );
-
-  }
-
+function dispatchError(dispatch, error) {
+  dispatch({
+    type: actionTypes.SERVER_ERROR,
+    error: _.get(error, 'response.body.message', error.message),
+  });
 }
 
 function load() {
-
-  return async ( dispatch, getState ) => {
-
+  return async (dispatch, getState) => {
     const successDispatch = {
-      type: actionTypes.LOAD_SUCCESS
+      type: actionTypes.LOAD_SUCCESS,
     };
 
     try {
-      const {
-        data: networks
-      } = await axios.get(getState().config.base, {
+      const { data: networks } = await axios.get(getState().config.base, {
         headers: {
-          'Accept': 'application/json'
-        }
+          Accept: 'application/json',
+        },
       });
 
-      _.assign( successDispatch, { networks } );
-    } catch ( e ) {
-      return dispatchError( dispatch, e );
+      _.assign(successDispatch, { networks });
+    } catch (e) {
+      return dispatchError(dispatch, e);
     }
 
-    dispatch( successDispatch );
-
-  }
-
+    dispatch(successDispatch);
+  };
 }
 
-function dispatchError( dispatch, error ) {
+function addSubmit(e) {
+  e.preventDefault();
 
-  dispatch( {
-    type: actionTypes.SERVER_ERROR,
-    error: _.get( error, 'response.body.message', error.message )
-  } );
+  return async (dispatch, getState) => {
+    const {
+      main: { add },
+    } = getState();
 
+    await axios.post(getState().config.base, add);
+
+    return load()(dispatch, getState);
+  };
 }
+
+export default _.assign(
+  (state = {}, action = {}) => {
+    switch (action.type) {
+      case actionTypes.LOAD_SUCCESS:
+        return _.pick(action, ['networks']);
+
+      case actionTypes.ADD:
+        return ih(state, { add: { $set: {} } });
+
+      case actionTypes.ADD_CHANGE:
+        return ih(state, {
+          add: _.set({}, action.field, { $set: action.value }),
+        });
+
+      case actionTypes.SERVER_ERROR:
+        return ih(state, {
+          error: { $set: action.error },
+        });
+
+      default:
+        return state;
+    }
+  },
+  {
+    load,
+    add: () => ({ type: actionTypes.ADD }),
+    addChange: (field, value) => ({
+      type: actionTypes.ADD_CHANGE,
+      field,
+      value,
+    }),
+    addSubmit,
+    dispatchError,
+  },
+);

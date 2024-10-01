@@ -12,15 +12,15 @@ const extractSchemaAdditionalSearchables = require('./extractSchemaAdditionalSea
 const cleanOptionedFields = require('./cleanOptionedFields');
 
 const registrationHasType = (registration = []) =>
-  !!registration.some(r => typeof r === 'object' && r?.type);
+  !!registration.some((r) => typeof r === 'object' && r?.type);
 
 const toSortTimingFormat = require('./toSortTimingFormat');
 
-const multilingualFieldHasValue = v => {
+const multilingualFieldHasValue = (v) => {
   if (!v) {
     return false;
   }
-  return Object.keys(v).filter(k => (v[k] ?? '').length);
+  return Object.keys(v).filter((k) => (v[k] ?? '').length);
 };
 
 const dateRange = (timings = [], timezone = 'Europe/Paris', languages = []) =>
@@ -28,7 +28,7 @@ const dateRange = (timings = [], timezone = 'Europe/Paris', languages = []) =>
     (ranges, lang) => ({
       ...ranges,
       [lang]: dateRangeInLocale(
-        timings.map(t => ({
+        timings.map((t) => ({
           start: new Date(t.begin),
           end: new Date(t.end),
         })),
@@ -69,7 +69,7 @@ module.exports = (data, options = {}) => {
 
   const cleanedEvent = cleanOptionedFields(data, formSchema);
 
-  return produce(cleanedEvent, event => {
+  return produce(cleanedEvent, (event) => {
     Object.assign(event, {
       removed: false,
       attendanceMode: event.attendanceMode || 1,
@@ -77,12 +77,12 @@ module.exports = (data, options = {}) => {
       featured: !!event.featured,
       _search_empty_fields: [],
       _search_languages: ['title', 'description', 'longDescription']
-        .filter(f => !!event[f])
+        .filter((f) => !!event[f])
         .reduce((languages, field) => {
           if (typeof event[field] === 'string') {
             return languages;
           }
-          Object.keys(event[field]).forEach(l => {
+          Object.keys(event[field]).forEach((l) => {
             if (!languages.includes(l)) languages.push(l);
           });
           return languages;
@@ -109,7 +109,7 @@ module.exports = (data, options = {}) => {
         locationSearchData,
       );
     }
-    emptyLocationFields.forEach(f =>
+    emptyLocationFields.forEach((f) =>
       event._search_empty_fields.push(`location.${f}`));
 
     if (event.timings) {
@@ -137,11 +137,11 @@ module.exports = (data, options = {}) => {
         lastTiming,
         _search_last_timing: new Date(lastTiming.end),
         _search_first_timing: new Date(firstTiming.begin),
-        timings: event.timings.map(t => ({
+        timings: event.timings.map((t) => ({
           ...t,
           _search_begin_from_midnight: secondsMidnightDiff(t.begin, timezone),
         })),
-        _sort_timings: event.timings.map(t => ({
+        _sort_timings: event.timings.map((t) => ({
           accessible_until: toSortTimingFormat(t.end),
           begin: toSortTimingFormat(t.begin),
         })),
@@ -164,9 +164,9 @@ module.exports = (data, options = {}) => {
 
     if (Object.keys(event.accessibility ?? {}).length) {
       Object.keys(event.accessibility ?? {})
-        .filter(a => !!event.accessibility[a])
-        .map(a => `accessibility.${a}`)
-        .forEach(key => event._search_keywords.push(key));
+        .filter((a) => !!event.accessibility[a])
+        .map((a) => `accessibility.${a}`)
+        .forEach((key) => event._search_keywords.push(key));
     }
 
     if (multilingualFieldHasValue(event.keywords)) {
@@ -188,7 +188,7 @@ module.exports = (data, options = {}) => {
       ]);
     }
     if (event.sourceAgendas) {
-      event.sourceAgendas.forEach(sourceAgenda => {
+      event.sourceAgendas.forEach((sourceAgenda) => {
         sourceAgenda._agg = aggObjects.flatten(sourceAgenda, [
           'uid',
           'title',
@@ -226,17 +226,17 @@ module.exports = (data, options = {}) => {
       searchableNumbers,
     } = extractSchemaAdditionalSearchables(formSchema, event);
 
-    emptyFields.forEach(f => {
+    emptyFields.forEach((f) => {
       event._search_empty_fields.push(f);
     });
 
-    emptyListFields.forEach(f => {
+    emptyListFields.forEach((f) => {
       event[f.field] = [];
     });
 
-    searchableKeywords.forEach(k =>
+    searchableKeywords.forEach((k) =>
       event._search_additional_keywords.push(k));
-    searchableNumbers.forEach(k => event._search_additional_numbers.push(k));
+    searchableNumbers.forEach((k) => event._search_additional_numbers.push(k));
 
     return event;
   });

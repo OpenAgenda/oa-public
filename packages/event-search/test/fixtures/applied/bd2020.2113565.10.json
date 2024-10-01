@@ -110,12 +110,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -329,9 +325,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 624,
@@ -495,12 +489,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        616
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [616],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -615,10 +605,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "04 91 54 77 75",
-        "musee-cantini@marseille.fr"
-      ],
+      "registration": ["04 91 54 77 75", "musee-cantini@marseille.fr"],
       "location": {
         "uid": 49898285,
         "slug": "musee-cantini116",
@@ -652,9 +639,7 @@
       "tarif": "Tarifs : adultes plein 9 €/ réduit : 5 € - enfants : gratuite + 4 € pour l’atelier (-de 5 ans : 1,50 €).",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -746,10 +731,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "04 91 14 58 97",
-        "museearcheologie@marseille.fr"
-      ],
+      "registration": ["04 91 14 58 97", "museearcheologie@marseille.fr"],
       "location": {
         "uid": 62027655,
         "slug": "musee-darcheologie-mediterraneenne319",
@@ -783,13 +765,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        617,
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [617, 732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La classe, l'oeuvre ! (ministère de la Culture)",
       "type-de-structure": 635,
       "si-autre-precisez": null,
@@ -946,9 +923,7 @@
       "tarif": "5 € les trois jours (sur présentation du ticket)",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1100,9 +1075,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1256,9 +1229,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1367,10 +1338,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "festivalbdlagrasse@gmail.com",
-        "0695087843"
-      ],
+      "registration": ["festivalbdlagrasse@gmail.com", "0695087843"],
       "location": {
         "uid": 77093892,
         "slug": "maison-du-banquet-et-des-generations",
@@ -1404,9 +1372,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1549,12 +1515,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Époque, le salon des livres de Caen",
       "type-de-structure": 632,
       "si-autre-precisez": "Époque, le salon des livres de Caen",

@@ -3,14 +3,16 @@ import getMemberName from './utils/getMemberName.js';
 
 const log = logs('agendaEvents/addEventUpdateActivity');
 
-export default async (services, { agenda, event, user }, before, after, changeStateType) => {
+export default async (
+  services,
+  { agenda, event, user },
+  before,
+  after,
+  changeStateType,
+) => {
   log('processing');
 
-  const {
-    activities: activitiesSvc,
-    members: membersSvc,
-    core,
-  } = services;
+  const { activities: activitiesSvc, members: membersSvc, core } = services;
 
   if (!activitiesSvc) {
     log('activities services is not initialized');
@@ -39,90 +41,108 @@ export default async (services, { agenda, event, user }, before, after, changeSt
 
   if (isPublished) {
     log('publishing');
-    return activitiesSvc.addActivity({
-      entityType: 'event',
-      entityUid: event.uid,
-    }, {
-      ...activityInfo,
-      verb: 'agenda.publishEvent',
-      store: {
-        labels: activityLabels,
-        contributorUid: after.userUid,
-        ownerUid: after.ownerUid,
-        sourceAgendaUids: after.sourceAgendas.map(v => v.uid),
-        // origin is not always set. When the event was created by script for example.
-        originAgendaUid: event.origin ? event.origin.uid : null,
+    return activitiesSvc.addActivity(
+      {
+        entityType: 'event',
+        entityUid: event.uid,
       },
-    });
+      {
+        ...activityInfo,
+        verb: 'agenda.publishEvent',
+        store: {
+          labels: activityLabels,
+          contributorUid: after.userUid,
+          ownerUid: after.ownerUid,
+          sourceAgendaUids: after.sourceAgendas.map((v) => v.uid),
+          // origin is not always set. When the event was created by script for example.
+          originAgendaUid: event.origin ? event.origin.uid : null,
+        },
+      },
+    );
   }
 
   if (isRefused) {
     log('refusing');
-    return activitiesSvc.addActivity({
-      entityType: 'event',
-      entityUid: event.uid,
-    }, {
-      ...activityInfo,
-      verb: 'agenda.refuseEvent',
-      store: {
-        labels: activityLabels,
-        contributorUid: after.userUid,
-        ownerUid: after.ownerUid,
-        sourceAgendaUids: after.sourceAgendas.map(v => v.uid),
-        // origin is not always set. When the event was created by script for example.
-        originAgendaUid: event.origin ? event.origin.uid : null,
+    return activitiesSvc.addActivity(
+      {
+        entityType: 'event',
+        entityUid: event.uid,
       },
-    });
+      {
+        ...activityInfo,
+        verb: 'agenda.refuseEvent',
+        store: {
+          labels: activityLabels,
+          contributorUid: after.userUid,
+          ownerUid: after.ownerUid,
+          sourceAgendaUids: after.sourceAgendas.map((v) => v.uid),
+          // origin is not always set. When the event was created by script for example.
+          originAgendaUid: event.origin ? event.origin.uid : null,
+        },
+      },
+    );
   }
 
   if (isUnpublished) {
     log('unpublishing');
-    return activitiesSvc.addActivity({
-      entityType: 'event',
-      entityUid: event.uid,
-    }, {
-      ...activityInfo,
-      verb: 'agenda.unpublishEvent',
-      store: {
-        labels: activityLabels,
-        contributorUid: after.userUid,
-        ownerUid: after.ownerUid,
-        sourceAgendaUids: after.sourceAgendas.map(v => v.uid),
-        // origin is not always set. When the event was created by script for example.
-        originAgendaUid: event.origin ? event.origin.uid : null,
+    return activitiesSvc.addActivity(
+      {
+        entityType: 'event',
+        entityUid: event.uid,
       },
-    });
+      {
+        ...activityInfo,
+        verb: 'agenda.unpublishEvent',
+        store: {
+          labels: activityLabels,
+          contributorUid: after.userUid,
+          ownerUid: after.ownerUid,
+          sourceAgendaUids: after.sourceAgendas.map((v) => v.uid),
+          // origin is not always set. When the event was created by script for example.
+          originAgendaUid: event.origin ? event.origin.uid : null,
+        },
+      },
+    );
   }
 
-  if (before.state !== after.state && changeStateType === core.constants.stateChangeTypes.system) {
+  if (
+    before.state !== after.state
+    && changeStateType === core.constants.stateChangeTypes.system
+  ) {
     log('system change state');
-    return activitiesSvc.addActivity({
-      entityType: 'agenda',
-      entityUid: agenda.uid,
-    }, {
-      ...activityInfo,
-      verb: 'agenda.systemChangeEventState',
-      store: {
-        labels: activityLabels,
-        oldState: before.state,
-        newState: after.state,
+    return activitiesSvc.addActivity(
+      {
+        entityType: 'agenda',
+        entityUid: agenda.uid,
       },
-    });
+      {
+        ...activityInfo,
+        verb: 'agenda.systemChangeEventState',
+        store: {
+          labels: activityLabels,
+          oldState: before.state,
+          newState: after.state,
+        },
+      },
+    );
   }
 
   if (before.state !== after.state) {
     log('change state');
-    return activitiesSvc.addActivity({
-      entityType: 'agenda',
-      entityUid: agenda.uid,
-    }, {
-      ...activityInfo,
-      verb: 'agenda.changeEventState',
-      store: {
-        labels: activityLabels,
-        oldState: before.state,
-        newState: after.state,
+    return activitiesSvc.addActivity(
+      {
+        entityType: 'agenda',
+        entityUid: agenda.uid,
       },
-    });
+      {
+        ...activityInfo,
+        verb: 'agenda.changeEventState',
+        store: {
+          labels: activityLabels,
+          oldState: before.state,
+          newState: after.state,
+        },
+      },
+    );
   }
 };

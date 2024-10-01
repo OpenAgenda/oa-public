@@ -12,7 +12,7 @@ import components from './components.js';
 const validateLink = ValidateLink();
 const { getRoleSlug } = membersSvc.utils;
 
-const isURL = url => {
+const isURL = (url) => {
   try {
     validateLink(url);
     return true;
@@ -21,7 +21,12 @@ const isURL = url => {
   }
 };
 
-const flatten = (obj, preferredKey) => obj[Object.keys(obj).includes(preferredKey) ? preferredKey : Object.keys(obj).shift()];
+const flatten = (obj, preferredKey) =>
+  obj[
+    Object.keys(obj).includes(preferredKey)
+      ? preferredKey
+      : Object.keys(obj).shift()
+  ];
 
 let svc;
 
@@ -35,7 +40,13 @@ async function loadMissing(req) {
   }
 
   const legacyLocationMissing = !req.event.locations?.[0]?.uid;
-  const missing = ['timings', 'online_access_link', 'registration', 'conditions', 'status'];
+  const missing = [
+    'timings',
+    'online_access_link',
+    'registration',
+    'conditions',
+    'status',
+  ];
 
   if (legacyLocationMissing) {
     missing.push('location_uid');
@@ -46,18 +57,25 @@ async function loadMissing(req) {
     .first(missing)
     .where('uid', req.event.uid);
 
-  req.event.timings = record ? (JSON.parse(record.timings) || []).map(t => ({
-    start: t.begin,
-    end: t.end,
-  })) : [];
+  req.event.timings = record
+    ? (JSON.parse(record.timings) || []).map((t) => ({
+      start: t.begin,
+      end: t.end,
+    }))
+    : [];
 
   req.event.onlineAccessLink = record?.online_access_link;
-  req.event.registration = registrationToListOfObjects(JSON.parse(record?.registration || '[]'));
+  req.event.registration = registrationToListOfObjects(
+    JSON.parse(record?.registration || '[]'),
+  );
   req.event.ticketLink = req.event.registration
-    .map(r => r.value)
+    .map((r) => r.value)
     .filter(isURL)
     .pop();
-  req.event.pricingInfo = flatten(JSON.parse(record?.conditions || '{}'), req.lang);
+  req.event.pricingInfo = flatten(
+    JSON.parse(record?.conditions || '{}'),
+    req.lang,
+  );
   req.event.status = record?.status === undefined ? 1 : record?.status;
   req.event.statusLabel = getStatusLabel(req.event.status, req.lang);
   req.event.isNotScheduled = req.event.status !== 1;
@@ -86,11 +104,16 @@ async function loadMissing(req) {
 }
 
 function cleanEvents(req, res, next) {
-  svc.exports.cleanEvents(req.app.services, req.events, { includeEmbedded: !!req.query.include_embedded }, (err, clean) => {
-    if (err) return next(err);
-    req.formatted = clean;
-    next();
-  });
+  svc.exports.cleanEvents(
+    req.app.services,
+    req.events,
+    { includeEmbedded: !!req.query.include_embedded },
+    (err, clean) => {
+      if (err) return next(err);
+      req.formatted = clean;
+      next();
+    },
+  );
 }
 
 function layoutData(req) {
@@ -100,8 +123,14 @@ function layoutData(req) {
       title: utils.escape(req.formatted.title, false),
       keywords: utils.escape(req.formatted.keywords, false),
       ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
-      ogTitle: { property: 'og:title', content: utils.escape(req.formatted.title, false) },
-      ogDescription: { property: 'og:description', content: utils.escape(description) },
+      ogTitle: {
+        property: 'og:title',
+        content: utils.escape(req.formatted.title, false),
+      },
+      ogDescription: {
+        property: 'og:description',
+        content: utils.escape(description),
+      },
       ogLocale: { property: 'og:locale', content: req.lang },
       'twitter:card': req.event.image ? 'summary_large_image' : 'summary',
       'twitter:title': utils.escape(req.formatted.title, false),
@@ -125,7 +154,7 @@ function layoutData(req) {
   if (!data.headLinks) data.headLinks = [];
 
   if (req.event.getLanguages && req.event.getLanguages().length > 1) {
-    req.event.getLanguages().forEach(lang => {
+    req.event.getLanguages().forEach((lang) => {
       const href = req.agenda
         ? `${config.root}/${req.agenda.slug}/events/${req.event.slug}`
         : `${config.root}/events/${req.event.slug}`;
@@ -161,8 +190,13 @@ function layoutData(req) {
     agendaUid: req.agenda ? req.agenda.uid : false,
     agendaTitle: req.agenda ? req.agenda.title : false,
     ownerUid: req.formatted.owner.uid,
-    adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map(a => a.uid) : [],
-    hasCustomFields: (req.formatted.custom && req.formatted.custom.length) || req.formatted.hasPrivateCustomFields || !!_.get(req.formatted, 'tagGroups', []).length,
+    adminAgendaUids: req.formatted.adminAgendas
+      ? req.formatted.adminAgendas.map((a) => a.uid)
+      : [],
+    hasCustomFields:
+      (req.formatted.custom && req.formatted.custom.length)
+      || req.formatted.hasPrivateCustomFields
+      || !!_.get(req.formatted, 'tagGroups', []).length,
     lang: req.lang,
   };
 
@@ -171,7 +205,7 @@ function layoutData(req) {
 
 async function _loadAgendaContext(v) {
   return new Promise((resolve, reject) => {
-    v.event.loadAgendaContext(v.req.agenda.id, err => {
+    v.event.loadAgendaContext(v.req.agenda.id, (err) => {
       if (err) return reject(err);
       resolve(v);
     });
@@ -241,7 +275,7 @@ function _loadAccessRequired(v) {
 function _get(paramName, fieldName, inAgendaContext) {
   const field = typeof fieldName === 'undefined' ? paramName : fieldName;
 
-  return async v => {
+  return async (v) => {
     const getParams = {};
     getParams[field] = v.req.params[paramName];
 
@@ -268,9 +302,12 @@ function _get(paramName, fieldName, inAgendaContext) {
 }
 
 function loadEvent(paramName, fieldName, options) {
-  const params = _.extend({
-    inAgendaContext: true, // if agenda is in request and event must not be loaded in agenda context, use this
-  }, options || {});
+  const params = _.extend(
+    {
+      inAgendaContext: true, // if agenda is in request and event must not be loaded in agenda context, use this
+    },
+    options || {},
+  );
 
   return async (req, res, next) => {
     try {
@@ -312,11 +349,16 @@ function loadEvent(paramName, fieldName, options) {
       // event is restricted and user is not logged
       if (!v.user.logged) {
         const redirect = Buffer.from(req.originalUrl).toString('base64');
-        return res.redirect(`${req.agenda ? `/${req.agenda.slug}` : ''}/signin?msg=limitedAccessEvent&redirect=${redirect}`);
+        return res.redirect(
+          `${req.agenda ? `/${req.agenda.slug}` : ''}/signin?msg=limitedAccessEvent&redirect=${redirect}`,
+        );
       }
 
       // user is logged and is editor or admin or moderator
-      if (v.user.editor || ['administrator', 'moderator'].includes(v.user.credential)) {
+      if (
+        v.user.editor
+        || ['administrator', 'moderator'].includes(v.user.credential)
+      ) {
         return next();
       }
 
@@ -331,7 +373,7 @@ function loadEvent(paramName, fieldName, options) {
   };
 }
 
-export default eventService => {
+export default (eventService) => {
   svc = eventService;
 
   return {

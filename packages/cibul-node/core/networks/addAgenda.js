@@ -15,8 +15,11 @@ export default async (core, networkUid, agendaUid) => {
     throw new BadRequest('agenda is already in a network');
   }
 
-  return core.agendas(agenda).update({ networkUid }, {
-    protected: false,
-    updateLegacy: true,
-  });
+  return core.agendas(agenda).update(
+    { networkUid },
+    {
+      protected: false,
+      updateLegacy: true,
+    },
+  );
 };

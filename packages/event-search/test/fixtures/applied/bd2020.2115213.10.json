@@ -111,12 +111,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival international de la bande dessinée d'Angoulême",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -250,9 +246,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -398,9 +392,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -779,9 +771,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -893,10 +883,7 @@
         "min": 0,
         "max": 121
       },
-      "registration": [
-        "mediatheque-arc@orange.fr",
-        "0325011961"
-      ],
+      "registration": ["mediatheque-arc@orange.fr", "0325011961"],
       "location": {
         "uid": 61328967,
         "slug": "mediatheque-le-relais650",
@@ -930,9 +917,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1132,9 +1117,7 @@
         "min": 4,
         "max": 8
       },
-      "registration": [
-        "0323743310"
-      ],
+      "registration": ["0323743310"],
       "location": {
         "uid": 46808952,
         "slug": "bibliotheque-municipale-de-soissons70",
@@ -1168,9 +1151,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1282,9 +1263,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 92 77 84 60"
-      ],
+      "registration": ["04 92 77 84 60"],
       "location": {
         "uid": 58923519,
         "slug": "place-de-leglise-04360-moustiers-sainte-marie",
@@ -1318,9 +1297,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -1413,9 +1390,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "http://www.bdlezoux.fr"
-      ],
+      "registration": ["http://www.bdlezoux.fr"],
       "location": {
         "uid": 93899752,
         "slug": "salle-le-lido",
@@ -1449,17 +1424,13 @@
       "tarif": "3 €, gratuit pour les moins de 16 ans",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "BD Lezoux",
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "822 955 530 00016",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1603,9 +1574,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Mairie de Damparis",
       "type-de-structure": 632,
@@ -1728,9 +1697,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
       "type-de-structure": 623,

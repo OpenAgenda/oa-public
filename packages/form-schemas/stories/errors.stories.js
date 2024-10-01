@@ -21,14 +21,16 @@ export function ErrorsNotDisplayedOnMount() {
     },
     withErrors: false, // default value
     schema: {
-      fields: [{
-        field: 'conditions',
-        fieldType: 'text',
-        required: true,
-        min: 12,
-        label: 'Ce schema a la props withErrors a false',
-        sub: 'Tel format est accepté',
-      }],
+      fields: [
+        {
+          field: 'conditions',
+          fieldType: 'text',
+          required: true,
+          min: 12,
+          label: 'Ce schema a la props withErrors a false',
+          sub: 'Tel format est accepté',
+        },
+      ],
     },
   };
   return (
@@ -52,14 +54,16 @@ export function ErrorsDisplayedOnMount() {
     },
     withErrors: true,
     schema: {
-      fields: [{
-        field: 'conditions',
-        fieldType: 'text',
-        optional: false,
-        min: 12,
-        label: 'Ce schema a la props withErrors à true',
-        sub: 'la la la',
-      }],
+      fields: [
+        {
+          field: 'conditions',
+          fieldType: 'text',
+          optional: false,
+          min: 12,
+          label: 'Ce schema a la props withErrors à true',
+          sub: 'la la la',
+        },
+      ],
     },
   };
 
@@ -71,22 +75,26 @@ export function ErrorsDisplayedOnMount() {
       },
     },
     errorComponents: {
-      $set: [{
-        position: 'bottom',
-        Component: ({ errors }) => (
-          <div className="error-summary padding-v-sm padding-h-sm">
-            <div className="padding-bottom-sm">Oh no&apos;s! Cannot submit!:</div>
-            <ul className="list-unstyled">
-              {errors.map(e => (
-                <li key={`error-${e.code}`}>
-                  <strong>{e.fieldLabel}</strong>:&nbsp;
-                  <span>{e.label}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ),
-      }],
+      $set: [
+        {
+          position: 'bottom',
+          Component: ({ errors }) => (
+            <div className="error-summary padding-v-sm padding-h-sm">
+              <div className="padding-bottom-sm">
+                Oh no&apos;s! Cannot submit!:
+              </div>
+              <ul className="list-unstyled">
+                {errors.map((e) => (
+                  <li key={`error-${e.code}`}>
+                    <strong>{e.fieldLabel}</strong>:&nbsp;
+                    <span>{e.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ),
+        },
+      ],
     },
   });
 
@@ -98,9 +106,14 @@ export function ErrorsDisplayedOnMount() {
           <FormSchemaComponent {...props} />
         </div>
       </div>
-      <div className="text-center">_____________________________________________</div>
+      <div className="text-center">
+        _____________________________________________
+      </div>
       <div className="margin-top-lg row">
-        <p>Here the component is custom-styled and the grouped errors component is defined outside of the FormSchemaComponent</p>
+        <p>
+          Here the component is custom-styled and the grouped errors component
+          is defined outside of the FormSchemaComponent
+        </p>
         <FormSchemaComponent {...exteriorGroupedErrorsProps} />
       </div>
     </div>

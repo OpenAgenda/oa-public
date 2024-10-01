@@ -1,4 +1,3 @@
-import React from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import { MemoryRouter } from 'react-router';
 import MockAdapter from '@openagenda/axios-mock-adapter';
@@ -25,10 +24,20 @@ const defaultLayoutStore = {
   res: {},
 };
 
+const Component = () => {
+  const { agenda: agendaFromLayout } = useLayoutData();
+
+  return (
+    <p>
+      Layout data is accessible in child component: {agendaFromLayout.title}
+    </p>
+  );
+};
+
 export function AgendaLayout(_balek, { axios }) {
   const mock = new MockAdapter(axios);
 
-  mock.onGet('/api/agendas/slug/:slug').reply(_req => [
+  mock.onGet('/api/agendas/slug/:slug').reply((_req) => [
     200,
     {
       ...agenda,
@@ -37,16 +46,6 @@ export function AgendaLayout(_balek, { axios }) {
   ]);
 
   const store = createLayoutStore(defaultLayoutStore, { location: null });
-
-  const Component = () => {
-    const { agenda: agendaFromLayout } = useLayoutData();
-
-    return (
-      <p>
-        Layout data is accessible in child component: {agendaFromLayout.title}
-      </p>
-    );
-  };
 
   return (
     <ReduxProvider store={store}>
@@ -59,26 +58,26 @@ export function AgendaLayout(_balek, { axios }) {
   );
 }
 
+function ChildLayout(props) {
+  const { children, extraProps } = props;
+
+  return (
+    <div style={{ background: 'lightblue', padding: '1em' }}>
+      <strong>
+        Child layout content for agenda {extraProps.agenda.title} (agenda loaded
+        by AgendaDataLayout)
+      </strong>
+      <div>{children}</div>
+    </div>
+  );
+}
+
 export function AgendaDataLayout(_balek, { axios }) {
   const mock = new MockAdapter(axios);
 
-  mock.onGet('/api/agendas/slug/:slug').reply(_req => [200, agenda]);
+  mock.onGet('/api/agendas/slug/:slug').reply((_req) => [200, agenda]);
 
   const store = createLayoutStore(defaultLayoutStore, { location: null });
-
-  function ChildLayout(props) {
-    const { children, extraProps } = props;
-
-    return (
-      <div style={{ background: 'lightblue', padding: '1em' }}>
-        <strong>
-          Child layout content for agenda {extraProps.agenda.title} (agenda
-          loaded by AgendaDataLayout)
-        </strong>
-        <div>{children}</div>
-      </div>
-    );
-  }
 
   return (
     <ReduxProvider store={store}>

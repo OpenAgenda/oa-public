@@ -20,7 +20,7 @@ export default (type, instance, methods, clearers) => {
       cache: {
         clear() {},
       },
-    });;
+    });
   }
 
   if (!clearers) clearers = [];
@@ -44,7 +44,7 @@ export default (type, instance, methods, clearers) => {
   function _wrapMethods(methods) {
     const cachedMethods = {};
 
-    methods.forEach(methodName => {
+    methods.forEach((methodName) => {
       cachedMethods[methodName] = _wrapMethod(methodName, instance[methodName]);
     });
 
@@ -54,7 +54,7 @@ export default (type, instance, methods, clearers) => {
   function _wrapClearers(clearers) {
     const clearerMethods = {};
 
-    clearers.forEach(methodName => {
+    clearers.forEach((methodName) => {
       clearerMethods[methodName] = _wrapClearer(instance[methodName]);
     });
 
@@ -66,7 +66,7 @@ export default (type, instance, methods, clearers) => {
    */
 
   function _wrapClearer(method) {
-    return function(...args) {
+    return function (...args) {
       // clears the cache
       clear();
 
@@ -100,7 +100,7 @@ export default (type, instance, methods, clearers) => {
         } else {
           _log(methodName, 'cache timestamp is not valid');
 
-          clear(err => {
+          clear((err) => {
             if (err) return cb(err);
 
             lib.load([key, methodName], method, false, cb);
@@ -112,7 +112,11 @@ export default (type, instance, methods, clearers) => {
 
   function _validTimestamp(cb) {
     getTimestamp((err, cacheTimestamp) => {
-      cb(err, _stringifyTimestamp(instance.updatedAt) == _stringifyTimestamp(cacheTimestamp));
+      cb(
+        err,
+        _stringifyTimestamp(instance.updatedAt) ==
+          _stringifyTimestamp(cacheTimestamp),
+      );
     });
   }
 
@@ -127,12 +131,12 @@ export default (type, instance, methods, clearers) => {
   function clear(cb) {
     _log('clearing');
 
-    lib.getCli().del(key, err => {
+    lib.getCli().del(key, (err) => {
       if (err) return cb(err);
 
       cacheTimestamp = instance.updatedAt;
 
-      lib.getCli().hset(key, 'timestamp', cacheTimestamp, err => {
+      lib.getCli().hset(key, 'timestamp', cacheTimestamp, (err) => {
         if (cb) cb(err);
       });
     });

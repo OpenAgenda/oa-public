@@ -14,12 +14,7 @@ import makeConfig from './config';
 export default async function createService(conf) {
   const config = await makeConfig(conf);
 
-  const {
-    queue,
-    knex,
-    schemas,
-    mailsDomain,
-  } = config;
+  const { queue, knex, schemas, mailsDomain } = config;
 
   const svc = {};
 

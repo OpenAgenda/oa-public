@@ -6,9 +6,7 @@ import agendaLogo from '../agendaLogo.js';
 const log = logs('services/members/sendGroupMail/sendMessage');
 
 async function loadInvitation(services, member) {
-  const {
-    invitations,
-  } = services;
+  const { invitations } = services;
 
   if (member.userUid || !member.custom?.email) {
     return null;
@@ -16,28 +14,19 @@ async function loadInvitation(services, member) {
 
   return invitations
     .get({ email: member.custom.email })
-    .then(r => (r ? r.invitation : null));
+    .then((r) => (r ? r.invitation : null));
 }
 
-export default async function sendMessage(services, config, {
-  agenda,
-  member,
-  data,
-  options,
-}) {
-  const {
-    mails,
-    tracker,
-  } = services;
+export default async function sendMessage(
+  services,
+  config,
+  { agenda, member, data, options },
+) {
+  const { mails, tracker } = services;
 
-  const {
-    subject, message, replyTo,
-  } = data;
+  const { subject, message, replyTo } = data;
 
-  const {
-    lang = 'fr',
-    throwOnError = false,
-  } = options ?? {};
+  const { lang = 'fr', throwOnError = false } = options ?? {};
 
   try {
     const email = member.custom?.email ?? member.user.email;
@@ -65,14 +54,22 @@ export default async function sendMessage(services, config, {
       template: 'memberMessage',
       to: {
         address: email,
-        unsubscriptions: [{
-          rule: ['receive', 'memberMessage'],
-          dataPath: 'unsubscribeLink',
-        }].concat(member.userUid ? [{
-          memberId: member.id,
-          rule: ['receive', 'memberMessage'],
-          dataPath: 'memberUnsubscribeLink',
-        }] : []),
+        unsubscriptions: [
+          {
+            rule: ['receive', 'memberMessage'],
+            dataPath: 'unsubscribeLink',
+          },
+        ].concat(
+          member.userUid
+            ? [
+              {
+                memberId: member.id,
+                rule: ['receive', 'memberMessage'],
+                dataPath: 'memberUnsubscribeLink',
+              },
+            ]
+            : [],
+        ),
       },
       replyTo,
       data: {
@@ -85,7 +82,9 @@ export default async function sendMessage(services, config, {
       lang: appliedLang,
     });
 
-    tracker(`members.sendGroupMail.sentMessageTo:${member.userUid},${email},${subject}`);
+    tracker(
+      `members.sendGroupMail.sentMessageTo:${member.userUid},${email},${subject}`,
+    );
 
     return result;
   } catch (e) {

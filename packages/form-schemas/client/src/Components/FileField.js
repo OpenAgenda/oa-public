@@ -1,80 +1,93 @@
 import _ from 'lodash';
 import Dropzone from 'react-dropzone';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import multilingualLabels from '@openagenda/labels/form-schemas/fileUpload';
 import flattenLabels from '@openagenda/labels/flatten';
 
 export default class FileField extends Component {
-
-  onRemove() {
-
-    this.props.onChange( null );
-
+  constructor(props) {
+    super(props);
+    this.onRemove = this.onRemove.bind(this);
+    this.onDrop = this.onDrop.bind(this);
+    this.hasValue = this.hasValue.bind(this);
   }
 
-  onDrop( acceptedFiles, rejectedFiles ) {
+  onRemove() {
+    const { onChange } = this.props;
+    onChange(null);
+  }
 
-    this.props.onChange( {
-      originalName: _.get( acceptedFiles, '0.name' )
-    }, acceptedFiles );
-
+  onDrop(acceptedFiles, _rejectedFiles) {
+    const { onChange } = this.props;
+    onChange(
+      {
+        originalName: _.get(acceptedFiles, '0.name'),
+      },
+      acceptedFiles,
+    );
   }
 
   hasValue() {
-
-    return !!_.get( this.props, 'value.originalName' );
-
+    return !!_.get(this.props, 'value.originalName');
   }
 
   render() {
-    const {
-      field,
-    } = this.props;
+    const { field, lang, value } = this.props;
 
-    const labels = flattenLabels( multilingualLabels, this.props.lang );
+    const labels = flattenLabels(multilingualLabels, lang);
 
     const {
       field: name,
-      placeholder,
+      // placeholder,
       extensions,
-      store
+      // store,
     } = field;
 
-    return <div className="file-upload">
-      <Dropzone
-        disabled={field.enable === false}
-        accept={ '.' + extensions.join( ',.' ) }
-        multiple={false}
-        name={ name }
-        onDrop={this.onDrop.bind( this )}
-      >
-        {({getRootProps, getInputProps}) => (
-          <div className="file-dropzone" {...getRootProps()}>
-            <input {...getInputProps()} />
-            <div className="margin-top-lg margin-bottom-sm">
-              <button className="btn btn-primary margin-top-sm">
-                <label>{labels.upload}</label>
-              </button>
-              {this.hasValue() && <div className="margin-v-xs">
-                <label className="control-label">
-                  <i className="fa fa-check margin-right-xs"></i>
-                  <span>{_.get( this.props, 'value.originalName' )}</span>
-                </label>
-              </div>}
+    return (
+      <div className="file-upload">
+        <Dropzone
+          disabled={field.enable === false}
+          accept={`.${extensions.join(',.')}`}
+          multiple={false}
+          name={name}
+          onDrop={this.onDrop}
+        >
+          {({ getRootProps, getInputProps }) => (
+            <div className="file-dropzone" {...getRootProps()}>
+              <input {...getInputProps()} />
+              <div className="margin-top-lg margin-bottom-sm">
+                <button type="button" className="btn btn-primary margin-top-sm">
+                  <label>{labels.upload}</label>
+                </button>
+                {this.hasValue() && (
+                  <div className="margin-v-xs">
+                    <label className="control-label">
+                      <i className="fa fa-check margin-right-xs" />
+                      <span>{_.get(this.props, 'value.originalName')}</span>
+                    </label>
+                  </div>
+                )}
+              </div>
+              <span className="accepted-info">
+                {labels.acceptedExtensions}:&nbsp; .
+                {[].concat(extensions).join(', .')}
+              </span>
             </div>
-            <span className="accepted-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
-          </div>
-        )}
-      </Dropzone>
-      { this.props.value ? <a
-        onClick={this.onRemove.bind( this )}
-        className="btn btn-danger margin-left-xs remove-file"
-        title={labels.remove} >
-        <i className="fa fa-trash"></i>
-      </a> : null }
-    </div>
-
+          )}
+        </Dropzone>
+        {value ? (
+          <button
+            type="button"
+            onClick={this.onRemove}
+            className="btn btn-danger margin-left-xs remove-file"
+            title={labels.remove}
+            aria-label={labels.remove}
+          >
+            <i className="fa fa-trash" />
+          </button>
+        ) : null}
+      </div>
+    );
   }
-
 }

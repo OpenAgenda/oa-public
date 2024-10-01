@@ -3,12 +3,10 @@ import getAgendaSearchIndex from './getAgendaSearchIndex.js';
 
 const log = logs('services/eventSearch/updateAgendaIndex');
 
-export default async function updateAgendaIndex(eventSearch, {
-  agenda,
-  formSchema,
-  member,
-  event,
-}) {
+export default async function updateAgendaIndex(
+  eventSearch,
+  { agenda, formSchema, member, event },
+) {
   log('  updateAgendaIndex');
 
   const data = {
@@ -20,14 +18,18 @@ export default async function updateAgendaIndex(eventSearch, {
 
   log('  update agenda index', agenda.uid);
 
-  await searchIndex.update({
-    uid: event.uid,
-  }, data, {
-    refresh: true,
-    operation: 'index',
-    formSchema,
-    agenda,
-  });
+  await searchIndex.update(
+    {
+      uid: event.uid,
+    },
+    data,
+    {
+      refresh: true,
+      operation: 'index',
+      formSchema,
+      agenda,
+    },
+  );
 
   log('  updated');
 }

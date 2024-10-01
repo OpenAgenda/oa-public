@@ -24,12 +24,19 @@ export default (config, services) => {
 
     for await (const row of stream) {
       try {
-        const count = await redis.hGet(config.api.redis.prefix + row.id, config.api.redis.publishCount);
+        const count = await redis.hGet(
+          config.api.redis.prefix + row.id,
+          config.api.redis.publishCount,
+        );
 
         log.info({ message: 'api counter', keySetId: row.id, count });
 
         if (count) {
-          await redis.hSet(config.api.redis.prefix + row.id, config.api.redis.publishCount, 0);
+          await redis.hSet(
+            config.api.redis.prefix + row.id,
+            config.api.redis.publishCount,
+            0,
+          );
         }
       } catch (e) {
         log.error(e);

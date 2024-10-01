@@ -1,32 +1,31 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
-const keyTypes = require( '../lib/keyTypes' );
+const schema = require('@openagenda/validators/schema');
+const choice = require('@openagenda/validators/choice');
+const text = require('@openagenda/validators/text');
+const number = require('@openagenda/validators/number');
+const keyTypes = require('../lib/keyTypes');
 
-schema.register( {
-  choice: require( '@openagenda/validators/choice' ),
-  text: require( '@openagenda/validators/text' ),
-  number: require( '@openagenda/validators/number' )
-} );
+schema.register({
+  choice,
+  text,
+  number,
+});
 
-module.exports = ( identifiers, options ) => {
-
-  const params = Object.assign( {
+module.exports = (identifiers, options) => {
+  const params = {
     allowId: true,
     optionalKey: false,
-    keyOrIdentifier: false
-  }, options );
+    keyOrIdentifier: false,
+    ...options,
+  };
 
-  if ( params.allowId && typeof identifiers === 'number' ) {
-
+  if (params.allowId && typeof identifiers === 'number') {
     return { id: identifiers };
-
   }
 
-  if ( identifiers.id ) {
-
+  if (identifiers.id) {
     return identifiers;
-
   }
 
   // type (required) + identifier (required)
@@ -40,79 +39,72 @@ module.exports = ( identifiers, options ) => {
       type: 'choice',
       optional: false,
       options: keyTypes,
-      unique: true
-    }
+      unique: true,
+    },
   };
 
-  if ( params.keyOrIdentifier ) {
-
-    if ( typeof identifiers.key === 'undefined' && typeof identifiers.identifier === 'undefined' ) {
-
+  if (params.keyOrIdentifier) {
+    if (
+      typeof identifiers.key === 'undefined'
+      && typeof identifiers.identifier === 'undefined'
+    ) {
+      // eslint-disable-next-line no-throw-literal
       throw {
         code: 'required',
         field: 'key',
         message: 'a key or an identifier is required',
-        origin: undefined
+        origin: undefined,
       };
-
     }
 
-    if ( typeof identifiers.key !== 'undefined' ) {
-
+    if (typeof identifiers.key !== 'undefined') {
       validateSchema.type = {
         type: 'choice',
         optional: true,
         options: keyTypes,
         unique: true,
-        default: undefined
+        default: undefined,
       };
 
       validateSchema.key = {
         type: 'text',
-        optional: false
+        optional: false,
       };
 
-      if ( !validateSchema.identifier ) validateSchema.identifier = {
-        type: 'text',
-        optional: true,
-        default: undefined
-      };
-
+      if (!validateSchema.identifier) {
+        validateSchema.identifier = {
+          type: 'text',
+          optional: true,
+          default: undefined,
+        };
+      }
     }
 
-    if ( typeof identifiers.identifier !== 'undefined' ) {
-
+    if (typeof identifiers.identifier !== 'undefined') {
       validateSchema.identifier = {
         type: 'text',
-        optional: false
+        optional: false,
       };
 
       validateSchema.key = {
         type: 'text',
         optional: true,
-        default: undefined
+        default: undefined,
       };
-
     }
-
   } else {
-
     validateSchema.identifier = {
       type: 'number',
-      optional: false
+      optional: false,
     };
-
   }
 
-  if ( !params.optionalKey ) {
-
+  if (!params.optionalKey) {
     validateSchema.key = {
       type: 'text',
-      optional: false
+      optional: false,
     };
-
   }
 
-  return schema( validateSchema )( identifiers );
-
+  return schema(validateSchema)(identifiers);
 };

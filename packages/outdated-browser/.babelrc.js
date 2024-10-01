@@ -7,11 +7,9 @@ module.exports = {
       {
         modules: 'commonjs',
         targets: {
-          browsers: [
-            'ie 6',
-          ],
+          browsers: ['ie 6'],
         },
-      }
-    ]
+      },
+    ],
   ],
 };

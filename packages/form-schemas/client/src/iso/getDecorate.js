@@ -1,98 +1,98 @@
-"use strict";
-
 /**
  * returns function that decorates valid data for a form-schema with full option values and labels
  */
 
-const update = require( 'immutability-helper' );
+const update = require('immutability-helper');
+const assign = require('lodash/assign');
+const get = require('lodash/get');
+const isArray = require('lodash/isArray');
+const isObject = require('lodash/isObject');
+const mapKeys = require('lodash/mapKeys');
+const omit = require('lodash/omit');
+const find = require('lodash/find');
 
 const _ = {
-  assign: require( 'lodash/assign' ),
-  get: require( 'lodash/get' ),
-  isArray: require( 'lodash/isArray' ),
-  isObject: require( 'lodash/isObject' ),
-  mapKeys: require( 'lodash/mapKeys' ),
-  omit: require( 'lodash/omit' ),
-  find: require( 'lodash/find' )
+  assign,
+  get,
+  isArray,
+  isObject,
+  mapKeys,
+  omit,
+  find,
+};
+
+const flattenLabels = require('../lib/flatten');
+
+function _decorateOption(labelsAsValues, options, id) {
+  const option = options.find((o) => o.id === id);
+
+  const decoratedOption = typeof option === 'undefined' || option === null
+    ? null
+    : _.omit(option, ['legacyId']);
+
+  if (labelsAsValues && _.get(decoratedOption, 'label')) return decoratedOption.label;
+
+  return decoratedOption;
 }
 
-const flattenLabels = require( '../lib/flatten' );
-
-module.exports = fields => {
-
-  return decorate.bind( null, fields );
-
-}
-
-module.exports.decorate = decorate;
-
-function decorate( fields, data, options = {} ) {
-
-  const {
-    lang,
-    labelsAsKeys,
-    labelsAsValues,
-    ignoreNonArrayObjects
-  } = _.assign( {
-    lang: null,
-    labelsAsKeys: false,
-    labelsAsValues: false,
-    ignoreNonArrayObjects: false
-  }, options )
+function decorate(fields, data, options = {}) {
+  const { lang, labelsAsKeys, labelsAsValues, ignoreNonArrayObjects } = _.assign(
+    {
+      lang: null,
+      labelsAsKeys: false,
+      labelsAsValues: false,
+      ignoreNonArrayObjects: false,
+    },
+    options,
+  );
 
   const changes = {};
 
-  const cleanFields = fields.map( f => lang || labelsAsKeys ? flattenLabels( f, lang ) : f );
+  const cleanFields = fields.map((f) =>
+    (lang || labelsAsKeys ? flattenLabels(f, lang) : f));
 
-  cleanFields.forEach( f => {
+  cleanFields.forEach((f) => {
+    if (!f.options) return;
 
-    if ( !f.options ) return;
+    if (data[f.field] === undefined) return;
 
-    if ( data[ f.field ] === undefined ) return;
-
-    if ( _.isArray( data[ f.field ] ) ) {
-
-      changes[ f.field ] = {
-        $set: data[ f.field ].map( _decorateOption.bind( null, labelsAsValues, f.options ) )
-      }
-
+    if (_.isArray(data[f.field])) {
+      changes[f.field] = {
+        $set: data[f.field].map(
+          _decorateOption.bind(null, labelsAsValues, f.options),
+        ),
+      };
     } else {
-
-      changes[ f.field ] = {
-        $set: _decorateOption( labelsAsValues, f.options, data[ f.field ] )
-      }
-
+      changes[f.field] = {
+        $set: _decorateOption(labelsAsValues, f.options, data[f.field]),
+      };
     }
+  });
 
-  } );
+  let updatedValues = update(data, changes);
 
-  let updatedValues = update( data, changes );
-
-  if ( ignoreNonArrayObjects ) {
-
-    updatedValues = _.omit( updatedValues, cleanFields.filter( f => (
-      ( !_.isArray( updatedValues[ f.field ] ) ) && _.isObject( updatedValues[ f.field ] )
-    ) ).map( f => f.field ) );
-
+  if (ignoreNonArrayObjects) {
+    updatedValues = _.omit(
+      updatedValues,
+      cleanFields
+        .filter(
+          (f) =>
+            !_.isArray(updatedValues[f.field])
+            && _.isObject(updatedValues[f.field]),
+        )
+        .map((f) => f.field),
+    );
   }
 
-  if ( !labelsAsKeys ) return updatedValues;
+  if (!labelsAsKeys) return updatedValues;
 
-  return _.omit( _.mapKeys( updatedValues,
-    ( v, k ) => _.get( _.find( cleanFields, { field: k } ), 'label', '$remove' )
-  ), [ '$remove' ] );
-
+  return _.omit(
+    _.mapKeys(updatedValues, (v, k) =>
+      _.get(_.find(cleanFields, { field: k }), 'label', '$remove')),
+    ['$remove'],
+  );
 }
 
+module.exports = (fields) => decorate.bind(null, fields);
 
-function _decorateOption( labelsAsValues, options, id ) {
-
-  const option = options.find( o => o.id === id );
-
-  const decoratedOption = typeof option === 'undefined' || option === null ? null : _.omit( option, [ 'legacyId' ] );
-
-  if ( labelsAsValues && _.get( decoratedOption, 'label' ) ) return decoratedOption.label;
-
-  return decoratedOption;
-
-}
+module.exports.decorate = decorate;

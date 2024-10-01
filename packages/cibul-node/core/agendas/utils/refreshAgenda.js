@@ -6,7 +6,7 @@ const log = logs('core/utils/refreshAgenda');
 
 const setAgenda = promisify(agendas.set);
 
-export default async uid => {
+export default async (uid) => {
   try {
     await setAgenda({ uid }, { updatedAt: new Date() }, { private: null });
   } catch (e) {

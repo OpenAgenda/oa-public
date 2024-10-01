@@ -48,21 +48,31 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
   });
 
   describe('basic batch with core.agendas.events.list', () => {
-    beforeAll(() => new Promise(done => {
-      core.agendas(99501607).events.batch('patch', {
-        state: 0,
-      }, { state: 1 }, {
-        userUid: 1,
-      });
+    beforeAll(
+      () =>
+        new Promise((done) => {
+          core.agendas(99501607).events.batch(
+            'patch',
+            {
+              state: 0,
+            },
+            { state: 1 },
+            {
+              userUid: 1,
+            },
+          );
 
-      core.tasks({
-        execute() {},
-        error(...args) { done(args); },
-        success(...args) {
-          if (args[0] === 'batchedPatch') return done();
-        },
-      });
-    }));
+          core.tasks({
+            execute() {},
+            error(...args) {
+              done(args);
+            },
+            success(...args) {
+              if (args[0] === 'batchedPatch') return done();
+            },
+          });
+        }),
+    );
 
     afterAll(async () => {
       await core.tasks.stop({ reset: true });
@@ -75,23 +85,33 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
   });
 
   describe('batch using core.agndas.events.search', () => {
-    beforeAll(() => new Promise(done => {
-      core.agendas(99501607).events.batch('patch', {
-        city: 'Arles',
-        state: null,
-      }, { state: 2 }, {
-        userUid: 1,
-        search: true,
-      });
+    beforeAll(
+      () =>
+        new Promise((done) => {
+          core.agendas(99501607).events.batch(
+            'patch',
+            {
+              city: 'Arles',
+              state: null,
+            },
+            { state: 2 },
+            {
+              userUid: 1,
+              search: true,
+            },
+          );
 
-      core.tasks({
-        execute() {},
-        error(...args) { done(args); },
-        success(...args) {
-          if (args[0] === 'batchedPatch') return done();
-        },
-      });
-    }));
+          core.tasks({
+            execute() {},
+            error(...args) {
+              done(args);
+            },
+            success(...args) {
+              if (args[0] === 'batchedPatch') return done();
+            },
+          });
+        }),
+    );
 
     afterAll(async () => {
       await core.tasks.stop({ reset: true });

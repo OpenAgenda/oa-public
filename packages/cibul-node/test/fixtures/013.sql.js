@@ -5,9 +5,18 @@ const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 const raw = resetAndCreateTables();
 
-raw.push(knex('user').insert([load('sql/users/01.json'), load('sql/users/superAdmin.json')]));
+raw.push(
+  knex('user').insert([
+    load('sql/users/01.json'),
+    load('sql/users/superAdmin.json'),
+  ]),
+);
 
-raw.push(knex('api_key_set').insert([load('./sql/apiKeySets/01.json', { user_id: 83530 })]));
+raw.push(
+  knex('api_key_set').insert([
+    load('./sql/apiKeySets/01.json', { user_id: 83530 }),
+  ]),
+);
 
 raw.push(
   knex('review').insert([

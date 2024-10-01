@@ -70,9 +70,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 94 89 66 39"
-      ],
+      "registration": ["04 94 89 66 39"],
       "location": {
         "uid": 30483631,
         "slug": "librairie-contrebandes",
@@ -106,9 +104,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
       "type-de-structure": 621,
@@ -217,9 +213,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "04 93 34 91 40"
-      ],
+      "registration": ["04 93 34 91 40"],
       "location": {
         "uid": 86088670,
         "slug": "librairie-comic-strip-cafe",
@@ -253,12 +247,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -366,9 +356,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "04 42 71 96 93"
-      ],
+      "registration": ["04 42 71 96 93"],
       "location": {
         "uid": 57405952,
         "slug": "librairie-au-poivre-dane-sur-mer",
@@ -402,12 +390,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -530,10 +514,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "bruno_combaud@yahoo.fr",
-        "0645150491"
-      ],
+      "registration": ["bruno_combaud@yahoo.fr", "0645150491"],
       "location": {
         "uid": 95752192,
         "slug": "la-mission-locale-du-grand-angoumois",
@@ -567,12 +548,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival BD Angoulême Off",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -666,9 +643,7 @@
         "min": 8,
         "max": 9
       },
-      "registration": [
-        "a.lhermite@amiens-metropole.com"
-      ],
+      "registration": ["a.lhermite@amiens-metropole.com"],
       "location": {
         "uid": 91712766,
         "slug": "camon462",
@@ -702,12 +677,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La dernière rencontre sera réalisée pendant Les rendez-vous de la bande dessinée 2020",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1167,10 +1138,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "info@frac-poitou-charentes.org",
-        "05 45 92 87 01"
-      ],
+      "registration": ["info@frac-poitou-charentes.org", "05 45 92 87 01"],
       "location": {
         "uid": 71654137,
         "slug": "frac-poitou-charentes852",
@@ -1204,9 +1172,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1940,12 +1906,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        617
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [617],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
       "si-autre-precisez": null,
@@ -2560,9 +2522,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "https://www.alice-et-clochette.fr/#prix-bd"
-      ],
+      "registration": ["https://www.alice-et-clochette.fr/#prix-bd"],
       "location": {
         "uid": 1910515,
         "slug": "bdfugue-gernoble",
@@ -2596,9 +2556,7 @@
       "tarif": "35 €",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -2707,9 +2665,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 42 45 77 92"
-      ],
+      "registration": ["04 42 45 77 92"],
       "location": {
         "uid": 72227400,
         "slug": "maison-des-jeunes-et-de-la-culture278",
@@ -2743,12 +2699,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -2856,9 +2808,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "04 94 59 34 04"
-      ],
+      "registration": ["04 94 59 34 04"],
       "location": {
         "uid": 3721395,
         "slug": "mediatheque-croisee-des-arts",
@@ -2892,12 +2842,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
       "type-de-structure": 621,
       "si-autre-precisez": null,

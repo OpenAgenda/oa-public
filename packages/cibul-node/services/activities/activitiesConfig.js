@@ -619,7 +619,6 @@ const activitiesConfig = {
    *         -> contributor
    *         if is published and agenda target is public:
    *           -> source agendas -> adminMods
-   *
    *           -> origin agenda -> adminMods
    *           -> event owner
    * */

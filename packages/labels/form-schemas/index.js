@@ -1,76 +1,79 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  "required": {
-    "fr": "Champ obligatoire",
-    "en": "Required field",
-    "de": "Pflichtfeld",
-    "es": "Campo obligatorio",
-    "it": "Campo obbligatorio",
-    "io": "crwdns14882:0crwdne14882:0",
-    "oc": "Camp obligatòri"
+  required: {
+    fr: 'Champ obligatoire',
+    en: 'Required field',
+    de: 'Pflichtfeld',
+    es: 'Campo obligatorio',
+    it: 'Campo obbligatorio',
+    io: 'crwdns14882:0crwdne14882:0',
+    oc: 'Camp obligatòri',
   },
-  "groupErrorHeader": {
-    "fr": "Certaines saisies doivent être corrigées",
-    "en": "Some values need to be corrected",
-    "de": "Einige Werte müssen korrigiert werden",
-    "es": "Algunas entradas deben ser corregidos",
-    "it": "Alcune voci devono essere corrette",
-    "io": "crwdns14884:0crwdne14884:0",
-    "oc": "Cal corregir d'unas valors"
+  groupErrorHeader: {
+    fr: 'Certaines saisies doivent être corrigées',
+    en: 'Some values need to be corrected',
+    de: 'Einige Werte müssen korrigiert werden',
+    es: 'Algunas entradas deben ser corregidos',
+    it: 'Alcune voci devono essere corrette',
+    io: 'crwdns14884:0crwdne14884:0',
+    oc: "Cal corregir d'unas valors",
   },
-  "submit": {
-    "fr": "Enregistrer",
-    "en": "Submit",
-    "de": "Rekord",
-    "es": "Validar",
-    "it": "Invia",
-    "br": "Kemmañ",
-    "io": "crwdns14886:0crwdne14886:0",
-    "oc": "Sometre"
+  submit: {
+    fr: 'Enregistrer',
+    en: 'Submit',
+    de: 'Rekord',
+    es: 'Validar',
+    it: 'Invia',
+    br: 'Kemmañ',
+    io: 'crwdns14886:0crwdne14886:0',
+    oc: 'Sometre',
   },
-  "help": {
-    "fr": "Aide",
-    "en": "Help",
-    "de": "Hilfe",
-    "es": "Ayuda",
-    "it": "Aiuto",
-    "br": "Skoazell",
-    "io": "crwdns14888:0crwdne14888:0",
-    "oc": "Ajuda"
+  help: {
+    fr: 'Aide',
+    en: 'Help',
+    de: 'Hilfe',
+    es: 'Ayuda',
+    it: 'Aiuto',
+    br: 'Skoazell',
+    io: 'crwdns14888:0crwdne14888:0',
+    oc: 'Ajuda',
   },
-  "noChoice": {
-    "fr": "Aucun choix",
-    "en": "No choice",
-    "de": "Keine Wahl",
-    "es": "otra opción",
-    "it": "Nessuna scelta",
-    "io": "crwdns14890:0crwdne14890:0",
-    "oc": "Pas cap causida"
+  noChoice: {
+    fr: 'Aucun choix',
+    en: 'No choice',
+    de: 'Keine Wahl',
+    es: 'otra opción',
+    it: 'Nessuna scelta',
+    io: 'crwdns14890:0crwdne14890:0',
+    oc: 'Pas cap causida',
   },
-  "noOption": {
-    "fr": "Pas de correspondance",
-    "en": "No match",
-    "io": "crwdns14892:0crwdne14892:0",
-    "it": "Nessuna corrispondenza",
-    "oc": "Pas cap correspondéncia"
+  noOption: {
+    fr: 'Pas de correspondance',
+    en: 'No match',
+    io: 'crwdns14892:0crwdne14892:0',
+    it: 'Nessuna corrispondenza',
+    oc: 'Pas cap correspondéncia',
   },
-  "selectPlaceholder": {
-    "fr": "Sélectionner...",
-    "en": "Select...",
-    "io": "crwdns14894:0crwdne14894:0",
-    "it": "Seleziona...",
-    "oc": "Causir..."
+  selectPlaceholder: {
+    fr: 'Sélectionner...',
+    en: 'Select...',
+    io: 'crwdns14894:0crwdne14894:0',
+    it: 'Seleziona...',
+    oc: 'Causir...',
   },
-  "cancel": {
-    "en": "Cancel",
-    "fr": "Annuler",
-    "it": "Annulla",
-    "de": "Annulieren",
-    "pl": "Anuluj",
-    "es": "Anular",
-    "br": "Nullañ",
-    "io": "crwdns16466:0crwdne16466:0",
-    "oc": "Anullar"
-  }
-}
+  cancel: {
+    en: 'Cancel',
+    fr: 'Annuler',
+    it: 'Annulla',
+    de: 'Annulieren',
+    pl: 'Anuluj',
+    es: 'Anular',
+    br: 'Nullañ',
+    io: 'crwdns16466:0crwdne16466:0',
+    oc: 'Anullar',
+  },
+  fullscreen: {
+    en: 'Fullscreen',
+  },
+};

@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import cn from 'classnames';
 import { css } from '@emotion/react';
@@ -26,7 +25,7 @@ export default function Pager({
   const intl = useIntl();
 
   const lastPage = Math.floor(
-    total % pageSize !== 0 ? total / pageSize + 1 : total / pageSize
+    total % pageSize !== 0 ? total / pageSize + 1 : total / pageSize,
   );
 
   const previousDisabled = page === 1;
@@ -51,6 +50,7 @@ export default function Pager({
             <span
               tabIndex={0}
               role="button"
+              aria-label={intl.formatMessage(messages.previous)}
               onClick={previousPage}
               onKeyPress={previousPage}
             >
@@ -74,6 +74,7 @@ export default function Pager({
             <span
               tabIndex={0}
               role="button"
+              aria-label={intl.formatMessage(messages.next)}
               onClick={nextPage}
               onKeyPress={nextPage}
             >

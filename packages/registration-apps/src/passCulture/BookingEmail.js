@@ -6,20 +6,22 @@ export default function BookingEmail({
   onChange,
   settingsBookingEmail,
 }) {
-  const {
-    Input,
-    Checkbox,
-  } = useContext(ComponentsContext);
+  const { Input, Checkbox } = useContext(ComponentsContext);
 
   const [check, setCheck] = useState(!!value.bookingEmail);
-  const [bookingEmail, setbookingEmail] = useState(value.bookingEmail || settingsBookingEmail || null);
+  const [bookingEmail, setbookingEmail] = useState(
+    value.bookingEmail || settingsBookingEmail || null,
+  );
 
   return (
     <>
       <Checkbox
         info="Permet de recevoir un mail de notification lors d'une réservation"
         value={check}
-        onChange={() => { setCheck(!check); onChange(!check ? bookingEmail : null); }}
+        onChange={() => {
+          setCheck(!check);
+          onChange(!check ? bookingEmail : null);
+        }}
         label=" Définir un email de notification"
       />
       {check ? (
@@ -28,7 +30,10 @@ export default function BookingEmail({
           placeholder="Saisissez votre email"
           value={bookingEmail}
           type="email"
-          onChange={e => { setbookingEmail(e.target.value); onChange(e.target.value); }}
+          onChange={(e) => {
+            setbookingEmail(e.target.value);
+            onChange(e.target.value);
+          }}
         />
       ) : null}
     </>

@@ -1,22 +1,21 @@
 'use strict';
 
 const _ = require('lodash');
-const {
-  BadRequest,
-} = require('@openagenda/verror');
+const { BadRequest } = require('@openagenda/verror');
 
 const {
-  utils: {
-    flattenSchema: getFlattenedSchema,
-  },
+  utils: { flattenSchema: getFlattenedSchema },
 } = require('@openagenda/form-schemas');
 
-const isNumberLike = value => !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
-const extractFromAggregationKey = key => {
+const isNumberLike = (value) =>
+  !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
+const extractFromAggregationKey = (key) => {
   const keyParts = key.split('.');
 
   return {
-    schemaId: isNumberLike(keyParts[0]) ? parseInt(keyParts.shift(), 10) : keyParts.shift(),
+    schemaId: isNumberLike(keyParts[0])
+      ? parseInt(keyParts.shift(), 10)
+      : keyParts.shift(),
     optionValue: keyParts.join('.'),
   };
 };
@@ -39,23 +38,30 @@ function _cleanOption(field, matchingOption) {
   };
 }
 
-function _decorateWithSchemaFieldAndOption(flattenedFormScheam, { key, doc_count: eventCount }) {
-  const {
-    schemaId,
-    optionValue,
-  } = extractFromAggregationKey(key);
+function _decorateWithSchemaFieldAndOption(
+  flattenedFormScheam,
+  { key, doc_count: eventCount },
+) {
+  const { schemaId, optionValue } = extractFromAggregationKey(key);
 
   for (const field of flattenedFormScheam.fields) {
     if (field.schemaId !== schemaId) continue;
     if (!field.options && field.fieldType !== 'boolean') continue;
 
-    const keyedOptions = field.options ? field.options.map(o => ({ ...o, key: o.id })) : [{
-      key: `${field.field}.true`,
-    }, {
-      key: `${field.field}.false`,
-    }];
+    const keyedOptions = field.options
+      ? field.options.map((o) => ({ ...o, key: o.id }))
+      : [
+        {
+          key: `${field.field}.true`,
+        },
+        {
+          key: `${field.field}.false`,
+        },
+      ];
 
-    const matchingOption = keyedOptions.filter(o => `${o.key}` === optionValue).pop();
+    const matchingOption = keyedOptions
+      .filter((o) => `${o.key}` === optionValue)
+      .pop();
 
     if (!matchingOption) continue;
 
@@ -72,10 +78,10 @@ function _decorateWithSchemaFieldAndOption(flattenedFormScheam, { key, doc_count
 
 function getFieldValues(field) {
   if (field.fieldType === 'boolean') {
-    return ['true', 'false'].map(v =>
+    return ['true', 'false'].map((v) =>
       [field.schemaId, field.field, v].join('.'));
   }
-  return field.options.map(o => [field.schemaId, o.id].join('.'));
+  return field.options.map((o) => [field.schemaId, o.id].join('.'));
 }
 
 module.exports.formatDSL = (query, options = {}) => {
@@ -87,12 +93,17 @@ module.exports.formatDSL = (query, options = {}) => {
 
   if (options.field) {
     const flattenedSchema = getFlattenedSchema(options.formSchema);
-    const field = flattenedSchema.fields.find(f => f.field === options.field.replace(/:/g, '.'));
+    const field = flattenedSchema.fields.find(
+      (f) => f.field === options.field.replace(/:/g, '.'),
+    );
 
     if (!field) {
-      throw new BadRequest({
-        info: { field: options.field },
-      }, 'Invalid requested aggregations: unknown additional field');
+      throw new BadRequest(
+        {
+          info: { field: options.field },
+        },
+        'Invalid requested aggregations: unknown additional field',
+      );
     }
 
     const fieldValues = getFieldValues(field);
@@ -112,7 +123,7 @@ module.exports.formatResult = (result, options = {}) => {
   const flattenedSchema = getFlattenedSchema(options.formSchema);
 
   const formattedResult = result.buckets
-    .map(b => _decorateWithSchemaFieldAndOption(flattenedSchema, b))
+    .map((b) => _decorateWithSchemaFieldAndOption(flattenedSchema, b))
     .reduce((fields, optionItem) => {
       const fieldName = optionItem.field.field;
       const values = fields[fieldName] ? fields[fieldName].values : [];
@@ -130,7 +141,9 @@ module.exports.formatResult = (result, options = {}) => {
     }, {});
 
   if (options.field) {
-    return (formattedResult[options.field.replace(/:/g, '.')] || {}).values || [];
+    return (
+      (formattedResult[options.field.replace(/:/g, '.')] || {}).values || []
+    );
   }
 
   return formattedResult;

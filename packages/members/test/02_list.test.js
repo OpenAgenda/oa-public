@@ -69,7 +69,7 @@ describe('members - functional - list', () => {
         agendaUid: 1,
         userUid: [1, 2, 22],
       });
-      expect(otherMembers.map(m => m.id)).toEqual([1, 2, 4]);
+      expect(otherMembers.map((m) => m.id)).toEqual([1, 2, 4]);
     });
 
     test('get member references for multiple agendaUids', async () => {
@@ -191,7 +191,7 @@ describe('members - functional - list', () => {
     test('default ordering is ascending id', async () => {
       const members = await svc.list({ agendaUid: 1 });
 
-      expect(members.map(m => m.order)).toEqual([1, 2, 4, 5]);
+      expect(members.map((m) => m.order)).toEqual([1, 2, 4, 5]);
     });
 
     test('ordering by descending id', async () => {
@@ -202,7 +202,7 @@ describe('members - functional - list', () => {
         },
       );
 
-      expect(members.map(m => m.order)).toEqual([5, 4, 2, 1]);
+      expect(members.map((m) => m.order)).toEqual([5, 4, 2, 1]);
     });
 
     test('ordering by ascending slug', async () => {
@@ -213,7 +213,7 @@ describe('members - functional - list', () => {
         },
       );
 
-      expect(members.map(m => m.order[0])).toEqual([
+      expect(members.map((m) => m.order[0])).toEqual([
         null,
         'albertine',
         'janine',
@@ -229,7 +229,7 @@ describe('members - functional - list', () => {
         },
       );
 
-      expect(members.map(m => m.order[0])).toEqual([
+      expect(members.map((m) => m.order[0])).toEqual([
         'jean-claude',
         'janine',
         'albertine',
@@ -246,7 +246,7 @@ describe('members - functional - list', () => {
         { legacy: true },
       );
 
-      expect(stakeholders.map(m => m.actionsCounter)).toEqual([12, 5, 5, 0]);
+      expect(stakeholders.map((m) => m.actionsCounter)).toEqual([12, 5, 5, 0]);
     });
 
     test('fix: ordering with after always sorts id asc', async () => {
@@ -267,19 +267,19 @@ describe('members - functional - list', () => {
 
   describe('stream', () => {
     test('takes args as list but without pagination info', () =>
-      new Promise(done => {
+      new Promise((done) => {
         // limit is not needed here, just for testing buffer refill
         const stream = svc.stream(
           { agendaUid: 1 },
           { limit: 2, order: 'actionsCounter.asc' },
           {
-            transform: m => m.id,
+            transform: (m) => m.id,
           },
         );
 
         const streamedMemberIds = [];
 
-        stream.on('data', memberId => {
+        stream.on('data', (memberId) => {
           streamedMemberIds.push(memberId);
         });
 
@@ -303,7 +303,7 @@ describe('members - functional - list', () => {
     });
 
     test('when true, event count is provided', () => {
-      expect(members.map(m => m.eventCount)).toEqual([12, 0]);
+      expect(members.map((m) => m.eventCount)).toEqual([12, 0]);
     });
 
     test('when true, user details are provided in user sub key', () => {
@@ -394,13 +394,13 @@ describe('members - functional - list', () => {
     test('when deletedUser is null, members marked as associated with deleted user are included in results', async () => {
       const members = await svc.list({ agendaUid: 1, deletedUser: null });
 
-      expect(members.filter(m => m.deletedUser === true)).toHaveLength(1);
+      expect(members.filter((m) => m.deletedUser === true)).toHaveLength(1);
     });
 
     test('when deletedUser is not provided, members marked as associated with deleted user are not in results', async () => {
       const members = await svc.list({ agendaUid: 1 });
 
-      expect(members.filter(m => m.deletedUser === true)).toHaveLength(0);
+      expect(members.filter((m) => m.deletedUser === true)).toHaveLength(0);
     });
 
     test('when deletedUser is true, only members marked as associated with deleted user are in results', async () => {
@@ -416,7 +416,7 @@ describe('members - functional - list', () => {
     test('when ids are given to list, matching members are provided', async () => {
       const members = await svc.list({ id: [3, 5] });
 
-      expect(members.map(m => m.id)).toEqual([3, 5]);
+      expect(members.map((m) => m.id)).toEqual([3, 5]);
     });
 
     test('customDataAtRoot puts member data at root of listed items', async () => {

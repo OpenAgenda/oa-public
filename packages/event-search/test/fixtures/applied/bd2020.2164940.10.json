@@ -252,9 +252,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -399,17 +397,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "33447335200048",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1038,12 +1032,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        619
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [619],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
@@ -1189,9 +1179,7 @@
       "tarif": "3,5 € et gratuit pour les moins de 12 ans",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1338,9 +1326,7 @@
       "tarif": "3,5 € et gratuit pour les moins de 12 ans",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1456,9 +1442,7 @@
         "min": 9,
         "max": 99
       },
-      "registration": [
-        "contact@le-cpa.com"
-      ],
+      "registration": ["contact@le-cpa.com"],
       "location": {
         "uid": 51173374,
         "slug": "le-cpa",
@@ -1492,9 +1476,7 @@
       "tarif": "5 €",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -1603,9 +1585,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.museedelagrandeguerre.eu"
-      ],
+      "registration": ["http://www.museedelagrandeguerre.eu"],
       "location": {
         "uid": 3991323,
         "slug": "musee-de-la-grande-guerre-du-pays-de-meaux332",
@@ -1639,9 +1619,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -1912,9 +1890,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -2111,9 +2087,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "info@galeriebarbier.com"
-      ],
+      "registration": ["info@galeriebarbier.com"],
       "location": {
         "uid": 3593467,
         "slug": "galerie-barbier93",
@@ -2147,9 +2121,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -2355,9 +2327,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "info@galeriebarbier.com"
-      ],
+      "registration": ["info@galeriebarbier.com"],
       "location": {
         "uid": 36849711,
         "slug": "galerie-barbier",

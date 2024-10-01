@@ -20,63 +20,40 @@ import {
 } from './linkedFieldLabels';
 
 function renderToggleRemove(props) {
-  const {
-    isDisabled,
-    onRemove,
-    lang,
-    field,
-    isOwn,
-  } = props;
+  const { isDisabled, onRemove, lang, field, isOwn } = props;
 
-  return (
-    isFieldDisplayed(field) && isOwn ? (
-      <button
-        type="button"
-        onClick={() => (isDisabled ? null : onRemove())}
-        className="btn btn-link"
-      >
-        <span className="text-danger">{getLabel('removeField', lang)}</span>
-      </button>
-    ) : null
-  );
+  return isFieldDisplayed(field) && isOwn ? (
+    <button
+      type="button"
+      onClick={() => (isDisabled ? null : onRemove())}
+      className="btn btn-link"
+    >
+      <span className="text-danger">{getLabel('removeField', lang)}</span>
+    </button>
+  ) : null;
 }
 
 function renderToggleHidden(props) {
-  const {
-    field,
-    onShow,
-    onHide,
-    lang,
-  } = props;
+  const { field, onShow, onHide, lang } = props;
 
-  return (
-    isFieldDisplayed(field) ? (
-      <button
-        type="button"
-        onClick={() => onHide()}
-        className="btn btn-link"
-      >
-        {getLabel('hideField', lang)}
-      </button>
-    ) : (
-      <button
-        type="button"
-        name={`show-${field.field}`}
-        className="btn btn-link"
-        onClick={() => onShow()}
-      >
-        {getLabel('showField', lang)}
-      </button>
-    )
+  return isFieldDisplayed(field) ? (
+    <button type="button" onClick={() => onHide()} className="btn btn-link">
+      {getLabel('hideField', lang)}
+    </button>
+  ) : (
+    <button
+      type="button"
+      name={`show-${field.field}`}
+      className="btn btn-link"
+      onClick={() => onShow()}
+    >
+      {getLabel('showField', lang)}
+    </button>
   );
 }
 
 function getInfoLabel(props) {
-  const {
-    editable,
-    lang,
-    disabled,
-  } = props;
+  const { editable, lang, disabled } = props;
   if (!editable) {
     return getLabel('uneditableFieldInfo', lang);
   }
@@ -98,10 +75,7 @@ export default function Content(props) {
     onEdit,
   } = props;
 
-  const {
-    has: hasIcon,
-    className: iconClassName,
-  } = getFieldTypeIcon(field);
+  const { has: hasIcon, className: iconClassName } = getFieldTypeIcon(field);
 
   const editable = isFieldEditable(field, { isOwn, editableExtensions });
 
@@ -110,30 +84,30 @@ export default function Content(props) {
   return (
     <>
       <div className="margin-top-xs">
-        {isFieldOptional(field) ? null
-          : (
-            <span className="form-icon margin-right-sm">
-              <i className="obligatoire" />
-              <span className="optional">{getLabel('requiredField', lang)}</span>
-            </span>
-          )}
-        {isFieldDisplayed(field) ? null
-          : (
-            <span className="form-icon margin-right-sm">
-              <i className="hidden-field" />
-              <span className="his-hidden">{getLabel('hiddenField', lang)}</span>
-            </span>
-          )}
+        {isFieldOptional(field) ? null : (
+          <span className="form-icon margin-right-sm">
+            <i className="obligatoire" />
+            <span className="optional">{getLabel('requiredField', lang)}</span>
+          </span>
+        )}
+        {isFieldDisplayed(field) ? null : (
+          <span className="form-icon margin-right-sm">
+            <i className="hidden-field" />
+            <span className="his-hidden">{getLabel('hiddenField', lang)}</span>
+          </span>
+        )}
         {field.fieldType ? (
           <span className="form-icon margin-right-sm">
             {hasIcon ? <i className={iconClassName} /> : null}
             <span className="fieldtype">{getFieldTypeLabel(field, lang)}</span>
           </span>
-        ) : null }
+        ) : null}
         {isFieldMultilingual(field) ? (
           <span className="form-icon margin-right-sm">
             <i className="languages" />
-            <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
+            <span className="multilingual-label">
+              {getLabel('isMultilingual', lang)}
+            </span>
           </span>
         ) : null}
         {isFieldLinked(field) ? (
@@ -142,34 +116,45 @@ export default function Content(props) {
               <i className="linked" />
               <div className="tooltip right" role="tooltip">
                 <div className="tooltip-arrow"> </div>
-                <div className="tooltip-inner">{getLinkedFieldDetailedLabel({ field, lang, schema })}</div>
+                <div className="tooltip-inner">
+                  {getLinkedFieldDetailedLabel({ field, lang, schema })}
+                </div>
               </div>
             </span>
-            <span className="linked-label">{getLinkedFieldSummaryLabel({ field, lang, schema })}</span>
+            <span className="linked-label">
+              {getLinkedFieldSummaryLabel({ field, lang, schema })}
+            </span>
           </>
         ) : null}
       </div>
-      {isAccessUndefined(field) ? null
-        : (
-          <div className="margin-top-xs">
-            <span className="form-icon margin-right-sm">
-              <i className="access" />
-              <span className="his-hidden">{getFieldAccess(field, lang)}</span>
-            </span>
-          </div>
-        )}
+      {isAccessUndefined(field) ? null : (
+        <div className="margin-top-xs">
+          <span className="form-icon margin-right-sm">
+            <i className="access" />
+            <span className="his-hidden">{getFieldAccess(field, lang)}</span>
+          </span>
+        </div>
+      )}
       {field.field ? (
-        <div className="margin-top-xs" title={getLabel('jsonKey', lang)}>{getLabel('jsonKey', lang)}: {field.field}</div>
-      ) : null }
+        <div className="margin-top-xs" title={getLabel('jsonKey', lang)}>
+          {getLabel('jsonKey', lang)}: {field.field}
+        </div>
+      ) : null}
       {'default' in field && field.default !== null ? (
-        <div className="margin-top-xs" title={getLabel('defaultValue', lang)}>{getLabel('defaultValue', lang)} : {getDefaultValueLabel(field, lang)}</div>
-      ) : null }
+        <div className="margin-top-xs" title={getLabel('defaultValue', lang)}>
+          {getLabel('defaultValue', lang)} : {getDefaultValueLabel(field, lang)}
+        </div>
+      ) : null}
       {field.max ? (
-        <div className="margin-top-xs" title={getLabel('maxLength', lang)}>{getLabel('maxLength', lang)}: {field.max}</div>
-      ) : null }
+        <div className="margin-top-xs" title={getLabel('maxLength', lang)}>
+          {getLabel('maxLength', lang)}: {field.max}
+        </div>
+      ) : null}
       {ordering ? (
         <ul className="form-item-actions list-inline">
-          <li><span className="btn btn-link">{getLabel('orderField', lang)}</span></li>
+          <li>
+            <span className="btn btn-link">{getLabel('orderField', lang)}</span>
+          </li>
         </ul>
       ) : (
         <div className="form-item-actions padding-h-xs">

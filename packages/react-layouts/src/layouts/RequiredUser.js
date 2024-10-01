@@ -1,5 +1,5 @@
 import qs from 'qs';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import ChildLayouts from '../components/ChildLayouts';
 import Loading from '../components/Loading';
@@ -18,7 +18,7 @@ function createRequiredUser(options = {}) {
 
     const { params } = useMemo(
       () => matchPath(location.pathname, '/:slug'),
-      [location.pathname]
+      [location.pathname],
     );
 
     if (!extraProps.user) {

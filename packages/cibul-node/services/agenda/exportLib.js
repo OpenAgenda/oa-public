@@ -10,7 +10,7 @@ import * as legacy from '../legacy.js';
 function _loadTagSet(v) {
   if (!v.loadTagSet || v.agenda.tagSet) return v;
 
-  return legacy.sets.getTagSet(v.agenda.id).then(tagSet => {
+  return legacy.sets.getTagSet(v.agenda.id).then((tagSet) => {
     v.agenda.tagSet = tagSet;
     return v;
   });
@@ -24,7 +24,7 @@ function _addTagGroups(v) {
   if (typeof v.decorated.tags === 'string') {
     tagIds = [v.decorated.tags];
   } else if (v.decorated.tags) {
-    tagIds = v.decorated.tags.map(t => t.id);
+    tagIds = v.decorated.tags.map((t) => t.id);
   }
 
   if (!tagIds || !tagIds.length) return v;
@@ -36,16 +36,16 @@ function _addTagGroups(v) {
   // includePrivateData
 
     // keep groups containing tags used by event
-    .filter(g => g.tags.filter(t => tagIds.includes(t.id)).length)
+    .filter((g) => g.tags.filter((t) => tagIds.includes(t.id)).length)
 
     // keep group tags used by event
-    .map(g => ({
+    .map((g) => ({
       name: g.name,
       access: g.access || 'public',
       slug: g.name ? slug(g.name, { lower: true, strict: true }) : null,
       tags: g.tags
-        .filter(t => tagIds.includes(t.id))
-        .map(t =>
+        .filter((t) => tagIds.includes(t.id))
+        .map((t) =>
           _.assign(
             {
               label: t.label,
@@ -56,17 +56,20 @@ function _addTagGroups(v) {
           )),
     }))
 
-    .filter(g => {
+    .filter((g) => {
       if (v.includePrivateData) return true;
 
       return _.get(g, 'access', 'public') === 'public';
     })
 
     // remove empty groups
-    .filter(g => g.tags.length);
+    .filter((g) => g.tags.length);
 
   // reuse tag group order with tags
-  v.decorated.tags = v.decorated.tagGroups.reduce((carry, group) => carry.concat(group.tags), []);
+  v.decorated.tags = v.decorated.tagGroups.reduce(
+    (carry, group) => carry.concat(group.tags),
+    [],
+  );
 
   return v;
 }
@@ -112,9 +115,9 @@ function _addReferences(v) {
 
   const referenceSet = v.event.articles
 
-    .filter(a => a.review.id === v.agenda.id)
+    .filter((a) => a.review.id === v.agenda.id)
 
-    .map(a => a.references);
+    .map((a) => a.references);
 
   if (referenceSet.length) {
     [v.decorated.references] = referenceSet;
@@ -150,7 +153,9 @@ function _addContributorInfo(v) {
 function _addCustomFields(v) {
   const d = w.defer();
 
-  const customFieldsGetter = v.includePrivateData ? v.agenda.getEventCustom : v.agenda.getEventPublicCustomData;
+  const customFieldsGetter = v.includePrivateData
+    ? v.agenda.getEventCustom
+    : v.agenda.getEventPublicCustomData;
 
   customFieldsGetter(v.event, v.lang, (err, custom, privateExists) => {
     if (err) return d.reject(err);
@@ -159,9 +164,11 @@ function _addCustomFields(v) {
 
     v.decorated.customValues = {};
 
-    custom.forEach(c => {
+    custom.forEach((c) => {
       if (c.fieldType === 'checkbox') {
-        v.decorated.customValues[c.name] = !!(Array.isArray(c.value) ? c.value.length : c.value);
+        v.decorated.customValues[c.name] = !!(Array.isArray(c.value)
+          ? c.value.length
+          : c.value);
       } else if (c.fieldType === 'image' && c.value) {
         v.decorated.customValues[c.name] = config.aws.imageBucketPath + c.value;
       } else if (c.fieldType === 'file' && c.value) {
@@ -184,7 +191,9 @@ function _addCustomFields(v) {
 
     v.decorated.custom = custom;
 
-    v.decorated.customLabels = v.agenda.getCustomFieldsLabels(v.event.getCurrentLanguage());
+    v.decorated.customLabels = v.agenda.getCustomFieldsLabels(
+      v.event.getCurrentLanguage(),
+    );
 
     return d.resolve(v);
   });
@@ -238,7 +247,10 @@ export function decorateEvent(agenda, event, toDecorate, options, cb) {
     utils.extend(
       {
         multiLang: true,
-        longDescriptionField: toDecorate.freeText && !toDecorate.longDescription ? 'freeText' : 'longDescription',
+        longDescriptionField:
+          toDecorate.freeText && !toDecorate.longDescription
+            ? 'freeText'
+            : 'longDescription',
         agenda,
         event,
         loadTagSet: false,
@@ -269,7 +281,7 @@ export function decorateEvent(agenda, event, toDecorate, options, cb) {
 
     .then(_addTagGroups)
 
-    .done(v => {
+    .done((v) => {
       cb(null, v.decorated);
     }, cb);
 }
@@ -277,7 +289,7 @@ export function decorateEvent(agenda, event, toDecorate, options, cb) {
 export function decorateEvents(agenda, events, toDecorate, options, cb) {
   let i = 0;
 
-  legacy.sets.getTagSet(agenda.id).then(tagSet => {
+  legacy.sets.getTagSet(agenda.id).then((tagSet) => {
     agenda.tagSet = tagSet;
 
     async.eachSeries(

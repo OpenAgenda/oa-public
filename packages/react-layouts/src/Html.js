@@ -1,7 +1,5 @@
 /* eslint-disable react/no-danger */
 
-import React from 'react';
-
 function Html({
   helmet,
   content,
@@ -36,7 +34,11 @@ function Html({
           }}
         />
         {translateMode ? (
-          <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js" nonce={cspNonce} />
+          <script
+            type="text/javascript"
+            src="//cdn.crowdin.com/jipt/jipt.js"
+            nonce={cspNonce}
+          />
         ) : null}
 
         {helmet.script.toComponent()}
@@ -67,7 +69,6 @@ function Html({
           <script
             type="application/json"
             id="initialState"
-            charSet="UTF-8"
             dangerouslySetInnerHTML={{ __html: initialState }}
           />
         )}

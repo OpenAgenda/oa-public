@@ -6,19 +6,9 @@ const style = {
 };
 
 export default function TextField(props) {
-  const {
-    field,
-    value,
-    enabled,
-    onChange,
-  } = props;
+  const { field, value, enabled, onChange } = props;
 
-  const {
-    field: name,
-    placeholder,
-    fieldType,
-    default: defaultValue,
-  } = field;
+  const { field: name, placeholder, fieldType, default: defaultValue } = field;
 
   const ref = useRef();
 
@@ -31,17 +21,17 @@ export default function TextField(props) {
       ref={ref}
       name={name}
       rows={fieldType === 'textarea' ? 3 : 1}
-      value={value ?? (defaultValue ?? '')}
+      value={value ?? defaultValue ?? ''}
       placeholder={placeholder}
       className="form-control"
       style={style}
-      onKeyDown={e => {
+      onKeyDown={(e) => {
         if (fieldType !== 'text' || e.key !== 'Enter') {
           return;
         }
         e.preventDefault();
       }}
-      onChange={e => {
+      onChange={(e) => {
         e.preventDefault();
         onChange(e.target.value);
       }}

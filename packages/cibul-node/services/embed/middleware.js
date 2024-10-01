@@ -4,12 +4,30 @@ import parserLib from '@openagenda/tumblr-parser';
 import * as mwh from '../lib/middlewareHelpers.js';
 
 const tblr = {
-  eventItem: fs.readFileSync(`${import.meta.dirname}/templates/eventItem.tblr`).toString(),
-  eventItemMapping: JSON.parse(fs.readFileSync(`${import.meta.dirname}/templates/eventItem.map.json`).toString()),
-  event: fs.readFileSync(`${import.meta.dirname}/templates/event.tblr`).toString(),
-  eventMapping: JSON.parse(fs.readFileSync(`${import.meta.dirname}/templates/event.map.json`).toString()),
-  header: fs.readFileSync(`${import.meta.dirname}/templates/header.tblr`).toString(),
-  headerMapping: JSON.parse(fs.readFileSync(`${import.meta.dirname}/templates/header.map.json`).toString()),
+  eventItem: fs
+    .readFileSync(`${import.meta.dirname}/templates/eventItem.tblr`)
+    .toString(),
+  eventItemMapping: JSON.parse(
+    fs
+      .readFileSync(`${import.meta.dirname}/templates/eventItem.map.json`)
+      .toString(),
+  ),
+  event: fs
+    .readFileSync(`${import.meta.dirname}/templates/event.tblr`)
+    .toString(),
+  eventMapping: JSON.parse(
+    fs
+      .readFileSync(`${import.meta.dirname}/templates/event.map.json`)
+      .toString(),
+  ),
+  header: fs
+    .readFileSync(`${import.meta.dirname}/templates/header.tblr`)
+    .toString(),
+  headerMapping: JSON.parse(
+    fs
+      .readFileSync(`${import.meta.dirname}/templates/header.map.json`)
+      .toString(),
+  ),
 };
 
 function loadEmbed(embedService, paramName, fieldName) {
@@ -131,7 +149,7 @@ function _getCustomFields(req, e, mapping, cb) {
     req.agenda.getEventPublicCustomData(e, req.lang, (err2, custom) => {
       if (err2) return cb(err);
 
-      custom.forEach(c => {
+      custom.forEach((c) => {
         eventCustomFields[c.name] = c.label;
       });
 
@@ -166,8 +184,8 @@ function browserCache(req, res, next) {
  */
 
 function renderEventItems(req, res, next) {
-  let template = tblr.eventItem; let
-    mapping = tblr.eventItemMapping;
+  let template = tblr.eventItem;
+  let mapping = tblr.eventItemMapping;
 
   if (req.embed) {
     mapping = req.embed.getMapping('eventitem') || mapping;
@@ -183,17 +201,27 @@ function renderEventItems(req, res, next) {
 
   eventItemParser.load(template);
 
-  async.eachSeries(req.events, (e, ecb) => {
-    _getCustomFields(req, e, 'eventitem', (err, values) => {
-      if (err) {
-        req.log.error('could not retrieve custom data of event %s: %s', e.id, err);
-      } else {
-        req.renders.eventItems.push(eventItemParser.render(Object.assign(e, values)));
-      }
+  async.eachSeries(
+    req.events,
+    (e, ecb) => {
+      _getCustomFields(req, e, 'eventitem', (err, values) => {
+        if (err) {
+          req.log.error(
+            'could not retrieve custom data of event %s: %s',
+            e.id,
+            err,
+          );
+        } else {
+          req.renders.eventItems.push(
+            eventItemParser.render(Object.assign(e, values)),
+          );
+        }
 
-      ecb();
-    });
-  }, next);
+        ecb();
+      });
+    },
+    next,
+  );
 }
 
 function renderHeader(req, res, next) {
@@ -250,7 +278,7 @@ function renderEvent(req, res, next) {
   });
 }
 
-export default embedService => ({
+export default (embedService) => ({
   load: loadEmbed.bind(null, embedService),
   loadCustomLayoutData,
   renderHeader,

@@ -1,4 +1,3 @@
-import React from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import { MemoryRouter } from 'react-router';
 import MockAdapter from '@openagenda/axios-mock-adapter';
@@ -14,13 +13,14 @@ import ProvidersDecorator from './decorators/Providers';
 
 import sections from './fixtures/sections.json';
 
-const getSections = agendaSlug => produce(sections, draft => {
-  draft.forEach(section => {
-    section.tabs.forEach(tab => {
-      tab.link = tab.link.replace('{agendaSlug}', agendaSlug);
+const getSections = (agendaSlug) =>
+  produce(sections, (draft) => {
+    draft.forEach((section) => {
+      section.tabs.forEach((tab) => {
+        tab.link = tab.link.replace('{agendaSlug}', agendaSlug);
+      });
     });
   });
-});
 
 export default {
   title: 'All',
@@ -38,6 +38,19 @@ const defaultLayoutStore = {
   },
 };
 
+const Component = () => {
+  const { user, agenda } = useLayoutData();
+
+  return (
+    <div>
+      <p>
+        Layout data is accessible in child component: {user.name} is hosting{' '}
+        {agenda.title}
+      </p>
+    </div>
+  );
+};
+
 export function AgendaAdminLayout(_balek, { axios }) {
   const mock = new MockAdapter(axios);
 
@@ -53,19 +66,6 @@ export function AgendaAdminLayout(_balek, { axios }) {
   ]);
 
   const store = createLayoutStore(defaultLayoutStore, { location: null });
-
-  const Component = () => {
-    const { user, agenda } = useLayoutData();
-
-    return (
-      <div>
-        <p>
-          Layout data is accessible in child component: {user.name} is hosting{' '}
-          {agenda.title}
-        </p>
-      </div>
-    );
-  };
 
   return (
     <ReduxProvider store={store}>
@@ -88,6 +88,20 @@ export function AgendaAdminLayout(_balek, { axios }) {
   );
 }
 
+function ChildLayout(props) {
+  const { children, extraProps } = props;
+
+  return (
+    <div style={{ background: 'lightblue', padding: '1em' }}>
+      <strong>
+        Child layout content: {extraProps.user.name} on{' '}
+        {extraProps.agenda.title} (user loaded by AgendaAdminDataLayout)
+      </strong>
+      <div>{children}</div>
+    </div>
+  );
+}
+
 export function AgendaAdminDataLayout(_balek, { axios }) {
   const mock = new MockAdapter(axios);
 
@@ -103,20 +117,6 @@ export function AgendaAdminDataLayout(_balek, { axios }) {
   ]);
 
   const store = createLayoutStore(defaultLayoutStore, { location: null });
-
-  function ChildLayout(props) {
-    const { children, extraProps } = props;
-
-    return (
-      <div style={{ background: 'lightblue', padding: '1em' }}>
-        <strong>
-          Child layout content: {extraProps.user.name} on{' '}
-          {extraProps.agenda.title} (user loaded by AgendaAdminDataLayout)
-        </strong>
-        <div>{children}</div>
-      </div>
-    );
-  }
 
   return (
     <ReduxProvider store={store}>

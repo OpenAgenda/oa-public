@@ -1,4 +1,9 @@
-import { flatten, formatText, processImage, getRelatedFieldName } from './utils.js';
+import {
+  flatten,
+  formatText,
+  processImage,
+  getRelatedFieldName,
+} from './utils.js';
 
 const acc = ({ accessibility: a }) => ({
   audioDisabilityCompliant: a?.hi ?? false,
@@ -11,7 +16,13 @@ export default async function formatEvent(event, ...args) {
   const options = args.pop();
   const passData = args[0] ?? {};
 
-  const { lang = 'fr', categories = [], before: eventBefore, patch = false, imageBasePath } = options;
+  const {
+    lang = 'fr',
+    categories = [],
+    before: eventBefore,
+    patch = false,
+    imageBasePath,
+  } = options;
 
   const {
     venueId,
@@ -28,12 +39,18 @@ export default async function formatEvent(event, ...args) {
   const formatted = {
     accessibility: acc(event),
     description: await formatText(description || event.longDescription),
-    itemCollectionDetails: await formatText(itemCollectionDetails || event.conditions, { limit: 500 }),
+    itemCollectionDetails: await formatText(
+      itemCollectionDetails || event.conditions,
+      { limit: 500 },
+    ),
   };
 
   if (!patch) {
     formatted.hasTicket = false;
-    formatted.name = await formatText(name || flatten(event.title, lang), { limit: 90, markdownToString: false });
+    formatted.name = await formatText(name || flatten(event.title, lang), {
+      limit: 90,
+      markdownToString: false,
+    });
   }
 
   if (event.image) {
@@ -48,7 +65,7 @@ export default async function formatEvent(event, ...args) {
             path,
           }
           : {
-            url: `${base}${variants.find(v => v.type === 'full').filename}`,
+            url: `${base}${variants.find((v) => v.type === 'full').filename}`,
           },
       ),
     };

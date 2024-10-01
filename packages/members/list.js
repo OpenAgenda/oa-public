@@ -19,7 +19,7 @@ async function _getTotal(knex, k, includeTotal = false, detailed = false) {
   const query = k.clone();
 
   if (!detailed) {
-    return query.count('id as total').then(r => ({
+    return query.count('id as total').then((r) => ({
       total: _.get(r, '0.total'),
       totalPerRole: null,
     }));
@@ -27,7 +27,7 @@ async function _getTotal(knex, k, includeTotal = false, detailed = false) {
   return query
     .select(knex.raw('credential as role, count( id ) as total'))
     .groupBy('role')
-    .then(rows =>
+    .then((rows) =>
       rows.reduce(
         ({ total, totalPerRole }, row) => ({
           totalPerRole: _.set(
@@ -73,7 +73,7 @@ module.exports = async (
 
   const { orderField } = addPaginationAndOrder(k, nav);
 
-  const members = await k.then(rows =>
+  const members = await k.then((rows) =>
     rows.map(
       fromDB.bind(null, {
         includeLegacyFields: legacy,
@@ -83,24 +83,24 @@ module.exports = async (
     ));
 
   if (detailed) {
-    members.forEach(m => Object.assign(m, { eventCount: 0 }));
+    members.forEach((m) => Object.assign(m, { eventCount: 0 }));
   }
 
   if (detailed && _.get(interfaces, 'getUsersByUid')) {
-    const userUids = _.uniq(members.map(m => m.userUid).filter(m => !!m));
+    const userUids = _.uniq(members.map((m) => m.userUid).filter((m) => !!m));
     const users = userUids.length
       ? await interfaces.getUsersByUid(userUids, userOptions)
       : [];
-    members.forEach(m => {
+    members.forEach((m) => {
       m.user = _.find(users, { uid: m.userUid });
     });
   }
 
   if (detailed && _.get(interfaces, 'getAgendasByUid') && members.length) {
     const agendas = await interfaces.getAgendasByUid(
-      members.map(m => m.agendaUid).filter(m => !!m),
+      members.map((m) => m.agendaUid).filter((m) => !!m),
     );
-    members.forEach(m => {
+    members.forEach((m) => {
       m.agenda = _.find(agendas, { uid: m.agendaUid });
     });
   }
@@ -113,9 +113,9 @@ module.exports = async (
     (
       await interfaces.getEventCountByUserUid(
         query.agendaUid,
-        members.map(m => m.userUid),
+        members.map((m) => m.userUid),
       )
-    ).forEach(stat => {
+    ).forEach((stat) => {
       _.find(members, { userUid: stat.userUid }).eventCount = stat.count;
     });
   }

@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const config = require('../testconfig');
 const Service = require('..');
 
-const _timeout = ms => new Promise(rs => setTimeout(rs, ms));
+const _timeout = (ms) => new Promise((rs) => setTimeout(rs, ms));
 
 describe('04 - event search - functional: add', () => {
   let service;
@@ -32,10 +32,12 @@ describe('04 - event search - functional: add', () => {
       countryCode: 'FR',
       timezone: 'Europe/Paris',
     },
-    timings: [{
-      begin: new Date('2027-04-20T12:00:00+0100'),
-      end: new Date('2027-04-20T13:00:00+0100'),
-    }],
+    timings: [
+      {
+        begin: new Date('2027-04-20T12:00:00+0100'),
+        end: new Date('2027-04-20T13:00:00+0100'),
+      },
+    ],
     timezone: 'Europe/Paris',
     state: 2,
   };
@@ -44,8 +46,11 @@ describe('04 - event search - functional: add', () => {
     service = Service(config);
     await service('04_add').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(fs.readFileSync(`${__dirname}/fixtures/04_events.${lastId}.${limit}.json`)),
-
+        JSON.parse(
+          fs.readFileSync(
+            `${__dirname}/fixtures/04_events.${lastId}.${limit}.json`,
+          ),
+        ),
     });
   });
 

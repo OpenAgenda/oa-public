@@ -142,5 +142,6 @@
   "eventTitle": "**Event Title**: %name%",
   "titleSuggestEventChange": "Suggest a change on the event",
   "youSuggestedAEventChange": "You suggested a change on the event",
-  "suggestedAEventChange": "suggested a change on the event"
+  "suggestedAEventChange": "suggested a change on the event",
+  "displaySenderDetails": "Display sender details"
 }

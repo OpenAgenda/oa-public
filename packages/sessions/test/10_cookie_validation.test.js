@@ -14,8 +14,6 @@ describe('session - unit (iso): cookie data validate', () => {
       expires: undefined,
     };
 
-    expect(
-      validate(cookieData),
-    ).toEqual(cookieData);
+    expect(validate(cookieData)).toEqual(cookieData);
   });
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import update from 'immutability-helper';
 import SearchField from '../components/SearchField';
 import PageDecorator from './decorators/PageDecorator';
@@ -16,9 +16,7 @@ function onChange(state, name, value) {
 
 export default {
   title: 'Search',
-  decorators: [
-    PageDecorator,
-  ],
+  decorators: [PageDecorator],
 };
 
 export function Loading() {
@@ -32,7 +30,7 @@ export function Loading() {
       placeholder="do your search"
       threshold={2}
       onChange={(name, value) => setState(onChange(state, name, value))}
-      loading={true}
+      loading
     />
   );
 }

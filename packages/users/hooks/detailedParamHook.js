@@ -4,7 +4,7 @@ const _ = require('lodash');
 const _fields = require('../service/fields');
 
 module.exports = function detailedParamHook() {
-  return context => {
+  return (context) => {
     context.params.query = context.params.query || {};
 
     if (context.params.internal !== true) {

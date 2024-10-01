@@ -10,12 +10,24 @@ const log = logs('core/agendas/utils/cleanEvent/validateEvent');
 
 function distributeCleanData(consolidatedClean, schemaExtensions) {
   const fieldsPerSchema = {
-    agenda: schemaExtensions.agenda ? schemaExtensions.agenda.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
-    network: schemaExtensions.network ? schemaExtensions.network.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
+    agenda: schemaExtensions.agenda
+      ? schemaExtensions.agenda.fields
+        .filter((f) => f.fieldType && f.fieldType !== 'abstract')
+        .map((f) => f.field)
+      : [],
+    network: schemaExtensions.network
+      ? schemaExtensions.network.fields
+        .filter((f) => f.fieldType && f.fieldType !== 'abstract')
+        .map((f) => f.field)
+      : [],
     event: [],
   };
 
-  fieldsPerSchema.event = _.keys(consolidatedClean).filter(field => !fieldsPerSchema.agenda.includes(field) && !fieldsPerSchema.network.includes(field));
+  fieldsPerSchema.event = _.keys(consolidatedClean).filter(
+    (field) =>
+      !fieldsPerSchema.agenda.includes(field)
+      && !fieldsPerSchema.network.includes(field),
+  );
 
   return {
     custom: _.pick(consolidatedClean, fieldsPerSchema.agenda),
@@ -24,7 +36,7 @@ function distributeCleanData(consolidatedClean, schemaExtensions) {
   };
 }
 
-const invalidLocationUidErrorItem = uid => ({
+const invalidLocationUidErrorItem = (uid) => ({
   field: 'location',
   code: 'invalid',
   message: 'provided location uid is invalid',
@@ -33,15 +45,16 @@ const invalidLocationUidErrorItem = uid => ({
 });
 
 function asArray(obj) {
-  return _.keys(obj).map(k => obj[k]).filter(s => !!s);
+  return _.keys(obj)
+    .map((k) => obj[k])
+    .filter((s) => !!s);
 }
 
-export default function validateEvent({
-  validateAgendaEvent,
-  formSchema,
-  networkFormSchema,
-  location,
-}, data, options = {}) {
+export default function validateEvent(
+  { validateAgendaEvent, formSchema, networkFormSchema, location },
+  data,
+  options = {},
+) {
   const {
     draft = false,
     partial = false,
@@ -64,10 +77,17 @@ export default function validateEvent({
   //  * agenda setting (if set) (not yet coded)
   //  * submitted language keys in languages field
   //  * default language
-  const languages = data?.languages || extractLanguages(null, event ? {
-    ...event,
-    ...data,
-  } : data, { defaultLanguage: defaultLang });
+  const languages = data?.languages
+    || extractLanguages(
+      null,
+      event
+        ? {
+          ...event,
+          ...data,
+        }
+        : data,
+      { defaultLanguage: defaultLang },
+    );
 
   log('processed languages: %j', languages);
 
@@ -104,10 +124,14 @@ export default function validateEvent({
     // add:
     //   event data is partial.
 
-    const consolidatedClean = (partial || draft ? validate.part : validate)(validateWithStoredData ? {
-      ...event,
-      ...data,
-    } : data);
+    const consolidatedClean = (partial || draft ? validate.part : validate)(
+      validateWithStoredData
+        ? {
+          ...event,
+          ...data,
+        }
+        : data,
+    );
 
     if (data?.image?.transformAndUpload) {
       consolidatedClean.image = data.image;
@@ -122,32 +146,45 @@ export default function validateEvent({
       throw consolidatedErrors;
     }
 
-    consolidatedErrors.forEach(err => errors.push(_.set(err, 'step', 'validation')));
+    consolidatedErrors.forEach((err) =>
+      errors.push(_.set(err, 'step', 'validation')));
   }
 
   // clean agenda-event data
   try {
     log('evaluating agenda-event reference data');
 
-    clean.agendaEvent = validateAgendaEvent({
-      ...data,
-      ...paths ? { sourcePaths: paths } : {},
-      userUid: member ? member.userUid : data.userUid || data.ownerUid,
-    }, { optionalSecondaryFields, partial });
+    clean.agendaEvent = validateAgendaEvent(
+      {
+        ...data,
+        ...paths ? { sourcePaths: paths } : {},
+        userUid: member ? member.userUid : data.userUid || data.ownerUid,
+      },
+      { optionalSecondaryFields, partial },
+    );
   } catch (agendaEventErrors) {
-    agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
+    agendaEventErrors.forEach((err) =>
+      errors.push(_.set(err, 'step', 'agenda event data validation')));
   }
 
   // location uid needs to be evaluated in location object
   // as default location values set to prepare location creation could be set
-  if (!draft && clean.event && (clean.event.location?.uid || clean.event.locationUid) && !location) {
+  if (
+    !draft
+    && clean.event
+    && (clean.event.location?.uid || clean.event.locationUid)
+    && !location
+  ) {
     errors.push(invalidLocationUidErrorItem(clean.locationUid));
   }
 
   if (errors.length) {
-    throw new BadRequest({
-      info: { errors },
-    }, 'data is invalid');
+    throw new BadRequest(
+      {
+        info: { errors },
+      },
+      'data is invalid',
+    );
   }
 
   return clean;

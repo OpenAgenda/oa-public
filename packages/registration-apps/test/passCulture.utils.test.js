@@ -9,71 +9,87 @@ describe('passCulture', () => {
     describe('price categories', () => {
       test('add a price category to pc payload', () => {
         expect(
-          addPriceCategory({
-            priceCategories: [],
-          }, 0, {
-            price: 2,
-            label: 'Tarif réduit',
-          }),
+          addPriceCategory(
+            {
+              priceCategories: [],
+            },
+            0,
+            {
+              price: 2,
+              label: 'Tarif réduit',
+            },
+          ),
         ).toEqual({
-          priceCategories: [{
-            id: 0,
-            price: 200,
-            label: 'Tarif réduit',
-          }],
+          priceCategories: [
+            {
+              id: 0,
+              price: 200,
+              label: 'Tarif réduit',
+            },
+          ],
         });
       });
 
       test('remove a price category from pc payload causes corresponding dates to be removed as well', () => {
         expect(
-          removePriceCategory({
-            priceCategories: [{
+          removePriceCategory(
+            {
+              priceCategories: [
+                {
+                  id: 0,
+                  price: 2,
+                  label: 'Tarif réduit',
+                },
+                {
+                  id: 1,
+                  price: 250,
+                  label: 'Tarif moins réduit',
+                },
+              ],
+              dates: [
+                {
+                  id: 2,
+                  timingId: 1699801200000,
+                  priceCategoryId: 0,
+                  quantity: 3,
+                },
+                {
+                  id: 3,
+                  timingId: 1699801200000,
+                  priceCategoryId: 1,
+                  quantity: 6,
+                },
+              ],
+            },
+            {
               id: 0,
               price: 2,
               label: 'Tarif réduit',
             },
+          ),
+        ).toEqual({
+          priceCategories: [
             {
               id: 1,
               price: 250,
               label: 'Tarif moins réduit',
-            }],
-            dates: [{
-              id: 2,
-              timingId: 1699801200000,
-              priceCategoryId: 0,
-              quantity: 3,
-            }, {
+            },
+          ],
+          dates: [
+            {
               id: 3,
               timingId: 1699801200000,
               priceCategoryId: 1,
               quantity: 6,
-            }],
-          }, {
-            id: 0,
-            price: 2,
-            label: 'Tarif réduit',
-          }),
-        ).toEqual({
-          priceCategories: [{
-            id: 1,
-            price: 250,
-            label: 'Tarif moins réduit',
-          }],
-          dates: [{
-            id: 3,
-            timingId: 1699801200000,
-            priceCategoryId: 1,
-            quantity: 6,
-          }],
+            },
+          ],
         });
       });
     });
 
     describe('nextId', () => {
       test('get the current value of empty obj', () => {
-        expect(
-          getNextId({}),
-        ).toEqual(0);
+        expect(getNextId({})).toEqual(0);
       });
       test('get the current value of null', () => {
         expect(
@@ -101,14 +117,18 @@ describe('passCulture', () => {
             appliedAt: '2024-04-15T10:39:00+0200',
             response: {
               id: 797878989,
-              priceCategories: [{
-                id: 0,
-                passId: 78979789798,
-              }],
-              dates: [{
-                id: 1,
-                passId: 89564654,
-              }],
+              priceCategories: [
+                {
+                  id: 0,
+                  passId: 78979789798,
+                },
+              ],
+              dates: [
+                {
+                  id: 1,
+                  passId: 89564654,
+                },
+              ],
             },
           }),
         ).toEqual(2);

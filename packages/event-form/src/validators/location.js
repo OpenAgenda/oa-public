@@ -44,7 +44,7 @@ const validateDraft = schema({
   },
 });
 
-module.exports = options => value => {
+module.exports = (options) => (value) => {
   const optional = _.get(options, 'optional', true);
 
   if (optional && value === undefined) {
@@ -58,7 +58,7 @@ module.exports = options => value => {
   try {
     return (optional ? validateDraft : validate)(value);
   } catch (errors) {
-    throw errors.map(e => ({
+    throw errors.map((e) => ({
       ...e,
       field: 'location',
       code: `location.${e.code}`,

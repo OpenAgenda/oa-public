@@ -30,7 +30,7 @@ export default function Conditions({ value, onChange, conditions }) {
           max="500"
           placeholder="Saisissez vos informations de retrait"
           value={itemCollectionDetails}
-          onChange={e => {
+          onChange={(e) => {
             setItemCollectionDetails(e.target.value);
             onChange(e.target.value);
           }}

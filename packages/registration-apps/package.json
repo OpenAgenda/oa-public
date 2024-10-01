@@ -30,6 +30,7 @@
     "react-select": "^5.7.4",
     "react-tagsinput": "^3.19.0",
     "slugify": "^1.4.6",
+    "validator": "^12.2.0",
     "why": "^0.6.2"
   },
   "devDependencies": {

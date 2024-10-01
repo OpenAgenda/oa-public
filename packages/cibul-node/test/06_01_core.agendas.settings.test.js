@@ -7,7 +7,9 @@ import testConfig from './testConfig.js';
 
 describe('core - functional (server): core.agendas().settings.get()', () => {
   let core;
-  const config = testConfig.extendWith({ cachePrefix: 'c06_01_core_agendas_settings_test' });
+  const config = testConfig.extendWith({
+    cachePrefix: 'c06_01_core_agendas_settings_test',
+  });
 
   beforeAll(() => loadFixtures(config.db, '007.sql.js'));
 
@@ -44,9 +46,11 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
   afterAll(() => core.services.shutdown({ clear: true }));
 
   it('get field configuration of an agenda not linked to a network', async () => {
-    const result = await core.agendas(60934473).settings.get({ access: 'internal' });
+    const result = await core
+      .agendas(60934473)
+      .settings.get({ access: 'internal' });
 
-    expect(result.fields.map(f => f.field)).toEqual([
+    expect(result.fields.map((f) => f.field)).toEqual([
       'entreelibre',
       'thematiques-metropolitaines',
       'types-devenements',
@@ -63,7 +67,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
       access: 'internal',
     });
 
-    expect(result.fields.map(f => f.field)).toEqual([
+    expect(result.fields.map((f) => f.field)).toEqual([
       'entreelibre',
       'thematiques-metropolitaines',
       'types-devenements',
@@ -81,7 +85,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
       access: 'internal',
       lang: 'en',
     });
-    expect(result.schema.fields.map(f => f.field)).toEqual([
+    expect(result.schema.fields.map((f) => f.field)).toEqual([
       'entreelibre',
       'thematiques-metropolitaines',
       'types-devenements',
@@ -95,9 +99,15 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
   });
 
   it('updateEventsFields', async () => {
-    await core.agendas(60935574).settings.schema.updateFields([{ field: 'entreelibre', optional: false }]);
+    await core
+      .agendas(60935574)
+      .settings.schema.updateFields([
+        { field: 'entreelibre', optional: false },
+      ]);
     const result = await core.agendas(60935574).settings.schema.get();
-    expect(result.fields.find(f => f.field === 'entreelibre').optional).toBeFalsy();
+    expect(
+      result.fields.find((f) => f.field === 'entreelibre').optional,
+    ).toBeFalsy();
   });
 
   describe('api', () => {
@@ -119,7 +129,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
 
       try {
         contribAccessToken = await axios({
@@ -131,7 +141,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
           data: {
             code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
           },
-        }).then(r => r.data.access_token);
+        }).then((r) => r.data.access_token);
       } catch (e) {
         // console.log(e.response);
       }
@@ -140,13 +150,19 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
     afterAll(() => server.close());
 
     it('get settings eventSchema for configuration', async () => {
-      const res = await axios.get(`http://localhost:3000/agendas/60935574/settings/eventSchema/configure?key=${administratorKey}`, { params: { lang: 'en' } });
+      const res = await axios.get(
+        `http://localhost:3000/agendas/60935574/settings/eventSchema/configure?key=${administratorKey}`,
+        { params: { lang: 'en' } },
+      );
       expect(res.data.parents.length).toBe(2);
       expect(res.data.schema).toBeTruthy();
     });
 
     it('get settings eventSchema without split options', async () => {
-      const res = await axios.get(`http://localhost:3000/agendas/60935574/settings/eventSchema?key=${administratorKey}`, { params: {} });
+      const res = await axios.get(
+        `http://localhost:3000/agendas/60935574/settings/eventSchema?key=${administratorKey}`,
+        { params: {} },
+      );
       expect(res.data.fields).toBeTruthy();
     });
 
@@ -162,9 +178,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
             'content-type': 'application/json',
           },
           data: {
-            fields: [
-              { field: 'phone', optional: false },
-            ],
+            fields: [{ field: 'phone', optional: false }],
           },
         });
       } catch (error) {
@@ -185,9 +199,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
             'content-type': 'application/json',
           },
           data: {
-            fields: [
-              { field: 'phone', optional: false },
-            ],
+            fields: [{ field: 'phone', optional: false }],
           },
         });
       } catch (error) {

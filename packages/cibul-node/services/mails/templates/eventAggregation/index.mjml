@@ -16,12 +16,9 @@
         </mj-text>
 
         <mj-text>
-          <%- __('body', {
-            event: _.escape(event),
-            sourceAgenda: _.escape(sourceAgenda),
-            state: __(state),
-            b: chunks => `<b>${chunks}</b>`
-          }) %>
+          <%- __('body', { event: _.escape(event), sourceAgenda:
+          _.escape(sourceAgenda), state: __(state), b: chunks =>
+          `<b>${chunks}</b>` }) %>
         </mj-text>
 
         <mj-button

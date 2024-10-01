@@ -129,7 +129,7 @@ export default function reducer(state = initialState, action = null) {
         patching: true,
       };
     case PATCH_SUCCESS: {
-      const data = state.data.map(m =>
+      const data = state.data.map((m) =>
         (m.id === action.memberId
           ? {
             ...m,
@@ -157,7 +157,7 @@ export default function reducer(state = initialState, action = null) {
         patching: false,
       };
     case UPDATE_LIST_ITEM: {
-      const index = _.findIndex(state.data, m => m.id === action.memberId);
+      const index = _.findIndex(state.data, (m) => m.id === action.memberId);
 
       if (index === -1) return state;
 
@@ -187,7 +187,7 @@ export default function reducer(state = initialState, action = null) {
         showInviteResult: true,
       };
     case REMOVE_SUCCESS: {
-      const index = _.findIndex(state.data, m => m.id === action.memberId);
+      const index = _.findIndex(state.data, (m) => m.id === action.memberId);
 
       if (index === -1) return state;
 
@@ -221,7 +221,7 @@ export default function reducer(state = initialState, action = null) {
     case REMOVE_CRED_FILTER:
       return {
         ...state,
-        credFilters: state.credFilters.filter(role => role !== action.role),
+        credFilters: state.credFilters.filter((role) => role !== action.role),
       };
     case CLEAN_CRED_FILTERS:
       return {
@@ -359,8 +359,8 @@ export function invite(agenda, data) {
       const { res } = getState();
       const emails = _.get(data, 'emails', '')
         .split(/[\s\n,]+/)
-        .map(email => email.trim())
-        .filter(email => !!email);
+        .map((email) => email.trim())
+        .filter((email) => !!email);
 
       return client.post(res.invite.replace(':agendaUid', agenda.uid), {
         emails,

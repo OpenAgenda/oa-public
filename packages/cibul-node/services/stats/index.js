@@ -17,8 +17,7 @@ class Stats {
     const stats = await this.redisClient.get(`oa:stats:${agendaUid}`);
 
     if (stats) {
-      return JSON.parse(stats)
-        .reduce(addFieldSchema(agendaSchema), []);
+      return JSON.parse(stats).reduce(addFieldSchema(agendaSchema), []);
     }
 
     return [
@@ -87,7 +86,9 @@ export function plugApp(app) {
     async (req, res, next) => {
       try {
         const { core } = req.app.services;
-        const schema = await core.agendas(req.agenda.uid).settings.schema.getMerged();
+        const schema = await core
+          .agendas(req.agenda.uid)
+          .settings.schema.getMerged();
 
         const result = await stats.get(req.agenda.uid, schema);
         res.send(result);

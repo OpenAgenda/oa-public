@@ -18,19 +18,24 @@ const imageVariants = require('./lib/imageVariants');
 const utils = require('./utils');
 const fields = require('./lib/fields');
 
-module.exports = c => {
-  const config = Object.keys(c).reduce((carriedConfig, key) => (
-    carriedConfig[key] !== undefined && c[key] !== undefined ? {
-      ...carriedConfig,
-      [key]: c[key],
-    } : carriedConfig), {
-    imagePath: '',
-    defaultImage: null,
-    Files: null,
-    schema: 'event_2',
-    maxImageSize: 20971520, // 20MB
-    interfaces: null,
-  });
+module.exports = (c) => {
+  const config = Object.keys(c).reduce(
+    (carriedConfig, key) =>
+      (carriedConfig[key] !== undefined && c[key] !== undefined
+        ? {
+          ...carriedConfig,
+          [key]: c[key],
+        }
+        : carriedConfig),
+    {
+      imagePath: '',
+      defaultImage: null,
+      Files: null,
+      schema: 'event_2',
+      maxImageSize: 20971520, // 20MB
+      interfaces: null,
+    },
+  );
 
   if (c.logger) {
     logger.setModuleConfig(c.logger);
@@ -39,15 +44,19 @@ module.exports = c => {
   const service = {
     config,
     clients: {
-      knex: c.knex || knex({
-        client: 'mysql',
-        connection: config.mysql,
-      }),
+      knex:
+        c.knex
+        || knex({
+          client: 'mysql',
+          connection: config.mysql,
+        }),
     },
-    imageTransformAndUpload: config.Files && config.Files({
-      key: 'image',
-      variants: imageVariants(config.Files),
-    }),
+    imageTransformAndUpload:
+      config.Files
+      && config.Files({
+        key: 'image',
+        variants: imageVariants(config.Files),
+      }),
     interfaces: config.interfaces,
     fieldUtils: {
       fromItemToEntry: fromItemToEntry.bind(null, fields),

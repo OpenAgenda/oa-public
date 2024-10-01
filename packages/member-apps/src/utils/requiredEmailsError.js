@@ -1,4 +1,4 @@
-export default origin => [
+export default (origin) => [
   {
     field: 'emails',
     origin,

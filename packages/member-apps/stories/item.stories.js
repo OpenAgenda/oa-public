@@ -33,7 +33,7 @@ export const viewedByAdministrator = () => (
     }}
     userRole={2}
     i18n={{
-      getLabel: code =>
+      getLabel: (code) =>
         ({
           noName: 'Sans nom',
           moreInfoModerator: 'Un détail sur le modérateur',
@@ -49,7 +49,7 @@ export const viewedByAdministrator = () => (
           event: 'x événements',
           editProfile: 'Modifier le profil',
           sendAMessage: 'Contacter',
-        }[code] ?? code),
+        })[code] ?? code,
     }}
     LinkComponent={({ children }) => (
       <a href="#bim" className="btn btn-link padding-left-z">
@@ -92,7 +92,7 @@ export const deletedAccount = () => (
       }}
       userRole={2}
       i18n={{
-        getLabel: code =>
+        getLabel: (code) =>
           ({
             noName: 'Sans nom',
             moreInfoModerator: 'Un détail sur le modérateur',
@@ -108,7 +108,7 @@ export const deletedAccount = () => (
             event: 'x événements',
             editProfile: 'Modifier le profil',
             sendAMessage: 'Contacter',
-          }[code] ?? code),
+          })[code] ?? code,
       }}
       LinkComponent={({ children }) => (
         <a href="#bim" className="btn btn-link padding-left-z">

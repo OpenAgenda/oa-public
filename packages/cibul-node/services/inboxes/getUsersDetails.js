@@ -7,20 +7,22 @@ export default async function getUsersDetails(services, usersToBeDetailed) {
     return [];
   }
 
-  return (await usersSvc.find({
-    query: {
-      uid: {
-        $in: usersToBeDetailed.map(v => v.userUid),
+  return (
+    await usersSvc.find({
+      query: {
+        uid: {
+          $in: usersToBeDetailed.map((v) => v.userUid),
+        },
+        $skip: 0,
+        $limit: 100,
       },
-      $skip: 0,
-      $limit: 100,
-    },
-    removed: null,
-  }))
-    .data
-    .map(user => ({
-      uid: user.uid,
-      name: user.fullName,
-      avatar: user.image ? config.aws.imageBucketPath + user.image : config.aws.defaultImagePath,
-    }));
+      removed: null,
+    })
+  ).data.map((user) => ({
+    uid: user.uid,
+    name: user.fullName,
+    avatar: user.image
+      ? config.aws.imageBucketPath + user.image
+      : config.aws.defaultImagePath,
+  }));
 }

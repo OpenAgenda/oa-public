@@ -13,16 +13,18 @@ export function ConfimationSuccess() {
     <Confirmation
       event={{
         ...event,
-        registration: [{
-          type: 'link',
-          value: 'https://link.pass.com',
-          service: 'passCulture',
-          data: {
-            eventOffer: {
-              id: 123,
+        registration: [
+          {
+            type: 'link',
+            value: 'https://link.pass.com',
+            service: 'passCulture',
+            data: {
+              eventOffer: {
+                id: 123,
+              },
             },
           },
-        }],
+        ],
       }}
       res={{
         edit: 'https://integration.passculture.pro/offre/individuelle/:id/recapitulatif',
@@ -37,17 +39,19 @@ export function ConfimationPending() {
     <Confirmation
       event={{
         ...event,
-        registration: [{
-          type: 'link',
-          value: 'https://link.pass.com',
-          service: 'passCulture',
-          data: {
-            eventOffer: {
-              id: 123,
+        registration: [
+          {
+            type: 'link',
+            value: 'https://link.pass.com',
+            service: 'passCulture',
+            data: {
+              eventOffer: {
+                id: 123,
+              },
+              warning: 'pending',
             },
-            warning:'pending'
           },
-        }],
+        ],
       }}
       res={{
         edit: 'https://integration.passculture.pro/offre/individuelle/:id/recapitulatif',
@@ -62,20 +66,25 @@ export function ConfirmationFailure() {
     <Confirmation
       event={{
         ...event,
-        registration: [{
-          type: 'link',
-          value: 'https://link.pass.com',
-          service: 'passCulture',
-          data: {
-            id: 123,
-            errors: [{
-              message: 'failed to create all dates',
-              fieldLabel: 'Pass Culture',
-              code: 'registration.pass.invalidDate.quantity',
-              label: 'Certaines dates n\'ont pas pu être créées: les quantités saisies doivent être des entiers positifs',
-            }],
+        registration: [
+          {
+            type: 'link',
+            value: 'https://link.pass.com',
+            service: 'passCulture',
+            data: {
+              id: 123,
+              errors: [
+                {
+                  message: 'failed to create all dates',
+                  fieldLabel: 'Pass Culture',
+                  code: 'registration.pass.invalidDate.quantity',
+                  label:
+                    "Certaines dates n'ont pas pu être créées: les quantités saisies doivent être des entiers positifs",
+                },
+              ],
+            },
           },
-        }],
+        ],
       }}
       res={{
         edit: 'https://integration.passculture.pro/offre/individuelle/:id/recapitulatif',

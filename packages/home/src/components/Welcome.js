@@ -56,7 +56,7 @@ export function AgendaItem({ agenda, actions = false }) {
 }
 
 export default function Welcome() {
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
   const { getLabel } = useContext(I18nContext);
 
   const apiClient = useApiClient();
@@ -103,7 +103,11 @@ export default function Welcome() {
                   className="form-control"
                   placeholder={getLabel('searchAgenda')}
                 />
-                <button type="submit" className="btn">
+                <button
+                  type="submit"
+                  className="btn"
+                  aria-label={getLabel('searchAgenda')}
+                >
                   <i className="fa fa-search" aria-hidden="true" />
                 </button>
               </div>
@@ -122,7 +126,7 @@ export default function Welcome() {
                 ) : null}
 
                 {agendasQuery.data?.agendas
-                  ? agendasQuery.data.agendas.map(agenda => (
+                  ? agendasQuery.data.agendas.map((agenda) => (
                     <AgendaItem key={agenda.uid} agenda={agenda} actions />
                   ))
                   : null}

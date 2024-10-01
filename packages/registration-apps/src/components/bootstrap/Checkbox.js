@@ -9,7 +9,9 @@ export default function Checkbox({
   children = null,
 }) {
   return (
-    <div className={`checkbox margin-right-sm margin-bottom-sm ${warning ? 'has-warning' : ''}`}>
+    <div
+      className={`checkbox margin-right-sm margin-bottom-sm ${warning ? 'has-warning' : ''}`}
+    >
       <label htmlFor={id}>
         <input
           id={id}
@@ -19,7 +21,7 @@ export default function Checkbox({
           className="margin-right-sm"
         />
         <strong>{label}</strong>
-        {info ? (<div className="text-muted"> {info} </div>) : null}
+        {info ? <div className="text-muted"> {info} </div> : null}
       </label>
       <div className="checkbox-child">{children}</div>
     </div>

@@ -61,7 +61,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
     fetched.agendaEvents = agendaEvents;
   }
 
-  const eventUids = agendaEvents.map(ae => ae.eventUid);
+  const eventUids = agendaEvents.map((ae) => ae.eventUid);
 
   if (load.event) {
     log('loading %s events', eventUids.length);
@@ -101,13 +101,13 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
   if (detailed && load.event) {
     fetched.originAgendas = (
       await agendas.list({
-        uid: fetched.events.map(e => e.agendaUid),
+        uid: fetched.events.map((e) => e.agendaUid),
       })
-    ).agendas.map(a => _.omit(a, ['id', 'indexed']));
+    ).agendas.map((a) => _.omit(a, ['id', 'indexed']));
   }
 
   const userUids = detailed && agendaEvents.length
-    ? agendaEvents.map(ae => ae.userUid).filter(userUid => !!userUid)
+    ? agendaEvents.map((ae) => ae.userUid).filter((userUid) => !!userUid)
     : [];
 
   if (detailed && load.member && agendaEvents.length) {
@@ -119,7 +119,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
         { detailed, access, roleAsSlug: false },
       )
       .then(({ items }) =>
-        items.map(m =>
+        items.map((m) =>
           _.omit(m, ['deletedUser', 'createdAt', 'updatedAt', 'eventCount'])));
   }
 
@@ -135,7 +135,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
         detailed: false,
       })
       .then(({ data }) =>
-        data.map(d => _.pick(d, ['uid', 'fullName', 'culture'])));
+        data.map((d) => _.pick(d, ['uid', 'fullName', 'culture'])));
   }
 
   const compiledEvents = eventUids
@@ -162,7 +162,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
               : null,
           },
           {
-            includeFields: formSchema.fields.map(f => f.field),
+            includeFields: formSchema.fields.map((f) => f.field),
             originAgenda: load.event
               ? _.find(fetched.originAgendas, { uid: event.agendaUid })
               : null,
@@ -176,7 +176,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
             user:
               load.user && fetched.users
                 ? fetched.users.find(
-                  u => u.uid === fetched.agendaEvents[index].userUid,
+                  (u) => u.uid === fetched.agendaEvents[index].userUid,
                 )
                 : null,
             load,
@@ -184,7 +184,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
         ),
       };
     })
-    .filter(event => !!event);
+    .filter((event) => !!event);
 
   return returnPayload
     ? {

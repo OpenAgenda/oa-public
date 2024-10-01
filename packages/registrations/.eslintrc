@@ -1,12 +1,12 @@
 {
-  "extends": "@openagenda",
+  "extends": "../../.eslintrc",
 
   "parserOptions": {
     "sourceType": "module"
   },
 
   "ignorePatterns": [
-    "dist"
+    "/dist"
   ],
 
   "overrides": [{

@@ -12,16 +12,21 @@ import renderSuggestEventChangeApp from './renders/suggestEventChangeApp.js';
 
 function eventLoader(events) {
   return (req, res, next) => {
-    events.get({
-      slug: req.params.eventSlug,
-    }, {
-      access: 'internal',
-      includeImagePath: true,
-      private: null,
-    }).then(event => {
-      req.event = event;
-      next();
-    }, next);
+    events
+      .get(
+        {
+          slug: req.params.eventSlug,
+        },
+        {
+          access: 'internal',
+          includeImagePath: true,
+          private: null,
+        },
+      )
+      .then((event) => {
+        req.event = event;
+        next();
+      }, next);
   };
 }
 
@@ -62,9 +67,12 @@ export default (app, config, services) => {
     sessions.mw.load(),
     checkUser,
     (req, res, next) => {
-      usersSvc.refresh(req.user.uid, {
-        lastInboxCheck: true,
-      }).then(() => res.sendStatus(200)).catch(next);
+      usersSvc
+        .refresh(req.user.uid, {
+          lastInboxCheck: true,
+        })
+        .then(() => res.sendStatus(200))
+        .catch(next);
     },
   );
 
@@ -157,8 +165,9 @@ export default (app, config, services) => {
     members.mw.load,
     cmn.loadBaseData('oa-main.css'),
     (req, res, next) => {
-      agendaLocations.get(req.params.locationUid.split('.').pop())
-        .then(location => {
+      agendaLocations
+        .get(req.params.locationUid.split('.').pop())
+        .then((location) => {
           req.location = location;
           next();
         }, next);
@@ -176,8 +185,9 @@ export default (app, config, services) => {
     members.mw.load,
     cmn.loadBaseData('oa-main.css'),
     (req, res, next) => {
-      events.get(req.params.eventUid, { detailed: true, access: 'internal' })
-        .then(event => {
+      events
+        .get(req.params.eventUid, { detailed: true, access: 'internal' })
+        .then((event) => {
           if (event.ownerUid === req.member.userUid && req.member.role === 1) {
             req.event = event;
             next();
@@ -198,15 +208,18 @@ export default (app, config, services) => {
     }),
     members.mw.load,
     loadEvent,
-    cmn.loadBaseData(req => ({
-      pageClass: 'wsq inbox',
-      scriptParams: {
-        role: req.member?.role,
-        agenda: req.agenda,
-        event: req.event,
-        lang: req.lang,
-      },
-    }), 'oa-main.css'),
+    cmn.loadBaseData(
+      (req) => ({
+        pageClass: 'wsq inbox',
+        scriptParams: {
+          role: req.member?.role,
+          agenda: req.agenda,
+          event: req.event,
+          lang: req.lang,
+        },
+      }),
+      'oa-main.css',
+    ),
     renderEmbedInbox,
   );
 };

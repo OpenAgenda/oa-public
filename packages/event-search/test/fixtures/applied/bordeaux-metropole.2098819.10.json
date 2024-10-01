@@ -109,18 +109,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -275,18 +270,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -441,18 +431,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -607,18 +592,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1696,36 +1676,15 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
-      "recurring": [
-        2
-      ],
+      "intermunicipal_interest": [1],
+      "recurring": [2],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        17,
-        20,
-        23,
-        24,
-        25,
-        32,
-        38,
-        40,
-        41
+        8, 9, 10, 11, 12, 13, 14, 17, 20, 23, 24, 25, 32, 38, 40, 41
       ],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        23890347
-      ],
+      "sourcePaths": [23890347],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1772,12 +1731,7 @@
         "fr": "BLANCHE NEIGE\n\nMercredi 8 janvier 2020\n\n3 séances d'1 heure à 10h30, 14h15 et 15h15\n\nSalle Gérard Philipe 14 avenue de Verdun 33127 Martignas sur Jalle\n\nCompagnie : Scopitone & Compagnie (France-Rennes)\n\nSite compagnie : http://www.scopitoneetcompagnie.com\n\nTout Public à partir de 4 ans\n\nTarif 6 €\n\nRenseignements 06 61 26 30 99"
       },
       "keywords": {
-        "fr": [
-          "spectacle",
-          "conte",
-          "théatre d'objets",
-          "jeunesse"
-        ]
+        "fr": ["spectacle", "conte", "théatre d'objets", "jeunesse"]
       },
       "conditions": {
         "fr": "Tout Public à partir de 4 ans -Tarif 6 €"
@@ -1841,10 +1795,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "06 61 26 30 99",
-        "reservations@leclam-martignas.fr"
-      ],
+      "registration": ["06 61 26 30 99", "reservations@leclam-martignas.fr"],
       "location": {
         "uid": 29289901,
         "slug": "complexe-dolange-salle-gerard-philipe-et-exterieur-avenue-de-verdun",
@@ -1872,17 +1823,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        13738634
-      ],
+      "sourcePaths": [13738634],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1929,9 +1876,7 @@
         "fr": "Lumières sur Traits d’union\n---------------------------\n\nImaginée par le groupe de travail composé d’habitants, de commerçants, de membres du conseil des sages et de conseils de quartier Villenavais, la volonté de donner une identité diurne et nocturne au cœur de l’îlot Aristide Briand (1re réalisation de la ZAC route de Toulouse) était forte. Le commissaire du projet Traits d’Union, Pierre Lecaroz, a rendu possible cette réalisation en créant la rencontre entre l’artiste [Stéphane Carricondo](http://stephanecarricondo.com/) et le concepteur-lumière [Géraud Périole](https://www.geraudperiole.com/). Ce dernier nous propose une nouvelle interprétation de la fresque à la tombée de la nuit.\n\n### Venez vivre avec nous cet événement et partageons un vin chaud pour célébrer ce temps fort.\n\n**La mise en lumière sera dévoilée le mercredi 18 décembre à 18h30, place Aristide-Briand, en présence de** [**Stéphane Carricondo**](http://stephanecarricondo.com/) **et de** [**Géraud Périole**](https://www.geraudperiole.com/) **à l’occasion du** [**marché de Noël des commerçants**](https://www.villenavedornon.fr/agenda/65168499/)**.**\n\nDécouvrez et partagez l’événement\n\n« Traits d’union » est une œuvre réalisée dans le cadre du programme d’art public « L’art dans la ville » de [Bordeaux Métropole](https://www.bordeaux-metropole.fr/)."
       },
       "keywords": {
-        "fr": [
-          "Street-art"
-        ]
+        "fr": ["Street-art"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -2013,17 +1958,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 59,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        26283955
-      ],
+      "sourcePaths": [26283955],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -2070,10 +2011,7 @@
         "fr": "La mise en lumière de la fresque _Traits d’Union_ sera dévoilée le **mercredi 18 décembre à 18h30, Place Aristide Briand, à Villenave d’Ornon** en présence de Stéphane Carricondo, et de Géraud Périole concepteur lumière à l’occasion du marché de Noël des commerçants.\n\nUn vin chaud sera servi pour célébrer ensemble ce temps fort.\n\nPlus d'infos [https://www.bordeaux-metropole.fr/Actualites/Villenave-d-Ornon-une-fresque-monumentale-realisee-sur-l-immeuble-Orange](https://www.bordeaux-metropole.fr/Actualites/Villenave-d-Ornon-une-fresque-monumentale-realisee-sur-l-immeuble-Orange)"
       },
       "keywords": {
-        "fr": [
-          "fresque",
-          "lumière"
-        ]
+        "fr": ["fresque", "lumière"]
       },
       "conditions": {
         "fr": "Entrée libre"
@@ -2155,15 +2093,10 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 45,
-      "thematiques-bordeaux-metropole": [
-        9,
-        23
-      ],
+      "thematiques-bordeaux-metropole": [9, 23],
       "state": 0,
       "featured": false,
       "sourcePaths": [],
@@ -2303,18 +2236,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -2471,18 +2399,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {

@@ -78,9 +78,7 @@
         "min": 3,
         "max": 99
       },
-      "registration": [
-        "https://rochefort-bd.fr"
-      ],
+      "registration": ["https://rochefort-bd.fr"],
       "location": {
         "uid": 8590057,
         "slug": "palais-des-congres656",
@@ -114,17 +112,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "51029090100014",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -261,9 +255,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -413,9 +405,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -524,9 +514,7 @@
         "min": 0,
         "max": 99
       },
-      "registration": [
-        "http://www.eauzebd.com"
-      ],
+      "registration": ["http://www.eauzebd.com"],
       "location": {
         "uid": 60854360,
         "slug": "salle-des-fetes651",
@@ -560,9 +548,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -712,9 +698,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -831,9 +815,7 @@
         "min": 1,
         "max": 99
       },
-      "registration": [
-        "gaelle@bdfugue.com"
-      ],
+      "registration": ["gaelle@bdfugue.com"],
       "location": {
         "uid": 85067452,
         "slug": "complexe-danimation",
@@ -867,9 +849,7 @@
       "tarif": "1€ pour les 12-18 ans, 3€ pour les adultes",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Sevrier BD",
       "type-de-structure": 621,
@@ -1016,9 +996,7 @@
       "tarif": "gratuit jusqu'à 14 ans , 1 euro lycéens, apprentis, étudiants; 2 euros adultes",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1278,9 +1256,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "http://www.enimie-bd.fr"
-      ],
+      "registration": ["http://www.enimie-bd.fr"],
       "location": {
         "uid": 88938747,
         "slug": "espace-burle",
@@ -1314,9 +1290,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1474,9 +1448,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1589,9 +1561,7 @@
         "min": 6,
         "max": 99
       },
-      "registration": [
-        "http://www.roubaixcomicsfestival.com/"
-      ],
+      "registration": ["http://www.roubaixcomicsfestival.com/"],
       "location": {
         "uid": 27954866,
         "slug": "salle-watremez-roubaix",
@@ -1625,9 +1595,7 @@
       "tarif": "8 € / 5 €",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,

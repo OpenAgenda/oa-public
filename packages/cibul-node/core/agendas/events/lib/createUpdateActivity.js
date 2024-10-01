@@ -40,7 +40,10 @@ export default async function createActivity(services, before, after, context) {
   let user;
 
   if (!_.get(context, 'userUid')) {
-    return log('warn', 'userUid is not set in context, will not register activity');
+    return log(
+      'warn',
+      'userUid is not set in context, will not register activity',
+    );
   }
 
   try {
@@ -52,15 +55,18 @@ export default async function createActivity(services, before, after, context) {
   const changes = diff(before, after);
 
   const allChangedFields = (changes ?? [])
-    .map(v => v.path[0])
+    .map((v) => v.path[0])
     .filter((v, i, a) => a.indexOf(v) === i)
-    .filter(field => field !== 'state');
+    .filter((field) => field !== 'state');
 
   const changedFields = allChangedFields.reduce((accu, changedField) => {
-    const fieldSchema = formSchema.fields.find(v => v.field === changedField);
+    const fieldSchema = formSchema.fields.find((v) => v.field === changedField);
 
     // skip internal fields
-    if (fieldSchema.write?.length === 1 && fieldSchema.write[0] === 'internal') {
+    if (
+      fieldSchema.write?.length === 1
+      && fieldSchema.write[0] === 'internal'
+    ) {
       return accu;
     }
 
@@ -74,7 +80,10 @@ export default async function createActivity(services, before, after, context) {
       accu[fieldAccess] = [];
     }
 
-    if (labels[fieldSchema.field] && _.isEqual(fieldSchema.label, labels[fieldSchema.field])) {
+    if (
+      labels[fieldSchema.field]
+      && _.isEqual(fieldSchema.label, labels[fieldSchema.field])
+    ) {
       accu[fieldAccess].push(fieldSchema.field);
     } else if (fieldSchema.label) {
       accu[fieldAccess].push({ label: fieldSchema.label });
@@ -88,24 +97,27 @@ export default async function createActivity(services, before, after, context) {
     || changedFields.administrator?.length;
 
   if (hasChanges) {
-    await activities.addActivity({ entityType: 'event', entityUid: after.uid }, {
-      actor: `user:${user.uid}`,
-      verb: 'event.update',
-      object: `event:${after.uid}`,
-      target: `agenda:${agenda.uid}`,
-      store: {
-        labels: {
-          actor: member.name ?? member.custom?.contactName ?? user.fullName,
-          object: before.title,
-          target: agenda.title,
+    await activities.addActivity(
+      { entityType: 'event', entityUid: after.uid },
+      {
+        actor: `user:${user.uid}`,
+        verb: 'event.update',
+        object: `event:${after.uid}`,
+        target: `agenda:${agenda.uid}`,
+        store: {
+          labels: {
+            actor: member.name ?? member.custom?.contactName ?? user.fullName,
+            object: before.title,
+            target: agenda.title,
+          },
+          diff: changes,
+          contributorFields: changedFields.contributor,
+          moderatorFields: changedFields.moderator,
+          administratorFields: changedFields.administrator,
+          userUid: agendaEvent.userUid,
         },
-        diff: changes,
-        contributorFields: changedFields.contributor,
-        moderatorFields: changedFields.moderator,
-        administratorFields: changedFields.administrator,
-        userUid: agendaEvent.userUid,
       },
-    });
+    );
     log('changes were made, added activity');
   } else {
     log('no changes were made');

@@ -1,24 +1,44 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import { Image, Spinner } from '@openagenda/react-shared';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
-import { getTime, getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
+import {
+  getTime,
+  getCurrentValue,
+} from '@openagenda/registrations/passCulture/iso/utils';
 
 import FormModal from './FormModal';
 import UnlinkModal from './UnlinkModal';
-import { logoPath, rejectedLogoPath, errorLogoPath, pendingLogoPath, isPatchMode } from './utils';
+import {
+  logoPath,
+  rejectedLogoPath,
+  errorLogoPath,
+  pendingLogoPath,
+  isPatchMode,
+} from './utils';
 
-function checkboxText({ offerWasRejected, offerIsPending, offerHasError, patchMode, settings, value }) {
+function checkboxText({
+  offerWasRejected,
+  offerIsPending,
+  offerHasError,
+  patchMode,
+  settings,
+  value,
+}) {
   if (offerWasRejected) {
     return (
       <>
         <div className="text-danger">
-          Cette offre a été rejetée par l&apos;equipe du pass. Décochez la case pour la dissocier.
+          Cette offre a été rejetée par l&apos;equipe du pass. Décochez la case
+          pour la dissocier.
         </div>
         <a
           rel="noreferrer"
           className="btn btn-link padding-all-z"
           target="_blank"
-          href={settings.res.offerEditLink.replace(':id', value[0]?.response?.passId)}
+          href={settings.res.offerEditLink.replace(
+            ':id',
+            value[0]?.response?.passId,
+          )}
         >
           Voir l&apos;offre sur la plateforme pass Culture
         </a>
@@ -27,7 +47,10 @@ function checkboxText({ offerWasRejected, offerIsPending, offerHasError, patchMo
   }
   if (offerIsPending) {
     return (
-      <div className="text-warning">L&apos;offre est en attente de validation par l&apos;équipe du Pass Culture.</div>
+      <div className="text-warning">
+        L&apos;offre est en attente de validation par l&apos;équipe du Pass
+        Culture.
+      </div>
     );
   }
   if (offerHasError) {
@@ -43,11 +66,30 @@ function checkboxText({ offerWasRejected, offerIsPending, offerHasError, patchMo
       </div>
     );
   }
-  if (patchMode) return <div className="text-muted">Je souhaite mettre à jour mon offre pass culture pour cet événement</div>;
-  return <div className="text-muted">Je souhaite créer une offre pass culture pour cet événement</div>;
+  if (patchMode) {
+    return (
+      <div className="text-muted">
+        Je souhaite mettre à jour mon offre pass culture pour cet événement
+      </div>
+    );
+  }
+  return (
+    <div className="text-muted">
+      Je souhaite créer une offre pass culture pour cet événement
+    </div>
+  );
 }
 
-export default ({ value, onChange, timings = [], settings, location, longDesc, title, conditions }) => {
+export default ({
+  value,
+  onChange,
+  timings = [],
+  settings,
+  location,
+  longDesc,
+  title,
+  conditions,
+}) => {
   const [modal, setModal] = useState(false);
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passSettingsData, setPassSettingsData] = useState({});
@@ -56,11 +98,20 @@ export default ({ value, onChange, timings = [], settings, location, longDesc, t
   const patchMode = useMemo(() => isPatchMode(value || []), [value]);
 
   const hasData = useMemo(() => !!Object.keys(value ?? {}).length, [value]);
-  const hasSettingsData = useMemo(() => !!Object.keys(passSettingsData).length, [passSettingsData]);
+  const hasSettingsData = useMemo(
+    () => !!Object.keys(passSettingsData).length,
+    [passSettingsData],
+  );
   const currentValue = useMemo(() => getCurrentValue(value), [value]);
 
-  const offerWasRejected = useMemo(() => !!currentValue.isRejected === true, [currentValue]);
-  const offerIsPending = useMemo(() => !!currentValue.isPending === true, [currentValue]);
+  const offerWasRejected = useMemo(
+    () => !!currentValue.isRejected === true,
+    [currentValue],
+  );
+  const offerIsPending = useMemo(
+    () => !!currentValue.isPending === true,
+    [currentValue],
+  );
   const offerHasError = useMemo(() => !!currentValue.error, [currentValue]);
 
   const currLogoPath = useMemo(() => {
@@ -81,29 +132,46 @@ export default ({ value, onChange, timings = [], settings, location, longDesc, t
   const issues = useMemo(
     () =>
       []
-        .concat(!upcomingTimings.length ? 'Des horaires à venir doivent être saisis dans le champ Horaires' : [])
+        .concat(
+          !upcomingTimings.length
+            ? 'Des horaires à venir doivent être saisis dans le champ Horaires'
+            : [],
+        )
         .concat(
           hasData
             && hasSettingsData
-            && !validateLocalData(currentValue, { timings }, { boolMode: true, ...passSettingsData })
+            && !validateLocalData(
+              currentValue,
+              { timings },
+              { boolMode: true, ...passSettingsData },
+            )
             ? 'Les données Pass saisies sont soit erronées soit incomplètes.'
             : [],
         ),
-    [upcomingTimings, hasData, timings, passSettingsData, hasSettingsData, currentValue],
+    [
+      upcomingTimings,
+      hasData,
+      timings,
+      passSettingsData,
+      hasSettingsData,
+      currentValue,
+    ],
   );
 
   useEffect(() => {
     fetch(settings.res.settings)
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         setPassSettingsData(data);
         setIsLoadingPassData(false);
       });
 
     fetch(settings.res.context)
-      .then(r => r.json())
-      .then(data => {
-        setHasAccess(['administrator', 'moderator'].includes(data.me.member?.role));
+      .then((r) => r.json())
+      .then((data) => {
+        setHasAccess(
+          ['administrator', 'moderator'].includes(data.me.member?.role),
+        );
       })
       .catch(() => {
         setHasAccess(false);
@@ -126,7 +194,7 @@ export default ({ value, onChange, timings = [], settings, location, longDesc, t
   }, [onChange, patchMode, value]);
 
   const onSubmit = useCallback(
-    v => {
+    (v) => {
       if (v.eventDuration === '') delete v.eventDuration;
       onChange(v);
       setModal(null);
@@ -161,7 +229,10 @@ export default ({ value, onChange, timings = [], settings, location, longDesc, t
       ) : null}
       {modal === 'unlink' ? (
         <UnlinkModal
-          editPassHRef={settings.res.offerEditLink.replace(':id', value[0]?.response?.passId)}
+          editPassHRef={settings.res.offerEditLink.replace(
+            ':id',
+            value[0]?.response?.passId,
+          )}
           onConfirm={onDetach}
           onClose={() => setModal(null)}
         />
@@ -175,7 +246,12 @@ export default ({ value, onChange, timings = [], settings, location, longDesc, t
             onChange={onCheck}
             disabled={!hasData && !upcomingTimings.length}
           />
-          <Image className="margin-left-sm" src={currLogoPath} alt="Logo Pass Culture" width={100} />
+          <Image
+            className="margin-left-sm"
+            src={currLogoPath}
+            alt="Logo Pass Culture"
+            width={100}
+          />
           {checkboxText({
             offerWasRejected,
             offerIsPending,
@@ -186,7 +262,7 @@ export default ({ value, onChange, timings = [], settings, location, longDesc, t
           })}
           {!patchMode && !isLoadingPassData && issues.length ? (
             <ul className="padding-left-sm">
-              {issues.map(issue => (
+              {issues.map((issue) => (
                 <li className="text-danger">{issue}</li>
               ))}
             </ul>

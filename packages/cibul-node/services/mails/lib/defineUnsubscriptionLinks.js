@@ -10,18 +10,16 @@ function getTarget({ user, memberId, email }) {
   return user ? `user:${user.uid}` : `email:${email}`;
 }
 
-export default async function defineUnsubscriptionLinks(services, config, params) {
-  const {
-    users: usersSvc,
-    unsubscriptions: unsubscriptionsSvc,
-  } = services;
+export default async function defineUnsubscriptionLinks(
+  services,
+  config,
+  params,
+) {
+  const { users: usersSvc, unsubscriptions: unsubscriptionsSvc } = services;
 
   log('processing', _.get(params, 'to.address'));
 
-  const {
-    unsubscriptions,
-    address: email,
-  } = params.to;
+  const { unsubscriptions, address: email } = params.to;
 
   // user or email
   const user = await usersSvc.findOne({ query: { email, isActivated: true } });
@@ -51,10 +49,7 @@ export default async function defineUnsubscriptionLinks(services, config, params
     if (!params.list || !params.list.unsubscribe) {
       params.list = {
         ...params.list,
-        unsubscribe: [
-          unsubscribeLink,
-          'support@openagenda.com',
-        ],
+        unsubscribe: [unsubscribeLink, 'support@openagenda.com'],
       };
     }
   }

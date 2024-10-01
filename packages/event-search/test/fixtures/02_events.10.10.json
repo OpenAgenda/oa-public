@@ -147,14 +147,8 @@
         "fr": "Mot clé"
       },
       "keywords": {
-        "fr": [
-          "mot",
-          "clé"
-        ],
-        "en": [
-          "key",
-          "word"
-        ]
+        "fr": ["mot", "clé"],
+        "en": ["key", "word"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -221,14 +215,8 @@
         "fr": "Mot clé"
       },
       "keywords": {
-        "fr": [
-          "autre",
-          "clé"
-        ],
-        "en": [
-          "other",
-          "keyword"
-        ]
+        "fr": ["autre", "clé"],
+        "en": ["other", "keyword"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -295,9 +283,7 @@
         "fr": "Un événement à 11h18"
       },
       "keywords": {
-        "fr": [
-          "local_time"
-        ]
+        "fr": ["local_time"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -360,9 +346,7 @@
         "fr": "Un événement à 13h01"
       },
       "keywords": {
-        "fr": [
-          "local_time"
-        ]
+        "fr": ["local_time"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -425,14 +409,8 @@
         "fr": "Mot clé"
       },
       "keywords": {
-        "fr": [
-          "sleepy",
-          "grumpy"
-        ],
-        "en": [
-          "toasty",
-          "psycho"
-        ]
+        "fr": ["sleepy", "grumpy"],
+        "en": ["toasty", "psycho"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -499,14 +477,8 @@
         "fr": "Mot clé"
       },
       "keywords": {
-        "fr": [
-          "phone",
-          "teapot"
-        ],
-        "en": [
-          "scorbut",
-          "ear"
-        ]
+        "fr": ["phone", "teapot"],
+        "en": ["scorbut", "ear"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -573,14 +545,8 @@
         "fr": "Mot clé"
       },
       "keywords": {
-        "fr": [
-          "jesus",
-          "blob"
-        ],
-        "en": [
-          "freckles",
-          "mississipi chose"
-        ]
+        "fr": ["jesus", "blob"],
+        "en": ["freckles", "mississipi chose"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"

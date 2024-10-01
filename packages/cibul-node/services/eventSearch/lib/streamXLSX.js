@@ -23,7 +23,8 @@ export default (req, res) => {
   }).pipe(res);
 
   res.writeHead(200, {
-    'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'Content-Type':
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.xlsx"`,
   });
 };

@@ -31,10 +31,7 @@ const validateOptions = schema({
 });
 
 module.exports.formatDSL = (query, options = {}) => {
-  const {
-    interval,
-    format,
-  } = validateOptions(options);
+  const { interval, format } = validateOptions(options);
 
   return {
     nested: {
@@ -54,19 +51,18 @@ module.exports.formatDSL = (query, options = {}) => {
 };
 
 module.exports.formatResult = (result, options = {}) => {
-  const {
-    query,
-  } = options;
+  const { query } = options;
 
-  const {
-    format,
-    timezone,
-  } = validateOptions(options);
+  const { format, timezone } = validateOptions(options);
 
-  const gte = _.get(query, 'date.gte') ? moment(query.date.gte).tz(timezone).format(format.toUpperCase()) : null;
-  const lte = _.get(query, 'date.lte') ? moment(query.date.lte).tz(timezone).format(format.toUpperCase()) : null;
+  const gte = _.get(query, 'date.gte')
+    ? moment(query.date.gte).tz(timezone).format(format.toUpperCase())
+    : null;
+  const lte = _.get(query, 'date.lte')
+    ? moment(query.date.lte).tz(timezone).format(format.toUpperCase())
+    : null;
 
-  const buckets = result.timings.buckets.map(b => ({
+  const buckets = result.timings.buckets.map((b) => ({
     // key_as_string is not reliable
     key: moment(b.key).tz(timezone).format(format.toUpperCase()),
     timingCount: b.doc_count,
@@ -76,10 +72,11 @@ module.exports.formatResult = (result, options = {}) => {
     return buckets;
   }
 
-  return buckets.filter(b => {
+  return buckets.filter((b) => {
     if (gte && b.key < gte) {
       return false;
-    } if (lte && b.key > lte) {
+    }
+    if (lte && b.key > lte) {
       return false;
     }
     return true;

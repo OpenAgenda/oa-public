@@ -49,10 +49,13 @@ describe('07 - core - functional (server): core.agendas().create', () => {
 
       beforeAll(async () => {
         try {
-          agenda = await core.agendas.create({
-            title: 'Un agenda',
-            description: 'pour tester la création',
-          }, { userUid: 63170203 });
+          agenda = await core.agendas.create(
+            {
+              title: 'Un agenda',
+              description: 'pour tester la création',
+            },
+            { userUid: 63170203 },
+          );
         } catch (e) {
           console.log(JSON.stringify(e, null, 2));
         }
@@ -63,7 +66,9 @@ describe('07 - core - functional (server): core.agendas().create', () => {
       });
 
       it('user is administrator of agenda', async () => {
-        const member = await core.agendas(agenda.uid).members.get(63170203, { access: 'internal' });
+        const member = await core
+          .agendas(agenda.uid)
+          .members.get(63170203, { access: 'internal' });
 
         expect(member.role).toBe('administrator');
       });
@@ -90,7 +95,7 @@ describe('07 - core - functional (server): core.agendas().create', () => {
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     test('basic create', async () => {

@@ -10,21 +10,31 @@ module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
   let targetLanguages = languages;
 
   if (possibleLanguages && includeLanguages) {
-    targetLanguages = targetLanguages.filter(l => possibleLanguages.includes(l) && includeLanguages.includes(l));
+    targetLanguages = targetLanguages.filter(
+      (l) => possibleLanguages.includes(l) && includeLanguages.includes(l),
+    );
   } else if (possibleLanguages) {
-    targetLanguages = targetLanguages.filter(l => possibleLanguages.includes(l));
+    targetLanguages = targetLanguages.filter((l) =>
+      possibleLanguages.includes(l));
   } else if (includeLanguages) {
-    targetLanguages = targetLanguages.filter(l => includeLanguages.includes(l));
+    targetLanguages = targetLanguages.filter((l) =>
+      includeLanguages.includes(l));
   }
 
   return {
     source,
-    target: [isoTarget || 'ISO'].concat(targetLanguages.map(l => (target || source) + (languages.length > 1 ? ` - ${l.toUpperCase()}` : ''))),
-    transform: event => {
+    target: [isoTarget || 'ISO'].concat(
+      targetLanguages.map(
+        (l) =>
+          (target || source)
+          + (languages.length > 1 ? ` - ${l.toUpperCase()}` : ''),
+      ),
+    ),
+    transform: (event) => {
       const columns = [[]].concat(targetLanguages.map(() => []));
 
       let cursor;
-      (event.timings ?? []).forEach(t => {
+      (event.timings ?? []).forEach((t) => {
         // ignore invalid timings
         if (!t?.begin || !t?.end) {
           return;
@@ -45,10 +55,15 @@ module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
 
         targetLanguages.forEach((l, i) => {
           if (dateChanged) {
-            columns[i + 1].push([
-              moment.tz(begin, event.timezone).locale(l).format('dddd D MMMM YYYY - HH:mm'),
-              moment.tz(end, event.timezone).locale(l).format('HH:mm'),
-            ].join(' ⤏ '));
+            columns[i + 1].push(
+              [
+                moment
+                  .tz(begin, event.timezone)
+                  .locale(l)
+                  .format('dddd D MMMM YYYY - HH:mm'),
+                moment.tz(end, event.timezone).locale(l).format('HH:mm'),
+              ].join(' ⤏ '),
+            );
           } else {
             columns[i + 1][columns[i + 1].length - 1] += `, ${[
               moment.tz(begin, event.timezone).locale(l).format('HH:mm'),
@@ -57,7 +72,7 @@ module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
           }
         });
       });
-      return columns.map(c => c.join(' | '));
+      return columns.map((c) => c.join(' | '));
     },
   };
 };

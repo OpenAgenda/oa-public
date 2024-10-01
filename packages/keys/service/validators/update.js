@@ -1,21 +1,20 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
+const text = require('@openagenda/validators/text');
 
-schema.register( {
-  text: require( '@openagenda/validators/text' )
-} );
+schema.register({
+  text,
+});
 
-module.exports = data => {
-
-  const validate = schema( {
+module.exports = (data) => {
+  const validate = schema({
     label: {
       type: 'text',
       max: 255,
-      default: null
-    }
-  } );
+      default: null,
+    },
+  });
 
-  return validate( data );
-
+  return validate(data);
 };

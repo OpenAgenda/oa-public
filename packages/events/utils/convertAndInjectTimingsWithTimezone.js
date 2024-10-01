@@ -3,7 +3,7 @@
 const moment = require('moment-timezone');
 
 const {
-  is: isDateHoursMinutesTiming
+  is: isDateHoursMinutesTiming,
 } = require('../iso/src/validators/dateHoursMinutesTiming');
 const {
   from: convertDHM,
@@ -11,7 +11,10 @@ const {
 
 const inLocalTZ = (d, tz) => moment.tz(d, tz).locale('en').toISOString(true);
 
-module.exports = function convertAndInjectTimingsWithTimezone(timings, timezone) {
+module.exports = function convertAndInjectTimingsWithTimezone(
+  timings,
+  timezone,
+) {
   if (!timings || !timings.length) {
     return timings;
   }
@@ -24,4 +27,4 @@ module.exports = function convertAndInjectTimingsWithTimezone(timings, timezone)
       end: fn(end, timezone),
     };
   });
-}
+};

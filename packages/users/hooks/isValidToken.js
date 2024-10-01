@@ -4,7 +4,7 @@ const _ = require('lodash');
 const errors = require('@feathersjs/errors');
 
 module.exports = function isValidToken(localKey, foreignKey) {
-  return context => {
+  return (context) => {
     const localValue = _.get(context, localKey);
     const foreignValue = _.get(context, foreignKey);
 

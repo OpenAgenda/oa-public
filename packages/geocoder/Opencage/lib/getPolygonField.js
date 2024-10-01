@@ -5,7 +5,10 @@ const inside = require('point-in-polygon');
 
 async function getPolygonsSet(field, location) {
   const countryCode = (location.countryCode || '').toUpperCase();
-  return axios.get(`https://s3.eu-west-1.amazonaws.com/oasvc/geocoder/${field}/${countryCode}.${location.adminLevel4}.json`)
+  return axios
+    .get(
+      `https://s3.eu-west-1.amazonaws.com/oasvc/geocoder/${field}/${countryCode}.${location.adminLevel4}.json`,
+    )
     .then(({ data }) => data);
 }
 
@@ -14,7 +17,9 @@ module.exports = async (field, location) => {
   if (!set) {
     return null;
   }
-  const matching = set.filter(val => inside([location.longitude, location.latitude], val.polygon));
+  const { longitude, latitude } = location;
+  const matching = set.filter((val) =>
+    inside([longitude, latitude], val.polygon));
 
   if (matching.length) {
     return matching[0][field];

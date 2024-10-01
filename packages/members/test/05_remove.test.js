@@ -35,7 +35,7 @@ describe('members - functional - remove', () => {
         context: {
           user: { uid: 1920 },
         },
-      }
+      },
     );
   });
 

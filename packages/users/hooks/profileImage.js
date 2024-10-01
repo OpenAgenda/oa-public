@@ -4,7 +4,7 @@ const log = require('@openagenda/logs')('users/hooks/profileImage');
 const { BadRequest } = require('@feathersjs/errors');
 
 module.exports = function profileImage() {
-  return async context => {
+  return async (context) => {
     const { upload } = context.self;
     const { image } = context.data;
     const { before } = context.params;

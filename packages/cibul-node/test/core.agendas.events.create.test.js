@@ -204,7 +204,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           .select('*')
           .where('review_article_id', reviewArticle.id);
 
-        expect(reviewTagArticles.map(rta => rta.review_tag_id)).toEqual([
+        expect(reviewTagArticles.map((rta) => rta.review_tag_id)).toEqual([
           9661, // Administration (2.3)
           9662, // Aéronautique (2.4)
         ]);
@@ -283,7 +283,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
     it('fields with moderator as access are not provided in schema', () => {
       expect(
-        result.formSchema.fields.filter(f => f.field === 'custom_description')
+        result.formSchema.fields.filter((f) => f.field === 'custom_description')
           .length,
       ).toBe(0);
     });
@@ -473,7 +473,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
     it('field with "moderator" in read parameter are provided in result', () => {
       expect(
-        result.formSchema.fields.filter(f => f.field === 'custom_description')
+        result.formSchema.fields.filter((f) => f.field === 'custom_description')
           .length,
       ).toBe(1);
     });
@@ -925,7 +925,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
-      }).then(r => r.data.access_token);
+      }).then((r) => r.data.access_token);
     });
 
     describe('successful create', () => {
@@ -966,7 +966,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
               'thematiques-bordeaux-metropole': [3, 4],
               accessibility: { sl: true },
             },
-          }).then(r => r.data);
+          }).then((r) => r.data);
         } catch (e) {
           // console.log(e.response.data);
         }
@@ -975,7 +975,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       it('image is uploaded to cdn when provided by url', async () => {
         const uploadedHead = await request
           .head(response.event.image.base + response.event.image.filename)
-          .then(res => res.header);
+          .then((res) => res.header);
         const sinceLastModified = new Date().getTime()
           - new Date(uploadedHead['last-modified']).getTime();
         expect(sinceLastModified).toBeLessThan(10000);
@@ -1043,7 +1043,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             'thematiques-bordeaux-metropole': [3, 4],
             accessibility: { sl: true },
           },
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(onlineEventCreateResponse.event.attendanceMode).toBe(2);
       });
@@ -1081,7 +1081,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
               'categories-agenda-metropolitain': 42,
               'thematiques-bordeaux-metropole': [3, 4],
             },
-          }).then(r => r.data);
+          }).then((r) => r.data);
         } catch (e) {
           error = e;
         }
@@ -1143,7 +1143,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
       beforeAll(
         () =>
-          new Promise(rs => {
+          new Promise((rs) => {
             fs.createReadStream(`${__dirname}/fixtures/pirates.jpg`)
               .pipe(fs.createWriteStream('/tmp/pirates.jpg'))
               .on('close', rs);
@@ -1164,7 +1164,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             url: 'http://localhost:3000/agendas/17026855/events',
             data: form,
             headers: form.getHeaders(),
-          }).then(r => r.data);
+          }).then((r) => r.data);
         } catch (e) {
           /* console.log(JSON.stringify(e.      let oneLanguageResponse
             .data, null, 2)); */
@@ -1183,7 +1183,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             oneLanguageResponse.event.image.base
               + oneLanguageResponse.event.image.filename,
           )
-          .then(res => res.header);
+          .then((res) => res.header);
         const sinceLastModified = new Date().getTime()
           - new Date(uploadedHead['last-modified']).getTime();
         expect(sinceLastModified).toBeLessThan(20000);
@@ -1200,7 +1200,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             lang: 'fr',
           },
           data: _.omit(data, ['image']),
-        }).then(r => r.data);
+        }).then((r) => r.data);
 
         expect(frenchResponse.event.title).toEqual({
           fr: 'Un autre événement créé par API',
@@ -1231,7 +1231,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             'categories-agenda-metropolitain': 42,
             'thematiques-bordeaux-metropole': [3, 4],
           },
-        }).catch(e => {
+        }).catch((e) => {
           errorResponse = e.response;
         });
       });

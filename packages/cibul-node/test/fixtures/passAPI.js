@@ -26,7 +26,7 @@ export default {
   },
   priceCategoriesPatchResponse: {
     id: 4565,
-    label: 'Tarif normal ajusté l\'inflation',
+    label: "Tarif normal ajusté l'inflation",
     price: 13,
   },
   eventPostResponse: {
@@ -147,16 +147,12 @@ export default {
           description: 'Abonnement (bibliothèques, médiathèques...)',
           properties: {
             category: {
-              enum: [
-                'ABO_BIBLIOTHEQUE',
-              ],
+              enum: ['ABO_BIBLIOTHEQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_BIBLIOTHEQUE_create',
           type: 'object',
         },
@@ -164,16 +160,12 @@ export default {
           description: 'Abonnement (bibliothèques, médiathèques...)',
           properties: {
             category: {
-              enum: [
-                'ABO_BIBLIOTHEQUE',
-              ],
+              enum: ['ABO_BIBLIOTHEQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_BIBLIOTHEQUE_edit',
           type: 'object',
         },
@@ -181,16 +173,12 @@ export default {
           description: 'Abonnement (bibliothèques, médiathèques...)',
           properties: {
             category: {
-              enum: [
-                'ABO_BIBLIOTHEQUE',
-              ],
+              enum: ['ABO_BIBLIOTHEQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_BIBLIOTHEQUE_read',
           type: 'object',
         },
@@ -198,9 +186,7 @@ export default {
           description: 'Abonnement concert',
           properties: {
             category: {
-              enum: [
-                'ABO_CONCERT',
-              ],
+              enum: ['ABO_CONCERT'],
               title: 'Category',
               type: 'string',
             },
@@ -216,10 +202,7 @@ export default {
               title: 'Musictype',
             },
           },
-          required: [
-            'musicType',
-            'category',
-          ],
+          required: ['musicType', 'category'],
           title: 'ABO_CONCERT_create',
           type: 'object',
         },
@@ -227,9 +210,7 @@ export default {
           description: 'Abonnement concert',
           properties: {
             category: {
-              enum: [
-                'ABO_CONCERT',
-              ],
+              enum: ['ABO_CONCERT'],
               title: 'Category',
               type: 'string',
             },
@@ -245,9 +226,7 @@ export default {
               title: 'Musictype',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_CONCERT_edit',
           type: 'object',
         },
@@ -255,9 +234,7 @@ export default {
           description: 'Abonnement concert',
           properties: {
             category: {
-              enum: [
-                'ABO_CONCERT',
-              ],
+              enum: ['ABO_CONCERT'],
               title: 'Category',
               type: 'string',
             },
@@ -273,9 +250,7 @@ export default {
               title: 'Musictype',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_CONCERT_read',
           type: 'object',
         },
@@ -283,16 +258,12 @@ export default {
           description: 'Abonnement jeux vidéos',
           properties: {
             category: {
-              enum: [
-                'ABO_JEU_VIDEO',
-              ],
+              enum: ['ABO_JEU_VIDEO'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_JEU_VIDEO_read',
           type: 'object',
         },
@@ -300,16 +271,12 @@ export default {
           description: 'Abonnement livres numériques',
           properties: {
             category: {
-              enum: [
-                'ABO_LIVRE_NUMERIQUE',
-              ],
+              enum: ['ABO_LIVRE_NUMERIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_LIVRE_NUMERIQUE_create',
           type: 'object',
         },
@@ -317,16 +284,12 @@ export default {
           description: 'Abonnement livres numériques',
           properties: {
             category: {
-              enum: [
-                'ABO_LIVRE_NUMERIQUE',
-              ],
+              enum: ['ABO_LIVRE_NUMERIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_LIVRE_NUMERIQUE_edit',
           type: 'object',
         },
@@ -334,16 +297,12 @@ export default {
           description: 'Abonnement livres numériques',
           properties: {
             category: {
-              enum: [
-                'ABO_LIVRE_NUMERIQUE',
-              ],
+              enum: ['ABO_LIVRE_NUMERIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_LIVRE_NUMERIQUE_read',
           type: 'object',
         },
@@ -351,16 +310,12 @@ export default {
           description: 'Abonnement ludothèque',
           properties: {
             category: {
-              enum: [
-                'ABO_LUDOTHEQUE',
-              ],
+              enum: ['ABO_LUDOTHEQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_LUDOTHEQUE_read',
           type: 'object',
         },
@@ -368,16 +323,12 @@ export default {
           description: 'Abonnement médiathèque',
           properties: {
             category: {
-              enum: [
-                'ABO_MEDIATHEQUE',
-              ],
+              enum: ['ABO_MEDIATHEQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_MEDIATHEQUE_create',
           type: 'object',
         },
@@ -385,16 +336,12 @@ export default {
           description: 'Abonnement médiathèque',
           properties: {
             category: {
-              enum: [
-                'ABO_MEDIATHEQUE',
-              ],
+              enum: ['ABO_MEDIATHEQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_MEDIATHEQUE_edit',
           type: 'object',
         },
@@ -402,16 +349,12 @@ export default {
           description: 'Abonnement médiathèque',
           properties: {
             category: {
-              enum: [
-                'ABO_MEDIATHEQUE',
-              ],
+              enum: ['ABO_MEDIATHEQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_MEDIATHEQUE_read',
           type: 'object',
         },
@@ -419,16 +362,12 @@ export default {
           description: 'Abonnement plateforme musicale',
           properties: {
             category: {
-              enum: [
-                'ABO_PLATEFORME_MUSIQUE',
-              ],
+              enum: ['ABO_PLATEFORME_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PLATEFORME_MUSIQUE_create',
           type: 'object',
         },
@@ -436,16 +375,12 @@ export default {
           description: 'Abonnement plateforme musicale',
           properties: {
             category: {
-              enum: [
-                'ABO_PLATEFORME_MUSIQUE',
-              ],
+              enum: ['ABO_PLATEFORME_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PLATEFORME_MUSIQUE_edit',
           type: 'object',
         },
@@ -453,16 +388,12 @@ export default {
           description: 'Abonnement plateforme musicale',
           properties: {
             category: {
-              enum: [
-                'ABO_PLATEFORME_MUSIQUE',
-              ],
+              enum: ['ABO_PLATEFORME_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PLATEFORME_MUSIQUE_read',
           type: 'object',
         },
@@ -470,16 +401,12 @@ export default {
           description: 'Abonnement plateforme streaming',
           properties: {
             category: {
-              enum: [
-                'ABO_PLATEFORME_VIDEO',
-              ],
+              enum: ['ABO_PLATEFORME_VIDEO'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PLATEFORME_VIDEO_create',
           type: 'object',
         },
@@ -487,16 +414,12 @@ export default {
           description: 'Abonnement plateforme streaming',
           properties: {
             category: {
-              enum: [
-                'ABO_PLATEFORME_VIDEO',
-              ],
+              enum: ['ABO_PLATEFORME_VIDEO'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PLATEFORME_VIDEO_edit',
           type: 'object',
         },
@@ -504,16 +427,12 @@ export default {
           description: 'Abonnement plateforme streaming',
           properties: {
             category: {
-              enum: [
-                'ABO_PLATEFORME_VIDEO',
-              ],
+              enum: ['ABO_PLATEFORME_VIDEO'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PLATEFORME_VIDEO_read',
           type: 'object',
         },
@@ -521,16 +440,12 @@ export default {
           description: 'Abonnement pratique artistique',
           properties: {
             category: {
-              enum: [
-                'ABO_PRATIQUE_ART',
-              ],
+              enum: ['ABO_PRATIQUE_ART'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PRATIQUE_ART_create',
           type: 'object',
         },
@@ -538,16 +453,12 @@ export default {
           description: 'Abonnement pratique artistique',
           properties: {
             category: {
-              enum: [
-                'ABO_PRATIQUE_ART',
-              ],
+              enum: ['ABO_PRATIQUE_ART'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PRATIQUE_ART_edit',
           type: 'object',
         },
@@ -555,16 +466,12 @@ export default {
           description: 'Abonnement pratique artistique',
           properties: {
             category: {
-              enum: [
-                'ABO_PRATIQUE_ART',
-              ],
+              enum: ['ABO_PRATIQUE_ART'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PRATIQUE_ART_read',
           type: 'object',
         },
@@ -572,16 +479,12 @@ export default {
           description: 'Abonnement presse en ligne',
           properties: {
             category: {
-              enum: [
-                'ABO_PRESSE_EN_LIGNE',
-              ],
+              enum: ['ABO_PRESSE_EN_LIGNE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PRESSE_EN_LIGNE_create',
           type: 'object',
         },
@@ -589,16 +492,12 @@ export default {
           description: 'Abonnement presse en ligne',
           properties: {
             category: {
-              enum: [
-                'ABO_PRESSE_EN_LIGNE',
-              ],
+              enum: ['ABO_PRESSE_EN_LIGNE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PRESSE_EN_LIGNE_edit',
           type: 'object',
         },
@@ -606,16 +505,12 @@ export default {
           description: 'Abonnement presse en ligne',
           properties: {
             category: {
-              enum: [
-                'ABO_PRESSE_EN_LIGNE',
-              ],
+              enum: ['ABO_PRESSE_EN_LIGNE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_PRESSE_EN_LIGNE_read',
           type: 'object',
         },
@@ -623,9 +518,7 @@ export default {
           description: 'Abonnement spectacle',
           properties: {
             category: {
-              enum: [
-                'ABO_SPECTACLE',
-              ],
+              enum: ['ABO_SPECTACLE'],
               title: 'Category',
               type: 'string',
             },
@@ -633,10 +526,7 @@ export default {
               $ref: '#/components/schemas/ShowTypeEnum',
             },
           },
-          required: [
-            'showType',
-            'category',
-          ],
+          required: ['showType', 'category'],
           title: 'ABO_SPECTACLE_create',
           type: 'object',
         },
@@ -644,9 +534,7 @@ export default {
           description: 'Abonnement spectacle',
           properties: {
             category: {
-              enum: [
-                'ABO_SPECTACLE',
-              ],
+              enum: ['ABO_SPECTACLE'],
               title: 'Category',
               type: 'string',
             },
@@ -654,9 +542,7 @@ export default {
               $ref: '#/components/schemas/ShowTypeEnum',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_SPECTACLE_edit',
           type: 'object',
         },
@@ -664,9 +550,7 @@ export default {
           description: 'Abonnement spectacle',
           properties: {
             category: {
-              enum: [
-                'ABO_SPECTACLE',
-              ],
+              enum: ['ABO_SPECTACLE'],
               title: 'Category',
               type: 'string',
             },
@@ -674,9 +558,7 @@ export default {
               $ref: '#/components/schemas/ShowTypeEnum',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ABO_SPECTACLE_read',
           type: 'object',
         },
@@ -684,9 +566,7 @@ export default {
           description: 'Achat instrument',
           properties: {
             category: {
-              enum: [
-                'ACHAT_INSTRUMENT',
-              ],
+              enum: ['ACHAT_INSTRUMENT'],
               title: 'Category',
               type: 'string',
             },
@@ -695,10 +575,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'ean',
-            'category',
-          ],
+          required: ['ean', 'category'],
           title: 'ACHAT_INSTRUMENT_create',
           type: 'object',
         },
@@ -706,9 +583,7 @@ export default {
           description: 'Achat instrument',
           properties: {
             category: {
-              enum: [
-                'ACHAT_INSTRUMENT',
-              ],
+              enum: ['ACHAT_INSTRUMENT'],
               title: 'Category',
               type: 'string',
             },
@@ -717,9 +592,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ACHAT_INSTRUMENT_edit',
           type: 'object',
         },
@@ -727,9 +600,7 @@ export default {
           description: 'Achat instrument',
           properties: {
             category: {
-              enum: [
-                'ACHAT_INSTRUMENT',
-              ],
+              enum: ['ACHAT_INSTRUMENT'],
               title: 'Category',
               type: 'string',
             },
@@ -738,43 +609,33 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ACHAT_INSTRUMENT_read',
           type: 'object',
         },
         ACTIVATION_EVENT_read: {
-          description: 'Catégorie technique d\'évènement d\'ACTIvation ',
+          description: "Catégorie technique d'évènement d'ACTIvation ",
           properties: {
             category: {
-              enum: [
-                'ACTIVATION_EVENT',
-              ],
+              enum: ['ACTIVATION_EVENT'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ACTIVATION_EVENT_read',
           type: 'object',
         },
         ACTIVATION_THING_read: {
-          description: 'Catégorie technique de thing d\'ACTIvation',
+          description: "Catégorie technique de thing d'ACTIvation",
           properties: {
             category: {
-              enum: [
-                'ACTIVATION_THING',
-              ],
+              enum: ['ACTIVATION_THING'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ACTIVATION_THING_read',
           type: 'object',
         },
@@ -782,16 +643,12 @@ export default {
           description: 'Application culturelle',
           properties: {
             category: {
-              enum: [
-                'APP_CULTURELLE',
-              ],
+              enum: ['APP_CULTURELLE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'APP_CULTURELLE_create',
           type: 'object',
         },
@@ -799,16 +656,12 @@ export default {
           description: 'Application culturelle',
           properties: {
             category: {
-              enum: [
-                'APP_CULTURELLE',
-              ],
+              enum: ['APP_CULTURELLE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'APP_CULTURELLE_edit',
           type: 'object',
         },
@@ -816,16 +669,12 @@ export default {
           description: 'Application culturelle',
           properties: {
             category: {
-              enum: [
-                'APP_CULTURELLE',
-              ],
+              enum: ['APP_CULTURELLE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'APP_CULTURELLE_read',
           type: 'object',
         },
@@ -833,9 +682,7 @@ export default {
           description: 'Atelier, stage de pratique artistique',
           properties: {
             category: {
-              enum: [
-                'ATELIER_PRATIQUE_ART',
-              ],
+              enum: ['ATELIER_PRATIQUE_ART'],
               title: 'Category',
               type: 'string',
             },
@@ -844,9 +691,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ATELIER_PRATIQUE_ART_create',
           type: 'object',
         },
@@ -854,9 +699,7 @@ export default {
           description: 'Atelier, stage de pratique artistique',
           properties: {
             category: {
-              enum: [
-                'ATELIER_PRATIQUE_ART',
-              ],
+              enum: ['ATELIER_PRATIQUE_ART'],
               title: 'Category',
               type: 'string',
             },
@@ -865,9 +708,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ATELIER_PRATIQUE_ART_edit',
           type: 'object',
         },
@@ -875,9 +716,7 @@ export default {
           description: 'Atelier, stage de pratique artistique',
           properties: {
             category: {
-              enum: [
-                'ATELIER_PRATIQUE_ART',
-              ],
+              enum: ['ATELIER_PRATIQUE_ART'],
               title: 'Category',
               type: 'string',
             },
@@ -886,9 +725,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ATELIER_PRATIQUE_ART_read',
           type: 'object',
         },
@@ -896,16 +733,12 @@ export default {
           description: 'Autre support numérique',
           properties: {
             category: {
-              enum: [
-                'AUTRE_SUPPORT_NUMERIQUE',
-              ],
+              enum: ['AUTRE_SUPPORT_NUMERIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'AUTRE_SUPPORT_NUMERIQUE_create',
           type: 'object',
         },
@@ -913,16 +746,12 @@ export default {
           description: 'Autre support numérique',
           properties: {
             category: {
-              enum: [
-                'AUTRE_SUPPORT_NUMERIQUE',
-              ],
+              enum: ['AUTRE_SUPPORT_NUMERIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'AUTRE_SUPPORT_NUMERIQUE_edit',
           type: 'object',
         },
@@ -930,16 +759,12 @@ export default {
           description: 'Autre support numérique',
           properties: {
             category: {
-              enum: [
-                'AUTRE_SUPPORT_NUMERIQUE',
-              ],
+              enum: ['AUTRE_SUPPORT_NUMERIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'AUTRE_SUPPORT_NUMERIQUE_read',
           type: 'object',
         },
@@ -1009,37 +834,26 @@ export default {
               type: 'object',
             },
           },
-          required: [
-            'errors',
-          ],
+          required: ['errors'],
           title: 'AuthErrorResponseModel',
           type: 'object',
         },
         BON_ACHAT_INSTRUMENT_read: {
-          description: 'Bon d\'achat instrument',
+          description: "Bon d'achat instrument",
           properties: {
             category: {
-              enum: [
-                'BON_ACHAT_INSTRUMENT',
-              ],
+              enum: ['BON_ACHAT_INSTRUMENT'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'BON_ACHAT_INSTRUMENT_read',
           type: 'object',
         },
         BookingStatus: {
           description: 'An enumeration.',
-          enum: [
-            'CONFIRMED',
-            'USED',
-            'CANCELLED',
-            'REIMBURSED',
-          ],
+          enum: ['CONFIRMED', 'USED', 'CANCELLED', 'REIMBURSED'],
           title: 'BookingStatus',
         },
         CAPTATION_MUSIQUE_read: {
@@ -1050,9 +864,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'CAPTATION_MUSIQUE',
-              ],
+              enum: ['CAPTATION_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -1072,9 +884,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CAPTATION_MUSIQUE_read',
           type: 'object',
         },
@@ -1082,16 +892,12 @@ export default {
           description: 'Carte cinéma illimité',
           properties: {
             category: {
-              enum: [
-                'CARTE_CINE_ILLIMITE',
-              ],
+              enum: ['CARTE_CINE_ILLIMITE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CARTE_CINE_ILLIMITE_read',
           type: 'object',
         },
@@ -1099,16 +905,12 @@ export default {
           description: 'Carte cinéma multi-séances',
           properties: {
             category: {
-              enum: [
-                'CARTE_CINE_MULTISEANCES',
-              ],
+              enum: ['CARTE_CINE_MULTISEANCES'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CARTE_CINE_MULTISEANCES_read',
           type: 'object',
         },
@@ -1116,16 +918,12 @@ export default {
           description: 'Carte jeunes',
           properties: {
             category: {
-              enum: [
-                'CARTE_JEUNES',
-              ],
+              enum: ['CARTE_JEUNES'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CARTE_JEUNES_create',
           type: 'object',
         },
@@ -1133,16 +931,12 @@ export default {
           description: 'Carte jeunes',
           properties: {
             category: {
-              enum: [
-                'CARTE_JEUNES',
-              ],
+              enum: ['CARTE_JEUNES'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CARTE_JEUNES_edit',
           type: 'object',
         },
@@ -1150,16 +944,12 @@ export default {
           description: 'Carte jeunes',
           properties: {
             category: {
-              enum: [
-                'CARTE_JEUNES',
-              ],
+              enum: ['CARTE_JEUNES'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CARTE_JEUNES_read',
           type: 'object',
         },
@@ -1167,16 +957,12 @@ export default {
           description: 'Abonnement musée, carte ou pass',
           properties: {
             category: {
-              enum: [
-                'CARTE_MUSEE',
-              ],
+              enum: ['CARTE_MUSEE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CARTE_MUSEE_create',
           type: 'object',
         },
@@ -1184,16 +970,12 @@ export default {
           description: 'Abonnement musée, carte ou pass',
           properties: {
             category: {
-              enum: [
-                'CARTE_MUSEE',
-              ],
+              enum: ['CARTE_MUSEE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CARTE_MUSEE_edit',
           type: 'object',
         },
@@ -1201,16 +983,12 @@ export default {
           description: 'Abonnement musée, carte ou pass',
           properties: {
             category: {
-              enum: [
-                'CARTE_MUSEE',
-              ],
+              enum: ['CARTE_MUSEE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CARTE_MUSEE_read',
           type: 'object',
         },
@@ -1222,9 +1000,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'CINE_PLEIN_AIR',
-              ],
+              enum: ['CINE_PLEIN_AIR'],
               title: 'Category',
               type: 'string',
             },
@@ -1237,9 +1013,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CINE_PLEIN_AIR_create',
           type: 'object',
         },
@@ -1251,9 +1025,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'CINE_PLEIN_AIR',
-              ],
+              enum: ['CINE_PLEIN_AIR'],
               title: 'Category',
               type: 'string',
             },
@@ -1266,9 +1038,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CINE_PLEIN_AIR_edit',
           type: 'object',
         },
@@ -1280,9 +1050,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'CINE_PLEIN_AIR',
-              ],
+              enum: ['CINE_PLEIN_AIR'],
               title: 'Category',
               type: 'string',
             },
@@ -1295,9 +1063,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CINE_PLEIN_AIR_read',
           type: 'object',
         },
@@ -1309,9 +1075,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'CINE_VENTE_DISTANCE',
-              ],
+              enum: ['CINE_VENTE_DISTANCE'],
               title: 'Category',
               type: 'string',
             },
@@ -1324,9 +1088,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CINE_VENTE_DISTANCE_read',
           type: 'object',
         },
@@ -1338,9 +1100,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'CONCERT',
-              ],
+              enum: ['CONCERT'],
               title: 'Category',
               type: 'string',
             },
@@ -1360,10 +1120,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'musicType',
-            'category',
-          ],
+          required: ['musicType', 'category'],
           title: 'CONCERT_create',
           type: 'object',
         },
@@ -1375,9 +1132,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'CONCERT',
-              ],
+              enum: ['CONCERT'],
               title: 'Category',
               type: 'string',
             },
@@ -1397,9 +1152,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CONCERT_edit',
           type: 'object',
         },
@@ -1411,9 +1164,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'CONCERT',
-              ],
+              enum: ['CONCERT'],
               title: 'Category',
               type: 'string',
             },
@@ -1433,9 +1184,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CONCERT_read',
           type: 'object',
         },
@@ -1443,16 +1192,12 @@ export default {
           description: 'Concours - jeux',
           properties: {
             category: {
-              enum: [
-                'CONCOURS',
-              ],
+              enum: ['CONCOURS'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CONCOURS_create',
           type: 'object',
         },
@@ -1460,16 +1205,12 @@ export default {
           description: 'Concours - jeux',
           properties: {
             category: {
-              enum: [
-                'CONCOURS',
-              ],
+              enum: ['CONCOURS'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CONCOURS_edit',
           type: 'object',
         },
@@ -1477,16 +1218,12 @@ export default {
           description: 'Concours - jeux',
           properties: {
             category: {
-              enum: [
-                'CONCOURS',
-              ],
+              enum: ['CONCOURS'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CONCOURS_read',
           type: 'object',
         },
@@ -1494,9 +1231,7 @@ export default {
           description: 'Conférence',
           properties: {
             category: {
-              enum: [
-                'CONFERENCE',
-              ],
+              enum: ['CONFERENCE'],
               title: 'Category',
               type: 'string',
             },
@@ -1505,9 +1240,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CONFERENCE_create',
           type: 'object',
         },
@@ -1515,9 +1248,7 @@ export default {
           description: 'Conférence',
           properties: {
             category: {
-              enum: [
-                'CONFERENCE',
-              ],
+              enum: ['CONFERENCE'],
               title: 'Category',
               type: 'string',
             },
@@ -1526,9 +1257,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CONFERENCE_edit',
           type: 'object',
         },
@@ -1536,9 +1265,7 @@ export default {
           description: 'Conférence',
           properties: {
             category: {
-              enum: [
-                'CONFERENCE',
-              ],
+              enum: ['CONFERENCE'],
               title: 'Category',
               type: 'string',
             },
@@ -1547,9 +1274,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'CONFERENCE_read',
           type: 'object',
         },
@@ -1627,23 +1352,13 @@ export default {
               $ref: '#/components/schemas/CollectiveBookingStatus',
             },
           },
-          required: [
-            'id',
-            'status',
-            'dateCreated',
-          ],
+          required: ['id', 'status', 'dateCreated'],
           title: 'CollectiveBookingResponseModel',
           type: 'object',
         },
         CollectiveBookingStatus: {
           description: 'An enumeration.',
-          enum: [
-            'PENDING',
-            'CONFIRMED',
-            'USED',
-            'CANCELLED',
-            'REIMBURSED',
-          ],
+          enum: ['PENDING', 'CONFIRMED', 'USED', 'CANCELLED', 'REIMBURSED'],
           title: 'CollectiveBookingStatus',
         },
         CollectiveOffersCategoryResponseModel: {
@@ -1657,10 +1372,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'id',
-            'name',
-          ],
+          required: ['id', 'name'],
           title: 'CollectiveOffersCategoryResponseModel',
           type: 'object',
         },
@@ -1682,11 +1394,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'id',
-            'name',
-            'nationalPrograms',
-          ],
+          required: ['id', 'name', 'nationalPrograms'],
           title: 'CollectiveOffersDomainResponseModel',
           type: 'object',
         },
@@ -1824,10 +1532,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'id',
-            'name',
-          ],
+          required: ['id', 'name'],
           title: 'CollectiveOffersStudentLevelResponseModel',
           type: 'object',
         },
@@ -1850,12 +1555,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'id',
-            'label',
-            'category',
-            'categoryId',
-          ],
+          required: ['id', 'label', 'category', 'categoryId'],
           title: 'CollectiveOffersSubCategoryResponseModel',
           type: 'object',
         },
@@ -1863,9 +1563,7 @@ export default {
           description: 'Découverte des métiers',
           properties: {
             category: {
-              enum: [
-                'DECOUVERTE_METIERS',
-              ],
+              enum: ['DECOUVERTE_METIERS'],
               title: 'Category',
               type: 'string',
             },
@@ -1874,9 +1572,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'DECOUVERTE_METIERS_read',
           type: 'object',
         },
@@ -1890,7 +1586,8 @@ export default {
               type: 'string',
             },
             bookingLimitDatetime: {
-              description: 'Timezone aware datetime after which the offer can no longer be booked.',
+              description:
+                'Timezone aware datetime after which the offer can no longer be booked.',
               example: '2024-06-28T14:00:00+02:00',
               format: 'date-time',
               title: 'Bookinglimitdatetime',
@@ -1906,13 +1603,12 @@ export default {
                   type: 'integer',
                 },
                 {
-                  enum: [
-                    'unlimited',
-                  ],
+                  enum: ['unlimited'],
                   type: 'string',
                 },
               ],
-              description: 'Quantity of items currently available to pass Culture. Value \'unlimited\' is used for infinite quantity of items.',
+              description:
+                "Quantity of items currently available to pass Culture. Value 'unlimited' is used for infinite quantity of items.",
               example: 10,
               title: 'Quantity',
             },
@@ -1938,7 +1634,8 @@ export default {
               type: 'string',
             },
             bookingLimitDatetime: {
-              description: 'Timezone aware datetime after which the offer can no longer be booked.',
+              description:
+                'Timezone aware datetime after which the offer can no longer be booked.',
               example: '2024-06-28T14:00:00+02:00',
               format: 'date-time',
               nullable: true,
@@ -1956,13 +1653,12 @@ export default {
                   type: 'integer',
                 },
                 {
-                  enum: [
-                    'unlimited',
-                  ],
+                  enum: ['unlimited'],
                   type: 'string',
                 },
               ],
-              description: 'Quantity of items currently available to pass Culture. Value \'unlimited\' is used for infinite quantity of items.',
+              description:
+                "Quantity of items currently available to pass Culture. Value 'unlimited' is used for infinite quantity of items.",
               example: 10,
               nullable: true,
               title: 'Quantity',
@@ -1987,7 +1683,8 @@ export default {
               type: 'integer',
             },
             bookingLimitDatetime: {
-              description: 'Timezone aware datetime after which the offer can no longer be booked.',
+              description:
+                'Timezone aware datetime after which the offer can no longer be booked.',
               example: '2024-06-28T14:00:00+02:00',
               format: 'date-time',
               title: 'Bookinglimitdatetime',
@@ -2006,13 +1703,12 @@ export default {
                   type: 'integer',
                 },
                 {
-                  enum: [
-                    'unlimited',
-                  ],
+                  enum: ['unlimited'],
                   type: 'string',
                 },
               ],
-              description: 'Quantity of items currently available to pass Culture. Value \'unlimited\' is used for infinite quantity of items.',
+              description:
+                "Quantity of items currently available to pass Culture. Value 'unlimited' is used for infinite quantity of items.",
               example: 10,
               title: 'Quantity',
             },
@@ -2032,7 +1728,8 @@ export default {
           additionalProperties: false,
           properties: {
             dates: {
-              description: 'Dates to add to the event. If there are different prices and quantity for the same date, you must add several date objects',
+              description:
+                'Dates to add to the event. If there are different prices and quantity for the same date, you must add several date objects',
               items: {
                 $ref: '#/components/schemas/DateCreation',
               },
@@ -2040,9 +1737,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'dates',
-          ],
+          required: ['dates'],
           title: 'DatesCreation',
           type: 'object',
         },
@@ -2050,15 +1745,15 @@ export default {
           properties: {
             type: {
               default: 'digital',
-              enum: [
-                'digital',
-              ],
+              enum: ['digital'],
               title: 'Type',
               type: 'string',
             },
             url: {
-              description: 'Link users will be redirected to after booking this offer. You may include \'{token}\', \'{email}\' and/or \'{offerId}\' in the URL, which will be replaced respectively by the booking token (use this token to confirm the offer - see API Contremarque), the email of the user who booked the offer and the created offer id',
-              example: 'https://example.com?token={token}&email={email}&offerId={offerId}',
+              description:
+                "Link users will be redirected to after booking this offer. You may include '{token}', '{email}' and/or '{offerId}' in the URL, which will be replaced respectively by the booking token (use this token to confirm the offer - see API Contremarque), the email of the user who booked the offer and the created offer id",
+              example:
+                'https://example.com?token={token}&email={email}&offerId={offerId}',
               format: 'uri',
               maxLength: 2083,
               minLength: 1,
@@ -2072,10 +1767,7 @@ export default {
               type: 'integer',
             },
           },
-          required: [
-            'venueId',
-            'url',
-          ],
+          required: ['venueId', 'url'],
           title: 'DigitalLocation',
           type: 'object',
         },
@@ -2083,16 +1775,12 @@ export default {
           description: 'Escape game',
           properties: {
             category: {
-              enum: [
-                'ESCAPE_GAME',
-              ],
+              enum: ['ESCAPE_GAME'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'ESCAPE_GAME_read',
           type: 'object',
         },
@@ -2104,9 +1792,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'EVENEMENT_CINE',
-              ],
+              enum: ['EVENEMENT_CINE'],
               title: 'Category',
               type: 'string',
             },
@@ -2119,9 +1805,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_CINE_create',
           type: 'object',
         },
@@ -2133,9 +1817,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'EVENEMENT_CINE',
-              ],
+              enum: ['EVENEMENT_CINE'],
               title: 'Category',
               type: 'string',
             },
@@ -2148,9 +1830,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_CINE_edit',
           type: 'object',
         },
@@ -2162,9 +1842,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'EVENEMENT_CINE',
-              ],
+              enum: ['EVENEMENT_CINE'],
               title: 'Category',
               type: 'string',
             },
@@ -2177,9 +1855,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_CINE_read',
           type: 'object',
         },
@@ -2187,16 +1863,12 @@ export default {
           description: 'Évènements - jeux',
           properties: {
             category: {
-              enum: [
-                'EVENEMENT_JEU',
-              ],
+              enum: ['EVENEMENT_JEU'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_JEU_create',
           type: 'object',
         },
@@ -2204,16 +1876,12 @@ export default {
           description: 'Évènements - jeux',
           properties: {
             category: {
-              enum: [
-                'EVENEMENT_JEU',
-              ],
+              enum: ['EVENEMENT_JEU'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_JEU_edit',
           type: 'object',
         },
@@ -2221,30 +1889,24 @@ export default {
           description: 'Évènements - jeux',
           properties: {
             category: {
-              enum: [
-                'EVENEMENT_JEU',
-              ],
+              enum: ['EVENEMENT_JEU'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_JEU_read',
           type: 'object',
         },
         EVENEMENT_MUSIQUE_create: {
-          description: 'Autre type d\'évènement musical',
+          description: "Autre type d'évènement musical",
           properties: {
             author: {
               title: 'Author',
               type: 'string',
             },
             category: {
-              enum: [
-                'EVENEMENT_MUSIQUE',
-              ],
+              enum: ['EVENEMENT_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -2264,24 +1926,19 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'musicType',
-            'category',
-          ],
+          required: ['musicType', 'category'],
           title: 'EVENEMENT_MUSIQUE_create',
           type: 'object',
         },
         EVENEMENT_MUSIQUE_edit: {
-          description: 'Autre type d\'évènement musical',
+          description: "Autre type d'évènement musical",
           properties: {
             author: {
               title: 'Author',
               type: 'string',
             },
             category: {
-              enum: [
-                'EVENEMENT_MUSIQUE',
-              ],
+              enum: ['EVENEMENT_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -2301,23 +1958,19 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_MUSIQUE_edit',
           type: 'object',
         },
         EVENEMENT_MUSIQUE_read: {
-          description: 'Autre type d\'évènement musical',
+          description: "Autre type d'évènement musical",
           properties: {
             author: {
               title: 'Author',
               type: 'string',
             },
             category: {
-              enum: [
-                'EVENEMENT_MUSIQUE',
-              ],
+              enum: ['EVENEMENT_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -2337,9 +1990,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_MUSIQUE_read',
           type: 'object',
         },
@@ -2347,16 +1998,12 @@ export default {
           description: 'Évènement et atelier patrimoine',
           properties: {
             category: {
-              enum: [
-                'EVENEMENT_PATRIMOINE',
-              ],
+              enum: ['EVENEMENT_PATRIMOINE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_PATRIMOINE_create',
           type: 'object',
         },
@@ -2364,16 +2011,12 @@ export default {
           description: 'Évènement et atelier patrimoine',
           properties: {
             category: {
-              enum: [
-                'EVENEMENT_PATRIMOINE',
-              ],
+              enum: ['EVENEMENT_PATRIMOINE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_PATRIMOINE_edit',
           type: 'object',
         },
@@ -2381,16 +2024,12 @@ export default {
           description: 'Évènement et atelier patrimoine',
           properties: {
             category: {
-              enum: [
-                'EVENEMENT_PATRIMOINE',
-              ],
+              enum: ['EVENEMENT_PATRIMOINE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'EVENEMENT_PATRIMOINE_read',
           type: 'object',
         },
@@ -2421,9 +2060,7 @@ export default {
               type: 'object',
             },
           },
-          required: [
-            'errors',
-          ],
+          required: ['errors'],
           title: 'ErrorResponseModel',
           type: 'object',
         },
@@ -2433,7 +2070,8 @@ export default {
               additionalProperties: {
                 type: 'boolean',
               },
-              description: 'The keys are fields that should be set in the category_related_fields of an event. The values indicate whether their associated field is mandatory during event creation.',
+              description:
+                'The keys are fields that should be set in the category_related_fields of an event. The values indicate whether their associated field is mandatory during event creation.',
               title: 'Conditionalfields',
               type: 'object',
             },
@@ -2441,10 +2079,7 @@ export default {
               $ref: '#/components/schemas/CategoryEnum',
             },
           },
-          required: [
-            'id',
-            'conditionalFields',
-          ],
+          required: ['id', 'conditionalFields'],
           title: 'EventCategoryResponse',
           type: 'object',
         },
@@ -2455,47 +2090,62 @@ export default {
               $ref: '#/components/schemas/Accessibility',
             },
             bookingContact: {
-              description: 'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
+              description:
+                'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
               format: 'email',
               nullable: true,
               title: 'Bookingcontact',
               type: 'string',
             },
             bookingEmail: {
-              description: 'Recipient email for notifications about bookings, cancellations, etc.',
+              description:
+                'Recipient email for notifications about bookings, cancellations, etc.',
               format: 'email',
               nullable: true,
               title: 'Bookingemail',
               type: 'string',
             },
             categoryRelatedFields: {
-              description: 'Cultural category the offer belongs to. According to the category, some fields may or must be specified.',
+              description:
+                'Cultural category the offer belongs to. According to the category, some fields may or must be specified.',
               discriminator: {
                 mapping: {
-                  ATELIER_PRATIQUE_ART: '#/components/schemas/ATELIER_PRATIQUE_ART_create',
+                  ATELIER_PRATIQUE_ART:
+                    '#/components/schemas/ATELIER_PRATIQUE_ART_create',
                   CINE_PLEIN_AIR: '#/components/schemas/CINE_PLEIN_AIR_create',
                   CONCERT: '#/components/schemas/CONCERT_create',
                   CONCOURS: '#/components/schemas/CONCOURS_create',
                   CONFERENCE: '#/components/schemas/CONFERENCE_create',
                   EVENEMENT_CINE: '#/components/schemas/EVENEMENT_CINE_create',
                   EVENEMENT_JEU: '#/components/schemas/EVENEMENT_JEU_create',
-                  EVENEMENT_MUSIQUE: '#/components/schemas/EVENEMENT_MUSIQUE_create',
-                  EVENEMENT_PATRIMOINE: '#/components/schemas/EVENEMENT_PATRIMOINE_create',
-                  FESTIVAL_ART_VISUEL: '#/components/schemas/FESTIVAL_ART_VISUEL_create',
+                  EVENEMENT_MUSIQUE:
+                    '#/components/schemas/EVENEMENT_MUSIQUE_create',
+                  EVENEMENT_PATRIMOINE:
+                    '#/components/schemas/EVENEMENT_PATRIMOINE_create',
+                  FESTIVAL_ART_VISUEL:
+                    '#/components/schemas/FESTIVAL_ART_VISUEL_create',
                   FESTIVAL_CINE: '#/components/schemas/FESTIVAL_CINE_create',
                   FESTIVAL_LIVRE: '#/components/schemas/FESTIVAL_LIVRE_create',
-                  FESTIVAL_MUSIQUE: '#/components/schemas/FESTIVAL_MUSIQUE_create',
-                  FESTIVAL_SPECTACLE: '#/components/schemas/FESTIVAL_SPECTACLE_create',
-                  LIVESTREAM_EVENEMENT: '#/components/schemas/LIVESTREAM_EVENEMENT_create',
-                  LIVESTREAM_MUSIQUE: '#/components/schemas/LIVESTREAM_MUSIQUE_create',
-                  LIVESTREAM_PRATIQUE_ARTISTIQUE: '#/components/schemas/LIVESTREAM_PRATIQUE_ARTISTIQUE_create',
+                  FESTIVAL_MUSIQUE:
+                    '#/components/schemas/FESTIVAL_MUSIQUE_create',
+                  FESTIVAL_SPECTACLE:
+                    '#/components/schemas/FESTIVAL_SPECTACLE_create',
+                  LIVESTREAM_EVENEMENT:
+                    '#/components/schemas/LIVESTREAM_EVENEMENT_create',
+                  LIVESTREAM_MUSIQUE:
+                    '#/components/schemas/LIVESTREAM_MUSIQUE_create',
+                  LIVESTREAM_PRATIQUE_ARTISTIQUE:
+                    '#/components/schemas/LIVESTREAM_PRATIQUE_ARTISTIQUE_create',
                   RENCONTRE: '#/components/schemas/RENCONTRE_create',
-                  RENCONTRE_EN_LIGNE: '#/components/schemas/RENCONTRE_EN_LIGNE_create',
+                  RENCONTRE_EN_LIGNE:
+                    '#/components/schemas/RENCONTRE_EN_LIGNE_create',
                   RENCONTRE_JEU: '#/components/schemas/RENCONTRE_JEU_create',
                   SALON: '#/components/schemas/SALON_create',
                   SEANCE_CINE: '#/components/schemas/SEANCE_CINE_create',
-                  SEANCE_ESSAI_PRATIQUE_ART: '#/components/schemas/SEANCE_ESSAI_PRATIQUE_ART_create',
-                  SPECTACLE_REPRESENTATION: '#/components/schemas/SPECTACLE_REPRESENTATION_create',
+                  SEANCE_ESSAI_PRATIQUE_ART:
+                    '#/components/schemas/SEANCE_ESSAI_PRATIQUE_ART_create',
+                  SPECTACLE_REPRESENTATION:
+                    '#/components/schemas/SPECTACLE_REPRESENTATION_create',
                   VISITE: '#/components/schemas/VISITE_create',
                   VISITE_GUIDEE: '#/components/schemas/VISITE_GUIDEE_create',
                 },
@@ -2593,7 +2243,8 @@ export default {
             },
             enableDoubleBookings: {
               default: false,
-              description: 'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
+              description:
+                'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
               nullable: true,
               title: 'Enabledoublebookings',
               type: 'boolean',
@@ -2606,7 +2257,8 @@ export default {
               type: 'integer',
             },
             externalTicketOfficeUrl: {
-              description: 'Link displayed to users wishing to book the offer but who do not have (anymore) credit.',
+              description:
+                'Link displayed to users wishing to book the offer but who do not have (anymore) credit.',
               example: 'https://example.com',
               format: 'uri',
               maxLength: 2083,
@@ -2616,7 +2268,8 @@ export default {
               type: 'string',
             },
             hasTicket: {
-              description: 'Indicates whether the offer has an associated ticket. True if a ticket is available, False otherwise. To create an offer with tickets you must have developed the pass culture ticketing interface.',
+              description:
+                'Indicates whether the offer has an associated ticket. True if a ticket is available, False otherwise. To create an offer with tickets you must have developed the pass culture ticketing interface.',
               example: false,
               title: 'Hasticket',
               type: 'boolean',
@@ -2631,14 +2284,17 @@ export default {
               title: 'ImageBody',
             },
             itemCollectionDetails: {
-              description: 'Further information that will be provided to attendees to ease the offer collection.',
-              example: 'Opening hours, specific office, collection period, access code, email annoucement...',
+              description:
+                'Further information that will be provided to attendees to ease the offer collection.',
+              example:
+                'Opening hours, specific office, collection period, access code, email annoucement...',
               nullable: true,
               title: 'Itemcollectiondetails',
               type: 'string',
             },
             location: {
-              description: 'Location where the offer will be available or will take place. The location type must be compatible with the category',
+              description:
+                'Location where the offer will be available or will take place. The location type must be compatible with the category',
               discriminator: {
                 mapping: {
                   digital: '#/components/schemas/DigitalLocation',
@@ -2692,19 +2348,22 @@ export default {
                   $ref: '#/components/schemas/PartialAccessibility',
                 },
               ],
-              description: 'Accessibility to disabled people. Leave fields undefined to keep current value',
+              description:
+                'Accessibility to disabled people. Leave fields undefined to keep current value',
               nullable: true,
               title: 'Accessibility',
             },
             bookingContact: {
-              description: 'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
+              description:
+                'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
               format: 'email',
               nullable: true,
               title: 'Bookingcontact',
               type: 'string',
             },
             bookingEmail: {
-              description: 'Recipient email for notifications about bookings, cancellations, etc.',
+              description:
+                'Recipient email for notifications about bookings, cancellations, etc.',
               format: 'email',
               nullable: true,
               title: 'Bookingemail',
@@ -2791,7 +2450,8 @@ export default {
                   $ref: '#/components/schemas/VISITE_edit',
                 },
               ],
-              description: 'To override category related fields, the category must be specified, even if it cannot be changed. Other category related fields may be left undefined to keep their current value.',
+              description:
+                'To override category related fields, the category must be specified, even if it cannot be changed. Other category related fields may be left undefined to keep their current value.',
               nullable: true,
               title: 'Categoryrelatedfields',
             },
@@ -2805,7 +2465,8 @@ export default {
             },
             enableDoubleBookings: {
               default: false,
-              description: 'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
+              description:
+                'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
               nullable: true,
               title: 'Enabledoublebookings',
               type: 'boolean',
@@ -2827,14 +2488,17 @@ export default {
               title: 'ImageBody',
             },
             isActive: {
-              description: 'Whether the offer is activated. An inactive offer cannot be booked.',
+              description:
+                'Whether the offer is activated. An inactive offer cannot be booked.',
               nullable: true,
               title: 'Isactive',
               type: 'boolean',
             },
             itemCollectionDetails: {
-              description: 'Further information that will be provided to attendees to ease the offer collection.',
-              example: 'Opening hours, specific office, collection period, access code, email annoucement...',
+              description:
+                'Further information that will be provided to attendees to ease the offer collection.',
+              example:
+                'Opening hours, specific office, collection period, access code, email annoucement...',
               nullable: true,
               title: 'Itemcollectiondetails',
               type: 'string',
@@ -2849,47 +2513,64 @@ export default {
               $ref: '#/components/schemas/AccessibilityResponse',
             },
             bookingContact: {
-              description: 'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
+              description:
+                'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
               nullable: true,
               title: 'Bookingcontact',
               type: 'string',
             },
             bookingEmail: {
-              description: 'Recipient email for notifications about bookings, cancellations, etc.',
+              description:
+                'Recipient email for notifications about bookings, cancellations, etc.',
               nullable: true,
               title: 'Bookingemail',
               type: 'string',
             },
             categoryRelatedFields: {
-              description: 'Cultural category the offer belongs to. According to the category, some fields may or must be specified.',
+              description:
+                'Cultural category the offer belongs to. According to the category, some fields may or must be specified.',
               discriminator: {
                 mapping: {
-                  ACTIVATION_EVENT: '#/components/schemas/ACTIVATION_EVENT_read',
-                  ATELIER_PRATIQUE_ART: '#/components/schemas/ATELIER_PRATIQUE_ART_read',
+                  ACTIVATION_EVENT:
+                    '#/components/schemas/ACTIVATION_EVENT_read',
+                  ATELIER_PRATIQUE_ART:
+                    '#/components/schemas/ATELIER_PRATIQUE_ART_read',
                   CINE_PLEIN_AIR: '#/components/schemas/CINE_PLEIN_AIR_read',
                   CONCERT: '#/components/schemas/CONCERT_read',
                   CONCOURS: '#/components/schemas/CONCOURS_read',
                   CONFERENCE: '#/components/schemas/CONFERENCE_read',
-                  DECOUVERTE_METIERS: '#/components/schemas/DECOUVERTE_METIERS_read',
+                  DECOUVERTE_METIERS:
+                    '#/components/schemas/DECOUVERTE_METIERS_read',
                   EVENEMENT_CINE: '#/components/schemas/EVENEMENT_CINE_read',
                   EVENEMENT_JEU: '#/components/schemas/EVENEMENT_JEU_read',
-                  EVENEMENT_MUSIQUE: '#/components/schemas/EVENEMENT_MUSIQUE_read',
-                  EVENEMENT_PATRIMOINE: '#/components/schemas/EVENEMENT_PATRIMOINE_read',
-                  FESTIVAL_ART_VISUEL: '#/components/schemas/FESTIVAL_ART_VISUEL_read',
+                  EVENEMENT_MUSIQUE:
+                    '#/components/schemas/EVENEMENT_MUSIQUE_read',
+                  EVENEMENT_PATRIMOINE:
+                    '#/components/schemas/EVENEMENT_PATRIMOINE_read',
+                  FESTIVAL_ART_VISUEL:
+                    '#/components/schemas/FESTIVAL_ART_VISUEL_read',
                   FESTIVAL_CINE: '#/components/schemas/FESTIVAL_CINE_read',
                   FESTIVAL_LIVRE: '#/components/schemas/FESTIVAL_LIVRE_read',
-                  FESTIVAL_MUSIQUE: '#/components/schemas/FESTIVAL_MUSIQUE_read',
-                  FESTIVAL_SPECTACLE: '#/components/schemas/FESTIVAL_SPECTACLE_read',
-                  LIVESTREAM_EVENEMENT: '#/components/schemas/LIVESTREAM_EVENEMENT_read',
-                  LIVESTREAM_MUSIQUE: '#/components/schemas/LIVESTREAM_MUSIQUE_read',
-                  LIVESTREAM_PRATIQUE_ARTISTIQUE: '#/components/schemas/LIVESTREAM_PRATIQUE_ARTISTIQUE_read',
+                  FESTIVAL_MUSIQUE:
+                    '#/components/schemas/FESTIVAL_MUSIQUE_read',
+                  FESTIVAL_SPECTACLE:
+                    '#/components/schemas/FESTIVAL_SPECTACLE_read',
+                  LIVESTREAM_EVENEMENT:
+                    '#/components/schemas/LIVESTREAM_EVENEMENT_read',
+                  LIVESTREAM_MUSIQUE:
+                    '#/components/schemas/LIVESTREAM_MUSIQUE_read',
+                  LIVESTREAM_PRATIQUE_ARTISTIQUE:
+                    '#/components/schemas/LIVESTREAM_PRATIQUE_ARTISTIQUE_read',
                   RENCONTRE: '#/components/schemas/RENCONTRE_read',
-                  RENCONTRE_EN_LIGNE: '#/components/schemas/RENCONTRE_EN_LIGNE_read',
+                  RENCONTRE_EN_LIGNE:
+                    '#/components/schemas/RENCONTRE_EN_LIGNE_read',
                   RENCONTRE_JEU: '#/components/schemas/RENCONTRE_JEU_read',
                   SALON: '#/components/schemas/SALON_read',
                   SEANCE_CINE: '#/components/schemas/SEANCE_CINE_read',
-                  SEANCE_ESSAI_PRATIQUE_ART: '#/components/schemas/SEANCE_ESSAI_PRATIQUE_ART_read',
-                  SPECTACLE_REPRESENTATION: '#/components/schemas/SPECTACLE_REPRESENTATION_read',
+                  SEANCE_ESSAI_PRATIQUE_ART:
+                    '#/components/schemas/SEANCE_ESSAI_PRATIQUE_ART_read',
+                  SPECTACLE_REPRESENTATION:
+                    '#/components/schemas/SPECTACLE_REPRESENTATION_read',
                   VISITE: '#/components/schemas/VISITE_read',
                   VISITE_GUIDEE: '#/components/schemas/VISITE_GUIDEE_read',
                 },
@@ -2992,7 +2673,8 @@ export default {
             },
             enableDoubleBookings: {
               default: false,
-              description: 'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
+              description:
+                'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
               nullable: true,
               title: 'Enabledoublebookings',
               type: 'boolean',
@@ -3005,14 +2687,16 @@ export default {
               type: 'integer',
             },
             externalTicketOfficeUrl: {
-              description: 'Link displayed to users wishing to book the offer but who do not have (anymore) credit.',
+              description:
+                'Link displayed to users wishing to book the offer but who do not have (anymore) credit.',
               example: 'https://example.com',
               nullable: true,
               title: 'Externalticketofficeurl',
               type: 'string',
             },
             hasTicket: {
-              description: 'Indicates whether the offer has an associated ticket. True if a ticket is available, False otherwise. To create an offer with tickets you must have developed the pass culture ticketing interface.',
+              description:
+                'Indicates whether the offer has an associated ticket. True if a ticket is available, False otherwise. To create an offer with tickets you must have developed the pass culture ticketing interface.',
               example: false,
               title: 'Hasticket',
               type: 'boolean',
@@ -3031,14 +2715,17 @@ export default {
               title: 'ImageResponse',
             },
             itemCollectionDetails: {
-              description: 'Further information that will be provided to attendees to ease the offer collection.',
-              example: 'Opening hours, specific office, collection period, access code, email annoucement...',
+              description:
+                'Further information that will be provided to attendees to ease the offer collection.',
+              example:
+                'Opening hours, specific office, collection period, access code, email annoucement...',
               nullable: true,
               title: 'Itemcollectiondetails',
               type: 'string',
             },
             location: {
-              description: 'Location where the offer will be available or will take place. The location type must be compatible with the category',
+              description:
+                'Location where the offer will be available or will take place. The location type must be compatible with the category',
               discriminator: {
                 mapping: {
                   digital: '#/components/schemas/DigitalLocation',
@@ -3077,7 +2764,8 @@ export default {
                   $ref: '#/components/schemas/OfferStatus',
                 },
               ],
-              description: 'ACTIVE: offer is validated and active.\n\nDRAFT: offer is still draft and not yet submitted for validation - this status is not applicable to offers created via this API.\n\nEXPIRED: offer is validated but the booking limit datetime has passed.\n\nINACTIVE: offer is not active and cannot be booked.\n\nPENDING: offer is pending for pass Culture rules compliance validation. This step may last 72 hours.\n\nREJECTED: offer validation has been rejected because it is not compliant with pass Culture rules.\n\nSOLD_OUT: offer is validated but there is no (more) stock available for booking.',
+              description:
+                'ACTIVE: offer is validated and active.\n\nDRAFT: offer is still draft and not yet submitted for validation - this status is not applicable to offers created via this API.\n\nEXPIRED: offer is validated but the booking limit datetime has passed.\n\nINACTIVE: offer is not active and cannot be booked.\n\nPENDING: offer is pending for pass Culture rules compliance validation. This step may last 72 hours.\n\nREJECTED: offer validation has been rejected because it is not compliant with pass Culture rules.\n\nSOLD_OUT: offer is validated but there is no (more) stock available for booking.',
               example: 'ACTIVE',
             },
           },
@@ -3104,23 +2792,19 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'events',
-          ],
+          required: ['events'],
           title: 'EventOffersResponse',
           type: 'object',
         },
         FESTIVAL_ART_VISUEL_create: {
-          description: 'Festival d\'arts visuels / arts numériques',
+          description: "Festival d'arts visuels / arts numériques",
           properties: {
             author: {
               title: 'Author',
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_ART_VISUEL',
-              ],
+              enum: ['FESTIVAL_ART_VISUEL'],
               title: 'Category',
               type: 'string',
             },
@@ -3129,23 +2813,19 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_ART_VISUEL_create',
           type: 'object',
         },
         FESTIVAL_ART_VISUEL_edit: {
-          description: 'Festival d\'arts visuels / arts numériques',
+          description: "Festival d'arts visuels / arts numériques",
           properties: {
             author: {
               title: 'Author',
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_ART_VISUEL',
-              ],
+              enum: ['FESTIVAL_ART_VISUEL'],
               title: 'Category',
               type: 'string',
             },
@@ -3154,23 +2834,19 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_ART_VISUEL_edit',
           type: 'object',
         },
         FESTIVAL_ART_VISUEL_read: {
-          description: 'Festival d\'arts visuels / arts numériques',
+          description: "Festival d'arts visuels / arts numériques",
           properties: {
             author: {
               title: 'Author',
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_ART_VISUEL',
-              ],
+              enum: ['FESTIVAL_ART_VISUEL'],
               title: 'Category',
               type: 'string',
             },
@@ -3179,9 +2855,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_ART_VISUEL_read',
           type: 'object',
         },
@@ -3193,9 +2867,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_CINE',
-              ],
+              enum: ['FESTIVAL_CINE'],
               title: 'Category',
               type: 'string',
             },
@@ -3208,9 +2880,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_CINE_create',
           type: 'object',
         },
@@ -3222,9 +2892,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_CINE',
-              ],
+              enum: ['FESTIVAL_CINE'],
               title: 'Category',
               type: 'string',
             },
@@ -3237,9 +2905,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_CINE_edit',
           type: 'object',
         },
@@ -3251,9 +2917,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_CINE',
-              ],
+              enum: ['FESTIVAL_CINE'],
               title: 'Category',
               type: 'string',
             },
@@ -3266,9 +2930,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_CINE_read',
           type: 'object',
         },
@@ -3276,16 +2938,12 @@ export default {
           description: 'Festival et salon du livre',
           properties: {
             category: {
-              enum: [
-                'FESTIVAL_LIVRE',
-              ],
+              enum: ['FESTIVAL_LIVRE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_LIVRE_create',
           type: 'object',
         },
@@ -3293,16 +2951,12 @@ export default {
           description: 'Festival et salon du livre',
           properties: {
             category: {
-              enum: [
-                'FESTIVAL_LIVRE',
-              ],
+              enum: ['FESTIVAL_LIVRE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_LIVRE_edit',
           type: 'object',
         },
@@ -3310,16 +2964,12 @@ export default {
           description: 'Festival et salon du livre',
           properties: {
             category: {
-              enum: [
-                'FESTIVAL_LIVRE',
-              ],
+              enum: ['FESTIVAL_LIVRE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_LIVRE_read',
           type: 'object',
         },
@@ -3331,9 +2981,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_MUSIQUE',
-              ],
+              enum: ['FESTIVAL_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -3353,10 +3001,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'musicType',
-            'category',
-          ],
+          required: ['musicType', 'category'],
           title: 'FESTIVAL_MUSIQUE_create',
           type: 'object',
         },
@@ -3368,9 +3013,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_MUSIQUE',
-              ],
+              enum: ['FESTIVAL_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -3390,9 +3033,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_MUSIQUE_edit',
           type: 'object',
         },
@@ -3404,9 +3045,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_MUSIQUE',
-              ],
+              enum: ['FESTIVAL_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -3426,9 +3065,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_MUSIQUE_read',
           type: 'object',
         },
@@ -3440,9 +3077,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_SPECTACLE',
-              ],
+              enum: ['FESTIVAL_SPECTACLE'],
               title: 'Category',
               type: 'string',
             },
@@ -3458,10 +3093,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'showType',
-            'category',
-          ],
+          required: ['showType', 'category'],
           title: 'FESTIVAL_SPECTACLE_create',
           type: 'object',
         },
@@ -3473,9 +3105,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_SPECTACLE',
-              ],
+              enum: ['FESTIVAL_SPECTACLE'],
               title: 'Category',
               type: 'string',
             },
@@ -3491,9 +3121,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_SPECTACLE_edit',
           type: 'object',
         },
@@ -3505,9 +3133,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'FESTIVAL_SPECTACLE',
-              ],
+              enum: ['FESTIVAL_SPECTACLE'],
               title: 'Category',
               type: 'string',
             },
@@ -3523,16 +3149,15 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'FESTIVAL_SPECTACLE_read',
           type: 'object',
         },
         GetBookingResponse: {
           properties: {
             confirmationDate: {
-              description: 'For event offers, deadline for cancellation by the beneficiary.',
+              description:
+                'For event offers, deadline for cancellation by the beneficiary.',
               nullable: true,
               title: 'Confirmationdate',
               type: 'string',
@@ -3678,9 +3303,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'dates',
-          ],
+          required: ['dates'],
           title: 'GetDatesResponse',
           type: 'object',
         },
@@ -3732,7 +3355,8 @@ export default {
                   $ref: '#/components/schemas/BookingStatus',
                 },
               ],
-              description: 'Booking Status.\n\n* `CONFIRMED`: The bookings is confirmed.\n* `USED`: The bookings has been used.\n* `CANCELLED`: The bookings has been cancelled.\n* `REIMBURSED` The bookings has been reimbursed.',
+              description:
+                'Booking Status.\n\n* `CONFIRMED`: The bookings is confirmed.\n* `USED`: The bookings has been used.\n* `CANCELLED`: The bookings has been cancelled.\n* `REIMBURSED` The bookings has been reimbursed.',
               nullable: true,
             },
             stockId: {
@@ -3742,9 +3366,7 @@ export default {
               type: 'integer',
             },
           },
-          required: [
-            'offerId',
-          ],
+          required: ['offerId'],
           title: 'GetFilteredBookingsRequest',
           type: 'object',
         },
@@ -3758,9 +3380,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'bookings',
-          ],
+          required: ['bookings'],
           title: 'GetFilteredBookingsResponse',
           type: 'object',
         },
@@ -3828,7 +3448,8 @@ export default {
                   $ref: '#/components/schemas/OffererResponse',
                 },
               ],
-              description: 'Offerer to which the venues belong. Entity linked to the api key used.',
+              description:
+                'Offerer to which the venues belong. Entity linked to the api key used.',
               title: 'Offerer',
             },
             venues: {
@@ -3839,10 +3460,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'offerer',
-            'venues',
-          ],
+          required: ['offerer', 'venues'],
           title: 'GetOffererVenuesResponse',
           type: 'object',
         },
@@ -3889,9 +3507,7 @@ export default {
               type: 'integer',
             },
           },
-          required: [
-            'venueId',
-          ],
+          required: ['venueId'],
           title: 'GetOffersQueryParams',
           type: 'object',
         },
@@ -3915,10 +3531,7 @@ export default {
               type: 'integer',
             },
           },
-          required: [
-            'eans',
-            'venueId',
-          ],
+          required: ['eans', 'venueId'],
           title: 'GetProductsListByEansQuery',
           type: 'object',
         },
@@ -4129,7 +3742,8 @@ export default {
           type: 'array',
         },
         ImageBody: {
-          description: 'Image illustrating the offer. Offers with images are more likely to be booked.',
+          description:
+            'Image illustrating the offer. Offers with images are more likely to be booked.',
           properties: {
             credit: {
               description: 'Image owner or author.',
@@ -4139,20 +3753,21 @@ export default {
               type: 'string',
             },
             file: {
-              description: 'Image file encoded in base64 string. Image format must be PNG or JPEG. Size must be between 400x600 and 800x1200 pixels. Aspect ratio must be 2:3 (portrait format).',
-              example: 'iVBORw0KGgoAAAANSUhEUgAAAhUAAAMgCAAAAACxT88IAAABImlDQ1BJQ0MgcHJvZmlsZQAAKJGdkLFKw1AUhr+0oiKKg6IgDhlcO5pFB6tCKCjEWMHqlCYpFpMYkpTiG/gm+jAdBMFXcFdw9r/RwcEs3nD4Pw7n/P+9gZadhGk5dwBpVhWu3x1cDq7shTfa+lbZZC8Iy7zreSc0ns9XLKMvHePVPPfnmY/iMpTOVFmYFxVY+2JnWuWGVazf9v0j8YPYjtIsEj+Jd6I0Mmx2/TSZhD+e5jbLcXZxbvqqbVx6nOJhM2TCmISKjjRT5xiHXalLQcA9JaE0IVZvqpmKG1EpJ5dDUV+k2zTkbdV5nlKG8hjLyyTckcrT5GH+7/fax1m9aW3M8qAI6lZb1RqN4P0RVgaw9gxL1w1Zi7/f1jDj1DP/fOMXG7hQfuNVil0AAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfnAwMPGDrdy1JyAAABtElEQVR42u3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8GaFGgABH6N7kwAAAABJRU5ErkJggg==',
+              description:
+                'Image file encoded in base64 string. Image format must be PNG or JPEG. Size must be between 400x600 and 800x1200 pixels. Aspect ratio must be 2:3 (portrait format).',
+              example:
+                'iVBORw0KGgoAAAANSUhEUgAAAhUAAAMgCAAAAACxT88IAAABImlDQ1BJQ0MgcHJvZmlsZQAAKJGdkLFKw1AUhr+0oiKKg6IgDhlcO5pFB6tCKCjEWMHqlCYpFpMYkpTiG/gm+jAdBMFXcFdw9r/RwcEs3nD4Pw7n/P+9gZadhGk5dwBpVhWu3x1cDq7shTfa+lbZZC8Iy7zreSc0ns9XLKMvHePVPPfnmY/iMpTOVFmYFxVY+2JnWuWGVazf9v0j8YPYjtIsEj+Jd6I0Mmx2/TSZhD+e5jbLcXZxbvqqbVx6nOJhM2TCmISKjjRT5xiHXalLQcA9JaE0IVZvqpmKG1EpJ5dDUV+k2zTkbdV5nlKG8hjLyyTckcrT5GH+7/fax1m9aW3M8qAI6lZb1RqN4P0RVgaw9gxL1w1Zi7/f1jDj1DP/fOMXG7hQfuNVil0AAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfnAwMPGDrdy1JyAAABtElEQVR42u3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8GaFGgABH6N7kwAAAABJRU5ErkJggg==',
               title: 'File',
               type: 'string',
             },
           },
-          required: [
-            'file',
-          ],
+          required: ['file'],
           title: 'ImageBody',
           type: 'object',
         },
         ImageResponse: {
-          description: 'Image illustrating the offer. Offers with images are more likely to be booked.',
+          description:
+            'Image illustrating the offer. Offers with images are more likely to be booked.',
           properties: {
             credit: {
               description: 'Image owner or author.',
@@ -4168,9 +3783,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'url',
-          ],
+          required: ['url'],
           title: 'ImageResponse',
           type: 'object',
         },
@@ -4182,7 +3795,8 @@ export default {
               type: 'string',
             },
             file: {
-              description: '[required] Image format must be PNG, JPEG or JPG. Size must be between 400x600 and 800x1200 pixels. Aspect ratio must be 2:3 (portrait format).',
+              description:
+                '[required] Image format must be PNG, JPEG or JPG. Size must be between 400x600 and 800x1200 pixels. Aspect ratio must be 2:3 (portrait format).',
               format: 'binary',
               nullable: true,
               title: 'File',
@@ -4196,9 +3810,7 @@ export default {
           description: 'Jeux en ligne',
           properties: {
             category: {
-              enum: [
-                'JEU_EN_LIGNE',
-              ],
+              enum: ['JEU_EN_LIGNE'],
               title: 'Category',
               type: 'string',
             },
@@ -4207,9 +3819,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'JEU_EN_LIGNE_read',
           type: 'object',
         },
@@ -4217,30 +3827,24 @@ export default {
           description: 'Catégorie technique Jeu support physique',
           properties: {
             category: {
-              enum: [
-                'JEU_SUPPORT_PHYSIQUE',
-              ],
+              enum: ['JEU_SUPPORT_PHYSIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'JEU_SUPPORT_PHYSIQUE_read',
           type: 'object',
         },
         LIVESTREAM_EVENEMENT_create: {
-          description: 'Livestream d\'évènement',
+          description: "Livestream d'évènement",
           properties: {
             author: {
               title: 'Author',
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVESTREAM_EVENEMENT',
-              ],
+              enum: ['LIVESTREAM_EVENEMENT'],
               title: 'Category',
               type: 'string',
             },
@@ -4256,24 +3860,19 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'showType',
-            'category',
-          ],
+          required: ['showType', 'category'],
           title: 'LIVESTREAM_EVENEMENT_create',
           type: 'object',
         },
         LIVESTREAM_EVENEMENT_edit: {
-          description: 'Livestream d\'évènement',
+          description: "Livestream d'évènement",
           properties: {
             author: {
               title: 'Author',
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVESTREAM_EVENEMENT',
-              ],
+              enum: ['LIVESTREAM_EVENEMENT'],
               title: 'Category',
               type: 'string',
             },
@@ -4289,23 +3888,19 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVESTREAM_EVENEMENT_edit',
           type: 'object',
         },
         LIVESTREAM_EVENEMENT_read: {
-          description: 'Livestream d\'évènement',
+          description: "Livestream d'évènement",
           properties: {
             author: {
               title: 'Author',
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVESTREAM_EVENEMENT',
-              ],
+              enum: ['LIVESTREAM_EVENEMENT'],
               title: 'Category',
               type: 'string',
             },
@@ -4321,9 +3916,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVESTREAM_EVENEMENT_read',
           type: 'object',
         },
@@ -4335,9 +3928,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVESTREAM_MUSIQUE',
-              ],
+              enum: ['LIVESTREAM_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -4357,10 +3948,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'musicType',
-            'category',
-          ],
+          required: ['musicType', 'category'],
           title: 'LIVESTREAM_MUSIQUE_create',
           type: 'object',
         },
@@ -4372,9 +3960,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVESTREAM_MUSIQUE',
-              ],
+              enum: ['LIVESTREAM_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -4394,9 +3980,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVESTREAM_MUSIQUE_edit',
           type: 'object',
         },
@@ -4408,9 +3992,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVESTREAM_MUSIQUE',
-              ],
+              enum: ['LIVESTREAM_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -4430,9 +4012,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVESTREAM_MUSIQUE_read',
           type: 'object',
         },
@@ -4440,16 +4020,12 @@ export default {
           description: 'Pratique artistique - livestream',
           properties: {
             category: {
-              enum: [
-                'LIVESTREAM_PRATIQUE_ARTISTIQUE',
-              ],
+              enum: ['LIVESTREAM_PRATIQUE_ARTISTIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVESTREAM_PRATIQUE_ARTISTIQUE_create',
           type: 'object',
         },
@@ -4457,16 +4033,12 @@ export default {
           description: 'Pratique artistique - livestream',
           properties: {
             category: {
-              enum: [
-                'LIVESTREAM_PRATIQUE_ARTISTIQUE',
-              ],
+              enum: ['LIVESTREAM_PRATIQUE_ARTISTIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVESTREAM_PRATIQUE_ARTISTIQUE_edit',
           type: 'object',
         },
@@ -4474,16 +4046,12 @@ export default {
           description: 'Pratique artistique - livestream',
           properties: {
             category: {
-              enum: [
-                'LIVESTREAM_PRATIQUE_ARTISTIQUE',
-              ],
+              enum: ['LIVESTREAM_PRATIQUE_ARTISTIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVESTREAM_PRATIQUE_ARTISTIQUE_read',
           type: 'object',
         },
@@ -4495,9 +4063,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVRE_AUDIO_PHYSIQUE',
-              ],
+              enum: ['LIVRE_AUDIO_PHYSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -4506,10 +4072,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'ean',
-            'category',
-          ],
+          required: ['ean', 'category'],
           title: 'LIVRE_AUDIO_PHYSIQUE_create',
           type: 'object',
         },
@@ -4521,9 +4084,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVRE_AUDIO_PHYSIQUE',
-              ],
+              enum: ['LIVRE_AUDIO_PHYSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -4532,9 +4093,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVRE_AUDIO_PHYSIQUE_edit',
           type: 'object',
         },
@@ -4546,9 +4105,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVRE_AUDIO_PHYSIQUE',
-              ],
+              enum: ['LIVRE_AUDIO_PHYSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -4557,9 +4114,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVRE_AUDIO_PHYSIQUE_read',
           type: 'object',
         },
@@ -4571,9 +4126,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVRE_NUMERIQUE',
-              ],
+              enum: ['LIVRE_NUMERIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -4582,9 +4135,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVRE_NUMERIQUE_create',
           type: 'object',
         },
@@ -4596,9 +4147,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVRE_NUMERIQUE',
-              ],
+              enum: ['LIVRE_NUMERIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -4607,9 +4156,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVRE_NUMERIQUE_edit',
           type: 'object',
         },
@@ -4621,9 +4168,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVRE_NUMERIQUE',
-              ],
+              enum: ['LIVRE_NUMERIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -4632,9 +4177,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVRE_NUMERIQUE_read',
           type: 'object',
         },
@@ -4646,9 +4189,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'LIVRE_PAPIER',
-              ],
+              enum: ['LIVRE_PAPIER'],
               title: 'Category',
               type: 'string',
             },
@@ -4657,9 +4198,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LIVRE_PAPIER_read',
           type: 'object',
         },
@@ -4667,9 +4206,7 @@ export default {
           description: 'Location instrument',
           properties: {
             category: {
-              enum: [
-                'LOCATION_INSTRUMENT',
-              ],
+              enum: ['LOCATION_INSTRUMENT'],
               title: 'Category',
               type: 'string',
             },
@@ -4678,10 +4215,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'ean',
-            'category',
-          ],
+          required: ['ean', 'category'],
           title: 'LOCATION_INSTRUMENT_create',
           type: 'object',
         },
@@ -4689,9 +4223,7 @@ export default {
           description: 'Location instrument',
           properties: {
             category: {
-              enum: [
-                'LOCATION_INSTRUMENT',
-              ],
+              enum: ['LOCATION_INSTRUMENT'],
               title: 'Category',
               type: 'string',
             },
@@ -4700,9 +4232,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LOCATION_INSTRUMENT_edit',
           type: 'object',
         },
@@ -4710,9 +4240,7 @@ export default {
           description: 'Location instrument',
           properties: {
             category: {
-              enum: [
-                'LOCATION_INSTRUMENT',
-              ],
+              enum: ['LOCATION_INSTRUMENT'],
               title: 'Category',
               type: 'string',
             },
@@ -4721,9 +4249,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'LOCATION_INSTRUMENT_read',
           type: 'object',
         },
@@ -4766,10 +4292,7 @@ export default {
         },
         LocationTypeEnum: {
           description: 'An enumeration.',
-          enum: [
-            'DIGITAL',
-            'PHYSICAL',
-          ],
+          enum: ['DIGITAL', 'PHYSICAL'],
           title: 'LocationTypeEnum',
           type: 'string',
         },
@@ -4777,9 +4300,7 @@ export default {
           description: 'Matériel arts créatifs',
           properties: {
             category: {
-              enum: [
-                'MATERIEL_ART_CREATIF',
-              ],
+              enum: ['MATERIEL_ART_CREATIF'],
               title: 'Category',
               type: 'string',
             },
@@ -4788,9 +4309,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'MATERIEL_ART_CREATIF_read',
           type: 'object',
         },
@@ -4798,16 +4317,12 @@ export default {
           description: 'Musée vente à distance',
           properties: {
             category: {
-              enum: [
-                'MUSEE_VENTE_DISTANCE',
-              ],
+              enum: ['MUSEE_VENTE_DISTANCE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'MUSEE_VENTE_DISTANCE_read',
           type: 'object',
         },
@@ -5028,10 +4543,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'id',
-            'label',
-          ],
+          required: ['id', 'label'],
           title: 'MusicTypeResponse',
           type: 'object',
         },
@@ -5046,37 +4558,26 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'id',
-            'name',
-          ],
+          required: ['id', 'name'],
           title: 'NationalProgramModel',
           type: 'object',
         },
         OEUVRE_ART_read: {
-          description: 'Catégorie technique d\'oeuvre d\'art',
+          description: "Catégorie technique d'oeuvre d'art",
           properties: {
             category: {
-              enum: [
-                'OEUVRE_ART',
-              ],
+              enum: ['OEUVRE_ART'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'OEUVRE_ART_read',
           type: 'object',
         },
         OfferAddressType: {
           description: 'An enumeration.',
-          enum: [
-            'offererVenue',
-            'school',
-            'other',
-          ],
+          enum: ['offererVenue', 'school', 'other'],
           title: 'OfferAddressType',
         },
         OfferStatus: {
@@ -5110,9 +4611,7 @@ export default {
               type: 'integer',
             },
           },
-          required: [
-            'addressType',
-          ],
+          required: ['addressType'],
           title: 'OfferVenueModel',
           type: 'object',
         },
@@ -5139,11 +4638,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'id',
-            'createdDatetime',
-            'name',
-          ],
+          required: ['id', 'createdDatetime', 'name'],
           title: 'OffererResponse',
           type: 'object',
         },
@@ -5151,9 +4646,7 @@ export default {
           description: 'Partition',
           properties: {
             category: {
-              enum: [
-                'PARTITION',
-              ],
+              enum: ['PARTITION'],
               title: 'Category',
               type: 'string',
             },
@@ -5162,10 +4655,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'ean',
-            'category',
-          ],
+          required: ['ean', 'category'],
           title: 'PARTITION_create',
           type: 'object',
         },
@@ -5173,9 +4663,7 @@ export default {
           description: 'Partition',
           properties: {
             category: {
-              enum: [
-                'PARTITION',
-              ],
+              enum: ['PARTITION'],
               title: 'Category',
               type: 'string',
             },
@@ -5184,9 +4672,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PARTITION_edit',
           type: 'object',
         },
@@ -5194,9 +4680,7 @@ export default {
           description: 'Partition',
           properties: {
             category: {
-              enum: [
-                'PARTITION',
-              ],
+              enum: ['PARTITION'],
               title: 'Category',
               type: 'string',
             },
@@ -5205,9 +4689,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PARTITION_read',
           type: 'object',
         },
@@ -5215,16 +4697,12 @@ export default {
           description: 'Pratique artistique - plateforme en ligne',
           properties: {
             category: {
-              enum: [
-                'PLATEFORME_PRATIQUE_ARTISTIQUE',
-              ],
+              enum: ['PLATEFORME_PRATIQUE_ARTISTIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PLATEFORME_PRATIQUE_ARTISTIQUE_create',
           type: 'object',
         },
@@ -5232,16 +4710,12 @@ export default {
           description: 'Pratique artistique - plateforme en ligne',
           properties: {
             category: {
-              enum: [
-                'PLATEFORME_PRATIQUE_ARTISTIQUE',
-              ],
+              enum: ['PLATEFORME_PRATIQUE_ARTISTIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PLATEFORME_PRATIQUE_ARTISTIQUE_edit',
           type: 'object',
         },
@@ -5249,16 +4723,12 @@ export default {
           description: 'Pratique artistique - plateforme en ligne',
           properties: {
             category: {
-              enum: [
-                'PLATEFORME_PRATIQUE_ARTISTIQUE',
-              ],
+              enum: ['PLATEFORME_PRATIQUE_ARTISTIQUE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PLATEFORME_PRATIQUE_ARTISTIQUE_read',
           type: 'object',
         },
@@ -5266,16 +4736,12 @@ export default {
           description: 'Podcast',
           properties: {
             category: {
-              enum: [
-                'PODCAST',
-              ],
+              enum: ['PODCAST'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PODCAST_create',
           type: 'object',
         },
@@ -5283,16 +4749,12 @@ export default {
           description: 'Podcast',
           properties: {
             category: {
-              enum: [
-                'PODCAST',
-              ],
+              enum: ['PODCAST'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PODCAST_edit',
           type: 'object',
         },
@@ -5300,16 +4762,12 @@ export default {
           description: 'Podcast',
           properties: {
             category: {
-              enum: [
-                'PODCAST',
-              ],
+              enum: ['PODCAST'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PODCAST_read',
           type: 'object',
         },
@@ -5317,9 +4775,7 @@ export default {
           description: 'Pratique artistique - vente à distance',
           properties: {
             category: {
-              enum: [
-                'PRATIQUE_ART_VENTE_DISTANCE',
-              ],
+              enum: ['PRATIQUE_ART_VENTE_DISTANCE'],
               title: 'Category',
               type: 'string',
             },
@@ -5328,9 +4784,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PRATIQUE_ART_VENTE_DISTANCE_create',
           type: 'object',
         },
@@ -5338,9 +4792,7 @@ export default {
           description: 'Pratique artistique - vente à distance',
           properties: {
             category: {
-              enum: [
-                'PRATIQUE_ART_VENTE_DISTANCE',
-              ],
+              enum: ['PRATIQUE_ART_VENTE_DISTANCE'],
               title: 'Category',
               type: 'string',
             },
@@ -5349,9 +4801,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PRATIQUE_ART_VENTE_DISTANCE_edit',
           type: 'object',
         },
@@ -5359,9 +4809,7 @@ export default {
           description: 'Pratique artistique - vente à distance',
           properties: {
             category: {
-              enum: [
-                'PRATIQUE_ART_VENTE_DISTANCE',
-              ],
+              enum: ['PRATIQUE_ART_VENTE_DISTANCE'],
               title: 'Category',
               type: 'string',
             },
@@ -5370,14 +4818,13 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'PRATIQUE_ART_VENTE_DISTANCE_read',
           type: 'object',
         },
         PartialAccessibility: {
-          description: 'Accessibility for people with disabilities. Fields are null for digital venues.',
+          description:
+            'Accessibility for people with disabilities. Fields are null for digital venues.',
           properties: {
             audioDisabilityCompliant: {
               nullable: true,
@@ -5574,9 +5021,7 @@ export default {
           properties: {
             type: {
               default: 'physical',
-              enum: [
-                'physical',
-              ],
+              enum: ['physical'],
               title: 'Type',
               type: 'string',
             },
@@ -5587,9 +5032,7 @@ export default {
               type: 'integer',
             },
           },
-          required: [
-            'venueId',
-          ],
+          required: ['venueId'],
           title: 'PhysicalLocation',
           type: 'object',
         },
@@ -5760,9 +5203,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'dates',
-          ],
+          required: ['dates'],
           title: 'PostDatesResponse',
           type: 'object',
         },
@@ -5778,9 +5219,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'priceCategories',
-          ],
+          required: ['priceCategories'],
           title: 'PriceCategoriesCreation',
           type: 'object',
         },
@@ -5795,9 +5234,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'priceCategories',
-          ],
+          required: ['priceCategories'],
           title: 'PriceCategoriesResponse',
           type: 'object',
         },
@@ -5820,10 +5257,7 @@ export default {
               type: 'integer',
             },
           },
-          required: [
-            'label',
-            'price',
-          ],
+          required: ['label', 'price'],
           title: 'PriceCategoryCreation',
           type: 'object',
         },
@@ -5871,11 +5305,7 @@ export default {
               type: 'integer',
             },
           },
-          required: [
-            'id',
-            'label',
-            'price',
-          ],
+          required: ['id', 'label', 'price'],
           title: 'PriceCategoryResponse',
           type: 'object',
         },
@@ -5885,7 +5315,8 @@ export default {
               additionalProperties: {
                 type: 'boolean',
               },
-              description: 'The keys are fields that should be set in the category_related_fields of a product. The values indicate whether their associated field is mandatory during product creation.',
+              description:
+                'The keys are fields that should be set in the category_related_fields of a product. The values indicate whether their associated field is mandatory during product creation.',
               title: 'Conditionalfields',
               type: 'object',
             },
@@ -5901,10 +5332,7 @@ export default {
               nullable: true,
             },
           },
-          required: [
-            'id',
-            'conditionalFields',
-          ],
+          required: ['id', 'conditionalFields'],
           title: 'ProductCategoryResponse',
           type: 'object',
         },
@@ -5923,10 +5351,7 @@ export default {
               $ref: '#/components/schemas/StockCreation',
             },
           },
-          required: [
-            'ean',
-            'stock',
-          ],
+          required: ['ean', 'stock'],
           title: 'ProductOfferByEanCreation',
           type: 'object',
         },
@@ -5937,14 +5362,16 @@ export default {
               $ref: '#/components/schemas/Accessibility',
             },
             bookingContact: {
-              description: 'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
+              description:
+                'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
               format: 'email',
               nullable: true,
               title: 'Bookingcontact',
               type: 'string',
             },
             bookingEmail: {
-              description: 'Recipient email for notifications about bookings, cancellations, etc.',
+              description:
+                'Recipient email for notifications about bookings, cancellations, etc.',
               format: 'email',
               nullable: true,
               title: 'Bookingemail',
@@ -6034,7 +5461,8 @@ export default {
                   $ref: '#/components/schemas/VOD_create',
                 },
               ],
-              description: 'Cultural category the offer belongs to. According to the category, some fields may or must be specified.',
+              description:
+                'Cultural category the offer belongs to. According to the category, some fields may or must be specified.',
               title: 'Categoryrelatedfields',
             },
             description: {
@@ -6047,13 +5475,15 @@ export default {
             },
             enableDoubleBookings: {
               default: false,
-              description: 'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
+              description:
+                'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
               nullable: true,
               title: 'Enabledoublebookings',
               type: 'boolean',
             },
             externalTicketOfficeUrl: {
-              description: 'Link displayed to users wishing to book the offer but who do not have (anymore) credit.',
+              description:
+                'Link displayed to users wishing to book the offer but who do not have (anymore) credit.',
               example: 'https://example.com',
               format: 'uri',
               maxLength: 2083,
@@ -6072,14 +5502,17 @@ export default {
               title: 'ImageBody',
             },
             itemCollectionDetails: {
-              description: 'Further information that will be provided to attendees to ease the offer collection.',
-              example: 'Opening hours, specific office, collection period, access code, email annoucement...',
+              description:
+                'Further information that will be provided to attendees to ease the offer collection.',
+              example:
+                'Opening hours, specific office, collection period, access code, email annoucement...',
               nullable: true,
               title: 'Itemcollectiondetails',
               type: 'string',
             },
             location: {
-              description: 'Location where the offer will be available or will take place. The location type must be compatible with the category',
+              description:
+                'Location where the offer will be available or will take place. The location type must be compatible with the category',
               discriminator: {
                 mapping: {
                   digital: '#/components/schemas/DigitalLocation',
@@ -6132,19 +5565,22 @@ export default {
                   $ref: '#/components/schemas/PartialAccessibility',
                 },
               ],
-              description: 'Accessibility to disabled people. Leave fields undefined to keep current value',
+              description:
+                'Accessibility to disabled people. Leave fields undefined to keep current value',
               nullable: true,
               title: 'Accessibility',
             },
             bookingContact: {
-              description: 'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
+              description:
+                'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
               format: 'email',
               nullable: true,
               title: 'Bookingcontact',
               type: 'string',
             },
             bookingEmail: {
-              description: 'Recipient email for notifications about bookings, cancellations, etc.',
+              description:
+                'Recipient email for notifications about bookings, cancellations, etc.',
               format: 'email',
               nullable: true,
               title: 'Bookingemail',
@@ -6234,7 +5670,8 @@ export default {
                   $ref: '#/components/schemas/VOD_edit',
                 },
               ],
-              description: 'To override category related fields, the category must be specified, even if it cannot be changed. Other category related fields may be left undefined to keep their current value.',
+              description:
+                'To override category related fields, the category must be specified, even if it cannot be changed. Other category related fields may be left undefined to keep their current value.',
               nullable: true,
               title: 'Categoryrelatedfields',
             },
@@ -6248,7 +5685,8 @@ export default {
             },
             enableDoubleBookings: {
               default: false,
-              description: 'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
+              description:
+                'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
               nullable: true,
               title: 'Enabledoublebookings',
               type: 'boolean',
@@ -6263,14 +5701,17 @@ export default {
               title: 'ImageBody',
             },
             isActive: {
-              description: 'Whether the offer is activated. An inactive offer cannot be booked.',
+              description:
+                'Whether the offer is activated. An inactive offer cannot be booked.',
               nullable: true,
               title: 'Isactive',
               type: 'boolean',
             },
             itemCollectionDetails: {
-              description: 'Further information that will be provided to attendees to ease the offer collection.',
-              example: 'Opening hours, specific office, collection period, access code, email annoucement...',
+              description:
+                'Further information that will be provided to attendees to ease the offer collection.',
+              example:
+                'Opening hours, specific office, collection period, access code, email annoucement...',
               nullable: true,
               title: 'Itemcollectiondetails',
               type: 'string',
@@ -6285,14 +5726,13 @@ export default {
                   $ref: '#/components/schemas/StockEdition',
                 },
               ],
-              description: 'If stock is set to null, all cancellable bookings (i.e not used) will be cancelled. To prevent from further bookings, you may alternatively set stock.quantity to the bookedQuantity (but not below).',
+              description:
+                'If stock is set to null, all cancellable bookings (i.e not used) will be cancelled. To prevent from further bookings, you may alternatively set stock.quantity to the bookedQuantity (but not below).',
               nullable: true,
               title: 'Stock',
             },
           },
-          required: [
-            'offerId',
-          ],
+          required: ['offerId'],
           title: 'ProductOfferEdition',
           type: 'object',
         },
@@ -6302,65 +5742,97 @@ export default {
               $ref: '#/components/schemas/AccessibilityResponse',
             },
             bookingContact: {
-              description: 'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
+              description:
+                'Recipient email to contact if there is an issue with booking the offer. Mandatory if the offer has withdrawable tickets.',
               nullable: true,
               title: 'Bookingcontact',
               type: 'string',
             },
             bookingEmail: {
-              description: 'Recipient email for notifications about bookings, cancellations, etc.',
+              description:
+                'Recipient email for notifications about bookings, cancellations, etc.',
               nullable: true,
               title: 'Bookingemail',
               type: 'string',
             },
             categoryRelatedFields: {
-              description: 'Cultural category the offer belongs to. According to the category, some fields may or must be specified.',
+              description:
+                'Cultural category the offer belongs to. According to the category, some fields may or must be specified.',
               discriminator: {
                 mapping: {
-                  ABO_BIBLIOTHEQUE: '#/components/schemas/ABO_BIBLIOTHEQUE_read',
+                  ABO_BIBLIOTHEQUE:
+                    '#/components/schemas/ABO_BIBLIOTHEQUE_read',
                   ABO_CONCERT: '#/components/schemas/ABO_CONCERT_read',
                   ABO_JEU_VIDEO: '#/components/schemas/ABO_JEU_VIDEO_read',
-                  ABO_LIVRE_NUMERIQUE: '#/components/schemas/ABO_LIVRE_NUMERIQUE_read',
+                  ABO_LIVRE_NUMERIQUE:
+                    '#/components/schemas/ABO_LIVRE_NUMERIQUE_read',
                   ABO_LUDOTHEQUE: '#/components/schemas/ABO_LUDOTHEQUE_read',
                   ABO_MEDIATHEQUE: '#/components/schemas/ABO_MEDIATHEQUE_read',
-                  ABO_PLATEFORME_MUSIQUE: '#/components/schemas/ABO_PLATEFORME_MUSIQUE_read',
-                  ABO_PLATEFORME_VIDEO: '#/components/schemas/ABO_PLATEFORME_VIDEO_read',
-                  ABO_PRATIQUE_ART: '#/components/schemas/ABO_PRATIQUE_ART_read',
-                  ABO_PRESSE_EN_LIGNE: '#/components/schemas/ABO_PRESSE_EN_LIGNE_read',
+                  ABO_PLATEFORME_MUSIQUE:
+                    '#/components/schemas/ABO_PLATEFORME_MUSIQUE_read',
+                  ABO_PLATEFORME_VIDEO:
+                    '#/components/schemas/ABO_PLATEFORME_VIDEO_read',
+                  ABO_PRATIQUE_ART:
+                    '#/components/schemas/ABO_PRATIQUE_ART_read',
+                  ABO_PRESSE_EN_LIGNE:
+                    '#/components/schemas/ABO_PRESSE_EN_LIGNE_read',
                   ABO_SPECTACLE: '#/components/schemas/ABO_SPECTACLE_read',
-                  ACHAT_INSTRUMENT: '#/components/schemas/ACHAT_INSTRUMENT_read',
-                  ACTIVATION_THING: '#/components/schemas/ACTIVATION_THING_read',
+                  ACHAT_INSTRUMENT:
+                    '#/components/schemas/ACHAT_INSTRUMENT_read',
+                  ACTIVATION_THING:
+                    '#/components/schemas/ACTIVATION_THING_read',
                   APP_CULTURELLE: '#/components/schemas/APP_CULTURELLE_read',
-                  AUTRE_SUPPORT_NUMERIQUE: '#/components/schemas/AUTRE_SUPPORT_NUMERIQUE_read',
-                  BON_ACHAT_INSTRUMENT: '#/components/schemas/BON_ACHAT_INSTRUMENT_read',
-                  CAPTATION_MUSIQUE: '#/components/schemas/CAPTATION_MUSIQUE_read',
-                  CARTE_CINE_ILLIMITE: '#/components/schemas/CARTE_CINE_ILLIMITE_read',
-                  CARTE_CINE_MULTISEANCES: '#/components/schemas/CARTE_CINE_MULTISEANCES_read',
+                  AUTRE_SUPPORT_NUMERIQUE:
+                    '#/components/schemas/AUTRE_SUPPORT_NUMERIQUE_read',
+                  BON_ACHAT_INSTRUMENT:
+                    '#/components/schemas/BON_ACHAT_INSTRUMENT_read',
+                  CAPTATION_MUSIQUE:
+                    '#/components/schemas/CAPTATION_MUSIQUE_read',
+                  CARTE_CINE_ILLIMITE:
+                    '#/components/schemas/CARTE_CINE_ILLIMITE_read',
+                  CARTE_CINE_MULTISEANCES:
+                    '#/components/schemas/CARTE_CINE_MULTISEANCES_read',
                   CARTE_JEUNES: '#/components/schemas/CARTE_JEUNES_read',
                   CARTE_MUSEE: '#/components/schemas/CARTE_MUSEE_read',
-                  CINE_VENTE_DISTANCE: '#/components/schemas/CINE_VENTE_DISTANCE_read',
+                  CINE_VENTE_DISTANCE:
+                    '#/components/schemas/CINE_VENTE_DISTANCE_read',
                   ESCAPE_GAME: '#/components/schemas/ESCAPE_GAME_read',
                   JEU_EN_LIGNE: '#/components/schemas/JEU_EN_LIGNE_read',
-                  JEU_SUPPORT_PHYSIQUE: '#/components/schemas/JEU_SUPPORT_PHYSIQUE_read',
-                  LIVRE_AUDIO_PHYSIQUE: '#/components/schemas/LIVRE_AUDIO_PHYSIQUE_read',
+                  JEU_SUPPORT_PHYSIQUE:
+                    '#/components/schemas/JEU_SUPPORT_PHYSIQUE_read',
+                  LIVRE_AUDIO_PHYSIQUE:
+                    '#/components/schemas/LIVRE_AUDIO_PHYSIQUE_read',
                   LIVRE_NUMERIQUE: '#/components/schemas/LIVRE_NUMERIQUE_read',
                   LIVRE_PAPIER: '#/components/schemas/LIVRE_PAPIER_read',
-                  LOCATION_INSTRUMENT: '#/components/schemas/LOCATION_INSTRUMENT_read',
-                  MATERIEL_ART_CREATIF: '#/components/schemas/MATERIEL_ART_CREATIF_read',
-                  MUSEE_VENTE_DISTANCE: '#/components/schemas/MUSEE_VENTE_DISTANCE_read',
+                  LOCATION_INSTRUMENT:
+                    '#/components/schemas/LOCATION_INSTRUMENT_read',
+                  MATERIEL_ART_CREATIF:
+                    '#/components/schemas/MATERIEL_ART_CREATIF_read',
+                  MUSEE_VENTE_DISTANCE:
+                    '#/components/schemas/MUSEE_VENTE_DISTANCE_read',
                   OEUVRE_ART: '#/components/schemas/OEUVRE_ART_read',
                   PARTITION: '#/components/schemas/PARTITION_read',
-                  PLATEFORME_PRATIQUE_ARTISTIQUE: '#/components/schemas/PLATEFORME_PRATIQUE_ARTISTIQUE_read',
+                  PLATEFORME_PRATIQUE_ARTISTIQUE:
+                    '#/components/schemas/PLATEFORME_PRATIQUE_ARTISTIQUE_read',
                   PODCAST: '#/components/schemas/PODCAST_read',
-                  PRATIQUE_ART_VENTE_DISTANCE: '#/components/schemas/PRATIQUE_ART_VENTE_DISTANCE_read',
-                  SPECTACLE_ENREGISTRE: '#/components/schemas/SPECTACLE_ENREGISTRE_read',
-                  SPECTACLE_VENTE_DISTANCE: '#/components/schemas/SPECTACLE_VENTE_DISTANCE_read',
-                  SUPPORT_PHYSIQUE_FILM: '#/components/schemas/SUPPORT_PHYSIQUE_FILM_read',
-                  SUPPORT_PHYSIQUE_MUSIQUE_CD: '#/components/schemas/SUPPORT_PHYSIQUE_MUSIQUE_CD_read',
-                  SUPPORT_PHYSIQUE_MUSIQUE_VINYLE: '#/components/schemas/SUPPORT_PHYSIQUE_MUSIQUE_VINYLE_read',
-                  TELECHARGEMENT_LIVRE_AUDIO: '#/components/schemas/TELECHARGEMENT_LIVRE_AUDIO_read',
-                  TELECHARGEMENT_MUSIQUE: '#/components/schemas/TELECHARGEMENT_MUSIQUE_read',
-                  VISITE_VIRTUELLE: '#/components/schemas/VISITE_VIRTUELLE_read',
+                  PRATIQUE_ART_VENTE_DISTANCE:
+                    '#/components/schemas/PRATIQUE_ART_VENTE_DISTANCE_read',
+                  SPECTACLE_ENREGISTRE:
+                    '#/components/schemas/SPECTACLE_ENREGISTRE_read',
+                  SPECTACLE_VENTE_DISTANCE:
+                    '#/components/schemas/SPECTACLE_VENTE_DISTANCE_read',
+                  SUPPORT_PHYSIQUE_FILM:
+                    '#/components/schemas/SUPPORT_PHYSIQUE_FILM_read',
+                  SUPPORT_PHYSIQUE_MUSIQUE_CD:
+                    '#/components/schemas/SUPPORT_PHYSIQUE_MUSIQUE_CD_read',
+                  SUPPORT_PHYSIQUE_MUSIQUE_VINYLE:
+                    '#/components/schemas/SUPPORT_PHYSIQUE_MUSIQUE_VINYLE_read',
+                  TELECHARGEMENT_LIVRE_AUDIO:
+                    '#/components/schemas/TELECHARGEMENT_LIVRE_AUDIO_read',
+                  TELECHARGEMENT_MUSIQUE:
+                    '#/components/schemas/TELECHARGEMENT_MUSIQUE_read',
+                  VISITE_VIRTUELLE:
+                    '#/components/schemas/VISITE_VIRTUELLE_read',
                   VOD: '#/components/schemas/VOD_read',
                 },
                 propertyName: 'category',
@@ -6513,13 +5985,15 @@ export default {
             },
             enableDoubleBookings: {
               default: false,
-              description: 'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
+              description:
+                'If set to true, users may book the offer for two persons. Second item will be delivered at the same price as the first one. Category must be compatible with this feature.',
               nullable: true,
               title: 'Enabledoublebookings',
               type: 'boolean',
             },
             externalTicketOfficeUrl: {
-              description: 'Link displayed to users wishing to book the offer but who do not have (anymore) credit.',
+              description:
+                'Link displayed to users wishing to book the offer but who do not have (anymore) credit.',
               example: 'https://example.com',
               nullable: true,
               title: 'Externalticketofficeurl',
@@ -6539,14 +6013,17 @@ export default {
               title: 'ImageResponse',
             },
             itemCollectionDetails: {
-              description: 'Further information that will be provided to attendees to ease the offer collection.',
-              example: 'Opening hours, specific office, collection period, access code, email annoucement...',
+              description:
+                'Further information that will be provided to attendees to ease the offer collection.',
+              example:
+                'Opening hours, specific office, collection period, access code, email annoucement...',
               nullable: true,
               title: 'Itemcollectiondetails',
               type: 'string',
             },
             location: {
-              description: 'Location where the offer will be available or will take place. The location type must be compatible with the category',
+              description:
+                'Location where the offer will be available or will take place. The location type must be compatible with the category',
               discriminator: {
                 mapping: {
                   digital: '#/components/schemas/DigitalLocation',
@@ -6577,7 +6054,8 @@ export default {
                   $ref: '#/components/schemas/OfferStatus',
                 },
               ],
-              description: 'ACTIVE: offer is validated and active.\n\nDRAFT: offer is still draft and not yet submitted for validation - this status is not applicable to offers created via this API.\n\nEXPIRED: offer is validated but the booking limit datetime has passed.\n\nINACTIVE: offer is not active and cannot be booked.\n\nPENDING: offer is pending for pass Culture rules compliance validation. This step may last 72 hours.\n\nREJECTED: offer validation has been rejected because it is not compliant with pass Culture rules.\n\nSOLD_OUT: offer is validated but there is no (more) stock available for booking.',
+              description:
+                'ACTIVE: offer is validated and active.\n\nDRAFT: offer is still draft and not yet submitted for validation - this status is not applicable to offers created via this API.\n\nEXPIRED: offer is validated but the booking limit datetime has passed.\n\nINACTIVE: offer is not active and cannot be booked.\n\nPENDING: offer is pending for pass Culture rules compliance validation. This step may last 72 hours.\n\nREJECTED: offer validation has been rejected because it is not compliant with pass Culture rules.\n\nSOLD_OUT: offer is validated but there is no (more) stock available for booking.',
               example: 'ACTIVE',
             },
             stock: {
@@ -6611,9 +6089,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'products',
-          ],
+          required: ['products'],
           title: 'ProductOffersByEanResponse',
           type: 'object',
         },
@@ -6627,9 +6103,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'products',
-          ],
+          required: ['products'],
           title: 'ProductOffersResponse',
           type: 'object',
         },
@@ -6642,7 +6116,8 @@ export default {
               type: 'integer',
             },
             bookingLimitDatetime: {
-              description: 'Timezone aware datetime after which the offer can no longer be booked.',
+              description:
+                'Timezone aware datetime after which the offer can no longer be booked.',
               example: '2024-06-28T14:00:00+02:00',
               format: 'date-time',
               nullable: true,
@@ -6661,22 +6136,17 @@ export default {
                   type: 'integer',
                 },
                 {
-                  enum: [
-                    'unlimited',
-                  ],
+                  enum: ['unlimited'],
                   type: 'string',
                 },
               ],
-              description: 'Quantity of items currently available to pass Culture. Value \'unlimited\' is used for infinite quantity of items.',
+              description:
+                "Quantity of items currently available to pass Culture. Value 'unlimited' is used for infinite quantity of items.",
               example: 10,
               title: 'Quantity',
             },
           },
-          required: [
-            'bookedQuantity',
-            'quantity',
-            'price',
-          ],
+          required: ['bookedQuantity', 'quantity', 'price'],
           title: 'ProductStockResponse',
           type: 'object',
         },
@@ -6684,7 +6154,8 @@ export default {
           additionalProperties: false,
           properties: {
             location: {
-              description: 'Location where the offer will be available or will take place. The location type must be compatible with the category',
+              description:
+                'Location where the offer will be available or will take place. The location type must be compatible with the category',
               discriminator: {
                 mapping: {
                   digital: '#/components/schemas/DigitalLocation',
@@ -6712,10 +6183,7 @@ export default {
               type: 'array',
             },
           },
-          required: [
-            'products',
-            'location',
-          ],
+          required: ['products', 'location'],
           title: 'ProductsOfferByEanCreation',
           type: 'object',
         },
@@ -6723,9 +6191,7 @@ export default {
           description: 'Rencontre en ligne',
           properties: {
             category: {
-              enum: [
-                'RENCONTRE_EN_LIGNE',
-              ],
+              enum: ['RENCONTRE_EN_LIGNE'],
               title: 'Category',
               type: 'string',
             },
@@ -6734,9 +6200,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'RENCONTRE_EN_LIGNE_create',
           type: 'object',
         },
@@ -6744,9 +6208,7 @@ export default {
           description: 'Rencontre en ligne',
           properties: {
             category: {
-              enum: [
-                'RENCONTRE_EN_LIGNE',
-              ],
+              enum: ['RENCONTRE_EN_LIGNE'],
               title: 'Category',
               type: 'string',
             },
@@ -6755,9 +6217,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'RENCONTRE_EN_LIGNE_edit',
           type: 'object',
         },
@@ -6765,9 +6225,7 @@ export default {
           description: 'Rencontre en ligne',
           properties: {
             category: {
-              enum: [
-                'RENCONTRE_EN_LIGNE',
-              ],
+              enum: ['RENCONTRE_EN_LIGNE'],
               title: 'Category',
               type: 'string',
             },
@@ -6776,9 +6234,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'RENCONTRE_EN_LIGNE_read',
           type: 'object',
         },
@@ -6786,16 +6242,12 @@ export default {
           description: 'Rencontres - jeux',
           properties: {
             category: {
-              enum: [
-                'RENCONTRE_JEU',
-              ],
+              enum: ['RENCONTRE_JEU'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'RENCONTRE_JEU_create',
           type: 'object',
         },
@@ -6803,16 +6255,12 @@ export default {
           description: 'Rencontres - jeux',
           properties: {
             category: {
-              enum: [
-                'RENCONTRE_JEU',
-              ],
+              enum: ['RENCONTRE_JEU'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'RENCONTRE_JEU_edit',
           type: 'object',
         },
@@ -6820,16 +6268,12 @@ export default {
           description: 'Rencontres - jeux',
           properties: {
             category: {
-              enum: [
-                'RENCONTRE_JEU',
-              ],
+              enum: ['RENCONTRE_JEU'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'RENCONTRE_JEU_read',
           type: 'object',
         },
@@ -6837,9 +6281,7 @@ export default {
           description: 'Rencontre',
           properties: {
             category: {
-              enum: [
-                'RENCONTRE',
-              ],
+              enum: ['RENCONTRE'],
               title: 'Category',
               type: 'string',
             },
@@ -6848,9 +6290,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'RENCONTRE_create',
           type: 'object',
         },
@@ -6858,9 +6298,7 @@ export default {
           description: 'Rencontre',
           properties: {
             category: {
-              enum: [
-                'RENCONTRE',
-              ],
+              enum: ['RENCONTRE'],
               title: 'Category',
               type: 'string',
             },
@@ -6869,9 +6307,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'RENCONTRE_edit',
           type: 'object',
         },
@@ -6879,9 +6315,7 @@ export default {
           description: 'Rencontre',
           properties: {
             category: {
-              enum: [
-                'RENCONTRE',
-              ],
+              enum: ['RENCONTRE'],
               title: 'Category',
               type: 'string',
             },
@@ -6890,9 +6324,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'RENCONTRE_read',
           type: 'object',
         },
@@ -6900,9 +6332,7 @@ export default {
           description: 'Salon, Convention',
           properties: {
             category: {
-              enum: [
-                'SALON',
-              ],
+              enum: ['SALON'],
               title: 'Category',
               type: 'string',
             },
@@ -6911,9 +6341,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SALON_create',
           type: 'object',
         },
@@ -6921,9 +6349,7 @@ export default {
           description: 'Salon, Convention',
           properties: {
             category: {
-              enum: [
-                'SALON',
-              ],
+              enum: ['SALON'],
               title: 'Category',
               type: 'string',
             },
@@ -6932,9 +6358,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SALON_edit',
           type: 'object',
         },
@@ -6942,9 +6366,7 @@ export default {
           description: 'Salon, Convention',
           properties: {
             category: {
-              enum: [
-                'SALON',
-              ],
+              enum: ['SALON'],
               title: 'Category',
               type: 'string',
             },
@@ -6953,9 +6375,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SALON_read',
           type: 'object',
         },
@@ -6967,9 +6387,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SEANCE_CINE',
-              ],
+              enum: ['SEANCE_CINE'],
               title: 'Category',
               type: 'string',
             },
@@ -6982,9 +6400,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SEANCE_CINE_create',
           type: 'object',
         },
@@ -6996,9 +6412,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SEANCE_CINE',
-              ],
+              enum: ['SEANCE_CINE'],
               title: 'Category',
               type: 'string',
             },
@@ -7011,9 +6425,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SEANCE_CINE_edit',
           type: 'object',
         },
@@ -7025,9 +6437,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SEANCE_CINE',
-              ],
+              enum: ['SEANCE_CINE'],
               title: 'Category',
               type: 'string',
             },
@@ -7040,19 +6450,15 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SEANCE_CINE_read',
           type: 'object',
         },
         SEANCE_ESSAI_PRATIQUE_ART_create: {
-          description: 'Séance d\'essai',
+          description: "Séance d'essai",
           properties: {
             category: {
-              enum: [
-                'SEANCE_ESSAI_PRATIQUE_ART',
-              ],
+              enum: ['SEANCE_ESSAI_PRATIQUE_ART'],
               title: 'Category',
               type: 'string',
             },
@@ -7061,19 +6467,15 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SEANCE_ESSAI_PRATIQUE_ART_create',
           type: 'object',
         },
         SEANCE_ESSAI_PRATIQUE_ART_edit: {
-          description: 'Séance d\'essai',
+          description: "Séance d'essai",
           properties: {
             category: {
-              enum: [
-                'SEANCE_ESSAI_PRATIQUE_ART',
-              ],
+              enum: ['SEANCE_ESSAI_PRATIQUE_ART'],
               title: 'Category',
               type: 'string',
             },
@@ -7082,19 +6484,15 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SEANCE_ESSAI_PRATIQUE_ART_edit',
           type: 'object',
         },
         SEANCE_ESSAI_PRATIQUE_ART_read: {
-          description: 'Séance d\'essai',
+          description: "Séance d'essai",
           properties: {
             category: {
-              enum: [
-                'SEANCE_ESSAI_PRATIQUE_ART',
-              ],
+              enum: ['SEANCE_ESSAI_PRATIQUE_ART'],
               title: 'Category',
               type: 'string',
             },
@@ -7103,9 +6501,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SEANCE_ESSAI_PRATIQUE_ART_read',
           type: 'object',
         },
@@ -7117,9 +6513,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SPECTACLE_ENREGISTRE',
-              ],
+              enum: ['SPECTACLE_ENREGISTRE'],
               title: 'Category',
               type: 'string',
             },
@@ -7135,10 +6529,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'showType',
-            'category',
-          ],
+          required: ['showType', 'category'],
           title: 'SPECTACLE_ENREGISTRE_create',
           type: 'object',
         },
@@ -7150,9 +6541,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SPECTACLE_ENREGISTRE',
-              ],
+              enum: ['SPECTACLE_ENREGISTRE'],
               title: 'Category',
               type: 'string',
             },
@@ -7168,9 +6557,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SPECTACLE_ENREGISTRE_edit',
           type: 'object',
         },
@@ -7182,9 +6569,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SPECTACLE_ENREGISTRE',
-              ],
+              enum: ['SPECTACLE_ENREGISTRE'],
               title: 'Category',
               type: 'string',
             },
@@ -7200,9 +6585,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SPECTACLE_ENREGISTRE_read',
           type: 'object',
         },
@@ -7214,9 +6597,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SPECTACLE_REPRESENTATION',
-              ],
+              enum: ['SPECTACLE_REPRESENTATION'],
               title: 'Category',
               type: 'string',
             },
@@ -7232,10 +6613,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'showType',
-            'category',
-          ],
+          required: ['showType', 'category'],
           title: 'SPECTACLE_REPRESENTATION_create',
           type: 'object',
         },
@@ -7247,9 +6625,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SPECTACLE_REPRESENTATION',
-              ],
+              enum: ['SPECTACLE_REPRESENTATION'],
               title: 'Category',
               type: 'string',
             },
@@ -7265,9 +6641,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SPECTACLE_REPRESENTATION_edit',
           type: 'object',
         },
@@ -7279,9 +6653,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SPECTACLE_REPRESENTATION',
-              ],
+              enum: ['SPECTACLE_REPRESENTATION'],
               title: 'Category',
               type: 'string',
             },
@@ -7297,9 +6669,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SPECTACLE_REPRESENTATION_read',
           type: 'object',
         },
@@ -7311,9 +6681,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SPECTACLE_VENTE_DISTANCE',
-              ],
+              enum: ['SPECTACLE_VENTE_DISTANCE'],
               title: 'Category',
               type: 'string',
             },
@@ -7329,9 +6697,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SPECTACLE_VENTE_DISTANCE_read',
           type: 'object',
         },
@@ -7339,9 +6705,7 @@ export default {
           description: 'Support physique (DVD, Blu-ray...)',
           properties: {
             category: {
-              enum: [
-                'SUPPORT_PHYSIQUE_FILM',
-              ],
+              enum: ['SUPPORT_PHYSIQUE_FILM'],
               title: 'Category',
               type: 'string',
             },
@@ -7350,10 +6714,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'ean',
-            'category',
-          ],
+          required: ['ean', 'category'],
           title: 'SUPPORT_PHYSIQUE_FILM_create',
           type: 'object',
         },
@@ -7361,9 +6722,7 @@ export default {
           description: 'Support physique (DVD, Blu-ray...)',
           properties: {
             category: {
-              enum: [
-                'SUPPORT_PHYSIQUE_FILM',
-              ],
+              enum: ['SUPPORT_PHYSIQUE_FILM'],
               title: 'Category',
               type: 'string',
             },
@@ -7372,9 +6731,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SUPPORT_PHYSIQUE_FILM_edit',
           type: 'object',
         },
@@ -7382,9 +6739,7 @@ export default {
           description: 'Support physique (DVD, Blu-ray...)',
           properties: {
             category: {
-              enum: [
-                'SUPPORT_PHYSIQUE_FILM',
-              ],
+              enum: ['SUPPORT_PHYSIQUE_FILM'],
               title: 'Category',
               type: 'string',
             },
@@ -7393,9 +6748,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SUPPORT_PHYSIQUE_FILM_read',
           type: 'object',
         },
@@ -7407,9 +6760,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SUPPORT_PHYSIQUE_MUSIQUE_CD',
-              ],
+              enum: ['SUPPORT_PHYSIQUE_MUSIQUE_CD'],
               title: 'Category',
               type: 'string',
             },
@@ -7433,9 +6784,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SUPPORT_PHYSIQUE_MUSIQUE_CD_read',
           type: 'object',
         },
@@ -7447,9 +6796,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'SUPPORT_PHYSIQUE_MUSIQUE_VINYLE',
-              ],
+              enum: ['SUPPORT_PHYSIQUE_MUSIQUE_VINYLE'],
               title: 'Category',
               type: 'string',
             },
@@ -7473,9 +6820,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'SUPPORT_PHYSIQUE_MUSIQUE_VINYLE_read',
           type: 'object',
         },
@@ -7581,17 +6926,15 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'id',
-            'label',
-          ],
+          required: ['id', 'label'],
           title: 'ShowTypeResponse',
           type: 'object',
         },
         StockCreation: {
           properties: {
             bookingLimitDatetime: {
-              description: 'Timezone aware datetime after which the offer can no longer be booked.',
+              description:
+                'Timezone aware datetime after which the offer can no longer be booked.',
               example: '2024-06-28T14:00:00+02:00',
               format: 'date-time',
               nullable: true,
@@ -7612,21 +6955,17 @@ export default {
                   type: 'integer',
                 },
                 {
-                  enum: [
-                    'unlimited',
-                  ],
+                  enum: ['unlimited'],
                   type: 'string',
                 },
               ],
-              description: 'Quantity of items currently available to pass Culture. Value \'unlimited\' is used for infinite quantity of items.',
+              description:
+                "Quantity of items currently available to pass Culture. Value 'unlimited' is used for infinite quantity of items.",
               example: 10,
               title: 'Quantity',
             },
           },
-          required: [
-            'quantity',
-            'price',
-          ],
+          required: ['quantity', 'price'],
           title: 'StockCreation',
           type: 'object',
         },
@@ -7634,7 +6973,8 @@ export default {
           additionalProperties: false,
           properties: {
             bookingLimitDatetime: {
-              description: 'Timezone aware datetime after which the offer can no longer be booked.',
+              description:
+                'Timezone aware datetime after which the offer can no longer be booked.',
               example: '2024-06-28T14:00:00+02:00',
               format: 'date-time',
               nullable: true,
@@ -7656,13 +6996,12 @@ export default {
                   type: 'integer',
                 },
                 {
-                  enum: [
-                    'unlimited',
-                  ],
+                  enum: ['unlimited'],
                   type: 'string',
                 },
               ],
-              description: 'Quantity of items currently available to pass Culture. Value \'unlimited\' is used for infinite quantity of items.',
+              description:
+                "Quantity of items currently available to pass Culture. Value 'unlimited' is used for infinite quantity of items.",
               example: 10,
               nullable: true,
               title: 'Quantity',
@@ -7679,16 +7018,12 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'TELECHARGEMENT_LIVRE_AUDIO',
-              ],
+              enum: ['TELECHARGEMENT_LIVRE_AUDIO'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'TELECHARGEMENT_LIVRE_AUDIO_create',
           type: 'object',
         },
@@ -7700,16 +7035,12 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'TELECHARGEMENT_LIVRE_AUDIO',
-              ],
+              enum: ['TELECHARGEMENT_LIVRE_AUDIO'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'TELECHARGEMENT_LIVRE_AUDIO_edit',
           type: 'object',
         },
@@ -7721,16 +7052,12 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'TELECHARGEMENT_LIVRE_AUDIO',
-              ],
+              enum: ['TELECHARGEMENT_LIVRE_AUDIO'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'TELECHARGEMENT_LIVRE_AUDIO_read',
           type: 'object',
         },
@@ -7742,9 +7069,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'TELECHARGEMENT_MUSIQUE',
-              ],
+              enum: ['TELECHARGEMENT_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -7768,10 +7093,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'musicType',
-            'category',
-          ],
+          required: ['musicType', 'category'],
           title: 'TELECHARGEMENT_MUSIQUE_create',
           type: 'object',
         },
@@ -7783,9 +7105,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'TELECHARGEMENT_MUSIQUE',
-              ],
+              enum: ['TELECHARGEMENT_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -7809,9 +7129,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'TELECHARGEMENT_MUSIQUE_edit',
           type: 'object',
         },
@@ -7823,9 +7141,7 @@ export default {
               type: 'string',
             },
             category: {
-              enum: [
-                'TELECHARGEMENT_MUSIQUE',
-              ],
+              enum: ['TELECHARGEMENT_MUSIQUE'],
               title: 'Category',
               type: 'string',
             },
@@ -7849,9 +7165,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'TELECHARGEMENT_MUSIQUE_read',
           type: 'object',
         },
@@ -7891,10 +7205,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'id',
-            'label',
-          ],
+          required: ['id', 'label'],
           title: 'TiteliveMusicTypeResponse',
           type: 'object',
         },
@@ -7902,16 +7213,12 @@ export default {
           description: 'Visite guidée',
           properties: {
             category: {
-              enum: [
-                'VISITE_GUIDEE',
-              ],
+              enum: ['VISITE_GUIDEE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VISITE_GUIDEE_create',
           type: 'object',
         },
@@ -7919,16 +7226,12 @@ export default {
           description: 'Visite guidée',
           properties: {
             category: {
-              enum: [
-                'VISITE_GUIDEE',
-              ],
+              enum: ['VISITE_GUIDEE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VISITE_GUIDEE_edit',
           type: 'object',
         },
@@ -7936,16 +7239,12 @@ export default {
           description: 'Visite guidée',
           properties: {
             category: {
-              enum: [
-                'VISITE_GUIDEE',
-              ],
+              enum: ['VISITE_GUIDEE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VISITE_GUIDEE_read',
           type: 'object',
         },
@@ -7953,16 +7252,12 @@ export default {
           description: 'Visite virtuelle',
           properties: {
             category: {
-              enum: [
-                'VISITE_VIRTUELLE',
-              ],
+              enum: ['VISITE_VIRTUELLE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VISITE_VIRTUELLE_create',
           type: 'object',
         },
@@ -7970,16 +7265,12 @@ export default {
           description: 'Visite virtuelle',
           properties: {
             category: {
-              enum: [
-                'VISITE_VIRTUELLE',
-              ],
+              enum: ['VISITE_VIRTUELLE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VISITE_VIRTUELLE_edit',
           type: 'object',
         },
@@ -7987,16 +7278,12 @@ export default {
           description: 'Visite virtuelle',
           properties: {
             category: {
-              enum: [
-                'VISITE_VIRTUELLE',
-              ],
+              enum: ['VISITE_VIRTUELLE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VISITE_VIRTUELLE_read',
           type: 'object',
         },
@@ -8004,16 +7291,12 @@ export default {
           description: 'Visite',
           properties: {
             category: {
-              enum: [
-                'VISITE',
-              ],
+              enum: ['VISITE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VISITE_create',
           type: 'object',
         },
@@ -8021,16 +7304,12 @@ export default {
           description: 'Visite',
           properties: {
             category: {
-              enum: [
-                'VISITE',
-              ],
+              enum: ['VISITE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VISITE_edit',
           type: 'object',
         },
@@ -8038,16 +7317,12 @@ export default {
           description: 'Visite',
           properties: {
             category: {
-              enum: [
-                'VISITE',
-              ],
+              enum: ['VISITE'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VISITE_read',
           type: 'object',
         },
@@ -8055,16 +7330,12 @@ export default {
           description: 'Vidéo à la demande',
           properties: {
             category: {
-              enum: [
-                'VOD',
-              ],
+              enum: ['VOD'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VOD_create',
           type: 'object',
         },
@@ -8072,16 +7343,12 @@ export default {
           description: 'Vidéo à la demande',
           properties: {
             category: {
-              enum: [
-                'VOD',
-              ],
+              enum: ['VOD'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VOD_edit',
           type: 'object',
         },
@@ -8089,16 +7356,12 @@ export default {
           description: 'Vidéo à la demande',
           properties: {
             category: {
-              enum: [
-                'VOD',
-              ],
+              enum: ['VOD'],
               title: 'Category',
               type: 'string',
             },
           },
-          required: [
-            'category',
-          ],
+          required: ['category'],
           title: 'VOD_read',
           type: 'object',
         },
@@ -8133,11 +7396,7 @@ export default {
               type: 'string',
             },
           },
-          required: [
-            'loc',
-            'msg',
-            'type',
-          ],
+          required: ['loc', 'msg', 'type'],
           title: 'ValidationErrorElement',
           type: 'object',
         },
@@ -8145,9 +7404,7 @@ export default {
           properties: {
             type: {
               default: 'digital',
-              enum: [
-                'digital',
-              ],
+              enum: ['digital'],
               title: 'Type',
               type: 'string',
             },
@@ -8177,9 +7434,7 @@ export default {
             },
             type: {
               default: 'physical',
-              enum: [
-                'physical',
-              ],
+              enum: ['physical'],
               title: 'Type',
               type: 'string',
             },
@@ -8205,12 +7460,13 @@ export default {
               type: 'integer',
             },
             legalName: {
-              example: 'Palais de l\'Élysée',
+              example: "Palais de l'Élysée",
               title: 'Legalname',
               type: 'string',
             },
             location: {
-              description: 'Location where the offers will be available or will take place. There is exactly one digital venue per offerer, which is listed although its id is not required to create a digital offer (see DigitalLocation model).',
+              description:
+                'Location where the offers will be available or will take place. There is exactly one digital venue per offerer, which is listed although its id is not required to create a digital offer (see DigitalLocation model).',
               discriminator: {
                 mapping: {
                   digital: '#/components/schemas/VenueDigitalLocation',
@@ -8236,7 +7492,8 @@ export default {
               type: 'string',
             },
             siret: {
-              description: 'Null when venue is digital or when siretComment field is not null.',
+              description:
+                'Null when venue is digital or when siretComment field is not null.',
               example: '12345678901234',
               nullable: true,
               title: 'Siret',
@@ -8308,7 +7565,8 @@ export default {
     paths: {
       '/public/bookings/v1/bookings': {
         get: {
-          description: 'Return all the bookings for a given offer. Results are paginated (by default, there are `50` bookings per page)',
+          description:
+            'Return all the bookings for a given offer. Results are paginated (by default, there are `50` bookings per page)',
           operationId: 'GetBookingsByOffer',
           parameters: [
             {
@@ -8374,7 +7632,8 @@ export default {
               },
             },
             {
-              description: 'Booking Status.\n\n* `CONFIRMED`: The bookings is confirmed.\n* `USED`: The bookings has been used.\n* `CANCELLED`: The bookings has been cancelled.\n* `REIMBURSED` The bookings has been reimbursed.',
+              description:
+                'Booking Status.\n\n* `CONFIRMED`: The bookings is confirmed.\n* `USED`: The bookings has been used.\n* `CANCELLED`: The bookings has been cancelled.\n* `REIMBURSED` The bookings has been reimbursed.',
               in: 'query',
               name: 'status',
               required: false,
@@ -8384,7 +7643,8 @@ export default {
                     $ref: '#/components/schemas/BookingStatus',
                   },
                 ],
-                description: 'Booking Status.\n\n* `CONFIRMED`: The bookings is confirmed.\n* `USED`: The bookings has been used.\n* `CANCELLED`: The bookings has been cancelled.\n* `REIMBURSED` The bookings has been reimbursed.',
+                description:
+                  'Booking Status.\n\n* `CONFIRMED`: The bookings is confirmed.\n* `USED`: The bookings has been used.\n* `CANCELLED`: The bookings has been cancelled.\n* `REIMBURSED` The bookings has been reimbursed.',
                 nullable: true,
               },
             },
@@ -8433,14 +7693,13 @@ export default {
             },
           ],
           summary: 'Get bookings for a given offer',
-          tags: [
-            'Booking',
-          ],
+          tags: ['Booking'],
         },
       },
       '/public/bookings/v1/cancel/token/{token}': {
         patch: {
-          description: 'Cancel a booking that has not been refunded. For events, the booking can be cancelled until 48 hours before the event.',
+          description:
+            'Cancel a booking that has not been refunded. For events, the booking can be cancelled until 48 hours before the event.',
           operationId: 'CancelBookingByToken',
           parameters: [
             {
@@ -8461,7 +7720,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'This booking cannot be cancelled because you do not have the proper right or because the token has already been validated',
+              description:
+                'This booking cannot be cancelled because you do not have the proper right or because the token has already been validated',
             },
             404: {
               description: 'This booking cannot be found',
@@ -8486,9 +7746,7 @@ export default {
             },
           ],
           summary: 'Cancel a booking',
-          tags: [
-            'Booking',
-          ],
+          tags: ['Booking'],
         },
       },
       '/public/bookings/v1/keep/token/{token}': {
@@ -8508,19 +7766,22 @@ export default {
           ],
           responses: {
             204: {
-              description: 'The booking\'s validation has been cancelled successfully',
+              description:
+                "The booking's validation has been cancelled successfully",
             },
             401: {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'This booking\'s validation cannot be cancelled because you do not have the proper rights or because the token\'s status is not used',
+              description:
+                "This booking's validation cannot be cancelled because you do not have the proper rights or because the token's status is not used",
             },
             404: {
               description: 'This booking cannot be found',
             },
             410: {
-              description: 'This booking cannot be unvalidated because it is already cancelled',
+              description:
+                'This booking cannot be unvalidated because it is already cancelled',
             },
             422: {
               content: {
@@ -8539,14 +7800,13 @@ export default {
             },
           ],
           summary: 'Cancel a booking validation',
-          tags: [
-            'Booking',
-          ],
+          tags: ['Booking'],
         },
       },
       '/public/bookings/v1/token/{token}': {
         get: {
-          description: 'The countermark or token code is a character string that identifies the reservation and serves as proof of booking. This unique code is generated for each user\'s booking on the application and is transmitted to them on that occasion.',
+          description:
+            "The countermark or token code is a character string that identifies the reservation and serves as proof of booking. This unique code is generated for each user's booking on the application and is transmitted to them on that occasion.",
           operationId: 'GetBookingByToken',
           parameters: [
             {
@@ -8574,13 +7834,15 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'This booking cannot be found',
             },
             410: {
-              description: 'You do not have the proper right or the token has already been validated.',
+              description:
+                'You do not have the proper right or the token has already been validated.',
             },
             422: {
               content: {
@@ -8599,14 +7861,13 @@ export default {
             },
           ],
           summary: 'Get a booking',
-          tags: [
-            'Booking',
-          ],
+          tags: ['Booking'],
         },
       },
       '/public/bookings/v1/use/token/{token}': {
         patch: {
-          description: 'Confirms that the booking has been successfully used by the beneficiary.',
+          description:
+            'Confirms that the booking has been successfully used by the beneficiary.',
           operationId: 'ValidateBookingByToken',
           parameters: [
             {
@@ -8627,13 +7888,15 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'This booking cannot be found',
             },
             410: {
-              description: 'You do not have the proper right or the token has already been validated.',
+              description:
+                'You do not have the proper right or the token has already been validated.',
             },
             422: {
               content: {
@@ -8652,14 +7915,13 @@ export default {
             },
           ],
           summary: 'Validate a booking',
-          tags: [
-            'Booking',
-          ],
+          tags: ['Booking'],
         },
       },
       '/public/offers/v1/events': {
         get: {
-          description: 'Return all the events linked to given venue. Results are paginated (by default there are `50` events per page).',
+          description:
+            'Return all the events linked to given venue. Results are paginated (by default there are `50` events per page).',
           operationId: 'GetEvents',
           parameters: [
             {
@@ -8716,7 +7978,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'The venue could not be found.',
@@ -8738,9 +8001,7 @@ export default {
             },
           ],
           summary: 'Get events',
-          tags: [
-            'Event offer',
-          ],
+          tags: ['Event offer'],
         },
         post: {
           description: '',
@@ -8767,13 +8028,15 @@ export default {
               description: 'The event offer has been created successfully',
             },
             400: {
-              description: 'The request is invalid. The response body contains a list of errors.',
+              description:
+                'The request is invalid. The response body contains a list of errors.',
             },
             401: {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -8792,14 +8055,13 @@ export default {
             },
           ],
           summary: 'Create event offer',
-          tags: [
-            'Event offer',
-          ],
+          tags: ['Event offer'],
         },
       },
       '/public/offers/v1/events/categories': {
         get: {
-          description: 'Return all the categories available for an event, with their conditional fields, and whether they are required for event creation.',
+          description:
+            'Return all the categories available for an event, with their conditional fields, and whether they are required for event creation.',
           operationId: 'GetEventCategories',
           parameters: [],
           responses: {
@@ -8817,7 +8079,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -8836,9 +8099,7 @@ export default {
             },
           ],
           summary: 'Get event categories',
-          tags: [
-            'Offer attributes',
-          ],
+          tags: ['Offer attributes'],
         },
       },
       '/public/offers/v1/events/{event_id}': {
@@ -8872,7 +8133,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'The event offer could not be found.',
@@ -8894,12 +8156,11 @@ export default {
             },
           ],
           summary: 'Get event offer',
-          tags: [
-            'Event offer',
-          ],
+          tags: ['Event offer'],
         },
         patch: {
-          description: 'Will update only the non-blank fields. If you some fields to keep their current values, leave them `undefined`.',
+          description:
+            'Will update only the non-blank fields. If you some fields to keep their current values, leave them `undefined`.',
           operationId: 'EditEvent',
           parameters: [
             {
@@ -8934,13 +8195,15 @@ export default {
               description: 'The event offer has been returned',
             },
             400: {
-              description: 'The request is invalid. The response body contains a list of errors.',
+              description:
+                'The request is invalid. The response body contains a list of errors.',
             },
             401: {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'The event offer could not be found.',
@@ -8962,14 +8225,13 @@ export default {
             },
           ],
           summary: 'Update event offer',
-          tags: [
-            'Event offer',
-          ],
+          tags: ['Event offer'],
         },
       },
       '/public/offers/v1/events/{event_id}/dates': {
         get: {
-          description: 'Return all the dates linked to an event. Results are paginated (by default there are `50` date per page).',
+          description:
+            'Return all the dates linked to an event. Results are paginated (by default there are `50` date per page).',
           operationId: 'GetEventDates',
           parameters: [
             {
@@ -9022,16 +8284,19 @@ export default {
               description: 'The event dates have been returned',
             },
             400: {
-              description: 'The request is invalid. The response body contains a list of errors.',
+              description:
+                'The request is invalid. The response body contains a list of errors.',
             },
             401: {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
-              description: 'The event offer or the price category could not be found.',
+              description:
+                'The event offer or the price category could not be found.',
             },
             422: {
               content: {
@@ -9050,12 +8315,11 @@ export default {
             },
           ],
           summary: 'Get event dates',
-          tags: [
-            'Event offer dates',
-          ],
+          tags: ['Event offer dates'],
         },
         post: {
-          description: 'Add a dates to given event. Each date is attached to a price category so if there are several prices categories, several dates must be added.',
+          description:
+            'Add a dates to given event. Each date is attached to a price category so if there are several prices categories, several dates must be added.',
           operationId: 'PostEventDates',
           parameters: [
             {
@@ -9090,16 +8354,19 @@ export default {
               description: 'The event dates have been created successfully',
             },
             400: {
-              description: 'The request is invalid. The response body contains a list of errors.',
+              description:
+                'The request is invalid. The response body contains a list of errors.',
             },
             401: {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
-              description: 'The event offer or the price category could not be found.',
+              description:
+                'The event offer or the price category could not be found.',
             },
             422: {
               content: {
@@ -9118,14 +8385,13 @@ export default {
             },
           ],
           summary: 'Add dates to event',
-          tags: [
-            'Event offer dates',
-          ],
+          tags: ['Event offer dates'],
         },
       },
       '/public/offers/v1/events/{event_id}/dates/{date_id}': {
         delete: {
-          description: 'When an event date is deleted, all cancellable bookings (i.e not used) are cancelled. To prevent from further bookings, you may alternatively update the date\'s quantity to the bookedQuantity (but not below).',
+          description:
+            "When an event date is deleted, all cancellable bookings (i.e not used) are cancelled. To prevent from further bookings, you may alternatively update the date's quantity to the bookedQuantity (but not below).",
           operationId: 'DeleteEventDate',
           parameters: [
             {
@@ -9154,16 +8420,19 @@ export default {
               description: 'The event date has been deleted successfully',
             },
             400: {
-              description: 'The request is invalid. The response body contains a list of errors.',
+              description:
+                'The request is invalid. The response body contains a list of errors.',
             },
             401: {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
-              description: 'The event offer or the price category could not be found.',
+              description:
+                'The event offer or the price category could not be found.',
             },
             422: {
               content: {
@@ -9182,12 +8451,11 @@ export default {
             },
           ],
           summary: 'Delete event date',
-          tags: [
-            'Event offer dates',
-          ],
+          tags: ['Event offer dates'],
         },
         patch: {
-          description: 'Update the price category and the beginning time of an event date.',
+          description:
+            'Update the price category and the beginning time of an event date.',
           operationId: 'PatchEventDate',
           parameters: [
             {
@@ -9232,16 +8500,19 @@ export default {
               description: 'The event date has been modified successfully',
             },
             400: {
-              description: 'The request is invalid. The response body contains a list of errors.',
+              description:
+                'The request is invalid. The response body contains a list of errors.',
             },
             401: {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
-              description: 'The event offer or the price category could not be found.',
+              description:
+                'The event offer or the price category could not be found.',
             },
             422: {
               content: {
@@ -9260,9 +8531,7 @@ export default {
             },
           ],
           summary: 'Update event date',
-          tags: [
-            'Event offer dates',
-          ],
+          tags: ['Event offer dates'],
         },
       },
       '/public/offers/v1/events/{event_id}/price_categories': {
@@ -9302,13 +8571,15 @@ export default {
               description: 'The price category has been created successfully',
             },
             400: {
-              description: 'The request is invalid. The response body contains a list of errors. Or one of the price categories already exists.',
+              description:
+                'The request is invalid. The response body contains a list of errors. Or one of the price categories already exists.',
             },
             401: {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'The event offer could not be found.',
@@ -9330,95 +8601,98 @@ export default {
             },
           ],
           summary: 'Create price categories',
-          tags: [
-            'Event offer prices',
-          ],
+          tags: ['Event offer prices'],
         },
       },
-      '/public/offers/v1/events/{event_id}/price_categories/{price_category_id}': {
-        patch: {
-          description: 'Will update only the non-blank field. If you want one of the field to remain unchanged, leave it `undefined`.',
-          operationId: 'PatchEventPriceCategories',
-          parameters: [
-            {
-              description: '',
-              in: 'path',
-              name: 'event_id',
-              required: true,
-              schema: {
-                format: 'int32',
-                type: 'integer',
-              },
-            },
-            {
-              description: '',
-              in: 'path',
-              name: 'price_category_id',
-              required: true,
-              schema: {
-                format: 'int32',
-                type: 'integer',
-              },
-            },
-          ],
-          requestBody: {
-            content: {
-              'application/json': {
+      '/public/offers/v1/events/{event_id}/price_categories/{price_category_id}':
+        {
+          patch: {
+            description:
+              'Will update only the non-blank field. If you want one of the field to remain unchanged, leave it `undefined`.',
+            operationId: 'PatchEventPriceCategories',
+            parameters: [
+              {
+                description: '',
+                in: 'path',
+                name: 'event_id',
+                required: true,
                 schema: {
-                  $ref: '#/components/schemas/PriceCategoryEdition',
+                  format: 'int32',
+                  type: 'integer',
                 },
               },
-            },
-          },
-          responses: {
-            200: {
+              {
+                description: '',
+                in: 'path',
+                name: 'price_category_id',
+                required: true,
+                schema: {
+                  format: 'int32',
+                  type: 'integer',
+                },
+              },
+            ],
+            requestBody: {
               content: {
                 'application/json': {
                   schema: {
-                    $ref: '#/components/schemas/PriceCategoryResponse',
+                    $ref: '#/components/schemas/PriceCategoryEdition',
                   },
                 },
               },
-              description: 'The price category has been modified successfully',
             },
-            400: {
-              description: 'The request is invalid. The response body contains a list of errors.',
-            },
-            401: {
-              description: 'Authentication is necessary to use this API',
-            },
-            403: {
-              description: 'You do not have the necessary rights to use this API',
-            },
-            404: {
-              description: 'The event offer or the price category could not be found.',
-            },
-            422: {
-              content: {
-                'application/json': {
-                  schema: {
-                    $ref: '#/components/schemas/ValidationError',
+            responses: {
+              200: {
+                content: {
+                  'application/json': {
+                    schema: {
+                      $ref: '#/components/schemas/PriceCategoryResponse',
+                    },
                   },
                 },
+                description:
+                  'The price category has been modified successfully',
               },
-              description: 'Unprocessable Entity',
+              400: {
+                description:
+                  'The request is invalid. The response body contains a list of errors.',
+              },
+              401: {
+                description: 'Authentication is necessary to use this API',
+              },
+              403: {
+                description:
+                  'You do not have the necessary rights to use this API',
+              },
+              404: {
+                description:
+                  'The event offer or the price category could not be found.',
+              },
+              422: {
+                content: {
+                  'application/json': {
+                    schema: {
+                      $ref: '#/components/schemas/ValidationError',
+                    },
+                  },
+                },
+                description: 'Unprocessable Entity',
+              },
             },
+            security: [
+              {
+                ApiKeyAuth: [],
+              },
+            ],
+            summary: 'Update price category',
+            tags: ['Event offer prices'],
           },
-          security: [
-            {
-              ApiKeyAuth: [],
-            },
-          ],
-          summary: 'Update price category',
-          tags: [
-            'Event offer prices',
-          ],
         },
-      },
       '/public/offers/v1/music_types': {
         get: {
           deprecated: true,
-          description: '⚠️ This is a DEPRACTED endpoint. It should not be used.',
+          description:
+            '⚠️ This is a DEPRACTED endpoint. It should not be used.',
           operationId: 'GetMusicTypes',
           parameters: [],
           responses: {
@@ -9436,7 +8710,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -9455,9 +8730,7 @@ export default {
             },
           ],
           summary: '[LEGACY] Get music types',
-          tags: [
-            'Offer attributes',
-          ],
+          tags: ['Offer attributes'],
         },
       },
       '/public/offers/v1/music_types/all': {
@@ -9480,7 +8753,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -9499,9 +8773,7 @@ export default {
             },
           ],
           summary: 'Get all music types',
-          tags: [
-            'Offer attributes',
-          ],
+          tags: ['Offer attributes'],
         },
       },
       '/public/offers/v1/music_types/event': {
@@ -9524,7 +8796,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -9543,14 +8816,13 @@ export default {
             },
           ],
           summary: 'Get events music types',
-          tags: [
-            'Offer attributes',
-          ],
+          tags: ['Offer attributes'],
         },
       },
       '/public/offers/v1/offerer_venues': {
         get: {
-          description: 'Return all the venues attached to the API key for given offerer.',
+          description:
+            'Return all the venues attached to the API key for given offerer.',
           operationId: 'GetOffererVenues',
           parameters: [
             {
@@ -9582,7 +8854,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -9601,14 +8874,13 @@ export default {
             },
           ],
           summary: 'Get offerer venues',
-          tags: [
-            'Offerer and Venues',
-          ],
+          tags: ['Offerer and Venues'],
         },
       },
       '/public/offers/v1/products': {
         get: {
-          description: 'Return all products linked to a venue. Results are paginated (by default `50` products by page).',
+          description:
+            'Return all products linked to a venue. Results are paginated (by default `50` products by page).',
           operationId: 'GetProducts',
           parameters: [
             {
@@ -9665,7 +8937,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'No venue found for the used api key',
@@ -9687,12 +8960,11 @@ export default {
             },
           ],
           summary: 'Get venue products',
-          tags: [
-            'Product offer',
-          ],
+          tags: ['Product offer'],
         },
         patch: {
-          description: 'Will update only the non-blank fields. If you want to keep the current value of certains fields, leave them `undefined`.',
+          description:
+            'Will update only the non-blank fields. If you want to keep the current value of certains fields, leave them `undefined`.',
           operationId: 'EditProduct',
           parameters: [],
           requestBody: {
@@ -9722,7 +8994,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'The product offer could not be found',
@@ -9744,9 +9017,7 @@ export default {
             },
           ],
           summary: 'Update product offer',
-          tags: [
-            'Product offer',
-          ],
+          tags: ['Product offer'],
         },
         post: {
           description: 'Create a product in authorized categories.',
@@ -9779,7 +9050,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'No venue found for the used api key',
@@ -9801,14 +9073,13 @@ export default {
             },
           ],
           summary: 'Create product',
-          tags: [
-            'Product offer',
-          ],
+          tags: ['Product offer'],
         },
       },
       '/public/offers/v1/products/categories': {
         get: {
-          description: 'Return all product categories with their conditional fields, and whether they are required for product creation.',
+          description:
+            'Return all product categories with their conditional fields, and whether they are required for product creation.',
           operationId: 'GetProductCategories',
           parameters: [],
           responses: {
@@ -9826,7 +9097,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -9845,14 +9117,13 @@ export default {
             },
           ],
           summary: 'Get product categories',
-          tags: [
-            'Product offer',
-          ],
+          tags: ['Product offer'],
         },
       },
       '/public/offers/v1/products/ean': {
         get: {
-          description: 'Return all the product offers of a given venue matching given EANs (European Article Number, EAN-13).',
+          description:
+            'Return all the product offers of a given venue matching given EANs (European Article Number, EAN-13).',
           operationId: 'GetProductByEan',
           parameters: [
             {
@@ -9893,7 +9164,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -9912,12 +9184,11 @@ export default {
             },
           ],
           summary: 'Get product offers by EAN',
-          tags: [
-            'Product offer bulk operations',
-          ],
+          tags: ['Product offer bulk operations'],
         },
         post: {
-          description: 'Batch create offers using products EAN. EAN is the European Article Number identifiying each product sold in the european market (EAN-13).',
+          description:
+            'Batch create offers using products EAN. EAN is the European Article Number identifiying each product sold in the european market (EAN-13).',
           operationId: 'PostProductOfferByEan',
           parameters: [],
           requestBody: {
@@ -9940,7 +9211,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'No venue found for the used api key',
@@ -9962,9 +9234,7 @@ export default {
             },
           ],
           summary: 'Batch create offers',
-          tags: [
-            'Product offer bulk operations',
-          ],
+          tags: ['Product offer bulk operations'],
         },
       },
       '/public/offers/v1/products/{product_id}': {
@@ -9998,7 +9268,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             404: {
               description: 'The product offer could not be found',
@@ -10020,9 +9291,7 @@ export default {
             },
           ],
           summary: 'Get product offer',
-          tags: [
-            'Product offer',
-          ],
+          tags: ['Product offer'],
         },
       },
       '/public/offers/v1/show_types': {
@@ -10045,7 +9314,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -10064,9 +9334,7 @@ export default {
             },
           ],
           summary: 'Get all the show types',
-          tags: [
-            'Offer attributes',
-          ],
+          tags: ['Offer attributes'],
         },
       },
       '/public/offers/v1/{offer_id}/image': {
@@ -10102,7 +9370,8 @@ export default {
               description: 'Authentication is necessary to use this API',
             },
             403: {
-              description: 'You do not have the necessary rights to use this API',
+              description:
+                'You do not have the necessary rights to use this API',
             },
             422: {
               content: {
@@ -10121,9 +9390,7 @@ export default {
             },
           ],
           summary: 'Upload an image',
-          tags: [
-            'Image',
-          ],
+          tags: ['Image'],
         },
       },
       '/v2/collective/bookings/{booking_id}': {
@@ -10173,9 +9440,7 @@ export default {
             },
           ],
           summary: 'Cancel collective booking',
-          tags: [
-            'Collective booking',
-          ],
+          tags: ['Collective booking'],
         },
       },
       '/v2/collective/categories': {
@@ -10220,10 +9485,9 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Récupération de la liste des catégories d\'offres proposées.',
-          tags: [
-            'Collective categories',
-          ],
+          summary:
+            "Récupération de la liste des catégories d'offres proposées.",
+          tags: ['Collective categories'],
         },
       },
       '/v2/collective/educational-domains': {
@@ -10240,7 +9504,7 @@ export default {
                   },
                 },
               },
-              description: 'La liste des domaines d\'éducation.',
+              description: "La liste des domaines d'éducation.",
             },
             401: {
               content: {
@@ -10268,10 +9532,9 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Récupération de la liste des domaines d\'éducation pouvant être associés aux offres collectives.',
-          tags: [
-            'Collective educational data',
-          ],
+          summary:
+            "Récupération de la liste des domaines d'éducation pouvant être associés aux offres collectives.",
+          tags: ['Collective educational data'],
         },
       },
       '/v2/collective/educational-institutions/': {
@@ -10405,9 +9668,7 @@ export default {
             },
           ],
           summary: 'Récupération de la liste établissements scolaires.',
-          tags: [
-            'Collective educational data',
-          ],
+          tags: ['Collective educational data'],
         },
       },
       '/v2/collective/national-programs/': {
@@ -10424,7 +9685,7 @@ export default {
                   },
                 },
               },
-              description: 'Il n\'y a pas de dispositifs nationaux',
+              description: "Il n'y a pas de dispositifs nationaux",
             },
             401: {
               content: {
@@ -10444,7 +9705,8 @@ export default {
                   },
                 },
               },
-              description: 'Vous n\'avez pas les droits nécessaires pour voir ces informations',
+              description:
+                "Vous n'avez pas les droits nécessaires pour voir ces informations",
             },
             422: {
               content: {
@@ -10463,14 +9725,13 @@ export default {
             },
           ],
           summary: 'Liste de tous les dispositifs nationaux connus',
-          tags: [
-            'Collective educational data',
-          ],
+          tags: ['Collective educational data'],
         },
       },
       '/v2/collective/offerer_venues': {
         get: {
-          description: 'Tous les lieux enregistrés, sont listés ici avec leurs coordonnées.',
+          description:
+            'Tous les lieux enregistrés, sont listés ici avec leurs coordonnées.',
           operationId: 'GetOffererVenues',
           parameters: [
             {
@@ -10524,10 +9785,9 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Récupération des lieux associés au fournisseur authentifié par le jeton d\'aPI; groupés par structures.',
-          tags: [
-            'Collective venues',
-          ],
+          summary:
+            "Récupération des lieux associés au fournisseur authentifié par le jeton d'aPI; groupés par structures.",
+          tags: ['Collective venues'],
         },
       },
       '/v2/collective/offers/': {
@@ -10592,7 +9852,7 @@ export default {
                   },
                 },
               },
-              description: 'L\'offre collective existe',
+              description: "L'offre collective existe",
             },
             401: {
               content: {
@@ -10612,7 +9872,8 @@ export default {
                   },
                 },
               },
-              description: 'Vous n\'avez pas les droits nécessaires pour voir cette offre collective',
+              description:
+                "Vous n'avez pas les droits nécessaires pour voir cette offre collective",
             },
             404: {
               content: {
@@ -10622,7 +9883,7 @@ export default {
                   },
                 },
               },
-              description: 'L\'offre collective n\'existe pas',
+              description: "L'offre collective n'existe pas",
             },
             422: {
               content: {
@@ -10640,10 +9901,9 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Récuperation des offres collectives Cette api ignore les offre vitrines et les offres commencées sur l\'interface web et non finalisées.',
-          tags: [
-            'Collective offers',
-          ],
+          summary:
+            "Récuperation des offres collectives Cette api ignore les offre vitrines et les offres commencées sur l'interface web et non finalisées.",
+          tags: ['Collective offers'],
         },
         post: {
           description: '',
@@ -10667,7 +9927,7 @@ export default {
                   },
                 },
               },
-              description: 'L\'offre collective à été créée avec succes',
+              description: "L'offre collective à été créée avec succes",
             },
             400: {
               content: {
@@ -10707,7 +9967,8 @@ export default {
                   },
                 },
               },
-              description: 'L\'une des resources pour la création de l\'offre n\'a pas été trouvée',
+              description:
+                "L'une des resources pour la création de l'offre n'a pas été trouvée",
             },
             422: {
               content: {
@@ -10725,10 +9986,8 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Création d\'une offre collective.',
-          tags: [
-            'Collective offers',
-          ],
+          summary: "Création d'une offre collective.",
+          tags: ['Collective offers'],
         },
       },
       '/v2/collective/offers/formats': {
@@ -10755,7 +10014,8 @@ export default {
                   },
                 },
               },
-              description: 'Vous n\'avez pas les droits nécessaires pour voir cette offre collective',
+              description:
+                "Vous n'avez pas les droits nécessaires pour voir cette offre collective",
             },
             404: {
               content: {
@@ -10765,7 +10025,7 @@ export default {
                   },
                 },
               },
-              description: 'L\'offre collective n\'existe pas',
+              description: "L'offre collective n'existe pas",
             },
             422: {
               content: {
@@ -10783,10 +10043,8 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Liste des formats d\'offres collectives',
-          tags: [
-            'Collective offers',
-          ],
+          summary: "Liste des formats d'offres collectives",
+          tags: ['Collective offers'],
         },
       },
       '/v2/collective/offers/{offer_id}': {
@@ -10814,7 +10072,7 @@ export default {
                   },
                 },
               },
-              description: 'L\'offre collective existe',
+              description: "L'offre collective existe",
             },
             401: {
               content: {
@@ -10834,7 +10092,8 @@ export default {
                   },
                 },
               },
-              description: 'Vous n\'avez pas les droits nécessaires pour voir cette offre collective',
+              description:
+                "Vous n'avez pas les droits nécessaires pour voir cette offre collective",
             },
             404: {
               content: {
@@ -10844,7 +10103,7 @@ export default {
                   },
                 },
               },
-              description: 'L\'offre collective n\'existe pas',
+              description: "L'offre collective n'existe pas",
             },
             422: {
               content: {
@@ -10862,10 +10121,9 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Récuperation de l\'offre collective avec l\'identifiant offer_id.',
-          tags: [
-            'Collective offers',
-          ],
+          summary:
+            "Récuperation de l'offre collective avec l'identifiant offer_id.",
+          tags: ['Collective offers'],
         },
         patch: {
           description: '',
@@ -10900,7 +10158,7 @@ export default {
                   },
                 },
               },
-              description: 'L\'offre collective à été édité avec succes',
+              description: "L'offre collective à été édité avec succes",
             },
             400: {
               content: {
@@ -10930,7 +10188,8 @@ export default {
                   },
                 },
               },
-              description: 'Vous n\'avez pas les droits nécessaires pour éditer cette offre collective',
+              description:
+                "Vous n'avez pas les droits nécessaires pour éditer cette offre collective",
             },
             404: {
               content: {
@@ -10940,7 +10199,8 @@ export default {
                   },
                 },
               },
-              description: 'L\'une des resources pour la création de l\'offre n\'a pas été trouvée',
+              description:
+                "L'une des resources pour la création de l'offre n'a pas été trouvée",
             },
             422: {
               content: {
@@ -10950,7 +10210,8 @@ export default {
                   },
                 },
               },
-              description: 'Cetains champs ne peuvent pas être édités selon l\'état de l\'offre',
+              description:
+                "Cetains champs ne peuvent pas être édités selon l'état de l'offre",
             },
           },
           security: [
@@ -10958,10 +10219,8 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Édition d\'une offre collective.',
-          tags: [
-            'Collective offers',
-          ],
+          summary: "Édition d'une offre collective.",
+          tags: ['Collective offers'],
         },
       },
       '/v2/collective/student-levels': {
@@ -10978,7 +10237,7 @@ export default {
                   },
                 },
               },
-              description: 'La liste des domaines d\'éducation.',
+              description: "La liste des domaines d'éducation.",
             },
             401: {
               content: {
@@ -11006,10 +10265,9 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Récupération de la liste des publics cibles pour lesquelles des offres collectives peuvent être proposées.',
-          tags: [
-            'Collective educational data',
-          ],
+          summary:
+            'Récupération de la liste des publics cibles pour lesquelles des offres collectives peuvent être proposées.',
+          tags: ['Collective educational data'],
         },
       },
       '/v2/collective/subcategories': {
@@ -11054,15 +10312,15 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Récupération de la liste des sous-catégories d\'offres proposées a un public collectif.',
-          tags: [
-            'Collective categories',
-          ],
+          summary:
+            "Récupération de la liste des sous-catégories d'offres proposées a un public collectif.",
+          tags: ['Collective categories'],
         },
       },
       '/v2/collective/venues': {
         get: {
-          description: 'Tous les lieux enregistrés, sont listés ici avec leurs coordonnées.',
+          description:
+            'Tous les lieux enregistrés, sont listés ici avec leurs coordonnées.',
           operationId: 'ListVenues',
           parameters: [],
           responses: {
@@ -11102,10 +10360,9 @@ export default {
               ApiKeyAuth: [],
             },
           ],
-          summary: 'Récupération de la liste des lieux associés au fournisseur authentifiée par le jeton d\'aPI.',
-          tags: [
-            'Collective venues',
-          ],
+          summary:
+            "Récupération de la liste des lieux associés au fournisseur authentifiée par le jeton d'aPI.",
+          tags: ['Collective venues'],
         },
       },
     },
@@ -11122,17 +10379,20 @@ export default {
         name: 'Offerer and Venues',
       },
       {
-        description: 'Endpoints to manage event offers data of a venue (except prices and dates).',
+        description:
+          'Endpoints to manage event offers data of a venue (except prices and dates).',
         externalDocs: null,
         name: 'Event offer',
       },
       {
-        description: 'Endpoints to create and update price categories of an event.',
+        description:
+          'Endpoints to create and update price categories of an event.',
         externalDocs: null,
         name: 'Event offer prices',
       },
       {
-        description: 'Endpoints to manager the dates of an event. The date of an event is composed of a price category and an actual date.         Hence for a given performance, you might have several dates (one per category).',
+        description:
+          'Endpoints to manager the dates of an event. The date of an event is composed of a price category and an actual date.         Hence for a given performance, you might have several dates (one per category).',
         externalDocs: null,
         name: 'Event offer dates',
       },
@@ -11142,12 +10402,14 @@ export default {
         name: 'Product offer',
       },
       {
-        description: 'Endpoints to create and get products usings European Article Number (EAN-13).',
+        description:
+          'Endpoints to create and get products usings European Article Number (EAN-13).',
         externalDocs: null,
         name: 'Product offer bulk operations',
       },
       {
-        description: 'Endpoints to manage the bookings of an offer (event and product).',
+        description:
+          'Endpoints to manage the bookings of an offer (event and product).',
         externalDocs: null,
         name: 'Booking',
       },

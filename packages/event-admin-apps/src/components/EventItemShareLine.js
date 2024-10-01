@@ -25,10 +25,10 @@ export default function EventItem({ event, agenda, memberPlaceholderMsg }) {
 
   const messageData = {
     agendaLink: event.originAgenda
-      ? chunks => <a href={`/agendas/${event.originAgenda.uid}`}>{chunks}</a>
+      ? (chunks) => <a href={`/agendas/${event.originAgenda.uid}`}>{chunks}</a>
       : null,
     memberLink: event.member
-      ? chunks => (
+      ? (chunks) => (
         <a href={`/${agenda.slug}/admin/members?userUid=${event.member.uid}`}>
           {chunks}
         </a>

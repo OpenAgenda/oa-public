@@ -14,7 +14,7 @@ export const defaultDirectives = {
     'https:',
     'data:',
     'blob:',
-    req => {
+    (req) => {
       const { matomoCloudId } = req.app.core.getConfig();
       return matomoCloudId ? `https://${matomoCloudId}` : '';
     },
@@ -28,7 +28,11 @@ export const defaultDirectives = {
   ],
   objectSrc: ["'none'"],
   mediaSrc: ["'self'", 'https:', 'data:'],
-  frameSrc: ["'self'", 'https://service.mtcaptcha.com', 'https://service2.mtcaptcha.com'],
+  frameSrc: [
+    "'self'",
+    'https://service.mtcaptcha.com',
+    'https://service2.mtcaptcha.com',
+  ],
   scriptSrc: [
     'https:', // backward compatibility
     "'unsafe-inline'", // backward compatibility
@@ -38,25 +42,31 @@ export const defaultDirectives = {
   ],
   connectSrc: [
     "'self'",
-    req => {
+    (req) => {
       const { matomoCloudId } = req.app.core.getConfig();
       return matomoCloudId ? `https://${matomoCloudId}` : '';
     },
-    req => `https://${req.app.core.getConfig().aws.bucket}.s3.eu-west-1.amazonaws.com`, // inbox upload
-  ]
-    .concat(process.env.DEV_SERVER_PORT ? [
-      req => `wss://${req.app.core.getConfig().domain}:${process.env.DEV_SERVER_PORT}`,
-    ] : []),
+    (req) =>
+      `https://${req.app.core.getConfig().aws.bucket}.s3.eu-west-1.amazonaws.com`, // inbox upload
+  ].concat(
+    process.env.DEV_SERVER_PORT
+      ? [
+        (req) =>
+          `wss://${req.app.core.getConfig().domain}:${process.env.DEV_SERVER_PORT}`,
+      ]
+      : [],
+  ),
   scriptSrcAttr: ["'none'"],
   formAction: ["'self'"],
   upgradeInsecureRequests: [],
   blockAllMixedContent: [],
   reportTo: ['default'],
-  reportUri: [req => `${req.app.core.getConfig().root}/reports`], // for firefox, the new IE
+  reportUri: [(req) => `${req.app.core.getConfig().root}/reports`], // for firefox, the new IE
 };
 
-export default (directives = defaultDirectives) => helmet.contentSecurityPolicy({
-  reportOnly: false,
-  useDefaults: false,
-  directives,
-});
+export default (directives = defaultDirectives) =>
+  helmet.contentSecurityPolicy({
+    reportOnly: false,
+    useDefaults: false,
+    directives,
+  });

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import update from 'immutability-helper';
+import { useUIDSeed } from 'react-uid';
 import MarkdownComponent from '../components/MarkdownComponent';
 import HTMLComponent from '../components/HTMLComponent';
 import PageDecorator from './decorators/PageDecorator';
@@ -46,37 +47,42 @@ function onMultiMarkdownChange(state, i, value) {
 
 export default {
   title: 'Wysiwyg',
-  decorators: [
-    PageDecorator,
-  ],
+  decorators: [PageDecorator],
 };
 
 export function Markdown() {
   const [state, setState] = useState(defaultState);
 
+  const seed = useUIDSeed();
+
   return (
     <>
-      <button onClick={() => setState(removeFirstMarkdownComponent)}>supprimer le premier</button>
+      <button
+        type="button"
+        onClick={() => setState(removeFirstMarkdownComponent)}
+      >
+        supprimer le premier
+      </button>
 
       {state.multiMd.map((c, i) => (
-        <React.Fragment key={i}>
+        <React.Fragment key={seed(i)}>
           <MarkdownComponent
-
             lang={c.lang}
             label={c.label}
             placeholder={c.placeholder}
-            onChange={value => setState(onMultiMarkdownChange(state, i, value))}
+            onChange={(value) =>
+              setState(onMultiMarkdownChange(state, i, value))
+            }
             value={c.markdown}
           />
-
           Prévisualisation:
-          <pre>
-            {c.markdown}
-          </pre>
+          <pre>{c.markdown}</pre>
         </React.Fragment>
       ))}
 
-      <button onClick={() => setState(addMarkdownComponent)}>ajouter</button>
+      <button type="button" onClick={() => setState(addMarkdownComponent)}>
+        ajouter
+      </button>
     </>
   );
 }
@@ -89,7 +95,7 @@ export function Html() {
       lang="fr"
       label="Ce champ enregistre du html"
       placeholder="Cet HTML sera sauvegardé en base"
-      onChange={value => setState(onChange(state, 'html', value))}
+      onChange={(value) => setState(onChange(state, 'html', value))}
       value={state.values.html}
     />
   );

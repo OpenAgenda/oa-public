@@ -15,7 +15,8 @@ export default {
     msw: {
       handlers: [
         http.get('/events', mswEventsMiddleware),
-        http.get('/no-events', () => HttpResponse.json({ events: [], total: 0 })),
+        http.get('/no-events', () =>
+          HttpResponse.json({ events: [], total: 0 })),
       ],
     },
   },

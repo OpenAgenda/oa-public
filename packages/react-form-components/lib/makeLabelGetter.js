@@ -1,39 +1,36 @@
-"use strict";
+'use strict';
 
 /**
  * provide a labels getter that will
  * give back labels fed at init
  */
 
-module.exports = function( labels ) {
+module.exports =
+  (labels) =>
+  (...args) => {
+    let name;
+    let values;
+    let lang;
 
-  return function( name, values, lang ) {
-
-    if ( arguments.length == 2 && typeof values == 'string' ) {
-
-      lang = values;
+    if (args.length === 3) {
+      [name, values, lang] = args;
+    } else if (arguments.length === 2 && typeof values === 'string') {
+      [name, lang] = args;
       values = {};
-
     }
 
-    if ( !lang ) lang = 'en';
+    if (!labels[name]) return null;
 
-    if ( !labels[ name ] ) return null;
+    let str = labels[name][lang || 'en'];
+    let k;
 
-    var str = labels[ name ][ lang ], k;
-
-    if ( values ) {
-
-      for( k in values ) {
-
-        str = str.replace( '%' + k + '%', values[ k ] );
-
+    if (values) {
+      for (k in values) {
+        if (Object.hasOwn(values, k)) {
+          str = str.replace(`%${k}%`, values[k]);
+        }
       }
-
     }
 
     return str;
-
-  }
-
-}
+  };

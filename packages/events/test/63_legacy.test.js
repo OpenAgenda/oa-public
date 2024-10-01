@@ -1,33 +1,30 @@
 'use strict';
 
 const _ = require('lodash');
-const assert = require('assert');
 const legacySet = require('../lib/legacy/set');
 const legacyRemove = require('../lib/legacy/remove');
-const {
-  baseTransform
-} = legacySet
 
-const {
-  service: config,
-  dependencies: dConfig
-} = require('../testconfig.sample');
+const { baseTransform } = legacySet;
 
-const fixtures = require('./fixtures');
+const { service: config } = require('../testconfig.sample');
+
 const Service = require('..');
-const { createECDH } = require('crypto');
+const fixtures = require('./fixtures');
+const petitesBoitesAMusique = require('./fixtures/petites-boites-a-musique.json');
+const ventesVelosOccasion = require('./fixtures/ventes-de-velos-d-occasion-a-lambersart.json');
+const indoorParisCsoPro = require('./fixtures/indoor-de-paris-cso-pro-1.json');
+const enLigne = require('./fixtures/en-ligne.json');
 
 const events = {
-  'petites-boites-a-musique': require('./fixtures/petites-boites-a-musique.json'),
-  'ventes-de-velos-d-occasion-a-lambersart': require('./fixtures/ventes-de-velos-d-occasion-a-lambersart.json'),
-  'indoor-de-paris-cso-pro-1': require('./fixtures/indoor-de-paris-cso-pro-1.json'),
-  'en-ligne': require('./fixtures/en-ligne.json')
+  'petites-boites-a-musique': petitesBoitesAMusique,
+  'ventes-de-velos-d-occasion-a-lambersart': ventesVelosOccasion,
+  'indoor-de-paris-cso-pro-1': indoorParisCsoPro,
+  'en-ligne': enLigne,
 };
 
 const f = fixtures(config.mysql, config.schema);
 
 describe('legacy', () => {
-
   describe('setFromLegacy', () => {
     let svc;
     let result;
@@ -39,7 +36,7 @@ describe('legacy', () => {
 
       svc = Service({
         knex: f.client,
-        imagePath: config.imagePath
+        imagePath: config.imagePath,
       });
     });
 
@@ -48,122 +45,132 @@ describe('legacy', () => {
     });
 
     it('create/update payload deriving from event is part of response', () => {
-      assert.deepEqual(result.event, events['indoor-de-paris-cso-pro-1']);
+      expect(result.event).toEqual(events['indoor-de-paris-cso-pro-1']);
     });
 
     it('operation is given in response', () => {
-      assert.equal(result.operation, 'create');
+      expect(result.operation).toBe('create');
     });
 
     it('event is created', async () => {
-      assert.equal(result.response.uid, result.event.uid);
+      expect(result.response.uid).toBe(result.event.uid);
     });
-
   });
-  
+
   describe('legacySet', () => {
-  
     describe('create', () => {
       beforeAll(async () => {
         await f.load();
       });
-  
+
       describe('simple case', () => {
-        let result, legacyEventId;
+        let result;
+
         beforeAll(async () => {
-          result = await legacySet(f.client, events['petites-boites-a-musique']);
-          legacyEventId = result.eventId;
-        });
-  
-        it('result contains event legacy id', () => {
-          assert.equal(typeof result.eventId, 'number');
-        });
-  
-        it('result contains main operation type', () => {
-          assert.equal(result.operation, 'create');
-        });
-  
-        it('event slug is same as provided', async () => {
-          assert.equal(
-            events['petites-boites-a-musique'].slug,
-            await f.client('event')
-              .first('slug')
-              .where('uid', events['petites-boites-a-musique'].uid)
-              .then(r => r.slug)
+          result = await legacySet(
+            f.client,
+            events['petites-boites-a-musique'],
           );
         });
+
+        it('result contains event legacy id', () => {
+          expect(typeof result.eventId).toBe('number');
+        });
+
+        it('result contains main operation type', () => {
+          expect(result.operation).toBe('create');
+        });
+
+        it('event slug is same as provided', async () => {
+          const { slug } = await f
+            .client('event')
+            .first('slug')
+            .where('uid', events['petites-boites-a-musique'].uid);
+
+          expect(events['petites-boites-a-musique'].slug).toBe(slug);
+        });
       });
     });
-  
+
     describe('remove', () => {
       let result;
-  
+
       beforeAll(async () => {
         await f.load();
       });
-  
+
       beforeAll(async () => {
-        result = await legacyRemove(f.client, events['ventes-de-velos-d-occasion-a-lambersart']);
-      });
-  
-      it('result shows remove operation', () => {
-        assert.equal(result.operation, 'remove');
-      });
-  
-      it('insert was added to deleted table', async () => {
-        const deletedEvent = await f.client.first('store')
-          .from('deleted')
-          .where('uid', 19853966)
-          .then(r => JSON.parse(r.store));
-  
-        assert.equal(deletedEvent.slug, 'ventes-de-velos-d-occasion-a-lambersart');
-      });
-    });
-  
-    describe('update', () => {
-      let result;
-  
-      beforeAll(async () => {
-        await f.load();
-      });
-      
-      beforeAll(async () => {
-        result = await legacySet(f.client, events['ventes-de-velos-d-occasion-a-lambersart']);
-      });
-  
-      it('result shows update operation', () => {
-        assert.equal(result.operation, 'update');
-      });
-  
-      it('eventLocation reference was updated', async () => {
-        assert.equal(
-          await f.client.first('location_id')
-            .from('event_location')
-            .where('event_id', 1)
-            .then(r => r.location_id),
-          4
+        result = await legacyRemove(
+          f.client,
+          events['ventes-de-velos-d-occasion-a-lambersart'],
         );
       });
-  
+
+      it('result shows remove operation', () => {
+        expect(result.operation).toBe('remove');
+      });
+
+      it('insert was added to deleted table', async () => {
+        const deletedEvent = await f.client
+          .first('store')
+          .from('deleted')
+          .where('uid', 19853966)
+          .then((r) => JSON.parse(r.store));
+
+        expect(deletedEvent.slug).toBe(
+          'ventes-de-velos-d-occasion-a-lambersart',
+        );
+      });
+    });
+
+    describe('update', () => {
+      let result;
+
+      beforeAll(async () => {
+        await f.load();
+      });
+
+      beforeAll(async () => {
+        result = await legacySet(
+          f.client,
+          events['ventes-de-velos-d-occasion-a-lambersart'],
+        );
+      });
+
+      it('result shows update operation', () => {
+        expect(result.operation).toBe('update');
+      });
+
+      it('eventLocation reference was updated', async () => {
+        const { location_id: locationId } = await f.client
+          .first('location_id')
+          .from('event_location')
+          .where('event_id', 1);
+
+        expect(locationId).toBe(4);
+      });
+
       it('1 eventLocationTranslation entry was added', async () => {
-        const entries = await f.client.select('elt.*')
+        const entries = await f.client
+          .select('elt.*')
           .from('event_location_translation as elt')
           .leftJoin('event_location as el', 'elt.id', 'el.id')
           .where('el.event_id', 1);
-        
-        assert.equal(entries.length, 1);
-        assert.equal(entries[0].pricing_info, 'Pas cher');
+
+        expect(entries.length).toBe(1);
+        expect(entries[0].pricing_info).toBe('Pas cher');
       });
 
-      it('long description was emptied', async() => {
-        const entries = await f.client.select()
+      it('long description was emptied', async () => {
+        const entries = await f.client
+          .select()
           .from('event_translation')
           .where('id', 1);
 
-        assert.equal(entries[0].free_text, '');
-      })
+        expect(entries[0].free_text).toBe('');
+      });
     });
-  
+
     describe('baseTransform', () => {
       const imageData = {
         filename: 'db7ab4eeac3249a5a57b5d315d608217.base.image.jpg',
@@ -171,150 +178,162 @@ describe('legacy', () => {
         variants: [
           {
             filename: 'db7ab4eeac3249a5a57b5d315d608217.full.image.jpg',
-            type: 'full'
+            type: 'full',
           },
           {
             filename: 'db7ab4eeac3249a5a57b5d315d608217.thumb.image.jpg',
-            type: 'thumbnail'
-          }
-        ]
+            type: 'thumbnail',
+          },
+        ],
       };
 
-      it(
-        'title is placed in event_translation entry, one entry per language',
-        () => {
-          const et = baseTransform({
-            title: {
-              fr: 'Un événement'
-            }
-          }).event_translation;
-      
-          assert.equal(et[0].title, 'Un événement');
-          assert.equal(et[0].lang, 'fr');
-        }
-      );
-    
+      it('title is placed in event_translation entry, one entry per language', () => {
+        const et = baseTransform({
+          title: {
+            fr: 'Un événement',
+          },
+        }).event_translation;
+
+        expect(et[0].title).toBe('Un événement');
+        expect(et[0].lang).toBe('fr');
+      });
+
       it('uid is placed in event entry', () => {
         const entry = baseTransform({
-          uid: 123
+          uid: 123,
         });
-    
-        assert.equal(entry.event.uid, 123);
+
+        expect(entry.event.uid).toBe(123);
       });
-    
+
       it('legacy goes to a jsonified array', () => {
         const entry = baseTransform({
-          accessibility: ({
+          accessibility: {
             hi: true,
-            ii: false
-          })
+            ii: false,
+          },
         }).event;
-    
-        assert.equal(entry.accessibility, '["hi"]')
+
+        expect(entry.accessibility).toBe('["hi"]');
       });
-  
+
       it('image filename is placed in image column', () => {
         const entry = baseTransform({
-          image: imageData
+          image: imageData,
         }).event;
-  
-        assert.equal(entry.image, 'db7ab4eeac3249a5a57b5d315d608217.base.image.jpg');
+
+        expect(entry.image).toBe(
+          'db7ab4eeac3249a5a57b5d315d608217.base.image.jpg',
+        );
       });
 
       it('remaining image paths is placed in store', () => {
         const entry = baseTransform({
-          image: imageData
+          image: imageData,
         }).event;
 
-        assert.equal(entry.store, '{"images":{"filename":"db7ab4eeac3249a5a57b5d315d608217.base.image.jpg","size":{"width":700,"height":565},"variants":[{"filename":"db7ab4eeac3249a5a57b5d315d608217.full.image.jpg","type":"full"},{"filename":"db7ab4eeac3249a5a57b5d315d608217.thumb.image.jpg","type":"thumbnail"}]},"links":[]}');
-      })
-    
+        expect(entry.store).toBe(
+          '{"images":{"filename":"db7ab4eeac3249a5a57b5d315d608217.base.image.jpg","size":{"width":700,"height":565},"variants":[{"filename":"db7ab4eeac3249a5a57b5d315d608217.full.image.jpg","type":"full"},{"filename":"db7ab4eeac3249a5a57b5d315d608217.thumb.image.jpg","type":"thumbnail"}]},"links":[]}',
+        );
+      });
+
       it('image credits is placed in event entry', () => {
         const entry = baseTransform({
-          imageCredits: 'C ma foto'
+          imageCredits: 'C ma foto',
         }).event;
-    
-        assert.equal(entry.image_credits, 'C ma foto');
+
+        expect(entry.image_credits).toBe('C ma foto');
       });
-    
+
       it('age goes in age_min and age_max', () => {
         const entry = baseTransform({
-          age: { min: 20, max: 80 }
+          age: { min: 20, max: 80 },
         }).event;
-    
-        assert.equal(entry.age_min, 20);
-        assert.equal(entry.age_max, 80);
+
+        expect(entry.age_min).toBe(20);
+        expect(entry.age_max).toBe(80);
       });
-    
+
       it('location id is specified in event_location entry', () => {
-        const entry = baseTransform({
-        }, { locationId: 1 });
-    
-        assert.equal(entry.event_location.location_id, 1);
+        const entry = baseTransform({}, { locationId: 1 });
+
+        expect(entry.event_location.location_id).toBe(1);
       });
-    
+
       it('ticket_link is a concatenation of registration field', () => {
         const entry = baseTransform({
-          registration: ['https://openagenda.com', 'https://agenda.grand-albigeois.fr']
+          registration: [
+            'https://openagenda.com',
+            'https://agenda.grand-albigeois.fr',
+          ],
         });
-    
-        assert.equal(entry.event_location.ticket_link, 'https://openagenda.com, https://agenda.grand-albigeois.fr');
+
+        expect(entry.event_location.ticket_link).toBe(
+          'https://openagenda.com, https://agenda.grand-albigeois.fr',
+        );
       });
-    
+
       it('occurrences derive from timings', () => {
-        const entry = baseTransform({
-          timings: [{
-            begin: '2020-12-18T17:00:00.000Z',
-            end: '2020-12-18T19:00:00.000Z'
-          }],
-          locationUid: 222,
-          timezone: 'Europe/Paris'
-        }, { locationId: 2 });
-    
-        assert.deepEqual(_.omit(entry.occurrence[0], ['created_at', 'updated_at']), {
+        const entry = baseTransform(
+          {
+            timings: [
+              {
+                begin: '2020-12-18T17:00:00.000Z',
+                end: '2020-12-18T19:00:00.000Z',
+              },
+            ],
+            locationUid: 222,
+            timezone: 'Europe/Paris',
+          },
+          { locationId: 2 },
+        );
+
+        expect(
+          _.omit(entry.occurrence[0], ['created_at', 'updated_at']),
+        ).toEqual({
           date: '2020-12-18',
           time_start: '18:00',
           time_end: '20:00',
-          location_id: 2
+          location_id: 2,
         });
       });
-    
+
       it('event_location_translation.pricing_info derives from conditions', () => {
         const entry = baseTransform({
           conditions: {
             fr: 'Gratuit',
-            en: 'Free'
-          }
+            en: 'Free',
+          },
         });
-    
-        assert.deepEqual(
-          entry.event_location_translation.map(elt => _.omit(elt, ['updated_at'])),
-          [{
+
+        expect(
+          entry.event_location_translation.map((elt) =>
+            _.omit(elt, ['updated_at'])),
+        ).toEqual([
+          {
             lang: 'fr',
-            pricing_info: 'Gratuit'
-          }, {
+            pricing_info: 'Gratuit',
+          },
+          {
             lang: 'en',
-            pricing_info: 'Free'
-          }]
-        );
+            pricing_info: 'Free',
+          },
+        ]);
       });
 
       it('attendanceMode and onlineAccessLink are placed in event store', () => {
         const entry = baseTransform(events['en-ligne']);
 
-        assert.equal(entry.event.store, '{"attendanceMode":2,"onlineAccessLink":"https://online.access.link.com","links":[]}');
+        expect(entry.event.store).toBe(
+          '{"attendanceMode":2,"onlineAccessLink":"https://online.access.link.com","links":[]}',
+        );
       });
 
-      it(
-        'event_location location_id ref is null for strictly online event',
-        () => {
-          const entry = baseTransform(events['en-ligne']);
+      it('event_location location_id ref is null for strictly online event', () => {
+        const entry = baseTransform(events['en-ligne']);
 
-          assert.equal(entry.event_location.location_id, null);
-        }
-      );
+        expect(entry.event_location.location_id).toBeNull();
+      });
     });
-  
   });
-
 });

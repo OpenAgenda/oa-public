@@ -31,7 +31,8 @@ export async function init(config, services) {
     updateEventLocationReferences: updateEventLocationReferences(services),
   });
 
-  queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));
+  queue.on('error', (task, args, err) =>
+    log('error', 'task %s error', task, err));
 
   const instance = AgendaLocations({
     knex: config.knex,
@@ -45,8 +46,10 @@ export async function init(config, services) {
       getAgendaDetailsByUid: getAgendaDetailsByUid(config, services),
       getEventCounts: getEventCounts(config, services),
       getSetAgendasCount: getSetAgendasCount(services),
-      geocode: (address, { countryCode, language }) => geocoder(address, { countryCode, language }),
-      reverseGeocode: (lat, lng, options = {}) => geocoder.reverse(lat, lng, options),
+      geocode: (address, { countryCode, language }) =>
+        geocoder(address, { countryCode, language }),
+      reverseGeocode: (lat, lng, options = {}) =>
+        geocoder.reverse(lat, lng, options),
       getAgendaLocationSettings: getAgendaLocationSettings(services),
       getLinkedAgendas: getLinkedAgendas(services),
       getAgendaUidsByIds: getAgendaUidsByIds(services),
@@ -55,10 +58,13 @@ export async function init(config, services) {
     logger: config.getLogConfig('svc', 'agendaLocations'),
   });
   return Object.assign(instance, {
-    apps: Object.assign(plugApp.bind(null, { ...config, geocoder }, services, instance), {
-      agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
-      agenda: plugAgendaApp.bind(null, services, instance),
-    }),
+    apps: Object.assign(
+      plugApp.bind(null, { ...config, geocoder }, services, instance),
+      {
+        agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
+        agenda: plugAgendaApp.bind(null, services, instance),
+      },
+    ),
     shutdown: async (options = {}) => {
       if (!taskRunning) return;
 
@@ -68,10 +74,7 @@ export async function init(config, services) {
       log('task stopped');
     },
     task: async (options = {}) => {
-      const {
-        duplicationDetection,
-        reset = false,
-      } = options;
+      const { duplicationDetection, reset = false } = options;
       taskRunning = true;
       log('task');
       if (duplicationDetection?.enabled) {

@@ -4,10 +4,7 @@ import express from 'express';
 import VError from '@openagenda/verror';
 
 async function saveExpiration(delay, req, res) {
-  const {
-    sanitizedUrl,
-    ttl,
-  } = req.cache;
+  const { sanitizedUrl, ttl } = req.cache;
 
   const cacheTtl = await ttl(sanitizedUrl);
   const expires = new Date(Date.now() + cacheTtl * 1000);
@@ -23,11 +20,7 @@ function saveToCache(namespace, delay) {
       return next();
     }
 
-    const {
-      identifier,
-      sanitizedUrl,
-      set,
-    } = req.cache;
+    const { identifier, sanitizedUrl, set } = req.cache;
 
     try {
       await set(sanitizedUrl, JSON.stringify(res.data), delay);
@@ -62,16 +55,18 @@ function _sanitizeUrl(req) {
 
   return [
     parts[0],
-    parts[1].split('&')
-      .map(qPart => qPart.split('='))
-      .filter(kv => !['key', 'callback', '_'].includes(kv[0]))
-      .map(kv => kv.join('='))
+    parts[1]
+      .split('&')
+      .map((qPart) => qPart.split('='))
+      .filter((kv) => !['key', 'callback', '_'].includes(kv[0]))
+      .map((kv) => kv.join('='))
       .join('&'),
   ].join('?');
 }
 
 export default (namespace, path, delay, mwIfNoCache) => {
-  const cacheRouter = express.Router({ mergeParams: true })
+  const cacheRouter = express
+    .Router({ mergeParams: true })
     .use(mwIfNoCache)
     .use(saveToCache(namespace, delay));
 
@@ -101,7 +96,13 @@ export default (namespace, path, delay, mwIfNoCache) => {
         try {
           res.data = JSON.parse(cached);
         } catch (e) {
-          throw new VError(e, 'failed to parse cached data at %s:%s - %s', namespace, identifier, cached);
+          throw new VError(
+            e,
+            'failed to parse cached data at %s:%s - %s',
+            namespace,
+            identifier,
+            cached,
+          );
         }
 
         await saveExpiration(delay, req, res);

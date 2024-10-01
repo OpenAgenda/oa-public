@@ -93,9 +93,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -224,9 +222,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -765,9 +761,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -910,9 +904,7 @@
       "tarif": "Tarif du festival",
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Reflets du cinéma - Atmosphères 53",
       "type-de-structure": 621,
@@ -1055,9 +1047,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1169,9 +1159,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "02 44 73 45 60"
-      ],
+      "registration": ["02 44 73 45 60"],
       "location": {
         "uid": 48795388,
         "slug": "mediatheque-etienne-caux46",
@@ -1205,9 +1193,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1319,10 +1305,7 @@
         "min": 5,
         "max": 99
       },
-      "registration": [
-        "02 44 73 45 60",
-        "mediatheque@mairie-saintnazaire.fr"
-      ],
+      "registration": ["02 44 73 45 60", "mediatheque@mairie-saintnazaire.fr"],
       "location": {
         "uid": 48795388,
         "slug": "mediatheque-etienne-caux46",
@@ -1356,9 +1339,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1470,10 +1451,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "02 44 73 45 60",
-        "mediatheque@mairie-saintnazaire.fr"
-      ],
+      "registration": ["02 44 73 45 60", "mediatheque@mairie-saintnazaire.fr"],
       "location": {
         "uid": 48795388,
         "slug": "mediatheque-etienne-caux46",
@@ -1507,9 +1485,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1621,10 +1597,7 @@
         "min": 12,
         "max": 99
       },
-      "registration": [
-        "02 44 73 45 60",
-        "mediatheque@mairie-saintnazaire.fr"
-      ],
+      "registration": ["02 44 73 45 60", "mediatheque@mairie-saintnazaire.fr"],
       "location": {
         "uid": 48795388,
         "slug": "mediatheque-etienne-caux46",
@@ -1658,9 +1631,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1800,9 +1771,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

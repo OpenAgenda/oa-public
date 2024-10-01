@@ -1,26 +1,29 @@
 {
   "lastId": -1,
-  "events": [{
+  "events": [
+    {
       "uid": 1,
       "title": {
         "fr": "Marignan"
       },
       "state": 2,
       "referencingAgendaUids": [1, 2, 3]
-    },{
+    },
+    {
       "uid": 2,
       "title": {
         "fr": "Amarsissage de Musk"
       },
       "state": 2,
       "referencingAgendaUids": [1]
-    }, {
-        "uid": 3,
-        "title": {
-          "fr": "Massy"
-        },
-        "state": 2,
-        "referencingAgendaUids": [1, 2]
-      }
-    ]
-  }
+    },
+    {
+      "uid": 3,
+      "title": {
+        "fr": "Massy"
+      },
+      "state": 2,
+      "referencingAgendaUids": [1, 2]
+    }
+  ]
+}

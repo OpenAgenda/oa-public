@@ -14,13 +14,15 @@ const eventFields = eventSchema.eventFields({
   labels,
 });
 
-const eventFieldNames = eventFields.map(f => f.field);
+const eventFieldNames = eventFields.map((f) => f.field);
 
 function extractLocationUidFromData({ completeEventData, data }) {
   if (
     !data?.locationUid
     && !data?.location?.uid
-    && (data?.locationUid === null || data?.location === null || data?.location?.uid === null)
+    && (data?.locationUid === null
+      || data?.location === null
+      || data?.location?.uid === null)
   ) {
     return null;
   }
@@ -29,68 +31,86 @@ function extractLocationUidFromData({ completeEventData, data }) {
 }
 
 function containsEventData(data) {
-  const fields = eventFieldNames.filter(f => f !== 'languages');
-  return !!Object.keys(data ?? {}).filter(f => fields.includes(f)).length;
+  const fields = eventFieldNames.filter((f) => f !== 'languages');
+  return !!Object.keys(data ?? {}).filter((f) => fields.includes(f)).length;
 }
 
 function isDifferent(a, b) {
   const ignoredFields = ['originAgenda', 'agenda', 'updatedAt', 'state'];
 
-  return !!diff(
-    _.omit(a, ignoredFields),
-    _.omit(b, ignoredFields),
-  );
+  return !!diff(_.omit(a, ignoredFields), _.omit(b, ignoredFields));
 }
 
-export default Object.assign(async function cleanEvent(services, agenda, data, options = {}) {
-  const {
-    agendaEvents,
-    registrations,
-  } = services;
+export default Object.assign(
+  async function cleanEvent(services, agenda, data, options = {}) {
+    const { agendaEvents, registrations } = services;
 
-  const completeEventData = options.validateWithStoredData ? {
-    ...options.event,
-    ...data,
-  } : data;
+    const completeEventData = options.validateWithStoredData
+      ? {
+        ...options.event,
+        ...data,
+      }
+      : data;
 
-  const locationUid = extractLocationUidFromData({ data, completeEventData });
+    const locationUid = extractLocationUidFromData({ data, completeEventData });
 
-  const location = locationUid ? await services.agendaLocations.get({
-    uid: locationUid,
-  }, {
-    returnMergeTarget: true,
-    deleted: null,
-  }).catch(e => {
-    if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
-      throw e;
+    const location = locationUid
+      ? await services.agendaLocations
+        .get(
+          {
+            uid: locationUid,
+          },
+          {
+            returnMergeTarget: true,
+            deleted: null,
+          },
+        )
+        .catch((e) => {
+          if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
+            throw e;
+          }
+        })
+      : null;
+
+    log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
+
+    const pre = locationUid !== undefined ? { ...data, locationUid } : data;
+
+    if (location) {
+      pre.location = location;
     }
-  }) : null;
 
-  log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
+    const clean = validateEvent(
+      {
+        formSchema: agenda.formSchema,
+        networkFormSchema: _.get(agenda, 'network.formSchema'),
+        location,
+        validateAgendaEvent: agendaEvents.validate,
+      },
+      pre,
+      options,
+    );
 
-  const pre = locationUid !== undefined ? { ...data, locationUid } : data;
+    const passCulturePayload = clean.event.registration?.find(
+      ({ service }) => service === 'passCulture',
+    )?.data;
+    if (
+      passCulturePayload
+      && registrations
+      && getWriteAccess(options.member, options.access)
+    ) {
+      clean.passCulture = await registrations(
+        agenda.settings.registration,
+      ).passCulture.validate(clean.event, passCulturePayload);
+    } else if (passCulturePayload && !registrations) {
+      log('passCulture payload is set but registrations is not initialized');
+    }
 
-  if (location) {
-    pre.location = location;
-  }
-
-  const clean = validateEvent({
-    formSchema: agenda.formSchema,
-    networkFormSchema: _.get(agenda, 'network.formSchema'),
-    location,
-    validateAgendaEvent: agendaEvents.validate,
-  }, pre, options);
-
-  const passCulturePayload = clean.event.registration?.find(({ service }) => service === 'passCulture')?.data;
-  if (passCulturePayload && registrations && getWriteAccess(options.member, options.access)) {
-    clean.passCulture = await registrations(agenda.settings.registration).passCulture.validate(clean.event, passCulturePayload);
-  } else if (passCulturePayload && !registrations) {
-    log('passCulture payload is set but registrations is not initialized');
-  }
-
-  return clean;
-}, {
-  containsEventData,
-  isDifferent,
-  eventFields,
-});
+    return clean;
+  },
+  {
+    containsEventData,
+    isDifferent,
+    eventFields,
+  },
+);

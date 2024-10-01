@@ -478,10 +478,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "resa.mp@amiens-metropole.com",
-        "03 22 97 14 00"
-      ],
+      "registration": ["resa.mp@amiens-metropole.com", "03 22 97 14 00"],
       "location": {
         "uid": 37450992,
         "slug": "musee-de-picardie575",
@@ -515,9 +512,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 635,
@@ -629,10 +624,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "02 97 01 62 69",
-        "http://mediatheque.mairie-vannes.fr"
-      ],
+      "registration": ["02 97 01 62 69", "http://mediatheque.mairie-vannes.fr"],
       "location": {
         "uid": 56354339,
         "slug": "mediatheques-du-palais-des-arts",
@@ -666,9 +658,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -780,10 +770,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "02 97 01 62 69",
-        "http://mediatheque.mairie-vannes.fr"
-      ],
+      "registration": ["02 97 01 62 69", "http://mediatheque.mairie-vannes.fr"],
       "location": {
         "uid": 56354339,
         "slug": "mediatheques-du-palais-des-arts",
@@ -817,9 +804,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1055,9 +1040,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 636,
@@ -1204,9 +1187,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
@@ -1349,12 +1330,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix BD jeunesse de la médiathèque de Saint-Hilaire-de-Riez",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1662,9 +1639,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon du livre jeunesse - Les petites pages châtillonnaises",
       "type-de-structure": 621,
@@ -1780,9 +1755,7 @@
         "min": 4,
         "max": 99
       },
-      "registration": [
-        "naucellebd@free.fr"
-      ],
+      "registration": ["naucellebd@free.fr"],
       "location": {
         "uid": 99399407,
         "slug": "vallon-des-sports-12800-naucelle",
@@ -1816,17 +1789,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "W1221010",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -1936,9 +1905,7 @@
         "min": 6,
         "max": 12
       },
-      "registration": [
-        "luiza.rus@institutfrancais.ro"
-      ],
+      "registration": ["luiza.rus@institutfrancais.ro"],
       "location": {
         "uid": 93971405,
         "slug": "institut-francais-de-cluj-napoca",
@@ -1972,12 +1939,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -2130,9 +2093,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,

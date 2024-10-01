@@ -2,13 +2,15 @@
 
 const log = require('@openagenda/logs')('utils/updateDynamicSettings');
 
-module.exports = async function updateDynamicSettings({ client }, index, settings) {
+module.exports = async function updateDynamicSettings(
+  { client },
+  index,
+  settings,
+) {
   const {
     body: {
       [index]: {
-        settings: {
-          index: current,
-        },
+        settings: { index: current },
       },
     },
   } = await client.indices.getSettings({ index });

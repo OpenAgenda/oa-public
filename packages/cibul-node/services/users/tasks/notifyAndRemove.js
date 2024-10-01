@@ -5,19 +5,14 @@ const log = logs('services/users/tasks/notifyAndRemove');
 
 const storePrefix = 'inactiveUsers:';
 
-const inactiveTime = ((365 * 3) - 30) * 24 * 60 * 60 * 1000;
+const inactiveTime = (365 * 3 - 30) * 24 * 60 * 60 * 1000;
 const limit = 100;
 const maxHandledUsers = 5000;
 
 async function sendEmail(services, user, template, options = {}) {
-  const {
-    send: doSend = true,
-  } = options;
+  const { send: doSend = true } = options;
 
-  const {
-    mails,
-    core,
-  } = services;
+  const { mails, core } = services;
 
   if (!doSend) {
     log('sending is deactivated. Not sending %s to %s', template, user.email);
@@ -43,9 +38,7 @@ async function sendEmail(services, user, template, options = {}) {
 }
 
 async function removeActiveUsersFromStore(services, stateStore, uids, time) {
-  const {
-    users: usersSvc,
-  } = services;
+  const { users: usersSvc } = services;
 
   if (!uids.length) {
     return 0;
@@ -53,19 +46,24 @@ async function removeActiveUsersFromStore(services, stateStore, uids, time) {
 
   const since = new Date(new Date().getTime() - time);
 
-  const activeUsers = await usersSvc.find({
-    query: {
-      last_signin: {
-        $gte: since,
+  const activeUsers = await usersSvc
+    .find({
+      query: {
+        last_signin: {
+          $gte: since,
+        },
+        uid: {
+          $in: uids,
+        },
+        $limit: limit,
       },
-      uid: {
-        $in: uids,
-      },
-      $limit: limit,
-    },
-  }).then(r => r?.data);
+    })
+    .then((r) => r?.data);
 
-  log('there are %s users from store that are now active and must not longer be processed by task', activeUsers.length);
+  log(
+    'there are %s users from store that are now active and must not longer be processed by task',
+    activeUsers.length,
+  );
 
   for (const user of activeUsers) {
     await stateStore.del(user);
@@ -75,14 +73,9 @@ async function removeActiveUsersFromStore(services, stateStore, uids, time) {
 }
 
 async function loadInactiveUsers(services, time, uids = null) {
-  const {
-    users: usersSvc,
-    core,
-  } = services;
+  const { users: usersSvc, core } = services;
 
-  const {
-    domain,
-  } = core.getConfig();
+  const { domain } = core.getConfig();
 
   const since = new Date(new Date().getTime() - time);
 
@@ -108,9 +101,11 @@ async function loadInactiveUsers(services, time, uids = null) {
   let offset = 0;
 
   while (offset + limit <= maxHandledUsers) {
-    for (const user of await usersSvc.find({
-      query: { ...query, $skip: offset },
-    }).then(r => r?.data)) {
+    for (const user of await usersSvc
+      .find({
+        query: { ...query, $skip: offset },
+      })
+      .then((r) => r?.data)) {
       users.push(user);
     }
     offset += limit;
@@ -120,14 +115,27 @@ async function loadInactiveUsers(services, time, uids = null) {
 }
 
 function getLastSendFromNow(state) {
-  return Math.ceil((new Date().getTime() - new Date(state.sent[state.sent.length - 1].date).getTime()) / (1000 * 60 * 60 * 24));
+  return Math.ceil(
+    (new Date().getTime()
+      - new Date(state.sent[state.sent.length - 1].date).getTime())
+      / (1000 * 60 * 60 * 24),
+  );
 }
 
 async function loadUsers(services, storedUserUids) {
   if (storedUserUids.length) {
-    const users = await loadInactiveUsers(services, inactiveTime, storedUserUids);
+    const users = await loadInactiveUsers(
+      services,
+      inactiveTime,
+      storedUserUids,
+    );
 
-    log('info', 'loaded %s accounts from users service from %s that are still in process store', users.length, storedUserUids.length);
+    log(
+      'info',
+      'loaded %s accounts from users service from %s that are still in process store',
+      users.length,
+      storedUserUids.length,
+    );
 
     if (users.length) {
       return users;
@@ -141,96 +149,132 @@ async function loadUsers(services, storedUserUids) {
   return users;
 }
 
-export default services => async function notifyAndRemove(options = {}) {
-  const {
-    users: usersSvc,
-  } = services;
+export default (services) =>
+  async function notifyAndRemove(options = {}) {
+    const { users: usersSvc } = services;
 
-  const stateStore = InactiveUsersStateStore(services, storePrefix, options);
+    const stateStore = InactiveUsersStateStore(services, storePrefix, options);
 
-  const storedUserUids = await stateStore.list();
+    const storedUserUids = await stateStore.list();
 
-  const counts = {
-    processed: 0,
-    first: 0,
-    second: 0,
-    last: 0,
-    removals: 0,
-    signedIn: await removeActiveUsersFromStore(services, stateStore, storedUserUids, inactiveTime),
+    const counts = {
+      processed: 0,
+      first: 0,
+      second: 0,
+      last: 0,
+      removals: 0,
+      signedIn: await removeActiveUsersFromStore(
+        services,
+        stateStore,
+        storedUserUids,
+        inactiveTime,
+      ),
+    };
+
+    const users = await loadUsers(services, storedUserUids);
+
+    for (const user of users) {
+      log('processing user %s', user.uid);
+      const state = await stateStore.get(user);
+
+      counts.processed += 1;
+
+      if (!state.sent.length) {
+        log('sending first warning email to %s', user.uid);
+
+        await sendEmail(
+          services,
+          user,
+          'inactiveUserFirstNotification',
+          options,
+        );
+        state.sent.push({ name: 'first', date: new Date() });
+        counts.first += 1;
+        await stateStore.set(user, state);
+        continue;
+      }
+
+      const lastSendInDays = getLastSendFromNow(state);
+
+      if (state.sent.length === 1) {
+        if (lastSendInDays < 20) {
+          log(
+            'first warning email sent %s days ago to %s. No action taken.',
+            lastSendInDays,
+            user.uid,
+          );
+          continue;
+        }
+
+        log('sending second warning email to %s', user.uid);
+
+        await sendEmail(
+          services,
+          user,
+          'inactiveUserSecondNotification',
+          options,
+        );
+        state.sent.push({ name: 'second', date: new Date() });
+        await stateStore.set(user, state);
+        counts.second += 1;
+        continue;
+      }
+
+      if (state.sent.length === 2) {
+        if (lastSendInDays < 7) {
+          log(
+            'second warning email sent %s days ago to %s. No action taken.',
+            lastSendInDays,
+            user.uid,
+          );
+          continue;
+        }
+
+        log('sending last warning email to %s', user.uid);
+
+        await sendEmail(
+          services,
+          user,
+          'inactiveUserLastNotification',
+          options,
+        );
+        state.sent.push({ name: 'last', date: new Date() });
+        await stateStore.set(user, state);
+        counts.last += 1;
+        continue;
+      }
+
+      if (state.sent.length === 3) {
+        if (lastSendInDays < 2) {
+          log(
+            'last warning email sent %s days ago to %s. No action taken.',
+            lastSendInDays,
+            user.uid,
+          );
+          continue;
+        }
+
+        log('info', 'removing account of %s', user.uid);
+        try {
+          await usersSvc.remove(user.uid);
+          await sendEmail(
+            services,
+            user,
+            'inactiveUserAccountRemoved',
+            options,
+          );
+          counts.removals += 1;
+        } catch (error) {
+          log.error({
+            message: `failed to remove account ${user.uid}`,
+            error,
+          });
+        }
+        await stateStore.del(user, state);
+      }
+    }
+
+    log('info', 'notified and remove run done', counts);
+
+    return counts;
   };
-
-  const users = await loadUsers(services, storedUserUids);
-
-  for (const user of users) {
-    log('processing user %s', user.uid);
-    const state = await stateStore.get(user);
-
-    counts.processed += 1;
-
-    if (!state.sent.length) {
-      log('sending first warning email to %s', user.uid);
-
-      await sendEmail(services, user, 'inactiveUserFirstNotification', options);
-      state.sent.push({ name: 'first', date: new Date() });
-      counts.first += 1;
-      await stateStore.set(user, state);
-      continue;
-    }
-
-    const lastSendInDays = getLastSendFromNow(state);
-
-    if (state.sent.length === 1) {
-      if (lastSendInDays < 20) {
-        log('first warning email sent %s days ago to %s. No action taken.', lastSendInDays, user.uid);
-        continue;
-      }
-
-      log('sending second warning email to %s', user.uid);
-
-      await sendEmail(services, user, 'inactiveUserSecondNotification', options);
-      state.sent.push({ name: 'second', date: new Date() });
-      await stateStore.set(user, state);
-      counts.second += 1;
-      continue;
-    }
-
-    if (state.sent.length === 2) {
-      if (lastSendInDays < 7) {
-        log('second warning email sent %s days ago to %s. No action taken.', lastSendInDays, user.uid);
-        continue;
-      }
-
-      log('sending last warning email to %s', user.uid);
-
-      await sendEmail(services, user, 'inactiveUserLastNotification', options);
-      state.sent.push({ name: 'last', date: new Date() });
-      await stateStore.set(user, state);
-      counts.last += 1;
-      continue;
-    }
-
-    if (state.sent.length === 3) {
-      if (lastSendInDays < 2) {
-        log('last warning email sent %s days ago to %s. No action taken.', lastSendInDays, user.uid);
-        continue;
-      }
-
-      log('info', 'removing account of %s', user.uid);
-      try {
-        await usersSvc.remove(user.uid);
-        await sendEmail(services, user, 'inactiveUserAccountRemoved', options);
-        counts.removals += 1;
-      } catch (error) {
-        log.error({
-          message: `failed to remove account ${user.uid}`,
-          error,
-        });
-      }
-      await stateStore.del(user, state);
-    }
-  }
-
-  log('info', 'notified and remove run done', counts);
-
-  return counts;
-};

@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
-module.exports = require( '../client/src/iso/types' );
+module.exports = require('../client/src/iso/types');

@@ -1,4 +1,4 @@
-export default mw => (req, res, next) => {
+export default (mw) => (req, res, next) => {
   if (req.params.format !== 'json') {
     return next();
   }

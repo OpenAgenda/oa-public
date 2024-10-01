@@ -7,7 +7,7 @@ import { locales as memberAppsLocals } from '@openagenda/member-apps/src';
 
 const lang = 'fr';
 
-export default Story => {
+export default (Story) => {
   const queryClient = useConstant(
     () =>
       new QueryClient({

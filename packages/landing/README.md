@@ -10,8 +10,6 @@ To create a new page, simply create a new json file in the pages folder and defi
 
 # Segments
 
-
-
 # Templates
 
 These are pug files in the templates folder. Any content description file ( segments or pages ) require templates; the page file needs a template for its layout, the segments need template to send their content to.

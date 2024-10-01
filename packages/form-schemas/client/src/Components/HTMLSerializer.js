@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import React from 'react';
 import Serializer from 'slate-html-serializer';
 
 const MARK_TAGS = {
@@ -10,7 +9,10 @@ const MARK_TAGS = {
   code: 'code',
 };
 
-const TAG_MARKS = _.keys(MARK_TAGS).reduce((carry, key) => _.set(carry, MARK_TAGS[key], key), {});
+const TAG_MARKS = _.keys(MARK_TAGS).reduce(
+  (carry, key) => _.set(carry, MARK_TAGS[key], key),
+  {},
+);
 
 const BLOCK_TAGS = {
   p: 'paragraph',
@@ -27,15 +29,15 @@ const BLOCK_TAGS = {
   h6: 'heading-six',
 };
 
-const TAG_BLOCKS = _.keys(BLOCK_TAGS).reduce((carry, key) => _.set(carry, BLOCK_TAGS[key], key), {});
+const TAG_BLOCKS = _.keys(BLOCK_TAGS).reduce(
+  (carry, key) => _.set(carry, BLOCK_TAGS[key], key),
+  {},
+);
 
 const RULES = [
   {
     serialize(obj, children) {
-      const {
-        object,
-        type
-      } = obj ?? {};
+      const { object, type } = obj ?? {};
 
       if (object !== 'block') return;
 
@@ -53,14 +55,11 @@ const RULES = [
         type: block,
         nodes: next(el.childNodes),
       };
-    }
+    },
   },
   {
     serialize(obj, children) {
-      const {
-        object,
-        type
-      } = obj ?? {};
+      const { object, type } = obj ?? {};
 
       if (object !== 'mark') return;
 
@@ -76,16 +75,13 @@ const RULES = [
       return {
         object: 'mark',
         type: mark,
-        nodes: next(el.childNodes)
+        nodes: next(el.childNodes),
       };
-    }
+    },
   },
   {
     serialize(obj, children) {
-      const {
-        type,
-        data
-      } = obj ?? {};
+      const { type, data } = obj ?? {};
 
       if (type !== 'link') return;
 
@@ -103,13 +99,13 @@ const RULES = [
           href: el.getAttribute('href'),
         },
       };
-    }
+    },
   },
 ];
 
 const serializer = new Serializer({ rules: RULES });
 
 export default {
-  serialize: slateObj => serializer.serialize(slateObj),
-  deserialize: html => (html ? serializer.deserialize(html) : null)
+  serialize: (slateObj) => serializer.serialize(slateObj),
+  deserialize: (html) => (html ? serializer.deserialize(html) : null),
 };

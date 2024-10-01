@@ -77,12 +77,12 @@ export default async (services, agendaOrUid, options = {}) => {
     formSchemas,
     formSchemaId,
     !!_.get(network, 'formSchemaId'),
-  ).then(s => (s ? { ...s, type: 'agenda' } : s));
+  ).then((s) => (s ? { ...s, type: 'agenda' } : s));
 
   const networkSchema = network
     ? await formSchemas
       .get(_.get(network, 'formSchemaId'))
-      .then(s => (s ? { ...s, type: 'network' } : s))
+      .then((s) => (s ? { ...s, type: 'network' } : s))
     : null;
 
   const mergeArgs = [networkSchema, formSchema];

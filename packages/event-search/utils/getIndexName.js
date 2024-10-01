@@ -5,4 +5,4 @@ module.exports = (set, defaultIndex) => {
     return defaultIndex;
   }
   return set.index;
-}
+};

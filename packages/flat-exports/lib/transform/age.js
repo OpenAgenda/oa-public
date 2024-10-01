@@ -4,7 +4,7 @@ module.exports = function age({ source, target }) {
   return {
     source,
     target,
-    transform: v => {
+    transform: (v) => {
       if (!v?.min && !v?.max) {
         return '';
       }

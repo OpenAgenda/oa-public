@@ -8,4 +8,6 @@ Le script reboucle sur lui même après chaque requête et lit de nouveau le con
 La liste de choix alors proposée inclus les modifications apportées depuis la dernière execution.
 
 Les résultats d'execution sont affichés ET placés dans un fichier `result.json`
-----------------------------------------------------------------------------
+---
+
+---

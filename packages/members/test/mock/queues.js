@@ -27,12 +27,13 @@ function on(action, fn) {
 }
 
 module.exports = Object.assign(
-  () => Object.assign(queue, {
-    run,
-    register,
-    on: () => {},
-  }),
+  () =>
+    Object.assign(queue, {
+      run,
+      register,
+      on: () => {},
+    }),
   {
     mockOn: on,
-  }
+  },
 );

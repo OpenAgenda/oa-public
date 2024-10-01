@@ -10,10 +10,7 @@ describe('form-schemas -03- functional (server): remove', () => {
   let svc;
 
   beforeAll(async () => {
-    await fixtures(config.mysql, [
-      'reset.sql',
-      'form_schema.data.sql'
-    ]);
+    await fixtures(config.mysql, ['reset.sql', 'form_schema.data.sql']);
   });
 
   beforeAll(() => {
@@ -29,12 +26,16 @@ describe('form-schemas -03- functional (server): remove', () => {
     const { client } = svc.internals;
 
     const { id } = await svc.create({
-      data: true
+      data: true,
     });
 
     const lenBeforeRemove = (await client('form_schema').where({ id })).length;
     const removeRet = await svc.remove(id);
     const lenAfterRemove = (await client('form_schema').where({ id })).length;
-    expect([lenBeforeRemove, lenAfterRemove, removeRet]).toStrictEqual([1, 0, { success: true, id }]);
+    expect([lenBeforeRemove, lenAfterRemove, removeRet]).toStrictEqual([
+      1,
+      0,
+      { success: true, id },
+    ]);
   });
 });

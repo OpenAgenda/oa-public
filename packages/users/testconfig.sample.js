@@ -24,21 +24,22 @@ module.exports = {
     },
     imagePath: '//openagendatst.s3.amazonaws.com/',
     interfaces: {
-      getAgenda: (agendaUid, cb) => cb(
-        null,
-        agendaUid === 85870128
-          ? {
-            slug: 'journees-arts-culture-sup-2017',
-            title:
+      getAgenda: (agendaUid, cb) =>
+        cb(
+          null,
+          agendaUid === 85870128
+            ? {
+              slug: 'journees-arts-culture-sup-2017',
+              title:
                   "2017 : Journées des Arts et de la Culture dans l'Enseignement Supérieur",
-          }
-          : {
-            slug: 'semaineindustrie2017',
-            title: "Semaine de l'Industrie 2017",
-          }
-      ),
+            }
+            : {
+              slug: 'semaineindustrie2017',
+              title: "Semaine de l'Industrie 2017",
+            },
+        ),
       onActivation() {
-        return async context => {
+        return async (context) => {
           const user = context.result;
 
           if (!user) {
@@ -51,9 +52,10 @@ module.exports = {
         };
       },
       keys: {
-        get: identifiers => keysSvc(identifiers).get({ optionalKey: !('key' in identifiers) }),
+        get: (identifiers) =>
+          keysSvc(identifiers).get({ optionalKey: !('key' in identifiers) }),
         create: (identifiers, data) => keysSvc(identifiers).create(data),
-        remove: identifiers => keysSvc(identifiers).remove(),
+        remove: (identifiers) => keysSvc(identifiers).remove(),
       },
     },
     redis: {

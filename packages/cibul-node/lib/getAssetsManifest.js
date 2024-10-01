@@ -1,7 +1,11 @@
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-const statsPath = fileURLToPath(import.meta.resolve('@openagenda/cibul-templates/dist/js/assets-manifest.json'));
+const statsPath = fileURLToPath(
+  import.meta.resolve(
+    '@openagenda/cibul-templates/dist/js/assets-manifest.json',
+  ),
+);
 const stats = JSON.parse(fs.readFileSync(statsPath, 'utf-8'));
 
 export default async function getAssetsManifest() {

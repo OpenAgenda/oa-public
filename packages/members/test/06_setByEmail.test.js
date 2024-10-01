@@ -50,7 +50,7 @@ describe('members - functional - setByEmail', () => {
             email: 'kevin@oa.com',
             role: 2,
           },
-          { requireCustom: false }
+          { requireCustom: false },
         );
       });
 
@@ -81,7 +81,7 @@ describe('members - functional - setByEmail', () => {
             email: 'jc@ponceau.fr',
             role: 2,
           },
-          { requireCustom: false }
+          { requireCustom: false },
         );
       });
 
@@ -119,7 +119,7 @@ describe('members - functional - setByEmail', () => {
       let result;
 
       beforeAll(async () => {
-        queues.mockOn('register', methods => {
+        queues.mockOn('register', (methods) => {
           queueCalls.push({ call: 'register', methods });
         });
 
@@ -137,7 +137,7 @@ describe('members - functional - setByEmail', () => {
           ['albert@oa.com', 'alice@oa.com'],
           {
             requireCustom: false,
-          }
+          },
         );
       });
 
@@ -147,7 +147,7 @@ describe('members - functional - setByEmail', () => {
       });
 
       test('if bulk items are above threshold, they are queued', () => {
-        expect(queueCalls.filter(c => c.call === 'queue')).toHaveLength(2);
+        expect(queueCalls.filter((c) => c.call === 'queue')).toHaveLength(2);
       });
 
       test('result provides queued count', () => {
@@ -155,7 +155,7 @@ describe('members - functional - setByEmail', () => {
       });
 
       test('queued arguments are prepared to be given as is to set method', () => {
-        expect(queueCalls.filter(c => c.call === 'queue')[0]).toEqual({
+        expect(queueCalls.filter((c) => c.call === 'queue')[0]).toEqual({
           call: 'queue',
           args: [
             'setByEmail',
@@ -174,7 +174,7 @@ describe('members - functional - setByEmail', () => {
           ['bernard@oa.com'],
           {
             requireCustom: false,
-          }
+          },
         );
 
         expect(bulkResult.queued).toBe(0);

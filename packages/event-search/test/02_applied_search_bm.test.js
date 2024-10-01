@@ -50,7 +50,7 @@ describe('02 - event search - functional: Applied search', () => {
         beforeAll(async () => {
           event = await service('bdx')
             .search({ uid }, {})
-            .then(r => r.events[0]);
+            .then((r) => r.events[0]);
         });
 
         it('an event can be retrieved by uid', () => {
@@ -265,7 +265,7 @@ describe('02 - event search - functional: Applied search', () => {
           );
 
           if (moreEvents.length) {
-            moreEvents.forEach(e => events.push(e));
+            moreEvents.forEach((e) => events.push(e));
           } else {
             hasMore = false;
           }
@@ -348,7 +348,7 @@ describe('02 - event search - functional: Applied search', () => {
 
         for (const event of events) {
           expect(
-            event['thematiques-bordeaux-metropole'].filter(id => id === 9)
+            event['thematiques-bordeaux-metropole'].filter((id) => id === 9)
               .length,
           ).toBe(1);
         }
@@ -363,9 +363,9 @@ describe('02 - event search - functional: Applied search', () => {
           { formSchema },
         );
 
-        events.forEach(e => {
+        events.forEach((e) => {
           expect(
-            e['thematiques-bordeaux-metropole'].filter(id =>
+            e['thematiques-bordeaux-metropole'].filter((id) =>
               [9, 13, 23].includes(id)).length,
           ).toBeGreaterThan(0);
         });
@@ -506,7 +506,7 @@ describe('02 - event search - functional: Applied search', () => {
                 aggregations: 'keywords',
               },
             )
-            .then(r => r.aggregations.keywords);
+            .then((r) => r.aggregations.keywords);
 
           agg2 = await service('bdx')
             .search(
@@ -519,7 +519,7 @@ describe('02 - event search - functional: Applied search', () => {
                 },
               },
             )
-            .then(r => r.aggregations.keywords);
+            .then((r) => r.aggregations.keywords);
         });
 
         it('default number of keywords retured is 10', () => {
@@ -556,7 +556,7 @@ describe('02 - event search - functional: Applied search', () => {
               },
             )
             .then(({ aggregations }) => aggregations)
-            .catch(_err => {});
+            .catch((_err) => {});
 
           createdAtAgg = aggs.createdAt;
           updatedAtAgg = aggs.updatedAt;
@@ -600,7 +600,7 @@ describe('02 - event search - functional: Applied search', () => {
               },
             )
             .then(({ aggregations }) => aggregations)
-            .catch(_err => {
+            .catch((_err) => {
               // console.log(err.body.error)
             });
 
@@ -867,7 +867,7 @@ describe('02 - event search - functional: Applied search', () => {
         });
 
         it('source agendas are listed with corresponding event counts', () => {
-          expect(agg.filter(a => a.key === 38598267)[0]).toEqual({
+          expect(agg.filter((a) => a.key === 38598267)[0]).toEqual({
             key: 38598267,
             agenda: {
               uid: 38598267,
@@ -1029,7 +1029,7 @@ describe('02 - event search - functional: Applied search', () => {
 
         it('item.sampleEvents contains 3 events corresponding to provided key', () => {
           expect(
-            TRHAggregation[0].sampleEvents.map(e => e.uid).sort(),
+            TRHAggregation[0].sampleEvents.map((e) => e.uid).sort(),
           ).toEqual([16560750, 75721304]);
         });
       });
@@ -1053,7 +1053,7 @@ describe('02 - event search - functional: Applied search', () => {
                 aggregations: 'additionalFields',
               },
             )
-            .then(r => r.aggregations.additionalFields);
+            .then((r) => r.aggregations.additionalFields);
         });
 
         it('an object is provided with schema fields as keys', () => {
@@ -1101,7 +1101,7 @@ describe('02 - event search - functional: Applied search', () => {
                 ],
               },
             )
-            .then(r => r.aggregations.et_bim);
+            .then((r) => r.aggregations.et_bim);
         });
 
         it('only values of field are collected', () => {
@@ -1161,7 +1161,7 @@ describe('02 - event search - functional: Applied search', () => {
                 ],
               },
             )
-            .then(r => r.aggregations.et_paf);
+            .then((r) => r.aggregations.et_paf);
 
           expect(result).toEqual([]);
         });
@@ -1177,7 +1177,7 @@ describe('02 - event search - functional: Applied search', () => {
           { size: 2 },
         );
 
-        expect(events.map(e => e.slug)).toEqual([
+        expect(events.map((e) => e.slug)).toEqual([
           'sieste-musicale-basta',
           'sieste-musicale-marathon-musical-du-combat-du-siecle',
         ]);
@@ -1191,7 +1191,7 @@ describe('02 - event search - functional: Applied search', () => {
           { size: 3 },
         );
 
-        expect(events.map(e => e.slug)).toEqual([
+        expect(events.map((e) => e.slug)).toEqual([
           'concert-au-quartier-libre',
           'tremplin-martignas-sur-jazz',
           'jazz-club-obradovic-tixier',
@@ -1207,7 +1207,7 @@ describe('02 - event search - functional: Applied search', () => {
           { size: 2 },
         );
 
-        expect(events.map(e => e.slug)).toEqual([
+        expect(events.map((e) => e.slug)).toEqual([
           'sieste-musicale-basta',
           'sieste-musicale-marathon-musical-du-combat-du-siecle',
         ]);
@@ -1222,7 +1222,7 @@ describe('02 - event search - functional: Applied search', () => {
           { size: 3, boost: { keywords: 30, title: 10 } },
         );
 
-        expect(events.map(e => e.slug)).toEqual([
+        expect(events.map((e) => e.slug)).toEqual([
           'concert-au-quartier-libre',
           'tremplin-martignas-sur-jazz',
           'jazz-club-obradovic-tixier',

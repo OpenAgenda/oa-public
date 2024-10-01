@@ -3,7 +3,8 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/mails/utils');
 
-const isNumberLike = value => !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
+const isNumberLike = (value) =>
+  !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
 
 export function convertRuleArrayToObject(rule) {
   const [action, subject, conditions, fields] = rule;
@@ -31,12 +32,15 @@ export async function isMailgunBounced(mailgunConfig, email) {
   } = mailgunConfig;
 
   try {
-    const { data: bounce } = await axios(`https://api.mailgun.net/v3/${domain}/bounces/${email}`, {
-      auth: {
-        username: 'api',
-        password: apiKey,
+    const { data: bounce } = await axios(
+      `https://api.mailgun.net/v3/${domain}/bounces/${email}`,
+      {
+        auth: {
+          username: 'api',
+          password: apiKey,
+        },
       },
-    });
+    );
 
     if (bounce && bounce.code) {
       return true;

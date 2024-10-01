@@ -1,7 +1,7 @@
 'use strict';
 
-const fs = require('fs');
-const { promisify } = require('util');
+const fs = require('node:fs');
+const { promisify } = require('node:util');
 const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
@@ -37,7 +37,7 @@ async function _load(dbConfig) {
   con.end();
 }
 
-module.exports = dbConfig => {
+module.exports = (dbConfig) => {
   const client = knex({
     client: 'mysql',
     connection: {

@@ -115,7 +115,7 @@ module.exports = (env = {}, argv = {}) => {
       liveReload: false,
       devMiddleware: {
         publicPath: `/dist/${serviceName}/`,
-        writeToDisk: filePath => /loadable-stats\.json$/.test(filePath),
+        writeToDisk: (filePath) => /loadable-stats\.json$/.test(filePath),
       },
     },
     stats: {

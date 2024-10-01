@@ -12,9 +12,7 @@
       "fieldType": "textarea",
       "origin": "custom",
       "read": null,
-      "write": [
-        "contributor"
-      ]
+      "write": ["contributor"]
     },
     {
       "field": "participant",

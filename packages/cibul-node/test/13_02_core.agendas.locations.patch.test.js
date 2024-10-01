@@ -52,19 +52,27 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
       name: 'Un étang',
     });
 
-    await new Promise(rs => {
-      core.services.tracker.on('agendaLocations.syncImpactedEventsAndAgendas.done', async () => {
-        const row = await core.services.knex('location').first(['placename']).where('uid', 37923057);
-        expect(row.placename).toBe('Un étang');
-        rs();
-      });
+    await new Promise((rs) => {
+      core.services.tracker.on(
+        'agendaLocations.syncImpactedEventsAndAgendas.done',
+        async () => {
+          const row = await core.services
+            .knex('location')
+            .first(['placename'])
+            .where('uid', 37923057);
+          expect(row.placename).toBe('Un étang');
+          rs();
+        },
+      );
     });
   });
 
   it('patching with null removes data', async () => {
-    const patchedLocation = await core.agendas(64260763).locations.patch(37923068, {
-      extId: null,
-    });
+    const patchedLocation = await core
+      .agendas(64260763)
+      .locations.patch(37923068, {
+        extId: null,
+      });
 
     expect(patchedLocation.extId).toBeNull();
   });
@@ -74,46 +82,66 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
       adminLevel6: 'Milieu',
     });
 
-    const row = await core.services.knex('location').first('*').where('uid', 37923068);
+    const row = await core.services
+      .knex('location')
+      .first('*')
+      .where('uid', 37923068);
 
     expect(row.city_district).toBe('Milieu');
   });
 
   it('index of agenda where location is patched is refreshed', async () => {
-    core.agendas(64260763).locations.patch(37923057, {
-      address: '13 rue du désespoir, Roubaix',
-    }).then(() => core.services.tracker('patched'));
+    core
+      .agendas(64260763)
+      .locations.patch(37923057, {
+        address: '13 rue du désespoir, Roubaix',
+      })
+      .then(() => core.services.tracker('patched'));
 
     await new Promise((rs, rj) => {
-      core.services.tracker.on('agendaLocations.syncImpactedEventsAndAgendas.done', async () => {
-        const { events } = await core.agendas(64260763).events.search({
-          locationUid: 37923057,
-        });
-        try {
-          expect(events[0].location.address).toBe('13 rue du désespoir, Roubaix');
-        } catch (e) {
-          return rj(e);
-        }
-        rs();
-      }, true);
+      core.services.tracker.on(
+        'agendaLocations.syncImpactedEventsAndAgendas.done',
+        async () => {
+          const { events } = await core.agendas(64260763).events.search({
+            locationUid: 37923057,
+          });
+          try {
+            expect(events[0].location.address).toBe(
+              '13 rue du désespoir, Roubaix',
+            );
+          } catch (e) {
+            return rj(e);
+          }
+          rs();
+        },
+        true,
+      );
     });
   });
 
   it('indices in other agendas referencing events linked to patched location are refreshed', async () => {
     core.agendas(64260763).locations.patch(37923057, {
-      address: '23 rue de l\'Espérance, 59100 Roubaix',
+      address: "23 rue de l'Espérance, 59100 Roubaix",
     });
 
     await new Promise((rs, rj) => {
-      core.services.tracker.on('agendaLocations.syncImpactedEventsAndAgendas.done', async () => {
-        const { events } = await core.agendas(89904399).events.search({ locationUid: 37923057 });
-        try {
-          expect(events[0].location.address).toBe('23 rue de l\'Espérance, 59100 Roubaix');
-        } catch (e) {
-          return rj(e);
-        }
-        rs();
-      }, true);
+      core.services.tracker.on(
+        'agendaLocations.syncImpactedEventsAndAgendas.done',
+        async () => {
+          const { events } = await core
+            .agendas(89904399)
+            .events.search({ locationUid: 37923057 });
+          try {
+            expect(events[0].location.address).toBe(
+              "23 rue de l'Espérance, 59100 Roubaix",
+            );
+          } catch (e) {
+            return rj(e);
+          }
+          rs();
+        },
+        true,
+      );
     });
   });
 });

@@ -10,7 +10,8 @@ const textValidator = require('@openagenda/validators/text');
 const dateValidator = require('@openagenda/validators/date');
 const linkValidator = require('@openagenda/validators/link');
 
-const { fields: cookieUserFields } = require('../../iso/cookie.validate').validateLogged.fields.user;
+const { fields: cookieUserFields } = require('../../iso/cookie.validate')
+  .validateLogged.fields.user;
 
 schema.register({
   boolean: booleanValidator,
@@ -22,36 +23,37 @@ schema.register({
   link: linkValidator,
 });
 
-module.exports = config => schema({
-  id: {
-    type: 'integer',
-    optional: false,
-  },
-  email: {
-    type: 'email',
-  },
-  latestActivity: {
-    type: 'date',
-  },
-  expires: {
-    type: 'date',
-  },
-  isNew: {
-    type: 'boolean',
-  },
-  isBlacklisted: {
-    type: 'boolean',
-    default: false,
-  },
-  transverseApiAccess: {
-    type: 'boolean',
-    default: false,
-  },
-  ...cookieUserFields,
-  culture: {
-    type: 'choice',
-    optional: false,
-    unique: true,
-    options: config.cultures,
-  },
-});
+module.exports = (config) =>
+  schema({
+    id: {
+      type: 'integer',
+      optional: false,
+    },
+    email: {
+      type: 'email',
+    },
+    latestActivity: {
+      type: 'date',
+    },
+    expires: {
+      type: 'date',
+    },
+    isNew: {
+      type: 'boolean',
+    },
+    isBlacklisted: {
+      type: 'boolean',
+      default: false,
+    },
+    transverseApiAccess: {
+      type: 'boolean',
+      default: false,
+    },
+    ...cookieUserFields,
+    culture: {
+      type: 'choice',
+      optional: false,
+      unique: true,
+      options: config.cultures,
+    },
+  });

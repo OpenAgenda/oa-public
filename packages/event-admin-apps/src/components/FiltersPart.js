@@ -17,11 +17,11 @@ import { useApiClient } from '@openagenda/react-shared';
 function FiltersPart({ agenda, filters, query, filtersQuery, eventsQuery }) {
   const apiClient = useApiClient();
   const intl = useIntl();
-  const res = useSelector(state => state.res);
+  const res = useSelector((state) => state.res);
 
   const geoRes = useMemo(
     () => res.search.replace(':slug', agenda.slug).replace(':uid', agenda.uid),
-    [agenda.slug, agenda.uid],
+    [agenda.slug, agenda.uid, res.search],
   );
 
   const { data, isFetching } = eventsQuery;

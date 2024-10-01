@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-import PassCulture from '..';
+import PassCulture from '../index.js';
 
 const {
   PASS_API_KEY: key,
@@ -23,16 +23,21 @@ describe('integrated', () => {
 
       expect(pcParams.offererVenues.length).toBe(1);
 
-      expect(
-        Object.keys(pcParams),
-      ).toEqual(['categories', 'related', 'offererVenues']);
+      expect(Object.keys(pcParams)).toEqual([
+        'categories',
+        'related',
+        'offererVenues',
+      ]);
     });
 
     it('multiple sirens set returns matching multiple offererVenues', async () => {
-      const pcWithMultiSiren = PassCulture({
-        key: multiSirenKey,
-        api: multiSirenApi,
-      }, { siren: multiSiren.split(',') });
+      const pcWithMultiSiren = PassCulture(
+        {
+          key: multiSirenKey,
+          api: multiSirenApi,
+        },
+        { siren: multiSiren.split(',') },
+      );
 
       const { offererVenues } = await pcWithMultiSiren.getParameters();
 

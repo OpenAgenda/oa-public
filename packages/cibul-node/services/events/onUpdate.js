@@ -6,9 +6,7 @@ export default async (services, before, after, context) => {
   log('info', 'updated event %s', after.uid, { context });
 
   const {
-    legacy: {
-      controlData: controlDataSvc,
-    },
+    legacy: { controlData: controlDataSvc },
   } = services;
 
   if (after.draft) return;

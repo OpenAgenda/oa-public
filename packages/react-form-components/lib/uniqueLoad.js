@@ -1,58 +1,45 @@
-"use strict";
+'use strict';
 
 /**
  * >>>>> ES5 AS IS NOT TRANSPILED <<<<<<<<<<<
  */
 
-var load = require( 'load-script' );
+const load = require('load-script');
 
-var loads = {};
+const loads = {};
 
-module.exports = function( res, cb ) {
+function _loader(res, cb) {
+  let loaded = null;
+  const cbs = [];
 
-  if ( loads[ res ] ) {
-
-    loads[ res ].add( cb );
-
-  } else {
-
-    loads[ res ] = _loader( res, cb );
-
-  }
-
-}
-
-function _loader( res, cb ) {
-
-  var loaded = null, cbs = [];
-
-  load( res, function ( err, script ) {
-
+  load(res, (err, script) => {
     loaded = {
-      err: err,
-      script: script
+      err,
+      script,
     };
 
-    cbs.forEach( function( cb ) {
+    cbs.forEach((cb1) => {
+      cb1(err, script);
+    });
+  });
 
-      cb( err, script );
+  function add(cb1) {
+    if (loaded) return cb1(loaded.err, loaded.script);
 
-    } );
+    cbs.push(cb1);
+  }
 
-  } );
-
-  add( cb );
+  add(cb);
 
   return {
-    add: add
-  }
-
-  function add( cb ) {
-
-    if ( loaded ) return cb( loaded.err, loaded.script );
-
-    cbs.push( cb );
-
-  }
-
+    add,
+  };
 }
+
+module.exports = (res, cb) => {
+  if (loads[res]) {
+    loads[res].add(cb);
+  } else {
+    loads[res] = _loader(res, cb);
+  }
+};

@@ -4,7 +4,8 @@ export default (knex, keyField, keyString) => {
   }
 
   return knex('api_key_set')
-    .first(['id', 'user_id']).where({
+    .first(['id', 'user_id'])
+    .where({
       [keyField]: keyString,
     });
 };

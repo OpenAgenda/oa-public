@@ -1,4 +1,4 @@
-export default storyFn => (
+export default (storyFn) => (
   <div className="container top-margined">
     <div className="row wsq">
       <div className="col col-sm-3 nav">

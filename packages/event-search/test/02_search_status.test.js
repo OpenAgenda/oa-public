@@ -23,9 +23,10 @@ describe('02 - event -search - functional: status filter and aggregation', () =>
 
   beforeAll(async () => {
     await service('status').rebuild({
-      eventsList: async (_lastId, _limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.status.json`),
-      ),
+      eventsList: async (_lastId, _limit) =>
+        JSON.parse(
+          fs.readFileSync(`${__dirname}/fixtures/02_events.status.json`),
+        ),
     });
   });
 
@@ -39,16 +40,23 @@ describe('02 - event -search - functional: status filter and aggregation', () =>
   });
 
   it('status aggregation aggregates', async () => {
-    const { aggregations } = await service('status').search({}, { size: 0 }, {
-      aggregations: 'status',
-    });
+    const { aggregations } = await service('status').search(
+      {},
+      { size: 0 },
+      {
+        aggregations: 'status',
+      },
+    );
 
-    expect(aggregations.status).toEqual([{
-      key: 1,
-      eventCount: 2,
-    }, {
-      key: 4,
-      eventCount: 1,
-    }]);
+    expect(aggregations.status).toEqual([
+      {
+        key: 1,
+        eventCount: 2,
+      },
+      {
+        key: 4,
+        eventCount: 1,
+      },
+    ]);
   });
 });

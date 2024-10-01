@@ -15,19 +15,23 @@ describe('spreadPCData', () => {
     const spread = spreadPCData(partiallyApplied);
 
     expect(spread[3]).toEqual({
-      priceCategories: [{
-        id: 0,
-        price: 457,
-        label: 'updated',
-      }],
+      priceCategories: [
+        {
+          id: 0,
+          price: 457,
+          label: 'updated',
+        },
+      ],
     });
 
     expect(spread[4]).toEqual({
-      priceCategories: [{
-        id: 3,
-        price: 78,
-        label: 'new pricing',
-      }],
+      priceCategories: [
+        {
+          id: 3,
+          price: 78,
+          label: 'new pricing',
+        },
+      ],
     });
   });
 
@@ -113,22 +117,36 @@ describe('spreadPCData', () => {
         operation: 'create',
         appliedAt: '2024-06-24T14:51:43.648Z',
         duo: true,
-      }, {
+      },
+      {
         priceCategories: [{ price: 0, label: 'Tarif unique', id: 0 }],
         response: { priceCategories: [{ passId: 4868, id: 0 }] },
         operation: 'create',
         appliedAt: '2024-06-24T14:51:44.172Z',
-      }, {
-        response: { dates: [{ passId: 94950, id: 1 }, { passId: 94951, id: 2 }] },
-        dates: [{ quantity: 1, priceCategoryId: 0, timingId: 1719563400000, id: 1 }, { quantity: 2, priceCategoryId: 0, timingId: 1719648000000, id: 2 }],
+      },
+      {
+        response: {
+          dates: [
+            { passId: 94950, id: 1 },
+            { passId: 94951, id: 2 },
+          ],
+        },
+        dates: [
+          { quantity: 1, priceCategoryId: 0, timingId: 1719563400000, id: 1 },
+          { quantity: 2, priceCategoryId: 0, timingId: 1719648000000, id: 2 },
+        ],
         operation: 'create',
         appliedAt: '2024-06-24T14:51:44.685Z',
-      }, {
+      },
+      {
         editing: true,
-        dates: [{ timingId: 1719563400000, priceCategoryId: 0, quantity: '2', id: 1 }],
-      }]);
+        dates: [
+          { timingId: 1719563400000, priceCategoryId: 0, quantity: '2', id: 1 },
+        ],
+      },
+    ]);
 
-    expect(spread.filter(s => s.editing === true).length).toBe(0);
+    expect(spread.filter((s) => s.editing === true).length).toBe(0);
   });
 
   test('spread keeps editing neighbour if exist', () => {
@@ -142,21 +160,35 @@ describe('spreadPCData', () => {
         operation: 'create',
         appliedAt: '2024-06-24T14:51:43.648Z',
         duo: true,
-      }, {
+      },
+      {
         priceCategories: [{ price: 0, label: 'Tarif unique', id: 0 }],
         response: { priceCategories: [{ passId: 4868, id: 0 }] },
         operation: 'create',
         appliedAt: '2024-06-24T14:51:44.172Z',
-      }, {
-        response: { dates: [{ passId: 94950, id: 1 }, { passId: 94951, id: 2 }] },
-        dates: [{ quantity: 1, priceCategoryId: 0, timingId: 1719563400000, id: 1 }, { quantity: 2, priceCategoryId: 0, timingId: 1719648000000, id: 2 }],
+      },
+      {
+        response: {
+          dates: [
+            { passId: 94950, id: 1 },
+            { passId: 94951, id: 2 },
+          ],
+        },
+        dates: [
+          { quantity: 1, priceCategoryId: 0, timingId: 1719563400000, id: 1 },
+          { quantity: 2, priceCategoryId: 0, timingId: 1719648000000, id: 2 },
+        ],
         operation: 'create',
         appliedAt: '2024-06-24T14:51:44.685Z',
-      }, {
+      },
+      {
         editing: true,
         eventDuration: 210,
-        dates: [{ timingId: 1719563400000, priceCategoryId: 0, quantity: '2', id: 1 }],
-      }]);
+        dates: [
+          { timingId: 1719563400000, priceCategoryId: 0, quantity: '2', id: 1 },
+        ],
+      },
+    ]);
 
     expect(spread[3]).toStrictEqual({ eventDuration: 210 });
   });
@@ -172,49 +204,67 @@ describe('spreadPCData', () => {
         operation: 'create',
         appliedAt: '2024-06-24T14:51:43.648Z',
         duo: true,
-      }, {
+      },
+      {
         priceCategories: [{ price: 0, label: 'Tarif unique', id: 0 }],
         response: { priceCategories: [{ passId: 4868, id: 0 }] },
         operation: 'create',
         appliedAt: '2024-06-24T14:51:44.172Z',
-      }, {
-        response: { dates: [{ passId: 94950, id: 1 }, { passId: 94951, id: 2 }] },
-        dates: [{
-          quantity: 1,
-          priceCategoryId: 0,
-          timingId: 1719563400000,
-          id: 1,
-        }, {
-          quantity: 2,
-          priceCategoryId: 0,
-          timingId: 1719648000000,
-          id: 2,
-        }],
+      },
+      {
+        response: {
+          dates: [
+            { passId: 94950, id: 1 },
+            { passId: 94951, id: 2 },
+          ],
+        },
+        dates: [
+          {
+            quantity: 1,
+            priceCategoryId: 0,
+            timingId: 1719563400000,
+            id: 1,
+          },
+          {
+            quantity: 2,
+            priceCategoryId: 0,
+            timingId: 1719648000000,
+            id: 2,
+          },
+        ],
         operation: 'create',
         appliedAt: '2024-06-24T14:51:44.685Z',
-      }, {
-        dates: [{
-          id: 2,
-          deleted: true,
-        }, {
-          id: 1,
-          quantity: 10,
-        }],
+      },
+      {
+        dates: [
+          {
+            id: 2,
+            deleted: true,
+          },
+          {
+            id: 1,
+            quantity: 10,
+          },
+        ],
       },
     ]);
 
     expect(spread[3]).toEqual({
-      dates: [{
-        id: 1,
-        quantity: 10,
-      }],
+      dates: [
+        {
+          id: 1,
+          quantity: 10,
+        },
+      ],
     });
 
     expect(spread[4]).toEqual({
-      dates: [{
-        id: 2,
-        deleted: true,
-      }],
+      dates: [
+        {
+          id: 2,
+          deleted: true,
+        },
+      ],
     });
   });
 });

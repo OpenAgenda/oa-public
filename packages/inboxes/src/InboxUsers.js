@@ -46,9 +46,7 @@ export default class InboxUsers {
       await this._loadInbox();
     }
 
-    const {
-      query, offset, limit, options
-    } = parseListArguments(...args);
+    const { query, offset, limit, options } = parseListArguments(...args);
 
     const data = _.omit(query, ['leftAt']);
 
@@ -63,7 +61,7 @@ export default class InboxUsers {
       .column(
         mapper
           .listFields(inboxUserFieldsMap, 'select', 'db', options, true)
-          .map(v => `${schemas.inboxUser}.${v}`)
+          .map((v) => `${schemas.inboxUser}.${v}`),
       )
       .where(
         _.mapKeys(
@@ -71,10 +69,10 @@ export default class InboxUsers {
             inboxUserFieldsMap,
             'select',
             _.omit(data, 'inboxId'),
-            options
+            options,
           ),
-          (v, key) => `${schemas.inboxUser}.${key}`
-        )
+          (v, key) => `${schemas.inboxUser}.${key}`,
+        ),
       )
       .offset(offset)
       .limit(limit);
@@ -91,11 +89,12 @@ export default class InboxUsers {
 
     const rows = await request;
 
-    this.data = rows.map(row => _.reduce(
-      { ...row, ...mapper.toObj(inboxUserFieldsMap, row, options) },
-      (accu, value, key) => _.set(accu, key, value),
-      {}
-    ));
+    this.data = rows.map((row) =>
+      _.reduce(
+        { ...row, ...mapper.toObj(inboxUserFieldsMap, row, options) },
+        (accu, value, key) => _.set(accu, key, value),
+        {},
+      ));
 
     return this;
   }

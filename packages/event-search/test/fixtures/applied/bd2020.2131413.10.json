@@ -104,9 +104,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -249,9 +247,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -394,9 +390,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -681,17 +675,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 621,
       "si-autre-precisez": null,
       "structure-partenaire": null,
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "53212822000011",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -801,9 +791,7 @@
         "min": 9,
         "max": 99
       },
-      "registration": [
-        "02 43 49 47 48"
-      ],
+      "registration": ["02 43 49 47 48"],
       "location": {
         "uid": 21308818,
         "slug": "bibliotheque-albert-legendre356",
@@ -837,12 +825,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Reflet des cinémas africains",
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -950,10 +934,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "http://www.latestedebuch.fr",
-        "06 60 71 60 03"
-      ],
+      "registration": ["http://www.latestedebuch.fr", "06 60 71 60 03"],
       "location": {
         "uid": 50394353,
         "slug": "theatre-cravey",
@@ -987,12 +968,8 @@
       "tarif": "5 €",
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon BD 2020 organisé par la Mairie de La Teste-de-Buch",
       "type-de-structure": 632,
       "si-autre-precisez": null,
@@ -1134,9 +1111,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -1190,15 +1165,7 @@
       },
       "longDescription": {},
       "keywords": {
-        "fr": [
-          "Cadeau",
-          "Jeu",
-          "Concours",
-          "Dessin",
-          "Oeuvre",
-          "BD",
-          "Prix"
-        ]
+        "fr": ["Cadeau", "Jeu", "Concours", "Dessin", "Oeuvre", "BD", "Prix"]
       },
       "conditions": {
         "fr": "À gagner : un prix enfant et un prix adulte",
@@ -1289,12 +1256,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
@@ -1556,12 +1519,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 624,
       "si-autre-precisez": null,
@@ -1666,9 +1625,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "03 44 25 25 80"
-      ],
+      "registration": ["03 44 25 25 80"],
       "location": {
         "uid": 33713940,
         "slug": "mediatheque-chanut",
@@ -1702,12 +1659,8 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        615
-      ],
+      "particularites": [776],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [615],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,

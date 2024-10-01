@@ -6,12 +6,12 @@ const { checkContext } = require('feathers-hooks-common');
 module.exports = function stashBefore(prop, additionalParams = {}) {
   const beforeField = prop || 'before';
 
-  return context => {
+  return (context) => {
     checkContext(
       context,
       'before',
       ['get', 'update', 'patch', 'remove'],
-      'stashBefore'
+      'stashBefore',
     );
 
     if (context.params.query && context.params.query.$disableStashBefore) {
@@ -27,20 +27,20 @@ module.exports = function stashBefore(prop, additionalParams = {}) {
     }
 
     const params = {
-      ...(context.method === 'get'
+      ...context.method === 'get'
         ? context.params
         : {
           provider: context.params.provider,
           authenticated: context.params.authenticated,
           user: context.params.user,
-        }),
+        },
       ...additionalParams,
     };
 
     params.query = params.query || {};
     params.query.$disableStashBefore = true;
 
-    return context.self.get(context.id, params).then(data => {
+    return context.self.get(context.id, params).then((data) => {
       delete params.query.$disableStashBefore;
 
       context.params[beforeField] = JSON.parse(JSON.stringify(data));

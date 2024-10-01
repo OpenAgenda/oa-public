@@ -1,4 +1,4 @@
-import lifespanToBeginAndEnd from '../utils/lifespanToBeginAndEnd';
+import lifespanToBeginAndEnd from '../utils/lifespanToBeginAndEnd.js';
 
 describe('utils - lifespanToBeginAndEnd', () => {
   it('basic 1h lifespan', () => {

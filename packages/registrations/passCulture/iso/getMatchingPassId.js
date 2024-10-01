@@ -12,7 +12,9 @@ export default function getMatchingPassId(data, id) {
       continue;
     }
 
-    const match = (entry.response?.[type] ?? []).find(responseItem => responseItem.id === id);
+    const match = (entry.response?.[type] ?? []).find(
+      (responseItem) => responseItem.id === id,
+    );
 
     if (!match) {
       continue;

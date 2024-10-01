@@ -11,13 +11,13 @@
     "fr": "Un événement en ligne"
   },
   "description": {
-      "fr": "Associé à aucun lieu"
+    "fr": "Associé à aucun lieu"
   },
   "longDescription": {},
   "timings": [
-      {
-          "begin": "2018-06-02T08:00:00.000Z",
-          "end": "2018-06-02T15:00:00.000Z"
-      }
+    {
+      "begin": "2018-06-02T08:00:00.000Z",
+      "end": "2018-06-02T15:00:00.000Z"
+    }
   ]
 }

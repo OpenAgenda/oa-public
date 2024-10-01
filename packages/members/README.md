@@ -10,7 +10,7 @@ Identifiers is an object containing an `agendaUid` and or a `userUid` key. Or at
 
 ### Options
 
- * **customDataAsRoot**: Defaults at false. If true, custom data is placed at the root of the result. If not, is placed under a custom key.
+- **customDataAsRoot**: Defaults at false. If true, custom data is placed at the root of the result. If not, is placed under a custom key.
 
 ## List
 
@@ -18,25 +18,25 @@ Identifiers is an object containing an `agendaUid` and or a `userUid` key. Or at
 
 ### Filter
 
- * **agendaUid**: Optional. The uid of the agenda associated with the member;
- * **userUid**: Optional. The uid of the user associated with the member.
- * **id**: Optional. List of ids from which members should be a part of.
- * **role**: Optional. List certain roles. Takes one or multiple role slugs
- * **withUser**: Optional. null (default): include all members, false: exclude members linked with users, true: exclude members not linked with users.
- * **withActions**: Optional. null (default): no constraint. false: excludes members with a non zero action count. true: excludes members with a zero action count.
- * **deletedUser**: Optional. false (default): excludes members if associated with deleted user. true: excludes members not marked ... null: no constraint.
+- **agendaUid**: Optional. The uid of the agenda associated with the member;
+- **userUid**: Optional. The uid of the user associated with the member.
+- **id**: Optional. List of ids from which members should be a part of.
+- **role**: Optional. List certain roles. Takes one or multiple role slugs
+- **withUser**: Optional. null (default): include all members, false: exclude members linked with users, true: exclude members not linked with users.
+- **withActions**: Optional. null (default): no constraint. false: excludes members with a non zero action count. true: excludes members with a zero action count.
+- **deletedUser**: Optional. false (default): excludes members if associated with deleted user. true: excludes members not marked ... null: no constraint.
 
 ### Nav
 
- * **order**: Defaults at id.asc; Possible values: `id.asc`, `id.desc`, `slug.asc`, `slug.desc`, `actionsCounter.asc`, `actionsCounter.desc`
- * **limit**: Number of members retrieved for one list call. Defaults at 20.
- * **offset**: Offset from wich list should start
- * **after**: To be used instead of offset for better performance on big datasets.
+- **order**: Defaults at id.asc; Possible values: `id.asc`, `id.desc`, `slug.asc`, `slug.desc`, `actionsCounter.asc`, `actionsCounter.desc`
+- **limit**: Number of members retrieved for one list call. Defaults at 20.
+- **offset**: Offset from wich list should start
+- **after**: To be used instead of offset for better performance on big datasets.
 
 ### Options
 
- * **detailed**: Optional, defaults at false. If true, includes user data in a user key for each member associated with a user
- * **customDataAsRoot**: Defaults at false. If true, custom data is placed at the root of each item of the result. If not, is placed under a custom key.
+- **detailed**: Optional, defaults at false. If true, includes user data in a user key for each member associated with a user
+- **customDataAsRoot**: Defaults at false. If true, custom data is placed at the root of each item of the result. If not, is placed under a custom key.
 
 ## Create
 
@@ -55,13 +55,13 @@ Identifiers is an object containing an `agendaUid` and or a `userUid` key. Or at
 
 ### Options
 
- * **requireCustom**: boolean, defaults at true. If false, custom member data is not required for create
+- **requireCustom**: boolean, defaults at true. If false, custom member data is not required for create
 
 ### Result
 
- * **success**: true if create is successful
- * **errors**: array of validation errors
- * **member**: created member data, including id value
+- **success**: true if create is successful
+- **errors**: array of validation errors
+- **member**: created member data, including id value
 
 ### Utilities
 
@@ -69,5 +69,5 @@ Can be loaded through utils key of instance or service
 
 #### Role comparison utilities
 
- * `svc.utils.compareRoles.isSuperiorTo(isThisRole, superiorToThatOne)`
- * `svc.utils.compareRoles.isSuperiorOrEqual(isThisRole, superiorOrEqualToThatOne)`
+- `svc.utils.compareRoles.isSuperiorTo(isThisRole, superiorToThatOne)`
+- `svc.utils.compareRoles.isSuperiorOrEqual(isThisRole, superiorOrEqualToThatOne)`

@@ -14,10 +14,7 @@ export default {
       fr: 'Plus d’informations à venir\n---------------------------',
     },
     keywords: {},
-    registration: [
-      '05 61 85 21 79',
-      'mairie@mondonville.fr',
-    ],
+    registration: ['05 61 85 21 79', 'mairie@mondonville.fr'],
     references: [],
     conditions: {},
     image: {
@@ -89,15 +86,9 @@ export default {
       description: [],
     },
     entreelibre: [],
-    'thematiques-metropolitaines': [
-      8,
-    ],
-    'types-devenements': [
-      22,
-    ],
-    public: [
-      26,
-    ],
+    'thematiques-metropolitaines': [8],
+    'types-devenements': [22],
+    public: [26],
     organisateur: [],
     participation: null,
     'evenement-ponctuel': 36,
@@ -124,7 +115,8 @@ export const agenda = {
   updatedAt: '2019-07-15T13:19:44.000Z',
   image: 'agenda65270117.jpg',
   store: '{"moderated":false,"mails":false,"customFields":[]}',
-  settings: '{"tracking":{"googleAnalytics":null},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"mailing":{"eventAggregation":false},"contribution":{"type":2,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"message":null,"messages":{"instructions":null,"complete":null,"publication":null},"useFields":false,"authorizedIPAddresses":[],"survey":false},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null}}',
+  settings:
+    '{"tracking":{"googleAnalytics":null},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"mailing":{"eventAggregation":false},"contribution":{"type":2,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"message":null,"messages":{"instructions":null,"complete":null,"publication":null},"useFields":false,"authorizedIPAddresses":[],"survey":false},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null}}',
   main: 0,
   official: 1,
   private: 0,

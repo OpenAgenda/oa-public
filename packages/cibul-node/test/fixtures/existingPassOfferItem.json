@@ -1,53 +1,53 @@
 {
-    "type": "link",
-    "value": "https://integration.passculture.app/offre/72618",
-    "service": "passCulture",
-    "data": [
+  "type": "link",
+  "value": "https://integration.passculture.app/offre/72618",
+  "service": "passCulture",
+  "data": [
+    {
+      "venueId": 548,
+      "category": "CINE_PLEIN_AIR",
+      "response": {
+        "passId": 72618,
+        "isPending": false
+      },
+      "appliedAt": "2024-06-06T09:14:34.089Z"
+    },
+    {
+      "priceCategories": [
         {
-            "venueId": 548,
-            "category": "CINE_PLEIN_AIR",
-            "response": {
-                "passId": 72618,
-                "isPending": false
-            },
-            "appliedAt": "2024-06-06T09:14:34.089Z"
-        },
-        {
-            "priceCategories": [
-                {
-                    "price": 12,
-                    "label": "Tarif normal",
-                    "id": 1
-                }
-            ],
-            "response": {
-                "priceCategories": [
-                    {
-                        "id": 1,
-                        "passId": 4639
-                    }
-                ]
-            },
-            "appliedAt": "2024-06-06T09:14:34.602Z"
-        },
-        {
-            "dates": [
-                {
-                    "id": 2,
-                    "priceCategoryId": 1,
-                    "quantity": 300,
-                    "timingId": 1717748067022
-                }
-            ],
-            "response": {
-                "dates": [
-                    {
-                        "id": 2,
-                        "passId": 94025
-                    }
-                ]
-            },
-            "appliedAt": "2024-06-06T09:14:35.063Z"
+          "price": 12,
+          "label": "Tarif normal",
+          "id": 1
         }
-    ]
+      ],
+      "response": {
+        "priceCategories": [
+          {
+            "id": 1,
+            "passId": 4639
+          }
+        ]
+      },
+      "appliedAt": "2024-06-06T09:14:34.602Z"
+    },
+    {
+      "dates": [
+        {
+          "id": 2,
+          "priceCategoryId": 1,
+          "quantity": 300,
+          "timingId": 1717748067022
+        }
+      ],
+      "response": {
+        "dates": [
+          {
+            "id": 2,
+            "passId": 94025
+          }
+        ]
+      },
+      "appliedAt": "2024-06-06T09:14:35.063Z"
+    }
+  ]
 }

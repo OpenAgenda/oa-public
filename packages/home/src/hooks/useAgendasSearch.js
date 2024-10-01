@@ -78,12 +78,12 @@ export default function useAgendasSearch({
       ...defaultInitialState,
       ...initialState,
     }),
-    [initialState]
+    [initialState],
   );
   const [state, dispatch] = useReducer(reducer, _initialState);
 
   const list = useCallback(
-    search => {
+    (search) => {
       dispatch({
         type: 'list',
         payload: {
@@ -94,21 +94,23 @@ export default function useAgendasSearch({
       return request({
         search,
       }).then(
-        data => dispatch({
-          type: 'listSuccess',
-          payload: {
-            data,
-          },
-        }),
-        error => dispatch({
-          type: 'listFail',
-          payload: {
-            error,
-          },
-        })
+        (data) =>
+          dispatch({
+            type: 'listSuccess',
+            payload: {
+              data,
+            },
+          }),
+        (error) =>
+          dispatch({
+            type: 'listFail',
+            payload: {
+              error,
+            },
+          }),
       );
     },
-    [request]
+    [request],
   );
 
   const nextPage = useCallback(() => {
@@ -135,19 +137,21 @@ export default function useAgendasSearch({
       search: state.searchValue,
       page: newPage,
     }).then(
-      data => dispatch({
-        type: 'nextPageSuccess',
-        payload: {
-          data,
-          page: newPage,
-        },
-      }),
-      error => dispatch({
-        type: 'nextPageFail',
-        payload: {
-          error,
-        },
-      })
+      (data) =>
+        dispatch({
+          type: 'nextPageSuccess',
+          payload: {
+            data,
+            page: newPage,
+          },
+        }),
+      (error) =>
+        dispatch({
+          type: 'nextPageFail',
+          payload: {
+            error,
+          },
+        }),
     );
   }, [
     state.agendas,

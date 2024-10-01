@@ -1,28 +1,59 @@
 const includeFields = [
-  'uid', 'setUid', 'slug', 'name', 'address',
-  'countryCode', 'adminLevel1', 'adminLevel2',
-  'adminLevel3', 'adminLevel4', 'adminLevel5',
-  'district', 'postalCode', 'insee', 'latitude', 'longitude',
-  'region', 'department', 'city', 'timezone',
-  'updatedAt', 'createdAt', 'image', 'description', 'tags',
-  'website', 'email', 'phone', 'links', 'access',
-  'state', 'imageCredits', 'extId',
-  'duplicateCandidates', 'disqualifiedDuplicates',
-  'mergedIn', 'agendaUid',
+  'uid',
+  'setUid',
+  'slug',
+  'name',
+  'address',
+  'countryCode',
+  'adminLevel1',
+  'adminLevel2',
+  'adminLevel3',
+  'adminLevel4',
+  'adminLevel5',
+  'district',
+  'postalCode',
+  'insee',
+  'latitude',
+  'longitude',
+  'region',
+  'department',
+  'city',
+  'timezone',
+  'updatedAt',
+  'createdAt',
+  'image',
+  'description',
+  'tags',
+  'website',
+  'email',
+  'phone',
+  'links',
+  'access',
+  'state',
+  'imageCredits',
+  'extId',
+  'duplicateCandidates',
+  'disqualifiedDuplicates',
+  'mergedIn',
+  'agendaUid',
 ];
 
 const getLocations = (services, uids) => {
   if (!uids) return [];
 
-  return services.agendaLocations
-    .list({ uids }, { limit: uids.length }, {
+  return services.agendaLocations.list(
+    { uids },
+    { limit: uids.length },
+    {
       detailed: true,
       includeFields,
       deleted: null,
-    });
+    },
+  );
 };
 
 export default {
   promise: getLocations,
-  callback: (services, uids, options, cb) => getLocations(services, uids, options).then(cb.bind(null, null), cb),
+  callback: (services, uids, options, cb) =>
+    getLocations(services, uids, options).then(cb.bind(null, null), cb),
 };

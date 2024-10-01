@@ -33,11 +33,8 @@ describe('simple-cache - functional (service): hash del', () => {
     });
   });
 
-  beforeEach(async () => cli.del(
-    await cli
-      .keys(`${config.prefix}*`)
-      .then(k => k.join(' ')),
-  ));
+  beforeEach(async () =>
+    cli.del(await cli.keys(`${config.prefix}*`).then((k) => k.join(' '))));
 
   afterAll(() => cli.quit());
 

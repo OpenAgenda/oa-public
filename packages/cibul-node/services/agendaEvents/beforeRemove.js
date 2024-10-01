@@ -10,7 +10,12 @@ export default async ({ services }, ae, context) => {
 
   log('will remove agenda-event %j', ae, { context });
 
-  const { agenda, event, user } = await fallbackContextGet({ services }, 'beforeRemove', ae, context);
+  const { agenda, event, user } = await fallbackContextGet(
+    { services },
+    'beforeRemove',
+    ae,
+    context,
+  );
 
   if (ae.state === 2) {
     try {
@@ -21,31 +26,81 @@ export default async ({ services }, ae, context) => {
   }
 
   if (!agenda || !event) {
-    return log('error', new VError({
-      info: { user, agenda, event },
-    }, 'An entity is missing for add activity'));
+    return log(
+      'error',
+      new VError(
+        {
+          info: { user, agenda, event },
+        },
+        'An entity is missing for add activity',
+      ),
+    );
   }
 
   try {
     if (context.deletion) {
       if (agenda.uid === event.agendaUid) {
-        await activities.addActivity({ entityType: 'event', entityUid: event.uid }, {
+        await activities.addActivity(
+          { entityType: 'event', entityUid: event.uid },
+          {
+            actor: `user:${user.uid}`,
+            verb: 'event.delete',
+            object: `event:${event.uid}`,
+            target: `agenda:${agenda.uid}`,
+            store: {
+              labels: {
+                actor: user.name,
+                object: event.title,
+                target: agenda.title,
+              },
+            },
+          },
+        );
+      } else {
+        await activities.addActivity(
+          { entityType: 'event', entityUid: event.uid },
+          {
+            actor: `agenda:${agenda.uid}`,
+            verb: 'agenda.removeDeletedEvent',
+            object: `event:${event.uid}`,
+            target: `agenda:${agenda.uid}`,
+            store: {
+              contributorUid: ae.userUid,
+              labels: {
+                object: event.title,
+                target: agenda.title,
+              },
+            },
+          },
+        );
+      }
+    } else if (user) {
+      await activities.addActivity(
+        { entityType: 'event', entityUid: event.uid },
+        {
           actor: `user:${user.uid}`,
-          verb: 'event.delete',
+          verb: 'agenda.removeEvent',
           object: `event:${event.uid}`,
           target: `agenda:${agenda.uid}`,
           store: {
+            state: ae.state,
+            ownerUid: event.ownerUid,
+            originAgendaUid: event.agendaUid,
+            sourceAgendaUids: ae.sourcePaths.map((v) => v[v.length - 1]),
             labels: {
               actor: user.name,
               object: event.title,
               target: agenda.title,
             },
           },
-        });
-      } else {
-        await activities.addActivity({ entityType: 'event', entityUid: event.uid }, {
+        },
+      );
+    } else {
+      await activities.addActivity(
+        { entityType: 'event', entityUid: event.uid },
+        {
           actor: `agenda:${agenda.uid}`,
-          verb: 'agenda.removeDeletedEvent',
+          verb: 'agenda.systemRemoveEvent',
           object: `event:${event.uid}`,
           target: `agenda:${agenda.uid}`,
           store: {
@@ -55,40 +110,8 @@ export default async ({ services }, ae, context) => {
               target: agenda.title,
             },
           },
-        });
-      }
-    } else if (user) {
-      await activities.addActivity({ entityType: 'event', entityUid: event.uid }, {
-        actor: `user:${user.uid}`,
-        verb: 'agenda.removeEvent',
-        object: `event:${event.uid}`,
-        target: `agenda:${agenda.uid}`,
-        store: {
-          state: ae.state,
-          ownerUid: event.ownerUid,
-          originAgendaUid: event.agendaUid,
-          sourceAgendaUids: ae.sourcePaths.map(v => v[v.length - 1]),
-          labels: {
-            actor: user.name,
-            object: event.title,
-            target: agenda.title,
-          },
         },
-      });
-    } else {
-      await activities.addActivity({ entityType: 'event', entityUid: event.uid }, {
-        actor: `agenda:${agenda.uid}`,
-        verb: 'agenda.systemRemoveEvent',
-        object: `event:${event.uid}`,
-        target: `agenda:${agenda.uid}`,
-        store: {
-          contributorUid: ae.userUid,
-          labels: {
-            object: event.title,
-            target: agenda.title,
-          },
-        },
-      });
+      );
     }
   } catch (err) {
     if (err) {
@@ -102,7 +125,8 @@ export default async ({ services }, ae, context) => {
   }
 
   try {
-    await activities.feed({ entityType: 'agenda', entityUid: agenda.uid })
+    await activities
+      .feed({ entityType: 'agenda', entityUid: agenda.uid })
       .unfollow({ entityType: 'event', entityUid: event.uid });
   } catch (err) {
     if (err) {

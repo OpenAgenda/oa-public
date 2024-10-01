@@ -2,7 +2,6 @@
 
 Components to be used in forms
 
-
 # The Components
 
 ## Spinner

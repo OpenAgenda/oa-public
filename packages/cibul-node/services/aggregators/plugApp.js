@@ -1,24 +1,22 @@
 import bodyParser from 'body-parser';
 
 export default (config, parentApp) => {
-  const {
-    sessions,
-    agendas,
-    members,
-    aggregators,
-  } = parentApp.services;
+  const { sessions, agendas, members, aggregators } = parentApp.services;
 
   // this stays
-  parentApp.all([
-    '/:agendaSlug/admin/aggregator',
-    '/:agendaSlug/admin/sources(/*?)?',
-    '/:agendaSlug/admin/sources/remove',
-  ], [
-    sessions.mw.loadOrRedirect(),
-    agendas.mw.load,
-    agendas.mw.authorizeByIPAddress(),
-    members.mw.loadAndAuthorize('administrator'),
-  ]);
+  parentApp.all(
+    [
+      '/:agendaSlug/admin/aggregator',
+      '/:agendaSlug/admin/sources(/*?)?',
+      '/:agendaSlug/admin/sources/remove',
+    ],
+    [
+      sessions.mw.loadOrRedirect(),
+      agendas.mw.load,
+      agendas.mw.authorizeByIPAddress(),
+      members.mw.loadAndAuthorize('administrator'),
+    ],
+  );
 
   parentApp.post(
     '/:agendaSlug/admin/sources',
@@ -28,26 +26,23 @@ export default (config, parentApp) => {
       field: 'uid',
       target: 'sourceAgenda',
     }),
-    (req, res, next) => aggregators.sources.add(
-      req.agenda,
-      req.sourceAgenda,
-      req.body.rules,
-      {
-        query: req.body.query,
-        context: {
-          user: req.user,
-          member: req.member,
-        },
-      },
-    ).then(res.json.bind(res), next),
+    (req, res, next) =>
+      aggregators.sources
+        .add(req.agenda, req.sourceAgenda, req.body.rules, {
+          query: req.body.query,
+          context: {
+            user: req.user,
+            member: req.member,
+          },
+        })
+        .then(res.json.bind(res), next),
   );
 
   parentApp.get(
     '/:agendaSlug/admin/aggregator',
     bodyParser.json(),
-    (req, res, next) => aggregators
-      .get(req.agenda.uid, { detailed: true })
-      .then(result => {
+    (req, res, next) =>
+      aggregators.get(req.agenda.uid, { detailed: true }).then((result) => {
         if (!result) {
           return res.status(404).send('Aggregator not found');
         }
@@ -59,45 +54,45 @@ export default (config, parentApp) => {
   parentApp.post(
     '/:agendaSlug/admin/aggregator',
     bodyParser.json(),
-    (req, res, next) => aggregators
-      .set(req.agenda.uid, req.body)
-      .then(result => res.json(result), next),
+    (req, res, next) =>
+      aggregators
+        .set(req.agenda.uid, req.body)
+        .then((result) => res.json(result), next),
   );
 
   parentApp.put(
     '/:agendaSlug/admin/sources/:sourceId',
     bodyParser.json(),
-    (req, res, next) => aggregators.sources.update(
-      req.agenda,
-      req.params.sourceId,
-      req.body.rules,
-      { query: req.body.query },
-    ).then(res.json.bind(res), next),
+    (req, res, next) =>
+      aggregators.sources
+        .update(req.agenda, req.params.sourceId, req.body.rules, {
+          query: req.body.query,
+        })
+        .then(res.json.bind(res), next),
   );
 
-  parentApp.delete(
-    '/:agendaSlug/admin/sources/:sourceId',
-    (req, res, next) => aggregators.sources.remove(
-      req.agenda,
-      req.params.sourceId,
-      {
+  parentApp.delete('/:agendaSlug/admin/sources/:sourceId', (req, res, next) =>
+    aggregators.sources
+      .remove(req.agenda, req.params.sourceId, {
         evaluate: [true, 1, 'true', '1'].includes(req.query.evaluate),
         context: {
           user: req.user,
           member: req.member,
         },
-      },
-    ).then(res.json.bind(res), next),
-  );
+      })
+      .then(res.json.bind(res), next));
 
   parentApp.get(
     '/agendas/:uid/sources.json',
     agendas.mw.loadBy({ path: 'params.uid', field: 'uid' }),
-    (req, res, next) => aggregators.sources
-      .list(req.agenda, {}, { detailed: true })
-      .then(result => res.json({
-        total: result.sources.length,
-        agendas: result.sources.map(source => source.agenda),
-      }), next),
+    (req, res, next) =>
+      aggregators.sources.list(req.agenda, {}, { detailed: true }).then(
+        (result) =>
+          res.json({
+            total: result.sources.length,
+            agendas: result.sources.map((source) => source.agenda),
+          }),
+        next,
+      ),
   );
 };

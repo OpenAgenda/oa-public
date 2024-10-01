@@ -14,18 +14,21 @@ describe('flat-exports - unit - transforms', () => {
   describe('fieldToFlattenerMapItem', () => {
     test('multilingual field to flattener map item', () => {
       expect(
-        fieldToFlattenerMapItem({
-          languages: [],
-          field: 'description',
-          fieldType: 'text',
-          optional: false,
-          max: 200,
-          label: {
-            fr: 'Description courte',
-            en: 'Short description',
-            it: 'Breve descrizione',
+        fieldToFlattenerMapItem(
+          {
+            languages: [],
+            field: 'description',
+            fieldType: 'text',
+            optional: false,
+            max: 200,
+            label: {
+              fr: 'Description courte',
+              en: 'Short description',
+              it: 'Breve descrizione',
+            },
           },
-        }, { lang: 'fr', languages: ['fr', 'en'] }),
+          { lang: 'fr', languages: ['fr', 'en'] },
+        ),
       ).toEqual({
         source: 'description',
         target: ['Description courte - FR', 'Description courte - EN'],
@@ -35,53 +38,59 @@ describe('flat-exports - unit - transforms', () => {
 
     test('text field to flattened map item', () => {
       expect(
-        fieldToFlattenerMapItem({
-          field: 'imageCredits',
-          fieldType: 'text',
-          label: {
-            fr: "Crédits de l'image",
-            en: 'Image credits',
-            it: "Crediti d'immagine",
+        fieldToFlattenerMapItem(
+          {
+            field: 'imageCredits',
+            fieldType: 'text',
+            label: {
+              fr: "Crédits de l'image",
+              en: 'Image credits',
+              it: "Crediti d'immagine",
+            },
           },
-        }, { lang: 'fr' }),
+          { lang: 'fr' },
+        ),
       ).toEqual({
         source: 'imageCredits',
-        target: 'Crédits de l\'image',
+        target: "Crédits de l'image",
       });
     });
 
     test('optioned field to flattener map item', () => {
       expect(
-        fieldToFlattenerMapItem({
-          field: 'status',
-          fieldType: 'select',
-          default: 1,
-          display: false,
-          label: {
-            fr: 'État',
-            en: 'Status',
+        fieldToFlattenerMapItem(
+          {
+            field: 'status',
+            fieldType: 'select',
+            default: 1,
+            display: false,
+            label: {
+              fr: 'État',
+              en: 'Status',
+            },
+            options: [
+              {
+                id: 1,
+                value: 'scheduled',
+                label: {
+                  fr: 'Programmé',
+                  en: 'Scheduled',
+                },
+              },
+              {
+                id: 4,
+                value: 'cancelled',
+                label: {
+                  fr: 'Annulé',
+                  en: 'Cancelled',
+                },
+              },
+            ],
+            schemaId: null,
+            schemaType: 'event',
           },
-          options: [
-            {
-              id: 1,
-              value: 'scheduled',
-              label: {
-                fr: 'Programmé',
-                en: 'Scheduled',
-              },
-            },
-            {
-              id: 4,
-              value: 'cancelled',
-              label: {
-                fr: 'Annulé',
-                en: 'Cancelled',
-              },
-            },
-          ],
-          schemaId: null,
-          schemaType: 'event',
-        }, { lang: 'fr', languages: [] }),
+          { lang: 'fr', languages: [] },
+        ),
       ).toEqual({
         hasOptions: true,
         source: 'status',
@@ -97,69 +106,79 @@ describe('flat-exports - unit - transforms', () => {
   describe('decorateFieldMap', () => {
     test('adds additional fields provided by schema at the end of the map items', () => {
       expect(
-        decorateFieldMap([
+        decorateFieldMap(
+          [
+            {
+              source: 'uid',
+              target: 'Identifiant',
+            },
+            {
+              source: 'title',
+              target: ['Titre - FR', 'Titre - EN'],
+            },
+            {
+              source: 'description',
+              target: ['Description - FR', 'Description - EN'],
+            },
+          ],
           {
-            source: 'uid',
-            target: 'Identifiant',
+            formSchema: {
+              fields: [
+                {
+                  field: 'type-devenement',
+                  label: "Type d'événement",
+                  related: [],
+                  options: [
+                    {
+                      id: 1,
+                      label: 'Concert',
+                    },
+                  ],
+                  fieldType: 'radio',
+                },
+              ],
+            },
+            languages: ['fr', 'en'],
+            lang: 'fr',
           },
-          {
-            source: 'title',
-            target: ['Titre - FR', 'Titre - EN'],
-          },
-          {
-            source: 'description',
-            target: ['Description - FR', 'Description - EN'],
-          },
-        ], {
-          formSchema: {
-            fields: [
-              {
-                field: 'type-devenement',
-                label: "Type d'événement",
-                related: [],
-                options: [{
-                  id: 1,
-                  label: 'Concert',
-                }],
-                fieldType: 'radio',
-              },
-            ],
-          },
-          languages: ['fr', 'en'],
-          lang: 'fr',
-        }),
-      ).toEqual(
-        [
-          { source: 'uid', target: 'Identifiant' },
-          { source: 'title', target: ['Titre - FR', 'Titre - EN'] },
-          {
-            source: 'description',
-            target: ['Description - FR', 'Description - EN'],
-          },
-          {
-            hasOptions: true,
-            source: 'type-devenement',
-            target: 'Type d\'événement',
-            transform: { 1: 'Concert' },
-          },
-        ],
-      );
+        ),
+      ).toEqual([
+        { source: 'uid', target: 'Identifiant' },
+        { source: 'title', target: ['Titre - FR', 'Titre - EN'] },
+        {
+          source: 'description',
+          target: ['Description - FR', 'Description - EN'],
+        },
+        {
+          hasOptions: true,
+          source: 'type-devenement',
+          target: "Type d'événement",
+          transform: { 1: 'Concert' },
+        },
+      ]);
     });
   });
 
   describe('timings', () => {
     test('transformer spreads detailed timings over one ISO column and multiple language-specific columns', () => {
-      const map = [timings({
-        languages: ['fr', 'en'],
-      }, {})];
+      const map = [
+        timings(
+          {
+            languages: ['fr', 'en'],
+          },
+          {},
+        ),
+      ];
 
       const flatten = Flattener(map);
 
       const flat = flatten({
-        timings: [{
-          begin: '2017-03-16T09:30:00+01:00',
-          end: '2017-03-16T12:00:00+01:00',
-        }],
+        timings: [
+          {
+            begin: '2017-03-16T09:30:00+01:00',
+            end: '2017-03-16T12:00:00+01:00',
+          },
+        ],
       });
 
       expect(flat).toEqual({
@@ -170,18 +189,25 @@ describe('flat-exports - unit - transforms', () => {
     });
 
     test('transformer displays times in timezone explicited in source data', () => {
-      const map = [timings({
-        languages: ['fr', 'en'],
-      }, {})];
+      const map = [
+        timings(
+          {
+            languages: ['fr', 'en'],
+          },
+          {},
+        ),
+      ];
 
       const flatten = Flattener(map);
 
       const flat = flatten({
         timezone: 'Europe/London',
-        timings: [{
-          begin: '2022-04-03T09:00:00.000Z',
-          end: '2022-04-03T10:00:00.000Z',
-        }],
+        timings: [
+          {
+            begin: '2022-04-03T09:00:00.000Z',
+            end: '2022-04-03T10:00:00.000Z',
+          },
+        ],
       });
 
       expect(flat).toEqual({
@@ -192,37 +218,52 @@ describe('flat-exports - unit - transforms', () => {
     });
 
     test('transformer concatenates timings which occur in the same day', () => {
-      const map = [timings({
-        languages: ['fr'],
-      }, {})];
+      const map = [
+        timings(
+          {
+            languages: ['fr'],
+          },
+          {},
+        ),
+      ];
 
       const flatten = Flattener(map);
 
       const flat = flatten({
-        timings: [{
-          begin: '2017-03-16T09:30:00+06:00',
-          end: '2017-03-16T12:00:00+06:00',
-        }, {
-          begin: '2017-03-16T14:30:00+06:00',
-          end: '2017-03-16T22:00:00+06:00',
-        }, {
-          begin: '2017-03-17T09:30:00+06:00',
-          end: '2017-03-17T12:00:00+06:00',
-        }],
+        timings: [
+          {
+            begin: '2017-03-16T09:30:00+06:00',
+            end: '2017-03-16T12:00:00+06:00',
+          },
+          {
+            begin: '2017-03-16T14:30:00+06:00',
+            end: '2017-03-16T22:00:00+06:00',
+          },
+          {
+            begin: '2017-03-17T09:30:00+06:00',
+            end: '2017-03-17T12:00:00+06:00',
+          },
+        ],
       });
 
       expect(flat).toEqual({
         ISO: '2017-03-16T09:30:00+06:00 -> 2017-03-16T12:00:00+06:00 | 2017-03-16T14:30:00+06:00 -> 2017-03-16T22:00:00+06:00 | 2017-03-17T09:30:00+06:00 -> 2017-03-17T12:00:00+06:00',
-        timings: 'jeudi 16 mars 2017 - 09:30 ⤏ 12:00, 14:30 ⤏ 22:00 | vendredi 17 mars 2017 - 09:30 ⤏ 12:00',
+        timings:
+          'jeudi 16 mars 2017 - 09:30 ⤏ 12:00, 14:30 ⤏ 22:00 | vendredi 17 mars 2017 - 09:30 ⤏ 12:00',
       });
     });
   });
 
   describe('accessibility', () => {
     test('transformer returns single language when language is specified and available in labels', () => {
-      const map = [accessibility({
-        languages: ['fr'],
-      }, {})];
+      const map = [
+        accessibility(
+          {
+            languages: ['fr'],
+          },
+          {},
+        ),
+      ];
 
       const flatten = Flattener(map);
 
@@ -236,9 +277,14 @@ describe('flat-exports - unit - transforms', () => {
     });
 
     test('transformer returns language columns when a corresponding label is available', () => {
-      const map = [accessibility({
-        languages: ['fr', 'en', 'de'],
-      }, {})];
+      const map = [
+        accessibility(
+          {
+            languages: ['fr', 'en', 'de'],
+          },
+          {},
+        ),
+      ];
 
       const flatten = Flattener(map);
 
@@ -254,11 +300,16 @@ describe('flat-exports - unit - transforms', () => {
     });
 
     test('transformer puts result in specified target', () => {
-      const map = [accessibility({
-        languages: ['fr'],
-      }, {
-        target: 'Accessibilité',
-      })];
+      const map = [
+        accessibility(
+          {
+            languages: ['fr'],
+          },
+          {
+            target: 'Accessibilité',
+          },
+        ),
+      ];
 
       const flatten = Flattener(map);
 
@@ -274,11 +325,16 @@ describe('flat-exports - unit - transforms', () => {
 
   describe('multilingual', () => {
     test('multilingual field returns single value configuration when one language is specified', () => {
-      const map = [multilingual({
-        languages: ['fr'],
-      }, {
-        source: 'title',
-      })];
+      const map = [
+        multilingual(
+          {
+            languages: ['fr'],
+          },
+          {
+            source: 'title',
+          },
+        ),
+      ];
 
       const flatten = Flattener(map);
 
@@ -295,12 +351,17 @@ describe('flat-exports - unit - transforms', () => {
     });
 
     test('multilingual field puts value in target field when set', () => {
-      const map = [multilingual({
-        languages: ['en'],
-      }, {
-        source: 'title',
-        target: 'Titre',
-      })];
+      const map = [
+        multilingual(
+          {
+            languages: ['en'],
+          },
+          {
+            source: 'title',
+            target: 'Titre',
+          },
+        ),
+      ];
 
       const flatten = Flattener(map);
 
@@ -316,12 +377,17 @@ describe('flat-exports - unit - transforms', () => {
     });
 
     test('multilingual field with specified possible languages does not provide other flat values than for said languages', () => {
-      const map = [multilingual({
-        languages: ['en', 'it', 'fr', 'es'],
-      }, {
-        source: 'country',
-        possibleLanguages: ['fr', 'en'],
-      })];
+      const map = [
+        multilingual(
+          {
+            languages: ['en', 'it', 'fr', 'es'],
+          },
+          {
+            source: 'country',
+            possibleLanguages: ['fr', 'en'],
+          },
+        ),
+      ];
 
       const flatten = Flattener(map);
 
@@ -339,12 +405,17 @@ describe('flat-exports - unit - transforms', () => {
     });
 
     test('multilingual field passes data in post parser', () => {
-      const map = [multilingual({
-        languages: ['fr', 'en'],
-      }, {
-        source: 'some_field',
-        postParse: v => v.join('|'),
-      })];
+      const map = [
+        multilingual(
+          {
+            languages: ['fr', 'en'],
+          },
+          {
+            source: 'some_field',
+            postParse: (v) => v.join('|'),
+          },
+        ),
+      ];
 
       const flatten = Flattener(map);
 
@@ -362,11 +433,16 @@ describe('flat-exports - unit - transforms', () => {
     });
 
     test('multilingual field spreads result over multiple fields if language is not set', () => {
-      const map = [multilingual({
-        languages: ['fr', 'en', 'it'],
-      }, {
-        source: 'title',
-      })];
+      const map = [
+        multilingual(
+          {
+            languages: ['fr', 'en', 'it'],
+          },
+          {
+            source: 'title',
+          },
+        ),
+      ];
 
       const flatten = Flattener(map);
 
@@ -387,7 +463,15 @@ describe('flat-exports - unit - transforms', () => {
 
   describe('formatTime', () => {
     test('transformer returns formatted time in each language given', () => {
-      const map = [formatTime({ languages: ['en', 'it', 'fr', 'es'], includeLanguages: ['en', 'fr'] }, { source: 'updatedAt', target: 'Dernière mise à jour' })];
+      const map = [
+        formatTime(
+          {
+            languages: ['en', 'it', 'fr', 'es'],
+            includeLanguages: ['en', 'fr'],
+          },
+          { source: 'updatedAt', target: 'Dernière mise à jour' },
+        ),
+      ];
 
       const flatten = Flattener(map);
 

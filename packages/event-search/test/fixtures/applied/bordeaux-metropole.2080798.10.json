@@ -99,10 +99,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 56 84 78 82",
-        "contact@talenceevenements.fr"
-      ],
+      "registration": ["05 56 84 78 82", "contact@talenceevenements.fr"],
       "location": {
         "uid": 35222559,
         "slug": "parc-peixotto865",
@@ -130,17 +127,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        54892589
-      ],
+      "sourcePaths": [54892589],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -187,12 +180,7 @@
         "fr": "Pour permettre à un large public de découvrir sa collection d’archives, l’IMEC invite chaque année un écrivain, un artiste ou un philosophe à y puiser la matière d’une exposition et d’un livre dans le cadre d’une carte blanche. C’est chaque fois une expérience inédite au cœur de l’archive qui se joue et s’invente. La dernière en date, imaginée par Valérie Mréjen, a pour titre ‘Soustraction’, un projet aussi plastique que littéraire, qui nous montre avec force comment les archives peuvent ouvrir la voie à la réinvention et à la fiction.\n\nConférence dans le cadre de l’exposition « Doucement, doucement » Séquence #3 : Veiller.\n\nVisite et présentation du projet par les commissaires d’exposition Emmanuel Aragon, artiste et Marie-Sylvie Barrère, conservatrice en chef, chargée du développement artistique et culturel aux Archives Bordeaux Métropole.\n\nEntrée libre et gratuite\n\nUn projet mené en partenariat avec le collectif grŒp.\n\nhttp://groep.fr/\n\n\\+ d’infos sur l’imec\n\nhttps://www.imec-archives.com/"
       },
       "keywords": {
-        "fr": [
-          "archives",
-          "art contemporain",
-          "édition",
-          "exposition"
-        ]
+        "fr": ["archives", "art contemporain", "édition", "exposition"]
       },
       "conditions": {
         "fr": "Entrée libre et gratuite"
@@ -282,17 +270,13 @@
         "imageCredits": "© Archives Bordeaux Métropole, photo  Bernard Rakotomanga"
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 47,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        70173944
-      ],
+      "sourcePaths": [70173944],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -339,12 +323,7 @@
         "fr": "Cette année, le traditionnel Marché de Noël de Carbon-Blanc se tiendra le samedi 7 décembre 2019 de 9H00 à 18H00 Place Mendès France (anciennement la Halle Favols).\n\n\\*\\*Au programme sur le marché :\n\n\\-- Les métiers d’arts (luminaires, bijoux, verres gravés, bracelets, bougies, peintures, pailles recyclables, poteries, statues bronzes, bijoux Africains, objets Népalais, chapeaux, étoles, carterie, …).\n\n\\-- Les Arts de la bouche : vin chaud, rhum, bières artisanales, marrons, saucisson, gaufres, épices, crêpes, confitures, mascottes, pâtisserie orientale…+ la buvette/restauration (Food truck).\n\n\\*\\*Animations prévues pendant le marché de Noël :\n\n\\-- Stand maquillage proposé par l’ACAPL (Association des Commerçants, Artisans et Professions Libérales de Carbon-Blanc).\n\nL’ACAPL mettra à disposition un décor de Noël dans lequel les parents pourront prendre en photo leurs enfants avec le Père Noël de 14h à 17h.\n\nL’association tiendra également un stand pour le plaisir des yeux et des papilles : les gâteaux d’angélique, la caravane des senteurs et Christel Elixir D'essences.\n\n\\-- Un espace de jeux (jeux de construction, jeux de rôles, jeux surdimensionnés, espace de jeux pour les plus petits) sera proposé par la ludothèque Ô fil du jeu de 9h à 18h.\n\n\\-- Chorales de Noël proposées par l’école de musique de l’ASCJB.\n\n\\-- Vente d’objets de noël et Barbe à papa de 9h à 12h et de 13h à 18h. L’animation est proposée par l’Action Jeune et les Juniors Voyageurs\n\n\\-- Écriture de sa lettre au Père Noël\n\nToutes les lettres seront envoyées à Libourne pour que le Père Noël puisse y répondre.\n\n\\-- Balade en calèche de Noël proposée aux enfants\n\n\\-- Mise en lumière du site.\n\n\\-- Animation musicale réalisée par ConceptSon de 9h à 18h + animation Marché\n\n\\-- Manège forain pour les plus petits de 9h à 18h.\n\n\\-- Sculpteur de ballons de 14h à 18h.\n\nVitrines des commerçants décorées sur le thème de noël.\n\nCette journée sera artisanale mais aussi solidaire :\n\n• Une urne sera mise à la disposition de tous pendant le marché.\n\n• La semaine précédant le marché de Noël, des urnes seront également à disposition : à la Médiathèque durant l’Exposition des 30 ans de la Médiathèque, au Foyer municipal le Dimanche 1er décembre au cours du loto organisé par le Comité des fêtes à 20h, au Cinéma Favols pour le Ciné-thé de Noël le lundi 2 décembre à 14h30.\n\nLes recettes seront reversées au Téléthon dans leur intégralité.\n\n\\-------------------------------------------------------------------------------------------\n\nNos partenaires : L’Action Jeune, Accueils Périscolaires, ALSH,\n\nLudothèque Ô Fil Du Jeu, l’Association Junior Voyageur, CAR BON PLANS - ACAPL Carbon-Blanc , Ascjb Carbon-Blanc, Enjoy 33 Radio"
       },
       "keywords": {
-        "fr": [
-          "noël",
-          "artisanat",
-          "art",
-          "enfants"
-        ]
+        "fr": ["noël", "artisanat", "art", "enfants"]
       },
       "conditions": {},
       "image": {
@@ -424,17 +403,13 @@
         "imageCredits": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        22478436
-      ],
+      "sourcePaths": [22478436],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -627,18 +602,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -865,18 +835,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -991,9 +956,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "05 57 80 81 57"
-      ],
+      "registration": ["05 57 80 81 57"],
       "location": {
         "uid": 37461921,
         "slug": "pole-danimation-et-de-lien-social",
@@ -1021,17 +984,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 55,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        41375362
-      ],
+      "sourcePaths": [41375362],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1175,18 +1134,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1311,9 +1265,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "https://lerocherdepalmer.fr/artistes/dtf/"
-      ],
+      "registration": ["https://lerocherdepalmer.fr/artistes/dtf/"],
       "location": {
         "uid": 18191842,
         "slug": "rocher-de-palmer587",
@@ -1343,18 +1295,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1511,18 +1458,13 @@
         "extId": null
       },
       "custom_description": null,
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 46,
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94573624,
-        38598267
-      ],
+      "sourcePaths": [94573624, 38598267],
       "aggregated": false,
       "sourceAgendas": [
         {
@@ -1583,11 +1525,7 @@
         "fr": "« Les ombres blanches » par la Compagnie Mademoiselle Paillette\n---------------------------------------------------------------\n\n**19 h : Spectacle d’ouverture**\n\nSur un nuage de confettis, les anges descendent parmi nous. Des personnages doux et éphémères, amis des nuages, aériens et légers comme des caresses du vent, ils déambulent parmi nous, libérant des brassées de rêves et d’éclats de rire... Suivons- les à la trace car ils vont bientôt repartir..."
       },
       "keywords": {
-        "fr": [
-          "spectacle",
-          "Le Bouscat",
-          "Marché de noel"
-        ]
+        "fr": ["spectacle", "Le Bouscat", "Marché de noel"]
       },
       "conditions": {
         "fr": "Entrée Libre - Gratuit"
@@ -1671,16 +1609,12 @@
         "imageCredits": null
       },
       "custom_description": "Marché de Noel : Spectacle d'ouverture - Grande salle Ermitage-Compostelle",
-      "intermunicipal_interest": [
-        1
-      ],
+      "intermunicipal_interest": [1],
       "recurring": [],
       "categories-agenda-metropolitain": 53,
       "state": 2,
       "featured": false,
-      "sourcePaths": [
-        94362290
-      ],
+      "sourcePaths": [94362290],
       "aggregated": false,
       "sourceAgendas": [
         {

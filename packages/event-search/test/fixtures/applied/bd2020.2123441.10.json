@@ -73,9 +73,7 @@
         "min": 7,
         "max": 99
       },
-      "registration": [
-        "01 64 90 75 05"
-      ],
+      "registration": ["01 64 90 75 05"],
       "location": {
         "uid": 64260810,
         "slug": "bibliotheque-darpajon",
@@ -109,9 +107,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -357,9 +353,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -585,9 +579,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -736,9 +728,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 626,
@@ -889,10 +879,7 @@
         "min": 14,
         "max": 20
       },
-      "registration": [
-        "0684374414",
-        "thorelflorent1985@gmail.com"
-      ],
+      "registration": ["0684374414", "thorelflorent1985@gmail.com"],
       "location": {
         "uid": 15110719,
         "slug": "lp-joliot-curie-oignies",
@@ -926,9 +913,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 627,
@@ -1052,9 +1037,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "http://www.lacharente.fr"
-      ],
+      "registration": ["http://www.lacharente.fr"],
       "location": {
         "uid": 94801672,
         "slug": "conseil-departemental-de-la-charente",
@@ -1088,9 +1071,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -1214,9 +1195,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "http://www.lacharente.fr"
-      ],
+      "registration": ["http://www.lacharente.fr"],
       "location": {
         "uid": 94801672,
         "slug": "conseil-departemental-de-la-charente",
@@ -1250,9 +1229,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -1368,9 +1345,7 @@
         "min": 10,
         "max": 99
       },
-      "registration": [
-        "http://www.lacharente.fr"
-      ],
+      "registration": ["http://www.lacharente.fr"],
       "location": {
         "uid": 94801672,
         "slug": "conseil-departemental-de-la-charente",
@@ -1404,9 +1379,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
+      "particularites": [610],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 632,
@@ -1518,10 +1491,7 @@
         "min": 15,
         "max": 99
       },
-      "registration": [
-        "02 97 01 62 69",
-        "http://mediatheque.mairie-vannes.fr"
-      ],
+      "registration": ["02 97 01 62 69", "http://mediatheque.mairie-vannes.fr"],
       "location": {
         "uid": 56354339,
         "slug": "mediatheques-du-palais-des-arts",
@@ -1555,9 +1525,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1669,10 +1637,7 @@
         "min": 10,
         "max": 12
       },
-      "registration": [
-        "02 97 01 62 69",
-        "http://mediatheque.mairie-vannes.fr"
-      ],
+      "registration": ["02 97 01 62 69", "http://mediatheque.mairie-vannes.fr"],
       "location": {
         "uid": 24355343,
         "slug": "mediatheque-de-menimur943",
@@ -1706,9 +1671,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

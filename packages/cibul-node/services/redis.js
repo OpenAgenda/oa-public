@@ -21,7 +21,7 @@ function createIORedisConnection(config) {
 function createRedisConnection(config) {
   if (config.redis.clusterMode) {
     return redis.createCluster({
-      rootNodes: config.redis.nodes.map(node => ({
+      rootNodes: config.redis.nodes.map((node) => ({
         url: node,
       })),
       defaults: {

@@ -34,21 +34,14 @@ describe('simple-cache - functional (service): hash get', () => {
     });
   });
 
-  beforeEach(async () => cli.del(
-    await cli
-      .keys(`${config.prefix}*`)
-      .then(k => k.join(' ')),
-  ));
+  beforeEach(async () =>
+    cli.del(await cli.keys(`${config.prefix}*`).then((k) => k.join(' '))));
 
   afterAll(() => cli.quit());
 
   describe('promise', () => {
     it('hash get without specifying a key', async () => {
-      await cli.hSet(
-        `${config.prefix}:blob:456`,
-        '',
-        'Bim',
-      );
+      await cli.hSet(`${config.prefix}:blob:456`, '', 'Bim');
 
       const value = await cache.hash('blob', 456).get();
       expect(value).toBe('Bim');
@@ -61,46 +54,52 @@ describe('simple-cache - functional (service): hash get', () => {
       expect(value).toBe('Biim');
     });
 
-    it(
-      'hash get fetches value stored specific namespace, id, key redis key',
-      () => new Promise(rs => {
-        cli.hSet(
-          `${config.prefix}:agenda:123`,
-          'http://lepassageduponceau.fr',
-          '<html>Les lundi</html>',
-        ).then(() => {
-          cache.hash('agenda', 123).get('http://lepassageduponceau.fr').then(value => {
-            expect(value).toBe('<html>Les lundi</html>');
+    it('hash get fetches value stored specific namespace, id, key redis key', () =>
+      new Promise((rs) => {
+        cli
+          .hSet(
+            `${config.prefix}:agenda:123`,
+            'http://lepassageduponceau.fr',
+            '<html>Les lundi</html>',
+          )
+          .then(() => {
+            cache
+              .hash('agenda', 123)
+              .get('http://lepassageduponceau.fr')
+              .then((value) => {
+                expect(value).toBe('<html>Les lundi</html>');
+                rs();
+              });
+          });
+      }));
+
+    it('hash get parses json if json option is set', () =>
+      new Promise((rs) => {
+        cli
+          .hSet(
+            `${config.prefix}:agenda:123`,
+            'tinykingkong',
+            '{"iam": "json"}',
+          )
+          .then(() => {
+            cache
+              .hash('agenda', 123)
+              .get('tinykingkong', { json: true })
+              .then((value) => {
+                expect(value).toEqual({ iam: 'json' });
+                rs();
+              });
+          });
+      }));
+
+    it('hash get returns null if no value was found', () =>
+      new Promise((rs) => {
+        cache('agenda', 456)
+          .get('bloublou')
+          .then((value) => {
+            expect(value).toBeNull();
             rs();
           });
-        });
-      }),
-    );
-
-    it(
-      'hash get parses json if json option is set',
-      () => new Promise(rs => {
-        cli.hSet(
-          `${config.prefix}:agenda:123`,
-          'tinykingkong',
-          '{"iam": "json"}',
-        ).then(() => {
-          cache.hash('agenda', 123).get('tinykingkong', { json: true }).then(value => {
-            expect(value).toEqual({ iam: 'json' });
-            rs();
-          });
-        });
-      }),
-    );
-
-    it(
-      'hash get returns null if no value was found',
-      () => new Promise(rs => {
-        cache('agenda', 456).get('bloublou').then(value => {
-          expect(value).toBeNull();
-          rs();
-        });
-      }),
-    );
+      }));
   });
 });

@@ -13,7 +13,10 @@ const getActingMember = async (services, agenda, options) => {
   if (options.member) return options.member;
   if (options.actingMember) return options.actingMember;
   if (options.userUid) {
-    return services.members.get({ agendaUid: agenda.uid, userUid: options.userUid });
+    return services.members.get({
+      agendaUid: agenda.uid,
+      userUid: options.userUid,
+    });
   }
   return null;
 };
@@ -26,7 +29,8 @@ const getAccess = async (services, actingMember, options) => {
   return options.access ?? 'public';
 };
 
-const getAmindMod = access => ['internal', 'administrator', 'moderator'].includes(access);
+const getAmindMod = (access) =>
+  ['internal', 'administrator', 'moderator'].includes(access);
 
 const isOptionalFields = (agenda, adminMod, memberSchemaId) => {
   if (adminMod) return true;
@@ -37,7 +41,9 @@ const isOptionalFields = (agenda, adminMod, memberSchemaId) => {
 
 export default async (services, agendaOrUid, options = {}) => {
   const { formSchemas } = services;
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  const agenda = _.isObject(agendaOrUid)
+    ? agendaOrUid
+    : await getAgenda(services, agendaOrUid);
   const actingMember = await getActingMember(services, agenda, options);
   const access = await getAccess(services, actingMember, options);
   const adminMod = getAmindMod(access);
@@ -56,25 +62,46 @@ export default async (services, agendaOrUid, options = {}) => {
   const aditionalFields = await formSchemas.get(memberSchemaId);
 
   if (adminMod) {
-    aditionalFields.fields = aditionalFields.fields.map(f => ({ ...f, optional: true }));
+    aditionalFields.fields = aditionalFields.fields.map((f) => ({
+      ...f,
+      optional: true,
+    }));
   }
 
   return {
-    merged: formSchemas.utils.merge(memberSchema({ optionalFields }), aditionalFields, { access: { read: access } }),
-    schema: formSchemas.utils.merge(memberSchema({ optionalFields }), {}, { access: { read: access } }),
+    merged: formSchemas.utils.merge(
+      memberSchema({ optionalFields }),
+      aditionalFields,
+      { access: { read: access } },
+    ),
+    schema: formSchemas.utils.merge(
+      memberSchema({ optionalFields }),
+      {},
+      { access: { read: access } },
+    ),
     agendaSchema: {
       id: aditionalFields.id,
-      ...formSchemas.utils.merge(aditionalFields, {}, { access: { read: access } }),
+      ...formSchemas.utils.merge(
+        aditionalFields,
+        {},
+        { access: { read: access } },
+      ),
     },
   };
 };
 
-export const andParents = async function getMemberSchemaAndParents(services, agendaOrUid, options) {
+export const andParents = async function getMemberSchemaAndParents(
+  services,
+  agendaOrUid,
+  options,
+) {
   // affichage pour la config, only admins
   const { formSchemas } = services;
   const { lang = 'fr' } = options;
   const intl = intlByLocale[lang] || intlByLocale.fr;
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  const agenda = _.isObject(agendaOrUid)
+    ? agendaOrUid
+    : await getAgenda(services, agendaOrUid);
   const { memberSchemaId } = agenda;
 
   const parents = [

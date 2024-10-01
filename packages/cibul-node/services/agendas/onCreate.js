@@ -37,10 +37,12 @@ export default async (services, agenda) => {
   // feed / activity
   if (activities) {
     try {
-      agendaFeed = await activities.feed({
-        entityType: 'agenda',
-        entityUid: agenda.uid,
-      }).create();
+      agendaFeed = await activities
+        .feed({
+          entityType: 'agenda',
+          entityUid: agenda.uid,
+        })
+        .create();
     } catch (e) {
       log('error', 'failed to created agenda feed', e);
     }
@@ -67,31 +69,39 @@ export default async (services, agenda) => {
     log('error', 'failed to set agenda control data', e);
   }
 
-  await members.create({
-    agendaUid: agenda.uid,
-    userUid: user.uid,
-    role: 2,
-  }, { requireCustom: false }).catch(e => {
-    if (e) log('error', 'failed to create member');
-    throw e;
-  });
+  await members
+    .create(
+      {
+        agendaUid: agenda.uid,
+        userUid: user.uid,
+        role: 2,
+      },
+      { requireCustom: false },
+    )
+    .catch((e) => {
+      if (e) log('error', 'failed to create member');
+      throw e;
+    });
 
   if (agendaFeed) {
     try {
-      await activities.addActivity({
-        entityType: 'agenda',
-        entityUid: agenda.uid,
-      }, {
-        actor: `user:${user.uid}`,
-        verb: 'agenda.create',
-        target: `agenda:${agenda.uid}`,
-        store: {
-          labels: {
-            actor: user.fullName,
-            target: agenda.title,
+      await activities.addActivity(
+        {
+          entityType: 'agenda',
+          entityUid: agenda.uid,
+        },
+        {
+          actor: `user:${user.uid}`,
+          verb: 'agenda.create',
+          target: `agenda:${agenda.uid}`,
+          store: {
+            labels: {
+              actor: user.fullName,
+              target: agenda.title,
+            },
           },
         },
-      });
+      );
     } catch (e) {
       log('error', 'failed to create agenda create activity', e);
     }

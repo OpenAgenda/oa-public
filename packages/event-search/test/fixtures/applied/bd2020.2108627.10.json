@@ -70,9 +70,7 @@
         "min": 15,
         "max": 99
       },
-      "registration": [
-        "0235131018"
-      ],
+      "registration": ["0235131018"],
       "location": {
         "uid": 74279882,
         "slug": "mediatheque-lescale818",
@@ -106,9 +104,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -297,9 +293,7 @@
         "min": 5,
         "max": 99
       },
-      "registration": [
-        "0235131018"
-      ],
+      "registration": ["0235131018"],
       "location": {
         "uid": 74279882,
         "slug": "mediatheque-lescale818",
@@ -333,9 +327,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 774,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -447,9 +439,7 @@
         "min": 6,
         "max": 121
       },
-      "registration": [
-        "http://mediatheque.sorgues.fr/"
-      ],
+      "registration": ["http://mediatheque.sorgues.fr/"],
       "location": {
         "uid": 9702013,
         "slug": "mediatheque-jean-tortel103",
@@ -483,9 +473,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -843,19 +831,13 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 741,
       "type-de-public-empeche": null,
-      "particularites": [
-        610
-      ],
-      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
-        732
-      ],
+      "particularites": [610],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [732],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Animation d'un réseau de partenaires du musée sur tout le territoire national et à l'international",
       "type-de-structure": 636,
       "si-autre-precisez": "Toutes ces structures sont susceptibles de diffuser et d'accompagner l'exposition itinérante \"Bande dessinée et immigrations\"",
       "structure-partenaire": "Cité internationale de la BD ; Ligue de l'enseignement centre Val de Loire ; Canopé Auvergne Rhônes Alpes ; Centre du Patrimoine arménien ; Canopé Grand Est ; Festival Interbiby Reims ; Canopé Guyane ; Canopé Hauts de France ; Confédération de la ligue d el'enseignement ; Ligue des droits de l'homme Limousin ; Rahmi ; Ligue d el'enseignement Occitanie ; agence régionale du livre PACA ; Institut français ; Institut français d'Allemagne",
-      "diffusion-sur-le-pass-culture": [
-        1
-      ],
+      "diffusion-sur-le-pass-culture": [1],
       "siret": "130 002 728 00017",
       "prix-pass-culture": 0,
       "url-pass-culture": null,
@@ -992,9 +974,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1104,9 +1084,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "mediatheque@ville-chateau-renault.fr"
-      ],
+      "registration": ["mediatheque@ville-chateau-renault.fr"],
       "location": {
         "uid": 76697482,
         "slug": "mediatheque-de-vauchevrier-37110-chateau-renault",
@@ -1140,9 +1118,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1339,9 +1315,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 92 19 76 00"
-      ],
+      "registration": ["04 92 19 76 00"],
       "location": {
         "uid": 65140044,
         "slug": "mediatheque-colette-de-valbonne-sophia-antipolis150",
@@ -1375,9 +1349,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -1770,9 +1742,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 83 88 10 00"
-      ],
+      "registration": ["04 83 88 10 00"],
       "location": {
         "uid": 45211223,
         "slug": "mediatheque-sonia-delaunay",
@@ -1809,9 +1779,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2076,9 +2044,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 92 19 76 00"
-      ],
+      "registration": ["04 92 19 76 00"],
       "location": {
         "uid": 65140044,
         "slug": "mediatheque-colette-de-valbonne-sophia-antipolis150",
@@ -2112,9 +2078,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
@@ -2339,9 +2303,7 @@
         "min": null,
         "max": null
       },
-      "registration": [
-        "04 92 19 75 80"
-      ],
+      "registration": ["04 92 19 75 80"],
       "location": {
         "uid": 19810335,
         "slug": "mediatheque-albert-camus-dantibes918",
@@ -2375,9 +2337,7 @@
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
-      "particularites": [
-        776
-      ],
+      "particularites": [776],
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,

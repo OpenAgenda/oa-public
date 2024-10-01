@@ -10,5 +10,5 @@ export default {
     name: getAbsolutePath('@storybook/react-webpack5'),
     options: {},
   },
-  staticDirs: ['../stories/static']
+  staticDirs: ['../stories/static'],
 };

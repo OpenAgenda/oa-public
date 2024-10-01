@@ -6,7 +6,8 @@ export default {
         source: 'fr',
         target: ['de', 'en', 'es', 'it'],
         checked: ['en', 'es'],
-      }, {
+      },
+      {
         source: 'en',
         target: ['de', 'fr', 'es', 'it'],
         checked: ['de', 'fr'],
@@ -18,8 +19,10 @@ export default {
       lang: 'fr',
       label: 'eh ouais',
       placeholder: 'gros',
-      markdown: 'Le truc pas évident est de pouvoir manipuler plusieurs éditeurs sur une même page.',
-    }, {
+      markdown:
+        'Le truc pas évident est de pouvoir manipuler plusieurs éditeurs sur une même page.',
+    },
+    {
       lang: 'en',
       label: 'ou non',
       placeholder: 'meh',
@@ -37,7 +40,8 @@ export default {
       {
         id: 1,
         label: 'Musée de France',
-      }, {
+      },
+      {
         id: 4,
         label: 'Edifice religieux',
       },
@@ -52,27 +56,32 @@ export default {
           {
             id: 1,
             label: 'Musée de France',
-          }, {
+          },
+          {
             id: 2,
             label: 'Jardin Remarquable',
           },
         ],
-      }, {
+      },
+      {
         name: 'Types de lieu',
         info: null,
         tags: [
           {
             id: 3,
             label: 'Edifice commémoratif',
-          }, {
+          },
+          {
             id: 4,
             label: 'Edifice religieux',
-          }, {
+          },
+          {
             id: 5,
             label: 'Chateaux, hôtels',
           },
         ],
-      }, {
+      },
+      {
         required: true,
         name: 'Particularité',
         info: null,
@@ -80,7 +89,8 @@ export default {
           {
             id: 6,
             label: 'Première participation',
-          }, {
+          },
+          {
             id: 7,
             label: 'Ouverture exceptionnelle',
           },

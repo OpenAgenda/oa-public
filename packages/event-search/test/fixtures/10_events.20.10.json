@@ -80,9 +80,7 @@
         "en": "A thing in New York"
       },
       "keywords": {
-        "fr": [
-          "lieu"
-        ],
+        "fr": ["lieu"],
         "en": []
       },
       "image": {
@@ -209,15 +207,8 @@
         "fr": "Cet événement ne se déroule pas à Paris"
       },
       "keywords": {
-        "fr": [
-          "prise",
-          "panneau",
-          "lieu"
-        ],
-        "en": [
-          "ouest",
-          "poster"
-        ]
+        "fr": ["prise", "panneau", "lieu"],
+        "en": ["ouest", "poster"]
       },
       "image": {
         "base": "//openagendatst.s3.amazonaws.com/"
@@ -278,9 +269,7 @@
         "fr": "Un événement dans une region"
       },
       "keywords": {
-        "fr": [
-          "lieu"
-        ],
+        "fr": ["lieu"],
         "en": []
       },
       "image": {

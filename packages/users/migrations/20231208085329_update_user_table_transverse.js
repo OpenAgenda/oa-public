@@ -2,7 +2,7 @@
 
 const columnName = 'transverse_api_access';
 
-exports.up = async knex => {
+exports.up = async (knex) => {
   const { schemas } = knex.client.config;
 
   const haveColumn = await knex.schema.hasColumn(schemas.user, columnName);
@@ -11,12 +11,12 @@ exports.up = async knex => {
     return;
   }
 
-  return knex.schema.table(schemas.user, t => {
+  return knex.schema.table(schemas.user, (t) => {
     t.boolean(columnName).defaultTo(0);
   });
 };
 
-exports.down = async knex => {
+exports.down = async (knex) => {
   const { schemas } = knex.client.config;
 
   const haveColumn = await knex.schema.hasColumn(schemas.user, columnName);
@@ -25,7 +25,7 @@ exports.down = async knex => {
     return;
   }
 
-  return knex.schema.table(schemas.user, t => {
+  return knex.schema.table(schemas.user, (t) => {
     t.dropColumn(columnName);
   });
 };

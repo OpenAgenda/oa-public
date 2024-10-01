@@ -1,7 +1,7 @@
 module.exports = {
-  extends: '@openagenda',
+  extends: '../../.eslintrc',
 
-  ignorePatterns: ['dist'],
+  ignorePatterns: ['/dist'],
 
   rules: {
     'import/no-extraneous-dependencies': [

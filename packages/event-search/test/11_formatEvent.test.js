@@ -279,7 +279,7 @@ describe('11 - event-search - unit: formatEvent', () => {
   });
 
   it('timestamp _exclusiveUpdatedAt is unset if updatedAt is less than 1mn appart from createdAt', () => {
-    const newEvent = produce(event, draft => {
+    const newEvent = produce(event, (draft) => {
       draft.createdAt = new Date('2020-05-11T15:25:30+0200');
       draft.updatedAt = new Date('2020-05-11T15:26+0200');
     });
@@ -292,7 +292,7 @@ describe('11 - event-search - unit: formatEvent', () => {
   it('if member contains contactName, it is used as name in member data', () => {
     expect(
       formatEvent(
-        produce(event, draft => {
+        produce(event, (draft) => {
           draft.member = {
             custom: {
               contactName: 'Elf',
@@ -309,7 +309,7 @@ describe('11 - event-search - unit: formatEvent', () => {
   it('if member does not contain contactName, user fullName is used as member name', () => {
     expect(
       formatEvent(
-        produce(event, draft => {
+        produce(event, (draft) => {
           draft.member = {
             custom: {
               contactName: null,
@@ -324,7 +324,7 @@ describe('11 - event-search - unit: formatEvent', () => {
   });
 
   it('fix: registration already with type is handled', () => {
-    const newEvent = produce(event, draft => {
+    const newEvent = produce(event, (draft) => {
       draft.registration = [
         { value: 'an@email.com', type: 'email' },
         { value: 'https://a.link.com', type: 'link' },
@@ -340,7 +340,7 @@ describe('11 - event-search - unit: formatEvent', () => {
   });
 
   it('fix: formatEvent is tolerant of null registration', () => {
-    const newEvent = produce(event, draft => {
+    const newEvent = produce(event, (draft) => {
       draft.registration = [null];
     });
 
@@ -348,7 +348,7 @@ describe('11 - event-search - unit: formatEvent', () => {
   });
 
   it('timestamp _exclusiveUpdatedAt is set if updatedAt is 1mn appart or more from createdAt', () => {
-    const eventWithUpdate = produce(event, draft => {
+    const eventWithUpdate = produce(event, (draft) => {
       draft.createdAt = new Date('2020-05-11T15:25:30+0200');
       draft.updatedAt = new Date('2020-05-11T15:27+0200');
     });

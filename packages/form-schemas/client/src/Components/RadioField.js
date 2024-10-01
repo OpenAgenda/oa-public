@@ -6,25 +6,19 @@ import makeLabelGetter from '@openagenda/labels';
 const getLabel = makeLabelGetter(formSchemaLabels);
 
 export default function RadioField(props) {
-  const {
-    onChange,
-    field,
-    value,
-    lang,
-    enabled,
-  } = props;
+  const { onChange, field, value, lang, enabled } = props;
 
   const optional = field.optional ?? true;
 
   const [hasClicked, setHasClicked] = useState(false);
 
-  const onSelect = option => {
+  const onSelect = (option) => {
     setHasClicked(true);
 
     onChange(option.id);
   };
 
-  const isChecked = option => {
+  const isChecked = (option) => {
     if (!hasClicked && !value && field.default) {
       return option.id === field.default;
     }
@@ -34,28 +28,34 @@ export default function RadioField(props) {
 
   return (
     <>
-      {field.options.filter(o => o.display).concat(optional ? [{
-        label: getLabel('noChoice', lang),
-        id: null,
-      }] : []).map(o => (
-        <div
-          className="radio"
-          key={[field.field, o.value].join('.')}
-        >
-          <label htmlFor={`${field.field}.${o.value}`}>
-            <input
-              id={`${field.field}.${o.value}`}
-              type="radio"
-              name={field.field}
-              onChange={onSelect.bind(null, o)}
-              checked={isChecked(o)}
-              disabled={!enabled}
-            />
-            {o.label}
-            {o.info && <div className="text-muted">{o.info}</div>}
-          </label>
-        </div>
-      ))}
+      {field.options
+        .filter((o) => o.display)
+        .concat(
+          optional
+            ? [
+              {
+                label: getLabel('noChoice', lang),
+                id: null,
+              },
+            ]
+            : [],
+        )
+        .map((o) => (
+          <div className="radio" key={[field.field, o.value].join('.')}>
+            <label htmlFor={`${field.field}.${o.value}`}>
+              <input
+                id={`${field.field}.${o.value}`}
+                type="radio"
+                name={field.field}
+                onChange={onSelect.bind(null, o)}
+                checked={isChecked(o)}
+                disabled={!enabled}
+              />
+              {o.label}
+              {o.info && <div className="text-muted">{o.info}</div>}
+            </label>
+          </div>
+        ))}
     </>
   );
 }

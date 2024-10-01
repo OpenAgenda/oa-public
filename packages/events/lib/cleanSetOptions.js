@@ -32,7 +32,7 @@ module.exports = schema({
   },
   includeFields: {
     type: 'choice',
-    options: fields.map(f => f.field),
+    options: fields.map((f) => f.field),
   },
   transferToLegacy: {
     type: 'boolean',

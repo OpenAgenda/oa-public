@@ -2,12 +2,13 @@ import _ from 'lodash';
 import config from '../../../config/index.js';
 
 function _eventServiceTotal(agendaId) {
-  return config.knex('event_2 as e2')
+  return config
+    .knex('event_2 as e2')
     .count('e2.id as total')
     .leftJoin('event as e', 'e2.uid', 'e.uid')
     .leftJoin('review_article as ra', 'e.id', 'ra.event_id')
     .where('ra.review_id', agendaId)
-    .then(r => r[0].total);
+    .then((r) => r[0].total);
 }
 
 function _toBeCompleted(t) {
@@ -27,8 +28,9 @@ function _r(carry, current) {
   return carry + current.count;
 }
 
-export default async agendaId => {
-  const totals = await config.knex('review_article')
+export default async (agendaId) => {
+  const totals = await config
+    .knex('review_article')
     .select('state', config.knex.raw('count( id ) as count'))
     .groupBy(['state'])
     .where('review_id', agendaId);
@@ -42,6 +44,7 @@ export default async agendaId => {
   };
 
   return _.extend(result, {
-    checksum: result.published + result.ready + result.toBeCompleted === result.total,
+    checksum:
+      result.published + result.ready + result.toBeCompleted === result.total,
   });
 };

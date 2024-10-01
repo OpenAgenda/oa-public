@@ -10,7 +10,7 @@ schema.register({
   boolean,
   integer,
   choice,
-  text
+  text,
 });
 
 const fields = require('./fields');
@@ -18,64 +18,65 @@ const fields = require('./fields');
 const base = {
   includeFields: {
     type: 'choice',
-    options: fields.map(f => f.field),
+    options: fields.map((f) => f.field),
   },
   private: {
     type: 'boolean',
     default: false,
-    allowNull: true
+    allowNull: true,
   },
   access: {
     type: 'text',
-    default: 'public'
+    default: 'public',
   },
   draft: {
     type: 'boolean',
     default: false,
-    allowNull: true
+    allowNull: true,
   },
   deleted: {
     type: 'boolean',
     default: false,
-    allowNull: true
+    allowNull: true,
   },
   detailed: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   html: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   lang: {
     type: 'text',
     optional: true,
     max: 2,
-    min: 2
+    min: 2,
   },
   useFallbackLang: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   useDefaultImage: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   imageAsLink: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   useDateHoursMinutesFormat: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   useLocationObjectFormat: {
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 };
 
-module.exports = (extendWith = {}) => schema({
-  ...base,
-  ...extendWith
-});
+module.exports = (extendWith = {}) =>
+  schema({
+    ...base,
+    ...extendWith,
+  });

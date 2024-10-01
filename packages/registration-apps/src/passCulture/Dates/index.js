@@ -32,7 +32,7 @@ export default function Dates({
         priceCategories={value.priceCategories ?? []}
         timings={timings}
         disabled={newItem || disabled}
-        onToggleEditing={edit => {
+        onToggleEditing={(edit) => {
           setEditing(edit);
           onSubFormToggle(edit);
         }}
@@ -41,7 +41,7 @@ export default function Dates({
       />
       {error
         && error.length > 0
-        && error.map(e => (
+        && error.map((e) => (
           <div key={e.code} className="text-danger">
             {e.label}
           </div>
@@ -50,7 +50,7 @@ export default function Dates({
         <DateForm
           value={newItem}
           priceCategories={value.priceCategories ?? []}
-          onChange={v => {
+          onChange={(v) => {
             setNewItem(v);
             onSubFormToggle(false);
           }}
@@ -76,7 +76,9 @@ export default function Dates({
             setNewItem({});
             onSubFormToggle(true);
           }}
-          disabled={editing || !(value.priceCategories ?? []).length || disabled}
+          disabled={
+            editing || !(value.priceCategories ?? []).length || disabled
+          }
           shape="unpadded-link"
           label="Ajouter une date"
         />

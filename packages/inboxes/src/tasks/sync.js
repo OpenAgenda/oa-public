@@ -1,4 +1,4 @@
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
@@ -40,7 +40,7 @@ export async function syncUser(svc, user, stats = {}) {
       'info',
       'InboxUser %j is added to inbox %j',
       inboxUserIdentifiers,
-      inboxIdentifiers
+      inboxIdentifiers,
     );
   }
 }
@@ -69,15 +69,16 @@ export async function syncAgenda(svc, agenda, stats) {
   let result;
   const members = [];
 
-  const shList = () => membersSvc.list(
-    {
-      agendaUid: agenda.uid,
-      // credentials: [ 'administrator', 'moderator' ],
-      deletedUser: false,
-    },
-    { offset: pos, limit }
-    // { detailed: true }
-  );
+  const shList = () =>
+    membersSvc.list(
+      {
+        agendaUid: agenda.uid,
+        // credentials: [ 'administrator', 'moderator' ],
+        deletedUser: false,
+      },
+      { offset: pos, limit },
+      // { detailed: true }
+    );
 
   while ((result = await shList())) {
     if (!result.length) break;
@@ -122,7 +123,7 @@ export async function syncAgenda(svc, agenda, stats) {
           'info',
           'InboxUser %j is added to inbox %j',
           inboxUserIdentifiers,
-          inboxIdentifiers
+          inboxIdentifiers,
         );
       } else if (isAdminMod && inboxUser.data && inboxUser.data.leftAt) {
         await inbox.users.remove(inboxUserIdentifiers);
@@ -132,7 +133,7 @@ export async function syncAgenda(svc, agenda, stats) {
           'info',
           'InboxUser %j is updated in inbox %j',
           inboxUserIdentifiers,
-          inboxIdentifiers
+          inboxIdentifiers,
         );
       } else if (!isAdminMod && inboxUser.data && !inboxUser.data.leftAt) {
         await inbox.users.remove(inboxUserIdentifiers);
@@ -141,7 +142,7 @@ export async function syncAgenda(svc, agenda, stats) {
           'info',
           'InboxUser %j is removed from inbox %j',
           inboxUserIdentifiers,
-          inboxIdentifiers
+          inboxIdentifiers,
         );
       }
     }
@@ -161,7 +162,7 @@ export async function syncAgenda(svc, agenda, stats) {
   }
 
   for (const inboxUser of inboxUsers) {
-    const member = members.find(v => v.userUid === inboxUser.userUid);
+    const member = members.find((v) => v.userUid === inboxUser.userUid);
     if (!member) {
       const inboxUserIdentifiers = { userUid: inboxUser.userUid };
       await inbox.users.remove(inboxUserIdentifiers);
@@ -170,7 +171,7 @@ export async function syncAgenda(svc, agenda, stats) {
         'info',
         'InboxUser %j is removed from inbox %j',
         inboxUserIdentifiers,
-        inboxIdentifiers
+        inboxIdentifiers,
       );
     }
   }

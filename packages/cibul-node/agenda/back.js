@@ -4,7 +4,9 @@ import qs from 'qs';
 import * as layouts from '../services/lib/layouts/index.js';
 
 const layout = layouts.load('agendaAdmin');
-const statsTemplate = _.template(fs.readFileSync(`${import.meta.dirname}/stats.tpl`, 'utf-8'));
+const statsTemplate = _.template(
+  fs.readFileSync(`${import.meta.dirname}/stats.tpl`, 'utf-8'),
+);
 
 /**
  * redirection admin route
@@ -17,22 +19,27 @@ function agendaAdminRedirect(req, res, next) {
 
   const { agendas } = req.app.services;
 
-  agendas.get({ uid: req.params.agendaUid }, { private: null }, (err, agenda) => {
-    if (err) return next(err);
+  agendas.get(
+    { uid: req.params.agendaUid },
+    { private: null },
+    (err, agenda) => {
+      if (err) return next(err);
 
-    if (!agenda) return next(new Error(`agenda not found ( uid ): ${req.params.agendaUid}`));
+      if (!agenda) {
+        return next(
+          new Error(`agenda not found ( uid ): ${req.params.agendaUid}`),
+        );
+      }
 
-    res.redirect(req.originalUrl.replace(`/agendas/${agenda.uid}`, `/${agenda.slug}`));
-  });
+      res.redirect(
+        req.originalUrl.replace(`/agendas/${agenda.uid}`, `/${agenda.slug}`),
+      );
+    },
+  );
 }
 
-export default app => {
-  const {
-    agendas,
-    members,
-    sessions,
-    agendaStatistics,
-  } = app.services;
+export default (app) => {
+  const { agendas, members, sessions, agendaStatistics } = app.services;
 
   const agendaLoad = agendas.middleware.load({
     private: null,
@@ -49,18 +56,21 @@ export default app => {
   /**
    * stats routes are hit by a ping script and need to be accessible
    */
-  app.use([
-    '/:agendaSlug/admin/stats',
-    '/:agendaSlug/admin/stats/resync/:type',
-  ], [
-    sessions.mw.load(),
-    agendaLoad,
-    agendas.mw.authorizeByIPAddress(),
-    members.mw.authorizeAdminModOrKey(),
-  ]);
+  app.use(
+    ['/:agendaSlug/admin/stats', '/:agendaSlug/admin/stats/resync/:type'],
+    [
+      sessions.mw.load(),
+      agendaLoad,
+      agendas.mw.authorizeByIPAddress(),
+      members.mw.authorizeAdminModOrKey(),
+    ],
+  );
 
   app.get('/:agendaSlug/admin', (req, res) => {
-    res.redirect(301, `/${req.params.agendaSlug}/admin/events${qs.stringify(req.query, { addQueryPrefix: true })}`);
+    res.redirect(
+      301,
+      `/${req.params.agendaSlug}/admin/events${qs.stringify(req.query, { addQueryPrefix: true })}`,
+    );
   });
 
   app.get('/agendas/:agendaUid/admin(/*?)?', agendaAdminRedirect);
@@ -69,32 +79,46 @@ export default app => {
    * statistics route
    */
 
-  app.get(
-    '/:agendaSlug/admin/stats',
-    async (req, res) => res.send(layout(
-      statsTemplate(await agendaStatistics(req.agenda.uid)),
-      { ...req, role: req.member.role },
-    )),
-  );
+  app.get('/:agendaSlug/admin/stats', async (req, res) =>
+    res.send(
+      layout(statsTemplate(await agendaStatistics(req.agenda.uid)), {
+        ...req,
+        role: req.member.role,
+      }),
+    ));
 
   app.get('/:agendaSlug/admin/stats/transfer-form-schema', async (req, res) => {
-    res.json(await req.app.services.core.agendas(req.agenda.uid)
-      .settings.legacy.createFormSchema());
+    res.json(
+      await req.app.services.core
+        .agendas(req.agenda.uid)
+        .settings.legacy.createFormSchema(),
+    );
   });
 
-  app.get('/:agendaSlug/admin/stats/transfer-to-tagset', async (req, res) => res.json(
-    await req.app.services.core.agendas(req.agenda.uid)
-      .settings.legacy.updateTagSet({ lang: req.lang }),
-  ));
+  app.get('/:agendaSlug/admin/stats/transfer-to-tagset', async (req, res) =>
+    res.json(
+      await req.app.services.core
+        .agendas(req.agenda.uid)
+        .settings.legacy.updateTagSet({ lang: req.lang }),
+    ));
 
-  app.get('/:agendaSlug/admin/stats/transfer-to-categoryset', async (req, res) => {
-    res.json(await req.app.services.core.agendas(req.agenda.uid)
-      .settings.legacy.updateCategorySet({ lang: req.lang }));
-  });
+  app.get(
+    '/:agendaSlug/admin/stats/transfer-to-categoryset',
+    async (req, res) => {
+      res.json(
+        await req.app.services.core
+          .agendas(req.agenda.uid)
+          .settings.legacy.updateCategorySet({ lang: req.lang }),
+      );
+    },
+  );
 
   app.get('/:agendaSlug/admin/stats/transfer-to-custom', async (req, res) => {
-    res.json(await req.app.services.core.agendas(req.agenda.uid)
-      .settings.legacy.updateCustom(req.query.force));
+    res.json(
+      await req.app.services.core
+        .agendas(req.agenda.uid)
+        .settings.legacy.updateCustom(req.query.force),
+    );
   });
 
   /**

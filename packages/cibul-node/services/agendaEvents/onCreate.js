@@ -15,16 +15,23 @@ export default async ({ config, services }, ae, context) => {
   const {
     activities: activitiesSvc,
     custom,
-    legacy: {
-      controlData: controlDataSvc,
-    },
+    legacy: { controlData: controlDataSvc },
   } = services;
 
   services.tracker('agendaEvents.onCreate');
-  log('created agenda-event %j', ae, _.pick(context, ['legacy', 'aggregated', 'batched']));
+  log(
+    'created agenda-event %j',
+    ae,
+    _.pick(context, ['legacy', 'aggregated', 'batched']),
+  );
 
   // use context.userUid. will be null when nothing was specified at create
-  const fallbackContext = await fallbackContextGet({ services }, 'onCreate', ae, context);
+  const fallbackContext = await fallbackContextGet(
+    { services },
+    'onCreate',
+    ae,
+    context,
+  );
 
   const event = context.event || fallbackContext.event;
   const agenda = context.agenda || fallbackContext.agenda;
@@ -40,14 +47,20 @@ export default async ({ config, services }, ae, context) => {
     if (ae.agendaUid === event.agendaUid) {
       // Creation
       try {
-        await sendEventCreation({ config, services }, { agendaEvent: ae, context });
+        await sendEventCreation(
+          { config, services },
+          { agendaEvent: ae, context },
+        );
       } catch (error) {
         log.error(new VError(error, 'Cannot send event creation emails'));
       }
     } else {
       // Adding
       try {
-        await sendEventAddition({ config, services }, { agendaEvent: ae, context, user });
+        await sendEventAddition(
+          { config, services },
+          { agendaEvent: ae, context, user },
+        );
       } catch (error) {
         log.error(new VError(error, 'Cannot send event addition emails'));
       }
@@ -56,7 +69,10 @@ export default async ({ config, services }, ae, context) => {
 
   if (context.aggregated && !context.batched) {
     try {
-      await sendEventAggregation({ config, services }, { agendaEvent: ae, context });
+      await sendEventAggregation(
+        { config, services },
+        { agendaEvent: ae, context },
+      );
     } catch (error) {
       log.error(new VError(error, 'Cannot send event aggregation emails'));
     }
@@ -65,9 +81,18 @@ export default async ({ config, services }, ae, context) => {
   if (context.legacy && context.aggregated && agenda.formSchemaId) {
     // this happens after legacy reference was added
     try {
-      await custom(agenda.formSchemaId).transferFromLegacy(event.uid, _.get(agenda, 'id'));
+      await custom(agenda.formSchemaId).transferFromLegacy(
+        event.uid,
+        _.get(agenda, 'id'),
+      );
     } catch (e) {
-      log('error', 'could not transfer custom data from legacy (%s.%s)', ae.agendaUid, ae.eventUid, e);
+      log(
+        'error',
+        'could not transfer custom data from legacy (%s.%s)',
+        ae.agendaUid,
+        ae.eventUid,
+        e,
+      );
     }
   }
 
@@ -103,16 +128,20 @@ export default async ({ config, services }, ae, context) => {
     }
 
     try {
-      await activitiesSvc.feed({
-        entityType: 'agenda',
-        entityUid: agenda.uid,
-      }).follow(eventFeed);
+      await activitiesSvc
+        .feed({
+          entityType: 'agenda',
+          entityUid: agenda.uid,
+        })
+        .follow(eventFeed);
 
       if (user) {
-        await activitiesSvc.feed({
-          entityType: 'user',
-          entityUid: user.uid,
-        }).follow(eventFeed);
+        await activitiesSvc
+          .feed({
+            entityType: 'user',
+            entityUid: user.uid,
+          })
+          .follow(eventFeed);
       }
     } catch (err) {
       if (err.message !== 'Feed already followed') {
@@ -121,14 +150,24 @@ export default async ({ config, services }, ae, context) => {
     }
 
     if (context.aggregated) {
-      await addEventAggregationActivity(services, eventFeed, { agenda, event, ae }, context);
+      await addEventAggregationActivity(
+        services,
+        eventFeed,
+        { agenda, event, ae },
+        context,
+      );
     } else if (ae.agendaUid === event.agendaUid) {
-      await addEventCreationActivity(services, eventFeed, {
-        agenda,
-        event,
-        ae,
-        user,
-      }, context);
+      await addEventCreationActivity(
+        services,
+        eventFeed,
+        {
+          agenda,
+          event,
+          ae,
+          user,
+        },
+        context,
+      );
     } else {
       await addEventAdditionActivity(
         services,

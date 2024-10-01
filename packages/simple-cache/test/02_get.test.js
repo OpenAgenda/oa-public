@@ -34,11 +34,8 @@ describe('simple-cache - functional (service): get', () => {
     });
   });
 
-  beforeEach(async () => cli.del(
-    await cli
-      .keys(`${config.prefix}*`)
-      .then(k => k.join(' ')),
-  ));
+  beforeEach(async () =>
+    cli.del(await cli.keys(`${config.prefix}*`).then((k) => k.join(' '))));
 
   afterAll(() => cli.quit());
 
@@ -57,54 +54,51 @@ describe('simple-cache - functional (service): get', () => {
       expect(value).toBe('Biim');
     });
 
-    it(
-      'get fetches value stored specific namespace, id, key redis key',
-      async () => {
-        await cli.set(
-          `${config.prefix}:agenda:123:http://lepassageduponceau.fr`,
-          '<html>Les lundi</html>',
-        );
+    it('get fetches value stored specific namespace, id, key redis key', async () => {
+      await cli.set(
+        `${config.prefix}:agenda:123:http://lepassageduponceau.fr`,
+        '<html>Les lundi</html>',
+      );
 
-        const value = await cache('agenda', 123).get('http://lepassageduponceau.fr');
+      const value = await cache('agenda', 123).get(
+        'http://lepassageduponceau.fr',
+      );
 
-        expect(value).toBe('<html>Les lundi</html>');
-      },
-    );
+      expect(value).toBe('<html>Les lundi</html>');
+    });
 
-    it(
-      'get returns null if no value was found',
-      async () => {
-        const value = await cache('agenda', 456).get('bloublou');
-        expect(value).toBeNull();
-      },
-    );
+    it('get returns null if no value was found', async () => {
+      const value = await cache('agenda', 456).get('bloublou');
+      expect(value).toBeNull();
+    });
   });
 
   describe('callback', () => {
-    it(
-      'get fetches value stored specific namespace, id, key redis key',
-      () => new Promise(rs => {
-        cli.set(
-          `${config.prefix}:agenda:123:http://lepassageduponceau.fr`,
-          '<html>Les lundi</html>',
-        ).then(() => {
-          cache('agenda', 123).get('http://lepassageduponceau.fr', (_err2, value) => {
-            expect(value).toBe('<html>Les lundi</html>');
-            rs();
+    it('get fetches value stored specific namespace, id, key redis key', () =>
+      new Promise((rs) => {
+        cli
+          .set(
+            `${config.prefix}:agenda:123:http://lepassageduponceau.fr`,
+            '<html>Les lundi</html>',
+          )
+          .then(() => {
+            cache('agenda', 123).get(
+              'http://lepassageduponceau.fr',
+              (_err2, value) => {
+                expect(value).toBe('<html>Les lundi</html>');
+                rs();
+              },
+            );
           });
-        });
-      }),
-    );
+      }));
 
-    it(
-      'get returns null if no value was found',
-      () => new Promise(rs => {
+    it('get returns null if no value was found', () =>
+      new Promise((rs) => {
         cache('agenda', 456).get('bloublou', (err, value) => {
           expect(err).toBeNull();
           expect(value).toBeNull();
           rs();
         });
-      }),
-    );
+      }));
   });
 });

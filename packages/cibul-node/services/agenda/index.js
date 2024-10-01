@@ -17,7 +17,12 @@ function get(queryParams, options, cb) {
   let { get: getAgenda } = model.agendas();
 
   if (opts.cache) {
-    getAgenda = cache.func('agendas', 'get', getAgenda, config.agendaCacheExpire);
+    getAgenda = cache.func(
+      'agendas',
+      'get',
+      getAgenda,
+      config.agendaCacheExpire,
+    );
   }
 
   getAgenda(queryParams, (err, result) => {
@@ -33,7 +38,9 @@ function get(queryParams, options, cb) {
 
 const service = {
   list: model.agendas().list,
-  search: () => { throw new Error('legacy search is no longer available'); },
+  search: () => {
+    throw new Error('legacy search is no longer available');
+  },
   get,
   instanciate,
   exports,
@@ -41,8 +48,4 @@ const service = {
 
 export const mw = middleware(service);
 
-export {
-  instanciate,
-  get,
-  exports,
-};
+export { instanciate, get, exports };
