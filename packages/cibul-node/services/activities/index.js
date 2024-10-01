@@ -6,7 +6,7 @@ import addActivity from './addActivity.js';
 import RebuildTasks from './tasks/rebuild.js';
 import plugApp from './plugApp.js';
 
-export default async function init(config, services) {
+export async function init(config, services) {
   const { bull } = services;
 
   const prepareSummary = createPrepareSummaryQueue(services);

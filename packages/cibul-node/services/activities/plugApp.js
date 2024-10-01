@@ -1,36 +1,7 @@
 import logs from '@openagenda/logs';
-import mw from '@openagenda/activity-apps/dist/middleware.js';
+import listMiddleware from './list.middleware.js';
 
 const log = logs('services/activites/plugApp');
-
-/* function list(activitiesSvc, options, preQuery = {}) {
-  return (req, res) => {
-    const query = { ...preQuery, ...req.query };
-    const listQuery = _.pick(query, ['actor', 'verb', 'object', 'target']);
-    const { limit } = config;
-
-    const { datetimeRange, fromId } = query;
-
-    if (datetimeRange) {
-      const [afterAt, beforeAt] = datetimeRange.split('|');
-      query.createdAt = {
-        $lte: new Date(beforeAt),
-        $gte: new Date(afterAt),
-      };
-    }
-
-    const svc = options ? activitiesSvc.feed(options) : activitiesSvc;
-
-    svc.activities
-      .list(listQuery, fromId || 0, limit)
-      .then((activities) => {
-        res.send({ activities });
-      })
-      .catch((err) => {
-        res.status(400).send(err);
-      });
-  };
-} */
 
 function notificationsCount(activitiesSvc, req, res) {
   activitiesSvc
@@ -89,7 +60,7 @@ function notificationsList(activitiesSvc, req, res) {
     });
 }
 
-/* function notificationsMarkRead(activitiesSvc, req, res) {
+function notificationsMarkRead(activitiesSvc, req, res) {
   activitiesSvc
     .feed({
       entityType: 'user',
@@ -104,7 +75,7 @@ function notificationsList(activitiesSvc, req, res) {
     .catch((err) => {
       res.status(400).json({ error: err });
     });
-} */
+}
 
 async function notificationsMarkAllRead(activitiesSvc, req, res) {
   let rowsCount = 0;
@@ -170,7 +141,10 @@ export default function plugApp(app) {
   ];
 
   app.get('/:slug/admin/activities/list', preMw, (req, res) =>
-    mw.list({ entityType: 'agenda', entityUid: req.agenda.uid })(req, res));
+    listMiddleware({ entityType: 'agenda', entityUid: req.agenda.uid })(
+      req,
+      res,
+    ));
 
   app.get(
     '/notifications/count',
@@ -190,7 +164,7 @@ export default function plugApp(app) {
   app.get(
     '/notifications/mark-read/:notifId',
     preMw,
-    mw.notifications.markRead,
+    notificationsMarkRead.bind(null, activities),
   );
   app.get(
     '/notifications/mark-all-read',
@@ -198,14 +172,3 @@ export default function plugApp(app) {
     notificationsMarkAllRead.bind(null, activities),
   );
 }
-
-/* module.exports = {
-  list,
-  notifications: {
-    count: notificationsCount,
-    list: notificationsList,
-    markRead: notificationsMarkRead,
-    markAllRead: notificationsMarkAllRead,
-    remove: notificationsRemove,
-  },
-}; */

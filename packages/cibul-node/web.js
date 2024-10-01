@@ -15,7 +15,6 @@ import resetFront from './auth/reset.front.js';
 import settingsBack from './agenda/settings.back.js';
 import members from './services/members/index.js';
 import webapp from './webapp/index.js';
-import activities from './services/activities/index.js';
 import sentry from './services/sentry.js';
 import sharesFront from './agenda/shares.front.js';
 import agendaFront from './agenda/front.js';
@@ -81,7 +80,6 @@ export default (app) => {
   app.services.activities.plugApp(app);
   webapp(app);
   app.services.agendas.plugApp(app);
-  activities(app);
   sentry(app);
   sharesFront(app);
   app.services.agendaSearch.plugApp(app, '/agendas');

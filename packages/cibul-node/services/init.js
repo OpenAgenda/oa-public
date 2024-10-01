@@ -41,29 +41,35 @@ function isServiceDisabled(options, name) {
 
 function createInitier(config, options) {
   const services = {};
-  return Object.assign(async (name, serviceImporter) => {
-    if (options.enabled && !isServiceEnabled(options, name)) {
-      return;
-    }
-    if (options.disabled && isServiceDisabled(options, name)) {
-      return;
-    }
+  return Object.assign(
+    async (name, serviceImporter) => {
+      if (options.enabled && !isServiceEnabled(options, name)) {
+        return;
+      }
+      if (options.disabled && isServiceDisabled(options, name)) {
+        return;
+      }
 
-    const service = await serviceImporter();
+      const service = await serviceImporter();
 
-    if (typeof service.init !== 'function') {
-      log('warn', '%s: missing init', name);
-      return;
-    }
+      if (typeof service.init !== 'function') {
+        log('warn', '%s: missing init', name);
+        return;
+      }
 
-    try {
-      const svc = await service.init(config, services);
-      if (svc) services[name] = svc;
-      log('info', name);
-    } catch (err) {
-      throw new VError(err, `service '${name}' initialization did not go well`);
-    }
-  }, { services });
+      try {
+        const svc = await service.init(config, services);
+        if (svc) services[name] = svc;
+        log('info', name);
+      } catch (err) {
+        throw new VError(
+          err,
+          `service '${name}' initialization did not go well`,
+        );
+      }
+    },
+    { services },
+  );
 }
 
 function applyShutdown(services) {
@@ -104,7 +110,6 @@ export default async function initServices(config = null, options = {}) {
   await init('users', () => import('./users/index.js'));
   await init('accessTokens', () => import('./accessTokens/index.js'));
   await init('activities', () => import('./activities/index.js')); // required directly
-  await init('activityApps', () => import('./activityApps.js'));
   await init('members', () => import('./members/index.js')); // required directly
   await init('agendaContribute', () => import('./agendaContribute/index.js'));
   await init('agendaDocx', () => import('./agendaDocx.js'));
