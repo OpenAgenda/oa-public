@@ -103,7 +103,7 @@ export function formatAdditionalFieldData({
       label,
       fieldType: field.fieldType,
       isOptioned: !!field.options,
-      value: formattedValue.length > 0 ? formattedValue[0] : null,
+      value: formattedValue.length > 0 ? formattedValue : null,
       isRestricted: !!field.read,
       raw: value,
     };
