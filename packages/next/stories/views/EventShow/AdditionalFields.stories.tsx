@@ -65,7 +65,7 @@ export const OptionedField = () => {
           ],
         },
         event: {
-          'categories-metropolitaines': 17,
+          'categories-metropolitaines': [17, 16],
         },
         locale: 'fr',
         defaultLocale: 'fr',
@@ -160,6 +160,7 @@ export const EventsField = {
         http.get(`/api/agendas/${agendaFixtures.uid}/events`, ({ request }) => {
           const url = new URL(request.url);
           const { uid } = qs.parse(url.search.replace('?', ''));
+
           const selection = eventsFixtures.events.filter((event) =>
             [].concat(uid).includes(`${event.uid}`));
 

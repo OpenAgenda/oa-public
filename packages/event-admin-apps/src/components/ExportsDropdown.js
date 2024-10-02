@@ -49,6 +49,15 @@ export default function ExportsDropdown({
             {intl.formatMessage(exportsMessages.toSpreadsheet)}
           </button>
         </li>
+        <li key="exports-pdf">
+          <a
+            download="events.v2.pdf"
+            href={`/agendas/${agenda.uid}/admin/events.v2.pdf${queryString}`}
+            className="btn btn-link padding-v-xs btn-block"
+          >
+            {intl.formatMessage(exportsMessages.toPDF)}
+          </a>
+        </li>
         <li key="exports-ics">
           <a
             download="events.v2.ics"
