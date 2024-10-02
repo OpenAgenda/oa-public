@@ -57,6 +57,7 @@ export default function EventShare({ agenda, history }) {
   const { eventIsLoading, event, eventContext } = useEvent(
     fromAgendaUid,
     eventUid,
+    { omitState: true },
   );
 
   const { eventIsLoading: eventInTargetIsLoading, event: eventInTarget } = useEvent(agenda.uid, eventUid);

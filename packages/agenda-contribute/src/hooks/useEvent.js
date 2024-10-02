@@ -1,11 +1,14 @@
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
+import { omit } from 'lodash';
 
 import useEventContext from './useEventContext';
 
 const validateStatus = (status) => (status >= 200 && status < 300) || 404;
 
-export default function useEvent(agendaUid, eventUid) {
+export default function useEvent(agendaUid, eventUid, options = {}) {
+  const { omitState = false } = options;
+
   const res = useSelector(
     (state) =>
       state.settings.apiRoot
@@ -50,7 +53,7 @@ export default function useEvent(agendaUid, eventUid) {
 
   return {
     eventIsLoading: false,
-    event,
+    event: omitState ? omit(event, ['state']) : event,
     eventContext,
   };
 }
