@@ -209,6 +209,8 @@ async function hashReset(svc, namespace, identifier, expire, cb) {
 
   const hash = getHashKey(prefix, namespace, identifier);
 
+  log('resetting on hash %s', hash);
+
   try {
     await client.del(hash);
     await client.hSet(hash, '', '');
