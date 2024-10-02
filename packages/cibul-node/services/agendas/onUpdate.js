@@ -8,7 +8,7 @@ export default async (services, before, after, context) => {
 
   // settings.{tracking,lab,inbox,contribution,translation}
 
-  await resetCache(services, after);
+  await resetCache(services, after, { before });
 
   if (!activities) {
     return;
