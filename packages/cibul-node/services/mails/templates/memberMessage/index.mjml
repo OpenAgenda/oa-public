@@ -12,10 +12,7 @@
     <mj-content>
       <mj-column>
         <mj-text>
-          <h1 class="title">
-            <%= typeof subject !== 'undefined' ? subject : __('title', { agenda
-            }) %>
-          </h1>
+          <h1 class="title"><%= typeof subject !== 'undefined' ? subject : __('title', { agenda }) %></h1>
         </mj-text>
 
         <mj-markdown><%- message %></mj-markdown>

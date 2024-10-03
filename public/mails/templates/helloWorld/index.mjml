@@ -2,15 +2,11 @@
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text> Hello <%= username %> ! </mj-text>
+        <mj-text>
+          Hello <%= username %> !
+        </mj-text>
 
-        <mj-button
-          font-family="Helvetica"
-          background-color="#2494c7"
-          color="white"
-          border-radius="5px"
-          href="<%= domain %>"
-        >
+        <mj-button font-family="Helvetica" background-color="#2494c7" color="white" border-radius="5px" href="<%= domain %>">
           Go to OpenAgenda
         </mj-button>
       </mj-column>
