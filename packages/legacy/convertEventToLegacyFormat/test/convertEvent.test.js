@@ -116,6 +116,10 @@ describe('Convert specific fields', () => {
     expect(convertRegistration(bordeauxEventV2.registration)).toStrictEqual({ registration: bordeauxEventV1.registration, registrationUrl: bordeauxEventV1.registrationUrl });
   });
 
+  test('Convert inexistant registration', () => {
+    expect(convertRegistration()).toStrictEqual({ registration: [], registrationUrl: null });
+  });
+
   test('Convert keywords', () => {
     expect(convertKeywords(bordeauxEventV2.keywords)).toStrictEqual(bordeauxEventV1.keywords);
   });
