@@ -638,15 +638,6 @@ function EventShow({ preload }: EventShowProps) {
       ) : null}
 
       <LdJson />
-
-      {/* <div>
-        <h1>Une autre page NextJs</h1>
-        <h2>L&apos;événement: {flatten(event.title)}</h2>
-        <h3>L&apos;agenda: {agenda.title}</h3>
-        <pre>
-          {JSON.stringify(event, null, 2)}
-        </pre>
-      </div> */}
     </>
   );
 }
