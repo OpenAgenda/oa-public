@@ -2,7 +2,9 @@
   <mj-body>
     <mj-section>
       <mj-column>
-        <mj-text> <%= __('hello', { username }) %> </mj-text>
+        <mj-text>
+          <%= __('hello', { username }) %>
+        </mj-text>
 
         <mj-button
           font-family="Helvetica"
