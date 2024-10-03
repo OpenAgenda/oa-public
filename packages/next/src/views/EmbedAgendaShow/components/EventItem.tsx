@@ -64,14 +64,8 @@ export default function EventItem({
   const nc = useMemo(
     () => ({
       ...query,
-      state: [2],
       sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
       passed: undefined,
-      ...upcomingOnly
-        ? {
-          relative: ['current', 'upcoming'],
-        }
-        : null,
       from,
       first: first || undefined,
       last: last || undefined,
