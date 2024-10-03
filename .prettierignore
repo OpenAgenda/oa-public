@@ -1,6 +1,9 @@
 **/.turbo
 .yarn
 
+# exts
+**/*.mjml
+
 # packages
 bs-templates
 polyfills
