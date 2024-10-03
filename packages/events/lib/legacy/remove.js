@@ -17,14 +17,6 @@ module.exports = async (client, event) => {
   await client('occurrence').delete().where('event_id', legacyEventId);
   await client('event_translation').delete().where('id', legacyEventId);
 
-  await client('deleted').insert({
-    uid: event.uid,
-    type: 'event',
-    deleted_at: new Date(),
-    store: JSON.stringify(event),
-    deleted_id: legacyEventId,
-  });
-
   return {
     operation: 'remove',
   };
