@@ -2,6 +2,9 @@
 .yarn
 public/.yarn
 
+# exts
+**/*.mjml
+
 # packages
 packages/admin-agendas
 packages/cibul-templates
