@@ -62,6 +62,8 @@ export default function onRemove({ services, members, activityQueue }) {
       // removed user
       const memberUser = await usersSvc.findOne({
         query: { uid: member.userUid },
+        removed: null,
+        detailed: true,
       });
 
       if (!memberUser) {
