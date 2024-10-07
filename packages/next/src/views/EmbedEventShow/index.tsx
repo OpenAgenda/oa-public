@@ -69,9 +69,10 @@ const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
 export type EmbedEventShowProps = {
   preload?: string[];
+  referrer?: string;
 };
 
-function EmbedEventShow({ preload }: EmbedEventShowProps) {
+function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
   const intl = useIntl();
   const dateFnsLocale = useDateFnsLocale();
 
@@ -80,7 +81,7 @@ function EmbedEventShow({ preload }: EmbedEventShowProps) {
 
   const query = useLocationQuery() as any;
 
-  const { initPath } = useEmbedLayoutData();
+  const { initPath, baseUrl, prefilter } = useEmbedLayoutData();
 
   const isViewedInAgendaContext = useMemo(
     () => embedAgendaUrlRegex.test(initPath),
@@ -160,6 +161,17 @@ function EmbedEventShow({ preload }: EmbedEventShowProps) {
                   href={`/embed/agendas/${agenda.uid}${qs.stringify(
                     {
                       ...eventNc,
+                      initPath: `/embed/agendas/${agenda.uid}${qs.stringify(
+                        {
+                          ...prefilter,
+                          baseUrl,
+                        },
+                        { addQueryPrefix: true },
+                      )}`,
+                      host:
+                        (typeof document !== 'undefined'
+                          ? document.referrer
+                          : referrer) || undefined,
                       from: undefined,
                       first: undefined,
                       last: undefined,

@@ -79,7 +79,14 @@ export default function TotalPart({
     agenda,
     filters,
     query,
-    prefilter,
+    prefilter: {
+      ...prefilter,
+      baseUrl: undefined,
+      filters: undefined,
+      initPath: undefined,
+      cms: 'embed',
+      host: referrer,
+    },
   });
   const {
     data: pages,
@@ -94,6 +101,7 @@ export default function TotalPart({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
       host: typeof document !== 'undefined' ? document.referrer : referrer,
+      baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
     },

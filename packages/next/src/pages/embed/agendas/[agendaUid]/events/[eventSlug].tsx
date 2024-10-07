@@ -50,6 +50,8 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   });
 
+  const referrer = req.headers.referer || null;
+
   try {
     const results = await Promise.allSettled([
       EmbedEventShow.fetchLocale(locale),
@@ -75,6 +77,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       fallback: {
         [`/${eventUrl}`]: eventResponse,
       },
+      referrer,
     };
 
     return { props };

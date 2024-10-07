@@ -131,11 +131,11 @@ export const getServerSideProps: GetServerSideProps = async ({
       ({ fieldSchema }) => fieldSchema.field,
     );
 
-    const initQuery = query.initPath
+    const prefilter = query.initPath
       ? parseLocationQuery(query.initPath as string)
       : query;
 
-    const requiredFilters = (initQuery.filters as string)?.split(',') ?? [];
+    const requiredFilters = (prefilter.filters as string)?.split(',') ?? [];
 
     const filtersToInclude = ['search', 'geo', 'timings', ...additionalFilters]
       .filter((filter) => requiredFilters.includes(filter))
@@ -155,28 +155,32 @@ export const getServerSideProps: GetServerSideProps = async ({
       include: filtersToInclude,
     });
 
-    const timingsPrefilter = !query.timings && query.passed !== '1'
+    const prefilteredQuery = getPrefilteredQuery({
+      query,
+      prefilter,
+      filters,
+    });
+    const timingsPrefilter = !prefilteredQuery.timings && prefilteredQuery.passed !== '1'
       ? {
         relative: ['current', 'upcoming'],
       }
       : null;
 
-    const prefilteredQuery = getPrefilteredQuery({
-      query,
-      prefilter: initQuery,
-      filters,
-    });
+    const referrer = (query.host as string) || req.headers.referer || null;
 
     const paramsBase = {
       aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, true),
       size: 0,
       ...timingsPrefilter,
-      ...initQuery,
+      ...prefilter,
+      cms: 'embed',
+      host: referrer,
       passed: undefined, // omit passed
+      baseUrl: undefined,
+      filters: undefined,
+      initPath: undefined,
     };
-
-    const referrer = req.headers.referer || null;
 
     const params = {
       aggsSizeLimit: 1500,
@@ -191,6 +195,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       passed: undefined, // omit passed
       includeFields,
       includeImageTimestamps: true,
+      baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
     };

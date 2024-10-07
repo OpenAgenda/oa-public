@@ -1,4 +1,8 @@
 export default function getPrefilteredQuery({ prefilter, query, filters }) {
+  if (!prefilter) {
+    return query;
+  }
+
   return Object.entries(query).reduce(
     (result, [key, value]: [string, any]) => {
       const filter = filters.find((v) => v.name === key);

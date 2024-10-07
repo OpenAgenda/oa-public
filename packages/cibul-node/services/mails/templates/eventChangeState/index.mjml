@@ -1,22 +1,8 @@
 <mjml>
   <mj-head>
-    <mj-title>
-      <%= __('title', {
-        agenda,
-        event,
-        beforeState: __(beforeState),
-        afterState: __(afterState),
-        b: chunks => chunks,
-      }) %>
-    </mj-title>
+    <mj-title><%= __('title', { agenda, event, beforeState: __(beforeState), afterState: __(afterState), b: chunks => chunks }) %></mj-title>
     <mj-prev>
-      <%= __('title', {
-        agenda,
-        event,
-        beforeState: __(beforeState),
-        afterState: __(afterState),
-        b: chunks => chunks,
-      }) %>
+      <%= __('title', { agenda, event, beforeState: __(beforeState), afterState: __(afterState), b: chunks => chunks }) %>
     </mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
@@ -35,7 +21,8 @@
               beforeState: __(beforeState),
               afterState: __(afterState),
               b: chunks => `<b>${chunks}</b>`
-            }) %>
+            })
+            %>
           </h2>
         </mj-text>
 
