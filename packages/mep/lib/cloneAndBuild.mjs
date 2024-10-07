@@ -14,6 +14,7 @@ export default async function cloneAndBuild({ dir, envVars, nodes }) {
     NEXT_PUBLIC_ASSET_PREFIX: nextPublicAssetPrefix,
     NEXT_PUBLIC_MAP_TILES: nextPublicMapTiles,
     SENTRY_AUTH_TOKEN: sentryAuthToken,
+    NEXT_PUBLIC_IMAGE_PREFIX: nextPublicImagePrefix,
   } = envVars;
 
   const { CDN: pushToCDN = false } = process.env;
@@ -27,7 +28,11 @@ export default async function cloneAndBuild({ dir, envVars, nodes }) {
     `SENTRY_AUTH_TOKEN=${sentryAuthToken}`,
   ];
 
-  if (nodeEnv === 'production') {
+  if (nextPublicImagePrefix) {
+    nextEnvVars.push(`NEXT_PUBLIC_IMAGE_PREFIX=${nextPublicImagePrefix}`);
+  }
+
+  if (nextPublicAssetPrefix) {
     nextEnvVars.push(`NEXT_PUBLIC_ASSET_PREFIX=${nextPublicAssetPrefix}`);
   }
 
