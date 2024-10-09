@@ -431,7 +431,10 @@ export function AccessibilitySection({
 }
 
 export function LocationSection({ event, icon = faLocationDot }) {
-  if (!event.location?.latitude || !event.location?.longitude) {
+  if (
+    event.location?.latitude === undefined
+    || event.location?.longitude === undefined
+  ) {
     return null;
   }
   return (
