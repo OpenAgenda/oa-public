@@ -1,18 +1,17 @@
-import React, { useState, useCallback } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
-import { Spinner, Modal } from '@openagenda/react-shared';
+import { Modal } from '@openagenda/react-shared';
 
 import MenuOption from './MenuOption';
 
 const messages = defineMessages({
   title: {
     id: 'LegacyEmbed.Presentation.title',
-    defaultMessage: 'Integrate the agenda in your website'
+    defaultMessage: 'Integrate the agenda in your website',
   },
   create: {
     id: 'LegacyEmbed.Presentation.create',
-    defaultMessage: 'Create an embed for this agenda'
+    defaultMessage: 'Create an embed for this agenda',
   },
   presentation: {
     id: 'LegacyEmbed.Presentation.presentation',
@@ -20,7 +19,7 @@ const messages = defineMessages({
   },
   pluginsTitle: {
     id: 'LegacyEmbed.Presentation.pluginsTitle',
-    defaultMessage: 'Plugins'
+    defaultMessage: 'Plugins',
   },
   pluginsSummary: {
     id: 'LegacyEmbed.Presentation.pluginsSummary',
@@ -89,114 +88,79 @@ const messages = defineMessages({
   moreInfo: {
     id: 'LegacyEmbed.Presentation.moreInfo',
     defaultMessage: 'Find out more',
-  }
+  },
 });
 
-export default function Presentation({
-  res,
-  onCreate
-}) {
+export default function Presentation() {
   const [activeOption, setActiveOption] = useState(false);
   const m = useIntl().formatMessage;
 
-  const [creating, setCreating] = useState(false);
-
-  const create = useCallback(() => {
-    setCreating(true);
-    axios.post(res).then(({ data }) => {
-      onCreate(data);
-    });
-  }, [onCreate, res]);
-
   return (
-    <>
-      {creating ? <Spinner /> : null}
-      <div className="row">
-        <div className="col-md-12">
-          <h2>{m(messages.title)}</h2>
-          <p className="margin-v-md">{m(messages.presentation)}</p>
-          <MenuOption
-            head={m(messages.pluginsTitle)}
-            value="plugins"
-            summary={m(messages.pluginsSummary)}
-            selection={activeOption}
-            onSelect={setActiveOption}
-          />
-          <MenuOption
-            head={m(messages.portalTitle)}
-            summary={m(messages.portalSummary)}
-            value="portal"
-            selection={activeOption}
-            onSelect={setActiveOption}
-          />
-          <MenuOption
-            head={m(messages.standardEmbedTitle)}
-            summary={m(messages.standardEmbedSummary)}
-            value="standard-embed"
-            selection={activeOption}
-            onSelect={setActiveOption}
-          />
-          <MenuOption
-            head={m(messages.legacyEmbedTitle)}
-            summary={m(messages.legacyEmbedSummary)}
-            value="legacy-embed"
-            selection={activeOption}
-            onSelect={setActiveOption}
-          />
-        </div>
-
-        {activeOption === 'plugins' ? (
-          <Modal
-            title={m(messages.pluginsTitle)}
-            onClose={() => setActiveOption(false)}
-          >
-            <p>{m(messages.pluginsPresentation)}</p>
-            <div className="text-center margin-v-md">
-              <a className="btn btn-primary" target="_blank" href="https://developers.openagenda.com/tag/60-plugins/">{m(messages.pluginsAction)}</a>
-            </div>
-          </Modal>
-        ) : null}
-
-        {activeOption === 'portal' ? (
-          <Modal
-            title={m(messages.portalTitle)}
-            onClose={() => setActiveOption(false)}
-          >
-            <p>{m(messages.portalPresentation)}</p>
-            <div className="text-center margin-v-md">
-              <a className="btn btn-link padding-left-z margin-right-md" target="_blank" href="https://developers.openagenda.com/portail-node-js/">{m(messages.moreInfo)}</a>
-              <a className="btn btn-primary" href="mailto:support@openagenda.com">{m(messages.contactUs)}</a>
-            </div>
-          </Modal>
-        ) : null}
-
-        {activeOption === 'standard-embed' ? (
-          <Modal
-            title={m(messages.standardEmbedTitle)}
-            onClose={() => setActiveOption(false)}
-          >
-            <p>{m(messages.standardEmbedPresentation)}</p>
-            <div className="text-center margin-v-md">
-              <a className="btn btn-link padding-left-z margin-right-md" target="_blank" href="https://doc.openagenda.com/iframe-standard/">{m(messages.moreInfo)}</a>
-              <a className="btn btn-primary" href="mailto:support@openagenda.com">{m(messages.contactUs)}</a>
-            </div>
-            <p className="text-center">{m(messages.standardEmbedGetBack)}</p>
-          </Modal>
-        ) : null}
-
-        {activeOption === 'legacy-embed' ? (
-          <Modal
-            title={m(messages.legacyEmbedTitle)}
-            onClose={() => setActiveOption(false)}
-          >
-            <p>{m(messages.legacyEmbedPresentation)}</p>
-            <p><b>{m(messages.legacyEmbedWarning)}</b>: {m(messages.legacyEmbedWarningDetail)}</p>
-            <div className="text-center margin-v-md">
-              <button className="btn btn-primary" onClick={create}>{m(messages.create)}</button>
-            </div>
-          </Modal>
-        ) : null}
+    <div className="row">
+      <div className="col-md-12">
+        <h2>{m(messages.title)}</h2>
+        <p className="margin-v-md">{m(messages.presentation)}</p>
+        <MenuOption
+          head={m(messages.pluginsTitle)}
+          value="plugins"
+          summary={m(messages.pluginsSummary)}
+          selection={activeOption}
+          onSelect={setActiveOption}
+        />
+        <MenuOption
+          head={m(messages.portalTitle)}
+          summary={m(messages.portalSummary)}
+          value="portal"
+          selection={activeOption}
+          onSelect={setActiveOption}
+        />
+        <MenuOption
+          head={m(messages.standardEmbedTitle)}
+          summary={m(messages.standardEmbedSummary)}
+          value="standard-embed"
+          selection={activeOption}
+          onSelect={setActiveOption}
+        />
       </div>
-    </>
+
+      {activeOption === 'plugins' ? (
+        <Modal
+          title={m(messages.pluginsTitle)}
+          onClose={() => setActiveOption(false)}
+        >
+          <p>{m(messages.pluginsPresentation)}</p>
+          <div className="text-center margin-v-md">
+            <a rel="noreferrer" className="btn btn-primary" target="_blank" href="https://developers.openagenda.com/tag/60-plugins/">{m(messages.pluginsAction)}</a>
+          </div>
+        </Modal>
+      ) : null}
+
+      {activeOption === 'portal' ? (
+        <Modal
+          title={m(messages.portalTitle)}
+          onClose={() => setActiveOption(false)}
+        >
+          <p>{m(messages.portalPresentation)}</p>
+          <div className="text-center margin-v-md">
+            <a rel="noreferrer" className="btn btn-link padding-left-z margin-right-md" target="_blank" href="https://developers.openagenda.com/portail-node-js/">{m(messages.moreInfo)}</a>
+            <a className="btn btn-primary" href="mailto:support@openagenda.com">{m(messages.contactUs)}</a>
+          </div>
+        </Modal>
+      ) : null}
+
+      {activeOption === 'standard-embed' ? (
+        <Modal
+          title={m(messages.standardEmbedTitle)}
+          onClose={() => setActiveOption(false)}
+        >
+          <p>{m(messages.standardEmbedPresentation)}</p>
+          <div className="text-center margin-v-md">
+            <a rel="noreferrer" className="btn btn-link padding-left-z margin-right-md" target="_blank" href="https://doc.openagenda.com/iframe-standard/">{m(messages.moreInfo)}</a>
+            <a className="btn btn-primary" href="mailto:support@openagenda.com">{m(messages.contactUs)}</a>
+          </div>
+          <p className="text-center">{m(messages.standardEmbedGetBack)}</p>
+        </Modal>
+      ) : null}
+    </div>
   );
 }
