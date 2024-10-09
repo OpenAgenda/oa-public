@@ -211,6 +211,10 @@ const config = {
     channel: process.env.OA_DISCORD_CHANNEL,
   },
   crisp: prod.crisp || process.env.CRISP_WEBSITE_ID,
+  newsletter: {
+    crispIdentifier: process.env.CRISP_IDENTIFIER,
+    crispKey: process.env.CRISP_KEY,
+  },
   es75: prod.elasticsearch?.v7_5 ?? {
     agendaEventsIndex:
       process.env.ES_AGENDA_EVENTS_INDEX
@@ -419,10 +423,6 @@ const config = {
       'twitch\\.tv',
       'arte\\.tv',
     ],
-  },
-  newsletter: {
-    featuredLimit: 10, // maximum number of featured events displayable in the same newsletter campaign
-    selectionLimit: 30, // maximum number of events displayable in the selection of a newsletter campaign
   },
   twitter: {
     name: prod.twitter && prod.twitter.name,
