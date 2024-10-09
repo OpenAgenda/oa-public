@@ -27,13 +27,9 @@ export default (services, queue, eventSearch) => {
 
     log('added', result);
 
-    if (event.state !== 2) {
-      log('done');
-      return;
-    }
-
     if (
-      !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)
+      event.state === 2
+      || await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)
     ) {
       await queue('transverseIndexUpdate', event);
     }
