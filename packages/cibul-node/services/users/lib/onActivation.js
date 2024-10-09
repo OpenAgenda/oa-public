@@ -1,4 +1,7 @@
 import _ from 'lodash';
+import logs from '@openagenda/logs';
+
+const log = logs('services/users/onActivation');
 
 export default function onActivation() {
   return async (context) => {
@@ -29,7 +32,7 @@ export default function onActivation() {
         .create();
     } catch (err) {
       if (err.message !== 'Feed already exists') {
-        throw err;
+        log('error', err);
       }
     }
 
