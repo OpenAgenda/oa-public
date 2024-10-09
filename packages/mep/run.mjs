@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import fs from 'node:fs/promises';
 
 import clearDir from './lib/clearDir.mjs';
 import cloneAndBuild from './lib/cloneAndBuild.mjs';
