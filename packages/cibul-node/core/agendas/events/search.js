@@ -209,7 +209,7 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
       returnPayload: true,
     });
 
-    if (!eventPayload && throwOnError) {
+    if (!eventPayload.event && throwOnError) {
       throw new NotFound(
         {
           info: { uid: eventUid },

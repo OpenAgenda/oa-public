@@ -87,13 +87,19 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     payload.hasItem('event')
     && !payload.hasItem('agendaEvent')
     && !payload.getItem('event').draft
-  ) return null;
+  ) {
+    payload.setItem('event', null);
+    return returnPayload ? payload.getResponse('event', access) : null;
+  }
 
   if (
     payload.hasItem('event')
     && payload.getItem('event').draft
     && payload.getItem('event.agendaUid') !== agenda.uid
-  ) return null;
+  ) {
+    payload.setItem('event', null);
+    return returnPayload ? payload.getResponse('event', access) : null;
+  }
 
   if (!payload.hasItem('event') && load.event) {
     return returnPayload ? payload.getResponse('event', access) : null;
