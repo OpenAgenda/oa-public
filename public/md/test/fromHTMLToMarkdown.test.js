@@ -32,8 +32,11 @@ describe('fromHTMLToMarkdown', () => {
     expect(r).toBe(
       [
         'Un lien en texte:',
+        '',
         '[https://le\\_monde.fr](https://le_monde.fr)',
+        '',
         'Un autre: [https://le\\_monde.fr](https://le_monde.fr)',
+        '',
         'Puis un déjà en markdown: [Le label](https://le_monde.fr)',
       ].join('\n'),
     );
@@ -60,6 +63,7 @@ describe('fromHTMLToMarkdown', () => {
     expect(r).toBe(
       [
         'Avant',
+        '',
         '[https://www.youtube.com/watch?v=5\\_8h\\_Pwy15s](https://www.youtube.com/watch?v=5_8h_Pwy15s)',
         '',
         '[https://www.youtube.com/watch?v=9f07\\_6MQ9sc&feature=youtu.be](https://www.youtube.com/watch?v=9f07_6MQ9sc&feature=youtu.be)',
@@ -74,7 +78,6 @@ describe('fromHTMLToMarkdown', () => {
       [
         '<p>Nothing worked. Here is a first one: <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
         '<p>And the same <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
-        '<p></p>',
         '<p><a href="https://le_monde.fr">https://le_monde.fr</a> and a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">https://www.youtube.com/watch?v=io2d_cpoLDg</a> link and one with a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">label</a></p>',
       ].join('\n'),
     );
@@ -82,6 +85,7 @@ describe('fromHTMLToMarkdown', () => {
     expect(r).toBe(
       [
         'Nothing worked. Here is a first one: [https://le\\_monde.fr](https://le_monde.fr)',
+        '',
         'And the same [https://le\\_monde.fr](https://le_monde.fr)',
         '',
         '[https://le\\_monde.fr](https://le_monde.fr) and a [https://www.youtube.com/watch?v=io2d\\_cpoLDg](https://www.youtube.com/watch?v=io2d_cpoLDg) link and one with a [label](https://www.youtube.com/watch?v=io2d_cpoLDg)',
@@ -134,5 +138,16 @@ describe('fromHTMLToMarkdown', () => {
       '[Label](https://link.com) et [autre label](https://www.autrelien.com?c%5B%5D=v&dfa%5B%5D=discovery)  \n'
         + 'ça devrait marcher correctement',
     );
+  });
+
+  test('paragraph becomes double new-lines, line break becomes single', () => {
+    expect(
+      fromHTMLToMarkdown(
+        '<p>Une ligne<br>Une autre ligne</p><p>Une ligne plus loin</p>',
+      ),
+    ).toBe(`Une ligne  
+Une autre ligne
+
+Une ligne plus loin`);
   });
 });
