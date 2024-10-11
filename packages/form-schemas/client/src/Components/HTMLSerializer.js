@@ -69,7 +69,6 @@ const RULES = [
     },
     deserialize(el, next) {
       const mark = MARK_TAGS[el.tagName.toLowerCase()];
-
       if (!mark) return;
 
       return {
