@@ -9532,7 +9532,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/newsletter@npm:^2.0.1, @openagenda/newsletter@workspace:packages/newsletter":
+"@openagenda/newsletter@workspace:packages/newsletter":
   version: 0.0.0-use.local
   resolution: "@openagenda/newsletter@workspace:packages/newsletter"
   dependencies:
@@ -20086,7 +20086,6 @@ __metadata:
     "@openagenda/members": "npm:^1.15.13"
     "@openagenda/network-apps": "npm:^1.1.13"
     "@openagenda/networks": "npm:^1.2.14"
-    "@openagenda/newsletter": "npm:^2.0.1"
     "@openagenda/oembed": "npm:^2.2.1"
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/pdf-exports": "npm:^0.0.1"
