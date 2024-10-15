@@ -25,6 +25,8 @@ export default (core) => {
   const updateTagSetFromSchema = updateLegacyFromSchema('tags');
 
   const resyncFn = {
+    rebuildSearch: (agendaUid) =>
+      core.agendas(agendaUid).events.search.rebuild(),
     updateTagSet: (agendaUid, options) =>
       updateTagSetFromSchema(core, agendaUid, options),
     updateCategorySet: (agendaUid) =>
