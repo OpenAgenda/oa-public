@@ -50,6 +50,29 @@ function asArray(obj) {
     .filter((s) => !!s);
 }
 
+function mergeEventWithPatch(event, patch, { schema, defaultLang }) {
+  return schema.fields
+    .filter((f) => f.languages)
+    .map((f) => f.field)
+    .map((field) => ({
+      field,
+      fieldPatch:
+        typeof patch[field] === 'string'
+          ? { [defaultLang]: patch[field] }
+          : patch[field],
+    }))
+    .reduce(
+      (carry, { field, fieldPatch }) => ({
+        ...carry,
+        [field]: { ...event[field], ...fieldPatch },
+      }),
+      {
+        ...event,
+        ...patch,
+      },
+    );
+}
+
 export default function validateEvent(
   { validateAgendaEvent, formSchema, networkFormSchema, location },
   data,
@@ -126,10 +149,10 @@ export default function validateEvent(
 
     const consolidatedClean = (partial || draft ? validate.part : validate)(
       validateWithStoredData
-        ? {
-          ...event,
-          ...data,
-        }
+        ? mergeEventWithPatch(event, data, {
+          schema: consolidatedSchema,
+          defaultLang,
+        })
         : data,
     );
 
