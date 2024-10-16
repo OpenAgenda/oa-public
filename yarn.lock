@@ -1884,7 +1884,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-jsx@npm:^7.17.12, @babel/plugin-syntax-jsx@npm:^7.23.3, @babel/plugin-syntax-jsx@npm:^7.7.2":
+"@babel/plugin-syntax-jsx@npm:^7.23.3, @babel/plugin-syntax-jsx@npm:^7.7.2":
   version: 7.23.3
   resolution: "@babel/plugin-syntax-jsx@npm:7.23.3"
   dependencies:
@@ -2757,7 +2757,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-react-jsx@npm:^7.17.12, @babel/plugin-transform-react-jsx@npm:^7.22.15, @babel/plugin-transform-react-jsx@npm:^7.22.5":
+"@babel/plugin-transform-react-jsx@npm:^7.22.15, @babel/plugin-transform-react-jsx@npm:^7.22.5":
   version: 7.23.4
   resolution: "@babel/plugin-transform-react-jsx@npm:7.23.4"
   dependencies:
@@ -4981,17 +4981,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/babel-plugin-jsx-pragmatic@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@emotion/babel-plugin-jsx-pragmatic@npm:0.2.1"
-  dependencies:
-    "@babel/plugin-syntax-jsx": "npm:^7.17.12"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/73c2ad4b06a4b7e8797a624f5a1e7b2c047cc4443dd9fa12facb0fc5468de8f46bfc0047a881b791e4037d9f7e9f5d2b9df893b2d272ffc95d5317466408b88e
-  languageName: node
-  linkType: hard
-
 "@emotion/babel-plugin@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/babel-plugin@npm:11.11.0"
@@ -5008,20 +4997,6 @@ __metadata:
     source-map: "npm:^0.5.7"
     stylis: "npm:4.2.0"
   checksum: 10c0/89cbb6ec0e52c8ee9c2a4b9889ccd4fc3a75d28091d835bfac6d7c4565d3338621e23af0a85f3bcd133e1cae795c692e1dadada015784d4b0554aa5bb111df43
-  languageName: node
-  linkType: hard
-
-"@emotion/babel-preset-css-prop@npm:^11.11.0":
-  version: 11.11.0
-  resolution: "@emotion/babel-preset-css-prop@npm:11.11.0"
-  dependencies:
-    "@babel/plugin-transform-react-jsx": "npm:^7.17.12"
-    "@babel/runtime": "npm:^7.18.3"
-    "@emotion/babel-plugin": "npm:^11.11.0"
-    "@emotion/babel-plugin-jsx-pragmatic": "npm:^0.2.1"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/afa3dae32cbfbedae1b337988326403d64f86b6eb079a40bf509006ed98edefaccf5ebf99813697ea58e4cbd1c6ddc549a754e7cc89407315720d9c691240482
   languageName: node
   linkType: hard
 
@@ -9532,17 +9507,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/newsletter@workspace:packages/newsletter":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/newsletter@workspace:packages/newsletter"
-  dependencies:
-    "@openagenda/logs": "npm:^1.1.9"
-    jest: "npm:^29.7.0"
-    lodash: "npm:^4.17.21"
-    node-mailjet: "npm:^6.0.5"
-  languageName: unknown
-  linkType: soft
-
 "@openagenda/next@workspace:packages/next":
   version: 0.0.0-use.local
   resolution: "@openagenda/next@workspace:packages/next"
@@ -9585,6 +9549,7 @@ __metadata:
     "@types/leaflet": "npm:^1.9.6"
     axios: "npm:^0.21.1"
     base64-js: "npm:^1.5.1"
+    color2k: "npm:^2.0.3"
     css-loader: "npm:^6.8.1"
     date-fns: "npm:^2.29.3"
     date-fns-tz: "npm:^2.0.0"
@@ -9914,7 +9879,7 @@ __metadata:
     "@babel/cli": "npm:^7.23.0"
     "@babel/core": "npm:^7.23.3"
     "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@emotion/babel-preset-css-prop": "npm:^11.11.0"
+    "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@openagenda/activity-apps": "npm:^1.2.1"
     "@openagenda/axios-mock-adapter": "npm:^1.21.2"
@@ -10324,7 +10289,7 @@ __metadata:
     "@babel/cli": "npm:^7.23.0"
     "@babel/core": "npm:^7.23.3"
     "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@emotion/babel-preset-css-prop": "npm:^11.11.0"
+    "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@loadable/babel-plugin": "npm:^5.13.2"
     "@loadable/component": "npm:^5.14.1"
@@ -17972,17 +17937,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.6.2":
-  version: 1.6.2
-  resolution: "axios@npm:1.6.2"
-  dependencies:
-    follow-redirects: "npm:^1.15.0"
-    form-data: "npm:^4.0.0"
-    proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/9b77e030e85e4f9cbcba7bb52fbff67d6ce906c92d213e0bd932346a50140faf83733bf786f55bd58301bd92f9973885c7b87d6348023e10f7eaf286d0791a1d
-  languageName: node
-  linkType: hard
-
 "axios@npm:^0.21.1":
   version: 0.21.3
   resolution: "axios@npm:0.21.3"
@@ -18543,13 +18497,6 @@ __metadata:
   version: 9.0.0
   resolution: "bignumber.js@npm:9.0.0"
   checksum: 10c0/a760979ca822533ad7a437a45bcac66c191554a407092baa4991e068fd4af7344ff52d9e82e0574946c831690de706cf86fbc80775b5ebc6e59c2eef7325172c
-  languageName: node
-  linkType: hard
-
-"bignumber.js@npm:^9.0.0":
-  version: 9.1.2
-  resolution: "bignumber.js@npm:9.1.2"
-  checksum: 10c0/e17786545433f3110b868725c449fa9625366a6e675cd70eb39b60938d6adbd0158cb4b3ad4f306ce817165d37e63f4aa3098ba4110db1d9a3b9f66abfbaf10d
   languageName: node
   linkType: hard
 
@@ -20618,6 +20565,13 @@ __metadata:
   version: 2.0.2
   resolution: "color2k@npm:2.0.2"
   checksum: 10c0/625345d11566010290790101ca45be93fa0e2685906650d672de32abc3098dd02c5a3700d288de2e9e621d34f4619b8accf18a450e402f837bcd48f658727678
+  languageName: node
+  linkType: hard
+
+"color2k@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "color2k@npm:2.0.3"
+  checksum: 10c0/e7c13d212c9d1abb1690e378bbc0a6fb1751e4b02e9a73ba3b2ade9d54da673834597d342791d577d1ce400ec486c7f92c5098f9fa85cd113bcfde57420a2bb9
   languageName: node
   linkType: hard
 
@@ -31464,15 +31418,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-bigint@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "json-bigint@npm:1.0.0"
-  dependencies:
-    bignumber.js: "npm:^9.0.0"
-  checksum: 10c0/e3f34e43be3284b573ea150a3890c92f06d54d8ded72894556357946aeed9877fd795f62f37fe16509af189fd314ab1104d0fd0f163746ad231b9f378f5b33f4
-  languageName: node
-  linkType: hard
-
 "json-buffer@npm:3.0.0":
   version: 3.0.0
   resolution: "json-buffer@npm:3.0.0"
@@ -35476,17 +35421,6 @@ __metadata:
   version: 0.4.0
   resolution: "node-int64@npm:0.4.0"
   checksum: 10c0/a6a4d8369e2f2720e9c645255ffde909c0fbd41c92ea92a5607fc17055955daac99c1ff589d421eee12a0d24e99f7bfc2aabfeb1a4c14742f6c099a51863f31a
-  languageName: node
-  linkType: hard
-
-"node-mailjet@npm:^6.0.5":
-  version: 6.0.5
-  resolution: "node-mailjet@npm:6.0.5"
-  dependencies:
-    axios: "npm:1.6.2"
-    json-bigint: "npm:^1.0.0"
-    url-join: "npm:^4.0.0"
-  checksum: 10c0/2f2c2e92e25d87f6671619143bc9e57a60d77faf1bf2c8617976f63805ab29ef3e1edc6765efde33c2dfff1d63ad6bcf3dba0191fff69630e962cf43e322f879
   languageName: node
   linkType: hard
 
@@ -45886,7 +45820,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"url-join@npm:^4.0.0, url-join@npm:^4.0.1":
+"url-join@npm:^4.0.1":
   version: 4.0.1
   resolution: "url-join@npm:4.0.1"
   checksum: 10c0/ac65e2c7c562d7b49b68edddcf55385d3e922bc1dd5d90419ea40b53b6de1607d1e45ceb71efb9d60da02c681d13c6cb3a1aa8b13fc0c989dfc219df97ee992d

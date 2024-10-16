@@ -49,6 +49,7 @@
     "@sentry/nextjs": "^7.80.1",
     "axios": "^0.21.1",
     "base64-js": "^1.5.1",
+    "color2k": "^2.0.3",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^2.0.0",
     "fast-json-stable-stringify": "^2.1.0",

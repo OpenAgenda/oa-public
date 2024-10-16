@@ -8,7 +8,9 @@ import config from '../config/index.js';
 import * as layouts from '../services/lib/layouts/index.js';
 import cmn from '../lib/commons-app.js';
 import * as mwHelpers from '../services/lib/middlewareHelpers.js';
-import * as contentSecurityPolicy from '../lib/contentSecurityPolicy.js';
+import contentSecurityPolicy, {
+  defaultDirectives as cspDefaultDirectives,
+} from '../lib/contentSecurityPolicy.js';
 
 const log = logs('newsletter');
 
@@ -59,32 +61,40 @@ function setLang(req, res, next) {
 
 function setCSPHeader(hashes, req, res) {
   let cspError;
-  contentSecurityPolicy.default({
-    ...contentSecurityPolicy.defaultDirectives,
-    fontSrc: [
-      ...contentSecurityPolicy.defaultDirectives.fontSrc,
+  contentSecurityPolicy({
+    ...cspDefaultDirectives,
+    fontSrc: [...cspDefaultDirectives.fontSrc, 'https://client.crisp.chat'],
+    imgSrc: [
+      ...cspDefaultDirectives.imgSrc,
       'https://client.crisp.chat',
+      'https://image.crisp.chat',
+      'https://storage.crisp.chat',
     ],
     styleSrc: [
-      ...contentSecurityPolicy.defaultDirectives.styleSrc,
+      ...cspDefaultDirectives.styleSrc,
       'https://client.crisp.chat',
       'https://oastatic.s3.eu-central-1.amazonaws.com',
     ],
+    mediaSrc: [...cspDefaultDirectives.mediaSrc, 'https://client.crisp.chat'],
+    frameSrc: [...cspDefaultDirectives.frameSrc, 'https://game.crisp.chat'],
     scriptSrc: [
       // strict-dynamic + hashes doesn't work with Safari
       "'self'",
       'https://code.jquery.com',
       'https://maxcdn.bootstrapcdn.com',
       'https://client.crisp.chat',
+      'https://settings.crisp.chat',
       () => {
         const { matomoCloudId } = req.app.core.getConfig();
         return matomoCloudId ? `https://${matomoCloudId}` : '';
       },
     ],
     connectSrc: [
-      ...contentSecurityPolicy.defaultDirectives.connectSrc,
+      ...cspDefaultDirectives.connectSrc,
       'https://client.crisp.chat',
+      'https://storage.crisp.chat',
       'wss://client.relay.crisp.chat',
+      'wss://stream.relay.crisp.chat',
     ],
   })(req, res, (err) => {
     cspError = err;

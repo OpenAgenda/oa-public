@@ -21,6 +21,18 @@ type ProvidersProps = {
 
 const fetcher = (input: string | URL | Request) => ky(input).json();
 
+const ThemeProvider = ({ cache, theme, children }) => {
+  if (!theme) {
+    return children;
+  }
+
+  return (
+    <UIKitProvider theme={theme} cache={cache}>
+      {children}
+    </UIKitProvider>
+  );
+};
+
 const Providers = ({
   locale,
   intlMessages,
@@ -30,7 +42,7 @@ const Providers = ({
   children,
 }: ProvidersProps) => (
   <CookiesProvider cookies={cookies}>
-    <UIKitProvider theme={theme} cache={cache}>
+    <ThemeProvider theme={theme} cache={cache}>
       <LanguageProvider locale={locale} messages={intlMessages}>
         <SWRConfig
           value={{
@@ -41,7 +53,7 @@ const Providers = ({
           {children}
         </SWRConfig>
       </LanguageProvider>
-    </UIKitProvider>
+    </ThemeProvider>
   </CookiesProvider>
 );
 

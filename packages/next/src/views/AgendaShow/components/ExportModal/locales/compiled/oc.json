@@ -29,6 +29,12 @@
       "value": "Tampar"
     }
   ],
+  "next.views.AgendaShow.ExportModal.color": [
+    {
+      "type": 0,
+      "value": "Couleur"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.copied": [
     {
       "type": 0,
@@ -175,6 +181,12 @@
       "value": "Mercés de vos connectar per accedir al ligam d'exportacion dirèctament a partir d'aqueste menut"
     }
   ],
+  "next.views.AgendaShow.ExportModal.new": [
+    {
+      "type": 0,
+      "value": "Nouveau"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.openData": [
     {
       "type": 0,
@@ -194,7 +206,7 @@
   "next.views.AgendaShow.ExportModal.openInSamePage": [
     {
       "type": 0,
-      "value": "Ouvrir les événements sur le même page"
+      "value": "Ouvrir les événements sur la même page"
     }
   ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [

@@ -29,6 +29,12 @@
       "value": "Cerca"
     }
   ],
+  "next.views.AgendaShow.ExportModal.color": [
+    {
+      "type": 0,
+      "value": "Color"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.copied": [
     {
       "type": 0,
@@ -173,6 +179,12 @@
     {
       "type": 0,
       "value": "Inicie sesión para acceder al enlace de exportación directamente desde este menú"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.new": [
+    {
+      "type": 0,
+      "value": "New"
     }
   ],
   "next.views.AgendaShow.ExportModal.openData": [

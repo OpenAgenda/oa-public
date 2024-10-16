@@ -522,7 +522,7 @@
   "next.views.EventShow.ShareModal.mustSignIn": [
     {
       "type": 0,
-      "value": "You must sign in to share this event"
+      "value": "You must sign in to share this event on another agenda"
     }
   ],
   "next.views.EventShow.ShareModal.onOA": [

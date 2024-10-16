@@ -65,7 +65,7 @@ function loadEvent(config, req, res, next) {
     })
     .then(
       (payload) => {
-        const { event, agenda } = payload || {};
+        const { event, agenda } = payload;
 
         if (!event) {
           return next(new NotFound());

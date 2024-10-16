@@ -59,6 +59,12 @@ $today-content-selected: #fff;
 $passive-bg: transparent;
 $passive-color: #d5dce0;
 
+:root {
+  --rdr-border-color: #{$border-color};
+  --rdr-body-selected-bg: #{$body-selected-bg};
+  --rdr-today-content-bg: #{$today-content-bg};
+}
+
 .rdrCalendarWrapper {
   box-sizing: border-box;
   display: -webkit-inline-flex;
@@ -349,7 +355,7 @@ $passive-color: #d5dce0;
 
 .rdrDateDisplayItemActive,
 .rdrDateDisplayItem:hover {
-  border-color: $border-color;
+  border-color: var(--rdr-border-color);
 }
 
 .rdrDateDisplayItemActive input {
@@ -394,7 +400,7 @@ $passive-color: #d5dce0;
 
 .rdrMonthPicker:hover,
 .rdrYearPicker:hover {
-  border: 1px solid $border-color;
+  border: 1px solid var(--rdr-border-color);
 }
 
 .rdrNextPrevButton {
@@ -409,7 +415,7 @@ $passive-color: #d5dce0;
 }
 
 .rdrNextPrevButton:hover {
-  border-color: $border-color;
+  border-color: var(--rdr-border-color);
 }
 
 .rdrNextPrevButton i {
@@ -517,7 +523,7 @@ $passive-color: #d5dce0;
   width: 18px;
   height: 2px;
   border-radius: 2px;
-  background: $today-content-bg;
+  background: var(--rdr-today-content-bg);
 }
 
 .rdrDayToday:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span:after,
@@ -538,7 +544,7 @@ $passive-color: #d5dce0;
 .rdrInRange,
 .rdrStartEdge,
 .rdrEndEdge {
-  background: $body-selected-bg;
+  background: var(--rdr-body-selected-bg);
   position: absolute;
   top: 0;
   left: 0;
@@ -554,7 +560,7 @@ $passive-color: #d5dce0;
 }
 
 .rdrSelected {
-  background: $body-selected-bg;
+  background: var(--rdr-body-selected-bg);
   //left: 2px;
   //right: 2px;
 }
@@ -638,7 +644,7 @@ $passive-color: #d5dce0;
   right: 0px;
   bottom: 0px;
   pointer-events: none;
-  border: 0px solid $border-color;
+  border: 0px solid var(--rdr-border-color);
   z-index: 1;
 }
 
@@ -733,7 +739,7 @@ $passive-color: #d5dce0;
 
 .rdrInputRangeInput:focus,
 .rdrInputRangeInput:hover {
-  border-color: $border-color;
+  border-color: var(--rdr-border-color);
   outline: 0;
   color: #333;
 }
@@ -822,7 +828,7 @@ $passive-color: #d5dce0;
     color: $body-color;
 
     &:after {
-      background: $body-selected-bg;
+      background: var(--rdr-body-selected-bg);
     }
   }
 }

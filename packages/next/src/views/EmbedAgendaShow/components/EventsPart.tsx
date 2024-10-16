@@ -34,10 +34,15 @@ export default function EventsPart({
     query: {
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
-      host: typeof document !== 'undefined' ? document.referrer : referrer,
+      host:
+        typeof document !== 'undefined' && document.referrer
+          ? document.referrer
+          : referrer,
       baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     },
     includeFields,
     pageSize: PAGE_SIZE,
