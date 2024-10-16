@@ -10,7 +10,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
 
   const config = testConfig.extendWith({ queuesPrefix: 'q13_03:' });
 
-  beforeAll(() => loadFixtures(config.db, '021.sql.js'));
+  beforeAll(() => loadFixtures(config.db, '023.sql.js'));
 
   beforeAll(async () => {
     const services = await Services(config, {
