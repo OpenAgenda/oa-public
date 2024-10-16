@@ -4,7 +4,6 @@ import qs from 'qs';
 import { SWRConfig } from 'swr';
 import { createIntl, createIntlCache } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
-import { theme as defaultTheme, extendTheme } from '@openagenda/uikit';
 import {
   filtersToAggregations,
   getAdditionalFilters,
@@ -31,16 +30,6 @@ type ShowPageProps = EmbedAgendaShowProps & CommonProps;
 type PageProps = ShowPageProps;
 
 const intlCache = createIntlCache();
-
-const theme = extendTheme(defaultTheme, {
-  styles: {
-    global: {
-      body: {
-        bg: null,
-      },
-    },
-  },
-});
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
@@ -180,6 +169,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     };
 
     const params = {
@@ -198,16 +189,18 @@ export const getServerSideProps: GetServerSideProps = async ({
       baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     };
 
     const props: ShowPageProps = {
       agenda,
       intlMessages,
       preload: [
-        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase)}`,
-        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params)}`,
+        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase, { skipNulls: true })}`,
+        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params, { skipNulls: true })}`,
       ],
-      referrer,
+      referrer: referrer || null,
     };
 
     return { props };
@@ -234,6 +227,6 @@ const EmbedAgendaPage: NextPageWithLayout<PageProps> = (props) => {
 
 EmbedAgendaPage.Layout = EmbedLayout;
 
-EmbedAgendaPage.theme = theme;
+EmbedAgendaPage.theme = null;
 
 export default EmbedAgendaPage;

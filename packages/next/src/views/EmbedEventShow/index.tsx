@@ -456,6 +456,7 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
         <ConsentBanner
           consentFor={needConsentFor}
           consentSource="localStorage"
+          display="overlay"
         />
       ) : null}
     </>

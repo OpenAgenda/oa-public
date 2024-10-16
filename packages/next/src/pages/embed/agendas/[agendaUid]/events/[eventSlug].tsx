@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import ky from 'ky';
 import { SWRConfig } from 'swr';
-import { extendTheme, theme as defaultTheme } from '@openagenda/uikit';
 import { NextPageWithLayout } from 'pages/_app';
 import EmbedEventShow, { EmbedEventShowProps } from 'views/EmbedEventShow';
 import { AgendaProvider } from 'views/EventShow/contexts/agenda';
@@ -19,16 +18,6 @@ type ShowPageProps = EmbedEventShowProps &
     agenda: Agenda;
   };
 type PageProps = ShowPageProps;
-
-const theme = extendTheme(defaultTheme, {
-  styles: {
-    global: {
-      body: {
-        bg: null,
-      },
-    },
-  },
-});
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
@@ -104,6 +93,6 @@ const EmbedEventPage: NextPageWithLayout<PageProps> = (props) => {
 
 EmbedEventPage.Layout = EmbedLayout;
 
-EmbedEventPage.theme = theme;
+EmbedEventPage.theme = null;
 
 export default EmbedEventPage;

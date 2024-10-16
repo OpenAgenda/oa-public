@@ -22,6 +22,7 @@ import useIsMounted from 'hooks/useIsMounted';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
 import ConsentBanner from 'components/ConsentBanner';
+import OAAttribution from 'components/OAAttribution';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
 import includeFields from 'views/AgendaShow/includeFields';
 import { TotalSkeleton } from 'views/AgendaShow/components/LoadingPage';
@@ -72,6 +73,8 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
     baseUrl: undefined,
     filters: undefined,
     initPath: undefined,
+    primaryColor: undefined,
+    secondaryColor: undefined,
   }));
 
   const latestQuery = useLatest(query);
@@ -115,10 +118,15 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
     query: {
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
-      host: typeof document !== 'undefined' ? document.referrer : referrer,
+      host:
+        typeof document !== 'undefined' && document.referrer
+          ? document.referrer
+          : referrer,
       baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     },
     includeFields,
     pageSize: 12,
@@ -246,8 +254,11 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
         <ConsentBanner
           consentFor={needConsentFor}
           consentSource="localStorage"
+          display="overlay"
         />
       ) : null}
+
+      <OAAttribution />
     </>
   );
 }

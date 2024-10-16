@@ -53,6 +53,7 @@ function ChoiceField({ input, getTotal, filter, option, disabled }) {
       w="full"
       px="3"
       py="1.5"
+      colorScheme="primary"
     >
       {getLocaleValue(option.label, intl.locale) || <>&nbsp;</>}
       {Number.isInteger(total) && total !== 0 ? (

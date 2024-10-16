@@ -26,6 +26,7 @@ function ValueTag({ label, title = null, onRemove, disabled }) {
       h="8"
       px="2"
       iconSpacing="2"
+      colorScheme="primary"
     >
       {getLocaleValue(label, intl.locale)}
     </Button>
