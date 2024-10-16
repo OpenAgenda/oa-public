@@ -54,6 +54,7 @@ function mergeEventWithPatch(event, patch, { schema, defaultLang }) {
   return schema.fields
     .filter((f) => f.languages)
     .map((f) => f.field)
+    .filter((field) => event[field] !== undefined || patch[field] !== undefined)
     .map((field) => ({
       field,
       fieldPatch:
