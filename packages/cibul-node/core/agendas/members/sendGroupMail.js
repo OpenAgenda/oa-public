@@ -1,4 +1,8 @@
+import logs from '@openagenda/logs';
+
 import getAgenda from '../utils/getAgenda.js';
+
+const log = logs('core/agendas/members/sendGroupMail');
 
 export default async function sendGroupMail(
   core,
@@ -8,6 +12,7 @@ export default async function sendGroupMail(
   data,
   options = {},
 ) {
+  log('processing', { memberOrUid, agendaUid });
   const {
     services: { members },
   } = core;
@@ -27,6 +32,8 @@ export default async function sendGroupMail(
   if (!member.user) {
     member.user = options.user || await core.users.get(member.userUid);
   }
+
+  log('sending', { member, query, data, options });
 
   return members.sendGroupMail(agenda, member, query, data, {
     lang: options.lang,

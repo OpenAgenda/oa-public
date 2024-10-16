@@ -520,6 +520,32 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
   });
 
+  describe('patch one language only', () => {
+    let result;
+    let titleBefore;
+
+    beforeAll(async () => {
+      titleBefore = await core
+        .agendas(17026855)
+        .events.get(19201989)
+        .then((e) => e.title);
+      result = await core.agendas(17026855).events.patch(
+        19201989,
+        {
+          title: { fr: 'Le français est modifié' },
+        },
+        {
+          access: 'moderator',
+        },
+      );
+    });
+
+    it('translates one language', () => {
+      expect(result.title.fr).toBe('Le français est modifié');
+      expect(result.title.en).toBe(titleBefore.en);
+    });
+  });
+
   describe('other', () => {
     it('if state is not specified in provided data, state is not updated', async () => {
       const { state: currentState } = await core.services

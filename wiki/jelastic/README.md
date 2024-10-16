@@ -109,3 +109,26 @@ On a besoin de pip aussi `sudo apt install -y python3-pip`
 ### Les logs
 
 Par défaut, ils sont un peu éparpillés. Par souci de simplification, on rassemble leur définition sur `/etc/nginx/nginx.jelastic.conf` sous les noms `/var/log/nginx/access.log` et `/var/log/nginx/error.log`.
+
+## Mises à jour
+
+### nodeJs
+
+Pour mettre à jour node sur les noeuds déjà déployés, il suffit de reprendre la procédure d'installation détaillée dans le dockerfile jelastic-node.
+
+Ex:
+
+```
+export NODE_MAJOR=20
+
+mkdir -p /etc/apt/keyrings \
+  && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
+  | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" \
+  | tee /etc/apt/sources.list.d/nodesource.list
+apt-get update -y \
+  && apt-get install -y nodejs \
+  && node -v
+corepack enable \
+  && yarn -v
+```
