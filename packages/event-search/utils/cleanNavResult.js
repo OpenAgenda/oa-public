@@ -1,15 +1,25 @@
 'use strict';
 
-module.exports = (query, { scrollId, sort }, { useAfterKey }) => {
+module.exports = (
+  query,
+  { scrollId, sort },
+  { useAfterKey, total, events },
+) => {
+  let cleanSort = Array.isArray(sort) ? sort.map((s) => `${s}`) : sort;
+
+  if (total === events?.length) {
+    cleanSort = null;
+  }
+
   if (!useAfterKey) {
     return {
       scrollId,
-      sort,
+      sort: cleanSort,
     };
   }
 
   return {
-    after: sort,
+    after: cleanSort,
     scrollId,
     sort: query.sort,
   };

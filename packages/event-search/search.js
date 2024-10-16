@@ -284,7 +284,11 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   return {
     total,
     events: parsedEvents,
-    ...cleanNavResult(cleanQuery, { scrollId, sort }, { useAfterKey }),
+    ...cleanNavResult(
+      cleanQuery,
+      { scrollId, sort },
+      { useAfterKey, total, events },
+    ),
     ...aggregationResults ? { aggregations: aggregationResults } : {},
   };
 }
