@@ -88,6 +88,10 @@ export default class EmbedLoader {
       url.searchParams.set('filters', dataset.filters);
     }
 
+    if (dataset.primaryColor) {
+      url.searchParams.set('primaryColor', dataset.primaryColor);
+    }
+
     const { hash } = window.location;
     if (hash?.startsWith('#!')) {
       const decodedSrc = decodeURIComponent(hash.substring(2));
