@@ -1,24 +1,25 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Modal } from '@openagenda/react-shared';
 
 function SystemModal({ agenda, onClose }) {
   const [running, setRunning] = useState([]);
 
-  const launch = useCallback((task) => {
-    const {
-      uid: agendaUID,
-    } = agenda;
+  const launch = useCallback(
+    (task) => {
+      const { uid: agendaUID } = agenda;
 
-    fetch(`/api/agendas/${agendaUID}/settings/resync`, {
-      method: 'POST',
-      body: JSON.stringify([].concat(task)),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+      fetch(`/api/agendas/${agendaUID}/settings/resync`, {
+        method: 'POST',
+        body: JSON.stringify([].concat(task)),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    setRunning(running.concat(task));
-  }, [running, agenda]);
+      setRunning(running.concat(task));
+    },
+    [running, agenda],
+  );
 
   return (
     <Modal onClose={onClose}>
@@ -28,21 +29,24 @@ function SystemModal({ agenda, onClose }) {
           disabled={running.includes('rebuildSearch')}
           className="btn btn-default margin-right-xs"
           onClick={() => launch('rebuildSearch')}
-        >Index
+        >
+          Index
         </button>
         <button
           type="button"
           disabled={running.includes('rebuildActivities')}
           className="btn btn-default margin-right-xs"
           onClick={() => launch('rebuildActivities')}
-        >Feeds
+        >
+          Feeds
         </button>
         <button
           type="button"
           disabled={running.includes('rebuildActivities')}
           className="btn btn-default margin-right-xs"
           onClick={() => launch('resyncInbox')}
-        >Inbox
+        >
+          Inbox
         </button>
       </div>
       <div>
@@ -50,8 +54,10 @@ function SystemModal({ agenda, onClose }) {
           type="button"
           disabled={running.includes('rebuildActivities')}
           className="btn btn-warning margin-xs-right"
-          onClick={() => launch(['resyncInbox', 'rebuildSearch', 'rebuildActivities'])}
-        >Everything
+          onClick={() =>
+            launch(['resyncInbox', 'rebuildSearch', 'rebuildActivities'])}
+        >
+          Everything
         </button>
       </div>
     </Modal>
@@ -62,14 +68,17 @@ export default function AgendaSystemMenu({ agenda }) {
   const [displayModal, setDisplayModal] = useState(false);
   return (
     <>
-      {displayModal ? <SystemModal agenda={agenda} onClose={() => setDisplayModal(false)} /> : null}
+      {displayModal ? (
+        <SystemModal agenda={agenda} onClose={() => setDisplayModal(false)} />
+      ) : null}
       <button
         type="button"
         className="btn btn-link"
         style={{ color: 'transparent' }}
         onClick={() => setDisplayModal(true)}
         tabIndex="-1"
-      >resyncs
+      >
+        resyncs
       </button>
     </>
   );

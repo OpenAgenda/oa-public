@@ -12,7 +12,6 @@ module.exports = {
         },
       },
     ],
-    require.resolve('@emotion/babel-preset-css-prop'),
   ],
   plugins: [require.resolve('@loadable/babel-plugin')],
   sourceType: 'unambiguous',
