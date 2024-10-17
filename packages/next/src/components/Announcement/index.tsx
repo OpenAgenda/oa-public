@@ -30,11 +30,15 @@ const colorMap = {
     text: 'primary.500',
     bg: '#eef8fc',
     border: 'primary.500',
+    link: 'primary.500',
+    linkHover: 'primary.600',
   },
   info: {
     text: 'primary.500',
     bg: 'white',
     border: 'primary.500',
+    link: 'primary.500',
+    linkHover: 'primary.600',
   },
   // success: {
   //   text: 'success.500',
@@ -45,11 +49,15 @@ const colorMap = {
     text: 'warning.500',
     bg: 'white',
     border: 'warning.500',
+    link: 'warning.500',
+    linkHover: 'warning.600',
   },
   danger: {
     text: 'danger.500',
     bg: '#fdf7f7',
     border: 'danger.500',
+    link: 'danger.500',
+    linkHover: 'danger.600',
   },
 };
 
@@ -90,6 +98,13 @@ export default function Announcement() {
         sx={{
           'p:not(:last-child)': {
             pb: '2',
+          },
+          a: {
+            color: colors.link,
+            textDecoration: 'underline',
+            _hover: {
+              color: colors.linkHover,
+            },
           },
         }}
         display="flex"
