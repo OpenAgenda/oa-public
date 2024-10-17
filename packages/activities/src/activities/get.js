@@ -31,6 +31,9 @@ const fieldsSchema = [
     name: 'store',
   },
   {
+    name: 'detail',
+  },
+  {
     name: 'created_at',
     dataKey: 'createdAt',
   },

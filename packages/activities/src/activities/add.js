@@ -74,6 +74,13 @@ const fieldsSchema = [
       optional: true,
     },
   },
+  {
+    name: 'detail',
+    schema: {
+      type: 'pass',
+      optional: true,
+    },
+  },
 ];
 
 async function getActivityMask(
@@ -132,7 +139,7 @@ async function add(config, ...rest) {
   data = validate(data);
 
   data.store = JSON.stringify(data.store || {});
-
+  data.detail = data.detail ? JSON.stringify(data.detail) : null;
   const fields = fieldsSchema.reduce((prev, field) => {
     if (!data[field.dataKey || field.name]) return prev;
 
