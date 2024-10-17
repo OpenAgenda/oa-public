@@ -12,16 +12,19 @@ export default {
   parameters: {
     msw: {
       handlers: [
-        http.get('/activity/16663579/detail', () =>
+        http.get('/activities/16663579', () =>
           HttpResponse.json({
-            text: 'ceci est un motif de refus: \n bla bla bla',
+            detail: JSON.stringify({
+              text: 'ceci est un motif de refus: \n bla bla bla',
+            }),
           })),
-        http.get('/activity/17063823/detail', () =>
+        http.get('/activities/17063823', () =>
           HttpResponse.json({
-            text: '# message pour vous\n : **Attention** [lien](openagenda.com)',
+            detail: JSON.stringify({
+              text: '# message pour vous\n : **Attention** [lien](openagenda.com)',
+            }),
           })),
-        http.get('/activity/16877416/detail', () =>
-          HttpResponse.json({ diff: {} })),
+        http.get('/activities16877416', () => HttpResponse.json({ diff: {} })),
       ],
     },
   },

@@ -84,7 +84,6 @@ export default function createActivityFormatter(config) {
 
   return function formatActivity(activity) {
     try {
-      console.log('formatActivity', activity.verb, activities);
       const activityMap = activities[activity.verb];
       const entities = getEntities(activity, activityMap.entities, intl.locale);
       const tags = getTags(

@@ -6,28 +6,24 @@ import { useModal, Modal, Spinner } from '@openagenda/react-shared';
 export default function ActivityDetail({ activity, config }) {
   const intl = useIntl();
   const modal = useModal();
-  const { id: activityId, detail: hasDetail } = activity;
+  const { id: activityId } = activity;
   const { detailLabelIds } = config[activity.verb];
   const [isLoading, setIsLoading] = useState(false);
   const [activityDetail, setActivityDetail] = useState(null);
   useEffect(() => {
     if (modal.isOpen) {
-      fetch(`/activity/${activityId}/detail`).then(async (response, err) => {
+      fetch(`/activities/${activityId}`).then(async (response, err) => {
         if (err) {
           setIsLoading(false);
           console.error(err);
           return;
         }
         const responseJson = await response.json();
-        setActivityDetail(responseJson);
+        setActivityDetail(JSON.parse(responseJson.detail));
         setIsLoading(false);
       });
     }
   }, [activityId, modal]);
-
-  if (hasDetail !== true) {
-    return null;
-  }
 
   return (
     <>

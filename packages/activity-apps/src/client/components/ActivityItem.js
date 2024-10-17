@@ -181,6 +181,7 @@ export default function ActivityItem({
         formattedActivity={formattedActivity}
         activity={activity}
         isBrowser={isBrowser}
+        config={config}
       />
     );
   }
@@ -197,7 +198,7 @@ export default function ActivityItem({
           dateStyle="long"
           timeStyle="short"
         />
-        {activity.detail ? (
+        {config[activity.verb].detailLabelIds ? (
           <ActivityDetail activity={activity} config={config} />
         ) : null}
       </span>
