@@ -41,13 +41,14 @@ export async function init(config, services) {
       }
 
       const activityConfig = activitiesConfig[activityKey];
-      const { labelId, labelIds, entities, tags } = activityConfig;
+      const { labelId, labelIds, entities, tags, detailLabelIds } = activityConfig;
 
       result[activityKey] = {
         labelId,
         labelIds,
         entities,
         tags,
+        detailLabelIds,
       };
     }
 

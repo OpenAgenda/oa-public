@@ -3,6 +3,18 @@ import listMiddleware from './list.middleware.js';
 
 const log = logs('services/activites/plugApp');
 
+function activitiesGet(activitiesSvc, req, res) {
+  console.log('activitiesSvc', activitiesSvc);
+  activitiesSvc.activities
+    .get(req.params.id)
+    .then((activity) => {
+      res.json({ activity });
+    })
+    .catch((err) => {
+      res.status(400).json({ error: err });
+    });
+}
+
 function notificationsCount(activitiesSvc, req, res) {
   activitiesSvc
     .feed({
@@ -145,6 +157,8 @@ export default function plugApp(app) {
       req,
       res,
     ));
+
+  app.get('/activities/:id', preMw, activitiesGet.bind(null, activities));
 
   app.get(
     '/notifications/count',
