@@ -127,6 +127,17 @@ export default class EmbedLoader {
   onChildMessage({ message }) {
     if (message.type === 'urlChange') {
       const newUrl = message.url;
+
+      if (!newUrl) {
+        // remove hash
+        window.history.replaceState(
+          null,
+          null,
+          window.location.pathname + window.location.search,
+        );
+        return;
+      }
+
       const encodedNewUrl = `#!${encodeForURLHash(newUrl)}`;
       window.history.replaceState(null, null, encodedNewUrl);
     }
