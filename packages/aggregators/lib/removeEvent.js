@@ -102,7 +102,7 @@ const removeEvent = async (
       report.erroredEvents = (report.erroredEvents ?? []).concat(event.uid);
     }
   } catch (error) {
-    log.error('errorred', { ...logBundle, error });
+    log.error('errored', { ...logBundle, error });
     report.errors = (report.errors ?? 0) + 1;
     report.erroredEvents = (report.erroredEvent ?? []).concat(event.uid);
   }
