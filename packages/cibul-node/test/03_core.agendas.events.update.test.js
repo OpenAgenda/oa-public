@@ -462,6 +462,20 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       expect(event.state).toBe(0);
     });
 
+    it('location ref can be patched', async () => {
+      const event = await core.agendas(92983929).events.patch(
+        19390293,
+        {
+          locationUid: 73780602,
+        },
+        {
+          access: 'moderator',
+        },
+      );
+
+      expect(event.location.uid).toBe(73780602);
+    });
+
     it('moderator can change state to refused (-1) and add a motive', async () => {
       const event = await core.agendas(17026855).events.patch(
         19201989,

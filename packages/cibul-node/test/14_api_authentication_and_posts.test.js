@@ -43,6 +43,8 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     });
 
     core = Core(services, config);
+
+    await core.agendas(123).events.search.rebuild();
   });
 
   beforeAll(async () => {
