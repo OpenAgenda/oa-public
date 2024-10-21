@@ -34,6 +34,7 @@ export default function renderFiltersAndWidgets({
   onLoad,
   filtersBase,
   apiClient,
+  manualSubmit,
   ...rest
 } = {}) {
   const container = createContainer();
@@ -79,6 +80,7 @@ export default function renderFiltersAndWidgets({
         apiClient={apiClient}
         dateFnsLocale={dateFnsLocales[locale]}
         missingValue={missingValue}
+        manualSubmit={manualSubmit}
       >
         <FiltersManager
           ref={ref}
