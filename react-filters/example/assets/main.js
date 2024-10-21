@@ -33,8 +33,16 @@ window.oa = {
         '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
     },
   },
-  onLoad: async (values, aggregations, filtersRef, _form) => {
+  manualSubmit: true,
+  onLoad: async (values, aggregations, filtersRef, form) => {
     try {
+      const formElem = document.querySelector('#filters-form');
+
+      formElem.addEventListener('submit', (event) => {
+        event.preventDefault();
+        form.submit();
+      });
+
       const result = await loadEventList({ ...values, size: 0 }, aggregations);
 
       filtersRef.updateFiltersAndWidgets(values, result);
