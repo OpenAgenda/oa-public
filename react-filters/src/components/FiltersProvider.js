@@ -17,7 +17,7 @@ const defaultSubscription = {};
 const spySubscription = { dirty: true, values: true };
 
 const FiltersForm = React.forwardRef(
-  ({ onSubmit, initialValues, subscription, children }, ref) => {
+  ({ onSubmit, initialValues, manualSubmit, subscription, children }, ref) => {
     const { filters } = useContext(FiltersAndWidgetsContext);
 
     const handleSubmit = useCallback(
@@ -36,12 +36,15 @@ const FiltersForm = React.forwardRef(
 
     const onValueChange = useCallback(
       ({ dirty, values }) => {
+        if (manualSubmit) {
+          return;
+        }
         if (dirty) {
           form.submit();
           form.reset(values);
         }
       },
-      [form],
+      [form, manualSubmit],
     );
 
     return (
@@ -70,6 +73,7 @@ const IntlProvided = React.forwardRef(
       onSubmit,
       subscription,
       searchMethod,
+      manualSubmit,
       children,
     },
     ref,
@@ -114,6 +118,7 @@ const IntlProvided = React.forwardRef(
           initialValues={initialValues}
           subscription={subscription}
           searchMethod={searchMethod}
+          manualSubmit={manualSubmit}
         >
           {children}
         </FiltersForm>
@@ -139,6 +144,7 @@ function FiltersProvider(
     initialValues = null,
     subscription = defaultSubscription,
     searchMethod = 'get',
+    manualSubmit = false,
   },
   ref,
 ) {
@@ -155,6 +161,7 @@ function FiltersProvider(
       initialValues={initialValues}
       subscription={subscription}
       searchMethod={searchMethod}
+      manualSubmit={manualSubmit}
     >
       {children}
     </IntlProvided>
