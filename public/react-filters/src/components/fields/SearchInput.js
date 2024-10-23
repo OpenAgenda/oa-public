@@ -19,6 +19,7 @@ function Input({ input, placeholder, onButtonClick }) {
         className="form-control"
         autoComplete="off"
         placeholder={placeholder}
+        aria-label={placeholder}
         {...input}
       />
       <div className="input-group-append">

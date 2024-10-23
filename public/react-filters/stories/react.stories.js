@@ -6,6 +6,7 @@ import {
   DateRangeFilter,
   ChoiceFilter,
   NumberRangeFilter,
+  SimpleDateRangeFilter,
   ActiveFilters,
 } from '../src';
 
@@ -117,6 +118,20 @@ export const NumberRange = ({ onSubmit }) => (
         <div className="row">
           <div className="col-sm-4">
             <NumberRangeFilter name="seats" />
+          </div>
+        </div>
+      </div>
+    </FiltersProvider>
+  </IntlProvider>
+);
+
+export const SimpleDateRange = ({ onSubmit }) => (
+  <IntlProvider locale={lang}>
+    <FiltersProvider onSubmit={onSubmit}>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-4">
+            <SimpleDateRangeFilter name="timings" />
           </div>
         </div>
       </div>
