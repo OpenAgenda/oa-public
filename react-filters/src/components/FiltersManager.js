@@ -31,6 +31,7 @@ import FavoriteToggle from './FavoriteToggle';
 import Total from './Total';
 import ChoiceFilter from './filters/ChoiceFilter';
 import DateRangeFilter from './filters/DateRangeFilter';
+import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter';
 import DefinedRangeFilter from './filters/DefinedRangeFilter';
 import NumberRangeFilter from './filters/NumberRangeFilter';
 import SearchFilter from './filters/SearchFilter';
@@ -51,6 +52,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
 
     choiceComponent = ChoiceFilter,
     dateRangeComponent = DateRangeFilter,
+    simpleDateRangeComponent = SimpleDateRangeFilter,
     definedRangeComponent = DefinedRangeFilter,
     numberRangeComponent = NumberRangeFilter,
     searchComponent = SearchFilter,
@@ -257,6 +259,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         // filters
         choiceComponent={choiceComponent}
         dateRangeComponent={dateRangeComponent}
+        simpleDateRangeComponent={simpleDateRangeComponent}
         definedRangeComponent={definedRangeComponent}
         numberRangeComponent={numberRangeComponent}
         searchComponent={searchComponent}
