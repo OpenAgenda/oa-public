@@ -117,7 +117,7 @@
   "ActivityApps.refuseEvent.detailButton": "Voir le motif",
   "ActivityApps.refuseEvent.detailModalTitle": "Motif du refus",
   "ActivityApps.refuseEvent.full": "<user>{userName}</user> a refusé <event>{eventName}</event> sur <agenda>{agendaName}</agenda>.",
-  "ActivityApps.refuseEvent.noDeail": "Aucun motif n'a été renseigné",
+  "ActivityApps.refuseEvent.noDetail": "Aucun motif n'a été renseigné",
   "ActivityApps.refuseEvent.target": "<event>{eventName}</event> a été refusé sur <agenda>{agendaName}</agenda>.",
   "ActivityApps.removeDeletedEvent.full": "<event>{eventName}</event> a été retiré de <agenda>{agendaName}</agenda> après sa suppression.",
   "ActivityApps.removeDeletedEvent.withoutTarget": "<event>{eventName}</event> a été supprimé.",

@@ -135,8 +135,8 @@ export default defineMessages({
     id: 'ActivityApps.refuseEvent.detailModalTitle',
     defaultMessage: 'Motive of refusal',
   },
-  'refuseEvent.noDeail': {
-    id: 'ActivityApps.refuseEvent.noDeail',
+  'refuseEvent.noDetail': {
+    id: 'ActivityApps.refuseEvent.noDetail',
     defaultMessage: 'No motive was entered',
   },
   // agenda.removeEvent

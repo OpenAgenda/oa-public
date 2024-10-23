@@ -117,7 +117,7 @@
   "ActivityApps.refuseEvent.detailButton": "see Motive",
   "ActivityApps.refuseEvent.detailModalTitle": "Motive of refusal",
   "ActivityApps.refuseEvent.full": "<user>{userName}</user> refused <event>{eventName}</event> on <agenda>{agendaName}</agenda>.",
-  "ActivityApps.refuseEvent.noDeail": "No motive was entered",
+  "ActivityApps.refuseEvent.noDetail": "No motive was entered",
   "ActivityApps.refuseEvent.target": "<event>{eventName}</event> was refused on <agenda>{agendaName}</agenda>.",
   "ActivityApps.removeDeletedEvent.full": "<event>{eventName}</event> has been removed from <agenda>{agendaName}</agenda> after its deletion.",
   "ActivityApps.removeDeletedEvent.withoutTarget": "<event>{eventName}</event> has been removed after its deletion.",
