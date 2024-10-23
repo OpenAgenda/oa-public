@@ -42,15 +42,17 @@ export default function ActivityDetail({ activity, config }) {
               <Spinner />
             </div>
           ) : null}
-          {activityDetail ? (
+          {activityDetail?.text ? (
             <div className="padding-v-md">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: fromMarkdownToHTML(activityDetail.text),
+                  __html: fromMarkdownToHTML(activityDetail?.text),
                 }}
               />
             </div>
-          ) : null}
+          ) : (
+            <div>{intl.formatMessage({ id: detailLabelIds.noDetail })}</div>
+          )}
         </Modal>
       ) : null}
       <button

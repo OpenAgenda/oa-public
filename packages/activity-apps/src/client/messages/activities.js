@@ -135,6 +135,10 @@ export default defineMessages({
     id: 'ActivityApps.refuseEvent.detailModalTitle',
     defaultMessage: 'Motive of refusal',
   },
+  'refuseEvent.noDeail': {
+    id: 'ActivityApps.refuseEvent.noDeail',
+    defaultMessage: 'No motive was entered',
+  },
   // agenda.removeEvent
   'removeEvent.full': {
     id: 'ActivityApps.removeEvent.full',
@@ -448,6 +452,11 @@ export default defineMessages({
   'agendaSendMessage.detailModalTitle': {
     id: 'ActivityApps.agendaSendMessage.detailModalTitle',
     defaultMessage: 'Message',
+  },
+  'agendaSendMessage.noDetail': {
+    id: 'ActivityApps.agendaSendMessage.noDetail',
+    defaultMessage:
+      'message is empty, maybe cause it was entered before the update',
   },
   XOthers: {
     id: 'ActivityApps.XOthers',
