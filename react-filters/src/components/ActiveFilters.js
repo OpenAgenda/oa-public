@@ -1,6 +1,7 @@
 import useActiveFilters from '../hooks/useActiveFilters';
 import Filters from './Filters';
 import DateRangeFilter from './filters/DateRangeFilter';
+import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter';
 import NumberRangeFilter from './filters/NumberRangeFilter';
 import ChoiceFilter from './filters/ChoiceFilter';
 import DefinedRangeFilter from './filters/DefinedRangeFilter';
@@ -17,6 +18,7 @@ export default function ActiveFilters({ filters, ...rest }) {
       filters={activeFilters}
       choiceComponent={ChoiceFilter.Preview}
       dateRangeComponent={DateRangeFilter.Preview}
+      simpleDateRangeComponent={SimpleDateRangeFilter.Preview}
       numberRangeComponent={NumberRangeFilter.Preview}
       definedRangeComponent={DefinedRangeFilter.Preview}
       searchComponent={SearchFilter.Preview}

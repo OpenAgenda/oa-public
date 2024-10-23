@@ -115,7 +115,7 @@ function parseValue(value) {
   return result;
 }
 
-function Preview({
+export function Preview({
   name,
   staticRanges = [],
   component = FilterPreviewer,
