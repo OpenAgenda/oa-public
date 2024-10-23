@@ -387,10 +387,10 @@ const activitiesConfig = {
       field: {},
       fields: {},
     },
-    detailLabelIds: {
-      button: 'ActivityApps.eventUpdate.detailButton',
-      modalTitle: 'ActivityApps.eventUpdate.detailModalTitle',
-    },
+    /* detailLabelIds: {
+          button: 'ActivityApps.eventUpdate.detailButton',
+          modalTitle: 'ActivityApps.eventUpdate.detailModalTitle',
+        }, */
     notifications: {
       groupBy: ['target'],
     },
@@ -611,6 +611,7 @@ const activitiesConfig = {
     detailLabelIds: {
       button: 'ActivityApps.refuseEvent.detailButton',
       modalTitle: 'ActivityApps.refuseEvent.detailModalTitle',
+      noDetail: 'ActivityApps.refuseEvent.noDetail',
     },
   },
   /*
@@ -1613,6 +1614,7 @@ const activitiesConfig = {
     detailLabelIds: {
       button: 'ActivityApps.agendaSendMessage.detailButton',
       modalTitle: 'ActivityApps.agendaSendMessage.detailModalTitle',
+      noDetail: 'ActivityApps.agendaSendMessage.noDetail',
     },
   },
 };
