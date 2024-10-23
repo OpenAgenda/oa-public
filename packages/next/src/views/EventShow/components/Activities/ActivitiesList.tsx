@@ -43,7 +43,6 @@ function ActivityDetail({ activity, config }) {
           return;
         }
         const responseJson = await response.json();
-        console.log('responseJson', responseJson);
         setActivityDetail(JSON.parse(responseJson.activity.detail));
         setIsLoading(false);
       });
@@ -73,11 +72,17 @@ function ActivityDetail({ activity, config }) {
             <ModalCloseButton />
             <ModalBody>
               {isLoading ? <Spinner /> : null}
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: fromMarkdownToHTML(activityDetail?.text),
-                }}
-              />
+              {activityDetail?.text ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: fromMarkdownToHTML(activityDetail?.text),
+                  }}
+                />
+              ) : (
+                <chakra.div>
+                  {intl.formatMessage({ id: detailLabelIds.noDetail })}
+                </chakra.div>
+              )}
             </ModalBody>
           </ModalHeader>
         </ModalContent>
