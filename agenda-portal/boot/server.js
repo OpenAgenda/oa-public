@@ -46,6 +46,8 @@ Portal({
   defaultFilter: {
     // featured: 1,
   },
+  manualSubmit: process.env.PORTAL_MANUAL_SUBMIT,
+  filtersFormSelector: process.env.PORTAL_FILTERS_FORM_SELECTOR,
   // visibility of past events when relative or timings filter is specified
   visibilityPastEvents: process.env.PORTAL_VISIBILITY_PAST_EVENTS,
   // true if portal is to be displayed within iframe

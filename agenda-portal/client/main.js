@@ -168,7 +168,22 @@ $(() => {
       total: pageProps.total,
       defaultViewport: pageProps.defaultViewport,
       agendaUid: pageProps.agendaUid,
+      manualSubmit: pageProps.manualSubmit,
       query: window.location.search,
+      onLoad(values, aggregations, ref, form) {
+        if (!pageProps.filtersFormSelector) return;
+
+        const formElems = document.querySelectorAll(
+          pageProps.filtersFormSelector,
+        );
+
+        for (const formElem of formElems) {
+          formElem.addEventListener('submit', (event) => {
+            event.preventDefault();
+            form.submit();
+          });
+        }
+      },
       onFilterChange(values, aggregations, ref, _form) {
         onFilterController(pageProps, ref, values, aggregations);
 
