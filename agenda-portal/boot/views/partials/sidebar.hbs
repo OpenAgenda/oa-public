@@ -2,7 +2,7 @@
   <div class='mobile-top-nav text-center' data-sidebar-toggle>
     <button class='btn btn-link'>{{i18n 'backToList'}}</button>
   </div>
-  <div class='sidebar-wrapper'>
+  <form id='oa-filters-form' class='sidebar-wrapper'>
     <div class='my-4'>
       {{filter
         name='geo'
@@ -88,7 +88,7 @@
       message='eventsTotal'
       tagName='span'
       className='mobile-bottom-nav'
-      attributes='data-sidebar-toggle'
+      attributes='role="status" data-sidebar-toggle'
     }}
-  </div>
+  </form>
 </div>

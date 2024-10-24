@@ -4,14 +4,18 @@
 
 <div class="container">
   <div class="row pt-4">
-    <div class="col-md-4 mb-4 order-md-12">
+    <form id="oa-filters-form" class="col-md-4 mb-4 order-md-12">
+      <button type="submit" class="btn btn-primary btn-block mb-2">
+        {{i18n 'filter'}}
+      </button>
+
       {{filter name="search"}}
-    </div>
+    </form>
 
     <div class="col-md-8 order-md-1 mb-4">
       <div class="row">
         <div class="col-md-10 offset-md-2">
-          {{widget name='total' message='eventsTotal'}}
+          {{widget name='total' message='eventsTotal' attributes='role="status"'}}
 
           {{widget name='activeFilters' className='active-filters'}}
 
