@@ -1,7 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useForm } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
 import { defineMessages, useIntl } from 'react-intl';
+import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext';
 
 const messages = defineMessages({
   ariaLabel: {
@@ -13,6 +20,10 @@ const messages = defineMessages({
 function Input({ input, placeholder, onButtonClick }) {
   const intl = useIntl();
 
+  const {
+    filtersOptions: { manualSubmit },
+  } = useContext(FiltersAndWidgetsContext);
+
   return (
     <div className="input-group mb-3">
       <input
@@ -22,16 +33,18 @@ function Input({ input, placeholder, onButtonClick }) {
         aria-label={placeholder}
         {...input}
       />
-      <div className="input-group-append">
-        <button
-          type="submit"
-          className="btn btn-outline-secondary"
-          onClick={onButtonClick}
-          aria-label={intl.formatMessage(messages.ariaLabel)}
-        >
-          <i className="fa fa-search" aria-hidden="true" />
-        </button>
-      </div>
+      {!manualSubmit ? (
+        <div className="input-group-append">
+          <button
+            type="submit"
+            className="btn btn-outline-secondary"
+            onClick={onButtonClick}
+            aria-label={intl.formatMessage(messages.ariaLabel)}
+          >
+            <i className="fa fa-search" aria-hidden="true" />
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
