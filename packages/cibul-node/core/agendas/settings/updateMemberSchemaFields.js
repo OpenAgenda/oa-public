@@ -52,5 +52,5 @@ export default async function updateSchemaFields(
 
   tasks.enqueue('updateLegacy', agenda, true);
 
-  return true;
+  return fs.getData();
 }
