@@ -37,27 +37,23 @@ function SimpleDateRangeField({ input }, _ref) {
   );
 
   return (
-    <div className="row">
-      <div className="col-xs-6">
-        <input
-          value={value?.gte || ''}
-          type="date"
-          className="form-control"
-          aria-label={intl.formatMessage(messages.min)}
-          onChange={(e) => onInputChange('gte', e.target.value)}
-          max={value?.lte || ''}
-        />
-      </div>
-      <div className="col-xs-6">
-        <input
-          value={value?.lte || ''}
-          type="date"
-          className="form-control"
-          aria-label={intl.formatMessage(messages.max)}
-          onChange={(e) => onInputChange('lte', e.target.value)}
-          min={value?.gte || ''}
-        />
-      </div>
+    <div>
+      <input
+        value={value?.gte || ''}
+        type="date"
+        className="form-control"
+        aria-label={intl.formatMessage(messages.min)}
+        onChange={(e) => onInputChange('gte', e.target.value)}
+        max={value?.lte || ''}
+      />
+      <input
+        value={value?.lte || ''}
+        type="date"
+        className="form-control"
+        aria-label={intl.formatMessage(messages.max)}
+        onChange={(e) => onInputChange('lte', e.target.value)}
+        min={value?.gte || ''}
+      />
     </div>
   );
 }

@@ -81,8 +81,13 @@ const IntlProvided = React.forwardRef(
     const intl = useIntl();
 
     const filtersOptions = useMemo(
-      () => ({ missingValue, mapTiles, dateFnsLocale }),
-      [missingValue, mapTiles, dateFnsLocale],
+      () => ({
+        missingValue,
+        mapTiles,
+        dateFnsLocale,
+        manualSubmit,
+      }),
+      [missingValue, mapTiles, dateFnsLocale, manualSubmit],
     );
     const [filters, setFilters] = useState(() =>
       (rawFilters ?? []).map((rawFilter) =>
