@@ -9,6 +9,8 @@ module.exports = async (req, res, next) => {
     defaultLang,
     filters: rawFilters,
     widgets,
+    manualSubmit,
+    filtersFormSelector,
   } = req.app.locals;
   const { intlByLocale } = req.app;
 
@@ -29,6 +31,8 @@ module.exports = async (req, res, next) => {
     defaultLang,
     filters,
     widgets,
+    manualSubmit,
+    filtersFormSelector,
     query: req.query,
   });
 
