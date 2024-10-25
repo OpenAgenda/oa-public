@@ -39,6 +39,7 @@ export default async function updateSchemaFields(
       },
       { memberSchemaId: id },
       {
+        private: null,
         protected: false,
       },
     );
