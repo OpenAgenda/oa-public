@@ -32,8 +32,8 @@
   },
   "scripts": {
     "sb": "yarn storybook",
-    "prepack": "yarn clean && yarn oa-intl compile && yarn build && yarn dist",
-    "build": "yarn build:esm && yarn build:cjs",
+    "prepack": "yarn clean && yarn oa-intl compile && yarn build & yarn dist",
+    "build": "yarn build:esm & yarn build:cjs",
     "build:esm": "babel --copy-files src -d esm -s --env-name esm",
     "build:cjs": "babel --copy-files src -d lib -s",
     "dist": "webpack-cli --config webpack.config.js",
