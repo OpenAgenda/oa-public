@@ -17,12 +17,8 @@ const messages = defineMessages({
   },
 });
 
-function Input({ input, placeholder, onButtonClick }) {
+function Input({ input, placeholder, onButtonClick, manualSubmit }) {
   const intl = useIntl();
-
-  const {
-    filtersOptions: { manualSubmit },
-  } = useContext(FiltersAndWidgetsContext);
 
   return (
     <div className="input-group mb-3">
@@ -59,6 +55,10 @@ export default function SearchInput({
   const form = useForm();
   const [tmpValue, setTmpValue] = useState(input.value);
 
+  const {
+    filtersOptions: { manualSubmit },
+  } = useContext(FiltersAndWidgetsContext);
+
   const debouncedOnChange = useDebouncedCallback((e) => {
     if (manualSearch) {
       return;
@@ -76,6 +76,10 @@ export default function SearchInput({
 
       setTmpValue(e.target.value);
       debouncedOnChange(e);
+      // direct call with manualSubmit
+      if (manualSubmit) {
+        debouncedOnChange.flush();
+      }
     },
     [debouncedOnChange],
   );
@@ -110,6 +114,7 @@ export default function SearchInput({
   return React.createElement(inputComponent, {
     input: wrappedInput,
     onButtonClick,
+    manualSubmit,
     ...rest,
   });
 }
