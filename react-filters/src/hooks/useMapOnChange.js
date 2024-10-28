@@ -1,4 +1,5 @@
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
+import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext';
 
 export default function useMapOnChange({
   input,
@@ -6,18 +7,22 @@ export default function useMapOnChange({
   ref,
   userControlled,
 }) {
+  const {
+    filtersOptions: { manualSubmit },
+  } = useContext(FiltersAndWidgetsContext);
+
   return useCallback(
     (value) => {
-      if (!userControlled) {
-        if (value) {
-          const { current: mapElem } = ref;
-          loadGeoData(value.bounds, value.zoom)
-            .then((data) => mapElem.setData(data?.reverse() ?? []))
-            .catch((err) => {
-              console.log('Failed to geo data', err);
-            });
-        }
+      if (value && (!userControlled || manualSubmit)) {
+        const { current: mapElem } = ref;
+        loadGeoData(value.bounds, value.zoom)
+          .then((data) => mapElem.setData(data?.reverse() ?? []))
+          .catch((err) => {
+            console.log('Failed to geo data', err);
+          });
+      }
 
+      if (!userControlled) {
         return input.onChange(undefined);
       }
 
