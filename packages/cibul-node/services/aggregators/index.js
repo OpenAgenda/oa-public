@@ -166,7 +166,7 @@ export function init(config, services) {
         log('getting agendas for %j', query);
 
         return agendasSvc
-          .list(query, 0, 200, {
+          .list(query, 0, 400, {
             internal: true,
             includeImagePath: true,
             useDefaultImage: true,
