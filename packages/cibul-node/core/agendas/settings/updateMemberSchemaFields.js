@@ -39,6 +39,7 @@ export default async function updateSchemaFields(
       },
       { memberSchemaId: id },
       {
+        private: null,
         protected: false,
       },
     );
@@ -52,5 +53,5 @@ export default async function updateSchemaFields(
 
   tasks.enqueue('updateLegacy', agenda, true);
 
-  return true;
+  return fs.getData();
 }

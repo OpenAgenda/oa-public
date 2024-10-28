@@ -106,6 +106,11 @@ const messages = defineMessages({
     defaultMessage:
       'The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes.',
   },
+  errorMessage: {
+    id: 'aggregator-sources.AddSourceModal.errorMessage',
+    defaultMessage:
+      'There was an issue during the processing of your request. Please try again later. If this problem persists, contact support',
+  },
   ok: {
     id: 'aggregator-sources.AddSourceModal.ok',
     defaultMessage: 'OK',
@@ -372,10 +377,15 @@ export default function AddSourceModal({
 
   const handleFinalSubmit = useCallback(
     ({ evaluate }) => {
-      onSubmit(selectedAgenda, rules, evaluate).then(() => {
-        setSelectedEvaluate(evaluate);
-        selectStep('info');
-      });
+      onSubmit(selectedAgenda, rules, evaluate).then(
+        () => {
+          setSelectedEvaluate(evaluate);
+          selectStep('info');
+        },
+        () => {
+          selectStep('error');
+        },
+      );
     },
     [onSubmit, selectedAgenda, rules, selectStep, setSelectedEvaluate],
   );
@@ -575,6 +585,21 @@ export default function AddSourceModal({
                 ? intl.formatMessage(messages.infoMessageImmediat)
                 : intl.formatMessage(messages.infoMessage)}
             </div>
+            <div className="text-center padding-top-sm">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={onClose}
+              >
+                {intl.formatMessage(messages.ok)}
+              </button>
+            </div>
+          </div>
+        ) : null}
+
+        {selectedStep === 'error' ? (
+          <div>
+            <div>{intl.formatMessage(messages.errorMessage)}</div>
             <div className="text-center padding-top-sm">
               <button
                 type="button"

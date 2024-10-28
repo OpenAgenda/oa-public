@@ -114,6 +114,17 @@ describe('16 - unit - restrictLabelLanguages', () => {
     });
   });
 
+  it('multilingual label is always a string', () => {
+    const restricted = restrictLabelLanguages(
+      {
+        sub: {},
+      },
+      ['fr'],
+    );
+
+    expect(restricted.sub.fr).toBeUndefined();
+  });
+
   it('options are also processed', () => {
     expect(
       restrictLabelLanguages.applyToSchema(

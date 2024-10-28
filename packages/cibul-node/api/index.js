@@ -374,13 +374,8 @@ export default (core, { useRouter = true } = {}) => {
           actingMember: req.member,
         })
         .then(
-          () =>
-            res.json({
-              success: true,
-            }),
-          (err) => {
-            next(err);
-          },
+          (updatedSchema) => res.json(updatedSchema),
+          (err) => next(err),
         ),
   ]);
 

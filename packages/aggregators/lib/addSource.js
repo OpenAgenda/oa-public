@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const logs = require('@openagenda/logs');
+const { BadRequest } = require('@openagenda/verror');
 const limit = require('../utils/limit');
 
 const log = logs('addSource');
@@ -27,8 +28,8 @@ module.exports = async (
   const { query = null, context = {} } = options;
 
   if (await getAgendaSourceId(sourceAgenda, aggregatorAgenda)) {
-    log('already source, throwing error', logBundle);
-    throw new Error('Agenda is already source');
+    log('already source', logBundle);
+    throw new BadRequest('Agenda is already source');
   }
 
   const { aggregator, source } = await addSourceEntry(

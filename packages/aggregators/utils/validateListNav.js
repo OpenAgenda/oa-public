@@ -16,6 +16,6 @@ module.exports = schema({
     type: 'text',
     default: 20,
     min: 0,
-    max: 300,
+    max: 400,
   },
 });

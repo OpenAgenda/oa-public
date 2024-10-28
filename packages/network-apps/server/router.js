@@ -175,9 +175,15 @@ router.post('/:uid/agendas', async (req, res, next) => {
 });
 
 router.use((err, req, res, next) => {
+  if (err.name === 'BadRequest') {
+    res.status(400);
+    res.json(err.info);
+    return;
+  }
   if (req.headers.accept === 'application/json') {
     res.status(500).json(_.pick(err, ['message']));
-  } else {
-    next(err);
+    return;
   }
+
+  next(err);
 });
