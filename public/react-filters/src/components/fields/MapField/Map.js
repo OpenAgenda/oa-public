@@ -305,8 +305,8 @@ const Map = React.forwardRef(
       if (!map || !displayedMarkers) return;
 
       if (previousUserControlled === false && userControlled === true) {
-        const innerBounds = mapRef.current.getBounds();
-        const innerZoom = mapRef.current.getBoundsZoom(innerBounds);
+        const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
+        const innerZoom = map.getBoundsZoom(map.getBounds());
 
         onChange({
           bounds: innerBounds,

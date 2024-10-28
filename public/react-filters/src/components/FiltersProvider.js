@@ -4,6 +4,7 @@ import React, {
   useImperativeHandle,
   useMemo,
   useState,
+  useRef,
 } from 'react';
 import { Form, FormSpy } from 'react-final-form';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
@@ -20,17 +21,24 @@ const FiltersForm = React.forwardRef(
   ({ onSubmit, initialValues, manualSubmit, subscription, children }, ref) => {
     const { filters } = useContext(FiltersAndWidgetsContext);
 
+    const submittedValuesRef = useRef();
+
     const handleSubmit = useCallback(
       (values, form) => {
         const aggregations = filtersToAggregations(filters);
+
+        submittedValuesRef.current = values;
 
         return onSubmit(values, aggregations, form);
       },
       [filters, onSubmit],
     );
 
-    const form = useConstant(() =>
-      createForm({ onSubmit: handleSubmit, initialValues }));
+    const form = useConstant(() => {
+      const finalForm = createForm({ onSubmit: handleSubmit, initialValues });
+      finalForm.getSubmittedValues = () => submittedValuesRef.current;
+      return finalForm;
+    });
 
     useImperativeHandle(ref, () => form);
 
@@ -81,8 +89,13 @@ const IntlProvided = React.forwardRef(
     const intl = useIntl();
 
     const filtersOptions = useMemo(
-      () => ({ missingValue, mapTiles, dateFnsLocale }),
-      [missingValue, mapTiles, dateFnsLocale],
+      () => ({
+        missingValue,
+        mapTiles,
+        dateFnsLocale,
+        manualSubmit,
+      }),
+      [missingValue, mapTiles, dateFnsLocale, manualSubmit],
     );
     const [filters, setFilters] = useState(() =>
       (rawFilters ?? []).map((rawFilter) =>

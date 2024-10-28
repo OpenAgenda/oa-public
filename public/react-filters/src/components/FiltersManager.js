@@ -3,7 +3,6 @@ import isEqual from 'lodash/isEqual';
 import qs from 'qs';
 import React, {
   forwardRef,
-  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -31,6 +30,7 @@ import FavoriteToggle from './FavoriteToggle';
 import Total from './Total';
 import ChoiceFilter from './filters/ChoiceFilter';
 import DateRangeFilter from './filters/DateRangeFilter';
+import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter';
 import DefinedRangeFilter from './filters/DefinedRangeFilter';
 import NumberRangeFilter from './filters/NumberRangeFilter';
 import SearchFilter from './filters/SearchFilter';
@@ -51,6 +51,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
 
     choiceComponent = ChoiceFilter,
     dateRangeComponent = DateRangeFilter,
+    simpleDateRangeComponent = SimpleDateRangeFilter,
     definedRangeComponent = DefinedRangeFilter,
     numberRangeComponent = NumberRangeFilter,
     searchComponent = SearchFilter,
@@ -118,8 +119,12 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     aggregations,
   );
   const getTotal = useGetTotal(aggregations);
-  const getValues = useCallback(() => form.getState().values, [form]);
-  const loadGeoData = useLoadGeoData(null, res, getValues, { searchMethod });
+  const loadGeoData = useLoadGeoData(
+    null,
+    res,
+    () => form.getSubmittedValues(),
+    { searchMethod },
+  );
 
   useImperativeHandle(ref, () => ({
     getFilters: () => filters,
@@ -169,7 +174,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
           setWidgets(newWidgets);
         }
 
-        setAggregations(result.aggregations || []);
+        setAggregations(result.aggregations || {});
         setTotal(result.total || 0);
       });
 
@@ -257,6 +262,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         // filters
         choiceComponent={choiceComponent}
         dateRangeComponent={dateRangeComponent}
+        simpleDateRangeComponent={simpleDateRangeComponent}
         definedRangeComponent={definedRangeComponent}
         numberRangeComponent={numberRangeComponent}
         searchComponent={searchComponent}
