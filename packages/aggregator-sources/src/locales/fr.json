@@ -6,6 +6,7 @@
   "aggregator-sources.AddSourceModal.defineRules": "Définir des règles",
   "aggregator-sources.AddSourceModal.defineRulesStep": "Règles",
   "aggregator-sources.AddSourceModal.enterALink": "Entrer un lien agenda",
+  "aggregator-sources.AddSourceModal.errorMessage": "Il y a eu un souci lors du traitement de la requête. Veuillez retenter dans un instant. Si le problème persiste, contactez le support.",
   "aggregator-sources.AddSourceModal.evaluateMessage": "L'agenda {source} est sur le point d'être ajouté aux sources de {aggregator} {ruleCount, plural, =0 {sans règle} one {avec 1 règle} other {avec {ruleCount} règles}}.",
   "aggregator-sources.AddSourceModal.evaluationStep": "Évaluation",
   "aggregator-sources.AddSourceModal.makeASearch": "Faire une recherche",
