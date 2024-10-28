@@ -8,6 +8,7 @@ import getTimingsSpan from '../src/utils/getTimingsSpan';
 import flattenLocationTagSet from '../src/utils/flattenLocationTagSet';
 import schemaLanguages from '../src/utils/schemaLanguages';
 import extractLanguages from '../src/utils/extractLanguages';
+import { convertTimezoneOffset } from '../src/utils/time';
 import reedFixtures from './fixtures/reed.json';
 
 describe('event-form utils unit tests', () => {
@@ -246,6 +247,20 @@ describe('event-form utils unit tests', () => {
           },
         ],
       });
+    });
+  });
+
+  describe('time', () => {
+    test('convertTimezoneOffset IST', () => {
+      expect(convertTimezoneOffset(-5.5)).toBe('+05:30');
+    });
+
+    test('convertTimezoneOffset CET', () => {
+      expect(convertTimezoneOffset(-1)).toBe('+01:00');
+    });
+
+    test('convertTimezoneOffset PDT', () => {
+      expect(convertTimezoneOffset(7)).toBe('-07:00');
     });
   });
 
