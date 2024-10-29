@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
+import debug from 'debug';
 
 import FormSchemaComponent from '../client/src/index';
 import SimpleRowDecorator from './decorators/SimpleRow';
@@ -8,6 +9,8 @@ import SimpleRowDecorator from './decorators/SimpleRow';
 if (import.meta.webpackHot) {
   import.meta.webpackHot.accept();
 }
+
+debug.enable(process.env.STORYBOOK_DEBUG);
 
 export default {
   title: 'Field types',
@@ -813,9 +816,7 @@ export function Checkboxes() {
 }
 
 export function Boolean() {
-  const onChange = ({ values }) => {
-    console.log(values);
-  };
+  const [data, setData] = useState();
 
   const props = {
     res: {
@@ -823,20 +824,24 @@ export function Boolean() {
       redirect: '/',
     },
     lang: 'fr',
-    onChange: (v) => onChange(v),
+    onChange: (d) => setData(d),
+    onSubmit: (d) => setData(d),
     schema: {
       fields: [
         {
-          field: 'ayesorno',
+          field: 'wellok',
           fieldType: 'boolean',
           label: 'Well ok',
           optional: false,
         },
         {
-          field: 'longlabelwithinfoandhelp',
+          field: 'thisfieldisoptionalwithalonglabelandnodefault',
           fieldType: 'boolean',
-          label:
-            'This is an extremely long label that will take up more than one line in the form. The first line of the label should still appear on the line of the checkbox itself',
+          label: [
+            'This field is optional. It has a very long label.',
+            'When it left not checked, it counts as a false.',
+            'Meaning it will be set at false when the user loads the form and never interacts with the control',
+          ].join(' '),
           info: 'An info text displayed under the label',
           help: 'Click here for more info',
           helpLink: 'https://openagenda.com',
@@ -852,10 +857,15 @@ export function Boolean() {
   };
 
   return (
-    <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+    <div className="container top-margined col-lg-offset-2 col-lg-8">
       <div className="row margin-v-md margin-h-sm">
         <p>A single required choice field</p>
-        <FormSchemaComponent {...props} />
+        <div className="col col-sm-6 wsq">
+          <FormSchemaComponent {...props} />
+        </div>
+        <div className="col col-sm-6">
+          <pre style={{ minHeight: 400 }}>{JSON.stringify(data, null, 2)}</pre>
+        </div>
       </div>
     </div>
   );
