@@ -30,9 +30,9 @@ export default async function addActivity(
             target: agenda.title,
           },
           subject: data.subject,
-          detail: { text: data.message },
           recipientRoles,
         },
+        detail: { text: data.message },
       },
     );
   } catch (e) {
