@@ -1,9 +1,7 @@
-'use strict';
+import { createElement as el } from 'react';
+import { Helmet } from 'react-helmet-async';
 
-const { createElement: el } = require('react');
-const { Helmet } = require('react-helmet-async');
-
-module.exports = ({ children }) =>
+export default ({ children }) =>
   el(
     Helmet,
     { title: 'OpenAgenda', defaultTitle: 'OpenAgenda' },

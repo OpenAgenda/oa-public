@@ -3,9 +3,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import { QueryClientProvider } from 'react-query';
 import { wrapApp } from '@openagenda/react-shared';
 import { LayoutManager } from '@openagenda/react-layouts';
-import NotFoundDisplayer from './NotFoundDisplayer';
-import NotFound from './NotFound';
-import ErrorComponent from './ErrorComponent';
+import NotFoundDisplayer from './NotFoundDisplayer.js';
+import NotFound from './NotFound.js';
+import ErrorComponent from './ErrorComponent.js';
 
 export default function Root({
   apps,

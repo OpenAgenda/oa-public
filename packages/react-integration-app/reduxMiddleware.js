@@ -1,8 +1,6 @@
-'use strict';
+import { produce } from 'immer';
 
-const { produce } = require('immer');
-
-module.exports = function reduxMiddleware(layoutStore, queryClient) {
+export default function reduxMiddleware(layoutStore, queryClient) {
   return (/* store */) => (next) => async (action) => {
     try {
       switch (action.type) {
@@ -46,4 +44,4 @@ module.exports = function reduxMiddleware(layoutStore, queryClient) {
 
     return next(action);
   };
-};
+}

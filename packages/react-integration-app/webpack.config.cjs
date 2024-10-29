@@ -200,7 +200,7 @@ module.exports = (env = {}, argv = {}) => {
     },
     resolve: {
       // symlinks: false,
-      extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
+      extensions: ['.wasm', '.mjs', '.cjs', '.js', '.jsx', '.json'],
       fallback: {
         buffer: require.resolve('buffer'),
       },
