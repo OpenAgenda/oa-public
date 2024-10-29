@@ -1,8 +1,26 @@
+import { useEffect } from 'react';
 import classNames from 'classnames';
 import Help from './Help';
 
 const hasHelp = require('../lib/hasHelp');
 const isFieldOptional = require('../lib/isFieldOptional');
+
+function defineChecked(field, value) {
+  const { default: defaultValue } = field;
+
+  const hasDefinedValue = ![null, undefined].includes(value);
+  const hasDefaultValue = defaultValue !== undefined;
+
+  if (hasDefinedValue) {
+    return value;
+  }
+
+  if (hasDefaultValue) {
+    return defaultValue;
+  }
+
+  return false;
+}
 
 export default (props) => {
   const {
@@ -18,14 +36,17 @@ export default (props) => {
 
   const { field } = props;
 
-  const { default: defaultValue } = field;
-
   const isOptional = isFieldOptional(field, relatedValues.optional);
-  const falsyValue = isOptional ? false : undefined;
-  const checked = !!([null, undefined].includes(value)
-  && defaultValue !== undefined
-    ? defaultValue
-    : value);
+  const checked = defineChecked(field, value);
+
+  useEffect(function forceUncheckedBoxes() {
+    if (!enabled) {
+      return;
+    }
+    if (!checked && !value && value !== false) {
+      onChange(false);
+    }
+  }, []);
 
   return (
     <div className="checkbox">
@@ -34,7 +55,7 @@ export default (props) => {
           id={name}
           type="checkbox"
           name={name}
-          onChange={() => onChange(checked ? falsyValue : true)}
+          onChange={() => onChange(!checked)}
           checked={checked}
           disabled={!enabled}
         />

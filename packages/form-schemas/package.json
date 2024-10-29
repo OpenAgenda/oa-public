@@ -11,7 +11,7 @@
   "scripts": {
     "sb": "yarn start",
     "storybook": "yarn start",
-    "start": "storybook dev -p 9001 --ci",
+    "start": "storybook dev",
     "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false",
     "prepack": "yarn build",
     "build": "rimraf client/build && babel client/src -d client/build -s"
