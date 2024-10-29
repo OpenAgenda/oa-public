@@ -23,7 +23,6 @@ import messages from '../../messages';
 import { useActivitiesContext } from './context';
 
 function ActivityDetail({ activity, config }) {
-  console.log('ActivityDetail (next)', activity);
   const intl = useIntl();
   const { detailLabelIds } = config[activity.verb];
   const { id: activityId } = activity;
@@ -34,7 +33,7 @@ function ActivityDetail({ activity, config }) {
   } = useDisclosure({ defaultIsOpen: false });
   const [isLoading, setIsLoading] = useState(false);
   const [activityDetail, setActivityDetail] = useState(null);
-  console.log('ActivityDetail next', { detailIsOpen }, activityDetail);
+
   useEffect(() => {
     if (detailIsOpen) {
       fetch(`/activities/${activityId}`).then(async (response, err) => {

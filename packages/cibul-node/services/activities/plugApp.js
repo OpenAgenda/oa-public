@@ -4,7 +4,6 @@ import listMiddleware from './list.middleware.js';
 const log = logs('services/activites/plugApp');
 
 function activitiesGet(activitiesSvc, req, res) {
-  console.log('activitiesSvc', activitiesSvc);
   activitiesSvc.activities
     .get(req.params.id)
     .then((activity) => {
