@@ -23,6 +23,7 @@ import messages from '../../messages';
 import { useActivitiesContext } from './context';
 
 function ActivityDetail({ activity, config }) {
+  console.log('ActivityDetail (next)', activity);
   const intl = useIntl();
   const { detailLabelIds } = config[activity.verb];
   const { id: activityId } = activity;
@@ -43,7 +44,11 @@ function ActivityDetail({ activity, config }) {
           return;
         }
         const responseJson = await response.json();
-        setActivityDetail(JSON.parse(responseJson.activity.detail));
+        setActivityDetail(
+          responseJson.activity.detail
+            ? JSON.parse(responseJson.activity.detail)
+            : null,
+        );
         setIsLoading(false);
       });
     }
@@ -70,21 +75,21 @@ function ActivityDetail({ activity, config }) {
           >
             {intl.formatMessage({ id: detailLabelIds.modalTitle })}
             <ModalCloseButton />
-            <ModalBody>
-              {isLoading ? <Spinner /> : null}
-              {activityDetail?.text ? (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: fromMarkdownToHTML(activityDetail?.text),
-                  }}
-                />
-              ) : (
-                <chakra.div>
-                  {intl.formatMessage({ id: detailLabelIds.noDetail })}
-                </chakra.div>
-              )}
-            </ModalBody>
           </ModalHeader>
+          <ModalBody pb="4">
+            {isLoading ? <Spinner /> : null}
+            {activityDetail?.text && !isLoading ? (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: fromMarkdownToHTML(activityDetail?.text),
+                }}
+              />
+            ) : (
+              <chakra.div>
+                {intl.formatMessage({ id: detailLabelIds.noDetail })}
+              </chakra.div>
+            )}
+          </ModalBody>
         </ModalContent>
       </Modal>
     </chakra.div>
@@ -112,12 +117,6 @@ function renderLink(link, content) {
 }
 
 function Activity({ formattedActivity, activity, isBrowser, config }) {
-  console.log(
-    'Activity next',
-    config,
-    activity,
-    config[activity.verb].detailLabelIds,
-  );
   return (
     <chakra.div color="oaGray.500">
       <div>{formattedActivity}</div>
