@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const { mkdirp } = require('mkdirp');
 const { dedent } = require('ts-dedent');
 const fileExists = require('./fileExists');
+// const isPackageModule = require('./isPackageModule');
 
 function getCjsIndex(existingLangs, langs) {
   const requires = existingLangs
@@ -38,7 +39,7 @@ function getEsmIndex(existingLangs, langs) {
     .sort()
     .map((lang) =>
       (existingLangs.includes(lang)
-        ? `export { default as ${lang} } from './${lang}.json' assert { type: 'json' }`
+        ? `export { default as ${lang} } from './${lang}.json' with { type: 'json' }`
         : `export const ${lang} = {}`))
     .join(';\n');
 
@@ -51,10 +52,18 @@ function getEsmIndex(existingLangs, langs) {
     `}\n`;
 }
 
+/* function getFileExtension(isModule, isEsm) {
+  if (isModule && !isEsm) return 'cjs';
+  if (!isModule && isEsm) return 'mjs';
+  return 'js';
+} */
+
 module.exports = async function createIndex(dest, langs, isEsm) {
+  // TODO fix after https://github.com/formatjs/formatjs/issues/4489
+  const extension = isEsm ? 'mjs' : 'js'; // getFileExtension(isPackageModule(), isEsm);
   const indexPath = path.join(
     process.cwd(),
-    dest.replace('%lang%.json', `index.${isEsm ? 'mjs' : 'js'}`),
+    dest.replace('%lang%.json', `index.${extension}`),
   );
 
   await mkdirp(path.dirname(dest));
