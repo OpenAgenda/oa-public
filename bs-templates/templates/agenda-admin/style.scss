@@ -83,6 +83,12 @@
 }
 
 .agenda-admin-filters-layout {
+  @media (max-width: $screen-sm-max) {
+    .row:first-child {
+      padding: 0 30px;
+    }
+  }
+
   .body {
     @media (min-width: $screen-md-min) {
       padding: 0;
