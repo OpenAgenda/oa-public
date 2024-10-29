@@ -19,7 +19,11 @@ export default function ActivityDetail({ activity, config }) {
           return;
         }
         const responseJson = await response.json();
-        setActivityDetail(JSON.parse(responseJson.detail));
+        setActivityDetail(
+          responseJson.activity.detail
+            ? JSON.parse(responseJson.activity.detail)
+            : null,
+        );
         setIsLoading(false);
       });
     }
@@ -42,7 +46,7 @@ export default function ActivityDetail({ activity, config }) {
               <Spinner />
             </div>
           ) : null}
-          {activityDetail?.text ? (
+          {activityDetail?.text && !isLoading ? (
             <div className="padding-v-md">
               <div
                 dangerouslySetInnerHTML={{
