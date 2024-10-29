@@ -3,8 +3,8 @@ import { useIntl } from 'react-intl';
 import { matchPath, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
-import ChildLayouts from '../components/ChildLayouts';
-import Loading from '../components/Loading';
+import ChildLayouts from '../components/ChildLayouts.js';
+import Loading from '../components/Loading.js';
 
 function AgendaDataLayout({ childLayouts, children, extraProps, fallback }) {
   const intl = useIntl();

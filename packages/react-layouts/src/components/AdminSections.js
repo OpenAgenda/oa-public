@@ -3,9 +3,9 @@ import React from 'react';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { useIntl, defineMessages } from 'react-intl';
 import { useSelector } from 'react-redux';
-import compareRoles from '@openagenda/members/build/compareRoles';
+import compareRoles from '@openagenda/members/build/compareRoles.js';
 
-import AgendaSystemMenu from './AgendaSystemMenu';
+import AgendaSystemMenu from './AgendaSystemMenu.js';
 
 const TABS_IN_APP = [
   'events',

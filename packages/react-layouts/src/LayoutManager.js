@@ -5,8 +5,7 @@ import {
   ApiClientContext,
   apiClient,
 } from '@openagenda/react-shared';
-
-import Layout from './Layout';
+import Layout from './Layout.js';
 
 export default function LayoutManager({ store, apps, children, ...props }) {
   const client = useConstant(() => apiClient('', null));

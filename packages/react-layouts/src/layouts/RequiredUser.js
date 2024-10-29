@@ -1,8 +1,8 @@
 import qs from 'qs';
 import { useMemo } from 'react';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
-import ChildLayouts from '../components/ChildLayouts';
-import Loading from '../components/Loading';
+import ChildLayouts from '../components/ChildLayouts.js';
+import Loading from '../components/Loading.js';
 
 function createRequiredUser(options = {}) {
   const { inAgendaContext = false } = options;

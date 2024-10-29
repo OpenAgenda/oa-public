@@ -7,7 +7,7 @@ import {
   apiClient,
 } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import appLocales from '../../src/locales-compiled';
+import * as appLocales from '../../src/locales-compiled/index.mjs';
 
 const lang = 'fr';
 
@@ -29,6 +29,7 @@ export default (Story) => {
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={appLocales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >
