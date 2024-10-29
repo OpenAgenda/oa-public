@@ -11,5 +11,4 @@ export { default as UIKitProvider } from './Provider';
 export * from './components';
 
 export * from '@chakra-ui/react';
-export * from '@chakra-ui/focus-lock';
 export * from 'react-remove-scroll';
