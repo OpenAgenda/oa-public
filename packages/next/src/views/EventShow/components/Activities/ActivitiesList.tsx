@@ -36,20 +36,20 @@ function ActivityDetail({ activity, config }) {
 
   useEffect(() => {
     if (detailIsOpen) {
-      fetch(`/activities/${activityId}`).then(async (response, err) => {
-        if (err) {
+      fetch(`/activities/${activityId}`)
+        .then(async (response) => {
+          const responseJson = await response.json();
+          setActivityDetail(
+            responseJson.activity.detail
+              ? JSON.parse(responseJson.activity.detail)
+              : null,
+          );
+          setIsLoading(false);
+        })
+        .catch((err) => {
           setIsLoading(false);
           console.error(err);
-          return;
-        }
-        const responseJson = await response.json();
-        setActivityDetail(
-          responseJson.activity.detail
-            ? JSON.parse(responseJson.activity.detail)
-            : null,
-        );
-        setIsLoading(false);
-      });
+        });
     }
   }, [activityId, detailIsOpen]);
   return (
