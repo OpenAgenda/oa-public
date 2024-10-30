@@ -12,7 +12,8 @@
   "homepage": "https://github.com/OpenAgenda/oa-public",
   "main": "dist/index.js",
   "scripts": {
-    "start": "storybook dev -p 9001",
+    "sb": "yarn start",
+    "start": "storybook dev",
     "test": "TZ=Europe/Paris jest --forceExit --detectOpenHandles",
     "build": "babel --copy-files src -d dist -s",
     "extract-messages": "yarn oa-intl",
