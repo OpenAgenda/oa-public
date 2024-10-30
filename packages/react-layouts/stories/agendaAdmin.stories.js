@@ -5,11 +5,11 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
 import { produce } from 'immer';
 
-import AgendaAdminDataLayoutComponent from '../src/layouts/AgendaAdminDataLayout';
-import AgendaAdminLayoutComponent from '../src/layouts/AgendaAdminLayout';
+import AgendaAdminDataLayoutComponent from '../src/layouts/AgendaAdminDataLayout.js';
+import AgendaAdminLayoutComponent from '../src/layouts/AgendaAdminLayout.js';
 
-import createLayoutStore from '../src/createLayoutStore';
-import ProvidersDecorator from './decorators/Providers';
+import createLayoutStore from '../src/createLayoutStore.js';
+import ProvidersDecorator from './decorators/Providers.js';
 
 import sections from './fixtures/sections.json';
 

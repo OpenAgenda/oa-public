@@ -1,4 +1,4 @@
-import ChildLayouts from '../components/ChildLayouts';
+import ChildLayouts from '../components/ChildLayouts.js';
 
 function InboxAgendaAdminLayout({
   childLayouts,

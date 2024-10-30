@@ -5,9 +5,9 @@ import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { useIsomorphicLayoutEffect } from 'react-use';
 import { useApiClient } from '@openagenda/react-shared';
-import * as agendaAdminActions from '../reducers/agendaAdmin';
-import ChildLayouts from '../components/ChildLayouts';
-import Loading from '../components/Loading';
+import * as agendaAdminActions from '../reducers/agendaAdmin.js';
+import ChildLayouts from '../components/ChildLayouts.js';
+import Loading from '../components/Loading.js';
 
 function AgendaAdminDataLayout({
   childLayouts,
