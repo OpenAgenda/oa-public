@@ -1582,25 +1582,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/dom-utils@npm:2.1.0":
-  version: 2.1.0
-  resolution: "@chakra-ui/dom-utils@npm:2.1.0"
-  checksum: 10c0/75303446d2e2cc2569e0726847e91c163f236e8de4f69a735bfd515b19cbf3f854c0a0ca273dcd0e4fe6d875be16d6ec82f937d5e5a451038e4cf79d2e412245
-  languageName: node
-  linkType: hard
-
-"@chakra-ui/focus-lock@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@chakra-ui/focus-lock@npm:2.1.0"
-  dependencies:
-    "@chakra-ui/dom-utils": "npm:2.1.0"
-    react-focus-lock: "npm:^2.9.4"
-  peerDependencies:
-    react: ">=18"
-  checksum: 10c0/fe9cc0a40edf9ad0287119703fc7e2d90e4913ea3a6faa1e917214eae55f00880134835ea0b9d8731138248e6f6187c6b7ca16735526b42b742441a2d8d6c4f2
-  languageName: node
-  linkType: hard
-
 "@chakra-ui/hooks@npm:2.4.2":
   version: 2.4.2
   resolution: "@chakra-ui/hooks@npm:2.4.2"
@@ -4628,7 +4609,6 @@ __metadata:
   dependencies:
     "@chakra-ui/anatomy": "npm:^2.3.4"
     "@chakra-ui/cli": "npm:^2.5.5"
-    "@chakra-ui/focus-lock": "npm:^2.1.0"
     "@chakra-ui/icons": "npm:^2.2.4"
     "@chakra-ui/react": "npm:^2.10.3"
     "@chakra-ui/shared-utils": "npm:2.0.4"
@@ -25433,7 +25413,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-focus-lock@npm:^2.9.4, react-focus-lock@npm:^2.9.6":
+"react-focus-lock@npm:^2.9.6":
   version: 2.13.2
   resolution: "react-focus-lock@npm:2.13.2"
   dependencies:
