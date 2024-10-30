@@ -79,7 +79,6 @@ export default injectIntl(
           dispatch(activitiesActions.load(query, { slug: params.slug })),
         );
         // }
-
         return Promise.all(typeof window !== 'undefined' ? [] : promises);
       },
     })(

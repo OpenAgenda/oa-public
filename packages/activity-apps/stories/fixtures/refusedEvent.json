@@ -1,0 +1,22 @@
+{
+  "id": 16663579,
+  "actor": "user:55507091",
+  "verb": "agenda.refuseEvent",
+  "object": "event:25979670",
+  "target": "agenda:79882300",
+  "store": {
+    "labels": {
+      "actor": "Bisounours Rose",
+      "object": {
+        "fr": "to aggreg interco"
+      },
+      "target": "Morbihan test"
+    },
+    "contributorUid": null,
+    "sourceAgendaUids": [96334583],
+    "originAgendaUid": null
+  },
+  "createdAt": "2024-08-21T13:18:02.000Z",
+  "updatedAt": null,
+  "detail": true
+}

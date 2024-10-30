@@ -79,6 +79,9 @@ export default async (
           // origin is not always set. When the event was created by script for example.
           originAgendaUid: event.origin ? event.origin.uid : null,
         },
+        detail: {
+          text: after.motive,
+        },
       },
     );
   }

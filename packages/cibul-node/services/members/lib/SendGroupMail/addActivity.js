@@ -13,6 +13,7 @@ export default async function addActivity(
     log.warn('activities service is not initialized. Not creating activity');
     return;
   }
+  console.log('addSendGroupMailActivity', data);
   try {
     await activities.addActivity(
       { entityType: 'agenda', entityUid: agenda.uid },
@@ -31,6 +32,7 @@ export default async function addActivity(
           subject: data.subject,
           recipientRoles,
         },
+        detail: { text: data.message },
       },
     );
   } catch (e) {

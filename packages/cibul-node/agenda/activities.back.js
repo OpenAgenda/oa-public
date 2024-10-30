@@ -1,8 +1,8 @@
-import mw from '@openagenda/activity-apps/dist/middleware.js';
+import listMw from '../services/activities/list.middleware.js';
 import cmn from '../lib/commons-app.js';
 
 export default (app) => {
-  const { agendas, members, sessions } = app.services;
+  const { agendas, members, sessions, activities } = app.services;
 
   const preMw = [
     cmn.loadLogger('agendaActivities'),
@@ -13,5 +13,8 @@ export default (app) => {
   ];
 
   app.get('/:slug/admin/activities/list', preMw, (req, res) =>
-    mw.list({ entityType: 'agenda', entityUid: req.agenda.uid })(req, res));
+    listMw(activities, { entityType: 'agenda', entityUid: req.agenda.uid })(
+      req,
+      res,
+    ));
 };

@@ -2,7 +2,8 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/activities/prepareSummary');
 
-export default ({ bull, activities }) => {
+export default (services) => {
+  const { bull } = services;
   const queue = new bull.Queue('prepareSummary', {
     prefix: '{prepareSummary}',
   });
@@ -13,6 +14,7 @@ export default ({ bull, activities }) => {
     },
     {
       task() {
+        const { activities } = services;
         const worker = new bull.Worker(
           queue.name,
           async (job) => {
