@@ -12,10 +12,6 @@ const memberListResult = {
   members: membersFixtures.members.concat([]),
 };
 
-global.__CLIENT__ = false;
-global.__SERVER__ = true;
-global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
-
 module.exports = (router) => {
   if (['development', 'test'].includes(process.env.NODE_ENV)) {
     router.use(morgan('dev'));

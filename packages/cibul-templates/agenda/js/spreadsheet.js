@@ -8,8 +8,6 @@ const _ = {
 const flattenLabels = require( '@openagenda/labels/flatten' );
 const labels = require( '@openagenda/labels/agendas/actions' );
 
-const du = require( '@openagenda/dom-utils' );
-
 const modalPartial = require( '../../bsLayout/js/modalPartial' );
 
 module.exports = options => {
@@ -23,7 +21,7 @@ module.exports = options => {
 
   if ( params.languages.length <= 1 ) return;
 
-  du.els( params.selector ).forEach( linkElem => {
+  document.querySelectorAll( params.selector ).forEach( linkElem => {
 
     const separator = linkElem.getAttribute( 'href' ).indexOf( '?' ) === -1 ? '?' : '&';
 

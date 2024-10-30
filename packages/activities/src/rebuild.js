@@ -1,3 +1,5 @@
+'use strict';
+
 const VError = require('@openagenda/verror');
 const log = require('@openagenda/logs')('activities/rebuild');
 
@@ -121,7 +123,11 @@ function getAgendaEventsStream(config, options, agenda) {
     .where(`${schemas.agendaEventService}.agenda_uid`, agenda.uid);
 
   if (options.since) {
-    q.where('updated_at', '>=', new Date(options.since * 1000));
+    q.where(
+      `${schemas.agendaEventService}.updated_at`,
+      '>=',
+      new Date(options.since * 1000),
+    );
   }
 
   return q.stream();

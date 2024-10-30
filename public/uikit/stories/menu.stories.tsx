@@ -1,4 +1,12 @@
-import { Button, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList } from '../src';
+import {
+  Button,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+} from '../src';
 import Provider from './decorators/Provider';
 
 export default {

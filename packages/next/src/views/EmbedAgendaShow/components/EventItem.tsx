@@ -57,21 +57,15 @@ export default function EventItem({
 
   const query = useLocationQuery();
 
-  const { baseUrl } = useEmbedLayoutData();
+  const { baseUrl, primaryColor } = useEmbedLayoutData();
 
   const upcomingOnly = !query.timings && query.passed !== '1';
 
   const nc = useMemo(
     () => ({
       ...query,
-      state: [2],
       sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
       passed: undefined,
-      ...upcomingOnly
-        ? {
-          relative: ['current', 'upcoming'],
-        }
-        : null,
       from,
       first: first || undefined,
       last: last || undefined,
@@ -118,7 +112,9 @@ export default function EventItem({
         <Box h="170px" />
       )}
       <Flex direction="column" p="6" gap="2" grow="1" minH="170px">
-        <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
+        <Box color={primaryColor ? 'primary.500' : null} fontWeight="bold">
+          {getLocaleValue(event.dateRange, intl.locale)}
+        </Box>
         <NextChakraLinkOverlay
           isExternal={eventLink.isExternal}
           href={eventLink.url}
@@ -128,9 +124,12 @@ export default function EventItem({
         <Box color="#545454">
           {getLocaleValue(event.description, intl.locale)}
         </Box>
-        <Box fontSize="sm" color="#545454" mt="auto">
-          {event.location.name}
-        </Box>
+        {event.location ? (
+          <Box fontSize="sm" color="#545454" mt="auto">
+            {event.location.name}
+            {event.location.city ? `, ${event.location.city}` : ''}
+          </Box>
+        ) : null}
       </Flex>
     </LinkBox>
   );

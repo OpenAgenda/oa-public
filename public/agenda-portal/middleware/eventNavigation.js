@@ -37,9 +37,9 @@ function redirectToNeighbor(req, res, next) {
         { oaq: search },
         {
           offset: Math.max(0, newIndex),
-        }
+        },
       ),
-      1
+      1,
     )
     .then(({ total, events }) => {
       const update = {
@@ -62,7 +62,7 @@ function redirectToNeighbor(req, res, next) {
           302,
           `${req.app.locals.root}?${qs.stringify({
             oaq: search,
-          })}`
+          })}`,
         );
         return;
       }
@@ -70,8 +70,8 @@ function redirectToNeighbor(req, res, next) {
       res.redirect(
         302,
         `${req.app.locals.root}/events/${_.first(events).slug}?${qs.stringify(
-          queryPart
-        )}`
+          queryPart,
+        )}`,
       );
     }, next);
 }

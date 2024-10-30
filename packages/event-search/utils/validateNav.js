@@ -69,7 +69,7 @@ module.exports = function validateNav(nav, options = {}) {
 
   const { maxResultWindow = 10000 } = options;
 
-  const { offset, limit } = preClean;
+  const { offset, limit, searchAfter } = preClean;
 
   if (offset) {
     preClean.from = offset;
@@ -77,6 +77,10 @@ module.exports = function validateNav(nav, options = {}) {
 
   if (limit) {
     preClean.size = limit;
+  }
+
+  if (Array.isArray(searchAfter)) {
+    preClean.searchAfter = searchAfter.map((s) => (s === 'null' ? null : s));
   }
 
   const clean = navValidator(preClean);

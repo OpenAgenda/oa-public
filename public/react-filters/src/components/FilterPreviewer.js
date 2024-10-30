@@ -1,4 +1,3 @@
-import React from 'react';
 import useFilterTitle from '../hooks/useFilterTitle';
 import ValueBadge from './ValueBadge';
 
@@ -18,7 +17,7 @@ export default function FilterPreviewer({
   if (valueOptions?.length) {
     return (
       <>
-        {valueOptions.map(option => (
+        {valueOptions.map((option) => (
           <span key={option.value} className={className}>
             <ValueBadge
               label={option.label}

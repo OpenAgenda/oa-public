@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
+import resetCache from './lib/resetCache.js';
 
 const log = logs('services/agendas/onRemove');
 
@@ -49,5 +50,11 @@ export default async (services, agenda) => {
     log.info('remove agenda feed', logBundle);
   } catch (error) {
     log.error('failed to remove agenda feed', { ...logBundle, error });
+  }
+
+  try {
+    await resetCache(services, agenda);
+  } catch (error) {
+    log.error('failed to reset agenda cache', { ...logBundle, error });
   }
 };

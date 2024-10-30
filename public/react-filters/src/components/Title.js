@@ -4,18 +4,16 @@ import useFilterTitle from '../hooks/useFilterTitle';
 
 const subscription = { value: true };
 
-export default function Title({
-  name,
-  filter,
-  component,
-  ...rest
-}) {
+export default function Title({ name, filter, component, ...rest }) {
   const title = useFilterTitle(name, filter.fieldSchema);
   const field = useField(name, { subscription });
 
   const { input } = field;
 
-  if (!input.value?.length && !(typeof input.value === 'object' && input.value !== null)) {
+  if (
+    !input.value?.length
+    && !(typeof input.value === 'object' && input.value !== null)
+  ) {
     return <div>{title}</div>;
   }
 
@@ -25,9 +23,7 @@ export default function Title({
 
   return (
     <div className="flex-auto">
-      <span className="padding-right-xs">
-        {title}
-      </span>
+      <span className="padding-right-xs">{title}</span>
       {React.createElement(component, {
         name,
         filter,

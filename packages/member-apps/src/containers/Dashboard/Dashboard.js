@@ -14,7 +14,6 @@ import {
   Dropdown,
   Spinner,
 } from '@openagenda/react-shared';
-import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import HistoryModal from '@openagenda/activity-apps/dist/client/apps/modal';
 
 import RequestFeatureLink from '../../components/RequestFeatureLink';
@@ -25,6 +24,7 @@ import SendMessageForm from '../../components/SendMessageForm';
 import * as membersActions from '../../reducers/members';
 import * as modalsActions from '../../reducers/modals';
 import renderSearchInput from '../../utils/renderSearchInput';
+import monitorBottomHit from '../../utils/monitorBottomHit';
 import I18nContext from '../../contexts/I18nContext';
 
 const messages = defineMessages({

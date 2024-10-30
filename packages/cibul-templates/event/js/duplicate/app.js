@@ -7,6 +7,9 @@ import agendasReducer from './redux/modules/agendas';
 import * as modalsActions from './redux/modules/modals';
 import App from './containers/App'
 
+const CLIENT = typeof window !== 'undefined';
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
+
 const defaults = {
   initialState: {
     eventUid: null,
@@ -55,7 +58,7 @@ export default function duplicateApp(options) {
         clientMiddleware({ client })
         // ... other middlewares ... (like redux-logger)
      ),
-      __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
+      CLIENT && DEVELOPMENT && window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : v => v
    )

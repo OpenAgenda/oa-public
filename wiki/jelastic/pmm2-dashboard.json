@@ -22,9 +22,7 @@
       "icon": "doc",
       "includeVars": true,
       "keepTime": true,
-      "tags": [
-        "Home"
-      ],
+      "tags": ["Home"],
       "targetBlank": false,
       "title": "Home",
       "tooltip": "",
@@ -35,9 +33,7 @@
       "icon": "dashboard",
       "includeVars": true,
       "keepTime": true,
-      "tags": [
-        "Query Analytics"
-      ],
+      "tags": ["Query Analytics"],
       "targetBlank": false,
       "title": "Query Analytics",
       "type": "link",
@@ -47,10 +43,7 @@
       "asDropdown": false,
       "includeVars": true,
       "keepTime": true,
-      "tags": [
-        "MySQL",
-        "Services"
-      ],
+      "tags": ["MySQL", "Services"],
       "targetBlank": false,
       "title": "Services",
       "type": "dashboards"
@@ -59,9 +52,7 @@
       "asDropdown": true,
       "includeVars": false,
       "keepTime": true,
-      "tags": [
-        "PMM"
-      ],
+      "tags": ["PMM"],
       "targetBlank": false,
       "title": "PMM",
       "type": "dashboards"
@@ -306,11 +297,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": null,
       "format": "percent",
       "gauge": {
@@ -395,11 +382,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
+      "colors": ["#d44a3a", "rgba(237, 129, 40, 0.89)", "#299c46"],
       "datasource": null,
       "format": "percent",
       "gauge": {
@@ -483,11 +466,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#0a437c",
-        "#1f78c1",
-        "#5195ce"
-      ],
+      "colors": ["#0a437c", "#1f78c1", "#5195ce"],
       "datasource": "Prometheus",
       "decimals": 1,
       "editable": true,
@@ -574,11 +553,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#6d1f62",
-        "#962d82",
-        "#ba43a9"
-      ],
+      "colors": ["#6d1f62", "#962d82", "#ba43a9"],
       "datasource": "Prometheus",
       "decimals": 1,
       "editable": true,
@@ -1154,11 +1129,7 @@
       "colorBackground": false,
       "colorPostfix": true,
       "colorValue": true,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
+      "colors": ["#d44a3a", "rgba(237, 129, 40, 0.89)", "#299c46"],
       "datasource": null,
       "decimals": 1,
       "description": "Minimal Uptime for `All`",
@@ -1397,11 +1368,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": null,
       "format": "percent",
       "gauge": {
@@ -1493,11 +1460,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
+      "colors": ["#d44a3a", "rgba(237, 129, 40, 0.89)", "#299c46"],
       "datasource": null,
       "format": "percent",
       "gauge": {
@@ -1589,11 +1552,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#0a437c",
-        "#1f78c1",
-        "#5195ce"
-      ],
+      "colors": ["#0a437c", "#1f78c1", "#5195ce"],
       "datasource": "Prometheus",
       "decimals": 1,
       "editable": true,
@@ -1693,11 +1652,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#6d1f62",
-        "#962d82",
-        "#ba43a9"
-      ],
+      "colors": ["#6d1f62", "#962d82", "#ba43a9"],
       "datasource": "Prometheus",
       "decimals": 1,
       "editable": true,
@@ -2589,11 +2544,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": null,
       "format": "percent",
       "gauge": {
@@ -2688,11 +2639,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": true,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
+      "colors": ["#d44a3a", "rgba(237, 129, 40, 0.89)", "#299c46"],
       "datasource": null,
       "format": "percent",
       "gauge": {
@@ -2787,11 +2734,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#0a437c",
-        "#1f78c1",
-        "#5195ce"
-      ],
+      "colors": ["#0a437c", "#1f78c1", "#5195ce"],
       "datasource": "Prometheus",
       "decimals": 1,
       "editable": true,
@@ -2894,11 +2837,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#6d1f62",
-        "#962d82",
-        "#ba43a9"
-      ],
+      "colors": ["#6d1f62", "#962d82", "#ba43a9"],
       "datasource": "Prometheus",
       "decimals": 1,
       "editable": true,
@@ -4145,17 +4084,7 @@
       "1d"
     ],
     "status": "Stable",
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ],
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"],
     "type": "timepicker"
   },
   "timezone": "browser",

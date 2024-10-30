@@ -1,3 +1,5 @@
+'use strict';
+
 exports.up = async (knex) => {
   const { schemas } = knex.client.config;
   const exists = await knex.schema.hasTable(schemas.feed_notification);

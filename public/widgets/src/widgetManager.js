@@ -9,7 +9,11 @@ export default function createWidgetManager(managerTarget) {
   }
 
   function ready(callback) {
-    if (isReadyQueueExecuted || document.readyState === 'complete' || document.readyState === 'interactive') {
+    if (
+      isReadyQueueExecuted
+      || document.readyState === 'complete'
+      || document.readyState === 'interactive'
+    ) {
       callback(managerTarget);
     } else {
       readyQueue.push(callback);
@@ -17,13 +21,13 @@ export default function createWidgetManager(managerTarget) {
   }
 
   function register(widgetId, widgetInstance) {
-    if (!registered.some(widget => widget.id === widgetId)) {
+    if (!registered.some((widget) => widget.id === widgetId)) {
       registered.push({ id: widgetId, instance: widgetInstance });
     }
   }
 
   function load(element = document.body) {
-    registered.forEach(widget => {
+    registered.forEach((widget) => {
       try {
         widget.instance.load(element);
       } catch (e) {

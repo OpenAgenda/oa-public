@@ -27,6 +27,8 @@ http {
 
     include /etc/nginx/mime.types;
 
+    keepalive_timeout 55s;
+
     map $http_x_forwarded_proto $real_scheme {
         default $http_x_forwarded_proto;
         '' $scheme;

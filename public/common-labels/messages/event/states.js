@@ -1,3 +1,5 @@
+'use strict';
+
 const { defineMessages } = require('react-intl');
 
 module.exports = defineMessages({

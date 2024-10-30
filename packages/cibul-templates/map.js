@@ -36,8 +36,6 @@ module.exports = [
   'newsletter/unsubscribe',
   'newsletter/unsubscribeComplete',
 
-  'agendaAdminEvents/index',
-
   'error/show',
 
   'eventLists/searchList',

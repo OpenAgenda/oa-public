@@ -1,3 +1,5 @@
+'use strict';
+
 const log = require('@openagenda/logs')('activities/utils/cleanOld');
 
 const defaultKeepTime = 1000 * 60 * 60 * 24 * 90; // 90 days

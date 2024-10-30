@@ -2,9 +2,10 @@ import isEqual from 'lodash/isEqual';
 import isDate from 'lodash/isDate';
 import React, { useCallback, useMemo, useState, useContext } from 'react';
 import { useIntl } from 'react-intl';
-import { DateRange, DefinedRange } from 'react-date-range';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
+import dateFnsLocaleEN from 'date-fns/locale/en-US';
+import { DateRange, DefinedRange } from '@openagenda/react-date-range';
 import { getFallbackChain } from '@openagenda/intl';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext';
@@ -31,7 +32,7 @@ function normalizeValue(value) {
     return value;
   }
 
-  return value.map(v => ({
+  return value.map((v) => ({
     startDate: isDate(v.startDate) ? v.startDate.getTime() : v.startDate,
     endDate: isDate(v.endDate) ? v.endDate.getTime() : v.endDate,
     key: v.key,
@@ -67,6 +68,9 @@ function DateRangePicker(
     className,
     dateFormatStyle,
     dateFormat,
+    minDate,
+    maxDate,
+    shownDate,
     ...otherProps
   },
   ref,
@@ -93,7 +97,7 @@ function DateRangePicker(
 
   // Update state for re-calculate rdrNoSelection
   const onSelectPreviewChange = useCallback(
-    value => {
+    (value) => {
       const dateRange = dateRangeRef.current;
 
       setDragStatus(dateRangeRef.current?.calendar.state.drag.status);
@@ -103,7 +107,7 @@ function DateRangePicker(
   );
 
   const onDefinedPreviewChange = useCallback(
-    value => {
+    (value) => {
       const dateRange = dateRangeRef.current;
 
       return dateRange.updatePreview(
@@ -116,7 +120,7 @@ function DateRangePicker(
   );
 
   const onTemporaryChange = useCallback(
-    item => {
+    (item) => {
       const value = [item?.selection ? item.selection : item.range1];
 
       setRanges(value);
@@ -140,7 +144,7 @@ function DateRangePicker(
   );
 
   const onDefinedRangeChange = useCallback(
-    item => {
+    (item) => {
       const value = [item?.selection ? item.selection : item.range1];
 
       setRanges(value);
@@ -170,7 +174,7 @@ function DateRangePicker(
     ) {
       setRanges(input.value);
     }
-  }, [input.value, previousValue, latestRanges]);
+  }, [input.value, previousValue, latestRanges, dateRangeRef, shownDate]);
 
   const dateRangePickerProps = {
     showSelectionPreview: true,
@@ -179,12 +183,15 @@ function DateRangePicker(
     months: 1,
     ranges,
     direction: 'horizontal',
-    locale: dateFnsLocale,
+    locale: dateFnsLocale || dateFnsLocaleEN,
     staticRanges,
     inputRanges,
     focusedRange,
     onRangeFocusChange: setFocusedRange,
     rangeColors: [rangeColor],
+    minDate: minDate ? new Date(minDate) : undefined,
+    maxDate: maxDate ? new Date(maxDate) : undefined,
+    shownDate: shownDate ? new Date(shownDate) : undefined,
     ...otherProps,
   };
 

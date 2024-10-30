@@ -1,6 +1,5 @@
 "use strict";
 
-const du = require( '@openagenda/dom-utils' );
 const get = require( '@openagenda/utils/get' );
 const session = require( '@openagenda/sessions/client' );
 const debug = require( 'debug' );
@@ -84,7 +83,7 @@ async function _hasNew() {
 
 function _displayHasNew() {
 
-  const parent = du.el( du.el( '.js_inbox_header' ), 'a' );
+  const parent = document.querySelector('.js_inbox_header a');
 
   parent.insertAdjacentHTML( 'beforeEnd', '<span class="label label-danger "><i class="fa fa-exclamation"></i></span>' );
 

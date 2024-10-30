@@ -4,8 +4,8 @@ import {
   createStore,
   clientMiddleware,
 } from '@openagenda/react-shared';
-import mainReducer from './reducers/main';
-import agendaAdminReducer from './reducers/agendaAdmin';
+import mainReducer from './reducers/main.js';
+import agendaAdminReducer from './reducers/agendaAdmin.js';
 
 const CLIENT = typeof window !== 'undefined';
 const DEVELOPMENT = process.env.NODE_ENV === 'development';

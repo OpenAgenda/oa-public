@@ -1,7 +1,7 @@
 'use strict';
 
-const fs = require('fs');
-const { promisify } = require('util');
+const fs = require('node:fs');
+const { promisify } = require('node:util');
 const _ = require('lodash');
 const AWS = require('aws-sdk');
 
@@ -79,8 +79,8 @@ module.exports = ({ s3, uid }) => {
       {
         apiVersion: '2006-03-01',
       },
-      _.pick(s3, ['accessKeyId', 'secretAccessKey', 'region'])
-    )
+      _.pick(s3, ['accessKeyId', 'secretAccessKey', 'region']),
+    ),
   );
 
   return {

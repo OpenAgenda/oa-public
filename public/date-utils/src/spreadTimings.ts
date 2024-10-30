@@ -1,5 +1,12 @@
-import { format, getWeekOfMonth, startOfDay } from 'date-fns';
-import { utcToZonedTime } from 'date-fns-tz';
+import { format, getWeekOfMonth, startOfDay, Locale } from 'date-fns';
+import dateFnsTz from 'date-fns-tz';
+
+const { utcToZonedTime } = dateFnsTz;
+
+type Options = {
+  locale?: Locale;
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+};
 
 type Timing = {
   begin: string;
@@ -17,12 +24,14 @@ export type SpreadTimings = {
 export default function spreadTimings(
   timings: Timing[],
   timezone: string,
+  options: Options = {},
 ): SpreadTimings {
+  const { locale, weekStartsOn } = options;
   return timings.reduce((result, timing) => {
     const zonedBegin = utcToZonedTime(timing.begin, timezone);
 
     const monthKey = format(zonedBegin, 'yyyy-MM');
-    const weekKey = getWeekOfMonth(zonedBegin);
+    const weekKey = getWeekOfMonth(zonedBegin, { locale, weekStartsOn });
     const dayKey = format(startOfDay(zonedBegin), 'yyyy-MM-dd');
 
     result[monthKey] = result[monthKey] || {};

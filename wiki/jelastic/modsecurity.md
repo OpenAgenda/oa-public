@@ -38,24 +38,23 @@ Some changes must be made to avoid false-positives:
 
 1. Add `application/reports+json` and `application/csp-report` to accepted formats. Edit crs-setup.conf and uncomment rule 900220, add `application/csp-report` and `application/reports+json` to accepted formats.
 
-    SecAction \
-     "id:900220,\
-       phase:1,\
-       nolog,\
-       pass,\
-       t:none,\
-       setvar:'tx.allowed_request_content_type=application/x-www-form-urlencoded|multipart/form-data|text/xml|application/xml|application/soap+xml|application/x-amf|application/json|application/octet-stream|application/reports\+json|application/csp-report|text/plain'"
+   SecAction \
+    "id:900220,\
+    phase:1,\
+    nolog,\
+    pass,\
+    t:none,\
+    setvar:'tx.allowed_request_content_type=application/x-www-form-urlencoded|multipart/form-data|text/xml|application/xml|application/soap+xml|application/x-amf|application/json|application/octet-stream|application/reports\+json|application/csp-report|text/plain'"
 
 2. PATCH, DELETE and PUT methods should also be allowed. Edit `crs-setup.conf` and set `tx.allowed-methods` in the section `HTTP methods that a client is allowed to use.`:
 
-    SecAction \
-    "id:900200,\
-      phase:1,\
-      nolog,\
-      pass,\
-      t:none,\
-      setvar:'tx.allowed_methods=GET HEAD POST OPTIONS PATCH DELETE PUT'"
-
+   SecAction \
+   "id:900200,\
+    phase:1,\
+    nolog,\
+    pass,\
+    t:none,\
+    setvar:'tx.allowed_methods=GET HEAD POST OPTIONS PATCH DELETE PUT'"
 
 3. Deactivate MULTIPART_UNMATCHED_BOUNDARY and MULTIPART_UNMATCHED_BOUNDARY in `modsecurity.conf` by commenting it. Not sure why it flags those, but the payloads are legitimate. Maybe has to do with the evaluated body being truncated.
 
@@ -117,7 +116,6 @@ SecRuleRemoveById 931120
 SecRuleRemoveById 932115
 ```
 
-
 5. Update max file size accepted:
 
-    SecRequestBodyLimit 60000000
+   SecRequestBodyLimit 60000000

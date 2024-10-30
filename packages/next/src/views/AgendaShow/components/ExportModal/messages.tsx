@@ -64,6 +64,14 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.copied',
     defaultMessage: 'Copied',
   },
+  new: {
+    id: 'next.views.AgendaShow.ExportModal.new',
+    defaultMessage: 'New',
+  },
+  color: {
+    id: 'next.views.AgendaShow.ExportModal.color',
+    defaultMessage: 'Color',
+  },
   // Spreadsheets
   spreadsheetTitle: {
     id: 'next.views.AgendaShow.ExportModal.spreadsheetTitle',

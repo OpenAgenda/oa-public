@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  displayName: '@openagenda/agenda-portal'
+  displayName: '@openagenda/agenda-portal',
 };

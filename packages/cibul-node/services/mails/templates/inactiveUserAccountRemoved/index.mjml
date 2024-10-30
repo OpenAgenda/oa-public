@@ -10,7 +10,9 @@
         <mj-text>
           <h1 class="title"><%= __('title') %></h1>
         </mj-text>
-        <mj-text> <%- __('content') %> </mj-text>
+        <mj-text>
+          <%- __('content') %>
+        </mj-text>
         <mj-button
           background-color="#41acdd"
           color="white"

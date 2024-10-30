@@ -1,24 +1,21 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { withRouter, Route } from 'react-router-dom';
 
 class RouterTrigger extends Component {
   static defaultProps = {
-    trigger: () => {}
+    trigger: () => {},
   };
 
   static getDerivedStateFromProps(props, state) {
-    const {
-      location,
-      match,
-      needTrigger,
-      triggering
-    } = state;
+    const { location, match, needTrigger, triggering } = state;
 
     if (needTrigger || triggering) {
       return null;
     }
 
-    const { location: { pathname } } = props;
+    const {
+      location: { pathname },
+    } = props;
 
     const navigated = !location || pathname !== location.pathname;
 
@@ -34,7 +31,7 @@ class RouterTrigger extends Component {
 
     return {
       location: props.location,
-      match: props.match
+      match: props.match,
     };
   }
 
@@ -60,7 +57,10 @@ class RouterTrigger extends Component {
     const { previousLocation } = this.state;
     const { location } = this.props;
 
-    return nextState.previousLocation !== previousLocation || nextProps.location !== location;
+    return (
+      nextState.previousLocation !== previousLocation
+      || nextProps.location !== location
+    );
   }
 
   componentDidUpdate(_prevProps, _prevState) {
@@ -78,18 +78,22 @@ class RouterTrigger extends Component {
     if (needTrigger) {
       this.safeSetState({ needTrigger: false, triggering: true }, () => {
         trigger({ pathname: location.pathname })
-          .catch(err => console.log('Failure in RouterTrigger:', err))
+          .catch((err) => console.log('Failure in RouterTrigger:', err))
           .then(() => {
             // clear previousLocation so the next screen renders
-            this.safeSetState({ triggering: false, previousLocation: null, previousMatch: null });
+            this.safeSetState({
+              triggering: false,
+              previousLocation: null,
+              previousMatch: null,
+            });
           });
       });
     }
-  }
+  };
 
   safeSetState = (nextState, callback) => {
     if (this.mounted) this.setState(nextState, callback);
-  }
+  };
 
   renderer = () => this.props.children;
 

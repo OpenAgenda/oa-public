@@ -97,7 +97,9 @@ export default (config, core, services) => {
 
   services.legacy.task();
 
-  services.registrations.task();
+  if (services.registrations) {
+    services.registrations.task();
+  }
 
   core.tasks();
 
@@ -130,7 +132,7 @@ export default (config, core, services) => {
     time: '06:00',
   });
 
-  tfy(services.agendaEvents.clearOdlSoftRemoved, {
+  tfy(services.agendaEvents.clearOldSoftRemoved, {
     period: 'daily',
     time: '06:30',
   });

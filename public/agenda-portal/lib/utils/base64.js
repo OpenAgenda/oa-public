@@ -6,7 +6,7 @@ const _keyStr =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
 module.exports = {
-  encode: input => {
+  encode: (input) => {
     let output = '';
     let chr1;
     let chr2;
@@ -43,7 +43,7 @@ module.exports = {
     return output;
   },
 
-  decode: input => {
+  decode: (input) => {
     let output = '';
     let chr1;
     let chr2;
@@ -101,7 +101,7 @@ function _utf8_decode(utftext) {
       c2 = utftext.charCodeAt(i + 1);
       c3 = utftext.charCodeAt(i + 2);
       string += String.fromCharCode(
-        ((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63)
+        ((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63),
       );
       i += 3;
     }

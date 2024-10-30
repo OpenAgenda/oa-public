@@ -1,7 +1,7 @@
 import * as dateFns from 'date-fns';
 import DST from './DST';
 
-const noop = v => v;
+const noop = (v) => v;
 
 /**
  * provides begin and end dates corresponding to given begin ref and current position on grid.
@@ -13,7 +13,7 @@ export default (
     left, // cursor position: count of steps from begin of week
   },
   selectionStart = 0,
-  ignoreRound = false
+  ignoreRound = false,
 ) => {
   // moment the week starts
   const startOfActiveWeek = dateFns.startOfWeek(activeWeek, { weekStartsOn });
@@ -35,7 +35,7 @@ export default (
     const diffToNext = (ignoreRound ? noop : Math.floor)(
       dateFns.differenceInMilliseconds(timingHover, startOfBeginDay)
           / selectableStep
-          / 1000
+          / 1000,
     ) * selectableStep;
 
     begin = dateFns.addSeconds(startOfBeginDay, diffToNext);
@@ -44,7 +44,7 @@ export default (
     const diffToNext = (ignoreRound ? noop : Math.ceil)(
       dateFns.differenceInMilliseconds(timingHover, dayHover)
           / selectableStep
-          / 1000
+          / 1000,
     ) * selectableStep;
 
     begin = selectionStart;

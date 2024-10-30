@@ -27,6 +27,10 @@ function extractLocationUidFromData({ completeEventData, data }) {
     return null;
   }
 
+  if (data?.location?.uid || data.locationUid) {
+    return data?.location?.uid ?? data.locationUid;
+  }
+
   return completeEventData?.location?.uid ?? completeEventData?.locationUid;
 }
 

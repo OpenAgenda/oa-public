@@ -128,7 +128,7 @@ export function addEvent(elem, types, eventHandle) {
 
   if (typeof types === 'string') types = [types];
 
-  forEach(types, type => {
+  forEach(types, (type) => {
     if (elem.addEventListener) {
       elem.addEventListener(type, eventHandle, false);
     } else if (elem.attachEvent) {
@@ -144,7 +144,7 @@ export function removeEvent(elem, types, eventHandle) {
 
   if (typeof types === 'string') types = [types];
 
-  forEach(types, type => {
+  forEach(types, (type) => {
     if (elem.removeEventListener) {
       elem.removeEventListener(type, eventHandle, false);
     } else if (elem.detachEvent) {

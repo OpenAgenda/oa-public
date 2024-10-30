@@ -1,3 +1,3 @@
-export { default as Html } from './Html';
-export { default as LayoutManager } from './LayoutManager';
-export { default as createLayoutStore } from './createLayoutStore';
+export { default as Html } from './Html.js';
+export { default as LayoutManager } from './LayoutManager.js';
+export { default as createLayoutStore } from './createLayoutStore.js';

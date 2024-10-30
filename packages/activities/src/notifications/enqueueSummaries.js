@@ -1,3 +1,5 @@
+'use strict';
+
 const log = require('@openagenda/logs')(
   'activities/notifications/tasks/enqueueSummaries',
 );

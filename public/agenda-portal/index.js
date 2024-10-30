@@ -62,7 +62,7 @@ const { I18N } = utils;
 
 let devApp = null; // used for @openagenda/agenda-portal dev only
 
-module.exports = async options => {
+module.exports = async (options) => {
   log('booting');
 
   const app = devApp || express();
@@ -123,7 +123,9 @@ module.exports = async options => {
 
   Object.assign(app.locals, config);
 
-  app.set('query parser', str => qs.parse(str, { allowPrototypes: true, arrayLimit: Infinity }));
+  app.set('query parser', (str) =>
+    qs.parse(str, { allowPrototypes: true, arrayLimit: Infinity }),
+  );
   app.set('view engine', 'hbs');
   app.set('views', path.join(dir, views));
   app.engine('hbs', hbs.__express);
@@ -136,10 +138,9 @@ module.exports = async options => {
 
   registerHelpers(hbs);
 
-  const {
-    intlByLocale,
-    handlebarsHelper: i18nHelper
-  } = I18N(path.join(dir, i18n));
+  const { intlByLocale, handlebarsHelper: i18nHelper } = I18N(
+    path.join(dir, i18n),
+  );
 
   app.intlByLocale = intlByLocale;
 
@@ -147,8 +148,9 @@ module.exports = async options => {
     hbs.registerHelper('i18n', i18nHelper);
   }
 
-  const proxy = injectedProxy
-    || Proxy({
+  const proxy =
+    injectedProxy ||
+    Proxy({
       key: apiKey,
       defaultLimit: eventsPerPage,
       preFilter,
@@ -175,7 +177,7 @@ module.exports = async options => {
     } catch (e) {
       if (e.message === 'Unauthorized') {
         log(
-          '\n\nEXITING: account linked to key must be a member of the agenda\n\n'
+          '\n\nEXITING: account linked to key must be a member of the agenda\n\n',
         );
       }
       return process.exit();
@@ -183,7 +185,7 @@ module.exports = async options => {
     app.use(express.static(baseAssetsPath));
   } else if (!assetsRoot) {
     throw new Error(
-      'When portal is not agenda-specific, assets path needs to be explicited at init under "assetsRoot" key'
+      'When portal is not agenda-specific, assets path needs to be explicited at init under "assetsRoot" key',
     );
   }
 
@@ -192,7 +194,9 @@ module.exports = async options => {
     app.locals.widgets = [];
 
     // populate filters and widgets
-    await promisify(app.render).call(app, 'index', { __extractFiltersAndWidgets: true });
+    await promisify(app.render).call(app, 'index', {
+      __extractFiltersAndWidgets: true,
+    });
   }
 
   await extractFiltersAndWidgets();
@@ -210,7 +214,7 @@ module.exports = async options => {
   }
 
   app.use(loadResLocals);
-  
+
   app.use(middlewareHooks.all.pre);
 
   app.get(
@@ -219,14 +223,14 @@ module.exports = async options => {
     mw.pageGlobals,
     mw.list(true),
     middlewareHooks.list.preRender,
-    mw.index
+    mw.index,
   );
   app.get(
     '/p/:page',
     mw.pageGlobals,
     mw.list(true),
     middlewareHooks.list.preRender,
-    mw.index
+    mw.index,
   );
   app.get(
     '/preview',
@@ -234,23 +238,28 @@ module.exports = async options => {
     mw.list(),
     mw.randomFromSet,
     middlewareHooks.preview.preRender,
-    mw.preview
+    mw.preview,
   );
   app.get(
     '/share',
     mw.pageGlobals.withOptions({ mainScript: 'share.js', iframable: true }),
     mw.list(),
     middlewareHooks.share.preRender,
-    mw.share
+    mw.share,
   );
 
   app.get(
     '/events/p/:page',
     mw.list(true),
     middlewareHooks.list.preRender,
-    mw.renderList
+    mw.renderList,
   );
-  app.get('/events', mw.list(true), middlewareHooks.list.preRender, mw.renderList);
+  app.get(
+    '/events',
+    mw.list(true),
+    middlewareHooks.list.preRender,
+    mw.renderList,
+  );
 
   app.get('/events/nav/:direction', mw.redirectToNeighbor);
 
@@ -260,14 +269,16 @@ module.exports = async options => {
     mw.navigationLinks,
     mw.event.get,
     middlewareHooks.show.preRender,
-    mw.event.render
+    mw.event.render,
   );
 
   app.get('/permalinks/events/:uid', mw.redirect);
 
   app.get('/:page', mw.pageGlobals, mw.showPage);
 
-  app.use(mw.pageGlobals, (req, res) => res.status(404).render('404', req.data));
+  app.use(mw.pageGlobals, (req, res) =>
+    res.status(404).render('404', req.data),
+  );
 
   app.use(mw.error);
 
@@ -281,7 +292,7 @@ module.exports = async options => {
   };
 };
 
-module.exports.loadDevApp = dev => {
+module.exports.loadDevApp = (dev) => {
   devApp = dev;
 };
 

@@ -165,12 +165,25 @@ export function add(agendaUid, { rules, evaluate }) {
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAIL],
     promise: (arg, { getState }) => {
-      const { client, params } = arg;
+      const { params } = arg;
       const { res } = getState();
-      return client.post(res.add.replace(':slug', params.slug), {
-        agendaUid,
-        rules,
-        query,
+
+      return fetch(res.add.replace(':slug', params.slug), {
+        method: 'POST',
+        body: JSON.stringify({
+          agendaUid,
+          rules,
+          query,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      }).then((response) => {
+        if (response.status !== 200) {
+          throw new Error(`HTTP request failed (status ${response.status})`);
+        }
+        return response.json();
       });
     },
   };

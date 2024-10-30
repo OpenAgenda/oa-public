@@ -1,2 +1,2 @@
-export * as main from './main';
-export * as network from './network';
+export { default as main } from './main';
+export { default as network } from './network';

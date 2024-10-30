@@ -1,12 +1,8 @@
 <mjml>
   <mj-head>
-    <mj-title
-      ><%= __('title', { agenda, event, beforeState: __(beforeState),
-      afterState: __(afterState), b: chunks => chunks }) %></mj-title
-    >
+    <mj-title><%= __('title', { agenda, event, beforeState: __(beforeState), afterState: __(afterState), b: chunks => chunks }) %></mj-title>
     <mj-prev>
-      <%= __('title', { agenda, event, beforeState: __(beforeState), afterState:
-      __(afterState), b: chunks => chunks }) %>
+      <%= __('title', { agenda, event, beforeState: __(beforeState), afterState: __(afterState), b: chunks => chunks }) %>
     </mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
@@ -19,14 +15,20 @@
       <mj-column>
         <mj-text align="center">
           <h2>
-            <%- __('title', { agenda: _.escape(agenda), event: _.escape(event),
-            beforeState: __(beforeState), afterState: __(afterState), b: chunks
-            => `<b>${chunks}</b>` }) %>
+            <%- __('title', {
+              agenda: _.escape(agenda),
+              event: _.escape(event),
+              beforeState: __(beforeState),
+              afterState: __(afterState),
+              b: chunks => `<b>${chunks}</b>`
+            }) %>
           </h2>
         </mj-text>
 
         <% if (typeof motive !== 'undefined') { %>
-        <mj-markdown padding-top="0"> <%- motive %> </mj-markdown>
+          <mj-markdown padding-top="0">
+            <%- motive %>
+          </mj-markdown>
         <% } %>
 
         <mj-button

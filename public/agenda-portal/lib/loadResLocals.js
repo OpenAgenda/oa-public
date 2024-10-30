@@ -9,13 +9,16 @@ module.exports = async (req, res, next) => {
     defaultLang,
     filters: rawFilters,
     widgets,
+    manualSubmit,
+    filtersFormSelector,
   } = req.app.locals;
   const { intlByLocale } = req.app;
 
   const lang = req.query.lang || defaultLang;
   const intl = intlByLocale[lang] || intlByLocale[defaultLang];
 
-  const filters = rawFilters.map(rawFilter => withDefaultFilterConfig(rawFilter, intl));
+  const filters = rawFilters.map((rawFilter) =>
+    withDefaultFilterConfig(rawFilter, intl));
 
   Object.assign(res.locals, {
     intl,
@@ -28,6 +31,8 @@ module.exports = async (req, res, next) => {
     defaultLang,
     filters,
     widgets,
+    manualSubmit,
+    filtersFormSelector,
     query: req.query,
   });
 

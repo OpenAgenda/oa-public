@@ -14,8 +14,7 @@ const messages = defineMessages({
   },
   dateRange: {
     id: 'ReactFilters.DefinedRangeFilter.dateRange',
-    defaultMessage:
-      'From {startDate} to {endDate}',
+    defaultMessage: 'From {startDate} to {endDate}',
   },
   startDate: {
     id: 'ReactFilters.DefinedRangeFilter.startDate',
@@ -50,7 +49,7 @@ function formatValue(value) {
   }
 
   if (Array.isArray(value)) {
-    return value.map(v => ({
+    return value.map((v) => ({
       ...v,
       startDate: typeof v.gte === 'string' ? parseISO(v.gte) : v.gte,
       endDate: typeof v.lte === 'string' ? parseISO(v.lte) : v.lte,
@@ -60,8 +59,10 @@ function formatValue(value) {
   if (typeof value === 'object') {
     return [
       {
-        startDate: typeof value.gte === 'string' ? parseISO(value.gte) : value.gte,
-        endDate: typeof value.lte === 'string' ? parseISO(value.lte) : value.lte,
+        startDate:
+          typeof value.gte === 'string' ? parseISO(value.gte) : value.gte,
+        endDate:
+          typeof value.lte === 'string' ? parseISO(value.lte) : value.lte,
         key: 'selection',
       },
     ];
@@ -84,7 +85,10 @@ function parseValue(value) {
 
   return {
     gte: selection.startDate.toISOString(),
-    lte: (selection.endDate ? endOfDay(selection.endDate) : selection.endDate).toISOString(),
+    lte: (selection.endDate
+      ? endOfDay(selection.endDate)
+      : selection.endDate
+    ).toISOString(),
     tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
   };
 }
@@ -97,23 +101,28 @@ function Preview({
   ...rest
 }) {
   const intl = useIntl();
-  const { input } = useField(name, { subscription, parse: parseValue, format: formatValue });
+  const { input } = useField(name, {
+    subscription,
+    parse: parseValue,
+    format: formatValue,
+  });
   const value = input.value?.[0];
 
   const selectedStaticRange = useMemo(
-    () => value && staticRanges.find(v => v.isSelected(value)),
+    () => value && staticRanges.find((v) => v.isSelected(value)),
     [value, staticRanges],
   );
 
   const singleDay = useMemo(
-    () => value?.startDate
+    () =>
+      value?.startDate
       && value?.endDate
       && isSameDay(value.startDate, value.endDate),
     [value],
   );
 
   const onRemove = useCallback(
-    e => {
+    (e) => {
       e.stopPropagation();
 
       if (disabled) {
@@ -157,11 +166,7 @@ function Preview({
 }
 
 const DefinedRangeFilter = React.forwardRef(function DefinedRangeFilter(
-  {
-    name,
-    staticRanges,
-    inputRanges,
-  },
+  { name, staticRanges, inputRanges },
   ref,
 ) {
   return (
@@ -179,15 +184,7 @@ const DefinedRangeFilter = React.forwardRef(function DefinedRangeFilter(
 });
 
 const Collapsable = React.forwardRef(function Collapsable(
-  {
-    name,
-    filter,
-    component,
-    disabled,
-    staticRanges,
-    inputRanges,
-    ...rest
-  },
+  { name, filter, component, disabled, staticRanges, inputRanges, ...rest },
   ref,
 ) {
   const [collapsed, setCollapsed] = useState(true);

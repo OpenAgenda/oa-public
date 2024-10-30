@@ -7,19 +7,27 @@ import matchFilter from '../utils/matchFilter';
 export default function useActiveFilters(filters) {
   const { values } = useFormState({ subscription: { values: true } });
 
-  const sortedFilters = useMemo(() => filters
-    .map(({ destSelector, ...filter }) => filter)
-    .sort(staticRangesFirst)
-    .sort(customFirst), [filters]);
+  const sortedFilters = useMemo(
+    () =>
+      filters
+        .map(({ destSelector, ...filter }) => filter)
+        .sort(staticRangesFirst)
+        .sort(customFirst),
+    [filters],
+  );
 
-  return useMemo(() => Object.entries(values)
-    .reduce((accu, entry) => {
-      const matchingFilter = sortedFilters.find(filter => matchFilter(filter, values, entry));
+  return useMemo(
+    () =>
+      Object.entries(values).reduce((accu, entry) => {
+        const matchingFilter = sortedFilters.find((filter) =>
+          matchFilter(filter, values, entry));
 
-      if (matchingFilter && !accu.includes(matchingFilter)) {
-        accu.push(matchingFilter);
-      }
+        if (matchingFilter && !accu.includes(matchingFilter)) {
+          accu.push(matchingFilter);
+        }
 
-      return accu;
-    }, []), [sortedFilters, values]);
+        return accu;
+      }, []),
+    [sortedFilters, values],
+  );
 }

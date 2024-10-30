@@ -29,6 +29,12 @@
       "value": "Chiudere"
     }
   ],
+  "next.views.AgendaShow.ExportModal.color": [
+    {
+      "type": 0,
+      "value": "Color"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.copied": [
     {
       "type": 0,
@@ -173,6 +179,12 @@
     {
       "type": 0,
       "value": "Si prega di effettuare il login per accedere al link di esportazione direttamente da questo menu"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.new": [
+    {
+      "type": 0,
+      "value": "New"
     }
   ],
   "next.views.AgendaShow.ExportModal.openData": [

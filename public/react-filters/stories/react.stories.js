@@ -1,3 +1,4 @@
+import dateFnsLocale from 'date-fns/locale/fr';
 import {
   IntlProvider,
   FiltersProvider,
@@ -5,6 +6,8 @@ import {
   DateRangeFilter,
   ChoiceFilter,
   NumberRangeFilter,
+  SimpleDateRangeFilter,
+  ActiveFilters,
 } from '../src';
 
 require('./scss/main.scss');
@@ -57,7 +60,7 @@ export const CompleteExample = ({ onSubmit }) => (
               filters={filters}
               dateRangeComponent={DateRangeFilter}
               choiceComponent={ChoiceFilter}
-              getOptions={filter => filter.options}
+              getOptions={(filter) => filter.options}
             />
           </div>
         </div>
@@ -88,6 +91,26 @@ export const FilterByFilter = ({ onSubmit }) => (
   </IntlProvider>
 );
 
+export const FocusedDateRange = ({ onSubmit }) => (
+  <IntlProvider locale={lang}>
+    <FiltersProvider onSubmit={onSubmit} dateFnsLocale={dateFnsLocale}>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-4">
+            <ActiveFilters filters={[{ name: 'timings', type: 'dateRange' }]} />
+            <DateRangeFilter
+              name="timings"
+              minDate="2024-10-23T12:00:00.000Z"
+              maxDate="2024-10-27T12:00:00.000Z"
+              shownDate="2024-10-23T12:00:00.000Z"
+            />
+          </div>
+        </div>
+      </div>
+    </FiltersProvider>
+  </IntlProvider>
+);
+
 export const NumberRange = ({ onSubmit }) => (
   <IntlProvider locale={lang}>
     <FiltersProvider onSubmit={onSubmit}>
@@ -95,6 +118,20 @@ export const NumberRange = ({ onSubmit }) => (
         <div className="row">
           <div className="col-sm-4">
             <NumberRangeFilter name="seats" />
+          </div>
+        </div>
+      </div>
+    </FiltersProvider>
+  </IntlProvider>
+);
+
+export const SimpleDateRange = ({ onSubmit }) => (
+  <IntlProvider locale={lang}>
+    <FiltersProvider onSubmit={onSubmit}>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-4">
+            <SimpleDateRangeFilter name="timings" />
           </div>
         </div>
       </div>

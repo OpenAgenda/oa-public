@@ -29,6 +29,12 @@
       "value": "crwdns33047:0crwdne33047:0"
     }
   ],
+  "next.views.AgendaShow.ExportModal.color": [
+    {
+      "type": 0,
+      "value": "Color"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.copied": [
     {
       "type": 0,
@@ -157,6 +163,12 @@
     {
       "type": 0,
       "value": "crwdns33065:0crwdne33065:0"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.new": [
+    {
+      "type": 0,
+      "value": "New"
     }
   ],
   "next.views.AgendaShow.ExportModal.openData": [

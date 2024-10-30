@@ -8,11 +8,10 @@ module.exports = {
         reactIntl: {
           idInterpolationPattern: '[sha512:contenthash:base64:6]',
           extractFromFormatMessageCall: true,
-          ast: true
-        }
-      }
+          ast: true,
+        },
+      },
     ],
-    require.resolve('@emotion/babel-preset-css-prop')
   ],
-  sourceType: 'unambiguous'
+  sourceType: 'unambiguous',
 };

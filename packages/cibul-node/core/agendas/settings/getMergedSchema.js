@@ -60,6 +60,7 @@ export default async (services, agendaOrUid, options = {}) => {
     includeDateRange = false,
     includeAgendaEvent = false,
     includeOriginAgenda = false,
+    includeSourceAgendas = false,
     includeLocationLegacyAdminLevels = true,
     access = 'public',
     actingMember,
@@ -87,6 +88,8 @@ export default async (services, agendaOrUid, options = {}) => {
 
   const mergeArgs = [networkSchema, formSchema];
 
+  const additionalFields = [];
+
   if (includeMember || includeMemberSchema) {
     const memberField = {
       field: 'member',
@@ -101,49 +104,36 @@ export default async (services, agendaOrUid, options = {}) => {
       ).merged;
     }
 
-    mergeArgs.push({
-      fields: [memberField],
-    });
+    additionalFields.push(memberField);
   }
 
   if (includeDateRange) {
-    mergeArgs.push({
-      fields: [
-        {
-          field: 'dateRange',
-          fieldType: 'text',
-        },
-      ],
+    additionalFields.push({
+      field: 'dateRange',
+      fieldType: 'text',
     });
   }
 
   if (includeAgendaEvent) {
-    mergeArgs.push({
-      fields: [
-        {
-          field: 'state',
-          fieldType: 'abstract',
-        },
-        {
-          field: 'featured',
-          fieldType: 'abstract',
-        },
-        {
-          field: 'motive',
-          fieldType: 'abstract',
-        },
-      ],
+    ['state', 'featured', 'motive'].forEach((field) => {
+      additionalFields.push({ field });
     });
   }
 
   if (includeOriginAgenda) {
+    additionalFields.push({ field: 'originAgenda' });
+  }
+
+  if (includeSourceAgendas) {
+    additionalFields.push({ field: 'sourceAgendas' });
+  }
+
+  if (additionalFields.length) {
     mergeArgs.push({
-      fields: [
-        {
-          field: 'originAgenda',
-          fieldType: 'abstract',
-        },
-      ],
+      fields: additionalFields.map((f) => ({
+        ...f,
+        fieldType: f.fieldType ?? 'abstract',
+      })),
     });
   }
 

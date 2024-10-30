@@ -4,21 +4,22 @@ import { Helmet } from 'react-helmet-async';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
-import OutsideClickHandler from 'react-outside-click-handler';
+import OutsideClickHandlerModule from 'react-outside-click-handler';
 import classNames from 'classnames';
 import { useCookie, useInterval } from 'react-use';
-import { css } from '@emotion/react';
 import { ErrorBoundary } from '@sentry/react';
-import session from '@openagenda/sessions/client';
-import Notifications from '@openagenda/activity-apps/dist/client/components/Notifications';
-import * as mainActions from '../reducers/main';
-import ChildLayouts from '../components/ChildLayouts';
-import Loading from '../components/Loading';
-import Logo from '../components/Logo';
-import Search from '../components/Search';
-import HelpLink from '../components/HelpLink';
-import Announcement from '../components/Announcement';
-import FlashModal from '../components/FlashModal';
+import session from '@openagenda/sessions/client.js';
+import Notifications from '@openagenda/activity-apps/dist/client/components/Notifications.js';
+import * as mainActions from '../reducers/main.js';
+import ChildLayouts from '../components/ChildLayouts.js';
+import Loading from '../components/Loading.js';
+import Logo from '../components/Logo.js';
+import Search from '../components/Search.js';
+import HelpLink from '../components/HelpLink.js';
+import Announcement from '../components/Announcement.js';
+import FlashModal from '../components/FlashModal.js';
+
+const OutsideClickHandler = OutsideClickHandlerModule.default || OutsideClickHandlerModule;
 
 const STORAGE_ANNOUNCEMENT_KEY = 'oa:announcement';
 
@@ -87,11 +88,11 @@ function TranslateLink() {
     <button
       type="button"
       className={translateMode ? 'btn btn-default active' : 'btn btn-link'}
-      css={css`
-        padding: 13px;
-        font-size: 22px;
-        line-height: 14px;
-      `}
+      style={{
+        padding: '13px',
+        fontSize: '22px',
+        lineHeight: '14px',
+      }}
       title={intl.formatMessage(messages.translate)}
       aria-label={intl.formatMessage(messages.translate)}
       onClick={toggleTranslateMode}

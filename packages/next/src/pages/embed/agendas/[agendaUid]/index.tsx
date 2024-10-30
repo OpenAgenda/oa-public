@@ -4,7 +4,6 @@ import qs from 'qs';
 import { SWRConfig } from 'swr';
 import { createIntl, createIntlCache } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
-import { theme as defaultTheme, extendTheme } from '@openagenda/uikit';
 import {
   filtersToAggregations,
   getAdditionalFilters,
@@ -31,16 +30,6 @@ type ShowPageProps = EmbedAgendaShowProps & CommonProps;
 type PageProps = ShowPageProps;
 
 const intlCache = createIntlCache();
-
-const theme = extendTheme(defaultTheme, {
-  styles: {
-    global: {
-      body: {
-        bg: null,
-      },
-    },
-  },
-});
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
@@ -131,11 +120,11 @@ export const getServerSideProps: GetServerSideProps = async ({
       ({ fieldSchema }) => fieldSchema.field,
     );
 
-    const initQuery = query.initPath
+    const prefilter = query.initPath
       ? parseLocationQuery(query.initPath as string)
       : query;
 
-    const requiredFilters = (initQuery.filters as string)?.split(',') ?? [];
+    const requiredFilters = (prefilter.filters as string)?.split(',') ?? [];
 
     const filtersToInclude = ['search', 'geo', 'timings', ...additionalFilters]
       .filter((filter) => requiredFilters.includes(filter))
@@ -155,28 +144,34 @@ export const getServerSideProps: GetServerSideProps = async ({
       include: filtersToInclude,
     });
 
-    const timingsPrefilter = !query.timings && query.passed !== '1'
+    const prefilteredQuery = getPrefilteredQuery({
+      query,
+      prefilter,
+      filters,
+    });
+    const timingsPrefilter = !prefilteredQuery.timings && prefilteredQuery.passed !== '1'
       ? {
         relative: ['current', 'upcoming'],
       }
       : null;
 
-    const prefilteredQuery = getPrefilteredQuery({
-      query,
-      prefilter: initQuery,
-      filters,
-    });
+    const referrer = (query.host as string) || req.headers.referer || null;
 
     const paramsBase = {
       aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, true),
       size: 0,
       ...timingsPrefilter,
-      ...initQuery,
+      ...prefilter,
+      cms: 'embed',
+      host: referrer,
       passed: undefined, // omit passed
+      baseUrl: undefined,
+      filters: undefined,
+      initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     };
-
-    const referrer = req.headers.referer || null;
 
     const params = {
       aggsSizeLimit: 1500,
@@ -191,18 +186,21 @@ export const getServerSideProps: GetServerSideProps = async ({
       passed: undefined, // omit passed
       includeFields,
       includeImageTimestamps: true,
+      baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     };
 
     const props: ShowPageProps = {
       agenda,
       intlMessages,
       preload: [
-        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase)}`,
-        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params)}`,
+        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase, { skipNulls: true })}`,
+        `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(params, { skipNulls: true })}`,
       ],
-      referrer,
+      referrer: referrer || null,
     };
 
     return { props };
@@ -229,6 +227,6 @@ const EmbedAgendaPage: NextPageWithLayout<PageProps> = (props) => {
 
 EmbedAgendaPage.Layout = EmbedLayout;
 
-EmbedAgendaPage.theme = theme;
+EmbedAgendaPage.theme = null;
 
 export default EmbedAgendaPage;

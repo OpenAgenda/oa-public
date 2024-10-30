@@ -3,7 +3,7 @@ import '@openagenda/polyfills/dom';
 import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
-import './sentry';
+import './sentry.js';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -44,9 +44,9 @@ import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createAgendaLocationAdminApp from '@openagenda/agenda-locations-app/src/app';
 import createAgendaSchemaAdminApp from '@openagenda/agenda-schemas-app/src/app';
-import createReduxMiddleware from '../reduxMiddleware';
-import RootHelmet from '../RootHelmet';
-import Root from './Root';
+import createReduxMiddleware from '../reduxMiddleware.js';
+import RootHelmet from '../RootHelmet.js';
+import Root from './Root.js';
 
 // if (process.env.NODE_ENV === 'development') {
 //   // eslint-disable-next-line global-require

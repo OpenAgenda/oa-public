@@ -38,6 +38,10 @@ export default defineMessages({
     id: 'EventAdminApp.messages.exports.toRSS',
     defaultMessage: 'to RSS',
   },
+  toPDF: {
+    id: 'EventAdminApp.messages.exports.toPDF',
+    defaultMessage: 'to PDF',
+  },
   toDOCX: {
     id: 'EventAdminApp.messages.exports.toDOCX',
     defaultMessage: 'to DOCX',

@@ -1,5 +1,4 @@
 .ccal {
-
   * {
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
@@ -20,7 +19,6 @@
   ul.calweekdays,
   .calbody ul {
     li {
-
       border: 2px solid $oa-gray-lighter;
       cursor: pointer;
       color: $oa-gray;
@@ -38,7 +36,6 @@
         font-weight: bold;
         color: $oa-blue;
       }
-
     }
   }
 
@@ -53,7 +50,8 @@
     }
   }
 
-  .calprev, .calnext {
+  .calprev,
+  .calnext {
     opacity: 0.2;
   }
 
@@ -92,14 +90,11 @@
   }
 
   .preselected {
-
     background: $oa-blue;
     opacity: 0.8;
 
     span {
       color: $oa-white;
     }
-
   }
-
 }

@@ -2,21 +2,7 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/agendaStatistics');
 
-async function resyncSearch(core, agendaUid) {
-  log('info', 'resyncing agenda %d - new search index rebuild', agendaUid);
-
-  try {
-    const result = await core.agendas(agendaUid).events.search.rebuild();
-
-    log('info', 'agenda %d, resynced search index', agendaUid, result);
-  } catch (e) {
-    log('error', 'agenda %d, resync failed', agendaUid, e);
-  }
-}
-
 function processJob({ services }) {
-  const { syncAgenda } = services.inboxes.tasks.sync;
-
   return (data, cb) => {
     log('processing %j', data);
     if (data.operation !== 'resync') return cb();
@@ -31,10 +17,6 @@ function processJob({ services }) {
         services.legacy.tagsAndCustom.setAll(data.agendaUid);
         break;
 
-      case 'search':
-        resyncSearch(services.core, data.agendaUid);
-        break;
-
       case 'agendaEvents':
         log('resyncing agenda %d - agendaEvents resync', data.agendaUid);
         services.agendaEvents.tasks.transferLegacyData({
@@ -42,24 +24,6 @@ function processJob({ services }) {
         });
         break;
 
-      case 'inbox':
-        services.agendas.get(
-          { uid: data.agendaUid },
-          { private: null, internal: true },
-          (err, agenda) => {
-            const stats = {};
-
-            syncAgenda(agenda, stats).then(() => {
-              log('info', 'Agenda %d inbox synced', agenda.uid, stats);
-            });
-          },
-        );
-        break;
-
-      case 'activityFeeds':
-        log('resyncing activities', { agendaUid: data.agendaUid });
-        services.activities.tasks.agendaRebuild(data.agendaUid);
-        break;
       default:
         log('unrecognized task', data.type);
     }

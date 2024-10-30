@@ -5,10 +5,7 @@ const ih = require('immutability-helper');
 const agendaFiles = require('./lib/agendaFiles');
 const defaultState = require('./defaultState');
 
-module.exports = function App({
-  queue,
-  s3,
-}) {
+module.exports = function App({ queue, s3 }) {
   const app = express();
 
   app.use(express.urlencoded({ extended: true }));

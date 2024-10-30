@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 // checks for svg if last 4 characters === '.svg'
@@ -63,7 +63,7 @@ class Image extends PureComponent {
     }
   }
 
-  assignImageRef = r => {
+  assignImageRef = (r) => {
     this._image = r;
   };
 
@@ -74,13 +74,11 @@ class Image extends PureComponent {
       return;
     }
 
-    this.setState(s => ({ ...s, currentSrc: fallbackSrc }));
+    this.setState((s) => ({ ...s, currentSrc: fallbackSrc }));
   };
 
   render() {
-    const {
-      alt, onError, fallbackSrc, ...propsToPass
-    } = this.props;
+    const { alt, onError, fallbackSrc, ...propsToPass } = this.props;
     const { currentSrc } = this.state;
 
     return (

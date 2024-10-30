@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import debug from 'debug';
 import { createMemoryHistory } from 'history';
-import du from '@openagenda/dom-utils';
 import { wrapApp } from '@openagenda/react-shared';
 import createInboxApp from '@openagenda/inbox-apps/src/app';
 import sessions from '@openagenda/sessions/client';
@@ -11,6 +10,7 @@ import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
 import eventShowLabels from '@openagenda/labels/event/show';
 import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal';
+import du from '../../js/lib/domUtils';
 import remote from '../../js/lib/remote';
 import activities from './activities';
 

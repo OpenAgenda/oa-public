@@ -1,6 +1,6 @@
 "use strict";
 
-const du = require( '@openagenda/dom-utils' );
+const du = require( '../../js/lib/domUtils' );
 
 const _ = {
   assign: require( 'lodash/assign' )
@@ -40,7 +40,7 @@ function init( options ) {
   log = debug( 'agenda list' );
 
   log( 'initing' );
-  
+
   _.assign( params, options );
 
   if ( options.empty ) return;
@@ -48,7 +48,7 @@ function init( options ) {
   du.asapReady( params.selectors.list, () => {
 
     loader = partialLoader( _.assign( config.partialOptions, {
-      canvas: du.el( params.selectors.list ),
+      canvas: document.querySelector( params.selectors.list ),
       onLoad: params.onLoad
     }));
 
@@ -59,7 +59,7 @@ function init( options ) {
       loadNext: loader.after,
       loadPrev: loader.before,
       auto: params.autoLoadNext,
-      onLastPage: params.onLastPage 
+      onLastPage: params.onLastPage
     } );
 
   } );

@@ -197,7 +197,10 @@ import appLocales from '../locales-compiled';
 export default function MyComponent({ locales: userLocales }) {
   const { lang } = useLayoutData();
 
-  const locales = useMemo(() => mergeLocales(appLocales, reactFiltersLocales, userLocales || {}), [userLocales]);
+  const locales = useMemo(
+    () => mergeLocales(appLocales, reactFiltersLocales, userLocales || {}),
+    [userLocales],
+  );
 
   return (
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
@@ -575,7 +578,10 @@ module.exports = {
       },
     ],
   ],
-  plugins: [require.resolve('@loadable/babel-plugin'), require.resolve('@emotion/babel-plugin')],
+  plugins: [
+    require.resolve('@loadable/babel-plugin'),
+    require.resolve('@emotion/babel-plugin'),
+  ],
   sourceType: 'unambiguous',
 };
 ```

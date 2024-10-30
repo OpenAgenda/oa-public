@@ -44,6 +44,7 @@ export default (core, { useRouter = true } = {}) => {
   });
 
   app.post('*', postMw);
+  app.put('*', postMw);
   app.patch('*', postMw);
 
   app.post('/requestAccessToken', mw.requestAccessToken);
@@ -59,6 +60,7 @@ export default (core, { useRouter = true } = {}) => {
   // access token control and user load
   app.post('*', mw.verifyAndLoadAccessTokenUser);
   app.patch('*', mw.verifyAndLoadAccessTokenUser);
+  app.put('*', mw.verifyAndLoadAccessTokenUser);
   app.delete('*', mw.verifyAndLoadAccessTokenUser);
 
   app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
@@ -372,13 +374,8 @@ export default (core, { useRouter = true } = {}) => {
           actingMember: req.member,
         })
         .then(
-          () =>
-            res.json({
-              success: true,
-            }),
-          (err) => {
-            next(err);
-          },
+          (updatedSchema) => res.json(updatedSchema),
+          (err) => next(err),
         ),
   ]);
 
@@ -689,6 +686,27 @@ export default (core, { useRouter = true } = {}) => {
     ],
   );
 
+  app.put('/agendas/:agendaUid/locations/ext/:locationExtId', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .locations.set(req.locationIdentifier, req.parsedData, {
+          autocomplete: (req.query.autocomplete ?? '1') === '1',
+          context: {
+            userUid: req.user.uid,
+          },
+        })
+        .then(
+          (location) =>
+            res.json({
+              success: true,
+              location,
+            }),
+          next,
+        ),
+  ]);
+
   app.patch(
     [
       '/agendas/:agendaUid/locations/:locationUid',
@@ -805,7 +823,7 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.post('/agendas/:agendaUid/settings/resync', [
-    requireSuperAdmin({ jsonResponse: true }),
+    mw.member.allow(['administrator']),
     settings.resync,
   ]);
 

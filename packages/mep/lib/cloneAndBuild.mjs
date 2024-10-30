@@ -14,6 +14,7 @@ export default async function cloneAndBuild({ dir, envVars, nodes }) {
     NEXT_PUBLIC_ASSET_PREFIX: nextPublicAssetPrefix,
     NEXT_PUBLIC_MAP_TILES: nextPublicMapTiles,
     SENTRY_AUTH_TOKEN: sentryAuthToken,
+    NEXT_PUBLIC_IMAGE_PREFIX: nextPublicImagePrefix,
   } = envVars;
 
   const { CDN: pushToCDN = false } = process.env;
@@ -27,7 +28,11 @@ export default async function cloneAndBuild({ dir, envVars, nodes }) {
     `SENTRY_AUTH_TOKEN=${sentryAuthToken}`,
   ];
 
-  if (nodeEnv === 'production') {
+  if (nextPublicImagePrefix) {
+    nextEnvVars.push(`NEXT_PUBLIC_IMAGE_PREFIX=${nextPublicImagePrefix}`);
+  }
+
+  if (nextPublicAssetPrefix) {
     nextEnvVars.push(`NEXT_PUBLIC_ASSET_PREFIX=${nextPublicAssetPrefix}`);
   }
 
@@ -38,18 +43,18 @@ export default async function cloneAndBuild({ dir, envVars, nodes }) {
   const buildCommands = [
     `cd ${dir}`,
     `echo cloning oa in ${dir}`,
-    `git clone git@github.com:OpenAgenda/oa.git`,
-    `cd oa`,
+    'git clone git@github.com:OpenAgenda/oa.git',
+    'cd oa',
     'echo yarn',
-    `yarn`,
+    'yarn',
     'echo yarn prepack',
-    `yarn prepack`,
-    `cd packages/cibul-templates`,
+    'yarn prepack',
+    'cd packages/cibul-templates',
     `yarn build:${nodeEnv === 'production' ? 'prod' : 'dev'}`,
     `cp ${dir}/next.local ${dir}/oa/packages/next/.env.local`,
     `cp ${dir}/prod.js ${dir}/oa/packages/cibul-node/config/prod.js`,
     `cd ${dir}/oa/packages/next`,
-    `yarn build`,
+    'yarn build',
   ];
 
   if (pushToCDN === '1') {

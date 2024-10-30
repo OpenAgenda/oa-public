@@ -9,8 +9,12 @@ export default {
 export function All() {
   return (
     <VStack spacing="4">
-      <Badge colorScheme="warning" variant="solid">Warning</Badge>
-      <Badge colorScheme="danger" variant="solid">Danger</Badge>
+      <Badge colorScheme="warning" variant="solid">
+        Warning
+      </Badge>
+      <Badge colorScheme="danger" variant="solid">
+        Danger
+      </Badge>
     </VStack>
   );
 }

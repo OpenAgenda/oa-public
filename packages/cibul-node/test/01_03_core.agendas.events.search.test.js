@@ -192,7 +192,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       expect(events[0].uid).toBe(1);
       expect(sort).toBe('timingsWithFeatured.asc');
-      expect(after).toEqual([0, null, 1569578400000, 1]);
+      expect(after).toEqual(['0', 'null', '1569578400000', '1']);
 
       const result = await core.agendas(2).events.search(
         { state: null },
@@ -614,6 +614,22 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           id: 2,
           label: { fr: 'Exposition' },
         });
+      });
+
+      it('get can provide origin and source agenda data', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events/2?detailed=1',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+          },
+        }).then((r) => r.data);
+
+        expect(response.event.originAgenda).toBeDefined();
+        expect(response.event.sourceAgendas).toBeDefined();
       });
 
       it('unpublished event is gettable by owning contributor', async () => {

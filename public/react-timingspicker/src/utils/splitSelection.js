@@ -5,10 +5,8 @@ import normalizeEndOfTiming from './normalizeEndOfTiming';
  * splits timing when duration exceeds permitted maximum set by timingLimit
  */
 export default (
-  {
-    activeWeek, weekStartsOn, selectableStep, timingLimit
-  },
-  { begin, end }
+  { activeWeek, weekStartsOn, selectableStep, timingLimit },
+  { begin, end },
 ) => {
   const startOfActiveWeek = dateFns.startOfWeek(activeWeek, { weekStartsOn });
 
@@ -22,11 +20,11 @@ export default (
   const daysNumber = dateFns.differenceInDays(dateFns.endOfDay(usedEnd), begin);
   const timeOfBegin = dateFns.subDays(
     begin,
-    dateFns.differenceInDays(begin, startOfActiveWeek)
+    dateFns.differenceInDays(begin, startOfActiveWeek),
   );
   const timeOfEnd = dateFns.subDays(
     usedEnd,
-    dateFns.differenceInDays(usedEnd, startOfActiveWeek)
+    dateFns.differenceInDays(usedEnd, startOfActiveWeek),
   );
   const selection = [];
   let derivedBegin;
@@ -35,20 +33,20 @@ export default (
   if (!dateFns.isAfter(timeOfEnd, timeOfBegin)) {
     derivedBegin = dateFns.subDays(
       dateFns.subSeconds(usedEnd, selectableStep),
-      daysNumber
+      daysNumber,
     );
     derivedEnd = dateFns.addDays(
       dateFns.addSeconds(begin, selectableStep),
-      daysNumber
+      daysNumber,
     );
   } else {
     derivedBegin = dateFns.addDays(
       timeOfBegin,
-      dateFns.differenceInDays(begin, timeOfBegin)
+      dateFns.differenceInDays(begin, timeOfBegin),
     );
     derivedEnd = dateFns.addDays(
       timeOfEnd,
-      dateFns.differenceInDays(usedEnd, timeOfEnd)
+      dateFns.differenceInDays(usedEnd, timeOfEnd),
     );
   }
 

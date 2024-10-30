@@ -10,7 +10,13 @@ export default function AccordionItem({ title, children }) {
   return (
     <ChakraAccordionItem>
       <AccordionButton>
-        <Box as="span" flex="1" textAlign="left">
+        <Box
+          as="span"
+          flex="1"
+          textAlign="left"
+          display="flex"
+          alignItems="center"
+        >
           {title}
         </Box>
         <AccordionIcon />

@@ -6,8 +6,6 @@
 
 var utils = require( '@openagenda/utils' ),
 
-du = require( '@openagenda/dom-utils' ),
-
 get = require( '@openagenda/utils/get' ),
 
 defaults = {
@@ -28,7 +26,7 @@ module.exports = function( agendaUid, eventUid ) {
 
   get(
 
-    params.url[ params.env ]
+    params.url[ params.env ]
     .replace( '{agendaUid}', agendaUid )
     .replace( '{eventUid}', eventUid ),
 
@@ -38,8 +36,8 @@ module.exports = function( agendaUid, eventUid ) {
 
       if ( !response.references ) return;
 
-      du.el( params.selector ).insertAdjacentHTML( 'beforeend', response.references );
-      
+      document.querySelector( params.selector ).insertAdjacentHTML( 'beforeend', response.references );
+
     }
 
   )

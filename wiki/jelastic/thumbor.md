@@ -2,7 +2,7 @@
 
 ## Prérequis
 
-* Un compte sur jelastic cloud
+- Un compte sur jelastic cloud
 
 ## Création d'un environement
 
@@ -10,8 +10,8 @@ Sur https://app.jpe.infomaniak.com/
 
 Lancer la création d'un nouvel environnement. Avec:
 
- * *Equilibrage*: Nginx; laisser la configuration proposée (1 à 4 cloudlets en scalabilité verticale).
- * *App Serveurs*: VPS Ubuntu 22.04; laisser la configuration proposée (1 à 4 cloudlets en scalabilité verticale).
+- _Equilibrage_: Nginx; laisser la configuration proposée (1 à 4 cloudlets en scalabilité verticale).
+- _App Serveurs_: VPS Ubuntu 22.04; laisser la configuration proposée (1 à 4 cloudlets en scalabilité verticale).
 
 Activer le SSL intégré.
 

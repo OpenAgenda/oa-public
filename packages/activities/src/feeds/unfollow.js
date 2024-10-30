@@ -1,3 +1,5 @@
+'use strict';
+
 const log = require('@openagenda/logs')('activities/feeds/unfollow');
 const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');
 

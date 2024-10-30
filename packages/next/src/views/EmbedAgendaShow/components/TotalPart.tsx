@@ -79,7 +79,16 @@ export default function TotalPart({
     agenda,
     filters,
     query,
-    prefilter,
+    prefilter: {
+      ...prefilter,
+      baseUrl: undefined,
+      filters: undefined,
+      initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
+      cms: 'embed',
+      host: referrer,
+    },
   });
   const {
     data: pages,
@@ -93,9 +102,15 @@ export default function TotalPart({
     query: {
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
-      host: typeof document !== 'undefined' ? document.referrer : referrer,
+      host:
+        typeof document !== 'undefined' && document.referrer
+          ? document.referrer
+          : referrer,
+      baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     },
     includeFields,
     pageSize: PAGE_SIZE,

@@ -8,6 +8,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  useToken,
 } from '@openagenda/uikit';
 import wrapFilter from 'views/AgendaShow/wrapFilter';
 import { FaIcon } from 'icons';
@@ -22,6 +23,8 @@ const DateRangeFilter = React.forwardRef<'div', any>(function DateRangeFilter(
   ref,
 ) {
   const title = useFilterTitle(name, filter.fieldSchema);
+
+  const primary500 = useToken('colors', 'primary.500');
 
   return (
     <Popover matchWidth>
@@ -48,6 +51,12 @@ const DateRangeFilter = React.forwardRef<'div', any>(function DateRangeFilter(
           flexDirection="column"
           name={name}
           {...props}
+          rangeColor={primary500}
+          sx={{
+            '--rdr-border-color': 'colors.primary.500',
+            '--rdr-body-selected-bg': 'colors.primary.500',
+            '--rdr-today-content-bg': 'colors.primary.500',
+          }}
         />
       </PopoverContent>
     </Popover>

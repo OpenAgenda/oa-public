@@ -61,7 +61,7 @@ function isSelected(range, _timeZone) {
 }
 
 export function createStaticRanges(ranges) {
-  return ranges.map(range => ({ isSelected, ...range }));
+  return ranges.map((range) => ({ isSelected, ...range }));
 }
 
 export default function dateRanges(intl, opts = {}) {
@@ -136,7 +136,7 @@ export default function dateRanges(intl, opts = {}) {
     staticRanges: opts.staticRanges
       ? opts.staticRanges.reduce((accu, next) => {
         if (typeof next === 'string') {
-          const result = defaults.staticRanges.find(w => w.id === next);
+          const result = defaults.staticRanges.find((w) => w.id === next);
           if (result) accu.push(result);
           else console.log(`Cannot found static range "${next}"`);
         } else {

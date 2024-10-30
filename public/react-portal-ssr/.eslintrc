@@ -1,15 +1,13 @@
 {
-  "extends": [
-    "@openagenda"
-  ],
+  "extends": "../.eslintrc",
 
   "parserOptions": {
     "sourceType": "script"
   },
 
   "ignorePatterns": [
-    "/lib",
-    "/esm"
+    "/esm",
+    "/lib"
   ],
 
   "overrides": [

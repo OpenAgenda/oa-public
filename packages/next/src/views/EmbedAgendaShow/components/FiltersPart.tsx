@@ -46,7 +46,16 @@ export default function FiltersPart({
     agenda,
     filters,
     query,
-    prefilter,
+    prefilter: {
+      ...prefilter,
+      baseUrl: undefined,
+      filters: undefined,
+      initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
+      cms: 'embed',
+      host: referrer,
+    },
   });
   const { data: pages, error } = useEventsQuery({
     suspense: true,
@@ -55,9 +64,15 @@ export default function FiltersPart({
     query: {
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
-      host: typeof document !== 'undefined' ? document.referrer : referrer,
+      host:
+        typeof document !== 'undefined' && document.referrer
+          ? document.referrer
+          : referrer,
+      baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     },
     includeFields,
     pageSize: PAGE_SIZE,
@@ -84,7 +99,17 @@ export default function FiltersPart({
         }
         : null,
       ...getPrefilteredQuery({ prefilter, query, filters }),
-      passed: undefined, // omit passed
+      passed: undefined, // omit passed,
+      cms: 'embed',
+      host:
+        typeof document !== 'undefined' && document.referrer
+          ? document.referrer
+          : referrer,
+      baseUrl: undefined,
+      filters: undefined,
+      initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     },
   );
 

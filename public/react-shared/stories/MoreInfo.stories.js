@@ -29,11 +29,7 @@ export const Content = () => (
     </p>
 
     <div style={{ alignSelf: 'center' }}>
-      <MoreInfo
-        title="Im' a title"
-        content="I'm a text"
-        placement="bottom"
-      />
+      <MoreInfo title="Im' a title" content="I'm a text" placement="bottom" />
     </div>
   </>
 );
@@ -64,10 +60,7 @@ export const Link = () => (
       office de lien.
     </p>
     <div style={{ alignSelf: 'center' }}>
-      <MoreInfo
-        link="https://doc.openagenda.com"
-        placement="left"
-      />
+      <MoreInfo link="https://doc.openagenda.com" placement="left" />
     </div>
   </>
 );

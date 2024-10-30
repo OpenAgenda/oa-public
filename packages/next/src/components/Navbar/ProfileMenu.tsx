@@ -18,6 +18,7 @@ import {
 import Image from 'components/Image';
 import SearchInput from 'components/NavbarSearchInput';
 import { thumborLoader } from 'utils/imageLoader';
+import hrefWithLang from 'utils/hrefWithLang';
 import { FaIcon } from 'icons';
 import { faBars } from 'icons/solid';
 import useSearch from './useSearch';
@@ -36,55 +37,82 @@ export default function ProfileMenu({ user, portalRef }) {
   return (
     <>
       {/* Desktop content */}
-      <Menu placement="bottom-end" colorScheme="primary">
-        {/* TODO `p={4} py={0}` -> `px={4}` after https://github.com/chakra-ui/chakra-ui/pull/6905 */}
-        <MenuButton
-          as={Button}
-          variant="link"
-          display={{ base: 'none', lg: 'flex' }}
-          p="4"
-          py="0"
-          alignSelf="stretch"
-        >
-          {user.image ? (
-            <Image
-              alt={intl.formatMessage(messages.profileMenu)}
-              src={
-                process.env.NODE_ENV === 'development'
-                  ? `${process.env.NEXT_PUBLIC_DEV_AWS_BUCKET}/${user.image}`
-                  : `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
-              }
-              fallbackSrc={
-                process.env.NODE_ENV === 'development'
-                  ? `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
-                  : undefined
-              }
-              loader={thumborLoader}
-              width="30"
-              height="30"
-            />
-          )
-            : user.fullName}
-        </MenuButton>
-        <MenuList
-          // https://github.com/chakra-ui/chakra-ui/issues/5742
-          zIndex="popover"
-        >
-          <MenuItem as={Link} href="/home" textAlign="right">
-            {intl.formatMessage(messages.myAgendas)}
-          </MenuItem>
-          <MenuItem as={Link} href="/home/events" textAlign="right">
-            {intl.formatMessage(messages.myEvents)}
-          </MenuItem>
-          <MenuDivider />
-          <MenuItem as={Link} href="/settings" textAlign="right">
-            {intl.formatMessage(messages.settings)}
-          </MenuItem>
-          <MenuItem as={Link} href="/signout" textAlign="right">
-            {intl.formatMessage(messages.signOut)}
-          </MenuItem>
-        </MenuList>
-      </Menu>
+      {user ? (
+        <Menu placement="bottom-end" colorScheme="primary">
+          {/* TODO `p={4} py={0}` -> `px={4}` after https://github.com/chakra-ui/chakra-ui/pull/6905 */}
+          <MenuButton
+            as={Button}
+            variant="link"
+            display={{ base: 'none', lg: 'flex' }}
+            p="4"
+            py="0"
+            alignSelf="stretch"
+          >
+            {user.image ? (
+              <Image
+                alt={intl.formatMessage(messages.profileMenu)}
+                src={
+                  process.env.NODE_ENV === 'development'
+                    ? `${process.env.NEXT_PUBLIC_DEV_AWS_BUCKET}/${user.image}`
+                    : `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
+                }
+                fallbackSrc={
+                  process.env.NODE_ENV === 'development'
+                    ? `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
+                    : undefined
+                }
+                loader={thumborLoader}
+                width="30"
+                height="30"
+              />
+            )
+              : user.fullName}
+          </MenuButton>
+          <MenuList
+            // https://github.com/chakra-ui/chakra-ui/issues/5742
+            zIndex="popover"
+          >
+            <MenuItem as={Link} href="/home" textAlign="right">
+              {intl.formatMessage(messages.myAgendas)}
+            </MenuItem>
+            <MenuItem as={Link} href="/home/events" textAlign="right">
+              {intl.formatMessage(messages.myEvents)}
+            </MenuItem>
+            <MenuDivider />
+            <MenuItem as={Link} href="/settings" textAlign="right">
+              {intl.formatMessage(messages.settings)}
+            </MenuItem>
+            <MenuItem as={Link} href="/signout" textAlign="right">
+              {intl.formatMessage(messages.signOut)}
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      ) : (
+        <>
+          <Button
+            as={Link}
+            href={hrefWithLang('/signin', intl.locale)}
+            variant="link"
+            colorScheme="primary"
+            display={{ base: 'none', lg: 'flex' }}
+            px="4"
+            alignItems="center"
+          >
+            {intl.formatMessage(messages.signIn)}
+          </Button>
+          <Button
+            as={Link}
+            href={hrefWithLang('/signup', intl.locale)}
+            variant="link"
+            colorScheme="primary"
+            display={{ base: 'none', lg: 'flex' }}
+            px="4"
+            alignItems="center"
+          >
+            {intl.formatMessage(messages.signUp)}
+          </Button>
+        </>
+      )}
 
       {/* Mobile content */}
       <IconButton
@@ -110,43 +138,68 @@ export default function ProfileMenu({ user, portalRef }) {
             </form>
 
             <Box py="2">
-              <Link
-                href="/home"
-                display="block"
-                px="6"
-                py="3"
-                _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-              >
-                {intl.formatMessage(messages.myAgendas)}
-              </Link>
-              <Link
-                href="/home/events"
-                display="block"
-                px="6"
-                py="3"
-                _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-              >
-                {intl.formatMessage(messages.myEvents)}
-              </Link>
-              <Divider my="2" />
-              <Link
-                href="/settings"
-                display="block"
-                px="6"
-                py="3"
-                _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-              >
-                {intl.formatMessage(messages.settings)}
-              </Link>
-              <Link
-                href="/signout"
-                display="block"
-                px="6"
-                py="3"
-                _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-              >
-                {intl.formatMessage(messages.signOut)}
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    href="/home"
+                    display="block"
+                    px="6"
+                    py="3"
+                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+                  >
+                    {intl.formatMessage(messages.myAgendas)}
+                  </Link>
+                  <Link
+                    href="/home/events"
+                    display="block"
+                    px="6"
+                    py="3"
+                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+                  >
+                    {intl.formatMessage(messages.myEvents)}
+                  </Link>
+                  <Divider my="2" />
+                  <Link
+                    href="/settings"
+                    display="block"
+                    px="6"
+                    py="3"
+                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+                  >
+                    {intl.formatMessage(messages.settings)}
+                  </Link>
+                  <Link
+                    href="/signout"
+                    display="block"
+                    px="6"
+                    py="3"
+                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+                  >
+                    {intl.formatMessage(messages.signOut)}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href={hrefWithLang('/signin', intl.locale)}
+                    display="block"
+                    px="6"
+                    py="3"
+                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+                  >
+                    {intl.formatMessage(messages.signIn)}
+                  </Link>
+                  <Link
+                    href={hrefWithLang('/signup', intl.locale)}
+                    display="block"
+                    px="6"
+                    py="3"
+                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
+                  >
+                    {intl.formatMessage(messages.signUp)}
+                  </Link>
+                </>
+              )}
             </Box>
           </Box>
         </Collapse>

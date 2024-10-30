@@ -38,8 +38,8 @@ module.exports = (v1, { timezone, slugSchemaOptionIdMap }) => {
     Object.assign(
       v2,
       v1.tags
-        .map(tag => slugSchemaOptionIdMap.filter(o => o.slug === tag).pop())
-        .filter(match => !!match)
+        .map((tag) => slugSchemaOptionIdMap.filter((o) => o.slug === tag).pop())
+        .filter((match) => !!match)
         .reduce(
           (additionalFieldFilters, { fieldName, optionId }) => ({
             ...additionalFieldFilters,

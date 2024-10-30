@@ -88,6 +88,10 @@ export default class EmbedLoader {
       url.searchParams.set('filters', dataset.filters);
     }
 
+    if (dataset.primaryColor) {
+      url.searchParams.set('primaryColor', dataset.primaryColor);
+    }
+
     const { hash } = window.location;
     if (hash?.startsWith('#!')) {
       const decodedSrc = decodeURIComponent(hash.substring(2));
@@ -123,6 +127,17 @@ export default class EmbedLoader {
   onChildMessage({ message }) {
     if (message.type === 'urlChange') {
       const newUrl = message.url;
+
+      if (!newUrl) {
+        // remove hash
+        window.history.replaceState(
+          null,
+          null,
+          window.location.pathname + window.location.search,
+        );
+        return;
+      }
+
       const encodedNewUrl = `#!${encodeForURLHash(newUrl)}`;
       window.history.replaceState(null, null, encodedNewUrl);
     }

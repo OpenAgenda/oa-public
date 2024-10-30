@@ -3,8 +3,9 @@
 const { createProxyServer } = require('http-proxy');
 
 module.exports = function webpackProxy(app, devServerPort) {
-  const httpProxy = createProxyServer({ secure: false })
-    .on('error', (error, req, res) => {
+  const httpProxy = createProxyServer({ secure: false }).on(
+    'error',
+    (error, req, res) => {
       if (error.code !== 'ECONNRESET') {
         console.error('proxy error', error);
       }
@@ -14,20 +15,15 @@ module.exports = function webpackProxy(app, devServerPort) {
 
       const json = {
         error: 'proxy_error',
-        reason: error.message
+        reason: error.message,
       };
       res.end(JSON.stringify(json));
-    });
+    },
+  );
 
-  app.get(
-    [
-      '/ws',
-      '/dist/main.js',
-      '/dist/main.css',
-    ],
-    (req, res) => httpProxy.web(req, res, {
+  app.get(['/ws', '/dist/main.js', '/dist/main.css'], (req, res) =>
+    httpProxy.web(req, res, {
       target: `http://localhost:${devServerPort}`,
       ws: true,
-    })
-  );
+    }));
 };

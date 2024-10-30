@@ -6,6 +6,7 @@
   "aggregator-sources.AddSourceModal.defineRules": "Define rules",
   "aggregator-sources.AddSourceModal.defineRulesStep": "Rules",
   "aggregator-sources.AddSourceModal.enterALink": "Enter an agenda link",
+  "aggregator-sources.AddSourceModal.errorMessage": "There was an issue during the processing of your request. Please try again later. If this problem persists, contact support",
   "aggregator-sources.AddSourceModal.evaluateMessage": "The agenda {source} is about to be added to the sources of {aggregator} {ruleCount, plural, =0 {without rule} one {with 1 rule} other {with {ruleCount} rules}}.",
   "aggregator-sources.AddSourceModal.evaluationStep": "Evaluation",
   "aggregator-sources.AddSourceModal.makeASearch": "Make a search",

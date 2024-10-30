@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const log = require('@openagenda/logs')(
   'activities/notifications/prepareSummary',

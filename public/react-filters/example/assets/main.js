@@ -25,14 +25,24 @@ window.oa = {
   locale: 'fr',
   locales: {
     en: {
-      eventsTotal: '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}'
+      eventsTotal:
+        '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
     },
     fr: {
-      eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}'
-    }
+      eventsTotal:
+        '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+    },
   },
-  onLoad: async (values, aggregations, filtersRef, _form) => {
+  manualSubmit: true,
+  onLoad: async (values, aggregations, filtersRef, form) => {
     try {
+      const formElem = document.querySelector('#filters-form');
+
+      formElem.addEventListener('submit', (event) => {
+        event.preventDefault();
+        form.submit();
+      });
+
       const result = await loadEventList({ ...values, size: 0 }, aggregations);
 
       filtersRef.updateFiltersAndWidgets(values, result);
@@ -51,5 +61,5 @@ window.oa = {
     } catch (e) {
       console.log('onFilterChange error:', e);
     }
-  }
+  },
 };

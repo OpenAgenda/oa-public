@@ -10,5 +10,4 @@ require('yargs/yargs')(process.argv.slice(2))
   .wrap(null)
   .locale('en')
   .scriptName('oa-intl')
-  .help()
-  .argv;
+  .help().argv;

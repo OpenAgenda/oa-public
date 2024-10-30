@@ -32,10 +32,3 @@
     <a class="btn btn-danger" href="<%= actions.resyncCustomDatasetToLegacy %>">Transférer le jeu de données pour tous les événements</a>
   </div>
 </div>
-
-<div class="row">
-  <h3>Autres</h3>
-  <a class="margin-v-sm btn btn-default" href="<%= actions.rebuildSearch %>">rebuildSearch</a>
-  <a class="margin-v-sm btn btn-default" href="<%= actions.resyncInbox %>">resyncInbox</a>
-  <a class="margin-v-sm btn btn-default" href="<%= actions.resyncActivityFeeds %>">resyncActivityFeeds</a>
-</div>

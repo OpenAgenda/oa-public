@@ -1,3 +1,5 @@
+'use strict';
+
 const knexLib = require('knex');
 const { rebuild } = require('../src/rebuild');
 const config = require('../testconfig');

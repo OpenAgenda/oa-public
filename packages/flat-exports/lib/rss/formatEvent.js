@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const schema = require('@openagenda/validators/schema');
 const { cleanString } = require('@openagenda/utils');
 
@@ -50,14 +50,14 @@ module.exports = (event, options = {}) => {
       long: _.get(event, 'location.longitude', null),
       custom_elements: [
         {
-          'ev:startdate': moment(_.first(event.timings).begin).format(
-            'YYYY-MM-DDTHH:mm:ss',
-          ),
+          'ev:startdate': moment
+            .tz(_.first(event.timings).begin, event.timezone)
+            .format('YYYY-MM-DDTHH:mm:ss'),
         },
         {
-          'ev:enddate': moment(_.last(event.timings).end).format(
-            'YYYY-MM-DDTHH:mm:ss',
-          ),
+          'ev:enddate': moment
+            .tz(_.last(event.timings).end, event.timezone)
+            .format('YYYY-MM-DDTHH:mm:ss'),
         },
         {
           'ev:location': [

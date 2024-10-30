@@ -12,9 +12,14 @@ import useMatomoTracker from 'hooks/useMatomoTracker';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
+interface PageProps {
+  intlMessages: Record<string, string>;
+  sessionLocale?: string;
+}
+
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   // Layout?: (props: { children: ReactNode }) => ReactElement<typeof props>
-  Layout?: React.FC<{ children: React.ReactNode }>;
+  Layout?: React.FC<{ children: React.ReactNode; emotionCache?: EmotionCache }>;
   theme?: Record<string, any>;
 };
 
@@ -23,11 +28,6 @@ type AppPropsWithLayout<P = {}> = AppProps<P> & {
   universalCookies?: Cookies;
   cache?: EmotionCache;
 };
-
-interface PageProps {
-  intlMessages: Record<string, string>;
-  sessionLocale?: string;
-}
 
 function MyApp({
   Component,
@@ -70,7 +70,7 @@ function MyApp({
         cookies={universalCookies}
       >
         <SentryErrorBoundary>
-          <Layout>
+          <Layout emotionCache={cache}>
             <Component {...pageProps} />
           </Layout>
         </SentryErrorBoundary>

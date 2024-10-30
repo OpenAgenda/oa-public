@@ -2,15 +2,13 @@ import _ from 'lodash';
 import { Component } from 'react';
 import TimingsPicker, { classNames } from '@openagenda/react-timingspicker';
 
-function fZ(n) {
-  return (n < 0 ? '-' : '') + (Math.abs(n) < 10 ? '0' : '') + Math.abs(n);
-}
+import { convertTimezoneOffset, fZ } from '../utils/time';
 
 // safari requires timezone
 function safariTimezone({ date, hours, minutes }) {
-  const tzh = new Date(`${date}T${hours}:${minutes}`).getTimezoneOffset() / 60;
-
-  return `${(tzh > 0 ? '' : '+') + fZ(-tzh)}:00`;
+  return convertTimezoneOffset(
+    new Date(`${date}T${hours}:${minutes}`).getTimezoneOffset() / 60,
+  );
 }
 
 function loadTimings(props) {

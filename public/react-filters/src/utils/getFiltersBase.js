@@ -14,8 +14,8 @@ export default function getFiltersBase(fields, opts = {}) {
     { name: 'district' },
     { name: 'keyword' },
   ]
-    .filter(filter => !opts.exclude?.includes(filter.name))
-    .map(filter =>
+    .filter((filter) => !opts.exclude?.includes(filter.name))
+    .map((filter) =>
       withDefaultFilterConfig(filter, null, {
         dateFnsLocale: opts.dateFnsLocale,
         mapTiles: opts.mapTiles,

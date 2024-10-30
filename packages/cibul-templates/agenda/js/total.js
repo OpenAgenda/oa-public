@@ -12,8 +12,6 @@ const params = {
   }
 },
 
-du = require( '@openagenda/dom-utils' ),
-
 _ = require( 'lodash' ),
 
 qs = require( 'qs' ),
@@ -24,7 +22,7 @@ labels = require( '@openagenda/labels/agendas/total' );
 
 module.exports = function( selector, lang ) {
 
-  let elem = du.el( selector ),
+  let elem = document.querySelector( selector ),
 
   getLabel = getLabelFactory( labels, lang );
 

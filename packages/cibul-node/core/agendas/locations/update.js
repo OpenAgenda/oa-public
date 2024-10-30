@@ -1,7 +1,7 @@
 import getAgenda from '../utils/getAgenda.js';
 
 export default (core, agendaOrUid) =>
-  async (uid, data, options = {}) => {
+  async (identifiers, data, options = {}) => {
     const { agendaLocations } = core.services;
 
     const { context = {}, autocomplete = true } = options;
@@ -12,7 +12,7 @@ export default (core, agendaOrUid) =>
       ? agendaLocations.sets(agenda.locationSetUid).locations
       : agendaLocations(agenda.uid);
 
-    return endpoints.update(uid, data, {
+    return endpoints.update(identifiers, data, {
       autocomplete,
       includeImagePath: true,
       agendaUid: agenda.uid,

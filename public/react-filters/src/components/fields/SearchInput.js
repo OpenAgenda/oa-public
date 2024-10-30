@@ -1,25 +1,46 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useForm } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
+import { defineMessages, useIntl } from 'react-intl';
+import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext';
 
-function Input({ input, placeholder, onButtonClick }) {
+const messages = defineMessages({
+  ariaLabel: {
+    id: 'ReactFilters.components.fields.SearchInput.ariaLabel',
+    defaultMessage: 'Search',
+  },
+});
+
+function Input({ input, placeholder, onButtonClick, manualSubmit }) {
+  const intl = useIntl();
+
   return (
     <div className="input-group mb-3">
       <input
         className="form-control"
         autoComplete="off"
         placeholder={placeholder}
+        aria-label={placeholder}
         {...input}
       />
-      <div className="input-group-append">
-        <button
-          type="submit"
-          className="btn btn-outline-secondary"
-          onClick={onButtonClick}
-        >
-          <i className="fa fa-search" aria-hidden="true" />
-        </button>
-      </div>
+      {!manualSubmit ? (
+        <div className="input-group-append">
+          <button
+            type="submit"
+            className="btn btn-outline-secondary"
+            onClick={onButtonClick}
+            aria-label={intl.formatMessage(messages.ariaLabel)}
+          >
+            <i className="fa fa-search" aria-hidden="true" />
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -34,7 +55,11 @@ export default function SearchInput({
   const form = useForm();
   const [tmpValue, setTmpValue] = useState(input.value);
 
-  const debouncedOnChange = useDebouncedCallback(e => {
+  const {
+    filtersOptions: { manualSubmit },
+  } = useContext(FiltersAndWidgetsContext);
+
+  const debouncedOnChange = useDebouncedCallback((e) => {
     if (manualSearch) {
       return;
     }
@@ -46,17 +71,21 @@ export default function SearchInput({
   }, 400);
 
   const inputOnChange = useCallback(
-    e => {
+    (e) => {
       e.persist();
 
       setTmpValue(e.target.value);
       debouncedOnChange(e);
+      // direct call with manualSubmit
+      if (manualSubmit) {
+        debouncedOnChange.flush();
+      }
     },
     [debouncedOnChange],
   );
 
   const onButtonClick = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (manualSearch) {
         input.onChange(tmpValue);
@@ -85,6 +114,7 @@ export default function SearchInput({
   return React.createElement(inputComponent, {
     input: wrappedInput,
     onButtonClick,
+    manualSubmit,
     ...rest,
   });
 }

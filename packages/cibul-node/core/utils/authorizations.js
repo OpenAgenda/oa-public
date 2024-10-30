@@ -58,16 +58,25 @@ function canRemoveEvent(services, { member, agendaEvent, access }) {
 }
 
 function canDeleteEvent(services, { member, agendaEvent, event, access }) {
-  if (!agendaEvent || !event) {
+  if (!event) {
     return null;
   }
 
   const isEventOwner = member?.userUid === event.ownerUid;
-  const isOriginAgenda = event.agendaUid === agendaEvent.agendaUid;
 
-  if ((event.draft || member) && isEventOwner) {
+  if (event.draft) {
+    return isEventOwner;
+  }
+
+  if (member && isEventOwner) {
     return true;
   }
+
+  if (!agendaEvent) {
+    return null;
+  }
+
+  const isOriginAgenda = event.agendaUid === agendaEvent.agendaUid;
 
   if (!canRemoveEvent(services, { access, member, agendaEvent })) {
     return false;

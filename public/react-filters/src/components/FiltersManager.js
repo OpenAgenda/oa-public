@@ -3,7 +3,6 @@ import isEqual from 'lodash/isEqual';
 import qs from 'qs';
 import React, {
   forwardRef,
-  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -31,6 +30,7 @@ import FavoriteToggle from './FavoriteToggle';
 import Total from './Total';
 import ChoiceFilter from './filters/ChoiceFilter';
 import DateRangeFilter from './filters/DateRangeFilter';
+import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter';
 import DefinedRangeFilter from './filters/DefinedRangeFilter';
 import NumberRangeFilter from './filters/NumberRangeFilter';
 import SearchFilter from './filters/SearchFilter';
@@ -51,6 +51,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
 
     choiceComponent = ChoiceFilter,
     dateRangeComponent = DateRangeFilter,
+    simpleDateRangeComponent = SimpleDateRangeFilter,
     definedRangeComponent = DefinedRangeFilter,
     numberRangeComponent = NumberRangeFilter,
     searchComponent = SearchFilter,
@@ -82,7 +83,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     ['react-filters', 'filtersBase', agendaUid],
     async () => {
       const filtersToLoad = filters.filter(
-        filter => filter.type === 'choice' && !filter.options,
+        (filter) => filter.type === 'choice' && !filter.options,
       );
 
       if (!filtersToLoad.length) {
@@ -94,7 +95,9 @@ const FiltersManager = React.forwardRef(function FiltersManager(
           null, // apiClient
           res,
           { uid: agendaUid },
-          filters.filter(filter => filter.type === 'choice' && !filter.options),
+          filters.filter(
+            (filter) => filter.type === 'choice' && !filter.options,
+          ),
           { size: 0 },
           null, // pageParam
           false, // filtersBase
@@ -116,8 +119,12 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     aggregations,
   );
   const getTotal = useGetTotal(aggregations);
-  const getValues = useCallback(() => form.getState().values, [form]);
-  const loadGeoData = useLoadGeoData(null, res, getValues, { searchMethod });
+  const loadGeoData = useLoadGeoData(
+    null,
+    res,
+    () => form.getSubmittedValues(),
+    { searchMethod },
+  );
 
   useImperativeHandle(ref, () => ({
     getFilters: () => filters,
@@ -128,14 +135,14 @@ const FiltersManager = React.forwardRef(function FiltersManager(
       const widgetsOnPage = extractWidgetsFromDom();
       const filtersOnPage = extractFiltersFromDom();
 
-      const newFilters = filtersOnPage.map(nextFilter => {
+      const newFilters = filtersOnPage.map((nextFilter) => {
         const completedNext = withDefaultFilterConfig(
           nextFilter,
           intl,
           filtersOptions,
         );
         const found = filters.find(
-          v =>
+          (v) =>
             JSON.stringify(omit(v, 'elemRef'))
             === JSON.stringify(omit(completedNext, 'elemRef')),
         );
@@ -146,9 +153,9 @@ const FiltersManager = React.forwardRef(function FiltersManager(
           : completedNext;
       });
 
-      const newWidgets = widgetsOnPage.map(nextWidget => {
+      const newWidgets = widgetsOnPage.map((nextWidget) => {
         const found = widgets.find(
-          v =>
+          (v) =>
             JSON.stringify(omit(v, 'elemRef'))
             === JSON.stringify(omit(nextWidget, 'elemRef')),
         );
@@ -167,11 +174,11 @@ const FiltersManager = React.forwardRef(function FiltersManager(
           setWidgets(newWidgets);
         }
 
-        setAggregations(result.aggregations || []);
+        setAggregations(result.aggregations || {});
         setTotal(result.total || 0);
       });
 
-      const mapFilter = filters.find(v => v.type === 'map');
+      const mapFilter = filters.find((v) => v.type === 'map');
       const mapElem = mapFilter?.elemRef?.current;
       const viewport = result.aggregations?.viewport;
 
@@ -179,7 +186,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         mapElem.onQueryChange(viewport);
       }
     },
-    updateLocation: values => {
+    updateLocation: (values) => {
       const queryStr = qs.stringify(values, {
         addQueryPrefix: true,
         skipNulls: true,
@@ -201,7 +208,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const widgetElems = widgets.map(widget => {
+  const widgetElems = widgets.map((widget) => {
     switch (widget.name) {
       case 'total':
         return (
@@ -255,6 +262,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         // filters
         choiceComponent={choiceComponent}
         dateRangeComponent={dateRangeComponent}
+        simpleDateRangeComponent={simpleDateRangeComponent}
         definedRangeComponent={definedRangeComponent}
         numberRangeComponent={numberRangeComponent}
         searchComponent={searchComponent}

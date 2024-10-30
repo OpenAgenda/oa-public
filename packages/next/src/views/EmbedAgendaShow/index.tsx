@@ -4,7 +4,6 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
   useTransition,
 } from 'react';
 import { useIntl } from 'react-intl';
@@ -18,14 +17,12 @@ import {
   useFilters,
 } from '@openagenda/react-filters';
 import { useLatest, usePrevious } from 'react-use';
-import useSessionStorageState from 'use-session-storage-state';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useClientAnalytics from 'hooks/useClientAnalytics';
-import useIsFirstRender from 'hooks/useIsFirstRender';
-import useLocationQuery from 'hooks/useLocationQuery';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
 import ConsentBanner from 'components/ConsentBanner';
+import OAAttribution from 'components/OAAttribution';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
 import includeFields from 'views/AgendaShow/includeFields';
 import { TotalSkeleton } from 'views/AgendaShow/components/LoadingPage';
@@ -55,7 +52,7 @@ const DynamicFiltersPart = dynamic(() => import('./components/FiltersPart'), {
 export type EmbedAgendaShowProps = {
   agenda: Agenda;
   preload?: string[];
-  referrer: string;
+  referrer?: string;
 };
 
 const stripLangPrefix = (pathname) => pathname.replace(/^\/[a-z][a-z]\//, '/');
@@ -67,51 +64,20 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
 
-  const { isEmbedFirstLoad, initPath, initQuery } = useEmbedLayoutData();
+  const { query, setQuery, prefilter } = useEmbedLayoutData();
 
   const filtersFormRef = useRef<any>();
 
-  const urlQuery = useLocationQuery();
-
-  const [prefilter, setStoredPrefilter] = useSessionStorageState('prefilter', {
-    defaultValue: initPath ? initQuery : urlQuery,
-  });
-
-  const isFirstRender = useIsFirstRender();
-
   const initialValues = useConst(() => ({
-    ...urlQuery,
-    initPath: undefined,
-    filters: undefined,
-  }));
-
-  const [query, setQuery] = useState<Record<string, any>>(() => ({
-    ...initPath ? urlQuery : {},
+    ...query,
+    baseUrl: undefined,
     filters: undefined,
     initPath: undefined,
+    primaryColor: undefined,
+    secondaryColor: undefined,
   }));
 
   const latestQuery = useLatest(query);
-
-  useEffect(() => {
-    if (isEmbedFirstLoad && isFirstRender) {
-      setStoredPrefilter(initPath ? initQuery : urlQuery);
-
-      const newUrl = new URL(router.asPath, 'https://n').pathname
-        + qs.stringify(initialValues, { addQueryPrefix: true });
-
-      router.replace(newUrl, null, { shallow: true });
-    }
-  }, [
-    isEmbedFirstLoad,
-    isFirstRender,
-    setStoredPrefilter,
-    initQuery,
-    initialValues,
-    initPath,
-    urlQuery,
-    router,
-  ]);
 
   const isMounted = useIsMounted();
 
@@ -152,9 +118,15 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
     query: {
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
-      host: typeof document !== 'undefined' ? document.referrer : referrer,
+      host:
+        typeof document !== 'undefined' && document.referrer
+          ? document.referrer
+          : referrer,
+      baseUrl: undefined,
       filters: undefined,
       initPath: undefined,
+      primaryColor: undefined,
+      secondaryColor: undefined,
     },
     includeFields,
     pageSize: 12,
@@ -282,8 +254,11 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
         <ConsentBanner
           consentFor={needConsentFor}
           consentSource="localStorage"
+          display="overlay"
         />
       ) : null}
+
+      <OAAttribution />
     </>
   );
 }

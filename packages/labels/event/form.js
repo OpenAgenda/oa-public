@@ -597,7 +597,7 @@ module.exports = {
     es: 'Aplazado',
   },
   status: {
-    fr: 'Statut',
+    fr: 'État',
     en: 'Status',
     io: 'crwdns16110:0crwdne16110:0',
     oc: 'Estatut',

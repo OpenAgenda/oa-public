@@ -44,7 +44,9 @@ export default async (services, agenda) => {
         })
         .create();
     } catch (e) {
-      log('error', 'failed to created agenda feed', e);
+      if (e.message !== 'Feed already exists') {
+        log('error', 'failed to created agenda feed', e);
+      }
     }
   }
 

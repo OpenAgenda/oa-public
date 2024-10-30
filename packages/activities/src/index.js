@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('node:path');
 const logger = require('@openagenda/logs');
 const feed = require('./feed');

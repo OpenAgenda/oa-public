@@ -1,3 +1,5 @@
+'use strict';
+
 const DiscordClient = require('discord.js');
 const notifyUserCreation = require('./lib/notifyUserCreation');
 const notifyAgendaCreation = require('./lib/notifyAgendaCreation');

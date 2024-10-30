@@ -19,7 +19,7 @@ module.exports = (err, req, res, next) => {
       'error',
       _.assign(req.data || {}, {
         message: process.env.NODE_ENV === 'development' ? message : null,
-      })
+      }),
     );
   });
 };

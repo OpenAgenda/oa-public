@@ -1,5 +1,4 @@
-
-let values = {};
+const values = {};
 
 function set(key, value, lifespan = 0) {
   values[key] = value;
@@ -21,4 +20,4 @@ export default {
   set,
   get,
   has,
-}
+};

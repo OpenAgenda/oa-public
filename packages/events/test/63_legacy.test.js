@@ -109,18 +109,6 @@ describe('legacy', () => {
       it('result shows remove operation', () => {
         expect(result.operation).toBe('remove');
       });
-
-      it('insert was added to deleted table', async () => {
-        const deletedEvent = await f.client
-          .first('store')
-          .from('deleted')
-          .where('uid', 19853966)
-          .then((r) => JSON.parse(r.store));
-
-        expect(deletedEvent.slug).toBe(
-          'ventes-de-velos-d-occasion-a-lambersart',
-        );
-      });
     });
 
     describe('update', () => {

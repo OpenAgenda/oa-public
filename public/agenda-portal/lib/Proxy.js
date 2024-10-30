@@ -12,7 +12,7 @@ const getAgendaSettings = (agendaUid, key) =>
       `https://api.openagenda.com/v2/agendas/${agendaUid}?key=${key}&detailed=1`,
     )
     .then(({ data }) => data)
-    .catch(err => {
+    .catch((err) => {
       if (err.response.status === 403) {
         throw new Error('Unauthorized');
       } else {
@@ -53,12 +53,13 @@ module.exports = ({
     }
     const upcomingEvents = app.locals.agenda.summary.publishedEvents.upcoming;
 
+    const hasVisibilityPastEvents = visibilityPastEvents === '1' || visibilityPastEvents === 1;
+
     if (upcomingEvents > 0) {
       if (
-        (!userQuery.relative
-          && !userQuery.timings
-          && visibilityPastEvents === '1')
-        || !visibilityPastEvents
+        !userQuery.relative
+        && !userQuery.timings
+        && hasVisibilityPastEvents
       ) {
         const relativeFilter = { relative: ['current', 'upcoming'] };
         Object.assign(query, relativeFilter);
@@ -88,7 +89,7 @@ module.exports = ({
       ...transformQueryV1ToV2(_.get(query, 'oaq', null), {
         timezone: defaultTimezone,
         slugSchemaOptionIdMap: await cachedHead(agendaUid, key).then(
-          a => a.slugSchemaOptionIdMap,
+          (a) => a.slugSchemaOptionIdMap,
         ),
       }),
       key,
@@ -127,8 +128,8 @@ module.exports = ({
       ...slug ? { slug } : {},
       detailed: 1,
       relative: ['passed', 'upcoming', 'current'],
-    }).then(r =>
-      r.events.find(e => {
+    }).then((r) =>
+      r.events.find((e) => {
         if (slug) {
           return e.slug === slug;
         }
@@ -147,7 +148,7 @@ module.exports = ({
   }
 
   return {
-    head: agendaUid => cachedHead(agendaUid, key),
+    head: (agendaUid) => cachedHead(agendaUid, key),
     list: (agendaUid, query) =>
       cached(agendaUid, 'events', { ...query, detailed: 1 }),
     clearCache,

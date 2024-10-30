@@ -62,7 +62,7 @@ describe('sendMail', () => {
       expect(errors).toHaveLength(0);
 
       expect(
-        results.map(v =>
+        results.map((v) =>
           _.omit(
             JSON.parse(v.message),
             'envelopeTime',
@@ -187,7 +187,7 @@ describe('sendMail', () => {
       }
 
       expect(
-        results.map(v =>
+        results.map((v) =>
           _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response')),
       ).toMatchSnapshot();
     });
@@ -218,7 +218,7 @@ describe('sendMail', () => {
       expect(results[0].envelope.from).toBe(from);
 
       expect(
-        results.map(v =>
+        results.map((v) =>
           _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response')),
       ).toMatchSnapshot();
     });
@@ -303,7 +303,7 @@ describe('sendMail', () => {
       expect(results).toHaveLength(1);
 
       expect(
-        results.map(v => {
+        results.map((v) => {
           v.message = JSON.parse(v.message);
           return _.omit(v, 'messageId', 'message.messageId');
         }),
@@ -338,7 +338,7 @@ describe('sendMail', () => {
       expect(results).toHaveLength(1);
 
       expect(
-        results.map(v => {
+        results.map((v) => {
           v.message = JSON.parse(v.message);
           return _.omit(v, 'messageId', 'message.messageId');
         }),

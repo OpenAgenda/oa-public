@@ -1,7 +1,6 @@
 import w from 'when';
 import _ from 'lodash';
 import qs from 'qs';
-import du from '@openagenda/dom-utils';
 import { helpers } from '@openagenda/cibul-templates';
 import range from '@openagenda/date-range';
 import getTimings from '../lib/getTimings.js';
@@ -10,11 +9,15 @@ import { renderHTMLFromMarkdown } from '../lib/getLongDescriptionHTML.js';
 
 const { time: timeHelper } = helpers;
 
+function nl2br(str) {
+  return str.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />$2');
+}
+
 function _location(v) {
   v.formatted.location = v.req.event.getLocationDetails(v.req.lang, true);
 
   if (_.get(v, 'formatted.location.description')) {
-    v.formatted.location.description = du.nl2br(
+    v.formatted.location.description = nl2br(
       v.formatted.location.description,
       true,
       false,

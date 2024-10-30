@@ -85,41 +85,39 @@
   ],
   "next.views.AgendaSearch.total": [
     {
-      "style": null,
-      "type": 2,
-      "value": "total"
-    },
-    {
-      "type": 0,
-      "value": " "
-    },
-    {
       "offset": 0,
       "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No agenda found"
+            }
+          ]
+        },
         "one": {
           "value": [
             {
               "type": 0,
-              "value": "agenda"
+              "value": "1 agenda found"
             }
           ]
         },
         "other": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "agendas"
+              "value": " agendas found"
             }
           ]
         }
       },
       "pluralType": "cardinal",
       "type": 6,
-      "value": "total"
-    },
-    {
-      "type": 0,
-      "value": " found"
+      "value": "count"
     }
   ],
   "next.views.AgendaSearch.upcomingEvents": [

@@ -31,6 +31,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     includeDateRange: true,
     includeAgendaEvent: true,
     includeOriginAgenda: true,
+    includeSourceAgendas: true,
     access: 'internal',
     private: null,
     useCache: true,
@@ -209,7 +210,7 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
       returnPayload: true,
     });
 
-    if (!eventPayload && throwOnError) {
+    if (!eventPayload.event && throwOnError) {
       throw new NotFound(
         {
           info: { uid: eventUid },

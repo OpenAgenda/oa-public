@@ -15,10 +15,9 @@ module.exports = async (
   log.info('processing', logBundle);
 
   let after;
-  let hasMore = true;
   let count = 0;
 
-  while (hasMore) {
+  while (after !== null) {
     const { after: nextAfter, events } = await listEventReferences(
       sourceAgendaUid,
       after,
@@ -41,7 +40,6 @@ module.exports = async (
     }
 
     after = nextAfter;
-    if (!events.length) hasMore = false;
   }
   log('enqueuing done', { ...logBundle, count });
 };

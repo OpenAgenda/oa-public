@@ -2,10 +2,10 @@
 
 ## Requirements
 
- * Check that your current nginx service is off.
- * That the domain you intend to use points to the localhost in `/etc/hosts` (see an example below)
- * Check you have docker v19.03.8 docker-compose v1.25.5 installed
- * Lots of free disk space (20GB+)
+- Check that your current nginx service is off.
+- That the domain you intend to use points to the localhost in `/etc/hosts` (see an example below)
+- Check you have docker v19.03.8 docker-compose v1.25.5 installed
+- Lots of free disk space (20GB+)
 
 ## Get the projects
 
@@ -115,6 +115,7 @@ docker-compose -f docker-compose.yml -f docker-compose.watch.yml up
 # or with daemon
 docker-compose -f docker-compose.yml -f docker-compose.watch.yml up -d
 ```
+
 Clear cached images using their identifiers (given at the end of a build)
 
     docker rmi 4025edbd42f7

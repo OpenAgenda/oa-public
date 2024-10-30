@@ -4,9 +4,7 @@ const _ = require('lodash');
 const moment = require('moment-timezone');
 const { tz } = require('moment-timezone');
 
-const {
-  getValue: getTimingBeginValue,
-} = require('../timings/begin');
+const { getValue: getTimingBeginValue } = require('../timings/begin');
 const getMonthWeek = require('./getMonthWeek');
 
 function getMonthDiff(currentMonth, month) {
@@ -27,20 +25,20 @@ function getIsNewKey(items, key) {
 
 function getMonthLabel(monthKey, locale) {
   return _.capitalize(
-    moment(new Date(`${monthKey}-15`)).locale(locale).format('MMMM YYYY'),
+    moment(new Date(`${monthKey}-15`))
+      .locale(locale)
+      .format('MMMM YYYY'),
   );
 }
 
 function getNearestMonthToToday(presentMonthKey, currentNearest, months) {
-  const {
-    value: currentNearestMonthValue,
-  } = currentNearest;
+  const { value: currentNearestMonthValue } = currentNearest;
 
   const latestMonthIndex = months.length - 1;
 
   if (
-    (currentNearestMonthValue === null)
-    || (currentNearestMonthValue < presentMonthKey)
+    currentNearestMonthValue === null
+    || currentNearestMonthValue < presentMonthKey
   ) {
     return {
       index: latestMonthIndex,
@@ -57,71 +55,75 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
   const present = getTimingsKeys(new Date(), timezone, locale);
   const presentMonthKey = present.month;
 
-  const result = timings.reduce(({
-    months,
-    nearestMonthToToday,
-  }, timing) => {
-    if (timing.begin === null) {
-      return { months, nearestMonthToToday };
-    }
+  const result = timings.reduce(
+    ({ months, nearestMonthToToday }, timing) => {
+      if (timing.begin === null) {
+        return { months, nearestMonthToToday };
+      }
 
-    const {
-      month: monthKey,
-      week: weekKey,
-      day: dayKey,
-    } = getTimingsKeys(getTimingBeginValue(timing), timezone, locale);
-
-    const isNewMonth = getIsNewKey(months, monthKey);
-
-    if (isNewMonth) {
-      months.push({
-        key: monthKey,
-        diff: getMonthDiff(present.month, monthKey),
-        current: presentMonthKey === monthKey,
-        label: getMonthLabel(monthKey, locale),
-        weeks: [],
-        displayed: false,
-      });
-    }
-
-    const month = months[months.length - 1];
-
-    if (getIsNewKey(month.weeks, weekKey)) {
-      month.weeks.push({
-        key: weekKey,
-        week: `${weekKey}`,
-        label: `${weekKey}`,
-        current: month.current && present.week === weekKey,
-        days: [],
-      });
-    }
-
-    const week = month.weeks[month.weeks.length - 1];
-
-    if (getIsNewKey(week.days, dayKey)) {
-      week.days.push({
-        key: dayKey,
+      const {
+        month: monthKey,
+        week: weekKey,
         day: dayKey,
-        current: month.current && week.current && present.day === dayKey,
-        passed: present.month + present.day > monthKey + dayKey,
-        label: _.capitalize(tz(timing.begin, timezone).locale(locale).format('dddd D')),
-        timings: [],
-      });
-    }
+      } = getTimingsKeys(getTimingBeginValue(timing), timezone, locale);
 
-    week.days[week.days.length - 1].timings.push(timing);
+      const isNewMonth = getIsNewKey(months, monthKey);
 
-    return {
-      months,
-      nearestMonthToToday: isNewMonth ? getNearestMonthToToday(presentMonthKey, nearestMonthToToday, months) : nearestMonthToToday,
-    };
-  }, {
-    months: [],
-    nearestMonthToToday: {
-      index: -1,
-      value: null,
+      if (isNewMonth) {
+        months.push({
+          key: monthKey,
+          diff: getMonthDiff(present.month, monthKey),
+          current: presentMonthKey === monthKey,
+          label: getMonthLabel(monthKey, locale),
+          weeks: [],
+          displayed: false,
+        });
+      }
+
+      const month = months[months.length - 1];
+
+      if (getIsNewKey(month.weeks, weekKey)) {
+        month.weeks.push({
+          key: weekKey,
+          week: `${weekKey}`,
+          label: `${weekKey}`,
+          current: month.current && present.week === weekKey,
+          days: [],
+        });
+      }
+
+      const week = month.weeks[month.weeks.length - 1];
+
+      if (getIsNewKey(week.days, dayKey)) {
+        week.days.push({
+          key: dayKey,
+          day: dayKey,
+          current: month.current && week.current && present.day === dayKey,
+          passed: present.month + present.day > monthKey + dayKey,
+          label: _.capitalize(
+            tz(timing.begin, timezone).locale(locale).format('dddd D'),
+          ),
+          timings: [],
+        });
+      }
+
+      week.days[week.days.length - 1].timings.push(timing);
+
+      return {
+        months,
+        nearestMonthToToday: isNewMonth
+          ? getNearestMonthToToday(presentMonthKey, nearestMonthToToday, months)
+          : nearestMonthToToday,
+      };
     },
-  });
+    {
+      months: [],
+      nearestMonthToToday: {
+        index: -1,
+        value: null,
+      },
+    },
+  );
 
   if (!result.months.length) {
     return [];
@@ -129,8 +131,9 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
 
   result.months[result.nearestMonthToToday.index].displayed = true;
 
-  return result.months.map((month, index) => Object.assign(month, {
-    hasPrevious: index !== 0,
-    hasNext: index !== result.months.length - 1,
-  }));
+  return result.months.map((month, index) =>
+    Object.assign(month, {
+      hasPrevious: index !== 0,
+      hasNext: index !== result.months.length - 1,
+    }));
 };

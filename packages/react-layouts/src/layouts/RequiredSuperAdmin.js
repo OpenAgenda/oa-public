@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
-import ChildLayouts from '../components/ChildLayouts';
-import Loading from '../components/Loading';
+import ChildLayouts from '../components/ChildLayouts.js';
+import Loading from '../components/Loading.js';
 
 function RequiredSuperAdmin({ childLayouts, children, extraProps, fallback }) {
   const history = useHistory();

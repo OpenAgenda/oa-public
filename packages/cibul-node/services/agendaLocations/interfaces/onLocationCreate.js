@@ -51,7 +51,7 @@ export default (services) =>
       try {
         agenda = await core
           .agendas(context.agendaUid)
-          .get({ access: 'internal' });
+          .get({ access: 'internal', private: null });
       } catch (e) {
         return log(
           'error',

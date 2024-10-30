@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment-timezone';
 import VError from '@openagenda/verror';
+import extractEmails from '@openagenda/mails/extractEmails';
 import formSchemaDecorate from '@openagenda/form-schemas/iso/getDecorate.js';
 import range from '@openagenda/date-range';
 import logs from '@openagenda/logs';
@@ -118,9 +119,7 @@ async function eventMailSend(req, res, next) {
   }
 
   try {
-    const emails = (
-      typeof req.body.mailsend === 'string' ? req.body.mailsend : ''
-    ).split(/[\s;,\n\r]+/);
+    const emails = extractEmails(req.body.mailsend).slice(0, 50);
 
     const logo = req.agenda.image
       ? {
@@ -167,7 +166,7 @@ async function eventMailSend(req, res, next) {
 
     await mails.send({
       template: 'event',
-      to: emails.map((email) => ({
+      to: emails.map(({ email }) => ({
         address: email,
         unsubscriptions: [
           {

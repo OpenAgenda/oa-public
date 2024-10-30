@@ -7,6 +7,8 @@ import {
   Tooltip,
   useTimeout,
   Checkbox,
+  Tag,
+  Input,
 } from '@openagenda/uikit';
 import copyText from 'utils/copyText';
 import listFiltersToInclude from 'utils/listFiltersToInclude';
@@ -23,7 +25,16 @@ function escapeHTML(text: string) {
 
 const SCRIPT_URL = 'https://cdn.openagenda.com/js/widgets.js';
 
-function getEmbedCode({ intl, href, agenda, withFilters, openEventsOnOA }) {
+const DEFAULT_COLOR = '#41acdd';
+
+function getEmbedCode({
+  intl,
+  href,
+  agenda,
+  withFilters,
+  openEventsOnOA,
+  primaryColor,
+}) {
   const attributes = [];
 
   if (withFilters) {
@@ -32,6 +43,10 @@ function getEmbedCode({ intl, href, agenda, withFilters, openEventsOnOA }) {
 
   if (openEventsOnOA) {
     attributes.push('data-base-url="oa"');
+  }
+
+  if (primaryColor && primaryColor !== DEFAULT_COLOR) {
+    attributes.push(`data-primary-color="${primaryColor}"`);
   }
 
   const attributesStr = attributes.length ? ` ${attributes.join(' ')}` : '';
@@ -50,6 +65,7 @@ export default function EmbedAccordionItem({ res, agenda }) {
 
   const [withFilters, setWithFilters] = useState(true);
   const [openEventsOnOA, setOpenEventsOnOA] = useState(false);
+  const [primaryColor, setPrimaryColor] = useState(DEFAULT_COLOR);
 
   useTimeout(
     () => {
@@ -64,10 +80,30 @@ export default function EmbedAccordionItem({ res, agenda }) {
     agenda,
     withFilters,
     openEventsOnOA,
+    primaryColor,
   });
 
   return (
-    <AccordionItem title={intl.formatMessage(messages.embed)}>
+    <AccordionItem
+      title={(
+        <>
+          {intl.formatMessage(messages.embed)}
+          <Tag
+            bgColor="transparent"
+            border="1px solid"
+            borderColor="primary.500"
+            color="primary.500"
+            variant="solid"
+            ml="2"
+            py="0.75"
+            borderRadius="full"
+            fontWeight="bold"
+          >
+            {intl.formatMessage(messages.new)}
+          </Tag>
+        </>
+      )}
+    >
       <Flex gap="4" direction="column">
         <Checkbox
           isChecked={withFilters}
@@ -84,6 +120,42 @@ export default function EmbedAccordionItem({ res, agenda }) {
         >
           {intl.formatMessage(messages.openInSamePage)}
         </Checkbox>
+
+        <Flex
+          as="label"
+          align="center"
+          w="fit-content"
+          cursor="pointer"
+          // sx={{
+          //   'input[type="color" i]::-webkit-color-swatch-wrapper': {
+          //     p: '0',
+          //   },
+          // }}
+        >
+          <Input
+            type="color"
+            value={primaryColor}
+            onChange={(e) => setPrimaryColor(e.target.value)}
+            w="4"
+            h="4"
+            p="0"
+            mr="2"
+            borderRadius="sm"
+            cursor="pointer"
+            sx={{
+              '&::-webkit-color-swatch-wrapper': {
+                p: '0',
+              },
+              '&::-webkit-color-swatch': {
+                border: '0',
+              },
+              '&::-moz-color-swatch': {
+                border: '0',
+              },
+            }}
+          />
+          {intl.formatMessage(messages.color)}
+        </Flex>
 
         <Textarea
           value={embedCode}

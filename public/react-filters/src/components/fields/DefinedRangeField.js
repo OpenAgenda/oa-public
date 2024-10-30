@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import isDate from 'lodash/isDate';
 import React, { useCallback, useState } from 'react';
-import { DefinedRange } from 'react-date-range';
+import { DefinedRange } from '@openagenda/react-date-range';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 
 const defaultGetInitialValue = () => [
@@ -17,7 +17,7 @@ function normalizeValue(value) {
     return value;
   }
 
-  return value.map(v => ({
+  return value.map((v) => ({
     startDate: isDate(v.startDate) ? v.startDate.getTime() : v.startDate,
     endDate: isDate(v.endDate) ? v.endDate.getTime() : v.endDate,
     key: v.key,
@@ -46,7 +46,7 @@ function DefinedRangeField(
   const { onChange } = input;
 
   const onDefinedRangeChange = useCallback(
-    item => {
+    (item) => {
       const value = [item?.selection ? item.selection : item.range1];
 
       setRanges(value);
@@ -60,7 +60,10 @@ function DefinedRangeField(
     if (
       previousValue
       && !isEqual(normalizeValue(input.value), normalizeValue(previousValue))
-      && !isEqual(normalizeValue(input.value), normalizeValue(latestRanges.current))
+      && !isEqual(
+        normalizeValue(input.value),
+        normalizeValue(latestRanges.current),
+      )
     ) {
       setRanges(input.value);
     }
