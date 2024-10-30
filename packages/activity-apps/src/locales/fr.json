@@ -26,7 +26,7 @@
   "ActivityApps.agendaSendMessage.detailModalTitle": "Message",
   "ActivityApps.agendaSendMessage.full": "<user>{userName}</user> a envoyé un message à <recipientRoles></recipientRoles> sur l'agenda <agenda>{agendaName}</agenda>.",
   "ActivityApps.agendaSendMessage.fullWithSubject": "<user>{userName}</user> a envoyé <subj>{subject}</subj> à <recipientRoles></recipientRoles> sur l'agenda <agenda>{agendaName}</agenda>.",
-  "ActivityApps.agendaSendMessage.noDetail": "le message est vide, peut-être parce qu'il a été saisi avant la mise à jour",
+  "ActivityApps.agendaSendMessage.noDetail": "Le contenu du message est indisponible: seuls les messages envoyés après le 1er novembre 2024 sont consultables ici.",
   "ActivityApps.agendaSendMessage.withoutTarget": "<user>{userName}</user> a envoyé un message à <recipientRoles></recipientRoles>.",
   "ActivityApps.agendaSendMessage.withoutTargetWithSubject": "<user>{userName}</user> a envoyé <subj>{subject}</subj> à <recipientRoles></recipientRoles>.",
   "ActivityApps.agendaUpdate.full": "<user>{userName}</user> a mis à jour l'agenda <agenda>{agendaName}</agenda>.",

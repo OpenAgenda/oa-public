@@ -26,7 +26,7 @@
   "ActivityApps.agendaSendMessage.detailModalTitle": "Message",
   "ActivityApps.agendaSendMessage.full": "<user>{userName}</user> sent a message to <recipientRoles></recipientRoles> on agenda <agenda>{agendaName}</agenda>.",
   "ActivityApps.agendaSendMessage.fullWithSubject": "<user>{userName}</user> sent <subj>{subject}</subj> to <recipientRoles></recipientRoles> on agenda <agenda>{agendaName}</agenda>.",
-  "ActivityApps.agendaSendMessage.noDetail": "message is empty, maybe cause i was entered before the update",
+  "ActivityApps.agendaSendMessage.noDetail": "The content of the message is unavailable: the detail is only available for messages sent after November 1st 2024",
   "ActivityApps.agendaSendMessage.withoutTarget": "<user>{userName}</user> sent a message to <recipientRoles></recipientRoles>.",
   "ActivityApps.agendaSendMessage.withoutTargetWithSubject": "<user>{userName}</user> sent <subj>{subject}</subj> to <recipientRoles></recipientRoles>.",
   "ActivityApps.agendaUpdate.full": "<user>{userName}</user> updated agenda <agenda>{agendaName}</agenda>.",
