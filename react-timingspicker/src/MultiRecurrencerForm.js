@@ -175,6 +175,7 @@ class MultiRecurrencerForm extends Component {
 
   handleSubmit = (values, ...rest) => {
     const { activeWeek, weekStartsOn, onSubmit } = this.props;
+    let endOfDayUntil;
 
     if (!['weekly', 'monthly'].includes(values.frequence)) {
       return { [FORM_ERROR]: new Error('invalidFrequence') };
@@ -192,7 +193,11 @@ class MultiRecurrencerForm extends Component {
       if (!isValidDate(values.until)) {
         return { [FORM_ERROR]: new Error('invalidDate') };
       }
-      if (values.until.getTime() <= minimumEnd.getTime()) {
+
+      endOfDayUntil = new Date(values.until);
+      endOfDayUntil.setDate(endOfDayUntil.getDate() + 1);
+
+      if (endOfDayUntil.getTime() <= minimumEnd.getTime()) {
         return { [FORM_ERROR]: new Error('endBeforeStart') };
       }
     }
@@ -212,7 +217,13 @@ class MultiRecurrencerForm extends Component {
     }
 
     if (typeof onSubmit === 'function') {
-      return onSubmit(values, ...rest);
+      return onSubmit(
+        {
+          ...values,
+          until: endOfDayUntil,
+        },
+        ...rest,
+      );
     }
   };
 

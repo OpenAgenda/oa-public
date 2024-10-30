@@ -197,6 +197,7 @@ class RecurrencerForm extends Component {
 
   handleSubmit = (values, ...rest) => {
     const { valueToDuplicate, onSubmit } = this.props;
+    let endOfDayUntil;
 
     if (!['daily', 'weekly', 'monthly'].includes(values.frequence)) {
       return { [FORM_ERROR]: new Error('invalidFrequence') };
@@ -210,7 +211,11 @@ class RecurrencerForm extends Component {
       if (!isValidDate(values.until)) {
         return { [FORM_ERROR]: new Error('invalidDate') };
       }
-      if (values.until.getTime() <= valueToDuplicate.begin.getTime()) {
+
+      endOfDayUntil = new Date(values.until);
+      endOfDayUntil.setDate(endOfDayUntil.getDate() + 1);
+
+      if (endOfDayUntil.getTime() <= valueToDuplicate.begin.getTime()) {
         return { [FORM_ERROR]: new Error('endBeforeStart') };
       }
     }
@@ -230,7 +235,13 @@ class RecurrencerForm extends Component {
     }
 
     if (typeof onSubmit === 'function') {
-      return onSubmit(values, ...rest);
+      return onSubmit(
+        {
+          ...values,
+          until: endOfDayUntil,
+        },
+        ...rest,
+      );
     }
   };
 
