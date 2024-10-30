@@ -2414,25 +2414,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/dom-utils@npm:2.1.0":
-  version: 2.1.0
-  resolution: "@chakra-ui/dom-utils@npm:2.1.0"
-  checksum: 10c0/75303446d2e2cc2569e0726847e91c163f236e8de4f69a735bfd515b19cbf3f854c0a0ca273dcd0e4fe6d875be16d6ec82f937d5e5a451038e4cf79d2e412245
-  languageName: node
-  linkType: hard
-
-"@chakra-ui/focus-lock@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@chakra-ui/focus-lock@npm:2.1.0"
-  dependencies:
-    "@chakra-ui/dom-utils": "npm:2.1.0"
-    react-focus-lock: "npm:^2.9.4"
-  peerDependencies:
-    react: ">=18"
-  checksum: 10c0/fe9cc0a40edf9ad0287119703fc7e2d90e4913ea3a6faa1e917214eae55f00880134835ea0b9d8731138248e6f6187c6b7ca16735526b42b742441a2d8d6c4f2
-  languageName: node
-  linkType: hard
-
 "@chakra-ui/hooks@npm:2.4.2":
   version: 2.4.2
   resolution: "@chakra-ui/hooks@npm:2.4.2"
@@ -5582,6 +5563,7 @@ __metadata:
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/members": "npm:^1.15.13"
     "@openagenda/react-bootstrap-datetimerangepicker": "npm:^2.0.5"
     "@openagenda/react-shared": "npm:^2.4.1"
@@ -5605,14 +5587,18 @@ __metadata:
     lodash: "npm:^4.17.15"
     moment: "npm:^2.27.0"
     morgan: "npm:^1.9.1"
+    msw: "npm:^2.3.0"
+    msw-storybook-addon: "npm:^2.0.2"
     mysql: "npm:^2.16.0"
     nodemon: "npm:^2.0.6"
     prop-types: "npm:^15.5.8"
     qs: "npm:^6.9.1"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
+    react-helmet-async: "npm:^1.0.3"
     react-intersection-observer: "npm:^9.4.1"
     react-intl: "npm:^5.12.2"
+    react-query: "npm:^3.6.0"
     react-redux: "npm:^7.1.3"
     react-router: "npm:^5.1.2"
     react-router-config: "npm:^5.1.1"
@@ -7283,6 +7269,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/md@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@openagenda/md@npm:1.0.1"
+  dependencies:
+    html-tags: "npm:^3.3.1"
+    isomorphic-dompurify: "npm:^2.8.0"
+    markdown-link-extractor: "npm:^4.0.2"
+    marked: "npm:^12.0.2"
+    turndown: "npm:^7.1.3"
+  checksum: 10c0/a6db1305f87368a04a701f979d65745cf75f708c7757935b218d9466c239275d091b50d855606065c7aab951ffb3d0b1a7d803f40f731ae98903b556b6c1e2e0
+  languageName: node
+  linkType: hard
+
 "@openagenda/member-apps@npm:^2.1.1, @openagenda/member-apps@workspace:packages/member-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/member-apps@workspace:packages/member-apps"
@@ -8304,7 +8303,6 @@ __metadata:
   dependencies:
     "@chakra-ui/anatomy": "npm:^2.3.4"
     "@chakra-ui/cli": "npm:^2.5.5"
-    "@chakra-ui/focus-lock": "npm:^2.1.0"
     "@chakra-ui/icons": "npm:^2.2.4"
     "@chakra-ui/react": "npm:^2.10.3"
     "@chakra-ui/shared-utils": "npm:2.0.4"
@@ -37764,7 +37762,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-focus-lock@npm:^2.9.4, react-focus-lock@npm:^2.9.6":
+"react-focus-lock@npm:^2.9.6":
   version: 2.13.2
   resolution: "react-focus-lock@npm:2.13.2"
   dependencies:
