@@ -33,7 +33,10 @@ export default function ActivityDetail({ activity, config }) {
     <>
       {modal.isOpen ? (
         <Modal
-          title={intl.formatMessage({ id: detailLabelIds.modalTitle })}
+          title={
+            activity?.store?.subject
+            || intl.formatMessage({ id: detailLabelIds.modalTitle })
+          }
           isOpen={modal.isOpen}
           onClose={modal.close}
           classNames={{
@@ -61,7 +64,7 @@ export default function ActivityDetail({ activity, config }) {
       ) : null}
       <button
         type="button"
-        className="btn btn-link"
+        className="btn btn-link padding-v-z"
         onClick={() => {
           setIsLoading(true);
           modal.open();

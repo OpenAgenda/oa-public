@@ -198,10 +198,10 @@ export default function ActivityItem({
           dateStyle="long"
           timeStyle="short"
         />
-        {config[activity.verb].detailLabelIds ? (
-          <ActivityDetail activity={activity} config={config} />
-        ) : null}
       </span>
+      {config[activity.verb].detailLabelIds ? (
+        <ActivityDetail activity={activity} config={config} />
+      ) : null}
     </li>
   );
 }
