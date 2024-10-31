@@ -25,7 +25,7 @@ function redirectToNeighbor(req, res, next) {
 
   const context = navigation.parseContext(req.query.nc);
 
-  const { search, index, lang } = context;
+  const { index, lang, params } = context;
 
   const newIndex = index + (direction === 'next' ? 1 : -1);
 
@@ -33,12 +33,10 @@ function redirectToNeighbor(req, res, next) {
     .get('proxy')
     .list(
       res.locals.agendaUid,
-      _.assign(
-        { oaq: search },
-        {
-          offset: Math.max(0, newIndex),
-        },
-      ),
+      {
+        ...params,
+        offset: Math.max(0, newIndex),
+      },
       1,
     )
     .then(({ total, events }) => {
@@ -58,12 +56,7 @@ function redirectToNeighbor(req, res, next) {
       }
 
       if (!events.length) {
-        res.redirect(
-          302,
-          `${req.app.locals.root}?${qs.stringify({
-            oaq: search,
-          })}`,
-        );
+        res.redirect(302, `${req.app.locals.root}?${qs.stringify(params)}`);
         return;
       }
 
