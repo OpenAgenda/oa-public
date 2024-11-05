@@ -1,5 +1,5 @@
 import { useMemo, useCallback, useEffect } from 'react';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { useStore, useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import cn from 'classnames';
@@ -196,7 +196,7 @@ function App({ route }) {
   return content;
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       inbox: inboxReducer,

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import debounce from 'lodash/debounce';
@@ -317,7 +317,7 @@ class Events extends Component {
 }
 
 export default withLayoutData('lang')(
-  provideHooks({
+  redial.provideHooks({
     fetch: ({ store: { dispatch } }) => dispatch(setTab('events')),
     defer: async ({ store: { dispatch }, location }) => {
       const query = qs.parse(location.search, { ignoreQueryPrefix: true });

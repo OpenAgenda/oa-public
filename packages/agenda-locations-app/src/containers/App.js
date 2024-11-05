@@ -1,6 +1,6 @@
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
@@ -38,7 +38,7 @@ function App({ route }) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       merge: mergeReducer,

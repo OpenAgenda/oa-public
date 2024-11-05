@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { IntlProvider } from 'react-intl';
 import {
   withLayoutData,
@@ -141,7 +141,7 @@ function SettingsContainer({
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   fetch: async ({ store: { dispatch } }) =>
     (typeof window !== 'undefined'
       ? dispatch(userSettingsActions.load())

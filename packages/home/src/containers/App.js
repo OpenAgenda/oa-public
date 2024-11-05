@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -107,7 +107,7 @@ function App({ route }) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       menu: menuReducer,
