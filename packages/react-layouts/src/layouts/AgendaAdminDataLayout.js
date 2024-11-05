@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { useIsomorphicLayoutEffect } from 'react-use';
-import { useApiClient } from '@openagenda/react-shared';
+import ky from 'ky';
+import qs from 'qs';
 import * as agendaAdminActions from '../reducers/agendaAdmin.js';
 import ChildLayouts from '../components/ChildLayouts.js';
 import Loading from '../components/Loading.js';
@@ -17,7 +18,6 @@ function AgendaAdminDataLayout({
 }) {
   const intl = useIntl();
   const history = useHistory();
-  const apiClient = useApiClient();
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -28,14 +28,12 @@ function AgendaAdminDataLayout({
 
   const { data, isLoading, error } = useQuery(
     ['react-layouts', 'agendaAdminData', { slug: params.slug }],
-    async () =>
-      (
-        await apiClient.get(`/${params.slug}/admin/layout`, {
-          params: {
-            lang: intl.locale,
-          },
-        })
-      ).data,
+    () =>
+      ky(`/${params.slug}/admin/layout`, {
+        searchParams: qs.stringify({
+          lang: intl.locale,
+        }),
+      }).json(),
     {
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
     },

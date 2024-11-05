@@ -1,9 +1,6 @@
 import { applyMiddleware, compose } from 'redux';
-import {
-  apiClient,
-  createStore,
-  clientMiddleware,
-} from '@openagenda/react-shared';
+import ky from 'ky';
+import { createStore, clientMiddleware } from '@openagenda/react-shared';
 import mainReducer from './reducers/main.js';
 import agendaAdminReducer from './reducers/agendaAdmin.js';
 
@@ -12,7 +9,9 @@ const DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 export default function createLayoutStore(initialState, history) {
   const helpers = {};
-  const client = apiClient(initialState.main.apiRoot);
+  const client = ky.create({
+    prefixUrl: initialState.main.apiRoot,
+  });
 
   const store = createStore(
     (asyncReducers) => ({

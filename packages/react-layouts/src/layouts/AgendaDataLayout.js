@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { matchPath, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { useApiClient } from '@openagenda/react-shared';
+import ky from 'ky';
+import qs from 'qs';
 import ChildLayouts from '../components/ChildLayouts.js';
 import Loading from '../components/Loading.js';
 
 function AgendaDataLayout({ childLayouts, children, extraProps, fallback }) {
   const intl = useIntl();
-  const apiClient = useApiClient();
   const location = useLocation();
 
   const { params } = useMemo(
@@ -18,14 +18,12 @@ function AgendaDataLayout({ childLayouts, children, extraProps, fallback }) {
 
   const { data, isLoading, error } = useQuery(
     ['react-layouts', 'AgendaData', { slug: params.slug }],
-    async () =>
-      (
-        await apiClient.get(`/api/agendas/slug/${params.slug}`, {
-          params: {
-            lang: intl.locale,
-          },
-        })
-      ).data,
+    () =>
+      ky(`/api/agendas/slug/${params.slug}`, {
+        searchParams: qs.stringify({
+          lang: intl.locale,
+        }),
+      }).json(),
     {
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
     },

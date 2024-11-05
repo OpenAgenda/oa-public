@@ -1,11 +1,7 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import {
-  useConstant,
-  ApiClientContext,
-  apiClient,
-} from '@openagenda/react-shared';
+import { useConstant } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
 import * as appLocales from '../../src/locales-compiled/index.mjs';
 
@@ -23,8 +19,6 @@ export default (Story) => {
       }),
   );
 
-  const axios = useConstant(() => apiClient());
-
   return (
     <IntlProvider
       key={lang}
@@ -33,13 +27,11 @@ export default (Story) => {
       messages={appLocales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >
-      <ApiClientContext.Provider value={axios}>
-        <QueryClientProvider client={queryClient}>
-          <HelmetProvider>
-            <Story axios={axios} />
-          </HelmetProvider>
-        </QueryClientProvider>
-      </ApiClientContext.Provider>
+      <QueryClientProvider client={queryClient}>
+        <HelmetProvider>
+          <Story />
+        </HelmetProvider>
+      </QueryClientProvider>
     </IntlProvider>
   );
 };
