@@ -1,6 +1,7 @@
 import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import processOEmbed from '../../utils/processOEmbed.js';
+import formatEventErrors from '../../utils/formatEventErrors.js';
 
 const log = logs('core/agendas/events/lib/updateEvent');
 
@@ -16,6 +17,7 @@ export default async function updateEvent(
     privateOption,
     event,
     partial,
+    userLang,
   },
 ) {
   const { oembed, events } = services;
@@ -54,20 +56,20 @@ export default async function updateEvent(
 
     log('updated event %s', event.uid);
   } catch (e) {
-    if (e.toString() === 'ValidationError: Invalid data') {
-      log('info', 'invalid data', e);
-      throw new BadRequest(
+    const error = e.toString() === 'ValidationError: Invalid data'
+      ? new BadRequest(
         {
-          info: { errors: e.detail },
+          info: { errors: formatEventErrors(e.detail, userLang) },
         },
         'invalid data',
-      );
-    }
+      )
+      : e;
+
     log('error', 'failed to update event', {
       agendaUid,
       eventUid,
-      error: e,
+      error,
     });
-    throw e;
+    throw error;
   }
 }

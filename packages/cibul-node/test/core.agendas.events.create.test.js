@@ -1091,6 +1091,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           {
             field: 'image',
             code: 'url.invalid',
+            fieldLabel: 'Image of the event',
             message: 'provided image url is not valid',
           },
         ]);

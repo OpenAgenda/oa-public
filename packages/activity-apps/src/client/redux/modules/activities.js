@@ -93,7 +93,7 @@ export function isLoaded(globalState) {
 export function load(query, agenda) {
   return ({ dispatch, getState }) => {
     const { settings, res } = getState();
-
+    console.log('Load', res.list, agenda);
     return dispatch({
       types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
       perPageLimit: settings.perPageLimit,
@@ -120,7 +120,7 @@ export function load(query, agenda) {
 export function list(query, agenda) {
   return ({ dispatch, getState }) => {
     const { settings, res } = getState();
-
+    console.log('List', res.list, agenda);
     return dispatch({
       types: [LIST, LIST_SUCCESS, LIST_FAIL],
       perPageLimit: settings.perPageLimit,

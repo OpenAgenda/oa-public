@@ -340,7 +340,7 @@ module.exports = [
       {
         field: 'public',
         type: 'schema',
-        read: ['administrator', 'moderator', 'internal', 'legacy'],
+        read: ['administrator', 'moderator', 'internal', 'legacy', 'public'],
         write: ['internal'],
         fields: [
           {

@@ -843,6 +843,8 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             field: 'image',
             code: 'format.unknown',
             message: 'provided format is unknown',
+            fieldLabel: 'Image of the event',
+            label: 'The format of the image is unknown',
           },
         ]);
       });

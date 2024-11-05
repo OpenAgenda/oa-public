@@ -108,7 +108,6 @@ export default async function initServices(config = null, options = {}) {
   await init('users', () => import('./users/index.js'));
   await init('accessTokens', () => import('./accessTokens/index.js'));
   await init('activities', () => import('./activities/index.js')); // required directly
-  await init('activityApps', () => import('./activityApps.js'));
   await init('members', () => import('./members/index.js')); // required directly
   await init('agendaContribute', () => import('./agendaContribute/index.js'));
   await init('agendaDocx', () => import('./agendaDocx.js'));

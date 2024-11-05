@@ -1,0 +1,20 @@
+{
+  "id": 16877416,
+  "actor": "user:97199260",
+  "verb": "event.update",
+  "object": "event:63956757",
+  "target": "agenda:26220537",
+  "store": {
+    "labels": {
+      "actor": "Traducteur automatique Reverso",
+      "object": {
+        "fr": "test updatedAt"
+      },
+      "target": "test Reverso/translate prod"
+    },
+    "contributorFields": ["title", "description", "longDescription"]
+  },
+  "createdAt": "2024-09-09T13:58:34.000Z",
+  "updatedAt": null,
+  "detail": true
+}
