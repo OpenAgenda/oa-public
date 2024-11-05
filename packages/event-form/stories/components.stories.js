@@ -1,7 +1,7 @@
-import AgeComponent from '../src/components/Age';
-import TimingsComponent from '../src/components/Timings';
-import Providers from './decorators/Providers';
-import StandardCanvas from './decorators/StandardCanvas';
+import AgeComponent from '../src/components/Age.js';
+import TimingsComponent from '../src/components/Timings.js';
+import Providers from './decorators/Providers.js';
+import StandardCanvas from './decorators/StandardCanvas.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

@@ -1,11 +1,11 @@
 import Select from 'react-select';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import countries from '@openagenda/countries/labels';
-import defaultLocationLabels from '@openagenda/labels/event/defaultLocation';
-import flattenLabels from '@openagenda/labels/flatten';
-import LocationSelector from '@openagenda/agenda-locations-app/dist/components/LocationSelector';
-import Provider from '@openagenda/agenda-locations-app/dist/decorators/Providers';
+import countries from '@openagenda/countries/labels.js';
+import defaultLocationLabels from '@openagenda/labels/event/defaultLocation.js';
+import flattenLabels from '@openagenda/labels/flatten.js';
+import LocationSelector from '@openagenda/agenda-locations-app/dist/components/LocationSelector.js';
+import Provider from '@openagenda/agenda-locations-app/dist/decorators/Providers.js';
 
 const DefaultLocation = ({
   lang = 'fr',

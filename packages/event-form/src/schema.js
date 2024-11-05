@@ -1,14 +1,9 @@
-const { produce } = require('immer');
-
-const eventFormLabels = require('@openagenda/labels/event/form');
-
-const merge = require('@openagenda/form-schemas/client/build/iso/merge');
-
-const schemaLanguages = require('./utils/schemaLanguages');
-
-const injectValidators = require('./utils/injectValidators');
-
-const eventFields = require('./fields/event');
+import { produce } from 'immer';
+import eventFormLabels from '@openagenda/labels/event/form.js';
+import merge from '@openagenda/form-schemas/client/build/iso/merge.js';
+import schemaLanguages from './utils/schemaLanguages.js';
+import injectValidators from './utils/injectValidators.js';
+import eventFields from './fields/event.js';
 
 function _fillInTheBlanks(labels, defaultLang = 'en') {
   return produce(labels, (draft) => {
@@ -25,7 +20,7 @@ function _fillInTheBlanks(labels, defaultLang = 'en') {
 
 const labels = _fillInTheBlanks(eventFormLabels);
 
-module.exports = (options = {}) => {
+export default (options = {}) => {
   const {
     includeEventFields,
     interfaceLanguage,
@@ -78,4 +73,4 @@ module.exports = (options = {}) => {
   return schemaLanguages.set(finalSchema, interfaceLanguage, languages);
 };
 
-module.exports.eventFields = eventFields;
+export { eventFields };

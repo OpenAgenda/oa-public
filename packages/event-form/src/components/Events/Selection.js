@@ -2,8 +2,8 @@ import qs from 'qs';
 import { useEffect, useState, useCallback } from 'react';
 import { Spinner } from '@openagenda/react-shared';
 import { useIntl } from 'react-intl';
-import EventItem from './EventItem';
-import messages from './messages';
+import EventItem from './EventItem.js';
+import messages from './messages.js';
 import includeFields from './includeFields.json';
 
 export default function Selection({ res, value, lang, onChange }) {

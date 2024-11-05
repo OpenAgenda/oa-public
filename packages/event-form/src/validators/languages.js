@@ -1,6 +1,6 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-module.exports = (options = {}) =>
+export default (options = {}) =>
   (value) => {
     const {
       default: defaultLanguages,

@@ -1,6 +1,6 @@
-const _ = require('lodash');
-const ih = require('immutability-helper');
-const validator = require('../validators/languages');
+import _ from 'lodash';
+import ih from 'immutability-helper';
+import validator from '../validators/languages.js';
 
 function getFromSchemaAndValues(
   schema,
@@ -41,7 +41,7 @@ function setSchemaLanguages(
   return ih(schema, update);
 }
 
-module.exports = {
+export default {
   set: setSchemaLanguages,
   getFromSchemaAndValues,
 };
