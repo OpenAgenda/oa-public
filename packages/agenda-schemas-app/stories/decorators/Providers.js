@@ -5,7 +5,7 @@ import { getSupportedLocale } from '@openagenda/intl';
 import { IntlProvider } from 'react-intl';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-import locales from '../../src/locales-compiled';
+import * as locales from '../../src/locales-compiled/index.mjs';
 
 const lang = 'fr';
 
@@ -25,6 +25,7 @@ export default (Story) => {
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={locales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >
