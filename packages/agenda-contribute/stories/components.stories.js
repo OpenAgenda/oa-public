@@ -1,13 +1,13 @@
 import '@openagenda/bs-templates/compiled/main.css';
-import MemberFormComponent from '../src/components/MemberForm';
-import InstructionsComponent from '../src/components/Instructions';
-import StepperComponent from '../src/components/Stepper';
-import EventNewFormComponent from '../src/components/EventNewForm';
-import EventEditFormComponent from '../src/components/EventEditForm';
-import ClosedMessageComponent from '../src/components/ClosedMessage';
-import cleanupSchemaForForm from '../src/lib/cleanupSchemaForForm';
-import ComponentsCanvasDecorator from './decorators/ComponentsCanvas';
-import ProvidersDecorator from './decorators/Providers';
+import MemberFormComponent from '../src/components/MemberForm.js';
+import InstructionsComponent from '../src/components/Instructions.js';
+import StepperComponent from '../src/components/Stepper.js';
+import EventNewFormComponent from '../src/components/EventNewForm.js';
+import EventEditFormComponent from '../src/components/EventEditForm.js';
+import ClosedMessageComponent from '../src/components/ClosedMessage.js';
+import cleanupSchemaForForm from '../src/lib/cleanupSchemaForForm.js';
+import ComponentsCanvasDecorator from './decorators/ComponentsCanvas.js';
+import ProvidersDecorator from './decorators/Providers.js';
 
 import immutableMdbDetailed from './fixtures/mdb.detailed.agenda.json';
 

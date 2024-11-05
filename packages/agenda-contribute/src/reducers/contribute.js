@@ -1,5 +1,5 @@
 import debug from 'debug';
-import utils from '../lib/utils';
+import utils from '../lib/utils.js';
 
 const log = debug('contribute');
 

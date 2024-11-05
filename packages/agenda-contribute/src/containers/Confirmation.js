@@ -3,14 +3,14 @@ import { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import PassCultureConfirmation from '@openagenda/registration-apps/lib/passCulture/Confirmation';
+import PassCultureConfirmation from '@openagenda/registration-apps/lib/passCulture/Confirmation.js';
 
-import steps from '../lib/steps';
-import CanvasWithStepper from '../components/CanvasWithStepper';
-import Instructions from '../components/Instructions';
-import Loading from '../components/Loading';
-import usePrefix from '../hooks/usePrefix';
-import utils from '../lib/utils';
+import steps from '../lib/steps.js';
+import CanvasWithStepper from '../components/CanvasWithStepper.js';
+import Instructions from '../components/Instructions.js';
+import Loading from '../components/Loading.js';
+import usePrefix from '../hooks/usePrefix.js';
+import utils from '../lib/utils.js';
 
 const messages = defineMessages({
   recapDetailState0: {

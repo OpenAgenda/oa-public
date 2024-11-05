@@ -5,7 +5,7 @@ import { useConstant } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 
 import { locales as memberLocales } from '@openagenda/member-apps';
-import * as appLocales from '../../src/locales-compiled';
+import * as appLocales from '../../src/locales-compiled/index.mjs';
 
 const locales = mergeLocales(appLocales, memberLocales);
 

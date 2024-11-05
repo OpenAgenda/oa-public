@@ -1,6 +1,6 @@
 import { defineMessages, useIntl } from 'react-intl';
 
-import getEventTitle from '../lib/getEventTitle';
+import getEventTitle from '../lib/getEventTitle.js';
 
 const messages = defineMessages({
   shareEvent: {

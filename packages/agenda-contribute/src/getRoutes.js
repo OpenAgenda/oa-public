@@ -4,7 +4,7 @@ const App = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-App" */
-      './containers/App'
+      './containers/App.js'
     ),
 );
 
@@ -12,7 +12,7 @@ const Member = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-Member" */
-      './containers/Member'
+      './containers/Member.js'
     ),
 );
 
@@ -20,7 +20,7 @@ const MemberSharing = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-MemberSharing" */
-      './containers/MemberSharing'
+      './containers/MemberSharing.js'
     ),
 );
 
@@ -28,7 +28,7 @@ const EventNew = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-EventNew" */
-      './containers/EventNew'
+      './containers/EventNew.js'
     ),
 );
 
@@ -36,7 +36,7 @@ const EventDraft = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-EventDraft" */
-      './containers/EventDraft'
+      './containers/EventDraft.js'
     ),
 );
 
@@ -44,7 +44,7 @@ const EventEdit = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-EventEdit" */
-      './containers/EventEdit'
+      './containers/EventEdit.js'
     ),
 );
 
@@ -52,7 +52,7 @@ const EventShare = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-EventShare" */
-      './containers/EventShare'
+      './containers/EventShare.js'
     ),
 );
 
@@ -60,7 +60,7 @@ const Confirmation = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-Confirmation" */
-      './containers/Confirmation'
+      './containers/Confirmation.js'
     ),
 );
 
@@ -68,7 +68,7 @@ const EditConfirmation = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-EditConfirmation" */
-      './containers/EditConfirmation'
+      './containers/EditConfirmation.js'
     ),
 );
 
@@ -76,7 +76,7 @@ const Landing = loadable(
   () =>
     import(
       /* webpackChunkName: "agendaContribute-Landing" */
-      './containers/Landing'
+      './containers/Landing.js'
     ),
 );
 

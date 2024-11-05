@@ -3,17 +3,17 @@ import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 
-import EventEditForm from '../components/EventEditForm';
-import Canvas from '../components/Canvas';
-import Loading from '../components/Loading';
-import useEvent from '../hooks/useEvent';
-import useEventFormConfig from '../hooks/useEventFormConfig';
+import EventEditForm from '../components/EventEditForm.js';
+import Canvas from '../components/Canvas.js';
+import Loading from '../components/Loading.js';
+import useEvent from '../hooks/useEvent.js';
+import useEventFormConfig from '../hooks/useEventFormConfig.js';
 
-import contributeReducer from '../reducers/contribute';
-import utils from '../lib/utils';
-import usePrefix from '../hooks/usePrefix';
-import RequestEditionRights from '../components/RequestEditionRights';
-import Instructions from '../components/Instructions';
+import contributeReducer from '../reducers/contribute.js';
+import utils from '../lib/utils.js';
+import usePrefix from '../hooks/usePrefix.js';
+import RequestEditionRights from '../components/RequestEditionRights.js';
+import Instructions from '../components/Instructions.js';
 
 const messages = defineMessages({
   unpublishWarningWithLink: {

@@ -1,7 +1,7 @@
 import debug from 'debug';
 import { defineMessages, useIntl } from 'react-intl';
 import errorMessages from '@openagenda/common-labels/errors';
-import getEventTitle from '../lib/getEventTitle';
+import getEventTitle from '../lib/getEventTitle.js';
 
 const log = debug('ErrorMessage');
 
