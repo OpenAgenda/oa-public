@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import deepDiff from 'deep-diff';
 import logs from '@openagenda/logs';
-import eventSchema from '@openagenda/event-form/src/schema.js';
+import * as eventSchema from '@openagenda/event-form/src/schema.js';
 import labels from '@openagenda/labels/event/form.js';
 import validateEvent from './validateEvent.js';
 import getWriteAccess from './getWriteAccess.js';
