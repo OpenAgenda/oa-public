@@ -1,6 +1,8 @@
 **/.turbo
 .yarn
 
+**/mockServiceWorker.js
+
 # exts
 **/*.mjml
 
