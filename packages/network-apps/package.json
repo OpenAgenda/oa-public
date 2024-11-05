@@ -1,15 +1,16 @@
 {
   "name": "@openagenda/network-apps",
   "version": "1.1.13",
-  "main": "server/index",
+  "type": "module",
+  "main": "server/index.js",
   "files": [
     "server",
     "client/dist"
   ],
   "scripts": {
     "prepack": "yarn dist",
-    "start": "nodemon dev/server",
-    "dist": "webpack-cli --config webpack.dist.js",
+    "start": "NODE_ENV=development nodemon dev/server",
+    "dist": "webpack-cli --config webpack.dist.cjs",
     "storybook": "storybook dev --port=9001 --ci"
   },
   "dependencies": {

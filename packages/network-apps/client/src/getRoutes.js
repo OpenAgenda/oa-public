@@ -1,7 +1,7 @@
-import Main from './containers/Main';
-import getPaths from './getPaths';
-import NetworkEdit from './containers/NetworkEdit';
-import NetworkAgendas from './containers/NetworkAgendas';
+import Main from './containers/Main.js';
+import getPaths from './getPaths.js';
+import NetworkEdit from './containers/NetworkEdit.js';
+import NetworkAgendas from './containers/NetworkAgendas.js';
 
 export default (prefix = '') => {
   const paths = getPaths(prefix);

@@ -1,4 +1,4 @@
-import Breadcrumbs from './Breadcrumbs';
+import Breadcrumbs from './Breadcrumbs.js';
 
 export default (props) => {
   const { children } = props;

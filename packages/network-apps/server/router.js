@@ -1,14 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import bodyParser from 'body-parser';
+import express from 'express';
+import serialize from 'serialize-javascript';
+import { createElement } from 'react';
+import ReactDOM from 'react-dom/server';
+import { Spinner } from '@openagenda/react-shared';
+import logs from '@openagenda/logs';
+import manifest from '../client/dist/manifest.json' with { type: 'json' };
 
-const _ = require('lodash');
-const bodyParser = require('body-parser');
-const express = require('express');
-const serialize = require('serialize-javascript');
-const { createElement } = require('react');
-const ReactDOM = require('react-dom/server');
-const { Spinner } = require('@openagenda/react-shared');
-const log = require('@openagenda/logs')('router');
-const manifest = require('../client/dist/manifest.json');
+const log = logs('router');
 
 const router = express.Router({ mergeParams: true });
 
@@ -53,8 +53,8 @@ async function _renderPage(req, res) {
   );
 }
 
-module.exports = Object.assign(router, {
-  dist: express.static(`${__dirname}/../client/dist`),
+export default Object.assign(router, {
+  dist: express.static(`${import.meta.dirname}/../client/dist`),
   setService: (service) => {
     router.service = service;
   },

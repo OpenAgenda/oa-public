@@ -3,10 +3,10 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import * as reducers from '../reducers';
+import * as reducers from '../reducers/index.js';
 
-import Canvas from '../components/Canvas';
-import ListHead from '../components/ListHead';
+import Canvas from '../components/Canvas.js';
+import ListHead from '../components/ListHead.js';
 
 class Main extends Component {
   componentDidMount() {

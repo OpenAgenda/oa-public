@@ -1,13 +1,11 @@
-'use strict';
-
-const _ = require('lodash');
-const ih = require('immutability-helper');
+import _ from 'lodash';
+import ih from 'immutability-helper';
 
 function _newUid() {
   return Math.floor(Math.random() * 1000000);
 }
 
-module.exports = (fixtures) => {
+export default (fixtures) => {
   const { networks } = fixtures;
 
   async function getNetworkAgendas(uid) {
