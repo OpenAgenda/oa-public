@@ -4,11 +4,11 @@ import ReactModal from 'react-modal';
 import { FORM_ERROR } from 'final-form';
 import * as dateFns from 'date-fns';
 import cn from 'classnames';
-import DaysSelector from './DaysSelector';
-import EditForm from './EditForm';
-import RecurrencerForm from './RecurrencerForm';
-import MultiRecurrencerForm from './MultiRecurrencerForm';
-import duplicateTiming from './utils/duplicateTiming';
+import DaysSelector from './DaysSelector.js';
+import EditForm from './EditForm.js';
+import RecurrencerForm from './RecurrencerForm.js';
+import MultiRecurrencerForm from './MultiRecurrencerForm.js';
+import duplicateTiming from './utils/duplicateTiming.js';
 
 const ONE_DAY = 60 * 60 * 24;
 
