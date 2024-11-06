@@ -61,6 +61,8 @@ export default function createApp(options) {
     store,
     history,
     location: history.location,
+    apiRoot,
+    req,
   });
 
   const triggerHooks = makeTriggerHooks({

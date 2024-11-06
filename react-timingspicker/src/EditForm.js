@@ -1,12 +1,16 @@
 import { Component } from 'react';
 import { injectIntl, defineMessages } from 'react-intl';
 import { Form, Field } from 'react-final-form';
-import MaskedInput from 'react-text-mask';
+import MaskedInputModule from 'react-text-mask';
 import * as dateFns from 'date-fns';
-import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
+import createAutoCorrectedDatePipeModule from 'text-mask-addons/dist/createAutoCorrectedDatePipe.js';
 import { FORM_ERROR } from 'final-form';
-import { FaRegTimesCircle } from 'react-icons/fa';
+import { FaRegTimesCircle } from 'react-icons/fa/index.js';
 import cn from 'classnames';
+
+const MaskedInput = MaskedInputModule || MaskedInputModule;
+const createAutoCorrectedDatePipe = createAutoCorrectedDatePipeModule.default
+  || createAutoCorrectedDatePipeModule;
 
 const autoCorrectedTimePipe = createAutoCorrectedDatePipe('HH:MM');
 const timeRegex = /\d{2}:\d{2}/;
