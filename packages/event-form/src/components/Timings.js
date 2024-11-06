@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import { Component } from 'react';
 import TimingsPicker, { classNames } from '@openagenda/react-timingspicker';
-
-import { convertTimezoneOffset, fZ } from '../utils/time';
+import { convertTimezoneOffset, fZ } from '../utils/time.js';
 
 // safari requires timezone
 function safariTimezone({ date, hours, minutes }) {

@@ -7,7 +7,7 @@ function isValidTimezone(tz) {
   }
 }
 
-module.exports = function timezoneValidator({ default: defaultValue }) {
+export default function timezoneValidator({ default: defaultValue }) {
   return (value) => {
     const errors = [];
     if (!value) {
@@ -29,4 +29,4 @@ module.exports = function timezoneValidator({ default: defaultValue }) {
 
     return value;
   };
-};
+}

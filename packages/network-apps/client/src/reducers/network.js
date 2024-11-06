@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import axios from 'axios';
+import { dispatchError } from './main.js';
 
 const actionTypes = [
   'LOAD',
@@ -18,8 +19,6 @@ const actionTypes = [
   'REMOVE_AGENDA_CLOSE',
   'REMOVE_AGENDA_SUCCESS',
 ].reduce((a, v) => _.set(a, v, `network-apps/network/${v}`), {});
-
-const { dispatchError } = require('./main');
 
 async function _post({ dispatch, successType, res, data, failType }) {
   const successDispatch = {
@@ -128,89 +127,96 @@ function load() {
   };
 }
 
-export default _.assign(
-  (state = {}, action = {}) => {
-    switch (action.type) {
-      case actionTypes.LOAD_SUCCESS:
-        return _.pick(action, ['network', 'schema']);
+const showAddAgenda = () => ({ type: actionTypes.ADD_AGENDA_SHOW });
+const closeAddAgenda = () => ({ type: actionTypes.ADD_AGENDA_CLOSE });
+const showCreateAgenda = () => ({ type: actionTypes.CREATE_AGENDA_SHOW });
+const closeCreateAgenda = () => ({ type: actionTypes.CREATE_AGENDA_CLOSE });
+const updateSchema = (schema) => ({
+  type: actionTypes.SCHEMA_UPDATE,
+  schema,
+});
+const showRemoveAgenda = (agendaUid) => ({
+  type: actionTypes.REMOVE_AGENDA_SHOW,
+  agendaUid,
+});
+const closeRemoveAgenda = () => ({ type: actionTypes.REMOVE_AGENDA_SHOW });
 
-      case actionTypes.SCHEMA_UPDATE:
-        return ih(state, { schema: { $set: action.schema } });
+export default (state = {}, action = {}) => {
+  switch (action.type) {
+    case actionTypes.LOAD_SUCCESS:
+      return _.pick(action, ['network', 'schema']);
 
-      case actionTypes.LOAD:
-        return ih(state, { $unset: ['agendas', 'network'] });
+    case actionTypes.SCHEMA_UPDATE:
+      return ih(state, { schema: { $set: action.schema } });
 
-      case actionTypes.LOAD_AGENDAS:
-        return ih(state, { $unset: ['agendas', 'network'] });
+    case actionTypes.LOAD:
+      return ih(state, { $unset: ['agendas', 'network'] });
 
-      case actionTypes.LOAD_AGENDAS_SUCCESS:
-        return ih(state, {
-          agendas: { $set: action.agendas },
-          network: { $set: action.network },
-        });
+    case actionTypes.LOAD_AGENDAS:
+      return ih(state, { $unset: ['agendas', 'network'] });
 
-      case actionTypes.ADD_AGENDA_SHOW:
-        return ih(state, { add: { $set: true } });
+    case actionTypes.LOAD_AGENDAS_SUCCESS:
+      return ih(state, {
+        agendas: { $set: action.agendas },
+        network: { $set: action.network },
+      });
 
-      case actionTypes.ADD_AGENDA_SUCCESS:
-        return ih(state, {
-          add: { $set: false },
-          agendas: { $splice: [[0, 0, action.agenda]] },
-        });
+    case actionTypes.ADD_AGENDA_SHOW:
+      return ih(state, { add: { $set: true } });
 
-      case actionTypes.ADD_AGENDA_CLOSE:
-        return ih(state, { add: { $set: null } });
+    case actionTypes.ADD_AGENDA_SUCCESS:
+      return ih(state, {
+        add: { $set: false },
+        agendas: { $splice: [[0, 0, action.agenda]] },
+      });
 
-      case actionTypes.CREATE_AGENDA_SHOW:
-        return ih(state, { create: { $set: true } });
+    case actionTypes.ADD_AGENDA_CLOSE:
+      return ih(state, { add: { $set: null } });
 
-      case actionTypes.CREATE_AGENDA_SUCCESS:
-        return ih(state, {
-          create: { $set: null },
-          agendas: { $splice: [[0, 0, action.agenda]] },
-        });
+    case actionTypes.CREATE_AGENDA_SHOW:
+      return ih(state, { create: { $set: true } });
 
-      case actionTypes.CREATE_AGENDA_CLOSE:
-        return ih(state, { create: { $set: null } });
+    case actionTypes.CREATE_AGENDA_SUCCESS:
+      return ih(state, {
+        create: { $set: null },
+        agendas: { $splice: [[0, 0, action.agenda]] },
+      });
 
-      case actionTypes.REMOVE_AGENDA_SHOW:
-        return ih(state, {
-          remove: { $set: action.agendaUid },
-        });
+    case actionTypes.CREATE_AGENDA_CLOSE:
+      return ih(state, { create: { $set: null } });
 
-      case actionTypes.REMOVE_AGENDA_SUCCESS: {
-        const removedIndex = _.findIndex(
-          state.agendas,
-          (a) => a.uid === action.agenda.uid,
-        );
-        return ih(state, {
-          remove: { $set: null },
-          agendas: { $splice: [[removedIndex, 1]] },
-        });
-      }
+    case actionTypes.REMOVE_AGENDA_SHOW:
+      return ih(state, {
+        remove: { $set: action.agendaUid },
+      });
 
-      default:
-        return state;
+    case actionTypes.REMOVE_AGENDA_SUCCESS: {
+      const removedIndex = _.findIndex(
+        state.agendas,
+        (a) => a.uid === action.agenda.uid,
+      );
+      return ih(state, {
+        remove: { $set: null },
+        agendas: { $splice: [[removedIndex, 1]] },
+      });
     }
-  },
-  {
-    load,
-    loadAgendas,
-    showAddAgenda: () => ({ type: actionTypes.ADD_AGENDA_SHOW }),
-    closeAddAgenda: () => ({ type: actionTypes.ADD_AGENDA_CLOSE }),
-    submitAddAgenda,
-    showCreateAgenda: () => ({ type: actionTypes.CREATE_AGENDA_SHOW }),
-    closeCreateAgenda: () => ({ type: actionTypes.CREATE_AGENDA_CLOSE }),
-    submitCreateAgenda,
-    updateSchema: (schema) => ({
-      type: actionTypes.SCHEMA_UPDATE,
-      schema,
-    }),
-    showRemoveAgenda: (agendaUid) => ({
-      type: actionTypes.REMOVE_AGENDA_SHOW,
-      agendaUid,
-    }),
-    closeRemoveAgenda: () => ({ type: actionTypes.REMOVE_AGENDA_SHOW }),
-    submitRemoveAgenda,
-  },
-);
+
+    default:
+      return state;
+  }
+};
+
+export {
+  load,
+  loadAgendas,
+  showAddAgenda,
+  closeAddAgenda,
+  submitAddAgenda,
+  showCreateAgenda,
+  closeCreateAgenda,
+  submitCreateAgenda,
+  updateSchema,
+  showRemoveAgenda,
+  closeRemoveAgenda,
+  submitRemoveAgenda,
+};

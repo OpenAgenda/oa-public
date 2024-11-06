@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { Component } from 'react';
 
-import mLabels from '@openagenda/labels/event/accessibility';
-import flatten from '@openagenda/labels/flatten';
+import mLabels from '@openagenda/labels/event/accessibility.js';
+import flatten from '@openagenda/labels/flatten.js';
 
 const TYPES = ['hi', 'vi', 'pi', 'mi', 'ii'];
 

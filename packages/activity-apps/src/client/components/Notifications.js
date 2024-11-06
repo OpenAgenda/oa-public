@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import moment from 'moment';
 import sessions from '@openagenda/sessions/client';
-import { Spinner, useApiClient } from '@openagenda/react-shared';
+import { Spinner } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import commonLocales from '@openagenda/common-labels';
 import notificationsConfig from '../../notifications';
@@ -123,7 +123,6 @@ const NotificationsBody = React.forwardRef(function NotificationsBody(
   ref,
 ) {
   const intl = useIntl();
-  const apiClient = useApiClient();
   const history = useHistory();
 
   const [loading, setLoading] = useState(true);
@@ -131,27 +130,42 @@ const NotificationsBody = React.forwardRef(function NotificationsBody(
   const [lastPage, setLastPage] = useState(false);
 
   const getNotifications = useCallback(async () => {
-    const { data } = await apiClient.get('/notifications/list');
+    const data = await fetch('/notifications/list').then((response) => {
+      if (!response.ok) {
+        throw new Error("Can't list notifications");
+      }
+      return response.json();
+    });
     setNotifications(data.notifications);
     setLastPage(data.lastPage);
   }, []);
 
   const onNext = useCallback(async () => {
     try {
-      const { data } = await apiClient.get(
+      const data = await fetch(
         `/notifications/list?fromId=${notifications[notifications.length - 1].id}`,
-      );
+      ).then((response) => {
+        if (!response.ok) {
+          throw new Error("Can't list notifications");
+        }
+        return response.json();
+      });
 
       setNotifications((prev) => [...prev, ...data.notifications]);
       setLastPage(data.lastPage);
     } catch (e) {
       console.log("Can't load next notifications", e);
     }
-  }, [apiClient, notifications]);
+  }, [notifications]);
 
   const onReadAll = useCallback(async () => {
     try {
-      await apiClient.get('/notifications/mark-all-read');
+      await fetch('/notifications/mark-all-read').then((response) => {
+        if (!response.ok) {
+          throw new Error("Can't mark notifications as read");
+        }
+        return response.json();
+      });
       setNotifications((prev) =>
         prev.map((n) => {
           n.state = 2;
@@ -161,7 +175,7 @@ const NotificationsBody = React.forwardRef(function NotificationsBody(
     } catch (e) {
       console.log("Can't mark notifications as read", e);
     }
-  }, [apiClient]);
+  }, []);
 
   const onSeeActivities = useCallback(() => {
     closePanel();
@@ -171,11 +185,21 @@ const NotificationsBody = React.forwardRef(function NotificationsBody(
   const onRemove = useCallback(
     async (id) => {
       try {
-        await apiClient.get(`/notifications/remove/${id}`);
+        await fetch(`/notifications/remove/${id}`).then((response) => {
+          if (!response.ok) {
+            throw new Error("Can't remove notification");
+          }
+          return response.json();
+        });
         const lastId = notifications[notifications.length - 1].id;
-        const { data } = apiClient.get(
+        const data = fetch(
           `/notifications/list?fromId=${lastId}&justOne=1`,
-        );
+        ).then((response) => {
+          if (!response.ok) {
+            throw new Error("Can't list notifications");
+          }
+          return response.json();
+        });
         setNotifications((prev) => [
           ...prev.filter((v) => v.id !== id),
           ...data.notifications,
@@ -184,26 +208,28 @@ const NotificationsBody = React.forwardRef(function NotificationsBody(
         console.log(`Can't remove notifications ${id}`, e);
       }
     },
-    [apiClient, notifications],
+    [notifications],
   );
 
-  const onRead = useCallback(
-    async (id) => {
-      try {
-        await apiClient.get(`/notifications/mark-read/${id}`);
-        setNotifications((prev) =>
-          prev.map((v) => {
-            if (v.id === id) {
-              v.state = 2;
-            }
-            return v;
-          }));
-      } catch (e) {
-        console.log(`Can't read notifications ${id}`, e);
-      }
-    },
-    [apiClient],
-  );
+  const onRead = useCallback(async (id) => {
+    try {
+      await fetch(`/notifications/mark-read/${id}`).then((response) => {
+        if (!response.ok) {
+          throw new Error("Can't mark notification as read");
+        }
+        return response.json();
+      });
+      setNotifications((prev) =>
+        prev.map((v) => {
+          if (v.id === id) {
+            v.state = 2;
+          }
+          return v;
+        }));
+    } catch (e) {
+      console.log(`Can't read notifications ${id}`, e);
+    }
+  }, []);
 
   useEffect(() => {
     getNotifications()
@@ -288,8 +314,6 @@ const NotificationsBody = React.forwardRef(function NotificationsBody(
 });
 
 export default function Notifications({ user, activitiesConfig, locale }) {
-  const apiClient = useApiClient();
-
   const [open, setOpen] = useState(false);
   const [counter, setCounter] = useState(0);
 
@@ -308,7 +332,12 @@ export default function Notifications({ user, activitiesConfig, locale }) {
         return;
       }
 
-      const { data } = await apiClient.get('/notifications/count');
+      const data = await fetch('/notifications/count').then((response) => {
+        if (!response.ok) {
+          throw new Error("Can't count notifications");
+        }
+        return response.json();
+      });
 
       sessions.notifications.setCount(data.counter);
       setCounter(data.counter);

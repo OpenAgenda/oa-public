@@ -1,7 +1,7 @@
 import { MoreInfo } from '@openagenda/react-shared';
 import { defineMessages, useIntl } from 'react-intl';
 
-import utils from '../lib/utils';
+import utils from '../lib/utils.js';
 
 const { hasAdditionalFields } = utils;
 

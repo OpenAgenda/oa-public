@@ -1,7 +1,5 @@
-'use strict';
-
 // generate page with layout
-module.exports = (content) => `<!DOCTYPE html>
+export default (content) => `<!DOCTYPE html>
     <html>
       <head>
         <meta charset="utf-8">

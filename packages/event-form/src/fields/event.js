@@ -1,4 +1,4 @@
-module.exports = ({ labels }) => [
+export default ({ labels }) => [
   {
     field: 'id',
     fieldType: 'integer',

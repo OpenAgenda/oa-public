@@ -1,7 +1,7 @@
 import '@openagenda/bs-templates/compiled/main.css';
 
-import componentFromFixtures from './utils/componentFromFixtures';
-import ProvidersDecorator from './decorators/Providers';
+import componentFromFixtures from './utils/componentFromFixtures.js';
+import ProvidersDecorator from './decorators/Providers.js';
 
 export default {
   title: 'App - Share event',

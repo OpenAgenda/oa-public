@@ -4,21 +4,21 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Canvas from '../components/Canvas';
-import EventEditForm from '../components/EventEditForm';
-import Loading from '../components/Loading';
-import ErrorMessage from '../components/ErrorMessage';
-import EventWasSuccessfullyShared from '../components/EventWasSuccessfullyShared';
-import EventIsAlreadyInTarget from '../components/EventIsAlreadyInTarget';
-import ShowFullEventForm from '../components/ShowFullEventForm';
-import useEvent from '../hooks/useEvent';
-import useDetailedAgenda from '../hooks/useDetailedAgenda';
-import useEventFormConfig from '../hooks/useEventFormConfig';
-import useAgendaContext from '../hooks/useAgendaContext';
-import utils from '../lib/utils';
-import getStandardFieldErrors from '../lib/getStandardFieldErrors';
+import Canvas from '../components/Canvas.js';
+import EventEditForm from '../components/EventEditForm.js';
+import Loading from '../components/Loading.js';
+import ErrorMessage from '../components/ErrorMessage.js';
+import EventWasSuccessfullyShared from '../components/EventWasSuccessfullyShared.js';
+import EventIsAlreadyInTarget from '../components/EventIsAlreadyInTarget.js';
+import ShowFullEventForm from '../components/ShowFullEventForm.js';
+import useEvent from '../hooks/useEvent.js';
+import useDetailedAgenda from '../hooks/useDetailedAgenda.js';
+import useEventFormConfig from '../hooks/useEventFormConfig.js';
+import useAgendaContext from '../hooks/useAgendaContext.js';
+import utils from '../lib/utils.js';
+import getStandardFieldErrors from '../lib/getStandardFieldErrors.js';
 
-import contributeReducer from '../reducers/contribute';
+import contributeReducer from '../reducers/contribute.js';
 
 const {
   schemaWithoutEventFields,

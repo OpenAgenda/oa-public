@@ -54,38 +54,34 @@ function addSubmit(e) {
   };
 }
 
-export default _.assign(
-  (state = {}, action = {}) => {
-    switch (action.type) {
-      case actionTypes.LOAD_SUCCESS:
-        return _.pick(action, ['networks']);
+const add = () => ({ type: actionTypes.ADD });
+const addChange = (field, value) => ({
+  type: actionTypes.ADD_CHANGE,
+  field,
+  value,
+});
 
-      case actionTypes.ADD:
-        return ih(state, { add: { $set: {} } });
+export default (state = {}, action = {}) => {
+  switch (action.type) {
+    case actionTypes.LOAD_SUCCESS:
+      return _.pick(action, ['networks']);
 
-      case actionTypes.ADD_CHANGE:
-        return ih(state, {
-          add: _.set({}, action.field, { $set: action.value }),
-        });
+    case actionTypes.ADD:
+      return ih(state, { add: { $set: {} } });
 
-      case actionTypes.SERVER_ERROR:
-        return ih(state, {
-          error: { $set: action.error },
-        });
+    case actionTypes.ADD_CHANGE:
+      return ih(state, {
+        add: _.set({}, action.field, { $set: action.value }),
+      });
 
-      default:
-        return state;
-    }
-  },
-  {
-    load,
-    add: () => ({ type: actionTypes.ADD }),
-    addChange: (field, value) => ({
-      type: actionTypes.ADD_CHANGE,
-      field,
-      value,
-    }),
-    addSubmit,
-    dispatchError,
-  },
-);
+    case actionTypes.SERVER_ERROR:
+      return ih(state, {
+        error: { $set: action.error },
+      });
+
+    default:
+      return state;
+  }
+};
+
+export { load, add, addChange, addSubmit, dispatchError };

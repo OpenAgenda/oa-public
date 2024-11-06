@@ -1,6 +1,6 @@
-import FormSchema from '@openagenda/form-schemas/iso/FormSchema';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 import logs from '@openagenda/logs';
-import stream from '@openagenda/validators/stream';
+import stream from '@openagenda/validators/stream.js';
 
 import timings from '../iso/validators/timings.js';
 import registration from '../iso/validators/registration.js';

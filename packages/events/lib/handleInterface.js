@@ -1,7 +1,7 @@
 import { promisify } from 'node:util';
-import { log } from '@openagenda/logs';
+import logs from '@openagenda/logs';
 
-const logger = log('lib/handleInterface');
+const log = logs('lib/handleInterface');
 
 export default async ({ interfaces }, interfaceName, ...args) => {
   if (!interfaces?.[interfaceName]) {
@@ -14,6 +14,6 @@ export default async ({ interfaces }, interfaceName, ...args) => {
   try {
     return fn(...args);
   } catch (e) {
-    logger.error(e);
+    log.error(e);
   }
 };

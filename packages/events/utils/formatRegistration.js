@@ -1,6 +1,6 @@
-import linkValidator from '@openagenda/validators/link';
-import phoneValidator from '@openagenda/validators/phone';
-import emailValidator from '@openagenda/validators/email';
+import linkValidator from '@openagenda/validators/link.js';
+import phoneValidator from '@openagenda/validators/phone.js';
+import emailValidator from '@openagenda/validators/email.js';
 
 const validators = {
   link: linkValidator(),

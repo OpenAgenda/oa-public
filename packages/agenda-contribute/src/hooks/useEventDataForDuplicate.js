@@ -6,7 +6,7 @@ import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 
-import utils from '../lib/utils';
+import utils from '../lib/utils.js';
 
 const { removeUnduplicatable } = utils;
 

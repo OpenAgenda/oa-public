@@ -1,5 +1,5 @@
-import schema from '@openagenda/validators/schema';
-import date from '@openagenda/validators/date';
+import schema from '@openagenda/validators/schema/index.js';
+import date from '@openagenda/validators/date.js';
 
 import compareBeginAndEnd from '../compareBeginAndEnd.js';
 

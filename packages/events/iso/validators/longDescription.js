@@ -1,4 +1,4 @@
-import multilingualValidator from '@openagenda/validators/multilingual';
+import multilingualValidator from '@openagenda/validators/multilingual.js';
 import checkAndConvertToMarkdown from './checkAndConvertToMarkdown.js';
 
 export default function longDescriptionValidator(config) {

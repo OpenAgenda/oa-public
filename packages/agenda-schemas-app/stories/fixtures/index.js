@@ -1,6 +1,6 @@
-const schema = require('./schema.json');
-const memberSchema = require('./memberSchema.json');
+import schema from './schema.json';
+import memberSchema from './memberSchema.json';
 
-module.exports = Object.assign(function getFixtures(_agendaUid) {
+export default function getFixtures(_agendaUid) {
   return { schema, memberSchema };
-});
+}

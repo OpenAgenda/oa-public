@@ -1,6 +1,6 @@
 import '@openagenda/bs-templates/compiled/main.css';
 import { MemoryRouter } from 'react-router';
-import MockAdapter from '@openagenda/axios-mock-adapter';
+import { http, HttpResponse } from 'msw';
 import { useLayoutData } from '@openagenda/react-shared';
 import { Provider as ReduxProvider } from 'react-redux';
 
@@ -34,29 +34,33 @@ const Component = () => {
   );
 };
 
-export function AgendaLayout(_balek, { axios }) {
-  const mock = new MockAdapter(axios);
+export const AgendaLayout = {
+  render: () => {
+    const store = createLayoutStore(defaultLayoutStore, { location: null });
 
-  mock.onGet('/api/agendas/slug/:slug').reply((_req) => [
-    200,
-    {
-      ...agenda,
-      description: 'The AgendaDataLayout provides the agenda to child layouts',
+    return (
+      <ReduxProvider store={store}>
+        <MemoryRouter initialEntries={['/an-agenda/contribute']}>
+          <AgendaDataLayoutComponent childLayouts={[AgendaLayoutComponent]}>
+            <Component />
+          </AgendaDataLayoutComponent>
+        </MemoryRouter>
+      </ReduxProvider>
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/api/agendas/slug/:slug', () =>
+          HttpResponse.json({
+            ...agenda,
+            description:
+              'The AgendaDataLayout provides the agenda to child layouts',
+          })),
+      ],
     },
-  ]);
-
-  const store = createLayoutStore(defaultLayoutStore, { location: null });
-
-  return (
-    <ReduxProvider store={store}>
-      <MemoryRouter initialEntries={['/an-agenda/contribute']}>
-        <AgendaDataLayoutComponent childLayouts={[AgendaLayoutComponent]}>
-          <Component />
-        </AgendaDataLayoutComponent>
-      </MemoryRouter>
-    </ReduxProvider>
-  );
-}
+  },
+};
 
 function ChildLayout(props) {
   const { children, extraProps } = props;
@@ -72,25 +76,30 @@ function ChildLayout(props) {
   );
 }
 
-export function AgendaDataLayout(_balek, { axios }) {
-  const mock = new MockAdapter(axios);
+export const AgendaDataLayout = {
+  render: () => {
+    const store = createLayoutStore(defaultLayoutStore, { location: null });
 
-  mock.onGet('/api/agendas/slug/:slug').reply((_req) => [200, agenda]);
-
-  const store = createLayoutStore(defaultLayoutStore, { location: null });
-
-  return (
-    <ReduxProvider store={store}>
-      <MemoryRouter initialEntries={['/an-agenda/contribute']}>
-        <strong>
-          The AgendaDataLayout provides the agenda to child layouts
-        </strong>
-        <AgendaDataLayoutComponent childLayouts={[ChildLayout]}>
-          <div style={{ padding: '1em', background: 'white' }}>
-            Child component content
-          </div>
-        </AgendaDataLayoutComponent>
-      </MemoryRouter>
-    </ReduxProvider>
-  );
-}
+    return (
+      <ReduxProvider store={store}>
+        <MemoryRouter initialEntries={['/an-agenda/contribute']}>
+          <strong>
+            The AgendaDataLayout provides the agenda to child layouts
+          </strong>
+          <AgendaDataLayoutComponent childLayouts={[ChildLayout]}>
+            <div style={{ padding: '1em', background: 'white' }}>
+              Child component content
+            </div>
+          </AgendaDataLayoutComponent>
+        </MemoryRouter>
+      </ReduxProvider>
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/api/agendas/slug/:slug', () => HttpResponse.json(agenda)),
+      ],
+    },
+  },
+};

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { IntlProvider } from 'react-intl';
 import { css } from '@emotion/react';
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
@@ -60,7 +60,7 @@ function EditionApp({ route }) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       agenda: agendaActions.default,

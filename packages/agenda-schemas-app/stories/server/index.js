@@ -1,6 +1,6 @@
-const cors = require('cors');
-const express = require('express');
-const getFixtures = require('../fixtures');
+import cors from 'cors';
+import express from 'express';
+import getFixtures from '../fixtures/index.js';
 
 const dev = express();
 dev.use(express.urlencoded({ extended: true }));
@@ -46,4 +46,4 @@ dev.post(
   },
 );
 
-module.exports = dev;
+export default dev;

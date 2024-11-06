@@ -1,5 +1,5 @@
 import logs from '@openagenda/logs';
-import { getName as getDatabaseFieldName } from '@openagenda/utils/fields/databaseField';
+import { getName as getDatabaseFieldName } from '@openagenda/utils/fields/databaseField.js';
 import cleanGetIdentifiers from './lib/cleanGetIdentifiers.js';
 import cleanGetOptions from './lib/cleanGetOptions.js';
 import NotFoundError from './lib/NotFoundError.js';

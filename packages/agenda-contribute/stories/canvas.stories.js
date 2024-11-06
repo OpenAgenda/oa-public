@@ -1,7 +1,7 @@
 import '@openagenda/bs-templates/compiled/main.css';
-import CanvasComponent from '../src/components/Canvas';
-import CanvasComponentWithStepper from '../src/components/CanvasWithStepper';
-import ProvidersDecorator from './decorators/Providers';
+import CanvasComponent from '../src/components/Canvas.js';
+import CanvasComponentWithStepper from '../src/components/CanvasWithStepper.js';
+import ProvidersDecorator from './decorators/Providers.js';
 
 export default {
   title: 'Components - Canvas',

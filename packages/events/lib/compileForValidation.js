@@ -4,7 +4,7 @@ import { PassThrough } from 'node:stream';
 import _ from 'lodash';
 
 import logs from '@openagenda/logs';
-import replaceAccents from '@openagenda/utils/replaceAccents';
+import replaceAccents from '@openagenda/utils/replaceAccents.js';
 
 import dateHoursMinutesTiming from '../iso/validators/dateHoursMinutesTiming.js';
 import { from as fromDHM } from '../iso/convertDateHoursMinutesTiming.js';

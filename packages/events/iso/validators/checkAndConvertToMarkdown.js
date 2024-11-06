@@ -1,6 +1,6 @@
-const { isHTML, fromHTMLToMarkdown } = require('@openagenda/md');
+import { isHTML, fromHTMLToMarkdown } from '@openagenda/md';
 
-module.exports = function checkAndConvertToMarkdown(value, options = {}) {
+export default function checkAndConvertToMarkdown(value, options = {}) {
   const { max } = options;
   if (!value) {
     return value;
@@ -16,4 +16,4 @@ module.exports = function checkAndConvertToMarkdown(value, options = {}) {
   }
 
   return isHTML(value, { length: max }) ? fromHTMLToMarkdown(value) : value;
-};
+}

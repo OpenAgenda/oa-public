@@ -1,11 +1,9 @@
-const _ = require('lodash');
-
-const schema = require('@openagenda/validators/schema');
-
-const textValidator = require('@openagenda/validators/text');
-const integerValidator = require('@openagenda/validators/integer');
-const latitudeValidator = require('@openagenda/validators/latitude');
-const longitudeValidator = require('@openagenda/validators/longitude');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import textValidator from '@openagenda/validators/text.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import latitudeValidator from '@openagenda/validators/latitude.js';
+import longitudeValidator from '@openagenda/validators/longitude.js';
 
 schema.register({
   text: textValidator,
@@ -44,7 +42,7 @@ const validateDraft = schema({
   },
 });
 
-module.exports = (options) => (value) => {
+export default (options) => (value) => {
   const optional = _.get(options, 'optional', true);
 
   if (optional && value === undefined) {

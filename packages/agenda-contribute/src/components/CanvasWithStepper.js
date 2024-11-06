@@ -1,5 +1,5 @@
 import { defineMessages, useIntl } from 'react-intl';
-import Stepper from './Stepper';
+import Stepper from './Stepper.js';
 
 const messages = defineMessages({
   editDraftTitle: {

@@ -1,9 +1,9 @@
-const boolean = require('@openagenda/validators/boolean');
-const schema = require('@openagenda/validators/schema');
+import boolean from '@openagenda/validators/boolean.js';
+import schema from '@openagenda/validators/schema/index.js';
 
 schema.register({ boolean });
 
-module.exports = () =>
+export default () =>
   schema({
     hi: { type: 'boolean', defaultValue: false },
     ii: { type: 'boolean', defaultValue: false },

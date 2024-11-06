@@ -1,14 +1,14 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
-import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges';
+import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder/index.js';
+import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges.js';
 
-import * as reducers from '../reducers';
+import * as reducers from '../reducers/index.js';
 
-import Canvas from '../components/Canvas';
+import Canvas from '../components/Canvas.js';
 
-import Loading from '../components/Loading';
+import Loading from '../components/Loading.js';
 
 export class NetworkEditComponent extends Component {
   componentDidMount() {

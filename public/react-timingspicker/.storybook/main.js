@@ -11,4 +11,7 @@ export default {
     options: {},
   },
   addons: [getAbsolutePath('@storybook/addon-viewport')],
+  babel: (config) => {
+    return { ...config, rootMode: 'upward' };
+  },
 };

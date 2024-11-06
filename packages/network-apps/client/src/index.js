@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from './App.js';
 
 // if (import.meta.webpackHot) import.meta.webpackHot();
 

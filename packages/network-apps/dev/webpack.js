@@ -1,10 +1,8 @@
-'use strict';
+import webpack from 'webpack';
 
-const webpack = require('webpack');
-
-module.exports = {
+export default {
   mode: 'development',
-  context: __dirname,
+  context: import.meta.dirname,
   entry: ['webpack-hot-middleware/client', '../client/src/index.js'],
   output: {
     publicPath: '/js/',
@@ -16,6 +14,15 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.(js|mjs|jsx)$/,
+        enforce: 'pre',
+        loader: 'source-map-loader',
+        resolve: {
+          fullySpecified: false,
+        },
+        exclude: [/\/node_modules\/nth-check\//],
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

@@ -1,6 +1,6 @@
-import schema from '@openagenda/validators/schema';
-import integerValidator from '@openagenda/validators/integer';
-import textValidator from '@openagenda/validators/text';
+import schema from '@openagenda/validators/schema/index.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import textValidator from '@openagenda/validators/text.js';
 import BadRequestError from './BadRequestError.js';
 
 schema.register({

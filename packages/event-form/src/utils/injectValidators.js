@@ -1,6 +1,6 @@
-const eventValidators = require('../validators');
+import eventValidators from '../validators/index.js';
 
-module.exports = (schema) => {
+export default (schema) => {
   if (!schema.custom) {
     schema.custom = {};
   }

@@ -4,8 +4,8 @@ import cn from 'classnames';
 import qs from 'qs';
 import { Spinner } from '@openagenda/react-shared';
 import { useIntl } from 'react-intl';
-import EventItem from './EventItem';
-import messages from './messages';
+import EventItem from './EventItem.js';
+import messages from './messages.js';
 import includeFields from './includeFields.json';
 
 export default function Add({ res, value, lang, onChange }) {

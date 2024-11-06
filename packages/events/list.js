@@ -1,6 +1,6 @@
-import { uniq, last, omit } from 'lodash';
+import _ from 'lodash';
 import logs from '@openagenda/logs';
-import { getName as getDatabaseFieldName } from '@openagenda/utils/fields/databaseField';
+import { getName as getDatabaseFieldName } from '@openagenda/utils/fields/databaseField.js';
 import validateNav from './lib/validateNav.js';
 import addListQuery from './lib/addQuery.js';
 import cleanListOptions from './lib/cleanOptions.js';
@@ -58,13 +58,13 @@ export default async (service, query = {}, n = {}, o = {}) => {
     agendas = await handleInterface(
       service,
       'getOriginAgendas',
-      uniq(result.items.map((i) => i.agendaUid)),
+      _.uniq(result.items.map((i) => i.agendaUid)),
       { private: options.private },
     );
     locations = await handleInterface(
       service,
       'getLocations',
-      uniq(result.items.map((i) => i.locationUid)),
+      _.uniq(result.items.map((i) => i.locationUid)),
     );
   }
 
@@ -82,8 +82,8 @@ export default async (service, query = {}, n = {}, o = {}) => {
   }
 
   if (options.useAfter) {
-    result.after = result.rows.length ? last(result.rows)[orderField] : null;
+    result.after = result.rows.length ? _.last(result.rows)[orderField] : null;
   }
 
-  return omit(result, ['rows']);
+  return _.omit(result, ['rows']);
 };

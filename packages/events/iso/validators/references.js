@@ -1,6 +1,6 @@
-const integerValidator = require('@openagenda/validators/integer');
+import integerValidator from '@openagenda/validators/integer.js';
 
-module.exports = ({ field }) => {
+export default ({ field }) => {
   const validateSingle = integerValidator(field);
 
   return (v) => {

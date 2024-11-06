@@ -1,6 +1,6 @@
-const schema = require('@openagenda/validators/schema');
-const link = require('@openagenda/validators/link');
-const pass = require('@openagenda/validators/pass');
+import schema from '@openagenda/validators/schema/index.js';
+import link from '@openagenda/validators/link.js';
+import pass from '@openagenda/validators/pass.js';
 
 schema.register({
   link,
@@ -17,7 +17,7 @@ const validateSingle = schema({
   },
 });
 
-module.exports = ({ field: _field }) =>
+export default ({ field: _field }) =>
   (v) => {
     const clean = [];
     const errors = [];

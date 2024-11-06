@@ -1,6 +1,6 @@
-const linkValidator = require('@openagenda/validators/link');
-const phoneValidator = require('@openagenda/validators/phone');
-const emailValidator = require('@openagenda/validators/email');
+import linkValidator from '@openagenda/validators/link.js';
+import phoneValidator from '@openagenda/validators/phone.js';
+import emailValidator from '@openagenda/validators/email.js';
 
 const validates = {
   link: linkValidator(),
@@ -41,57 +41,58 @@ function toListOfObjects(v) {
 
 const knownServices = ['passCulture'];
 
-module.exports = function validateRegistration({ field }) {
-  return (v) => {
-    const result = toListOfObjects(v).reduce(
-      ({ clean, errors }, item, index) => {
-        const { type, value } = item;
+export default Object.assign(
+  function validateRegistration({ field }) {
+    return (v) => {
+      const result = toListOfObjects(v).reduce(
+        ({ clean, errors }, item, index) => {
+          const { type, value } = item;
 
-        const cleanItem = { type };
+          const cleanItem = { type };
 
-        if (!type) {
-          errors.push({
-            field,
-            code: 'registration.invalid',
-            message: 'registration value must be a phone, an email or a link',
-            origin: value,
-            index,
-          });
-        } else {
-          cleanItem.value = validates[type](value);
-        }
-
-        if (item.service) {
-          if (!knownServices.includes(item.service)) {
+          if (!type) {
             errors.push({
-              index,
-              origin: item.service,
-              code: 'service.invalid',
               field,
+              code: 'registration.invalid',
+              message: 'registration value must be a phone, an email or a link',
+              origin: value,
+              index,
+            });
+          } else {
+            cleanItem.value = validates[type](value);
+          }
+
+          if (item.service) {
+            if (!knownServices.includes(item.service)) {
+              errors.push({
+                index,
+                origin: item.service,
+                code: 'service.invalid',
+                field,
+              });
+            }
+            Object.assign(cleanItem, {
+              service: item.service,
+              data: item.data,
             });
           }
-          Object.assign(cleanItem, {
-            service: item.service,
-            data: item.data,
-          });
-        }
 
-        if (item.lastProcessedAt) cleanItem.lastProcessedAt = item.lastProcessedAt;
+          if (item.lastProcessedAt) cleanItem.lastProcessedAt = item.lastProcessedAt;
 
-        return {
-          errors,
-          clean: clean.concat(cleanItem),
-        };
-      },
-      { clean: [], errors: [] },
-    );
+          return {
+            errors,
+            clean: clean.concat(cleanItem),
+          };
+        },
+        { clean: [], errors: [] },
+      );
 
-    if (result.errors.length) {
-      throw result.errors;
-    }
+      if (result.errors.length) {
+        throw result.errors;
+      }
 
-    return result.clean;
-  };
-};
-
-module.exports.toListOfObjects = toListOfObjects;
+      return result.clean;
+    };
+  },
+  { toListOfObjects },
+);

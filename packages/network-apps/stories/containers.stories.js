@@ -1,8 +1,8 @@
 import '@openagenda/bs-templates/compiled/main.css';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import NetworkAgendas from '../client/src/containers/NetworkAgendas';
-import NetworkEdit from '../client/src/containers/NetworkEdit';
+import NetworkAgendas from '../client/src/containers/NetworkAgendas.js';
+import NetworkEdit from '../client/src/containers/NetworkEdit.js';
 
 const history = createMemoryHistory();
 

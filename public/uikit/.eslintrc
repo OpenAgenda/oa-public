@@ -19,5 +19,11 @@
         "React": true
       }
     }
-  ]
+  ],
+
+  "settings": {
+    "import/resolver": {
+      "typescript": true
+    }
+  }
 }

@@ -1,8 +1,10 @@
 import convertDateHoursMinutesTimings from '../utils/convertDateHoursMinutesTimings.js';
-import { toListOfObjects as registationAsListOfObjects } from '../iso/validators/registration.js';
+import registrationValidator from '../iso/validators/registration.js';
 import filterItemValuesByFieldAccess from './filterItemValuesByFieldAccess.js';
 import toHTML from './toHTML.js';
 import flatten from './flatten.js';
+
+const { toListOfObjects: registationAsListOfObjects } = registrationValidator;
 
 const getPathAndFilename = (file) => {
   if (!file) {

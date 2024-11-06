@@ -5,14 +5,14 @@ import qs from 'qs';
 import { http, HttpResponse } from 'msw';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
-import createApp from '../src';
-import componentFromFixtures from './utils/componentFromFixtures';
-import ProvidersDecorator from './decorators/Providers';
+import createApp from '../src/index.js';
+import componentFromFixtures from './utils/componentFromFixtures.js';
+import ProvidersDecorator from './decorators/Providers.js';
 import agendaContributorContext from './fixtures/agendaContributor.context.json';
 import eventContributorContext from './fixtures/contributor.context.json';
 import agenda from './fixtures/basic.detailed.agenda.json';
 import locationsAPIResponse from './fixtures/locations.json';
-import loadInitialState from './utils/loadInitialState';
+import loadInitialState from './utils/loadInitialState.js';
 
 export default {
   title: 'App - Step 2: Event',
