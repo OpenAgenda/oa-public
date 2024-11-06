@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { injectIntl /* , defineMessages */ } from 'react-intl';
 import Select from 'react-select';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa/index.js';
 import * as dateFns from 'date-fns';
 
 // const messages = defineMessages({
