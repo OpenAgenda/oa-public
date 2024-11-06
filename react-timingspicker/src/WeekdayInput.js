@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import * as dateFns from 'date-fns';
-import WeekdayPicker from './WeekdayPicker';
+import WeekdayPicker from './WeekdayPicker.js';
 
 export default class WeekdayInput extends Component {
   static defaultProps = {
