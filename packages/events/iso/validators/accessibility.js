@@ -1,5 +1,3 @@
-'use strict';
-
 const boolean = require('@openagenda/validators/boolean');
 const schema = require('@openagenda/validators/schema');
 

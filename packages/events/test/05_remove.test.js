@@ -1,9 +1,6 @@
-'use strict';
-
-const { service: config } = require('../testconfig.sample');
-
-const Service = require('..');
-const fixtures = require('./fixtures');
+import { service as config } from '../testconfig.sample.js';
+import Service from '../index.js';
+import fixtures from './fixtures/index.js';
 
 describe('events - functional - remove', () => {
   const f = fixtures(config.mysql, config.schema);

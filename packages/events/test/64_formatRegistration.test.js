@@ -1,6 +1,6 @@
-'use strict';
+import Service from '../index.js';
 
-const { formatRegistration } = require('..').utils;
+const { formatRegistration } = Service.utils;
 
 describe('formatRegistration', () => {
   it('if order option is provided, sorts registration values according to provided types in option', () => {

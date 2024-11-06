@@ -1,9 +1,7 @@
-'use strict';
+import schema from '@openagenda/validators/schema';
+import date from '@openagenda/validators/date';
 
-const schema = require('@openagenda/validators/schema');
-const date = require('@openagenda/validators/date');
-
-const compareBeginAndEnd = require('../compareBeginAndEnd');
+import compareBeginAndEnd from '../compareBeginAndEnd.js';
 
 schema.register({
   date,
@@ -20,7 +18,7 @@ const validate = schema({
   },
 });
 
-module.exports = (value) => {
+export default (value) => {
   const { begin, end } = validate(value);
 
   compareBeginAndEnd(begin, end, value);

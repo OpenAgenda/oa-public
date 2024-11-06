@@ -1,20 +1,17 @@
-'use strict';
+import schema from '@openagenda/validators/schema';
+import date from '@openagenda/validators/date';
+import regex from '@openagenda/validators/regex';
+import integer from '@openagenda/validators/integer';
 
-const schema = require('@openagenda/validators/schema');
-const date = require('@openagenda/validators/date');
-const regex = require('@openagenda/validators/regex');
-const integer = require('@openagenda/validators/integer');
+import compareBeginAndEnd from '../compareBeginAndEnd.js';
+
+import { from as convertFromDateHoursMinutesTiming } from '../convertDateHoursMinutesTiming.js';
 
 schema.register({
   date,
   regex,
   integer,
 });
-
-const compareBeginAndEnd = require('../compareBeginAndEnd');
-const {
-  from: convertFromDateHoursMinutesTiming,
-} = require('../convertDateHoursMinutesTiming');
 
 const validate = schema({
   begin: {
@@ -57,7 +54,11 @@ const validate = schema({
   },
 });
 
-module.exports = (v) => {
+function is(t) {
+  return t && t.begin && typeof t.begin.hours !== 'undefined';
+}
+
+function validateDateHoursMinutesTiming(v) {
   const clean = validate(v);
 
   const errors = [];
@@ -89,6 +90,8 @@ module.exports = (v) => {
   compareBeginAndEnd(begin, end, v);
 
   return clean;
-};
+}
 
-module.exports.is = (t) => t && t.begin && typeof t.begin.hours !== 'undefined';
+export default Object.assign(validateDateHoursMinutesTiming, {
+  is,
+});

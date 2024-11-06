@@ -1,8 +1,6 @@
-'use strict';
+import { promisify } from 'node:util';
 
-const { promisify } = require('node:util');
-
-module.exports = (Files) => {
+export default (Files) => {
   const { gm } = Files;
 
   return [

@@ -1,5 +1,3 @@
-'use strict';
-
 const multilingual = require('@openagenda/validators/multilingual');
 
 const validate = multilingual({

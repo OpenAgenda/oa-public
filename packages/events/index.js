@@ -1,24 +1,20 @@
-'use strict';
+import knex from 'knex';
+import logs from '@openagenda/logs';
+import fromItemToEntry from '@openagenda/utils/fields/fromItemToEntry';
+import fromEntryToItem from '@openagenda/utils/fields/fromEntryToItem';
+import getFieldsByAccess from '@openagenda/utils/fields/getFieldsByAccess';
+import create from './create.js';
+import get from './get.js';
+import list from './list.js';
+import remove from './remove.js';
+import update from './update.js';
+import countByLocationUids from './countByLocationUids.js';
+import setFromLegacy from './lib/legacy/from.js';
+import imageVariants from './lib/imageVariants.js';
+import utils from './utils/index.js';
+import fields from './lib/fields.js';
 
-const knex = require('knex');
-const logger = require('@openagenda/logs');
-
-const fromItemToEntry = require('@openagenda/utils/fields/fromItemToEntry');
-const fromEntryToItem = require('@openagenda/utils/fields/fromEntryToItem');
-const getFieldsByAccess = require('@openagenda/utils/fields/getFieldsByAccess');
-const create = require('./create');
-const get = require('./get');
-const list = require('./list');
-const remove = require('./remove');
-const update = require('./update');
-const countByLocationUids = require('./countByLocationUids');
-const setFromLegacy = require('./lib/legacy/from');
-const imageVariants = require('./lib/imageVariants');
-
-const utils = require('./utils');
-const fields = require('./lib/fields');
-
-module.exports = (c) => {
+const createService = (c) => {
   const config = Object.keys(c).reduce(
     (carriedConfig, key) =>
       (carriedConfig[key] !== undefined && c[key] !== undefined
@@ -38,7 +34,7 @@ module.exports = (c) => {
   );
 
   if (c.logger) {
-    logger.setModuleConfig(c.logger);
+    logs.setModuleConfig(c.logger);
   }
 
   const service = {
@@ -84,4 +80,4 @@ module.exports = (c) => {
   return endpoints;
 };
 
-module.exports.utils = utils;
+export default Object.assign(createService, { utils });

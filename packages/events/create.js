@@ -1,19 +1,19 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('create');
+import validate from './lib/validate.js';
+import cleanSetOptions from './lib/cleanSetOptions.js';
+import defineUnique from './lib/defineUnique.js';
+import generateSlug from './lib/generateSlug.js';
+import setLegacy from './lib/legacy/set.js';
+import generateFileKey from './lib/generateFileKey.js';
+import processImage from './lib/processImage.js';
+import handleInterface from './lib/handleInterface.js';
+import convertAndInjectTimingsWithTimezone from './utils/convertAndInjectTimingsWithTimezone.js';
+import lastClean from './lib/lastEventClean.js';
 
-const validate = require('./lib/validate');
-const cleanSetOptions = require('./lib/cleanSetOptions');
-const defineUnique = require('./lib/defineUnique');
-const generateSlug = require('./lib/generateSlug');
-const setLegacy = require('./lib/legacy/set');
-const generateFileKey = require('./lib/generateFileKey');
-const processImage = require('./lib/processImage');
-const handleInterface = require('./lib/handleInterface');
-const convertAndInjectTimingsWithTimezone = require('./utils/convertAndInjectTimingsWithTimezone');
-const lastClean = require('./lib/lastEventClean');
+const log = logs('create');
 
-module.exports = async (service, data, o = {}) => {
+export default async (service, data, o = {}) => {
   log('processing');
   const options = cleanSetOptions(o);
 

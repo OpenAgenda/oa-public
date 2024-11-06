@@ -1,5 +1,3 @@
-'use strict';
-
 const moment = require('moment-timezone');
 
 const fZ = (n) => (`${n}`.length === 1 ? '0' : '') + n;

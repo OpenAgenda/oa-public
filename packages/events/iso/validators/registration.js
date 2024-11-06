@@ -1,5 +1,3 @@
-'use strict';
-
 const linkValidator = require('@openagenda/validators/link');
 const phoneValidator = require('@openagenda/validators/phone');
 const emailValidator = require('@openagenda/validators/email');

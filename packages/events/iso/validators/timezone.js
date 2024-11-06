@@ -1,5 +1,3 @@
-'use strict';
-
 function isValidTimezone(tz) {
   try {
     Intl.DateTimeFormat(undefined, { timeZone: tz });

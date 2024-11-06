@@ -1,18 +1,22 @@
-'use strict';
+import {
+  createReadStream,
+  createWriteStream,
+  copyFile,
+  existsSync,
+} from 'node:fs';
+import Files from '@openagenda/files';
 
-const fs = require('node:fs');
-const Files = require('@openagenda/files');
-const ValidationError = require('../lib/ValidationError');
+import ValidationError from '../lib/ValidationError.js';
+
+import {
+  service as config,
+  dependencies as dConfig,
+} from '../testconfig.sample.js';
+
+import Service from '../index.js';
+import fixtures from './fixtures/index.js';
 
 const TMP_IMG_PATH = '/tmp/eventTestImage.png';
-
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('../testconfig.sample');
-
-const Service = require('..');
-const fixtures = require('./fixtures');
 
 const data = {
   title: 'An event',
@@ -87,8 +91,8 @@ describe('events - functional - create', () => {
     beforeAll(
       () =>
         new Promise((done) => {
-          fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
-            .pipe(fs.createWriteStream('/tmp/dog.png'))
+          createReadStream(`${__dirname}/fixtures/images/dog.png`)
+            .pipe(createWriteStream('/tmp/dog.png'))
             .on('close', done);
         }),
     );
@@ -96,8 +100,8 @@ describe('events - functional - create', () => {
     beforeAll(
       () =>
         new Promise((done) => {
-          fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
-            .pipe(fs.createWriteStream('/tmp/notanimage.txt'))
+          createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
+            .pipe(createWriteStream('/tmp/notanimage.txt'))
             .on('close', done);
         }),
     );
@@ -122,7 +126,7 @@ describe('events - functional - create', () => {
             end: '2020-12-22T13:30:00.000+0200',
           },
         ],
-        image: fs.createReadStream('/tmp/dog.png'),
+        image: createReadStream('/tmp/dog.png'),
       });
 
       expect(
@@ -145,7 +149,7 @@ describe('events - functional - create', () => {
               end: '2020-12-22T13:30:00.000+0200',
             },
           ],
-          image: fs.createReadStream('/tmp/notanimage.txt'),
+          image: createReadStream('/tmp/notanimage.txt'),
         })
         .catch((e) => e);
 
@@ -220,7 +224,7 @@ describe('events - functional - create', () => {
 
     it('image can be passed through a local file path, deleted after upload', () =>
       new Promise((done) => {
-        fs.copyFile(
+        copyFile(
           `${__dirname}/fixtures/images/dog.png`,
           TMP_IMG_PATH,
           async () => {
@@ -232,7 +236,7 @@ describe('events - functional - create', () => {
             });
 
             expect(typeof event.image.filename).toBe('string');
-            expect(fs.existsSync(TMP_IMG_PATH)).toBe(false);
+            expect(existsSync(TMP_IMG_PATH)).toBe(false);
 
             done();
           },

@@ -1,6 +1,6 @@
-'use strict';
+import options from './options.js';
 
-module.exports = require('./options')({
+export default options({
   throwOnNotFound: {
     type: 'boolean',
     default: false,

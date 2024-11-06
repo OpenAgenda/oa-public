@@ -1,8 +1,6 @@
-'use strict';
-
-const linkValidator = require('@openagenda/validators/link');
-const phoneValidator = require('@openagenda/validators/phone');
-const emailValidator = require('@openagenda/validators/email');
+import linkValidator from '@openagenda/validators/link';
+import phoneValidator from '@openagenda/validators/phone';
+import emailValidator from '@openagenda/validators/email';
 
 const validators = {
   link: linkValidator(),
@@ -50,7 +48,7 @@ const appendPrefix = ({ value, type }) => {
   };
 };
 
-module.exports = (registration = [], options = {}) => {
+export default (registration = [], options = {}) => {
   const { includeLinkPrefix, order, useTypeKeys } = {
     includeLinkPrefix: false,
     order: null,

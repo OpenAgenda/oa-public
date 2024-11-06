@@ -1,8 +1,8 @@
-'use strict';
+import unfilteredFields from './fields.js';
 
-const fields = require('./fields').filter((f) => !!f.languages);
+const fields = unfilteredFields.filter((f) => !!f.languages);
 
-module.exports = (item, lang, { html, useFallbackLang }) =>
+export default (item, lang, { html, useFallbackLang }) =>
   (html ? [{ field: 'html', default: '' }] : [])
     .concat(fields)
     .reduce((accu, field) => {

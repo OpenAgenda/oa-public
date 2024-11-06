@@ -1,19 +1,13 @@
-'use strict';
-
-const _ = require('lodash');
-const legacySet = require('../lib/legacy/set');
-const legacyRemove = require('../lib/legacy/remove');
-
-const { baseTransform } = legacySet;
-
-const { service: config } = require('../testconfig.sample');
-
-const Service = require('..');
-const fixtures = require('./fixtures');
-const petitesBoitesAMusique = require('./fixtures/petites-boites-a-musique.json');
-const ventesVelosOccasion = require('./fixtures/ventes-de-velos-d-occasion-a-lambersart.json');
-const indoorParisCsoPro = require('./fixtures/indoor-de-paris-cso-pro-1.json');
-const enLigne = require('./fixtures/en-ligne.json');
+import _ from 'lodash';
+import legacySet, { baseTransform } from '../lib/legacy/set.js';
+import legacyRemove from '../lib/legacy/remove.js';
+import { service as config } from '../testconfig.sample.js';
+import Service from '../index.js';
+import fixtures from './fixtures/index.js';
+import petitesBoitesAMusique from './fixtures/petites-boites-a-musique.json';
+import ventesVelosOccasion from './fixtures/ventes-de-velos-d-occasion-a-lambersart.json';
+import indoorParisCsoPro from './fixtures/indoor-de-paris-cso-pro-1.json';
+import enLigne from './fixtures/en-ligne.json';
 
 const events = {
   'petites-boites-a-musique': petitesBoitesAMusique,

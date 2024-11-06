@@ -1,20 +1,20 @@
-'use strict';
+import { createReadStream, unlink } from 'node:fs';
+import { Agent } from 'node:https';
+import { PassThrough } from 'node:stream';
+import _ from 'lodash';
 
-const fs = require('node:fs');
-const https = require('node:https');
-const { PassThrough } = require('node:stream');
-const _ = require('lodash');
+import logs from '@openagenda/logs';
+import replaceAccents from '@openagenda/utils/replaceAccents';
 
-const log = require('@openagenda/logs')('compileForValidation');
+import dateHoursMinutesTiming from '../iso/validators/dateHoursMinutesTiming.js';
+import { from as fromDHM } from '../iso/convertDateHoursMinutesTiming.js';
+import cleanImageURL from './cleanImageURL.js';
+import ValidationError from './ValidationError.js';
+import fields from './fields.js';
 
-const replaceAccents = require('@openagenda/utils/replaceAccents');
+const isDHM = dateHoursMinutesTiming.is;
 
-const { is: isDHM } = require('../iso/src/validators/dateHoursMinutesTiming');
-
-const { from: fromDHM } = require('../iso/src/convertDateHoursMinutesTiming');
-const cleanImageURL = require('./cleanImageURL');
-const ValidationError = require('./ValidationError');
-const fields = require('./fields');
+const log = logs('compileForValidation');
 
 const statusSlugs = fields
   .find((f) => f.field === 'status')
@@ -24,7 +24,7 @@ const fieldNames = fields
   .map((f) => f.field);
 
 const fetchImageAsStream = async (url, maxContentLength) => {
-  const agent = new https.Agent({
+  const agent = new Agent({
     rejectUnauthorized: false,
   });
 
@@ -73,7 +73,7 @@ const fetchImageAsStream = async (url, maxContentLength) => {
   return passThrough;
 };
 
-module.exports = async function compileForValidation(
+export default async function compileForValidation(
   current,
   data,
   options = {},
@@ -110,8 +110,8 @@ module.exports = async function compileForValidation(
     }
   } else if (image?.path && !('transformAndUpload' in image)) {
     log('image is provided through local filesystem path: %s', image?.path);
-    compiled.image = fs.createReadStream(image?.path);
-    compiled.image.on('close', () => fs.unlink(image.path, () => {}));
+    compiled.image = createReadStream(image?.path);
+    compiled.image.on('close', () => unlink(image.path, () => {}));
   } else if (image?.filename === null) {
     log('image is unset through filename value %s', image?.filename);
     compiled.image = null;
@@ -189,4 +189,4 @@ module.exports = async function compileForValidation(
     compiled,
     editedFields,
   };
-};
+}

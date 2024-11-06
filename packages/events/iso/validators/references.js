@@ -1,5 +1,3 @@
-'use strict';
-
 const integerValidator = require('@openagenda/validators/integer');
 
 module.exports = ({ field }) => {
