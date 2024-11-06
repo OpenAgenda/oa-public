@@ -1,4 +1,6 @@
-import MaskedInput from 'react-text-mask';
+import MaskedInputModule from 'react-text-mask';
+
+const MaskedInput = MaskedInputModule || MaskedInputModule;
 
 function timeMask(value) {
   const chars = value.split('');
