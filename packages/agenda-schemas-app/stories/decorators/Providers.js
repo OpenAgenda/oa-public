@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { useConstant } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
 import { IntlProvider } from 'react-intl';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { ReactQueryDevtools } from 'react-query/devtools/index.js';
 
 import * as locales from '../../src/locales-compiled/index.mjs';
 
