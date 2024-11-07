@@ -1,13 +1,13 @@
-import omit from 'lodash/omit';
+import omit from 'lodash/omit.js';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import qs from 'qs';
-import * as dateFnsLocales from 'date-fns/locale';
+import * as dateFnsLocales from 'date-fns/locale/index.js';
 import { prepareClientPortals } from '@openagenda/react-portal-ssr';
-import Provider from './components/FiltersProvider';
-import IntlProvider from './components/IntlProvider';
-import FiltersManager from './components/FiltersManager';
-import { extractFiltersFromDom, extractWidgetsFromDom } from './utils';
+import Provider from './components/FiltersProvider.js';
+import IntlProvider from './components/IntlProvider.js';
+import FiltersManager from './components/FiltersManager.js';
+import { extractFiltersFromDom, extractWidgetsFromDom } from './utils/index.js';
 
 function createContainer() {
   const container = document.createElement('div');

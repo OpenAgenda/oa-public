@@ -8,7 +8,7 @@ import React, {
 import { useForm } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
 import { defineMessages, useIntl } from 'react-intl';
-import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext';
+import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext.js';
 
 const messages = defineMessages({
   ariaLabel: {

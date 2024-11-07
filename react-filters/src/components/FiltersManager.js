@@ -1,5 +1,5 @@
-import omit from 'lodash/omit';
-import isEqual from 'lodash/isEqual';
+import omit from 'lodash/omit.js';
+import isEqual from 'lodash/isEqual.js';
 import qs from 'qs';
 import React, {
   forwardRef,
@@ -14,29 +14,33 @@ import { useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { Portal } from '@openagenda/react-portal-ssr';
-import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
-import { getEvents } from '../api';
+import { useConstant } from '@openagenda/react-shared';
+import { getEvents } from '../api/index.js';
 import {
   filtersToAggregations,
   extractFiltersFromDom,
   extractWidgetsFromDom,
   withDefaultFilterConfig,
-} from '../utils';
-import { useGetFilterOptions, useGetTotal, useLoadGeoData } from '../hooks';
-import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext';
-import Filters from './Filters';
-import ActiveFilters from './ActiveFilters';
-import FavoriteToggle from './FavoriteToggle';
-import Total from './Total';
-import ChoiceFilter from './filters/ChoiceFilter';
-import DateRangeFilter from './filters/DateRangeFilter';
-import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter';
-import DefinedRangeFilter from './filters/DefinedRangeFilter';
-import NumberRangeFilter from './filters/NumberRangeFilter';
-import SearchFilter from './filters/SearchFilter';
-import MapFilter from './filters/MapFilter';
-import CustomFilter from './filters/CustomFilter';
-import FavoritesFilter from './filters/FavoritesFilter';
+} from '../utils/index.js';
+import {
+  useGetFilterOptions,
+  useGetTotal,
+  useLoadGeoData,
+} from '../hooks/index.js';
+import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext.js';
+import Filters from './Filters.js';
+import ActiveFilters from './ActiveFilters.js';
+import FavoriteToggle from './FavoriteToggle.js';
+import Total from './Total.js';
+import ChoiceFilter from './filters/ChoiceFilter.js';
+import DateRangeFilter from './filters/DateRangeFilter.js';
+import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter.js';
+import DefinedRangeFilter from './filters/DefinedRangeFilter.js';
+import NumberRangeFilter from './filters/NumberRangeFilter.js';
+import SearchFilter from './filters/SearchFilter.js';
+import MapFilter from './filters/MapFilter.js';
+import CustomFilter from './filters/CustomFilter.js';
+import FavoritesFilter from './filters/FavoritesFilter.js';
 
 const FiltersManager = React.forwardRef(function FiltersManager(
   {

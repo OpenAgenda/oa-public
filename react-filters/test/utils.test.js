@@ -1,5 +1,5 @@
-import getAdditionalFilters from '../src/utils/getAdditionalFilters';
-import minimizeAggregation from '../src/utils/minimizeAggregation';
+import getAdditionalFilters from '../src/utils/getAdditionalFilters.js';
+import minimizeAggregation from '../src/utils/minimizeAggregation.js';
 
 import schemaFieldsFixtures from './fixtures/fields.json';
 

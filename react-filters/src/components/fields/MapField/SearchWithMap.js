@@ -1,6 +1,6 @@
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
-import mapMessages from '../../../messages/map';
+import mapMessages from '../../../messages/map.js';
 
 export default function SearchWithMap({
   name,

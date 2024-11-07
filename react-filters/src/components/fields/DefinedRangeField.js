@@ -1,5 +1,5 @@
-import isEqual from 'lodash/isEqual';
-import isDate from 'lodash/isDate';
+import isEqual from 'lodash/isEqual.js';
+import isDate from 'lodash/isDate.js';
 import React, { useCallback, useState } from 'react';
 import { DefinedRange } from '@openagenda/react-date-range';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';

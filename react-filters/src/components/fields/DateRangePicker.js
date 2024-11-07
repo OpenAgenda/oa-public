@@ -1,15 +1,15 @@
-import isEqual from 'lodash/isEqual';
-import isDate from 'lodash/isDate';
+import isEqual from 'lodash/isEqual.js';
+import isDate from 'lodash/isDate.js';
 import React, { useCallback, useMemo, useState, useContext } from 'react';
 import { useIntl } from 'react-intl';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
-import dateFnsLocaleEN from 'date-fns/locale/en-US';
+import dateFnsLocaleEN from 'date-fns/locale/en-US/index.js';
 import { DateRange, DefinedRange } from '@openagenda/react-date-range';
 import { getFallbackChain } from '@openagenda/intl';
-import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
-import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext';
-import convertPhpDateFormatToDateFns from '../../utils/convertPhpDateFormatToDateFns';
+import { useConstant } from '@openagenda/react-shared';
+import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext.js';
+import convertPhpDateFormatToDateFns from '../../utils/convertPhpDateFormatToDateFns.js';
 
 const dateDisplayFormats = {
   en: 'MMM d, yyyy', // Jan 1, 2024

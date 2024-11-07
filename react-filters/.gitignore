@@ -7,8 +7,7 @@ testconfig.js
 coverage/
 .cache/
 
+/build/
 /dist/
-/esm/
-/lib/
 /src/locales-compiled/
 .envrc

@@ -1,5 +1,7 @@
 'use strict';
 
+// Used for webpack build
+
 module.exports = {
   presets: [
     [

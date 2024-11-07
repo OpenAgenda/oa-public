@@ -1,13 +1,13 @@
 import React, { useMemo, useCallback, useEffect, useRef } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
 import { useLatest } from 'react-use';
-import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
-import matchQuery from '../../utils/matchQuery';
-import updateFormValues from '../../utils/updateFormValues';
-import updateCustomFilter from '../../utils/updateCustomFilter';
-import { useFavoriteState } from '../../hooks';
-import FilterPreviewer from '../FilterPreviewer';
-import useFavoritesOnChange from '../../hooks/useFavoritesOnChange';
+import { a11yButtonActionHandler } from '@openagenda/react-shared';
+import matchQuery from '../../utils/matchQuery.js';
+import updateFormValues from '../../utils/updateFormValues.js';
+import updateCustomFilter from '../../utils/updateCustomFilter.js';
+import { useFavoriteState } from '../../hooks/index.js';
+import FilterPreviewer from '../FilterPreviewer.js';
+import useFavoritesOnChange from '../../hooks/useFavoritesOnChange.js';
 
 const subscription = { values: true };
 

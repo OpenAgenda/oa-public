@@ -4,10 +4,10 @@ module.exports = {
   extends: '../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
-  ignorePatterns: ['/dist', '/esm', '/lib'],
+  ignorePatterns: ['/build', '/dist'],
 
   rules: {
     'import/no-extraneous-dependencies': [
@@ -17,7 +17,8 @@ module.exports = {
           `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
           `${__dirname}/example/**/*.js`,
-          `${__dirname}/webpack.config.js`,
+          `${__dirname}/webpack.config.cjs`,
+          `${__dirname}/tsup.config.js`,
         ],
       },
     ],
@@ -25,15 +26,9 @@ module.exports = {
 
   overrides: [
     {
-      files: [
-        'src/**/*.js',
-        'test/**/*.js',
-        '.storybook/**/*.js',
-        'stories/**/*.js',
-      ],
-
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],
