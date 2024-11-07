@@ -2,12 +2,12 @@ import redial from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { ReactQueryDevtools } from 'react-query/devtools/index.js';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
-import statsReducer from '../reducers/stats';
-import appLocales from '../locales-compiled';
+import statsReducer from '../reducers/stats.js';
+import * as appLocales from '../locales-compiled/index.mjs';
 
 const locales = mergeLocales(appLocales, reactFiltersLocales);
 

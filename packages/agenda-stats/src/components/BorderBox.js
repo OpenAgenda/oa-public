@@ -1,7 +1,7 @@
 export default function BorderBox({ className, children }) {
   return (
     <div
-      css={{
+      style={{
         border: '#eee dashed 2px',
         borderRadius: '10px',
       }}

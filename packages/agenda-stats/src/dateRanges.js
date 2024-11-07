@@ -11,7 +11,7 @@ import {
   isSameDay,
   differenceInCalendarDays,
 } from 'date-fns';
-import * as dateFnsLocales from 'date-fns/locale';
+import * as dateFnsLocales from 'date-fns/locale/index.js';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({

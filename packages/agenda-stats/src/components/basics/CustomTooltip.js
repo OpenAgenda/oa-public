@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
-import { ClassNames } from '@emotion/react';
-import DefaultTooltipItem from './DefaultTooltipItem';
+import cn from 'classnames';
+import DefaultTooltipItem from './DefaultTooltipItem.js';
 
 export default function CustomTooltip({
   renderItem,
@@ -38,36 +38,26 @@ export default function CustomTooltip({
   );
 
   return (
-    <ClassNames>
-      {({ css, cx }) => (
-        <div
-          className={cx(
-            css`
-              margin: 0;
-              padding: 6px;
-              background-color: #fff;
-              border: 1px solid #ccc;
-              white-space: nowrap;
-            `,
-            'recharts-default-tooltip',
-            wrapperClassName,
-          )}
-        >
-          <ul
-            className={cx(
-              css`
-                padding: 0;
-                margin: 0;
-                list-style-type: none;
-              `,
-              'recharts-tooltip-item-list',
-              contentStyle,
-            )}
-          >
-            {items}
-          </ul>
-        </div>
-      )}
-    </ClassNames>
+    <div
+      style={{
+        margin: '0',
+        padding: '6px',
+        backgroundColor: '#fff',
+        border: '1px solid #ccc',
+        whiteSpace: 'nowrap',
+      }}
+      className={cn('recharts-default-tooltip', wrapperClassName)}
+    >
+      <ul
+        style={{
+          padding: 0,
+          margin: 0,
+          listStyleType: 'none',
+        }}
+        className={cn('recharts-tooltip-item-list', contentStyle)}
+      >
+        {items}
+      </ul>
+    </div>
   );
 }

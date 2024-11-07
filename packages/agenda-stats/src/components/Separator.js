@@ -1,8 +1,8 @@
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
-import * as statsActions from '../reducers/stats';
-import BorderBox from './BorderBox';
+import * as statsActions from '../reducers/stats.js';
+import BorderBox from './BorderBox.js';
 
 const messages = defineMessages({
   separator: {

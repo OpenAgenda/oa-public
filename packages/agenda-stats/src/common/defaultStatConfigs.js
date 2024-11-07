@@ -1,4 +1,7 @@
-import { defaultStateColors, defaultBooleanColors } from './defaultDataColors';
+import {
+  defaultStateColors,
+  defaultBooleanColors,
+} from './defaultDataColors.js';
 
 const defaultStatConfigs = {
   // Charts

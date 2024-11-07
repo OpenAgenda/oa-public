@@ -2,8 +2,8 @@ import { useReducer, useMemo, useCallback, useLayoutEffect } from 'react';
 import distinctColors from 'distinct-colors';
 import { useIntl } from 'react-intl';
 import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
-import addRestItem from '../utils/addRestItem';
-import CustomTooltip from './basics/CustomTooltip';
+import addRestItem from '../utils/addRestItem.js';
+import CustomTooltip from './basics/CustomTooltip.js';
 
 const tooltipWrapperStyle = { zIndex: 1000 };
 

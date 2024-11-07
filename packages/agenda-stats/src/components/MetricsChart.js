@@ -1,7 +1,6 @@
 import { useIntl } from 'react-intl';
 import ContentLoader from 'react-content-loader';
-import { css } from '@emotion/react';
-import form from '../messages/form';
+import form from '../messages/form.js';
 
 function ChartLoading() {
   return (
@@ -43,11 +42,11 @@ export default function MetricsChart({ stat }) {
         <>
           <div
             className="text-center"
-            css={css`
-              font-size: 6rem;
-              font-weight: 300;
-              line-height: 1.2;
-            `}
+            style={{
+              fontSize: '6rem',
+              fontWeight: '300',
+              lineHeight: '1.2',
+            }}
           >
             {intl.formatNumber(data[metrics[0]], { maximumFractionDigits: 2 })}
           </div>

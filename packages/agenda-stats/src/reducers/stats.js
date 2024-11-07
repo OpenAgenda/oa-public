@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-import statsToAggregations from '../utils/statsToAggregations';
-import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
-import { getChartConfig } from '../common/defaultStatConfigs';
+import statsToAggregations from '../utils/statsToAggregations.js';
+import rangeToCalendarInterval from '../utils/rangeToCalendarInterval.js';
+import { getChartConfig } from '../common/defaultStatConfigs.js';
 
 const LOAD = 'agenda-stats/stats/LOAD';
 const LOAD_SUCCESS = 'agenda-stats/stats/LOAD_SUCCESS';

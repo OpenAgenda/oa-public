@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { Spinner } from '@openagenda/react-shared';
-import * as statsActions from '../reducers/stats';
+import * as statsActions from '../reducers/stats.js';
 
 const messages = defineMessages({
   loadMore: {

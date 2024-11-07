@@ -5,8 +5,8 @@ import {
   Cell,
   ResponsiveContainer,
 } from 'recharts';
-import defaultDataColors from '../../common/defaultDataColors';
-import CustomTooltip from './CustomTooltip';
+import defaultDataColors from '../../common/defaultDataColors.js';
+import CustomTooltip from './CustomTooltip.js';
 
 const tooltipWrapperStyle = { zIndex: 1000 };
 

@@ -2,9 +2,9 @@ import { useMemo, useState, useCallback } from 'react';
 import { useLatest } from 'react-use';
 import { useIntl, defineMessages } from 'react-intl';
 import { DateRangePicker } from 'react-date-range';
-import * as rdrLocales from 'react-date-range/dist/locale';
+import * as rdrLocales from 'react-date-range/dist/locale/index.js';
 import { Modal, Spinner } from '@openagenda/react-shared';
-import dateRanges from '../dateRanges';
+import dateRanges from '../dateRanges.js';
 
 const messages = defineMessages({
   rangeModalTitle: {
