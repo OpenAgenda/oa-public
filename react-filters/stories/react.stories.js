@@ -1,4 +1,4 @@
-import dateFnsLocale from 'date-fns/locale/fr';
+import dateFnsLocale from 'date-fns/locale/fr/index.js';
 import {
   IntlProvider,
   FiltersProvider,
@@ -8,7 +8,7 @@ import {
   NumberRangeFilter,
   SimpleDateRangeFilter,
   ActiveFilters,
-} from '../src';
+} from '../src/index.js';
 
 require('./scss/main.scss');
 

@@ -1,6 +1,6 @@
 import qs from 'qs';
-import filtersToAggregations from '../utils/filtersToAggregations';
-import getQuerySeparator from '../utils/getQuerySeparator';
+import filtersToAggregations from '../utils/filtersToAggregations.js';
+import getQuerySeparator from '../utils/getQuerySeparator.js';
 
 export default async function getEvents(
   _apiClient,

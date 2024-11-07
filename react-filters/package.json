@@ -1,9 +1,8 @@
 {
   "name": "@openagenda/react-filters",
   "version": "2.12.1",
-  "main": "lib/index.js",
-  "jsnext:main": "esm/index.js",
-  "module": "esm/index.js",
+  "type": "module",
+  "main": "build/index.js",
   "sideEffects": false,
   "license": "MIT",
   "homepage": "https://github.com/OpenAgenda/oa-public",
@@ -11,35 +10,32 @@
     "access": "public"
   },
   "files": [
-    "dist",
-    "lib",
-    "esm"
+    "build",
+    "dist"
   ],
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": "./esm/index.js",
-      "require": "./lib/index.js"
+      "import": "./build/index.js",
+      "require": "./build/index.cjs"
     },
     "./locales": {
-      "import": "./esm/locales/index.js",
-      "require": "./lib/locales/index.js"
+      "import": "./build/locales/index.js",
+      "require": "./build/locales/index.cjs"
     },
     "./*": {
-      "import": "./esm/*.js",
-      "require": "./lib/*.js"
+      "import": "./build/*.js",
+      "require": "./build/*.cjs"
     }
   },
   "scripts": {
     "sb": "yarn storybook",
-    "prepack": "yarn clean && yarn oa-intl compile && yarn build & yarn dist",
-    "build": "yarn build:esm & yarn build:cjs",
-    "build:esm": "babel --copy-files src -d esm -s --env-name esm",
-    "build:cjs": "babel --copy-files src -d lib -s",
-    "dist": "webpack-cli --config webpack.config.js",
-    "extract-messages": "yarn oa-intl",
+    "prepack": "yarn clean && oa-intl compile --esm && yarn build & yarn dist",
+    "build": "tsup",
+    "dist": "webpack-cli --config webpack.config.cjs",
+    "extract-messages": "oa-intl --esm",
     "clean": "rimraf esm lib",
-    "test": "jest",
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
     "start": "concurrently -r -k -i -n dist,sb \"yarn dist -w\" \"yarn storybook\"",
     "storybook": "storybook dev",
     "example": "cd example && nodemon server.js"
@@ -72,15 +68,11 @@
     "react-select": "^3.1.0",
     "react-uid": "^2.3.0",
     "react-use": "^15.3.4",
-    "use-debounce": "^6.0.1",
+    "use-debounce": "^10.0.4",
     "use-local-storage-state": "^13.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
-    "@babel/core": "^7.23.3",
-    "@emotion/babel-plugin": "^11.11.0",
     "@openagenda/axios-mock-adapter": "^1.21.0",
-    "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/addon-essentials": "^7.4.2",
     "@storybook/react-webpack5": "^7.4.2",
@@ -103,6 +95,7 @@
     "source-map-loader": "^2.0.1",
     "storybook": "^7.6.4",
     "terser-webpack-plugin": "^5.3.9",
+    "tsup": "^8.3.5",
     "webpack": "^5.53.0",
     "webpack-cli": "^5.1.4",
     "webpackbar": "^5.0.0-3"

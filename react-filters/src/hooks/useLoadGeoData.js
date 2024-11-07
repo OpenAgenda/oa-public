@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import qs from 'qs';
-import getQuerySeparator from '../utils/getQuerySeparator';
+import getQuerySeparator from '../utils/getQuerySeparator.js';
 
 export default function useLoadGeoData(
   _apiClient,

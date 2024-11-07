@@ -3,12 +3,12 @@ import { Field, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
 import { css } from '@emotion/react';
-import ChoiceField from '../fields/ChoiceField';
-import Title from '../Title';
-import Panel from '../Panel';
-import FilterPreviewer from '../FilterPreviewer';
-import useChoiceState from '../../hooks/useChoiceState';
-import messages from '../../messages/choiceFilter';
+import ChoiceField from '../fields/ChoiceField.js';
+import Title from '../Title.js';
+import Panel from '../Panel.js';
+import FilterPreviewer from '../FilterPreviewer.js';
+import useChoiceState from '../../hooks/useChoiceState.js';
+import messages from '../../messages/choiceFilter.js';
 
 const subscription = { value: true };
 

@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { Field, useField } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
-import MapField from '../fields/MapField';
-import Title from '../Title';
-import Panel from '../Panel';
-import FilterPreviewer from '../FilterPreviewer';
+import MapField from '../fields/MapField/index.js';
+import Title from '../Title.js';
+import Panel from '../Panel.js';
+import FilterPreviewer from '../FilterPreviewer.js';
 
 const subscription = { value: true };
 

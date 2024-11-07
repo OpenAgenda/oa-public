@@ -1,5 +1,3 @@
-'use strict';
-
 /* global axios, Qs */
 
 async function loadEventList(values, aggregations = []) {

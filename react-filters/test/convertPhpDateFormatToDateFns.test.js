@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import convertPhpDateFormatToDateFns from '../src/utils/convertPhpDateFormatToDateFns';
+import convertPhpDateFormatToDateFns from '../src/utils/convertPhpDateFormatToDateFns.js';
 
 const date = new Date('2024-05-16T15:52:01.781Z');
 

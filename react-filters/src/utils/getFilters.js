@@ -1,6 +1,6 @@
-import dateRanges from './dateRanges';
-import withDefaultFilterConfig from './withDefaultFilterConfig';
-import getAdditionalFilters from './getAdditionalFilters';
+import dateRanges from './dateRanges.js';
+import withDefaultFilterConfig from './withDefaultFilterConfig.js';
+import getAdditionalFilters from './getAdditionalFilters.js';
 
 const isNameMatching = (name1, name2) =>
   name1.replace('.', ':') === name2.replace('.', ':');
