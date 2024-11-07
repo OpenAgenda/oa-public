@@ -68,6 +68,19 @@ module.exports = async function createIndex(dest, langs, isEsm) {
 
   await mkdirp(path.dirname(dest));
 
+  // Remove old index
+  const indexToRemove = path.join(
+    path.dirname(dest),
+    `index.${isEsm ? 'js' : 'mjs'}`,
+  );
+  if (fileExists(indexToRemove)) {
+    try {
+      fs.unlinkSync(indexToRemove);
+    } catch {
+      //
+    }
+  }
+
   const existingLangs = langs.filter((lang) =>
     fileExists(dest.replace('%lang%.json', `${lang}.json`)));
 
