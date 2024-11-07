@@ -49,11 +49,6 @@ module.exports = {
     react: {
       version: 'detect',
     },
-    'import/resolver': {
-      [path.resolve(__dirname, './resolver')]: {},
-      node: {
-        extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node'],
-      },
-    },
+    'import/resolver': path.resolve(__dirname, './resolver'),
   },
 };
