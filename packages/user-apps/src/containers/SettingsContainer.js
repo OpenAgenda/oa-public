@@ -11,7 +11,7 @@ import {
 } from '@openagenda/react-shared';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
-import * as locales from '../locales-compiled/index.mjs';
+import locales from '../locales-compiled';
 import * as userSettingsActions from '../reducers/userSettings';
 import {
   ProfileSettings,
