@@ -2,8 +2,8 @@ import { useCallback, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useApiClient, useModal, Modal } from '@openagenda/react-shared';
 import { defineMessages, useIntl } from 'react-intl';
-import toggleEventItemValue from '../utils/toggleEventItemValue';
-import StateSelector from './StateSelector';
+import toggleEventItemValue from '../utils/toggleEventItemValue.js';
+import StateSelector from './StateSelector.js';
 
 const messages = defineMessages({
   motive: {

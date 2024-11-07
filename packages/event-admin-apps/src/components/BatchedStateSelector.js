@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useMutation } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useApiClient, useModal, Modal } from '@openagenda/react-shared';
-import StateSelector from './StateSelector';
+import StateSelector from './StateSelector.js';
 
 const messages = defineMessages({
   ok: {

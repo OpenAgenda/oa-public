@@ -1,6 +1,5 @@
 import { defineMessages, useIntl } from 'react-intl';
 import cn from 'classnames';
-import { css } from '@emotion/react';
 
 const messages = defineMessages({
   previous: {
@@ -39,11 +38,7 @@ export default function Pager({
           title={intl.formatMessage(messages.previous)}
         >
           {previousDisabled ? (
-            <span
-              css={css`
-                color: lightgray !important;
-              `}
-            >
+            <span style={{ color: 'lightgray' }}>
               <i className="fa fa-lg fa-angle-left" />
             </span>
           ) : (
@@ -63,11 +58,7 @@ export default function Pager({
         </li>
         <li title={intl.formatMessage(messages.next)}>
           {nextDisabled ? (
-            <span
-              css={css`
-                color: lightgray !important;
-              `}
-            >
+            <span style={{ color: 'lightgray' }}>
               <i className="fa fa-lg fa-angle-right" />
             </span>
           ) : (
