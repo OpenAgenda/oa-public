@@ -30,7 +30,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude:
-          /node_modules\/(?!(@openagenda\/agenda-portal|@openagenda\/react-filters))/,
+          /node_modules\/(?!(@openagenda\/agenda-portal|@openagenda\/react-filters|@openagenda\/react-portal-ssr))/,
         loader: require.resolve('babel-loader'),
       },
     ],
