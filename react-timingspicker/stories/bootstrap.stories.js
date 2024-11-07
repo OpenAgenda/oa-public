@@ -1,4 +1,4 @@
-import TimingsPicker, { classNames } from '../src';
+import TimingsPicker, { classNames } from '../src/index.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-day-picker/lib/style.css';

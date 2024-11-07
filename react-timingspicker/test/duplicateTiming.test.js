@@ -1,4 +1,4 @@
-import duplicateTiming from '../src/utils/duplicateTiming';
+import duplicateTiming from '../src/utils/duplicateTiming.js';
 
 /* {
   weekStartsOn: 0,

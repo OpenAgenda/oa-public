@@ -1,8 +1,10 @@
 import * as dateFns from 'date-fns';
-import RRule from 'rrule';
-import getWeekOfMonth from './getWeekOfMonth';
-import convertUTCDateToLocalDate from './convertUTCDateToLocalDate';
-import convertLocalDateToUTCDate from './convertLocalDateToUTCDate';
+import RRuleModule from 'rrule';
+import getWeekOfMonth from './getWeekOfMonth.js';
+import convertUTCDateToLocalDate from './convertUTCDateToLocalDate.js';
+import convertLocalDateToUTCDate from './convertLocalDateToUTCDate.js';
+
+const RRule = RRuleModule.default || RRuleModule;
 
 const UTCweekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 

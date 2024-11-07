@@ -1,4 +1,4 @@
-import stepPositionToSelection from '../src/utils/stepPositionToSelection';
+import stepPositionToSelection from '../src/utils/stepPositionToSelection.js';
 
 describe('unit - stepPositionToSelection', () => {
   describe('basic', () => {

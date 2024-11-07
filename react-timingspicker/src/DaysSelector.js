@@ -3,13 +3,13 @@ import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import * as dateFns from 'date-fns';
 
-import isDisabledTiming from './utils/isDisabledTiming';
-import normalizeEndOfTiming from './utils/normalizeEndOfTiming';
-import secondsToHeight from './utils/secondsToHeight';
-import splitSelection from './utils/splitSelection';
-import stepPositionToSelection from './utils/stepPositionToSelection';
-import valueToStepPosition from './utils/valueToStepPosition';
-import timingUtils from './utils/timing';
+import isDisabledTiming from './utils/isDisabledTiming.js';
+import normalizeEndOfTiming from './utils/normalizeEndOfTiming.js';
+import secondsToHeight from './utils/secondsToHeight.js';
+import splitSelection from './utils/splitSelection.js';
+import stepPositionToSelection from './utils/stepPositionToSelection.js';
+import valueToStepPosition from './utils/valueToStepPosition.js';
+import timingUtils from './utils/timing.js';
 
 const ONE_DAY = 60 * 60 * 24;
 
