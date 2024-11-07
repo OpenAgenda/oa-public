@@ -2,7 +2,7 @@ import MaskedInputModule from 'react-text-mask';
 import createAutoCorrectedDatePipeModule from 'text-mask-addons/dist/createAutoCorrectedDatePipe.js';
 import deriveDateFormat from './utils/deriveDateFormat.js';
 
-const MaskedInput = MaskedInputModule || MaskedInputModule;
+const MaskedInput = MaskedInputModule.default || MaskedInputModule;
 const createAutoCorrectedDatePipe = createAutoCorrectedDatePipeModule.default
   || createAutoCorrectedDatePipeModule;
 

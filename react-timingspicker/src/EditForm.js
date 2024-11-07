@@ -8,7 +8,7 @@ import { FORM_ERROR } from 'final-form';
 import { FaRegTimesCircle } from 'react-icons/fa/index.js';
 import cn from 'classnames';
 
-const MaskedInput = MaskedInputModule || MaskedInputModule;
+const MaskedInput = MaskedInputModule.default || MaskedInputModule;
 const createAutoCorrectedDatePipe = createAutoCorrectedDatePipeModule.default
   || createAutoCorrectedDatePipeModule;
 
