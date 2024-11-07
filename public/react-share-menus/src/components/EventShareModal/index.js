@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 
 import { Modal } from '@openagenda/react-shared';
-import OpenAgendaShare from './lib/OpenAgendaShare';
-import { EmailShareMenu, EmailSentMessage } from './lib/EmailShare';
-import CalendarShare from './lib/CalendarShare';
+import OpenAgendaShare from './lib/OpenAgendaShare.js';
+import { EmailShareMenu, EmailSentMessage } from './lib/EmailShare.js';
+import CalendarShare from './lib/CalendarShare.js';
 
 const EventShareModal = ({ onClose, res, segment, event, userLogged }) => {
   const [emailState, setEmailState] = useState({
