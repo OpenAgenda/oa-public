@@ -10,4 +10,7 @@ export default {
     name: getAbsolutePath('@storybook/react-webpack5'),
     options: {},
   },
+  babel: (config) => {
+    return { ...config, rootMode: 'upward' };
+  },
 };

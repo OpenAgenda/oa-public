@@ -4,9 +4,9 @@ import { defineMessages, useIntl } from 'react-intl';
 import axios from 'axios';
 
 import { Modal } from '@openagenda/react-shared';
-import Radio from '../Radio';
-import SpreadsheetOptions from './SpreadsheetOptions';
-import ExternalCalendarOptions from './ExternalCalendarOptions';
+import Radio from '../Radio.js';
+import SpreadsheetOptions from './SpreadsheetOptions.js';
+import ExternalCalendarOptions from './ExternalCalendarOptions.js';
 
 const messages = defineMessages({
   modalTitle: {

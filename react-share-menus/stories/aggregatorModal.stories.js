@@ -3,10 +3,10 @@ import '@openagenda/bs-templates/compiled/main.css';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import AggregatorModal from '../src/components/AggregatorModal';
+import AggregatorModal from '../src/components/AggregatorModal.js';
 import apiAgendas from './fixtures/api.agendas.get.json';
 import noAgendas from './fixtures/api.noAgendas.get.json';
-import Canvas from './decorators/Canvas';
+import Canvas from './decorators/Canvas.js';
 
 export default {
   title: 'Aggregator',

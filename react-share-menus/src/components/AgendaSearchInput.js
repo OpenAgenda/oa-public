@@ -1,17 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { debounce, throttle } from 'lodash';
+import debounce from 'lodash/debounce.js';
+import throttle from 'lodash/throttle.js';
 import axios from 'axios';
 import { defineMessages, useIntl } from 'react-intl';
 import { Form, Field } from 'react-final-form';
 import { AgendasSearch } from '@openagenda/react-shared';
-
 import {
   reset as resetNav,
   defineParams,
   loadNext as loadNextNav,
   isStart as isNavStart,
-} from './lib/navState';
+} from './lib/navState.js';
 
 const appendNewAgendas = (agendas, newAgendas) => {
   const appended = [...agendas];
