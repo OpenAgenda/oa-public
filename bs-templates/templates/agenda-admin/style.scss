@@ -125,4 +125,32 @@
   .oa-collapse-item {
     border-bottom: 1px solid $oa-gray-lightish;
   }
+
+  &:has(.event-admin) {
+    .leaflet-container {
+      height: 300px;
+    }
+
+    .pass-tab {
+      padding: 0px 6px 0px 1px;
+      border-radius: 15px;
+      cursor: pointer;
+
+      &:not(.is-open) {
+        border-color: transparent;
+      }
+    }
+  }
+
+  &:has(.event-admin),
+  &:has(.agenda-stats) {
+    .oa-choice-option-label {
+      min-height: 20px;
+      line-height: 20px;
+      padding-left: 20px;
+      margin-bottom: 0;
+      font-weight: normal;
+      cursor: pointer;
+    }
+  }
 }
