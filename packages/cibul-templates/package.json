@@ -110,7 +110,7 @@
     "store": "1.3.17",
     "superagent": "^3.8.1",
     "terser-webpack-plugin": "^5.3.9",
-    "use-debounce": "^7.0.1",
+    "use-debounce": "^10.0.4",
     "webpack": "^5.53.0",
     "webpack-assets-manifest": "^5.0.6",
     "webpackbar": "^5.0.0-3",
