@@ -1,36 +1,30 @@
-'use strict';
-
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
 
 const getEventLanguages = (event) =>
   ['title', 'description', 'longDescription', 'keywords', 'conditions'].reduce(
     (languages, field) =>
       languages.concat(
-        Object.keys(event[field] || {}).filter(
+        Object.keys(event[field] ?? {}).filter(
           (lang) => !languages.includes(lang),
         ),
       ),
     [],
   );
 
-module.exports = (event, options = {}) => {
-  const { locationId, userId } = {
-    locationId: null,
-    userId: null,
-    ...options,
-  };
+const baseTransform = (event, options = {}) => {
+  const { locationId = null, userId = null } = options;
 
   const languages = getEventLanguages(event);
-  const timezone = event.timezone || 'Europe/Paris';
+  const timezone = event.timezone ?? 'Europe/Paris';
 
   const legacyEvent = {
     uid: event.uid,
     slug: event.slug,
-    image: event.image?.filename || null,
+    image: event.image?.filename ?? null,
     image_credits: event.imageCredits ?? null,
     origin_uid: event.agendaUid,
-    age_min: event.age?.min || null,
-    age_max: event.age?.max || null,
+    age_min: event.age?.min ?? null,
+    age_max: event.age?.max ?? null,
     accessibility: event.accessibility
       ? JSON.stringify(
         Object.keys(event.accessibility).filter(
@@ -45,7 +39,7 @@ module.exports = (event, options = {}) => {
       attendanceMode: event.attendanceMode,
       onlineAccessLink: event.onlineAccessLink,
       images: event.image,
-      links: (event.links || []).map(({ link, data }) => ({
+      links: (event.links ?? []).map(({ link, data }) => ({
         link,
         code: data?.html,
       })),
@@ -60,10 +54,10 @@ module.exports = (event, options = {}) => {
     event: legacyEvent,
     event_translation: languages.map((lang) => ({
       lang,
-      title: event.title?.[lang] || '',
-      description: event.description?.[lang] || '',
-      free_text: event.longDescription?.[lang] || '',
-      tags: (event.keywords?.[lang] || []).join(', '),
+      title: event.title?.[lang] ?? '',
+      description: event.description?.[lang] ?? '',
+      free_text: event.longDescription?.[lang] ?? '',
+      tags: (event.keywords?.[lang] ?? []).join(', '),
     })),
     event_location: {
       location_id: locationId,
@@ -72,7 +66,7 @@ module.exports = (event, options = {}) => {
     },
     event_location_translation: languages.map((lang) => ({
       lang,
-      pricing_info: event.conditions?.[lang] || '',
+      pricing_info: event.conditions?.[lang] ?? '',
     })),
     occurrence: event.timings
       ? event.timings.map((t) => ({
@@ -86,3 +80,5 @@ module.exports = (event, options = {}) => {
       : null,
   };
 };
+
+export default baseTransform;

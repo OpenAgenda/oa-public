@@ -1,14 +1,14 @@
-'use strict';
+import logs from '@openagenda/logs';
+import { getName as getDatabaseFieldName } from '@openagenda/utils/fields/databaseField.js';
+import cleanGetIdentifiers from './lib/cleanGetIdentifiers.js';
+import cleanGetOptions from './lib/cleanGetOptions.js';
+import NotFoundError from './lib/NotFoundError.js';
+import handleInterface from './lib/handleInterface.js';
+import lastClean from './lib/lastEventClean.js';
 
-const log = require('@openagenda/logs')('get');
-const getDatabaseFieldName = require('@openagenda/utils/fields/databaseField').getName;
-const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
-const cleanGetOptions = require('./lib/cleanGetOptions');
-const NotFoundError = require('./lib/NotFoundError');
-const handleInterface = require('./lib/handleInterface');
-const lastClean = require('./lib/lastEventClean');
+const log = logs('get');
 
-module.exports = async (service, identifiers, o = {}) => {
+export default async (service, identifiers, o = {}) => {
   log('called %s with options %j', identifiers, o);
 
   const {

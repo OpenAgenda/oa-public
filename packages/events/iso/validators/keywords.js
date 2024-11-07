@@ -1,6 +1,4 @@
-'use strict';
-
-const multilingual = require('@openagenda/validators/multilingual');
+import multilingual from '@openagenda/validators/multilingual.js';
 
 const validate = multilingual({
   max: 255,
@@ -8,7 +6,7 @@ const validate = multilingual({
   optional: true,
 });
 
-module.exports = (_options) => (value) => {
+export default (_options) => (value) => {
   const clean = validate(Array.isArray(value) ? value.join(',') : value);
 
   const splitCommas = {};

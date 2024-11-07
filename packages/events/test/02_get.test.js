@@ -1,14 +1,10 @@
-'use strict';
-
-const { service: config } = require('../testconfig.sample');
-const Service = require('..');
-const fields = require('../lib/fields');
-
-const fixtures = require('./fixtures');
+import { service as config } from '../testconfig.sample.js';
+import Service from '../index.js';
+import fields from '../lib/fields.js';
+import fixtures from './fixtures/index.js';
 
 describe('events - functional - get', () => {
   const f = fixtures(config.mysql, config.schema);
-
   let svc;
 
   beforeAll(async () => {
@@ -43,11 +39,8 @@ describe('events - functional - get', () => {
     });
 
     it('get by slug', async () => {
-      expect(
-        await svc
-          .get({ slug: 'kara-okay-live_429424' })
-          .then((e) => e.title.fr),
-      ).toBe('Kara Okay live');
+      const result = await svc.get({ slug: 'kara-okay-live_429424' });
+      expect(result.title.fr).toBe('Kara Okay live');
     });
 
     it('identifier matching no event returns null', async () => {
@@ -88,22 +81,22 @@ describe('events - functional - get', () => {
     });
 
     it('deleted true returns a soflty-deleted event', async () => {
-      expect(
-        await svc.get(44822046, { deleted: true }).then((e) => e.uid),
-      ).toBe(44822046);
+      const event = await svc.get(44822046, { deleted: true });
+      expect(event.uid).toBe(44822046);
     });
 
     it('identifier matching no event with throwOnNotFound option set throws NotFoundError', async () => {
-      expect(
-        await svc
-          .get(6789679673, { throwOnNotFound: true })
-          .catch((e) => e.message),
-      ).toBe('Not found');
+      let error;
+      try {
+        await svc.get(6789679673, { throwOnNotFound: true });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.message).toBe('Not found');
     });
 
     it('image path is placed in base key of image field', async () => {
       const event = await svc.get(80107389, { limit: 1 });
-
       expect(typeof event.image.base).toBe('string');
     });
 
@@ -121,8 +114,8 @@ describe('events - functional - get', () => {
       const svcWithMockInterfaces = Service({
         knex: f.client,
         interfaces: {
-          getOriginAgendas: async (_identifiers, _options) => [agenda],
-          getLocations: async (_identifiers) => [location],
+          getOriginAgendas: async () => [agenda],
+          getLocations: async () => [location],
         },
       });
 
@@ -141,11 +134,7 @@ describe('events - functional - get', () => {
       );
 
       expect(event.html).toEqual({
-        fr: [
-          '<p>Et que dire des petits cochons, des loups voraces, du petit Poucet et des ogres de nos forêts séculaires ? Face aux nouveaux enjeux du XXIe',
-          'siècle, tout est à réinventer… Ludiques, parfois décalés et conçus sur',
-          'la volonté de sensibiliser le public au réchauffement climatique, des contes et histoires traditionnels ont été revisités par Armel Richard dans un climat à +20°C. À partir de 6 ans.</p>\n',
-        ].join('\n'),
+        fr: '<p>Et que dire des petits cochons, des loups voraces, du petit Poucet et des ogres de nos forêts séculaires ? Face aux nouveaux enjeux du XXIe<br>siècle, tout est à réinventer… Ludiques, parfois décalés et conçus sur<br>la volonté de sensibiliser le public au réchauffement climatique, des contes et histoires traditionnels ont été revisités par Armel Richard dans un climat à +20°C. À partir de 6 ans.</p>\n',
       });
     });
 
@@ -157,12 +146,13 @@ describe('events - functional - get', () => {
       const event = await svc.get({ slug: 'les-contes-de-lhyper-climat' });
 
       publicFieldNames.forEach((field) => {
-        expect(Object.keys(event).includes(field)).toBe(true);
+        expect(Object.keys(event)).toContain(field);
       });
     });
 
     it('null credit and null image appear as null in events', async () => {
-      expect(await svc.get(66724283).then((e) => e.image)).toBeNull();
+      const event = await svc.get(66724283);
+      expect(event.image).toBeNull();
     });
 
     it('if access is internal, internal fields are returned', async () => {
@@ -171,16 +161,12 @@ describe('events - functional - get', () => {
         .map((field) => field.field);
 
       const event = await svc.get(
-        {
-          slug: 'les-contes-de-lhyper-climat',
-        },
-        {
-          access: 'internal',
-        },
+        { slug: 'les-contes-de-lhyper-climat' },
+        { access: 'internal' },
       );
 
       internalFieldNames.forEach((field) => {
-        expect(Object.keys(event).includes(field)).toBe(true);
+        expect(Object.keys(event)).toContain(field);
       });
     });
 
@@ -217,7 +203,7 @@ describe('events - functional - get', () => {
         useLocationObjectFormat: true,
       });
 
-      expect('locationUid' in event).toBe(false);
+      expect(event).not.toHaveProperty('locationUid');
       expect(event.location).toEqual({ uid: 63552532 });
     });
 
@@ -248,9 +234,7 @@ describe('events - functional - get', () => {
 
     it('by default, no fallback language is offered', async () => {
       const ev = await svc.get(
-        {
-          slug: 'les-contes-de-lhyper-climat',
-        },
+        { slug: 'les-contes-de-lhyper-climat' },
         { lang: 'en' },
       );
 
@@ -259,13 +243,8 @@ describe('events - functional - get', () => {
 
     it('if useFallbackLang option is true, first available language is used', async () => {
       const ev = await svc.get(
-        {
-          slug: 'les-contes-de-lhyper-climat',
-        },
-        {
-          lang: 'en',
-          useFallbackLang: true,
-        },
+        { slug: 'les-contes-de-lhyper-climat' },
+        { lang: 'en', useFallbackLang: true },
       );
 
       expect(ev.title).toBe('« Les contes de l’hyper climat »');

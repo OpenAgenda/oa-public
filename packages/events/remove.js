@@ -1,9 +1,9 @@
-'use strict';
+import logs from '@openagenda/logs';
+import get from './get.js';
+import removeLegacy from './lib/legacy/remove.js';
+import handleInterface from './lib/handleInterface.js';
 
-const log = require('@openagenda/logs')('remove');
-const get = require('./get');
-const removeLegacy = require('./lib/legacy/remove');
-const handleInterface = require('./lib/handleInterface');
+const log = logs('remove');
 
 async function remove(service, current, options = {}) {
   log('removing event %s', current.uid);
@@ -30,7 +30,7 @@ async function remove(service, current, options = {}) {
   return current;
 }
 
-module.exports = async (service, identifier, options = {}) =>
+export default async (service, identifier, options = {}) =>
   remove(
     service,
     await get(service, identifier, {

@@ -1,8 +1,6 @@
-'use strict';
+import fields from './fields.js';
 
-const fields = require('./fields');
-
-module.exports = (item, options) =>
+export default (item, options) =>
   (options.additionalFields.length
     ? fields.concat(options.additionalFields.map((f) => ({ field: f })))
     : fields

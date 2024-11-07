@@ -1,13 +1,12 @@
-'use strict';
+import logs from '@openagenda/logs';
+import eventEntry from './eventEntry.js';
+import eventLocationEntry from './eventLocationEntry.js';
+import occurrenceEntries from './occurrenceEntries.js';
+import baseTransform from './baseTransform.js';
 
-const log = require('@openagenda/logs')('legacy');
+const log = logs('legacy');
 
-const eventEntry = require('./eventEntry');
-const eventLocationEntry = require('./eventLocationEntry');
-const occurrenceEntries = require('./occurrenceEntries');
-const baseTransform = require('./baseTransform');
-
-module.exports = async (client, event) => {
+const set = async (client, event) => {
   log('setting legacy for event %s', event.uid);
 
   const locationId = event.locationUid
@@ -42,4 +41,5 @@ module.exports = async (client, event) => {
   };
 };
 
-module.exports.baseTransform = baseTransform;
+export { baseTransform };
+export default set;

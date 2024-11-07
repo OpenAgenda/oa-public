@@ -1,8 +1,6 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('node:fs');
-
-module.exports = {
+export default {
   service: {
     mysql: {
       timeout: 120000,

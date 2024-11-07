@@ -1,30 +1,22 @@
-'use strict';
+import moment from 'moment-timezone';
 
-const moment = require('moment-timezone');
+import dateHoursMinutesTiming from '../iso/validators/dateHoursMinutesTiming.js';
 
-const {
-  is: isDateHoursMinutesTiming,
-} = require('../iso/src/validators/dateHoursMinutesTiming');
-const {
-  from: convertDHM,
-} = require('../iso/src/convertDateHoursMinutesTiming');
+import { from as convertDHM } from '../iso/convertDateHoursMinutesTiming.js';
 
 const inLocalTZ = (d, tz) => moment.tz(d, tz).locale('en').toISOString(true);
 
-module.exports = function convertAndInjectTimingsWithTimezone(
-  timings,
-  timezone,
-) {
+export default function convertAndInjectTimingsWithTimezone(timings, timezone) {
   if (!timings || !timings.length) {
     return timings;
   }
 
   return timings.map(({ begin, end }) => {
-    const fn = isDateHoursMinutesTiming({ begin }) ? convertDHM : inLocalTZ;
+    const fn = dateHoursMinutesTiming.is({ begin }) ? convertDHM : inLocalTZ;
 
     return {
       begin: fn(begin, timezone),
       end: fn(end, timezone),
     };
   });
-};
+}

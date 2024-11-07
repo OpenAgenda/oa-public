@@ -1,9 +1,7 @@
-'use strict';
+import formatRegistration from './formatRegistration.js';
+import convertDateHoursMinutesTimings from './convertDateHoursMinutesTimings.js';
 
-const formatRegistration = require('./formatRegistration');
-const convertDateHoursMinutesTimings = require('./convertDateHoursMinutesTimings');
-
-module.exports = {
+export default {
   formatRegistration,
   convertDateHoursMinutesTimings,
 };

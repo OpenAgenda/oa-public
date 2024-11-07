@@ -1,7 +1,5 @@
-'use strict';
-
-const slugify = require('slugify');
-const defineUnique = require('./defineUnique');
+import slugify from 'slugify';
+import defineUnique from './defineUnique.js';
 
 const rand = () => Math.ceil(Math.random() * 9999999);
 const pickARandomLetter = () =>
@@ -21,5 +19,5 @@ function GenerateSlug(event) {
   };
 }
 
-module.exports = async (service, event) =>
+export default async (service, event) =>
   defineUnique(service, 'slug', GenerateSlug(event));

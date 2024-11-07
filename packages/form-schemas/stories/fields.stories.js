@@ -1,7 +1,9 @@
 import _ from 'lodash';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import debug from 'debug';
+
+import { fromMarkdownToHTML } from '@openagenda/md';
 
 import FormSchemaComponent from '../client/src/index';
 import SimpleRowDecorator from './decorators/SimpleRow';
@@ -161,7 +163,7 @@ export function SlateField() {
 
 export function HTMLField() {
   const [values, setFormValues] = useState({
-    singlelangfield: '<p>Et boum</p>',
+    singlelangfield: '<p>Et boum<br>fdsqsdfd</p><p>fsdqfsdqfqsd</p>',
   });
 
   const [loaded, setLoaded] = useState(true);
@@ -873,6 +875,14 @@ export function Boolean() {
 
 export function MarkdownField() {
   const [state, setState] = useState('');
+  const [reloading, setReloading] = useState(false);
+
+  const reload = useCallback(() => {
+    setReloading(true);
+    setTimeout(() => {
+      setReloading(false);
+    }, 100);
+  });
 
   const props = {
     res: {
@@ -881,7 +891,7 @@ export function MarkdownField() {
     },
     lang: 'fr',
     values: {
-      singlelangfield: 'Avant\n\nhttp://le_monde.com\n\net après',
+      singlelangfield: 'Avant\n\nhttp://le_monde.com\net après',
       multilangfield: { fr: '*Et boum*' },
     },
     schema: {
@@ -951,9 +961,41 @@ export function MarkdownField() {
         </div>
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
+            <button type="button" onClick={reload}>
+              Reload
+            </button>
+            {reloading ? (
+              <p>reloading</p>
+            ) : (
+              <FormSchemaComponent
+                values={state.values}
+                lang="fr"
+                res={{ post: '', redirect: '/' }}
+                schema={{
+                  fields: [
+                    {
+                      field: 'singlelangfield',
+                      fieldType: 'markdown',
+                      label: 'Reprend la saisie faite à gauche',
+                    },
+                  ],
+                }}
+              />
+            )}
+          </div>
+          <div className="margin-v-md margin-h-sm">
+            <strong>Le markdown qui en sort</strong>
             {_.get(state, 'values.singlelangfield') ? (
               <pre style={{ minHeight: 400 }}>
                 {_.get(state, 'values.singlelangfield')}
+              </pre>
+            ) : null}
+          </div>
+          <div className="margin-v-md margin-h-sm">
+            <strong>Le markdown qui en sort, converti en HTML</strong>
+            {_.get(state, 'values.singlelangfield') ? (
+              <pre style={{ minHeight: 400 }}>
+                {fromMarkdownToHTML(_.get(state, 'values.singlelangfield'))}
               </pre>
             ) : null}
           </div>

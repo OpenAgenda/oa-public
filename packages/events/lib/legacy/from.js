@@ -1,9 +1,7 @@
-'use strict';
+import loadLegacyEntries from './lib/loadLegacyEntries.js';
+import assembleEventFromLegacyEntries from './lib/assembleEventFromLegacyEntries.js';
 
-const loadLegacyEntries = require('./lib/loadLegacyEntries');
-const assembleEventFromLegacyEntries = require('./lib/assembleEventFromLegacyEntries');
-
-module.exports = async ({ service, endpoints }, legacyIdentifiers) => {
+export default async ({ service, endpoints }, legacyIdentifiers) => {
   const { knex } = service.clients;
 
   const entries = await loadLegacyEntries(knex, legacyIdentifiers);

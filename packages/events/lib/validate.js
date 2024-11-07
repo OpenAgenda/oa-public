@@ -1,21 +1,21 @@
-'use strict';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import logs from '@openagenda/logs';
+import stream from '@openagenda/validators/stream.js';
 
-const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
-const log = require('@openagenda/logs')('lib/validate');
-const stream = require('@openagenda/validators/stream');
+import timings from '../iso/validators/timings.js';
+import registration from '../iso/validators/registration.js';
+import accessibility from '../iso/validators/accessibility.js';
+import enrichedLinks from '../iso/validators/enrichedLinks.js';
+import longDescription from '../iso/validators/longDescription.js';
+import description from '../iso/validators/description.js';
+import timezone from '../iso/validators/timezone.js';
+import age from '../iso/validators/age.js';
+import keywords from '../iso/validators/keywords.js';
+import fields from './fields.js';
+import compileForValidation from './compileForValidation.js';
+import ValidationError from './ValidationError.js';
 
-const timings = require('../iso/src/validators/timings');
-const registration = require('../iso/src/validators/registration');
-const accessibility = require('../iso/src/validators/accessibility');
-const enrichedLinks = require('../iso/src/validators/enrichedLinks');
-const longDescription = require('../iso/src/validators/longDescription');
-const description = require('../iso/src/validators/description');
-const timezone = require('../iso/src/validators/timezone');
-const age = require('../iso/src/validators/age');
-const keywords = require('../iso/src/validators/keywords');
-const fields = require('./fields');
-const compileForValidation = require('./compileForValidation');
-const ValidationError = require('./ValidationError');
+const log = logs('lib/validate');
 
 const eventCustomValidators = {
   timings,
@@ -54,7 +54,7 @@ const draftValidate = {
   }).getValidate(),
 };
 
-module.exports = async (data, options = {}) => {
+export default async (data, options = {}) => {
   const {
     isPatch = false,
     isDraft = false,

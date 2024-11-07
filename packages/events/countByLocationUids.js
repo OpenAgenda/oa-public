@@ -1,11 +1,11 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('countByLocationUids');
+import addQuery from './lib/addQuery.js';
+import cleanOptions from './lib/cleanOptions.js';
 
-const addQuery = require('./lib/addQuery');
-const cleanOptions = require('./lib/cleanOptions');
+const log = logs('countByLocationUids');
 
-module.exports = async (service, query = {}, o = {}) => {
+export default async (service, query = {}, o = {}) => {
   log('called', query);
   const { knex } = service.clients;
   const k = service.clients.knex(service.config.schema);

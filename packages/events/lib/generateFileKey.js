@@ -1,5 +1,5 @@
-'use strict';
+import uuid from 'uuid';
 
-const uuidV4 = require('uuid/v4');
+const { v4: uuidV4 } = uuid;
 
-module.exports = () => uuidV4().replace(/-/g, '');
+export default () => uuidV4().replace(/-/g, '');

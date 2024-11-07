@@ -1,13 +1,11 @@
-'use strict';
-
-const ValidationError = require('./ValidationError');
+import ValidationError from './ValidationError.js';
 
 function getURLEncoded(sURL) {
   if (decodeURI(sURL) === sURL) return encodeURI(sURL);
   return getURLEncoded(decodeURI(sURL));
 }
 
-module.exports = function cleanImageURL(dirty) {
+export default function cleanImageURL(dirty) {
   try {
     return getURLEncoded(dirty);
   } catch (e) {
@@ -17,4 +15,4 @@ module.exports = function cleanImageURL(dirty) {
       message: 'malformed image url',
     });
   }
-};
+}
