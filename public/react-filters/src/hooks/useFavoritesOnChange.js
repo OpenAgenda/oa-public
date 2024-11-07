@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useForm } from 'react-final-form';
-import matchQuery from '../utils/matchQuery';
-import updateFormValues from '../utils/updateFormValues';
+import matchQuery from '../utils/matchQuery.js';
+import updateFormValues from '../utils/updateFormValues.js';
 
 export default function useFavoritesOnChange(eventUids, { isExclusive } = {}) {
   const form = useForm();

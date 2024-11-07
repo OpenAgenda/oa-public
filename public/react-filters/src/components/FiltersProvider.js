@@ -7,12 +7,12 @@ import React, {
   useRef,
 } from 'react';
 import { Form, FormSpy } from 'react-final-form';
-import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
+import { useConstant } from '@openagenda/react-shared';
 import { createForm } from 'final-form';
 import { RawIntlProvider, useIntl } from 'react-intl';
-import filtersToAggregations from '../utils/filtersToAggregations';
-import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext';
-import { withDefaultFilterConfig } from '../utils';
+import filtersToAggregations from '../utils/filtersToAggregations.js';
+import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext.js';
+import { withDefaultFilterConfig } from '../utils/index.js';
 
 const defaultSubscription = {};
 const spySubscription = { dirty: true, values: true };

@@ -1,5 +1,5 @@
 import { useCallback, useContext } from 'react';
-import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext';
+import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext.js';
 
 export default function useMapOnChange({
   input,

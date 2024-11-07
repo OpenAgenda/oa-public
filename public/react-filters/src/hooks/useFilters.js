@@ -1,6 +1,6 @@
 import { createRef, useMemo } from 'react';
 import { useUIDSeed } from 'react-uid';
-import { getFilters } from '../utils';
+import { getFilters } from '../utils/index.js';
 
 export default function useFilters(intl, fields, opts = {}) {
   const seed = useUIDSeed();
