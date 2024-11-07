@@ -17,12 +17,10 @@ common-labels/build
 date-utils/dist
 intl/dist
 md/dist
+react-filters/build
 react-filters/dist
-react-filters/esm
-react-filters/lib
-react-portal-ssr/esm
-react-portal-ssr/lib
-react-share-menus/lib
+react-portal-ssr/dist
+react-share-menus/dist
 react-shared/css
 react-shared/esm
 react-shared/lib
