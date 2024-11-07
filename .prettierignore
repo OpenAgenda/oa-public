@@ -57,12 +57,10 @@ public/common-labels/build
 public/date-utils/dist
 public/intl/dist
 public/md/dist
+public/react-filters/build
 public/react-filters/dist
-public/react-filters/esm
-public/react-filters/lib
-public/react-portal-ssr/esm
-public/react-portal-ssr/lib
-public/react-share-menus/lib
+public/react-portal-ssr/dist
+public/react-share-menus/dist
 public/react-shared/css
 public/react-shared/esm
 public/react-shared/lib
