@@ -1,10 +1,10 @@
-'use strict';
+import schema from '@openagenda/validators/schema/index.js';
+import boolean from '@openagenda/validators/boolean.js';
+import integer from '@openagenda/validators/integer.js';
+import choice from '@openagenda/validators/choice.js';
+import text from '@openagenda/validators/text.js';
 
-const schema = require('@openagenda/validators/schema');
-const boolean = require('@openagenda/validators/boolean');
-const integer = require('@openagenda/validators/integer');
-const choice = require('@openagenda/validators/choice');
-const text = require('@openagenda/validators/text');
+import fields from './fields.js';
 
 schema.register({
   boolean,
@@ -12,8 +12,6 @@ schema.register({
   choice,
   text,
 });
-
-const fields = require('./fields');
 
 const base = {
   includeFields: {
@@ -75,7 +73,7 @@ const base = {
   },
 };
 
-module.exports = (extendWith = {}) =>
+export default (extendWith = {}) =>
   schema({
     ...base,
     ...extendWith,

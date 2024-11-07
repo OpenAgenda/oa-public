@@ -1,10 +1,7 @@
-'use strict';
+import snakeCase from 'lodash/snakeCase.js';
 
-const _ = require('lodash');
-
-module.exports = (k, nav, options = {}) => {
+export default (k, nav, options = {}) => {
   const { after, offset, limit, order } = nav;
-
   const { useAfter } = options;
 
   if (useAfter) {
@@ -19,7 +16,7 @@ module.exports = (k, nav, options = {}) => {
 
   const [orderField, orderDirection] = order.split('.');
 
-  k.orderBy(_.snakeCase(orderField), orderDirection);
+  k.orderBy(snakeCase(orderField), orderDirection);
 
   return orderField;
 };

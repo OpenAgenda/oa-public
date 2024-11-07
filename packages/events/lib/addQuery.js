@@ -1,8 +1,6 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integerValidator = require('@openagenda/validators/integer');
-const textValidator = require('@openagenda/validators/text');
+import schema from '@openagenda/validators/schema/index.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import textValidator from '@openagenda/validators/text.js';
 
 schema.register({
   integer: integerValidator,
@@ -41,9 +39,15 @@ const validate = schema({
   },
 });
 
-module.exports = (k, query, options = {}) => {
-  const { agendaUid, createdAt, locationUid, ownerUid, search, uid } = validate(query);
+const operatorMap = {
+  gt: '>',
+  gte: '>=',
+  lt: '<',
+  lte: '<=',
+};
 
+export default (k, query, options = {}) => {
+  const { agendaUid, createdAt, locationUid, ownerUid, search, uid } = validate(query);
   const { private: privateOption, draft } = options;
 
   if (agendaUid) {
@@ -66,16 +70,7 @@ module.exports = (k, query, options = {}) => {
     if (!createdAt[op]) {
       return;
     }
-    k.where(
-      'created_at',
-      {
-        gt: '>',
-        gte: '>=',
-        lt: '<',
-        lte: '<=',
-      }[op],
-      createdAt[op],
-    );
+    k.where('created_at', operatorMap[op], createdAt[op]);
   });
 
   if (privateOption !== null) {

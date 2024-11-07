@@ -1,14 +1,12 @@
-'use strict';
-
-const validateDateHoursMinutesTiming = require('./dateHoursMinutesTiming');
+import validateDateHoursMinutesTiming from './dateHoursMinutesTiming.js';
+import validateTiming from './timing.js';
 
 const { is: isDateHoursMinutesTiming } = validateDateHoursMinutesTiming;
-const validateTiming = require('./timing');
 
 const fZ = (n) => (`${n}`.length === 1 ? '0' : '') + n;
 const DHMToString = (t) => `${t.date}T${fZ(t.hours)}:${fZ(t.minutes)}`;
 
-module.exports = (options = {}) =>
+export default (options = {}) =>
   (dirty) => {
     const errors = [];
     const baseError = {

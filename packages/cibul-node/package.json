@@ -45,7 +45,7 @@
     "@openagenda/discord": "^1.0.0",
     "@openagenda/event-form": "^1.5.1",
     "@openagenda/event-search": "^2.8.0",
-    "@openagenda/events": "^2.0.0",
+    "@openagenda/events": "^3.0.0",
     "@openagenda/facebook": "^0.1.5",
     "@openagenda/files": "^3.1.0",
     "@openagenda/flat-exports": "^1.4.0",

@@ -1,5 +1,3 @@
-'use strict';
-
 const findMatching = (occurrences, occurrence) =>
   occurrences
     .filter(
@@ -10,42 +8,43 @@ const findMatching = (occurrences, occurrence) =>
     )
     .pop();
 
-module.exports = async (client, eventId, data) => {
+const occurrenceEntries = async (client, eventId, data) => {
   const currentOccurrences = await client('occurrence')
     .select(['id', 'date', 'time_start', 'time_end'])
     .where('event_id', eventId);
 
-  const setOccurrenceIds = [];
+  const setOccurrenceIds = await Promise.all(
+    data.occurrence.map(async (occurrenceToSet) => {
+      const matching = findMatching(currentOccurrences, occurrenceToSet);
 
-  for (const occurrenceToSet of data.occurrence) {
-    const matching = findMatching(currentOccurrences, occurrenceToSet);
-
-    setOccurrenceIds.push(
-      await (
-        matching
-          ? client('occurrence')
-            .update({
-              ...occurrenceToSet,
-              updated_at: new Date(),
-            })
-            .where('id', matching.id)
-          : client('occurrence').insert({
+      if (matching) {
+        return client('occurrence')
+          .update({
             ...occurrenceToSet,
-            created_at: new Date(),
             updated_at: new Date(),
-            event_id: eventId,
           })
-      ).then((r) => r.pop()),
-    );
-  }
+          .where('id', matching.id)
+          .then((r) => r.pop());
+      }
+
+      return client('occurrence')
+        .insert({
+          ...occurrenceToSet,
+          created_at: new Date(),
+          updated_at: new Date(),
+          event_id: eventId,
+        })
+        .then((r) => r.pop());
+    }),
+  );
 
   const toDeleteIds = currentOccurrences
-    .filter(
-      ({ id }) => !setOccurrenceIds.filter((setId) => setId === id).length,
-    )
+    .filter(({ id }) => !setOccurrenceIds.some((setId) => setId === id))
     .map((o) => o.id);
 
   if (toDeleteIds.length) {
     await client('occurrence').delete().whereIn('id', toDeleteIds);
   }
 };
+
+export default occurrenceEntries;

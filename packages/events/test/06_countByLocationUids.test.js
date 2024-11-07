@@ -1,9 +1,7 @@
-'use strict';
+import { service as config } from '../testconfig.sample.js';
 
-const { service: config } = require('../testconfig.sample');
-
-const Service = require('..');
-const fixtures = require('./fixtures');
+import Service from '../index.js';
+import fixtures from './fixtures/index.js';
 
 describe('events - functional - countByLocationUids', () => {
   const f = fixtures(config.mysql, config.schema);

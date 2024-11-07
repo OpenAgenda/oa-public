@@ -1,7 +1,6 @@
-'use strict';
+import multilingualValidator from '@openagenda/validators/multilingual.js';
 
-const multilingualValidator = require('@openagenda/validators/multilingual');
-const checkAndConvertToMarkdown = require('./checkAndConvertToMarkdown');
+import checkAndConvertToMarkdown from './checkAndConvertToMarkdown.js';
 
 function removeNewLines(value) {
   if (!value) {
@@ -21,8 +20,8 @@ function removeNewLines(value) {
   return value.replace(/\r\n|\n/g, ' ');
 }
 
-module.exports = function longDescriptionValidator(config) {
+export default function longDescriptionValidator(config) {
   const validate = multilingualValidator(config);
   return (value) =>
     validate(checkAndConvertToMarkdown(removeNewLines(value), config));
-};
+}

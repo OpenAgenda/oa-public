@@ -1,6 +1,4 @@
-'use strict';
-
-const ValidationError = require('./ValidationError');
+import ValidationError from './ValidationError.js';
 
 const isUnknownFormatException = (error) =>
   (
@@ -9,7 +7,7 @@ const isUnknownFormatException = (error) =>
     || ''
   ).indexOf('no decode delegate for this image format') !== -1;
 
-module.exports = async function processImage(service, { image, fileKey }) {
+export default async function processImage(service, { image, fileKey }) {
   if (image?.filename && !('transformAndUpload' in image)) {
     return image;
   }
@@ -45,4 +43,4 @@ module.exports = async function processImage(service, { image, fileKey }) {
       type: r.type,
     })),
   };
-};
+}

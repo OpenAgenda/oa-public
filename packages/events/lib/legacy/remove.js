@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async (client, event) => {
+const remove = async (client, event) => {
   const legacyEventId = await client('event')
     .first('id')
     .where('uid', event.uid)
@@ -21,3 +19,5 @@ module.exports = async (client, event) => {
     operation: 'remove',
   };
 };
+
+export default remove;

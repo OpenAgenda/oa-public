@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('legacy/setTranslationEntries');
+const log = logs('legacy/setTranslationEntries');
 
-async function setTranslationEntry(client, table, id, data) {
+const setTranslationEntry = async (client, table, id, data) => {
   if (!await client(table).first('id').where({ id, lang: data.lang })) {
     log('inserting %s reference for id %s', table, id);
     return client(table).insert({
@@ -15,9 +15,9 @@ async function setTranslationEntry(client, table, id, data) {
     id,
     lang: data.lang,
   });
-}
+};
 
-module.exports = async (client, table, id, data) => {
+const setTranslationEntries = async (client, table, id, data) => {
   const editedLangs = [];
 
   for (const translationEntry of data[table]) {
@@ -32,3 +32,5 @@ module.exports = async (client, table, id, data) => {
 
   log('deleted %s %s references', deleteResult, table);
 };
+
+export default setTranslationEntries;

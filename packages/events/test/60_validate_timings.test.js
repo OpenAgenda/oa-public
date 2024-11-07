@@ -1,9 +1,7 @@
-'use strict';
-
-const dateHoursMinutesTiming = require('../iso/src/validators/dateHoursMinutesTiming');
-const validateTiming = require('../iso/src/validators/timing');
-const validateTimings = require('../iso/src/validators/timings');
-const convertDateMinuteHourTimings = require('../utils/convertDateHoursMinutesTimings');
+import dateHoursMinutesTiming from '../iso/validators/dateHoursMinutesTiming.js';
+import validateTiming from '../iso/validators/timing.js';
+import validateTimings from '../iso/validators/timings.js';
+import convertDateMinuteHourTimings from '../utils/convertDateHoursMinutesTimings.js';
 
 describe('timings', () => {
   describe('timing', () => {

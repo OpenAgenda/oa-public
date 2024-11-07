@@ -1,10 +1,7 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integerValidator = require('@openagenda/validators/integer');
-const textValidator = require('@openagenda/validators/text');
-
-const BadRequestError = require('./BadRequestError');
+import schema from '@openagenda/validators/schema/index.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import textValidator from '@openagenda/validators/text.js';
+import BadRequestError from './BadRequestError.js';
 
 schema.register({
   integer: integerValidator,
@@ -20,15 +17,14 @@ const validate = schema({
   },
 });
 
-module.exports = (identifiers) => {
+export default (identifiers) => {
   try {
     const clean = validate(
       ['number', 'string'].includes(typeof identifiers)
-        ? {
-          uid: identifiers,
-        }
+        ? { uid: identifiers }
         : identifiers,
     );
+
     const getFieldName = Object.keys(clean)
       .filter((f) => ![null, undefined].includes(clean[f]))
       .pop();

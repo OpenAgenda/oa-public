@@ -1,8 +1,6 @@
-'use strict';
-
 const d = (v) => (v instanceof Date ? v : new Date(v));
 
-module.exports = (begin, end, origin) => {
+export default (begin, end, origin) => {
   const diff = d(end).getTime() - d(begin).getTime();
 
   if (diff < 0) {

@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const moment = require('moment-timezone');
+import _ from 'lodash';
+import moment from 'moment-timezone';
 
 const convertOccurrenceValue = (date, time, timezone = 'Europe/Paris') =>
   moment
@@ -9,12 +7,12 @@ const convertOccurrenceValue = (date, time, timezone = 'Europe/Paris') =>
     .locale('en')
     .toISOString(true);
 
-module.exports = (entries) => {
+const assembleEventFromLegacyEntries = (entries) => {
   const event = entries.eventTranslations
     .map(({ lang, title, description, tags, free_text: longDescription }) => ({
       title,
       description,
-      keywords: (tags || '').split(',').map((t) => t.trim()),
+      keywords: (tags ?? '').split(',').map((t) => t.trim()),
       longDescription,
       lang,
     }))
@@ -34,7 +32,7 @@ module.exports = (entries) => {
   event.locationUid = entries.location?.uid;
   event.timezone = entries.location?.timezone;
 
-  event.registration = (entries.eventLocation?.ticket_link || '')
+  event.registration = (entries.eventLocation?.ticket_link ?? '')
     .split(',')
     .map((r) => r.trim());
 
@@ -53,7 +51,7 @@ module.exports = (entries) => {
 
   if (entries.event.accessibility) {
     try {
-      event.accessibility = JSON.parse(entries.event.accessibility || '[]')
+      event.accessibility = JSON.parse(entries.event.accessibility ?? '[]')
         .filter((code) => code !== 'sl')
         .reduce(
           (carried, code) => ({
@@ -102,7 +100,7 @@ module.exports = (entries) => {
         },
       ],
     };
-    event.imageCredits = entries.event?.image_credits || '';
+    event.imageCredits = entries.event?.image_credits ?? '';
   }
 
   [
@@ -115,8 +113,10 @@ module.exports = (entries) => {
   ]
     .map((v) => (Array.isArray(v) ? v : [v, v]))
     .forEach(([from, to]) => {
-      _.set(event, to, entries?.event?.[from] || null);
+      _.set(event, to, entries?.event?.[from] ?? null);
     });
 
   return event;
 };
+
+export default assembleEventFromLegacyEntries;

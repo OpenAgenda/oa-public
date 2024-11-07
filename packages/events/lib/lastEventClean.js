@@ -1,12 +1,10 @@
-'use strict';
+import convertDateHoursMinutesTimings from '../utils/convertDateHoursMinutesTimings.js';
+import registrationValidator from '../iso/validators/registration.js';
+import filterItemValuesByFieldAccess from './filterItemValuesByFieldAccess.js';
+import toHTML from './toHTML.js';
+import flatten from './flatten.js';
 
-const convertDateHoursMinutesTimings = require('../utils/convertDateHoursMinutesTimings');
-const {
-  toListOfObjects: registationAsListOfObjects,
-} = require('../iso/src/validators/registration');
-const filterItemValuesByFieldAccess = require('./filterItemValuesByFieldAccess');
-const toHTML = require('./toHTML');
-const flatten = require('./flatten');
+const { toListOfObjects: registationAsListOfObjects } = registrationValidator;
 
 const getPathAndFilename = (file) => {
   if (!file) {
@@ -20,7 +18,7 @@ const getPathAndFilename = (file) => {
   };
 };
 
-module.exports = (event, options = {}) => {
+export default (event, options = {}) => {
   const {
     locations,
     agendas,

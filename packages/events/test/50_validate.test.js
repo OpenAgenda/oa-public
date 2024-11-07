@@ -1,6 +1,4 @@
-'use strict';
-
-const validate = require('../lib/validate');
+import validate from '../lib/validate.js';
 
 describe('validate', () => {
   describe('miscellaneous', () => {

@@ -1,10 +1,9 @@
-'use strict';
+import logs from '@openagenda/logs';
+import setTranslationEntries from './setTranslationEntries.js';
 
-const log = require('@openagenda/logs')('legacy/eventEntry');
+const log = logs('legacy/eventEntry');
 
-const setTranslationEntries = require('./setTranslationEntries');
-
-module.exports = async (client, data) => {
+const eventEntry = async (client, data) => {
   const id = await client
     .first('id')
     .from('event')
@@ -40,3 +39,5 @@ module.exports = async (client, data) => {
     operation: id ? 'update' : 'create',
   };
 };
+
+export default eventEntry;

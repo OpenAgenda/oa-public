@@ -1,8 +1,9 @@
 {
   "name": "@openagenda/events",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "handle core event data",
   "author": "Kaoré",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
@@ -13,9 +14,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false",
-    "build": "rimraf iso/build && babel iso/src -d iso/build -s",
-    "prepack": "yarn build"
+    "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false"
   },
   "dependencies": {
     "@babel/cli": "^7.23.0",
