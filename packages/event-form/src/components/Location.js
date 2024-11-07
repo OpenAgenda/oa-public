@@ -4,10 +4,10 @@ import sa from 'superagent';
 import { Component } from 'react';
 
 import { Modal, Spinner } from '@openagenda/react-shared';
-import LocationSelector from '@openagenda/agenda-locations-app/dist/components/LocationSelector';
-import Provider from '@openagenda/agenda-locations-app/dist/decorators/Providers';
+import LocationSelector from '@openagenda/agenda-locations-app/dist/components/LocationSelector.js';
+import Provider from '@openagenda/agenda-locations-app/dist/decorators/Providers.js';
 
-import flattenLocationTagSet from '../utils/flattenLocationTagSet';
+import flattenLocationTagSet from '../utils/flattenLocationTagSet.js';
 
 const getResItem = (res, key, suffix) => {
   if (typeof res === 'string') {

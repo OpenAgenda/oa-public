@@ -1,17 +1,14 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import ky from 'ky';
 
-import useRes from './useRes';
+import useRes from './useRes.js';
 
 export default (agenda, memberMode) => {
   if (!memberMode) return false;
   const res = useRes(agenda);
   const { isLoading, error, refetch, data } = useQuery(
     ['agenda-memberSchema', agenda.uid],
-    () =>
-      axios
-        .get(res.memberSchema, { params: {} })
-        .then((response) => response.data),
+    () => ky(res.memberSchema).json(),
   );
   return {
     isLoadingMember: isLoading,

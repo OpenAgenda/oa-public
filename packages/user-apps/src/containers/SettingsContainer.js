@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { IntlProvider } from 'react-intl';
 import {
   withLayoutData,
@@ -11,7 +11,7 @@ import {
 } from '@openagenda/react-shared';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
-import * as locales from '../locales-compiled';
+import * as locales from '../locales-compiled/index.mjs';
 import * as userSettingsActions from '../reducers/userSettings';
 import {
   ProfileSettings,
@@ -141,7 +141,7 @@ function SettingsContainer({
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   fetch: async ({ store: { dispatch } }) =>
     (typeof window !== 'undefined'
       ? dispatch(userSettingsActions.load())

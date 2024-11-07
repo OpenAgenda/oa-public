@@ -15,7 +15,7 @@ export default (state = initialState, action = {}) => {
     case VERIFY_LOCATION_COUNT_SUCCESS:
       return {
         ...state,
-        locationCount: action.result.data.count,
+        locationCount: action.result.count,
       };
     case VERIFY_LOCATION_COUNT_FAIL:
       return {

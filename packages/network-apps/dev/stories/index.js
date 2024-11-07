@@ -1,44 +1,40 @@
-'use strict';
-
-/* eslint-disable global-require */
-
-module.exports = [
+export default [
   {
     name: 'Default',
     description: 'A working setup',
     slug: 'default',
-    config: require('./000_default'),
+    config: (await import('./000_default.js')).default,
     req: { lang: 'fr' },
   },
   {
     name: 'Networks load fails',
     description: 'Shows a relevent error message',
     slug: 'networks-error',
-    config: require('./100_networksError'),
+    config: (await import('./100_networksError.js')).default,
   },
   {
     name: 'Network detail load fails',
     description: 'Shows a relevent error message',
     slug: 'network-error',
-    config: require('./101_networkError'),
+    config: (await import('./101_networkError.js')).default,
   },
   {
     name: 'Agendas load fails',
     description: 'A failing load',
     slug: 'agendas-error',
-    config: require('./102_agendasError'),
+    config: await import('./102_agendasError.js').default,
     req: { lang: 'fr' },
   },
   {
     name: 'Network schema save fails',
     description: 'A relevent message appears',
     slug: 'network-schema-save-fail',
-    config: require('./103_schemaUpdateError'),
+    config: (await import('./103_schemaUpdateError.js')).default,
   },
   {
     name: 'Agenda add to network fails',
     description: 'An attempt to add an agenda fails',
     slug: 'agenda-add-fail',
-    config: require('./104_agendaAddError'),
+    config: (await import('./104_agendaAddError.js')).default,
   },
 ];

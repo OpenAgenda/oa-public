@@ -1,7 +1,7 @@
 import '@openagenda/bs-templates/compiled/main.css';
 import { http, HttpResponse } from 'msw';
 import { createMemoryHistory } from 'history';
-import App from '../client/src/App';
+import App from '../client/src/App.js';
 
 import { networks } from './fixtures.json';
 

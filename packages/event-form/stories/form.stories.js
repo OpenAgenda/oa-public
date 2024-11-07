@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { http, HttpResponse } from 'msw';
 
 import '@openagenda/bs-templates/compiled/main.css';
-import EventForm from '../src';
-import Providers from './decorators/Providers';
-import StandardCanvas from './decorators/StandardCanvas';
-import mswEventsMiddleware from './mswEventsMiddleware';
-import { schema } from './fixtures/nevers.json';
+import EventForm from '../src/index.js';
+import Providers from './decorators/Providers.js';
+import StandardCanvas from './decorators/StandardCanvas.js';
+import mswEventsMiddleware from './mswEventsMiddleware.js';
+import neversFixture from './fixtures/nevers.json' with { type: 'json' };
+
+const { schema } = neversFixture;
 
 export default {
   title: 'Integrated form',

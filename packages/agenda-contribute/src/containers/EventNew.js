@@ -3,19 +3,19 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'qs';
 
-import CanvasWithStepper from '../components/CanvasWithStepper';
-import ClosedMessage from '../components/ClosedMessage';
-import EventNewForm from '../components/EventNewForm';
-import Loading from '../components/Loading';
-import Instructions from '../components/Instructions';
+import CanvasWithStepper from '../components/CanvasWithStepper.js';
+import ClosedMessage from '../components/ClosedMessage.js';
+import EventNewForm from '../components/EventNewForm.js';
+import Loading from '../components/Loading.js';
+import Instructions from '../components/Instructions.js';
 
-import steps from '../lib/steps';
-import utils from '../lib/utils';
-import useEventFormConfig from '../hooks/useEventFormConfig';
-import usePrefix from '../hooks/usePrefix';
-import useEventDataForDuplicate from '../hooks/useEventDataForDuplicate';
+import steps from '../lib/steps.js';
+import utils from '../lib/utils.js';
+import useEventFormConfig from '../hooks/useEventFormConfig.js';
+import usePrefix from '../hooks/usePrefix.js';
+import useEventDataForDuplicate from '../hooks/useEventDataForDuplicate.js';
 
-import contributeReducer from '../reducers/contribute';
+import contributeReducer from '../reducers/contribute.js';
 
 const { isContributionType, filterState } = utils;
 

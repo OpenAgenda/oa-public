@@ -1,11 +1,10 @@
-'use strict';
+import logger from '@openagenda/logs';
+import packageJson from '../package.json' with { type: 'json' };
+import router from './router.js';
 
-const logger = require('@openagenda/logs');
+const name = packageJson.name.split('/').pop();
 
-const name = require('../package.json').name.split('/').pop();
-const router = require('./router');
-
-module.exports = Object.assign(
+export default Object.assign(
   (config = {}) => {
     let eventSchema;
 

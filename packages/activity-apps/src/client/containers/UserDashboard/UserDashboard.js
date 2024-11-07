@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { Component } from 'react';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { connect } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
 import { Waypoint } from 'react-waypoint';
@@ -67,7 +67,7 @@ class UserDashboard extends Component {
 }
 
 export default injectIntl(
-  provideHooks({
+  redial.provideHooks({
     inject: ({ store }) =>
       store.inject({
         form: formReducer,

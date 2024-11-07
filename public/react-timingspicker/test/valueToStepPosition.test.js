@@ -1,4 +1,4 @@
-import valueToStepPosition from '../src/utils/valueToStepPosition';
+import valueToStepPosition from '../src/utils/valueToStepPosition.js';
 
 describe('unit - valueToStepPosition', () => {
   const props = {

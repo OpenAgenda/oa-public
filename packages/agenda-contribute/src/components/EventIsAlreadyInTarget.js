@@ -1,7 +1,7 @@
 import { defineMessages, useIntl } from 'react-intl';
-import useEventRes from '../hooks/useEventRes';
-import utils from '../lib/utils';
-import Canvas from './Canvas';
+import useEventRes from '../hooks/useEventRes.js';
+import utils from '../lib/utils.js';
+import Canvas from './Canvas.js';
 
 const messages = defineMessages({
   eventIsInTarget: {

@@ -1,8 +1,8 @@
 import { defineMessages, useIntl } from 'react-intl';
 
-import utils from '../lib/utils';
-import useEventRes from '../hooks/useEventRes';
-import Canvas from './Canvas';
+import utils from '../lib/utils.js';
+import useEventRes from '../hooks/useEventRes.js';
+import Canvas from './Canvas.js';
 
 const messages = defineMessages({
   publishedEvent: {

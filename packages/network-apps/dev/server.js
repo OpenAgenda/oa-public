@@ -1,20 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import express from 'express';
+import webpack from 'webpack';
+import webpackDevMw from 'webpack-dev-middleware';
+import webpackHotMw from 'webpack-hot-middleware';
+import bsTemplates from '@openagenda/bs-templates';
+import Service from '../server/index.js';
+import webpackConfig from './webpack.js';
+import devLayout from './layout.js';
 
-process.env.NODE_ENV = 'development';
-
-const _ = require('lodash');
-
-const express = require('express');
-const webpack = require('webpack');
-const webpackDevMw = require('webpack-dev-middleware');
-const webpackHotMw = require('webpack-hot-middleware');
-
-const style = require('@openagenda/bs-templates').getCss('main');
-
-const Service = require('..');
-const webpackConfig = require('./webpack');
-
-const devLayout = require('./layout');
+const style = bsTemplates.getCss('main');
 
 const compiler = webpack(webpackConfig);
 
@@ -22,7 +16,7 @@ const dev = express();
 
 Service.router.setLayout(devLayout);
 
-const stories = require('./stories').reduce(
+const stories = (await import('./stories/index.js')).default.reduce(
   (carry, story) =>
     _.set(
       carry,
@@ -83,7 +77,7 @@ dev.get('/style.css', (req, res) =>
 dev.get('/favicon.ico', (req, res) => res.sendStatus(404));
 dev.use(
   '/fonts',
-  express.static(`${__dirname}/../bs-templates/templates/fonts`),
+  express.static(`${import.meta.dirname}/../bs-templates/templates/fonts`),
 );
 
 dev.use('/:story', (req, res, next) => {

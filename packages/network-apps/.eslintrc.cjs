@@ -4,19 +4,22 @@ module.exports = {
   extends: '../../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
-  ignorePatterns: ['/build'],
+  ignorePatterns: ['/client/dist'],
 
   rules: {
+    'import/extensions': ['error', 'ignorePackages'],
     'import/no-extraneous-dependencies': [
       'error',
       {
         devDependencies: [
-          `${__dirname}/test/**/*.js`,
-          `${__dirname}/testconfig.sample.js`,
+          `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
+          `${__dirname}/dev/**/*.js`,
+          `${__dirname}/test/**/*.js`,
+          `${__dirname}/webpack.dist.cjs`,
         ],
       },
     ],
@@ -24,14 +27,9 @@ module.exports = {
 
   overrides: [
     {
-      files: [
-        'src/**/*.js',
-        'dev/client/**/*.js',
-        'stories/**/*.js',
-        'test/**/*.js',
-      ],
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

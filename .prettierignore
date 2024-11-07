@@ -2,6 +2,8 @@
 .yarn
 public/.yarn
 
+**/mockServiceWorker.js
+
 # exts
 **/*.mjml
 

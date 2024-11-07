@@ -1,6 +1,6 @@
-import EnabledRanges from '../src/components/configuration/EnabledRanges';
-import Providers from './decorators/Providers';
-import StandardCanvas from './decorators/StandardCanvas';
+import EnabledRanges from '../src/components/configuration/EnabledRanges.js';
+import Providers from './decorators/Providers.js';
+import StandardCanvas from './decorators/StandardCanvas.js';
 
 export default {
   title: 'Configuration Components',

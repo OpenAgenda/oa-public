@@ -1,11 +1,11 @@
 import debug from 'debug';
 import { useEffect } from 'react';
 
-import Loading from '../components/Loading';
+import Loading from '../components/Loading.js';
 
-import utils from '../lib/utils';
-import usePrefix from '../hooks/usePrefix';
-import useAgendaContext from '../hooks/useAgendaContext';
+import utils from '../lib/utils.js';
+import usePrefix from '../hooks/usePrefix.js';
+import useAgendaContext from '../hooks/useAgendaContext.js';
 
 const {
   replaceWithStep,

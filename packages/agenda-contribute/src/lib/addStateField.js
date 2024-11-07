@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import labels from '@openagenda/labels/event/states';
+import labels from '@openagenda/labels/event/states.js';
 import makeLabelGetter from '@openagenda/labels';
 
 export default function addStateField(agenda, locale) {

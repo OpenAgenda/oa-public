@@ -4,7 +4,7 @@ const App = loadable(
   () =>
     import(
       /* webpackChunkName: "legacyEmbeds-App" */
-      './containers/App'
+      './containers/App.js'
     ),
 );
 
@@ -12,7 +12,7 @@ const Dashboard = loadable(
   () =>
     import(
       /* webpackChunkName: "legacyEmbeds-App" */
-      './containers/Dashboard'
+      './containers/Dashboard.js'
     ),
 );
 

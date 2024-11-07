@@ -1,11 +1,9 @@
-'use strict';
-
 // simple dev db
-const fixtures = require('./fixtures.json');
+import fixtures from './fixtures.json' with { type: 'json' };
 
 // dev interface functions
-const interfaces = require('./interfaces')(fixtures);
+import interfaces from './interfaces.js';
 
-module.exports = {
-  interfaces,
+export default {
+  interfaces: interfaces(fixtures),
 };

@@ -1,19 +1,17 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 // simple dev db
-const fixtures = require('./fixtures.json');
+import fixtures from './fixtures.json' with { type: 'json' };
 
 // dev interface functions
-const interfaces = require('./interfaces')(fixtures);
+import interfaces from './interfaces.js';
 
 async function addAgendaToNetwork(_uid, _slug) {
   throw new Error('Could not add agenda');
 }
 
-module.exports = {
-  interfaces: _.assign({}, interfaces, {
+export default {
+  interfaces: _.assign({}, interfaces(fixtures), {
     addAgendaToNetwork,
   }),
 };

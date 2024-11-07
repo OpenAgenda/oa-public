@@ -1,20 +1,20 @@
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CanvasWithStepper from '../components/CanvasWithStepper';
-import ClosedMessage from '../components/ClosedMessage';
-import EventNewForm from '../components/EventNewForm';
-import Loading from '../components/Loading';
-import useEvent from '../hooks/useEvent';
-import Instructions from '../components/Instructions';
+import CanvasWithStepper from '../components/CanvasWithStepper.js';
+import ClosedMessage from '../components/ClosedMessage.js';
+import EventNewForm from '../components/EventNewForm.js';
+import Loading from '../components/Loading.js';
+import useEvent from '../hooks/useEvent.js';
+import Instructions from '../components/Instructions.js';
 
-import steps from '../lib/steps';
-import utils from '../lib/utils';
-import useEventFormConfig from '../hooks/useEventFormConfig';
-import useAgendaContext from '../hooks/useAgendaContext';
-import usePrefix from '../hooks/usePrefix';
+import steps from '../lib/steps.js';
+import utils from '../lib/utils.js';
+import useEventFormConfig from '../hooks/useEventFormConfig.js';
+import useAgendaContext from '../hooks/useAgendaContext.js';
+import usePrefix from '../hooks/usePrefix.js';
 
-import contributeReducer from '../reducers/contribute';
+import contributeReducer from '../reducers/contribute.js';
 
 const { isContributionType } = utils;
 

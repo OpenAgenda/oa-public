@@ -4,29 +4,31 @@ module.exports = {
   extends: '../../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
-  ignorePatterns: ['/dist'],
+  ignorePatterns: ['/build'],
 
   rules: {
+    'import/extensions': ['error', 'ignorePackages'],
     'import/no-extraneous-dependencies': [
       'error',
       {
         devDependencies: [
           `${__dirname}/test/**/*.js`,
           `${__dirname}/testconfig.sample.js`,
-          `${__dirname}/testconfig.js`,
           `${__dirname}/stories/**/*.js`,
+          `${__dirname}/tsup.config.js`,
         ],
       },
     ],
   },
+
   overrides: [
     {
-      files: ['test/*.test.js', 'stories/**/*.js', 'src/**/*.js'],
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

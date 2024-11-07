@@ -1,4 +1,5 @@
 import logs from '@openagenda/logs';
+import cmn from '../../lib/commons-app.js';
 import listMiddleware from './list.middleware.js';
 
 const log = logs('services/activites/plugApp');
@@ -145,17 +146,25 @@ function notificationsRemove(activitiesSvc, req, res) {
 }
 
 export default function plugApp(app) {
-  const { sessions, activities } = app.services;
+  const { sessions, activities, agendas, members } = app.services;
   const preMw = [
     sessions.mw.ifUnlogged((req, res) =>
       res.status(400).json({ error: 'Not logged' })),
   ];
 
-  app.get('/:slug/admin/activities/list', preMw, (req, res) =>
-    listMiddleware({ entityType: 'agenda', entityUid: req.agenda.uid })(
-      req,
-      res,
-    ));
+  app.get(
+    '/:slug/admin/activities/list',
+    cmn.loadLogger('agendaActivities'),
+    sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
+    cmn.loadAgenda,
+    agendas.mw.authorizeByIPAddress(),
+    members.mw.loadAndAuthorize('moderator'),
+    (req, res) =>
+      listMiddleware(activities, {
+        entityType: 'agenda',
+        entityUid: req.agenda.uid,
+      })(req, res),
+  );
 
   app.get('/activities/:id', preMw, activitiesGet.bind(null, activities));
 

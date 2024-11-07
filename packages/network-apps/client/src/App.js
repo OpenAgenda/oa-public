@@ -3,12 +3,12 @@ import { Provider, ReactReduxContext } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { createLogger } from 'redux-logger';
+import reduxLogger from 'redux-logger';
 import { Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 
-import * as reducers from './reducers';
-import getRoutes from './getRoutes';
+import * as reducers from './reducers/index.js';
+import getRoutes from './getRoutes.js';
 
 export default (props = {}) => {
   const { base, lang, createHistory, eventSchema } = {
@@ -26,11 +26,12 @@ export default (props = {}) => {
   };
 
   const history = createHistory();
-  const loggerMiddleware = createLogger();
+  const loggerMiddleware = reduxLogger.createLogger();
 
   const store = createStore(
     combineReducers({
-      ...reducers,
+      main: reducers.main.default,
+      network: reducers.network.default,
       config: () => config,
     }),
     initState,

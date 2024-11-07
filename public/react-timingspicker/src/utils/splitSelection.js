@@ -1,5 +1,5 @@
 import * as dateFns from 'date-fns';
-import normalizeEndOfTiming from './normalizeEndOfTiming';
+import normalizeEndOfTiming from './normalizeEndOfTiming.js';
 
 /**
  * splits timing when duration exceeds permitted maximum set by timingLimit

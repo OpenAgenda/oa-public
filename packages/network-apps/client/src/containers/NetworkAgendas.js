@@ -1,14 +1,14 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as reducers from '../reducers';
+import * as reducers from '../reducers/index.js';
 
-import AddAgenda from '../components/AddAgenda';
-import CreateAgenda from '../components/CreateAgenda';
-import RemoveAgenda from '../components/RemoveAgenda';
-import Canvas from '../components/Canvas';
-import ListHead from '../components/ListHead';
-import Loading from '../components/Loading';
+import AddAgenda from '../components/AddAgenda.js';
+import CreateAgenda from '../components/CreateAgenda.js';
+import RemoveAgenda from '../components/RemoveAgenda.js';
+import Canvas from '../components/Canvas.js';
+import ListHead from '../components/ListHead.js';
+import Loading from '../components/Loading.js';
 
 export class NetworkAgendasComponent extends Component {
   componentDidMount() {

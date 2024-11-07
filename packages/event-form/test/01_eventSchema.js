@@ -1,7 +1,6 @@
-const _ = require('lodash');
-const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
-
-const eventSchema = require('../src/schema');
+import _ from 'lodash';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import eventSchema from '../src/schema.js';
 
 describe('event-form eventSchema', () => {
   test('languages set to true equates no languages', () => {

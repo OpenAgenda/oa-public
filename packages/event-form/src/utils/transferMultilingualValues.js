@@ -1,7 +1,7 @@
-const _ = require('lodash');
-const ih = require('immutability-helper');
+import _ from 'lodash';
+import ih from 'immutability-helper';
 
-module.exports = (values, multilingualFields, fromLanguage, toLanguage) => {
+export default (values, multilingualFields, fromLanguage, toLanguage) => {
   const update = multilingualFields.reduce(
     (result, field) =>
       _.set(result, field, {

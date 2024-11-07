@@ -3,16 +3,16 @@ import debug from 'debug';
 import { useQueryClient } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import Loading from '../components/Loading';
+import Loading from '../components/Loading.js';
 
-import MemberForm from '../components/MemberForm';
-import CanvasWithStepper from '../components/CanvasWithStepper';
-import useAgendaContext from '../hooks/useAgendaContext';
-import useDetailedAgenda from '../hooks/useDetailedAgenda';
-import usePrefix from '../hooks/usePrefix';
-import steps from '../lib/steps';
-import contributeReducer from '../reducers/contribute';
-import utils from '../lib/utils';
+import MemberForm from '../components/MemberForm.js';
+import CanvasWithStepper from '../components/CanvasWithStepper.js';
+import useAgendaContext from '../hooks/useAgendaContext.js';
+import useDetailedAgenda from '../hooks/useDetailedAgenda.js';
+import usePrefix from '../hooks/usePrefix.js';
+import steps from '../lib/steps.js';
+import contributeReducer from '../reducers/contribute.js';
+import utils from '../lib/utils.js';
 
 const { replaceWithStep } = utils;
 

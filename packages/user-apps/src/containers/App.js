@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { renderRoutes } from 'react-router-config';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { reducer as formReducer } from 'redux-form';
 import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData } from '@openagenda/react-shared';
@@ -44,7 +44,7 @@ function App({ route }) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       form: formReducer,

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { renderRoutes } from 'react-router-config';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { IntlProvider } from 'react-intl';
 import { css } from '@emotion/react';
 import makeGetterLabel from '@openagenda/labels';
@@ -49,7 +49,7 @@ function CreationApp({ route }) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       agenda: agendaActions.default,

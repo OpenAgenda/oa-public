@@ -1,2 +1,2 @@
-export { default as main } from './main';
-export { default as network } from './network';
+export * as main from './main.js';
+export * as network from './network.js';

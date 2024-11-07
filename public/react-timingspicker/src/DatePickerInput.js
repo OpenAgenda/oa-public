@@ -1,16 +1,14 @@
-import DayPickerInput from 'react-day-picker/DayPickerInput';
+import DayPickerInput from 'react-day-picker/DayPickerInput.js';
 import { DateUtils } from 'react-day-picker';
 import * as dateFns from 'date-fns';
-import dateFnsFormat from 'date-fns/format';
-import dateFnsParse from 'date-fns/parse';
-import deriveDateFormat from './utils/deriveDateFormat';
+import deriveDateFormat from './utils/deriveDateFormat.js';
 
 function formatDate(date, format) {
-  return dateFnsFormat(date, format);
+  return dateFns.format(date, format);
 }
 
 function parseDate(str, format) {
-  const parsed = dateFnsParse(str, format, new Date());
+  const parsed = dateFns.parse(str, format, new Date());
 
   if (
     DateUtils.isDate(parsed)
@@ -70,7 +68,7 @@ export default function DatePickerInput({
         formatDate={formatDate}
         format={derivedDateFormat}
         parseDate={parseDate}
-        placeholder={`${dateFnsFormat(new Date(), derivedDateFormat)}`}
+        placeholder={`${dateFns.format(new Date(), derivedDateFormat)}`}
         dayPickerProps={dayPickerProps}
       />
 

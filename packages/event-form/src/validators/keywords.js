@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const multilingual = require('@openagenda/validators/multilingual');
+import _ from 'lodash';
+import multilingual from '@openagenda/validators/multilingual.js';
 
 const validate = multilingual({
   max: 255,
@@ -7,7 +7,7 @@ const validate = multilingual({
   optional: true,
 });
 
-module.exports = () => (value) => {
+export default () => (value) => {
   const clean = validate(value);
 
   const splitCommas = {};

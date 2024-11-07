@@ -1,4 +1,4 @@
-import DST from '../src/utils/DST';
+import DST from '../src/utils/DST.js';
 
 describe('unit - DST', () => {
   describe('hasSwitched', () => {

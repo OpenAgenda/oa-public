@@ -1,4 +1,4 @@
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { renderRoutes } from 'react-router-config';
 import { reducer as formReducer } from 'redux-form';
 import { IntlProvider } from 'react-intl';
@@ -26,7 +26,7 @@ function AgendaApp({ route }) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       form: formReducer,
