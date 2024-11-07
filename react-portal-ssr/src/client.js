@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
-import { PortalContext, portalSelector } from './common';
+import { PortalContext, portalSelector } from './common.js';
 
-export * from './common';
+export * from './common.js';
 
 export function Portal({ children, selector = '#portal' }) {
   return (

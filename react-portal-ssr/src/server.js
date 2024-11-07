@@ -1,8 +1,8 @@
 import { renderToString } from 'react-dom/server';
 import { load } from 'cheerio';
-import { portalSelector } from './common';
+import { portalSelector } from './common.js';
 
-export * from './common';
+export * from './common.js';
 
 export class PortalServer {
   constructor(context) {
