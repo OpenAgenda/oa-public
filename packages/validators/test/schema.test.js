@@ -976,6 +976,54 @@ describe('schema validator', () => {
         expect(result.imagePasVolée).toBeNull();
       });
 
+      it('simple enabling with a boolean at false means it is not enabled', () => {
+        const validate = schema({
+          checkToEnable: {
+            type: 'boolean',
+          },
+          checkIfEnabled: {
+            type: 'boolean',
+            optional: false,
+            enableWith: 'checkToEnable',
+          },
+        });
+
+        validate({
+          checkToEnable: false,
+        });
+      });
+
+      it('simple enabling with a boolean at true means it is enabled', () => {
+        let errors;
+
+        const validate = schema({
+          checkToEnable: {
+            type: 'boolean',
+          },
+          checkIfEnabled: {
+            type: 'boolean',
+            optional: false,
+            enableWith: 'checkToEnable',
+          },
+        });
+
+        try {
+          validate({
+            checkToEnable: true,
+          });
+        } catch (e) {
+          errors = e;
+        }
+        expect(errors).toEqual([
+          {
+            origin: undefined,
+            code: 'required',
+            message: 'a boolean is required',
+            field: 'checkIfEnabled',
+          },
+        ]);
+      });
+
       it('enableWith with a list value enables field only when the list is not empty', () => {
         const validate = schema({
           selection: {
