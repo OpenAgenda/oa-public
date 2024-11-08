@@ -7,7 +7,7 @@ import flattenLabels from '@openagenda/labels/flatten.js';
 
 import DateField from '@openagenda/form-schemas/client/build/Components/DateField.js';
 
-const MaskedInput = MaskedInputModule || MaskedInputModule;
+const MaskedInput = MaskedInputModule.default || MaskedInputModule;
 
 const timeMask = [/\d/, /\d/, ':', /\d/, /\d/];
 

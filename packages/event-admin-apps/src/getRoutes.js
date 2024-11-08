@@ -1,12 +1,12 @@
 import { loadable } from '@openagenda/react-shared';
 
 const App = loadable(
-  () => import(/* webpackChunkName: "eventAdmin-App" */ './containers/App'),
+  () => import(/* webpackChunkName: "eventAdmin-App" */ './containers/App.js'),
 );
 const Dashboard = loadable(
   () =>
     import(
-      /* webpackChunkName: "eventAdmin-Dashboard" */ './containers/Dashboard'
+      /* webpackChunkName: "eventAdmin-Dashboard" */ './containers/Dashboard.js'
     ),
 );
 

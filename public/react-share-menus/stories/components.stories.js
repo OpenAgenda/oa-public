@@ -3,9 +3,9 @@ import { Modal } from '@openagenda/react-shared';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import AgendaSearchInput from '../src/components/AgendaSearchInput';
+import AgendaSearchInput from '../src/components/AgendaSearchInput.js';
 
-import SimplePage from './decorators/SimplePage';
+import SimplePage from './decorators/SimplePage.js';
 import homeAgendas from './fixtures/api.homeAgendas.json';
 import publicAgendas from './fixtures/api.publicAgendas.json';
 

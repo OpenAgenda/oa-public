@@ -1,7 +1,7 @@
-import loadable from '@openagenda/react-shared/lib/utils/loadable';
+import { loadable } from '@openagenda/react-shared';
 
 const LoadableMapField = loadable(
-  () => import(/* webpackChunkName: "reactFilters-Map" */ './Map'),
+  () => import(/* webpackChunkName: "reactFilters-Map" */ './Map.js'),
   { ssr: false },
 );
 

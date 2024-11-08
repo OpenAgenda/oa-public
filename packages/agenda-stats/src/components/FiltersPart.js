@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useLatest, useUpdateEffect } from 'react-use';
 import qs from 'qs';
-import { css } from '@emotion/react';
 import {
   Filters,
   DateRangeFilter,
   ChoiceFilter,
 } from '@openagenda/react-filters';
 import { useLayoutData } from '@openagenda/react-shared';
-import validateQuery from '@openagenda/event-search/utils/validateQuery';
+import validateQuery from '@openagenda/event-search/utils/validateQuery.js';
 
 export default function FiltersPart({
   filters,
@@ -100,19 +99,7 @@ export default function FiltersPart({
   ]);
 
   return (
-    <div
-      className="oa-collapse"
-      css={css`
-        .oa-choice-option-label {
-          min-height: 20px;
-          line-height: 20px;
-          padding-left: 20px;
-          margin-bottom: 0;
-          font-weight: normal;
-          cursor: pointer;
-        }
-      `}
-    >
+    <div className="oa-collapse">
       <Filters
         filters={filters}
         disabled={loading}

@@ -8,8 +8,8 @@
     "start": "storybook dev -p 9001  --ci",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",
-    "prepack": "yarn clean && yarn oa-intl compile --esm && yarn build",
-    "extract-messages": "yarn oa-intl --esm"
+    "prepack": "yarn clean && yarn oa-intl compile && yarn build",
+    "extract-messages": "yarn oa-intl"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.23.2",

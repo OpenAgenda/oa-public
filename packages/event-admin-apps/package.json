@@ -14,18 +14,17 @@
     "README.md",
     "dist/**"
   ],
+  "type": "module",
   "main": "dist/app.js",
   "scripts": {
     "storybook": "storybook dev",
     "sb": "yarn storybook",
-    "build": "babel --copy-files src -d dist -s",
+    "build": "tsup",
     "clean": "rimraf dist",
-    "prepack": "yarn clean && yarn oa-intl compile && yarn build",
-    "extract-messages": "yarn oa-intl"
+    "prepack": "yarn clean && oa-intl compile --esm && yarn build",
+    "extract-messages": "oa-intl --esm"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.23.2",
-    "@emotion/react": "^11.11.1",
     "@openagenda/agenda-docx": "^1.2.1",
     "@openagenda/common-labels": "^1.0.0",
     "@openagenda/event-search": "^2.8.0",
@@ -53,12 +52,7 @@
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
-    "@babel/core": "^7.23.3",
-    "@emotion/babel-plugin": "^11.11.0",
-    "@loadable/babel-plugin": "^5.13.2",
     "@loadable/component": "^5.14.1",
-    "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/react-webpack5": "^7.4.2",
@@ -71,7 +65,8 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "storybook": "^7.6.4"
+    "storybook": "^7.6.4",
+    "tsup": "^8.3.5"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

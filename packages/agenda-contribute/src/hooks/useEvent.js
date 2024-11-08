@@ -1,7 +1,6 @@
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
-import { omit } from 'lodash';
-
+import omit from 'lodash/omit.js';
 import useEventContext from './useEventContext.js';
 
 const validateStatus = (status) => (status >= 200 && status < 300) || 404;

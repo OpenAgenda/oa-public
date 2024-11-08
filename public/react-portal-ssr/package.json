@@ -1,9 +1,8 @@
 {
   "name": "@openagenda/react-portal-ssr",
   "version": "1.0.1",
-  "main": "lib/client.js",
-  "jsnext:main": "esm/client.js",
-  "module": "esm/client.js",
+  "type": "module",
+  "main": "dist/client.js",
   "sideEffects": false,
   "license": "MIT",
   "homepage": "https://github.com/OpenAgenda/oa-public",
@@ -11,48 +10,37 @@
     "access": "public"
   },
   "files": [
-    "dist",
-    "lib",
-    "esm"
+    "dist"
   ],
   "exports": {
     ".": {
-      "import": "./esm/client.js",
-      "require": "./lib/client.js",
-      "default": "./lib/client.js"
+      "require": "./dist/client.cjs",
+      "import": "./dist/client.js",
+      "default": "./dist/client.js"
     },
     "./server": {
-      "import": "./esm/server.js",
-      "require": "./lib/server.js",
-      "default": "./lib/server.js"
+      "require": "./dist/server.cjs",
+      "import": "./dist/server.js",
+      "default": "./dist/server.js"
     },
     "./common": {
-      "import": "./esm/common.js",
-      "require": "./lib/common.js",
-      "default": "./lib/common.js"
+      "require": "./dist/common.cjs",
+      "import": "./dist/common.js",
+      "default": "./dist/common.js"
     },
     "./package.json": "./package.json"
   },
   "scripts": {
-    "prepack": "yarn clean && yarn build",
-    "build": "yarn build:esm && yarn build:cjs",
-    "build:esm": "babel --copy-files src -d esm -s --env-name esm",
-    "build:cjs": "babel --copy-files src -d lib -s",
-    "clean": "rimraf esm lib"
+    "prepack": "tsup"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.23.2",
-    "cheerio": "^1.0.0-rc.10",
-    "core-js": "^3.29.1"
+    "cheerio": "^1.0.0-rc.10"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
-    "@babel/core": "^7.23.3",
-    "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "rimraf": "^3.0.1"
+    "tsup": "^8.3.5"
   },
   "peerDependencies": {
     "react": "^18.2.0",

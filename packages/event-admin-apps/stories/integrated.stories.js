@@ -3,9 +3,9 @@ import { useRef } from 'react';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
 
-import createApp from '../src/app';
-import AdminPageDecorator from './decorators/AdminPage';
-import ProvidersDecorator from './decorators/Providers';
+import createApp from '../src/app.js';
+import AdminPageDecorator from './decorators/AdminPage.js';
+import ProvidersDecorator from './decorators/Providers.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 import mainData from './fixtures/new.json';

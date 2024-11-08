@@ -3,12 +3,12 @@ import { useUpdateEffect, usePrevious, useLatest } from 'react-use';
 import { useDispatch } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { useModal, Spinner } from '@openagenda/react-shared';
-import useChartTitle from '../hooks/useChartTitle';
-import * as statsActions from '../reducers/stats';
-import LoadMore from './LoadMore';
-import BorderBox from './BorderBox';
-import IntervalSelect from './basics/IntervalSelect';
-import StatEditModal from './StatEditModal';
+import useChartTitle from '../hooks/useChartTitle.js';
+import * as statsActions from '../reducers/stats.js';
+import LoadMore from './LoadMore.js';
+import BorderBox from './BorderBox.js';
+import IntervalSelect from './basics/IntervalSelect.js';
+import StatEditModal from './StatEditModal.js';
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 
 const messages = defineMessages({

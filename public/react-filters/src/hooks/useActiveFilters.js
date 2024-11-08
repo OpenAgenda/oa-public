@@ -1,8 +1,8 @@
 import { useFormState } from 'react-final-form';
 import { useMemo } from 'react';
-import staticRangesFirst from '../utils/staticRangesFirst';
-import customFirst from '../utils/customFirst';
-import matchFilter from '../utils/matchFilter';
+import staticRangesFirst from '../utils/staticRangesFirst.js';
+import customFirst from '../utils/customFirst.js';
+import matchFilter from '../utils/matchFilter.js';
 
 export default function useActiveFilters(filters) {
   const { values } = useFormState({ subscription: { values: true } });

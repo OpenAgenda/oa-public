@@ -1,7 +1,7 @@
 import { defineMessages, useIntl } from 'react-intl';
-import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
-import endOfWeek from 'date-fns/endOfWeek';
-import getWeekNumber from '../../utils/getWeekNumber';
+import { getValueByDataKey } from 'recharts/lib/util/ChartUtils.js';
+import endOfWeek from 'date-fns/endOfWeek/index.js';
+import getWeekNumber from '../../utils/getWeekNumber.js';
 
 const messages = defineMessages({
   day: {

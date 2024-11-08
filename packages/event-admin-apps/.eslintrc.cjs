@@ -1,12 +1,18 @@
 'use strict';
 
+module.exports = 'use strict';
+
 module.exports = {
   extends: '../../.eslintrc',
+
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
+
   ignorePatterns: ['/dist'],
+
   rules: {
+    'import/extensions': ['error', 'ignorePackages'],
     'import/no-extraneous-dependencies': [
       'error',
       {
@@ -15,20 +21,17 @@ module.exports = {
           `${__dirname}/stories/**/*.js`,
           `${__dirname}/scripts/**/*.js`,
           `${__dirname}/test/**/*.js`,
+          `${__dirname}/tsup.config.js`,
         ],
       },
     ],
   },
+
   overrides: [
     {
-      files: [
-        'src/**/*.js',
-        '.storybook/**/*.js',
-        'stories/**/*.js',
-        'test/**/*.js',
-      ],
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

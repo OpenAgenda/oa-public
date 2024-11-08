@@ -2,10 +2,10 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { useCallback, useState } from 'react';
 import { Form } from 'react-final-form';
-import * as statsActions from '../reducers/stats';
-import getDefaultStatConfig from '../common/defaultStatConfigs';
-import BorderBox from './BorderBox';
-import AddChartForm from './AddChartForm';
+import * as statsActions from '../reducers/stats.js';
+import getDefaultStatConfig from '../common/defaultStatConfigs.js';
+import BorderBox from './BorderBox.js';
+import AddChartForm from './AddChartForm.js';
 
 const messages = defineMessages({
   addChart: {

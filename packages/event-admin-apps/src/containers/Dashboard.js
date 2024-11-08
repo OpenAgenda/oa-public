@@ -7,8 +7,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { Base64 } from 'js-base64';
-import * as dateFnsLocales from 'date-fns/locale';
-import { css } from '@emotion/react';
+import * as dateFnsLocales from 'date-fns/locale/index.js';
 import {
   a11yButtonActionHandler,
   useApiClient,
@@ -24,20 +23,20 @@ import {
   useGetFilterOptions,
   Sort,
 } from '@openagenda/react-filters';
-import validateQuery from '@openagenda/event-search/utils/validateQuery';
-import FiltersPortal from '../components/FiltersPortal';
-import FiltersPreview from '../components/FiltersPreview';
-import EmptyDashboard from '../components/EmptyDashboard';
-import RemoveModal from '../components/RemoveModal';
-import EventItem from '../components/EventItem';
-import Actions from '../components/Actions';
-import exportsMessages from '../messages/exports';
-import BatchedStateSelector from '../components/BatchedStateSelector';
-import Pager from '../components/Pager';
-import removeQueryPrefix from '../utils/removeQueryPrefix';
-import addQueryPrefix from '../utils/addQueryPrefix';
-import flattenAgendaSchema from '../utils/flattenAgendaSchema';
-import ExportsDropdown from '../components/ExportsDropdown';
+import validateQuery from '@openagenda/event-search/utils/validateQuery.js';
+import FiltersPortal from '../components/FiltersPortal.js';
+import FiltersPreview from '../components/FiltersPreview.js';
+import EmptyDashboard from '../components/EmptyDashboard.js';
+import RemoveModal from '../components/RemoveModal.js';
+import EventItem from '../components/EventItem.js';
+import Actions from '../components/Actions.js';
+import exportsMessages from '../messages/exports.js';
+import BatchedStateSelector from '../components/BatchedStateSelector.js';
+import Pager from '../components/Pager.js';
+import removeQueryPrefix from '../utils/removeQueryPrefix.js';
+import addQueryPrefix from '../utils/addQueryPrefix.js';
+import flattenAgendaSchema from '../utils/flattenAgendaSchema.js';
+import ExportsDropdown from '../components/ExportsDropdown.js';
 
 const PAGE_SIZE = 20;
 
@@ -639,12 +638,7 @@ function Dashboard() {
           toggleSelectMode={enableSelectMode}
         />
 
-        <div
-          className="pull-left"
-          css={css`
-            width: 50%;
-          `}
-        >
+        <div className="pull-left" style={{ width: '50%' }}>
           <Search disabled={isFetching} isLoading={isFetching} />
         </div>
 
@@ -657,12 +651,7 @@ function Dashboard() {
         <div className="clearfix" />
 
         {hasQuery ? (
-          <div
-            className="margin-top-sm"
-            css={css`
-              line-height: 24px;
-            `}
-          >
+          <div className="margin-top-sm" style={{ lineHeight: '24px' }}>
             <span className="hidden-sm">
               <FiltersPreview
                 filters={filters}
@@ -673,9 +662,9 @@ function Dashboard() {
             <button
               type="button"
               className="btn btn-hover-danger btn-link btn-link-inline"
-              css={css`
-                line-height: 16px;
-              `}
+              style={{
+                lineHeight: '16px',
+              }}
               onClick={clearFilters}
             >
               {intl.formatMessage(messages.clearFilters)}
@@ -686,10 +675,10 @@ function Dashboard() {
         {hasSelection || selectMode ? (
           <div
             className="margin-v-md"
-            css={css`
-              border-left: 3px solid #41acdd;
-              padding: 5px 5px 5px 12px;
-            `}
+            style={{
+              borderLeft: '3px solid #41acdd',
+              padding: '5px 5px 5px 12px',
+            }}
           >
             <span className="margin-right-sm">
               <b>{intl.formatMessage(messages.yourSelection)}</b>
@@ -770,9 +759,7 @@ function Dashboard() {
                 rangeSize={data.events.length}
                 previousPage={previousPage}
                 nextPage={nextPage}
-                css={css`
-                  margin: 0;
-                `}
+                className="margin-all-z"
               />
             ) : null}
           </div>
@@ -794,14 +781,7 @@ function Dashboard() {
             <label
               className="checkbox-inline"
               htmlFor="select-all"
-              css={css`
-                font-weight: normal;
-
-                // Does not work directly on input
-                input {
-                  margin-top: 2px;
-                }
-              `}
+              style={{ fontWeight: 'normal' }}
             >
               <input
                 type="checkbox"
@@ -809,6 +789,7 @@ function Dashboard() {
                 onChange={selectAll}
                 checked={allSelected}
                 ref={selectAllRef}
+                style={{ marginTop: '2px' }}
               />{' '}
               {intl.formatMessage(messages.selectAll)}
             </label>

@@ -4,7 +4,6 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useMutation, useQueryClient } from 'react-query';
 import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 import qs from 'qs';
-import { css } from '@emotion/react';
 import {
   useApiClient,
   MoreInfo,
@@ -13,11 +12,11 @@ import {
   nl2br,
 } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
-import toggleEventItemValue from '../utils/toggleEventItemValue';
-import EventStateSelector from './EventStateSelector';
-import EventItemShareLine from './EventItemShareLine';
-import StatusBadge from './StatusBadge';
-import PassImage from './PassImage';
+import toggleEventItemValue from '../utils/toggleEventItemValue.js';
+import EventStateSelector from './EventStateSelector.js';
+import EventItemShareLine from './EventItemShareLine.js';
+import StatusBadge from './StatusBadge.js';
+import PassImage from './PassImage.js';
 
 const messages = defineMessages({
   createdBy: {
@@ -238,18 +237,14 @@ export default function EventItem({
     <li
       key={event.uid}
       className="padding-v-sm padding-right-md"
-      css={css`
-        position: relative;
-      `}
+      style={{ position: 'relative' }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       <div>
         <a
           href={`/${agenda.slug}/events/${event.slug}${adminNavStr}`}
-          css={css`
-            color: inherit;
-          `}
+          style={{ color: 'inherit' }}
         >
           <StatusBadge status={event.status} intl={intl} />
 
@@ -450,12 +445,12 @@ export default function EventItem({
 
         {hovered || selectionMode ? (
           <div
-            css={css`
-              position: absolute;
-              top: 50%;
-              right: 4px;
-              transform: translateY(-50%);
-            `}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              right: '4px',
+              transform: 'translateY(-50%)',
+            }}
           >
             <input type="checkbox" onChange={onSelect} checked={selected} />
           </div>

@@ -5,7 +5,7 @@ import base64 from 'base-64';
 import utf8 from 'utf8';
 
 import { Modal } from '@openagenda/react-shared';
-import AgendaSearchInput from './AgendaSearchInput';
+import AgendaSearchInput from './AgendaSearchInput.js';
 
 const AggregatorModal = ({ targetAgenda, onClose, res, userLogged, root }) => {
   const [noAgendas, setNoAgendas] = useState(false);

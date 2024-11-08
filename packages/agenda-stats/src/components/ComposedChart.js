@@ -1,21 +1,21 @@
 import _ from 'lodash';
 import React, { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
+import { getValueByDataKey } from 'recharts/lib/util/ChartUtils.js';
 import ContentLoader from 'react-content-loader';
 import { getLocaleValue } from '@openagenda/intl';
-import mergeMultiData from '../utils/mergeMultiData';
-import addRestItem from '../utils/addRestItem';
-import { getChartConfig } from '../common/defaultStatConfigs';
-import emptyOptionMessage from '../messages/emptyOption';
-import HorizontalBarChart from './basics/HorizontalBarChart';
-import VerticalBarChart from './basics/VerticalBarChart';
-import PieChart from './basics/PieChart';
-import DateAxisTick from './basics/DateAxisTick';
-import DateTooltipItem from './basics/DateTooltipItem';
-import StateTooltipItem from './basics/StateTooltipItem';
-import BooleanTooltipItem from './basics/BooleanTooltipItem';
-import DefaultTooltipItem from './basics/DefaultTooltipItem';
+import mergeMultiData from '../utils/mergeMultiData.js';
+import addRestItem from '../utils/addRestItem.js';
+import { getChartConfig } from '../common/defaultStatConfigs.js';
+import emptyOptionMessage from '../messages/emptyOption.js';
+import HorizontalBarChart from './basics/HorizontalBarChart.js';
+import VerticalBarChart from './basics/VerticalBarChart.js';
+import PieChart from './basics/PieChart.js';
+import DateAxisTick from './basics/DateAxisTick.js';
+import DateTooltipItem from './basics/DateTooltipItem.js';
+import StateTooltipItem from './basics/StateTooltipItem.js';
+import BooleanTooltipItem from './basics/BooleanTooltipItem.js';
+import DefaultTooltipItem from './basics/DefaultTooltipItem.js';
 
 const messages = defineMessages({
   tooltipContentEvents: {

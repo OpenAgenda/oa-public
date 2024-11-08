@@ -1,10 +1,10 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import cn from 'classnames';
-import { useMapUserControl, useMapOnChange } from '../../../hooks';
-import LoadableMap from './LoadableMap';
-import SearchWithMap from './SearchWithMap';
-import { gestureHandlingStyle, markerClusterStyle } from './mapStyle';
+import { useMapUserControl, useMapOnChange } from '../../../hooks/index.js';
+import LoadableMap from './LoadableMap.js';
+import SearchWithMap from './SearchWithMap.js';
+import { gestureHandlingStyle, markerClusterStyle } from './mapStyle.js';
 
 const mapStyle = css`
   height: 100%;

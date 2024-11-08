@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
-import { debounce, throttle } from 'lodash';
+import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
 import { AgendasSearch as AgendasSearchComponent } from '@openagenda/react-shared';
 import * as agendasActions from '../redux/modules/agendas';
 

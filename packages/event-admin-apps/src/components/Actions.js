@@ -2,12 +2,11 @@ import { useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import qs from 'qs';
-import { css } from '@emotion/react';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
-import DocxExportModal from '@openagenda/agenda-docx/client/build/ExportModal';
-import exportsMessages from '../messages/exports';
-import SpreadsheetModal from './SpreadsheetModal';
-import ExportsDropdown from './ExportsDropdown';
+import DocxExportModal from '@openagenda/agenda-docx/client/build/ExportModal.js';
+import exportsMessages from '../messages/exports.js';
+import SpreadsheetModal from './SpreadsheetModal.js';
+import ExportsDropdown from './ExportsDropdown.js';
 
 const messages = defineMessages({
   createAnEvent: {
@@ -63,12 +62,7 @@ export default function Actions({
   );
 
   return (
-    <div
-      className="actions margin-bottom-md"
-      css={css`
-        line-height: 16px;
-      `}
-    >
+    <div className="actions margin-bottom-md" style={{ lineHeight: '16px' }}>
       <ExportsDropdown
         agenda={agenda}
         queryString={queryString}

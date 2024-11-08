@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { isSameDay } from 'date-fns';
 import { useModal } from '@openagenda/react-shared';
-import * as statsActions from '../reducers/stats';
-import RangeModal from './RangeModal';
+import * as statsActions from '../reducers/stats.js';
+import RangeModal from './RangeModal.js';
 
 const messages = defineMessages({
   sameDayRange: {

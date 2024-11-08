@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { useModal } from '@openagenda/react-shared';
-import * as statsActions from '../reducers/stats';
-import RangeTypeModal from './RangeTypeModal';
+import * as statsActions from '../reducers/stats.js';
+import RangeTypeModal from './RangeTypeModal.js';
 
 const messages = defineMessages({
   sameDayRange: {

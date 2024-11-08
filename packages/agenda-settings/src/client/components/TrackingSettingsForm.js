@@ -1,4 +1,6 @@
-import _, { isEqual } from 'lodash';
+import get from 'lodash/get';
+import identity from 'lodash/identity';
+import isEqual from 'lodash/isEqual';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import Select from 'react-select';
@@ -46,18 +48,14 @@ function matomoUrlInitialValue(tracking) {
 
 function getFormValues(agenda) {
   return {
-    googleAnalytics: _.get(agenda, 'settings.tracking.googleAnalytics', null),
-    googleAnalyticsSecret: _.get(
+    googleAnalytics: get(agenda, 'settings.tracking.googleAnalytics', null),
+    googleAnalyticsSecret: get(
       agenda,
       'settings.tracking.googleAnalyticsSecret',
       null,
     ),
-    secretCheck: !!_.get(
-      agenda,
-      'settings.tracking.googleAnalyticsSecret',
-      null,
-    ),
-    matomoSiteId: _.get(agenda, 'settings.tracking.matomoSiteId', null),
+    secretCheck: !!get(agenda, 'settings.tracking.googleAnalyticsSecret', null),
+    matomoSiteId: get(agenda, 'settings.tracking.matomoSiteId', null),
     matomoAskForConsent:
       agenda?.settings?.tracking?.matomoAskForConsent !== false,
     ...matomoUrlInitialValue(agenda.settings.tracking),
@@ -159,7 +157,7 @@ export default function TrackingSettingsForm() {
                   label={getLabel('googleAnalyticsId')}
                   placeholder="GA_TRACKING_ID"
                   className="form-control"
-                  parse={_.identity} // to keep empty value
+                  parse={identity} // to keep empty value
                 />
 
                 <Field
@@ -204,7 +202,7 @@ export default function TrackingSettingsForm() {
                 label={getLabel('googleAnalyticsSecret')}
                 placeholder="GA_TRACKING_SECRET"
                 className="form-control"
-                parse={_.identity} // to keep empty value
+                parse={identity} // to keep empty value
               />
             ) : null}
 
@@ -252,7 +250,7 @@ export default function TrackingSettingsForm() {
                   label={getLabel('matomoSiteId')}
                   placeholder="1"
                   className="form-control"
-                  parse={_.identity} // to keep empty value
+                  parse={identity} // to keep empty value
                 />
                 <Field
                   name="matomoAskForConsent"
