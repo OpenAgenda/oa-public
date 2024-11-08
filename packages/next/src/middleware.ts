@@ -59,7 +59,7 @@ export async function middleware(req: NextRequest) {
   // see https://github.com/vercel/next.js/issues/36049#issuecomment-1122077832
   if (outdatedBrowserCookie !== isOutdated) {
     const response = NextResponse.next();
-    response.cookies.set('outdatedBrowser', isOutdated);
+    response.cookies.set('outdatedBrowser', String(isOutdated));
     return response;
   }
 }
