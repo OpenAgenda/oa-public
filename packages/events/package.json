@@ -14,7 +14,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false"
+    "test": "NODE_OPTIONS=\"--max-old-space-size=5120 --experimental-vm-modules\" jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false"
   },
   "dependencies": {
     "@babel/cli": "^7.23.0",

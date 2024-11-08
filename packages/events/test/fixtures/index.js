@@ -1,11 +1,15 @@
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 import fs from 'node:fs';
 import { promisify } from 'node:util';
 import _ from 'lodash';
 import knex from 'knex';
 import mysql from 'mysql';
 
-import creditsEventCreate from './creditsEventCreate.json' assert { type: 'json' };
-import creditsEventUpdate from './creditsEventUpdate.json' assert { type: 'json' };
+import creditsEventCreate from './creditsEventCreate.json';
+import creditsEventUpdate from './creditsEventUpdate.json';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function _sql(schema, SQLDataRelativePath) {
   const raw = [

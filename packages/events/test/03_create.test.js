@@ -1,3 +1,6 @@
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
 import {
   createReadStream,
   createWriteStream,
@@ -15,6 +18,8 @@ import {
 
 import Service from '../index.js';
 import fixtures from './fixtures/index.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const TMP_IMG_PATH = '/tmp/eventTestImage.png';
 
