@@ -25,6 +25,7 @@ const modulesToInclude = [
   '@openagenda/aggregator-sources',
   '@openagenda/event-admin-apps',
   '@openagenda/event-form',
+  '@openagenda/events',
   '@openagenda/home',
   '@openagenda/inbox-apps',
   '@openagenda/member-apps',
