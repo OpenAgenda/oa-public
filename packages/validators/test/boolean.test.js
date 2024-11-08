@@ -7,7 +7,7 @@ describe('boolean validator', () => {
 
   it('returns nothing if nothing is given on an optional validator', () => {
     const optionalValidate = validators.boolean({
-      optional: true
+      optional: true,
     });
 
     expect(optionalValidate()).toBeUndefined();
@@ -16,7 +16,7 @@ describe('boolean validator', () => {
   it('returns default value if default value is given', () => {
     const optionalValidate = validators.boolean({
       optional: true,
-      default: null
+      default: null,
     });
 
     expect(optionalValidate(null)).toBeNull();
@@ -24,7 +24,7 @@ describe('boolean validator', () => {
 
   it('puts a default value if nothing is specified', () => {
     const validate = validators.boolean({
-      default: true
+      default: true,
     });
 
     expect(validate()).toBe(true);
@@ -32,7 +32,7 @@ describe('boolean validator', () => {
 
   it('throws an error if is not optional and no default is specified', () => {
     const validate = validators.boolean({
-      optional: false
+      optional: false,
     });
 
     let errors = [];
@@ -67,7 +67,7 @@ describe('boolean validator', () => {
   it('if default is null and nothing is given, returns null', () => {
     const validate = validators.boolean({
       field: 'whocares',
-      default: null
+      default: null,
     });
 
     expect(validate()).toBeNull();
@@ -76,7 +76,7 @@ describe('boolean validator', () => {
   it('if default is null and null is given, returns null', () => {
     const validate = validators.boolean({
       field: 'whocares',
-      default: null
+      default: null,
     });
 
     expect(validate(null)).toBeNull();
@@ -84,7 +84,7 @@ describe('boolean validator', () => {
 
   it('if given value is null and default is not set, cleans as false', () => {
     const validate = validators.boolean({
-      field: 'meh'
+      field: 'meh',
     });
 
     expect(validate(null)).toBe(false);
@@ -93,7 +93,7 @@ describe('boolean validator', () => {
   it('if given value is null and allowNull option is true, cleans as null', () => {
     const validate = validators.boolean({
       field: 'mnieeeh',
-      allowNull: true
+      allowNull: true,
     });
 
     expect(validate(null)).toBeNull();

@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 import { createReadStream, createWriteStream } from 'node:fs';
 import _ from 'lodash';
 import Files from '@openagenda/files';
@@ -9,6 +11,8 @@ import {
 
 import Service from '../index.js';
 import fixtures from './fixtures/index.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const data = {
   title: { fr: "Spectacle de contes sur le thème de l'Afrique" },
