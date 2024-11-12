@@ -14,7 +14,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "NODE_OPTIONS=\"--max-old-space-size=5120 --experimental-vm-modules\" jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false"
   },
   "dependencies": {
     "@openagenda/form-schemas": "^1.9.1",
@@ -33,7 +33,9 @@
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/files": "^3.1.0",
-    "jest": "^29.7.0",
-    "rimraf": "^3.0.1"
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "transform": {}
   }
 }
