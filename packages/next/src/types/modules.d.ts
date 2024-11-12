@@ -3,6 +3,7 @@ declare module '@openagenda/common-labels/*';
 declare module '@openagenda/intl/*';
 declare module '@openagenda/mails/*';
 declare module '@openagenda/react-shared/*';
+declare module '@openagenda/sdk-js';
 declare module '@openagenda/sessions/*';
 declare module '@openagenda/verror';
 declare module '@raruto/leaflet-gesture-handling';
