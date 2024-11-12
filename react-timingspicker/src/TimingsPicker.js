@@ -7,7 +7,7 @@ import { getSupportedLocale } from '@openagenda/intl';
 import Stats from './Stats.js';
 import Header from './Header.js';
 import Scheduler from './Scheduler.js';
-import * as locales from './locales-compiled/index.mjs';
+import * as locales from './locales-compiled/index.js';
 
 const ONE_DAY = 60 * 60 * 24;
 
