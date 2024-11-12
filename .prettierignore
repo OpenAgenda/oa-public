@@ -30,7 +30,6 @@ packages/agenda-stats/dist
 packages/aggregator-sources/dist
 packages/event-admin-apps/dist
 packages/event-form/build
-packages/events/iso/build
 packages/form-schemas/client/build
 packages/home/dist
 packages/inbox-apps/coverage
@@ -47,7 +46,7 @@ packages/registration-apps/esm
 packages/registration-apps/lib
 packages/registrations/dist
 packages/sessions/lib
-packages/supervisor/lib
+packages/supervisor/dist
 packages/user-apps/dist
 
 public/agenda-docx/client/build
