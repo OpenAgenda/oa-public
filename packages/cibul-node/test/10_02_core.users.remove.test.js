@@ -122,7 +122,6 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         url: 'http://localhost:3000/me',
         headers: {
           'access-token': accessToken,
-          nonce: 1234,
           'content-type': 'application/json',
         },
       });

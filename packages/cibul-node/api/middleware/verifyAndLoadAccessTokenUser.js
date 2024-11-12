@@ -6,7 +6,6 @@ export default async (req, res, next) => {
   try {
     req.user = await req.app.core.users.get.byAccessToken(
       req.headers?.['access-token'] ?? req.body?.access_token,
-      req.headers?.nonce ?? req.body?.nonce,
     );
 
     if (!req.user) {

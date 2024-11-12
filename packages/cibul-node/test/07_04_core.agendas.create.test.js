@@ -104,7 +104,6 @@ describe('07 - core - functional (server): core.agendas().create', () => {
         url: 'http://localhost:3000/agendas',
         headers: {
           'access-token': accessToken,
-          nonce: 38928943,
           'content-type': 'application/json',
         },
         data: {

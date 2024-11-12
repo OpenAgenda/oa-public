@@ -164,7 +164,6 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         headers: {
           'content-type': 'application/json',
           'access-token': accessToken,
-          nonce: 129038,
         },
       }).then((r) => r.data);
     });
@@ -184,7 +183,6 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         headers: {
           'content-type': 'application/json',
           'access-token': accessToken,
-          nonce: 12987897,
         },
       }).then(
         () => {},
@@ -212,7 +210,6 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         headers: {
           'content-type': 'application/json',
           'access-token': anotherAccessToken,
-          nonce: 779798,
         },
       }).then(
         (r) => ({ result: r }),

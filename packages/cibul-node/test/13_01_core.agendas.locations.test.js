@@ -269,7 +269,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
-              nonce: 1231456,
               'content-type': 'application/json',
             },
             data: {
@@ -306,7 +305,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           },
           data: {
             access_token: accessToken,
-            nonce: 456456789,
             data: {
               name: 'Un lieu',
               address: "15 rue de l'adresse imaginaire, Trifouifoui",
@@ -336,7 +334,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           data: JSON.stringify(
             JSON.stringify({
               access_token: accessToken,
-              nonce: 898756479,
               data: {
                 name: 'Chez les beaufs de kevin',
                 address: '12 grande rue, Chattancourt',
@@ -375,7 +372,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/93399464/locations',
             headers: {
               'access-token': contributorAccessToken,
-              nonce: 124471456,
               'content-type': 'application/json',
             },
             data: {
@@ -403,7 +399,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
-              nonce: 1231486,
               'content-type': 'application/json',
             },
             data: {
@@ -433,7 +428,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
-              nonce: 1231499,
               'content-type': 'application/json',
             },
             data: {
@@ -466,7 +460,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
           form.append('image', fs.createReadStream('/tmp/pirates.jpg'));
           form.append('access_token', accessToken);
-          form.append('nonce', 5784464);
           form.append(
             'data',
             JSON.stringify({
@@ -503,7 +496,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           const form = new FormData();
 
           form.append('access_token', accessToken);
-          form.append('nonce', 567489456);
           form.append(
             'data',
             JSON.stringify({
@@ -539,7 +531,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/17026855/locations/24505639',
             headers: {
               'access-token': accessToken,
-              nonce: 789456,
               'content-type': 'application/json',
             },
             data: {
@@ -574,7 +565,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/17026855/locations/24505639',
             headers: {
               'access-token': accessToken,
-              nonce: 10111213,
               'content-type': 'application/json',
             },
             data: {
@@ -600,7 +590,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/17026855/locations/ext/ard04',
             headers: {
               'access-token': accessToken,
-              nonce: 1011883,
               'content-type': 'application/json',
             },
             data: {
@@ -642,7 +631,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           url: 'http://localhost:3000/agendas/17026855/locations/95455142',
           headers: {
             'access-token': accessToken,
-            nonce: 1014563,
             'content-type': 'application/json',
           },
         });
@@ -933,7 +921,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           url: 'http://localhost:3000/agendas/17026855/locations/95455142',
           headers: {
             'access-token': accessToken,
-            nonce: 7894548789,
             'content-type': 'application/json',
           },
         });
@@ -947,7 +934,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           url: 'http://localhost:3000/agendas/17026855/locations/456489786456',
           headers: {
             'access-token': accessToken,
-            nonce: 10145789,
             'content-type': 'application/json',
           },
         }).catch((e) => e);
@@ -966,7 +952,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/17026855/locations/95455142',
             headers: {
               'access-token': accessToken,
-              nonce: 7894523,
               'content-type': 'application/json',
             },
           });
@@ -989,7 +974,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             url: 'http://localhost:3000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
-              nonce: 1231486654,
               'content-type': 'application/json',
             },
             data: {
