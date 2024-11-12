@@ -108,30 +108,6 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
       expect(data.expires_in).toBeGreaterThanOrEqual(3600 - 2); // slow tests may take a second or two
     });
-
-    it('nonce must be less or equal than 16 digits long', async () => {
-      const longNonce = Number.MAX_SAFE_INTEGER + 1;
-      let error;
-      const {
-        data: { access_token: token },
-      } = await axios(axiosJSONPayload);
-
-      try {
-        await axios({
-          method: 'get',
-          headers: {
-            'access-token': token,
-            nonce: longNonce,
-            'content-type': 'application/json',
-          },
-          url: 'http://localhost:3000/agendas/123',
-        });
-      } catch (e) {
-        error = e.response;
-      }
-      expect(error.status).toBe(400);
-      expect(error.data.message).toBe('nonce is not valid');
-    });
   });
 
   describe('agenda key', () => {

@@ -117,7 +117,6 @@ describe('core - functional (server): core.agendas().events.create api authentic
           url: 'http://localhost:3000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
-            nonce: 123,
             'content-type': 'application/json',
           },
           data: {

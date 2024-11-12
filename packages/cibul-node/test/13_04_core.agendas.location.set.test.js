@@ -124,7 +124,6 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
             url: 'http://localhost:3000/agendas/1234/locations/ext/gareDeRedon',
             headers: {
               'access-token': accessToken,
-              nonce: 90903,
               'content-type': 'application/json',
             },
             data: {
@@ -153,7 +152,6 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
             url: 'http://localhost:3000/agendas/1234/locations/ext/laPiscine',
             headers: {
               'access-token': accessToken,
-              nonce: 903938392,
               'content-type': 'application/json',
             },
             data: {

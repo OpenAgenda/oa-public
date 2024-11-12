@@ -13,7 +13,7 @@ const limit = 20;
 const PreMw = ({ sessions, users }) => [
   cmn.loadBaseData('oa-admin.css'),
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
-  users.mw.requireSuperAdmin(),
+  users.mw.allowSuperAdmin(),
 ];
 
 function index(req, res) {

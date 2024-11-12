@@ -20,7 +20,7 @@ export default (config, services) => {
       };
       next();
     },
-    users.mw.requireSuperAdmin(),
+    users.mw.allowSuperAdmin(),
   ];
 
   const router = express.Router({ mergeParams: true });

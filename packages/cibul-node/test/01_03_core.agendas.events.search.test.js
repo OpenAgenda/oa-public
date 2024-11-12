@@ -357,7 +357,6 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             url: 'http://localhost:3000/agendas/2/events',
             headers: {
               'access-token': accessToken,
-              nonce: 123987,
               'content-type': 'application/json',
             },
             params: {
@@ -394,7 +393,6 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           url: 'http://localhost:3000/agendas/2/events/search',
           headers: {
             'access-token': accessToken,
-            nonce: 8439793,
             'content-type': 'application/json',
           },
           data: {
@@ -424,7 +422,6 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             url: 'http://localhost:3000/agendas/2/events/1',
             headers: {
               'access-token': accessToken,
-              nonce: 123989,
               'content-type': 'application/json',
             },
           }).then((r) => r.data);
@@ -452,7 +449,6 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           headers: {
             'content-type': 'application/json',
             'access-token': accessToken,
-            nonce: 789789,
           },
         }).then((r) => r.data);
 
@@ -471,7 +467,6 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           url: 'http://localhost:3000/agendas/2/events/1?detailed=1&useDateHoursMinutesFormat=1',
           headers: {
             'access-token': accessToken,
-            nonce: 1239789,
             'content-type': 'application/json',
           },
         }).then((r) => r.data.event);

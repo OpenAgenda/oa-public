@@ -1,9 +1,10 @@
 import logs from '@openagenda/logs';
+import { Forbidden } from '@openagenda/verror';
 
-const log = logs('services/users/requireSuperAdmin');
+const log = logs('services/users/allowSuperAdmin');
 
-export default function requireSuperAdmin(params = {}) {
-  const { jsonResponse = false, redirectURL = '/' } = params;
+export default function allowSuperAdmin(params = {}) {
+  const { jsonResponse = false, redirectURL = '/', redirect = true } = params;
 
   return (req, res, next) => {
     const { core } = req.app.services;
@@ -18,6 +19,7 @@ export default function requireSuperAdmin(params = {}) {
         originalUrl: req.originalUrl,
         userUid: req.user.uid,
       });
+      req.access = 'internal';
       return next();
     }
 
@@ -33,6 +35,10 @@ export default function requireSuperAdmin(params = {}) {
       return;
     }
 
-    res.redirect(302, redirectURL);
+    if (redirect) {
+      res.redirect(302, redirectURL);
+    }
+
+    next(new Forbidden());
   };
 }

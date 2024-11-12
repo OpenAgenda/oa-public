@@ -45,7 +45,7 @@ export function plugApp(app, base = '/elasticsearch') {
   app.get(
     `${base}/cluster`,
     sessions.mw.ifUnlogged(redirectToSignin),
-    users.mw.requireSuperAdmin(),
+    users.mw.allowSuperAdmin(),
     async (req, res, next) => {
       try {
         const [stats, nodes, replicas] = await Promise.all([
@@ -68,7 +68,7 @@ export function plugApp(app, base = '/elasticsearch') {
   app.post(
     `${base}/cluster/replicas`,
     sessions.mw.ifUnlogged(redirectToSignin),
-    users.mw.requireSuperAdmin(),
+    users.mw.allowSuperAdmin(),
     async (req, res, next) => {
       try {
         const { value } = req.body;

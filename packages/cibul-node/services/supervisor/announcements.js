@@ -44,7 +44,7 @@ export function plugApp(app, base = '/announcement') {
   app.post(
     base,
     sessions.mw.ifUnlogged(cmn.redirectToSignin),
-    users.mw.requireSuperAdmin(),
+    users.mw.allowSuperAdmin(),
     async (req, res, next) => {
       try {
         await announcements.set(req.body);
@@ -58,7 +58,7 @@ export function plugApp(app, base = '/announcement') {
   app.delete(
     base,
     sessions.mw.ifUnlogged(cmn.redirectToSignin),
-    users.mw.requireSuperAdmin(),
+    users.mw.allowSuperAdmin(),
     async (req, res, next) => {
       try {
         await announcements.remove();

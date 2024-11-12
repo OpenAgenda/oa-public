@@ -221,7 +221,6 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           url: 'http://localhost:3000/agendas/2/members',
           headers: {
             'access-token': adminAccessToken,
-            nonce: 1238978,
             'content-type': 'application/json',
           },
           data: {
@@ -251,7 +250,6 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           url: 'http://localhost:3000/agendas/2/members/invite',
           headers: {
             'access-token': adminAccessToken,
-            nonce: 1238979,
             'content-type': 'application/json',
           },
           data: {
@@ -282,7 +280,6 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           url: 'http://localhost:3000/agendas/48353388/members',
           headers: {
             'access-token': nonMemberAccessToken,
-            nonce: 1238979,
             'content-type': 'application/json',
           },
           data: {
@@ -315,7 +312,6 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
             url: 'http://localhost:3000/agendas/2/members',
             headers: {
               'access-token': nonMemberAccessToken,
-              nonce: 89189389,
               'content-type': 'application/json',
             },
             data: {
@@ -351,7 +347,6 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
             url: 'http://localhost:3000/agendas/2/members',
             headers: {
               'access-token': contributorAccessToken,
-              nonce: 89189389,
               'content-type': 'application/json',
             },
             data: {

@@ -50,8 +50,7 @@ export default (core) =>
     }),
     {
       get: Object.assign(get(core), {
-        byAccessToken: (token, nonce) =>
-          core.services.accessTokens.getUser(token, nonce),
+        byAccessToken: (token) => core.services.accessTokens.getUser(token),
         byPublicKey: (key) => getByPublicKey(core, key),
       }),
     },

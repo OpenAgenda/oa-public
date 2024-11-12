@@ -158,7 +158,6 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         url: 'http://localhost:3000/networks/1/agendas',
         headers: {
           'access-token': accessToken,
-          nonce: 12389710,
           'content-type': 'application/json',
         },
         data: {
