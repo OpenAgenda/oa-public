@@ -66,7 +66,11 @@ module.exports = {
         resolve: {
           fullySpecified: false,
         },
-        exclude: [/\/node_modules\/nth-check\//],
+        exclude: [
+          /\/node_modules\/nth-check\//,
+          /\/node_modules\/@formatjs\//,
+          /\/node_modules\/intl-messageformat\//,
+        ],
       },
       {
         test: /\.js$/,
@@ -91,6 +95,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.mjs', '.json', '.wasm'],
+    alias: {
+      '@httptoolkit/esm': false,
+    },
     symlinks: false,
   },
 };
