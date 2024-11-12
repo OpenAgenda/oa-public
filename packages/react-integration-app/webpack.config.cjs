@@ -145,6 +145,8 @@ module.exports = (env = {}, argv = {}) => {
             /\/node_modules\/rrule\//, // https://github.com/jakubroztocil/rrule/issues/303
             /\/node_modules\/@transloadit\/prettier-bytes\//,
             /\/node_modules\/nth-check\//,
+            /\/node_modules\/@formatjs\//,
+            /\/node_modules\/intl-messageformat\//,
           ],
         },
         {
@@ -207,6 +209,9 @@ module.exports = (env = {}, argv = {}) => {
     resolve: {
       // symlinks: false,
       extensions: ['.wasm', '.mjs', '.cjs', '.js', '.jsx', '.json'],
+      alias: {
+        '@httptoolkit/esm': false,
+      },
       fallback: {
         buffer: require.resolve('buffer'),
       },

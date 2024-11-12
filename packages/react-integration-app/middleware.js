@@ -46,7 +46,7 @@ import createAgendaContributeApp from '@openagenda/agenda-contribute/dist/index.
 import createEventAdminApp from '@openagenda/event-admin-apps/dist/app.js';
 import createAgendaLocationAdminApp from '@openagenda/agenda-locations-app/dist/app.js';
 import createAgendaSchemaAdminApp from '@openagenda/agenda-schemas-app/dist/app.js';
-import createSupervisorApp from '@openagenda/supervisor/lib/app.js';
+import createSupervisorApp from '@openagenda/supervisor/dist/app.js';
 import RootHelmet from './RootHelmet.js';
 import createReduxMiddleware from './reduxMiddleware.js';
 
