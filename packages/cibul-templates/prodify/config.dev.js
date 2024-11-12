@@ -33,6 +33,8 @@ module.exports = ( { entry, output } ) => ({
         },
         exclude: [
           /\/node_modules\/@transloadit\/prettier-bytes\//,
+          /\/node_modules\/@formatjs\//,
+          /\/node_modules\/intl-messageformat\//,
         ],
       },
       {
@@ -57,6 +59,9 @@ module.exports = ( { entry, output } ) => ({
   resolve: {
     // symlinks: false,
     extensions: ['.js', '.jsx', '.mjs', '.json'],
+    alias: {
+      '@httptoolkit/esm': false,
+    },
     fallback: {
       fs: false,
       path: require.resolve('path-browserify'),
