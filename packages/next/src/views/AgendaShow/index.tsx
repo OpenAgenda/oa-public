@@ -13,7 +13,11 @@ import { useRouter } from 'next/router';
 import { useLatest, usePrevious } from 'react-use';
 import qs from 'qs';
 import { Box, Container, useConst } from '@openagenda/uikit';
-import { FiltersProvider, useFilters } from '@openagenda/react-filters';
+import {
+  FiltersProvider,
+  useFilters,
+  fetchLocale as fetchFiltersLocales,
+} from '@openagenda/react-filters';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
@@ -257,9 +261,7 @@ AgendaShow.fetchLocale = (locale: string) =>
     fetchErrorLocale(locale),
     fetchCommonLocale('event/attendanceModes', locale),
     fetchCommonLocale('event/statuses', locale),
-    import(`@openagenda/react-filters/locales-compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
+    fetchFiltersLocales(locale),
   ]).then((results) => Object.assign({}, ...results));
 
 AgendaShow.includeFields = includeFields;
