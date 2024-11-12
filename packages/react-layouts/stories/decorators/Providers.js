@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useConstant } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import * as appLocales from '../../src/locales-compiled/index.mjs';
+import * as appLocales from '../../src/locales-compiled/index.js';
 
 const lang = 'fr';
 

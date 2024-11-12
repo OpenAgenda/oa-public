@@ -9,7 +9,7 @@ import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.js'
 
 import errorLabels from '@openagenda/labels/event/errors.js';
 import Registration from '@openagenda/registration-apps';
-import * as locales from './locales-compiled/index.mjs';
+import * as locales from './locales-compiled/index.js';
 import appendFormConfigurations from './utils/appendFormConfigurations.js';
 import extractLanguages from './utils/extractLanguages.js';
 import getMultilingualFieldNames from './utils/getMultilingualFieldNames.js';

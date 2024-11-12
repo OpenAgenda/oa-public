@@ -10,7 +10,7 @@ import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import commonLocales from '@openagenda/common-labels';
 import { modalLocales } from '@openagenda/react-share-menus';
 import eventsReducer from '../reducers/events.js';
-import * as appLocales from '../locales-compiled/index.mjs';
+import * as appLocales from '../locales-compiled/index.js';
 
 const locales = mergeLocales(
   appLocales,

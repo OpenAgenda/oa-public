@@ -4,7 +4,7 @@ import redial from 'redial';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import * as locales from '../locales-compiled/index.mjs';
+import * as locales from '../locales-compiled/index.js';
 
 function App({ route }) {
   const parentQueryClient = useQueryClient();

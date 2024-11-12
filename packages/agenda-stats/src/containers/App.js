@@ -7,7 +7,7 @@ import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import statsReducer from '../reducers/stats.js';
-import * as appLocales from '../locales-compiled/index.mjs';
+import * as appLocales from '../locales-compiled/index.js';
 
 const locales = mergeLocales(appLocales, reactFiltersLocales);
 

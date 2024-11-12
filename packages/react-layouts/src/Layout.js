@@ -6,7 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { getSupportedLocale } from '@openagenda/intl';
 import shallowEqual from 'shallowequal';
 import qs from 'qs';
-import * as locales from './locales-compiled/index.mjs';
+import * as locales from './locales-compiled/index.js';
 
 const defaultLocale = 'fr';
 

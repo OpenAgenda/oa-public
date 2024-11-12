@@ -5,7 +5,7 @@ import { getSupportedLocale } from '@openagenda/intl';
 import { useConstant } from '@openagenda/react-shared';
 import { IntlProvider } from 'react-intl';
 
-import * as locales from '../../src/locales-compiled/index.mjs';
+import * as locales from '../../src/locales-compiled/index.js';
 
 const lang = 'fr';
 

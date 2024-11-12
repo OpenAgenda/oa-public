@@ -11,7 +11,7 @@ import { locales as sharedLocales } from '@openagenda/react-shared';
 import { locales as memberLocales } from '@openagenda/member-apps';
 import commonLocales from '@openagenda/common-labels';
 
-import * as locales from '../locales-compiled/index.mjs';
+import * as locales from '../locales-compiled/index.js';
 import usePrefix from '../hooks/usePrefix.js';
 import useAgendaContext from '../hooks/useAgendaContext.js';
 
