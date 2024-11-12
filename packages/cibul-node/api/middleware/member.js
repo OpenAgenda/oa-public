@@ -9,7 +9,10 @@ const { isSuperiorTo } = memberUtils.compareRoles;
 
 const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 
-export function allow(roles = defaultRoles) {
+const nonMember = 'Not authorized for non-members';
+
+export function allow(roles = defaultRoles, options = {}) {
+  const { or: orMiddleware } = options;
   return async (req, res, next) => {
     const { members } = req.app.services;
 
@@ -22,11 +25,23 @@ export function allow(roles = defaultRoles) {
       userUid: req.user.uid,
     });
 
+    if (!req.member && orMiddleware) {
+      log('is not member, calling orMiddleware');
+      return orMiddleware(req, res, (err) =>
+        next(err ? new Forbidden(nonMember) : undefined));
+    }
+
     if (!req.member) {
-      return next(new Forbidden('Not authorized for non-members'));
+      log('is not member, forbidden');
+      return next(new Forbidden(nonMember));
     }
 
     req.access = members.utils.getRoleSlug(req.member.role);
+
+    if (!roles.includes(req.access) && orMiddleware) {
+      return orMiddleware(req, res, (err) =>
+        next(err ? new Forbidden(nonMember) : undefined));
+    }
 
     if (!roles.includes(req.access)) {
       return res.status(403).json({
