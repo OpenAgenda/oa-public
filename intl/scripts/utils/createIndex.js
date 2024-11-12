@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const { mkdirp } = require('mkdirp');
 const { dedent } = require('ts-dedent');
 const fileExists = require('./fileExists');
-// const isPackageModule = require('./isPackageModule');
+const isPackageModule = require('./isPackageModule');
 
 function getCjsIndex(existingLangs, langs) {
   const requires = existingLangs
@@ -52,15 +52,24 @@ function getEsmIndex(existingLangs, langs) {
     `}\n`;
 }
 
-/* function getFileExtension(isModule, isEsm) {
+function getFileExtension(isModule, isEsm) {
   if (isModule && !isEsm) return 'cjs';
   if (!isModule && isEsm) return 'mjs';
   return 'js';
-} */
+}
+
+function removeIndex(indexPath) {
+  if (fileExists(indexPath)) {
+    try {
+      fs.unlinkSync(indexPath);
+    } catch {
+      //
+    }
+  }
+}
 
 module.exports = async function createIndex(dest, langs, isEsm) {
-  // TODO fix after https://github.com/formatjs/formatjs/issues/4489
-  const extension = isEsm ? 'mjs' : 'js'; // getFileExtension(isPackageModule(), isEsm);
+  const extension = getFileExtension(isPackageModule(), isEsm);
   const indexPath = path.join(
     process.cwd(),
     dest.replace('%lang%.json', `index.${extension}`),
@@ -69,16 +78,14 @@ module.exports = async function createIndex(dest, langs, isEsm) {
   await mkdirp(path.dirname(dest));
 
   // Remove old index
-  const indexToRemove = path.join(
-    path.dirname(dest),
-    `index.${isEsm ? 'js' : 'mjs'}`,
-  );
-  if (fileExists(indexToRemove)) {
-    try {
-      fs.unlinkSync(indexToRemove);
-    } catch {
-      //
-    }
+  if (extension !== 'js') {
+    removeIndex(path.join(path.dirname(dest), 'index.js'));
+  }
+  if (extension !== 'cjs') {
+    removeIndex(path.join(path.dirname(dest), 'index.cjs'));
+  }
+  if (extension !== 'mjs') {
+    removeIndex(path.join(path.dirname(dest), 'index.mjs'));
   }
 
   const existingLangs = langs.filter((lang) =>
