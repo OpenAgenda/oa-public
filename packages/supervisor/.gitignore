@@ -5,5 +5,5 @@ npm-debug.log
 yarn-error.log
 coverage/
 
-lib/
+dist/
 src/locales-compiled/
