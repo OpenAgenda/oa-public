@@ -1,7 +1,7 @@
 import { createMemoryHistory } from 'history';
 import { http, HttpResponse, delay } from 'msw';
 import { wrapApp } from '@openagenda/react-shared';
-import createApp from '../src/app';
+import createApp from '../src/app.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

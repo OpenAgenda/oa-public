@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import AbilitiesEditor from '@openagenda/abilities/build/client/AbilitiesEditor';
-import I18nContext from '../contexts/I18nContext';
+import AbilitiesEditor from '@openagenda/abilities/build/client/AbilitiesEditor.js';
+import I18nContext from '../contexts/I18nContext.js';
 
 class UnsubscribedSettings extends Component {
   static contextType = I18nContext;

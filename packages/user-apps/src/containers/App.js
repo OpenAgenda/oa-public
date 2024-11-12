@@ -4,9 +4,9 @@ import redial from 'redial';
 import { reducer as formReducer } from 'redux-form';
 import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData } from '@openagenda/react-shared';
-import labels from '@openagenda/labels/users/settings';
-import * as userSettingsActions from '../reducers/userSettings';
-import I18nContext from '../contexts/I18nContext';
+import labels from '@openagenda/labels/users/settings.js';
+import * as userSettingsActions from '../reducers/userSettings.js';
+import I18nContext from '../contexts/I18nContext.js';
 
 function App({ route }) {
   const { lang } = useLayoutData();

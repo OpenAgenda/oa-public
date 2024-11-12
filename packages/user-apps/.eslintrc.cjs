@@ -4,7 +4,7 @@ module.exports = {
   extends: '../../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   ignorePatterns: ['/dist'],
@@ -18,6 +18,7 @@ module.exports = {
           `${__dirname}/stories/**/*.js`,
           `${__dirname}/scripts/**/*.js`,
           `${__dirname}/test/**/*.js`,
+          `${__dirname}/tsup.config.js`,
         ],
       },
     ],
@@ -25,10 +26,9 @@ module.exports = {
 
   overrides: [
     {
-      files: ['src/**/*.js', 'test/**/*.js', 'stories/**/*.js'],
-
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

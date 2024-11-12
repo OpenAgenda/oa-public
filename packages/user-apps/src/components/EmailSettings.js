@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AuthenticateAndConfirm, Modal } from '@openagenda/react-shared';
 import qs from 'qs';
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 
 class EmailSettings extends Component {
   static contextType = I18nContext;

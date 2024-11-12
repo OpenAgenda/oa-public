@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createApp } from '@openagenda/react-shared';
-import getRoutes from './getRoutes';
+import getRoutes from './getRoutes.js';
 
 const defaults = {
   initialState: {

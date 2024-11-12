@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { AuthenticateAndConfirm } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 
 class ProfileSettings extends Component {
   static contextType = I18nContext;

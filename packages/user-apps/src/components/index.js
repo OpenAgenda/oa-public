@@ -1,6 +1,6 @@
-export { default as ApiKeySettings } from './ApiKeySettings';
-export { default as EmailSettings } from './EmailSettings';
-export { default as ImageSettings } from './ImageSettings';
-export { default as PasswordSettings } from './PasswordSettings';
-export { default as ProfileSettings } from './ProfileSettings';
-export { default as UnsubscribedSettings } from './UnsubscribedSettings';
+export { default as ApiKeySettings } from './ApiKeySettings.js';
+export { default as EmailSettings } from './EmailSettings.js';
+export { default as ImageSettings } from './ImageSettings.js';
+export { default as PasswordSettings } from './PasswordSettings.js';
+export { default as ProfileSettings } from './ProfileSettings.js';
+export { default as UnsubscribedSettings } from './UnsubscribedSettings.js';

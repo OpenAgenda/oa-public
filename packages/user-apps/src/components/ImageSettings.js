@@ -2,7 +2,7 @@ import { Component, useContext } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { ImageInput } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 
 const MAX_SIZE = 1024 * 1024 * 20; // 20MB
 

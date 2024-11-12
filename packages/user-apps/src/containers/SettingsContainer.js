@@ -11,8 +11,8 @@ import {
 } from '@openagenda/react-shared';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
-import locales from '../locales-compiled';
-import * as userSettingsActions from '../reducers/userSettings';
+import * as locales from '../locales-compiled/index.js';
+import * as userSettingsActions from '../reducers/userSettings.js';
 import {
   ProfileSettings,
   ImageSettings,
@@ -20,7 +20,7 @@ import {
   PasswordSettings,
   ApiKeySettings,
   UnsubscribedSettings,
-} from '../components';
+} from '../components/index.js';
 
 const mergedLocales = mergeLocales(locales, sharedLocales);
 
