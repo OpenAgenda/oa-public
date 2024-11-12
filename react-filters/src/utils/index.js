@@ -1,4 +1,5 @@
 export { default as dateRanges } from './dateRanges.js';
+export { default as fetchLocale } from './fetchLocale.js';
 export { default as filtersToAggregations } from './filtersToAggregations.js';
 export { default as extractFiltersFromDom } from './extractFiltersFromDom.js';
 export { default as extractWidgetsFromDom } from './extractWidgetsFromDom.js';
