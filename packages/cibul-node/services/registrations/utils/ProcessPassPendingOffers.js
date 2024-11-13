@@ -88,12 +88,6 @@ function task({ enqueue, services, registrations, queue }) {
 
       const applied = await passCultureService.apply(event, passCultureData);
 
-      if (isRejected(applied)) {
-        log.info('pendingOffer: rejected', logBundle);
-        tracker('registrations.passCulture.pendingOffer.processed.rejected');
-        return;
-      }
-
       if (isStillPending(applied)) {
         log.info('pendingOffer: still pending', logBundle);
         await enqueue({ eventUid, agendaUid }, next);
@@ -101,10 +95,16 @@ function task({ enqueue, services, registrations, queue }) {
         return;
       }
 
-      log.info(
-        'pendingOffer: no longer pending, changes were applied',
-        logBundle,
-      );
+      const rejected = isRejected(applied);
+
+      if (rejected) {
+        tracker('registrations.passCulture.pendingOffer.processed.rejected');
+      }
+
+      log.info('pendingOffer: no longer pending, changes were applied', {
+        ...logBundle,
+        rejected,
+      });
 
       await core.agendas(agendaUid).events.patch(
         eventUid,
