@@ -1,9 +1,7 @@
 import { Forbidden } from '@openagenda/verror';
 
 function evaluateAnonymousAccess(req, _res, next) {
-  const isUIAPICall = req.baseUrl === '/api';
-
-  if (isUIAPICall) {
+  if (req.APIType === 'UI') {
     return next();
   }
 

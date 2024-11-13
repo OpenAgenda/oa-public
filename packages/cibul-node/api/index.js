@@ -38,7 +38,7 @@ export default (core, { useRouter = true } = {}) => {
     mw.parseBodyData,
   ];
 
-  app.use((_req, res, next) => {
+  app.use((req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     next();
   });
@@ -132,6 +132,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.delete(
     '/agendas/:agendaUid',
+    core.services.users.mw.verifyHeadersPassword,
     mw.member.load,
     mw.member.allow(['administrator'], {
       or: allowSuperAdmin({ redirect: false }),
