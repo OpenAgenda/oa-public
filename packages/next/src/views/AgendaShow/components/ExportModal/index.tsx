@@ -17,6 +17,17 @@ interface ExportModalProps {
   defaultIndex?: number | number[];
 }
 
+export const exportIndexMap = {
+  sheet: 0,
+  pdf: 1,
+  json: 2,
+  gcal: 3,
+  outlook: 4,
+  ics: 5,
+  rss: 6,
+  embed: 7,
+};
+
 export default function ExportModal({
   isOpen,
   onClose,
