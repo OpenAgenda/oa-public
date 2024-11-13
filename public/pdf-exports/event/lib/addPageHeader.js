@@ -1,21 +1,16 @@
+import { getLocaleValue } from '@openagenda/intl';
 import addText from './addText.js';
 import addAgendaLogo from '../../utils/addAgendaLogo.js';
 import addSeparatorLine from '../../utils/addSeparatorLine.js';
 
 export default async function addPagetHeader(
   agenda,
+  event,
   doc,
   cursor,
   options = {},
 ) {
-  const {
-    base = {
-      margin: 20,
-      color: '#413a42',
-    },
-    little,
-    medium,
-  } = options;
+  const { margin, isFirstPage, lang } = options;
 
   const localCursor = {
     y: cursor.y,
@@ -28,33 +23,16 @@ export default async function addPagetHeader(
   let widthOfTitle = null;
   let logoHeight = 0;
   let logoWidth = null;
-  let fontSize;
-  let logoHeightAndWidth;
-  let margin;
+  let logoHeightAndWidth = 25;
 
-  if (little) {
-    fontSize = 8;
-    logoHeightAndWidth = 15;
-    margin = base.margin / 6;
-  } else if (medium) {
-    fontSize = 9;
-    logoHeightAndWidth = 20;
-    margin = base.margin / 4;
-  } else {
-    fontSize = 10;
-    logoHeightAndWidth = 25;
-    margin = base.margin / 2;
-  }
   localCursor.y = 0;
-  localCursor.y += base.margin / 6;
+  localCursor.y += margin / 6;
 
-  const titleMaxWidth = doc.page.width - base.margin * 6 - logoHeightAndWidth - margin;
+  const titleMaxWidth = doc.page.width - margin * 6 - logoHeightAndWidth - margin;
 
   const simulateTitle = addText(doc, localCursor, {
-    content: agenda.title,
+    content: isFirstPage ? agenda.title : agenda.title + ' - ' + getLocaleValue(event.title, lang),
     width: titleMaxWidth,
-    fontSize,
-    base,
     simulate: true,
   });
   heightOfSimulateTitle = simulateTitle.height;
@@ -89,23 +67,20 @@ export default async function addPagetHeader(
   localCursor.x += logoWidth + margin;
 
   const title = addText(doc, localCursor, {
-    content: agenda.title,
+    content: isFirstPage ? agenda.title : agenda.title + ' - ' + getLocaleValue(event.title, lang),
     width: titleMaxWidth,
-    fontSize,
-    base,
   });
 
   heightOfTitle = title.height;
   widthOfTitle = title.width;
 
-  const totalWidth = logoWidth + widthOfTitle + base.margin * 3;
+  const totalWidth = logoWidth + widthOfTitle + margin * 3;
 
-  localCursor.y = Math.max(heightOfTitle, logoHeight + base.margin / 6) + base.margin / 6;
-  localCursor.x = base.margin * 3;
+  localCursor.y = Math.max(heightOfTitle, logoHeight + margin / 6) + margin / 6;
+  localCursor.x = margin * 3;
 
   const { height: separatorLineHeight } = addSeparatorLine(doc, localCursor, {
-    base,
-    width: doc.page.width - base.margin * 6,
+    width: doc.page.width - margin * 6,
   });
 
   localCursor.y += cursor.y + separatorLineHeight;

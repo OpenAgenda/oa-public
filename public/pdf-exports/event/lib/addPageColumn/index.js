@@ -20,7 +20,7 @@ const addFunctions = {
 };
 
 export default async function addPageColumn(doc, cursor, config, options = {}) {
-  const { columnWidth, iconHeightAndWidth, margin, lang, simulate = false } = options;
+  const { columnWidth, iconHeightAndWidth, margin, footerHeight, intl, lang, simulate = false } = options;
   const {
     content,
   } = config;
@@ -43,20 +43,19 @@ export default async function addPageColumn(doc, cursor, config, options = {}) {
 
     const remainingHeight = doc.page.height - cursor.y;
 
-    if (await isOverflowing(doc, cursor, addFn, contentItem, { addFunctions, columnWidth, iconHeightAndWidth, margin, lang })) {
+    if (await isOverflowing(doc, cursor, addFn, contentItem, { addFunctions, columnWidth, iconHeightAndWidth, margin, footerHeight, intl, lang })) {
       hasReachedBottom = true;
       if (contentItem.truncable) {
-        const [beforeOverflow, afterOverflow] = await truncate(doc, cursor, addFn, contentItem, remainingHeight, { columnWidth, iconHeightAndWidth, margin, lang });
-        await addContentItem(doc, cursor, addFn, addFunctions, beforeOverflow, { columnWidth, iconHeightAndWidth, margin, lang, simulate });
+        const [beforeOverflow, afterOverflow] = await truncate(doc, cursor, addFn, contentItem, remainingHeight, { columnWidth, iconHeightAndWidth, margin, footerHeight, intl,lang });
+        await addContentItem(doc, cursor, addFn, addFunctions, beforeOverflow, { columnWidth, iconHeightAndWidth, margin, footerHeight, intl, lang, simulate });
         remainingContent.push(afterOverflow);
       } else {
         remainingContent.push(contentItem);
       }
       continue;
     }
-    await addContentItem(doc, cursor, addFn, addFunctions, contentItem, { columnWidth, iconHeightAndWidth, margin, lang, simulate });
+    await addContentItem(doc, cursor, addFn, addFunctions, contentItem, { columnWidth, iconHeightAndWidth, margin, footerHeight, intl, lang, simulate });
   }
   cursor.y = initialY;
-  cursor.x += columnWidth;
   return remainingContent;
 }
