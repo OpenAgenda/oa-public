@@ -54,7 +54,7 @@ function LinkField({ field }) {
 function ImageField({ field, updatedAt }) {
   const intl = useIntl();
 
-  const value = Array.isArray(field.value) ? field.value[0] : field.value;
+  const { value } = field;
 
   const suffix = updatedAt ? `?__ts=${updatedAt}` : '';
 
@@ -88,8 +88,7 @@ function ImageField({ field, updatedAt }) {
 
 function FileField({ field }) {
   const intl = useIntl();
-
-  const value = Array.isArray(field.value) ? field.value[0] : field.value;
+  const { value } = field;
 
   return value ? (
     <Link
@@ -121,12 +120,14 @@ function HtmlField({ field }) {
 
 function BooleanField({ field }) {
   const intl = useIntl();
-  const value = Array.isArray(field.value) ? field.value[0] : field.value;
+  const { value } = field;
 
-  return value || (
-    <chakra.em color="oaGray.500">
-      {intl.formatMessage(messages.noInput)}
-    </chakra.em>
+  return (
+    value || (
+      <chakra.em color="oaGray.500">
+        {intl.formatMessage(messages.noInput)}
+      </chakra.em>
+    )
   );
 }
 
@@ -145,13 +146,13 @@ function OptionedField({ field }) {
 function DefaultField({ field }) {
   const intl = useIntl();
 
-  return field.value
-    ? field.value
-    : (
-      <chakra.em color="oaGray.500">
-        {intl.formatMessage(messages.noInput)}
-      </chakra.em>
-    );
+  return field.value ? 
+    field.value
+   : (
+    <chakra.em color="oaGray.500">
+      {intl.formatMessage(messages.noInput)}
+    </chakra.em>
+  );
 }
 
 function Field({ field, updatedAt, agenda }) {
