@@ -1,18 +1,15 @@
 import { useContext, useMemo, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
 import { useHistory, useLocation } from 'react-router';
 import { getSupportedLocale } from '@openagenda/intl';
 import { IntlProvider } from 'react-intl';
 import {
   ImageInput,
-  Modal,
   useLayoutData,
-  AuthenticateAndConfirm,
   locales as sharedLocales,
 } from '@openagenda/react-shared';
 import { edit } from '../../reducers/agenda';
-import * as modalsActions from '../../reducers/modals';
 import validate, { schema as agendaSchema } from '../../utils/validateProfile';
 import { BasicInput, BasicTextarea, InputGroup } from '../../utils/inputs';
 import I18nContext from '../../contexts/I18nContext';
@@ -60,19 +57,7 @@ export default function ProfileEdition() {
 
   const { getLabel, lang } = useContext(I18nContext);
 
-  const modals = useSelector((state) => state.modals);
-  const removeRes = useSelector((state) =>
-    state.res.remove.replace(':slug', slug));
   const dispatch = useDispatch();
-
-  const showModal = useCallback(
-    (name, options = {}) => dispatch(modalsActions.showModal(name, options)),
-    [dispatch],
-  );
-  const closeModal = useCallback(
-    (name) => dispatch(modalsActions.closeModal(name)),
-    [dispatch],
-  );
 
   const initialValues = useMemo(
     () => ({ title, description, url, slug, image }),
@@ -164,13 +149,6 @@ export default function ProfileEdition() {
                     }
                     spellCheck={false}
                   />
-                  <button
-                    type="button"
-                    className="btn btn-link btn-link-inline text-danger"
-                    onClick={() => showModal('removeAgenda')}
-                  >
-                    {getLabel('removeAgenda')}
-                  </button>
                   <div className="pull-right">
                     <SubmitButton />
                   </div>
@@ -179,21 +157,6 @@ export default function ProfileEdition() {
             </Form>
           </div>
         </div>
-
-        <Modal
-          visible={modals.removeAgenda ? modals.removeAgenda.visible : false}
-          onClose={() => closeModal('removeAgenda')}
-          title={getLabel('removeAgenda')}
-        >
-          <AuthenticateAndConfirm
-            message={getLabel('removeAgendaWarning')}
-            res={removeRes}
-            onSuccess={() => {
-              console.log('Success!');
-              window.location.href = '/';
-            }}
-          />
-        </Modal>
       </div>
     </IntlProvider>
   );

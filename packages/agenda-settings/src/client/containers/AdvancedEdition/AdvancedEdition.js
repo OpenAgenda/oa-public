@@ -14,6 +14,7 @@ import {
   LabSettingsForm,
   PassSettings,
   FiltersSettings,
+  DeleteAgenda,
 } from '../../components';
 import * as modalsActions from '../../reducers/modals';
 import * as keysActions from '../../reducers/keys';
@@ -34,6 +35,14 @@ const messages = defineMessages({
     id: 'AgendaSettings.AdvancedEdition.filtersMenuDescription',
     defaultMessage:
       'Define which filters you want to show on the front page of the agenda as well as in the administration',
+  },
+  deleteTitle: {
+    id: 'AgendaSettings.AdvancedEdition.deleteTitle',
+    defaultMessage: 'Delete',
+  },
+  deleteDescription: {
+    id: 'AgendaSettings.AdvancedEdition.deleteDescription',
+    defaultMessage: 'Deleting an agenda is irrevocable',
   },
 });
 
@@ -110,6 +119,9 @@ export default function AdvancedEdition() {
 
   const removeModal = useSelector((state) => state.modals.removeKey || {});
   const loading = useSelector((state) => state.agenda.loading);
+
+  const deleteRes = useSelector((state) =>
+    state.res.delete.replace(':uid', agenda.uid));
 
   const [activeTab, setActiveTab] = useState(null);
 
@@ -289,6 +301,23 @@ export default function AdvancedEdition() {
               description={<b>{getLabel('lab')}</b>}
               closedComponent={getLabel('labTabDescription')}
               openedComponent={<LabSettingsForm />}
+            />
+
+            <TableRow
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              tabName="delete"
+              description={(
+                <b className="text-danger">
+                  {intl.formatMessage(messages.deleteTitle)}
+                </b>
+              )}
+              closedComponent={(
+                <span className="text-danger">
+                  {intl.formatMessage(messages.deleteDescription)}
+                </span>
+              )}
+              openedComponent={<DeleteAgenda deleteRes={deleteRes} />}
             />
           </tbody>
         </table>
