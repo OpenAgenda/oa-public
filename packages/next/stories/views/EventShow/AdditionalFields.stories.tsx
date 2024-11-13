@@ -204,3 +204,176 @@ export const EmptyEventsField = () => {
     />
   );
 };
+
+export const TrueBooleanField = () => {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <AdditionalFields
+      updatedAt={new Date()}
+      agenda={agendaFixtures}
+      additionalFields={formatAdditionalFieldData({
+        schema: {
+          fields: [
+            {
+              field: 'trueBooleanField',
+              label: {
+                fr: 'Champs booleen à true',
+                en: 'True boolean field',
+              },
+              fieldType: 'boolean',
+            },
+          ],
+        },
+        event: {
+          trueBooleanField: true,
+        },
+        locale: 'fr',
+        defaultLocale: 'fr',
+        dateFnsLocale,
+      })}
+    />
+  );
+};
+
+export const FalseBooleanField = () => {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <AdditionalFields
+      updatedAt={new Date()}
+      agenda={agendaFixtures}
+      additionalFields={formatAdditionalFieldData({
+        schema: {
+          fields: [
+            {
+              field: 'falseBooleanField',
+              label: {
+                fr: 'Champs booleen à false',
+                en: 'False boolean field',
+              },
+              fieldType: 'boolean',
+            },
+          ],
+        },
+        event: {
+          falseBooleanField: false,
+        },
+        locale: 'fr',
+        defaultLocale: 'fr',
+        dateFnsLocale,
+      })}
+    />
+  );
+};
+
+export const UndefinedBooleanField = () => {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <AdditionalFields
+      updatedAt={new Date()}
+      agenda={agendaFixtures}
+      additionalFields={formatAdditionalFieldData({
+        schema: {
+          fields: [
+            {
+              field: 'undefinedBooleanField',
+              label: {
+                fr: 'Champs booleen à undefined',
+                en: 'Undefined boolean field',
+              },
+              fieldType: 'boolean',
+            },
+          ],
+        },
+        event: {
+          undefinedBooleanField: undefined,
+        },
+        locale: 'fr',
+        defaultLocale: 'fr',
+        dateFnsLocale,
+      })}
+    />
+  );
+};
+
+export const PDFField = () => {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <AdditionalFields
+      updatedAt={new Date()}
+      agenda={agendaFixtures}
+      additionalFields={formatAdditionalFieldData({
+        schema: {
+          fields: [
+            {
+              field: 'PDFField',
+              label: {
+                fr: 'Champs PDF',
+                en: 'PDF field',
+              },
+              fieldType: 'file',
+              store: {
+                type: 's3',
+                bucket: 'cibul',
+              },
+            },
+          ],
+        },
+        event: {
+          PDFField: {
+            originalName: 'document.pdf',
+            extension: 'pdf',
+            filename:
+              '7d521a91961a4251bb820849a8637b84.charger-ici-le-document-emis-par-la-commission-consultative-departementale-de-securite-et-daccessibilite.pdf',
+          },
+        },
+        locale: 'fr',
+        defaultLocale: 'fr',
+        dateFnsLocale,
+      })}
+    />
+  );
+};
+
+export const ImageField = () => {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <AdditionalFields
+      updatedAt={new Date()}
+      agenda={agendaFixtures}
+      additionalFields={formatAdditionalFieldData({
+        schema: {
+          fields: [
+            {
+              field: 'imageField',
+              label: {
+                fr: 'Champs image',
+                en: 'Image field',
+              },
+              fieldType: 'image',
+              store: {
+                type: 's3',
+                bucket: 'cibul',
+              },
+            },
+          ],
+        },
+        event: {
+          imageField: {
+            originalName: 'image.jpg',
+            extension: 'jpg',
+            filename:
+              '81cd0a6919894516b2a5b235eea44c06.photographie-dune-salle-de-classe.jpg',
+          },
+        },
+        locale: 'fr',
+        defaultLocale: 'fr',
+        dateFnsLocale,
+      })}
+    />
+  );
+};

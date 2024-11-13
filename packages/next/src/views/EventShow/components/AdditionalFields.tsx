@@ -54,18 +54,20 @@ function LinkField({ field }) {
 function ImageField({ field, updatedAt }) {
   const intl = useIntl();
 
+  const value = Array.isArray(field.value) ? field.value[0] : field.value;
+
   const suffix = updatedAt ? `?__ts=${updatedAt}` : '';
 
-  return field.value ? (
+  return value ? (
     <Image
       src={
         process.env.NODE_ENV === 'development'
-          ? `${DEV_IMAGE_PREFIX}${field.value.filename}${suffix}`
-          : `${IMAGE_PREFIX}${field.value.filename}${suffix}`
+          ? `${DEV_IMAGE_PREFIX}${value.filename}${suffix}`
+          : `${IMAGE_PREFIX}${value.filename}${suffix}`
       }
       fallbackSrc={
         process.env.NODE_ENV === 'development'
-          ? `${IMAGE_PREFIX}${field.value.filename}${suffix}`
+          ? `${IMAGE_PREFIX}${value.filename}${suffix}`
           : undefined
       }
       fill
@@ -87,14 +89,16 @@ function ImageField({ field, updatedAt }) {
 function FileField({ field }) {
   const intl = useIntl();
 
-  return field.value ? (
+  const value = Array.isArray(field.value) ? field.value[0] : field.value;
+
+  return value ? (
     <Link
       isExternal
-      href={field.value.link}
+      href={value.link}
       color="primary.500"
-      download={field.value.originalName}
+      download={value.originalName}
     >
-      {field.value.originalName}
+      {value.originalName}
     </Link>
   ) : (
     <chakra.em color="oaGray.500">
@@ -109,6 +113,17 @@ function HtmlField({ field }) {
   return field.value ? (
     <div dangerouslySetInnerHTML={{ __html: field.value }} />
   ) : (
+    <chakra.em color="oaGray.500">
+      {intl.formatMessage(messages.noInput)}
+    </chakra.em>
+  );
+}
+
+function BooleanField({ field }) {
+  const intl = useIntl();
+  const value = Array.isArray(field.value) ? field.value[0] : field.value;
+
+  return value || (
     <chakra.em color="oaGray.500">
       {intl.formatMessage(messages.noInput)}
     </chakra.em>
@@ -154,6 +169,8 @@ function Field({ field, updatedAt, agenda }) {
       return <HtmlField field={field} />;
     case 'events':
       return <EventItems py="2" field={field} agenda={agenda} />;
+    case 'boolean':
+      return <BooleanField field={field} />;
     default:
       return field.isOptioned ? (
         <OptionedField field={field} />
