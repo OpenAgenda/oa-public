@@ -33,8 +33,8 @@ import {
 
 import createHomeApp from '@openagenda/home/dist/app.js';
 import createUserSettingsApp from '@openagenda/user-apps/dist/app.js';
-import createAgendaSettingsNewApp from '@openagenda/agenda-settings/dist/client/createApp.js';
-import createAgendaSettingsEditApp from '@openagenda/agenda-settings/dist/client/editApp.js';
+import createAgendaSettingsNewApp from '@openagenda/agenda-settings/dist/createApp.js';
+import createAgendaSettingsEditApp from '@openagenda/agenda-settings/dist/editApp.js';
 import createUserActivitiesApp from '@openagenda/activity-apps/dist/client/apps/user/index.js';
 import createAgendaActivitiesApp from '@openagenda/activity-apps/dist/client/apps/agenda/index.js';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/dist/app.js';

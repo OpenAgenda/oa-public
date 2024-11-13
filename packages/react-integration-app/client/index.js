@@ -30,8 +30,8 @@ import {
 } from '@openagenda/react-layouts/src/layouts/index.js';
 import createHomeApp from '@openagenda/home/src/app.js';
 import createUserSettingsApp from '@openagenda/user-apps/src/app.js';
-import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp.js';
-import createAgendaSettingsEditApp from '@openagenda/agenda-settings/src/client/editApp.js';
+import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/createApp.js';
+import createAgendaSettingsEditApp from '@openagenda/agenda-settings/src/editApp.js';
 import createUserActivitiesApp from '@openagenda/activity-apps/src/client/apps/user/index.js';
 import createAgendaActivitiesApp from '@openagenda/activity-apps/src/client/apps/agenda/index.js';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app.js';

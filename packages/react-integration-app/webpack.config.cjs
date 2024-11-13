@@ -35,6 +35,7 @@ const modulesToInclude = [
   '@openagenda/react-share-menus',
   '@openagenda/react-shared',
   '@openagenda/react-timingspicker',
+  '@openagenda/registration-apps',
   '@openagenda/supervisor',
   '@react-leaflet/core',
   '@uppy',
