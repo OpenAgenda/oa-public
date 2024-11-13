@@ -2,14 +2,13 @@ import { useMemo } from 'react';
 import { renderRoutes } from 'react-router-config';
 import redial from 'redial';
 import { IntlProvider } from 'react-intl';
-import { css } from '@emotion/react';
 import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import labels from '@openagenda/labels/agenda-settings/agendaCreation';
-import locales from '../../../locales-compiled';
-import * as agendaActions from '../../reducers/agenda';
-import I18nContext from '../../contexts/I18nContext';
+import labels from '@openagenda/labels/agenda-settings/agendaCreation.js';
+import * as locales from '../../../locales-compiled/index.js';
+import * as agendaActions from '../../reducers/agenda.js';
+import I18nContext from '../../contexts/I18nContext.js';
 
 function CreationApp({ route }) {
   const { lang } = useLayoutData();
@@ -27,19 +26,12 @@ function CreationApp({ route }) {
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={locales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >
       <I18nContext.Provider value={i18nContextValue}>
-        <div
-          className="page"
-          css={css`
-            .radio label,
-            .checkbox label {
-              line-height: 20px;
-            }
-          `}
-        >
+        <div className="page">
           <div className="container agenda-settings-creation">
             {renderRoutes(route.routes)}
           </div>

@@ -3,13 +3,13 @@ import { loadable } from '@openagenda/react-shared';
 const CreationApp = loadable(
   () =>
     import(
-      /* webpackChunkName: "agendaSettings-CreationApp" */ './containers/CreationApp/CreationApp'
+      /* webpackChunkName: "agendaSettings-CreationApp" */ './containers/CreationApp/CreationApp.js'
     ),
 );
 const AgendaCreation = loadable(
   () =>
     import(
-      /* webpackChunkName: "agendaSettings-AgendaCreation" */ './containers/AgendaCreation/AgendaCreation'
+      /* webpackChunkName: "agendaSettings-AgendaCreation" */ './containers/AgendaCreation/AgendaCreation.js'
     ),
 );
 

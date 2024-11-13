@@ -13,7 +13,7 @@ import Select, { components } from 'react-select';
 import { useIntl } from 'react-intl';
 import { defaultSelectStyles } from '@openagenda/react-shared';
 
-import getFilterOptions from '../utils/getFilterOptions';
+import getFilterOptions from '../utils/getFilterOptions.js';
 
 export function Droppable({ id, children }) {
   const { isOver, setNodeRef } = useDroppable({ id });

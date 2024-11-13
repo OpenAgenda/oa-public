@@ -1,4 +1,4 @@
-import agendaSchema from '@openagenda/agendas/service/validate/public';
+import agendaSchema from '@openagenda/agendas/service/validate/public.js';
 
 export const schema = agendaSchema.struct;
 

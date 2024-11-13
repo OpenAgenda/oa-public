@@ -2,8 +2,8 @@ import { useState, useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Spinner, Modal } from '@openagenda/react-shared';
 
-import getFilterOptions from '../utils/getFilterOptions';
-import FilterSelect from './FilterSelect';
+import getFilterOptions from '../utils/getFilterOptions.js';
+import FilterSelect from './FilterSelect.js';
 
 const messages = defineMessages({
   publicLabel: {

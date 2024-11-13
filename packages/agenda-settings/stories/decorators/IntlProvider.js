@@ -2,7 +2,7 @@ import { IntlProvider } from 'react-intl';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 import { locales as reactFilterLocales } from '@openagenda/react-filters';
 
-import appLocales from '../../src/locales-compiled';
+import * as appLocales from '../../src/locales-compiled/index.js';
 
 const locales = mergeLocales(appLocales, reactFilterLocales);
 

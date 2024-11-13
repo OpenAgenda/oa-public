@@ -4,11 +4,16 @@ import { useHistory } from 'react-router';
 import { Form, useForm } from 'react-final-form';
 import { OnChange, OnBlur } from 'react-final-form-listeners';
 import slugify from 'slugify';
-import { create } from '../../reducers/agenda';
-import { CreationFirstStep, CreationSecondStep } from '../../components';
-import I18nContext from '../../contexts/I18nContext';
-import validate, { schema as agendaSchema } from '../../utils/validateProfile';
-import catchFormErrors from '../../utils/catchFormErrors';
+import { create } from '../../reducers/agenda.js';
+import {
+  CreationFirstStep,
+  CreationSecondStep,
+} from '../../components/index.js';
+import I18nContext from '../../contexts/I18nContext.js';
+import validate, {
+  schema as agendaSchema,
+} from '../../utils/validateProfile.js';
+import catchFormErrors from '../../utils/catchFormErrors.js';
 
 const mutators = {
   setFieldTouched: (args, state) => {

@@ -2,9 +2,9 @@ import { useCallback, useContext } from 'react';
 import { Form, Field } from 'react-final-form';
 import { useDispatch } from 'react-redux';
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
-import * as agendaActions from '../reducers/agenda';
-import catchFormErrors from '../utils/catchFormErrors';
+import I18nContext from '../contexts/I18nContext.js';
+import * as agendaActions from '../reducers/agenda.js';
+import catchFormErrors from '../utils/catchFormErrors.js';
 
 export default function LabSettingsForm() {
   const { agenda } = useLayoutData();

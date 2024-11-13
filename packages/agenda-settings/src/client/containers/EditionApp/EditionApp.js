@@ -3,17 +3,16 @@ import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import redial from 'redial';
 import { IntlProvider } from 'react-intl';
-import { css } from '@emotion/react';
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import makeGetterLabel from '@openagenda/labels';
-import labels from '@openagenda/labels/agenda-settings/agendaEdition';
-import appLocales from '../../../locales-compiled';
-import * as agendaActions from '../../reducers/agenda';
-import * as keysActions from '../../reducers/keys';
-import * as modalsActions from '../../reducers/modals';
-import I18nContext from '../../contexts/I18nContext';
+import labels from '@openagenda/labels/agenda-settings/agendaEdition.js';
+import * as appLocales from '../../../locales-compiled/index.js';
+import * as agendaActions from '../../reducers/agenda.js';
+import * as keysActions from '../../reducers/keys.js';
+import * as modalsActions from '../../reducers/modals.js';
+import I18nContext from '../../contexts/I18nContext.js';
 
 const locales = mergeLocales(appLocales, reactFiltersLocales);
 
@@ -39,15 +38,7 @@ function EditionApp({ route }) {
       defaultLocale={getSupportedLocale(lang)}
     >
       <I18nContext.Provider value={i18nContextValue}>
-        <div
-          className="agenda-settings-edit"
-          css={css`
-            .radio label,
-            .checkbox label {
-              line-height: 20px;
-            }
-          `}
-        >
+        <div className="agenda-settings-edit">
           {loading ? (
             <div style={{ margin: '150px 0' }}>
               <Spinner />

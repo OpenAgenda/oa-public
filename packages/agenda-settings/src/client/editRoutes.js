@@ -3,31 +3,31 @@ import { loadable } from '@openagenda/react-shared';
 const EditionApp = loadable(
   () =>
     import(
-      /* webpackChunkName: "agendaSettings-EditionApp" */ './containers/EditionApp/EditionApp'
+      /* webpackChunkName: "agendaSettings-EditionApp" */ './containers/EditionApp/EditionApp.js'
     ),
 );
 const GettingStarted = loadable(
   () =>
     import(
-      /* webpackChunkName: "agendaSettings-GettingStarted" */ './components/GettingStarted'
+      /* webpackChunkName: "agendaSettings-GettingStarted" */ './components/GettingStarted.js'
     ),
 );
 const ProfileEdition = loadable(
   () =>
     import(
-      /* webpackChunkName: "agendaSettings-ProfileEdition" */ './containers/ProfileEdition/ProfileEdition'
+      /* webpackChunkName: "agendaSettings-ProfileEdition" */ './containers/ProfileEdition/ProfileEdition.js'
     ),
 );
 const ContributionEdition = loadable(
   () =>
     import(
-      /* webpackChunkName: "agendaSettings-ContributionEdition" */ './containers/ContributionEdition/ContributionEdition'
+      /* webpackChunkName: "agendaSettings-ContributionEdition" */ './containers/ContributionEdition/ContributionEdition.js'
     ),
 );
 const AdvancedEdition = loadable(
   () =>
     import(
-      /* webpackChunkName: "agendaSettings-AdvancedEdition" */ './containers/AdvancedEdition/AdvancedEdition'
+      /* webpackChunkName: "agendaSettings-AdvancedEdition" */ './containers/AdvancedEdition/AdvancedEdition.js'
     ),
 );
 

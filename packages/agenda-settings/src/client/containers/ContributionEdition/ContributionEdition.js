@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
 import { FormattedMessage, useIntl, defineMessages } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
-import I18nContext from '../../contexts/I18nContext';
-import { MarkdownInput } from '../../utils/inputs';
-import * as agendaActions from '../../reducers/agenda';
-import catchFormErrors from '../../utils/catchFormErrors';
+import I18nContext from '../../contexts/I18nContext.js';
+import { MarkdownInput } from '../../utils/inputs.js';
+import * as agendaActions from '../../reducers/agenda.js';
+import catchFormErrors from '../../utils/catchFormErrors.js';
 
 const messages = defineMessages({
   GDPRInformationPlaceholder: {
@@ -345,7 +345,7 @@ export default function ContributionEdition() {
                   </div>
                 ) : null}
 
-                {agenda.credentials.invitationMessage ? (
+                {agenda.credentials?.invitationMessage ? (
                   <div className="checkbox">
                     <label>
                       <input
@@ -374,7 +374,7 @@ export default function ContributionEdition() {
                   </div>
                 ) : null}
 
-                {agenda.credentials.invitationMessage ? (
+                {agenda.credentials?.invitationMessage ? (
                   <div className="checkbox">
                     <label>
                       <input

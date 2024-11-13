@@ -1,6 +1,6 @@
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
-import createApp from '../src/client/createApp';
+import createApp from '../src/client/createApp.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

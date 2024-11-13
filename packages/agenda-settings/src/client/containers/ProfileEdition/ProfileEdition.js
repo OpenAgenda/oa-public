@@ -11,12 +11,14 @@ import {
   AuthenticateAndConfirm,
   locales as sharedLocales,
 } from '@openagenda/react-shared';
-import { edit } from '../../reducers/agenda';
-import * as modalsActions from '../../reducers/modals';
-import validate, { schema as agendaSchema } from '../../utils/validateProfile';
-import { BasicInput, BasicTextarea, InputGroup } from '../../utils/inputs';
-import I18nContext from '../../contexts/I18nContext';
-import catchFormErrors from '../../utils/catchFormErrors';
+import { edit } from '../../reducers/agenda.js';
+import * as modalsActions from '../../reducers/modals.js';
+import validate, {
+  schema as agendaSchema,
+} from '../../utils/validateProfile.js';
+import { BasicInput, BasicTextarea, InputGroup } from '../../utils/inputs.js';
+import I18nContext from '../../contexts/I18nContext.js';
+import catchFormErrors from '../../utils/catchFormErrors.js';
 
 const MAX_SIZE = 1024 * 1024 * 20; // 20MB
 
@@ -189,7 +191,6 @@ export default function ProfileEdition() {
             message={getLabel('removeAgendaWarning')}
             res={removeRes}
             onSuccess={() => {
-              console.log('Success!');
               window.location.href = '/';
             }}
           />

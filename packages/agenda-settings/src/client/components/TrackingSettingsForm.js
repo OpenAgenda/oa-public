@@ -1,16 +1,16 @@
-import get from 'lodash/get';
-import identity from 'lodash/identity';
-import isEqual from 'lodash/isEqual';
+import get from 'lodash/get.js';
+import identity from 'lodash/identity.js';
+import isEqual from 'lodash/isEqual.js';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import Select from 'react-select';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
-import { BasicInput } from '../utils/inputs';
-import * as agendaActions from '../reducers/agenda';
-import catchFormErrors from '../utils/catchFormErrors';
+import I18nContext from '../contexts/I18nContext.js';
+import { BasicInput } from '../utils/inputs.js';
+import * as agendaActions from '../reducers/agenda.js';
+import catchFormErrors from '../utils/catchFormErrors.js';
 
 function validate(values) {
   const errors = {};

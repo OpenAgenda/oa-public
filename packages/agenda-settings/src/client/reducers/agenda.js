@@ -1,4 +1,4 @@
-import toMixedMultipart from '@openagenda/utils/toMixedMultipart';
+import toMixedMultipart from '@openagenda/utils/toMixedMultipart.js';
 
 const LOAD = 'agenda-settings/agenda/LOAD';
 const LOAD_SUCCESS = 'agenda-settings/agenda/LOAD_SUCCESS';
