@@ -1,22 +1,16 @@
-"use strict";
-
-var React = require( 'react' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  Search = require( './Search' ),
-
-  Details = require( './Details' ),
-
-  actions = require( './actions' ),
-
-  get = require( '@openagenda/utils/get' ),
-
-  post = require( '@openagenda/utils/post' ),
-
-  debounce = require( 'lodash/debounce' ),
-
-  qs = require( 'qs' );
+import React from 'react';
+import PropTypes from 'prop-types';
+import Search from './Search';
+import Details from './Details';
+import actions from './actions';
+import get from '@openagenda/utils/get';
+import post from '@openagenda/utils/post';
+import { getSupportedLocale } from '@openagenda/intl';
+import { Modal, AuthenticateAndConfirm } from '@openagenda/react-shared';
+import debounce from 'lodash/debounce';
+import qs from 'qs';
+import { IntlProvider } from 'react-intl';
+import { locales } from '@openagenda/react-shared';
 
 const searchSpinner = {
   width: 1,
@@ -41,6 +35,7 @@ export default class Body extends React.Component {
     this.onSelectAgenda = this.onSelectAgenda.bind(this);
     this.getMembersPage = this.getMembersPage.bind(this);
     this.setAgenda = this.setAgenda.bind(this);
+    this.displayConfirmDelete = this.displayConfirmDelete.bind(this);
   }
 
   static propTypes = {
@@ -63,7 +58,8 @@ export default class Body extends React.Component {
     agenda: {},
     members: [],
     membersPageRange: [ 1, 1 ],
-    membersTotal: 0
+    membersTotal: 0,
+    displayDeleteModal: false,
   }
 
   componentDidMount() {
@@ -84,6 +80,10 @@ export default class Body extends React.Component {
       if ( q.agendaUid ) this.onSelectAgenda( q.agendaUid, q.membersPage );
     } );
 
+  }
+
+  displayConfirmDelete() {
+    this.setState({ displayDeleteModal: true });
   }
 
   onSearchChange( name, search ) {
@@ -228,32 +228,63 @@ export default class Body extends React.Component {
 
   render() {
 
-    return <div className="admin">
-      <div className="container-fluid">
-        <div className="row">
-          <Search
-            query={this.state.search.query}
-            agendas={this.state.search.agendas}
-            total={this.state.search.total}
-            pageRange={this.state.search.pageRange}
-            getSearchPage={this.getSearchPage}
-            onSelectAgenda={this.onSelectAgenda}
-            onSearchChange={this.onSearchChange}
-            loading={this.state.loading}
-          />
-          <Details
-            agenda={this.state.agenda}
-            members={this.state.members}
-            total={this.state.membersTotal}
-            pageRange={this.state.membersPageRange}
-            getMembersPage={this.getMembersPage}
-            setAgenda={this.setAgenda}
-            updateHref={updateHref}
-            getQuery={getQuery}
-          />
+    const {
+      displayDeleteModal,
+      agenda,
+    } = this.state;
+
+    return (
+      <IntlProvider
+        key="fr"
+        locale="fr"
+        messages={locales.fr}
+        defaultLocale={getSupportedLocale('fr')}
+      >
+        <div className="admin">
+          <div className="container-fluid">
+            <div className="row">
+              <Search
+                query={this.state.search.query}
+                agendas={this.state.search.agendas}
+                total={this.state.search.total}
+                pageRange={this.state.search.pageRange}
+                getSearchPage={this.getSearchPage}
+                onSelectAgenda={this.onSelectAgenda}
+                onSearchChange={this.onSearchChange}
+                loading={this.state.loading}
+              />
+              <Details
+                agenda={this.state.agenda}
+                members={this.state.members}
+                total={this.state.membersTotal}
+                pageRange={this.state.membersPageRange}
+                getMembersPage={this.getMembersPage}
+                setAgenda={this.setAgenda}
+                displayConfirmDelete={this.displayConfirmDelete}
+                updateHref={updateHref}
+                getQuery={getQuery}
+              />
+              {displayDeleteModal ? (
+                <Modal
+                  onClose={() => { this.setState({ displayDeleteModal: false }); }}
+                  title="Suppression d'agenda"
+                >
+                  <AuthenticateAndConfirm
+                    method="delete"
+                    message="MdP StP."
+                    res={`/api/agendas/${agenda.uid}`}
+                    onSuccess={() => {
+                      window.location.href = '/admin/agendas';
+                    }}
+                  />
+                </Modal>
+              ) : null}
+              
+            </div>
+          </div>
         </div>
-      </div>
-    </div>;
+      </IntlProvider>
+    );
 
   }
 
