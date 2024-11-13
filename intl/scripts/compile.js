@@ -6,7 +6,7 @@ const _ = require('lodash');
 const glob = require('glob');
 const { mkdirp } = require('mkdirp');
 const tmp = require('tmp');
-const { compile } = require('@formatjs/cli');
+const { compile } = require('@formatjs/cli-lib');
 const {
   DEFAULT_LANG,
   DEFAULT_LANGS,

@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const { mkdirp } = require('mkdirp');
 const { dedent } = require('ts-dedent');
 const fileExists = require('./fileExists');
+const isPackageModule = require('./isPackageModule');
 
 function getCjsIndex(existingLangs, langs) {
   const requires = existingLangs
@@ -38,7 +39,7 @@ function getEsmIndex(existingLangs, langs) {
     .sort()
     .map((lang) =>
       (existingLangs.includes(lang)
-        ? `export { default as ${lang} } from './${lang}.json' assert { type: 'json' }`
+        ? `export { default as ${lang} } from './${lang}.json' with { type: 'json' }`
         : `export const ${lang} = {}`))
     .join(';\n');
 
@@ -51,13 +52,41 @@ function getEsmIndex(existingLangs, langs) {
     `}\n`;
 }
 
+function getFileExtension(isModule, isEsm) {
+  if (isModule && !isEsm) return 'cjs';
+  if (!isModule && isEsm) return 'mjs';
+  return 'js';
+}
+
+function removeIndex(indexPath) {
+  if (fileExists(indexPath)) {
+    try {
+      fs.unlinkSync(indexPath);
+    } catch {
+      //
+    }
+  }
+}
+
 module.exports = async function createIndex(dest, langs, isEsm) {
+  const extension = getFileExtension(isPackageModule(), isEsm);
   const indexPath = path.join(
     process.cwd(),
-    dest.replace('%lang%.json', `index.${isEsm ? 'mjs' : 'js'}`),
+    dest.replace('%lang%.json', `index.${extension}`),
   );
 
   await mkdirp(path.dirname(dest));
+
+  // Remove old index
+  if (extension !== 'js') {
+    removeIndex(path.join(path.dirname(dest), 'index.js'));
+  }
+  if (extension !== 'cjs') {
+    removeIndex(path.join(path.dirname(dest), 'index.cjs'));
+  }
+  if (extension !== 'mjs') {
+    removeIndex(path.join(path.dirname(dest), 'index.mjs'));
+  }
 
   const existingLangs = langs.filter((lang) =>
     fileExists(dest.replace('%lang%.json', `${lang}.json`)));

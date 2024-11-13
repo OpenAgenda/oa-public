@@ -1,14 +1,12 @@
-'use strict';
+import 'dotenv/config';
 
-require('dotenv').config();
-
-const path = require('node:path');
-const { promisify } = require('node:util');
-const express = require('express');
-const bodyParser = require('body-parser');
-const axios = require('axios');
-const qs = require('qs');
-const sass = require('sass');
+import path from 'node:path';
+import { promisify } from 'node:util';
+import express from 'express';
+import bodyParser from 'body-parser';
+import axios from 'axios';
+import qs from 'qs';
+import sass from 'sass';
 
 const { AGENDA_UID, API_KEY } = process.env;
 
@@ -24,15 +22,15 @@ app.set('view engine', 'ejs');
 
 app.use(
   '/react-filters.js',
-  express.static(path.join(__dirname, '../dist/main.js')),
+  express.static(path.join(import.meta.dirname, '../dist/main.js')),
 );
 app.use('/main.css', (req, res) => {
   const result = sass.renderSync({
-    file: path.join(__dirname, 'scss/main.scss'),
+    file: path.join(import.meta.dirname, 'scss/main.scss'),
     includePaths: [
-      path.join(__dirname, '../node_modules'), // react-filters
-      path.join(__dirname, '../../node_modules'), // public
-      path.join(__dirname, '../../../node_modules'), // oa
+      path.join(import.meta.dirname, '../node_modules'), // react-filters
+      path.join(import.meta.dirname, '../../node_modules'), // public
+      path.join(import.meta.dirname, '../../../node_modules'), // oa
     ],
   });
 
@@ -40,7 +38,7 @@ app.use('/main.css', (req, res) => {
   res.send(result.css.toString());
 });
 
-app.use(express.static(path.join(__dirname, 'assets')));
+app.use(express.static(path.join(import.meta.dirname, 'assets')));
 
 app.get('/', async (req, res, next) => {
   try {

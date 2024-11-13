@@ -1,4 +1,4 @@
-import get from 'lodash/get';
+import get from 'lodash/get.js';
 import { useCallback } from 'react';
 import { defineMessages } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';

@@ -1,5 +1,5 @@
-export * from './api';
-export * from './components';
-export * from './hooks';
-export * from './utils';
-export * as locales from './locales-compiled';
+export * from './api/index.js';
+export * from './components/index.js';
+export * from './hooks/index.js';
+export * from './utils/index.js';
+export * as locales from './locales-compiled/index.js';

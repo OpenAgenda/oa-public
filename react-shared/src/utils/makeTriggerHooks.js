@@ -1,4 +1,4 @@
-import { trigger } from 'redial';
+import redial from 'redial';
 import asyncMatchRoutes from './asyncMatchRoutes';
 
 function haveHooks(hooks, components) {
@@ -67,7 +67,7 @@ export default function makeTriggerHooks({ routes, history, helpers, req }) {
     Object.assign(helpers, { match, params });
 
     if (hooks.includes('inject')) {
-      await trigger('inject', components, helpers);
+      await redial.trigger('inject', components, helpers);
     }
 
     // Don't fetch data for initial route, server has already done the work:
@@ -76,11 +76,11 @@ export default function makeTriggerHooks({ routes, history, helpers, req }) {
       delete window.__PRELOADED__;
     } else if (hooks.includes('fetch')) {
       // Fetch mandatory data dependencies for 2nd route change onwards:
-      await trigger('fetch', components, helpers);
+      await redial.trigger('fetch', components, helpers);
     }
 
     if (typeof window !== 'undefined' && hooks.includes('defer')) {
-      await trigger('defer', components, helpers);
+      await redial.trigger('defer', components, helpers);
     }
 
     isFinished = true;

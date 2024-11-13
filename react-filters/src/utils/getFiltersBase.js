@@ -1,4 +1,4 @@
-import withDefaultFilterConfig from './withDefaultFilterConfig';
+import withDefaultFilterConfig from './withDefaultFilterConfig.js';
 
 export default function getFiltersBase(fields, opts = {}) {
   return [

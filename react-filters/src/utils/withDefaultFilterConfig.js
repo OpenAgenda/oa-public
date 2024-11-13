@@ -1,14 +1,14 @@
-import defaults from 'lodash/defaults';
+import defaults from 'lodash/defaults.js';
 import { getLocaleValue } from '@openagenda/intl';
-import relativeOptions from '../messages/relative';
-import attendanceModeOptions from '../messages/attendanceMode';
-import provenanceMessages from '../messages/provenance';
-import featuredMessages from '../messages/featured';
-import stateMessages from '../messages/state';
-import statusMessages from '../messages/status';
-import booleanMessages from '../messages/boolean';
-import accessibilitiesMessages from '../messages/accessibilities';
-import dateRanges from './dateRanges';
+import relativeOptions from '../messages/relative.js';
+import attendanceModeOptions from '../messages/attendanceMode.js';
+import provenanceMessages from '../messages/provenance.js';
+import featuredMessages from '../messages/featured.js';
+import stateMessages from '../messages/state.js';
+import statusMessages from '../messages/status.js';
+import booleanMessages from '../messages/boolean.js';
+import accessibilitiesMessages from '../messages/accessibilities.js';
+import dateRanges from './dateRanges.js';
 
 function assignDateRanges(filter, intl, dataFnsLocale) {
   if (filter.type === 'definedRange') {

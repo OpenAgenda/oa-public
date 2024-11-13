@@ -31,13 +31,9 @@ export default function fromMarkdownToHTML(md, options = {}) {
     })
     : undefined;
 
-  const HTML = (md || '')
-    .split('\n\n')
-    .map((markdown) =>
-      (selfDomain
-        ? markedWithRenderer.parse(markdown, { breaks: true })
-        : marked(markdown, { breaks: true })))
-    .join('<p></p>\n');
+  const HTML = selfDomain
+    ? markedWithRenderer.parse(md || '', { breaks: true })
+    : marked(md || '', { breaks: true });
 
   return DOMPurify.sanitize(HTML, {
     ADD_ATTR: ['target'],

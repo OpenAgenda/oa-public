@@ -3,10 +3,10 @@ import { Field, useField } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import { parseISO, endOfDay, isSameDay } from 'date-fns';
 import { utcToZonedTime, getTimezoneOffset } from 'date-fns-tz';
-import DateRangePicker from '../fields/DateRangePicker';
-import Title from '../Title';
-import Panel from '../Panel';
-import FilterPreviewer from '../FilterPreviewer';
+import DateRangePicker from '../fields/DateRangePicker.js';
+import Title from '../Title.js';
+import Panel from '../Panel.js';
+import FilterPreviewer from '../FilterPreviewer.js';
 
 const messages = defineMessages({
   dateRange: {
@@ -115,7 +115,7 @@ function parseValue(value) {
   return result;
 }
 
-function Preview({
+export function Preview({
   name,
   staticRanges = [],
   component = FilterPreviewer,

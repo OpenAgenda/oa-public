@@ -1,4 +1,4 @@
-import TimingsPicker from '../src';
+import TimingsPicker from '../src/index.js';
 
 import 'react-day-picker/lib/style.css';
 import '../src/App.css';

@@ -42,6 +42,8 @@ module.exports = async (req, res, next) => {
   setPageProp(req, 'locales', { [res.locals.lang]: intl.messages });
   setPageProp(req, 'defaultViewport', res.locals.agenda.summary.viewport);
   setPageProp(req, 'agendaUid', res.locals.agenda.uid);
+  setPageProp(req, 'manualSubmit', res.locals.manualSubmit);
+  setPageProp(req, 'filtersFormSelector', res.locals.filtersFormSelector);
   setPageProp(req, 'aggregations', req.data.aggregations);
   setPageProp(req, 'total', req.data.total);
   setPageProp(req, 'filtersBase', req.data.filtersBase);

@@ -27,7 +27,9 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="col-3">
+    <form id="filters-form" class="col-3">
+      <button type="submit" class="btn btn-primary">Filtrer</button>
+
       <div
         data-oa-filter="map"
         data-oa-filter-params="<%= JSON.stringify({
@@ -48,7 +50,7 @@
 
       <div
         data-oa-filter="date-range"
-        data-oa-filter-params="<%= JSON.stringify({ type: 'dateRange', name: 'timings' }) %>"
+        data-oa-filter-params="<%= JSON.stringify({ type: 'simpleDateRange', name: 'timings' }) %>"
       ></div>
 
       <div
@@ -135,6 +137,7 @@
       ></div>
 
       <div
+        role="status"
         data-oa-widget="total"
         data-oa-widget-params="<%= JSON.stringify({
           message: {
@@ -145,7 +148,7 @@
           name: 'total',
         }) %>"
       ></div>
-    </div>
+    </form>
 
     <div class="col">
       <div class="container event-list">

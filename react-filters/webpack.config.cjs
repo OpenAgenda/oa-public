@@ -21,6 +21,7 @@ const modulesToInclude = [
   '@openagenda/member-apps',
   '@openagenda/user-apps',
   '@openagenda/react-layouts',
+  '@openagenda/react-portal-ssr',
   '@openagenda/react-shared',
   '@openagenda/supervisor',
   '@react-leaflet/core',
@@ -86,6 +87,11 @@ module.exports = (env = {}, argv = {}) => {
           resolve: {
             fullySpecified: false,
           },
+          exclude: [
+            /\/node_modules\/nth-check\//,
+            /\/node_modules\/@formatjs\//,
+            /\/node_modules\/intl-messageformat\//,
+          ],
         },
         {
           test: /\.(js|mjs|jsx)$/,
@@ -104,6 +110,9 @@ module.exports = (env = {}, argv = {}) => {
     resolve: {
       // symlinks: false,
       extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
+      alias: {
+        '@httptoolkit/esm': false,
+      },
       fallback: {
         buffer: require.resolve('buffer'),
       },

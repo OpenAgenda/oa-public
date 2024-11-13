@@ -1,6 +1,6 @@
 import React from 'react';
 import { useField } from 'react-final-form';
-import useFilterTitle from '../hooks/useFilterTitle';
+import useFilterTitle from '../hooks/useFilterTitle.js';
 
 const subscription = { value: true };
 
