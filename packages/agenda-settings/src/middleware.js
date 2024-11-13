@@ -1,6 +1,4 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
+import logs from '@openagenda/logs';
 
 // let service;
 let config;
@@ -137,7 +135,7 @@ function slugAvailable(req, res, next) {
   );
 }
 
-module.exports = {
+export default {
   init,
   create,
   get,

@@ -5,10 +5,10 @@ import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
 import { email as emailValidator } from '@openagenda/validators';
-import I18nContext from '../contexts/I18nContext';
-import { BasicInput } from '../utils/inputs';
-import * as agendaActions from '../reducers/agenda';
-import catchFormErrors from '../utils/catchFormErrors';
+import I18nContext from '../contexts/I18nContext.js';
+import { BasicInput } from '../utils/inputs.js';
+import * as agendaActions from '../reducers/agenda.js';
+import catchFormErrors from '../utils/catchFormErrors.js';
 
 const isEmail = emailValidator();
 

@@ -2,10 +2,10 @@ import { useContext, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { MoreInfo } from '@openagenda/react-shared';
-import * as keysActions from '../reducers/keys';
-import * as modalsActions from '../reducers/modals';
-import I18nContext from '../contexts/I18nContext';
-import EditKeyForm from './EditKeyForm';
+import * as keysActions from '../reducers/keys.js';
+import * as modalsActions from '../reducers/modals.js';
+import I18nContext from '../contexts/I18nContext.js';
+import EditKeyForm from './EditKeyForm.js';
 
 function Key({ item, index }) {
   const { getLabel } = useContext(I18nContext);

@@ -1,10 +1,10 @@
 import '@openagenda/bs-templates/compiled/main.css';
 import { useState } from 'react';
-import FilterSelectComponent from '../src/client/components/FilterSelect';
-import FiltersSettingsComponent from '../src/client/components/FiltersSettings';
-import DeleteAgendaComponent from '../src/client/components/DeleteAgenda';
-import Decorator from './decorators/Simple';
-import IntlProviderDecorator from './decorators/IntlProvider';
+import FilterSelectComponent from '../src/client/components/FilterSelect.js';
+import FiltersSettingsComponent from '../src/client/components/FiltersSettings.js';
+import DeleteAgendaComponent from '../src/client/components/DeleteAgenda.js';
+import Decorator from './decorators/Simple.js';
+import IntlProviderDecorator from './decorators/IntlProvider.js';
 
 import agenda from './fixtures/bdm.agenda.json';
 import agendaWithModifiedFilters from './fixtures/jep.agenda.json';

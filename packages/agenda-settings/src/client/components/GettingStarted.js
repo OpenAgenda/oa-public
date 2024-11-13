@@ -3,8 +3,8 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
 import makeGetterLabel from '@openagenda/labels';
-import labels from '@openagenda/labels/agenda-admin/gettingStarted';
-import I18nContext from '../contexts/I18nContext';
+import labels from '@openagenda/labels/agenda-admin/gettingStarted.js';
+import I18nContext from '../contexts/I18nContext.js';
 
 export default function GettingStarted() {
   const { agenda } = useLayoutData();

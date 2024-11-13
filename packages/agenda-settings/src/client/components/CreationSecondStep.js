@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Field } from 'react-final-form';
 import { FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 
 export default function CreationSecondStep({
   previousPage,

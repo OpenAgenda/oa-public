@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { Form, Field } from 'react-final-form';
 import { MoreInfo } from '@openagenda/react-shared';
-import { InputGroup } from '../utils/inputs';
-import I18nContext from '../contexts/I18nContext';
+import { InputGroup } from '../utils/inputs.js';
+import I18nContext from '../contexts/I18nContext.js';
 
 export default function EditKeyForm({ index, item: _item, cancel, onSubmit }) {
   const { getLabel } = useContext(I18nContext);

@@ -1,17 +1,12 @@
-'use strict';
-
-const mw = require('./middleware');
+import mw from './middleware.js';
 
 function init(c, cb) {
   Promise.resolve(c)
     .then(() => {
-      mw.init(module.exports, c);
+      mw.init(null, c);
     })
 
     .then(() => (cb ? cb() : null), cb || null);
 }
 
-module.exports = {
-  init,
-  mw,
-};
+export { init, mw };

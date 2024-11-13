@@ -15,11 +15,11 @@ import {
   PassSettings,
   FiltersSettings,
   DeleteAgenda,
-} from '../../components';
-import * as modalsActions from '../../reducers/modals';
-import * as keysActions from '../../reducers/keys';
-import I18nContext from '../../contexts/I18nContext';
-import * as agendaActions from '../../reducers/agenda';
+} from '../../components/index.js';
+import * as modalsActions from '../../reducers/modals.js';
+import * as keysActions from '../../reducers/keys.js';
+import I18nContext from '../../contexts/I18nContext.js';
+import * as agendaActions from '../../reducers/agenda.js';
 
 const docRes = {
   official: 'https://doc.openagenda.com/les-agendas-officiels-sur-openagenda',

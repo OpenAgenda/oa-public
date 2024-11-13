@@ -10,8 +10,12 @@ export default {
     name: getAbsolutePath('@storybook/react-webpack5'),
     options: {},
   },
+  staticDirs: ['./public'],
   babel: (config) => {
     return { ...config, rootMode: 'upward' };
   },
-  staticDirs: ['./public'],
+  webpackFinal: (config) => {
+    config.resolve.alias['@httptoolkit/esm'] = false;
+    return config;
+  },
 };

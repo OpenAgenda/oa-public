@@ -1,5 +1,5 @@
 import { promisify } from 'node:util';
-import agendaSettings from '@openagenda/agenda-settings';
+import * as agendaSettings from '@openagenda/agenda-settings';
 import agendas from '@openagenda/agendas';
 
 export async function init(config) {

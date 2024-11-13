@@ -1,9 +1,9 @@
 import path from 'node:path';
 import keysSvc from '@openagenda/keys';
-import agendasFixtures from '@openagenda/agendas/test/fixtures/load';
+import agendasFixtures from '@openagenda/agendas/test/fixtures/load.js';
 
 const agendasSvcRoot = path.dirname(
-  require.resolve('@openagenda/agendas/package.json'),
+  import.meta.resolve('@openagenda/agendas/package.json'),
 );
 
 export async function seed(knex) {

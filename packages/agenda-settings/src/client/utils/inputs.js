@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { MarkdownComponent } from '@openagenda/react-shared';
 import classNames from 'classnames';
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 
 export function BaseField({
   children,
