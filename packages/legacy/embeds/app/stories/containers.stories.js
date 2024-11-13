@@ -52,6 +52,7 @@ export const DashboardBeforeCreate = {
         <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
           <Dashboard
             selectionMenuContainerRef={selectionMenuRef}
+            agendaSlug="toulouse-metropole"
             agendaUid={50522407}
             res={{
               embeds: '/agendas/:agendaUid/embeds',
@@ -86,6 +87,7 @@ export const DashboardDefaultView = {
         <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
           <Dashboard
             selectionMenuContainerRef={selectionMenuRef}
+            agendaSlug="toulouse-metropole"
             agendaUid={50522407}
             res={{
               events: '/agendas/:agendaUid/events',

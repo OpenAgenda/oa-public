@@ -11,6 +11,7 @@ import ListMenu from '../components/ListMenu';
 import Presentation from '../components/Presentation';
 
 function Dashboard({
+  agendaSlug,
   agendaUid,
   res,
   selectionMenuContainerRef,
@@ -38,6 +39,7 @@ function Dashboard({
   if (!editedEmbed) {
     return (
       <Presentation
+        agendaSlug={agendaSlug}
         res={baseRes}
         onCreate={setEditedEmbed}
       />

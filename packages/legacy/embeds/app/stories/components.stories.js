@@ -266,6 +266,7 @@ export const EmbedUpdateButton = {
 export const EmbedPresentation = {
   render: () => (
     <Presentation
+      agendaSlug="toulouse-metropole"
       res="/agendas/50522407/embeds"
       onCreate={() => { }}
     />

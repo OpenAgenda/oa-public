@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { useRouter } from 'next/router';
 import { defineMessages, useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
 import {
@@ -26,7 +27,7 @@ import { keyCDNLoader } from 'utils/imageLoader';
 import hrefWithLang from 'utils/hrefWithLang';
 import getSession from 'utils/getSession';
 import AggregateModal from './AggregateModal';
-import ExportModal from './ExportModal';
+import ExportModal, { exportIndexMap } from './ExportModal';
 
 const messages = defineMessages({
   contact: {
@@ -77,6 +78,7 @@ export default function AgendaHeader({ agenda }) {
 
   const intl = useIntl();
 
+  const router = useRouter();
   const urlQuery = useLocationQuery();
 
   const mailtoUrl = getMailtoUrl(agenda.settings.inbox?.mailto);
@@ -87,11 +89,24 @@ export default function AgendaHeader({ agenda }) {
     onClose: aggregateOnClose,
   } = useDisclosure({ defaultIsOpen: urlQuery.displayAggregatorModal === '1' });
 
+  const displayExportModalValue = urlQuery.displayExportModal as string;
+  const displayExportModalIndex =
+    displayExportModalValue && displayExportModalValue in exportIndexMap
+      ? exportIndexMap[displayExportModalValue]
+      : -1;
+
   const {
     isOpen: exportIsOpen,
     onOpen: exportOnOpen,
     onClose: exportOnClose,
-  } = useDisclosure({ defaultIsOpen: urlQuery.displayExportModal === '1' });
+  } = useDisclosure({
+    defaultIsOpen: Boolean(displayExportModalValue),
+    onClose() {
+      const url = new URL(router.asPath, 'https://n');
+      url.searchParams.delete('displayExportModal');
+      router.replace(url.pathname + url.search, null, { shallow: true });
+    },
+  });
 
   const [cookies] = useCookies();
   const sessionUser = getSession(cookies)?.user;
@@ -214,7 +229,12 @@ export default function AgendaHeader({ agenda }) {
       </VStack>
 
       {exportIsOpen ? (
-        <ExportModal isOpen onClose={exportOnClose} agenda={agenda} />
+        <ExportModal
+          isOpen
+          onClose={exportOnClose}
+          agenda={agenda}
+          defaultIndex={displayExportModalIndex}
+        />
       ) : null}
       {aggregateIsOpen ? (
         <AggregateModal isOpen onClose={aggregateOnClose} agenda={agenda} />
