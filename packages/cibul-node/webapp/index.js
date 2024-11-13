@@ -243,6 +243,7 @@ const initialState = async (req) => {
         slugAvailable: '/agendas/slugs/available',
         set: '/:slug/admin/settings/edit',
         remove: '/:slug/admin/settings/remove',
+        delete: '/api/agendas/:uid',
         keys: {
           create: '/:slug/admin/settings/keys/create',
           list: '/:slug/admin/settings/keys/list',

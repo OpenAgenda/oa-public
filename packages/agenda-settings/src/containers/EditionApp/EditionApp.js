@@ -3,7 +3,11 @@ import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import redial from 'redial';
 import { IntlProvider } from 'react-intl';
-import { Spinner, useLayoutData } from '@openagenda/react-shared';
+import {
+  Spinner,
+  useLayoutData,
+  locales as sharedLocales,
+} from '@openagenda/react-shared';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import makeGetterLabel from '@openagenda/labels';
@@ -14,7 +18,7 @@ import * as keysActions from '../../reducers/keys.js';
 import * as modalsActions from '../../reducers/modals.js';
 import I18nContext from '../../contexts/I18nContext.js';
 
-const locales = mergeLocales(appLocales, reactFiltersLocales);
+const locales = mergeLocales(appLocales, reactFiltersLocales, sharedLocales);
 
 function EditionApp({ route }) {
   const { lang } = useLayoutData();

@@ -6,3 +6,4 @@ export { default as LabSettingsForm } from './LabSettingsForm.js';
 export { default as TrackingSettingsForm } from './TrackingSettingsForm.js';
 export { default as PassSettings } from './PassSettings.js';
 export { default as FiltersSettings } from './FiltersSettings.js';
+export { default as DeleteAgenda } from './DeleteAgenda.js';

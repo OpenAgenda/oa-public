@@ -9,16 +9,6 @@ export default createReactClass( {
 
   displayName: 'Details',
 
-  propTypes: {
-    agenda: PropTypes.object,
-    members: PropTypes.array,
-    pageRange: PropTypes.array,
-    total: PropTypes.number,
-    getMembersPage: PropTypes.func,
-    setAgenda: PropTypes.func,
-    limit: PropTypes.number
-  },
-
   getDefaultProps() {
 
     return {
@@ -56,6 +46,12 @@ export default createReactClass( {
       <header className="agenda-header">
         <div className="container-fluid profile notheme">
           <div className="row">
+          <button
+            type="button"
+            onClick={() => this.props.displayConfirmDelete()}
+            className="btn btn-danger pull-right">
+              Supprimer
+          </button>
             {this.props.agenda.image ?
               <div className="col-sm-2 avatar-container">
                 <a href={'/' + this.props.agenda.slug}> <img className="avatar"

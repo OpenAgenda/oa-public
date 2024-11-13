@@ -2,6 +2,7 @@ import '@openagenda/bs-templates/compiled/main.css';
 import { useState } from 'react';
 import FilterSelectComponent from '../src/components/FilterSelect.js';
 import FiltersSettingsComponent from '../src/components/FiltersSettings.js';
+import DeleteAgendaComponent from '../src/components/DeleteAgenda.js';
 import Decorator from './decorators/Simple.js';
 import IntlProviderDecorator from './decorators/IntlProvider.js';
 
@@ -88,3 +89,13 @@ export const ResettableFiltersSettings = () => {
     />
   );
 };
+
+export const DeleteAgenda = () => <DeleteAgendaComponent />;
+
+export const DeleteAgendaOnAuthenticateModal = () => (
+  <DeleteAgendaComponent step="authenticate" />
+);
+
+export const DeleteAgendaConfirm = () => (
+  <DeleteAgendaComponent step="confirm" />
+);

@@ -1,13 +1,9 @@
 import { mw } from '@openagenda/agenda-settings';
 import keysMw from '@openagenda/keys/middleware.js';
-import labels from '@openagenda/labels/agenda-settings/agendaEdition.js';
-import makeLabelGetter from '@openagenda/labels';
 import cmn from '../lib/commons-app.js';
 
-const getLabel = makeLabelGetter(labels);
-
 export default (app) => {
-  const { agendas, core, sessions, members, users: usersSvc } = app.services;
+  const { agendas, core, sessions, members } = app.services;
 
   app.post(
     '/agendas/new',
@@ -64,23 +60,6 @@ export default (app) => {
             next(err);
           },
         );
-    },
-  );
-
-  app.post(
-    '/:slug/admin/settings/remove',
-    sessions.mw.loadOrRedirect(),
-    usersSvc.mw.verifyHeadersPassword,
-    cmn.loadAgenda,
-    members.mw.loadAndAuthorize('administrator'),
-    (req, res, next) => {
-      req.app.services.core
-        .agendas(req.agenda.uid)
-        .remove()
-        .then(() => {
-          sessions.setFlash(req, res, getLabel('agendaRemoved', req.lang));
-          res.json({ redirectTo: '/home' });
-        }, next);
     },
   );
 

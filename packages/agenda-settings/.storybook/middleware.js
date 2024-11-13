@@ -7,8 +7,8 @@ import agendasSvc from '@openagenda/agendas';
 import { makeMiddleware as makeFilesMw } from '@openagenda/files';
 import keysSvc from '@openagenda/keys';
 import keysMw from '@openagenda/keys/middleware';
-import * as service from '../src/service';
-import mw from '../src/middleware';
+import * as service from '../server/service.js';
+import mw from '../server/middleware.js';
 import testconfig from '../testconfig';
 
 /*

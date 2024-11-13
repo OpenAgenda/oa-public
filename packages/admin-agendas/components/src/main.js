@@ -1,28 +1,27 @@
-"use strict";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Body from './Body';
 
-const React = require( 'react' );
-const ReactDOM = require( 'react-dom' );
-const Body = require( './Body' );
-
-module.exports = options => {
-  const params = Object.assign( {
+export default options => {
+  const params = {
     searchRes: '/',
     agendaRes: '/get',
     setAgendaRes: '/get',
     membersRes: '/members',
-    canvas: '.js_canvas'
-  }, options );
+    canvas: '.js_canvas',
+    ...options
+  };
 
-  const elem = React.createElement( Body, {
+  const elem = React.createElement(Body, {
     searchRes: params.searchRes,
     agendaRes: params.agendaRes,
     setAgendaRes: params.setAgendaRes,
     membersRes: params.membersRes,
-  } );
+  });
 
-  if ( options.skipRender ) {
+  if (options.skipRender) {
     return elem;
   }
 
-  ReactDOM.render( elem, document.querySelector(params.canvas) );
+  ReactDOM.render(elem, document.querySelector(params.canvas));
 };
