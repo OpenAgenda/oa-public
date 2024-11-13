@@ -18,7 +18,6 @@
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "@emotion/react": "^11.11.1",
     "@openagenda/agendas": "^1.7.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/intl": "^1.1.3",

@@ -1,7 +1,7 @@
 import '@openagenda/bs-templates/compiled/main.css';
 import { useState } from 'react';
-import FilterSelectComponent from '../src/client/components/FilterSelect.js';
-import FiltersSettingsComponent from '../src/client/components/FiltersSettings.js';
+import FilterSelectComponent from '../src/components/FilterSelect.js';
+import FiltersSettingsComponent from '../src/components/FiltersSettings.js';
 import Decorator from './decorators/Simple.js';
 import IntlProviderDecorator from './decorators/IntlProvider.js';
 

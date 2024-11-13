@@ -8,7 +8,7 @@ import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-settings/agendaEdition.js';
-import * as appLocales from '../../../locales-compiled/index.js';
+import * as appLocales from '../../locales-compiled/index.js';
 import * as agendaActions from '../../reducers/agenda.js';
 import * as keysActions from '../../reducers/keys.js';
 import * as modalsActions from '../../reducers/modals.js';

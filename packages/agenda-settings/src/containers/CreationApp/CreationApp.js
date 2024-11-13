@@ -6,7 +6,7 @@ import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
 import labels from '@openagenda/labels/agenda-settings/agendaCreation.js';
-import * as locales from '../../../locales-compiled/index.js';
+import * as locales from '../../locales-compiled/index.js';
 import * as agendaActions from '../../reducers/agenda.js';
 import I18nContext from '../../contexts/I18nContext.js';
 

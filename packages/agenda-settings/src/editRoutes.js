@@ -1,0 +1,129 @@
+import { loadableComponent } from '@openagenda/react-shared';
+
+// eslint-disable-next-line camelcase
+const contextRequire = typeof __webpack_require__ !== 'undefined'
+  ? import.meta.webpackContext('.', {
+    recursive: true,
+    regExp: /\.js$/,
+    mode: 'weak',
+  })
+  : null;
+
+const EditionApp = loadableComponent({
+  chunkName: 'agendaSettings-EditionApp',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "agendaSettings-EditionApp" */
+      './containers/EditionApp/EditionApp.js'
+    ),
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/EditionApp/EditionApp.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/EditionApp/EditionApp.js');
+    }
+  },
+});
+
+const GettingStarted = loadableComponent({
+  chunkName: 'agendaSettings-GettingStarted',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "agendaSettings-GettingStarted" */
+      './components/GettingStarted.js'
+    ),
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./components/GettingStarted.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./components/GettingStarted.js');
+    }
+  },
+});
+
+const ProfileEdition = loadableComponent({
+  chunkName: 'agendaSettings-ProfileEdition',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "agendaSettings-ProfileEdition" */
+      './containers/ProfileEdition/ProfileEdition.js'
+    ),
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve(
+        './containers/ProfileEdition/ProfileEdition.js',
+      );
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/ProfileEdition/ProfileEdition.js');
+    }
+  },
+});
+
+const ContributionEdition = loadableComponent({
+  chunkName: 'agendaSettings-ContributionEdition',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "agendaSettings-ContributionEdition" */
+      './containers/ContributionEdition/ContributionEdition.js'
+    ),
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve(
+        './containers/ContributionEdition/ContributionEdition.js',
+      );
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/ContributionEdition/ContributionEdition.js');
+    }
+  },
+});
+
+const AdvancedEdition = loadableComponent({
+  chunkName: 'agendaSettings-AdvancedEdition',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "agendaSettings-AdvancedEdition" */
+      './containers/AdvancedEdition/AdvancedEdition.js'
+    ),
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve(
+        './containers/AdvancedEdition/AdvancedEdition.js',
+      );
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/AdvancedEdition/AdvancedEdition.js');
+    }
+  },
+});
+
+export default function editRoutes(prefix = '') {
+  return [
+    {
+      path: prefix,
+      component: EditionApp,
+      routes: [
+        {
+          path: `${prefix}/getting-started`,
+          exact: true,
+          component: GettingStarted,
+        },
+        { path: `${prefix}/settings`, exact: true, component: ProfileEdition },
+        { path: `${prefix}/settings/profile`, component: ProfileEdition },
+        {
+          path: `${prefix}/settings/contribution`,
+          component: ContributionEdition,
+        },
+        { path: `${prefix}/settings/advanced`, component: AdvancedEdition },
+      ],
+    },
+  ];
+}
