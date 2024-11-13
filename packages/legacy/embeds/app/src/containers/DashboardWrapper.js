@@ -14,6 +14,7 @@ function WrapperComponent() {
 
   return (
     <Dashboard
+      agendaSlug={agenda.slug}
       agendaUid={agenda.uid}
       selectionMenuContainerRef={selectionMenuContainerRef}
       res={res}

@@ -7,15 +7,23 @@ import MenuOption from './MenuOption';
 const messages = defineMessages({
   title: {
     id: 'LegacyEmbed.Presentation.title',
-    defaultMessage: 'Integrate the agenda in your website',
+    defaultMessage: 'Integrations',
   },
   create: {
     id: 'LegacyEmbed.Presentation.create',
     defaultMessage: 'Create an embed for this agenda',
   },
-  presentation: {
-    id: 'LegacyEmbed.Presentation.presentation',
-    defaultMessage: 'Several integration methods are available. Each allow you to display your events on your websites with filter and search features as well as graphical customization options',
+  otherIntegrations: {
+    id: 'LegacyEmbed.Presentation.otherIntegrations',
+    defaultMessage: 'Other integrations',
+  },
+  embedPresentation: {
+    id: 'LegacyEmbed.Presentation.embedPresentation',
+    defaultMessage: 'The public embed code allows you to simply embed a complete agenda or a selection of events into a web page. Find it on the export modal of your agenda homepage.',
+  },
+  embedAction: {
+    id: 'LegacyEmbed.Presentation.embedAction',
+    defaultMessage: 'Show export modal',
   },
   pluginsTitle: {
     id: 'LegacyEmbed.Presentation.pluginsTitle',
@@ -91,7 +99,7 @@ const messages = defineMessages({
   },
 });
 
-export default function Presentation() {
+export default function Presentation({ agendaSlug }) {
   const [activeOption, setActiveOption] = useState(false);
   const m = useIntl().formatMessage;
 
@@ -99,7 +107,22 @@ export default function Presentation() {
     <div className="row">
       <div className="col-md-12">
         <h2>{m(messages.title)}</h2>
-        <p className="margin-v-md">{m(messages.presentation)}</p>
+        <p className="margin-v-md" style={{ fontSize: '16px' }}>
+          {m(messages.embedPresentation)}
+        </p>
+        <div className="text-center margin-v-md">
+          <a
+            rel="noreferrer"
+            className="btn btn-primary"
+            target="_blank"
+            href={`/${agendaSlug}?displayExportModal=embed`}
+          >
+            {m(messages.embedAction)}
+          </a>
+        </div>
+
+        <h3>{m(messages.otherIntegrations)}</h3>
+
         <MenuOption
           head={m(messages.pluginsTitle)}
           value="plugins"
