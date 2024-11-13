@@ -62,7 +62,8 @@ const securityHeaders = [
 
 /** @type {() => import('next').NextConfig} */
 const config = async () => {
-  const { NODE_ENV, NEXT_API_INTERNAL_BASE_URL, NEXT_PUBLIC_ASSET_PREFIX } = process.env;
+  const { NODE_ENV, NEXT_API_INTERNAL_BASE_URL, NEXT_PUBLIC_ASSET_PREFIX } =
+    process.env;
 
   return withSentry(
     withBundleAnalyzer({
@@ -97,15 +98,15 @@ const config = async () => {
         ].concat(
           NODE_ENV !== 'production'
             ? [
-              {
-                protocol: 'https',
-                hostname: 'cibuldev.s3.amazonaws.com',
-              },
-              {
-                protocol: 'https',
-                hostname: 'imagesdev-1cb1b.kxcdn.com',
-              },
-            ]
+                {
+                  protocol: 'https',
+                  hostname: 'cibuldev.s3.amazonaws.com',
+                },
+                {
+                  protocol: 'https',
+                  hostname: 'imagesdev-1cb1b.kxcdn.com',
+                },
+              ]
             : [],
         ),
       },
@@ -168,6 +169,8 @@ const config = async () => {
       },
       webpack: (webpackConfig, options) => {
         if (options.isServer) return webpackConfig;
+
+        webpackConfig.resolve.alias['@httptoolkit/esm'] = false;
 
         webpackCopyFiles(webpackConfig, [
           {

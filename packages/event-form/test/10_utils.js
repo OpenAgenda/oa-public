@@ -1,14 +1,15 @@
 import ih from 'immutability-helper';
 
-import getMultilingualFieldNames from '../src/utils/getMultilingualFieldNames';
-import transferMultilingualValues from '../src/utils/transferMultilingualValues';
-import removeMultilingualValues from '../src/utils/removeMultilingualValues';
-import identifyLanguageChanges from '../src/utils/identifyLanguageChanges';
-import getTimingsSpan from '../src/utils/getTimingsSpan';
-import flattenLocationTagSet from '../src/utils/flattenLocationTagSet';
-import schemaLanguages from '../src/utils/schemaLanguages';
-import extractLanguages from '../src/utils/extractLanguages';
-import reedFixtures from './fixtures/reed.json';
+import getMultilingualFieldNames from '../src/utils/getMultilingualFieldNames.js';
+import transferMultilingualValues from '../src/utils/transferMultilingualValues.js';
+import removeMultilingualValues from '../src/utils/removeMultilingualValues.js';
+import identifyLanguageChanges from '../src/utils/identifyLanguageChanges.js';
+import getTimingsSpan from '../src/utils/getTimingsSpan.js';
+import flattenLocationTagSet from '../src/utils/flattenLocationTagSet.js';
+import schemaLanguages from '../src/utils/schemaLanguages.js';
+import extractLanguages from '../src/utils/extractLanguages.js';
+import { convertTimezoneOffset } from '../src/utils/time.js';
+import reedFixtures from './fixtures/reed.json' with { type: 'json' };
 
 describe('event-form utils unit tests', () => {
   describe('extractLanguages', () => {
@@ -246,6 +247,20 @@ describe('event-form utils unit tests', () => {
           },
         ],
       });
+    });
+  });
+
+  describe('time', () => {
+    test('convertTimezoneOffset IST', () => {
+      expect(convertTimezoneOffset(-5.5)).toBe('+05:30');
+    });
+
+    test('convertTimezoneOffset CET', () => {
+      expect(convertTimezoneOffset(-1)).toBe('+01:00');
+    });
+
+    test('convertTimezoneOffset PDT', () => {
+      expect(convertTimezoneOffset(7)).toBe('-07:00');
     });
   });
 

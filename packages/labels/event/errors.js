@@ -49,4 +49,8 @@ module.exports = {
   "timings.max.1": {
     "fr": "Sur cette opération, la saisie de plage horaire est limitée à 1. Utilisez l'option 'Dupliquer l'événement' après la création afin de renseigner d'autres horaires." 
   },
+  "format.unknown": {
+    "fr": "Le format de l'image est inconnu",
+    "en": "The format of the image is unknown"
+  }
 }

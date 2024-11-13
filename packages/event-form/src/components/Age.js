@@ -2,8 +2,8 @@ import ih from 'immutability-helper';
 import { Component } from 'react';
 import Select from 'react-select';
 
-import ageLabels from '@openagenda/labels/cibul-templates/age-fields';
-import flattenLabels from '@openagenda/labels/flatten';
+import ageLabels from '@openagenda/labels/cibul-templates/age-fields.js';
+import flattenLabels from '@openagenda/labels/flatten.js';
 
 const limits = {
   min: 0,

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Link, generatePath } from 'react-router-dom';
 
-import getPaths from '../getPaths';
+import getPaths from '../getPaths.js';
 
 function extractCrumbs(routePatterns, match) {
   const parts = match.path.split('/');

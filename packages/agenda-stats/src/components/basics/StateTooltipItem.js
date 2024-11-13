@@ -1,5 +1,5 @@
 import { defineMessages, useIntl } from 'react-intl';
-import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
+import { getValueByDataKey } from 'recharts/lib/util/ChartUtils.js';
 
 const messages = defineMessages({
   '-1': {

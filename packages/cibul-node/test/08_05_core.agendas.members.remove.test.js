@@ -86,7 +86,6 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
           url: 'http://localhost:3000/agendas/2/members/5',
           headers: {
             'access-token': accessToken,
-            nonce: 12382108,
             'content-type': 'application/json',
           },
         }).then((r) => r.data);

@@ -1,8 +1,6 @@
-'use strict';
+import serverApp from '../stories/server/index.js';
 
-const serverApp = require('../stories/server');
-
-module.exports = (router) => {
+export default (router) => {
   console.log('init server');
   router.use(serverApp);
 };

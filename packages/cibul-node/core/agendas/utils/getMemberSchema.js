@@ -1,6 +1,6 @@
 import memberSchema from '@openagenda/members/build/schema.js';
 import { createIntlByLocale } from '@openagenda/intl';
-import locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
+import * as locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
 import logs from '@openagenda/logs';
 import _ from 'lodash';
 import getAgenda from './getAgenda.js';

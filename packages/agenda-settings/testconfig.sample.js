@@ -1,8 +1,6 @@
-'use strict';
+import Files from '@openagenda/files';
 
-const Files = require('@openagenda/files');
-
-module.exports = {
+export default {
   services: {
     agendas: false,
   },

@@ -3,7 +3,6 @@ import { createForm } from 'final-form';
 import { Form, Field } from 'react-final-form';
 import ReactMarkdown from 'react-markdown';
 import breaks from 'remark-breaks';
-import { css } from '@emotion/react';
 import { useConstant, useApiClient } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
 
@@ -85,10 +84,10 @@ export default function AnnouncementManager({ user }) {
                     name="content"
                     component="textarea"
                     className="form-control"
-                    css={css`
-                      resize: vertical;
-                      min-height: 71px;
-                    `}
+                    style={{
+                      resize: 'vertical',
+                      minHeight: '71px',
+                    }}
                   />
                 </div>
                 <div className="col-sm-3">

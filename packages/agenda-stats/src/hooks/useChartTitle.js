@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { useIntl } from 'react-intl';
 import { useMemo } from 'react';
 import { getLocaleValue } from '@openagenda/intl';
-import titleMessages from '../messages/chartTitles';
+import titleMessages from '../messages/chartTitles.js';
 
 function statToTitleMessageKey(aggregation) {
   let messageKey = '';

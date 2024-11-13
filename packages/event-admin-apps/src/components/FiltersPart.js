@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { css } from '@emotion/react';
 import {
   DateRangeFilter,
   Filters,
@@ -43,23 +42,7 @@ function FiltersPart({ agenda, filters, query, filtersQuery, eventsQuery }) {
   const mapProps = useMemo(() => ({ query }), [query]);
 
   return (
-    <div
-      className="oa-collapse"
-      css={css`
-        .leaflet-container {
-          height: 300px;
-        }
-
-        .oa-choice-option-label {
-          min-height: 20px;
-          line-height: 20px;
-          padding-left: 20px;
-          margin-bottom: 0;
-          font-weight: normal;
-          cursor: pointer;
-        }
-      `}
-    >
+    <div className="oa-collapse">
       <Filters
         filters={filters}
         disabled={isFetching || filtersQuery.isFetching}

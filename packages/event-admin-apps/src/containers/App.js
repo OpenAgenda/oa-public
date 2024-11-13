@@ -1,16 +1,16 @@
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { ReactQueryDevtools } from 'react-query/devtools/index.js';
 import { Helmet } from 'react-helmet-async';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import commonLocales from '@openagenda/common-labels';
 import { modalLocales } from '@openagenda/react-share-menus';
-import eventsReducer from '../reducers/events';
-import appLocales from '../locales-compiled';
+import eventsReducer from '../reducers/events.js';
+import * as appLocales from '../locales-compiled/index.js';
 
 const locales = mergeLocales(
   appLocales,
@@ -57,7 +57,7 @@ function App({ route }) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       events: eventsReducer,

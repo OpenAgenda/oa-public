@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { Modal } from '@openagenda/react-shared';
-import session from '@openagenda/sessions/client';
+import session from '@openagenda/sessions/client.js';
 
 export default function FlashModal() {
   const [flashMessage, setFlashMessage] = useState(null);

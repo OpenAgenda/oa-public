@@ -1,7 +1,6 @@
 'use strict';
 
-var IntlMessageFormat = require('intl-messageformat').default;
-var parser = require('intl-messageformat-parser');
+var { IntlMessageFormat, PART_TYPE } = require('intl-messageformat');
 
 /**
  * provide a labels getter that will
@@ -44,14 +43,15 @@ module.exports = function (labels, defaultLang, fallbackLang) {
     }
 
     try {
-      var parsedAST = parser.parse(str);
+      var parsedAST = IntlMessageFormat.__parse(str);
+
       var isICU = parsedAST.some(function (v) {
-        return !parser.isLiteralElement(v);
+        return v.type !== PART_TYPE.literal;
       });
 
       // ICU message
       if (isICU) {
-        return new IntlMessageFormat(parsedAST, lang).format(values);
+        return new IntlMessageFormat(str, lang).format(values);
       }
     } catch (e) {
       //

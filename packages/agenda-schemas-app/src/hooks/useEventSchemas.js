@@ -1,17 +1,14 @@
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import ky from 'ky';
 
-import useRes from './useRes';
+import useRes from './useRes.js';
 
 export default (agenda, memberMode) => {
   if (memberMode) return false;
   const res = useRes(agenda);
   const { isLoading, error, refetch, data } = useQuery(
     ['agenda-eventSchema', agenda.uid],
-    () =>
-      axios
-        .get(res.eventSchema, { params: {} })
-        .then((response) => response.data),
+    () => ky(res.eventSchema).json(),
     { staleTime: Infinity },
   );
   return {

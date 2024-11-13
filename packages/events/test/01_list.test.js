@@ -1,10 +1,8 @@
-'use strict';
+import { service as config } from '../testconfig.sample.js';
 
-const { service: config } = require('../testconfig.sample');
-
-const Service = require('..');
-const fields = require('../lib/fields');
-const fixtures = require('./fixtures');
+import Service from '../index.js';
+import fields from '../lib/fields.js';
+import fixtures from './fixtures/index.js';
 
 describe('events - functional - list', () => {
   const f = fixtures(config.mysql, config.schema);
@@ -243,9 +241,9 @@ describe('events - functional - list', () => {
     it('if html option is used, html variant of longDescription is placed in html field', async () => {
       const events = await svc.list({}, { limit: 1 }, { html: true });
 
-      expect(events[0].html).toBe({
-        fr: '<p>Swift, Jonathan de son prénom. Ce nom vous dit quelque chose ? Bingo ! C’est bien l’auteur du livre Les voyages de Gulliver, écrit au début du XVIIIe siècle.L’histoire d’un marin échouant sur l’île de Lilliput. Par la magie d’un colossal changement d’échelle, il se transforme subitement en géant, capturé par des êtres pas plus hauts que 6 pouces. Transposées dans le monde actuel, les images de ce théâtre d’ombres et d’objets se combinent à la vidéo, pour une expédition merveilleuse où l’immense rejoint le minuscule.</p>\n<p><em>Atelier enfants-adultes &quot;Mon ombre est un autre&quot; :15 h, sur réservation Goûter et surprise : 16 h, 8 €</em></p>\n',
-      });
+      expect(events[0].html.fr).toBe(
+        '<p>Swift, Jonathan de son prénom. Ce nom vous dit quelque chose ? Bingo ! C’est bien l’auteur du livre Les voyages de Gulliver, écrit au début du XVIIIe siècle.L’histoire d’un marin échouant sur l’île de Lilliput. Par la magie d’un colossal changement d’échelle, il se transforme subitement en géant, capturé par des êtres pas plus hauts que 6 pouces. Transposées dans le monde actuel, les images de ce théâtre d’ombres et d’objets se combinent à la vidéo, pour une expédition merveilleuse où l’immense rejoint le minuscule.</p>\n<p><em>Atelier enfants-adultes "Mon ombre est un autre" :15 h, sur réservation Goûter et surprise : 16 h, 8 €</em></p>\n',
+      );
     });
 
     it('if access is internal, internal fields are returned', async () => {

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { Component } from 'react';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { connect } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import { injectIntl } from 'react-intl';
@@ -69,7 +69,7 @@ class AgendaDashboard extends Component {
 
 export default injectIntl(
   withLayoutData('agenda')(
-    provideHooks({
+    redial.provideHooks({
       fetch: async ({ store: { dispatch }, location, params }) => {
         const query = qs.parse(location.search, { ignoreQueryPrefix: true });
         const promises = [];
@@ -79,7 +79,6 @@ export default injectIntl(
           dispatch(activitiesActions.load(query, { slug: params.slug })),
         );
         // }
-
         return Promise.all(typeof window !== 'undefined' ? [] : promises);
       },
     })(

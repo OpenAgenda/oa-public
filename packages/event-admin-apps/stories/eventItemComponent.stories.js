@@ -1,6 +1,6 @@
-import EventItem from '../src/components/EventItem';
-import SimplePageDecorator from './decorators/SimplePage';
-import ProvidersDecorator from './decorators/Providers';
+import EventItem from '../src/components/EventItem.js';
+import SimplePageDecorator from './decorators/SimplePage.js';
+import ProvidersDecorator from './decorators/Providers.js';
 
 import aggregatedEvent from './fixtures/aggregated.event.json';
 import contributedEvent from './fixtures/contributed.event.json';

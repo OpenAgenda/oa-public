@@ -1,6 +1,6 @@
-'use strict';
+import options from './options.js';
 
-module.exports = require('./options')({
+export default options({
   total: {
     type: 'boolean',
     default: false,

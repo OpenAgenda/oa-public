@@ -206,7 +206,6 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
           url: 'http://localhost:3000/agendas/2/members/1',
           headers: {
             'access-token': accessToken,
-            nonce: 12389708,
             'content-type': 'application/json',
           },
           data: {

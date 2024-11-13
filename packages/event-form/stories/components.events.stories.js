@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { http, HttpResponse } from 'msw';
 import '@openagenda/bs-templates/compiled/main.css';
 
-import EventsAdditionalFieldComponent from '../src/components/Events';
+import EventsAdditionalFieldComponent from '../src/components/Events/index.js';
 
-import Providers from './decorators/Providers';
-import StandardCanvas from './decorators/StandardCanvas';
-import mswEventsMiddleware from './mswEventsMiddleware';
+import Providers from './decorators/Providers.js';
+import StandardCanvas from './decorators/StandardCanvas.js';
+import mswEventsMiddleware from './mswEventsMiddleware.js';
 
 export default {
   title: 'Components / Events',

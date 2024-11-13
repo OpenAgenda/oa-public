@@ -1,16 +1,16 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('update');
+import get from './get.js';
+import cleanSetOptions from './lib/cleanSetOptions.js';
+import generateFileKey from './lib/generateFileKey.js';
+import validate from './lib/validate.js';
+import setLegacy from './lib/legacy/set.js';
+import processImage from './lib/processImage.js';
+import handleInterface from './lib/handleInterface.js';
+import convertAndInjectTimingsWithTimezone from './utils/convertAndInjectTimingsWithTimezone.js';
+import lastClean from './lib/lastEventClean.js';
 
-const get = require('./get');
-const cleanSetOptions = require('./lib/cleanSetOptions');
-const generateFileKey = require('./lib/generateFileKey');
-const validate = require('./lib/validate');
-const setLegacy = require('./lib/legacy/set');
-const processImage = require('./lib/processImage');
-const handleInterface = require('./lib/handleInterface');
-const convertAndInjectTimingsWithTimezone = require('./utils/convertAndInjectTimingsWithTimezone');
-const lastClean = require('./lib/lastEventClean');
+const log = logs('update');
 
 async function update({ service, isPatch }, current, data, o = {}) {
   const options = cleanSetOptions(o);
@@ -100,7 +100,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
   });
 }
 
-module.exports = async ({ service, isPatch }, identifier, data, options = {}) =>
+export default async ({ service, isPatch }, identifier, data, options = {}) =>
   update(
     {
       service,

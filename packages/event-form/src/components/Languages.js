@@ -3,12 +3,12 @@ import { Component } from 'react';
 import Select from 'react-select';
 import languages from 'languages';
 
-import flattenLabels from '@openagenda/labels/flatten';
-import languageLabels from '@openagenda/labels/event/form';
+import flattenLabels from '@openagenda/labels/flatten.js';
+import languageLabels from '@openagenda/labels/event/form.js';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
 
-import languageCodesAndLabels from '../utils/languageCodesAndLabels';
-import showRemoveAction from '../utils/showRemoveAction';
+import languageCodesAndLabels from '../utils/languageCodesAndLabels.js';
+import showRemoveAction from '../utils/showRemoveAction.js';
 
 export default class Languages extends Component {
   constructor(props) {

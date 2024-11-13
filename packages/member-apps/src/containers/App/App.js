@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import makeGetterLabel from '@openagenda/labels';
 import { withLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
@@ -38,7 +38,7 @@ class App extends Component {
 }
 
 export default withLayoutData('lang')(
-  provideHooks({
+  redial.provideHooks({
     inject: ({ store }) =>
       store.inject({
         members: membersReducer,

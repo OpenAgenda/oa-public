@@ -694,7 +694,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             url: 'http://localhost:3000/agendas/17026855/events/19201989',
             headers: {
               'access-token': accessToken,
-              nonce: 123,
               'content-type': 'application/json',
             },
             data: {
@@ -748,7 +747,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             url: 'http://localhost:3000/agendas/17026855/events/19201989',
             headers: {
               'access-token': accessToken,
-              nonce: 12893,
               'content-type': 'application/json',
             },
             data: {
@@ -797,7 +795,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             url: 'http://localhost:3000/agendas/17026855/events/19201989',
             headers: {
               'access-token': accessToken,
-              nonce: 128937,
               'content-type': 'application/json',
             },
             data: {
@@ -843,6 +840,8 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             field: 'image',
             code: 'format.unknown',
             message: 'provided format is unknown',
+            fieldLabel: 'Image of the event',
+            label: 'The format of the image is unknown',
           },
         ]);
       });
@@ -856,7 +855,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             url: 'http://localhost:3000/agendas/17026855/events/19390293',
             headers: {
               'access-token': accessToken,
-              nonce: 12345,
               'content-type': 'application/json',
             },
             data: {
@@ -896,7 +894,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           url: 'http://localhost:3000/agendas/17026855/events/19201989',
           headers: {
             'access-token': accessToken,
-            nonce: 12345897,
             'content-type': 'application/json',
           },
           data: {
@@ -915,7 +912,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           url: 'http://localhost:3000/agendas/17026855/events/19201989',
           headers: {
             'access-token': accessToken,
-            nonce: 123405,
             'content-type': 'application/json',
             lang: 'fr',
           },

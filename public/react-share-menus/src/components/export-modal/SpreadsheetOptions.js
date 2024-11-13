@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 
-import Radio from '../Radio';
+import Radio from '../Radio.js';
 
 const SpreadsheetOptions = ({ languages, setChoice, fields, options }) => {
   const [displayLanguages, setDisplayLanguages] = useState(false);

@@ -2,6 +2,8 @@
 .yarn
 public/.yarn
 
+**/mockServiceWorker.js
+
 # exts
 **/*.mjml
 
@@ -28,7 +30,6 @@ packages/agenda-stats/dist
 packages/aggregator-sources/dist
 packages/event-admin-apps/dist
 packages/event-form/build
-packages/events/iso/build
 packages/form-schemas/client/build
 packages/home/dist
 packages/inbox-apps/coverage
@@ -45,7 +46,7 @@ packages/registration-apps/esm
 packages/registration-apps/lib
 packages/registrations/dist
 packages/sessions/lib
-packages/supervisor/lib
+packages/supervisor/dist
 packages/user-apps/dist
 
 public/agenda-docx/client/build
@@ -55,12 +56,10 @@ public/common-labels/build
 public/date-utils/dist
 public/intl/dist
 public/md/dist
+public/react-filters/build
 public/react-filters/dist
-public/react-filters/esm
-public/react-filters/lib
-public/react-portal-ssr/esm
-public/react-portal-ssr/lib
-public/react-share-menus/lib
+public/react-portal-ssr/dist
+public/react-share-menus/dist
 public/react-shared/css
 public/react-shared/esm
 public/react-shared/lib

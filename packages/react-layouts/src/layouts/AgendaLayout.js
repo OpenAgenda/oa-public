@@ -1,6 +1,6 @@
 import { ErrorBoundary } from '@sentry/react';
-import ChildLayouts from '../components/ChildLayouts';
-import AgendaHeader from '../components/AgendaHeader';
+import ChildLayouts from '../components/ChildLayouts.js';
+import AgendaHeader from '../components/AgendaHeader.js';
 
 function AgendaLayout({ childLayouts, children, extraProps, fallback }) {
   const { agenda } = extraProps;

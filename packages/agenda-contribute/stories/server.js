@@ -5,7 +5,7 @@ const express = require('express');
 
 const log = logs('stories/server');
 
-const getFixtures = require('./fixtures');
+const getFixtures = require('./fixtures/index.js');
 const locationsAPIResponse = require('./fixtures/locations.json');
 
 const { getLocation } = getFixtures;

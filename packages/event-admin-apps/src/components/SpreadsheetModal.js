@@ -4,7 +4,7 @@ import qs from 'qs';
 import axios from 'axios';
 import { Modal } from '@openagenda/react-shared';
 import { SpreadsheetOptions } from '@openagenda/react-share-menus';
-import exportsMessages from '../messages/exports';
+import exportsMessages from '../messages/exports.js';
 
 export default function SpreadsheetModal({
   onClose,

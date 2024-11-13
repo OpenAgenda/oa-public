@@ -41,7 +41,7 @@
     "qs": "^6.9.1",
     "rc-switch": "^1.4.3",
     "react-helmet-async": "^1.0.3",
-    "react-intl": "^5.12.2",
+    "react-intl": "^6.8.4",
     "react-leaflet": "^3.1.0",
     "react-query": "^3.6.0",
     "react-redux": "^7.1.3",
@@ -50,7 +50,7 @@
     "react-tagsinput": "^3.19.0",
     "redial": "^0.5.0",
     "regenerator-runtime": "^0.13.7",
-    "use-debounce": "^7.0.1"
+    "use-debounce": "^10.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",

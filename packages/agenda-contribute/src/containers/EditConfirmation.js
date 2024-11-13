@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
-import PassCultureConfirmation from '@openagenda/registration-apps/lib/passCulture/Confirmation';
+import PassCultureConfirmation from '@openagenda/registration-apps/lib/passCulture/Confirmation.js';
 
-import Canvas from '../components/Canvas';
-import usePrefix from '../hooks/usePrefix';
-import utils from '../lib/utils';
+import Canvas from '../components/Canvas.js';
+import usePrefix from '../hooks/usePrefix.js';
+import utils from '../lib/utils.js';
 
 const messages = defineMessages({
   eventUpdateSuccessInfo: {

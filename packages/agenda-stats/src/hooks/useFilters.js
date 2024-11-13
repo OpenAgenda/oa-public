@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
 import { dateRanges } from '@openagenda/react-filters';
 import { getLocaleValue } from '@openagenda/intl';
-import stateMessages from '../messages/states';
+import stateMessages from '../messages/states.js';
 
 const AGGREGATION_SIZE = 20000;
 

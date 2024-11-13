@@ -2,7 +2,7 @@ import { useLayoutEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useConstant } from '@openagenda/react-shared';
 import ReactDOM from 'react-dom';
-import FiltersPart from './FiltersPart';
+import FiltersPart from './FiltersPart.js';
 
 const messages = defineMessages({
   filters: {

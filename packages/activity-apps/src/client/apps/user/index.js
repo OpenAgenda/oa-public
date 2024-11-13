@@ -27,7 +27,6 @@ export default function (options) {
       apiRoot,
       prefix,
       getRoutes,
-      legacyApiClient: true,
     });
 
   const result = getApp();

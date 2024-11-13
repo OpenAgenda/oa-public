@@ -936,7 +936,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             url: 'http://localhost:3000/agendas/17026855/events',
             headers: {
               'access-token': accessToken,
-              nonce: 123,
               'content-type': 'application/json',
             },
             data: {
@@ -1000,7 +999,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           .accept('json')
           .query({ key: null })
           .set('access-token', accessToken)
-          .set('nonce', _.random(10 ** 6))
           .field({
             data: JSON.stringify(_.omit(eventsFixtures[3], ['state'])),
           });
@@ -1014,7 +1012,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           url: 'http://localhost:3000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
-            nonce: 39209390,
             'content-type': 'application/json',
           },
           data: {
@@ -1056,7 +1053,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             url: 'http://localhost:3000/agendas/17026855/events',
             headers: {
               'access-token': accessToken,
-              nonce: 794546,
               'content-type': 'application/json',
             },
             data: {
@@ -1091,6 +1087,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           {
             field: 'image',
             code: 'url.invalid',
+            fieldLabel: 'Image of the event',
             message: 'provided image url is not valid',
           },
         ]);
@@ -1105,7 +1102,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             .accept('json')
             .query({ key: null })
             .set('access-token', accessToken)
-            .set('nonce', _.random(10 ** 6))
             .field({
               data: JSON.stringify(eventsFixtures[3]),
             });
@@ -1156,7 +1152,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
           form.append('image', fs.createReadStream('/tmp/pirates.jpg'));
           form.append('access_token', accessToken);
-          form.append('nonce', 123456);
           form.append('data', JSON.stringify(data));
 
           oneLanguageResponse = await axios({
@@ -1195,7 +1190,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           url: 'http://localhost:3000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
-            nonce: 1234567,
             'content-type': 'application/json',
             lang: 'fr',
           },
@@ -1217,7 +1211,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           url: 'http://localhost:3000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
-            nonce: 1234,
             'content-type': 'application/json',
           },
           data: {

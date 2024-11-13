@@ -1,5 +1,5 @@
 import { useIntl, defineMessages } from 'react-intl';
-import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
+import { getValueByDataKey } from 'recharts/lib/util/ChartUtils.js';
 import { getLocaleValue } from '@openagenda/intl';
 
 const messages = defineMessages({

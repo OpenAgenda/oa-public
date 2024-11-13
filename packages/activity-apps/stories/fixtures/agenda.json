@@ -1,0 +1,361 @@
+{
+  "activities": [
+    {
+      "id": 17085121,
+      "actor": "user:55507091",
+      "verb": "event.create",
+      "object": "event:58438392",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Clement",
+          "object": {
+            "fr": "Clément aide au déménagement"
+          }
+        }
+      },
+      "createdAt": "2024-09-18T12:21:56.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 17048645,
+      "actor": "user:31046551",
+      "verb": "event.duplicate",
+      "object": "event:33926326",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Kévin Berthommier - OpenAgenda",
+          "object": {
+            "fr": "Kévin se détend"
+          },
+          "duplicateOriginAgenda": "Congés/absences OA"
+        },
+        "duplicateOriginAgendaUid": 50631376,
+        "ownerUid": 31046551
+      },
+      "createdAt": "2024-09-16T11:27:53.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 17012501,
+      "actor": "user:99999999",
+      "verb": "event.update",
+      "object": "event:47841058",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Romain Lange - OpenAgenda",
+          "object": {
+            "fr": "Romain en rdv perso"
+          }
+        },
+        "contributorFields": ["timings"]
+      },
+      "createdAt": "2024-09-13T06:50:16.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16961785,
+      "actor": "user:99999999",
+      "verb": "event.create",
+      "object": "event:47841058",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Romain Lange - OpenAgenda",
+          "object": {
+            "fr": "Romain en rdv perso"
+          }
+        }
+      },
+      "createdAt": "2024-09-12T17:35:11.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16821522,
+      "actor": "user:75052324",
+      "verb": "event.update",
+      "object": "event:58905463",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Kaoré - OpenAgenda",
+          "object": {
+            "fr": "Kaoré transfère ses parents"
+          }
+        },
+        "contributorFields": [
+          {
+            "label": {
+              "fr": "Titre"
+            }
+          }
+        ]
+      },
+      "createdAt": "2024-09-05T08:41:36.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16821080,
+      "actor": "user:75052324",
+      "verb": "event.create",
+      "object": "event:58905463",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Kaoré - OpenAgenda",
+          "object": {
+            "fr": "Kaoré transfère ses parents"
+          }
+        }
+      },
+      "createdAt": "2024-09-05T08:40:21.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16817334,
+      "actor": "user:85492731",
+      "verb": "agenda.acceptInvitation",
+      "object": "user:99999999",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Loubliana PETROFF",
+          "object": "Romain Lange - OpenAgenda"
+        },
+        "role": 2
+      },
+      "createdAt": "2024-09-05T07:53:51.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16791357,
+      "actor": "user:99999999",
+      "verb": "agenda.sendInvitation",
+      "object": "email:loubliana.petroff@openagenda.com",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Romain Lange - OpenAgenda",
+          "object": "loubliana.petroff@openagenda.com"
+        },
+        "role": 2
+      },
+      "createdAt": "2024-09-03T12:30:10.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16791356,
+      "actor": "user:99999999",
+      "verb": "agenda.addMember",
+      "object": "user:66117684",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Romain Lange - OpenAgenda",
+          "object": "Cécile Tramblay"
+        },
+        "role": 2
+      },
+      "createdAt": "2024-09-03T12:30:10.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16741527,
+      "actor": "user:55507091",
+      "verb": "event.update",
+      "object": "event:51451950",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Clement",
+          "object": {
+            "fr": "Clem demi-journée"
+          }
+        },
+        "contributorFields": ["timings"]
+      },
+      "createdAt": "2024-08-28T08:32:23.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16741520,
+      "actor": "user:55507091",
+      "verb": "event.create",
+      "object": "event:51451950",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Clement",
+          "object": {
+            "fr": "Clem demi-journée"
+          }
+        }
+      },
+      "createdAt": "2024-08-28T08:31:44.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16704189,
+      "actor": "user:99999999",
+      "verb": "event.create",
+      "object": "event:19024427",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Romain Lange - OpenAgenda",
+          "object": {
+            "fr": "Romain prend des demi-journées pour gérer la pré-rentrée"
+          }
+        }
+      },
+      "createdAt": "2024-08-26T09:02:52.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16675957,
+      "actor": "user:31046551",
+      "verb": "event.create",
+      "object": "event:28965142",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Kévin Berthommier - OpenAgenda",
+          "object": {
+            "fr": "Kévin profite de son lundi"
+          }
+        }
+      },
+      "createdAt": "2024-08-22T11:37:29.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16651319,
+      "actor": "user:55507091",
+      "verb": "event.update",
+      "object": "event:74893768",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Clement",
+          "object": {
+            "fr": "Clément visite Montélimar"
+          }
+        },
+        "contributorFields": ["timings"]
+      },
+      "createdAt": "2024-08-20T20:36:15.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16634156,
+      "actor": "user:32834617",
+      "verb": "event.update",
+      "object": "event:95230679",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Doriane Farau",
+          "object": {
+            "fr": "Doriane en congé"
+          }
+        },
+        "contributorFields": ["timings"]
+      },
+      "createdAt": "2024-08-19T13:54:56.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16617473,
+      "actor": "user:75052324",
+      "verb": "event.update",
+      "object": "event:40394362",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Kaoré - OpenAgenda",
+          "object": {
+            "fr": "Kaoré visite de la famille"
+          }
+        },
+        "contributorFields": ["timings"]
+      },
+      "createdAt": "2024-08-17T10:53:44.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16596068,
+      "actor": "user:99999999",
+      "verb": "event.create",
+      "object": "event:71799292",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Romain Lange - OpenAgenda",
+          "object": {
+            "fr": "Romain fait le pont"
+          }
+        }
+      },
+      "createdAt": "2024-08-14T14:40:14.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16596021,
+      "actor": "user:31046551",
+      "verb": "event.duplicate",
+      "object": "event:11030709",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Kévin Berthommier - OpenAgenda",
+          "object": {
+            "fr": "Kévin fait le pont"
+          },
+          "duplicateOriginAgenda": "Congés/absences OA"
+        },
+        "duplicateOriginAgendaUid": 50631376,
+        "ownerUid": 31046551
+      },
+      "createdAt": "2024-08-14T14:29:40.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16573448,
+      "actor": "user:55507091",
+      "verb": "event.update",
+      "object": "event:74893768",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Clement",
+          "object": {
+            "fr": "Clément visite Montélimar"
+          }
+        },
+        "contributorFields": ["timings"]
+      },
+      "createdAt": "2024-08-12T12:19:17.000Z",
+      "updatedAt": null
+    },
+    {
+      "id": 16568421,
+      "actor": "user:55507091",
+      "verb": "event.update",
+      "object": "event:74893768",
+      "target": "agenda:50631376",
+      "store": {
+        "labels": {
+          "actor": "Clement",
+          "object": {
+            "fr": "Clément visite Montélimar"
+          }
+        },
+        "contributorFields": ["timings"]
+      },
+      "createdAt": "2024-08-12T08:07:22.000Z",
+      "updatedAt": null
+    }
+  ]
+}

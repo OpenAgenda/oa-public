@@ -1,7 +1,7 @@
 import { useIntl } from 'react-intl';
 import cn from 'classnames';
 import { Dropdown } from '@openagenda/react-shared';
-import exportsMessages from '../messages/exports';
+import exportsMessages from '../messages/exports.js';
 
 export default function ExportsDropdown({
   agenda,

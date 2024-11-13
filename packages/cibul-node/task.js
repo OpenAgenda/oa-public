@@ -97,7 +97,9 @@ export default (config, core, services) => {
 
   services.legacy.task();
 
-  services.registrations.task();
+  if (services.registrations) {
+    services.registrations.task();
+  }
 
   core.tasks();
 

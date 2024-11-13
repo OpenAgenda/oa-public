@@ -219,7 +219,7 @@ const initialState = async (req) => {
         perPageLimit: 20,
       },
       res: {
-        list: '/api/agendas/slug/:slug/sources?size=200&detailed=1',
+        list: '/api/agendas/slug/:slug/sources?size=400&detailed=1',
         add: '/:slug/admin/sources',
         update: '/api/agendas/slug/:slug/sources/:sourceAgendaUid',
         remove: '/:slug/admin/sources/:sourceId',
@@ -243,6 +243,7 @@ const initialState = async (req) => {
         slugAvailable: '/agendas/slugs/available',
         set: '/:slug/admin/settings/edit',
         remove: '/:slug/admin/settings/remove',
+        delete: '/api/agendas/:uid',
         keys: {
           create: '/:slug/admin/settings/keys/create',
           list: '/:slug/admin/settings/keys/list',

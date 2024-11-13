@@ -18,7 +18,7 @@ export default (parentApp) => {
     '/admin/networks',
     parentApp.services.sessions.mw.ifUnlogged((req, res) =>
       res.redirect(302, '/')),
-    parentApp.services.users.mw.requireSuperAdmin(),
+    parentApp.services.users.mw.allowSuperAdmin(),
     router,
   );
 };

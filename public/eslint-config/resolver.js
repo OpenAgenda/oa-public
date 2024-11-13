@@ -8,26 +8,76 @@ const builtins = new Set(builtinModules);
 
 const nodeFileSystem = new CachedInputFileSystem(fs, 4000);
 
-function opts(config) {
-  return {
-    fileSystem: nodeFileSystem,
-    conditionNames: ['node'],
-    extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node'],
-    ...config,
-  };
+const commonjsOptions = {
+  conditionNames: ['node', 'require', 'default'],
+  extensions: ['.js', '.json', '.node'],
+  mainFields: ['main'],
+  fullySpecified: false,
+};
+
+const esmOptions = {
+  conditionNames: ['node', 'import', 'default'],
+  mainFields: ['module', 'main'],
+  fullySpecified: true,
+};
+
+const commonjsResolver = enhancedResolve.create.sync({
+  fileSystem: nodeFileSystem,
+  ...commonjsOptions,
+});
+const esmResolver = enhancedResolve.create.sync({
+  fileSystem: nodeFileSystem,
+  ...esmOptions,
+});
+
+function getModuleType(file) {
+  if (file.endsWith('.cjs')) {
+    return 'commonjs';
+  }
+
+  if (file.endsWith('.mjs')) {
+    return 'module';
+  }
+
+  let currentDir = path.dirname(file);
+
+  while (currentDir && currentDir !== path.parse(currentDir).root) {
+    const packageJsonPath = path.join(currentDir, 'package.json');
+
+    try {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+
+      if (packageJson.type === 'module') {
+        return 'module';
+      }
+    } catch (e) {
+      // Ignore errors (e.g., file not found)
+    }
+
+    currentDir = path.dirname(currentDir);
+  }
+
+  return 'commonjs';
 }
 
-const defaultResolver = enhancedResolve.create.sync(opts());
+function getResolver(file) {
+  const moduleType = getModuleType(file);
+  return moduleType === 'module' ? esmResolver : commonjsResolver;
+}
 
 function resolve(source, file, config) {
-  if (builtins.has(source)) {
+  if (builtins.has(source.replace(/^node:/, ''))) {
     return { found: true, path: null };
   }
 
   try {
     const resolver = config
-      ? enhancedResolve.create.sync(opts(config))
-      : defaultResolver;
+      ? enhancedResolve.create.sync({
+        fileSystem: nodeFileSystem,
+        ...commonjsOptions,
+        ...config,
+      })
+      : getResolver(file);
     const result = resolver(path.dirname(file), source);
 
     return { found: true, path: result };

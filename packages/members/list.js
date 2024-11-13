@@ -123,7 +123,7 @@ module.exports = async (
   return includeTotal || legacy
     ? {
       [legacy ? 'stakeholders' : 'members']: members,
-      ...total ? { total } : {},
+      ...total !== undefined ? { total } : {},
       ...totalPerRole ? { totalPerRole } : {},
     }
     : members;

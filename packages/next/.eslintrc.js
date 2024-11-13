@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   extends: ['@openagenda/eslint-config/recommended', 'next/core-web-vitals'],
+  plugins: ['unicorn'],
   ignorePatterns: ['/.next'],
   rules: {
     // "@next/next/no-html-link-for-pages": ["error", "src/pages/"]
@@ -50,12 +51,15 @@ module.exports = {
       rootDir: __dirname,
     },
     'import/resolver': {
+      [require.resolve('@openagenda/eslint-config/resolver')]: {},
       typescript: {
         project: [`${__dirname}/tsconfig.json`],
       },
     },
   },
   parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
     jsxPragma: null,
     babelOptions: {
       configFile: false,

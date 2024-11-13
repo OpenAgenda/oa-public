@@ -1,5 +1,5 @@
-import Selection from './Selection';
-import Add from './Add';
+import Selection from './Selection.js';
+import Add from './Add.js';
 
 export default function EventsAdditionalFieldComponent({
   field,

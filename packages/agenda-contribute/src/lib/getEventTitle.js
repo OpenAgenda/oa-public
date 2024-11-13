@@ -1,4 +1,4 @@
-import labels from '@openagenda/labels/agenda-contribute/event';
+import labels from '@openagenda/labels/agenda-contribute/event.js';
 
 function getEventTitle(event, lang) {
   const titleLanguages = Object.keys(event.title || {});

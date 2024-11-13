@@ -63,7 +63,6 @@ describe('10 - core - functional (server): core.users().get()', () => {
     it('user can be retrieved using a valid access token', async () => {
       const janine = await core.users.get.byAccessToken(
         '11a7946ddd256c768867ac3f2182cba0',
-        1,
       );
       expect(janine.uid).toBe(1);
     });
@@ -71,10 +70,7 @@ describe('10 - core - functional (server): core.users().get()', () => {
     it('outdated access token throws error', async () => {
       let error;
       try {
-        await core.users.get.byAccessToken(
-          '11a79182cddd2466c768867ac3f25ba0',
-          1,
-        );
+        await core.users.get.byAccessToken('11a79182cddd2466c768867ac3f25ba0');
       } catch (e) {
         error = e.message;
       }

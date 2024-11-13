@@ -1,6 +1,6 @@
 import { LineChart, Line, YAxis } from 'recharts';
 import { useQuery } from 'react-query';
-import subDays from 'date-fns/subDays';
+import subDays from 'date-fns/subDays/index.js';
 import { useApiClient } from '@openagenda/react-shared';
 
 const defaultData = [];

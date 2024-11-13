@@ -1,17 +1,16 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import { getName as getDatabaseFieldName } from '@openagenda/utils/fields/databaseField.js';
+import validateNav from './lib/validateNav.js';
+import addListQuery from './lib/addQuery.js';
+import cleanListOptions from './lib/cleanOptions.js';
+import addPaginationAndOrder from './lib/paginationAndOrder.js';
+import handleInterface from './lib/handleInterface.js';
+import lastEventClean from './lib/lastEventClean.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('list');
+const log = logs('list');
 
-const getDatabaseFieldName = require('@openagenda/utils/fields/databaseField').getName;
-const validateNav = require('./lib/validateNav');
-const addListQuery = require('./lib/addQuery');
-const cleanListOptions = require('./lib/cleanOptions');
-const addPaginationAndOrder = require('./lib/paginationAndOrder');
-const handleInterface = require('./lib/handleInterface');
-const lastEventClean = require('./lib/lastEventClean');
-
-module.exports = async (service, query = {}, n = {}, o = {}) => {
+export default async (service, query = {}, n = {}, o = {}) => {
   log('called', query);
 
   let agendas;

@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 import { Field } from 'react-final-form';
 import { ReactSelectField } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
-import titleMessages from '../messages/chartTitles';
-import form from '../messages/form';
-import MetricsField from './MetricsField';
+import titleMessages from '../messages/chartTitles.js';
+import form from '../messages/form.js';
+import MetricsField from './MetricsField.js';
 
 export default function AddChartForm({
   handleSubmit,

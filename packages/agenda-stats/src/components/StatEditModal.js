@@ -2,9 +2,9 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useMemo } from 'react';
 import { Form, Field } from 'react-final-form';
 import { ReactSelectField, Modal } from '@openagenda/react-shared';
-import useChartTitle from '../hooks/useChartTitle';
-import form from '../messages/form';
-import MetricsField from './MetricsField';
+import useChartTitle from '../hooks/useChartTitle.js';
+import form from '../messages/form.js';
+import MetricsField from './MetricsField.js';
 
 const messages = defineMessages({
   modalTitle: {

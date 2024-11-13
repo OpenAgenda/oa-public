@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = [
+export default [
   {
     field: 'id',
     optional: false,
@@ -115,6 +113,7 @@ module.exports = [
     },
     read: ['internal', 'public'],
     write: ['internal', 'public'],
+    max: 1000,
   },
   {
     field: 'locationUid',

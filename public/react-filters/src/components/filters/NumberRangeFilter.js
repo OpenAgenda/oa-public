@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { Field, useField } from 'react-final-form';
-import NumberRangeField from '../fields/NumberRangeField';
-import Panel from '../Panel';
-import Title from '../Title';
-import FilterPreviewer from '../FilterPreviewer';
+import NumberRangeField from '../fields/NumberRangeField.js';
+import Panel from '../Panel.js';
+import Title from '../Title.js';
+import FilterPreviewer from '../FilterPreviewer.js';
 
 const subscription = { value: true };
 

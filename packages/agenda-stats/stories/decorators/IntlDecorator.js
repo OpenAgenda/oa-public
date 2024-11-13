@@ -1,5 +1,5 @@
 import { IntlProvider } from 'react-intl';
-import locales from '../../src/locales';
+import * as locales from '../../src/locales/index.js';
 
 export default (storyFn) => (
   <IntlProvider messages={locales.fr} locale="fr" key="fr">

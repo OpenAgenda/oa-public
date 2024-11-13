@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = class NotFoundError extends Error {
+export default class NotFoundError extends Error {
   constructor(objectName, identifier) {
     super('Not found');
     this.name = 'NotFoundError';
@@ -8,4 +6,4 @@ module.exports = class NotFoundError extends Error {
     this.objectName = objectName;
     this.identifier = identifier;
   }
-};
+}

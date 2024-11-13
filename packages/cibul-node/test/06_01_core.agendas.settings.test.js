@@ -174,7 +174,6 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
           url: 'http://localhost:3000/agendas/60935574/settings/eventSchema/configure',
           headers: {
             'access-token': adminAccessToken,
-            nonce: 1238979,
             'content-type': 'application/json',
           },
           data: {
@@ -195,7 +194,6 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
           url: 'http://localhost:3000/agendas/60935574/settings/eventSchema/configure',
           headers: {
             'access-token': contribAccessToken,
-            nonce: 1238980,
             'content-type': 'application/json',
           },
           data: {

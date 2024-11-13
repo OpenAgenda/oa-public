@@ -11,4 +11,11 @@ export default {
     options: {},
   },
   staticDirs: ['./public'],
+  babel: (config) => {
+    return { ...config, rootMode: 'upward' };
+  },
+  webpackFinal: (config) => {
+    config.resolve.alias['@httptoolkit/esm'] = false;
+    return config;
+  },
 };

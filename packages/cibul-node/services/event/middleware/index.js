@@ -2,12 +2,14 @@ import _ from 'lodash';
 import qs from 'qs';
 import utils from '@openagenda/utils';
 import ValidateLink from '@openagenda/validators/link.js';
-import { toListOfObjects as registrationToListOfObjects } from '@openagenda/events/iso/src/validators/registration.js';
+import registrationValidator from '@openagenda/events/iso/validators/registration.js';
 import membersSvc from '../../members/index.js';
 import config from '../../../config/index.js';
 import getStatusLabel from '../../../lib/getStatusLabel.js';
 import format from './format.js';
 import components from './components.js';
+
+const { toListOfObjects: registrationToListOfObjects } = registrationValidator;
 
 const validateLink = ValidateLink();
 const { getRoleSlug } = membersSvc.utils;

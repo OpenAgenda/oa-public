@@ -42,7 +42,10 @@ export function init(config, services) {
     }),
   );
 
-  const { task: activityTask } = activitiesTask({ queue: activityQueue });
+  const { task: activityTask } = activitiesTask({
+    queue: activityQueue,
+    services,
+  });
 
   members.utils.listAllAdminMods = listAllAdminMods(members);
 

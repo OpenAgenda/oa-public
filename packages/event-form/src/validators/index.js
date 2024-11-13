@@ -1,15 +1,15 @@
-const registration = require('@openagenda/events/iso/build/validators/registration');
-const age = require('@openagenda/events/iso/build/validators/age');
-const timings = require('@openagenda/events/iso/build/validators/timings');
-const longDescription = require('@openagenda/events/iso/build/validators/longDescription');
-const enrichedLinks = require('@openagenda/events/iso/build/validators/enrichedLinks');
-const accessibility = require('./accessibility');
-const keywords = require('./keywords');
-const location = require('./location');
-const languages = require('./languages');
-const events = require('./events');
+import registration from '@openagenda/events/iso/validators/registration.js';
+import age from '@openagenda/events/iso/validators/age.js';
+import timings from '@openagenda/events/iso/validators/timings.js';
+import longDescription from '@openagenda/events/iso/validators/longDescription.js';
+import enrichedLinks from '@openagenda/events/iso/validators/enrichedLinks.js';
+import accessibility from './accessibility.js';
+import keywords from './keywords.js';
+import location from './location.js';
+import languages from './languages.js';
+import events from './events.js';
 
-module.exports = {
+export default {
   registration,
   age,
   accessibility,

@@ -1,7 +1,6 @@
 import * as dateFns from 'date-fns';
-
-import DST from './DST';
-import secondsToHeight from './secondsToHeight';
+import DST from './DST.js';
+import secondsToHeight from './secondsToHeight.js';
 
 function top({ selectableStep, step, cellHeight }, { begin }) {
   const startOfDay = dateFns.startOfDay(begin);

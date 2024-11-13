@@ -3,8 +3,8 @@ import '@openagenda/bs-templates/compiled/main.css';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import ExportModal from '../src/components/export-modal/ExportModal';
-import Canvas from './decorators/Canvas';
+import ExportModal from '../src/components/export-modal/ExportModal.js';
+import Canvas from './decorators/Canvas.js';
 import columns from './fixtures/columns.json';
 
 export default {

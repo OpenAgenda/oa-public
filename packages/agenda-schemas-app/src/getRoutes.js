@@ -1,20 +1,49 @@
-import { loadable } from '@openagenda/react-shared';
+import { loadableComponent } from '@openagenda/react-shared';
 
-const App = loadable(
-  () =>
-    import(
-      /* webpackChunkName: "legacyEmbeds-App" */
-      './containers/App'
-    ),
-);
+// eslint-disable-next-line camelcase
+const contextRequire = typeof __webpack_require__ !== 'undefined'
+  ? import.meta.webpackContext('.', {
+    recursive: true,
+    regExp: /\.js$/,
+    mode: 'weak',
+  })
+  : null;
 
-const Dashboard = loadable(
-  () =>
+const App = loadableComponent({
+  chunkName: 'agendaSchemas-App',
+  importAsync: () =>
     import(
-      /* webpackChunkName: "legacyEmbeds-App" */
-      './containers/Dashboard'
+      /* webpackChunkName: "agendaSchemas-App" */
+      './containers/App.js'
     ),
-);
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/App.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/App.js');
+    }
+  },
+});
+
+const Dashboard = loadableComponent({
+  chunkName: 'agendaSchemas-Dashboard',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "agendaSchemas-Dashboard" */
+      './containers/Dashboard.js'
+    ),
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/Dashboard.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/Dashboard.js');
+    }
+  },
+});
 
 export default (prefix = '') => [
   {

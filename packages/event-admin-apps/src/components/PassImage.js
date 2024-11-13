@@ -1,5 +1,5 @@
 import { defineMessages, useIntl } from 'react-intl';
-import { css } from '@emotion/react';
+import cn from 'classnames';
 
 const messages = defineMessages({
   linked: {
@@ -61,21 +61,9 @@ export default function PassImage({
     <button
       type="button"
       onClick={() => setPassTab(passTabIsOpen ? null : eventUid)}
-      className="badge badge-default margin-left-xs"
-      css={
-        passTabIsOpen
-          ? css`
-              padding: 0px 6px 0px 1px;
-              border-radius: 15px;
-              cursor: pointer;
-            `
-          : css`
-              padding: 0px 6px 0px 1px;
-              cursor: pointer;
-              border-radius: 15px;
-              border-color: transparent;
-            `
-      }
+      className={cn('badge badge-default margin-left-xs pass-tab', {
+        'is-open': passTabIsOpen,
+      })}
     >
       <img
         src={imgSource(errored, rejected, pending)}

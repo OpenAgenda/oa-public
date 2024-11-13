@@ -1,4 +1,4 @@
-import minimizeAggregation from './minimizeAggregation';
+import minimizeAggregation from './minimizeAggregation.js';
 
 export default function filtersToAggregations(filters, base = false) {
   const usedFilters = base

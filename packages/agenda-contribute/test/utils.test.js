@@ -1,4 +1,4 @@
-import utils from '../src/lib/utils';
+import utils from '../src/lib/utils.js';
 import filterEventDataFixtures from './fixtures/filterEventData.json';
 import filterEventDataFixturesWiths from './fixtures/filterEventDataWiths.json';
 

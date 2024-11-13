@@ -1,16 +1,18 @@
-'use strict';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import { createReadStream, createWriteStream } from 'node:fs';
+import _ from 'lodash';
+import Files from '@openagenda/files';
 
-const fs = require('node:fs');
-const _ = require('lodash');
-const Files = require('@openagenda/files');
+import {
+  service as config,
+  dependencies as dConfig,
+} from '../testconfig.sample.js';
 
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('../testconfig.sample');
+import Service from '../index.js';
+import fixtures from './fixtures/index.js';
 
-const Service = require('..');
-const fixtures = require('./fixtures');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const data = {
   title: { fr: "Spectacle de contes sur le thème de l'Afrique" },
@@ -110,8 +112,8 @@ describe('events - functional - update', () => {
     beforeAll(
       () =>
         new Promise((done) => {
-          fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
-            .pipe(fs.createWriteStream('/tmp/dog.png'))
+          createReadStream(`${__dirname}/fixtures/images/dog.png`)
+            .pipe(createWriteStream('/tmp/dog.png'))
             .on('close', done);
         }),
     );
@@ -127,7 +129,7 @@ describe('events - functional - update', () => {
       let error;
       const updated = await svc2.update(93469090, {
         ...data,
-        image: fs.createReadStream('/tmp/dog.png'),
+        image: createReadStream('/tmp/dog.png'),
       });
 
       try {
@@ -331,7 +333,7 @@ describe('events - functional - update', () => {
                 author_url: 'https://www.calameo.com/accounts/53137',
                 provider_name: 'calameo.com',
                 description:
-                  'petites vacances scolaires ACCUEILS DE LOISIRS 3/17 ANS Dates d’ouverture des centres Vacances d’Hiver : du 22 février au 5 mars HIVER 2021 Vacances de Printemps : du 26 avril au 7 PRINTEMPS mai 2021 Dates limites d’inscription : 2021 13...',
+                  "petites vacances scolaires ACCUEILS DE LOISIRS 3/17 ANS Dates d'ouverture des centres Vacances d'Hiver : du 22 février au 5 mars HIVER 2021 Vacances de Printemps : du 26 avril au 7 PRINTEMPS mai 2021 Dates limites d'inscription : 2021 13...",
                 thumbnail_url:
                   'https://p.calameoassets.com/210114155242-fc5ad8a39a0af2fd840cadbfe988b11d/p1.jpg',
                 thumbnail_width: 1125,

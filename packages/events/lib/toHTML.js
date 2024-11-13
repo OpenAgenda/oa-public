@@ -1,8 +1,6 @@
-'use strict';
+import { fromMarkdownToHTML } from '@openagenda/md';
 
-const { fromMarkdownToHTML } = require('@openagenda/md');
-
-module.exports = (obj) => {
+export default (obj) => {
   if (typeof obj === 'object') {
     return Object.keys(obj).reduce(
       (html, lang) => ({

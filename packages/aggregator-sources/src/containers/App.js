@@ -1,4 +1,4 @@
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { useLayoutData } from '@openagenda/react-shared';
@@ -22,7 +22,7 @@ function App({ route }) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       modals: modalsReducer,

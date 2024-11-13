@@ -150,8 +150,6 @@ export default class FormSchemaComponent extends Component {
   }
 
   onServerError(res) {
-    // console.log('evaluating server error', res.body);
-
     const errors = _.get(res, 'body.errors');
 
     if (Array.isArray(errors) && errors.length) {

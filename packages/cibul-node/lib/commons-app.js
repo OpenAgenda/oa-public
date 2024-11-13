@@ -204,7 +204,7 @@ function loadBaseData(func, cssFile) {
 /**
  * set json data in response
  */
-function renderJson(req, res, data, _options) {
+function renderJson(req, res, data, options = {}) {
   res.set('Content-Type', 'application/json; charset=utf-8');
 
   if (!res.get('Last-Modified')) {
@@ -217,7 +217,13 @@ function renderJson(req, res, data, _options) {
     body = `${req.query.callback}(${_filterNonParsable(body)})`;
   }
 
-  res.write(body);
+  // old function that should be deprecated.
+  // adding this to reduce risk of breaking change elsewhere
+  if (options.code === 400) {
+    res.status(options.code).write(body);
+  } else {
+    res.write(body);
+  }
 
   res.end();
 }
@@ -225,6 +231,16 @@ function renderJson(req, res, data, _options) {
 /**
  * what to do with errors... make a redirect
  */
+
+function defineJSONResponse(req, forceJSON) {
+  if (forceJSON) return true;
+
+  if (req.headers.accept === 'application/json') {
+    return true;
+  }
+
+  return !!/\.json$/.test(req.path);
+}
 
 function errorResponse(req, res, err, jsr) {
   if (!err.code) {
@@ -241,7 +257,7 @@ function errorResponse(req, res, err, jsr) {
   }
 
   lang(req, res, () => {
-    const jsonResponse = jsr === undefined ? /\.json$/.test(req.path) : jsr;
+    const jsonResponse = defineJSONResponse(req, jsr);
 
     if (![400, 401, 403, 404, 413].includes(err.code)) {
       errorLogger('req', err, req);
@@ -270,12 +286,17 @@ function errorResponse(req, res, err, jsr) {
     }
 
     if (jsonResponse) {
-      renderJson(req, res, {
-        success: false,
-        message: error.message
-          ? error.message
-          : 'There was a problem during the handling of the request',
-      });
+      renderJson(
+        req,
+        res,
+        {
+          success: false,
+          message: error.message
+            ? error.message
+            : 'There was a problem during the handling of the request',
+        },
+        { code: err.code },
+      );
 
       return;
     }

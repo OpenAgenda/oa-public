@@ -3,7 +3,7 @@ import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
 import cn from 'classnames';
 import { getLocaleValue } from '@openagenda/intl';
-import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
+import { a11yButtonActionHandler } from '@openagenda/react-shared';
 
 function useOnChoiceChange(input, preventDefault) {
   const inputRef = useRef();

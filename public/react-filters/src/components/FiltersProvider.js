@@ -4,44 +4,55 @@ import React, {
   useImperativeHandle,
   useMemo,
   useState,
+  useRef,
 } from 'react';
 import { Form, FormSpy } from 'react-final-form';
-import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
+import { useConstant } from '@openagenda/react-shared';
 import { createForm } from 'final-form';
 import { RawIntlProvider, useIntl } from 'react-intl';
-import filtersToAggregations from '../utils/filtersToAggregations';
-import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext';
-import { withDefaultFilterConfig } from '../utils';
+import filtersToAggregations from '../utils/filtersToAggregations.js';
+import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext.js';
+import { withDefaultFilterConfig } from '../utils/index.js';
 
 const defaultSubscription = {};
 const spySubscription = { dirty: true, values: true };
 
 const FiltersForm = React.forwardRef(
-  ({ onSubmit, initialValues, subscription, children }, ref) => {
+  ({ onSubmit, initialValues, manualSubmit, subscription, children }, ref) => {
     const { filters } = useContext(FiltersAndWidgetsContext);
+
+    const submittedValuesRef = useRef();
 
     const handleSubmit = useCallback(
       (values, form) => {
         const aggregations = filtersToAggregations(filters);
+
+        submittedValuesRef.current = values;
 
         return onSubmit(values, aggregations, form);
       },
       [filters, onSubmit],
     );
 
-    const form = useConstant(() =>
-      createForm({ onSubmit: handleSubmit, initialValues }));
+    const form = useConstant(() => {
+      const finalForm = createForm({ onSubmit: handleSubmit, initialValues });
+      finalForm.getSubmittedValues = () => submittedValuesRef.current;
+      return finalForm;
+    });
 
     useImperativeHandle(ref, () => form);
 
     const onValueChange = useCallback(
       ({ dirty, values }) => {
+        if (manualSubmit) {
+          return;
+        }
         if (dirty) {
           form.submit();
           form.reset(values);
         }
       },
-      [form],
+      [form, manualSubmit],
     );
 
     return (
@@ -70,6 +81,7 @@ const IntlProvided = React.forwardRef(
       onSubmit,
       subscription,
       searchMethod,
+      manualSubmit,
       children,
     },
     ref,
@@ -77,8 +89,13 @@ const IntlProvided = React.forwardRef(
     const intl = useIntl();
 
     const filtersOptions = useMemo(
-      () => ({ missingValue, mapTiles, dateFnsLocale }),
-      [missingValue, mapTiles, dateFnsLocale],
+      () => ({
+        missingValue,
+        mapTiles,
+        dateFnsLocale,
+        manualSubmit,
+      }),
+      [missingValue, mapTiles, dateFnsLocale, manualSubmit],
     );
     const [filters, setFilters] = useState(() =>
       (rawFilters ?? []).map((rawFilter) =>
@@ -114,6 +131,7 @@ const IntlProvided = React.forwardRef(
           initialValues={initialValues}
           subscription={subscription}
           searchMethod={searchMethod}
+          manualSubmit={manualSubmit}
         >
           {children}
         </FiltersForm>
@@ -139,6 +157,7 @@ function FiltersProvider(
     initialValues = null,
     subscription = defaultSubscription,
     searchMethod = 'get',
+    manualSubmit = false,
   },
   ref,
 ) {
@@ -155,6 +174,7 @@ function FiltersProvider(
       initialValues={initialValues}
       subscription={subscription}
       searchMethod={searchMethod}
+      manualSubmit={manualSubmit}
     >
       {children}
     </IntlProvided>

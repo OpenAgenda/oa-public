@@ -1,7 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useForm } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
 import { defineMessages, useIntl } from 'react-intl';
+import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext.js';
 
 const messages = defineMessages({
   ariaLabel: {
@@ -10,7 +17,7 @@ const messages = defineMessages({
   },
 });
 
-function Input({ input, placeholder, onButtonClick }) {
+function Input({ input, placeholder, onButtonClick, manualSubmit }) {
   const intl = useIntl();
 
   return (
@@ -19,18 +26,21 @@ function Input({ input, placeholder, onButtonClick }) {
         className="form-control"
         autoComplete="off"
         placeholder={placeholder}
+        aria-label={placeholder}
         {...input}
       />
-      <div className="input-group-append">
-        <button
-          type="submit"
-          className="btn btn-outline-secondary"
-          onClick={onButtonClick}
-          aria-label={intl.formatMessage(messages.ariaLabel)}
-        >
-          <i className="fa fa-search" aria-hidden="true" />
-        </button>
-      </div>
+      {!manualSubmit ? (
+        <div className="input-group-append">
+          <button
+            type="submit"
+            className="btn btn-outline-secondary"
+            onClick={onButtonClick}
+            aria-label={intl.formatMessage(messages.ariaLabel)}
+          >
+            <i className="fa fa-search" aria-hidden="true" />
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -44,6 +54,10 @@ export default function SearchInput({
 }) {
   const form = useForm();
   const [tmpValue, setTmpValue] = useState(input.value);
+
+  const {
+    filtersOptions: { manualSubmit },
+  } = useContext(FiltersAndWidgetsContext);
 
   const debouncedOnChange = useDebouncedCallback((e) => {
     if (manualSearch) {
@@ -62,6 +76,10 @@ export default function SearchInput({
 
       setTmpValue(e.target.value);
       debouncedOnChange(e);
+      // direct call with manualSubmit
+      if (manualSubmit) {
+        debouncedOnChange.flush();
+      }
     },
     [debouncedOnChange],
   );
@@ -96,6 +114,7 @@ export default function SearchInput({
   return React.createElement(inputComponent, {
     input: wrappedInput,
     onButtonClick,
+    manualSubmit,
     ...rest,
   });
 }

@@ -1,13 +1,14 @@
-import useActiveFilters from '../hooks/useActiveFilters';
-import Filters from './Filters';
-import DateRangeFilter from './filters/DateRangeFilter';
-import NumberRangeFilter from './filters/NumberRangeFilter';
-import ChoiceFilter from './filters/ChoiceFilter';
-import DefinedRangeFilter from './filters/DefinedRangeFilter';
-import SearchFilter from './filters/SearchFilter';
-import MapFilter from './filters/MapFilter';
-import CustomFilter from './filters/CustomFilter';
-import FavoritesFilter from './filters/FavoritesFilter';
+import useActiveFilters from '../hooks/useActiveFilters.js';
+import Filters from './Filters.js';
+import DateRangeFilter from './filters/DateRangeFilter.js';
+import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter.js';
+import NumberRangeFilter from './filters/NumberRangeFilter.js';
+import ChoiceFilter from './filters/ChoiceFilter.js';
+import DefinedRangeFilter from './filters/DefinedRangeFilter.js';
+import SearchFilter from './filters/SearchFilter.js';
+import MapFilter from './filters/MapFilter.js';
+import CustomFilter from './filters/CustomFilter.js';
+import FavoritesFilter from './filters/FavoritesFilter.js';
 
 export default function ActiveFilters({ filters, ...rest }) {
   const activeFilters = useActiveFilters(filters);
@@ -17,6 +18,7 @@ export default function ActiveFilters({ filters, ...rest }) {
       filters={activeFilters}
       choiceComponent={ChoiceFilter.Preview}
       dateRangeComponent={DateRangeFilter.Preview}
+      simpleDateRangeComponent={SimpleDateRangeFilter.Preview}
       numberRangeComponent={NumberRangeFilter.Preview}
       definedRangeComponent={DefinedRangeFilter.Preview}
       searchComponent={SearchFilter.Preview}

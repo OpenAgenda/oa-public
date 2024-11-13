@@ -8,7 +8,7 @@ import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import qs from 'qs';
-import * as dateFnsLocales from 'date-fns/locale';
+import * as dateFnsLocales from 'date-fns/locale/index.js';
 import {
   FiltersProvider,
   useFilters,
@@ -22,15 +22,15 @@ import {
   Spinner,
 } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
-import validateQuery from '@openagenda/event-search/utils/validateQuery';
-import * as statsActions from '../reducers/stats';
-import FiltersPart from '../components/FiltersPart';
-import FiltersPreview from '../components/FiltersPreview';
-import OrderModal from '../components/OrderModal';
-import AggregationCharts from '../components/AggregationCharts';
-import PulseChart from '../components/PulseChart';
-import determineDefaultRange from '../utils/determineDefaultRange';
-import emptyOptionMessage from '../messages/emptyOption';
+import validateQuery from '@openagenda/event-search/utils/validateQuery.js';
+import * as statsActions from '../reducers/stats.js';
+import FiltersPart from '../components/FiltersPart.js';
+import FiltersPreview from '../components/FiltersPreview.js';
+import OrderModal from '../components/OrderModal.js';
+import AggregationCharts from '../components/AggregationCharts.js';
+import PulseChart from '../components/PulseChart.js';
+import determineDefaultRange from '../utils/determineDefaultRange.js';
+import emptyOptionMessage from '../messages/emptyOption.js';
 
 const messages = defineMessages({
   save: {
@@ -326,7 +326,7 @@ function Dashboard() {
 
   if (!loaded || filtersQuery.isFetching) {
     return (
-      <div className="padding-v-md" css={{ position: 'relative' }}>
+      <div className="padding-v-md" style={{ position: 'relative' }}>
         <Spinner />
       </div>
     );
@@ -374,7 +374,7 @@ function Dashboard() {
                 placement="bottom"
               >
                 <div
-                  css={{
+                  style={{
                     width: '155px',
                     display: 'block',
                     // marginLeft: 'auto',

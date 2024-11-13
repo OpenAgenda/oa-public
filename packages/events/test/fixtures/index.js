@@ -1,13 +1,15 @@
-'use strict';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import fs from 'node:fs';
+import { promisify } from 'node:util';
+import _ from 'lodash';
+import knex from 'knex';
+import mysql from 'mysql';
 
-const fs = require('node:fs');
-const { promisify } = require('node:util');
-const _ = require('lodash');
-const knex = require('knex');
-const mysql = require('mysql');
+import creditsEventCreate from './creditsEventCreate.json';
+import creditsEventUpdate from './creditsEventUpdate.json';
 
-const creditsEventCreate = require('./creditsEventCreate.json');
-const creditsEventUpdate = require('./creditsEventUpdate.json');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function _sql(schema, SQLDataRelativePath) {
   const raw = [
@@ -42,7 +44,7 @@ async function _load(dbConfig, schema, SQLDataRelativePath) {
   con.end();
 }
 
-module.exports = (dbConfig, SQLDataRelativePath) => {
+const createClient = (dbConfig, SQLDataRelativePath) => {
   const client = knex({
     client: 'mysql',
     connection: dbConfig,
@@ -55,5 +57,7 @@ module.exports = (dbConfig, SQLDataRelativePath) => {
   };
 };
 
-module.exports.creditsEventCreate = creditsEventCreate;
-module.exports.creditsEventUpdate = creditsEventUpdate;
+export default Object.assign(createClient, {
+  creditsEventCreate,
+  creditsEventUpdate,
+});

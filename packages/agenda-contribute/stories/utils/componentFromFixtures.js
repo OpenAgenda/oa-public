@@ -1,8 +1,8 @@
 import { wrapApp } from '@openagenda/react-shared';
 import { createMemoryHistory } from 'history';
-import createApp from '../../src';
-import fixtures from '../fixtures';
-import loadInitialState from './loadInitialState';
+import createApp from '../../src/index.js';
+import fixtures from '../fixtures/index.js';
+import loadInitialState from './loadInitialState.js';
 
 export default function componentFromFixtures(
   message,

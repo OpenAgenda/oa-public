@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 const LOAD = 'activity-apps/activities/LOAD';
 const LOAD_SUCCESS = 'activity-apps/activities/LOAD_SUCCESS';
 const LOAD_FAIL = 'activity-apps/activities/LOAD_FAIL';
@@ -91,14 +93,26 @@ export function isLoaded(globalState) {
 export function load(query, agenda) {
   return ({ dispatch, getState }) => {
     const { settings, res } = getState();
-
+    console.log('Load', res.list, agenda);
     return dispatch({
       types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
       perPageLimit: settings.perPageLimit,
-      promise: ({ client }) =>
-        client.get(res.list.replace(':slug', agenda && agenda.slug), {
-          params: query,
-        }),
+      promise: ({ apiRoot, req }) => {
+        const url = `${apiRoot}/${res.list.replace(':slug', agenda && agenda.slug).replace(/^\//, '')}${qs.stringify(query, { addQueryPrefix: true })}`;
+        const headers = req
+          ? new Headers({
+            Cookie: req.header('Cookie'),
+            Authorization: req.header('Authorization'),
+          })
+          : {};
+
+        return fetch(url, { headers }).then((response) => {
+          if (!response.ok) {
+            throw new Error("Can't list activities");
+          }
+          return response.json();
+        });
+      },
     });
   };
 }
@@ -106,7 +120,7 @@ export function load(query, agenda) {
 export function list(query, agenda) {
   return ({ dispatch, getState }) => {
     const { settings, res } = getState();
-
+    console.log('List', res.list, agenda);
     return dispatch({
       types: [LIST, LIST_SUCCESS, LIST_FAIL],
       perPageLimit: settings.perPageLimit,

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
-import createApp from '../src/client/editApp';
-import EditDecorator from './decorators/EditDecorator';
+import createApp from '../src/editApp.js';
+import EditDecorator from './decorators/EditDecorator.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

@@ -10,4 +10,6 @@ export default async (agendaOrUid) => {
   const { success } = await removeAgenda({ uid: agendaUid });
 
   if (!success) throw new Error('could not remove agenda');
+
+  return { success };
 };

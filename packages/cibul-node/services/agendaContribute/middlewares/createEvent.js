@@ -19,6 +19,7 @@ export default function createEvent(req, res) {
       filterUnauthorizedData: true,
       fileKey: req.fileKey,
       duplicateOrigin: req.query.duplicateOrigin,
+      userLang: req.lang,
     })
     .then(
       (event) => res.json({ success: true, event }),

@@ -1,6 +1,16 @@
 import ih from 'immutability-helper';
 import labelKeys from './labelKeys';
 
+function extractFillerLabel(label, languages) {
+  if (languages.length) {
+    return label[languages[0]];
+  }
+
+  if (typeof label === 'string') {
+    return label;
+  }
+}
+
 function restrictLabelLanguages(field, languages = []) {
   const restricted = ih(
     field ?? {},
@@ -11,9 +21,10 @@ function restrictLabelLanguages(field, languages = []) {
           ? []
           : Object.keys(field[labelKey]);
 
-        const fillerLabel = currentLabelLanguages.length
-          ? field[labelKey][currentLabelLanguages[0]]
-          : field[labelKey];
+        const fillerLabel = extractFillerLabel(
+          field[labelKey],
+          currentLabelLanguages,
+        );
 
         return {
           ...updates,

@@ -1,15 +1,15 @@
-const express = require('express');
-const morgan = require('morgan');
-const errorHandler = require('errorhandler');
-const multer = require('multer');
-const knexLib = require('knex');
-const agendasSvc = require('@openagenda/agendas');
-const { makeMiddleware: makeFilesMw } = require('@openagenda/files');
-const keysSvc = require('@openagenda/keys');
-const keysMw = require('@openagenda/keys/middleware');
-const service = require('../src/service');
-const mw = require('../src/middleware');
-const testconfig = require('../testconfig');
+import express from 'express';
+import morgan from 'morgan';
+import errorHandler from 'errorhandler';
+import multer from 'multer';
+import knexLib from 'knex';
+import agendasSvc from '@openagenda/agendas';
+import { makeMiddleware as makeFilesMw } from '@openagenda/files';
+import keysSvc from '@openagenda/keys';
+import keysMw from '@openagenda/keys/middleware';
+import * as service from '../server/service.js';
+import mw from '../server/middleware.js';
+import testconfig from '../testconfig';
 
 /*
  * Run `yarn knex migrate:latest` and `yarn knex seed:run` before to run the dev server
@@ -40,7 +40,7 @@ if (process.env.NODE_ENV !== 'test') {
   })();
 }
 
-module.exports = (router) => {
+export default (router) => {
   if (['development', 'test'].includes(process.env.NODE_ENV)) {
     router.use(morgan('dev'));
   }

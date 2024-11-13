@@ -8,10 +8,10 @@ import {
   BarChart,
   ResponsiveContainer,
 } from 'recharts';
-import defaultDataColors from '../../common/defaultDataColors';
+import defaultDataColors from '../../common/defaultDataColors.js';
 // import addRestItem from '../../utils/addRestItem';
-import CustomTooltip from './CustomTooltip';
-import EllipsisAxisTick from './EllipsisAxisTick';
+import CustomTooltip from './CustomTooltip.js';
+import EllipsisAxisTick from './EllipsisAxisTick.js';
 
 const tooltipWrapperStyle = { zIndex: 1000 };
 

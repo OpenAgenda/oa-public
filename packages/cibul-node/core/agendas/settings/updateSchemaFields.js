@@ -35,6 +35,7 @@ export default async function updateSchemaFields(
       },
       { formSchemaId: id },
       {
+        private: null,
         protected: false,
       },
     );

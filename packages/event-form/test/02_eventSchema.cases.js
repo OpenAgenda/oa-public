@@ -1,6 +1,6 @@
-const eventSchema = require('../src/schema');
-const mdbLegacyFixtures = require('./fixtures/mdb.legacy.json');
-const mdbFixtures = require('./fixtures/mdb.json');
+import eventSchema from '../src/schema.js';
+import mdbLegacyFixtures from './fixtures/mdb.legacy.json' with { type: 'json' };
+import mdbFixtures from './fixtures/mdb.json';
 
 describe('event schema formatting', () => {
   describe('mdb', () => {

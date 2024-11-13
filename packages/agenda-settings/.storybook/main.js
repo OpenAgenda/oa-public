@@ -8,6 +8,19 @@ export default {
   stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
-    options: {},
+    options: {
+      resolve: {
+        alias: {
+          ['@httptoolkit/esm']: false,
+        },
+      },
+    },
+  },
+  babel: (config) => {
+    return { ...config, rootMode: 'upward' };
+  },
+  webpackFinal: (config) => {
+    config.resolve.alias['@httptoolkit/esm'] = false;
+    return config;
   },
 };

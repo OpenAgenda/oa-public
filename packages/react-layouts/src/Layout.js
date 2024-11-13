@@ -6,7 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { getSupportedLocale } from '@openagenda/intl';
 import shallowEqual from 'shallowequal';
 import qs from 'qs';
-import locales from './locales-compiled';
+import * as locales from './locales-compiled/index.js';
 
 const defaultLocale = 'fr';
 
@@ -102,10 +102,12 @@ function Layout({ firstOnly = true, apps, ...props }) {
   );
 
   const i18n = useMemo(() => {
+    // eslint-disable-next-line import/namespace
     const usedLocale = locales[userLang] ? userLang : defaultLocale;
 
     return {
       locale: usedLocale,
+      // eslint-disable-next-line import/namespace
       messages: locales[usedLocale],
     };
   }, [userLang]);
@@ -126,6 +128,7 @@ function Layout({ firstOnly = true, apps, ...props }) {
         <AppsDisplayer
           {...props}
           {...layoutProps}
+          key={layoutProps.key}
           history={history}
           lang={i18n.locale}
         />

@@ -1,10 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useIntl } from 'react-intl';
-import { css } from '@emotion/react';
 import { useApiClient } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
-import Loading from '../components/Loading';
+import Loading from '../components/Loading.js';
 
 export default function Elasticsearch() {
   const apiClient = useApiClient();
@@ -114,28 +113,24 @@ export default function Elasticsearch() {
           <i
             className="fa fa-check text-success"
             aria-hidden="true"
-            css={css`
-              font-size: 18px;
-            `}
+            style={{ fontSize: '18px' }}
           />
         ) : null}
         {data.stats.status === 'yellow' ? (
           <i
             className="fa fa-exclamation-triangle"
             aria-hidden="true"
-            css={css`
-              font-size: 18px;
-              color: #ffc107;
-            `}
+            style={{
+              fontSize: '18px',
+              color: '#ffc107',
+            }}
           />
         ) : null}
         {data.stats.status === 'red' ? (
           <i
             className="fa fa-exclamation-triangle text-danger"
             aria-hidden="true"
-            css={css`
-              font-size: 18px;
-            `}
+            style={{ fontSize: '18px' }}
           />
         ) : null}
       </div>

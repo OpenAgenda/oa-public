@@ -1,3 +1,4 @@
+import { http, HttpResponse } from 'msw';
 import ih from 'immutability-helper';
 import FormSchemaComponent from '../client/src/index';
 import { schema } from '../dev/schemas/servererrors';
@@ -7,6 +8,37 @@ import '@openagenda/bs-templates/compiled/main.css';
 export default {
   title: 'Displaying errors',
   decorators: [SimplePageDecorator],
+  parameters: {
+    msw: {
+      handlers: [
+        http.post(
+          '/image-data',
+          () =>
+            new HttpResponse(
+              JSON.stringify({
+                success: false,
+                errors: [
+                  {
+                    field: 'image',
+                    fieldLabel: 'Image',
+                    label: "Le format de l'image n'est pas géré",
+                    code: 'format.unknown',
+                    message: 'provided format is unknown',
+                  },
+                ],
+                event: null,
+              }),
+              {
+                status: 400,
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              },
+            ),
+        ),
+      ],
+    },
+  },
 };
 
 export function ErrorsNotDisplayedOnMount() {
@@ -129,6 +161,30 @@ export function ServerError() {
     <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div className="row margin-v-md margin-h-sm">
         <FormSchemaComponent {...props} />
+      </div>
+    </div>
+  );
+}
+
+export function ErrorOnImageSubmission() {
+  return (
+    <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+      <div className="row margin-v-md margin-h-sm">
+        <FormSchemaComponent
+          lang="fr"
+          res={{ post: '/image-data' }}
+          method="post"
+          schema={{
+            fields: [
+              {
+                field: 'image',
+                fieldType: 'image',
+                label: 'Une image',
+                info: 'Sauvegarder avec une image ou non',
+              },
+            ],
+          }}
+        />
       </div>
     </div>
   );

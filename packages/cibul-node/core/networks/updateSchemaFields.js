@@ -1,4 +1,5 @@
 import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import patchNetwork from './patch.js';
 import getAgendas from './getAgendas.js';
@@ -15,6 +16,7 @@ export default (core) => {
   const { formSchemas } = services;
 
   return async (networkUid, updatedFields) => {
+    log('processing', { networkUid, updatedFields });
     const network = await core.networks(networkUid).get(networkUid);
 
     if (!network) {
@@ -31,7 +33,18 @@ export default (core) => {
 
     const fs = new FormSchema(networkSchema);
 
-    fs.updateFields(updatedFields);
+    try {
+      fs.updateFields(updatedFields);
+    } catch (e) {
+      throw Array.isArray(e)
+        ? new BadRequest(
+          {
+            info: { errors: e },
+          },
+          'invalid data',
+        )
+        : e;
+    }
 
     if (!networkSchema) {
       log('no schema is associated with network, creating');

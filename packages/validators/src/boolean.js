@@ -8,7 +8,7 @@ export default (config = {}) => {
     allowNull: false,
   });
 
-  return Object.assign(value => {
+  return Object.assign((value) => {
     const isUndefined = value === undefined;
     const hasDefault = params.default !== undefined;
 

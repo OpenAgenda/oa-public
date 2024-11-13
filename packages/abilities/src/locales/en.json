@@ -6,6 +6,7 @@
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": "Your administrator/moderator settings:",
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": "Your contributor settings:",
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": "Your global settings:",
+  "Abilities.RulesCheckbox.AbilitiesForm.search": "Search",
   "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": "Receive messages from agenda inbox",
   "Abilities.RulesCheckbox.rules.receiveEvent": "Receive events sent by other users",
   "Abilities.RulesCheckbox.rules.receiveEventAddition": "Receive event additions",

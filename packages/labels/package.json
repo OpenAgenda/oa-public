@@ -16,8 +16,7 @@
   },
   "dependencies": {
     "deep-diff": "^1.0.2",
-    "intl-messageformat": "^9.0.2",
-    "intl-messageformat-parser": "^5.2.4",
+    "intl-messageformat": "^10.7.6",
     "mkdirp": "^3.0.1"
   },
   "devDependencies": {

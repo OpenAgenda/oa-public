@@ -1,7 +1,7 @@
 import { ErrorBoundary } from '@sentry/react';
-import ChildLayouts from '../components/ChildLayouts';
-import AdminHeader from '../components/AdminHeader';
-import AdminSections from '../components/AdminSections';
+import ChildLayouts from '../components/ChildLayouts.js';
+import AdminHeader from '../components/AdminHeader.js';
+import AdminSections from '../components/AdminSections.js';
 
 function AgendaAdminLayout({ childLayouts, children, extraProps, fallback }) {
   const { agenda, role, sections } = extraProps;

@@ -100,9 +100,14 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
 
   if (detailed && load.event) {
     fetched.originAgendas = (
-      await agendas.list({
-        uid: fetched.events.map((e) => e.agendaUid),
-      })
+      await agendas.list(
+        {
+          uid: fetched.events.map((e) => e.agendaUid),
+        },
+        {
+          private: null,
+        },
+      )
     ).agendas.map((a) => _.omit(a, ['id', 'indexed']));
   }
 

@@ -3,16 +3,16 @@ import { useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { useHistory, useLocation } from 'react-router';
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
-import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
-import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges';
-import DefaultLocation from '@openagenda/event-form/build/components/configuration/DefaultLocation';
+import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder/index.js';
+import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges.js';
+import DefaultLocation from '@openagenda/event-form/build/components/configuration/DefaultLocation.js';
 
-import getSchemaFieldCount from '../lib/getSchemaFieldCount';
-import useRes from '../hooks/useRes';
-import useEventSchemas from '../hooks/useEventSchemas';
-import useMemberSchemas from '../hooks/useMemberSchemas';
-import EmbedSelection from '../components/EmbedSelection';
-import AfterRedirectModal from '../components/AfterRedirectModal';
+import getSchemaFieldCount from '../lib/getSchemaFieldCount.js';
+import useRes from '../hooks/useRes.js';
+import useEventSchemas from '../hooks/useEventSchemas.js';
+import useMemberSchemas from '../hooks/useMemberSchemas.js';
+import EmbedSelection from '../components/EmbedSelection.js';
+import AfterRedirectModal from '../components/AfterRedirectModal.js';
 
 const completedPrefix = (agenda, prefix) =>
   prefix.replace(':agendaSlug', agenda.slug);

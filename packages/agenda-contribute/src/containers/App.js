@@ -1,6 +1,6 @@
 import debug from 'debug';
 import { useEffect } from 'react';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { IntlProvider } from 'react-intl';
 import { matchPath } from 'react-router';
 import { renderRoutes } from 'react-router-config';
@@ -11,17 +11,17 @@ import { locales as sharedLocales } from '@openagenda/react-shared';
 import { locales as memberLocales } from '@openagenda/member-apps';
 import commonLocales from '@openagenda/common-labels';
 
-import * as locales from '../locales-compiled';
-import usePrefix from '../hooks/usePrefix';
-import useAgendaContext from '../hooks/useAgendaContext';
+import * as locales from '../locales-compiled/index.js';
+import usePrefix from '../hooks/usePrefix.js';
+import useAgendaContext from '../hooks/useAgendaContext.js';
 
-import Loading from '../components/Loading';
-import ClosedMessage from '../components/ClosedMessage';
-import Canvas from '../components/Canvas';
+import Loading from '../components/Loading.js';
+import ClosedMessage from '../components/ClosedMessage.js';
+import Canvas from '../components/Canvas.js';
 
-import contributeReducer from '../reducers/contribute';
+import contributeReducer from '../reducers/contribute.js';
 
-import utils from '../lib/utils';
+import utils from '../lib/utils.js';
 
 const {
   isMemberDataRequired,
@@ -155,7 +155,7 @@ function App(props) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) =>
     store.inject({
       contribute: contributeReducer,

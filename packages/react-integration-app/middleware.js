@@ -1,28 +1,24 @@
-'use strict';
-
-const fs = require('node:fs');
-const path = require('node:path');
-
-const _ = require('lodash');
-const React = require('react');
-const ReactDOM = require('react-dom/server');
-const { QueryClient, QueryClientProvider } = require('react-query');
-const { HelmetProvider } = require('react-helmet-async');
-const { matchRoutes } = require('react-router-config');
-const { createMemoryHistory } = require('history');
-const { stringify } = require('flatted/cjs');
-const he = require('he');
-const { ErrorBoundary } = require('@sentry/react');
-const { ChunkExtractor } = require('@loadable/server');
-const {
-  wrapApp /* , apiClient: createApiClient */,
-} = require('@openagenda/react-shared');
-const {
+import fs from 'node:fs';
+import path from 'node:path';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom/server';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { HelmetProvider } from 'react-helmet-async';
+import { matchRoutes } from 'react-router-config';
+import { createMemoryHistory } from 'history';
+import flatted from 'flatted/cjs/index.js';
+import he from 'he';
+import { ErrorBoundary } from '@sentry/react';
+import { ChunkExtractor } from '@loadable/server';
+import { wrapApp } from '@openagenda/react-shared';
+import {
   Html,
   LayoutManager,
   createLayoutStore,
-} = require('@openagenda/react-layouts');
-const {
+} from '@openagenda/react-layouts';
+
+import {
   AgendaAdminDataLayout,
   AgendaDataLayout,
   AgendaAdminFiltersLayout,
@@ -33,29 +29,31 @@ const {
   MainLayout,
   RequiredSuperAdmin,
   RequiredUser,
-} = require('@openagenda/react-layouts/dist/layouts');
-const createHomeApp = require('@openagenda/home/dist/app');
-const createUserSettingsApp = require('@openagenda/user-apps/dist/app');
-const createAgendaSettingsNewApp = require('@openagenda/agenda-settings/dist/client/createApp');
-const createAgendaSettingsEditApp = require('@openagenda/agenda-settings/dist/client/editApp');
-const createUserActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/user');
-const createAgendaActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/agenda');
-const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/app');
-const createAgendaStatsApp = require('@openagenda/agenda-stats/dist/app');
-const createInboxApp = require('@openagenda/inbox-apps/dist/app');
-const createMembersApp = require('@openagenda/member-apps/dist/app');
-const createLegacyEmbedsApp = require('@openagenda/legacy/embeds/app/dist');
-const createAgendaContributeApp = require('@openagenda/agenda-contribute/dist');
-const createEventAdminApp = require('@openagenda/event-admin-apps/dist/app');
-const createAgendaLocationAdminApp = require('@openagenda/agenda-locations-app/dist/app');
-const createAgendaSchemaAdminApp = require('@openagenda/agenda-schemas-app/dist/app');
-const createSupervisorApp = require('@openagenda/supervisor/lib/app');
-const RootHelmet = require('./RootHelmet');
-const createReduxMiddleware = require('./reduxMiddleware');
+} from '@openagenda/react-layouts/dist/layouts/index.js';
+
+import createHomeApp from '@openagenda/home/dist/app.js';
+import createUserSettingsApp from '@openagenda/user-apps/dist/app.js';
+import createAgendaSettingsNewApp from '@openagenda/agenda-settings/dist/createApp.js';
+import createAgendaSettingsEditApp from '@openagenda/agenda-settings/dist/editApp.js';
+import createUserActivitiesApp from '@openagenda/activity-apps/dist/client/apps/user/index.js';
+import createAgendaActivitiesApp from '@openagenda/activity-apps/dist/client/apps/agenda/index.js';
+import createAggregatorSourcesApp from '@openagenda/aggregator-sources/dist/app.js';
+import createAgendaStatsApp from '@openagenda/agenda-stats/dist/app.js';
+import createInboxApp from '@openagenda/inbox-apps/dist/app.js';
+import createMembersApp from '@openagenda/member-apps/dist/app.js';
+import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/dist/index.js';
+import createAgendaContributeApp from '@openagenda/agenda-contribute/dist/index.js';
+import createEventAdminApp from '@openagenda/event-admin-apps/dist/app.js';
+import createAgendaLocationAdminApp from '@openagenda/agenda-locations-app/dist/app.js';
+import createAgendaSchemaAdminApp from '@openagenda/agenda-schemas-app/dist/app.js';
+import createSupervisorApp from '@openagenda/supervisor/dist/app.js';
+import RootHelmet from './RootHelmet.js';
+import createReduxMiddleware from './reduxMiddleware.js';
 
 const { createElement: el } = React;
+const { stringify } = flatted;
 
-const statsPath = path.join(__dirname, '/dist/loadable-stats.json');
+const statsPath = path.join(import.meta.dirname, '/dist/loadable-stats.json');
 const stats = JSON.parse(fs.readFileSync(statsPath, 'utf-8'));
 
 async function getStats() {
@@ -78,7 +76,7 @@ function redirectIfNeeded(req, res, history) {
   }
 }
 
-module.exports = function match({ initialState, publicPath, apiRoot }) {
+export default function match({ initialState, publicPath, apiRoot }) {
   return async (req, res, next) => {
     try {
       const state = typeof initialState === 'function'
@@ -353,4 +351,4 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
       next(e);
     }
   };
-};
+}

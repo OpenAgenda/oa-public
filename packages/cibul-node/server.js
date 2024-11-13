@@ -16,6 +16,7 @@ import { NotFound } from '@openagenda/verror';
 import config from './config/index.js';
 import app from './app.js';
 import instanciateAPI from './api/index.js';
+import setAPIType from './api/middleware/setAPIType.js';
 import initServices from './services/init.js';
 import Core from './core/index.js';
 import admin from './admin.js';
@@ -91,6 +92,7 @@ try {
 
   // run 'web' type modules
   if (WEB) {
+    app.use('/api', setAPIType('UI'));
     app.use('/api', api);
     web(app, config);
   }
@@ -126,8 +128,7 @@ try {
       console.log(`-- Server listening on port ${config.port} --`);
     });
 
-    server.keepAliveTimeout = 76 * 1000;
-    server.headersTimeout = 80 * 1000;
+    server.keepAliveTimeout = 56000;
   }
 
   if (API) {
@@ -139,14 +140,14 @@ try {
         Sentry.Handlers.requestHandler(),
         secureHeaders,
         logRequestMw,
+        setAPIType('standalone'),
         api,
       )
       .listen(config.apiPort, () => {
         console.log(`-- API listening on port ${config.apiPort} --`);
       });
 
-    apiServer.keepAliveTimeout = 76 * 1000;
-    apiServer.headersTimeout = 80 * 1000;
+    apiServer.keepAliveTimeout = 56000;
   }
 
   if (TASK) {

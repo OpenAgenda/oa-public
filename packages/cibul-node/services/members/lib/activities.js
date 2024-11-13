@@ -1,10 +1,13 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
-import activities from '../../activities/index.js';
 
 const log = logs('services/members/activities');
 
-function addMemberCreate({ user, member, agenda, senderUser, context }) {
+function addMemberCreate(
+  services,
+  { user, member, agenda, senderUser, context },
+) {
+  const { activities } = services;
   return activities.addActivity(
     {
       entityType: 'agenda',
@@ -27,7 +30,12 @@ function addMemberCreate({ user, member, agenda, senderUser, context }) {
   );
 }
 
-function addMemberRemove({ user, member, agenda, userMember, memberUser }) {
+function addMemberRemove(
+  services,
+  { user, member, agenda, userMember, memberUser },
+) {
+  const { activities } = services;
+
   return activities.addActivity(
     {
       entityType: 'agenda',
@@ -50,14 +58,11 @@ function addMemberRemove({ user, member, agenda, userMember, memberUser }) {
   );
 }
 
-async function addMemberRoleChange({
-  user,
-  before,
-  member,
-  agenda,
-  context,
-  senderUser,
-}) {
+async function addMemberRoleChange(
+  services,
+  { user, before, member, agenda, context, senderUser },
+) {
+  const { activities } = services;
   const userFeed = activities.feed({
     entityType: 'user',
     entityUid: user.uid,
@@ -99,13 +104,11 @@ async function addMemberRoleChange({
   );
 }
 
-function addMemberAcceptInvitation({
-  agenda,
-  user,
-  senderUser,
-  member,
-  context,
-}) {
+function addMemberAcceptInvitation(
+  services,
+  { agenda, user, senderUser, member, context },
+) {
+  const { activities } = services;
   return activities
     .feed({
       entityType: 'agenda',
@@ -127,14 +130,14 @@ function addMemberAcceptInvitation({
     });
 }
 
-function task(queue) {
+function task(queue, services) {
   log('task');
 
   queue.register({
-    addMemberRemove,
-    addMemberCreate,
-    addMemberRoleChange,
-    addMemberAcceptInvitation,
+    addMemberRemove: addMemberRemove.bind(null, services),
+    addMemberCreate: addMemberCreate.bind(null, services),
+    addMemberRoleChange: addMemberRoleChange.bind(null, services),
+    addMemberAcceptInvitation: addMemberAcceptInvitation.bind(null, services),
   });
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
@@ -144,6 +147,6 @@ function task(queue) {
   queue.run();
 }
 
-export default ({ queue }) => ({
-  task: task.bind(null, queue),
+export default ({ queue, services }) => ({
+  task: task.bind(null, queue, services),
 });

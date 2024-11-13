@@ -1,9 +1,9 @@
 import { createApp } from '@openagenda/react-shared';
-import { createLogger } from 'redux-logger';
+import reduxLogger from 'redux-logger';
 
-import getRoutes from './getRoutes';
+import getRoutes from './getRoutes.js';
 
-const loggerMiddleware = createLogger();
+const loggerMiddleware = reduxLogger.createLogger();
 
 export default function contribute(options) {
   const { initialState } = options;

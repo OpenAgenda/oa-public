@@ -13,6 +13,7 @@ import processOEmbed from '../utils/processOEmbed.js';
 import cleanEvent from '../utils/cleanEvent/index.js';
 import getAgenda from '../utils/getAgenda.js';
 import assignState from '../utils/assignState.js';
+import formatEventErrors from '../utils/formatEventErrors.js';
 
 const log = logs('core/agendas/events/create');
 
@@ -30,6 +31,7 @@ export default async (core, agendaUid, data, options = {}) => {
     fileKey,
     duplicateOrigin,
     callOrigin = 'ui',
+    userLang = 'en',
   } = options;
 
   const userUid = extractUserUid(data, options);
@@ -125,20 +127,21 @@ export default async (core, agendaUid, data, options = {}) => {
 
       log('created event', event.uid);
     } catch (e) {
-      if (e.toString() === 'ValidationError: Invalid data') {
-        log('info', 'invalid data', e);
-        throw new BadRequest(
+      const error = e.toString() === 'ValidationError: Invalid data'
+        ? new BadRequest(
           {
-            info: { errors: e.detail },
+            info: { errors: formatEventErrors(e.detail, userLang) },
           },
           'invalid data',
-        );
-      }
+        )
+        : e;
+
       log('error', 'failed to create event', {
         agendaUid: agenda.uid,
         event: clean.event,
+        error,
       });
-      throw e;
+      throw error;
     }
 
     response = await doAdd(

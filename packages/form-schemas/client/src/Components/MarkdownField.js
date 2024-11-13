@@ -4,6 +4,7 @@ import { fromMarkdownToHTML, fromHTMLToMarkdown } from '@openagenda/md';
 
 import SlateField from './SlateField';
 import HTMLSerializer from './HTMLSerializer';
+import { fromBRToP, fromPToBR } from './breaksAndParagraphs';
 
 export default class MarkdownField extends Component {
   shouldComponentUpdate(nextProps, _nextState) {
@@ -15,7 +16,7 @@ export default class MarkdownField extends Component {
   onChange(value) {
     const { onChange } = this.props;
 
-    onChange(fromHTMLToMarkdown(HTMLSerializer.serialize(value)));
+    onChange(fromHTMLToMarkdown(fromPToBR(HTMLSerializer.serialize(value))));
   }
 
   render() {
@@ -30,7 +31,9 @@ export default class MarkdownField extends Component {
       <SlateField
         {...ih(this.props, {
           value: {
-            $set: HTMLSerializer.deserialize(fromMarkdownToHTML(appliedValue)),
+            $set: HTMLSerializer.deserialize(
+              fromBRToP(fromMarkdownToHTML(appliedValue)),
+            ),
           },
           onChange: {
             $set: this.onChange.bind(this),

@@ -1,9 +1,9 @@
 import { defineMessages, useIntl } from 'react-intl';
 
-import EventForm from '@openagenda/event-form/build';
-import URLDefaults from '../lib/URLDefaults';
+import EventForm from '@openagenda/event-form/build/index.js';
+import URLDefaults from '../lib/URLDefaults.js';
 
-import ButtonSpinner from './ButtonSpinner';
+import ButtonSpinner from './ButtonSpinner.js';
 
 const { eventWithDefaults, get: getURLDefaults } = URLDefaults;
 

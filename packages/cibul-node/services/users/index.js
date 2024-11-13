@@ -13,7 +13,7 @@ import onActivation from './lib/onActivation.js';
 import sendToken from './lib/sendToken.js';
 import replaceIdMe from './lib/replaceIdMe.js';
 import loadBySessionOrKey from './middleware/loadBySessionOrKey.js';
-import requireSuperAdmin from './middleware/requireSuperAdmin.js';
+import allowSuperAdmin from './middleware/allowSuperAdmin.js';
 import verifyTransverseApiAccess from './middleware/verifyTransverseApiAccess.js';
 import verifyHeadersPassword from './middleware/verifyHeadersPassword.js';
 import svcHooks from './hooks/index.js';
@@ -93,7 +93,7 @@ export async function init(config, services) {
 
   service.mw = {
     loadBySessionOrKey,
-    requireSuperAdmin,
+    allowSuperAdmin,
     verifyTransverseApiAccess,
     verifyHeadersPassword,
   };

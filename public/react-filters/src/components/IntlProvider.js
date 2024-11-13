@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { IntlProvider as ReactIntlProvider } from 'react-intl';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
-import appLocales from '../locales-compiled';
+import * as appLocales from '../locales-compiled/index.js';
 
 export default function IntlProvider({ locale, userLocales = null, children }) {
   const locales = useMemo(

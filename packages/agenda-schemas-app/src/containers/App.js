@@ -1,10 +1,10 @@
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
-import { provideHooks } from 'redial';
+import redial from 'redial';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import locales from '../locales-compiled';
+import * as locales from '../locales-compiled/index.js';
 
 function App({ route }) {
   const parentQueryClient = useQueryClient();
@@ -26,6 +26,7 @@ function App({ route }) {
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={locales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >
@@ -36,6 +37,6 @@ function App({ route }) {
   );
 }
 
-export default provideHooks({
+export default redial.provideHooks({
   inject: ({ store }) => store.inject({}),
 })(App);

@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 
-import cleanupSchemaForForm from '../lib/cleanupSchemaForForm';
-import addStateField from '../lib/addStateField';
-import injectAgendaUIDAndSlug from '../lib/injectAgendaUID';
-import useDetailedAgenda from './useDetailedAgenda';
-import useAgendaContext from './useAgendaContext';
+import cleanupSchemaForForm from '../lib/cleanupSchemaForForm.js';
+import addStateField from '../lib/addStateField.js';
+import injectAgendaUIDAndSlug from '../lib/injectAgendaUID.js';
+import useDetailedAgenda from './useDetailedAgenda.js';
+import useAgendaContext from './useAgendaContext.js';
 
 export default function useEventFormConfig(agenda) {
   const { locale } = useIntl();

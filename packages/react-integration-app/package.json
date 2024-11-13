@@ -3,9 +3,10 @@
   "version": "1.6.1",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "build": "webpack-cli --config webpack.config.js",
-    "dev": "webpack serve --config webpack.config.js --hot",
+    "build": "webpack",
+    "dev": "webpack serve --hot",
     "analyze": "webpack-dashboard -- yarn build",
     "prepack": "yarn build"
   },
@@ -46,7 +47,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^1.0.3",
-    "react-intl": "^5.12.2",
+    "react-intl": "^6.8.4",
     "react-query": "^3.6.0",
     "react-refresh": "^0.11.0",
     "react-router": "^5.1.2",

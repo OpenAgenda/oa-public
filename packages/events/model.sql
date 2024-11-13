@@ -5,7 +5,7 @@ CREATE TABLE `${schema}` (
   creator_uid bigint(20),
   agenda_uid bigint(20),
   attendance_mode TINYINT(1) DEFAULT 1,
-  online_access_link VARCHAR(255),
+  online_access_link VARCHAR(1000),
   location_uid bigint(20),
   slug VARCHAR(255) NOT NULL UNIQUE,
   title VARCHAR(2000),

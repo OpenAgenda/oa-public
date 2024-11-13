@@ -1,3 +1,6 @@
+import ky from 'ky';
+import qs from 'qs';
+
 const initialState = {
   hasInboxNews: false,
 };
@@ -22,7 +25,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         userLoaded: true,
-        user: action.result.data,
+        user: action.result,
         userError: null,
         userLoading: false,
       };
@@ -41,7 +44,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         inboxLoaded: true,
-        hasInboxNews: action.result.data.hasNew,
+        hasInboxNews: action.result.hasNew,
         inboxNewsError: null,
         inboxNewsLoading: false,
       };
@@ -65,16 +68,16 @@ export default (state = initialState, action = {}) => {
 export function getUser() {
   return {
     types: [GET_USER, GET_USER_SUCCESS, GET_USER_FAIL],
-    promise: ({ client }, { getState }) => {
+    promise: (_helpers, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.main.getUser, {
-        params: {
+      return ky(res.main.getUser, {
+        searchParams: qs.stringify({
           $client: {
             includeImagePath: true,
           },
-        },
-      });
+        }),
+      }).json();
     },
   };
 }
@@ -82,10 +85,10 @@ export function getUser() {
 export function checkInboxNews() {
   return {
     types: [CHECK_INBOX_NEWS, CHECK_INBOX_NEWS_SUCCESS, CHECK_INBOX_NEWS_FAIL],
-    promise: ({ client }, { getState }) => {
+    promise: (_helpers, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.main.checkInboxNews);
+      return ky(res.main.checkInboxNews).json();
     },
   };
 }

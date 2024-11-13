@@ -11,9 +11,11 @@ export default function withFieldValueMatches(fieldOptions, withKey, values, fie
 
   if (evaluateRefFieldAsTruthy && (value instanceof Array) && !value.length) {
     return false;
-  } else if (evaluateRefFieldAsTruthy && [undefined, null].includes(value)) {
+  }
+  if (evaluateRefFieldAsTruthy && [undefined, null, false].includes(value)) {
     return false;
-  } else if (evaluateRefFieldAsTruthy) {
+  }
+  if (evaluateRefFieldAsTruthy) {
     return true;
   }
 

@@ -5,30 +5,31 @@ import { IntlProvider } from 'react-intl';
 import commonLocales from '@openagenda/common-labels';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
-import FormSchemaComponent from '@openagenda/form-schemas/client/build';
+import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.js';
 
-import errorLabels from '@openagenda/labels/event/errors';
+import errorLabels from '@openagenda/labels/event/errors.js';
 import Registration from '@openagenda/registration-apps';
-import locales from './locales-compiled';
-import appendFormConfigurations from './utils/appendFormConfigurations';
-import extractLanguages from './utils/extractLanguages';
-import getMultilingualFieldNames from './utils/getMultilingualFieldNames';
-import identifyLanguageChanges from './utils/identifyLanguageChanges';
-import transferMultilingualValues from './utils/transferMultilingualValues';
-import removeMultilingualValues from './utils/removeMultilingualValues';
-import schemaLanguages from './utils/schemaLanguages';
-import injectValidators from './utils/injectValidators';
-import updateLanguages from './utils/updateLanguages';
-import validators from './validators';
+import * as locales from './locales-compiled/index.js';
+import appendFormConfigurations from './utils/appendFormConfigurations.js';
+import extractLanguages from './utils/extractLanguages.js';
+import getMultilingualFieldNames from './utils/getMultilingualFieldNames.js';
+import identifyLanguageChanges from './utils/identifyLanguageChanges.js';
+import transferMultilingualValues from './utils/transferMultilingualValues.js';
+import removeMultilingualValues from './utils/removeMultilingualValues.js';
+import schemaLanguages from './utils/schemaLanguages.js';
+import injectValidators from './utils/injectValidators.js';
+import updateLanguages from './utils/updateLanguages.js';
+import validators from './validators/index.js';
 
-import Age from './components/Age';
-import Keywords from './components/Keywords';
-import Timings from './components/Timings';
-import Location from './components/Location';
-import Languages from './components/Languages';
-import Accessibility from './components/Accessibility';
-import Events from './components/Events';
-import ConfigurableTextarea from './components/ConfigurableTextarea';
+import Age from './components/Age.js';
+import Keywords from './components/Keywords.js';
+import Timings from './components/Timings.js';
+import Location from './components/Location.js';
+import Languages from './components/Languages.js';
+import Accessibility from './components/Accessibility.js';
+import Events from './components/Events/index.js';
+import ConfigurableTextarea from './components/ConfigurableTextarea.js';
+import eventSchema from './schema.js';
 
 const eventFormComponents = {
   age: Age,
@@ -41,8 +42,6 @@ const eventFormComponents = {
   events: Events,
   longDescription: ConfigurableTextarea,
 };
-
-const eventSchema = require('./schema');
 
 class EventForm extends Component {
   constructor(props) {
@@ -228,6 +227,6 @@ class EventForm extends Component {
   }
 }
 
-export default Object.assign(EventForm, {
-  validators,
-});
+export default EventForm;
+
+export { validators };

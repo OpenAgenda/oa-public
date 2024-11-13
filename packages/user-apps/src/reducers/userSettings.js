@@ -3,7 +3,7 @@ import {
   change as changeFieldValue,
   reset as resetForm,
 } from 'redux-form';
-import toMixedMultipart from '@openagenda/utils/toMixedMultipart';
+import toMixedMultipart from '@openagenda/utils/toMixedMultipart.js';
 
 const LOAD = 'user-apps/userSettings/LOAD';
 const LOAD_SUCCESS = 'user-apps/userSettings/LOAD_SUCCESS';

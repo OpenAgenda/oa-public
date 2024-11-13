@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import MaskedInput from 'react-text-mask';
+import MaskedInputModule from 'react-text-mask';
 import { format } from 'date-fns';
 
-import enabledRangesLabels from '@openagenda/labels/event/enabledRanges';
-import flattenLabels from '@openagenda/labels/flatten';
+import enabledRangesLabels from '@openagenda/labels/event/enabledRanges.js';
+import flattenLabels from '@openagenda/labels/flatten.js';
 
-import DateField from '@openagenda/form-schemas/client/build/Components/DateField';
+import DateField from '@openagenda/form-schemas/client/build/Components/DateField.js';
+
+const MaskedInput = MaskedInputModule.default || MaskedInputModule;
 
 const timeMask = [/\d/, /\d/, ':', /\d/, /\d/];
 

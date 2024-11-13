@@ -4,7 +4,7 @@ import { useLatest } from 'react-use';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Modal } from '@openagenda/react-shared';
 import { useSelector } from 'react-redux';
-import useChartTitle from '../hooks/useChartTitle';
+import useChartTitle from '../hooks/useChartTitle.js';
 
 const messages = defineMessages({
   submit: {

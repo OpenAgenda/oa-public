@@ -1,5 +1,4 @@
 import { dirname, join } from 'node:path';
-import babelConfig from '../.babelrc';
 
 function getAbsolutePath(value) {
   return dirname(require.resolve(join(value, 'package.json')));
@@ -12,5 +11,11 @@ export default {
     options: {},
   },
   staticDirs: ['./public'],
-  babel: (config) => ({ ...config, ...babelConfig }),
+  babel: (config) => {
+    return { ...config, rootMode: 'upward' };
+  },
+  webpackFinal: (config) => {
+    config.resolve.alias['@httptoolkit/esm'] = false;
+    return config;
+  },
 };

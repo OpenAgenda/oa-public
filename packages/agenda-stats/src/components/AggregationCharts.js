@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
-import * as statsActions from '../reducers/stats';
-import ComposedChart from './ComposedChart';
-import ChartWrapper from './ChartWrapper';
-import Separator from './Separator';
-import ChartAdder from './ChartAdder';
-import MetricsChart from './MetricsChart';
+import * as statsActions from '../reducers/stats.js';
+import ComposedChart from './ComposedChart.js';
+import ChartWrapper from './ChartWrapper.js';
+import Separator from './Separator.js';
+import ChartAdder from './ChartAdder.js';
+import MetricsChart from './MetricsChart.js';
 
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 
