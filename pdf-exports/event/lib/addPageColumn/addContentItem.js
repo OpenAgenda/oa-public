@@ -1,16 +1,19 @@
 import addText from '../addText.js';
+import messages from '../messages.js';
+
 
 export default async function addContentItem(doc, cursor, addFn, addFunctions, contentItem, options = {}) {
-  const { columnWidth, iconHeightAndWidth, margin, lang, simulate } = options;
+  const { columnWidth, iconHeightAndWidth, margin, footerHeight, intl, lang, simulate } = options;
   const currentCursor = { ...cursor };
 
   let totalHeight = 0;
 
   if (contentItem.title) {
     const title = await addText(doc, cursor, {
-      content: contentItem.title,
+      content:`${intl.formatMessage(messages[contentItem.title])}`,
       width: columnWidth,
       bold: true,
+      intl,
       lang,
       simulate,
     });
@@ -30,15 +33,17 @@ export default async function addContentItem(doc, cursor, addFn, addFunctions, c
     bold: contentItem.bold,
     columnNumber: contentItem.columnNumber,
     iconHeightAndWidth,
+    footerHeight,
     margin,
+    intl,
     lang,
     simulate,
   });
 
-  totalHeight += content.height;
+  totalHeight += content.height + margin / 2;
 
   if (!simulate) {
-    cursor.y += content.height;
+    cursor.y += content.height + margin / 2;
   }
 
   if (simulate) {

@@ -2,8 +2,9 @@ import { spreadTimings } from '@openagenda/date-utils';
 import addCalendarColumn from './addCalendarColumn.js';
 
 export default async function addCalendar(doc, cursor, options = {}) {
-  const { content, width, height, columnNumber, lang, simulate } = options;
-  const availableSpace = width;
+  const { content, width, height, columnNumber, lang, margin, footerHeight, simulate } = options;
+  const availableWidth = width;
+  const availableHeight = height - margin - footerHeight;
   const timings = content;
 
   const initialCursor = { ...cursor };
@@ -22,25 +23,25 @@ export default async function addCalendar(doc, cursor, options = {}) {
         cursor,
         remainingTimings,
         isMonthFullyProcessed,
-        { availableSpace, columnNumber, height, lang, simulate }
+        { availableWidth, columnNumber, margin,lang, availableHeight, simulate }
       );
 
       remainingTimings = result.remainingTimings;
       isMonthFullyProcessed = result.noHeader;
 
       maxRowY = Math.max(maxRowY, result.maxCursorY);
-      if (availableSpace && columnNumber) {
-        cursor.x += availableSpace / columnNumber;
+      if (availableWidth && columnNumber) {
+        cursor.x += availableWidth / columnNumber;
       }
       cursor.y = currentCursor.y;
 
-      if (cursor.x >= availableSpace) {
+      if (cursor.x >= availableWidth) {
         cursor.x = currentCursor.x;
-        cursor.y = maxRowY + 10;
+        cursor.y = maxRowY + margin / 2;
         currentCursor.y = cursor.y;
       }
 
-      if (cursor.y > height) {
+      if (cursor.y > availableHeight) {
         cursor.x = initialCursor.x;
         cursor.y = initialCursor.y;
         return {

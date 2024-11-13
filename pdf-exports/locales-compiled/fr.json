@@ -1,4 +1,40 @@
 {
+  "pdf-exports.aboutLocation": [
+    {
+      "type": 0,
+      "value": "À propos du lieu"
+    }
+  ],
+  "pdf-exports.access": [
+    {
+      "type": 0,
+      "value": "Accès"
+    }
+  ],
+  "pdf-exports.additionalLinks": [
+    {
+      "type": 0,
+      "value": "Liens additionnels"
+    }
+  ],
+  "pdf-exports.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "pdf-exports.location": [
+    {
+      "type": 0,
+      "value": "Lieu"
+    }
+  ],
+  "pdf-exports.online": [
+    {
+      "type": 0,
+      "value": "En ligne"
+    }
+  ],
   "pdf-exports.page": [
     {
       "type": 0,
@@ -9,6 +45,24 @@
     {
       "type": 0,
       "value": "Réservation"
+    }
+  ],
+  "pdf-exports.registrationTool": [
+    {
+      "type": 0,
+      "value": "Outil d'inscription"
+    }
+  ],
+  "pdf-exports.status": [
+    {
+      "type": 0,
+      "value": "État"
+    }
+  ],
+  "pdf-exports.tags": [
+    {
+      "type": 0,
+      "value": "Tags"
     }
   ]
 }
