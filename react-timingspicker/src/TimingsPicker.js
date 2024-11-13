@@ -4,10 +4,10 @@ import ReactResizeDetector from 'react-resize-detector';
 import cn from 'classnames';
 import { IntlProvider } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
-import Stats from './Stats';
-import Header from './Header';
-import Scheduler from './Scheduler';
-import locales from './locales-compiled';
+import Stats from './Stats.js';
+import Header from './Header.js';
+import Scheduler from './Scheduler.js';
+import * as locales from './locales-compiled/index.js';
 
 const ONE_DAY = 60 * 60 * 24;
 
@@ -118,6 +118,7 @@ export default class TimingsPicker extends Component {
       derivedState.locale = props.locale;
       derivedState.locales = props.locales;
       derivedState.messages = {
+        // eslint-disable-next-line import/namespace
         ...locales[props.locale],
         ...props.locales && props.locales[props.locale],
       };

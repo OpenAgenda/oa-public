@@ -1,5 +1,7 @@
 'use strict';
 
+// Used for webpack build
+
 module.exports = {
   presets: [
     [
@@ -10,8 +12,10 @@ module.exports = {
           extractFromFormatMessageCall: true,
           ast: true,
         },
+        importSource: '@emotion/react',
       },
     ],
   ],
+  plugins: [require.resolve('@emotion/babel-plugin')],
   sourceType: 'unambiguous',
 };

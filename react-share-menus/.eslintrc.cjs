@@ -4,21 +4,20 @@ module.exports = {
   extends: '../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   ignorePatterns: ['/dist'],
 
   rules: {
+    'import/extensions': ['error', 'ignorePackages'],
     'import/no-extraneous-dependencies': [
       'error',
       {
         devDependencies: [
-          `${__dirname}/.babelrc.js`,
           `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
-          `${__dirname}/test/**/*.js`,
-          `${__dirname}/scripts/**/*.js`,
+          `${__dirname}/tsup.config.js`,
         ],
       },
     ],
@@ -26,15 +25,9 @@ module.exports = {
 
   overrides: [
     {
-      files: [
-        'src/**/*.js',
-        '.storybook/**/*.js',
-        'stories/**/*.js',
-        'test/**/*.js',
-      ],
-
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

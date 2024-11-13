@@ -3,7 +3,7 @@ import moment from 'moment-timezone';
 import { Fragment, useState } from 'react';
 import { defineMessages } from 'react-intl';
 
-import Radio from '../../Radio';
+import Radio from '../../Radio.js';
 
 const calendars = [
   { name: 'Google Calendar', service: 'google' },

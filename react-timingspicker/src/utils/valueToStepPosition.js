@@ -1,5 +1,5 @@
 import * as dateFns from 'date-fns';
-import DST from './DST';
+import DST from './DST.js';
 
 export default (
   { activeWeek, weekStartsOn, selectableStep },

@@ -4,7 +4,7 @@ export { default as asyncMatchRoutes } from './asyncMatchRoutes';
 export { default as clientMiddleware } from './clientMiddleware';
 export { default as createApp } from './createApp';
 export { default as createStore } from './createStore';
-export { default as loadable } from './loadable';
+export { default as loadable, loadableComponent } from './loadable';
 export { default as makeTriggerHooks } from './makeTriggerHooks';
 export { default as nl2br } from './nl2br';
 export { default as RouterTrigger } from './RouterTrigger';

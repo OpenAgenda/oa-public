@@ -1,6 +1,4 @@
 module.exports = {
-  extends: ['airbnb'],
-  plugins: ['import', 'jsx-a11y', 'react', 'react-hooks', 'unicorn'],
   rules: {
     strict: ['error', 'safe'],
     'no-param-reassign': ['error', { props: false }],
@@ -36,7 +34,6 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     // 'space-in-parens': [ 'error', 'always' ],
     'max-len': ['off', 80],
-    'function-call-argument-newline': 'error',
     'object-curly-newline': [
       'error',
       {

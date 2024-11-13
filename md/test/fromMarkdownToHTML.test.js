@@ -12,6 +12,12 @@ const withSubtitleHTML = await fs.readFile(
   `${__dirname}/fixtures/withSubtitle.html`,
   'utf-8',
 );
+const withDoubleEndOfLines = await fs.readFile(
+  `${__dirname}/fixtures/withDoubleEndOfLines.md`,
+  'utf-8',
+);
+
+const withSingleEndOfLines = withDoubleEndOfLines.replace(/\n\n/, '\n');
 
 describe('fromMarkdownToHTML', () => {
   test('from can handle nothingness', () => {
@@ -34,6 +40,19 @@ describe('fromMarkdownToHTML', () => {
     expect(r).toBe('<p>Here is a line<br>Next line</p>\n');
   });
 
+  test('double new line creates new paragraph', () => {
+    expect(fromMarkdownToHTML(withDoubleEndOfLines))
+      .toBe(`<p>Swift, Jonathan de son prénom. Ce nom vous dit quelque chose ? Bingo ! C’est bien l’auteur du livre Les voyages de Gulliver, écrit au début du XVIIIe siècle.L’histoire d’un marin échouant sur l’île de Lilliput. Par la magie d’un colossal changement d’échelle, il se transforme subitement en géant, capturé par des êtres pas plus hauts que 6 pouces. Transposées dans le monde actuel, les images de ce théâtre d’ombres et d’objets se combinent à la vidéo, pour une expédition merveilleuse où l’immense rejoint le minuscule.</p>
+<p><em>Atelier enfants-adultes "Mon ombre est un autre" :15 h, sur réservation Goûter et surprise : 16 h, 8 €</em></p>
+`);
+  });
+
+  test('single new line creates line break', () => {
+    expect(fromMarkdownToHTML(withSingleEndOfLines)).toBe(
+      '<p>Swift, Jonathan de son prénom. Ce nom vous dit quelque chose ? Bingo ! C’est bien l’auteur du livre Les voyages de Gulliver, écrit au début du XVIIIe siècle.L’histoire d’un marin échouant sur l’île de Lilliput. Par la magie d’un colossal changement d’échelle, il se transforme subitement en géant, capturé par des êtres pas plus hauts que 6 pouces. Transposées dans le monde actuel, les images de ce théâtre d’ombres et d’objets se combinent à la vidéo, pour une expédition merveilleuse où l’immense rejoint le minuscule.<br><em>Atelier enfants-adultes "Mon ombre est un autre" :15 h, sur réservation Goûter et surprise : 16 h, 8 €</em></p>\n',
+    );
+  });
+
   test('multiple links', () => {
     const r = fromMarkdownToHTML(
       [
@@ -47,7 +66,6 @@ describe('fromMarkdownToHTML', () => {
     expect(r).toBe(
       [
         '<p>Nothing worked. Here is a first one: <a href="https://le_monde.fr">https://le_monde.fr</a><br>And the same <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
-        '<p></p>',
         '<p><a href="https://le_monde.fr">https://le_monde.fr</a> and a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">https://www.youtube.com/watch?v=io2d_cpoLDg</a> link and one with a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">label</a></p>',
         '',
       ].join('\n'),
@@ -63,7 +81,6 @@ describe('fromMarkdownToHTML', () => {
 `);
 
     expect(r).toBe(`<p>A list</p>
-<p></p>
 <ul>
 <li>One</li>
 <li>Two</li>

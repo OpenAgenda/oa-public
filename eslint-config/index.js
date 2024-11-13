@@ -3,7 +3,13 @@ const path = require('node:path');
 module.exports = {
   parser: '@babel/eslint-parser',
 
-  extends: ['@openagenda/eslint-config/recommended', 'plugin:jest/recommended'],
+  extends: [
+    'airbnb',
+    '@openagenda/eslint-config/recommended',
+    'plugin:jest/recommended',
+  ],
+
+  plugins: ['import', 'jsx-a11y', 'react', 'react-hooks', 'unicorn'],
 
   overrides: [
     {
@@ -49,11 +55,6 @@ module.exports = {
     react: {
       version: 'detect',
     },
-    'import/resolver': {
-      [path.resolve(__dirname, './resolver')]: {},
-      node: {
-        extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node'],
-      },
-    },
+    'import/resolver': path.resolve(__dirname, './resolver'),
   },
 };

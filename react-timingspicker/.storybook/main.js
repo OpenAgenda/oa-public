@@ -11,4 +11,11 @@ export default {
     options: {},
   },
   addons: [getAbsolutePath('@storybook/addon-viewport')],
+  babel: (config) => {
+    return { ...config, rootMode: 'upward' };
+  },
+  webpackFinal: (config) => {
+    config.resolve.alias['@httptoolkit/esm'] = false;
+    return config;
+  },
 };

@@ -2,19 +2,21 @@ import { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Field, Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
-import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import createNumberMaskModule from 'text-mask-addons/dist/createNumberMask.js';
 import * as dateFns from 'date-fns';
-import { FaRegTimesCircle, FaCheck } from 'react-icons/fa';
+import { FaRegTimesCircle, FaCheck } from 'react-icons/fa/index.js';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
 import cn from 'classnames';
-import SelectField from './SelectField';
-import WeekdayInput from './WeekdayInput';
-import NumberInput from './NumberInput';
-import DatePickerInput from './DatePickerInput';
-import getWeekOfMonth from './utils/getWeekOfMonth';
-import isValidDate from './utils/isValidDate';
-import parseNumber from './utils/parseNumber';
-import formatNumber from './utils/formatNumber';
+import SelectField from './SelectField.js';
+import WeekdayInput from './WeekdayInput.js';
+import NumberInput from './NumberInput.js';
+import DatePickerInput from './DatePickerInput.js';
+import getWeekOfMonth from './utils/getWeekOfMonth.js';
+import isValidDate from './utils/isValidDate.js';
+import parseNumber from './utils/parseNumber.js';
+import formatNumber from './utils/formatNumber.js';
+
+const createNumberMask = createNumberMaskModule.default || createNumberMaskModule;
 
 const numberMask = createNumberMask({
   prefix: '',
@@ -197,6 +199,7 @@ class RecurrencerForm extends Component {
 
   handleSubmit = (values, ...rest) => {
     const { valueToDuplicate, onSubmit } = this.props;
+    let endOfDayUntil;
 
     if (!['daily', 'weekly', 'monthly'].includes(values.frequence)) {
       return { [FORM_ERROR]: new Error('invalidFrequence') };
@@ -210,7 +213,11 @@ class RecurrencerForm extends Component {
       if (!isValidDate(values.until)) {
         return { [FORM_ERROR]: new Error('invalidDate') };
       }
-      if (values.until.getTime() <= valueToDuplicate.begin.getTime()) {
+
+      endOfDayUntil = new Date(values.until);
+      endOfDayUntil.setDate(endOfDayUntil.getDate() + 1);
+
+      if (endOfDayUntil.getTime() <= valueToDuplicate.begin.getTime()) {
         return { [FORM_ERROR]: new Error('endBeforeStart') };
       }
     }
@@ -230,7 +237,13 @@ class RecurrencerForm extends Component {
     }
 
     if (typeof onSubmit === 'function') {
-      return onSubmit(values, ...rest);
+      return onSubmit(
+        {
+          ...values,
+          until: endOfDayUntil,
+        },
+        ...rest,
+      );
     }
   };
 

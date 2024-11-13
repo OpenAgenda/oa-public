@@ -3,8 +3,8 @@ import '@openagenda/bs-templates/compiled/main.css';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import EventShareModal from '../src/components/EventShareModal';
-import Canvas from './decorators/Canvas';
+import EventShareModal from '../src/components/EventShareModal/index.js';
+import Canvas from './decorators/Canvas.js';
 import apiAgendas from './fixtures/api.agendas.get.json';
 import singleDate from './fixtures/api.singleDate.get.json';
 

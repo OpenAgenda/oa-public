@@ -1,4 +1,8 @@
 .agenda-settings-creation {
+  .radio label,
+  .checkbox label {
+    line-height: 20px;
+  }
 
   .table-responsive {
     overflow: visible;
@@ -39,6 +43,11 @@
 }
 
 .agenda-settings-edit {
+  .radio label,
+  .checkbox label {
+    line-height: 20px;
+  }
+
   form {
     textarea {
       resize: vertical;
@@ -88,7 +97,7 @@
       margin: 0;
       width: 25%;
       border: 0;
-      
+
       input.form-control {
         border-left: 0;
         border-top-right-radius: 4px;

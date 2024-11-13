@@ -1,5 +1,5 @@
 import { createIntlByLocale, getFallbackChain } from '@openagenda/intl';
-import * as locales from '../locales-compiled/index.mjs';
+import * as locales from '../locales-compiled/index.js';
 
 const intlByLocale = createIntlByLocale(locales);
 

@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
-import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
-import matchQuery from '../../utils/matchQuery';
-import updateFormValues from '../../utils/updateFormValues';
-import updateCustomFilter from '../../utils/updateCustomFilter';
-import FilterPreviewer from '../FilterPreviewer';
+import { a11yButtonActionHandler } from '@openagenda/react-shared';
+import matchQuery from '../../utils/matchQuery.js';
+import updateFormValues from '../../utils/updateFormValues.js';
+import updateCustomFilter from '../../utils/updateCustomFilter.js';
+import FilterPreviewer from '../FilterPreviewer.js';
 
 const subscription = { values: true };
 

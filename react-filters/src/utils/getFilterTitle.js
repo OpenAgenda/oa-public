@@ -1,5 +1,5 @@
 import { getLocaleValue } from '@openagenda/intl';
-import defaultMessages from '../messages/filterTitles';
+import defaultMessages from '../messages/filterTitles.js';
 
 export default function getFilterTitle(
   intl,

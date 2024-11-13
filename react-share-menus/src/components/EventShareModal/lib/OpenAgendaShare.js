@@ -1,7 +1,7 @@
 import { defineMessages } from 'react-intl';
 
-import AgendaSearchInput from '../../AgendaSearchInput';
-import encodeURL from '../../lib/encodeURL';
+import AgendaSearchInput from '../../AgendaSearchInput.js';
+import encodeURL from '../../lib/encodeURL.js';
 
 const getTitleLink = (agenda, event) =>
   `/${agenda.slug}/contribute/event/${event.uid}/from/${event.agendaUid}?redirect=${encodeURL(`${event.root}/agendas/${event.agendaUid}/events/${event.uid}`)}`;
