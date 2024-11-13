@@ -29,12 +29,12 @@
     "mi": false
   },
   "dateRange": {
-    "ar": "السبت ٢٨ سبتمبر, 20:30",
-    "de": "Samstag 28 September, 20:30",
-    "en": "Saturday 28 September, 20:30",
-    "it": "Sabato 28 settembre, 20:30",
-    "fr": "Samedi 28 septembre, 20h30",
-    "es": "Sábado 28 septiembre, 20:30"
+    "ar": "الجمعة ٢١ يونيو, 20:30",
+    "de": "Freitag 21 Juni, 20:30",
+    "en": "Friday 21 June, 20:30",
+    "it": "Venerdì 21 giugno, 20:30",
+    "fr": "Vendredi 21 juin, 20h30",
+    "es": "Viernes 21 junio, 20:30"
   },
   "timezone": "Europe/Paris",
   "imageCredits": "Caroline LAPIS",
@@ -51,8 +51,7 @@
     "fr": "Les hauts et les bas de la vie d’un couple.  Cette comédie pointe avec drôlerie et finesse les petites mesquineries et la mauvaise foi qui ponctuent toute vie de couple."
   },
   "title": {
-    "fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis vulputate odio, id aliquet leo. Praesent ac felis dictum, ornare odio in, tincidunt nisl.",
-    "_fr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis vulputate odio, id aliquet leo. Praesent ac felis dictum, ornare odio in, tincidunt nisl. Curabitur felis felis, ullamcorper eget dignissim maximus, volutpat in est. Ut at augue magna. Aenean vestibulum dictum faucibus. Vestibulum quis facilisis dui, nec cursus nunc. Suspendisse vehicula ullamcorper risus vitae sodales. Duis in semper erat, quis rutrum felis. Fusce sagittis augue est, eu hendrerit elit rhoncus non. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean vitae posuere tortor. Etiam tempor cursus vehicula. Fusce egestas magna sit amet consequat euismod. Morbi pulvinar lectus nisi, vitae consequat nunc commodo eu. Vivamus tincidunt lacus felis, eu congue sapien interdum sit amet. Curabitur nec lectus vitae arcu elementum convallis vel vitae nisi.Nam ac ante nisi. Suspendisse nulla mi, aliquet nec pretium quis, tempus ut purus. Suspendisse massa nibh, maximus quis nulla et, tristique laoreet massa. Nullam tincidunt venenatis nisi ac luctus. Nunc et lorem sagittis, egestas odio id, faucibus leo. Donec tincidunt eget sapien maximus consectetur. Curabitur ac orci non sapien ullamcorper sollicitudin. Pellentesque a nibh et odio placerat aliquam. Quisque faucibus ex id scelerisque facilisis. In tellus velit, ullamcorper sit amet est eu, lacinia vulputate odio. Proin eu mattis felis. Praesent sit amet diam ligula. Aliquam convallis vitae tellus vitae hendrerit. Suspendisse cursus eu ligula at dictum. Cras eu viverra ligula. Donec pretium, massa non cursus gravida, odio velit vulputate magna, vestibulum sodales erat felis a ipsum. Integer dictum mauris ut lorem finibus malesuada. In vel enim pharetra, interdum leo in, consequat purus. Donec vel ultricies ex. Sed id molestie ante. Donec a nulla quis diam ullamcorper maximus a quis sapien. Proin magna massa, facilisis sit amet feugiat quis, feugiat eget sem. Nulla fermentum lectus vitae nunc iaculis, id consectetur orci tempus. Integer dolor ligula, condimentum a blandit non, mattis eu urna. Aliquam varius justo odio. Suspendisse purus quam, eleifend et ultricies sit amet, lacinia et magna. Nulla fermentum orci ex, vitae fermentum quam ornare quis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris malesuada vulputate tortor, vitae fringilla lacus posuere eu. Curabitur lacus tortor, accumsan quis ligula ut, ornare eleifend lectus. Proin volutpat justo eros, ut fermentum tellus rutrum vitae. Fusce facilisis mollis nibh, quis facilisis nunc auctor ut. Praesent aliquam massa sit amet nisi malesuada pulvinar. Sed mattis mi nec ultrices volutpat. Integer pulvinar mattis faucibus. Cras interdum ultricies risus, id interdum elit vehicula ut. Vestibulum auctor risus convallis, molestie sem et, imperdiet lacus. Nullam cursus consequat elit, quis fermentum dolor dignissim eget. Vestibulum mauris lorem, interdum vel dolor in, pretium eleifend sem. Etiam non hendrerit arcu. Sed metus ligula, condimentum sodales imperdiet nec, rutrum eu elit. Sed quis leo eu ante scelerisque aliquet. Nunc sed erat finibus, rhoncus mi a"
+    "fr": "Elles s'aiment depuis vingt"
   },
   "thematiques": 5,
   "onlineAccessLink": "https://enscene.loiret.fr/",
@@ -122,8 +121,8 @@
     "updatedAt": "2024-07-05T15:21:26.000Z"
   },
   "firstTiming": {
-    "begin": "2024-06-23T14:00:00+02:00",
-    "end": "2024-06-23T16:00:00+02:00"
+    "begin": "2024-06-21T14:00:00+02:00",
+    "end": "2024-06-21T16:00:00+02:00"
   },
   "links": [],
   "state": 2,
@@ -175,7 +174,7 @@
     },
     {
       "type": "link",
-      "value": "unlien.com"
+      "value": "billeterie.com"
     }
   ],
   "location": {
@@ -189,7 +188,7 @@
     "latitude": 48.104866,
     "imageCredits": null,
     "description": {
-      "fr": "Ceci est une description du lieu"
+      "fr": "La Salle Polyvalente de la Tourelle à Courtempierre est un lieu accueillant et chaleureux, parfait pour transformer vos événements en moments inoubliables ! Située au cœur du Loiret, le long de la pittoresque route de Préfontaines, cette salle spacieuse et baignée de lumière naturelle est idéale pour des célébrations, des réceptions et des moments de partage en famille ou entre amis."
     },
     "setUid": null,
     "uid": 81718876,
@@ -237,7 +236,7 @@
   },
   "ownerUid": 79787366,
   "conditions": {
-    "fr": "10 € POUR LES ADULTES ET 5 € POUR LES MOINS DE 18 ANS"
+    "fr": "10 € pour les adultes et 5 € pour les moins de 18 ans"
   },
   "age": {
     "min": null,
@@ -245,13 +244,13 @@
   },
   "status": 1,
   "categorie-principale": [
-    7, 3
+    7, 10
   ],
-  "test": [
-    2
+  "label": [
+    7
   ],
-  "test2": [
-    4
+  "type": [
+    0
   ],
   "nextTiming": {
     "begin": "2024-09-29T14:00:00+02:00",

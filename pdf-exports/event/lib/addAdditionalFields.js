@@ -2,8 +2,10 @@ import { getLocaleValue } from '@openagenda/intl';
 import addText from './addText.js';
 
 export default async function addAdditionalFields(doc, cursor, options = {}) {
-  const { content, agenda, width, height, lang, simulate } = options;
+  const { content, agenda, width, height, margin, footerHeight, lang, simulate } = options;
   const currentCursor = { ...cursor };
+
+  const availableHeight = height - margin - footerHeight;
 
   const fields = Object.values(agenda.schema.fields);
   const eventFields = fields
@@ -44,7 +46,7 @@ export default async function addAdditionalFields(doc, cursor, options = {}) {
         accumulatedHeight += simulateFieldValue.height;
         maxWidth = Math.max(maxWidth, simulateFieldValue.width);
       }
-      if (currentCursor.y + accumulatedHeight > height) {
+      if (currentCursor.y + accumulatedHeight > availableHeight) {
         cursor.y = currentCursor.y;
         return {
           remainingFields: remainingFields.slice(index),
@@ -52,6 +54,7 @@ export default async function addAdditionalFields(doc, cursor, options = {}) {
           height: accumulatedHeight,
         };
       }
+      accumulatedHeight += margin / 6;
 
       const fieldTitle = await addText(doc, cursor, {
         content: getLocaleValue(field.label, lang),
@@ -75,6 +78,7 @@ export default async function addAdditionalFields(doc, cursor, options = {}) {
 
         cursor.y += fieldValue.height;
       }
+      cursor.y += margin / 6;
     }
 
     index += 1;

@@ -18,6 +18,7 @@ export default async function GenerateExportStream(writeStream, options = {}) {
   const cursor = { x: 0, y: 0 };
   const iconHeightAndWidth = 10;
   let pageNumber = 1;
+  let isFirstPage = true;
 
   doc.pipe(writeStream);
   const pdfRender = () => ({
@@ -57,19 +58,18 @@ export default async function GenerateExportStream(writeStream, options = {}) {
         data: event.status,
         agenda,
         truncable: true,
-        title: "État"
+        title: "status"
       },
       {
         addFn: 'addText',
         data: getLocaleValue(event.conditions, lang),
         truncable: true,
-        title: "Conditions"
+        title: "conditions"
       },
       {
         addFn: 'addRegistration',
-        data: event.registration,
+        data: { registration: event.registration },
         truncable: true,
-        title: "Outils d'inscription"
       },
       {
         addFn: 'addAdditionalFields',
@@ -88,13 +88,15 @@ export default async function GenerateExportStream(writeStream, options = {}) {
   const columnConfig = pdfRender(event);
   let columnsWithContent = columnConfig.columns;
 
-  addFooter(doc, `${intl.formatMessage(messages.page)} ${pageNumber}`, margin);
+  const addedFooter = addFooter(doc, `${intl.formatMessage(messages.page)} ${pageNumber}`, margin);
 
   do {
-    const { height: pageHeaderHeight } = await addPageHeader(agenda, doc, cursor);
+    const { height: pageHeaderHeight } = await addPageHeader(agenda, event, doc, cursor, { margin, isFirstPage, lang });
+    isFirstPage = false;
+
     cursor.y += pageHeaderHeight + margin;
 
-    columnsWithContent = await addPageColumns({ doc, cursor }, { columns: columnsWithContent }, { pageWidth, iconHeightAndWidth, margin, lang });
+    columnsWithContent = await addPageColumns({ doc, cursor }, { columns: columnsWithContent }, { pageWidth, iconHeightAndWidth, margin, footerHeight: addedFooter.height, intl, lang });
 
     if (columnsWithContent.some(column => column.content.length > 0)) {
       doc.addPage();

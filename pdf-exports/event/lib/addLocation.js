@@ -2,19 +2,20 @@ import { getLocaleValue } from '@openagenda/intl';
 import addText from './addText.js';
 import imagePositioning from './imagePositioning.js';
 import iconPositioning from './iconPositioning.js';
+import messages from './messages.js';
 
 function isOverflowing(cursor, accumulatedHeight, height) {
   return cursor.y + accumulatedHeight > height;
 }
 
 async function addLocationSection(doc, cursor, width, content, options = {}) {
-  const { lang, simulate } = options;
+  const { margin, intl, lang, simulate } = options;
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
   if (content.location.name || content.location.address) {
     const locationSectionTitle = await addText(doc, cursor, {
-      content: 'Lieu',
+      content:`${intl.formatMessage(messages.location)}`,
       width,
       bold: true,
       lang,
@@ -49,14 +50,15 @@ async function addLocationSection(doc, cursor, width, content, options = {}) {
         lang,
         simulate,
       })
-      accumulatedHeight += locationSectionAddress.height;
+      accumulatedHeight += locationSectionAddress.height + margin / 2;
       maxWidth = Math.max(maxWidth, locationSectionTitle.width);
 
       if (!simulate) {
-        cursor.y += locationSectionAddress.height;
+        cursor.y += locationSectionAddress.height + margin / 2;
       }
     }
   }
+
   return {
     height: accumulatedHeight,
     width: maxWidth,
@@ -64,13 +66,13 @@ async function addLocationSection(doc, cursor, width, content, options = {}) {
 }
 
 async function addOnlineSection(doc, cursor, width, content, options = {}) {
-  const { lang, simulate } = options;
+  const { margin, intl, lang, simulate } = options;
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
   if (content.onlineAccessLink) {
     const onlineSectionName = await addText(doc, cursor, {
-      content: 'En ligne',
+      content:`${intl.formatMessage(messages.online)}`,
       width,
       bold: true,
       lang,
@@ -92,14 +94,15 @@ async function addOnlineSection(doc, cursor, width, content, options = {}) {
         lang,
         simulate,
       })
-      accumulatedHeight += onlineSectionContent.height;
+      accumulatedHeight += onlineSectionContent.height + margin / 2;
       maxWidth = Math.max(maxWidth, onlineSectionContent.width);
 
       if (!simulate) {
-        cursor.y += onlineSectionContent.height;
+        cursor.y += onlineSectionContent.height + margin / 2;
       }
     }
   }
+
   return {
     height: accumulatedHeight,
     width: maxWidth,
@@ -107,13 +110,13 @@ async function addOnlineSection(doc, cursor, width, content, options = {}) {
 }
 
 async function addAboutLocationSection(doc, cursor, width, content, options = {}) {
-  const { lang, simulate } = options;
+  const { margin, intl, lang, simulate } = options;
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
   if (content.location.description) {
     const aboutLocationSectionName = await addText(doc, cursor, {
-      content: 'À propos du lieu',
+      content:`${intl.formatMessage(messages.aboutLocation)}`,
       width,
       bold: true,
       lang,
@@ -132,13 +135,14 @@ async function addAboutLocationSection(doc, cursor, width, content, options = {}
       lang,
       simulate,
     })
-    accumulatedHeight += aboutLocationSectionContent.height;
+    accumulatedHeight += aboutLocationSectionContent.height + margin / 6;
     maxWidth = Math.max(maxWidth, aboutLocationSectionContent.width);
 
     if (!simulate) {
-      cursor.y += aboutLocationSectionContent.height;
+      cursor.y += aboutLocationSectionContent.height + margin / 6;
     }
   }
+
   return {
     height: accumulatedHeight,
     width: maxWidth,
@@ -146,13 +150,13 @@ async function addAboutLocationSection(doc, cursor, width, content, options = {}
 }
 
 async function addTagsSection(doc, cursor, width, content, options = {}) {
-  const { lang, simulate } = options;
+  const { margin, intl, lang, simulate } = options;
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
   if (content.location.tags) {
     const tagsSectionName = await addText(doc, cursor, {
-      content: 'Tags',
+      content:`${intl.formatMessage(messages.tags)}`,
       width,
       bold: true,
       lang,
@@ -172,14 +176,15 @@ async function addTagsSection(doc, cursor, width, content, options = {}) {
         lang,
         simulate,
       })
-      accumulatedHeight += tagsSectionContent.height;
+      accumulatedHeight += tagsSectionContent.height + margin / 6;
       maxWidth = Math.max(maxWidth, tagsSectionContent.width);
 
       if (!simulate) {
-        cursor.y += tagsSectionContent.height;
+        cursor.y += tagsSectionContent.height + margin / 6;
       }
     }
   }
+
   return {
     height: accumulatedHeight,
     width: maxWidth,
@@ -187,13 +192,13 @@ async function addTagsSection(doc, cursor, width, content, options = {}) {
 }
 
 async function addAccessSection(doc, cursor, width, content, options = {}) {
-  const { lang, simulate } = options;
+  const { margin, intl, lang, simulate } = options;
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
   if (content.location.access) {
     const accessSectionName = await addText(doc, cursor, {
-      content: 'Accès',
+      content:`${intl.formatMessage(messages.access)}`,
       width,
       bold: true,
       lang,
@@ -212,13 +217,14 @@ async function addAccessSection(doc, cursor, width, content, options = {}) {
       lang,
       simulate,
     })
-    accumulatedHeight += accessSectionContent.height;
+    accumulatedHeight += accessSectionContent.height + margin / 6;
     maxWidth = Math.max(maxWidth, accessSectionContent.width);
 
     if (!simulate) {
-      cursor.y += accessSectionContent.height;
+      cursor.y += accessSectionContent.height + margin / 6;
     }
   }
+
   return {
     height: accumulatedHeight,
     width: maxWidth,
@@ -226,7 +232,7 @@ async function addAccessSection(doc, cursor, width, content, options = {}) {
 }
 
 async function addImageSection(doc, cursor, width, content, options = {}) {
-  const { simulate } = options;
+  const { margin, simulate } = options;
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
@@ -236,11 +242,11 @@ async function addImageSection(doc, cursor, width, content, options = {}) {
     simulate,
   });
 
-  accumulatedHeight += imageSection.height;
+  accumulatedHeight += imageSection.height + margin / 6;
   maxWidth = Math.max(maxWidth, imageSection.width);
 
   if (!simulate) {
-    cursor.y += imageSection.height;
+    cursor.y += imageSection.height + margin / 6;
   }
 
   return {
@@ -285,11 +291,11 @@ async function addContactSection(doc, cursor, width, content, options = {}) {
       lang,
       simulate,
     })
-    accumulatedHeight += Math.max(phoneIcon.height, phoneSection.height);
+    accumulatedHeight += Math.max(phoneIcon.height, phoneSection.height) + margin / 6;
     maxWidth = Math.max(maxWidth, phoneIcon + margin / 2 + phoneSection.width);
 
     if (!simulate) {
-      cursor.y += phoneSection.height;
+      cursor.y += phoneSection.height + margin / 6;
     }
   }
 
@@ -302,14 +308,14 @@ async function addContactSection(doc, cursor, width, content, options = {}) {
 }
 
 async function addAdditionalLinksSection(doc, cursor, width, content, options = {}) {
-  const { iconHeightAndWidth, margin, lang, simulate } = options;
+  const { iconHeightAndWidth, margin, intl, lang, simulate } = options;
   const currentCursor = { ...cursor };
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
   if (content.location.links) {
     const additionalLinksSectionName = await addText(doc, cursor, {
-      content: 'Liens additionnels',
+      content:`${intl.formatMessage(messages.additionalLinks)}`,
       width,
       bold: true,
       lang,
@@ -342,6 +348,7 @@ async function addAdditionalLinksSection(doc, cursor, width, content, options = 
       cursor.x = currentCursor.x;
     }
   }
+
   return {
     height: accumulatedHeight,
     width: maxWidth,
@@ -360,11 +367,13 @@ const sections = [
 ];
 
 export default async function addLocation(doc, cursor, options = {}) {
-  const { content, width, height, iconHeightAndWidth, margin, lang, simulate } = options;
+  const { content, width, height, iconHeightAndWidth, margin, footerHeight, intl, lang, simulate } = options;
 
   let accumulatedHeight = 0;
   let maxWidth = 0;
   const currentCursor = { ...cursor };
+
+  const availableHeight = height - margin - footerHeight;
 
   let remainingContent = sections.filter(section => !content.remainingContent || content.remainingContent.includes(section));
   
@@ -374,27 +383,27 @@ export default async function addLocation(doc, cursor, options = {}) {
 
     switch(section) {
       case 'location': {
-        addSection = (simulate) => addLocationSection(doc, cursor, width, content.event, { lang, simulate });
+        addSection = (simulate) => addLocationSection(doc, cursor, width, content.event, { margin, intl, lang, simulate });
         break;
       }
       case 'online': {
-        addSection = (simulate) => addOnlineSection(doc, cursor, width, content.event, { lang, simulate });
+        addSection = (simulate) => addOnlineSection(doc, cursor, width, content.event, { margin, intl, lang, simulate });
         break;
       }
       case 'aboutLocation': {
-        addSection = (simulate) => addAboutLocationSection(doc, cursor, width, content.event, { lang, simulate });
+        addSection = (simulate) => addAboutLocationSection(doc, cursor, width, content.event, { margin, intl, lang, simulate });
         break;
       }
       case 'tags': {
-        addSection = (simulate) => addTagsSection(doc, cursor, width, content.event, { lang, simulate });
+        addSection = (simulate) => addTagsSection(doc, cursor, width, content.event, { margin, intl, lang, simulate });
         break;
       }
       case 'access': {
-        addSection = (simulate) => addAccessSection(doc, cursor, width, content.event, { lang, simulate });
+        addSection = (simulate) => addAccessSection(doc, cursor, width, content.event, { margin, intl, lang, simulate });
         break;
       }
       case 'image': {
-        addSection = (simulate) => addImageSection(doc, cursor, width, content.event, { simulate });
+        addSection = (simulate) => addImageSection(doc, cursor, width, content.event, { margin, simulate });
         break;
       }
       case 'contact': {
@@ -402,7 +411,7 @@ export default async function addLocation(doc, cursor, options = {}) {
         break;
       }
       case 'additionalLinks': {
-        addSection = (simulate) => addAdditionalLinksSection(doc, cursor, width, content.event, { iconHeightAndWidth, margin, lang, simulate });
+        addSection = (simulate) => addAdditionalLinksSection(doc, cursor, width, content.event, { intl, iconHeightAndWidth, margin, lang, simulate });
         break;
       }
       default: {
@@ -414,8 +423,7 @@ export default async function addLocation(doc, cursor, options = {}) {
 
     accumulatedHeight += addesSection.height;
     maxWidth = Math.max(maxWidth, addesSection.width);
-
-    if (isOverflowing(currentCursor, accumulatedHeight, height)) {
+    if (isOverflowing(currentCursor, accumulatedHeight, availableHeight)) {
       cursor.y = currentCursor.y;
       return {
         remainingContent: remainingContent.slice(index),
@@ -428,7 +436,7 @@ export default async function addLocation(doc, cursor, options = {}) {
   }
 
   cursor.y = currentCursor.y;
-  
+
   return {
     width: maxWidth,
     height: accumulatedHeight,

@@ -354,9 +354,9 @@
         "schemaType": "network"
       },
       {
-        "field": "test",
+        "field": "label",
         "label": {
-          "fr": "Test"
+          "fr": "Label"
         },
         "help": null,
         "helpLink": null,
@@ -381,109 +381,19 @@
         "max": null,
         "options": [
           {
-            "id": 1,
-            "value": "balade-decouverte-visite",
-            "label": {
-              "fr": "Balade - découverte - visite"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 2,
-            "value": "test",
-            "label": {
-              "fr": "Label"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 3,
-            "value": "exposition",
-            "label": {
-              "fr": "Exposition"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 4,
-            "value": "fete-salon-marche",
-            "label": {
-              "fr": "Fête - salon - marché"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 5,
-            "value": "musique",
-            "label": {
-              "fr": "Musique"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 96,
-            "value": "nature-environnement",
-            "label": {
-              "fr": "Nature - environnement"
-            },
-            "info": null,
-            "display": true
-          },
-          {
             "id": 6,
-            "value": "projection-cinema",
+            "value": "ozelir",
             "label": {
-              "fr": "Projection - cinéma"
+              "fr": "Ozélir"
             },
             "info": null,
             "display": true
           },
           {
             "id": 7,
-            "value": "spectacle",
+            "value": "en-scene",
             "label": {
-              "fr": "Spectacle"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 8,
-            "value": "sport",
-            "label": {
-              "fr": "Sport"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 9,
-            "value": "stage-atelier-jeu",
-            "label": {
-              "fr": "Stage - atelier -  jeu"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 10,
-            "value": "jeune-public",
-            "label": {
-              "fr": "Jeune public"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 94,
-            "value": "autre",
-            "label": {
-              "fr": "Autre"
+              "fr": "En Scène"
             },
             "info": null,
             "display": true
@@ -494,9 +404,9 @@
         "schemaType": "network"
       },
       {
-        "field": "test2",
+        "field": "type",
         "label": {
-          "fr": "Test2"
+          "fr": "Type"
         },
         "help": null,
         "helpLink": null,
@@ -521,109 +431,28 @@
         "max": null,
         "options": [
           {
-            "id": 1,
-            "value": "balade-decouverte-visite",
+            "id": 0,
+            "value": "theatre",
             "label": {
-              "fr": "Balade - découverte - visite"
+              "fr": "Théâtre"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 1,
+            "value": "danse",
+            "label": {
+              "fr": "Danse"
             },
             "info": null,
             "display": true
           },
           {
             "id": 2,
-            "value": "test",
+            "value": "concert",
             "label": {
-              "fr": "Label"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 3,
-            "value": "exposition",
-            "label": {
-              "fr": "Exposition"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 4,
-            "value": "fete-salon-marche",
-            "label": {
-              "fr": "Fête - salon - marché"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 5,
-            "value": "musique",
-            "label": {
-              "fr": "Musique"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 96,
-            "value": "nature-environnement",
-            "label": {
-              "fr": "Nature - environnement"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 6,
-            "value": "projection-cinema",
-            "label": {
-              "fr": "Projection - cinéma"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 7,
-            "value": "spectacle",
-            "label": {
-              "fr": "Spectacle"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 8,
-            "value": "sport",
-            "label": {
-              "fr": "Sport"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 9,
-            "value": "stage-atelier-jeu",
-            "label": {
-              "fr": "Stage - atelier -  jeu"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 10,
-            "value": "jeune-public",
-            "label": {
-              "fr": "Jeune public"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 94,
-            "value": "autre",
-            "label": {
-              "fr": "Autre"
+              "fr": "Concert"
             },
             "info": null,
             "display": true
