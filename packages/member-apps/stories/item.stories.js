@@ -1,8 +1,8 @@
 import '@openagenda/bs-templates/compiled/main.css';
 
-import MemberItem from '../src/components/MemberItem';
-import ComponentCanvas from './decorators/ComponentCanvas';
-import Providers from './decorators/Providers';
+import MemberItem from '../src/components/MemberItem.js';
+import ComponentCanvas from './decorators/ComponentCanvas.js';
+import Providers from './decorators/Providers.js';
 
 export default {
   title: 'Member list item',

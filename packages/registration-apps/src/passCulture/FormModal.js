@@ -1,5 +1,5 @@
 import { Modal } from '@openagenda/react-shared';
-import Form from './Form';
+import Form from './Form.js';
 
 export default function FormModal({
   onClose,

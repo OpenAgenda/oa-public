@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
-import BootstrapComponentsProvider from '../src/components/bootstrap/Provider';
-import ListVenues from '../src/components/bootstrap/ListVenues';
+import BootstrapComponentsProvider from '../src/components/bootstrap/Provider.js';
+import ListVenues from '../src/components/bootstrap/ListVenues.js';
 import passSettings from './fixtures/passSettings.json';
 
 export default {

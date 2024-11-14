@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import debounce from 'lodash/debounce.js';
+import throttle from 'lodash/throttle.js';
+import noop from 'lodash/noop.js';
 import React, {
   useCallback,
   useMemo,
@@ -8,8 +10,8 @@ import React, {
 } from 'react';
 import { Form, Field } from 'react-final-form';
 import { useApiClient } from '@openagenda/react-shared';
-import useAgendasSearch from '../hooks/useAgendasSearch';
-import SearchInput from './SearchInput';
+import useAgendasSearch from '../hooks/useAgendasSearch.js';
+import SearchInput from './SearchInput.js';
 
 const AgendasSearch = forwardRef(
   ({ res, render, initialState = {}, onSearch, fieldProps }, ref) => {
@@ -43,16 +45,16 @@ const AgendasSearch = forwardRef(
       refresh: () => list(state.searchValue),
     }));
 
-    const debouncedList = useMemo(() => _.debounce(list, 400), [list]);
+    const debouncedList = useMemo(() => debounce(list, 400), [list]);
     const throttledNextPage = useMemo(
-      () => _.throttle(nextPage, 400, { trailing: false }),
+      () => throttle(nextPage, 400, { trailing: false }),
       [nextPage],
     );
 
     const handleSearch = useCallback((values) => list(values.search), [list]);
 
     useEffect(() => {
-      list(state.searchValue).catch(_.noop);
+      list(state.searchValue).catch(noop);
     }, [list, state.searchValue]);
 
     useEffect(() => {

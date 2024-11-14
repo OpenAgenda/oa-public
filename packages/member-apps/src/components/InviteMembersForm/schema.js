@@ -1,4 +1,4 @@
-import emailsValidator from '../../utils/emailsValidator';
+import emailsValidator from '../../utils/emailsValidator.js';
 
 function getRoleOptions({
   getLabel,

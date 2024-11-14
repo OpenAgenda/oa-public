@@ -1,21 +1,21 @@
 import { Spinner } from '@openagenda/react-shared';
-import ComponentsContext from '../Context';
+import ComponentsContext from '../Context.js';
 
-import StandardRegistrationField from './StandardRegistrationField';
-import Select from './Select';
-import Badge from './Badge';
-import Button from './Button';
-import Section from './Section';
-import Form from './Form';
-import Input from './Input';
-import List from './List';
-import ListItem from './ListItem';
-import ListItemPart from './ListItemPart';
-import ListItemLine from './ListItemLine';
-import EmbeddedForm from './EmbeddedForm';
-import MoreInfo from './MoreInfo';
-import Checkbox from './Checkbox';
-import Textarea from './Textarea';
+import StandardRegistrationField from './StandardRegistrationField.js';
+import Select from './Select.js';
+import Badge from './Badge.js';
+import Button from './Button.js';
+import Section from './Section.js';
+import Form from './Form.js';
+import Input from './Input.js';
+import List from './List.js';
+import ListItem from './ListItem.js';
+import ListItemPart from './ListItemPart.js';
+import ListItemLine from './ListItemLine.js';
+import EmbeddedForm from './EmbeddedForm.js';
+import MoreInfo from './MoreInfo.js';
+import Checkbox from './Checkbox.js';
+import Textarea from './Textarea.js';
 
 const components = {
   StandardRegistrationField,

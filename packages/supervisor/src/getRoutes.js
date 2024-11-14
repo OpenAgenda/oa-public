@@ -1,7 +1,8 @@
-import { loadableComponent } from '@openagenda/react-shared';
+import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
 // eslint-disable-next-line camelcase
-const contextRequire = typeof __webpack_require__ !== 'undefined'
+const isWebpack = typeof __webpack_require__ !== 'undefined';
+const contextRequire = isWebpack
   ? import.meta.webpackContext('.', {
     recursive: true,
     regExp: /\.js$/,
@@ -9,13 +10,14 @@ const contextRequire = typeof __webpack_require__ !== 'undefined'
   })
   : null;
 
-const App = loadableComponent({
+const App = loadableEsm({
   chunkName: 'supervisor-App',
   importAsync: () =>
     import(
       /* webpackChunkName: "supervisor-App" */
       './containers/App.js'
     ),
+  importSync: !isWebpack ? await import('./containers/App.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/App.js');
@@ -27,7 +29,7 @@ const App = loadableComponent({
   },
 });
 
-const Dashboard = loadableComponent(
+const Dashboard = loadableEsm(
   {
     chunkName: 'supervisor-Dashboard',
     importAsync: () =>
@@ -35,6 +37,7 @@ const Dashboard = loadableComponent(
         /* webpackChunkName: "supervisor-Dashboard" */
         './containers/Dashboard.js'
       ),
+    importSync: !isWebpack ? await import('./containers/Dashboard.js') : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./containers/Dashboard.js');
@@ -48,7 +51,7 @@ const Dashboard = loadableComponent(
   { ssr: false },
 );
 
-const AnnouncementManager = loadableComponent(
+const AnnouncementManager = loadableEsm(
   {
     chunkName: 'supervisor-AnnouncementManager',
     importAsync: () =>
@@ -56,6 +59,9 @@ const AnnouncementManager = loadableComponent(
         /* webpackChunkName: "supervisor-AnnouncementManager" */
         './containers/AnnouncementManager.js'
       ),
+    importSync: !isWebpack
+      ? await import('./containers/AnnouncementManager.js')
+      : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./containers/AnnouncementManager.js');
@@ -69,7 +75,7 @@ const AnnouncementManager = loadableComponent(
   { ssr: false },
 );
 
-const Elasticsearch = loadableComponent(
+const Elasticsearch = loadableEsm(
   {
     chunkName: 'supervisor-Elasticsearch',
     importAsync: () =>
@@ -77,6 +83,9 @@ const Elasticsearch = loadableComponent(
         /* webpackChunkName: "supervisor-Elasticsearch" */
         './containers/Elasticsearch.js'
       ),
+    importSync: !isWebpack
+      ? await import('./containers/Elasticsearch.js')
+      : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./containers/Elasticsearch.js');

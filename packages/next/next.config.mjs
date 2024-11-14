@@ -170,8 +170,6 @@ const config = async () => {
       webpack: (webpackConfig, options) => {
         if (options.isServer) return webpackConfig;
 
-        webpackConfig.resolve.alias['@httptoolkit/esm'] = false;
-
         webpackCopyFiles(webpackConfig, [
           {
             from: fileURLToPath(

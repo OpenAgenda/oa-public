@@ -11,8 +11,4 @@ export default {
     options: {},
   },
   staticDirs: ['./public'],
-  webpackFinal: config => {
-    config.resolve.alias['@httptoolkit/esm'] = false;
-    return config;
-  }
 };

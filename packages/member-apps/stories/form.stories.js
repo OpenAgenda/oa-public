@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
-import Form from '../src/components/Form';
-import ComponentCanvas from './decorators/ComponentCanvas';
-import Providers from './decorators/Providers';
+import Form from '../src/components/Form/index.js';
+import ComponentCanvas from './decorators/ComponentCanvas.js';
+import Providers from './decorators/Providers.js';
 import GDPRInformation from './fixtures/GDPRInformation.md';
 
 export default {

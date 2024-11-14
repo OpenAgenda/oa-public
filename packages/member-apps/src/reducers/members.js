@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import getRoleSlug from '@openagenda/members/build/getRoleSlug';
+import findIndex from 'lodash/findIndex.js';
+import getRoleSlug from '@openagenda/members/build/getRoleSlug.js';
 
 const LOAD = 'member-apps/members/LOAD';
 const LOAD_SUCCESS = 'member-apps/members/LOAD_SUCCESS';
@@ -157,7 +157,7 @@ export default function reducer(state = initialState, action = null) {
         patching: false,
       };
     case UPDATE_LIST_ITEM: {
-      const index = _.findIndex(state.data, (m) => m.id === action.memberId);
+      const index = findIndex(state.data, (m) => m.id === action.memberId);
 
       if (index === -1) return state;
 
@@ -187,7 +187,7 @@ export default function reducer(state = initialState, action = null) {
         showInviteResult: true,
       };
     case REMOVE_SUCCESS: {
-      const index = _.findIndex(state.data, (m) => m.id === action.memberId);
+      const index = findIndex(state.data, (m) => m.id === action.memberId);
 
       if (index === -1) return state;
 
@@ -357,7 +357,7 @@ export function invite(agenda, data) {
     types: [INVITE, INVITE_SUCCESS, INVITE_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
-      const emails = _.get(data, 'emails', '')
+      const emails = (data?.emails ?? '')
         .split(/[\s\n,]+/)
         .map((email) => email.trim())
         .filter((email) => !!email);

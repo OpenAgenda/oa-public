@@ -3,7 +3,7 @@ import { useState } from 'react';
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';
 
-import Registration from '../src/bootstrap';
+import Registration from '../src/bootstrap.js';
 
 export default {
   title: 'integrated/Standard',

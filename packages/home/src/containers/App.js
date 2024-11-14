@@ -9,15 +9,15 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData, useConstant } from '@openagenda/react-shared';
-import { locales as memberAppsLocals } from '@openagenda/member-apps';
+import { locales as memberAppsLocales } from '@openagenda/member-apps';
 import { getSupportedLocale } from '@openagenda/intl';
-import labels from '@openagenda/labels/home';
-import I18nContext from '../contexts/I18nContext';
-import MenuItem from '../components/MenuItem';
-import menuReducer from '../reducers/menu';
-import agendasReducer from '../reducers/agendas';
-import eventsReducer from '../reducers/events';
-import modalsReducer from '../reducers/modals';
+import labels from '@openagenda/labels/home/index.js';
+import I18nContext from '../contexts/I18nContext.js';
+import MenuItem from '../components/MenuItem.js';
+import menuReducer from '../reducers/menu.js';
+import agendasReducer from '../reducers/agendas.js';
+import eventsReducer from '../reducers/events.js';
+import modalsReducer from '../reducers/modals.js';
 
 function App({ route }) {
   const queryClient = useConstant(
@@ -70,7 +70,8 @@ function App({ route }) {
     <IntlProvider
       key={lang}
       locale={lang}
-      messages={memberAppsLocals[lang]}
+      // eslint-disable-next-line import/namespace
+      messages={memberAppsLocales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >
       <QueryClientProvider client={queryClient}>

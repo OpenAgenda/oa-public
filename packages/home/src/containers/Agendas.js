@@ -5,15 +5,18 @@ import { Waypoint } from 'react-waypoint';
 import { useIsomorphicLayoutEffect, useLatest } from 'react-use';
 import qs from 'qs';
 import { Spinner, useModal } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
-import { setTab } from '../reducers/menu';
-import { updatedMember } from '../reducers/agendas';
-import Welcome from '../components/Welcome';
-import AgendasSearch from '../components/AgendasSearch';
-import AgendaItem from '../components/AgendaItem';
-import { MemberEditModal, MemberRemoveModal } from '../components/MemberModals';
-import useMemberModal from '../hooks/useMemberModal';
-import Wrapper from './Wrapper';
+import I18nContext from '../contexts/I18nContext.js';
+import { setTab } from '../reducers/menu.js';
+import { updatedMember } from '../reducers/agendas.js';
+import Welcome from '../components/Welcome.js';
+import AgendasSearch from '../components/AgendasSearch.js';
+import AgendaItem from '../components/AgendaItem.js';
+import {
+  MemberEditModal,
+  MemberRemoveModal,
+} from '../components/MemberModals.js';
+import useMemberModal from '../hooks/useMemberModal.js';
+import Wrapper from './Wrapper.js';
 
 function Agendas() {
   const { getLabel, lang } = useContext(I18nContext);

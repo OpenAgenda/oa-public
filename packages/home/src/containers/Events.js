@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import redial from 'redial';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
-import debounce from 'lodash/debounce';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce.js';
+import throttle from 'lodash/throttle.js';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import {
@@ -14,14 +14,14 @@ import {
   Image,
   SearchInput,
 } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
-import * as agendasActions from '../reducers/agendas';
-import * as eventsActions from '../reducers/events';
-import * as modalsActions from '../reducers/modals';
-import { setTab } from '../reducers/menu';
-import AgendasSearch from '../components/AgendasSearch';
-import EventItem from '../components/EventItem';
-import Wrapper from './Wrapper';
+import I18nContext from '../contexts/I18nContext.js';
+import * as agendasActions from '../reducers/agendas.js';
+import * as eventsActions from '../reducers/events.js';
+import * as modalsActions from '../reducers/modals.js';
+import { setTab } from '../reducers/menu.js';
+import AgendasSearch from '../components/AgendasSearch.js';
+import EventItem from '../components/EventItem.js';
+import Wrapper from './Wrapper.js';
 
 function AgendaItem({ agenda, res, getLabel }) {
   const itemLink = res.agendas.contribute.replace(':slug', agenda.slug);

@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
-import MenuItem from '../components/MenuItem';
-import I18nContext from '../contexts/I18nContext';
+import MenuItem from '../components/MenuItem.js';
+import I18nContext from '../contexts/I18nContext.js';
 
 export default function Wrapper({ className, tab, children }) {
   const { getLabel } = useContext(I18nContext);

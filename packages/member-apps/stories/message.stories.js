@@ -1,10 +1,10 @@
 import '@openagenda/bs-templates/compiled/main.css';
 
-import SendMessageForm from '../src/components/SendMessageForm';
-import InviteMembersForm from '../src/components/InviteMembersForm';
+import SendMessageForm from '../src/components/SendMessageForm/index.js';
+import InviteMembersForm from '../src/components/InviteMembersForm/index.js';
 
-import ComponentCanvas from './decorators/ComponentCanvas';
-import Providers from './decorators/Providers';
+import ComponentCanvas from './decorators/ComponentCanvas.js';
+import Providers from './decorators/Providers.js';
 
 export default {
   title: 'Message forms',

@@ -1,5 +1,5 @@
-import isURL from 'validator/lib/isURL';
-import isEmail from 'validator/lib/isEmail';
+import isURL from 'validator/lib/isURL.js';
+import isEmail from 'validator/lib/isEmail.js';
 
 const isPhone = (v) => /^(\+|)([\d\s.-]|\([\d\s]\))+$/.test(v);
 

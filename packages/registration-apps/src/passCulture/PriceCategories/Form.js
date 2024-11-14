@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import ComponentsContext from '../../components/Context';
+import ComponentsContext from '../../components/Context.js';
 
 export default function PriceCategoryForm({
   value,

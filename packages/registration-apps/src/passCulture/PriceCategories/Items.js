@@ -2,8 +2,8 @@ import { useState, useContext } from 'react';
 import slug from 'slugify';
 import { validatePriceCategory } from '@openagenda/registrations/passCulture/iso/validate';
 
-import ComponentsContext from '../../components/Context';
-import PriceCategoryForm from './Form';
+import ComponentsContext from '../../components/Context.js';
+import PriceCategoryForm from './Form.js';
 
 export default function PriceCategoryItems({
   value = [],

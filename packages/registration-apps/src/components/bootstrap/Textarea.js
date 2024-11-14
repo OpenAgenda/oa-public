@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import autosize from 'autosize';
-import FieldCounter from './FieldCounter';
+import FieldCounter from './FieldCounter.js';
 
 export default function Textarea({
   id,

@@ -1,4 +1,4 @@
-import Modal from '@openagenda/react-shared/lib/components/Modal';
+import Modal from '@openagenda/react-shared/lib/components/Modal.js';
 import { defineMessages, useIntl } from 'react-intl';
 import { useState } from 'react';
 

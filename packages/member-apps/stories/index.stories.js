@@ -1,8 +1,8 @@
 import '@openagenda/bs-templates/compiled/main.css';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
-import createApp from '../src/app';
-import PageDecorator from './decorators/PageDecorator';
+import createApp from '../src/app.js';
+import PageDecorator from './decorators/PageDecorator.js';
 
 const getDefaultState = () => ({
   settings: {

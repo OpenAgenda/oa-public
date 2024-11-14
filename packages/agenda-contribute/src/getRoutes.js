@@ -1,7 +1,8 @@
-import { loadableComponent } from '@openagenda/react-shared';
+import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
 // eslint-disable-next-line camelcase
-const contextRequire = typeof __webpack_require__ !== 'undefined'
+const isWebpack = typeof __webpack_require__ !== 'undefined';
+const contextRequire = isWebpack
   ? import.meta.webpackContext('.', {
     recursive: true,
     regExp: /\.js$/,
@@ -9,13 +10,14 @@ const contextRequire = typeof __webpack_require__ !== 'undefined'
   })
   : null;
 
-const App = loadableComponent({
+const App = loadableEsm({
   chunkName: 'agendaContribute-App',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-App" */
       './containers/App.js'
     ),
+  importSync: !isWebpack ? await import('./containers/App.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/App.js');
@@ -27,13 +29,14 @@ const App = loadableComponent({
   },
 });
 
-const Member = loadableComponent({
+const Member = loadableEsm({
   chunkName: 'agendaContribute-Member',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-Member" */
       './containers/Member.js'
     ),
+  importSync: !isWebpack ? await import('./containers/Member.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/Member.js');
@@ -45,13 +48,14 @@ const Member = loadableComponent({
   },
 });
 
-const MemberSharing = loadableComponent({
+const MemberSharing = loadableEsm({
   chunkName: 'agendaContribute-MemberSharing',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-MemberSharing" */
       './containers/MemberSharing.js'
     ),
+  importSync: !isWebpack ? await import('./containers/MemberSharing.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/MemberSharing.js');
@@ -63,13 +67,14 @@ const MemberSharing = loadableComponent({
   },
 });
 
-const EventNew = loadableComponent({
+const EventNew = loadableEsm({
   chunkName: 'agendaContribute-EventNew',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-EventNew" */
       './containers/EventNew.js'
     ),
+  importSync: !isWebpack ? await import('./containers/EventNew.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/EventNew.js');
@@ -81,13 +86,14 @@ const EventNew = loadableComponent({
   },
 });
 
-const EventDraft = loadableComponent({
+const EventDraft = loadableEsm({
   chunkName: 'agendaContribute-EventDraft',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-EventDraft" */
       './containers/EventDraft.js'
     ),
+  importSync: !isWebpack ? await import('./containers/EventDraft.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/EventDraft.js');
@@ -99,13 +105,14 @@ const EventDraft = loadableComponent({
   },
 });
 
-const EventEdit = loadableComponent({
+const EventEdit = loadableEsm({
   chunkName: 'agendaContribute-EventEdit',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-EventEdit" */
       './containers/EventEdit.js'
     ),
+  importSync: !isWebpack ? await import('./containers/EventEdit.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/EventEdit.js');
@@ -117,13 +124,14 @@ const EventEdit = loadableComponent({
   },
 });
 
-const EventShare = loadableComponent({
+const EventShare = loadableEsm({
   chunkName: 'agendaContribute-EventShare',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-EventShare" */
       './containers/EventShare.js'
     ),
+  importSync: !isWebpack ? await import('./containers/EventShare.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/EventShare.js');
@@ -135,13 +143,14 @@ const EventShare = loadableComponent({
   },
 });
 
-const Confirmation = loadableComponent({
+const Confirmation = loadableEsm({
   chunkName: 'agendaContribute-Confirmation',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-Confirmation" */
       './containers/Confirmation.js'
     ),
+  importSync: !isWebpack ? await import('./containers/Confirmation.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/Confirmation.js');
@@ -153,13 +162,16 @@ const Confirmation = loadableComponent({
   },
 });
 
-const EditConfirmation = loadableComponent({
+const EditConfirmation = loadableEsm({
   chunkName: 'agendaContribute-EditConfirmation',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-EditConfirmation" */
       './containers/EditConfirmation.js'
     ),
+  importSync: !isWebpack
+    ? await import('./containers/EditConfirmation.js')
+    : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/EditConfirmation.js');
@@ -171,13 +183,14 @@ const EditConfirmation = loadableComponent({
   },
 });
 
-const Landing = loadableComponent({
+const Landing = loadableEsm({
   chunkName: 'agendaContribute-Landing',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaContribute-Landing" */
       './containers/Landing.js'
     ),
+  importSync: !isWebpack ? await import('./containers/Landing.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/Landing.js');

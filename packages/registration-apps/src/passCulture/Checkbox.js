@@ -1,20 +1,20 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import { Image, Spinner } from '@openagenda/react-shared';
-import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
+import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate/index';
 import {
   getTime,
   getCurrentValue,
 } from '@openagenda/registrations/passCulture/iso/utils';
 
-import FormModal from './FormModal';
-import UnlinkModal from './UnlinkModal';
+import FormModal from './FormModal.js';
+import UnlinkModal from './UnlinkModal.js';
 import {
   logoPath,
   rejectedLogoPath,
   errorLogoPath,
   pendingLogoPath,
   isPatchMode,
-} from './utils';
+} from './utils.js';
 
 function checkboxText({
   offerWasRejected,

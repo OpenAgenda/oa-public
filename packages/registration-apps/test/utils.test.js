@@ -1,5 +1,5 @@
-import spreadRegistrationValuesByService from '../src/utils/spreadRegistrationValuesByService';
-import mergeSpreadRegistrationValues from '../src/utils/mergeSpreadRegistrationValues';
+import spreadRegistrationValuesByService from '../src/utils/spreadRegistrationValuesByService.js';
+import mergeSpreadRegistrationValues from '../src/utils/mergeSpreadRegistrationValues.js';
 
 describe('utils', () => {
   describe('spreadRegistrationValuesByService', () => {

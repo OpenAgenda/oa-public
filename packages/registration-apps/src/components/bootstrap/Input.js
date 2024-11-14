@@ -1,4 +1,4 @@
-import FieldCounter from './FieldCounter';
+import FieldCounter from './FieldCounter.js';
 
 export default function Input({
   id,

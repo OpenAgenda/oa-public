@@ -1,7 +1,8 @@
-import { loadableComponent } from '@openagenda/react-shared';
+import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
 // eslint-disable-next-line camelcase
-const contextRequire = typeof __webpack_require__ !== 'undefined'
+const isWebpack = typeof __webpack_require__ !== 'undefined';
+const contextRequire = isWebpack
   ? import.meta.webpackContext('.', {
     recursive: true,
     regExp: /\.js$/,
@@ -9,13 +10,16 @@ const contextRequire = typeof __webpack_require__ !== 'undefined'
   })
   : null;
 
-const EditionApp = loadableComponent({
+const EditionApp = loadableEsm({
   chunkName: 'agendaSettings-EditionApp',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaSettings-EditionApp" */
       './containers/EditionApp/EditionApp.js'
     ),
+  importSync: !isWebpack
+    ? await import('./containers/EditionApp/EditionApp.js')
+    : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/EditionApp/EditionApp.js');
@@ -27,13 +31,16 @@ const EditionApp = loadableComponent({
   },
 });
 
-const GettingStarted = loadableComponent({
+const GettingStarted = loadableEsm({
   chunkName: 'agendaSettings-GettingStarted',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaSettings-GettingStarted" */
       './components/GettingStarted.js'
     ),
+  importSync: !isWebpack
+    ? await import('./components/GettingStarted.js')
+    : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./components/GettingStarted.js');
@@ -45,13 +52,16 @@ const GettingStarted = loadableComponent({
   },
 });
 
-const ProfileEdition = loadableComponent({
+const ProfileEdition = loadableEsm({
   chunkName: 'agendaSettings-ProfileEdition',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaSettings-ProfileEdition" */
       './containers/ProfileEdition/ProfileEdition.js'
     ),
+  importSync: !isWebpack
+    ? await import('./containers/ProfileEdition/ProfileEdition.js')
+    : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve(
@@ -65,13 +75,16 @@ const ProfileEdition = loadableComponent({
   },
 });
 
-const ContributionEdition = loadableComponent({
+const ContributionEdition = loadableEsm({
   chunkName: 'agendaSettings-ContributionEdition',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaSettings-ContributionEdition" */
       './containers/ContributionEdition/ContributionEdition.js'
     ),
+  importSync: !isWebpack
+    ? await import('./containers/ContributionEdition/ContributionEdition.js')
+    : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve(
@@ -85,13 +98,16 @@ const ContributionEdition = loadableComponent({
   },
 });
 
-const AdvancedEdition = loadableComponent({
+const AdvancedEdition = loadableEsm({
   chunkName: 'agendaSettings-AdvancedEdition',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaSettings-AdvancedEdition" */
       './containers/AdvancedEdition/AdvancedEdition.js'
     ),
+  importSync: !isWebpack
+    ? await import('./containers/AdvancedEdition/AdvancedEdition.js')
+    : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve(

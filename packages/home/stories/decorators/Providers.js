@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { IntlProvider } from 'react-intl';
 import { useConstant } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import { locales as memberAppsLocals } from '@openagenda/member-apps/src';
+import { locales as memberAppsLocales } from '@openagenda/member-apps';
 
 const lang = 'fr';
 
@@ -23,7 +23,8 @@ export default (Story) => {
     <IntlProvider
       key={lang}
       locale={lang}
-      messages={memberAppsLocals[lang]}
+      // eslint-disable-next-line import/namespace
+      messages={memberAppsLocales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >
       <QueryClientProvider client={queryClient}>

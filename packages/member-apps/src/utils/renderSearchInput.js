@@ -1,6 +1,6 @@
 import { Spinner } from '@openagenda/react-shared';
 
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 
 const searchSpinner = {
   width: 1,

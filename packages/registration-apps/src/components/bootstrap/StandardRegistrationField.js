@@ -1,6 +1,6 @@
 import TagsInput from 'react-tagsinput';
 
-import getItemAttributes from '../../utils/getRegistrationItemAttributes';
+import getItemAttributes from '../../utils/getRegistrationItemAttributes.js';
 
 function RegistrationItem({ key, tag, onRemove, className }) {
   const tagValue = tag instanceof Object ? tag.value : tag;

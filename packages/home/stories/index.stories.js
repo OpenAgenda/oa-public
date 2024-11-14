@@ -1,13 +1,13 @@
 import { createMemoryHistory } from 'history';
 import { http, HttpResponse } from 'msw';
 import { wrapApp } from '@openagenda/react-shared';
-import createApp from '../src/app';
+import createApp from '../src/app.js';
 import agendasJson from './fixtures/agendas.json';
 import eventsJson from './fixtures/events.json';
 import meJson from './fixtures/me.json';
 
 import '@openagenda/bs-templates/compiled/main.css';
-import ProvidersDecorator from './decorators/Providers';
+import ProvidersDecorator from './decorators/Providers.js';
 
 const editedAgendasResponse = {
   ...agendasJson,

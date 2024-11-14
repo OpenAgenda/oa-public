@@ -4,8 +4,8 @@ import { connect, ReactReduxContext } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { injectIntl, defineMessages } from 'react-intl';
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce.js';
+import throttle from 'lodash/throttle.js';
 import qs from 'qs';
 import {
   withContext,
@@ -14,18 +14,18 @@ import {
   Dropdown,
   Spinner,
 } from '@openagenda/react-shared';
-import HistoryModal from '@openagenda/activity-apps/dist/client/apps/modal';
+import HistoryModal from '@openagenda/activity-apps/dist/client/apps/modal/index.js';
 
-import RequestFeatureLink from '../../components/RequestFeatureLink';
-import MemberItem from '../../components/MemberItem';
-import MemberForm from '../../components/Form';
-import InviteMembersForm from '../../components/InviteMembersForm';
-import SendMessageForm from '../../components/SendMessageForm';
-import * as membersActions from '../../reducers/members';
-import * as modalsActions from '../../reducers/modals';
-import renderSearchInput from '../../utils/renderSearchInput';
-import monitorBottomHit from '../../utils/monitorBottomHit';
-import I18nContext from '../../contexts/I18nContext';
+import RequestFeatureLink from '../../components/RequestFeatureLink.js';
+import MemberItem from '../../components/MemberItem.js';
+import MemberForm from '../../components/Form/index.js';
+import InviteMembersForm from '../../components/InviteMembersForm/index.js';
+import SendMessageForm from '../../components/SendMessageForm/index.js';
+import * as membersActions from '../../reducers/members.js';
+import * as modalsActions from '../../reducers/modals.js';
+import renderSearchInput from '../../utils/renderSearchInput.js';
+import monitorBottomHit from '../../utils/monitorBottomHit.js';
+import I18nContext from '../../contexts/I18nContext.js';
 
 const messages = defineMessages({
   messageHistory: {

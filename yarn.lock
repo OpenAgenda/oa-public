@@ -4575,13 +4575,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@httptoolkit/esm@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "@httptoolkit/esm@npm:3.3.0"
-  checksum: 10c0/e044c9d9e6b59760fad71f60ef630cfc823ac101ba5c5cf4d8d11ea6dded3deee41cb476c0dd8745d3e0f44b328037fcb421ac4e1a712f5801fccfe856985b09
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -5721,7 +5714,6 @@ __metadata:
     react-router-dom: "npm:^5.1.2"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.0"
-    redux-logger: "npm:^3.0.6"
     regenerator-runtime: "npm:^0.13.7"
     storybook: "npm:^7.6.4"
     tsup: "npm:^8.3.5"
@@ -6848,12 +6840,7 @@ __metadata:
   resolution: "@openagenda/home@workspace:packages/home"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
-    "@babel/core": "npm:^7.23.3"
-    "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@emotion/babel-plugin": "npm:^11.11.0"
-    "@loadable/babel-plugin": "npm:^5.13.2"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
@@ -6863,7 +6850,6 @@ __metadata:
     "@openagenda/react-shared": "npm:^2.4.1"
     "@storybook/react-webpack5": "npm:^7.4.2"
     classnames: "npm:^2.3.1"
-    core-js: "npm:^3.29.1"
     final-form: "npm:^4.20.2"
     history: "npm:^4.10.1"
     lodash: "npm:^4.17.15"
@@ -6885,7 +6871,6 @@ __metadata:
     react-waypoint: "npm:^9.0.2"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
-    regenerator-runtime: "npm:^0.13.7"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^7.6.4"
   peerDependencies:
@@ -7256,12 +7241,8 @@ __metadata:
   resolution: "@openagenda/member-apps@workspace:packages/member-apps"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
-    "@babel/core": "npm:^7.23.3"
-    "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@emotion/babel-plugin": "npm:^11.11.0"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/activity-apps": "npm:^1.2.1"
-    "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/form-schemas": "npm:^1.9.2"
@@ -7275,7 +7256,6 @@ __metadata:
     "@storybook/react-webpack5": "npm:^7.4.2"
     axios: "npm:^0.21.1"
     classnames: "npm:^2.3.1"
-    core-js: "npm:^3.29.1"
     errorhandler: "npm:^1.5.0"
     express: "npm:^4.17.1"
     final-form: "npm:^4.20.2"
@@ -7298,7 +7278,6 @@ __metadata:
     react-router-dom: "npm:^5.1.2"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
-    regenerator-runtime: "npm:^0.13.7"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^7.6.4"
     tlds: "npm:^1.236.0"
@@ -7395,7 +7374,6 @@ __metadata:
     react-router-config: "npm:^5.1.1"
     react-router-dom: "npm:^5.1.2"
     redux: "npm:^4.0.0"
-    redux-logger: "npm:^3.0.6"
     redux-thunk: "npm:^2.3.0"
     regenerator-runtime: "npm:^0.13.7"
     sass-loader: "npm:^10.1.1"
@@ -7891,7 +7869,6 @@ __metadata:
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@floating-ui/react": "npm:^0.26.13"
-    "@httptoolkit/esm": "npm:^3.3.0"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
@@ -8003,22 +7980,16 @@ __metadata:
   resolution: "@openagenda/registration-apps@workspace:packages/registration-apps"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
-    "@babel/core": "npm:^7.23.3"
-    "@emotion/babel-plugin": "npm:^11.11.0"
-    "@loadable/babel-plugin": "npm:^5.13.2"
-    "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/react-shared": "npm:^2.4.1"
     "@openagenda/registrations": "npm:^0.0.2"
     "@storybook/react-webpack5": "npm:^7.4.2"
     autosize: "npm:^6.0.1"
-    babel-jest: "npm:^29.7.0"
     classnames: "npm:^2.5.1"
     fastest-levenshtein: "npm:^1.0.16"
     immer: "npm:^10.0.3"
     jest: "npm:^29.7.0"
-    lodash: "npm:^4.17.21"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.2"
     react: "npm:^18.3.1"
@@ -20765,13 +20736,6 @@ __metadata:
     babel-plugin-macros:
       optional: true
   checksum: 10c0/f8612cd5b00aab58b18bb95572dca08dc2d49720bfa7201a444c3dae430291e8a06d4928614a6ec8764d713927f44bce9c990d3b8238fca2f430990ddc17c070
-  languageName: node
-  linkType: hard
-
-"deep-diff@npm:^0.3.5":
-  version: 0.3.8
-  resolution: "deep-diff@npm:0.3.8"
-  checksum: 10c0/dbb10937ccff21b1ad1ee5e64ad926643a7000cb9837bc2165bacfddf569788c78b8bfd74401c32121af3fb1cb1092b7447319d9f01900676473a1b840c08ade
   languageName: node
   linkType: hard
 
@@ -38771,15 +38735,6 @@ __metadata:
     react-redux: ^6.0.0 || ^7.0.0
     redux: ^3.0.0 || ^4.0.0
   checksum: 10c0/1b83b00c8f0a7b2756a24d2323c32de000b952647ae7c517aa4f91d565cd9ec83081165378d38ed8be911eb9fb99012fc94bce187502cb8a757d35e14c8bea5f
-  languageName: node
-  linkType: hard
-
-"redux-logger@npm:^3.0.6":
-  version: 3.0.6
-  resolution: "redux-logger@npm:3.0.6"
-  dependencies:
-    deep-diff: "npm:^0.3.5"
-  checksum: 10c0/65eb71a1c72d9636368672a684bde62c746e64c19c8b92e3f00bdf5cf240ea1695eccb95a0fa3d5044f6a86cbf11fd35dc5150fd3351fa53c72721c336e9098f
   languageName: node
   linkType: hard
 
