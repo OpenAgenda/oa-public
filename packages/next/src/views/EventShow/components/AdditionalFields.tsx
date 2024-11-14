@@ -1,5 +1,7 @@
 import { useIntl } from 'react-intl';
-import { chakra, Link, NoBreak } from '@openagenda/uikit';
+import { chakra, Link, NoBreak, useTheme } from '@openagenda/uikit';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareCheck , faSquare } from '@fortawesome/pro-solid-svg-icons';
 import { keyCDNLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import LockIcon from 'components/LockIcon';
@@ -11,9 +13,20 @@ const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
 function Label({ field }) {
   const intl = useIntl();
+  const theme = useTheme();
+  const grayColor = theme.colors.oaGray[500];
 
   return (
     <div>
+      {typeof field.value === 'boolean' && (
+        <chakra.span mr="2">
+          {field.value ? (
+            <FontAwesomeIcon icon={faSquareCheck} />
+          ) : (
+            <FontAwesomeIcon icon={faSquare} color={grayColor} />
+          )}
+        </chakra.span>
+      )}
       <chakra.span fontWeight="bold">{field.label}</chakra.span>
       {field.isRestricted ? (
         <NoBreak>
@@ -121,6 +134,10 @@ function HtmlField({ field }) {
 function BooleanField({ field }) {
   const intl = useIntl();
   const { value } = field;
+
+  if (value === true || value === false) {
+    return null;
+  }
 
   return (
     value || (

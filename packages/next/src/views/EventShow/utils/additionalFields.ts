@@ -49,6 +49,7 @@ function formatValue(
   }
 
   if (field.fieldType === 'markdown' && value) {
+    console.log(value);
     return fromMarkdownToHTML(value);
   }
 
@@ -73,30 +74,21 @@ export function formatAdditionalFieldData({
   defaultLocale,
   dateFnsLocale,
 }) {
-  const additionalFields = schema.fields.filter((f) => {
-    if (
-      f.schemaType === 'event' ||
-      f.fieldType === 'abstract' ||
-      f.type === 'section'
-    ) {
-      return false;
-    }
-
-    if (f.fieldType === 'boolean' && event[f.field] === false) {
-      return false;
-    }
-
-    return true;
-  });
+  const additionalFields = schema.fields.filter(
+    (f) =>
+      !(
+        f.schemaType === 'event' ||
+        f.fieldType === 'abstract' ||
+        f.type === 'section'
+      ),
+  );
 
   const timezone = event.timezone ?? event.location?.timezone ?? 'Europe/Paris';
 
   return additionalFields.map((field) => {
-    const value = event[field.field] !== undefined ? event[field.field] : [];
-
     const formattedValue = field.options
       ? []
-          .concat(value)
+          .concat(event[field.field] !== undefined ? event[field.field] : [])
           .filter(
             (v) => !field.options || field.options.some((o) => o.id === v),
           )
@@ -108,7 +100,7 @@ export function formatAdditionalFieldData({
               dateFnsLocale,
             }),
           )
-      : formatValue(field, value, {
+      : formatValue(field, event[field.field], {
           locale,
           defaultLocale,
           timezone,
@@ -120,7 +112,10 @@ export function formatAdditionalFieldData({
       FALLBACK_LOCALE,
     ]);
 
-    const hasValue = (field.options && formattedValue.length) || formattedValue;
+    const hasValue =
+      field.fieldType === 'boolean'
+        ? formattedValue !== null
+        : (field.options && formattedValue.length) || formattedValue;
 
     return {
       key: field.field,
@@ -130,7 +125,7 @@ export function formatAdditionalFieldData({
       isOptioned: !!field.options,
       value: hasValue ? formattedValue : null,
       isRestricted: !!field.read,
-      raw: value,
+      raw: event[field.field],
     };
   });
 }
