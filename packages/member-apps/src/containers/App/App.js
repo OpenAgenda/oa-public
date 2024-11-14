@@ -6,11 +6,11 @@ import redial from 'redial';
 import makeGetterLabel from '@openagenda/labels';
 import { withLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import labels from '@openagenda/labels/members';
-import I18nContext from '../../contexts/I18nContext';
-import membersReducer from '../../reducers/members';
-import modalsReducer from '../../reducers/modals';
-import locales from '../../locales-compiled';
+import labels from '@openagenda/labels/members/index.js';
+import I18nContext from '../../contexts/I18nContext.js';
+import membersReducer from '../../reducers/members.js';
+import modalsReducer from '../../reducers/modals.js';
+import * as locales from '../../locales-compiled/index.js';
 
 class App extends Component {
   i18nContextValue = {
@@ -26,6 +26,7 @@ class App extends Component {
       <IntlProvider
         key={lang}
         locale={lang}
+        // eslint-disable-next-line import/namespace
         messages={locales[lang]}
         defaultLocale={getSupportedLocale(lang)}
       >

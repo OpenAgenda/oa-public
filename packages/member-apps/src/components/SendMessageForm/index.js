@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import FormSchemaComponent from '@openagenda/form-schemas/client/build';
+import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.js';
 
-import I18nContext from '../../contexts/I18nContext';
-import actionComponents from '../../utils/actionComponents';
-import schema from './schema';
+import I18nContext from '../../contexts/I18nContext.js';
+import actionComponents from '../../utils/actionComponents.js';
+import schema from './schema.js';
 
 export default class SendMessageForm extends Component {
   static contextType = I18nContext;

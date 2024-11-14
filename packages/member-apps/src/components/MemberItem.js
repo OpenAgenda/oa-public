@@ -1,11 +1,11 @@
 import qs from 'qs';
 import { useLocation, Link } from 'react-router-dom';
 import classNames from 'classnames';
-import upperFirst from 'lodash/upperFirst';
+import upperFirst from 'lodash/upperFirst.js';
 import { Base64 } from 'js-base64';
 import { MoreInfo, Dropdown } from '@openagenda/react-shared';
-import getRoleSlug from '@openagenda/members/build/getRoleSlug';
-import { isSuperiorToOrEqual } from '@openagenda/members/build/compareRoles';
+import getRoleSlug from '@openagenda/members/build/getRoleSlug.js';
+import { isSuperiorToOrEqual } from '@openagenda/members/build/compareRoles.js';
 
 const roleLabel = (i18n, role) => {
   const { getLabel } = i18n;
