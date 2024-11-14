@@ -206,96 +206,84 @@ export const EmptyEventsField = () => {
   );
 };
 
-export const TrueBooleanField = () => {
+export const BooleanField = () => {
   const dateFnsLocale = useDateFnsLocale();
 
   return (
-    <AdditionalFields
-      updatedAt={new Date()}
-      agenda={agendaFixtures}
-      additionalFields={formatAdditionalFieldData({
-        schema: {
-          fields: [
-            {
-              field: 'trueBooleanField',
-              label: {
-                fr: 'Champs booleen à true',
-                en: 'True boolean field',
+    <>
+      <AdditionalFields
+        updatedAt={new Date()}
+        agenda={agendaFixtures}
+        additionalFields={formatAdditionalFieldData({
+          schema: {
+            fields: [
+              {
+                field: 'booleanField',
+                label: {
+                  fr: 'Champs booleen à true',
+                  en: 'True boolean field',
+                },
+                fieldType: 'boolean',
               },
-              fieldType: 'boolean',
-            },
-          ],
-        },
-        event: {
-          trueBooleanField: true,
-        },
-        locale: 'fr',
-        defaultLocale: 'fr',
-        dateFnsLocale,
-      })}
-    />
-  );
-};
-
-export const FalseBooleanField = () => {
-  const dateFnsLocale = useDateFnsLocale();
-
-  return (
-    <AdditionalFields
-      updatedAt={new Date()}
-      agenda={agendaFixtures}
-      additionalFields={formatAdditionalFieldData({
-        schema: {
-          fields: [
-            {
-              field: 'falseBooleanField',
-              label: {
-                fr: 'Champs booleen à false',
-                en: 'False boolean field',
+            ],
+          },
+          event: {
+            booleanField: true,
+          },
+          locale: 'fr',
+          defaultLocale: 'fr',
+          dateFnsLocale,
+        })}
+      />
+      <AdditionalFields
+        updatedAt={new Date()}
+        agenda={agendaFixtures}
+        additionalFields={formatAdditionalFieldData({
+          schema: {
+            fields: [
+              {
+                field: 'booleanField',
+                label: {
+                  fr: 'Champs booleen à false',
+                  en: 'False boolean field',
+                },
+                fieldType: 'boolean',
               },
-              fieldType: 'boolean',
-            },
-          ],
-        },
-        event: {
-          falseBooleanField: false,
-        },
-        locale: 'fr',
-        defaultLocale: 'fr',
-        dateFnsLocale,
-      })}
-    />
-  );
-};
-
-export const UndefinedBooleanField = () => {
-  const dateFnsLocale = useDateFnsLocale();
-
-  return (
-    <AdditionalFields
-      updatedAt={new Date()}
-      agenda={agendaFixtures}
-      additionalFields={formatAdditionalFieldData({
-        schema: {
-          fields: [
-            {
-              field: 'undefinedBooleanField',
-              label: {
-                fr: 'Champs booleen à undefined',
-                en: 'Undefined boolean field',
+            ],
+          },
+          event: {
+            booleanField: false,
+          },
+          locale: 'fr',
+          defaultLocale: 'fr',
+          dateFnsLocale,
+        })}
+      />
+      <AdditionalFields
+        updatedAt={new Date()}
+        agenda={agendaFixtures}
+        additionalFields={formatAdditionalFieldData({
+          schema: {
+            fields: [
+              {
+                field: 'booleanField',
+                label: {
+                  fr: 'Champs booleen non défini',
+                  en: 'Undefined boolean field',
+                },
+                fieldType: 'boolean',
               },
-              fieldType: 'boolean',
-            },
-          ],
-        },
-        event: {
-          undefinedBooleanField: undefined,
-        },
-        locale: 'fr',
-        defaultLocale: 'fr',
-        dateFnsLocale,
-      })}
-    />
+            ],
+          },
+          event: {
+            booleanField: undefined,
+          },
+          locale: 'fr',
+          defaultLocale: 'fr',
+          dateFnsLocale,
+        })}
+      />
+    </>
   );
 };
 

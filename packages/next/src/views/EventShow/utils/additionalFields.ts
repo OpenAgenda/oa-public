@@ -74,21 +74,14 @@ export function formatAdditionalFieldData({
   defaultLocale,
   dateFnsLocale,
 }) {
-  const additionalFields = schema.fields.filter((f) => {
-    if (
-      f.schemaType === 'event' ||
-      f.fieldType === 'abstract' ||
-      f.type === 'section'
-    ) {
-      return false;
-    }
-
-    if (f.fieldType === 'boolean' && event[f.field] === false) {
-      return false;
-    }
-
-    return true;
-  });
+  const additionalFields = schema.fields.filter(
+    (f) =>
+      !(
+        f.schemaType === 'event' ||
+        f.fieldType === 'abstract' ||
+        f.type === 'section'
+      ),
+  );
 
   const timezone = event.timezone ?? event.location?.timezone ?? 'Europe/Paris';
 
@@ -119,7 +112,10 @@ export function formatAdditionalFieldData({
       FALLBACK_LOCALE,
     ]);
 
-    const hasValue = (field.options && formattedValue.length) || formattedValue;
+    const hasValue =
+      field.fieldType === 'boolean'
+        ? formattedValue !== null
+        : (field.options && formattedValue.length) || formattedValue;
 
     return {
       key: field.field,
