@@ -3424,13 +3424,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@httptoolkit/esm@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "@httptoolkit/esm@npm:3.3.0"
-  checksum: 10c0/e044c9d9e6b59760fad71f60ef630cfc823ac101ba5c5cf4d8d11ea6dded3deee41cb476c0dd8745d3e0f44b328037fcb421ac4e1a712f5801fccfe856985b09
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -4716,7 +4709,6 @@ __metadata:
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@floating-ui/react": "npm:^0.26.13"
-    "@httptoolkit/esm": "npm:^3.3.0"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
