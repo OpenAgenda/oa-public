@@ -1,13 +1,15 @@
 import _ from 'lodash';
 import { expect } from 'chai';
-import { mount } from 'enzyme';
-import configureStore from 'redux-mock-store';
+import enzyme from 'enzyme';
+import reduxMockStoreModule from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import makeGetterLabel from '@openagenda/labels';
-import labels from '@openagenda/labels/inboxes';
-import { ConversationTitle } from '../src/components';
-import I18nContext from '../src/contexts/I18nContext';
-import fixturesData from './01_ConversationTitle.data';
+import labels from '@openagenda/labels/inboxes/index.js';
+import { ConversationTitle } from '../src/components/index.js';
+import I18nContext from '../src/contexts/I18nContext.js';
+import fixturesData from './01_ConversationTitle.data.js';
+
+const configureStore = reduxMockStoreModule.default || reduxMockStoreModule;
 
 const mockStore = configureStore();
 let store;
@@ -31,7 +33,7 @@ function wrapWithApp(element) {
 function makeTest(state, props) {
   store = mockStore(_.merge(state, { user: props.user }));
 
-  const wrapper = mount(
+  const wrapper = enzyme.mount(
     wrapWithApp(
       <p>
         <ConversationTitle {...props} />

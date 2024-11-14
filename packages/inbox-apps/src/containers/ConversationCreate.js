@@ -2,18 +2,22 @@ import { Component } from 'react';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import qs from 'qs';
-import _ from 'lodash';
+import merge from 'lodash/merge.js';
 import { withContext, withLayoutData, Spinner } from '@openagenda/react-shared';
 import { fromMarkdownToHTML } from '@openagenda/md';
-import I18nContext from '../contexts/I18nContext';
-import { ConversationForm, AuthorAvatar, Breadcrumb } from '../components';
-import * as conversationFormActions from '../reducers/conversationForm';
-import * as inboxActions from '../reducers/inbox';
-import * as conversationActions from '../reducers/conversation';
-import * as modalActions from '../reducers/modals';
-import removeTrailingSlash from '../utils/removeTrailingSlash';
-import showBackLink from '../utils/showBackLink';
-import setFlashMessage from '../utils/setFlashMessage';
+import I18nContext from '../contexts/I18nContext.js';
+import {
+  ConversationForm,
+  AuthorAvatar,
+  Breadcrumb,
+} from '../components/index.js';
+import * as conversationFormActions from '../reducers/conversationForm.js';
+import * as inboxActions from '../reducers/inbox.js';
+import * as conversationActions from '../reducers/conversation.js';
+import * as modalActions from '../reducers/modals.js';
+import removeTrailingSlash from '../utils/removeTrailingSlash.js';
+import showBackLink from '../utils/showBackLink.js';
+import setFlashMessage from '../utils/setFlashMessage.js';
 
 const getAuthorName = (obj) => obj.inboxUser?.name ?? obj.inbox.name;
 
@@ -215,7 +219,7 @@ export default withLayoutData('agenda')(
 
       return {
         initialValues: query.origin
-          ? _.merge(state.settings.defaultQuery, {
+          ? merge(state.settings.defaultQuery, {
             params: { origin: query.origin },
           })
           : state.settings.defaultQuery,

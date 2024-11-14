@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import removeTrailingSlash from '../utils/removeTrailingSlash';
+import removeTrailingSlash from '../utils/removeTrailingSlash.js';
 
 const LinkContainer = (props) => {
   const prefix = useSelector((state) => state.settings.prefix);

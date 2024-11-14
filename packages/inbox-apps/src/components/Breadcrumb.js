@@ -2,8 +2,8 @@ import { useContext, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useUIDSeed } from 'react-uid';
 import cn from 'classnames';
-import I18nContext from '../contexts/I18nContext';
-import LinkContainer from './LinkContainer';
+import I18nContext from '../contexts/I18nContext.js';
+import LinkContainer from './LinkContainer.js';
 
 function Breadcrumb({ breadParts, disableFirstPartLink, agenda, hideTitle }) {
   const history = useHistory();

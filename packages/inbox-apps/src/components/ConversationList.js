@@ -1,4 +1,4 @@
-import ConversationItem from './ConversationItem';
+import ConversationItem from './ConversationItem.js';
 
 export default function ConversationList({ conversations, user, agenda }) {
   return conversations.map((conversation) => (

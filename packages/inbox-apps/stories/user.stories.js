@@ -1,9 +1,9 @@
 import { http, HttpResponse } from 'msw';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
-import createApp from '../src/app';
+import createApp from '../src/app.js';
 
-import StandardDecorator from './decorators/Standard';
+import StandardDecorator from './decorators/Standard.js';
 
 import conversationFixtures from './fixtures/conversations.json';
 import conversationAuthorFixtures from './fixtures/author.json';

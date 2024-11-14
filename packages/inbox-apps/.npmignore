@@ -11,4 +11,3 @@ coverage/
 src/
 .babelrc
 test/
-testconfig.js

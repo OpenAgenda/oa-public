@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
-import validate from '../utils/validateMessage';
-import { renderTextarea } from '../utils/form';
-import I18nContext from '../contexts/I18nContext';
-import Attachments from './LoadableAttachments';
+import validate from '../utils/validateMessage.js';
+import { renderTextarea } from '../utils/form.js';
+import I18nContext from '../contexts/I18nContext.js';
+import Attachments from './LoadableAttachments.js';
 
 export default class MessageForm extends Component {
   static defaultProps = {

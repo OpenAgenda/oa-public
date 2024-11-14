@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import pick from 'lodash/pick.js';
 
 const LOAD = 'inbox-apps/inbox/LOAD';
 const LOAD_SUCCESS = 'inbox-apps/inbox/LOAD_SUCCESS';
@@ -91,7 +91,7 @@ export function load(query, agenda) {
             .replace(':eventUid', event && event.uid),
           {
             params: {
-              ..._.pick(defaultQuery, 'type', 'typeIdentifier'),
+              ...pick(defaultQuery, 'type', 'typeIdentifier'),
               ...query,
             },
           },
@@ -120,7 +120,7 @@ export function nextPage(agenda) {
             .replace(':eventUid', event && event.uid),
           {
             params: {
-              ..._.pick(defaultQuery, 'type', 'typeIdentifier'),
+              ...pick(defaultQuery, 'type', 'typeIdentifier'),
               ...inbox.query,
               total: undefined,
               page: inbox.page + 1,

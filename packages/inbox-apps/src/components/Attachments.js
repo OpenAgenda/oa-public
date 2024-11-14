@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from 'react';
 import Uppy from '@uppy/core';
-import Dashboard from '@uppy/react/lib/Dashboard';
-import StatusBar from '@uppy/react/lib/StatusBar';
+import Dashboard from '@uppy/react/lib/Dashboard.js';
+import StatusBar from '@uppy/react/lib/StatusBar.js';
 import AwsS3 from '@uppy/aws-s3';
 import { Modal } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
-import getUppyLocale from '../locales/uppyLocales';
+import I18nContext from '../contexts/I18nContext.js';
+import getUppyLocale from '../locales/uppyLocales.js';
 
 export default function Attachments({ setUppy, uploadEndpoint }) {
   const { getLabel, lang } = useContext(I18nContext);

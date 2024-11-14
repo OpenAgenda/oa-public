@@ -1,5 +1,7 @@
 import { Component } from 'react';
-import _ from 'lodash';
+import throttle from 'lodash/throttle.js';
+import partition from 'lodash/partition.js';
+import merge from 'lodash/merge.js';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
@@ -10,20 +12,20 @@ import {
   withLayoutData,
   Spinner,
 } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 import {
   Breadcrumb,
   ConversationList,
   LinkContainer,
   AuthorAvatar,
   ConversationForm,
-} from '../components';
-import * as inboxActions from '../reducers/inbox';
-import * as conversationActions from '../reducers/conversation';
-import * as conversationFormActions from '../reducers/conversationForm';
-import * as modalActions from '../reducers/modals';
-import removeTrailingSlash from '../utils/removeTrailingSlash';
-import setFlashMessage from '../utils/setFlashMessage';
+} from '../components/index.js';
+import * as inboxActions from '../reducers/inbox.js';
+import * as conversationActions from '../reducers/conversation.js';
+import * as conversationFormActions from '../reducers/conversationForm.js';
+import * as modalActions from '../reducers/modals.js';
+import removeTrailingSlash from '../utils/removeTrailingSlash.js';
+import setFlashMessage from '../utils/setFlashMessage.js';
 
 function asyncLoad({
   store: { getState, dispatch },
@@ -79,7 +81,7 @@ class Inbox extends Component {
 
   constructor(props) {
     super(props);
-    this.throttledNextPage = _.throttle(this.nextPage, 400, {
+    this.throttledNextPage = throttle(this.nextPage, 400, {
       trailing: false,
     });
   }
@@ -210,7 +212,7 @@ class Inbox extends Component {
       hideEmptyList,
     } = settings;
 
-    const [unclosedConvs, closedConvs] = _.partition(
+    const [unclosedConvs, closedConvs] = partition(
       conversations,
       (o) => !o.closedAt,
     );
@@ -389,7 +391,7 @@ export default withLayoutData(
 
       return {
         initialValues: query.origin
-          ? _.merge(state.settings.defaultQuery, {
+          ? merge(state.settings.defaultQuery, {
             params: { origin: query.origin },
           })
           : state.settings.defaultQuery,

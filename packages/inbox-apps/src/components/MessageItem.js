@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { fromMarkdownToHTML } from '@openagenda/md';
 import qs from 'qs';
-import I18nContext from '../contexts/I18nContext';
-import AuthorAvatar from './AuthorAvatar';
-import DisplaySenderContext from './DisplaySenderContext';
+import I18nContext from '../contexts/I18nContext.js';
+import AuthorAvatar from './AuthorAvatar.js';
+import DisplaySenderContext from './DisplaySenderContext.js';
 
 const getMessageSenderName = (message) =>
   message.inboxUser?.name ?? message.inbox.name;

@@ -1,10 +1,10 @@
-import _ from 'lodash';
+import merge from 'lodash/merge.js';
 import { createApp } from '@openagenda/react-shared';
-import getRoutes from './getRoutes';
-import inboxReducer from './reducers/inbox';
-import conversationReducer from './reducers/conversation';
-import conversationFormReducer from './reducers/conversationForm';
-import modalsReducer from './reducers/modals';
+import getRoutes from './getRoutes.js';
+import inboxReducer from './reducers/inbox.js';
+import conversationReducer from './reducers/conversation.js';
+import conversationFormReducer from './reducers/conversationForm.js';
+import modalsReducer from './reducers/modals.js';
 
 const defaults = {
   initialState: {
@@ -26,7 +26,7 @@ function getReducers(injectedReducers) {
 }
 
 export default function createInboxApp(options) {
-  const { initialState } = _.merge({}, defaults, options);
+  const { initialState } = merge({}, defaults, options);
 
   const { apiRoot, prefix } = initialState.settings;
 

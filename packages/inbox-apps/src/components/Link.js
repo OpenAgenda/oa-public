@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
-import _ from 'lodash';
-import removeTrailingSlash from '../utils/removeTrailingSlash';
+import omit from 'lodash/omit.js';
+import removeTrailingSlash from '../utils/removeTrailingSlash.js';
 
 const Link = (props) => {
   const { external: isExternal, agenda, to } = props;
@@ -13,7 +13,7 @@ const Link = (props) => {
   const hrefOrTo = `${isExternal ? '' : removeTrailingSlash(prefix.replace(':slug', agenda?.slug))}${to}`;
 
   // Filter props to remove Redux-specific and unused props
-  const filteredProps = _.omit(props, [
+  const filteredProps = omit(props, [
     'prefix',
     'external',
     'agenda',

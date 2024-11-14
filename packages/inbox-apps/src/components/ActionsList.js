@@ -1,6 +1,6 @@
 import { Component, Fragment } from 'react';
 import cn from 'classnames';
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 
 class ActionsList extends Component {
   static contextType = I18nContext;

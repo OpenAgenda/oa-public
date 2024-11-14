@@ -4,18 +4,18 @@ import { useStore, useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import cn from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
-import labels from '@openagenda/labels/inboxes';
+import labels from '@openagenda/labels/inboxes/index.js';
 import {
   useApiClient,
   useLayoutData,
   Modal,
   Spinner,
 } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
-import inboxReducer from '../reducers/inbox';
-import conversationReducer from '../reducers/conversation';
-import conversationFormReducer from '../reducers/conversationForm';
-import modalsReducer, * as modalsActions from '../reducers/modals';
+import I18nContext from '../contexts/I18nContext.js';
+import inboxReducer from '../reducers/inbox.js';
+import conversationReducer from '../reducers/conversation.js';
+import conversationFormReducer from '../reducers/conversationForm.js';
+import modalsReducer, * as modalsActions from '../reducers/modals.js';
 
 const overlayStyle = { overlay: 'popup-overlay big' };
 

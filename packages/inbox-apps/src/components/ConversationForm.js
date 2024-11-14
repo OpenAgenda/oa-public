@@ -1,11 +1,11 @@
 import { Component, createElement } from 'react';
-import _ from 'lodash';
+import isMatch from 'lodash/isMatch.js';
 import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
-import { renderTextarea } from '../utils/form';
-import I18nContext from '../contexts/I18nContext';
-import validate from '../utils/validateConversation';
-import Attachments from './LoadableAttachments';
+import { renderTextarea } from '../utils/form.js';
+import I18nContext from '../contexts/I18nContext.js';
+import validate from '../utils/validateConversation.js';
+import Attachments from './LoadableAttachments.js';
 
 function parseJsonValue(value) {
   try {
@@ -140,7 +140,7 @@ export default class ConversationForm extends Component {
                   }
                 }}
                 placeholder={
-                  _.isMatch(this.initialValues, {
+                  isMatch(this.initialValues, {
                     destinationInbox: { identifier: 1, type: 'support' },
                     type: 'support',
                   })

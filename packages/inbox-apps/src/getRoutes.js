@@ -1,23 +1,106 @@
-import { loadable } from '@openagenda/react-shared';
+import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
-const App = loadable(
-  () => import(/* webpackChunkName: "inbox-App" */ './containers/App'),
-);
-const Inbox = loadable(
-  () => import(/* webpackChunkName: "inbox-Inbox" */ './containers/Inbox'),
-);
-const Conversation = loadable(
-  () =>
+// eslint-disable-next-line camelcase
+const contextRequire = typeof __webpack_require__ !== 'undefined'
+  ? import.meta.webpackContext
+      && import.meta.webpackContext('.', {
+        recursive: true,
+        regExp: /\.js$/,
+        mode: 'weak',
+      })
+  : null;
+
+const App = loadableEsm({
+  chunkName: 'inbox-App',
+  importAsync: () =>
     import(
-      /* webpackChunkName: "inbox-Conversation" */ './containers/Conversation'
+      /* webpackChunkName: "inbox-App" */
+      './containers/App.js'
     ),
-);
-const ConversationCreate = loadable(
-  () =>
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/App.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/App.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/App.js');
+    }
+  },
+});
+
+const Inbox = loadableEsm({
+  chunkName: 'inbox-Inbox',
+  importAsync: () =>
     import(
-      /* webpackChunkName: "inbox-ConversationCreate" */ './containers/ConversationCreate'
+      /* webpackChunkName: "inbox-Inbox" */
+      './containers/Inbox.js'
     ),
-);
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/Inbox.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/Inbox.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/Inbox.js');
+    }
+  },
+});
+
+const Conversation = loadableEsm({
+  chunkName: 'inbox-Conversation',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "inbox-Conversation" */
+      './containers/Conversation.js'
+    ),
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/Conversation.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/Conversation.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/Conversation.js');
+    }
+  },
+});
+
+const ConversationCreate = loadableEsm({
+  chunkName: 'inbox-ConversationCreate',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "inbox-ConversationCreate" */
+      './containers/ConversationCreate.js'
+    ),
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/ConversationCreate.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/ConversationCreate.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/ConversationCreate.js');
+    }
+  },
+});
 
 export default (prefix = '') => [
   {

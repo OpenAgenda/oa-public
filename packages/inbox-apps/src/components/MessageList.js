@@ -1,4 +1,4 @@
-import MessageItem from './MessageItem';
+import MessageItem from './MessageItem.js';
 
 export default function MessageList({ messages, res, domain }) {
   return messages.map((message) => (

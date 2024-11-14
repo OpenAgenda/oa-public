@@ -1,10 +1,11 @@
 import { Component } from 'react';
-import _ from 'lodash';
+import find from 'lodash/find.js';
+import throttle from 'lodash/throttle.js';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
 import { withContext, withLayoutData, Spinner } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 import {
   MessageList,
   MessageForm,
@@ -13,12 +14,12 @@ import {
   Link,
   ConversationTitle,
   Breadcrumb,
-} from '../components';
-import * as conversationActions from '../reducers/conversation';
-import * as inboxActions from '../reducers/inbox';
-import * as modalActions from '../reducers/modals';
-import showBackLink from '../utils/showBackLink';
-import { enable as enableUserContext } from '../utils/userContext';
+} from '../components/index.js';
+import * as conversationActions from '../reducers/conversation.js';
+import * as inboxActions from '../reducers/inbox.js';
+import * as modalActions from '../reducers/modals.js';
+import showBackLink from '../utils/showBackLink.js';
+import { enable as enableUserContext } from '../utils/userContext.js';
 
 const getAuthorName = (obj) => obj.inboxUser?.name ?? obj.inbox.name;
 
@@ -68,7 +69,7 @@ class ConversationContainer extends Component {
     }).catch(() => null);
   }
 
-  throttledNextPage = () => _.throttle(this.nextPage, 400, { trailing: false });
+  throttledNextPage = () => throttle(this.nextPage, 400, { trailing: false });
 
   nextPage = () => {
     const { lastPage, loading, nextLoading, messages, match, agenda } = this.props;
@@ -89,7 +90,7 @@ class ConversationContainer extends Component {
     const { author, messages, conversation } = this.props;
     const { getLabel } = this.context;
 
-    const contextInbox = _.find(conversation.inboxes, [
+    const contextInbox = find(conversation.inboxes, [
       'id',
       conversation.inboxContextId,
     ]);

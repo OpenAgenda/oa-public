@@ -4,11 +4,11 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { fromMarkdownToHTML } from '@openagenda/md';
 import qs from 'qs';
-import I18nContext from '../contexts/I18nContext';
-import getDestinationInbox from '../utils/getDestinationInbox';
-import AuthorAvatar from './AuthorAvatar';
-import ConversationTitle from './ConversationTitle';
-import Link from './Link';
+import I18nContext from '../contexts/I18nContext.js';
+import getDestinationInbox from '../utils/getDestinationInbox.js';
+import AuthorAvatar from './AuthorAvatar.js';
+import ConversationTitle from './ConversationTitle.js';
+import Link from './Link.js';
 
 const getInboxUserName = (entity) =>
   entity.inboxUser?.name ?? entity.inbox.name;
