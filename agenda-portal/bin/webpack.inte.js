@@ -91,11 +91,6 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
   ],
-  resolve: {
-    alias: {
-      '@httptoolkit/esm': false,
-    },
-  },
   optimization: {
     minimizer: ['...', new CssMinimizerPlugin()],
   },
