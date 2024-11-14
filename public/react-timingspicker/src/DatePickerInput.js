@@ -1,7 +1,9 @@
-import DayPickerInput from 'react-day-picker/DayPickerInput.js';
+import DayPickerInputModule from 'react-day-picker/DayPickerInput.js';
 import { DateUtils } from 'react-day-picker';
 import * as dateFns from 'date-fns';
 import deriveDateFormat from './utils/deriveDateFormat.js';
+
+const DayPickerInput = DayPickerInputModule.default || DayPickerInputModule;
 
 function formatDate(date, format) {
   return dateFns.format(date, format);
