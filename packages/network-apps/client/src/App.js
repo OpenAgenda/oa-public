@@ -1,12 +1,9 @@
 import { Provider, ReactReduxContext } from 'react-redux';
-
 import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import reduxLogger from 'redux-logger';
 import { Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-
 import * as reducers from './reducers/index.js';
 import getRoutes from './getRoutes.js';
 
@@ -26,7 +23,6 @@ export default (props = {}) => {
   };
 
   const history = createHistory();
-  const loggerMiddleware = reduxLogger.createLogger();
 
   const store = createStore(
     combineReducers({
@@ -35,10 +31,7 @@ export default (props = {}) => {
       config: () => config,
     }),
     initState,
-    applyMiddleware(
-      thunkMiddleware.withExtraArgument(history),
-      loggerMiddleware,
-    ),
+    applyMiddleware(thunkMiddleware.withExtraArgument(history)),
   );
 
   const routes = getRoutes(config.base || '/');
