@@ -37,8 +37,5 @@ module.exports = {
   },
   resolve: {
     symlinks: false,
-    alias: {
-      '@httptoolkit/esm': false,
-    },
   },
 };

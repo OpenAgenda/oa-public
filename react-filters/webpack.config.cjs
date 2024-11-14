@@ -110,9 +110,6 @@ module.exports = (env = {}, argv = {}) => {
     resolve: {
       // symlinks: false,
       extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
-      alias: {
-        '@httptoolkit/esm': false,
-      },
       fallback: {
         buffer: require.resolve('buffer'),
       },

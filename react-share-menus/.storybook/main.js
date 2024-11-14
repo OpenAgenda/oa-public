@@ -13,8 +13,4 @@ export default {
   babel: (config) => {
     return { ...config, rootMode: 'upward' };
   },
-  webpackFinal: (config) => {
-    config.resolve.alias['@httptoolkit/esm'] = false;
-    return config;
-  },
 };
