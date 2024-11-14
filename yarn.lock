@@ -5714,7 +5714,6 @@ __metadata:
     react-router-dom: "npm:^5.1.2"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.0"
-    redux-logger: "npm:^3.0.6"
     regenerator-runtime: "npm:^0.13.7"
     storybook: "npm:^7.6.4"
     tsup: "npm:^8.3.5"
@@ -7375,7 +7374,6 @@ __metadata:
     react-router-config: "npm:^5.1.1"
     react-router-dom: "npm:^5.1.2"
     redux: "npm:^4.0.0"
-    redux-logger: "npm:^3.0.6"
     redux-thunk: "npm:^2.3.0"
     regenerator-runtime: "npm:^0.13.7"
     sass-loader: "npm:^10.1.1"
@@ -20741,13 +20739,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-diff@npm:^0.3.5":
-  version: 0.3.8
-  resolution: "deep-diff@npm:0.3.8"
-  checksum: 10c0/dbb10937ccff21b1ad1ee5e64ad926643a7000cb9837bc2165bacfddf569788c78b8bfd74401c32121af3fb1cb1092b7447319d9f01900676473a1b840c08ade
-  languageName: node
-  linkType: hard
-
 "deep-diff@npm:^1.0.2":
   version: 1.0.2
   resolution: "deep-diff@npm:1.0.2"
@@ -34052,7 +34043,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "oa@workspace:."
   dependencies:
-    "@babel/cli": "npm:^7.23.0"
     "@babel/core": "npm:^7.23.3"
     "@babel/runtime-corejs3": "npm:^7.23.2"
     "@commitlint/cli": "npm:^17.6.5"
@@ -34077,7 +34067,6 @@ __metadata:
     mime: "npm:^2.4.4"
     prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.13.8"
-    rimraf: "npm:^3.0.1"
     tmp: "npm:^0.2.1"
     turbo: "npm:^1.10.14"
   dependenciesMeta:
@@ -38746,15 +38735,6 @@ __metadata:
     react-redux: ^6.0.0 || ^7.0.0
     redux: ^3.0.0 || ^4.0.0
   checksum: 10c0/1b83b00c8f0a7b2756a24d2323c32de000b952647ae7c517aa4f91d565cd9ec83081165378d38ed8be911eb9fb99012fc94bce187502cb8a757d35e14c8bea5f
-  languageName: node
-  linkType: hard
-
-"redux-logger@npm:^3.0.6":
-  version: 3.0.6
-  resolution: "redux-logger@npm:3.0.6"
-  dependencies:
-    deep-diff: "npm:^0.3.5"
-  checksum: 10c0/65eb71a1c72d9636368672a684bde62c746e64c19c8b92e3f00bdf5cf240ea1695eccb95a0fa3d5044f6a86cbf11fd35dc5150fd3351fa53c72721c336e9098f
   languageName: node
   linkType: hard
 

@@ -61,9 +61,6 @@ module.exports = ( { entry, output } ) => ({
   resolve: {
     // symlinks: false,
     extensions: ['.js', '.jsx', '.mjs', '.json'],
-    alias: {
-      '@httptoolkit/esm': false,
-    },
     fallback: {
       fs: false,
       path: require.resolve('path-browserify'),

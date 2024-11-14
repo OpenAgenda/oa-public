@@ -22,11 +22,6 @@ const main = {
     ...config,
     __NEXT_REACT_ROOT: 'true', // Fix next/dynamic with suspense
   }),
-
-  webpackFinal: (config) => {
-    config.resolve.alias['@httptoolkit/esm'] = false;
-    return config;
-  },
 };
 
 export default main;

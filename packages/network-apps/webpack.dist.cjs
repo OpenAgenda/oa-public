@@ -95,9 +95,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.mjs', '.json', '.wasm'],
-    alias: {
-      '@httptoolkit/esm': false,
-    },
     symlinks: false,
   },
 };
