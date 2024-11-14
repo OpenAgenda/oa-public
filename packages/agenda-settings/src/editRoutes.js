@@ -1,13 +1,13 @@
 import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
 // eslint-disable-next-line camelcase
-const isWebpack = typeof __webpack_require__ !== 'undefined';
-const contextRequire = isWebpack
-  ? import.meta.webpackContext('.', {
-    recursive: true,
-    regExp: /\.js$/,
-    mode: 'weak',
-  })
+const contextRequire = typeof __webpack_require__ !== 'undefined'
+  ? import.meta.webpackContext
+      && import.meta.webpackContext('.', {
+        recursive: true,
+        regExp: /\.js$/,
+        mode: 'weak',
+      })
   : null;
 
 const EditionApp = loadableEsm({
@@ -17,9 +17,11 @@ const EditionApp = loadableEsm({
       /* webpackChunkName: "agendaSettings-EditionApp" */
       './containers/EditionApp/EditionApp.js'
     ),
-  importSync: !isWebpack
-    ? await import('./containers/EditionApp/EditionApp.js')
-    : null,
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/EditionApp/EditionApp.js')
+      : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/EditionApp/EditionApp.js');
@@ -38,9 +40,11 @@ const GettingStarted = loadableEsm({
       /* webpackChunkName: "agendaSettings-GettingStarted" */
       './components/GettingStarted.js'
     ),
-  importSync: !isWebpack
-    ? await import('./components/GettingStarted.js')
-    : null,
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./components/GettingStarted.js')
+      : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./components/GettingStarted.js');
@@ -59,9 +63,11 @@ const ProfileEdition = loadableEsm({
       /* webpackChunkName: "agendaSettings-ProfileEdition" */
       './containers/ProfileEdition/ProfileEdition.js'
     ),
-  importSync: !isWebpack
-    ? await import('./containers/ProfileEdition/ProfileEdition.js')
-    : null,
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/ProfileEdition/ProfileEdition.js')
+      : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve(
@@ -82,9 +88,11 @@ const ContributionEdition = loadableEsm({
       /* webpackChunkName: "agendaSettings-ContributionEdition" */
       './containers/ContributionEdition/ContributionEdition.js'
     ),
-  importSync: !isWebpack
-    ? await import('./containers/ContributionEdition/ContributionEdition.js')
-    : null,
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/ContributionEdition/ContributionEdition.js')
+      : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve(
@@ -105,9 +113,11 @@ const AdvancedEdition = loadableEsm({
       /* webpackChunkName: "agendaSettings-AdvancedEdition" */
       './containers/AdvancedEdition/AdvancedEdition.js'
     ),
-  importSync: !isWebpack
-    ? await import('./containers/AdvancedEdition/AdvancedEdition.js')
-    : null,
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/AdvancedEdition/AdvancedEdition.js')
+      : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve(

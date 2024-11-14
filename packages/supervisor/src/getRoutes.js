@@ -1,13 +1,13 @@
 import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
 // eslint-disable-next-line camelcase
-const isWebpack = typeof __webpack_require__ !== 'undefined';
-const contextRequire = isWebpack
-  ? import.meta.webpackContext('.', {
-    recursive: true,
-    regExp: /\.js$/,
-    mode: 'weak',
-  })
+const contextRequire = typeof __webpack_require__ !== 'undefined'
+  ? import.meta.webpackContext
+      && import.meta.webpackContext('.', {
+        recursive: true,
+        regExp: /\.js$/,
+        mode: 'weak',
+      })
   : null;
 
 const App = loadableEsm({
@@ -17,7 +17,11 @@ const App = loadableEsm({
       /* webpackChunkName: "supervisor-App" */
       './containers/App.js'
     ),
-  importSync: !isWebpack ? await import('./containers/App.js') : null,
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/App.js')
+      : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/App.js');
@@ -37,7 +41,11 @@ const Dashboard = loadableEsm(
         /* webpackChunkName: "supervisor-Dashboard" */
         './containers/Dashboard.js'
       ),
-    importSync: !isWebpack ? await import('./containers/Dashboard.js') : null,
+    importSync:
+      // eslint-disable-next-line camelcase
+      typeof __webpack_require__ === 'undefined'
+        ? await import('./containers/Dashboard.js')
+        : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./containers/Dashboard.js');
@@ -59,9 +67,11 @@ const AnnouncementManager = loadableEsm(
         /* webpackChunkName: "supervisor-AnnouncementManager" */
         './containers/AnnouncementManager.js'
       ),
-    importSync: !isWebpack
-      ? await import('./containers/AnnouncementManager.js')
-      : null,
+    importSync:
+      // eslint-disable-next-line camelcase
+      typeof __webpack_require__ === 'undefined'
+        ? await import('./containers/AnnouncementManager.js')
+        : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./containers/AnnouncementManager.js');
@@ -83,9 +93,11 @@ const Elasticsearch = loadableEsm(
         /* webpackChunkName: "supervisor-Elasticsearch" */
         './containers/Elasticsearch.js'
       ),
-    importSync: !isWebpack
-      ? await import('./containers/Elasticsearch.js')
-      : null,
+    importSync:
+      // eslint-disable-next-line camelcase
+      typeof __webpack_require__ === 'undefined'
+        ? await import('./containers/Elasticsearch.js')
+        : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./containers/Elasticsearch.js');

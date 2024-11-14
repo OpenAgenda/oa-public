@@ -1,13 +1,13 @@
 import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
 // eslint-disable-next-line camelcase
-const isWebpack = typeof __webpack_require__ !== 'undefined';
-const contextRequire = isWebpack
-  ? import.meta.webpackContext('.', {
-    recursive: true,
-    regExp: /\.js$/,
-    mode: 'weak',
-  })
+const contextRequire = typeof __webpack_require__ !== 'undefined'
+  ? import.meta.webpackContext
+      && import.meta.webpackContext('.', {
+        recursive: true,
+        regExp: /\.js$/,
+        mode: 'weak',
+      })
   : null;
 
 const CreationApp = loadableEsm({
@@ -17,9 +17,11 @@ const CreationApp = loadableEsm({
       /* webpackChunkName: "agendaSettings-CreationApp" */
       './containers/CreationApp/CreationApp.js'
     ),
-  importSync: !isWebpack
-    ? await import('./containers/CreationApp/CreationApp.js')
-    : null,
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/CreationApp/CreationApp.js')
+      : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/CreationApp/CreationApp.js');
@@ -38,9 +40,11 @@ const AgendaCreation = loadableEsm({
       /* webpackChunkName: "agendaSettings-AgendaCreation" */
       './containers/AgendaCreation/AgendaCreation.js'
     ),
-  importSync: !isWebpack
-    ? await import('./containers/AgendaCreation/AgendaCreation.js')
-    : null,
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/AgendaCreation/AgendaCreation.js')
+      : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve(
