@@ -1,7 +1,8 @@
-import { loadableComponent } from '@openagenda/react-shared';
+import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
 // eslint-disable-next-line camelcase
-const contextRequire = typeof __webpack_require__ !== 'undefined'
+const isWebpack = typeof __webpack_require__ !== 'undefined';
+const contextRequire = isWebpack
   ? import.meta.webpackContext('.', {
     recursive: true,
     regExp: /\.js$/,
@@ -9,13 +10,14 @@ const contextRequire = typeof __webpack_require__ !== 'undefined'
   })
   : null;
 
-const App = loadableComponent({
+const App = loadableEsm({
   chunkName: 'agendaSchemas-App',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaSchemas-App" */
       './containers/App.js'
     ),
+  importSync: !isWebpack ? await import('./containers/App.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/App.js');
@@ -27,13 +29,14 @@ const App = loadableComponent({
   },
 });
 
-const Dashboard = loadableComponent({
+const Dashboard = loadableEsm({
   chunkName: 'agendaSchemas-Dashboard',
   importAsync: () =>
     import(
       /* webpackChunkName: "agendaSchemas-Dashboard" */
       './containers/Dashboard.js'
     ),
+  importSync: !isWebpack ? await import('./containers/Dashboard.js') : null,
   resolve: () => {
     if (contextRequire) {
       return contextRequire.resolve('./containers/Dashboard.js');
