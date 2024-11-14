@@ -1,6 +1,6 @@
 import loadableModule from '@loadable/component';
 
-const loadable = loadableModule.default || loadableModule;
+const loadableComponent = loadableModule.default || loadableModule;
 
 export default (params, options) => {
   const loadableConstructor = {
@@ -41,7 +41,7 @@ export default (params, options) => {
     resolve: params.resolve,
   };
 
-  const Component = loadable(loadableConstructor, options);
+  const Component = loadableComponent(loadableConstructor, options);
 
   Component.load = loadableConstructor.requireAsync.bind(loadableConstructor);
 
