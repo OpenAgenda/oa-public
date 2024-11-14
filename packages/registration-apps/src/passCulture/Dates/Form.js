@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 
-import ComponentsContext from '../../components/Context';
+import ComponentsContext from '../../components/Context.js';
 
-import { getTimingLabel, getTime } from '../utils';
+import { getTimingLabel, getTime } from '../utils.js';
 
 export default function DateForm({
   value,

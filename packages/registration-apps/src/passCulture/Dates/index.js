@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 import { validateDate } from '@openagenda/registrations/passCulture/iso/validate';
 
-import ComponentsContext from '../../components/Context';
+import ComponentsContext from '../../components/Context.js';
 
-import DateForm from './Form';
-import DateItems from './Items';
+import DateForm from './Form.js';
+import DateItems from './Items.js';
 
 export default function Dates({
   initWithOpenForm = false,

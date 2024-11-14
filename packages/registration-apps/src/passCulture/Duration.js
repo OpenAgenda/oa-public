@@ -1,6 +1,6 @@
 import { getTimingId } from '@openagenda/registrations/passCulture/iso/utils';
 import { useContext, useState, useEffect } from 'react';
-import ComponentsContext from '../components/Context';
+import ComponentsContext from '../components/Context.js';
 
 function padNumber(number) {
   return number < 10 ? `0${number}` : `${number}`;

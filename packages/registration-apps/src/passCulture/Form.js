@@ -3,14 +3,14 @@ import { distance } from 'fastest-levenshtein';
 import { validateLocalData } from '@openagenda/registrations/passCulture/iso/validate';
 import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 
-import ComponentsContext from '../components/Context';
-import PriceCategories from './PriceCategories';
-import Dates from './Dates';
-import Description from './Description';
-import Conditions from './Conditions';
-import Name from './Name';
-import Duration from './Duration';
-import BookingEmail from './BookingEmail';
+import ComponentsContext from '../components/Context.js';
+import PriceCategories from './PriceCategories/index.js';
+import Dates from './Dates/index.js';
+import Description from './Description.js';
+import Conditions from './Conditions.js';
+import Name from './Name.js';
+import Duration from './Duration.js';
+import BookingEmail from './BookingEmail.js';
 import {
   addPriceCategory,
   removePriceCategory,
@@ -20,7 +20,7 @@ import {
   getRelatedFieldName,
   getRelatedFieldOptions,
   getNextId,
-} from './utils';
+} from './utils.js';
 
 const hasPriceCategories = (value) => !!(value?.priceCategories ?? []).length;
 

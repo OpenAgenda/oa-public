@@ -2,7 +2,7 @@ import {
   addPriceCategory,
   removePriceCategory,
   getNextId,
-} from '../src/passCulture/utils';
+} from '../src/passCulture/utils.js';
 
 describe('passCulture', () => {
   describe('utils', () => {

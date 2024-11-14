@@ -1,4 +1,4 @@
-import Confirmation from '../src/passCulture/Confirmation';
+import Confirmation from '../src/passCulture/Confirmation.js';
 import event from './fixtures/event.json';
 
 // eslint-disable-next-line

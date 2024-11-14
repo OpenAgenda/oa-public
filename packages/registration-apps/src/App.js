@@ -1,8 +1,8 @@
 import { useState, useCallback, useContext } from 'react';
-import PassCultureCheckbox from './passCulture/Checkbox';
-import ComponentsContext from './components/Context';
-import spreadRegistrationValuesByService from './utils/spreadRegistrationValuesByService';
-import mergeSpreadRegistrationValues from './utils/mergeSpreadRegistrationValues';
+import PassCultureCheckbox from './passCulture/Checkbox.js';
+import ComponentsContext from './components/Context.js';
+import spreadRegistrationValuesByService from './utils/spreadRegistrationValuesByService.js';
+import mergeSpreadRegistrationValues from './utils/mergeSpreadRegistrationValues.js';
 
 const flattenLabel = (label, lang) => {
   if (!label) return label;

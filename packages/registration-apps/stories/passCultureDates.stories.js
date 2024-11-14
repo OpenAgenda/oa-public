@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react';
 
-import BootstrapComponentsProvider from '../src/components/bootstrap/Provider';
+import BootstrapComponentsProvider from '../src/components/bootstrap/Provider.js';
 
-import PassDates from '../src/passCulture/Dates';
+import PassDates from '../src/passCulture/Dates/index.js';
 
-import { changeDate, removeDate, getNextId } from '../src/passCulture/utils';
+import { changeDate, removeDate, getNextId } from '../src/passCulture/utils.js';
 
 import event from './fixtures/event.json';
 

@@ -1,8 +1,8 @@
 import { http, HttpResponse } from 'msw';
 
-import BootstrapComponentsProvider from '../src/components/bootstrap/Provider';
+import BootstrapComponentsProvider from '../src/components/bootstrap/Provider.js';
 
-import PassForm from '../src/passCulture/Form';
+import PassForm from '../src/passCulture/Form.js';
 
 import passSettings from './fixtures/passSettings.json';
 

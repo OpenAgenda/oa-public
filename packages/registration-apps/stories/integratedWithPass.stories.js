@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { useState } from 'react';
 
-import Registration from '../src/bootstrap';
+import Registration from '../src/bootstrap.js';
 import passSettings from './fixtures/passSettings.json';
 
 import event from './fixtures/event.json';

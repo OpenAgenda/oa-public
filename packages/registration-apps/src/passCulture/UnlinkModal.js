@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Modal } from '@openagenda/react-shared';
-import ComponentsContext from '../components/Context';
+import ComponentsContext from '../components/Context.js';
 
 export default function UnlinkModal({ onClose, onConfirm }) {
   const { Button } = useContext(ComponentsContext);

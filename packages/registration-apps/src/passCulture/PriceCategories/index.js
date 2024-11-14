@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 import { validatePriceCategory } from '@openagenda/registrations/passCulture/iso/validate';
 
-import ComponentsContext from '../../components/Context';
+import ComponentsContext from '../../components/Context.js';
 
-import PriceCategoryForm from './Form';
-import PriceCategoryItems from './Items';
+import PriceCategoryForm from './Form.js';
+import PriceCategoryItems from './Items.js';
 
 export default function PriceCategories({
   initWithOpenForm = false,

@@ -42,8 +42,7 @@ packages/next/.next
 packages/outdated-browser/dist
 packages/react-integration-app/dist
 packages/react-layouts/dist
-packages/registration-apps/esm
-packages/registration-apps/lib
+packages/registration-apps/dist
 packages/registrations/dist
 packages/sessions/lib
 packages/supervisor/dist

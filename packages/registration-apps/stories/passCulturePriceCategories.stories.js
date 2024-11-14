@@ -1,14 +1,14 @@
 import { useState, useMemo } from 'react';
 
-import BootstrapComponentsProvider from '../src/components/bootstrap/Provider';
+import BootstrapComponentsProvider from '../src/components/bootstrap/Provider.js';
 
-import PassPriceCategories from '../src/passCulture/PriceCategories';
+import PassPriceCategories from '../src/passCulture/PriceCategories/index.js';
 import {
   addPriceCategory,
   removePriceCategory,
   changePriceCategory,
   getNextId,
-} from '../src/passCulture/utils';
+} from '../src/passCulture/utils.js';
 
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';

@@ -1,7 +1,7 @@
 import { Image } from '@openagenda/react-shared';
 import { getCurrentValue } from '@openagenda/registrations/passCulture/iso/utils';
 
-import { logoPath } from './utils';
+import { logoPath } from './utils.js';
 
 function ConfirmationBody({
   isCreated,
