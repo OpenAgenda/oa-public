@@ -1,4 +1,4 @@
-import patchAgendas from './lib/patchAgendas';
+import patchAgendas from './lib/patchAgendas.js';
 
 const LOAD = 'home/agendas/LOAD';
 const LOAD_SUCCESS = 'home/agendas/LOAD_SUCCESS';

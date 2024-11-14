@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { useApiClient, Spinner } from '@openagenda/react-shared';
-import I18nContext from '../contexts/I18nContext';
+import I18nContext from '../contexts/I18nContext.js';
 
 export function AgendaItem({ agenda, actions = false }) {
   const { getLabel } = useContext(I18nContext);

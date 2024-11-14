@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { Image, Dropdown } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
 
@@ -97,15 +96,15 @@ function AgendaItem({
               {getLabel('addAnEvent')}
             </Link>
           )}
-          {![2, 3].includes(agenda.member.role) && _.get(agenda, 'mailto') && (
+          {![2, 3].includes(agenda.member.role) && agenda.mailto && (
             <a
               className="btn btn-link padding-left-z padding-top-z"
-              href={_.get(agenda, 'mailto')}
+              href={agenda.mailto}
             >
               {getLabel('contact')}
             </a>
           )}
-          {![2, 3].includes(agenda.member.role) && !_.get(agenda, 'mailto') && (
+          {![2, 3].includes(agenda.member.role) && !agenda.mailto && (
             <a
               className="btn btn-link padding-left-z padding-top-z"
               href={res.agendas.contact.replace(':slug', agenda.slug)}

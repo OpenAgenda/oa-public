@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import findIndex from 'lodash/findIndex.js';
 
 const memberLegacyFields = {
   name: 'contactName',
@@ -9,7 +9,7 @@ const memberLegacyFields = {
 };
 
 export default function patchAgendas(agendas, member, update) {
-  const index = _.findIndex(agendas, (a) => a.uid === member.agendaUid);
+  const index = findIndex(agendas, (a) => a.uid === member.agendaUid);
 
   if (index === -1) {
     return agendas;
