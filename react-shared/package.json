@@ -39,7 +39,6 @@
     "@babel/runtime-corejs3": "^7.23.2",
     "@emotion/react": "^11.11.1",
     "@floating-ui/react": "^0.26.13",
-    "@httptoolkit/esm": "^3.3.0",
     "@openagenda/common-labels": "^1.0.0",
     "@openagenda/intl": "^1.1.3",
     "@openagenda/md": "^1.0.0",
