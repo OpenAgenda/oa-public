@@ -119,7 +119,7 @@ module.exports = declare((api, options) => {
       : null,
 
     isWebpack && supportHotReload ? require('react-refresh/babel') : null,
-    !isWebpack && reactIntlOpts
+    !isWebpack && env !== 'test' && reactIntlOpts
       ? [require('babel-plugin-react-intl'), reactIntlOpts]
       : null,
   ].filter(Boolean);
