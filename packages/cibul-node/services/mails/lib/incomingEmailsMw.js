@@ -2,6 +2,7 @@ import logs from '@openagenda/logs';
 
 import extractMarkdownFromEmailBody from './extractMarkdownFromEmailBody.js';
 import removeCrispDecoration from './removeCrispDecoration.js';
+import isEmailFromCrisp from './isEmailFromCrisp.js';
 
 const log = logs('services/mails/incomingEmails');
 
@@ -61,7 +62,7 @@ export default function incomingEmailsMw({ services }) {
       const user = await usersSvc.findOne({
         query: {
           replyToken,
-          ...req.body.sender.endsWith('@openagenda.on.crisp.email')
+          ...isEmailFromCrisp(req.body)
             ? undefined
             : { email: req.body.sender },
         },
