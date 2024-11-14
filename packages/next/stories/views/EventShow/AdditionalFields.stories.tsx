@@ -162,7 +162,8 @@ export const EventsField = {
           const { uid } = qs.parse(url.search.replace('?', ''));
 
           const selection = eventsFixtures.events.filter((event) =>
-            [].concat(uid).includes(`${event.uid}`));
+            [].concat(uid).includes(`${event.uid}`),
+          );
 
           return HttpResponse.json({
             total: selection.length,
@@ -370,6 +371,64 @@ export const ImageField = () => {
               '81cd0a6919894516b2a5b235eea44c06.photographie-dune-salle-de-classe.jpg',
           },
         },
+        locale: 'fr',
+        defaultLocale: 'fr',
+        dateFnsLocale,
+      })}
+    />
+  );
+};
+
+export const MarkdownField = () => {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <AdditionalFields
+      updatedAt={new Date()}
+      agenda={agendaFixtures}
+      additionalFields={formatAdditionalFieldData({
+        schema: {
+          fields: [
+            {
+              field: 'observations',
+              label: {
+                fr: 'Observations éventuelles relatives à des contraintes liées à la configuration du site',
+              },
+              fieldType: 'markdown',
+            },
+          ],
+        },
+        event: {
+          observations: "*C'est beau 🤩*",
+        },
+        locale: 'fr',
+        defaultLocale: 'fr',
+        dateFnsLocale,
+      })}
+    />
+  );
+};
+
+export const EmptyMarkdownField = () => {
+  const dateFnsLocale = useDateFnsLocale();
+
+  return (
+    <AdditionalFields
+      updatedAt={new Date()}
+      agenda={agendaFixtures}
+      additionalFields={formatAdditionalFieldData({
+        schema: {
+          fields: [
+            {
+              field: 'observations',
+              label: {
+                fr: 'Observations éventuelles relatives à des contraintes liées à la configuration du site',
+              },
+              fieldType: 'markdown',
+            },
+          ],
+        },
+        event: {},
         locale: 'fr',
         defaultLocale: 'fr',
         dateFnsLocale,
