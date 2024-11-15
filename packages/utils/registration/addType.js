@@ -35,7 +35,7 @@ const extractType = (value, options = {}) => {
 }
 
 module.exports = (r, options = {}) => {
-  if (!(r instanceof Array)) {
+  if (!Array.isArray(r)) {
     return extractType(r, options);
   }
   const withType = r.map(r => extractType(r, {
