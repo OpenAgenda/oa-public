@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import locales from '@openagenda/activity-apps/dist/locales-compiled/index.js';
+import * as locales from '@openagenda/activity-apps/dist/locales-compiled/index.js';
 import formatters from '@openagenda/activity-apps/dist/notifications.js';
 import { createIntlByLocale } from '@openagenda/intl';
 import logs from '@openagenda/logs';

@@ -1,4 +1,4 @@
-import rss from '@openagenda/flat-exports/rss.js';
+import { rss } from '@openagenda/flat-exports';
 
 export default (core) => async (req, res, next) => {
   const {

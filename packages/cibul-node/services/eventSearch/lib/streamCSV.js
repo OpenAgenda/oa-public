@@ -1,4 +1,4 @@
-import flatExports from '@openagenda/flat-exports';
+import * as flatExports from '@openagenda/flat-exports';
 import fieldNameLabels from '@openagenda/labels/event/exportFieldNames.js';
 import memberLabels from '@openagenda/labels/members/index.js';
 import stateLabels from '@openagenda/labels/event/states.js';

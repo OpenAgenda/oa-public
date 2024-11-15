@@ -1,6 +1,4 @@
-import flatExports from '@openagenda/flat-exports';
-
-const { MarkdownStream } = flatExports;
+import { MarkdownStream } from '@openagenda/flat-exports';
 
 function getFirstSortField(query) {
   const firstSort = [].concat(query.sort).shift();
