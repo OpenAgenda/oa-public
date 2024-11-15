@@ -299,6 +299,11 @@ module.exports = {
     "io": "crwdns14744:0crwdne14744:0",
     "oc": "Email"
   },
+  "phoneFieldType": {
+    "fr": "Numéro de téléphone",
+    "en": "Phone number",
+    "es": "Numero de Téléfono"
+  },
   "linkFieldType": {
     "fr": "Hyperlien",
     "en": "Hyperlink",
