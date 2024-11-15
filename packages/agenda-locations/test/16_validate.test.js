@@ -66,4 +66,19 @@ describe('validate', () => {
       expect(errors[0].code).toBe('invalidSIRET');
     });
   });
+
+  describe('geography', () => {
+    test('timezone', () => {
+      let error;
+      try {
+        validate({
+          ...fixture,
+          timezone: 'UTC+1',
+        });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.info.errors[0].code).toBe('timezone.invalid');
+    });
+  });
 });

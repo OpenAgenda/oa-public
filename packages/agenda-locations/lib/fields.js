@@ -306,7 +306,7 @@ module.exports = [
       field: 'store.timezone',
       assign: true,
     },
-    fieldType: 'text',
+    fieldType: 'timezone',
     read: ['internal', 'public'],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
   },
