@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 
-import validate from '../src/validate';
+import validate from '../src/validate.js';
 
 import settingsFixtures from './fixtures/settings.json';
 import locationFixtures from './fixtures/location.json';
@@ -28,7 +28,7 @@ describe('validate', () => {
         displaySIRETInput: true,
       });
 
-      expect(clean.siret).toBeNull();
+      expect(clean.siret).toBeUndefined();
     });
 
     test('siret must be 14 characters long', () => {
@@ -50,10 +50,9 @@ describe('validate', () => {
       expect(errors).toEqual([
         {
           origin: '12345678901',
-          code: 'string.tooshort',
-          message: 'the string is too short',
+          code: 'tooshort',
+          message: 'value is too short',
           field: 'siret',
-          values: { min: 14, max: 14 },
         },
       ]);
     });

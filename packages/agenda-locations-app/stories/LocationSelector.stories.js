@@ -2,12 +2,12 @@ import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import { Modal } from '@openagenda/react-shared';
 
-import LocationSelector from '../src/components/LocationSelector';
+import LocationSelector from '../src/components/LocationSelector.js';
 
 import agendaSettings from './fixtures/slslf-2022.json';
 import propLocation from './fixtures/location.json';
-import Providers from './decorators/Providers';
-import ComponentCanvas from './decorators/ComponentCanvas';
+import Providers from './decorators/Providers.js';
+import ComponentCanvas from './decorators/ComponentCanvas.js';
 
 const res = {
   index: '/api/agendas/1/locations?detailed=1',

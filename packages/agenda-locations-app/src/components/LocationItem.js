@@ -1,8 +1,8 @@
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
-import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal';
+import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal/index.js';
 import makeLabelGetter from '@openagenda/labels';
-import countries from '@openagenda/labels/agenda-locations/countries';
-import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
+import countries from '@openagenda/labels/agenda-locations/countries.js';
+import { a11yButtonActionHandler } from '@openagenda/react-shared';
 
 const getLabels = makeLabelGetter(countries);
 

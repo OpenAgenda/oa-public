@@ -2,11 +2,11 @@ import { wrapApp } from '@openagenda/react-shared';
 import '@openagenda/bs-templates/compiled/main.css';
 import { createMemoryHistory } from 'history';
 
-import createApp from '../src/app';
+import createApp from '../src/app.js';
 
-import AdminCanvas from './decorators/AdminCanvas';
-import Providers from './decorators/Providers';
-import fixtures from './fixtures';
+import AdminCanvas from './decorators/AdminCanvas.js';
+import Providers from './decorators/Providers.js';
+import fixtures from './fixtures/index.js';
 
 const geoapifyKey = process.env.STORYBOOK_GEOAPIFY_KEY;
 

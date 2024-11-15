@@ -1,6 +1,6 @@
 import { createApp } from '@openagenda/react-shared';
 
-import getRoutes from './getRoutes';
+import getRoutes from './getRoutes.js';
 
 export default (options) => {
   const { initialState } = options;

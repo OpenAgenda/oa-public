@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { Modal } from '@openagenda/react-shared';
-import validate from '../validate';
-import LocationForm from './form-components/LocationForm';
-import LocationSearch from './LocationSearch';
-import LocationConfirmation from './LocationConfirmation';
-import LocationDetail from './LocationDetailsConfirm';
+import validate from '../validate.js';
+import LocationForm from './form-components/LocationForm.js';
+import LocationSearch from './LocationSearch.js';
+import LocationConfirmation from './LocationConfirmation.js';
+import LocationDetail from './LocationDetailsConfirm.js';
 
 const messages = defineMessages({
   change: {

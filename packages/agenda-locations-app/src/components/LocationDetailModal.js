@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useIntl, defineMessages } from 'react-intl';
 
 import { Spinner, Modal } from '@openagenda/react-shared';
-import LocationDetails from './LocationDetails';
+import LocationDetails from './LocationDetails.js';
 
 const messages = defineMessages({
   removedMessage: {

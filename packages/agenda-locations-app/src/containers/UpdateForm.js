@@ -6,13 +6,13 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import FormData from 'form-data';
 
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
-import AccessModal from '../components/AccessModal';
-import ErrorModal from '../components/ErrorModal';
-import LocationForm from '../components/form-components/LocationForm';
-import useRes from '../hooks/useRes';
-import useSettings from '../hooks/useSettings';
-import validate from '../validate';
-import * as onGoingActions from '../reducers/onGoingModal';
+import AccessModal from '../components/AccessModal.js';
+import ErrorModal from '../components/ErrorModal.js';
+import LocationForm from '../components/form-components/LocationForm.js';
+import useRes from '../hooks/useRes.js';
+import useSettings from '../hooks/useSettings.js';
+import validate from '../validate.js';
+import * as onGoingActions from '../reducers/onGoingModal.js';
 
 const completedPrefix = (agenda, prefix) =>
   prefix.replace(':agendaSlug', agenda.slug);

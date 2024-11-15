@@ -1,8 +1,8 @@
 import '@openagenda/bs-templates/compiled/main.css';
 
-import LocationItem from '../src/components/LocationItem';
-import ComponentCanvas from './decorators/ComponentCanvas';
-import Providers from './decorators/Providers';
+import LocationItem from '../src/components/LocationItem.js';
+import ComponentCanvas from './decorators/ComponentCanvas.js';
+import Providers from './decorators/Providers.js';
 
 import agendaTestSettings from './fixtures/agendaTestSettings.json';
 import location from './fixtures/location.json';

@@ -1,4 +1,4 @@
-import * as onGoingActions from './onGoingModal';
+import * as onGoingActions from './onGoingModal.js';
 
 const INITIATE = 'agenda-locations/merge/INITIATE';
 const INITIATE_FROM_DUPLICATES = 'agenda-locations/merge/INITIATE_FROM_DUPLICATATES';

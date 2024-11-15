@@ -4,9 +4,9 @@ import redial from 'redial';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import locales from '../locales-compiled';
-import mergeReducer from '../reducers/merge';
-import onGoingReducer from '../reducers/onGoingModal';
+import * as locales from '../locales-compiled/index.js';
+import mergeReducer from '../reducers/merge.js';
+import onGoingReducer from '../reducers/onGoingModal.js';
 
 function App({ route }) {
   const parentQueryClient = useQueryClient();
@@ -28,6 +28,7 @@ function App({ route }) {
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={locales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >

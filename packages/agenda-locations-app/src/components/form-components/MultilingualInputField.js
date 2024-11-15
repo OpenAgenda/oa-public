@@ -1,5 +1,3 @@
-import utils from '@openagenda/utils';
-
 const MultilingualInputField = ({
   enabled,
   languages,
@@ -23,7 +21,7 @@ const MultilingualInputField = ({
   };
 
   const isEnabled = (lang) => {
-    if (!utils.isArray(enabled)) return true;
+    if (!Array.isArray(enabled)) return true;
     return enabled.indexOf(lang) !== -1;
   };
 

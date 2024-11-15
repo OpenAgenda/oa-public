@@ -1,8 +1,8 @@
 import { defineMessages, useIntl } from 'react-intl';
 
-import geoFields from '@openagenda/agenda-locations/utils/geoFields';
+import geoFields from '@openagenda/agenda-locations/utils/geoFields.js';
 import { Dropdown } from '@openagenda/react-shared';
-import adminLevels from '../adminLevels';
+import adminLevels from '../adminLevels.js';
 
 const messages = {
   ...defineMessages({

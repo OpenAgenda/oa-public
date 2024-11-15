@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import useRes from './useRes';
+import useRes from './useRes.js';
 
 export default (agenda) => {
   const res = useRes(agenda);

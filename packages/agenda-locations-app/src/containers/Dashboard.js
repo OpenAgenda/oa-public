@@ -12,21 +12,21 @@ import {
   Modal,
   useLayoutData,
 } from '@openagenda/react-shared';
-import MergeStepper from '../components/MergeStepper';
-import LocationItem from '../components/LocationItem';
-import LocationDetailModal from '../components/LocationDetailModal';
-import useLocations from '../hooks/useLocations';
-import useRes from '../hooks/useRes';
-import useSettings from '../hooks/useSettings';
-import SearchInput from '../components/SearchInput';
-import ActiveFilters from '../components/ActiveFilters';
-import IncompleteLocationsFilterDropdown from '../components/IncompleteLocationsFilterDropdown';
-import AccessModal from '../components/AccessModal';
-import RemoveModal from '../components/RemoveModal';
-import ErrorModal from '../components/ErrorModal';
-import SetHeader from '../components/SetHeader';
-import * as mergeActions from '../reducers/merge';
-import * as onGoingActions from '../reducers/onGoingModal';
+import MergeStepper from '../components/MergeStepper.js';
+import LocationItem from '../components/LocationItem.js';
+import LocationDetailModal from '../components/LocationDetailModal.js';
+import useLocations from '../hooks/useLocations.js';
+import useRes from '../hooks/useRes.js';
+import useSettings from '../hooks/useSettings.js';
+import SearchInput from '../components/SearchInput.js';
+import ActiveFilters from '../components/ActiveFilters.js';
+import IncompleteLocationsFilterDropdown from '../components/IncompleteLocationsFilterDropdown.js';
+import AccessModal from '../components/AccessModal.js';
+import RemoveModal from '../components/RemoveModal.js';
+import ErrorModal from '../components/ErrorModal.js';
+import SetHeader from '../components/SetHeader.js';
+import * as mergeActions from '../reducers/merge.js';
+import * as onGoingActions from '../reducers/onGoingModal.js';
 
 const completedPrefix = (agenda, prefix) =>
   prefix.replace(':agendaSlug', agenda.slug);

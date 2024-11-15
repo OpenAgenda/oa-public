@@ -5,14 +5,14 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
 import FormData from 'form-data';
 
-import useRes from '../hooks/useRes';
+import useRes from '../hooks/useRes.js';
 
-import AccessModal from '../components/AccessModal';
-import LocationForm from '../components/form-components/LocationForm';
-import ErrorModal from '../components/ErrorModal';
-import useSettings from '../hooks/useSettings';
-import validate from '../validate';
-import * as onGoingActions from '../reducers/onGoingModal';
+import AccessModal from '../components/AccessModal.js';
+import LocationForm from '../components/form-components/LocationForm.js';
+import ErrorModal from '../components/ErrorModal.js';
+import useSettings from '../hooks/useSettings.js';
+import validate from '../validate.js';
+import * as onGoingActions from '../reducers/onGoingModal.js';
 
 const messages = defineMessages({
   back: {

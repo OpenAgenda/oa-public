@@ -1,7 +1,7 @@
 import Select from 'react-select';
 import { defineMessages, useIntl } from 'react-intl';
 
-import countries from '@openagenda/countries/labels';
+import countries from '@openagenda/countries/labels.js';
 
 const messages = defineMessages({
   country: {

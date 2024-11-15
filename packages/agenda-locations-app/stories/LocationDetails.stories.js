@@ -2,9 +2,9 @@ import '@openagenda/bs-templates/compiled/main.css';
 
 import { produce } from 'immer';
 
-import LocationDetails from '../src/components/LocationDetails';
-import Providers from './decorators/Providers';
-import ComponentCanvas from './decorators/ComponentCanvas';
+import LocationDetails from '../src/components/LocationDetails.js';
+import Providers from './decorators/Providers.js';
+import ComponentCanvas from './decorators/ComponentCanvas.js';
 
 import agendaFixture from './fixtures/mel.json';
 import locationFixture from './fixtures/location.json';

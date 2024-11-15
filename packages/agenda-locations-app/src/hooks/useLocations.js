@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
-import useRes from './useRes';
+import useRes from './useRes.js';
 
 export default (agenda, page, search) => {
   const res = useRes(agenda);

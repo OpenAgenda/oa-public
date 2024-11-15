@@ -3,12 +3,12 @@ import '@openagenda/bs-templates/compiled/main.css';
 
 import { produce } from 'immer';
 
-import LocationForm from '../src/components/form-components/LocationForm';
-import LocationMap from '../src/components/form-components/LocationMap';
-import GeoFieldsAndMap from '../src/components/form-components/GeoFieldsAndMap';
-import validate from '../src/validate';
-import Providers from './decorators/Providers';
-import ComponentCanvas from './decorators/ComponentCanvas';
+import LocationForm from '../src/components/form-components/LocationForm.js';
+import LocationMap from '../src/components/form-components/LocationMap.js';
+import GeoFieldsAndMap from '../src/components/form-components/GeoFieldsAndMap.js';
+import validate from '../src/validate.js';
+import Providers from './decorators/Providers.js';
+import ComponentCanvas from './decorators/ComponentCanvas.js';
 
 import location from './fixtures/location.json';
 import agendaSettings from './fixtures/agendaTestSettings.json';

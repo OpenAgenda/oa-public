@@ -4,10 +4,10 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import { Spinner } from '@openagenda/react-shared';
 
-import GeoBadges from '../GeoBadges';
-import LocationMap from './LoadableLocationMap';
-import CountryField from './CountryField';
-import InputField from './InputField';
+import GeoBadges from '../GeoBadges.js';
+import LocationMap from './LoadableLocationMap.js';
+import CountryField from './CountryField.js';
+import InputField from './InputField.js';
 
 const messages = defineMessages({
   disabledGeocode: {

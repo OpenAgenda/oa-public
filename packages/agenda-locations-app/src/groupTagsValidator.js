@@ -1,5 +1,3 @@
-import utils from '@openagenda/utils';
-
 /**
  * errors are a list of objects that contain the following fields
  *   - a message
@@ -42,7 +40,7 @@ const groupTagsValidator = (set) => {
     return values;
   };
 
-  return utils.extend(validate, { field: set.field });
+  return Object.assign(validate, { field: set.field });
 };
 
 export default groupTagsValidator;

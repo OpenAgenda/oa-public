@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
-import validator from '../../groupTagsValidator';
+import { a11yButtonActionHandler } from '@openagenda/react-shared';
+import validator from '../../groupTagsValidator.js';
 
 const GroupTagSelector = ({
   name,

@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
-import _ from 'lodash';
+import get from 'lodash/get.js';
+import keys from 'lodash/keys.js';
+import first from 'lodash/first.js';
 
 import { Spinner, ImageInput } from '@openagenda/react-shared';
 
-import validate from '../../validate';
-import flattenTagSetLabels from '../../flattenTagSetLabels';
+import validate from '../../validate.js';
+import flattenTagSetLabels from '../../flattenTagSetLabels.js';
 
-import GeoFieldsAndMap from './GeoFieldsAndMap';
-import InputField from './InputField';
-import StateToggler from './StateToggler';
-import LanguageBar from './LanguageBar';
-import MultilingualInputField from './MultilingualInputField';
-import MultiInputField from './MultiInputField';
-import GroupTagSelector from './GroupTagSelector';
+import GeoFieldsAndMap from './GeoFieldsAndMap.js';
+import InputField from './InputField.js';
+import StateToggler from './StateToggler.js';
+import LanguageBar from './LanguageBar.js';
+import MultilingualInputField from './MultilingualInputField.js';
+import MultiInputField from './MultiInputField.js';
+import GroupTagSelector from './GroupTagSelector.js';
 
 const messages = defineMessages({
   postalCode: {
@@ -236,7 +238,7 @@ const LocationForm = ({
     // see if label is defined in agenda settings
     if (settings?.labels?.[name]) {
       const l = settings.labels[name];
-      str = _.get(l, lang, l[_.first(_.keys(l))]);
+      str = get(l, lang, l[first(keys(l))]);
       if (!str) {
         return null;
       }

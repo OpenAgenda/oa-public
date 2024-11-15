@@ -1,45 +1,129 @@
-import { loadable } from '@openagenda/react-shared';
+import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
-const App = loadable(
-  () =>
-    import(
-      /* webpackChunkName: "legacyEmbeds-App" */
-      './containers/App'
-    ),
-);
+// eslint-disable-next-line camelcase
+const contextRequire = typeof __webpack_require__ !== 'undefined'
+  ? import.meta.webpackContext
+      && import.meta.webpackContext('.', {
+        recursive: true,
+        regExp: /\.js$/,
+        mode: 'weak',
+      })
+  : null;
 
-const Temporary = loadable(
-  () =>
+const App = loadableEsm({
+  chunkName: 'agendaLocations-App',
+  importAsync: () =>
     import(
-      /* webpackChunkName: "legacyEmbeds-Temporary" */
-      './containers/Temporary'
+      /* webpackChunkName: "agendaLocations-App" */
+      './containers/App.js'
     ),
-);
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/App.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/App.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/App.js');
+    }
+  },
+});
 
-const Dashboard = loadable(
-  () =>
+const Temporary = loadableEsm({
+  chunkName: 'agendaLocations-Temporary',
+  importAsync: () =>
     import(
-      /* webpackChunkName: "legacyEmbeds-Dashboard" */
-      './containers/Dashboard'
+      /* webpackChunkName: "agendaLocations-Temporary" */
+      './containers/Temporary.js'
     ),
-);
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/Temporary.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/Temporary.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/Temporary.js');
+    }
+  },
+});
 
-const CreateForm = loadable(
-  () =>
+const Dashboard = loadableEsm({
+  chunkName: 'agendaLocations-Dashboard',
+  importAsync: () =>
     import(
-      /* webpackChunkName: "legacyEmbeds-CreateForm" */
-      './containers/CreateForm'
+      /* webpackChunkName: "agendaLocations-Dashboard" */
+      './containers/Dashboard.js'
     ),
-);
-// import CreateForm from './containers/CreateForm';
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/Dashboard.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/Dashboard.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/Dashboard.js');
+    }
+  },
+});
 
-const UpdateForm = loadable(
-  () =>
+const CreateForm = loadableEsm({
+  chunkName: 'agendaLocations-CreateForm',
+  importAsync: () =>
     import(
-      /* webpackChunkName: "legacyEmbeds-CreateForm" */
-      './containers/UpdateForm'
+      /* webpackChunkName: "agendaLocations-CreateForm" */
+      './containers/CreateForm.js'
     ),
-);
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/CreateForm.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/CreateForm.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/CreateForm.js');
+    }
+  },
+});
+
+const UpdateForm = loadableEsm({
+  chunkName: 'agendaLocations-UpdateForm',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "agendaLocations-UpdateForm" */
+      './containers/UpdateForm.js'
+    ),
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/UpdateForm.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/UpdateForm.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/UpdateForm.js');
+    }
+  },
+});
 
 export default (prefix = '') => [
   {

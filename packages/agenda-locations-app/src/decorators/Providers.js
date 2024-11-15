@@ -4,7 +4,7 @@ import { useConstant } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
 import { IntlProvider } from 'react-intl';
 
-import locales from '../locales-compiled';
+import * as locales from '../locales-compiled/index.js';
 
 export default function LocationsProvider({ children, lang }) {
   const queryClient = useConstant(
@@ -21,6 +21,7 @@ export default function LocationsProvider({ children, lang }) {
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={locales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >

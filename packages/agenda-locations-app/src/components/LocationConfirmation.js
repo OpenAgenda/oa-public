@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
-import LocationDetails from './LocationDetailsConfirm';
+import LocationDetails from './LocationDetailsConfirm.js';
 
 const messages = defineMessages({
   guide: {

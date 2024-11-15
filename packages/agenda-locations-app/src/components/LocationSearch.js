@@ -2,7 +2,7 @@ import { createRef, useEffect, useReducer } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
 
-import SearchInput from './SearchInput';
+import SearchInput from './SearchInput.js';
 
 const messages = defineMessages({
   create: {

@@ -1,16 +1,16 @@
-import set from '@openagenda/validators/set';
-import text from '@openagenda/validators/text';
-import link from '@openagenda/validators/link';
-import phone from '@openagenda/validators/phone';
-import email from '@openagenda/validators/email';
-import list from '@openagenda/validators/list';
-import number from '@openagenda/validators/number';
-import latitude from '@openagenda/validators/latitude';
-import longitude from '@openagenda/validators/longitude';
-import pass from '@openagenda/validators/pass';
-import multilingual from '@openagenda/validators/multilingual';
-import regex from '@openagenda/validators/regex';
-import choice from '@openagenda/validators/choice';
+import set from '@openagenda/validators/set.js';
+import text from '@openagenda/validators/text.js';
+import link from '@openagenda/validators/link.js';
+import phone from '@openagenda/validators/phone.js';
+import email from '@openagenda/validators/email.js';
+import list from '@openagenda/validators/list.js';
+import number from '@openagenda/validators/number.js';
+import latitude from '@openagenda/validators/latitude.js';
+import longitude from '@openagenda/validators/longitude.js';
+import pass from '@openagenda/validators/pass.js';
+import multilingual from '@openagenda/validators/multilingual.js';
+import regex from '@openagenda/validators/regex.js';
+import choice from '@openagenda/validators/choice.js';
 // TODO use `groupTagsValidator`
 // import groupTagsValidator from './groupTagsValidator';
 
@@ -94,8 +94,6 @@ const STATES = {
   tocontrol: 0,
   validated: 1,
 };
-
-const utils = require('@openagenda/utils');
 
 function validateImageCredits(value, otherValues = {}, options = {}) {
   const { isEnabled = false } = options;
@@ -292,9 +290,10 @@ function _getValidators(settings) {
   if (settings.forceTags) {
     locationValidators.push(validators.pass({ field: 'tags' }));
   } else if (settings.tagSet) {
-    const groupTagValidator = validators.groupTags(
-      utils.extend({ field: 'tags' }, settings.tagSet),
-    );
+    const groupTagValidator = validators.groupTags({
+      field: 'tags',
+      ...settings.tagSet,
+    });
     locationValidators.push(
       Object.assign((v) => groupTagValidator(v), { field: 'tags' }),
     );
@@ -362,4 +361,4 @@ function field(name) {
   return baseValidators.filter((v) => v.field === name)[0];
 }
 
-export default utils.extend(validate, { field });
+export default Object.assign(validate, { field });

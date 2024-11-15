@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
 
-import geoFields from '@openagenda/agenda-locations/utils/geoFields';
-import flattenTagSetLabels from '../flattenTagSetLabels';
-import adminLevels from '../adminLevels';
+import geoFields from '@openagenda/agenda-locations/utils/geoFields.js';
+import flattenTagSetLabels from '../flattenTagSetLabels.js';
+import adminLevels from '../adminLevels.js';
 
 const messages = {
   ...adminLevels,

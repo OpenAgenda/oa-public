@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Select from 'react-select';
 import languages from 'languages';
-import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
+import { a11yButtonActionHandler } from '@openagenda/react-shared';
 
 const LanguageItem = ({
   edited = false, // maybe

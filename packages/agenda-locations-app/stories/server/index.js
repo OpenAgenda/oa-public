@@ -1,10 +1,10 @@
-const _ = require('lodash');
-const cors = require('cors');
-const express = require('express');
-const multer = require('multer');
-const { makeMiddleware: makeFilesMw } = require('@openagenda/files');
-const getFixtures = require('../fixtures');
-const locationJson = require('../fixtures/location.json');
+import _ from 'lodash';
+import cors from 'cors';
+import express from 'express';
+import multer from 'multer';
+import { makeMiddleware as makeFilesMw } from '@openagenda/files';
+import getFixtures from '../fixtures/index.js';
+import locationJson from '../fixtures/location.json';
 
 const filesMw = makeFilesMw(multer());
 const dev = express();
@@ -166,4 +166,4 @@ dev.delete('/api/agendas/:agendaUid/locations/:locationUid', (req, res) => {
   });
 });
 
-module.exports = dev;
+export default dev;
