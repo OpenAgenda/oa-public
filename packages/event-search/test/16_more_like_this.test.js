@@ -1,12 +1,7 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
-
-const config = require('../testconfig');
-
-const Service = require('..');
-const postDSL = require('../utils/postDSL');
+import _ from 'lodash';
+import Service from '../index.js';
+import config from '../testconfig.js';
+import postDSL from '../utils/postDSL.js';
 
 describe('16 - event search - functional: more like this', () => {
   let service;
@@ -29,11 +24,7 @@ describe('16 - event search - functional: more like this', () => {
   beforeAll(async () => {
     await service('simple_search').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(
-          fs.readFileSync(
-            `${__dirname}/fixtures/16_events.${lastId}.${limit}.json`,
-          ),
-        ),
+        (await import(`./fixtures/16_events.${lastId}.${limit}.json`)).default,
     });
   });
 

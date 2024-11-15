@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = [
+export default [
   {
     id: 1,
     uid: 1111,

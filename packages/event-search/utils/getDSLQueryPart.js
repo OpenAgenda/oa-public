@@ -1,8 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
-const keywordizeDiscreteValue = require('./keywordizeDiscreteValue');
+import _ from 'lodash';
+import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
+import keywordizeDiscreteValue from './keywordizeDiscreteValue.js';
 
 const termsFiltersMap = {
   memberUid: 'member.uid',
@@ -549,7 +547,7 @@ function shouldParts() {
   ];
 }
 
-module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
+export default function getDSLQueryPart(cleanQuery, options = {}) {
   const { formSchema, emptyValue, removed = false } = options;
 
   const query = {};
@@ -587,4 +585,4 @@ module.exports = function getDSLQueryPart(cleanQuery, options = {}) {
   }
 
   return query;
-};
+}

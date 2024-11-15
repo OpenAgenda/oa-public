@@ -1,7 +1,5 @@
-'use strict';
-
-const config = require('../testconfig');
-const Service = require('..');
+import Service from '../index.js';
+import config from '../testconfig.js';
 
 describe('20 - event-search - util: cluster', () => {
   let service;

@@ -1,6 +1,4 @@
-'use strict';
-
-const { flatten, inflate } = require('../utils/aggregatorObjects');
+import { flatten, inflate } from '../utils/aggregatorObjects.js';
 
 describe('event-search - unit: utils - aggregatorObjects', () => {
   describe('flatten', () => {

@@ -1,8 +1,6 @@
-'use strict';
+import moment from 'moment-timezone';
 
-const moment = require('moment-timezone');
-
-module.exports = function convertTimingsRange(timingsRange) {
+export default function convertTimingsRange(timingsRange) {
   const { range, timezone = 'Europe/Paris' } = timingsRange;
 
   if (range === 'today') {
@@ -17,4 +15,4 @@ module.exports = function convertTimingsRange(timingsRange) {
       lte: `${dateInTimezone}T23:59:59.999${zone}`,
     };
   }
-};
+}

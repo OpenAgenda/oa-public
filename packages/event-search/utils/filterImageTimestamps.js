@@ -1,14 +1,12 @@
-'use strict';
+import { produce } from 'immer';
 
-const { produce } = require('immer');
-
-module.exports = function filterImageTimestamps(event) {
+export default function filterImageTimestamps(event) {
   if (!event?.image?.filename) {
     return event;
   }
 
   return produce(event, (draft) => {
-    if (draft.image.filename.indexOf('?') !== -1) {
+    if (draft.image.filename.includes('?')) {
       draft.image.filename = draft.image.filename.split('?').shift();
     }
 
@@ -17,11 +15,11 @@ module.exports = function filterImageTimestamps(event) {
     }
 
     for (const variant of draft.image.variants) {
-      if (variant.filename.indexOf('?') !== -1) {
+      if (variant.filename.includes('?')) {
         variant.filename = variant.filename.split('?').shift();
       }
     }
 
     return draft;
   });
-};
+}

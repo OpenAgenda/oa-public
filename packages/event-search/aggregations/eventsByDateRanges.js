@@ -1,6 +1,6 @@
-'use strict';
+import dateValidator from '@openagenda/validators/date.js';
 
-const validateDate = require('@openagenda/validators/date')({
+const validateDate = dateValidator({
   default: 'now',
 });
 
@@ -51,7 +51,7 @@ function range(fromDate, toDate) {
   return items;
 }
 
-module.exports.formatDSL = (query, { includes }) => {
+export function formatDSL(query, { includes }) {
   const { lte, gte } = {
     ...defaultDateBounds(),
     ...(query || {}).date || {},
@@ -88,11 +88,12 @@ module.exports.formatDSL = (query, { includes }) => {
       },
     },
   };
-};
+}
 
-module.exports.formatResult = ({ timings }) =>
-  timings.buckets.map((b) => ({
+export function formatResult({ timings }) {
+  return timings.buckets.map((b) => ({
     key: b.key.substr(0, 10),
     eventCount: b.doc_count,
     sampleEvents: b.timing_to_event.top.hits.hits.map((h) => h._source),
   }));
+}

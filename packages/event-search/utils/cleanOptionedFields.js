@@ -1,8 +1,6 @@
-'use strict';
-
 const includesAll = (arr, values) => values.every((v) => arr.includes(v));
 
-module.exports = (event, formSchema) => {
+export default (event, formSchema) => {
   if (!formSchema) {
     return event;
   }

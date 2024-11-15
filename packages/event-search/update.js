@@ -1,19 +1,14 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
-
-const { BadRequest } = require('@openagenda/verror');
-
-const formatEvent = require('./utils/formatEvent');
-const getDocumentId = require('./utils/getDocumentId');
-const getIndexName = require('./utils/getIndexName');
+import logs from '@openagenda/logs';
+import { BadRequest } from '@openagenda/verror';
+import formatEvent from './utils/formatEvent.js';
+import getDocumentId from './utils/getDocumentId.js';
+import getIndexName from './utils/getIndexName.js';
+import validateOptions from './utils/validateUpdateOptions.js';
+import ESToVerror from './utils/ESToVerror.js';
 
 const log = logs('update');
-const validateOptions = require('./utils/validateUpdateOptions');
 
-const ESToVerror = require('./utils/ESToVerror');
-
-module.exports = async function update(
+export default async function update(
   config,
   set,
   identifiers,
@@ -105,4 +100,4 @@ module.exports = async function update(
   return {
     success,
   };
-};
+}

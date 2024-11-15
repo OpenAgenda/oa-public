@@ -1,8 +1,6 @@
-'use strict';
+import { produce } from 'immer';
 
-const { produce } = require('immer');
-
-module.exports = produce((event) => {
+export default produce((event) => {
   if (!event.timings || !event.timings.length) {
     return event;
   }

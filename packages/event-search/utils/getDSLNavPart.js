@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (nav = {}) => {
+export default (nav = {}) => {
   if (nav.size === undefined) return null;
 
   return {

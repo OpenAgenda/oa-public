@@ -1,5 +1,3 @@
-'use strict';
-
 const shortKeys = [
   {
     short: 'm',
@@ -31,7 +29,7 @@ const shortValues = [
   },
 ];
 
-module.exports = function cleanRequestedAggregation(
+export default function cleanRequestedAggregation(
   { aggsSizeLimit },
   aggregation,
 ) {
@@ -56,4 +54,4 @@ module.exports = function cleanRequestedAggregation(
   }
 
   return inflated;
-};
+}

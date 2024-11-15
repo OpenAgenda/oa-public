@@ -1,10 +1,6 @@
-'use strict';
-
-const config = require('../testconfig');
-
-const Service = require('..');
-
-const fixtures = require('./fixtures/02_events.boolean.json');
+import Service from '../index.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/02_events.boolean.json' with { type: 'json' };
 
 describe('02 - event search - functional: boolean type', () => {
   let service;

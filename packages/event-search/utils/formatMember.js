@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const { flatten } = require('./aggregatorObjects');
+import _ from 'lodash';
+import { flatten } from './aggregatorObjects.js';
 
 const getFirstMatch = (data, namespaces, defaultValue) => {
   for (const n of namespaces) {
@@ -13,7 +11,7 @@ const getFirstMatch = (data, namespaces, defaultValue) => {
   return defaultValue;
 };
 
-module.exports = function formatMember({ member, user }) {
+export default function formatMember({ member, user }) {
   const clean = {
     uid: getFirstMatch(
       { member, user },
@@ -46,4 +44,4 @@ module.exports = function formatMember({ member, user }) {
     ...clean,
     ..._.omit(member, ['custom', 'userUid', ...Object.keys(clean)]),
   };
-};
+}

@@ -1,7 +1,5 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integerValidator = require('@openagenda/validators/integer');
+import schema from '@openagenda/validators/schema/index.js';
+import integerValidator from '@openagenda/validators/integer.js';
 
 schema.register({
   integer: integerValidator,
@@ -18,7 +16,7 @@ const validateOptions = schema({
   },
 });
 
-module.exports.formatDSL = (query, options = {}) => {
+export function formatDSL(query, options = {}) {
   const { zoom, radius } = validateOptions(options);
 
   return {
@@ -28,12 +26,13 @@ module.exports.formatDSL = (query, options = {}) => {
       radius,
     },
   };
-};
+}
 
-module.exports.formatResult = (result) =>
-  result.buckets.map((b) => ({
+export function formatResult(result) {
+  return result.buckets.map((b) => ({
     key: b.geohash_grids.join('.'),
     eventCount: b.doc_count,
     latitude: b.centroid.lat,
     longitude: b.centroid.lon,
   }));
+}

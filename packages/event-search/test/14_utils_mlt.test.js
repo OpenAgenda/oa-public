@@ -1,12 +1,9 @@
-'use strict';
-
-const spreadByMLTBoostScores = require('../utils/spreadByMLTBoostScores');
-const getMLTDSLPart = require('../utils/getMLTDSLPart');
-
-const fxBoostFormSchema = require('./fixtures/mlt/boost.0.formSchema.json');
-const fxBoostBoost = require('./fixtures/mlt/boost.0.boost.json');
-const fxBoostDSL = require('./fixtures/mlt/boost.0.cleanDSL.json');
-const fxMLT = require('./fixtures/mlt/0.mlt.json');
+import spreadByMLTBoostScores from '../utils/spreadByMLTBoostScores.js';
+import getMLTDSLPart from '../utils/getMLTDSLPart.js';
+import fxBoostFormSchema from './fixtures/mlt/boost.0.formSchema.json' with { type: 'json' };
+import fxBoostBoost from './fixtures/mlt/boost.0.boost.json' with { type: 'json' };
+import fxBoostDSL from './fixtures/mlt/boost.0.cleanDSL.json' with { type: 'json' };
+import fxMLT from './fixtures/mlt/0.mlt.json' with { type: 'json' };
 
 describe('event-search - unit: mlt utils', () => {
   describe('getMLTDSLPart - fixes', () => {

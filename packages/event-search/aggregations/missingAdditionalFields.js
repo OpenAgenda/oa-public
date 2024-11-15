@@ -1,8 +1,6 @@
-'use strict';
+import getFormSchemaAdditionalFields from '../utils/getFormSchemaAdditionalFields.js';
 
-const getFormSchemaAdditionalFields = require('../utils/getFormSchemaAdditionalFields');
-
-module.exports.formatDSL = function formatDSL(requested, query, options) {
+export function formatDSL(requested, query, options) {
   const requestedFields = requested
     .filter((r) => r.missing)
     .map((r) => r.field);
@@ -24,9 +22,9 @@ module.exports.formatDSL = function formatDSL(requested, query, options) {
       },
     },
   };
-};
+}
 
-module.exports.dispatchMissingCounts = function dispatchMissingCounts(
+export function dispatchMissingCounts(
   requested,
   rawResult,
   aggregationResults,
@@ -48,4 +46,4 @@ module.exports.dispatchMissingCounts = function dispatchMissingCounts(
       ].concat(result[matchingRequested.key]),
     };
   }, aggregationResults);
-};
+}

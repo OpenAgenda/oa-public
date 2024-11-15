@@ -1,14 +1,12 @@
-'use strict';
-
-const VError = require('@openagenda/verror');
-const logs = require('@openagenda/logs');
-const formatEvent = require('./utils/formatEvent');
-const getDocumentId = require('./utils/getDocumentId');
-const getIndexName = require('./utils/getIndexName');
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import formatEvent from './utils/formatEvent.js';
+import getDocumentId from './utils/getDocumentId.js';
+import getIndexName from './utils/getIndexName.js';
 
 const log = logs('add');
 
-module.exports = async function add(config, set, event, options = {}) {
+export default async function add(config, set, event, options = {}) {
   const { refresh = false, formSchema = null } = options;
 
   const { client, defaultIndex } = config;
@@ -66,4 +64,4 @@ module.exports = async function add(config, set, event, options = {}) {
   return {
     success: result.body.result === 'created',
   };
-};
+}

@@ -1,9 +1,7 @@
-'use strict';
-
-const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
+import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
 
 function _keepHigherOrderIncludes(includes = []) {
-  const higherOrderIncludes = includes.filter((i) => i.indexOf('.') === -1);
+  const higherOrderIncludes = includes.filter((i) => !i.includes('.'));
 
   return includes.filter((include) => {
     if (higherOrderIncludes.includes(include)) {
@@ -13,7 +11,7 @@ function _keepHigherOrderIncludes(includes = []) {
   });
 }
 
-module.exports = (
+export default (
   { baseSearchIncludes, detailedSearchIncludes, otherStandardFields },
   { detailed, formSchema, access, requested },
 ) => {

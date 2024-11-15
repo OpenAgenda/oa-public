@@ -1,12 +1,12 @@
-'use strict';
+import logs from '@openagenda/logs';
+import update from './update.js';
+import getIndexName from './utils/getIndexName.js';
+import getDocumentId from './utils/getDocumentId.js';
+import ESToVerror from './utils/ESToVerror.js';
 
-const log = require('@openagenda/logs')('remove');
-const update = require('./update');
-const getIndexName = require('./utils/getIndexName');
-const getDocumentId = require('./utils/getDocumentId');
-const ESToVerror = require('./utils/ESToVerror');
+const log = logs('remove');
 
-module.exports = async function remove(config, set, identifiers, options = {}) {
+export default async function remove(config, set, identifiers, options = {}) {
   const { refresh, soft } = {
     refresh: false,
     soft: true,
@@ -59,4 +59,4 @@ module.exports = async function remove(config, set, identifiers, options = {}) {
         ? 'event was removed'
         : 'event was not removed',
   };
-};
+}

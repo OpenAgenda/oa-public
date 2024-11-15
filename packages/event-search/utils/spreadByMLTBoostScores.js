@@ -1,13 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const { produce } = require('immer');
-
-const getMLTDSLPart = require('./getMLTDSLPart');
+import _ from 'lodash';
+import { produce } from 'immer';
+import getMLTDSLPart from './getMLTDSLPart.js';
 
 const isIntegerLike = (value) => !Number.isNaN(parseInt(value, 10));
 
-module.exports = produce((DSL, MLTRequest, scores, options) => {
+export default produce((DSL, MLTRequest, scores, options) => {
   DSL.query = {
     dis_max: {
       queries: Object.keys(scores)

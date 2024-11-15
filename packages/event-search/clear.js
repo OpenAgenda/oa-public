@@ -1,8 +1,6 @@
-'use strict';
+import getIndexName from './utils/getIndexName.js';
 
-const getIndexName = require('./utils/getIndexName');
-
-module.exports = async function clear(config, set) {
+export default async function clear(config, set) {
   const { client, defaultIndex } = config;
 
   return client
@@ -17,4 +15,4 @@ module.exports = async function clear(config, set) {
       },
     })
     .then(({ body }) => body);
-};
+}

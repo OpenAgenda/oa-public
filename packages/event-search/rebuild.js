@@ -1,18 +1,15 @@
-'use strict';
-
-const crypto = require('node:crypto');
-const logs = require('@openagenda/logs');
-const getIndexName = require('./utils/getIndexName');
-const getDocumentId = require('./utils/getDocumentId');
-const formatEvent = require('./utils/formatEvent');
+import crypto from 'node:crypto';
+import logs from '@openagenda/logs';
+import getIndexName from './utils/getIndexName.js';
+import getDocumentId from './utils/getDocumentId.js';
+import formatEvent from './utils/formatEvent.js';
+import mapping from './config/mapping.json' with { type: 'json' };
 
 const log = logs('rebuild');
 
 const limit = 10;
 
-const mapping = require('./config/mapping.json');
-
-module.exports = async function rebuild(config, set, options = {}) {
+export default async function rebuild(config, set, options = {}) {
   log('called');
   const operations = [];
   let hasMore = true;
@@ -159,4 +156,4 @@ module.exports = async function rebuild(config, set, options = {}) {
     counts,
     error,
   };
-};
+}

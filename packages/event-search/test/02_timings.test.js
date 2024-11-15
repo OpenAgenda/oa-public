@@ -1,11 +1,6 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
-
-const config = require('../testconfig');
-
-const Service = require('..');
+import _ from 'lodash';
+import Service from '../index.js';
+import config from '../testconfig.js';
 
 describe('02 - event search - functional: timings sorting', () => {
   let service;
@@ -25,9 +20,8 @@ describe('02 - event search - functional: timings sorting', () => {
   beforeAll(() =>
     service('timings').rebuild({
       eventsList: async (_lastId, _limit) =>
-        JSON.parse(
-          fs.readFileSync(`${__dirname}/fixtures/02_events.timings.json`),
-        ),
+        (await import('./fixtures/02_events.timings.json', { type: 'json' }))
+          .default,
     }));
 
   it('by default sorts from the nearest to the furthest in the future', async () => {

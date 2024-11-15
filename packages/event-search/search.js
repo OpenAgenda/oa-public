@@ -1,36 +1,28 @@
-'use strict';
-
-const _ = require('lodash');
-const { produce } = require('immer');
-const { BadRequest } = require('@openagenda/verror');
-
-const logs = require('@openagenda/logs');
-
-const aggregations = require('./aggregations');
-
-const defineIncludes = require('./utils/defineIncludes');
-const postDSL = require('./utils/postDSL');
-const getIndexName = require('./utils/getIndexName');
-const getMLTDSLPart = require('./utils/getMLTDSLPart');
-const instanciateSearchStream = require('./utils/instanciateSearchStream');
-const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
-const appendFirstNextAndLastTiming = require('./utils/appendFirstNextAndLastTiming');
-const monolingualize = require('./utils/monolingualize');
-const includeLabelsInEvent = require('./utils/includeLabelsInEvent');
-const includePathInLocationImage = require('./utils/includePathInLocationImage');
-const injectDefaultImage = require('./utils/injectDefaultImage');
-const filterImageTimestamps = require('./utils/filterImageTimestamps');
-const queryToDSL = require('./utils/queryToDSL');
-const validateNav = require('./utils/validateNav');
-const validateOptions = require('./utils/validateSearchOptions');
-const spreadByMLTBoostScores = require('./utils/spreadByMLTBoostScores');
-const cleanNavResult = require('./utils/cleanNavResult');
-const formatError = require('./utils/formatError');
-const cleanRequestedAggregation = require('./utils/cleanRequestedAggregation');
-
-const {
-  inflateAndClean: inflateAndCleanQuery,
-} = require('./utils/validateQuery');
+import _ from 'lodash';
+import { produce } from 'immer';
+import { BadRequest } from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import aggregations from './aggregations/index.js';
+import defineIncludes from './utils/defineIncludes.js';
+import postDSL from './utils/postDSL.js';
+import getIndexName from './utils/getIndexName.js';
+import getMLTDSLPart from './utils/getMLTDSLPart.js';
+import instanciateSearchStream from './utils/instanciateSearchStream.js';
+import convertToLocalTimezone from './utils/convertToLocalTimezone.js';
+import appendFirstNextAndLastTiming from './utils/appendFirstNextAndLastTiming.js';
+import monolingualize from './utils/monolingualize.js';
+import includeLabelsInEvent from './utils/includeLabelsInEvent.js';
+import includePathInLocationImage from './utils/includePathInLocationImage.js';
+import injectDefaultImage from './utils/injectDefaultImage.js';
+import filterImageTimestamps from './utils/filterImageTimestamps.js';
+import queryToDSL from './utils/queryToDSL.js';
+import validateNav from './utils/validateNav.js';
+import validateOptions from './utils/validateSearchOptions.js';
+import spreadByMLTBoostScores from './utils/spreadByMLTBoostScores.js';
+import cleanNavResult from './utils/cleanNavResult.js';
+import formatError from './utils/formatError.js';
+import cleanRequestedAggregation from './utils/cleanRequestedAggregation.js';
+import { inflateAndClean as inflateAndCleanQuery } from './utils/validateQuery.js';
 
 const log = logs('search');
 
@@ -305,7 +297,7 @@ function clearScroll(config, set, scrollId) {
   return config.client.clearScroll({ scrollId });
 }
 
-module.exports = (config, set) => {
+export default (config, set) => {
   const methods = {
     search: search.bind(null, config, set),
     scroll: runScroll.bind(null, config, set),

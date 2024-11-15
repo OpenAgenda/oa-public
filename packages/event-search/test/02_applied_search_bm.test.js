@@ -1,19 +1,12 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
-
-const config = require('../testconfig');
-const Service = require('..');
+import _ from 'lodash';
+import Service from '../index.js';
+import config from '../testconfig.js';
+import formSchema from './fixtures/applied/bordeaux-metropole.schema.json' with { type: 'json' };
+import data from './fixtures/applied/bordeaux-metropole.event.json' with { type: 'json' };
 
 describe('02 - event search - functional: Applied search', () => {
   describe('Bordeaux Métropole', () => {
     let service;
-    const formSchema = JSON.parse(
-      fs.readFileSync(
-        `${__dirname}/fixtures/applied/bordeaux-metropole.schema.json`,
-      ),
-    );
 
     beforeAll(() => {
       service = Service(config);
@@ -32,11 +25,11 @@ describe('02 - event search - functional: Applied search', () => {
     beforeAll(async () => {
       await service('bdx').rebuild({
         eventsList: async (lastId, limit) =>
-          JSON.parse(
-            fs.readFileSync(
-              `${__dirname}/fixtures/applied/bordeaux-metropole.${lastId}.${limit}.json`,
-            ),
-          ),
+          (
+            await import(
+              `./fixtures/applied/bordeaux-metropole.${lastId}.${limit}.json`
+            )
+          ).default,
         formSchema,
       });
     });
@@ -375,11 +368,6 @@ describe('02 - event search - functional: Applied search', () => {
     });
 
     describe('CRUD operations', () => {
-      const data = JSON.parse(
-        fs.readFileSync(
-          `${__dirname}/fixtures/applied/bordeaux-metropole.event.json`,
-        ),
-      );
       let addResult;
 
       beforeAll(async () => {

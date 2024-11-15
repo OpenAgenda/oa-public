@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = [
+export default [
   {
     uid: 57722257,
     title: 'LA DAME DE CANTON',

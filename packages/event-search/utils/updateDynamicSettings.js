@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('utils/updateDynamicSettings');
+const log = logs('utils/updateDynamicSettings');
 
-module.exports = async function updateDynamicSettings(
+export default async function updateDynamicSettings(
   { client },
   index,
   settings,
@@ -36,4 +36,4 @@ module.exports = async function updateDynamicSettings(
     index,
     body: modifiedSettings,
   });
-};
+}

@@ -1,11 +1,9 @@
-'use strict';
+import getDSLNav from './getDSLNavPart.js';
+import getDSLQueryPart from './getDSLQueryPart.js';
+import getDSLSortPart from './getDSLSortPart.js';
+import getDSLSourcePart from './getDSLSourcePart.js';
 
-const getDSLNav = require('./getDSLNavPart');
-const getDSLQueryPart = require('./getDSLQueryPart');
-const getDSLSortPart = require('./getDSLSortPart');
-const getDSLSourcePart = require('./getDSLSourcePart');
-
-module.exports = (query = {}, nav = {}, options = {}) => {
+export default (query = {}, nav = {}, options = {}) => {
   const {
     formSchema = null,
     includes = null,

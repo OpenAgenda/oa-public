@@ -1,12 +1,8 @@
-'use strict';
+import loadObjectFromFile from '@openagenda/utils/loadObjectFromFile.js';
+import config from '../testconfig.js';
+import Service from '../index.js';
 
-const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
-
-const load = loadObjectFromFile({ cwd: __dirname });
-
-const config = require('../testconfig');
-
-const Service = require('..');
+const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 describe('02 - event -search - functional: referencingAgendaUid Filter', () => {
   let service;

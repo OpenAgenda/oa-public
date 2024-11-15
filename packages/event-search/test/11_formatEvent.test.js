@@ -1,7 +1,5 @@
-'use strict';
-
-const { produce } = require('immer');
-const formatEvent = require('../utils/formatEvent');
+import { produce } from 'immer';
+import formatEvent from '../utils/formatEvent.js';
 
 describe('11 - event-search - unit: formatEvent', () => {
   const formSchema = {

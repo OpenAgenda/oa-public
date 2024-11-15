@@ -1,8 +1,5 @@
-'use strict';
-
-const fs = require('node:fs');
-const config = require('../testconfig');
-const Service = require('..');
+import Service from '../index.js';
+import config from '../testconfig.js';
 
 const _timeout = (ms) => new Promise((rs) => setTimeout(rs, ms));
 
@@ -46,11 +43,7 @@ describe('04 - event search - functional: add', () => {
     service = Service(config);
     await service('04_add').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(
-          fs.readFileSync(
-            `${__dirname}/fixtures/04_events.${lastId}.${limit}.json`,
-          ),
-        ),
+        (await import(`./fixtures/04_events.${lastId}.${limit}.json`)).default,
     });
   });
 

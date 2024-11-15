@@ -1,21 +1,22 @@
-'use strict';
+import _ from 'lodash';
+import parseAgendaBucket from '../utils/parseAgendaBucket.js';
 
-const _ = require('lodash');
-const parseAgendaBucket = require('../utils/parseAgendaBucket');
-
-module.exports.formatDSL = (query, options = {}) => ({
-  nested: {
-    path: 'sourceAgendas',
-  },
-  aggregations: {
-    sourceAgendas: {
-      terms: {
-        field: 'sourceAgendas._agg',
-        size: options.size,
+export function formatDSL(query, options = {}) {
+  return {
+    nested: {
+      path: 'sourceAgendas',
+    },
+    aggregations: {
+      sourceAgendas: {
+        terms: {
+          field: 'sourceAgendas._agg',
+          size: options.size,
+        },
       },
     },
-  },
-});
+  };
+}
 
-module.exports.formatResult = (result) =>
-  _.get(result, 'sourceAgendas.buckets', []).map(parseAgendaBucket);
+export function formatResult(result) {
+  return _.get(result, 'sourceAgendas.buckets', []).map(parseAgendaBucket);
+}

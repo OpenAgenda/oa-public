@@ -1,25 +1,21 @@
-'use strict';
+import _ from 'lodash';
+import elasticsearch from '@elastic/elasticsearch';
+import logger from '@openagenda/logs';
+import add from './add.js';
+import Search from './search.js';
+import moreLikeThis from './moreLikeThis.js';
+import rebuild from './rebuild.js';
+import remove from './remove.js';
+import clear from './clear.js';
+import searchIncludes from './config/searchIncludes.json' with { type: 'json' };
+import update from './update.js';
+import Cluster from './cluster/index.js';
+import mapping from './config/mapping.json' with { type: 'json' };
+import updateMapping from './utils/updateMapping.js';
+import updateDynamicSettings from './utils/updateDynamicSettings.js';
+import geoJSON from './utils/geoJSON.js';
 
-const _ = require('lodash');
-const elasticsearch = require('@elastic/elasticsearch');
-const logger = require('@openagenda/logs');
-
-const add = require('./add');
-const Search = require('./search');
-
-const moreLikeThis = require('./moreLikeThis');
-const rebuild = require('./rebuild');
-const remove = require('./remove');
-const clear = require('./clear');
-const searchIncludes = require('./config/searchIncludes.json');
-const update = require('./update');
-const Cluster = require('./cluster');
-const mapping = require('./config/mapping.json');
-const updateMapping = require('./utils/updateMapping');
-const updateDynamicSettings = require('./utils/updateDynamicSettings');
-const geoJSON = require('./utils/geoJSON');
-
-module.exports = (c) => {
+export default (c) => {
   const config = {
     client: new elasticsearch.Client(
       _.pick(c.elasticsearch, ['node', 'log', 'ssl']),
@@ -71,6 +67,6 @@ module.exports = (c) => {
   );
 };
 
-module.exports.utils = {
+export const utils = {
   geoJSON,
 };

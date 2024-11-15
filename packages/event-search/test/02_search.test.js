@@ -1,12 +1,7 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
-const { produce } = require('immer');
-
-const config = require('../testconfig');
-
-const Service = require('..');
+import _ from 'lodash';
+import { produce } from 'immer';
+import Service from '../index.js';
+import config from '../testconfig.js';
 
 describe('02 - event search - functional: search', () => {
   describe('simple use cases', () => {
@@ -27,11 +22,8 @@ describe('02 - event search - functional: search', () => {
     beforeAll(async () => {
       await service('simple_search').rebuild({
         eventsList: async (lastId, limit) =>
-          JSON.parse(
-            fs.readFileSync(
-              `${__dirname}/fixtures/02_events.${lastId}.${limit}.json`,
-            ),
-          ),
+          (await import(`./fixtures/02_events.${lastId}.${limit}.json`))
+            .default,
       });
     });
 
@@ -814,11 +806,8 @@ describe('02 - event search - functional: search', () => {
     beforeAll(async () => {
       await service('simple_search').rebuild({
         eventsList: async (offset, limit) =>
-          JSON.parse(
-            fs.readFileSync(
-              `${__dirname}/fixtures/02_customEvents.${offset}.${limit}.json`,
-            ),
-          ),
+          (await import(`./fixtures/02_customEvents.${offset}.${limit}.json`))
+            .default,
         formSchema,
       });
     });

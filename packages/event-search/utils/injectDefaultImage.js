@@ -1,8 +1,6 @@
-'use strict';
+import { produce } from 'immer';
 
-const { produce } = require('immer');
-
-module.exports = function injectDefaultImage({ defaultImage }, event) {
+export default function injectDefaultImage({ defaultImage }, event) {
   if (event?.image?.filename) {
     return event;
   }
@@ -10,4 +8,4 @@ module.exports = function injectDefaultImage({ defaultImage }, event) {
   return produce(event, (draft) => {
     draft.image = defaultImage;
   });
-};
+}

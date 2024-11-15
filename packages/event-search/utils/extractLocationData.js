@@ -1,8 +1,5 @@
-'use strict';
-
-const countries = require('@openagenda/labels/agenda-locations/countries');
-
-const aggObjects = require('./aggregatorObjects');
+import countries from '@openagenda/labels/agenda-locations/countries.js';
+import * as aggObjects from './aggregatorObjects.js';
 
 const locationFields = [
   'name',
@@ -53,7 +50,7 @@ const extractSearchData = (location, country) => ({
   },
 });
 
-module.exports = function extractLocationData(location) {
+export default function extractLocationData(location) {
   if (!location) {
     return {
       emptyFields: locationFields,
@@ -75,4 +72,4 @@ module.exports = function extractLocationData(location) {
       (f) => !(formattedLocation[f] ?? '').length,
     ),
   };
-};
+}

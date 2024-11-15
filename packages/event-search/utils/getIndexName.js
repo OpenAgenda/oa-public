@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (set, defaultIndex) => {
+export default (set, defaultIndex) => {
   if (typeof set === 'string') {
     return defaultIndex;
   }

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = [
+export default [
   {
     uid: 1111,
     timezone: 'Europe/Paris',

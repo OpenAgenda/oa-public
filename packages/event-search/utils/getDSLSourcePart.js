@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (includes = null) => {
+export default (includes = null) => {
   const source = {
     excludes: ['_*', 'timings._*'],
   };

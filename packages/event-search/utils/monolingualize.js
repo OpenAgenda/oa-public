@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import { produce } from 'immer';
 
-const _ = require('lodash');
-const { produce } = require('immer');
-
-module.exports = (fields, languages, event) => {
+export default (fields, languages, event) => {
   if (!languages?.length) {
     return event;
   }

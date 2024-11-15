@@ -1,19 +1,13 @@
-'use strict';
-
-const fs = require('node:fs');
-const Service = require('..');
-const config = require('../testconfig');
+import Service from '../index.js';
+import config from '../testconfig.js';
 
 describe('01 - event-search - functional: rebuild', () => {
   describe('basic usage', () => {
     let service;
 
     async function eventsList(lastId, limit) {
-      return JSON.parse(
-        fs.readFileSync(
-          `${__dirname}/fixtures/01_events.${lastId}.${limit}.json`,
-        ),
-      );
+      return (await import(`./fixtures/01_events.${lastId}.${limit}.json`))
+        .default;
     }
 
     beforeAll(() => {
@@ -70,11 +64,9 @@ describe('01 - event-search - functional: rebuild', () => {
         beforeAll(async () => {
           result = await service('someagendaidentifier').rebuild({
             eventsList: async (lastId, limit) => {
-              const payload = JSON.parse(
-                fs.readFileSync(
-                  `${__dirname}/fixtures/01_events.${lastId}.${limit}.json`,
-                ),
-              );
+              const payload = (
+                await import(`./fixtures/01_events.${lastId}.${limit}.json`)
+              ).default;
               payload.events.pop(); // removing an event
               return payload;
             },

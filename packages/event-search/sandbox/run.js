@@ -1,24 +1,21 @@
-'use strict';
+import fs from 'node:fs';
+import elasticsearch from '@elastic/elasticsearch';
+import debug from 'debug';
+import prompts from 'prompts';
+import config from '../testconfig.js';
 
-const fs = require('node:fs');
-const elasticsearch = require('@elastic/elasticsearch');
-const debug = require('debug');
-const prompts = require('prompts');
-
-const { elasticsearch: config } = require('../testconfig');
-
-const inFolderPath = `${__dirname}/in/`;
-// const outFolderPath = `${__dirname}/out/`;
+const inFolderPath = `${import.meta.dirname}/in/`;
+// const outFolderPath = `${import.meta.dirname}/out/`;
 
 debug.enable('⦙');
 const log = debug('⦙');
 
 (async () => {
-  log(fs.readFileSync(`${__dirname}/README.md`, 'utf-8'));
+  log(fs.readFileSync(`${import.meta.dirname}/README.md`, 'utf-8'));
 
   const client = new elasticsearch.Client({
-    node: config.node,
-    ssl: config.ssl,
+    node: config.elasticsearch.node,
+    ssl: config.elasticsearch.ssl,
   });
 
   while (true) {
@@ -77,7 +74,7 @@ const log = debug('⦙');
     log(JSON.stringify(result, null, 2));
 
     fs.writeFileSync(
-      `${__dirname}/result.json`,
+      `${import.meta.dirname}/result.json`,
       JSON.stringify(result, null, 2),
     );
   }

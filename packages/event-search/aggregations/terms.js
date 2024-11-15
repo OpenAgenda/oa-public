@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (field, aggOptions = {}) => ({
+export default (field, aggOptions = {}) => ({
   formatDSL: (query, options = {}) => ({
     terms: {
       field,

@@ -1,8 +1,6 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('node:fs');
-
-module.exports = {
+export default {
   elasticsearch: {
     // node: 'https://es7.openagenda.com',
     node: `https://${process.env.OA_ELASTICSEARCH_750_DEV_HOST}`,

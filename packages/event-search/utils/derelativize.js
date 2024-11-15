@@ -1,7 +1,5 @@
-'use strict';
-
-const moment = require('moment-timezone');
-const { produce } = require('immer');
+import moment from 'moment-timezone';
+import { produce } from 'immer';
 
 function getMidnight(timezone) {
   const local = moment.tz(timezone).format('HH:mm');
@@ -29,7 +27,7 @@ function validateTimezone(tz) {
   }
 }
 
-module.exports = produce((query) => {
+export default produce((query) => {
   const timezone = query?.date?.timezone;
 
   if (!timezone) return;

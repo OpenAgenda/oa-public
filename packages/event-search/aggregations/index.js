@@ -1,26 +1,22 @@
-'use strict';
-
-const { BadRequest } = require('@openagenda/verror');
-
-const terms = require('./terms');
-const timestamp = require('./timestamp');
-const missingAdditionalFields = require('./missingAdditionalFields');
-
-const additionalFields = require('./additionalFields');
-const additionalFieldMetrics = require('./additionalFieldMetrics');
-const geohash = require('./geohash');
-const viewport = require('./viewport');
-const eventsByDateRanges = require('./eventsByDateRanges');
-const keywords = require('./keywords');
-const languages = require('./languages');
-const locations = require('./locations');
-const members = require('./members');
-const timespan = require('./timespan');
-const originAgendas = require('./originAgendas');
-const relative = require('./relative');
-const timings = require('./timings');
-const accessibilities = require('./accessibilities');
-const sourceAgendas = require('./sourceAgendas');
+import { BadRequest } from '@openagenda/verror';
+import terms from './terms.js';
+import timestamp from './timestamp.js';
+import * as missingAdditionalFields from './missingAdditionalFields.js';
+import * as additionalFields from './additionalFields.js';
+import * as additionalFieldMetrics from './additionalFieldMetrics.js';
+import * as geohash from './geohash.js';
+import * as viewport from './viewport.js';
+import * as eventsByDateRanges from './eventsByDateRanges.js';
+import * as keywords from './keywords.js';
+import * as languages from './languages.js';
+import * as locations from './locations.js';
+import * as members from './members.js';
+import * as timespan from './timespan.js';
+import * as originAgendas from './originAgendas.js';
+import * as relative from './relative.js';
+import * as timings from './timings.js';
+import * as accessibilities from './accessibilities.js';
+import * as sourceAgendas from './sourceAgendas.js';
 
 const aggregationTypes = {
   additionalFields,
@@ -93,7 +89,7 @@ function getRequestedItemErrors(requestedAgg, index = null) {
 function getValidationErrors(requested) {
   const errors = [];
 
-  if (requested instanceof Array) {
+  if (Array.isArray(requested)) {
     requested.forEach((item, index) => {
       getRequestedItemErrors(item, index).forEach((e) => errors.push(e));
     });
@@ -111,7 +107,7 @@ function getOptions(requested, options = {}) {
   };
 }
 
-module.exports = {
+export default {
   formatDSL: (requested, query, options = {}) => {
     const errors = getValidationErrors(requested);
 

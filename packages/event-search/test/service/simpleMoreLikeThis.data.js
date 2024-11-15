@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = [
+export default [
   {
     id: 1,
     note: 'I need to get this query yup working on a simple masdar schema',

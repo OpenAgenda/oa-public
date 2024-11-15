@@ -1,9 +1,7 @@
-'use strict';
+import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
+import keywordizeDiscreteValue from './keywordizeDiscreteValue.js';
 
 const MAX_ES_INT = 2147483648;
-
-const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
-const keywordizeDiscreteValue = require('./keywordizeDiscreteValue');
 
 const isEmpty = (v) => (Array.isArray(v) ? !v.length : v === undefined);
 const optionedTypes = ['radio', 'checkbox', 'select', 'multiselect', 'boolean'];
@@ -69,7 +67,7 @@ function extract(extracted, schema, data = {}, path = '') {
   }
 }
 
-module.exports = function extractSchemaAdditionalSearchables(schema, data) {
+export default function extractSchemaAdditionalSearchables(schema, data) {
   const extracted = {
     emptyListFields: [],
     emptyFields: [],
@@ -80,4 +78,4 @@ module.exports = function extractSchemaAdditionalSearchables(schema, data) {
   extract(extracted, schema, data);
 
   return extracted;
-};
+}

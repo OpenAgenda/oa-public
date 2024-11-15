@@ -1,13 +1,11 @@
-'use strict';
-
-const cleanOptionedFields = require('../utils/cleanOptionedFields');
-const event = require('./fixtures/filterByAccess/event.json');
-const formSchema = require('./fixtures/filterByAccess/formSchema.json');
+import cleanOptionedFields from '../utils/cleanOptionedFields.js';
+import event from './fixtures/filterByAccess/event.json' with { type: 'json' };
+import formSchema from './fixtures/filterByAccess/formSchema.json' with { type: 'json' };
 
 describe('cleanOptionFields', () => {
   it('already cleaned', () => {
     const cleanedEvent = cleanOptionedFields(event, formSchema);
-    expect(cleanedEvent).toStrictEqual(event);
+    expect(cleanedEvent).toStrictEqual({ ...event });
   });
   it('should clean optioned fields', () => {
     const cleanedEvent = cleanOptionedFields(

@@ -1,11 +1,8 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-
-const textValidator = require('@openagenda/validators/text');
-const booleanValidator = require('@openagenda/validators/boolean');
-const passValidator = require('@openagenda/validators/pass');
-const choiceValidator = require('@openagenda/validators/choice');
+import schema from '@openagenda/validators/schema/index.js';
+import textValidator from '@openagenda/validators/text.js';
+import booleanValidator from '@openagenda/validators/boolean.js';
+import passValidator from '@openagenda/validators/pass.js';
+import choiceValidator from '@openagenda/validators/choice.js';
 
 schema.register({
   text: textValidator,
@@ -84,9 +81,9 @@ const validate = schema({
   },
 });
 
-module.exports = function validateSearchOptions(options = {}) {
+export default function validateSearchOptions(options = {}) {
   return validate({
     ...options,
     includeFields: options.includeFields || options.if,
   });
-};
+}

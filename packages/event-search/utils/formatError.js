@@ -1,6 +1,4 @@
-'use strict';
-
-const { BadRequest } = require('@openagenda/verror');
+import { BadRequest } from '@openagenda/verror';
 
 const isInvalidSortKeyCount = (error) =>
   !!(error.meta.body.error.root_cause?.[0].reason ?? '').match(
@@ -10,7 +8,7 @@ const isInvalidAggregation = (error) =>
   (error.meta.body.error.reason ?? '').indexOf('Invalid aggregation name')
   === 0;
 
-module.exports = function formatError(error) {
+export default function formatError(error) {
   if (error?.meta?.body?.status === 400) {
     let message = 'malformed request';
     if (isInvalidSortKeyCount(error)) {
@@ -24,4 +22,4 @@ module.exports = function formatError(error) {
   }
 
   return error;
-};
+}

@@ -1,6 +1,4 @@
-'use strict';
-
-const getDSLSortPart = require('../utils/getDSLSortPart');
+import getDSLSortPart from '../utils/getDSLSortPart.js';
 
 describe('event-search - unit: utils - getDSLSortPart', () => {
   it('default sort', () => {

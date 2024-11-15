@@ -1,16 +1,13 @@
-'use strict';
-
-const fs = require('node:fs');
+import fs from 'node:fs';
 // const _ = require('lodash');
-const elasticsearch = require('@elastic/elasticsearch');
+import elasticsearch from '@elastic/elasticsearch';
+import config from '../testconfig.js';
 
 const write = (name, o) =>
   fs.writeFileSync(
-    `${__dirname}/${name}.result.json`,
+    `${import.meta.dirname}/${name}.result.json`,
     JSON.stringify(o, null, 2),
   );
-
-const { elasticsearch: config } = require('../testconfig');
 
 // const health = (client) => client.cat.health({ format: 'json' }).then((r) => r.body);
 // const clusterHealth = (client, level = 'cluster') => client.cluster.health({ format: 'json', level }).then((r) => r.body);
@@ -32,8 +29,8 @@ const indices = (client) =>
 
 (async () => {
   const client = new elasticsearch.Client({
-    node: config.node,
-    ssl: config.ssl,
+    node: config.elasticsearch.node,
+    ssl: config.elasticsearch.ssl,
   });
 
   const result = {};

@@ -1,11 +1,7 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
-
-const config = require('../testconfig');
-const postDSL = require('../utils/postDSL');
-const Service = require('..');
+import _ from 'lodash';
+import Service from '../index.js';
+import config from '../testconfig.js';
+import postDSL from '../utils/postDSL.js';
 
 describe('10 - event-search - unit: dsl search', () => {
   describe('simple search', () => {
@@ -27,11 +23,8 @@ describe('10 - event-search - unit: dsl search', () => {
 
       await service('simple_search').rebuild({
         eventsList: async (lastId, limit) =>
-          JSON.parse(
-            fs.readFileSync(
-              `${__dirname}/fixtures/10_events.${lastId}.${limit}.json`,
-            ),
-          ),
+          (await import(`./fixtures/10_events.${lastId}.${limit}.json`))
+            .default,
       });
     });
 

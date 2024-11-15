@@ -1,11 +1,9 @@
-'use strict';
-
 const cleanRequestedMetrics = (metrics) =>
   (metrics && [].concat(metrics).length
     ? [].concat(metrics).filter((m) => ['sum', 'avg', 'max', 'min'].includes(m))
     : ['avg']);
 
-module.exports.formatDSL = (query, options = {}) => {
+export function formatDSL(query, options = {}) {
   const { field: fieldName, formSchema, metrics } = options;
 
   const fieldType = formSchema
@@ -37,9 +35,9 @@ module.exports.formatDSL = (query, options = {}) => {
       },
     },
   };
-};
+}
 
-module.exports.formatResult = (result, options = {}) => {
+export function formatResult(result, options = {}) {
   const { field: fieldName, metrics: requestedMetrics } = options;
 
   return cleanRequestedMetrics(requestedMetrics).reduce(
@@ -49,4 +47,4 @@ module.exports.formatResult = (result, options = {}) => {
     }),
     {},
   );
-};
+}

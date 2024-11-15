@@ -1,3 +1,1 @@
-'use strict';
-
-module.exports = (set, eventUid) => `${set}_${eventUid}`;
+export default (set, eventUid) => `${set}_${eventUid}`;

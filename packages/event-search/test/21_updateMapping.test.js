@@ -1,10 +1,6 @@
-'use strict';
-
-const elasticsearch = require('@elastic/elasticsearch');
-
-const config = require('../testconfig').elasticsearch;
-
-const updateMapping = require('../utils/updateMapping');
+import elasticsearch from '@elastic/elasticsearch';
+import updateMapping from '../utils/updateMapping.js';
+import config from '../testconfig.js';
 
 const indexName = '21_update_mapping';
 
@@ -14,8 +10,8 @@ describe('21 - event-search - updateMapping', () => {
 
   beforeAll(async () => {
     client = new elasticsearch.Client({
-      node: config.node,
-      ssl: config.ssl,
+      node: config.elasticsearch.node,
+      ssl: config.elasticsearch.ssl,
     });
 
     await client.indices.create({

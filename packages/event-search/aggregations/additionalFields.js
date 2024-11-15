@@ -1,11 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import { BadRequest } from '@openagenda/verror';
+import formSchemas from '@openagenda/form-schemas';
 
-const _ = require('lodash');
-const { BadRequest } = require('@openagenda/verror');
-
-const {
-  utils: { flattenSchema: getFlattenedSchema },
-} = require('@openagenda/form-schemas');
+const { flattenSchema: getFlattenedSchema } = formSchemas.utils;
 
 const isNumberLike = (value) =>
   !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
@@ -84,7 +81,7 @@ function getFieldValues(field) {
   return field.options.map((o) => [field.schemaId, o.id].join('.'));
 }
 
-module.exports.formatDSL = (query, options = {}) => {
+export function formatDSL(query, options = {}) {
   const aggregationQuery = {
     terms: {
       field: '_search_additional_keywords',
@@ -115,9 +112,9 @@ module.exports.formatDSL = (query, options = {}) => {
   }
 
   return aggregationQuery;
-};
+}
 
-module.exports.formatResult = (result, options = {}) => {
+export function formatResult(result, options = {}) {
   if (!options.formSchema) return [];
 
   const flattenedSchema = getFlattenedSchema(options.formSchema);
@@ -147,4 +144,4 @@ module.exports.formatResult = (result, options = {}) => {
   }
 
   return formattedResult;
-};
+}

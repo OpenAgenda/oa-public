@@ -1,7 +1,5 @@
-'use strict';
-
 function extractLabel(label, requestedLang) {
-  if (!label || !(label instanceof Object)) {
+  if (!label || Object.prototype.toString.call(label) !== '[object Object]') {
     return label;
   }
 
@@ -18,7 +16,7 @@ function extractLabel(label, requestedLang) {
   ];
 }
 
-module.exports = function includeLabelsInEvent(
+export default function includeLabelsInEvent(
   { formSchema, monolingual },
   event,
 ) {
@@ -45,4 +43,4 @@ module.exports = function includeLabelsInEvent(
         : corresponding.pop(),
     };
   }, event);
-};
+}

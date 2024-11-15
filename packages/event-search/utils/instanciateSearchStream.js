@@ -1,7 +1,7 @@
-'use strict';
+import { Readable } from 'node:stream';
+import logs from '@openagenda/logs';
 
-const { Readable } = require('node:stream');
-const log = require('@openagenda/logs')('stream');
+const log = logs('stream');
 
 class SearchStream extends Readable {
   constructor(search, scroll, clearScroll, alias, query = {}, options = {}) {
@@ -105,5 +105,5 @@ class SearchStream extends Readable {
   }
 }
 
-module.exports = ({ search, scroll, clearScroll }, alias, query, options) =>
+export default ({ search, scroll, clearScroll }, alias, query, options) =>
   new SearchStream(search, scroll, clearScroll, alias, query, options);

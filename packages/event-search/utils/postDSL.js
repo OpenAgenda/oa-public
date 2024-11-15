@@ -1,11 +1,9 @@
-'use strict';
-
-const { BadRequest } = require('@openagenda/verror');
+import { BadRequest } from '@openagenda/verror';
 
 const hasFailure = (body, type) =>
   !!(body._shards.failures ?? []).find(({ reason }) => reason.type === type);
 
-module.exports = async function postDSL({ client }, index, DSL, options = {}) {
+export default async function postDSL({ client }, index, DSL, options = {}) {
   const res = await client.search({
     index,
     body: DSL,
@@ -30,4 +28,4 @@ module.exports = async function postDSL({ client }, index, DSL, options = {}) {
       }
       : {},
   };
-};
+}

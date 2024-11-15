@@ -1,10 +1,6 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const config = require('../testconfig');
-
-const Service = require('..');
+import Service from '../index.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/02_events.relative.json' with { type: 'json' };
 
 describe('02 - event search - functional: relative filter', () => {
   let service;
@@ -22,9 +18,6 @@ describe('02 - event search - functional: relative filter', () => {
   });
 
   beforeAll(async () => {
-    const fixtures = JSON.parse(
-      fs.readFileSync(`${__dirname}/fixtures/02_events.relative.json`),
-    );
     const anHourAgo = new Date();
     anHourAgo.setHours(anHourAgo.getHours() - 1);
 

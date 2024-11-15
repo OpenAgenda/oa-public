@@ -1,23 +1,20 @@
-'use strict';
-
-const moment = require('moment');
-
-const appendFirstNextAndLastTiming = require('../utils/appendFirstNextAndLastTiming');
-const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
-const derelativize = require('../utils/derelativize');
-const geoJSON = require('../utils/geoJSON');
-const getDSLSortPart = require('../utils/getDSLSortPart');
-const validateNav = require('../utils/validateNav');
-const validateQuery = require('../utils/validateQuery');
-const preCleanRawQuery = require('../utils/preCleanRawQuery');
-const monolingual = require('../utils/monolingualize');
-const includeLabelsInEvent = require('../utils/includeLabelsInEvent');
-const toSortTimingFormat = require('../utils/toSortTimingFormat');
-const cleanRequestedAggregation = require('../utils/cleanRequestedAggregation');
-const geoInFx = require('./service/parsers/geoJSON.in.json');
-const geoOutFx = require('./service/parsers/geoJSON.out.json');
-const BMFormSchema = require('./fixtures/applied/bordeaux-metropole.schema.json');
-const BMSampleEvents = require('./fixtures/applied/bordeaux-metropole.2134211.10.json');
+import moment from 'moment';
+import appendFirstNextAndLastTiming from '../utils/appendFirstNextAndLastTiming.js';
+import convertToLocalTimezone from '../utils/convertToLocalTimezone.js';
+import derelativize from '../utils/derelativize.js';
+import geoJSON from '../utils/geoJSON.js';
+import getDSLSortPart from '../utils/getDSLSortPart.js';
+import validateNav from '../utils/validateNav.js';
+import validateQuery from '../utils/validateQuery.js';
+import preCleanRawQuery from '../utils/preCleanRawQuery.js';
+import monolingual from '../utils/monolingualize.js';
+import includeLabelsInEvent from '../utils/includeLabelsInEvent.js';
+import toSortTimingFormat from '../utils/toSortTimingFormat.js';
+import cleanRequestedAggregation from '../utils/cleanRequestedAggregation.js';
+import geoInFx from './service/parsers/geoJSON.in.json' with { type: 'json' };
+import geoOutFx from './service/parsers/geoJSON.out.json' with { type: 'json' };
+import BMFormSchema from './fixtures/applied/bordeaux-metropole.schema.json' with { type: 'json' };
+import BMSampleEvents from './fixtures/applied/bordeaux-metropole.2134211.10.json' with { type: 'json' };
 
 function dateStrFromNow(count = 0) {
   const d = moment().add(count, 'day').toDate();

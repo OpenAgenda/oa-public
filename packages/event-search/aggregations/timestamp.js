@@ -1,8 +1,6 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const choiceValidator = require('@openagenda/validators/choice');
-const textValidator = require('@openagenda/validators/text');
+import schema from '@openagenda/validators/schema/index.js';
+import choiceValidator from '@openagenda/validators/choice.js';
+import textValidator from '@openagenda/validators/text.js';
 
 schema.register({
   choice: choiceValidator,
@@ -60,7 +58,7 @@ function formatDSL(field, query, options = {}) {
   };
 }
 
-module.exports = (field) => ({
+export default (field) => ({
   formatDSL: formatDSL.bind(null, field),
   formatResult: ({ buckets }) =>
     buckets.map((b) => ({

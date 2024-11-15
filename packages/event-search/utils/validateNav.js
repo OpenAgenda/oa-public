@@ -1,13 +1,9 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-
-const integerValidator = require('@openagenda/validators/integer');
-const numberValidator = require('@openagenda/validators/number');
-const regexValidator = require('@openagenda/validators/regex');
-const passValidator = require('@openagenda/validators/pass');
-
-const { BadRequest } = require('@openagenda/verror');
+import schema from '@openagenda/validators/schema/index.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import numberValidator from '@openagenda/validators/number.js';
+import regexValidator from '@openagenda/validators/regex.js';
+import passValidator from '@openagenda/validators/pass.js';
+import { BadRequest } from '@openagenda/verror';
 
 schema.register({
   integer: integerValidator,
@@ -62,7 +58,7 @@ const navValidator = schema({
   },
 });
 
-module.exports = function validateNav(nav, options = {}) {
+export default function validateNav(nav, options = {}) {
   const preClean = {
     ...nav ?? {},
   };
@@ -111,4 +107,4 @@ module.exports = function validateNav(nav, options = {}) {
       size: clean.size,
       searchAfter: clean.after ? clean.after : clean.searchAfter,
     };
-};
+}

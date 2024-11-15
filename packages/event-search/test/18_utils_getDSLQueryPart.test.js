@@ -1,7 +1,5 @@
-'use strict';
-
-const validateQuery = require('../utils/validateQuery');
-const getDSLQueryPart = require('../utils/getDSLQueryPart');
+import validateQuery from '../utils/validateQuery.js';
+import getDSLQueryPart from '../utils/getDSLQueryPart.js';
 
 describe('event-search - unit: utils - getDSLQueryPart', () => {
   it('filtering by uid only', () => {

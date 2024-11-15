@@ -1,10 +1,6 @@
-'use strict';
-
-const elasticsearch = require('@elastic/elasticsearch');
-
-const config = require('../testconfig').elasticsearch;
-
-const updateDynamicSettings = require('../utils/updateDynamicSettings');
+import elasticsearch from '@elastic/elasticsearch';
+import updateDynamicSettings from '../utils/updateDynamicSettings.js';
+import config from '../testconfig.js';
 
 const indexName = '22_update_dynamic_settings';
 
@@ -14,8 +10,8 @@ describe('22 - event-search - updateDynamicSettings', () => {
 
   beforeAll(async () => {
     client = new elasticsearch.Client({
-      node: config.node,
-      ssl: config.ssl,
+      node: config.elasticsearch.node,
+      ssl: config.elasticsearch.ssl,
     });
 
     await client.indices.create({

@@ -1,16 +1,16 @@
-'use strict';
+import { inflate } from '../utils/aggregatorObjects.js';
 
-const { inflate } = require('../utils/aggregatorObjects');
+export function formatDSL(query, options = {}) {
+  return {
+    terms: {
+      field: 'location._agg',
+      size: options.size,
+    },
+  };
+}
 
-module.exports.formatDSL = (query, options = {}) => ({
-  terms: {
-    field: 'location._agg',
-    size: options.size,
-  },
-});
-
-module.exports.formatResult = ({ buckets }) =>
-  buckets.map((bucket) => {
+export function formatResult({ buckets }) {
+  return buckets.map((bucket) => {
     const location = inflate(bucket.key);
 
     const key = location.uid;
@@ -22,3 +22,4 @@ module.exports.formatResult = ({ buckets }) =>
       eventCount: bucket.doc_count,
     };
   });
+}

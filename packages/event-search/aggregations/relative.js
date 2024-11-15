@@ -1,60 +1,61 @@
-'use strict';
-
-module.exports.formatDSL = () => ({
-  filters: {
+export function formatDSL() {
+  return {
     filters: {
-      upcoming: {
-        bool: {
-          filter: [
-            {
-              range: {
-                _search_first_timing: {
-                  gt: 'now',
+      filters: {
+        upcoming: {
+          bool: {
+            filter: [
+              {
+                range: {
+                  _search_first_timing: {
+                    gt: 'now',
+                  },
                 },
               },
-            },
-          ],
+            ],
+          },
         },
-      },
-      passed: {
-        bool: {
-          filter: [
-            {
-              range: {
-                _search_last_timing: {
-                  lt: 'now',
+        passed: {
+          bool: {
+            filter: [
+              {
+                range: {
+                  _search_last_timing: {
+                    lt: 'now',
+                  },
                 },
               },
-            },
-          ],
+            ],
+          },
         },
-      },
-      current: {
-        bool: {
-          filter: [
-            {
-              range: {
-                _search_last_timing: {
-                  gt: 'now',
+        current: {
+          bool: {
+            filter: [
+              {
+                range: {
+                  _search_last_timing: {
+                    gt: 'now',
+                  },
                 },
               },
-            },
-            {
-              range: {
-                _search_first_timing: {
-                  lt: 'now',
+              {
+                range: {
+                  _search_first_timing: {
+                    lt: 'now',
+                  },
                 },
               },
-            },
-          ],
+            ],
+          },
         },
       },
     },
-  },
-});
+  };
+}
 
-module.exports.formatResult = ({ buckets }) =>
-  Object.keys(buckets).map((key) => ({
+export function formatResult({ buckets }) {
+  return Object.keys(buckets).map((key) => ({
     key,
     eventCount: buckets[key].doc_count,
   }));
+}

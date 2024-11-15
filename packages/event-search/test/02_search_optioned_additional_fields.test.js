@@ -1,14 +1,6 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const config = require('../testconfig');
-
-const Service = require('..');
-
-const fixtures = JSON.parse(
-  fs.readFileSync(`${__dirname}/fixtures/02_events.optioned_additional.json`),
-);
+import Service from '../index.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/02_events.optioned_additional.json' with { type: 'json' };
 
 describe('02 - event search - functional: search in optioned additional fields', () => {
   let service;

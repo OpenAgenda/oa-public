@@ -1,5 +1,3 @@
-'use strict';
-
 async function nodesInfo(client) {
   return client.nodes.info().then(({ body }) =>
     Object.keys(body.nodes).map((key) => ({
@@ -28,7 +26,7 @@ async function stats(client) {
   };
 }
 
-module.exports = ({ client, defaultIndex }) => ({
+export default ({ client, defaultIndex }) => ({
   stats: stats.bind(null, client),
   nodes: nodesInfo.bind(null, client),
   indices: (index) => ({

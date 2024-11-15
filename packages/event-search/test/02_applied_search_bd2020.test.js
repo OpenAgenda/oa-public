@@ -1,17 +1,9 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const config = require('../testconfig');
-
-const Service = require('..');
+import Service from '../index.js';
+import config from '../testconfig.js';
+import formSchema from './fixtures/applied/bd2020.schema.json' with { type: 'json' };
 
 describe('02 - event search - functional: bd2020', () => {
   let service;
-
-  const formSchema = JSON.parse(
-    fs.readFileSync(`${__dirname}/fixtures/applied/bd2020.schema.json`),
-  );
 
   beforeAll(() => {
     service = Service(config);
@@ -30,11 +22,8 @@ describe('02 - event search - functional: bd2020', () => {
   beforeAll(async () => {
     await service('bd2020').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(
-          fs.readFileSync(
-            `${__dirname}/fixtures/applied/bd2020.${lastId}.${limit}.json`,
-          ),
-        ),
+        (await import(`./fixtures/applied/bd2020.${lastId}.${limit}.json`))
+          .default,
       formSchema,
     });
   });

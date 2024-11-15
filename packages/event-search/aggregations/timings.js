@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const moment = require('moment-timezone');
-const schema = require('@openagenda/validators/schema');
-const choiceValidator = require('@openagenda/validators/choice');
-const textValidator = require('@openagenda/validators/text');
+import _ from 'lodash';
+import moment from 'moment-timezone';
+import schema from '@openagenda/validators/schema/index.js';
+import choiceValidator from '@openagenda/validators/choice.js';
+import textValidator from '@openagenda/validators/text.js';
 
 schema.register({
   choice: choiceValidator,
@@ -30,7 +28,7 @@ const validateOptions = schema({
   },
 });
 
-module.exports.formatDSL = (query, options = {}) => {
+export function formatDSL(query, options = {}) {
   const { interval, format } = validateOptions(options);
 
   return {
@@ -48,9 +46,9 @@ module.exports.formatDSL = (query, options = {}) => {
       },
     },
   };
-};
+}
 
-module.exports.formatResult = (result, options = {}) => {
+export function formatResult(result, options = {}) {
   const { query } = options;
 
   const { format, timezone } = validateOptions(options);
@@ -81,4 +79,4 @@ module.exports.formatResult = (result, options = {}) => {
     }
     return true;
   });
-};
+}

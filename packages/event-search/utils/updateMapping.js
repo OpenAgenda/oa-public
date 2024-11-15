@@ -1,10 +1,9 @@
-'use strict';
+import diff from 'deep-diff';
+import logs from '@openagenda/logs';
 
-const diff = require('deep-diff');
+const log = logs('utils/updateMapping');
 
-const log = require('@openagenda/logs')('utils/updateMapping');
-
-module.exports = async ({ client }, index, mapping, options = {}) => {
+export default async ({ client }, index, mapping, options = {}) => {
   const currentMapping = await client.indices
     .getMapping({ index })
     .then(({ body }) => body[index].mappings.properties);

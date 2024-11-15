@@ -1,8 +1,6 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-module.exports = (data) => ({
+export default (data) => ({
   type: 'FeatureCollection',
   features: _.get(data, 'events', []).map((e) => ({
     type: 'Feature',

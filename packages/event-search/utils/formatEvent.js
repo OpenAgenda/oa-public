@@ -1,20 +1,16 @@
-'use strict';
-
-const moment = require('moment-timezone');
-const dateRangeInLocale = require('@openagenda/date-range');
-const addRegistrationType = require('@openagenda/utils/registration/addType');
-const { produce } = require('immer');
-
-const aggObjects = require('./aggregatorObjects');
-const formatMember = require('./formatMember');
-const extractLocationData = require('./extractLocationData');
-const extractSchemaAdditionalSearchables = require('./extractSchemaAdditionalSearchables');
-const cleanOptionedFields = require('./cleanOptionedFields');
+import moment from 'moment-timezone';
+import dateRangeInLocale from '@openagenda/date-range';
+import addRegistrationType from '@openagenda/utils/registration/addType.js';
+import { produce } from 'immer';
+import * as aggObjects from './aggregatorObjects.js';
+import formatMember from './formatMember.js';
+import extractLocationData from './extractLocationData.js';
+import extractSchemaAdditionalSearchables from './extractSchemaAdditionalSearchables.js';
+import cleanOptionedFields from './cleanOptionedFields.js';
+import toSortTimingFormat from './toSortTimingFormat.js';
 
 const registrationHasType = (registration = []) =>
   !!registration.some((r) => typeof r === 'object' && r?.type);
-
-const toSortTimingFormat = require('./toSortTimingFormat');
 
 const multilingualFieldHasValue = (v) => {
   if (!v) {
@@ -55,7 +51,7 @@ const isLessThanOneMinuteApart = (d1, d2) => {
   return Math.abs(new Date(d1).getTime() - new Date(d2).getTime()) < 60 * 1000;
 };
 
-module.exports = (data, options = {}) => {
+export default (data, options = {}) => {
   const { formSchema = null } = options;
 
   if (data.removed) {

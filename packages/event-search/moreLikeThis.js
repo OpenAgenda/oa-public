@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('morelikeThis');
+const log = logs('morelikeThis');
 
-module.exports = (search, MLTQuery, MLTOptions, query) => {
+export default (search, MLTQuery, MLTOptions, query) => {
   log(
     'compiling more like this query from %j MLT query, %j MLT options and %j query',
     MLTQuery,

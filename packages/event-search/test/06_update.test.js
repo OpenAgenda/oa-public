@@ -1,9 +1,5 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const config = require('../testconfig');
-const Service = require('..');
+import Service from '../index.js';
+import config from '../testconfig.js';
 
 describe('06 - event search - functional: update', () => {
   let service;
@@ -13,11 +9,7 @@ describe('06 - event search - functional: update', () => {
 
     await service('test_index').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(
-          fs.readFileSync(
-            `${__dirname}/fixtures/06_events.${lastId}.${limit}.json`,
-          ),
-        ),
+        (await import(`./fixtures/06_events.${lastId}.${limit}.json`)).default,
     });
   });
 

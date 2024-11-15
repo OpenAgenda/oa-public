@@ -1,16 +1,13 @@
-'use strict';
-
-const elasticsearch = require('@elastic/elasticsearch');
-
-const config = require('../testconfig').elasticsearch;
+import elasticsearch from '@elastic/elasticsearch';
+import config from '../testconfig.js';
 
 describe('98 - event-search - unit: used elasticsearch api calls', () => {
   let client;
 
   beforeAll(() => {
     client = new elasticsearch.Client({
-      node: config.node,
-      ssl: config.ssl,
+      node: config.elasticsearch.node,
+      ssl: config.elasticsearch.ssl,
     });
   });
 

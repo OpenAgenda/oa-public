@@ -1,9 +1,5 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const config = require('../testconfig');
-const Service = require('..');
+import Service from '../index.js';
+import config from '../testconfig.js';
 
 describe('02 - event search - functional: clear a set', () => {
   let service;
@@ -26,19 +22,16 @@ describe('02 - event search - functional: clear a set', () => {
   beforeAll(async () => {
     await service('bdx2clear').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(
-          fs.readFileSync(
-            `${__dirname}/fixtures/applied/bordeaux-metropole.${lastId}.${limit}.json`,
-          ),
-        ),
+        (
+          await import(
+            `./fixtures/applied/bordeaux-metropole.${lastId}.${limit}.json`
+          )
+        ).default,
     });
     await service('bd20202notCleared').rebuild({
       eventsList: async (lastId, limit) =>
-        JSON.parse(
-          fs.readFileSync(
-            `${__dirname}/fixtures/applied/bd2020.${lastId}.${limit}.json`,
-          ),
-        ),
+        (await import(`./fixtures/applied/bd2020.${lastId}.${limit}.json`))
+          .default,
     });
   });
 

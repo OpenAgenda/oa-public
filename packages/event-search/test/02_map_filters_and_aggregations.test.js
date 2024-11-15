@@ -1,10 +1,5 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const config = require('../testconfig');
-
-const Service = require('..');
+import Service from '../index.js';
+import config from '../testconfig.js';
 
 describe('02 - event search - functional: relative filter', () => {
   let service;
@@ -24,7 +19,8 @@ describe('02 - event search - functional: relative filter', () => {
   beforeAll(async () => {
     await service('map').rebuild({
       eventsList: async (_lastId, _limit) =>
-        JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_events.map.json`)),
+        (await import('./fixtures/02_events.map.json', { type: 'json' }))
+          .default,
     });
   });
 

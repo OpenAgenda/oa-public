@@ -1,10 +1,7 @@
-'use strict';
-
-const defineIncludes = require('../utils/defineIncludes');
-
-const fxDefaultIncludes = require('./fixtures/defineIncludes/default.json');
-const fxWithFormSchemaDetailed = require('./fixtures/defineIncludes/withFormSchemaDetailed.json');
-const formSchemaWithRestrictedFields = require('./fixtures/defineIncludes/formSchemaWithRestrictedFields.json');
+import defineIncludes from '../utils/defineIncludes.js';
+import fxDefaultIncludes from './fixtures/defineIncludes/default.json' with { type: 'json' };
+import fxWithFormSchemaDetailed from './fixtures/defineIncludes/withFormSchemaDetailed.json' with { type: 'json' };
+import formSchemaWithRestrictedFields from './fixtures/defineIncludes/formSchemaWithRestrictedFields.json' with { type: 'json' };
 
 describe('event-search - unit: utils - defineIncludes', () => {
   const { baseSearchIncludes, detailedSearchIncludes } = fxDefaultIncludes;

@@ -1,19 +1,15 @@
-'use strict';
-
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-
-const textValidator = require('@openagenda/validators/text');
-const integerValidator = require('@openagenda/validators/integer');
-const latitudeValidator = require('@openagenda/validators/latitude');
-const longitudeValidator = require('@openagenda/validators/longitude');
-const dateValidator = require('@openagenda/validators/date');
-const choiceValidator = require('@openagenda/validators/choice');
-const booleanValidator = require('@openagenda/validators/boolean');
-
-const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
-const preCleanRawQuery = require('./preCleanRawQuery');
-const derelativize = require('./derelativize');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import textValidator from '@openagenda/validators/text.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import latitudeValidator from '@openagenda/validators/latitude.js';
+import longitudeValidator from '@openagenda/validators/longitude.js';
+import dateValidator from '@openagenda/validators/date.js';
+import choiceValidator from '@openagenda/validators/choice.js';
+import booleanValidator from '@openagenda/validators/boolean.js';
+import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
+import preCleanRawQuery from './preCleanRawQuery.js';
+import derelativize from './derelativize.js';
 
 schema.register({
   text: textValidator,
@@ -377,9 +373,9 @@ function validateQuery(dirty, options = {}) {
   };
 }
 
-module.exports = validateQuery;
+export default validateQuery;
 
-module.exports.inflateAndClean = (query, options = {}) => {
+export function inflateAndClean(query, options = {}) {
   const {
     set = null,
     formSchema = null,
@@ -397,4 +393,4 @@ module.exports.inflateAndClean = (query, options = {}) => {
   const derelativized = derelativize(inflated);
 
   return validateQuery(derelativized, { formSchema, emptyValue, removed });
-};
+}

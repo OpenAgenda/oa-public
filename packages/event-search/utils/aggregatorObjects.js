@@ -1,9 +1,7 @@
-'use strict';
+import base64 from '@openagenda/utils/base64.js';
 
-const { encode, decode } = require('@openagenda/utils/base64');
-
-module.exports.flatten = (obj, fields) =>
-  encode(
+export function flatten(obj, fields) {
+  return base64.encode(
     JSON.stringify(
       fields.reduce(
         (picked, field) => ({
@@ -14,5 +12,8 @@ module.exports.flatten = (obj, fields) =>
       ),
     ),
   );
+}
 
-module.exports.inflate = (obj) => JSON.parse(decode(obj));
+export function inflate(obj) {
+  return JSON.parse(base64.decode(obj));
+}

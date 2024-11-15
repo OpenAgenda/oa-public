@@ -1,6 +1,4 @@
-'use strict';
-
-const toSortTimingFormat = require('./toSortTimingFormat');
+import toSortTimingFormat from './toSortTimingFormat.js';
 
 const timings = (query, options = {}) => {
   const { mode = 'min' } = options;
@@ -28,7 +26,7 @@ const timings = (query, options = {}) => {
   ];
 };
 
-module.exports = function getDSLSortPart(query = {}) {
+export default function getDSLSortPart(query = {}) {
   const { sort: s = [] } = query;
 
   const sorts = [].concat(s);
@@ -69,4 +67,4 @@ module.exports = function getDSLSortPart(query = {}) {
       });
     }, [])
     .concat({ uid: { order: 'asc' } });
-};
+}

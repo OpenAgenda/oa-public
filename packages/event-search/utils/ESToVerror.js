@@ -1,10 +1,6 @@
-'use strict';
+import VError, { BadRequest, NotFound } from '@openagenda/verror';
 
-const VError = require('@openagenda/verror');
-
-const { BadRequest, NotFound } = VError;
-
-module.exports = (err, message) => {
+export default (err, message) => {
   if (err.meta?.statusCode === 404) {
     return new NotFound(err, message);
   }

@@ -1,19 +1,19 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integerValidator = require('@openagenda/validators/integer');
+import schema from '@openagenda/validators/schema/index.js';
+import integerValidator from '@openagenda/validators/integer.js';
 
 schema.register({
   integer: integerValidator,
 });
 
-module.exports.formatDSL = (/* query, options = {} */) => ({
-  geo_bounds: {
-    field: '_search_location',
-  },
-});
+export function formatDSL() {
+  return /* query, options = {} */ {
+    geo_bounds: {
+      field: '_search_location',
+    },
+  };
+}
 
-module.exports.formatResult = (result) => {
+export function formatResult(result) {
   if (!result.bounds) {
     return null;
   }
@@ -28,4 +28,4 @@ module.exports.formatResult = (result) => {
       longitude: result.bounds.bottom_right.lon,
     },
   };
-};
+}

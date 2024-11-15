@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (event) => {
+export default (event) => {
   if (!event.timings || !event.timings.length) {
     return undefined;
   }

@@ -1,8 +1,6 @@
-'use strict';
+import { inflate } from './aggregatorObjects.js';
 
-const { inflate } = require('./aggregatorObjects');
-
-module.exports = (bucket) => {
+export default (bucket) => {
   const agenda = inflate(bucket.key);
 
   const key = agenda.uid;

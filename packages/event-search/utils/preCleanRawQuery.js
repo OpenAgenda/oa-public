@@ -1,11 +1,8 @@
-'use strict';
+import { produce } from 'immer';
+import { BadRequest } from '@openagenda/verror';
+import convertTimingsRange from './convertTimingsRange.js';
 
-const { produce } = require('immer');
-const { BadRequest } = require('@openagenda/verror');
-
-const convertTimingsRange = require('./convertTimingsRange');
-
-module.exports = produce((query = {}, options = {}) => {
+export default produce((query = {}, options = {}) => {
   const { removed } = { removed: false, ...options };
 
   if (
@@ -37,7 +34,7 @@ module.exports = produce((query = {}, options = {}) => {
 
   if (Array.isArray(query.uid)) {
     query.uid = query.uid.map((uid) => (uid === '' ? -1 : uid));
-  } else if (query.uid instanceof Object) {
+  } else if (Object.prototype.toString.call(query.uid) === '[object Object]') {
     try {
       query.uid = Object.values(query.uid).map((uid) => parseInt(uid, 10));
     } catch (e) {

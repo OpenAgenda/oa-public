@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = [
+export default [
   {
     name: 'Danièle FRISTOT',
     organization: 'Jardin des sciences - UFR Sci FA - Campus Bridoux',

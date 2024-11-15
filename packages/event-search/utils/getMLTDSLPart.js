@@ -1,7 +1,5 @@
-'use strict';
-
-const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
-const getAdditionalFieldMappedNameAndType = require('./getAdditionalFieldMappedNameAndType');
+import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
+import getAdditionalFieldMappedNameAndType from './getAdditionalFieldMappedNameAndType.js';
 
 const multilingualFieldsMap = {
   keywords: '_search_keywords_text',
@@ -11,7 +9,7 @@ const multilingualFieldsMap = {
 
 function _addSchemaIdPrefix(field, value) {
   return [].concat(value).map((v) => {
-    if (`${v}`.indexOf('.') === -1) {
+    if (!`${v}`.includes('.')) {
       return [field.schemaId, v].join('.');
     }
     return v;
@@ -32,7 +30,7 @@ function _getMLTLocationValue(location) {
     .join(' ');
 }
 
-module.exports = (MLTQuery, options = {}) => {
+export default (MLTQuery, options = {}) => {
   const { formSchema } = {
     formSchema: null,
     ...options,

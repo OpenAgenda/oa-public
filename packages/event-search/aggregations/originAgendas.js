@@ -1,12 +1,14 @@
-'use strict';
+import parseAgendaBucket from '../utils/parseAgendaBucket.js';
 
-const parseAgendaBucket = require('../utils/parseAgendaBucket');
+export function formatDSL(field, options = {}) {
+  return {
+    terms: {
+      field: 'originAgenda._agg',
+      size: options.size,
+    },
+  };
+}
 
-module.exports.formatDSL = (field, options = {}) => ({
-  terms: {
-    field: 'originAgenda._agg',
-    size: options.size,
-  },
-});
-
-module.exports.formatResult = ({ buckets }) => buckets.map(parseAgendaBucket);
+export function formatResult({ buckets }) {
+  return buckets.map(parseAgendaBucket);
+}

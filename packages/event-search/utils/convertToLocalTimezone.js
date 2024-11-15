@@ -1,9 +1,7 @@
-'use strict';
+import moment from 'moment-timezone';
+import { produce } from 'immer';
 
-const moment = require('moment-timezone');
-const { produce } = require('immer');
-
-module.exports = produce((event) => {
+export default produce((event) => {
   if (!event.timezone || !event.timings) {
     return event;
   }

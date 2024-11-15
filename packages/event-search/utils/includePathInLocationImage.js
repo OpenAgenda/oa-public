@@ -1,8 +1,6 @@
-'use strict';
+import { produce } from 'immer';
 
-const { produce } = require('immer');
-
-module.exports = function includePathInLocationImage({ assetsPath }, event) {
+export default function includePathInLocationImage({ assetsPath }, event) {
   if (!event.location?.image) {
     return event;
   }
@@ -10,4 +8,4 @@ module.exports = function includePathInLocationImage({ assetsPath }, event) {
   return produce(event, (draft) => {
     draft.location.image = `${assetsPath}${draft.location.image}`;
   });
-};
+}

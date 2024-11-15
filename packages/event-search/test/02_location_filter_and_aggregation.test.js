@@ -1,13 +1,7 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
-
-const config = require('../testconfig');
-
-const Service = require('..');
-
-const eventFormSchemaWithLocationSchema = require('./fixtures/02_eventFormSchemaWithLocationSchema.json');
+import _ from 'lodash';
+import Service from '../index.js';
+import config from '../testconfig.js';
+import eventFormSchemaWithLocationSchema from './fixtures/02_eventFormSchemaWithLocationSchema.json' with { type: 'json' };
 
 describe('02 - event search - functional: location', () => {
   let service;
@@ -28,9 +22,8 @@ describe('02 - event search - functional: location', () => {
     await service('location').rebuild({
       formSchema: eventFormSchemaWithLocationSchema,
       eventsList: async (_lastId, _limit) =>
-        JSON.parse(
-          fs.readFileSync(`${__dirname}/fixtures/02_events.location.json`),
-        ),
+        (await import('./fixtures/02_events.location.json', { type: 'json' }))
+          .default,
     });
   });
 
