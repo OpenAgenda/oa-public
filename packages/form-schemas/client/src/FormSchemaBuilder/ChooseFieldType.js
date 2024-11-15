@@ -41,6 +41,11 @@ const fieldTypeChoices = [
     label: labels.emailFieldType,
   },
   {
+    id: 15,
+    value: 'phone',
+    label: labels.phoneFieldType,
+  },
+  {
     id: 7,
     value: 'boolean',
     label: labels.booleanFieldType,
