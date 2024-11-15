@@ -18,11 +18,11 @@ const Attachments = loadableEsm(
         /* webpackChunkName: "inboxes-Attachments" */
         './Attachments.js'
       ),
-    importSync:
-      // eslint-disable-next-line camelcase
-      typeof __webpack_require__ === 'undefined'
-        ? await import('./Attachments.js')
-        : null,
+    // importSync:
+    //   // eslint-disable-next-line camelcase
+    //   typeof __webpack_require__ === 'undefined'
+    //     ? await import('./Attachments.js')
+    //     : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./Attachments.js');
