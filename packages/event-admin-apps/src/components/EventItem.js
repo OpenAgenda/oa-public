@@ -130,7 +130,7 @@ export default function EventItem({
   const queryClient = useQueryClient();
   const intl = useIntl();
 
-  const passId = event.registration.find((r) => r.service === 'passCulture')
+  const passId = event.registration?.find((r) => r.service === 'passCulture')
     ?.data?.[0]?.response?.passId;
   const passPending = passId
     ? getCurrentValue(
