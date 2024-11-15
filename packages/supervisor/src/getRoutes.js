@@ -41,11 +41,11 @@ const Dashboard = loadableEsm(
         /* webpackChunkName: "supervisor-Dashboard" */
         './containers/Dashboard.js'
       ),
-    importSync:
-      // eslint-disable-next-line camelcase
-      typeof __webpack_require__ === 'undefined'
-        ? await import('./containers/Dashboard.js')
-        : null,
+    // importSync:
+    //   // eslint-disable-next-line camelcase
+    //   typeof __webpack_require__ === 'undefined'
+    //     ? await import('./containers/Dashboard.js')
+    //     : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./containers/Dashboard.js');
@@ -67,11 +67,11 @@ const AnnouncementManager = loadableEsm(
         /* webpackChunkName: "supervisor-AnnouncementManager" */
         './containers/AnnouncementManager.js'
       ),
-    importSync:
-      // eslint-disable-next-line camelcase
-      typeof __webpack_require__ === 'undefined'
-        ? await import('./containers/AnnouncementManager.js')
-        : null,
+    // importSync:
+    //   // eslint-disable-next-line camelcase
+    //   typeof __webpack_require__ === 'undefined'
+    //     ? await import('./containers/AnnouncementManager.js')
+    //     : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./containers/AnnouncementManager.js');
@@ -93,11 +93,11 @@ const Elasticsearch = loadableEsm(
         /* webpackChunkName: "supervisor-Elasticsearch" */
         './containers/Elasticsearch.js'
       ),
-    importSync:
-      // eslint-disable-next-line camelcase
-      typeof __webpack_require__ === 'undefined'
-        ? await import('./containers/Elasticsearch.js')
-        : null,
+    // importSync:
+    //   // eslint-disable-next-line camelcase
+    //   typeof __webpack_require__ === 'undefined'
+    //     ? await import('./containers/Elasticsearch.js')
+    //     : null,
     resolve: () => {
       if (contextRequire) {
         return contextRequire.resolve('./containers/Elasticsearch.js');
