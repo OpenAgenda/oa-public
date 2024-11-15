@@ -1,5 +1,5 @@
 import rolesMessages from '@openagenda/common-labels/roles';
-import messages from '../messages/activities';
+import messages from '../messages/activities.js';
 
 const roleIdToLabel = {
   1: 'contributor',

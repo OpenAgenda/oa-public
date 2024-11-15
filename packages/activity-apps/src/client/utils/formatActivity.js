@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import get from 'lodash/get.js';
 import { getLocaleValue } from '@openagenda/intl';
 
 function multiReplace(str, obj) {
@@ -37,7 +37,7 @@ function getEntities(activity, entityMap, lang) {
       return accu;
     }
 
-    accu[entityKey] = getLocaleValue(_.get(activity, entity), lang);
+    accu[entityKey] = getLocaleValue(get(activity, entity), lang);
     return accu;
   }, {});
 }
@@ -68,7 +68,7 @@ function getTags(activity, tagMap, render, entities, intl) {
 function getLabelId({ labelId, labelIds = [] }, data) {
   for (const [partialLabelId, requestedEntities] of labelIds) {
     const missing = requestedEntities.some(
-      (requestedEntity) => !_.get(data, requestedEntity),
+      (requestedEntity) => !get(data, requestedEntity),
     );
 
     if (!missing) {

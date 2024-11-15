@@ -4,7 +4,7 @@ module.exports = {
   extends: ['../../.eslintrc'],
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   ignorePatterns: ['/dist'],
@@ -14,10 +14,8 @@ module.exports = {
       'error',
       {
         devDependencies: [
-          `${__dirname}/.babelrc.js`,
           `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
-          `${__dirname}/server.dev.js`,
           `${__dirname}/test/**/*.js`,
           `${__dirname}/seeds/**/*.js`,
         ],
@@ -27,17 +25,9 @@ module.exports = {
 
   overrides: [
     {
-      files: [
-        'src/**/*.js',
-        '.storybook/**/*.js',
-        'stories/**/*.js',
-        'server.dev.js',
-        'test/**/*.js',
-        'seeds/**/*.js',
-      ],
-
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

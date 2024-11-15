@@ -3,13 +3,13 @@ import { loadable } from '@openagenda/react-shared';
 const UserApp = loadable(
   () =>
     import(
-      /* webpackChunkName: "activities-UserActivitiesApp" */ '../../containers/UserApp/UserApp'
+      /* webpackChunkName: "activities-UserActivitiesApp" */ '../../containers/UserApp/UserApp.js'
     ),
 );
 const UserDashboard = loadable(
   () =>
     import(
-      /* webpackChunkName: "activities-UserActivitiesDashboard" */ '../../containers/UserDashboard/UserDashboard'
+      /* webpackChunkName: "activities-UserActivitiesDashboard" */ '../../containers/UserDashboard/UserDashboard.js'
     ),
 );
 

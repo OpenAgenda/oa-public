@@ -1,10 +1,10 @@
-const { getLocaleValue } = require('@openagenda/intl');
-const { defineMessages } = require('react-intl');
-const get = require('lodash/get');
-const escape = require('lodash/escape');
-const notificationsMessages = require('./client/messages/notifications');
-const formatState = require('./client/utils/formatState');
-const { formatRole } = require('./client/utils/formatRole');
+import { getLocaleValue } from '@openagenda/intl';
+import { defineMessages } from 'react-intl';
+import get from 'lodash/get.js';
+import escape from 'lodash/escape.js';
+import notificationsMessages from './client/messages/notifications.js';
+import formatState from './client/utils/formatState.js';
+import { formatRole } from './client/utils/formatRole.js';
 
 const subjectTypeLabels = defineMessages({
   user: {
@@ -33,24 +33,24 @@ function isAdminMod(role) {
   return [2, 3, '2', '3', 'administrator', 'moderator'].includes(role);
 }
 
-function getGroupBy(notification) {
-  if (!notification.groupBy) return [];
+function getGroupBy({ groupBy }) {
+  if (!groupBy) return [];
 
-  return notification.groupBy.split('|').map((v) => v.split(':')[0]);
+  return groupBy.split('|').map((v) => v.split(':')[0]);
 }
 
 // actor, object, target related
 // return type, counter, firstUid, label for each
-function getSubjectsProps(notification) {
+function getSubjectsProps({ store }) {
   return ['actor', 'object', 'target'].reduce((accu, columnName) => {
-    if (!notification.store[columnName]?.length) {
+    if (!store[columnName]?.length) {
       return accu;
     }
 
-    const columnStore = notification.store[columnName]; // array like with 0 and length keys
+    const columnStore = store[columnName]; // array like with 0 and length keys
     const [type, firstUid] = columnStore[0].split(':');
     const counter = columnStore.length;
-    const label = notification.store.labels[columnName];
+    const label = store.labels[columnName];
 
     accu[columnName] = {
       type,
@@ -88,7 +88,7 @@ function getSubjects(intl, notification, subjectsProps) {
   }, {});
 }
 
-function getAdditionalSubjects(intl, config, notification) {
+function getAdditionalSubjects({ locale }, config, notification) {
   const { entities } = config;
 
   return Object.keys(entities).reduce((result, key) => {
@@ -106,7 +106,7 @@ function getAdditionalSubjects(intl, config, notification) {
     const value = get(notification, path);
 
     if (value !== undefined) {
-      result[key] = getLocaleValue(value, intl.locale);
+      result[key] = getLocaleValue(value, locale);
     }
 
     return result;
@@ -186,7 +186,9 @@ function getProps(notification, options) {
   };
 }
 
-exports['event.create'] = (notification, options) => {
+const toExports = {};
+
+toExports['event.create'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -209,7 +211,7 @@ exports['event.create'] = (notification, options) => {
   };
 };
 
-exports['event.duplicate'] = (notification, options) => {
+toExports['event.duplicate'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -232,7 +234,7 @@ exports['event.duplicate'] = (notification, options) => {
   };
 };
 
-exports['event.update'] = (notification, options) => {
+toExports['event.update'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -255,7 +257,7 @@ exports['event.update'] = (notification, options) => {
   };
 };
 
-exports['event.delete'] = (notification, options) => {
+toExports['event.delete'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -269,7 +271,7 @@ exports['event.delete'] = (notification, options) => {
   };
 };
 
-exports['agenda.publishEvent'] = (notification, options) => {
+toExports['agenda.publishEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -292,7 +294,7 @@ exports['agenda.publishEvent'] = (notification, options) => {
   };
 };
 
-exports['agenda.unpublishEvent'] = (notification, options) => {
+toExports['agenda.unpublishEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -306,7 +308,7 @@ exports['agenda.unpublishEvent'] = (notification, options) => {
   };
 };
 
-exports['agenda.refuseEvent'] = (notification, options) => {
+toExports['agenda.refuseEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -320,7 +322,7 @@ exports['agenda.refuseEvent'] = (notification, options) => {
   };
 };
 
-exports['agenda.removeEvent'] = (notification, options) => {
+toExports['agenda.removeEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -334,7 +336,7 @@ exports['agenda.removeEvent'] = (notification, options) => {
   };
 };
 
-exports['agenda.removeDeletedEvent'] = (notification, options) => {
+toExports['agenda.removeDeletedEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -347,7 +349,7 @@ exports['agenda.removeDeletedEvent'] = (notification, options) => {
   };
 };
 
-exports['agenda.systemRemoveEvent'] = (notification, options) => {
+toExports['agenda.systemRemoveEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -360,7 +362,7 @@ exports['agenda.systemRemoveEvent'] = (notification, options) => {
   };
 };
 
-exports['agenda.changeEventState'] = (notification, options) => {
+toExports['agenda.changeEventState'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -383,7 +385,7 @@ exports['agenda.changeEventState'] = (notification, options) => {
   };
 };
 
-exports['agenda.systemUnpublishEvent'] = (notification, options) => {
+toExports['agenda.systemUnpublishEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -406,7 +408,7 @@ exports['agenda.systemUnpublishEvent'] = (notification, options) => {
   };
 };
 
-exports['agenda.systemChangeEventState'] = (notification, options) => {
+toExports['agenda.systemChangeEventState'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -429,7 +431,7 @@ exports['agenda.systemChangeEventState'] = (notification, options) => {
   };
 };
 
-exports['agenda.sendInvitation'] = (notification, options) => {
+toExports['agenda.sendInvitation'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -442,7 +444,7 @@ exports['agenda.sendInvitation'] = (notification, options) => {
   };
 };
 
-exports['agenda.acceptInvitation'] = (notification, options) => {
+toExports['agenda.acceptInvitation'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -455,7 +457,7 @@ exports['agenda.acceptInvitation'] = (notification, options) => {
   };
 };
 
-exports['agenda.addMember'] = (notification, options, userUid) => {
+toExports['agenda.addMember'] = (notification, options, userUid) => {
   const { intl } = options;
   const { subjectsProps, additionalSubjects, values } = getProps(
     notification,
@@ -481,7 +483,7 @@ exports['agenda.addMember'] = (notification, options, userUid) => {
   };
 };
 
-exports['agenda.setMemberRole'] = (notification, options, userUid) => {
+toExports['agenda.setMemberRole'] = (notification, options, userUid) => {
   const { intl } = options;
   const { subjectsProps, additionalSubjects, values } = getProps(
     notification,
@@ -507,7 +509,7 @@ exports['agenda.setMemberRole'] = (notification, options, userUid) => {
   };
 };
 
-exports['agenda.removeMember'] = (notification, options, userUid) => {
+toExports['agenda.removeMember'] = (notification, options, userUid) => {
   const { intl } = options;
   const { subjectsProps, additionalSubjects, values } = getProps(
     notification,
@@ -533,7 +535,7 @@ exports['agenda.removeMember'] = (notification, options, userUid) => {
   };
 };
 
-exports['agenda.create'] = (notification, options) => {
+toExports['agenda.create'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -543,7 +545,7 @@ exports['agenda.create'] = (notification, options) => {
   };
 };
 
-exports['agenda.addSource'] = (notification, options) => {
+toExports['agenda.addSource'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -556,7 +558,7 @@ exports['agenda.addSource'] = (notification, options) => {
   };
 };
 
-exports['agenda.removeSource'] = (notification, options) => {
+toExports['agenda.removeSource'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -569,7 +571,7 @@ exports['agenda.removeSource'] = (notification, options) => {
   };
 };
 
-exports['agenda.update'] = (notification, options) => {
+toExports['agenda.update'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -579,7 +581,7 @@ exports['agenda.update'] = (notification, options) => {
   };
 };
 
-exports['agenda.setOfficial'] = (notification, options) => {
+toExports['agenda.setOfficial'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -592,7 +594,7 @@ exports['agenda.setOfficial'] = (notification, options) => {
   };
 };
 
-exports['agenda.aggregateEvent'] = (notification, options) => {
+toExports['agenda.aggregateEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -615,7 +617,7 @@ exports['agenda.aggregateEvent'] = (notification, options) => {
   };
 };
 
-exports['agenda.addEvent'] = (notification, options) => {
+toExports['agenda.addEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
@@ -637,3 +639,5 @@ exports['agenda.addEvent'] = (notification, options) => {
     label,
   };
 };
+
+export default toExports;

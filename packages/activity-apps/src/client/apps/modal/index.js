@@ -1,8 +1,8 @@
 import { IntlProvider } from 'react-intl';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 import commonLocales from '@openagenda/common-labels';
-import HistoryModal from '../../containers/HistoryModal/HistoryModal';
-import appLocales from '../../../locales-compiled';
+import HistoryModal from '../../containers/HistoryModal/HistoryModal.js';
+import * as appLocales from '../../../locales-compiled/index.js';
 
 const locales = mergeLocales(appLocales, commonLocales);
 

@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
 import commonLocales from '@openagenda/common-labels';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
-import appLocales from '../../../locales-compiled';
+import * as appLocales from '../../../locales-compiled/index.js';
 
 const locales = mergeLocales(appLocales, commonLocales);
 

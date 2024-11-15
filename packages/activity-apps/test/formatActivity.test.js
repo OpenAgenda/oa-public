@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { createIntl } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
-import createActivityFormatter from '../src/client/utils/formatActivity';
+import createActivityFormatter from '../src/client/utils/formatActivity.js';
 
 describe('activities - formatActivity', () => {
   it('format a simple activity', () => {

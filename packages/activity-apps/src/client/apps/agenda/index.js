@@ -1,6 +1,6 @@
-import _ from 'lodash';
+import merge from 'lodash/merge.js';
 import { createApp } from '@openagenda/react-shared';
-import getRoutes from './getRoutes';
+import getRoutes from './getRoutes.js';
 
 const defaults = {
   initialState: {
@@ -15,8 +15,8 @@ const defaults = {
   },
 };
 
-export default function (options) {
-  const { initialState } = _.merge({}, defaults, options);
+export default (options) => {
+  const { initialState } = merge({}, defaults, options);
 
   const { apiRoot, prefix } = initialState.settings;
 
@@ -41,4 +41,4 @@ export default function (options) {
   // }
 
   return result;
-}
+};

@@ -1,10 +1,10 @@
 import { IntlProvider } from 'react-intl';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 import commonLocales from '@openagenda/common-labels';
-import { ActivityItem } from '../../components';
-import appLocales from '../../../locales-compiled';
+import { ActivityItem } from '../../components/index.js';
+import * as appLocales from '../../../locales-compiled/index.js';
 
-import 'moment/locale/fr';
+import 'moment/locale/fr.js';
 
 const locales = mergeLocales(appLocales, commonLocales);
 

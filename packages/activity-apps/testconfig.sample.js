@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   mysql: {
     database: 'oa_members_test',
     host: 'localhost',

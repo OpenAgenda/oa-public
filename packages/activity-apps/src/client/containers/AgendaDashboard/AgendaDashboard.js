@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import throttle from 'lodash/throttle.js';
+import pick from 'lodash/pick.js';
 import { Component } from 'react';
 import redial from 'redial';
 import { connect } from 'react-redux';
@@ -6,14 +7,14 @@ import { Waypoint } from 'react-waypoint';
 import { injectIntl } from 'react-intl';
 import qs from 'qs';
 import { Spinner, withLayoutData } from '@openagenda/react-shared';
-import * as activitiesActions from '../../redux/modules/activities';
-import { ActivityItem } from '../../components';
-import messages from '../../messages/activities';
+import * as activitiesActions from '../../redux/modules/activities.js';
+import { ActivityItem } from '../../components/index.js';
+import messages from '../../messages/activities.js';
 
 class AgendaDashboard extends Component {
   constructor() {
     super();
-    this.throttledNextPage = _.throttle(this.nextPage, 400, {
+    this.throttledNextPage = throttle(this.nextPage, 400, {
       trailing: false,
     });
   }
@@ -96,7 +97,7 @@ export default injectIntl(
             loading: state.activities.loading,
             nextLoading: state.activities.nextLoading,
             lastPage: state.activities.lastPage,
-            query: _.pick(locationQuery, ['actor', 'verb', 'object', 'target']),
+            query: pick(locationQuery, ['actor', 'verb', 'object', 'target']),
           };
         },
         { ...activitiesActions },

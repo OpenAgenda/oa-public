@@ -5,9 +5,9 @@ import { IntlProvider } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import commonLocales from '@openagenda/common-labels';
-import modalsReducer from '../../redux/modules/modals';
-import activitiesReducer from '../../redux/modules/activities';
-import appLocales from '../../../locales-compiled';
+import modalsReducer from '../../redux/modules/modals.js';
+import activitiesReducer from '../../redux/modules/activities.js';
+import * as appLocales from '../../../locales-compiled/index.js';
 
 const locales = mergeLocales(appLocales, commonLocales);
 

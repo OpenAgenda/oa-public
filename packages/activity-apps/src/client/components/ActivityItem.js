@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 import { useIntl, FormattedDate } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
 import fieldsMessages from '@openagenda/common-labels/event/fields';
-import locationFieldsMessages from '@openagenda/labels/agenda-locations/exportHeaders';
-import formatState from '../utils/formatState';
-import { formatRole, formatXRole } from '../utils/formatRole';
-import createFormatActivity from '../utils/formatActivity';
-import messages from '../messages/activities';
-import useSsr from '../hooks/useSSR';
-import ActivityDetail from './ActivityDetail';
+import locationFieldsMessages from '@openagenda/labels/agenda-locations/exportHeaders.js';
+import formatState from '../utils/formatState.js';
+import { formatRole, formatXRole } from '../utils/formatRole.js';
+import createFormatActivity from '../utils/formatActivity.js';
+import messages from '../messages/activities.js';
+import useSsr from '../hooks/useSSR.js';
+import ActivityDetail from './ActivityDetail.js';
 
 function getDiffFields(activity) {
   const {

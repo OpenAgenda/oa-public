@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { createMemoryHistory } from 'history';
-import createApp from '../src/client/apps/agenda';
-import PageDecorator from './decorators/PageDecorator';
+import createApp from '../src/client/apps/agenda/index.js';
+import PageDecorator from './decorators/PageDecorator.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 import agenda from './fixtures/agenda.json';

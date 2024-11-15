@@ -4,7 +4,7 @@ import useSWRInfinite from 'swr/infinite';
 import { useInView } from 'react-intersection-observer';
 import qs from 'qs';
 import { useModal, Modal, Spinner } from '@openagenda/react-shared';
-import { ActivityItem } from '../../components';
+import { ActivityItem } from '../../components/index.js';
 
 const messages = defineMessages({
   noActivity: {
