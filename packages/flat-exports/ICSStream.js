@@ -1,10 +1,7 @@
-'use strict';
+import FlatTransform from './lib/FlatTransform.js';
+import { head, parseEvent, tail } from './lib/ics/index.js';
 
-const FlatTransform = require('./lib/FlatTransform');
-
-const { head, parseEvent, tail } = require('./lib/ics');
-
-module.exports = class ICSStream extends FlatTransform {
+export default class ICSStream extends FlatTransform {
   constructor(options = {}) {
     super({
       options,
@@ -13,4 +10,4 @@ module.exports = class ICSStream extends FlatTransform {
       tail,
     });
   }
-};
+}

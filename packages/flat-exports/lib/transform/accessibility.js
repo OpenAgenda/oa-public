@@ -1,8 +1,6 @@
-'use strict';
+import labels from '@openagenda/labels/event/accessibility.js';
 
-const labels = require('@openagenda/labels/event/accessibility');
-
-module.exports = function accessibility(
+export default function accessibility(
   { languages, includeLanguages },
   { target },
 ) {
@@ -37,4 +35,4 @@ module.exports = function accessibility(
           .map((code) => labels[code][l])
           .join(' | ')),
   };
-};
+}

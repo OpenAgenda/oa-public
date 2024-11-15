@@ -1,10 +1,6 @@
-'use strict';
+import head from './head.js';
+import parseEvent from './parseEvent.js';
 
-const head = require('./head');
-const parseEvent = require('./parseEvent');
+const tail = () => '';
 
-module.exports = {
-  head,
-  parseEvent,
-  tail: () => '',
-};
+export { head, parseEvent, tail };

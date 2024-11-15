@@ -1,18 +1,14 @@
-'use strict';
+import streamUtils from '@openagenda/stream-utils';
+import formSchemas from '@openagenda/form-schemas';
+import decorateFieldMap from './decorateFieldMap.js';
+import Flattener from './Flattener.js';
+import validateOptions from './options.validate.js';
+import getDefaultFieldMap from './getDefaultFieldMap.js';
 
-const { transform: makeTransform } = require('@openagenda/stream-utils');
+const { transform: makeTransform } = streamUtils;
+const { flattenSchema: getFlattenedSchema } = formSchemas.utils;
 
-const {
-  utils: { flattenSchema: getFlattenedSchema },
-} = require('@openagenda/form-schemas');
-
-const decorateFieldMap = require('./decorateFieldMap');
-const Flattener = require('./Flattener');
-const validateOptions = require('./options.validate');
-
-const getDefaultFieldMap = require('./getDefaultFieldMap');
-
-function getFlattener(o = {}) {
+export function getFlattener(o = {}) {
   const options = validateOptions(o);
 
   const { formSchema, maintainedFields } = options;
@@ -60,9 +56,4 @@ function getFlattener(o = {}) {
   return Object.assign(Flattener(decoratedFieldMap, options), { getHeaders });
 }
 
-module.exports = Object.assign(
-  (options = {}) => makeTransform(getFlattener(options)),
-  {
-    getFlattener,
-  },
-);
+export default (options = {}) => makeTransform(getFlattener(options));

@@ -1,14 +1,8 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-function applyTransform(transformFunction, data, keys, defaultValue = null) {
+function applyTransform(transformFunction, data, keys) {
   if (keys === 'timings') return transformFunction(data);
-  return transformFunction.apply(
-    null,
-    [].concat(keys).map((k) => _.get(data, k)),
-    defaultValue,
-  );
+  return transformFunction(...[].concat(keys).map((k) => _.get(data, k)));
 }
 
 function flattenSourceValues(mapItem, src, options) {
@@ -62,7 +56,10 @@ function flatten(map, src, options = {}) {
   }, {});
 }
 
-module.exports = (map, options) => (src) => flatten(map, src, options);
+const Flattener = (map, options) => (src) => flatten(map, src, options);
+Flattener.flatten = flatten;
+Flattener.flattenSourceValues = flattenSourceValues;
 
-module.exports.flatten = flatten;
-module.exports.flattenSourceValues = flattenSourceValues;
+export default Flattener;
+export { flatten };
+export { flattenSourceValues };

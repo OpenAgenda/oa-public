@@ -1,10 +1,7 @@
-'use strict';
+import { Transform } from 'node:stream';
+import validateStreamOptions from './validateStreamOptions.js';
 
-const { Transform } = require('node:stream');
-
-const validateStreamOptions = require('./validateStreamOptions');
-
-module.exports = class FlatTransform extends Transform {
+export default class FlatTransform extends Transform {
   constructor({ options, head, parseEvent, tail }) {
     super({
       writableObjectMode: true,
@@ -39,4 +36,4 @@ module.exports = class FlatTransform extends Transform {
 
     cb();
   }
-};
+}

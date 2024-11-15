@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-const textValidator = require('@openagenda/validators/text');
-const esc = require('./escape');
-const foldLine = require('./foldLine');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import textValidator from '@openagenda/validators/text.js';
+import esc from './escape.js';
+import foldLine from './foldLine.js';
 
 schema.register({
   text: textValidator,
@@ -37,7 +35,7 @@ const validate = schema({
   },
 });
 
-module.exports = (data) => {
+export default (data) => {
   const { slug, identifier, type, lang, title, description } = _.mapValues(
     validate(data),
     esc,

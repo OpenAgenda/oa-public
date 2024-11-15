@@ -1,12 +1,9 @@
-'use strict';
-
-const _ = require('lodash');
-const moment = require('moment-timezone');
-const schema = require('@openagenda/validators/schema');
-const { cleanString } = require('@openagenda/utils');
-
-const textValidator = require('@openagenda/validators/text');
-const passValidator = require('@openagenda/validators/pass');
+import _ from 'lodash';
+import moment from 'moment-timezone';
+import schema from '@openagenda/validators/schema/index.js';
+import { cleanString } from '@openagenda/utils';
+import textValidator from '@openagenda/validators/text.js';
+import passValidator from '@openagenda/validators/pass.js';
 
 schema.register({
   text: textValidator,
@@ -29,7 +26,7 @@ const validateOptions = schema({
   },
 });
 
-module.exports = (event, options = {}) => {
+export default (event, options = {}) => {
   const cleanOptions = validateOptions(options);
   const lang = pickLanguage(event, cleanOptions.lang);
 

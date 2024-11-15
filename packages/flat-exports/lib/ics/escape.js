@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (txt) => {
+export default (txt) => {
   if (txt === null) return null;
 
   return `${txt}`

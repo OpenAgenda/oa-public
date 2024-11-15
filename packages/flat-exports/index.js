@@ -1,15 +1,5 @@
-'use strict';
-
-const rss = require('./rss');
-const csv = require('./csv');
-const xlsx = require('./xlsx');
-const ICSStream = require('./ICSStream');
-const MarkdownStream = require('./MarkdownStream');
-
-module.exports = {
-  rss,
-  csv,
-  xlsx,
-  ICSStream,
-  MarkdownStream,
-};
+export { default as rss } from './rss.js';
+export { default as csv } from './csv.js';
+export { default as xlsx } from './xlsx.js';
+export { default as ICSStream } from './ICSStream.js';
+export { default as MarkdownStream } from './MarkdownStream.js';

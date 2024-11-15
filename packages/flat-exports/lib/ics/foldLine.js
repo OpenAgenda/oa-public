@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function foldLine(line) {
+export default function foldLine(line) {
   let str = line;
   const parts = [];
   let length = 75;
@@ -11,4 +9,4 @@ module.exports = function foldLine(line) {
   }
   parts.push(str);
   return parts.join('\r\n ');
-};
+}

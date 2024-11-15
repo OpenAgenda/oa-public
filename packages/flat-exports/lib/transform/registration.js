@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = ({ source, target }) => ({
+export default ({ source, target }) => ({
   source,
   target,
   transform: (registration) => registration.map((reg) => reg.value).join(', '),

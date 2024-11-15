@@ -1,20 +1,17 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
+import fs from 'node:fs';
+import _ from 'lodash';
+import labels from '@openagenda/labels/exports/text.js';
+import accessibilityLabels from '@openagenda/labels/event/accessibility.js';
+import attendanceModeLabels from '@openagenda/labels/event/form.js';
+import flatten from '@openagenda/labels/flatten.js';
 
 const txtRender = _.template(
-  fs.readFileSync(`${__dirname}/txtEvent.tpl`, 'utf-8'),
+  fs.readFileSync(`${import.meta.dirname}/txtEvent.tpl`, 'utf-8'),
 );
 
 const mdRender = _.template(
-  fs.readFileSync(`${__dirname}//mdEvent.tpl`, 'utf-8'),
+  fs.readFileSync(`${import.meta.dirname}//mdEvent.tpl`, 'utf-8'),
 );
-
-const labels = require('@openagenda/labels/exports/text');
-const accessibilityLabels = require('@openagenda/labels/event/accessibility');
-const attendanceModeLabels = require('@openagenda/labels/event/form');
-const flatten = require('@openagenda/labels/flatten');
 
 function get(value, preferredLang) {
   const existing = _.keys(value);
@@ -24,7 +21,7 @@ function get(value, preferredLang) {
   return _.get(value, preferredLang, value[existing[0]]);
 }
 
-module.exports = (format, { genUrl, lang, section }, data, { previous }) => {
+export default (format, { genUrl, lang, section }, data, { previous }) => {
   const { location } = data;
 
   const flatAccessibilityLabels = flatten(accessibilityLabels, lang);

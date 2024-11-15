@@ -1,9 +1,5 @@
-'use strict';
-
-const Flattener = require('../lib/transform/Flattener');
-const accessibility = require('../lib/transform/accessibility');
-
-const { flattenSourceValues } = Flattener;
+import Flattener, { flattenSourceValues } from '../lib/transform/Flattener.js';
+import accessibility from '../lib/transform/accessibility.js';
 
 describe('Flattener', () => {
   describe('standard operations', () => {

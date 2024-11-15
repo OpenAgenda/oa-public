@@ -1,12 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import FlatTransform from './lib/FlatTransform.js';
+import { head, parseEvent } from './lib/markdown/index.js';
 
-const _ = require('lodash');
-
-const FlatTransform = require('./lib/FlatTransform');
-
-const { head, parseEvent } = require('./lib/markdown');
-
-module.exports = class MarkdownStream extends FlatTransform {
+export default class MarkdownStream extends FlatTransform {
   constructor(options = {}) {
     super({
       options,
@@ -14,4 +10,4 @@ module.exports = class MarkdownStream extends FlatTransform {
       parseEvent: parseEvent.bind(null, _.get(options, 'format', 'md')),
     });
   }
-};
+}

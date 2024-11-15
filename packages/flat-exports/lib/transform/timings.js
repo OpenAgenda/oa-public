@@ -1,10 +1,8 @@
-'use strict';
-
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
 
 const possibleLanguages = ['fr', 'en', 'it', 'es', 'de'];
 
-module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
+export default ({ languages, includeLanguages }, { target, isoTarget }) => {
   const source = 'timings';
 
   let targetLanguages = languages;

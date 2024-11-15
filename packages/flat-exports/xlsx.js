@@ -1,8 +1,6 @@
-'use strict';
-
-const ExcelJS = require('exceljs');
-const transform = require('./lib/transform');
-const clean = require('./lib/xlsx/clean');
+import ExcelJS from 'exceljs';
+import transform from './lib/transform/index.js';
+import clean from './lib/xlsx/clean.js';
 
 function xlsx(_xlsxOptions, inStream, options = {}) {
   const transformed = inStream.pipe(transform(options));
@@ -41,4 +39,4 @@ function xlsx(_xlsxOptions, inStream, options = {}) {
   return workbook.stream;
 }
 
-module.exports = (xlsxOptions = {}) => xlsx.bind(null, xlsxOptions);
+export default (xlsxOptions = {}) => xlsx.bind(null, xlsxOptions);

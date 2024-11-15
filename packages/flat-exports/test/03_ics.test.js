@@ -1,14 +1,17 @@
-'use strict';
+import fs from 'node:fs';
+import moment from 'moment-timezone';
+import * as ics from '../lib/ics/index.js';
+import event from './fixtures/acces-libre.json';
+import foireAuxLivres from './fixtures/foire-aux-livres.json';
 
-const fs = require('node:fs');
-const moment = require('moment-timezone');
-
-const ics = require('../lib/ics');
-const event = require('./fixtures/acces-libre.json');
-const foireAuxLivres = require('./fixtures/foire-aux-livres.json');
-
-const ICSHead = fs.readFileSync(`${__dirname}/fixtures/head.ics`, 'utf-8');
-const ICSEvent = fs.readFileSync(`${__dirname}/fixtures/event.ics`, 'utf-8');
+const ICSHead = fs.readFileSync(
+  `${import.meta.dirname}/fixtures/head.ics`,
+  'utf-8',
+);
+const ICSEvent = fs.readFileSync(
+  `${import.meta.dirname}/fixtures/event.ics`,
+  'utf-8',
+);
 
 describe('flat-exports - unit - ics', () => {
   describe('helpers', () => {

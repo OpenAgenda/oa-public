@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (options, { target, source }) => ({
+export default (options, { target, source }) => ({
   source,
   target,
   field: 'permalink',

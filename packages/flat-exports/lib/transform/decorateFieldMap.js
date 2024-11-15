@@ -1,12 +1,8 @@
-'use strict';
+import VError from '@openagenda/verror';
+import formSchemas from '@openagenda/form-schemas';
+import fieldToFlattenerMapItem from './fieldToFlattenerMapItem.js';
 
-const VError = require('@openagenda/verror');
-
-const {
-  utils: { flattenSchema: getFlattenedSchema },
-} = require('@openagenda/form-schemas');
-
-const fieldToFlattenerMapItem = require('./fieldToFlattenerMapItem');
+const { flattenSchema: getFlattenedSchema } = formSchemas.utils;
 
 const handledTypes = [
   'text',
@@ -31,7 +27,7 @@ const isIncluded = (fieldMap, includeFields, f) =>
       && !fieldMap.some((field) => field.source === f.field),
   );
 
-module.exports = (fieldMap, options = {}) => {
+export default (fieldMap, options = {}) => {
   const { formSchema = null, includeFields = [], spreadFields = [] } = options;
 
   if (!formSchema?.fields?.length) {

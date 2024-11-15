@@ -1,12 +1,5 @@
-'use strict';
-
-const event = JSON.parse(
-  require('node:fs').readFileSync(
-    `${__dirname}/fixtures/acces-libre.json`,
-    'utf-8',
-  ),
-);
-const md = require('../lib/markdown');
+import * as md from '../lib/markdown/index.js';
+import event from './fixtures/acces-libre.json';
 
 describe('flat-exports - unit - markdown and text', () => {
   describe('helpers - text', () => {
@@ -51,7 +44,7 @@ Itinéraire: https://www.google.com/maps/dir//48.824478,2.365424/@48.824478,2.36
 Mode de participation: Mixte
 Lien d'accès: https: //www.evenement-en-ligne.fr
 
-Réservation: 0145707532 - reservation@email.com
+Outils d'inscription: 0145707532 - reservation@email.com
 
 Accessibilité: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 
@@ -89,7 +82,7 @@ Accès libre accompagné
 **Mode de participation**: Mixte
 **Lien d'accès**: https: //www.evenement-en-ligne.fr
 
-**Réservation**: 0145707532 - reservation@email.com
+**Outils d'inscription**: 0145707532 - reservation@email.com
 
 **Accessibilité**: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 

@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-const text = require('@openagenda/validators/text');
-const link = require('@openagenda/validators/link');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import integer from '@openagenda/validators/integer.js';
+import text from '@openagenda/validators/text.js';
+import link from '@openagenda/validators/link.js';
 
 schema.register({
   integer,
@@ -46,7 +44,7 @@ const validate = schema({
   },
 });
 
-module.exports = (head) =>
+export default (head) =>
   _.extend(validate(head), {
     custom_namespaces: {
       ev: 'http://purl.org/rss/1.0/modules/event/',

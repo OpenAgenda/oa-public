@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function age({ source, target }) {
+export default function age({ source, target }) {
   return {
     source,
     target,
@@ -17,4 +15,4 @@ module.exports = function age({ source, target }) {
       return `${v.min} → ${v.max}`;
     },
   };
-};
+}

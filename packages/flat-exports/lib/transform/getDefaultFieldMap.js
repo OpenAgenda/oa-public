@@ -1,17 +1,14 @@
-'use strict';
-
-const _ = require('lodash');
-
-const getTargetField = require('./getTargetField');
-const multilingual = require('./multilingual');
-const accessibility = require('./accessibility');
-const timings = require('./timings');
-const formatTime = require('./formatTime');
-const image = require('./image');
-const registration = require('./registration');
-const age = require('./age');
-const firstLastDate = require('./firstLastDate');
-const permalink = require('./permalink');
+import _ from 'lodash';
+import getTargetField from './getTargetField.js';
+import multilingual from './multilingual.js';
+import accessibility from './accessibility.js';
+import timings from './timings.js';
+import formatTime from './formatTime.js';
+import image from './image.js';
+import registration from './registration.js';
+import age from './age.js';
+import firstLastDate from './firstLastDate.js';
+import permalink from './permalink.js';
 
 const defaultMap = (c) => ({
   source: c.source,
@@ -19,7 +16,7 @@ const defaultMap = (c) => ({
   ...c.transform ? { transform: c.transform } : {},
 });
 
-module.exports = function getDefaultFieldMap(options = {}) {
+export default function getDefaultFieldMap(options = {}) {
   const labelLanguages = ['fr', 'en'];
 
   const { labels = {}, lang, includeFields = [] } = options;
@@ -197,4 +194,4 @@ module.exports = function getDefaultFieldMap(options = {}) {
       c.type,
       defaultMap,
     )(c));
-};
+}

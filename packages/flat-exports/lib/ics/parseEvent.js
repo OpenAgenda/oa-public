@@ -1,12 +1,11 @@
-'use strict';
+import moment from 'moment';
+import makeLabelGetter from '@openagenda/labels';
+import labels from '@openagenda/labels/exports/index.js';
+import { getLocaleValue } from '@openagenda/intl';
+import esc from './escape.js';
+import foldLine from './foldLine.js';
 
-const moment = require('moment');
-const getLabel = require('@openagenda/labels')(
-  require('@openagenda/labels/exports'),
-);
-const { getLocaleValue } = require('@openagenda/intl');
-const esc = require('./escape');
-const foldLine = require('./foldLine');
+const getLabel = makeLabelGetter(labels);
 
 function defaultGenUrl(e) {
   return `https://openagenda.com/events/${e.slug}`;
@@ -22,7 +21,7 @@ function formatDate(date) {
   return moment.utc(date).format('YYYYMMDDTHHmm00[Z]');
 }
 
-module.exports = ({ lang, genUrl }, event) => {
+export default ({ lang, genUrl }, event) => {
   const url = genUrl || defaultGenUrl;
 
   const attributes = {

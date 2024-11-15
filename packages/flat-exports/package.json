@@ -7,9 +7,10 @@
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/flat-exports",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
   "keywords": [],
   "author": "",
@@ -32,10 +33,5 @@
   },
   "devDependencies": {
     "jest": "^29.7.0"
-  },
-  "jest": {
-    "testMatch": [
-      "<rootDir>/test/*.js"
-    ]
   }
 }

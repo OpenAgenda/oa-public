@@ -1,10 +1,7 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-
-const textValidator = require('@openagenda/validators/text');
-const passValidator = require('@openagenda/validators/pass');
-const numberValidator = require('@openagenda/validators/number');
+import schema from '@openagenda/validators/schema/index.js';
+import textValidator from '@openagenda/validators/text.js';
+import passValidator from '@openagenda/validators/pass.js';
+import numberValidator from '@openagenda/validators/number.js';
 
 schema.register({
   text: textValidator,
@@ -57,7 +54,7 @@ const validate = schema({
   },
 });
 
-module.exports = (options) => {
+export default (options) => {
   const clean = validate(options);
 
   if (Array.isArray(clean.includeLanguages)) {

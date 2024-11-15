@@ -1,13 +1,6 @@
-'use strict';
-
-const formatEvent = require('../lib/rss/formatEvent');
-const rss = require('../rss');
-const event = JSON.parse(
-  require('node:fs').readFileSync(
-    `${__dirname}/fixtures/sortir-a-boulogne-billancourt.json`,
-    'utf-8',
-  ),
-);
+import formatEvent from '../lib/rss/formatEvent.js';
+import rss from '../rss.js';
+import event from './fixtures/sortir-a-boulogne-billancourt.json';
 
 describe('flat-exports - unit - rss', () => {
   test('formatEvent', () => {

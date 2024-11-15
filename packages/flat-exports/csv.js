@@ -1,7 +1,5 @@
-'use strict';
-
-const fastCsv = require('fast-csv');
-const transform = require('./lib/transform');
+import fastCsv from 'fast-csv';
+import transform, { getFlattener } from './lib/transform/index.js';
 
 function csv(csvOptions = {}) {
   const streamCsv = (inStream, options = {}) =>
@@ -10,14 +8,14 @@ function csv(csvOptions = {}) {
       .pipe(fastCsv.createWriteStream(csvOptions));
 
   const getHeaders = (options = {}) =>
-    transform.getFlattener(options).getHeaders(options);
+    getFlattener(options).getHeaders(options);
 
   return Object.assign(streamCsv, {
     getHeaders,
   });
 }
 
-module.exports = (csvOptions = {}) =>
+export default (csvOptions = {}) =>
   csv({
     headers: true,
     delimiter: ',',

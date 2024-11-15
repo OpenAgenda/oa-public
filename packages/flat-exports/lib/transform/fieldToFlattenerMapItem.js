@@ -1,5 +1,3 @@
-'use strict';
-
 const flatten = (value, lang, defaultValue) => {
   if (value === undefined) {
     return defaultValue;
@@ -15,7 +13,7 @@ const flatten = (value, lang, defaultValue) => {
   return value[lang];
 };
 
-module.exports = function fieldToFlattenerMapItem(field, options = {}) {
+export default function fieldToFlattenerMapItem(field, options = {}) {
   const { lang, languages = [], includeLanguages, spreadFields = [] } = options;
 
   const targetBaseName = flatten(field.label, lang, field.field);
@@ -71,4 +69,4 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
     source: field.field,
     target: targetBaseName,
   };
-};
+}

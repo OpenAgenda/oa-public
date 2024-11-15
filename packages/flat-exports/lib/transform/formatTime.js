@@ -1,8 +1,6 @@
-'use strict';
+import moment from 'moment';
 
-const moment = require('moment');
-
-module.exports = ({ languages, includeLanguages }, { target, source }) => {
+export default ({ languages, includeLanguages }, { target, source }) => {
   let targetLanguages = languages;
   if (includeLanguages) {
     targetLanguages = targetLanguages.filter((l) =>

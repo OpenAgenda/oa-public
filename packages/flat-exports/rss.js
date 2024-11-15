@@ -1,11 +1,9 @@
-'use strict';
+import RSS from 'rss';
+import _ from 'lodash';
+import formatEvent from './lib/rss/formatEvent.js';
+import validateHead from './lib/rss/validateHead.js';
 
-const RSS = require('rss');
-const _ = require('lodash');
-const formatEvent = require('./lib/rss/formatEvent');
-const validateHead = require('./lib/rss/validateHead');
-
-module.exports = (head) => {
+export default (head) => {
   const feed = new RSS(
     _.mapKeys(
       validateHead(head),

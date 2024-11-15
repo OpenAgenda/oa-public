@@ -1,14 +1,12 @@
-'use strict';
-
-const Flattener = require('../lib/transform/Flattener');
-const timings = require('../lib/transform/timings');
-const multilingual = require('../lib/transform/multilingual');
-const accessibility = require('../lib/transform/accessibility');
-const formatTime = require('../lib/transform/formatTime');
-const image = require('../lib/transform/image');
-const fieldToFlattenerMapItem = require('../lib/transform/fieldToFlattenerMapItem');
-const decorateFieldMap = require('../lib/transform/decorateFieldMap');
-const getDefaultFieldMap = require('../lib/transform/getDefaultFieldMap');
+import Flattener from '../lib/transform/Flattener.js';
+import timings from '../lib/transform/timings.js';
+import multilingual from '../lib/transform/multilingual.js';
+import accessibility from '../lib/transform/accessibility.js';
+import formatTime from '../lib/transform/formatTime.js';
+import image from '../lib/transform/image.js';
+import fieldToFlattenerMapItem from '../lib/transform/fieldToFlattenerMapItem.js';
+import decorateFieldMap from '../lib/transform/decorateFieldMap.js';
+import getDefaultFieldMap from '../lib/transform/getDefaultFieldMap.js';
 
 describe('flat-exports - unit - transforms', () => {
   describe('fieldToFlattenerMapItem', () => {

@@ -1,10 +1,7 @@
-'use strict';
-
-const labels = require('@openagenda/labels/event/exportFieldNames');
-const { getFlattener } = require('../lib/transform');
-
-const event = require('./fixtures/sortir-a-boulogne-billancourt.json');
-const formSchema = require('./fixtures/formSchema.json');
+import labels from '@openagenda/labels/event/exportFieldNames.js';
+import { getFlattener } from '../lib/transform/index.js';
+import event from './fixtures/sortir-a-boulogne-billancourt.json';
+import formSchema from './fixtures/formSchema.json';
 
 const simpleFormSchema = {
   fields: [
@@ -37,7 +34,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     });
 
     test('flatten registration info', () => {
-      expect(flat.Inscription).toEqual(
+      expect(flat["Outils d'inscription"]).toEqual(
         'http://www.cnjeu.fr/, 0145707532, reservation@email.com',
       );
     });

@@ -1,9 +1,7 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const pass = require('@openagenda/validators/pass');
-const text = require('@openagenda/validators/text');
-const integer = require('@openagenda/validators/integer');
+import schema from '@openagenda/validators/schema/index.js';
+import pass from '@openagenda/validators/pass.js';
+import text from '@openagenda/validators/text.js';
+import integer from '@openagenda/validators/integer.js';
 
 schema.register({
   pass,
@@ -11,7 +9,7 @@ schema.register({
   integer,
 });
 
-module.exports = schema({
+export default schema({
   genUrl: {
     type: 'pass',
     default: null,
