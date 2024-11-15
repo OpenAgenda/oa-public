@@ -18,6 +18,7 @@ import pass from './pass';
 import multilingual from './multilingual';
 import regex from './regex';
 import choice from './choice';
+import timezone from './timezone';
 
 export default {
   text,
@@ -39,7 +40,8 @@ export default {
   pass,
   multilingual,
   regex,
-  choice
+  choice,
+  timezone,
 };
 
 module.exports = {
@@ -62,5 +64,6 @@ module.exports = {
   pass: require( './pass' ),
   multilingual: require( './multilingual' ),
   regex: require( './regex' ),
-  choice: require( './choice' )
+  choice: require( './choice' ),
+  timezone: require( './timezone' ),
 }

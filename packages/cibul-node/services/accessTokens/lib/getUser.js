@@ -21,5 +21,6 @@ export default async function getUser(knex, users, tokenString = null) {
     query: {
       id: apiKeySet.user_id,
     },
+    detailed: true,
   });
 }

@@ -1,9 +1,5 @@
-"use strict";
-
-const validators = require('../src');
-const {
-  phone
-} = validators;
+import validators from '../src/index';
+import phone from '../src/phone';
 
 describe('phone validator', () => {
   const validate = validators.phone({ field: 'telephone' });
@@ -23,7 +19,7 @@ describe('phone validator', () => {
   it('a phone number with dots or dashes is a phone number', () => {
     const clean = validate('+(1) 800-123-123');
 
-    expect(clean).toBe('+(1) 800-123-123');    
+    expect(clean).toBe('+(1) 800-123-123');
   });
 
   it('an empty input for a compulsory value returns a required error', () => {
@@ -31,68 +27,71 @@ describe('phone validator', () => {
 
     try {
       validators.phone({ field: 'telephone', optional: false })();
-    } catch(e) {
+    } catch (e) {
       errors = e;
     }
 
-    expect(errors[0]).toEqual({ 
+    expect(errors[0]).toEqual({
       origin: undefined,
       field: 'telephone',
       code: 'required',
-      message: 'value must not be empty' 
+      message: 'value must not be empty',
     });
   });
 
   it('is a phone and is trimmed', () => {
-    let clean = validate(' 06509160 ');
+    const clean = validate(' 06509160 ');
 
     expect(clean).toBe('06509160');
   });
 
   it('is not a phone', () => {
-    let caught = false;
-
+    let error;
     try {
       validate('fdsqf');
-    } catch(e) {
-      caught = true;
-
-      expect(e[0].code).toBe('phone.invalid');
-
-      expect(e[0].field).toBe('telephone'); 
+      throw new Error('Should have thrown validation error');
+    } catch (e) {
+      error = e;
     }
+
+    expect(error[0].code).toBe('phone.invalid');
+    expect(error[0].field).toBe('telephone');
   });
 
-  it('optional field accepts empty input', function() {
-    var validate = validators.phone({ field: 'telephone', 'optional' : true }),
+  it('optional field accepts empty input', () => {
+    const optionalValidate = validators.phone({
+      field: 'telephone',
+      optional: true,
+    });
 
-    errors = [], clean;
+    let errors = [];
+    let clean = null;
 
     try {
-      clean = validate()
+      clean = optionalValidate();
     } catch (e) {
       errors = e;
     }
 
     expect(errors.length).toBe(0);
-
     expect(clean).toBeNull();
   });
 
   it('fix: undefined default on required field does not break required', () => {
-    const validate = phone({
+    const requiredValidate = phone({
       default: undefined,
-      optional: false
+      optional: false,
     });
 
+    let error;
+
     try {
-      validate()
+      requiredValidate();
+      throw new Error('Should have thrown validation error');
     } catch (e) {
-      expect(e[0].code).toEqual('required');
-      return;
+      error = e;
     }
 
-    throw 'never here';
+    expect(error[0].code).toEqual('required');
   });
-
 });

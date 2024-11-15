@@ -18,6 +18,7 @@ const multilingual = require('@openagenda/validators/multilingual');
 const choice = require('@openagenda/validators/choice');
 const boolean = require('@openagenda/validators/boolean');
 const regex = require('@openagenda/validators/regex');
+const timezone = require('@openagenda/validators/timezone');
 
 schema.register({
   email,
@@ -33,6 +34,7 @@ schema.register({
   choice,
   boolean,
   regex,
+  timezone,
 });
 
 const validateStream = stream({ optional: false });
