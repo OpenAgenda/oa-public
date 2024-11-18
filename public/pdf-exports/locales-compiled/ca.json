@@ -1,4 +1,40 @@
 {
+  "pdf-exports.aboutLocation": [
+    {
+      "type": 0,
+      "value": "About the location"
+    }
+  ],
+  "pdf-exports.access": [
+    {
+      "type": 0,
+      "value": "Access"
+    }
+  ],
+  "pdf-exports.additionalLinks": [
+    {
+      "type": 0,
+      "value": "Additional links"
+    }
+  ],
+  "pdf-exports.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "pdf-exports.location": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "pdf-exports.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ],
   "pdf-exports.page": [
     {
       "type": 0,
@@ -9,6 +45,24 @@
     {
       "type": 0,
       "value": "Inscripciór"
+    }
+  ],
+  "pdf-exports.registrationTool": [
+    {
+      "type": 0,
+      "value": "Registration tool"
+    }
+  ],
+  "pdf-exports.status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "pdf-exports.tags": [
+    {
+      "type": 0,
+      "value": "Tags"
     }
   ]
 }
