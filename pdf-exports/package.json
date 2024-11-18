@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "node test/addEventItem.test.js && node test/addFooter.test.js && node test/addHeader.test.js",
-  "extract-messages": "oa-intl 'lib/**/*.js' 'list/**/*.js' 'event/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
+    "extract-messages": "oa-intl 'lib/**/*.js' 'list/**/*.js' 'event/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
   },
   "dependencies": {
     "@babel/preset-env": "^7.23.3",
