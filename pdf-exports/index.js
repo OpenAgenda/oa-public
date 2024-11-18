@@ -1,9 +1,9 @@
-import list from './list/index.js';
+import agenda from './agenda/index.js';
 import event from './event/index.js';
 
 export default function PDFExports(config) {
   return {
-    list: list(config),
+    agenda: agenda(config),
     event: event(config),
   };
 }

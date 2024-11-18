@@ -1,7 +1,7 @@
 import addAgendaLogo from '../../utils/addAgendaLogo.js';
-import addText from './addText.js';
 import addSeparatorLine from '../../utils/addSeparatorLine.js';
 import cleanString from '../../utils/cleanString.js';
+import addText from './addText.js';
 
 export default async function addDocumentHeader(
   agenda,

@@ -1,6 +1,6 @@
-import addText from './addText.js';
 import addAgendaLogo from '../../utils/addAgendaLogo.js';
 import addSeparatorLine from '../../utils/addSeparatorLine.js';
+import addText from './addText.js';
 
 export default async function addPagetHeader(
   agenda,

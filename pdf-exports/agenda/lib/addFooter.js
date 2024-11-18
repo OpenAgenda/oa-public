@@ -1,4 +1,4 @@
-import addText from "./addText.js";
+import addText from './addText.js';
 
 export default function addFooter(doc, text, bottomMargin, options = {}) {
   const {
