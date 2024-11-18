@@ -1,4 +1,4 @@
-import addText from "./addText.js";
+import addText from './addText.js';
 
 function isOverflowing(size, columnWidth) {
   return size.width > columnWidth;

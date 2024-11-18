@@ -1,4 +1,4 @@
-import cleanString from "../../utils/cleanString.js";
+import cleanString from '../../utils/cleanString.js';
 
 function testCleanString() {
   const inputStrings = ['É', 'Â'];

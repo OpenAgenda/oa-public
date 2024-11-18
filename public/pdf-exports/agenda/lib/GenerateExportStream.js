@@ -1,11 +1,11 @@
 import PDFDocument from 'pdfkit';
 import logs from '@openagenda/logs';
-import addDocumentHeader from './addDocumentHeader.js';
-import addPageHeader from '../lib/addPageHeader.js';
-import addEventItem from './addEventItem/index.js';
 import cursorYOverflowing from '../../utils/cursorYOverflowing.js';
-import addFooter from '../lib/addFooter.js';
 import getIntl from '../../utils/intl.js';
+import addFooter from './addFooter.js';
+import addPageHeader from './addPageHeader.js';
+import addEventItem from './addEventItem/index.js';
+import addDocumentHeader from './addDocumentHeader.js';
 import messages from './messages.js';
 
 const log = logs('GenerateExportStream');

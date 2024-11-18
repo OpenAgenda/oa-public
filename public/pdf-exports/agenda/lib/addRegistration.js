@@ -1,7 +1,7 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import addText from './addText.js';
 import addIcon from '../../utils/addIcon.js';
+import addText from './addText.js';
 import getTruncatedLabel from './getTruncatedLabel.js';
 import messages from './messages.js';
 
