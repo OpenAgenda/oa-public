@@ -1,7 +1,7 @@
-import GenerateExportStream from './lib/GenerateExportStream.js';
+import GenerateExport from './lib/GenerateExport.js';
 
 export default function PDFExports(config) {
   return {
-    GenerateExportStream: GenerateExportStream.bind(config),
+    GenerateExport: GenerateExport.bind(config),
   };
 }
