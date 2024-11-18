@@ -1,4 +1,4 @@
-import addText from "../addText.js";
+import addText from '../addText.js';
 
 export default function eventLinkPositioning(doc, cursor, event, options = {}) {
   const { columnMaxWidth, secondaryColor, fontSize, base, simulate, agenda } = options;
