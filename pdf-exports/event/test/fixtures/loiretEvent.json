@@ -1,0 +1,259 @@
+{
+  "longDescription": {
+    "fr": "Les hauts et les bas de la vie d’un couple : querelles et réconciliations, chamailleries et complicité, incompréhensions et tendresse, mariage et divorce. Des tracas très semblables à ceux de tous les couples.\nEt pourtant, Isabelle et Mathilde, elles s’aiment toujours !\nCette comédie pointe avec drôlerie et finesse les petites mesquineries et la\nmauvaise foi qui ponctuent toute vie de couple."
+  },
+  "country": {
+    "de": "Frankreich (Metropolitan)",
+    "code": "FR",
+    "oc": "França (Metropolitana)",
+    "en": "France (Metropolitan)",
+    "it": "Francia (continente)",
+    "fr": "France (Métropole)",
+    "es": "Francia (Metropolitana)"
+  },
+  "featured": false,
+  "private": 0,
+  "keywords": {
+    "fr": [
+      "comédie",
+      "théâtre",
+      "humour",
+      "couple"
+    ]
+  },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "dateRange": {
+    "ar": "الجمعة ٢١ يونيو, 20:30",
+    "de": "Freitag 21 Juni, 20:30",
+    "en": "Friday 21 June, 20:30",
+    "it": "Venerdì 21 giugno, 20:30",
+    "fr": "Vendredi 21 juin, 20h30",
+    "es": "Viernes 21 junio, 20:30"
+  },
+  "timezone": "Europe/Paris",
+  "imageCredits": "Caroline LAPIS",
+  "originAgenda": {
+    "uid": 89287255,
+    "image": "https://cibul.s3.amazonaws.com/agenda89287255.jpg?__ts=1690358352183",
+    "description": "La programmation culturelle du Loiret",
+    "title": "Agenda des sorties En scène !",
+    "slug": "loiret-en-scene",
+    "url": "https://enscene.loiret.fr/",
+    "_agg": "eyJ1aWQiOjg5Mjg3MjU1LCJ0aXRsZSI6IkFnZW5kYSBkZXMgc29ydGllcyBFbiBzY8OobmUgISIsImltYWdlIjoiaHR0cHM6Ly9jaWJ1bC5zMy5hbWF6b25hd3MuY29tL2FnZW5kYTg5Mjg3MjU1LmpwZz9fX3RzPTE2OTAzNTgzNTIxODMiLCJ1cmwiOiJodHRwczovL2Vuc2NlbmUubG9pcmV0LmZyLyIsInNsdWciOiJsb2lyZXQtZW4tc2NlbmUifQ=="
+  },
+  "description": {
+    "fr": "Les hauts et les bas de la vie d’un couple.  Cette comédie pointe avec drôlerie et finesse les petites mesquineries et la mauvaise foi qui ponctuent toute vie de couple."
+  },
+  "title": {
+    "fr": "Elles s'aiment depuis vingt"
+  },
+  "thematiques": 5,
+  "onlineAccessLink": "https://enscene.loiret.fr/",
+  "createdAt": "2024-07-05T15:21:25.000Z",
+  "uid": 51951501,
+  "draft": 0,
+  "timings": [
+    {
+      "begin": "2024-06-21T14:00:00+02:00",
+      "end": "2024-06-21T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-06-22T14:00:00+02:00",
+      "end": "2024-06-22T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-06-23T14:00:00+02:00",
+      "end": "2024-06-23T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-06-24T14:00:00+02:00",
+      "end": "2024-06-24T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-07-25T14:00:00+02:00",
+      "end": "2024-07-25T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-07-26T14:00:00+02:00",
+      "end": "2024-07-26T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-08-27T14:00:00+02:00",
+      "end": "2024-08-27T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-08-28T14:00:00+02:00",
+      "end": "2024-08-28T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-09-29T14:00:00+02:00",
+      "end": "2024-09-29T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-09-30T14:00:00+02:00",
+      "end": "2024-09-30T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-10-01T14:00:00+02:00",
+      "end": "2024-10-01T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-10-02T14:00:00+02:00",
+      "end": "2024-10-02T16:00:00+02:00"
+    }
+  ],
+  "member": {
+    "uid": 79787366,
+    "role": 2,
+    "phone": null,
+    "organization": "CD45",
+    "name": "Blandine Perseil",
+    "position": null,
+    "email": "blandine.perseil@loiret.fr",
+    "_agg": "eyJ1aWQiOjc5Nzg3MzY2LCJuYW1lIjoiQmxhbmRpbmUgUGVyc2VpbCJ9",
+    "deletedUser": false,
+    "updatedAt": "2024-07-05T15:21:26.000Z"
+  },
+  "firstTiming": {
+    "begin": "2024-06-21T14:00:00+02:00",
+    "end": "2024-06-21T16:00:00+02:00"
+  },
+  "links": [],
+  "state": 2,
+  "slug": "elles-saiment-depuis-vingt-ans-4364614",
+  "updatedAt": "2024-07-05T15:21:26.000Z",
+  "addMethod": "contribution",
+  "image": {
+    "filename": "347c52b650d84e8aad815ac8afbc7472.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 990
+    },
+    "variants": [
+      {
+        "filename": "347c52b650d84e8aad815ac8afbc7472.full.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 990
+        },
+        "type": "full"
+      },
+      {
+        "filename": "347c52b650d84e8aad815ac8afbc7472.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "attendanceMode": 1,
+  "sourceAgendas": [],
+  "creatorUid": 79787366,
+  "compagnie": "LA COMPAGNIE DES ELLES ET DES ILS",
+  "lastTiming": {
+    "begin": "2024-10-02T14:00:00+02:00",
+    "end": "2024-10-02T16:00:00+02:00"
+  },
+  "registration": [
+    {
+      "type": "phone",
+      "value": "0238874307"
+    },
+    {
+      "type": "email",
+      "value": "mairie.sceaudugatinais@wanadoo.fr"
+    },
+    {
+      "type": "link",
+      "value": "billeterie.com"
+    }
+  ],
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "fr": "Métro ligne 2, arrêt Tourcoing centre"
+    },
+    "city": "Sceaux-du-Gâtinais",
+    "timezone": "Europe/Paris",
+    "postalCode": "45490",
+    "latitude": 48.104866,
+    "imageCredits": null,
+    "description": {
+      "fr": "La Salle Polyvalente de la Tourelle à Courtempierre est un lieu accueillant et chaleureux, parfait pour transformer vos événements en moments inoubliables ! Située au cœur du Loiret, le long de la pittoresque route de Préfontaines, cette salle spacieuse et baignée de lumière naturelle est idéale pour des célébrations, des réceptions et des moments de partage en famille ou entre amis."
+    },
+    "setUid": null,
+    "uid": 81718876,
+    "createdAt": "2024-07-05T15:20:53.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [
+      "http://www.facebook.com/ateliermediacarvin",
+      "https://twitter.com/AtelierMedia62",
+      "http://www.carvin.fr/no_cache/carvinfr/annuaire/detail/structures/latelier-media.html"
+    ],
+    "state": 0,
+    "extId": null,
+    "department": "Loiret",
+    "slug": "salle-polyvalente-de-la-tourelle-de-sceaux-courtempierre-route-de-prefontaines_5743356",
+    "email": "museebeauxarts@ville-tourcoing.fr",
+    "longitude": 2.595401,
+    "updatedAt": "2024-07-05T15:20:53.000Z",
+    "image": "https://cibul.s3.amazonaws.com/location68051215.jpg",
+    "website": null,
+    "address": "2 rue Paul Doumer 59200 Tourcoing",
+    "adminLevel3": "Communauté de communes des Quatre Vallées",
+    "agendaUid": 89287255,
+    "adminLevel4": "Sceaux-du-Gâtinais",
+    "adminLevel1": "Centre-Val de Loire",
+    "adminLevel2": "Loiret",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjgxNzE4ODc2LCJuYW1lIjoiU0FMTEUgUE9MWVZBTEVOVEUgREUgTEEgVE9VUkVMTEUgREUgU0NFQVVYIC0gQ09VUlRFTVBJRVJSRSAtIFJPVVRFIERFIFBSRUZPTlRBSU5FUyJ9",
+    "tags": [
+      {
+        "id": 9,
+        "label": "Édifice rural"
+      },
+      {
+        "id": 8,
+        "label": "Édifice industriel, scientifique et technique"
+      }
+    ],
+    "insee": "45303",
+    "phone": "03 20 28 91 60",
+    "district": null,
+    "name": "MUba Eugène Leroy",
+    "region": "Centre-Val de Loire"
+  },
+  "ownerUid": 79787366,
+  "conditions": {
+    "fr": "10 € pour les adultes et 5 € pour les moins de 18 ans"
+  },
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "status": 1,
+  "categorie-principale": [
+    7, 10
+  ],
+  "label": [
+    7
+  ],
+  "type": [
+    0
+  ],
+  "nextTiming": {
+    "begin": "2024-09-29T14:00:00+02:00",
+    "end": "2024-09-29T16:00:00+02:00"
+  }
+}

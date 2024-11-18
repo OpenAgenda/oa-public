@@ -1,0 +1,161 @@
+{
+  "longDescription": {
+  "de":"Herzlicher Empfang durch die Winzerfamilie, für Jung und Alt, 7 Tage die Woche und an Feiertagen. Besuch des authentischen Kellers und des Höhlenkellers aus dem 10\\. Jahrhundert möglich. Verkostungen, direkter Verkauf von Traubensäften und Weinen mit Medaillen für pures Vergnügen, Gourmets im AOC St-Nicolas-de-Bourueil, Bourgueil, Touraine Sauvignon, Rot, Rosé und Weiß, zertifiziert in Bio-Landwirtschaft, sogar ohne Sulfite. Gemütlicher Raum, umgeben von Weinbergen und Rosen, mit dem Label Tourisme & Handicap, mit Blick auf den aktiven Weinkeller. Videos und sensorische Spiele. Geschäft für Produkte aus dem Loiretal. Stellplatz mit Picknicktisch für Wohnmobile zugänglich und ausgestattet.",
+  "en":"Warm wine tourism welcome by the winemaker family, for young and old, 7 days a week and holidays. Visit of the authentic cellar and the cave of the 10th century possible. Tastings, direct sale of grape juice and wine medalists of pure pleasure, gourmands in AOC St-Nicolas-de-Bourgueil, Bourgueil, Touraine Sauvignon, red, rosé and white, certified in Organic Agriculture, or without added sulphites. Comfortable room, surrounded by vines and roses, labeled Tourism & Handicap, with views of the winery in activity. Videos and sensory games. Shop of products of the Loire Valley. Parking area with picnic table accessible and equipped for motorhomes.",
+  "it":"Accoglienza enoturistica calorosa da parte della famiglia vigneronne, per grandi e piccini, 7 giorni su 7 e festivi. Visita della cantina autentica e della grotta trogloditica del X secolo possibili. Degustazioni, vendita diretta di succhi d'uva e di vini medagliati di puro piacere, golosi in AOC St-Nicolas-de-bourgueil, Bourgueil, Touraine Sauvignon, rossi, rosati e bianchi, certificati in Agricoltura Biologica, anche senza solfiti aggiunti. Sala confortevole, circondata da vigneti e rose, etichettata Turismo & Handicap, con vista sulla cantina in attività. Video e giochi sensoriali. Negozio di prodotti della Valle della Loira. Parcheggio con tavolo da picnic accessibile e attrezzato per camper.",
+  "fr":"Accueil œnotouristique chaleureux par la famille vigneronne, pour petits et grands, 7 jours sur 7 et jours fériés.\nVisite du chai authentique et de la cave troglodytique du Xe siècle possibles. Dégustations, vente directe de jus de raisin et de vins médaillés de pur plaisir, gourmands en AOC St-Nicolas-de-Bourgueil, Bourgueil, Touraine Sauvignon, rouges, rosé et blanc, certifiés en Agriculture Biologique, voire sans sulfites ajoutés.\nSalle confortable, entourée de vignes et rosiers, labellisée Tourisme & Handicap, avec vue sur le chai en activité.\nVidéos et jeux sensoriels.\nBoutique de produits du Val de Loire.\nAire de stationnement avec table de pique-nique accessible et équipée pour les camping-cars.",
+  "es":"Cálida bienvenida enoturística por la familia enólogo, para niños y adultos, 7 días a la semana y días festivos. Visita de la auténtica bodega y cueva troglodítica del siglo X posibles. Degustaciones, venta directa de zumo de uva y vinos medallistas de puro placer, gourmet en DOC St-Nicolas-de-Boueil, Bourgueil, Touraine Sauvignon, tintos, rosados y blancos, certificados en Agricultura Orgánica, incluso sin sulfitos añadidos. Acogedora sala rodeada de viñedos y rosales, con el sello Tourisme & Handicap, con vistas a la bodega en funcionamiento. Vídeos y juegos sensoriales. Tienda de productos del Valle del Loira. Zona de aparcamiento con mesa de picnic accesible y equipada para autocaravanas."
+  },
+  "onlineAccessLink": "https://patrivia.net/visit/chateau-d-auzon",
+  "image": {
+    "filename": "51b1d4b271574974b76adc5c4943508e.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 700
+    },
+    "variants": [
+      {
+        "filename": "51b1d4b271574974b76adc5c4943508e.full.image.jpg",
+        "size": {
+          "width": 2250,
+          "height": 2250
+        },
+        "type": "full"
+      },
+      {
+        "filename": "51b1d4b271574974b76adc5c4943508e.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "conditions": {
+    "de":"Samstags und Samstags und Sonntags um 14:00 und 16:00 Uhr abreisen",
+    "en":"Departure of visits on Sat and Sun at 14h and 16h",
+    "it":"Partenza visite sab e dom alle 14 e 16",
+    "fr":"Durée 1h, accès PMR : 3 marches à monter.",
+    "es":"Salida de las visitas los sam y dim a las 14h y 16h"
+  },
+  "accessibility": {
+    "ii": true,
+    "hi": true,
+    "vi": true,
+    "pi": false,
+    "mi": false
+  },
+  "dateRange": {
+    "ar": "١٦ مارس - ٢٤ يونيو",
+    "de": "16 März - 24 Juni",
+    "en": "16 March - 24 June",
+    "it": "16 marzo - 24 giugno",
+    "fr": "16 mars - 24 juin",
+    "es": "16 marzo - 24 junio"
+  },
+  "description": {
+    "fr": "Évènement majeur de l’opération nationale des « 150 ans de l’impressionnisme »"
+  },
+  "timings": [
+    {
+      "begin": "2024-06-23T14:00:00+02:00",
+      "end": "2024-06-23T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-06-24T14:00:00+02:00",
+      "end": "2024-06-24T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-07-25T14:00:00+02:00",
+      "end": "2024-07-25T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-07-26T14:00:00+02:00",
+      "end": "2024-07-26T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-08-27T14:00:00+02:00",
+      "end": "2024-08-27T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-08-28T14:00:00+02:00",
+      "end": "2024-08-28T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-09-29T14:00:00+02:00",
+      "end": "2024-09-29T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-09-30T14:00:00+02:00",
+      "end": "2024-09-30T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-10-01T14:00:00+02:00",
+      "end": "2024-10-01T16:00:00+02:00"
+    },
+    {
+      "begin": "2024-10-02T14:00:00+02:00",
+      "end": "2024-10-02T16:00:00+02:00"
+    }
+  ],
+  "registration": [
+    {
+      "type": "link",
+      "value": "https://muba-boutique.tourcoing.fr/billets-entrees-et-visites-expo-peinture-nord-pas-de-calais-css5-mubaboutiquetourcoing-pg1-rg26857.html"
+    },
+    {
+      "type":"phone",
+      "value":"02 35 17 61 09"
+    }
+  ],
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "fr": "Métro ligne 2, arrêt Tourcoing centre"
+    },
+    "city": "Tourcoing",
+    "timezone": "Europe/Paris",
+    "postalCode": "59200",
+    "latitude": 50.723203,
+    "imageCredits": null,
+    "description": {
+      "fr": "Le MUba Eugène Leroy, musée des Beaux-Arts de Tourcoing, fait dialoguer par des vis-à-vis stylistiques et thématiques ses collections d’art ancien, art moderne et art contemporain. Le musée présente également les oeuvres de la donation Eugène Leroy réalisée en 2010 ainsi que de grandes expositions temporaires. Une programmation culturelle riche invite les arts vivants au coeur des salles d’exposition."
+    },
+    "setUid": null,
+    "uid": 68051215,
+    "createdAt": "2020-01-17T13:24:02.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 1,
+    "extId": null,
+    "department": "Nord",
+    "slug": "muba-eugene-leroy239",
+    "email": "museebeauxarts@ville-tourcoing.fr",
+    "longitude": 3.161972,
+    "updatedAt": "2021-07-16T22:40:07.000Z",
+    "image": "https://cibul.s3.amazonaws.com/location68051215.jpg",
+    "website": "http://www.muba-tourcoing.fr/",
+    "address": "2 rue Paul Doumer 59200 Tourcoing",
+    "adminLevel3": "Métropole Européenne de Lille",
+    "agendaUid": 35162502,
+    "adminLevel4": "Tourcoing",
+    "adminLevel1": "Hauts-de-France",
+    "adminLevel2": "Nord",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjY4MDUxMjE1LCJuYW1lIjoiTVViYSBFdWfDqG5lIExlcm95In0=",
+    "tags": null,
+    "insee": "59599",
+    "phone": "03 20 28 91 60",
+    "district": null,
+    "name": "MUba Eugène Leroy",
+    "region": "Hauts-de-France"
+  },
+  "title": {
+    "fr": "Exposition \" Peindre la nature. Paysages impressionnistes du musée d'Orsay \""
+  },
+  "slug": "exposition-peindre-la-nature-paysages-impressionnistes-du-musee-dorsay-"
+}
