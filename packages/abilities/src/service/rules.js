@@ -1,6 +1,8 @@
 import _ from 'lodash';
-import { AbilityBuilder } from '@casl/ability';
-import config from './config';
+import abilityPkg from '@casl/ability';
+import config from './config.js';
+
+const { AbilityBuilder } = abilityPkg;
 
 const joinIfArray = (value, delimiter = '|') =>
   (Array.isArray(value) ? value.join(delimiter) : value);

@@ -1,7 +1,5 @@
-'use strict';
-
-const knexLib = require('knex');
-const abilities = require('./src/service');
+import knexLib from 'knex';
+import abilities from './src/service/index.js';
 
 const editableRules = {
   agenda: () => [
@@ -158,7 +156,7 @@ const mysql = {
   ssl: true,
 };
 
-module.exports = {
+export default {
   mysql,
   knex: knexLib({
     client: 'mysql',

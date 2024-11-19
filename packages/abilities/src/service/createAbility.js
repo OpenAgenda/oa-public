@@ -1,7 +1,9 @@
 import _ from 'lodash';
-import { Ability } from '@casl/ability';
-import Rule from './Rule';
-import * as rulesLib from './rules';
+import abilityPkg from '@casl/ability';
+import Rule from './Rule.js';
+import * as rulesLib from './rules.js';
+
+const { Ability } = abilityPkg;
 
 export const SUBJECT_NAME = Symbol(
   '@openagenda/abilities/Ability:SUBJECT_NAME',

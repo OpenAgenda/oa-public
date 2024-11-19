@@ -3,8 +3,8 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
-import abilitiesSvc from './src/service';
-import testconfig from './testconfig';
+import abilitiesSvc from './src/service/index.js';
+import testconfig from './testconfig.js';
 
 const app = express();
 

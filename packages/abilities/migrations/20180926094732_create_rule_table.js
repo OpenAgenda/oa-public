@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export async function up(knex) {
   const { schemas } = knex.client.config;
 
   const exists = await knex.schema.hasTable(schemas.rule);
@@ -22,10 +20,10 @@ exports.up = async (knex) => {
       table.text('reason', 'longtext');
     });
   }
-};
+}
 
-exports.down = (knex) => {
+export function down(knex) {
   const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists(schemas.rule);
-};
+}
