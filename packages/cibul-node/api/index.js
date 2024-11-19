@@ -288,6 +288,32 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get(
     [
+      '/agendas/:agendaUid/events/:eventUid.pdf',
+      '/agendas/:agendaUid/events/slug/:eventSlug.pdf',
+      '/agendas/slug/:agendaSlug/events/slug/:eventSlug.pdf',
+    ],
+    [
+      (req, _res, next) =>
+        core
+          .agendas(req.agenda.uid)
+          .get({
+            detailed: true,
+            access: 'internal',
+            includeNonDataFields: true,
+            includeEvent: true,
+          })
+          .then((agenda) => {
+            req.agenda = agenda;
+            next();
+          }),
+      mw.evaluateAnonymousAccess,
+      mw.getEventFromSearchOrAsDraft,
+      mw.loadEventPDF,
+    ],
+  );
+
+  app.get(
+    [
       '/agendas/:agendaUid/events/:eventUid',
       '/agendas/:agendaUid/events/slug/:eventSlug',
       '/agendas/slug/:agendaSlug/events/slug/:eventSlug',
