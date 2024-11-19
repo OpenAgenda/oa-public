@@ -1,5 +1,5 @@
 import qs from 'qs';
-import base64 from '../../lib/utils/base64';
+import base64 from '../../lib/utils/base64.js';
 
 export default (href, query = {}) => {
   const current = {};

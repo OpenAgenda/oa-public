@@ -1,12 +1,10 @@
-'use strict';
-
-const {
+import {
   mergeLocales,
   getFallbackChain,
   getFallbackedMessages,
   createIntlByLocale,
-} = require('@openagenda/intl');
-const filtersLocales = require('@openagenda/react-filters/locales');
+} from '@openagenda/intl';
+import * as filtersLocales from '@openagenda/react-filters/locales';
 
 function getIntl(intlByLocale, lang) {
   const fallbacks = getFallbackChain(lang);
@@ -32,9 +30,8 @@ function handlebarsHelper(intlByLocale) {
   };
 }
 
-module.exports = (path) => {
-  // eslint-disable-next-line global-require,import/no-dynamic-require
-  const userLocales = require(path);
+export default async (path) => {
+  const userLocales = (await import(path)).default;
   const locales = getFallbackedMessages(
     mergeLocales(filtersLocales, userLocales),
   );

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (locals, event) => {
+export default (locals, event) => {
   const { lang } = locals;
   const langNotDefault = locals.defaultLang !== lang;
 

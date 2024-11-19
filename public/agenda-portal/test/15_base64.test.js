@@ -1,6 +1,4 @@
-'use strict';
-
-const base64 = require('../lib/utils/base64');
+import base64 from '../lib/utils/base64.js';
 
 describe('base64', () => {
   it('decodes', () => {

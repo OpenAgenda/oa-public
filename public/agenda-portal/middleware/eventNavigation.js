@@ -1,9 +1,7 @@
-'use strict';
-
-const _ = require('lodash');
-const ih = require('immutability-helper');
-const qs = require('qs');
-const navigation = require('../lib/eventNavigation');
+import _ from 'lodash';
+import ih from 'immutability-helper';
+import qs from 'qs';
+import * as navigation from '../lib/eventNavigation.js';
 
 /**
  * redirect to event neighbor
@@ -75,13 +73,10 @@ function redirectToNeighbor(req, res, next) {
 
 function navigationLinks(req, res, next) {
   Object.assign(req.data, {
-    navigation: navigation(req.app.locals, req.query.nc),
+    navigation: navigation.default(req.app.locals, req.query.nc),
   });
 
   next();
 }
 
-module.exports = {
-  redirectToNeighbor,
-  navigationLinks,
-};
+export { redirectToNeighbor, navigationLinks };

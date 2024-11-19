@@ -1,15 +1,14 @@
-'use strict';
-
-const path = require('node:path');
-const sass = require('sass');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const browsersListConfig = require('@openagenda/browserslist-config');
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import * as sass from 'sass';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import browsersListConfig from '@openagenda/browserslist-config';
 
 const mode = process.env.NODE_ENV || 'production';
 const devServerPort = process.env.PORTAL_DEV_SERVER_PORT || 3001;
 
-module.exports = {
+export default {
   mode,
   context: process.env.PORTAL_DIR,
   entry: [
@@ -37,7 +36,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: require.resolve('babel-loader'),
+        loader: fileURLToPath(import.meta.resolve('babel-loader')),
         options: {
           presets: ['@openagenda'],
         },
@@ -46,9 +45,9 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          require.resolve('css-loader'),
+          fileURLToPath(import.meta.resolve('css-loader')),
           {
-            loader: require.resolve('resolve-url-loader'),
+            loader: fileURLToPath(import.meta.resolve('resolve-url-loader')),
             options: {
               root: path.join(
                 process.env.PORTAL_DIR,
@@ -57,7 +56,7 @@ module.exports = {
             },
           },
           {
-            loader: require.resolve('sass-loader'),
+            loader: fileURLToPath(import.meta.resolve('sass-loader')),
             options: {
               implementation: sass,
               sourceMap: true,
@@ -67,7 +66,7 @@ module.exports = {
       },
       {
         test: /\.(otf|ttf|eot|woff|woff2)$/,
-        loader: require.resolve('file-loader'),
+        loader: fileURLToPath(import.meta.resolve('file-loader')),
         options: {
           name: '[name].[contenthash:8].[ext]',
           outputPath: 'fonts/',
@@ -76,7 +75,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg|webp)$/i,
-        loader: require.resolve('file-loader'),
+        loader: fileURLToPath(import.meta.resolve('file-loader')),
         options: {
           name: '[name].[contenthash:8].[ext]',
           outputPath: 'images/',

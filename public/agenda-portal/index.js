@@ -1,43 +1,40 @@
-/* eslint-disable */
+// /* eslint-disable */
 
-'use strict';
+// if (process.env.NODE_ENV === 'development') {
+//   // eslint-disable-next-line global-require
+//   require('source-map-support').install({ hookRequire: true });
+// }
 
-if (process.env.NODE_ENV === 'development') {
-  // eslint-disable-next-line global-require
-  require('source-map-support').install({ hookRequire: true });
-}
+import { promisify } from 'node:util';
+import path from 'node:path';
+import _ from 'lodash';
+import express from 'express';
+import Hbs from 'hbs';
+import qs from 'qs';
+import logs from './lib/Log.js';
+import Proxy from './lib/Proxy.js';
+import launch from './lib/launch.js';
+import loadResLocals from './lib/loadResLocals.js';
+import tasks from './tasks/index.js';
+import * as utils from './utils/index.js';
+import { register as registerHelpers } from './lib/helpers/index.js';
+import EventTransforms from './lib/events/Transforms.js';
+import index from './middleware/renderIndex.js';
+import error from './middleware/error.js';
+import * as eventMiddlewares from './middleware/event.js';
+import { redirectToNeighbor, navigationLinks } from './middleware/eventNavigation.js';
+import list from './middleware/listEvents.js';
+import randomFromSet from './middleware/randomFromSet.js';
+import pageGlobals from './middleware/pageGlobals.js';
+import renderSelection from './middleware/renderSelection.js';
+import redirectLegacyEventQuery from './middleware/redirectLegacyEventQuery.js';
+import renderList from './middleware/renderList.js';
+import redirect from './middleware/redirectToEvent.js';
+import showPage from './middleware/showPage.js';
+import watchViews from './dev/watchViews.js';
+import webpackProxy from './dev/webpackProxy.js';
 
-const { promisify } = require('util');
-const path = require('path');
-const _ = require('lodash');
-const express = require('express');
-const Hbs = require('hbs');
-const qs = require('qs');
-
-const log = require('./lib/Log')('index');
-
-const Proxy = require('./lib/Proxy');
-const launch = require('./lib/launch');
-const loadResLocals = require('./lib/loadResLocals');
-const tasks = require('./tasks');
-const utils = require('./utils');
-const { register: registerHelpers } = require('./lib/helpers');
-
-const EventTransforms = require('./lib/events/Transforms');
-
-const index = require('./middleware/renderIndex');
-const error = require('./middleware/error');
-const eventMiddlewares = require('./middleware/event');
-const { redirectToNeighbor } = require('./middleware/eventNavigation');
-const list = require('./middleware/listEvents');
-const randomFromSet = require('./middleware/randomFromSet');
-const pageGlobals = require('./middleware/pageGlobals');
-const renderSelection = require('./middleware/renderSelection');
-const redirectLegacyEventQuery = require('./middleware/redirectLegacyEventQuery');
-const renderList = require('./middleware/renderList');
-const redirect = require('./middleware/redirectToEvent');
-const showPage = require('./middleware/showPage');
-const { navigationLinks } = require('./middleware/eventNavigation');
+const log = logs('index');
 
 const mw = {
   index,
@@ -56,13 +53,13 @@ const mw = {
   navigationLinks,
 };
 
-const baseAssetsPath = `${__dirname}/assets`;
+const baseAssetsPath = `${import.meta.dirname}/assets`;
 
 const { I18N } = utils;
 
 let devApp = null; // used for @openagenda/agenda-portal dev only
 
-module.exports = async (options) => {
+export default async function Portal(options) {
   log('booting');
 
   const app = devApp || express();
@@ -124,8 +121,7 @@ module.exports = async (options) => {
   Object.assign(app.locals, config);
 
   app.set('query parser', (str) =>
-    qs.parse(str, { allowPrototypes: true, arrayLimit: Infinity }),
-  );
+    qs.parse(str, { allowPrototypes: true, arrayLimit: Infinity }));
   app.set('view engine', 'hbs');
   app.set('views', path.join(dir, views));
   app.engine('hbs', hbs.__express);
@@ -138,7 +134,7 @@ module.exports = async (options) => {
 
   registerHelpers(hbs);
 
-  const { intlByLocale, handlebarsHelper: i18nHelper } = I18N(
+  const { intlByLocale, handlebarsHelper: i18nHelper } = await I18N(
     path.join(dir, i18n),
   );
 
@@ -148,9 +144,8 @@ module.exports = async (options) => {
     hbs.registerHelper('i18n', i18nHelper);
   }
 
-  const proxy =
-    injectedProxy ||
-    Proxy({
+  const proxy = injectedProxy
+    || Proxy({
       key: apiKey,
       defaultLimit: eventsPerPage,
       preFilter,
@@ -202,11 +197,11 @@ module.exports = async (options) => {
   await extractFiltersAndWidgets();
 
   if (process.env.NODE_ENV === 'development') {
-    require('./dev/watchViews')(hbs, partialsDir, extractFiltersAndWidgets);
+    watchViews(hbs, partialsDir, extractFiltersAndWidgets);
   }
 
   if (process.env.NODE_ENV === 'development') {
-    require('./dev/webpackProxy')(app, devServerPort);
+    webpackProxy(app, devServerPort);
   }
 
   if (assets) {
@@ -277,8 +272,7 @@ module.exports = async (options) => {
   app.get('/:page', mw.pageGlobals, mw.showPage);
 
   app.use(mw.pageGlobals, (req, res) =>
-    res.status(404).render('404', req.data),
-  );
+    res.status(404).render('404', req.data));
 
   app.use(mw.error);
 
@@ -290,10 +284,12 @@ module.exports = async (options) => {
     app,
     baseAssetsPath,
   };
-};
+}
 
-module.exports.loadDevApp = (dev) => {
+export function loadDevApp(dev) {
   devApp = dev;
-};
+}
 
-module.exports.utils = utils;
+Portal.loadDevApp = loadDevApp;
+
+export { utils };

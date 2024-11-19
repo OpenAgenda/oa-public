@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import ih from 'immutability-helper';
 
-const _ = require('lodash');
-const ih = require('immutability-helper');
-
-module.exports = (fields, params, obj) => {
+export default (fields, params, obj) => {
   const { lang: preferredLang, fallbackLang = 'en' } = params;
 
   return ih(

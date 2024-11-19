@@ -1,9 +1,7 @@
-'use strict';
+import { formatInTimeZone } from 'date-fns-tz';
+import { toEventSchema } from '@openagenda/sdk-js';
 
-const { formatInTimeZone } = require('date-fns-tz');
-const { toEventSchema } = require('@openagenda/sdk-js');
-
-module.exports = (event, timing, defaultTimezone = 'Europe/Paris') => {
+export default (event, timing, defaultTimezone = 'Europe/Paris') => {
   const schemaOrg = toEventSchema(
     {
       ...event,

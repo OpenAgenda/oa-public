@@ -1,6 +1,4 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 function init(data) {
   if (!data.root.__filtersAndWidgetsCounter) {
@@ -18,7 +16,7 @@ function increment(data, key, name) {
   return value;
 }
 
-module.exports = {
+export default {
   init,
   increment,
 };

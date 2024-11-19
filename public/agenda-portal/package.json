@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/agenda-portal",
   "version": "6.11.1",
+  "type": "module",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
@@ -9,7 +10,7 @@
     "access": "public"
   },
   "scripts": {
-    "test": "jest",
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
     "start": "PORTAL_DEV=1 start-portal",
     "build": "webpack-cli --config bin/webpack.build.js",
     "prepack": "yarn build",

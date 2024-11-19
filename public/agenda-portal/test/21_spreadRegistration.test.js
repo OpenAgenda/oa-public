@@ -1,6 +1,4 @@
-'use strict';
-
-const spreadRegistration = require('../utils/spreadRegistration');
+import spreadRegistration from '../utils/spreadRegistration.js';
 
 describe('21 - lib/utils - spreadRegistration', () => {
   test('spreads registration values in keys according to types', () => {

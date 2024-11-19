@@ -1,28 +1,25 @@
-'use strict';
+import inquirer from 'inquirer';
 
-const inquirer = require('inquirer');
+export function term(message) {
+  return inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'response',
+        message,
+      },
+    ])
+    .then((answers) => answers.response);
+}
 
-module.exports = {
-  term(message) {
-    return inquirer
-      .prompt([
-        {
-          type: 'input',
-          name: 'response',
-          message,
-        },
-      ])
-      .then((answers) => answers.response);
-  },
-  confirm(message) {
-    return inquirer
-      .prompt([
-        {
-          type: 'confirm',
-          name: 'confirmation',
-          message,
-        },
-      ])
-      .then((answers) => answers.confirmation);
-  },
-};
+export function confirm(message) {
+  return inquirer
+    .prompt([
+      {
+        type: 'confirm',
+        name: 'confirmation',
+        message,
+      },
+    ])
+    .then((answers) => answers.confirmation);
+}

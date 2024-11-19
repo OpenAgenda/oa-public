@@ -1,8 +1,6 @@
-'use strict';
+import { withDefaultFilterConfig } from '@openagenda/react-filters';
 
-const { withDefaultFilterConfig } = require('@openagenda/react-filters');
-
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   const {
     uid,
     root,

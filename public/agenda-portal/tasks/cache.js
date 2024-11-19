@@ -1,10 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import logs from '../lib/Log.js';
 
-const _ = require('lodash');
+const log = logs('tasks/cache');
 
-const log = require('../lib/Log')('tasks/cache');
-
-module.exports = (app, config) => {
+export default (app, config) => {
   const { refreshInterval } = _.assign(
     {
       refreshInterval: 60 * 60 * 1000,

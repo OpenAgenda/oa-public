@@ -1,6 +1,4 @@
-'use strict';
-
-const transformQueryV1ToV2 = require('../lib/utils/transformQueryV1ToV2');
+import transformQueryV1ToV2 from '../lib/utils/transformQueryV1ToV2.js';
 
 describe('19 - lib/utils - transformQueryV1ToV2', () => {
   test('oaq date filter is converted to timezoned lte/gte pair', () => {
