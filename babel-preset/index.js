@@ -106,7 +106,7 @@ module.exports = declare((api, options) => {
   ];
 
   const plugins = [
-    require('@sigmacomputing/babel-plugin-lodash'),
+    require('@openagenda/babel-plugin-lodash'),
     require('babel-plugin-add-module-exports'),
     transformRuntime
       ? [
