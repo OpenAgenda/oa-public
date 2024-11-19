@@ -263,6 +263,17 @@ export default [
     },
   },
   {
+    field: 'extIds',
+    fieldType: 'extIds',
+    optional: true,
+    max: 200,
+    write: ['internal', 'public'],
+    read: ['internal', 'public'],
+    db: {
+      type: 'json',
+    },
+  },
+  {
     field: 'status',
     fieldType: 'radio',
     default: 1,

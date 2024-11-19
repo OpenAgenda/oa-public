@@ -625,5 +625,16 @@ describe('events - functional - create', () => {
 
       expect(calledOnCreate).toBe(true);
     });
+
+    it('with extIds', async () => {
+      const event = await svc.create({
+        ...data,
+        extIds: [{ key: 'apidae', value: '2398772398' }],
+      });
+
+      expect(event.extIds).toStrictEqual([
+        { key: 'apidae', value: '2398772398' },
+      ]);
+    });
   });
 });
