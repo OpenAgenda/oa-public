@@ -6,7 +6,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import axios from 'axios';
 import qs from 'qs';
-import sass from 'sass';
+import * as sass from 'sass';
 
 const { AGENDA_UID, API_KEY } = process.env;
 
