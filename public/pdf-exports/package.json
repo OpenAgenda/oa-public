@@ -9,15 +9,18 @@
   },
   "scripts": {
     "test": "node test/addEventItem.test.js && node test/addFooter.test.js && node test/addHeader.test.js",
-    "extract-messages": "oa-intl 'lib/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
+    "extract-messages": "oa-intl 'lib/**/*.js' 'list/**/*.js' 'event/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
   },
   "dependencies": {
     "@babel/preset-env": "^7.23.3",
     "@openagenda/babel-preset": "^1.5.0",
+    "@openagenda/date-utils": "^0.0.1",
     "@openagenda/intl": "^1.1.3",
     "@openagenda/logs": "^1.1.9",
     "axios": "^0.21.1",
+    "date-fns": "^2.29.3",
     "lodash": "^4.17.21",
+    "moment": "^2.30.1",
     "pdfkit": "^0.13.0",
     "qs": "^6.11.2",
     "react-intl": "^6.8.4",

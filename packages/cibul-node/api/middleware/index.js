@@ -14,3 +14,4 @@ export { default as evaluateAnonymousAccess } from './evaluateAnonymousAccess.js
 export { default as getEventFromSearchOrAsDraft } from './getEventFromSearchOrAsDraft.js';
 export { default as rejectAgendaKey } from './rejectAgendaKey.js';
 export { default as sendJSONLD } from './sendJSONLD.js';
+export { default as loadEventPDF } from './loadEventPDF.js';
