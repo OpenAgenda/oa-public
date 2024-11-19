@@ -1,16 +1,12 @@
-'use strict';
-
-const knex = require('knex');
-
-const logger = require('@openagenda/logs');
+import knex from 'knex';
+import logger from '@openagenda/logs';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import merge from '@openagenda/form-schemas/iso/merge.js';
+import filterByAccess from '@openagenda/form-schemas/iso/filterByAccess.js';
+import flattenSchema from '@openagenda/form-schemas/iso/flattenSchema.js';
+import filesMw from './middleware/files.js';
 
 const log = logger('index');
-
-const FormSchema = require('../iso/FormSchema');
-const merge = require('../iso/merge');
-const filterByAccess = require('../iso/filterByAccess');
-const flattenSchema = require('../iso/flattenSchema');
-const filesMw = require('./middleware/files');
 
 const utils = {
   merge,
@@ -126,7 +122,7 @@ async function remove({ client, schemas }, id) {
   };
 }
 
-module.exports = Object.assign(
+export default Object.assign(
   (config) => {
     if (config.logger) {
       logger.setModuleConfig(config.logger);

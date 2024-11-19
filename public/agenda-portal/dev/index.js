@@ -1,13 +1,11 @@
-'use strict';
+import './setEnv.js';
 
-process.env.NODE_ENV = 'development';
-
-const express = require('express');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotReloadMiddleware = require('webpack-hot-middleware');
-const Portal = require('..');
-const webpackConfig = require('./webpack.config');
+import express from 'express';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotReloadMiddleware from 'webpack-hot-middleware';
+import Portal from '@openagenda/agenda-portal';
+import webpackConfig from './webpack.config.js';
 
 const dev = express();
 const compiler = webpack(webpackConfig);
@@ -22,4 +20,4 @@ dev.use(webpackHotReloadMiddleware(compiler));
 
 Portal.loadDevApp(dev);
 
-require('../boot/server');
+await import('../boot/server.js');

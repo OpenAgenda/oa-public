@@ -1,7 +1,5 @@
-'use strict';
+import cacheTask from './cache.js';
 
-const cacheTask = require('./cache');
-
-module.exports = ({ config, app }) => {
+export default ({ config, app }) => {
   cacheTask(app, config.cache);
 };

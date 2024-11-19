@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const ih = require('immutability-helper');
+import _ from 'lodash';
+import ih from 'immutability-helper';
 
 const defineFlatteningUpdate = (obj, lang) =>
   ['label', 'info', 'placeholder', 'sub', 'help'].reduce((update, f) => {
@@ -14,7 +14,7 @@ const defineFlatteningUpdate = (obj, lang) =>
     };
   }, {});
 
-module.exports = (field, lang) => {
+export default (field, lang) => {
   if (!field) return null;
 
   const { options } = field;

@@ -99,8 +99,23 @@ function _getQueryMustParts(cleanQuery) {
       },
     });
   }
-
   return parts;
+}
+
+function _extIdsFilter(extIds) {
+  return {
+    nested: {
+      path: 'extIds',
+      query: {
+        bool: {
+          must: [
+            { match: { 'extIds.key': extIds.key } },
+            { match: { 'extIds.value': extIds.value } },
+          ],
+        },
+      },
+    },
+  };
 }
 
 function _havingUpcomingAndCurrentTimings() {
@@ -442,6 +457,10 @@ function _getQueryFilterParts(
 
   if (removed === true) {
     parts.push(_terms('removed', true));
+  }
+
+  if (cleanQuery?.extIds && cleanQuery.extIds.key && cleanQuery.extIds.value) {
+    parts.push(_extIdsFilter(cleanQuery.extIds));
   }
 
   if (

@@ -28,7 +28,7 @@ export async function init(c = {}) {
       await knex.migrate.latest({
         tableName: 'inbox_migrations',
         ...c.migrations,
-        directory: path.join(__dirname, '..', '..', 'migrations'),
+        directory: path.join(import.meta.dirname, '..', '..', 'migrations'),
       });
     } catch (e) {
       console.log(e);
@@ -38,16 +38,16 @@ export async function init(c = {}) {
 
 export function migrate(options) {
   return config.knex.migrate.latest({
-    directory: path.join(__dirname, '..', '..', 'migrations'),
+    directory: path.join(import.meta.dirname, '..', '..', 'migrations'),
     ...options,
   });
 }
 
 export function seed(options) {
   const directory = typeof options === 'string'
-    ? path.join(__dirname, '..', '..', 'seeds', options)
+    ? path.join(import.meta.dirname, '..', '..', 'seeds', options)
     : path.join(
-      __dirname,
+      import.meta.dirname,
       '..',
       '..',
       'seeds',

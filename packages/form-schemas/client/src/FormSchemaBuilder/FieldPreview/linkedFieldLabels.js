@@ -1,6 +1,6 @@
 import { getLocaleValue } from '@openagenda/intl';
 
-import { getLabel, getLinkedField } from './utils';
+import { getLabel, getLinkedField } from './utils.js';
 
 export function getSummary({ field, lang, schema }) {
   const linkedField = getLinkedField({ field, schema });

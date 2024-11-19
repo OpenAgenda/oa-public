@@ -1,10 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import axios from 'axios';
+import qs from 'qs';
+import logs from './Log.js';
+import transformQueryV1ToV2 from './utils/transformQueryV1ToV2.js';
 
-const _ = require('lodash');
-const axios = require('axios');
-const qs = require('qs');
-const log = require('./Log')('proxy');
-const transformQueryV1ToV2 = require('./utils/transformQueryV1ToV2');
+const log = logs('proxy');
 
 const getAgendaSettings = (agendaUid, key) =>
   axios
@@ -22,7 +22,7 @@ const getAgendaSettings = (agendaUid, key) =>
 
 const cachedHead = _.memoize(getAgendaSettings);
 
-module.exports = ({
+export default ({
   key,
   defaultLimit,
   preFilter,

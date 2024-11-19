@@ -1,9 +1,6 @@
-'use strict';
-
-const { ruleToValues, valuesToRule } = require('../src/utils/rules');
-
-const aggregatorAgendaSchema = require('./fixtures/aggregatorAgendaSchema.json');
-const aggAgendaSchema2 = require('./fixtures/aggregatorAgendaSchema.2.json');
+import { ruleToValues, valuesToRule } from '../src/utils/rules.js';
+import aggregatorAgendaSchema from './fixtures/aggregatorAgendaSchema.json';
+import aggAgendaSchema2 from './fixtures/aggregatorAgendaSchema.2.json';
 
 describe('utils - rules', () => {
   describe('ruleToValues', () => {

@@ -1,10 +1,10 @@
 import { Spinner } from '@openagenda/react-shared';
 import classNames from 'classnames';
 
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
-import labels from './lib/labels';
-import saveStates from './lib/saveStates';
+import labels from './lib/labels.js';
+import saveStates from './lib/saveStates.js';
 
 const getLabel = makeLabelGetter(labels);
 

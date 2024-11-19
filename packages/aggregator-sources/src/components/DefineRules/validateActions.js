@@ -1,5 +1,5 @@
 import { getLocaleValue } from '@openagenda/intl';
-import messages from './messages';
+import messages from './messages.js';
 
 export default function validateActions(
   intl,

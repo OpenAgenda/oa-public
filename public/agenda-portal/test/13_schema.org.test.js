@@ -1,6 +1,4 @@
-'use strict';
-
-const getTimingJSONLD = require('../lib/timings/getSchemaJSONLD');
+import getTimingJSONLD from '../lib/timings/getSchemaJSONLD.js';
 
 describe('13 - schema.org', () => {
   const event = {

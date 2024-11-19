@@ -1,15 +1,15 @@
 import { Component } from 'react';
-import passValidator from '@openagenda/validators/pass';
-import FormSchemaComponent from '..';
+import passValidator from '@openagenda/validators/pass.js';
+import FormSchemaComponent from '../index.js';
 
-import merge from '../iso/merge';
-import flattenLabels from '../lib/flatten';
-import slugFromLabel from './lib/slugFromLabel';
-import fg from './lib/fieldGroups';
-import Options from './Options';
-import unflattenLabels from './lib/unflattenLabels';
-import restrictLabelLanguages from './lib/restrictLabelLanguages';
-import optionsValidator from './lib/optionsValidator';
+import merge from '../iso/merge.js';
+import flattenLabels from '../lib/flatten.js';
+import slugFromLabel from './lib/slugFromLabel.js';
+import fg from './lib/fieldGroups.js';
+import Options from './Options.js';
+import unflattenLabels from './lib/unflattenLabels.js';
+import restrictLabelLanguages from './lib/restrictLabelLanguages.js';
+import optionsValidator from './lib/optionsValidator.js';
 
 const assignConstraintsToFields = (schema, parents) =>
   schema.fields.reduce(

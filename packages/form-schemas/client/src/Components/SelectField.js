@@ -2,8 +2,8 @@ import { useState, useCallback } from 'react';
 import { ReactSelectInput } from '@openagenda/react-shared';
 import classNames from 'classnames';
 
-import labels from '@openagenda/labels/form-schemas/index';
-import flattenLabels from '@openagenda/labels/flatten';
+import labels from '@openagenda/labels/form-schemas/index.js';
+import flattenLabels from '@openagenda/labels/flatten.js';
 
 const getSelectOptions = (field, opts = {}) => {
   const { value } = opts;

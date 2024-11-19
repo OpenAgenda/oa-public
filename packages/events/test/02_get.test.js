@@ -64,6 +64,11 @@ describe('events - functional - get', () => {
         { value: 'salon@scienceenlivre.org', type: 'email' },
       ]);
     });
+
+    it('extIds are returned', async () => {
+      const { extIds } = await svc.get(91258823);
+      expect(extIds).toEqual([{ key: 'test', value: '12122SSA' }]);
+    });
   });
 
   describe('options', () => {

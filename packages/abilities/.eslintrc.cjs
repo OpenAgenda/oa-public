@@ -1,23 +1,25 @@
 'use strict';
 
 module.exports = {
-  extends: '../../.eslintrc',
+  extends: ['../../.eslintrc'],
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
-  ignorePatterns: ['/client/build'],
+  ignorePatterns: ['/build'],
 
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
       {
         devDependencies: [
-          `${__dirname}/test/**/*.js`,
-          `${__dirname}/testconfig.sample.js`,
+          `${__dirname}/.babelrc.js`,
+          `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
           `${__dirname}/server.dev.js`,
+          `${__dirname}/test/**/*.js`,
+          `${__dirname}/scripts/**/*.js`,
         ],
       },
     ],
@@ -25,9 +27,9 @@ module.exports = {
 
   overrides: [
     {
-      files: ['client/src/**/*.js', 'dev/client/**/*.js', 'stories/**/*.js'],
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

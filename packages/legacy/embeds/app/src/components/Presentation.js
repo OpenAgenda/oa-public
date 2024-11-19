@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { Modal } from '@openagenda/react-shared';
 
-import MenuOption from './MenuOption';
+import MenuOption from './MenuOption.js';
 
 const messages = defineMessages({
   title: {

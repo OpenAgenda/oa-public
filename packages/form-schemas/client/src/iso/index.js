@@ -1,10 +1,12 @@
-const typeLabels = require('@openagenda/labels/custom/types');
-const types = Object.keys(require('./types'));
-const validateField = require('./validateField');
-const FormSchema = require('./FormSchema');
+import typeLabels from '@openagenda/labels/custom/types.js';
+import validateField from './validateField.js';
+import FormSchema from './FormSchema.js';
+import types from './types.js';
+
+const typeKeys = Object.keys(types);
 
 function getTypeLabels(type = false) {
-  return types
+  return typeKeys
     .filter((t) => type === false || t === type)
     .map((t) => ({
       type: t,
@@ -12,7 +14,7 @@ function getTypeLabels(type = false) {
     }));
 }
 
-module.exports = {
+export default {
   getTypeLabels,
   validateField,
   FormSchema,

@@ -1,7 +1,7 @@
-import Accordion from '@openagenda/react-shared/lib/components/Accordion';
+import { Accordion } from '@openagenda/react-shared';
 
-import Head from './Head';
-import Content from './Content';
+import Head from './Head.js';
+import Content from './Content.js';
 
 export default function FieldPreview(props) {
   const { onAccordionToggle, active, schema } = props;

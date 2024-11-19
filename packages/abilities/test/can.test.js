@@ -1,8 +1,8 @@
 import knexLib from 'knex';
 
-import abilities from '../src/service';
-import testconfig from '../testconfig';
-import * as db from './utils/db';
+import abilities from '../src/service/index.js';
+import testconfig from '../testconfig.js';
+import * as db from './utils/db.js';
 
 const database = `${testconfig.mysql.database}_can`;
 

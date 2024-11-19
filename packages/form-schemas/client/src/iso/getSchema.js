@@ -1,16 +1,15 @@
-const schema = require('@openagenda/validators/schema');
-const choice = require('@openagenda/validators/choice');
-const textValidator = require('@openagenda/validators/text');
-const booleanValidator = require('@openagenda/validators/boolean');
-const linkValidator = require('@openagenda/validators/link');
-const numberValidator = require('@openagenda/validators/number');
-const dateValidator = require('@openagenda/validators/date');
-const multilingualValidator = require('@openagenda/validators/multilingual');
-const integerValidator = require('@openagenda/validators/integer');
-const passValidator = require('@openagenda/validators/pass');
-
-const fileValidator = require('./fileValidator');
-const getSchemaArgs = require('./getSchemaArgs');
+import schema from '@openagenda/validators/schema/index.js';
+import choice from '@openagenda/validators/choice.js';
+import textValidator from '@openagenda/validators/text.js';
+import booleanValidator from '@openagenda/validators/boolean.js';
+import linkValidator from '@openagenda/validators/link.js';
+import numberValidator from '@openagenda/validators/number.js';
+import dateValidator from '@openagenda/validators/date.js';
+import multilingualValidator from '@openagenda/validators/multilingual.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import passValidator from '@openagenda/validators/pass.js';
+import fileValidator from './fileValidator.js';
+import getSchemaArgs from './getSchemaArgs.js';
 
 schema.register({
   text: textValidator,
@@ -25,5 +24,5 @@ schema.register({
   choice,
 });
 
-module.exports = (fields, accessType, accessLevel, options) =>
+export default (fields, accessType, accessLevel, options) =>
   schema(getSchemaArgs(fields, accessType, accessLevel, options));

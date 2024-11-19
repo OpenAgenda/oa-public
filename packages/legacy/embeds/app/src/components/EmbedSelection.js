@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useConstant } from '@openagenda/react-shared';
 import { useIntl, defineMessages } from 'react-intl';
-import UpdateButton from './UpdateButton';
+import UpdateButton from './UpdateButton.js';
 
 const messages = defineMessages({
   list: {

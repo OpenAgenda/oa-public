@@ -1,8 +1,6 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-module.exports = (req, path, value) => {
+export default (req, path, value) => {
   if (!req.pageProps) {
     req.pageProps = _.pick(req.app.locals, [
       'iframable',

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Pager from '../src/components/Pager';
-import AdminCanvas from './decorators/AdminCanvas';
+import Pager from '../src/components/Pager.js';
+import AdminCanvas from './decorators/AdminCanvas.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

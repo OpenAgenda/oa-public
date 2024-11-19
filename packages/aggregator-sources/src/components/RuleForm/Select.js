@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import BsField from '../BsField';
+import BsField from '../BsField.js';
 
 export default ({
   input,

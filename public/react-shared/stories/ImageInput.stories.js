@@ -1,5 +1,5 @@
-import ImageInput from '../src/components/ImageInput';
-import SimpleCanvas from './decorators/SimpleCanvas';
+import ImageInput from '../src/components/ImageInput.js';
+import SimpleCanvas from './decorators/SimpleCanvas.js';
 
 export default {
   title: 'ImageInput',

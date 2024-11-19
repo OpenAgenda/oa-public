@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import EmbedCodePresentation from './EmbedCodePresentation';
-import AdvancedWidgetMenu from './AdvancedWidgetMenu';
-import TagSelectionMenu from './TagSelectionMenu';
+import EmbedCodePresentation from './EmbedCodePresentation.js';
+import AdvancedWidgetMenu from './AdvancedWidgetMenu.js';
+import TagSelectionMenu from './TagSelectionMenu.js';
 
 function renderCode(code, { mode, group, tags }) {
   if (mode === 'all') {

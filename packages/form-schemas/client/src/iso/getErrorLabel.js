@@ -1,4 +1,4 @@
-module.exports = (labels, field, error) => {
+export default (labels, field, error) => {
   const { code, message } = error;
 
   const matchingLabel = labels[code];

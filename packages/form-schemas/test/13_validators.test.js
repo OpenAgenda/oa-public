@@ -1,14 +1,11 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const getValidatorFromField = require('../iso/getValidatorFromField');
-const fileValidator = require('../iso/fileValidator');
-const getSchema = require('../iso/getSchema');
+import fs from 'node:fs';
+import getValidatorFromField from '../client/src/iso/getValidatorFromField.js';
+import fileValidator from '../client/src/iso/fileValidator.js';
+import getSchema from '../client/src/iso/getSchema.js';
 
 function _get(name) {
   return JSON.parse(
-    fs.readFileSync(`${__dirname}/parse/${name}.json`, 'utf-8'),
+    fs.readFileSync(`${import.meta.dirname}/parse/${name}.json`, 'utf-8'),
   );
 }
 

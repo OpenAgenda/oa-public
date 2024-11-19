@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import formSchemaLabels from '@openagenda/labels/form-schemas';
+import formSchemaLabels from '@openagenda/labels/form-schemas/index.js';
 import makeLabelGetter from '@openagenda/labels';
 
 const getLabel = makeLabelGetter(formSchemaLabels);

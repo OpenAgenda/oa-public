@@ -1,10 +1,8 @@
-'use strict';
-
-const testconfig = require('./testconfig');
+import testconfig from './testconfig.js';
 
 // Useful for the knex CLI
 
-module.exports = {
+export default {
   client: 'mysql',
   connection: testconfig.mysql,
   schemas: testconfig.schemas,

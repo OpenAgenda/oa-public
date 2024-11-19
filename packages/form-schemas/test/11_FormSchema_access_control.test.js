@@ -1,6 +1,4 @@
-'use strict';
-
-const FormSchema = require('../iso/FormSchema');
+import FormSchema from '../client/src/iso/FormSchema.js';
 
 describe('FormSchema - access control', () => {
   let s;

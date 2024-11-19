@@ -2,8 +2,9 @@ import _ from 'lodash';
 import Dropzone from 'react-dropzone';
 import { Component } from 'react';
 
-import multilingualLabels from '@openagenda/labels/form-schemas/fileUpload';
-import flattenLabels from '@openagenda/labels/flatten';
+import multilingualLabels from '@openagenda/labels/form-schemas/fileUpload.js';
+import flattenLabels from '@openagenda/labels/flatten.js';
+import extensionsToAccept from '../lib/extensionsToAccept.js';
 
 export default class FileField extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ export default class FileField extends Component {
       <div className="file-upload">
         <Dropzone
           disabled={field.enable === false}
-          accept={`.${extensions.join(',.')}`}
+          accept={extensionsToAccept(extensions)}
           multiple={false}
           name={name}
           onDrop={this.onDrop}

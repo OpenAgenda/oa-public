@@ -1,6 +1,7 @@
 import debug from 'debug';
+import iframeChild from './lib/iframe.child.js';
 
-const iframeHandler = require('./lib/iframe.child')();
+const iframeHandler = iframeChild();
 
 const log = debug('preview');
 

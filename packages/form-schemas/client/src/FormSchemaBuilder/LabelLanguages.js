@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import { Component } from 'react';
 
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 import { Modal } from '@openagenda/react-shared';
 
-import Languages from '../Components/Languages';
-import labels from './lib/labels';
+import Languages from '../Components/Languages.js';
+import labels from './lib/labels.js';
 
 const getLabel = makeLabelGetter(labels);
 

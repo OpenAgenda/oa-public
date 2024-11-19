@@ -1,7 +1,7 @@
 import { useIntl } from 'react-intl';
 import { useFormState } from 'react-final-form';
 import classNames from 'classnames';
-import messages from './messages';
+import messages from './messages.js';
 
 export default function AddRuleSubmitButton({ handleSubmit, onCancel }) {
   const intl = useIntl();

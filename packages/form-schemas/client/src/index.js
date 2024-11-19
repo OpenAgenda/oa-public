@@ -5,20 +5,20 @@ import { Component } from 'react';
 import { flushSync } from 'react-dom';
 import classNames from 'classnames';
 
-import formSchemaLabels from '@openagenda/labels/form-schemas';
+import formSchemaLabels from '@openagenda/labels/form-schemas/index.js';
 
-import errorLabels from '@openagenda/labels/errors';
-import flattenLabels from '@openagenda/labels/flatten';
+import errorLabels from '@openagenda/labels/errors/index.js';
+import flattenLabels from '@openagenda/labels/flatten.js';
 import { Spinner, LeaveWarningPrompt } from '@openagenda/react-shared';
 
-import FormSchema from './iso/FormSchema';
-import getErrorLabel from './iso/getErrorLabel';
+import FormSchema from './iso/FormSchema.js';
+import getErrorLabel from './iso/getErrorLabel.js';
 
-import submit from './lib/submit';
-import getRelatedFieldValues from './lib/getRelatedFieldValues';
-import isItemDisplayed from './lib/isItemDisplayed';
-import Section from './Components/Section';
-import Field from './Components/Field';
+import submit from './lib/submit.js';
+import getRelatedFieldValues from './lib/getRelatedFieldValues.js';
+import isItemDisplayed from './lib/isItemDisplayed.js';
+import Section from './Components/Section.js';
+import Field from './Components/Field.js';
 
 const log = debug('FormSchemaComponent');
 

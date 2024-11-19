@@ -148,6 +148,16 @@ const validate = schema({
     type: 'choice',
     options: [1, 2, 3],
   },
+  extIds: {
+    fields: {
+      key: {
+        type: 'text',
+      },
+      value: {
+        type: 'text',
+      },
+    },
+  },
   geo: {
     fields: {
       northEast: {

@@ -1,6 +1,4 @@
-'use strict';
-
-const flattenSchema = require('../client/src/iso/flattenSchema');
+import flattenSchema from '../client/src/iso/flattenSchema.js';
 
 const schema = {
   fields: [

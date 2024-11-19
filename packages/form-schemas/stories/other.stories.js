@@ -1,12 +1,9 @@
 import { useState } from 'react';
-
-import passValidator from '@openagenda/validators/pass';
-
-import FormSchemaComponent from '../client/src/index';
-
-import WigglyPoofComponent from './custom/WigglyPoofComponent';
-import wigglypoofValidator from './custom/wigglypoof.validator';
-import SimplePageDecorator from './decorators/SimpleTransparentPage';
+import passValidator from '@openagenda/validators/pass.js';
+import FormSchemaComponent from '../client/src/index.js';
+import WigglyPoofComponent from './custom/WigglyPoofComponent.js';
+import wigglypoofValidator from './custom/wigglypoof.validator.js';
+import SimplePageDecorator from './decorators/SimpleTransparentPage.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

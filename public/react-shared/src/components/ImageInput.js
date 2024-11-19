@@ -2,10 +2,9 @@ import { useCallback, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
 import bytes from 'bytes';
-import { css } from '@emotion/react';
 import { getSupportedLocale } from '@openagenda/intl';
-import locales from '../locales-compiled';
-import Image from './Image';
+import * as locales from '../locales-compiled/index.js';
+import Image from './Image.js';
 
 const FILE_INVALID_TYPE = 'file-invalid-type';
 const FILE_TOO_LARGE = 'file-too-large';
@@ -73,7 +72,12 @@ function FileError({ file, errors, minSize, maxSize }) {
 }
 
 function ImageInput({
-  accept = 'image/bmp, image/jpeg, image/png, image/webp',
+  accept = {
+    'image/bmp': ['.bmp'],
+    'image/jpeg': ['.jpeg', '.jpg'],
+    'image/png': ['.png'],
+    'image/webp': ['.webp'],
+  },
   extensions = ['jpg', 'bmp', 'png', 'jpeg', 'webp'], // just for the message
   input,
   maxSize,
@@ -135,39 +139,41 @@ function ImageInput({
   return (
     <>
       <div
-        css={css`
-          position: relative;
-        `}
+        style={{
+          position: 'relative',
+        }}
       >
         {label ? <label htmlFor="image">{label}</label> : null}
 
         {info ? <div>{info}</div> : null}
         <div
-          css={css`
-            text-align: center;
-            ${preview
-            ? `
-              height: auto;
-              position: relative;
-              min-height: 140px;
-            `
-            : ''}
-
-            &:hover {
-              background: rgba(255, 255, 255, 0.1);
-            }
-          `}
+          style={{
+            textAlign: 'center',
+            ...preview
+              ? {
+                height: 'auto',
+                position: 'relative',
+                minHeight: '140px',
+              }
+              : {},
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '';
+          }}
         >
           <input {...input} value="" {...getInputProps()} />
 
           {value ? (
             <>
               <div
-                css={css`
-                  position: absolute;
-                  top: 5px;
-                  right: 5px;
-                `}
+                style={{
+                  position: 'absolute',
+                  top: '5px',
+                  right: '5px',
+                }}
               >
                 <button
                   type="button"
@@ -200,12 +206,12 @@ function ImageInput({
                         ? preview.replace('cibuldev', 'cibul')
                         : null
                     }
-                    css={css`
-                      width: ${width};
-                      height: ${height};
-                      object-fit: cover;
-                      ${rounded ? 'border-radius: 50%' : ''}
-                    `}
+                    style={{
+                      width,
+                      height,
+                      objectFit: 'cover',
+                      ...rounded ? { borderRadius: '50%' } : {},
+                    }}
                     {...rootProps}
                   />
                 </div>
@@ -213,36 +219,36 @@ function ImageInput({
             </>
           ) : (
             <div
-              css={css`
-                margin-left: auto;
-                margin-right: auto;
-              `}
+              style={{
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
             >
               <div
-                css={css`
-                  position: relative;
-                  margin-left: auto;
-                  margin-right: auto;
-                  background: #eee;
-                  border-color: #ccc;
-                  border-width: 1px;
-                  border-style: dashed;
-                  width: ${width};
-                  height: ${height};
-                  min-height: 160px;
-                  ${rounded ? 'border-radius: 50%' : ''}
-                `}
+                style={{
+                  position: 'relative',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  background: '#eee',
+                  borderColor: '#ccc',
+                  borderWidth: '1px',
+                  borderStyle: 'dashed',
+                  width,
+                  height,
+                  minHeight: '160px',
+                  ...rounded ? { borderRadius: '50%' } : {},
+                }}
                 {...rootProps}
               >
                 <button
                   type="button"
                   className="btn btn-primary"
-                  css={css`
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                  `}
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
                 >
                   <FormattedMessage
                     id="ReactShared.ImageInput.upload"
@@ -290,6 +296,7 @@ export default function IntlImageInput({
 }) {
   const messages = useMemo(
     () => ({
+      // eslint-disable-next-line import/namespace
       ...locales[locale],
       ..._messages && _messages[locale],
     }),

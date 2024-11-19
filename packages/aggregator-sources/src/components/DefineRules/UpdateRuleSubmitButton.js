@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import messages from './messages';
+import messages from './messages.js';
 
 export default function UpdateRuleSubmitButton({ handleSubmit, onCancel }) {
   const intl = useIntl();

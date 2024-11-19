@@ -4,10 +4,10 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useQuery } from 'react-query';
 import { ReactSelectInput } from '@openagenda/react-shared';
 
-import ConfigurationMenuSelector from './ConfigurationMenuSelector';
-import EmbedCodePresentation from './EmbedCodePresentation';
-import GeneralMenu from './GeneralMenu';
-import AdvancedMenu from './AdvancedMenu';
+import ConfigurationMenuSelector from './ConfigurationMenuSelector.js';
+import EmbedCodePresentation from './EmbedCodePresentation.js';
+import GeneralMenu from './GeneralMenu.js';
+import AdvancedMenu from './AdvancedMenu.js';
 
 const flatten = (obj = {}, lang) => obj[obj[lang] ? lang : Object.keys(obj).shift()];
 

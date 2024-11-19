@@ -1,4 +1,6 @@
-import { Rule as CaslRule } from '@casl/ability';
+import abilityPkg from '@casl/ability';
+
+const { Rule: CaslRule } = abilityPkg;
 
 export default class Rule extends CaslRule {
   constructor(params) {

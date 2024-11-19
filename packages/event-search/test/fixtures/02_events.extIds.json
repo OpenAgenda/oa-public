@@ -1,0 +1,44 @@
+{
+  "lastId": -1,
+  "events": [
+    {
+      "uid": 1,
+      "state": 2,
+      "extIds": [
+        {
+          "key": "apidae",
+          "value": "12232323"
+        }
+      ]
+    },
+    {
+      "uid": 2,
+      "state": 2,
+      "extIds": [
+        {
+          "key": "apidae",
+          "value": "22231331"
+        }
+      ]
+    },
+    {
+      "uid": 3,
+      "extIds": [
+        {
+          "key": "apidae",
+          "value": "323213"
+        }
+      ]
+    },
+    {
+      "uid": 4,
+      "state": 2,
+      "extIds": [
+        {
+          "key": "apidae",
+          "value": "43434"
+        }
+      ]
+    }
+  ]
+}

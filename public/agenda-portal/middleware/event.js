@@ -1,8 +1,6 @@
-'use strict';
+import setPageProp from '../lib/utils/setPageProp.js';
 
-const setPageProp = require('../lib/utils/setPageProp');
-
-module.exports.get = async (req, res, next) => {
+export async function get(req, res, next) {
   const proxy = req.app.get('proxy');
   const transform = req.app.get('transforms').event.show;
 
@@ -24,9 +22,9 @@ module.exports.get = async (req, res, next) => {
   }
 
   next();
-};
+}
 
-module.exports.render = (req, res, next) => {
+export function render(req, res, next) {
   if (!req.data.event) {
     return next();
   }
@@ -36,4 +34,4 @@ module.exports.render = (req, res, next) => {
   }
 
   res.render('event', req.data);
-};
+}

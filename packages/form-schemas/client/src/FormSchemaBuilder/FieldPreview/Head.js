@@ -1,6 +1,6 @@
 import { getLocaleValue } from '@openagenda/intl';
 
-import getFieldTypeLabel from '../lib/getFieldTypeLabel';
+import getFieldTypeLabel from '../lib/getFieldTypeLabel.js';
 
 import {
   getLabel,
@@ -11,9 +11,9 @@ import {
   getFieldTypeIcon,
   isAccessUndefined,
   getFieldAccess,
-} from './utils';
+} from './utils.js';
 
-import { getSummary as getLinkedFieldSummaryLabel } from './linkedFieldLabels';
+import { getSummary as getLinkedFieldSummaryLabel } from './linkedFieldLabels.js';
 
 const MAX_DISPLAYED_OPTIONS = 4;
 

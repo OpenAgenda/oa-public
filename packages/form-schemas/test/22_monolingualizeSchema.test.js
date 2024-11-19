@@ -1,8 +1,6 @@
-'use strict';
-
-const monolingualizeSchema = require('../client/src/FormSchemaBuilder/lib/monolingualizeSchema');
-const extractSchemaLabelLanguages = require('../client/src/FormSchemaBuilder/lib/extractSchemaLabelLanguages');
-const multilingualSchema = require('./fixtures/multilingual.schema.json');
+import monolingualizeSchema from '../client/src/FormSchemaBuilder/lib/monolingualizeSchema.js';
+import extractSchemaLabelLanguages from '../client/src/FormSchemaBuilder/lib/extractSchemaLabelLanguages.js';
+import multilingualSchema from './fixtures/multilingual.schema.json';
 
 describe('monolingualizeSchema', () => {
   let mono;

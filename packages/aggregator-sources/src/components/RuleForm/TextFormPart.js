@@ -2,11 +2,11 @@ import { useIntl } from 'react-intl';
 import { Field, useForm } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
-import formLabels from '@openagenda/labels/event/form';
+import formLabels from '@openagenda/labels/event/form.js';
 import { getLocaleValue } from '@openagenda/intl';
-import stringType from '../../utils/stringType';
-import messages from './messages';
-import Radio from './Radio';
+import stringType from '../../utils/stringType.js';
+import messages from './messages.js';
+import Radio from './Radio.js';
 
 const eventFields = [
   'title',

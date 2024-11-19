@@ -1,4 +1,4 @@
-import AbilitiesEditor from '../src/client/AbilitiesEditor';
+import AbilitiesEditor from '../src/client/AbilitiesEditor.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

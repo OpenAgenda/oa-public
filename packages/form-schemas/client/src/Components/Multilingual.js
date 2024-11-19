@@ -2,8 +2,8 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import { useCallback } from 'react';
 
-import FieldCounter from './FieldCounter';
-import Sub from './Sub';
+import FieldCounter from './FieldCounter.js';
+import Sub from './Sub.js';
 
 function extractLanguageValue(value, l) {
   if (!value) return;

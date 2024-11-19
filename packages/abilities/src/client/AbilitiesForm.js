@@ -6,8 +6,8 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import cn from 'classnames';
 import Fuse from 'fuse.js';
 import { Spinner } from '@openagenda/react-shared';
-import RuleCheckbox from './RuleCheckbox';
-import isIndeterminate from './isIndeterminate';
+import RuleCheckbox from './RuleCheckbox.js';
+import isIndeterminate from './isIndeterminate.js';
 
 const MINLEN_REQUIRED_FOR_SEARCH = 8;
 

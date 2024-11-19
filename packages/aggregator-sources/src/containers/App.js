@@ -3,9 +3,9 @@ import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
-import modalsReducer from '../reducers/modals';
-import sourcesReducer from '../reducers/sources';
-import locales from '../locales-compiled';
+import modalsReducer from '../reducers/modals.js';
+import sourcesReducer from '../reducers/sources.js';
+import * as locales from '../locales-compiled/index.js';
 
 function App({ route }) {
   const { lang } = useLayoutData();
@@ -14,6 +14,7 @@ function App({ route }) {
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={locales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >

@@ -1,9 +1,12 @@
 import { http, HttpResponse } from 'msw';
 import ih from 'immutability-helper';
-import FormSchemaComponent from '../client/src/index';
-import { schema } from '../dev/schemas/servererrors';
-import SimplePageDecorator from './decorators/SimplePage';
+import FormSchemaComponent from '../client/src/index.js';
+import serverErrors from '../dev/schemas/servererrors.js';
+import SimplePageDecorator from './decorators/SimplePage.js';
+
 import '@openagenda/bs-templates/compiled/main.css';
+
+const { schema } = serverErrors;
 
 export default {
   title: 'Displaying errors',

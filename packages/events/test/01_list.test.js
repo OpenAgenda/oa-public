@@ -81,6 +81,18 @@ describe('events - functional - list', () => {
 
       expect(total).toBe(19);
     });
+
+    it('extIds', async () => {
+      const eventsWithExt = await svc.list(
+        { uid: 91258823 },
+        {
+          limit: 1,
+        },
+      );
+      expect(eventsWithExt[0].extIds).toEqual([
+        { key: 'test', value: '12122SSA' },
+      ]);
+    });
   });
 
   describe('navigation', () => {
@@ -186,7 +198,7 @@ describe('events - functional - list', () => {
         { total: true, draft: null },
       );
 
-      expect(total).toBe(661);
+      expect(total).toBe(662);
       expect(items.length).toBe(20);
     });
 

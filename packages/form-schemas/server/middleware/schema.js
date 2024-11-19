@@ -1,10 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 
-const _ = require('lodash');
-
-const log = require('@openagenda/logs')('middleware/schema');
-
-const FormSchema = require('../../iso/FormSchema');
+const log = logs('middleware/schema');
 
 // const FILE_FIELD_PREFIX = require( '../../iso/fileFieldPrefix' );
 
@@ -60,6 +58,6 @@ function clean(ns, req, res, next) {
   next();
 }
 
-module.exports = {
+export default {
   clean,
 };

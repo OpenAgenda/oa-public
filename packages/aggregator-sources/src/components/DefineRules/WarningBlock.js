@@ -1,7 +1,7 @@
 import { defineMessages } from 'react-intl';
 import { MoreInfo, useMemoOne } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
-import externalLinks from '../../utils/externalLinks';
+import externalLinks from '../../utils/externalLinks.js';
 
 const messages = defineMessages({
   requiredFieldsWarning: {

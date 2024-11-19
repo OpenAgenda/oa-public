@@ -2,26 +2,25 @@
   "name": "@openagenda/abilities",
   "version": "1.3.1",
   "license": "MIT",
+  "type": "module",
   "main": "build/service/index.js",
   "scripts": {
     "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
-    "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
+    "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM server.dev.js",
     "storybook": "STORYBOOK_API_PORT=3000 storybook dev -p 9001",
-    "test": "jest --testEnvironment=node --forceExit --detectOpenHandles",
-    "build": "babel --copy-files -d build src -s",
-    "extract-messages": "yarn oa-intl",
-    "prepack": "yarn clean && yarn oa-intl compile && yarn build",
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --testEnvironment=node --forceExit --detectOpenHandles",
+    "build": "babel --copy-files -d build src -s --env-name esm --root-mode upward",
+    "extract-messages": "oa-intl --esm",
+    "prepack": "yarn clean && oa-intl compile --esm && yarn build",
     "clean": "rimraf build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.23.2",
     "@casl/ability": "^2.4.2",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/intl": "^1.1.3",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-shared": "^2.4.1",
     "classnames": "^2.3.1",
-    "core-js": "^3.29.1",
     "final-form": "^4.20.2",
     "final-form-calculate": "^1.3.2",
     "final-form-set-field-data": "^1.0.2",
@@ -33,15 +32,11 @@
     "rc-collapse": "^3.1.0",
     "react-final-form": "^4.1.0",
     "react-intl": "^6.8.4",
-    "react-use": "^15.3.4",
-    "regenerator-runtime": "^0.13.8"
+    "react-use": "^15.3.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",
-    "@babel/core": "^7.23.3",
-    "@babel/node": "^7.22.19",
     "@openagenda/agendas": "^1.7.0",
-    "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/users": "^3.1.0",
     "@storybook/react-webpack5": "^7.4.2",
@@ -61,5 +56,8 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "jest": {
+    "transform": {}
   }
 }

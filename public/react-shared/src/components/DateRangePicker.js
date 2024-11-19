@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import React, { useCallback, useMemo, useState } from 'react';
 import { DateRange, DefinedRange } from 'react-date-range';
-import * as rdrLocales from 'react-date-range/dist/locale';
+import * as rdrLocales from 'react-date-range/dist/locale/index.js';
 import { useIntl } from 'react-intl';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
-import useConstant from '../hooks/useConstant';
+import useConstant from '../hooks/useConstant.js';
 
 const defaultGetInitialValue = () => [
   {

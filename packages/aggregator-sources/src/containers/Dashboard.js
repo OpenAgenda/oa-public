@@ -7,18 +7,17 @@ import { Form, Field } from 'react-final-form';
 import ReactMarkdown from 'react-markdown';
 import qs from 'qs';
 import Fuse from 'fuse.js';
-import { css } from '@emotion/react';
 import { useApiClient, useLayoutData, Spinner } from '@openagenda/react-shared';
-import * as modalsActions from '../reducers/modals';
-import * as sourcesActions from '../reducers/sources';
-import SearchInput from '../components/SearchInput';
-import SourcesList from '../components/SourcesList';
-import AddSourceModal from '../components/AddSourceModal';
-import UpdateSourceModal from '../components/UpdateSourceModal';
-import RemoveSourceModal from '../components/RemoveSourceModal';
-import AggregatorRulesModal from '../components/AggregatorRulesModal';
-import AggregatorRules from '../components/AggregatorRules';
-import Presentation from '../components/Presentation';
+import * as modalsActions from '../reducers/modals.js';
+import * as sourcesActions from '../reducers/sources.js';
+import SearchInput from '../components/SearchInput.js';
+import SourcesList from '../components/SourcesList.js';
+import AddSourceModal from '../components/AddSourceModal.js';
+import UpdateSourceModal from '../components/UpdateSourceModal.js';
+import RemoveSourceModal from '../components/RemoveSourceModal.js';
+import AggregatorRulesModal from '../components/AggregatorRulesModal.js';
+import AggregatorRules from '../components/AggregatorRules.js';
+import Presentation from '../components/Presentation.js';
 
 const fuseOptions = {
   shouldSort: true,
@@ -337,11 +336,11 @@ function Dashboard() {
       {aggregator?.limitIsReached ? (
         <div
           className="padding-all-sm padding-bottom-sm margin-bottom-md"
-          css={css`
-            background-color: #fafafa;
-            border-radius: 0;
-            border: #41acdd 1px solid;
-          `}
+          style={{
+            backgroundColor: '#fafafa',
+            borderRadius: '0',
+            border: '#41acdd 1px solid',
+          }}
         >
           {intl.formatMessage(messages.aggregationCountWarning, {
             limit: aggregator.limit,

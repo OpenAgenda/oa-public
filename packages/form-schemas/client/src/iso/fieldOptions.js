@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 const fieldHasUnnassignedOptions = (field) =>
   !!(field?.options ?? []).filter((o) => o.id === undefined).length;
@@ -37,7 +37,7 @@ function extractNextOptionId(formSchemaData) {
   return definedNextOptionId > biggestId ? definedNextOptionId : biggestId + 1;
 }
 
-module.exports = {
+export {
   extractNextOptionId,
   fieldHasUnnassignedOptions,
   fieldAssignOptionIds,

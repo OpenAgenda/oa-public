@@ -4,7 +4,7 @@ import { Field } from 'react-final-form';
 import axios from 'axios';
 
 import { ReactSelectField } from '@openagenda/react-shared';
-import messages from './messages';
+import messages from './messages.js';
 
 export default ({ sourceAgendaUid, res }) => {
   const intl = useIntl();

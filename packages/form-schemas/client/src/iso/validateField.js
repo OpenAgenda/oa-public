@@ -1,28 +1,27 @@
-const _ = require('lodash');
-
-const choice = require('@openagenda/validators/choice');
-const schema = require('@openagenda/validators/schema');
-
-const passValidator = require('@openagenda/validators/pass');
-const textValidator = require('@openagenda/validators/text');
-const booleanValidator = require('@openagenda/validators/boolean');
-const linkValidator = require('@openagenda/validators/link');
-const emailValidator = require('@openagenda/validators/email');
-const phoneValidator = require('@openagenda/validators/phone');
-const numberValidator = require('@openagenda/validators/number');
-const dateValidator = require('@openagenda/validators/date');
-const multilingualValidator = require('@openagenda/validators/multilingual');
-const integerValidator = require('@openagenda/validators/integer');
-
-const types = Object.keys(require('./types'));
-const areLabelsMultilingual = require('./areLabelsMultilingual');
-const getWithFieldName = require('./getWithFieldName');
-const {
+import _ from 'lodash';
+import choice from '@openagenda/validators/choice.js';
+import schema from '@openagenda/validators/schema/index.js';
+import passValidator from '@openagenda/validators/pass.js';
+import textValidator from '@openagenda/validators/text.js';
+import booleanValidator from '@openagenda/validators/boolean.js';
+import linkValidator from '@openagenda/validators/link.js';
+import emailValidator from '@openagenda/validators/email.js';
+import phoneValidator from '@openagenda/validators/phone.js';
+import numberValidator from '@openagenda/validators/number.js';
+import dateValidator from '@openagenda/validators/date.js';
+import multilingualValidator from '@openagenda/validators/multilingual.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import areLabelsMultilingual from './areLabelsMultilingual.js';
+import getWithFieldName from './getWithFieldName.js';
+import {
   optionedTypes,
   minMaxedTypes,
   multilingualTypes,
-} = require('./fieldTypes');
-const buildFieldSchema = require('./buildFieldSchema');
+} from './fieldTypes.js';
+import buildFieldSchema from './buildFieldSchema.js';
+import types from './types.js';
+
+const typeKeys = Object.keys(types);
 
 schema.register({
   pass: passValidator,
@@ -40,7 +39,7 @@ schema.register({
 
 const validateStandardType = choice({
   optional: false,
-  options: types,
+  options: typeKeys,
   default: 'text',
   unique: true,
 });
@@ -126,7 +125,7 @@ function validate(value, options = {}) {
   // validate any optioned type
   if (optionedTypes.includes(type)) {
     const unique = _.get(value, 'options', []).reduce(
-      (u, v) => (u.indexOf(v.value) === -1 ? u.concat(v.value) : u),
+      (u, v) => (!u.includes(v.value) ? u.concat(v.value) : u),
       [],
     );
 
@@ -167,4 +166,4 @@ function validate(value, options = {}) {
   return clean;
 }
 
-module.exports = validate;
+export default validate;

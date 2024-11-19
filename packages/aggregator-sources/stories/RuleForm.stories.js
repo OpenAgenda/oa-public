@@ -5,11 +5,11 @@ import { http, HttpResponse } from 'msw';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
-import RuleForm from '../src/components/RuleForm';
-import { ruleToValues } from '../src/utils/rules';
-import ModalDecorator from './decorators/ModalDecorator';
-import IntlDecorator from './decorators/IntlDecorator';
-import SourcesCanvasDecorator from './decorators/SourcesCanvas';
+import RuleForm from '../src/components/RuleForm/index.js';
+import { ruleToValues } from '../src/utils/rules.js';
+import ModalDecorator from './decorators/ModalDecorator.js';
+import IntlDecorator from './decorators/IntlDecorator.js';
+import SourcesCanvasDecorator from './decorators/SourcesCanvas.js';
 
 import villeDeLille from './fixtures/RuleForm/villeDeLille.schema.json';
 import MEL from './fixtures/RuleForm/MEL.schema.json';

@@ -60,8 +60,7 @@ public/react-filters/dist
 public/react-portal-ssr/dist
 public/react-share-menus/dist
 public/react-shared/css
-public/react-shared/esm
-public/react-shared/lib
+public/react-shared/dist
 public/react-timingspicker/dist
 public/sdk-js/esm
 public/sdk-js/lib

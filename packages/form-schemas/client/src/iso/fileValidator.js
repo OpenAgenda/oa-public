@@ -1,3 +1,7 @@
+import schema from '@openagenda/validators/schema/index.js';
+import textValidator from '@openagenda/validators/text.js';
+import linkValidator from '@openagenda/validators/link.js';
+
 const requiredError = (field = null) => [
   {
     code: 'required',
@@ -5,11 +9,6 @@ const requiredError = (field = null) => [
     field,
   },
 ];
-
-const schema = require('@openagenda/validators/schema');
-
-const textValidator = require('@openagenda/validators/text');
-const linkValidator = require('@openagenda/validators/link');
 
 schema.register({
   text: textValidator,
@@ -60,7 +59,7 @@ function isEmptyObject(obj, visited = new Set()) {
   return true;
 }
 
-module.exports = (validatorOptions = {}) =>
+export default (validatorOptions = {}) =>
   (v) => {
     const optional = validatorOptions?.optional === undefined
       ? true

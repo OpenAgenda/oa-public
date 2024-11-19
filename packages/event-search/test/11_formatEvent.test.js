@@ -368,4 +368,12 @@ describe('11 - event-search - unit: formatEvent', () => {
     expect(removed.updatedAt).toBe(event.updatedAt);
     expect(removed.uid).toBe(event.uid);
   });
+
+  it('with extIds', () => {
+    const withExtIds = formatEvent({
+      ...event,
+      extIds: [{ key: 'apidae', value: '123456' }],
+    });
+    expect(withExtIds.extIds).toEqual([{ key: 'apidae', value: '123456' }]);
+  });
 });

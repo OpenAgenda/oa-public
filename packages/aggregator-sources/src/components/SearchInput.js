@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { Spinner } from '@openagenda/react-shared';
-import BsField from './BsField';
+import BsField from './BsField.js';
 
 const searchSpinner = {
   width: 1,

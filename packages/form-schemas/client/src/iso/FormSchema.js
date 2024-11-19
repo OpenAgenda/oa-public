@@ -1,15 +1,11 @@
-const _ = require('lodash');
-const ih = require('immutability-helper');
-
-const isObject = require('./isObject');
-
-const { extractNextOptionId } = require('./fieldOptions');
-
-const validateFieldAndAssignOptionIds = require('./validateFieldAndAssignOptionIds');
-const validateSection = require('./validateSection');
-
-const getSchema = require('./getSchema');
-const getWithFieldName = require('./getWithFieldName');
+import _ from 'lodash';
+import ih from 'immutability-helper';
+import isObject from './isObject.js';
+import { extractNextOptionId } from './fieldOptions.js';
+import validateFieldAndAssignOptionIds from './validateFieldAndAssignOptionIds.js';
+import validateSection from './validateSection.js';
+import getSchema from './getSchema.js';
+import getWithFieldName from './getWithFieldName.js';
 
 const isNew = (data) => data.id === null;
 
@@ -84,7 +80,7 @@ function validate(data, options = {}) {
   return client ? clean : _.omit(clean, ['res', 'id']);
 }
 
-module.exports = class {
+class FormSchema {
   constructor(data, options = {}) {
     // { fields, nextOptionId, res, id, custom }
     this.data = validate(data, {
@@ -299,6 +295,9 @@ module.exports = class {
   _popField(index) {
     return this.data.fields.splice(index, 1)[0];
   }
-};
+}
 
-module.exports.validate = validate;
+FormSchema.validate = validate;
+
+export default FormSchema;
+export { validate };

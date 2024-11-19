@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { diff } from 'deep-diff';
+import deepDiff from 'deep-diff';
 import React, { useState, useEffect } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
+
+const { diff } = deepDiff;
 
 const messages = defineMessages({
   save: {

@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import createAbility, { SUBJECT_NAME } from './createAbility';
-import createBuilder from './createBuilder';
-import * as rulesLib from './rules';
-import * as middleware from './middleware';
-import config, { init } from './config';
+import createAbility, { SUBJECT_NAME } from './createAbility.js';
+import createBuilder from './createBuilder.js';
+import * as rulesLib from './rules.js';
+import * as middleware from './middleware.js';
+import config, { init } from './config.js';
 
 function getEditableRules(ability, entity) {
   const { entityName } = ability;
@@ -246,4 +246,4 @@ service.middleware = {
 
 export default service;
 export { middleware, rulesLib as rules, createAbility, createBuilder };
-export { default as config, init } from './config';
+export { default as config, init } from './config.js';

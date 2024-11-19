@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import '@openagenda/bs-templates/compiled/main.css';
+import FormSchemaComponent from '../client/src/index.js';
+import SimpleRowDecorator from './decorators/SimpleRow.js';
 
-import FormSchemaComponent from '../client/src/index';
-import SimpleRowDecorator from './decorators/SimpleRow';
+import '@openagenda/bs-templates/compiled/main.css';
 
 export default {
   title: 'Fields/Boolean',

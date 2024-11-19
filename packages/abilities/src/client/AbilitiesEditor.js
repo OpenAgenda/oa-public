@@ -4,9 +4,9 @@ import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import { useLatest } from 'react-use';
 import { Spinner } from '@openagenda/react-shared';
-import locales from '../locales-compiled';
-import AbilitiesForm from './AbilitiesForm';
-import getChildCheckboxDecorator from './getChildCheckboxDecorator';
+import * as locales from '../locales-compiled/index.js';
+import AbilitiesForm from './AbilitiesForm.js';
+import getChildCheckboxDecorator from './getChildCheckboxDecorator.js';
 
 let uniqueIdCounter = 0;
 
@@ -134,6 +134,7 @@ function AbilitiesEditor({
     );
   };
 
+  // eslint-disable-next-line import/namespace
   const messages = locales[locale] || locales.en;
   return (
     <IntlProvider locale={locale} messages={messages}>

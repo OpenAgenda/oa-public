@@ -2,8 +2,8 @@ import React from 'react';
 
 import { defineMessages, useIntl } from 'react-intl';
 
-import CheckboxComponent from './CheckboxComponent';
-import SelectComponent from './SelectComponent';
+import CheckboxComponent from './CheckboxComponent.js';
+import SelectComponent from './SelectComponent.js';
 
 const messages = defineMessages({
   syncHref: {

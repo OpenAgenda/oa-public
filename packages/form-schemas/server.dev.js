@@ -1,26 +1,19 @@
-'use strict';
+import _ from 'lodash';
+import express from 'express';
+import bodyParser from 'body-parser';
+import logs from '@openagenda/logs';
+import filesMw from './server/middleware/files.js';
+import schemaMw from './server/middleware/schema.js';
+import devMw from './dev/middleware/index.js';
+import config from './testconfig.js';
 
-const _ = require('lodash');
-const express = require('express');
-
-const bodyParser = require('body-parser');
-
-const log = require('@openagenda/logs')('server.dev');
-
-const filesMw = require('./server/middleware/files');
-const schemaMw = require('./server/middleware/schema');
-
-const devMw = require('./dev/middleware');
-
-const config = require('./testconfig');
+const log = logs('server.dev');
 
 // normally done through init of service
 filesMw.init({
   tmpFolder: `${__dirname}/dev/tmp`,
   s3: _.pick(config.s3, ['accessKeyId', 'secretAccessKey', 'region', 'bucket']),
 });
-
-const devSchemas = require('./dev/schemas');
 
 const dev = express();
 
@@ -36,7 +29,7 @@ dev.post('/formbuilder', bodyParser.json(), (req, res) => {
 dev.post(
   '/:page',
   bodyParser.json(),
-  (req, res, next) => {
+  async (req, res, next) => {
     if (req.params.page === 'imageuploadtoolarge') {
       return res.status(413).send();
     }
@@ -45,7 +38,9 @@ dev.post(
     // created or yet to be created, the server
     // should know what schema is being created
 
-    const { schema, values, fileKey } = _.get(devSchemas, req.params.page);
+    const { schema, values, fileKey } = (
+      await import(`./dev/schemas/${req.params.page}.js`)
+    ).default;
 
     log('received post for %j', schema);
 

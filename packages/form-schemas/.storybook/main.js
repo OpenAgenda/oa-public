@@ -11,4 +11,7 @@ export default {
     options: {},
   },
   staticDirs: ['./public'],
+  babel: (config) => {
+    return { ...config, rootMode: 'upward' };
+  },
 };

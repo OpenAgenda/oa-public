@@ -1,10 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-
-const iso = require('../iso');
-
-const customValidator = require('../stories/custom/wigglypoof.validator');
+import _ from 'lodash';
+import iso from '../client/src/iso/index.js';
+import customValidator from '../stories/custom/wigglypoof.validator.js';
 
 describe('form-schemas -06- validateField', () => {
   describe('simple cases', () => {

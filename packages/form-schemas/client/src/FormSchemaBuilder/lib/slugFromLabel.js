@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import slug from 'slugify';
-import uuid from 'uuid/v4';
+import uuid from 'uuid/v4.js';
 
 export default (label, preferredLang) => {
   const str = _.isString(label)

@@ -1,10 +1,6 @@
-'use strict';
-
-process.env.NODE_ENV = 'test';
-
-const Service = require('../server');
-const config = require('../testconfig');
-const fixtures = require('./service/fixtures');
+import Service from '../server/index.js';
+import config from '../testconfig.js';
+import fixtures from './service/fixtures.js';
 
 describe('form-schemas -03- functional (server): remove', () => {
   let svc;

@@ -1,12 +1,11 @@
-const validateField = require('./validateField');
-
-const {
+import validateField from './validateField.js';
+import {
   fieldHasUnnassignedOptions,
   fieldAssignOptionIds,
   fieldHasSuperiorOptions,
-} = require('./fieldOptions');
+} from './fieldOptions.js';
 
-module.exports = function validateFieldAndAssignOptionIds(
+export default function validateFieldAndAssignOptionIds(
   dirtyField,
   { custom, defaultLabelLanguage, nextOptionId, requireLabels },
 ) {
@@ -31,4 +30,4 @@ module.exports = function validateFieldAndAssignOptionIds(
     nextOptionId: updatedNextOptionId,
     field: cleanField,
   };
-};
+}

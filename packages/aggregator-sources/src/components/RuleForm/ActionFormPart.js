@@ -5,11 +5,11 @@ import { useForm, Field } from 'react-final-form';
 
 import { getLocaleValue } from '@openagenda/intl';
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
-import stateMessages from '../../utils/stateMessages';
-import stringType from '../../utils/stringType';
-import isOptionedField from '../../utils/isOptionedField';
-import messages from './messages';
-import Radio from './Radio';
+import stateMessages from '../../utils/stateMessages.js';
+import stringType from '../../utils/stringType.js';
+import isOptionedField from '../../utils/isOptionedField.js';
+import messages from './messages.js';
+import Radio from './Radio.js';
 
 const isMultiLang = (field) => !!field.languages;
 

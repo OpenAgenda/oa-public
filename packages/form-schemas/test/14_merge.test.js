@@ -1,8 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-
-const merge = require('../iso/merge');
+import _ from 'lodash';
+import merge from '../client/src/iso/merge.js';
 
 describe('unit - assigning schema properties to another schema', () => {
   describe('simple merge', () => {

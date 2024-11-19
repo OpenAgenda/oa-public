@@ -1,6 +1,4 @@
-'use strict';
-
-const dispacthDataPerSchemas = require('../iso/dispatchDataPerSchemas');
+import dispacthDataPerSchemas from '../client/src/iso/dispatchDataPerSchemas.js';
 
 describe('dispacthDataPerSchemas', () => {
   beforeAll(() => {});

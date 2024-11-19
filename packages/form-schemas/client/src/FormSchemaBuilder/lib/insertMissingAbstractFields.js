@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 
-import isSameFormItem from './isSameFormItem';
-import getFormItemSlug from './getFormItemSlug';
+import isSameFormItem from './isSameFormItem.js';
+import getFormItemSlug from './getFormItemSlug.js';
 
 export default function insertMissingAbstractFields(schema, updatedMerge) {
   return ih(schema ?? { fields: [] }, {

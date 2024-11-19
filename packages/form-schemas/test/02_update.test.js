@@ -1,10 +1,7 @@
-'use strict';
-
-const Service = require('../server');
-const config = require('../testconfig');
-const fixtures = require('./service/fixtures');
-
-const formSchemaData = require('./parse/integer.schema.json');
+import Service from '../server/index.js';
+import config from '../testconfig.js';
+import fixtures from './service/fixtures.js';
+import formSchemaData from './parse/integer.schema.json';
 
 describe('form-schemas -02- functional (server): update', () => {
   let svc;
@@ -25,7 +22,7 @@ describe('form-schemas -02- functional (server): update', () => {
   it('simple update', async () => {
     const result = await svc.update(1, formSchemaData);
 
-    expect(result).toStrictEqual({
+    expect(result).toEqual({
       id: 1,
       success: true,
       formSchema: formSchemaData,

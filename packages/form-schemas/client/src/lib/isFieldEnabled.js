@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-import getWithFieldName from '../iso/getWithFieldName';
-import isObject from '../iso/isObject';
+import getWithFieldName from '../iso/getWithFieldName.js';
+import isObject from '../iso/isObject.js';
 
 const fileValueIsDefined = (value) =>
   'originalName' in value || 'filename' in value;

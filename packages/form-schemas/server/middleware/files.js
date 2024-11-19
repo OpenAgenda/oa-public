@@ -1,17 +1,13 @@
-'use strict';
+import fs from 'node:fs/promises';
+import { promisify } from 'node:util';
+import _ from 'lodash';
+import AWS from 'aws-sdk';
+import multer from 'multer';
+import FileType from 'file-type';
+import logs from '@openagenda/logs';
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 
-const fs = require('node:fs');
-const { promisify } = require('node:util');
-const _ = require('lodash');
-const AWS = require('aws-sdk');
-const multer = require('multer');
-const FileType = require('file-type');
-
-const fsUnlink = promisify(fs.unlink);
-
-const log = require('@openagenda/logs')('middleware/files');
-
-const FormSchema = require('../../iso/FormSchema');
+const log = logs('middleware/files');
 
 // const FILE_FIELD_PREFIX = require('../../iso/fileFieldPrefix');
 
@@ -133,7 +129,7 @@ async function s3MultipleUploads(fileFieldValues) {
     log('uploaded %s to s3 location %s', filename, location);
 
     if (location) {
-      await fsUnlink(`${tmpFolder}/${filename}`);
+      await fs.unlink(`${tmpFolder}/${filename}`);
     }
   }
 }
@@ -182,7 +178,7 @@ function init(config) {
   upload = promisify(client.upload.bind(client));
 }
 
-module.exports = {
+export default {
   init,
   putInTemporary,
   uploadFilesToS3,

@@ -1,7 +1,7 @@
 import {
   hasNewValues,
   appendNewValues,
-} from '../src/components/lib/selectUtils';
+} from '../src/components/lib/selectUtils.js';
 
 describe('selectUtils', () => {
   describe('hasNewValues', () => {

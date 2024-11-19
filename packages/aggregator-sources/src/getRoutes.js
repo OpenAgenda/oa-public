@@ -1,14 +1,60 @@
-import { loadable } from '@openagenda/react-shared';
+import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 
-const App = loadable(
-  () => import(/* webpackChunkName: "aggSources-App" */ './containers/App'),
-);
-const Dashboard = loadable(
-  () =>
+// eslint-disable-next-line camelcase
+const contextRequire = typeof __webpack_require__ !== 'undefined'
+  ? import.meta.webpackContext
+      && import.meta.webpackContext('.', {
+        recursive: true,
+        regExp: /\.js$/,
+        mode: 'weak',
+      })
+  : null;
+
+const App = loadableEsm({
+  chunkName: 'aggSources-App',
+  importAsync: () =>
     import(
-      /* webpackChunkName: "aggSources-Dashboard" */ './containers/Dashboard'
+      /* webpackChunkName: "aggSources-App" */
+      './containers/App.js'
     ),
-);
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/App.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/App.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/App.js');
+    }
+  },
+});
+
+const Dashboard = loadableEsm({
+  chunkName: 'aggSources-Dashboard',
+  importAsync: () =>
+    import(
+      /* webpackChunkName: "aggSources-Dashboard" */
+      './containers/Dashboard.js'
+    ),
+  importSync:
+    // eslint-disable-next-line camelcase
+    typeof __webpack_require__ === 'undefined'
+      ? await import('./containers/Dashboard.js')
+      : null,
+  resolve: () => {
+    if (contextRequire) {
+      return contextRequire.resolve('./containers/Dashboard.js');
+    }
+    const { resolve } = import.meta;
+    if (typeof resolve === 'function') {
+      return resolve('./containers/Dashboard.js');
+    }
+  },
+});
 
 export default (prefix = '') => [
   {

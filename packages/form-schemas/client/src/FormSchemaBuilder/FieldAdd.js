@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react';
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 import { Modal } from '@openagenda/react-shared';
 
-import ChooseFieldType from './ChooseFieldType';
-import FieldForm from './FieldForm';
-import labels from './lib/labels';
+import ChooseFieldType from './ChooseFieldType.js';
+import FieldForm from './FieldForm.js';
+import labels from './lib/labels.js';
 
 const getLabel = makeLabelGetter(labels);
 

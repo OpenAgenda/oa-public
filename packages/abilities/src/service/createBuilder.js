@@ -1,5 +1,7 @@
 import _ from 'lodash';
-import { AbilityBuilder } from '@casl/ability';
+import abilityPkg from '@casl/ability';
+
+const { AbilityBuilder } = abilityPkg;
 
 export default function createBuilder(entityName, identifier) {
   const builder = AbilityBuilder.extract();

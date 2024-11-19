@@ -1,5 +1,7 @@
 import _ from 'lodash';
-import Serializer from 'slate-html-serializer';
+import SerializerModule from 'slate-html-serializer';
+
+const Serializer = SerializerModule.default || SerializerModule;
 
 const MARK_TAGS = {
   strong: 'bold',

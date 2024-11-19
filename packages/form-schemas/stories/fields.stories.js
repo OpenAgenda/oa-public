@@ -1,11 +1,10 @@
 import _ from 'lodash';
 import { useState, useCallback } from 'react';
-import '@openagenda/bs-templates/compiled/main.css';
-
 import { fromMarkdownToHTML } from '@openagenda/md';
+import FormSchemaComponent from '../client/src/index.js';
+import SimpleRowDecorator from './decorators/SimpleRow.js';
 
-import FormSchemaComponent from '../client/src/index';
-import SimpleRowDecorator from './decorators/SimpleRow';
+import '@openagenda/bs-templates/compiled/main.css';
 
 if (import.meta.webpackHot) {
   import.meta.webpackHot.accept();

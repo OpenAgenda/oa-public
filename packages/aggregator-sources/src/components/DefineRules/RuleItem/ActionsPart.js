@@ -1,6 +1,6 @@
-import { hasFilter } from '../../../utils/rules';
-import extract from './extractActionsDisplayValues';
-import messages from './messages';
+import { hasFilter } from '../../../utils/rules.js';
+import extract from './extractActionsDisplayValues.js';
+import messages from './messages.js';
 
 export default ({
   intl,

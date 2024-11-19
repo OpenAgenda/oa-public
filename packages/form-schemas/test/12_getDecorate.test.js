@@ -1,6 +1,4 @@
-'use strict';
-
-const getDecorate = require('../iso/getDecorate');
+import getDecorate from '../client/src/iso/getDecorate.js';
 
 describe('extended events - functional (iso): getDecorate', () => {
   let decorate;

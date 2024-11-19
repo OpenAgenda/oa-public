@@ -1,6 +1,4 @@
-'use strict';
-
-const getErrorLabel = require('../client/src/iso/getErrorLabel');
+import getErrorLabel from '../client/src/iso/getErrorLabel.js';
 
 describe('18 - unit - getErrorLabel', () => {
   it('given a set of labels and an error code, returns a rendered error text', () => {

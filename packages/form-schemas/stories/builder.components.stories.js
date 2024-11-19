@@ -1,10 +1,10 @@
-import FormSchemaComponent from '../client/src/index';
-import Options from '../client/src/FormSchemaBuilder/Options';
-import FieldAdd from '../client/src/FormSchemaBuilder/FieldAdd';
-import ChooseFieldType from '../client/src/FormSchemaBuilder/ChooseFieldType';
-import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidator';
-import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
-import SimpleRowDecorator from './decorators/SimpleRow';
+import FormSchemaComponent from '../client/src/index.js';
+import Options from '../client/src/FormSchemaBuilder/Options.js';
+import FieldAdd from '../client/src/FormSchemaBuilder/FieldAdd.js';
+import ChooseFieldType from '../client/src/FormSchemaBuilder/ChooseFieldType.js';
+import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidator.js';
+import FormSchemaBuilder from '../client/src/FormSchemaBuilder/index.js';
+import SimpleRowDecorator from './decorators/SimpleRow.js';
 
 import schemaWithLinkedFields from './fixtures/schemaWithLinkedFields.json';
 

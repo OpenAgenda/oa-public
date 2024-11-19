@@ -1,7 +1,7 @@
 import {
   createApp
 } from '@openagenda/react-shared';
-import getRoutes from './getRoutes';
+import getRoutes from './getRoutes.js';
 
 export default function embeds(options) {
   const { initialState } = options;
@@ -19,14 +19,14 @@ export default function embeds(options) {
 
   const app = getApp();
 
-  if (module.hot) {
-    module.hot.accept('./getRoutes', () => {
-      const newApp = getApp();
-
-      app.Content = newApp.Content;
-      app.triggerHooks = newApp.triggerHooks;
-    });
-  }
+  // if (module.hot) {
+  //   module.hot.accept('./getRoutes', () => {
+  //     const newApp = getApp();
+  //
+  //     app.Content = newApp.Content;
+  //     app.triggerHooks = newApp.triggerHooks;
+  //   });
+  // }
 
   return app;
 }

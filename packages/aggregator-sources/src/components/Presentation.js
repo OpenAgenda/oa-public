@@ -1,5 +1,5 @@
 import { defineMessages } from 'react-intl';
-import links from '../utils/externalLinks';
+import links from '../utils/externalLinks.js';
 
 const messages = defineMessages({
   startUse: {

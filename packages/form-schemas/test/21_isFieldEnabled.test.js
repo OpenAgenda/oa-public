@@ -1,6 +1,4 @@
-'use strict';
-
-const isFieldEnabled = require('../client/src/lib/isFieldEnabled');
+import isFieldEnabled from '../client/src/lib/isFieldEnabled.js';
 
 describe('isFieldEnabled', () => {
   it('if enableWith specifies value and value is in form values, returns true', () => {

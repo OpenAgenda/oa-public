@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Spinner } from '@openagenda/react-shared';
 
-import flatten from '../lib/flatten';
+import flatten from '../lib/flatten.js';
 
 export default function DisplaySchemaData({
   schema: schemaFromProps,

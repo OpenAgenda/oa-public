@@ -1,1 +1,2 @@
-module.exports = require('@openagenda/labels/form-schemas/builder');
+// eslint-disable-next-line no-restricted-exports
+export { default } from '@openagenda/labels/form-schemas/builder.js';

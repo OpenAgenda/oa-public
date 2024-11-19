@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 
-import labelKeys from './labelKeys';
+import labelKeys from './labelKeys.js';
 
 export default (field, languages) =>
   ih(

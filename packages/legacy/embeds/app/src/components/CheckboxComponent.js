@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 
-import toggleCheckbox from './utils/toggleCheckbox';
+import toggleCheckbox from './utils/toggleCheckbox.js';
 
 export default ({
   embed,

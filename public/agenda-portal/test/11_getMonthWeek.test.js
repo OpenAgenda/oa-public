@@ -1,6 +1,4 @@
-'use strict';
-
-const getMonthWeek = require('../lib/events/getMonthWeek');
+import getMonthWeek from '../lib/events/getMonthWeek.js';
 
 describe('11 - getMonthWeek', () => {
   it('returns week of month', () => {

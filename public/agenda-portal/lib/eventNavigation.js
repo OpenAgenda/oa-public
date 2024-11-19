@@ -1,8 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-const qs = require('qs');
-const b64 = require('./utils/base64');
+import _ from 'lodash';
+import qs from 'qs';
+import b64 from './utils/base64.js';
 
 function stringifyContext(obj) {
   return b64.encode(JSON.stringify(obj));
@@ -86,8 +84,6 @@ function applyContextLink(req, res, listContext, event) {
   return event;
 }
 
-module.exports = Object.assign(navigation, {
-  applyContextLink,
-  parseContext,
-  stringifyContext,
-});
+export default navigation;
+
+export { applyContextLink, parseContext, stringifyContext };

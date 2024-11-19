@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import EventSelection from './EventSelection';
-import Modal from './Modal';
+import EventSelection from './EventSelection.js';
+import Modal from './Modal.js';
 
 const messages = defineMessages({
   myEvents: {

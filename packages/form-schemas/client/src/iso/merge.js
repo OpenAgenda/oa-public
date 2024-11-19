@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const ih = require('immutability-helper');
+import _ from 'lodash';
+import ih from 'immutability-helper';
 
 const getIsAbstract = ({ fieldType, type }) => {
   if (type === 'abstract') {
@@ -118,4 +118,4 @@ function mergeAll(...args) {
   };
 }
 
-module.exports = mergeAll;
+export default mergeAll;

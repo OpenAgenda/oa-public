@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from './Image';
+import Image from './Image.js';
 
 export default function AgendasList({
   WrapperComponent = 'div',

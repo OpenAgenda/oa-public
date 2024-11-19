@@ -1,6 +1,4 @@
-'use strict';
-
-const flattenMultilingual = require('../lib/events/flattenMultilingual');
+import flattenMultilingual from '../lib/events/flattenMultilingual.js';
 
 describe('24 - lib/events - flattenMultilingual', () => {
   test('flattens shallow multilingual fields', () => {

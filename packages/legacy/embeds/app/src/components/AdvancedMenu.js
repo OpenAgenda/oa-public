@@ -2,8 +2,8 @@ import React from 'react';
 
 import { defineMessages, useIntl } from 'react-intl';
 
-import CheckboxComponent from './CheckboxComponent';
-import InputComponent from './InputComponent';
+import CheckboxComponent from './CheckboxComponent.js';
+import InputComponent from './InputComponent.js';
 
 const messages = defineMessages({
   autoScroll: {

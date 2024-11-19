@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-  extends: '../../.eslintrc',
+  extends: '../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   ignorePatterns: ['/dist'],
@@ -17,6 +17,7 @@ module.exports = {
           `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
           `${__dirname}/scripts/**/*.js`,
+          `${__dirname}/test/**/*.js`,
         ],
       },
     ],
@@ -24,10 +25,10 @@ module.exports = {
 
   overrides: [
     {
-      files: ['src/**/*.js', '.storybook/**/*.js', 'stories/**/*.js'],
+      files: ['**/*.cjs'],
 
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

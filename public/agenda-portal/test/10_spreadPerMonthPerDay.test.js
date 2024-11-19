@@ -1,11 +1,9 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
-
-const spreadPerMonth = require('../lib/events/spreadPerMonthPerDay');
-const inputTimings = require('./fixtures/timings.json');
-const inputTimings2 = require('./fixtures/timings.2.json');
+import _ from 'lodash';
+import spreadPerMonth from '../lib/events/spreadPerMonthPerDay.js';
+import inputTimings from './fixtures/timings.json';
+import inputTimings2 from './fixtures/timings.2.json';
+import spreadTimings from './fixtures/spreadTimings.json';
+import spreadTimingsNYC from './fixtures/spreadTimings.nyc.json';
 
 describe('10 - spreadPerMonthPerDay', () => {
   describe('basics', () => {
@@ -51,13 +49,6 @@ describe('10 - spreadPerMonthPerDay', () => {
       },
     ];
 
-    const spreadTimings = fs
-      .readFileSync(`${__dirname}/fixtures/spreadTimings.json`, 'utf-8')
-      .trim('\n');
-    const spreadTimingsNYC = fs
-      .readFileSync(`${__dirname}/fixtures/spreadTimings.nyc.json`, 'utf-8')
-      .trim('\n');
-
     it('Timings are distributed in an array of months and sub-array of days', () => {
       const result = spreadPerMonth(timings, 'Europe/Paris', 'fr');
 
@@ -67,7 +58,7 @@ describe('10 - spreadPerMonthPerDay', () => {
           null,
           2,
         ),
-      ).toBe(spreadTimings);
+      ).toBe(JSON.stringify(spreadTimings, null, 2));
     });
 
     it('When december hits Paris, it is still november in New York', () => {
@@ -79,7 +70,7 @@ describe('10 - spreadPerMonthPerDay', () => {
           null,
           2,
         ),
-      ).toBe(spreadTimingsNYC);
+      ).toBe(JSON.stringify(spreadTimingsNYC, null, 2));
     });
   });
 

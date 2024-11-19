@@ -1,8 +1,8 @@
 import { useIntl } from 'react-intl';
-import { hasFilter, hasValues } from '../../../utils/rules';
-import messages from './messages';
-import FilterPart from './FilterPart';
-import ActionsPart from './ActionsPart';
+import { hasFilter, hasValues } from '../../../utils/rules.js';
+import messages from './messages.js';
+import FilterPart from './FilterPart.js';
+import ActionsPart from './ActionsPart.js';
 
 export default function RuleItem({
   rule,

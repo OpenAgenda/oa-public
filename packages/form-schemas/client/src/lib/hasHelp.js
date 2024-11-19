@@ -1,3 +1,3 @@
-module.exports = function hasHelp(field) {
+export default function hasHelp(field) {
   return field.help || field.helpLink || field.helpContent;
-};
+}

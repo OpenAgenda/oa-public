@@ -1,9 +1,9 @@
 import { Calendar } from 'react-date-range';
 import { Dropdown } from '@openagenda/react-shared';
 import { format } from 'date-fns';
-import * as rdrLocales from 'react-date-range/dist/locale';
+import * as rdrLocales from 'react-date-range/dist/locale/index.js';
 
-import dateLabels from '@openagenda/labels/form-schemas/date';
+import dateLabels from '@openagenda/labels/form-schemas/date.js';
 import makeLabelGetter from '@openagenda/labels';
 
 const getLabel = makeLabelGetter(dateLabels);

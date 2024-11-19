@@ -1,6 +1,6 @@
-const { optionedTypes, minMaxedTypes } = require('./fieldTypes');
+import { optionedTypes, minMaxedTypes } from './fieldTypes.js';
 
-function buildFieldSchema(type, options = {}) {
+export default function buildFieldSchema(type, options = {}) {
   const {
     defaultLabelLanguage = null,
     isMultilingual = true,
@@ -231,5 +231,3 @@ function buildFieldSchema(type, options = {}) {
 
   return structure;
 }
-
-module.exports = buildFieldSchema;

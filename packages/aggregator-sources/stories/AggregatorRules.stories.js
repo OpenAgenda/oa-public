@@ -1,6 +1,6 @@
-import AggregatorRules from '../src/components/AggregatorRules';
-import SimpleDecorator from './decorators/Simple';
-import IntlDecorator from './decorators/IntlDecorator';
+import AggregatorRules from '../src/components/AggregatorRules.js';
+import SimpleDecorator from './decorators/Simple.js';
+import IntlDecorator from './decorators/IntlDecorator.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

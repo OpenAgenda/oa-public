@@ -1,16 +1,8 @@
 'use strict';
 
-const oaModulesToBuild = [
-  'activity-apps',
-  'agenda-settings',
-  'home',
-  'inbox-apps',
-  'user-apps',
-  'react-share-menus'
-];
 const modulesToInclude = [
   '@feathersjs',
-  `@openagenda/(?:${oaModulesToBuild.join('|')})`,
+  `@openagenda`,
   '@uppy',
   'buffer',
   'debug',

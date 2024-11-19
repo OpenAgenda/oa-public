@@ -1,11 +1,10 @@
-const _ = require('lodash');
-const debug = require('debug');
+import _ from 'lodash';
+import debug from 'debug';
+import getWithFieldName from '../iso/getWithFieldName.js';
 
 const log = debug('isFieldOptional');
 
-const getWithFieldName = require('../iso/getWithFieldName');
-
-module.exports = (field, values) => {
+export default (field, values) => {
   if (typeof field.optional === 'boolean') {
     return field.optional;
   }
@@ -27,7 +26,7 @@ module.exports = (field, values) => {
       .filter((v) => relatedFieldValues.includes(v)).length;
   }
 
-  return !!(relatedFieldValue instanceof Array
+  return !!(Array.isArray(relatedFieldValue)
     ? relatedFieldValue.length
     : relatedFieldValue);
 };

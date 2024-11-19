@@ -2,14 +2,17 @@
  * returns function that decorates valid data for a form-schema with full option values and labels
  */
 
-const update = require('immutability-helper');
-const assign = require('lodash/assign');
-const get = require('lodash/get');
-const isArray = require('lodash/isArray');
-const isObject = require('lodash/isObject');
-const mapKeys = require('lodash/mapKeys');
-const omit = require('lodash/omit');
-const find = require('lodash/find');
+import update from 'immutability-helper';
+
+import assign from 'lodash/assign.js';
+import get from 'lodash/get.js';
+import isArray from 'lodash/isArray.js';
+import isObject from 'lodash/isObject.js';
+import mapKeys from 'lodash/mapKeys.js';
+import omit from 'lodash/omit.js';
+import find from 'lodash/find.js';
+
+import flattenLabels from '../lib/flatten.js';
 
 const _ = {
   assign,
@@ -20,8 +23,6 @@ const _ = {
   omit,
   find,
 };
-
-const flattenLabels = require('../lib/flatten');
 
 function _decorateOption(labelsAsValues, options, id) {
   const option = options.find((o) => o.id === id);
@@ -93,6 +94,5 @@ function decorate(fields, data, options = {}) {
   );
 }
 
-module.exports = (fields) => decorate.bind(null, fields);
-
-module.exports.decorate = decorate;
+export default (fields) => decorate.bind(null, fields);
+export { decorate };

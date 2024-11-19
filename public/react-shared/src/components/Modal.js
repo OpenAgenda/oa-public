@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as bodyScroll from './body-scroll';
-import ClickListener from './lib/ClickListener';
+import * as bodyScroll from './body-scroll.js';
+import ClickListener from './lib/ClickListener.js';
 
 export default class Modal extends Component {
   static propTypes = {

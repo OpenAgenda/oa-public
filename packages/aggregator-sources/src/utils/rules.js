@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { getLocaleValue } from '@openagenda/intl';
-import { combineDateTime, extractDateAndTime } from './timings';
+import { combineDateTime, extractDateAndTime } from './timings.js';
 
 export function hasFilter(rule) {
   if (!rule.query) return false;

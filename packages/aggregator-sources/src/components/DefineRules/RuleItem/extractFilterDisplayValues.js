@@ -1,7 +1,7 @@
-import formLabels from '@openagenda/labels/event/form';
+import formLabels from '@openagenda/labels/event/form.js';
 import { getLocaleValue } from '@openagenda/intl';
-import { hasFilter } from '../../../utils/rules';
-import messages from './messages';
+import { hasFilter } from '../../../utils/rules.js';
+import messages from './messages.js';
 
 const eventTextFields = [
   'title',

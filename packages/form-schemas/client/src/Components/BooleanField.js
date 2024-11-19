@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import classNames from 'classnames';
-import Help from './Help';
-
-const hasHelp = require('../lib/hasHelp');
-const isFieldOptional = require('../lib/isFieldOptional');
+import hasHelp from '../lib/hasHelp.js';
+import isFieldOptional from '../lib/isFieldOptional.js';
+import Help from './Help.js';
 
 function defineChecked(field, value) {
   const { default: defaultValue } = field;

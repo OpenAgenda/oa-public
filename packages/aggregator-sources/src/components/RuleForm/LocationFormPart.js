@@ -1,8 +1,8 @@
 import { /* useFormState, */ Field } from 'react-final-form';
 import { useIntl } from 'react-intl';
 import { ReactSelectField } from '@openagenda/react-shared';
-import messages from './messages';
-import Select from './Select';
+import messages from './messages.js';
+import Select from './Select.js';
 
 export default () => {
   const intl = useIntl();

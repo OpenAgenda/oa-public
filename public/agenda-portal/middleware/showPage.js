@@ -1,19 +1,18 @@
-'use strict';
+import _ from 'lodash';
+import logs from '../lib/Log.js';
+import isStaticFilePath from '../lib/isStaticFilePath.js';
+import setPageProp from '../lib/utils/setPageProp.js';
 
-const _ = require('lodash');
-const log = require('../lib/Log')('showPage');
+const log = logs('showPage');
 
-const isStaticFilePath = require('../lib/isStaticFilePath');
-const setPageProp = require('../lib/utils/setPageProp');
-
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   if (isStaticFilePath(req)) return next();
 
   setPageProp(req, 'pageType', 'static');
   setPageProp(req, 'lang', res.locals.lang);
 
   res.render(`pages/${req.params.page}`, req.data, (err, html) => {
-    if (_.get(err, 'message', '').indexOf('Failed to lookup view') !== -1) {
+    if (_.get(err, 'message', '').includes('Failed to lookup view')) {
       next();
     } else if (err) {
       log('error', err);
