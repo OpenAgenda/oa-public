@@ -1,8 +1,8 @@
-import DefineRules from '../src/components/DefineRules';
-import Stepper from '../src/components/Stepper';
-import SourcesCanvasDecorator from './decorators/SourcesCanvas';
-import ModalDecorator from './decorators/ModalDecorator';
-import IntlDecorator from './decorators/IntlDecorator';
+import DefineRules from '../src/components/DefineRules/index.js';
+import Stepper from '../src/components/Stepper.js';
+import SourcesCanvasDecorator from './decorators/SourcesCanvas.js';
+import ModalDecorator from './decorators/ModalDecorator.js';
+import IntlDecorator from './decorators/IntlDecorator.js';
 
 import aggregatorAgendaSchema from './fixtures/DefineRules/TAM.schema.json';
 import aggregatorAgendaSchemaWithEnableWith from './fixtures/DefineRules/eteculturel.schema.json';

@@ -4,7 +4,7 @@ module.exports = {
   extends: '../../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   ignorePatterns: ['/dist'],
@@ -24,10 +24,9 @@ module.exports = {
 
   overrides: [
     {
-      files: ['src/**/*.js', '.storybook/**/*.js', 'stories/**/*.js'],
-
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

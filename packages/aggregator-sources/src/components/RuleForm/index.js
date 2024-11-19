@@ -5,17 +5,17 @@ import { useFormState, Field } from 'react-final-form';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import messages from './messages';
+import messages from './messages.js';
 
-import ActionsFormPart from './ActionsFormPart';
-import ChoiceFieldFormPart from './ChoiceFieldFormPart';
-import LocationFormPart from './LocationFormPart';
-import TextFormPart from './TextFormPart';
-import Radio from './Radio';
-import RequiredFieldPart from './RequiredFieldPart';
-import TagsFormPart from './TagsFormPart';
-import LanguagesFormPart from './LanguagesFormPart';
-import TimingsFormPart from './TimingsFormPart';
+import ActionsFormPart from './ActionsFormPart.js';
+import ChoiceFieldFormPart from './ChoiceFieldFormPart.js';
+import LocationFormPart from './LocationFormPart.js';
+import TextFormPart from './TextFormPart.js';
+import Radio from './Radio.js';
+import RequiredFieldPart from './RequiredFieldPart.js';
+import TagsFormPart from './TagsFormPart.js';
+import LanguagesFormPart from './LanguagesFormPart.js';
+import TimingsFormPart from './TimingsFormPart.js';
 
 export default function RuleForm({
   SubmitButton,

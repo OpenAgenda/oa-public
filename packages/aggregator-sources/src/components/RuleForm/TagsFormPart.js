@@ -4,8 +4,8 @@ import { /* useFormState, */ Field } from 'react-final-form';
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
 
-import isOptionedField from '../../utils/isOptionedField';
-import messages from './messages';
+import isOptionedField from '../../utils/isOptionedField.js';
+import messages from './messages.js';
 
 export default ({ schema }) => {
   const intl = useIntl();

@@ -1,5 +1,5 @@
 import { getLocaleValue } from '@openagenda/intl';
-import messages from './messages';
+import messages from './messages.js';
 
 function isSet(action) {
   if (action.values instanceof Object) {

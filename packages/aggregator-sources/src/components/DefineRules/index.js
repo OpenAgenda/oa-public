@@ -3,15 +3,15 @@ import { useCallback, useMemo, useReducer, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
-import { ruleToValues, valuesToRule } from '../../utils/rules';
-import RuleForm from '../RuleForm';
-import List from './List';
-import RulesSubmitButton from './RulesSubmitButton';
-import AddRuleSubmitButton from './AddRuleSubmitButton';
-import UpdateRuleSubmitButton from './UpdateRuleSubmitButton';
-import messages from './messages';
-import reducer from './reducer';
-import validate from './validate';
+import { ruleToValues, valuesToRule } from '../../utils/rules.js';
+import RuleForm from '../RuleForm/index.js';
+import List from './List.js';
+import RulesSubmitButton from './RulesSubmitButton.js';
+import AddRuleSubmitButton from './AddRuleSubmitButton.js';
+import UpdateRuleSubmitButton from './UpdateRuleSubmitButton.js';
+import messages from './messages.js';
+import reducer from './reducer.js';
+import validate from './validate.js';
 
 function getInitialState(initialRules) {
   const rules = initialRules

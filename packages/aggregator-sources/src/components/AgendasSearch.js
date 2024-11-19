@@ -2,8 +2,8 @@ import _ from 'lodash';
 import React, { useCallback, useMemo } from 'react';
 import { Form, Field } from 'react-final-form';
 import { useApiClient } from '@openagenda/react-shared';
-import useAgendasSearch from '../hooks/useAgendasSearch';
-import SearchInput from './SearchInput';
+import useAgendasSearch from '../hooks/useAgendasSearch.js';
+import SearchInput from './SearchInput.js';
 
 function AgendasSearch({ res, render, fieldProps }) {
   const apiClient = useApiClient();

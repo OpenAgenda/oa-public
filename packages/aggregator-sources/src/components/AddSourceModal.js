@@ -9,11 +9,11 @@ import {
   Image,
   Spinner,
 } from '@openagenda/react-shared';
-import Stepper from './Stepper';
-import AgendasSearch from './AgendasSearch';
-import SlugSearch from './SlugSearch';
-import DefineRules from './DefineRules';
-import EvaluateOptions from './EvaluateOptions';
+import Stepper from './Stepper.js';
+import AgendasSearch from './AgendasSearch.js';
+import SlugSearch from './SlugSearch.js';
+import DefineRules from './DefineRules/index.js';
+import EvaluateOptions from './EvaluateOptions.js';
 
 const DEFAULT_IMAGE = 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png';
 

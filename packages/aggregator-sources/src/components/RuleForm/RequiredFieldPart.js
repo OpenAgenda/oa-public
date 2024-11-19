@@ -1,8 +1,8 @@
 import { useIntl } from 'react-intl';
 import { Field } from 'react-final-form';
 
-import messages from './messages';
-import Radio from './Radio';
+import messages from './messages.js';
+import Radio from './Radio.js';
 
 export default () => {
   const intl = useIntl();

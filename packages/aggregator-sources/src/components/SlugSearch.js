@@ -3,8 +3,8 @@ import { useCallback, useMemo } from 'react';
 import { Form, Field } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import { useApiClient } from '@openagenda/react-shared';
-import useSlugSearch from '../hooks/useSlugSearch';
-import SearchInput from './SearchInput';
+import useSlugSearch from '../hooks/useSlugSearch.js';
+import SearchInput from './SearchInput.js';
 
 const messages = defineMessages({
   enterLink: {

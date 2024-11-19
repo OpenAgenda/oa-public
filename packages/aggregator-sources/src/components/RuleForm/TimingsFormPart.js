@@ -1,6 +1,6 @@
 import { Field } from 'react-final-form';
-import DateField from './DateField';
-import TimeField from './TimeField';
+import DateField from './DateField.js';
+import TimeField from './TimeField.js';
 
 function TimingsError() {
   return (

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { FORM_ERROR } from 'final-form';
-import { combineDateTime } from '../../utils/timings';
-import messages from './messages';
+import { combineDateTime } from '../../utils/timings.js';
+import messages from './messages.js';
 
 export default function validate(
   intl,

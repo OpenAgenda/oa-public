@@ -1,5 +1,5 @@
-import messages from './messages';
-import extract from './extractFilterDisplayValues';
+import messages from './messages.js';
+import extract from './extractFilterDisplayValues.js';
 
 const extractTextField = (textRule) => {
   if (!textRule) return null;

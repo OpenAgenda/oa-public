@@ -2,8 +2,8 @@ import { useCallback, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Modal } from '@openagenda/react-shared';
-import DefineRules from './DefineRules';
-import EvaluateOptions from './EvaluateOptions';
+import DefineRules from './DefineRules/index.js';
+import EvaluateOptions from './EvaluateOptions.js';
 
 const messages = defineMessages({
   updateASource: {

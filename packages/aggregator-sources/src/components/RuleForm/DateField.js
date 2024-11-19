@@ -1,9 +1,9 @@
 import { useIntl } from 'react-intl';
 import { Calendar } from 'react-date-range';
-import * as rdrLocales from 'react-date-range/dist/locale';
+import * as rdrLocales from 'react-date-range/dist/locale/index.js';
 import { format } from 'date-fns';
 import { Dropdown } from '@openagenda/react-shared';
-import messages from './messages';
+import messages from './messages.js';
 
 const getContent = (value, intl) => {
   if (!value) return intl.formatMessage(messages.datePlaceholder);

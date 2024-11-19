@@ -4,10 +4,10 @@ import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useForm, Field } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
-import formLabels from '@openagenda/labels/event/form';
+import formLabels from '@openagenda/labels/event/form.js';
 import { getLocaleValue } from '@openagenda/intl';
-import isOptionedField from '../../utils/isOptionedField';
-import messages from './messages';
+import isOptionedField from '../../utils/isOptionedField.js';
+import messages from './messages.js';
 
 const AttendanceOptions = [
   {

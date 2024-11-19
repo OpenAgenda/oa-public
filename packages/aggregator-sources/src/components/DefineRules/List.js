@@ -4,12 +4,12 @@ import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MoreInfo } from '@openagenda/react-shared';
-import externalLinks from '../../utils/externalLinks';
-import readClipboard from '../../utils/readClipboard';
-import messages from './messages';
-import RuleItem from './RuleItem';
-import validateActions from './validateActions';
-import WarningBlock from './WarningBlock';
+import externalLinks from '../../utils/externalLinks.js';
+import readClipboard from '../../utils/readClipboard.js';
+import messages from './messages.js';
+import RuleItem from './RuleItem/index.js';
+import validateActions from './validateActions.js';
+import WarningBlock from './WarningBlock.js';
 
 export default function List({
   aggregator,

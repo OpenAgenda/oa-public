@@ -9,9 +9,9 @@ import { usePrevious } from 'react-use';
 
 import { useMemoOne, useCallbackOne } from '@openagenda/react-shared';
 
-import isOptionedField from '../../utils/isOptionedField';
-import ActionFormPart from './ActionFormPart';
-import messages from './messages';
+import isOptionedField from '../../utils/isOptionedField.js';
+import ActionFormPart from './ActionFormPart.js';
+import messages from './messages.js';
 
 export default ({ aggregatorAgendaSchema, sourceSchema }) => {
   const intl = useIntl();

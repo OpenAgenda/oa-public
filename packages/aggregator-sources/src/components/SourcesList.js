@@ -1,9 +1,11 @@
 import { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import CopyToClipboardModule from 'react-copy-to-clipboard';
 import { useApiClient, MoreInfo, Image } from '@openagenda/react-shared';
-import * as modalsActions from '../reducers/modals';
+import * as modalsActions from '../reducers/modals.js';
+
+const { CopyToClipboard } = CopyToClipboardModule;
 
 const messages = defineMessages({
   officialAgenda: {
