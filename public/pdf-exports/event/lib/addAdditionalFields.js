@@ -2,25 +2,38 @@ import { getLocaleValue } from '@openagenda/intl';
 import addText from './addText.js';
 
 export default async function addAdditionalFields(doc, cursor, options = {}) {
-  const { content, agenda, width, height, margin, footerHeight, lang, simulate } = options;
+  const {
+    content,
+    agenda,
+    width,
+    height,
+    margin,
+    footerHeight,
+    lang,
+    simulate,
+  } = options;
   const currentCursor = { ...cursor };
 
   const availableHeight = height - margin - footerHeight;
 
   const fields = Object.values(agenda.schema.fields);
   const eventFields = fields
-    .filter(field => field.schemaType !== 'event')
-    .filter(field => field.field in content.event)
-    .filter(field => !content.remainingFields || content.remainingFields.find(f => f.field === field.field));
-
-  let remainingFields = eventFields;
+    .filter((field) => field.schemaType !== 'event')
+    .filter((field) => field.field in content.event)
+    .filter(
+      (field) =>
+        !content.remainingFields
+        || content.remainingFields.find((f) => f.field === field.field),
+    )
+    .filter((field) => !!field.options); // non-optionned types are not handled for the time being
+  const remainingFields = eventFields;
   let index = 0;
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
   while (index < remainingFields.length) {
     const field = remainingFields[index];
-    const eventAdditionalField = content.event[field.field];
+    const eventAdditionalField = [].concat(content.event[field.field]);
     if (eventAdditionalField) {
       const simulateFieldTitle = await addText(doc, cursor, {
         content: getLocaleValue(field.label, lang),
@@ -34,7 +47,7 @@ export default async function addAdditionalFields(doc, cursor, options = {}) {
       maxWidth = Math.max(maxWidth, simulateFieldTitle.width);
 
       for (const fieldValueId of eventAdditionalField) {
-        const option = field.options.find(opt => opt.id === fieldValueId);
+        const option = field.options.find((opt) => opt.id === fieldValueId);
 
         const simulateFieldValue = await addText(doc, cursor, {
           content: getLocaleValue(option.label, lang),
@@ -67,7 +80,7 @@ export default async function addAdditionalFields(doc, cursor, options = {}) {
       cursor.y += fieldTitle.height;
 
       for (const fieldValueId of eventAdditionalField) {
-        const option = field.options.find(opt => opt.id === fieldValueId);
+        const option = field.options.find((opt) => opt.id === fieldValueId);
 
         const fieldValue = await addText(doc, cursor, {
           content: getLocaleValue(option.label, lang),
