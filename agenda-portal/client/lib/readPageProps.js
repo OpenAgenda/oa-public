@@ -1,4 +1,6 @@
-const log = require('debug')('readPageProps');
+import debug from 'debug';
+
+const log = debug('readPageProps');
 
 export default (jQuery) => {
   try {

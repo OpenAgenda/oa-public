@@ -1,7 +1,7 @@
-const _ = require('lodash');
-const qs = require('qs');
+import _ from 'lodash';
+import qs from 'qs';
 
-module.exports = function defineRelativePart(attr, hash = null) {
+export default function defineRelativePart(attr, hash = null) {
   const query = {};
   let path = '';
 
@@ -37,11 +37,9 @@ module.exports = function defineRelativePart(attr, hash = null) {
   return (
     cleanPath + (Object.keys(query).length ? `?${qs.stringify(query)}` : '')
   );
-};
+}
 
-module.exports.removePreFromRelativePart = function removePreFromRelativePart(
-  relativePart,
-) {
+export function removePreFromRelativePart(relativePart) {
   const [path, query] = relativePart.split('?');
 
   if (!query) {
@@ -49,9 +47,9 @@ module.exports.removePreFromRelativePart = function removePreFromRelativePart(
   }
 
   return [path, qs.stringify(_.omit(qs.parse(query ?? ''), ['pre']))].join('?');
-};
+}
 
-module.exports.appendPreToNav = function appendPreToNav(nav, pre) {
+export function appendPreToNav(nav, pre) {
   const [path, queryString] = nav.split('?');
   const query = qs.parse(queryString);
   const preQuery = pre?.length ? qs.parse(pre) : {};
@@ -61,4 +59,4 @@ module.exports.appendPreToNav = function appendPreToNav(nav, pre) {
   }
 
   return path + (Object.keys(query).length ? `?${qs.stringify(query)}` : '');
-};
+}

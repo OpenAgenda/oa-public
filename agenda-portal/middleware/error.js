@@ -1,13 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import logs from '../lib/Log.js';
+import pageGlobals from './pageGlobals.js';
 
-const _ = require('lodash');
-
-const log = require('../lib/Log')('middleware/error');
-
-const pageGlobals = require('./pageGlobals');
+const log = logs('middleware/error');
 
 // eslint-disable-next-line no-unused-vars
-module.exports = (err, req, res, next) => {
+export default (err, req, res, next) => {
   const message = _.get(err, 'response.data.error', _.get(err, 'message'));
 
   console.log(err);

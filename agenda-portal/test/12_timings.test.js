@@ -1,7 +1,5 @@
-'use strict';
-
-const applyTimezone = require('../lib/timings/applyTimezone');
-const getLabels = require('../lib/timings/getLabels');
+import applyTimezone from '../lib/timings/applyTimezone.js';
+import getLabels from '../lib/timings/getLabels.js';
 
 describe('12 - timing helper functions', () => {
   it('applyTimezone provides timing start and end in specified timezone', () => {

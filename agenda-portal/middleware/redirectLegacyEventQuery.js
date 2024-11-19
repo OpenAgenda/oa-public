@@ -1,8 +1,6 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const requestedUid = _.get(req, 'query.oaq.uid', null);
 
   if (!requestedUid) return next();

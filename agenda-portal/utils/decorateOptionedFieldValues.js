@@ -1,5 +1,3 @@
-'use strict';
-
 function flattenLabel(label, lang) {
   if (typeof label === 'string') return label;
   return label[lang] ?? label[Object.keys(label).shift()];
@@ -9,7 +7,7 @@ function optionToLabel(options, id, lang) {
   return flattenLabel(options.find((v) => v.id === id).label, lang);
 }
 
-module.exports = function decorateOptionedFieldsWithLabels(
+export default function decorateOptionedFieldsWithLabels(
   event,
   { agenda, lang },
 ) {
@@ -28,4 +26,4 @@ module.exports = function decorateOptionedFieldsWithLabels(
     }, {});
 
   return { ...event, ...additionalFields };
-};
+}

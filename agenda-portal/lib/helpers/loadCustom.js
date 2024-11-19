@@ -1,10 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import cn from 'classnames';
+import counters from './utils/counters.js';
 
-const _ = require('lodash');
-const cn = require('classnames');
-const counters = require('./utils/counters');
-
-module.exports = (hbs, filterOrWidget) =>
+export default (hbs, filterOrWidget) =>
   function ({ fn, hash, data }) {
     counters.init(data);
 

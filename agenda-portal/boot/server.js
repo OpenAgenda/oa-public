@@ -1,19 +1,18 @@
-'use strict';
-
-// const log = require('../lib/Log')('server');
-
 // Set options as a parameter, environment variable, or rc file.
 
-const Portal = require('..');
+import '@openagenda/agenda-portal/utils/loadEnvironment.js';
 
-Portal.utils.loadEnvironment(__dirname);
+import Portal from '@openagenda/agenda-portal';
+// import logs from '@openagenda/agenda-portal/lib/Log';
+//
+// const log = logs('server');
 
 function eventHook(event /* , { lang, agenda, root } */) {
   return event;
 }
 
 Portal({
-  dir: __dirname,
+  dir: import.meta.dirname,
   root:
     process.env.PORTAL_ROOT || `http://localhost:${process.env.PORTAL_PORT}`,
   devServerPort: process.env.PORTAL_DEV_SERVER_PORT || 3001,
@@ -35,7 +34,7 @@ Portal({
   // assets folder
   assets: process.env.PORTAL_ASSETS_FOLDER,
   // multilingual labels folder
-  i18n: process.env.PORTAL_I18N_FOLDER,
+  i18n: process.env.PORTAL_I18N_PATH,
   // number of events to be loaded in an event index page
   eventsPerPage: 20,
   // filters that applies even if other filter is specified, can be overloaded

@@ -1,3 +1,1 @@
-'use strict';
-
-module.exports = (range) => (range || '').split(',').shift();
+export default (range) => (range || '').split(',').shift();

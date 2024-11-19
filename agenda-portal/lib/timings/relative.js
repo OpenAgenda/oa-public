@@ -1,10 +1,7 @@
-'use strict';
-
-const _ = require('lodash');
-const ih = require('immutability-helper');
-const moment = require('moment');
-
-const { getValue: getBeginValue } = require('./begin');
+import _ from 'lodash';
+import ih from 'immutability-helper';
+import moment from 'moment';
+import { getValue as getBeginValue } from './begin.js';
 
 function _appendLabel(timing, { lang }) {
   return Object.assign(timing, {
@@ -13,7 +10,7 @@ function _appendLabel(timing, { lang }) {
 }
 
 // assumes timings are sorted
-module.exports = (event, { lang }) => {
+export default (event, { lang }) => {
   if (!event.timings || !event.timings.length) {
     return event;
   }

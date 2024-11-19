@@ -1,6 +1,4 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 let createLog = (namespace) =>
   (...args) => {
@@ -9,10 +7,10 @@ let createLog = (namespace) =>
     );
   };
 
-module.exports = (namespace) =>
+export default (namespace) =>
   (...args) =>
     createLog(namespace)(...args);
 
-module.exports.set = (logger) => {
+export function set(logger) {
   createLog = logger;
-};
+}

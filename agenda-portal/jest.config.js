@@ -1,5 +1,3 @@
-'use strict';
-
-module.exports = {
+export default {
   displayName: '@openagenda/agenda-portal',
 };

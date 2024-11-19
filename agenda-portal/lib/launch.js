@@ -1,6 +1,6 @@
-'use strict';
+import logs from './Log.js';
 
-const log = require('./Log')('launch');
+const log = logs('launch');
 
 function _ready(port) {
   log('**** App is running and ready ****');
@@ -12,7 +12,7 @@ function _ready(port) {
   if (process.send) process.send(process.env.NODE_ENV === 'development' ? 'online' : 'ready');
 }
 
-module.exports = (app, port = 80) => {
+export default (app, port = 80) => {
   app.listen(port, () => {
     if (process.env.NODE_ENV === 'production' && !app.locals.root) {
       throw new Error('app root is not set');

@@ -4,7 +4,7 @@ module.exports = {
   extends: '../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   ignorePatterns: ['/assets'],
@@ -25,18 +25,18 @@ module.exports = {
 
   overrides: [
     {
-      files: ['client/**/*.js', 'boot/js/**/*.js'],
+      files: ['**/*.cjs'],
 
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],
 
-  settings: {
-    'import/resolver': {
-      typescript: true,
-      node: true,
-    },
-  },
+  // settings: {
+  //   'import/resolver': {
+  //     typescript: true,
+  //     node: true,
+  //   },
+  // },
 };

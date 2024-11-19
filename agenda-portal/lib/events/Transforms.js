@@ -1,16 +1,13 @@
-'use strict';
-
-const _ = require('lodash');
-
-const { applyContextLink } = require('../eventNavigation');
-const getBeginValue = require('../timings/begin').getValue;
-const detailedTiming = require('../timings/detailed');
-const relativeTimings = require('../timings/relative');
-const applySchemaJSONLD = require('./applySchemaJSONLD');
-const flatten = require('./flattenMultilingual');
-const links = require('./links');
-const defineEventTimezone = require('./defineEventTimezone');
-const spreadPerMonthPerDay = require('./spreadPerMonthPerDay');
+import _ from 'lodash';
+import { applyContextLink } from '../eventNavigation.js';
+import { getValue as getBeginValue } from '../timings/begin.js';
+import detailedTiming from '../timings/detailed.js';
+import relativeTimings from '../timings/relative.js';
+import applySchemaJSONLD from './applySchemaJSONLD.js';
+import flatten from './flattenMultilingual.js';
+import links from './links.js';
+import defineEventTimezone from './defineEventTimezone.js';
+import spreadPerMonthPerDay from './spreadPerMonthPerDay.js';
 
 function _preEventTransform(options, event, req, res) {
   return [
@@ -44,7 +41,7 @@ function _postEventTransform(options, event, req, res) {
   ].reduce((e, fn) => fn(e, options), event);
 }
 
-module.exports = (options) => {
+export default (options) => {
   const preTransform = _preEventTransform.bind(null, options);
   const postTransform = _postEventTransform.bind(null, options);
 

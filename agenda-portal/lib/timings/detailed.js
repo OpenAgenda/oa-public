@@ -1,14 +1,8 @@
-'use strict';
+import getLabels from './getLabels.js';
+import getSchemaJSONLD from './getSchemaJSONLD.js';
+import links from './links.js';
 
-const getLabels = require('./getLabels');
-const getSchemaJSONLD = require('./getSchemaJSONLD');
-const links = require('./links');
-
-module.exports = function detailedTiming(
-  { event, req },
-  timing,
-  locale = 'en',
-) {
+export default function detailedTiming({ event, req }, timing, locale = 'en') {
   const { defaultTimezone } = req?.app?.locals ?? {};
   const timezone = event.timezone || event.location.timezone || defaultTimezone;
 
@@ -18,4 +12,4 @@ module.exports = function detailedTiming(
     JSONLD: getSchemaJSONLD(event, timing, defaultTimezone),
     ...links({ event, req }, timing),
   };
-};
+}

@@ -1,8 +1,6 @@
-'use strict';
+import counters from './utils/counters.js';
 
-const counters = require('./utils/counters');
-
-module.exports = (hbs) =>
+export default (hbs) =>
   ({ hash, data }) => {
     counters.init(data);
 

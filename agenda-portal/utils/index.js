@@ -1,27 +1,26 @@
-'use strict';
+import './loadEnvironment.js';
 
-const { fromMarkdownToHTML } = require('@openagenda/md');
-const applySchemaJSONLD = require('../lib/events/applySchemaJSONLD');
-const spreadTimingsPerMonthPerDay = require('../lib/events/spreadPerMonthPerDay');
-const detailedTiming = require('../lib/timings/detailed');
-const decorateTimings = require('./decorateTimings');
-const spreadRegistration = require('./spreadRegistration');
-const cloudimage = require('./cloudimage');
-const I18N = require('./I18N');
-const loadEnvironment = require('./loadEnvironment');
-const imageToUrl = require('./imageToUrl');
-const decorateOptionedFieldValues = require('./decorateOptionedFieldValues');
+import { fromMarkdownToHTML as markdownToHTML } from '@openagenda/md';
+import { get as getEventSchemaJSONLD } from '../lib/events/applySchemaJSONLD.js';
+import spreadTimingsPerMonthPerDay from '../lib/events/spreadPerMonthPerDay.js';
+import detailedTiming from '../lib/timings/detailed.js';
+import decorateTimings from './decorateTimings.js';
+import spreadRegistration from './spreadRegistration.js';
+import cloudimage from './cloudimage.js';
+import I18N from './I18N.js';
+import imageToUrl from './imageToUrl.js';
+import decorateOptionedFieldValues from './decorateOptionedFieldValues.js';
 
-module.exports = {
+export {
   decorateTimings,
-  markdownToHTML: fromMarkdownToHTML,
+  markdownToHTML,
   cloudimage,
   spreadRegistration,
-  loadEnvironment,
+  // loadEnvironment,
   I18N,
   imageToUrl,
   decorateOptionedFieldValues,
   spreadTimingsPerMonthPerDay,
   detailedTiming,
-  getEventSchemaJSONLD: applySchemaJSONLD.get,
+  getEventSchemaJSONLD,
 };

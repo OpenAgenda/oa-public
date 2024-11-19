@@ -1,8 +1,8 @@
-'use strict';
+import httpProxyPkg from 'http-proxy';
 
-const { createProxyServer } = require('http-proxy');
+const { createProxyServer } = httpProxyPkg;
 
-module.exports = function webpackProxy(app, devServerPort) {
+export default function webpackProxy(app, devServerPort) {
   const httpProxy = createProxyServer({ secure: false }).on(
     'error',
     (error, req, res) => {
@@ -26,4 +26,4 @@ module.exports = function webpackProxy(app, devServerPort) {
       target: `http://localhost:${devServerPort}`,
       ws: true,
     }));
-};
+}

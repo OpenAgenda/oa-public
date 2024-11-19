@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   req.app.render('partials/list', req.data, (err, html) => {
     if (err) return next(err);
 

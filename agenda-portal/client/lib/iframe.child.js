@@ -1,4 +1,6 @@
-const log = require('debug')('iframe.child');
+import debug from 'debug';
+
+const log = debug('iframe.child');
 
 function _generateUpdatedHref(update) {
   const base = window.location.href.split(window.location.host);
@@ -86,7 +88,7 @@ function sendEventPreviewClick(state, eventSlug) {
   });
 }
 
-module.exports = (options = {}) => {
+export default (options = {}) => {
   const state = {
     parent: null,
   };

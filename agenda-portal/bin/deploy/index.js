@@ -1,16 +1,14 @@
-'use strict';
+import { promisify } from 'node:util';
+import fs from 'node:fs';
+import syncNcp from 'ncp';
+import { term, confirm } from './prompt.js';
+import insertScripts from './insertScripts.js';
 
-const { promisify } = require('node:util');
-const fs = require('node:fs');
-const ncp = promisify(require('ncp').ncp);
+const readme = fs.readFileSync(`${import.meta.dirname}/README.md`);
 
-const readme = fs.readFileSync(`${__dirname}/README.md`);
+const ncp = promisify(syncNcp);
 
-const { term, confirm } = require('./prompt');
-const insertScripts = require('./insertScripts');
-const editServerFile = require('./editServerFile');
-
-module.exports = async (preloaded = {}) => {
+export default async (preloaded = {}) => {
   const env = {};
 
   const cwd = preloaded.CURRENT_WORKING_DIRECTORY || process.cwd();
@@ -55,7 +53,7 @@ module.exports = async (preloaded = {}) => {
   env.PORTAL_SASS_PATH = preloaded.PORTAL_SASS_PATH || './sass/main.scss';
   env.PORTAL_JS_PATH = preloaded.PORTAL_JS_PATH || './js/main.js';
   env.PORTAL_ASSETS_FOLDER = preloaded.PORTAL_ASSETS_FOLDER || './assets';
-  env.PORTAL_I18N_FOLDER = preloaded.PORTAL_I18N_FOLDER || './i18n';
+  env.PORTAL_I18N_PATH = preloaded.PORTAL_I18N_PATH || './i18n/index.js';
   env.PORTAL_USE_AGENDA_GA_ID = preloaded.PORTAL_USE_AGENDA_GA_ID
     || (await confirm(
       'If you have a tracker set in your agenda, do you wish to enable tracking on the portal?',
@@ -64,7 +62,7 @@ module.exports = async (preloaded = {}) => {
     ? '1'
     : '';
 
-  await ncp(`${__dirname}/../../boot`, cwd);
+  await ncp(`${import.meta.dirname}/../../boot`, cwd);
 
   fs.writeFileSync(
     `${cwd}/.env`,
@@ -74,8 +72,6 @@ module.exports = async (preloaded = {}) => {
   );
 
   insertScripts(cwd);
-
-  editServerFile(cwd);
 
   if (env.IFRAMABLE !== '1') {
     fs.unlinkSync(`${cwd}/views/pages/iframe-test-canvas.hbs`);

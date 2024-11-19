@@ -1,6 +1,4 @@
-'use strict';
-
-const cloudimage = require('../utils/cloudimage');
+import cloudimage from '../utils/cloudimage.js';
 
 const BASE = 'https://{youraccountkey}.cloudimg.io/v7/';
 

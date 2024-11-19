@@ -1,11 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import moment from 'moment-timezone';
+import { getValue as getTimingBeginValue } from '../timings/begin.js';
+import getMonthWeek from './getMonthWeek.js';
 
-const _ = require('lodash');
-const moment = require('moment-timezone');
-const { tz } = require('moment-timezone');
-
-const { getValue: getTimingBeginValue } = require('../timings/begin');
-const getMonthWeek = require('./getMonthWeek');
+const { tz } = moment;
 
 function getMonthDiff(currentMonth, month) {
   return moment(`${month}-01`).diff(`${currentMonth}-01`, 'months');
@@ -49,7 +47,7 @@ function getNearestMonthToToday(presentMonthKey, currentNearest, months) {
   return currentNearest;
 }
 
-module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
+export default (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
   if (!timings.length) return [];
 
   const present = getTimingsKeys(new Date(), timezone, locale);

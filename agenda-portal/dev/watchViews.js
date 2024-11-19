@@ -1,8 +1,6 @@
-'use strict';
-
-const fs = require('node:fs');
-const path = require('node:path');
-const clientRefresher = require('browser-refresh-client');
+import fs from 'node:fs';
+import path from 'node:path';
+import clientRefresher from 'browser-refresh-client';
 
 function registerPartial(hbs, partialsDir, filePath) {
   const data = fs.readFileSync(filePath, 'utf-8');
@@ -16,7 +14,7 @@ function registerPartial(hbs, partialsDir, filePath) {
   hbs.registerPartial(templateName, data);
 }
 
-module.exports = function watchViews(hbs, partialsDir, callback) {
+export default function watchViews(hbs, partialsDir, callback) {
   clientRefresher
     .enableSpecialReload('*.hbs')
     .onFileModified(async (filePath) => {
@@ -30,4 +28,4 @@ module.exports = function watchViews(hbs, partialsDir, callback) {
 
       await callback();
     });
-};
+}

@@ -1,8 +1,6 @@
-'use strict';
+import qs from 'qs';
 
-const qs = require('qs');
-
-module.exports = (cloudimageLink, event, query = {}) => {
+export default (cloudimageLink, event, query = {}) => {
   const { image } = event;
 
   if (!image) return null;

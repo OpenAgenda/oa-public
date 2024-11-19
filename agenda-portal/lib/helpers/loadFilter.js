@@ -1,12 +1,10 @@
-'use strict';
-
-const counters = require('./utils/counters');
+import counters from './utils/counters.js';
 
 function getFieldSchema(agendaSchema, fieldName) {
   return agendaSchema.fields.find((v) => v.field === fieldName);
 }
 
-module.exports = (hbs) =>
+export default (hbs) =>
   ({ hash, data }) => {
     counters.init(data);
 

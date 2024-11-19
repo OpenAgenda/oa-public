@@ -1,12 +1,9 @@
-'use strict';
-
-const moment = require('moment-timezone');
-
-const { getKey: getBeginKey, getValue: getBeginValue } = require('./begin');
+import moment from 'moment-timezone';
+import { getKey as getBeginKey, getValue as getBeginValue } from './begin.js';
 
 const { tz } = moment;
 
-module.exports = (timing, timezone, locale = 'en') => {
+export default (timing, timezone, locale = 'en') => {
   const beginKey = getBeginKey(timing);
   const beginValue = getBeginValue(timing);
 

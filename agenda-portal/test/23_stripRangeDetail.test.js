@@ -1,6 +1,4 @@
-'use strict';
-
-const stripRangeDetail = require('../utils/stripRangeDetail');
+import stripRangeDetail from '../utils/stripRangeDetail.js';
 
 describe('23 - lib/utils - stripRangeDetail', () => {
   test('weekday is stripped', () => {
