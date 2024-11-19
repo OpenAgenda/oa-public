@@ -7,17 +7,16 @@ import { Editor } from 'slate-react';
 import classNames from 'classnames';
 import { Value } from 'slate';
 
-import richTextLabels from '@openagenda/labels/form-schemas/richText';
-import formSchemaLabels from '@openagenda/labels/form-schemas';
+import richTextLabels from '@openagenda/labels/form-schemas/richText.js';
+import formSchemaLabels from '@openagenda/labels/form-schemas/index.js';
 import makeLabelGetter from '@openagenda/labels';
-import flatten from '@openagenda/labels/flatten';
+import flatten from '@openagenda/labels/flatten.js';
 import { nl2br, bodyScroll } from '@openagenda/react-shared';
 
-import FieldCounter from './FieldCounter';
-import Info from './Info';
-import Sub from './Sub';
-
-const flattenFieldLabels = require('../lib/flatten');
+import flattenFieldLabels from '../lib/flatten.js';
+import FieldCounter from './FieldCounter.js';
+import Info from './Info.js';
+import Sub from './Sub.js';
 
 const getLabel = makeLabelGetter(formSchemaLabels);
 

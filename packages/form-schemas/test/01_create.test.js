@@ -1,8 +1,6 @@
-'use strict';
-
-const Service = require('../server');
-const config = require('../testconfig');
-const fixtures = require('./service/fixtures');
+import Service from '../server/index.js';
+import config from '../testconfig.js';
+import fixtures from './service/fixtures.js';
 
 describe('form-schemas -01- functional (server): create', () => {
   let svc;

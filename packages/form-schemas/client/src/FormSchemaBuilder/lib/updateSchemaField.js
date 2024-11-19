@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import debug from 'debug';
-import isSameFormItem from './isSameFormItem';
-import getFormItemType from './getFormItemType';
+import isSameFormItem from './isSameFormItem.js';
+import getFormItemType from './getFormItemType.js';
 
 const log = debug('FormSchemaBuilder/lib/updateSchemaField');
 

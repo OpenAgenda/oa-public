@@ -1,11 +1,9 @@
-const _ = require('lodash');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import getValidatorFromField from './getValidatorFromField.js';
+import isObject from './isObject.js';
 
-const schema = require('@openagenda/validators/schema');
-
-const getValidatorFromField = require('./getValidatorFromField');
-const isObject = require('./isObject');
-
-module.exports = (fields, accessType = null, al = null, options = {}) => {
+export default (fields, accessType = null, al = null, options = {}) => {
   const params = {
     includeUnspecified: true,
     custom: {},

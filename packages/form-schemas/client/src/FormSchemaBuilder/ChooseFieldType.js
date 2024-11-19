@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
-import isInteger from '@openagenda/utils/isInteger';
+import isInteger from '@openagenda/utils/isInteger.js';
 
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
-import FormSchemaComponent from '..';
-import labels from './lib/labels';
+import FormSchemaComponent from '../index.js';
+import labels from './lib/labels.js';
 
 const getLabel = makeLabelGetter(labels);
 

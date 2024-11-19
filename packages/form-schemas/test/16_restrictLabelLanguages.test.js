@@ -1,6 +1,4 @@
-'use strict';
-
-const restrictLabelLanguages = require('../client/src/FormSchemaBuilder/lib/restrictLabelLanguages');
+import restrictLabelLanguages from '../client/src/FormSchemaBuilder/lib/restrictLabelLanguages.js';
 
 describe('16 - unit - restrictLabelLanguages', () => {
   it('restricts labels of field to given set of languages', () => {

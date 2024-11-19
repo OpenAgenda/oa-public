@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import isSameFormItem from './isSameFormItem';
+import isSameFormItem from './isSameFormItem.js';
 
 export default (schema, field) => {
   const matching = _.find(_.get(schema, 'fields', []), (sf) =>

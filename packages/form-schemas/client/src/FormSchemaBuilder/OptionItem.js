@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
-import getPreferredLang from './lib/getPreferredLang';
-import labels from './lib/labels';
-import OptionLabelsForm from './OptionLabelsForm';
+import getPreferredLang from './lib/getPreferredLang.js';
+import labels from './lib/labels.js';
+import OptionLabelsForm from './OptionLabelsForm.js';
 
 const getLabel = makeLabelGetter(labels);
 const portal = typeof document !== 'undefined' ? document.createElement('div') : null;

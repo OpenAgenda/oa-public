@@ -1,6 +1,4 @@
-'use strict';
-
-const flattenLabels = require('../client/src/lib/flatten');
+import flattenLabels from '../client/src/lib/flatten.js';
 // const unflattenLabels = require('../client/src/FormSchemaBuilder/lib/unflattenLabels');
 
 describe('17 - unit - flatten labels', () => {

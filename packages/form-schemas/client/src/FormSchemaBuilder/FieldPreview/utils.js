@@ -1,7 +1,7 @@
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 import { getLocaleValue } from '@openagenda/intl';
 
-import labels from '../lib/labels';
+import labels from '../lib/labels.js';
 
 export const isFieldLinked = (field) => {
   if (field.enableWith || field.optionalWith) {

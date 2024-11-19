@@ -2,9 +2,9 @@ import ih from 'immutability-helper';
 import { Component } from 'react';
 import { fromMarkdownToHTML, fromHTMLToMarkdown } from '@openagenda/md';
 
-import SlateField from './SlateField';
-import HTMLSerializer from './HTMLSerializer';
-import { fromBRToP, fromPToBR } from './breaksAndParagraphs';
+import SlateField from './SlateField.js';
+import HTMLSerializer from './HTMLSerializer.js';
+import { fromBRToP, fromPToBR } from './breaksAndParagraphs.js';
 
 export default class MarkdownField extends Component {
   shouldComponentUpdate(nextProps, _nextState) {

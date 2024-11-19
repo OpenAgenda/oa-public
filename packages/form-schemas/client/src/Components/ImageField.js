@@ -2,10 +2,11 @@ import _ from 'lodash';
 import Dropzone from 'react-dropzone';
 import { Component } from 'react';
 
-import multilingualLabels from '@openagenda/labels/form-schemas/imageUpload';
-import flattenLabels from '@openagenda/labels/flatten';
+import multilingualLabels from '@openagenda/labels/form-schemas/imageUpload.js';
+import flattenLabels from '@openagenda/labels/flatten.js';
 
-import storePaths from '../lib/storePaths';
+import storePaths from '../lib/storePaths.js';
+import extensionsToAccept from '../lib/extensionsToAccept.js';
 
 export default class ImageField extends Component {
   constructor(props) {
@@ -68,7 +69,7 @@ export default class ImageField extends Component {
       <div className="file-upload">
         <Dropzone
           disabled={field.enable === false}
-          accept={`.${extensions.join(',.')}`}
+          accept={extensionsToAccept(extensions)}
           multiple={false}
           name={name}
           onDrop={this.onDrop}

@@ -1,4 +1,4 @@
-import l from './labels';
+import l from './labels.js';
 
 function section({ labelLanguages }) {
   return {

@@ -1,5 +1,5 @@
 import ReactMarkdown from 'react-markdown';
-import labels from '@openagenda/labels/form-schemas';
+import labels from '@openagenda/labels/form-schemas/index.js';
 import { MoreInfo } from '@openagenda/react-shared';
 
 function _target(link) {

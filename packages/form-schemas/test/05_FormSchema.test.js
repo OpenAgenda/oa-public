@@ -1,7 +1,5 @@
-'use strict';
-
-const FormSchema = require('../iso/FormSchema');
-const customValidator = require('../stories/custom/wigglypoof.validator');
+import FormSchema from '../client/src/iso/FormSchema.js';
+import customValidator from '../stories/custom/wigglypoof.validator.js';
 
 describe('form-schemas -05- FormSchema', () => {
   describe('getting started', () => {

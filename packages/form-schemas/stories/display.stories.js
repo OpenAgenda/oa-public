@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
-import DisplaySchemaData from '../client/src/Components/DisplaySchemaData';
-import SimplePageDecorator from './decorators/SimplePage';
+import DisplaySchemaData from '../client/src/Components/DisplaySchemaData.js';
+import SimplePageDecorator from './decorators/SimplePage.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

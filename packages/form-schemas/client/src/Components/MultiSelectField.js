@@ -1,3 +1,3 @@
-import SelectField from './SelectField';
+import SelectField from './SelectField.js';
 
 export default (props) => <SelectField {...props} isMulti />;

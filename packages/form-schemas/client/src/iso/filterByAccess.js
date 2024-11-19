@@ -1,4 +1,4 @@
-module.exports = function filterByAccess(formSchema, access) {
+export default function filterByAccess(formSchema, access) {
   if (!formSchema) {
     return formSchema;
   }
@@ -8,4 +8,4 @@ module.exports = function filterByAccess(formSchema, access) {
   );
 
   return formSchema;
-};
+}

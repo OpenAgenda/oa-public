@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   radio: 'choice.unique',
   checkbox: 'choice',
   select: 'choice.unique',

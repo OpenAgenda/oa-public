@@ -4,8 +4,8 @@ import languages from 'languages';
 import { Component } from 'react';
 import Select from 'react-select';
 
-import flattenLabels from '@openagenda/labels/flatten';
-import languageLabels from '@openagenda/labels/event/form';
+import flattenLabels from '@openagenda/labels/flatten.js';
+import languageLabels from '@openagenda/labels/event/form.js';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
 
 const languageCodesAndLabels = languages

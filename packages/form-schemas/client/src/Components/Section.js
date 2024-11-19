@@ -1,4 +1,4 @@
-import flattenSectionLabels from '../lib/flatten';
+import flattenSectionLabels from '../lib/flatten.js';
 
 export default function Section(props) {
   const { lang, section } = props;

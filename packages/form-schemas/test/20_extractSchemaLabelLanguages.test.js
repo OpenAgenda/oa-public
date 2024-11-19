@@ -1,6 +1,4 @@
-'use strict';
-
-const extractSchemaLabelLanguages = require('../client/src/FormSchemaBuilder/lib/extractSchemaLabelLanguages');
+import extractSchemaLabelLanguages from '../client/src/FormSchemaBuilder/lib/extractSchemaLabelLanguages.js';
 
 describe('unit - extractSchemaLabelLanguages', () => {
   it('ignores empty labels', () => {

@@ -1,10 +1,10 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 const labelFields = ['label', 'info', 'sub', 'help', 'placeholder'];
 
 const isMultilingual = (field, labelKey) => _.isObject(field[labelKey]);
 
-module.exports = function areFieldLabelsMultilingual(field) {
+export default function areFieldLabelsMultilingual(field) {
   const definedLabelFields = labelFields.filter((f) => _.get(field, f));
 
   if (
@@ -21,4 +21,4 @@ module.exports = function areFieldLabelsMultilingual(field) {
   }
 
   return false;
-};
+}

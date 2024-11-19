@@ -12,4 +12,4 @@ const dispatchDataPerSchemas = (data, schemas) => {
   return dispatchedValues;
 };
 
-module.exports = dispatchDataPerSchemas;
+export default dispatchDataPerSchemas;

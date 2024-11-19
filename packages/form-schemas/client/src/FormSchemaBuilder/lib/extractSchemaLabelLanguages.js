@@ -1,13 +1,12 @@
+import isObject from '../../iso/isObject.js';
+
 const labelKeys = ['label', 'info', 'placeholder', 'sub'];
 
 function amendWithFieldLanguages(field, existingLanguages = []) {
   let updatedLanguages = labelKeys.reduce(
     (languages, key) =>
       languages.concat(
-        (field[key] && field[key] instanceof Object
-          ? Object.keys(field[key])
-          : []
-        )
+        (field[key] && isObject(field[key]) ? Object.keys(field[key]) : [])
           .filter((l) => !languages.includes(l))
           .filter((l) => !!(field[key][l] ?? '').length),
       ),

@@ -5,32 +5,32 @@ import { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { unloadWarning } from '@openagenda/react-shared';
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
-import submit from '../lib/submit';
-import merge from '../iso/merge';
-import labels from './lib/labels';
+import submit from '../lib/submit.js';
+import merge from '../iso/merge.js';
+import labels from './lib/labels.js';
 
-import isOwnField from './lib/isOwnField';
-import draggableStyles from './lib/draggableStyles';
+import isOwnField from './lib/isOwnField.js';
+import draggableStyles from './lib/draggableStyles.js';
 
-import extractSchemaInfo from './lib/extractSchemaInfo';
-import insertMissingAbstractFields from './lib/insertMissingAbstractFields';
-import reorderSchemaFields from './lib/reorderSchemaFields';
-import saveStates from './lib/saveStates';
-import updateSchemaField from './lib/updateSchemaField';
-import addSchemaField from './lib/addSchemaField';
-import removeSchemaField from './lib/removeSchemaField';
-import restrictLabelLanguages from './lib/restrictLabelLanguages';
-import extractSchemaLabelLanguages from './lib/extractSchemaLabelLanguages';
-import monolingualizeSchema from './lib/monolingualizeSchema';
-import getFormItemSlug from './lib/getFormItemSlug';
+import extractSchemaInfo from './lib/extractSchemaInfo.js';
+import insertMissingAbstractFields from './lib/insertMissingAbstractFields.js';
+import reorderSchemaFields from './lib/reorderSchemaFields.js';
+import saveStates from './lib/saveStates.js';
+import updateSchemaField from './lib/updateSchemaField.js';
+import addSchemaField from './lib/addSchemaField.js';
+import removeSchemaField from './lib/removeSchemaField.js';
+import restrictLabelLanguages from './lib/restrictLabelLanguages.js';
+import extractSchemaLabelLanguages from './lib/extractSchemaLabelLanguages.js';
+import monolingualizeSchema from './lib/monolingualizeSchema.js';
+import getFormItemSlug from './lib/getFormItemSlug.js';
 
-import FieldPreview from './FieldPreview';
-import LabelLanguages from './LabelLanguages';
-import SaveButton from './SaveButton';
-import FieldAdd from './FieldAdd';
-import FieldEdit from './FieldEdit';
+import FieldPreview from './FieldPreview/index.js';
+import LabelLanguages from './LabelLanguages.js';
+import SaveButton from './SaveButton.js';
+import FieldAdd from './FieldAdd.js';
+import FieldEdit from './FieldEdit.js';
 
 const modes = {
   DEFAULT: 0,

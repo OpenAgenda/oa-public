@@ -1,4 +1,4 @@
-import extractSchemaLabelLanguages from './extractSchemaLabelLanguages';
+import extractSchemaLabelLanguages from './extractSchemaLabelLanguages.js';
 
 const labelKeys = ['label', 'info', 'placeholder', 'sub'];
 

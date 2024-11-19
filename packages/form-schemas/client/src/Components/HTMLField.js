@@ -1,7 +1,7 @@
 import ih from 'immutability-helper';
 import { Component } from 'react';
-import SlateField from './SlateField';
-import HTMLSerializer from './HTMLSerializer';
+import SlateField from './SlateField.js';
+import HTMLSerializer from './HTMLSerializer.js';
 
 export default class HTMLField extends Component {
   shouldComponentUpdate(nextProps) {

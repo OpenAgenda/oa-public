@@ -1,16 +1,15 @@
-const _ = require('lodash');
-
-const schema = require('@openagenda/validators/schema');
-const choice = require('@openagenda/validators/choice');
-const text = require('@openagenda/validators/text');
-const boolean = require('@openagenda/validators/boolean');
-const link = require('@openagenda/validators/link');
-const email = require('@openagenda/validators/email');
-const number = require('@openagenda/validators/number');
-const date = require('@openagenda/validators/date');
-const multilingual = require('@openagenda/validators/multilingual');
-const integer = require('@openagenda/validators/integer');
-const phone = require('@openagenda/validators/phone');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import choice from '@openagenda/validators/choice.js';
+import text from '@openagenda/validators/text.js';
+import boolean from '@openagenda/validators/boolean.js';
+import link from '@openagenda/validators/link.js';
+import email from '@openagenda/validators/email.js';
+import number from '@openagenda/validators/number.js';
+import date from '@openagenda/validators/date.js';
+import multilingual from '@openagenda/validators/multilingual.js';
+import integer from '@openagenda/validators/integer.js';
+import phone from '@openagenda/validators/phone.js';
 
 schema.register({
   choice,
@@ -105,7 +104,7 @@ const map = [
   },
 ];
 
-module.exports = (field, options = {}) => {
+export default (field, options = {}) => {
   const customValidators = _.get(options, 'custom', {});
 
   const draft = _.get(options, 'draft', false);

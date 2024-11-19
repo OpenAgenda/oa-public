@@ -1,6 +1,6 @@
-import FormSchemaComponent from '../client/src/index';
-import SimpleRowDecorator from './decorators/SimpleRow';
-import SimpleColumnDecorator from './decorators/SimpleColumn';
+import FormSchemaComponent from '../client/src/index.js';
+import SimpleRowDecorator from './decorators/SimpleRow.js';
+import SimpleColumnDecorator from './decorators/SimpleColumn.js';
 
 export default {
   title: 'Fields/Checkboxes',

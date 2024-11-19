@@ -3,11 +3,11 @@ import ih from 'immutability-helper';
 import { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
-import labels from './lib/labels';
-import OptionLabelsForm from './OptionLabelsForm';
-import OptionItem from './OptionItem';
+import labels from './lib/labels.js';
+import OptionLabelsForm from './OptionLabelsForm.js';
+import OptionItem from './OptionItem.js';
 
 const getLabel = makeLabelGetter(labels);
 

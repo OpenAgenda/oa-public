@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import classNames from 'classnames';
-import isArray from 'lodash/isArray';
-import isObject from 'lodash/isObject';
+import isArray from 'lodash/isArray.js';
+import isObject from 'lodash/isObject.js';
 
 export default class FieldCounter extends Component {
   remaining() {

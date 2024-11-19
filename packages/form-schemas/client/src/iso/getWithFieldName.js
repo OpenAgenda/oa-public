@@ -1,4 +1,4 @@
-module.exports = (withParams) => {
+export default (withParams) => {
   if (!withParams) return;
   return typeof withParams === 'string' ? withParams : withParams.field;
 };

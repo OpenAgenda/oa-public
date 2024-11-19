@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import ih from 'immutability-helper';
-import '@openagenda/bs-templates/compiled/main.css';
-
 import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { locales } from '@openagenda/react-shared';
+import simplestSchema from '../dev/schemas/simplest.js';
+import FormSchemaComponent from '../client/src/index.js';
+import SimplePageDecorator from './decorators/SimpleTransparentPage.js';
 
-import { schema as simplest } from '../dev/schemas/simplest';
-import FormSchemaComponent from '../client/src/index';
-import SimplePageDecorator from './decorators/SimpleTransparentPage';
+import '@openagenda/bs-templates/compiled/main.css';
+
+const { schema: simplest } = simplestSchema;
 
 export default {
   title: 'Getting started',

@@ -1,6 +1,4 @@
-'use strict';
-
-const reorderSchemaFields = require('../client/src/FormSchemaBuilder/lib/reorderSchemaFields');
+import reorderSchemaFields from '../client/src/FormSchemaBuilder/lib/reorderSchemaFields.js';
 
 describe('unit - reordering schema fields', () => {
   const schema = {

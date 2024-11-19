@@ -1,8 +1,4 @@
-'use strict';
-
-const fpUtils = require('../client/src/FormSchemaBuilder/FieldPreview/utils');
-
-const { isAccessUndefined } = fpUtils;
+import { isAccessUndefined } from '../client/src/FormSchemaBuilder/FieldPreview/utils.js';
 
 describe('FieldPreview utils', () => {
   describe('isAccessUndefined', () => {

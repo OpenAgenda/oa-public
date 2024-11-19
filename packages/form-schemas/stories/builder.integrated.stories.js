@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { useState } from 'react';
-import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
-import SimpleRowDecorator from './decorators/SimpleRow';
+import FormSchemaBuilder from '../client/src/FormSchemaBuilder/index.js';
+import SimpleRowDecorator from './decorators/SimpleRow.js';
 import eventLikeSchema from './fixtures/eventLikeSchema.json';
 import schemaWithCategories from './fixtures/schemaWithCategories.json';
 import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas.json';

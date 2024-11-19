@@ -1,8 +1,8 @@
-const textValidator = require('@openagenda/validators/text');
-const choice = require('@openagenda/validators/choice');
-const schema = require('@openagenda/validators/schema');
-const multilingualValidator = require('@openagenda/validators/multilingual');
-const areLabelsMultilingual = require('./areLabelsMultilingual');
+import textValidator from '@openagenda/validators/text.js';
+import choice from '@openagenda/validators/choice.js';
+import schema from '@openagenda/validators/schema/index.js';
+import multilingualValidator from '@openagenda/validators/multilingual.js';
+import areLabelsMultilingual from './areLabelsMultilingual.js';
 
 schema.register({
   text: textValidator,
@@ -10,7 +10,7 @@ schema.register({
   choice,
 });
 
-module.exports = function validateSection(s) {
+export default function validateSection(s) {
   const validate = schema({
     label: {
       type: areLabelsMultilingual(s) ? 'multilingual' : 'text',
@@ -33,4 +33,4 @@ module.exports = function validateSection(s) {
   });
 
   return validate(s);
-};
+}

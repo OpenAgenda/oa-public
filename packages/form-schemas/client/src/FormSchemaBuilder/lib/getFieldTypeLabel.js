@@ -1,6 +1,6 @@
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
-import labels from './labels';
+import labels from './labels.js';
 
 const getLabel = makeLabelGetter(labels);
 

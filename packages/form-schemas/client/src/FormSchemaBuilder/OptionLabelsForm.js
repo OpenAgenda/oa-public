@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import { Component } from 'react';
 
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
-import FormSchemaComponent from '..';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
+import FormSchemaComponent from '../index.js';
 
-import slugFromLabel from './lib/slugFromLabel';
-import labels from './lib/labels';
+import slugFromLabel from './lib/slugFromLabel.js';
+import labels from './lib/labels.js';
 
 const focusOnFirstInput = () => {
   try {

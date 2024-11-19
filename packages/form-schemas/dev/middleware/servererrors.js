@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   if (req.method === 'GET') return next();
 
   setTimeout(

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   nextOptionId: 5,
   custom: null,
   defaultLabelLanguage: null,

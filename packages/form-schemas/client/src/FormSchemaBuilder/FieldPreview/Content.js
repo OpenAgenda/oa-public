@@ -1,4 +1,4 @@
-import getFieldTypeLabel from '../lib/getFieldTypeLabel';
+import getFieldTypeLabel from '../lib/getFieldTypeLabel.js';
 
 import {
   isFieldLinked,
@@ -12,12 +12,12 @@ import {
   allowItemDisplayToggle,
   isAccessUndefined,
   getFieldAccess,
-} from './utils';
+} from './utils.js';
 
 import {
   getSummary as getLinkedFieldSummaryLabel,
   getDetailed as getLinkedFieldDetailedLabel,
-} from './linkedFieldLabels';
+} from './linkedFieldLabels.js';
 
 function renderToggleRemove(props) {
   const { isDisabled, onRemove, lang, field, isOwn } = props;

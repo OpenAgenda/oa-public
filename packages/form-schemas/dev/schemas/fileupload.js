@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   fileKey: 'uniquefilekey123',
   values: {
     somefile: {
