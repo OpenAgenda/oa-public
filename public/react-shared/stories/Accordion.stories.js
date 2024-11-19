@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import Accordion from '../src/components/Accordion';
+import Accordion from '../src/components/Accordion.js';
 
 export default {
   title: 'Accordion',

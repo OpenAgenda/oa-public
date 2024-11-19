@@ -3,10 +3,10 @@ import '@openagenda/bs-templates/compiled/main.css';
 
 import { Form, Field } from 'react-final-form';
 
-import ReactSelectInput from '../src/components/ReactSelectInput';
-import ReactSelectField from '../src/components/ReactSelectField';
-import Modal from '../src/components/Modal';
-import AdminCanvas from './decorators/AdminCanvas';
+import ReactSelectInput from '../src/components/ReactSelectInput.js';
+import ReactSelectField from '../src/components/ReactSelectField.js';
+import Modal from '../src/components/Modal.js';
+import AdminCanvas from './decorators/AdminCanvas.js';
 
 export default {
   title: 'SelectInput',

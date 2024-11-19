@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { http, HttpResponse, delay } from 'msw';
-import AuthenticateAndConfirmComponent from '../src/components/AuthenticateAndConfirm';
+import AuthenticateAndConfirmComponent from '../src/components/AuthenticateAndConfirm.js';
 
-import SmallCanvasDecorator from './decorators/SmallCanvas';
+import SmallCanvasDecorator from './decorators/SmallCanvas.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

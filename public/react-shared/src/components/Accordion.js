@@ -1,5 +1,5 @@
-import AccordionHead from './AccordionHead';
-import AccordionContent from './AccordionContent';
+import AccordionHead from './AccordionHead.js';
+import AccordionContent from './AccordionContent.js';
 
 const Accordion = ({ active, onToggle, head, content }) => (
   <div className="accordion">

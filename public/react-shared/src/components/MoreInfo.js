@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip';
+import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip.js';
 
 const Icon = forwardRef(function Icon({ link, className, style }, ref) {
   const iconStyle = {

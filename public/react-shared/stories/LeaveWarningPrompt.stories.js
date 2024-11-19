@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
-import LeaveWarningPrompt from '../src/components/LeaveWarningPrompt';
-import SimpleCanvas from './decorators/SimpleCanvas';
-import IntlProvider from './decorators/IntlProvider';
+import LeaveWarningPrompt from '../src/components/LeaveWarningPrompt.js';
+import SimpleCanvas from './decorators/SimpleCanvas.js';
+import IntlProvider from './decorators/IntlProvider.js';
 
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';

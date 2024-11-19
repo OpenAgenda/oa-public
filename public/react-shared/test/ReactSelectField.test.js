@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import { Form, Field } from 'react-final-form';
-import ReactSelectField from '../src/components/ReactSelectField';
+import ReactSelectField from '../src/components/ReactSelectField.js';
 
 describe('ReactSelectField', () => {
   it('correctly select option with categories', async () => {

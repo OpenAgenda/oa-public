@@ -1,9 +1,8 @@
 {
   "name": "@openagenda/react-shared",
   "version": "2.4.1",
-  "main": "lib/index.js",
-  "jsnext:main": "esm/index.js",
-  "module": "esm/index.js",
+  "type": "module",
+  "main": "dist/index.js",
   "sideEffects": [
     "*.css",
     "*.scss"
@@ -18,21 +17,19 @@
     "access": "public"
   },
   "files": [
-    "lib",
-    "esm",
+    "dist",
     "css",
     "scss"
   ],
   "scripts": {
     "start": "storybook dev -p 9001 --ci",
     "sb": "yarn start",
-    "prepack": "yarn clean && yarn oa-intl compile && yarn build",
-    "build": "yarn build:esm && yarn build:cjs && yarn build:scss",
-    "build:esm": "babel --copy-files src -d esm -s --env-name esm",
-    "build:cjs": "babel --copy-files src -d lib -s",
+    "prepack": "yarn clean && oa-intl compile --esm && yarn build",
+    "build": "yarn build:esm && yarn build:scss",
+    "build:esm": "babel --copy-files src -d dist -s --env-name esm --root-mode upward",
     "build:scss": "sass scss:css",
-    "extract-messages": "yarn oa-intl",
-    "clean": "rimraf esm lib css",
+    "extract-messages": "oa-intl --esm",
+    "clean": "rimraf dist css",
     "test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
@@ -54,7 +51,7 @@
     "qs": "^6.9.1",
     "react-cookie-consent": "^7.2.1",
     "react-date-range": "^1.4.0",
-    "react-dropzone": "^11.2.0",
+    "react-dropzone": "patch:react-dropzone@npm%3A14.3.5#../.yarn/patches/react-dropzone-npm-14.3.5-1dc0066433.patch",
     "react-intl": "^6.8.4",
     "react-markdown": "^6.0.0",
     "react-redux": "^7.1.3",
@@ -90,7 +87,7 @@
     "react-final-form": "^6.5.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "react-select": "^3.1.0",
+    "react-select": "^5.8.3",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
     "sass": "^1.69.5",
@@ -101,7 +98,7 @@
     "react": "^18.2.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
-    "react-select": "^3.0.0",
+    "react-select": "^5.8.3",
     "redux": "^4.0.5"
   },
   "peerDependenciesMeta": {
