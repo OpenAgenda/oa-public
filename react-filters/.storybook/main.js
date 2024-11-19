@@ -1,5 +1,5 @@
 import { dirname, join, resolve } from 'node:path';
-import sass from 'sass';
+import * as sass from 'sass';
 
 function getAbsolutePath(value) {
   return dirname(require.resolve(join(value, 'package.json')));
