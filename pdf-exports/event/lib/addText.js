@@ -1,0 +1,57 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const regularFontPath = `${__dirname}/../../fonts/Assistant-Regular.ttf`;
+const mediumFontPath = `${__dirname}/../../fonts/Assistant-Medium.ttf`;
+const boldFontPath = `${__dirname}/../../fonts/Assistant-Bold.ttf`;
+
+export default function addText(doc, cursor, options = {}) {
+  const {
+    content,
+    fontSize,
+    color,
+    base = {
+      color: '#413a42',
+      fontSize: 12,
+    },
+    width,
+    underline,
+    link,
+    align,
+    simulate = false,
+    bold = false,
+    medium = false,
+    debug = false,
+  } = options;
+
+  let selectedFont;
+  if (bold) {
+    selectedFont = boldFontPath;
+  } else if (medium) {
+    selectedFont = mediumFontPath;
+  } else {
+    selectedFont = regularFontPath;
+  }
+
+  doc.font(selectedFont).fontSize(fontSize ?? base.fontSize);
+
+  if (debug) {
+    console.log(`add text "${content}" at ${cursor.x}:${cursor.y}${simulate ? ' (simulate)' : ''}`);
+  }
+
+  if (!simulate) {
+    doc
+      .fillColor(color ?? base.color)
+      .font(selectedFont)
+      .fontSize(fontSize ?? base.fontSize)
+      .text(content, cursor.x, cursor.y, { width, underline, link, align });
+  }
+
+  return {
+    width: doc.widthOfString(content),
+    height: doc.heightOfString(content, { width }),
+  };
+}
