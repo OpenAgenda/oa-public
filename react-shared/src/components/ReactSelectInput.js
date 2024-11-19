@@ -2,7 +2,7 @@ import { useMemo, useCallback } from 'react';
 import ReactSelect, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
-import defaultStyles from '../utils/defaultSelectStyles';
+import defaultStyles from '../utils/defaultSelectStyles.js';
 
 function Option({ innerProps, ...props }) {
   const onClick = (e) => {

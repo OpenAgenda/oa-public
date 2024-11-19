@@ -1,9 +1,9 @@
 import { useCallback, useState, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import nl2br from '../utils/nl2br';
-import Spinner from './Spinner';
-import temporarySessionStorage from './lib/temporarySessionStorage';
+import nl2br from '../utils/nl2br.js';
+import Spinner from './Spinner.js';
+import temporarySessionStorage from './lib/temporarySessionStorage.js';
 
 const messages = defineMessages({
   password: {

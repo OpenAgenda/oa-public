@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   setupFilesAfterEnv: ['<rootDir>/test/setup.js'],
 
   testEnvironment: 'jsdom',

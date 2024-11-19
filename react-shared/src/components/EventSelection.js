@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { defineMessages, useIntl } from 'react-intl';
 
-import Pager from './Pager';
-import Spinner from './Spinner';
+import Pager from './Pager.js';
+import Spinner from './Spinner.js';
 
 const PAGE_SIZE = 20;
 

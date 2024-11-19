@@ -3,11 +3,11 @@ import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { ApiClientContext } from '../contexts';
-import createApiClient from './apiClient';
-import createStore from './createStore';
-import clientMiddleware from './clientMiddleware';
-import makeTriggerHooks from './makeTriggerHooks';
+import { ApiClientContext } from '../contexts/index.js';
+import createApiClient from './apiClient.js';
+import createStore from './createStore.js';
+import clientMiddleware from './clientMiddleware.js';
+import makeTriggerHooks from './makeTriggerHooks.js';
 
 function getDefaultHistory(req) {
   return req

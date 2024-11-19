@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import '@openagenda/bs-templates/compiled/main.css';
 import { IntlProvider } from 'react-intl';
 
-import ConsentBanner from '../src/components/ConsentBanner';
-import locales from '../src/locales-compiled';
-import AdminCanvas from './decorators/AdminCanvas';
+import ConsentBanner from '../src/components/ConsentBanner.js';
+import * as locales from '../src/locales-compiled/index.js';
+import AdminCanvas from './decorators/AdminCanvas.js';
+
+import '@openagenda/bs-templates/compiled/main.css';
 
 const CustomContent = () => <p>Tu veux un cookie?</p>;
 

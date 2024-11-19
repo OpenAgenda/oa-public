@@ -1,8 +1,7 @@
-import { css } from '@emotion/react';
 import { useIntl } from 'react-intl';
 import cn from 'classnames';
 import messages from '@openagenda/common-labels/event/states';
-import MoreInfo from './MoreInfo';
+import MoreInfo from './MoreInfo.js';
 
 const states = [
   {
@@ -38,12 +37,12 @@ export default function EventState({ value, displayLabel = true }) {
       <MoreInfo content={intl.formatMessage(messages[slug])}>
         <span
           className={cn('badge', badge, { 'margin-right-xs': displayLabel })}
-          css={css`
-            height: 19px;
-            width: 19px;
-            vertical-align: baseline;
-            cursor: pointer;
-          `}
+          style={{
+            height: '19px',
+            width: '19px',
+            verticalAlign: 'baseline',
+            cursor: 'pointer',
+          }}
         >
           &nbsp;
         </span>

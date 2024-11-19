@@ -1,5 +1,5 @@
-import Dropdown from '../src/components/Dropdown';
-import SimpleCanvas from './decorators/SimpleCanvas';
+import Dropdown from '../src/components/Dropdown.js';
+import SimpleCanvas from './decorators/SimpleCanvas.js';
 
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';

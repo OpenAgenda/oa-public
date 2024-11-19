@@ -1,8 +1,8 @@
 import { http, HttpResponse } from 'msw';
 
-import EventSelection from '../src/components/EventSelection';
-import SimpleCanvas from './decorators/SimpleCanvas';
-import IntlProvider from './decorators/IntlProvider';
+import EventSelection from '../src/components/EventSelection.js';
+import SimpleCanvas from './decorators/SimpleCanvas.js';
+import IntlProvider from './decorators/IntlProvider.js';
 
 import eventsResponse from './fixtures/events.response.json';
 import manyEventsResponse from './fixtures/manyEvents.response.json';

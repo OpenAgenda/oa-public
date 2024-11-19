@@ -1,8 +1,8 @@
 import { Router, StaticRouter } from 'react-router-dom';
 import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED as LoadableSecret } from '@loadable/component';
-import { LayoutDataContext } from '../contexts';
-import RouterTrigger from './RouterTrigger';
-import ScrollToTop from './ScrollToTop';
+import { LayoutDataContext } from '../contexts/index.js';
+import RouterTrigger from './RouterTrigger.js';
+import ScrollToTop from './ScrollToTop.js';
 
 const { Context: LoadableContext } = LoadableSecret;
 

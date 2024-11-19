@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown';
-import MoreInfo from '../src/components/MoreInfo';
-import AdminCanvas from './decorators/AdminCanvas';
+import MoreInfo from '../src/components/MoreInfo.js';
+import AdminCanvas from './decorators/AdminCanvas.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

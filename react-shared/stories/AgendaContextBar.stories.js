@@ -1,9 +1,9 @@
 import { http, HttpResponse } from 'msw';
 
-import AgendaContextBar from '../src/components/AgendaContextBar';
-import AgendaAdminModContextBar from '../src/components/AgendaAdminModContextBar';
-import SimpleCanvas from './decorators/SimpleCanvas';
-import IntlProvider from './decorators/IntlProvider';
+import AgendaContextBar from '../src/components/AgendaContextBar.js';
+import AgendaAdminModContextBar from '../src/components/AgendaAdminModContextBar.js';
+import SimpleCanvas from './decorators/SimpleCanvas.js';
+import IntlProvider from './decorators/IntlProvider.js';
 
 import eventsResponse from './fixtures/events.response.json';
 import manyEventsResponse from './fixtures/manyEvents.response.json';

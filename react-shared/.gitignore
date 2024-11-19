@@ -8,6 +8,5 @@ coverage/
 .cache/
 
 /css/
-/lib/
-/esm/
+/dist/
 /src/locales-compiled/

@@ -1,5 +1,5 @@
-export * from './components';
-export * from './contexts';
-export * from './hooks';
-export * from './utils';
-export { default as locales } from './locales-compiled';
+export * from './components/index.js';
+export * from './contexts/index.js';
+export * from './hooks/index.js';
+export * from './utils/index.js';
+export * as locales from './locales-compiled/index.js';

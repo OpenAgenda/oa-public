@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { fromMarkdownToHTML } from '@openagenda/md';
 import turndown from 'turndown';
-import uniqueLoad from './lib/uniqueLoad';
-import cleanString from './lib/cleanString';
+import uniqueLoad from './lib/uniqueLoad.js';
+import cleanString from './lib/cleanString.js';
 
 const TurndownService = turndown.default || turndown;
 const ts = new TurndownService();

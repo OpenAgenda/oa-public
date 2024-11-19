@@ -1,5 +1,5 @@
 import redial from 'redial';
-import asyncMatchRoutes from './asyncMatchRoutes';
+import asyncMatchRoutes from './asyncMatchRoutes.js';
 
 function haveHooks(hooks, components) {
   return hooks.some((hook) =>

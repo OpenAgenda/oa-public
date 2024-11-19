@@ -15,4 +15,7 @@ export default {
     getAbsolutePath('@storybook/preset-scss'),
   ],
   staticDirs: ['./public'],
+  babel: (config) => {
+    return { ...config, rootMode: 'upward' };
+  },
 };
