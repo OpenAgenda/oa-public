@@ -4,7 +4,7 @@ import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { renderRoutes } from 'react-router-config';
-import * as locales from '../locales-compiled/index.js';
+import * as locales from '../locales-compiled/index.mjs';
 
 function App({ route }) {
   const queryClient = useConstant(() => new QueryClient({
