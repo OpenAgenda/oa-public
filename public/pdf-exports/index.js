@@ -1,7 +1,9 @@
-import GenerateExportStream from './lib/GenerateExportStream.js';
+import agenda from './agenda/index.js';
+import event from './event/index.js';
 
 export default function PDFExports(config) {
   return {
-    GenerateExportStream: GenerateExportStream.bind(null, config),
+    agenda: agenda(config),
+    event: event(config),
   };
 }

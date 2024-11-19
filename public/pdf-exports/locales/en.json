@@ -1,4 +1,13 @@
 {
+  "pdf-exports.aboutLocation": "About the location",
+  "pdf-exports.access": "Access",
+  "pdf-exports.additionalLinks": "Additional links",
+  "pdf-exports.conditions": "Conditions",
+  "pdf-exports.location": "Location",
+  "pdf-exports.online": "Online",
   "pdf-exports.page": "Page",
-  "pdf-exports.registration": "Registration"
+  "pdf-exports.registration": "Registration",
+  "pdf-exports.registrationTool": "Registration tool",
+  "pdf-exports.status": "Status",
+  "pdf-exports.tags": "Tags"
 }

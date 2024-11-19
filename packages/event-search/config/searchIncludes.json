@@ -48,7 +48,8 @@
     "state",
     "motive",
     "member",
-    "links"
+    "links",
+    "extIds"
   ],
   "other": [
     "location.uid",

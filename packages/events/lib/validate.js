@@ -11,6 +11,7 @@ import description from '../iso/validators/description.js';
 import timezone from '../iso/validators/timezone.js';
 import age from '../iso/validators/age.js';
 import keywords from '../iso/validators/keywords.js';
+import extIds from '../iso/validators/extIds.js';
 import fields from './fields.js';
 import compileForValidation from './compileForValidation.js';
 import ValidationError from './ValidationError.js';
@@ -28,6 +29,7 @@ const eventCustomValidators = {
   timezone,
   longDescription,
   description,
+  extIds,
 };
 
 const publicFields = fields.filter((f) => (f.write || []).includes('public'));

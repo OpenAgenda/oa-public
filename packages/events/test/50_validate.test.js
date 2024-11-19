@@ -211,6 +211,21 @@ describe('validate', () => {
         'locationUid',
       ]);
     });
+
+    it('validate extIds', async () => {
+      const extIds = [
+        { key: 'extId1', value: '123' },
+        { key: 'extId2', value: '456' },
+      ];
+      const clean = await validate(
+        {
+          extIds,
+        },
+        { isDraft: true },
+      );
+
+      expect(clean.extIds).toEqual(extIds);
+    });
   });
 
   describe('registration', () => {
