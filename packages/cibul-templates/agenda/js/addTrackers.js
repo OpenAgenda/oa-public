@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Cookies } from 'react-cookie-consent';
 
-import ConsentBanner from '@openagenda/react-shared/src/components/ConsentBanner';
-import sharedLocales from '@openagenda/react-shared/lib/locales-compiled';
+import { ConsentBanner, locales as sharedLocales } from '@openagenda/react-shared';
 import { IntlProvider } from 'react-intl';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import appLocales from '../../locales-compiled';
