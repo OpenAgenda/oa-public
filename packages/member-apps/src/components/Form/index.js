@@ -4,8 +4,7 @@ import { useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug.js';
 import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.js';
-import Spinner from '@openagenda/react-shared/lib/components/Spinner.js';
-import Modal from '@openagenda/react-shared/lib/components/Modal.js';
+import { Spinner, Modal } from '@openagenda/react-shared';
 import hardSchema from '@openagenda/members/build/schema.js';
 import { fromMarkdownToHTML } from '@openagenda/md';
 
