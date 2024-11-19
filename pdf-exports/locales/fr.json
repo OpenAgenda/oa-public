@@ -1,4 +1,13 @@
 {
+  "pdf-exports.aboutLocation": "À propos du lieu",
+  "pdf-exports.access": "Accès",
+  "pdf-exports.additionalLinks": "Liens additionnels",
+  "pdf-exports.conditions": "Conditions",
+  "pdf-exports.location": "Lieu",
+  "pdf-exports.online": "En ligne",
   "pdf-exports.page": "Page",
-  "pdf-exports.registration": "Réservation"
+  "pdf-exports.registration": "Réservation",
+  "pdf-exports.registrationTool": "Outil d'inscription",
+  "pdf-exports.status": "État",
+  "pdf-exports.tags": "Tags"
 }
