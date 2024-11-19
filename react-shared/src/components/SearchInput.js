@@ -1,5 +1,5 @@
-import Spinner from './Spinner';
-import FieldInput from './FieldInput';
+import Spinner from './Spinner.js';
+import FieldInput from './FieldInput.js';
 
 const searchSpinner = {
   width: 1,

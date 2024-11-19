@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import hoistNonReactStatics from 'hoist-non-react-statics';
-import { LayoutDataContext } from '../contexts';
+import { LayoutDataContext } from '../contexts/index.js';
 
 function getDisplayName(Component) {
   return Component.displayName || Component.name || 'Component';

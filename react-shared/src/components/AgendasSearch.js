@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Waypoint } from 'react-waypoint';
-import Spinner from './Spinner';
-import AgendasList from './AgendasList';
-import SearchInput from './SearchInput';
+import Spinner from './Spinner.js';
+import AgendasList from './AgendasList.js';
+import SearchInput from './SearchInput.js';
 
 /* const componentPropTypes = PropTypes.oneOfType([
   PropTypes.element,

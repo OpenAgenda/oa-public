@@ -1,5 +1,5 @@
-import Spinner from '../src/components/Spinner';
-import AdminCanvas from './decorators/AdminCanvas';
+import Spinner from '../src/components/Spinner.js';
+import AdminCanvas from './decorators/AdminCanvas.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

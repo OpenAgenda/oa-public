@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ClickListener from './lib/ClickListener';
+import ClickListener from './lib/ClickListener.js';
 
 const createClickListener = (ref, setState) =>
   ClickListener(ref.current, {

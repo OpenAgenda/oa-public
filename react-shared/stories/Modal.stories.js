@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Modal from '../src/components/Modal';
-import MoreInfo from '../src/components/MoreInfo';
-import AdminCanvas from './decorators/AdminCanvas';
+import Modal from '../src/components/Modal.js';
+import MoreInfo from '../src/components/MoreInfo.js';
+import AdminCanvas from './decorators/AdminCanvas.js';
 
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';

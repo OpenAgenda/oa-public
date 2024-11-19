@@ -1,4 +1,4 @@
-import Case from './Case';
+import Case from './Case.js';
 
 /*
  * <Switch test={someTest}>
@@ -17,4 +17,4 @@ export default function Switch({ test, children }) {
 
 Switch.Case = Case;
 
-export { default as Case } from './Case';
+export { default as Case } from './Case.js';

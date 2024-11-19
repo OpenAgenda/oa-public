@@ -1,5 +1,5 @@
-import EventState from '../src/components/EventState';
-import SmallCanvas from './decorators/SmallCanvas';
+import EventState from '../src/components/EventState.js';
+import SmallCanvas from './decorators/SmallCanvas.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

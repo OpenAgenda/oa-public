@@ -1,4 +1,6 @@
-import loadable from '@loadable/component';
+import loadableModule from '@loadable/component';
+
+const loadable = loadableModule.default || loadableModule;
 
 // Wrapper with a working load method
 export default (fn, options) => {

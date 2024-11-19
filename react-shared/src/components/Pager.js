@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import { css } from '@emotion/react';
 
 export default function Pager({
   page,
@@ -30,9 +29,9 @@ export default function Pager({
         >
           {previousDisabled ? (
             <span
-              css={css`
-                color: lightgray !important;
-              `}
+              style={{
+                color: 'lightgray',
+              }}
             >
               <i className="fa fa-lg fa-angle-left" />
             </span>
@@ -54,9 +53,9 @@ export default function Pager({
         <li title={nextMessage}>
           {nextDisabled ? (
             <span
-              css={css`
-                color: lightgray !important;
-              `}
+              style={{
+                color: 'lightgray',
+              }}
             >
               <i className="fa fa-lg fa-angle-right" />
             </span>

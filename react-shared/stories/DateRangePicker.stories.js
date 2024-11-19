@@ -1,6 +1,6 @@
-import DateRangePicker from '../src/components/DateRangePicker';
-import SimpleCanvas from './decorators/SimpleCanvas';
-import IntlProvider from './decorators/IntlProvider';
+import DateRangePicker from '../src/components/DateRangePicker.js';
+import SimpleCanvas from './decorators/SimpleCanvas.js';
+import IntlProvider from './decorators/IntlProvider.js';
 import Style from './scss/DateRangePicker.scss';
 
 export default {

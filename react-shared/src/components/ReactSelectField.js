@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef } from 'react';
-import ReactSelectInput from './ReactSelectInput';
-import { hasNewValues, appendNewValues } from './lib/selectUtils';
+import ReactSelectInput from './ReactSelectInput.js';
+import { hasNewValues, appendNewValues } from './lib/selectUtils.js';
 
 const getValue = (arg) => arg?.value ?? arg;
 
