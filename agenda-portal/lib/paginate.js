@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 const maxPages = 10;
 
-module.exports = ({ offset, limit, total }) => {
+export default ({ offset, limit, total }) => {
   const current = Math.floor(offset / limit) + 1;
   const totalPages = Math.floor(total / limit) + 1;
 

@@ -1,18 +1,12 @@
-'use strict';
-
-const React = require('react');
-const ReactDOM = require('react-dom/server');
-const _ = require('lodash');
-const {
+import React from 'react';
+import ReactDOM from 'react-dom/server';
+import _ from 'lodash';
+import {
   PortalServer,
   PortalContext,
-} = require('@openagenda/react-portal-ssr/server');
-const {
-  FiltersProvider,
-  FiltersManager,
-} = require('@openagenda/react-filters');
-
-const setPageProp = require('../lib/utils/setPageProp');
+} from '@openagenda/react-portal-ssr/server';
+import { FiltersProvider, FiltersManager } from '@openagenda/react-filters';
+import setPageProp from '../lib/utils/setPageProp.js';
 
 function withProvider(req, res, children) {
   const { intl } = res.locals;
@@ -30,7 +24,7 @@ function withProvider(req, res, children) {
   );
 }
 
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   if (req.query.data !== undefined && process.env.NODE_ENV === 'development') {
     return res.json(_.assign(req.data, req.app.locals));
   }

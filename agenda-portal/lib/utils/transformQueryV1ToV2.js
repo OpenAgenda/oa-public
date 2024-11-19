@@ -1,8 +1,8 @@
-'use strict';
+import moment from 'moment-timezone';
 
-const { tz } = require('moment-timezone');
+const { tz } = moment;
 
-module.exports = (v1, { timezone, slugSchemaOptionIdMap }) => {
+export default (v1, { timezone, slugSchemaOptionIdMap }) => {
   const v2 = {};
   if (!v1) {
     return v2;

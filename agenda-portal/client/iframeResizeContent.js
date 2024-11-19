@@ -1,1 +1,1 @@
-require('iframe-resizer');
+import 'iframe-resizer';

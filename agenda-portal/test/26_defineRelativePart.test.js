@@ -1,8 +1,6 @@
-'use strict';
-
-const defineRelativePart = require('../client/lib/defineRelativePart');
-
-const { appendPreToNav } = defineRelativePart;
+import defineRelativePart, {
+  appendPreToNav,
+} from '../client/lib/defineRelativePart.js';
 
 describe('26 - defineRelativePart', () => {
   test('hash values are loaded in relative part when set', () => {

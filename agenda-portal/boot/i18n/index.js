@@ -1,12 +1,10 @@
-'use strict';
+import fr from './fr.json' with { type: 'json' };
+import en from './en.json' with { type: 'json' };
+import de from './de.json' with { type: 'json' };
+import nl from './nl.json' with { type: 'json' };
+import it from './it.json' with { type: 'json' };
 
-const fr = require('./fr.json');
-const en = require('./en.json');
-const de = require('./de.json');
-const nl = require('./nl.json');
-const it = require('./it.json');
-
-module.exports = {
+export default {
   fr,
   en,
   de,

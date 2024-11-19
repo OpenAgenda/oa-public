@@ -1,11 +1,9 @@
-'use strict';
-
 /* eslint-disable */
 
 const _keyStr =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
-module.exports = {
+export default {
   encode: (input) => {
     let output = '';
     let chr1;
@@ -85,6 +83,7 @@ function _utf8_decode(utftext) {
   let c;
   let c1;
   let c2;
+  let c3;
   i = c = c1 = c2 = 0;
 
   while (i < utftext.length) {

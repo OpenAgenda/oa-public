@@ -1,17 +1,18 @@
-import '@openagenda/polyfills/web';
-import '@openagenda/polyfills/dom';
-import '@openagenda/polyfills/intl';
-import '@openagenda/polyfills/intl-locales';
+import '@openagenda/polyfills/web.js';
+import '@openagenda/polyfills/dom.js';
+import '@openagenda/polyfills/intl.js';
+import '@openagenda/polyfills/intl-locales.js';
 
 import debug from 'debug';
 import qs from 'qs';
 import renderFilters from '@openagenda/react-filters/render';
-import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents';
-import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
-import readPageProps from './lib/readPageProps';
-import updateShare from './lib/updateShare';
-import trackConsent from './lib/trackConsent';
-import addGoogleAnalyticsTracker from './lib/addGoogleAnalyticsTracker';
+import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents.js';
+import setListPageHrefFromContext from './lib/setListPageHrefFromContext.js';
+import readPageProps from './lib/readPageProps.js';
+import updateShare from './lib/updateShare.js';
+import trackConsent from './lib/trackConsent.js';
+import addGoogleAnalyticsTracker from './lib/addGoogleAnalyticsTracker.js';
+import iframeChild from './lib/iframe.child.js';
 
 const log = debug('main');
 
@@ -26,7 +27,7 @@ if (import.meta.webpackHot) {
   import.meta.webpackHot.accept();
 }
 
-const iframeHandler = require('./lib/iframe.child')({
+const iframeHandler = iframeChild({
   onParentNavUpdate: (updatedHref) => {
     window.location.href = updatedHref;
   },

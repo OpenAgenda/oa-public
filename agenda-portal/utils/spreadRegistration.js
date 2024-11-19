@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (registration, options = {}) => {
+export default (registration, options = {}) => {
   const keys = options.keys || {
     email: 'registrationEmails',
     phone: 'registrationPhones',

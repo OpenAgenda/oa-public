@@ -1,13 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import getTimingsSchemaJSONLD from '../timings/getSchemaJSONLD.js';
+import {
+  getValue as getBeginValue,
+  getKey as getBeginKey,
+} from '../timings/begin.js';
 
-const _ = require('lodash');
-const getTimingsSchemaJSONLD = require('../timings/getSchemaJSONLD');
-const {
-  getValue: getBeginValue,
-  getKey: getBeginKey,
-} = require('../timings/begin');
-
-function get(event, { defaultTimezone }) {
+export function get(event, { defaultTimezone }) {
   const firstTiming = _.first(event.timings);
   return getTimingsSchemaJSONLD(
     event,
@@ -19,9 +17,7 @@ function get(event, { defaultTimezone }) {
   );
 }
 
-module.exports = (event, options) => ({
+export default (event, options) => ({
   ...event,
   JSONLD: get(event, options),
 });
-
-module.exports.get = get;

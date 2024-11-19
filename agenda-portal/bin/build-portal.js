@@ -1,18 +1,9 @@
 #!/usr/bin/env node
 
-'use strict';
+import '../utils/loadEnvironment.js';
 
-const path = require('node:path');
-const webpack = require('webpack');
-const loadEnvironment = require('../utils/loadEnvironment');
-
-const envDir = process.env.PORTAL_DEV
-  ? path.join(__dirname, '../boot')
-  : process.cwd();
-
-loadEnvironment(envDir);
-
-const webpackConfig = require('./webpack.inte');
+import webpack from 'webpack';
+import webpackConfig from './webpack.inte.js';
 
 const compiler = webpack(webpackConfig);
 

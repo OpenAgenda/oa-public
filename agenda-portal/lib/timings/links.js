@@ -1,8 +1,6 @@
-'use strict';
+import { getValue as getBeginValue } from './begin.js';
 
-const getBeginValue = require('./begin').getValue;
-
-module.exports = ({ event, req }, timing) => {
+export default ({ event, req }, timing) => {
   const begin = getBeginValue(timing);
   const code = new Date(begin).getTime();
 

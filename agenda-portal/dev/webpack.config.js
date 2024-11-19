@@ -1,13 +1,12 @@
-'use strict';
-
-const fs = require('node:fs');
-const webpack = require('webpack');
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import webpack from 'webpack';
 
 const jsEntryFiles = fs
-  .readdirSync(`${__dirname}/../client`)
+  .readdirSync(`${import.meta.dirname}/../client`)
   .filter((filesAndFolders) => filesAndFolders.split('.').length > 1);
 
-module.exports = {
+export default {
   mode: 'development',
   // context: __dirname,
   entry: jsEntryFiles.reduce(
@@ -31,7 +30,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: require.resolve('babel-loader'),
+          loader: fileURLToPath(import.meta.resolve('babel-loader')),
         },
       },
     ],

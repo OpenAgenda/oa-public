@@ -1,4 +1,4 @@
-const handleIFrame = require('./lib/iframe.parent');
+import handleIFrame from './lib/iframe.parent.js';
 
 const selector = 'data-oa-frame';
 

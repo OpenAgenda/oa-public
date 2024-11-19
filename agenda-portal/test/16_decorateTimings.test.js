@@ -1,7 +1,5 @@
-'use strict';
-
-const moment = require('moment-timezone');
-const decorateTimings = require('../utils/decorateTimings');
+import moment from 'moment-timezone';
+import decorateTimings from '../utils/decorateTimings.js';
 
 describe('16 - utils - decorateTimings', () => {
   beforeAll(() => {

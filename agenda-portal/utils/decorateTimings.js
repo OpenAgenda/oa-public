@@ -1,6 +1,4 @@
-'use strict';
-
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
 
 const decorateTiming = (timing, timezone, formats = []) =>
   formats.reduce(
@@ -14,7 +12,7 @@ const decorateTiming = (timing, timezone, formats = []) =>
     timing,
   );
 
-module.exports = (t, timezone, formats = []) =>
+export default (t, timezone, formats = []) =>
   (t instanceof Array
     ? t.map((timing) => decorateTiming(timing, timezone, formats))
     : decorateTiming(t, timezone, formats));

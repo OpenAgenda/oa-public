@@ -1,6 +1,4 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 function middleware(options, req, res, next) {
   const { mainScript, iframable } = {
@@ -50,6 +48,6 @@ function middleware(options, req, res, next) {
   next();
 }
 
-module.exports = Object.assign(middleware.bind(null, {}), {
+export default Object.assign(middleware.bind(null, {}), {
   withOptions: (options) => middleware.bind(null, options),
 });

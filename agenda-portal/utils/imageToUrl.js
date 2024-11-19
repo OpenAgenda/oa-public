@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function imageToUrl(image, type) {
+export default function imageToUrl(image, type) {
   if (!image) {
     return '';
   }
@@ -10,4 +8,4 @@ module.exports = function imageToUrl(image, type) {
     : image;
 
   return `${image.base}${variant.filename}`;
-};
+}

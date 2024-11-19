@@ -1,12 +1,10 @@
-'use strict';
-
-const I18N = require('../utils/I18N');
+import I18N from '../utils/I18N.js';
 
 describe('labels', () => {
   let i18n;
 
-  beforeAll(() => {
-    i18n = I18N(`${__dirname}/fixtures/labels`);
+  beforeAll(async () => {
+    i18n = await I18N(`${import.meta.dirname}/fixtures/labels`);
   });
 
   it('handlebars helper allows to get translated label', () => {

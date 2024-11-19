@@ -1,5 +1,7 @@
-'use strict';
+export function getKey(timing) {
+  return timing.start ? 'start' : 'begin';
+}
 
-module.exports.getKey = (timing) => (timing.start ? 'start' : 'begin');
-
-module.exports.getValue = (timing) => timing.start || timing.begin;
+export function getValue(timing) {
+  return timing.start || timing.begin;
+}

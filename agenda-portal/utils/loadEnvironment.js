@@ -1,18 +1,17 @@
-'use strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import dotenv from 'dotenv';
 
-const fs = require('node:fs');
-const dotenv = require('dotenv');
+const portalDir = process.env.PORTAL_DEV
+  ? path.join(import.meta.dirname, '../boot') // when developping agenda-portal lib
+  : process.cwd(); // when developping portal using agenda-portal
 
-module.exports = (dir) => {
-  const envFile = `${dir}/.env`;
+const envFile = `${portalDir}/.env`;
 
-  if (process.env.PORTAL_DIR === undefined) {
-    process.env.PORTAL_DIR = dir;
-  }
+if (process.env.PORTAL_DIR === undefined) {
+  process.env.PORTAL_DIR = portalDir;
+}
 
-  if (!fs.existsSync(envFile)) {
-    return;
-  }
-
+if (fs.existsSync(envFile)) {
   dotenv.config({ path: envFile });
-};
+}

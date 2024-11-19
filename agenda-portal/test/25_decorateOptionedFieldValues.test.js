@@ -1,6 +1,4 @@
-'use strict';
-
-const decorateOptionedFieldValues = require('../utils/decorateOptionedFieldValues');
+import decorateOptionedFieldValues from '../utils/decorateOptionedFieldValues.js';
 
 const event = {
   'type-devenement': 11,

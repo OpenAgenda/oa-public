@@ -1,8 +1,6 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('node:fs');
-
-module.exports = (cwd) => {
+export default (cwd) => {
   const fileStr = `${cwd}/package.json`;
   const packageStr = fs.readFileSync(fileStr, 'utf-8');
 

@@ -1,10 +1,8 @@
-'use strict';
-
-const { fromMarkdownToHTML } = require('@openagenda/md');
-const imageToUrl = require('../../utils/imageToUrl');
-const loadFilter = require('./loadFilter');
-const loadCustom = require('./loadCustom');
-const loadWidget = require('./loadWidget');
+import { fromMarkdownToHTML } from '@openagenda/md';
+import imageToUrl from '../../utils/imageToUrl.js';
+import loadFilter from './loadFilter.js';
+import loadCustom from './loadCustom.js';
+import loadWidget from './loadWidget.js';
 
 const fieldSchema = (fieldName, { data }) =>
   data.root.agenda.schema.fields.find((v) => v.field === fieldName);
@@ -25,6 +23,8 @@ function loadHelpers(hbs) {
   };
 }
 
-module.exports = loadHelpers;
+export default loadHelpers;
 
-module.exports.register = (hbs) => hbs.registerHelper(loadHelpers(hbs));
+export function register(hbs) {
+  return hbs.registerHelper(loadHelpers(hbs));
+}

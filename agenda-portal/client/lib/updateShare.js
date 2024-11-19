@@ -2,7 +2,7 @@ import debug from 'debug';
 import copy from 'copy-to-clipboard';
 import qs from 'qs';
 
-import shareCode from './shareCode';
+import shareCode from './shareCode.js';
 
 const log = debug('updateShare');
 

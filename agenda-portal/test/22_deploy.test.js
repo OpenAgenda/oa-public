@@ -1,11 +1,8 @@
-'use strict';
+import fs from 'node:fs';
+import rimraf from 'rimraf';
+import deploy from '../bin/deploy/index.js';
 
-const fs = require('node:fs');
-const rimraf = require('rimraf');
-
-const deploy = require('../bin/deploy');
-
-const cwd = `${__dirname}/deploy`;
+const cwd = `${import.meta.dirname}/deploy`;
 
 describe('22 - deploy script', () => {
   afterAll(() => {
@@ -46,7 +43,7 @@ describe('22 - deploy script', () => {
     expect(
       fs
         .readFileSync(`${cwd}/server.js`, 'utf-8')
-        .indexOf("require('@openagenda/agenda-portal')"),
+        .indexOf("import Portal from '@openagenda/agenda-portal'"),
     ).not.toEqual(-1);
   });
 
@@ -54,7 +51,7 @@ describe('22 - deploy script', () => {
     expect(
       fs
         .readFileSync(`${cwd}/server.js`, 'utf-8')
-        .indexOf("require('@openagenda/agenda-portal/lib/Log')"),
+        .indexOf("import logs from '@openagenda/agenda-portal/lib/Log'"),
     ).not.toEqual(-1);
   });
 
@@ -71,7 +68,7 @@ PORTAL_VIEWS_FOLDER=./views
 PORTAL_SASS_PATH=./sass/main.scss
 PORTAL_JS_PATH=./js/main.js
 PORTAL_ASSETS_FOLDER=./assets
-PORTAL_I18N_FOLDER=./i18n
+PORTAL_I18N_PATH=./i18n/index.js
 PORTAL_USE_AGENDA_GA_ID=1`);
   });
 });

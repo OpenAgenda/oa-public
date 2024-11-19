@@ -1,17 +1,16 @@
-'use strict';
-
-const fs = require('node:fs');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const mode = process.env.NODE_ENV || 'production';
 
 const jsEntryFiles = fs
-  .readdirSync(`${__dirname}/../client`)
+  .readdirSync(`${import.meta.dirname}/../client`)
   .filter((filesAndFolders) => filesAndFolders.split('.').length > 1);
 
-module.exports = {
+export default {
   mode,
-  context: `${__dirname}/../`,
+  context: `${import.meta.dirname}/../`,
   optimization: { minimize: true },
   entry: jsEntryFiles.reduce(
     (entries, filename) => ({
@@ -21,7 +20,7 @@ module.exports = {
     {},
   ),
   output: {
-    path: `${__dirname}/../assets/js`,
+    path: `${import.meta.dirname}/../assets/js`,
     filename: '[name].js',
   },
   plugins: [new CleanWebpackPlugin()],
@@ -31,7 +30,7 @@ module.exports = {
         test: /\.js$/,
         exclude:
           /node_modules\/(?!(@openagenda\/agenda-portal|@openagenda\/react-filters|@openagenda\/react-portal-ssr))/,
-        loader: require.resolve('babel-loader'),
+        loader: fileURLToPath(import.meta.resolve('babel-loader')),
       },
     ],
   },

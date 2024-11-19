@@ -1,9 +1,8 @@
-const debug = require('debug');
-const { iframeResize } = require('iframe-resizer');
+import debug from 'debug';
+import { iframeResize } from 'iframe-resizer';
+import defineRelativePart from './defineRelativePart.js';
 
 const log = debug('iframe.parent');
-
-const defineRelativePart = require('./defineRelativePart');
 
 const { removePreFromRelativePart, appendPreToNav } = defineRelativePart;
 
@@ -101,7 +100,7 @@ function updateIframeOnHashChange(state) {
   );
 }
 
-module.exports = (iframe, options = {}) => {
+export default (iframe, options = {}) => {
   const {
     selector,
     monitorHash,

@@ -1,15 +1,12 @@
-'use strict';
-
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
+import {
+  getKey as getBeginKey,
+  getValue as getBeginValue,
+} from '../timings/begin.js';
 
 const { tz } = moment;
 
-const {
-  getKey: getBeginKey,
-  getValue: getBeginValue,
-} = require('../timings/begin');
-
-module.exports = (timing, timezone = 'Europe/Paris', locale = 'en') =>
+export default (timing, timezone = 'Europe/Paris', locale = 'en') =>
   Object.assign(timing, {
     labels: {
       [getBeginKey(timing)]: {
