@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { defineMessages, useIntl } from 'react-intl';
-import InputComponent from './InputComponent';
+import InputComponent from './InputComponent.js';
 
 const messages = defineMessages({
   tilesInputLabel: {

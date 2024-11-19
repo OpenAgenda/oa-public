@@ -7,7 +7,7 @@ import {
 
 import { useIntl, defineMessages } from 'react-intl';
 
-import CheckboxComponent from './CheckboxComponent';
+import CheckboxComponent from './CheckboxComponent.js';
 import { ReactSelectInput } from '@openagenda/react-shared';
 
 const messages = defineMessages({

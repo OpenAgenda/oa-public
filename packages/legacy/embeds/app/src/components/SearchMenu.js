@@ -1,6 +1,6 @@
 import React from 'react';
-import AdvancedWidgetMenu from './AdvancedWidgetMenu';
-import EmbedCodePresentation from './EmbedCodePresentation';
+import AdvancedWidgetMenu from './AdvancedWidgetMenu.js';
+import EmbedCodePresentation from './EmbedCodePresentation.js';
 
 export default ({
   embed,

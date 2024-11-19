@@ -1,8 +1,8 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import AdvancedWidgetMenu from './AdvancedWidgetMenu';
-import EmbedCodePresentation from './EmbedCodePresentation';
+import AdvancedWidgetMenu from './AdvancedWidgetMenu.js';
+import EmbedCodePresentation from './EmbedCodePresentation.js';
 
 const messages = defineMessages({
   calendarCodeLabel: {

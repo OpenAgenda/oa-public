@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import EmbedCodePresentation from './EmbedCodePresentation';
-import ConfigurationMenuSelector from './ConfigurationMenuSelector';
-import MapPresentation from './LoadableMapPresentation';
-import TilesMapMenu from './TilesMapMenu';
-import PositioningMapMenu from './PositioningMapMenu';
-import AdvancedWidgetMenu from './AdvancedWidgetMenu';
+import EmbedCodePresentation from './EmbedCodePresentation.js';
+import ConfigurationMenuSelector from './ConfigurationMenuSelector.js';
+import MapPresentation from './LoadableMapPresentation.js';
+import TilesMapMenu from './TilesMapMenu.js';
+import PositioningMapMenu from './PositioningMapMenu.js';
+import AdvancedWidgetMenu from './AdvancedWidgetMenu.js';
 
 const messages = defineMessages({
   mapCodeLabel: {

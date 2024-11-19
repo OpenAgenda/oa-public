@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 
-import CheckboxComponent from './CheckboxComponent';
+import CheckboxComponent from './CheckboxComponent.js';
 
 const messages = defineMessages({
   defaultCSS: {

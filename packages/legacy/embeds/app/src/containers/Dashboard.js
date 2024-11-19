@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { Spinner } from '@openagenda/react-shared';
-import EmbedSelection from '../components/EmbedSelection';
-import TagMenu from '../components/TagMenu';
-import MapMenu from '../components/MapMenu';
-import SearchMenu from '../components/SearchMenu';
-import CalendarMenu from '../components/CalendarMenu';
-import ListMenu from '../components/ListMenu';
-import Presentation from '../components/Presentation';
+import EmbedSelection from '../components/EmbedSelection.js';
+import TagMenu from '../components/TagMenu.js';
+import MapMenu from '../components/MapMenu.js';
+import SearchMenu from '../components/SearchMenu.js';
+import CalendarMenu from '../components/CalendarMenu.js';
+import ListMenu from '../components/ListMenu.js';
+import Presentation from '../components/Presentation.js';
 
 function Dashboard({
   agendaSlug,
