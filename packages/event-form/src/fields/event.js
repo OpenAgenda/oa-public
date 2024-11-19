@@ -261,7 +261,6 @@ export default ({ labels }) => [
   {
     field: 'registration',
     fieldType: 'registration',
-    optional: true,
     label: labels?.registration,
     info: labels?.registrationInfo,
     placeholder: labels?.registrationPlaceholder,
