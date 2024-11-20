@@ -613,9 +613,7 @@ export function WithLinkedFieldsOfOtherTypes() {
     },
     components: {
       displayDodo: ({ relatedValues }) => (
-        <div>
-          Should show a dodo here: {JSON.stringify(relatedValues.other)}
-        </div>
+        <div>Should show a dodo here: {JSON.stringify(relatedValues)}</div>
       ),
     },
     schema: {
