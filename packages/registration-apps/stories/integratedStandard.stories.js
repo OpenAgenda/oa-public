@@ -51,3 +51,20 @@ export const WithData = () => {
     </div>
   );
 };
+
+export const Required = () => {
+  const [value, setValue] = useState([]);
+
+  return (
+    <div className="oa-form col-lg-offset-3 col-lg-6">
+      <Registration
+        value={value}
+        onChange={setValue}
+        field={{
+          optional: false,
+        }}
+        lang="fr"
+      />
+    </div>
+  );
+};

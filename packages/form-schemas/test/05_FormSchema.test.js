@@ -681,6 +681,19 @@ describe('form-schemas -05- FormSchema', () => {
           label: { fr: 'Saisir Wigglypoof' },
           fieldType: 'wigglypoof',
         },
+        {
+          field: 'alink',
+          fieldType: 'link',
+          label: 'A link',
+        },
+        {
+          field: 'arelatedfield',
+          label: { fr: 'Saisir un entier' },
+          fieldType: 'integer',
+          enableWith: 'atextfield',
+          optionalWith: 'acustomfield',
+          related: { other: ['alink'] },
+        },
       ],
     });
 
@@ -692,6 +705,7 @@ describe('form-schemas -05- FormSchema', () => {
         validate({
           atextfield: 'Un petit text',
           acustomfield: 'Not wigglypoof',
+          arelatedfield: 12,
         });
       } catch (errors) {
         err = errors;
@@ -714,7 +728,17 @@ describe('form-schemas -05- FormSchema', () => {
       expect(clean).toStrictEqual({
         atextfield: 'un petit texte',
         acustomfield: 'Wigglypoof',
+        arelatedfield: undefined,
+        alink: undefined,
       });
+    });
+
+    it('getRelatedFields includes related, optionalWith and enableWith', () => {
+      expect(fs.getRelatedFields('arelatedfield').map((f) => f.field)).toEqual([
+        'atextfield',
+        'acustomfield',
+        'alink',
+      ]);
     });
   });
 });

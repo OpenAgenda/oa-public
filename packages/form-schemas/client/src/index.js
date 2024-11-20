@@ -15,7 +15,6 @@ import FormSchema from './iso/FormSchema.js';
 import getErrorLabel from './iso/getErrorLabel.js';
 
 import submit from './lib/submit.js';
-import getRelatedFieldValues from './lib/getRelatedFieldValues.js';
 import isItemDisplayed from './lib/isItemDisplayed.js';
 import Section from './Components/Section.js';
 import Field from './Components/Field.js';
@@ -512,10 +511,12 @@ export default class FormSchemaComponent extends Component {
       );
     }
 
+    const formSchema = this._getFormSchema();
+
     return (
       <div className="oa-form">
         <div className={_.get(propsClassNames, 'fieldsCanvas', '')}>
-          {this._getFormSchema()
+          {formSchema
             .getFields()
             .filter(isItemDisplayed.bind(null, role))
             .map((f) => {
@@ -534,9 +535,9 @@ export default class FormSchemaComponent extends Component {
                   key={`field${f.field}`}
                   field={f}
                   value={_.get(values, f.field, null)}
-                  relatedValues={getRelatedFieldValues(
-                    f,
+                  relatedValues={_.pick(
                     cleanValues === null ? values : cleanValues,
+                    formSchema.getRelatedFields(f).map((rf) => rf.field),
                   )}
                   error={
                     errors.filter((e) => e.field === f.field).shift()?.label
