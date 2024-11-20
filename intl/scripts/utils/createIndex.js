@@ -69,7 +69,10 @@ function removeIndex(indexPath) {
 }
 
 module.exports = async function createIndex(dest, langs, isEsm) {
-  const extension = getFileExtension(isPackageModule(), isEsm);
+  const extension = getFileExtension(
+    isPackageModule(path.dirname(dest)),
+    isEsm,
+  );
   const indexPath = path.join(
     process.cwd(),
     dest.replace('%lang%.json', `index.${extension}`),
