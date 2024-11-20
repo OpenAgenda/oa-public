@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve --hot",
-    "analyze": "webpack-dashboard -- yarn build",
+    "analyze": "ANALYZE=1 webpack-dashboard -- yarn build",
     "prepack": "yarn build"
   },
   "dependencies": {
