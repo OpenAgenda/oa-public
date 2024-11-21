@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { Spinner } from '@openagenda/react-shared';
@@ -16,7 +16,7 @@ function Dashboard({
   res,
   selectionMenuContainerRef,
   embedLanguages = ['fr', 'en', 'es', 'it', 'de'],
-  defaultTiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  defaultTiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 }) {
   const [editedEmbed, setEditedEmbed] = useState(null);
 
@@ -24,9 +24,9 @@ function Dashboard({
 
   const query = useQuery('embeds', () => axios.get(baseRes), {
     select: ({ data }) => data,
-    onSettled: embeds => {
+    onSettled: (embeds) => {
       setEditedEmbed(embeds.pop());
-    }
+    },
   });
   const [activeMenu, setActiveMenu] = useState('list');
 
@@ -57,8 +57,7 @@ function Dashboard({
                   .replace(':embedUid', editedEmbed.uid)
                   .replace(':agendaUid', agendaUid),
                 previewScript: res.previewScript,
-                events: res.events
-                  .replace(':agendaUid', agendaUid)
+                events: res.events.replace(':agendaUid', agendaUid),
               }}
               embed={editedEmbed}
               onChange={setEditedEmbed}
@@ -73,10 +72,7 @@ function Dashboard({
             />
           ) : null}
           {activeMenu === 'search' ? (
-            <SearchMenu
-              embed={editedEmbed}
-              onChange={setEditedEmbed}
-            />
+            <SearchMenu embed={editedEmbed} onChange={setEditedEmbed} />
           ) : null}
           {activeMenu === 'map' ? (
             <MapMenu
@@ -87,10 +83,7 @@ function Dashboard({
             />
           ) : null}
           {activeMenu === 'calendar' ? (
-            <CalendarMenu
-              embed={editedEmbed}
-              onChange={setEditedEmbed}
-            />
+            <CalendarMenu embed={editedEmbed} onChange={setEditedEmbed} />
           ) : null}
         </div>
       </div>

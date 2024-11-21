@@ -1,70 +1,55 @@
-"use strict";
+import knexLib from 'knex';
+import config from '../testconfig.js';
+import Service from '../index.js';
+import loadFixtures from './fixtures/load.js';
+import fixtures from './fixtures/05.data.js';
 
-const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
+describe('05 - control data - members', () => {
+  let redisClient;
+  let knex;
+  let service;
 
-const knexLib = require( 'knex' );
+  beforeAll(async () => {
+    redisClient = await loadFixtures(config, fixtures);
 
-const config = require( '../testconfig' );
+    knex = knexLib({ client: 'mysql', connection: config.mysql });
 
-const loadFixtures = require( './fixtures/load' );
-const fixtures = require( './fixtures/05.data.js' );
-
-const Service = require( '../' );
-
-describe( '05 - control data - members', () => {
-
-  let redisClient, knex, service;
-
-  beforeAll( async () => {
-
-    redisClient = await loadFixtures( config, fixtures );
-
-    knex = knexLib( { client: 'mysql', connection: config.mysql } );
-
-    service = Service( {
+    service = Service({
       knex,
       redis: redisClient,
-      prefix: config.redisPrefix
-    } );
+      prefix: config.redisPrefix,
+    });
+  });
 
-  } );
-
-  afterAll( async () => {
-
-    await redisClient.del( config.redisPrefix + '789' );
+  afterAll(async () => {
+    await redisClient.del(`${config.redisPrefix}789`);
 
     await redisClient.quit();
 
     await knex.destroy();
+  });
 
-  } );
+  describe('insert and remove', () => {
+    test('set adds user uid to control data', async () => {
+      await service.memberSet({ agendaUid: 789, userUid: 1, role: 1 });
 
-  describe( 'insert and remove', () => {
+      const updatedCtlData = JSON.parse(
+        await redisClient.get(`${config.redisPrefix}789`),
+      );
 
-    test( 'set adds user uid to control data', async () => {
+      expect(updatedCtlData).toEqual({ ev: [], l: [], e: [1] });
+    });
 
-      await service.memberSet( { agendaUid: 789, userUid: 1, role: 1 } );
+    test('remove removes user uid from control data', async () => {
+      await service.memberSet({ agendaUid: 789, userUid: 1, role: 1 });
 
-      const updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '789' ) );
+      await service.memberRemove({ agendaUid: 789, userUid: 1 });
 
-      expect( updatedCtlData ).toEqual( { ev: [], l: [], e: [ 1 ] } );
+      const updatedCtlData = JSON.parse(
+        await redisClient.get(`${config.redisPrefix}789`),
+      );
 
-    } );
-
-    test( 'remove removes user uid from control data', async () => {
-
-      await service.memberSet( { agendaUid: 789, userUid: 1, role: 1 } );
-
-      await service.memberRemove( { agendaUid: 789, userUid: 1 } );
-
-      const updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '789' ) );
-
-      expect( updatedCtlData ).toEqual( { ev: [], l: [], e: [] } );
-
-    } );
-
-  } );
-
-
-} );
+      expect(updatedCtlData).toEqual({ ev: [], l: [], e: [] });
+    });
+  });
+});

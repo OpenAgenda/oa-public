@@ -1,15 +1,10 @@
-'use strict';
-
-const assert = require('assert');
-
-const onlyInEnglish = require('./fixtures/cibulModelEvent.json');
-const englishAndFrench = require('./fixtures/cibulModelEvent.2.json');
-const incomplete = require('./fixtures/cibulModelEvent.3.json');
-
-const formatCibulModelEvent = require('../formatCibulModelEvent');
+import assert from 'node:assert';
+import formatCibulModelEvent from '../formatCibulModelEvent.js';
+import onlyInEnglish from './fixtures/cibulModelEvent.json';
+import englishAndFrench from './fixtures/cibulModelEvent.2.json';
+import incomplete from './fixtures/cibulModelEvent.3.json';
 
 describe('formatCibulModelEvent', () => {
-
   test('takes available language if requested does not exist at all', () => {
     const e = formatCibulModelEvent(onlyInEnglish, 'fr');
 
@@ -17,7 +12,7 @@ describe('formatCibulModelEvent', () => {
       title: 'this is a test',
       description: 'test',
       freeText: 'test',
-      tags: 'test'
+      tags: 'test',
     });
   });
 
@@ -28,7 +23,7 @@ describe('formatCibulModelEvent', () => {
       title: 'Le test',
       description: 'un test',
       freeText: undefined,
-      tags: undefined
+      tags: undefined,
     });
   });
 
@@ -38,8 +33,7 @@ describe('formatCibulModelEvent', () => {
     assert.deepEqual(e, {
       title: 'FOUR A CHAUX DE VENESMES 18190 LIEU DIT ECLENEUIL',
       description: "VISITE D'UN SITE INDUSTRIEL",
-      freeText: 'VISITE DU SITE'
+      freeText: 'VISITE DU SITE',
     });
   });
-
 });

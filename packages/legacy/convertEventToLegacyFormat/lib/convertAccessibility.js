@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = accessibility => {
+export default (accessibility) => {
   const accessibilityArray = [];
   for (const code in accessibility) {
     if (accessibility[code] === true) {

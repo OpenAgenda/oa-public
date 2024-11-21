@@ -1,28 +1,17 @@
 import _ from 'lodash';
-import React, {
-  useRef,
-  useCallback,
-  useState,
-  useEffect
-} from 'react';
+import { useRef, useCallback, useState, useEffect } from 'react';
 
-import {
-  MapContainer,
-  TileLayer,
-  useMapEvents
-} from 'react-leaflet';
+import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 
 import { usePrevious } from 'react-use';
 
-import {
-  produce
-} from 'immer';
+import { produce } from 'immer';
 
 import { Helmet } from 'react-helmet-async';
 
 const autoMode = {
   center: [47.1413835095447, 2.7386084664240578],
-  zoom: 4
+  zoom: 4,
 };
 
 function OnMapMove({ onChange }) {
@@ -35,28 +24,20 @@ function OnMapMove({ onChange }) {
         neLat: ne.lat,
         neLng: ne.lng,
         swLat: sw.lat,
-        swLng: sw.lng
+        swLng: sw.lng,
       });
-    }
+    },
   });
 
   return null;
 }
 
-export default ({
-  defaultTiles,
-  embed,
-  onChange
-}) => {
+export default ({ defaultTiles, embed, onChange }) => {
   const mapRef = useRef(null);
   const {
     config: {
-      layout: {
-        mapCorners: corners,
-        mapPositionMode,
-        mapTiles
-      }
-    }
+      layout: { mapCorners: corners, mapPositionMode, mapTiles },
+    },
   } = embed;
   const prevMapPositionMode = usePrevious(mapPositionMode);
   const prevTiles = usePrevious(mapTiles);
@@ -67,13 +48,13 @@ export default ({
       style: {
         height: '220px',
       },
-      scrollWheelZoom: false
+      scrollWheelZoom: false,
     };
 
-    if (corners?.neLat && (corners.neLat !== 'false')) {
+    if (corners?.neLat && corners.neLat !== 'false') {
       result.bounds = [
         [corners.neLat, corners.neLng],
-        [corners.swLat, corners.swLng]
+        [corners.swLat, corners.swLng],
       ];
     } else {
       result.center = autoMode.center;
@@ -83,7 +64,7 @@ export default ({
     return result;
   });
 
-  const onMapCreate = useCallback(map => {
+  const onMapCreate = useCallback((map) => {
     mapRef.current = map;
   }, []);
 
@@ -103,7 +84,7 @@ export default ({
     if (!map) return;
 
     if (mapTiles !== prevTiles) {
-      setMapKey(i => i + 1);
+      setMapKey((i) => i + 1);
     }
   }, [mapTiles, prevTiles]);
 
@@ -122,19 +103,25 @@ export default ({
           crossOrigin=""
         />
       </Helmet>
-      <MapContainer key={mapKey} {...mapContainerProps} whenCreated={onMapCreate}>
+      <MapContainer
+        key={mapKey}
+        {...mapContainerProps}
+        whenCreated={onMapCreate}
+      >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url={mapTiles || defaultTiles}
         />
         <OnMapMove
-          onChange={updatedCorners => {
+          onChange={(updatedCorners) => {
             if (mapPositionMode !== 'manual') {
               return;
             }
-            onChange(produce(embed, draft => {
-              _.set(draft, 'config.layout.mapCorners', updatedCorners);
-            }));
+            onChange(
+              produce(embed, (draft) => {
+                _.set(draft, 'config.layout.mapCorners', updatedCorners);
+              }),
+            );
           }}
         />
       </MapContainer>

@@ -3,11 +3,11 @@ import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
 // eslint-disable-next-line camelcase
 const contextRequire = typeof __webpack_require__ !== 'undefined'
   ? import.meta.webpackContext
-  && import.meta.webpackContext('.', {
-    recursive: true,
-    regExp: /\.js$/,
-    mode: 'weak',
-  })
+      && import.meta.webpackContext('.', {
+        recursive: true,
+        regExp: /\.js$/,
+        mode: 'weak',
+      })
   : null;
 
 const App = loadableEsm({
@@ -56,14 +56,16 @@ const DashboardWrapper = loadableEsm({
   },
 });
 
-export default (prefix = '') => ([
+export default (prefix = '') => [
   {
     path: prefix,
     component: App,
-    routes: [{
-      exact: true,
-      path: `${prefix}`,
-      component: DashboardWrapper
-    }]
-  }
-]);
+    routes: [
+      {
+        exact: true,
+        path: `${prefix}`,
+        component: DashboardWrapper,
+      },
+    ],
+  },
+];

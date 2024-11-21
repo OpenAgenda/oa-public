@@ -1,11 +1,1 @@
-"use strict";
-
-const _ = require( 'lodash' );
-
-module.exports = event => {
-
-  return {
-    
-  };
-
-}
+export default (_event) => ({});

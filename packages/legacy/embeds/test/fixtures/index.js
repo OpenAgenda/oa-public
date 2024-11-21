@@ -1,14 +1,12 @@
-'use strict';
-
-const fs = require('fs');
-const { promisify } = require('util');
-const _ = require('lodash');
-const knex = require('knex');
-const mysql = require('mysql');
+import fs from 'node:fs';
+import { promisify } from 'node:util';
+import _ from 'lodash';
+import knex from 'knex';
+import mysql from 'mysql';
 
 function _sql(SQLDataRelativePath) {
   const raw = [
-    fs.readFileSync(`${__dirname}/${SQLDataRelativePath}`, 'utf-8'),
+    fs.readFileSync(`${import.meta.dirname}/${SQLDataRelativePath}`, 'utf-8'),
   ];
 
   return raw.join('\n');
@@ -27,7 +25,7 @@ async function _load(dbConfig, SQLDataRelativePath) {
   con.end();
 }
 
-module.exports = (dbConfig, SQLDataRelativePath = 'toulouseAndSalon.sql') => {
+export default (dbConfig, SQLDataRelativePath = 'toulouseAndSalon.sql') => {
   const client = knex({
     client: 'mysql',
     connection: dbConfig,

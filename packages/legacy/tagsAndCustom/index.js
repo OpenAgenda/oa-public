@@ -1,17 +1,14 @@
-'use strict';
-
-const logger = require('@openagenda/logs');
-
-const set = require('./lib/set');
-const setAll = require('./lib/setAll');
-const getTagSet = require('./lib/getTagSet');
-const getCategorySet = require('./lib/getCategorySet');
-const updateTagSetAndTags = require('./lib/updateTagSetAndTags');
-const updateCategorySetAndCategories = require('./lib/updateCategorySetAndCategories');
-const generateTagSet = require('./lib/utils/generateTagSet');
-const generateCustomSet = require('./lib/utils/generateCustomSet');
-const generateCategorySet = require('./lib/utils/generateCategorySet');
-const legacyToFormSchemaDataTransform = require('./lib/utils/legacyToFormSchemaDataTransform');
+import logger from '@openagenda/logs';
+import set from './lib/set.js';
+import * as setAll from './lib/setAll.js';
+import getTagSet from './lib/getTagSet.js';
+import getCategorySet from './lib/getCategorySet.js';
+import updateTagSetAndTags from './lib/updateTagSetAndTags.js';
+import updateCategorySetAndCategories from './lib/updateCategorySetAndCategories.js';
+import generateTagSet from './lib/utils/generateTagSet.js';
+import generateCustomSet from './lib/utils/generateCustomSet.js';
+import generateCategorySet from './lib/utils/generateCategorySet.js';
+import legacyToFormSchemaDataTransform from './lib/utils/legacyToFormSchemaDataTransform.js';
 
 const utils = {
   generateTagSet,
@@ -20,19 +17,24 @@ const utils = {
   legacyToFormSchemaDataTransform,
 };
 
-module.exports = ({ knex, queue, interfaces }) => ({
-  set: set.bind(null, { knex }),
-  setAll: setAll.bind(null, { knex, queue }),
-  task: setAll.task.bind(null, { knex, queue }),
-  getTagSet: getTagSet.bind(null, { knex, interfaces }),
-  getCategorySet: getCategorySet.bind(null, { knex, interfaces }),
-  updateTags: updateTagSetAndTags.bind(null, { knex }),
-  updateCategories: updateCategorySetAndCategories.bind(null, { knex }),
-  utils,
-});
+export default function TagsAndCustom({ knex, queue, interfaces }) {
+  return {
+    set: set.bind(null, { knex }),
+    setAll: setAll.default.bind(null, { knex, queue }),
+    task: setAll.task.bind(null, { knex, queue }),
+    getTagSet: getTagSet.bind(null, { knex, interfaces }),
+    getCategorySet: getCategorySet.bind(null, { knex, interfaces }),
+    updateTags: updateTagSetAndTags.bind(null, { knex }),
+    updateCategories: updateCategorySetAndCategories.bind(null, { knex }),
+    utils,
+  };
+}
 
-module.exports.utils = utils;
+export { utils };
 
-module.exports.updateLoggerConfig = config => {
+export function updateLoggerConfig(config) {
   logger.setModuleConfig(config);
-};
+}
+
+TagsAndCustom.utils = utils;
+TagsAndCustom.updateLoggerConfig = updateLoggerConfig;

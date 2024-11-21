@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useQuery } from 'react-query';
 import { ReactSelectInput } from '@openagenda/react-shared';
@@ -9,25 +9,26 @@ import EmbedCodePresentation from './EmbedCodePresentation.js';
 import GeneralMenu from './GeneralMenu.js';
 import AdvancedMenu from './AdvancedMenu.js';
 
-const flatten = (obj = {}, lang) => obj[obj[lang] ? lang : Object.keys(obj).shift()];
+const flatten = (obj = {}, lang = null) =>
+  obj[obj[lang] ? lang : Object.keys(obj).shift()];
 
 const messages = defineMessages({
   generalMenu: {
     id: 'LegacyEmbed.App.generalMenu',
-    defaultMessage: 'General'
+    defaultMessage: 'General',
   },
   advancedMenu: {
     id: 'LegacyEmbed.App.advancedMenu',
-    defaultMessage: 'Advanced'
+    defaultMessage: 'Advanced',
   },
   listPreview: {
     id: 'LegacyEmbed.App.listPreview',
-    defaultMessage: 'List view'
+    defaultMessage: 'List view',
   },
   eventPreview: {
     id: 'LegacyEmbed.App.eventPreview',
-    defaultMessage: 'Detailed'
-  }
+    defaultMessage: 'Detailed',
+  },
 });
 
 export default ({
@@ -38,39 +39,39 @@ export default ({
   res,
   lang,
   onChange,
-  displayEmbed = true
+  displayEmbed = true,
 }) => {
   const m = useIntl().formatMessage;
 
-  const {
-    preview,
-    events: eventsRes
-  } = res;
+  const { preview, events: eventsRes } = res;
 
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [editedEmbed, setEditedEmbed] = useState(embed);
   const [previewIndex, setPreviewIndex] = useState(0);
 
-  const defaultPreviews = useMemo(() => [
-    {
-      value: preview,
-      label: m(messages.listPreview)
-    }
-  ], [m, preview]);
+  const defaultPreviews = useMemo(
+    () => [
+      {
+        value: preview,
+        label: m(messages.listPreview),
+      },
+    ],
+    [m, preview],
+  );
 
   const { data: previews } = useQuery(
     'previewEvents',
     async () => (await axios.get(eventsRes)).data.events,
     {
       initialData: defaultPreviews,
-      select: receivedData => [
+      select: (receivedData) => [
         ...defaultPreviews,
-        ...receivedData.map(e => ({
+        ...receivedData.map((e) => ({
           value: `${res.preview}/${e.uid}`,
-          label: `${m(messages.eventPreview)} (${flatten(e.title, lang)})`
-        }))
-      ]
-    }
+          label: `${m(messages.eventPreview)} (${flatten(e.title, lang)})`,
+        })),
+      ],
+    },
   );
 
   useEffect(() => {
@@ -92,13 +93,16 @@ export default ({
       <div className="row margin-v-sm">
         <div className="col-sm-6">
           <ConfigurationMenuSelector
-            options={[{
-              label: m(messages.generalMenu),
-              value: 'general'
-            }, {
-              label: m(messages.advancedMenu),
-              value: 'advanced'
-            }]}
+            options={[
+              {
+                label: m(messages.generalMenu),
+                value: 'general',
+              },
+              {
+                label: m(messages.advancedMenu),
+                value: 'advanced',
+              },
+            ]}
             onSelect={setSelectedMenu}
           />
         </div>
@@ -107,16 +111,10 @@ export default ({
         <div className="col-sm-12">
           <div className="margin-left-xs">
             {selectedMenu === 'general' ? (
-              <GeneralMenu
-                embed={editedEmbed}
-                onChange={setEditedEmbed}
-              />
+              <GeneralMenu embed={editedEmbed} onChange={setEditedEmbed} />
             ) : null}
             {selectedMenu === 'advanced' ? (
-              <AdvancedMenu
-                embed={editedEmbed}
-                onChange={setEditedEmbed}
-              />
+              <AdvancedMenu embed={editedEmbed} onChange={setEditedEmbed} />
             ) : null}
           </div>
         </div>
@@ -126,7 +124,7 @@ export default ({
         isClearable={false}
         options={previews.map((p, i) => ({
           value: i,
-          label: p.label
+          label: p.label,
         }))}
         value={previews[previewIndex]}
         onChange={({ value }) => setPreviewIndex(value)}
@@ -140,7 +138,7 @@ export default ({
               className="cbpgbdy js_preview"
               style={{
                 width: '100%',
-                minHeight: '1000px'
+                minHeight: '1000px',
               }}
               title="preview"
               src={previews[previewIndex].value}

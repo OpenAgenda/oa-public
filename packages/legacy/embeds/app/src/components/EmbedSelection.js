@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useConstant } from '@openagenda/react-shared';
 import { useIntl, defineMessages } from 'react-intl';
@@ -7,44 +7,49 @@ import UpdateButton from './UpdateButton.js';
 const messages = defineMessages({
   list: {
     id: 'LegacyEmbed.EmbedSelection.list',
-    defaultMessage: 'Main agenda embed'
+    defaultMessage: 'Main agenda embed',
   },
   listInfo: {
     id: 'LegacyEmbed.EmbedSelection.listInfo',
-    defaultMessage: 'The embed code that integrates the main view of your calendar.'
+    defaultMessage:
+      'The embed code that integrates the main view of your calendar.',
   },
   map: {
     id: 'LegacyEmbed.EmbedSelection.map',
-    defaultMessage: 'Map widget'
+    defaultMessage: 'Map widget',
   },
   mapInfo: {
     id: 'LegacyEmbed.EmbedSelection.mapInfo',
-    defaultMessage: 'Displays a map. This code is placed alongside the main embed'
+    defaultMessage:
+      'Displays a map. This code is placed alongside the main embed',
   },
   tag: {
     id: 'LegacyEmbed.EmbedSelection.tag',
-    defaultMessage: 'Choice widget'
+    defaultMessage: 'Choice widget',
   },
   tagInfo: {
     id: 'LegacyEmbed.EmbedSelection.tagInfo',
-    defaultMessage: 'Displays a list of values. This code is placed alongside the main embed'
+    defaultMessage:
+      'Displays a list of values. This code is placed alongside the main embed',
   },
   calendar: {
     id: 'LegacyEmbed.EmbedSelection.calendar',
-    defaultMessage: 'Calendar filter'
+    defaultMessage: 'Calendar filter',
   },
   calendarInfo: {
     id: 'LegacyEmbed.EmbedSelection.calendarInfo',
-    defaultMessage: 'Displays a days-of-the-month calendar. This code is placed alongside the main embed'
+    defaultMessage:
+      'Displays a days-of-the-month calendar. This code is placed alongside the main embed',
   },
   search: {
     id: 'LegacyEmbed.EmbedSelection.search',
-    defaultMessage: 'Search input'
+    defaultMessage: 'Search input',
   },
   searchInfo: {
     id: 'LegacyEmbed.EmbedSelection.searchInfo',
-    defaultMessage: 'Displays an input to allow syntaxic searches. This code is placed alongside the main embed'
-  }
+    defaultMessage:
+      'Displays an input to allow syntaxic searches. This code is placed alongside the main embed',
+  },
 });
 
 const menus = ['list', 'map', 'tag', 'calendar', 'search'];
@@ -55,7 +60,7 @@ export default ({
   containerRef,
   updateRes,
   onSave,
-  embed
+  embed,
 }) => {
   const m = useIntl().formatMessage;
 
@@ -73,7 +78,7 @@ export default ({
     <div className="padding-h-sm padding-v-xs wsq">
       <div className="row">
         <div className="col-sm-12">
-          {menus.map(menu => (
+          {menus.map((menu) => (
             <div className="radio" key={menu}>
               <label htmlFor={menu}>
                 <input
@@ -92,15 +97,11 @@ export default ({
       <div className="row">
         <div className="col-sm-12">
           <div className="text-center margin-v-md">
-            <UpdateButton
-              res={updateRes}
-              onSave={onSave}
-              embed={embed}
-            />
+            <UpdateButton res={updateRes} onSave={onSave} embed={embed} />
           </div>
         </div>
       </div>
     </div>,
-    componentElem
+    componentElem,
   );
 };

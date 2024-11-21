@@ -1,15 +1,14 @@
-"use strict";
+import _ from 'lodash';
 
-const _ = require( 'lodash' );
-
-module.exports = data => {
-
-  const parsed = _.mapValues( {
-    u: 'uid',
-    lt: 'latitude',
-    lg: 'longitude'
-  }, value => _.get( data, value ) );
+export default (data) => {
+  const parsed = _.mapValues(
+    {
+      u: 'uid',
+      lt: 'latitude',
+      lg: 'longitude',
+    },
+    (value) => _.get(data, value),
+  );
 
   return parsed;
-
 };

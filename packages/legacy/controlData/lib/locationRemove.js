@@ -1,27 +1,22 @@
-"use strict";
+import _ from 'lodash';
+import loadControlData from './utils/loadControlData.js';
+import refreshTimestamp from './utils/refreshTimestamp.js';
 
-const _ = require( 'lodash' );
+export default async (
+  { prefix, knex: _knex, redis, loadedCtlData, skipSave },
+  { agendaUid, locationUid },
+) => {
+  const ctlData = loadedCtlData || await loadControlData(redis, prefix, agendaUid);
 
-const loadControlData = require( './utils/loadControlData' );
-const refreshTimestamp = require( './utils/refreshTimestamp' );
-const roles = require( './utils/roles' );
+  const index = _.findIndex(ctlData.l, { u: locationUid });
 
-module.exports = async ( { prefix, knex, redis, loadedCtlData, skipSave }, { agendaUid, locationUid } ) => {
+  if (index === -1) return;
 
-  const ctlData = loadedCtlData || await loadControlData( redis, prefix, agendaUid );
+  ctlData.l.splice(index, 1);
 
-  const index = _.findIndex( ctlData.l, { u: locationUid } );
+  if (!skipSave) {
+    await redis.set(prefix + agendaUid, JSON.stringify(ctlData));
 
-  if ( index === -1 ) return;
-
-  ctlData.l.splice( index, 1 );
-
-  if ( !skipSave ) {
-
-    await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
-
-    await refreshTimestamp( prefix, redis, agendaUid );
-
+    await refreshTimestamp(prefix, redis, agendaUid);
   }
-
-}
+};

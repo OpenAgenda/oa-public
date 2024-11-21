@@ -1,20 +1,20 @@
-"use strict";
+import _ from 'lodash';
+import moment from 'moment-timezone';
 
-const _ = require( 'lodash' );
-const moment = require( 'moment-timezone' );
-
-module.exports = ( data, tagsAndCategory ) => {
-
-  const parsed = _.mapValues( {
-    u: 'uid',
-    l: 'locationUid',
-    s: 'slug',
-    tz: 'timezone'
-  }, value => _.get( data, value ) );
+export default (data, tagsAndCategory) => {
+  const parsed = _.mapValues(
+    {
+      u: 'uid',
+      l: 'locationUid',
+      s: 'slug',
+      tz: 'timezone',
+    },
+    (value) => _.get(data, value),
+  );
 
   // assemble timings
-  parsed.d = data.timings.map( t => moment.tz( t.begin, data.timezone ).format( 'YYYY-MM-DD' ) );
+  parsed.d = data.timings.map((t) =>
+    moment.tz(t.begin, data.timezone).format('YYYY-MM-DD'));
 
-  return _.assign( parsed, tagsAndCategory );
-
+  return _.assign(parsed, tagsAndCategory);
 };

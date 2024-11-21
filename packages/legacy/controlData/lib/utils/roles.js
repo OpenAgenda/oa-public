@@ -1,7 +1,5 @@
-"use strict";
-
-module.exports = {
+export default {
   1: 'e',
   2: 'adm',
-  3: 'mod'
+  3: 'mod',
 };

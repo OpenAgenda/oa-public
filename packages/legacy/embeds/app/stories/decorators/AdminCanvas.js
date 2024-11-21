@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default Story => (
+export default (Story) => (
   <div className="container-fluid top-margined agenda-admin agenda-admin-filters-layout">
     <div className="row">
       <div className="col-md-offset-2 col-md-7 wsq">
@@ -16,7 +14,9 @@ export default Story => (
           <div className="col col-sm-10">
             <h1>Métropole Européenne de Lille</h1>
             <p>Administration</p>
-            <a className="url" href="/">Aller à l&apos;accueil de l&apos;agenda</a>
+            <a className="url" href="/">
+              Aller à l&apos;accueil de l&apos;agenda
+            </a>
           </div>
         </div>
       </div>

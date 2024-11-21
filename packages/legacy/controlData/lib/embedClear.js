@@ -1,11 +1,9 @@
-"use strict";
+import logs from '@openagenda/logs';
 
-const log = require( '@openagenda/logs' )( 'controlData/embedClear' );
+const log = logs('controlData/embedClear');
 
-module.exports = ( { prefix, redis }, embedUid ) => {
+export default ({ prefix, redis }, embedUid) => {
+  log('clearing embed %s data', embedUid);
 
-  log( 'clearing embed %s data', embedUid );
-
-  return redis.del( prefix + 'embeds:' + embedUid );
-
-}
+  return redis.del(`${prefix}embeds:${embedUid}`);
+};

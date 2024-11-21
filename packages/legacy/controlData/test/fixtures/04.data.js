@@ -1,7 +1,7 @@
-"use strict";
+import fs from 'node:fs';
+import knexLib from 'knex';
 
-const fs = require( 'fs' );
-const knex = require( 'knex' )( { client: 'mysql' } );
+const knex = knexLib({ client: 'mysql' });
 
 const rawSQL = [
   'reset.sql',
@@ -27,17 +27,25 @@ const rawSQL = [
   'event_2.create.sql',
   'event_2.bordeaux.sql',
   'location.create.sql',
-  'location.bordeaux.sql'
-].map( fx => fs.readFileSync( __dirname + '/sql/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );
+  'location.bordeaux.sql',
+].map((fx) =>
+  fs
+    .readFileSync(`${import.meta.dirname}/sql/${fx}`, 'utf-8')
+    .replace(/;(\n|)$/, ''));
 
-rawSQL.push( knex( 'review' ).insert( [ {
-  id: 7796,
-  uid: 83549053,
-  title: 'Bordeaux Métropole',
-  settings: '{"contribution":{"type":0,"defaultState":2,"message":null,"useFields":false,"authorizedIPAddresses":[]},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null}}'
-} ] ) );
+rawSQL.push(
+  knex('review').insert([
+    {
+      id: 7796,
+      uid: 83549053,
+      title: 'Bordeaux Métropole',
+      settings:
+        '{"contribution":{"type":0,"defaultState":2,"message":null,"useFields":false,"authorizedIPAddresses":[]},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null}}',
+    },
+  ]),
+);
 
-module.exports = {
-  sql: rawSQL.join( ';\n' ) + ';',
-  redisKeyContents: {}
-}
+export default {
+  sql: `${rawSQL.join(';\n')};`,
+  redisKeyContents: {},
+};

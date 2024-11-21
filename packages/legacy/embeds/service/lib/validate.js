@@ -1,14 +1,10 @@
-'use strict';
-
-const {
-  BadRequest,
-} = require('@openagenda/verror');
-const schema = require('@openagenda/validators/schema');
-const boolean = require('@openagenda/validators/boolean');
-const choice = require('@openagenda/validators/choice');
-const number = require('@openagenda/validators/number');
-const text = require('@openagenda/validators/text');
-const link = require('@openagenda/validators/link');
+import { BadRequest } from '@openagenda/verror';
+import schema from '@openagenda/validators/schema/index.js';
+import boolean from '@openagenda/validators/boolean.js';
+import choice from '@openagenda/validators/choice.js';
+import number from '@openagenda/validators/number.js';
+import text from '@openagenda/validators/text.js';
+import link from '@openagenda/validators/link.js';
 
 schema.register({
   text,
@@ -18,13 +14,17 @@ schema.register({
   number,
 });
 
-const fieldCollection = (type, codes, options = {}) => codes.reduce((fields, code) => ({
-  ...fields,
-  [code]: {
-    type,
-    ...options,
-  },
-}), {});
+const fieldCollection = (type, codes, options = {}) =>
+  codes.reduce(
+    (fields, code) => ({
+      ...fields,
+      [code]: {
+        type,
+        ...options,
+      },
+    }),
+    {},
+  );
 
 const validate = schema({
   config: {
@@ -59,7 +59,11 @@ const validate = schema({
         options: ['all', 'manual'],
         default: 'all',
       },
-      mapCorners: fieldCollection('text', ['neLat', 'neLng', 'swLat', 'swLng'], null),
+      mapCorners: fieldCollection(
+        'text',
+        ['neLat', 'neLng', 'swLat', 'swLng'],
+        null,
+      ),
       mapAuto: {
         type: 'boolean',
         default: false,
@@ -90,36 +94,48 @@ const validate = schema({
         type: 'link',
         default: false,
       },
-      use_default_css: fieldCollection('boolean', ['list', 'map', 'search', 'categories', 'tags', 'calendar'], { default: true }),
-      shares: fieldCollection('boolean', ['fb', 'tw', 'li', 'pi', 'em'], { default: false }),
+      use_default_css: fieldCollection(
+        'boolean',
+        ['list', 'map', 'search', 'categories', 'tags', 'calendar'],
+        { default: true },
+      ),
+      shares: fieldCollection('boolean', ['fb', 'tw', 'li', 'pi', 'em'], {
+        default: false,
+      }),
     },
   },
-  template: fieldCollection('text', ['header', 'event', 'eventitem'], { default: false, max: 10000 }),
+  template: fieldCollection('text', ['header', 'event', 'eventitem'], {
+    default: false,
+    max: 10000,
+  }),
 });
 
-module.exports = (data = {}) => {
+export default (data = {}) => {
   try {
     const clean = validate(data);
     if (clean.config.layout.mapCorners.neLat === 'false') {
-      Object.keys(clean.config.layout.mapCorners).forEach(corner => {
+      Object.keys(clean.config.layout.mapCorners).forEach((corner) => {
         clean.config.layout.mapCorners[corner] = false;
       });
     }
-    ['customcss', 'mapTiles'].forEach(field => {
+    ['customcss', 'mapTiles'].forEach((field) => {
       if (clean.config.layout[field] === 'false') {
         clean.config.layout[field] = false;
       }
     });
 
-    Object.keys(clean.template).forEach(type => {
+    Object.keys(clean.template).forEach((type) => {
       if (clean.template[type] === 'false') {
         clean.template[type] = false;
       }
     });
     return clean;
   } catch (errors) {
-    throw new BadRequest({
-      info: { errors },
-    }, 'Submitted data is not valid');
+    throw new BadRequest(
+      {
+        info: { errors },
+      },
+      'Submitted data is not valid',
+    );
   }
 };
