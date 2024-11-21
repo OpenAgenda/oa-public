@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
-'use strict';
+import path from 'node:path';
+import fs from 'node:fs';
+import { spawn } from 'node:child_process';
 
-const path = require('node:path');
-const fs = require('node:fs');
-const { spawn } = require('node:child_process');
-
-const mailsRoot = path.join(__dirname, '..');
+const mailsRoot = path.join(import.meta.dirname, '..');
 const serverDevPath = path.join(mailsRoot, 'server.js');
 
 const args = process.argv.splice(2);
