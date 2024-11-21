@@ -1,7 +1,7 @@
-const AgendaFiles = require('../server/lib/agendaFiles');
-const config = require('../config.dev');
-const defaultState = require('../server/defaultState');
-const Service = require('..');
+import AgendaFiles from '../server/lib/agendaFiles.js';
+import config from '../config.dev.js';
+import defaultState from '../server/defaultState.js';
+import Service from '../server/index.js';
 
 describe('functional - getState', () => {
   const { setJSON } = AgendaFiles({

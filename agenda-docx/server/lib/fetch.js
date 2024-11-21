@@ -1,12 +1,12 @@
-'use strict';
+import fs from 'node:fs';
+import sa from 'superagent';
+import logs from '@openagenda/logs';
 
-const fs = require('node:fs');
-const sa = require('superagent');
-const log = require('@openagenda/logs')('fetch');
+const log = logs('fetch');
 
 const EVENTS_MAX_LIMIT = Infinity;
 
-function loadEventsFromFile(file) {
+export function loadEventsFromFile(file) {
   return new Promise((rs, rj) => {
     fs.readFile(file, 'utf-8', (err, content) => {
       if (err) return rj(err);
@@ -16,7 +16,7 @@ function loadEventsFromFile(file) {
   });
 }
 
-async function loadAgendaDetails(agendaUid) {
+export async function loadAgendaDetails(agendaUid) {
   log('loading agenda details for %s', agendaUid);
 
   return sa
@@ -40,7 +40,7 @@ function _fetch(agendaUid, offset, limit, query) {
     .then((result) => result.body.events);
 }
 
-async function fetchAndStoreEvents(destFolder, agendaUid, query) {
+export async function fetchAndStoreEvents(destFolder, agendaUid, query) {
   log('fetchAndStoreEvents for %s', agendaUid);
 
   const limit = 100;
@@ -67,9 +67,3 @@ async function fetchAndStoreEvents(destFolder, agendaUid, query) {
     });
   });
 }
-
-module.exports = {
-  fetchAndStoreEvents,
-  loadEventsFromFile,
-  loadAgendaDetails,
-};

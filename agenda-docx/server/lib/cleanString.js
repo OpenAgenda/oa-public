@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (str) => {
+export default (str) => {
   if (typeof str !== 'string') return str;
 
   const charsToClean = [

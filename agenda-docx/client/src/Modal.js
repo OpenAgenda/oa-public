@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as bodyScroll from './utils/bodyScroll';
+import * as bodyScroll from './utils/bodyScroll.js';
 
 export default class Modal extends Component {
   static propTypes = {

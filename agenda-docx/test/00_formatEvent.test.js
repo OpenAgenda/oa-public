@@ -1,13 +1,12 @@
-const fs = require('node:fs');
-const _ = require('lodash');
-
-const formatEvent = require('../server/lib/formatEvent');
+import fs from 'node:fs';
+import _ from 'lodash';
+import formatEvent from '../server/lib/formatEvent.js';
 
 const inputEvent = JSON.parse(
-  fs.readFileSync(`${__dirname}/data/event.json`, 'utf-8'),
+  fs.readFileSync(`${import.meta.dirname}/data/event.json`, 'utf-8'),
 );
 const decoratedEvent = JSON.parse(
-  fs.readFileSync(`${__dirname}/data/event.decorated.json`, 'utf-8'),
+  fs.readFileSync(`${import.meta.dirname}/data/event.decorated.json`, 'utf-8'),
 );
 
 describe('unit - formatEvent', () => {

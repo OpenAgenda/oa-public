@@ -1,8 +1,6 @@
-'use strict';
+import os from 'node:os';
 
-const os = require('node:os');
-
-module.exports = {
+export default {
   s3: {
     region: process.env.AWS_DEV_REGION,
     accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,

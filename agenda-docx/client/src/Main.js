@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import flattenLabels from './utils/flattenLabels';
-import ExportModal from './ExportModal';
+import flattenLabels from './utils/flattenLabels.js';
+import ExportModal from './ExportModal.js';
 
 export default class Main extends Component {
   static defaultProps = {
@@ -91,7 +91,13 @@ export default class Main extends Component {
 
     const linkElem = (
       <div>
-        <a href="#docx" onClick={() => this.setState({ open: true })}>
+        <a
+          href="#docx"
+          onClick={(e) => {
+            e.preventDefault();
+            this.setState({ open: true });
+          }}
+        >
           {labels.modalLink}
         </a>
       </div>

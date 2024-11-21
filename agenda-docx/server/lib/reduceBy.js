@@ -1,10 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import get from './get.js';
+import sortBy from './sortBy.js';
 
-const _ = require('lodash');
-const get = require('./get');
-const sortBy = require('./sortBy');
-
-module.exports = (items, path, opts = {}) => {
+export default (items, path, opts = {}) => {
   const options = _.defaults(opts, {
     hoist: [],
     childrenKey: 'items',
