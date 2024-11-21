@@ -1,105 +1,107 @@
-"use strict";
+import knexLib from 'knex';
+import config from '../testconfig.js';
+import Service from '../index.js';
+import loadFixtures from './fixtures/load.js';
+import fixtures from './fixtures/07.data.js';
 
-const _ = require( 'lodash' );
+describe('07 - control data - locations', () => {
+  let redisClient;
+  let knex;
+  let service;
 
-const knexLib = require( 'knex' );
+  beforeAll(async () => {
+    redisClient = await loadFixtures(config, fixtures);
 
-const config = require( '../testconfig' );
+    knex = knexLib({ client: 'mysql', connection: config.mysql });
 
-const loadFixtures = require( './fixtures/load' );
-const fixtures = require( './fixtures/07.data.js' );
-
-const Service = require( '../' );
-
-describe( '07 - control data - locations', () => {
-
-  let redisClient, knex, service;
-
-  beforeAll( async () => {
-
-    redisClient = await loadFixtures( config, fixtures );
-
-    knex = knexLib( { client: 'mysql', connection: config.mysql } );
-
-    service = Service( {
+    service = Service({
       knex,
       redis: redisClient,
-      prefix: config.redisPrefix
-    } );
+      prefix: config.redisPrefix,
+    });
+  });
 
-  } );
-
-  afterAll( async () => {
-
-    await redisClient.del( config.redisPrefix + '789' );
+  afterAll(async () => {
+    await redisClient.del(`${config.redisPrefix}789`);
 
     await redisClient.quit();
 
     await knex.destroy();
+  });
 
-  } );
+  describe('insert and remove', () => {
+    test('set adds location to control data', async () => {
+      await service.locationSet({
+        agendaUid: 789,
+        location: {
+          uid: 1,
+          latitude: 45,
+          longitude: 47,
+        },
+      });
 
-  describe( 'insert and remove', () => {
+      const updatedCtlData = JSON.parse(
+        await redisClient.get(`${config.redisPrefix}789`),
+      );
 
-    test( 'set adds location to control data', async () => {
-
-      await service.locationSet( { agendaUid: 789, location: {
-        uid: 1,
-        latitude: 45,
-        longitude: 47
-      } } );
-
-      const updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '789' ) );
-
-      expect( updatedCtlData ).toEqual( {
+      expect(updatedCtlData).toEqual({
         ev: [],
-        l: [ {
-          u: 1, lt: 45, lg: 47
-        } ]
-      } );
+        l: [
+          {
+            u: 1,
+            lt: 45,
+            lg: 47,
+          },
+        ],
+      });
+    });
 
-    } );
+    test('set updates location in control data', async () => {
+      await service.locationSet({
+        agendaUid: 101,
+        location: {
+          uid: 2,
+          latitude: 49,
+          longitude: 50,
+        },
+      });
 
-    test( 'set updates location in control data', async () => {
+      const updatedCtlData = JSON.parse(
+        await redisClient.get(`${config.redisPrefix}101`),
+      );
 
-      await service.locationSet( { agendaUid: 101, location: {
-        uid: 2,
-        latitude: 49,
-        longitude: 50
-      } } );
-
-      const updatedCtlData = JSON.parse( await redisClient.get( config.redisPrefix + '101' ) );
-
-      expect( updatedCtlData ).toEqual( {
+      expect(updatedCtlData).toEqual({
         ev: [],
-        l: [ {
-          u: 2, lt: 49, lg: 50
-        } ]
-      } );
+        l: [
+          {
+            u: 2,
+            lt: 49,
+            lg: 50,
+          },
+        ],
+      });
+    });
 
-    } );
+    test('remove removes location from control data', async () => {
+      const updatedCtlDataBefore = JSON.parse(
+        await redisClient.get(`${config.redisPrefix}666`),
+      );
 
-    test( 'remove removes location from control data', async () => {
-
-      const updatedCtlDataBefore = JSON.parse( await redisClient.get( config.redisPrefix + '666' ) );
-
-      expect( updatedCtlDataBefore ).toEqual( {
+      expect(updatedCtlDataBefore).toEqual({
         ev: [],
-        l: [ { u: 3, lt: 45, lg: 47 } ]
-      } );
+        l: [{ u: 3, lt: 45, lg: 47 }],
+      });
 
-      await service.locationRemove( { agendaUid: 666, locationUid: 3 } );
+      await service.locationRemove({ agendaUid: 666, locationUid: 3 });
 
-      const updatedCtlDataAfter = JSON.parse( await redisClient.get( config.redisPrefix + '666' ) );
+      const updatedCtlDataAfter = JSON.parse(
+        await redisClient.get(`${config.redisPrefix}666`),
+      );
 
-      expect( updatedCtlDataAfter ).toEqual( {
+      expect(updatedCtlDataAfter).toEqual({
         ev: [],
-        l: []
-      } );
-
-    } );
-
-  } );
-
-
-} );
+        l: [],
+      });
+    });
+  });
+});

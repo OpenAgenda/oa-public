@@ -1,17 +1,12 @@
-'use strict';
-
-const fs = require('node:fs/promises');
-const path = require('node:path');
-const nodemailer = require('nodemailer');
-const mg = require('nodemailer-mailgun-transport');
-const VError = require('@openagenda/verror');
-const logs = require('@openagenda/logs');
-const {
-  getFallbackedMessages,
-  getSupportedLocale,
-} = require('@openagenda/intl');
-const { createIntl, createIntlCache } = require('@formatjs/intl');
-const fileExists = require('./utils/fileExists');
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import nodemailer from 'nodemailer';
+import mg from 'nodemailer-mailgun-transport';
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import { getFallbackedMessages, getSupportedLocale } from '@openagenda/intl';
+import { createIntl, createIntlCache } from '@formatjs/intl';
+import fileExists from './utils/fileExists.js';
 
 const log = logs('mails/config');
 const logTransporter = logs('mails/transporter');
@@ -52,14 +47,18 @@ async function createMultiIntl(templatesDir) {
     const localeFiles = await fs.readdir(localesPath);
 
     for (const localeFile of localeFiles) {
-      const lang = path.parse(localeFile).name;
+      const { name: lang, ext } = path.parse(localeFile);
 
       if (lang === 'io') {
         continue;
       }
 
-      // eslint-disable-next-line import/no-dynamic-require,global-require
-      const locales = require(path.join(localesPath, localeFile));
+      const locales = (
+        await import(
+          path.join(localesPath, localeFile),
+          ext === '.json' ? { with: { type: 'json' } } : null
+        )
+      ).default;
 
       messagesPerLang[lang] = Object.keys(locales).reduce((accu, key) => {
         accu[`${template}.${key}`] = locales[key];
@@ -195,4 +194,4 @@ async function createConfig(c = {}) {
   return config;
 }
 
-module.exports = createConfig;
+export default createConfig;

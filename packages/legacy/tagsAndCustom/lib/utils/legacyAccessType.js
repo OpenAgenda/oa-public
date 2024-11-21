@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (field, contributor = 'private') => {
+export default (field, contributor = 'private') => {
   if (!field.read) return 'public';
 
   if (field.read.includes('contributor')) {
@@ -12,4 +10,4 @@ module.exports = (field, contributor = 'private') => {
   }
 
   return 'private';
-}
+};

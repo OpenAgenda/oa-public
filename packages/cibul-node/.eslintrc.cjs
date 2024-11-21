@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   root: true,
 
@@ -25,13 +27,9 @@ module.exports = {
 
   overrides: [
     {
-      files: ['services/mails/templates/**/*.js'],
+      files: ['**/*.cjs'],
       parserOptions: {
         sourceType: 'script',
-      },
-      rules: {
-        'import/extensions': ['off'],
-        'unicorn/prefer-module': ['off'],
       },
     },
   ],

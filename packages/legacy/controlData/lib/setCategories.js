@@ -1,25 +1,24 @@
-"use strict";
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import loadControlData from './utils/loadControlData.js';
+import refreshTimestamp from './utils/refreshTimestamp.js';
+import setCategories from './utils/setCategories.js';
 
-const _ = require( 'lodash' );
+const log = logs('controlData/settags');
 
-const log = require( '@openagenda/logs' )( 'controlData/settags' );
+export default async ({ prefix, knex, redis }, agendaUid) => {
+  const agendaId = _.get(
+    await knex('review').first('id').where('uid', agendaUid),
+    'id',
+  );
 
-const loadControlData = require( './utils/loadControlData' );
-const refreshTimestamp = require( './utils/refreshTimestamp' );
-const setCategories = require( './utils/setCategories' );
+  if (!agendaId) return log('no agenda was found for uid %s', agendaUid);
 
-module.exports = async ( { prefix, knex, redis }, agendaUid ) => {
+  const ctlData = await loadControlData(redis, prefix, agendaUid);
 
-  const agendaId = _.get( await knex( 'review' ).first( 'id' ).where( 'uid', agendaUid ), 'id' );
+  await setCategories(ctlData, knex, agendaId);
 
-  if ( !agendaId ) return log( 'no agenda was found for uid %s', agendaUid );
+  await redis.set(prefix + agendaUid, JSON.stringify(ctlData));
 
-  const ctlData = await loadControlData( redis, prefix, agendaUid );
-
-  await setCategories( ctlData, knex, agendaId );
-
-  await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
-
-  await refreshTimestamp( prefix, redis, agendaUid );
-
-}
+  await refreshTimestamp(prefix, redis, agendaUid);
+};

@@ -1,7 +1,5 @@
-'use strict';
-
-const Service = require('../service');
-const fixtures = require('./fixtures');
+import Service from '../service/index.js';
+import fixtures from './fixtures/index.js';
 
 describe('02 - embeds - get', () => {
   let fx;
@@ -13,7 +11,7 @@ describe('02 - embeds - get', () => {
       host: process.env.OA_MYSQL_TEST_HOST,
       user: process.env.OA_MYSQL_TEST_USER,
       password: process.env.OA_MYSQL_TEST_PASSWORD,
-      ssl: true
+      ssl: true,
     });
 
     await fx.load();
@@ -21,13 +19,13 @@ describe('02 - embeds - get', () => {
     svc = Service({
       knex: fx.client,
       interfaces: {
-        getAgendaId: async () => 13115
+        getAgendaId: async () => 13115,
       },
       defaultTemplates: {
         eventitem: 'eventItem default template',
         event: 'event default template',
-        header: 'header default template'
-      }
+        header: 'header default template',
+      },
     });
   });
 
@@ -49,7 +47,7 @@ describe('02 - embeds - get', () => {
         'uid',
         'agendaUid',
         'template',
-        'config'
+        'config',
       ]);
     });
 
@@ -61,14 +59,16 @@ describe('02 - embeds - get', () => {
       expect(Object.keys(embed.template)).toEqual([
         'header',
         'eventitem',
-        'event'
+        'event',
       ]);
     });
 
     it('if false is set as templates, default value is provided', async () => {
       const embedWithNoTemplates = await svc(789456).get(96007995);
 
-      expect(embedWithNoTemplates.template.event).toEqual('event default template');
+      expect(embedWithNoTemplates.template.event).toEqual(
+        'event default template',
+      );
     });
   });
 
@@ -88,16 +88,18 @@ describe('02 - embeds - get', () => {
         'uid',
         'agendaUid',
         'template',
-        'config'
+        'config',
       ]);
     });
 
     it('if null or false are set as templates, default values are provided', () => {
-      const embedsWithEmptyTemplates = embeds.filter(embed => [96007995, 50063784].includes(embed.uid));
+      const embedsWithEmptyTemplates = embeds.filter((embed) =>
+        [96007995, 50063784].includes(embed.uid));
 
-      expect(
-        embedsWithEmptyTemplates.map(e => e.template.event)
-      ).toEqual(['event default template', 'event default template']);
+      expect(embedsWithEmptyTemplates.map((e) => e.template.event)).toEqual([
+        'event default template',
+        'event default template',
+      ]);
     });
   });
 });

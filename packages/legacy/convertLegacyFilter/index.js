@@ -1,38 +1,30 @@
-'use strict';
-
-const moment = require('moment-timezone');
-
-const flattenTagSet = require('../utils/flattenTagSet');
+import moment from 'moment-timezone';
+import flattenTagSet from '../utils/flattenTagSet.js';
 
 const addLTEToTimings = (timings, d) => ({
   ...timings,
-  lte: moment(d)
-    .tz('Europe/paris')
-    .hour(23)
-    .minute(59)
+  lte: moment(d).tz('Europe/paris').hour(23).minute(59)
     .second(59)
     .format(),
 });
 
-module.exports = (legacyFilter, options = {}) => {
+export default (legacyFilter, options = {}) => {
   const keys = Object.keys(legacyFilter);
 
-  const {
-    formSchema,
-    tagSet,
-    categorySet,
-    query = {},
-  } = options;
+  const { formSchema, tagSet, categorySet, query = {} } = options;
 
   const convertedQuery = {};
 
-  if (!['timings', 'relative', 'date', 'slug'].some(k => Object.keys(query).includes(k))) {
+  if (
+    !['timings', 'relative', 'date', 'slug'].some((k) =>
+      Object.keys(query).includes(k))
+  ) {
     convertedQuery.relative = ['current', 'upcoming'];
   }
 
   const tags = flattenTagSet(tagSet, formSchema);
 
-  keys.map(key => {
+  keys.map((key) => {
     switch (key) {
       case 'from': {
         delete convertedQuery.relative;
@@ -46,7 +38,10 @@ module.exports = (legacyFilter, options = {}) => {
         break;
       }
       case 'to': {
-        convertedQuery.timings = addLTEToTimings(convertedQuery.timings, legacyFilter.to);
+        convertedQuery.timings = addLTEToTimings(
+          convertedQuery.timings,
+          legacyFilter.to,
+        );
         break;
       }
       case 'what':
@@ -82,12 +77,15 @@ module.exports = (legacyFilter, options = {}) => {
         if (!tagSet && !formSchema) return;
         const filterTags = [].concat(legacyFilter.tags);
 
-        const match = tags.filter(tag => filterTags.some(f => f === tag.slug));
+        const match = tags.filter((tag) =>
+          filterTags.some((f) => f === tag.slug));
 
         if (!match.length) return;
 
         const tagObject = match.reduce((carry, tag) => {
-          carry[tag.fieldSlug] = carry[tag.fieldSlug] ? [...carry[tag.fieldSlug], tag.optionId] : [tag.optionId];
+          carry[tag.fieldSlug] = carry[tag.fieldSlug]
+            ? [...carry[tag.fieldSlug], tag.optionId]
+            : [tag.optionId];
           return carry;
         }, {});
 
@@ -98,25 +96,30 @@ module.exports = (legacyFilter, options = {}) => {
         if (!categorySet || !formSchema) return;
         const categoryFilter = [].concat(legacyFilter?.category ?? []);
 
-        const categories = (categorySet.categories || []).filter(cat => categoryFilter.some(c => c === cat.slug));
+        const categories = (categorySet.categories || []).filter((cat) =>
+          categoryFilter.some((c) => c === cat.slug));
 
         if (!categories.length) return;
 
         const flattenedFields = formSchema.fields.reduce((carry, field) => {
           if (field.origin === 'categories') {
-            return carry.concat(field.options.map(option => ({
-              id: option.id,
-              value: option.value,
-              fieldName: field.field,
-            })));
+            return carry.concat(
+              field.options.map((option) => ({
+                id: option.id,
+                value: option.value,
+                fieldName: field.field,
+              })),
+            );
           }
           return carry;
         }, []);
 
         const categoryObject = flattenedFields
-          .filter(f => categories.some(c => f.value === c.slug))
+          .filter((f) => categories.some((c) => f.value === c.slug))
           .reduce((carry, field) => {
-            carry[field.fieldName] = carry[field.fieldName] ? [...carry[field.fieldName], field.id] : [field.id];
+            carry[field.fieldName] = carry[field.fieldName]
+              ? [...carry[field.fieldName], field.id]
+              : [field.id];
             return carry;
           }, {});
 
@@ -133,7 +136,10 @@ module.exports = (legacyFilter, options = {}) => {
     }
 
     if (legacyFilter.from && !legacyFilter.to) {
-      convertedQuery.timings = addLTEToTimings(convertedQuery.timings, legacyFilter.from);
+      convertedQuery.timings = addLTEToTimings(
+        convertedQuery.timings,
+        legacyFilter.from,
+      );
     }
 
     return convertedQuery;

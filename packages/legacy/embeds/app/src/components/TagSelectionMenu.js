@@ -1,46 +1,45 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { useQuery } from 'react-query';
 import { Spinner } from '@openagenda/react-shared';
 
-const extractTagGroupsFromSchema = schema => schema.fields.filter(f => !!f.options);
+const extractTagGroupsFromSchema = (schema) =>
+  schema.fields.filter((f) => !!f.options);
 
 const flatten = (label, lang = 'fr') => {
   if (typeof label === 'string') {
     return label;
   }
-  return label[Object.keys(label).includes(lang) ? lang : Object.keys(label).shift()];
+  return label[
+    Object.keys(label).includes(lang) ? lang : Object.keys(label).shift()
+  ];
 };
 
 const messages = defineMessages({
   tagSelectionLabel: {
     id: 'LegacyEmbed.TagSelectionMenu.tagSelectionLabel',
-    defaultMessage: 'Select the values to load in the widget'
+    defaultMessage: 'Select the values to load in the widget',
   },
   useAllValues: {
     id: 'LegacyEmbed.TagSelectionMenu.useAllValues',
-    defaultMessage: 'Use all values'
+    defaultMessage: 'Use all values',
   },
   useGroupValues: {
     id: 'LegacyEmbed.TagSelectionMenu.useGroupValues',
-    defaultMessage: 'Use all values from a field'
+    defaultMessage: 'Use all values from a field',
   },
   useSelection: {
     id: 'LegacyEmbed.TagSelectionMenu.useSelection',
-    defaultMessage: 'Pick specific values'
+    defaultMessage: 'Pick specific values',
   },
   tagMenuInfo: {
     id: 'LegacyEmbed.TagSelectionMenu.tagMenuInfo',
-    defaultMessage: 'Changes you bring here update the embed code'
-  }
+    defaultMessage: 'Changes you bring here update the embed code',
+  },
 });
 
-export default function TagSelectionMenu({
-  res,
-  lang,
-  onChange
-}) {
+export default function TagSelectionMenu({ res, lang, onChange }) {
   const m = useIntl().formatMessage;
 
   const [selectedGroup, setSelectedGroup] = useState(null);
@@ -48,7 +47,7 @@ export default function TagSelectionMenu({
   const [selectionMode, setSelectionMode] = useState('all');
 
   const query = useQuery('schema', () => axios.get(res), {
-    select: ({ data }) => data
+    select: ({ data }) => data,
   });
 
   useEffect(() => {
@@ -60,7 +59,7 @@ export default function TagSelectionMenu({
     onChange({
       mode: selectionMode,
       tags: selectedTags,
-      group: selectedGroup
+      group: selectedGroup,
     });
   }, [selectionMode, selectedTags, selectedGroup, onChange]);
 
@@ -119,14 +118,15 @@ export default function TagSelectionMenu({
                   key={field.field}
                   checked={selectedGroup === index}
                   type="radio"
-                  onChange={e => {
+                  onChange={(e) => {
                     if (e.target.checked) {
                       setSelectedGroup(index);
                     } else {
                       setSelectedGroup(null);
                     }
                   }}
-                /> {flatten(field.label, lang)}
+                />{' '}
+                {flatten(field.label, lang)}
               </label>
             </div>
           ))}
@@ -138,23 +138,32 @@ export default function TagSelectionMenu({
             <div key={`group-${field.field}`}>
               <strong>{flatten(field.label, lang)}</strong>
               <ul className="margin-left-xs list-unstyled">
-                {field.options.map(o => (
+                {field.options.map((o) => (
                   <li className="checkbox" key={`${field.field}.${o.id}`}>
                     <label htmlFor={`${field.field}.${o.id}`}>
                       <input
                         disabled={selectedGroup !== null}
                         key={`${field.field}.${o.id}`}
-                        checked={selectedTags.includes(o.value) || selectedGroup === index}
+                        checked={
+                          selectedTags.includes(o.value)
+                          || selectedGroup === index
+                        }
                         id={`${field.field}.${o.id}`}
                         type="checkbox"
-                        onChange={e => {
+                        onChange={(e) => {
                           if (e.target.checked) {
                             setSelectedTags(selectedTags.concat(o.value));
                           } else {
-                            setSelectedTags(selectedTags.slice(selectedTags.indexOf(o.value), 1));
+                            setSelectedTags(
+                              selectedTags.slice(
+                                selectedTags.indexOf(o.value),
+                                1,
+                              ),
+                            );
                           }
                         }}
-                      /> {flatten(o.label, lang)}
+                      />{' '}
+                      {flatten(o.label, lang)}
                     </label>
                   </li>
                 ))}

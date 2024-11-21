@@ -1,14 +1,11 @@
-'use strict';
-
-const knexLib = require('knex');
-
-const getCategorySet = require('../lib/getCategorySet');
-const config = require('../testconfig');
+import knexLib from 'knex';
+import getCategorySet from '../lib/getCategorySet.js';
+import config from '../testconfig.js';
 
 const knex = knexLib({ client: 'mysql', connection: config.mysql });
 
 const interfaces = {
-  getAgendaId: () => 2935
+  getAgendaId: () => 2935,
 };
 
 test('get category set', async () => {
@@ -16,7 +13,10 @@ test('get category set', async () => {
   expect(categorySet.categories.length).toBeTruthy();
 });
 
-afterAll(() => (new Promise(done => {
-  knex.destroy();
-  done();
-})));
+afterAll(
+  () =>
+    new Promise((done) => {
+      knex.destroy();
+      done();
+    }),
+);

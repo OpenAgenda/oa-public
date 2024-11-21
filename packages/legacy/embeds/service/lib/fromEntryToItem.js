@@ -1,16 +1,11 @@
-'use strict';
+import unserialize from 'locutus/php/var/unserialize.js';
 
-const unserialize = require('locutus/php/var/unserialize');
-
-module.exports = ({
-  agendaUid,
-  includeId
-}, entry) => {
+export default ({ agendaUid, includeId }, entry) => {
   const result = {
     uid: entry.uid,
     agendaUid,
     template: JSON.parse(entry.template),
-    config: unserialize(entry.store)
+    config: unserialize(entry.store),
   };
 
   if (includeId) {

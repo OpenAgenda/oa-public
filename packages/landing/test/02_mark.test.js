@@ -1,6 +1,4 @@
-'use strict';
-
-const mark = require('../segment-pages/mark');
+import mark from '../segment-pages/mark.js';
 
 describe('02 - markdown (unit)', () => {
   it('mark should not process links', () => {

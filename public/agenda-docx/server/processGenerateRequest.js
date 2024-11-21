@@ -1,13 +1,13 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import cleanString from './lib/cleanString.js';
+import agendaFiles from './lib/agendaFiles.js';
+import defaultState from './defaultState.js';
+import generateDocument from './generateDocument.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('processGenerateRequest');
-const cleanString = require('./lib/cleanString');
-const agendaFiles = require('./lib/agendaFiles');
-const defaultState = require('./defaultState');
-const generateDocument = require('./generateDocument');
+const log = logs('processGenerateRequest');
 
-module.exports = async function processGenerateRequest(
+export default async function processGenerateRequest(
   { s3, localTmpPath },
   data,
 ) {
@@ -38,7 +38,7 @@ module.exports = async function processGenerateRequest(
       agendaUid: data.uid,
       language: 'fr',
       localTmpPath,
-      templatePath: `${__dirname}/../input.docx`,
+      templatePath: `${import.meta.dirname}/../input.docx`,
       templateContent,
       reducer: template && template.reducer ? template.reducer : state.reducer,
       query: _.pick(data, 'from', 'to'),
@@ -60,4 +60,4 @@ module.exports = async function processGenerateRequest(
   state.queued = false;
 
   await files.setJSON('state.json', state);
-};
+}

@@ -1,9 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
+import slug from 'slugify';
+import generateCategorySet from './utils/generateCategorySet.js';
 
-const log = require('@openagenda/logs')('updateCategorySetAndCategories');
-
-const slug = require('slugify');
-const generateCategorySet = require('./utils/generateCategorySet');
+const log = logs('updateCategorySetAndCategories');
 
 async function createCategory(knex, id, category) {
   return knex('review_category').insert({
@@ -19,11 +18,13 @@ async function createCategory(knex, id, category) {
 }
 
 async function updateCategory(knex, id, category) {
-  return knex('review_category').update({
-    review_id: id,
-    category: category.label,
-    updated_at: new Date(),
-  }).where('id', category.id);
+  return knex('review_category')
+    .update({
+      review_id: id,
+      category: category.label,
+      updated_at: new Date(),
+    })
+    .where('id', category.id);
 }
 
 async function removeCategory(knex, id, category) {
@@ -39,7 +40,9 @@ async function setCategories(knex, id, categorySet) {
     .where('review_id', id);
 
   for (const category of categorySet.categories) {
-    const matchingCategory = categories.filter(c => (category.slug === c.slug) || (category.id === c.id)).pop();
+    const matchingCategory = categories
+      .filter((c) => category.slug === c.slug || category.id === c.id)
+      .pop();
 
     if (!matchingCategory) {
       const categoryIds = await createCategory(knex, id, category);
@@ -51,7 +54,7 @@ async function setCategories(knex, id, categorySet) {
   }
 
   for (const category of categories) {
-    if (categorySet.categories.filter(sc => sc.id === category.id)) {
+    if (categorySet.categories.filter((sc) => sc.id === category.id)) {
       continue;
     }
     await removeCategory(knex, id, category);
@@ -60,7 +63,13 @@ async function setCategories(knex, id, categorySet) {
   return categorySet;
 }
 
-module.exports = async function updateCategorySetAndCategories({ knex }, id, schema, currentCategorySet = null, options = {}) {
+export default async function updateCategorySetAndCategories(
+  { knex },
+  id,
+  schema,
+  currentCategorySet = null,
+  options = {},
+) {
   const {
     set: updatedSet,
     messages,
@@ -84,9 +93,11 @@ module.exports = async function updateCategorySetAndCategories({ knex }, id, sch
   const updatedSetWithIds = await setCategories(knex, id, updatedSet);
 
   if (await knex('category_set').first('id').where('id', id)) {
-    await knex('category_set').update({
-      store: JSON.stringify(updatedSetWithIds),
-    }).where('id', id);
+    await knex('category_set')
+      .update({
+        store: JSON.stringify(updatedSetWithIds),
+      })
+      .where('id', id);
   } else {
     await knex('category_set').insert({
       id,
@@ -99,4 +110,4 @@ module.exports = async function updateCategorySetAndCategories({ knex }, id, sch
     messages,
     fields,
   };
-};
+}

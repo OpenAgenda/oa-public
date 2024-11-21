@@ -1,6 +1,4 @@
 import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
 import _ from 'lodash';
 import axios from 'axios';
 import FormData from 'form-data';
@@ -11,9 +9,6 @@ import Services from '../services/init.js';
 import Core from '../core/index.js';
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const log = logs('13_01');
 
@@ -452,7 +447,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         try {
           fs.copyFileSync(
-            `${__dirname}/fixtures/pirates.jpg`,
+            `${import.meta.dirname}/fixtures/pirates.jpg`,
             '/tmp/pirates.jpg',
           );
 

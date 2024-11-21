@@ -1,17 +1,15 @@
-'use strict';
-
-process.env.NODE_ENV = 'test';
-
-const fs = require('node:fs');
-
-const segments = require('../segment-pages');
+import fs from 'node:fs';
+import segments from '../segment-pages/index.js';
 
 describe('segments renderer basic usage', () => {
   it('The simplest usage', () => {
     const f = segments({
       templates: {
-        basic: fs.readFileSync(`${__dirname}/templates/basic.pug`, 'utf-8'),
-        h1: fs.readFileSync(`${__dirname}/templates/h1.pug`, 'utf-8'),
+        basic: fs.readFileSync(
+          `${import.meta.dirname}/templates/basic.pug`,
+          'utf-8',
+        ),
+        h1: fs.readFileSync(`${import.meta.dirname}/templates/h1.pug`, 'utf-8'),
       },
       segments: [
         {
@@ -49,8 +47,14 @@ describe('segments renderer basic usage', () => {
   it('with a layout wrapped around the segments', () => {
     const f = segments({
       templates: {
-        basic: fs.readFileSync(`${__dirname}/templates/basic.pug`, 'utf-8'),
-        layout: fs.readFileSync(`${__dirname}/templates/layout.pug`, 'utf-8'),
+        basic: fs.readFileSync(
+          `${import.meta.dirname}/templates/basic.pug`,
+          'utf-8',
+        ),
+        layout: fs.readFileSync(
+          `${import.meta.dirname}/templates/layout.pug`,
+          'utf-8',
+        ),
       },
       segments: [
         {
@@ -84,8 +88,11 @@ describe('segments renderer basic usage', () => {
   it('with overloads defined at the page level', () => {
     const f = segments({
       templates: {
-        basic: fs.readFileSync(`${__dirname}/templates/basic.pug`, 'utf-8'),
-        h1: fs.readFileSync(`${__dirname}/templates/h1.pug`, 'utf-8'),
+        basic: fs.readFileSync(
+          `${import.meta.dirname}/templates/basic.pug`,
+          'utf-8',
+        ),
+        h1: fs.readFileSync(`${import.meta.dirname}/templates/h1.pug`, 'utf-8'),
       },
       segments: [
         {
@@ -125,8 +132,14 @@ describe('segments renderer basic usage', () => {
     const f = segments({
       basePath: '/pages',
       templates: {
-        linked: fs.readFileSync(`${__dirname}/templates/linked.pug`, 'utf-8'),
-        layout: fs.readFileSync(`${__dirname}/templates/layout.pug`, 'utf-8'),
+        linked: fs.readFileSync(
+          `${import.meta.dirname}/templates/linked.pug`,
+          'utf-8',
+        ),
+        layout: fs.readFileSync(
+          `${import.meta.dirname}/templates/layout.pug`,
+          'utf-8',
+        ),
       },
       segments: [
         {
@@ -166,8 +179,14 @@ describe('segments renderer basic usage', () => {
     const f = segments({
       basePath: '/pages',
       templates: {
-        linked: fs.readFileSync(`${__dirname}/templates/linked.pug`, 'utf-8'),
-        layout: fs.readFileSync(`${__dirname}/templates/layout.pug`, 'utf-8'),
+        linked: fs.readFileSync(
+          `${import.meta.dirname}/templates/linked.pug`,
+          'utf-8',
+        ),
+        layout: fs.readFileSync(
+          `${import.meta.dirname}/templates/layout.pug`,
+          'utf-8',
+        ),
       },
       segments: [
         {
@@ -200,8 +219,14 @@ describe('segments renderer basic usage', () => {
   it('with several languages', () => {
     const f = segments({
       templates: {
-        basic: fs.readFileSync(`${__dirname}/templates/basic.pug`, 'utf-8'),
-        layout: fs.readFileSync(`${__dirname}/templates/layout.pug`, 'utf-8'),
+        basic: fs.readFileSync(
+          `${import.meta.dirname}/templates/basic.pug`,
+          'utf-8',
+        ),
+        layout: fs.readFileSync(
+          `${import.meta.dirname}/templates/layout.pug`,
+          'utf-8',
+        ),
       },
       segments: [
         {

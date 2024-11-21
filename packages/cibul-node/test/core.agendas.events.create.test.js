@@ -1,6 +1,4 @@
 import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
 import _ from 'lodash';
 import axios from 'axios';
 import FormData from 'form-data';
@@ -12,9 +10,6 @@ import Services from '../services/init.js';
 import eventsFixtures from './fixtures/events/index.js';
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 describe('core - functional (server): core.agendas().events.create()', () => {
   let core;
@@ -1140,7 +1135,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       beforeAll(
         () =>
           new Promise((rs) => {
-            fs.createReadStream(`${__dirname}/fixtures/pirates.jpg`)
+            fs.createReadStream(`${import.meta.dirname}/fixtures/pirates.jpg`)
               .pipe(fs.createWriteStream('/tmp/pirates.jpg'))
               .on('close', rs);
           }),

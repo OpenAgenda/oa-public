@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import EmbedCodePresentation from './EmbedCodePresentation.js';
@@ -11,20 +11,21 @@ import AdvancedWidgetMenu from './AdvancedWidgetMenu.js';
 const messages = defineMessages({
   mapCodeLabel: {
     id: 'LegacyEmbed.App.mapCodeLabel',
-    defaultMessage: 'This widget shows the events on a map and filters down event list when markers are clicked.'
+    defaultMessage:
+      'This widget shows the events on a map and filters down event list when markers are clicked.',
   },
   tilesMenu: {
     id: 'LegacyEmbed.App.tilesMenu',
-    defaultMessage: 'Tiles'
+    defaultMessage: 'Tiles',
   },
   positioningMenu: {
     id: 'LegacyEmbed.App.positioningMenu',
-    defaultMessage: 'Positioning'
+    defaultMessage: 'Positioning',
   },
   advancedMenu: {
     id: 'LegacyEmbed.App.advancedMenu',
-    defaultMessage: 'Advanced'
-  }
+    defaultMessage: 'Advanced',
+  },
 });
 
 export default ({
@@ -33,7 +34,7 @@ export default ({
   initialLanguage = 'fr',
   embedLanguages = ['fr', 'en', 'es', 'it', 'de'],
   embedCodeTemplate = '<div class="cbpgmp cibulMap" data-oamp data-cbctl="<%= agendaUid %>/<%= uid %>" data-lang="<%= lang %>" ></div><script type="text/javascript" src="//openagenda.com/js/embed/cibulMapWidget.js"></script>',
-  onChange
+  onChange,
 }) => {
   const m = useIntl().formatMessage;
 
@@ -60,24 +61,25 @@ export default ({
       <div className="row margin-v-sm">
         <div className="col-sm-6">
           <ConfigurationMenuSelector
-            options={[{
-              label: m(messages.tilesMenu),
-              value: 'tiles'
-            }, {
-              label: m(messages.positioningMenu),
-              value: 'position'
-            }, {
-              label: m(messages.advancedMenu),
-              value: 'advanced'
-            }]}
+            options={[
+              {
+                label: m(messages.tilesMenu),
+                value: 'tiles',
+              },
+              {
+                label: m(messages.positioningMenu),
+                value: 'position',
+              },
+              {
+                label: m(messages.advancedMenu),
+                value: 'advanced',
+              },
+            ]}
             onSelect={setSelectedMenu}
           />
           <div className="margin-v-sm">
             {selectedMenu === 'tiles' ? (
-              <TilesMapMenu
-                embed={editedEmbed}
-                onChange={setEditedEmbed}
-              />
+              <TilesMapMenu embed={editedEmbed} onChange={setEditedEmbed} />
             ) : null}
             {selectedMenu === 'position' ? (
               <PositioningMapMenu

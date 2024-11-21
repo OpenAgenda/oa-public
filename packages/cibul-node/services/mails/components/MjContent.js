@@ -1,6 +1,6 @@
-const { BodyComponent } = require('mjml-core');
+import { BodyComponent } from 'mjml-core';
 
-class MjContent extends BodyComponent {
+export default class MjContent extends BodyComponent {
   /*
     Render is the only required function in a component.
     It must return an html string.
@@ -29,5 +29,3 @@ MjContent.dependencies = {
 
 // Tell the parser that our component won't contain other mjml tags
 MjContent.endingTag = true;
-
-module.exports = MjContent;

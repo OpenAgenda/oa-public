@@ -1,9 +1,7 @@
-'use strict';
+import moment from 'moment';
+import sanitizeHtml from 'sanitize-html';
 
-const moment = require('moment');
-const sanitizeHtml = require('sanitize-html');
-
-module.exports = {
+export default {
   stripHtml: (html) =>
     sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} }),
   root: 'https://d.openagenda.com',

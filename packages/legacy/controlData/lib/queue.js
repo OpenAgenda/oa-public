@@ -1,14 +1,15 @@
-"use strict";
+import logs from '@openagenda/logs';
 
-const log = require( '@openagenda/logs' )( 'legacy/controlData/queue' );
+const log = logs('legacy/controlData/queue');
 
-module.exports = ( { redis, prefix }, operation, args = [] ) => {
+export default ({ redis, prefix }, operation, args = []) => {
+  log('queueing %s', operation);
 
-  log( 'queueing %s', operation );
-
-  return redis.rPush( prefix + 'queue', JSON.stringify( {
-    operation,
-    args
-  } ) );
-
-}
+  return redis.rPush(
+    `${prefix}queue`,
+    JSON.stringify({
+      operation,
+      args,
+    }),
+  );
+};

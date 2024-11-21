@@ -1,10 +1,8 @@
-"use strict";
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import legacyAccessType from './legacyAccessType.js';
 
-const _ = require('lodash');
-
-const legacyAccessType = require('./legacyAccessType');
-
-const log = require('@openagenda/logs')('generateCustomSet');
+const log = logs('generateCustomSet');
 
 const schemaToCustom = {
   integer: 'integer',
@@ -21,60 +19,60 @@ const schemaToCustom = {
   checkbox: 'checkbox',
   boolean: 'checkbox',
   phone: 'text',
-  radio: 'radio'
-}
+  radio: 'radio',
+};
 
 function isLegacyCustom(field) {
   if (!Object.keys(schemaToCustom).includes(field.fieldType)) {
     return false;
   }
-  if ((field.origin === 'custom') || !field.origin) {
+  if (field.origin === 'custom' || !field.origin) {
     return true;
   }
   return false;
 }
 
-module.exports = schema => {
+function _multilingualLabel(label) {
+  return _.isString(label)
+    ? {
+      fr: label,
+      en: label,
+    }
+    : label;
+}
+
+export default (schema) => {
   const messages = [];
   log('processing', JSON.stringify(schema, null, 2));
 
-  const customFields = schema.fields.filter(isLegacyCustom).map(f => {
+  const customFields = schema.fields.filter(isLegacyCustom).map((f) => {
+    if (!f.origin) {
+      messages.push(`${f.field}: field origin is not set`);
+    }
 
-      if (!f.origin) {
-        messages.push(`${f.field}: field origin is not set`);
-      }
+    const custom = {
+      name: f.field,
+      type: legacyAccessType(f),
+      fieldType: schemaToCustom[f.fieldType],
+      optional: !!f.optional,
+      label: _multilingualLabel(f.label),
+    };
 
-      const custom = {
-        name: f.field,
-        type: legacyAccessType(f),
-        fieldType: schemaToCustom[f.fieldType],
-        optional: !!f.optional,
-        label: _multilingualLabel(f.label)
-      };
+    ['min', 'max']
+      .filter((attr) => ![undefined, null].includes(f[attr]))
+      .forEach((attr) => {
+        custom[attr] = f[attr];
+      });
 
-      ['min', 'max']
-        .filter(attr => ![undefined, null].includes(f[attr]))
-        .forEach(attr => { custom[attr] = f[attr] });
-
-      return custom;
-
-    });
+    return custom;
+  });
 
   log('extracted', customFields);
 
   return {
     customFields,
-    messages
-  }
-}
+    messages,
+  };
+};
 
-module.exports.isLegacyCustom = isLegacyCustom;
-
-function _multilingualLabel(label) {
-  return _.isString(label) ? {
-    fr: label,
-    en: label
-  } : label;
-}
-
-
+export { isLegacyCustom };

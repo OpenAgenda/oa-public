@@ -4,14 +4,14 @@ import '@openagenda/bs-templates/compiled/main.css';
 import { http, HttpResponse, delay } from 'msw';
 import { HelmetProvider } from 'react-helmet-async';
 
-import createApp from '../src';
+import createApp from '../src/index.js';
 
 import toulouseEmbed from './fixtures/toulouse.json';
 import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json';
 import toulouseEvents from './fixtures/toulouse.events.json';
 import toulouseDefaultEmbed from './fixtures/toulouse.default.json';
 
-import AdminCanvas from './decorators/AdminCanvas';
+import AdminCanvas from './decorators/AdminCanvas.js';
 
 export default {
   title: 'Integrated',
@@ -23,37 +23,40 @@ export const IntegratedDefaultTemplates = {
     const selectionMenuRef = useRef();
     return (
       <HelmetProvider>
-        <div className="col-md-3 col-md-push-5 col-sm-12" ref={selectionMenuRef} />
+        <div
+          className="col-md-3 col-md-push-5 col-sm-12"
+          ref={selectionMenuRef}
+        />
         <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
-          {
-            wrapApp(
-              createApp({
-                initialState: {
-                  apiRoot: '',
-                  prefix: '',
-                  res: {
-                    events: '/agendas/:agendaUid/events',
-                    embeds: '/agendas/:agendaUid/embeds',
-                    agendaSettings: '/agendas/:agendaUid',
-                    preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-                    previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js',
-                  },
-                },
-              }),
-              {
-                disableScrollToTop: true,
-                extraProps: {
-                  lang: 'fr',
-                  agenda: {
-                    uid: 50522407,
-                    slug: 'toulouse',
-                    title: 'Métropole de Toulouse',
-                  },
-                  filtersContainerRef: selectionMenuRef,
+          {wrapApp(
+            createApp({
+              initialState: {
+                apiRoot: '',
+                prefix: '',
+                res: {
+                  events: '/agendas/:agendaUid/events',
+                  embeds: '/agendas/:agendaUid/embeds',
+                  agendaSettings: '/agendas/:agendaUid',
+                  preview:
+                    'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
+                  previewScript:
+                    'https://d.openagenda.com/js/embed/cibulBodyWidget.js',
                 },
               },
-            )
-          }
+            }),
+            {
+              disableScrollToTop: true,
+              extraProps: {
+                lang: 'fr',
+                agenda: {
+                  uid: 50522407,
+                  slug: 'toulouse',
+                  title: 'Métropole de Toulouse',
+                },
+                filtersContainerRef: selectionMenuRef,
+              },
+            },
+          )}
         </div>
       </HelmetProvider>
     );
@@ -87,37 +90,40 @@ export const IntegratedForUpdate = {
     const selectionMenuRef = useRef();
     return (
       <HelmetProvider>
-        <div className="col-md-3 col-md-push-5 col-sm-12" ref={selectionMenuRef} />
+        <div
+          className="col-md-3 col-md-push-5 col-sm-12"
+          ref={selectionMenuRef}
+        />
         <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
-          {
-            wrapApp(
-              createApp({
-                initialState: {
-                  apiRoot: '',
-                  prefix: '',
-                  res: {
-                    events: '/agendas/:agendaUid/events',
-                    embeds: '/agendas/:agendaUid/embeds',
-                    agendaSettings: '/agendas/:agendaUid',
-                    preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-                    previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js',
-                  },
-                },
-              }),
-              {
-                disableScrollToTop: true,
-                extraProps: {
-                  lang: 'fr',
-                  agenda: {
-                    uid: 50522407,
-                    slug: 'toulouse',
-                    title: 'Métropole de Toulouse',
-                  },
-                  filtersContainerRef: selectionMenuRef,
+          {wrapApp(
+            createApp({
+              initialState: {
+                apiRoot: '',
+                prefix: '',
+                res: {
+                  events: '/agendas/:agendaUid/events',
+                  embeds: '/agendas/:agendaUid/embeds',
+                  agendaSettings: '/agendas/:agendaUid',
+                  preview:
+                    'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
+                  previewScript:
+                    'https://d.openagenda.com/js/embed/cibulBodyWidget.js',
                 },
               },
-            )
-          }
+            }),
+            {
+              disableScrollToTop: true,
+              extraProps: {
+                lang: 'fr',
+                agenda: {
+                  uid: 50522407,
+                  slug: 'toulouse',
+                  title: 'Métropole de Toulouse',
+                },
+                filtersContainerRef: selectionMenuRef,
+              },
+            },
+          )}
         </div>
       </HelmetProvider>
     );

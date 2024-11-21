@@ -1,7 +1,1 @@
-"use strict";
-
-module.exports = ( { prefix, redis }, agendaUid ) => {
-
-  return redis.del( prefix + agendaUid );
-
-}
+export default ({ prefix, redis }, agendaUid) => redis.del(prefix + agendaUid);

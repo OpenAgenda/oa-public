@@ -2,6 +2,7 @@
   "name": "@openagenda/legacy",
   "version": "1.11.0",
   "description": "handle refactored legacy operations",
+  "type": "module",
   "main": "index.js",
   "license": "MIT",
   "author": "Kaoré",
@@ -9,7 +10,7 @@
     "sb": "yarn start",
     "build": "babel --copy-files embeds/app/src -d embeds/app/dist -s --env-name esm --root-mode upward",
     "start": "storybook dev -c embeds/app/.storybook -p 9001 --ci",
-    "test": "jest --runInBand --testEnvironment=node",
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --testEnvironment=node",
     "prepack": "yarn extract-messages -c && yarn build",
     "extract-messages": "oa-intl 'embeds/app/src/**/*.js' --output 'embeds/app/src/locales/%lang%.json' --compiled 'embeds/app/src/locales-compiled/%lang%.json' --esm"
   },
@@ -61,5 +62,8 @@
   },
   "msw": {
     "workerDirectory": "embeds/app/.storybook/public"
+  },
+  "jest": {
+    "transform": {}
   }
 }

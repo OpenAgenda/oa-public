@@ -1,11 +1,10 @@
-'use strict';
+import fs from 'node:fs';
+import { promisify } from 'node:util';
+import _ from 'lodash';
+import AWS from 'aws-sdk';
+import logs from '@openagenda/logs';
 
-const fs = require('node:fs');
-const { promisify } = require('node:util');
-const _ = require('lodash');
-const AWS = require('aws-sdk');
-
-const log = require('@openagenda/logs')('agendaFiles');
+const log = logs('agendaFiles');
 
 async function removeAgendaFile(client, bucket, uid, name) {
   const deleteObject = promisify(client.deleteObject.bind(client));
@@ -73,7 +72,7 @@ async function setAgendaJSON(client, bucket, uid, name, obj) {
   });
 }
 
-module.exports = ({ s3, uid }) => {
+export default ({ s3, uid }) => {
   const client = new AWS.S3(
     _.extend(
       {

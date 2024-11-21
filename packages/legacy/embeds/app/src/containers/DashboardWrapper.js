@@ -1,16 +1,12 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
 
 import Dashboard from './Dashboard.js';
 
 function WrapperComponent() {
-  const res = useSelector(state => state.res ?? null);
+  const res = useSelector((state) => state.res ?? null);
 
-  const {
-    agenda,
-    filtersContainerRef: selectionMenuContainerRef
-  } = useLayoutData();
+  const { agenda, filtersContainerRef: selectionMenuContainerRef } = useLayoutData();
 
   return (
     <Dashboard

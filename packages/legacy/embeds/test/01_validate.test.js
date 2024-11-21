@@ -1,6 +1,4 @@
-'use strict';
-
-const validate = require('../service/lib/validate');
+import validate from '../service/lib/validate.js';
 
 describe('01 - embeds - validate', () => {
   describe('root', () => {
@@ -16,13 +14,11 @@ describe('01 - embeds - validate', () => {
 
     it('facebookappid is a string', () => {
       const {
-        config: {
-          facebookappid
-        }
+        config: { facebookappid },
       } = validate({
         config: {
-          facebookappid: '123'
-        }
+          facebookappid: '123',
+        },
       });
 
       expect(facebookappid).toBe('123');
@@ -30,13 +26,11 @@ describe('01 - embeds - validate', () => {
 
     it('siteurl is a link', () => {
       const {
-        config: {
-          siteurl
-        }
+        config: { siteurl },
       } = validate({
         config: {
-          siteurl: 'https://openagenda.com'
-        }
+          siteurl: 'https://openagenda.com',
+        },
       });
 
       expect(siteurl).toBe('https://openagenda.com');
@@ -56,9 +50,9 @@ describe('01 - embeds - validate', () => {
         validate({
           config: {
             layout: {
-              lang: 'fra'
-            }
-          }
+              lang: 'fra',
+            },
+          },
         });
       } catch (e) {
         errors.long = e;
@@ -67,9 +61,9 @@ describe('01 - embeds - validate', () => {
         validate({
           config: {
             layout: {
-              lang: 'f'
-            }
-          }
+              lang: 'f',
+            },
+          },
         });
       } catch (e) {
         errors.short = e;
@@ -79,9 +73,7 @@ describe('01 - embeds - validate', () => {
     });
 
     it('mapTiles is false when not specified', () => {
-      const {
-        layout
-      } = defaults.config;
+      const { layout } = defaults.config;
 
       expect(layout.mapTiles).toEqual(false);
     });
@@ -90,64 +82,52 @@ describe('01 - embeds - validate', () => {
       const tiles = 'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f48';
 
       const {
-        config: {
-          layout
-        }
+        config: { layout },
       } = validate({
         config: {
           layout: {
-            mapTiles: tiles
-          }
-        }
+            mapTiles: tiles,
+          },
+        },
       });
 
       expect(layout.mapTiles).toBe(tiles);
     });
 
     it('layoutmode is standard by default', () => {
-      const {
-        layout
-      } = defaults.config;
+      const { layout } = defaults.config;
 
       expect(layout.layoutmode).toBe('standard');
     });
 
     it('layoutmode can be tiled', () => {
       const {
-        config: {
-          layout
-        }
+        config: { layout },
       } = validate({
         config: {
           layout: {
-            layoutmode: 'tiled'
-          }
-        }
+            layoutmode: 'tiled',
+          },
+        },
       });
 
       expect(layout.layoutmode).toBe('tiled');
     });
 
     it('autoscroll is true if unspecified', () => {
-      const {
-        layout
-      } = defaults.config;
+      const { layout } = defaults.config;
 
       expect(layout.autoscroll).toBe(true);
     });
 
     it('use_event_slug is false by default', () => {
-      const {
-        layout
-      } = defaults.config;
+      const { layout } = defaults.config;
 
       expect(layout.use_event_slug).toBe(false);
     });
 
     it('use_default_css is an object of truths by default', () => {
-      const {
-        layout
-      } = defaults.config;
+      const { layout } = defaults.config;
 
       expect(layout.use_default_css).toEqual({
         list: true,
@@ -155,7 +135,7 @@ describe('01 - embeds - validate', () => {
         search: true,
         categories: true,
         tags: true,
-        calendar: true
+        calendar: true,
       });
     });
 
@@ -165,7 +145,7 @@ describe('01 - embeds - validate', () => {
         tw: false,
         li: false,
         pi: false,
-        em: false
+        em: false,
       });
     });
   });
@@ -174,8 +154,8 @@ describe('01 - embeds - validate', () => {
     it('templates are in template key', () => {
       const clean = validate({
         template: {
-          header: 'something'
-        }
+          header: 'something',
+        },
       });
 
       expect(clean.template.header).toBe('something');

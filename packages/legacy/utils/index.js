@@ -1,5 +1,1 @@
-'use strict';
-
-module.exports = {
-  formatCibulModelEvent: require('./formatCibulModelEvent')
-}
+export { default as formatCibulModelEvent } from './formatCibulModelEvent.js';

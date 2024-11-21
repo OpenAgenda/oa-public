@@ -11,7 +11,6 @@ public/.yarn
 packages/admin-agendas
 packages/cibul-templates
 packages/labels
-packages/legacy
 packages/mep
 packages/utils
 packages/validators
@@ -35,6 +34,7 @@ packages/home/dist
 packages/inbox-apps/coverage
 packages/inbox-apps/dist
 packages/inboxes/dist
+packages/legacy/embeds/app/dist
 packages/member-apps/dist
 packages/members/build
 packages/network-apps/client/dist
@@ -49,12 +49,10 @@ packages/supervisor/dist
 packages/user-apps/dist
 
 public/agenda-docx/client/build
-public/agenda-docx/client/dist
 public/agenda-portal/assets
 public/common-labels/build
 public/date-utils/dist
 public/intl/dist
-public/md/dist
 public/react-filters/build
 public/react-filters/dist
 public/react-portal-ssr/dist

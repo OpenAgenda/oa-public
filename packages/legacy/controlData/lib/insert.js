@@ -1,40 +1,36 @@
-"use strict";
+import loadControlData from './utils/loadControlData.js';
+import loadReviewArticleData from './utils/loadReviewArticleData.js';
+import updateLastOccurrence from './utils/updateLastOccurrence.js';
+import parseEvent from './utils/parseEvent.js';
+import refreshTimestamp from './utils/refreshTimestamp.js';
+import setLocationReference from './utils/setLocationReference.js';
 
-const _ = require( 'lodash' );
-
-const loadControlData = require( './utils/loadControlData' );
-const loadReviewArticleData = require( './utils/loadReviewArticleData' );
-const updateLastOccurrence = require( './utils/updateLastOccurrence' );
-const parseEvent = require( './utils/parseEvent' );
-const refreshTimestamp = require( './utils/refreshTimestamp' );
-const setLocationReference = require( './utils/setLocationReference' );
-
-module.exports = async ( { prefix, knex, redis, loadedCtlData, skipSave }, agendaEvent, data ) => {
-
+export default async (
+  { prefix, knex, redis, loadedCtlData, skipSave },
+  agendaEvent,
+  data,
+) => {
   const { agendaUid, legacyId } = agendaEvent;
 
-  const ctlData = loadedCtlData || await loadControlData( redis, prefix, agendaUid );
+  const ctlData = loadedCtlData || await loadControlData(redis, prefix, agendaUid);
 
-  const { c, t, org } = await loadReviewArticleData( knex, legacyId );
+  const { c, t, org } = await loadReviewArticleData(knex, legacyId);
 
-  const parsed = { event: parseEvent( data, { c, t, org } ) };
+  const parsed = { event: parseEvent(data, { c, t, org }) };
 
-  ctlData.ev.push( parsed.event );
+  ctlData.ev.push(parsed.event);
 
   if (data.location) {
     parsed.location = setLocationReference(ctlData, data.location);
   }
 
-  updateLastOccurrence( ctlData, data.timings );
+  updateLastOccurrence(ctlData, data.timings);
 
-  if ( !skipSave ) {
+  if (!skipSave) {
+    await redis.set(prefix + agendaUid, JSON.stringify(ctlData));
 
-    await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
-
-    await refreshTimestamp( prefix, redis, agendaUid );
-
+    await refreshTimestamp(prefix, redis, agendaUid);
   }
 
   return parsed;
-
-}
+};

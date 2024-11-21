@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { defineMessages, useIntl } from 'react-intl';
 
 import CheckboxComponent from './CheckboxComponent.js';
@@ -8,38 +6,36 @@ import InputComponent from './InputComponent.js';
 const messages = defineMessages({
   autoScroll: {
     id: 'LegacyEmbed.AdvancedMenu.autoScroll',
-    defaultMessage: 'Load events automatically when the bottom of the list is reached'
+    defaultMessage:
+      'Load events automatically when the bottom of the list is reached',
   },
   linkCSS: {
     id: 'LegacyEmbed.AdvancedMenu.linkCSS',
-    defaultMessage: 'Add a link to a stylesheet'
+    defaultMessage: 'Add a link to a stylesheet',
   },
   customCSS: {
     id: 'LegacyEmbed.AdvancedMenu.customCSS',
-    defaultMessage: 'Type in your css'
+    defaultMessage: 'Type in your css',
   },
   customHead: {
     id: 'LegacyEmbed.AdvancedMenu.customHead',
-    defaultMessage: 'Custom <head/> segment'
+    defaultMessage: 'Custom <head/> segment',
   },
   customListHead: {
     id: 'LegacyEmbed.AdvancedMenu.customListHead',
-    defaultMessage: 'Custom list head template'
+    defaultMessage: 'Custom list head template',
   },
   customListItem: {
     id: 'LegacyEmbed.AdvancedMenu.customListItem',
-    defaultMessage: 'Custom list item template'
+    defaultMessage: 'Custom list item template',
   },
   customEvent: {
     id: 'LegacyEmbed.AdvancedMenu.customEvent',
-    defaultMessage: 'Custom event page template'
-  }
+    defaultMessage: 'Custom event page template',
+  },
 });
 
-export default ({
-  embed,
-  onChange
-}) => {
+export default ({ embed, onChange }) => {
   const m = useIntl().formatMessage;
 
   return (

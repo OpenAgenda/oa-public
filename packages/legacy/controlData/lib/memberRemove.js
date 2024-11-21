@@ -1,29 +1,25 @@
-"use strict";
+import _ from 'lodash';
+import loadControlData from './utils/loadControlData.js';
+import refreshTimestamp from './utils/refreshTimestamp.js';
+import roles from './utils/roles.js';
 
-const _ = require( 'lodash' );
+export default async (
+  { prefix, knex: _knex, redis, loadedCtlData, skipSave },
+  { agendaUid, userUid },
+) => {
+  const ctlData = loadedCtlData || await loadControlData(redis, prefix, agendaUid);
 
-const loadControlData = require( './utils/loadControlData' );
-const refreshTimestamp = require( './utils/refreshTimestamp' );
-const roles = require( './utils/roles' );
+  _.keys(roles)
+    .map((k) => roles[k])
+    .forEach((roleCtlKey) => {
+      const index = _.get(ctlData, roleCtlKey, []).indexOf(userUid);
 
-module.exports = async ( { prefix, knex, redis, loadedCtlData, skipSave }, { agendaUid, userUid } ) => {
+      if (index !== -1) ctlData[roleCtlKey].splice(index, 1);
+    });
 
-  const ctlData = loadedCtlData || await loadControlData( redis, prefix, agendaUid );
+  if (!skipSave) {
+    await redis.set(prefix + agendaUid, JSON.stringify(ctlData));
 
-  _.keys( roles ).map( k => roles[ k ] ).forEach( roleCtlKey => {
-
-    const index = _.get( ctlData, roleCtlKey, [] ).indexOf( userUid );
-
-    if ( index !== -1 ) ctlData[ roleCtlKey ].splice( index, 1 );
-
-  } );
-
-  if ( !skipSave ) {
-
-    await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
-
-    await refreshTimestamp( prefix, redis, agendaUid );
-
+    await refreshTimestamp(prefix, redis, agendaUid);
   }
-
-}
+};

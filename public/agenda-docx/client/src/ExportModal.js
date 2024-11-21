@@ -4,11 +4,11 @@ import sa from 'superagent';
 import { Form, Field } from 'react-final-form';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
-import fr from 'date-fns/locale/fr';
-import en from 'date-fns/locale/en';
-import flattenLabels from './utils/flattenLabels';
-import Modal from './Modal';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now/index.js';
+import fr from 'date-fns/locale/fr/index.js';
+import en from 'date-fns/locale/en/index.js';
+import flattenLabels from './utils/flattenLabels.js';
+import Modal from './Modal.js';
 
 const locales = { fr, en };
 

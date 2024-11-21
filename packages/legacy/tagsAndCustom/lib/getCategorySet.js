@@ -1,5 +1,3 @@
-'use strict';
-
 async function getCategorySet({ knex, interfaces }, agendaUid) {
   const agendaId = await interfaces.getAgendaId(agendaUid);
 
@@ -7,7 +5,10 @@ async function getCategorySet({ knex, interfaces }, agendaUid) {
     return null;
   }
 
-  return knex('category_set').first('store').where('id', agendaId).then(r => (r ? JSON.parse(r.store) : null));
+  return knex('category_set')
+    .first('store')
+    .where('id', agendaId)
+    .then((r) => (r ? JSON.parse(r.store) : null));
 }
 
-module.exports = getCategorySet;
+export default getCategorySet;

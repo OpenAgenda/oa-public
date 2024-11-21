@@ -1,11 +1,5 @@
-"use strict";
+import controlData from './controlData/index.js';
 
-const controlData = require( './controlData' );
-
-module.exports = ( { knex, redis } ) => {
-
-  return {
-    controlData: controlData.bind( null, { knex, redis } )
-  }
-
-}
+export default ({ knex, redis }) => ({
+  controlData: controlData.bind(null, { knex, redis }),
+});

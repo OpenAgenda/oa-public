@@ -1,11 +1,9 @@
-'use strict';
+import express from 'express';
+import ih from 'immutability-helper';
+import agendaFiles from './lib/agendaFiles.js';
+import defaultState from './defaultState.js';
 
-const express = require('express');
-const ih = require('immutability-helper');
-const agendaFiles = require('./lib/agendaFiles');
-const defaultState = require('./defaultState');
-
-module.exports = function App({ queue, s3 }) {
+export default function App({ queue, s3 }) {
   const app = express();
 
   app.use(express.urlencoded({ extended: true }));
@@ -45,4 +43,4 @@ module.exports = function App({ queue, s3 }) {
   });
 
   return app;
-};
+}

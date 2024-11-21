@@ -1,14 +1,8 @@
 import _ from 'lodash';
-import React from 'react';
 
 import toggleCheckbox from './utils/toggleCheckbox.js';
 
-export default ({
-  embed,
-  onChange,
-  path,
-  label
-}) => (
+export default ({ embed, onChange, path, label }) => (
   <div key={path} className="checkbox">
     <label htmlFor={path}>
       <input
@@ -17,7 +11,8 @@ export default ({
         id={path}
         type="checkbox"
         onChange={toggleCheckbox(embed, path, onChange)}
-      /> {label}
+      />{' '}
+      {label}
     </label>
   </div>
 );

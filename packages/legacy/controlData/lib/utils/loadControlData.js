@@ -1,49 +1,42 @@
-"use strict";
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import initializeControlData from './initializeControlData.js';
 
-const _ = require( 'lodash' );
+const log = logs('controlData/loadAgendaControlData');
 
-const initializeControlData = require( './initializeControlData' );
+export default async (redis, prefix, agendaUid, options = {}) => {
+  const { parse, initialize } = _.assign(
+    { parse: true, initialize: false },
+    options,
+  );
 
-const log = require( '@openagenda/logs' )( 'controlData/loadAgendaControlData' );
-
-module.exports = async ( redis, prefix, agendaUid, options = {} ) => {
-
-  const {
-    parse,
-    initialize
-  } = _.assign( { parse: true, initialize: false }, options );
-
-  const ctlDataStr = await redis.get( prefix + agendaUid );
+  const ctlDataStr = await redis.get(prefix + agendaUid);
 
   const isNotDefined = !ctlDataStr || ctlDataStr === 'null';
 
-  if ( isNotDefined && !initialize ) {
-
+  if (isNotDefined && !initialize) {
     return null;
-
-  } else if ( isNotDefined && !parse ) {
-
-    return JSON.stringify( initializeControlData() );
-
-  } else if ( isNotDefined ) {
-
+  }
+  if (isNotDefined && !parse) {
+    return JSON.stringify(initializeControlData());
+  }
+  if (isNotDefined) {
     return initializeControlData();
-
-  } else if ( !parse ) {
-
+  }
+  if (!parse) {
     return ctlDataStr;
-
   }
 
   try {
-
-    return JSON.parse( ctlDataStr );
-
-  } catch ( e ) {
-
-    log( 'error', 'could not parse control data of agenda %s: %s', agendaUid, ctlDataStr );
-
+    return JSON.parse(ctlDataStr);
+  } catch (e) {
+    log(
+      'error',
+      'could not parse control data of agenda %s: %s',
+      agendaUid,
+      ctlDataStr,
+    );
   }
 
   return initializeControlData();
-}
+};

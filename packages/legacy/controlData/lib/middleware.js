@@ -1,25 +1,22 @@
-'use strict';
-
-const _ = require('lodash');
-const logs = require('@openagenda/logs');
-
-const loadControlData = require('./utils/loadControlData');
-const loadEmbedControlData = require('./utils/loadEmbedControlData');
-const { isRebuilding } = require('./rebuild');
-const rebuild = require('./rebuild');
-const queue = require('./queue');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import loadControlData from './utils/loadControlData.js';
+import loadEmbedControlData from './utils/loadEmbedControlData.js';
+import rebuild, { isRebuilding } from './rebuild.js';
+import queue from './queue.js';
 
 const log = logs('controlData/middleware');
 
 function _getPublishedEventsCount(knex, agendaUid) {
-  return knex.count('id as count')
+  return knex
+    .count('id as count')
     .from('agenda_event')
     .where({
       agenda_uid: agendaUid,
       state: 2,
     })
-    .then(r => _.first(r))
-    .then(r => (r ? r.count : 0));
+    .then((r) => _.first(r))
+    .then((r) => (r ? r.count : 0));
 }
 
 function _sendResult(req, res, agendaUid, ctlDataStr, embedCtlDataStr) {
@@ -51,7 +48,10 @@ async function embed({ prefix, knex, redis, imagePath }, req, res, next) {
   log('fetching control data for embed %s', embedUid);
 
   try {
-    req.embedControlDataStr = await loadEmbedControlData({ prefix, knex, redis, imagePath }, embedUid);
+    req.embedControlDataStr = await loadEmbedControlData(
+      { prefix, knex, redis, imagePath },
+      embedUid,
+    );
   } catch (e) {
     log('error', 'could not load embed %s', embedUid, e);
   }
@@ -73,15 +73,25 @@ async function main({ prefix, knex, redis }, req, res, next) {
     });
 
     if (ctlDataStr) {
-      return _sendResult(req, res, agendaUid, ctlDataStr, req.embedControlDataStr);
+      return _sendResult(
+        req,
+        res,
+        agendaUid,
+        ctlDataStr,
+        req.embedControlDataStr,
+      );
     }
 
     log('no control data was retrieved for agenda %s', agendaUid);
 
     if (await _getPublishedEventsCount(knex, agendaUid) < 300) {
-      return _sendResult(req, res, agendaUid, JSON.stringify(
-        await rebuild({ prefix, knex, redis }, agendaUid),
-      ), req.embedControlDataStr);
+      return _sendResult(
+        req,
+        res,
+        agendaUid,
+        JSON.stringify(await rebuild({ prefix, knex, redis }, agendaUid)),
+        req.embedControlDataStr,
+      );
     }
 
     if (!await isRebuilding(redis, prefix, agendaUid)) {
@@ -96,4 +106,4 @@ async function main({ prefix, knex, redis }, req, res, next) {
   }
 }
 
-module.exports = _.assign(main, { embed });
+export default _.assign(main, { embed });

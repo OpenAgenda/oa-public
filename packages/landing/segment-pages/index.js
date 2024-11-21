@@ -1,9 +1,7 @@
-'use strict';
-
-const _ = require('lodash');
-const pug = require('pug');
-const VError = require('@openagenda/verror');
-const mark = require('./mark');
+import _ from 'lodash';
+import pug from 'pug';
+import VError from '@openagenda/verror';
+import mark from './mark.js';
 
 function _cleanPageSegment(segment) {
   if (typeof segment === 'string') {
@@ -96,7 +94,7 @@ function _pageLang(params, key) {
   return match[0].lang;
 }
 
-module.exports = (config) => {
+export default (config) => {
   const params = _.defaults(config, {
     basePath: false, // optional. If urls are to be generated
     templates: {},
@@ -131,7 +129,7 @@ module.exports = (config) => {
         renderParts.push(`<title>${data.head[key]}</title>`);
       }
 
-      if (['title', 'description', 'keywords'].indexOf(key) !== -1) {
+      if (['title', 'description', 'keywords'].includes(key)) {
         renderParts.push(`<meta name="${key}" content="${data.head[key]}" />`);
       }
     });
