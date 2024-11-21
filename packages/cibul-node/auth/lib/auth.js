@@ -284,6 +284,9 @@ export function redirectToComplete(values) {
       ...loadOptionals(values.req),
       email: values.user.email,
       ...values.req.agenda ? { slug: values.req.agenda.slug } : {},
+      ...values.req.originalUrl.indexOf('signin') !== -1
+        ? { origin: 'signin' }
+        : undefined,
     })}`,
   );
 
