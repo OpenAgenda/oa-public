@@ -54,4 +54,25 @@ describe('event search - functional: multiple Sort', () => {
       81527718, 81527719, 81527721, 81527720,
     ]);
   });
+
+  describe('fixs', () => {
+    it('location sort on departments', async () => {
+      const result = await service('location_sort').search(
+        {
+          sort: ['location.department.asc'],
+        },
+        { size: 10 },
+        { useAfterKey: true, detailed: true },
+      );
+      expect(result.events.map((e) => e.location.department)).toStrictEqual([
+        'A',
+        'A',
+        'A',
+        'B',
+      ]);
+      expect(result.events.map((e) => e.uid)).toStrictEqual([
+        81527718, 81527719, 81527721, 81527720,
+      ]);
+    });
+  });
 });
