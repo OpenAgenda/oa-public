@@ -1,12 +1,10 @@
-'use strict';
+import fs from 'node:fs/promises';
 
-const fs = require('node:fs/promises');
-
-module.exports = async function fileExists(filepath) {
+export default async function fileExists(filepath) {
   try {
     await fs.access(filepath);
     return true;
   } catch {
     return false;
   }
-};
+}

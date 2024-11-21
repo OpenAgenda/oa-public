@@ -1,15 +1,15 @@
-'use strict';
+import path from 'node:path';
+import addressParser from 'nodemailer/lib/addressparser/index.js';
+import { handleMjmlConfig, registerComponent } from 'mjml-core';
+import isEmail from 'isemail';
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import { runFilterTask, runSendTask } from './task.js';
+import render from './templater.js';
+import createConfig from './config.js';
+import fileExists from './utils/fileExists.js';
 
-const path = require('node:path');
-const addressParser = require('nodemailer/lib/addressparser');
-const { handleMjmlConfig, registerComponent } = require('mjml-core');
-const isEmail = require('isemail');
-const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')('mails/index');
-const { runFilterTask, runSendTask } = require('./task');
-const render = require('./templater');
-const createConfig = require('./config');
-const fileExists = require('./utils/fileExists');
+const log = logs('mails/index');
 
 class Mails {
   constructor(config) {
@@ -173,13 +173,10 @@ class Mails {
   }
 }
 
-module.exports = function createMails(config) {
+export default function createMails(config) {
   const svc = new Mails(config);
 
   return svc.init();
-};
+}
 
-Object.assign(module.exports, {
-  Mails,
-  addressParser,
-});
+export { Mails, addressParser };

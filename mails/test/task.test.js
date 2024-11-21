@@ -1,13 +1,13 @@
-'use strict';
+import path from 'node:path';
+import _ from 'lodash';
+import nodemailer from 'nodemailer';
+import redis from 'redis';
+import Queues from '@openagenda/queues';
+import createMails from '../index.js';
 
-const path = require('node:path');
-const _ = require('lodash');
-const nodemailer = require('nodemailer');
-const redis = require('redis');
-const Queues = require('@openagenda/queues');
-const createMails = require('../index');
+const { jest } = import.meta;
 
-const templatesDir = path.join(__dirname, '..', 'templates');
+const templatesDir = path.join(import.meta.dirname, '..', 'templates');
 
 function _sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));

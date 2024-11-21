@@ -1,7 +1,5 @@
-'use strict';
-
-const extractEmails = require('../utils/extractEmails');
-const normalizeInput = require('../utils/extractEmails/normalizeInput');
+import extractEmails from '../utils/extractEmails/index.js';
+import normalizeInput from '../utils/extractEmails/normalizeInput.js';
 
 describe('extractEmails', () => {
   it('basic case', () => {

@@ -1,8 +1,6 @@
-'use strict';
+import fs from 'node:fs/promises';
 
-const fs = require('node:fs/promises');
-
-module.exports = async function cachedReadFile(cache, filePath) {
+export default async function cachedReadFile(cache, filePath) {
   if (cache.has(filePath)) {
     return cache.get(filePath);
   }
@@ -12,4 +10,4 @@ module.exports = async function cachedReadFile(cache, filePath) {
   cache.set(filePath, result);
 
   return result;
-};
+}
