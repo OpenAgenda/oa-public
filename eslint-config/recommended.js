@@ -73,6 +73,7 @@ module.exports = {
         mjs: 'never',
       },
     ],
+    'import/no-import-module-exports': 'error',
     'import/no-named-as-default': 'warn',
     'import/no-named-as-default-member': 'off',
     'import/no-duplicates': 'warn',
