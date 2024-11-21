@@ -171,7 +171,7 @@ export default class Body extends React.Component {
 
       if ( err ) return console.log( 'error', err );
 
-      get( this.props.agendaRes, { uid }, ( err, agenda ) => {
+      get( this.props.agendaRes.replace(':uid', uid), {}, ( err, agenda ) => {
 
         if ( err ) return console.log( 'error', err );
 

@@ -5,7 +5,7 @@ import Body from './Body';
 export default options => {
   const params = {
     searchRes: '/',
-    agendaRes: '/get',
+    agendaRes: '/:uid',
     setAgendaRes: '/get',
     membersRes: '/members',
     canvas: '.js_canvas',
