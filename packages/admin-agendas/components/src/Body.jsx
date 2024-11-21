@@ -118,8 +118,12 @@ export default class Body extends React.Component {
       if ( err ) return console.log( 'error', err );
 
       this.setState( actions.resetPageItems( this.state, data, page ) );
-
+  
       updateHref( Object.assign( getQuery() || {}, query ) );
+
+      if (data.total === 1) {
+        this.onSelectAgenda(data.agendas[0].uid);
+      }
 
       if ( cb ) cb();
 
