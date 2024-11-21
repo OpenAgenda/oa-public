@@ -1,15 +1,11 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const _ = require('lodash');
-
-const labels = require('@openagenda/labels/corpo/pages');
-const segmentPages = require('./segment-pages');
+import fs from 'node:fs';
+import _ from 'lodash';
+import labels from '@openagenda/labels/corpo/pages.js';
+import segmentPages from './segment-pages/index.js';
 
 // let default label be english
 
-module.exports = (basePath) => {
+export default (basePath) => {
   const existingLanguages = _.keys(basePath);
 
   _.keys(labels).forEach((field) => {
@@ -26,26 +22,29 @@ module.exports = (basePath) => {
     segments: [],
     labels,
     basePath,
-    baseDir: `${__dirname}/templates`,
+    baseDir: `${import.meta.dirname}/templates`,
     throwOnUnknown: false,
   };
 
-  fs.readdirSync(`${__dirname}/templates`).forEach((f) => {
+  fs.readdirSync(`${import.meta.dirname}/templates`).forEach((f) => {
     params.templates[f.split('.')[0]] = fs.readFileSync(
-      `${__dirname}/templates/${f}`,
+      `${import.meta.dirname}/templates/${f}`,
       'utf-8',
     );
   });
 
   ['pages', 'segments'].forEach((namespace) => {
-    fs.readdirSync(`${__dirname}/${namespace}`).forEach((p) => {
+    fs.readdirSync(`${import.meta.dirname}/${namespace}`).forEach((p) => {
       params[namespace].push(
         _.assign(
           {
             key: p.split('.')[0],
           },
           JSON.parse(
-            fs.readFileSync(`${__dirname}/${namespace}/${p}`, 'utf-8'),
+            fs.readFileSync(
+              `${import.meta.dirname}/${namespace}/${p}`,
+              'utf-8',
+            ),
           ),
         ),
       );

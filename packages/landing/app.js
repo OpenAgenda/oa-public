@@ -1,10 +1,9 @@
-'use strict';
-
-const http = require('node:http');
-const fs = require('node:fs');
-const express = require('express');
-const reload = require('reload');
-const pages = require('.');
+import http from 'node:http';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import express from 'express';
+import reload from 'reload';
+import pages from './index.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -12,7 +11,9 @@ const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
 const style = fs.readFileSync(
-  `${__dirname}/node_modules/@openagenda/bs-templates/compiled/main.css`,
+  fileURLToPath(
+    import.meta.resolve('@openagenda/bs-templates/compiled/main.css'),
+  ),
 );
 
 app.get(/css$/, (req, res) => {
@@ -54,13 +55,13 @@ app.get(['/:page', '/'], (req, res, next) => {
 
 app.use(
   '/fonts',
-  express.static(`${__dirname}/node_modules/font-awesome/fonts`),
+  express.static(`${import.meta.dirname}/node_modules/font-awesome/fonts`),
 );
 
-reload(server, app);
+reload(app);
 
 app.get('*', (req, res) => {
-  const layout = fs.readFileSync(`${__dirname}/layout.html`, 'utf-8');
+  const layout = fs.readFileSync(`${import.meta.dirname}/layout.html`, 'utf-8');
 
   res.type('text/html');
 
