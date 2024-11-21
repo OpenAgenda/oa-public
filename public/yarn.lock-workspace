@@ -4040,19 +4040,15 @@ __metadata:
   resolution: "@openagenda/agenda-docx@workspace:agenda-docx"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
-    "@babel/core": "npm:^7.23.3"
-    "@babel/runtime-corejs3": "npm:^7.23.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/queues": "npm:2.0.0"
     "@openagenda/verror": "npm:^3.1.0"
+    "@storybook/react-webpack5": "npm:^7.4.2"
     angular-expressions: "npm:^0.3.0"
     aws-sdk: "npm:^2.1440.0"
-    babel-jest: "npm:^29.7.0"
-    babel-loader: "npm:^9.1.3"
-    core-js: "npm:^3.29.1"
-    css-loader: "npm:^4.3.0"
     date-fns: "npm:^1.29.0"
     docxtemplater: "npm:^3.44.0"
     express: "npm:^4.17.1"
@@ -4063,7 +4059,7 @@ __metadata:
     lodash: "npm:^4.17.15"
     moment: "npm:^2.27.0"
     moment-timezone: "npm:^0.5.31"
-    nodemon: "npm:^2.0.4"
+    msw-storybook-addon: "npm:^2.0.2"
     pizzip: "npm:^3.0.6"
     prop-types: "npm:^15.7.2"
     react: "npm:^18.3.1"
@@ -4071,17 +4067,10 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-final-form: "npm:^6.5.3"
     redis: "npm:^4.6.6"
-    regenerator-runtime: "npm:^0.13.7"
     remove-markdown: "npm:^0.3.0"
     rimraf: "npm:^3.0.1"
-    sass-loader: "npm:^10.1.1"
-    source-map-loader: "npm:^2.0.1"
-    style-loader: "npm:^1.1.3"
+    storybook: "npm:^7.6.4"
     superagent: "npm:^3.8.3"
-    webpack: "npm:^5.53.0"
-    webpack-cli: "npm:^5.1.4"
-    webpack-dev-middleware: "npm:^4.3.0"
-    webpack-hot-middleware: "npm:^2.25.1"
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -4278,7 +4267,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/date-utils@workspace:date-utils":
+"@openagenda/date-utils@npm:^0.0.1, @openagenda/date-utils@workspace:date-utils":
   version: 0.0.0-use.local
   resolution: "@openagenda/date-utils@workspace:date-utils"
   dependencies:
@@ -4412,7 +4401,6 @@ __metadata:
     jest: "npm:^29.7.0"
     markdown-link-extractor: "npm:^4.0.2"
     marked: "npm:^12.0.2"
-    tsup: "npm:^6.2.3"
     turndown: "npm:^7.1.3"
   languageName: unknown
   linkType: soft
@@ -4425,11 +4413,14 @@ __metadata:
     "@babel/plugin-syntax-import-attributes": "npm:^7.23.3"
     "@babel/preset-env": "npm:^7.23.3"
     "@openagenda/babel-preset": "npm:^1.5.0"
+    "@openagenda/date-utils": "npm:^0.0.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/logs": "npm:^1.1.9"
     axios: "npm:^0.21.1"
+    date-fns: "npm:^2.29.3"
     lodash: "npm:^4.17.21"
+    moment: "npm:^2.30.1"
     nodemon: "npm:^3.0.3"
     pdfkit: "npm:^0.13.0"
     qs: "npm:^6.11.2"
@@ -8502,7 +8493,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.4, @types/json-schema@npm:^7.0.8, @types/json-schema@npm:^7.0.9":
+"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.8, @types/json-schema@npm:^7.0.9":
   version: 7.0.9
   resolution: "@types/json-schema@npm:7.0.9"
   checksum: 10c0/46a9e92b7922495a50f55632d802f7e7ab2dffd76b3f894baf7b28012e73983df832977bedd748aa9a2bc8400c6e8659ca39faf6ccd93d71d41d5b0293338a0e
@@ -9824,7 +9815,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv-keywords@npm:^3.4.1, ajv-keywords@npm:^3.5.2":
+"ajv-keywords@npm:^3.5.2":
   version: 3.5.2
   resolution: "ajv-keywords@npm:3.5.2"
   peerDependencies:
@@ -9844,7 +9835,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^6.12.2, ajv@npm:^6.12.4, ajv@npm:^6.12.5, ajv@npm:^6.5.5":
+"ajv@npm:^6.12.4, ajv@npm:^6.12.5, ajv@npm:^6.5.5":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
   dependencies:
@@ -23264,7 +23255,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:^2.0.15, nodemon@npm:^2.0.4, nodemon@npm:^2.0.6":
+"nodemon@npm:^2.0.15, nodemon@npm:^2.0.6":
   version: 2.0.15
   resolution: "nodemon@npm:2.0.15"
   dependencies:
@@ -27493,31 +27484,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-loader@npm:^10.1.1":
-  version: 10.5.2
-  resolution: "sass-loader@npm:10.5.2"
-  dependencies:
-    klona: "npm:^2.0.4"
-    loader-utils: "npm:^2.0.0"
-    neo-async: "npm:^2.6.2"
-    schema-utils: "npm:^3.0.0"
-    semver: "npm:^7.3.2"
-  peerDependencies:
-    fibers: ">= 3.1.0"
-    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-    sass: ^1.3.0
-    webpack: ^4.36.0 || ^5.0.0
-  peerDependenciesMeta:
-    fibers:
-      optional: true
-    node-sass:
-      optional: true
-    sass:
-      optional: true
-  checksum: 10c0/5ba4a83459fbb50e21d4f4b1b59baf1ddf8dd404099b6d1f2ec887c6903659e505879915030dd9efb1c6dd5fde2d515a19f418487b73d1cc59f6aad60c79bcf5
-  languageName: node
-  linkType: hard
-
 "sass-loader@npm:^12.4.0":
   version: 12.4.0
   resolution: "sass-loader@npm:12.4.0"
@@ -27614,17 +27580,6 @@ __metadata:
     ajv-formats: "npm:^2.1.1"
     ajv-keywords: "npm:^5.1.0"
   checksum: 10c0/8dab7e7800316387fd8569870b4b668cfcecf95ac551e369ea799bbcbfb63fb0365366d4b59f64822c9f7904d8c5afcfaf5a6124a4b08783e558cd25f299a6b4
-  languageName: node
-  linkType: hard
-
-"schema-utils@npm:^2.7.0":
-  version: 2.7.0
-  resolution: "schema-utils@npm:2.7.0"
-  dependencies:
-    "@types/json-schema": "npm:^7.0.4"
-    ajv: "npm:^6.12.2"
-    ajv-keywords: "npm:^3.4.1"
-  checksum: 10c0/723c3c856a0313a89aa81c5fb2c93d4b11225f5cdd442665fddd55d3c285ae72e079f5286a3a9a1a973affe888f6c33554a2cf47b79b24cd8de2f1f756a6fb1b
   languageName: node
   linkType: hard
 
@@ -28961,18 +28916,6 @@ __metadata:
   version: 3.0.0
   resolution: "stubs@npm:3.0.0"
   checksum: 10c0/841a4ab8c76795d34aefe129185763b55fbf2e4693208215627caea4dd62e1299423dcd96f708d3128e3dfa0e669bae2cb912e6e906d7d81eaf6493196570923
-  languageName: node
-  linkType: hard
-
-"style-loader@npm:^1.1.3":
-  version: 1.3.0
-  resolution: "style-loader@npm:1.3.0"
-  dependencies:
-    loader-utils: "npm:^2.0.0"
-    schema-utils: "npm:^2.7.0"
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 10c0/21137d63623690af0c8b135f94e01af724bc0dea560c65ff553aa06c560fac69c068ec19ae7893b3667e50e79a660e051783803c949bcd559a8fc2f839397056
   languageName: node
   linkType: hard
 
