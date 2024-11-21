@@ -1,7 +1,9 @@
-const fs = require('node:fs/promises');
-const path = require('node:path');
-const config = require('../config.dev');
-const generate = require('../server/generateDocument');
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import config from '../config.dev.js';
+import generate from '../server/generateDocument.js';
+
+const { jest } = import.meta;
 
 describe('unit - generate document', () => {
   jest.setTimeout(15000);
@@ -15,7 +17,7 @@ describe('unit - generate document', () => {
       agendaUid: 47800929,
       language: 'fr',
       localTmpPath: config.localTmpPath,
-      templatePath: `${__dirname}/../input.docx`,
+      templatePath: `${import.meta.dirname}/../input.docx`,
     });
 
     docPath = result.outputPath;
@@ -26,7 +28,7 @@ describe('unit - generate document', () => {
 
   test('generates a word document based on a templateContent', async () => {
     const templateContent = await fs.readFile(
-      path.resolve(__dirname, 'data', 'template.docx'),
+      path.resolve(import.meta.dirname, 'data', 'template.docx'),
     );
 
     const result = await generate({

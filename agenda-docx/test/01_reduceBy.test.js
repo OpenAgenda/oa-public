@@ -1,8 +1,6 @@
-const fs = require('node:fs');
-
-const reduceBy = require('../server/lib/reduceBy');
-
-const reduceByDeep = require('../server/lib/reduceByDeep');
+import fs from 'node:fs';
+import reduceBy from '../server/lib/reduceBy.js';
+import reduceByDeep from '../server/lib/reduceByDeep.js';
 
 const items = [
   {
@@ -127,7 +125,9 @@ describe('unit - reduceBy', () => {
     const reduced = reduceBy(items, 'location.name', reducer);
 
     expect(reduced).toEqual(
-      JSON.parse(fs.readFileSync(`${__dirname}/data/reduced.json`, 'utf-8')),
+      JSON.parse(
+        fs.readFileSync(`${import.meta.dirname}/data/reduced.json`, 'utf-8'),
+      ),
     );
   });
 
@@ -178,7 +178,10 @@ describe('unit - reduceBy', () => {
 
     expect(reduced).toEqual(
       JSON.parse(
-        fs.readFileSync(`${__dirname}/data/reduced.deep.json`, 'utf-8'),
+        fs.readFileSync(
+          `${import.meta.dirname}/data/reduced.deep.json`,
+          'utf-8',
+        ),
       ),
     );
   });
@@ -197,7 +200,10 @@ describe('unit - reduceBy', () => {
 
     expect(reduced).toEqual(
       JSON.parse(
-        fs.readFileSync(`${__dirname}/data/reduced.multiple.json`, 'utf-8'),
+        fs.readFileSync(
+          `${import.meta.dirname}/data/reduced.multiple.json`,
+          'utf-8',
+        ),
       ),
     );
   });
@@ -256,7 +262,7 @@ describe('unit - reduceBy', () => {
     expect(reduced).toEqual(
       JSON.parse(
         fs.readFileSync(
-          `${__dirname}/data/reduced.multiple-deep.json`,
+          `${import.meta.dirname}/data/reduced.multiple-deep.json`,
           'utf-8',
         ),
       ),

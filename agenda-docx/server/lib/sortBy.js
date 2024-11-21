@@ -1,12 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const stableSort = require('./stableSort');
-const isNumber = require('./isNumber');
+import _ from 'lodash';
+import stableSort from './stableSort.js';
+import isNumber from './isNumber.js';
 
 const defaultGetValue = _.get;
 
-module.exports = (array, keys, getValue = defaultGetValue) => {
+export default (array, keys, getValue = defaultGetValue) => {
   let result = array;
 
   (Array.isArray(keys) ? keys : [keys]).reverse().forEach((sortByKey) => {

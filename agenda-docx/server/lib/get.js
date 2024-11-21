@@ -1,8 +1,6 @@
-'use strict';
-
 /* eslint-disable */
 
-const _ = require('lodash');
+import _ from 'lodash';
 
 /** Used as the maximum memoize cache size. */
 const MAX_MEMOIZE_SIZE = 500;
@@ -203,4 +201,4 @@ function memoizeCapped(func) {
   return result;
 }
 
-module.exports = get;
+export default get;

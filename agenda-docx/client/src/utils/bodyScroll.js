@@ -1,4 +1,4 @@
-import * as du from './dom';
+import * as du from './dom.js';
 
 function _stringifyStyle(style) {
   return Object.keys(style)

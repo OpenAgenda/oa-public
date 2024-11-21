@@ -1,7 +1,5 @@
-'use strict';
-
-const inquirer = require('inquirer');
-const generateDocument = require('./server/generateDocument');
+import inquirer from 'inquirer';
+import generateDocument from './server/generateDocument.js';
 
 const reducer = undefined;
 // const reducer = [
@@ -72,54 +70,52 @@ function _term(message, options = {}) {
     .then((answers) => answers.response);
 }
 
-(async () => {
-  try {
-    const templatePath = await _term(
-      'What is the path to the input docx template ?',
-      {
-        // default: '/home/bertho/Téléchargements/template4.docx'
-        default: `${__dirname}/input.docx`,
-      },
-    );
+try {
+  const templatePath = await _term(
+    'What is the path to the input docx template ?',
+    {
+      // default: '/home/bertho/Téléchargements/template4.docx'
+      default: `${import.meta.dirname}/input.docx`,
+    },
+  );
 
-    const localTmpPath = await _term(
-      'Where should the generated file be placed?',
-      {
-        // default: '/home/bertho/Téléchargements'
-        default: '/var/tmp/docx',
-      },
-    );
+  const localTmpPath = await _term(
+    'Where should the generated file be placed?',
+    {
+      // default: '/home/bertho/Téléchargements'
+      default: '/var/tmp/docx',
+    },
+  );
 
-    const agendaUid = await _term('What is the uid of the agenda to export?', {
-      // default: 59272362 // chatellerault
-      // default: 1298686 // jnarchi-2018-auvergne-rhone-alpes
-      default: 63106080, // jep 2018 guyane
+  const agendaUid = await _term('What is the uid of the agenda to export?', {
+    // default: 59272362 // chatellerault
+    // default: 1298686 // jnarchi-2018-auvergne-rhone-alpes
+    default: 63106080, // jep 2018 guyane
+  });
+
+  console.log('generating output...');
+
+  const { outputPath } = await generateDocument({
+    agendaUid,
+    localTmpPath,
+    templatePath,
+    language: 'fr',
+    reducer,
+    query: {
+      // from: '2017-12-31T23:00:00.000Z',
+      // to: '2018-12-31T22:59:59.999Z'
+    },
+  });
+
+  console.log('output generated at %s', outputPath);
+
+  process.exit();
+} catch (e) {
+  console.log('generation failed', e);
+
+  if (e.properties && e.properties.errors) {
+    e.properties.errors.forEach((error) => {
+      console.log('Error:', error);
     });
-
-    console.log('generating output...');
-
-    const { outputPath } = await generateDocument({
-      agendaUid,
-      localTmpPath,
-      templatePath,
-      language: 'fr',
-      reducer,
-      query: {
-        // from: '2017-12-31T23:00:00.000Z',
-        // to: '2018-12-31T22:59:59.999Z'
-      },
-    });
-
-    console.log('output generated at %s', outputPath);
-
-    process.exit();
-  } catch (e) {
-    console.log('generation failed', e);
-
-    if (e.properties && e.properties.errors) {
-      e.properties.errors.forEach((error) => {
-        console.log('Error:', error);
-      });
-    }
   }
-})();
+}

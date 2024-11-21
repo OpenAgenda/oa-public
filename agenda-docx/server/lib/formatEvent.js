@@ -1,8 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-const moment = require('moment-timezone');
-const countries = require('./countries');
+import _ from 'lodash';
+import moment from 'moment-timezone';
+import countries from './countries.js';
 
 const charsToClean = [
   1,
@@ -195,7 +193,7 @@ function cleanStrings(obj) {
   );
 }
 
-module.exports = (event, options) => {
+export default (event, options) => {
   const { from, to, lang } = _.merge({ lang: 'fr' }, options);
 
   const flattened = cleanStrings(
