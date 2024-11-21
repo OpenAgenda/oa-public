@@ -2,9 +2,11 @@
 
 module.exports = {
   extends: '../.eslintrc',
+
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
+
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
@@ -16,4 +18,13 @@ module.exports = {
       },
     ],
   },
+
+  overrides: [
+    {
+      files: ['*.cjs'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
 };

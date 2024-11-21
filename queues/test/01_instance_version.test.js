@@ -1,7 +1,5 @@
-'use strict';
-
-const redis = require('redis');
-const queues = require('..');
+import redis from 'redis';
+import queues from '../index.js';
 
 describe('instance version', () => {
   let q;

@@ -1,7 +1,6 @@
-'use strict';
+import logs from '@openagenda/logs';
 
 const STOP = 'STOPSIGNAL';
-const logs = require('@openagenda/logs');
 
 const log = logs('index');
 
@@ -158,7 +157,7 @@ function Queue(redis, queueName, methods = {}) {
   return queueMethods;
 }
 
-module.exports = ({ redis, prefix, logger }) => {
+export default ({ redis, prefix, logger }) => {
   if (logger) {
     logs.setModuleConfig(logger);
   }
