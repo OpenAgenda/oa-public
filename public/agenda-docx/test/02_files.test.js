@@ -1,9 +1,7 @@
-const fs = require('node:fs');
-const path = require('node:path');
-
-const config = require('../config.dev');
-
-const AgendaFiles = require('../server/lib/agendaFiles');
+import fs from 'node:fs';
+import path from 'node:path';
+import config from '../config.dev.js';
+import AgendaFiles from '../server/lib/agendaFiles.js';
 
 describe('unit - files', () => {
   const { setJSON, getJSON, get, set, remove } = AgendaFiles({
@@ -50,7 +48,10 @@ describe('unit - files', () => {
   });
 
   test('get a docx as a Buffer', async () => {
-    await set(path.join(__dirname, 'data/template.docx'), 'template.docx');
+    await set(
+      path.join(import.meta.dirname, 'data/template.docx'),
+      'template.docx',
+    );
 
     const templateContent = await get('template.docx');
 

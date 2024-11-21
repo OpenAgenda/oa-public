@@ -1,13 +1,8 @@
-'use strict';
-
-const express = require('express');
-
-const logger = require('@openagenda/logs');
-const AgendaFiles = require('./lib/agendaFiles');
-const processGenerateRequest = require('./processGenerateRequest');
-const App = require('./app');
-
-const defaultState = require('./defaultState');
+import logger from '@openagenda/logs';
+import AgendaFiles from './lib/agendaFiles.js';
+import processGenerateRequest from './processGenerateRequest.js';
+import App from './app.js';
+import defaultState from './defaultState.js';
 
 function getState({ s3 }, agendaUid) {
   return AgendaFiles({
@@ -17,7 +12,7 @@ function getState({ s3 }, agendaUid) {
   }).getJSON('state.json', defaultState);
 }
 
-module.exports = function AgendaDocx(options = {}) {
+export default function AgendaDocx(options = {}) {
   const { queue, localTmpPath, s3 } = options;
 
   if (options.logger) {
@@ -39,6 +34,5 @@ module.exports = function AgendaDocx(options = {}) {
       s3,
     }),
     getState: getState.bind(null, { s3 }),
-    dist: express.static(`${__dirname}/../client/dist`),
   };
-};
+}
