@@ -12,6 +12,10 @@ module.exports = {
     io: 'crwdns13036:0crwdne13036:0',
     oc: "L'email d'activacion es a se tornar mandar",
   },
+  sendActivateOnSigninAttempt: {
+    en: 'Your account is not activated. Click on the link contained in the activation email that was just sent to you.',
+    fr: 'Votre compte n\'est pas activé. Cliquez sur le lien contenu dans le mail d\'activation qui vient de vous être envoyé.',
+  },
   checkEmail: {
     en: 'Check your mail for a validation link',
     fr: 'Cliquez sur le lien de validation dans votre boîte de récéption',
