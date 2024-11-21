@@ -1,16 +1,13 @@
-'use strict';
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import loadControlData from './utils/loadControlData.js';
+import loadReviewArticleData from './utils/loadReviewArticleData.js';
+import parseEvent from './utils/parseEvent.js';
+import refreshTimestamp from './utils/refreshTimestamp.js';
+import setLocationReference from './utils/setLocationReference.js';
+import updateLastOccurrence from './utils/updateLastOccurrence.js';
 
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-
-const loadControlData = require('./utils/loadControlData');
-const loadReviewArticleData = require('./utils/loadReviewArticleData');
-const parseEvent = require('./utils/parseEvent');
-const refreshTimestamp = require('./utils/refreshTimestamp');
-const setLocationReference = require('./utils/setLocationReference');
-const updateLastOccurrence = require('./utils/updateLastOccurrence');
-
-module.exports = async (
+export default async (
   { prefix, knex, redis, index, loadedCtlData },
   agendaEvent,
   data,

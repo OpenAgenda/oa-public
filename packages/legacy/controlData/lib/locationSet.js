@@ -1,20 +1,16 @@
-"use strict";
+import loadControlData from './utils/loadControlData.js';
+import refreshTimestamp from './utils/refreshTimestamp.js';
+import setLocationReference from './utils/setLocationReference.js';
 
-const _ = require( 'lodash' );
+export default async (
+  { prefix, knex: _knex, redis },
+  { agendaUid, location },
+) => {
+  const ctlData = await loadControlData(redis, prefix, agendaUid);
 
-const loadControlData = require( './utils/loadControlData' );
+  setLocationReference(ctlData, location);
 
-const refreshTimestamp = require( './utils/refreshTimestamp' );
-const setLocationReference = require( './utils/setLocationReference' );
+  await redis.set(prefix + agendaUid, JSON.stringify(ctlData));
 
-module.exports = async ( { prefix, knex, redis }, { agendaUid, location } ) => {
-
-  const ctlData = await loadControlData( redis, prefix, agendaUid );
-
-  setLocationReference( ctlData, location );
-
-  await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
-
-  await refreshTimestamp( prefix, redis, agendaUid );
-
-}
+  await refreshTimestamp(prefix, redis, agendaUid);
+};

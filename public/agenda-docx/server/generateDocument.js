@@ -1,29 +1,23 @@
-'use strict';
-
-const fs = require('node:fs');
-const { promisify } = require('node:util');
-const _ = require('lodash');
-const Docxtemplater = require('docxtemplater');
-const PizZip = require('pizzip');
-const expressions = require('angular-expressions');
-const removeMd = require('remove-markdown');
-
-const log = require('@openagenda/logs')('generateDocument');
-const formatEvent = require('./lib/formatEvent');
-const reduceByDeep = require('./lib/reduceByDeep');
-const sortBy = require('./lib/sortBy');
-const defaultReducer = require('./defaultReducer');
-
-const readFile = promisify(fs.readFile, fs);
-const writeFile = promisify(fs.writeFile, fs);
-
-const {
+import fs from 'node:fs/promises';
+import _ from 'lodash';
+import Docxtemplater from 'docxtemplater';
+import PizZip from 'pizzip';
+import expressions from 'angular-expressions';
+import removeMd from 'remove-markdown';
+import logs from '@openagenda/logs';
+import formatEvent from './lib/formatEvent.js';
+import reduceByDeep from './lib/reduceByDeep.js';
+import sortBy from './lib/sortBy.js';
+import defaultReducer from './defaultReducer.js';
+import {
   fetchAndStoreEvents,
   loadEventsFromFile,
   loadAgendaDetails,
-} = require('./lib/fetch');
+} from './lib/fetch.js';
 
-module.exports = async ({
+const log = logs('generateDocument');
+
+export default async ({
   agendaUid,
   localTmpPath,
   templatePath,
@@ -45,7 +39,7 @@ module.exports = async ({
 
   const { title, description, url } = await loadAgendaDetails(agendaUid);
 
-  const content = templateContent || await readFile(templatePath, 'binary');
+  const content = templateContent || await fs.readFile(templatePath, 'binary');
 
   const doc = new Docxtemplater();
 
@@ -109,7 +103,7 @@ module.exports = async ({
     // compression: 'DEFLATE'
   });
 
-  await writeFile(outputPath, buf);
+  await fs.writeFile(outputPath, buf);
 
   return {
     outputPath,

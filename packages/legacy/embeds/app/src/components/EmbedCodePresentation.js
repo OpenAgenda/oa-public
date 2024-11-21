@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ReactSelectInput } from '@openagenda/react-shared';
 
 function template(templateString) {
-  return data => templateString.replace(/<%=(.*?)%>/g, (match, key) => {
-    return data[key.trim()] || '';
-  });
+  return (data) =>
+    templateString.replace(
+      /<%=(.*?)%>/g,
+      (match, key) => data[key.trim()] || '',
+    );
 }
 
 export default ({
@@ -31,9 +33,8 @@ export default ({
               uid: embed.uid,
             })}
             className="form-control"
-            onClick={e => e.target.select()}
-            onChange={() => {
-            }}
+            onClick={(e) => e.target.select()}
+            onChange={() => {}}
           />
         </div>
         <div className="col-sm-2">
@@ -44,7 +45,7 @@ export default ({
               label: language.toUpperCase(),
               value: language,
             }}
-            options={embedLanguages.map(l => ({
+            options={embedLanguages.map((l) => ({
               label: l.toUpperCase(),
               value: l,
             }))}

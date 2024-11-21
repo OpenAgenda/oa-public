@@ -1,5 +1,6 @@
 node_modules
 **/testconfig.json
+**/testconfig.js
 rebuildSearchIndex/test/run.js
 embeds/app/dist
 embeds/app/src/locales-compiled/

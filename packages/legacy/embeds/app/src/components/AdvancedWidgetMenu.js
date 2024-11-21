@@ -1,4 +1,3 @@
-import React from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 
 import CheckboxComponent from './CheckboxComponent.js';
@@ -6,15 +5,11 @@ import CheckboxComponent from './CheckboxComponent.js';
 const messages = defineMessages({
   defaultCSS: {
     id: 'LegacyEmbed.AdvancedWidgetMenu.useDefaultCSS',
-    defaultMessage: 'Use default CSS'
-  }
+    defaultMessage: 'Use default CSS',
+  },
 });
 
-export default ({
-  embed,
-  onChange,
-  path
-}) => {
+export default ({ embed, onChange, path }) => {
   const intl = useIntl();
 
   return (

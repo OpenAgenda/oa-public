@@ -1,29 +1,28 @@
-'use strict';
+import logger from '@openagenda/logs';
+import Create from './lib/create.js';
+import get from './lib/get.js';
+import list from './lib/list.js';
+import Update from './lib/update.js';
 
-const logger = require('@openagenda/logs');
-
-const Create = require('./lib/create');
-const get = require('./lib/get');
-const list = require('./lib/list');
-const Update = require('./lib/update');
-
-module.exports = (config = {}) => {
+export default function Embeds(config = {}) {
   const internals = {
     knex: config.knex,
     interfaces: {
-      getAgendaId: config.interfaces?.getAgendaId
+      getAgendaId: config.interfaces?.getAgendaId,
     },
-    defaultTemplates: config.defaultTemplates
+    defaultTemplates: config.defaultTemplates,
   };
 
-  return agendaUid => ({
+  return (agendaUid) => ({
     create: Create(internals, agendaUid),
     update: Update(internals, agendaUid),
     list: (...args) => list(internals, agendaUid, ...args),
-    get: (...args) => get(internals, agendaUid, ...args)
+    get: (...args) => get(internals, agendaUid, ...args),
   });
-};
+}
 
-module.exports.updateLoggerConfig = config => {
+export function updateLoggerConfig(config) {
   logger.setModuleConfig(config);
-};
+}
+
+Embeds.updateLoggerConfig = updateLoggerConfig;

@@ -1,22 +1,31 @@
-"use strict";
-
-const log = require( '@openagenda/logs' )( 'legacy/controlData/queue' );
+import logs from '@openagenda/logs';
+import batch from './batch.js';
+import batchRemove from './batchRemove.js';
+import clear from './clear.js';
+import insert from './insert.js';
+import memberSet from './memberSet.js';
+import memberRemove from './memberRemove.js';
+import update from './update.js';
+import rebuild from './rebuild.js';
+import remove from './remove.js';
+import set from './set.js';
 
 const queuables = {
-  batch: require( './batch' ),
-  batchRemove: require( './batchRemove' ),
-  clear: require( './clear' ),
-  insert: require( './insert' ),
-  memberSet: require( './memberSet' ),
-  memberRemove: require( './memberRemove' ),
-  update: require( './update' ),
-  rebuild: require( './rebuild' ),
-  remove: require( './remove' ),
-  set: require( './set' )
+  batch,
+  batchRemove,
+  clear,
+  insert,
+  memberSet,
+  memberRemove,
+  update,
+  rebuild,
+  remove,
+  set,
 };
 
-module.exports = async config => {
+const log = logs('legacy/controlData/queue');
 
+export default async (config) => {
   const { redis, prefix } = config;
 
   const taskRedis = redis.duplicate();
@@ -25,25 +34,15 @@ module.exports = async config => {
 
   let blPopResult;
 
-  while ( blPopResult = await taskRedis.blPop( prefix + 'queue', 0 ) ) {
-
+  while ((blPopResult = await taskRedis.blPop(`${prefix}queue`, 0))) {
     try {
+      const { operation, args } = JSON.parse(blPopResult.element);
 
-      const {
-        operation,
-        args
-      } = JSON.parse( blPopResult.element );
+      log('processing %s', operation);
 
-      log( 'processing %s', operation );
-
-      await queuables[ operation ].apply( null, [ config ].concat( args ) );
-
-    } catch ( e ) {
-
-      log( 'error', 'failed to process job %j', blPopResult.element, e );
-
+      await queuables[operation].apply(null, [config].concat(args));
+    } catch (e) {
+      log('error', 'failed to process job %j', blPopResult.element, e);
     }
-
   }
-
-}
+};

@@ -1,11 +1,8 @@
-'use strict';
-
-const { produce } = require('immer');
-const unserialize = require('locutus/php/var/unserialize');
-const Service = require('../service');
-const fixtures = require('./fixtures');
-const payload = require('./fixtures/payload.json');
-
+import { produce } from 'immer';
+import unserialize from 'locutus/php/var/unserialize.js';
+import Service from '../service/index.js';
+import fixtures from './fixtures/index.js';
+import payload from './fixtures/payload.json' with { type: 'json' };
 
 describe('04 - embeds - update', () => {
   let fx;
@@ -17,7 +14,7 @@ describe('04 - embeds - update', () => {
       host: process.env.OA_MYSQL_TEST_HOST,
       user: process.env.OA_MYSQL_TEST_USER,
       password: process.env.OA_MYSQL_TEST_PASSWORD,
-      ssl: true
+      ssl: true,
     });
 
     await fx.load();
@@ -25,8 +22,8 @@ describe('04 - embeds - update', () => {
     svc = Service({
       knex: fx.client,
       interfaces: {
-        getAgendaId: async () => 13262
-      }
+        getAgendaId: async () => 13262,
+      },
     });
   });
 
@@ -39,9 +36,12 @@ describe('04 - embeds - update', () => {
     beforeAll(async () => {
       embed = await svc(7894576).get(21898722);
 
-      await svc(7894576).update(21898722, produce(embed, draft => {
-        draft.config.layout.linkcss = linkcss;
-      }));
+      await svc(7894576).update(
+        21898722,
+        produce(embed, (draft) => {
+          draft.config.layout.linkcss = linkcss;
+        }),
+      );
     });
 
     it('updates', async () => {
@@ -55,9 +55,10 @@ describe('04 - embeds - update', () => {
     it('unserialize does not handle negative floats well. Coords are stored as strings', async () => {
       await svc(7894576).update(21898722, payload);
 
-      const {
-        store
-      } = await fx.client('review_embed').first().where('uid', 21898722);
+      const { store } = await fx
+        .client('review_embed')
+        .first()
+        .where('uid', 21898722);
 
       expect(typeof unserialize(store).layout.mapCorners.neLat).toBe('string');
     });

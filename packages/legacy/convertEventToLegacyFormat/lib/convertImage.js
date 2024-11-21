@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = img => {
+export default (img) => {
   if (!img || img?.filename === null) {
     return {
       image: false,
@@ -19,8 +17,8 @@ module.exports = img => {
 
   const { base, filename, variants } = img;
   const image = base + filename;
-  const thumbnail = base + variants.find(variant => variant.type === 'thumbnail').filename;
-  const originalImage = base + variants.find(variant => variant.type === 'full').filename;
+  const thumbnail = base + variants.find((variant) => variant.type === 'thumbnail').filename;
+  const originalImage = base + variants.find((variant) => variant.type === 'full').filename;
 
   return {
     image,

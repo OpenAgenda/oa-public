@@ -1,13 +1,12 @@
-'use strict';
+import { NotFound } from '@openagenda/verror';
+import fromEntryToItem from './fromEntryToItem.js';
+import appendDefaultTemplates from './appendDefaultTemplates.js';
 
-const {
-  NotFound
-} = require('@openagenda/verror');
-
-const fromEntryToItem = require('./fromEntryToItem');
-const appendDefaultTemplates = require('./appendDefaultTemplates');
-
-module.exports = async ({ interfaces, knex, defaultTemplates }, agendaUid, options = {}) => {
+export default async (
+  { interfaces, knex, defaultTemplates },
+  agendaUid,
+  options = {},
+) => {
   const agendaId = await interfaces.getAgendaId(agendaUid);
   if (!agendaId && options.throwIfNotFound) {
     throw new NotFound('agenda id not found for uid %d', agendaUid);
@@ -18,10 +17,15 @@ module.exports = async ({ interfaces, knex, defaultTemplates }, agendaUid, optio
   return knex('review_embed')
     .select('*')
     .where({
-      review_id: agendaId
+      review_id: agendaId,
     })
-    .then(entries => entries.map(fromEntryToItem.bind(null, {
-      ...options,
-      agendaUid
-    })).map(entry => appendDefaultTemplates(entry, defaultTemplates)));
+    .then((entries) =>
+      entries
+        .map(
+          fromEntryToItem.bind(null, {
+            ...options,
+            agendaUid,
+          }),
+        )
+        .map((entry) => appendDefaultTemplates(entry, defaultTemplates)));
 };

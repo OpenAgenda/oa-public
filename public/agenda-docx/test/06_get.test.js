@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const get = require('../server/lib/get');
+import _ from 'lodash';
+import get from '../server/lib/get.js';
 
 describe('get', () => {
   test('simple get', () => {

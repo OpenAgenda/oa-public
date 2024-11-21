@@ -1,27 +1,24 @@
-'use strict';
+import logger from '@openagenda/logs';
+import batch from './lib/batch.js';
+import batchRemove from './lib/batchRemove.js';
+import clear from './lib/clear.js';
+import embedClear from './lib/embedClear.js';
+import insert from './lib/insert.js';
+import locationSet from './lib/locationSet.js';
+import locationRemove from './lib/locationRemove.js';
+import memberRemove from './lib/memberRemove.js';
+import memberSet from './lib/memberSet.js';
+import middleware from './lib/middleware.js';
+import queue from './lib/queue.js';
+import remove from './lib/remove.js';
+import rebuild from './lib/rebuild.js';
+import set from './lib/set.js';
+import setTags from './lib/setTags.js';
+import setCategories from './lib/setCategories.js';
+import task from './lib/task.js';
+import update from './lib/update.js';
 
-const logger = require('@openagenda/logs');
-
-const batch = require('./lib/batch');
-const batchRemove = require('./lib/batchRemove');
-const clear = require('./lib/clear');
-const embedClear = require('./lib/embedClear');
-const insert = require('./lib/insert');
-const locationSet = require('./lib/locationSet');
-const locationRemove = require('./lib/locationRemove');
-const memberRemove = require('./lib/memberRemove');
-const memberSet = require('./lib/memberSet');
-const middleware = require('./lib/middleware');
-const queue = require('./lib/queue');
-const remove = require('./lib/remove');
-const rebuild = require('./lib/rebuild');
-const set = require('./lib/set');
-const setTags = require('./lib/setTags');
-const setCategories = require('./lib/setCategories');
-const task = require('./lib/task');
-const update = require('./lib/update');
-
-module.exports = ({ knex, redis, prefix, imagePath }) => {
+export default function ControlData({ knex, redis, prefix, imagePath }) {
   const config = {
     knex,
     prefix,
@@ -39,7 +36,12 @@ module.exports = ({ knex, redis, prefix, imagePath }) => {
     locationSet: locationSet.bind(null, config),
     locationRemove: locationRemove.bind(null, config),
     middleware: middleware.bind(null, config),
-    embedMiddleware: middleware.embed.bind(null, { knex, redis, prefix, imagePath }),
+    embedMiddleware: middleware.embed.bind(null, {
+      knex,
+      redis,
+      prefix,
+      imagePath,
+    }),
     embedClear: embedClear.bind(null, config),
     queue: queue.bind(null, config),
     rebuild: rebuild.bind(null, config),
@@ -50,8 +52,10 @@ module.exports = ({ knex, redis, prefix, imagePath }) => {
     task: task.bind(null, config),
     update: update.bind(null, config),
   };
-};
+}
 
-module.exports.updateLoggerConfig = config => {
+export function updateLoggerConfig(config) {
   logger.setModuleConfig(config);
-};
+}
+
+ControlData.updateLoggerConfig = updateLoggerConfig;

@@ -1,7 +1,5 @@
-'use strict';
-
-const Service = require('../service');
-const fixtures = require('./fixtures');
+import Service from '../service/index.js';
+import fixtures from './fixtures/index.js';
 
 describe('03 - embeds - create', () => {
   let fx;
@@ -13,7 +11,7 @@ describe('03 - embeds - create', () => {
       host: process.env.OA_MYSQL_TEST_HOST,
       user: process.env.OA_MYSQL_TEST_USER,
       password: process.env.OA_MYSQL_TEST_PASSWORD,
-      ssl: true
+      ssl: true,
     });
 
     await fx.load();
@@ -21,8 +19,8 @@ describe('03 - embeds - create', () => {
     svc = Service({
       knex: fx.client,
       interfaces: {
-        getAgendaId: async uid => Math.ceil(uid / 2)
-      }
+        getAgendaId: async (uid) => Math.ceil(uid / 2),
+      },
     });
   });
 
@@ -35,11 +33,9 @@ describe('03 - embeds - create', () => {
     });
 
     it('is created', async () => {
-      expect(await fx
-        .client('review_embed')
-        .first()
-        .where('uid', createdEmbed.uid))
-        .toBeTruthy();
+      expect(
+        await fx.client('review_embed').first().where('uid', createdEmbed.uid),
+      ).toBeTruthy();
     });
 
     it('has default config', async () => {

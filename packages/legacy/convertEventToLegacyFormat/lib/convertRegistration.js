@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = function convertRegistration(registrationArray) {
-  const registration = registrationArray?.map(item => ({
+export default function convertRegistration(registrationArray) {
+  const registration = registrationArray?.map((item) => ({
     value: item.value,
     type: item.type,
     prefix: {
@@ -11,7 +9,12 @@ module.exports = function convertRegistration(registrationArray) {
     }[item.type],
   }));
 
-  const registrationlink = registrationArray?.filter(reg => reg.type === 'link').pop();
+  const registrationlink = registrationArray
+    ?.filter((reg) => reg.type === 'link')
+    .pop();
 
-  return { registration: registration || [], registrationUrl: registrationlink ? registrationlink.value : null };
-};
+  return {
+    registration: registration || [],
+    registrationUrl: registrationlink ? registrationlink.value : null,
+  };
+}

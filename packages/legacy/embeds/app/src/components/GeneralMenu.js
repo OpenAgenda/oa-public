@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { defineMessages, useIntl } from 'react-intl';
 
 import CheckboxComponent from './CheckboxComponent.js';
@@ -8,38 +6,36 @@ import SelectComponent from './SelectComponent.js';
 const messages = defineMessages({
   syncHref: {
     id: 'LegacyEmbed.GeneralMenu.syncHref',
-    defaultMessage: 'Update the browser address bar as the user navigates the calendar'
+    defaultMessage:
+      'Update the browser address bar as the user navigates the calendar',
   },
   useEventSlug: {
     id: 'LegacyEmbed.GeneralMenu.useEventSlug',
-    defaultMessage: 'Use slugs as event identifiers in the address bar'
+    defaultMessage: 'Use slugs as event identifiers in the address bar',
   },
   standardLayout: {
     id: 'LegacyEmbed.GeneralMenu.standardLayout',
-    defaultMessage: 'Standard'
+    defaultMessage: 'Standard',
   },
   tiledLayout: {
     id: 'LegacyEmbed.GeneralMenu.tiledLayout',
-    defaultMessage: 'Tiled'
+    defaultMessage: 'Tiled',
   },
   cascadingLayout: {
     id: 'LegacyEmbed.GeneralMenu.cascadingLayout',
-    defaultMessage: 'Cascading'
+    defaultMessage: 'Cascading',
   },
   noCSSLayout: {
     id: 'LegacyEmbed.GeneralMenu.noCSSLayout',
-    defaultMessage: 'No CSS'
+    defaultMessage: 'No CSS',
   },
   layoutPresentation: {
     id: 'LegacyEmbed.GeneralMenu.layoutPresentation',
-    defaultMessage: 'List view presentation'
-  }
+    defaultMessage: 'List view presentation',
+  },
 });
 
-export default ({
-  embed,
-  onChange
-}) => {
+export default ({ embed, onChange }) => {
   const m = useIntl().formatMessage;
 
   return (
@@ -60,19 +56,24 @@ export default ({
         embed={embed}
         onChange={onChange}
         path="config.layout.layoutmode"
-        options={[{
-          value: 'standard',
-          label: m(messages.standardLayout)
-        }, {
-          value: 'tiled',
-          label: m(messages.tiledLayout)
-        }, {
-          value: 'cascading',
-          label: m(messages.cascadingLayout)
-        }, {
-          value: 'nocss',
-          label: m(messages.noCSSLayout)
-        }]}
+        options={[
+          {
+            value: 'standard',
+            label: m(messages.standardLayout),
+          },
+          {
+            value: 'tiled',
+            label: m(messages.tiledLayout),
+          },
+          {
+            value: 'cascading',
+            label: m(messages.cascadingLayout),
+          },
+          {
+            value: 'nocss',
+            label: m(messages.noCSSLayout),
+          },
+        ]}
         label={m(messages.layoutPresentation)}
       />
     </div>

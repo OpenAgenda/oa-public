@@ -1,12 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')(
-  'controlData/utils/loadReviewArticleData',
-);
+const log = logs('controlData/utils/loadReviewArticleData');
 
-module.exports = async (knex, legacyRefId) => {
+export default async (knex, legacyRefId) => {
   const loaded = {
     t: [],
     c: null,
@@ -19,7 +17,7 @@ module.exports = async (knex, legacyRefId) => {
 
   const [reviewId, eventId] = legacyRefId
     .split('.')
-    .map(id => parseInt(id, 10));
+    .map((id) => parseInt(id, 10));
 
   const legacyReference = await knex
     .first('id', 'category_id', 'user_id')
@@ -41,14 +39,14 @@ module.exports = async (knex, legacyRefId) => {
     .from('review_tag_article')
     .leftJoin('review_tag', 'review_tag.id', 'review_tag_id')
     .where('review_article_id', legacyReference.id)
-    .then(rows => rows.map(r => r.slug));
+    .then((rows) => rows.map((r) => r.slug));
 
   if (legacyReference.category_id) {
     loaded.c = await knex
       .first('slug')
       .from('review_category')
       .where('id', legacyReference.category_id)
-      .then(r => r.slug);
+      .then((r) => r.slug);
   }
 
   if (legacyReference.user_id) {

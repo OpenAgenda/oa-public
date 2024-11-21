@@ -2,26 +2,26 @@ import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 import debug from 'debug';
 import { http, HttpResponse, delay } from 'msw';
-import EmbedCodePresentation from '../src/components/EmbedCodePresentation';
-import ConfigurationMenuSelector from '../src/components/ConfigurationMenuSelector';
-import GeneralMenu from '../src/components/GeneralMenu';
-import AdvancedMenu from '../src/components/AdvancedMenu';
-import TilesMapMenu from '../src/components/TilesMapMenu';
-import PositioningMapMenu from '../src/components/PositioningMapMenu';
-import MapPresentation from '../src/components/MapPresentation';
-import AdvancedWidgetMenu from '../src/components/AdvancedWidgetMenu';
-import TagSelectionMenu from '../src/components/TagSelectionMenu';
-import ListMenu from '../src/components/ListMenu';
-import MapMenu from '../src/components/MapMenu';
-import SearchMenu from '../src/components/SearchMenu';
-import TagMenu from '../src/components/TagMenu';
-import CalendarMenu from '../src/components/CalendarMenu';
-import UpdateButton from '../src/components/UpdateButton';
-import Presentation from '../src/components/Presentation';
+import EmbedCodePresentation from '../src/components/EmbedCodePresentation.js';
+import ConfigurationMenuSelector from '../src/components/ConfigurationMenuSelector.js';
+import GeneralMenu from '../src/components/GeneralMenu.js';
+import AdvancedMenu from '../src/components/AdvancedMenu.js';
+import TilesMapMenu from '../src/components/TilesMapMenu.js';
+import PositioningMapMenu from '../src/components/PositioningMapMenu.js';
+import MapPresentation from '../src/components/MapPresentation.js';
+import AdvancedWidgetMenu from '../src/components/AdvancedWidgetMenu.js';
+import TagSelectionMenu from '../src/components/TagSelectionMenu.js';
+import ListMenu from '../src/components/ListMenu.js';
+import MapMenu from '../src/components/MapMenu.js';
+import SearchMenu from '../src/components/SearchMenu.js';
+import TagMenu from '../src/components/TagMenu.js';
+import CalendarMenu from '../src/components/CalendarMenu.js';
+import UpdateButton from '../src/components/UpdateButton.js';
+import Presentation from '../src/components/Presentation.js';
 
-import AdminCanvas from './decorators/AdminCanvas';
-import ComponentCanvas from './decorators/ComponentCanvas';
-import Providers from './decorators/Providers';
+import AdminCanvas from './decorators/AdminCanvas.js';
+import ComponentCanvas from './decorators/ComponentCanvas.js';
+import Providers from './decorators/Providers.js';
 
 import toulouseEmbed from './fixtures/toulouse.json';
 import toulouseEvents from './fixtures/toulouse.events.json';
@@ -52,7 +52,7 @@ export default {
 };
 
 const log = debug('stories');
-const onChange = updatedEmbed => log(updatedEmbed);
+const onChange = (updatedEmbed) => log(updatedEmbed);
 
 const embedCodeTemplate = '<div class="cbpgtg cibulTags" data-oatg data-cbctl="<%= agendaUid %>/<%= uid %>"></div><script type="text/javascript" src="//openagenda.com/js/embed/cibulTagsWidget.js"></script>';
 
@@ -68,58 +68,54 @@ export const embedCodePresentation = () => (
 
 export const configutionMenuSelector = () => (
   <ConfigurationMenuSelector
-    options={[{
-      label: 'Général',
-      value: 'general',
-    }, {
-      label: 'Widgets: Carte',
-      value: 'map',
-    }, {
-      label: 'Widgets: Champs à choix',
-      value: 'tags',
-    }, {
-      label: 'Widgets: Calendrier',
-      value: 'calendar',
-    }, {
-      label: 'Widgets: Recherche',
-      value: 'search',
-    }, {
-      label: 'Widgets: Aperçu',
-      value: 'preview',
-    }, {
-      label: 'Avancé',
-      value: 'advanced',
-    }]}
-    onSelect={menu => log(menu)}
+    options={[
+      {
+        label: 'Général',
+        value: 'general',
+      },
+      {
+        label: 'Widgets: Carte',
+        value: 'map',
+      },
+      {
+        label: 'Widgets: Champs à choix',
+        value: 'tags',
+      },
+      {
+        label: 'Widgets: Calendrier',
+        value: 'calendar',
+      },
+      {
+        label: 'Widgets: Recherche',
+        value: 'search',
+      },
+      {
+        label: 'Widgets: Aperçu',
+        value: 'preview',
+      },
+      {
+        label: 'Avancé',
+        value: 'advanced',
+      },
+    ]}
+    onSelect={(menu) => log(menu)}
   />
 );
 
 export const generalMenu = () => (
-  <GeneralMenu
-    embed={toulouseEmbed}
-    onChange={onChange}
-  />
+  <GeneralMenu embed={toulouseEmbed} onChange={onChange} />
 );
 
 export const advancedMenu = () => (
-  <AdvancedMenu
-    embed={toulouseEmbed}
-    onChange={onChange}
-  />
+  <AdvancedMenu embed={toulouseEmbed} onChange={onChange} />
 );
 
 export const tilesMapMenu = () => (
-  <TilesMapMenu
-    embed={toulouseEmbed}
-    onChange={onChange}
-  />
+  <TilesMapMenu embed={toulouseEmbed} onChange={onChange} />
 );
 
 export const positioningMapMenu = () => (
-  <PositioningMapMenu
-    embed={toulouseEmbed}
-    onChange={onChange}
-  />
+  <PositioningMapMenu embed={toulouseEmbed} onChange={onChange} />
 );
 
 export const mapPresentation = () => (
@@ -142,7 +138,7 @@ export const tagSelectionMenu = {
   render: () => (
     <TagSelectionMenu
       embed={toulouseEmbed}
-      onChange={() => { }}
+      onChange={() => {}}
       res="/agendas/50522407/embeds/80717033"
     />
   ),
@@ -167,7 +163,8 @@ export const listMenu = {
       displayEmbed
       res={{
         events: '/agendas/50522407/events',
-        preview: 'https://d.openagenda.com/agendas/50522407/previewEmbeds/80717033/events',
+        preview:
+          'https://d.openagenda.com/agendas/50522407/previewEmbeds/80717033/events',
         previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js',
       }}
     />
@@ -214,17 +211,11 @@ export const tagMenu = {
 };
 
 export const searchMenu = () => (
-  <SearchMenu
-    embed={toulouseEmbed}
-    onChange={onChange}
-  />
+  <SearchMenu embed={toulouseEmbed} onChange={onChange} />
 );
 
 export const calendarMenu = () => (
-  <CalendarMenu
-    embed={toulouseEmbed}
-    onChange={onChange}
-  />
+  <CalendarMenu embed={toulouseEmbed} onChange={onChange} />
 );
 
 export const EmbedUpdateButton = {
@@ -236,17 +227,18 @@ export const EmbedUpdateButton = {
         <button
           type="button"
           className="btn btn-default margin-all-sm"
-          onClick={() => setEmbed({
-            ...toulouseEmbed,
-            change: Math.random(),
-          })}
+          onClick={() =>
+            setEmbed({
+              ...toulouseEmbed,
+              change: Math.random(),
+            })}
         >
           Mock a change
         </button>
         <UpdateButton
           embed={embed}
           res="/agendas/50522407/embeds/80717033"
-          onSave={() => { }}
+          onSave={() => {}}
         />
       </>
     );
@@ -268,7 +260,7 @@ export const EmbedPresentation = {
     <Presentation
       agendaSlug="toulouse-metropole"
       res="/agendas/50522407/embeds"
-      onCreate={() => { }}
+      onCreate={() => {}}
     />
   ),
   parameters: {

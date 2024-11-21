@@ -1,10 +1,9 @@
-'use strict';
+import logs from '@openagenda/logs';
+import VError from '@openagenda/verror';
+import slug from 'slugify';
+import generateTagSet from './utils/generateTagSet.js';
 
-const log = require('@openagenda/logs')('updateTagSetAndTags');
-const VError = require('@openagenda/verror');
-
-const slug = require('slugify');
-const generateTagSet = require('./utils/generateTagSet');
+const log = logs('updateTagSetAndTags');
 
 async function createTag(knex, id, tag) {
   return knex('review_tag').insert({
@@ -20,11 +19,13 @@ async function createTag(knex, id, tag) {
 }
 
 async function updateTag(knex, id, tag) {
-  return knex('review_tag').update({
-    review_id: id,
-    tag: tag.label,
-    updated_at: new Date(),
-  }).where('id', tag.id);
+  return knex('review_tag')
+    .update({
+      review_id: id,
+      tag: tag.label,
+      updated_at: new Date(),
+    })
+    .where('id', tag.id);
 }
 
 async function removeTag(knex, id, tag) {
@@ -35,13 +36,13 @@ async function removeTag(knex, id, tag) {
 }
 
 async function setTags(knex, id, tagSet) {
-  const tags = await knex('review_tag')
-    .select()
-    .where('review_id', id);
+  const tags = await knex('review_tag').select().where('review_id', id);
 
   for (const { tags: groupTags } of tagSet?.groups ?? []) {
     for (const groupTag of groupTags) {
-      const matchingTag = tags.filter(t => (groupTag.slug === t.slug) || (groupTag.id === t.id)).pop();
+      const matchingTag = tags
+        .filter((t) => groupTag.slug === t.slug || groupTag.id === t.id)
+        .pop();
 
       if (!matchingTag) {
         const tagIds = await createTag(knex, id, groupTag);
@@ -53,10 +54,13 @@ async function setTags(knex, id, tagSet) {
     }
   }
 
-  const flattenedSetTags = (tagSet?.groups ?? []).reduce((flat, group) => flat.concat(group.tags), []);
+  const flattenedSetTags = (tagSet?.groups ?? []).reduce(
+    (flat, group) => flat.concat(group.tags),
+    [],
+  );
 
   for (const tag of tags) {
-    if (flattenedSetTags.filter(st => st.id === tag.id)) {
+    if (flattenedSetTags.filter((st) => st.id === tag.id)) {
       continue;
     }
     await removeTag(knex, id, tag);
@@ -65,7 +69,13 @@ async function setTags(knex, id, tagSet) {
   return tagSet;
 }
 
-module.exports = async function updateTagSetAndTags({ knex }, id, schema, currentTagSet = null, options = {}) {
+export default async function updateTagSetAndTags(
+  { knex },
+  id,
+  schema,
+  currentTagSet = null,
+  options = {},
+) {
   const {
     set: updatedSet,
     messages,
@@ -73,9 +83,14 @@ module.exports = async function updateTagSetAndTags({ knex }, id, schema, curren
   } = await generateTagSet(schema, currentTagSet, options);
 
   if (updatedSet === null) {
-    log.error(new VError({
-      info: { id, schema },
-    }, 'fake-deleting tagSet to know why it was deleted'));
+    log.error(
+      new VError(
+        {
+          info: { id, schema },
+        },
+        'fake-deleting tagSet to know why it was deleted',
+      ),
+    );
     /* if (await knex('tag_set').first('id').where('id', id)) {
       log('info', 'deleting tagSet %s', id);
       await knex('tag_set').delete('id', id);
@@ -92,7 +107,9 @@ module.exports = async function updateTagSetAndTags({ knex }, id, schema, curren
   const updatedSetWithIds = await setTags(knex, id, updatedSet);
 
   if (await knex('tag_set').first('id').where('id', id)) {
-    await knex('tag_set').update({ store: JSON.stringify(updatedSetWithIds) }).where('id', id);
+    await knex('tag_set')
+      .update({ store: JSON.stringify(updatedSetWithIds) })
+      .where('id', id);
   } else {
     await knex('tag_set').insert({
       id,
@@ -105,4 +122,4 @@ module.exports = async function updateTagSetAndTags({ knex }, id, schema, curren
     messages,
     fields,
   };
-};
+}

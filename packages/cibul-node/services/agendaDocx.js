@@ -3,8 +3,6 @@ import AgendaDocx from '@openagenda/agenda-docx';
 function plugApp(agendaDocx, app) {
   const { agendas, members, sessions } = app.services;
 
-  app.use('/docx/dist', agendaDocx.dist);
-
   app.use(
     '/docx/:agendaUid',
     agendas.mw.loadBy({

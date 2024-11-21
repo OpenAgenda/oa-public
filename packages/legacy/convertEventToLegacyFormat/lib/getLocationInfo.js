@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = location => ({
+export default (location) => ({
   locationName: location.name,
   locationUid: location.uid,
   address: location.address,
@@ -10,5 +8,5 @@ module.exports = location => ({
   department: location.department,
   region: location.region,
   latitude: location.latitude,
-  longitude: location.longitude
+  longitude: location.longitude,
 });

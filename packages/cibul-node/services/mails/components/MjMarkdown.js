@@ -1,8 +1,8 @@
-const { BodyComponent } = require('mjml-core');
-const { fromMarkdownToHTML } = require('@openagenda/md');
-const dedent = require('dedent');
+import { BodyComponent } from 'mjml-core';
+import { fromMarkdownToHTML } from '@openagenda/md';
+import dedent from 'dedent';
 
-class MjMarkdown extends BodyComponent {
+export default class MjMarkdown extends BodyComponent {
   // This functions allows to define styles that can be used when rendering (see render() below)
   getStyles() {
     return {
@@ -26,12 +26,14 @@ class MjMarkdown extends BodyComponent {
     It must return an html string.
   */
   render() {
+    const htmlAttributes = this.htmlAttributes({
+      // this.htmlAttributes() is the recommended way to pass attributes to html tags
+      class: this.getAttribute('css-class'),
+      style: 'wrapperDiv', // This will add the 'wrapperDiv' attributes from getStyles() as inline style
+    });
+
     return `
-      <div ${this.htmlAttributes({
-    // this.htmlAttributes() is the recommended way to pass attributes to html tags
-    class: this.getAttribute('css-class'),
-    style: 'wrapperDiv', // This will add the 'wrapperDiv' attributes from getStyles() as inline style
-  })}>
+      <div ${htmlAttributes}>
         ${fromMarkdownToHTML(dedent(this.getContent()), { breaks: this.getAttribute('breaks') })}
       </div>
     `;
@@ -80,5 +82,3 @@ MjMarkdown.defaultAttributes = {
   'line-height': '1',
   padding: '10px 25px',
 };
-
-module.exports = MjMarkdown;

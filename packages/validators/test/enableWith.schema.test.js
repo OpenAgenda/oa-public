@@ -352,6 +352,36 @@ describe('schema - enableWith', () => {
     expect([].concat(errors).pop().code).toEqual('required');
   });
 
+  it('allowNull avoids loading default when null is specified', () => {
+    const validate = schema({
+      eventAttendanceMode: {
+        type: 'choice',
+        default: 1,
+        allowNull: true,
+        unique: true,
+        options: [1, 2, 3],
+      },
+      locationUid: {
+        optional: false,
+        enableWith: {
+          field: 'eventAttendanceMode',
+          value: [1, 3],
+        },
+        type: 'integer',
+        default: null,
+      },
+    });
+
+    const clean = validate({
+      eventAttendanceMode: null,
+    });
+
+    expect(clean).toEqual({
+      eventAttendanceMode: null,
+      locationUid: null,
+    });
+  });
+
   it('enableWith fields are filtered out if related field is not specified', () => {
     const validate = schema({
       acheckbox: {

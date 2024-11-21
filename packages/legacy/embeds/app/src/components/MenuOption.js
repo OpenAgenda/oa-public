@@ -1,4 +1,10 @@
-export default function TableRow({ value, head, summary, selection, onSelect }) {
+export default function TableRow({
+  value,
+  head,
+  summary,
+  selection,
+  onSelect,
+}) {
   return (
     <div className="radio margin-v-md">
       <label htmlFor={value}>

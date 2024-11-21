@@ -1,16 +1,19 @@
-'use strict';
+import path from 'node:path';
+import mjml2html from 'mjml';
+import ejs from 'ejs';
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import cachedReadFile from './utils/cachedReadFile.js';
+import defaultFormatMessage from './utils/defaultFormatMessage.js';
 
-const path = require('node:path');
-const mjml = require('mjml');
-const ejs = require('ejs');
-const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')('mails/templater');
-const cachedReadFile = require('./utils/cachedReadFile');
-const defaultFormatMessage = require('./utils/defaultFormatMessage');
+const log = logs('mails/templater');
 
-const mjml2html = mjml.__esModule ? mjml.default : mjml;
-
-async function render(config, templateName, data = {}, opts = {}) {
+export default async function render(
+  config,
+  templateName,
+  data = {},
+  opts = {},
+) {
   const templateDir = templateName
     ? path.join(config.templatesDir || '', templateName)
     : null;
@@ -131,5 +134,3 @@ async function render(config, templateName, data = {}, opts = {}) {
     subject,
   };
 }
-
-module.exports = render;

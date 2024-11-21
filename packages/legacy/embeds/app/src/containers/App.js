@@ -1,4 +1,3 @@
-import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
@@ -7,13 +6,16 @@ import { renderRoutes } from 'react-router-config';
 import * as locales from '../locales-compiled/index.js';
 
 function App({ route }) {
-  const queryClient = useConstant(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      }
-    }
-  }));
+  const queryClient = useConstant(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
 
   const { lang } = useLayoutData();
 
@@ -21,6 +23,7 @@ function App({ route }) {
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={locales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >

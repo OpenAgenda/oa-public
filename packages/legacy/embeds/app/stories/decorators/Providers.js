@@ -1,27 +1,30 @@
-import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useConstant } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
 import { IntlProvider } from 'react-intl';
 
-import * as locales from '../../src/locales-compiled';
+import * as locales from '../../src/locales-compiled/index.js';
 
 const lang = 'fr';
 
-export default Story => {
-  const queryClient = useConstant(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      }
-    }
-  }));
+export default (Story) => {
+  const queryClient = useConstant(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
 
   return (
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={locales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >

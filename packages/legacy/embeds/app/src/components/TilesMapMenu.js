@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { defineMessages, useIntl } from 'react-intl';
 import InputComponent from './InputComponent.js';
 
@@ -11,13 +9,10 @@ const messages = defineMessages({
   tilesInputPlaceholder: {
     id: 'LegacyEmbed.TilesMapMenu.tilesInputPlaceholder',
     defaultMessage: 'Paste the tile link template here',
-  }
+  },
 });
 
-export default ({
-  embed,
-  onChange
-}) => {
+export default ({ embed, onChange }) => {
   const intl = useIntl();
 
   return (

@@ -226,7 +226,6 @@ describe('choice validator', () => {
         optional: true,
         options: [2, 3],
         default: 2,
-        allowNull: true,
       });
 
       const clean = validateChoice(null);

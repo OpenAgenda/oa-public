@@ -5,7 +5,7 @@ import { extractNextOptionId } from './fieldOptions.js';
 import validateFieldAndAssignOptionIds from './validateFieldAndAssignOptionIds.js';
 import validateSection from './validateSection.js';
 import getSchema from './getSchema.js';
-import getWithFieldName from './getWithFieldName.js';
+import isFieldReferencedByField from './isFieldReferencedByField.js';
 
 const isNew = (data) => data.id === null;
 
@@ -147,30 +147,16 @@ class FormSchema {
     return this.data.fields;
   }
 
-  getRelatedFields(field) {
-    const referenceFieldName = field.field;
-    const optionalWithFieldName = getWithFieldName(field.optionalWith);
-    const enableWithFieldName = getWithFieldName(field.enableWith);
+  getRelatedFields(fieldOrFieldName) {
+    const field = typeof fieldOrFieldName === 'string'
+      ? this.getField(fieldOrFieldName)
+      : fieldOrFieldName;
 
-    return this.data.fields.filter((f) => {
-      if (optionalWithFieldName === f.field) {
-        return true;
-      }
-
-      if (enableWithFieldName === f.field) {
-        return true;
-      }
-
-      if (getWithFieldName(f.optionalWith) === referenceFieldName) {
-        return true;
-      }
-
-      if (getWithFieldName(f.enableWith) === referenceFieldName) {
-        return true;
-      }
-
-      return false;
-    });
+    return this.data.fields.filter(
+      (f) =>
+        isFieldReferencedByField(field, f)
+        || isFieldReferencedByField(f, field),
+    );
   }
 
   getFileFields() {

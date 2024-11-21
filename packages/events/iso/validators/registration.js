@@ -8,6 +8,8 @@ const validates = {
   email: emailValidator(),
 };
 
+const validationErrors = (e) => [].concat(e);
+
 const extractType = (value, options = {}) => {
   const { throwOnError = true } = options;
   for (const type of ['phone', 'email', 'link']) {
@@ -42,8 +44,18 @@ function toListOfObjects(v) {
 const knownServices = ['passCulture'];
 
 export default Object.assign(
-  function validateRegistration({ field }) {
+  function validateRegistration(options = {}) {
+    const { field, optional = true } = options;
+
     return (v) => {
+      if (!optional && [null, undefined].includes(v)) {
+        throw validationErrors({
+          code: 'required',
+          message: 'value must not be empty',
+          origin: v,
+          ...field ? { field } : undefined,
+        });
+      }
       const result = toListOfObjects(v).reduce(
         ({ clean, errors }, item, index) => {
           const { type, value } = item;

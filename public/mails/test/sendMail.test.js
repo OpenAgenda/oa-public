@@ -1,11 +1,11 @@
-'use strict';
+import path from 'node:path';
+import _ from 'lodash';
+import nodemailer from 'nodemailer';
+import createMails from '../index.js';
 
-const path = require('node:path');
-const _ = require('lodash');
-const nodemailer = require('nodemailer');
-const createMails = require('../index');
+const { jest } = import.meta;
 
-const templatesDir = path.join(__dirname, '..', 'templates');
+const templatesDir = path.join(import.meta.dirname, '..', 'templates');
 
 let account;
 const getEtherealTransport = () => ({

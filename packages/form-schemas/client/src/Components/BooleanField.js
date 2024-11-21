@@ -35,7 +35,7 @@ export default (props) => {
 
   const { field } = props;
 
-  const isOptional = isFieldOptional(field, relatedValues.optional);
+  const isOptional = isFieldOptional(field, relatedValues);
   const checked = defineChecked(field, value);
 
   useEffect(function forceUncheckedBoxes() {

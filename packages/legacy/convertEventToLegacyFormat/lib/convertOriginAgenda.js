@@ -1,11 +1,9 @@
-'use strict';
-
-module.exports = event => {
+export default (event) => {
   const { originAgenda, sourceAgendas = null } = event;
 
   if (!originAgenda) {
     return {
-      oaUrl: '#'
+      oaUrl: '#',
     };
   }
 
@@ -15,7 +13,9 @@ module.exports = event => {
 
   if (!sourceAgendas) return copyOriginAgenda;
 
-  const agenda = sourceAgendas.find(sourceAgenda => sourceAgenda.uid === event.originAgenda.uid);
+  const agenda = sourceAgendas.find(
+    (sourceAgenda) => sourceAgenda.uid === event.originAgenda.uid,
+  );
 
   if (!agenda) return copyOriginAgenda;
 
@@ -23,6 +23,6 @@ module.exports = event => {
   return {
     ...copyOriginAgenda,
     url,
-    slug
+    slug,
   };
 };

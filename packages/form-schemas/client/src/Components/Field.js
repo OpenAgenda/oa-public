@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import debug from 'debug';
 
 import flattenFieldLabels from '../lib/flatten.js';
 import isFieldEnabled from '../lib/isFieldEnabled.js';
@@ -43,8 +42,6 @@ const FieldComponents = {
   file: FileField,
   image: ImageField,
 };
-
-const log = debug('Field');
 
 const decoratedByFieldComponent = (field, key) => {
   if (['boolean'].includes(field.fieldType)) return true;
@@ -98,21 +95,17 @@ export default function Field(props) {
 
   const FieldComponent = getFieldComponent(props);
 
-  const isEnabled = isFieldEnabled(field, relatedValues.enable, disabled);
-  const isOptional = isFieldOptional(field, relatedValues.optional);
-  log(
-    'field %s is %s and %s',
-    field.field,
-    isOptional ? 'optional' : 'required',
-    isEnabled ? 'enabled' : 'disabled',
-  );
+  const isEnabled = isFieldEnabled(field, relatedValues, disabled);
+  const isOptional = isFieldOptional(field, relatedValues);
+
+  const enabledError = isEnabled && error;
 
   const fieldComponentsProps = {
     enabled: isEnabled,
     lang,
     field,
     value,
-    error,
+    error: enabledError,
     onChange,
     relatedValues,
     labels,
@@ -124,7 +117,7 @@ export default function Field(props) {
       className={classNames({
         [className]: true,
         disabled: !isEnabled,
-        'has-error': !!error,
+        'has-error': !!enabledError,
         'multilingual-input-field': isMultilingual,
       })}
       key={field.field}
@@ -144,7 +137,7 @@ export default function Field(props) {
         <span
           className={classNames({
             'margin-right-xs': hasHelp(field),
-            error: !!error,
+            error: !!enabledError,
           })}
         >
           {`(${labels.required})`}
@@ -173,7 +166,7 @@ export default function Field(props) {
       )}
       {hasMaxCounter ? <FieldCounter value={value} max={field.max} /> : null}
       {!isMultilingual && !decoratedByFieldComponent(field, 'sub') ? (
-        <Sub label={field.sub} error={error} />
+        <Sub label={field.sub} error={enabledError} FieldCounter />
       ) : null}
     </div>
   );

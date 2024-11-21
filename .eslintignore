@@ -3,7 +3,6 @@ mockServiceWorker.js
 packages/admin-agendas
 packages/cibul-templates
 packages/labels
-packages/legacy
 packages/mep
 packages/utils
 packages/validators

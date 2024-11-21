@@ -1,10 +1,11 @@
-'use strict';
+import { fromMarkdownToHTML } from '@openagenda/md';
+import linkValidator from '@openagenda/validators/link.js';
+import emailValidator from '@openagenda/validators/email.js';
 
-const { fromMarkdownToHTML } = require('@openagenda/md');
-const linkValidate = require('@openagenda/validators/link')();
-const emailValidate = require('@openagenda/validators/email')();
+const linkValidate = linkValidator();
+const emailValidate = emailValidator();
 
-module.exports = (text) => {
+export default (text) => {
   let markIt = true;
 
   // if is not a string, do not treat as markdown

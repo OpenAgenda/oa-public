@@ -1,11 +1,9 @@
-'use strict';
-
-const convertLegacyFilter = require('../index');
-const lilleTagSet = require('./fixtures/lilleTagSet.json');
-const lilleFormSchema = require('./fixtures/lilleFormSchema.json');
-const bordeauxTagSet = require('./fixtures/bordeauxTagSet.json');
-const bordeauxFormSchema = require('./fixtures/bordeauxFormSchema.json');
-const bordeauxCategorySet = require('./fixtures/bordeauxCategorySet.json');
+import convertLegacyFilter from '../index.js';
+import lilleTagSet from './fixtures/lilleTagSet.json' with { type: 'json' };
+import lilleFormSchema from './fixtures/lilleFormSchema.json' with { type: 'json' };
+import bordeauxTagSet from './fixtures/bordeauxTagSet.json' with { type: 'json' };
+import bordeauxFormSchema from './fixtures/bordeauxFormSchema.json' with { type: 'json' };
+import bordeauxCategorySet from './fixtures/bordeauxCategorySet.json' with { type: 'json' };
 
 describe('convert legacy filters', () => {
   test('convert date', () => {
@@ -23,9 +21,7 @@ describe('convert legacy filters', () => {
   });
 
   test('convert date with "from" only', () => {
-    expect(
-      convertLegacyFilter({ from: '2023-02-23' }),
-    ).toEqual({
+    expect(convertLegacyFilter({ from: '2023-02-23' })).toEqual({
       timings: {
         gte: '2023-02-23T00:00:00+01:00',
         lte: '2023-02-23T23:59:59+01:00',
@@ -38,7 +34,10 @@ describe('convert legacy filters', () => {
       what: 'concert',
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({ search: 'concert', relative: ['current', 'upcoming'] });
+    expect(convertLegacyFilter(oaq)).toStrictEqual({
+      search: 'concert',
+      relative: ['current', 'upcoming'],
+    });
   });
 
   test('when passed is set to 1 in legacy, no filter is defined in converted object', () => {
@@ -46,21 +45,17 @@ describe('convert legacy filters', () => {
       passed: '1',
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({ });
+    expect(convertLegacyFilter(oaq)).toStrictEqual({});
   });
 
   test('when passed is set to 0 in legacy, filter should be relative set with current and upcoming', () => {
-    expect(
-      convertLegacyFilter({ passed: '0' }),
-    ).toEqual({
+    expect(convertLegacyFilter({ passed: '0' })).toEqual({
       relative: ['current', 'upcoming'],
     });
   });
 
   test('when passed is not set in legacy, filter should be relative set with current and upcoming', () => {
-    expect(
-      convertLegacyFilter({}),
-    ).toEqual({
+    expect(convertLegacyFilter({})).toEqual({
       relative: ['current', 'upcoming'],
     });
   });
@@ -70,7 +65,10 @@ describe('convert legacy filters', () => {
       location: 65918542,
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({ locationUid: 65918542, relative: ['current', 'upcoming'] });
+    expect(convertLegacyFilter(oaq)).toStrictEqual({
+      locationUid: 65918542,
+      relative: ['current', 'upcoming'],
+    });
   });
 
   test('convert slug', () => {
@@ -87,7 +85,10 @@ describe('convert legacy filters', () => {
       what: 'centre',
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({ district: 'centre', relative: ['current', 'upcoming'] });
+    expect(convertLegacyFilter(oaq)).toStrictEqual({
+      district: 'centre',
+      relative: ['current', 'upcoming'],
+    });
   });
 
   test('convert lille tag filter', () => {
@@ -95,7 +96,15 @@ describe('convert legacy filters', () => {
       tags: ['spectacle'],
     };
 
-    expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({ 'categories-metropolitaines': [20], relative: ['current', 'upcoming'] });
+    expect(
+      convertLegacyFilter(oaq, {
+        formSchema: lilleFormSchema,
+        tagSet: lilleTagSet,
+      }),
+    ).toStrictEqual({
+      'categories-metropolitaines': [20],
+      relative: ['current', 'upcoming'],
+    });
   });
 
   test('convert bordeaux tags', () => {
@@ -103,10 +112,15 @@ describe('convert legacy filters', () => {
       tags: ['administration'],
     };
 
-    expect(convertLegacyFilter(oaq, {
-      formSchema: bordeauxFormSchema,
-      tagSet: bordeauxTagSet,
-    })).toStrictEqual({ 'thematiques-bordeaux-metropole': [3], relative: ['current', 'upcoming'] });
+    expect(
+      convertLegacyFilter(oaq, {
+        formSchema: bordeauxFormSchema,
+        tagSet: bordeauxTagSet,
+      }),
+    ).toStrictEqual({
+      'thematiques-bordeaux-metropole': [3],
+      relative: ['current', 'upcoming'],
+    });
   });
 
   test('convert category', () => {
@@ -114,10 +128,15 @@ describe('convert legacy filters', () => {
       category: ['concert', 'atelier'],
     };
 
-    expect(convertLegacyFilter(oaq, {
-      formSchema: bordeauxFormSchema,
-      categorySet: bordeauxCategorySet,
-    })).toStrictEqual({ 'categories-agenda-metropolitain': [43, 46], relative: ['current', 'upcoming'] });
+    expect(
+      convertLegacyFilter(oaq, {
+        formSchema: bordeauxFormSchema,
+        categorySet: bordeauxCategorySet,
+      }),
+    ).toStrictEqual({
+      'categories-agenda-metropolitain': [43, 46],
+      relative: ['current', 'upcoming'],
+    });
   });
 
   test('convert featured', () => {
@@ -125,7 +144,10 @@ describe('convert legacy filters', () => {
       featured: 1,
     };
 
-    expect(convertLegacyFilter(oaq, {})).toStrictEqual({ featured: 1, relative: ['current', 'upcoming'] });
+    expect(convertLegacyFilter(oaq, {})).toStrictEqual({
+      featured: 1,
+      relative: ['current', 'upcoming'],
+    });
   });
 
   test('convert multiple filters', () => {
@@ -137,7 +159,12 @@ describe('convert legacy filters', () => {
       to: '2021-09-20',
     };
 
-    expect(convertLegacyFilter(oaq, { formSchema: bordeauxFormSchema, tagSet: bordeauxTagSet })).toStrictEqual({
+    expect(
+      convertLegacyFilter(oaq, {
+        formSchema: bordeauxFormSchema,
+        tagSet: bordeauxTagSet,
+      }),
+    ).toStrictEqual({
       'categories-agenda-metropolitain': [46, 59],
       'thematiques-bordeaux-metropole': [9],
       locationUid: 65918542,
@@ -149,25 +176,34 @@ describe('convert legacy filters', () => {
   });
 
   test('relative is not forced when time filters are already set in general query', () => {
-    const converted = convertLegacyFilter({}, {
-      query: { timings: { gte: new Date(), lte: new Date() } },
-    });
+    const converted = convertLegacyFilter(
+      {},
+      {
+        query: { timings: { gte: new Date(), lte: new Date() } },
+      },
+    );
 
     expect(converted.relative).toBeUndefined();
   });
 
   test('relative is not forced when slug filter is set in general query', () => {
-    const converted = convertLegacyFilter({}, {
-      query: { slug: 'ladida' },
-    });
+    const converted = convertLegacyFilter(
+      {},
+      {
+        query: { slug: 'ladida' },
+      },
+    );
 
     expect(converted.relative).toBeUndefined();
   });
 
   test('relative is forced when no time filters are already set in general query', () => {
-    const converted = convertLegacyFilter({}, {
-      query: {},
-    });
+    const converted = convertLegacyFilter(
+      {},
+      {
+        query: {},
+      },
+    );
 
     expect(converted.relative).toEqual(['current', 'upcoming']);
   });

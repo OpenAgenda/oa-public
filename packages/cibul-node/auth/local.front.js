@@ -448,7 +448,16 @@ async function activateResend(req, res) {
         );
       }
 
-      sessions.setFlash(req, res, __('sendAgain', req.lang));
+      sessions.setFlash(
+        req,
+        res,
+        __(
+          req.query.origin === 'signin'
+            ? 'sendActivateOnSigninAttempt'
+            : 'sendAgain',
+          req.lang,
+        ),
+      );
 
       auth.redirectToComplete({
         ...optionals,

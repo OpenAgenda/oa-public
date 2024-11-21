@@ -1,8 +1,6 @@
-'use strict';
+import VError from '@openagenda/verror';
 
-const VError = require('@openagenda/verror');
-
-module.exports = (config, templateName, lang) => (code, values) => {
+export default (config, templateName, lang) => (code, values) => {
   const intl = config.intl[lang];
 
   try {

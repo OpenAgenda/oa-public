@@ -1,26 +1,23 @@
-"use strict";
+import _ from 'lodash';
+import loadControlData from './utils/loadControlData.js';
+import memberRemove from './memberRemove.js';
+import refreshTimestamp from './utils/refreshTimestamp.js';
+import roles from './utils/roles.js';
 
-const _ = require( 'lodash' );
+export default async (
+  { prefix, knex, redis },
+  { agendaUid, userUid, role },
+) => {
+  const ctlData = await loadControlData(redis, prefix, agendaUid);
 
-const loadControlData = require( './utils/loadControlData' );
-const memberRemove = require( './memberRemove' );
-const refreshTimestamp = require( './utils/refreshTimestamp' );
-const roles = require( './utils/roles' );
-
-module.exports = async ( { prefix, knex, redis }, { agendaUid, userUid, role } ) => {
-
-  const ctlData = await loadControlData( redis, prefix, agendaUid );
-
-  await memberRemove( { prefix, knex, redis, loadedCtlData: ctlData, skipSave: true }, { agendaUid, userUid } );
-
-  _.set(
-    ctlData,
-    roles[ role ],
-    _.get( ctlData, roles[ role ], [] ).concat( userUid )
+  await memberRemove(
+    { prefix, knex, redis, loadedCtlData: ctlData, skipSave: true },
+    { agendaUid, userUid },
   );
 
-  await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
+  _.set(ctlData, roles[role], _.get(ctlData, roles[role], []).concat(userUid));
 
-  await refreshTimestamp( prefix, redis, agendaUid );
+  await redis.set(prefix + agendaUid, JSON.stringify(ctlData));
 
-}
+  await refreshTimestamp(prefix, redis, agendaUid);
+};

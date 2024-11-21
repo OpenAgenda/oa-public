@@ -1,7 +1,5 @@
-'use strict';
-
-const reduceBy = require('./reduceBy');
-const sortBy = require('./sortBy');
+import reduceBy from './reduceBy.js';
+import sortBy from './sortBy.js';
 
 function reduceByDeep(items, deepReduceByOptions = []) {
   const reduceByOptions = deepReduceByOptions[0];
@@ -39,4 +37,4 @@ function reduceByDeep(items, deepReduceByOptions = []) {
   });
 }
 
-module.exports = reduceByDeep;
+export default reduceByDeep;

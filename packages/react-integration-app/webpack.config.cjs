@@ -236,7 +236,7 @@ module.exports = (env = {}, argv = {}) => {
     },
     plugins: [
       // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
-      new WebpackDashboardPlugin(),
+      process.env.ANALYZE === '1' ? new WebpackDashboardPlugin() : null,
       new ProgressBar({ basic: false }),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify({ NODE_ENV: envName }),
