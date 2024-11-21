@@ -11,19 +11,16 @@ bs-templates
 polyfills
 
 agenda-docx/client/build
-agenda-docx/client/dist
 agenda-portal/assets
 common-labels/build
 date-utils/dist
 intl/dist
-md/dist
 react-filters/build
 react-filters/dist
 react-portal-ssr/dist
 react-share-menus/dist
 react-shared/css
-react-shared/esm
-react-shared/lib
+react-shared/dist
 react-timingspicker/dist
 sdk-js/esm
 sdk-js/lib
