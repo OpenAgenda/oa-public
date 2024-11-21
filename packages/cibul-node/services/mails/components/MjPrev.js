@@ -1,6 +1,6 @@
-const { HeadComponent } = require('mjml-core');
+import { HeadComponent } from 'mjml-core';
 
-module.exports = class MjPrev extends HeadComponent {
+export default class MjPrev extends HeadComponent {
   static componentName = 'mj-prev';
 
   static endingTag = true;
@@ -11,10 +11,6 @@ module.exports = class MjPrev extends HeadComponent {
 
   static defaultAttributes = {
     length: '300',
-  };
-
-  static dependencies = {
-    'mj-head': ['mj-prev'],
   };
 
   getPaddedContent() {
@@ -34,4 +30,8 @@ module.exports = class MjPrev extends HeadComponent {
 
     add('preview', this.getPaddedContent());
   }
+}
+
+MjPrev.dependencies = {
+  'mj-head': ['mj-prev'],
 };

@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import sanitizeHtml from 'sanitize-html';
 
-const _ = require('lodash');
-const sanitizeHtml = require('sanitize-html');
-
-module.exports = {
+export default {
   stripHtml: (html) =>
     sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} }),
   _,
