@@ -1,9 +1,7 @@
-'use strict';
+import tlds from 'tlds' with { type: 'json' };
+import normalizeInput from './normalizeInput.js';
 
-const tlds = require('tlds');
-const normalizeInput = require('./normalizeInput');
-
-module.exports = (input) => {
+export default (input) => {
   const matches = normalizeInput(input).match(
     /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/g,
   );
