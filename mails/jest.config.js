@@ -1,7 +1,7 @@
-'use strict';
-
-module.exports = {
+export default {
   displayName: '@openagenda/mails',
 
   testEnvironment: 'node',
+
+  transform: {},
 };

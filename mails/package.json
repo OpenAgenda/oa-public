@@ -9,13 +9,14 @@
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": "./index.js",
     "./extractEmails": "./utils/extractEmails/index.js"
   },
   "scripts": {
-    "test": "jest --forceExit --detectOpenHandles"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
     "@formatjs/intl": "^2.2.1",

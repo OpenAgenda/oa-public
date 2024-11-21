@@ -1,6 +1,4 @@
-'use strict';
-
-const createEmojiRegexModule = require('emoji-regex');
+import createEmojiRegexModule from 'emoji-regex';
 
 const createEmojiRegex = createEmojiRegexModule.default || createEmojiRegexModule;
 
@@ -14,7 +12,7 @@ const isLookbehindSupported = (() => {
   }
 })();
 
-module.exports = (input) => {
+export default (input) => {
   let result = decodeURIComponent(input).replace(emojiRegex, ' ');
 
   if (isLookbehindSupported) {

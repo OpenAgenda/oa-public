@@ -1,8 +1,6 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
-const render = require('./templater');
-const defaultFormatMessage = require('./utils/defaultFormatMessage');
+import logs from '@openagenda/logs';
+import render from './templater.js';
+import defaultFormatMessage from './utils/defaultFormatMessage.js';
 
 const log = logs('mails/task');
 
@@ -10,7 +8,7 @@ function _sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function runFilterTask(config, params) {
+export async function runFilterTask(config, params) {
   const logPayload = {
     recipient: params.to,
     template: params.template,
@@ -56,7 +54,7 @@ async function runFilterTask(config, params) {
   }
 }
 
-async function runSendTask(config, params) {
+export async function runSendTask(config, params) {
   try {
     const now = Date.now();
 
@@ -78,8 +76,3 @@ async function runSendTask(config, params) {
     log.error('Error on sending email', { params, error });
   }
 }
-
-module.exports = {
-  runFilterTask,
-  runSendTask,
-};
