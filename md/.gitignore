@@ -13,4 +13,3 @@
 .pnp.*
 node_modules
 *.code-workspace
-dist
