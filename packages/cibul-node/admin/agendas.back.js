@@ -59,7 +59,32 @@ export default (app) => {
       },
     );
   });
-  app.get('/admin/agendas/get', preMw, mw.agendas.get);
+
+  app.get('/admin/agendas/:uid', preMw, (req, res) => {
+    const { core, agendas } = req.app.services;
+    core
+      .agendas(req.params.uid)
+      .get({ access: 'internal', detailed: true })
+      .then((agenda) => {
+        if (!agenda) {
+          res.json(null);
+          return;
+        }
+        res.json({
+          ...agenda,
+          credentials: {
+            ...Object.entries(agendas.utils.credentials).reduce(
+              (accu, [key, value]) => ({ ...accu, [key]: value.default }),
+              {},
+            ),
+            ...agenda.credentials,
+          },
+          config: {
+            credentials: agendas.utils.credentials,
+          },
+        });
+      });
+  });
 
   app.post(
     '/admin/agendas/:uid',
