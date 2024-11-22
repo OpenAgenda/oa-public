@@ -330,6 +330,17 @@ export default (core, { useRouter = true } = {}) => {
     ],
   );
 
+  app.get('/agendas/:agendaUid/events/ext/:extKey/:extId', [
+    mw.evaluateAnonymousAccess,
+    mw.getEventFromSearchOrAsDraft,
+    track.mw('api', 'get', 'events'),
+    (req, res) =>
+      res.json({
+        success: true,
+        event: req.event,
+      }),
+  ]);
+
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
     track.mw('api', 'get', 'settings'),

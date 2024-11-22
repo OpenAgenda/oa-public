@@ -10,6 +10,7 @@ CREATE TABLE `event_2` (
   slug VARCHAR(255) NOT NULL UNIQUE,
   title VARCHAR(2000),
   description VARCHAR(2000),
+  ext_ids VARCHAR(1000),
   `references` VARCHAR(2000),
   links VARCHAR(2000),
   long_description TEXT,

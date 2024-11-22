@@ -104,6 +104,37 @@ describe('events - functional - update', () => {
 
       expect(patched.locationUid).toBeUndefined();
     });
+    it('update extIds', async () => {
+      const ev = await svc.create({
+        ...fixtures.creditsEventCreate,
+        extIds: [{ key: 'oa', value: '123' }],
+      });
+
+      const updated = await svc.update(ev.uid, {
+        extIds: [{ key: 'oa2', value: '456' }],
+      });
+
+      expect(updated.extIds).toStrictEqual([{ key: 'oa2', value: '456' }]);
+    });
+
+    it('patch extIds', async () => {
+      const ev = await svc.create({
+        ...fixtures.creditsEventCreate,
+        extIds: [
+          { key: 'oa', value: '123' },
+          { key: 'oa2', value: '123' },
+        ],
+      });
+
+      const patched = await svc.patch(ev.uid, {
+        extIds: [{ key: 'oa2', value: '456' }],
+      });
+
+      expect(patched.extIds).toStrictEqual([
+        { key: 'oa2', value: '456' },
+        { key: 'oa', value: '123' },
+      ]);
+    });
   });
 
   describe('update with image', () => {

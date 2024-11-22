@@ -329,6 +329,11 @@ describe('core - functional (server): core.agendas().events.get()', () => {
       expect(ev.state).toBe(-1);
     });
 
+    it('extIds of event is provided by detailed get', async () => {
+      const ev = await core.agendas(1).events.get(6, { detailed: true });
+      expect(ev.extIds).toStrictEqual([{ key: 'test', value: '1234' }]);
+    });
+
     it('updatedAt value is latest between event and agenda_event record', async () => {
       const ev = await core.agendas(2).events.get(1);
 
