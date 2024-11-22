@@ -124,6 +124,9 @@ export const InModal = () => {
           onClose={() => setDisplay(false)}
           classNames={{ overlay: 'popup-overlay' }}
         >
+          <p>
+            When available, Modal provider is used to determine menuPosition
+          </p>
           <ReactSelectInput
             name="example"
             placeholder="example"
@@ -134,7 +137,6 @@ export const InModal = () => {
             ]}
             onChange={onChange}
             onClick={onClick}
-            menuPosition="fixed"
           />
         </Modal>
       ) : null}
