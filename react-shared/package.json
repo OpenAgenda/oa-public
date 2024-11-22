@@ -22,7 +22,7 @@
     "scss"
   ],
   "scripts": {
-    "start": "storybook dev -p 9001 --ci",
+    "start": "storybook dev",
     "sb": "yarn start",
     "prepack": "yarn clean && oa-intl compile --esm && yarn build",
     "build": "yarn build:esm && yarn build:scss",
