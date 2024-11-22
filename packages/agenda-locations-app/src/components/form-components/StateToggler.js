@@ -1,5 +1,7 @@
-import Switch from 'rc-switch';
+import SwitchModule from 'rc-switch';
 import { defineMessages, FormattedMessage } from 'react-intl';
+
+const Switch = SwitchModule.default || SwitchModule;
 
 const messages = defineMessages({
   toverify: {
