@@ -68,6 +68,7 @@ export default async (data, options = {}) => {
   const { editedFields, compiled } = await compileForValidation(current, data, {
     maxImageSize,
     protectedMode,
+    isPatch,
   });
 
   log(
