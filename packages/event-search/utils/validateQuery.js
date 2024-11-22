@@ -148,7 +148,7 @@ const validate = schema({
     type: 'choice',
     options: [1, 2, 3],
   },
-  extIds: {
+  extId: {
     fields: {
       key: {
         type: 'text',
@@ -238,16 +238,24 @@ const validate = schema({
       'location.region.asc',
       'location.countryCode.asc',
       'location.department.asc',
+      'location.adminLevel1.asc',
+      'location.adminLevel2.asc',
       'location.adminLevel3.asc',
+      'location.adminLevel4.asc',
       'location.adminLevel5.asc',
+      'location.adminLevel6.asc',
       'location.district.asc',
       'location.name.desc',
       'location.city.desc',
       'location.region.desc',
       'location.countryCode.desc',
       'location.department.desc',
+      'location.adminLevel1.desc',
+      'location.adminLevel2.desc',
       'location.adminLevel3.desc',
+      'location.adminLevel4.desc',
       'location.adminLevel5.desc',
+      'location.adminLevel6.desc',
       'location.district.desc',
       'score',
     ],
@@ -354,12 +362,53 @@ function filterNullCountryCode(dirty) {
   return false;
 }
 
+function mapAdminLevelSort(sort) {
+  const adminLevelToSwap = [
+    { al: 'adminLevel1', to: 'region' },
+    { al: 'adminLevel2', to: 'department' },
+    { al: 'adminLevel4', to: 'city' },
+    { al: 'adminLevel6', to: 'district' },
+  ];
+  if (
+    sort
+    && sort.length
+    && sort.some((s) =>
+      adminLevelToSwap
+        .map((e) => e.al)
+        .includes(
+          s.replace('location.', '').replace('.asc', '').replace('.desc', ''),
+        ))
+  ) {
+    return sort.map((s) => {
+      if (
+        adminLevelToSwap
+          .map((e) => e.al)
+          .includes(
+            s.replace('location.', '').replace('.asc', '').replace('.desc', ''),
+          )
+      ) {
+        const adminLevel = adminLevelToSwap.find(
+          (e) =>
+            e.al
+            === s.replace('location.', '').replace('.asc', '').replace('.desc', ''),
+        );
+        return s.replace(adminLevel.al, adminLevel.to);
+      }
+      return s;
+    });
+  }
+  return sort;
+}
+
 function validateQuery(dirty, options = {}) {
   const { formSchema, emptyValue } = options;
   const isCountryCodeNull = filterNullCountryCode(dirty);
 
   const preCleaned = preCleanRawQuery(dirty, options);
   const clean = validate(preCleaned);
+
+  clean.sort = mapAdminLevelSort(clean.sort);
+
   if (isCountryCodeNull) {
     clean.countryCode = clean.countryCode.concat(['null']);
   }

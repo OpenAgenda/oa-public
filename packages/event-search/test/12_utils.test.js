@@ -460,6 +460,17 @@ describe('event-search - unit: utils', () => {
       const clean = validateQuery({ countryCode: ['null', 'FR'] }, {});
       expect(clean.countryCode).toStrictEqual(['FR', 'null']);
     });
+
+    it('mapping admin levels to sort', () => {
+      const clean = validateQuery(
+        { sort: ['location.adminLevel1.asc', 'location.adminLevel4.asc'] },
+        {},
+      );
+      expect(clean.sort).toStrictEqual([
+        'location.region.asc',
+        'location.city.asc',
+      ]);
+    });
   });
 
   describe('cleanRequestedAggregation', () => {
