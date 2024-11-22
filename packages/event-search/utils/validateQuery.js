@@ -148,7 +148,7 @@ const validate = schema({
     type: 'choice',
     options: [1, 2, 3],
   },
-  extIds: {
+  extId: {
     fields: {
       key: {
         type: 'text',

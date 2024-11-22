@@ -37,7 +37,7 @@ describe('02 - event search - functional: extIds', () => {
   it('search by extId', async () => {
     const { events } = await service('extIds').search(
       {
-        extIds: { key: 'apidae', value: '43434' },
+        extId: { key: 'apidae', value: '43434' },
       },
       {},
       { detailed: true },
