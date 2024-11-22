@@ -41,6 +41,7 @@ export default createReactClass( {
             <label className="sr-only" htmlFor="agenda_search">Agenda search</label>
             <div className="input-icon-right">
               <input
+                title="je mange des urls et des uid aussi maintenant"
                 className="form-control"
                 placeholder="Search"
                 value={ this.props.query ? this.props.query.search : '' }
