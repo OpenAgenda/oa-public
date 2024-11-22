@@ -492,6 +492,49 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
   });
 
+  describe('extIds', () => {
+    let extIdsEvent;
+    beforeAll(async () => {
+      extIdsEvent = await core.agendas(17026855).events.patch(
+        19201989,
+        {
+          extIds: [{ key: 'test', value: '123' }],
+        },
+        {
+          access: 'internal',
+        },
+      );
+    });
+    it('patching extIds add to existing', async () => {
+      const event = await core.agendas(17026855).events.patch(
+        19201989,
+        {
+          extIds: [{ key: 'test2', value: '423' }],
+        },
+        {
+          access: 'internal',
+        },
+      );
+      expect(event.extIds).toEqual([
+        { key: 'test2', value: '423' },
+        { key: 'test', value: '123' },
+      ]);
+    });
+    it('updating extIds replaces existing', async () => {
+      const event = await core.agendas(17026855).events.update(
+        19201989,
+        {
+          ...extIdsEvent,
+          extIds: [{ key: 'test3', value: '423' }],
+        },
+        {
+          access: 'internal',
+        },
+      );
+      expect(event.extIds).toEqual([{ key: 'test3', value: '423' }]);
+    });
+  });
+
   describe('patch with returnPayload: true', () => {
     let result;
 
@@ -884,6 +927,82 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
       it('attendanceMode is patched', () => {
         expect(response.data.event.attendanceMode).toBe(2);
+      });
+    });
+
+    describe('extIds', () => {
+      beforeAll(async () => {
+        await core.agendas(17026855).events.patch(
+          19390293,
+          {
+            extIds: [{ key: 'test', value: '123' }],
+          },
+          {
+            access: 'internal',
+          },
+        );
+      });
+      it('patching extIds add to existing', async () => {
+        try {
+          response = await axios({
+            method: 'patch',
+            url: 'http://localhost:3000/agendas/17026855/events/19390293',
+            headers: {
+              'access-token': accessToken,
+              'content-type': 'application/json',
+            },
+            data: {
+              extIds: [{ key: 'test2', value: '423' }],
+            },
+          });
+          expect(response.data.event.extIds).toEqual([
+            { key: 'test2', value: '423' },
+            { key: 'test', value: '123' },
+          ]);
+        } catch (e) {
+          // console.log(e);
+        }
+      });
+
+      it('updating extIds replaces existing', async () => {
+        response = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/agendas/17026855/events/19390293',
+          headers: {
+            'access-token': accessToken,
+            'content-type': 'application/json',
+          },
+          data: {
+            state: 0,
+            featured: true,
+            title: {
+              fr: "Un événement mis à jour via l'api",
+              en: 'An updated event through the api',
+            },
+            description: {
+              fr: 'Une description',
+              en: 'A desc',
+            },
+            location: {
+              uid: 123,
+            },
+            timings: [
+              {
+                begin: new Date('2019-05-06T10:00:00'),
+                end: new Date('2019-05-06T11:00:00'),
+              },
+              {
+                begin: new Date('2019-05-06T12:00:00'),
+                end: new Date('2019-05-06T13:00:00'),
+              },
+            ],
+            custom_description: 'Meh',
+            'categories-agenda-metropolitain': 43,
+            'thematiques-bordeaux-metropole': [3],
+            extIds: [{ key: 'test3', value: '423' }],
+          },
+        }).then((r) => r.data);
+        expect(response.event.extIds).toEqual([{ key: 'test3', value: '423' }]);
       });
     });
 

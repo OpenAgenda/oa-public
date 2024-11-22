@@ -7,15 +7,15 @@ const log = logs('api/middleware/getEventFromSearchOrAsDraft');
 export default async function getEventFromSearchOrAsDraft(req, res, next) {
   const { core } = req.app.services;
 
-  const identifier = {
-    ...req.params.eventUid
-      ? {
-        uid: req.params.eventUid,
-      }
-      : {
-        slug: req.params.eventSlug,
-      },
-  };
+  const identifier = {};
+
+  if (req.params.eventUid) {
+    identifier.uid = req.params.eventUid;
+  } else if (req.params.eventSlug) {
+    identifier.slug = req.params.eventSlug;
+  } else if (req.params.extId && req.params.extKey) {
+    identifier.extId = { key: req.params.extKey, value: req.params.extId };
+  }
 
   log('getting event matching identifier %j', identifier);
 

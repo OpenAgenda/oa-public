@@ -322,6 +322,23 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       );
       expect(event.motive).toBe('>_>');
     });
+
+    it('extIds are provided on detailed search', async () => {
+      const {
+        events: [event],
+      } = await core.agendas(1).events.search(
+        {
+          state: 2,
+          extId: { key: 'test', value: '1234' },
+        },
+        {},
+        {
+          detailed: true,
+          access: 'administrator',
+        },
+      );
+      expect(event.extIds).toStrictEqual([{ key: 'test', value: '1234' }]);
+    });
   });
 
   describe('api', () => {
@@ -840,7 +857,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
           },
         }).then((r) => r.data);
-        expect(response.total).toBe(1);
+        expect(response.total).toBe(2);
       });
 
       it('removed option at null', async () => {
@@ -855,7 +872,40 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             removed: 'null',
           },
         }).then((r) => r.data);
-        expect(response.total).toBe(2);
+        expect(response.total).toBe(3);
+      });
+
+      it('sort by location fields', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+            sort: ['location.department.asc'],
+          },
+        }).then((r) => r.data);
+        expect(response.sort).toEqual(['location.department.asc']);
+      });
+
+      it('get by extIds', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/1/events/ext/test/1234',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+          },
+        }).then((r) => r.data);
+
+        expect(response.event.uid).toBe(6);
+        expect(response.event.extIds).toStrictEqual([
+          { key: 'test', value: '1234' },
+        ]);
       });
     });
   });
