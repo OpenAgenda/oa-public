@@ -13,7 +13,8 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "start": "storybook dev -p 9001 --ci",
+    "sb": "yarn start",
+    "start": "storybook dev",
     "build": "babel --copy-files src -d dist -s --env-name esm --root-mode upward",
     "clean": "rimraf dist",
     "prepack": "yarn clean && oa-intl compile --esm && yarn build",

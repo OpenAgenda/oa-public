@@ -33,6 +33,9 @@ export const inviteMessageFormFullyFeatured = () => (
           moderators: true,
           invitationMessage: true,
         },
+        settings: {
+          contribution: {},
+        },
       }}
       userCredential={2}
       onSubmit={
@@ -53,6 +56,9 @@ export const inviteMessageFormPublicWithoutModeratorsNorMessage = () => (
         credentials: {
           moderators: false,
           invitationMessage: false,
+        },
+        settings: {
+          contribution: {},
         },
       }}
       userCredential={2}
