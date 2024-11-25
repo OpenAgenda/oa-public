@@ -9,7 +9,7 @@ import keysSvc from '@openagenda/keys';
 import * as keysMw from '@openagenda/keys/middleware';
 import * as service from '../server/service.js';
 import mw from '../server/middleware.js';
-import testconfig from '../testconfig';
+import testconfig from '../testconfig.js';
 
 /*
  * Run `yarn knex migrate:latest` and `yarn knex seed:run` before to run the dev server
