@@ -150,6 +150,11 @@ body {
     color: $oa-danger;
   }
 
+  &.success {
+    border-color: $oa-green;
+    color: $oa-green;
+  }
+
   label {
     margin-right: 1em;
   }
