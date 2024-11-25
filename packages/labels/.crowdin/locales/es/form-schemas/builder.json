@@ -34,6 +34,7 @@
   "markdownFieldType": "Texto enriquecido",
   "integerFieldType": "Nombre completo",
   "emailFieldType": "Dirección de correo electrónico",
+  "phoneFieldType": "Numero de Téléfono",
   "linkFieldType": "Enlace",
   "textMultilingualFieldType": "Texto en varios idiomas",
   "checkboxFieldType": "Selección múltiple elección",

@@ -61,5 +61,6 @@
   "status": "État",
   "trueBoolean": "Sélectionné",
   "falseBoolean": "Non sélectionné",
-  "nullBoolean": "(Sans valeur)"
+  "nullBoolean": "(Sans valeur)",
+  "extIds": "Identifiants externe"
 }

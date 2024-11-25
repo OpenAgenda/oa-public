@@ -1,5 +1,6 @@
 {
   "sendAgain": "The activation email is being sent again",
+  "sendActivateOnSigninAttempt": "Your account is not activated. Click on the link contained in the activation email that was just sent to you.",
   "checkEmail": "Check your mail for a validation link",
   "checkEmailInstruction": "An email is being set containing the activation link for your account to the email address indicated here below. Check your inbox to complete your account creation process.",
   "didNotReceive": "<b>Didn't receive any mail?</b><br>1. Double-check the spelling of your email.<br/>2. Check your spam folder<br/> 3. %resend% <br/> 4. write us at %support%",
