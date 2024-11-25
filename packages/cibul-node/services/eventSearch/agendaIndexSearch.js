@@ -6,6 +6,7 @@ const log = logs('services/eventSearch/agendaIndexSearch');
 
 export default (eventSearch, agenda) => {
   // loadSummary does not provide schema
+
   const formSchema = agenda.schema
     ? amendRestrictedFieldsWithInternalAccess(agenda.schema)
     : undefined;
