@@ -1,4 +1,4 @@
-import validateMessageId from './validateMessageId';
+import validateMessageId from './validateMessageId.js';
 
 export default function insertMessageId(
   { conversationId, knex, tableName },

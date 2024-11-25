@@ -4,10 +4,8 @@ module.exports = {
   extends: '../../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
-
-  ignorePatterns: ['/dist'],
 
   rules: {
     'import/no-extraneous-dependencies': [
@@ -24,15 +22,10 @@ module.exports = {
 
   overrides: [
     {
-      files: [
-        'src/**/*.js',
-        '**/*.test.js',
-        '**/*.spec.js',
-        'test/service/index.js',
-      ],
+      files: ['**/*.cjs'],
 
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

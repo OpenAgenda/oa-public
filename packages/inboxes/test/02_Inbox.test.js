@@ -1,7 +1,7 @@
 import knexLib from 'knex';
 import fixtures from '@openagenda/fixtures';
-import testconfig from '../testconfig';
-import { initAndLoad, seed } from './service';
+import testconfig from '../testconfig.js';
+import { initAndLoad, seed } from './service/index.js';
 
 const database = `${testconfig.mysql.database}_Inbox`;
 const tables = ['inbox'];

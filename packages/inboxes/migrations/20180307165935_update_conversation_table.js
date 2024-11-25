@@ -1,8 +1,6 @@
-'use strict';
+import uuid from 'uuid/v4.js';
 
-const uuid = require('uuid/v4');
-
-exports.up = async (knex) => {
+export async function up(knex) {
   const { schemas } = knex.client.config;
 
   await knex.schema.alterTable(schemas.conversation, (t) => {
@@ -26,12 +24,12 @@ exports.up = async (knex) => {
   await knex.schema.alterTable(schemas.conversation, (t) => {
     t.string('file_key').unique().alter();
   });
-};
+}
 
-exports.down = async (knex) => {
+export async function down(knex) {
   const { schemas } = knex.client.config;
 
   await knex.schema.alterTable(schemas.conversation, (t) => {
     t.dropColumn('file_key');
   });
-};
+}

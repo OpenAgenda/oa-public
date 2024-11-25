@@ -3,8 +3,8 @@ import axios from 'axios';
 import mime from 'mime-types';
 import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
-import Inbox from './Inbox';
-import Conversations from './Conversations';
+import Inbox from './Inbox.js';
+import Conversations from './Conversations.js';
 
 const log = logs('inboxes/middleware');
 

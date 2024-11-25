@@ -1,5 +1,5 @@
 import fixtures from '@openagenda/fixtures';
-import createService from '../../src';
+import createService from '../../src/index.js';
 
 export default createService;
 
@@ -51,7 +51,7 @@ export function initAndLoad(config, files, options) {
         allowedTables
           .map((tableName) => ({
             table: config.schemas[tableName],
-            src: `${__dirname}/${tableName}.data.sql`,
+            src: `${import.meta.dirname}/${tableName}.data.sql`,
           }))
           .filter((f) =>
             cleanFiles.includes(f.src.split('/').pop().split('.')[0])),
@@ -73,7 +73,7 @@ export function seed(config, files = defaultFiles, options = { reset: false }) {
       allowedTables
         .map((tableName) => ({
           table: config.schemas[tableName],
-          src: `${__dirname}/${tableName}.data.sql`,
+          src: `${import.meta.dirname}/${tableName}.data.sql`,
         }))
         .filter((f) => files.includes(f.src.split('/').pop().split('.')[0])),
       options,

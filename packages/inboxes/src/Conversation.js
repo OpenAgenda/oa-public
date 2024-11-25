@@ -2,22 +2,22 @@ import _ from 'lodash';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import ajvKeywords from 'ajv-keywords';
-import uuid from 'uuid/v4';
+import uuid from 'uuid/v4.js';
 import VError from '@openagenda/verror';
 import logger from '@openagenda/logs';
-import mapper from './utils/mapper';
-import conversationFieldsMap from './db/conversationFieldsMap';
-import inboxUserFieldsMap from './db/inboxUserFieldsMap';
-import inboxFieldsMap from './db/inboxFieldsMap';
-import validate from './utils/validate';
+import mapper from './utils/mapper.js';
+import conversationFieldsMap from './db/conversationFieldsMap.js';
+import inboxUserFieldsMap from './db/inboxUserFieldsMap.js';
+import inboxFieldsMap from './db/inboxFieldsMap.js';
+import validate from './utils/validate.js';
 import {
   identifiersSchema,
   createSchema,
   updateSchema,
-} from './validators/conversationSchemas';
-import populateDetails from './db/populateDetails';
-import populateParticipants from './db/populateParticipants';
-import populateLatestMessage from './db/populateLatestMessage';
+} from './validators/conversationSchemas.js';
+import populateDetails from './db/populateDetails.js';
+import populateParticipants from './db/populateParticipants.js';
+import populateLatestMessage from './db/populateLatestMessage.js';
 
 const log = logger('inboxes/Conversation');
 

@@ -1,4 +1,4 @@
-import mapper from '../src/utils/mapper';
+import mapper from '../src/utils/mapper.js';
 
 const fieldsMap = [
   {

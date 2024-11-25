@@ -1,4 +1,4 @@
-import validateEmail from './validateEmail';
+import validateEmail from './validateEmail.js';
 
 function insertReplyTo(
   { conversationId, knex, tableName },

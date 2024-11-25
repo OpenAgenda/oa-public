@@ -1,8 +1,6 @@
-'use strict';
+import path from 'node:path';
 
-const path = require('node:path');
-
-module.exports = {
+export default {
   mysql: {
     host: '127.0.0.1',
     database: 'oa_test_inboxes',
@@ -14,7 +12,7 @@ module.exports = {
   },
   migrations: {
     tableName: 'inbox_migrations',
-    directory: path.resolve(__dirname, 'migrations'),
+    directory: path.resolve(import.meta.dirname, 'migrations'),
   },
   schemas: {
     inbox: 'inbox',

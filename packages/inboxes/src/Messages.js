@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import VError from '@openagenda/verror';
-import parseListArguments from '@openagenda/service-utils/parseListArguments';
-import mapper from './utils/mapper';
-import messageFieldsMap from './db/messageFieldsMap';
-import inboxUserFieldsMap from './db/inboxUserFieldsMap';
-import inboxFieldsMap from './db/inboxFieldsMap';
-import populateDetails from './db/populateDetails';
-import populateAttachments from './db/populateAttachments';
+import parseListArguments from '@openagenda/service-utils/parseListArguments.js';
+import mapper from './utils/mapper.js';
+import messageFieldsMap from './db/messageFieldsMap.js';
+import inboxUserFieldsMap from './db/inboxUserFieldsMap.js';
+import inboxFieldsMap from './db/inboxFieldsMap.js';
+import populateDetails from './db/populateDetails.js';
+import populateAttachments from './db/populateAttachments.js';
 
 export default class Messages {
   constructor(svc, options) {

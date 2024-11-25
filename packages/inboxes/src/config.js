@@ -31,7 +31,10 @@ export default async function makeConfig(c) {
       await knex.migrate.latest({
         tableName: 'inbox_migrations',
         ...c.migrations,
-        directory: path.resolve(path.dirname(__dirname), 'migrations'),
+        directory: path.resolve(
+          path.dirname(import.meta.dirname),
+          'migrations',
+        ),
       });
     } catch (e) {
       console.log(e);
