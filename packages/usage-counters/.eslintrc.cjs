@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   extends: '../../.eslintrc',
 
@@ -20,9 +22,9 @@ module.exports = {
 
   overrides: [
     {
-      files: ['**/*.js'],
-      rules: {
-        'import/extensions': ['error', 'ignorePackages'],
+      files: ['**/*.cjs'],
+      parserOptions: {
+        sourceType: 'script',
       },
     },
   ],
