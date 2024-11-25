@@ -1,15 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import logger from '@openagenda/logs';
+import get from './get.js';
+import list from './list.js';
+import create from './create.js';
+import update from './update.js';
+import validate from './validate.js';
 
-const _ = require('lodash');
-const logger = require('@openagenda/logs');
-
-const get = require('./get');
-const list = require('./list');
-const create = require('./create');
-const update = require('./update');
-const validate = require('./validate');
-
-module.exports = (options = {}) => {
+function Service(options = {}) {
   const config = _.assign(
     {
       knex: null,
@@ -30,6 +27,10 @@ module.exports = (options = {}) => {
     patch: update.bind(null, _.assign({ patch: true }, config)),
     validate,
   };
-};
+}
 
-module.exports.validate = validate;
+Service.validate = validate;
+
+export default Service;
+
+export { validate };

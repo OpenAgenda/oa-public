@@ -1,13 +1,10 @@
-'use strict';
-
-const { promisify } = require('node:util');
-const knex = require('knex');
-const _ = require('lodash');
-const mysql = require('mysql');
-
-const Service = require('..');
-const config = require('../testconfig');
-const fixtures = require('./fixtures');
+import { promisify } from 'node:util';
+import knex from 'knex';
+import _ from 'lodash';
+import mysql from 'mysql';
+import Service from '../index.js';
+import config from '../testconfig.js';
+import fixtures from './fixtures/index.js';
 
 describe('network - functional ( server ): get', () => {
   let k;

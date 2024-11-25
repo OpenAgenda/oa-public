@@ -1,12 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const validate = require('./validate');
-const get = require('./get');
+import _ from 'lodash';
+import validate from './validate.js';
+import get from './get.js';
 
 const updatableFields = ['title', 'formSchemaId'];
 
-module.exports = async ({ knex, schema, patch }, uid, data) => {
+export default async ({ knex, schema, patch }, uid, data) => {
   const current = await get({ knex, schema }, uid);
 
   if (!current) throw new Error('no network was found for update');

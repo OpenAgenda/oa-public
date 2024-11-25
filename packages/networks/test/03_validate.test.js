@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const Service = require('..');
+import _ from 'lodash';
+import Service from '../index.js';
 
 const { validate } = Service; // can be called through instance too
 
