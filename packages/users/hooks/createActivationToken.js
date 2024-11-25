@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function createActivationToken() {
+export default function createActivationToken() {
   return async (context) => {
     if (context.result && !context.result.isActivated) {
       const tokensSvc = context.self.config.getTokensService();
@@ -18,4 +16,4 @@ module.exports = function createActivationToken() {
       );
     }
   };
-};
+}

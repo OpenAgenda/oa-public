@@ -1,9 +1,9 @@
-'use strict';
+import hooksCommon from 'feathers-hooks-common';
+import fields from '../service/fields.js';
 
-const { keep } = require('feathers-hooks-common');
-const fields = require('../service/fields');
+const { keep } = hooksCommon;
 
-module.exports = function keepFields() {
+export default function keepFields() {
   return (context) => {
     if (context.result === null || context.params.internal === true) {
       return context;
@@ -18,4 +18,4 @@ module.exports = function keepFields() {
         : [...fields.basic, ...socialFields],
     )(context);
   };
-};
+}

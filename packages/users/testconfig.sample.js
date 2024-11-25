@@ -1,8 +1,6 @@
-'use strict';
+import keysSvc from '@openagenda/keys';
 
-const keysSvc = require('@openagenda/keys');
-
-module.exports = {
+export default {
   service: {
     paginate: {
       default: 20,

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function generateUid() {
+export default function generateUid() {
   return async (context) => {
     const uid = Math.ceil(Math.random() * 99999999);
 
@@ -19,4 +17,4 @@ module.exports = function generateUid() {
 
     return context;
   };
-};
+}

@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('users/hooks/error');
+const log = logs('users/hooks/error');
 
-module.exports = () =>
+export default () =>
   async function errorHook(context, next) {
     try {
       await next();

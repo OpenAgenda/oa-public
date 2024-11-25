@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   apiKey: () => async (user, context) => {
     if (!user || !user.uid) {
       return;

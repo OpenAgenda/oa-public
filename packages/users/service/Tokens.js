@@ -1,20 +1,23 @@
-'use strict';
+import feathersKnex from 'feathers-knex';
+import hooksCommon from 'feathers-hooks-common';
+import { hooks, withParams } from '@feathersjs/hooks';
 
-const { Service } = require('feathers-knex');
-const { disallow } = require('feathers-hooks-common');
-const { hooks, withParams } = require('@feathersjs/hooks');
-const {
+import {
   callInterface,
   camelCase,
   camelCaseQuery,
   createTokenIfNotExist,
-  error: errorHook,
+  error as errorHook,
   generateToken,
   snakeCase,
   snakeCaseQuery,
   transformTokenType,
-} = require('../hooks');
-const { wrap } = require('../utils/wrappers');
+} from '../hooks/index.js';
+
+import { wrap } from '../utils/wrappers.js';
+
+const { Service } = feathersKnex;
+const { disallow } = hooksCommon;
 
 class Tokens extends Service {
   constructor(options) {
@@ -93,4 +96,4 @@ hooks(Tokens.prototype, {
   },
 });
 
-module.exports = Tokens;
+export default Tokens;

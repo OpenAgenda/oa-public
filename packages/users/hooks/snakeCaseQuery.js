@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import deeply from '../utils/deeply.js';
 
-const _ = require('lodash');
-const deeply = require('../utils/deeply');
-
-module.exports = function snakeCaseQuery() {
+export default function snakeCaseQuery() {
   return (context) =>
     _.set(
       context,
@@ -11,4 +9,4 @@ module.exports = function snakeCaseQuery() {
       deeply(_.mapKeys)(_.get(context, 'params.query', {}), (value, key) =>
         (_.startsWith(key, '$') ? key : _.snakeCase(key))),
     );
-};
+}

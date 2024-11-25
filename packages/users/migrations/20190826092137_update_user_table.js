@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export async function up(knex) {
   const { schemas } = knex.client.config;
   const columnName = 'reply_token';
 
@@ -13,9 +11,9 @@ exports.up = async (knex) => {
   return knex.schema.table(schemas.user, (t) => {
     t.string(columnName).nullable().unique();
   });
-};
+}
 
-exports.down = async (knex) => {
+export async function down(knex) {
   const { schemas } = knex.client.config;
   const columnName = 'reply_token';
 
@@ -28,4 +26,4 @@ exports.down = async (knex) => {
   return knex.schema.table(schemas.user, (t) => {
     t.dropColumn(columnName);
   });
-};
+}

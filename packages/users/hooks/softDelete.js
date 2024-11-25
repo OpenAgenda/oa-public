@@ -1,10 +1,10 @@
-'use strict';
+import errors from '@feathersjs/errors';
+import hooksCommon from 'feathers-hooks-common';
+import setInStore from './setInStore.js';
 
-const errors = require('@feathersjs/errors');
-const { checkContext } = require('feathers-hooks-common');
-const setInStore = require('./setInStore');
+const { checkContext } = hooksCommon;
 
-module.exports = function softDelete(field, additionalParams = {}) {
+export default function softDelete(field, additionalParams = {}) {
   const deleteField = field || 'deleted';
 
   return (context) => {
@@ -97,4 +97,4 @@ module.exports = function softDelete(field, additionalParams = {}) {
         return context;
     }
   };
-};
+}

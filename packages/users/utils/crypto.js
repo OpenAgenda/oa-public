@@ -1,8 +1,6 @@
-'use strict';
+import crypto from 'node:crypto';
 
-const crypto = require('node:crypto');
-
-function randomHash(length = 32) {
+export function randomHash(length = 32) {
   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
   let salt = '';
 
@@ -13,14 +11,14 @@ function randomHash(length = 32) {
   return salt;
 }
 
-function hashPassword(password, salt) {
+export function hashPassword(password, salt) {
   return crypto
     .createHash('sha256')
     .update(salt + password)
     .digest('hex');
 }
 
-function verifyPassword(hashedPassword, password, salt, sha1) {
+export function verifyPassword(hashedPassword, password, salt, sha1) {
   return (
     hashedPassword
     === crypto
@@ -29,9 +27,3 @@ function verifyPassword(hashedPassword, password, salt, sha1) {
       .digest('hex')
   );
 }
-
-module.exports = {
-  randomHash,
-  hashPassword,
-  verifyPassword,
-};

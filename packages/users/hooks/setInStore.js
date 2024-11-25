@@ -1,8 +1,6 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-module.exports = function setInStore(key, getter = key) {
+export default function setInStore(key, getter = key) {
   return async (context) => {
     const value = typeof getter === 'function'
       ? await getter(context)
@@ -15,4 +13,4 @@ module.exports = function setInStore(key, getter = key) {
       _.set({}, key, value),
     );
   };
-};
+}

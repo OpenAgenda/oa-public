@@ -1,23 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import feathersKnex from 'feathers-knex';
+import hooksCommon from 'feathers-hooks-common';
+import { hooks, withParams } from '@feathersjs/hooks';
+import errors from '@feathersjs/errors';
+import schema from '@openagenda/validators/schema/index.js';
+import validators from '@openagenda/validators';
+import * as crypto from '../utils/crypto.js';
+import { wrap } from '../utils/wrappers.js';
 
-const _ = require('lodash');
-const { Service } = require('feathers-knex');
-const {
-  iff,
-  keep,
-  discardQuery,
-  fastJoin,
-  paramsFromClient,
-  setNow,
-  isProvider,
-} = require('feathers-hooks-common');
-const { hooks, withParams } = require('@feathersjs/hooks');
-const errors = require('@feathersjs/errors');
-const schema = require('@openagenda/validators/schema');
-const validators = require('@openagenda/validators');
-const crypto = require('../utils/crypto');
-const { wrap } = require('../utils/wrappers');
-const {
+import {
   callInterface,
   camelCase,
   camelCaseQuery,
@@ -26,7 +17,7 @@ const {
   compareFields,
   createActivationToken,
   detailedParamHook,
-  error: errorHook,
+  error as errorHook,
   formatStore,
   generateApiKey,
   generateToken,
@@ -46,18 +37,30 @@ const {
   setInStore,
   snakeCase,
   snakeCaseQuery,
-  softDelete: _softDelete,
+  softDelete as _softDelete,
   stashBefore,
   validate,
   validateCreate,
   verifyPassword,
-} = require('../hooks');
-const resolvers = require('./resolvers');
-const patchSchema = require('./schemas/patch');
-const changePasswordSchema = require('./schemas/changePassword');
-const setNewFlagSchema = require('./schemas/setNewFlag');
-const coerceSchema = require('./schemas/coerce');
-const Tokens = require('./Tokens');
+} from '../hooks/index.js';
+
+import resolvers from './resolvers.js';
+import patchSchema from './schemas/patch.js';
+import changePasswordSchema from './schemas/changePassword.js';
+import setNewFlagSchema from './schemas/setNewFlag.js';
+import coerceSchema from './schemas/coerce.js';
+import Tokens from './Tokens.js';
+
+const { Service } = feathersKnex;
+const {
+  iff,
+  keep,
+  discardQuery,
+  fastJoin,
+  paramsFromClient,
+  setNow,
+  isProvider,
+} = hooksCommon;
 
 schema.register({
   text: validators.text,
@@ -517,5 +520,7 @@ hooks(Users.prototype, {
   },
 });
 
-module.exports = Users;
-module.exports.Tokens = Tokens;
+Users.Tokens = Tokens;
+
+export default Users;
+export { Tokens };

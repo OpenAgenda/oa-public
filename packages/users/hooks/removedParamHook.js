@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function removedParamHook() {
+export default function removedParamHook() {
   return (context) => {
     context.params.query = context.params.query || {};
 
@@ -16,4 +14,4 @@ module.exports = function removedParamHook() {
 
     return context;
   };
-};
+}

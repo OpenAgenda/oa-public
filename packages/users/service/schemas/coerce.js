@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   isActivated: {
     type: 'boolean',
     optional: true,

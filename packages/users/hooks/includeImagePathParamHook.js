@@ -1,8 +1,8 @@
-'use strict';
+import hooksCommon from 'feathers-hooks-common';
 
-const { alterItems } = require('feathers-hooks-common');
+const { alterItems } = hooksCommon;
 
-module.exports = function includeImagePathParamHook() {
+export default function includeImagePathParamHook() {
   return (context) => {
     const { config } = context.self;
 
@@ -18,4 +18,4 @@ module.exports = function includeImagePathParamHook() {
           : record.image,
     }))(context);
   };
-};
+}

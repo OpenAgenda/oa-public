@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export async function up(knex) {
   const { schemas } = knex.client.config;
 
   const exists = await knex.schema.hasTable(schemas.userToken);
@@ -41,10 +39,10 @@ exports.up = async (knex) => {
       ADD CONSTRAINT \`user_token_user_id_user_id\` FOREIGN KEY (\`user_id\`) REFERENCES \`${schemas.user}\` (\`id\`);
     `);
   }
-};
+}
 
-exports.down = (knex) => {
+export function down(knex) {
   const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists(schemas.userToken);
-};
+}

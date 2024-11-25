@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import errors from '@feathersjs/errors';
 
-const _ = require('lodash');
-const errors = require('@feathersjs/errors');
-
-module.exports = function compareFields(
+export default function compareFields(
   field1,
   field2,
   errorCode = 'confirmation.differentpassword',
@@ -20,4 +18,4 @@ module.exports = function compareFields(
       });
     }
   };
-};
+}

@@ -1,11 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import hooksCommon from 'feathers-hooks-common';
+import createSchema from '../service/schemas/create.js';
+import validate from './validate.js';
 
-const _ = require('lodash');
-const { isProvider } = require('feathers-hooks-common');
-const createSchema = require('../service/schemas/create');
-const validate = require('./validate');
+const { isProvider } = hooksCommon;
 
-module.exports = function validateCreate() {
+export default function validateCreate() {
   return (context) =>
     validate({
       ...createSchema,
@@ -30,4 +30,4 @@ module.exports = function validateCreate() {
         }
         : {},
     })(context);
-};
+}

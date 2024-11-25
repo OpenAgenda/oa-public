@@ -1,8 +1,6 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-module.exports = function changeEmailFromStore() {
+export default function changeEmailFromStore() {
   return (context) => {
     context.data.email = context.params.before.store.newEmail;
 
@@ -15,4 +13,4 @@ module.exports = function changeEmailFromStore() {
     delete context.data.store.newEmail;
     delete context.data.store.newEmailToken;
   };
-};
+}

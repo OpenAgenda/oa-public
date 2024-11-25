@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import uuid from 'uuid/v4.js';
 
-const _ = require('lodash');
-const uuid = require('uuid/v4');
-
-module.exports = function generateToken(key) {
+export default function generateToken(key) {
   return async (context) => {
     const token = uuid().replace(/-/g, '');
 
@@ -11,4 +9,4 @@ module.exports = function generateToken(key) {
 
     return context;
   };
-};
+}

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function searchByKey() {
+export default function searchByKey() {
   return async (context) => {
     const { config } = context.self;
 
@@ -29,4 +27,4 @@ module.exports = function searchByKey() {
 
     return context;
   };
-};
+}

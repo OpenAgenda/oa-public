@@ -1,43 +1,41 @@
-'use strict';
+import callInterface from './callInterface.js';
+import camelCase from './camelCase.js';
+import camelCaseQuery from './camelCaseQuery.js';
+import changeEmailFromStore from './changeEmailFromStore.js';
+import checkUnicity from './checkUnicity.js';
+import coerce from './coerce.js';
+import compareFields from './compareFields.js';
+import createActivationToken from './createActivationToken.js';
+import createTokenIfNotExist from './createTokenIfNotExist.js';
+import detailedParamHook from './detailedParamHook.js';
+import error from './error.js';
+import formatStore from './formatStore.js';
+import generateApiKey from './generateApiKey.js';
+import generateHash from './generateHash.js';
+import generateToken from './generateToken.js';
+import generateUid from './generateUid.js';
+import generateUniqueToken from './generateUniqueToken.js';
+import hashPassword from './hashPassword.js';
+import includeImagePathParamHook from './includeImagePathParamHook.js';
+import isValidToken from './isValidToken.js';
+import keepFields from './keepFields.js';
+import parseStore from './parseStore.js';
+import populateAccountTypes from './populateAccountTypes.js';
+import profileImage from './profileImage.js';
+import removedParamHook from './removedParamHook.js';
+import searchByKey from './searchByKey.js';
+import searchKeyword from './searchKeyword.js';
+import setInStore from './setInStore.js';
+import snakeCase from './snakeCase.js';
+import snakeCaseQuery from './snakeCaseQuery.js';
+import softDelete from './softDelete.js';
+import stashBefore from './stashBefore.js';
+import transformTokenType from './transformTokenType.js';
+import validate from './validate.js';
+import validateCreate from './validateCreate.js';
+import verifyPassword from './verifyPassword.js';
 
-const callInterface = require('./callInterface');
-const camelCase = require('./camelCase');
-const camelCaseQuery = require('./camelCaseQuery');
-const changeEmailFromStore = require('./changeEmailFromStore');
-const checkUnicity = require('./checkUnicity');
-const coerce = require('./coerce');
-const compareFields = require('./compareFields');
-const createActivationToken = require('./createActivationToken');
-const createTokenIfNotExist = require('./createTokenIfNotExist');
-const detailedParamHook = require('./detailedParamHook');
-const error = require('./error');
-const formatStore = require('./formatStore');
-const generateApiKey = require('./generateApiKey');
-const generateHash = require('./generateHash');
-const generateToken = require('./generateToken');
-const generateUid = require('./generateUid');
-const generateUniqueToken = require('./generateUniqueToken');
-const hashPassword = require('./hashPassword');
-const includeImagePathParamHook = require('./includeImagePathParamHook');
-const isValidToken = require('./isValidToken');
-const keepFields = require('./keepFields');
-const parseStore = require('./parseStore');
-const populateAccountTypes = require('./populateAccountTypes');
-const profileImage = require('./profileImage');
-const removedParamHook = require('./removedParamHook');
-const searchByKey = require('./searchByKey');
-const searchKeyword = require('./searchKeyword');
-const setInStore = require('./setInStore');
-const snakeCase = require('./snakeCase');
-const snakeCaseQuery = require('./snakeCaseQuery');
-const softDelete = require('./softDelete');
-const stashBefore = require('./stashBefore');
-const transformTokenType = require('./transformTokenType');
-const validate = require('./validate');
-const validateCreate = require('./validateCreate');
-const verifyPassword = require('./verifyPassword');
-
-module.exports = {
+export {
   callInterface,
   camelCase,
   camelCaseQuery,
