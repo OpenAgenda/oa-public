@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const redis = require('redis');
-const knexLib = require('knex');
-const testconfig = require('../testconfig');
-const service = require('./service');
+import _ from 'lodash';
+import knexLib from 'knex';
+import redis from 'redis';
+import testconfig from '../testconfig.js';
+import service from './service/index.js';
 
 describe('keys - update', () => {
   let knex;

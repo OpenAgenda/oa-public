@@ -1,6 +1,4 @@
-'use strict';
-
-const config = require('../config');
+import config from '../config.js';
 
 function _key(key) {
   return [config.redis.prefix, key].join(':');
@@ -14,7 +12,4 @@ function get(key) {
   return config.redis.client.get(_key(key));
 }
 
-module.exports = {
-  set,
-  get,
-};
+export { set, get };

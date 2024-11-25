@@ -1,12 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-
-const create = require('./create');
-const get = require('./get');
-const list = require('./list');
-const update = require('./update');
-const remove = require('./remove');
+import _ from 'lodash';
+import create from './create.js';
+import get from './get.js';
+import list from './list.js';
+import update from './update.js';
+import remove from './remove.js';
+import { init } from './config.js';
 
 const endpoints = {
   create,
@@ -16,7 +14,11 @@ const endpoints = {
   remove,
 };
 
-module.exports = (identifiers) =>
+const Service = (identifiers) =>
   _.mapValues(endpoints, (v, _k) => v.bind(null, identifiers));
 
-module.exports.init = require('./config').init;
+Service.init = init;
+
+export default Service;
+
+export { init };

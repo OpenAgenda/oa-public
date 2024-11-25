@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const parseListArguments = require('@openagenda/service-utils/parseListArguments');
-const config = require('./config');
-const validateArgs = require('./validators/listArguments');
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import parseListArguments from '@openagenda/service-utils/parseListArguments.js';
+import config from './config.js';
+import validateArgs from './validators/listArguments.js';
 
 function parse(row) {
   if (!row) return row;
@@ -12,7 +10,7 @@ function parse(row) {
   return _.mapKeys(row, (v, k) => _.camelCase(k));
 }
 
-module.exports = async (identifiers, ...args) => {
+export default async (identifiers, ...args) => {
   let { query, offset, limit, options } = parseListArguments(
     ...[{}].concat(args),
   );

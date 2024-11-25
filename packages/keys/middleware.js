@@ -1,10 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import w from 'when';
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import service from './service/index.js';
 
-const _ = require('lodash');
-const w = require('when');
-const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')('keys/middleware');
-const service = require('./service');
+const log = logs('keys/middleware');
 
 const cbify = (fn) => (req, res, next) =>
   w(fn(req, res, w.resolve)).done(next, next);
@@ -187,10 +187,4 @@ function remove(options) {
   });
 }
 
-module.exports = {
-  create,
-  get,
-  list,
-  update,
-  remove,
-};
+export { create, get, list, update, remove };

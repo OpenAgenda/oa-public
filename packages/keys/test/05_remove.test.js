@@ -1,9 +1,7 @@
-'use strict';
-
-const redis = require('redis');
-const knexLib = require('knex');
-const testconfig = require('../testconfig');
-const service = require('./service');
+import knexLib from 'knex';
+import redis from 'redis';
+import testconfig from '../testconfig.js';
+import service from './service/index.js';
 
 describe('keys - remove', () => {
   let knex;

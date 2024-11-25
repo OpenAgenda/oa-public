@@ -1,13 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import config from './config.js';
+import validateIdentifiers from './validators/identifiers.js';
+import validate from './validators/update.js';
+import get from './get.js';
 
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const config = require('./config');
-const validateIdentifiers = require('./validators/identifiers');
-const validate = require('./validators/update');
-const get = require('./get');
-
-module.exports = async (...args) => {
+export default async (...args) => {
   let [identifiers, data] = args;
   const { knex, schemas } = config;
 

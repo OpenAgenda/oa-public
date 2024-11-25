@@ -1,13 +1,11 @@
-'use strict';
-
-const wn = require('when/node');
-const uuid = require('uuid');
-const VError = require('@openagenda/verror');
-const defineUnique = require('@openagenda/mysql-utils/defineUnique');
-const config = require('./config');
-const get = require('./get');
-const validateIdentifiers = require('./validators/identifiers');
-const validate = require('./validators/create');
+import wn from 'when/node.js';
+import uuid from 'uuid';
+import VError from '@openagenda/verror';
+import defineUnique from '@openagenda/mysql-utils/defineUnique.js';
+import config from './config.js';
+import get from './get.js';
+import validateIdentifiers from './validators/identifiers.js';
+import validate from './validators/create.js';
 
 function getUuid() {
   return wn.call(
@@ -21,7 +19,7 @@ function getUuid() {
   );
 }
 
-module.exports = async (...args) => {
+export default async (...args) => {
   let [identifiers, data] = args;
   const { knex, schemas } = config;
 

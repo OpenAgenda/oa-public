@@ -1,13 +1,9 @@
-'use strict';
-
 // proxy function for service in a test env. Init does service init as well as fixture loading.
 
-const fixtures = require('@openagenda/fixtures');
-const svc = require('../..');
+import fixtures from '@openagenda/fixtures';
+import svc from '../../service/index.js';
 
-module.exports = svc;
-
-module.exports.initAndLoad = function (...args) {
+export function initAndLoad(...args) {
   const defautFiles = ['key'];
 
   let config;
@@ -47,7 +43,7 @@ module.exports.initAndLoad = function (...args) {
           [
             {
               table: config.schemas.key,
-              src: `${__dirname}/key.data.sql`,
+              src: `${import.meta.dirname}/key.data.sql`,
             },
           ].filter((f) => files.includes(f.src.split('/').pop().split('.')[0])),
           { reset: false },
@@ -62,4 +58,8 @@ module.exports.initAndLoad = function (...args) {
       }
     });
   });
-};
+}
+
+export default svc;
+
+svc.initAndLoad = initAndLoad;

@@ -1,10 +1,8 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const choice = require('@openagenda/validators/choice');
-const text = require('@openagenda/validators/text');
-const number = require('@openagenda/validators/number');
-const pass = require('@openagenda/validators/pass');
+import schema from '@openagenda/validators/schema/index.js';
+import choice from '@openagenda/validators/choice.js';
+import text from '@openagenda/validators/text.js';
+import number from '@openagenda/validators/number.js';
+import pass from '@openagenda/validators/pass.js';
 
 schema.register({
   choice,
@@ -13,7 +11,7 @@ schema.register({
   pass,
 });
 
-module.exports = (args) => {
+export default (args) => {
   const validate = schema({
     query: {
       type: 'pass',

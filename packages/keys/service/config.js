@@ -1,11 +1,9 @@
-'use strict';
+import path from 'node:path';
+import _ from 'lodash';
+import redis from 'redis';
+import logs from '@openagenda/logs';
 
-const path = require('node:path');
-const _ = require('lodash');
-const redis = require('redis');
-const logs = require('@openagenda/logs');
-
-const log = require('@openagenda/logs')('config');
+const log = logs('config');
 
 const config = {
   knex: null,
@@ -35,7 +33,10 @@ async function init(c) {
     Object.assign(config.knex.client.config, {
       migrations: {
         ...c.migrations,
-        directory: path.resolve(path.dirname(__dirname), 'migrations'),
+        directory: path.resolve(
+          path.dirname(import.meta.dirname),
+          'migrations',
+        ),
       },
     });
   }
@@ -57,4 +58,8 @@ async function init(c) {
   }
 }
 
-module.exports = _.extend(config, { init });
+config.init = init;
+
+export default config;
+
+export { init };

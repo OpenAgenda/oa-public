@@ -1,10 +1,8 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const choice = require('@openagenda/validators/choice');
-const text = require('@openagenda/validators/text');
-const number = require('@openagenda/validators/number');
-const keyTypes = require('../lib/keyTypes');
+import schema from '@openagenda/validators/schema/index.js';
+import choice from '@openagenda/validators/choice.js';
+import text from '@openagenda/validators/text.js';
+import number from '@openagenda/validators/number.js';
+import keyTypes from '../lib/keyTypes.js';
 
 schema.register({
   choice,
@@ -12,7 +10,7 @@ schema.register({
   number,
 });
 
-module.exports = (identifiers, options) => {
+export default (identifiers, options) => {
   const params = {
     allowId: true,
     optionalKey: false,

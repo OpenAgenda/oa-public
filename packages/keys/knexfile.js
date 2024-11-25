@@ -1,8 +1,6 @@
-'use strict';
+import config from './testconfig.js';
 
-const config = require('./testconfig');
-
-module.exports = {
+export default {
   client: 'mysql',
   connection: config.mysql,
   migrations: config.migrations,
