@@ -7,8 +7,6 @@ module.exports = {
     sourceType: 'module',
   },
 
-  ignorePatterns: ['/dist'],
-
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
@@ -23,12 +21,6 @@ module.exports = {
       files: ['*.cjs'],
       parserOptions: {
         sourceType: 'script',
-      },
-    },
-    {
-      files: ['**/*.js'],
-      rules: {
-        'import/extensions': ['error', 'ignorePackages'],
       },
     },
   ],
