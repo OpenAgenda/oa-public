@@ -1,6 +1,6 @@
 import path from 'node:path';
 import _ from 'lodash';
-import redis from 'redis';
+import * as redis from 'redis';
 import logs from '@openagenda/logs';
 
 const log = logs('config');
