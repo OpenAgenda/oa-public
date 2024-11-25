@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async () => [
+export default async () => [
   {
     userUid: 1,
     count: 12,

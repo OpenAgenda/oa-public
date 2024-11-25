@@ -1,6 +1,4 @@
-'use strict';
-
-const validate = require('../iso/validate');
+import validate from '../iso/validate.js';
 
 describe('members - unit - validate', () => {
   test('simple validation', () => {

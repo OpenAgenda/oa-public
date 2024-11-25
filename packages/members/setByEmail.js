@@ -1,11 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import { byEmail as getByEmail } from './get.js';
+import patch from './patch.js';
+import create from './create.js';
+import { isSuperiorTo } from './iso/compareRoles.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('setByEmail');
-const getByEmail = require('./get').byEmail;
-const patch = require('./patch');
-const create = require('./create');
-const { isSuperiorTo } = require('./iso/compareRoles');
+const log = logs('setByEmail');
 
 const defaultQueueName = 'membersBulkSetEmails';
 
@@ -128,7 +128,7 @@ async function bulk(config, base, emails = [], options = {}) {
   return result;
 }
 
-module.exports = Object.assign(setByEmail, {
+export default Object.assign(setByEmail, {
   task,
   bulk,
 });

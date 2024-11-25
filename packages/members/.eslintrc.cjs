@@ -4,10 +4,8 @@ module.exports = {
   extends: '../../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
-
-  ignorePatterns: ['/build'],
 
   rules: {
     'import/no-extraneous-dependencies': [
@@ -21,4 +19,13 @@ module.exports = {
       },
     ],
   },
+
+  overrides: [
+    {
+      files: ['**/*.cjs'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
 };

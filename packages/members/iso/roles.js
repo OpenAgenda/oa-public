@@ -1,8 +1,6 @@
-'use strict';
+import roleValues from './roleValues.js';
 
-const roleValues = require('./roleValues');
-
-module.exports = roleValues.reduce((roles, v) => {
+export default roleValues.reduce((roles, v) => {
   roles[v.key] = v.code;
   return roles;
 }, {});

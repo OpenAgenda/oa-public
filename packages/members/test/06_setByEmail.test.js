@@ -1,12 +1,10 @@
-'use strict';
-
-const config = require('../testconfig');
-const Service = require('..');
-const fixtures = require('./fixtures');
-const queues = require('./mock/queues');
-const getUsersByUid = require('./fixtures/getUsersByUid');
-const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
-const getUserByEmail = require('./fixtures/getUserByEmail');
+import config from '../testconfig.js';
+import Service from '../index.js';
+import fixtures from './fixtures/index.js';
+import queues from './mock/queues.js';
+import getUsersByUid from './fixtures/getUsersByUid.js';
+import getEventCountByUserUid from './fixtures/getEventCountByUserUid.js';
+import getUserByEmail from './fixtures/getUserByEmail.js';
 
 describe('members - functional - setByEmail', () => {
   const f = fixtures(config.mysql);

@@ -1,13 +1,13 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import validate from './iso/validate.js';
+import toRoleCode from './iso/toRoleCode.js';
+import cleanCreateOptions from './lib/cleanCreateOptions.js';
+import { toDB } from './lib/transformDBEntry.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('create');
-const validate = require('./iso/validate');
-const toRoleCode = require('./iso/toRoleCode');
-const cleanCreateOptions = require('./lib/cleanCreateOptions');
-const { toDB } = require('./lib/transformDBEntry');
+const log = logs('create');
 
-module.exports = async ({ knex, schema, interfaces }, data, options = {}) => {
+export default async ({ knex, schema, interfaces }, data, options = {}) => {
   log('processing', data);
 
   const { requireCustom, context } = cleanCreateOptions(options);

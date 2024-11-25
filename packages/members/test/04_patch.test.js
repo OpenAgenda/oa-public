@@ -1,11 +1,9 @@
-'use strict';
-
-const config = require('../testconfig');
-const Service = require('..');
-const fixtures = require('./fixtures');
-const getUsersByUid = require('./fixtures/getUsersByUid');
-const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
-const getAgendasByUid = require('./fixtures/getAgendasByUid');
+import config from '../testconfig.js';
+import Service from '../index.js';
+import fixtures from './fixtures/index.js';
+import getUsersByUid from './fixtures/getUsersByUid.js';
+import getEventCountByUserUid from './fixtures/getEventCountByUserUid.js';
+import getAgendasByUid from './fixtures/getAgendasByUid.js';
 
 describe('members - functional - patch', () => {
   const f = fixtures(config.mysql);

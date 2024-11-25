@@ -1,8 +1,6 @@
-'use strict';
+import roleValues from './roleValues.js';
 
-const roleValues = require('./roleValues');
-
-module.exports = (value) => {
+export default (value) => {
   const role = roleValues.find(
     (v) => value === v.key || v.slugs.includes(value),
   );

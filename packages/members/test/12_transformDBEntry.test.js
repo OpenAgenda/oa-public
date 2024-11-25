@@ -1,6 +1,4 @@
-'use strict';
-
-const { toDB } = require('../lib/transformDBEntry');
+import { toDB } from '../lib/transformDBEntry.js';
 
 describe('members - unit - transformDBEntry', () => {
   test('toDB', () => {

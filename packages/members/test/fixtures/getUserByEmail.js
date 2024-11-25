@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async (email) => {
+export default async (email) => {
   if (email === 'truc@delinterface.fr') {
     return { uid: 22 };
   }

@@ -1,14 +1,13 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-const date = require('@openagenda/validators/date');
-const choice = require('@openagenda/validators/choice');
-const pass = require('@openagenda/validators/pass');
-const boolean = require('@openagenda/validators/boolean');
-const email = require('@openagenda/validators/email');
-const phone = require('@openagenda/validators/phone');
-const text = require('@openagenda/validators/text');
+import schema from '@openagenda/validators/schema/index.js';
+import integer from '@openagenda/validators/integer.js';
+import date from '@openagenda/validators/date.js';
+import choice from '@openagenda/validators/choice.js';
+import pass from '@openagenda/validators/pass.js';
+import boolean from '@openagenda/validators/boolean.js';
+import email from '@openagenda/validators/email.js';
+import phone from '@openagenda/validators/phone.js';
+import text from '@openagenda/validators/text.js';
+import roles from './roles.js';
 
 schema.register({
   integer,
@@ -20,8 +19,6 @@ schema.register({
   phone,
   text,
 });
-
-const roles = require('./roles');
 
 const fields = {
   base: {
@@ -99,7 +96,7 @@ const custom = (required) => ({
   },
 });
 
-module.exports = Object.assign(schema(fields.base), {
+export default Object.assign(schema(fields.base), {
   withLegacy: schema({ ...fields.base, ...fields.legacy }),
   withCustom: (required) =>
     schema({ ...fields.base, custom: custom(required) }),

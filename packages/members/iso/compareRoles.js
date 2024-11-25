@@ -1,6 +1,4 @@
-'use strict';
-
-const getRoleSlug = require('./getRoleSlug');
+import getRoleSlug from './getRoleSlug.js';
 
 const roleWeights = {
   administrator: 100,
@@ -63,10 +61,10 @@ function isLessThan(role, compareWithRole) {
   );
 }
 
-module.exports = {
+export {
   isSuperiorTo,
   isSuperiorToOrEqual,
   isEqualTo,
   isLessThan,
-  isInferiorTo: isLessThan,
+  isLessThan as isInferiorTo,
 };

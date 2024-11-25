@@ -1,13 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import { BadRequest } from '@openagenda/verror';
+import get from './get.js';
+import validate from './iso/validate.js';
+import cleanPatchOptions from './lib/cleanPatchOptions.js';
+import { toDB } from './lib/transformDBEntry.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('patch');
-const { BadRequest } = require('@openagenda/verror');
-
-const get = require('./get');
-const validate = require('./iso/validate');
-const cleanPatchOptions = require('./lib/cleanPatchOptions');
-const { toDB } = require('./lib/transformDBEntry');
+const log = logs('patch');
 
 async function patch(config, identifiers, data, options = {}) {
   log('processing', data);
@@ -78,6 +77,6 @@ async function actionsIncrement(config, identifiers) {
   });
 }
 
-module.exports = Object.assign(patch, {
+export default Object.assign(patch, {
   actionsIncrement,
 });
