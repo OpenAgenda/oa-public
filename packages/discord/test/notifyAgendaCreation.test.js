@@ -1,6 +1,4 @@
-'use strict';
-
-const Discord = require('..');
+import Discord from '../index.js';
 
 let svc;
 
