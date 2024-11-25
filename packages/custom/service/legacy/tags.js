@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import config from '../config.js';
 
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')('legacy/tags');
-const config = require('../config');
+const log = logs('legacy/tags');
 
 async function load(agendaEventId) {
   const { knex } = config;
@@ -145,7 +145,7 @@ async function set(agendaEventId, fields, data) {
   return inserts;
 }
 
-module.exports = _.assign(set, {
+export default _.assign(set, {
   load,
   parse,
 });

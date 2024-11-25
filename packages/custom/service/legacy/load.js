@@ -1,13 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import config from '../config.js';
+import agendaEvents from './agendaEvents.js';
 
-const _ = require('lodash');
+const log = logs('legacy/load');
 
-const log = require('@openagenda/logs')('legacy/load');
-
-const config = require('../config');
-const agendaEvents = require('./agendaEvents');
-
-module.exports = async (formSchemaId, identifier, options = {}) => {
+export default async (formSchemaId, identifier, options = {}) => {
   const { insertIfNotExists, agendaId } = _.assign(
     {
       insertIfNotExists: false,

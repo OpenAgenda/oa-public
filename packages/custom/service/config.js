@@ -1,9 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-const knexLib = require('knex');
-
-const logs = require('@openagenda/logs');
+import _ from 'lodash';
+import knexLib from 'knex';
+import logs from '@openagenda/logs';
 
 let ownedConnection = false;
 
@@ -38,7 +35,7 @@ function init(c) {
   _.extend(config, _.pick(c, ['knex', 'schemas', 'interfaces', 'legacy']));
 }
 
-module.exports = _.extend(config, {
+export default _.extend(config, {
   init,
   shutdown,
   getConfig,

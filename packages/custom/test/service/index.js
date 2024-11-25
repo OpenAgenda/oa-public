@@ -1,13 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import fixtures from '@openagenda/fixtures';
+import svc from '../../index.js';
 
-const _ = require('lodash');
+export default svc;
 
-const fixtures = require('@openagenda/fixtures');
-const svc = require('../..');
-
-module.exports = svc;
-
-module.exports.initAndLoad = async (
+export async function initAndLoad(
   config,
   files = [
     'custom',
@@ -19,7 +16,7 @@ module.exports.initAndLoad = async (
     'legacy_category',
   ],
   options = {},
-) => {
+) {
   const params = _.extend(
     {
       reset: true,
@@ -36,31 +33,31 @@ module.exports.initAndLoad = async (
       [
         {
           table: 'custom',
-          src: `${__dirname}/../../custom.sql`,
+          src: `${import.meta.dirname}/../../custom.sql`,
         },
         {
           table: 'legacy_event',
-          src: `${__dirname}/../fixtures/legacy_event.sql`,
+          src: `${import.meta.dirname}/../fixtures/legacy_event.sql`,
         },
         {
           table: 'agenda',
-          src: `${__dirname}/../fixtures/agenda.sql`,
+          src: `${import.meta.dirname}/../fixtures/agenda.sql`,
         },
         {
           table: 'legacy_agenda_event',
-          src: `${__dirname}/../fixtures/legacy_agenda_event.sql`,
+          src: `${import.meta.dirname}/../fixtures/legacy_agenda_event.sql`,
         },
         {
           table: 'legacy_agenda_event_tag',
-          src: `${__dirname}/../fixtures/legacy_agenda_event_tag.sql`,
+          src: `${import.meta.dirname}/../fixtures/legacy_agenda_event_tag.sql`,
         },
         {
           table: 'legacy_agenda_tag',
-          src: `${__dirname}/../fixtures/legacy_agenda_tag.sql`,
+          src: `${import.meta.dirname}/../fixtures/legacy_agenda_tag.sql`,
         },
         {
           table: 'legacy_category',
-          src: `${__dirname}/../fixtures/legacy_category.sql`,
+          src: `${import.meta.dirname}/../fixtures/legacy_category.sql`,
         },
       ].filter((f) => files.includes(f.src.split('/').pop().split('.')[0])),
       params,
@@ -71,4 +68,4 @@ module.exports.initAndLoad = async (
       },
     );
   });
-};
+}

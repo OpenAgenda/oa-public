@@ -1,15 +1,9 @@
-'use strict';
-
-process.env.NODE_ENV = 'test';
-
-const ih = require('immutability-helper');
-
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-const text = require('@openagenda/validators/text');
-const config = require('../testconfig');
-
-const svc = require('./service');
+import ih from 'immutability-helper';
+import schema from '@openagenda/validators/schema/index.js';
+import integer from '@openagenda/validators/integer.js';
+import text from '@openagenda/validators/text.js';
+import config from '../testconfig.js';
+import svc, { initAndLoad } from './service/index.js';
 
 schema.register({
   integer,
@@ -18,7 +12,7 @@ schema.register({
 
 describe('extended events - functional (server): get', () => {
   beforeEach(async () => {
-    await svc.initAndLoad(
+    await initAndLoad(
       ih(config, {
         interfaces: {
           getValidator: {

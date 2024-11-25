@@ -1,8 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const config = require('../config');
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import config from '../config.js';
 
 async function load(categoryId) {
   const { knex } = config;
@@ -85,7 +83,7 @@ async function set(agendaEventId, fields, data) {
     .where({ id: agendaEventId });
 }
 
-module.exports = _.assign(set, {
+export default _.assign(set, {
   parse,
   load,
 });

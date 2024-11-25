@@ -1,12 +1,8 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
+import logs from '@openagenda/logs';
+import config from './config.js';
+import listQuery from './validators/listQuery.js';
 
 const log = logs('list');
-
-const config = require('./config');
-
-const listQuery = require('./validators/listQuery');
 
 function _base(formSchemaId, query = {}) {
   if (!config.knex) throw new Error('db connector needs to be specified at service init');
@@ -25,7 +21,7 @@ function _base(formSchemaId, query = {}) {
   return k;
 }
 
-module.exports = async (formSchemaId, query = {}, offset = 0, limit = 20) => {
+export default async (formSchemaId, query = {}, offset = 0, limit = 20) => {
   log('listing data form schema %s with query %j', formSchemaId, query);
   return {
     items: (

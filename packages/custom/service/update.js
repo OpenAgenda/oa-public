@@ -1,14 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import logs from '@openagenda/logs';
+import validateOptions from './validators/options.js';
+import config from './config.js';
+import get from './get.js';
+import legacy from './legacy/index.js';
 
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')('update');
-const validateOptions = require('./validators/options');
-const config = require('./config');
-const get = require('./get');
-const legacy = require('./legacy');
+const log = logs('update');
 
-module.exports = async (formSchemaId, identifier, data, options = {}) => {
+export default async (formSchemaId, identifier, data, options = {}) => {
   const { knex, schemas, interfaces } = config;
 
   const cleanOptions = validateOptions(options);

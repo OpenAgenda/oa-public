@@ -1,8 +1,6 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-module.exports = async (knex, agendaId, promiseFn) => {
+export default async (knex, agendaId, promiseFn) => {
   let lastId = 0;
   let refs = [];
 

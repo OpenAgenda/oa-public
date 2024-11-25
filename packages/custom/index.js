@@ -1,14 +1,13 @@
-'use strict';
-
-const _ = require('lodash');
-const legacy = require('./service/legacy');
-const get = require('./service/get');
-const list = require('./service/list');
-const create = require('./service/create');
-const update = require('./service/update');
-const set = require('./service/set');
-const remove = require('./service/remove');
-const transferFromLegacy = require('./service/legacy/transfer');
+import _ from 'lodash';
+import legacy from './service/legacy/index.js';
+import get from './service/get.js';
+import list from './service/list.js';
+import create from './service/create.js';
+import update from './service/update.js';
+import set from './service/set.js';
+import remove from './service/remove.js';
+import transferFromLegacy from './service/legacy/transfer.js';
+import config from './service/config.js';
 
 const endpoints = {
   get,
@@ -20,9 +19,9 @@ const endpoints = {
   transferFromLegacy,
 };
 
-module.exports = _.assign(
+export default _.assign(
   (formSchemaId) => _.mapValues(endpoints, (v) => v.bind(null, formSchemaId)),
-  _.pick(require('./service/config'), ['init', 'shutdown', 'getConfig']),
+  _.pick(config, ['init', 'shutdown', 'getConfig']),
   {
     parseLegacy: transferFromLegacy.parse,
     pushCustomDatasetToLegacy: legacy.setAll,

@@ -1,17 +1,17 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import get from './get.js';
+import create from './create.js';
+import update from './update.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('set');
-const get = require('./get');
-const create = require('./create');
-const update = require('./update');
+const log = logs('set');
 
 const operations = {
   create,
   update,
 };
 
-module.exports = async (formSchemaId, identifier, data, options = {}) => {
+export default async (formSchemaId, identifier, data, options = {}) => {
   log('setting custom data for %s.%s', formSchemaId, identifier);
 
   const current = await get(formSchemaId, identifier);

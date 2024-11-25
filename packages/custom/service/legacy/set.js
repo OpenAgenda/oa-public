@@ -1,11 +1,10 @@
-'use strict';
+import logs from '@openagenda/logs';
+import categories from './categories.js';
+import custom from './custom.js';
+import load from './load.js';
+import tags from './tags.js';
 
-const log = require('@openagenda/logs')('legacy/set');
-
-const categories = require('./categories');
-const custom = require('./custom');
-const load = require('./load');
-const tags = require('./tags');
+const log = logs('legacy/set');
 
 function _evaluateAsTag(field) {
   if (field.origin === 'tags') return true;
@@ -15,7 +14,7 @@ function _evaluateAsTag(field) {
   return !!field.options;
 }
 
-module.exports = async (formSchemaId, identifier, data, options = {}) => {
+export default async (formSchemaId, identifier, data, options = {}) => {
   log('info', 'fetching required data for legacy transfer', {
     formSchemaId,
     identifier,

@@ -1,14 +1,12 @@
-'use strict';
+import logs from '@openagenda/logs';
+import serviceGet from '../get.js';
+import loopThroughRefs from './lib/loopThroughRefs.js';
+import getFormSchemaIds from './lib/getFormSchemaIds.js';
+import legacySet from './set.js';
 
-const log = require('@openagenda/logs')('legacy/setAll');
+const log = logs('legacy/setAll');
 
-const serviceGet = require('../get');
-const loopThroughRefs = require('./lib/loopThroughRefs');
-const getFormSchemaIds = require('./lib/getFormSchemaIds');
-
-const legacySet = require('./set');
-
-module.exports = async (config, agendaId) => {
+export default async (config, agendaId) => {
   log('pushing to legacy dataset for agendaId', agendaId);
 
   const formSchemaIds = await getFormSchemaIds(config.knex, agendaId);

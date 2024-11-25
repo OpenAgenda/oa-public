@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import config from '../config.js';
 
-const _ = require('lodash');
-const config = require('../config');
-
-module.exports = async (agendaId, eventId, insertIfNotExists = false) => {
+export default async (agendaId, eventId, insertIfNotExists = false) => {
   const { knex } = config;
   const { schemas } = config.legacy;
 

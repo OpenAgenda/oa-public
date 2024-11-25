@@ -1,9 +1,7 @@
-'use strict';
-
-const _ = require('lodash');
-const config = require('../config');
-const set = require('./set');
-const setAll = require('./setAll');
+import _ from 'lodash';
+import config from '../config.js';
+import set from './set.js';
+import setAll from './setAll.js';
 
 async function remove(formSchemaId, identifier) {
   const { knex } = config;
@@ -23,7 +21,7 @@ async function remove(formSchemaId, identifier) {
   });
 }
 
-module.exports = _.extend(set, {
+export default _.extend(set, {
   remove,
   setAll: setAll.bind(null, config),
 });
