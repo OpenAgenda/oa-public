@@ -1,12 +1,9 @@
-'use strict';
-
-const get = require('./get');
-const open = require('./open');
-
-const { callbackify } = require('./helpers');
+import { promise as get } from './get.js';
+import { promise as open } from './open.js';
+import { callbackify } from './helpers/index.js';
 
 async function sync(config, request) {
-  const user = await get.promise(config, request);
+  const user = await get(config, request);
 
   if (!user) {
     return {
@@ -19,9 +16,9 @@ async function sync(config, request) {
     };
   }
 
-  return open.promise(config, request, null, { uid: user.uid });
+  return open(config, request, null, { uid: user.uid });
 }
 
-module.exports = (config, request, cb) => {
+export default (config, request, cb) => {
   callbackify(sync(config, request), cb);
 };

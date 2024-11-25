@@ -1,9 +1,7 @@
-'use strict';
+import redis from 'redis';
+import express from 'express';
 
-const redis = require('redis');
-const express = require('express');
-
-function launchTestApp(routes) {
+export function launchTestApp(routes) {
   const app = express();
 
   Object.keys(routes).forEach((k) => {
@@ -19,19 +17,19 @@ function launchTestApp(routes) {
   return app.listen(3000);
 }
 
-function roundTrip(req, res) {
+export function roundTrip(req, res) {
   res.send('ok');
 }
 
-module.exports.clearRedis = async function clearRedis(redisConfig, client) {
+export async function clearRedis(redisConfig, client) {
   const keys = await client.keys(`${redisConfig.prefix}:*`);
 
   for (const key of keys) {
     await client.del(key);
   }
-};
+}
 
-module.exports.createClient = async function createClient(redisConfig) {
+export async function createClient(redisConfig) {
   const client = await redis.createClient({
     socket: {
       port: redisConfig.port,
@@ -42,9 +40,4 @@ module.exports.createClient = async function createClient(redisConfig) {
   await client.connect();
 
   return client;
-};
-
-module.exports = {
-  roundTrip,
-  launchTestApp,
-};
+}

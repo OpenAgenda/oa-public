@@ -1,15 +1,15 @@
-'use strict';
-
-const log = require('@openagenda/logs')('sessions/open');
-const VError = require('@openagenda/verror');
-const cookieValidate = require('../../iso/cookie.validate');
-const expressCookie = require('./expressCookie');
-const {
+import logger from '@openagenda/logs';
+import VError from '@openagenda/verror';
+import cookieValidate from '../iso/cookie.validate.js';
+import expressCookie from './expressCookie.js';
+import {
   cleanSession,
   callbackify,
   getUser,
   generateSessionUser,
-} = require('./helpers');
+} from './helpers/index.js';
+
+const log = logger('sessions/open');
 
 function extractArgs(config, request, response, identifier, cb) {
   if (!cb) {
@@ -104,7 +104,7 @@ async function open(config, request, response, identifier) {
   };
 }
 
-module.exports = (cf, rq, rs, id, c) => {
+export default (cf, rq, rs, id, c) => {
   const { config, request, response, identifier, cb } = extractArgs(
     cf,
     rq,
@@ -116,4 +116,4 @@ module.exports = (cf, rq, rs, id, c) => {
   callbackify(open(config, request, response, identifier), cb);
 };
 
-module.exports.promise = open;
+export { open as promise };

@@ -1,11 +1,9 @@
-'use strict';
-
-const _ = require('lodash');
-const sa = require('superagent');
-const base64 = require('@openagenda/utils/base64');
-const config = require('../testconfig');
-const Sessions = require('../src/service');
-const helpers = require('./lib/helpers');
+import _ from 'lodash';
+import sa from 'superagent';
+import base64 from '@openagenda/utils/base64.js';
+import config from '../testconfig.js';
+import Sessions from '../src/service/index.js';
+import * as helpers from './lib/helpers.js';
 
 describe('session - functional (server): middleware', () => {
   let client;

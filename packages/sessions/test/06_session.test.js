@@ -2,12 +2,10 @@
  * @jest-environment jsdom
  */
 
-'use strict';
-
-const cookie = require('js-cookie');
-const base64 = require('@openagenda/utils/base64');
-const isoConfig = require('../src/iso/config');
-const clientSession = require('../src/client');
+import cookie from 'js-cookie';
+import base64 from '@openagenda/utils/base64.js';
+import isoConfig from '../src/iso/config.js';
+import clientSession from '../src/client/index.js';
 
 describe('session - functional (client): session', () => {
   beforeEach(() => {

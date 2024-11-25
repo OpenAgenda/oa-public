@@ -1,18 +1,16 @@
-'use strict';
+import base64 from '@openagenda/utils/base64.js';
+import expressCookie from '../src/service/expressCookie.js';
+import config from '../testconfig.js';
 
-const base64 = require('@openagenda/utils/base64');
-const expressCookie = require('../src/service/expressCookie');
-const config = require('../testconfig');
+const cookieName = config.writableCookie.name;
 
 describe('session - unit (server): express cookies', () => {
-  beforeEach(() => expressCookie.init(config));
-
   it('expressCookie get gets values of a cookie in an express request', () => {
     const ec = expressCookie(
-      'grut',
+      config,
       /* request obj */ {
         cookies: {
-          grut: base64.encode(JSON.stringify({ the: 'content' })),
+          [cookieName]: base64.encode(JSON.stringify({ the: 'content' })),
         },
       },
     );
@@ -24,10 +22,10 @@ describe('session - unit (server): express cookies', () => {
     const responseCookie = {};
 
     const ec = expressCookie(
-      'grut',
+      config,
       /* request obj */ {
         cookies: {
-          grut: base64.encode(JSON.stringify({ the: 'content' })),
+          [cookieName]: base64.encode(JSON.stringify({ the: 'content' })),
         },
       },
       /* response obj */ {
@@ -39,7 +37,7 @@ describe('session - unit (server): express cookies', () => {
 
     ec.set('is', 'updated');
 
-    expect(responseCookie.grut).toBe(
+    expect(responseCookie[cookieName]).toBe(
       base64.encode(JSON.stringify({ the: 'content', is: 'updated' })),
     );
   });
@@ -48,10 +46,10 @@ describe('session - unit (server): express cookies', () => {
     const responseCookie = {};
 
     const ec = expressCookie(
-      'grut',
+      config,
       /* request obj */ {
         cookies: {
-          grut: base64.encode(JSON.stringify({ the: 'content' })),
+          [cookieName]: base64.encode(JSON.stringify({ the: 'content' })),
         },
       },
       /* response obj */ {
@@ -63,6 +61,8 @@ describe('session - unit (server): express cookies', () => {
 
     ec.clear();
 
-    expect(responseCookie.grut).toEqual(base64.encode(JSON.stringify({})));
+    expect(responseCookie[cookieName]).toEqual(
+      base64.encode(JSON.stringify({})),
+    );
   });
 });

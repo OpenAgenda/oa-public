@@ -1,12 +1,9 @@
-'use strict';
-
-const logger = require('@openagenda/logs');
-
-const { getUser, generateSessionUser } = require('./helpers');
+import logger from '@openagenda/logs';
+import { getUser, generateSessionUser } from './helpers/index.js';
 
 const log = logger('refresh');
 
-module.exports = async (config, identifier) => {
+export default async (config, identifier) => {
   const { redisClient, interfaces, redis } = config;
 
   const sessionKey = [redis.prefix, identifier].join(':');

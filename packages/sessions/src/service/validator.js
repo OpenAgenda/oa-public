@@ -1,17 +1,14 @@
-'use strict';
+import schema from '@openagenda/validators/schema/index.js';
+import booleanValidator from '@openagenda/validators/boolean.js';
+import choiceValidator from '@openagenda/validators/choice.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import emailValidator from '@openagenda/validators/email.js';
+import textValidator from '@openagenda/validators/text.js';
+import dateValidator from '@openagenda/validators/date.js';
+import linkValidator from '@openagenda/validators/link.js';
+import { validateLogged } from '../iso/cookie.validate.js';
 
-const schema = require('@openagenda/validators/schema');
-
-const booleanValidator = require('@openagenda/validators/boolean');
-const choiceValidator = require('@openagenda/validators/choice');
-const integerValidator = require('@openagenda/validators/integer');
-const emailValidator = require('@openagenda/validators/email');
-const textValidator = require('@openagenda/validators/text');
-const dateValidator = require('@openagenda/validators/date');
-const linkValidator = require('@openagenda/validators/link');
-
-const { fields: cookieUserFields } = require('../../iso/cookie.validate')
-  .validateLogged.fields.user;
+const { fields: cookieUserFields } = validateLogged.fields.user;
 
 schema.register({
   boolean: booleanValidator,
@@ -23,7 +20,7 @@ schema.register({
   link: linkValidator,
 });
 
-module.exports = (config) =>
+export default (config) =>
   schema({
     id: {
       type: 'integer',

@@ -1,6 +1,4 @@
-'use strict';
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 function _decode(req, name) {
   const encoded = req.cookies[name];
@@ -18,7 +16,7 @@ function _decode(req, name) {
   return decoded;
 }
 
-module.exports = (config, request, response) => {
+export default (config, request, response) => {
   const { name } = config.writableCookie;
 
   const values = _decode(request, name);

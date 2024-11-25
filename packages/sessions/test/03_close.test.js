@@ -1,9 +1,7 @@
-'use strict';
-
-const Sessions = require('../src/service');
-const isoConfig = require('../src/iso/config');
-const config = require('../testconfig');
-const h = require('./lib/helpers');
+import Sessions from '../src/service/index.js';
+import isoConfig from '../src/iso/config.js';
+import config from '../testconfig.js';
+import * as h from './lib/helpers.js';
 
 describe('session - functional (server): close', () => {
   let client;

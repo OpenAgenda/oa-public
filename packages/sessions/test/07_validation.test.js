@@ -1,6 +1,4 @@
-'use strict';
-
-const validator = require('../src/service/validator');
+import validator from '../src/service/validator.js';
 
 describe('session - unit (server): validate', () => {
   const sessionData = {
