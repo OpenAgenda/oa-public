@@ -40,7 +40,12 @@ export default createReactClass( {
   },
 
   renderAgendaHeader() {
-    const { setAgenda } = this.props;
+    const {
+      setAgenda,
+      agenda: {
+        network,
+      }
+    } = this.props;
 
     return (
       <header className="agenda-header">
@@ -55,12 +60,13 @@ export default createReactClass( {
             {this.props.agenda.image ?
               <div className="col-sm-2 avatar-container">
                 <a href={'/' + this.props.agenda.slug}> <img className="avatar"
-                                                             src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
+                                                             src={this.props.agenda.image}
                                                              alt={this.props.agenda.title}/> </a>
               </div> : null}
 
             <div className={this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container'}>
               <a href={'/' + this.props.agenda.slug}>
+                {network ? <span>{network.title} › <a href={`/admin/networks/${network.uid}`}>config</a> - <a href={`/admin/networks/${network.uid}/agendas`}>agendas</a> </span> : null}
                 <h1>{this.props.agenda.title}</h1>
                 <p>{this.props.agenda.description}</p>
               </a> {this.props.agenda.url ?

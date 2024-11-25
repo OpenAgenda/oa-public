@@ -52,6 +52,7 @@ async function get(core, agendaUid, options = {}) {
     const cached = await simpleCache
       .hash('core.agendas.get', agendaUid)
       .get(options, { json: true });
+
     if (cached) {
       return cached;
     }

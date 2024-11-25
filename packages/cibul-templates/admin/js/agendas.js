@@ -8,7 +8,7 @@ var App = require( '@openagenda/admin-agendas/components/lib/main' ),
       agendas: '/admin/agendas/search',
       members : '/admin/agendas/members/search',
       agendaSet: '/admin/agendas',
-      agendaGet: '/admin/agendas/get'
+      agendaGet: '/admin/agendas/:uid'
     },
     selectors: {
       canvas: '.js_canvas'

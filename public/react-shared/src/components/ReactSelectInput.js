@@ -1,8 +1,9 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useContext } from 'react';
 import ReactSelect, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
 import defaultStyles from '../utils/defaultSelectStyles.js';
+import ModalContext from './lib/ModalContext.js';
 
 function Option({ innerProps, ...props }) {
   const onClick = (e) => {
@@ -42,6 +43,7 @@ function ReactSelectInput({
   styles: stylesProp,
   isMulti,
   separator,
+  menuPosition,
   ...rest
 }) {
   const SelectComponent = isCreatable ? CreatableSelect : ReactSelect;
@@ -53,6 +55,7 @@ function ReactSelectInput({
     [stylesProp],
   );
   const onChangeProp = rest.onChange || input.onChange;
+  const modalContext = useContext(ModalContext);
 
   const onChange = useCallback(
     (value) => {
@@ -81,6 +84,7 @@ function ReactSelectInput({
         components={defaultComponents}
         onChange={onChange}
         {...rest}
+        menuPosition={modalContext ? 'fixed' : menuPosition}
       />
 
       {!meta?.dirtySinceLastSubmit && meta?.submitError ? (

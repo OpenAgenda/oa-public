@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as bodyScroll from './body-scroll.js';
 import ClickListener from './lib/ClickListener.js';
+import Context from './lib/ModalContext.js';
 
 export default class Modal extends Component {
   static propTypes = {
@@ -117,27 +118,29 @@ export default class Modal extends Component {
     }
 
     return (
-      <div
-        className={classNames.overlay ?? 'popup-overlay'}
-        ref={this.overlayRef}
-      >
-        <section ref={this.ref}>
-          {title ? (
-            <header className={classNames.title ?? 'popup-title'}>
-              <h2>{title}</h2>
-              <button
-                type="button"
-                onClick={this.handleClose}
-                className="close-link"
-                aria-label="Close"
-              >
-                <i className="fa fa-times fa-lg" />
-              </button>
-            </header>
-          ) : null}
-          <div {...contentProps}>{children}</div>
-        </section>
-      </div>
+      <Context.Provider value>
+        <div
+          className={classNames.overlay ?? 'popup-overlay'}
+          ref={this.overlayRef}
+        >
+          <section ref={this.ref}>
+            {title ? (
+              <header className={classNames.title ?? 'popup-title'}>
+                <h2>{title}</h2>
+                <button
+                  type="button"
+                  onClick={this.handleClose}
+                  className="close-link"
+                  aria-label="Close"
+                >
+                  <i className="fa fa-times fa-lg" />
+                </button>
+              </header>
+            ) : null}
+            <div {...contentProps}>{children}</div>
+          </section>
+        </div>
+      </Context.Provider>
     );
   }
 }

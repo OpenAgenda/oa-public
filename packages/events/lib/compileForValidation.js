@@ -78,7 +78,11 @@ export default async function compileForValidation(
   data,
   options = {},
 ) {
-  const { maxImageSize = 20971520, protectedMode = true } = options;
+  const {
+    maxImageSize = 20971520,
+    protectedMode = true,
+    isPatch = false,
+  } = options;
 
   const editedFields = Object.keys(_.omit(data, ['draft'])).filter((f) =>
     (protectedMode ? fieldNames.includes(f) : true));
@@ -87,6 +91,15 @@ export default async function compileForValidation(
     ...current || {},
     ...data,
   };
+
+  if (isPatch && current?.extIds?.length > 0 && data?.extIds?.length > 0) {
+    compiled.extIds = current.extIds.reduce((acc, extId) => {
+      if (acc.find((a) => a.key === extId.key)) {
+        return acc;
+      }
+      return acc.concat(extId);
+    }, data.extIds);
+  }
 
   const image = data?.image;
 

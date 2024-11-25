@@ -276,4 +276,10 @@ export default ({ labels }) => [
     optional: true,
     write: ['internal'],
   },
+  {
+    field: 'extIds',
+    fieldType: 'extIds',
+    optional: true,
+    display: false,
+  },
 ];

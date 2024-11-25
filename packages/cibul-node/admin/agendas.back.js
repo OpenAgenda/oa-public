@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import { isInteger } from '@openagenda/utils';
 import { mw } from '@openagenda/admin-agendas';
 import validators from '@openagenda/validators';
+import isURL from 'validator/lib/isURL.js';
 import cmn from '../lib/commons-app.js';
 
 const validatePage = validators.integer({
@@ -27,11 +27,27 @@ export default (app) => {
 
   app.get('/admin/agendas/', preMw, index);
   app.get('/admin/agendas/search', preMw, (req, res, next) => {
-    const search = req.query.oas?.search?.length
-      ? req.query.oas?.search.split('/').pop().split('?').shift()
-      : undefined;
+    const query = {};
+
+    if (_.isInteger(parseInt(req.query.oas?.search, 10))) {
+      query.uid = parseInt(req.query.oas?.search, 10);
+    } else if (isURL(req.query.oas?.search)) {
+      const uidOrSlug = req.query.oas?.search
+        .split('/')
+        .pop()
+        .split('?')
+        .shift();
+      const isUID = _.isInteger(parseInt(uidOrSlug, 10));
+
+      query[isUID ? 'uid' : 'slug'] = isUID
+        ? parseInt(uidOrSlug, 10)
+        : uidOrSlug;
+    } else if (req.query.oas?.search?.length) {
+      query.search = req.query.oas.search;
+    }
+
     agendasSvc.list(
-      isInteger(search) ? { uid: parseInt(search, 10) } : { search },
+      query,
       (validatePage(req.query.searchPage) - 1) * limit,
       limit,
       { total: true, private: null },
@@ -43,7 +59,32 @@ export default (app) => {
       },
     );
   });
-  app.get('/admin/agendas/get', preMw, mw.agendas.get);
+
+  app.get('/admin/agendas/:uid', preMw, (req, res) => {
+    const { core, agendas } = req.app.services;
+    core
+      .agendas(req.params.uid)
+      .get({ access: 'internal', detailed: true })
+      .then((agenda) => {
+        if (!agenda) {
+          res.json(null);
+          return;
+        }
+        res.json({
+          ...agenda,
+          credentials: {
+            ...Object.entries(agendas.utils.credentials).reduce(
+              (accu, [key, value]) => ({ ...accu, [key]: value.default }),
+              {},
+            ),
+            ...agenda.credentials,
+          },
+          config: {
+            credentials: agendas.utils.credentials,
+          },
+        });
+      });
+  });
 
   app.post(
     '/admin/agendas/:uid',

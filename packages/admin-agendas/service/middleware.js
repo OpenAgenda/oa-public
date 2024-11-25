@@ -10,7 +10,6 @@ let agendas;
 module.exports = {
   init,
   agendas: {
-    get,
     set,
   },
   members: {
@@ -33,19 +32,6 @@ function init(s, c) {
   );
 
   agendas = c.services.agendas;
-}
-
-function get(req, res, next) {
-  // bad practice to call a service inside another service
-  agendas.get(
-    req.query,
-    { detailed: true, internal: true, private: null },
-    (err, agenda) => {
-      if (err) return next(err);
-
-      return res.json(_extendWithConfig(agenda));
-    },
-  );
 }
 
 function _extendWithConfig(agenda) {
