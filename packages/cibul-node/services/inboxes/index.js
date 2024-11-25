@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import companion from '@uppy/companion';
 import inboxes from '@openagenda/inboxes';
-import inboxMw from '@openagenda/inboxes/dist/middleware.js';
+import * as inboxMw from '@openagenda/inboxes/src/middleware.js';
 import inboxesLabels from '@openagenda/labels/inboxes/index.js';
 import filterAction from './filterAction.js';
 import getInboxesDetails from './getInboxesDetails.js';

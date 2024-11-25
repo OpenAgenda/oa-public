@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import agendas from '@openagenda/agendas';
-import invitations from '@openagenda/invitations';
+import * as invitations from '@openagenda/invitations';
 import logs from '@openagenda/logs';
 import clearCache from './lib/clearCache.js';
 import { sendInvitation } from './lib/mail.js';

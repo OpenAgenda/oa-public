@@ -1,11 +1,9 @@
 import _ from 'lodash';
-import membersPkg from '@openagenda/members';
+import { utils as membersUtils } from '@openagenda/members';
 
 const {
-  utils: {
-    compareRoles: { isSuperiorToOrEqual },
-  },
-} = membersPkg;
+  compareRoles: { isSuperiorToOrEqual },
+} = membersUtils;
 
 function and(...args) {
   return (props) =>

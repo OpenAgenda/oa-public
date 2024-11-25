@@ -47,8 +47,6 @@ export function init(config, services) {
     services,
   });
 
-  members.utils.listAllAdminMods = listAllAdminMods(members);
-
   const sendGroupMail = SendGroupMail(config, services);
 
   return Object.assign(
@@ -62,6 +60,7 @@ export function init(config, services) {
         activityTask();
       },
       sendGroupMail,
+      listAllAdminMods: listAllAdminMods(members),
       mw: {
         load: mw.load.default,
         loadOrFail: mw.load.orFail,

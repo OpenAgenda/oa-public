@@ -51,7 +51,7 @@ export default async ({ config, services }, { agendaEvent, context }) => {
 
   const logo = agendaLogo(agenda);
 
-  const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
+  const members = await membersSvc.listAllAdminMods(agenda.uid);
 
   if (!mails) {
     log('warn', 'mails service was not initialized');

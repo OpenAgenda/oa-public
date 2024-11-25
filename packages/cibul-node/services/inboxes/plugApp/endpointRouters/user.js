@@ -1,5 +1,5 @@
 import express from 'express';
-import inboxMw from '@openagenda/inboxes/dist/middleware.js';
+import * as inboxMw from '@openagenda/inboxes/src/middleware.js';
 import makeErrorHandler from './makeErrorHandler.js';
 
 export default (config, services) => {
