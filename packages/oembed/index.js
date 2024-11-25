@@ -1,18 +1,14 @@
-'use strict';
-
-const _ = require('lodash');
-const axios = require('axios');
-const mdExtractor = require('markdown-link-extractor');
-const cheerio = require('cheerio');
-
-const logger = require('@openagenda/logs');
+import _ from 'lodash';
+import axios from 'axios';
+import mdExtractor from 'markdown-link-extractor';
+import cheerio from 'cheerio';
+import logger from '@openagenda/logs';
+import linkValidator from '@openagenda/validators/link.js';
+import validateOptions from './validators/options.js';
+import validateFromMarkdownOptions from './validators/fromMarkdownOptions.js';
+import injectEmbeds from './utils/injectEmbeds.js';
 
 const log = logger('main');
-
-const linkValidator = require('@openagenda/validators/link');
-const validateOptions = require('./validators/options');
-const validateFromMarkdownOptions = require('./validators/fromMarkdownOptions');
-const injectEmbeds = require('./utils/injectEmbeds');
 
 const validateLink = linkValidator();
 
@@ -54,7 +50,7 @@ function extractScript(linkData) {
   };
 }
 
-module.exports = class OEmbed {
+export default class OEmbed {
   constructor(options) {
     try {
       if (options.logger) {
@@ -139,4 +135,4 @@ module.exports = class OEmbed {
   injectEmbeds(html, links, options) {
     return injectEmbeds(html, links, options);
   }
-};
+}

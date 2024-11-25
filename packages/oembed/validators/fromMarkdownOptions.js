@@ -1,10 +1,8 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const text = require('@openagenda/validators/text');
-const link = require('@openagenda/validators/link');
-const pass = require('@openagenda/validators/pass');
-const bool = require('@openagenda/validators/boolean');
+import schema from '@openagenda/validators/schema/index.js';
+import text from '@openagenda/validators/text.js';
+import link from '@openagenda/validators/link.js';
+import pass from '@openagenda/validators/pass.js';
+import bool from '@openagenda/validators/boolean.js';
 
 schema.register({
   text,
@@ -13,7 +11,7 @@ schema.register({
   bool,
 });
 
-module.exports = schema({
+export default schema({
   current: {
     list: true,
     fields: {

@@ -1,10 +1,7 @@
-'use strict';
-
-const fs = require('node:fs');
-const _ = require('lodash');
-
-const OEmbed = require('..');
-const options = require('../testconfig');
+import fs from 'node:fs';
+import _ from 'lodash';
+import OEmbed from '../index.js';
+import options from '../testconfig.js';
 
 const IFRAMELY_OBJECT_KEYS = [
   'url',
@@ -24,9 +21,12 @@ const IFRAMELY_OBJECT_KEYS = [
 ];
 
 const texts = {
-  raffut: fs.readFileSync(`${__dirname}/fixtures/forroraffut.md`, 'utf-8'),
+  raffut: fs.readFileSync(
+    `${import.meta.dirname}/fixtures/forroraffut.md`,
+    'utf-8',
+  ),
   contrebrassens: fs.readFileSync(
-    `${__dirname}/fixtures/contrebrassens.txt`,
+    `${import.meta.dirname}/fixtures/contrebrassens.txt`,
     'utf-8',
   ),
 };
@@ -89,7 +89,7 @@ describe('parsing links from markdown', () => {
     });
 
     expect(result.length).toBe(1);
-    expect(result[0].link.indexOf('youtube') !== -1).toBeTruthy();
+    expect(result[0].link.includes('youtube')).toBeTruthy();
   });
 
   test('keep no embedable links', async () => {
