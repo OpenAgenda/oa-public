@@ -13,6 +13,8 @@ const validate = schema({
 
 export default (options = {}) =>
   (value) => {
-    if (!value && options.optional) return;
+    if ([undefined, null].includes(value) && options.optional) {
+      return value;
+    }
     return validate(value);
   };
