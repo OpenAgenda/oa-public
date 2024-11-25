@@ -1,7 +1,5 @@
-'use strict';
-
-const config = require('../testconfig');
-const service = require('./service');
+import config from '../testconfig.js';
+import * as service from './service/index.js';
 
 const invitationSample = {
   id: 1,

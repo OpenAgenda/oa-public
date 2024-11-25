@@ -1,13 +1,11 @@
-'use strict';
-
-const knexLib = require('knex');
-const logs = require('@openagenda/logs');
-const { promisePlusCb } = require('@openagenda/service-utils');
-const uuid = require('uuid');
-const validators = require('@openagenda/validators');
-const _ = require('lodash');
-const defineUnique = require('@openagenda/mysql-utils/defineUnique');
-const Invitation = require('./Invitation');
+import knexLib from 'knex';
+import logs from '@openagenda/logs';
+import promisePlusCb from '@openagenda/service-utils/promisePlusCb.js';
+import uuid from 'uuid';
+import validators from '@openagenda/validators';
+import _ from 'lodash';
+import defineUnique from '@openagenda/mysql-utils/defineUnique.js';
+import Invitation from './Invitation.js';
 
 let config;
 let knex;
@@ -26,7 +24,7 @@ function init(c, cb) {
     connection: { ...c.mysql },
   });
 
-  Invitation.init(c, module.exports, knex);
+  Invitation.init(c, knex);
 
   if (cb) cb();
 }
@@ -441,12 +439,4 @@ function execute(...args) {
   return promisePlusCb(promise, args);
 }
 
-module.exports = {
-  init,
-  get,
-  assign,
-  removeAction,
-  remove,
-  execute,
-  Invitation,
-};
+export { init, get, assign, removeAction, remove, execute, Invitation };
