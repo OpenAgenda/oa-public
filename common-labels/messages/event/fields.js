@@ -67,4 +67,8 @@ module.exports = defineMessages({
     id: 'common.event.fields.timings',
     defaultMessage: 'Timings',
   },
+  extIds: {
+    id: 'common.event.fields.extIds',
+    defaultMessage: 'External identifiers',
+  },
 });
