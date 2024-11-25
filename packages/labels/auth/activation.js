@@ -82,6 +82,14 @@ module.exports = {
     io: 'crwdns13048:0crwdne13048:0',
     oc: 'Seguissètz-nos',
   },
+  followUsOnLinkedIn: {
+    en: 'Follow us on LinkedIn',
+    fr: 'Suivez-nous sur LinkedIn',
+  },
+  followUsOnBlueSky: {
+    en: 'Follow us on Bluesky',
+    fr: 'Suivez-nous sur Bluesky',
+  },
   getOurNewsletter: {
     en: 'Get our newsletter',
     fr: "Recevez notre lettre d'information",
