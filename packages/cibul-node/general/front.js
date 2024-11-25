@@ -1,9 +1,7 @@
 import _ from 'lodash';
-import makeLabelGetter from '@openagenda/labels';
-import labels from '@openagenda/labels/newsletter/subscribe.js';
 import landing from '@openagenda/landing';
-import logs from '@openagenda/logs';
 import getAssetsManifest from '../lib/getAssetsManifest.js';
+import newsletterSubscribe from '../lib/newsletterSubscribe.js';
 import config from '../config/index.js';
 import * as layouts from '../services/lib/layouts/index.js';
 import cmn from '../lib/commons-app.js';
@@ -11,10 +9,6 @@ import * as mwHelpers from '../services/lib/middlewareHelpers.js';
 import contentSecurityPolicy, {
   defaultDirectives as cspDefaultDirectives,
 } from '../lib/contentSecurityPolicy.js';
-
-const log = logs('newsletter');
-
-const __ = makeLabelGetter(labels);
 
 const layout = layouts.load('corpo', {
   languages: config.interfaceLanguages,
@@ -192,34 +186,6 @@ async function corpo(cache, req, res, next) {
     message: `discover page: ${req.params.page}`,
     userAgent: req.headers['user-agent'],
   });
-}
-
-async function newsletterSubscribe(req, res) {
-  const { newsletter, sessions, mails } = req.app.services;
-
-  try {
-    await newsletter.addSubscriber(req.body.email);
-
-    log('info', 'Nouvel inscrit à la newsletter: %s', req.body.email, {
-      email: req.body.email,
-    });
-
-    sessions.setFlash(req, res, __('subscribed', req.lang));
-
-    res.redirect(302, '/');
-
-    mails.send({
-      to: 'admin@openagenda.com',
-      subject: 'Nouvel inscrit à la newsletter',
-      text: `"${req.body.email}" a été ajouté à la newsletter.`,
-    });
-  } catch (err) {
-    log('error', { service: 'newsletter', message: err.message, error: err });
-
-    sessions.setFlash(req, res, __('invalidEmail', req.lang));
-
-    res.redirect(302, '/');
-  }
 }
 
 function serviceConnectCallback(req, res) {
