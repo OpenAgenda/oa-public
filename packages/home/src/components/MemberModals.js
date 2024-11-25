@@ -1,8 +1,6 @@
 import MemberForm from '@openagenda/member-apps/dist/components/Form/index.js';
-import utils from '@openagenda/members/utils.js';
+import { getRoleSlug, getRoleCode } from '@openagenda/members/utils.js';
 import { AgendaItem } from './Welcome.js';
-
-const { getRoleSlug, getRoleCode } = utils;
 
 export function MemberEditModal(props) {
   const {
