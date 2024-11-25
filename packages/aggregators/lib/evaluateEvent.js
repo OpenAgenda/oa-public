@@ -1,13 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const logs = require('@openagenda/logs');
-
-const evaluateRules = require('../utils/rules');
-const paths = require('../utils/paths');
-const pickReferenceValues = require('../utils/pickReferenceValues');
-const limit = require('../utils/limit');
-const generateChecksum = require('../utils/generateChecksum');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import evaluateRules from '../utils/rules/index.js';
+import * as paths from '../utils/paths.js';
+import pickReferenceValues from '../utils/pickReferenceValues.js';
+import * as limit from '../utils/limit.js';
+import generateChecksum from '../utils/generateChecksum.js';
 
 const log = logs('evaluateEvent');
 
@@ -254,7 +251,4 @@ const evaluateEvent = async (
   await enqueueEvaluate({ ...data, report });
 };
 
-module.exports = {
-  processEvaluate,
-  evaluateEvent,
-};
+export { processEvaluate, evaluateEvent };

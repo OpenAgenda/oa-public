@@ -1,7 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('determineAggregationAction');
+const log = logs('determineAggregationAction');
 
 function _isUnpublish(before, now) {
   if (!before || before.state !== 2) {
@@ -11,7 +11,7 @@ function _isUnpublish(before, now) {
   return now.state !== 2;
 }
 
-module.exports = (type, eventBefore, eventNow) => {
+export default (type, eventBefore, eventNow) => {
   log(
     'processing %s for %s: %s->%s',
     type,

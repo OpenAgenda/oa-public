@@ -1,10 +1,8 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-const pass = require('@openagenda/validators/pass');
-const boolean = require('@openagenda/validators/boolean');
-const cleanRule = require('../utils/rules/clean');
+import schema from '@openagenda/validators/schema/index.js';
+import integer from '@openagenda/validators/integer.js';
+import pass from '@openagenda/validators/pass.js';
+import boolean from '@openagenda/validators/boolean.js';
+import cleanRule from '../utils/rules/clean.js';
 
 schema.register({
   integer,
@@ -42,7 +40,7 @@ const validate = schema({
 
 const validateRule = schema(ruleFields);
 
-module.exports = (data, options = {}) => {
+export default (data, options = {}) => {
   const { patch, protected: isProtected } = {
     patch: false,
     protected: true,
@@ -69,4 +67,6 @@ module.exports = (data, options = {}) => {
   return result;
 };
 
-module.exports.rule = (r) => validateRule(cleanRule(r));
+export function rule(r) {
+  return validateRule(cleanRule(r));
+}

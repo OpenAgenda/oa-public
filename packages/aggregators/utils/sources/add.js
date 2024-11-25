@@ -1,9 +1,7 @@
-'use strict';
+import getAggregator from '../getAggregator.js';
+import cleanRule from '../rules/clean.js';
 
-const getAggregator = require('../getAggregator');
-const cleanRule = require('../rules/clean');
-
-module.exports = async (
+export default async (
   knex,
   aggregatorAgenda,
   sourceAgenda,

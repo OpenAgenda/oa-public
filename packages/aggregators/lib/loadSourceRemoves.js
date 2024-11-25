@@ -1,10 +1,8 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
+import logs from '@openagenda/logs';
 
 const log = logs('loadSourceRemoves');
 
-module.exports = async (
+export default async (
   { listEventReferences, enqueueRemove },
   { aggregatorAgendaUid, sourceAgendaUid },
 ) => {
@@ -17,7 +15,7 @@ module.exports = async (
   let after;
   let count = 0;
 
-  while (after !== null) {
+  do {
     const { after: nextAfter, events } = await listEventReferences(
       sourceAgendaUid,
       after,
@@ -40,6 +38,7 @@ module.exports = async (
     }
 
     after = nextAfter;
-  }
+  } while (after);
+
   log('enqueuing done', { ...logBundle, count });
 };

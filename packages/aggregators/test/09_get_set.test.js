@@ -1,9 +1,7 @@
-'use strict';
-
-const config = require('../testconfig');
-const createInstance = require('..');
-const { Tracker } = require('./utils');
-const fixtures = require('./fixtures');
+import config from '../testconfig.js';
+import createInstance from '../index.js';
+import { Tracker } from './utils.js';
+import fixtures from './fixtures/index.js';
 
 describe('09 - set and get', () => {
   let svc;

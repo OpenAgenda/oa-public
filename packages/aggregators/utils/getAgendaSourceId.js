@@ -1,8 +1,6 @@
-'use strict';
+import getAggregator from './getAggregator.js';
 
-const getAggregator = require('./getAggregator');
-
-module.exports = async (knex, agenda, aggregatorAgenda = null) => {
+export default async (knex, agenda, aggregatorAgenda = null) => {
   const query = knex('aggregator_source')
     .first(['id'])
     .where({ review_id: agenda.id });

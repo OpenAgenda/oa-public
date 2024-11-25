@@ -1,29 +1,24 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
+import logs from '@openagenda/logs';
+import getAgendaSourceId from './utils/getAgendaSourceId.js';
+import addSourceEntry from './utils/sources/add.js';
+import removeSourceEntry from './utils/sources/remove.js';
+import listSources from './utils/sources/list.js';
+import updateSourceEntry from './utils/sources/update.js';
+import getSourceEntry from './utils/sources/get.js';
+import dispatch from './lib/dispatch.js';
+import addSource from './lib/addSource.js';
+import updateSource from './lib/updateSource.js';
+import removeSource from './lib/removeSource.js';
+import notify from './lib/notify.js';
+import { removeEvent } from './lib/removeEvent.js';
+import loadSourceEvaluates from './lib/loadSourceEvaluates.js';
+import loadSourceRemoves from './lib/loadSourceRemoves.js';
+import { evaluateEvent } from './lib/evaluateEvent.js';
+import remove from './lib/remove.js';
+import set from './lib/set.js';
+import get from './lib/get.js';
 
 const log = logs('aggregators');
-
-const getAgendaSourceId = require('./utils/getAgendaSourceId');
-
-const addSourceEntry = require('./utils/sources/add');
-const removeSourceEntry = require('./utils/sources/remove');
-const listSources = require('./utils/sources/list');
-const updateSourceEntry = require('./utils/sources/update');
-const getSourceEntry = require('./utils/sources/get');
-
-const dispatch = require('./lib/dispatch');
-const addSource = require('./lib/addSource');
-const updateSource = require('./lib/updateSource');
-const removeSource = require('./lib/removeSource');
-const notify = require('./lib/notify');
-const { removeEvent } = require('./lib/removeEvent');
-const loadSourceEvaluates = require('./lib/loadSourceEvaluates');
-const loadSourceRemoves = require('./lib/loadSourceRemoves');
-const { evaluateEvent } = require('./lib/evaluateEvent');
-const remove = require('./lib/remove');
-const set = require('./lib/set');
-const get = require('./lib/get');
 
 function task({ queue }) {
   queue.run();
@@ -36,7 +31,7 @@ function task({ queue }) {
   };
 }
 
-module.exports = ({ knex, queues, interfaces, logger }) => {
+export default ({ knex, queues, interfaces, logger }) => {
   const queue = queues('aggregator');
 
   if (logger) {

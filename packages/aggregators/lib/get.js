@@ -1,10 +1,8 @@
-'use strict';
+import * as db from '../utils/db.js';
+import getAgendaId from '../utils/getAgendaId.js';
+import * as limit from '../utils/limit.js';
 
-const db = require('../utils/db');
-const getAgendaId = require('../utils/getAgendaId');
-const limit = require('../utils/limit');
-
-module.exports = async (
+export default async (
   { knex, getAggregatedCount },
   agendaUid,
   options = {},

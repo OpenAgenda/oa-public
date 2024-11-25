@@ -1,11 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const logs = require('@openagenda/logs');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import * as paths from '../utils/paths.js';
 
 const log = logs('removeEvent');
-
-const paths = require('../utils/paths');
 
 const processRemove = async (
   { getEventReference, updateSourcePaths, unreferenceEvent },
@@ -109,7 +106,4 @@ const removeEvent = async (
   await enqueueRemove({ ...data, report });
 };
 
-module.exports = {
-  removeEvent,
-  processRemove,
-};
+export { removeEvent, processRemove };

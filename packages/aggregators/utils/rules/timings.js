@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (filter, data) => {
+export default (filter, data) => {
   const minDate = new Date(filter.gte);
   const maxDate = new Date(filter.lte);
 

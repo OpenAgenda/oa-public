@@ -1,8 +1,6 @@
-'use strict';
+import convertFieldOptionIdsToLabels from './convertFieldOptionIdsToLabels.js';
 
-const convertFieldOptionIdsToLabels = require('./convertFieldOptionIdsToLabels');
-
-module.exports = (sourceAgendaSchema, labels, data) => {
+export default (sourceAgendaSchema, labels, data) => {
   const optionedFields = sourceAgendaSchema.fields.filter((f) => !!f.options);
   for (const field of optionedFields) {
     if (

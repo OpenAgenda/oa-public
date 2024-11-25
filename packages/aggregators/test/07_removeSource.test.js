@@ -1,9 +1,6 @@
-'use strict';
-
-const removeSource = require('../lib/removeSource');
-const loadSourceRemoves = require('../lib/loadSourceRemoves');
-
-const { Tracker, getJSON } = require('./utils');
+import removeSource from '../lib/removeSource.js';
+import loadSourceRemoves from '../lib/loadSourceRemoves.js';
+import { Tracker, getJSON } from './utils.js';
 
 describe('07 - removeSource', () => {
   describe('removeSource', () => {

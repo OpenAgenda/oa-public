@@ -1,20 +1,16 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('node:fs');
-
-function getJSON(relativePath) {
+export function getJSON(relativePath) {
   return JSON.parse(
-    fs.readFileSync(`${__dirname}/${relativePath}.json`, 'utf-8'),
+    fs.readFileSync(`${import.meta.dirname}/${relativePath}.json`, 'utf-8'),
   );
 }
 
-module.exports.getJSON = getJSON;
-
-module.exports.asAsync = function asAsync(relativePath) {
+export function asAsync(relativePath) {
   return async () => getJSON(relativePath);
-};
+}
 
-module.exports.Tracker = function Tracker() {
+export function Tracker() {
   const calls = [];
   return Object.assign(
     (name, returnValue) =>
@@ -24,12 +20,12 @@ module.exports.Tracker = function Tracker() {
       },
     { calls },
   );
-};
+}
 
-module.exports.write = (fxFolder, name, data) => {
+export function write(fxFolder, name, data) {
   fs.writeFileSync(
-    `${__dirname}/${fxFolder}/${name}.json`,
+    `${import.meta.dirname}/${fxFolder}/${name}.json`,
     JSON.stringify(data, null, 2),
     'utf-8',
   );
-};
+}

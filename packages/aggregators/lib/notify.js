@@ -1,13 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const logs = require('@openagenda/logs');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import determineAggregationAction from '../utils/determineAggregationAction.js';
 
 const log = logs('notify');
 
-const determineAggregationAction = require('../utils/determineAggregationAction');
-
-module.exports = async ({ getAgendaSourceId, queue }, type, data) => {
+export default async ({ getAgendaSourceId, queue }, type, data) => {
   const { agenda } = data;
   const logBundle = { agenda: _.pick(agenda, ['slug', 'uid']), type };
 

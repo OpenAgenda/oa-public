@@ -1,8 +1,5 @@
-'use strict';
-
-const updateSource = require('../lib/updateSource');
-
-const { Tracker, getJSON } = require('./utils');
+import updateSource from '../lib/updateSource.js';
+import { Tracker, getJSON } from './utils.js';
 
 describe('12 - updateSource', () => {
   const tracker = Tracker();

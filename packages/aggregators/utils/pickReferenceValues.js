@@ -1,8 +1,6 @@
-'use strict';
-
 const isAbstract = (f) => (f.fieldType ?? 'abstract') === 'abstract';
 
-module.exports = (schema, ...values) =>
+export default (schema, ...values) =>
   values.reduce(
     (picked, next) => ({
       ...picked,

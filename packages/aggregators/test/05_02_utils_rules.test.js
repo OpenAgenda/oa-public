@@ -1,23 +1,27 @@
-'use strict';
+import rules from '../utils/rules/index.js';
+import { getJSON } from './utils.js';
 
-const rules = require('../utils/rules');
-
-const { getJSON } = require('./utils');
-
-/* eslint-disable global-require */
 const fixtures = {
-  jepOToJEP: require('./fixtures/evaluate.jep-2019-occitanie.to.albi.json'),
-  eventBeforePublish: require('./fixtures/eventBeforePublish.json'),
-  eventNowPublish: require('./fixtures/eventNowPublish.json'),
-  eventBeforeUnpublish: require('./fixtures/eventBeforeUnpublish.json'),
-  eventNowUnpublish: require('./fixtures/eventNowUnpublish.json'),
-  eventBeforeChange: require('./fixtures/eventBeforeChange.json'),
-  eventNowChange: require('./fixtures/eventNowChange.json'),
-  simpleSourceSchema: require('./fixtures/simpleSourceSchema.json'),
-  simpleAggregatorSchema: require('./fixtures/simpleAggregatorSchema.json'),
+  jepOToJEP: (
+    await import('./fixtures/evaluate.jep-2019-occitanie.to.albi.json')
+  ).default,
+  eventBeforePublish: (await import('./fixtures/eventBeforePublish.json'))
+    .default,
+  eventNowPublish: (await import('./fixtures/eventNowPublish.json')).default,
+  eventBeforeUnpublish: (await import('./fixtures/eventBeforeUnpublish.json'))
+    .default,
+  eventNowUnpublish: (await import('./fixtures/eventNowUnpublish.json'))
+    .default,
+  eventBeforeChange: (await import('./fixtures/eventBeforeChange.json'))
+    .default,
+  eventNowChange: (await import('./fixtures/eventNowChange.json')).default,
+  simpleSourceSchema: (await import('./fixtures/simpleSourceSchema.json'))
+    .default,
+  simpleAggregatorSchema: (
+    await import('./fixtures/simpleAggregatorSchema.json')
+  ).default,
   duplicates: getJSON('./fixtures/evaluateRules/duplicates'),
 };
-/* esint-enable */
 
 describe('05_02 - utils - rules', () => {
   // the rules function takes a list of rules and an object against which

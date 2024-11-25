@@ -1,12 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const logs = require('@openagenda/logs');
-const limit = require('../utils/limit');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import * as limit from '../utils/limit.js';
 
 const log = logs('aggregators/updateSource');
 
-module.exports = async (
+export default async (
   {
     updateSourceEntry,
     getSourceEntry,

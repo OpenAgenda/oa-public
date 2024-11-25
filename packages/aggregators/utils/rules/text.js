@@ -1,5 +1,3 @@
-'use strict';
-
 const customToUpper = (str) => {
   if (typeof str !== 'string') return null;
   return str.toUpperCase();
@@ -38,7 +36,7 @@ const evaluateFieldData = (
   return false;
 };
 
-module.exports = (filter, data) => {
+export default (filter, data) => {
   for (const field of Object.keys(filter).filter(
     (e) => e !== 'caseSensitive' && e !== 'wholeValue',
   )) {

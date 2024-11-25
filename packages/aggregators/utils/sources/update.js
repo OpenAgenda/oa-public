@@ -1,8 +1,6 @@
-'use strict';
+import getAggregator from '../getAggregator.js';
 
-const getAggregator = require('../getAggregator');
-
-module.exports = async (knex, aggregatorAgenda, source, sourceRules = []) => {
+export default async (knex, aggregatorAgenda, source, sourceRules = []) => {
   const aggregator = await getAggregator(knex, aggregatorAgenda);
 
   if (!aggregator) {

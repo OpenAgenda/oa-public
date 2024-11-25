@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (knex, uid) =>
+export default (knex, uid) =>
   knex('review')
     .first('id')
     .where('uid', uid)

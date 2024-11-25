@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   mysql: {
     database: 'oatest_aggregators',
     host: 'localhost',

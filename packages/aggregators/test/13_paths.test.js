@@ -1,11 +1,9 @@
-'use strict';
-
-const {
+import {
   updateIsRequired,
   getAmended,
   getFiltered,
   endsShortestPath,
-} = require('../utils/paths');
+} from '../utils/paths.js';
 
 describe('13 - paths', () => {
   describe('updateIsRequired', () => {

@@ -1,14 +1,13 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import getAggregator from '../getAggregator.js';
+import validateListQuery from '../validateListQuery.js';
+import validateListNav from '../validateListNav.js';
+import extractRules from '../rules/extract.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('sources/list');
+const log = logs('sources/list');
 
-const getAggregator = require('../getAggregator');
-const validateListQuery = require('../validateListQuery');
-const validateListNav = require('../validateListNav');
-const extractRules = require('../rules/extract');
-
-module.exports = async (
+export default async (
   { knex, getAgendasByUids },
   aggregatorAgenda,
   query = {},

@@ -1,11 +1,9 @@
-'use strict';
-
-const _ = require('lodash');
-const logs = require('@openagenda/logs');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
 const log = logs('removeSource');
 
-module.exports = async (
+export default async (
   {
     removeSourceEntry,
     getSourceEntry,
