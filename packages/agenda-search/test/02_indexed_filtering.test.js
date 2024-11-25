@@ -1,9 +1,7 @@
-'use strict';
-
-const Service = require('../service');
-const config = require('./config');
-const listInterface = require('./app/listInterface');
-const getDetailedAgenda = require('./app/getDetailedAgenda');
+import Service from '../service/index.js';
+import config from './config.js';
+import listInterface from './app/listInterface.js';
+import getDetailedAgenda from './app/getDetailedAgenda.js';
 
 describe('02 - Indexed and not indexed', () => {
   let svc;

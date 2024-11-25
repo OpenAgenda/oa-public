@@ -1,8 +1,6 @@
-'use strict';
+import { produce } from 'immer';
 
-const { produce } = require('immer');
-
-module.exports = produce((agenda) => {
+export default produce((agenda) => {
   agenda._hasUpcomingEvents = (agenda.summary?.publishedEvents?.current || 0)
       + (agenda.summary?.publishedEvents.upcoming || 0)
     > 0;

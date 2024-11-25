@@ -1,10 +1,9 @@
-'use strict';
-
-const schemas = require('@openagenda/validators/schema');
-const text = require('@openagenda/validators/text');
-const boolean = require('@openagenda/validators/boolean');
-const integer = require('@openagenda/validators/integer');
-const date = require('@openagenda/validators/date');
+import schemas from '@openagenda/validators/schema/index.js';
+import text from '@openagenda/validators/text.js';
+import boolean from '@openagenda/validators/boolean.js';
+import integer from '@openagenda/validators/integer.js';
+import date from '@openagenda/validators/date.js';
+import { BadRequest } from '@openagenda/verror';
 
 schemas.register({
   text,
@@ -12,8 +11,6 @@ schemas.register({
   integer,
   date,
 });
-
-const { BadRequest } = require('@openagenda/verror');
 
 const validate = schemas({
   search: {
@@ -63,7 +60,7 @@ const validate = schemas({
   },
 });
 
-module.exports = (values = {}) => {
+export default (values = {}) => {
   const preClean = {
     ...values,
   };

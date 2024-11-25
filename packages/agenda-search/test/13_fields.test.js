@@ -1,6 +1,4 @@
-'use strict';
-
-const { defineIncludes } = require('../service/lib/fields');
+import { defineIncludes } from '../service/lib/fields.js';
 
 describe('13 - fields', () => {
   describe('defineIncludes', () => {

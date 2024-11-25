@@ -1,6 +1,4 @@
-'use strict';
-
-const queryValidator = require('../validators/query');
+import queryValidator from '../validators/query.js';
 
 /**
  * this is a validator created from schemas of the

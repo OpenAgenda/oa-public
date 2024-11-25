@@ -1,5 +1,3 @@
-'use strict';
-
 function contribute(agendaArg, options = {}) {
   const params = {
     path: undefined,
@@ -48,7 +46,7 @@ function agenda(agendaArg, options = {}) {
   return '#';
 }
 
-module.exports = {
+export default {
   agenda,
   network,
   contribute,

@@ -1,8 +1,6 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('node:fs');
-
-module.exports = {
+export default {
   alias: 'agenda_service_test',
   site: {
     url: 'https://openagenda.com',

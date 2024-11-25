@@ -3,10 +3,10 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
-import config from './test/config';
-import listInterface from './test/app/listInterface';
-import getDetailedAgenda from './test/app/getDetailedAgenda';
-import Service from '.';
+import config from './test/config.js';
+import listInterface from './test/app/listInterface.js';
+import getDetailedAgenda from './test/app/getDetailedAgenda.js';
+import Service from './service/index.js';
 
 const app = express();
 

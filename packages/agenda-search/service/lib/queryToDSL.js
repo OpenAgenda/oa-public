@@ -1,7 +1,5 @@
-'use strict';
-
-const { defineIncludes } = require('./fields');
-const cleanAfter = require('./cleanAfter');
+import { defineIncludes } from './fields.js';
+import cleanAfter from './cleanAfter.js';
 
 function _timestampFilter(field, { gte, lte }) {
   const range = {};
@@ -20,7 +18,7 @@ function _timestampFilter(field, { gte, lte }) {
   };
 }
 
-module.exports = (query, nav, options = {}) => {
+export default (query, nav, options = {}) => {
   const mustPart = [];
   const filteredPart = [];
 
