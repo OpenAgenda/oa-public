@@ -1,10 +1,11 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('node:fs');
-
-module.exports = (suffix = 'test', decorate = null) => {
+export default (suffix = 'test', decorate = null) => {
   const agendas = JSON.parse(
-    fs.readFileSync(`${__dirname}/../fixtures/agendas.${suffix}.json`, 'utf-8'),
+    fs.readFileSync(
+      `${import.meta.dirname}/../fixtures/agendas.${suffix}.json`,
+      'utf-8',
+    ),
   );
 
   const fn = decorate || ((a) => a);

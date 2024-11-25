@@ -1,8 +1,6 @@
-'use strict';
+import labels from '@openagenda/labels/agenda-contribute/member.js';
 
-const labels = require('@openagenda/labels/agenda-contribute/member');
-
-module.exports = ({ optionalFields }) => ({
+export default ({ optionalFields }) => ({
   fields: [
     {
       field: 'organization',

@@ -1,14 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import { BadRequest } from '@openagenda/verror';
+import validateNav from '../../validators/nav.js';
+import validateQuery from '../../validators/query.js';
+import validateOptions from '../../validators/options.js';
+import queryToDSL from './queryToDSL.js';
 
-const _ = require('lodash');
-const { BadRequest } = require('@openagenda/verror');
-
-const validateNav = require('../../validators/nav');
-const validateQuery = require('../../validators/query');
-const validateOptions = require('../../validators/options');
-const queryToDSL = require('./queryToDSL');
-
-module.exports = async (
+export default async (
   { alias, client, cleanIndexedAgenda },
   query,
   nav,
@@ -39,8 +36,7 @@ module.exports = async (
     );
 
   if (
-    (error?.meta?.body.error.caused_by.reason ?? '').indexOf('search_after')
-    !== -1
+    (error?.meta?.body.error.caused_by.reason ?? '').includes('search_after')
   ) {
     throw new BadRequest('Provided after value is invalid');
   } else if (error) {

@@ -1,7 +1,5 @@
-'use strict';
-
-const config = require('../testconfig');
-const service = require('./service');
+import config from '../testconfig.js';
+import * as service from './service/index.js';
 
 describe('invitations - functional (server): remove an invitation', () => {
   beforeAll(async () => {

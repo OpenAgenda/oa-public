@@ -8,7 +8,7 @@ import OutsideClickHandlerModule from 'react-outside-click-handler';
 import classNames from 'classnames';
 import { useCookie, useInterval } from 'react-use';
 import { ErrorBoundary } from '@sentry/react';
-import session from '@openagenda/sessions/client.js';
+import session from '@openagenda/sessions/client';
 import Notifications from '@openagenda/activity-apps/dist/client/components/Notifications.js';
 import * as mainActions from '../reducers/main.js';
 import ChildLayouts from '../components/ChildLayouts.js';

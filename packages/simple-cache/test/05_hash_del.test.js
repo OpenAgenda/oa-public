@@ -1,7 +1,5 @@
-'use strict';
-
-const redis = require('redis');
-const sCache = require('..');
+import redis from 'redis';
+import sCache from '../index.js';
 
 const config = {
   redis: {

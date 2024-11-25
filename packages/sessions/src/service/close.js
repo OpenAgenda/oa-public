@@ -1,6 +1,4 @@
-'use strict';
-
-const { cleanSession, callbackify } = require('./helpers');
+import { cleanSession, callbackify } from './helpers/index.js';
 
 function closeByUid(config, uid) {
   return config.redisClient.del([config.redis.prefix, uid].join(':'));
@@ -25,8 +23,8 @@ async function close(config, request) {
   };
 }
 
-module.exports = (config, request, cb) => {
+export default (config, request, cb) => {
   callbackify(close(config, request), cb);
 };
 
-module.exports.byUid = closeByUid;
+export { closeByUid as byUid };

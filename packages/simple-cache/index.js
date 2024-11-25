@@ -1,8 +1,6 @@
-'use strict';
-
-const redis = require('redis');
-const logger = require('@openagenda/logs');
-const VError = require('@openagenda/verror');
+import redis from 'redis';
+import logger from '@openagenda/logs';
+import VError from '@openagenda/verror';
 
 const log = logger('index');
 
@@ -238,7 +236,7 @@ async function clearAll(svc) {
   log('cleared all %s stored items', count);
 }
 
-module.exports = (c) => {
+export default (c) => {
   if (!c.redis && !c.client) {
     throw new Error('redis configuration is missing');
   }

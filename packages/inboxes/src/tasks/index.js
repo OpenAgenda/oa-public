@@ -1,1 +1,1 @@
-export * as sync from './sync';
+export * as sync from './sync.js';

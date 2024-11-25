@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export async function up(knex) {
   const { schemas } = knex.client.config;
 
   const exists = await knex.schema.hasTable(schemas.key);
@@ -17,10 +15,10 @@ exports.up = async (knex) => {
     table.string('key').notNullable().index();
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
   });
-};
+}
 
-exports.down = (knex) => {
+export function down(knex) {
   const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists(schemas.key);
-};
+}

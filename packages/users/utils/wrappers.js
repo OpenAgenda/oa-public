@@ -1,5 +1,3 @@
-'use strict';
-
 function firstHook(context, next) {
   context.type = 'before';
   return next();
@@ -42,10 +40,4 @@ function wrap({ async = [], before = [], after = [] } = {}) {
   ];
 }
 
-module.exports = {
-  wrap,
-  beforeWrapper,
-  afterWrapper,
-  toBeforeHook,
-  toAfterHook,
-};
+export { wrap, beforeWrapper, afterWrapper, toBeforeHook, toAfterHook };

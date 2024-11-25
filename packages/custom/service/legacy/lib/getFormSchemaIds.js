@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async (knex, agendaId) => {
+export default async (knex, agendaId) => {
   const ids = [];
 
   const { agendaFormSchemaId, networkUid } = await knex('review')

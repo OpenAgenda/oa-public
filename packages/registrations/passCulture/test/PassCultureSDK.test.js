@@ -51,8 +51,8 @@ describe('PassCultureSDK', () => {
     await pc.offers.events(testEventId).dates.create({
       dates: [
         {
-          beginningDatetime: '2024-09-17T14:00:00+02:00',
-          bookingLimitDatetime: '2024-09-17T14:00:00+02:00',
+          beginningDatetime: '2034-09-17T14:00:00+02:00',
+          bookingLimitDatetime: '2034-09-17T14:00:00+02:00',
           priceCategoryId: testEventPCId,
           quantity: 3,
         },
@@ -245,12 +245,12 @@ describe('PassCultureSDK', () => {
     it('patch error on update the event name', async () => {
       let err;
       try {
-        await pc.offers.events(id).patch({ name: 'test' });
+        await pc.offers.events(id).patch({ extraProp: 'test' });
       } catch (error) {
         err = error;
       }
       expect(err.response.data).toEqual({
-        name: ['extra fields not permitted'],
+        extraProp: ['extra fields not permitted'],
       });
     });
 
@@ -420,8 +420,8 @@ describe('PassCultureSDK', () => {
       const { dates } = await pc.offers.events(testEventId).dates.create({
         dates: [
           {
-            beginningDatetime: '2024-09-17T14:00:00+02:00',
-            bookingLimitDatetime: '2024-09-17T14:00:00+02:00',
+            beginningDatetime: '2034-09-17T14:00:00+02:00',
+            bookingLimitDatetime: '2034-09-17T14:00:00+02:00',
             priceCategoryId,
             quantity: 3,
           },
@@ -443,7 +443,7 @@ describe('PassCultureSDK', () => {
         .dates.create({
           dates: [
             {
-              beginningDatetime: '2024-09-18T14:00:00+02:00',
+              beginningDatetime: '2034-09-18T14:00:00+02:00',
               priceCategoryId,
               quantity: 3,
             },
@@ -466,8 +466,8 @@ describe('PassCultureSDK', () => {
       const { dates } = await pc.offers.events(testEventId).dates.create({
         dates: [
           {
-            beginningDatetime: '2024-09-19T14:00:00+02:00',
-            bookingLimitDatetime: '2024-09-19T14:00:00+02:00',
+            beginningDatetime: '2034-09-19T14:00:00+02:00',
+            bookingLimitDatetime: '2034-09-19T14:00:00+02:00',
             priceCategoryId,
             quantity: 3,
           },
@@ -551,11 +551,11 @@ describe('PassCultureSDK', () => {
       } = await pc.offers.events(testEventId).dates.list();
 
       const resp = await pc.offers.events(testEventId).dates(date.id).patch({
-        beginningDatetime: '2024-09-27T14:00:00+02:00',
+        beginningDatetime: '2034-09-27T14:00:00+02:00',
       });
 
       expect(new Date(resp.beginningDatetime)).toStrictEqual(
-        new Date('2024-09-27T14:00:00+02:00'),
+        new Date('2034-09-27T14:00:00+02:00'),
       );
     });
   });

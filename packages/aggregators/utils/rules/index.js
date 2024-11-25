@@ -1,11 +1,10 @@
-'use strict';
+import logs from '@openagenda/logs';
+import ih from 'immutability-helper';
+import evaluateRule from './evaluateRule.js';
+import cleanRule from './clean.js';
+import convertFieldOptionIdsToLabels from './convertFieldOptionIdsToLabels.js';
 
-const log = require('@openagenda/logs')('utils/rules');
-
-const ih = require('immutability-helper');
-const evaluateRule = require('./evaluateRule');
-const cleanRule = require('./clean');
-const convertFieldOptionIdsToLabels = require('./convertFieldOptionIdsToLabels');
+const log = logs('utils/rules');
 
 function evaluateRules(
   rules,
@@ -147,7 +146,7 @@ const getActionValues = ({
   return action.values[actionOperation];
 };
 
-module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
+export default (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   const { stop, actions } = evaluateRules(
     rules,
     sourceAgendaSchema,

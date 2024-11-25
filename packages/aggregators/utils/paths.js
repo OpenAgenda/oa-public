@@ -1,17 +1,20 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('paths');
+const log = logs('paths');
 
 const clean = (sourcePaths) =>
   (sourcePaths ? sourcePaths.map((path) => [].concat(path)) : []);
 const pathIsIncluded = (paths, path) =>
   paths.map((p) => p.join('.')).includes(path.join('.'));
 
-module.exports.updateIsRequired = (
-  referencePaths = [], // paths that are currently referenced in aggregator
-  sourcePaths = [], // paths that are currently referenced in source
-  leaf = null, // uid of source
-) => {
+export function updateIsRequired(
+  // paths that are currently referenced in aggregator
+  referencePaths = [],
+  // paths that are currently referenced in source
+  sourcePaths = [],
+  // uid of source
+  leaf = null,
+) {
   log('updateIsRequired', { referencePaths, sourcePaths, leaf });
   const pathsFromSource = clean(referencePaths)
     .filter((p) => p[p.length - 1] === leaf)
@@ -32,13 +35,9 @@ module.exports.updateIsRequired = (
   );
 
   return !!differentSourcePaths.length;
-};
+}
 
-module.exports.getAmended = (
-  referencePaths = [],
-  sourcePaths = [],
-  leaf = null,
-) => {
+export function getAmended(referencePaths = [], sourcePaths = [], leaf = null) {
   log('getAmended', { referencePaths, sourcePaths, leaf });
   const paths = clean(referencePaths);
 
@@ -56,18 +55,18 @@ module.exports.getAmended = (
     }
   });
   return paths;
-};
+}
 
-module.exports.getFiltered = (referencePaths = [], leaf = null) => {
+export function getFiltered(referencePaths = [], leaf = null) {
   log('getFiltered', { referencePaths, leaf });
   return clean(referencePaths).filter((p) => !p.includes(leaf));
-};
+}
 
-module.exports.endsShortestPath = (referencePaths, leaf) => {
+export function endsShortestPath(referencePaths, leaf) {
   const shortestPath = referencePaths.reduce((shortest, path) =>
     (shortest && shortest.length < path.length ? shortest : path));
 
   return !!referencePaths.filter(
     (p) => p.length === shortestPath.length && p[p.length - 1] === leaf,
   ).length;
-};
+}

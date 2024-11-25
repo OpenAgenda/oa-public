@@ -1,13 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import cleanRemoveOptions from './lib/cleanRemoveOptions.js';
+import get from './get.js';
 
-const _ = require('lodash');
+const log = logs('remove');
 
-const log = require('@openagenda/logs')('remove');
-
-const cleanRemoveOptions = require('./lib/cleanRemoveOptions');
-const get = require('./get');
-
-module.exports = async (config, identifiers, options = {}) => {
+export default async (config, identifiers, options = {}) => {
   const { knex, schema, interfaces } = config;
 
   const { context } = cleanRemoveOptions(options);

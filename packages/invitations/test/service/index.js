@@ -1,8 +1,6 @@
-'use strict';
-
-const path = require('node:path');
-const fixtures = require('@openagenda/fixtures');
-const svc = require('../../service');
+import path from 'node:path';
+import fixtures from '@openagenda/fixtures';
+import * as svc from '../../service/index.js';
 
 function fix(config, files, options, cb) {
   fixtures.init({ mysql: config.mysql });
@@ -11,7 +9,7 @@ function fix(config, files, options, cb) {
     [
       {
         table: config.schemas.invitation,
-        src: `${path.dirname(__dirname)}/fixtures/invitation.data.sql`,
+        src: `${path.dirname(import.meta.dirname)}/fixtures/invitation.data.sql`,
       },
     ].filter((f) => files.includes(f.src.split('/').pop().split('.')[0])),
     options,
@@ -43,7 +41,5 @@ function initAndLoad(...args) {
   });
 }
 
-module.exports = {
-  ...svc,
-  initAndLoad,
-};
+export * from '../../service/index.js';
+export { initAndLoad };

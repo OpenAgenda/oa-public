@@ -1,6 +1,4 @@
-'use strict';
+import crypto from 'node:crypto';
 
-const crypto = require('node:crypto');
-
-module.exports = (data) =>
+export default (data) =>
   crypto.createHash('md5').update(JSON.stringify(data)).digest('hex');

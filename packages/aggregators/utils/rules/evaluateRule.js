@@ -1,13 +1,13 @@
-'use strict';
+import logs from '@openagenda/logs';
+import evaluateLocation from './location.js';
+import evaluateLabels from './labels.js';
+import evaluateText from './text.js';
+import evaluateLanguages from './languages.js';
+import evaluateTimings from './timings.js';
 
-const log = require('@openagenda/logs')('utils/rules/evaluateRule');
-const evaluateLocation = require('./location');
-const evaluateLabels = require('./labels');
-const evaluateText = require('./text');
-const evaluateLanguages = require('./languages');
-const evaluateTimings = require('./timings');
+const log = logs('utils/rules/evaluateRule');
 
-module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
+export default (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   if (!data) {
     throw new Error('data is required');
   }

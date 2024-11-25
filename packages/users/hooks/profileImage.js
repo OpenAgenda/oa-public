@@ -1,9 +1,9 @@
-'use strict';
+import logs from '@openagenda/logs';
+import errors from '@feathersjs/errors';
 
-const log = require('@openagenda/logs')('users/hooks/profileImage');
-const { BadRequest } = require('@feathersjs/errors');
+const log = logs('users/hooks/profileImage');
 
-module.exports = function profileImage() {
+export default function profileImage() {
   return async (context) => {
     const { upload } = context.self;
     const { image } = context.data;
@@ -25,7 +25,7 @@ module.exports = function profileImage() {
 
         context.data.image = before.image;
 
-        throw new BadRequest({
+        throw new errors.BadRequest({
           errors: [
             {
               field: 'image',
@@ -43,7 +43,7 @@ module.exports = function profileImage() {
       } catch (e) {
         log.error('error deleting the profile image:', e);
 
-        throw new BadRequest({
+        throw new errors.BadRequest({
           errors: [
             {
               field: 'image',
@@ -57,4 +57,4 @@ module.exports = function profileImage() {
       context.data.image = before.image;
     }
   };
-};
+}

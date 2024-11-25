@@ -281,5 +281,6 @@ export default ({ labels }) => [
     fieldType: 'extIds',
     optional: true,
     display: false,
+    label: labels?.extIds,
   },
 ];

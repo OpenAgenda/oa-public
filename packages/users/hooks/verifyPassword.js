@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import errors from '@feathersjs/errors';
 
-const _ = require('lodash');
-const errors = require('@feathersjs/errors');
-
-module.exports = function verifyPassword(field = 'password') {
+export default function verifyPassword(field = 'password') {
   return async (context) => {
     const validPassword = await context.self.verifyPassword(
       { password: _.get(context.data, field) },
@@ -23,4 +21,4 @@ module.exports = function verifyPassword(field = 'password') {
       });
     }
   };
-};
+}

@@ -1,11 +1,9 @@
-'use strict';
-
-const _ = require('lodash');
-const knexLib = require('knex');
-const redis = require('redis');
-const mw = require('../middleware');
-const testconfig = require('../testconfig');
-const service = require('./service');
+import _ from 'lodash';
+import knexLib from 'knex';
+import redis from 'redis';
+import * as mw from '../middleware.js';
+import testconfig from '../testconfig.js';
+import service from './service/index.js';
 
 describe('keys - middleware', () => {
   let knex;

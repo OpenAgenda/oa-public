@@ -1,4 +1,4 @@
-import memberSchema from '@openagenda/members/build/schema.js';
+import memberSchema from '@openagenda/members/iso/schema.js';
 import { createIntlByLocale } from '@openagenda/intl';
 import * as locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
 import logs from '@openagenda/logs';

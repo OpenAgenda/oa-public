@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const config = require('./config');
-const redis = require('./lib/redis');
-const validateIdentifiers = require('./validators/identifiers');
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import config from './config.js';
+import * as redis from './lib/redis.js';
+import validateIdentifiers from './validators/identifiers.js';
 
 function parse(row) {
   if (!row) return row;
@@ -12,7 +10,7 @@ function parse(row) {
   return _.mapKeys(row, (v, k) => _.camelCase(k));
 }
 
-module.exports = async (...args) => {
+export default async (...args) => {
   let identifiers = args[0];
   const options = args[1];
   const params = _.merge(

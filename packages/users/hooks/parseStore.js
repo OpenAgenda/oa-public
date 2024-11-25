@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import hooksCommon from 'feathers-hooks-common';
 
-const _ = require('lodash');
-const { alterItems } = require('feathers-hooks-common');
+const { alterItems } = hooksCommon;
 
-module.exports = function parseStore() {
+export default function parseStore() {
   return (context) => {
     if (context.result === null) {
       return context;
@@ -14,4 +14,4 @@ module.exports = function parseStore() {
         ? { ...record, store: JSON.parse(record.store || '{}') }
         : record))(context);
   };
-};
+}

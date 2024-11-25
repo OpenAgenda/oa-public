@@ -1,8 +1,6 @@
-'use strict';
+import formatAgenda from './formatAgenda.js';
 
-const formatAgenda = require('./formatAgenda');
-
-module.exports = async ({ getDetailedAgenda, client, alias }, agenda) => {
+export default async ({ getDetailedAgenda, client, alias }, agenda) => {
   const body = await getDetailedAgenda(agenda).then((a) => formatAgenda(a));
   return client.index({
     index: alias,

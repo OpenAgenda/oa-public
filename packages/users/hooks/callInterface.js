@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('users/hooks/callInterface');
+const log = logs('users/hooks/callInterface');
 
-module.exports = function callInterface(name, options) {
+export default function callInterface(name, options) {
   return (context) => {
     const { config } = context.self;
 
@@ -14,4 +14,4 @@ module.exports = function callInterface(name, options) {
 
     return config.interfaces[name](options)(context);
   };
-};
+}

@@ -1,5 +1,5 @@
 import { mw } from '@openagenda/agenda-settings';
-import keysMw from '@openagenda/keys/middleware.js';
+import * as keysMw from '@openagenda/keys/middleware.js';
 import cmn from '../lib/commons-app.js';
 
 export default (app) => {

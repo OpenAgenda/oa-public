@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import hooksCommon from 'feathers-hooks-common';
+import * as crypto from '../utils/crypto.js';
 
-const _ = require('lodash');
-const { alterItems } = require('feathers-hooks-common');
-const crypto = require('../utils/crypto');
+const { alterItems } = hooksCommon;
 
-module.exports = function generateHash(field) {
+export default function generateHash(field) {
   return alterItems((rec) => _.set(rec, field, crypto.randomHash()));
-};
+}

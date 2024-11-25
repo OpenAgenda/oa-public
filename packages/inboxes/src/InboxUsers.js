@@ -2,11 +2,11 @@ import _ from 'lodash';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import VError from '@openagenda/verror';
-import parseListArguments from '@openagenda/service-utils/parseListArguments';
-import mapper from './utils/mapper';
-import inboxUserFieldsMap from './db/inboxUserFieldsMap';
-import { getListSchema } from './validators/inboxUserSchemas';
-import validate from './utils/validate';
+import parseListArguments from '@openagenda/service-utils/parseListArguments.js';
+import mapper from './utils/mapper.js';
+import inboxUserFieldsMap from './db/inboxUserFieldsMap.js';
+import { getListSchema } from './validators/inboxUserSchemas.js';
+import validate from './utils/validate.js';
 
 const ajv = new Ajv({
   allErrors: true,

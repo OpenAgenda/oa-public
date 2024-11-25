@@ -1,9 +1,9 @@
-'use strict';
+import logs from '@openagenda/logs';
+import clean from './clean.js';
 
-const log = require('@openagenda/logs')('extractRules');
-const clean = require('./clean');
+const log = logs('extractRules');
 
-module.exports = function extract(type, identifier, store) {
+export default function extract(type, identifier, store) {
   if (!store) return [];
 
   try {
@@ -12,4 +12,4 @@ module.exports = function extract(type, identifier, store) {
   } catch (e) {
     log('error', 'failed to parse %s store (%s)', type, identifier, e);
   }
-};
+}

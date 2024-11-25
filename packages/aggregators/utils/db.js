@@ -1,10 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import cleanRules from './rules/clean.js';
+import * as limit from './limit.js';
 
-const _ = require('lodash');
-const cleanRules = require('./rules/clean');
-const limit = require('./limit');
-
-module.exports.toEntry = (agg) => {
+export function toEntry(agg) {
   const entry = { review_id: agg.agendaId };
 
   ['createdAt', 'updatedAt', 'limit'].forEach((af) => {
@@ -18,9 +16,9 @@ module.exports.toEntry = (agg) => {
   if (agg.agendaId) entry.review_id = agg.agendaId;
 
   return entry;
-};
+}
 
-module.exports.fromEntry = (entry) => {
+export function fromEntry(entry) {
   const agg = {};
 
   ['created_at', 'updated_at', 'limit'].forEach((ef) => {
@@ -31,4 +29,4 @@ module.exports.fromEntry = (entry) => {
   agg.limit = limit.get(agg);
 
   return agg;
-};
+}

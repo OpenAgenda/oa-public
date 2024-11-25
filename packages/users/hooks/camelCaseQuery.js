@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import deeply from '../utils/deeply.js';
 
-const _ = require('lodash');
-const deeply = require('../utils/deeply');
-
-module.exports = function camelCaseQuery() {
+export default function camelCaseQuery() {
   return (context) =>
     _.set(
       context,
@@ -11,4 +9,4 @@ module.exports = function camelCaseQuery() {
       deeply(_.mapKeys)(_.get(context, 'params.query', {}), (value, key) =>
         (_.startsWith(key, '$') ? key : _.camelCase(key))),
     );
-};
+}

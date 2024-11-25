@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = ({ defaultImage }) =>
+export default ({ defaultImage }) =>
   (agenda, options = {}) => {
     if (options.useDefaultImage && !agenda.image) {
       return {

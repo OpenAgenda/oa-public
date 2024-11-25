@@ -110,7 +110,7 @@ export default async (
   const link = eventLink(root, agenda, event);
   const logo = agendaLogo(agenda);
 
-  const members = await membersSvc.utils.listAllAdminMods(agenda.uid);
+  const members = await membersSvc.listAllAdminMods(agenda.uid);
 
   log('Found %s adminmods', members.length);
 

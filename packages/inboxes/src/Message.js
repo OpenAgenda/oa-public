@@ -3,14 +3,17 @@ import VError from '@openagenda/verror';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import logger from '@openagenda/logs';
-import mapper from './utils/mapper';
-import messageFieldsMap from './db/messageFieldsMap';
-import inboxUserFieldsMap from './db/inboxUserFieldsMap';
-import inboxFieldsMap from './db/inboxFieldsMap';
-import validate from './utils/validate';
-import { identifiersSchema, createSchema } from './validators/messageSchemas';
-import populateDetails from './db/populateDetails';
-import populateAttachments from './db/populateAttachments';
+import mapper from './utils/mapper.js';
+import messageFieldsMap from './db/messageFieldsMap.js';
+import inboxUserFieldsMap from './db/inboxUserFieldsMap.js';
+import inboxFieldsMap from './db/inboxFieldsMap.js';
+import validate from './utils/validate.js';
+import {
+  identifiersSchema,
+  createSchema,
+} from './validators/messageSchemas.js';
+import populateDetails from './db/populateDetails.js';
+import populateAttachments from './db/populateAttachments.js';
 
 const log = logger('conversation/Message');
 

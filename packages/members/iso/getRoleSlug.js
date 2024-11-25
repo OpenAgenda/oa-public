@@ -1,9 +1,7 @@
-'use strict';
+import roleValues from './roleValues.js';
+import toRoleCode from './toRoleCode.js';
 
-const roleValues = require('./roleValues');
-const toRoleCode = require('./toRoleCode');
-
-module.exports = (input, options = {}) => {
+export default (input, options = {}) => {
   const { throwIfUnknown, default: defaultValue } = {
     throwIfUnknown: true,
     default: null,

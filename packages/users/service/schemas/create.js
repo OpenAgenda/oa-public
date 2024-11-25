@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   fullName: {
     type: 'text',
     min: 2,

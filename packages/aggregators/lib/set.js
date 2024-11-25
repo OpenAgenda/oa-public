@@ -1,14 +1,12 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
-const db = require('../utils/db');
-const getAgendaId = require('../utils/getAgendaId');
-const aggregatorExists = require('../utils/aggregatorExists');
-const validate = require('./validate');
+import logs from '@openagenda/logs';
+import * as db from '../utils/db.js';
+import getAgendaId from '../utils/getAgendaId.js';
+import aggregatorExists from '../utils/aggregatorExists.js';
+import validate from './validate.js';
 
 const log = logs('aggregators/set');
 
-module.exports = async (knex, agendaUid, data, options = {}) => {
+export default async (knex, agendaUid, data, options = {}) => {
   const logBundle = {
     agenda: { uid: agendaUid },
   };

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import invitations from '@openagenda/invitations';
+import * as invitations from '@openagenda/invitations';
 import logs from '@openagenda/logs';
 import base64 from '@openagenda/utils/base64.js';
 import agendaLogo from './agendaLogo.js';

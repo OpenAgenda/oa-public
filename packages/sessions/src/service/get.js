@@ -1,8 +1,8 @@
-'use strict';
+import logger from '@openagenda/logs';
+import _ from 'lodash';
+import { cleanSession, callbackify } from './helpers/index.js';
 
-const log = require('@openagenda/logs')('get');
-const _ = require('lodash');
-const { cleanSession, callbackify } = require('./helpers');
+const log = logger('get');
 
 async function _getFromUid(config, uid) {
   const { redisClient } = config;
@@ -40,11 +40,11 @@ async function get(config, uidOrRequest, options = {}) {
   return _getFromRequest(config, uidOrRequest, options);
 }
 
-module.exports = (config, uidOrRequest, o, c) => {
+export default (config, uidOrRequest, o, c) => {
   const cb = c === undefined ? o : c;
   const options = c === undefined ? {} : o;
 
   callbackify(get(config, uidOrRequest, options), cb);
 };
 
-module.exports.promise = get;
+export { get as promise };

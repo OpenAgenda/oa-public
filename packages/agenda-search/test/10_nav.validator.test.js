@@ -1,7 +1,5 @@
-'use strict';
-
-const { BadRequest } = require('@openagenda/verror');
-const navValidator = require('../validators/nav');
+import { BadRequest } from '@openagenda/verror';
+import navValidator from '../validators/nav.js';
 
 describe('10 - validators - nav', () => {
   it('give it nothing and get default nav values', () => {

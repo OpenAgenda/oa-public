@@ -1,9 +1,7 @@
-'use strict';
-
-const _ = require('lodash');
-const { NotFound } = require('@openagenda/verror');
-const cleanGetOptions = require('./lib/cleanGetOptions');
-const { fromDB } = require('./lib/transformDBEntry');
+import _ from 'lodash';
+import { NotFound } from '@openagenda/verror';
+import cleanGetOptions from './lib/cleanGetOptions.js';
+import { fromDB } from './lib/transformDBEntry.js';
 
 const cleanEmail = (email) => email.replace(/‐/g, '-');
 
@@ -113,6 +111,8 @@ async function getByEmail(config, identifier, options = {}) {
   return member;
 }
 
-module.exports = Object.assign(get, {
-  byEmail: getByEmail,
-});
+get.byEmail = getByEmail;
+
+export default get;
+
+export { getByEmail as byEmail };

@@ -1,8 +1,1 @@
-'use strict';
-
-module.exports = [
-  'userPublic',
-  'userPrivate',
-  'agendaPrivate',
-  'agendaFullRead',
-];
+export default ['userPublic', 'userPrivate', 'agendaPrivate', 'agendaFullRead'];

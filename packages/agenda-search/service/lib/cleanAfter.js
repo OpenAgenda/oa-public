@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (query, nav) => {
+export default (query, nav) => {
   if (nav?.sort || query?.search) return nav.after;
 
   const [recentlyAddedEvents, ...rest] = nav.after;

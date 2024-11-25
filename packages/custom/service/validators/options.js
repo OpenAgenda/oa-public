@@ -1,9 +1,7 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const boolean = require('@openagenda/validators/boolean');
-const integer = require('@openagenda/validators/integer');
-const pass = require('@openagenda/validators/pass');
+import schema from '@openagenda/validators/schema/index.js';
+import boolean from '@openagenda/validators/boolean.js';
+import integer from '@openagenda/validators/integer.js';
+import pass from '@openagenda/validators/pass.js';
 
 schema.register({
   boolean,
@@ -11,7 +9,7 @@ schema.register({
   pass,
 });
 
-module.exports = schema({
+export default schema({
   transferToLegacy: {
     type: 'boolean',
     list: { default: false },

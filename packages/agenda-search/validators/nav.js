@@ -1,11 +1,9 @@
-'use strict';
-
-const schemas = require('@openagenda/validators/schema');
-const number = require('@openagenda/validators/number');
-const integer = require('@openagenda/validators/integer');
-const regex = require('@openagenda/validators/regex');
-const text = require('@openagenda/validators/text');
-const { BadRequest } = require('@openagenda/verror');
+import schemas from '@openagenda/validators/schema/index.js';
+import number from '@openagenda/validators/number.js';
+import integer from '@openagenda/validators/integer.js';
+import regex from '@openagenda/validators/regex.js';
+import text from '@openagenda/validators/text.js';
+import { BadRequest } from '@openagenda/verror';
 
 schemas.register({
   number,
@@ -49,7 +47,7 @@ const schema = schemas({
   },
 });
 
-module.exports = (navQuery, options = {}) => {
+export default (navQuery, options = {}) => {
   let clean;
 
   const { maxResultWindow = 10000 } = options;

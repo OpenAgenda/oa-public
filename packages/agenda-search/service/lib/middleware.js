@@ -1,11 +1,12 @@
-'use strict';
+import Rss from 'rss';
+import logs from '@openagenda/logs';
+import makeLabelGetter from '@openagenda/labels';
+import labels from '@openagenda/labels/agenda-search/index.js';
+import url from './url.js';
 
-const Rss = require('rss');
-const log = require('@openagenda/logs')('middleware');
-const getLabel = require('@openagenda/labels')(
-  require('@openagenda/labels/agenda-search/index'),
-);
-const url = require('./url');
+const log = logs('middleware');
+
+const getLabel = makeLabelGetter(labels);
 
 async function rebuild(service, req, res, next) {
   if (req.log) log('info', 'starting agenda search index rebuild');
@@ -97,7 +98,7 @@ function list(service, req, res, next) {
     }, next);
 }
 
-module.exports = (service) => ({
+export default (service) => ({
   rebuild: rebuild.bind(null, service),
   update: update.bind(null, service),
   list: list.bind(null, service),

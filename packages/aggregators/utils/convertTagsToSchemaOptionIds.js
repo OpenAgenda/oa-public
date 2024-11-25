@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (schema, tags = []) => {
+export default (schema, tags = []) => {
   if (!tags || !schema) return null;
 
   const { fields } = schema;

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (filter, data) => {
+export default (filter, data) => {
   if (
     Object.keys(data.title)
       .filter((k) => data.title[k])

@@ -1,8 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-const { parse } = require('node-html-parser');
-const validateOptions = require('../validators/injectEmbedsOptions');
+import _ from 'lodash';
+import { parse } from 'node-html-parser';
+import validateOptions from '../validators/injectEmbedsOptions.js';
 
 function convertScriptToHtml(script, cspNonce) {
   let attributes = Object.keys(script)
@@ -16,7 +14,7 @@ function convertScriptToHtml(script, cspNonce) {
   return `<script ${attributes}></script>`;
 }
 
-module.exports = (html = '', linkEmbedPairs = [], options = {}) => {
+export default (html = '', linkEmbedPairs = [], options = {}) => {
   if (!linkEmbedPairs || !linkEmbedPairs.length) {
     return html;
   }
@@ -26,7 +24,7 @@ module.exports = (html = '', linkEmbedPairs = [], options = {}) => {
   const HTMLWithEmbeds = parse(html)
     .querySelectorAll('a')
     .reduce((injected, aNode) => {
-      if (aNode.rawAttrs.indexOf('href') === -1) {
+      if (!aNode.rawAttrs.includes('href')) {
         return injected;
       }
 

@@ -1,16 +1,17 @@
-'use strict';
+// import fs from 'fs';
+import path from 'node:path';
 
-// const fs = require('fs');
-const path = require('node:path');
-const sinon = require('sinon');
-const tmp = require('tmp');
-const knexLib = require('knex');
-const keysSvc = require('@openagenda/keys/test/service');
-const keysConfig = require('@openagenda/keys/service/config');
-const Files = require('@openagenda/files');
-const crypto = require('../utils/crypto');
-const { service: config, dependencies: dConfig } = require('../testconfig');
-const Service = require('..');
+import sinon from 'sinon';
+import tmp from 'tmp';
+import knexLib from 'knex';
+import keysSvc from '@openagenda/keys/test/service/index.js';
+import keysConfig from '@openagenda/keys/service/config.js';
+import Files from '@openagenda/files';
+import * as crypto from '../utils/crypto.js';
+import testconfig from '../testconfig.js';
+import Service from '../service/index.js';
+
+const { service: config, dependencies: dConfig } = testconfig;
 
 const database = `${config.mysql.database}_service`;
 let knex;
@@ -59,13 +60,15 @@ beforeEach(async () => {
   });
 
   await knex.migrate.latest({
-    directory: path.join(__dirname, '../../keys/migrations'),
+    directory: path.join(import.meta.dirname, '../../keys/migrations'),
     tableName: 'knex_migrations_keys',
   });
   await knex.migrate.latest({
-    directory: path.join(__dirname, '../migrations'),
+    directory: path.join(import.meta.dirname, '../migrations'),
   });
-  await knex.seed.run({ directory: path.join(__dirname, '../seeds') });
+  await knex.seed.run({
+    directory: path.join(import.meta.dirname, '../seeds'),
+  });
 });
 
 afterEach(async () => {

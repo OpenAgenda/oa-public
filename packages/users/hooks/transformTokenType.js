@@ -1,8 +1,6 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-module.exports = function transformTokenType(key) {
+export default function transformTokenType(key) {
   return (context) => {
     const obj = _.get(context, key, {});
 
@@ -19,4 +17,4 @@ module.exports = function transformTokenType(key) {
 
     _.set(context, key, obj);
   };
-};
+}

@@ -1,8 +1,6 @@
-'use strict';
+import extractRules from './rules/extract.js';
 
-const extractRules = require('./rules/extract');
-
-module.exports = (knex, { id }) =>
+export default (knex, { id }) =>
   knex('aggregator as ag')
     .select([
       'r.uid as agendaUid',

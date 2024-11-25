@@ -1,4 +1,4 @@
-import invitationsSvc from '@openagenda/invitations';
+import * as invitationsSvc from '@openagenda/invitations';
 import logs from '@openagenda/logs';
 
 const log = logs('services/users/onCreate');

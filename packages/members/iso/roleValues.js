@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = [
+export default [
   {
     code: 2,
     key: 'ADMINISTRATOR',

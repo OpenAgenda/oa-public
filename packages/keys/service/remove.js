@@ -1,10 +1,8 @@
-'use strict';
+import VError from '@openagenda/verror';
+import config from './config.js';
+import get from './get.js';
 
-const VError = require('@openagenda/verror');
-const config = require('./config');
-const get = require('./get');
-
-module.exports = async (identifiers) => {
+export default async (identifiers) => {
   const { knex, schemas } = config;
 
   if (!knex) throw new VError('Db connector needs to be specified at service init');

@@ -1,6 +1,4 @@
-'use strict';
-
-exports.seed = async (knex) => {
+export async function seed(knex) {
   const { schemas } = knex.client.config;
 
   // Deletes ALL existing entries
@@ -32,4 +30,4 @@ exports.seed = async (knex) => {
       created_at: '2017-08-01 14:54:49',
     },
   ]);
-};
+}

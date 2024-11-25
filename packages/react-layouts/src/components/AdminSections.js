@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { useIntl, defineMessages } from 'react-intl';
 import { useSelector } from 'react-redux';
-import compareRoles from '@openagenda/members/build/compareRoles.js';
+import * as compareRoles from '@openagenda/members/iso/compareRoles.js';
 
 import AgendaSystemMenu from './AgendaSystemMenu.js';
 

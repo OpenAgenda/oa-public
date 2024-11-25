@@ -1,17 +1,15 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import serviceCreate from '../create.js';
+import serviceUpdate from '../update.js';
+import serviceGet from '../get.js';
+import serviceRemove from '../remove.js';
+import load from './load.js';
+import serviceCategories from './categories.js';
+import serviceCustom from './custom.js';
+import serviceTags from './tags.js';
 
-const _ = require('lodash');
-
-const log = require('@openagenda/logs')('legacy/transfer');
-
-const serviceCreate = require('../create');
-const serviceUpdate = require('../update');
-const serviceGet = require('../get');
-const serviceRemove = require('../remove');
-const load = require('./load');
-const serviceCategories = require('./categories');
-const serviceCustom = require('./custom');
-const serviceTags = require('./tags');
+const log = logs('legacy/transfer');
 
 const libs = {
   categories: serviceCategories,
@@ -98,6 +96,6 @@ async function transfer(formSchemaId, identifier, defaultAgendaId = null) {
   }
 }
 
-module.exports = _.assign(transfer, {
+export default _.assign(transfer, {
   parse,
 });

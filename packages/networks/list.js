@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import VError from '@openagenda/verror';
 
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-
-module.exports = async ({ knex, schema }) => {
+export default async ({ knex, schema }) => {
   if (!knex) throw new VError('service is not initialized');
 
   return (await knex(schema)).map((n) =>

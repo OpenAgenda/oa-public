@@ -1,17 +1,15 @@
-'use strict';
-
-exports.up = async (knex) => {
+export async function up(knex) {
   const { schemas } = knex.client.config;
 
   await knex.schema.alterTable(schemas.conversation, (t) => {
     t.string('type_identifier', 100).alter();
   });
-};
+}
 
-exports.down = async (knex) => {
+export async function down(knex) {
   const { schemas } = knex.client.config;
 
   await knex.schema.alterTable(schemas.conversation, (t) => {
     t.bigInteger('type_identifier').alter();
   });
-};
+}

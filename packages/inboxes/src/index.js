@@ -1,15 +1,15 @@
 import _ from 'lodash';
 
-import Inbox from './Inbox';
-import InboxUsers from './InboxUsers';
-import InboxUser from './InboxUser';
-import Conversations from './Conversations';
-import Conversation from './Conversation';
-import Messages from './Messages';
-import Message from './Message';
-import EmailUtils from './EmailUtils/index';
-import * as tasks from './tasks';
-import makeConfig from './config';
+import Inbox from './Inbox.js';
+import InboxUsers from './InboxUsers.js';
+import InboxUser from './InboxUser.js';
+import Conversations from './Conversations.js';
+import Conversation from './Conversation.js';
+import Messages from './Messages.js';
+import Message from './Message.js';
+import EmailUtils from './EmailUtils/index.js';
+import * as tasks from './tasks/index.js';
+import makeConfig from './config.js';
 
 export default async function createService(conf) {
   const config = await makeConfig(conf);

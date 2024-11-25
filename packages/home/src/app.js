@@ -21,6 +21,8 @@ const defaults = {
     },
     menu: {},
     agendas: {},
+    events: {},
+    modals: {},
   },
 };
 

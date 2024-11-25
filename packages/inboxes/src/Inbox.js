@@ -3,10 +3,13 @@ import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import VError from '@openagenda/verror';
 import logger from '@openagenda/logs';
-import mapper from './utils/mapper';
-import fieldsMap from './db/inboxFieldsMap';
-import validate from './utils/validate';
-import { getIdentifiersSchema, createSchema } from './validators/inboxSchemas';
+import mapper from './utils/mapper.js';
+import fieldsMap from './db/inboxFieldsMap.js';
+import validate from './utils/validate.js';
+import {
+  getIdentifiersSchema,
+  createSchema,
+} from './validators/inboxSchemas.js';
 
 const log = logger('inboxes/Inbox');
 

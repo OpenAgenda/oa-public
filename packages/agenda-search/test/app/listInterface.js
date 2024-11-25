@@ -1,11 +1,12 @@
-'use strict';
+import fs from 'node:fs';
+import _ from 'lodash';
 
-const fs = require('node:fs');
-const _ = require('lodash');
-
-module.exports = (suffix = 'test') => {
+export default (suffix = 'test') => {
   const agendas = JSON.parse(
-    fs.readFileSync(`${__dirname}/../fixtures/agendas.${suffix}.json`, 'utf-8'),
+    fs.readFileSync(
+      `${import.meta.dirname}/../fixtures/agendas.${suffix}.json`,
+      'utf-8',
+    ),
   );
 
   return async (query, lastId, limit) => {

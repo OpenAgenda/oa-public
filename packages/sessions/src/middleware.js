@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const cookieSessionLib = require('cookie-session');
-const cookieParserLib = require('cookie-parser');
-const onHeaders = require('on-headers');
-const validateCookie = require('../iso/cookie.validate');
+import _ from 'lodash';
+import cookieSessionLib from 'cookie-session';
+import cookieParserLib from 'cookie-parser';
+import onHeaders from 'on-headers';
+import { validateUnlogged } from './iso/cookie.validate.js';
 
 function _logLoad(req, data) {
   if (req.log && req.log.load) {
@@ -66,8 +64,8 @@ function use(config, { cookieSession, cookieParser }, req, res, next) {
         return next();
       }
 
-      Object.keys(validateCookie.validateUnlogged.default).forEach((k) => {
-        req.session[k] = validateCookie.validateUnlogged.default[k];
+      Object.keys(validateUnlogged.default).forEach((k) => {
+        req.session[k] = validateUnlogged.default[k];
       });
 
       next();
@@ -144,7 +142,7 @@ function sync({ sessions }, targetNamespace = 'result') {
   };
 }
 
-module.exports = (sessions, config) => {
+export default (sessions, config) => {
   const cookieSession = cookieSessionLib(config.sessionCookie);
   const cookieParser = cookieParserLib();
 

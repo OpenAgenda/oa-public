@@ -1,8 +1,6 @@
-'use strict';
+import errors from '@feathersjs/errors';
 
-const errors = require('@feathersjs/errors');
-
-module.exports = function searchKeyword() {
+export default function searchKeyword() {
   return (context) => {
     if ('$search' in context.params.query) {
       const search = context.params.query.$search;
@@ -24,4 +22,4 @@ module.exports = function searchKeyword() {
 
     return context;
   };
-};
+}

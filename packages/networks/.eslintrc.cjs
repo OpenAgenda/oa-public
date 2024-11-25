@@ -4,26 +4,23 @@ module.exports = {
   extends: '../../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: [
-          `${__dirname}/test/**/*.js`,
-          `${__dirname}/server.dev.js`,
-        ],
+        devDependencies: [`${__dirname}/test/**/*.js`],
       },
     ],
   },
 
   overrides: [
     {
-      files: ['server.dev.js'],
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

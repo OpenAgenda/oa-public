@@ -35,6 +35,7 @@
   "markdownFieldTypeInfo": "Enriched text field (markdown)",
   "integerFieldType": "Integer number",
   "emailFieldType": "Email",
+  "phoneFieldType": "Phone number",
   "linkFieldType": "Hyperlink",
   "textMultilingualFieldType": "Multilingual text",
   "checkboxFieldType": "Multiple checkbox selection",

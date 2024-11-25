@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export async function up(knex) {
   const { schemas } = knex.client.config;
 
   const exists = await knex.schema.hasTable(schemas.user);
@@ -53,10 +51,10 @@ exports.up = async (knex) => {
       MODIFY \`id\` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91514;
     `);
   }
-};
+}
 
-exports.down = (knex) => {
+export function down(knex) {
   const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists(schemas.user);
-};
+}

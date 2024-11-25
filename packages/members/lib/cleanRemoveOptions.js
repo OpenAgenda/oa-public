@@ -1,13 +1,11 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const pass = require('@openagenda/validators/pass');
+import schema from '@openagenda/validators/schema/index.js';
+import pass from '@openagenda/validators/pass.js';
 
 schema.register({
   pass,
 });
 
-module.exports = schema({
+export default schema({
   context: {
     user: {
       // user triggering the remove

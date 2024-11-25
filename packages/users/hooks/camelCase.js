@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import hooksCommon from 'feathers-hooks-common';
 
-const _ = require('lodash');
-const { alterItems } = require('feathers-hooks-common');
+const { alterItems } = hooksCommon;
 
-module.exports = function camelCase() {
+export default function camelCase() {
   return (context) => {
     if (context.result === null) {
       return context;
@@ -12,4 +12,4 @@ module.exports = function camelCase() {
     return alterItems((record) =>
       _.mapKeys(record, (value, key) => _.camelCase(key)))(context);
   };
-};
+}

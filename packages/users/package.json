@@ -7,9 +7,10 @@
   },
   "license": "ISC",
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/users",
+  "type": "module",
   "main": "service/index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --forceExit"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --detectOpenHandles --forceExit"
   },
   "dependencies": {
     "@feathersjs/errors": "^4.5.1",

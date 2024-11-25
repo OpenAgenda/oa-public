@@ -1,16 +1,14 @@
-'use strict';
+import logger from '@openagenda/logs';
+import get from './get.js';
+import list from './list.js';
+import stream from './stream.js';
+import create from './create.js';
+import patch from './patch.js';
+import remove from './remove.js';
+import setByEmail from './setByEmail.js';
+import * as utils from './utils.js';
 
-const logger = require('@openagenda/logs');
-const get = require('./get');
-const list = require('./list');
-const stream = require('./stream');
-const create = require('./create');
-const patch = require('./patch');
-const remove = require('./remove');
-const setByEmail = require('./setByEmail');
-const utils = require('./utils');
-
-module.exports = (options = {}) => {
+function Service(options = {}) {
   const config = {
     knex: null,
     schema: 'member',
@@ -45,6 +43,10 @@ module.exports = (options = {}) => {
     task: setByEmail.task.bind(null, config),
     utils,
   };
-};
+}
 
-module.exports.utils = utils;
+Service.utils = utils;
+
+export default Service;
+
+export { utils };

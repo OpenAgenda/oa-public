@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import errors from '@feathersjs/errors';
 
-const _ = require('lodash');
-const errors = require('@feathersjs/errors');
-
-module.exports = function checkUnicity(field, dataKey = `data.${field}`) {
+export default function checkUnicity(field, dataKey = `data.${field}`) {
   return async (context) => {
     if (!_.get(context, dataKey)) {
       return;
@@ -20,4 +18,4 @@ module.exports = function checkUnicity(field, dataKey = `data.${field}`) {
       throw new errors.BadRequest('Already exist');
     }
   };
-};
+}

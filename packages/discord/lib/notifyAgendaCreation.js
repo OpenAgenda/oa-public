@@ -1,8 +1,6 @@
-'use strict';
+import Discord from 'discord.js';
 
-const Discord = require('discord.js');
-
-module.exports = (channel) => (agenda, user) => {
+export default (channel) => (agenda, user) => {
   const { uid, title } = agenda;
   const { fullName, email, uid: userUid } = user;
   const embed = new Discord.MessageEmbed()

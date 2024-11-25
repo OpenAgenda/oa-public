@@ -468,8 +468,8 @@ describe('validate', () => {
           {
             timings: [
               {
-                begin: '2024-09-06T08:00:00.000Z',
-                end: '2024-09-06T10:00:00.000Z',
+                begin: '2034-09-06T08:00:00.000Z',
+                end: '2034-09-06T10:00:00.000Z',
               },
             ],
           },
@@ -508,7 +508,7 @@ describe('validate', () => {
               {
                 priceCategoryId: 0,
                 quantity: 456,
-                timingId: 1725609600000,
+                timingId: 2041142400000,
                 id: 2,
               },
             ],

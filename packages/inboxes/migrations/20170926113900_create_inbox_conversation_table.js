@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export async function up(knex) {
   const { schemas } = knex.client.config;
 
   if (await knex.schema.hasTable(schemas.inboxConversation)) {
@@ -23,10 +21,10 @@ exports.up = async (knex) => {
       .references(`${schemas.inbox}.id`)
       .onDelete('CASCADE');
   });
-};
+}
 
-exports.down = (knex) => {
+export function down(knex) {
   const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists(schemas.inboxConversation);
-};
+}

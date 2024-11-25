@@ -1,8 +1,8 @@
-import generateMailBundle from './generateMailBundle';
-import insertMessageId from './insertMessageId';
-import listMessageIds from './listMessageIds';
-import listReplyTos from './listReplyTos';
-import insertReplyTo from './insertReplyTo';
+import generateMailBundle from './generateMailBundle.js';
+import insertMessageId from './insertMessageId.js';
+import listMessageIds from './listMessageIds.js';
+import listReplyTos from './listReplyTos.js';
+import insertReplyTo from './insertReplyTo.js';
 
 export default function EmailUtils({ knex, schemas, mailsDomain }) {
   return (conversationId) => ({

@@ -1,6 +1,5 @@
-'use strict';
-
-const redis = require('redis');
+import redis from 'redis';
+import sCache from '../index.js';
 
 const config = {
   redis: {
@@ -9,8 +8,6 @@ const config = {
   },
   prefix: process.env.PREFIX,
 };
-
-const sCache = require('..');
 
 describe('simple-cache - functional (service): get', () => {
   let cache;

@@ -3,16 +3,16 @@ import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import ajvKeywords from 'ajv-keywords';
 import VError from '@openagenda/verror';
-import parseListArguments from '@openagenda/service-utils/parseListArguments';
-import mapper from './utils/mapper';
-import validate from './utils/validate';
-import conversationFieldsMap from './db/conversationFieldsMap';
-import inboxUserFieldsMap from './db/inboxUserFieldsMap';
-import inboxFieldsMap from './db/inboxFieldsMap';
-import populateParticipants from './db/populateParticipants';
-import populateLatestMessage from './db/populateLatestMessage';
-import populateDetails from './db/populateDetails';
-import { listSchema } from './validators/conversationSchemas';
+import parseListArguments from '@openagenda/service-utils/parseListArguments.js';
+import mapper from './utils/mapper.js';
+import validate from './utils/validate.js';
+import conversationFieldsMap from './db/conversationFieldsMap.js';
+import inboxUserFieldsMap from './db/inboxUserFieldsMap.js';
+import inboxFieldsMap from './db/inboxFieldsMap.js';
+import populateParticipants from './db/populateParticipants.js';
+import populateLatestMessage from './db/populateLatestMessage.js';
+import populateDetails from './db/populateDetails.js';
+import { listSchema } from './validators/conversationSchemas.js';
 
 const ajv = new Ajv({
   allErrors: true,

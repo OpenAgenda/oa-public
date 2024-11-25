@@ -1,13 +1,10 @@
-'use strict';
-
-const fs = require('node:fs');
-
-const addSource = require('../lib/addSource');
-const loadSourceEvaluates = require('../lib/loadSourceEvaluates');
+import fs from 'node:fs';
+import addSource from '../lib/addSource.js';
+import loadSourceEvaluates from '../lib/loadSourceEvaluates.js';
 
 function _getJSON(relativePath) {
   return JSON.parse(
-    fs.readFileSync(`${__dirname}/${relativePath}.json`, 'utf-8'),
+    fs.readFileSync(`${import.meta.dirname}/${relativePath}.json`, 'utf-8'),
   );
 }
 

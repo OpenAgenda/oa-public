@@ -1,14 +1,12 @@
-'use strict';
-
 const { promisify } = require('node:util');
 const fs = require('node:fs');
 const _ = require('lodash');
 const knex = require('knex');
+const mysql = require('mysql');
 
 const mysqlKnex = knex({
   client: 'mysql',
 });
-const mysql = require('mysql');
 
 function _parseJSON(fx) {
   return mysqlKnex(fx.path.split('.').shift()).insert(JSON.parse(fx.content));
@@ -31,7 +29,7 @@ async function _load(config, files) {
     .map((f) => ({
       path: f,
       type: f.split('.').pop(),
-      content: fs.readFileSync(`${__dirname}/${f}`, 'utf-8'),
+      content: fs.readFileSync(`${import.meta.dirname}/${f}`, 'utf-8'),
     }))
     .map((fx) => (fx.type === 'sql' ? _parseSQL : _parseJSON)(fx))
     .join(';\n')};`;
@@ -51,7 +49,7 @@ async function _load(config, files) {
   };
 }
 
-module.exports = (dbConfig) => {
+export default (dbConfig) => {
   const client = knex({
     client: 'mysql',
     connection: {

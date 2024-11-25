@@ -1,10 +1,10 @@
-'use strict';
+import hooksCommon from 'feathers-hooks-common';
 
-const { alterItems } = require('feathers-hooks-common');
+const { alterItems } = hooksCommon;
 
 const getOriginal = (fn) => (fn.original ? getOriginal(fn.original) : fn);
 
-module.exports = function populateAccountTypes() {
+export default function populateAccountTypes() {
   return (context) => {
     if (context.result === null) {
       return context;
@@ -27,4 +27,4 @@ module.exports = function populateAccountTypes() {
       });
     })(context);
   };
-};
+}

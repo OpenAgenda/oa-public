@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const slug = require('slugify');
+import _ from 'lodash';
+import slug from 'slugify';
 
 const map = {
   id: 'id',
@@ -61,10 +59,10 @@ function _legacyCustomFromDB(store) {
   return _.mapKeys(data, (v, k) => _.camelCase(k));
 }
 
-module.exports.fromDB = (
+export function fromDB(
   { includeLegacyFields, orderField, customDataAtRoot },
   entry,
-) => {
+) {
   if (!entry) return null;
 
   return Object.keys(entry)
@@ -94,9 +92,9 @@ module.exports.fromDB = (
         invited: !mapped.deletedUser && !mapped.userId && !mapped.userUid,
       });
     }, {});
-};
+}
 
-module.exports.toDB = (member) => {
+export function toDB(member) {
   const allFields = { ...map, ...legacyFieldsMap };
 
   const entry = _.uniq(dbFields.concat(legacyDbFields))
@@ -115,4 +113,4 @@ module.exports.toDB = (member) => {
   }
 
   return entry;
-};
+}

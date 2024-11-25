@@ -1,8 +1,6 @@
-'use strict';
-
-const DiscordClient = require('discord.js');
-const notifyUserCreation = require('./lib/notifyUserCreation');
-const notifyAgendaCreation = require('./lib/notifyAgendaCreation');
+import DiscordClient from 'discord.js';
+import notifyUserCreation from './lib/notifyUserCreation.js';
+import notifyAgendaCreation from './lib/notifyAgendaCreation.js';
 
 const initializeClient = (config) =>
   new Promise((rs) => {
@@ -18,7 +16,7 @@ const noopSvc = async () => ({
   notifyAgendaCreation: async () => null,
 });
 
-module.exports = async (config = {}) => {
+export default async (config = {}) => {
   if (!config?.token) {
     return noopSvc();
   }

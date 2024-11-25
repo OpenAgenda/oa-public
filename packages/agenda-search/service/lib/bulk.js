@@ -1,8 +1,8 @@
-'use strict';
+import logs from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('bulk');
+const log = logs('bulk');
 
-module.exports = async ({ client, index, operation }, agendas) => {
+export default async ({ client, index, operation }, agendas) => {
   if (!agendas.length) return 0;
 
   const result = await client.bulk({

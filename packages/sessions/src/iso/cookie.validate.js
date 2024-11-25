@@ -1,14 +1,11 @@
-'use strict';
-
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-
-const choiceValidator = require('@openagenda/validators/choice');
-const integerValidator = require('@openagenda/validators/integer');
-const textValidator = require('@openagenda/validators/text');
-const linkValidator = require('@openagenda/validators/link');
-const dateValidator = require('@openagenda/validators/date');
-const booleanValidator = require('@openagenda/validators/boolean');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import choiceValidator from '@openagenda/validators/choice.js';
+import integerValidator from '@openagenda/validators/integer.js';
+import textValidator from '@openagenda/validators/text.js';
+import linkValidator from '@openagenda/validators/link.js';
+import dateValidator from '@openagenda/validators/date.js';
+import booleanValidator from '@openagenda/validators/boolean.js';
 
 schema.register({
   choice: choiceValidator,
@@ -89,8 +86,6 @@ function validate(dirty) {
 
 const validateWritable = schema(writableFields);
 
-module.exports = Object.assign(validate, {
-  validateLogged,
-  validateUnlogged,
-  writable: validateWritable,
-});
+export default validate;
+
+export { validateLogged, validateUnlogged, validateWritable as writable };

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * here we pretend-queue
  */
@@ -26,7 +24,7 @@ function on(action, fn) {
   ons[action] = fn;
 }
 
-module.exports = Object.assign(
+export default Object.assign(
   () =>
     Object.assign(queue, {
       run,

@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import knexLib from 'knex';
 import fixtures from '@openagenda/fixtures';
-import testconfig from '../testconfig';
-import init, { initAndLoad, seed } from './service';
+import testconfig from '../testconfig.js';
+import init, { initAndLoad, seed } from './service/index.js';
+
+const { jest } = import.meta;
 
 const database = `${testconfig.mysql.database}_Conversation`;
 const tables = [

@@ -1,20 +1,17 @@
-'use strict';
-
-const fs = require('node:fs');
-const { promisify } = require('node:util');
-const _ = require('lodash');
-const knex = require('knex');
-const mysql = require('mysql');
-
-const members = require('./members.json');
+import fs from 'node:fs';
+import { promisify } from 'node:util';
+import _ from 'lodash';
+import knex from 'knex';
+import mysql from 'mysql';
+import members from './members.json';
 
 function _sql() {
   const k = knex({ client: 'mysql' });
 
   const raw = [
-    fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8'),
+    fs.readFileSync(`${import.meta.dirname}/reset.sql`, 'utf-8'),
     fs
-      .readFileSync(`${__dirname}/../../model.sql`, 'utf-8')
+      .readFileSync(`${import.meta.dirname}/../../model.sql`, 'utf-8')
       // eslint-disable-next-line no-template-curly-in-string
       .replace('${schema}', 'member'),
   ];
@@ -37,7 +34,7 @@ async function _load(dbConfig) {
   con.end();
 }
 
-module.exports = (dbConfig) => {
+export default (dbConfig) => {
   const client = knex({
     client: 'mysql',
     connection: {

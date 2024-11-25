@@ -1,12 +1,11 @@
-'use strict';
+import logs from '@openagenda/logs';
+import getSourceAndAggregatorPairs from '../utils/getSourceAndAggregatorPairs.js';
 
-const log = require('@openagenda/logs')('dispatch');
-
-const getSourceAndAggregatorPairs = require('../utils/getSourceAndAggregatorPairs');
+const log = logs('dispatch');
 
 const DEFAULT_LIMIT = 365;
 
-module.exports = async ({ queue, knex }, action, data) => {
+export default async ({ queue, knex }, action, data) => {
   log('dispatch');
   const { agenda } = data;
 

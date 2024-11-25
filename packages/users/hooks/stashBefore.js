@@ -1,9 +1,9 @@
-'use strict';
+import errors from '@feathersjs/errors';
+import hooksCommon from 'feathers-hooks-common';
 
-const errors = require('@feathersjs/errors');
-const { checkContext } = require('feathers-hooks-common');
+const { checkContext } = hooksCommon;
 
-module.exports = function stashBefore(prop, additionalParams = {}) {
+export default function stashBefore(prop, additionalParams = {}) {
   const beforeField = prop || 'before';
 
   return (context) => {
@@ -47,4 +47,4 @@ module.exports = function stashBefore(prop, additionalParams = {}) {
       return context;
     });
   };
-};
+}

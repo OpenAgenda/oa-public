@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import extractRules from '../rules/extract.js';
 
-const _ = require('lodash');
-const extractRules = require('../rules/extract');
-
-module.exports = async ({ knex, getAgendasByUids }, sourceId, options = {}) => {
+export default async ({ knex, getAgendasByUids }, sourceId, options = {}) => {
   const { detailed } = {
     detailed: false,
     ...options,

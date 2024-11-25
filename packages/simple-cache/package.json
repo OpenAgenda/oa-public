@@ -2,9 +2,10 @@
   "name": "@openagenda/simple-cache",
   "version": "2.1.0",
   "description": "Redis wrapper to provide simple to use interface for http caching.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand --forceExit"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit"
   },
   "keywords": [],
   "author": "",

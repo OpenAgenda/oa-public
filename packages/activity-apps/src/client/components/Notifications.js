@@ -3,7 +3,7 @@ import { defineMessages, IntlProvider, useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import moment from 'moment';
-import sessions from '@openagenda/sessions/client.js';
+import sessions from '@openagenda/sessions/client';
 import { Spinner } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import commonLocales from '@openagenda/common-labels';

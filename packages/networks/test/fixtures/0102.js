@@ -1,12 +1,12 @@
-'use strict';
+import fs from 'node:fs';
+import knexLib from 'knex';
 
-const fs = require('node:fs');
-const knex = require('knex')({ client: 'mysql' });
+const knex = knexLib({ client: 'mysql' });
 
 const raw = [
-  fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8'),
+  fs.readFileSync(`${import.meta.dirname}/reset.sql`, 'utf-8'),
   fs
-    .readFileSync(`${__dirname}/../../model.sql`, 'utf-8')
+    .readFileSync(`${import.meta.dirname}/../../model.sql`, 'utf-8')
     // eslint-disable-next-line no-template-curly-in-string
     .replace('${schema}', 'network'),
 ];
@@ -37,4 +37,4 @@ raw.push(
   ]),
 );
 
-module.exports = raw.join('\n');
+export default raw.join('\n');

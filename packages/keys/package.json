@@ -2,9 +2,10 @@
   "name": "@openagenda/keys",
   "version": "2.2.10",
   "description": "",
+  "type": "module",
   "main": "service/index.js",
   "scripts": {
-    "test": "jest --runInBand --detectOpenHandles --forceExit"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -31,5 +32,8 @@
     "knex": "^2.4.2",
     "mysql": "^2.18.1",
     "sinon": "^8.1.1"
+  },
+  "jest": {
+    "transform": {}
   }
 }

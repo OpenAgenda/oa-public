@@ -11,14 +11,17 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: [`${__dirname}/passCulture/test/**/*.js`],
+        devDependencies: [
+          `${__dirname}/test/**/*.js`,
+          `${__dirname}/scripts/**/*.js`,
+        ],
       },
     ],
   },
 
   overrides: [
     {
-      files: ['*.cjs'],
+      files: ['**/*.cjs'],
       parserOptions: {
         sourceType: 'script',
       },

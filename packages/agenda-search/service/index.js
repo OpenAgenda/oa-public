@@ -1,16 +1,13 @@
-'use strict';
+import es from '@elastic/elasticsearch';
+import logger from '@openagenda/logs';
+import cleanIndexedAgenda from './lib/cleanIndexedAgenda.js';
+import mw from './lib/middleware.js';
+import resyncUpdated from './lib/resyncUpdated.js';
+import rebuild from './lib/rebuild.js';
+import list from './lib/list.js';
+import set from './lib/set.js';
 
-const es = require('@elastic/elasticsearch');
-const logger = require('@openagenda/logs');
-
-const cleanIndexedAgenda = require('./lib/cleanIndexedAgenda');
-const mw = require('./lib/middleware');
-const resyncUpdated = require('./lib/resyncUpdated');
-const rebuild = require('./lib/rebuild');
-const list = require('./lib/list');
-const set = require('./lib/set');
-
-module.exports = (config = {}) => {
+export default (config = {}) => {
   const {
     alias,
     getDetailedAgenda,

@@ -1,11 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import hooksCommon from 'feathers-hooks-common';
+// import fields from '../service/fields';
 
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-const { alterItems } = require('feathers-hooks-common');
-// const fields = require( '../service/fields' );
+const { alterItems } = hooksCommon;
 
-module.exports = function validate(_schema) {
+export default function validate(_schema) {
   return (context) => {
     const _coerce = schema(
       _schema,
@@ -22,4 +22,4 @@ module.exports = function validate(_schema) {
       return rec;
     })(context);
   };
-};
+}

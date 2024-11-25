@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import logger from '@openagenda/logs';
+import validator from '../validator.js';
+import cookieValidate from '../../iso/cookie.validate.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('helpers');
-const validator = require('../validator');
-const cookieValidate = require('../../../iso/cookie.validate');
+const log = logger('helpers');
 
 function callbackify(p, cb) {
   p.then(
@@ -83,9 +83,4 @@ function generateSessionUser(config, user) {
   }
 }
 
-module.exports = {
-  cleanSession,
-  callbackify,
-  getUser,
-  generateSessionUser,
-};
+export { cleanSession, callbackify, getUser, generateSessionUser };

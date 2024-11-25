@@ -1,6 +1,4 @@
-'use strict';
-
-const { callbackify } = require('./helpers');
+import { callbackify } from './helpers/index.js';
 
 async function scan(config, cursor, limit) {
   let iterationFetches = [];
@@ -71,7 +69,7 @@ function extractArgs([config, cursor, count, options, cb]) {
   };
 }
 
-module.exports = function callbackifiedScan(...args) {
+export default function callbackifiedScan(...args) {
   const { config, cursor, count, options, cb } = extractArgs(args);
 
   callbackify(scan(config, cursor, count, options), (err, r) => {
@@ -79,4 +77,4 @@ module.exports = function callbackifiedScan(...args) {
 
     cb(null, r.sessions, r.cursor);
   });
-};
+}

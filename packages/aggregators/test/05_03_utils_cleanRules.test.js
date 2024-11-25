@@ -1,7 +1,5 @@
-'use strict';
-
-const cleanRule = require('../utils/rules/clean');
-const dirtyLocationRule = require('./fixtures/dirtyLocationRule.json');
+import cleanRule from '../utils/rules/clean.js';
+import dirtyLocationRule from './fixtures/dirtyLocationRule.json';
 
 describe('05 - utils - rules - clean', () => {
   test('transform object is parsed to list of actions', () => {

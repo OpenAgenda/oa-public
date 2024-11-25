@@ -1,12 +1,10 @@
-'use strict';
-
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-const choice = require('@openagenda/validators/choice');
-const text = require('@openagenda/validators/text');
-const boolean = require('@openagenda/validators/boolean');
-const roles = require('../iso/roles');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import integer from '@openagenda/validators/integer.js';
+import choice from '@openagenda/validators/choice.js';
+import text from '@openagenda/validators/text.js';
+import boolean from '@openagenda/validators/boolean.js';
+import roles from '../iso/roles.js';
 
 schema.register({
   integer,
@@ -76,7 +74,7 @@ function _extractLegacyParts(query) {
   return legacyParts;
 }
 
-module.exports = (k, query) => {
+export default (k, query) => {
   const legacyParts = _extractLegacyParts(query);
 
   const {

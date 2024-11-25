@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import _fields from '../service/fields.js';
 
-const _ = require('lodash');
-const _fields = require('../service/fields');
-
-module.exports = function detailedParamHook() {
+export default function detailedParamHook() {
   return (context) => {
     context.params.query = context.params.query || {};
 
@@ -16,4 +14,4 @@ module.exports = function detailedParamHook() {
 
     return context;
   };
-};
+}

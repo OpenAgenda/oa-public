@@ -625,4 +625,8 @@ module.exports = {
     io: 'crwdns33358:0crwdne33358:0',
     oc: '(Pas cap valor)',
   },
+  extIds: {
+    fr: 'Identifiants externe',
+    en: 'External identifiers',
+  },
 };

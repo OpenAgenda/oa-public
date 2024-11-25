@@ -1,8 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-const roleValues = require('../iso/roleValues');
-const cleanNav = require('./cleanNav');
+import _ from 'lodash';
+import roleValues from '../iso/roleValues.js';
+import cleanNav from './cleanNav.js';
 
 const rolesOrder = roleValues.map((v) => v.code);
 
@@ -50,7 +48,7 @@ function orderBy(k, after, column, orderDirection) {
   }
 }
 
-module.exports = (k, nav) => {
+export default (k, nav) => {
   const { after, offset, limit, page, order } = cleanNav(nav);
 
   const [orderField, orderDirection] = order.split('.');

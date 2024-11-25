@@ -1,8 +1,6 @@
-'use strict';
+import Discord from 'discord.js';
 
-const Discord = require('discord.js');
-
-module.exports = (channel) => (user) => {
+export default (channel) => (user) => {
   const { fullName, email, uid } = user;
   const embed = new Discord.MessageEmbed()
     .setColor('#0d944a')

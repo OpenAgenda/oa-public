@@ -1,7 +1,5 @@
-'use strict';
-
-const dateValidator = require('@openagenda/validators/date');
-const schema = require('@openagenda/validators/schema');
+import dateValidator from '@openagenda/validators/date.js';
+import schema from '@openagenda/validators/schema/index.js';
 
 schema.register({
   date: dateValidator,
@@ -115,7 +113,7 @@ function clean(dirty) {
   return rule;
 }
 
-module.exports = (dirty = []) => {
+export default (dirty = []) => {
   if (dirty instanceof Array) {
     return dirty.map(clean);
   }

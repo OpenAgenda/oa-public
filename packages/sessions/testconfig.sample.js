@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   sessionCookie: {
     name: 'oa',
     keys: ['dsqfdsq', 'fdqfdsqfdsf', 'dsfdss'],

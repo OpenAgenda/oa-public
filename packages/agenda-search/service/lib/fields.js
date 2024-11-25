@@ -1,5 +1,3 @@
-'use strict';
-
 const searchFields = [
   {
     field: 'image',
@@ -101,11 +99,11 @@ function buildPaths(fields, options = {}) {
   }, []);
 }
 
-function defineIncludes(fields, options = {}) {
+function _defineIncludes(fields, options = {}) {
   return fields.reduce((includes, field) => {
     if (field.fields) {
       return includes.concat(
-        defineIncludes(field.fields, {
+        _defineIncludes(field.fields, {
           ...options,
           path: (options.path || []).concat(field.field),
         }),
@@ -150,7 +148,8 @@ function defineIncludes(fields, options = {}) {
   }, []);
 }
 
-module.exports.defineIncludes = (options) =>
-  defineIncludes(searchFields, options);
+export function defineIncludes(options) {
+  return _defineIncludes(searchFields, options);
+}
 
-module.exports.paths = buildPaths(searchFields);
+export const paths = buildPaths(searchFields);

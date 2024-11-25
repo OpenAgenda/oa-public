@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import mapper from '../utils/mapper';
-import populateDetails from './populateDetails';
-import inboxFieldsMap from './inboxFieldsMap';
+import mapper from '../utils/mapper.js';
+import populateDetails from './populateDetails.js';
+import inboxFieldsMap from './inboxFieldsMap.js';
 
 export default async function populateParticipants(svc, entities) {
   const { knex, schemas } = svc.config;

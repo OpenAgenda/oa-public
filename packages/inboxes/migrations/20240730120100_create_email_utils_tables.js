@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export async function up(knex) {
   const { schemas } = knex.client.config;
 
   const { emailUtilsMessageIds, emailUtilsReplyTos } = schemas;
@@ -25,11 +23,11 @@ exports.up = async (knex) => {
       t.index('conversation_id');
     });
   }
-};
+}
 
-exports.down = async (knex) => {
+export async function down(knex) {
   const { schemas } = knex.client.config;
 
   await knex.schema.dropTableIfExists(schemas.emailUtilsMessageIds);
   await knex.schema.dropTableIfExists(schemas.emailUtilsReplyTos);
-};
+}

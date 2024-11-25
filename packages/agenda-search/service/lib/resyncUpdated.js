@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import bulk from './bulk.js';
+import formatAgenda from './formatAgenda.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('resyncUpdated');
-const bulk = require('./bulk');
-const formatAgenda = require('./formatAgenda');
+const log = logs('resyncUpdated');
 
 function _cleanTimestamp(since) {
   if (since) return since;
@@ -15,7 +15,7 @@ function _cleanTimestamp(since) {
   return anHourAgo;
 }
 
-module.exports = async (
+export default async (
   { client, alias, listAgendas, getDetailedAgenda },
   since = null,
 ) => {

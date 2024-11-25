@@ -1,6 +1,4 @@
-'use strict';
-
-const validate = require('../src/iso/cookie.validate');
+import validate from '../src/iso/cookie.validate.js';
 
 describe('session - unit (iso): cookie data validate', () => {
   it('cookie validate describes and cleans data kept in session cookie', () => {

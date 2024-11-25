@@ -1,12 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import addListFilters from './lib/addListFilters.js';
+import getRoleSlug from './iso/getRoleSlug.js';
+import { fromDB } from './lib/transformDBEntry.js';
+import cleanListOptions from './lib/cleanListOptions.js';
+import addPaginationAndOrder from './lib/addPaginationAndOrder.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('list');
-const addListFilters = require('./lib/addListFilters');
-const getRoleSlug = require('./iso/getRoleSlug');
-const { fromDB } = require('./lib/transformDBEntry');
-const cleanListOptions = require('./lib/cleanListOptions');
-const addPaginationAndOrder = require('./lib/addPaginationAndOrder');
+const log = logs('list');
 
 async function _getTotal(knex, k, includeTotal = false, detailed = false) {
   if (!includeTotal) {
@@ -44,7 +44,7 @@ async function _getTotal(knex, k, includeTotal = false, detailed = false) {
       ));
 }
 
-module.exports = async (
+export default async (
   { knex, schema, interfaces },
   query,
   nav = {},

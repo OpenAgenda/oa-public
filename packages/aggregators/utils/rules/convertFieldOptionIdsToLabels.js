@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (formSchemaField, fieldData) =>
+export default (formSchemaField, fieldData) =>
   []
     .concat(fieldData || [])
     .reduce(

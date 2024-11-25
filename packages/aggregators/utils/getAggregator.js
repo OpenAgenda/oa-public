@@ -1,8 +1,6 @@
-'use strict';
+import extractRules from './rules/extract.js';
 
-const extractRules = require('./rules/extract');
-
-module.exports = (knex, agenda, idOnly = false) =>
+export default (knex, agenda, idOnly = false) =>
   knex('aggregator')
     .first(idOnly ? ['id'] : ['id', 'store', 'limit'])
     .where('review_id', agenda.id)

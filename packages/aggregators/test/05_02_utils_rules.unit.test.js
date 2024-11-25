@@ -1,6 +1,4 @@
-'use strict';
-
-const text = require('../utils/rules/text');
+import text from '../utils/rules/text.js';
 
 describe('05_02 - utils - rules unit tests', () => {
   describe('text', () => {

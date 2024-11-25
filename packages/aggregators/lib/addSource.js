@@ -1,13 +1,11 @@
-'use strict';
-
-const _ = require('lodash');
-const logs = require('@openagenda/logs');
-const { BadRequest } = require('@openagenda/verror');
-const limit = require('../utils/limit');
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import { BadRequest } from '@openagenda/verror';
+import * as limit from '../utils/limit.js';
 
 const log = logs('addSource');
 
-module.exports = async (
+export default async (
   {
     getAgendaSourceId,
     addSourceEntry,

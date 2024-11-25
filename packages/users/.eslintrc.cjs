@@ -4,7 +4,7 @@ module.exports = {
   extends: '../../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   rules: {
@@ -12,10 +12,21 @@ module.exports = {
       'error',
       {
         devDependencies: [
+          `${__dirname}/seeds/**/*.js`,
           `${__dirname}/test/**/*.js`,
           `${__dirname}/testconfig.sample.js`,
+          `${__dirname}/testconfig.js`,
         ],
       },
     ],
   },
+
+  overrides: [
+    {
+      files: ['**/*.cjs'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
 };

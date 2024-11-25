@@ -5,22 +5,13 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --testTimeout=30000",
-    "prepack": "tsup passCulture/iso --clean --format cjs"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --testTimeout=30000"
   },
   "exports": {
     "./package.json": "./package.json",
-    ".": {
-      "import": "./index.js"
-    },
-    "./passCulture/iso/validate": {
-      "import": "./passCulture/iso/validate/index.js",
-      "require": "./dist/validate/index.cjs"
-    },
-    "./passCulture/iso/*": {
-      "import": "./passCulture/iso/*.js",
-      "require": "./dist/*.cjs"
-    }
+    ".": "./index.js",
+    "./passCulture/iso/validate": "./passCulture/iso/validate/index.js",
+    "./passCulture/iso/*": "./passCulture/iso/*.js"
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
@@ -42,7 +33,6 @@
     "image-type": "^5.2.0",
     "is-base64": "^1.1.0",
     "jest": "^29.7.0",
-    "msw": "^2.3.0",
-    "tsup": "^6.2.3"
+    "msw": "^2.3.0"
   }
 }

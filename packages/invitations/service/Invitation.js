@@ -1,9 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import validators from '@openagenda/validators';
+import { mapSeries } from 'async';
 
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-const { text, email, pass, number } = require('@openagenda/validators');
-const { mapSeries } = require('async');
+const { text, email, pass, number } = validators;
 
 let config;
 let knex;
@@ -146,7 +146,7 @@ class Invitation {
   }
 }
 
-Invitation.init = (c, s, k) => {
+Invitation.init = (c, k) => {
   config = c;
   knex = k;
 };
@@ -182,4 +182,4 @@ Invitation.validate = schema({
   },
 });
 
-module.exports = Invitation;
+export default Invitation;

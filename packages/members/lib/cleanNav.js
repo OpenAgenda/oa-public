@@ -1,9 +1,7 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const text = require('@openagenda/validators/text');
-const integer = require('@openagenda/validators/integer');
-const choice = require('@openagenda/validators/choice');
+import schema from '@openagenda/validators/schema/index.js';
+import text from '@openagenda/validators/text.js';
+import integer from '@openagenda/validators/integer.js';
+import choice from '@openagenda/validators/choice.js';
 
 schema.register({
   choice,
@@ -46,7 +44,7 @@ const validate = schema({
   },
 });
 
-module.exports = (nav) => {
+export default (nav) => {
   const clean = validate(nav);
 
   if (clean.order === null) {

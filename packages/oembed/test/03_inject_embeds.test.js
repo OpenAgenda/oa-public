@@ -1,8 +1,6 @@
-'use strict';
-
-const options = require('../testconfig');
-const OEmbed = require('..');
-const links = require('./fixtures/links.json');
+import options from '../testconfig.js';
+import OEmbed from '../index.js';
+import links from './fixtures/links.json';
 
 describe('03 - injecting embedded items in html render', () => {
   const oe = new OEmbed(options);

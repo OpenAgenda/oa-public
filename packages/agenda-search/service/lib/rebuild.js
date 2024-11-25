@@ -1,12 +1,14 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import utils from '@openagenda/utils';
+import mapping from './mapping.json' with { type: 'json' };
+import analysis from './analysis.json' with { type: 'json' };
+import bulk from './bulk.js';
+import formatAgenda from './formatAgenda.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('rebuild');
-const { fZ } = require('@openagenda/utils');
-const mapping = require('./mapping.json');
-const analysis = require('./analysis.json');
-const bulk = require('./bulk');
-const formatAgenda = require('./formatAgenda');
+const { fZ } = utils;
+
+const log = logs('rebuild');
 
 const LIMIT = 20;
 
@@ -23,7 +25,7 @@ const dateStr = (d) => {
   ].join('_');
 };
 
-module.exports = async ({
+export default async ({
   alias,
   client,
   timeout,

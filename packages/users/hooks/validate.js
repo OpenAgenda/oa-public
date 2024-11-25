@@ -1,17 +1,17 @@
-'use strict';
+import schema from '@openagenda/validators/schema/index.js';
+import errors from '@feathersjs/errors';
+import hooksCommon from 'feathers-hooks-common';
 
-const schema = require('@openagenda/validators/schema');
-const { BadRequest } = require('@feathersjs/errors');
-const { validate: validateHook } = require('feathers-hooks-common');
+const { validate: validateHook } = hooksCommon;
 
-module.exports = function validate(_schema) {
+export default function validate(_schema) {
   const _validate = schema(_schema);
 
   return validateHook((values, context) => {
     try {
       context.data = _validate(values);
-    } catch (errors) {
-      throw new BadRequest({ errors });
+    } catch (errs) {
+      throw new errors.BadRequest({ errors: errs });
     }
   });
-};
+}

@@ -1,9 +1,7 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-const text = require('@openagenda/validators/text');
-const date = require('@openagenda/validators/date');
+import schema from '@openagenda/validators/schema/index.js';
+import integer from '@openagenda/validators/integer.js';
+import text from '@openagenda/validators/text.js';
+import date from '@openagenda/validators/date.js';
 
 schema.register({
   integer,
@@ -11,7 +9,7 @@ schema.register({
   date,
 });
 
-module.exports = schema({
+export default schema({
   id: {
     type: 'integer',
     optional: false,

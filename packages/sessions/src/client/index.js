@@ -1,12 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-
-const base64 = require('@openagenda/utils/base64');
-
-const cookies = require('js-cookie');
-const config = require('../../iso/config');
-const validate = require('../../iso/cookie.validate');
+import _ from 'lodash';
+import base64 from '@openagenda/utils/base64.js';
+import cookies from 'js-cookie';
+import config from '../iso/config.js';
+import * as validate from '../iso/cookie.validate.js';
 
 function _get(name, validateFn, useDefault = false) {
   const cookieValue = cookies.get(name);
@@ -25,7 +21,7 @@ function _get(name, validateFn, useDefault = false) {
 
 function _getSession() {
   return (
-    _get(config.cookies.session, validate)
+    _get(config.cookies.session, validate.default)
     || validate.validateUnlogged.defaultValue
   );
 }
@@ -115,7 +111,7 @@ function flash() {
   return flashText;
 }
 
-module.exports = {
+export default {
   getUser,
   getExpires,
   notifications: {

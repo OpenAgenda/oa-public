@@ -1,10 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import VError from '@openagenda/verror';
+import config from '../config.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('legacy/custom');
-const VError = require('@openagenda/verror');
-
-const config = require('../config');
+const log = logs('legacy/custom');
 
 function _transformFileEntryToLegacy(entry) {
   return {
@@ -148,6 +147,6 @@ function parse(fields, custom) {
   return parsed;
 }
 
-module.exports = _.assign(set, {
+export default _.assign(set, {
   parse,
 });

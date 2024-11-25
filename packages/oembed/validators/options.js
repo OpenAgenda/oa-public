@@ -1,13 +1,11 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const text = require('@openagenda/validators/text');
+import schema from '@openagenda/validators/schema/index.js';
+import text from '@openagenda/validators/text.js';
 
 schema.register({
   text,
 });
 
-module.exports = schema({
+export default schema({
   iframely: {
     key: {
       type: 'text',

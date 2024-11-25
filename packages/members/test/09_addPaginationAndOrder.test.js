@@ -1,7 +1,5 @@
-'use strict';
-
-const knex = require('knex');
-const addPaginationAndOrder = require('../lib/addPaginationAndOrder');
+import knex from 'knex';
+import addPaginationAndOrder from '../lib/addPaginationAndOrder.js';
 
 describe('members - unit - addPaginationAndOrder', () => {
   test('unless order column is id, members order should be composed with id', () => {

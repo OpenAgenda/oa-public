@@ -1,9 +1,7 @@
-'use strict';
-
-const createInstance = require('..');
-const config = require('../testconfig');
-const fixtures = require('./fixtures');
-const getAgendasByUids = require('./fixtures/getAgendasByUids');
+import config from '../testconfig.js';
+import createInstance from '../index.js';
+import fixtures from './fixtures/index.js';
+import getAgendasByUids from './fixtures/getAgendasByUids.js';
 
 describe('11 - list sources', () => {
   const agenda = { id: 218 };

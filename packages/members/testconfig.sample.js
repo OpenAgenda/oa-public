@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   mysql: {
     host: '127.0.0.1',
     password: 'grut',

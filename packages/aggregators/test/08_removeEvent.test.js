@@ -1,8 +1,5 @@
-'use strict';
-
-const { removeEvent, processRemove } = require('../lib/removeEvent');
-
-const { Tracker } = require('./utils');
+import { removeEvent, processRemove } from '../lib/removeEvent.js';
+import { Tracker } from './utils.js';
 
 describe('08 - removeEvent', () => {
   test('if reference shows add by aggregation and source is last source refered, unreferenceEvent is called', async () => {

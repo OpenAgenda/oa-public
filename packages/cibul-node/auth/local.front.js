@@ -5,7 +5,7 @@ import qs from 'qs';
 import w from 'when';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
-import invitationsSvc from '@openagenda/invitations';
+import * as invitationsSvc from '@openagenda/invitations';
 import makeLabelGetter from '@openagenda/labels';
 import authSigninLabels from '@openagenda/labels/auth/signin.js';
 import authErrorsLabels from '@openagenda/labels/auth/errors.js';

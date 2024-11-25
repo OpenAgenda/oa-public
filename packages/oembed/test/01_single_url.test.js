@@ -1,7 +1,5 @@
-'use strict';
-
-const OEmbed = require('..');
-const options = require('../testconfig');
+import OEmbed from '../index.js';
+import options from '../testconfig.js';
 
 const urls = {
   calameo: ['http://fr.calameo.com/read/00096250654676c5c42f2'],

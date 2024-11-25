@@ -1,10 +1,8 @@
-'use strict';
-
-const schemas = require('@openagenda/validators/schema');
-const boolean = require('@openagenda/validators/boolean');
-const text = require('@openagenda/validators/text');
-const choice = require('@openagenda/validators/choice');
-const { paths } = require('../service/lib/fields');
+import schemas from '@openagenda/validators/schema/index.js';
+import boolean from '@openagenda/validators/boolean.js';
+import text from '@openagenda/validators/text.js';
+import choice from '@openagenda/validators/choice.js';
+import { paths } from '../service/lib/fields.js';
 
 schemas.register({
   boolean,
@@ -12,7 +10,7 @@ schemas.register({
   choice,
 });
 
-module.exports = schemas({
+export default schemas({
   detailed: {
     type: 'boolean',
     default: false,

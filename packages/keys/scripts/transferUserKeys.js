@@ -1,7 +1,5 @@
-'use strict';
-
-const knexClient = require('knex');
-const async = require('async');
+import knexClient from 'knex';
+import async from 'async';
 
 const config = {
   mysql: {

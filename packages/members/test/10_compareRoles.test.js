@@ -1,6 +1,6 @@
-'use strict';
+import { compareRoles } from '../utils.js';
 
-const { isSuperiorTo, isSuperiorToOrEqual, isEqualTo, isLessThan } = require('..').utils.compareRoles;
+const { isSuperiorTo, isSuperiorToOrEqual, isEqualTo, isLessThan } = compareRoles;
 
 describe('members - utils - compareRoles', () => {
   describe('isSuperiorTo', () => {

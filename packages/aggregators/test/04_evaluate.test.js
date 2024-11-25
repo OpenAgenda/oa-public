@@ -1,10 +1,8 @@
-'use strict';
-
-const {
-  evaluateEvent: evaluate,
+import {
+  evaluateEvent as evaluate,
   processEvaluate,
-} = require('../lib/evaluateEvent');
-const { getJSON } = require('./utils');
+} from '../lib/evaluateEvent.js';
+import { getJSON } from './utils.js';
 
 describe('04 - evaluateEvent', () => {
   const initalData = getJSON('/fixtures/evaluate/data');

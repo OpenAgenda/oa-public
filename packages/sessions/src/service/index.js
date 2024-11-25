@@ -1,16 +1,14 @@
-'use strict';
-
-const logger = require('@openagenda/logs');
-const mw = require('../middleware');
-const isoConfig = require('../../iso/config');
-const cookieValidate = require('../../iso/cookie.validate');
-const expressCookie = require('./expressCookie');
-const get = require('./get');
-const refresh = require('./refresh');
-const open = require('./open');
-const close = require('./close');
-const scan = require('./scan');
-const sync = require('./sync');
+import logger from '@openagenda/logs';
+import mw from '../middleware.js';
+import isoConfig from '../iso/config.js';
+import cookieValidate from '../iso/cookie.validate.js';
+import expressCookie from './expressCookie.js';
+import get, { promise as getPromise } from './get.js';
+import refresh from './refresh.js';
+import open from './open.js';
+import * as close from './close.js';
+import scan from './scan.js';
+import sync from './sync.js';
 
 function getCulture(request) {
   try {
@@ -24,7 +22,7 @@ function getCulture(request) {
   return null;
 }
 
-module.exports = (options = {}) => {
+export default (options = {}) => {
   const config = {
     initialized: false,
     redisClient: null,
@@ -48,12 +46,12 @@ module.exports = (options = {}) => {
     get: get.bind(null, config),
     refresh: refresh.bind(null, config),
     open: open.bind(null, config),
-    close: close.bind(null, config),
+    close: close.default.bind(null, config),
     sync: sync.bind(null, config),
     scan: scan.bind(null, config),
     setFlash: (req, res, message) =>
       expressCookie(config, req, res).set('flash', message),
-    isLogged: async (request) => !!await get.promise(config, request),
+    isLogged: async (request) => !!await getPromise(config, request),
     getCulture,
   };
 

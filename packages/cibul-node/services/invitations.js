@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import invitations from '@openagenda/invitations';
+import * as invitations from '@openagenda/invitations';
 import logs from '@openagenda/logs';
 
 const log = logs('services/invitations');

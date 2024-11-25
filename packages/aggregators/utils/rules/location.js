@@ -1,10 +1,8 @@
-'use strict';
-
 function _matches(filter, values, field) {
   return [].concat(filter[field]).includes(values[field]);
 }
 
-module.exports = (evaluatedLocation, filter) =>
+export default (evaluatedLocation, filter) =>
   []
     .concat(filter)
     .map((locationFilter) => {

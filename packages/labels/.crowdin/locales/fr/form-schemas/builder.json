@@ -35,6 +35,7 @@
   "markdownFieldTypeInfo": "Champ texte enrichi (markdown)",
   "integerFieldType": "Nombre entier",
   "emailFieldType": "Email",
+  "phoneFieldType": "Numéro de téléphone",
   "linkFieldType": "Hyperlien",
   "textMultilingualFieldType": "Text multilingue",
   "checkboxFieldType": "Liste de cases à cocher, à choix multiples",

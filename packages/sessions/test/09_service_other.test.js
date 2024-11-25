@@ -1,11 +1,9 @@
-'use strict';
-
-const Sessions = require('../src/service');
-const expressCookie = require('../src/service/expressCookie');
-const config = require('../testconfig');
-const isoConfig = require('../src/iso/config');
-const serviceHelpers = require('../src/service/helpers');
-const h = require('./lib/helpers');
+import Sessions from '../src/service/index.js';
+import expressCookie from '../src/service/expressCookie.js';
+import config from '../testconfig.js';
+import isoConfig from '../src/iso/config.js';
+import * as serviceHelpers from '../src/service/helpers/index.js';
+import * as h from './lib/helpers.js';
 
 describe('session - functional (server): isLogged & getCulture', () => {
   let client;
@@ -120,11 +118,9 @@ describe('session - functional (server): isLogged & getCulture', () => {
         res.cookies[name] = values;
       };
 
-      sessions.setFlash(req, res, "pédo-phile d'ici");
+      sessions.setFlash(req, res, 'Gna gna gna');
 
-      expect(expressCookie(config, req, res).get().flash).toBe(
-        "pédo-phile d'ici",
-      );
+      expect(expressCookie(config, req, res).get().flash).toBe('Gna gna gna');
     });
   });
 });
