@@ -1,5 +1,5 @@
 import findIndex from 'lodash/findIndex.js';
-import getRoleSlug from '@openagenda/members/build/getRoleSlug.js';
+import getRoleSlug from '@openagenda/members/iso/getRoleSlug.js';
 
 const LOAD = 'member-apps/members/LOAD';
 const LOAD_SUCCESS = 'member-apps/members/LOAD_SUCCESS';
