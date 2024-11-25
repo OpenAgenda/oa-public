@@ -1,3 +1,4 @@
+import { createReadStream } from 'node:fs';
 import fs from 'node:fs/promises';
 import { promisify } from 'node:util';
 import _ from 'lodash';
@@ -106,7 +107,7 @@ function cleanFileValues(o, req, res, next) {
 
 async function s3Upload(filename) {
   const stream = await FileType.stream(
-    fs.createReadStream(`${tmpFolder}/${filename}`),
+    createReadStream(`${tmpFolder}/${filename}`),
   );
   const { fileType } = stream;
 
