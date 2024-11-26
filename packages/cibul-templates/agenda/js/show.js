@@ -5,6 +5,7 @@ import displayExportButton from './displayExportButton';
 import displayAggregateButton from './displayAggregateButton';
 import displayContextBar from './displayContextBar';
 import addGoogleAnalyticsTracker from './addGoogleAnalyticsTracker';
+import session from '@openagenda/sessions/client';
 
 const controllers = require('../../widgets/controller/main'),
   qs = require('qs'),
@@ -48,8 +49,7 @@ const controllers = require('../../widgets/controller/main'),
       displayNone: 'display-none',
     },
   },
-  totalLib = require('./total'),
-  session = require('@openagenda/sessions/client');
+  totalLib = require('./total');
 
 let uid, log, total;
 

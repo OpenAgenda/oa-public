@@ -3,6 +3,7 @@ import du from '../../js/lib/domUtils';
 import displayShareButtons from './displayShareButtons';
 import displayContributorSection from './displayContributorSection';
 import addTrackers from '../../agenda/js/addTrackers';
+import session from '@openagenda/sessions/client';
 
 const debug = require('debug');
 
@@ -11,8 +12,6 @@ const  eventMap = require('./map');
 const utils = require('@openagenda/utils');
 
 const get = require('@openagenda/utils/get');
-
-const session = require('@openagenda/sessions/client');
 
 const adminControls = require('./adminControls');
 
