@@ -1,7 +1,8 @@
 "use strict";
 
+import session from '@openagenda/sessions/client';
+
 const get = require( '@openagenda/utils/get' );
-const session = require( '@openagenda/sessions/client' );
 const debug = require( 'debug' );
 
 const _ = {

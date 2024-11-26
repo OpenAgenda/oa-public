@@ -1,8 +1,8 @@
 "use strict";
 
-const lightbox = require('../../js/lib/lightbox'),
+import session from '@openagenda/sessions/client';
 
-session = require( '@openagenda/sessions/client' ),
+const lightbox = require('../../js/lib/lightbox'),
 
 params = {
   classes: {

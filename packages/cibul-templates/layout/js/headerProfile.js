@@ -1,10 +1,11 @@
 "use strict";
 
+import session from '@openagenda/sessions/client';
+
 const extend = require( 'lodash/extend' );
 
 const getLabelFactory = require( '@openagenda/labels' );
 const labels = require( '@openagenda/labels/users/profile' );
-const session = require( '@openagenda/sessions/client' );
 
 const bsTemplate = require( '../../user/bsMenu.ejs' );
 const template = require( '../../user/menu.ejs' );
