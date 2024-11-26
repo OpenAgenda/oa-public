@@ -4,6 +4,7 @@
   "common.event.fields.attendanceMode": "Mode de participation",
   "common.event.fields.conditions": "Conditions",
   "common.event.fields.description": "Description courte",
+  "common.event.fields.extIds": "Identifiants externes",
   "common.event.fields.image": "Image",
   "common.event.fields.imageCredits": "Crédits de l'image",
   "common.event.fields.keywords": "Mots clés",

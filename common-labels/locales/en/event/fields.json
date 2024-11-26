@@ -4,6 +4,7 @@
   "common.event.fields.attendanceMode": "Attendance mode",
   "common.event.fields.conditions": "Conditions",
   "common.event.fields.description": "Short description",
+  "common.event.fields.extIds": "External identifiers",
   "common.event.fields.image": "Image",
   "common.event.fields.imageCredits": "Image credits",
   "common.event.fields.keywords": "Keywords",
