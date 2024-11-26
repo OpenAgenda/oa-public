@@ -12,6 +12,7 @@ const defaults = {
     res: {
       list: '/:uid/list',
     },
+    activities: {},
   },
 };
 

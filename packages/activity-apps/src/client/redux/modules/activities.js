@@ -123,9 +123,11 @@ export function list(query, agenda) {
       types: [LIST, LIST_SUCCESS, LIST_FAIL],
       perPageLimit: settings.perPageLimit,
       promise: ({ client }) =>
-        client.get(res.list.replace(':slug', agenda && agenda.slug), {
-          params: query,
-        }),
+        client
+          .get(res.list.replace(':slug', agenda && agenda.slug), {
+            params: query,
+          })
+          .then((response) => response.data),
     });
   };
 }
@@ -139,12 +141,14 @@ export function nextPage(query, fromId, agenda) {
       fromId,
       perPageLimit: settings.perPageLimit,
       promise: ({ client }) =>
-        client.get(res.list.replace(':slug', agenda && agenda.slug), {
-          params: {
-            ...query,
-            fromId,
-          },
-        }),
+        client
+          .get(res.list.replace(':slug', agenda && agenda.slug), {
+            params: {
+              ...query,
+              fromId,
+            },
+          })
+          .then((response) => response.data),
     });
   };
 }
