@@ -18,6 +18,10 @@ const main = {
 
   staticDirs: ['./public'],
 
+  babel: (config) => {
+    return { ...config, rootMode: 'upward' };
+  },
+
   env: (config) => ({
     ...config,
     __NEXT_REACT_ROOT: 'true', // Fix next/dynamic with suspense
