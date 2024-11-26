@@ -15,6 +15,7 @@ import {
   PassSettings,
   FiltersSettings,
   DeleteAgenda,
+  IdentifierInformation,
 } from '../../components/index.js';
 import * as modalsActions from '../../reducers/modals.js';
 import * as keysActions from '../../reducers/keys.js';
@@ -43,6 +44,10 @@ const messages = defineMessages({
   deleteDescription: {
     id: 'AgendaSettings.AdvancedEdition.deleteDescription',
     defaultMessage: 'Deleting an agenda is irrevocable',
+  },
+  identifier: {
+    id: 'AgendaSettings.AdvancedEdition.identifier',
+    defaultMessage: 'Identifier',
   },
 });
 
@@ -132,6 +137,14 @@ export default function AdvancedEdition() {
       <div className="table-responsive">
         <table role="grid" className="table">
           <tbody>
+            <TableRow
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              tabName="uid"
+              description={<b>{intl.formatMessage(messages.identifier)}</b>}
+              closedComponent={agenda.uid}
+              openedComponent={<IdentifierInformation agenda={agenda} />}
+            />
             <TableRow
               activeTab={activeTab}
               setActiveTab={setActiveTab}

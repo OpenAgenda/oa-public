@@ -1619,8 +1619,8 @@ module.exports = {
     "oc": "Referéncias"
   },
   "footerContactEmail": {
-    "en": "Your email address",
-    "fr": "Votre adresse email",
+    "en": "Your email",
+    "fr": "Votre email",
     "de": "deine Emailadresse",
     "es": "Su dirección de correo electrónico",
     "it": "Il tuo indirizzo e-mail",
@@ -1628,8 +1628,8 @@ module.exports = {
     "oc": "Vòstra adreça email"
   },
   "footerContactSubscribe": {
-    "en": "Subscribe",
-    "fr": "S'abonner",
+    "en": "Subscribe to the newsletter",
+    "fr": "S'abonner à l'infolettre",
     "de": "Abonnieren",
     "es": "suscribir",
     "it": "Iscriviti alla nostra newsletter",

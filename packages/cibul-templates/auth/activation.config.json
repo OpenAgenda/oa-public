@@ -11,8 +11,8 @@
   "base" : {
     "pageClass" : "auth",
     "includeActionLinks" : false,
-    "facebookPage" : "//facebook.com/oagenda",
-    "twitterPage" : "//twitter.com/OAgenda",
+    "linkedInPage" : "https://www.linkedin.com/company/openagenda",
+    "blueskyPage" : "https://bsky.app/profile/openagenda.com",
     "mailto" : false
   }
 }

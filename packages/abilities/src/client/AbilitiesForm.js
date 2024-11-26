@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useCallback } from 'react';
+import ky from 'ky';
 import _ from 'lodash';
 import { FormSpy } from 'react-final-form';
 import Collapse from 'rc-collapse';
@@ -44,6 +45,24 @@ const descriptionMessages = defineMessages({
     id: 'Abilities.RulesCheckbox.AbilitiesForm.search',
     defaultMessage: 'Search',
   },
+  newsletterTitle: {
+    id: 'Abilities.RulesCheckbox.AbilitiesForm.newsletterTitle',
+    defaultMessage: 'Receive the newsletter',
+  },
+  newsletterDescription: {
+    id: 'Abilities.RulesCheckbox.AbilitiesForm.newsletterDescription',
+    defaultMessage:
+      'Follow the upcoming evolutions coming up on OpenAgenda! You can unsubscribe at any time.',
+  },
+  newsletterSubscribe: {
+    id: 'Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe',
+    defaultMessage: 'Click here to subscribe',
+  },
+  newsletterSubscribed: {
+    id: 'Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed',
+    defaultMessage:
+      'You will now receive the next newsletter! To unsubscribe, just click on the link that will be placed at the bottom of each message.',
+  },
 });
 
 function getEntityTitle(ability) {
@@ -58,6 +77,42 @@ function getEntityTitle(ability) {
       return ability.identifier;
   }
 }
+
+const Newsletter = () => {
+  const intl = useIntl();
+  const [wasClicked, setWasClicked] = useState(false);
+
+  const subscribe = useCallback(() => {
+    ky.post('/newsletter/subscribe', { json: {} }).then(() => {
+      setWasClicked(true);
+    });
+  }, []);
+
+  return (
+    <div
+      className={`info-block-sm margin-bottom-sm${wasClicked ? ' success' : ''}`}
+    >
+      <strong>{intl.formatMessage(descriptionMessages.newsletterTitle)}</strong>
+      <div>
+        {intl.formatMessage(
+          descriptionMessages[
+            wasClicked ? 'newsletterSubscribed' : 'newsletterDescription'
+          ],
+        )}
+      </div>
+      {wasClicked ? null : (
+        <button
+          disabled={wasClicked}
+          onClick={() => subscribe()}
+          type="button"
+          className="btn btn-link padding-left-z"
+        >
+          {intl.formatMessage(descriptionMessages.newsletterSubscribe)}
+        </button>
+      )}
+    </div>
+  );
+};
 
 const FilterInput = ({ value, onChange, placeholder }) => {
   const intl = useIntl();
@@ -341,6 +396,8 @@ export default class AbilitiesForm extends Component {
           ? React.createElement(HeaderComponent, { saveButton })
           : null}
 
+        <Newsletter />
+
         <form onSubmit={handleSubmit}>
           {firstEntityAbility && firstEntityAbility.rules.length ? (
             <div className="margin-bottom-sm">
@@ -351,7 +408,6 @@ export default class AbilitiesForm extends Component {
               )}
             </div>
           ) : null}
-
           {searchChildKey
           && childAbilitiesLength >= MINLEN_REQUIRED_FOR_SEARCH ? (
             <div className="margin-v-md">

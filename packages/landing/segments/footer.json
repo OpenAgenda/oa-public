@@ -71,23 +71,11 @@
         "label": "footerContactForm"
       },
       {
-        "label": "29 passage du Ponceau, 75002 Paris",
+        "label": "8 rue Alice, 92400 Courbevoie",
         "link": "https://goo.gl/maps/2JYWje3wbqB2"
       },
       {
         "ul": [
-          {
-            "link": "https://twitter.com/OAgenda",
-            "icon": "fa fa-twitter-square fa-lg"
-          },
-          {
-            "link": "https://www.instagram.com/openagenda/",
-            "icon": "fa fa-instagram fa-lg"
-          },
-          {
-            "link": "https://www.facebook.com/oagenda",
-            "icon": "fa fa-facebook-square fa-lg"
-          },
           {
             "link": "https://www.linkedin.com/company/openagenda",
             "icon": "fa fa-linkedin-square fa-lg"

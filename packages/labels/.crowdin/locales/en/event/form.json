@@ -61,5 +61,6 @@
   "status": "Status",
   "trueBoolean": "Selected",
   "falseBoolean": "Not selected",
-  "nullBoolean": "(No value)"
+  "nullBoolean": "(No value)",
+  "extIds": "External identifiers"
 }

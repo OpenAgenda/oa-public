@@ -16,6 +16,7 @@ const getDefaultState = () => ({
     agenda: '/:slug',
     addEvent: '/:slug/contribute',
     createEmbed: '/:slug/admin/embeds',
+    delete: '/:uid',
     get: '/:uid/agenda.json',
     set: '/:slug/edit',
     slugAvailable: '/slugs/available',

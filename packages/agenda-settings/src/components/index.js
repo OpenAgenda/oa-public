@@ -7,3 +7,4 @@ export { default as TrackingSettingsForm } from './TrackingSettingsForm.js';
 export { default as PassSettings } from './PassSettings.js';
 export { default as FiltersSettings } from './FiltersSettings.js';
 export { default as DeleteAgenda } from './DeleteAgenda.js';
+export { default as IdentifierInformation } from './IdentifierInformation.js';
