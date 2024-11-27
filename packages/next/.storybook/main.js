@@ -18,8 +18,9 @@ const main = {
 
   staticDirs: ['./public'],
 
-  babel: (config) => {
-    return { ...config, rootMode: 'upward' };
+  babel: async (config) => {
+    config.generatorOpts = { importAttributesKeyword: 'with' };
+    return config;
   },
 
   env: (config) => ({
