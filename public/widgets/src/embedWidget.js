@@ -92,6 +92,10 @@ export default class EmbedLoader {
       url.searchParams.set('primaryColor', dataset.primaryColor);
     }
 
+    if (dataset.imageList) {
+      url.searchParams.set('imageList', dataset.imageList);
+    }
+
     const { hash } = window.location;
     if (hash?.startsWith('#!')) {
       const decodedSrc = decodeURIComponent(hash.substring(2));

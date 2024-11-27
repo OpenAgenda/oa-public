@@ -7,7 +7,7 @@ export default {
 export const Main = () => `
   <section class="page">
     <h2>Agenda</h2>
-    <blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/2028662"><b>Fête de la musique</b></a></p></blockquote>
+    <blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053"><b>Bordeaux Métropole</b></a></p></blockquote>
   </section>
 
   <!-- remove hash -->
@@ -18,7 +18,7 @@ export const Main = () => `
 export const Factory = () => `
   <section class="page">
     <h2>Agenda</h2>
-    <blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/2028662"><b>Fête de la musique</b></a></p></blockquote>
+    <blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053"><b>Bordeaux Métropole</b></a></p></blockquote>
   </section>
 
   <!-- remove hash -->
@@ -50,7 +50,7 @@ export const Manual = () => `
   <script>
     function addIframe() {
       const elem = document.querySelector('.page');
-      elem.insertAdjacentHTML('beforeend', '<blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/2028662"><b>Fête de la musique</b></a></p></blockquote>');
+      elem.insertAdjacentHTML('beforeend', '<blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053"><b>Bordeaux Métropole</b></a></p></blockquote>');
       
       window.oa.widgets.load();
     }
@@ -98,6 +98,28 @@ export const PrimaryColor = () => `
   <section class="page">
     <h2>Agenda</h2>
     <blockquote class="oa-agenda" align="center" data-base-url="https://www.bordeaux-metropole.fr/agenda" data-filters="categories-agenda-metropolitain,search,geo" data-primary-color="#c800ff"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053?categories-agenda-metropolitain%5B0%5D=47&categories-agenda-metropolitain%5B1%5D=51"><b>Bordeaux Métropole</b></a></p></blockquote>
+  </section>
+
+  <!-- remove hash -->
+  <script>history.replaceState({}, '', '#');</script>
+  <script async src="/index.js" charset="utf-8"></script>
+`;
+
+export const ImageListContain = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-base-url="https://www.bordeaux-metropole.fr/agenda" data-filters="categories-agenda-metropolitain,search,geo" data-image-list="contain;maxHeight:400px"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053?categories-agenda-metropolitain%5B0%5D=47&categories-agenda-metropolitain%5B1%5D=51"><b>Bordeaux Métropole</b></a></p></blockquote>
+  </section>
+
+  <!-- remove hash -->
+  <script>history.replaceState({}, '', '#');</script>
+  <script async src="/index.js" charset="utf-8"></script>
+`;
+
+export const ImageListCover = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-base-url="https://www.bordeaux-metropole.fr/agenda" data-filters="categories-agenda-metropolitain,search,geo" data-image-list="cover;ratio:1"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053?categories-agenda-metropolitain%5B0%5D=47&categories-agenda-metropolitain%5B1%5D=51"><b>Bordeaux Métropole</b></a></p></blockquote>
   </section>
 
   <!-- remove hash -->
