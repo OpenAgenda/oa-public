@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import qs from 'qs';
 import { Box, Flex, LinkBox } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
+import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
 import Image from 'components/Image';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
@@ -132,10 +133,17 @@ export default function EventItem({
         <Box color="#545454">
           {getLocaleValue(event.description, intl.locale)}
         </Box>
-        {event.location ? (
+        {event.location || event.onlineAccessLink ? (
           <Box fontSize="sm" color="#545454" mt="auto">
-            {event.location.name}
-            {event.location.city ? `, ${event.location.city}` : ''}
+            {event.location ? (
+              <div>
+                {event.location.name}
+                {event.location.city ? `, ${event.location.city}` : ''}
+              </div>
+            ) : null}
+            {event.onlineAccessLink ? (
+              <div>{intl.formatMessage(attendanceModesMessages.online)}</div>
+            ) : null}
           </Box>
         ) : null}
       </Flex>

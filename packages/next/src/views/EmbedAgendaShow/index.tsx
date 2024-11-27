@@ -17,6 +17,7 @@ import {
   useFilters,
   fetchLocale as fetchFiltersLocales,
 } from '@openagenda/react-filters';
+import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { useLatest, usePrevious } from 'react-use';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
@@ -256,8 +257,10 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
 }
 
 EmbedAgendaShow.fetchLocale = (locale: string) =>
-  Promise.all([fetchLocale(locale), fetchFiltersLocales(locale)]).then(
-    (results) => Object.assign({}, ...results),
-  );
+  Promise.all([
+    fetchLocale(locale),
+    fetchCommonLocale('event/attendanceModes', locale),
+    fetchFiltersLocales(locale),
+  ]).then((results) => Object.assign({}, ...results));
 
 export default EmbedAgendaShow;
