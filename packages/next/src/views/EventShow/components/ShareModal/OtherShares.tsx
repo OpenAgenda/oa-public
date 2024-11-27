@@ -35,9 +35,9 @@ function padTo2Digits(num: number) {
 function formatDateToGoogleCalendar(date: Date) {
   // eslint-disable-next-line prefer-template
   return `${
-    date.getUTCFullYear()
-    + padTo2Digits(date.getUTCMonth() + 1)
-    + padTo2Digits(date.getUTCDate())
+    date.getUTCFullYear() +
+    padTo2Digits(date.getUTCMonth() + 1) +
+    padTo2Digits(date.getUTCDate())
   }T${padTo2Digits(date.getUTCHours())}${padTo2Digits(date.getUTCMinutes())}${padTo2Digits(date.getUTCSeconds())}Z`;
 }
 
@@ -72,34 +72,34 @@ function getImportUrl({
     case 'google':
       // eslint-disable-next-line prefer-template
       return (
-        'https://www.google.com/calendar/render?action=TEMPLATE'
-        + `&text=${encodeURIComponent(event.title[contentLocale])}`
-        + `&dates=${formatDateToGoogleCalendar(begin)}/${formatDateToGoogleCalendar(end)}`
-        + `&ctz=${event.timezone}`
-        + `&details=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
+        'https://www.google.com/calendar/render?action=TEMPLATE' +
+        `&text=${encodeURIComponent(event.title[contentLocale])}` +
+        `&dates=${formatDateToGoogleCalendar(begin)}/${formatDateToGoogleCalendar(end)}` +
+        `&ctz=${event.timezone}` +
+        `&details=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
           event.location ? `&location=${location}` : ''
         }&sprop=website:${encodeURIComponent(eventUrl)}`
       );
     case 'yahoo':
       // eslint-disable-next-line prefer-template
       return (
-        'https://calendar.yahoo.com/?v=60'
-        + `&TITLE=${encodeURIComponent(event.title[contentLocale])}`
-        + `&ST=${formatInTimeZone(begin, event.timezone, "yyyyMMdd'T'HHmmss")}`
-        + `&ET=${formatInTimeZone(end, event.timezone, "yyyyMMdd'T'HHmmss")}`
-        + `&DESC=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
+        'https://calendar.yahoo.com/?v=60' +
+        `&TITLE=${encodeURIComponent(event.title[contentLocale])}` +
+        `&ST=${formatInTimeZone(begin, event.timezone, "yyyyMMdd'T'HHmmss")}` +
+        `&ET=${formatInTimeZone(end, event.timezone, "yyyyMMdd'T'HHmmss")}` +
+        `&DESC=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
           event.location ? `&in_loc=${location}` : ''
         }`
       );
     case 'live':
       // eslint-disable-next-line prefer-template
       return (
-        'https://outlook.live.com/calendar/deeplink/compose?path=/calendar/action/compose'
-        + '&rru=addevent'
-        + `&startdt=${formatInTimeZone(begin, event.timezone, "yyyy-MM-dd'T'HH:mm:ss")}`
-        + `&enddt=${formatInTimeZone(end, event.timezone, "yyyy-MM-dd'T'HH:mm:ss")}`
-        + `&subject=${encodeURIComponent(event.title[contentLocale])}`
-        + `&body=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
+        'https://outlook.live.com/calendar/deeplink/compose?path=/calendar/action/compose' +
+        '&rru=addevent' +
+        `&startdt=${formatInTimeZone(begin, event.timezone, "yyyy-MM-dd'T'HH:mm:ss")}` +
+        `&enddt=${formatInTimeZone(end, event.timezone, "yyyy-MM-dd'T'HH:mm:ss")}` +
+        `&subject=${encodeURIComponent(event.title[contentLocale])}` +
+        `&body=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}${
           event.location ? `&location=${location}` : ''
         }`
       );
@@ -140,7 +140,8 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
   );
 
   const [selectedTimingIndex, setSelectedTimingIndex] = useState(() =>
-    (currentAndUpcomingTimings.length === 1 ? '0' : ''));
+    currentAndUpcomingTimings.length === 1 ? '0' : '',
+  );
   const [service, setService] = useState('');
 
   const onSelectTiming = (e) => setSelectedTimingIndex(e.target.value);
@@ -227,11 +228,13 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
           {intl.formatMessage(messages.shareByEmail)}
         </Text>
         <Textarea
-          mb="2"
           placeholder={intl.formatMessage(messages.shareByEmailPlaceholder)}
           value={emailValue}
           onChange={handleEmailsChange}
         />
+        <Text fontSize="sm" mb="2">
+          {intl.formatMessage(messages.byEmailSub)}
+        </Text>
         <Button
           type="submit"
           colorScheme="primary"

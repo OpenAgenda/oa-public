@@ -310,6 +310,10 @@ export const shareModal = defineMessages({
     id: 'next.views.EventShow.ShareModal.shareByEmailPlaceholder',
     defaultMessage: 'Type the email addresses you want to send the event',
   },
+  byEmailSub: {
+    id: 'next.views.EventShow.ShareModal.byEmailSub',
+    defaultMessage: 'Not more than 50 emails will be included',
+  },
   send: {
     id: 'next.views.EventShow.ShareModal.send',
     defaultMessage: 'Send',
