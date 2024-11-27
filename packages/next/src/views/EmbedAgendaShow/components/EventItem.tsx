@@ -7,9 +7,10 @@ import Image from 'components/Image';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
 import useLocationQuery from 'hooks/useLocationQuery';
+import { thumborLoader } from 'utils/imageLoader';
 
-const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
-const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
+const AWS_BUCKET = process.env.NEXT_PUBLIC_AWS_BUCKET;
+const DEV_AWS_BUCKET = process.env.NEXT_PUBLIC_DEV_AWS_BUCKET;
 
 function isValidUrl(url: string) {
   try {
@@ -93,14 +94,15 @@ export default function EventItem({
             alt=""
             src={
               process.env.NODE_ENV === 'development'
-                ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                : `${IMAGE_PREFIX}${event.image.filename}`
+                ? `${DEV_AWS_BUCKET}/${event.image.filename}`
+                : `${AWS_BUCKET}/${event.image.filename}`
             }
             fallbackSrc={
               process.env.NODE_ENV === 'development'
-                ? `${IMAGE_PREFIX}${event.image.filename}`
+                ? `${AWS_BUCKET}/${event.image.filename}`
                 : undefined
             }
+            loader={thumborLoader}
             fill
             // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
             pos="unset !important"

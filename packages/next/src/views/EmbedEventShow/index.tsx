@@ -53,7 +53,7 @@ import Map from 'views/EventShow/components/Map';
 import Timings from 'views/EventShow/components/Timings';
 import useNcEffect from 'views/EventShow/hooks/useNcEffect';
 import mdStyle from 'utils/mdStyle';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import { embedAgendaUrlRegex } from 'utils/isNextUrl';
 import useEvent from './hooks/useEvent';
 import Sidebar, {
@@ -64,8 +64,8 @@ import NavigateButton from './components/NavigateButton';
 import Metas from './components/Metas';
 import fetchLocale from './locales';
 
-const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
-const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
+const AWS_BUCKET = process.env.NEXT_PUBLIC_AWS_BUCKET;
+const DEV_AWS_BUCKET = process.env.NEXT_PUBLIC_DEV_AWS_BUCKET;
 
 export type EmbedEventShowProps = {
   preload?: string[];
@@ -251,7 +251,7 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
 
               {event.image || event.imageCredits ? (
                 <div>
-                  <EventImage event={event} />
+                  <EventImage event={event} thumbor />
 
                   {event.imageCredits ? (
                     <Flex justify="flex-end" color="oaGray.500" px="2">
@@ -349,20 +349,20 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
                       <Image
                         src={
                           process.env.NODE_ENV === 'development'
-                            ? `${DEV_IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
-                            : `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                            ? `${DEV_AWS_BUCKET}/${event.location.image}?__ts=${updatedTs}`
+                            : `${AWS_BUCKET}/${event.location.image}?__ts=${updatedTs}`
                         }
                         fallbackSrc={
                           process.env.NODE_ENV === 'development'
-                            ? `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                            ? `${AWS_BUCKET}/${event.location.image}?__ts=${updatedTs}`
                             : undefined
                         }
+                        loader={thumborLoader}
                         fill
                         // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
                         pos="unset !important"
                         w="full !important"
                         h="auto !important"
-                        loader={keyCDNLoader}
                         alt=""
                         m="auto"
                         priority
@@ -465,6 +465,7 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
 
 EmbedEventShow.fetchLocale = (locale: string) =>
   Promise.all([fetchLocale(locale)]).then((results) =>
-    Object.assign({}, ...results));
+    Object.assign({}, ...results),
+  );
 
 export default EmbedEventShow;
