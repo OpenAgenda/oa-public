@@ -57,7 +57,7 @@ export default function EventItem({
 
   const query = useLocationQuery();
 
-  const { baseUrl, primaryColor } = useEmbedLayoutData();
+  const { baseUrl, primaryColor, imageList } = useEmbedLayoutData();
 
   const upcomingOnly = !query.timings && query.passed !== '1';
 
@@ -75,6 +75,8 @@ export default function EventItem({
 
   const eventLink = useEventLink({ baseUrl, agenda, event, nc });
 
+  const imageHeight = imageList ? imageList.height : '170px';
+
   return (
     <LinkBox
       as="article"
@@ -86,7 +88,7 @@ export default function EventItem({
       }}
     >
       {event.image ? (
-        <Box pos="relative" h="170px">
+        <Box pos="relative" h={imageHeight} maxH={imageList?.maxHeight}>
           <Image
             alt=""
             src={
@@ -100,7 +102,11 @@ export default function EventItem({
                 : undefined
             }
             fill
-            objectFit="cover"
+            // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+            pos="unset !important"
+            objectFit={imageList?.objectFit || 'cover'}
+            maxH={imageList?.maxHeight}
+            aspectRatio={imageList?.aspectRatio}
             sizes="(max-width: 629px) 100vw,
                  (max-width: 954px) 50vw,
                  (max-width: 1279px) 33.33vw,
@@ -109,7 +115,7 @@ export default function EventItem({
           />
         </Box>
       ) : (
-        <Box h="170px" />
+        <Box h={imageHeight} />
       )}
       <Flex direction="column" p="6" gap="2" grow="1" minH="170px">
         <Box color={primaryColor ? 'primary.500' : null} fontWeight="bold">

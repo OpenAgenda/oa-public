@@ -24,6 +24,7 @@ import useClientAnalytics from 'hooks/useClientAnalytics';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
 import ConsentBanner from 'components/ConsentBanner';
 import OAAttribution from 'components/OAAttribution';
+import { omitParams } from 'utils/embedParams';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
 import includeFields from 'views/AgendaShow/includeFields';
 import { TotalSkeleton } from 'views/AgendaShow/components/LoadingPage';
@@ -69,14 +70,7 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
 
   const filtersFormRef = useRef<any>();
 
-  const initialValues = useConst(() => ({
-    ...query,
-    baseUrl: undefined,
-    filters: undefined,
-    initPath: undefined,
-    primaryColor: undefined,
-    secondaryColor: undefined,
-  }));
+  const initialValues = useConst(() => omitParams(query));
 
   const latestQuery = useLatest(query);
 
@@ -116,19 +110,14 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   const { data: pages } = useEventsQuery({
     agenda,
     filters,
-    query: {
+    query: omitParams({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
       host:
         typeof document !== 'undefined' && document.referrer
           ? document.referrer
           : referrer,
-      baseUrl: undefined,
-      filters: undefined,
-      initPath: undefined,
-      primaryColor: undefined,
-      secondaryColor: undefined,
-    },
+    }),
     includeFields,
     pageSize: 12,
   });
@@ -150,7 +139,8 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
       const currentUrl = new URL(router.asPath, 'https://n');
       const url = new URL(href, 'https://n');
 
-      if (isDifferentPathname(currentUrl.pathname, url.pathname) || !shallow) return;
+      if (isDifferentPathname(currentUrl.pathname, url.pathname) || !shallow)
+        return;
 
       const form = filtersFormRef.current;
       const newUrlQuery = qs.parse(url.search, { ignoreQueryPrefix: true });
@@ -179,8 +169,9 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
         mapElem.onQueryChange(pages[0].aggregations.viewport);
       }
 
-      const url = new URL(latestRouter.current.asPath, 'https://n').pathname
-        + qs.stringify(latestQuery.current, { addQueryPrefix: true });
+      const url =
+        new URL(latestRouter.current.asPath, 'https://n').pathname +
+        qs.stringify(latestQuery.current, { addQueryPrefix: true });
 
       if (url !== latestRouter.current.asPath) {
         latestRouter.current.push(url, null, { shallow: true });
@@ -206,12 +197,12 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
             <>
               {filters.length ? (
                 <Suspense
-                  fallback={(
+                  fallback={
                     <FiltersSkeleton
                       filters={filters}
                       filtersToInclude={filtersToInclude}
                     />
-                  )}
+                  }
                 >
                   <DynamicFiltersPart
                     agenda={agenda}

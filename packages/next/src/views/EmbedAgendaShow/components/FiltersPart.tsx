@@ -8,6 +8,7 @@ import {
 import { chakra, Box, SimpleGrid } from '@openagenda/uikit';
 import useFiltersBaseQuery from 'views/AgendaShow/hooks/useFiltersBaseQuery';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
+import { omitParams } from 'utils/embedParams';
 import AgendaShowMapFilter from 'views/AgendaShow/components/MapFilter';
 import useGetFilterOptions from '../hooks/useGetFilterOptions';
 import getPrefilteredQuery from '../utils/getPrefilteredQuery';
@@ -46,34 +47,24 @@ export default function FiltersPart({
     agenda,
     filters,
     query,
-    prefilter: {
+    prefilter: omitParams({
       ...prefilter,
-      baseUrl: undefined,
-      filters: undefined,
-      initPath: undefined,
-      primaryColor: undefined,
-      secondaryColor: undefined,
       cms: 'embed',
       host: referrer,
-    },
+    }),
   });
   const { data: pages, error } = useEventsQuery({
     suspense: true,
     agenda,
     filters,
-    query: {
+    query: omitParams({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
       host:
         typeof document !== 'undefined' && document.referrer
           ? document.referrer
           : referrer,
-      baseUrl: undefined,
-      filters: undefined,
-      initPath: undefined,
-      primaryColor: undefined,
-      secondaryColor: undefined,
-    },
+    }),
     includeFields,
     pageSize: PAGE_SIZE,
   });
@@ -92,11 +83,11 @@ export default function FiltersPart({
   const loadGeoData = useLoadGeoData(
     null, // apiClient
     `/api/agendas/slug/${agenda.slug}/events`,
-    {
+    omitParams({
       ...upcomingOnly
         ? {
-          relative: ['current', 'upcoming'],
-        }
+            relative: ['current', 'upcoming'],
+          }
         : null,
       ...getPrefilteredQuery({ prefilter, query, filters }),
       passed: undefined, // omit passed,
@@ -105,12 +96,7 @@ export default function FiltersPart({
         typeof document !== 'undefined' && document.referrer
           ? document.referrer
           : referrer,
-      baseUrl: undefined,
-      filters: undefined,
-      initPath: undefined,
-      primaryColor: undefined,
-      secondaryColor: undefined,
-    },
+    }),
   );
 
   const isLoadingInitialData = !pages && !error;

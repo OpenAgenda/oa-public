@@ -5,6 +5,7 @@ import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
 import FiltersPreview from 'views/AgendaShow/components/FiltersPreview';
 import { TotalSkeleton } from 'views/AgendaShow/components/LoadingPage';
 import messages from 'views/AgendaShow/messages';
+import { omitParams } from 'utils/embedParams';
 import useGetFilterOptions from '../hooks/useGetFilterOptions';
 import getPrefilteredQuery from '../utils/getPrefilteredQuery';
 import FilterPreviewer from './FilterPreviewer';
@@ -79,16 +80,11 @@ export default function TotalPart({
     agenda,
     filters,
     query,
-    prefilter: {
+    prefilter: omitParams({
       ...prefilter,
-      baseUrl: undefined,
-      filters: undefined,
-      initPath: undefined,
-      primaryColor: undefined,
-      secondaryColor: undefined,
       cms: 'embed',
       host: referrer,
-    },
+    }),
   });
   const {
     data: pages,
@@ -99,26 +95,22 @@ export default function TotalPart({
     suspense: true,
     agenda,
     filters,
-    query: {
+    query: omitParams({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
       host:
         typeof document !== 'undefined' && document.referrer
           ? document.referrer
           : referrer,
-      baseUrl: undefined,
-      filters: undefined,
-      initPath: undefined,
-      primaryColor: undefined,
-      secondaryColor: undefined,
-    },
+    }),
     includeFields,
     pageSize: PAGE_SIZE,
   });
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   // const isEmpty = pages?.[0]?.events?.length === 0;
   // const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
   // const isRefreshing = isValidating && pages && pages.length === size;

@@ -20,6 +20,7 @@ import getDateFnsLocale from 'utils/getDateFnsLocale';
 import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
 import generateNonce from 'utils/generateNonce';
 import CSP, { DEFAULT_DIRECTIVES } from 'utils/contentSecurityPolicy';
+import { omitParams } from 'utils/embedParams';
 import { Agenda } from 'types';
 
 type CommonProps = {
@@ -76,12 +77,12 @@ export const getServerSideProps: GetServerSideProps = async ({
               ...matomoDomain ? [`https://${matomoDomain}`] : [],
               ...googleAnalytics
                 ? [
-                  'https://*.google-analytics.com',
-                  'https://*.analytics.google.com',
-                  'https://*.googletagmanager.com',
-                  'https://*.g.doubleclick.net',
-                  'https://*.google.com',
-                ]
+                    'https://*.google-analytics.com',
+                    'https://*.analytics.google.com',
+                    'https://*.googletagmanager.com',
+                    'https://*.g.doubleclick.net',
+                    'https://*.google.com',
+                  ]
                 : [],
             ],
             imgSrc: [
@@ -89,12 +90,12 @@ export const getServerSideProps: GetServerSideProps = async ({
               ...matomoDomain ? [`https://${matomoDomain}`] : [],
               ...googleAnalytics
                 ? [
-                  'https://*.google-analytics.com',
-                  'https://*.analytics.google.com',
-                  'https://*.googletagmanager.com',
-                  'https://*.g.doubleclick.net',
-                  'https://*.google.com',
-                ]
+                    'https://*.google-analytics.com',
+                    'https://*.analytics.google.com',
+                    'https://*.googletagmanager.com',
+                    'https://*.g.doubleclick.net',
+                    'https://*.google.com',
+                  ]
                 : [],
             ],
           },
@@ -149,15 +150,16 @@ export const getServerSideProps: GetServerSideProps = async ({
       prefilter,
       filters,
     });
-    const timingsPrefilter = !prefilteredQuery.timings && prefilteredQuery.passed !== '1'
-      ? {
-        relative: ['current', 'upcoming'],
-      }
-      : null;
+    const timingsPrefilter =
+      !prefilteredQuery.timings && prefilteredQuery.passed !== '1'
+        ? {
+            relative: ['current', 'upcoming'],
+          }
+        : null;
 
     const referrer = (query.host as string) || req.headers.referer || null;
 
-    const paramsBase = {
+    const paramsBase = omitParams({
       aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, true),
       size: 0,
@@ -166,14 +168,9 @@ export const getServerSideProps: GetServerSideProps = async ({
       cms: 'embed',
       host: referrer,
       passed: undefined, // omit passed
-      baseUrl: undefined,
-      filters: undefined,
-      initPath: undefined,
-      primaryColor: undefined,
-      secondaryColor: undefined,
-    };
+    });
 
-    const params = {
+    const params = omitParams({
       aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, false),
       from: 0,
@@ -186,12 +183,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       passed: undefined, // omit passed
       includeFields,
       includeImageTimestamps: true,
-      baseUrl: undefined,
-      filters: undefined,
-      initPath: undefined,
-      primaryColor: undefined,
-      secondaryColor: undefined,
-    };
+    });
 
     const props: ShowPageProps = {
       agenda,

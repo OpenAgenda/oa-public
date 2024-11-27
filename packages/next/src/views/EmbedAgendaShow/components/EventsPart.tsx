@@ -4,6 +4,7 @@ import { Button, Flex, SimpleGrid } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
+import { omitParams } from 'utils/embedParams';
 import getPrefilteredQuery from '../utils/getPrefilteredQuery';
 import messages from '../messages';
 import EventItem from './EventItem';
@@ -31,28 +32,25 @@ export default function EventsPart({
     suspense: true,
     agenda,
     filters,
-    query: {
+    query: omitParams({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
       host:
         typeof document !== 'undefined' && document.referrer
           ? document.referrer
           : referrer,
-      baseUrl: undefined,
-      filters: undefined,
-      initPath: undefined,
-      primaryColor: undefined,
-      secondaryColor: undefined,
-    },
+    }),
     includeFields,
     pageSize: PAGE_SIZE,
   });
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
-  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
+  const isReachingEnd =
+    isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
 
   const seeMoreUrl = useMemo(() => {
     const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
@@ -97,7 +95,8 @@ export default function EventsPart({
               first={pageIndex === 0 && eventIndex === 0}
               last={pageIndex * PAGE_SIZE + eventIndex === page.total - 1}
             />
-          )))}
+          )),
+        )}
       </SimpleGrid>
 
       {!isLoadingInitialData && !isReachingEnd ? (
