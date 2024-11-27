@@ -33,7 +33,7 @@
     "public",
     "public/*"
   ],
-  "packageManager": "yarn@4.2.2",
+  "packageManager": "yarn@4.5.3",
   "resolutions": {
     "@rushstack/eslint-patch@1.2.0": "patch:@rushstack/eslint-patch@npm:1.2.0#public/.yarn/patches/@rushstack-eslint-patch-npm-1.2.0-917f402e4e",
     "@types/react": "18.0.28",
