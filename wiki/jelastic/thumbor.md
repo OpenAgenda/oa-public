@@ -58,6 +58,7 @@ Modifier les valeurs suivantes de `/etc/thumbor.conf`:
 
 ```
 LOADER=thumbor_loaders.oa_loader
+STORAGE = 'thumbor.storages.no_storage'
 AUTO_WEBP = True
 AUTO_AVIF = True
 AUTO_AVIF = True
