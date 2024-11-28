@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-
 import {
   Input,
   InputGroup,
@@ -8,11 +7,8 @@ import {
   Button,
   Box,
 } from '@openagenda/uikit';
-
 import copyText from 'utils/copyText';
-
 import { FaIcon } from 'icons';
-
 import { faClipboard, faCheck } from 'icons/solid';
 
 interface CopyIdentifierProps {
