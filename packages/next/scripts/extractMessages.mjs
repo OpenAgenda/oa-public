@@ -31,8 +31,7 @@ const compilerOptions = ts.parseJsonConfigFileContent(
   root,
 );
 
-function getSourceFiles(fileNames, options) {
-  const program = ts.createProgram(fileNames, options);
+function getSourceFiles(program) {
   const emitResult = program.emit();
 
   const allDiagnostics = ts
@@ -67,15 +66,30 @@ function getSourceFiles(fileNames, options) {
     .filter((sourceFile) => !sourceFile.isDeclarationFile);
 }
 
-function getDepModules(sourceFile) {
+function getDepModules(
+  compilerHost,
+  options,
+  sourceFile,
+  moduleResolutionCache,
+) {
   const depModules = [];
 
-  sourceFile.resolvedModules?.forEach((resolvedModule) => {
-    if (
-      resolvedModule?.resolvedFileName
-      && !resolvedModule.isExternalLibraryImport
-    ) {
-      depModules.push(resolvedModule.resolvedFileName);
+  ts.forEachChild(sourceFile, (node) => {
+    if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
+      const moduleSpecifier = node.moduleSpecifier;
+      if (moduleSpecifier && ts.isStringLiteral(moduleSpecifier)) {
+        const resolved = ts.resolveModuleName(
+          moduleSpecifier.text,
+          sourceFile.fileName,
+          options,
+          compilerHost,
+          moduleResolutionCache,
+        ).resolvedModule;
+
+        if (resolved?.resolvedFileName && !resolved.isExternalLibraryImport) {
+          depModules.push(path.resolve(resolved.resolvedFileName));
+        }
+      }
     }
   });
 
@@ -195,27 +209,27 @@ async function createViewIndex(viewDir, deps, hasLocales) {
     /* eslint-disable */
 
     ${relativeDeps
-    .map((v, i) => `import fetchLocale${i} from '${v}';`)
-    .join('\n    ')}${
-  relativeDeps.length
-    ? `
+      .map((v, i) => `import fetchLocale${i} from '${v}';`)
+      .join('\n    ')}${
+      relativeDeps.length
+        ? `
     
     `
-    : ''
-}export default async function fetchLocale(locale) {
+        : ''
+    }export default async function fetchLocale(locale) {
       return Promise.all([${
-  hasLocales
-    ? `
+        hasLocales
+          ? `
         import(\`./compiled/${'${locale}'}.json\`).then((mod) => mod.default),`
-    : ''
-}${
-  relativeDeps.length
-    ? `
+          : ''
+      }${
+        relativeDeps.length
+          ? `
         `
-    : ''
-}${relativeDeps
-  .map((v, i) => `fetchLocale${i}(locale),`)
-  .join('\n        ')}
+          : ''
+      }${relativeDeps
+        .map((v, i) => `fetchLocale${i}(locale),`)
+        .join('\n        ')}
       ])
         .then((results) => Object.assign({}, ...results))
         .catch((e) => {
@@ -233,14 +247,15 @@ async function createViewIndex(viewDir, deps, hasLocales) {
 
 /* Script */
 
-const sourceFiles = getSourceFiles(sources, {
+const options = {
   ...compilerOptions.options,
   incremental: false,
   noEmitOnError: true,
-  // noImplicitAny: true,
-  // target: ts.ScriptTarget.ES5,
-  // module: ts.ModuleKind.CommonJS,
-});
+};
+const program = ts.createProgram(sources, options);
+const compilerHost = ts.createCompilerHost(options);
+
+const sourceFiles = getSourceFiles(program);
 
 if (!sourceFiles) {
   process.exit(1);
@@ -253,8 +268,19 @@ const packageSourceFiles = sourceFiles
   .filter((sourceFile) => isInPackage(sourceFile.path))
   .filter((sourceFile) => !sourceFile.path.endsWith('/locales/index.ts'));
 
+const moduleResolutionCache = ts.createModuleResolutionCache(
+  root,
+  (fileName) => fileName,
+  options,
+);
+
 for (const sourceFile of packageSourceFiles) {
-  const deps = getDepModules(sourceFile)
+  const deps = getDepModules(
+    compilerHost,
+    options,
+    sourceFile,
+    moduleResolutionCache,
+  )
     .filter(isInPackage)
     .filter((dep) => !dep.endsWith('/locales/index.ts'));
   dependenciesMap.set(sourceFile.path, deps);
@@ -343,8 +369,8 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
         `${DEFAULT_LANG}.json`,
       );
       if (
-        !depsLocalesDirs.includes(depLocalesDir)
-        && await fileExists(depDefaultLocalePath)
+        !depsLocalesDirs.includes(depLocalesDir) &&
+        await fileExists(depDefaultLocalePath)
       ) {
         depsLocalesDirs.push(depLocalesDir);
       }
