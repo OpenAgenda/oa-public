@@ -18,6 +18,11 @@ const main = {
 
   staticDirs: ['./public'],
 
+  babel: async (config) => {
+    config.generatorOpts = { importAttributesKeyword: 'with' };
+    return config;
+  },
+
   env: (config) => ({
     ...config,
     __NEXT_REACT_ROOT: 'true', // Fix next/dynamic with suspense
