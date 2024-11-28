@@ -31,6 +31,7 @@ import { faGlobe } from 'icons/regular';
 import { faPhone, faChevronDown } from 'icons/solid';
 import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
+import CopyIdentifier from 'components/CopyIdentifier';
 import { keyCDNLoader } from 'utils/imageLoader';
 import mdStyle from 'utils/mdStyle';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
@@ -106,7 +107,8 @@ function EventShow({ preload }: EventShowProps) {
   );
 
   const [tabIndex, setTabIndex] = useState(() =>
-    languages.indexOf(contentLocale));
+    languages.indexOf(contentLocale),
+  );
   const handleTabsChange = (index) => {
     setTabIndex(index);
 
@@ -611,6 +613,9 @@ function EventShow({ preload }: EventShowProps) {
           </GridItem>
 
           <GridItem area="footer">
+            <Box pb="2">
+              <CopyIdentifier identifier={event.uid} size="sm" />
+            </Box>
             <Footer />
           </GridItem>
         </Grid>
