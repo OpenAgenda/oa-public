@@ -114,6 +114,7 @@ const locationFilter = ({ intl, rule }) => {
     detail: intl.formatMessage(messages.eventLocationDetail, {
       geo: intl.formatMessage(messages[locationType]),
     }),
+    casse: rule.query.location?.caseSensitive,
   };
 };
 

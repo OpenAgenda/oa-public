@@ -102,6 +102,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
       type: 'location',
       subdivision: key,
       locationValues: [].concat(query.location[key]),
+      caseSensitive: key ? query.location.caseSensitive : false,
     });
 
     return result;
@@ -251,6 +252,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
         query: {
           location: {
             [values.subdivision]: values.locationValues,
+            caseSensitive: values.caseSensitive,
           },
         },
         required,
