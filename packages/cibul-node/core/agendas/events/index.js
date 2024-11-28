@@ -6,6 +6,7 @@ import list from './list.js';
 import create from './create.js';
 import remove from './remove.js';
 import update from './update.js';
+import setByExtId from './setByExtId.js';
 import references from './references.js';
 import validate, { eventFields as validateEventFields } from './validate.js';
 
@@ -22,6 +23,7 @@ export default (core) => {
     update: update.bind(null, core, agendaUid),
     patch: update.patch.bind(null, core, agendaUid),
     references: references.bind(null, core, agendaUid),
+    setByExtId: setByExtId.bind(null, core, agendaUid),
     validate: Object.assign(validate.bind(null, core, agendaUid), {
       eventFields: validateEventFields,
     }),

@@ -57,6 +57,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     private: privateOption = false,
     callOrigin = 'ui',
     userLang = 'en',
+    protectExtIds = false,
   } = options;
 
   const agenda = await getAgenda(core.services, agendaUid, {
@@ -168,6 +169,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       event,
       partial,
       userLang,
+      protectExtIds,
     });
   } else {
     payload.setItem('event', event, event);
