@@ -55,6 +55,7 @@ import useNcEffect from 'views/EventShow/hooks/useNcEffect';
 import mdStyle from 'utils/mdStyle';
 import { thumborLoader } from 'utils/imageLoader';
 import { embedAgendaUrlRegex } from 'utils/isNextUrl';
+import OAAttribution from '../../components/OAAttribution';
 import useEvent from './hooks/useEvent';
 import Sidebar, {
   ShareSection,
@@ -459,6 +460,8 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
           display="overlay"
         />
       ) : null}
+
+      <OAAttribution />
     </>
   );
 }

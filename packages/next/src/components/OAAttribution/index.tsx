@@ -5,17 +5,15 @@ import logoPic from '../../../public/images/oa.svg';
 export default function OAAttribution() {
   return (
     <Box
-      pos="absolute"
-      bottom="0"
-      right="0"
       fontSize="sm"
       display="flex"
+      justifyContent="flex-end"
       px="2"
       py="0.5"
       bg="whiteAlpha.800"
       zIndex="sticky"
     >
-      <Link href="https://openagenda.com" target="_blank">
+      <Link href="https://openagenda.com" target="_blank" display="flex">
         <Image
           src={logoPic}
           alt="OpenAgenda"
