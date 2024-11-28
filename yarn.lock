@@ -7314,7 +7314,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.2"
-    next: "npm:^14.2.13"
+    next: "npm:^14.2.18"
     qs: "npm:^6.11.0"
     react: "npm:^18.3.1"
     react-content-loader: "npm:^6.2.0"
@@ -33284,7 +33284,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^14.2.13":
+"next@npm:^14.2.18":
   version: 14.2.18
   resolution: "next@npm:14.2.18"
   dependencies:
