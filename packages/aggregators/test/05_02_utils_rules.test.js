@@ -887,14 +887,9 @@ describe('05_02 - utils - rules', () => {
           [
             {
               query: {
-                location: [
-                  {
-                    city: 'Bordeaux',
-                  },
-                  {
-                    city: 'Toulouse',
-                  },
-                ],
+                location: {
+                  city: ['Bordeaux', 'Toulouse'],
+                },
               },
             },
           ],
@@ -907,6 +902,54 @@ describe('05_02 - utils - rules', () => {
           },
         ),
       ).toEqual({});
+    });
+
+    test('caseSensitive success', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                location: {
+                  city: ['Bordeaux', 'Toulouse'],
+                  caseSensitive: true,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            location: {
+              city: 'Toulouse',
+            },
+          },
+        ),
+      ).toEqual({});
+    });
+
+    test('caseSensitive fail', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                location: {
+                  city: ['Bordeaux', 'Toulouse'],
+                  caseSensitive: true,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            location: {
+              city: 'toulouse',
+            },
+          },
+        ),
+      ).toBeNull();
     });
 
     test('multiple values can be specified in the same filter field for an OR evaluation', () => {
