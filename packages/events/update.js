@@ -21,6 +21,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
       isPatch,
       isDraft: options.draft,
       protected: options.protected,
+      protectExtIds: options.protectExtIds,
       maxImageSize: service.config.maxImageSize,
       current,
     }),

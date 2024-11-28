@@ -117,6 +117,26 @@ describe('events - functional - update', () => {
       expect(updated.extIds).toStrictEqual([{ key: 'oa2', value: '456' }]);
     });
 
+    it('update extIds with protectExtIds', async () => {
+      const ev = await svc.create({
+        ...fixtures.creditsEventCreate,
+        extIds: [{ key: 'oa', value: '123' }],
+      });
+
+      const updated = await svc.update(
+        ev.uid,
+        {
+          extIds: [{ key: 'oa2', value: '456' }],
+        },
+        { protectExtIds: true },
+      );
+
+      expect(updated.extIds).toStrictEqual([
+        { key: 'oa2', value: '456' },
+        { key: 'oa', value: '123' },
+      ]);
+    });
+
     it('patch extIds', async () => {
       const ev = await svc.create({
         ...fixtures.creditsEventCreate,
