@@ -1,13 +1,14 @@
-import { getFilters, getFilterTitle } from '@openagenda/react-filters';
+import getFilters from './getFilters.js';
+import getFilterTitle from './getFilterTitle.js';
 
-const truncate = (label, length) => {
+function truncate(label, length) {
   if (label.length > length) {
-    return `${label.substr(0, length)}...`;
+    return `${label.substr(0, length)}…`;
   }
   return label;
-};
+}
 
-const findMatchingField = (schema, name) => {
+function findMatchingField(schema, name) {
   const isSubField = name.split(':').length > 1;
 
   if (isSubField) {
@@ -19,9 +20,13 @@ const findMatchingField = (schema, name) => {
   }
 
   return (schema?.fields ?? []).find((f) => f.field === name);
-};
+}
 
-export default function getFilterOptions(intl, schema = {}, exclude = []) {
+export default function getFilterSelectOptions(
+  intl,
+  schema = {},
+  exclude = [],
+) {
   return getFilters(intl, schema?.fields ?? [])
     .filter(({ name }) => !exclude.includes(name))
     .map(({ name }) => ({
