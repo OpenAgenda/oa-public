@@ -4,9 +4,9 @@ export default {
   alias: 'agenda_service_test',
   site: {
     url: 'https://openagenda.com',
-    image: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png',
+    image: 'https://cdn.openagenda.com/static/openagenda-185.png',
   },
-  defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+  defaultImage: '//cdn.openagenda.com/static/graylogo140.png',
   elasticsearch: {
     node: `https://${process.env.OA_ELASTICSEARCH_750_DEV_HOST}`,
     log: 'trace',

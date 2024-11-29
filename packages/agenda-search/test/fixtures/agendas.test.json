@@ -32,7 +32,7 @@
         }
       ]
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 2,
@@ -64,7 +64,7 @@
         }
       ]
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 3,
@@ -95,7 +95,7 @@
         "upcoming": 34
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 4,
@@ -123,7 +123,7 @@
         "upcoming": 10000
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 14783,
@@ -149,7 +149,7 @@
         "upcoming": 12
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 13330,
@@ -189,7 +189,7 @@
         }
       ]
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 23849,
@@ -216,7 +216,7 @@
         "upcoming": 59
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 18212,
@@ -243,7 +243,7 @@
         "upcoming": 0
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 17902,
@@ -264,7 +264,7 @@
         "upcoming": 2
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 17903,
@@ -285,7 +285,7 @@
         "upcoming": 156
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 11398,
@@ -374,7 +374,7 @@
         "upcoming": 156
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 99993,
@@ -397,7 +397,7 @@
         "upcoming": 156
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 99990,
@@ -423,7 +423,7 @@
         "upcoming": 156
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 99991,
@@ -449,7 +449,7 @@
         "upcoming": 156
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 20202,
@@ -498,7 +498,7 @@
         "upcoming": 50
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 22510,
@@ -535,7 +535,7 @@
         "upcoming": 1
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 5613,
@@ -592,7 +592,7 @@
         "upcoming": 86
       }
     },
-    "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    "image": "//cdn.openagenda.com/static/graylogo140.png"
   },
   {
     "id": 20354,

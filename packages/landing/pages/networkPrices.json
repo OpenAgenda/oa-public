@@ -38,7 +38,7 @@
   "segments": [
     {
       "key": "network",
-      "rightImage": "//s3.eu-central-1.amazonaws.com/oastatic/landing/network300.jpg",
+      "rightImage": "//cdn.openagenda.com/static/landing/network300.jpg",
       "title": "networkPricingPresTitle",
       "text": "networkPricingPresText",
       "points": [],

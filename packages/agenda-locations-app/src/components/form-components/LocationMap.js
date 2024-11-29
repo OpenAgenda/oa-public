@@ -54,8 +54,7 @@ const gestureHandlingStyle = css`
 const defaults = {
   tiles:
     '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
-  markerIcon:
-    'https://oastatic.s3.eu-central-1.amazonaws.com/oa-blue-marker.png',
+  markerIcon: 'https://cdn.openagenda.com/static/oa-blue-marker.png',
   markerShadow: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
   iconAnchor: [12, 41],
   pos: [40, 0],

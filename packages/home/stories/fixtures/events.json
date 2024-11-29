@@ -1371,7 +1371,7 @@
           "width": null
         },
         "variants": [],
-        "base": "//s3.eu-central-1.amazonaws.com/oastatic"
+        "base": "//cdn.openagenda.com/static"
       },
       "draft": 0,
       "private": 0,

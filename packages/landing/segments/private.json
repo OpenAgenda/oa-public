@@ -2,5 +2,5 @@
   "template": "basic",
   "title": "privateTitle",
   "points": ["privatePrivate", "privateVisibility", "privateBroadcast"],
-  "leftImage": "//s3.eu-central-1.amazonaws.com/oastatic/private.png"
+  "leftImage": "//cdn.openagenda.com/static/private.png"
 }

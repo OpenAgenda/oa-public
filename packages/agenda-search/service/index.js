@@ -20,8 +20,7 @@ export default (config = {}) => {
     defaultImage: null,
     site: {
       url: 'https://openagenda.com',
-      image:
-        'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png',
+      image: 'https://cdn.openagenda.com/static/openagenda-185.png',
     },
     ...config,
   };

@@ -6,20 +6,20 @@ div.background-blue.price-summary
         .col-lg-6
           .margin-h-md.margin-v-lg
             figure.text-center
-              img.big(src='//s3.eu-central-1.amazonaws.com/oastatic/landing/agenda-white.png', width=300)
+              img.big(src='//cdn.openagenda.com/static/landing/agenda-white.png', width=300)
             h3!=agendaTitle
             div.separator
             p.sub!=agendaSub
             ul
-              each p in agendaPoints 
-                li 
+              each p in agendaPoints
+                li
                   p!=p
             a.btn.btn-primary.btn-lg.margin-top-md(href=agendaAction.link)!=agendaAction.label
 
         .col-lg-6
           .margin-h-md.margin-v-lg
             figure.text-center
-              img.big(src='//s3.eu-central-1.amazonaws.com/oastatic/landing/network-white.png', width=300)
+              img.big(src='//cdn.openagenda.com/static/landing/network-white.png', width=300)
             h3!=networkTitle
             div.separator
             p.sub!=networkSub

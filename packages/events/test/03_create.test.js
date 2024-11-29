@@ -218,7 +218,7 @@ describe('events - functional - create', () => {
         await imageTestsSvc.create({
           ...data,
           image: {
-            url: 'https://s3.eu-central-1.amazonaws.com/oastatic/onda-185.png',
+            url: 'https://cdn.openagenda.com/static/onda-185.png',
           },
         });
       } catch (e) {

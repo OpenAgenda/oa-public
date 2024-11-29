@@ -64,11 +64,7 @@ function setCSPHeader(hashes, req, res) {
       'https://image.crisp.chat',
       'https://storage.crisp.chat',
     ],
-    styleSrc: [
-      ...cspDefaultDirectives.styleSrc,
-      'https://client.crisp.chat',
-      'https://oastatic.s3.eu-central-1.amazonaws.com',
-    ],
+    styleSrc: [...cspDefaultDirectives.styleSrc, 'https://client.crisp.chat'],
     mediaSrc: [...cspDefaultDirectives.mediaSrc, 'https://client.crisp.chat'],
     frameSrc: [...cspDefaultDirectives.frameSrc, 'https://game.crisp.chat'],
     scriptSrc: [

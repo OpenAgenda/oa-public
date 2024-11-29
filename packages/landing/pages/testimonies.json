@@ -22,7 +22,7 @@
       "organization": {
         "name": "paolaScottonOrganization",
         "link": "http://www.rof.fr",
-        "logo": "https://s3.eu-central-1.amazonaws.com/oastatic/ROF-logo.jpg"
+        "logo": "https://cdn.openagenda.com/static/ROF-logo.jpg"
       }
     },
     {
@@ -30,12 +30,12 @@
       "background": "gray",
       "action": false,
       "name": "Jérôme Messina",
-      "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/jerome-messina.jpg",
+      "avatar": "//cdn.openagenda.com/static/testimonies/jerome-messina.jpg",
       "testimony": "jeromeMessinaTestimony",
       "organization": {
         "name": "jeromeMessinaOrganization",
         "link": "http://www.culturecommunication.gouv.fr",
-        "logo": "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/ministere-de-la-culture.jpg"
+        "logo": "//cdn.openagenda.com/static/testimonies/ministere-de-la-culture.jpg"
       }
     },
     {
@@ -43,12 +43,12 @@
       "background": "white",
       "action": false,
       "name": "Anne-Laure Janvier",
-      "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/anne-laure-janvier.jpg",
+      "avatar": "//cdn.openagenda.com/static/testimonies/anne-laure-janvier.jpg",
       "testimony": "anneLaureJanvierTestimony",
       "organization": {
         "name": "anneLaureJanvierOrganization",
         "link": "https://www.comexposium.fr",
-        "logo": "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/comexposium.jpg"
+        "logo": "//cdn.openagenda.com/static/testimonies/comexposium.jpg"
       }
     },
     {
@@ -56,12 +56,12 @@
       "background": "gray",
       "action": false,
       "name": "Virginie Staels",
-      "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/virginie-staels.jpg",
+      "avatar": "//cdn.openagenda.com/static/testimonies/virginie-staels.jpg",
       "testimony": "virginieStaelsTestimony",
       "organization": {
         "name": "virginieStaelsOrganization",
         "link": "http://www.enseignementsup-recherche.gouv.fr",
-        "logo": "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/mesr.png"
+        "logo": "//cdn.openagenda.com/static/testimonies/mesr.png"
       }
     },
     {
@@ -69,12 +69,12 @@
       "background": "white",
       "action": false,
       "name": "Xavier Masclaux",
-      "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/xavier-masclaux.jpg",
+      "avatar": "//cdn.openagenda.com/static/testimonies/xavier-masclaux.jpg",
       "testimony": "xavierMasclauxTestimony",
       "organization": {
         "name": "xavierMasclauxOrganization",
         "link": "https://digital-valenceromans.fr",
-        "logo": "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/french-tech-in-the-alps.jpg"
+        "logo": "//cdn.openagenda.com/static/testimonies/french-tech-in-the-alps.jpg"
       }
     },
     "footer"

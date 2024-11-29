@@ -9,8 +9,8 @@ import appLocales from '../../locales-compiled';
 const AggregatorModalContainer = ({ options, query, userLogged }) => {
   const [display, setDisplay] = useState(false);
 
-  const whiteLogo = 'https://oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png';
-  const blueLogo = 'https://oastatic.s3.eu-central-1.amazonaws.com/openagenda-blue-22.png';
+  const whiteLogo = 'https://cdn.openagenda.com/static/whitelogo22.png';
+  const blueLogo = 'https://cdn.openagenda.com/static/openagenda-blue-22.png';
   const [logo, setLogo] = useState(whiteLogo);
 
   const intl = useIntl();

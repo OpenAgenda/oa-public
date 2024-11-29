@@ -1,6 +1,6 @@
 set $client_ip $remote_addr;
 
-error_page  403  http://s3.eu-central-1.amazonaws.com/oastatic/403.html;
+error_page  403  http://cdn.openagenda.com/static/403.html;
 
 if ($http_x_forwarded_for) {
   set $client_ip $http_x_forwarded_for;

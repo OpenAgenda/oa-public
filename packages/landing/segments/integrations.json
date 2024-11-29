@@ -4,152 +4,152 @@
     {
       "title": "Sur la rive droite - Bordeaux Métropole",
       "link": "https://www.surlarivedroite.fr/agenda/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/bdxrivedroite.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/bdxrivedroite.jpg"
     },
     {
       "title": "Métropole de toulouse",
       "link": "https://agenda.toulouse-metropole.fr/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/tam.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/tam.jpg"
     },
     {
       "title": "Jazz sur son 31",
       "link": "https://cultures.haute-garonne.fr/jazz-31/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/jazz31.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/jazz31.jpg"
     },
     {
       "title": "Maad 93",
       "link": "http://maad93.com/agenda",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/maad93.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/maad93.jpg"
     },
     {
       "title": "Médiathèques Grand Châtellerault",
       "link": "https://mediatheques.grand-chatellerault.fr/agenda/en-ce-moment",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/mediatheques-grand-chatellerault.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/mediatheques-grand-chatellerault.jpg"
     },
     {
       "title": "Le Salon de l'agriculture 2018",
       "link": "https://www.salon-agriculture.com/Animations/Que-faire-sur-le-Salon?oaq%5Bpassed%5D=1&oaq%5Border%5D=latest",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/agriculture.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/agriculture.jpg"
     },
     {
       "title": "Salon SOLUTRANS",
       "link": "https://www.solutrans.fr/Programme-evenements/Calendrier-des-evenements?oaq%5Bpassed%5D=1&oaq%5Border%5D=latest",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/solutrans.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/solutrans.jpg"
     },
     {
       "title": "Bibliothèques de Pantin",
       "link": "http://www.bibliotheques-pantin.fr/node/3573",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/bibliopantin.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/bibliopantin.jpg"
     },
     {
       "title": "#BM2050",
       "link": "https://www.bm2050.fr/agenda/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/bm2050.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/bm2050.jpg"
     },
     {
       "title": "Ville de Cornebarrieu",
       "link": "http://www.cornebarrieu.fr/au-quotidien-agenda/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/cornebarrieu.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/cornebarrieu.jpg"
     },
     {
       "title": "Toulouse Cité Européenne de la Science",
       "link": "https://toulousescience2018.eu/agenda/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/toulousescience.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/toulousescience.jpg"
     },
     {
       "title": "Réseau 92",
       "link": "http://reseau92.com/agenda/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/reseau92.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/reseau92.jpg"
     },
     {
       "title": "Sortir au Sicoval",
       "link": "https://sortir.sicoval.fr/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/sicoval.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/sicoval.jpg"
     },
     {
       "title": "Salon EQUIP AUTO",
       "link": "https://www.equipauto.com/programme/Calendrier-des-evenements-2017?oaq%5Bpassed%5D=1&oaq%5Border%5D=latest",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/equipauto.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/equipauto.jpg"
     },
     {
       "title": "40 ans du Centre Pompidou",
       "link": "http://www.centrepompidou40ans.fr/?oaq%5Bpassed%5D=1&oaq%5Border%5D=latest",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/centrepompidou.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/centrepompidou.jpg"
     },
     {
       "title": "La semaine du numérique",
       "link": "http://www.lasemainenumerique.paris",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/numerique.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/numerique.jpg"
     },
     {
       "title": "Est-ensemble: Agenda Temps libres",
       "link": "https://www.est-ensemble.fr/agenda-tempslibres",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/vpah.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/vpah.jpg"
     },
     {
       "title": "Ville de Cornebarrieu",
       "link": "http://www.cornebarrieu.fr/au-quotidien-agenda/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/cornebarrieu.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/cornebarrieu.jpg"
     },
     {
       "title": "Métropole Rouen Normandie",
       "link": "https://www.metropole-rouen-normandie.fr/agenda-de-la-metropole",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/rouen.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/rouen.jpg"
     },
     {
       "title": "L'e-journal de Boulogne-Billancourt",
       "link": "https://www.e-bb.fr/rubrique/sortir-a-bb/demandez-le-programme/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/ebb.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/ebb.jpg"
     },
     {
       "title": "Journées des arts et de la culture",
       "link": "http://journees-arts-culture-sup.fr",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/jaces.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/jaces.jpg"
     },
     {
       "title": "Forum des instituts culturels étrangers à Paris",
       "link": "https://www.ficep.info/agenda-ficep",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/ficep.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/ficep.jpg"
     },
     {
       "title": "Est Ensemble: Agenda Emploi formations",
       "link": "https://www.est-ensemble.fr/agenda-emploi-formation",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/estensembleemploiformation.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/estensembleemploiformation.jpg"
     },
     {
       "title": "Fête de la Bretagne",
       "link": "https://www.fetedelabretagne.bzh/programme",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/fdb2018.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/fdb2018.jpg"
     },
     {
       "title": "Ville de Carbon-Blanc",
       "link": "http://www.carbon-blanc.fr/608-agenda.html",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/carbon.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/carbon.jpg"
     },
     {
       "title": "Institut Français à Jerusalem",
       "link": "https://www.institutfrancais-jerusalem.org/naplouse",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/ifj.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/ifj.jpg"
     },
     {
       "title": "Agenda culturel d'Issy-les-Moulineaux",
       "link": "http://www.issy.com/agenda-culturel",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/issyculturel.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/issyculturel.jpg"
     },
     {
       "title": "Paris: Budget Participatif",
       "link": "https://budgetparticipatif.paris.fr/bp/jsp/site/Portal.jsp?page=agenda&view=agendaEvents&id=1",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/parisbudgetparticipatif.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/parisbudgetparticipatif.jpg"
     },
     {
       "title": "Sanctuaire de Pellevoisin",
       "link": "https://www.pellevoisin.net/activites-du-sanctuaire/agenda-du-sanctuaire-de-pellevoisin/",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/pellevoisin.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/pellevoisin.jpg"
     },
     {
       "title": "Ville et pays d'Art et d'Histoire en Nouvelle-Aquitaine",
       "link": "https://www.vpah-nouvelle-aquitaine.org/les-evenements.html",
-      "pic": "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/vpah.jpg"
+      "pic": "https://cdn.openagenda.com/static/landing/embeds/vpah.jpg"
     }
   ],
   "links": [

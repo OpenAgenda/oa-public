@@ -38,7 +38,7 @@
   "segments": [
     {
       "key": "network",
-      "rightImage": "//s3.eu-central-1.amazonaws.com/oastatic/landing/agenda.jpg",
+      "rightImage": "//cdn.openagenda.com/static/landing/agenda.jpg",
       "title": "agendaPricingPresTitle",
       "points": [
         "agendaPricingPresPoint1",
@@ -97,7 +97,7 @@
       "title": "agendaPricingNetwork",
       "text": "agendaPricingNetworkDetail",
       "points": [],
-      "rightImage": "//s3.eu-central-1.amazonaws.com/oastatic/landing/network300.jpg",
+      "rightImage": "//cdn.openagenda.com/static/landing/network300.jpg",
       "action": {
         "label": "mainPricingDiscover",
         "link": "#network-pricing"

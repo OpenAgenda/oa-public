@@ -183,7 +183,7 @@
         "uid": 61030484,
         "title": "CHU de Lille",
         "slug": "chu-lille",
-        "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+        "image": "//cdn.openagenda.com/static/graylogo140.png",
         "official": null,
         "createdAt": "2016-09-07T08:35:02.000Z",
         "updatedAt": "2017-07-12T09:25:30.000Z"
@@ -892,7 +892,7 @@
         "uid": 83370689,
         "title": "Palais des Beaux-Arts",
         "slug": "palais-des-beaux-arts",
-        "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+        "image": "//cdn.openagenda.com/static/graylogo140.png",
         "official": 0,
         "createdAt": "2019-02-05T09:30:49.000Z",
         "updatedAt": "2019-03-13T16:34:17.000Z"
@@ -1678,7 +1678,7 @@
         "uid": 8464745,
         "title": "Espace Nelson Mandela",
         "slug": "espace-nelson-mandela",
-        "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+        "image": "//cdn.openagenda.com/static/graylogo140.png",
         "official": 0,
         "createdAt": "2019-09-03T11:56:19.000Z",
         "updatedAt": "2021-12-29T15:24:35.000Z"
@@ -2046,7 +2046,7 @@
         "uid": 39494797,
         "title": "CMA Hauts-de-France",
         "slug": "cma-hauts-de-france",
-        "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+        "image": "//cdn.openagenda.com/static/graylogo140.png",
         "official": 1,
         "createdAt": "2020-02-10T16:34:56.000Z",
         "updatedAt": "2022-07-21T09:19:06.000Z"
@@ -2383,7 +2383,7 @@
         "uid": 25507149,
         "title": "Vie associative - Ville de Loos",
         "slug": "vie-associative-ville-de-loos",
-        "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+        "image": "//cdn.openagenda.com/static/graylogo140.png",
         "official": 1,
         "createdAt": "2021-01-28T15:44:02.000Z",
         "updatedAt": "2024-03-19T08:15:38.000Z"
@@ -2470,7 +2470,7 @@
         "uid": 71703999,
         "title": "MEL - Les Journées Européennes du Patrimoine 2021",
         "slug": "mel-les-journees-europeennes-du-patrimoine-2021",
-        "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+        "image": "//cdn.openagenda.com/static/graylogo140.png",
         "official": 1,
         "createdAt": "2021-09-07T16:51:19.000Z",
         "updatedAt": "2022-07-21T09:23:31.000Z"
@@ -2570,7 +2570,7 @@
         "uid": 565851,
         "title": "Ville de Comines",
         "slug": "ville-de-comines",
-        "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+        "image": "//cdn.openagenda.com/static/graylogo140.png",
         "official": 1,
         "createdAt": "2021-11-09T15:58:55.000Z",
         "updatedAt": "2024-02-06T15:19:03.000Z"
@@ -2867,7 +2867,7 @@
         "uid": 81357814,
         "title": "Les médiathèques du Mélantois",
         "slug": "les-mediatheques-du-melantois",
-        "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+        "image": "//cdn.openagenda.com/static/graylogo140.png",
         "official": 1,
         "createdAt": "2021-06-24T12:30:25.000Z",
         "updatedAt": "2023-02-17T15:56:13.000Z"

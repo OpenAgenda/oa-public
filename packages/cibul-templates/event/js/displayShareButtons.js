@@ -27,7 +27,7 @@ const ShareOAModalContainer = ({ params, userLogged }) => {
   return (
     <>
       <button className="btn btn-primary" onClick={() => setDisplay(true)}>
-        <img alt="logo" src="//oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png" />
+        <img alt="logo" src="//cdn.openagenda.com/static/whitelogo22.png" />
         &nbsp; {intl.formatMessage(messages.shareButton)}
       </button>
       {display && (

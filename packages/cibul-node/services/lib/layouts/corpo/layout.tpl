@@ -6,7 +6,7 @@ const nonceAttr = typeof cspNonce !== 'undefined' ? ` nonce="${cspNonce}"` : '';
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="/images/favicon.ico"/>
-    <link href="https://oastatic.s3.eu-central-1.amazonaws.com/fonts/roboto.css" rel="stylesheet" type="text/css"<%= nonceAttr %>>
+    <link href="https://cdn.openagenda.com/static/fonts/roboto.css" rel="stylesheet" type="text/css"<%= nonceAttr %>>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="language" content="<%= lang %>">
     <link rel="stylesheet" href="/css/oa-main.css?v=1"<%= nonceAttr %>>

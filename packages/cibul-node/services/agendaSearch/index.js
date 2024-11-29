@@ -17,7 +17,7 @@ export function init(config, services) {
       node: `${protocol}://${host}:${port}`,
       ssl: useSSL,
     },
-    defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+    defaultImage: '//cdn.openagenda.com/static/graylogo140.png',
     logger: config.getLogConfig('svc', 'agendaSearch'),
     site: {
       url: config.root,

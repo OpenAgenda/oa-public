@@ -6,8 +6,8 @@ export const defaultDirectives = {
   frameAncestors: ["'self'"],
   fontSrc: [
     "'self'",
-    'https://s3.eu-central-1.amazonaws.com/oastatic/',
-    'https://oastatic.s3.eu-central-1.amazonaws.com/',
+    'https://cdn.openagenda.com/static/',
+    'https://cdn.openagenda.com/static/',
   ],
   imgSrc: [
     "'self'",
@@ -23,6 +23,7 @@ export const defaultDirectives = {
   styleSrc: [
     "'self'",
     "'unsafe-inline'",
+    'https://cdn.openagenda.com',
     // "'strict-dynamic'",
     // (req, res) => `'nonce-${res.locals.cspNonce}'`,
   ],

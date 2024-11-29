@@ -21,7 +21,7 @@
       "identifier": 31935178,
       "uid": 31935178,
       "name": "Adeline Déprez",
-      "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+      "avatar": "//cdn.openagenda.com/static/graylogo140.png"
     },
     "inboxUser": {
       "id": 94227,
@@ -43,7 +43,7 @@
         "identifier": 31935178,
         "uid": 31935178,
         "name": "Adeline Déprez",
-        "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+        "avatar": "//cdn.openagenda.com/static/graylogo140.png"
       },
       "attachments": []
     },
@@ -54,7 +54,7 @@
         "identifier": 31935178,
         "uid": 31935178,
         "name": "Adeline Déprez",
-        "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+        "avatar": "//cdn.openagenda.com/static/graylogo140.png"
       },
       {
         "id": 55558,
@@ -137,7 +137,7 @@
         "identifier": 31935178,
         "uid": 31935178,
         "name": "Adeline Déprez",
-        "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+        "avatar": "//cdn.openagenda.com/static/graylogo140.png"
       },
       "attachments": []
     }

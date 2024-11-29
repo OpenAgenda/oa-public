@@ -2,7 +2,7 @@
 
 module.exports = {
   root: 'https://domain.com',
-  logo: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png',
+  logo: 'https://cdn.openagenda.com/static/openagenda-185.png',
   aws: {
     key: 'string',
     secret: 'string',

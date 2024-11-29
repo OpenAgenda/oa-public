@@ -7,6 +7,6 @@
     "networkSupport",
     "networkExport"
   ],
-  "rightImage": "//s3.eu-central-1.amazonaws.com/oastatic/francenetwork.png",
+  "rightImage": "//cdn.openagenda.com/static/francenetwork.png",
   "imageWidth": 300
 }

@@ -338,7 +338,7 @@ const config = {
     bucket: prod.aws?.buckets?.main ?? process.env.AWS_MAIN_BUCKET,
     defaultImagePath:
       process.env.DEFAULT_IMAGE_PATH
-      ?? '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+      ?? '//cdn.openagenda.com/static/graylogo140.png',
     defaultImageSize: {
       width: parseInt(process.env.DEFAULT_IMAGE_SIZE_WIDTH ?? '140', 10),
       height: parseInt(process.env.DEFAULT_IMAGE_SIZE_HEIGHT ?? '140', 10),

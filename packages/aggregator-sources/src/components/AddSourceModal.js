@@ -15,7 +15,7 @@ import SlugSearch from './SlugSearch.js';
 import DefineRules from './DefineRules/index.js';
 import EvaluateOptions from './EvaluateOptions.js';
 
-const DEFAULT_IMAGE = 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png';
+const DEFAULT_IMAGE = 'https://cdn.openagenda.com/static/graylogo140.png';
 
 const messages = defineMessages({
   modalTitle: {

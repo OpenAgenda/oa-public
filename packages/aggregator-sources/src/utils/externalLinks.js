@@ -7,7 +7,7 @@ export default {
   helpCopyPaste:
     'https://doc.openagenda.com/lagregation-dagendas/#copier-coller-des-jeux-de-r-gles-d-agr-gation',
   aggregationPresentationPic: (lang) =>
-    `https://oastatic.s3.eu-central-1.amazonaws.com/aggregation-${
+    `https://cdn.openagenda.com/static/aggregation-${
       lang === 'fr' ? 'fr' : 'en'
     }.png`,
 };

@@ -189,7 +189,7 @@
       "locationUid": null,
       "image": {
         "filename": "graylogo140.png",
-        "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+        "base": "//cdn.openagenda.com/static/"
       },
       "title": null,
       "description": null,

@@ -45,7 +45,7 @@
   "segments": [
     {
       "key": "network",
-      "rightImage": "//s3.eu-central-1.amazonaws.com/oastatic/landing/organisation.jpg",
+      "rightImage": "//cdn.openagenda.com/static/landing/organisation.jpg",
       "background": "white"
     },
     {
@@ -72,7 +72,7 @@
         "mainBroadcastPoint3",
         "mainBroadcastPoint4"
       ],
-      "rightImage": "//s3.eu-central-1.amazonaws.com/oastatic/licouv.png"
+      "rightImage": "//cdn.openagenda.com/static/licouv.png"
     },
     {
       "key": "pricing",

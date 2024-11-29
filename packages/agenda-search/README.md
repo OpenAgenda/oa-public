@@ -76,6 +76,6 @@ max: 100
 },
 image: {
 path: '//cibul.s3.amazonaws.com/',
-default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+default: '//cdn.openagenda.com/static/graylogo140.png'
 }
 }
