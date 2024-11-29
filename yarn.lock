@@ -5907,8 +5907,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-settings@workspace:packages/agenda-settings"
   dependencies:
-    "@dnd-kit/core": "npm:^6.1.0"
-    "@dnd-kit/utilities": "npm:^3.2.2"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/agendas": "npm:^1.7.0"
     "@openagenda/bs-templates": "npm:^2.5.0"
@@ -7716,6 +7714,7 @@ __metadata:
     "@babel/core": "npm:^7.23.3"
     "@babel/runtime-corejs3": "npm:^7.23.2"
     "@cfaester/enzyme-adapter-react-18": "npm:^0.6.0"
+    "@dnd-kit/core": "npm:^6.1.0"
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@floating-ui/react": "npm:^0.26.13"
