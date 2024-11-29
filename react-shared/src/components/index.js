@@ -2,6 +2,7 @@ export { default as AgendasSearch } from './AgendasSearch.js';
 export { default as ApiClientProvider } from './ApiClientProvider.js';
 export { default as ConsentBanner } from './ConsentBanner.js';
 export { default as Case } from './Case.js';
+export { default as FilterSelect } from './FilterSelect.js';
 export { default as Image } from './Image.js';
 export { default as ImageInput } from './ImageInput.js';
 export { default as Modal } from './Modal.js';
