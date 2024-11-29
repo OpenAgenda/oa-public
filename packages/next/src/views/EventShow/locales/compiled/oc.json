@@ -501,6 +501,12 @@
       "value": "Événement précédent"
     }
   ],
+  "next.views.EventShow.ShareModal.byEmailSub": [
+    {
+      "type": 0,
+      "value": "L'événement ne sera pas envoyé à plus de 50 destinataires"
+    }
+  ],
   "next.views.EventShow.ShareModal.copied": [
     {
       "type": 0,

@@ -16,6 +16,8 @@
   "next.views.AgendaShow.ExportModal.exportAll": "Exportar totes los eveniments",
   "next.views.AgendaShow.ExportModal.exportJson": "<link1>Utilizar la version precedenta de l'expòrt JSON</link1> (Documentacion <link2>aicí</link2>)",
   "next.views.AgendaShow.ExportModal.exportSelection": "Exportar la seleccion actuala d'eveniments",
+  "next.views.AgendaShow.ExportModal.filterSelectPlaceholder": "",
+  "next.views.AgendaShow.ExportModal.filterSelectSub": "",
   "next.views.AgendaShow.ExportModal.gcalStep2": "Dins la seccion a esquèrra, dobrissètz \"Autres calendièrs > Apondre per URL\".",
   "next.views.AgendaShow.ExportModal.gcalStep3": "Seguissètz las instruccions en pegant lo ligam que copièretz a l'etapa 1",
   "next.views.AgendaShow.ExportModal.inputField": "Seleccionatz los camps d'exportar",

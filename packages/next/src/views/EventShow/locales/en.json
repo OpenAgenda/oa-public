@@ -77,6 +77,7 @@
   "next.views.EventShow.LocationHistory.showHistory": "Show history",
   "next.views.EventShow.NavigationButton.nextEvent": "Next event",
   "next.views.EventShow.NavigationButton.previousEvent": "Previous event",
+  "next.views.EventShow.ShareModal.byEmailSub": "The event will not be sent to more than 50 recipients",
   "next.views.EventShow.ShareModal.copied": "Copied",
   "next.views.EventShow.ShareModal.copy": "Copy",
   "next.views.EventShow.ShareModal.import": "Import",

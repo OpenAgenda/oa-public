@@ -77,6 +77,7 @@
   "next.views.EventShow.LocationHistory.showHistory": "crwdns33704:0crwdne33704:0",
   "next.views.EventShow.NavigationButton.nextEvent": "crwdns33706:0crwdne33706:0",
   "next.views.EventShow.NavigationButton.previousEvent": "crwdns33708:0crwdne33708:0",
+  "next.views.EventShow.ShareModal.byEmailSub": "",
   "next.views.EventShow.ShareModal.copied": "crwdns33710:0crwdne33710:0",
   "next.views.EventShow.ShareModal.copy": "crwdns33712:0crwdne33712:0",
   "next.views.EventShow.ShareModal.import": "crwdns33714:0crwdne33714:0",

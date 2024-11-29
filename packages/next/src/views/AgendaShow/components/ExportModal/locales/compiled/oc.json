@@ -129,6 +129,18 @@
       "value": "Exportar la seleccion actuala d'eveniments"
     }
   ],
+  "next.views.AgendaShow.ExportModal.filterSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "Un ou plusieurs filtres"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.filterSelectSub": [
+    {
+      "type": 0,
+      "value": "Cliquez-glissez les filtres pour ajuster l'ordre"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.gcalStep2": [
     {
       "type": 0,

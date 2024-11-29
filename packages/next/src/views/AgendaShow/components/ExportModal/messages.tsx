@@ -72,6 +72,14 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.color',
     defaultMessage: 'Color',
   },
+  filterSelectPlaceholder: {
+    id: 'next.views.AgendaShow.ExportModal.filterSelectPlaceholder',
+    defaultMessage: 'One or more filters',
+  },
+  filterSelectSub: {
+    id: 'next.views.AgendaShow.ExportModal.filterSelectSub',
+    defaultMessage: 'Drag and drop filters to adjust order',
+  },
   // Spreadsheets
   spreadsheetTitle: {
     id: 'next.views.AgendaShow.ExportModal.spreadsheetTitle',

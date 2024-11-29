@@ -475,6 +475,12 @@
       "value": "crwdns33708:0crwdne33708:0"
     }
   ],
+  "next.views.EventShow.ShareModal.byEmailSub": [
+    {
+      "type": 0,
+      "value": "The event will not be sent to more than 50 recipients"
+    }
+  ],
   "next.views.EventShow.ShareModal.copied": [
     {
       "type": 0,

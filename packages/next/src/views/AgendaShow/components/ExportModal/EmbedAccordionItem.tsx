@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import {
+  Box,
   Button,
   Flex,
   Textarea,
@@ -10,8 +11,9 @@ import {
   Tag,
   Input,
 } from '@openagenda/uikit';
+import { FilterSelect } from '@openagenda/react-shared';
+import { getFilterSelectOptions } from '@openagenda/react-filters';
 import copyText from 'utils/copyText';
-import listFiltersToInclude from 'utils/listFiltersToInclude';
 import AccordionItem from './AccordionItem';
 import messages from './messages';
 
@@ -32,13 +34,14 @@ function getEmbedCode({
   href,
   agenda,
   withFilters,
+  selectedFilters,
   openEventsOnOA,
   primaryColor,
 }) {
   const attributes = [];
 
-  if (withFilters) {
-    attributes.push(`data-filters="${listFiltersToInclude(agenda).join(',')}"`);
+  if (withFilters && selectedFilters.length) {
+    attributes.push(`data-filters="${selectedFilters.join(',')}"`);
   }
 
   if (openEventsOnOA) {
@@ -58,6 +61,10 @@ function getEmbedCode({
   return `${blockquote}${script}`;
 }
 
+function loadPublicFilters(settings) {
+  return settings.public?.filters?.displayed ?? ['search', 'geo', 'timings'];
+}
+
 export default function EmbedAccordionItem({ res, agenda }) {
   const intl = useIntl();
 
@@ -66,6 +73,10 @@ export default function EmbedAccordionItem({ res, agenda }) {
   const [withFilters, setWithFilters] = useState(true);
   const [openEventsOnOA, setOpenEventsOnOA] = useState(false);
   const [primaryColor, setPrimaryColor] = useState(DEFAULT_COLOR);
+
+  const [selectedFilters, setSelectedFilters] = useState(() =>
+    loadPublicFilters(agenda.settings),
+  );
 
   useTimeout(
     () => {
@@ -79,13 +90,14 @@ export default function EmbedAccordionItem({ res, agenda }) {
     href: res.export.embed,
     agenda,
     withFilters,
+    selectedFilters,
     openEventsOnOA,
     primaryColor,
   });
 
   return (
     <AccordionItem
-      title={(
+      title={
         <>
           {intl.formatMessage(messages.embed)}
           <Tag
@@ -102,7 +114,7 @@ export default function EmbedAccordionItem({ res, agenda }) {
             {intl.formatMessage(messages.new)}
           </Tag>
         </>
-      )}
+      }
     >
       <Flex gap="4" direction="column">
         <Checkbox
@@ -112,6 +124,23 @@ export default function EmbedAccordionItem({ res, agenda }) {
         >
           {intl.formatMessage(messages.showFilters)}
         </Checkbox>
+
+        {withFilters ? (
+          <Box pl="6">
+            <FilterSelect
+              value={selectedFilters}
+              schema={agenda.schema}
+              exclude={['viewport', 'memberUid']}
+              placeholder={intl.formatMessage(messages.filterSelectPlaceholder)}
+              onChange={(update) => {
+                setSelectedFilters(update);
+              }}
+              menuPosition="fixed"
+              getFilterOptions={getFilterSelectOptions}
+            />
+            <div>{intl.formatMessage(messages.filterSelectSub)}</div>
+          </Box>
+        ) : null}
 
         <Checkbox
           isChecked={openEventsOnOA}

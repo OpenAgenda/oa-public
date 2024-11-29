@@ -77,6 +77,7 @@
   "next.views.EventShow.LocationHistory.showHistory": "",
   "next.views.EventShow.NavigationButton.nextEvent": "",
   "next.views.EventShow.NavigationButton.previousEvent": "",
+  "next.views.EventShow.ShareModal.byEmailSub": "",
   "next.views.EventShow.ShareModal.copied": "Copiat",
   "next.views.EventShow.ShareModal.copy": "Copiar",
   "next.views.EventShow.ShareModal.import": "Importar",

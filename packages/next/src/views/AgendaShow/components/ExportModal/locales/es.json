@@ -16,6 +16,8 @@
   "next.views.AgendaShow.ExportModal.exportAll": "Descargar todos los eventos",
   "next.views.AgendaShow.ExportModal.exportJson": "",
   "next.views.AgendaShow.ExportModal.exportSelection": "",
+  "next.views.AgendaShow.ExportModal.filterSelectPlaceholder": "",
+  "next.views.AgendaShow.ExportModal.filterSelectSub": "",
   "next.views.AgendaShow.ExportModal.gcalStep2": "",
   "next.views.AgendaShow.ExportModal.gcalStep3": "",
   "next.views.AgendaShow.ExportModal.inputField": "",

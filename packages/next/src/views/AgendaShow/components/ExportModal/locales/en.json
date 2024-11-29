@@ -16,6 +16,8 @@
   "next.views.AgendaShow.ExportModal.exportAll": "Export all events",
   "next.views.AgendaShow.ExportModal.exportJson": "<link1>Use the previous JSON export version</link1> (Documentation <link2>here</link2>)",
   "next.views.AgendaShow.ExportModal.exportSelection": "Export current event selection",
+  "next.views.AgendaShow.ExportModal.filterSelectPlaceholder": "One or more filters",
+  "next.views.AgendaShow.ExportModal.filterSelectSub": "Drag and drop filters to adjust order",
   "next.views.AgendaShow.ExportModal.gcalStep2": "In the left section, open \"Other Calendars > Add by URL\".",
   "next.views.AgendaShow.ExportModal.gcalStep3": "Follow the instructions by pasting the link you copied in step 1",
   "next.views.AgendaShow.ExportModal.inputField": "Select the fields to export",

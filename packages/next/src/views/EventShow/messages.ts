@@ -312,7 +312,7 @@ export const shareModal = defineMessages({
   },
   byEmailSub: {
     id: 'next.views.EventShow.ShareModal.byEmailSub',
-    defaultMessage: 'Not more than 50 emails will be included',
+    defaultMessage: 'The event will not be sent to more than 50 recipients',
   },
   send: {
     id: 'next.views.EventShow.ShareModal.send',
