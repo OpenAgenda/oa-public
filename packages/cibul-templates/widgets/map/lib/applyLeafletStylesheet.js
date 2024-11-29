@@ -6,7 +6,7 @@ module.exports = () => {
 
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
-    link.setAttribute('href', '//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css');
+    link.setAttribute('href', '//cdn.openagenda.com/static/leaflet-0.6.4.css');
 
     document.querySelector('head').appendChild(link);
   } else {

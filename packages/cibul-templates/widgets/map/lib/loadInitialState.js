@@ -17,12 +17,12 @@ module.exports = attr => {
     applyDefaultStyle: false,
     icons: {
       active: {
-        icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
+        icon: '//cdn.openagenda.com/static/markerIcon.png',
         anchor: [9, 25],
         size: [18,25]
       },
       inactive: {
-        icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIconGray.png',
+        icon: '//cdn.openagenda.com/static/markerIconGray.png',
         anchor: [9, 25],
         size: [18,25]
       }
@@ -55,7 +55,7 @@ module.exports = attr => {
   } else if (['0', 'off', 'false'].includes(attr.auto)) {
     state.auto = false;
   }
-  
+
   if (attr.latitude && attr.longitude) {
     state.center = [parseFloat(attr.latitude), parseFloat(attr.longitude)];
     state.explicitInitialPosition = true;

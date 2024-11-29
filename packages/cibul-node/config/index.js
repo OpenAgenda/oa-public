@@ -329,9 +329,6 @@ const config = {
     imageBucketPath: prod.aws
       ? `https://${prod.aws.buckets.main}.s3.amazonaws.com/`
       : process.env.AWS_MAIN_PATH,
-    staticBucketPath: prod.aws
-      ? `https://${prod.aws.buckets.static}.s3.amazonaws.com/`
-      : process.env.AWS_STATIC_PATH,
     servicesBucketPath: prod.aws
       ? `https://${prod.aws.buckets.services}.s3.amazonaws.com/`
       : process.env.AWS_SERVICES_PATH,
@@ -343,8 +340,7 @@ const config = {
       width: parseInt(process.env.DEFAULT_IMAGE_SIZE_WIDTH ?? '140', 10),
       height: parseInt(process.env.DEFAULT_IMAGE_SIZE_HEIGHT ?? '140', 10),
     },
-    oaLogoIcon:
-      'https://s3-eu-west-1.amazonaws.com/cibulstatic/logo_icon_300.jpg',
+    oaLogoIcon: 'https://cdn.openagenda.com/static/logo_icon_300.jpg',
   },
   authorizedMimeTypes: {
     txt: 'text/plain',

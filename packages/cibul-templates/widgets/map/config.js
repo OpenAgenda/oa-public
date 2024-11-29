@@ -29,7 +29,7 @@ module.exports = {
   selectedLocation: false,
   selectedBounds: false,
   activeLocations: [],
-  leafletCss: "//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css",
-  leafletCssIE: "//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.ie.css",
+  leafletCss: "//cdn.openagenda.com/static/leaflet-0.6.4.css",
+  leafletCssIE: "//cdn.openagenda.com/static/leaflet-0.6.4.ie.css",
   locations: {}
 }
