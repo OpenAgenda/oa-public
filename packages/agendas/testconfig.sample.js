@@ -16,7 +16,7 @@ module.exports = {
       agendaEvent: 'agenda_event',
     },
 
-    imagePath: '//openagendatst.s3.amazonaws.com/',
+    imagePath: '//openagendatest.s3.amazonaws.com/',
 
     interfaces: {
       onCreate: (_agenda) => {},

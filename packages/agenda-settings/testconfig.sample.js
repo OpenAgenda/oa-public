@@ -26,7 +26,7 @@ export default {
     },
     defaultProvider: 's3',
   }),
-  imagePath: '//openagendatst.s3.amazonaws.com/',
+  imagePath: '//openagendatest.s3.amazonaws.com/',
   debug: true,
   redis: {
     connection: {

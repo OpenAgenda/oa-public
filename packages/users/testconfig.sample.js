@@ -20,7 +20,7 @@ export default {
       key: 'key',
       userToken: 'user_token',
     },
-    imagePath: '//openagendatst.s3.amazonaws.com/',
+    imagePath: '//openagendatest.s3.amazonaws.com/',
     interfaces: {
       getAgenda: (agendaUid, cb) =>
         cb(
