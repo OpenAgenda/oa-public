@@ -62,7 +62,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -124,7 +124,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -186,7 +186,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -248,7 +248,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -472,7 +472,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -534,7 +534,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -596,7 +596,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -658,7 +658,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -720,7 +720,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -782,7 +782,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -925,7 +925,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -987,7 +987,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -1049,7 +1049,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -1111,7 +1111,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -1254,7 +1254,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -1316,7 +1316,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       }
     ],
@@ -1467,7 +1467,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -1529,7 +1529,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -1591,7 +1591,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       },
       {
@@ -1653,7 +1653,7 @@
             "width": 140,
             "height": 140
           },
-          "base": "//s3.eu-central-1.amazonaws.com/oastatic/"
+          "base": "//cdn.openagenda.com/static/"
         }
       }
     ],

@@ -6,7 +6,7 @@ export default (Story) => (
           <div className="col col-sm-2">
             <a className="agenda-logo" href="/">
               <img
-                src="https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+                src="https://cdn.openagenda.com/static/graylogo140.png"
                 alt="Logo OpenAgenda"
               />
             </a>

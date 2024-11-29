@@ -45,8 +45,8 @@ const mockApi = () => {
   mock.onGet('/noAgendas').reply(200, noAgendas);
 };
 
-const whiteLogo = 'https://oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png';
-const blueLogo = 'https://oastatic.s3.eu-central-1.amazonaws.com/openagenda-blue-22.png';
+const whiteLogo = 'https://cdn.openagenda.com/static/whitelogo22.png';
+const blueLogo = 'https://cdn.openagenda.com/static/openagenda-blue-22.png';
 
 export const Aggregator = () => {
   const [display, setDisplay] = useState(false);
