@@ -54,7 +54,8 @@
   {
     "query": {
       "location": {
-        "department": ["Haute-Garonne"]
+        "department": ["Haute-Garonne"],
+        "caseSensitive": true
       }
     },
     "required": false,

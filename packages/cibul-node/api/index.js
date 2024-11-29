@@ -341,6 +341,24 @@ export default (core, { useRouter = true } = {}) => {
       }),
   ]);
 
+  app.put('/agendas/:agendaUid/events/ext/:extKey/:extId', [
+    mw.evaluateAnonymousAccess,
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .events.setByExtId(
+          req.params.extKey,
+          req.params.extId,
+          req.parsedData,
+          {
+            context: {
+              userUid: req.user.uid,
+            },
+          },
+        )
+        .then((event) => res.json(event), next),
+  ]);
+
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
     track.mw('api', 'get', 'settings'),

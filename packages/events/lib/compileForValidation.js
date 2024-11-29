@@ -82,6 +82,7 @@ export default async function compileForValidation(
     maxImageSize = 20971520,
     protectedMode = true,
     isPatch = false,
+    protectExtIds = false,
   } = options;
 
   const editedFields = Object.keys(_.omit(data, ['draft'])).filter((f) =>
@@ -92,7 +93,11 @@ export default async function compileForValidation(
     ...data,
   };
 
-  if (isPatch && current?.extIds?.length > 0 && data?.extIds?.length > 0) {
+  if (
+    (isPatch || protectExtIds)
+    && current?.extIds?.length > 0
+    && data?.extIds?.length > 0
+  ) {
     compiled.extIds = current.extIds.reduce((acc, extId) => {
       if (acc.find((a) => a.key === extId.key)) {
         return acc;

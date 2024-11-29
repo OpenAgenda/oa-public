@@ -34,6 +34,7 @@ raw.push(
 raw.push(
   knex('api_key_set').insert([
     load('sql/apiKeySets/01.json', { user_id: 50304 }),
+    load('sql/apiKeySets/02.json', { user_id: 50300 }),
   ]),
 );
 

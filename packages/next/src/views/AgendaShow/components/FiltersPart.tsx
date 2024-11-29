@@ -2,7 +2,6 @@ import { useIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/pro-solid-svg-icons';
 import {
-  chakra,
   Box,
   Button,
   CloseButton,
@@ -18,6 +17,7 @@ import {
   useGetFilterOptions,
   useGetTotal,
 } from '@openagenda/react-filters';
+import CopyIdentifier from 'components/CopyIdentifier';
 import useFiltersBaseQuery from '../hooks/useFiltersBaseQuery';
 import useEventsQuery from '../hooks/useEventsQuery';
 import messages from '../messages';
@@ -67,8 +67,8 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
     {
       ...upcomingOnly
         ? {
-          relative: ['current', 'upcoming'],
-        }
+            relative: ['current', 'upcoming'],
+          }
         : null,
       ...query,
       passed: undefined, // omit passed
@@ -149,9 +149,13 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
               </Button>
             </Box>
 
+            <Box pt="8">
+              <CopyIdentifier identifier={agenda.uid} size="sm" />
+            </Box>
+
             <Box
               display={{ base: 'none', lg: 'block' }}
-              pt="8"
+              pt="4"
               wordBreak="normal"
             >
               <Link href="/" color="primary.500">
@@ -173,10 +177,6 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
               >
                 {intl.formatMessage(messages.termsOfUse)}
               </Link>
-              <br />
-              <chakra.span color="oaGray.300" wordBreak="normal">
-                &lt;uid:{agenda.uid}&gt;
-              </chakra.span>
             </Box>
           </Flex>
         </ResponsiveDrawer>

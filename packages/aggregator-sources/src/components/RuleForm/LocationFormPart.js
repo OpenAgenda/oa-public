@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { ReactSelectField } from '@openagenda/react-shared';
 import messages from './messages.js';
 import Select from './Select.js';
+import Radio from './Radio.js';
 
 export default () => {
   const intl = useIntl();
@@ -35,7 +36,6 @@ export default () => {
           <label className="control-label col-sm-2" htmlFor="locationValues">
             {intl.formatMessage(messages.values)}
           </label>
-
           <div className="col-sm-10">
             <ReactSelectField
               name="locationValues"
@@ -51,6 +51,23 @@ export default () => {
               isCreatable
             />
           </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-sm-2" />
+        <div className="col-sm-10">
+          <Field
+            component={Radio}
+            name="caseSensitive"
+            type="checkbox"
+            label={intl.formatMessage(messages.RespectCase)}
+            classNameGroup="radio filter-choice"
+            helpBlock={(
+              <div className="margin-h-z text-muted">
+                {intl.formatMessage(messages.textFilterCaseSensitive)}
+              </div>
+            )}
+          />
         </div>
       </div>
     </>
