@@ -6,5 +6,6 @@ export { default as extractWidgetsFromDom } from './extractWidgetsFromDom.js';
 export { default as getFiltersBase } from './getFiltersBase.js';
 export { default as getAdditionalFilters } from './getAdditionalFilters.js';
 export { default as getFilters } from './getFilters.js';
+export { default as getFilterSelectOptions } from './getFilterSelectOptions.js';
 export { default as getFilterTitle } from './getFilterTitle.js';
 export { default as withDefaultFilterConfig } from './withDefaultFilterConfig.js';
