@@ -24,7 +24,7 @@
   "AgendaSettings.Components.FiltersSettings.resetModalMessage": "Are you sure? Your current filter selection will be lost and will go back to defaults",
   "AgendaSettings.Components.FiltersSettings.resetModalTitle": "Confirm filter selection reset",
   "AgendaSettings.Components.FiltersSettings.selectPlaceholder": "Select one or more filters",
-  "AgendaSettings.Components.FiltersSettings.sub": "Drag and drop selected items to adjust order",
+  "AgendaSettings.Components.FiltersSettings.sub": "Drag and drop filters to adjust order",
   "AgendaSettings.Components.FiltersSettings.submit": "Submit",
   "AgendaSettings.Components.IdentifierInformation.APIAgendaConfigurationRoute": "See the settings and general information",
   "AgendaSettings.Components.IdentifierInformation.APIClickHere": "Click here",

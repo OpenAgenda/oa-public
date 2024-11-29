@@ -1,6 +1,5 @@
 import '@openagenda/bs-templates/compiled/main.css';
 import { useState } from 'react';
-import FilterSelectComponent from '../src/components/FilterSelect.js';
 import FiltersSettingsComponent from '../src/components/FiltersSettings.js';
 import DeleteAgendaComponent from '../src/components/DeleteAgenda.js';
 import Decorator from './decorators/Simple.js';
@@ -12,30 +11,6 @@ import agendaWithModifiedFilters from './fixtures/jep.agenda.json';
 export default {
   title: 'Components',
   decorators: [IntlProviderDecorator, Decorator],
-};
-
-export const FilterSelect = () => {
-  const [selected, setSelected] = useState(['search', 'geo', 'timings']);
-  return (
-    <FilterSelectComponent
-      value={selected}
-      onChange={(update) => {
-        setSelected(update);
-      }}
-      schema={agenda.schema}
-    />
-  );
-};
-
-export const EmptyFilterSelect = () => {
-  const [selected, setSelected] = useState([]);
-  return (
-    <FilterSelectComponent
-      value={selected}
-      onChange={(update) => setSelected(update)}
-      schema={agenda.schema}
-    />
-  );
 };
 
 export const FiltersSettings = () => {

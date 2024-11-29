@@ -1,9 +1,7 @@
 import { useState, useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { Spinner, Modal } from '@openagenda/react-shared';
-
-import getFilterOptions from '../utils/getFilterOptions.js';
-import FilterSelect from './FilterSelect.js';
+import { Spinner, Modal, FilterSelect } from '@openagenda/react-shared';
+import { getFilterSelectOptions } from '@openagenda/react-filters';
 
 const messages = defineMessages({
   publicLabel: {
@@ -88,7 +86,7 @@ const loadAdminFilters = (schema, settings, intl) => {
   if ((settings.admin?.filters?.displayed ?? []).length) {
     return settings.admin.filters.displayed;
   }
-  return getFilterOptions(intl, schema).map((o) => o.value);
+  return getFilterSelectOptions(intl, schema).map((o) => o.value);
 };
 
 export default function FiltersSettings({
@@ -98,12 +96,10 @@ export default function FiltersSettings({
   loading,
 }) {
   const intl = useIntl();
-  const [publicFilters, setPublicFilters] = useState(
-    loadPublicFilters(schema, settings),
-  );
-  const [adminFilters, setAdminFilters] = useState(
-    loadAdminFilters(schema, settings, intl),
-  );
+  const [publicFilters, setPublicFilters] = useState(() =>
+    loadPublicFilters(schema, settings));
+  const [adminFilters, setAdminFilters] = useState(() =>
+    loadAdminFilters(schema, settings, intl));
   const [displayResetConfirm, setDisplayResetConfirm] = useState(false);
 
   // need to load schema here.
@@ -128,7 +124,7 @@ export default function FiltersSettings({
 
   const onReset = useCallback(() => {
     const resetPublicFilters = getDefaultPublicFilters(schema);
-    const resetAdminFilters = getFilterOptions(intl, schema).map(
+    const resetAdminFilters = getFilterSelectOptions(intl, schema).map(
       (o) => o.value,
     );
     setDisplayResetConfirm(false);
@@ -156,8 +152,9 @@ export default function FiltersSettings({
           onChange={(update) => {
             setPublicFilters(update);
           }}
-          sub={m('sub')}
+          getFilterOptions={getFilterSelectOptions}
         />
+        <span>{m('sub')}</span>
       </div>
       <div className="margin-v-sm">
         <strong>{m('adminLabel')}</strong>
@@ -171,8 +168,9 @@ export default function FiltersSettings({
           onChange={(update) => {
             setAdminFilters(update);
           }}
-          sub={m('sub')}
+          getFilterOptions={getFilterSelectOptions}
         />
+        <span>{m('sub')}</span>
       </div>
       <div className="margin-v-sm">
         <button
