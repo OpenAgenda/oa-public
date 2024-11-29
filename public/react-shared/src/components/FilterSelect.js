@@ -11,11 +11,9 @@ import {
 } from '@dnd-kit/core';
 import Select, { components } from 'react-select';
 import { useIntl } from 'react-intl';
-import { defaultSelectStyles } from '@openagenda/react-shared';
+import defaultSelectStyles from '../utils/defaultSelectStyles.js';
 
-import getFilterOptions from '../utils/getFilterOptions.js';
-
-export function Droppable({ id, children }) {
+function Droppable({ id, children }) {
   const { isOver, setNodeRef } = useDroppable({ id });
   const style = {
     opacity: isOver ? '0.8' : undefined,
@@ -28,7 +26,7 @@ export function Droppable({ id, children }) {
   );
 }
 
-export function Draggable({ id, children }) {
+function Draggable({ id, children }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const style = {
     transform: transform
@@ -99,9 +97,10 @@ export default function FilterSelect({
   value,
   onChange,
   exclude,
-  sub,
   placeholder,
-  disabled,
+  disabled = false,
+  menuPosition = 'absolute',
+  getFilterOptions,
 }) {
   const intl = useIntl();
 
@@ -150,38 +149,36 @@ export default function FilterSelect({
   );
 
   return (
-    <>
-      <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-        <Select
-          value={selectedOptions}
-          onChange={(update) => {
-            onChange(update.map((o) => o.value));
-          }}
-          options={filterOptions}
-          isMulti
-          closeMenuOnSelect
-          /* openMenuOnClick={false} */
-          openMenuOnFocus
-          placeholder={placeholder}
-          components={{
-            MultiValueContainer,
-            SelectContainer,
-          }}
-          isDisabled={disabled}
-          styles={{
-            ...defaultSelectStyles,
-            multiValue: (provided) => ({
-              ...provided,
-              margin: '1px',
-              padding: '0px',
-              borderRadius: '2px',
-              overflow: 'hidden',
-              cursor: 'grab',
-            }),
-          }}
-        />
-      </DndContext>
-      {sub ? <span>{sub}</span> : null}
-    </>
+    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+      <Select
+        value={selectedOptions}
+        onChange={(update) => {
+          onChange(update.map((o) => o.value));
+        }}
+        options={filterOptions}
+        isMulti
+        closeMenuOnSelect
+        /* openMenuOnClick={false} */
+        openMenuOnFocus
+        placeholder={placeholder}
+        components={{
+          MultiValueContainer,
+          SelectContainer,
+        }}
+        isDisabled={disabled}
+        styles={{
+          ...defaultSelectStyles,
+          multiValue: (provided) => ({
+            ...provided,
+            margin: '1px',
+            padding: '0px',
+            borderRadius: '2px',
+            overflow: 'hidden',
+            cursor: 'grab',
+          }),
+        }}
+        menuPosition={menuPosition}
+      />
+    </DndContext>
   );
 }
