@@ -329,9 +329,6 @@ const config = {
     imageBucketPath: prod.aws
       ? `https://${prod.aws.buckets.main}.s3.amazonaws.com/`
       : process.env.AWS_MAIN_PATH,
-    tmpBucketPath: prod.aws
-      ? `https://${prod.aws.buckets.temporary}.s3.amazonaws.com/`
-      : process.env.AWS_TMP_PATH,
     staticBucketPath: prod.aws
       ? `https://${prod.aws.buckets.static}.s3.amazonaws.com/`
       : process.env.AWS_STATIC_PATH,
@@ -339,7 +336,6 @@ const config = {
       ? `https://${prod.aws.buckets.services}.s3.amazonaws.com/`
       : process.env.AWS_SERVICES_PATH,
     bucket: prod.aws?.buckets?.main ?? process.env.AWS_MAIN_BUCKET,
-    tmpBucket: prod.aws?.buckets.temporary ?? process.env.AWS_TMP_BUCKET,
     defaultImagePath:
       process.env.DEFAULT_IMAGE_PATH
       ?? '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',

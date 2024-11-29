@@ -2,8 +2,6 @@
 
 module.exports = {
   bucket: 'cibultest',
-  tmpBucketPath: 'https://cibultmp.s3.amazonaws.com/',
-  tmpBucket: 'cibultmp',
   accessKeyId: process.env.AWS_KEY,
   secretAccessKey: process.env.AWS_SECRET,
 

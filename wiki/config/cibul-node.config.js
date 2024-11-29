@@ -8,7 +8,6 @@ module.exports = {
     secret: 'string',
     buckets: {
       main: 'nameofmainbucket',
-      temporary: 'nameoftmpbucket',
       static: 'nameofstaticbucket',
       services: 'nameofservicesbucket',
     },
