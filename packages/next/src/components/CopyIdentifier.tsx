@@ -23,7 +23,7 @@ export default function CopyIdentifier({
   const [copied, setCopied] = useState(false);
 
   const copy = useCallback(() => {
-    copyText(identifier);
+    copyText(identifier.toString());
     setCopied(true);
     setTimeout(() => {
       setCopied(false);
@@ -31,7 +31,7 @@ export default function CopyIdentifier({
   }, [identifier]);
 
   return (
-    <Box maxW="220px" align="left">
+    <Box maxW="220px">
       <InputGroup size={size}>
         <InputLeftAddon bg="primary.500" color="white">
           UID
