@@ -76,22 +76,16 @@ function Registration(props) {
         <PassCultureCheckbox
           value={passCultureValue}
           settings={settings.passCulture}
-          timings={relatedValues?.other?.timings ?? []}
-          location={relatedValues?.other?.location ?? {}}
-          title={
-            relatedValues?.other?.title?.fr
-            || relatedValues?.other?.title
-            || null
-          }
+          timings={relatedValues?.timings ?? []}
+          location={relatedValues?.location ?? {}}
+          title={relatedValues?.title?.fr || relatedValues?.title || null}
           longDesc={
-            relatedValues?.other?.longDescription?.fr
-            || relatedValues?.other?.longDescription
+            relatedValues?.longDescription?.fr
+            || relatedValues?.longDescription
             || null
           }
           conditions={
-            relatedValues?.other?.conditions?.fr
-            || relatedValues?.other?.conditions
-            || null
+            relatedValues?.conditions?.fr || relatedValues?.conditions || null
           }
           onChange={(updatedPassCultureValue) =>
             propsOnChange(
