@@ -23,6 +23,7 @@ export default function eventUpdate(req, res, next) {
         defaultLang: req.headers.lang,
         private: null,
         callOrigin: 'api',
+        protectExtIds: parseBool(req.params.protectExtIds),
       },
     )
     .then((event) => res.json({ success: true, event }), next);

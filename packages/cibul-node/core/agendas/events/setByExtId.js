@@ -6,7 +6,8 @@ export default async (core, agendaUid, key, value, data, options = {}) => {
   log('info', 'getting', { agendaUid, extId: { key, value } });
 
   const extId = { key, value };
-  options.protectExtIds = true;
+
+  const { protectExtIds } = { protectExtIds: true, ...options };
   try {
     const event = await core
       .agendas(agendaUid)
@@ -18,7 +19,7 @@ export default async (core, agendaUid, key, value, data, options = {}) => {
         .events.update(
           event.uid,
           { ...data, extIds: [extId] },
-          { ...options, protectExtIds: true },
+          { ...options, protectExtIds },
         );
       return updatedEvent;
     }
