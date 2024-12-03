@@ -51,7 +51,7 @@ export default schema({
   },
   protectExtIds: {
     type: 'boolean',
-    default: false,
+    default: true,
   },
   fileKey: {
     type: 'text',

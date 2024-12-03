@@ -110,9 +110,13 @@ describe('events - functional - update', () => {
         extIds: [{ key: 'oa', value: '123' }],
       });
 
-      const updated = await svc.update(ev.uid, {
-        extIds: [{ key: 'oa2', value: '456' }],
-      });
+      const updated = await svc.update(
+        ev.uid,
+        {
+          extIds: [{ key: 'oa2', value: '456' }],
+        },
+        { protectExtIds: false },
+      );
 
       expect(updated.extIds).toStrictEqual([{ key: 'oa2', value: '456' }]);
     });
@@ -123,13 +127,9 @@ describe('events - functional - update', () => {
         extIds: [{ key: 'oa', value: '123' }],
       });
 
-      const updated = await svc.update(
-        ev.uid,
-        {
-          extIds: [{ key: 'oa2', value: '456' }],
-        },
-        { protectExtIds: true },
-      );
+      const updated = await svc.update(ev.uid, {
+        extIds: [{ key: 'oa2', value: '456' }],
+      });
 
       expect(updated.extIds).toStrictEqual([
         { key: 'oa2', value: '456' },
