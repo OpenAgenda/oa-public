@@ -21,7 +21,7 @@ function _getClientAppPath(serviceName, config) {
 
   if (process.env.NODE_ENV === 'development') return '/js/app.js';
 
-  return [config.CDNPath + serviceName, distFileName].join('/');
+  return `${config.CDNPath}/${serviceName}/${distFileName}`;
 }
 
 async function _renderPage(req, res) {
