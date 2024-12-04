@@ -36,8 +36,7 @@ const BABEL_EXCLUDE_REGEX = new RegExp(
   `node_modules/(?!(${modulesToInclude.join('|')}))`,
 );
 
-const region = 'eu-west-1';
-const bucket = 'oasvc';
+const bucket = 'oastatic';
 const serviceName = require('./package.json').name.split('/').pop();
 
 const devServerHost = process.env.DEV_SERVER_HOST || 'localhost';
@@ -75,7 +74,7 @@ module.exports = (env = {}, argv = {}) => {
     output: {
       path: path.join(__dirname, 'dist'),
       publicPath: pushToCDN
-        ? '//d1771xfuxsyp4n.cloudfront.net/' // `https://s3.${region}.amazonaws.com/${bucket}/${serviceName}/`
+        ? `https://cdn.openagenda.com/svc/${serviceName}/`
         : `/dist/${serviceName}/`,
       filename: '[name].[contenthash].js',
     },
@@ -262,9 +261,11 @@ module.exports = (env = {}, argv = {}) => {
             // } ),
             new S3Plugin({
               s3Options: {
-                accessKeyId: process.env.AWS_KEY,
-                secretAccessKey: process.env.AWS_SECRET,
-                region,
+                endpoint: process.env.S3_ENDPOINT,
+                region: process.env.S3_REGION,
+                accessKeyId: process.env.S3_ACCESS_KEY_ID,
+                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+                s3ForcePathStyle: true,
               },
               s3UploadOptions: {
                 Bucket: bucket,
@@ -282,12 +283,8 @@ module.exports = (env = {}, argv = {}) => {
                   }
                 },
               },
-              cloudfrontInvalidateOptions: {
-                DistributionId: process.env.CLOUDFRONT_DISTRIBUTION_ID,
-                Items: ['/*'],
-              },
               progress: false,
-              basePath: serviceName,
+              basePath: `svc/${serviceName}`,
               // directory: 'dist/gz'
             }),
           ]
