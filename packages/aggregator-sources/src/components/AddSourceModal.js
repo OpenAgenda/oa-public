@@ -11,7 +11,6 @@ import {
 } from '@openagenda/react-shared';
 import Stepper from './Stepper.js';
 import AgendasSearch from './AgendasSearch.js';
-import SlugSearch from './SlugSearch.js';
 import DefineRules from './DefineRules/index.js';
 import EvaluateOptions from './EvaluateOptions.js';
 
@@ -118,6 +117,10 @@ const messages = defineMessages({
   submitButton: {
     id: 'aggregator-sources.AddSourceModal.submitButton',
     defaultMessage: 'Add source',
+  },
+  searchAgendaOrUrl: {
+    id: 'aggregator-sources.AddSourceModal.searchAgendaOrUrl',
+    defaultMessage: 'Enter the terms of the desired agenda title or its URL',
   },
 });
 
@@ -264,21 +267,8 @@ export default function AddSourceModal({
   const [selectedAgenda, setSelectedAgenda] = useState(preselectedAgenda);
   const [rules, setRules] = useState();
 
-  const toggleSelectType = useCallback(
-    (e) => {
-      if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
-        e.preventDefault();
-        return;
-      }
-
-      setSelectType(selectType === 'search' ? 'slug' : 'search');
-    },
-    [selectType, setSelectType],
-  );
-
   const sources = useSelector((state) => state.sources.data);
   const agendaRes = useSelector((state) => state.res.agendaSearch);
-  const slugRes = useSelector((state) => state.res.getAgenda);
 
   const isActive = useCallback((step, index, steps, selectedKey) => {
     const selectedStepIndex = steps.findIndex((s) => s.key === selectedKey);
@@ -442,20 +432,8 @@ export default function AddSourceModal({
             fieldProps={fieldProps}
             render={({ state, form, nextPage }) => (
               <>
+                <div>{intl.formatMessage(messages.searchAgendaOrUrl)}</div>
                 {form}
-
-                <p>
-                  {intl.formatMessage(messages.or)}{' '}
-                  <button
-                    type="button"
-                    className="btn btn-link-inline"
-                    tabIndex={0}
-                    onClick={toggleSelectType}
-                    onKeyPress={toggleSelectType}
-                  >
-                    {intl.formatMessage(messages.enterALink)}
-                  </button>
-                </p>
 
                 {state.agendas.length
                   ? state.agendas.map((sourceAgenda) => {
@@ -499,52 +477,6 @@ export default function AddSourceModal({
                 ) : null}
 
                 <Waypoint onEnter={nextPage} />
-              </>
-            )}
-          />
-          ) : null}
-
-        {selectedStep === 'selectAgenda'
-        && !selectedAgenda
-        && selectType !== 'search' ? (
-          <SlugSearch
-            res={slugRes}
-            render={({ state, form }) => (
-              <>
-                {form}
-
-                <p>
-                  {intl.formatMessage(messages.or)}{' '}
-                  <button
-                    type="button"
-                    className="btn btn-link-inline"
-                    tabIndex={0}
-                    onClick={toggleSelectType}
-                    onKeyPress={toggleSelectType}
-                  >
-                    {intl.formatMessage(messages.makeASearch)}
-                  </button>
-                </p>
-
-                <div>
-                  {state.agenda && state.agenda.uid !== aggregatorAgenda.uid ? (
-                    <AgendaItem
-                      key={state.agenda.uid}
-                      sources={sources}
-                      agenda={state.agenda}
-                      onSelect={onSelectAgenda}
-                      firstAction={(
-                        <button
-                          type="button"
-                          className="btn btn-link-inline"
-                          onClick={() => onSelectAgenda(state.agenda)}
-                        >
-                          {intl.formatMessage(messages.selectThisAgenda)}
-                        </button>
-                      )}
-                    />
-                  ) : null}
-                </div>
               </>
             )}
           />

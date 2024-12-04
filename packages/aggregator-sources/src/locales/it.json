@@ -108,7 +108,6 @@
   "aggregator-sources.RuleForm.value": "Valore:",
   "aggregator-sources.RuleForm.values": "Valori:",
   "aggregator-sources.RulesSummary.rulesSummary": "{count, plural, =0 {Nessun regola generale è definita} =1 {Una generale regola è definita} other {# generale regole sono definite}}",
-  "aggregator-sources.SlugSearch.enterLink": "Inserisci il collegamento di un agenda",
   "aggregator-sources.SourcesList.copy": "Copia",
   "aggregator-sources.SourcesList.officialAgenda": "Agenda ufficiale",
   "aggregator-sources.SourcesList.remove": "Rimuovi",

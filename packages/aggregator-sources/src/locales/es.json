@@ -25,7 +25,6 @@
   "aggregator-sources.RuleForm.emailPlaceholder": "Dirección de correo electrónico",
   "aggregator-sources.RuleForm.removeAction": "Eliminar un accion",
   "aggregator-sources.RuleForm.useActionsDesc": "Cuando procede, la regla asocia el evento importado con valores específicos del agenda importador.",
-  "aggregator-sources.SlugSearch.enterLink": "Introduzca un enlace a la página de la agenda",
   "aggregator-sources.SourcesList.remove": "Eliminar",
   "aggregator-sources.UpdateSourceModal.cancel": "Anular"
 }

@@ -170,7 +170,6 @@
   "aggregator-sources.RuleForm.values": "Valors :",
   "aggregator-sources.RuleForm.wholeValueFilter": "La valor totala del camp es comparada al filtre",
   "aggregator-sources.RulesSummary.rulesSummary": "{count, plural, =0 {Pas cap règla generala definida} =1 {1 règla generala es definida} other {# règlas generalas son definidas}}",
-  "aggregator-sources.SlugSearch.enterLink": "Dintrar un ligam d'agenda",
   "aggregator-sources.SourcesList.copy": "Copiar",
   "aggregator-sources.SourcesList.officialAgenda": "Agenda oficiala",
   "aggregator-sources.SourcesList.remove": "Suprimir",
