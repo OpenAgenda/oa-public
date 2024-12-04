@@ -359,6 +359,19 @@ export default (core, { useRouter = true } = {}) => {
         .then((event) => res.json(event), next),
   ]);
 
+  app.delete('/agendas/:agendaUid/events/ext/:extKey/:extId', [
+    mw.evaluateAnonymousAccess,
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .events.removeByExtId(req.params.extKey, req.params.extId, {
+          context: {
+            userUid: req.user.uid,
+          },
+        })
+        .then((event) => res.json({ success: true, event }), next),
+  ]);
+
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
     track.mw('api', 'get', 'settings'),
