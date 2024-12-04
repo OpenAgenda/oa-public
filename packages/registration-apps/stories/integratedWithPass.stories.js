@@ -40,9 +40,7 @@ export function EmptyAtLoad() {
         onChange={setValue}
         userRole="moderator"
         relatedValues={{
-          other: {
-            timings: event.timings,
-          },
+          timings: event.timings,
         }}
         field={{
           placeholder: 'Truc bidule',
@@ -72,10 +70,8 @@ export function EmptyAtLoadWithOneTiming() {
         onChange={setValue}
         userRole="moderator"
         relatedValues={{
-          other: {
-            timings: event.timings,
-            location: null,
-          },
+          timings: event.timings,
+          location: null,
         }}
         field={{
           placeholder: 'Truc bidule',
@@ -105,15 +101,13 @@ export function EmptyAtLoadWithPreslectedLocation() {
         onChange={setValue}
         userRole="moderator"
         relatedValues={{
-          other: {
-            timings: [
-              {
-                begin: { date: '2024-09-30', hours: 15, minutes: 0 },
-                end: { date: '2024-09-30', hours: 17, minutes: 0 },
-              },
-            ],
-            location: { name: 'Lieu Oa 2' },
-          },
+          timings: [
+            {
+              begin: { date: '2025-09-30', hours: 15, minutes: 0 },
+              end: { date: '2025-09-30', hours: 17, minutes: 0 },
+            },
+          ],
+          location: { name: 'Lieu Oa 2' },
         }}
         field={{
           placeholder: 'Truc bidule',
@@ -146,9 +140,7 @@ export function EmptyAtLoadSeenByContributor() {
         onChange={setValue}
         userRole="moderator"
         relatedValues={{
-          other: {
-            timings: event.timings,
-          },
+          timings: event.timings,
         }}
         field={{
           placeholder: 'Truc bidule',
@@ -214,9 +206,7 @@ export function WithData() {
         onChange={setValue}
         userRole="moderator"
         relatedValues={{
-          other: {
-            timings: event.timings,
-          },
+          timings: event.timings,
         }}
         field={{
           placeholder: 'Truc bidule',
@@ -291,9 +281,7 @@ export function WithDataWithoutTimings() {
           onChange={setValue}
           userRole="moderator"
           relatedValues={{
-            other: {
-              timings: [],
-            },
+            timings: [],
           }}
           field={{
             placeholder: 'Truc bidule',
@@ -331,9 +319,7 @@ export function WithoutDataWithoutTimings() {
           onChange={setValue}
           userRole="moderator"
           relatedValues={{
-            other: {
-              timings: [],
-            },
+            timings: [],
           }}
           field={{
             placeholder: 'Truc bidule',
@@ -371,11 +357,7 @@ export function WithoutDataWithPassedTimings() {
           onChange={setValue}
           userRole="moderator"
           relatedValues={{
-            other: {
-              timings: event.timings.filter(
-                (t) => new Date(t.date) < new Date(),
-              ),
-            },
+            timings: event.timings.filter((t) => new Date(t.date) < new Date()),
           }}
           field={{
             placeholder: 'Truc bidule',
@@ -441,9 +423,7 @@ export function WithAlreadyCreatedPassOffer() {
           onChange={setValue}
           userRole="moderator"
           relatedValues={{
-            other: {
-              timings: event.timings,
-            },
+            timings: event.timings,
           }}
           field={{
             placeholder: 'Truc bidule',
@@ -514,9 +494,7 @@ export function WithPendingPassOffer() {
           onChange={setValue}
           userRole="moderator"
           relatedValues={{
-            other: {
-              timings: event.timings,
-            },
+            timings: event.timings,
           }}
           field={{
             placeholder: 'Truc bidule',
@@ -582,9 +560,7 @@ export function WithRejectedPassOffer() {
           onChange={setValue}
           userRole="moderator"
           relatedValues={{
-            other: {
-              timings: event.timings,
-            },
+            timings: event.timings,
           }}
           field={{
             placeholder: 'Truc bidule',
@@ -660,9 +636,7 @@ export function WithErroredPassOffer() {
           onChange={setValue}
           userRole="moderator"
           relatedValues={{
-            other: {
-              timings: event.timings,
-            },
+            timings: event.timings,
           }}
           field={{
             placeholder: 'Truc bidule',

@@ -82,7 +82,7 @@ export default async function compileForValidation(
     maxImageSize = 20971520,
     protectedMode = true,
     isPatch = false,
-    protectExtIds = false,
+    protectExtIds = true,
   } = options;
 
   const editedFields = Object.keys(_.omit(data, ['draft'])).filter((f) =>
