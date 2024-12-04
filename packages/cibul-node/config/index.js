@@ -329,9 +329,6 @@ const config = {
     imageBucketPath: prod.aws
       ? `https://${prod.aws.buckets.main}.s3.amazonaws.com/`
       : process.env.AWS_MAIN_PATH,
-    servicesBucketPath: prod.aws
-      ? `https://${prod.aws.buckets.services}.s3.amazonaws.com/`
-      : process.env.AWS_SERVICES_PATH,
     bucket: prod.aws?.buckets?.main ?? process.env.AWS_MAIN_BUCKET,
     defaultImagePath:
       process.env.DEFAULT_IMAGE_PATH
@@ -341,6 +338,9 @@ const config = {
       height: parseInt(process.env.DEFAULT_IMAGE_SIZE_HEIGHT ?? '140', 10),
     },
     oaLogoIcon: 'https://cdn.openagenda.com/static/logo_icon_300.jpg',
+  },
+  s3: {
+    staticBucketPath: process.env.S3_STATIC_PATH,
   },
   authorizedMimeTypes: {
     txt: 'text/plain',
