@@ -12,7 +12,7 @@ const {
 } = process.env;
 
 const concurrentUpload = 64;
-const bucketPrefix = '_next';
+const bucketPrefix = '_next/static';
 
 const s3 = new S3Client({
   region,
