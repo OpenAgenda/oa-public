@@ -1,4 +1,7 @@
 import bodyParser from 'body-parser';
+import isURL from 'validator/lib/isURL.js';
+import validators from '@openagenda/validators';
+import _ from 'lodash';
 
 export default (config, parentApp) => {
   const { sessions, agendas, members, aggregators } = parentApp.services;
@@ -58,6 +61,46 @@ export default (config, parentApp) => {
       aggregators
         .set(req.agenda.uid, req.body)
         .then((result) => res.json(result), next),
+  );
+
+  const validatePage = validators.integer({
+    min: 1,
+    default: 1,
+  });
+
+  const limit = 20;
+
+  parentApp.get(
+    '/admin/sources/search',
+    bodyParser.json(),
+    (req, res, next) => {
+      const query = {};
+      if (_.isInteger(parseInt(req.query?.search, 10))) {
+        query.uid = parseInt(req.query?.search, 10);
+      } else if (isURL(req.query?.search)) {
+        const uidOrSlug = req.query?.search.split('/').pop().split('?').shift();
+        const isUID = _.isInteger(parseInt(uidOrSlug, 10));
+
+        query[isUID ? 'uid' : 'slug'] = isUID
+          ? parseInt(uidOrSlug, 10)
+          : uidOrSlug;
+      } else if (req.query?.search?.length) {
+        query.search = req.query.search;
+      }
+
+      agendas.list(
+        query,
+        (validatePage(req.query.searchPage) - 1) * limit,
+        limit,
+        { total: true, private: null },
+        (err, agendasResp, total) => {
+          if (err) {
+            return next(err);
+          }
+          res.json({ agendas: agendasResp, total });
+        },
+      );
+    },
   );
 
   parentApp.put(
