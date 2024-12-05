@@ -8,7 +8,7 @@ const {
   S3_REGION: region,
   S3_ACCESS_KEY_ID: accessKeyId,
   S3_SECRET_ACCESS_KEY: secretAccessKey,
-  S3_BUCKET: bucket,
+  S3_ASSETS_BUCKET: bucket,
 } = process.env;
 
 const concurrentUpload = 64;
