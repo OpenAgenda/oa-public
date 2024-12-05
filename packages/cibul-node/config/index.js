@@ -340,7 +340,7 @@ const config = {
     oaLogoIcon: 'https://cdn.openagenda.com/static/logo_icon_300.jpg',
   },
   s3: {
-    staticBucketPath: process.env.S3_STATIC_PATH,
+    assetsBucketPath: process.env.S3_ASSETS_PATH,
   },
   authorizedMimeTypes: {
     txt: 'text/plain',
