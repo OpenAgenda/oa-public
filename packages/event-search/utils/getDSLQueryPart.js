@@ -386,23 +386,6 @@ function _addAdditionalFieldsToFilterParts(
   });
 }
 
-function _filterByReferencingAgendaUid(referencingAgendaUid) {
-  const uids = [].concat(referencingAgendaUid);
-  const filter = uids.length > 1
-    ? {
-      terms: {
-        _referencing_agenda_uids: uids,
-      },
-    }
-    : {
-      term: {
-        _referencing_agenda_uids: uids[0],
-      },
-    };
-
-  return filter;
-}
-
 function _getQueryFilterParts(
   cleanQuery,
   { additionalAndSchemaFields, emptyValue, removed = false },
@@ -483,7 +466,9 @@ function _getQueryFilterParts(
   }
 
   if (_.get(cleanQuery, 'referencingAgendaUid', []).length) {
-    parts.push(_filterByReferencingAgendaUid(cleanQuery.referencingAgendaUid));
+    parts.push(
+      _terms('_referencing_agenda_uids', cleanQuery.referencingAgendaUid),
+    );
   }
 
   if (addMethod?.length) {
@@ -553,7 +538,7 @@ function _getQueryMustNotFilterParts(cleanQuery) {
 
   if (_.get(cleanQuery, 'notReferencingAgendaUid', []).length) {
     parts.push(
-      _filterByReferencingAgendaUid(cleanQuery.notReferencingAgendaUid),
+      _terms('_referencing_agenda_uids', cleanQuery.notReferencingAgendaUid),
     );
   }
 
