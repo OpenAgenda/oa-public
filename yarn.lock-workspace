@@ -4278,7 +4278,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/date-utils@workspace:date-utils":
+"@openagenda/date-utils@npm:^0.0.1, @openagenda/date-utils@workspace:date-utils":
   version: 0.0.0-use.local
   resolution: "@openagenda/date-utils@workspace:date-utils"
   dependencies:
@@ -4425,11 +4425,14 @@ __metadata:
     "@babel/plugin-syntax-import-attributes": "npm:^7.23.3"
     "@babel/preset-env": "npm:^7.23.3"
     "@openagenda/babel-preset": "npm:^1.5.0"
+    "@openagenda/date-utils": "npm:^0.0.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/logs": "npm:^1.1.9"
     axios: "npm:^0.21.1"
+    date-fns: "npm:^2.29.3"
     lodash: "npm:^4.17.21"
+    moment: "npm:^2.30.1"
     nodemon: "npm:^3.0.3"
     pdfkit: "npm:^0.13.0"
     qs: "npm:^6.11.2"

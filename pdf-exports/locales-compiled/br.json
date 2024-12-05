@@ -2,19 +2,19 @@
   "pdf-exports.aboutLocation": [
     {
       "type": 0,
-      "value": "À propos du lieu"
+      "value": "About the location"
     }
   ],
   "pdf-exports.access": [
     {
       "type": 0,
-      "value": "Accès"
+      "value": "Access"
     }
   ],
   "pdf-exports.additionalLinks": [
     {
       "type": 0,
-      "value": "Liens additionnels"
+      "value": "Additional links"
     }
   ],
   "pdf-exports.conditions": [
@@ -26,43 +26,49 @@
   "pdf-exports.location": [
     {
       "type": 0,
-      "value": "Lieu"
+      "value": "Location"
     }
   ],
   "pdf-exports.online": [
     {
       "type": 0,
-      "value": "En ligne"
+      "value": "Online"
     }
   ],
   "pdf-exports.page": [
     {
       "type": 0,
-      "value": "Pajenn"
+      "value": "Page"
     }
   ],
   "pdf-exports.registration": [
     {
       "type": 0,
-      "value": "Enskrivadur"
+      "value": "Registration"
     }
   ],
   "pdf-exports.registrationTool": [
     {
       "type": 0,
-      "value": "Outil d'inscription"
+      "value": "Registration tool"
     }
   ],
   "pdf-exports.status": [
     {
       "type": 0,
-      "value": "État"
+      "value": "Status"
     }
   ],
   "pdf-exports.tags": [
     {
       "type": 0,
       "value": "Tags"
+    }
+  ],
+  "pdf-exports.undefined": [
+    {
+      "type": 0,
+      "value": "Undefined"
     }
   ]
 }
