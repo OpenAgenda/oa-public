@@ -36,7 +36,7 @@ const BABEL_EXCLUDE_REGEX = new RegExp(
   `node_modules/(?!(${modulesToInclude.join('|')}))`,
 );
 
-const bucket = 'oastatic';
+const bucket = process.env.S3_ASSETS_BUCKET;
 const serviceName = require('./package.json').name.split('/').pop();
 
 const devServerHost = process.env.DEV_SERVER_HOST || 'localhost';
