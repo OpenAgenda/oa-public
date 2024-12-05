@@ -4,7 +4,7 @@ import keywordizeDiscreteValue from './keywordizeDiscreteValue.js';
 
 const termsFiltersMap = {
   memberUid: 'member.uid',
-  originAgendaUid: 'originAgenda.uid',
+  'originAgenda.uid': 'originAgenda.uid',
   city: 'location.city',
   district: 'location.district',
   department: 'location.department',
@@ -162,26 +162,21 @@ function _timingsExcludingOngoing(d) {
   };
 }
 
-function _filterBySourceAgendaUid(sourceAgendaUid) {
-  const uids = [].concat(sourceAgendaUid);
-  const filter = uids.length > 1
-    ? {
-      terms: {
-        'sourceAgendas.uid': uids,
-      },
-    }
-    : {
-      term: {
-        'sourceAgendas.uid': uids[0],
-      },
-    };
+function _filterByNested(key, singleOrMultiValue) {
+  const value = [].concat(singleOrMultiValue);
 
   return {
     nested: {
-      path: 'sourceAgendas',
+      path: key.split('.').shift(),
       query: {
         bool: {
-          filter: [filter],
+          filter: [
+            {
+              [value.length > 1 ? 'terms' : 'term']: {
+                [key]: value.length > 1 ? value : value[0],
+              },
+            },
+          ],
         },
       },
     },
@@ -477,8 +472,14 @@ function _getQueryFilterParts(
     parts.push(_timestampFilter('updatedAt', cleanQuery.updatedAt));
   }
 
+  if (_.get(cleanQuery, 'originAgenda.uid', [])?.length) {
+    parts.push(_terms('originAgenda.uid', cleanQuery.originAgenda.uid));
+  }
+
   if (_.get(cleanQuery, 'sourceAgendaUid', []).length) {
-    parts.push(_filterBySourceAgendaUid(cleanQuery.sourceAgendaUid));
+    parts.push(
+      _filterByNested('sourceAgendas.uid', cleanQuery.sourceAgendaUid),
+    );
   }
 
   if (_.get(cleanQuery, 'referencingAgendaUid', []).length) {

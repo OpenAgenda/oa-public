@@ -471,6 +471,35 @@ describe('event-search - unit: utils', () => {
         'location.city.asc',
       ]);
     });
+
+    it('official origin agenda is defined', () => {
+      const clean = validateQuery(
+        {
+          originAgenda: { official: true },
+        },
+        {},
+      );
+
+      expect(clean.originAgenda.official).toBe(true);
+    });
+
+    it('official origin agenda is not defined', () => {
+      const clean = validateQuery({});
+
+      expect(clean.originAgenda.official).toBeNull();
+    });
+
+    it('origin agenda uid', () => {
+      const clean = validateQuery({ originAgenda: { uid: 123 } });
+
+      expect(clean.originAgenda.uid).toEqual([123]);
+    });
+
+    it('originAgendaUid is moved to originAgenda.uid', () => {
+      const clean = validateQuery({ originAgendaUid: [123] });
+
+      expect(clean.originAgenda.uid).toEqual([123]);
+    });
   });
 
   describe('cleanRequestedAggregation', () => {
