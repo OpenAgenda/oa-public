@@ -5,12 +5,18 @@
       {
         "uid": 1,
         "state": 2,
-        "trueOrFalse": true
+        "trueOrFalse": true,
+        "originAgenda": {
+          "official": false
+        }
       },
       {
         "uid": 2,
         "state": 2,
-        "trueOrFalse": true
+        "trueOrFalse": true,
+        "originAgenda": {
+          "official": false
+        }
       },
       {
         "uid": 3,
@@ -19,7 +25,10 @@
       {
         "uid": 4,
         "state": 2,
-        "trueOrFalse": false
+        "trueOrFalse": false,
+        "originAgenda": {
+          "official": true
+        }
       }
     ]
   },

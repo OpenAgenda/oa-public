@@ -433,6 +433,12 @@ function _getQueryFilterParts(
     parts.push(_terms('featured', cleanQuery.featured));
   }
 
+  if (cleanQuery.originAgenda.official !== null) {
+    parts.push(
+      _terms('originAgenda.official', cleanQuery.originAgenda.official),
+    );
+  }
+
   if (removed === true) {
     parts.push(_terms('removed', true));
   }
@@ -455,7 +461,7 @@ function _getQueryFilterParts(
     parts.push(_timestampFilter('updatedAt', cleanQuery.updatedAt));
   }
 
-  if (_.get(cleanQuery, 'originAgenda.uid', [])?.length) {
+  if (![null, undefined].includes(_.get(cleanQuery, 'originAgenda.uid'))) {
     parts.push(_terms('originAgenda.uid', cleanQuery.originAgenda.uid));
   }
 
