@@ -1069,7 +1069,7 @@ export default (core, { useRouter = true } = {}) => {
         .search(req.query, req.query, {
           useDefaultImage:
             req.query.useDefaultImage && req.query.useDefaultImage === '1',
-          includeFields: req.query.includeFields,
+          includeFields: req.query.includeFields ?? req.query.if,
           detailed: req.query.detailed,
           monolingual: req.query.monolingual,
           includeImageTimestamp: req.query.includeImageTimestamp,
