@@ -119,7 +119,6 @@ export default async function rebuild(config, set, options = {}) {
       `indexed ${counts.updated + counts.created} events, ${counts.updated} updated, ${counts.created} created, ${counts.errored} errored`,
     );
   } catch (e) {
-    log('error', e);
     error = e;
     operations.push('bulk operations failed');
   }

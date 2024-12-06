@@ -1,0 +1,39 @@
+{
+  "title": "Le petit chien",
+  "text": "Il est blanc, a 4 pattes 2 yeux, une truffe et des tâches noires. Se la coule douce.",
+  "image": {
+    "id": 1,
+    "documentId": "f3ayca0ijwtbpikl6jazhnlu",
+    "name": "Le petit chien",
+    "alternativeText": null,
+    "caption": null,
+    "width": 376,
+    "height": 263,
+    "formats": {
+      "thumbnail": {
+        "name": "thumbnail_Le petit chien",
+        "hash": "thumbnail_Le_petit_chien_2646da8cca",
+        "ext": ".png",
+        "mime": "image/png",
+        "path": null,
+        "width": 223,
+        "height": 156,
+        "size": 86.35,
+        "sizeInBytes": 86354,
+        "url": "/thumbnail_Le_petit_chien_2646da8cca.png"
+      }
+    },
+    "hash": "Le_petit_chien_2646da8cca",
+    "ext": ".png",
+    "mime": "image/png",
+    "size": 71.09,
+    "url": "/Le_petit_chien_2646da8cca.png",
+    "previewUrl": null,
+    "provider": "local",
+    "provider_metadata": null,
+    "createdAt": "2024-11-29T17:51:06.793Z",
+    "updatedAt": "2024-11-29T17:51:06.793Z",
+    "publishedAt": "2024-11-29T17:51:06.794Z"
+  },
+  "assetsBasePath": ""
+}
