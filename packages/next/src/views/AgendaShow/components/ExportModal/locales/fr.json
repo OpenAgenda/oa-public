@@ -28,7 +28,7 @@
   "next.views.AgendaShow.ExportModal.login": "Connectez-vous pour accéder au lien d'export directement depuis ce menu",
   "next.views.AgendaShow.ExportModal.new": "Nouveau",
   "next.views.AgendaShow.ExportModal.openData": "Le contenu de cet agenda est utilisable selon le principe de <link>la licence ouverte</link>",
-  "next.views.AgendaShow.ExportModal.openInSamePage": "Ouvrir les événements sur la même page",
+  "next.views.AgendaShow.ExportModal.openInSamePage": "Ouvrir le détail d'un événement dans l'intégration",
   "next.views.AgendaShow.ExportModal.outlookStep2": "En bas de page, sélectionnez l'icône calendrier",
   "next.views.AgendaShow.ExportModal.outlookStep3": "Dans le volet de navigation, sélectionnez \"Ajouter un calendrier\"",
   "next.views.AgendaShow.ExportModal.outlookStep4": "Sélectionnez \"S'abonner à partir du web\"",
