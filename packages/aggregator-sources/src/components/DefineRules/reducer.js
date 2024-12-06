@@ -10,42 +10,106 @@ export default (state, action) => {
       };
     }
     case 'addRule': {
+      if (state.modeOptions.isRequiredFilter) {
+        return {
+          ...state,
+          rules: {
+            requiredFilters: [
+              ...state.rules.requiredFilters,
+              { id: _.uniqueId(), ...action.payload.rule },
+            ],
+            actions: state.rules.actions,
+          },
+        };
+      }
       return {
         ...state,
-        rules: [
-          ...state.rules,
-          {
-            id: _.uniqueId(), // for react key prop
-            ...action.payload.rule,
-          },
-        ],
+        rules: {
+          requiredFilters: state.rules.requiredFilters,
+          actions: [
+            ...state.rules.actions,
+            { id: _.uniqueId(), ...action.payload.rule },
+          ],
+        },
       };
     }
     case 'updateRule': {
+      if (state.modeOptions.isRequiredFilter) {
+        return {
+          ...state,
+          rules: {
+            requiredFilters: state.rules.requiredFilters.map((rule) =>
+              (rule.id === action.payload.id
+                ? {
+                  id: action.payload.id,
+                  ...action.payload.rule,
+                }
+                : rule)),
+            actions: state.rules.actions,
+          },
+        };
+      }
       return {
         ...state,
-        rules: state.rules.map((rule) =>
-          (rule.id === action.payload.id
-            ? {
-              id: action.payload.id,
-              ...action.payload.rule,
-            }
-            : rule)),
+        rules: {
+          requiredFilters: state.rules.requiredFilters,
+          actions: state.actions.rules.map((rule) =>
+            (rule.id === action.payload.id
+              ? {
+                id: action.payload.id,
+                ...action.payload.rule,
+              }
+              : rule)),
+        },
       };
     }
     case 'removeRule': {
+      if (action.payload.isRequiredFilter) {
+        return {
+          ...state,
+          rules: {
+            requiredFilters: state.rules.requiredFilters.filter(
+              (rule) => rule.id !== action.payload.id,
+            ),
+            actions: state.rules.actions,
+          },
+        };
+      }
       return {
         ...state,
-        rules: state.rules.filter((rule) => rule.id !== action.payload.id),
+        rules: {
+          requiredFilters: state.rules.requiredFilters,
+          actions: state.rules.actions.filter(
+            (rule) => rule.id !== action.payload.id,
+          ),
+        },
       };
     }
     case 'reorderRules': {
-      const rules = Array.from(state.rules);
-      const [itemToMove] = rules.splice(action.payload.startIndex, 1);
-      rules.splice(action.payload.endIndex, 0, itemToMove);
+      if (action.payload.isRequiredFilter) {
+        const requiredFilters = Array.from(state.rules.requiredFilters);
+        const [itemToMove] = requiredFilters.splice(
+          action.payload.startIndex,
+          1,
+        );
+        requiredFilters.splice(action.payload.endIndex, 0, itemToMove);
+        return {
+          ...state,
+          rules: {
+            requiredFilters,
+            actions: state.rules.actions,
+          },
+        };
+      }
+      const actions = Array.from(state.rules.actions);
+      const [itemToMove] = actions.splice(action.payload.startIndex, 1);
+      actions.splice(action.payload.endIndex, 0, itemToMove);
       return {
         ...state,
-        rules,
+        rules: {
+          requiredFilters: state.rules.requiredFilters,
+          actions,
+        },
       };
     }
     default:

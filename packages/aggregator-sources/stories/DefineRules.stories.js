@@ -1,3 +1,5 @@
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import DefineRules from '../src/components/DefineRules/index.js';
 import Stepper from '../src/components/Stepper.js';
 import SourcesCanvasDecorator from './decorators/SourcesCanvas.js';
@@ -59,21 +61,25 @@ export default {
 };
 
 export const AddSource = () => (
-  <div>
-    <div className="padding-v-sm">
-      <Stepper steps={steps} onSelect={() => {}} additionals={[]} />
+  <Provider
+    store={createStore((v) => v, { res: { getSourceLang: '/:agendaUid' } })}
+  >
+    <div>
+      <div className="padding-v-sm">
+        <Stepper steps={steps} onSelect={() => {}} additionals={[]} />
+      </div>
+      <DefineRules
+        displayInfo
+        aggregatorAgenda={aggregatorAgenda}
+        aggregatorAgendaSchema={aggregatorAgendaSchema}
+        sourceSchema={sourceAgendaSchema}
+        sourceAgenda={sourceAgenda}
+        initialRules={[]}
+        onSubmit={() => {}}
+        onCancel={() => {}}
+      />
     </div>
-    <DefineRules
-      displayInfo
-      aggregatorAgenda={aggregatorAgenda}
-      aggregatorAgendaSchema={aggregatorAgendaSchema}
-      sourceSchema={sourceAgendaSchema}
-      sourceAgenda={sourceAgenda}
-      initialRules={[]}
-      onSubmit={() => {}}
-      onCancel={() => {}}
-    />
-  </div>
+  </Provider>
 );
 AddSource.storyName = 'Add/Empty rule list';
 AddSource.decorators = [
@@ -83,16 +89,19 @@ AddSource.decorators = [
 ];
 
 export const EditEmpty = () => (
-  <DefineRules
-    displayInfo={false}
-    aggregator={aggregator}
-    aggregatorAgenda={aggregatorAgenda}
-    aggregatorAgendaSchema={aggregatorAgendaSchema}
-    sourceSchema={sourceAgendaSchema}
-    initialRules={[]}
-    onSubmit={() => {}}
-    onCancel={() => {}}
-  />
+  <Provider store={createStore((v) => v, { res: {} })}>
+    <DefineRules
+      displayInfo={false}
+      aggregator={aggregator}
+      aggregatorAgenda={aggregatorAgenda}
+      aggregatorAgendaSchema={aggregatorAgendaSchema}
+      sourceSchema={sourceAgendaSchema}
+      sourceAgenda={sourceAgenda}
+      initialRules={[]}
+      onSubmit={() => {}}
+      onCancel={() => {}}
+    />
+  </Provider>
 );
 EditEmpty.storyName = 'Edit/Empty rule list';
 EditEmpty.decorators = [
@@ -102,17 +111,19 @@ EditEmpty.decorators = [
 ];
 
 export const EditEmptyWithEnableWithField = () => (
-  <DefineRules
-    displayInfo={false}
-    aggregator={aggregator}
-    aggregatorAgenda={aggregatorAgenda}
-    aggregatorAgendaSchema={aggregatorAgendaSchemaWithEnableWith}
-    sourceAgenda={sourceAgenda}
-    sourceSchema={sourceAgendaSchema}
-    initialRules={[]}
-    onSubmit={() => {}}
-    onCancel={() => {}}
-  />
+  <Provider store={createStore((v) => v, { res: {} })}>
+    <DefineRules
+      displayInfo={false}
+      aggregator={aggregator}
+      aggregatorAgenda={aggregatorAgenda}
+      aggregatorAgendaSchema={aggregatorAgendaSchemaWithEnableWith}
+      sourceAgenda={sourceAgenda}
+      sourceSchema={sourceAgendaSchema}
+      initialRules={[]}
+      onSubmit={() => {}}
+      onCancel={() => {}}
+    />
+  </Provider>
 );
 EditEmptyWithEnableWithField.storyName = 'Aggregator with required enableWith field';
 EditEmptyWithEnableWithField.decorators = [
@@ -124,17 +135,19 @@ EditEmptyWithEnableWithField.decorators = [
 ];
 
 export const EditMany = () => (
-  <DefineRules
-    displayInfo={false}
-    aggregator={null}
-    aggregatorAgenda={aggregatorAgenda}
-    aggregatorAgendaSchema={manyAddFieldsAggrSchema}
-    sourceAgenda={sourceAgenda}
-    sourceSchema={sourceAgendaSchemaOneAdditional}
-    initialRules={rules}
-    onSubmit={() => {}}
-    onCancel={() => {}}
-  />
+  <Provider store={createStore((v) => v, { res: {} })}>
+    <DefineRules
+      displayInfo={false}
+      aggregator={null}
+      aggregatorAgenda={aggregatorAgenda}
+      aggregatorAgendaSchema={manyAddFieldsAggrSchema}
+      sourceAgenda={sourceAgenda}
+      sourceSchema={sourceAgendaSchemaOneAdditional}
+      initialRules={rules}
+      onSubmit={() => {}}
+      onCancel={() => {}}
+    />
+  </Provider>
 );
 EditMany.storyName = 'Edit/Many rules exist';
 EditMany.decorators = [
@@ -161,20 +174,60 @@ const brokenRules = [
 ];
 
 export const EditBroken = () => (
-  <DefineRules
-    displayInfo={false}
-    aggregator={aggregator}
-    aggregatorAgenda={aggregatorAgenda}
-    aggregatorAgendaSchema={aggregatorAgendaSchema}
-    sourceAgenda={sourceAgenda}
-    sourceSchema={sourceAgendaSchema}
-    initialRules={brokenRules}
-    onSubmit={() => {}}
-    onCancel={() => {}}
-  />
+  <Provider store={createStore((v) => v, { res: {} })}>
+    <DefineRules
+      displayInfo={false}
+      aggregator={aggregator}
+      aggregatorAgenda={aggregatorAgenda}
+      aggregatorAgendaSchema={aggregatorAgendaSchema}
+      sourceAgenda={sourceAgenda}
+      sourceSchema={sourceAgendaSchema}
+      initialRules={brokenRules}
+      onSubmit={() => {}}
+      onCancel={() => {}}
+    />
+  </Provider>
 );
 EditBroken.storyName = 'Edit/Broken rule list';
 EditBroken.decorators = [
+  SourcesCanvasDecorator,
+  ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`),
+  IntlDecorator,
+];
+
+export const SplitRequiredActions = () => (
+  <Provider store={createStore((v) => v, { res: {} })}>
+    <DefineRules
+      displayInfo={false}
+      aggregator={aggregator}
+      aggregatorAgenda={aggregatorAgenda}
+      aggregatorAgendaSchema={aggregatorAgendaSchema}
+      sourceSchema={sourceAgendaSchema}
+      sourceAgenda={sourceAgenda}
+      initialRules={[
+        {
+          query: {
+            text: {
+              title: 'NEW',
+            },
+          },
+          actions: [
+            {
+              field: 'state',
+              values: 2,
+              automatic: false,
+            },
+          ],
+          required: true,
+        },
+      ]}
+      onSubmit={() => {}}
+      onCancel={() => {}}
+    />
+  </Provider>
+);
+SplitRequiredActions.storyName = 'SplitRequiredAction';
+SplitRequiredActions.decorators = [
   SourcesCanvasDecorator,
   ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`),
   IntlDecorator,
