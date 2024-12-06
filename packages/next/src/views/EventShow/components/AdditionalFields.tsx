@@ -1,7 +1,8 @@
 import { useIntl } from 'react-intl';
 import { chakra, Link, NoBreak, useTheme } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareCheck , faSquare } from '@fortawesome/pro-solid-svg-icons';
+import { faSquareCheck } from '@fortawesome/pro-solid-svg-icons';
+import { faSquare } from '@fortawesome/pro-regular-svg-icons';
 import { keyCDNLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import LockIcon from 'components/LockIcon';

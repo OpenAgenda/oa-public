@@ -1,7 +1,7 @@
 {
   "layout" : "newsletter/layout",
   "base" : {
-    "logo" : "https://cibulstatic.s3.amazonaws.com/biglogo.png",
+    "logo" : "https://cdn.openagenda.com/static/biglogo.png",
     "previewLink" : true,
     "mobileMeta" : false,
     "css" : {
@@ -20,7 +20,7 @@
 
       "titleImage" : "width: 80px; height: auto; margin-right: 20px;",
       "mapImage" : "height: auto; max-width: 600px; max-width: 100%;",
-      
+
       "templateBody" : "",
       "bodyContent" : "color:#333; font-family:Helvetica; font-size:13px; line-height:150%; padding-top:20px; padding-right:20px; padding-bottom:20px; padding-left:20px; text-align:left;",
       "bodyContenta" : "color: #11BED4; font-weight:normal; text-decoration: none; word-break: break-word;",

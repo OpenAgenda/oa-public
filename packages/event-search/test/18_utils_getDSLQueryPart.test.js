@@ -205,6 +205,22 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
     });
   });
 
+  it('filtering by origin agenda uid', () => {
+    const DSL = getDSLQueryPart(
+      validateQuery({
+        originAgenda: {
+          uid: [123],
+        },
+      }),
+    );
+
+    expect(DSL.bool.filter.find((f) => f.term['originAgenda.uid'])).toEqual({
+      term: {
+        'originAgenda.uid': 123,
+      },
+    });
+  });
+
   it('filtering by multiple notReferencingAgendaUid', () => {
     expect(
       getDSLQueryPart(validateQuery({ notReferencingAgendaUid: [123, 124] })),

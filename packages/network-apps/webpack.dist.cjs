@@ -5,6 +5,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const S3Plugin = require('webpack-s3-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
+const bucket = process.env.S3_ASSETS_BUCKET;
 const serviceName = require('./package.json').name.split('/').pop();
 
 const pushToCDN = process.env.NODE_ENV === 'production' && parseInt(process.env.CDN, 10);
@@ -44,15 +45,17 @@ module.exports = {
         new S3Plugin({
           include: /\.js$/,
           s3Options: {
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-            region: 'eu-west-1',
+            endpoint: process.env.S3_ENDPOINT,
+            region: process.env.S3_REGION,
+            accessKeyId: process.env.S3_ACCESS_KEY_ID,
+            secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+            s3ForcePathStyle: true,
           },
           s3UploadOptions: {
-            Bucket: 'oasvc',
+            Bucket: bucket,
             ContentEncoding: 'gzip',
           },
-          basePathTransform: (f) => [serviceName, f].join('/'),
+          basePathTransform: (f) => ['svc', serviceName, f].join('/'),
         }),
       ]
       : [],

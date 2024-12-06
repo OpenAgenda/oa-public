@@ -985,8 +985,8 @@
         },
         {
           "name": "illustrationurl",
-          "value": "https://s3-eu-west-1.amazonaws.com/cibulstatic/Reed/Bijorhca.jpg",
-          "label": "https://s3-eu-west-1.amazonaws.com/cibulstatic/Reed/Bijorhca.jpg",
+          "value": "https://cdn.openagenda.com/static/Reed/Bijorhca.jpg",
+          "label": "https://cdn.openagenda.com/static/Reed/Bijorhca.jpg",
           "fieldType": "url"
         },
         {

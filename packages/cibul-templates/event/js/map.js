@@ -10,7 +10,7 @@ params = {
     coord: 'data-coord',
     tiles: 'data-tiles'
   },
-  icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
+  icon: '//cdn.openagenda.com/static/markerIcon.png',
   scrollWheelZoom: false
 };
 
