@@ -128,6 +128,11 @@ export async function init(config, services) {
       rebuild: (options) => queue('transverseIndexRebuild', options),
       search: transverseSearch,
     },
+    shutdown: async (options) => {
+      log('shutting down');
+      await queue.stop({ clear: options.clear });
+      await rebuildQueue.stop({ clear: options.clear });
+    },
     apps: {
       agendas: agendaRoutes(config, services),
     },

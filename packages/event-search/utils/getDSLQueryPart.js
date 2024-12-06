@@ -4,7 +4,7 @@ import keywordizeDiscreteValue from './keywordizeDiscreteValue.js';
 
 const termsFiltersMap = {
   memberUid: 'member.uid',
-  originAgendaUid: 'originAgenda.uid',
+  'originAgenda.uid': 'originAgenda.uid',
   city: 'location.city',
   district: 'location.district',
   department: 'location.department',
@@ -162,26 +162,21 @@ function _timingsExcludingOngoing(d) {
   };
 }
 
-function _filterBySourceAgendaUid(sourceAgendaUid) {
-  const uids = [].concat(sourceAgendaUid);
-  const filter = uids.length > 1
-    ? {
-      terms: {
-        'sourceAgendas.uid': uids,
-      },
-    }
-    : {
-      term: {
-        'sourceAgendas.uid': uids[0],
-      },
-    };
+function _filterByNested(key, singleOrMultiValue) {
+  const value = [].concat(singleOrMultiValue);
 
   return {
     nested: {
-      path: 'sourceAgendas',
+      path: key.split('.').shift(),
       query: {
         bool: {
-          filter: [filter],
+          filter: [
+            {
+              [value.length > 1 ? 'terms' : 'term']: {
+                [key]: value.length > 1 ? value : value[0],
+              },
+            },
+          ],
         },
       },
     },
@@ -391,23 +386,6 @@ function _addAdditionalFieldsToFilterParts(
   });
 }
 
-function _filterByReferencingAgendaUid(referencingAgendaUid) {
-  const uids = [].concat(referencingAgendaUid);
-  const filter = uids.length > 1
-    ? {
-      terms: {
-        _referencing_agenda_uids: uids,
-      },
-    }
-    : {
-      term: {
-        _referencing_agenda_uids: uids[0],
-      },
-    };
-
-  return filter;
-}
-
 function _getQueryFilterParts(
   cleanQuery,
   { additionalAndSchemaFields, emptyValue, removed = false },
@@ -455,6 +433,12 @@ function _getQueryFilterParts(
     parts.push(_terms('featured', cleanQuery.featured));
   }
 
+  if (cleanQuery.originAgenda.official !== null) {
+    parts.push(
+      _terms('originAgenda.official', cleanQuery.originAgenda.official),
+    );
+  }
+
   if (removed === true) {
     parts.push(_terms('removed', true));
   }
@@ -477,12 +461,20 @@ function _getQueryFilterParts(
     parts.push(_timestampFilter('updatedAt', cleanQuery.updatedAt));
   }
 
+  if (![null, undefined].includes(_.get(cleanQuery, 'originAgenda.uid'))) {
+    parts.push(_terms('originAgenda.uid', cleanQuery.originAgenda.uid));
+  }
+
   if (_.get(cleanQuery, 'sourceAgendaUid', []).length) {
-    parts.push(_filterBySourceAgendaUid(cleanQuery.sourceAgendaUid));
+    parts.push(
+      _filterByNested('sourceAgendas.uid', cleanQuery.sourceAgendaUid),
+    );
   }
 
   if (_.get(cleanQuery, 'referencingAgendaUid', []).length) {
-    parts.push(_filterByReferencingAgendaUid(cleanQuery.referencingAgendaUid));
+    parts.push(
+      _terms('_referencing_agenda_uids', cleanQuery.referencingAgendaUid),
+    );
   }
 
   if (addMethod?.length) {
@@ -552,7 +544,7 @@ function _getQueryMustNotFilterParts(cleanQuery) {
 
   if (_.get(cleanQuery, 'notReferencingAgendaUid', []).length) {
     parts.push(
-      _filterByReferencingAgendaUid(cleanQuery.notReferencingAgendaUid),
+      _terms('_referencing_agenda_uids', cleanQuery.notReferencingAgendaUid),
     );
   }
 

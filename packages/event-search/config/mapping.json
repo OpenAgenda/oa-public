@@ -115,6 +115,9 @@
       "title": {
         "type": "text"
       },
+      "official": {
+        "type": "boolean"
+      },
       "_agg": {
         "type": "keyword"
       }

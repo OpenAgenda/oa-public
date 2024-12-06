@@ -80,6 +80,21 @@ describe('02 - event search - functional: boolean type', () => {
     });
   });
 
+  it('filter on originAgenda.official', async () => {
+    const { events } = await service('boolean').search(
+      {
+        originAgenda: { official: true },
+      },
+      {},
+      {
+        detailed: true,
+      },
+    );
+
+    expect(events.length).toBe(1);
+    expect(events[0].uid).toBe(4);
+  });
+
   it('aggregation on boolean field provides count for events including unset values count', async () => {
     const { aggregations } = await service('boolean').search(
       {
