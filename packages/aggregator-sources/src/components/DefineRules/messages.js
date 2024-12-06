@@ -9,6 +9,24 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.noFilter',
     defaultMessage: 'No filter',
   },
+  filters: {
+    id: 'aggregator-sources.DefineRules.filters',
+    defaultMessage: 'Filters',
+  },
+  actions: {
+    id: 'aggregator-sources.DefineRules.actions',
+    defaultMessage: 'Actions',
+  },
+  filtersDesc: {
+    id: 'aggregator-sources.DefineRules.filtersDesc',
+    defaultMessage:
+      'Filters allow you to choose which events should be aggregated',
+  },
+  actionsDesc: {
+    id: 'aggregator-sources.DefineRules.actionsDesc',
+    defaultMessage:
+      'Actions allow you to carry out processing on events at the time of their aggregation. Ex: categorize them, give them a status, define a value on a particular field...',
+  },
   requiredSubdivision: {
     id: 'aggregator-sources.DefineRules.requiredSubdivision',
     defaultMessage: 'Required subdivision',
@@ -42,13 +60,37 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.addARule',
     defaultMessage: 'Add a rule',
   },
+  addAFilter: {
+    id: 'aggregator-sources.DefineRules.addAFilter',
+    defaultMessage: 'Add a filter',
+  },
+  addAnAction: {
+    id: 'aggregator-sources.DefineRules.addAnAction',
+    defaultMessage: 'Add an action',
+  },
   newRule: {
     id: 'aggregator-sources.DefineRules.newRule',
     defaultMessage: 'New rule',
   },
+  newFilter: {
+    id: 'aggregator-sources.DefineRules.newFilter',
+    defaultMessage: 'New filter',
+  },
+  newAction: {
+    id: 'aggregator-sources.DefineRules.newAction',
+    defaultMessage: 'New action',
+  },
   updateARule: {
     id: 'aggregator-sources.DefineRules.updateARule',
     defaultMessage: 'Update a rule',
+  },
+  updateAFilter: {
+    id: 'aggregator-sources.DefineRules.updateAFilter',
+    defaultMessage: 'Update a filter',
+  },
+  updateAnAction: {
+    id: 'aggregator-sources.DefineRules.updateAnAction',
+    defaultMessage: 'Update an action',
   },
   noDefinedRule: {
     id: 'aggregator-sources.DefineRules.noDefinedRules',

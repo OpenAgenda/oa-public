@@ -40,14 +40,14 @@ export default function RuleItem({
           <button
             type="button"
             className="btn btn-link padding-v-z"
-            onClick={() => onUpdate(rule.id)}
+            onClick={() => onUpdate(rule.id, rule.required)}
           >
             {intl.formatMessage(messages.update)}
           </button>
           <button
             type="button"
             className="btn btn-link padding-v-z"
-            onClick={() => onRemove(rule.id)}
+            onClick={() => onRemove(rule.id, rule.required)}
           >
             <span className="text text-danger">
               {intl.formatMessage(messages.remove)}
