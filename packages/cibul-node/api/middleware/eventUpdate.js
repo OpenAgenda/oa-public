@@ -1,6 +1,5 @@
 import _ from 'lodash';
-
-const parseBool = (v) => (typeof v === 'string' ? v === 'true' : !!v);
+import boolQuery from '../../lib/boolQuery.js';
 
 export default function eventUpdate(req, res, next) {
   // if there was an image uploaded with the post, it is loaded in req.file.path with multer
@@ -15,7 +14,7 @@ export default function eventUpdate(req, res, next) {
       _.omit(req.parsedData, ['ownerUid', 'creatorUid']),
       {
         partial: req.method === 'PATCH',
-        batched: parseBool(req.headers.batched || req.body.batched),
+        batched: boolQuery(req.headers.batched || req.body.batched),
         context: {
           userUid: req.member.userUid,
         },
@@ -23,7 +22,9 @@ export default function eventUpdate(req, res, next) {
         defaultLang: req.headers.lang,
         private: null,
         callOrigin: 'api',
-        protectExtIds: parseBool(req.params.protectExtIds),
+        protectExtIds: boolQuery(req.query.protectExtIds, {
+          defaultValue: true,
+        }),
       },
     )
     .then((event) => res.json({ success: true, event }), next);
