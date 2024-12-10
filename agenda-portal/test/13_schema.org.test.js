@@ -17,7 +17,7 @@ describe('13 - schema.org', () => {
       },
     ],
     image: {
-      base: 'https://cibul.s3.amazonaws.com/',
+      base: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/',
       filename: '73a0e0e58db448ffbd6e21dee5151642.base.image.jpg',
     },
     location: {

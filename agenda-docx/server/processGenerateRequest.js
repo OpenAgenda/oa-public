@@ -28,7 +28,7 @@ export default async function processGenerateRequest(
   try {
     templateContent = await files.get(templatePath);
   } catch (err) {
-    if (err.code !== 'NoSuchKey') {
+    if (err.Code !== 'NoSuchKey') {
       console.log('error', err);
     }
   }
@@ -44,6 +44,8 @@ export default async function processGenerateRequest(
       query: _.pick(data, 'from', 'to'),
     });
 
+    console.log(outputPath, agenda);
+
     const filename = cleanString(`${agenda.title}.docx`);
 
     const { path } = await files.set(outputPath, filename);
@@ -54,6 +56,7 @@ export default async function processGenerateRequest(
       createdAt: new Date(),
     };
   } catch (e) {
+    console.log('ERROR', e);
     log.error(e, e.properties.errors);
   }
 
