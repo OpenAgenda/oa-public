@@ -30,13 +30,13 @@ export default async function getInboxesDetails(services, inboxesToBeDetailed) {
     )[0].map((v) => ({
       uid: v.uid,
       name: v.title,
-      avatar: v.image || config.aws.defaultImagePath,
+      avatar: v.image || config.s3.defaultImagePath,
     }));
   const supports = supportToBeDetailed.map((v) => ({
     ...v,
     uid: 1,
     name: 'Support - OpenAgenda',
-    avatar: config.aws.oaLogoIcon,
+    avatar: config.s3.oaLogoIcon,
   }));
 
   return [...users, ...agendas, ...supports];

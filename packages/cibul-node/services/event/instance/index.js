@@ -56,7 +56,7 @@ export default function instanciate(data) {
 
       if (!image) return image;
 
-      return config.aws.imageBucketPath + image;
+      return config.s3.mainBucketPath + image;
     };
   }
 

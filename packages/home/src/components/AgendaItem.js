@@ -1,6 +1,8 @@
 import { Image, Dropdown } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const loadSchemaAndOpenModal = (agenda, res, onDisplayMemberForm) => {
   const url = res.memberSchema.replace(':agendaUid', agenda.uid);
 
@@ -32,7 +34,7 @@ function AgendaItem({
         <a href={`/${agenda.slug}${agenda.private ? '.prv' : ''}`}>
           <Image
             src={agenda.image}
-            fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
+            fallbackSrc={isDev ? agenda.image.replace('dev', 'main') : null}
             className="media-object ill avatar"
             alt={agenda.title}
           />

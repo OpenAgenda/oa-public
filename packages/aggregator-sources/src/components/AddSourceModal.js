@@ -16,6 +16,8 @@ import EvaluateOptions from './EvaluateOptions.js';
 
 const DEFAULT_IMAGE = 'https://cdn.openagenda.com/static/graylogo140.png';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const messages = defineMessages({
   modalTitle: {
     id: 'aggregator-sources.AddSourceModal.modalTitle',
@@ -144,7 +146,7 @@ function AgendaItem({ agenda, sources, onSelect, firstAction }) {
           <div className="media-left">
             <Image
               src={agendaImage}
-              fallbackSrc={agendaImage.replace('cibuldev', 'cibul')}
+              fallbackSrc={isDev ? agendaImage.replace('dev', 'main') : null}
               className="media-object ill avatar"
               alt={agenda.title}
             />
@@ -196,7 +198,7 @@ function AgendaItem({ agenda, sources, onSelect, firstAction }) {
           >
             <Image
               src={agendaImage}
-              fallbackSrc={agendaImage.replace('cibuldev', 'cibul')}
+              fallbackSrc={isDev ? agendaImage.replace('dev', 'main') : null}
               className="media-object ill avatar"
               alt={agenda.title}
             />

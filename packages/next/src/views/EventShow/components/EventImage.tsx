@@ -4,8 +4,8 @@ import Image from 'components/Image';
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
 const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
-const DEV_AWS_BUCKET = process.env.NEXT_PUBLIC_DEV_AWS_BUCKET;
-const AWS_BUCKET = process.env.NEXT_PUBLIC_AWS_BUCKET;
+const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
+const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 
 export default function EventImage({ event, thumbor = false }) {
   if (!event.image) {
@@ -13,8 +13,8 @@ export default function EventImage({ event, thumbor = false }) {
   }
 
   const loader = thumbor ? thumborLoader : keyCDNLoader;
-  const devPrefix = thumbor ? DEV_AWS_BUCKET + '/' : DEV_IMAGE_PREFIX;
-  const prefix = thumbor ? AWS_BUCKET + '/' : IMAGE_PREFIX;
+  const devPrefix = thumbor ? DEV_S3_BUCKET + '/' : DEV_IMAGE_PREFIX;
+  const prefix = thumbor ? S3_BUCKET + '/' : IMAGE_PREFIX;
 
   const updatedTs = new Date(event.updatedAt).getTime();
 

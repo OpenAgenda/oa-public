@@ -858,7 +858,7 @@ export function FileUploadField() {
           extensions: ['jpg', 'pdf'],
           store: {
             type: 's3',
-            bucket: 'oadev',
+            bucket: 'dev',
           },
           label: {
             fr: "C'est un champ qui permet de charger un fichier",
@@ -920,7 +920,7 @@ export function ImageUploadField() {
           extensions: ['jpg', 'bmp', 'png'],
           store: {
             type: 's3',
-            bucket: 'oadev',
+            bucket: 'dev',
           },
           label: {
             fr: "C'est un champ qui permet de charger une image",

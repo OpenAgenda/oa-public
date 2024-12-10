@@ -61,7 +61,7 @@ export async function init(config, services) {
       'key',
       'userToken',
     ]),
-    imagePath: config.aws.imageBucketPath,
+    imagePath: config.s3.mainBucketPath,
     Files: services.files,
     services,
     getTokensService: () => tokensService,

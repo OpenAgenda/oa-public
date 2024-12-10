@@ -500,7 +500,7 @@ export const messages = {
       try {
         const { data, headers } = await axios({
           method: 'get',
-          url: `https://s3.${svc.config.aws.region}.amazonaws.com/${svc.config.aws.bucket}/${filename}`,
+          url: `https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/${svc.config.s3.bucket}/${filename}`,
           responseType: 'stream',
         });
 

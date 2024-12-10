@@ -340,7 +340,20 @@ const config = {
     oaLogoIcon: 'https://cdn.openagenda.com/static/logo_icon_300.jpg',
   },
   s3: {
+    endpoint: process.env.S3_ENDPOINT,
+    accessKeyId: process.env.S3_KEY,
+    secretAccessKey: process.env.S3_SECRET,
+    region: process.env.S3_REGION,
+    bucket: process.env.S3_MAIN_BUCKET,
     assetsBucketPath: process.env.S3_ASSETS_PATH,
+    mainBucketPath: process.env.S3_MAIN_PATH,
+    docxBucketPath: process.env.S3_DOCX_PATH,
+    defaultImagePath: 'https://cdn.openagenda.com/static/graylogo140.png',
+    defaultImageSize: {
+      width: 140,
+      height: 140,
+    },
+    oaLogoIcon: 'https://cdn.openagenda.com/static/logo_icon_300.jpg',
   },
   authorizedMimeTypes: {
     txt: 'text/plain',

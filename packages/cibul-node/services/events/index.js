@@ -8,8 +8,8 @@ import getLocations from './getLocations.js';
 export function init(config, services) {
   return Service({
     knex: services.knex,
-    imagePath: config.aws.imageBucketPath,
-    defaultImage: config.aws.defaultImagePath,
+    imagePath: config.s3.mainBucketPath,
+    defaultImage: config.s3.defaultImagePath,
     Files: services.files,
     logger: config.getLogConfig('svc', 'events'),
     interfaces: {

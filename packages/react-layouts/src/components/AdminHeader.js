@@ -24,7 +24,7 @@ export default function AdminHeader({ agenda }) {
               src={agenda.image}
               fallbackSrc={
                 process.env.NODE_ENV === 'development'
-                  ? agenda.image.replace('cibuldev', 'cibul')
+                  ? agenda.image.replace('dev', 'main')
                   : null
               }
               alt={agenda.title}

@@ -593,12 +593,12 @@ Naming is done based on the type of object, the image variant and the slug of th
 
 An example:
 
-    https://cibul.s3.amazonaws.com/event_alison-sykes-gardens_747125.jpg
+    https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/event_alison-sykes-gardens_747125.jpg
 
 The same, thumbnailed, then in full:
 
-    https://cibul.s3.amazonaws.com/evtbevent_alison-sykes-gardens_747125.jpg
-    https://cibul.s3.amazonaws.com/evfevent_alison-sykes-gardens_747125.jpg
+    https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtbevent_alison-sykes-gardens_747125.jpg
+    https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evfevent_alison-sykes-gardens_747125.jpg
 
 ### Agendas, Users
 
@@ -610,9 +610,9 @@ Note: for users ( profile ), there is no variant of the image.
 
 An example:
 
-    https://cibul.s3.amazonaws.com/profile7339049.jpg
-    https://cibul.s3.amazonaws.com/agenda71517239.jpg
-    https://cibul.s3.amazonaws.com/rwtbagenda71517239.jpg
+    https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/profile7339049.jpg
+    https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda71517239.jpg
+    https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/rwtbagenda71517239.jpg
 
 ### Custom images
 

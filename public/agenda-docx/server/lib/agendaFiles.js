@@ -1,45 +1,50 @@
 import fs from 'node:fs';
-import { promisify } from 'node:util';
-import _ from 'lodash';
-import AWS from 'aws-sdk';
+import {
+  S3Client,
+  GetObjectCommand,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
 import logs from '@openagenda/logs';
 
 const log = logs('agendaFiles');
 
 async function removeAgendaFile(client, bucket, uid, name) {
-  const deleteObject = promisify(client.deleteObject.bind(client));
-
-  const result = await deleteObject({
-    Bucket: bucket,
-    Key: [uid, name].join('/'),
-  });
-
-  return result;
+  return client.send(
+    new DeleteObjectCommand({
+      Bucket: bucket,
+      Key: [uid, name].join('/'),
+    }),
+  );
 }
 
 async function getAgendaFile(client, bucket, uid, name) {
-  const getObject = promisify(client.getObject.bind(client));
+  const result = await client.send(
+    new GetObjectCommand({
+      Bucket: bucket,
+      Key: [uid, name].join('/'),
+    }),
+  );
 
-  const result = await getObject({
-    Bucket: bucket,
-    Key: [uid, name].join('/'),
-  });
-
-  return result.Body;
+  return Buffer.from(await result.Body.transformToByteArray());
 }
 
 async function setAgendaFile(client, bucket, uid, localFilePath, name = null) {
-  const upload = promisify(client.upload.bind(client));
-
-  const result = await upload({
-    ACL: 'public-read', // because that is what I need now
-    Bucket: bucket,
-    Key: [uid, name].join('/'),
-    Body: fs.createReadStream(localFilePath),
+  const upload = new Upload({
+    client,
+    params: {
+      ACL: 'public-read', // because that is what I need now
+      Bucket: bucket,
+      Key: [uid, name].join('/'),
+      Body: fs.createReadStream(localFilePath),
+    },
   });
 
+  const result = await upload.done();
+
   return {
-    path: result.Location,
+    path: result.Key,
   };
 }
 
@@ -53,8 +58,8 @@ async function getAgendaJSON(client, bucket, uid, name, defaultValue) {
 
     return JSON.parse(result);
   } catch (e) {
-    if (e.code === 'NoSuchKey') {
-      return _.extend({}, defaultValue);
+    if (e.Code === 'NoSuchKey') {
+      return { ...defaultValue };
     }
 
     throw e;
@@ -62,31 +67,42 @@ async function getAgendaJSON(client, bucket, uid, name, defaultValue) {
 }
 
 async function setAgendaJSON(client, bucket, uid, name, obj) {
-  const putObject = promisify(client.putObject.bind(client));
-
-  return putObject({
-    Bucket: bucket,
-    Key: [uid, name].join('/'),
-    Body: JSON.stringify(obj, null, 2),
-    ContentType: 'application/json',
-  });
+  return client.send(
+    new PutObjectCommand({
+      Bucket: bucket,
+      Key: [uid, name].join('/'),
+      Body: JSON.stringify(obj, null, 2),
+      ContentType: 'application/json',
+    }),
+  );
 }
 
 export default ({ s3, uid }) => {
-  const client = new AWS.S3(
-    _.extend(
-      {
-        apiVersion: '2006-03-01',
-      },
-      _.pick(s3, ['accessKeyId', 'secretAccessKey', 'region']),
-    ),
-  );
+  const {
+    endpoint,
+    region,
+    // projectId,
+    accessKeyId,
+    secretAccessKey,
+    bucket,
+  } = s3;
+
+  const client = new S3Client({
+    endpoint,
+    region,
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+    },
+    forcePathStyle: true,
+    // logger: console,
+  });
 
   return {
-    setJSON: setAgendaJSON.bind(null, client, s3.bucket, uid),
-    getJSON: getAgendaJSON.bind(null, client, s3.bucket, uid),
-    get: getAgendaFile.bind(null, client, s3.bucket, uid),
-    set: setAgendaFile.bind(null, client, s3.bucket, uid),
-    remove: removeAgendaFile.bind(null, client, s3.bucket, uid),
+    setJSON: setAgendaJSON.bind(null, client, bucket, uid),
+    getJSON: getAgendaJSON.bind(null, client, bucket, uid),
+    get: getAgendaFile.bind(null, client, bucket, uid),
+    set: setAgendaFile.bind(null, client, bucket, uid),
+    remove: removeAgendaFile.bind(null, client, bucket, uid),
   };
 };

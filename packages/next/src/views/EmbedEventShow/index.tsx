@@ -65,8 +65,8 @@ import NavigateButton from './components/NavigateButton';
 import Metas from './components/Metas';
 import fetchLocale from './locales';
 
-const AWS_BUCKET = process.env.NEXT_PUBLIC_AWS_BUCKET;
-const DEV_AWS_BUCKET = process.env.NEXT_PUBLIC_DEV_AWS_BUCKET;
+const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
+const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 
 export type EmbedEventShowProps = {
   preload?: string[];
@@ -350,12 +350,12 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
                       <Image
                         src={
                           process.env.NODE_ENV === 'development'
-                            ? `${DEV_AWS_BUCKET}/${event.location.image}?__ts=${updatedTs}`
-                            : `${AWS_BUCKET}/${event.location.image}?__ts=${updatedTs}`
+                            ? `${DEV_S3_BUCKET}/${event.location.image}?__ts=${updatedTs}`
+                            : `${S3_BUCKET}/${event.location.image}?__ts=${updatedTs}`
                         }
                         fallbackSrc={
                           process.env.NODE_ENV === 'development'
-                            ? `${AWS_BUCKET}/${event.location.image}?__ts=${updatedTs}`
+                            ? `${S3_BUCKET}/${event.location.image}?__ts=${updatedTs}`
                             : undefined
                         }
                         loader={thumborLoader}

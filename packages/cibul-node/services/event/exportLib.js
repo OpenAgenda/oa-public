@@ -156,7 +156,7 @@ export function clean(services, eInst, options, cb) {
     _inject(c.location, l, locationFieldsMap);
 
     if (c.location.image && !c.location.image.includes('//')) {
-      c.location.image = config.aws.imageBucketPath.replace('https:', '') + c.location.image;
+      c.location.image = config.s3.mainBucketPath.replace('https:', '') + c.location.image;
     }
   }
 

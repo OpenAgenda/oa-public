@@ -60,7 +60,7 @@ function formatValue(
   if (['image', 'file'].includes(field.fieldType) && value) {
     return {
       ...value,
-      link: `https://${(field.store ?? { type: 's3', bucket: 'cibul' }).bucket}.s3.amazonaws.com/${value.filename}`,
+      link: `https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/${field.store?.bucket ?? 'main'}/${value.filename}`,
     };
   }
 

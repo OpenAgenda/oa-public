@@ -43,7 +43,7 @@ export async function init(config, services) {
         'schemas.messageAttachment',
         'schemas.emailUtilsMessageIds',
         'schemas.emailUtilsReplyTos',
-        'aws',
+        's3',
         'uppy',
       ]),
       {
@@ -204,18 +204,22 @@ export async function init(config, services) {
             ],
           },
         },
-        defaultImagePath: config.aws.defaultImagePath,
+        defaultImagePath: config.s3.defaultImagePath,
         mw: {
           limit: 20,
         },
         uppyCompanion: companion.app({
           s3: {
             getKey: ({ filename }) => filename,
-            key: config.aws.accessKeyId,
-            secret: config.aws.secretAccessKey,
-            bucket: config.aws.bucket,
-            region: config.aws.region,
+            endpoint: config.s3.endpoint,
+            key: config.s3.accessKeyId,
+            secret: config.s3.secretAccessKey,
+            bucket: config.s3.bucket,
+            region: config.s3.region,
             acl: 'public-read',
+            awsClientOptions: {
+              forcePathStyle: true,
+            },
           },
           server: {
             host: config.domain,

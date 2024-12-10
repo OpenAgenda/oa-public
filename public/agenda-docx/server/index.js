@@ -13,7 +13,7 @@ function getState({ s3 }, agendaUid) {
 }
 
 export default function AgendaDocx(options = {}) {
-  const { queue, localTmpPath, s3 } = options;
+  const { queue, localTmpPath, s3, bucketPath } = options;
 
   if (options.logger) {
     logger.setModuleConfig(options.logger);
@@ -32,6 +32,7 @@ export default function AgendaDocx(options = {}) {
     app: App({
       queue,
       s3,
+      bucketPath,
     }),
     getState: getState.bind(null, { s3 }),
   };

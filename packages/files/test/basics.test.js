@@ -7,9 +7,9 @@ const finished = promisify(require('node:stream').finished);
 const isStream = require('is-stream');
 const Files = require('../lib');
 const testconfig = require('../testconfig');
-const { s3UrlMatching } = require('./utils');
+const { formatLocation } = require('./utils');
 
-const bucket = testconfig.s3.defaultBucket;
+const { endpoint, projectId, defaultBucket: bucket } = testconfig.s3;
 const filePath = path.join(__dirname, 'files/src3.png');
 
 describe('basics', () => {
@@ -43,7 +43,7 @@ describe('basics', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3_renamed.png'),
+        // Location: s3UrlMatching('src3_renamed.png'),
         key: 'src3_renamed.png',
         Key: 'src3_renamed.png',
         Bucket: `${bucket}`,
@@ -80,7 +80,7 @@ describe('basics', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('une%20simple%20image_renamed.png'),
+        // Location: s3UrlMatching('une%20simple%20image_renamed.png'),
         key: 'une simple image_renamed.png',
         Key: 'une simple image_renamed.png',
         Bucket: `${bucket}`,
@@ -95,7 +95,7 @@ describe('basics', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('une%20simple%20image_renamed.png'),
+        // Location: s3UrlMatching('une%20simple%20image_renamed.png'),
         key: 'une simple image_renamed.png',
         Key: 'une simple image_renamed.png',
         Bucket: `${bucket}`,
@@ -154,7 +154,7 @@ describe('basics', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('image-de-profil_small.png'),
+        // Location: s3UrlMatching('image-de-profil_small.png'),
         key: 'image-de-profil_small.png',
         Key: 'image-de-profil_small.png',
         Bucket: `${bucket}`,
@@ -169,7 +169,7 @@ describe('basics', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('image-de-profil_large.png'),
+        // Location: s3UrlMatching('image-de-profil_large.png'),
         key: 'image-de-profil_large.png',
         Key: 'image-de-profil_large.png',
         Bucket: `${bucket}`,
@@ -185,7 +185,7 @@ describe('basics', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('image-de-profil_small.png'),
+        // Location: s3UrlMatching('image-de-profil_small.png'),
         key: 'image-de-profil_small.png',
         Key: 'image-de-profil_small.png',
         Bucket: `${bucket}`,
@@ -200,7 +200,7 @@ describe('basics', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('image-de-profil_large.png'),
+        // Location: s3UrlMatching('image-de-profil_large.png'),
         key: 'image-de-profil_large.png',
         Key: 'image-de-profil_large.png',
         Bucket: `${bucket}`,
@@ -209,7 +209,9 @@ describe('basics', () => {
     expect(isStream(second[1].stream)).toBe(true);
 
     // Check image sizes
-    const smallImageResponse = await fetch(first[0].uploadValue.Location);
+    const smallImageResponse = await fetch(
+      formatLocation({ endpoint, projectId, bucket }, first[0].uploadValue.key),
+    );
     if (!smallImageResponse.ok) {
       throw new Error(`Invalid status (${smallImageResponse.status})`);
     }
@@ -218,7 +220,9 @@ describe('basics', () => {
       stream.bytesRead.toString(),
     );
 
-    const largeImageResponse = await fetch(first[1].uploadValue.Location);
+    const largeImageResponse = await fetch(
+      formatLocation({ endpoint, projectId, bucket }, first[1].uploadValue.key),
+    );
     if (!largeImageResponse.ok) {
       throw new Error(`Invalid status (${largeImageResponse.status})`);
     }

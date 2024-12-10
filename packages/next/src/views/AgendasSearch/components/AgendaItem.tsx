@@ -14,10 +14,12 @@ export default function AgendaItem({ agenda }) {
 
   const isDev = process.env.NODE_ENV === 'development';
 
-  const imageSrc = agenda.image && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${agenda.image}`;
+  const imageSrc =
+    agenda.image && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${agenda.image}`;
 
-  const currentAndUpcomingEvents = (agenda.summary?.publishedEvents?.current ?? 0)
-    + (agenda.summary?.publishedEvents?.upcoming ?? 0);
+  const currentAndUpcomingEvents =
+    (agenda.summary?.publishedEvents?.current ?? 0) +
+    (agenda.summary?.publishedEvents?.upcoming ?? 0);
   const passedEvents = agenda.summary?.publishedEvents?.passed ?? 0;
 
   return (
@@ -29,9 +31,7 @@ export default function AgendaItem({ agenda }) {
         src={imageSrc || graylogo140}
         fallbackSrc={
           isDev && typeof imageSrc === 'string'
-            ? imageSrc
-              .replace('cibuldev', 'cibul')
-              .replace('images-', 'imagesdev-')
+            ? imageSrc.replace('dev', 'main').replace('images-', 'imagesdev-')
             : undefined
         }
         alt=""

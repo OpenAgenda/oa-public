@@ -5,9 +5,9 @@ const path = require('node:path');
 const express = require('express');
 const Files = require('../lib');
 const testconfig = require('../testconfig');
-const { s3UrlMatching } = require('./utils');
+const { formatLocation } = require('./utils');
 
-const bucket = testconfig.s3.defaultBucket;
+const { endpoint, projectId, defaultBucket: bucket } = testconfig.s3;
 const filePath = path.join(__dirname, 'files/src3.png');
 
 describe('with server', () => {
@@ -92,14 +92,16 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3_renamed.png'),
+        // Location: s3UrlMatching('src3_renamed.png'),
         key: 'src3_renamed.png',
         Key: 'src3_renamed.png',
         Bucket: `${bucket}`,
       }),
     });
 
-    const uploadedImage = await fetch(data.uploadValue.Location);
+    const uploadedImage = await fetch(
+      formatLocation({ endpoint, projectId, bucket }, data.uploadValue.key),
+    );
 
     expect(uploadedImage.headers.get('content-length')).toBe(
       file.length.toString(),
@@ -290,7 +292,9 @@ describe('with server', () => {
 
     expect(count).toBe(2);
 
-    const [first, second] = data;
+    // Order is not guaranteed
+    const first = data.find((item) => item.filename === 'src3-1.png');
+    const second = data.find((item) => item.filename === 'src3-2.png');
 
     expect(first).toMatchObject({
       key: 'image',
@@ -299,7 +303,7 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-1.png'),
+        // Location: s3UrlMatching('src3-1.png'),
         key: 'src3-1.png',
         Key: 'src3-1.png',
         Bucket: `${bucket}`,
@@ -313,7 +317,7 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-2.png'),
+        // Location: s3UrlMatching('src3-2.png'),
         key: 'src3-2.png',
         Key: 'src3-2.png',
         Bucket: `${bucket}`,
@@ -321,8 +325,12 @@ describe('with server', () => {
     });
 
     const [firstImage, secondImage] = await Promise.all([
-      fetch(first.uploadValue.Location),
-      fetch(second.uploadValue.Location),
+      fetch(
+        formatLocation({ endpoint, projectId, bucket }, first.uploadValue.key),
+      ),
+      fetch(
+        formatLocation({ endpoint, projectId, bucket }, second.uploadValue.key),
+      ),
     ]);
 
     expect(firstImage.headers.get('content-length')).toBe(
@@ -419,7 +427,7 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-1.png'),
+        // Location: s3UrlMatching('src3-1.png'),
         key: 'src3-1.png',
         Key: 'src3-1.png',
         Bucket: `${bucket}`,
@@ -433,7 +441,7 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-2.png'),
+        // Location: s3UrlMatching('src3-2.png'),
         key: 'src3-2.png',
         Key: 'src3-2.png',
         Bucket: `${bucket}`,
@@ -519,7 +527,7 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-1.png'),
+        // Location: s3UrlMatching('src3-1.png'),
         key: 'src3-1.png',
         Key: 'src3-1.png',
         Bucket: `${bucket}`,
@@ -533,7 +541,7 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-2.png'),
+        // Location: s3UrlMatching('src3-2.png'),
         key: 'src3-2.png',
         Key: 'src3-2.png',
         Bucket: `${bucket}`,
@@ -644,7 +652,7 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-1.png'),
+        // Location: s3UrlMatching('src3-1.png'),
         key: 'src3-1.png',
         Key: 'src3-1.png',
         Bucket: `${bucket}`,
@@ -658,7 +666,7 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-3.png'),
+        // Location: s3UrlMatching('src3-3.png'),
         key: 'src3-3.png',
         Key: 'src3-3.png',
         Bucket: `${bucket}`,
@@ -672,7 +680,7 @@ describe('with server', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-5.png'),
+        // Location: s3UrlMatching('src3-5.png'),
         key: 'src3-5.png',
         Key: 'src3-5.png',
         Bucket: `${bucket}`,

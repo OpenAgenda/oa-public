@@ -5,7 +5,9 @@ export function init(config) {
   return formSchemas({
     knex: config.knex,
     tmpFolder: config.tmpFolderPath,
-    s3: _.pick(config.aws, [
+    imagePath: config.s3.mainBucketPath,
+    s3: _.pick(config.s3, [
+      'endpoint',
       'accessKeyId',
       'secretAccessKey',
       'region',
