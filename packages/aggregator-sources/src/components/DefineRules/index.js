@@ -15,11 +15,31 @@ import validate from './validate.js';
 
 function getInitialState(initialRules) {
   const rules = initialRules
-    ? initialRules.map((rule) => ({
-      id: _.uniqueId(), // for react key prop
-      ...rule,
-    }))
-    : [];
+    ? initialRules.reduce(
+      (acc, rule) => {
+        if (rule.required && rule.actions.length) {
+          acc.requiredFilters.push({
+            id: _.uniqueId(),
+            query: rule.query,
+            required: true,
+            actions: [],
+          });
+          acc.actions.push({
+            id: _.uniqueId(),
+            query: {},
+            required: false,
+            actions: rule.actions,
+          });
+        } else if (rule.required) {
+          acc.requiredFilters.push({ id: _.uniqueId(), ...rule });
+        } else {
+          acc.actions.push({ id: _.uniqueId(), ...rule });
+        }
+        return acc;
+      },
+      { requiredFilters: [], actions: [] },
+    )
+    : { requiredFilters: [], actions: [] };
 
   return {
     rules,
@@ -116,12 +136,14 @@ export default function DefineRules({
     },
     [intl, aggregatorAgendaSchema, sourceSchema, state.modeOptions.id, setMode],
   );
+
   const removeRule = useCallback(
-    (id) =>
+    (id, isRequiredFilter) =>
       dispatch({
         type: 'removeRule',
         payload: {
           id,
+          isRequiredFilter,
         },
       }),
     [dispatch],
@@ -159,12 +181,13 @@ export default function DefineRules({
     [addRule, aggregatorAgendaSchema],
   );
   const reorderRules = useCallback(
-    (startIndex, endIndex) =>
+    (startIndex, endIndex, isRequiredFilter) =>
       dispatch({
         type: 'reorderRules',
         payload: {
           startIndex,
           endIndex,
+          isRequiredFilter,
         },
       }),
     [dispatch],
@@ -181,9 +204,9 @@ export default function DefineRules({
   }, [addRules]);
 
   const initialValues = useMemo(() => {
-    const ruleToUpdate = state.rules.find(
-      (rule) => rule.id === state.modeOptions.id,
-    );
+    const ruleToUpdate = []
+      .concat(state.rules.requiredFilters, state.rules.actions)
+      .find((rule) => rule.id === state.modeOptions.id);
 
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema);
   }, [state.rules, state.modeOptions.id, aggregatorAgendaSchema]);
@@ -192,9 +215,9 @@ export default function DefineRules({
     if (state.mode !== 'update') {
       return false;
     }
-    const ruleToUpdate = state.rules.find(
-      (rule) => rule.id === state.modeOptions.id,
-    );
+    const ruleToUpdate = []
+      .concat(state.rules.requiredFilters, state.rules.actions)
+      .find((rule) => rule.id === state.modeOptions.id);
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema).type === 'tags';
   }, [state.rules, state.mode, state.modeOptions.id, aggregatorAgendaSchema]);
 
@@ -223,10 +246,16 @@ export default function DefineRules({
     return (
       <div className="padding-v-sm">
         <h4 className="margin-bottom-sm">
-          {intl.formatMessage(messages.newRule)}
+          {state.modeOptions.isRequiredFilter
+            ? intl.formatMessage(messages.newFilter)
+            : intl.formatMessage(messages.newAction)}
         </h4>
 
-        <p>{intl.formatMessage(messages.ruleDescription)}</p>
+        <p>
+          {state.modeOptions.isRequiredFilter
+            ? intl.formatMessage(messages.filtersDesc)
+            : intl.formatMessage(messages.actionsDesc)}
+        </p>
 
         <Form
           onSubmit={addRule}
@@ -242,6 +271,7 @@ export default function DefineRules({
           sourceSchema={sourceSchema}
           sourceAgenda={sourceAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
+          isRequiredFilter={state.modeOptions.isRequiredFilter}
         />
       </div>
     );
@@ -250,10 +280,16 @@ export default function DefineRules({
     return (
       <div className="padding-v-sm">
         <h4 className="margin-bottom-sm">
-          {intl.formatMessage(messages.updateARule)}
+          {state.modeOptions.isRequiredFilter
+            ? intl.formatMessage(messages.updateFilter)
+            : intl.formatMessage(messages.updateAction)}
         </h4>
 
-        <p>{intl.formatMessage(messages.ruleDescription)}</p>
+        <p>
+          {state.modeOptions.isRequiredFilter
+            ? intl.formatMessage(messages.filtersDesc)
+            : intl.formatMessage(messages.actionsDesc)}
+        </p>
 
         <Form
           onSubmit={updateRule}
@@ -270,6 +306,7 @@ export default function DefineRules({
           sourceSchema={sourceSchema}
           sourceAgenda={sourceAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
+          isRequiredFilter={state.modeOptions.isRequiredFilter}
         />
       </div>
     );

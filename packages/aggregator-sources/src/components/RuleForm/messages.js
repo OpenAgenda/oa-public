@@ -177,7 +177,7 @@ export default defineMessages({
   useFilterDesc: {
     id: 'aggregator-sources.RuleForm.useFilterDesc',
     defaultMessage:
-      'The values of the field will be defined automatically according to the values read from the source.',
+      'Actions only apply to the event if it matches the filter criteria.',
   },
   useActions: {
     id: 'aggregator-sources.RuleForm.useActions',
@@ -185,7 +185,8 @@ export default defineMessages({
   },
   useActionsDesc: {
     id: 'aggregator-sources.RuleForm.useActionsDesc',
-    defaultMessage: 'Advanced mode',
+    defaultMessage:
+      'Perform processing on the event when aggregating it.Ex: categorize it, give it a status, define a value on a field in the aggregator calendar',
   },
   wholeValueFilter: {
     id: 'aggregator-sources.RuleForm.wholeValueFilter',

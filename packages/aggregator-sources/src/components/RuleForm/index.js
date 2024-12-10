@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { useFormState, Field } from 'react-final-form';
@@ -12,7 +12,6 @@ import ChoiceFieldFormPart from './ChoiceFieldFormPart.js';
 import LocationFormPart from './LocationFormPart.js';
 import TextFormPart from './TextFormPart.js';
 import Radio from './Radio.js';
-import RequiredFieldPart from './RequiredFieldPart.js';
 import TagsFormPart from './TagsFormPart.js';
 import LanguagesFormPart from './LanguagesFormPart.js';
 import TimingsFormPart from './TimingsFormPart.js';
@@ -29,10 +28,21 @@ export default function RuleForm({
   sourceSchema,
   sourceAgenda,
   displayTagFilter,
+  isRequiredFilter,
 }) {
   const res = useSelector((state) => state.res);
   const intl = useIntl();
   const formState = useFormState();
+
+  useEffect(() => {
+    if (!isRequiredFilter) {
+      values.required = false;
+    } else {
+      values.withFilter = true;
+      values.withActions = false;
+      values.required = true;
+    }
+  });
 
   const error = !formState.dirtySinceLastSubmit && formState.submitError
     ? formState.submitError
@@ -52,21 +62,23 @@ export default function RuleForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="checkbox">
-        <div className="form-group">
-          <Field
-            component={Radio}
-            name="withFilter"
-            type="checkbox"
-            label={<b>{intl.formatMessage(messages.useFilter)}</b>}
-            helpBlock={(
-              <div className="radio-sub-block">
-                {intl.formatMessage(messages.useFilterDesc)}
-              </div>
-            )}
-          />
+      {!values.required ? (
+        <div className="checkbox">
+          <div className="form-group">
+            <Field
+              component={Radio}
+              name="withFilter"
+              type="checkbox"
+              label={<b>{intl.formatMessage(messages.useFilter)}</b>}
+              helpBlock={(
+                <div className="radio-sub-block">
+                  {intl.formatMessage(messages.useFilterDesc)}
+                </div>
+              )}
+            />
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {values.withFilter ? (
         <div className="radio-sub-block">
@@ -87,7 +99,6 @@ export default function RuleForm({
           {values.type === 'location' ? (
             <div className="radio-sub-block">
               <LocationFormPart />
-              <RequiredFieldPart />
             </div>
           ) : null}
 
@@ -116,7 +127,6 @@ export default function RuleForm({
                 aggregatorAgendaSchema={aggregatorAgendaSchema}
                 sourceSchema={sourceSchema}
               />
-              <RequiredFieldPart />
             </div>
           ) : null}
 
@@ -140,7 +150,6 @@ export default function RuleForm({
                 aggregatorAgendaSchema={aggregatorAgendaSchema}
                 sourceSchema={sourceSchema}
               />
-              <RequiredFieldPart />
             </div>
           ) : null}
 
@@ -165,7 +174,6 @@ export default function RuleForm({
                 sourceAgendaUid={sourceAgenda.uid}
                 res={res.getSourceLang}
               />
-              <RequiredFieldPart />
             </div>
           ) : null}
 
@@ -185,7 +193,6 @@ export default function RuleForm({
           {values.type === 'timings' ? (
             <div className="radio-sub-block">
               <TimingsFormPart />
-              <RequiredFieldPart />
             </div>
           ) : null}
 
@@ -208,7 +215,6 @@ export default function RuleForm({
           {values.type === 'tags' ? (
             <div className="radio-sub-block">
               <TagsFormPart schema={sourceSchema} />
-              <RequiredFieldPart />
             </div>
           ) : null}
 
@@ -220,21 +226,23 @@ export default function RuleForm({
         </div>
       ) : null}
 
-      <div className="checkbox">
-        <div className="form-group">
-          <Field
-            component={Radio}
-            name="withActions"
-            type="checkbox"
-            label={<b>{intl.formatMessage(messages.useActions)}</b>}
-            helpBlock={(
-              <div className="radio-sub-block">
-                {intl.formatMessage(messages.useActionsDesc)}
-              </div>
-            )}
-          />
+      {!isRequiredFilter ? (
+        <div className="checkbox">
+          <div className="form-group">
+            <Field
+              component={Radio}
+              name="withActions"
+              type="checkbox"
+              label={<b>{intl.formatMessage(messages.useActions)}</b>}
+              helpBlock={(
+                <div className="radio-sub-block">
+                  {intl.formatMessage(messages.useActionsDesc)}
+                </div>
+              )}
+            />
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {values.withActions ? (
         <div className="radio-sub-block">

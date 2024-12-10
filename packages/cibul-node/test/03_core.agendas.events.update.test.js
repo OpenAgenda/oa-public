@@ -520,7 +520,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         { key: 'test', value: '123' },
       ]);
     });
-    it('updating extIds replaces existing', async () => {
+    it('updating extIds replaces existing when protectExtIds is false', async () => {
       const event = await core.agendas(17026855).events.update(
         19201989,
         {
@@ -529,6 +529,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         },
         {
           access: 'internal',
+          protectExtIds: false,
         },
       );
       expect(event.extIds).toEqual([{ key: 'test3', value: '423' }]);
@@ -964,10 +965,10 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         }
       });
 
-      it('updating extIds replaces existing', async () => {
+      it('updating extIds replaces existing when protectExtIds options is false', async () => {
         response = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/17026855/events/19390293',
+          url: 'http://localhost:3000/agendas/17026855/events/19390293?protectExtIds=false',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',

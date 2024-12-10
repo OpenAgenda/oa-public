@@ -218,7 +218,7 @@
   "next.views.AgendaShow.ExportModal.openInSamePage": [
     {
       "type": 0,
-      "value": "Ouvrir les événements sur la même page"
+      "value": "Ouvrir le détail d'un événement dans l'intégration"
     }
   ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [

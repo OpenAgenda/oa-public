@@ -32,9 +32,12 @@ export default {
   },
 };
 
-export const NewRule = () => (
+export const NewRequiredFilter = () => (
   <Provider store={createStore((v) => v, { res: {} })}>
     <Form
+      mutators={{
+        ...arrayMutators,
+      }}
       component={RuleForm}
       onSubmit={() => {}}
       sourceSchema={villeDeLille}
@@ -43,10 +46,31 @@ export const NewRule = () => (
       res={{
         languages: '/agendaLanguages',
       }}
+      isRequiredFilter
     />
   </Provider>
 );
-NewRule.storyName = 'when the rule is new';
+NewRequiredFilter.storyName = 'when the rule is new required filter';
+
+export const NewRule = () => (
+  <Provider store={createStore((v) => v, { res: {} })}>
+    <Form
+      mutators={{
+        ...arrayMutators,
+      }}
+      component={RuleForm}
+      onSubmit={() => {}}
+      sourceSchema={villeDeLille}
+      aggregatorAgendaSchema={{ fields: [] }}
+      sourceAgenda={{ uid: 4350114 }}
+      res={{
+        languages: '/agendaLanguages',
+      }}
+      isRequiredFilter={false}
+    />
+  </Provider>
+);
+NewRule.storyName = 'when the rule is new and not an required filter';
 
 export const RuleWithAction = () => (
   <Provider store={createStore((v) => v, { res: {} })}>
@@ -59,6 +83,7 @@ export const RuleWithAction = () => (
       }}
       sourceSchema={villeDeLille}
       aggregatorAgendaSchema={MEL}
+      isRequiredFilter={false}
     />
   </Provider>
 );
@@ -75,6 +100,7 @@ export const RuleAutomaticField = () => (
       }}
       sourceSchema={villeDeLille}
       aggregatorAgendaSchema={MEL}
+      isRequiredFilter={false}
     />
   </Provider>
 );

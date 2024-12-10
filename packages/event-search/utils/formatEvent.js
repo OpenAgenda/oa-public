@@ -182,6 +182,7 @@ export default (data, options = {}) => {
         'url',
         'slug',
       ]);
+      event.originAgenda.official = !!event.originAgenda.official;
     }
     if (event.sourceAgendas) {
       event.sourceAgendas.forEach((sourceAgenda) => {

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import logs from '@openagenda/logs';
 
 const log = logs('services/eventSearch/transverseIndex');
@@ -28,7 +29,11 @@ async function transverseIndexUpdate(config, services, searchIndex, event) {
 }
 
 async function transverseIndexRebuild(services, searchIndex, options = {}) {
-  const { events: eventsSvc } = services;
+  const {
+    events: eventsSvc,
+    agendaEvents: agendaEventSvc,
+    agendas: agendasSvc,
+  } = services;
 
   const { createdSince, stopAtCount } = {
     createdSince: 180, // days
@@ -53,7 +58,7 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
   });
   let stop = false;
 
-  return searchIndex.rebuild({
+  const rebuildResult = await searchIndex.rebuild({
     eventsList: async (lastId, limit) => {
       if (stop) {
         return {
@@ -75,15 +80,47 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
         },
       );
 
+      const eventsToBeIndexed = [];
+
+      for (const event of events) {
+        const agendaUidsWhereIsPublished = await agendaEventSvc.list
+          .byEventUid(event.uid, { state: 2 })
+          .then(({ items }) => items.map(({ agendaUid }) => agendaUid));
+
+        if (!agendaUidsWhereIsPublished.length) {
+          continue;
+        }
+
+        const { total: indexedAgendasReferencingEventTotal } = await agendasSvc.list({ uid: agendaUidsWhereIsPublished }, 0, 0, {
+          indexed: true,
+          total: true,
+        });
+
+        if (indexedAgendasReferencingEventTotal === 0) {
+          continue;
+        }
+
+        eventsToBeIndexed.push(
+          _.omit(
+            {
+              ...event,
+              state: 2,
+              originAgenda: event.agenda,
+            },
+            ['agenda'],
+          ),
+        );
+      }
+
       log(
         'listed %s events for reindexing in transverse index (%s)',
-        events.length,
+        eventsToBeIndexed.length,
         lastId,
       );
 
       return {
         lastId: newLastId === null ? -1 : newLastId,
-        events,
+        events: eventsToBeIndexed,
       };
     },
     on: {
@@ -98,6 +135,10 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
       },
     },
   });
+
+  log.info('done', rebuildResult);
+
+  return rebuildResult;
 }
 
 export default ({ services, config }, eventSearch, queue) => {

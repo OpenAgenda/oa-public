@@ -35,19 +35,33 @@ export default function List({
     addRules(await readClipboard().catch(() => null));
   }, [addRules]);
 
-  const setModeAdd = useCallback(() => setMode('add'), [setMode]);
+  const setModeAdd = useCallback(
+    (isRequiredFilter) => setMode('add', { isRequiredFilter }),
+    [setMode],
+  );
   const setModeUpdate = useCallback(
-    (id) => setMode('update', { id }),
+    (id, isRequiredFilter) => setMode('update', { id, isRequiredFilter }),
     [setMode],
   );
 
-  const onDragEnd = useCallback(
+  const onDragEndFilter = useCallback(
     (result) => {
       if (!result.destination) {
         return;
       }
 
-      reorderRules(result.source.index, result.destination.index);
+      reorderRules(result.source.index, result.destination.index, true);
+    },
+    [reorderRules],
+  );
+
+  const onDragEndAction = useCallback(
+    (result) => {
+      if (!result.destination) {
+        return;
+      }
+
+      reorderRules(result.source.index, result.destination.index, false);
     },
     [reorderRules],
   );
@@ -70,44 +84,52 @@ export default function List({
           intl={intl}
           messages={messages}
         />
-        <div className="margin-v-sm">
-          <DragDropContext className="list-group" onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {rules.map((rule, index) => (
-                    <Draggable
-                      key={rule.id}
-                      draggableId={rule.id}
-                      index={index}
-                    >
-                      {(provideInner, { isDragging }) => (
-                        <li
-                          className={`list-group-item draggable${
-                            isDragging ? ' dragged' : ''
-                          }`}
-                          ref={provideInner.innerRef}
-                          {...provideInner.draggableProps}
-                          {...provideInner.dragHandleProps}
-                        >
-                          <RuleItem
-                            rule={rule}
-                            onUpdate={setModeUpdate}
-                            onRemove={removeRule}
-                            sourceAgenda={sourceAgenda}
-                            sourceAgendaSchema={sourceSchema}
-                            aggregatorAgenda={aggregatorAgenda}
-                            aggregatorAgendaSchema={aggregatorAgendaSchema}
-                          />
-                        </li>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+
+        {/* RequiredFilters */}
+        <div>
+          <h4 style={{ fontWeight: 'bold' }}>
+            {intl.formatMessage(messages.filters)}
+          </h4>
+          <p>{intl.formatMessage(messages.filtersDesc)}</p>
+          <div className="margin-v-sm">
+            <DragDropContext className="list-group" onDragEnd={onDragEndFilter}>
+              <Droppable droppableId="droppable">
+                {(provided) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {rules.requiredFilters.map((rule, index) => (
+                      <Draggable
+                        key={rule.id}
+                        draggableId={rule.id}
+                        index={index}
+                      >
+                        {(provideInner, { isDragging }) => (
+                          <li
+                            className={`list-group-item draggable${
+                              isDragging ? ' dragged' : ''
+                            }`}
+                            ref={provideInner.innerRef}
+                            {...provideInner.draggableProps}
+                            {...provideInner.dragHandleProps}
+                          >
+                            <RuleItem
+                              rule={rule}
+                              onUpdate={setModeUpdate}
+                              onRemove={removeRule}
+                              sourceAgenda={sourceAgenda}
+                              sourceAgendaSchema={sourceSchema}
+                              aggregatorAgenda={aggregatorAgenda}
+                              aggregatorAgendaSchema={aggregatorAgendaSchema}
+                            />
+                          </li>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </div>
         </div>
         {/* eslint-enable */}
 
@@ -115,35 +137,94 @@ export default function List({
           <button
             type="button"
             className="btn btn-bordered btn-primary"
-            onClick={setModeAdd}
+            onClick={() => setModeAdd(true)}
           >
             <i className="fa fa-sm fa-plus" aria-hidden="true" />{' '}
-            {intl.formatMessage(messages.addARule)}
+            {intl.formatMessage(messages.addAFilter)}
           </button>
-          {sourceSchema ? (
-            <div className="padding-top-xs">
-              {navigator?.clipboard?.readText ? (
-                <button
-                  type="button"
-                  className="btn btn-link-inline"
-                  onClick={pasteRules}
-                >
-                  <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
-                  {intl.formatMessage(messages.pasteRules)}
-                </button>
-              ) : (
-                <em className="text-muted">
-                  <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
-                  {intl.formatMessage(messages.manualPasteRules)}
-                </em>
-              )}
-              <MoreInfo
-                className="margin-left-xs"
-                link={externalLinks.helpCopyPaste}
-              />
-            </div>
-          ) : null}
         </div>
+
+        {/* Actions */}
+        <div>
+          <h4 style={{ fontWeight: 'bold' }}>
+            {intl.formatMessage(messages.actions)}
+          </h4>
+          <p>{intl.formatMessage(messages.actionsDesc)}</p>
+          <div className="margin-v-sm">
+            <DragDropContext className="list-group" onDragEnd={onDragEndAction}>
+              <Droppable droppableId="droppable">
+                {(provided) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {rules.actions.map((rule, index) => (
+                      <Draggable
+                        key={rule.id}
+                        draggableId={rule.id}
+                        index={index}
+                      >
+                        {(provideInner, { isDragging }) => (
+                          <li
+                            className={`list-group-item draggable${
+                              isDragging ? ' dragged' : ''
+                            }`}
+                            ref={provideInner.innerRef}
+                            {...provideInner.draggableProps}
+                            {...provideInner.dragHandleProps}
+                          >
+                            <RuleItem
+                              rule={rule}
+                              onUpdate={setModeUpdate}
+                              onRemove={removeRule}
+                              sourceAgenda={sourceAgenda}
+                              sourceAgendaSchema={sourceSchema}
+                              aggregatorAgenda={aggregatorAgenda}
+                              aggregatorAgendaSchema={aggregatorAgendaSchema}
+                            />
+                          </li>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </div>
+        </div>
+        {/* eslint-enable */}
+
+        <div className="padding-v-sm text-center">
+          <button
+            type="button"
+            className="btn btn-bordered btn-primary"
+            onClick={() => setModeAdd(false)}
+          >
+            <i className="fa fa-sm fa-plus" aria-hidden="true" />{' '}
+            {intl.formatMessage(messages.addAnAction)}
+          </button>
+        </div>
+        {sourceSchema ? (
+          <div className="padding-top-xs">
+            {navigator?.clipboard?.readText ? (
+              <button
+                type="button"
+                className="btn btn-link-inline"
+                onClick={pasteRules}
+              >
+                <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
+                {intl.formatMessage(messages.pasteRules)}
+              </button>
+            ) : (
+              <em className="text-muted">
+                <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
+                {intl.formatMessage(messages.manualPasteRules)}
+              </em>
+            )}
+            <MoreInfo
+              className="margin-left-xs"
+              link={externalLinks.helpCopyPaste}
+            />
+          </div>
+        ) : null}
       </div>
 
       {error ? <div className="text-danger">{error}</div> : null}
@@ -153,7 +234,7 @@ export default function List({
           handleSubmit={() => {
             const actionsError = validateActions(
               intl,
-              rules,
+              [].concat(rules.requiredFilters, rules.actions),
               aggregatorAgendaSchema,
               sourceSchema,
             );
@@ -164,7 +245,11 @@ export default function List({
               return;
             }
 
-            return onSubmit(rules.map((rule) => _.omit(rule, 'id')));
+            return onSubmit(
+              []
+                .concat(rules.requiredFilters, rules.actions)
+                .map((rule) => _.omit(rule, 'id')),
+            );
           }}
           rules={rules}
           onCancel={onCancel}

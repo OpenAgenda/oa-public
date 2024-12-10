@@ -71,7 +71,7 @@ export default function EmbedAccordionItem({ res, agenda }) {
   const [copied, setCopied] = useState(false);
 
   const [withFilters, setWithFilters] = useState(true);
-  const [openEventsOnOA, setOpenEventsOnOA] = useState(false);
+  const [openEventsOnOA, setOpenEventsOnOA] = useState(true);
   const [primaryColor, setPrimaryColor] = useState(DEFAULT_COLOR);
 
   const [selectedFilters, setSelectedFilters] = useState(() =>
@@ -143,8 +143,8 @@ export default function EmbedAccordionItem({ res, agenda }) {
         ) : null}
 
         <Checkbox
-          isChecked={openEventsOnOA}
-          onChange={(e) => setOpenEventsOnOA(e.target.checked)}
+          isChecked={!openEventsOnOA}
+          onChange={() => setOpenEventsOnOA(!openEventsOnOA)}
           w="fit-content"
         >
           {intl.formatMessage(messages.openInSamePage)}

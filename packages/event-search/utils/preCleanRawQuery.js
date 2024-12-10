@@ -73,6 +73,16 @@ export default produce((query = {}, options = {}) => {
   }
 
   if (
+    !query.originAgenda?.uid
+    && [].concat(query.originAgendaUid).filter((v) => v !== undefined).length
+  ) {
+    query.originAgenda = {
+      ...query.originAgenda,
+      uid: query.originAgendaUid,
+    };
+  }
+
+  if (
     removed !== false
     && query.sort
     && [].concat(query.sort)[0].split('.').shift() !== 'updatedAt'

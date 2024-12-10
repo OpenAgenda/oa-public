@@ -111,8 +111,22 @@ const validate = schema({
     list: true,
   },
   originAgendaUid: {
+    // deprecated
     type: 'integer',
     list: true,
+  },
+  originAgenda: {
+    fields: {
+      uid: {
+        type: 'integer',
+        list: { default: null },
+      },
+      official: {
+        type: 'boolean',
+        allowNull: true,
+        default: null,
+      },
+    },
   },
   sourceAgendaUid: {
     type: 'integer',
@@ -405,6 +419,7 @@ function validateQuery(dirty, options = {}) {
   const isCountryCodeNull = filterNullCountryCode(dirty);
 
   const preCleaned = preCleanRawQuery(dirty, options);
+
   const clean = validate(preCleaned);
 
   clean.sort = mapAdminLevelSort(clean.sort);
