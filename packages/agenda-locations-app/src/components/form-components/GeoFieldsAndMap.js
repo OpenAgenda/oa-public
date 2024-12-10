@@ -258,6 +258,7 @@ const GeoFieldsAndMap = ({
       <InputField
         name="address"
         enabled
+        required
         value={location?.address || ''}
         info="addressInfo"
         placeholder="addressPlaceholder"
