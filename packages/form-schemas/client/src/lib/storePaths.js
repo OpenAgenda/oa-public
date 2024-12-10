@@ -3,5 +3,5 @@ export default (config) => {
     throw new Error(`unknown store type: ${config?.type}`);
   }
 
-  return `//${config.bucket}.s3.amazonaws.com`;
+  return `https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/${config.bucket}`;
 };

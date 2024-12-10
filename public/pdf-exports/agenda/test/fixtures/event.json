@@ -34,7 +34,7 @@
     "imageCredits": null,
     "originAgenda": {
       "uid": 95408779,
-      "image": "https://cibul.s3.amazonaws.com/agenda95408779.jpg?__ts=1686321454433",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda95408779.jpg?__ts=1686321454433",
       "title": "Cet été à Rennes"
     },
     "description": {
@@ -419,7 +419,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -531,7 +531,7 @@
     "imageCredits": null,
     "originAgenda": {
       "uid": 95408779,
-      "image": "https://cibul.s3.amazonaws.com/agenda95408779.jpg?__ts=1686321454433",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda95408779.jpg?__ts=1686321454433",
       "title": "Cet été à Rennes"
     },
     "description": {
@@ -908,7 +908,7 @@
           "type": "full"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -1020,7 +1020,7 @@
     "imageCredits": null,
     "originAgenda": {
       "uid": 95408779,
-      "image": "https://cibul.s3.amazonaws.com/agenda95408779.jpg?__ts=1686321454433",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda95408779.jpg?__ts=1686321454433",
       "title": "Cet été à Rennes"
     },
     "description": {
@@ -1405,7 +1405,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -1521,7 +1521,7 @@
     "imageCredits": null,
     "originAgenda": {
       "uid": 95408779,
-      "image": "https://cibul.s3.amazonaws.com/agenda95408779.jpg?__ts=1686321454433",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda95408779.jpg?__ts=1686321454433",
       "title": "Cet été à Rennes"
     },
     "description": {
@@ -1906,7 +1906,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -2022,7 +2022,7 @@
     "imageCredits": null,
     "originAgenda": {
       "uid": 95408779,
-      "image": "https://cibul.s3.amazonaws.com/agenda95408779.jpg?__ts=1686321454433",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda95408779.jpg?__ts=1686321454433",
       "title": "Cet été à Rennes"
     },
     "description": {
@@ -2407,7 +2407,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],

@@ -74,15 +74,15 @@ export async function init(config, services) {
       },
     },
     emptyValue: 'null',
-    assetsPath: config.aws.imageBucketPath,
+    assetsPath: config.s3.mainBucketPath,
     dynamicSettings: {
       max_result_window: 30000,
     },
     defaultImage: {
-      filename: config.aws.defaultImagePath.split('/').pop(),
-      size: config.aws.defaultImageSize,
+      filename: config.s3.defaultImagePath.split('/').pop(),
+      size: config.s3.defaultImageSize,
       base: (() => {
-        const parts = config.aws.defaultImagePath.split('/');
+        const parts = config.s3.defaultImagePath.split('/');
         parts.pop();
         return `${parts.join('/')}/`;
       })(),

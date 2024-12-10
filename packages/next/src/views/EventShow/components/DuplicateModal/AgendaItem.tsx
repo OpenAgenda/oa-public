@@ -33,9 +33,7 @@ export default function AgendaItem({ agenda, targetAgenda, event }) {
           src={imageSrc || graylogo140}
           fallbackSrc={
             isDev && typeof imageSrc === 'string'
-              ? imageSrc
-                .replace('cibuldev', 'cibul')
-                .replace('images-', 'imagesdev-')
+              ? imageSrc.replace('dev', 'main').replace('images-', 'imagesdev-')
               : undefined
           }
           alt=""

@@ -11,2469 +11,2367 @@
   "createdAt": "2020-09-23T14:26:20.000Z",
   "memberSchemaId": null,
   "officializedAt": "2020-09-23T14:26:20.000Z",
-  "image": "https://cibul.s3.amazonaws.com/agenda49534310.jpg",
+  "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda49534310.jpg",
   "private": 0,
   "indexed": 1,
   "settings": {
-  "tracking": {
-  "googleAnalytics": null,
-  "matomoUrl": null,
-  "matomoSiteId": null,
-  "matomoAskForConsent": false,
-  "matomoCustom": []
-  },
-  "inbox": {
-  "mailto": {
-  "enabled": false,
-  "email": null,
-  "subject": null,
-  "body": null
-  }
-  },
-  "contribution": {
-  "type": 1,
-  "defaultState": 0,
-  "canPublish": [
-  "administrators",
-  "moderators"
-  ],
-  "moderateOnChangeBy": [],
-  "defaultLang": null,
-  "allowLocationCreate": true,
-  "messages": {
-  "instructions": "Bonjour à toutes et tous,\n\nLe dispositif « Colos apprenantes » s’inscrit dans le plan « Vacances apprenantes » aux côtés de l’opération « Ecole ouverte » Ces séjours s’appuient sur le cadre réglementaire et pédagogique des séjours de vacances (CASF).\n\nLes « colos apprenantes » visent à répondre aux attentes des enfants et des familles en matière de loisirs dans le cadre des accueils collectifs de mineurs se déroulant cet été tout en proposant des modules de renforcement des apprentissages.\n\nLes conditions sanitaires sont un préalable à tout développement de séjours (distanciation, tailles des groupes, etc.) sont soumises aux règles applicables aux Accueils collectifs de mineurs.\n\nLe processus de labellisation n'exclut pas la déclaration que vous devez obligatoirement faire auprès des services de l'Etat.\n\nLa labellisation des séjours est liée à la conformité des séjours proposés au cahier des charges \"Colos apprenantes\".\n\n**Les critères de labellisation reposent sur les éléments suivants :**\n\n*   respect des consignes sanitaires (locaux, transports, activités)\n*   priorité à l’accueil des publics prioritaires\n*   présence significative et explicitée de temps de renforcement des apprentissages (1/3 des temps d’activités au moins) et valorisation de l’objectif de réussite de la rentrée scolaire pendant les séjours (organisation, matière, méthode, encadrement)\n*   qualité de l’encadrement, en particulier pour les activités de renforcement des apprentissages\n*   qualité et équilibre des activités (individuelles et collectives, physiques et sportives, de loisirs créatifs, de compréhension de l’environnement naturel, d’expression et cognitives)\n*   liens et partenariats avec les acteurs locaux\n*   informations aux familles.\n\nPeuvent utiliser ce label, les organisateurs qui auront soumis à validation les séjours répondant aux critères et ayant reçu une notification positive des services de l'Etat. Le label est utilisable uniquement pour le séjour labellisé et pour la durée du séjour.\n\n**IMPORTANT **\n\n**Les séjours doivent être déposés séjour par séjour et déclinés pour chaque période.**\n\n**Exemple : Il n'est pas possible de faire figurer un séjour du 6 juillet au 1er septembre. Il faut créer une fiche par semaine ou par séjour. **\n\n**Il existe une fonctionnalité \"Dupliquer\" qui vous permettra de ne pas re-saisir les informations.**",
-  "complete": "Votre demande de labellisation \"Colos apprenantes\" a bien été renseignée et prise en compte.\n\nLa SDJES du département de déclaration rendra un avis et vous le communiquera. Des éléments complémentaires pourront vous être demandés le cas échéant.\n\nL'obtention du label ne vaut pas déclaration. Vous devrez déclarer votre séjour de façon habituelle au regard de la réglementation en vigueur du Code de l'action sociale et des familles (CASF).",
-  "publication": null,
-  "GDPRInformation": null
-  },
-  "useFields": true
-  }
+    "tracking": {
+      "googleAnalytics": null,
+      "matomoUrl": null,
+      "matomoSiteId": null,
+      "matomoAskForConsent": false,
+      "matomoCustom": []
+    },
+    "inbox": {
+      "mailto": {
+        "enabled": false,
+        "email": null,
+        "subject": null,
+        "body": null
+      }
+    },
+    "contribution": {
+      "type": 1,
+      "defaultState": 0,
+      "canPublish": ["administrators", "moderators"],
+      "moderateOnChangeBy": [],
+      "defaultLang": null,
+      "allowLocationCreate": true,
+      "messages": {
+        "instructions": "Bonjour à toutes et tous,\n\nLe dispositif « Colos apprenantes » s’inscrit dans le plan « Vacances apprenantes » aux côtés de l’opération « Ecole ouverte » Ces séjours s’appuient sur le cadre réglementaire et pédagogique des séjours de vacances (CASF).\n\nLes « colos apprenantes » visent à répondre aux attentes des enfants et des familles en matière de loisirs dans le cadre des accueils collectifs de mineurs se déroulant cet été tout en proposant des modules de renforcement des apprentissages.\n\nLes conditions sanitaires sont un préalable à tout développement de séjours (distanciation, tailles des groupes, etc.) sont soumises aux règles applicables aux Accueils collectifs de mineurs.\n\nLe processus de labellisation n'exclut pas la déclaration que vous devez obligatoirement faire auprès des services de l'Etat.\n\nLa labellisation des séjours est liée à la conformité des séjours proposés au cahier des charges \"Colos apprenantes\".\n\n**Les critères de labellisation reposent sur les éléments suivants :**\n\n*   respect des consignes sanitaires (locaux, transports, activités)\n*   priorité à l’accueil des publics prioritaires\n*   présence significative et explicitée de temps de renforcement des apprentissages (1/3 des temps d’activités au moins) et valorisation de l’objectif de réussite de la rentrée scolaire pendant les séjours (organisation, matière, méthode, encadrement)\n*   qualité de l’encadrement, en particulier pour les activités de renforcement des apprentissages\n*   qualité et équilibre des activités (individuelles et collectives, physiques et sportives, de loisirs créatifs, de compréhension de l’environnement naturel, d’expression et cognitives)\n*   liens et partenariats avec les acteurs locaux\n*   informations aux familles.\n\nPeuvent utiliser ce label, les organisateurs qui auront soumis à validation les séjours répondant aux critères et ayant reçu une notification positive des services de l'Etat. Le label est utilisable uniquement pour le séjour labellisé et pour la durée du séjour.\n\n**IMPORTANT **\n\n**Les séjours doivent être déposés séjour par séjour et déclinés pour chaque période.**\n\n**Exemple : Il n'est pas possible de faire figurer un séjour du 6 juillet au 1er septembre. Il faut créer une fiche par semaine ou par séjour. **\n\n**Il existe une fonctionnalité \"Dupliquer\" qui vous permettra de ne pas re-saisir les informations.**",
+        "complete": "Votre demande de labellisation \"Colos apprenantes\" a bien été renseignée et prise en compte.\n\nLa SDJES du département de déclaration rendra un avis et vous le communiquera. Des éléments complémentaires pourront vous être demandés le cas échéant.\n\nL'obtention du label ne vaut pas déclaration. Vous devrez déclarer votre séjour de façon habituelle au regard de la réglementation en vigueur du Code de l'action sociale et des familles (CASF).",
+        "publication": null,
+        "GDPRInformation": null
+      },
+      "useFields": true
+    }
   },
   "summary": {
-  "keywords": [
-  "Dreux",
-  "Saint-Yrieix-la-Perche",
-  "Lanester",
-  "Compreignac",
-  "Jablines",
-  "Mimizan",
-  "SARZEAU",
-  "Abondance",
-  "Bernay",
-  "Marolles-en-Brie",
-  "Haute-Vienne",
-  "Eure-et-Loir",
-  "Morbihan",
-  "Landes",
-  "Maine-et-Loire",
-  "Val-de-Marne",
-  "Seine-et-Marne",
-  "Var",
-  "Finistère",
-  "Isère",
-  "Nouvelle-Aquitaine",
-  "Île-de-France",
-  "Bretagne",
-  "Provence-Alpes-Côte d'Azur",
-  "Auvergne-Rhône-Alpes",
-  "Pays de la Loire",
-  "Bourgogne-Franche-Comté",
-  "Centre-Val de Loire",
-  "Normandie",
-  "Occitanie",
-  "colo",
-  "enfants",
-  "nature",
-  "anglais",
-  "sport",
-  "mer",
-  "danse",
-  "multiactivités",
-  "artistique",
-  "loisirs"
-  ],
-  "publishedEvents": {
-  "current": 0,
-  "passed": 522,
-  "upcoming": 2
-  },
-  "languages": {
-  "fr": 524
-  },
-  "recentlyAddedEvents": {
-  "contribution": 1,
-  "shared": 0,
-  "aggregation": 0
-  },
-  "viewport": {
-  "topLeft": {
-  "latitude": 51.296164970844984,
-  "longitude": -4.687013067305088
-  },
-  "bottomRight": {
-  "latitude": 41.849534958601,
-  "longitude": 8.597334930673242
-  }
-  }
+    "keywords": [
+      "Dreux",
+      "Saint-Yrieix-la-Perche",
+      "Lanester",
+      "Compreignac",
+      "Jablines",
+      "Mimizan",
+      "SARZEAU",
+      "Abondance",
+      "Bernay",
+      "Marolles-en-Brie",
+      "Haute-Vienne",
+      "Eure-et-Loir",
+      "Morbihan",
+      "Landes",
+      "Maine-et-Loire",
+      "Val-de-Marne",
+      "Seine-et-Marne",
+      "Var",
+      "Finistère",
+      "Isère",
+      "Nouvelle-Aquitaine",
+      "Île-de-France",
+      "Bretagne",
+      "Provence-Alpes-Côte d'Azur",
+      "Auvergne-Rhône-Alpes",
+      "Pays de la Loire",
+      "Bourgogne-Franche-Comté",
+      "Centre-Val de Loire",
+      "Normandie",
+      "Occitanie",
+      "colo",
+      "enfants",
+      "nature",
+      "anglais",
+      "sport",
+      "mer",
+      "danse",
+      "multiactivités",
+      "artistique",
+      "loisirs"
+    ],
+    "publishedEvents": {
+      "current": 0,
+      "passed": 522,
+      "upcoming": 2
+    },
+    "languages": {
+      "fr": 524
+    },
+    "recentlyAddedEvents": {
+      "contribution": 1,
+      "shared": 0,
+      "aggregation": 0
+    },
+    "viewport": {
+      "topLeft": {
+        "latitude": 51.296164970844984,
+        "longitude": -4.687013067305088
+      },
+      "bottomRight": {
+        "latitude": 41.849534958601,
+        "longitude": 8.597334930673242
+      }
+    }
   },
   "network": {
-  "uid": 41581979,
-  "formSchemaId": 22924,
-  "title": "Colos apprenantes"
+    "uid": 41581979,
+    "formSchemaId": 22924,
+    "title": "Colos apprenantes"
   },
   "locationSet": null,
   "schema": {
-  "custom": {},
-  "fields": [
-  {
-  "field": "presentation-de-lorganisateur-type-experience-dans-lorganisation-daccueils-collectifs-de-mineurs",
-  "label": {
-  "fr": "Présentation de l'organisateur et du projet éducatif"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": {
-  "fr": "Type, expérience dans l'organisation d'accueils collectifs de mineurs"
-  },
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": false,
-  "display": true,
-  "enable": true,
-  "origin": "custom",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": 5000,
-  "fieldType": "textarea",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "projet-educatif",
-  "label": {
-  "fr": "Projet éducatif"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": {
-  "fr": "Facultatif, si vous souhaitez compléter le champ précédent"
-  },
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": true,
-  "display": true,
-  "enable": true,
-  "origin": "custom",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "extensions": [
-  "pdf"
-  ],
-  "allowURL": false,
-  "allowPath": false,
-  "imageWithSizeAndVariants": false,
-  "fieldType": "file",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "numero-de-lorganisateur",
-  "label": {
-  "fr": "Numéro de l'organisateur"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": {
-  "fr": "Veuillez indiquer le numéro qui vous a été attribué par l'Etat pour pouvoir organiser des accueils collectifs de mineurs. Il contient 3 chiffres + ORG + 4 chiffres, par exemple 075ORG1234"
-  },
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": false,
-  "display": true,
-  "enable": true,
-  "origin": "custom",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "text",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "merci-dindiquer-votre-numero-de-declaration",
-  "label": {
-  "fr": "Numéro de déclaration du séjour"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": {
-  "fr": "Le référencement des accueils collectifs de mineurs répond à la norme suivante, soit toujours 22 caractères (tirets compris) :  EX d’un séjour de vacances : Réf n°0810041SV001820-20-J01"
-  },
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": true,
-  "display": true,
-  "enable": true,
-  "origin": "custom",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "text",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "image",
-  "fieldType": "image",
-  "optional": true,
-  "label": {
-  "fr": "Image / Illustration du séjour"
-  },
-  "info": {
-  "fr": "Chargez une image d'au moins 300 pixels de large"
-  },
-  "allowURL": true,
-  "allowPath": true,
-  "imageWithSizeAndVariants": true,
-  "extensions": [
-  "jpg",
-  "bmp",
-  "png",
-  "jpeg",
-  "webp"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "imageCredits",
-  "fieldType": "text",
-  "optional": true,
-  "label": {
-  "fr": "Crédits de l'image",
-  "en": "Image credits",
-  "it": "Crediti immagine",
-  "de": "Bildnachweise",
-  "es": "Créditos del imágen",
-  "br": "Perc'henn ar skeudenn",
-  "io": "crwdns14300:0crwdne14300:0",
-  "oc": "Crèdits de l'imatge"
-  },
-  "enableWith": "image",
-  "max": 255,
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "languages": [],
-  "field": "title",
-  "fieldType": "text",
-  "optional": false,
-  "max": 150,
-  "label": {
-  "fr": "Titre / Nom du séjour"
-  },
-  "placeholder": {
-  "fr": "Le nom de votre séjour"
-  },
-  "purpose": {
-  "fr": "Titre de l'événement",
-  "en": "Title of the event",
-  "es": "Nombre del evento",
-  "br": "Titl an darvoud",
-  "io": "crwdns14286:0crwdne14286:0",
-  "it": "Il titolo del tuo evento"
-  },
-  "sub": {
-  "fr": ""
-  },
-  "schemaId": null,
-  "schemaType": "event",
-  "info": {
-  "fr": "Si votre événement est complet, merci de l'annoncer via le champ \"État\" ci-dessous"
+    "custom": {},
+    "fields": [
+      {
+        "field": "presentation-de-lorganisateur-type-experience-dans-lorganisation-daccueils-collectifs-de-mineurs",
+        "label": {
+          "fr": "Présentation de l'organisateur et du projet éducatif"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": {
+          "fr": "Type, expérience dans l'organisation d'accueils collectifs de mineurs"
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": 5000,
+        "fieldType": "textarea",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "projet-educatif",
+        "label": {
+          "fr": "Projet éducatif"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": {
+          "fr": "Facultatif, si vous souhaitez compléter le champ précédent"
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "extensions": ["pdf"],
+        "allowURL": false,
+        "allowPath": false,
+        "imageWithSizeAndVariants": false,
+        "fieldType": "file",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "numero-de-lorganisateur",
+        "label": {
+          "fr": "Numéro de l'organisateur"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": {
+          "fr": "Veuillez indiquer le numéro qui vous a été attribué par l'Etat pour pouvoir organiser des accueils collectifs de mineurs. Il contient 3 chiffres + ORG + 4 chiffres, par exemple 075ORG1234"
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "merci-dindiquer-votre-numero-de-declaration",
+        "label": {
+          "fr": "Numéro de déclaration du séjour"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": {
+          "fr": "Le référencement des accueils collectifs de mineurs répond à la norme suivante, soit toujours 22 caractères (tirets compris) :  EX d’un séjour de vacances : Réf n°0810041SV001820-20-J01"
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "image",
+        "fieldType": "image",
+        "optional": true,
+        "label": {
+          "fr": "Image / Illustration du séjour"
+        },
+        "info": {
+          "fr": "Chargez une image d'au moins 300 pixels de large"
+        },
+        "allowURL": true,
+        "allowPath": true,
+        "imageWithSizeAndVariants": true,
+        "extensions": ["jpg", "bmp", "png", "jpeg", "webp"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "imageCredits",
+        "fieldType": "text",
+        "optional": true,
+        "label": {
+          "fr": "Crédits de l'image",
+          "en": "Image credits",
+          "it": "Crediti immagine",
+          "de": "Bildnachweise",
+          "es": "Créditos del imágen",
+          "br": "Perc'henn ar skeudenn",
+          "io": "crwdns14300:0crwdne14300:0",
+          "oc": "Crèdits de l'imatge"
+        },
+        "enableWith": "image",
+        "max": 255,
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "languages": [],
+        "field": "title",
+        "fieldType": "text",
+        "optional": false,
+        "max": 150,
+        "label": {
+          "fr": "Titre / Nom du séjour"
+        },
+        "placeholder": {
+          "fr": "Le nom de votre séjour"
+        },
+        "purpose": {
+          "fr": "Titre de l'événement",
+          "en": "Title of the event",
+          "es": "Nombre del evento",
+          "br": "Titl an darvoud",
+          "io": "crwdns14286:0crwdne14286:0",
+          "it": "Il titolo del tuo evento"
+        },
+        "sub": {
+          "fr": ""
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "info": {
+          "fr": "Si votre événement est complet, merci de l'annoncer via le champ \"État\" ci-dessous"
+        }
+      },
+      {
+        "field": "status",
+        "fieldType": "select",
+        "default": 1,
+        "display": true,
+        "label": {
+          "fr": "État",
+          "en": "Status",
+          "io": "crwdns16110:0crwdne16110:0",
+          "oc": "Estatut"
+        },
+        "options": [
+          {
+            "id": 1,
+            "value": "scheduled",
+            "label": {
+              "fr": "Programmé",
+              "en": "Scheduled",
+              "io": "crwdns16100:0crwdne16100:0"
+            }
+          },
+          {
+            "id": 2,
+            "value": "rescheduled",
+            "label": {
+              "fr": "Re-programmé",
+              "en": "Re-scheduled",
+              "io": "crwdns16102:0crwdne16102:0"
+            }
+          },
+          {
+            "id": 3,
+            "value": "movedOnline",
+            "label": {
+              "fr": "Déplacé en ligne",
+              "en": "Moved online",
+              "it": "Oramai online",
+              "oc": "Transferit en linha",
+              "io": "crwdns16104:0crwdne16104:0"
+            }
+          },
+          {
+            "id": 4,
+            "value": "postponed",
+            "label": {
+              "fr": "Reporté",
+              "en": "Postponed",
+              "it": "Riprogrammato",
+              "io": "crwdns16108:0crwdne16108:0",
+              "oc": "Remandat"
+            }
+          },
+          {
+            "id": 5,
+            "value": "full",
+            "label": {
+              "fr": "Complet",
+              "en": "Full",
+              "io": "crwdns16448:0crwdne16448:0"
+            }
+          },
+          {
+            "id": 6,
+            "value": "cancelled",
+            "label": {
+              "fr": "Annulé",
+              "en": "Canceled",
+              "it": "Cancellato",
+              "io": "crwdns16106:0crwdne16106:0"
+            }
+          }
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "languages": [],
+        "field": "longDescription",
+        "fieldType": "longDescription",
+        "label": {
+          "fr": "Présentation du séjour"
+        },
+        "max": 10000,
+        "sub": "",
+        "placeholder": {
+          "fr": "Saisissez une description détaillée de votre événement."
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "info": null
+      },
+      {
+        "field": "location",
+        "fieldType": "location",
+        "label": {
+          "fr": "Nom du centre de vacances"
+        },
+        "sub": {
+          "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'"
+        },
+        "optionalWith": {
+          "field": "attendanceMode",
+          "value": 2
+        },
+        "disableChange": false,
+        "schemaId": null,
+        "schemaType": "event",
+        "schema": {
+          "fields": [
+            {
+              "field": "uid",
+              "fieldType": "integer",
+              "optional": false,
+              "read": ["internal", "public", "list"],
+              "write": ["internal"],
+              "label": {
+                "en": "Id",
+                "fr": "Identifiant",
+                "io": "crwdns12102:0crwdne12102:0",
+                "it": "ID",
+                "oc": "Identificant"
+              }
+            },
+            {
+              "field": "setUid",
+              "fieldType": "integer",
+              "optional": true,
+              "default": null,
+              "read": ["internal", "public"],
+              "write": ["internal"]
+            },
+            {
+              "field": "slug",
+              "fieldType": "text",
+              "optional": false,
+              "read": ["internal", "public"],
+              "write": ["internal"],
+              "max": 100
+            },
+            {
+              "field": "name",
+              "optional": false,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "text",
+              "max": 150,
+              "label": {
+                "en": "Name",
+                "fr": "Nom",
+                "io": "crwdns12104:0crwdne12104:0",
+                "it": "Nome",
+                "oc": "Nom"
+              }
+            },
+            {
+              "field": "address",
+              "optional": false,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Address",
+                "fr": "Adresse",
+                "io": "crwdns12106:0crwdne12106:0",
+                "it": "Indirizzo",
+                "oc": "Adreiça"
+              }
+            },
+            {
+              "field": "countryCode",
+              "optional": false,
+              "fieldType": "text",
+              "max": 2,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "label": {
+                "en": "Country code",
+                "fr": "Code pays",
+                "io": "crwdns12120:0crwdne12120:0",
+                "it": "Codice del paese",
+                "oc": "Còdi país"
+              }
+            },
+            {
+              "field": "adminLevel1",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Region",
+                "fr": "Région",
+                "io": "crwdns12124:0crwdne12124:0",
+                "it": "Regione",
+                "oc": "Region"
+              }
+            },
+            {
+              "field": "adminLevel2",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Department",
+                "fr": "Département",
+                "br": "Departamant",
+                "io": "crwdns12110:0crwdne12110:0",
+                "it": "Provincia",
+                "oc": "Departament"
+              }
+            },
+            {
+              "field": "adminLevel3",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255
+            },
+            {
+              "field": "adminLevel4",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 100,
+              "label": {
+                "en": "City",
+                "fr": "Ville",
+                "br": "Kêr",
+                "io": "crwdns12108:0crwdne12108:0",
+                "it": "Città",
+                "oc": "Vila"
+              }
+            },
+            {
+              "field": "city",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 100,
+              "label": {
+                "en": "City",
+                "fr": "Ville",
+                "br": "Kêr",
+                "io": "crwdns12108:0crwdne12108:0",
+                "it": "Città",
+                "oc": "Vila"
+              }
+            },
+            {
+              "field": "adminLevel5",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255
+            },
+            {
+              "field": "adminLevel6",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255
+            },
+            {
+              "field": "district",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "District",
+                "fr": "Quartier",
+                "io": "crwdns12122:0crwdne12122:0",
+                "it": "Quartiere",
+                "oc": "Districte"
+              }
+            },
+            {
+              "field": "postalCode",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 20,
+              "label": {
+                "en": "Postal code",
+                "fr": "Code postal",
+                "io": "crwdns12116:0crwdne12116:0",
+                "it": "Codice postale",
+                "oc": "Còdi postal"
+              }
+            },
+            {
+              "field": "insee",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 10,
+              "label": {
+                "en": "INSEE Code",
+                "fr": "Code INSEE",
+                "io": "crwdns12118:0crwdne12118:0",
+                "it": "Codice INSEE (Francia)",
+                "oc": "Còdi INSEE"
+              }
+            },
+            {
+              "field": "latitude",
+              "optional": false,
+              "fieldType": "latitude",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "label": {
+                "en": "Latitude",
+                "fr": "Latitude",
+                "io": "crwdns12112:0crwdne12112:0",
+                "it": "Latitudine",
+                "oc": "Latitud"
+              }
+            },
+            {
+              "field": "longitude",
+              "optional": false,
+              "fieldType": "longitude",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "label": {
+                "en": "Longitude",
+                "fr": "Longitude",
+                "io": "crwdns12114:0crwdne12114:0",
+                "it": "Longitudine",
+                "oc": "Longitud"
+              }
+            },
+            {
+              "field": "region",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Region",
+                "fr": "Région",
+                "io": "crwdns12124:0crwdne12124:0",
+                "it": "Regione",
+                "oc": "Region"
+              }
+            },
+            {
+              "field": "department",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Department",
+                "fr": "Département",
+                "br": "Departamant",
+                "io": "crwdns12110:0crwdne12110:0",
+                "it": "Provincia",
+                "oc": "Departament"
+              }
+            },
+            {
+              "field": "timezone",
+              "optional": true,
+              "fieldType": "text",
+              "read": ["internal", "public"],
+              "write": ["internal", "administrator", "moderator", "contributor"]
+            },
+            {
+              "field": "updatedAt",
+              "optional": false,
+              "fieldType": "date",
+              "read": ["internal", "public"],
+              "write": ["internal"]
+            },
+            {
+              "field": "createdAt",
+              "optional": false,
+              "fieldfieldType": "date",
+              "read": ["internal", "public"],
+              "write": ["internal"]
+            },
+            {
+              "field": "image",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "stream",
+              "allowNull": true
+            },
+            {
+              "field": "description",
+              "label": {
+                "en": "Description",
+                "fr": "Description",
+                "de": "Beschreibung",
+                "es": "descripción",
+                "it": "Descrizione",
+                "oc": "Descripcion",
+                "io": "crwdns32875:0crwdne32875:0"
+              },
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "multilingual",
+              "languages": [],
+              "max": 5000
+            },
+            {
+              "field": "tags",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "pass"
+            },
+            {
+              "field": "website",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "link",
+              "label": {
+                "en": "Website",
+                "fr": "Site internet",
+                "es": "Sitio web",
+                "oc": "Site web",
+                "io": "crwdns32871:0crwdne32871:0"
+              }
+            },
+            {
+              "field": "email",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "email"
+            },
+            {
+              "field": "phone",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "phone"
+            },
+            {
+              "field": "links",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "list": true,
+              "fieldType": "link"
+            },
+            {
+              "field": "access",
+              "label": {
+                "en": "Access",
+                "fr": "Accès",
+                "it": "Come arrivare",
+                "de": "Zugang",
+                "pl": "Dostęp",
+                "es": "acceso",
+                "br": "Moned",
+                "oc": "Accès",
+                "io": "crwdns32873:0crwdne32873:0"
+              },
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "multilingual",
+              "languages": [],
+              "max": 1000
+            },
+            {
+              "field": "state",
+              "optional": true,
+              "fieldType": "choice",
+              "unique": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "default": 0,
+              "options": [0, 1]
+            },
+            {
+              "field": "imageCredits",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "enableWith": "image"
+            },
+            {
+              "field": "imageRightsAreHeld",
+              "optional": true,
+              "fieldType": "text",
+              "read": ["internal", "public"],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "enableWith": "image"
+            },
+            {
+              "field": "extId",
+              "optional": true,
+              "fieldType": "text",
+              "read": ["internal", "public"],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 100
+            },
+            {
+              "field": "duplicateCandidates",
+              "fieldType": "integer",
+              "list": {
+                "max": 100
+              },
+              "default": null,
+              "optional": true,
+              "read": ["internal", "public"],
+              "write": ["internal", "contributor"]
+            },
+            {
+              "field": "disqualifiedDuplicates",
+              "fieldType": "integer",
+              "list": {
+                "max": 100
+              },
+              "default": null,
+              "optional": true,
+              "read": ["internal", "public"],
+              "write": ["internal", "contributor"]
+            },
+            {
+              "field": "mergedIn",
+              "fieldType": "integer",
+              "optional": true,
+              "default": null,
+              "read": ["internal", "public"],
+              "write": ["internal"]
+            }
+          ],
+          "schemaId": "location"
+        }
+      },
+      {
+        "field": "timings",
+        "fieldType": "timings",
+        "max": 800,
+        "optional": false,
+        "label": {
+          "fr": "Dates du séjour - Horaires"
+        },
+        "info": {
+          "fr": "Définissez les horaires de votre événement"
+        },
+        "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "age",
+        "fieldType": "age",
+        "optional": false,
+        "label": {
+          "fr": "Âge du public"
+        },
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "languages": [],
+        "field": "description",
+        "fieldType": "text",
+        "optional": false,
+        "max": 200,
+        "label": {
+          "fr": "Description courte",
+          "en": "Short description",
+          "it": "Breve descrizione",
+          "de": "Kurzbeschreibung",
+          "es": "Descripción corta",
+          "br": "Deskrivadur berr",
+          "io": "crwdns14290:0crwdne14290:0"
+        },
+        "purpose": {
+          "fr": "Description pour les affichages réduits ou liste",
+          "en": "Description for short or list displays",
+          "es": "Descripción de las pequeñas pantallas o lista",
+          "br": "Deskrivadur evit an diskweloù berr pe listenn",
+          "io": "crwdns14292:0crwdne14292:0",
+          "it": "Utile per la lista degli eventi"
+        },
+        "placeholder": {
+          "fr": "Une courte description de votre événement",
+          "en": "A short description of your event",
+          "it": "Una breve descrizione del vostro evento",
+          "de": "Eine kurze Beschreibung Ihrer Veranstaltung",
+          "es": "Una breve descripción de su evento",
+          "br": "Un deskrivadur berr eus ho tarvoud",
+          "io": "crwdns14294:0crwdne14294:0"
+        },
+        "sub": {
+          "fr": "",
+          "en": "",
+          "de": "",
+          "br": ""
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "default": "dans le cadre de l'opération \"colonies apprenantes\" par le Ministère de l'Éducation Nationale.",
+        "display": false
+      },
+      {
+        "field": "objectifs-pedagogiques-et-competences-visees-etre-capable-de",
+        "label": {
+          "fr": "Objectifs pédagogiques et compétences visées (être capable de…)"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "markdown",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "thematiques-principales-developpees-par-le-projet-pedagogique-deux-items-possibles",
+        "label": {
+          "fr": "Dominantes (au moins une pour un séjour d’une semaine, deux pour un séjour plus long)"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": "tags",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": 2,
+        "options": [
+          {
+            "id": 47,
+            "value": "le-developpement-durable-et-la-transition-ecologique",
+            "label": {
+              "fr": "Le développement durable et la transition écologique"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 49,
+            "value": "les-activites-physiques-et-sportives-notamment-les-sports-de-nature",
+            "label": {
+              "fr": "Les activités physiques et sportives, notamment les sports de nature"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 51,
+            "value": "la-science-linnovation-le-numerique",
+            "label": {
+              "fr": "La science, l’innovation, le numérique"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 52,
+            "value": "la-decouverte-ou-lapprofondissement-de-langues-etrangeres-et-regionales",
+            "label": {
+              "fr": "La découverte ou l’approfondissement de langues étrangères et régionales"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 150,
+            "value": "la-citoyennete-et-la-vie-civique",
+            "label": {
+              "fr": "La citoyenneté et la vie civique"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 151,
+            "value": "lalimentation-et-la-sante",
+            "label": {
+              "fr": "L’alimentation et la santé"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 152,
+            "value": "les-arts-de-la-musique",
+            "label": {
+              "fr": "Les arts de la musique"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 153,
+            "value": "les-arts-du-livre-et-de-la-lecture",
+            "label": {
+              "fr": "Les arts du livre et de la lecture"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 154,
+            "value": "les-arts-plastiques",
+            "label": {
+              "fr": "Les arts plastiques"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 155,
+            "value": "les-arts-de-la-scene",
+            "label": {
+              "fr": "Les arts de la scène"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 156,
+            "value": "les-arts-audiovisuels",
+            "label": {
+              "fr": "Les arts audiovisuels"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 157,
+            "value": "les-medias-linformation-et-la-communication",
+            "label": {
+              "fr": "Les médias, l’information et la communication"
+            },
+            "info": null,
+            "display": true
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "sujet-dexploration",
+        "label": {
+          "fr": "Sujet d’exploration et activités en lien avec les dominantes (préciser le volume horaire dédié à chaque activité)"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "textarea",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "organisation-des-modules-de-renforcement-scolaire-frequence-duree-des-seances-materiels-locaux",
+        "label": {
+          "fr": "Qualifications  des personnels d’encadrement"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": 5000,
+        "fieldType": "textarea",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "actions-retenues-pour-favoriser-la-mixite-et-linclusion-sociale-territoriale-et-de-genre",
+        "label": {
+          "fr": "Actions retenues pour favoriser la mixité et l’inclusion (sociale, territoriale et de genre)"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "textarea",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "actions-retenues-pour-favoriser-la-participation-des-enfants-et-des-jeunes",
+        "label": {
+          "fr": "Actions retenues pour favoriser la participation des enfants et des jeunes"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "textarea",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "lien-avec-les-familles-merci-de-preciser-comment-est-prevue-la-communication-avec-les-familles-avant-pendant-et-apres-le-sejour",
+        "label": {
+          "fr": "Actions retenues pour créer un lien avec les familles"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": {
+          "fr": "Merci de préciser comment est prévue la communication avec les familles, avant, pendant et après le séjour"
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "textarea",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "organisation-de-la-vie-quotidienne-merci-de-preciser-comment-sorganisent-lhebergement-couchage-repas-douche-etc",
+        "label": {
+          "fr": "Organisation de la vie quotidienne et des activités pendant le séjour"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": 5000,
+        "fieldType": "textarea",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "partenariats-locaux",
+        "label": {
+          "fr": "Partenariats locaux"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "accessibility",
+        "fieldType": "accessibility",
+        "optional": true,
+        "label": {
+          "fr": "Accessibilité particulière",
+          "en": "Accessibility conditions",
+          "it": "Accessibilità speciale",
+          "de": "Bedingungen für die Zugänglichkeit",
+          "es": "accesibilidad especial",
+          "br": "Monedusted",
+          "io": "crwdns14322:0crwdne14322:0"
+        },
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "languages": [],
+        "field": "conditions",
+        "fieldType": "text",
+        "label": {
+          "fr": "Tarifs (hors transports)"
+        },
+        "max": 255,
+        "placeholder": {
+          "fr": "Entrée libre, sur inscription, autre..."
+        },
+        "sub": "",
+        "schemaId": null,
+        "schemaType": "event",
+        "info": {
+          "fr": "Des transports peuvent être organisés par l'organisateur selon les villes de départ, les contacter)"
+        }
+      },
+      {
+        "field": "registration",
+        "fieldType": "registration",
+        "optional": false,
+        "label": {
+          "fr": "Inscription"
+        },
+        "info": {
+          "fr": "Indiquez le lien de votre site Internet, un numéro de téléphone et/ou un mail"
+        },
+        "placeholder": {
+          "fr": "Prendre contact directement avec l'organisateur du séjour)"
+        },
+        "sub": {
+          "fr": "Séparez les items par des tabulations ou des virgules"
+        },
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "languages": [],
+        "field": "keywords",
+        "fieldType": "keywords",
+        "optional": true,
+        "max": 255,
+        "label": {
+          "fr": "Mots clés"
+        },
+        "placeholder": {
+          "fr": "Séparez les mots clés par des tabulations ou des virgules"
+        },
+        "sub": {
+          "fr": "Les mots clés sont utiles pour les fonctions de recherche"
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "info": {
+          "fr": "Vous pouvez indiquer des mots clés spécifiques à votre séjour pour aider les familles dans leur recherche (exemple : théâtre, sport de nature, langues étrangères, sciences et techniques, etc.)"
+        }
+      },
+      {
+        "label": {
+          "fr": "Information sur les participants à la colo (à compléter dès que possible)"
+        },
+        "type": "section",
+        "slug": "information-sur-les-effectifs-de-participants",
+        "display": true,
+        "schemaId": null,
+        "schemaType": null
+      },
+      {
+        "field": "nombre-de-places-ouvertes",
+        "label": {
+          "fr": "Nombre de places ouvertes"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "integer",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "nombre-effectif-de-participantes-filles",
+        "label": {
+          "fr": "Nombre effectif de participantes filles"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "integer",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "nombre-effectif-de-participants-garcons",
+        "label": {
+          "fr": "Nombre effectif de participants garçons"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "integer",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "nombre-de-mineurs-en-situation-de-handicap",
+        "label": {
+          "fr": "Nombre de mineurs en situation de handicap"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "integer",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "nombre-de-mineurs-domicilies-dans-un-quartier-prioritaire-de-la-politique-de-la-ville-qpv",
+        "label": {
+          "fr": "Nombre de mineurs domiciliés dans un quartier prioritaire de la politique de la ville (QPV)"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "integer",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "nombre-de-mineurs-domicilies-dans-une-zone-de-revitalisation-rurale-zrr",
+        "label": {
+          "fr": "Nombre de mineurs domiciliés dans une zone de revitalisation rurale (ZRR)"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "integer",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "nombre-de-mineurs-en-situation-de-decrochage-scolaire",
+        "label": {
+          "fr": "Nombre de mineurs en situation de décrochage scolaire"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "integer",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "nombre-de-mineurs-relevant-de-laide-sociale-a-lenfance-ase",
+        "label": {
+          "fr": "Nombre de mineurs relevant de l’aide sociale à l’enfance (ASE)"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "integer",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "nombre-de-mineurs-nappartenant-a-aucune-des-categories-precedentes-mais-pouvant-justifier-dun-quotient-familial-inferieur-a-1500-euro",
+        "label": {
+          "fr": "Nombre de mineurs n’appartenant à aucune des catégories précédentes mais pouvant justifier d’un quotient familial inférieur ou égal à 1500 €"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": true,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "integer",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "display": false,
+        "field": "attendanceMode",
+        "fieldType": "radio",
+        "label": {
+          "fr": "Mode de participation",
+          "en": "Attendance mode",
+          "it": "Modalità di partecipazione",
+          "es": "Modo de asistencia",
+          "de": "Anwesenheitsmodus",
+          "br": "Doare perzhiañ",
+          "io": "crwdns14264:0crwdne14264:0",
+          "oc": "Mòde de participacion"
+        },
+        "optional": false,
+        "default": 1,
+        "options": [
+          {
+            "id": 1,
+            "value": "offline",
+            "label": {
+              "fr": "Sur place",
+              "en": "In situ",
+              "it": "In situ",
+              "es": "Desconnectad",
+              "de": "Offline",
+              "br": "War al lec’h",
+              "io": "crwdns14266:0crwdne14266:0"
+            }
+          },
+          {
+            "id": 2,
+            "value": "online",
+            "label": {
+              "fr": "En ligne",
+              "en": "Online",
+              "it": "Online",
+              "es": "En linea",
+              "de": "Online",
+              "br": "Enlinenn",
+              "io": "crwdns14268:0crwdne14268:0",
+              "oc": "En linha"
+            }
+          },
+          {
+            "id": 3,
+            "value": "mixed",
+            "label": {
+              "fr": "Mixte",
+              "en": "Mixed",
+              "it": "Misto",
+              "es": "Mezclado",
+              "de": "Gemischt",
+              "br": "Kemmesk",
+              "io": "crwdns14270:0crwdne14270:0",
+              "oc": "Mesclat"
+            }
+          }
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "display": false,
+        "field": "onlineAccessLink",
+        "fieldType": "link",
+        "label": {
+          "fr": "Lien d'accès",
+          "en": "Access link",
+          "de": "Zugangslink",
+          "es": "Enlace de acceso",
+          "it": "Collegamento di accesso",
+          "br": "Liamm moned",
+          "io": "crwdns14272:0crwdne14272:0"
+        },
+        "optional": false,
+        "enableWith": {
+          "field": "attendanceMode",
+          "value": [2, 3]
+        },
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "vacances-scolaires-concernees",
+        "label": {
+          "fr": "Vacances scolaires concernées"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": false,
+        "enable": true,
+        "origin": "tags",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "selfHandled": [],
+        "options": [
+          {
+            "id": 133,
+            "value": "vacances-dete-2023",
+            "label": {
+              "fr": "Vacances d'été 2023"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 132,
+            "value": "vacances-de-printemps-2023",
+            "label": {
+              "fr": "Vacances de printemps 2023"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 131,
+            "value": "vacances-dhiver-2023",
+            "label": {
+              "fr": "Vacances d'hiver 2023"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 130,
+            "value": "vacances-de-noel-2022",
+            "label": {
+              "fr": "Vacances de Noël 2022"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 129,
+            "value": "vacances-de-la-toussaint-2022",
+            "label": {
+              "fr": "Vacances de la Toussaint 2022"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 128,
+            "value": "vacances-dete-2022",
+            "label": {
+              "fr": "Vacances d'été 2022"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 127,
+            "value": "vacances-de-printemps-2022",
+            "label": {
+              "fr": "Vacances de printemps 2022"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 126,
+            "value": "vacances-dhiver-2022",
+            "label": {
+              "fr": "Vacances d'hiver 2022"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 125,
+            "value": "vacances-de-noel-2021",
+            "label": {
+              "fr": "Vacances de Noël 2021"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 123,
+            "value": "vacances-de-la-toussaint-2021",
+            "label": {
+              "fr": "Vacances de la Toussaint 2021"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 122,
+            "value": "vacances-dete-2021",
+            "label": {
+              "fr": "Vacances d'été 2021"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 121,
+            "value": "pont-de-lascension-2021",
+            "label": {
+              "fr": "Pont de l'Ascension 2021"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 120,
+            "value": "vacances-de-printemps-2021",
+            "label": {
+              "fr": "Vacances de printemps 2021"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 119,
+            "value": "vacances-dhiver-2021",
+            "label": {
+              "fr": "Vacances d'hiver 2021"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 118,
+            "value": "vacances-de-noel-2020",
+            "label": {
+              "fr": "Vacances de Noël 2020"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 117,
+            "value": "vacances-de-la-toussaint-2020",
+            "label": {
+              "fr": "Vacances de la Toussaint 2020"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 116,
+            "value": "vacances-dete-2020",
+            "label": {
+              "fr": "Vacances d'été 2020"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 115,
+            "value": "hors-vacances",
+            "label": {
+              "fr": "Hors-vacances"
+            },
+            "info": null,
+            "display": true
+          }
+        ],
+        "fieldType": "radio",
+        "schemaId": 22924,
+        "schemaType": "network"
+      },
+      {
+        "field": "uid",
+        "fieldType": "integer",
+        "optional": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "slug",
+        "fieldType": "text",
+        "optional": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "private",
+        "fieldType": "boolean",
+        "default": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "timezone",
+        "fieldType": "text",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "draft",
+        "fieldType": "boolean",
+        "default": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "createdAt",
+        "fieldType": "date",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "creatorUid",
+        "fieldType": "integer",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "ownerUid",
+        "fieldType": "integer",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "updatedAt",
+        "fieldType": "date",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "agendaUid",
+        "fieldType": "integer",
+        "optional": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "fileKey",
+        "fieldType": "text",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "locationUid",
+        "fieldType": "integer",
+        "optional": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "references",
+        "fieldType": "integer",
+        "list": true,
+        "optional": true,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "links",
+        "fieldType": "pass",
+        "optional": true,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      }
+    ]
   }
-  },
-  {
-  "field": "status",
-  "fieldType": "select",
-  "default": 1,
-  "display": true,
-  "label": {
-  "fr": "État",
-  "en": "Status",
-  "io": "crwdns16110:0crwdne16110:0",
-  "oc": "Estatut"
-  },
-  "options": [
-  {
-  "id": 1,
-  "value": "scheduled",
-  "label": {
-  "fr": "Programmé",
-  "en": "Scheduled",
-  "io": "crwdns16100:0crwdne16100:0"
-  }
-  },
-  {
-  "id": 2,
-  "value": "rescheduled",
-  "label": {
-  "fr": "Re-programmé",
-  "en": "Re-scheduled",
-  "io": "crwdns16102:0crwdne16102:0"
-  }
-  },
-  {
-  "id": 3,
-  "value": "movedOnline",
-  "label": {
-  "fr": "Déplacé en ligne",
-  "en": "Moved online",
-  "it": "Oramai online",
-  "oc": "Transferit en linha",
-  "io": "crwdns16104:0crwdne16104:0"
-  }
-  },
-  {
-  "id": 4,
-  "value": "postponed",
-  "label": {
-  "fr": "Reporté",
-  "en": "Postponed",
-  "it": "Riprogrammato",
-  "io": "crwdns16108:0crwdne16108:0",
-  "oc": "Remandat"
-  }
-  },
-  {
-  "id": 5,
-  "value": "full",
-  "label": {
-  "fr": "Complet",
-  "en": "Full",
-  "io": "crwdns16448:0crwdne16448:0"
-  }
-  },
-  {
-  "id": 6,
-  "value": "cancelled",
-  "label": {
-  "fr": "Annulé",
-  "en": "Canceled",
-  "it": "Cancellato",
-  "io": "crwdns16106:0crwdne16106:0"
-  }
-  }
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "languages": [],
-  "field": "longDescription",
-  "fieldType": "longDescription",
-  "label": {
-  "fr": "Présentation du séjour"
-  },
-  "max": 10000,
-  "sub": "",
-  "placeholder": {
-  "fr": "Saisissez une description détaillée de votre événement."
-  },
-  "schemaId": null,
-  "schemaType": "event",
-  "info": null
-  },
-  {
-  "field": "location",
-  "fieldType": "location",
-  "label": {
-  "fr": "Nom du centre de vacances"
-  },
-  "sub": {
-  "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'"
-  },
-  "optionalWith": {
-  "field": "attendanceMode",
-  "value": 2
-  },
-  "disableChange": false,
-  "schemaId": null,
-  "schemaType": "event",
-  "schema": {
-  "fields": [
-  {
-  "field": "uid",
-  "fieldType": "integer",
-  "optional": false,
-  "read": [
-  "internal",
-  "public",
-  "list"
-  ],
-  "write": [
-  "internal"
-  ],
-  "label": {
-  "en": "Id",
-  "fr": "Identifiant",
-  "io": "crwdns12102:0crwdne12102:0",
-  "it": "ID",
-  "oc": "Identificant"
-  }
-  },
-  {
-  "field": "setUid",
-  "fieldType": "integer",
-  "optional": true,
-  "default": null,
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal"
-  ]
-  },
-  {
-  "field": "slug",
-  "fieldType": "text",
-  "optional": false,
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal"
-  ],
-  "max": 100
-  },
-  {
-  "field": "name",
-  "optional": false,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "list",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "fieldType": "text",
-  "max": 150,
-  "label": {
-  "en": "Name",
-  "fr": "Nom",
-  "io": "crwdns12104:0crwdne12104:0",
-  "it": "Nome",
-  "oc": "Nom"
-  }
-  },
-  {
-  "field": "address",
-  "optional": false,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "list"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 255,
-  "label": {
-  "en": "Address",
-  "fr": "Adresse",
-  "io": "crwdns12106:0crwdne12106:0",
-  "it": "Indirizzo",
-  "oc": "Adreiça"
-  }
-  },
-  {
-  "field": "countryCode",
-  "optional": false,
-  "fieldType": "text",
-  "max": 2,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "label": {
-  "en": "Country code",
-  "fr": "Code pays",
-  "io": "crwdns12120:0crwdne12120:0",
-  "it": "Codice del paese",
-  "oc": "Còdi país"
-  }
-  },
-  {
-  "field": "adminLevel1",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 255,
-  "label": {
-  "en": "Region",
-  "fr": "Région",
-  "io": "crwdns12124:0crwdne12124:0",
-  "it": "Regione",
-  "oc": "Region"
-  }
-  },
-  {
-  "field": "adminLevel2",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 255,
-  "label": {
-  "en": "Department",
-  "fr": "Département",
-  "br": "Departamant",
-  "io": "crwdns12110:0crwdne12110:0",
-  "it": "Provincia",
-  "oc": "Departament"
-  }
-  },
-  {
-  "field": "adminLevel3",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 255
-  },
-  {
-  "field": "adminLevel4",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 100,
-  "label": {
-  "en": "City",
-  "fr": "Ville",
-  "br": "Kêr",
-  "io": "crwdns12108:0crwdne12108:0",
-  "it": "Città",
-  "oc": "Vila"
-  }
-  },
-  {
-  "field": "city",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 100,
-  "label": {
-  "en": "City",
-  "fr": "Ville",
-  "br": "Kêr",
-  "io": "crwdns12108:0crwdne12108:0",
-  "it": "Città",
-  "oc": "Vila"
-  }
-  },
-  {
-  "field": "adminLevel5",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 255
-  },
-  {
-  "field": "adminLevel6",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 255
-  },
-  {
-  "field": "district",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 255,
-  "label": {
-  "en": "District",
-  "fr": "Quartier",
-  "io": "crwdns12122:0crwdne12122:0",
-  "it": "Quartiere",
-  "oc": "Districte"
-  }
-  },
-  {
-  "field": "postalCode",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 20,
-  "label": {
-  "en": "Postal code",
-  "fr": "Code postal",
-  "io": "crwdns12116:0crwdne12116:0",
-  "it": "Codice postale",
-  "oc": "Còdi postal"
-  }
-  },
-  {
-  "field": "insee",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 10,
-  "label": {
-  "en": "INSEE Code",
-  "fr": "Code INSEE",
-  "io": "crwdns12118:0crwdne12118:0",
-  "it": "Codice INSEE (Francia)",
-  "oc": "Còdi INSEE"
-  }
-  },
-  {
-  "field": "latitude",
-  "optional": false,
-  "fieldType": "latitude",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "list"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "label": {
-  "en": "Latitude",
-  "fr": "Latitude",
-  "io": "crwdns12112:0crwdne12112:0",
-  "it": "Latitudine",
-  "oc": "Latitud"
-  }
-  },
-  {
-  "field": "longitude",
-  "optional": false,
-  "fieldType": "longitude",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "list"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "label": {
-  "en": "Longitude",
-  "fr": "Longitude",
-  "io": "crwdns12114:0crwdne12114:0",
-  "it": "Longitudine",
-  "oc": "Longitud"
-  }
-  },
-  {
-  "field": "region",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 255,
-  "label": {
-  "en": "Region",
-  "fr": "Région",
-  "io": "crwdns12124:0crwdne12124:0",
-  "it": "Regione",
-  "oc": "Region"
-  }
-  },
-  {
-  "field": "department",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "terms"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 255,
-  "label": {
-  "en": "Department",
-  "fr": "Département",
-  "br": "Departamant",
-  "io": "crwdns12110:0crwdne12110:0",
-  "it": "Provincia",
-  "oc": "Departament"
-  }
-  },
-  {
-  "field": "timezone",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ]
-  },
-  {
-  "field": "updatedAt",
-  "optional": false,
-  "fieldType": "date",
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal"
-  ]
-  },
-  {
-  "field": "createdAt",
-  "optional": false,
-  "fieldfieldType": "date",
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal"
-  ]
-  },
-  {
-  "field": "image",
-  "optional": true,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "fieldType": "stream",
-  "allowNull": true
-  },
-  {
-  "field": "description",
-  "label": {
-  "en": "Description",
-  "fr": "Description",
-  "de": "Beschreibung",
-  "es": "descripción",
-  "it": "Descrizione",
-  "oc": "Descripcion",
-  "io": "crwdns32875:0crwdne32875:0"
-  },
-  "optional": true,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "fieldType": "multilingual",
-  "languages": [],
-  "max": 5000
-  },
-  {
-  "field": "tags",
-  "optional": true,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "fieldType": "pass"
-  },
-  {
-  "field": "website",
-  "optional": true,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "fieldType": "link",
-  "label": {
-  "en": "Website",
-  "fr": "Site internet",
-  "es": "Sitio web",
-  "oc": "Site web",
-  "io": "crwdns32871:0crwdne32871:0"
-  }
-  },
-  {
-  "field": "email",
-  "optional": true,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "fieldType": "email"
-  },
-  {
-  "field": "phone",
-  "optional": true,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "fieldType": "phone"
-  },
-  {
-  "field": "links",
-  "optional": true,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "list": true,
-  "fieldType": "link"
-  },
-  {
-  "field": "access",
-  "label": {
-  "en": "Access",
-  "fr": "Accès",
-  "it": "Come arrivare",
-  "de": "Zugang",
-  "pl": "Dostęp",
-  "es": "acceso",
-  "br": "Moned",
-  "oc": "Accès",
-  "io": "crwdns32873:0crwdne32873:0"
-  },
-  "optional": true,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "fieldType": "multilingual",
-  "languages": [],
-  "max": 1000
-  },
-  {
-  "field": "state",
-  "optional": true,
-  "fieldType": "choice",
-  "unique": true,
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor",
-  "list"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "default": 0,
-  "options": [
-  0,
-  1
-  ]
-  },
-  {
-  "field": "imageCredits",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "enableWith": "image"
-  },
-  {
-  "field": "imageRightsAreHeld",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "enableWith": "image"
-  },
-  {
-  "field": "extId",
-  "optional": true,
-  "fieldType": "text",
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal",
-  "administrator",
-  "moderator",
-  "contributor"
-  ],
-  "max": 100
-  },
-  {
-  "field": "duplicateCandidates",
-  "fieldType": "integer",
-  "list": {
-  "max": 100
-  },
-  "default": null,
-  "optional": true,
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal",
-  "contributor"
-  ]
-  },
-  {
-  "field": "disqualifiedDuplicates",
-  "fieldType": "integer",
-  "list": {
-  "max": 100
-  },
-  "default": null,
-  "optional": true,
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal",
-  "contributor"
-  ]
-  },
-  {
-  "field": "mergedIn",
-  "fieldType": "integer",
-  "optional": true,
-  "default": null,
-  "read": [
-  "internal",
-  "public"
-  ],
-  "write": [
-  "internal"
-  ]
-  }
-  ],
-  "schemaId": "location"
-  }
-  },
-  {
-  "field": "timings",
-  "fieldType": "timings",
-  "max": 800,
-  "optional": false,
-  "label": {
-  "fr": "Dates du séjour - Horaires"
-  },
-  "info": {
-  "fr": "Définissez les horaires de votre événement"
-  },
-  "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "age",
-  "fieldType": "age",
-  "optional": false,
-  "label": {
-  "fr": "Âge du public"
-  },
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "languages": [],
-  "field": "description",
-  "fieldType": "text",
-  "optional": false,
-  "max": 200,
-  "label": {
-  "fr": "Description courte",
-  "en": "Short description",
-  "it": "Breve descrizione",
-  "de": "Kurzbeschreibung",
-  "es": "Descripción corta",
-  "br": "Deskrivadur berr",
-  "io": "crwdns14290:0crwdne14290:0"
-  },
-  "purpose": {
-  "fr": "Description pour les affichages réduits ou liste",
-  "en": "Description for short or list displays",
-  "es": "Descripción de las pequeñas pantallas o lista",
-  "br": "Deskrivadur evit an diskweloù berr pe listenn",
-  "io": "crwdns14292:0crwdne14292:0",
-  "it": "Utile per la lista degli eventi"
-  },
-  "placeholder": {
-  "fr": "Une courte description de votre événement",
-  "en": "A short description of your event",
-  "it": "Una breve descrizione del vostro evento",
-  "de": "Eine kurze Beschreibung Ihrer Veranstaltung",
-  "es": "Una breve descripción de su evento",
-  "br": "Un deskrivadur berr eus ho tarvoud",
-  "io": "crwdns14294:0crwdne14294:0"
-  },
-  "sub": {
-  "fr": "",
-  "en": "",
-  "de": "",
-  "br": ""
-  },
-  "schemaId": null,
-  "schemaType": "event",
-  "default": "dans le cadre de l'opération \"colonies apprenantes\" par le Ministère de l'Éducation Nationale.",
-  "display": false
-  },
-  {
-  "field": "objectifs-pedagogiques-et-competences-visees-etre-capable-de",
-  "label": {
-  "fr": "Objectifs pédagogiques et compétences visées (être capable de…)"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": false,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "markdown",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "thematiques-principales-developpees-par-le-projet-pedagogique-deux-items-possibles",
-  "label": {
-  "fr": "Dominantes (au moins une pour un séjour d’une semaine, deux pour un séjour plus long)"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": true,
-  "display": true,
-  "enable": true,
-  "origin": "tags",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": 2,
-  "options": [
-  {
-  "id": 47,
-  "value": "le-developpement-durable-et-la-transition-ecologique",
-  "label": {
-  "fr": "Le développement durable et la transition écologique"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 49,
-  "value": "les-activites-physiques-et-sportives-notamment-les-sports-de-nature",
-  "label": {
-  "fr": "Les activités physiques et sportives, notamment les sports de nature"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 51,
-  "value": "la-science-linnovation-le-numerique",
-  "label": {
-  "fr": "La science, l’innovation, le numérique"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 52,
-  "value": "la-decouverte-ou-lapprofondissement-de-langues-etrangeres-et-regionales",
-  "label": {
-  "fr": "La découverte ou l’approfondissement de langues étrangères et régionales"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 150,
-  "value": "la-citoyennete-et-la-vie-civique",
-  "label": {
-  "fr": "La citoyenneté et la vie civique"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 151,
-  "value": "lalimentation-et-la-sante",
-  "label": {
-  "fr": "L’alimentation et la santé"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 152,
-  "value": "les-arts-de-la-musique",
-  "label": {
-  "fr": "Les arts de la musique"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 153,
-  "value": "les-arts-du-livre-et-de-la-lecture",
-  "label": {
-  "fr": "Les arts du livre et de la lecture"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 154,
-  "value": "les-arts-plastiques",
-  "label": {
-  "fr": "Les arts plastiques"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 155,
-  "value": "les-arts-de-la-scene",
-  "label": {
-  "fr": "Les arts de la scène"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 156,
-  "value": "les-arts-audiovisuels",
-  "label": {
-  "fr": "Les arts audiovisuels"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 157,
-  "value": "les-medias-linformation-et-la-communication",
-  "label": {
-  "fr": "Les médias, l’information et la communication"
-  },
-  "info": null,
-  "display": true
-  }
-  ],
-  "fieldType": "checkbox",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "sujet-dexploration",
-  "label": {
-  "fr": "Sujet d’exploration et activités en lien avec les dominantes (préciser le volume horaire dédié à chaque activité)"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "textarea",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "organisation-des-modules-de-renforcement-scolaire-frequence-duree-des-seances-materiels-locaux",
-  "label": {
-  "fr": "Qualifications  des personnels d’encadrement"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": true,
-  "display": true,
-  "enable": true,
-  "origin": "custom",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": 5000,
-  "fieldType": "textarea",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "actions-retenues-pour-favoriser-la-mixite-et-linclusion-sociale-territoriale-et-de-genre",
-  "label": {
-  "fr": "Actions retenues pour favoriser la mixité et l’inclusion (sociale, territoriale et de genre)"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": false,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "textarea",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "actions-retenues-pour-favoriser-la-participation-des-enfants-et-des-jeunes",
-  "label": {
-  "fr": "Actions retenues pour favoriser la participation des enfants et des jeunes"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": false,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "textarea",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "lien-avec-les-familles-merci-de-preciser-comment-est-prevue-la-communication-avec-les-familles-avant-pendant-et-apres-le-sejour",
-  "label": {
-  "fr": "Actions retenues pour créer un lien avec les familles"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": {
-  "fr": "Merci de préciser comment est prévue la communication avec les familles, avant, pendant et après le séjour"
-  },
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": false,
-  "display": true,
-  "enable": true,
-  "origin": "custom",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "textarea",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "organisation-de-la-vie-quotidienne-merci-de-preciser-comment-sorganisent-lhebergement-couchage-repas-douche-etc",
-  "label": {
-  "fr": "Organisation de la vie quotidienne et des activités pendant le séjour"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": false,
-  "display": true,
-  "enable": true,
-  "origin": "custom",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": 5000,
-  "fieldType": "textarea",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "partenariats-locaux",
-  "label": {
-  "fr": "Partenariats locaux"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": true,
-  "display": true,
-  "enable": true,
-  "origin": "custom",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "text",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "accessibility",
-  "fieldType": "accessibility",
-  "optional": true,
-  "label": {
-  "fr": "Accessibilité particulière",
-  "en": "Accessibility conditions",
-  "it": "Accessibilità speciale",
-  "de": "Bedingungen für die Zugänglichkeit",
-  "es": "accesibilidad especial",
-  "br": "Monedusted",
-  "io": "crwdns14322:0crwdne14322:0"
-  },
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "languages": [],
-  "field": "conditions",
-  "fieldType": "text",
-  "label": {
-  "fr": "Tarifs (hors transports)"
-  },
-  "max": 255,
-  "placeholder": {
-  "fr": "Entrée libre, sur inscription, autre..."
-  },
-  "sub": "",
-  "schemaId": null,
-  "schemaType": "event",
-  "info": {
-  "fr": "Des transports peuvent être organisés par l'organisateur selon les villes de départ, les contacter)"
-  }
-  },
-  {
-  "field": "registration",
-  "fieldType": "registration",
-  "optional": false,
-  "label": {
-  "fr": "Inscription"
-  },
-  "info": {
-  "fr": "Indiquez le lien de votre site Internet, un numéro de téléphone et/ou un mail"
-  },
-  "placeholder": {
-  "fr": "Prendre contact directement avec l'organisateur du séjour)"
-  },
-  "sub": {
-  "fr": "Séparez les items par des tabulations ou des virgules"
-  },
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "languages": [],
-  "field": "keywords",
-  "fieldType": "keywords",
-  "optional": true,
-  "max": 255,
-  "label": {
-  "fr": "Mots clés"
-  },
-  "placeholder": {
-  "fr": "Séparez les mots clés par des tabulations ou des virgules"
-  },
-  "sub": {
-  "fr": "Les mots clés sont utiles pour les fonctions de recherche"
-  },
-  "schemaId": null,
-  "schemaType": "event",
-  "info": {
-  "fr": "Vous pouvez indiquer des mots clés spécifiques à votre séjour pour aider les familles dans leur recherche (exemple : théâtre, sport de nature, langues étrangères, sciences et techniques, etc.)"
-  }
-  },
-  {
-  "label": {
-  "fr": "Information sur les participants à la colo (à compléter dès que possible)"
-  },
-  "type": "section",
-  "slug": "information-sur-les-effectifs-de-participants",
-  "display": true,
-  "schemaId": null,
-  "schemaType": null
-  },
-  {
-  "field": "nombre-de-places-ouvertes",
-  "label": {
-  "fr": "Nombre de places ouvertes"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": false,
-  "display": true,
-  "enable": true,
-  "origin": "custom",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "integer",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "nombre-effectif-de-participantes-filles",
-  "label": {
-  "fr": "Nombre effectif de participantes filles"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": true,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "integer",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "nombre-effectif-de-participants-garcons",
-  "label": {
-  "fr": "Nombre effectif de participants garçons"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": true,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "integer",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "nombre-de-mineurs-en-situation-de-handicap",
-  "label": {
-  "fr": "Nombre de mineurs en situation de handicap"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "integer",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "nombre-de-mineurs-domicilies-dans-un-quartier-prioritaire-de-la-politique-de-la-ville-qpv",
-  "label": {
-  "fr": "Nombre de mineurs domiciliés dans un quartier prioritaire de la politique de la ville (QPV)"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "integer",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "nombre-de-mineurs-domicilies-dans-une-zone-de-revitalisation-rurale-zrr",
-  "label": {
-  "fr": "Nombre de mineurs domiciliés dans une zone de revitalisation rurale (ZRR)"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "integer",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "nombre-de-mineurs-en-situation-de-decrochage-scolaire",
-  "label": {
-  "fr": "Nombre de mineurs en situation de décrochage scolaire"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "integer",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "nombre-de-mineurs-relevant-de-laide-sociale-a-lenfance-ase",
-  "label": {
-  "fr": "Nombre de mineurs relevant de l’aide sociale à l’enfance (ASE)"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "integer",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "nombre-de-mineurs-nappartenant-a-aucune-des-categories-precedentes-mais-pouvant-justifier-dun-quotient-familial-inferieur-a-1500-euro",
-  "label": {
-  "fr": "Nombre de mineurs n’appartenant à aucune des catégories précédentes mais pouvant justifier d’un quotient familial inférieur ou égal à 1500 €"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "display": true,
-  "enable": true,
-  "origin": null,
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "min": null,
-  "max": null,
-  "fieldType": "integer",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "display": false,
-  "field": "attendanceMode",
-  "fieldType": "radio",
-  "label": {
-  "fr": "Mode de participation",
-  "en": "Attendance mode",
-  "it": "Modalità di partecipazione",
-  "es": "Modo de asistencia",
-  "de": "Anwesenheitsmodus",
-  "br": "Doare perzhiañ",
-  "io": "crwdns14264:0crwdne14264:0",
-  "oc": "Mòde de participacion"
-  },
-  "optional": false,
-  "default": 1,
-  "options": [
-  {
-  "id": 1,
-  "value": "offline",
-  "label": {
-  "fr": "Sur place",
-  "en": "In situ",
-  "it": "In situ",
-  "es": "Desconnectad",
-  "de": "Offline",
-  "br": "War al lec’h",
-  "io": "crwdns14266:0crwdne14266:0"
-  }
-  },
-  {
-  "id": 2,
-  "value": "online",
-  "label": {
-  "fr": "En ligne",
-  "en": "Online",
-  "it": "Online",
-  "es": "En linea",
-  "de": "Online",
-  "br": "Enlinenn",
-  "io": "crwdns14268:0crwdne14268:0",
-  "oc": "En linha"
-  }
-  },
-  {
-  "id": 3,
-  "value": "mixed",
-  "label": {
-  "fr": "Mixte",
-  "en": "Mixed",
-  "it": "Misto",
-  "es": "Mezclado",
-  "de": "Gemischt",
-  "br": "Kemmesk",
-  "io": "crwdns14270:0crwdne14270:0",
-  "oc": "Mesclat"
-  }
-  }
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "display": false,
-  "field": "onlineAccessLink",
-  "fieldType": "link",
-  "label": {
-  "fr": "Lien d'accès",
-  "en": "Access link",
-  "de": "Zugangslink",
-  "es": "Enlace de acceso",
-  "it": "Collegamento di accesso",
-  "br": "Liamm moned",
-  "io": "crwdns14272:0crwdne14272:0"
-  },
-  "optional": false,
-  "enableWith": {
-  "field": "attendanceMode",
-  "value": [
-  2,
-  3
-  ]
-  },
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "vacances-scolaires-concernees",
-  "label": {
-  "fr": "Vacances scolaires concernées"
-  },
-  "help": null,
-  "helpLink": null,
-  "helpContent": null,
-  "info": null,
-  "sub": null,
-  "placeholder": null,
-  "write": null,
-  "read": null,
-  "optional": true,
-  "display": false,
-  "enable": true,
-  "origin": "tags",
-  "enableWith": null,
-  "optionalWith": null,
-  "related": {
-  "enable": [],
-  "optional": []
-  },
-  "selfHandled": [],
-  "options": [
-  {
-  "id": 133,
-  "value": "vacances-dete-2023",
-  "label": {
-  "fr": "Vacances d'été 2023"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 132,
-  "value": "vacances-de-printemps-2023",
-  "label": {
-  "fr": "Vacances de printemps 2023"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 131,
-  "value": "vacances-dhiver-2023",
-  "label": {
-  "fr": "Vacances d'hiver 2023"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 130,
-  "value": "vacances-de-noel-2022",
-  "label": {
-  "fr": "Vacances de Noël 2022"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 129,
-  "value": "vacances-de-la-toussaint-2022",
-  "label": {
-  "fr": "Vacances de la Toussaint 2022"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 128,
-  "value": "vacances-dete-2022",
-  "label": {
-  "fr": "Vacances d'été 2022"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 127,
-  "value": "vacances-de-printemps-2022",
-  "label": {
-  "fr": "Vacances de printemps 2022"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 126,
-  "value": "vacances-dhiver-2022",
-  "label": {
-  "fr": "Vacances d'hiver 2022"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 125,
-  "value": "vacances-de-noel-2021",
-  "label": {
-  "fr": "Vacances de Noël 2021"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 123,
-  "value": "vacances-de-la-toussaint-2021",
-  "label": {
-  "fr": "Vacances de la Toussaint 2021"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 122,
-  "value": "vacances-dete-2021",
-  "label": {
-  "fr": "Vacances d'été 2021"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 121,
-  "value": "pont-de-lascension-2021",
-  "label": {
-  "fr": "Pont de l'Ascension 2021"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 120,
-  "value": "vacances-de-printemps-2021",
-  "label": {
-  "fr": "Vacances de printemps 2021"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 119,
-  "value": "vacances-dhiver-2021",
-  "label": {
-  "fr": "Vacances d'hiver 2021"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 118,
-  "value": "vacances-de-noel-2020",
-  "label": {
-  "fr": "Vacances de Noël 2020"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 117,
-  "value": "vacances-de-la-toussaint-2020",
-  "label": {
-  "fr": "Vacances de la Toussaint 2020"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 116,
-  "value": "vacances-dete-2020",
-  "label": {
-  "fr": "Vacances d'été 2020"
-  },
-  "info": null,
-  "display": true
-  },
-  {
-  "id": 115,
-  "value": "hors-vacances",
-  "label": {
-  "fr": "Hors-vacances"
-  },
-  "info": null,
-  "display": true
-  }
-  ],
-  "fieldType": "radio",
-  "schemaId": 22924,
-  "schemaType": "network"
-  },
-  {
-  "field": "uid",
-  "fieldType": "integer",
-  "optional": false,
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "slug",
-  "fieldType": "text",
-  "optional": false,
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "private",
-  "fieldType": "boolean",
-  "default": false,
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "timezone",
-  "fieldType": "text",
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "draft",
-  "fieldType": "boolean",
-  "default": false,
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "createdAt",
-  "fieldType": "date",
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "creatorUid",
-  "fieldType": "integer",
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "ownerUid",
-  "fieldType": "integer",
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "updatedAt",
-  "fieldType": "date",
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "agendaUid",
-  "fieldType": "integer",
-  "optional": false,
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "fileKey",
-  "fieldType": "text",
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "locationUid",
-  "fieldType": "integer",
-  "optional": false,
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "references",
-  "fieldType": "integer",
-  "list": true,
-  "optional": true,
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  },
-  {
-  "field": "links",
-  "fieldType": "pass",
-  "optional": true,
-  "write": [
-  "internal"
-  ],
-  "schemaId": null,
-  "schemaType": "event"
-  }
-  ]
-  }
-  }
+}

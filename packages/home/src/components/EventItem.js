@@ -1,6 +1,8 @@
 import { Image } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const getEventEditLink = (res, event) =>
   res.edit
     .replace(':slug', event.agenda && event.agenda.slug)
@@ -53,10 +55,9 @@ function EventItem({ event, res, getLabel, lang }) {
           <a href={getEventShowLink(res, event)}>
             <Image
               src={getImagePath(event.image)}
-              fallbackSrc={getImagePath(event.image).replace(
-                'cibuldev',
-                'cibul',
-              )}
+              fallbackSrc={
+                isDev ? getImagePath(event.image).replace('dev', 'main') : null
+              }
               className="media-object ill avatar"
               alt={getLocaleValue(event.title, lang) || getLabel('noTitle')}
             />

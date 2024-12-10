@@ -53,20 +53,21 @@ export default function ProfileMenu({ user, portalRef }) {
                 alt={intl.formatMessage(messages.profileMenu)}
                 src={
                   process.env.NODE_ENV === 'development'
-                    ? `${process.env.NEXT_PUBLIC_DEV_AWS_BUCKET}/${user.image}`
-                    : `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
+                    ? `${process.env.NEXT_PUBLIC_DEV_S3_BUCKET}/${user.image}`
+                    : `${process.env.NEXT_PUBLIC_S3_BUCKET}/${user.image}`
                 }
                 fallbackSrc={
                   process.env.NODE_ENV === 'development'
-                    ? `${process.env.NEXT_PUBLIC_AWS_BUCKET}/${user.image}`
+                    ? `${process.env.NEXT_PUBLIC_S3_BUCKET}/${user.image}`
                     : undefined
                 }
                 loader={thumborLoader}
                 width="30"
                 height="30"
               />
-            )
-              : user.fullName}
+            ) : 
+              user.fullName
+            }
           </MenuButton>
           <MenuList
             // https://github.com/chakra-ui/chakra-ui/issues/5742

@@ -12,7 +12,14 @@ const log = logs('server.dev');
 // normally done through init of service
 filesMw.init({
   tmpFolder: `${__dirname}/dev/tmp`,
-  s3: _.pick(config.s3, ['accessKeyId', 'secretAccessKey', 'region', 'bucket']),
+  s3: _.pick(config.s3, [
+    'endpoint',
+    'accessKeyId',
+    'secretAccessKey',
+    'region',
+    'bucket',
+  ]),
+  imagePath: config.imagePath,
 });
 
 const dev = express();

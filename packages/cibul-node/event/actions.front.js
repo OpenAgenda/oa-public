@@ -124,7 +124,7 @@ async function eventMailSend(req, res, next) {
     const logo = req.agenda.image
       ? {
         src:
-            config.aws.imageBucketPath
+            config.s3.mainBucketPath
             + req.agenda.image.replace('.com/', '.com/rwtb'),
         width: '100px',
       }
@@ -194,7 +194,7 @@ async function eventMailSend(req, res, next) {
             },
           ),
           image: req.event.image
-            ? config.aws.imageBucketPath + req.event.image.filename
+            ? config.s3.mainBucketPath + req.event.image.filename
             : null,
           location: _.mapValues(
             _.pick(

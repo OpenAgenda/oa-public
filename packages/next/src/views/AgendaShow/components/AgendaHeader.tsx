@@ -131,7 +131,7 @@ export default function AgendaHeader({ agenda }) {
           src={getImageSrc(agenda.image, updatedTs)}
           fallbackSrc={
             isDev
-              ? `${agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
+              ? `${agenda.image.replace('dev', 'main').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
               : undefined
           }
           loader={keyCDNLoader}

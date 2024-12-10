@@ -10,10 +10,7 @@
     "fr": "France (Métropole)",
     "es": "Francia (Metropolitana)"
   },
-  "interetintercommunal": [
-    1,
-    1
-  ],
+  "interetintercommunal": [1, 1],
   "featured": false,
   "private": 0,
   "keywords": {},
@@ -67,10 +64,7 @@
   ],
   "links": [],
   "state": 2,
-  "categories-metropolitaines": [
-    6,
-    13
-  ],
+  "categories-metropolitaines": [6, 13],
   "slug": "cine-gouter-a-la-mediatheque-8023940",
   "updatedAt": "2021-09-07T13:28:37.000Z",
   "addMethod": "aggregation",
@@ -98,7 +92,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://cibul.s3.amazonaws.com/"
+    "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
   },
   "attendanceMode": 1,
   "sourceAgendas": [
@@ -135,13 +129,9 @@
       "updatedAt": "2021-10-26T08:37:27.000Z"
     }
   ],
-  "label": [
-    null
-  ],
+  "label": [null],
   "creatorUid": 95921958,
-  "recurringevent": [
-    null
-  ],
+  "recurringevent": [null],
   "registration": [
     {
       "type": "phone",

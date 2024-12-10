@@ -35,7 +35,7 @@
         "width": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
     },
     "draft": 0,
     "private": 0,
@@ -112,7 +112,7 @@
     "createdAt": "2018-03-20T09:15:55.000Z",
     "formSchemaId": null,
     "officializedAt": "2018-05-31T08:50:50.000Z",
-    "image": "https://cibuldev.s3.amazonaws.com/agenda50781256.jpg",
+    "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda50781256.jpg",
     "private": 0,
     "indexed": 1,
     "credentials": {

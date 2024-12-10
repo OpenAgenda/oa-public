@@ -23,6 +23,8 @@ import AgendasSearch from '../components/AgendasSearch.js';
 import EventItem from '../components/EventItem.js';
 import Wrapper from './Wrapper.js';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 function AgendaItem({ agenda, res, getLabel }) {
   const itemLink = res.agendas.contribute.replace(':slug', agenda.slug);
 
@@ -35,7 +37,7 @@ function AgendaItem({ agenda, res, getLabel }) {
         >
           <Image
             src={agenda.image}
-            fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
+            fallbackSrc={isDev ? agenda.image.replace('dev', 'main') : null}
             className="media-object ill avatar"
             alt={agenda.title}
           />

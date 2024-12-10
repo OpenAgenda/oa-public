@@ -337,7 +337,7 @@ function errorResponse(req, res, err, jsr) {
           req.agenda.image
           && req.agenda.image.match(/^(?:(?:https?|ftp):\/\/|\/\/)/)
             ? req.agenda.image
-            : config.aws.imageBucketPath + req.agenda.image,
+            : config.s3.mainBucketPath + req.agenda.image,
       };
 
       res.send(layouts.agenda(renderError(data), layoutData));

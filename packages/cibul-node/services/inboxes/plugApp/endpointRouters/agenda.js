@@ -183,7 +183,7 @@ export default (config, services) => {
         },
         fallbackGetter: () => ({
           name: req.user.name,
-          avatar: req.user.thumbnail || config.aws.defaultImagePath,
+          avatar: req.user.thumbnail || config.s3.defaultImagePath,
         }),
       })(req, res, next);
     },

@@ -18,7 +18,7 @@ export default async function processPassCultureApply(
   const { passCulture, event } = clean;
 
   const applied = await passCultureService.apply(event, passCulture, {
-    imageBasePath: core.getConfig().aws.imageBucketPath,
+    imageBasePath: core.getConfig().s3.mainBucketPath,
   });
 
   return event.registration.map((r) =>

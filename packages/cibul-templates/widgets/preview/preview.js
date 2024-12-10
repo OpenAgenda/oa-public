@@ -105,8 +105,8 @@ function _clean( events, options ) {
 
     _defineEventLink( event, e, options );
 
-    if ( e.thumbnail ) e.thumbnail = e.thumbnail.replace( 'cibuldev', 'cibul' );
-    if ( e.image ) e.image = e.image.replace( 'cibuldev', 'cibul' );
+    if ( e.thumbnail ) e.thumbnail = process.env.NODE_ENV === 'development' ? e.thumbnail.replace( 'dev', 'main' ) : e.thumbnail;
+    if ( e.image ) e.image = process.env.NODE_ENV === 'development' ? e.image.replace( 'dev', 'main' ) : e.image;
 
     return e;
 

@@ -184,7 +184,7 @@ describe('events - functional - update', () => {
       });
 
       try {
-        await fetch(`https:${config.imagePath}${updated.image.filename}`).then(
+        await fetch(`${config.imagePath}${updated.image.filename}`).then(
           (r) => {
             if (!r.ok) throw new Error('Invalid status');
           },

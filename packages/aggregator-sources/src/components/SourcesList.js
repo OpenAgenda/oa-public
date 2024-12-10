@@ -7,6 +7,8 @@ import * as modalsActions from '../reducers/modals.js';
 
 const { CopyToClipboard } = CopyToClipboardModule;
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const messages = defineMessages({
   officialAgenda: {
     id: 'aggregator-sources.SourcesList.officialAgenda',
@@ -66,7 +68,9 @@ function SourceItem({ source }) {
             <Image
               className="media-object ill avatar"
               src={source.agenda.image}
-              fallbackSrc={source.agenda.image.replace('cibuldev', 'cibul')}
+              fallbackSrc={
+                isDev ? source.agenda.image.replace('dev', 'main') : null
+              }
               alt={source.agenda.title}
             />
           </button>

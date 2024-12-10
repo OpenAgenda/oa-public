@@ -1,9 +1,11 @@
 from thumbor.loaders import http_loader, LoaderResult
 
 providers_config = {
+  "main": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/{path}",
+  "dev": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/{path}",
+  "osm": ("map", "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"),
   "cibul": "https://cibul.s3.eu-west-1.amazonaws.com/{path}",
-  "cibuldev": "https://cibuldev.s3.eu-west-1.amazonaws.com/{path}",
-  "osm": ("map", "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
+  "cibuldev": "https://cibuldev.s3.eu-west-1.amazonaws.com/{path}"
 }
 
 async def load(context, url, *args, **kwargs):

@@ -203,7 +203,7 @@ function ImageInput({
                     src={preview}
                     fallbackSrc={
                       process.env.NODE_ENV === 'development'
-                        ? preview.replace('cibuldev', 'cibul')
+                        ? preview.replace('dev', 'main')
                         : null
                     }
                     style={{

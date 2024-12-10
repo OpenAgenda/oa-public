@@ -430,7 +430,7 @@ const initialState = async (req) => {
         maxSize: config.maxFileSize,
         store: {
           type: 's3',
-          bucket: config.aws.bucket,
+          bucket: config.s3.bucket,
         },
       },
       tiles: config.tiles,

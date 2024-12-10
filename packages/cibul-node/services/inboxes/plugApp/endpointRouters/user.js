@@ -186,7 +186,7 @@ export default (config, services) => {
       res.json({
         inboxUser: {
           name: req.user.name,
-          avatar: req.user.thumbnail || config.aws.defaultImagePath,
+          avatar: req.user.thumbnail || config.s3.defaultImagePath,
         },
       });
     },

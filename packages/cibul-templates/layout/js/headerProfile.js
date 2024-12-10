@@ -59,7 +59,9 @@ module.exports = options => {
   ul.innerHTML = ( window.templates === 'bs' ? bsTemplate : template )( {
     __ : getLabelFactory( labels, user.culture ),
     fullName: user.name,
-    thumbnail: user.thumbnail ? user.thumbnail.replace( 'cibuldev', 'cibul' ) : null
+    thumbnail: user.thumbnail
+      ? process.env.NODE_ENV === 'development' ? user.thumbnail.replace( 'dev', 'main' ) : user.thumbnail
+      : null
   } );
 
   li = du.el( ul, 'li' );

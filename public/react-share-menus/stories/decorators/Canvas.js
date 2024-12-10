@@ -21,7 +21,7 @@ export default (Story) => {
                 <a href="#agendaShow%7B%22slug%22:%22la-gargouille%22%7D">
                   <img
                     className="avatar"
-                    src="//cibul.s3.amazonaws.com/review_cheznous_598_00.jpg"
+                    src="//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/review_cheznous_598_00.jpg"
                     alt="L'agenda de la Gargouille"
                   />
                 </a>

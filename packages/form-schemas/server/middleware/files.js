@@ -1,8 +1,8 @@
 import { createReadStream } from 'node:fs';
 import fs from 'node:fs/promises';
-import { promisify } from 'node:util';
 import _ from 'lodash';
-import AWS from 'aws-sdk';
+import { S3Client } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
 import multer from 'multer';
 import FileType from 'file-type';
 import logs from '@openagenda/logs';
@@ -14,8 +14,9 @@ const log = logs('middleware/files');
 
 // set at init
 let tmpFolder;
+let imagePath;
 let s3;
-let upload;
+let s3Client;
 
 function putInTemporary(o, req, res, next) {
   const options = {
@@ -111,15 +112,20 @@ async function s3Upload(filename) {
   );
   const { fileType } = stream;
 
-  const result = await upload({
-    ACL: 'public-read', // because that is what I need now
-    Bucket: s3.bucket,
-    Key: filename,
-    Body: stream,
-    ContentType: fileType.mime || 'application/octet-stream',
+  const upload = new Upload({
+    client: s3Client,
+    params: {
+      ACL: 'public-read', // because that is what I need now
+      Bucket: s3.bucket,
+      Key: filename,
+      Body: stream,
+      ContentType: fileType.mime || 'application/octet-stream',
+    },
   });
 
-  return result.Location;
+  const result = await upload.done();
+
+  return `${imagePath}${result.Key}`;
 }
 
 async function s3MultipleUploads(fileFieldValues) {
@@ -167,16 +173,20 @@ function init(config) {
 
   s3 = _.get(config, 's3');
 
-  const client = new AWS.S3(
-    _.assign(
-      {
-        apiVersion: '2006-03-01',
-      },
-      _.pick(config.s3, ['accessKeyId', 'secretAccessKey', 'region']),
-    ),
-  );
+  imagePath = config.imagePath;
 
-  upload = promisify(client.upload.bind(client));
+  const { endpoint, region, accessKeyId, secretAccessKey } = s3;
+
+  s3Client = new S3Client({
+    endpoint,
+    region,
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+    },
+    forcePathStyle: true,
+    // logger: console,
+  });
 }
 
 export default {

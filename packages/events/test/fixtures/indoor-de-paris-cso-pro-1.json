@@ -46,7 +46,7 @@
     }
   ],
   "image": {
-    "base": "//oadev.s3.eu-west-1.amazonaws.com/",
+    "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/",
     "filename": "event_indoor-de-paris-cso-pro-1_563851.jpg",
     "variants": [
       {

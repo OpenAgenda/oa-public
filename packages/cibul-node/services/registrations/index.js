@@ -14,7 +14,7 @@ export function init(config, services) {
   const svc = Registrations({
     passCulture: config.passCulture,
     logger: config.getLogConfig('svc', 'registrations'),
-    imageBasePath: config.aws.bucket,
+    imageBasePath: config.s3.bucket,
   });
 
   const {

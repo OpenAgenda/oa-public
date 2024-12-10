@@ -29,7 +29,7 @@
   "timezone": "Europe/Paris",
   "originAgenda": {
     "uid": 48353388,
-    "image": "https://cibul.s3.amazonaws.com/agenda48353388.jpg",
+    "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda48353388.jpg",
     "title": "Albi"
   },
   "description": {
@@ -82,7 +82,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://cibul.s3.amazonaws.com/"
+    "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
   },
   "attendanceMode": 1,
   "creatorUid": 65176613,

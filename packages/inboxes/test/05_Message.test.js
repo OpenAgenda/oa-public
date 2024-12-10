@@ -95,7 +95,8 @@ describe('Message', () => {
           type: 'agenda',
           identifier: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar:
+            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda48959239.jpg',
           uid: 48959239,
         },
       });
@@ -196,7 +197,8 @@ describe('Message', () => {
           identifier: 48959239,
           uid: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar:
+            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda48959239.jpg',
         },
       });
     });
@@ -227,7 +229,8 @@ describe('Message', () => {
           type: 'agenda',
           identifier: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar:
+            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda48959239.jpg',
           uid: 48959239,
         },
       });
@@ -277,7 +280,8 @@ describe('Message', () => {
             type: 'agenda',
             identifier: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar:
+              'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda48959239.jpg',
             uid: 48959239,
           },
         },
@@ -326,7 +330,8 @@ describe('Message', () => {
             type: 'agenda',
             identifier: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar:
+              'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda48959239.jpg',
             uid: 48959239,
           },
         },

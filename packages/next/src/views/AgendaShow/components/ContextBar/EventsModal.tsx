@@ -51,11 +51,11 @@ function EventImage({ src, loader = null, updatedAt = null }) {
       fallbackSrc={
         isDev && typeof src === 'string'
           ? `${src
-            .replace('cibuldev', 'cibul')
-            .replace(
-              process.env.NEXT_PUBLIC_IMAGE_PREFIX,
-              process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX,
-            )}${tsSuffix}`
+              .replace('dev', 'main')
+              .replace(
+                process.env.NEXT_PUBLIC_IMAGE_PREFIX,
+                process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX,
+              )}${tsSuffix}`
           : undefined
       }
       alt=""
@@ -71,8 +71,9 @@ function EventImage({ src, loader = null, updatedAt = null }) {
 function EventItem({ agenda, event }) {
   const intl = useIntl();
 
-  const imageSrc = event.image
-    && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${event.image.filename}`;
+  const imageSrc =
+    event.image &&
+    `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${event.image.filename}`;
 
   return (
     <HStack>
@@ -90,12 +91,12 @@ function EventItem({ agenda, event }) {
         {event.draft ? (
           <>
             <Text fontWeight="bold">
-              {getLocaleValue(event.title, intl.locale)
-                || intl.formatMessage(messages.undefinedTitle)}
+              {getLocaleValue(event.title, intl.locale) ||
+                intl.formatMessage(messages.undefinedTitle)}
             </Text>
             <div>
-              {getLocaleValue(event.description, intl.locale)
-                || intl.formatMessage(messages.undefinedDescription)}
+              {getLocaleValue(event.description, intl.locale) ||
+                intl.formatMessage(messages.undefinedDescription)}
             </div>
             <Link
               href={`/${agenda.slug}/contribute/event/${event.uid}`}
@@ -196,10 +197,12 @@ function EventsModalBody({ agenda, bundleState }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
-  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
+  const isReachingEnd =
+    isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
 
   const { ref } = useInView({
     onChange: (inView) => {
@@ -233,7 +236,8 @@ function EventsModalBody({ agenda, bundleState }) {
         {pages.map((page) =>
           page.events.map((event) => (
             <EventItem key={event.uid} agenda={agenda} event={event} />
-          )))}
+          )),
+        )}
       </VStack>
 
       <div ref={ref} />

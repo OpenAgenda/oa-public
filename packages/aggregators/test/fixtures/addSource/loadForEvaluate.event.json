@@ -45,7 +45,7 @@
       }
     ],
     "credits": null,
-    "base": "https://cibuldev.s3.amazonaws.com/"
+    "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
   },
   "draft": 0,
   "private": 0,
@@ -90,7 +90,7 @@
     "slug": "fetedelascience2019_bretagne",
     "title": "Fête de la Science 2019 : Bretagne",
     "description": "Un événement du MESRI",
-    "image": "https://cibuldev.s3.amazonaws.com/agenda43890851.jpg",
+    "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda43890851.jpg",
     "url": "https://fetedelascience.fr"
   }
 }

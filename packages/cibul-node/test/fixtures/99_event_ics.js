@@ -42,7 +42,7 @@ export default {
         },
       ],
       credits: null,
-      base: 'https://cibuldev.s3.amazonaws.com/',
+      base: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
     },
     draft: 0,
     private: 0,
@@ -97,7 +97,8 @@ export default {
       slug: 'mondonville',
       title: "Mondonville; L'aut côté !",
       description: 'Agenda des événements de Toulouse Métropole',
-      image: 'https://cibuldev.s3.amazonaws.com/agenda65270117.jpg',
+      image:
+        'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda65270117.jpg',
       url: 'http://www.toulouse-metropole.fr/',
     },
   },

@@ -42,7 +42,7 @@ export default function loadInitialState() {
       maxSize: 200000000,
       store: {
         type: 's3',
-        bucket: 'cibul', // 'oadev'
+        bucket: 'main', // 'dev'
       },
     },
     tiles: 'https://map.tiles',

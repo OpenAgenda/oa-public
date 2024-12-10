@@ -108,7 +108,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://cibul.s3.amazonaws.com/"
+    "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
   },
   "attendanceMode": 1,
   "sourceAgendas": [],
@@ -156,7 +156,7 @@
     "email": "communication@fraciledefrance.com",
     "longitude": 2.433589,
     "updatedAt": "2023-07-17T08:10:49.000Z",
-    "image": "https://cibul.s3.amazonaws.com/location85409727.jpg",
+    "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location85409727.jpg",
     "website": "https://www.fraciledefrance.com/",
     "address": "43 rue de la Commune de Paris 93230 Romainville",
     "adminLevel3": "Est Ensemble",

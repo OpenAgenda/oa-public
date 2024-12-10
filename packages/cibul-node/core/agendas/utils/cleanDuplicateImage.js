@@ -1,6 +1,6 @@
 export default function cleanDuplicateImage(core, image) {
   return {
-    url: `${core.getConfig().aws.imageBucketPath}${image.variants.find((v) => v.type === 'full').filename}`,
+    url: `${core.getConfig().s3.mainBucketPath}${image.variants.find((v) => v.type === 'full').filename}`,
   };
 }
 

@@ -117,9 +117,9 @@
       "html": {
         "fr": "<h3 id=\"une-partie-de-chasse-une-promenade-romantique-ou-encore-un-tournoi-de-palemail-autant-de-motivations-qui-sont-l-39-origine-de-la-cr-ation-de-ce-domaine-vert-autrefois-priv-et-rattach-la-r-sidence-royale-et-qui-reste-encore-aujourd-39-hui-le-poumon-vert-de-la-ville-de-n-rac-d-ambulez-et-d-couvrez-en-autonomie-de-mani-re-ludique-et-p-dagogique-l-39-histoire-de-ce-site-verdoyant-et-ressour-ant-gr-ce-un-parcours-de-visite-sur-pupitres-en-six-tapes-et-une-visite-virtuelle-quot-3000-pas-vers-les-jardins-du-roi-quot-t-l-chargeable-sur-smartphone-ou-sur-tablettes-tactiles-en-pr-t-au-ch-teau-mus-e-henri-iv-\">Une partie de chasse, une promenade romantique ou encore un tournoi de palemail. Autant de motivations qui sont à l&#39;origine de la création de ce domaine vert autrefois privé et rattaché à la résidence royale et qui reste encore aujourd&#39;hui le poumon vert de la ville de Nérac. Déambulez et découvrez en autonomie, de manière ludique et pédagogique, l&#39;histoire de ce site verdoyant et ressourçant grâce à un parcours de visite sur pupitres en six étapes et une visite virtuelle &quot;3000 pas vers les Jardins du Roi&quot;, téléchargeable sur smartphone ou sur tablettes tactiles en prêt au Château-musée Henri IV.</h3>"
       },
-      "image": "https://cibul.s3.amazonaws.com/b69fac7d60b2429e8309816c10c6adda.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/evtbb69fac7d60b2429e8309816c10c6adda.base.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/evfb69fac7d60b2429e8309816c10c6adda.base.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/b69fac7d60b2429e8309816c10c6adda.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtbb69fac7d60b2429e8309816c10c6adda.base.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evfb69fac7d60b2429e8309816c10c6adda.base.image.jpg",
       "age": {
         "min": 0,
         "max": 99
@@ -169,7 +169,7 @@
         "name": "Jardins du Roi (jardin d'évocation Renaissance) et Parc de la Garenne",
         "slug": "chateau-henry-iv-de-nerac-parc-de-la-garenne-jardins-du-roi_7694_13238_17900",
         "address": "Chemin du Jardin du Roy, 47600 Nérac, Lot et Garonne, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location93276144.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location93276144.jpg",
         "imageCredits": "© Ville de Nérac",
         "postalCode": "47600",
         "city": "Nérac",
@@ -278,13 +278,11 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/event_decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee_723047.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/evtbevent_decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee_723047.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/evfevent_decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee_723047.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/event_decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee_723047.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtbevent_decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee_723047.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evfevent_decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee_723047.jpg",
       "age": null,
-      "accessibility": [
-        "mi"
-      ],
+      "accessibility": ["mi"],
       "updatedAt": "2019-02-06T16:07:59.000Z",
       "range": {
         "fr": "7 - 9 juin",
@@ -436,9 +434,9 @@
       "html": {
         "fr": "<p>Prenez des <strong>chemins de traverse</strong> pour découvrir dans les parcs et jardins de Poitiers, des installations éphémères tout autant qu’originales, entre art des jardins et création contemporaine.</p>\n<p>De juin à octobre 2019, ces « jardins de traverse » proposés par les <strong>jardiniers de la Ville</strong>, vous donneront un <strong>avant-goût de l’événement artistique et culturel Traversées</strong>, l’art donne rendez-vous à Poitiers.</p>"
       },
-      "image": "https://cibul.s3.amazonaws.com/a0125ea3890f4202bd2686f5a9103bfb.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/evtba0125ea3890f4202bd2686f5a9103bfb.base.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/evfa0125ea3890f4202bd2686f5a9103bfb.base.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/a0125ea3890f4202bd2686f5a9103bfb.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtba0125ea3890f4202bd2686f5a9103bfb.base.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evfa0125ea3890f4202bd2686f5a9103bfb.base.image.jpg",
       "age": null,
       "accessibility": [],
       "updatedAt": "2019-02-22T12:02:33.000Z",
@@ -590,16 +588,14 @@
       "html": {
         "fr": "<p>Dans le cadre de la thématique « les animaux aux jardins », sera présentée une visite guidée spéciale « les oiseaux aux jardins » pour répondre aux questions :</p>\n<ul>\n<li>Qui fréquentent nos jardins ?</li>\n<li>Quels type de nourriture insectivores ou granivores,</li>\n<li>Que faire pour les attirer (arbres à baies, fleurs à graines, environnement, nichoirs, mangeoires pour l&#39;hiver...)</li>\n</ul>"
       },
-      "image": "https://cibul.s3.amazonaws.com/04b60a19dae744d080644fbf32f6439c.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/04b60a19dae744d080644fbf32f6439c.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/04b60a19dae744d080644fbf32f6439c.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/04b60a19dae744d080644fbf32f6439c.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/04b60a19dae744d080644fbf32f6439c.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/04b60a19dae744d080644fbf32f6439c.full.image.jpg",
       "age": {
         "min": 6,
         "max": 99
       },
-      "accessibility": [
-        "mi"
-      ],
+      "accessibility": ["mi"],
       "updatedAt": "2019-02-22T15:51:23.000Z",
       "range": {
         "fr": "7 - 9 juin",
@@ -658,7 +654,7 @@
         "name": "Le jardin aux oiseaux",
         "slug": "le-jardin-aux-oiseaux318_7694_13238_17900",
         "address": "5 allée de Gorceix, 87270 Couzeix, Haute-Vienne, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location75573405.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location75573405.jpg",
         "imageCredits": "© R. Mazerolas",
         "postalCode": "87270",
         "city": "Couzeix",
@@ -784,16 +780,14 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/3e5dd1311d2d468d9efe613498fb8a04.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/3e5dd1311d2d468d9efe613498fb8a04.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/3e5dd1311d2d468d9efe613498fb8a04.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/3e5dd1311d2d468d9efe613498fb8a04.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/3e5dd1311d2d468d9efe613498fb8a04.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/3e5dd1311d2d468d9efe613498fb8a04.full.image.jpg",
       "age": {
         "min": 5,
         "max": 12
       },
-      "accessibility": [
-        "mi"
-      ],
+      "accessibility": ["mi"],
       "updatedAt": "2019-02-21T08:54:50.000Z",
       "range": {
         "fr": "Vendredi 7 juin, 09h00, 10h00, 14h00, 15h00",
@@ -842,7 +836,7 @@
         "name": "Parc Bordelais",
         "slug": "parc-bordelais958_7694_13238_17900",
         "address": "Rue du Bocage, 33000 Bordeaux, Gironde, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location24054820.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location24054820.jpg",
         "imageCredits": "© Ville de Bordeaux",
         "postalCode": null,
         "city": "Bordeaux",
@@ -968,9 +962,9 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/d29d9a3b57e04eedb81952f8bd6c2043.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/evtbd29d9a3b57e04eedb81952f8bd6c2043.base.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/evfd29d9a3b57e04eedb81952f8bd6c2043.base.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/d29d9a3b57e04eedb81952f8bd6c2043.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtbd29d9a3b57e04eedb81952f8bd6c2043.base.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evfd29d9a3b57e04eedb81952f8bd6c2043.base.image.jpg",
       "age": {
         "min": 4,
         "max": 99
@@ -1022,7 +1016,7 @@
         "name": "Les Bucoliques",
         "slug": "les-bucoliques453_7694_13238_17900",
         "address": "5 rue de la Ballonnière, 86490 Beaumont Saint-Cyr, Vienne, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location10598932.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location10598932.jpg",
         "imageCredits": "© Laurent Vieillefault",
         "postalCode": "86490",
         "city": "Beaumont",
@@ -1144,9 +1138,9 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/ce5ea5ecf5db4335a8f8eb1bd6fe6357.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/ce5ea5ecf5db4335a8f8eb1bd6fe6357.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/ce5ea5ecf5db4335a8f8eb1bd6fe6357.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/ce5ea5ecf5db4335a8f8eb1bd6fe6357.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/ce5ea5ecf5db4335a8f8eb1bd6fe6357.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/ce5ea5ecf5db4335a8f8eb1bd6fe6357.full.image.jpg",
       "age": {
         "min": 0,
         "max": 99
@@ -1196,7 +1190,7 @@
         "name": "Le jardin de vie",
         "slug": "le-jardin-de-vie33_7694_13238_17900",
         "address": "École maternelle - 34 rue de l'Ancienne Forge, 17520 Celles, Charente-Maritime, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location1631806.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location1631806.jpg",
         "imageCredits": "© Jardin de vie",
         "postalCode": "17520",
         "city": "Celles",
@@ -1375,7 +1369,7 @@
         "name": "Jardin public Ferdinand Villard",
         "slug": "jardin-public-ferdinand-villard690_7694_13238_17900",
         "address": "Musée d'Art et Archéologie, Avenue de la Sénatorerie, Guéret, Creuse, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location62398027.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location62398027.jpg",
         "imageCredits": "© Guéret, musée d'art et d'archéologie",
         "postalCode": "23000",
         "city": "Guéret",
@@ -1520,9 +1514,9 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/6adb8d0a950c4fb2a546b57187a9d7ac.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/6adb8d0a950c4fb2a546b57187a9d7ac.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/6adb8d0a950c4fb2a546b57187a9d7ac.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/6adb8d0a950c4fb2a546b57187a9d7ac.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/6adb8d0a950c4fb2a546b57187a9d7ac.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/6adb8d0a950c4fb2a546b57187a9d7ac.full.image.jpg",
       "age": null,
       "accessibility": [],
       "updatedAt": "2019-02-18T10:28:53.000Z",
@@ -1581,7 +1575,7 @@
         "name": "Le jardin de Badoris",
         "slug": "le-jardin-de-badoris84_7694_13238_17900",
         "address": "51 Route de Badoris, Fléac, Charente, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location61243660.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location61243660.jpg",
         "imageCredits": "DRAC SB.",
         "postalCode": "16730",
         "city": "Fléac",
@@ -1694,9 +1688,9 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/33beeb90ce68438f96be052462a4069b.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/evtb33beeb90ce68438f96be052462a4069b.base.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/evf33beeb90ce68438f96be052462a4069b.base.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/33beeb90ce68438f96be052462a4069b.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtb33beeb90ce68438f96be052462a4069b.base.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evf33beeb90ce68438f96be052462a4069b.base.image.jpg",
       "age": null,
       "accessibility": [],
       "updatedAt": "2019-01-23T11:22:01.000Z",
@@ -1757,7 +1751,7 @@
         "name": "Le jardin de Chalonne",
         "slug": "le-jardin-de-chalonne443_7694_13238_17900",
         "address": "415 Route de Vars - Chalonne, 16160 Gond-Pontouvre, Charente, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location83928162.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location83928162.jpg",
         "imageCredits": "© Propriétaire",
         "postalCode": "16160",
         "city": "Gond-Pontouvre",
@@ -1868,16 +1862,14 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/a607e5cfa55f40e7974c47f8ba8528f0.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/a607e5cfa55f40e7974c47f8ba8528f0.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/a607e5cfa55f40e7974c47f8ba8528f0.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/a607e5cfa55f40e7974c47f8ba8528f0.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/a607e5cfa55f40e7974c47f8ba8528f0.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/a607e5cfa55f40e7974c47f8ba8528f0.full.image.jpg",
       "age": {
         "min": 7,
         "max": 12
       },
-      "accessibility": [
-        "mi"
-      ],
+      "accessibility": ["mi"],
       "updatedAt": "2019-02-21T08:50:27.000Z",
       "range": {
         "fr": "Vendredi 7 juin, 09h00, 10h00, 14h00, 15h00",
@@ -1926,7 +1918,7 @@
         "name": "Parc Rivière",
         "slug": "parc-riviere422_7694_13238_17900",
         "address": "174 rue Mandron, 33000, Bordeaux, Gironde, Nouvelle-Aquitaine, France",
-        "image": "//cibul.s3.amazonaws.com/location53018953.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location53018953.jpg",
         "imageCredits": "© Ville de Bordeaux",
         "postalCode": "33300",
         "city": "Bordeaux",
@@ -2047,28 +2039,19 @@
         "fr": "Une promenade pour partager le goût du jardin japonais, avec un commentaire parfois technique, parfois \"philosophique\", pour comprendre l'histoire, l’évolution, la symbolique de ce type de jardin.\n\nSelon l'intérêt du groupe, certains aspects pourront être abordés :\n\n*   la formation d'un arbre en taille nuage (Niwaki),\n*   les techniques du bonsaï,\n*   les symboles de la culture Japonaise."
       },
       "keywords": {
-        "fr": [
-          "Japonais",
-          "Niwaki",
-          "Bonsaï",
-          "Torii",
-          "Zen"
-        ]
+        "fr": ["Japonais", "Niwaki", "Bonsaï", "Torii", "Zen"]
       },
       "html": {
         "fr": "<p>Une promenade pour partager le goût du jardin japonais, avec un commentaire parfois technique, parfois &quot;philosophique&quot;, pour comprendre l&#39;histoire, l’évolution, la symbolique de ce type de jardin.</p>\n<p>Selon l&#39;intérêt du groupe, certains aspects pourront être abordés :</p>\n<ul>\n<li>la formation d&#39;un arbre en taille nuage (Niwaki),</li>\n<li>les techniques du bonsaï,</li>\n<li>les symboles de la culture Japonaise.</li>\n</ul>"
       },
-      "image": "https://cibul.s3.amazonaws.com/event_visite-commentee-de-mon-jardin-zen_780460.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/evtbevent_visite-commentee-de-mon-jardin-zen_780460.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/evfevent_visite-commentee-de-mon-jardin-zen_780460.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/event_visite-commentee-de-mon-jardin-zen_780460.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtbevent_visite-commentee-de-mon-jardin-zen_780460.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evfevent_visite-commentee-de-mon-jardin-zen_780460.jpg",
       "age": {
         "min": 15,
         "max": 99
       },
-      "accessibility": [
-        "hi",
-        "sl"
-      ],
+      "accessibility": ["hi", "sl"],
       "updatedAt": "2019-02-20T13:07:36.000Z",
       "range": {
         "fr": "7 - 9 juin",
@@ -2127,7 +2110,7 @@
         "name": "Mon jardin zen",
         "slug": "86140",
         "address": "60 la Coue 86140 Lencloître",
-        "image": "//cibul.s3.amazonaws.com/location26141148.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location26141148.jpg",
         "imageCredits": "libre de lecence",
         "postalCode": "86140",
         "city": "Lencloître",
@@ -2238,9 +2221,9 @@
       "html": {
         "fr": "<p>Les jardins du gué constituent un parc de 4 ha, au bord d&#39;une rivière, dans lequel vous pourrez découvrir le nouvel espace créé en 2018 : le calendrier républicain. En effet, pendant la Révolution Française, un nouveau calendrier avait été institué dans lequel tous les saints avaient été remplacés par des noms de plantes, d&#39;outils ou d&#39;animaux de la vie rurale. C&#39;est ce que nous avons reconstitué et que nous vous invitons à venir découvrir à l&#39;occasion des rendez-vous aux jardins 2019, dans une réalisation unique au monde.</p>"
       },
-      "image": "https://cibul.s3.amazonaws.com/0cb5874f4ad646629da66a0207dceeb6.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/evtb0cb5874f4ad646629da66a0207dceeb6.base.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/evf0cb5874f4ad646629da66a0207dceeb6.base.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/0cb5874f4ad646629da66a0207dceeb6.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtb0cb5874f4ad646629da66a0207dceeb6.base.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evf0cb5874f4ad646629da66a0207dceeb6.base.image.jpg",
       "age": {
         "min": 0,
         "max": 99
@@ -2304,7 +2287,7 @@
         "name": "Les jardins du Gué",
         "slug": "les-jardins-du-gue_7694_13238_17900",
         "address": "Lieu-dit Le Gué de Flais, 79390 Lhoumois, Deux-Sèvres, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location33757470.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location33757470.jpg",
         "imageCredits": "© Bernard Merlet Les Jardins du Gué",
         "postalCode": "79390",
         "city": "Lhoumois",
@@ -2328,9 +2311,7 @@
         },
         "countryCode": "fr",
         "website": "http://www.jardinsdugue.eu",
-        "links": [
-          "https://www.facebook.com/jardinsdugue/"
-        ],
+        "links": ["https://www.facebook.com/jardinsdugue/"],
         "insee": null,
         "phone": "05 49 69 88 52",
         "tags": [
@@ -2456,9 +2437,7 @@
         "min": 18,
         "max": 99
       },
-      "accessibility": [
-        "mi"
-      ],
+      "accessibility": ["mi"],
       "updatedAt": "2019-03-04T09:32:52.000Z",
       "range": {
         "fr": "7 - 9 juin",
@@ -2502,7 +2481,7 @@
         "name": "Le jardin raconté",
         "slug": "le-jardin-raconte720_7694_13238_17900",
         "address": "Le Peuch, 19100 Brive-la-Gaillarde, Corrèze, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location80636277.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location80636277.jpg",
         "imageCredits": "© Jean-Jacques Champ",
         "postalCode": "19100",
         "city": "Brive-la-Gaillarde",
@@ -2611,9 +2590,9 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/fa280bbbb7264fe199e7ba3570fa252b.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/fa280bbbb7264fe199e7ba3570fa252b.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/fa280bbbb7264fe199e7ba3570fa252b.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/fa280bbbb7264fe199e7ba3570fa252b.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/fa280bbbb7264fe199e7ba3570fa252b.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/fa280bbbb7264fe199e7ba3570fa252b.full.image.jpg",
       "age": null,
       "accessibility": [],
       "updatedAt": "2019-02-18T12:32:16.000Z",
@@ -2660,7 +2639,7 @@
         "name": "Jardin médiéval",
         "slug": "jardin-medieval220_7694_13238_17900",
         "address": "21 route de Saint-Palais, 17200 Saint-Sulpice-de-Royan, Charente-Maritime, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location79747718.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location79747718.jpg",
         "imageCredits": "© DRAC - SB",
         "postalCode": "17200",
         "city": "Saint-Sulpice-de-Royan",
@@ -2782,9 +2761,9 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/cda65b659203438699c6a91f50fe2b96.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/cda65b659203438699c6a91f50fe2b96.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/cda65b659203438699c6a91f50fe2b96.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/cda65b659203438699c6a91f50fe2b96.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/cda65b659203438699c6a91f50fe2b96.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/cda65b659203438699c6a91f50fe2b96.full.image.jpg",
       "age": null,
       "accessibility": [],
       "updatedAt": "2019-02-22T13:00:07.000Z",
@@ -2843,7 +2822,7 @@
         "name": "Jardin du château de la Guyonnière",
         "slug": "jardin-de-la-guyonniere_13238_17900",
         "address": "Château de la Guyonnière , 79420 Beaulieu-sous-Parthenay, Deux-Sèvres, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location75037733.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location75037733.jpg",
         "imageCredits": "© Château de la Guyonnière",
         "postalCode": "79420",
         "city": "Beaulieu-sous-Parthenay",
@@ -2975,9 +2954,9 @@
       "html": {
         "fr": "<p>Jardin d&#39;inspiration Japonaise dans lequel des artistes exposent.</p>"
       },
-      "image": "https://cibul.s3.amazonaws.com/99444d4894714d03822f2a0816ea4ed4.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/evtb99444d4894714d03822f2a0816ea4ed4.base.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/evf99444d4894714d03822f2a0816ea4ed4.base.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/99444d4894714d03822f2a0816ea4ed4.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtb99444d4894714d03822f2a0816ea4ed4.base.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evf99444d4894714d03822f2a0816ea4ed4.base.image.jpg",
       "age": {
         "min": 0,
         "max": 99
@@ -3027,7 +3006,7 @@
         "name": "Paysages aquatiques et d'ailleurs",
         "slug": "paysages-aquatiques-et-dailleurs458_7694_13238_17900",
         "address": "241 rue du Maréchal-Leclerc, 79000 Niort, Deux-Sèvres, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location17148167.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location17148167.jpg",
         "imageCredits": "© Paysages aquatiques et d'ailleurs",
         "postalCode": "79000",
         "city": "Niort",
@@ -3134,9 +3113,9 @@
       "html": {
         "fr": "<p>Au coeur du Pays de Pompadour, sur la commune de Beyssac, le jardin est invisible de la route. Il vous faudra zigzaguer dans le hameau d&#39;Eyparsac pour prendre le chemin qui vous fera découvrir le jardin dans son écrin champêtre et bucolique.</p>\n<p>Le jardin a été conçu autour d&#39;une pépinière, en fonction des éléments naturels et de la topographie du paysage. Différentes mises en scènes de <a href=\"https://www.lesjardinsdordesa.com/catalogue.html\">plantes vivaces, d&#39;arbustes et de graminées</a>, de sculpture en osier vivant, un verger de pommiers ancien et d&#39;autres surprises attendent le visiteur.</p>\n<p>Agréé <a href=\"https://www.lesjardinsdordesa.com/jardins-pedagogiques-article-3-0-4.html\">jardin pédagogique</a> par la chambre d&#39;agriculture en 2014 et refuge LPO sur 2 ha.</p>\n<p>Vente de végétaux sur place</p>\n<p><a href=\"https://www.lesjardinsdordesa.com/\">Les jardins d&#39;ordesa</a></p>"
       },
-      "image": "https://cibul.s3.amazonaws.com/1068eb5e44db4e2c93366cc83403c2ee.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/1068eb5e44db4e2c93366cc83403c2ee.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/1068eb5e44db4e2c93366cc83403c2ee.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/1068eb5e44db4e2c93366cc83403c2ee.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/1068eb5e44db4e2c93366cc83403c2ee.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/1068eb5e44db4e2c93366cc83403c2ee.full.image.jpg",
       "age": {
         "min": 1,
         "max": 99
@@ -3186,7 +3165,7 @@
         "name": "Les jardins d'Ordesa",
         "slug": "les-jardins-dordesa_7694_13238_17900",
         "address": "Eyparsac, 19230 Beyssac, Corrèze",
-        "image": "//cibul.s3.amazonaws.com/location7603422.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location7603422.jpg",
         "imageCredits": "© Propriétaire",
         "postalCode": "19230",
         "city": "Beyssac",
@@ -3312,9 +3291,9 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/835c75f87f324e9c8a34c9290ab3ea01.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/835c75f87f324e9c8a34c9290ab3ea01.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/835c75f87f324e9c8a34c9290ab3ea01.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/835c75f87f324e9c8a34c9290ab3ea01.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/835c75f87f324e9c8a34c9290ab3ea01.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/835c75f87f324e9c8a34c9290ab3ea01.full.image.jpg",
       "age": {
         "min": 7,
         "max": 77
@@ -3378,7 +3357,7 @@
         "name": "L'Ouche",
         "slug": "louche684_7694_13238_17900",
         "address": "Roissac - 521 rue Fontaine François 1er, 16130 Angeac-Champagne, Charente, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location93795349.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location93795349.jpg",
         "imageCredits": "© Jacques Léoty",
         "postalCode": "16130",
         "city": "Angeac-Champagne",
@@ -3487,14 +3466,11 @@
       "html": {
         "fr": null
       },
-      "image": "https://cibul.s3.amazonaws.com/9b73cd0d3cb0453dbcafacff151ca3e8.base.image.jpg",
-      "thumbnail": "https://cibul.s3.amazonaws.com/9b73cd0d3cb0453dbcafacff151ca3e8.thumb.image.jpg",
-      "originalImage": "https://cibul.s3.amazonaws.com/9b73cd0d3cb0453dbcafacff151ca3e8.full.image.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/9b73cd0d3cb0453dbcafacff151ca3e8.base.image.jpg",
+      "thumbnail": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/9b73cd0d3cb0453dbcafacff151ca3e8.thumb.image.jpg",
+      "originalImage": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/9b73cd0d3cb0453dbcafacff151ca3e8.full.image.jpg",
       "age": null,
-      "accessibility": [
-        "mi",
-        "vi"
-      ],
+      "accessibility": ["mi", "vi"],
       "updatedAt": "2019-02-06T17:11:52.000Z",
       "range": {
         "fr": "7 - 9 juin",
@@ -3553,7 +3529,7 @@
         "name": "Le Jardin des Roses",
         "slug": "jardin-des-roses262_7694_13238_17900",
         "address": "23 rue de Bellevue, 16710 Saint-Yrieix-sur-Charente, Charente, Nouvelle-Aquitaine",
-        "image": "//cibul.s3.amazonaws.com/location81569449.jpg",
+        "image": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location81569449.jpg",
         "imageCredits": "© Christian Méjeard",
         "postalCode": "16710",
         "city": "Saint-Yrieix-sur-Charente",
