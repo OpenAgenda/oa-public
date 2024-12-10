@@ -3,23 +3,34 @@ import ih from 'immutability-helper';
 import agendaFiles from './lib/agendaFiles.js';
 import defaultState from './defaultState.js';
 
-export default function App({ queue, s3 }) {
+export default function App({ queue, s3, bucketPath }) {
   const app = express();
 
   app.use(express.urlencoded({ extended: true }));
 
   app.param('agendaUid', (req, res, next, uid) => {
-    req.agendaFiles = agendaFiles({
-      s3,
-      bucket: s3.bucket,
-      uid,
-    });
+    req.agendaFiles = agendaFiles({ s3, uid });
 
     next();
   });
 
   app.get('/:agendaUid/state', async (req, res) => {
-    res.json(await req.agendaFiles.getJSON('state.json', defaultState));
+    const state = await req.agendaFiles.getJSON('state.json', defaultState);
+
+    if (state.file) {
+      if (state.file.path?.startsWith('https://')) {
+        const { pathname } = new URL(state.file.path);
+        const normalizedPrefix = bucketPath.endsWith('/')
+          ? bucketPath.slice(0, -1)
+          : bucketPath;
+
+        state.file.path = `${normalizedPrefix}${pathname}`;
+      } else {
+        state.file.path = `${bucketPath}${state.file.path}`;
+      }
+    }
+
+    res.json(state);
   });
 
   app.post('/:agendaUid/queue', async (req, res) => {

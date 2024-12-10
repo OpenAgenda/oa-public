@@ -35,7 +35,7 @@
             "type": "thumbnail"
           }
         ],
-        "base": "https://cibul.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
       },
       "imageCredits": "© Herbier Tragus - Bibliothèque de Caen",
       "title": {
@@ -125,7 +125,7 @@
             "type": "thumbnail"
           }
         ],
-        "base": "https://cibul.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
       },
       "imageCredits": "Antoine Cardi - 2017 - Bibliothèque de Caen",
       "title": {
