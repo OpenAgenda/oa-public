@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import Select, { components } from 'react-select';
-import { useIntl } from 'react-intl';
 import defaultSelectStyles from '../utils/defaultSelectStyles.js';
 import {
   Droppable,
@@ -37,37 +36,27 @@ function SelectContainer(props) {
   );
 }
 
-export default function FilterSelect({
-  schema,
+export default function SortableSelect({
+  options,
   value,
   onChange,
-  exclude,
   placeholder,
   disabled = false,
   menuPosition = 'absolute',
-  getFilterOptions,
-  locationOptions = undefined,
 }) {
-  const intl = useIntl();
-
   const sensors = useDragAndDropSensors();
 
-  const filterOptions = useMemo(() => {
-    if (locationOptions) {
-      return locationOptions.map((option) => ({
-        value: option.value,
-        label: intl.formatMessage(option.label),
-      }));
-    }
-    return getFilterOptions(intl, schema, exclude);
-  }, [intl, schema, exclude, locationOptions]);
+  const selectableOptions = useMemo(() => options.map((option) => ({
+    value: option.value,
+    label: option.label,
+  })), [options]);
 
   const selectedOptions = useMemo(
     () =>
       value
-        .map((name) => filterOptions.find((o) => o.value === name))
+        .map((selected) => selectableOptions.find((o) => o.value === selected))
         .filter((v) => !!v),
-    [value, filterOptions],
+    [value, selectableOptions],
   );
 
   const handleDragEnd = useHandleDragEnd(selectedOptions, onChange);
@@ -79,10 +68,9 @@ export default function FilterSelect({
         onChange={(update) => {
           onChange(update.map((o) => o.value));
         }}
-        options={filterOptions}
+        options={selectableOptions}
         isMulti
         closeMenuOnSelect
-        /* openMenuOnClick={false} */
         openMenuOnFocus
         placeholder={placeholder}
         components={{
