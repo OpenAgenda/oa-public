@@ -350,7 +350,7 @@ async function agendaEventShow(req, res) {
       agendaSlug: req.agenda.slug,
       agendaImage: req.agenda.image
         ? req.agenda.image
-        : config.aws.defaultImagePath,
+        : config.s3.defaultImagePath,
     },
     oaRoot: config.root,
     agendaId: req.agenda.id,

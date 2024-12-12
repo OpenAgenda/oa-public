@@ -3,7 +3,7 @@ import { rss } from '@openagenda/flat-exports';
 export default (core) => async (req, res, next) => {
   const {
     root,
-    aws: { imageBucketPath },
+    s3: { mainBucketPath },
   } = core.getConfig();
 
   try {
@@ -27,7 +27,7 @@ export default (core) => async (req, res, next) => {
       description: agenda.description,
       feedURL: root + req.originalUrl,
       siteURL: root,
-      imageURL: agenda.image ? `${imageBucketPath}${agenda.image}` : null,
+      imageURL: agenda.image ? `${mainBucketPath}${agenda.image}` : null,
       language: req.lang,
       pubDate: agenda.updatedAt,
     };

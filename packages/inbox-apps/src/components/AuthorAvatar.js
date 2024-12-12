@@ -14,9 +14,7 @@ export default function AuthorAvatar({ author: { inboxUser, inbox }, inline }) {
       <>
         <Image
           src={inboxUser.avatar}
-          fallbackSrc={
-            isDev ? inboxUser.avatar.replace('cibuldev', 'cibul') : null
-          }
+          fallbackSrc={isDev ? inboxUser.avatar.replace('dev', 'main') : null}
           className={imgClasses}
           title={inboxUser.name}
         />
@@ -24,9 +22,7 @@ export default function AuthorAvatar({ author: { inboxUser, inbox }, inline }) {
         {!inline && inbox && inbox.avatar && inbox.type !== 'user' ? (
           <Image
             src={inbox.avatar}
-            fallbackSrc={
-              isDev ? inbox.avatar.replace('cibuldev', 'cibul') : null
-            }
+            fallbackSrc={isDev ? inbox.avatar.replace('dev', 'main') : null}
             className={cn(imgClasses, 'belongs')}
             title={inbox.name}
           />
@@ -38,7 +34,7 @@ export default function AuthorAvatar({ author: { inboxUser, inbox }, inline }) {
   return (
     <Image
       src={inbox.avatar}
-      fallbackSrc={isDev ? inbox.avatar.replace('cibuldev', 'cibul') : null}
+      fallbackSrc={isDev ? inbox.avatar.replace('dev', 'main') : null}
       className={imgClasses}
       title={inbox.name}
     />

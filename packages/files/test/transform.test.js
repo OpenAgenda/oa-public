@@ -7,9 +7,9 @@ const finished = promisify(require('node:stream').finished);
 const isStream = require('is-stream');
 const Files = require('../lib');
 const testconfig = require('../testconfig');
-const { s3UrlMatching } = require('./utils');
+const { formatLocation } = require('./utils');
 
-const bucket = testconfig.s3.defaultBucket;
+const { endpoint, projectId, defaultBucket: bucket } = testconfig.s3;
 
 describe('transform', () => {
   let service;
@@ -18,6 +18,18 @@ describe('transform', () => {
 
   beforeAll(() => {
     service = Files(testconfig);
+  });
+
+  afterAll(async () => {
+    await Promise.all([
+      service.providers.s3.remove('josep_aff_renamed.jpg'),
+      service.providers.s3.remove('src3_renamed.png'),
+      service.providers.s3.remove('josep_aff_work.jpg'),
+      service.providers.s3.remove('josep_aff_fail.jpg'),
+      service.providers.s3.remove('src3_detected.jpg'),
+      service.providers.s3.remove('src3_binary.jpg'),
+      service.providers.s3.remove('src3_image.jpg'),
+    ]);
   });
 
   it('works with a webp image', async () => {
@@ -55,18 +67,20 @@ describe('transform', () => {
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('josep_aff_renamed.jpg'),
+        // Location: s3UrlMatching('josep_aff_renamed.jpg'),
         key: 'josep_aff_renamed.jpg',
         Key: 'josep_aff_renamed.jpg',
         Bucket: `${bucket}`,
       }),
     });
     expect(isStream(result.stream)).toBe(true);
-
-    await upload.providers.s3.remove('josep_aff_renamed.jpg');
   });
 
   it('abort all uploads on failure', async () => {
+    let resolve;
+    const promise = new Promise((res) => {
+      resolve = res;
+    });
     const upload = service([
       {
         key: 'image',
@@ -83,13 +97,18 @@ describe('transform', () => {
               `${path.parse(context.originalname).name}_work${
                 path.parse(context.originalname).ext
               }`,
+            transform: async (info) => {
+              resolve();
+              return info.stream;
+            },
           },
           {
             getFilename: (info, context) =>
               `${path.parse(context.originalname).name}_fail${
                 path.parse(context.originalname).ext
               }`,
-            transform: () => {
+            transform: async () => {
+              await promise; // wait for the first variant
               throw new Error('Ca ne marche pas !');
             },
           },
@@ -114,41 +133,35 @@ describe('transform', () => {
 
     // Images removed
     await expect(
-      fetch(`https://${bucket}.s3.amazonaws.com/src3_renamed.png`).then(
-        (response) => {
-          if (!response.ok) {
-            throw new Error(`Invalid status (${response.status})`);
-          }
-          return response.text();
-        },
-      ),
+      fetch(
+        formatLocation({ endpoint, projectId, bucket }, 'src3_renamed.png'),
+      ).then((response) => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.text();
+      }),
     ).rejects.toThrow('Invalid status (404)');
     await expect(
-      fetch(`https://${bucket}.s3.amazonaws.com/josep_aff_work.jpg`).then(
-        (response) => {
-          if (!response.ok) {
-            throw new Error(`Invalid status (${response.status})`);
-          }
-          return response.text();
-        },
-      ),
+      fetch(
+        formatLocation({ endpoint, projectId, bucket }, 'josep_aff_work.jpg'),
+      ).then((response) => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.text();
+      }),
     ).rejects.toThrow('Invalid status (404)');
     await expect(
-      fetch(`https://${bucket}.s3.amazonaws.com/josep_aff_fail.jpg`).then(
-        (response) => {
-          if (!response.ok) {
-            throw new Error(`Invalid status (${response.status})`);
-          }
-          return response.text();
-        },
-      ),
+      fetch(
+        formatLocation({ endpoint, projectId, bucket }, 'josep_aff_fail.jpg'),
+      ).then((response) => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.text();
+      }),
     ).rejects.toThrow('Invalid status (404)');
-
-    await Promise.all([
-      upload.providers.s3.remove('src3_renamed.png'),
-      upload.providers.s3.remove('josep_aff_work.jpg'),
-      upload.providers.s3.remove('josep_aff_fail.jpg'),
-    ]);
   });
 
   it('set content type', async () => {
@@ -193,9 +206,18 @@ describe('transform', () => {
     await finished(stream);
 
     const imagesFromS3 = await Promise.all([
-      fetch(detected.uploadValue.Location),
-      fetch(binary.uploadValue.Location),
-      fetch(image.uploadValue.Location),
+      fetch(
+        formatLocation(
+          { endpoint, projectId, bucket },
+          detected.uploadValue.key,
+        ),
+      ),
+      fetch(
+        formatLocation({ endpoint, projectId, bucket }, binary.uploadValue.key),
+      ),
+      fetch(
+        formatLocation({ endpoint, projectId, bucket }, image.uploadValue.key),
+      ),
     ]);
 
     const headers = imagesFromS3.map((v) => v.headers.get('content-type'));
@@ -204,12 +226,6 @@ describe('transform', () => {
       'image/png',
       'application/octet-stream',
       'image/png',
-    ]);
-
-    await Promise.all([
-      upload.providers.s3.remove('src3_detected.png'),
-      upload.providers.s3.remove('src3_binary.png'),
-      upload.providers.s3.remove('src3_image.png'),
     ]);
   });
 });

@@ -277,6 +277,8 @@ const initialState = async (req) => {
           create: '/home/inbox/conversations/:conversationId/messages.json',
           prepareAttachment:
             '/home/inbox/conversations/:conversationId/prepare-attachment',
+          uploadAttachment:
+            '/home/inbox/conversations/:conversationId/upload-attachment',
           addAttachment:
             '/home/inbox/conversations/:conversationId/add-attachment',
         },
@@ -315,6 +317,8 @@ const initialState = async (req) => {
           create: '/home/inbox/conversations/:conversationId/messages.json',
           prepareAttachment:
             '/home/inbox/conversations/:conversationId/prepare-attachment',
+          uploadAttachment:
+            '/home/inbox/conversations/:conversationId/upload-attachment',
           addAttachment:
             '/home/inbox/conversations/:conversationId/add-attachment',
         },
@@ -347,6 +351,8 @@ const initialState = async (req) => {
             '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
           prepareAttachment:
             '/home/inbox/conversations/:conversationId/prepare-attachment',
+          uploadAttachment:
+            '/home/inbox/conversations/:conversationId/upload-attachment',
           addAttachment:
             '/agendas/:agendaUid/inbox/conversations/:conversationId/add-attachment',
         },
@@ -430,7 +436,7 @@ const initialState = async (req) => {
         maxSize: config.maxFileSize,
         store: {
           type: 's3',
-          bucket: config.aws.bucket,
+          bucket: config.s3.bucket,
         },
       },
       tiles: config.tiles,
@@ -539,6 +545,8 @@ const initialState = async (req) => {
           create: '/admin/support/conversations/:conversationId/messages.json',
           prepareAttachment:
             '/admin/support/conversations/:conversationId/prepare-attachment',
+          uploadAttachment:
+            '/admin/support/conversations/:conversationId/upload-attachment',
           addAttachment:
             '/admin/support/conversations/:conversationId/add-attachment',
         },

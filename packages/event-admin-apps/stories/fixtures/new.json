@@ -31,7 +31,7 @@
       "timezone": "Europe/Paris",
       "originAgenda": {
         "uid": 79882300,
-        "image": "https://cibuldev.s3.amazonaws.com/agenda79882300.jpg?__ts=1607621475885",
+        "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda79882300.jpg?__ts=1607621475885",
         "title": "Morbihan test"
       },
       "description": {
@@ -443,7 +443,7 @@
         "originalName": null,
         "extension": null,
         "filename": "f5d2778709a243f38224b4b28244aabc.base.image.jpg",
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -598,7 +598,7 @@
             "type": "thumbnail"
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -730,7 +730,7 @@
           "height": null
         },
         "variants": [],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -860,7 +860,7 @@
           "height": null
         },
         "variants": [],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -998,7 +998,7 @@
           "height": null
         },
         "variants": [],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -1128,7 +1128,7 @@
           "height": null
         },
         "variants": [],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -1389,7 +1389,7 @@
           "height": null
         },
         "variants": [],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -1519,7 +1519,7 @@
           "height": null
         },
         "variants": [],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -1653,7 +1653,7 @@
           "height": null
         },
         "variants": [],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -1795,7 +1795,7 @@
           "height": null
         },
         "variants": [],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "attendanceMode": 1,
       "sourceAgendas": [],
@@ -1953,7 +1953,7 @@
         "agenda": {
           "uid": 79882300,
           "title": "Morbihan test",
-          "image": "https://cibuldev.s3.amazonaws.com/agenda79882300.jpg?__ts=1607621475885"
+          "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda79882300.jpg?__ts=1607621475885"
         },
         "eventCount": 1
       },

@@ -4,7 +4,7 @@ export default {
   _,
   root: 'https://d.openagenda.com',
   logo: {
-    src: 'https://cibuldev.s3.amazonaws.com/rwtbagenda43032271.jpg',
+    src: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/rwtbagenda43032271.jpg',
     width: '100px',
   },
   link: 'https://d.openagenda.com/signin',

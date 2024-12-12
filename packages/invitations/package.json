@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/invitations.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/invitations#readme",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/invitations",
   "dependencies": {
     "@openagenda/logs": "^1.1.2",
     "@openagenda/mysql-utils": "^2.0.4",

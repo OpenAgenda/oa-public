@@ -168,7 +168,7 @@ class ConversationCreate extends Component {
               initialValues={initialValues}
               Wrapper={this.FormWrapper}
               onSubmit={(values) => createConversation(values, agenda)}
-              uploadEndpoint={res.messages.prepareAttachment.replace(
+              uploadEndpoint={res.messages.uploadAttachment.replace(
                 ':agendaUid',
                 agenda && agenda.uid,
               )}
@@ -194,8 +194,7 @@ class ConversationCreate extends Component {
                   }
                 }
               }}
-              onFileUploaded={(...args) =>
-                attachFileToMessage(...args, agenda)}
+              onFileUploaded={attachFileToMessage}
               autoFocus={settings.autoFocus}
             />
           </div>

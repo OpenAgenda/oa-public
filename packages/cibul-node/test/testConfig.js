@@ -20,12 +20,14 @@ const testConfig = {
   schemas: schemaNames,
   tmpFolderPath: '/var/tmp/',
   imageSizeLimits: [2000, 30000000],
-  aws: {
-    bucket: process.env.AWS_TEST_BUCKET,
-    accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
+  s3: {
+    endpoint: process.env.S3_DEV_ENDPOINT,
+    accessKeyId: process.env.S3_DEV_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_DEV_SECRET_ACCESS_KEY,
+    region: process.env.S3_DEV_REGION,
+    bucket: process.env.S3_TEST_BUCKET,
+    mainBucketPath: process.env.S3_TEST_MAIN_PATH,
     defaultImagePath: process.env.OA_DEFAULT_IMAGE_PATH,
-    imageBucketPath: 'https://openagendatest.s3.amazonaws.com/',
   },
   logger: {
     prefix: 'oa:',

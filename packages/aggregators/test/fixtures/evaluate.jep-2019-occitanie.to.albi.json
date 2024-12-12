@@ -32,7 +32,7 @@
           "width": null
         },
         "variants": [],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -103,7 +103,7 @@
       "createdAt": "2019-04-29T15:25:48.000Z",
       "formSchemaId": 10088,
       "officializedAt": null,
-      "image": "https://cibuldev.s3.amazonaws.com/agenda57978981.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda57978981.jpg",
       "private": 0,
       "indexed": 1,
       "credentials": {
@@ -2508,7 +2508,7 @@
         "width": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
     },
     "draft": 0,
     "private": 0,
@@ -2606,7 +2606,7 @@
         "width": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
     },
     "draft": 0,
     "private": 0,

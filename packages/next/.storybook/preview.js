@@ -17,8 +17,11 @@ initialize({
 
     if (sameOrigin && url.pathname.startsWith('/static')) return;
 
-    if (url.hostname === 'cibul.s3.amazonaws.com') return;
-    if (url.hostname === 'cibuldev.s3.amazonaws.com') return;
+    if (
+      url.hostname ===
+      '02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud'
+    )
+      return;
 
     print.warning();
   },

@@ -143,6 +143,7 @@ export default Object.assign(
     filesMw.init({
       tmpFolder: config.tmpFolder,
       s3: config.s3,
+      imagePath: config.imagePath,
     });
 
     const svc = {

@@ -934,9 +934,7 @@
           },
           "optionalWith": null,
           "related": {
-            "enable": [
-              "type-devenement"
-            ],
+            "enable": ["type-devenement"],
             "optional": []
           },
           "selfHandled": [],
@@ -1539,14 +1537,8 @@
                 "field": "uid",
                 "fieldType": "integer",
                 "optional": false,
-                "read": [
-                  "internal",
-                  "public",
-                  "list"
-                ],
-                "write": [
-                  "internal"
-                ],
+                "read": ["internal", "public", "list"],
+                "write": ["internal"],
                 "label": {
                   "en": "Id",
                   "fr": "Identifiant",
@@ -1560,25 +1552,15 @@
                 "fieldType": "integer",
                 "optional": true,
                 "default": null,
-                "read": [
-                  "internal",
-                  "public"
-                ],
-                "write": [
-                  "internal"
-                ]
+                "read": ["internal", "public"],
+                "write": ["internal"]
               },
               {
                 "field": "slug",
                 "fieldType": "text",
                 "optional": false,
-                "read": [
-                  "internal",
-                  "public"
-                ],
-                "write": [
-                  "internal"
-                ],
+                "read": ["internal", "public"],
+                "write": ["internal"],
                 "max": 100
               },
               {
@@ -2015,10 +1997,7 @@
                 "field": "timezone",
                 "optional": true,
                 "fieldType": "text",
-                "read": [
-                  "internal",
-                  "public"
-                ],
+                "read": ["internal", "public"],
                 "write": [
                   "internal",
                   "administrator",
@@ -2030,25 +2009,15 @@
                 "field": "updatedAt",
                 "optional": false,
                 "fieldType": "date",
-                "read": [
-                  "internal",
-                  "public"
-                ],
-                "write": [
-                  "internal"
-                ]
+                "read": ["internal", "public"],
+                "write": ["internal"]
               },
               {
                 "field": "createdAt",
                 "optional": false,
                 "fieldfieldType": "date",
-                "read": [
-                  "internal",
-                  "public"
-                ],
-                "write": [
-                  "internal"
-                ]
+                "read": ["internal", "public"],
+                "write": ["internal"]
               },
               {
                 "field": "image",
@@ -2247,10 +2216,7 @@
                   "contributor"
                 ],
                 "default": 0,
-                "options": [
-                  0,
-                  1
-                ]
+                "options": [0, 1]
               },
               {
                 "field": "imageCredits",
@@ -2275,10 +2241,7 @@
                 "field": "imageRightsAreHeld",
                 "optional": true,
                 "fieldType": "text",
-                "read": [
-                  "internal",
-                  "public"
-                ],
+                "read": ["internal", "public"],
                 "write": [
                   "internal",
                   "administrator",
@@ -2291,10 +2254,7 @@
                 "field": "extId",
                 "optional": true,
                 "fieldType": "text",
-                "read": [
-                  "internal",
-                  "public"
-                ],
+                "read": ["internal", "public"],
                 "write": [
                   "internal",
                   "administrator",
@@ -2310,14 +2270,8 @@
                 },
                 "default": null,
                 "optional": true,
-                "read": [
-                  "internal",
-                  "public"
-                ],
-                "write": [
-                  "internal",
-                  "contributor"
-                ]
+                "read": ["internal", "public"],
+                "write": ["internal", "contributor"]
               },
               {
                 "field": "disqualifiedDuplicates",
@@ -2327,27 +2281,16 @@
                 },
                 "default": null,
                 "optional": true,
-                "read": [
-                  "internal",
-                  "public"
-                ],
-                "write": [
-                  "internal",
-                  "contributor"
-                ]
+                "read": ["internal", "public"],
+                "write": ["internal", "contributor"]
               },
               {
                 "field": "mergedIn",
                 "fieldType": "integer",
                 "optional": true,
                 "default": null,
-                "read": [
-                  "internal",
-                  "public"
-                ],
-                "write": [
-                  "internal"
-                ]
+                "read": ["internal", "public"],
+                "write": ["internal"]
               }
             ],
             "schemaId": "location"
@@ -2543,9 +2486,7 @@
           },
           "optionalWith": null,
           "related": {
-            "enable": [
-              "type-de-structure"
-            ],
+            "enable": ["type-de-structure"],
             "optional": []
           },
           "selfHandled": [],
@@ -2971,16 +2912,8 @@
           "info": null,
           "sub": null,
           "placeholder": null,
-          "write": [
-            "contributor",
-            "moderator",
-            "administrator"
-          ],
-          "read": [
-            "contributor",
-            "moderator",
-            "administrator"
-          ],
+          "write": ["contributor", "moderator", "administrator"],
+          "read": ["contributor", "moderator", "administrator"],
           "optional": false,
           "display": true,
           "enable": true,
@@ -3027,16 +2960,8 @@
           "info": null,
           "sub": null,
           "placeholder": null,
-          "write": [
-            "contributor",
-            "moderator",
-            "administrator"
-          ],
-          "read": [
-            "contributor",
-            "moderator",
-            "administrator"
-          ],
+          "write": ["contributor", "moderator", "administrator"],
+          "read": ["contributor", "moderator", "administrator"],
           "optional": true,
           "display": true,
           "enable": true,
@@ -3506,9 +3431,7 @@
     },
     "souhaitez-vous-recevoir-des-affiches-des-jna": 175,
     "thematiques-de-votre-evenement-pour-les-jnagri-etou-votre-filiere-animation-de-decouverte-des-metiers": [
-      59,
-      55,
-      62
+      59, 55, 62
     ],
     "dateRange": {
       "ar": "الجمعة ١٦ يونيو, 09:00",
@@ -3593,15 +3516,13 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
     },
     "condition-de-participation": 64,
     "attendanceMode": 1,
     "sourceAgendas": [],
     "creatorUid": 84874273,
-    "type-de-public": [
-      29
-    ],
+    "type-de-public": [29],
     "par-quelle-compagnie-etes-vous-assures": "PNAS Assurances",
     "renseignements-": "http://www.caritas-alsace.org",
     "registration": [

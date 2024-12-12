@@ -3,6 +3,8 @@ import _ from 'lodash';
 import { NotFound } from '@openagenda/verror';
 import unserialize from 'locutus/php/var/unserialize.js';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const redirectTemplate = _.template(
   readFileSync(`${import.meta.dirname}/redirect.tpl`, 'utf-8'),
 );
@@ -43,11 +45,10 @@ function loadFacebookMetas(config, req, res, next) {
   ];
 
   if (_.get(req, 'event.image.filename')) {
+    const imageUrl = req.event.image.base + req.event.image.filename;
     req.metas.push({
       property: 'og:image',
-      content:
-        _.get(req, 'event.image.base').replace('cibuldev', 'cibul')
-        + _.get(req, 'event.image.filename'),
+      content: isDev ? imageUrl.replace('dev', 'main') : imageUrl,
     });
   }
 

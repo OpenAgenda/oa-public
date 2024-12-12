@@ -22,7 +22,7 @@ export default async function getUsersDetails(services, usersToBeDetailed) {
     uid: user.uid,
     name: user.fullName,
     avatar: user.image
-      ? config.aws.imageBucketPath + user.image
-      : config.aws.defaultImagePath,
+      ? config.s3.mainBucketPath + user.image
+      : config.s3.defaultImagePath,
   }));
 }

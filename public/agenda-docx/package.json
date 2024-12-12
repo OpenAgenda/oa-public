@@ -18,10 +18,11 @@
     "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.705.0",
+    "@aws-sdk/lib-storage": "^3.705.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/verror": "^3.1.0",
     "angular-expressions": "^0.3.0",
-    "aws-sdk": "^2.1440.0",
     "date-fns": "^1.29.0",
     "docxtemplater": "^3.44.0",
     "express": "^4.17.1",

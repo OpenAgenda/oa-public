@@ -1117,7 +1117,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -1168,7 +1168,7 @@
       "email": null,
       "longitude": 3.148595,
       "updatedAt": "2021-07-16T17:55:28.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location8000280.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location8000280.jpg",
       "website": "http://www.musee-lam.fr",
       "address": "1 allée du Musée, VIlleneuve-d'Ascq",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -1798,7 +1798,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -1849,7 +1849,7 @@
       "email": null,
       "longitude": 3.148595,
       "updatedAt": "2021-07-16T17:55:28.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location8000280.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location8000280.jpg",
       "website": "http://www.musee-lam.fr",
       "address": "1 allée du Musée, VIlleneuve-d'Ascq",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -2359,7 +2359,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -2410,7 +2410,7 @@
       "email": null,
       "longitude": 3.148595,
       "updatedAt": "2021-07-16T17:55:28.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location8000280.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location8000280.jpg",
       "website": "http://www.musee-lam.fr",
       "address": "1 allée du Musée, VIlleneuve-d'Ascq",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -3280,7 +3280,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -3346,7 +3346,7 @@
       "email": "contact@musee-bataille-fromelles.fr",
       "longitude": 2.849276,
       "updatedAt": "2034-06-11T12:39:41.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location50456979.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location50456979.jpg",
       "website": "https://www.musee-bataille-fromelles.fr",
       "address": "Rue de la Basse Ville, 59249 Fromelles",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -3714,7 +3714,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -4136,7 +4136,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -5629,7 +5629,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -5680,7 +5680,7 @@
       "email": null,
       "longitude": 3.148595,
       "updatedAt": "2021-07-16T17:55:28.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location8000280.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location8000280.jpg",
       "website": "http://www.musee-lam.fr",
       "address": "1 allée du Musée, VIlleneuve-d'Ascq",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -6213,7 +6213,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -6409,7 +6409,7 @@
       "email": null,
       "longitude": 3.167645,
       "updatedAt": "2022-05-17T09:45:52.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location37923057.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location37923057.jpg",
       "website": "http://www.roubaix-lapiscine.com/",
       "address": "23 rue de l'Espérance, Roubaix",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -6562,7 +6562,7 @@
       "email": null,
       "longitude": 3.167645,
       "updatedAt": "2022-05-17T09:45:52.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location37923057.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location37923057.jpg",
       "website": "http://www.roubaix-lapiscine.com/",
       "address": "23 rue de l'Espérance, Roubaix",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -6693,7 +6693,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -6755,7 +6755,7 @@
       "email": "contact@musee-bataille-fromelles.fr",
       "longitude": 2.849276,
       "updatedAt": "2034-06-11T12:39:41.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location50456979.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location50456979.jpg",
       "website": "https://www.musee-bataille-fromelles.fr",
       "address": "Rue de la Basse Ville, 59249 Fromelles",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -6877,7 +6877,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -6934,7 +6934,7 @@
       "email": null,
       "longitude": 3.167645,
       "updatedAt": "2022-05-17T09:45:52.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location37923057.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location37923057.jpg",
       "website": "http://www.roubaix-lapiscine.com/",
       "address": "23 rue de l'Espérance, Roubaix",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -7056,7 +7056,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -7118,7 +7118,7 @@
       "email": null,
       "longitude": 3.167645,
       "updatedAt": "2022-05-17T09:45:52.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location37923057.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location37923057.jpg",
       "website": "http://www.roubaix-lapiscine.com/",
       "address": "23 rue de l'Espérance, Roubaix",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -7238,7 +7238,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -7413,7 +7413,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -7470,7 +7470,7 @@
       "email": null,
       "longitude": 3.167645,
       "updatedAt": "2022-05-17T09:45:52.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location37923057.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location37923057.jpg",
       "website": "http://www.roubaix-lapiscine.com/",
       "address": "23 rue de l'Espérance, Roubaix",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -7590,7 +7590,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -7747,7 +7747,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -7804,7 +7804,7 @@
       "email": null,
       "longitude": 3.167645,
       "updatedAt": "2022-05-17T09:45:52.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location37923057.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location37923057.jpg",
       "website": "http://www.roubaix-lapiscine.com/",
       "address": "23 rue de l'Espérance, Roubaix",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -7926,7 +7926,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -7988,7 +7988,7 @@
       "email": null,
       "longitude": 3.167645,
       "updatedAt": "2022-05-17T09:45:52.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location37923057.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location37923057.jpg",
       "website": "http://www.roubaix-lapiscine.com/",
       "address": "23 rue de l'Espérance, Roubaix",
       "adminLevel3": "Métropole Européenne de Lille",
@@ -8108,7 +8108,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -8159,7 +8159,7 @@
       "email": "communicationpba@mairie-lille.fr",
       "longitude": 1.439745,
       "updatedAt": "2021-12-30T09:37:47.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location62596767.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location62596767.jpg",
       "website": null,
       "address": "18bis rue de Valmy",
       "adminLevel3": null,
@@ -8285,7 +8285,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibul.s3.amazonaws.com/"
+      "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [
@@ -8342,7 +8342,7 @@
       "email": null,
       "longitude": 3.167645,
       "updatedAt": "2022-05-17T09:45:52.000Z",
-      "image": "https://cibul.s3.amazonaws.com/location37923057.jpg",
+      "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location37923057.jpg",
       "website": "http://www.roubaix-lapiscine.com/",
       "address": "23 rue de l'Espérance, Roubaix",
       "adminLevel3": "Métropole Européenne de Lille",

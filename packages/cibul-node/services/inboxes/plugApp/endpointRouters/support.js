@@ -133,6 +133,22 @@ export default (config, services) => {
   );
 
   router.use(
+    '/conversations/:conversationId/upload-attachment',
+    preMw,
+    inboxMw.messages.uploadAttachment({
+      files: services.files,
+      namespaces: {
+        conversationId: 'params.conversationId',
+        type: 'type',
+        identifier: 'identifier',
+        userUid: 'user.uid',
+        messageId: 'body.messageId',
+      },
+    }),
+    errorHandler,
+  );
+
+  router.use(
     '/conversations/:conversationId/add-attachment',
     preMw,
     inboxMw.messages.addAttachment({
@@ -161,7 +177,7 @@ export default (config, services) => {
         },
         fallbackGetter: () => ({
           name: req.user.name,
-          avatar: req.user.thumbnail || config.aws.defaultImagePath,
+          avatar: req.user.thumbnail || config.s3.defaultImagePath,
         }),
       })(req, res, next);
     },

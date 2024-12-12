@@ -170,9 +170,9 @@ function _addCustomFields(v) {
           ? c.value.length
           : c.value);
       } else if (c.fieldType === 'image' && c.value) {
-        v.decorated.customValues[c.name] = config.aws.imageBucketPath + c.value;
+        v.decorated.customValues[c.name] = config.s3.mainBucketPath + c.value;
       } else if (c.fieldType === 'file' && c.value) {
-        const uploaded = config.aws.imageBucketPath + c.value.uploaded;
+        const uploaded = config.s3.mainBucketPath + c.value.uploaded;
 
         c.value.embed = `<iframe height="500" width="100%" src="${uploaded}" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`;
 

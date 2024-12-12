@@ -19,7 +19,7 @@ initialize({
     if (sameOrigin && url.pathname.startsWith('/static')) return;
 
     if (
-      ['unpkg.com', 'amazonaws.com'].filter(
+      ['unpkg.com', 'infomaniak.cloud'].filter(
         (h) => url.hostname.indexOf(h) !== -1,
       ).length
     )

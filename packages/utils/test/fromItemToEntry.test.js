@@ -137,7 +137,7 @@ describe('utils - fromItemToEntry', () => {
       }, {
         image: {
           filename: '5f9bbe1df90a43a8a059a56ad6e26c2a.base.image.jpg',
-          base: 'https://cibuldev.s3.amazonaws.com/',
+          base: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
         },
         imageCredits: null,
       });
@@ -201,11 +201,11 @@ describe('utils - fromItemToEntry', () => {
           enableWith: 'image',
         },
       ], {
-        image: '//cibuldev.s3.amazonaws.com/location36419450.jpg',
+        image: '//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/location36419450.jpg',
         imageCredits: 'me',
       });
 
-      expect(entry.store).toBe('{"image":"//cibuldev.s3.amazonaws.com/location36419450.jpg","imageCredits":"me"}');
+      expect(entry.store).toBe('{"image":"//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/location36419450.jpg","imageCredits":"me"}');
     });
 
     it('candidates && confirmedNonDuplicates- keep non changed store items', () => {

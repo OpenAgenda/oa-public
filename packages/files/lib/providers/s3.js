@@ -1,14 +1,47 @@
 'use strict';
 
-const AWS = require('aws-sdk');
+const {
+  S3Client,
+  DeleteObjectsCommand,
+  HeadObjectCommand,
+} = require('@aws-sdk/client-s3');
+const { Upload } = require('@aws-sdk/lib-storage');
+
+// function formatLocation(projectId, location) {
+//   if (!projectId) {
+//     return location;
+//   }
+//
+//   try {
+//     const url = new URL(location);
+//     const newHost = `${projectId}.${url.hostname}`;
+//     url.hostname = newHost;
+//
+//     return url.toString();
+//   } catch (_error) {
+//     return location;
+//   }
+// }
 
 module.exports = function createS3Provider(cfg) {
-  const { accessKeyId, secretAccessKey, defaultBucket } = cfg;
-
-  const s3 = new AWS.S3({
+  const {
+    endpoint,
+    region,
+    // projectId,
     accessKeyId,
     secretAccessKey,
-    apiVersion: '2006-03-01',
+    defaultBucket,
+  } = cfg;
+
+  const s3 = new S3Client({
+    endpoint,
+    region,
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+    },
+    forcePathStyle: true,
+    // logger: console,
   });
 
   return {
@@ -22,10 +55,27 @@ module.exports = function createS3Provider(cfg) {
         Bucket: params.bucket || defaultBucket,
       };
 
-      // Return a ManagedUpload (https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3/ManagedUpload.html)
-      return s3.upload(s3Params);
+      const upload = new Upload({
+        client: s3,
+        params: s3Params,
+      });
+
+      return {
+        async promise() {
+          const result = await upload.done();
+          return {
+            ...result,
+            // Location: formatLocation(projectId, result.Location),
+            // `key` = `Key` for backward compatibility
+            key: result.Key,
+          };
+        },
+        abort() {
+          return upload.abort();
+        },
+      };
     },
-    remove(filename, params = {}) {
+    async remove(filename, params = {}) {
       const keys = Array.isArray(filename) ? filename : [filename];
 
       const s3Params = {
@@ -36,28 +86,23 @@ module.exports = function createS3Provider(cfg) {
         Bucket: params.bucket || defaultBucket,
       };
 
-      return s3.deleteObjects(s3Params).promise();
+      return s3.send(new DeleteObjectsCommand(s3Params));
     },
-    exists(filename, params = {}) {
+    async exists(filename, params = {}) {
       const s3Params = {
         Key: filename,
         ...params,
         Bucket: params.bucket || defaultBucket,
       };
 
-      return s3
-        .headObject(s3Params)
-        .promise()
-        .then(
-          () => true,
-          (err) => {
-            if (err.name === 'NotFound') {
-              return false;
-            }
-
-            throw err;
-          },
-        );
+      try {
+        await s3.send(new HeadObjectCommand(s3Params));
+        return true;
+      } catch (err) {
+        if (err.name === 'NotFound') {
+          return false;
+        }
+      }
     },
   };
 };

@@ -156,7 +156,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       );
 
       expect(event.location.image).toBe(
-        'https://openagendatest.s3.amazonaws.com/52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg',
+        `${testConfig.s3.mainBucketPath}52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg`,
       );
     });
 

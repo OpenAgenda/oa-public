@@ -38,7 +38,7 @@ Le service doit être accessible de cette manière:
 
 /_
 image: {
-path: '//cibul.s3.amazonaws.com/',
+path: '//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/',
 default: '//cdn.openagenda.com/static/graylogo140.png'
 },
 _/

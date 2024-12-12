@@ -107,7 +107,7 @@ function _showJSONIfRequested(req, res, next) {
         'official',
       ]),
       image: req.agenda.image
-        ? config.aws.imageBucketPath + req.agenda.image
+        ? config.s3.mainBucketPath + req.agenda.image
         : null,
     });
   }
@@ -243,7 +243,12 @@ function _formatEventItem(event, req, cb) {
     tagGroups: event.tagGroups,
     category: event.category ?? false,
     title: utils.flattenLabel(event.title, req.lang),
-    image: img ? img.replace('cibuldev', 'cibul') : false,
+    // eslint-disable-next-line no-nested-ternary
+    image: img
+      ? process.env.NODE_ENV === 'development'
+        ? img.replace('dev', 'main')
+        : img
+      : false,
     thumbnail: event.thumbnail,
     description: utils.flattenLabel(event.description, req.lang),
     freeText: getLongDescriptionHTML(

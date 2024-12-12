@@ -20,7 +20,7 @@ export function init(config, services) {
     },
     expire: config.session.maxAge / 1000,
     interfaces: {
-      getUser: getUser.bind(null, services, config.aws.imageBucketPath),
+      getUser: getUser.bind(null, services, config.s3.mainBucketPath),
     },
     cultures: config.interfaceLanguages,
     logger: config.getLogConfig('oa', 'sessions', false),
