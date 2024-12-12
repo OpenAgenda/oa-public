@@ -59,14 +59,11 @@ export default class ConversationForm extends Component {
 
     uppy.setMeta({ messageId: message.id, conversationId: conversation.id });
 
-    const awsS3MultipartPlugin = uppy.getPlugin('AwsS3Multipart');
-    const AwsS3MultipartPlugin = awsS3MultipartPlugin.constructor;
-
-    uppy.removePlugin(awsS3MultipartPlugin);
-    uppy.use(AwsS3MultipartPlugin, {
-      shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
-      companionUrl: uploadEndpoint.replace(':conversationId', conversation.id),
-    });
+    const xhrUploadPlugin = uppy.getPlugin('XHRUpload');
+    xhrUploadPlugin.opts.endpoint = uploadEndpoint.replace(
+      ':conversationId',
+      conversation.id,
+    );
 
     const uppyState = uppy.getState();
     const uncompleteUploads = Object.values(uppyState.files).filter(
@@ -85,8 +82,9 @@ export default class ConversationForm extends Component {
 
           return { [FORM_ERROR]: getLabel('uploadError') };
         }
+
         for (const file of uploadResult.successful) {
-          await onFileUploaded(conversation.id, message.id, file);
+          onFileUploaded(file);
         }
 
         uppy.cancelAll();

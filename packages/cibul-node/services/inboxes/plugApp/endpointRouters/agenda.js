@@ -154,6 +154,22 @@ export default (config, services) => {
   );
 
   router.use(
+    '/conversations/:conversationId/upload-attachment',
+    preMw,
+    inboxMw.messages.uploadAttachment({
+      files: services.files,
+      namespaces: {
+        conversationId: 'params.conversationId',
+        type: 'type',
+        identifier: 'agenda.uid',
+        userUid: 'user.uid',
+        messageId: 'body.messageId',
+      },
+    }),
+    errorHandler,
+  );
+
+  router.use(
     '/conversations/:conversationId/add-attachment',
     preMw,
     inboxMw.messages.addAttachment({

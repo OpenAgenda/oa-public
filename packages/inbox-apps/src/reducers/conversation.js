@@ -19,8 +19,6 @@ const LOAD_AUTHOR = 'inbox-apps/conversation/LOAD_AUTHOR';
 const LOAD_AUTHOR_SUCCESS = 'inbox-apps/conversation/LOAD_AUTHOR_SUCCESS';
 const LOAD_AUTHOR_FAIL = 'inbox-apps/conversation/LOAD_AUTHOR_FAIL';
 const ATTACH_FILE_TO_MESSAGE = 'inbox-apps/conversation/ATTACH_FILE_TO_MESSAGE';
-const ATTACH_FILE_TO_MESSAGE_SUCCESS = 'inbox-apps/conversation/ATTACH_FILE_TO_MESSAGE_SUCCESS';
-const ATTACH_FILE_TO_MESSAGE_FAIL = 'inbox-apps/conversation/ATTACH_FILE_TO_MESSAGE_FAIL';
 
 const initialState = {
   loaded: false,
@@ -141,19 +139,23 @@ export default function reducer(state = initialState, action = {}) {
         authorFetching: false,
         authorFetchingError: action.error,
       };
-    case ATTACH_FILE_TO_MESSAGE_SUCCESS: {
+    case ATTACH_FILE_TO_MESSAGE: {
       const messageIndex = (state.messages || []).findIndex(
-        (v) => v.id === action.messageId,
+        (v) => v.id === action.attachment.messageId,
       );
 
-      return messageIndex === -1 // creation of conversation or not
-        ? {
-          ...state,
-          messages: [action.result.message],
-        }
-        : update(state, {
-          messages: { $splice: [[messageIndex, 1, action.result.message]] },
-        });
+      // create conversation, will be loaded after redirect
+      if (messageIndex === -1) {
+        return state;
+      }
+
+      return update(state, {
+        messages: {
+          [messageIndex]: {
+            attachments: { $push: [action.attachment] },
+          },
+        },
+      });
     }
     default:
       return state;
@@ -304,31 +306,9 @@ export function resume(conversationId, agenda) {
   };
 }
 
-export function attachFileToMessage(conversationId, messageId, file, agenda) {
+export function attachFileToMessage(file) {
   return {
-    types: [
-      ATTACH_FILE_TO_MESSAGE,
-      ATTACH_FILE_TO_MESSAGE_SUCCESS,
-      ATTACH_FILE_TO_MESSAGE_FAIL,
-    ],
-    messageId,
-    promise: ({ client }, { getState }) => {
-      const { res, event } = getState();
-
-      return client.get(
-        res.messages.addAttachment
-          .replace(':slug', agenda && agenda.slug)
-          .replace(':agendaUid', agenda && agenda.uid)
-          .replace(':eventUid', event && event.uid)
-          .replace(':conversationId', conversationId),
-        {
-          params: {
-            messageId,
-            filename: file.meta.key,
-            originalName: file.name,
-          },
-        },
-      );
-    },
+    type: ATTACH_FILE_TO_MESSAGE,
+    attachment: file.meta.attachment,
   };
 }

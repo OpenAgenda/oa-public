@@ -211,7 +211,7 @@ export async function init(config, services) {
         uppyCompanion: companion.app({
           s3: {
             getKey: ({ filename }) => filename,
-            endpoint: config.s3.endpoint,
+            endpoint: 'https://s3.pub1.infomaniak.cloud',
             key: config.s3.accessKeyId,
             secret: config.s3.secretAccessKey,
             bucket: config.s3.bucket,
@@ -226,7 +226,7 @@ export async function init(config, services) {
             protocol: 'https',
           },
           secret: config.uppy.secret,
-          debug: false,
+          debug: true,
           filePath: config.tmpFolderPath,
           uploadUrls: [RegExp(`/^https:\\/\\/${config.domain}\\//`)],
         }),
