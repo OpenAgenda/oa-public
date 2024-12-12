@@ -26,6 +26,15 @@ describe('utils - fromItemToEntry', () => {
       }], { extId: 10 });
       expect(entry.ext_id).toEqual(10);
     });
+
+    it('use case: extId can set back to null', () => {
+      const entry = fromItemToEntry([{
+        field: 'extId',
+        fieldType: 'text',
+      }], { extId: null }, { extId: 13 });
+
+      expect(entry.ext_id).toEqual(null);
+    });
   });
 
   describe('Events', () => {
