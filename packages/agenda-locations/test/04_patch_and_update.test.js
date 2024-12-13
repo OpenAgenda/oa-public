@@ -276,6 +276,13 @@ describe('agenda-locations - functional - patch & update', () => {
         { includeImagePath: true },
       );
 
+      const extIdFromDb = await f
+        .client('location')
+        .first()
+        .where('uid', 14471367)
+        .then((r) => r.ext_id);
+
+      expect(extIdFromDb).toBeNull();
       expect(patched.extId).toBeNull();
     });
 

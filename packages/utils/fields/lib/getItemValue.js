@@ -5,7 +5,8 @@ module.exports = function getItemValue(field, data, currentValue) {
     if (acc) {
       return acc;
     }
-    if (data[f.field] !== (undefined || null)) {
+
+    if (![undefined].includes(data[f.field])) {
       return data[f.field];
     }
     return acc;
