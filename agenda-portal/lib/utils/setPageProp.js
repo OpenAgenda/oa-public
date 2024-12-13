@@ -10,6 +10,7 @@ export default (req, path, value) => {
       'root',
       'gaId',
       'cookieBannerLink',
+      'requireConsent',
     ]);
   }
 
