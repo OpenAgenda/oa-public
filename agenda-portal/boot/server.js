@@ -75,6 +75,7 @@ Portal({
     // url of the link displayed in the cookie consent banner
     cookieBannerLink:
       'https://support.google.com/analytics/answer/6004245?hl=fr',
+    requireConsent: (process.env.PORTAL_REQUIRE_CONSENT ?? '1') === '1',
   },
   eventHook,
   // proxyHookBeforeGet
