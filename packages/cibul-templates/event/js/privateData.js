@@ -230,6 +230,7 @@ module.exports = options => {
             list: resBasePath + '/inbox/conversations/:conversationId/messages.json',
             create: resBasePath + '/inbox/conversations/:conversationId/messages.json',
             prepareAttachment: resBasePath + '/inbox/conversations/:conversationId/prepare-attachment',
+            uploadAttachment: resBasePath + '/inbox/conversations/:conversationId/upload-attachment',
             addAttachment: resBasePath + '/inbox/conversations/:conversationId/add-attachment'
           }
         },

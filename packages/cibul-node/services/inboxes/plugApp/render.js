@@ -17,6 +17,7 @@ function endpointToRes(endpoint) {
       list: `${endpoint}/conversations/:conversationId/messages.json`,
       create: `${endpoint}/conversations/:conversationId/messages.json`,
       prepareAttachment: `${endpoint}/conversations/:conversationId/prepare-attachment`,
+      uploadAttachment: `${endpoint}/conversations/:conversationId/upload-attachment`,
       addAttachment: `${endpoint}/conversations/:conversationId/add-attachment`,
     },
   };
