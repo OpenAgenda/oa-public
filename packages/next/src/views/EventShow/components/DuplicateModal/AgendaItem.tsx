@@ -5,12 +5,11 @@ import LockIcon from 'components/LockIcon';
 import { keyCDNLoader } from 'utils/imageLoader';
 import graylogo140 from '../../../../../public/images/graylogo140.png';
 
-const keyCdnUrl = new URL(process.env.NEXT_PUBLIC_IMAGE_PREFIX);
+const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
 function getImageSrc(src, updatedAt) {
-  const url = new URL(src, 'https://n');
-  url.host = keyCdnUrl.host;
-  url.searchParams.append('__ts', updatedAt);
+  const url = new URL(`${DEV_IMAGE_PREFIX}${src}`);
+  url.searchParams.set('__ts', updatedAt);
   return url.href;
 }
 
