@@ -1,4 +1,4 @@
-import { loadable } from '@openagenda/react-shared';
+import loadable from '@openagenda/react-shared/dist/utils/loadable.js';
 
 // // eslint-disable-next-line camelcase
 // const contextRequire = typeof __webpack_require__ !== 'undefined'
