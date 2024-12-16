@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-filters",
-  "version": "2.12.2",
+  "version": "2.12.3",
   "type": "module",
   "main": "build/index.js",
   "sideEffects": false,
@@ -37,7 +37,7 @@
     "clean": "rimraf esm lib",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
     "start": "concurrently -r -k -i -n dist,sb \"yarn dist -w\" \"yarn storybook\"",
-    "storybook": "storybook dev",
+    "storybook": "NODE_OPTIONS=\"--max-old-space-size=5120\" storybook dev",
     "example": "cd example && nodemon server.js"
   },
   "dependencies": {
