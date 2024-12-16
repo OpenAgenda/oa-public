@@ -5254,6 +5254,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openagenda/react-dropzone@npm:^14.3.5":
+  version: 14.3.5
+  resolution: "@openagenda/react-dropzone@npm:14.3.5"
+  dependencies:
+    attr-accept: "npm:^2.2.4"
+    file-selector: "npm:^2.1.0"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    react: ">= 16.8 || 18.0.0"
+  checksum: 10c0/128faa2b4d53e0f509679c72890d80a9476d230ed4d66a977cd494ebba4d2fd4babaf4154f208260264630e8fbe70dadcda9504954cbb491d5da679a5bf6e6e1
+  languageName: node
+  linkType: hard
+
 "@openagenda/react-filters@npm:^2.12.1, @openagenda/react-filters@workspace:react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:react-filters"
@@ -5384,6 +5397,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.3"
     "@openagenda/md": "npm:^1.0.0"
+    "@openagenda/react-dropzone": "npm:^14.3.5"
     "@storybook/addon-actions": "npm:^7.4.2"
     "@storybook/preset-scss": "npm:^1.0.3"
     "@storybook/react-webpack5": "npm:^7.4.2"
@@ -5409,7 +5423,6 @@ __metadata:
     react-cookie-consent: "npm:^7.2.1"
     react-date-range: "npm:^1.4.0"
     react-dom: "npm:^18.3.1"
-    react-dropzone: "patch:react-dropzone@npm%3A14.3.5#../.yarn/patches/react-dropzone-npm-14.3.5-1dc0066433.patch"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^6.8.4"
     react-markdown: "npm:^6.0.0"
@@ -27033,32 +27046,6 @@ __metadata:
   peerDependencies:
     react: ^18.3.1
   checksum: 10c0/a752496c1941f958f2e8ac56239172296fcddce1365ce45222d04a1947e0cc5547df3e8447f855a81d6d39f008d7c32eab43db3712077f09e3f67c4874973e85
-  languageName: node
-  linkType: hard
-
-"react-dropzone@npm:14.3.5":
-  version: 14.3.5
-  resolution: "react-dropzone@npm:14.3.5"
-  dependencies:
-    attr-accept: "npm:^2.2.4"
-    file-selector: "npm:^2.1.0"
-    prop-types: "npm:^15.8.1"
-  peerDependencies:
-    react: ">= 16.8 || 18.0.0"
-  checksum: 10c0/e3e5dddd3bead7c6410bd3fccc3a87e93086ceac47526a2d35421ef7e11a9e59f47c8af8da5c4600a58ef238a5af87c751a71b6391d5c6f77f1f2857946c07cc
-  languageName: node
-  linkType: hard
-
-"react-dropzone@patch:react-dropzone@npm%3A14.3.5#../.yarn/patches/react-dropzone-npm-14.3.5-1dc0066433.patch::locator=%40openagenda%2Freact-shared%40workspace%3Areact-shared":
-  version: 14.3.5
-  resolution: "react-dropzone@patch:react-dropzone@npm%3A14.3.5#../.yarn/patches/react-dropzone-npm-14.3.5-1dc0066433.patch::version=14.3.5&hash=72940a&locator=%40openagenda%2Freact-shared%40workspace%3Areact-shared"
-  dependencies:
-    attr-accept: "npm:^2.2.4"
-    file-selector: "npm:^2.1.0"
-    prop-types: "npm:^15.8.1"
-  peerDependencies:
-    react: ">= 16.8 || 18.0.0"
-  checksum: 10c0/7e4a5045df4d8bd30c1973535dcf7ac4823db5b5e2bd185a962af6937cc437d89b65282114ffd1ea0152c9df13bf4fd22603d2f1583cfdadf1545e21d7fe243b
   languageName: node
   linkType: hard
 
