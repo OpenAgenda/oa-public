@@ -22,7 +22,7 @@ const eventImage = {
         type: 'thumbnail',
       },
     ],
-    base: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/',
+    base: 'https://cdn.openagenda.com/main/',
   },
 };
 

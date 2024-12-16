@@ -35,7 +35,7 @@
   "imageCredits": "Caroline LAPIS",
   "originAgenda": {
     "uid": 89287255,
-    "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda89287255.jpg?__ts=1690358352183",
+    "image": "https://cdn.openagenda.com/main/agenda89287255.jpg?__ts=1690358352183",
     "description": "La programmation culturelle du Loiret",
     "title": "Agenda des sorties En scène !",
     "slug": "loiret-en-scene",
@@ -148,7 +148,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
+    "base": "https://cdn.openagenda.com/main/"
   },
   "attendanceMode": 1,
   "sourceAgendas": [],
@@ -203,7 +203,7 @@
     "email": "museebeauxarts@ville-tourcoing.fr",
     "longitude": 2.595401,
     "updatedAt": "2024-07-05T15:20:53.000Z",
-    "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/location68051215.jpg",
+    "image": "https://cdn.openagenda.com/main/location68051215.jpg",
     "website": null,
     "address": "2 rue Paul Doumer 59200 Tourcoing",
     "adminLevel3": "Communauté de communes des Quatre Vallées",
