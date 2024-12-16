@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "6.11.7",
+  "version": "6.11.8",
   "type": "module",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
@@ -43,7 +43,7 @@
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/browserslist-config": "^1.0.0",
-    "@openagenda/intl": "^1.1.4",
+    "@openagenda/intl": "^1.1.5",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/md": "^1.0.0",
     "@openagenda/polyfills": "^1.2.5",
