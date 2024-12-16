@@ -17,8 +17,7 @@ export const service = {
       : true,
   },
   schema: 'event_2',
-  imagePath:
-    'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
+  imagePath: 'https://cdn.openagenda.com/dev/',
   interfaces: {},
 };
 

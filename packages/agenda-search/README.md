@@ -75,7 +75,7 @@ max: 100
 }
 },
 image: {
-path: '//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/',
+path: '//cdn.openagenda.com/main/',
 default: '//cdn.openagenda.com/static/graylogo140.png'
 }
 }

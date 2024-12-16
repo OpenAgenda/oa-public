@@ -126,7 +126,7 @@ describe('agendas - functional (server): list', () => {
     });
 
     expect(agendas[0].image).toEqual(
-      'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_sylvie-et-pascal-verger_00.jpg',
+      'https://cdn.openagenda.com/dev/review_sylvie-et-pascal-verger_00.jpg',
     );
   });
 

@@ -493,13 +493,12 @@ describe('flat-exports - unit - transforms', () => {
       const flat = flatten({
         image: {
           filename: 'ceci-est-une-image.jpg',
-          base: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
+          base: 'https://cdn.openagenda.com/dev/',
         },
       });
 
       expect(flat).toEqual({
-        image:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/ceci-est-une-image.jpg',
+        image: 'https://cdn.openagenda.com/dev/ceci-est-une-image.jpg',
       });
     });
   });

@@ -5,7 +5,7 @@
   "createdAt": "2020-09-14T12:11:36.000Z",
   "updatedAt": "2020-09-14T12:11:36.000Z",
   "uid": 65206069,
-  "store": "{\"images\":{\"filename\":null,\"credits\":null,\"size\":{\"height\":null,\"width\":null},\"variants\":[],\"base\":\"https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/\"},\"links\":[]}",
+  "store": "{\"images\":{\"filename\":null,\"credits\":null,\"size\":{\"height\":null,\"width\":null},\"variants\":[],\"base\":\"https://cdn.openagenda.com/dev/\"},\"links\":[]}",
   "title": {
     "en": "this is a test"
   },

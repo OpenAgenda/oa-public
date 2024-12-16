@@ -125,7 +125,7 @@ describe('agendas - functional (server): instanciate', () => {
     const a = await svc.get(4820, { instanciate: true });
 
     expect(a.getImage(true)).toBe(
-      'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_planning-intervenants_00.jpg',
+      'https://cdn.openagenda.com/dev/review_planning-intervenants_00.jpg',
     );
   });
 

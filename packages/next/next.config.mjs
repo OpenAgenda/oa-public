@@ -93,8 +93,7 @@ const config = async () => {
           },
           {
             protocol: 'https',
-            hostname:
-              '02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud',
+            hostname: 'cdn.openagenda.com',
           },
           {
             protocol: 'https',

@@ -1,5 +1,5 @@
 const formatImageLink = ({ filename }) =>
-  `https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/${filename}`;
+  `https://cdn.openagenda.com/dev/${filename}`;
 
 const isRestricted = ({ read }) => (read ?? []).length;
 

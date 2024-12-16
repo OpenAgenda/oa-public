@@ -462,12 +462,12 @@ Event images have 3 variants: the original is prefixed with evf, the standard di
 
 An example:
 
-    https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/event_manege-allee-sainte-lucie_108_483345.jpg
+    https://cdn.openagenda.com/main/event_manege-allee-sainte-lucie_108_483345.jpg
 
 Thumbnail and full:
 
-    https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evtbevent_manege-allee-sainte-lucie_108_483345.jpg
-    https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/evfevent_manege-allee-sainte-lucie_108_483345.jpg
+    https://cdn.openagenda.com/main/evtbevent_manege-allee-sainte-lucie_108_483345.jpg
+    https://cdn.openagenda.com/main/evfevent_manege-allee-sainte-lucie_108_483345.jpg
 
 3 loops ( review, user and event ), with 2 fetches for agendas, 1 for users and 3 for events. Images are optional and fields are at null when no image is associated.
 

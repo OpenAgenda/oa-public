@@ -200,8 +200,7 @@ describe('agenda-locations - functional - patch & update', () => {
         postalCode: '07460',
         name: 'Saint-Paul-le-Jeune',
         countryCode: 'FR',
-        image:
-          '//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/location60763721.jpg',
+        image: '//cdn.openagenda.com/dev/location60763721.jpg',
         address: '07460 Saint-Paul-le-Jeune',
         imageCredits: 'New credits',
         longitude: 4.153617,

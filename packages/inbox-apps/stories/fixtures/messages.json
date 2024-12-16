@@ -30,7 +30,7 @@
       "leftAt": null,
       "uid": 75052324,
       "name": "Kaoré OpenAgenda",
-      "avatar": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/user.profile.75052324.jpg"
+      "avatar": "https://cdn.openagenda.com/main/user.profile.75052324.jpg"
     },
     "latestMessage": {
       "id": 164570,
@@ -62,7 +62,7 @@
         "identifier": 11317568,
         "uid": 11317568,
         "name": "Département du Calvados",
-        "avatar": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/review_calvados_00.jpg"
+        "avatar": "https://cdn.openagenda.com/main/review_calvados_00.jpg"
       }
     ],
     "actions": [

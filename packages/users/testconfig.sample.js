@@ -20,8 +20,7 @@ export default {
       key: 'key',
       userToken: 'user_token',
     },
-    imagePath:
-      'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
+    imagePath: 'https://cdn.openagenda.com/dev/',
     interfaces: {
       getAgenda: (agendaUid, cb) =>
         cb(

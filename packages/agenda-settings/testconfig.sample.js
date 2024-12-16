@@ -27,7 +27,7 @@ export default {
     },
     defaultProvider: 's3',
   }),
-  imagePath: '//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
+  imagePath: '//cdn.openagenda.com/dev/',
   debug: true,
   redis: {
     connection: {

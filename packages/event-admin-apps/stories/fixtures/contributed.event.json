@@ -29,7 +29,7 @@
   "timezone": "Europe/Paris",
   "originAgenda": {
     "uid": 48353388,
-    "image": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/agenda48353388.jpg",
+    "image": "https://cdn.openagenda.com/main/agenda48353388.jpg",
     "title": "Albi"
   },
   "description": {
@@ -82,7 +82,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/"
+    "base": "https://cdn.openagenda.com/main/"
   },
   "attendanceMode": 1,
   "creatorUid": 65176613,

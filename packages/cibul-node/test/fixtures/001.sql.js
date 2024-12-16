@@ -167,7 +167,7 @@ raw.push(
             type: 'thumbnail',
           },
         ],
-        base: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
+        base: 'https://cdn.openagenda.com/dev/',
         credits: 'Gaetan Latouche',
       }),
       created_at: new Date('2022-06-01T09:00:00.000Z'),
