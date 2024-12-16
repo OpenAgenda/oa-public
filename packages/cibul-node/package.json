@@ -74,7 +74,7 @@
     "@openagenda/queues": "^2.0.0",
     "@openagenda/react-integration-app": "^1.6.1",
     "@openagenda/react-layouts": "^2.2.1",
-    "@openagenda/react-shared": "^2.4.2",
+    "@openagenda/react-shared": "^2.4.3",
     "@openagenda/registration": "^1.1.4",
     "@openagenda/registrations": "^0.0.2",
     "@openagenda/sdk-js": "workspace:^",

@@ -23,7 +23,7 @@
     "@openagenda/labels": "^2.3.0",
     "@openagenda/member-apps": "^2.1.1",
     "@openagenda/members": "^1.15.13",
-    "@openagenda/react-shared": "^2.4.2",
+    "@openagenda/react-shared": "^2.4.3",
     "classnames": "^2.3.1",
     "final-form": "^4.20.2",
     "history": "^4.10.1",
