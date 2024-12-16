@@ -44,12 +44,12 @@ import Map from './Map';
 function getPassImgSource(passData) {
   const currValue = getCurrentPassValue(passData);
   if (currValue?.isRejected)
-    return 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-rejected-22.png';
+    return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-rejected-22.png';
   if (currValue?.isPending)
-    return 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-pending-22.png';
+    return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-pending-22.png';
   if (currValue?.error)
-    return 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-error-22.png';
-  return 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-22.png';
+    return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-error-22.png';
+  return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png';
 }
 
 function defaultGetRegistrationIcon(type: string) {
@@ -125,7 +125,7 @@ function extractPassFromRegistration(intl, registration) {
     passCulture:
       currentPassData && !currentPassData.isPending
         ? {
-            img: 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-22.png',
+            img: 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png',
             label: intl.formatMessage(messages.accessPassOffer),
             ...passItem,
           }

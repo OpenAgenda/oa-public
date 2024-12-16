@@ -135,7 +135,7 @@ export default async function getAndDecorateIndexedEvent(
       && event.registration.filter((r) => r.service === 'passCulture').length
     ) {
       draft.passCulture = {
-        img: 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-22.png',
+        img: 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png',
         label: getLabel('accessPassOffer', lang),
         ...event.registration.find((r) => r.service === 'passCulture'),
       };

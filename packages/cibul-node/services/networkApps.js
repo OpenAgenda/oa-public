@@ -54,7 +54,7 @@ export function init(config, services) {
 
   router.setService(
     NetworkApps({
-      CDNPath: `${config.s3.assetsBucketPath}/svc`,
+      CDNPath: `${config.s3.assetsBucketPath}/assets/svc`,
       frontAppPath:
         process.env.NODE_ENV !== 'production' ? '/dist/networkApps' : null,
       logger: config.getLogConfig('svc', 'networkApps'),

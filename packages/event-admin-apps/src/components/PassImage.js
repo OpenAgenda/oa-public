@@ -30,10 +30,10 @@ const messages = defineMessages({
 });
 
 const imgSource = (errored, rejected, pending) => {
-  if (errored) return 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-error-22.png';
-  if (rejected) return 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-rejected-22.png';
-  if (pending) return 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-pending-22.png';
-  return 'https://cdn.openagenda.com/svc/registration-apps/pass-culture-22.png';
+  if (errored) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-error-22.png';
+  if (rejected) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-rejected-22.png';
+  if (pending) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-pending-22.png';
+  return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png';
 };
 
 const title = (intl, errored, rejected, pending) => {

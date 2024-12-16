@@ -53,7 +53,14 @@ module.exports = {
           },
           s3UploadOptions: {
             Bucket: bucket,
-            ContentEncoding: 'gzip',
+            ContentType(fileName) {
+              if (/\.css$/.test(fileName)) {
+                return 'text/css';
+              }
+              if (/\.js$/.test(fileName)) {
+                return 'text/javascript';
+              }
+            },
           },
           basePathTransform: (f) => ['svc', serviceName, f].join('/'),
         }),
