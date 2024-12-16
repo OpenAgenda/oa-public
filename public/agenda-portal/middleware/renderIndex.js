@@ -49,9 +49,10 @@ export default async (req, res, next) => {
         'Warning: no Google Analytics ID found. Set one in your agenda settings or disable tracking.',
       );
     }
-    const { cookieBannerLink } = req.app.locals.tracking;
+    const { cookieBannerLink, requireConsent } = req.app.locals.tracking;
     setPageProp(req, 'gaId', gaId);
     setPageProp(req, 'cookieBannerLink', cookieBannerLink);
+    setPageProp(req, 'requireConsent', requireConsent);
   }
 
   // Render filters
