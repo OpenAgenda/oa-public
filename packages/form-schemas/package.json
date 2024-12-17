@@ -29,7 +29,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.705.0",
     "@aws-sdk/lib-storage": "^3.705.0",
-    "@openagenda/intl": "^1.1.2",
+    "@openagenda/intl": "^1.1.5",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/md": "^1.0.0",

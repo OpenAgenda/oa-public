@@ -39,7 +39,7 @@
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/home": "^2.2.1",
     "@openagenda/inbox-apps": "^1.2.1",
-    "@openagenda/intl": "^1.1.3",
+    "@openagenda/intl": "^1.1.5",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/leaflet.markercluster": "^0.4.0",
     "@openagenda/md": "^1.0.0",
