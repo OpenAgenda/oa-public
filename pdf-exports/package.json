@@ -15,7 +15,7 @@
     "@babel/preset-env": "^7.23.3",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/date-utils": "^0.0.1",
-    "@openagenda/intl": "^1.1.3",
+    "@openagenda/intl": "^1.1.5",
     "@openagenda/logs": "^1.1.9",
     "axios": "^0.21.1",
     "date-fns": "^2.29.3",
