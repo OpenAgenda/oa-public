@@ -39,7 +39,7 @@ export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
     "'self'",
     "'unsafe-inline'",
     ...process.env.NEXT_PUBLIC_ASSET_PREFIX
-      ? [process.env.NEXT_PUBLIC_ASSET_PREFIX]
+      ? [new URL(process.env.NEXT_PUBLIC_ASSET_PREFIX).origin]
       : [],
   ],
   mediaSrc: ["'self'", 'https:', 'data:'],
@@ -51,7 +51,7 @@ export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
   connectSrc: [
     "'self'",
     ...process.env.NEXT_PUBLIC_ASSET_PREFIX
-      ? [process.env.NEXT_PUBLIC_ASSET_PREFIX]
+      ? [new URL(process.env.NEXT_PUBLIC_ASSET_PREFIX).origin]
       : [],
     ...process.env.NEXT_PUBLIC_MATOMO_URL
       ? [`https://${process.env.NEXT_PUBLIC_MATOMO_URL}`]
@@ -77,7 +77,8 @@ const has = (obj: Readonly<object>, key: string): boolean =>
 function normalizeDirectives(options: Options): NormalizedDirectives {
   const defaultDirectives = getDefaultDirectives();
 
-  const { useDefaults = true, directives: rawDirectives = defaultDirectives } = options;
+  const { useDefaults = true, directives: rawDirectives = defaultDirectives } =
+    options;
 
   const result: NormalizedDirectives = new Map();
   const directiveNamesSeen = new Set<string>();
@@ -89,8 +90,8 @@ function normalizeDirectives(options: Options): NormalizedDirectives {
     }
 
     if (
-      rawDirectiveName.length === 0
-      || /[^a-zA-Z0-9-]/.test(rawDirectiveName)
+      rawDirectiveName.length === 0 ||
+      /[^a-zA-Z0-9-]/.test(rawDirectiveName)
     ) {
       throw new Error(
         `Content-Security-Policy received an invalid directive name ${JSON.stringify(rawDirectiveName)}`,
@@ -137,8 +138,8 @@ function normalizeDirectives(options: Options): NormalizedDirectives {
     Object.entries(defaultDirectives).forEach(
       ([defaultDirectiveName, defaultDirectiveValue]) => {
         if (
-          !result.has(defaultDirectiveName)
-          && !directivesExplicitlyDisabled.has(defaultDirectiveName)
+          !result.has(defaultDirectiveName) &&
+          !directivesExplicitlyDisabled.has(defaultDirectiveName)
         ) {
           result.set(defaultDirectiveName, defaultDirectiveValue);
         }
@@ -152,8 +153,8 @@ function normalizeDirectives(options: Options): NormalizedDirectives {
     );
   }
   if (
-    !result.has('default-src')
-    && !directivesExplicitlyDisabled.has('default-src')
+    !result.has('default-src') &&
+    !directivesExplicitlyDisabled.has('default-src')
   ) {
     throw new Error(
       'Content-Security-Policy needs a default-src but none was provided.',
