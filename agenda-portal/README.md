@@ -4,10 +4,10 @@ This library provides functionalities to build a fully customizable events websi
 
 Here are a few websites built with this library:
 
-- INHA: [https://agenda.inha.fr/](https://agenda.inha.fr/)
-- L'agenda d'Albi: [https://agenda.albi.fr](https://agenda.albi.fr)
-- Arles | Agenda: [https://arles-agenda.fr/](https://arles-agenda.fr/)
-- 50 ans de Francophonie: [https://agenda50ans.francophonie.org/](https://agenda50ans.francophonie.org/)
+- Cap Métiers: [https://agenda.cap-metiers.pro/](https://agenda.cap-metiers.pro)
+- L'agenda de Senlis: [https://agenda.ville-senlis.fr/](https://agenda.ville-senlis.fr)
+- Saint-Quentin en Yvelines: [https://www.kiosq.sqy.fr](https://www.kiosq.sqy.fr)
+- Comexposium Salons CSE: [https://www.solutions-cse.org/salons-cse/salon-cse-paris/evenements-et-animations](https://www.solutions-cse.org/salons-cse/salon-cse-paris/evenements-et-animations)
 
 [Handlebars](https://handlebarsjs.com/) is the main templating engine.
 [Sass](https://sass-lang.com/) for styling. Default templates use [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/theming/)
