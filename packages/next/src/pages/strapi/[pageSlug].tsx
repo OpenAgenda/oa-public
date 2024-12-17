@@ -1,7 +1,6 @@
 import { NextPage, GetServerSideProps } from 'next';
 import ky from 'ky';
-
-import FeatureCardSet from 'components/strapi/FeatureCardSet';
+import StrapiPage from 'components/strapi/Page';
 
 interface PageData {
   documentId: string;
@@ -28,20 +27,18 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
 
   const pageSlug = queryWithParams.pageSlug as string;
 
-  console.log(`${APIBase}/pages?filters[slug][$eq]=${pageSlug}`);
-
   const { data: matches } = await ky(
-    `${APIBase}/pages?filters[slug][$eq]=${pageSlug}`
+    `${APIBase}/pages?filters[slug][$eq]=${pageSlug}`,
   ).json<StrapiResponse>();
-  
+
   if (!matches.length) {
     return {
-      notFound: true
+      notFound: true,
     };
   }
 
   const { data: page } = await ky(
-    `${APIBase}/pages/${matches[0].documentId}?populate[0]=Segments&populate[1]=Segments.Features.image`
+    `${APIBase}/pages/${matches[0].documentId}?populate[0]=Segments&populate[1]=Segments.Features.image`,
   ).json<StrapiResponse>();
 
   return {
@@ -50,33 +47,10 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
       assetsBasePath,
     },
   };
-}
+};
 
-const Page: NextPage<PageProps> = ({
-  page,
-  assetsBasePath,
-}) => {
-  const {
-    title,
-    Segments,
-  } = page;
-  return <div>
-    <h1>{title}</h1>
-    {Segments.map(Segment => {
-      const {
-        id,
-      } = Segment;
-      const Component = {
-        'segments.feature-card-set': FeatureCardSet,
-      }[Segment['__component']];
-
-      return <Component
-        key={id}
-        assetsBasePath={assetsBasePath}
-        {...Segment}
-        />
-    })}
-  </div>;
-}
+const Page: NextPage<PageProps> = ({ page, assetsBasePath }) => (
+  <StrapiPage page={page} assetsBasePath={assetsBasePath} />
+);
 
 export default Page;
