@@ -15,6 +15,7 @@
     "@strapi/core": "^5.4.2",
     "@strapi/plugin-cloud": "5.4.2",
     "@strapi/plugin-users-permissions": "5.4.2",
+    "@strapi/provider-upload-aws-s3": "^5.5.2",
     "@strapi/strapi": "5.4.2",
     "better-sqlite3": "11.3.0",
     "react": "^18.0.0",
