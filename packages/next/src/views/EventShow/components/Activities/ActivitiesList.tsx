@@ -158,7 +158,6 @@ export function ActivitiesList({
   }
 
   const { config } = pages[0];
-  console.log('ActivitiesList next', config);
   return (
     <Flex
       display="flex"
@@ -186,7 +185,8 @@ export function ActivitiesList({
             renderLink={renderLink}
             component={Activity}
           />
-        )))}
+        )),
+      )}
 
       {!isLoadingInitialData && !isReachingEnd ? (
         <Button onClick={nextPage} isLoading={isLoadingMore} m="auto">

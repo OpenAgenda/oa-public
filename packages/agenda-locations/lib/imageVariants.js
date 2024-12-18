@@ -1,11 +1,14 @@
 'use strict';
 
+const crypto = require('node:crypto');
+
 module.exports = (Files) => {
   const { gm } = Files;
 
   return [
     {
-      getFilename: (info, context) => `location${context.uid}.jpg`,
+      getFilename: (info, context) =>
+        `location${context.uid}.${crypto.randomUUID().replace(/-/g, '')}.jpg`,
       transform: (info, context) => {
         context.providerParams.ContentType = 'image/jpeg';
 
@@ -16,7 +19,8 @@ module.exports = (Files) => {
       },
     },
     {
-      getFilename: (info, context) => `location${context.uid}_sm.jpg`,
+      getFilename: (info, context) =>
+        `location${context.uid}_sm.${crypto.randomUUID().replace(/-/g, '')}.jpg`,
       transform: (info, context) => {
         context.providerParams.ContentType = 'image/jpeg';
         return gm(info.stream, context.originalname)
@@ -27,7 +31,8 @@ module.exports = (Files) => {
       },
     },
     {
-      getFilename: (info, context) => `location${context.uid}_o.jpg`,
+      getFilename: (info, context) =>
+        `location${context.uid}_o.${crypto.randomUUID().replace(/-/g, '')}.jpg`,
       transform: (info, context) => {
         context.providerParams.ContentType = 'image/jpeg';
 

@@ -99,8 +99,8 @@ describe('agendas - functional (server): instanciate', () => {
                 aId,
                 (err3, rows1) => {
                   if (err3) return reject(err3);
-                  expect(rows1[0].image.split('?')[0]).toBe(
-                    `agenda${rows[0].uid}.jpg`,
+                  expect(rows1[0].image.split('?')[0]).toMatch(
+                    new RegExp(`agenda${rows[0].uid}\\.[a-f0-9]{32}\\.jpg`),
                   );
 
                   resolve();
