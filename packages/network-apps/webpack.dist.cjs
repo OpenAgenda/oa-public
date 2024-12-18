@@ -1,7 +1,6 @@
 'use strict';
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 const S3Plugin = require('webpack-s3-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
@@ -36,12 +35,12 @@ module.exports = {
   ].concat(
     pushToCDN
       ? [
-        new CompressionPlugin({
-          test: /\.js$/,
-          filename(asset) {
-            return asset.file.replace('.gz', '');
-          },
-        }),
+        // new CompressionPlugin({
+        //   test: /\.js$/,
+        //   filename(asset) {
+        //     return asset.file.replace('.gz', '');
+        //   },
+        // }),
         new S3Plugin({
           include: /\.js$/,
           s3Options: {
