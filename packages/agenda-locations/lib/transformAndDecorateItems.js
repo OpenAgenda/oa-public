@@ -4,6 +4,7 @@ const decorateWithCounts = require('./decorateWithCounts');
 const decorateWithAgendaUids = require('./decorateWithAgendaUids');
 const injectImagePath = require('./injectImagePath');
 const legacy = require('./legacy');
+const { afterRead } = require('./formatExtIds');
 
 module.exports = async (service, items, options = {}) => {
   const {
@@ -55,5 +56,5 @@ module.exports = async (service, items, options = {}) => {
     injectImagePath(transformed, service.config.imagePath);
   }
 
-  return transformed;
+  return transformed.map((item) => afterRead(item));
 };

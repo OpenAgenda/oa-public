@@ -44,5 +44,6 @@
       "id": 1,
       "label": "Maison, appartement, atelier de personnes célèbres"
     }
-  ]
+  ],
+  "extIds": [{ "key": "default", "value": "123456" }]
 }

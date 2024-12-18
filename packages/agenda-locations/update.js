@@ -8,7 +8,7 @@ const get = require('./get');
 const validate = require('./lib/validate');
 const authorize = require('./lib/authorize');
 const preCleanBeforeUpdate = require('./lib/preCleanBeforeUpdate');
-const legacy = require('./lib/legacy');
+const { beforeInsert, protectExtIdsFn } = require('./lib/formatExtIds');
 
 const log = logs('update');
 
@@ -20,7 +20,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
   await authorize(service, 'update', current.uid, options);
 
-  const { includeImagePath, autocomplete } = cleanOptions(options);
+  const { includeImagePath, autocomplete, protectExtIds } = cleanOptions(options);
 
   const geocodeResult = shouldAttemptGeocode(autocomplete, data, isPatch)
     ? await service.decorateWithGeocodeData(data, current)
@@ -55,14 +55,19 @@ async function update({ service, isPatch }, current, data, options = {}) {
     clean.image = current.image.split('/').pop();
   }
 
+  if ((protectExtIds || isPatch) && current.extIds && clean.extIds) {
+    clean.extIds = protectExtIdsFn(clean, current);
+  }
+
   // string image means image is unchanged.
-  const entry = service.fieldUtils.fromItemToEntry(clean, current);
+  const entry = service.fieldUtils.fromItemToEntry(
+    beforeInsert(clean, protectExtIds, current),
+    current,
+  );
 
   await service.clients
     .knex(service.config.schema)
-    .update(
-      legacy.patch(entry, current, service.fieldUtils.fromItemToEntry(current)),
-    )
+    .update(entry)
     .where('uid', current.uid);
 
   log('updated location with uid %s', current.uid);

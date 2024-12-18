@@ -131,15 +131,6 @@ describe('agenda-locations - functional - create', () => {
       expect(created.agendaId).toBeUndefined();
     });
 
-    it('store after creation', async () => {
-      const entry = await f
-        .client('location')
-        .first('store', 'ext_id')
-        .where('uid', created.uid);
-
-      expect(JSON.parse(entry.store).extId).toBe('123456');
-    });
-
     it('if region is not specified but adminLevel1 is', async () => {
       const newPayload = { ...payload, adminLevel1: payload.region };
       delete newPayload.region;
@@ -161,6 +152,15 @@ describe('agenda-locations - functional - create', () => {
         .where('uid', createdItem.uid);
 
       expect(entry.department).toEqual(newPayload.adminLevel2);
+    });
+
+    it('extIds are set', async () => {
+      expect(created.extIds).toEqual([{ key: 'default', value: '123456' }]);
+      const entry = await f
+        .client('location')
+        .first('ext_ids')
+        .where('uid', created.uid);
+      expect(entry.ext_ids).toBe('{"identifiers": ["default->123456"]}');
     });
   });
 

@@ -8,7 +8,7 @@ const defineUnique = require('./lib/defineUnique');
 const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
 const validate = require('./lib/validate');
 const authorize = require('./lib/authorize');
-const legacy = require('./lib/legacy');
+const fromatExtIds = require('./lib/formatExtIds');
 
 function isDataIncomplete(data) {
   if (!data.address || !data.countryCode || !data.latitude || !data.longitude) {
@@ -74,11 +74,13 @@ async function create(service, data, options = {}) {
     clean.image = result[0].filename;
   }
 
-  const entry = service.fieldUtils.fromItemToEntry(clean);
+  const entry = service.fieldUtils.fromItemToEntry(
+    fromatExtIds.beforeInsert(clean),
+  );
 
   const [insertedID] = await service.clients
     .knex(service.config.schema)
-    .insert(legacy.patch(entry, null, null));
+    .insert(entry);
 
   if (includeImagePath && clean.image) {
     clean.image = service.config.imagePath + clean.image;

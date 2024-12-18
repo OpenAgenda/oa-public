@@ -7,8 +7,7 @@ const cleanGetOptions = require('./lib/cleanGetOptions');
 const addGetQuery = require('./lib/addGetQuery');
 const addSelect = require('./lib/addSelect');
 const decorateWithCounts = require('./lib/decorateWithCounts');
-const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
-const legacy = require('./lib/legacy');
+const pickContextIdentifiers = require('./lib/pickAndCleanContextIdentifiers');
 const getMergedLocation = require('./lib/getMergedLocation');
 
 const log = logs('get');
@@ -81,7 +80,7 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
     location.image = internals.config.imagePath + location.image;
   }
 
-  return legacy.load(location, entry);
+  return location;
 }
 
 module.exports = get;

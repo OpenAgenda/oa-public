@@ -3,8 +3,9 @@
 const schema = require('@openagenda/validators/schema');
 const integer = require('@openagenda/validators/integer');
 const text = require('@openagenda/validators/text');
+const pass = require('@openagenda/validators/pass');
 
-schema.register({ integer, text });
+schema.register({ integer, text, pass });
 
 const { BadRequest } = require('@openagenda/verror');
 
@@ -16,8 +17,13 @@ const validate = schema({
     type: 'integer',
   },
   extId: {
-    type: 'text',
+    type: 'pass',
   },
+});
+
+const validateExtIds = schema({
+  key: { type: 'text', optional: false },
+  value: { type: 'text', optional: false },
 });
 
 module.exports = (identifiers) => {
@@ -29,6 +35,14 @@ module.exports = (identifiers) => {
         }
         : identifiers,
     );
+
+    if (!clean.uid && !clean.extId && !clean.slug) {
+      throw new Error('identifier is missing');
+    }
+    if (clean.extId) {
+      clean.extIds = validateExtIds(clean.extId);
+      return clean;
+    }
     const getFieldName = Object.keys(clean)
       .filter((f) => !!clean[f])
       .pop();

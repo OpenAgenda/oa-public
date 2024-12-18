@@ -28,4 +28,8 @@ module.exports = schema({
     type: 'boolean',
     default: false,
   },
+  protectExtIds: {
+    type: 'boolean',
+    default: true,
+  },
 });
