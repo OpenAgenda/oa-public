@@ -74,6 +74,8 @@ services:
     environment:
       HOST: ${STRAPI_HOST}
       PORT: ${STRAPI_PORT}
+      SSL: ${STRAPI_SSL}
+      DOMAIN: ${STRAPI_DOMAIN}
       APP_KEYS: ${STRAPI_APP_KEYS}
       API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT}
       ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET}
