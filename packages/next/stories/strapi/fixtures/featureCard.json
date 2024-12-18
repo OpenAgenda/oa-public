@@ -1,0 +1,64 @@
+{
+  "id": 7,
+  "title": "Phteven",
+  "text": "Célébrité internet",
+  "image": {
+    "id": 3,
+    "documentId": "y56otdbqjklyymj7ynhhmf3o",
+    "name": "MainImage_A3.jpg",
+    "alternativeText": null,
+    "caption": null,
+    "width": 753,
+    "height": 616,
+    "formats": {
+      "thumbnail": {
+        "name": "thumbnail_MainImage_A3.jpg",
+        "hash": "thumbnail_Main_Image_A3_0cc920c64c",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "path": null,
+        "width": 190,
+        "height": 156,
+        "size": 5.68,
+        "sizeInBytes": 5681,
+        "url": "/thumbnail_Main_Image_A3_0cc920c64c.jpg"
+      },
+      "medium": {
+        "name": "medium_MainImage_A3.jpg",
+        "hash": "medium_Main_Image_A3_0cc920c64c",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "path": null,
+        "width": 750,
+        "height": 614,
+        "size": 61.51,
+        "sizeInBytes": 61514,
+        "url": "/medium_Main_Image_A3_0cc920c64c.jpg"
+      },
+      "small": {
+        "name": "small_MainImage_A3.jpg",
+        "hash": "small_Main_Image_A3_0cc920c64c",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "path": null,
+        "width": 500,
+        "height": 409,
+        "size": 29.81,
+        "sizeInBytes": 29807,
+        "url": "/small_Main_Image_A3_0cc920c64c.jpg"
+      }
+    },
+    "hash": "Main_Image_A3_0cc920c64c",
+    "ext": ".jpg",
+    "mime": "image/jpeg",
+    "size": 62.6,
+    "url": "/Main_Image_A3_0cc920c64c.jpg",
+    "previewUrl": null,
+    "provider": "local",
+    "provider_metadata": null,
+    "createdAt": "2024-12-17T14:07:38.011Z",
+    "updatedAt": "2024-12-17T14:07:38.011Z",
+    "publishedAt": "2024-12-17T14:07:38.012Z"
+  },
+  "assetsBasePath": ""
+}
