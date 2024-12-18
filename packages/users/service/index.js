@@ -115,7 +115,8 @@ class Users extends Service {
       key: 'image',
       variants: [
         {
-          getFilename: (info, context) => `user.profile.${context.uid}.jpg`,
+          getFilename: (info, context) =>
+            `user.profile.${context.uid}.${crypto.randomUUID().replace(/-/g, '')}.jpg`,
           transform: (info, context) => {
             context.providerParams.ContentType = 'image/jpeg';
 
@@ -129,7 +130,8 @@ class Users extends Service {
           },
         },
         {
-          getFilename: (info, context) => `user.profile.${context.uid}_o.jpg`,
+          getFilename: (info, context) =>
+            `user.profile.${context.uid}_o.${crypto.randomUUID().replace(/-/g, '')}.jpg`,
           transform: (info, context) => {
             context.providerParams.ContentType = 'image/jpeg';
 
@@ -140,7 +142,8 @@ class Users extends Service {
           },
         },
         {
-          getFilename: (info, context) => `user.profile.${context.uid}_sm.jpg`,
+          getFilename: (info, context) =>
+            `user.profile.${context.uid}_sm.${crypto.randomUUID().replace(/-/g, '')}.jpg`,
           transform: (info, context) => {
             context.providerParams.ContentType = 'image/jpeg';
 
