@@ -1,15 +1,11 @@
 import { HStack } from '@openagenda/uikit';
 import FeatureCard from './FeatureCard';
 
-export default function FeatureCardSet({ Features, assetsBasePath }) {
+export default function FeatureCardSet({ Features }) {
   return (
     <HStack spacing={8}>
       {Features.map((Feature) => (
-        <FeatureCard
-          key={Feature.id}
-          assetsBasePath={assetsBasePath}
-          {...Feature}
-        />
+        <FeatureCard key={Feature.id} {...Feature} />
       ))}
     </HStack>
   );

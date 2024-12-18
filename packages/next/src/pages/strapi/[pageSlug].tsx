@@ -14,16 +14,12 @@ interface StrapiResponse {
 
 interface PageProps {
   page: any;
-  assetsBasePath: string;
 }
 
 export const getServerSideProps: GetServerSideProps<PageProps> = async ({
   query: queryWithParams,
 }) => {
-  const {
-    NEXT_STRAPI_API_BASE: APIBase,
-    NEXT_STRAPI_ASSETS_BASE: assetsBasePath,
-  } = process.env;
+  const { NEXT_STRAPI_API_BASE: APIBase } = process.env;
 
   const pageSlug = queryWithParams.pageSlug as string;
 
@@ -44,13 +40,10 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
   return {
     props: {
       page,
-      assetsBasePath,
     },
   };
 };
 
-const Page: NextPage<PageProps> = ({ page, assetsBasePath }) => (
-  <StrapiPage page={page} assetsBasePath={assetsBasePath} />
-);
+const Page: NextPage<PageProps> = ({ page }) => <StrapiPage page={page} />;
 
 export default Page;

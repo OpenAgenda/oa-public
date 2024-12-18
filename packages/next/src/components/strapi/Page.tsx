@@ -1,6 +1,6 @@
 import FeatureCardSet from 'components/strapi/FeatureCardSet';
 
-export default function StrapiPage({ page, assetsBasePath }) {
+export default function StrapiPage({ page }) {
   const { title, Segments } = page;
 
   return (
@@ -12,9 +12,7 @@ export default function StrapiPage({ page, assetsBasePath }) {
           'segments.feature-card-set': FeatureCardSet,
         }[Segment['__component']];
 
-        return (
-          <Component key={id} assetsBasePath={assetsBasePath} {...Segment} />
-        );
+        return <Component key={id} {...Segment} />;
       })}
     </div>
   );
