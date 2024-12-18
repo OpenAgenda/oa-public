@@ -30,7 +30,7 @@
     "clean": "rimraf locales-compiled"
   },
   "devDependencies": {
-    "@openagenda/intl": "^1.1.3",
+    "@openagenda/intl": "^1.1.5",
     "glob": "^8.0.1",
     "lodash": "^4.17.21",
     "mkdirp": "^3.0.1",
