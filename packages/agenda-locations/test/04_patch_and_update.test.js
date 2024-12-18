@@ -114,8 +114,8 @@ describe('agenda-locations - functional - patch & update', () => {
     });
 
     it('saves uploaded image name in db', () => {
-      expect(JSON.parse(entry.store).image.split('?').shift()).toEqual(
-        'location94482437.jpg',
+      expect(JSON.parse(entry.store).image.split('?').shift()).toMatch(
+        /location\d+\.[a-f0-9]{32}\.jpg/,
       );
     });
 
