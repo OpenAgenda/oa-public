@@ -4849,9 +4849,8 @@ __metadata:
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-filters": "npm:^2.12.3"
-    "@openagenda/react-portal-ssr": "npm:^1.0.1"
+    "@openagenda/react-portal-ssr": "npm:^1.0.2"
     "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/sdk-js": "npm:^2.0.3"
     axios: "npm:^0.21.1"
     babel-loader: "npm:^9.1.3"
     babel-plugin-handlebars-inline-precompile: "npm:^2.1.1"
@@ -4995,7 +4994,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/common-labels@workspace:common-labels"
   dependencies:
-    "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/intl": "npm:^1.1.5"
     dedent: "npm:^0.7.0"
     glob: "npm:^8.0.1"
     lodash: "npm:^4.17.21"
@@ -5066,7 +5065,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/intl@npm:^1.1.3, @openagenda/intl@npm:^1.1.5, @openagenda/intl@workspace:intl":
+"@openagenda/intl@npm:^1.1.5, @openagenda/intl@workspace:intl":
   version: 0.0.0-use.local
   resolution: "@openagenda/intl@workspace:intl"
   dependencies:
@@ -5130,7 +5129,7 @@ __metadata:
   dependencies:
     "@formatjs/intl": "npm:^2.2.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/queues": "npm:^2.0.0"
     "@openagenda/verror": "npm:^3.1.0"
@@ -5172,7 +5171,7 @@ __metadata:
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/date-utils": "npm:^0.0.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/logs": "npm:^1.1.9"
     axios: "npm:^0.21.1"
     date-fns: "npm:^2.29.3"
@@ -5276,9 +5275,9 @@ __metadata:
     "@formatjs/cli": "npm:^2.11.3"
     "@openagenda/axios-mock-adapter": "npm:^1.21.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/react-date-range": "npm:^2.0.2"
-    "@openagenda/react-portal-ssr": "npm:^1.0.1"
+    "@openagenda/react-portal-ssr": "npm:^1.0.2"
     "@openagenda/react-shared": "npm:^2.4.3"
     "@raruto/leaflet-gesture-handling": "npm:^1.4.4"
     "@storybook/addon-essentials": "npm:^7.4.2"
@@ -5333,7 +5332,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-portal-ssr@npm:^1.0.1, @openagenda/react-portal-ssr@workspace:react-portal-ssr":
+"@openagenda/react-portal-ssr@npm:^1.0.2, @openagenda/react-portal-ssr@workspace:react-portal-ssr":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-portal-ssr@workspace:react-portal-ssr"
   dependencies:
@@ -5354,7 +5353,7 @@ __metadata:
   dependencies:
     "@openagenda/bs-templates": "npm:^2.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/react-shared": "npm:^2.4.3"
     "@storybook/react-webpack5": "npm:^7.4.2"
     axios: "npm:^0.21.1"
@@ -5395,7 +5394,7 @@ __metadata:
     "@openagenda/bs-templates": "npm:^2.5.0"
     "@openagenda/common-labels": "npm:^1.0.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/react-dropzone": "npm:^14.3.5"
     "@storybook/addon-actions": "npm:^7.4.2"
@@ -5466,7 +5465,7 @@ __metadata:
   resolution: "@openagenda/react-timingspicker@workspace:react-timingspicker"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/react-shared": "npm:^2.4.3"
     "@storybook/addon-viewport": "npm:^7.4.0"
     "@storybook/react-webpack5": "npm:^7.4.0"
@@ -5496,7 +5495,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/sdk-js@npm:^2.0.3, @openagenda/sdk-js@workspace:sdk-js":
+"@openagenda/sdk-js@workspace:sdk-js":
   version: 0.0.0-use.local
   resolution: "@openagenda/sdk-js@workspace:sdk-js"
   dependencies:
@@ -5506,7 +5505,7 @@ __metadata:
     "@openagenda/axios-mock-adapter": "npm:^1.21.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/intl": "npm:^1.1.3"
+    "@openagenda/intl": "npm:^1.1.5"
     axios: "npm:^0.26.1"
     babel-jest: "npm:^29.7.0"
     core-js: "npm:^3.29.1"

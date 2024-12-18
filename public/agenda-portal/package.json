@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "6.11.8",
+  "version": "6.11.12",
   "type": "module",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
@@ -48,9 +48,8 @@
     "@openagenda/md": "^1.0.0",
     "@openagenda/polyfills": "^1.2.5",
     "@openagenda/react-filters": "^2.12.3",
-    "@openagenda/react-portal-ssr": "^1.0.1",
+    "@openagenda/react-portal-ssr": "^1.0.2",
     "@openagenda/react-shared": "^2.4.3",
-    "@openagenda/sdk-js": "^2.0.3",
     "axios": "^0.21.1",
     "babel-loader": "^9.1.3",
     "bootstrap": "^4.3.1",

@@ -38,7 +38,7 @@
     "@emotion/react": "^11.11.1",
     "@floating-ui/react": "^0.26.13",
     "@openagenda/common-labels": "^1.0.0",
-    "@openagenda/intl": "^1.1.3",
+    "@openagenda/intl": "^1.1.5",
     "@openagenda/md": "^1.0.0",
     "@openagenda/react-dropzone": "^14.3.5",
     "axios": "^0.21.1",

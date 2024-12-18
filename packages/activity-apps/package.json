@@ -22,7 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "@openagenda/common-labels": "^1.2.4",
-    "@openagenda/intl": "^1.1.3",
+    "@openagenda/intl": "^1.1.5",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/md": "^1.0.1",
