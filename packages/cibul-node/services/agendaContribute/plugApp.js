@@ -1,5 +1,4 @@
 import isDraftRequested from './lib/isDraftRequested.js';
-import loadOrDefineFileKey from './lib/loadOrDefineFileKey.js';
 import createEvent from './middlewares/createEvent.js';
 import loadEvent from './middlewares/loadEvent.js';
 import updateEvent from './middlewares/updateEvent.js';
@@ -23,7 +22,6 @@ export default (_config, services) => (parentApp) => {
   parentApp.post(
     '/:agendaSlug/contribute',
     isDraftRequested({ draft: true }),
-    loadOrDefineFileKey,
     agendas.mw.load,
     loadMember,
     verifyMemberAuthorization,
@@ -45,7 +43,6 @@ export default (_config, services) => (parentApp) => {
       loadMember,
       getAgendaSchema,
       loadEvent,
-      loadOrDefineFileKey,
       verifyMemberAuthorizationEdit,
       isDraftRequested({ draft: true }),
       formSchemaFilesMw.cleanFileValues.bind(null, {}),
@@ -68,7 +65,6 @@ export default (_config, services) => (parentApp) => {
         target: 'fromAgenda',
       }),
       loadEvent,
-      loadOrDefineFileKey,
       verifyMemberAuthorizationEdit,
       addNewMember,
       formSchemaFilesMw.cleanFileValues.bind(null, {}),
