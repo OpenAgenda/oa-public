@@ -61,8 +61,6 @@ export default function EventItem({
 
   const { baseUrl, primaryColor, imageList } = useEmbedLayoutData();
 
-  const upcomingOnly = !query.timings && query.passed !== '1';
-
   const nc = useMemo(
     () => ({
       ...query,
@@ -72,7 +70,7 @@ export default function EventItem({
       first: first || undefined,
       last: last || undefined,
     }),
-    [first, from, last, query, upcomingOnly],
+    [first, from, last, query],
   );
 
   const eventLink = useEventLink({ baseUrl, agenda, event, nc });

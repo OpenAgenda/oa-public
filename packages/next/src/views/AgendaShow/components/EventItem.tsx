@@ -34,6 +34,7 @@ import {
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useLocationQuery from 'hooks/useLocationQuery';
+import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import upperFirst from 'utils/upperFirst';
 import { keyCDNLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
@@ -129,11 +130,11 @@ function RelativeTime({ closestTiming }) {
     <Text color="oaGray.500">
       {isMounted
         ? upperFirst(
-          formatDistance(new Date(closestTiming.begin), new Date(), {
-            locale: dateFnsLocale,
-            addSuffix: true,
-          }),
-        )
+            formatDistance(new Date(closestTiming.begin), new Date(), {
+              locale: dateFnsLocale,
+              addSuffix: true,
+            }),
+          )
         : null}
     </Text>
   );
@@ -154,7 +155,7 @@ function EventItem({
 
   const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
 
-  const upcomingOnly = !query.timings && query.passed !== '1';
+  const upcomingOnly = isUpcomingOnlyQuery(query);
 
   return (
     <Flex
@@ -220,10 +221,10 @@ function EventItem({
                         ? 'score'
                         : 'lastTimingWithFeatured.asc',
                       passed: undefined,
-                      ...upcomingOnly
+                      ...upcomingOnly && !query.relative
                         ? {
-                          relative: ['current', 'upcoming'],
-                        }
+                            relative: ['current', 'upcoming'],
+                          }
                         : null,
                       from,
                       first: first || undefined,
@@ -247,8 +248,8 @@ function EventItem({
           </Flex>
 
           {/* eslint-disable-next-line no-nested-ternary */}
-          {event.image
-            ? event.image?.size?.width && event.image?.size?.height ? (
+          {event.image ? 
+            event.image?.size?.width && event.image?.size?.height ? (
               <Image
                 src={
                   process.env.NODE_ENV === 'development'
@@ -291,7 +292,7 @@ function EventItem({
                 priority={imagePriority}
               />
             )
-            : null}
+           : null}
 
           {/* TODO: add a title with a precise date */}
           <Text px="6">{getLocaleValue(event.description, intl.locale)}</Text>

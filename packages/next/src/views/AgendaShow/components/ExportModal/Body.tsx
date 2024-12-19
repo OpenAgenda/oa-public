@@ -14,6 +14,7 @@ import {
 } from '@openagenda/uikit';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
+import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import ModalLoadingBody from 'components/ModalLoadingBody';
 import SpreadsheetAccordionItem from './SpreadsheetAccordionItem';
 import PdfAccordionItem from './PdfAccordionItem';
@@ -37,13 +38,11 @@ const fetcher = (url) =>
   }).json();
 
 function completeUrls(agendaUid, query) {
-  const upcomingOnly = !query.timings && query.passed !== '1';
-
   const apiQuery = {
-    ...upcomingOnly
+    ...isUpcomingOnlyQuery(query)
       ? {
-        relative: ['current', 'upcoming'],
-      }
+          relative: ['current', 'upcoming'],
+        }
       : null,
     ...query,
     passed: undefined, // omit passed
@@ -51,8 +50,8 @@ function completeUrls(agendaUid, query) {
   const jsonLegacyQuery = {
     ...query.passed === '1'
       ? {
-        relative: ['passed', 'current', 'upcoming'],
-      }
+          relative: ['passed', 'current', 'upcoming'],
+        }
       : null,
     ...query,
     passed: undefined, // omit passed
@@ -85,13 +84,15 @@ export default function Body({ agenda, onClose, defaultIndex }) {
 
   const [mode, setMode] = useState('selection');
   const res = useMemo(() => {
-    const usedQuery = mode === 'all' ? { relative: ['passed', 'current', 'upcoming'] } : query;
+    const usedQuery =
+      mode === 'all' ? { relative: ['passed', 'current', 'upcoming'] } : query;
     return completeUrls(agenda.uid, usedQuery);
   }, [mode, agenda.uid, query]);
 
   const { user } = useUser();
   const { data: meData, mutate: meMutate } = useSWR<any>(res.me, fetcher);
-  const { data: exportSettingsData, isLoading: exportSettingsLoading } = useSWR<any>(res.agendaExportSettings, fetcher);
+  const { data: exportSettingsData, isLoading: exportSettingsLoading } =
+    useSWR<any>(res.agendaExportSettings, fetcher);
 
   const publicKey = meData?.apiKey;
   const languages = exportSettingsData?.languages;
@@ -129,15 +130,18 @@ export default function Body({ agenda, onClose, defaultIndex }) {
       );
       if (!options.allLanguages) {
         options.selectedLanguages.map((l) =>
-          exportUrl.searchParams.append('includeLanguages[]', l));
+          exportUrl.searchParams.append('includeLanguages[]', l),
+        );
       }
       if (!options.allFields) {
         options.selectedFields.map((f) =>
-          exportUrl.searchParams.append('includeFields[]', f));
+          exportUrl.searchParams.append('includeFields[]', f),
+        );
       }
       if (options.distributedOptions) {
         options.distributedFields.map((f) =>
-          exportUrl.searchParams.append('distributeOptionalFields[]', f));
+          exportUrl.searchParams.append('distributeOptionalFields[]', f),
+        );
       }
     }
 

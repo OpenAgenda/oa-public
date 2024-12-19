@@ -8,6 +8,7 @@ import {
 import { chakra, Box, SimpleGrid } from '@openagenda/uikit';
 import useFiltersBaseQuery from 'views/AgendaShow/hooks/useFiltersBaseQuery';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
+import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import { omitParams } from 'utils/embedParams';
 import AgendaShowMapFilter from 'views/AgendaShow/components/MapFilter';
 import useGetFilterOptions from '../hooks/useGetFilterOptions';
@@ -39,8 +40,6 @@ export default function FiltersPart({
   referrer,
 }) {
   const intl = useIntl();
-
-  const upcomingOnly = !query.timings && query.passed !== '1';
 
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
@@ -84,7 +83,7 @@ export default function FiltersPart({
     null, // apiClient
     `/api/agendas/slug/${agenda.slug}/events`,
     omitParams({
-      ...upcomingOnly
+      ...isUpcomingOnlyQuery(query)
         ? {
             relative: ['current', 'upcoming'],
           }
