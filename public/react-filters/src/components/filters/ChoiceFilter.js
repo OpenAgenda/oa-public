@@ -1,7 +1,14 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useMemo,
+  useState,
+  useRef,
+  useEffect,
+} from 'react';
 import { Field, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
+import { usePrevious } from 'react-use';
 import { css } from '@emotion/react';
 import ChoiceField from '../fields/ChoiceField.js';
 import Title from '../Title.js';
@@ -131,6 +138,19 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter(
     sort,
   });
 
+  // Focus on new option
+  const newOptionRef = useRef(null);
+  const previousCountOptions = usePrevious(countOptions);
+  useEffect(() => {
+    if (
+      newOptionRef.current
+      && countOptions !== previousCountOptions
+      && countOptions - pageSize === previousCountOptions
+    ) {
+      newOptionRef.current.focus();
+    }
+  }, [countOptions, previousCountOptions]);
+
   return (
     <>
       {options.length > searchMinSize ? (
@@ -168,6 +188,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter(
             disabled={disabled}
             tag={tag}
             preventDefault={preventDefault}
+            ref={index === countOptions - pageSize ? newOptionRef : null}
           />
         ) : null))}
 
