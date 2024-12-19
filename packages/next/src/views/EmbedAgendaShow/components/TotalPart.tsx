@@ -5,6 +5,7 @@ import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
 import FiltersPreview from 'views/AgendaShow/components/FiltersPreview';
 import { TotalSkeleton } from 'views/AgendaShow/components/LoadingPage';
 import messages from 'views/AgendaShow/messages';
+import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import { omitParams } from 'utils/embedParams';
 import useGetFilterOptions from '../hooks/useGetFilterOptions';
 import getPrefilteredQuery from '../utils/getPrefilteredQuery';
@@ -73,7 +74,9 @@ export default function TotalPart({
 }) {
   const intl = useIntl();
 
-  const upcomingOnly = !query.timings && query.passed !== '1';
+  const upcomingOnly = isUpcomingOnlyQuery(
+    getPrefilteredQuery({ query, prefilter, filters }),
+  );
 
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
