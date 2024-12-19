@@ -3,7 +3,7 @@ export default ({ env }) => ({
     config: {
       provider: 'aws-s3',
       providerOptions: {
-        baseUrl: env('S3_MAIN_PATH').replace(/\/$/, ''),
+        baseUrl: env('S3_ASSETS_PATH').replace(/\/$/, ''),
         rootPath: env('S3_ROOT_PATH'),
         s3Options: {
           forcePathStyle: true,
@@ -16,7 +16,7 @@ export default ({ env }) => ({
           params: {
             ACL: env('S3_ACL', 'public-read'),
             signedUrlExpires: env('AWS_SIGNED_URL_EXPIRES', 15 * 60),
-            Bucket: env('S3_MAIN_BUCKET'),
+            Bucket: env('S3_ASSETS_BUCKET'),
           },
         },
       },
