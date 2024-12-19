@@ -106,6 +106,8 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter(
     name,
     filter,
     getTotal,
+    searchPlaceholder,
+    searchAriaLabel,
     getOptions,
     disabled,
     collapsed,
@@ -158,7 +160,10 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter(
           className="form-control input-sm margin-top-xs"
           value={searchValue}
           onChange={onSearchChange}
-          placeholder={intl.formatMessage(messages.searchPlaceholder)}
+          placeholder={
+            searchPlaceholder || intl.formatMessage(messages.searchPlaceholder)
+          }
+          aria-label={searchAriaLabel}
           css={css`
             width: 50%;
           `}
