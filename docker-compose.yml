@@ -87,10 +87,11 @@ services:
       S3_ENDPOINT: ${S3_ENDPOINT}
       S3_MAIN_PATH: ${S3_MAIN_PATH}
       S3_ROOT_PATH: ${STRAPI_S3_ROOT_PATH}
+      S3_ASSETS_PATH: ${S3_ASSETS_PATH}
       S3_KEY: ${S3_KEY}
       S3_SECRET: ${S3_SECRET}
       S3_REGION: ${S3_REGION}
-      S3_MAIN_BUCKET: ${S3_MAIN_BUCKET}
+      S3_ASSETS_BUCKET: ${S3_ASSETS_BUCKET}
 
   node:
     container_name: node
