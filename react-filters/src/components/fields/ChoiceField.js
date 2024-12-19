@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
 import cn from 'classnames';
@@ -52,15 +52,18 @@ function useOnChoiceChange(input, preventDefault) {
   };
 }
 
-export default function ChoiceField({
-  input,
-  getTotal,
-  filter,
-  option,
-  disabled,
-  tag: Tag = 'div',
-  preventDefault = true,
-}) {
+const ChoiceField = React.forwardRef(function ChoiceField(
+  {
+    input,
+    getTotal,
+    filter,
+    option,
+    disabled,
+    tag: Tag = 'div',
+    preventDefault = true,
+  },
+  ref,
+) {
   const intl = useIntl();
   const seed = useUIDSeed();
   const total = useMemo(
@@ -81,6 +84,7 @@ export default function ChoiceField({
       })}
     >
       <span
+        ref={ref}
         className="oa-choice-option-label"
         role="checkbox"
         tabIndex="0"
@@ -104,4 +108,6 @@ export default function ChoiceField({
       </span>
     </Tag>
   );
-}
+});
+
+export default ChoiceField;
