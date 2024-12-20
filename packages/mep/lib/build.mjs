@@ -24,9 +24,5 @@ export default function build({ dir, envVars }) {
     commands.push('yarn push');
   }
 
-  return execCommands([
-    `cd ${dir}`,
-    `echo cloning oa in ${dir}`,
-    'git clone git@github.com:OpenAgenda/oa.git',
-  ], envVars);
+  return execCommands(commands, envVars);
 }
