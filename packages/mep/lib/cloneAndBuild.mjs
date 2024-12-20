@@ -15,6 +15,8 @@ export default async function cloneAndBuild({ dir, envVars, nodes }) {
     NEXT_PUBLIC_MAP_TILES: nextPublicMapTiles,
     SENTRY_AUTH_TOKEN: sentryAuthToken,
     NEXT_PUBLIC_IMAGE_PREFIX: nextPublicImagePrefix,
+    STRAPI_API_BASE: strapiAPIBase,
+    STRAPI_API_AUTH_TOKEN: strapiAPIAuthToken,
   } = envVars;
 
   const { CDN: pushToCDN = false } = process.env;
@@ -26,6 +28,8 @@ export default async function cloneAndBuild({ dir, envVars, nodes }) {
     `NEXT_API_INTERNAL_BASE_URL=http://${getNginxAddress(nodes)}:${internalServerPort}`,
     `NEXT_PUBLIC_MAP_TILES=${nextPublicMapTiles}`,
     `SENTRY_AUTH_TOKEN=${sentryAuthToken}`,
+    `STRAPI_API_BASE=${strapiAPIBase}`,
+    `STRAPI_API_AUTH_TOKEN=${strapiAPIAuthToken}`,
   ];
 
   if (nextPublicImagePrefix) {
