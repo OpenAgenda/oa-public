@@ -1,6 +1,10 @@
 import execCommands from './execCommands.mjs';
 
 export default function build({ dir, envVars }) {
+  const {
+    NODE_ENV: nodeEnv,
+  } = envVars;
+
   const { CDN: pushToCDN = false } = process.env;
 
   const commands = [

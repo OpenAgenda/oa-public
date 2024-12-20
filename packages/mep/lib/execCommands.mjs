@@ -20,9 +20,5 @@ export default async function execCommands(commands, envVars = {}) {
     p.stdout.on('data', (data) => {
       console.log(data);
     });
-
-    p.stderr.on('data', (data) => {
-      console.log('err', data);
-    });
   });
 }
