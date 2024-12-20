@@ -31,12 +31,13 @@ chown -R app /home/app/data
 
 # Utilisation
 
-Il faut exporter `TURBO_TOKEN` et créer/modifier `.turbo/config.json` dans oa avec:
+Il faut créer/modifier `.turbo/config.json` dans oa avec:
 
 ```
 {
   "apiurl": "http://<IP_DU_SERVEUR>:3000",
   "teamslug": "oa",
+  "token": "<LE_TOKEN>"
 }
 ```
 
