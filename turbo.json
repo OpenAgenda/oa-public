@@ -44,6 +44,11 @@
       "outputs": ["build/**", "dist/**"],
       "outputLogs": "new-only"
     },
+    "@openagenda/common-labels#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["build/**", "locales-compiled/**"],
+      "outputLogs": "new-only"
+    },
     "@openagenda/form-schemas#prepack": {
       "dependsOn": ["^prepack"],
       "outputs": ["client/build/**"],
@@ -71,7 +76,14 @@
     },
     "@openagenda/validators#prepack": {
       "dependsOn": ["^prepack"],
-      "outputs": ["lib/*.js", "schema/*.js", "*.js"],
+      "outputs": [
+        "lib/*.js",
+        "lib/*.js.map",
+        "schema/*.js",
+        "schema/*.js.map",
+        "*.js",
+        "*.js.map"
+      ],
       "outputLogs": "new-only"
     }
   }
