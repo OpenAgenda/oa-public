@@ -95,8 +95,6 @@ ssh-keygen -y -f id_rsa > id_rsa.pub
 git clone git@github.com:OpenAgenda/oa.git
 ```
 
-un petit lien symbolique pour rendre le package strapi plus accessible: `ln -s /root/oa/packages/strapi strapi`
-
 Il faut rajouter un `.yarnrc.yml` sur /root avec:
 
 ```
@@ -105,7 +103,7 @@ npmRegistries:
     npmAuthToken: "${NPM_TOKEN}"
 ```
 
-Dans `/root/strapi`:
+Dans `/root/oa/packages/strapi`:
 
 ```
 yarn
@@ -119,7 +117,7 @@ Si là ça marche, on peut créer l'`ecosystem.config.js` de pm2. Avec ça dedan
 module.exports = {
   apps: [{
     name: 'strapi',
-    cwd: '/root/strapi/',
+    cwd: '/root/oa/packages/strapi/',
     script: 'yarn',
     args: 'start'
   }],
