@@ -12,7 +12,7 @@ export default ({ env }) => ({
             secretAccessKey: env('S3_SECRET'),
           },
           endpoint: env('S3_ENDPOINT'),
-          region: env('S3_REGION'),
+          region: env('S3_REGION', 'us-east-1'),
           params: {
             ACL: env('S3_ACL', 'public-read'),
             signedUrlExpires: env('AWS_SIGNED_URL_EXPIRES', 15 * 60),
