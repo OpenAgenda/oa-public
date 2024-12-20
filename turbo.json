@@ -33,7 +33,7 @@
     },
     "@openagenda/bs-templates#prepack": {
       "dependsOn": ["^prepack"],
-      "outputs": ["compiled/*.scss"],
+      "outputs": ["compiled/*.css"],
       "outputLogs": "new-only"
     },
     "@openagenda/cibul-templates#prepack": {
