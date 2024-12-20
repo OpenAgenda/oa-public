@@ -1,16 +1,75 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "globalDependencies": [".env"],
+  "globalEnv": ["NODE_ENV"],
+  "globalPassThroughEnv": [
+    "NODE_ENV",
+    "NPM_TOKEN",
+    "FONTAWESOME_NPM_AUTH_TOKEN"
+  ],
+  "tasks": {
     "prepack": {
-      "dependsOn": ["^prepack"]
+      "dependsOn": ["^prepack"],
+      "outputs": ["build/**", "dist/**"],
+      "outputLogs": "new-only"
+    },
+    "@openagenda/admin-agendas#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["components/lib/**"],
+      "outputLogs": "new-only"
+    },
+    "@openagenda/agenda-docx#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["client/build/**"],
+      "outputLogs": "new-only"
+    },
+    "@openagenda/agenda-portal#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["assets/js/**"],
+      "outputLogs": "new-only"
+    },
+    "@openagenda/bs-templates#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["compiled/*.scss"],
+      "outputLogs": "new-only"
+    },
+    "@openagenda/cibul-templates#prepack": {
+      "dependsOn": ["^@openagenda/cibul-templates#build:dev"]
+    },
+    "@openagenda/cibul-templates#build:dev": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["build/**", "dist/**"],
+      "outputLogs": "new-only"
+    },
+    "@openagenda/form-schemas#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["client/build/**"],
+      "outputLogs": "new-only"
+    },
+    "@openagenda/legacy#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["embeds/app/dist/**"],
+      "outputLogs": "new-only"
+    },
+    "@openagenda/network-apps#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["client/dist/**"],
+      "outputLogs": "new-only"
     },
     "@openagenda/next#build": {
       "dependsOn": ["^prepack"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "outputLogs": "new-only"
     },
-    "@openagenda/uikit#prepack": {
-      "outputs": ["dist/**"],
-      "inputs": ["src/**"]
+    "@openagenda/sdk-js#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["esm/**", "lib/**"],
+      "outputLogs": "new-only"
+    },
+    "@openagenda/validators#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["lib/*.js", "schema/*.js", "*.js"],
+      "outputLogs": "new-only"
     }
   }
 }
