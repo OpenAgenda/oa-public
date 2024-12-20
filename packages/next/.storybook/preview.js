@@ -17,11 +17,7 @@ initialize({
 
     if (sameOrigin && url.pathname.startsWith('/static')) return;
 
-    if (
-      url.hostname ===
-      '02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud'
-    )
-      return;
+    if (url.hostname === 'cdn.openagenda.com') return;
 
     print.warning();
   },

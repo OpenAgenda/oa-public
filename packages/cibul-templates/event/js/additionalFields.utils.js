@@ -56,7 +56,7 @@ function formatValue(field, value, { lang, timezone }) {
 
   if (['image', 'file'].includes(field.fieldType) && value) {
     return {
-      link: `https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/${field.store?.bucket ?? 'main'}/${value.filename}`,
+      link: `https://cdn.openagenda.com/${field.store?.bucket ?? 'main'}/${value.filename}`,
       originalName: value.originalName
     };
   }

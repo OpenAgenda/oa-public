@@ -74,7 +74,7 @@ module.exports = (env = {}, argv = {}) => {
     output: {
       path: path.join(__dirname, 'dist'),
       publicPath: pushToCDN
-        ? `https://cdn.openagenda.com/svc/${serviceName}/`
+        ? `https://cdn.openagenda.com/assets/svc/${serviceName}/`
         : `/dist/${serviceName}/`,
       filename: '[name].[contenthash].js',
     },

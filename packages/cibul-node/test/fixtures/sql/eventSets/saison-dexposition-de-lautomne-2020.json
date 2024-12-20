@@ -12,7 +12,7 @@
     "created_at": "2020-07-20 12:51:18",
     "updated_at": "2021-01-11 13:07:49",
     "uid": 22258578,
-    "store": "{\"images\":{\"filename\":\"47215824207f4b47ab4fb3432526802c.base.image.jpg\",\"credits\":\"© Roger Catherineau\",\"size\":{\"height\":1027,\"width\":700},\"variants\":[{\"type\":\"full\",\"filename\":\"47215824207f4b47ab4fb3432526802c.full.image.jpg\",\"size\":{\"height\":5197,\"width\":3543}},{\"type\":\"thumbnail\",\"filename\":\"47215824207f4b47ab4fb3432526802c.thumb.image.jpg\",\"size\":{\"height\":200,\"width\":200}}],\"base\":\"https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/\"},\"links\":[]}",
+    "store": "{\"images\":{\"filename\":\"47215824207f4b47ab4fb3432526802c.base.image.jpg\",\"credits\":\"© Roger Catherineau\",\"size\":{\"height\":1027,\"width\":700},\"variants\":[{\"type\":\"full\",\"filename\":\"47215824207f4b47ab4fb3432526802c.full.image.jpg\",\"size\":{\"height\":5197,\"width\":3543}},{\"type\":\"thumbnail\",\"filename\":\"47215824207f4b47ab4fb3432526802c.thumb.image.jpg\",\"size\":{\"height\":200,\"width\":200}}],\"base\":\"https://cdn.openagenda.com/main/\"},\"links\":[]}",
     "eve_id": null,
     "custom_fields": "{\"descriptionville\":null,\"reseau-metropole-de-lille\":[\"interetintercommunal\",\"organise-par-la-ville-de-roubaix\"],\"interetintercommunal\":[],\"recurringevent\":[],\"creditsimage\":null,\"schedule_description\":null}",
     "age_min": null,

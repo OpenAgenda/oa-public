@@ -16,7 +16,7 @@ const main = {
     builder: getAbsolutePath('@storybook/builder-webpack5'),
   },
 
-  staticDirs: ['./public'],
+  staticDirs: ['./public', '../stories/static'],
 
   babel: async (config) => {
     config.generatorOpts = { importAttributesKeyword: 'with' };

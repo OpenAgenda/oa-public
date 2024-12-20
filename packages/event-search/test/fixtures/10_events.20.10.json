@@ -18,7 +18,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -84,7 +84,7 @@
         "en": []
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -148,7 +148,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -211,7 +211,7 @@
         "en": ["ouest", "poster"]
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -273,7 +273,7 @@
         "en": []
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -328,7 +328,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -426,7 +426,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -486,7 +486,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -546,7 +546,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -606,7 +606,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,

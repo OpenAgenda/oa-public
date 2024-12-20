@@ -1,5 +1,6 @@
 import { createReadStream } from 'node:fs';
 import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
 import _ from 'lodash';
 import { S3Client } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
@@ -56,7 +57,7 @@ function putInTemporary(o, req, res, next) {
         if (!field) return cb(null, 'latest_discarded_upload');
 
         const filename = [
-          req[options.fileKey],
+          crypto.randomUUID().replace(/-/g, ''),
           file.fieldname,
           file.originalname.split('.').pop(),
         ].join('.');

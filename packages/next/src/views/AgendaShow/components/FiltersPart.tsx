@@ -17,6 +17,7 @@ import {
   useGetFilterOptions,
   useGetTotal,
 } from '@openagenda/react-filters';
+import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import CopyIdentifier from 'components/CopyIdentifier';
 import useFiltersBaseQuery from '../hooks/useFiltersBaseQuery';
 import useEventsQuery from '../hooks/useEventsQuery';
@@ -32,8 +33,6 @@ import { FiltersSkeleton } from './LoadingPage';
 
 export default function FiltersPart({ agenda, filters, query, includeFields }) {
   const intl = useIntl();
-
-  const upcomingOnly = !query.timings && query.passed !== '1';
 
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
@@ -65,7 +64,7 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
     null, // apiClient
     `/api/agendas/slug/${agenda.slug}/events`,
     {
-      ...upcomingOnly
+      ...isUpcomingOnlyQuery(query)
         ? {
             relative: ['current', 'upcoming'],
           }

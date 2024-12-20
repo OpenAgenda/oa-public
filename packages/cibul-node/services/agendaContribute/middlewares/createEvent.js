@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import logs from '@openagenda/logs';
 import handleError from '../lib/handleError.js';
 
@@ -17,7 +18,7 @@ export default function createEvent(req, res) {
       draft: req.draft,
       userUid: req.user.uid,
       filterUnauthorizedData: true,
-      fileKey: req.fileKey,
+      fileKey: crypto.randomUUID().replace(/-/g, ''),
       duplicateOrigin: req.query.duplicateOrigin,
       userLang: req.lang,
     })

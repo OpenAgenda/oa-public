@@ -47,7 +47,6 @@ export const defaultDirectives = {
       const { matomoCloudId } = req.app.core.getConfig();
       return matomoCloudId ? `https://${matomoCloudId}` : '';
     },
-    (req) => req.app.core.getConfig().s3.mainBucketPath, // inbox upload
   ].concat(
     process.env.DEV_SERVER_PORT
       ? [

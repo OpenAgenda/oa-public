@@ -120,7 +120,7 @@ export default async function rebuild({ prefix, knex, redis }, uid) {
       );
     } catch (e) {
       log(
-        'error',
+        'warning',
         'failed to insert event %s to agenda %s data',
         agendaEvent.eventUid,
         uid,

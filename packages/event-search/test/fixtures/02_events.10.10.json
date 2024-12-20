@@ -18,7 +18,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -83,7 +83,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -151,7 +151,7 @@
         "en": ["key", "word"]
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -219,7 +219,7 @@
         "en": ["other", "keyword"]
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -286,7 +286,7 @@
         "fr": ["local_time"]
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -349,7 +349,7 @@
         "fr": ["local_time"]
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -413,7 +413,7 @@
         "en": ["toasty", "psycho"]
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -481,7 +481,7 @@
         "en": ["scorbut", "ear"]
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -549,7 +549,7 @@
         "en": ["freckles", "mississipi chose"]
       },
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -614,7 +614,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,

@@ -7,7 +7,7 @@ async function getPolygonsSet(field, location) {
   const countryCode = (location.countryCode || '').toUpperCase();
   return axios
     .get(
-      `https://cdn.openagenda.com/svc/geocoder/${field}/${countryCode}.${location.adminLevel4}.json`,
+      `https://cdn.openagenda.com/assets/svc/geocoder/${field}/${countryCode}.${location.adminLevel4}.json`,
     )
     .then(({ data }) => data);
 }

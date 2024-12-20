@@ -18,7 +18,7 @@
       "fileKey": null,
       "id": 2,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "keywords": {
         "en": ["future"],
@@ -80,7 +80,7 @@
       "fileKey": null,
       "id": 42,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "keywords": {
         "fr": ["apostrophe_event"]
@@ -137,7 +137,7 @@
       "fileKey": null,
       "id": 15,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "keywords": {},
       "location": {
@@ -196,7 +196,7 @@
       "fileKey": null,
       "id": 16,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "keywords": {},
       "location": {
@@ -255,7 +255,7 @@
       "fileKey": null,
       "id": 17,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "keywords": {},
       "location": {
@@ -314,7 +314,7 @@
       "fileKey": null,
       "id": 40,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "keywords": {
         "fr": ["date_event"]
@@ -371,7 +371,7 @@
       "fileKey": null,
       "id": 41,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "keywords": {
         "fr": ["date_event"]
@@ -438,7 +438,7 @@
       "fileKey": null,
       "id": 6,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/",
+        "base": "//cdn.openagenda.com/dev/",
         "credits": null,
         "filename": null,
         "size": {
@@ -537,7 +537,7 @@
       "fileKey": null,
       "id": 24,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "keywords": {
         "en": [],
@@ -598,7 +598,7 @@
       "fileKey": null,
       "id": 1,
       "image": {
-        "base": "//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "keywords": {
         "en": ["last"],

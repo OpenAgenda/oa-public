@@ -1,5 +1,5 @@
 import { formatInTimeZone } from 'date-fns-tz';
-import { toEventSchema } from '@openagenda/sdk-js';
+import toEventSchema from './toEventSchema.js';
 
 export default (event, timing, defaultTimezone = 'Europe/Paris') => {
   const schemaOrg = toEventSchema(

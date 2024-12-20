@@ -715,7 +715,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             },
           ],
           image: {
-            url: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
+            url: 'https://cdn.openagenda.com/main/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
           },
           attendanceMode: 2,
           onlineAccessLink: 'https://oa.com',
@@ -941,7 +941,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
                 fr: 'Un tout petit événement',
               },
               image: {
-                url: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
+                url: 'https://cdn.openagenda.com/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
                 credits: 'Les crédits',
               },
               timings: [
@@ -1017,7 +1017,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
               fr: 'Un tout petit événement',
             },
             image: {
-              url: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
+              url: 'https://cdn.openagenda.com/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
               credits: 'Les crédits',
             },
             timings: [
@@ -1058,7 +1058,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
                 fr: 'Un tout petit événement',
               },
               image: {
-                url: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/event_a-l-abo',
+                url: 'https://cdn.openagenda.com/main/event_a-l-abo',
                 credits: 'Les crédits',
               },
               timings: [

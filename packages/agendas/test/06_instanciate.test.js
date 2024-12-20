@@ -99,8 +99,8 @@ describe('agendas - functional (server): instanciate', () => {
                 aId,
                 (err3, rows1) => {
                   if (err3) return reject(err3);
-                  expect(rows1[0].image.split('?')[0]).toBe(
-                    `agenda${rows[0].uid}.jpg`,
+                  expect(rows1[0].image.split('?')[0]).toMatch(
+                    new RegExp(`agenda${rows[0].uid}\\.[a-f0-9]{32}\\.jpg`),
                   );
 
                   resolve();
@@ -125,7 +125,7 @@ describe('agendas - functional (server): instanciate', () => {
     const a = await svc.get(4820, { instanciate: true });
 
     expect(a.getImage(true)).toBe(
-      'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_planning-intervenants_00.jpg',
+      'https://cdn.openagenda.com/dev/review_planning-intervenants_00.jpg',
     );
   });
 

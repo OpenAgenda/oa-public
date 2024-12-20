@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone } from '@openagenda/react-dropzone';
 import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
 import bytes from 'bytes';
 import { getSupportedLocale } from '@openagenda/intl';

@@ -28,14 +28,11 @@ async function update({ service, isPatch }, current, data, o = {}) {
     updatedAt: new Date(),
   };
 
-  if (!current.fileKey && clean.image) {
-    clean.fileKey = generateFileKey();
-  }
-
   if (clean.image) {
+    clean.fileKey = generateFileKey();
     clean.image = await processImage(service, {
       image: clean.image,
-      fileKey: current.fileKey ?? clean.fileKey,
+      fileKey: clean.fileKey,
     });
   }
 

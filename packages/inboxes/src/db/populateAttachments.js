@@ -25,7 +25,7 @@ export default async function populateAttachments(svc, entities) {
 
     entity.attachments = attachments.map((attachment) => ({
       ...attachment,
-      path: `https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/${s3.bucket}/${attachment.filename}`,
+      path: `https://cdn.openagenda.com/${s3.bucket}/${attachment.filename}`,
     }));
 
     return entity;

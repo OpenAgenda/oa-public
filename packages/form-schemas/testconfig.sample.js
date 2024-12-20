@@ -9,8 +9,7 @@ export default {
     network: 'network',
     formSchema: 'form_schema',
   },
-  imagePath:
-    'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
+  imagePath: 'https://cdn.openagenda.com/dev/',
   s3: {
     endpoint: process.env.S3_DEV_ENDPOINT,
     accessKeyId: process.env.S3_DEV_ACCESS_KEY_ID,

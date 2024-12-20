@@ -4,10 +4,10 @@ This library provides functionalities to build a fully customizable events websi
 
 Here are a few websites built with this library:
 
-- INHA: [https://agenda.inha.fr/](https://agenda.inha.fr/)
-- L'agenda d'Albi: [https://agenda.albi.fr](https://agenda.albi.fr)
-- Arles | Agenda: [https://arles-agenda.fr/](https://arles-agenda.fr/)
-- 50 ans de Francophonie: [https://agenda50ans.francophonie.org/](https://agenda50ans.francophonie.org/)
+- Cap Métiers: [https://agenda.cap-metiers.pro/](https://agenda.cap-metiers.pro)
+- L'agenda de Senlis: [https://agenda.ville-senlis.fr/](https://agenda.ville-senlis.fr)
+- Saint-Quentin en Yvelines: [https://www.kiosq.sqy.fr](https://www.kiosq.sqy.fr)
+- Comexposium Salons CSE: [https://www.solutions-cse.org/salons-cse/salon-cse-paris/evenements-et-animations](https://www.solutions-cse.org/salons-cse/salon-cse-paris/evenements-et-animations)
 
 [Handlebars](https://handlebarsjs.com/) is the main templating engine.
 [Sass](https://sass-lang.com/) for styling. Default templates use [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/theming/)
@@ -101,6 +101,7 @@ These define general portal settings. Default options set in your `server.js` fi
 - **refreshInterval**: interval with which the cache is cleared in milliseconds. Defaults on 1000*60*60 (1 hour)
 - **iframable**: false by default. True if the portal is to be displayed within an iframe.
 - **tracking**: enable or disable Google Analytics tracking. Set useAgendaGoogleAnalytics to true to activate Google Analytics tracking. CookieBannerLink is the URL of the link displayed in the cookie consent banner and defaults to the Google Analytics help URL.
+  requireConsent controls whether consent is required from the user before tracking. If true (default), the cookie consent banner will appear. If false, tracking will occur without requesting consent.
 - **longDescriptionFormat**: Optional. `HTMLWithEmbeds` (default), `markdown` or `HTML`.
 - **visibilityPastEvents**: false by default. True if past events are to be displayed when the relative or temporal filter is specified
 

@@ -524,7 +524,7 @@ function _respond( req, res, code, body, responseType ) {
       flash: null,
       user: {
         name: 'Gaetan Latouche',
-        thumbnail: 'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/review_kaore-olafsson_01.jpg',
+        thumbnail: 'https://cdn.openagenda.com/main/review_kaore-olafsson_01.jpg',
         uid: 75052324,
         culture: 'fr'
       }

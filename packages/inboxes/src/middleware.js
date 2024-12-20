@@ -427,6 +427,78 @@ export const messages = {
     });
   },
 
+  uploadAttachment(options) {
+    const { files, namespaces } = _.merge(
+      {
+        namespaces: {
+          type: 'type',
+          identifier: 'identifier',
+          conversationId: 'conversation.id',
+          messageId: 'message.id',
+          userUid: 'user.uid',
+          index: 'body.index',
+        },
+      },
+      options,
+    );
+
+    const upload = files({
+      key: 'file',
+      getFilename: (info, context) => context.foreignFilename,
+    });
+
+    return [
+      upload.cleanup(),
+      upload.multer.single('file'),
+      wrap(async (req, res) => {
+        const messageId = parseInt(_.get(req, namespaces.messageId), 10);
+        const index = parseInt(_.get(req, namespaces.index, 0), 10);
+
+        const conversation = await new Conversations(svc, {
+          userUid: parseInt(_.get(req, namespaces.userUid), 10),
+          inbox: new Inbox(svc, {
+            type: _.get(req, namespaces.type),
+            identifier: parseInt(_.get(req, namespaces.identifier), 10),
+          }),
+        }).get(parseInt(_.get(req, namespaces.conversationId), 10));
+
+        const message = await conversation.messages.get(messageId);
+
+        if (!message || !message.data) {
+          res.status(400);
+          throw new VError("Message doesn't exist");
+        }
+
+        const { name: originalName } = req.body;
+        const conversationFileKey = conversation.data.fileKey;
+        const extension = originalName.split('.').pop();
+
+        const foreignFilename = `conv.${conversationFileKey}.msg.${messageId}-${index}${
+          extension ? `.${extension}` : ''
+        }`;
+
+        const result = await req.file.transformAndUpload({ foreignFilename });
+
+        await message.addAttachment({
+          originalName,
+          filename: result.filename,
+        });
+
+        const attachment = await svc.config
+          .knex(svc.config.schemas.messageAttachment)
+          .select()
+          .first()
+          .where({
+            message_id: message.data.id,
+            filename: result.filename,
+          })
+          .then((v) => _.mapKeys(v, (value, key) => _.camelCase(key)));
+
+        res.send(attachment);
+      }),
+    ];
+  },
+
   addAttachment(options) {
     const { namespaces } = _.merge(
       {
@@ -500,7 +572,7 @@ export const messages = {
       try {
         const { data, headers } = await axios({
           method: 'get',
-          url: `https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/${svc.config.s3.bucket}/${filename}`,
+          url: `https://cdn.openagenda.com/${svc.config.s3.bucket}/${filename}`,
           responseType: 'stream',
         });
 

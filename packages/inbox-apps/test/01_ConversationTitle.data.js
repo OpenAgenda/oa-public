@@ -9,24 +9,21 @@ const userYacine = {
   culture: 'fr',
   uid: 7339049,
   name: 'Yacine Bensalem - OpenAgenda',
-  thumbnail:
-    'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+  thumbnail: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
 };
 
 const userRomain = {
   culture: 'fr',
   uid: 99999999,
   name: 'Romain Lange - OpenAgenda',
-  thumbnail:
-    'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+  thumbnail: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
 };
 
 const userKaore = {
   culture: 'fr',
   uid: 75052324,
   name: 'Kaoré - OpenAgenda',
-  thumbnail:
-    'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+  thumbnail: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
 };
 
 export default [
@@ -99,8 +96,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -142,8 +138,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       creatorInbox: {
         id: 152,
@@ -151,8 +146,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       inboxUser: {
         id: 50703,
@@ -161,8 +155,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 217,
@@ -176,8 +169,7 @@ export default [
           leftAt: null,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         inbox: {
           id: 152,
@@ -185,8 +177,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -196,8 +187,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -247,8 +237,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 218,
@@ -271,8 +260,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -313,8 +301,7 @@ export default [
         identifier: 99999999,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       latestMessage: {
         id: 219,
@@ -327,8 +314,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
       },
       inboxes: [
@@ -338,8 +324,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         {
           id: 152,
@@ -347,8 +332,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -430,8 +414,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -513,8 +496,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -555,8 +537,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 217,
@@ -569,8 +550,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -580,8 +560,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -663,8 +642,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -705,8 +683,7 @@ export default [
         identifier: 99999999,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       latestMessage: {
         id: 219,
@@ -719,8 +696,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
       },
       inboxes: [
@@ -730,8 +706,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         {
           id: 152,
@@ -739,8 +714,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -822,8 +796,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -914,8 +887,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -957,8 +929,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       creatorInbox: {
         id: 152,
@@ -966,8 +937,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       inboxUser: {
         id: 50703,
@@ -976,8 +946,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 217,
@@ -991,8 +960,7 @@ export default [
           leftAt: null,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         inbox: {
           id: 152,
@@ -1000,8 +968,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -1011,8 +978,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1071,8 +1037,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       latestMessage: {
         id: 218,
@@ -1104,8 +1069,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1146,8 +1110,7 @@ export default [
         identifier: 99999999,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       inboxUser: {
         id: 68431,
@@ -1169,8 +1132,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
       },
       inboxes: [
@@ -1180,8 +1142,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         {
           id: 152,
@@ -1189,8 +1150,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1249,8 +1209,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 218,
@@ -1282,8 +1241,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1321,8 +1279,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 211,
@@ -1335,8 +1292,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -1346,8 +1302,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1385,8 +1340,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 211,
@@ -1399,8 +1353,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -1410,8 +1363,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1450,8 +1402,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       creatorInbox: {
         id: 152,
@@ -1459,8 +1410,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       inboxUser: {
         id: 50703,
@@ -1469,8 +1419,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 211,
@@ -1484,8 +1433,7 @@ export default [
           leftAt: null,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         inbox: {
           id: 152,
@@ -1493,8 +1441,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -1504,8 +1451,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1543,8 +1489,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       inboxUser: {
         id: 68431,
@@ -1566,8 +1511,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -1577,8 +1521,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1616,8 +1559,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 202,
@@ -1630,8 +1572,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -1641,8 +1582,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1680,8 +1620,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       inboxUser: {
         id: 68431,
@@ -1703,8 +1642,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -1714,8 +1652,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1754,8 +1691,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       creatorInbox: {
         id: 152,
@@ -1763,8 +1699,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       inboxUser: {
         id: 50703,
@@ -1773,8 +1708,7 @@ export default [
         leftAt: null,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 202,
@@ -1788,8 +1722,7 @@ export default [
           leftAt: null,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         inbox: {
           id: 152,
@@ -1797,8 +1730,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -1808,8 +1740,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1847,8 +1778,7 @@ export default [
         identifier: 7339049,
         uid: 7339049,
         name: 'Yacine Bensalem - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
       },
       latestMessage: {
         id: 202,
@@ -1861,8 +1791,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
       },
       inboxes: [
@@ -1872,8 +1801,7 @@ export default [
           identifier: 7339049,
           uid: 7339049,
           name: 'Yacine Bensalem - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile7339049.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile7339049.jpg',
         },
         {
           id: 62817,
@@ -1914,8 +1842,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       creatorInbox: {
         id: 14,
@@ -1923,8 +1850,7 @@ export default [
         identifier: 48959239,
         uid: 48959239,
         name: 'La Gargouille',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
       },
       latestMessage: {
         id: 222,
@@ -1938,8 +1864,7 @@ export default [
           leftAt: null,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         inbox: {
           id: 14,
@@ -1947,8 +1872,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       },
       inboxes: [
@@ -1966,8 +1890,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       ],
     },
@@ -2000,8 +1923,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       creatorInbox: {
         id: 14,
@@ -2009,8 +1931,7 @@ export default [
         identifier: 48959239,
         uid: 48959239,
         name: 'La Gargouille',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
       },
       latestMessage: {
         id: 222,
@@ -2024,8 +1945,7 @@ export default [
           leftAt: null,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         inbox: {
           id: 14,
@@ -2033,8 +1953,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       },
       inboxes: [
@@ -2052,8 +1971,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       ],
     },
@@ -2086,8 +2004,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       creatorInbox: {
         id: 14,
@@ -2095,8 +2012,7 @@ export default [
         identifier: 48959239,
         uid: 48959239,
         name: 'La Gargouille',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
       },
       latestMessage: {
         id: 222,
@@ -2110,8 +2026,7 @@ export default [
           leftAt: null,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         inbox: {
           id: 14,
@@ -2119,8 +2034,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       },
       inboxes: [
@@ -2138,8 +2052,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       ],
     },
@@ -2172,8 +2085,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       creatorInbox: {
         id: 14,
@@ -2181,8 +2093,7 @@ export default [
         identifier: 48959239,
         uid: 48959239,
         name: 'La Gargouille',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
       },
       latestMessage: {
         id: 222,
@@ -2196,8 +2107,7 @@ export default [
           leftAt: null,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         inbox: {
           id: 14,
@@ -2205,8 +2115,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       },
       inboxes: [
@@ -2224,8 +2133,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       ],
     },
@@ -2258,8 +2166,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       creatorInbox: {
         id: 14,
@@ -2267,8 +2174,7 @@ export default [
         identifier: 48959239,
         uid: 48959239,
         name: 'La Gargouille',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
       },
       inboxUser: {
         id: 13,
@@ -2277,8 +2183,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       latestMessage: {
         id: 222,
@@ -2292,8 +2197,7 @@ export default [
           leftAt: null,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         inbox: {
           id: 14,
@@ -2301,8 +2205,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       },
       inboxes: [
@@ -2320,8 +2223,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       ],
     },
@@ -2353,8 +2255,7 @@ export default [
         identifier: 48959239,
         uid: 48959239,
         name: 'La Gargouille',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
       },
       inboxUser: {
         id: 19190,
@@ -2376,8 +2277,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       },
       inboxes: [
@@ -2395,8 +2295,7 @@ export default [
           identifier: 48959239,
           uid: 48959239,
           name: 'La Gargouille',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda48959239.jpg',
         },
       ],
     },
@@ -2429,8 +2328,7 @@ export default [
         identifier: 75052324,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       latestMessage: {
         id: 129,
@@ -2443,8 +2341,7 @@ export default [
           identifier: 75052324,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
       },
       inboxes: [
@@ -2454,8 +2351,7 @@ export default [
           identifier: 75052324,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         {
           id: 54708,
@@ -2463,8 +2359,7 @@ export default [
           identifier: 6999235,
           uid: 6999235,
           name: "Salon International de l'Agriculture 2018",
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda45072293.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda45072293.jpg',
         },
       ],
       actions: [
@@ -2507,8 +2402,7 @@ export default [
         identifier: 75052324,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       latestMessage: {
         id: 129,
@@ -2521,8 +2415,7 @@ export default [
           identifier: 75052324,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
       },
       inboxes: [
@@ -2532,8 +2425,7 @@ export default [
           identifier: 75052324,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         {
           id: 54708,
@@ -2541,8 +2433,7 @@ export default [
           identifier: 6999235,
           uid: 6999235,
           name: "Salon International de l'Agriculture 2018",
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda45072293.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda45072293.jpg',
         },
       ],
       actions: [
@@ -2586,8 +2477,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       creatorInbox: {
         id: 31340,
@@ -2595,8 +2485,7 @@ export default [
         identifier: 75052324,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       inboxUser: {
         id: 29696,
@@ -2605,8 +2494,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       latestMessage: {
         id: 129,
@@ -2620,8 +2508,7 @@ export default [
           leftAt: null,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         inbox: {
           id: 31340,
@@ -2629,8 +2516,7 @@ export default [
           identifier: 75052324,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
       },
       inboxes: [
@@ -2640,8 +2526,7 @@ export default [
           identifier: 75052324,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         {
           id: 54708,
@@ -2649,8 +2534,7 @@ export default [
           identifier: 6999235,
           uid: 6999235,
           name: "Salon International de l'Agriculture 2018",
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda45072293.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda45072293.jpg',
         },
       ],
       actions: [
@@ -2693,8 +2577,7 @@ export default [
         identifier: 75052324,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       inboxUser: {
         id: 53233,
@@ -2703,8 +2586,7 @@ export default [
         leftAt: null,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       latestMessage: {
         id: 129,
@@ -2717,8 +2599,7 @@ export default [
           identifier: 75052324,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
       },
       inboxes: [
@@ -2728,8 +2609,7 @@ export default [
           identifier: 75052324,
           uid: 75052324,
           name: 'Kaoré - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
         },
         {
           id: 54708,
@@ -2737,8 +2617,7 @@ export default [
           identifier: 6999235,
           uid: 6999235,
           name: "Salon International de l'Agriculture 2018",
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/agenda45072293.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/agenda45072293.jpg',
         },
       ],
       actions: [
@@ -2782,8 +2661,7 @@ export default [
         leftAt: null,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       creatorInbox: {
         id: 3244,
@@ -2791,8 +2669,7 @@ export default [
         identifier: 99999999,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       inboxUser: {
         id: 1580,
@@ -2801,8 +2678,7 @@ export default [
         leftAt: null,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       latestMessage: {
         id: 136,
@@ -2816,8 +2692,7 @@ export default [
           leftAt: null,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         inbox: {
           id: 3244,
@@ -2825,8 +2700,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
       },
       inboxes: [
@@ -2836,8 +2710,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         {
           id: 3204,
@@ -2879,8 +2752,7 @@ export default [
         identifier: 99999999,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       inboxUser: {
         id: 1540,
@@ -2902,8 +2774,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
       },
       inboxes: [
@@ -2913,8 +2784,7 @@ export default [
           identifier: 99999999,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         {
           id: 3204,
@@ -2957,8 +2827,7 @@ export default [
         leftAt: null,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       creatorInbox: {
         id: 56678,
@@ -2989,8 +2858,7 @@ export default [
           leftAt: null,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         inbox: {
           id: 56678,
@@ -3042,8 +2910,7 @@ export default [
         leftAt: null,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       creatorInbox: {
         id: 56678,
@@ -3065,8 +2932,7 @@ export default [
           leftAt: null,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         inbox: {
           id: 56678,
@@ -3119,8 +2985,7 @@ export default [
         leftAt: null,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       creatorInbox: {
         id: 56678,
@@ -3137,8 +3002,7 @@ export default [
         leftAt: null,
         uid: 75052324,
         name: 'Kaoré - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/review_kaore-olafsson_01.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/review_kaore-olafsson_01.jpg',
       },
       latestMessage: {
         id: 137,
@@ -3152,8 +3016,7 @@ export default [
           leftAt: null,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         inbox: {
           id: 56678,
@@ -3206,8 +3069,7 @@ export default [
         leftAt: null,
         uid: 99999999,
         name: 'Romain Lange - OpenAgenda',
-        avatar:
-          'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+        avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
       },
       creatorInbox: {
         id: 56678,
@@ -3229,8 +3091,7 @@ export default [
           leftAt: null,
           uid: 99999999,
           name: 'Romain Lange - OpenAgenda',
-          avatar:
-            'https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/profile99999999.jpg',
+          avatar: 'https://cdn.openagenda.com/dev/profile99999999.jpg',
         },
         inbox: {
           id: 56678,

@@ -47,8 +47,7 @@ describe('agenda-locations - functional - list', () => {
     svc = Service({
       knex: f.client,
       Files: Files(dConfig.files),
-      imagePath:
-        '//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
+      imagePath: '//cdn.openagenda.com/dev/',
       interfaces: {
         getAgendaDetailsByUid,
         getEventCounts,
@@ -425,8 +424,7 @@ describe('agenda-locations - functional - list', () => {
         const throwingErrorSvc = Service({
           knex: f.client,
           Files: Files(dConfig.files),
-          imagePath:
-            '//02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/dev/',
+          imagePath: '//cdn.openagenda.com/dev/',
           interfaces: {
             getAgendaDetailsByUid,
             getEventCounts: () => {

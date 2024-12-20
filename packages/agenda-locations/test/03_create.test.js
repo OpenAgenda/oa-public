@@ -232,7 +232,9 @@ describe('agenda-locations - functional - create', () => {
         .first('store')
         .where('uid', created.uid);
 
-      expect(JSON.parse(entry.store).image).toBe(`location${created.uid}.jpg`);
+      expect(JSON.parse(entry.store).image).toMatch(
+        new RegExp(`location${created.uid}\\.[a-f0-9]{32}\\.jpg`),
+      );
     });
 
     it('fix: image full path is not inserted in db', async () => {
@@ -258,7 +260,9 @@ describe('agenda-locations - functional - create', () => {
         .first('store')
         .where('uid', created.uid);
 
-      expect(JSON.parse(entry.store).image).toBe(`location${created.uid}.jpg`);
+      expect(JSON.parse(entry.store).image).toMatch(
+        new RegExp(`location${created.uid}\\.[a-f0-9]{32}\\.jpg`),
+      );
     });
   });
 

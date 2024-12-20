@@ -92,7 +92,7 @@
     "service": "passCulture",
     "type": "link",
     "value": "https://integration.passculture.app/offre/49415",
-    "img": "https://cdn.openagenda.com/svc/registration-apps/pass-culture-22.png",
+    "img": "https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png",
     "label": "Accéder à l'offre pass Culture"
   },
   "accessibility": {

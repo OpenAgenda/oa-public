@@ -22,7 +22,7 @@ export default class MessageForm extends Component {
   }
 
   handleSubmit = async (data, form) => {
-    const { onSubmit, onMessageSent, onFileUploaded, conversation } = this.props;
+    const { onSubmit, onMessageSent, onFileUploaded } = this.props;
     const { uppy } = this.state;
     const { getLabel } = this.context;
 
@@ -49,7 +49,7 @@ export default class MessageForm extends Component {
           return { [FORM_ERROR]: getLabel('uploadError') };
         }
         for (const file of uploadResult.successful) {
-          await onFileUploaded(conversation.id, message.id, file);
+          onFileUploaded(file);
         }
 
         uppy.cancelAll();

@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import { chakra, Button, Text } from '@openagenda/uikit';
 import { useGetFilterOptions } from '@openagenda/react-filters';
+import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import useFiltersBaseQuery from '../hooks/useFiltersBaseQuery';
 import useEventsQuery from '../hooks/useEventsQuery';
 import messages from '../messages';
@@ -67,7 +68,7 @@ function Total({ total, upcomingOnly, passed, disabled }) {
 export default function TotalPart({ agenda, filters, query, includeFields }) {
   const intl = useIntl();
 
-  const upcomingOnly = !query.timings && query.passed !== '1';
+  const upcomingOnly = isUpcomingOnlyQuery(query);
 
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
@@ -89,8 +90,9 @@ export default function TotalPart({ agenda, filters, query, includeFields }) {
   });
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   // const isEmpty = pages?.[0]?.events?.length === 0;
   // const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
   // const isRefreshing = isValidating && pages && pages.length === size;

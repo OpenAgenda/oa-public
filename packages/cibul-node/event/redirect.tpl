@@ -15,7 +15,7 @@
             <div class="agenda-item minimize text-center">
               <a href="/agendas/<%= agenda.uid %>">
                 <% if ( agenda.image ) { %>
-                <img class="ill avatar" src="https://02034510ef5d488190e4cf17d19a788b.s3.pub1.infomaniak.cloud/main/<%= agenda.image %>" alt="<%= agenda.title %>">
+                <img class="ill avatar" src="https://cdn.openagenda.com/main/<%= agenda.image %>" alt="<%= agenda.title %>">
                 <% } %>
                 <strong class="<% if ( agenda.image ) { %>margin-left-xs<% } %>"><%= agenda.title %></strong>
                 <% if ( agenda.official ) { %>

@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/react/lib/Dashboard.js';
 import StatusBar from '@uppy/react/lib/StatusBar.js';
-import AwsS3 from '@uppy/aws-s3';
+import XHR from '@uppy/xhr-upload';
 import { Modal } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext.js';
 import getUppyLocale from '../locales/uppyLocales.js';
@@ -25,15 +25,18 @@ export default function Attachments({ setUppy, uploadEndpoint }) {
       autoProceed: false,
       allowMultipleUploadBatches: false,
     })
-      .use(AwsS3, {
-        shouldUseMultipart: (file) => file.size > 100 * 2 ** 20,
-        companionUrl: uploadEndpoint,
+      .use(XHR, {
+        endpoint: uploadEndpoint,
+      })
+      .on('file-added', (file) => {
+        const index = uppy.getFiles().findIndex((f) => f === file);
+        uppy.setFileMeta(file.id, {
+          ...file.meta,
+          index,
+        });
       })
       .on('upload-success', (file, response) => {
-        const url = new URL(response.uploadURL);
-        const path = url.pathname;
-        const s3Key = path.substring(path.lastIndexOf('/') + 1);
-        uppy.setFileMeta(file.id, { key: s3Key });
+        uppy.setFileMeta(file.id, { attachment: response.body });
       }));
   const [modalOpen, setModalOpen] = useState(false);
 
