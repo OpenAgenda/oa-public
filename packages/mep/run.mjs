@@ -1,7 +1,10 @@
 import fs from 'node:fs/promises';
 
 import clearDir from './lib/clearDir.mjs';
-import cloneAndBuild from './lib/cloneAndBuild.mjs';
+import prepareConfig from './lib/prepareConfig.mjs';
+import clone from './lib/clone.mjs';
+import install from './lib/install.mjs';
+import build from './lib/build.mjs';
 import rsync from './lib/rsync.mjs';
 import rexec from './lib/rexec.mjs';
 import sftp from './lib/sftp.mjs';
@@ -17,6 +20,10 @@ const {
   JELASTIC_ACCESS_TOKEN: jelasticAccessToken,
   ENV_FILE_PATH: envFilePath,
   LOCAL_ENV_FILE_PATH: localEnvFilePath,
+  RUN_CLEAN: runClean,
+  RUN_CONFIG: runConfig,
+  RUN_CLONE: runClone,
+  RUN_INSTALL: runInstall,
   RUN_BUILD: runBuild,
   RUN_UPLOAD_TO_WEB: runUploadToWeb,
   RUN_UPLOAD_TO_TASK: runUploadToTask,
@@ -45,13 +52,24 @@ const envVars = Object.assign(
 const nodes = await getNodes(webEnvName, jelasticAccessToken);
 const taskNodes = await getNodes(taskEnvName, jelasticAccessToken);
 
-if (runBuild || runAll) {
+if (runClean || runAll) {
   await clearDir(dir);
-  await cloneAndBuild({
-    dir,
-    nodes,
-    envVars,
-  });
+}
+
+if (runConfig || runAll) {
+  await prepareConfig({ dir, nodes, envVars });
+}
+
+if (runClone || runAll) {
+  await clone({ dir, envVars });
+}
+
+if (runInstall || runAll) {
+  await install({ dir, envVars });
+}
+
+if (runBuild || runAll) {
+  await build({ dir, envVars });
 }
 
 const uploads = [];

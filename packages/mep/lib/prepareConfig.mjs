@@ -1,11 +1,10 @@
-import { exec } from 'node:child_process';
 import fs from 'node:fs/promises';
 
 function getNginxAddress(nodes) {
   return nodes.byGroups(['nginx'])[0].address;
 }
 
-export default async function cloneAndBuild({ dir, envVars, nodes }) {
+export default async function prepareConfig({ dir, envVars, nodes }) {
   const {
     DOMAIN: domain,
     API_DOMAIN: APIDomain,
@@ -18,8 +17,6 @@ export default async function cloneAndBuild({ dir, envVars, nodes }) {
     STRAPI_API_BASE: strapiAPIBase,
     STRAPI_API_AUTH_TOKEN: strapiAPIAuthToken,
   } = envVars;
-
-  const { CDN: pushToCDN = false } = process.env;
 
   const nextEnvVars = [
     `DOMAIN=${domain}`,
@@ -43,46 +40,4 @@ export default async function cloneAndBuild({ dir, envVars, nodes }) {
   await fs.writeFile(`${dir}/next.local`, nextEnvVars.join('\n'));
 
   await fs.writeFile(`${dir}/prod.js`, ['export default {};'].join('\n'));
-
-  const buildCommands = [
-    `cd ${dir}`,
-    `echo cloning oa in ${dir}`,
-    'git clone git@github.com:OpenAgenda/oa.git',
-    'cd oa',
-    'echo yarn',
-    'yarn',
-    'echo yarn prepack',
-    'yarn prepack',
-    'cd packages/cibul-templates',
-    `yarn build:${nodeEnv === 'production' ? 'prod' : 'dev'}`,
-    `cp ${dir}/next.local ${dir}/oa/packages/next/.env.local`,
-    `cp ${dir}/prod.js ${dir}/oa/packages/cibul-node/config/prod.js`,
-    `cd ${dir}/oa/packages/next`,
-    'yarn build',
-  ];
-
-  if (pushToCDN === '1') {
-    buildCommands.push('yarn push');
-  }
-
-  return new Promise((rs, rj) => {
-    const p = exec(
-      buildCommands.join(' && '),
-      {
-        maxBuffer: Infinity,
-        env: {
-          ...process.env,
-          ...envVars,
-        },
-      },
-      (err, stdout, stderr) => {
-        if (err) return rj(err);
-        rs({ stdout, stderr });
-      },
-    );
-
-    p.stdout.on('data', (data) => {
-      console.log(data);
-    });
-  });
 }
