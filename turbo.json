@@ -74,6 +74,11 @@
       "outputs": ["esm/**", "lib/**"],
       "outputLogs": "new-only"
     },
+    "@openagenda/react-shared#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["css/**", "dist/**"],
+      "outputLogs": "new-only"
+    },
     "@openagenda/validators#prepack": {
       "dependsOn": ["^prepack"],
       "outputs": [
