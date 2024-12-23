@@ -37,7 +37,7 @@ export default async function prepareConfig({ dir, envVars, nodes }) {
     nextEnvVars.push(`NEXT_PUBLIC_ASSET_PREFIX=${nextPublicAssetPrefix}`);
   }
 
-  await fs.writeFile(`${dir}/next.local`, nextEnvVars.join('\n'));
+  await fs.writeFile(`${dir}/oa/packages/next/.env.local`, nextEnvVars.join('\n'));
 
-  await fs.writeFile(`${dir}/prod.js`, ['export default {};'].join('\n'));
+  await fs.writeFile(`${dir}/oa/packages/cibul-node/config/prod.js`, ['export default {};'].join('\n'));
 }

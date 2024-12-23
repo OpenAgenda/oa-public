@@ -21,8 +21,8 @@ const {
   ENV_FILE_PATH: envFilePath,
   LOCAL_ENV_FILE_PATH: localEnvFilePath,
   RUN_CLEAN: runClean,
-  RUN_CONFIG: runConfig,
   RUN_CLONE: runClone,
+  RUN_CONFIG: runConfig,
   RUN_INSTALL: runInstall,
   RUN_BUILD: runBuild,
   RUN_UPLOAD_TO_WEB: runUploadToWeb,
@@ -56,12 +56,12 @@ if (runClean || runAll) {
   await clearDir(dir);
 }
 
-if (runConfig || runAll) {
-  await prepareConfig({ dir, nodes, envVars });
-}
-
 if (runClone || runAll) {
   await clone({ dir, envVars });
+}
+
+if (runConfig || runAll) {
+  await prepareConfig({ dir, nodes, envVars });
 }
 
 if (runInstall || runAll) {
