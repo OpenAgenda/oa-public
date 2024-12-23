@@ -71,6 +71,7 @@
     },
     "@openagenda/next#build": {
       "dependsOn": ["^prepack"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"],
       "outputLogs": "new-only"
     },
