@@ -1,8 +1,9 @@
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
 
 import clearDir from './lib/clearDir.mjs';
 import prepareConfig from './lib/prepareConfig.mjs';
 import clone from './lib/clone.mjs';
+import pull from './lib/pull.mjs';
 import install from './lib/install.mjs';
 import build from './lib/build.mjs';
 import rsync from './lib/rsync.mjs';
@@ -20,8 +21,8 @@ const {
   JELASTIC_ACCESS_TOKEN: jelasticAccessToken,
   ENV_FILE_PATH: envFilePath,
   LOCAL_ENV_FILE_PATH: localEnvFilePath,
-  RUN_CLEAN: runClean,
   RUN_CLONE: runClone,
+  RUN_PULL: runPull,
   RUN_CONFIG: runConfig,
   RUN_INSTALL: runInstall,
   RUN_BUILD: runBuild,
@@ -45,19 +46,30 @@ const pm2Commands = [
 ];
 
 const envVars = Object.assign(
-  await fs.readFile(envFilePath, 'utf8').then((data) => JSON.parse(data)),
-  await fs.readFile(localEnvFilePath, 'utf8').then((data) => JSON.parse(data)),
+  await fs.promises.readFile(envFilePath, 'utf8').then((data) => JSON.parse(data)),
+  await fs.promises.readFile(localEnvFilePath, 'utf8').then((data) => JSON.parse(data)),
 );
 
 const nodes = await getNodes(webEnvName, jelasticAccessToken);
 const taskNodes = await getNodes(taskEnvName, jelasticAccessToken);
 
-if (runClean || runAll) {
-  await clearDir(dir);
-}
+let cloned = false;
 
 if (runClone || runAll) {
-  await clone({ dir, envVars });
+  // force clone or empty dir
+  if (runClone || fs.readdirSync(dir).length === 0) {
+    await clearDir(dir);
+    await clone({ dir, envVars });
+    cloned = true;
+  } else {
+    console.log(`skip cloning, ${dir} is not empty`);
+  }
+}
+
+if (runPull || runAll) {
+  if (!cloned) {
+    await pull({ dir, envVars });
+  }
 }
 
 if (runConfig || runAll) {
