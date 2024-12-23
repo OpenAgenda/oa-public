@@ -37,9 +37,6 @@
       "outputLogs": "new-only"
     },
     "@openagenda/cibul-templates#prepack": {
-      "dependsOn": ["^@openagenda/cibul-templates#build:dev"]
-    },
-    "@openagenda/cibul-templates#build:dev": {
       "dependsOn": ["^prepack"],
       "outputs": ["build/**", "dist/**"],
       "outputLogs": "new-only"

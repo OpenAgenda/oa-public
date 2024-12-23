@@ -460,7 +460,7 @@ for (let i = 2; i < process.argv.length; i++) {
   }
 }
 
-if ( process.env.NODE_ENV === 'development' ) {
+if ( !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ) {
   production = false;
 }
 

@@ -12,8 +12,6 @@ export default function build({ dir, envVars }) {
     'cd oa',
     'echo yarn turbo prepack',
     'yarn turbo prepack',
-    'cd packages/cibul-templates',
-    `yarn build:${nodeEnv === 'production' ? 'prod' : 'dev'}`,
     `cp ${dir}/next.local ${dir}/oa/packages/next/.env.local`,
     `cp ${dir}/prod.js ${dir}/oa/packages/cibul-node/config/prod.js`,
     `cd ${dir}/oa/packages/next`,
