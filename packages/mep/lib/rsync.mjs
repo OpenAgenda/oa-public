@@ -33,7 +33,7 @@ export default async function rsync(
 ) {
   const results = [];
   for (const node of nodes) {
-    const endpoint = `${user}@${new URL(node.adminUrl).hostname}`;
+    const endpoint = `${user}@${node.address}`;
     console.log(`rsync to node ${endpoint}`);
     const result = await exec(
       `rsync ${options} -e 'ssh -i ${SSHKeyPath} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' ${srcFolder}/ ${endpoint}:${destPath}`,
