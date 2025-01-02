@@ -1,0 +1,133 @@
+{
+  "default": {
+    "id": 7,
+    "title": "Multilingue",
+    "description": "OpenAgenda prend en charge plusieurs langues, permettant ainsi de promouvoir vos événements à l’international.",
+    "image": {
+      "id": 7,
+      "documentId": "ezlotjfouy31x2h4kiwoa0vu",
+      "name": "Capture d’écran du 2024-12-18 16-19-10.png",
+      "alternativeText": null,
+      "caption": null,
+      "width": 355,
+      "height": 346,
+      "hash": "Capture_d_ecran_du_2024_12_18_16_19_10_d3c2ee4772",
+      "ext": ".png",
+      "mime": "image/png",
+      "size": 61.52,
+      "url": "/SquarePhteven.jpg",
+      "previewUrl": null,
+      "provider": "aws-s3",
+      "provider_metadata": null,
+      "createdAt": "2024-12-19T15:01:48.203Z",
+      "updatedAt": "2024-12-19T15:01:48.203Z",
+      "publishedAt": "2024-12-19T15:01:48.207Z"
+    },
+    "CTA": {
+      "id": 7,
+      "label": "Demander une présentation",
+      "link": "mailto:support@openagenda.com"
+    }
+  },
+  "justAnImage": {
+    "id": 5,
+    "image": {
+      "id": 1,
+      "documentId": "cjtuayk4h901hz602zpeufbw",
+      "name": "Capture d’écran du 2024-08-09 09-17-53.png",
+      "alternativeText": null,
+      "caption": null,
+      "width": 1178,
+      "height": 852,
+      "formats": {
+        "thumbnail": {
+          "name": "thumbnail_Capture d’écran du 2024-08-09 09-17-53.png",
+          "hash": "thumbnail_Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7",
+          "ext": ".png",
+          "mime": "image/png",
+          "path": null,
+          "width": 216,
+          "height": 156,
+          "size": 68.72,
+          "sizeInBytes": 68718,
+          "url": "/uploads/thumbnail_Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7.png"
+        },
+        "small": {
+          "name": "small_Capture d’écran du 2024-08-09 09-17-53.png",
+          "hash": "small_Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7",
+          "ext": ".png",
+          "mime": "image/png",
+          "path": null,
+          "width": 500,
+          "height": 362,
+          "size": 310.32,
+          "sizeInBytes": 310321,
+          "url": "/uploads/small_Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7.png"
+        },
+        "medium": {
+          "name": "medium_Capture d’écran du 2024-08-09 09-17-53.png",
+          "hash": "medium_Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7",
+          "ext": ".png",
+          "mime": "image/png",
+          "path": null,
+          "width": 750,
+          "height": 542,
+          "size": 658.59,
+          "sizeInBytes": 658588,
+          "url": "/uploads/medium_Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7.png"
+        },
+        "large": {
+          "name": "large_Capture d’écran du 2024-08-09 09-17-53.png",
+          "hash": "large_Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7",
+          "ext": ".png",
+          "mime": "image/png",
+          "path": null,
+          "width": 1000,
+          "height": 723,
+          "size": 1124.32,
+          "sizeInBytes": 1124318,
+          "url": "/uploads/large_Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7.png"
+        }
+      },
+      "hash": "Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7",
+      "ext": ".png",
+      "mime": "image/png",
+      "size": 344,
+      "url": "/SquarePhteven.jpg",
+      "previewUrl": null,
+      "provider": "local",
+      "provider_metadata": null,
+      "createdAt": "2024-12-10T12:01:38.536Z",
+      "updatedAt": "2024-12-10T12:01:38.536Z",
+      "publishedAt": "2024-12-10T12:01:38.537Z"
+    }
+  },
+  "anImageAndATitle": {
+    "id": 52,
+    "title": "Fonctions de recherches pour les événements",
+    "image": {
+      "id": 1,
+      "documentId": "cjtuayk4h901hz602zpeufbw",
+      "name": "Capture d’écran du 2024-08-09 09-17-53.png",
+      "alternativeText": null,
+      "caption": null,
+      "width": 1178,
+      "height": 852,
+      "hash": "Capture_d_ecran_du_2024_08_09_09_17_53_138a4a0bf7",
+      "ext": ".png",
+      "mime": "image/png",
+      "size": 344,
+      "url": "/SquarePhteven.jpg",
+      "previewUrl": null,
+      "provider": "local",
+      "provider_metadata": null,
+      "createdAt": "2024-12-10T12:01:38.536Z",
+      "updatedAt": "2024-12-10T12:01:38.536Z",
+      "publishedAt": "2024-12-10T12:01:38.537Z"
+    }
+  },
+  "justADescription": {
+    "id": 38,
+    "description": "OpenAgenda permet de partager la gestion des agendas avec vos partenaires ou collaborateurs, garantissant un travail collectif efficace."
+  }
+}

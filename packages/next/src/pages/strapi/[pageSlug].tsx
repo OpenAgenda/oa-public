@@ -41,14 +41,22 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
     };
   }
 
-  const { data: page } = await ky(
-    `${APIBase}/pages/${matches[0].documentId}?populate[0]=Segments&populate[1]=Segments.Features.image`,
-    {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
+  const pageRes = `${APIBase}/pages/${matches[0].documentId}?${[
+    'Features',
+    'Features.image',
+    'CTA',
+    'Illustration.image',
+    'Components',
+    'Components.image',
+  ]
+    .map((v) => `populate[]=Segments.${v}`)
+    .join('&')}`;
+
+  const { data: page } = await ky(pageRes, {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
     },
-  ).json<StrapiResponse>();
+  }).json<StrapiResponse>();
 
   return {
     props: {
