@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_components_illustrations",
+  "info": {
+    "displayName": "Illustration"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": ["images", "files"],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

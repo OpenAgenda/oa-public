@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_segments_modular_sets",
+  "info": {
+    "displayName": "ModularSet"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Components": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.modular"
+    },
+    "CTA": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.cta-button"
+    }
+  }
+}

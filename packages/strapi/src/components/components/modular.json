@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_components_modulars",
+  "info": {
+    "displayName": "Modular",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "files"]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "CTA": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.cta-button"
+    }
+  }
+}
