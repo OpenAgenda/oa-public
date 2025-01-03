@@ -26,9 +26,11 @@ export interface ComponentsFeaturedCard extends Struct.ComponentSchema {
 export interface ComponentsIllustration extends Struct.ComponentSchema {
   collectionName: 'components_components_illustrations';
   info: {
+    description: '';
     displayName: 'Illustration';
   };
   attributes: {
+    borderRadius: Schema.Attribute.Enumeration<['full']>;
     image: Schema.Attribute.Media<'images' | 'files'> &
       Schema.Attribute.Required;
   };
@@ -43,7 +45,7 @@ export interface ComponentsModular extends Struct.ComponentSchema {
   attributes: {
     CTA: Schema.Attribute.Component<'components.cta-button', false>;
     description: Schema.Attribute.Text;
-    image: Schema.Attribute.Media<'images' | 'files'>;
+    Illustration: Schema.Attribute.Component<'components.illustration', false>;
     title: Schema.Attribute.String;
   };
 }
