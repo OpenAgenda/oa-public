@@ -7,10 +7,19 @@ export default {
   decorators: [ProvidersDecorator],
 };
 
-export const WithoutAltText = {
+export const Basic = {
   args: {
     image: {
       url: '/Main_Image_A3_0cc920c64c.jpg',
     },
+  },
+};
+
+export const Circular = {
+  args: {
+    image: {
+      url: '/SquarePhteven.jpg',
+    },
+    borderRadius: 'full',
   },
 };

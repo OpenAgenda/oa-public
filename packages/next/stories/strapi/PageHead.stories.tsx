@@ -1,10 +1,11 @@
 import PageHead from 'components/strapi/PageHead';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
+import PageContainerDecorator from './decorators/PageContainerDecorator';
 
 export default {
   title: 'strapi/PageHead',
   component: PageHead,
-  decorators: [ProvidersDecorator],
+  decorators: [PageContainerDecorator, ProvidersDecorator],
 };
 
 export const Default = {

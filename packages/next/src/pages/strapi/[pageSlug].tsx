@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
     'CTA',
     'Illustration.image',
     'Components',
-    'Components.image',
+    'Components.Illustration.image',
   ]
     .map((v) => `populate[]=Segments.${v}`)
     .join('&')}`;

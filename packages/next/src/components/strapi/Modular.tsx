@@ -1,35 +1,37 @@
-import {
-  Card,
-  CardBody,
-  VStack,
-  Heading,
-  Text,
-  Image,
-} from '@openagenda/uikit';
+import { Card, CardBody, VStack, Heading, Text } from '@openagenda/uikit';
 import CTAButton from './CTAButton';
+import IllustrationComponent from './Illustration';
 
-export default function Modular({ title, description, image, CTA }) {
+const Wrapper = ({ children, card }) => {
+  if (!card) {
+    return <>{children}</>;
+  }
   return (
     <Card maxW="sm">
-      <CardBody>
-        <VStack spacing="3" align="center">
-          {image ? (
-            <Image
-              src={`${image.url}`}
-              alt={image.alternativeText}
-              borderRadius="full"
-              boxSize={20}
-            />
-          ) : null}
-          {title ? (
-            <Heading size="md" textAlign="center">
-              {title}
-            </Heading>
-          ) : null}
-          {description ? <Text>{description}</Text> : null}
-          {CTA ? <CTAButton {...CTA} /> : null}
-        </VStack>
-      </CardBody>
+      <CardBody>{children}</CardBody>
     </Card>
+  );
+};
+
+export default function Modular({
+  title,
+  description,
+  Illustration,
+  CTA,
+  card,
+}) {
+  return (
+    <Wrapper card={card}>
+      <VStack spacing="3" align="center">
+        {Illustration ? <IllustrationComponent {...Illustration} /> : null}
+        {title ? (
+          <Heading size="md" textAlign="center">
+            {title}
+          </Heading>
+        ) : null}
+        {description ? <Text>{description}</Text> : null}
+        {CTA ? <CTAButton {...CTA} /> : null}
+      </VStack>
+    </Wrapper>
   );
 }
