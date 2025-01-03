@@ -1,39 +1,53 @@
+import { Flex, Box } from '@openagenda/uikit';
 import Modular from 'components/strapi/Modular';
-import ModularSet from 'components/strapi/ModularSet';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
-import PageContainerDecorator from './decorators/PageContainerDecorator';
 
-import modularFixture from './fixtures/modular.json';
+import fx from './fixtures/modular.json';
 
 export default {
   title: 'strapi/Modular',
-  component: Modular,
-  decorators: [PageContainerDecorator, ProvidersDecorator],
+  decorators: [ProvidersDecorator],
 };
 
-export const basic = {
-  args: modularFixture.default,
-};
-export const basicCard = {
-  args: { ...modularFixture.default, card: true },
-};
-
-export const JustAnImage = {
-  args: modularFixture.justAnImage,
-};
-
-export const AnImageAndATitle = {
-  args: modularFixture.anImageAndATitle,
-};
-
-export const JustADescription = {
-  args: modularFixture.justADescription,
-};
-
-export const Set = () => (
-  <ModularSet
-    title="Wigglypoof"
-    Components={Object.values(modularFixture)}
-    CTA={null}
-  />
-);
+export function Overview() {
+  return (
+    <Flex justify="center" align="center" height="100vh">
+      <Box m={4}>
+        <Modular {...fx.default} />
+      </Box>
+      <Box m={4}>
+        <Modular
+          {...fx.default}
+          card
+          description={`${fx.default.description}. Avec la prop "card"`}
+        />
+      </Box>
+      <Box m={4}>
+        <Modular
+          {...fx.default}
+          Illustration={{
+            image: {
+              url: '/rectanglePhteven.jpg',
+            },
+          }}
+          description={`${fx.default.description}. Avec une image pas arrondie par la prop "borderRadius" ni "maxWidth"`}
+        />
+      </Box>
+      <Box m={4}>
+        <Modular {...fx.default} title="Pas de bouton" CTA={null} card />
+      </Box>
+      <Box m={4}>
+        <Modular
+          {...fx.default}
+          title="Une petite image pas étirée"
+          Illustration={{
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+            borderRadius: 'full',
+          }}
+        />
+      </Box>
+    </Flex>
+  );
+}

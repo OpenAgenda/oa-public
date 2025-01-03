@@ -19,7 +19,7 @@ export default function Modular({
   Illustration,
   CTA,
   card,
-  maxWidth,
+  maxWidth = 'sm',
 }) {
   return (
     <Wrapper card={card} maxWidth={maxWidth}>

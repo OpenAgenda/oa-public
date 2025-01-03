@@ -2,8 +2,8 @@
   "default": {
     "id": 7,
     "card": false,
-    "title": "Multilingue",
-    "description": "OpenAgenda prend en charge plusieurs langues, permettant ainsi de promouvoir vos événements à l’international.",
+    "title": "Un titre",
+    "description": "Un texte descriptif, une note ou un petit paragraphe",
     "Illustration": {
       "image": {
         "id": 7,
@@ -17,7 +17,7 @@
         "ext": ".png",
         "mime": "image/png",
         "size": 61.52,
-        "url": "/SquarePhteven.jpg",
+        "url": "/squarePhteven.jpg",
         "previewUrl": null,
         "provider": "aws-s3",
         "provider_metadata": null,
@@ -25,11 +25,12 @@
         "updatedAt": "2024-12-19T15:01:48.203Z",
         "publishedAt": "2024-12-19T15:01:48.207Z"
       },
-      "borderRadius": "full"
+      "borderRadius": "full",
+      "maxWidth": "3xs"
     },
     "CTA": {
       "id": 7,
-      "label": "Demander une présentation",
+      "label": "Une action",
       "link": "mailto:support@openagenda.com"
     }
   },

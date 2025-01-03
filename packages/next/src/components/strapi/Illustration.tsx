@@ -18,7 +18,6 @@ export default function Illustration({
       src={image.url}
       alt="une image"
       borderRadius={borderRadius}
-      width="100%"
       maxWidth={maxWidth}
       height="auto"
     />
