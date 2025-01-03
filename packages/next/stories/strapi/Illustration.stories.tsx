@@ -12,6 +12,7 @@ export const Basic = {
     image: {
       url: '/Main_Image_A3_0cc920c64c.jpg',
     },
+    maxWidth: 'xs',
   },
 };
 
@@ -21,5 +22,6 @@ export const Circular = {
       url: '/SquarePhteven.jpg',
     },
     borderRadius: 'full',
+    maxWidth: 'sm',
   },
 };

@@ -1,13 +1,13 @@
-import { Card, CardBody, VStack, Heading, Text } from '@openagenda/uikit';
+import { Card, CardBody, VStack, Heading, Text, Box } from '@openagenda/uikit';
 import CTAButton from './CTAButton';
 import IllustrationComponent from './Illustration';
 
-const Wrapper = ({ children, card }) => {
+const Wrapper = ({ children, card, maxWidth = 'sm' }) => {
   if (!card) {
-    return <>{children}</>;
+    return <Box maxW={maxWidth}>{children}</Box>;
   }
   return (
-    <Card maxW="sm">
+    <Card maxW={maxWidth}>
       <CardBody>{children}</CardBody>
     </Card>
   );
@@ -19,9 +19,10 @@ export default function Modular({
   Illustration,
   CTA,
   card,
+  maxWidth,
 }) {
   return (
-    <Wrapper card={card}>
+    <Wrapper card={card} maxWidth={maxWidth}>
       <VStack spacing="3" align="center">
         {Illustration ? <IllustrationComponent {...Illustration} /> : null}
         {title ? (
