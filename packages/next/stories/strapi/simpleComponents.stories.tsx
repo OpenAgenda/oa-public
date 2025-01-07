@@ -56,13 +56,13 @@ export function Icons() {
   return (
     <Flex justify="center" align="center" height="100vh">
       <Box m={3}>
-        <Icon type="solid" name="clipboard" size="2xl" />
+        <Icon style="solid" name="clipboard" size="2xl" />
       </Box>
       <Box m={3}>
-        <Icon type="regular" name="rocket-launch" size="2x" />
+        <Icon style="regular" name="rocket-launch" size="2x" />
       </Box>
       <Box m={3}>
-        <Icon type="thin" name="chart-network" size="4x" />
+        <Icon style="thin" name="chart-network" size="4x" />
       </Box>
     </Flex>
   );
