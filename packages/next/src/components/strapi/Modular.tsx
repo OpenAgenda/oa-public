@@ -1,4 +1,5 @@
-import { Card, CardBody, VStack, Heading, Text, Box } from '@openagenda/uikit';
+import { Card, CardBody, VStack, Heading, Box } from '@openagenda/uikit';
+import ReactMarkdown from 'react-markdown';
 import CTAButton from './CTAButton';
 import IllustrationComponent from './Illustration';
 import IconComponent from './Icon';
@@ -33,7 +34,7 @@ export default function Modular({
             {title}
           </Heading>
         ) : null}
-        {description ? <Text>{description}</Text> : null}
+        {description ? <ReactMarkdown>{description}</ReactMarkdown> : null}
         {CTA ? <CTAButton {...CTA} /> : null}
       </VStack>
     </Wrapper>
