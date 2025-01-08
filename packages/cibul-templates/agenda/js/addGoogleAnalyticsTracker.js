@@ -11,13 +11,10 @@ function addV4Tracker(googleAnalyticsID) {
   previousScript.parentNode.insertBefore(el, previousScript);
 
   window.dataLayer = window.dataLayer || [];
-  function gtag(){
-    dataLayer.push(arguments);
+  function gtag() {
+    // gtag **NEED** arguments
+    window.dataLayer.push(arguments);
   }
-  gtag('consent', 'default', {
-    ad_storage: 'granted',
-    analytics_storage: 'granted'
-  });
   gtag('js', new Date());
   gtag('config', googleAnalyticsID);
 }
