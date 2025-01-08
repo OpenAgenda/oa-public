@@ -19,7 +19,7 @@ const choice = require('@openagenda/validators/choice');
 const boolean = require('@openagenda/validators/boolean');
 const regex = require('@openagenda/validators/regex');
 const timezone = require('@openagenda/validators/timezone');
-const extIds = require('./validateExtIds');
+const extIdsValidator = require('@openagenda/utils/validators/extIdsValidator');
 
 schema.register({
   email,
@@ -36,7 +36,7 @@ schema.register({
   boolean,
   regex,
   timezone,
-  extIds,
+  extIds: extIdsValidator,
 });
 
 const validateStream = stream({ optional: false });
@@ -82,6 +82,7 @@ module.exports = (values, options = {}) => {
       ignoreImage ? _.omit(values, ['image']) : values,
     );
   } catch (errors) {
+    console.log('validation errors', errors);
     throw new BadRequest({ info: { errors } }, 'data is invalid');
   }
 };

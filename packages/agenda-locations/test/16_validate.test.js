@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('node:fs');
+const validateExtIds = require('@openagenda/utils/validators/extIdsValidator');
 
 const imageStream = fs.createReadStream(
   `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
@@ -79,6 +80,19 @@ describe('validate', () => {
         error = e;
       }
       expect(error.info.errors[0].code).toBe('timezone.invalid');
+    });
+  });
+
+  describe('extIds', () => {
+    test('too long', () => {
+      let error;
+      const value = 'SHGDJHHGHJGFQZYEUTZTQYUGUYZGQDUIQYGZJHQVBSJGQHDJKQGJYKDZGQKYDGQJKSVGJKHSQHGDJHQGZJDGQUKYYTGSDUYGQJKHZDVBJHQVBGHDJHSGDUYKQZD';
+      try {
+        validateExtIds({})([{ key: 'default', value }]);
+      } catch (e) {
+        error = e;
+      }
+      expect(error[0].code).toBe('string.toolong');
     });
   });
 });

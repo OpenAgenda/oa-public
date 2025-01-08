@@ -230,10 +230,10 @@ describe('agenda-locations - functional - patch & update', () => {
       });
       entry.after = await f.client('location').first().where('uid', 7630653);
       expect(entry.after.ext_ids).toEqual(
-        '{"identifiers": ["default->1234", "test->ard_leg_1201"]}',
+        '{"identifiers": ["default->ard_leg_1200", "test->ard_leg_1201"]}',
       );
       expect(updated.extIds).toEqual([
-        { key: 'default', value: '1234' },
+        { key: 'default', value: 'ard_leg_1200' },
         { key: 'test', value: 'ard_leg_1201' },
       ]);
     });
@@ -250,12 +250,25 @@ describe('agenda-locations - functional - patch & update', () => {
         { protectExtIds: false },
       );
       entry.after = await f.client('location').first().where('uid', 60763722);
+
       expect(entry.after.ext_ids).toEqual(
         '{"identifiers": ["default->ard_leg_1200"]}',
       );
       expect(updated.extIds).toEqual([
         { key: 'default', value: 'ard_leg_1200' },
       ]);
+    });
+
+    it('extIds default can be set at null', async () => {
+      const updated = await svc(25221).update(
+        60763722,
+        {
+          ...payload,
+          extIds: [{ key: 'default', value: null }],
+        },
+        { protectExtIds: false },
+      );
+      expect(updated.extIds).toStrictEqual([{ key: 'default', value: null }]);
     });
 
     it('fix: patch should not break unspecified image', async () => {

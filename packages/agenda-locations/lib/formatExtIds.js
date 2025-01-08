@@ -13,17 +13,18 @@ module.exports.afterRead = (data) => {
 };
 
 module.exports.protectExtIdsFn = (data, current) => {
-  const currentExtIds = this.afterRead(current).extIds;
+  const currentExtIds = current.extIds;
 
   if (currentExtIds && data.extIds) {
     return data.extIds.reduce((acc, extId) => {
       const { key } = extId;
-      if (
-        acc.find((e) => {
-          const { key: k } = e;
-          return k === key;
-        })
-      ) {
+      const index = acc.findIndex((accElm) => {
+        const { key: k } = accElm;
+        return k === key;
+      });
+
+      if (index !== -1) {
+        acc[index] = extId;
         return acc;
       }
       acc.push(extId);

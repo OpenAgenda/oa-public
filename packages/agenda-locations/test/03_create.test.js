@@ -348,6 +348,31 @@ describe('agenda-locations - functional - create', () => {
 
       expect(name).toBe('1083');
     });
+
+    it('error on too long extIds value', async () => {
+      let error;
+      try {
+        await svc(7196947).create({
+          name: 'test',
+          address: '114 Rue de Turenne, 75003 Paris',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+          extIds: [
+            {
+              key: 'default',
+              value:
+                '11111112222222222222222222222222222222222222222222222333333333333333333333333333333333333333DGHGJHSGFKJUSDGFIUYGSJUDFGBLJDSGBFJHSGFJKDSVGFKJHVBJkhSF',
+            },
+          ],
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors[0].code).toBe('string.toolong');
+      expect(error.info.errors[0].field).toBe('value');
+    });
   });
 });
 

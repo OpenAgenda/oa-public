@@ -9,6 +9,7 @@ const addSelect = require('./lib/addSelect');
 const decorateWithCounts = require('./lib/decorateWithCounts');
 const pickContextIdentifiers = require('./lib/pickAndCleanContextIdentifiers');
 const getMergedLocation = require('./lib/getMergedLocation');
+const formatExtIds = require('./lib/formatExtIds');
 
 const log = logs('get');
 
@@ -80,7 +81,7 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
     location.image = internals.config.imagePath + location.image;
   }
 
-  return location;
+  return formatExtIds.afterRead(location);
 }
 
 module.exports = get;

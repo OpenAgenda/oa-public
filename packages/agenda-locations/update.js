@@ -61,7 +61,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   // string image means image is unchanged.
   const entry = service.fieldUtils.fromItemToEntry(
-    beforeInsert(clean, protectExtIds, current),
+    beforeInsert(clean),
     current,
   );
 
