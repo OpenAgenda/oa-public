@@ -14,6 +14,7 @@ import {
   Wrap,
   WrapItem,
 } from '@openagenda/uikit';
+import { getFilters, useFilters } from '@openagenda/react-filters';
 import { nl2br } from '@openagenda/react-shared';
 import qs from 'qs';
 import useSessionStorageState from 'use-session-storage-state';
@@ -120,6 +121,32 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
     [agenda.schema, dateFnsLocale, event, contentLocale, intl.locale],
   );
 
+  const filtersToInclude = useMemo(() => {
+    const requiredFilters = (prefilter.filters as string)?.split(',') ?? [];
+
+    return getFilters(intl, agenda.schema.fields)
+      .map(({ name, fieldSchema }) => fieldSchema?.field || name)
+      .filter((filter) => requiredFilters.includes(filter))
+      .sort((a, b) => {
+        // Last
+        if (a === 'geo') return 1;
+        if (b === 'geo') return -1;
+        // Second to last
+        if (a === 'search') return 1;
+        if (b === 'search') return -1;
+        return requiredFilters.indexOf(a) - requiredFilters.indexOf(b);
+      });
+  }, [agenda.schema.fields, prefilter.filters]);
+
+  const filters = useFilters(intl, agenda.schema.fields, {
+    dateFnsLocale,
+    missingValue: 'null',
+    mapTiles:
+      'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
+    // exclude: adminFilters,
+    include: filtersToInclude,
+  });
+
   useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
 
   const [nc] = useSessionStorageState('EventShow:nc');
@@ -185,8 +212,16 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
                 </NextChakraLink>
                 {!(eventNc?.first && eventNc?.last) ? (
                   <Flex gap="4">
-                    <NavigateButton direction="previous" />
-                    <NavigateButton direction="next" />
+                    <NavigateButton
+                      direction="previous"
+                      prefilter={prefilter}
+                      filters={filters}
+                    />
+                    <NavigateButton
+                      direction="next"
+                      prefilter={prefilter}
+                      filters={filters}
+                    />
                   </Flex>
                 ) : null}
               </Flex>

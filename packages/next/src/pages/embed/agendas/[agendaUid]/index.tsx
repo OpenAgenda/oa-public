@@ -20,7 +20,8 @@ import getDateFnsLocale from 'utils/getDateFnsLocale';
 import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
 import generateNonce from 'utils/generateNonce';
 import CSP, { DEFAULT_DIRECTIVES } from 'utils/contentSecurityPolicy';
-import { omitParams } from 'utils/embedParams';
+import { omitParams, validateSort } from 'utils/embedParams';
+import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import { Agenda } from 'types';
 
 type CommonProps = {
@@ -150,12 +151,11 @@ export const getServerSideProps: GetServerSideProps = async ({
       prefilter,
       filters,
     });
-    const timingsPrefilter =
-      !prefilteredQuery.timings && prefilteredQuery.passed !== '1'
-        ? {
-            relative: ['current', 'upcoming'],
-          }
-        : null;
+    const timingsPrefilter = isUpcomingOnlyQuery(prefilteredQuery)
+      ? {
+          relative: ['current', 'upcoming'],
+        }
+      : null;
 
     const referrer = (query.host as string) || req.headers.referer || null;
 
@@ -170,20 +170,22 @@ export const getServerSideProps: GetServerSideProps = async ({
       passed: undefined, // omit passed
     });
 
-    const params = omitParams({
+    const params = {
       aggsSizeLimit: 1500,
       aggs: filtersToAggregations(filters, false),
       from: 0,
-      sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+      sort: query.search?.length
+        ? 'score'
+        : validateSort(prefilteredQuery.sort) || 'lastTimingWithFeatured.asc',
       size: 12,
       ...timingsPrefilter,
-      ...prefilteredQuery,
+      ...omitParams(prefilteredQuery),
       cms: 'embed',
       host: referrer,
       passed: undefined, // omit passed
       includeFields,
       includeImageTimestamps: true,
-    });
+    };
 
     const props: ShowPageProps = {
       agenda,

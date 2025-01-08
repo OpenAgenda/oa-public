@@ -10,13 +10,22 @@ import {
   NavigateButtonProps,
   useGoToSiblingEvent,
 } from 'views/EventShow/components/NavigateButton';
+import getPrefilteredQuery from 'views/EmbedAgendaShow/utils/getPrefilteredQuery';
+import { useEmbedLayoutData } from 'components/EmbedLayout';
+import { omitParams } from 'utils/embedParams';
 import useEvent from '../hooks/useEvent';
 
-export default function NavigateButton({ direction }: NavigateButtonProps) {
+export default function NavigateButton({
+  direction,
+  prefilter,
+  filters,
+}: NavigateButtonProps) {
   const intl = useIntl();
   const query = useLocationQuery() as any;
   const agenda = useAgenda();
   const { event } = useEvent();
+
+  const { sort } = useEmbedLayoutData();
 
   const [nc, setNc] = useSessionStorageState('EventShow:nc');
   const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
@@ -24,18 +33,22 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
   const goToSiblingEvent = useGoToSiblingEvent({
     direction,
     agenda,
-    eventNc,
+    eventNc: omitParams(
+      getPrefilteredQuery({ query: eventNc, prefilter, filters }),
+    ),
     setNc,
     query,
     urlPrefix: `/embed/agendas/${agenda.uid}`,
+    sort,
   });
 
   if (!eventNc) {
     return null;
   }
 
-  const isVisible = (direction === 'previous' && !eventNc?.first)
-    || (direction === 'next' && !eventNc?.last);
+  const isVisible =
+    (direction === 'previous' && !eventNc?.first) ||
+    (direction === 'next' && !eventNc?.last);
 
   return (
     <IconButton
@@ -43,13 +56,13 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
       aria-label={intl.formatMessage(
         direction === 'previous' ? messages.previousEvent : messages.nextEvent,
       )}
-      icon={(
+      icon={
         <FaIcon
           icon={direction === 'previous' ? faChevronLeft : faChevronRight}
           width="1em"
           size="xl"
         />
-      )}
+      }
       h="auto"
       color="primary.500"
       _hover={{

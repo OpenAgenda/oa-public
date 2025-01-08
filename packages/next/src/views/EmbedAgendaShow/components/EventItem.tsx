@@ -59,12 +59,14 @@ export default function EventItem({
 
   const query = useLocationQuery();
 
-  const { baseUrl, primaryColor, imageList } = useEmbedLayoutData();
+  const { baseUrl, primaryColor, imageList, sort } = useEmbedLayoutData();
 
   const nc = useMemo(
     () => ({
       ...query,
-      sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+      sort: query.search?.length
+        ? 'score'
+        : sort || 'lastTimingWithFeatured.asc',
       passed: undefined,
       from,
       first: first || undefined,

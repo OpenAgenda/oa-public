@@ -4,6 +4,7 @@ import { Button, Flex, SimpleGrid } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
+import { useEmbedLayoutData } from 'components/EmbedLayout';
 import { omitParams } from 'utils/embedParams';
 import getPrefilteredQuery from '../utils/getPrefilteredQuery';
 import messages from '../messages';
@@ -22,6 +23,8 @@ export default function EventsPart({
 }) {
   const intl = useIntl();
   const router = useRouter();
+
+  const { sort } = useEmbedLayoutData();
 
   const {
     data: pages,
@@ -42,6 +45,7 @@ export default function EventsPart({
     }),
     includeFields,
     pageSize: PAGE_SIZE,
+    sort,
   });
 
   const isLoadingInitialData = !pages && !error;

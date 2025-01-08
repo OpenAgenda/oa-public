@@ -67,7 +67,7 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
 
-  const { query, setQuery, prefilter } = useEmbedLayoutData();
+  const { query, setQuery, prefilter, sort } = useEmbedLayoutData();
 
   const filtersFormRef = useRef<any>();
 
@@ -121,6 +121,7 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
     }),
     includeFields,
     pageSize: 12,
+    sort,
   });
 
   const [_isPending, startTransition] = useTransition();

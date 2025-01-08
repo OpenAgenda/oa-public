@@ -8,6 +8,7 @@ import {
 import { chakra, Box, SimpleGrid } from '@openagenda/uikit';
 import useFiltersBaseQuery from 'views/AgendaShow/hooks/useFiltersBaseQuery';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
+import { useEmbedLayoutData } from 'components/EmbedLayout';
 import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import { omitParams } from 'utils/embedParams';
 import AgendaShowMapFilter from 'views/AgendaShow/components/MapFilter';
@@ -41,6 +42,8 @@ export default function FiltersPart({
 }) {
   const intl = useIntl();
 
+  const { sort } = useEmbedLayoutData();
+
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
     agenda,
@@ -66,6 +69,7 @@ export default function FiltersPart({
     }),
     includeFields,
     pageSize: PAGE_SIZE,
+    sort,
   });
 
   const aggregations = pages?.[0].aggregations ?? {};

@@ -7,12 +7,48 @@ export type ImageListParam = {
   aspectRatio?: string;
 };
 
+const sortValues = [
+  'timings.asc',
+  'timingsWithFeatured.asc',
+  'lastTiming.asc',
+  'lastTimingWithFeatured.asc',
+  'updatedAt.desc',
+  'updatedAt.asc',
+  'location.name.asc',
+  'location.city.asc',
+  'location.region.asc',
+  'location.countryCode.asc',
+  'location.department.asc',
+  'location.adminLevel1.asc',
+  'location.adminLevel2.asc',
+  'location.adminLevel3.asc',
+  'location.adminLevel4.asc',
+  'location.adminLevel5.asc',
+  'location.adminLevel6.asc',
+  'location.district.asc',
+  'location.name.desc',
+  'location.city.desc',
+  'location.region.desc',
+  'location.countryCode.desc',
+  'location.department.desc',
+  'location.adminLevel1.desc',
+  'location.adminLevel2.desc',
+  'location.adminLevel3.desc',
+  'location.adminLevel4.desc',
+  'location.adminLevel5.desc',
+  'location.adminLevel6.desc',
+  'location.district.desc',
+] as const;
+
+type SortParam = (typeof sortValues)[number];
+
 export type EmbedParams = {
   filters?: any;
   baseUrl?: string;
   primaryColor?: string;
   secondaryColor?: string;
   imageList?: ImageListParam;
+  sort?: SortParam;
 };
 
 function parseAndValidateColor(value: string): string | null {
@@ -55,6 +91,13 @@ function parseImageList(value: string): ImageListParam | null {
   }
 }
 
+export function validateSort(value: string): SortParam | null {
+  if (sortValues.includes(value as SortParam)) {
+    return value as SortParam;
+  }
+  return null;
+}
+
 const noopParser = (v: unknown): unknown => v;
 
 const parsers = {
@@ -63,11 +106,10 @@ const parsers = {
   primaryColor: parseAndValidateColor,
   secondaryColor: parseAndValidateColor,
   imageList: parseImageList,
+  sort: validateSort,
 };
 
-export const extractParams = (
-  source: Record<string, string>,
-): Partial<EmbedParams> => {
+export const extractParams = (source: Record<string, string>): EmbedParams => {
   const result = {};
 
   for (const key in source) {
@@ -86,7 +128,7 @@ export const extractParams = (
   return result;
 };
 
-export function omitParams(query: Record<string, any>) {
+export function omitParams(query: Record<string, any>): Record<string, any> {
   const result = { ...query };
 
   delete result.initPath;

@@ -59,7 +59,7 @@ export default function EventImage({ event, thumbor = false }) {
       pos="unset !important"
       w="full !important"
       h="auto !important"
-      loader={keyCDNLoader}
+      loader={loader}
       alt=""
       m="auto"
       priority

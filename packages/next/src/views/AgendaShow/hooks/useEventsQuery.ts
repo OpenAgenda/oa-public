@@ -6,6 +6,7 @@ export default function useEventsQuery({
   agenda,
   filters,
   query,
+  sort = null,
   includeFields,
   suspense = false,
   pageSize = 10,
@@ -29,7 +30,9 @@ export default function useEventsQuery({
         agenda,
         pageIndex === 0 ? filters : [], // need aggs only for first page
         {
-          sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+          sort: query.search?.length
+            ? 'score'
+            : sort || 'lastTimingWithFeatured.asc',
           size: pageSize,
           ...isUpcomingOnlyQuery(query)
             ? {

@@ -5,6 +5,7 @@ import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
 import FiltersPreview from 'views/AgendaShow/components/FiltersPreview';
 import { TotalSkeleton } from 'views/AgendaShow/components/LoadingPage';
 import messages from 'views/AgendaShow/messages';
+import { useEmbedLayoutData } from 'components/EmbedLayout';
 import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import { omitParams } from 'utils/embedParams';
 import useGetFilterOptions from '../hooks/useGetFilterOptions';
@@ -78,6 +79,8 @@ export default function TotalPart({
     getPrefilteredQuery({ query, prefilter, filters }),
   );
 
+  const { sort } = useEmbedLayoutData();
+
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
     agenda,
@@ -108,6 +111,7 @@ export default function TotalPart({
     }),
     includeFields,
     pageSize: PAGE_SIZE,
+    sort,
   });
 
   const isLoadingInitialData = !pages && !error;
