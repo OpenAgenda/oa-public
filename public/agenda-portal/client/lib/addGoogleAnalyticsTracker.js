@@ -7,13 +7,11 @@ function addV4Tracker(googleAnalyticsID) {
   previousScript.parentNode.insertBefore(el, previousScript);
 
   window.dataLayer = window.dataLayer || [];
-  function gtag(...args) {
-    window.dataLayer.push(args);
+  function gtag() {
+    // gtag **NEED** arguments
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer.push(arguments);
   }
-  gtag('consent', 'default', {
-    ad_storage: 'granted',
-    analytics_storage: 'granted',
-  });
   gtag('js', new Date());
   gtag('config', googleAnalyticsID);
 }
