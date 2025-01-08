@@ -96,6 +96,10 @@ export default class EmbedLoader {
       url.searchParams.set('imageList', dataset.imageList);
     }
 
+    if (dataset.sort) {
+      url.searchParams.set('sort', dataset.sort);
+    }
+
     const { hash } = window.location;
     if (hash?.startsWith('#!')) {
       const decodedSrc = decodeURIComponent(hash.substring(2));
