@@ -14,6 +14,10 @@ function addV4Tracker(googleAnalyticsID) {
   function gtag(){
     dataLayer.push(arguments);
   }
+  gtag('consent', 'default', {
+    ad_storage: 'granted',
+    analytics_storage: 'granted'
+  });
   gtag('js', new Date());
   gtag('config', googleAnalyticsID);
 }
