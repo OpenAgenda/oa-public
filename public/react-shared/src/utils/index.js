@@ -14,3 +14,4 @@ export { default as withContext } from './withContext.js';
 export { default as withLayoutData } from './withLayoutData.js';
 export { default as wrapApp } from './wrapApp.js';
 export { default as defaultSelectStyles } from './defaultSelectStyles.js';
+export { default as dragAndDrop } from './dragAndDrop.js';
