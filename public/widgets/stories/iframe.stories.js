@@ -94,6 +94,17 @@ export const Prefilter = () => `
   <script async src="/index.js" charset="utf-8"></script>
 `;
 
+export const Sort = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-base-url="https://www.bordeaux-metropole.fr/agenda" data-sort="timings.asc"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053?categories-agenda-metropolitain%5B0%5D=47&categories-agenda-metropolitain%5B1%5D=51"><b>Bordeaux Métropole</b></a></p></blockquote>
+  </section>
+
+  <!-- remove hash -->
+  <script>history.replaceState({}, '', '#');</script>
+  <script async src="/index.js" charset="utf-8"></script>
+`;
+
 export const PrimaryColor = () => `
   <section class="page">
     <h2>Agenda</h2>
