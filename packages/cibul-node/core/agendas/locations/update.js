@@ -1,10 +1,11 @@
 import getAgenda from '../utils/getAgenda.js';
+import formatExtIds from './formatExtIds.js';
 
 export default (core, agendaOrUid) =>
   async (identifiers, data, options = {}) => {
     const { agendaLocations } = core.services;
 
-    const { context = {}, autocomplete = true } = options;
+    const { context = {}, autocomplete = true, protectExtIds = true } = options;
 
     const agenda = await getAgenda(core.services, agendaOrUid);
 
@@ -12,14 +13,17 @@ export default (core, agendaOrUid) =>
       ? agendaLocations.sets(agenda.locationSetUid).locations
       : agendaLocations(agenda.uid);
 
-    return endpoints.update(identifiers, data, {
-      autocomplete,
-      includeImagePath: true,
-      agendaUid: agenda.uid,
-      context: {
-        ...context,
+    return formatExtIds.afterRead(
+      await endpoints.update(identifiers, formatExtIds.beforeInsert(data), {
+        autocomplete,
+        includeImagePath: true,
         agendaUid: agenda.uid,
-        setUid: agenda.setUid,
-      },
-    });
+        protectExtIds,
+        context: {
+          ...context,
+          agendaUid: agenda.uid,
+          setUid: agenda.setUid,
+        },
+      }),
+    );
   };

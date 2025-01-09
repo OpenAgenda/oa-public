@@ -45,8 +45,12 @@ raw.push(
 
 raw.push(
   knex('location').insert([
-    load('sql/locations/laPiscine.json', { ext_id: 'laPiscine' }),
-    load('sql/locations/laBaignoire.json', { ext_id: 'laBaignoire' }),
+    load('sql/locations/laPiscine.json', {
+      ext_ids: '{"identifiers": ["default->laPiscine"]}',
+    }),
+    load('sql/locations/laBaignoire.json', {
+      ext_ids: '{"identifiers": ["default->laBaignoire"]}',
+    }),
   ]),
 );
 

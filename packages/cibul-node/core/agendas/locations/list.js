@@ -1,5 +1,6 @@
 import getAgenda from '../utils/getAgenda.js';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
+import formatExtIds from './formatExtIds.js';
 
 export default (core, agendaOrUid) =>
   async (query, nav, options = {}) => {
@@ -13,7 +14,7 @@ export default (core, agendaOrUid) =>
       ? agendaLocations.sets(agenda.locationSetUid).locations
       : agendaLocations(agenda.uid);
 
-    return endpoints.list(
+    const result = await endpoints.list(
       preCleanSearchQuery(query, { targetKey: 'uids' }),
       {
         ...nav,
@@ -29,4 +30,9 @@ export default (core, agendaOrUid) =>
         context: { agendaUid: agenda.uid },
       },
     );
+
+    return {
+      ...result,
+      items: result.items.map((i) => formatExtIds.afterRead(i)),
+    };
   };

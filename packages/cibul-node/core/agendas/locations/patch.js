@@ -1,13 +1,14 @@
 import logs from '@openagenda/logs';
 import getAgenda from '../utils/getAgenda.js';
+import formatExtIds from './formatExtIds.js';
 
 const log = logs('core/agendas/locations/patch');
 
 export default (core, agendaOrUid) =>
-  async function patchLocation(uid, data, options = {}) {
+  async function patchLocation(identifiers, data, options = {}) {
     const { agendaLocations } = core.services;
 
-    const { context = {}, autocomplete = true } = options;
+    const { context = {}, autocomplete = true, protectExtIds = true } = options;
 
     const agenda = await getAgenda(core.services, agendaOrUid);
 
@@ -16,16 +17,19 @@ export default (core, agendaOrUid) =>
       : agendaLocations(agenda.uid);
 
     try {
-      const result = await endpoints.patch(uid, data, {
-        autocomplete,
-        includeImagePath: true,
-        agendaUid: agenda.uid,
-        context: {
-          ...context,
+      const result = formatExtIds.afterRead(
+        await endpoints.patch(identifiers, formatExtIds.beforeInsert(data), {
+          autocomplete,
+          protectExtIds,
+          includeImagePath: true,
           agendaUid: agenda.uid,
-          setUid: agenda.setUid,
-        },
-      });
+          context: {
+            ...context,
+            agendaUid: agenda.uid,
+            setUid: agenda.setUid,
+          },
+        }),
+      );
 
       return result;
     } catch (e) {
