@@ -1,10 +1,10 @@
 'use strict';
 
-const { protectExtIdsFn } = require('../lib/formatExtIds');
+const { mergeExtIdsFn } = require('../lib/formatExtIds');
 
-describe('protectExtIdsFn', () => {
+describe('mergeExtIdsFn', () => {
   it('test 1', () => {
-    const out = protectExtIdsFn(
+    const out = mergeExtIdsFn(
       { extIds: [{ key: 'default', value: 'arg' }] },
       {
         extIds: [
@@ -20,7 +20,7 @@ describe('protectExtIdsFn', () => {
   });
 
   it('test 2', () => {
-    const out = protectExtIdsFn(
+    const out = mergeExtIdsFn(
       {
         extIds: [
           { key: 'default', value: 'arg' },

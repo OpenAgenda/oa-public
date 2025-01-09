@@ -28,7 +28,7 @@ module.exports = schema({
     type: 'boolean',
     default: false,
   },
-  protectExtIds: {
+  mergeExtIds: {
     type: 'boolean',
     default: true,
   },

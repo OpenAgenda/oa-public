@@ -247,7 +247,7 @@ describe('agenda-locations - functional - patch & update', () => {
           ...payload,
           extIds: [{ key: 'default', value: 'ard_leg_1200' }],
         },
-        { protectExtIds: false },
+        { mergeExtIds: false },
       );
       entry.after = await f.client('location').first().where('uid', 60763722);
 
@@ -266,7 +266,7 @@ describe('agenda-locations - functional - patch & update', () => {
           ...payload,
           extIds: [{ key: 'default', value: null }],
         },
-        { protectExtIds: false },
+        { mergeExtIds: false },
       );
       expect(updated.extIds).toStrictEqual([{ key: 'default', value: null }]);
     });

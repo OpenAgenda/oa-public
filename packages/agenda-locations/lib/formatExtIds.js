@@ -12,7 +12,7 @@ module.exports.afterRead = (data) => {
   return data;
 };
 
-module.exports.protectExtIdsFn = (data, current) => {
+module.exports.mergeExtIdsFn = (data, current) => {
   const currentExtIds = current.extIds;
 
   if (currentExtIds && data.extIds) {
