@@ -18,7 +18,7 @@ export default async function updateEvent(
     event,
     partial,
     userLang,
-    protectExtIds,
+    mergeExtIds,
   },
 ) {
   const { oembed, events } = services;
@@ -52,7 +52,7 @@ export default async function updateEvent(
         access: 'internal',
         draft,
         private: privateOption,
-        protectExtIds,
+        mergeExtIds,
       }),
     );
 

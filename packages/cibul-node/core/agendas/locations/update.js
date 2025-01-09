@@ -5,7 +5,7 @@ export default (core, agendaOrUid) =>
   async (identifiers, data, options = {}) => {
     const { agendaLocations } = core.services;
 
-    const { context = {}, autocomplete = true, protectExtIds = true } = options;
+    const { context = {}, autocomplete = true, mergeExtIds = true } = options;
 
     const agenda = await getAgenda(core.services, agendaOrUid);
 
@@ -18,7 +18,7 @@ export default (core, agendaOrUid) =>
         autocomplete,
         includeImagePath: true,
         agendaUid: agenda.uid,
-        protectExtIds,
+        mergeExtIds,
         context: {
           ...context,
           agendaUid: agenda.uid,

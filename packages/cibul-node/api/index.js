@@ -790,7 +790,7 @@ export default (core, { useRouter = true } = {}) => {
           .agendas(req.agenda.uid)
           .locations.set(req.locationIdentifier, req.parsedData, {
             autocomplete: (req.query.autocomplete ?? '1') === '1',
-            /* protectExtIds: boolQuery(req.query.protectExtIds, { defaultValue: true }), */
+            /* mergeExtIds: boolQuery(req.query.mergeExtIds, { defaultValue: true }), */
             context: {
               userUid: req.user.uid,
             },
@@ -819,7 +819,7 @@ export default (core, { useRouter = true } = {}) => {
           .agendas(req.agenda.uid)
           .locations.patch(req.locationIdentifier, req.parsedData, {
             autocomplete: (req.query.autocomplete ?? '1') === '1',
-            /* protectExtIds: boolQuery(req.query.protectExtIds, { defaultValue: true }), */
+            /* mergeExtIds: boolQuery(req.query.mergeExtIds, { defaultValue: true }), */
             context: {
               userUid: req.user.uid,
             },

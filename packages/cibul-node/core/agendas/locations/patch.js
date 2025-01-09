@@ -8,7 +8,7 @@ export default (core, agendaOrUid) =>
   async function patchLocation(identifiers, data, options = {}) {
     const { agendaLocations } = core.services;
 
-    const { context = {}, autocomplete = true, protectExtIds = true } = options;
+    const { context = {}, autocomplete = true, mergeExtIds = true } = options;
 
     const agenda = await getAgenda(core.services, agendaOrUid);
 
@@ -20,7 +20,7 @@ export default (core, agendaOrUid) =>
       const result = formatExtIds.afterRead(
         await endpoints.patch(identifiers, formatExtIds.beforeInsert(data), {
           autocomplete,
-          protectExtIds,
+          mergeExtIds,
           includeImagePath: true,
           agendaUid: agenda.uid,
           context: {
