@@ -49,7 +49,7 @@ export default schema({
     type: 'boolean',
     default: true,
   },
-  protectExtIds: {
+  mergeExtIds: {
     type: 'boolean',
     default: true,
   },

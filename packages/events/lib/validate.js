@@ -64,14 +64,14 @@ export default async (data, options = {}) => {
     current = null,
     maxImageSize = 20971520, // 20MB
     protected: protectedMode = true,
-    protectExtIds = true,
+    mergeExtIds = true,
   } = options;
 
   const { editedFields, compiled } = await compileForValidation(current, data, {
     maxImageSize,
     protectedMode,
     isPatch,
-    protectExtIds,
+    mergeExtIds,
   });
 
   log(
