@@ -232,6 +232,9 @@ describe('02 - event search - functional: location', () => {
         { detailed: true },
       );
 
+      expect(event.location.extIds).toStrictEqual([
+        { key: 'default', value: '456' },
+      ]);
       expect(event.location.extId).toBe(456);
     });
   });

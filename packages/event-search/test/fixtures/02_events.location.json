@@ -39,7 +39,13 @@
         "countryCode": null,
         "timezone": "Europe/Paris",
         "protections-appellation-et-labels": [50, 41],
-        "extId": 456
+        "extId": 456,
+        "extIds": [
+          {
+            "key": "default",
+            "value": "456"
+          }
+        ]
       },
       "state": 2
     },
