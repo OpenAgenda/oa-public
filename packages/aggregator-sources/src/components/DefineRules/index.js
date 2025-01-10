@@ -281,8 +281,8 @@ export default function DefineRules({
       <div className="padding-v-sm">
         <h4 className="margin-bottom-sm">
           {state.modeOptions.isRequiredFilter
-            ? intl.formatMessage(messages.updateFilter)
-            : intl.formatMessage(messages.updateAction)}
+            ? intl.formatMessage(messages.updateAFilter)
+            : intl.formatMessage(messages.updateAnAction)}
         </h4>
 
         <p>
