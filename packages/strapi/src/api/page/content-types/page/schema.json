@@ -34,11 +34,7 @@
     },
     "Segments": {
       "type": "dynamiczone",
-      "components": [
-        "segments.feature-card-set",
-        "segments.page-head",
-        "segments.modular-set"
-      ],
+      "components": ["segments.page-head", "segments.modular-set"],
       "pluginOptions": {
         "i18n": {
           "localized": true

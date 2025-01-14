@@ -1,7 +1,8 @@
 {
   "collectionName": "components_segments_page_heads",
   "info": {
-    "displayName": "PageHead"
+    "displayName": "PageHead",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -21,6 +22,16 @@
       "type": "component",
       "repeatable": false,
       "component": "components.illustration"
+    },
+    "backgroundColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "fontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
     }
   }
 }

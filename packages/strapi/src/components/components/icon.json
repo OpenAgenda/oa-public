@@ -1,0 +1,55 @@
+{
+  "collectionName": "components_components_icons",
+  "info": {
+    "displayName": "Icon",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "code": {
+      "type": "enumeration",
+      "enum": [
+        "calendar",
+        "chart-network",
+        "clipboard",
+        "code",
+        "download",
+        "magnifying-glass",
+        "person",
+        "rocket-launch",
+        "share",
+        "share-nodes"
+      ],
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["regular", "thin", "solid"],
+      "required": true,
+      "default": "regular"
+    },
+    "size": {
+      "type": "enumeration",
+      "enum": [
+        "fa-1x",
+        "fa-2x",
+        "fa-3x",
+        "fa-4x",
+        "fa-5x",
+        "fa-6x",
+        "fa-7x",
+        "fa-8x",
+        "fa-9x",
+        "fa-10x",
+        "fa-2xs",
+        "fa-xs",
+        "fa-sm",
+        "fa-lg",
+        "fa-xl",
+        "fa-2xl"
+      ],
+      "default": "fa-1x",
+      "required": false
+    }
+  }
+}

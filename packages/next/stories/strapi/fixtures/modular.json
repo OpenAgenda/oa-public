@@ -26,7 +26,7 @@
         "publishedAt": "2024-12-19T15:01:48.207Z"
       },
       "borderRadius": "full",
-      "maxWidth": "3xs"
+      "maxWidth": { "name": "xs" }
     },
     "CTA": {
       "id": 7,
