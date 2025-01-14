@@ -1,0 +1,25 @@
+import { Container, chakra } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
+
+interface SegmentContainerProps {
+  children: React.ReactNode;
+  backgroundColor?: string;
+  fontColor?: string;
+}
+
+export default function SegmentContainer({
+  children,
+  backgroundColor,
+  fontColor,
+}: SegmentContainerProps) {
+  console.log('???', backgroundColor ? color(backgroundColor) : undefined);
+  return (
+    <chakra.div
+      backgroundColor={backgroundColor ? color(backgroundColor) : undefined}
+    >
+      <Container maxW="8xl" color={fontColor ? color(fontColor) : undefined}>
+        {children}
+      </Container>
+    </chakra.div>
+  );
+}

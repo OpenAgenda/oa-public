@@ -42,12 +42,18 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
   }
 
   const pageRes = `${APIBase}/pages/${matches[0].documentId}?${[
-    'Features',
-    'Features.image',
     'CTA',
+    'backgroundColor.name',
+    'fontColor.name',
     'Illustration.image',
+    'Illustration.width.name',
     'Components',
+    'Components.maxWidth',
     'Components.Illustration.image',
+    'Components.backgroundColor.name',
+    'Components.fontColor.name',
+    'Components.Illustration.width.name',
+    'Components.Icon.size',
   ]
     .map((v) => `populate[]=Segments.${v}`)
     .join('&')}`;
@@ -57,6 +63,8 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
       Authorization: `Bearer ${authToken}`,
     },
   }).json<StrapiResponse>();
+
+  console.log(JSON.stringify(page, null, 2));
 
   return {
     props: {

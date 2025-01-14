@@ -16,10 +16,10 @@ export function Illustrations() {
           image={{
             url: '/rectanglePhteven.jpg',
           }}
-          maxWidth="lg"
+          width={{ name: 'lg' }}
         />
         <Text align="center">
-          <code>{`maxWidth="lg"`}</code>
+          <code>{`width={{ name: 'lg' }}`}</code>
         </Text>
       </Box>
       <Box m={3}>
@@ -27,11 +27,13 @@ export function Illustrations() {
           image={{
             url: '/squarePhteven.jpg',
           }}
-          maxWidth="sm"
+          width={{ name: 'sm' }}
           borderRadius="full"
         />
         <Text align="center">
-          <code>{`maxWidth="sm" borderRadius="full"`}</code>
+          <code>{`width={{ name: 'sm' }}`}</code>
+          <br />
+          <code>{`borderRadius="full"`}</code>
         </Text>
       </Box>
       <Box m={3}>
@@ -39,11 +41,11 @@ export function Illustrations() {
           image={{
             url: '/squarePhteven.jpg',
           }}
-          maxWidth="3xs"
+          width={{ name: '3xs' }}
           borderRadius="full"
         />
         <Text align="center">
-          <code>{`maxWidth="2xs"`}</code>
+          <code>{`width={{ name: '2xs' }}`}</code>
           <br />
           <code>{`borderRadius="full"`}</code>
         </Text>
@@ -56,13 +58,16 @@ export function Icons() {
   return (
     <Flex justify="center" align="center" height="100vh">
       <Box m={3}>
-        <Icon style="solid" name="clipboard" size="2xl" />
+        <Icon style="solid" name="clipboard" size="fa-1x" />
       </Box>
       <Box m={3}>
-        <Icon style="regular" name="rocket-launch" size="2x" />
+        <Icon style="regular" name="rocket-launch" size="fa-2x" />
       </Box>
       <Box m={3}>
-        <Icon style="thin" name="chart-network" size="4x" />
+        <Icon style="thin" name="chart-network" size="fa-4x" />
+      </Box>
+      <Box m={3}>
+        <Icon style="solid" name="magnifying-glass" size="fa-lg" />
       </Box>
     </Flex>
   );

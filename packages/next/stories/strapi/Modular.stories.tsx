@@ -13,33 +13,35 @@ export function Overview() {
   return (
     <Wrap p="20px" spacing="20px" align="center">
       <WrapItem>
-        <Modular {...fx.default} />
-      </WrapItem>
-      <WrapItem>
         <Modular
           {...fx.default}
           card
-          description={`${fx.default.description}. Avec la prop "card"`}
-        />
-      </WrapItem>
-      <WrapItem>
-        <Modular
-          {...fx.default}
+          backgroundColor={{
+            name: 'teal',
+            swatch: '50',
+          }}
           Illustration={{
             image: {
-              url: '/rectanglePhteven.jpg',
+              url: '/squarePhteven.jpg',
             },
+            borderRadius: 'full',
+            width: { name: '2xl' },
           }}
-          description={`${fx.default.description}. Avec une image pas arrondie par la prop "borderRadius" ni "maxWidth"`}
+          maxWidth={{ name: 'md' }}
+          title="Phteven"
+          description="Également connu sous le nom de **Tuna**, Phteven est un chien devenu célèbre sur Internet en raison de son apparence distinctive et de son sourire particulier. Sa popularité a inspiré la création de mèmes humoristiques, souvent utilisés pour exprimer des situations comiques ou des jeux de mots. Par exemple, des générateurs de mèmes en ligne permettent aux utilisateurs de créer leurs propres versions en utilisant l'image de Ptheven."
+          CTA={{
+            label: 'Voir plus',
+            link: 'https://duckduckgo.com/?t=ffab&q=phteven&iax=images&ia=images',
+          }}
         />
-      </WrapItem>
-      <WrapItem>
-        <Modular {...fx.default} title="Pas de bouton" CTA={null} card />
       </WrapItem>
       <WrapItem>
         <Modular
           {...fx.default}
-          title="Une petite image pas étirée"
+          title="Petit Phteven"
+          CTA={null}
+          card
           Illustration={{
             image: {
               url: '/tinyPhteven.jpg',
@@ -55,15 +57,39 @@ export function Overview() {
           Icon={{
             name: 'chart-network',
             size: '3x',
-            type: 'thin',
+            style: 'thin',
+          }}
+        />
+      </WrapItem>
+      <WrapItem>
+        <Modular
+          {...fx.default}
+          card
+          maxWidth={{ name: 'xs' }}
+          Illustration={{
+            image: {
+              url: '/rectanglePhteven.jpg',
+            },
+          }}
+          description={`${fx.default.description}. Avec la prop "card"`}
+          CTA={{
+            label: 'Une action',
+            link: 'mailto:support@openagenda.com',
+            backgroundColor: {
+              name: 'teal',
+              swatch: '500',
+            },
+            fontColor: {
+              name: 'white',
+            },
           }}
         />
       </WrapItem>
       <WrapItem>
         <Modular
           title="Un icône et une image"
-          description="L'un peu complementer l'autre"
-          maxWidth="lg"
+          description="Voilà voilà"
+          maxWidth={{ name: 'lg' }}
           Illustration={{
             image: {
               url: '/rectanglePhteven.jpg',
@@ -73,7 +99,7 @@ export function Overview() {
           Icon={{
             name: 'chart-network',
             size: '3x',
-            type: 'thin',
+            style: 'thin',
           }}
           card
         />

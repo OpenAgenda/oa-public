@@ -7,6 +7,7 @@ import {
   faClipboard as faClipboardSolid,
   faCode as faCodeSolid,
   faDownload as faDownloadSolid,
+  faMagnifyingGlass as faMagnifyingGlassSolid,
   faPerson as faPersonSolid,
   faRocketLaunch as faRocketLaunchSolid,
   faShare as faShareSolid,
@@ -19,6 +20,7 @@ import {
   faClipboard as faClipboardRegular,
   faCode as faCodeRegular,
   faDownload as faDownloadRegular,
+  faMagnifyingGlass as faMagnifyingGlassRegular,
   faPerson as faPersonRegular,
   faRocketLaunch as faRocketLaunchRegular,
   faShare as faShareRegular,
@@ -31,6 +33,7 @@ import {
   faClipboard as faClipboardThin,
   faCode as faCodeThin,
   faDownload as faDownloadThin,
+  faMagnifyingGlass as faMagnifyingGlassThin,
   faPerson as faPersonThin,
   faRocketLaunch as faRocketLaunchThin,
   faShare as faShareThin,
@@ -43,6 +46,7 @@ const solid = {
   clipboard: faClipboardSolid,
   code: faCodeSolid,
   download: faDownloadSolid,
+  'magnifying-glass': faMagnifyingGlassSolid,
   person: faPersonSolid,
   'rocket-launch': faRocketLaunchSolid,
   share: faShareSolid,
@@ -55,6 +59,7 @@ const regular = {
   clipboard: faClipboardRegular,
   code: faCodeRegular,
   download: faDownloadRegular,
+  'magnifying-glass': faMagnifyingGlassRegular,
   person: faPersonRegular,
   'rocket-launch': faRocketLaunchRegular,
   share: faShareRegular,
@@ -67,6 +72,7 @@ const thin = {
   clipboard: faClipboardThin,
   code: faCodeThin,
   download: faDownloadThin,
+  'magnifying-glass': faMagnifyingGlassThin,
   person: faPersonThin,
   'rocket-launch': faRocketLaunchThin,
   share: faShareThin,
@@ -75,13 +81,13 @@ const thin = {
 
 interface IconProps {
   name: string;
-  size?: SizeProp;
+  size?: string;
   style?: 'solid' | 'regular' | 'thin';
 }
 
 export default function Icon({
   name,
-  size = '1x',
+  size = 'fa-1x',
   style = 'solid',
 }: IconProps) {
   const iconSet =
@@ -91,5 +97,8 @@ export default function Icon({
       thin,
     }[style] || regular;
 
-  return <FaIcon icon={iconSet[name]} size={size} />;
+  // Remove 'fa-' prefix from size before passing to FaIcon
+  const normalizedSize = size.replace('fa-', '') as SizeProp;
+
+  return <FaIcon icon={iconSet[name]} size={normalizedSize} />;
 }
