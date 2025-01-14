@@ -1,7 +1,8 @@
 {
   "collectionName": "components_segments_modular_sets",
   "info": {
-    "displayName": "ModularSet"
+    "displayName": "ModularSet",
+    "description": ""
   },
   "options": {},
   "attributes": {
