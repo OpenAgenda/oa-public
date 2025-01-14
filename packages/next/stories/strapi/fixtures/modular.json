@@ -3,7 +3,7 @@
     "id": 7,
     "card": false,
     "title": "Un titre",
-    "description": "Un texte descriptif, une note ou un petit paragraphe",
+    "description": "**Un texte descriptif**, _une note_ ou `un petit paragraphe`.",
     "Illustration": {
       "image": {
         "id": 7,
