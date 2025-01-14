@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import eventsValidator from '@openagenda/event-form/src/validators/events.js';
 import logs from '@openagenda/logs';
 import getAgenda from '../utils/getAgenda.js';
 import getSchema from './getSchema.js';
@@ -11,16 +12,21 @@ export default async function updateSchemaFields(
   agendaOrUid,
   updatedFields,
 ) {
+  log('updating');
   const { services, tasks } = core;
   const { formSchemas, agendas } = services;
 
   const agenda = _.isObject(agendaOrUid)
     ? agendaOrUid
     : await getAgenda(services, agendaOrUid);
-
   const agendaSchema = await getSchema(services, agenda);
 
-  const fs = new FormSchema(agendaSchema);
+  const fs = new FormSchema({
+    ...agendaSchema,
+    custom: {
+      events: eventsValidator,
+    },
+  });
 
   fs.updateFields(updatedFields);
 
