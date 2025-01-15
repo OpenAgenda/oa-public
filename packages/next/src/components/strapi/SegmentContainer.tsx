@@ -12,7 +12,6 @@ export default function SegmentContainer({
   backgroundColor,
   fontColor,
 }: SegmentContainerProps) {
-  console.log('???', backgroundColor ? color(backgroundColor) : undefined);
   return (
     <chakra.div
       backgroundColor={backgroundColor ? color(backgroundColor) : undefined}
