@@ -8,6 +8,8 @@ export default (core, agendaOrUid) =>
 
     const { useAfter = true, eventCounts = false } = options;
 
+    const detailed = !!query?.detailed;
+
     const agenda = await getAgenda(core.services, agendaOrUid);
 
     const endpoints = agenda.locationSetUid
@@ -25,7 +27,7 @@ export default (core, agendaOrUid) =>
       {
         total: true,
         includeImagePath: true,
-        detailed: !!query?.detailed,
+        detailed,
         eventCounts,
         context: { agendaUid: agenda.uid },
       },
@@ -33,6 +35,8 @@ export default (core, agendaOrUid) =>
 
     return {
       ...result,
-      items: result.items.map((i) => formatExtIds.afterRead(i)),
+      items: detailed
+        ? result.items.map((i) => formatExtIds.afterRead(i))
+        : result.items,
     };
   };
