@@ -82,7 +82,6 @@ module.exports = (values, options = {}) => {
       ignoreImage ? _.omit(values, ['image']) : values,
     );
   } catch (errors) {
-    console.log('validation errors', errors);
     throw new BadRequest({ info: { errors } }, 'data is invalid');
   }
 };

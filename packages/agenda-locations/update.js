@@ -32,7 +32,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
     log('image is not stream, will be ignored');
   }
 
-  const dataToValidate = preCleanBeforeUpdate(data, current, {
+  const dataToValidate = preCleanBeforeUpdate(data, {
     geocodeResult,
     isPatch,
   });
