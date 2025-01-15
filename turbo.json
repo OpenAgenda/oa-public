@@ -13,7 +13,7 @@
         "S3_ACCESS_KEY_ID",
         "S3_SECRET_ACCESS_KEY"
       ],
-      "outputs": ["build/**", "dist/**"],
+      "outputs": ["build/**", "dist/**", "src/locales-compiled/**"],
       "outputLogs": "new-only"
     },
     "@openagenda/admin-agendas#prepack": {
@@ -53,7 +53,7 @@
     },
     "@openagenda/legacy#prepack": {
       "dependsOn": ["^prepack"],
-      "outputs": ["embeds/app/dist/**"],
+      "outputs": ["embeds/app/dist/**", "embeds/app/src/locales-compiled/**"],
       "outputLogs": "new-only"
     },
     "@openagenda/network-apps#prepack": {
