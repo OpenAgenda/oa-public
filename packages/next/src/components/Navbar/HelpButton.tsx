@@ -12,7 +12,7 @@ export default function HelpButton() {
       as={Link}
       href="https://doc.openagenda.com"
       target="_blank"
-      rel="noreferrer"
+      rel="noopener"
       variant="outline"
       colorScheme="primary"
       borderRadius="full"
