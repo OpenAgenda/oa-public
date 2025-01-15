@@ -10333,7 +10333,6 @@ __metadata:
     "@babel/core": "npm:^7.23.3"
     "@babel/runtime-corejs3": "npm:^7.23.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
-    "@openagenda/utils": "npm:^1.3.0"
     babel-jest: "npm:^29.7.0"
     core-js: "npm:^3.29.1"
     is-stream: "npm:^2.0.0"

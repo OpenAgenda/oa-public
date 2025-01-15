@@ -1,4 +1,3 @@
-import utils from '@openagenda/utils';
 import listify from './listify';
 
 export default function object(...args) {
@@ -41,7 +40,8 @@ export default function object(...args) {
         }]);
       } else {
         try {
-          validator(matchingValue.value).map((c) => utils.extend(c, {
+          validator(matchingValue.value).map((c) => ({
+            ...c,
             field: `${matchingValue.field}.${c.field}`,
           })).forEach((cleanItem) => {
             clean.push(cleanItem);

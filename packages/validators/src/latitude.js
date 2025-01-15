@@ -1,11 +1,11 @@
-import { extend } from '@openagenda/utils';
 import errors from './lib/errors';
 
-export default function latitude(config) {
-  const params = extend({
+export default function latitude(config = {}) {
+  const params = {
     field: false,
     optional: true,
-  }, config || {});
+    ...config,
+  };
 
   function validate(value) {
     if (value === undefined && params.optional) {
@@ -44,7 +44,7 @@ export default function latitude(config) {
     return clean;
   }
 
-  return extend(validate, {
+  return Object.assign(validate, {
     field: params.field,
     type: 'latitude',
   });

@@ -1,9 +1,8 @@
-import utils from '@openagenda/utils';
-
-export default (validators, options) => {
-  const params = utils.extend({
+export default (validators, options = {}) => {
+  const params = {
     compact: false,
-  }, options || {});
+    ...options,
+  };
 
   return Object.assign(function validate(valuesSet) {
     let errors = []; const clean = []; const
