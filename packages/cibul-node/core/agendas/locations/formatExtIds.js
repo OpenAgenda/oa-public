@@ -1,12 +1,16 @@
 const beforeInsert = (data) => {
   if (data?.extId || data.extId === null) {
-    return { ...data, extIds: [{ key: 'default', value: data.extId }] };
+    const { extId } = data;
+    delete data.extId;
+    return {
+      ...data,
+      extIds: [{ key: 'default', value: extId }],
+    };
   }
   return data;
 };
 
 const afterRead = (data) => {
-  /* data.extId = null; */
   if (Object.keys(data).includes('extIds')) {
     data.extId = null;
   }
