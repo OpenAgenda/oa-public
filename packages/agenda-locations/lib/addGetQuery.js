@@ -1,41 +1,7 @@
 'use strict';
 
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-
-schema.register({ integer });
-
-const { BadRequest } = require('@openagenda/verror');
-
-const validate = schema({
-  agendaUid: {
-    type: 'integer',
-  },
-  setUid: {
-    type: 'integer',
-  },
-  extId: {
-    type: 'text',
-  },
-  slug: {
-    type: 'text',
-  },
-  uid: {
-    type: 'integer',
-  },
-});
-
 module.exports = async (service, k, deleted, query) => {
-  const cleanQuery = {};
-
-  try {
-    Object.assign(cleanQuery, validate(query));
-    if (!cleanQuery.uid && !cleanQuery.extId && !cleanQuery.slug) {
-      throw new Error('identifier is missing');
-    }
-  } catch (e) {
-    throw new BadRequest('Invalid location identifier', e);
-  }
+  const cleanQuery = { ...query };
 
   const { setUid, agendaUid, uid, extId, slug } = cleanQuery;
 
@@ -54,7 +20,10 @@ module.exports = async (service, k, deleted, query) => {
   }
 
   if (extId) {
-    k.where('ext_id', extId);
+    k.whereRaw(
+      "? MEMBER OF (ext_ids->'$.identifiers')",
+      `${extId.key}->${extId.value}`,
+    );
   } else if (slug) {
     k.where('slug', slug);
   } else {

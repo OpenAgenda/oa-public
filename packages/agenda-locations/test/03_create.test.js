@@ -131,15 +131,6 @@ describe('agenda-locations - functional - create', () => {
       expect(created.agendaId).toBeUndefined();
     });
 
-    it('store after creation', async () => {
-      const entry = await f
-        .client('location')
-        .first('store', 'ext_id')
-        .where('uid', created.uid);
-
-      expect(JSON.parse(entry.store).extId).toBe('123456');
-    });
-
     it('if region is not specified but adminLevel1 is', async () => {
       const newPayload = { ...payload, adminLevel1: payload.region };
       delete newPayload.region;
@@ -161,6 +152,15 @@ describe('agenda-locations - functional - create', () => {
         .where('uid', createdItem.uid);
 
       expect(entry.department).toEqual(newPayload.adminLevel2);
+    });
+
+    it('extIds are set', async () => {
+      expect(created.extIds).toEqual([{ key: 'default', value: '123456' }]);
+      const entry = await f
+        .client('location')
+        .first('ext_ids')
+        .where('uid', created.uid);
+      expect(entry.ext_ids).toBe('{"identifiers": ["default->123456"]}');
     });
   });
 
@@ -347,6 +347,31 @@ describe('agenda-locations - functional - create', () => {
       });
 
       expect(name).toBe('1083');
+    });
+
+    it('error on too long extIds value', async () => {
+      let error;
+      try {
+        await svc(7196947).create({
+          name: 'test',
+          address: '114 Rue de Turenne, 75003 Paris',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+          extIds: [
+            {
+              key: 'default',
+              value:
+                '11111112222222222222222222222222222222222222222222222333333333333333333333333333333333333333DGHGJHSGFKJUSDGFIUYGSJUDFGBLJDSGBFJHSGFJKDSVGFKJHVBJkhSF',
+            },
+          ],
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors[0].code).toBe('string.toolong');
+      expect(error.info.errors[0].field).toBe('value');
     });
   });
 });

@@ -77,9 +77,9 @@ describe('agenda-locations - functional - list', () => {
 
     it('order is by descending id', async () => {
       expect(items.map((i) => i.uid)).toStrictEqual([
-        60763722, 60763721, 7630650, 7630649, 51665986, 51665987, 30433086,
-        30433085, 87316763, 32049550, 41253007, 27638359, 91723136, 79091381,
-        56366303, 94482437, 80369196, 60725900, 7749634, 76306,
+        60763722, 60763721, 7630653, 7630650, 7630649, 51665986, 51665987,
+        30433086, 30433085, 87316763, 32049550, 41253007, 27638359, 91723136,
+        79091381, 56366303, 94482437, 80369196, 60725900, 7749634,
       ]);
     });
 
@@ -136,7 +136,7 @@ describe('agenda-locations - functional - list', () => {
 
       const { items } = await svc(7196947).list({}, { limit: 1, after });
 
-      expect(items[0].uid).toBe(7630649);
+      expect(items[0].uid).toBe(7630650);
     });
 
     it('order can by by asc name', async () => {
@@ -384,13 +384,15 @@ describe('agenda-locations - functional - list', () => {
       );
     });
 
-    it('fix: if extId is stored in store, it is loaded', async () => {
+    it('extIds loaded', async () => {
       const res = await svc(7196947).list(
-        { uids: [87202261] },
+        { uids: [14471367] },
         {},
         { detailed: true },
       );
-      expect(res[0].extId).toBe('ard_leg_01');
+      expect(res[0].extIds).toStrictEqual([
+        { key: 'default', value: '121,-22SSA' },
+      ]);
     });
   });
 
@@ -626,7 +628,7 @@ describe('agenda-locations - functional - list', () => {
           agendaEventCount: 8,
         },
         {
-          uid: 7630650,
+          uid: 7630653,
           eventCount: 0,
           agendaEventCount: 0,
         },
@@ -635,7 +637,7 @@ describe('agenda-locations - functional - list', () => {
 
     it('if total option is provided, list returns an { items, total } object', async () => {
       const { items, total } = await svc(7196947).list({}, {}, { total: true });
-      expect(total).toBe(368);
+      expect(total).toBe(369);
       expect(items).not.toBeNull();
     });
   });

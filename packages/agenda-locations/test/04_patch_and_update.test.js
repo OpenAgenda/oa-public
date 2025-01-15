@@ -120,7 +120,7 @@ describe('agenda-locations - functional - patch & update', () => {
     });
 
     it('patching image in store does not affect other store fields', () => {
-      expect(JSON.parse(entry.store).extId).toEqual('22');
+      expect(JSON.parse(entry.store).state).toEqual(1);
     });
   });
 
@@ -219,33 +219,56 @@ describe('agenda-locations - functional - patch & update', () => {
       expect(updated.uid).toEqual(95301591);
     });
 
-    it('if extId is not part of patch and is not set in main extId field, it is synced from legacy', async () => {
-      await svc.sets(1903810).locations.patch(7630649, {});
-
-      const entry = await f
-        .client('location')
-        .first('ext_id')
-        .where('uid', 7630649);
-
-      expect(entry.ext_id).toEqual('leg_ard_03');
+    it('extIds are set by patch and protected', async () => {
+      const entry = {};
+      entry.before = await f.client('location').first().where('uid', 7630653);
+      const updated = await svc(25221).patch(7630653, {
+        extIds: [
+          { key: 'default', value: 'ard_leg_1200' },
+          { key: 'test', value: 'ard_leg_1201' },
+        ],
+      });
+      entry.after = await f.client('location').first().where('uid', 7630653);
+      expect(entry.after.ext_ids).toEqual(
+        '{"identifiers": ["default->ard_leg_1200", "test->ard_leg_1201"]}',
+      );
+      expect(updated.extIds).toEqual([
+        { key: 'default', value: 'ard_leg_1200' },
+        { key: 'test', value: 'ard_leg_1201' },
+      ]);
     });
 
-    it('if extId is part of patch, it is synced to legacy and set in dedicated field', async () => {
-      const updated = await svc.sets(1903810).locations.patch(60763721, {
-        extId: 'ard_leg_1200',
-      });
+    it('extIds a set by update', async () => {
+      const entry = {};
+      entry.before = await f.client('location').first().where('uid', 60763722);
+      const updated = await svc(25221).update(
+        60763722,
+        {
+          ...payload,
+          extIds: [{ key: 'default', value: 'ard_leg_1200' }],
+        },
+        { mergeExtIds: false },
+      );
+      entry.after = await f.client('location').first().where('uid', 60763722);
 
-      const { store } = await f
-        .client('location')
-        .first(['store'])
-        .where('uid', 60763721)
-        .then((r) => ({
-          store: JSON.parse(r.store),
-          extId: r.ext_id,
-        }));
+      expect(entry.after.ext_ids).toEqual(
+        '{"identifiers": ["default->ard_leg_1200"]}',
+      );
+      expect(updated.extIds).toEqual([
+        { key: 'default', value: 'ard_leg_1200' },
+      ]);
+    });
 
-      expect(store.extId).toEqual('ard_leg_1200');
-      expect(updated.extId).toEqual('ard_leg_1200');
+    it('extIds default can be set at null', async () => {
+      const updated = await svc(25221).update(
+        60763722,
+        {
+          ...payload,
+          extIds: [{ key: 'default', value: null }],
+        },
+        { mergeExtIds: false },
+      );
+      expect(updated.extIds).toStrictEqual([{ key: 'default', value: null }]);
     });
 
     it('fix: patch should not break unspecified image', async () => {
@@ -264,25 +287,6 @@ describe('agenda-locations - functional - patch & update', () => {
         .then((e) => JSON.parse(e.store).image);
 
       expect(image).toBe(null);
-    });
-
-    it('fix: extId should be cleared when specifying null in patch', async () => {
-      const patched = await svc(7196947).patch(
-        14471367,
-        {
-          extId: null,
-        },
-        { includeImagePath: true },
-      );
-
-      const extIdFromDb = await f
-        .client('location')
-        .first()
-        .where('uid', 14471367)
-        .then((r) => r.ext_id);
-
-      expect(extIdFromDb).toBeNull();
-      expect(patched.extId).toBeNull();
     });
 
     it('fix: adminLevels should be patchable', async () => {
@@ -379,7 +383,7 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
     beforeAll(async () => {
       try {
         await svc.sets(1903811).locations.patch(60763722, {
-          extId: 'ard_leg_1200',
+          extIds: ['default->ard_leg_1200'],
         });
       } catch (error) {
         thrownError = error;

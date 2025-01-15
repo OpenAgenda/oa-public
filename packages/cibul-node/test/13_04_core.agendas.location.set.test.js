@@ -49,7 +49,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
       let createdLocation;
       beforeAll(async () => {
         createdLocation = await core.agendas(64260763).locations.set(
-          { extId: 'garedevannes' },
+          { extId: { key: 'default', value: 'garedevannes' } },
           {
             name: 'Gare de Vannes',
             address: 'The hell if I know, Vannes',
@@ -72,7 +72,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
       let updatedLocation;
       beforeAll(async () => {
         updatedLocation = await core.agendas(64260763).locations.set(
-          { extId: 'laBaignoire' },
+          { extId: { key: 'default', value: 'laBaignoire' } },
           {
             name: 'La Baignoire',
             address: "22 rue de l'ésperence, Roubaix",

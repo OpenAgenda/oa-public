@@ -1,6 +1,7 @@
 import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 import logs from '@openagenda/logs';
 import stream from '@openagenda/validators/stream.js';
+import extIdsValidator from '@openagenda/utils/validators/extIdsValidator.js';
 
 import timings from '../iso/validators/timings.js';
 import registration from '../iso/validators/registration.js';
@@ -11,7 +12,7 @@ import description from '../iso/validators/description.js';
 import timezone from '../iso/validators/timezone.js';
 import age from '../iso/validators/age.js';
 import keywords from '../iso/validators/keywords.js';
-import extIds from '../iso/validators/extIds.js';
+
 import fields from './fields.js';
 import compileForValidation from './compileForValidation.js';
 import ValidationError from './ValidationError.js';
@@ -29,7 +30,7 @@ const eventCustomValidators = {
   timezone,
   longDescription,
   description,
-  extIds,
+  extIds: extIdsValidator,
 };
 
 const publicFields = fields.filter((f) => (f.write || []).includes('public'));
@@ -63,14 +64,14 @@ export default async (data, options = {}) => {
     current = null,
     maxImageSize = 20971520, // 20MB
     protected: protectedMode = true,
-    protectExtIds = true,
+    mergeExtIds = true,
   } = options;
 
   const { editedFields, compiled } = await compileForValidation(current, data, {
     maxImageSize,
     protectedMode,
     isPatch,
-    protectExtIds,
+    mergeExtIds,
   });
 
   log(

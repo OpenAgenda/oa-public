@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 import createPayload from '../utils/createPayload.js';
+import formatLocationExtIds from '../locations/formatExtIds.js';
 import getAgenda from '../utils/getAgenda.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 
@@ -79,6 +80,11 @@ export default async (core, agendaUid, eventUid, options = {}) => {
         cspNonce,
       });
     }
+
+    if (event?.location && detailed) {
+      event.location = formatLocationExtIds.afterRead(event.location);
+    }
+
     log('event fetched');
     payload.setItem('event', event);
   }
