@@ -11,9 +11,7 @@ const beforeInsert = (data) => {
 };
 
 const afterRead = (data) => {
-  if (Object.keys(data).includes('extIds')) {
-    data.extId = null;
-  }
+  data.extId = null;
   if (data.extIds && data.extIds.length) {
     const defaultExtId = data.extIds.find((extId) => extId.key === 'default');
     data.extId = defaultExtId ? defaultExtId.value : null;

@@ -118,11 +118,11 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         'access',
         'state',
         'imageCredits',
-        'extId',
         'duplicateCandidates',
         'disqualifiedDuplicates',
         'mergedIn',
         'agendaUid',
+        'extId',
       ]);
     });
   });
