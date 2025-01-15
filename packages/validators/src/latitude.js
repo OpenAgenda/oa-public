@@ -1,64 +1,51 @@
-"use strict"; // ES5
+import errors from './lib/errors';
 
-var utils = require( '@openagenda/utils' );
+export default function latitude(config = {}) {
+  const params = {
+    field: false,
+    optional: true,
+    ...config,
+  };
 
-module.exports = function( config ) {
-
-  var params = utils.extend( {
-    field: false, 
-    optional: true
-  }, config || {} );
-
-  return utils.extend( validate, {
-    field: params.field,
-    type: 'latitude'
-  } );
-
-  function validate( value ) {
-
-    if ( value === undefined && params.optional ) {
-
+  function validate(value) {
+    if (value === undefined && params.optional) {
       return null;
-
     }
 
-    var clean = parseFloat( value );
+    const clean = parseFloat(value);
 
-    if ( isNaN( clean ) ) {
-
-      throw [ {
-        field: params.field,
-        code: 'latitude.invalid',
-        message: 'not a number',
-        origin: value
-      } ];
-
+    if (Number.isNaN(clean)) {
+      throw errors(
+        params,
+        value,
+        'latitude.invalid',
+        'not a number',
+      );
     }
 
-    if ( clean < -90 ) {
-
-      throw [ {
-        field: params.field,
-        code: 'latitude.toosmall',
-        message: 'latitude cannot be less than -90',
-        origin: value
-      } ]
-
+    if (clean < -90) {
+      throw errors(
+        params,
+        value,
+        'latitude.toosmall',
+        'latitude cannot be less than -90',
+      );
     }
 
-    if ( clean > 90 ) {
-
-      throw [ {
-        field: params.field,
-        code: 'latitude.toobig',
-        message: 'latitude cannot be more than 90',
-        origin: value
-      } ];
-
+    if (clean > 90) {
+      throw errors(
+        params,
+        value,
+        'latitude.toobig',
+        'latitude cannot be more than 90',
+      );
     }
 
     return clean;
-
   }
 
+  return Object.assign(validate, {
+    field: params.field,
+    type: 'latitude',
+  });
 }

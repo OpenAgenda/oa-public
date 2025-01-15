@@ -22,7 +22,7 @@ export default function eventUpdate(req, res, next) {
         defaultLang: req.headers.lang,
         private: null,
         callOrigin: 'api',
-        protectExtIds: boolQuery(req.query.protectExtIds, {
+        mergeExtIds: boolQuery(req.query.mergeExtIds, {
           defaultValue: true,
         }),
       },

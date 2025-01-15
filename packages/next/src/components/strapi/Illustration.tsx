@@ -1,24 +1,33 @@
 import { Image } from '@openagenda/uikit';
 
+interface Width {
+  name: string;
+}
+
 interface IllustrationProps {
   image: {
     url: string;
+    alternativeText?: string;
   };
-  maxWidth?: string;
+  width?: Width;
   borderRadius?: string;
 }
 
 export default function Illustration({
   image,
   borderRadius = 'lg',
-  maxWidth,
+  width,
 }: IllustrationProps) {
+  if (!image?.url) {
+    return null;
+  }
   return (
     <Image
       src={image.url}
-      alt="une image"
-      borderRadius={borderRadius}
-      maxWidth={maxWidth}
+      alt={image.alternativeText}
+      borderRadius={borderRadius !== 'undefined' ? borderRadius : undefined}
+      maxWidth="full"
+      width={width?.name}
       height="auto"
     />
   );

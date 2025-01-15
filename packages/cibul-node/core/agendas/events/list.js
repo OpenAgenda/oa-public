@@ -3,6 +3,18 @@ import logs from '@openagenda/logs';
 import getAgenda from '../utils/getAgenda.js';
 import * as merge from '../utils/merge.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
+import formatLocationsExtIds from '../locations/formatExtIds.js';
+
+function formatEventLocationsExtIds(events, { detailed }) {
+  if (!detailed) {
+    return events;
+  }
+
+  return events.map((event) => {
+    event.location = formatLocationsExtIds.afterRead(event.location);
+    return event;
+  });
+}
 
 const log = logs('core/agendas/events/list');
 
@@ -65,19 +77,21 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
 
   if (load.event) {
     log('loading %s events', eventUids.length);
-    fetched.events = convertLocationAdditionalFields(
-      formSchema,
-      await eventsSvc.list(
-        {
-          uid: eventUids,
-        },
-        { limit: eventUids.length },
-        {
-          detailed,
-          private: null, // needed to reindex private agendas
-          access: access === 'internal' ? 'internal' : 'public',
-        },
-      ),
+    const events = await eventsSvc.list(
+      {
+        uid: eventUids,
+      },
+      { limit: eventUids.length },
+      {
+        detailed,
+        private: null, // needed to reindex private agendas
+        access: access === 'internal' ? 'internal' : 'public',
+      },
+    );
+
+    fetched.events = formatEventLocationsExtIds(
+      convertLocationAdditionalFields(formSchema, events),
+      { detailed },
     );
   }
 

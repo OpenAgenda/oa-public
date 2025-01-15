@@ -14,7 +14,12 @@
     },
     "borderRadius": {
       "type": "enumeration",
-      "enum": ["full"]
+      "enum": ["undefined", "full"]
+    },
+    "width": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
     }
   }
 }

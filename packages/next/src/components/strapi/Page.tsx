@@ -1,4 +1,4 @@
-import { Container } from '@openagenda/uikit';
+import { Box } from '@openagenda/uikit';
 import PageHead from 'components/strapi/PageHead';
 import ModularSet from 'components/strapi/ModularSet';
 import FeatureCardSet from 'components/strapi/FeatureCardSet';
@@ -7,7 +7,7 @@ export default function StrapiPage({ page }) {
   const { title, Segments } = page;
 
   return (
-    <Container>
+    <>
       {title ? <h1>{title}</h1> : null}
       {Segments.map((Segment) => {
         const { id } = Segment;
@@ -17,8 +17,12 @@ export default function StrapiPage({ page }) {
           'segments.modular-set': ModularSet,
         }[Segment['__component']];
 
-        return <Component key={id} {...Segment} />;
+        return (
+          <Box key={id} pt={5} pb={5}>
+            <Component key={id} {...Segment} />
+          </Box>
+        );
       })}
-    </Container>
+    </>
   );
 }

@@ -624,9 +624,12 @@ export default (core, { useRouter = true } = {}) => {
         ),
   ]);
 
-  app.param('locationExtId', (req, res, next) => {
+  app.param('locationExtValue', (req, res, next) => {
     req.locationIdentifier = {
-      extId: req.params.locationExtId,
+      extId: {
+        key: req.params.locationExtKey ?? 'default',
+        value: req.params.locationExtValue,
+      },
     };
     next();
   });
@@ -721,7 +724,8 @@ export default (core, { useRouter = true } = {}) => {
   app.get(
     [
       '/agendas/:agendaUid/locations/:locationUid',
-      '/agendas/:agendaUid/locations/ext/:locationExtId',
+      '/agendas/:agendaUid/locations/ext/:locationExtValue',
+      '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
       '/agendas/:agendaUid/locations/slug/:locationSlug',
     ],
     [
@@ -749,7 +753,8 @@ export default (core, { useRouter = true } = {}) => {
   app.post(
     [
       '/agendas/:agendaUid/locations/:locationUid',
-      '/agendas/:agendaUid/locations/ext/:locationExtId',
+      '/agendas/:agendaUid/locations/ext/:locationExtValue',
+      '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
     ],
     [
       mw.member.allow(['administrator', 'moderator']),
@@ -773,31 +778,39 @@ export default (core, { useRouter = true } = {}) => {
     ],
   );
 
-  app.put('/agendas/:agendaUid/locations/ext/:locationExtId', [
-    mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) =>
-      core
-        .agendas(req.agenda.uid)
-        .locations.set(req.locationIdentifier, req.parsedData, {
-          autocomplete: (req.query.autocomplete ?? '1') === '1',
-          context: {
-            userUid: req.user.uid,
-          },
-        })
-        .then(
-          (location) =>
-            res.json({
-              success: true,
-              location,
-            }),
-          next,
-        ),
-  ]);
+  app.put(
+    [
+      '/agendas/:agendaUid/locations/ext/:locationExtValue',
+      '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
+    ],
+    [
+      mw.member.allow(['administrator', 'moderator']),
+      (req, res, next) =>
+        core
+          .agendas(req.agenda.uid)
+          .locations.set(req.locationIdentifier, req.parsedData, {
+            autocomplete: (req.query.autocomplete ?? '1') === '1',
+            /* mergeExtIds: boolQuery(req.query.mergeExtIds, { defaultValue: true }), */
+            context: {
+              userUid: req.user.uid,
+            },
+          })
+          .then(
+            (location) =>
+              res.json({
+                success: true,
+                location,
+              }),
+            next,
+          ),
+    ],
+  );
 
   app.patch(
     [
       '/agendas/:agendaUid/locations/:locationUid',
-      '/agendas/:agendaUid/locations/ext/:locationExtId',
+      '/agendas/:agendaUid/locations/ext/:locationExtValue',
+      '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
     ],
     [
       mw.member.allow(['administrator', 'moderator']),
@@ -806,6 +819,7 @@ export default (core, { useRouter = true } = {}) => {
           .agendas(req.agenda.uid)
           .locations.patch(req.locationIdentifier, req.parsedData, {
             autocomplete: (req.query.autocomplete ?? '1') === '1',
+            /* mergeExtIds: boolQuery(req.query.mergeExtIds, { defaultValue: true }), */
             context: {
               userUid: req.user.uid,
             },
@@ -824,7 +838,8 @@ export default (core, { useRouter = true } = {}) => {
   app.delete(
     [
       '/agendas/:agendaUid/locations/:locationUid',
-      '/agendas/:agendaUid/locations/ext/:locationExtId',
+      '/agendas/:agendaUid/locations/ext/:locationExtValue',
+      '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
     ],
     [
       mw.member.allow(['administrator', 'moderator']),

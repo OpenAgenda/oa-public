@@ -1,5 +1,6 @@
 import getAgenda from '../utils/getAgenda.js';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
+import formatExtIds from './formatExtIds.js';
 
 export default (core, agendaOrUid) =>
   async (query, nav, options = {}) => {
@@ -7,13 +8,15 @@ export default (core, agendaOrUid) =>
 
     const { useAfter = true, eventCounts = false } = options;
 
+    const detailed = !!query?.detailed;
+
     const agenda = await getAgenda(core.services, agendaOrUid);
 
     const endpoints = agenda.locationSetUid
       ? agendaLocations.sets(agenda.locationSetUid).locations
       : agendaLocations(agenda.uid);
 
-    return endpoints.list(
+    const result = await endpoints.list(
       preCleanSearchQuery(query, { targetKey: 'uids' }),
       {
         ...nav,
@@ -24,9 +27,16 @@ export default (core, agendaOrUid) =>
       {
         total: true,
         includeImagePath: true,
-        detailed: !!query?.detailed,
+        detailed,
         eventCounts,
         context: { agendaUid: agenda.uid },
       },
     );
+
+    return {
+      ...result,
+      items: detailed
+        ? result.items.map((i) => formatExtIds.afterRead(i))
+        : result.items,
+    };
   };

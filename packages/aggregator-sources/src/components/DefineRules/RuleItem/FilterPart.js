@@ -9,7 +9,7 @@ const extractTextField = (textRule) => {
 };
 
 export default ({ rule, intl, sourceAgendaSchema, sourceAgenda }) => {
-  const { label, value, detail, casse, broken } = extract({
+  const { label, value, detail, caseSensitive, broken } = extract({
     intl,
     rule,
     sourceAgendaSchema,
@@ -39,10 +39,12 @@ export default ({ rule, intl, sourceAgendaSchema, sourceAgenda }) => {
           {rule.query.text && rule.query.text[textField] ? (
             <span
               className={`badge badge-pill margin-right-xs badge-${
-                casse ? 'info' : 'default'
+                caseSensitive ? 'info' : 'default'
               }`}
               title={intl.formatMessage(
-                casse ? messages.caseSensitive : messages.caseInsensitive,
+                caseSensitive
+                  ? messages.caseSensitive
+                  : messages.caseInsensitive,
               )}
             >
               aA
@@ -50,9 +52,11 @@ export default ({ rule, intl, sourceAgendaSchema, sourceAgenda }) => {
           ) : null}
           {rule.query.location ? (
             <span
-              className={`badge badge-pill margin-h-xs badge-${casse ? 'info' : 'default'}`}
+              className={`badge badge-pill margin-h-xs badge-${caseSensitive ? 'info' : 'default'}`}
               title={intl.formatMessage(
-                casse ? messages.caseSensitive : messages.caseInsensitive,
+                caseSensitive
+                  ? messages.caseSensitive
+                  : messages.caseInsensitive,
               )}
             >
               aA

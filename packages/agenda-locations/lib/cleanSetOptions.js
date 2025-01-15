@@ -28,4 +28,8 @@ module.exports = schema({
     type: 'boolean',
     default: false,
   },
+  mergeExtIds: {
+    type: 'boolean',
+    default: true,
+  },
 });

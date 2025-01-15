@@ -7,7 +7,7 @@ export default async (core, agendaUid, key, value, data, options = {}) => {
 
   const extId = { key, value };
 
-  const { protectExtIds } = { protectExtIds: true, ...options };
+  const { mergeExtIds } = { mergeExtIds: true, ...options };
   try {
     const event = await core
       .agendas(agendaUid)
@@ -19,7 +19,7 @@ export default async (core, agendaUid, key, value, data, options = {}) => {
         .events.update(
           event.uid,
           { ...data, extIds: [extId] },
-          { ...options, protectExtIds },
+          { ...options, mergeExtIds },
         );
       return updatedEvent;
     }

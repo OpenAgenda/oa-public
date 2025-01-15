@@ -1,7 +1,8 @@
 {
   "collectionName": "components_components_cta_buttons",
   "info": {
-    "displayName": "CTAButton"
+    "displayName": "CTAButton",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -11,6 +12,16 @@
     "link": {
       "type": "string",
       "required": true
+    },
+    "backgroundColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "fontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
     }
   }
 }
