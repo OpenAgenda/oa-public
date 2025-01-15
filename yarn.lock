@@ -10312,6 +10312,7 @@ __metadata:
   resolution: "@openagenda/utils@workspace:packages/utils"
   dependencies:
     "@openagenda/labels": "npm:^2.3.0"
+    "@openagenda/validators": "npm:^2.4.0"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
