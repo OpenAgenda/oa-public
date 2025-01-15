@@ -1,64 +1,43 @@
-import utils from '@openagenda/utils'
+import utils from '@openagenda/utils';
 
-export default ( validators, options ) => {
+export default (validators, options) => {
+  const params = utils.extend({
+    compact: false,
+  }, options || {});
 
-  validate.type = 'set';
+  return Object.assign(function validate(valuesSet) {
+    let errors = []; const clean = []; const
+      compacted = {};
 
-  var params = utils.extend( {
-    compact: false
-  }, options || {} );
+    validators.forEach((validator) => {
+      let matchingValue = valuesSet.filter((v) => v.field === validator.field);
 
-  return validate;
-
-  function validate( valuesSet ) {
-
-    var errors = [], clean = [], compacted = {};
-
-    validators.forEach( function( validator ) {
-
-      var matchingValue = valuesSet.filter( function( v ) {
-
-        return v.field === validator.field;
-
-      } );
-
-      matchingValue = matchingValue.length ? matchingValue[ 0 ] : { field: validator.field, value: undefined }
+      matchingValue = matchingValue.length ? matchingValue[0] : { field: validator.field, value: undefined };
 
       try {
-
-        clean.push( {
+        clean.push({
           field: matchingValue.field,
-          value: validator( matchingValue.value )
-        } );
-
-      } catch( e ) {
-
-        errors = errors.concat( e );
-
+          value: validator(matchingValue.value),
+        });
+      } catch (e) {
+        errors = errors.concat(e);
       }
+    });
 
-    } );
-
-    if ( errors.length ) {
-
+    if (errors.length) {
       throw errors;
-
     }
 
-    if ( params.compact ) {
-
-      clean.forEach( function( c ) {
-
-        compacted[ c.field ] = c.value;
-
-      } );
+    if (params.compact) {
+      clean.forEach((c) => {
+        compacted[c.field] = c.value;
+      });
 
       return compacted;
-
     }
 
     return clean;
-
-  }
-
-}
+  }, {
+    type: 'set',
+  });
+};

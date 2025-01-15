@@ -15,13 +15,13 @@ export default (config = {}) => {
 
   const validateNumber = numberValidator(omit(params, ['list']));
 
-  const validate = value => {
+  const validate = (value) => {
     let clean;
 
     try {
       clean = validateNumber(value);
     } catch (numberErrors) {
-      throw numberErrors.map(e => ({
+      throw numberErrors.map((e) => ({
         ...e,
         code: e.code.replace('number', 'integer'),
         message: e.message.replace('number', 'integer').replace(' a ', ' an '),

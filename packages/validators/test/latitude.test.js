@@ -1,104 +1,70 @@
-"use strict";
+import validators from '../src';
 
-var validators = require( '../src' );
+describe('latitude validator', () => {
+  const validate = validators.latitude();
 
-describe( 'latitude validator', () => {
-
-  let validate = validators.latitude();
-
-  it( 'throws error if latitude is too small', () => {
-
+  it('throws error if latitude is too small', () => {
     let errors = false;
 
     try {
-
-      validate( -91 );
-
-    } catch( e ) {
-
+      validate(-91);
+    } catch (e) {
       errors = e;
-
     }
 
-    expect(errors).toEqual([ {
-      field: false,
+    expect(errors).toEqual([{
       code: 'latitude.toosmall',
       message: 'latitude cannot be less than -90',
-      origin: -91
-    } ]);
+      origin: -91,
+    }]);
+  });
 
-  } );
-
-  it( 'throws error if latitude is too big', () => {
-
+  it('throws error if latitude is too big', () => {
     let errors = false;
 
     try {
-
-      validate( 91 );
-
-    } catch( e ) {
-
+      validate(91);
+    } catch (e) {
       errors = e;
-
     }
 
-    expect(errors).toEqual([ {
-      field: false,
+    expect(errors).toEqual([{
       code: 'latitude.toobig',
       message: 'latitude cannot be more than 90',
-      origin: 91
-    } ]);
+      origin: 91,
+    }]);
+  });
 
-  } );
-
-  it( 'throws error if crap is given', () => {
-
+  it('throws error if crap is given', () => {
     let errors = false;
 
     try {
-
-      validate( 'fdsqfdsq' );
-
-    } catch( e ) {
-
+      validate('fdsqfdsq');
+    } catch (e) {
       errors = e;
-
     }
 
-    expect(errors).toEqual([ {
-      field: false,
+    expect(errors).toEqual([{
       code: 'latitude.invalid',
       message: 'not a number',
-      origin: 'fdsqfdsq'
-    } ]);
+      origin: 'fdsqfdsq',
+    }]);
+  });
 
-  } );
-
-  it( 'validates a latitude', () => {
-
+  it('validates a latitude', () => {
     let errors = false;
 
     try {
-
-      expect(validate( '2.4534' )).toBe(2.4534);
-
-    } catch ( e ) {
-
+      expect(validate('2.4534')).toBe(2.4534);
+    } catch (e) {
       errors = e;
-
     }
 
     expect(errors).toBe(false);
+  });
 
-  } );
-
-  it( 'optional returns null when given nothing', () => {
-
-    let result = validate();
-
-    expect( result ).toBeNull();
-
-  } );
-
-} );
+  it('optional returns null when given nothing', () => {
+    const result = validate();
+    expect(result).toBeNull();
+  });
+});

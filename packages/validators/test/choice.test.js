@@ -220,12 +220,13 @@ describe('choice validator', () => {
       expect(clean).toEqual([2]);
     });
 
-    it('null given to optional choice returns null', () => {
+    it('null given to optional choice returns null when allowNull is true', () => {
       const validateChoice = validators.choice({
         unique: true,
         optional: true,
         options: [2, 3],
         default: 2,
+        allowNull: true,
       });
 
       const clean = validateChoice(null);
