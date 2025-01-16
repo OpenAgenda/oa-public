@@ -82,7 +82,7 @@
     },
     "@openagenda/react-shared#prepack": {
       "dependsOn": ["^prepack"],
-      "outputs": ["css/**", "dist/**"],
+      "outputs": ["css/**", "dist/**", "src/locales-compiled/**"],
       "outputLogs": "new-only"
     },
     "@openagenda/validators#prepack": {
