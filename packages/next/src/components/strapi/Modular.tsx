@@ -1,5 +1,6 @@
 import { Card, CardBody, VStack, Heading, Box } from '@openagenda/uikit';
 import ReactMarkdown from 'react-markdown';
+import { color } from 'utils/strapi';
 import CTAButton from './CTAButton';
 import IllustrationComponent from './Illustration';
 import IconComponent from './Icon';
@@ -28,18 +29,11 @@ export default function Modular({
   card = false,
   maxWidth = { name: 'sm' },
   backgroundColor = null,
+  fontColor = null,
 }) {
   return (
-    <Wrapper
-      card={card}
-      maxWidth={maxWidth?.name}
-      bg={
-        backgroundColor
-          ? `${backgroundColor?.name}.${backgroundColor.swatch}`
-          : undefined
-      }
-    >
-      <VStack spacing="3" align="center">
+    <Wrapper card={card} maxWidth={maxWidth?.name} bg={color(backgroundColor)}>
+      <VStack spacing="3" align="center" color={color(fontColor)}>
         {Icon ? <IconComponent {...Icon} /> : null}
         {Illustration ? <IllustrationComponent {...Illustration} /> : null}
         {title ? (
