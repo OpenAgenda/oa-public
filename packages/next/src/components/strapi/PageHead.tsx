@@ -24,9 +24,11 @@ const PageHeadContent = ({
     <Text fontSize="xl" color={fontColor || 'gray.600'}>
       {description}
     </Text>
-    <Box pt={4}>
-      <CTAButton {...CTA} />
-    </Box>
+    {CTA ? (
+      <Box pt={4}>
+        <CTAButton {...CTA} />
+      </Box>
+    ) : null}
   </Stack>
 );
 
@@ -35,7 +37,7 @@ interface PageHeadProps {
   fontColor?: any;
   title: string;
   description: string;
-  CTA: {
+  CTA?: {
     label: string;
     link: string;
   };
