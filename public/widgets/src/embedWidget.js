@@ -100,6 +100,10 @@ export default class EmbedLoader {
       url.searchParams.set('sort', dataset.sort);
     }
 
+    if (dataset.displayTotal) {
+      url.searchParams.set('displayTotal', dataset.displayTotal);
+    }
+
     const { hash } = window.location;
     if (hash?.startsWith('#!')) {
       const decodedSrc = decodeURIComponent(hash.substring(2));

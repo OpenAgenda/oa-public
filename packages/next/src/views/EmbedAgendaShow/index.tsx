@@ -67,7 +67,8 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
 
-  const { query, setQuery, prefilter, sort } = useEmbedLayoutData();
+  const { query, setQuery, prefilter, sort, displayTotal } =
+    useEmbedLayoutData();
 
   const filtersFormRef = useRef<any>();
 
@@ -218,16 +219,18 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
                 </Suspense>
               ) : null}
 
-              <Suspense fallback={<TotalSkeleton />}>
-                <DynamicTotalPart
-                  agenda={agenda}
-                  filters={filters}
-                  query={query}
-                  includeFields={includeFields}
-                  prefilter={prefilter}
-                  referrer={referrer}
-                />
-              </Suspense>
+              {displayTotal !== false ? (
+                <Suspense fallback={<TotalSkeleton />}>
+                  <DynamicTotalPart
+                    agenda={agenda}
+                    filters={filters}
+                    query={query}
+                    includeFields={includeFields}
+                    prefilter={prefilter}
+                    referrer={referrer}
+                  />
+                </Suspense>
+              ) : null}
 
               <Suspense fallback={<EventsSkeleton />}>
                 <DynamicEventsPart

@@ -49,6 +49,7 @@ export type EmbedParams = {
   secondaryColor?: string;
   imageList?: ImageListParam;
   sort?: SortParam;
+  displayTotal?: boolean;
 };
 
 function parseAndValidateColor(value: string): string | null {
@@ -98,6 +99,16 @@ export function validateSort(value: string): SortParam | null {
   return null;
 }
 
+function parseAndValidateDisplayTotal(value: string): boolean | null {
+  if (value === '0' || value === 'false') {
+    return false;
+  }
+  if (value === '1' || value === 'true') {
+    return true;
+  }
+  return null;
+}
+
 const noopParser = (v: unknown): unknown => v;
 
 const parsers = {
@@ -107,6 +118,7 @@ const parsers = {
   secondaryColor: parseAndValidateColor,
   imageList: parseImageList,
   sort: validateSort,
+  displayTotal: parseAndValidateDisplayTotal,
 };
 
 export const extractParams = (source: Record<string, string>): EmbedParams => {
