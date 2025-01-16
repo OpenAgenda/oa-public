@@ -11,6 +11,9 @@ function formatEventLocationsExtIds(events, { detailed }) {
   }
 
   return events.map((event) => {
+    if (!event.location) {
+      return event;
+    }
     event.location = formatLocationsExtIds.afterRead(event.location);
     return event;
   });
