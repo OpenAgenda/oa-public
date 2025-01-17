@@ -29,7 +29,7 @@ export default function ModularSet({
         alignItems="center"
       >
         {Components.map((Component) => (
-          <GridItem key={Component.id} w="full" align="center">
+          <GridItem key={Component.id} w="full" justifyItems="center">
             <Modular {...Component} />
           </GridItem>
         ))}
