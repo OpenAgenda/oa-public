@@ -1,8 +1,12 @@
 'use strict';
 
 module.exports.afterRead = (data) => {
+  const out = { ...data };
+  if (data.extIds?.identifiers && !data.extIds?.identifiers.length) {
+    out.extIds = null;
+    return out;
+  }
   if (data.extIds?.identifiers.length) {
-    const out = { ...data };
     out.extIds = out.extIds.identifiers.map((id) => {
       const [key, value] = id.split('->');
       return { key, value };
@@ -39,7 +43,9 @@ module.exports.beforeInsert = (data) => {
   if (out.extIds) {
     out.extIds = out.extIds.reduce(
       (acc, { key, value }) => {
-        acc.identifiers.push(`${key}->${value}`);
+        if (value !== null) {
+          acc.identifiers.push(`${key}->${value}`);
+        }
         return acc;
       },
       { identifiers: [] },
