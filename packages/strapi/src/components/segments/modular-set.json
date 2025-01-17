@@ -18,6 +18,9 @@
       "type": "component",
       "repeatable": false,
       "component": "components.cta-button"
+    },
+    "description": {
+      "type": "string"
     }
   }
 }
