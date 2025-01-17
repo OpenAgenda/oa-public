@@ -117,6 +117,7 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
   attributes: {
     Components: Schema.Attribute.Component<'components.modular', true>;
     CTA: Schema.Attribute.Component<'components.cta-button', false>;
+    description: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
