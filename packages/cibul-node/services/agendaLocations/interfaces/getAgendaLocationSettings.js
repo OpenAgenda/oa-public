@@ -3,7 +3,9 @@ import _ from 'lodash';
 export default (services) => async (uid) => {
   const { core } = services;
 
-  const schema = await core.agendas(uid).settings.get({ access: 'internal' });
+  const schema = await core
+    .agendas(uid)
+    .settings.schema.getMerged({ access: 'internal' });
 
   if (!schema || !_.isArray(schema.fields)) {
     return null;
@@ -15,9 +17,11 @@ export default (services) => async (uid) => {
 
   const legacy = _.get(locationField, 'legacy', null);
 
+  const agenda = await core.agendas(uid).get({ access: 'internal' });
+
   if (!legacy) {
-    return null;
+    return { ...agenda.settings?.locations };
   }
 
-  return legacy;
+  return { ...legacy, ...agenda.settings?.locations };
 };

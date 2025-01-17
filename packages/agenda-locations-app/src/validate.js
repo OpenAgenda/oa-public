@@ -129,23 +129,37 @@ function validateImageRights(value, otherValues = {}, options = {}) {
   return validateBoolean(value);
 }
 
+const validateSIRETRegex = validators.regex({
+  field: 'siret',
+  error: {
+    code: 'invalidSIRET',
+  },
+  max: 14,
+  min: 14,
+  regex: /^[0-9]+$/,
+  optional: true,
+});
+
 function validateSIRET(value, _otherValues = {}, options = {}) {
   if (!options.displaySIRETInput) {
     return;
   }
 
-  return validators.regex({
-    field: 'siret',
-    error: {
-      code: 'invalidSIRET',
-    },
-    max: 14,
-    min: 14,
-    regex: /^[0-9]+$/,
+  return validateSIRETRegex(value);
+}
+
+function validateExtId(value, _otherValues = {}, _options = {}) {
+  if (value === '') return null;
+  if (!value) return undefined;
+  return validators.text({
+    field: 'extId',
+    min: 0,
+    max: 100,
     optional: true,
   })(value);
 }
 
+validateExtId.field = 'extId';
 validateImageRights.field = 'imageRightsAreHeld';
 validateImageCredits.field = 'imageCredits';
 validateSIRET.field = 'siret';
@@ -163,6 +177,7 @@ const baseValidators = [
   validateImageCredits,
   validateImageRights,
   validateSIRET,
+  validateExtId,
   validators.text({
     field: 'address',
     min: 3,
@@ -252,12 +267,6 @@ const baseValidators = [
   }),
   validators.link({ field: 'website', min: 0, optional: true }),
   validators.email({ field: 'email', min: 0, optional: true }),
-  validators.text({
-    field: 'extId',
-    min: 0,
-    max: 255,
-    optional: true,
-  }),
   validators.text({ field: 'timezone', min: 0, optional: true }),
   validators.phone({
     field: 'phone',

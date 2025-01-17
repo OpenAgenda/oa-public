@@ -1,8 +1,11 @@
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+import { useMemo } from 'react';
+import _ from 'lodash';
 import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal/index.js';
 import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries.js';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
+import Badge from './BadgeWithHover.js';
 
 const getLabels = makeLabelGetter(countries);
 
@@ -10,6 +13,10 @@ const messages = defineMessages({
   edit: {
     id: 'AgendaLocations.LocationItem.edit',
     defaultMessage: 'Edit',
+  },
+  show: {
+    id: 'AgendaLocations.LocationItem.show',
+    defaultMessage: 'Show',
   },
   remove: {
     id: 'AgendaLocations.LocationItem.remove',
@@ -63,6 +70,42 @@ const messages = defineMessages({
   },
 });
 
+const completeExternalActions = (externalActions, location) => {
+  const { extIds } = location;
+  const out = [];
+  const usedExtIds = [];
+  if (!externalActions || !extIds) return false;
+
+  for (const action of Object.keys(externalActions)) {
+    if (extIds.map((id) => id.key).includes(externalActions[action].key)) {
+      if (
+        !usedExtIds.find(
+          (e) =>
+            e.key
+            === extIds.find((id) => id.key === externalActions[action].key).key,
+        )
+      ) {
+        usedExtIds.push({
+          ...extIds.find((id) => id.key === externalActions[action].key),
+          defaultLabel: externalActions[action].defaultLabel,
+        });
+      }
+      out.push({
+        action,
+        key: externalActions[action].key,
+        link: externalActions[action].link.replace(
+          '{value}',
+          extIds.find((id) => id.key === externalActions[action].key).value,
+        ),
+        extId: extIds.find((id) => id.key === externalActions[action].key),
+      });
+    }
+  }
+
+  if (out.length && usedExtIds.length) return { externalActions: out, usedExtIds: _.uniq(usedExtIds) };
+  return false;
+};
+
 function LocationHistoryTrigger({ openModal, children }) {
   return (
     <button type="button" className="btn btn-link action" onClick={openModal}>
@@ -86,6 +129,35 @@ const LocationItem = ({
   seeDetails,
 }) => {
   const intl = useIntl();
+
+  const { externalActions, usedExtIds } = useMemo(
+    () => completeExternalActions(settings.actions, location),
+    [settings, location],
+  );
+
+  const renderExternalActions = (extId) =>
+    externalActions
+      .filter((a) => a.extId.key === extId.key)
+      .map((externalAction) => (
+        <a
+          className="margin-right-sm"
+          key={externalAction.action}
+          href={externalAction.link}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {`${intl.formatMessage(messages[externalAction.action])} `}
+          <i className="fa fa-external-link" aria-hidden="true" />
+        </a>
+      ));
+
+  const renderUsedExtIds = () =>
+    usedExtIds.map((extId) => (
+      <div className="col col-md-12">
+        <Badge label={extId?.defaultLabel || extId.key} value={extId.value} />
+        {renderExternalActions(extId)}
+      </div>
+    ));
 
   const myRemove = (e) => {
     e.stopPropagation();
@@ -156,6 +228,11 @@ const LocationItem = ({
         !settings.access.update.authorized
           ? 'btn btn-link disabled action'
           : 'btn btn-link action'
+      }
+      disabled={
+        (externalActions
+          && externalActions.filter((a) => a.action === 'edit'))
+        || false
       }
       onClick={myEdit.bind(this)}
     >
@@ -309,6 +386,7 @@ const LocationItem = ({
           {selectMergeTargetButton}{' '}
         </div>
       ) : null}
+      {externalActions ? <div>{renderUsedExtIds()}</div> : null}
     </div>
   );
 };
