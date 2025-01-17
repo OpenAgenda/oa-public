@@ -21,6 +21,10 @@ if ($client_ip = "52.212.2.43") { return 403; }
 if ($client_ip = "3.254.153.136") { return 403; }
 if ($client_ip = "54.74.112.123") { return 403; }
 if ($client_ip = "34.245.234.254") { return 403; }
+if ($client_ip = "54.155.70.3") { return 403; }
+if ($client_ip = "34.242.127.20") { return 403; }
+if ($client_ip = "63.33.68.61") { return 403; }
+if ($client_ip = "34.241.79.158") { return 403; }
 
 gzip on;
 gzip_types

@@ -53,7 +53,7 @@ export default (state, action) => {
         ...state,
         rules: {
           requiredFilters: state.rules.requiredFilters,
-          actions: state.actions.rules.map((rule) =>
+          actions: state.rules.actions.map((rule) =>
             (rule.id === action.payload.id
               ? {
                 id: action.payload.id,
