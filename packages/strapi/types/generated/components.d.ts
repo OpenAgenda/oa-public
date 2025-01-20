@@ -27,7 +27,7 @@ export interface ComponentsIcon extends Struct.ComponentSchema {
     displayName: 'Icon';
   };
   attributes: {
-    code: Schema.Attribute.Enumeration<
+    name: Schema.Attribute.Enumeration<
       [
         'calendar',
         'chart-network',
