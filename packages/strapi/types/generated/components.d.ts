@@ -63,7 +63,7 @@ export interface ComponentsIcon extends Struct.ComponentSchema {
       ]
     > &
       Schema.Attribute.DefaultTo<'fa-1x'>;
-    type: Schema.Attribute.Enumeration<['regular', 'thin', 'solid']> &
+    style: Schema.Attribute.Enumeration<['regular', 'thin', 'solid']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'regular'>;
   };
