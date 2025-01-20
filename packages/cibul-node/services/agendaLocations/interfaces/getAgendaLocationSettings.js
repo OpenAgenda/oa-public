@@ -17,7 +17,9 @@ export default (services) => async (uid) => {
 
   const legacy = _.get(locationField, 'legacy', null);
 
-  const agenda = await core.agendas(uid).get({ access: 'internal' });
+  const agenda = await core
+    .agendas(uid)
+    .get({ access: 'internal', private: null });
 
   if (!legacy) {
     return { ...agenda.settings?.locations };
