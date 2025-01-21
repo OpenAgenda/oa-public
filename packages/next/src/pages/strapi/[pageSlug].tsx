@@ -48,6 +48,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
     'Illustration.image',
     'Illustration.width.name',
     'Components',
+    'Components.CTA',
     'Components.maxWidth',
     'Components.Illustration.image',
     'Components.backgroundColor.name',
