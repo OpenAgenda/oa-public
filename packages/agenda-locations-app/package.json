@@ -11,11 +11,12 @@
   "type": "module",
   "main": "",
   "scripts": {
-    "start": "storybook dev -p 9001 --ci",
     "extract-messages": "oa-intl --esm",
     "build": "babel --copy-files src -d dist -s --env-name esm",
     "prepack": "oa-intl compile --esm && yarn build",
-    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
+    "sb": "yarn storybook",
+    "storybook": "NODE_OPTIONS=\"--max-old-space-size=5120\" storybook dev"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
