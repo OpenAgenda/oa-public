@@ -28,8 +28,11 @@ module.exports.mergeExtIdsFn = (data, current) => {
       });
 
       if (index !== -1) {
-        acc[index] = extId;
-        return acc;
+        const updatedArray = acc.map((item, idx) => {
+          if (idx === index) return extId;
+          return item;
+        });
+        return updatedArray;
       }
       acc.push(extId);
       return acc;
