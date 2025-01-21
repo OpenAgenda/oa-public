@@ -79,6 +79,24 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
     expect(patchedLocation.extId).toBeNull();
   });
 
+  it('patching with something on legacy key sets default extId', async () => {
+    const patchedLocation = await core.agendas(64260763).locations.patch(
+      37923068,
+      {
+        extId: 'some.ext.id',
+      },
+      {},
+    );
+
+    expect(patchedLocation.extId).toBe('some.ext.id');
+    expect(patchedLocation.extIds).toEqual([
+      {
+        key: 'default',
+        value: 'some.ext.id',
+      },
+    ]);
+  });
+
   it('patch of adminLevel', async () => {
     await core.agendas(64260763).locations.patch(37923068, {
       adminLevel6: 'Milieu',
