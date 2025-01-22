@@ -44,7 +44,7 @@ export default async (req, res, next) => {
 
   if (req.app.locals.tracking?.useAgendaGoogleAnalytics) {
     const gaId = res.locals.agenda.settings.tracking?.googleAnalytics
-      && res.locals.agenda.settings.tracking?.enableTracking
+      && req.app.locals.tracking?.enableTracking
       ? res.locals.agenda.settings.tracking.googleAnalytics
       : null;
     if (!gaId) {
