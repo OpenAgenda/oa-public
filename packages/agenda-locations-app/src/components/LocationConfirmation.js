@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
+import completeExternalActions from '../completeExternalActions.js';
 import LocationDetails from './LocationDetailsConfirm.js';
 
 const messages = defineMessages({
@@ -58,6 +59,15 @@ const LocationConfirmation = ({
     );
   }, [res.get, location.uid]);
 
+  const { externalActions } = useMemo(
+    () =>
+      completeExternalActions(
+        settings?.locations?.extIds,
+        detailedLocation?.extIds,
+      ),
+    [settings, detailedLocation],
+  );
+
   if (!detailedLocation) {
     return <Spinner page />;
   }
@@ -78,7 +88,12 @@ const LocationConfirmation = ({
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={res.suggestChange.replace(':locationUid', location.uid)}
+            href={
+              !externalActions
+              || !externalActions.find((e) => e.action === 'edit')
+                ? res.suggestChange.replace(':locationUid', location.uid)
+                : externalActions.find((e) => e.action === 'edit').link
+            }
             onClick={() => setSuggestChangeMessage(true)}
             className="btn btn-default margin-h-sm"
           >

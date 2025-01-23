@@ -207,6 +207,7 @@ const LocationSelector = ({
       onCreateRequest={onCreateRequest}
       onSelect={(e) => onSelect(e)}
       placeholder={placeholder}
+      settings={settings}
     />
   );
 

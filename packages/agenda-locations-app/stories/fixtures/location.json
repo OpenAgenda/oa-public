@@ -56,5 +56,6 @@
   "adminLevel3": null,
   "adminLevel4": "Champs-sur-Marne",
   "adminLevel5": null,
-  "adminLevel6": "Centre Ville"
+  "adminLevel6": "Centre Ville",
+  "extIds": [{ "key": "default", "value": "123AAC" }]
 }

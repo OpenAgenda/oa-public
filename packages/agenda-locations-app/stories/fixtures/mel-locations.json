@@ -40,7 +40,8 @@
       "disqualifiedDuplicates": null,
       "mergedIn": null,
       "agendaEventCount": 2,
-      "eventCount": 3
+      "eventCount": 3,
+      "extIds": [{ "key": "default", "value": "123ACC" }]
     },
     {
       "uid": 55015239,

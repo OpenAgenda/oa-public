@@ -1,11 +1,11 @@
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useMemo } from 'react';
-import _ from 'lodash';
 import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal/index.js';
 import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries.js';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
-import Badge from './BadgeWithHover.js';
+import completeExternalActions from '../completeExternalActions.js';
+import Badge from './BadgeWithMoreInfo.js';
 
 const getLabels = makeLabelGetter(countries);
 
@@ -70,42 +70,6 @@ const messages = defineMessages({
   },
 });
 
-const completeExternalActions = (externalActions, location) => {
-  const { extIds } = location;
-  const out = [];
-  const usedExtIds = [];
-  if (!externalActions || !extIds) return false;
-
-  for (const action of Object.keys(externalActions)) {
-    if (extIds.map((id) => id.key).includes(externalActions[action].key)) {
-      if (
-        !usedExtIds.find(
-          (e) =>
-            e.key
-            === extIds.find((id) => id.key === externalActions[action].key).key,
-        )
-      ) {
-        usedExtIds.push({
-          ...extIds.find((id) => id.key === externalActions[action].key),
-          defaultLabel: externalActions[action].defaultLabel,
-        });
-      }
-      out.push({
-        action,
-        key: externalActions[action].key,
-        link: externalActions[action].link.replace(
-          '{value}',
-          extIds.find((id) => id.key === externalActions[action].key).value,
-        ),
-        extId: extIds.find((id) => id.key === externalActions[action].key),
-      });
-    }
-  }
-
-  if (out.length && usedExtIds.length) return { externalActions: out, usedExtIds: _.uniq(usedExtIds) };
-  return false;
-};
-
 function LocationHistoryTrigger({ openModal, children }) {
   return (
     <button type="button" className="btn btn-link action" onClick={openModal}>
@@ -129,9 +93,9 @@ const LocationItem = ({
   seeDetails,
 }) => {
   const intl = useIntl();
-
   const { externalActions, usedExtIds } = useMemo(
-    () => completeExternalActions(settings.actions, location),
+    () =>
+      completeExternalActions(settings?.locations?.extIds, location?.extIds),
     [settings, location],
   );
 
@@ -146,15 +110,23 @@ const LocationItem = ({
           target="_blank"
           rel="noreferrer"
         >
-          {`${intl.formatMessage(messages[externalAction.action])} `}
+          <text className="margin-right-xs">
+            {externalAction?.label && externalAction?.label[intl.locale]
+              ? externalAction?.label[intl.locale]
+              : `${intl.formatMessage(messages[externalAction.action])}`}
+          </text>
           <i className="fa fa-external-link" aria-hidden="true" />
         </a>
       ));
 
   const renderUsedExtIds = () =>
     usedExtIds.map((extId) => (
-      <div className="col col-md-12">
-        <Badge label={extId?.defaultLabel || extId.key} value={extId.value} />
+      <div className="col col-md-12 margin-bottom-xs">
+        <Badge
+          key={extId.key}
+          label={extId?.label || extId.key}
+          value={extId.value}
+        />
         {renderExternalActions(extId)}
       </div>
     ));
