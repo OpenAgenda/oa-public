@@ -7,7 +7,8 @@
   "pdf-exports.online": "En ligne",
   "pdf-exports.page": "Page",
   "pdf-exports.registration": "Réservation",
-  "pdf-exports.registrationTool": "Outil d'inscription",
+  "pdf-exports.registrationTool": "Outils de réservation",
   "pdf-exports.status": "État",
-  "pdf-exports.tags": "Tags"
+  "pdf-exports.tags": "Tags",
+  "pdf-exports.undefined": "Non défini"
 }
