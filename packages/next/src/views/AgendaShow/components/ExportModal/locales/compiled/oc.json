@@ -20,7 +20,7 @@
   "next.views.AgendaShow.ExportModal.city": [
     {
       "type": 0,
-      "value": "Mettre en avant la ville"
+      "value": "Ville"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
@@ -51,6 +51,12 @@
     {
       "type": 0,
       "value": "Par défaut"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.department": [
+    {
+      "type": 0,
+      "value": "Département"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
@@ -153,6 +159,12 @@
       "value": "Seguissètz las instruccions en pegant lo ligam que copièretz a l'etapa 1"
     }
   ],
+  "next.views.AgendaShow.ExportModal.highlightLocationName": [
+    {
+      "type": 0,
+      "value": "Mettre en avant le lieu"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.inputField": [
     {
       "type": 0,
@@ -181,16 +193,22 @@
       "value": "link"
     }
   ],
-  "next.views.AgendaShow.ExportModal.locationName": [
+  "next.views.AgendaShow.ExportModal.location": [
     {
       "type": 0,
-      "value": "Mettre en avant le lieu"
+      "value": "Lieu"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [
     {
       "type": 0,
       "value": "Mercés de vos connectar per accedir al ligam d'exportacion dirèctament a partir d'aqueste menut"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.multipleLocations": [
+    {
+      "type": 0,
+      "value": "Agenda avec des lieux multiples"
     }
   ],
   "next.views.AgendaShow.ExportModal.new": [
@@ -221,6 +239,12 @@
       "value": "Ouvrir le détail d'un événement dans l'intégration"
     }
   ],
+  "next.views.AgendaShow.ExportModal.optionSelectSub": [
+    {
+      "type": 0,
+      "value": "Cliquez-glissez les options pour ajuster l'ordre"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [
     {
       "type": 0,
@@ -245,6 +269,18 @@
       "value": "Pegats l'URL que copièretz a l'etapa 1. Causissètz \"Impòrt\"."
     }
   ],
+  "next.views.AgendaShow.ExportModal.region": [
+    {
+      "type": 0,
+      "value": "Région"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.sectioning": [
+    {
+      "type": 0,
+      "value": "Ajouter un chapitrage"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.selectAll": [
     {
       "type": 0,
@@ -255,6 +291,18 @@
     {
       "type": 0,
       "value": "Afficher les filtres"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.singleLocation": [
+    {
+      "type": 0,
+      "value": "Agenda avec un lieu unique"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "Un ou plusieurs options"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [
