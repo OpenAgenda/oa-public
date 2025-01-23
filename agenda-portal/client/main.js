@@ -214,9 +214,13 @@ $(() => {
   }
 
   if (pageProps.gaId) {
-    trackConsent(pageProps, {
-      onConsentConfirmed: () =>
-        addGoogleAnalyticsTracker({ googleAnalyticsID: pageProps.gaId }),
-    });
+    if (pageProps.requireConsent) {
+      trackConsent(pageProps, {
+        onConsentConfirmed: () =>
+          addGoogleAnalyticsTracker({ googleAnalyticsID: pageProps.gaId }),
+      });
+    } else {
+      addGoogleAnalyticsTracker({ googleAnalyticsID: pageProps.gaId });
+    }
   }
 });

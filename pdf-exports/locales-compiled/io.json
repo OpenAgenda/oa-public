@@ -64,5 +64,11 @@
       "type": 0,
       "value": "Tags"
     }
+  ],
+  "pdf-exports.undefined": [
+    {
+      "type": 0,
+      "value": "Undefined"
+    }
   ]
 }

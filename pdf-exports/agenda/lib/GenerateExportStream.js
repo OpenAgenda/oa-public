@@ -7,6 +7,9 @@ import addPageHeader from './addPageHeader.js';
 import addEventItem from './addEventItem/index.js';
 import addDocumentHeader from './addDocumentHeader.js';
 import messages from './messages.js';
+import getEventSortKeys from './getEventSortKeys.js';
+import sortKeysChange from './sortKeysChange.js';
+import addChapterItem from './addChapterItem.js';
 
 const log = logs('GenerateExportStream');
 
@@ -24,6 +27,7 @@ export default async function GenerateExportStream(
     medium,
     mode,
     logBundle,
+    query,
   } = options;
 
   const startTime = Date.now();
@@ -74,7 +78,11 @@ export default async function GenerateExportStream(
   let currentPageNumber = 0;
   let isFirstPage = true;
 
+  let previousSortKeys = [];
+
   for await (const event of eventStream) {
+    const eventSortKeys = getEventSortKeys(event, query, intl);
+
     count += 1;
     if (pageNumber !== currentPageNumber) {
       currentPageNumber = pageNumber;
@@ -102,7 +110,27 @@ export default async function GenerateExportStream(
       );
     }
 
-    const { height: simulatedHeight } = await addEventItem(
+    let simulatedHeight = 0;
+
+    const mustAddChapter = sortKeysChange(eventSortKeys, previousSortKeys);
+
+    const currentCursorX = cursor.x;
+
+    if (mustAddChapter) {
+      const { height: chapterHeight } = addChapterItem(doc, cursor, {
+        fontSize,
+        simulate: true,
+        eventSortKeys,
+        little,
+        medium,
+        currentCursorX,
+        lang,
+      });
+      simulatedHeight += chapterHeight + margin / 2;
+    }
+    previousSortKeys = [...eventSortKeys];
+
+    const { height: simulatedEventItemHeight } = await addEventItem(
       agenda,
       event,
       doc,
@@ -117,6 +145,8 @@ export default async function GenerateExportStream(
         mode,
       },
     );
+
+    simulatedHeight += simulatedEventItemHeight;
 
     if (
       cursorYOverflowing(doc, cursor.y + simulatedHeight + simulateFooterHeight)
@@ -139,6 +169,18 @@ export default async function GenerateExportStream(
         `${intl.formatMessage(messages.page)} ${pageNumber}`,
         margin,
       );
+    }
+
+    if (mustAddChapter) {
+      const { height: chapterHeight } = addChapterItem(doc, cursor, {
+        fontSize,
+        eventSortKeys,
+        little,
+        medium,
+        currentCursorX,
+        lang,
+      });
+      cursor.y += chapterHeight + margin / 2;
     }
 
     const { height: eventItemHeight } = await addEventItem(

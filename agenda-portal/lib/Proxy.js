@@ -56,12 +56,8 @@ export default ({
     const hasVisibilityPastEvents = visibilityPastEvents === '1' || visibilityPastEvents === 1;
 
     if (upcomingEvents > 0) {
-      if (
-        !userQuery.relative
-        && !userQuery.timings
-        && hasVisibilityPastEvents
-      ) {
-        const relativeFilter = { relative: ['current', 'upcoming'] };
+      if (!userQuery.relative && userQuery.timings && hasVisibilityPastEvents) {
+        const relativeFilter = { relative: ['passed', 'current', 'upcoming'] };
         Object.assign(query, relativeFilter);
       }
     }

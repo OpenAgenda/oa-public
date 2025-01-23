@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone } from '@openagenda/react-dropzone';
 import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
 import bytes from 'bytes';
 import { getSupportedLocale } from '@openagenda/intl';
@@ -203,7 +203,7 @@ function ImageInput({
                     src={preview}
                     fallbackSrc={
                       process.env.NODE_ENV === 'development'
-                        ? preview.replace('cibuldev', 'cibul')
+                        ? preview.replace('dev', 'main')
                         : null
                     }
                     style={{

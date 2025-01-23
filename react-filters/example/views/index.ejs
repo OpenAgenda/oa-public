@@ -69,7 +69,12 @@
 
       <div
         data-oa-filter="cities"
-        data-oa-filter-params="<%= JSON.stringify({ type: 'choice', name: 'city' }) %>"
+        data-oa-filter-params="<%= JSON.stringify({
+          type: 'choice',
+          name: 'city',
+          searchPlaceholder: 'Rechercher une ville',
+          searchAriaLabel: 'Rechercher une ville (actualisation des résultats ci-dessous au cours de la frappe)',
+        }) %>"
       ></div>
 
       <div

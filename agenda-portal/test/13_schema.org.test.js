@@ -17,7 +17,7 @@ describe('13 - schema.org', () => {
       },
     ],
     image: {
-      base: 'https://cibul.s3.amazonaws.com/',
+      base: 'https://cdn.openagenda.com/main/',
       filename: '73a0e0e58db448ffbd6e21dee5151642.base.image.jpg',
     },
     location: {

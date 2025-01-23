@@ -42,9 +42,7 @@ describe('unit - files', () => {
       'mytestfile.txt',
     );
 
-    expect(resultPath).toEqual(
-      `https://${config.s3.bucket}.s3.${config.s3.region}.amazonaws.com/test02/mytestfile.txt`,
-    );
+    expect(resultPath).toEqual('test02/mytestfile.txt');
   });
 
   test('get a docx as a Buffer', async () => {

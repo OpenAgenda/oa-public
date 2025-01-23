@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-shared",
-  "version": "2.4.1",
+  "version": "2.4.3",
   "type": "module",
   "main": "dist/index.js",
   "sideEffects": [
@@ -38,8 +38,9 @@
     "@emotion/react": "^11.11.1",
     "@floating-ui/react": "^0.26.13",
     "@openagenda/common-labels": "^1.0.0",
-    "@openagenda/intl": "^1.1.3",
+    "@openagenda/intl": "^1.1.5",
     "@openagenda/md": "^1.0.0",
+    "@openagenda/react-dropzone": "^14.3.5",
     "axios": "^0.21.1",
     "bytes": "^3.1.0",
     "classnames": "^2.3.1",
@@ -52,7 +53,6 @@
     "qs": "^6.9.1",
     "react-cookie-consent": "^7.2.1",
     "react-date-range": "^1.4.0",
-    "react-dropzone": "patch:react-dropzone@npm%3A14.3.5#../.yarn/patches/react-dropzone-npm-14.3.5-1dc0066433.patch",
     "react-intl": "^6.8.4",
     "react-markdown": "^6.0.0",
     "react-redux": "^7.1.3",
