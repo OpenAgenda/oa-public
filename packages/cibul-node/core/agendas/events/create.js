@@ -167,6 +167,7 @@ export default async (core, agendaUid, data, options = {}) => {
       agenda: _.pick(agenda, ['uid', 'slug', 'title']),
       actingUserUid: userUid,
       callOrigin,
+      ...callOrigin === 'api' ? { event: response.event } : undefined,
     });
   } catch (e) {
     log.info('create failed', {
