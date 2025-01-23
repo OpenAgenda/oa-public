@@ -9,4 +9,8 @@ export default defineMessages({
     id: 'pdf-exports.page',
     defaultMessage: 'Page',
   },
+  undefined: {
+    id: 'pdf-exports.undefined',
+    defaultMessage: 'Undefined',
+  },
 });
