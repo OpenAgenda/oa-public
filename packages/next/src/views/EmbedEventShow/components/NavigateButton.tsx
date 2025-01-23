@@ -34,7 +34,7 @@ export default function NavigateButton({
     direction,
     agenda,
     eventNc: omitParams(
-      getPrefilteredQuery({ query: eventNc, prefilter, filters }),
+      getPrefilteredQuery({ query: eventNc || {}, prefilter, filters }),
     ),
     setNc,
     query,
