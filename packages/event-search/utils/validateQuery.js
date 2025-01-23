@@ -57,8 +57,14 @@ const validate = schema({
     list: true,
   },
   locationExtId: {
-    type: 'text',
-    list: true,
+    fields: {
+      key: {
+        type: 'text',
+      },
+      value: {
+        type: 'text',
+      },
+    },
   },
   ownerUid: {
     type: 'integer',
