@@ -15,6 +15,8 @@ import { navigationButton as messages } from '../messages';
 
 export type NavigateButtonProps = {
   direction: 'previous' | 'next';
+  prefilter?: Record<string, any>;
+  filters?: any;
 };
 
 export function useGoToSiblingEvent({
@@ -24,6 +26,7 @@ export function useGoToSiblingEvent({
   setNc,
   query,
   urlPrefix = `/${agenda.slug}`,
+  sort = null,
 }) {
   const router = useRouter();
 
@@ -33,7 +36,7 @@ export function useGoToSiblingEvent({
         nav: direction === 'previous' ? 'prev' : 'next',
         nc: {
           state: eventNc.fromAdmin ? [-1, 0, 1, 2] : undefined,
-          sort: eventNc.fromAdmin ? 'updatedAt.desc' : undefined,
+          sort: eventNc.fromAdmin ? 'updatedAt.desc' : sort || undefined,
           ...eventNc,
           fromAdmin: undefined,
           first: undefined,
@@ -75,8 +78,8 @@ export function useNavigateKeyboardShortcut({ direction, goToSiblingEvent }) {
 
         const isPrevious = e.key === 'ArrowLeft';
         if (
-          (isPrevious && direction === 'previous')
-          || (!isPrevious && direction === 'next')
+          (isPrevious && direction === 'previous') ||
+          (!isPrevious && direction === 'next')
         ) {
           goToSiblingEvent().catch(() => null);
         }
@@ -113,8 +116,9 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
     return null;
   }
 
-  const isVisible = (direction === 'previous' && !eventNc?.first)
-    || (direction === 'next' && !eventNc?.last);
+  const isVisible =
+    (direction === 'previous' && !eventNc?.first) ||
+    (direction === 'next' && !eventNc?.last);
 
   return (
     <IconButton
@@ -123,13 +127,13 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
       aria-label={intl.formatMessage(
         direction === 'previous' ? messages.previousEvent : messages.nextEvent,
       )}
-      icon={(
+      icon={
         <FaIcon
           icon={direction === 'previous' ? faChevronLeft : faChevronRight}
           width="1em"
           size="2xl"
         />
-      )}
+      }
       h="auto"
       _hover={{
         color: 'primary.500',

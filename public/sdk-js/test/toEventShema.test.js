@@ -101,7 +101,7 @@ describe('toEventSchema', () => {
                 type: 'thumbnail',
               },
             ],
-            base: 'https://cibuldev.s3.amazonaws.com/',
+            base: 'https://cdn.openagenda.com/dev/',
           },
           attendanceMode: 1,
           particularites: [14],
@@ -209,7 +209,7 @@ describe('toEventSchema', () => {
         "Découverte d'outils d'information et de prévention sur les réseaux et les écrans.",
       url: 'https://openagenda.com/events/permanence-ireps-sur-les-ecrans-et-les-reseaux',
       image:
-        'https://cibuldev.s3.amazonaws.com/c3e0a7f7ec504f04839927e8375c0159.base.image.jpg',
+        'https://cdn.openagenda.com/dev/c3e0a7f7ec504f04839927e8375c0159.base.image.jpg',
       startDate: '2023-02-23T09:00:00+01:00',
       endDate: '2023-02-23T12:00:00+01:00',
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',

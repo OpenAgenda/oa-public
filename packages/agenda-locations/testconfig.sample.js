@@ -38,10 +38,11 @@ module.exports = {
   dependencies: {
     files: {
       s3: {
-        accessKeyId: process.env.AWS_KEY,
-        secretAccessKey: process.env.AWS_SECRET,
-        region: process.env.AWS_REGION,
-        defaultBucket: process.env.AWS_TEST_BUCKET,
+        endpoint: process.env.S3_DEV_ENDPOINT,
+        accessKeyId: process.env.S3_DEV_ACCESS_KEY_ID,
+        secretAccessKey: process.env.S3_DEV_SECRET_ACCESS_KEY,
+        region: process.env.S3_DEV_REGION,
+        defaultBucket: process.env.S3_DEV_BUCKET,
       },
       defaultProvider: 's3',
     },

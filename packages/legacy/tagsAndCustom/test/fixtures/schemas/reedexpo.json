@@ -1,5 +1,5 @@
 {
-  "id" : 981,
+  "id": 981,
   "nextOptionId": 31,
   "custom": null,
   "defaultLabelLanguage": null,
@@ -235,7 +235,7 @@
       "related": [],
       "min": null,
       "max": 3000,
-      "languages" : [],
+      "languages": [],
       "fieldType": "textarea"
     },
     {
@@ -259,7 +259,7 @@
       "related": [],
       "min": null,
       "max": 1000,
-      "languages" : [],
+      "languages": [],
       "fieldType": "textarea"
     },
     {
@@ -665,7 +665,7 @@
       "related": [],
       "min": null,
       "max": null,
-      "languages" : [],
+      "languages": [],
       "fieldType": "textarea"
     },
     {
@@ -762,10 +762,10 @@
       "origin": "custom",
       "enableWith": null,
       "related": [],
-      "extensions": ["jpg","bmp","png"],
+      "extensions": ["jpg", "bmp", "png"],
       "store": {
         "type": "s3",
-        "bucket": "cibul"
+        "bucket": "main"
       },
       "fieldType": "image"
     },
@@ -939,53 +939,53 @@
       "fieldType": "radio"
     },
     {
-      "field" : "languages",
-      "fieldType" : "abstract",
-      "required" : [ "fr", "en" ]
+      "field": "languages",
+      "fieldType": "abstract",
+      "required": ["fr", "en"]
     },
     {
-      "field" : "title",
-      "fieldType" : "abstract"
+      "field": "title",
+      "fieldType": "abstract"
     },
     {
-      "field" : "description",
-      "fieldType" : "abstract"
+      "field": "description",
+      "fieldType": "abstract"
     },
     {
-      "field" : "keywords",
-      "fieldType" : "abstract"
+      "field": "keywords",
+      "fieldType": "abstract"
     },
     {
-      "field" : "longDescription",
-      "fieldType" : "abstract"
+      "field": "longDescription",
+      "fieldType": "abstract"
     },
     {
-      "field" : "conditions",
-      "fieldType" : "abstract"
+      "field": "conditions",
+      "fieldType": "abstract"
     },
     {
-      "field" : "registration",
-      "label" : {
-        "fr" : "Outils d’inscription (Pré-enregistrement)",
-        "en" : "Registration tools"
+      "field": "registration",
+      "label": {
+        "fr": "Outils d’inscription (Pré-enregistrement)",
+        "en": "Registration tools"
       },
-      "fieldType" : "abstract"
+      "fieldType": "abstract"
     },
     {
-      "field" : "accessibility",
-      "fieldType" : "abstract"
+      "field": "accessibility",
+      "fieldType": "abstract"
     },
     {
-      "field" : "age",
-      "fieldType" : "abstract"
+      "field": "age",
+      "fieldType": "abstract"
     },
     {
-      "field" : "location",
-      "fieldType" : "abstract"
+      "field": "location",
+      "fieldType": "abstract"
     },
     {
-      "field" : "timings",
-      "fieldType" : "abstract"
+      "field": "timings",
+      "fieldType": "abstract"
     }
   ]
 }

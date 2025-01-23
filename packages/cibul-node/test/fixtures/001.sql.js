@@ -84,6 +84,7 @@ raw.push(
         timezone: 'Europe/Paris',
       }),
       agenda_id: 2,
+      ext_ids: '{"identifiers": ["default->32"]}',
     }),
   ]),
 );
@@ -167,7 +168,7 @@ raw.push(
             type: 'thumbnail',
           },
         ],
-        base: 'https://cibuldev.s3.amazonaws.com/',
+        base: 'https://cdn.openagenda.com/dev/',
         credits: 'Gaetan Latouche',
       }),
       created_at: new Date('2022-06-01T09:00:00.000Z'),

@@ -60,7 +60,7 @@ function formatValue(
   if (['image', 'file'].includes(field.fieldType) && value) {
     return {
       ...value,
-      link: `https://${(field.store ?? { type: 's3', bucket: 'cibul' }).bucket}.s3.amazonaws.com/${value.filename}`,
+      link: `https://cdn.openagenda.com/${field.store?.bucket ?? 'main'}/${value.filename}`,
     };
   }
 

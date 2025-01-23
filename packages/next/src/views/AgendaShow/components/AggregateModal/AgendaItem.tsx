@@ -14,8 +14,9 @@ export default function AgendaItem({ agenda, targetAgenda }) {
 
   const url = new URL(router.asPath, 'https://n');
   // const redirectUrlPart = Buffer.from(url.pathname).toString('base64');
-  const imageSrc = targetAgenda.image
-    && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}?__ts=${new Date(targetAgenda.updatedAt).getTime()}`;
+  const imageSrc =
+    targetAgenda.image &&
+    `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}?__ts=${new Date(targetAgenda.updatedAt).getTime()}`;
 
   return (
     <Link
@@ -32,9 +33,7 @@ export default function AgendaItem({ agenda, targetAgenda }) {
           src={imageSrc || graylogo140}
           fallbackSrc={
             isDev && typeof imageSrc === 'string'
-              ? imageSrc
-                .replace('cibuldev', 'cibul')
-                .replace('images-', 'imagesdev-')
+              ? imageSrc.replace('dev', 'main').replace('images-', 'imagesdev-')
               : undefined
           }
           alt=""

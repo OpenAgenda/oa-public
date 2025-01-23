@@ -1,0 +1,59 @@
+{
+  "collectionName": "components_components_modulars",
+  "info": {
+    "displayName": "Modular",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "CTA": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.cta-button"
+    },
+    "Illustration": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.illustration"
+    },
+    "card": {
+      "type": "boolean"
+    },
+    "fontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "backgroundColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "maxWidth": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
+    },
+    "Icon": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.icon"
+    },
+    "titleAlign": {
+      "type": "enumeration",
+      "enum": ["left", "center", "right"],
+      "default": "center"
+    },
+    "fontSize": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
+    }
+  }
+}

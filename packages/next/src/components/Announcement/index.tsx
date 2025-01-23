@@ -11,7 +11,7 @@ const rehypePlugins = [
     rehypeExternalLinks,
     {
       target: '_blank',
-      rel: ['nofollow', 'noopener', 'noreferrer'],
+      rel: ['nofollow', 'noopener'],
     },
   ],
 ] as any; // import("unified").PluggableList;
@@ -68,9 +68,9 @@ export default function Announcement() {
 
   useEffect(() => {
     setDisplayAnnouncement(
-      user?.announcement
-        && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY)
-          !== user.announcement.id,
+      user?.announcement &&
+        window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY) !==
+          user.announcement.id,
     );
   }, [user]);
 

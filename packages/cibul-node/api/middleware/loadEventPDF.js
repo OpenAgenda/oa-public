@@ -1,3 +1,5 @@
+const isDev = process.env.NODE_ENV === 'development';
+
 function cleanImages({ event, agenda, app }) {
   const clean = {
     event,
@@ -11,7 +13,9 @@ function cleanImages({ event, agenda, app }) {
       ...event,
       image: {
         ...event.image,
-        base: event.image.base.replace('cibuldev', 'cibul'),
+        base: isDev
+          ? event.image.base
+          : event.image.base.replace('dev', 'main'),
       },
     };
   }
@@ -19,17 +23,15 @@ function cleanImages({ event, agenda, app }) {
   if (agenda.image) {
     clean.agenda = {
       ...agenda,
-      image: agenda.image.replace('cibuldev', 'cibul'),
+      image: isDev ? agenda.image : agenda.image.replace('dev', 'main'),
     };
   }
 
   if (event.location?.image) {
+    const locationImage = `${config.s3.mainBucketPath}${event.location.image}`;
     clean.event.location = {
       ...event.location,
-      image: `${config.aws.imageBucketPath}${event.location.image}`.replace(
-        'cibuldev',
-        'cibul',
-      ),
+      image: isDev ? locationImage.replace('dev', 'main') : locationImage,
     };
   }
 

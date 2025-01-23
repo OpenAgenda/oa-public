@@ -1,6 +1,6 @@
 'use strict';
 
-const s3UrlRegexStr = '(s3-|s3\\.)?(.*)\\.amazonaws\\.com';
+const s3UrlRegexStr = 's3\\.pub1\\.infomaniak\\.cloud\\/.*';
 const s3UrlRegex = new RegExp(s3UrlRegexStr);
 
 function escapeRegExp(string) {
@@ -31,8 +31,25 @@ function streamToBlob(stream, mimeType) {
   });
 }
 
+function formatLocation({ endpoint, projectId, bucket }, key) {
+  const path = bucket ? `${bucket}/${key}` : key;
+  if (!projectId && !endpoint) {
+    return path;
+  }
+
+  try {
+    const url = new URL(path, endpoint);
+    url.hostname = `${projectId ? `${projectId}.` : ''}${url.hostname}`;
+
+    return url.toString();
+  } catch (_error) {
+    return path;
+  }
+}
+
 module.exports = s3UrlRegexStr;
 module.exports = s3UrlRegex;
 module.exports.escapeRegExp = escapeRegExp;
 module.exports.s3UrlMatching = s3UrlMatching;
 module.exports.streamToBlob = streamToBlob;
+module.exports.formatLocation = formatLocation;

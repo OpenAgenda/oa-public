@@ -8,6 +8,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 5173:5173
     env_file: .env
     volumes:
       - ./docker/nginx:/tmp/nginx
@@ -16,6 +17,8 @@ services:
       - ${SITE_SSL_KEY}:/ssl/key.pem
       - ${API_SSL_CERT}:/ssl/api.cert.pem
       - ${API_SSL_KEY}:/ssl/api.key.pem
+      - ${STRAPI_SSL_CERT}:/ssl/strapi.cert.pem
+      - ${STRAPI_SSL_KEY}:/ssl/strapi.key.pem
       - ${CLIENT_SSL_CERT:-/dev/null}:/ssl/client.crt
       - ${ES_SSL_CERT:-/dev/null}:/ssl/es7.cert.pem
       - ${ES_SSL_KEY:-/dev/null}:/ssl/es7.key.pem
@@ -39,8 +42,56 @@ services:
       - phpmyadmin
       - mailcatcher
       - elastichq
+      - strapi
     depends_on:
       - node
+
+  strapi:
+    container_name: strapi
+    build:
+      context: .
+      dockerfile: docker/strapi/Dockerfile
+      args:
+        DOCKER_USER_ID: ${DOCKER_USER_ID}
+        DOCKER_USER_GROUP_ID: ${DOCKER_USER_GROUP_ID}
+    user: ${DOCKER_USER:-}
+    command: yarn develop
+    working_dir: /root
+    volumes:
+      - ./packages/strapi/.cache:/root/.cache
+      - ./packages/strapi/.config:/root/.config
+      - ./packages/strapi/config:/root/config
+      - ./packages/strapi/database:/root/database
+      - ./packages/strapi/favicon.png:/root/favicon.png
+      - ./packages/strapi/package.json:/root/package.json
+      - ./packages/strapi/public:/root/public
+      - ./packages/strapi/src:/root/src
+      - ./packages/strapi/.strapi-updater.json:/root/.strapi-updater.json
+      - ./packages/strapi/tsconfig.json:/root/tsconfig.json
+      - ./packages/strapi/types:/root/types
+      - ./packages/strapi/yarn.lock-workspace:/root/yarn.lock
+      - ${STRAPI_DATABASE_FILENAME}:/home/strapiuser/db.sqlite
+    environment:
+      HOST: ${STRAPI_HOST}
+      PORT: ${STRAPI_PORT}
+      SSL: ${STRAPI_SSL}
+      DOMAIN: ${STRAPI_DOMAIN}
+      APP_KEYS: ${STRAPI_APP_KEYS}
+      API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${STRAPI_TRANSFER_TOKEN_SALT}
+      DATABASE_CLIENT: ${STRAPI_DATABASE_CLIENT}
+      DATABASE_SSL: ${STRAPI_DATABASE_SSL}
+      DATABASE_FILENAME: /home/strapiuser/db.sqlite
+      JWT_SECRET: ${STRAPI_JWT_SECRET}
+      S3_ENDPOINT: ${S3_ENDPOINT}
+      S3_MAIN_PATH: ${S3_MAIN_PATH}
+      S3_ROOT_PATH: ${STRAPI_S3_ROOT_PATH}
+      S3_ASSETS_PATH: ${S3_ASSETS_PATH}
+      S3_KEY: ${S3_KEY}
+      S3_SECRET: ${S3_SECRET}
+      S3_REGION: ${S3_REGION}
+      S3_ASSETS_BUCKET: ${S3_ASSETS_BUCKET}
 
   node:
     container_name: node
@@ -71,6 +122,7 @@ services:
       - mysql
       - redis
       - es7
+      - strapi
     environment:
       TZ: Etc/UTC
       NODE_ENV: ${NODE_ENV}
@@ -104,10 +156,16 @@ services:
       AWS_KEY: ${AWS_KEY}
       AWS_SECRET: ${AWS_SECRET}
       AWS_REGION: ${AWS_REGION}
-      AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}
       AWS_MAIN_BUCKET: ${AWS_MAIN_BUCKET}
       AWS_MAIN_PATH: ${AWS_MAIN_PATH}
-      S3_STATIC_PATH: ${S3_STATIC_PATH}
+      S3_ENDPOINT: ${S3_ENDPOINT}
+      S3_KEY: ${S3_KEY}
+      S3_SECRET: ${S3_SECRET}
+      S3_REGION: ${S3_REGION}
+      S3_MAIN_BUCKET: ${S3_MAIN_BUCKET}
+      S3_MAIN_PATH: ${S3_MAIN_PATH}
+      S3_DOCX_PATH: ${S3_DOCX_PATH}
+      S3_ASSETS_PATH: ${S3_ASSETS_PATH}
       MAIL_PORT: ${MAIL_PORT}
       MAIL_HOST: ${MAIL_HOST}
       CLIENT_SSL_KEY: /root/.ssh/client.key
@@ -148,6 +206,7 @@ services:
       UNSUBSCRIPTIONS_SECRET: ${UNSUBSCRIPTIONS_SECRET}
       CRISP_IDENTIFIER: ${CRISP_IDENTIFIER}
       CRISP_KEY: ${CRISP_KEY}
+      STRAPI_API_AUTH_TOKEN: ${STRAPI_API_AUTH_TOKEN}
     ports:
       - 8903:8903
 

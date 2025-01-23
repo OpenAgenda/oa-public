@@ -98,7 +98,7 @@ describe('Conversation', () => {
         type: 'event',
         typeIdentifier: '456789',
         creatorInbox: {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           id: 1,
           identifier: 48959239,
           name: 'La gargouille',
@@ -119,7 +119,7 @@ describe('Conversation', () => {
         inboxContextId: 1,
         inboxes: [
           {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             id: 1,
             identifier: 48959239,
             name: 'La gargouille',
@@ -140,7 +140,7 @@ describe('Conversation', () => {
           body: "Comment qu'on contribute ?",
           attachments: [],
           inbox: {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             id: 1,
             identifier: 48959239,
             name: 'La gargouille',
@@ -233,7 +233,7 @@ describe('Conversation', () => {
             uid: 99999999,
           },
           {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             id: 1,
             identifier: 48959239,
             name: 'La gargouille',
@@ -318,7 +318,7 @@ describe('Conversation', () => {
             uid: 99999999,
           },
           {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             identifier: 456,
             name: 'La gargouille',
             type: 'agenda',
@@ -367,7 +367,7 @@ describe('Conversation', () => {
         type: 'event',
         typeIdentifier: '456789',
         creatorInbox: {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           id: 1,
           identifier: 48959239,
           name: 'La gargouille',
@@ -387,7 +387,7 @@ describe('Conversation', () => {
         inboxContextId: 1,
         inboxes: [
           {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             id: 1,
             identifier: 48959239,
             name: 'La gargouille',
@@ -440,7 +440,7 @@ describe('Conversation', () => {
         store: { params: {} },
         inboxContextId: 4,
         creatorInbox: {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           id: 5,
           identifier: 24681012,
           name: 'La gargouille',
@@ -449,7 +449,7 @@ describe('Conversation', () => {
         },
         inboxes: [
           {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             id: 4,
             identifier: 7891011,
             name: 'La gargouille',
@@ -457,7 +457,7 @@ describe('Conversation', () => {
             uid: 7891011,
           },
           {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             id: 5,
             identifier: 24681012,
             name: 'La gargouille',
@@ -471,7 +471,7 @@ describe('Conversation', () => {
           id: 8,
           attachments: [],
           inbox: {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             id: 5,
             identifier: 24681012,
             name: 'La gargouille',
@@ -510,7 +510,7 @@ describe('Conversation', () => {
         type: 'contribution_request',
         typeIdentifier: null,
         creatorInbox: {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           id: 1,
           identifier: 48959239,
           name: 'La gargouille',
@@ -531,7 +531,7 @@ describe('Conversation', () => {
         },
         inboxes: [
           {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             id: 1,
             identifier: 48959239,
             name: 'La gargouille',
@@ -632,7 +632,7 @@ describe('Conversation', () => {
         type: 'contribution_request',
         typeIdentifier: null,
         creatorInbox: {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           id: 1,
           identifier: 48959239,
           name: 'La gargouille',
@@ -655,7 +655,7 @@ describe('Conversation', () => {
         },
         inboxes: [
           {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             id: 1,
             identifier: 48959239,
             name: 'La gargouille',
@@ -764,7 +764,7 @@ describe('Conversation', () => {
             identifier: 48959239,
             uid: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           },
           latestMessage: {
             id: 12,
@@ -786,7 +786,7 @@ describe('Conversation', () => {
               identifier: 48959239,
               uid: 48959239,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             attachments: [],
           },
@@ -797,7 +797,7 @@ describe('Conversation', () => {
               identifier: 48959239,
               uid: 48959239,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             {
               id: 8,
@@ -805,7 +805,7 @@ describe('Conversation', () => {
               identifier: 1,
               uid: 1,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             {
               id: 2,
@@ -842,7 +842,7 @@ describe('Conversation', () => {
             identifier: 48959239,
             uid: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           },
           latestMessage: {
             id: 2,
@@ -866,7 +866,7 @@ describe('Conversation', () => {
               identifier: 48959239,
               uid: 48959239,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             {
               id: 2,
@@ -918,7 +918,7 @@ describe('Conversation', () => {
             identifier: 48959239,
             uid: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           },
           inboxUser: {
             id: 2,
@@ -940,7 +940,7 @@ describe('Conversation', () => {
               identifier: 48959239,
               uid: 48959239,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             attachments: [],
           },
@@ -951,7 +951,7 @@ describe('Conversation', () => {
               identifier: 48959239,
               uid: 48959239,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             {
               id: 8,
@@ -959,7 +959,7 @@ describe('Conversation', () => {
               identifier: 1,
               uid: 1,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             {
               id: 2,
@@ -986,7 +986,7 @@ describe('Conversation', () => {
             identifier: 7891011,
             uid: 7891011,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           },
           inboxUser: {
             id: 2,
@@ -1121,7 +1121,7 @@ describe('Conversation', () => {
             identifier: 24681012,
             uid: 24681012,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           },
           inboxUser: {
             id: 5,
@@ -1153,7 +1153,7 @@ describe('Conversation', () => {
               identifier: 24681012,
               uid: 24681012,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             attachments: [],
           },
@@ -1164,7 +1164,7 @@ describe('Conversation', () => {
               identifier: 7891011,
               uid: 7891011,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             {
               id: 5,
@@ -1172,7 +1172,7 @@ describe('Conversation', () => {
               identifier: 24681012,
               uid: 24681012,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
           ],
         },
@@ -1223,7 +1223,7 @@ describe('Conversation', () => {
               identifier: 7891011,
               uid: 7891011,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             attachments: [],
           },
@@ -1243,7 +1243,7 @@ describe('Conversation', () => {
               identifier: 7891011,
               uid: 7891011,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
           ],
         },
@@ -1261,7 +1261,7 @@ describe('Conversation', () => {
             identifier: 48959239,
             uid: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           },
           inboxUser: {
             id: 2,
@@ -1305,7 +1305,7 @@ describe('Conversation', () => {
               identifier: 48959239,
               uid: 48959239,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             },
             {
               id: 2,

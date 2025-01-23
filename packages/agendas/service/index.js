@@ -1,10 +1,9 @@
 'use strict';
 
+const crypto = require('node:crypto');
 const _ = require('lodash');
 const knexLib = require('knex');
-
 const logger = require('@openagenda/logs');
-
 const middleware = require('../middleware');
 const Agenda = require('./Agenda');
 const details = require('./details');
@@ -68,7 +67,8 @@ function init(c) {
     key: 'image',
     variants: [
       {
-        getFilename: (info, context) => `agenda${context.uid}.jpg`,
+        getFilename: (info, context) =>
+          `agenda${context.uid}.${crypto.randomUUID().replace(/-/g, '')}.jpg`,
         transform: (info, context) => {
           context.providerParams.ContentType = 'image/jpeg';
 
@@ -82,7 +82,8 @@ function init(c) {
         },
       },
       {
-        getFilename: (info, context) => `rwtbagenda${context.uid}.jpg`,
+        getFilename: (info, context) =>
+          `rwtbagenda${context.uid}.${crypto.randomUUID().replace(/-/g, '')}.jpg`,
         transform: (info, context) => {
           context.providerParams.ContentType = 'image/jpeg';
 
@@ -96,7 +97,8 @@ function init(c) {
         },
       },
       {
-        getFilename: (info, context) => `agenda${context.uid}_o.jpg`,
+        getFilename: (info, context) =>
+          `agenda${context.uid}_o.${crypto.randomUUID().replace(/-/g, '')}.jpg`,
         transform: (info, context) => {
           context.providerParams.ContentType = 'image/jpeg';
 

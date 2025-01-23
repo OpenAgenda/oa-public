@@ -22,11 +22,13 @@ export function init(config, services) {
   const agendaDocx = AgendaDocx({
     logger: config.getLogConfig('svc', 'agenda-docx'),
     s3: {
-      region: 'eu-west-3',
-      bucket: 'oa-docx',
-      accessKeyId: config.aws.accessKeyId,
-      secretAccessKey: config.aws.secretAccessKey,
+      endpoint: config.s3.endpoint,
+      region: config.s3.region,
+      accessKeyId: config.s3.accessKeyId,
+      secretAccessKey: config.s3.secretAccessKey,
+      bucket: 'docx',
     },
+    bucketPath: config.s3.docxBucketPath,
     queue,
     localTmpPath: config.tmpFolderPath,
   });

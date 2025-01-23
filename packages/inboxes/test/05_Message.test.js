@@ -95,7 +95,7 @@ describe('Message', () => {
           type: 'agenda',
           identifier: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           uid: 48959239,
         },
       });
@@ -196,7 +196,7 @@ describe('Message', () => {
           identifier: 48959239,
           uid: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
         },
       });
     });
@@ -227,7 +227,7 @@ describe('Message', () => {
           type: 'agenda',
           identifier: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
           uid: 48959239,
         },
       });
@@ -277,7 +277,7 @@ describe('Message', () => {
             type: 'agenda',
             identifier: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             uid: 48959239,
           },
         },
@@ -326,7 +326,7 @@ describe('Message', () => {
             type: 'agenda',
             identifier: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            avatar: 'https://cdn.openagenda.com/main/agenda48959239.jpg',
             uid: 48959239,
           },
         },

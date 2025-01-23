@@ -6,7 +6,7 @@ module.exports = function () {
 
     if (staticFile) return '//cdn.openagenda.com/static/' + image;
 
-    return '//cibul.s3.amazonaws.com/' + image;
+    return '//cdn.openagenda.com/main/' + image;
 
   };
 

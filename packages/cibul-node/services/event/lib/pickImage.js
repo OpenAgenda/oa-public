@@ -27,7 +27,7 @@ export default (config, eventInstance, imageType) => {
 
     if (!match) return fallbackGetter();
 
-    return config.aws.imageBucketPath + match.filename;
+    return config.s3.mainBucketPath + match.filename;
   } catch (e) {
     //
   }

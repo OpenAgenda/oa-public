@@ -9,7 +9,7 @@ const {
 
 const getItemValue = require('./lib/getItemValue');
 
-const extractDbRules = field => ({
+const extractDbRules = (field) => ({
   ...typeof field.db === 'object' ? field.db : {},
   field: getDatabaseFieldName(field),
   path: getDatabaseFieldPath(field),
@@ -93,7 +93,7 @@ function fromItemToDbEntry(fields, data, current) {
 
 module.exports = fromItemToDbEntry;
 
-module.exports.loadWithLinkedFields = fields => fromItemToDbEntry.bind(null, fields.map(field => ({
+module.exports.loadWithLinkedFields = (fields) => fromItemToDbEntry.bind(null, fields.map((field) => ({
   ...field,
-  linkedFields: fields.filter(f => (f !== field) && (getDatabaseFieldName(f) === getDatabaseFieldName(field))),
+  linkedFields: fields.filter((f) => (f !== field) && (getDatabaseFieldName(f) === getDatabaseFieldName(field))),
 })));

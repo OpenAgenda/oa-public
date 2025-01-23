@@ -115,13 +115,13 @@ describe('events - functional - update', () => {
         {
           extIds: [{ key: 'oa2', value: '456' }],
         },
-        { protectExtIds: false },
+        { mergeExtIds: false },
       );
 
       expect(updated.extIds).toStrictEqual([{ key: 'oa2', value: '456' }]);
     });
 
-    it('update extIds with protectExtIds', async () => {
+    it('update extIds with mergeExtIds', async () => {
       const ev = await svc.create({
         ...fixtures.creditsEventCreate,
         extIds: [{ key: 'oa', value: '123' }],
@@ -184,7 +184,7 @@ describe('events - functional - update', () => {
       });
 
       try {
-        await fetch(`https:${config.imagePath}${updated.image.filename}`).then(
+        await fetch(`${config.imagePath}${updated.image.filename}`).then(
           (r) => {
             if (!r.ok) throw new Error('Invalid status');
           },

@@ -12,7 +12,14 @@ const log = logs('server.dev');
 // normally done through init of service
 filesMw.init({
   tmpFolder: `${__dirname}/dev/tmp`,
-  s3: _.pick(config.s3, ['accessKeyId', 'secretAccessKey', 'region', 'bucket']),
+  s3: _.pick(config.s3, [
+    'endpoint',
+    'accessKeyId',
+    'secretAccessKey',
+    'region',
+    'bucket',
+  ]),
+  imagePath: config.imagePath,
 });
 
 const dev = express();
@@ -38,7 +45,7 @@ dev.post(
     // created or yet to be created, the server
     // should know what schema is being created
 
-    const { schema, values, fileKey } = (
+    const { schema, values } = (
       await import(`./dev/schemas/${req.params.page}.js`)
     ).default;
 
@@ -46,7 +53,6 @@ dev.post(
 
     req.schema = schema;
     req.values = values; // these are the current values
-    req.fileKey = fileKey;
 
     next();
   },

@@ -21,7 +21,6 @@ create table if not exists location (
   admin_level_3 varchar(255) default null,
   admin_level_5 varchar(255) default null,
   eve_id varchar(100) default null,
-  ext_id varchar(100) default null,
   agenda_id bigint(20) default null,
   set_uid bigint(20) default null,
   insee varchar(10) default null,
@@ -29,17 +28,18 @@ create table if not exists location (
   duplicate_candidates varchar(1000) default null,
   duplicate_disqualified varchar(1000) default null,
   merged_in bigint(20) default null,
+  ext_ids JSON,
   unique index slug_idx (slug),
   index latlng_idx (latitude, longitude),
   index lng_idx (longitude),
   index owner_id_idx (owner_id),
   index agenda_id_idx (agenda_id),
   index set_uid_idx (set_uid),
-  index ext_id_idx (ext_id),
   index deleted_idx (deleted),
   index duplicate_candidates_idx (duplicate_candidates),
   index created_at_idx (created_at),
   index updated_at_idx (updated_at),
+  index ext_ids_idx ((CAST(ext_ids->'$.identifiers' AS CHAR(100) ARRAY))),
   primary key(id)
 ) engine=InnoDB default character set utf8 collate utf8_general_ci;
 

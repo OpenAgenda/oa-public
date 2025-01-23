@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_segments_page_heads",
+  "info": {
+    "displayName": "PageHead",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "CTA": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.cta-button"
+    },
+    "Illustration": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.illustration"
+    },
+    "backgroundColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "fontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    }
+  }
+}

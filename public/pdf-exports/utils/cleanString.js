@@ -26,6 +26,7 @@ export default function cleanString(str) {
     8233,
     769, // U+0301
     770, // circonflexe
+    0x202f, // Narrow no-break space
   ];
 
   for (let i = 0; i < charsToClean.length; i++) {

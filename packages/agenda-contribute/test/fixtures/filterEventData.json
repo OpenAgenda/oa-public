@@ -143,7 +143,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 2,
     "sourceAgendas": [],

@@ -7,7 +7,7 @@ import cn from 'classnames';
 import dateFnsLocaleEN from 'date-fns/locale/en-US/index.js';
 import { DateRange, DefinedRange } from '@openagenda/react-date-range';
 import { getFallbackChain } from '@openagenda/intl';
-import { useConstant } from '@openagenda/react-shared';
+import useConstant from '@openagenda/react-shared/dist/hooks/useConstant.js';
 import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext.js';
 import convertPhpDateFormatToDateFns from '../../utils/convertPhpDateFormatToDateFns.js';
 

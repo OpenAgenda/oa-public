@@ -26,6 +26,15 @@ describe('utils - fromItemToEntry', () => {
       }], { extId: 10 });
       expect(entry.ext_id).toEqual(10);
     });
+
+    it('use case: extId can set back to null', () => {
+      const entry = fromItemToEntry([{
+        field: 'extId',
+        fieldType: 'text',
+      }], { extId: null }, { extId: 13 });
+
+      expect(entry.ext_id).toEqual(null);
+    });
   });
 
   describe('Events', () => {
@@ -128,7 +137,7 @@ describe('utils - fromItemToEntry', () => {
       }, {
         image: {
           filename: '5f9bbe1df90a43a8a059a56ad6e26c2a.base.image.jpg',
-          base: 'https://cibuldev.s3.amazonaws.com/',
+          base: 'https://cdn.openagenda.com/dev/',
         },
         imageCredits: null,
       });
@@ -192,11 +201,11 @@ describe('utils - fromItemToEntry', () => {
           enableWith: 'image',
         },
       ], {
-        image: '//cibuldev.s3.amazonaws.com/location36419450.jpg',
+        image: '//cdn.openagenda.com/dev/location36419450.jpg',
         imageCredits: 'me',
       });
 
-      expect(entry.store).toBe('{"image":"//cibuldev.s3.amazonaws.com/location36419450.jpg","imageCredits":"me"}');
+      expect(entry.store).toBe('{"image":"//cdn.openagenda.com/dev/location36419450.jpg","imageCredits":"me"}');
     });
 
     it('candidates && confirmedNonDuplicates- keep non changed store items', () => {

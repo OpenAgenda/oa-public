@@ -72,12 +72,12 @@ function MyDocument({
           <>
             <link
               rel="preconnect"
-              href={process.env.NEXT_PUBLIC_ASSET_PREFIX}
+              href={new URL(process.env.NEXT_PUBLIC_ASSET_PREFIX).origin}
               crossOrigin=""
             />
             <link
               rel="dns-prefetch"
-              href={process.env.NEXT_PUBLIC_ASSET_PREFIX}
+              href={new URL(process.env.NEXT_PUBLIC_ASSET_PREFIX).origin}
             />
           </>
         ) : null}
@@ -85,12 +85,12 @@ function MyDocument({
           <>
             <link
               rel="preconnect"
-              href={process.env.NEXT_PUBLIC_IMAGE_PREFIX}
+              href={new URL(process.env.NEXT_PUBLIC_IMAGE_PREFIX).origin}
               crossOrigin=""
             />
             <link
               rel="dns-prefetch"
-              href={process.env.NEXT_PUBLIC_IMAGE_PREFIX}
+              href={new URL(process.env.NEXT_PUBLIC_IMAGE_PREFIX).origin}
             />
           </>
         ) : null}
@@ -123,8 +123,9 @@ MyDocument.getInitialProps = async (
   const responseHeaders = new Headers(ctx.res?.getHeaders?.() as HeadersInit);
   const responseCookies = new ResponseCookies(responseHeaders);
 
-  const outdatedBrowser = responseCookies.get('outdatedBrowser')?.value === 'true'
-    || cookies.get('outdatedBrowser') === true;
+  const outdatedBrowser =
+    responseCookies.get('outdatedBrowser')?.value === 'true' ||
+    cookies.get('outdatedBrowser') === true;
 
   // CSP
   let nonce = responseHeaders.get('X-Nonce');

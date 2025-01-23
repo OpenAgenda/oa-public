@@ -55,7 +55,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://cibul.s3.amazonaws.com/"
+    "base": "https://cdn.openagenda.com/main/"
   },
   "imageCredits": "©yves vairac",
   "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,

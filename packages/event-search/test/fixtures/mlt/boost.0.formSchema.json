@@ -778,7 +778,7 @@
       "extensions": ["jpg", "bmp", "png"],
       "store": {
         "type": "s3",
-        "bucket": "oa"
+        "bucket": "main"
       },
       "fieldType": "image",
       "schemaId": 9711

@@ -68,11 +68,13 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
   });
 
   it('patching with null removes data', async () => {
-    const patchedLocation = await core
-      .agendas(64260763)
-      .locations.patch(37923068, {
+    const patchedLocation = await core.agendas(64260763).locations.patch(
+      37923068,
+      {
         extId: null,
-      });
+      },
+      {},
+    );
 
     expect(patchedLocation.extId).toBeNull();
   });

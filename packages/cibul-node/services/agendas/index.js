@@ -101,8 +101,8 @@ export function init(config, services) {
     mysql: config.db, // used by legacy unique value lib
     schemas: config.schemas,
     Files: services.files,
-    imagePath: config.aws.imageBucketPath,
-    defaultImagePath: config.aws.defaultImagePath,
+    imagePath: config.s3.mainBucketPath,
+    defaultImagePath: config.s3.defaultImagePath,
     logger: config.getLogConfig('svc', 'agendas'),
     interfaces: {
       onCreate: onCreate.bind(null, services),

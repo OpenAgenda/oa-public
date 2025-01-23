@@ -155,7 +155,7 @@ describe('methods', () => {
       const user = await service.get(75052324, { includeImagePath: true });
 
       expect(user.image).toBe(
-        '//openagendatest.s3.amazonaws.com/review_kaore-olafsson_01.jpg',
+        `${config.imagePath}review_kaore-olafsson_01.jpg`,
       );
       expect(user.email).toBe('kaoreolafsson@gmail.com');
     });

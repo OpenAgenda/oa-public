@@ -48,7 +48,7 @@ Outils d'inscription: 0145707532 - reservation@email.com
 
 Accessibilité: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 
-Image: https://cibul.s3.amazonaws.com/event_acces-libre_337_329719.jpg
+Image: https://cdn.openagenda.com/main/event_acces-libre_337_329719.jpg
 
 -----------------------------
 
@@ -86,7 +86,7 @@ Accès libre accompagné
 
 **Accessibilité**: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 
-**Image**: https://cibul.s3.amazonaws.com/event_acces-libre_337_329719.jpg
+**Image**: https://cdn.openagenda.com/main/event_acces-libre_337_329719.jpg
 
 ---
 

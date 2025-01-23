@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { useConstant } from '@openagenda/react-shared';
 import MemberForm from '@openagenda/member-apps/dist/components/Form';
-import { locales as memberAppsLocals } from '@openagenda/member-apps/src';
+import { locales as memberAppsLocals } from '@openagenda/member-apps/dist';
 
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import packageLocales from '../../locales-compiled';

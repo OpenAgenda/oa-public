@@ -84,7 +84,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
     });
   });
 
-  describe('batch using core.agndas.events.search', () => {
+  describe('batch using core.agendas.events.search', () => {
     beforeAll(
       () =>
         new Promise((done) => {

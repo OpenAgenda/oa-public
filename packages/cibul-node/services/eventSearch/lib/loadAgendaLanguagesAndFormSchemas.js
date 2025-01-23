@@ -22,7 +22,14 @@ export default (services) => async (req, res, next) => {
       },
     );
 
-    req.languages = languageCounts.map((c) => c.key);
+    req.languages = languageCounts
+      .map((c) => c.key)
+      .map((key) => key.toLowerCase())
+      .reduce(
+        (uniqueKeys, key) =>
+          (uniqueKeys.includes(key) ? uniqueKeys : uniqueKeys.concat(key)),
+        [],
+      );
 
     req.agenda = agenda;
 

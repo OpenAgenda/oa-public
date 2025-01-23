@@ -306,7 +306,7 @@ export const PDFField = () => {
               fieldType: 'file',
               store: {
                 type: 's3',
-                bucket: 'cibul',
+                bucket: 'main',
               },
             },
           ],
@@ -346,7 +346,7 @@ export const ImageField = () => {
               fieldType: 'image',
               store: {
                 type: 's3',
-                bucket: 'cibul',
+                bucket: 'main',
               },
             },
           ],

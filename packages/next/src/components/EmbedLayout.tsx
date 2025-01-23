@@ -14,11 +14,7 @@ import useIsFirstRender from 'hooks/useIsFirstRender';
 import useLocationQuery from 'hooks/useLocationQuery';
 import { createContext } from 'utils/createContext';
 import parseLocationQuery from 'utils/parseLocationQuery';
-import {
-  extractParams,
-  omitParams,
-  type ImageListParam,
-} from 'utils/embedParams';
+import { extractParams, omitParams, type EmbedParams } from 'utils/embedParams';
 import createColorPalette from 'utils/colorPalette';
 
 type LayoutProps = {
@@ -30,14 +26,10 @@ type EmbedLayoutDataValue = {
   isEmbedFirstLoad: boolean;
   initPath: string | null;
   initQuery: Record<string, any>;
-  baseUrl?: string;
   prefilter: Record<string, any>;
   query: Record<string, any>;
   setQuery: React.Dispatch<React.SetStateAction<Record<string, any>>>;
-  primaryColor?: string;
-  secondaryColor?: string;
-  imageList?: ImageListParam;
-};
+} & EmbedParams;
 
 export const [EmbedLayoutDataProvider, useEmbedLayoutData] =
   createContext<EmbedLayoutDataValue>({

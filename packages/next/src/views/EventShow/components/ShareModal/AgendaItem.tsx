@@ -10,8 +10,9 @@ export default function AgendaItem({ agenda, targetAgenda, event }) {
 
   const updatedTs = new Date(targetAgenda.updatedAt).getTime();
 
-  const imageSrc = targetAgenda.image
-    && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}?__ts=${updatedTs}`;
+  const imageSrc =
+    targetAgenda.image &&
+    `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${targetAgenda.image}?__ts=${updatedTs}`;
 
   return (
     <Link
@@ -25,9 +26,7 @@ export default function AgendaItem({ agenda, targetAgenda, event }) {
           src={imageSrc || graylogo140}
           fallbackSrc={
             isDev && typeof imageSrc === 'string'
-              ? imageSrc
-                .replace('cibuldev', 'cibul')
-                .replace('images-', 'imagesdev-')
+              ? imageSrc.replace('dev', 'main').replace('images-', 'imagesdev-')
               : undefined
           }
           alt=""

@@ -1,4 +1,6 @@
-import crypto from 'node:crypto';
+import crypto, { randomUUID } from 'node:crypto';
+
+export { randomUUID };
 
 export function randomHash(length = 32) {
   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';

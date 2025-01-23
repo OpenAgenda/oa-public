@@ -493,12 +493,12 @@ describe('flat-exports - unit - transforms', () => {
       const flat = flatten({
         image: {
           filename: 'ceci-est-une-image.jpg',
-          base: 'https://cibuldev.s3.amazonaws.com/',
+          base: 'https://cdn.openagenda.com/dev/',
         },
       });
 
       expect(flat).toEqual({
-        image: 'https://cibuldev.s3.amazonaws.com/ceci-est-une-image.jpg',
+        image: 'https://cdn.openagenda.com/dev/ceci-est-une-image.jpg',
       });
     });
   });

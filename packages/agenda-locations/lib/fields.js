@@ -497,12 +497,15 @@ module.exports = [
     enableWith: 'image',
   },
   {
-    field: 'extId',
+    field: 'extIds',
+    fieldType: 'extIds',
     optional: true,
-    fieldType: 'text',
-    read: ['internal', 'public'],
+    max: 200,
     write: ['internal', 'administrator', 'moderator', 'contributor'],
-    max: 100,
+    read: ['internal', 'public'],
+    db: {
+      type: 'json',
+    },
   },
   {
     field: 'eveId',

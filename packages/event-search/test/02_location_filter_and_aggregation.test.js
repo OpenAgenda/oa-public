@@ -226,12 +226,15 @@ describe('02 - event search - functional: location', () => {
         events: [event],
       } = await service('location').search(
         {
-          locationExtId: '456',
+          locationExtId: { key: 'default', value: '456' },
         },
         { size: 1 },
         { detailed: true },
       );
 
+      expect(event.location.extIds).toStrictEqual([
+        { key: 'default', value: '456' },
+      ]);
       expect(event.location.extId).toBe(456);
     });
   });

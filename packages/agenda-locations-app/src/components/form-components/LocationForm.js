@@ -42,6 +42,22 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.string.tooshort',
     defaultMessage: 'String is too short',
   },
+  'string.toolong': {
+    id: 'AgendaLocations.LocationForm.string.toolong',
+    defaultMessage: 'String is too long',
+  },
+  'phone.invalid': {
+    id: 'AgendaLocations.LocationForm.phone.invalid',
+    defaultMessage: 'Invalid phone number',
+  },
+  'email.invalid': {
+    id: 'AgendaLocations.LocationForm.email.invalid',
+    defaultMessage: 'Invalid email',
+  },
+  'link.invalid': {
+    id: 'AgendaLocations.LocationForm.link.invalid',
+    defaultMessage: 'Invalid link',
+  },
   tooshort: {
     id: 'AgendaLocations.LocationForm.tooshort',
     defaultMessage: 'String is too short',
@@ -233,6 +249,7 @@ const LocationForm = ({
 
   const getLabel = (unclearName, values) => {
     const name = clearRequired(unclearName);
+
     let str;
     let k;
     // see if label is defined in agenda settings
@@ -322,7 +339,7 @@ const LocationForm = ({
   };
 
   const renderErrors = () => (
-    <div className="errors">
+    <div className="error-summary boxed padding-all-md">
       <label htmlFor="err-submit">
         <FormattedMessage {...messages[`${mode}SubmitError`]} />:
       </label>
@@ -576,6 +593,7 @@ const LocationForm = ({
       <InputField
         name="name"
         enabled
+        required
         value={location?.name}
         info="nameInfo"
         placeholder="namePlaceholder"

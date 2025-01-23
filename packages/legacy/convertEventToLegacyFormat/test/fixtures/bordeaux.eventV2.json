@@ -279,17 +279,13 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://cibul.s3.amazonaws.com/"
+    "base": "https://cdn.openagenda.com/main/"
   },
   "attendanceMode": 1,
   "recurring": [],
-  "thematiques-bordeaux-metropole": [
-    9
-  ],
+  "thematiques-bordeaux-metropole": [9],
   "creatorUid": 31335398,
-  "intermunicipal_interest": [
-    1
-  ],
+  "intermunicipal_interest": [1],
   "registration": [
     {
       "type": "email",
@@ -316,9 +312,7 @@
     "setUid": null,
     "uid": 50251122,
     "createdAt": "2019-02-14T17:27:28.000Z",
-    "duplicateCandidates": [
-      95334746
-    ],
+    "duplicateCandidates": [95334746],
     "countryCode": "FR",
     "adminLevel5": null,
     "links": [],

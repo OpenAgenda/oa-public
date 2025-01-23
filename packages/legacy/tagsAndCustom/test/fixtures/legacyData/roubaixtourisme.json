@@ -300,7 +300,7 @@
     "createdAt": "2017-07-03T09:25:59.000Z",
     "formSchemaId": 374,
     "officializedAt": "2018-04-09T09:18:44.000Z",
-    "image": "https://cibuldev.s3.amazonaws.com/agenda64260763.jpg",
+    "image": "https://cdn.openagenda.com/dev/agenda64260763.jpg",
     "private": 0,
     "indexed": 1,
     "settings": {
@@ -318,10 +318,7 @@
       "contribution": {
         "type": 2,
         "defaultState": 2,
-        "canPublish": [
-          "administrators",
-          "moderators"
-        ],
+        "canPublish": ["administrators", "moderators"],
         "moderateOnChangeBy": [],
         "defaultLang": null,
         "allowLocationCreate": true,

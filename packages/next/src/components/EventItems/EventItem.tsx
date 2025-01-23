@@ -8,8 +8,8 @@ import graylogo140 from '../../../public/images/graylogo140.png';
 import messages from './messages';
 
 const getImageSrc = (event) =>
-  event.image
-  && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${event.image.filename}`;
+  event.image &&
+  `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${event.image.filename}`;
 
 function EventImage({ src, loader = null }) {
   const isDev = process.env.NODE_ENV === 'development';
@@ -23,11 +23,11 @@ function EventImage({ src, loader = null }) {
       fallbackSrc={
         isDev && typeof src === 'string'
           ? src
-            .replace('cibuldev', 'cibul')
-            .replace(
-              process.env.NEXT_PUBLIC_IMAGE_PREFIX,
-              process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX,
-            )
+              .replace('dev', 'main')
+              .replace(
+                process.env.NEXT_PUBLIC_IMAGE_PREFIX,
+                process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX,
+              )
           : undefined
       }
       alt=""
@@ -54,8 +54,8 @@ export default function EventItem({ event, agenda }) {
         )}
         <div>
           <Text fontWeight="bold">
-            {getLocaleValue(event.title, intl.locale)
-              || intl.formatMessage(messages.undefinedTitle)}
+            {getLocaleValue(event.title, intl.locale) ||
+              intl.formatMessage(messages.undefinedTitle)}
           </Text>
           <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
         </div>

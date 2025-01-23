@@ -87,7 +87,7 @@ export default {
         avatar:
           inboxToBeDetailed.type === 'user'
             ? 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
-            : 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            : 'https://cdn.openagenda.com/main/agenda48959239.jpg',
       }));
     },
     getUsersDetails(usersToBeDetailed) {

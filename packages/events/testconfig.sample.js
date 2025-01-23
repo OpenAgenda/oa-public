@@ -17,17 +17,18 @@ export const service = {
       : true,
   },
   schema: 'event_2',
-  imagePath: '//oadev.s3.eu-west-1.amazonaws.com/',
+  imagePath: 'https://cdn.openagenda.com/dev/',
   interfaces: {},
 };
 
 export const dependencies = {
   files: {
     s3: {
-      accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
-      region: process.env.AWS_DEV_REGION,
-      defaultBucket: process.env.AWS_DEV_BUCKET,
+      endpoint: process.env.S3_DEV_ENDPOINT,
+      accessKeyId: process.env.S3_DEV_ACCESS_KEY_ID,
+      secretAccessKey: process.env.S3_DEV_SECRET_ACCESS_KEY,
+      region: process.env.S3_DEV_REGION,
+      defaultBucket: process.env.S3_DEV_BUCKET,
     },
     defaultProvider: 's3',
   },

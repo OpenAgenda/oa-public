@@ -117,12 +117,13 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
         'access',
         'state',
         'imageCredits',
-        'extId',
+        'extIds',
         'duplicateCandidates',
         'disqualifiedDuplicates',
         'mergedIn',
         'agendaUid',
         'specificite',
+        'extId',
       ]);
     });
 

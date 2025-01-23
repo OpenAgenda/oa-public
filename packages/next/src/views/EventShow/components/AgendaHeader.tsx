@@ -10,12 +10,10 @@ import { useAgenda } from '../contexts/agenda';
 import { agendaHeader as messages } from '../messages';
 
 const isDev = process.env.NODE_ENV === 'development';
-const keyCdnUrl = new URL(process.env.NEXT_PUBLIC_IMAGE_PREFIX);
 
 function getImageSrc(src, updatedAt) {
   const url = new URL(src);
-  url.host = keyCdnUrl.host;
-  url.searchParams.append('__ts', updatedAt);
+  url.searchParams.set('__ts', updatedAt);
   return url.href;
 }
 
@@ -42,7 +40,7 @@ export default function AgendaHeader() {
           src={getImageSrc(agenda.image, updatedTs)}
           fallbackSrc={
             isDev
-              ? `${agenda.image.replace('cibuldev', 'cibul').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
+              ? `${agenda.image.replace('dev', 'main').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
               : undefined
           }
           loader={keyCDNLoader}

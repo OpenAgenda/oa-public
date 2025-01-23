@@ -5,6 +5,7 @@ export function keyCDNLoader({
   width,
   quality,
 }: ImageLoaderProps): string {
+  console.log(src);
   const url = new URL(src);
   const params = url.searchParams;
 

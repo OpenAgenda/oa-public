@@ -68,7 +68,7 @@
     },
     "credits": null,
     "variants": [],
-    "base": "https://cibuldev.s3.amazonaws.com/"
+    "base": "https://cdn.openagenda.com/dev/"
   },
   "particularites": [776],
   "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,

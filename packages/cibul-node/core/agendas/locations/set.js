@@ -1,6 +1,7 @@
 import { BadRequest } from '@openagenda/verror';
 
 import getAgenda from '../utils/getAgenda.js';
+import formatExtIds from './formatExtIds.js';
 
 export default (core, agendaOrUid) =>
   async (identifiers, data, options = {}) => {
@@ -25,11 +26,13 @@ export default (core, agendaOrUid) =>
       return core.agendas(agenda).locations.create(
         {
           ...data,
-          extId: identifiers.extId,
+          extIds: identifiers.extId,
         },
         options,
       );
     }
 
-    return core.agendas(agenda).locations.update(identifiers, data, options);
+    return formatExtIds.afterRead(
+      await core.agendas(agenda).locations.update(identifiers, data, options),
+    );
   };

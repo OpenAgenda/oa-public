@@ -46,7 +46,7 @@ export function init(config, services) {
       knex,
       redis,
       prefix: 'agendaControlData:',
-      imagePath: config.aws.imageBucketPath,
+      imagePath: config.s3.mainBucketPath,
     }),
   );
 

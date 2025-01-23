@@ -414,7 +414,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
     });
 
-    describe('unsuccessful create cause extId to long', () => {
+    describe('unsuccessful create cause extId too long', () => {
       let error;
       beforeAll(async () => {
         try {
@@ -518,6 +518,67 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
     });
 
+    describe('put by extId', () => {
+      let createResp = null;
+      let updateResp = null;
+      beforeAll(async () => {
+        try {
+          createResp = await axios({
+            method: 'put',
+            url: 'http://localhost:3000/agendas/17026855/locations/ext/ard44',
+            headers: {
+              'access-token': accessToken,
+              'content-type': 'application/json',
+            },
+            data: {
+              name: 'Tournon-sur-Rhône',
+              address: 'Place St Julien, 07300 Tournon-sur-Rhône',
+              adminLevel4: 'Tournon-sur-Rhône',
+              region: 'Auvergne-Rhône-Alpes',
+              department: 'Ardèche',
+              postalCode: '07300',
+              insee: '07324',
+              countryCode: 'FR',
+              latitude: 45.068507,
+              longitude: 4.830648,
+            },
+          });
+        } catch (error) {
+          // console.log('create error', error);
+        }
+
+        try {
+          updateResp = await axios({
+            method: 'put',
+            url: 'http://localhost:3000/agendas/17026855/locations/ext/ard44',
+            headers: {
+              'access-token': accessToken,
+              'content-type': 'application/json',
+            },
+            data: {
+              name: 'Tournon-sur-Rhône Updated',
+            },
+          });
+        } catch (error) {
+          // console.log('update error', error.response.data)
+        }
+      });
+      it('successful create', () => {
+        expect(createResp.data.location.extId).toBe('ard44');
+        expect(createResp.data.location.extIds).toStrictEqual([
+          { key: 'default', value: 'ard44' },
+        ]);
+      });
+      it('successfull update', () => {
+        expect(updateResp.data.location.uid).toBe(createResp.data.location.uid);
+        expect(updateResp.data.location.name).toBe('Tournon-sur-Rhône Updated');
+        expect(updateResp.data.location.extId).toBe('ard44');
+        expect(updateResp.data.location.extIds).toStrictEqual([
+          { key: 'default', value: 'ard44' },
+        ]);
+      });
+    });
+
     describe('successful update', () => {
       beforeAll(async () => {
         try {
@@ -549,6 +610,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('response contains the updated location', () => {
         expect(response.data.location.name).toBe('Tournon-sur-Rhône');
+      });
+
+      it('extId set in extId and extIds keys', () => {
+        expect(response.data.location.extId).toBe('ard04');
+        expect(response.data.location.extIds).toStrictEqual([
+          { key: 'default', value: 'ard04' },
+          { key: 'test', value: 'qs2' },
+        ]);
       });
     });
 
@@ -582,7 +651,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           patchResponse = await axios({
             method: 'patch',
-            url: 'http://localhost:3000/agendas/17026855/locations/ext/ard04',
+            url: 'http://localhost:3000/agendas/17026855/locations/ext/ard02',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -592,7 +661,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             },
           });
         } catch (e) {
-          // console.log(e.response.data);
+          console.log(e.response.data);
         }
       });
 
@@ -649,10 +718,10 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         expect(location.uid).toBe(95455142);
       });
 
-      it('location chan be fetched using an extId', async () => {
+      it('location can be fetched using an default extId with value', async () => {
         const getResponse = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations/ext/ard04?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          url: 'http://localhost:3000/agendas/17026855/locations/ext/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
             'content-type': 'application/json',
           },
@@ -660,7 +729,21 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
         const { location } = getResponse.data;
 
-        expect(location.uid).toBe(24505639);
+        expect(location.uid).toBe(42197191);
+      });
+
+      it('location chan be fetched using an extId whit key and value', async () => {
+        const getResponse = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/17026855/locations/ext/default/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          headers: {
+            'content-type': 'application/json',
+          },
+        });
+
+        const { location } = getResponse.data;
+
+        expect(location.uid).toBe(42197191);
       });
     });
 
@@ -761,10 +844,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           'state',
           'imageCredits',
           'imageRightsAreHeld',
-          'extId',
+          'extIds',
           'duplicateCandidates',
           'disqualifiedDuplicates',
           'mergedIn',
+          'extId',
         ]);
       });
 

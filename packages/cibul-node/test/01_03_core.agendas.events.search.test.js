@@ -156,7 +156,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       );
 
       expect(event.location.image).toBe(
-        'https://openagendatest.s3.amazonaws.com/52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg',
+        `${testConfig.s3.mainBucketPath}52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg`,
       );
     });
 
@@ -305,6 +305,50 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       expect(total).toBe(1);
       expect(event.location.specificite).toEqual([32]);
+    });
+
+    it('location extId filter', async () => {
+      const {
+        events: [event],
+        total,
+      } = await core.agendas(2).events.search(
+        {
+          locationExtId: { key: 'default', value: '32' },
+        },
+        {},
+        {
+          detailed: true,
+          access: 'administrator',
+        },
+      );
+
+      expect(total).toBe(1);
+      expect(event.location.extId).toBe('32');
+      expect(event.location.extIds).toStrictEqual([
+        { value: '32', key: 'default' },
+      ]);
+    });
+
+    it('location extId filter value only', async () => {
+      const {
+        events: [event],
+        total,
+      } = await core.agendas(2).events.search(
+        {
+          locationExtId: '32',
+        },
+        {},
+        {
+          detailed: true,
+          access: 'administrator',
+        },
+      );
+
+      expect(total).toBe(1);
+      expect(event.location.extId).toBe('32');
+      expect(event.location.extIds).toStrictEqual([
+        { value: '32', key: 'default' },
+      ]);
     });
 
     it('motive is provided on detailed search', async () => {

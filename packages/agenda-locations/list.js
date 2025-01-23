@@ -12,7 +12,7 @@ const createStream = require('./lib/createStream');
 const validateNav = require('./lib/validateNav');
 const validateListOptions = require('./lib/validateListOptions');
 const transformAndDecorateItems = require('./lib/transformAndDecorateItems');
-const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
+const pickContextIdentifiers = require('./lib/pickAndCleanContextIdentifiers');
 
 const log = logs('list');
 

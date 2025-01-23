@@ -715,7 +715,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             },
           ],
           image: {
-            url: 'https://cibul.s3.amazonaws.com/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
+            url: 'https://cdn.openagenda.com/main/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
           },
           attendanceMode: 2,
           onlineAccessLink: 'https://oa.com',
@@ -935,13 +935,13 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             },
             data: {
               title: {
-                fr: 'Un événement créé par API',
+                FR: 'Un événement créé par API',
               },
               description: {
-                fr: 'Un tout petit événement',
+                FR: 'Un tout petit événement',
               },
               image: {
-                url: 'https://cibul.s3.amazonaws.com/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
+                url: 'https://cdn.openagenda.com/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
                 credits: 'Les crédits',
               },
               timings: [
@@ -951,7 +951,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
                 },
               ],
               keywords: {
-                fr: ['un', 'deux', 'trois'],
+                FR: ['un', 'deux', 'trois'],
               },
               location: {
                 uid: 123,
@@ -981,6 +981,10 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
       it('response provides created event in event key', () => {
         expect(response.event.slug).toBe('un-evenement-cree-par-api');
+      });
+
+      it('countryCode is cleaned and smallcased for multilingual values', () => {
+        expect(Object.keys(response.event.title)).toEqual(['fr']);
       });
 
       it('backwards compatibility: credits placed in image.credits are moved to imageCredits', () => {
@@ -1017,7 +1021,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
               fr: 'Un tout petit événement',
             },
             image: {
-              url: 'https://cibul.s3.amazonaws.com/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
+              url: 'https://cdn.openagenda.com/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
               credits: 'Les crédits',
             },
             timings: [
@@ -1058,7 +1062,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
                 fr: 'Un tout petit événement',
               },
               image: {
-                url: 'https://cibul.s3.amazonaws.com/event_a-l-abo',
+                url: 'https://cdn.openagenda.com/main/event_a-l-abo',
                 credits: 'Les crédits',
               },
               timings: [

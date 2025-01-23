@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 export default async function populateAttachments(svc, entities) {
-  const { knex, schemas, aws } = svc.config;
+  const { knex, schemas, s3 } = svc.config;
 
   if (entities === null) {
     return null;
@@ -25,7 +25,7 @@ export default async function populateAttachments(svc, entities) {
 
     entity.attachments = attachments.map((attachment) => ({
       ...attachment,
-      path: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${attachment.filename}`,
+      path: `https://cdn.openagenda.com/${s3.bucket}/${attachment.filename}`,
     }));
 
     return entity;

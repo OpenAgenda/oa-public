@@ -343,14 +343,14 @@ class ConversationContainer extends Component {
         {!conversation.closedAt && (
         <MessageForm
           Wrapper={this.FormWrapper}
-          uploadEndpoint={res.messages.prepareAttachment
+          uploadEndpoint={res.messages.uploadAttachment
             .replace(':conversationId', conversation.id)
             .replace(':agendaUid', agenda && agenda.uid)}
           onSubmit={this.sendMessage}
           onMessageSent={() => {
             showModal('messageSent');
           }}
-          onFileUploaded={(...args) => attachFileToMessage(...args, agenda)}
+          onFileUploaded={attachFileToMessage}
           conversation={conversation}
           autoFocus={settings.autoFocus}
         />

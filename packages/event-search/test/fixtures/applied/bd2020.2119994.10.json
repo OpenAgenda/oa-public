@@ -47,7 +47,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -273,7 +273,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -421,7 +421,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -567,7 +567,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -715,7 +715,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -858,7 +858,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -1284,7 +1284,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -1427,7 +1427,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -1575,7 +1575,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -1798,7 +1798,7 @@
             }
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,

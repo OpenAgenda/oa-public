@@ -12,7 +12,7 @@
     "created_at": "2020-10-12 11:28:26",
     "updated_at": "2021-01-07 14:41:36",
     "uid": 3969008,
-    "store": "{\"images\":{\"filename\":\"abb9761e4e1c4169bc77fae0c504684e.base.image.jpg\",\"credits\":\"Renaud Wailliez\",\"size\":{\"height\":700,\"width\":700},\"variants\":[{\"type\":\"full\",\"filename\":\"abb9761e4e1c4169bc77fae0c504684e.full.image.jpg\",\"size\":{\"height\":708,\"width\":708}},{\"type\":\"thumbnail\",\"filename\":\"abb9761e4e1c4169bc77fae0c504684e.thumb.image.jpg\",\"size\":{\"height\":200,\"width\":200}}],\"base\":\"https://cibul.s3.amazonaws.com/\"},\"links\":[]}",
+    "store": "{\"images\":{\"filename\":\"abb9761e4e1c4169bc77fae0c504684e.base.image.jpg\",\"credits\":\"Renaud Wailliez\",\"size\":{\"height\":700,\"width\":700},\"variants\":[{\"type\":\"full\",\"filename\":\"abb9761e4e1c4169bc77fae0c504684e.full.image.jpg\",\"size\":{\"height\":708,\"width\":708}},{\"type\":\"thumbnail\",\"filename\":\"abb9761e4e1c4169bc77fae0c504684e.thumb.image.jpg\",\"size\":{\"height\":200,\"width\":200}}],\"base\":\"https://cdn.openagenda.com/main/\"},\"links\":[]}",
     "eve_id": null,
     "custom_fields": "{\"schedule_description\":\"de 9h30 à 12h et de 13h à 18h\",\"reseau-metropole-de-lille\":[\"interetintercommunal\"],\"descriptionville\":null,\"interetintercommunal\":[],\"recurringevent\":[]}",
     "age_min": null,

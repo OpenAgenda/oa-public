@@ -1,23 +1,24 @@
 import useSWRInfinite from 'swr/infinite';
 import { getEvents } from '@openagenda/react-filters';
+import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 
 export default function useEventsQuery({
   agenda,
   filters,
   query,
+  sort = null,
   includeFields,
   suspense = false,
   pageSize = 10,
 }) {
-  const upcomingOnly = !query.timings && query.passed !== '1';
-
   const result = useSWRInfinite(
     (pageIndex, previousPageData) => {
       // reached the end
       if (previousPageData && !previousPageData.events) return null;
 
       // first page, we don't have `previousPageData`
-      if (pageIndex === 0) return ['AgendaShow', 'events', agenda.slug, query, pageIndex];
+      if (pageIndex === 0)
+        return ['AgendaShow', 'events', agenda.slug, query, pageIndex];
 
       // add the cursor to the API endpoint
       return ['AgendaShow', 'events', agenda.slug, query, pageIndex];
@@ -29,12 +30,14 @@ export default function useEventsQuery({
         agenda,
         pageIndex === 0 ? filters : [], // need aggs only for first page
         {
-          sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+          sort: query.search?.length
+            ? 'score'
+            : sort || 'lastTimingWithFeatured.asc',
           size: pageSize,
-          ...upcomingOnly
+          ...isUpcomingOnlyQuery(query)
             ? {
-              relative: ['current', 'upcoming'],
-            }
+                relative: ['current', 'upcoming'],
+              }
             : null,
           ...query,
           from: pageIndex * pageSize,

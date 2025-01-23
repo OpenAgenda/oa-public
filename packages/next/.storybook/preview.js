@@ -17,8 +17,7 @@ initialize({
 
     if (sameOrigin && url.pathname.startsWith('/static')) return;
 
-    if (url.hostname === 'cibul.s3.amazonaws.com') return;
-    if (url.hostname === 'cibuldev.s3.amazonaws.com') return;
+    if (url.hostname === 'cdn.openagenda.com') return;
 
     print.warning();
   },

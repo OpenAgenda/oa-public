@@ -37,7 +37,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location60763721.jpg",
+    "image": "//cdn.openagenda.com/dev/location60763721.jpg",
     "links": ["http://www.facebook.com/cheminsetdolmens"],
     "access": {
       "fr": "Parking de la Gare"
@@ -85,7 +85,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location7630649.jpg",
+    "image": "//cdn.openagenda.com/dev/location7630649.jpg",
     "links": [],
     "access": {
       "fr": "Accés libre, parking à proximité."
@@ -129,7 +129,7 @@
     ],
     "website": "http://www.grottechauvet2ardeche.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location51665985.jpg",
+    "image": "//cdn.openagenda.com/dev/location51665985.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -243,7 +243,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location30433085.jpg",
+    "image": "//cdn.openagenda.com/dev/location30433085.jpg",
     "links": [],
     "access": {
       "fr": "Parking devant l'église"
@@ -278,7 +278,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location87316763.jpg",
+    "image": "//cdn.openagenda.com/dev/location87316763.jpg",
     "links": [],
     "access": {
       "fr": "Suivez les indications depuis la Route Départementale 122, entre le Béage et Saint-Eulalie"
@@ -313,7 +313,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location27638359.jpg",
+    "image": "//cdn.openagenda.com/dev/location27638359.jpg",
     "links": [
       "https://www.facebook.com/poleharoun.tazieff.7",
       "https://www.fondation-patrimoine.org/les-projets/jardin-clos-du-pre-nouveau-a-arcens"
@@ -351,7 +351,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location41253007.jpg",
+    "image": "//cdn.openagenda.com/dev/location41253007.jpg",
     "links": [
       "https://www.facebook.com/poleharoun.tazieff.7",
       "https://www.fondation-patrimoine.org/les-projets/jardin-clos-du-pre-nouveau-a-arcens"
@@ -394,7 +394,7 @@
     ],
     "website": "http://www.fondationseguin.com/index.php/fr/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location79091381.jpg",
+    "image": "//cdn.openagenda.com/dev/location79091381.jpg",
     "links": ["https://www.facebook.com/fondation.seguin.innovation/"],
     "access": {
       "fr": "Parking gratuit à proximité"
@@ -425,7 +425,7 @@
     "tags": [],
     "website": "http://www.saintmartindevalamas.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location91723136.jpg",
+    "image": "//cdn.openagenda.com/dev/location91723136.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -471,7 +471,7 @@
     ],
     "website": "http://marcseguin.fr/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location99583465.jpg",
+    "image": "//cdn.openagenda.com/dev/location99583465.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -595,7 +595,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location32712403new.jpg",
+    "image": "//cdn.openagenda.com/dev/location32712403new.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -656,7 +656,7 @@
     ],
     "website": "https://dartagnans.fr/fr/projects/restauration-de-peintures-murales-viviers-07/campaign",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location59595276.jpg",
+    "image": "//cdn.openagenda.com/dev/location59595276.jpg",
     "links": [],
     "access": {
       "fr": "au numéro 7, à côté du parking derrière les arrêts de bus"
@@ -718,7 +718,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location32522324.jpg",
+    "image": "//cdn.openagenda.com/dev/location32522324.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -752,7 +752,7 @@
     ],
     "website": "http://www.teyssier-salaisons.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location12084144.jpg",
+    "image": "//cdn.openagenda.com/dev/location12084144.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -812,7 +812,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location54251470.jpg",
+    "image": "//cdn.openagenda.com/dev/location54251470.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -850,7 +850,7 @@
     ],
     "website": "http://www.ecole-du-vent.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location14197279.jpg",
+    "image": "//cdn.openagenda.com/dev/location14197279.jpg",
     "links": [
       "https://www.facebook.com/pages/Ecole-du-vent/301992889900647?ref=aymt_homepage_panel"
     ],
@@ -1023,7 +1023,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location75325967.jpg",
+    "image": "//cdn.openagenda.com/dev/location75325967.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -1089,7 +1089,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location42897544.jpg",
+    "image": "//cdn.openagenda.com/dev/location42897544.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -1123,7 +1123,7 @@
     ],
     "website": "http://www.moulin-dupuy-1jimdosite.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location87632808.jpg",
+    "image": "//cdn.openagenda.com/dev/location87632808.jpg",
     "links": [],
     "access": {
       "fr": "parking obligatoire à 500m"
@@ -1160,7 +1160,7 @@
     ],
     "website": "http://lacheze.voila.net/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location12597511.jpg",
+    "image": "//cdn.openagenda.com/dev/location12597511.jpg",
     "links": [],
     "access": {
       "fr": "Route de St Christol"
@@ -1220,7 +1220,7 @@
     ],
     "website": "http://www.montivert.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location56365604.jpg",
+    "image": "//cdn.openagenda.com/dev/location56365604.jpg",
     "links": [],
     "access": {
       "fr": "Parc interdit aux véhicules.",
@@ -1479,7 +1479,7 @@
     ],
     "website": "http://chateaudeverchaus.com/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location95102555.jpg",
+    "image": "//cdn.openagenda.com/dev/location95102555.jpg",
     "links": ["https://www.facebook.com/collectifchateaudeverchaus/"],
     "access": {
       "fr": "Parking"
@@ -1527,7 +1527,7 @@
     ],
     "website": "http://www.ville-tournon.com/chateau-musee",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location23372938.jpg",
+    "image": "//cdn.openagenda.com/dev/location23372938.jpg",
     "links": [],
     "access": {
       "fr": "Parking du quai Farconnet à proximité (gratuit).",
@@ -1570,7 +1570,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location60530584.jpg",
+    "image": "//cdn.openagenda.com/dev/location60530584.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -1761,7 +1761,7 @@
     ],
     "website": "https://www.les-vans.fr/chassagnes/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location7785048.jpg",
+    "image": "//cdn.openagenda.com/dev/location7785048.jpg",
     "links": [],
     "access": {
       "fr": "Parking du cimetière et parking de la mairie."
@@ -1796,7 +1796,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location2665662.jpg",
+    "image": "//cdn.openagenda.com/dev/location2665662.jpg",
     "links": [],
     "access": {
       "fr": "Parking à proximité."
@@ -1879,7 +1879,7 @@
     ],
     "website": "http://www.musee-papeteries-canson-montgolfier.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location98052142.jpg",
+    "image": "//cdn.openagenda.com/dev/location98052142.jpg",
     "links": [],
     "access": {
       "fr": "Parkings ; au bord de la Via Fluvia"
@@ -1931,7 +1931,7 @@
     ],
     "website": "http://www.sud-ardeche-tourisme.com/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location73423064.jpg",
+    "image": "//cdn.openagenda.com/dev/location73423064.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -2049,7 +2049,7 @@
     ],
     "website": "http://www.musee-daudet.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location58548672.jpg",
+    "image": "//cdn.openagenda.com/dev/location58548672.jpg",
     "links": [],
     "access": {
       "fr": "parkings sur place"
@@ -2126,7 +2126,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location53377367.jpg",
+    "image": "//cdn.openagenda.com/dev/location53377367.jpg",
     "links": [],
     "access": {
       "fr": "Stationnement en bas du chemin d'accès mais places limitées. Organistaion d'un covoiturage au départ du arking de la gare. Montée de 35 min sur chemin accidenté. Une bonne condition physique est nécessaire. Enfant à partir de 5 ans."
@@ -2199,7 +2199,7 @@
     ],
     "website": "http://www.moulindemandy.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location51421834.jpg",
+    "image": "//cdn.openagenda.com/dev/location51421834.jpg",
     "links": [],
     "access": {
       "fr": "RD2 entre Privas et les Ollières. (Attention ne pas aller à Pranles)",
@@ -2251,7 +2251,7 @@
     ],
     "website": "http://www.museevivaraisprotestant.org",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location60430771.jpg",
+    "image": "//cdn.openagenda.com/dev/location60430771.jpg",
     "links": [],
     "access": {
       "fr": "Accès routier. Parking."
@@ -2403,7 +2403,7 @@
     ],
     "website": "http://www.lamoustacheetdesdentelles.blogspot.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location14471367.jpg",
+    "image": "//cdn.openagenda.com/dev/location14471367.jpg",
     "links": ["https://www.facebook.com/pages/Moustache-et-Dentelles/"],
     "access": {
       "fr": "Parkings gratuits à proximité - centre ville d'Annonay"
@@ -2532,7 +2532,7 @@
     ],
     "website": "http://www.les-jardins-de-brogieux.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location78903201.jpg",
+    "image": "//cdn.openagenda.com/dev/location78903201.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -2561,7 +2561,7 @@
     "tags": [],
     "website": "http://www.aubenas.fr/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location45003819.jpg",
+    "image": "//cdn.openagenda.com/dev/location45003819.jpg",
     "links": [],
     "access": {
       "fr": "http://www.aubenas.fr/le-cadre-de-vie-deplacements-et-stationnement/stationnement-et-aire-pietonne"
@@ -2769,7 +2769,7 @@
     ],
     "website": "https://www.vion.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location98831995.jpg",
+    "image": "//cdn.openagenda.com/dev/location98831995.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -2909,7 +2909,7 @@
     ],
     "website": "http://www.ardeche-resistance-deportation.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location53787732.jpg",
+    "image": "//cdn.openagenda.com/dev/location53787732.jpg",
     "links": [],
     "access": {
       "fr": "En provenance de Montélimar : suivre la direction Aubenas dans Le Teil.",
@@ -2989,7 +2989,7 @@
     ],
     "website": "",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location22241616.jpg",
+    "image": "//cdn.openagenda.com/dev/location22241616.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -3042,7 +3042,7 @@
     "district": null,
     "tags": [],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location17975670.jpg",
+    "image": "//cdn.openagenda.com/dev/location17975670.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -3088,7 +3088,7 @@
     ],
     "website": "http://www.aubenas.fr/fr/accueil-patrimoine.htm",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location15699595.jpg",
+    "image": "//cdn.openagenda.com/dev/location15699595.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -3227,7 +3227,7 @@
     ],
     "website": "http://www.train-du-vivarais.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location35133411.jpg",
+    "image": "//cdn.openagenda.com/dev/location35133411.jpg",
     "links": ["https://www.facebook.com/Association.SGVA"],
     "access": {
       "fr": "Par la D209",
@@ -3279,7 +3279,7 @@
     ],
     "website": "http://www.marcheartisanal07.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location1895621.jpg",
+    "image": "//cdn.openagenda.com/dev/location1895621.jpg",
     "links": [],
     "access": {
       "fr": "Desservie par bus de privas ainsi que la vallée de l'Eyrieux en voiture passage oblige pour rejoindre les vallées de l'Eyrieux et de l'Ouvéze"
@@ -3323,7 +3323,7 @@
     ],
     "website": "http://www.chateaudeboulogne.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location89101644.jpg",
+    "image": "//cdn.openagenda.com/dev/location89101644.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -3358,7 +3358,7 @@
       }
     ],
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location25300774.jpg",
+    "image": "//cdn.openagenda.com/dev/location25300774.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -3433,7 +3433,7 @@
     ],
     "website": "http://www.edenparc.eu",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location74108504.jpg",
+    "image": "//cdn.openagenda.com/dev/location74108504.jpg",
     "links": [],
     "access": {
       "fr": "Rn 86, autoroute Tain-l'Hermitage.",
@@ -3509,7 +3509,7 @@
     ],
     "website": "http://www.patrimoinelyceegfaure.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location36160309.jpg",
+    "image": "//cdn.openagenda.com/dev/location36160309.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -3559,7 +3559,7 @@
     ],
     "website": "http://www.sud-ardeche-tourisme.com/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location5376581.40642.jpg",
+    "image": "//cdn.openagenda.com/dev/location5376581.40642.jpg",
     "links": [],
     "access": {},
     "extId": null,
@@ -3605,7 +3605,7 @@
     ],
     "website": "http://www.rhonecrussol.fr/patrimoine-tourisme/chateau-de-crussol/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location77422964.jpg",
+    "image": "//cdn.openagenda.com/dev/location77422964.jpg",
     "links": ["https://www.facebook.com/chateaudecrussol/"],
     "access": {
       "fr": "Accès libre",
@@ -3661,7 +3661,7 @@
     ],
     "website": "http://www.musee-daudet.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location25247625.jpg",
+    "image": "//cdn.openagenda.com/dev/location25247625.jpg",
     "links": [],
     "access": {
       "fr": "Parking gratuit",
@@ -3753,7 +3753,7 @@
     ],
     "website": "https://dartagnans.fr/fr/projects/restauration-de-peintures-murales-viviers-07/campaign",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location75953046.jpg",
+    "image": "//cdn.openagenda.com/dev/location75953046.jpg",
     "links": [
       "https://www.youtube.com/watch?v=RX8I0STEo1M",
       "http://www.culture.gouv.fr/documentation/memoire/HTML/IVR82/ia00047881/index.htm",
@@ -3802,7 +3802,7 @@
     ],
     "website": "http://www.cicp-viviers.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location89721383.jpg",
+    "image": "//cdn.openagenda.com/dev/location89721383.jpg",
     "links": ["http://www.facebook.com/CICPViviers"],
     "access": {
       "fr": "La Cité Lafarge se trouve au nord de Viviers, entre la route 86 et le Rhône. En venant de Viviers, prendre la route à droite après le hameau de la Roussette. En venant du Teil, après le rond-point sud, prendre à gauche en contournant l'usine Kernéos."
@@ -4021,7 +4021,7 @@
     ],
     "website": "https://www.facebook.com/chantierdeventadourardeche/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location84857037.jpg",
+    "image": "//cdn.openagenda.com/dev/location84857037.jpg",
     "links": ["https://www.facebook.com/chantierdeventadourardeche/"],
     "access": {
       "fr": "Chemin dallé (interdit aux véhicules étrangers au château)",
@@ -4049,7 +4049,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location47996831new.jpg",
+    "image": "//cdn.openagenda.com/dev/location47996831new.jpg",
     "links": ["https://www.facebook.com/profile.php?id=100017444071686"],
     "access": {
       "fr": "coordonnées gps: 44°27'26.5\"N 4°00'35.9\"E",
@@ -4177,7 +4177,7 @@
     ],
     "website": "https://arejsite.wordpress.com/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location56543614.jpg",
+    "image": "//cdn.openagenda.com/dev/location56543614.jpg",
     "links": [],
     "access": {
       "fr": "le parvis de l'église est accessible à pieds. Des parkings sont situés à proximités (2 et 5 mn)",
@@ -4214,7 +4214,7 @@
     "tags": [],
     "website": "https://www.edf.fr/groupe-edf/producteur-industriel/carte-des-implantations/centrale-nucleaire-de-cruas-meysse/presentation",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location36914350.jpg",
+    "image": "//cdn.openagenda.com/dev/location36914350.jpg",
     "links": ["https://twitter.com/edfcruasmeysse?lang=fr"],
     "access": {
       "fr": "Visite sur inscription / 12 ans minimum",
@@ -4246,7 +4246,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location99160104.jpg",
+    "image": "//cdn.openagenda.com/dev/location99160104.jpg",
     "links": [],
     "access": {},
     "city": "Aubenas",
@@ -4313,7 +4313,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location67824968new.jpg",
+    "image": "//cdn.openagenda.com/dev/location67824968new.jpg",
     "links": [],
     "access": {
       "fr": "Accès Piéton uniquement",
@@ -4488,7 +4488,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location86079225.jpg",
+    "image": "//cdn.openagenda.com/dev/location86079225.jpg",
     "links": [],
     "access": {},
     "city": "Annonay",
@@ -4535,7 +4535,7 @@
     ],
     "website": "http://www.lamoustacheetdesdentelles.blogspot.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location5926898new.jpg",
+    "image": "//cdn.openagenda.com/dev/location5926898new.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T16:43:39.000Z",
@@ -4587,7 +4587,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location49401037.jpg",
+    "image": "//cdn.openagenda.com/dev/location49401037.jpg",
     "links": [],
     "access": {},
     "city": "Privas",
@@ -4717,7 +4717,7 @@
     ],
     "website": "http://saintmartindevalamas.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location40202315.jpg",
+    "image": "//cdn.openagenda.com/dev/location40202315.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T16:43:18.000Z",
@@ -4955,7 +4955,7 @@
     ],
     "website": "http://www.bourlatier.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location64119263.jpg",
+    "image": "//cdn.openagenda.com/dev/location64119263.jpg",
     "links": ["https://www.facebook.com/ardeche.espace.montagne/"],
     "access": {},
     "updatedAt": "2019-04-29T16:42:04.000Z",
@@ -5042,7 +5042,7 @@
     ],
     "website": "",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location92023830.jpg",
+    "image": "//cdn.openagenda.com/dev/location92023830.jpg",
     "links": ["https://www.facebook.com/musee.temps.de.vagnas"],
     "access": {},
     "updatedAt": "2019-04-29T16:40:50.000Z",
@@ -5137,7 +5137,7 @@
     ],
     "website": "http://www.ateliersdumoulinet.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location51599311.jpg",
+    "image": "//cdn.openagenda.com/dev/location51599311.jpg",
     "links": [
       "https://www.facebook.com/Les-ateliers-du-Moulinet-1543234162649905/"
     ],
@@ -5212,7 +5212,7 @@
     ],
     "website": "http://www.les-vans.fr/musee",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location99349603.jpg",
+    "image": "//cdn.openagenda.com/dev/location99349603.jpg",
     "links": ["https://www.facebook.com/MuseedesVans/"],
     "access": {},
     "updatedAt": "2019-04-29T16:37:51.000Z",
@@ -5267,7 +5267,7 @@
     ],
     "website": "https://sites.google.com/site/jardinlaterrepimprenelle/home",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location9449667.jpg",
+    "image": "//cdn.openagenda.com/dev/location9449667.jpg",
     "links": [
       "https://www.tripadvisor.fr/Attraction_Review-g2266836-d9721974-Reviews-Jardin_La_Terre_Pimprenelle-Alboussiere_Ardeche_Auvergne_Rhone_Alpes.html",
       "https://www.facebook.com/Jardin-La-Terre-Pimprenelle-Alboussière-Ardèche-1705871403013532/"
@@ -6118,7 +6118,7 @@
     ],
     "website": "http://www.cicp-viviers.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location11825756.jpg",
+    "image": "//cdn.openagenda.com/dev/location11825756.jpg",
     "links": [],
     "access": {
       "fr": "Depuis l'Hôtel de Ville, en direction de Châteauneuf-du-Rhône, prendre à droite en direction du cimetière Saint-Michel. Le point de rendez-vous est le parking du cimetière.",
@@ -6308,7 +6308,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location59102155.jpg",
+    "image": "//cdn.openagenda.com/dev/location59102155.jpg",
     "links": [],
     "access": {
       "fr": "Route des gorges D290, navettes, vélos et sentiers",
@@ -6442,7 +6442,7 @@
     ],
     "website": "http://www.blouart.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location36399909.jpg",
+    "image": "//cdn.openagenda.com/dev/location36399909.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T16:26:58.000Z",
@@ -6516,7 +6516,7 @@
     ],
     "website": "http://www.bateau-a-roue.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location1190107.jpg",
+    "image": "//cdn.openagenda.com/dev/location1190107.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T16:25:39.000Z",
@@ -6646,7 +6646,7 @@
     "tags": [],
     "website": "http://www.ot-stmartin-ardeche.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location62483388.jpg",
+    "image": "//cdn.openagenda.com/dev/location62483388.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T16:25:21.000Z",
@@ -6663,7 +6663,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location80586186.jpg",
+    "image": "//cdn.openagenda.com/dev/location80586186.jpg",
     "links": [],
     "access": {},
     "city": "Saint-Martin-d'Ardèche",
@@ -7118,7 +7118,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location31325012.jpg",
+    "image": "//cdn.openagenda.com/dev/location31325012.jpg",
     "links": [],
     "access": {
       "fr": "A 5 min. en voiture de Privas Parking à l'entrée du bois, au niveau du panneau d'information (Fontaine de Ternis) Co-voiturage conseillé"
@@ -7149,7 +7149,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location59535610.jpg",
+    "image": "//cdn.openagenda.com/dev/location59535610.jpg",
     "links": [],
     "access": {},
     "city": "Privas",
@@ -7344,7 +7344,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location39342440.jpg",
+    "image": "//cdn.openagenda.com/dev/location39342440.jpg",
     "links": [],
     "access": {},
     "city": "Largentière",
@@ -7374,7 +7374,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location99969846.jpg",
+    "image": "//cdn.openagenda.com/dev/location99969846.jpg",
     "links": [],
     "access": {},
     "city": "Largentière",
@@ -7439,7 +7439,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location63474730.jpg",
+    "image": "//cdn.openagenda.com/dev/location63474730.jpg",
     "links": [
       "http://www.facebook.com/otlarochesurforon",
       "http://twitter.com/OTLaRocheForon"
@@ -7573,7 +7573,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location65979796.jpg",
+    "image": "//cdn.openagenda.com/dev/location65979796.jpg",
     "links": [],
     "access": {},
     "city": "Faugères",
@@ -7632,7 +7632,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location85941175.jpg",
+    "image": "//cdn.openagenda.com/dev/location85941175.jpg",
     "links": [],
     "access": {},
     "city": "Davézieux",
@@ -7870,7 +7870,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location26177462.jpg",
+    "image": "//cdn.openagenda.com/dev/location26177462.jpg",
     "links": [],
     "access": {},
     "city": "Bourg-Saint-Andéol",
@@ -8110,7 +8110,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location79093752.jpg",
+    "image": "//cdn.openagenda.com/dev/location79093752.jpg",
     "links": [],
     "access": {
       "fr": "Route"
@@ -8268,7 +8268,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location61682000.jpg",
+    "image": "//cdn.openagenda.com/dev/location61682000.jpg",
     "links": [],
     "access": {
       "fr": "En entrant dans Annonay, prendre direction Centre Hospitalier / Hôtel de Ville. Se garer obligatoirement au niveau du parking du Champ de Mars. Continuer ensuite à pied, le musée est à deux minutes La rue Jean-Baptiste Béchetoille se trouve entre la place du Champ de Mars et l’Hôtel de Ville."
@@ -8432,7 +8432,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location61888406.jpg",
+    "image": "//cdn.openagenda.com/dev/location61888406.jpg",
     "links": [],
     "access": {},
     "city": "Faugères",
@@ -8669,7 +8669,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location20457024.jpg",
+    "image": "//cdn.openagenda.com/dev/location20457024.jpg",
     "links": [],
     "access": {},
     "city": "Privas",
@@ -8694,7 +8694,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location96441425.jpg",
+    "image": "//cdn.openagenda.com/dev/location96441425.jpg",
     "links": ["https://www.facebook.com/DHermitageEnSaintJoseph/"],
     "access": {
       "fr": "Sur réservation avec l'Office de Tourisme"
@@ -8732,7 +8732,7 @@
     "tags": [],
     "website": "http://www.ht-tourisme.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location7239542.jpg",
+    "image": "//cdn.openagenda.com/dev/location7239542.jpg",
     "links": ["https://www.facebook.com/DHermitageEnSaintJoseph/"],
     "access": {
       "fr": "Près de l’église, centre-ville.",
@@ -8937,7 +8937,7 @@
     ],
     "website": "http://www.bethanie.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location34817093.jpg",
+    "image": "//cdn.openagenda.com/dev/location34817093.jpg",
     "links": [],
     "access": {
       "fr": "D103 entre Lachapelle-sous-Aubenas et Largentière.",
@@ -9018,7 +9018,7 @@
     ],
     "website": "http://www.cie-emilievalantin.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location73621696.jpg",
+    "image": "//cdn.openagenda.com/dev/location73621696.jpg",
     "links": ["https://www.facebook.com/CompagnieEmilieValantin"],
     "access": {},
     "updatedAt": "2019-04-29T16:05:56.000Z",
@@ -9054,7 +9054,7 @@
     ],
     "website": "http://www.moulinages.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location76907353.jpg",
+    "image": "//cdn.openagenda.com/dev/location76907353.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T16:05:22.000Z",
@@ -9118,7 +9118,7 @@
     ],
     "website": "http://archives.ardeche.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location27150656.jpg",
+    "image": "//cdn.openagenda.com/dev/location27150656.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T16:04:50.000Z",
@@ -9154,7 +9154,7 @@
     ],
     "website": "http://www.castanea-ardeche.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location27750748.jpg",
+    "image": "//cdn.openagenda.com/dev/location27750748.jpg",
     "links": [],
     "access": {
       "en": "In the old city of Cheerful, close by the church",
@@ -9182,7 +9182,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location47494674.jpg",
+    "image": "//cdn.openagenda.com/dev/location47494674.jpg",
     "access": null,
     "city": "Rochecolombe",
     "updatedAt": "2019-04-29T16:04:15.000Z",
@@ -9344,7 +9344,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location22944391.jpg",
+    "image": "//cdn.openagenda.com/dev/location22944391.jpg",
     "access": null,
     "city": "Vaudevant",
     "updatedAt": "2019-04-29T16:02:35.000Z",
@@ -9371,7 +9371,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location15894296.jpg",
+    "image": "//cdn.openagenda.com/dev/location15894296.jpg",
     "links": [],
     "access": {},
     "city": "Vaudevant",
@@ -9445,7 +9445,7 @@
     "tags": [],
     "website": "http://www.cavernedupontdarc.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location10323451.jpg",
+    "image": "//cdn.openagenda.com/dev/location10323451.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T16:02:31.000Z",
@@ -9467,7 +9467,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location45579110.jpg",
+    "image": "//cdn.openagenda.com/dev/location45579110.jpg",
     "links": ["http://www.facebook.com/musee.temps.de.vagnas"],
     "access": {
       "fr": "A pied depuis le village (2 km), site accessible en voiture pour les véhicules ayant de la garde au sol (chemin d'exploitation agricole).",
@@ -9517,7 +9517,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location86271690.jpg",
+    "image": "//cdn.openagenda.com/dev/location86271690.jpg",
     "access": null,
     "city": "Tournon-sur-Rhône",
     "updatedAt": "2019-04-29T16:01:48.000Z",
@@ -9610,7 +9610,7 @@
     ],
     "website": "http://www.rhonecrussol.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location79676182.jpg",
+    "image": "//cdn.openagenda.com/dev/location79676182.jpg",
     "links": ["http://www.facebook.com/grottesmuseesoyons"],
     "access": {},
     "updatedAt": "2019-04-29T16:01:00.000Z",
@@ -9645,7 +9645,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location38115590.jpg",
+    "image": "//cdn.openagenda.com/dev/location38115590.jpg",
     "access": {
       "fr": "D 86 Parc de stationnement (Quai Sud ombragé) Autocar (navette depuis Annonay et Lyon La Part-Dieu) Gare desservie (de Saint Rambert d'Atbon) Accès routier (A7 sortie Chamas-Annonay, à 6km prendre la RN7)"
     },
@@ -9742,7 +9742,7 @@
     ],
     "website": "http://www.liger-ardeche.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location13520139.jpg",
+    "image": "//cdn.openagenda.com/dev/location13520139.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T15:59:57.000Z",
@@ -9772,7 +9772,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location38858509.jpg",
+    "image": "//cdn.openagenda.com/dev/location38858509.jpg",
     "links": [],
     "access": {},
     "city": "Saint-Vincent-de-Barrès",
@@ -9810,7 +9810,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location67144662.jpg",
+    "image": "//cdn.openagenda.com/dev/location67144662.jpg",
     "access": null,
     "city": "Saint-Victor",
     "updatedAt": "2019-04-29T15:59:47.000Z",
@@ -9910,7 +9910,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location38071233.jpg",
+    "image": "//cdn.openagenda.com/dev/location38071233.jpg",
     "access": null,
     "city": "Saint-Pierreville",
     "updatedAt": "2019-04-29T15:59:19.000Z",
@@ -10007,7 +10007,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location74514732.jpg",
+    "image": "//cdn.openagenda.com/dev/location74514732.jpg",
     "links": [],
     "access": {},
     "city": "Saint-Péray",
@@ -10200,7 +10200,7 @@
     ],
     "website": "http://www.ardeche-otcevenneetmontagne.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location76206277.39595.jpg",
+    "image": "//cdn.openagenda.com/dev/location76206277.39595.jpg",
     "links": [],
     "access": {
       "fr": "à pied",
@@ -10232,7 +10232,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location92678756.jpg",
+    "image": "//cdn.openagenda.com/dev/location92678756.jpg",
     "access": {
       "fr": "Au centre du village avec un parking à proximité"
     },
@@ -10262,7 +10262,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location8753659.jpg",
+    "image": "//cdn.openagenda.com/dev/location8753659.jpg",
     "access": null,
     "city": "Saint-Jean-le-Centenier",
     "updatedAt": "2019-04-29T15:58:24.000Z",
@@ -10366,7 +10366,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location90692993.jpg",
+    "image": "//cdn.openagenda.com/dev/location90692993.jpg",
     "access": null,
     "city": "Saint-Félicien",
     "updatedAt": "2019-04-29T15:57:29.000Z",
@@ -10442,7 +10442,7 @@
     ],
     "website": "http://moulindemasmejean.jimdo.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location57944085.jpg",
+    "image": "//cdn.openagenda.com/dev/location57944085.jpg",
     "links": ["https://fr-fr.facebook.com/moulindemasmejean"],
     "access": {
       "fr": "A Masméjean, entre Saint-Étienne-de-Lugdarès et le Col du Bez sur la D19.",
@@ -10500,7 +10500,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location31256421.jpg",
+    "image": "//cdn.openagenda.com/dev/location31256421.jpg",
     "links": [],
     "access": {
       "fr": "Proximité immédiate voiture. Très bon accès individuel."
@@ -10532,7 +10532,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location33912208.jpg",
+    "image": "//cdn.openagenda.com/dev/location33912208.jpg",
     "access": {
       "fr": "Valence-> Vernoux-en-Vivarais"
     },
@@ -10567,7 +10567,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location37070812.jpg",
+    "image": "//cdn.openagenda.com/dev/location37070812.jpg",
     "links": [],
     "access": {},
     "city": "Saint-André-Lachamp",
@@ -10615,7 +10615,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location47338070.jpg",
+    "image": "//cdn.openagenda.com/dev/location47338070.jpg",
     "links": ["https://fr-fr.facebook.com/museealphonsedaudet"],
     "access": {
       "fr": "A Auriolles, tournez au camping \"Mas de Sartre\" et montez sur 1km."
@@ -10648,7 +10648,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location21886903.jpg",
+    "image": "//cdn.openagenda.com/dev/location21886903.jpg",
     "links": ["https://www.facebook.com/ardeche.espace.montagne?ref=hl"],
     "access": {
       "fr": "A 3 km du Mont Gerbier de Jonc, D122 - Entre Lachamp Raphael et Sainte-Eulalie"
@@ -10694,7 +10694,7 @@
     ],
     "website": "http://www.saint-joseph-roussas.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location16121842.jpg",
+    "image": "//cdn.openagenda.com/dev/location16121842.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T15:56:09.000Z",
@@ -10952,7 +10952,7 @@
     ],
     "website": "http://ardeche.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location90672504.jpg",
+    "image": "//cdn.openagenda.com/dev/location90672504.jpg",
     "links": ["http://www.facebook.com/cgardeche"],
     "access": {},
     "updatedAt": "2019-04-29T15:55:13.000Z",
@@ -11028,7 +11028,7 @@
     ],
     "website": "http://moulindemandy.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location61677505.jpg",
+    "image": "//cdn.openagenda.com/dev/location61677505.jpg",
     "links": [],
     "access": {
       "fr": "RD2",
@@ -11056,7 +11056,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location38494650.jpg",
+    "image": "//cdn.openagenda.com/dev/location38494650.jpg",
     "access": {
       "fr": "De Privas, prendre la direction Le Cheylard-Les Ollières. Au lieu-dit \"Le Moulin à Vent\" prendre à gauche direction St Julien du Gua - Pranles. Suivre \"Pranles\" . Après le groupe scolaire puis la mairie, prendre à droite."
     },
@@ -11089,7 +11089,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location71807649.jpg",
+    "image": "//cdn.openagenda.com/dev/location71807649.jpg",
     "access": {
       "fr": "Route 207 à partir de Lablachère et 250 à partir de Les Vans."
     },
@@ -11146,7 +11146,7 @@
     ],
     "website": "http://www.orgnac.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location87013600.jpg",
+    "image": "//cdn.openagenda.com/dev/location87013600.jpg",
     "links": ["http://www.facebook.com/avendorgnac"],
     "access": {
       "fr": "Parc de stationnement Autocar Gare desservie (Pierrelatte)",
@@ -11291,7 +11291,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location41208332.jpg",
+    "image": "//cdn.openagenda.com/dev/location41208332.jpg",
     "access": {
       "fr": "Sur la Nationale 102 de Montélimar à Aubenas"
     },
@@ -11387,7 +11387,7 @@
     ],
     "website": "http://www.rdegranit.com/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location84675936.jpg",
+    "image": "//cdn.openagenda.com/dev/location84675936.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T15:51:54.000Z",
@@ -11427,7 +11427,7 @@
     ],
     "website": "http://maisondugerboul-thines.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location71868052.jpg",
+    "image": "//cdn.openagenda.com/dev/location71868052.jpg",
     "links": [],
     "access": {
       "fr": "A pied depuis le parking situé à 800 m du village En voiture jusqu'à l'entrée du village, mais faire 1/2 tour pour garer le véhicule un peu plus bas le long de la route.",
@@ -11628,7 +11628,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location68272210.57990.jpg",
+    "image": "//cdn.openagenda.com/dev/location68272210.57990.jpg",
     "links": [],
     "access": {},
     "city": "Lagorce",
@@ -11706,7 +11706,7 @@
     ],
     "website": "http://www.parc-monts-ardeche.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location84804107.jpg",
+    "image": "//cdn.openagenda.com/dev/location84804107.jpg",
     "links": [],
     "access": {
       "fr": "Accès fléché dans le village, parking, chemin piéton sur 300 mètres."
@@ -11834,7 +11834,7 @@
     ],
     "website": "http://www.chateaudupin.org",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location63596368.jpg",
+    "image": "//cdn.openagenda.com/dev/location63596368.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T15:45:22.000Z",
@@ -11858,7 +11858,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location74199810.jpg",
+    "image": "//cdn.openagenda.com/dev/location74199810.jpg",
     "access": {
       "fr": "D533 puis D534"
     },
@@ -11890,7 +11890,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location72530911.jpg",
+    "image": "//cdn.openagenda.com/dev/location72530911.jpg",
     "access": {
       "fr": "D 534 - D 533"
     },
@@ -11929,7 +11929,7 @@
     ],
     "website": "http://www.desaignes.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location75514424.jpg",
+    "image": "//cdn.openagenda.com/dev/location75514424.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T15:44:36.000Z",
@@ -11951,7 +11951,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location285017.jpg",
+    "image": "//cdn.openagenda.com/dev/location285017.jpg",
     "access": null,
     "city": "Cros-de-Géorand",
     "updatedAt": "2019-04-29T15:44:10.000Z",
@@ -11979,7 +11979,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location89758967.jpg",
+    "image": "//cdn.openagenda.com/dev/location89758967.jpg",
     "access": null,
     "city": "Colombier-le-Vieux",
     "updatedAt": "2019-04-29T15:43:38.000Z",
@@ -12053,7 +12053,7 @@
     ],
     "website": "http://www.geneardeche.org/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location325946.jpg",
+    "image": "//cdn.openagenda.com/dev/location325946.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T15:42:52.000Z",
@@ -12130,7 +12130,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location6396618.jpg",
+    "image": "//cdn.openagenda.com/dev/location6396618.jpg",
     "access": {
       "fr": "Stationnement sur les quais du Rhône, au pied du Palais"
     },
@@ -12183,7 +12183,7 @@
     ],
     "website": "http://www.boucieuleroi.com",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location19258433.jpg",
+    "image": "//cdn.openagenda.com/dev/location19258433.jpg",
     "links": [],
     "access": {},
     "updatedAt": "2019-04-29T15:40:13.000Z",
@@ -12333,7 +12333,7 @@
     ],
     "website": "http://www.aubenas.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location1439855.jpg",
+    "image": "//cdn.openagenda.com/dev/location1439855.jpg",
     "links": [],
     "access": {
       "fr": "Accès piéton, ou navette gratuite centre historique. Nombre de visiteurs simultanés limité à 25 personnes.",
@@ -12403,7 +12403,7 @@
     "department": "Ardèche",
     "state": 1,
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location16378148.jpg",
+    "image": "//cdn.openagenda.com/dev/location16378148.jpg",
     "access": null,
     "city": "Arlebosc",
     "updatedAt": "2019-04-29T15:39:07.000Z",
@@ -12494,7 +12494,7 @@
     ],
     "website": "http://www.espaceduparchemin.fr",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location46797064.jpg",
+    "image": "//cdn.openagenda.com/dev/location46797064.jpg",
     "links": [],
     "access": {
       "fr": "Proche de la Gare Routière d'Annonay",
@@ -12695,7 +12695,7 @@
     ],
     "website": "http://www.chateaudalba.com/",
     "countryCode": "FR",
-    "image": "//cibuldev.s3.amazonaws.com/location36419450.jpg",
+    "image": "//cdn.openagenda.com/dev/location36419450.jpg",
     "links": [],
     "access": {
       "fr": "9 km après Le Teil, route d'Aubenas",

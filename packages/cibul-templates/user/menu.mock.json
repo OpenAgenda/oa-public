@@ -4,7 +4,7 @@
     "edited" : [
       {
         "url" : "/pepite",
-        "image" : "//cibul.s3.amazonaws.com/rwtbreview_pepite_00.jpg",
+        "image" : "//cdn.openagenda.com/main/rwtbreview_pepite_00.jpg",
         "title" : "L'agenda événementiel des Pôles étudiants pour l'innovation, le transfert, l'entrepreneuriat"
       },
       {
@@ -13,12 +13,12 @@
       },
       {
         "url" : "/enlarge-your-paris",
-        "image" : "//cibul.s3.amazonaws.com/rwtbreview_enlarge-your-paris_01.jpg",
+        "image" : "//cdn.openagenda.com/main/rwtbreview_enlarge-your-paris_01.jpg",
         "title" : "Enlarge your Paris"
       },
       {
         "url" : "/la-gargouille",
-        "image" : "//cibul.s3.amazonaws.com/rwtbreview_la-gargouille_00.jpg",
+        "image" : "//cdn.openagenda.com/main/rwtbreview_la-gargouille_00.jpg",
         "title" : "La Gargouille"
       }
     ]

@@ -119,8 +119,8 @@ export default async function rebuild(config, set, options = {}) {
       `indexed ${counts.updated + counts.created} events, ${counts.updated} updated, ${counts.created} created, ${counts.errored} errored`,
     );
   } catch (e) {
-    log('error', e);
     error = e;
+    log.error(e);
     operations.push('bulk operations failed');
   }
 
@@ -150,6 +150,8 @@ export default async function rebuild(config, set, options = {}) {
     .then((r) => r.body.deleted);
 
   operations.push(`deleted ${counts.deleted} events from previous builds`);
+
+  log('done', operations);
 
   return {
     operations,

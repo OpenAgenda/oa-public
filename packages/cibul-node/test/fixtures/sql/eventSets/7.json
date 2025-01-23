@@ -12,7 +12,7 @@
     "created_at": "2020-06-30 14:59:04",
     "updated_at": "2020-06-30 14:59:04",
     "uid": "83829660",
-    "store": "{\"images\":{\"filename\":\"d2615c754f194ed5b7661486ac4b2caa.base.image.jpg\",\"size\":{\"width\":700,\"height\":700},\"variants\":[{\"filename\":\"d2615c754f194ed5b7661486ac4b2caa.full.image.jpg\",\"type\":\"full\",\"size\":{\"width\":3024,\"height\":3024}},{\"filename\":\"d2615c754f194ed5b7661486ac4b2caa.thumb.image.jpg\",\"type\":\"thumbnail\",\"size\":{\"width\":200,\"height\":200}}],\"credits\":\"Marion Duhamel\",\"base\":\"https://cibul.s3.amazonaws.com/\"},\"links\":[]}",
+    "store": "{\"images\":{\"filename\":\"d2615c754f194ed5b7661486ac4b2caa.base.image.jpg\",\"size\":{\"width\":700,\"height\":700},\"variants\":[{\"filename\":\"d2615c754f194ed5b7661486ac4b2caa.full.image.jpg\",\"type\":\"full\",\"size\":{\"width\":3024,\"height\":3024}},{\"filename\":\"d2615c754f194ed5b7661486ac4b2caa.thumb.image.jpg\",\"type\":\"thumbnail\",\"size\":{\"width\":200,\"height\":200}}],\"credits\":\"Marion Duhamel\",\"base\":\"https://cdn.openagenda.com/main/\"},\"links\":[]}",
     "eve_id": null,
     "custom_fields": "{\"creditsimage\":\"Marion Duhamel\"}",
     "age_min": "0",

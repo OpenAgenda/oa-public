@@ -65,7 +65,7 @@ const eventFormConfig = {
   tiles: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
   fileStore: {
     type: 's3',
-    bucket: 'oadev',
+    bucket: 'main',
   },
   locationRes: '/locations',
   lang: 'fr',

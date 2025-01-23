@@ -31,6 +31,7 @@ const getDefaultState = ({ apiRoot, context, res } = {}) => ({
       create: '/user/conversations/:conversationId/messages',
       prepareAttachment:
         '/user/conversations/:conversationId/prepare-attachment',
+      uploadAttachment: '/user/conversations/:conversationId/upload-attachment',
       addAttachment: '/user/conversations/:conversationId/add-attachment',
     },
     ...res ?? {},

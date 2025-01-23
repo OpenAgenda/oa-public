@@ -19,14 +19,15 @@ export default {
   },
   Files: Files({
     s3: {
-      accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
-      region: process.env.AWS_DEV_REGION,
-      defaultBucket: process.env.AWS_DEV_BUCKET,
+      endpoint: process.env.S3_DEV_ENDPOINT,
+      accessKeyId: process.env.S3_DEV_ACCESS_KEY_ID,
+      secretAccessKey: process.env.S3_DEV_SECRET_ACCESS_KEY,
+      region: process.env.S3_DEV_REGION,
+      defaultBucket: process.env.S3_DEV_BUCKET,
     },
     defaultProvider: 's3',
   }),
-  imagePath: '//openagendatest.s3.amazonaws.com/',
+  imagePath: '//cdn.openagenda.com/dev/',
   debug: true,
   redis: {
     connection: {

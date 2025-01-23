@@ -4,7 +4,7 @@ export default {
   _,
   root: 'https://d.openagenda.com',
   logo: {
-    src: 'https://cibuldev.s3.amazonaws.com/rwtbagenda43032271.jpg',
+    src: 'https://cdn.openagenda.com/dev/rwtbagenda43032271.jpg',
     width: '100px',
   },
   agendaTitle: 'Sorties Grand Verdun',
@@ -15,7 +15,7 @@ export default {
     longDescription:
       "Ces apéros ont pour objectif de réunir la communauté des jeunes entrepreneurs, porteurs de projet, mentors et partenaires du Moovjee. Ces bulles estivales sont placées sous les signes de la convivialité et de l'échange.\nDes tarifs spéciaux spécial Moovjee seront proposés.",
     image:
-      'http://cibul.s3.amazonaws.com/evfevent_apero-moovjee-ca-continue_978399.jpg',
+      'https://cdn.openagenda.com/main/evfevent_apero-moovjee-ca-continue_978399.jpg',
     credits: '© Jean-Momo',
     conditions: 'Gratuit pour les enfants',
     ticketLink: 'https://google.fr',

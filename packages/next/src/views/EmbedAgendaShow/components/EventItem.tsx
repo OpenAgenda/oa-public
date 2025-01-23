@@ -10,8 +10,8 @@ import { useEmbedLayoutData } from 'components/EmbedLayout';
 import useLocationQuery from 'hooks/useLocationQuery';
 import { thumborLoader } from 'utils/imageLoader';
 
-const AWS_BUCKET = process.env.NEXT_PUBLIC_AWS_BUCKET;
-const DEV_AWS_BUCKET = process.env.NEXT_PUBLIC_DEV_AWS_BUCKET;
+const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
+const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 
 function isValidUrl(url: string) {
   try {
@@ -59,20 +59,20 @@ export default function EventItem({
 
   const query = useLocationQuery();
 
-  const { baseUrl, primaryColor, imageList } = useEmbedLayoutData();
-
-  const upcomingOnly = !query.timings && query.passed !== '1';
+  const { baseUrl, primaryColor, imageList, sort } = useEmbedLayoutData();
 
   const nc = useMemo(
     () => ({
       ...query,
-      sort: query.search?.length ? 'score' : 'lastTimingWithFeatured.asc',
+      sort: query.search?.length
+        ? 'score'
+        : sort || 'lastTimingWithFeatured.asc',
       passed: undefined,
       from,
       first: first || undefined,
       last: last || undefined,
     }),
-    [first, from, last, query, upcomingOnly],
+    [first, from, last, query],
   );
 
   const eventLink = useEventLink({ baseUrl, agenda, event, nc });
@@ -95,12 +95,12 @@ export default function EventItem({
             alt=""
             src={
               process.env.NODE_ENV === 'development'
-                ? `${DEV_AWS_BUCKET}/${event.image.filename}`
-                : `${AWS_BUCKET}/${event.image.filename}`
+                ? `${DEV_S3_BUCKET}/${event.image.filename}`
+                : `${S3_BUCKET}/${event.image.filename}`
             }
             fallbackSrc={
               process.env.NODE_ENV === 'development'
-                ? `${AWS_BUCKET}/${event.image.filename}`
+                ? `${S3_BUCKET}/${event.image.filename}`
                 : undefined
             }
             loader={thumborLoader}

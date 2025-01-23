@@ -6,7 +6,7 @@ export default (Story) => (
           <div className="col col-sm-2">
             <a className="agenda-logo" href="/">
               <img
-                src="https://cibul.s3.amazonaws.com/agenda89904399.jpg"
+                src="https://cdn.openagenda.com/main/agenda89904399.jpg"
                 alt="Métropole Européenne de Lille"
               />
             </a>

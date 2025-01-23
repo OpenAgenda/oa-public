@@ -32,7 +32,7 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     svc = Service({
       knex: f.client,
       Files: Files(dConfig.files),
-      imagePath: '//cibuldev.s3.amazonaws.com/',
+      imagePath: '//cdn.openagenda.com/dev/',
       interfaces: {
         getAgendaDetailsByUid,
       },

@@ -21,7 +21,7 @@ export default async function makeConfig(c) {
     'queue',
     'defaultImagePath',
     'domain',
-    'aws',
+    's3',
     'mw',
     'uppyCompanion',
   ]);

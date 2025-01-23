@@ -3,5 +3,5 @@ export default (config) => {
     throw new Error(`unknown store type: ${config?.type}`);
   }
 
-  return `//${config.bucket}.s3.amazonaws.com`;
+  return `https://cdn.openagenda.com/${config.bucket}`;
 };

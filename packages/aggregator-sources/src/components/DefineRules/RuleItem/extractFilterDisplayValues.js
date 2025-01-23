@@ -114,7 +114,7 @@ const locationFilter = ({ intl, rule }) => {
     detail: intl.formatMessage(messages.eventLocationDetail, {
       geo: intl.formatMessage(messages[locationType]),
     }),
-    casse: rule.query.location?.caseSensitive,
+    caseSensitive: rule.query.location?.caseSensitive,
   };
 };
 
@@ -138,7 +138,7 @@ const textFilter = ({ intl, rule, sourceAgendaSchema = { fields: [] } }) => {
   return {
     label,
     value,
-    casse: rule.query.text?.caseSensitive,
+    caseSensitive: rule.query.text?.caseSensitive,
   };
 };
 

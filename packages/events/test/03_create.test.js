@@ -135,7 +135,7 @@ describe('events - functional - create', () => {
       });
 
       expect(
-        await fetch(`https:${config.imagePath}${created.image.filename}`, {
+        await fetch(`${config.imagePath}${created.image.filename}`, {
           method: 'HEAD',
         }).then((r) => r.status),
       ).toBe(200);
@@ -190,7 +190,7 @@ describe('events - functional - create', () => {
       });
 
       const response = await fetch(
-        `https:${config.imagePath}${event.image.filename}`,
+        `${config.imagePath}${event.image.filename}`,
         {
           method: 'HEAD',
         },

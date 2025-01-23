@@ -89,11 +89,15 @@ const config = async () => {
         remotePatterns: [
           {
             protocol: 'https',
-            hostname: 'cibul.s3.amazonaws.com',
+            hostname: 'img.openagenda.com',
           },
           {
             protocol: 'https',
-            hostname: 'images.openagenda.com',
+            hostname: 'cdn.openagenda.com',
+          },
+          {
+            protocol: 'https',
+            hostname: 'cibul.s3.amazonaws.com',
           },
         ].concat(
           NODE_ENV !== 'production'
@@ -101,10 +105,6 @@ const config = async () => {
                 {
                   protocol: 'https',
                   hostname: 'cibuldev.s3.amazonaws.com',
-                },
-                {
-                  protocol: 'https',
-                  hostname: 'imagesdev-1cb1b.kxcdn.com',
                 },
               ]
             : [],

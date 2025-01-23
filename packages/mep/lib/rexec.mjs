@@ -1,23 +1,46 @@
 import { Client } from 'ssh2';
 import fs from 'fs';
 
+function processStream(stream, prefix, writer) {
+  let buffer = '';
+
+  stream.on('data', (data) => {
+    buffer += data.toString();
+
+    const lines = buffer.split('\n');
+    buffer = lines.pop();
+    lines.forEach((line) => writer(prefix + line + '\n'));
+  });
+
+  stream.on('end', () => {
+    if (buffer) {
+      writer(prefix + buffer + '\n');
+    }
+  });
+}
+
 async function runCommand(conn, command) {
-  return new Promise((rs, rj) => {
+  return new Promise((resolve, reject) => {
     console.log(' %s', command);
+
     conn.exec(command, (err, stream) => {
-      stream
-        .on('close', (code, signal) => {
-          rs();
-        })
-        .on('data', (data) => {
-          console.log('  > ' + data);
-        })
-        .stderr.on('data', (data) => {
-          console.log('  error> ' + data);
-        });
+      if (err) return reject(err);
+
+      processStream(stream, '  > ', process.stdout.write.bind(process.stdout));
+
+      processStream(
+        stream.stderr,
+        '  error> ',
+        process.stderr.write.bind(process.stderr)
+      );
+
+      stream.on('close', (code, signal) => {
+        resolve();
+      });
     });
   });
 }
+
 
 export default async function rexec(
   nodes,

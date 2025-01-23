@@ -18,7 +18,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -77,7 +77,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -139,7 +139,7 @@
         "en": ["key", "word"]
       },
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -201,7 +201,7 @@
         "en": ["other", "keyword"]
       },
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -262,7 +262,7 @@
         "fr": ["local_time"]
       },
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -319,7 +319,7 @@
         "fr": ["local_time"]
       },
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -377,7 +377,7 @@
         "en": ["toasty", "psycho"]
       },
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -439,7 +439,7 @@
         "en": ["scorbut", "ear"]
       },
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -501,7 +501,7 @@
         "en": ["freckles", "mississipi chose"]
       },
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,
@@ -560,7 +560,7 @@
       },
       "keywords": {},
       "image": {
-        "base": "//openagendatest.s3.amazonaws.com/"
+        "base": "//cdn.openagenda.com/dev/"
       },
       "draft": 0,
       "private": 0,

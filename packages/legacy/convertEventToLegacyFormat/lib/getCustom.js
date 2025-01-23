@@ -1,5 +1,5 @@
 const formatImageLink = ({ filename }) =>
-  `https://cibuldev.s3.amazonaws.com/${filename}`;
+  `https://cdn.openagenda.com/dev/${filename}`;
 
 const isRestricted = ({ read }) => (read ?? []).length;
 

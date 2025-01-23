@@ -19,7 +19,11 @@ export default function AgendasList({
             <a href={getTitleLink(agenda)}>
               <Image
                 src={agenda.image}
-                fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
+                fallbackSrc={
+                  process.env.NODE_ENV === 'development'
+                    ? agenda.image.replace('dev', 'main')
+                    : null
+                }
                 className="media-object ill avatar"
                 alt={agenda.title}
               />

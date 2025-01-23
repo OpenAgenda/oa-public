@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_components_illustrations",
+  "info": {
+    "displayName": "Illustration",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images", "files"]
+    },
+    "borderRadius": {
+      "type": "enumeration",
+      "enum": ["undefined", "full"]
+    },
+    "width": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
+    }
+  }
+}

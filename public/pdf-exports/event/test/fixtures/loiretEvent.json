@@ -14,12 +14,7 @@
   "featured": false,
   "private": 0,
   "keywords": {
-    "fr": [
-      "comédie",
-      "théâtre",
-      "humour",
-      "couple"
-    ]
+    "fr": ["comédie", "théâtre", "humour", "couple"]
   },
   "accessibility": {
     "ii": false,
@@ -40,7 +35,7 @@
   "imageCredits": "Caroline LAPIS",
   "originAgenda": {
     "uid": 89287255,
-    "image": "https://cibul.s3.amazonaws.com/agenda89287255.jpg?__ts=1690358352183",
+    "image": "https://cdn.openagenda.com/main/agenda89287255.jpg?__ts=1690358352183",
     "description": "La programmation culturelle du Loiret",
     "title": "Agenda des sorties En scène !",
     "slug": "loiret-en-scene",
@@ -153,7 +148,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://cibul.s3.amazonaws.com/"
+    "base": "https://cdn.openagenda.com/main/"
   },
   "attendanceMode": 1,
   "sourceAgendas": [],
@@ -208,7 +203,7 @@
     "email": "museebeauxarts@ville-tourcoing.fr",
     "longitude": 2.595401,
     "updatedAt": "2024-07-05T15:20:53.000Z",
-    "image": "https://cibul.s3.amazonaws.com/location68051215.jpg",
+    "image": "https://cdn.openagenda.com/main/location68051215.jpg",
     "website": null,
     "address": "2 rue Paul Doumer 59200 Tourcoing",
     "adminLevel3": "Communauté de communes des Quatre Vallées",
@@ -243,15 +238,9 @@
     "max": null
   },
   "status": 1,
-  "categorie-principale": [
-    7, 10
-  ],
-  "label": [
-    7
-  ],
-  "type": [
-    0
-  ],
+  "categorie-principale": [7, 10],
+  "label": [7],
+  "type": [0],
   "nextTiming": {
     "begin": "2024-09-29T14:00:00+02:00",
     "end": "2024-09-29T16:00:00+02:00"

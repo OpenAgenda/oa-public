@@ -12,8 +12,10 @@ function addV4Tracker(googleAnalyticsID: string) {
   previousScript.parentNode.insertBefore(el, previousScript);
 
   window.dataLayer = window.dataLayer || [];
-  function gtag(...args: any[]) {
-    window.dataLayer.push(args);
+  function gtag(..._args: any[]) {
+    // gtag **NEED** arguments
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer.push(arguments);
   }
   gtag('js', new Date());
   gtag('config', googleAnalyticsID);

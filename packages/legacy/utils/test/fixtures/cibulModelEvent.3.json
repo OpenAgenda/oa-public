@@ -5,7 +5,7 @@
   "createdAt": "2020-08-06T07:12:35.000Z",
   "updatedAt": "2020-08-06T07:12:35.000Z",
   "uid": 10677601,
-  "store": "{\"images\":{\"filename\":\"387d15b964454f11b04a761d6c2d6177.base.image.jpg\",\"size\":{\"width\":700,\"height\":467},\"variants\":[{\"filename\":\"387d15b964454f11b04a761d6c2d6177.full.image.jpg\",\"type\":\"full\",\"size\":{\"width\":4320,\"height\":2880}},{\"filename\":\"387d15b964454f11b04a761d6c2d6177.thumb.image.jpg\",\"type\":\"thumbnail\",\"size\":{\"width\":200,\"height\":200}}],\"credits\":\"Gesset  Bernard\",\"base\":\"https://cibul.s3.amazonaws.com/\"},\"links\":[]}",
+  "store": "{\"images\":{\"filename\":\"387d15b964454f11b04a761d6c2d6177.base.image.jpg\",\"size\":{\"width\":700,\"height\":467},\"variants\":[{\"filename\":\"387d15b964454f11b04a761d6c2d6177.full.image.jpg\",\"type\":\"full\",\"size\":{\"width\":4320,\"height\":2880}},{\"filename\":\"387d15b964454f11b04a761d6c2d6177.thumb.image.jpg\",\"type\":\"thumbnail\",\"size\":{\"width\":200,\"height\":200}}],\"credits\":\"Gesset  Bernard\",\"base\":\"https://cdn.openagenda.com/main/\"},\"links\":[]}",
   "title": {
     "fr": "FOUR A CHAUX DE VENESMES 18190 LIEU DIT ECLENEUIL"
   },
@@ -21,10 +21,7 @@
     "min": 5,
     "max": 99
   },
-  "accessibility": [
-    "mi",
-    "pi"
-  ],
+  "accessibility": ["mi", "pi"],
   "locations": [
     {
       "id": 973912,

@@ -92,7 +92,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -256,7 +256,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -415,7 +415,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -576,7 +576,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -736,7 +736,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -904,7 +904,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -1071,7 +1071,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -1241,7 +1241,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -1406,7 +1406,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -1572,7 +1572,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -1733,7 +1733,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -1903,7 +1903,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -2074,7 +2074,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -2245,7 +2245,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -2413,7 +2413,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -2584,7 +2584,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -2742,7 +2742,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -2900,7 +2900,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -3058,7 +3058,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -3206,7 +3206,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -3354,7 +3354,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -3502,7 +3502,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -3650,7 +3650,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -3798,7 +3798,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -3946,7 +3946,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -4094,7 +4094,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -4302,7 +4302,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -4538,7 +4538,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -4686,7 +4686,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -4832,7 +4832,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -4980,7 +4980,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -5128,7 +5128,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -5276,7 +5276,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -5424,7 +5424,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -5572,7 +5572,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -5720,7 +5720,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -5961,7 +5961,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -6109,7 +6109,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -6257,7 +6257,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -6405,7 +6405,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -6553,7 +6553,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -6733,7 +6733,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -6881,7 +6881,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -7029,7 +7029,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -7184,7 +7184,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -7332,7 +7332,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -7480,7 +7480,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -7628,7 +7628,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -7776,7 +7776,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -7924,7 +7924,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -8072,7 +8072,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -8237,7 +8237,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -8390,7 +8390,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -8538,7 +8538,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -8701,7 +8701,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -8849,7 +8849,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -8995,7 +8995,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -9141,7 +9141,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -9287,7 +9287,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -9435,7 +9435,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -9592,7 +9592,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -9740,7 +9740,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -9892,7 +9892,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -10045,7 +10045,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -10202,7 +10202,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -10350,7 +10350,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -10507,7 +10507,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -10667,7 +10667,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -11035,7 +11035,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -11166,7 +11166,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -11314,7 +11314,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -11445,7 +11445,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -11576,7 +11576,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -11724,7 +11724,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -11872,7 +11872,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -12003,7 +12003,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -12134,7 +12134,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -12263,7 +12263,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -12411,7 +12411,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -12699,7 +12699,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -12847,7 +12847,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -12978,7 +12978,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -13107,7 +13107,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -13255,7 +13255,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -13403,7 +13403,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -13551,7 +13551,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -13699,7 +13699,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -13845,7 +13845,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -13993,7 +13993,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -14150,7 +14150,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -14298,7 +14298,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -14446,7 +14446,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -14594,7 +14594,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -14742,7 +14742,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -14926,7 +14926,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -15074,7 +15074,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -15222,7 +15222,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -15370,7 +15370,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -15518,7 +15518,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -15670,7 +15670,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -15818,7 +15818,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -15966,7 +15966,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -16114,7 +16114,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -16262,7 +16262,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -16410,7 +16410,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -16562,7 +16562,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -16710,7 +16710,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -16858,7 +16858,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -17006,7 +17006,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -17154,7 +17154,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -17302,7 +17302,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -17450,7 +17450,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -17598,7 +17598,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -17746,7 +17746,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -17892,7 +17892,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -18044,7 +18044,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -18192,7 +18192,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -18340,7 +18340,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -18488,7 +18488,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -18640,7 +18640,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -18788,7 +18788,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -18940,7 +18940,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -19198,7 +19198,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -19510,7 +19510,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -19664,7 +19664,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -19928,7 +19928,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -20085,7 +20085,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -20242,7 +20242,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -20399,7 +20399,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -20556,7 +20556,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -20709,7 +20709,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -20862,7 +20862,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -21019,7 +21019,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -21167,7 +21167,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -21298,7 +21298,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -21451,7 +21451,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -21599,7 +21599,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -21747,7 +21747,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -21895,7 +21895,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -22026,7 +22026,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -22182,7 +22182,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -22335,7 +22335,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -22483,7 +22483,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -22631,7 +22631,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -22907,7 +22907,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -23055,7 +23055,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -23240,7 +23240,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -23388,7 +23388,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -23519,7 +23519,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -23676,7 +23676,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -23833,7 +23833,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -23986,7 +23986,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -24143,7 +24143,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -24296,7 +24296,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -24597,7 +24597,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -24754,7 +24754,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -24900,7 +24900,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -25046,7 +25046,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -25192,7 +25192,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -25345,7 +25345,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -25493,7 +25493,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -25641,7 +25641,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -25789,7 +25789,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -25937,7 +25937,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -26090,7 +26090,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -26377,7 +26377,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -26523,7 +26523,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -26671,7 +26671,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -26819,7 +26819,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -26972,7 +26972,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -27120,7 +27120,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -27277,7 +27277,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -27430,7 +27430,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -27578,7 +27578,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -27726,7 +27726,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -27874,7 +27874,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -28027,7 +28027,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -28170,7 +28170,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -28318,7 +28318,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -28475,7 +28475,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -28632,7 +28632,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -28784,7 +28784,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -28925,7 +28925,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -29071,7 +29071,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -29328,7 +29328,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -29485,7 +29485,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -29638,7 +29638,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -29786,7 +29786,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -29938,7 +29938,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -30078,7 +30078,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -30226,7 +30226,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -30374,7 +30374,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -30505,7 +30505,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -30653,7 +30653,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -30784,7 +30784,7 @@
         "height": null
       },
       "variants": [],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -31016,7 +31016,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -31169,7 +31169,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -31317,7 +31317,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -31470,7 +31470,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -31623,7 +31623,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -31776,7 +31776,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -32074,7 +32074,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -32227,7 +32227,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -32380,7 +32380,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],
@@ -32533,7 +32533,7 @@
           "type": "thumbnail"
         }
       ],
-      "base": "https://cibuldev.s3.amazonaws.com/"
+      "base": "https://cdn.openagenda.com/dev/"
     },
     "attendanceMode": 1,
     "sourceAgendas": [],

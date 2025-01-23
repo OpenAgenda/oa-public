@@ -120,7 +120,7 @@ describe('agendas - functional (server): set (update)', () => {
     );
 
     expect(result.agenda.image).toBe(
-      '//openagendatest.s3.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
+      'https://cdn.openagenda.com/dev/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
     );
   });
 

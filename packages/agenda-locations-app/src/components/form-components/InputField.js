@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+const handleClassName = (enabled, className = '') => {
+  if (enabled) {
+    return `form-group ${className}`;
+  }
+  return `form-group ${className} disabled`;
+};
 
 const InputField = ({
   lang,
   name,
+  required,
   getLabel,
   onChange,
   validator,
@@ -10,15 +18,36 @@ const InputField = ({
   type,
   renderButton,
   enabled,
-  groupClassName,
+  groupClassName = '',
   className,
   value,
   info,
   onKeyDown = () => {},
 }) => {
   const [userHasTyped, setUserHasTyped] = useState(false);
-  let classNameBis = enabled ? 'form-group' : 'form-group disabled';
-  if (groupClassName) classNameBis += ` ${groupClassName}`;
+  const [validateErrors, setValidateErrors] = useState(false);
+
+  const [classNameBis, setClassNameBis] = useState(
+    handleClassName(enabled, groupClassName),
+  );
+
+  useEffect(() => {
+    setClassNameBis(handleClassName(enabled, groupClassName));
+    setValidateErrors(false);
+    if (!validator || !userHasTyped) return;
+
+    try {
+      validator(value);
+    } catch (errors) {
+      setValidateErrors(errors);
+      setClassNameBis(`${handleClassName(enabled, groupClassName)} has-error`);
+      return;
+    }
+    setClassNameBis(
+      handleClassName(enabled, groupClassName.replace('has-error', '')),
+    );
+    setValidateErrors(false);
+  }, [value, validator, userHasTyped, enabled, groupClassName]);
 
   const myOnChange = (e) => {
     if (!enabled) return;
@@ -34,30 +63,21 @@ const InputField = ({
     return null;
   };
 
-  const renderErrors = () => {
-    if (!validator) return null;
-
-    if ((!value || !value.length) && !userHasTyped) return null;
-
-    try {
-      validator(value);
-    } catch (errors) {
-      return (
-        <p>
-          {errors.map((error) => (
-            <span key={error.code} className="error">
-              {myGetLabel(error.code, error.values) || 'error'}
-            </span>
-          ))}
-        </p>
-      );
-    }
-    return null;
-  };
+  const renderErrors = (errors) => (
+    <p>
+      {errors.map((error) => (
+        <span key={error.code} className="error">
+          {myGetLabel(error.code, error.values) || 'error'}
+        </span>
+      ))}
+    </p>
+  );
 
   return (
     <div className={classNameBis}>
-      <label htmlFor="label">{myGetLabel(name)}</label>
+      <label htmlFor="label" className="control-label">
+        {`${myGetLabel(name)} ${required ? myGetLabel('requiredField') : ''}`}
+      </label>
       {info && myGetLabel(info) ? <div>{myGetLabel(info)}</div> : null}
       <div className={className || ''}>
         {type !== 'textarea' ? (
@@ -81,7 +101,7 @@ const InputField = ({
         )}
         {renderButton ? renderButton() : ''}
       </div>
-      {renderErrors()}
+      {validateErrors ? renderErrors(validateErrors) : null}
     </div>
   );
 };

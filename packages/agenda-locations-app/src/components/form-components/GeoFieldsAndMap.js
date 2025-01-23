@@ -149,6 +149,7 @@ const GeoFieldsAndMap = ({
 
       if (!data.results[0]) {
         setGeocodeNoResults(true);
+        if (setDisabled) setDisabled(true);
         return;
       }
 
@@ -174,6 +175,7 @@ const GeoFieldsAndMap = ({
       }
       setGeocodeNoResults(false);
       setGeocodeLoading(false);
+      if (setDisabled) setDisabled(false);
     } catch (err) {
       setGeocodeError(err);
     }
@@ -258,6 +260,7 @@ const GeoFieldsAndMap = ({
       <InputField
         name="address"
         enabled
+        required
         value={location?.address || ''}
         info="addressInfo"
         placeholder="addressPlaceholder"

@@ -26,7 +26,7 @@ function query(sql, dirtyArgs = [], cb = () => {}) {
 }
 
 export default Model(config.db, {
-  imagePath: config.aws.imageBucketPath,
+  imagePath: config.s3.mainBucketPath,
   cache,
   query,
 });

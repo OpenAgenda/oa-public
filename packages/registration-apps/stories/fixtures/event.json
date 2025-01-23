@@ -92,7 +92,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://cibul.s3.amazonaws.com/"
+    "base": "https://cdn.openagenda.com/main/"
   },
   "attendanceMode": 1,
   "sourceAgendas": [
@@ -144,7 +144,7 @@
     "email": null,
     "longitude": 3.069793,
     "updatedAt": "2023-03-15T09:24:58.000Z",
-    "image": "https://cibul.s3.amazonaws.com/location10703365.jpg?_ts=1678872211639",
+    "image": "https://cdn.openagenda.com/main/location10703365.jpg?_ts=1678872211639",
     "website": "",
     "address": "17 bd Jean Baptiste Lebas",
     "adminLevel3": "Métropole Européenne de Lille",

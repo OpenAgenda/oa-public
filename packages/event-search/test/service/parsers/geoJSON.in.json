@@ -28,7 +28,7 @@
             "type": "thumbnail"
           }
         ],
-        "base": "https://cibuldev.s3.amazonaws.com/"
+        "base": "https://cdn.openagenda.com/dev/"
       },
       "contributor": {
         "organization": "Association Culture & Patrimoine à Mouzieys Panens"

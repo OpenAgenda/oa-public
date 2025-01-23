@@ -68,11 +68,19 @@
       "country": {
         "type": "keyword"
       },
-      "extId": {
-        "type": "keyword"
-      },
       "_agg": {
         "type": "keyword"
+      },
+      "extIds": {
+        "type": "nested",
+        "properties": {
+          "key": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        }
       }
     }
   },

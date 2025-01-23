@@ -20,7 +20,7 @@ describe('agenda-locations - functional - get', () => {
     svc = Service({
       knex: f.client,
       Files: Files(dConfig.files),
-      imagePath: '//cibuldev.s3.amazonaws.com/',
+      imagePath: '//cdn.openagenda.com/dev/',
       interfaces: {
         getAgendaDetailsByUid: async (uid, fields = []) =>
           _.pick(
@@ -154,9 +154,13 @@ describe('agenda-locations - functional - get', () => {
       expect(Object.keys(location)).toStrictEqual(['name']);
     });
 
-    it('location can be fetched by its extId', async () => {
-      const location = await svc.get({ extId: 'ard_01' });
-      expect(location.uid).toBe(30433085);
+    it('location can be fetched by its extIds', async () => {
+      const locationByUid = await svc.get({ uid: 7630653 });
+      const location = await svc.get({
+        extId: { key: 'default', value: '1234' },
+      });
+      expect(locationByUid.uid).toBe(7630653);
+      expect(location.uid).toBe(7630653);
     });
 
     it('location can be fetched by its slug', async () => {
@@ -206,12 +210,6 @@ describe('agenda-locations - functional - get', () => {
       });
 
       expect(image).toBe(null);
-    });
-
-    it('if extId is stored in store, it is loaded', async () => {
-      const { extId } = await svc.get(87202261);
-
-      expect(extId).toBe('ard_leg_01');
     });
 
     it('agenda identifiers must be provided when agenda endpoint is used', async () => {
