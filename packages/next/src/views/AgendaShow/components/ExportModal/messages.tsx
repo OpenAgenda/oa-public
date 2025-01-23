@@ -76,9 +76,17 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.filterSelectPlaceholder',
     defaultMessage: 'One or more filters',
   },
+  sortableSelectPlaceholder: {
+    id: 'next.views.AgendaShow.ExportModal.sortableSelectPlaceholder',
+    defaultMessage: 'One or more options',
+  },
   filterSelectSub: {
     id: 'next.views.AgendaShow.ExportModal.filterSelectSub',
     defaultMessage: 'Drag and drop filters to adjust order',
+  },
+  optionSelectSub: {
+    id: 'next.views.AgendaShow.ExportModal.optionSelectSub',
+    defaultMessage: 'Drag and drop options to adjust order',
   },
   // Spreadsheets
   spreadsheetTitle: {
@@ -140,17 +148,41 @@ export default defineMessages({
     defaultMessage: 'Paste the URL you copied in step 1. Select "Import".',
   },
   // PDF
+  multipleLocations: {
+    id: 'next.views.AgendaShow.ExportModal.multipleLocations',
+    defaultMessage: 'Agenda with multiple locations',
+  },
+  singleLocation: {
+    id: 'next.views.AgendaShow.ExportModal.singleLocation',
+    defaultMessage: 'Agenda with single location',
+  },
   default: {
     id: 'next.views.AgendaShow.ExportModal.default',
     defaultMessage: 'By default',
   },
+  highlightLocationName: {
+    id: 'next.views.AgendaShow.ExportModal.highlightLocationName',
+    defaultMessage: 'Highlight the location',
+  },
+  sectioning: {
+    id: 'next.views.AgendaShow.ExportModal.sectioning',
+    defaultMessage: 'Add sectioning',
+  },
+  region: {
+    id: 'next.views.AgendaShow.ExportModal.region',
+    defaultMessage: 'Region',
+  },
+  department: {
+    id: 'next.views.AgendaShow.ExportModal.department',
+    defaultMessage: 'Department',
+  },
   city: {
     id: 'next.views.AgendaShow.ExportModal.city',
-    defaultMessage: 'Highlight the city',
+    defaultMessage: 'City',
   },
-  locationName: {
-    id: 'next.views.AgendaShow.ExportModal.locationName',
-    defaultMessage: 'Highlight the location',
+  location: {
+    id: 'next.views.AgendaShow.ExportModal.location',
+    defaultMessage: 'Location',
   },
   showFilters: {
     id: 'next.views.AgendaShow.ExportModal.showFilters',

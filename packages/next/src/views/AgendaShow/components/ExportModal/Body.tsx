@@ -147,8 +147,13 @@ export default function Body({ agenda, onClose, defaultIndex }) {
 
     if (type === 'pdf') {
       exportUrl = new URL(res.export.pdf);
-      if (options.mode !== 'default') {
+      if (options.mode !== 'default' && options.mode !== 'sectioning') {
         exportUrl.searchParams.append('mode', options.mode);
+      }
+      if (options.selectedOptions) {
+        options.selectedOptions.map(option => {
+          exportUrl.searchParams.append('sort[]', option);
+        });
       }
     }
 
