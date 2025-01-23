@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default async function urlToBuffer(url, replacementImage) {
   try {
-    const image = await axios.get(url.replace('cibuldev', 'cibul'), {
+    const image = await axios.get(url.replace('dev', 'main'), {
       responseType: 'arraybuffer',
     });
     const buffer = Buffer.from(image.data, 'base64');

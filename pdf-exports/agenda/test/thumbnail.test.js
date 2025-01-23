@@ -22,7 +22,7 @@ const eventImage = {
         type: 'thumbnail',
       },
     ],
-    base: 'https://cibul.s3.amazonaws.com/',
+    base: 'https://cdn.openagenda.com/main/',
   },
 };
 

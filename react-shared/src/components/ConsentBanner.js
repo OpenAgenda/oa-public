@@ -1,5 +1,7 @@
-import CookieConsent from 'react-cookie-consent';
+import CookieConsentModule from 'react-cookie-consent';
 import { defineMessages, useIntl } from 'react-intl';
+
+const CookieConsent = CookieConsentModule.default || CookieConsentModule;
 
 const messages = defineMessages({
   informationText: {

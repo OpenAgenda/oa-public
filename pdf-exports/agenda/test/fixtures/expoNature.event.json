@@ -24,7 +24,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://cibul.s3.amazonaws.com/"
+    "base": "https://cdn.openagenda.com/main/"
   },
   "accessibility": {
     "ii": true,
@@ -81,7 +81,7 @@
     "email": "museebeauxarts@ville-tourcoing.fr",
     "longitude": 3.161972,
     "updatedAt": "2021-07-16T22:40:07.000Z",
-    "image": "https://cibul.s3.amazonaws.com/location68051215.jpg",
+    "image": "https://cdn.openagenda.com/main/location68051215.jpg",
     "website": "http://www.muba-tourcoing.fr/",
     "address": "2 rue Paul Doumer 59200 Tourcoing",
     "adminLevel3": "Métropole Européenne de Lille",

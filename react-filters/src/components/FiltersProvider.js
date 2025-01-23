@@ -7,7 +7,7 @@ import React, {
   useRef,
 } from 'react';
 import { Form, FormSpy } from 'react-final-form';
-import { useConstant } from '@openagenda/react-shared';
+import useConstant from '@openagenda/react-shared/dist/hooks/useConstant.js';
 import { createForm } from 'final-form';
 import { RawIntlProvider, useIntl } from 'react-intl';
 import filtersToAggregations from '../utils/filtersToAggregations.js';

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import cn from 'classnames';
-import { a11yButtonActionHandler } from '@openagenda/react-shared';
+import a11yButtonActionHandler from '@openagenda/react-shared/dist/utils/a11yButtonActionHandler.js';
 
 export default function Panel({
   collapsed = true,

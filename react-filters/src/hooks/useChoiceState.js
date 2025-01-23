@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useIsomorphicLayoutEffect, usePrevious } from 'react-use';
 import { useIntl } from 'react-intl';
 import Fuse from 'fuse.js';
-import { useConstant } from '@openagenda/react-shared';
+import useConstant from '@openagenda/react-shared/dist/hooks/useConstant.js';
 
 function getCollator(locale, defaultLocale) {
   try {

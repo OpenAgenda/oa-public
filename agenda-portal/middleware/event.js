@@ -17,6 +17,22 @@ export async function get(req, res, next) {
     setPageProp(req, 'lang', res.locals.lang);
     setPageProp(req, 'defaultViewport', res.locals.agenda.summary.viewport);
     setPageProp(req, 'agendaUid', res.locals.agenda.uid);
+
+    if (req.app.locals.tracking?.useAgendaGoogleAnalytics) {
+      const gaId = res.locals.agenda.settings.tracking?.googleAnalytics
+        && req.app.locals.tracking?.enableTracking
+        ? res.locals.agenda.settings.tracking.googleAnalytics
+        : null;
+      if (!gaId) {
+        console.log(
+          'Warning: no Google Analytics ID found. Set one in your agenda settings or disable tracking.',
+        );
+      }
+      const { cookieBannerLink, requireConsent } = req.app.locals.tracking;
+      setPageProp(req, 'gaId', gaId);
+      setPageProp(req, 'cookieBannerLink', cookieBannerLink);
+      setPageProp(req, 'requireConsent', requireConsent);
+    }
   } catch (err) {
     return next(err);
   }
