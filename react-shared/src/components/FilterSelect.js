@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-import { useIntl } from 'react-intl';
 import SortableSelect from './SortableSelect.js';
 
 export default function FilterSelect({
