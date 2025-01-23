@@ -20,7 +20,7 @@
   "next.views.AgendaShow.ExportModal.city": [
     {
       "type": 0,
-      "value": "crwdns33934:0crwdne33934:0"
+      "value": "City"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
@@ -51,6 +51,12 @@
     {
       "type": 0,
       "value": "crwdns33940:0crwdne33940:0"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.department": [
+    {
+      "type": 0,
+      "value": "Department"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
@@ -133,6 +139,12 @@
       "value": "crwdns33950:0crwdne33950:0"
     }
   ],
+  "next.views.AgendaShow.ExportModal.highlightLocationName": [
+    {
+      "type": 0,
+      "value": "Highlight the location"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.inputField": [
     {
       "type": 0,
@@ -165,16 +177,22 @@
       "value": "crwdne33956:0"
     }
   ],
-  "next.views.AgendaShow.ExportModal.locationName": [
+  "next.views.AgendaShow.ExportModal.location": [
     {
       "type": 0,
-      "value": "crwdns33958:0crwdne33958:0"
+      "value": "Location"
     }
   ],
   "next.views.AgendaShow.ExportModal.login": [
     {
       "type": 0,
       "value": "crwdns33065:0crwdne33065:0"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.multipleLocations": [
+    {
+      "type": 0,
+      "value": "Agenda with multiple locations"
     }
   ],
   "next.views.AgendaShow.ExportModal.new": [
@@ -193,6 +211,12 @@
     {
       "type": 0,
       "value": "Open events on the same page"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.optionSelectSub": [
+    {
+      "type": 0,
+      "value": "Drag and drop options to adjust order"
     }
   ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [
@@ -219,6 +243,18 @@
       "value": "crwdns33966:0crwdne33966:0"
     }
   ],
+  "next.views.AgendaShow.ExportModal.region": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.sectioning": [
+    {
+      "type": 0,
+      "value": "Add sectioning"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.selectAll": [
     {
       "type": 0,
@@ -229,6 +265,18 @@
     {
       "type": 0,
       "value": "Show filters"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.singleLocation": [
+    {
+      "type": 0,
+      "value": "Agenda with single location"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "One or more options"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [
