@@ -118,6 +118,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         'access',
         'state',
         'imageCredits',
+        'extIds',
         'duplicateCandidates',
         'disqualifiedDuplicates',
         'mergedIn',

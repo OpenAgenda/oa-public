@@ -226,7 +226,7 @@ describe('02 - event search - functional: location', () => {
         events: [event],
       } = await service('location').search(
         {
-          locationExtId: '456',
+          locationExtId: { key: 'default', value: '456' },
         },
         { size: 1 },
         { detailed: true },
