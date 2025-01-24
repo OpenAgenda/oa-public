@@ -7,9 +7,9 @@ import addPageHeader from './addPageHeader.js';
 import addEventItem from './addEventItem/index.js';
 import addDocumentHeader from './addDocumentHeader.js';
 import messages from './messages.js';
-import getEventSortKeys from './getEventSortKeys.js';
+import getEventSectionKeys from './getEventSectionKeys.js';
 import sortKeysChange from './sortKeysChange.js';
-import addChapterItem from './addChapterItem.js';
+import addSectionItem from './addSectionItem.js';
 
 const log = logs('GenerateExportStream');
 
@@ -27,13 +27,13 @@ export default async function GenerateExportStream(
     medium,
     mode,
     logBundle,
-    query,
+    sections,
   } = options;
 
   const startTime = Date.now();
   let count = 0;
 
-  log.info('Start processing', logBundle);
+  log.info('Start processing', { ...logBundle, sections });
 
   const intl = getIntl(lang);
 
@@ -81,7 +81,10 @@ export default async function GenerateExportStream(
   let previousSortKeys = [];
 
   for await (const event of eventStream) {
-    const eventSortKeys = getEventSortKeys(event, query, intl);
+    log(event.slug);
+    const eventSectionKeys = sections
+      ? getEventSectionKeys(event, sections, intl)
+      : null;
 
     count += 1;
     if (pageNumber !== currentPageNumber) {
@@ -97,6 +100,7 @@ export default async function GenerateExportStream(
             little,
             medium,
             mode,
+            displaySeparator: !sections,
           },
         );
         cursor.y += documentHeaderHeight + margin;
@@ -112,23 +116,25 @@ export default async function GenerateExportStream(
 
     let simulatedHeight = 0;
 
-    const mustAddChapter = sortKeysChange(eventSortKeys, previousSortKeys);
+    const mustAddSection = sections
+      ? sortKeysChange(eventSectionKeys, previousSortKeys)
+      : false;
 
     const currentCursorX = cursor.x;
 
-    if (mustAddChapter) {
-      const { height: chapterHeight } = addChapterItem(doc, cursor, {
+    if (mustAddSection) {
+      const { height: sectionHeight } = addSectionItem(doc, cursor, {
         fontSize,
         simulate: true,
-        eventSortKeys,
+        eventSectionKeys,
         little,
         medium,
         currentCursorX,
         lang,
       });
-      simulatedHeight += chapterHeight + margin / 2;
+      simulatedHeight += sectionHeight + margin;
     }
-    previousSortKeys = [...eventSortKeys];
+    previousSortKeys = sections ? [...eventSectionKeys] : null;
 
     const { height: simulatedEventItemHeight } = await addEventItem(
       agenda,
@@ -171,16 +177,16 @@ export default async function GenerateExportStream(
       );
     }
 
-    if (mustAddChapter) {
-      const { height: chapterHeight } = addChapterItem(doc, cursor, {
+    if (mustAddSection) {
+      const { height: sectionHeight } = addSectionItem(doc, cursor, {
         fontSize,
-        eventSortKeys,
+        eventSectionKeys,
         little,
         medium,
         currentCursorX,
         lang,
       });
-      cursor.y += chapterHeight + margin / 2;
+      cursor.y += sectionHeight + margin;
     }
 
     const { height: eventItemHeight } = await addEventItem(
