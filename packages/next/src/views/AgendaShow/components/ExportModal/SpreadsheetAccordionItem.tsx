@@ -27,7 +27,7 @@ function formatTarget(target: string[] | string) {
 export default function SpreadsheetAccordionItem({
   handleSubmit,
   languages,
-  fields,
+  fields = [],
 }) {
   const intl = useIntl();
 
@@ -49,9 +49,10 @@ export default function SpreadsheetAccordionItem({
   const handleToggleItem = (setFunction) => (e) => {
     const { value } = e.target;
     setFunction((prev) =>
-      (prev.includes(value)
+      prev.includes(value)
         ? prev.filter((item) => item !== value)
-        : [...prev, value]));
+        : [...prev, value],
+    );
   };
   return (
     <AccordionItem title={intl.formatMessage(messages.spreadsheetTitle)}>

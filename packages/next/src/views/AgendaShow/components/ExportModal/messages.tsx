@@ -84,10 +84,6 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.filterSelectSub',
     defaultMessage: 'Drag and drop filters to adjust order',
   },
-  optionSelectSub: {
-    id: 'next.views.AgendaShow.ExportModal.optionSelectSub',
-    defaultMessage: 'Drag and drop options to adjust order',
-  },
   // Spreadsheets
   spreadsheetTitle: {
     id: 'next.views.AgendaShow.ExportModal.spreadsheetTitle',
@@ -147,42 +143,21 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.outlookStep5',
     defaultMessage: 'Paste the URL you copied in step 1. Select "Import".',
   },
-  // PDF
-  multipleLocations: {
-    id: 'next.views.AgendaShow.ExportModal.multipleLocations',
-    defaultMessage: 'Agenda with multiple locations',
-  },
-  singleLocation: {
-    id: 'next.views.AgendaShow.ExportModal.singleLocation',
-    defaultMessage: 'Agenda with single location',
-  },
-  default: {
-    id: 'next.views.AgendaShow.ExportModal.default',
-    defaultMessage: 'By default',
-  },
-  highlightLocationName: {
-    id: 'next.views.AgendaShow.ExportModal.highlightLocationName',
+  PDFHighlightLocationName: {
+    id: 'next.views.AgendaShow.ExportModal.PDFHighlightLocationName',
     defaultMessage: 'Highlight the location',
   },
-  sectioning: {
-    id: 'next.views.AgendaShow.ExportModal.sectioning',
-    defaultMessage: 'Add sectioning',
+  PDFGeoSections: {
+    id: 'next.views.AgendaShow.ExportModal.PDFGeoSections',
+    defaultMessage: 'Add geographical sections',
   },
-  region: {
-    id: 'next.views.AgendaShow.ExportModal.region',
-    defaultMessage: 'Region',
+  PDFDownload: {
+    id: 'next.views.AgendaShow.ExportModal.PDFDownload',
+    defaultMessage: 'Download',
   },
-  department: {
-    id: 'next.views.AgendaShow.ExportModal.department',
-    defaultMessage: 'Department',
-  },
-  city: {
-    id: 'next.views.AgendaShow.ExportModal.city',
-    defaultMessage: 'City',
-  },
-  location: {
-    id: 'next.views.AgendaShow.ExportModal.location',
-    defaultMessage: 'Location',
+  PDFSelectSub: {
+    id: 'next.views.AgendaShow.ExportModal.PDFSelectSub',
+    defaultMessage: 'Drag and drop options to adjust order',
   },
   showFilters: {
     id: 'next.views.AgendaShow.ExportModal.showFilters',

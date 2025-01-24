@@ -1,4 +1,28 @@
 {
+  "next.views.AgendaShow.ExportModal.PDFDownload": [
+    {
+      "type": 0,
+      "value": "Download"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.PDFGeoSections": [
+    {
+      "type": 0,
+      "value": "Add geographical sections"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": [
+    {
+      "type": 0,
+      "value": "Highlight the location"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.PDFSelectSub": [
+    {
+      "type": 0,
+      "value": "Drag and drop options to adjust order"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.allFields": [
     {
       "type": 0,
@@ -15,12 +39,6 @@
     {
       "type": 0,
       "value": "Cancel"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.city": [
-    {
-      "type": 0,
-      "value": "City"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
@@ -45,18 +63,6 @@
     {
       "type": 0,
       "value": "Copy"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.default": [
-    {
-      "type": 0,
-      "value": "Default"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.department": [
-    {
-      "type": 0,
-      "value": "Department"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
@@ -159,12 +165,6 @@
       "value": "Follow the instructions by pasting the link you copied in step 1"
     }
   ],
-  "next.views.AgendaShow.ExportModal.highlightLocationName": [
-    {
-      "type": 0,
-      "value": "Highlight the location"
-    }
-  ],
   "next.views.AgendaShow.ExportModal.inputField": [
     {
       "type": 0,
@@ -193,22 +193,10 @@
       "value": "link"
     }
   ],
-  "next.views.AgendaShow.ExportModal.location": [
-    {
-      "type": 0,
-      "value": "Location"
-    }
-  ],
   "next.views.AgendaShow.ExportModal.login": [
     {
       "type": 0,
       "value": "Please log in to access the export link directly from this menu"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.multipleLocations": [
-    {
-      "type": 0,
-      "value": "Agenda with multiple locations"
     }
   ],
   "next.views.AgendaShow.ExportModal.new": [
@@ -239,12 +227,6 @@
       "value": "Open events on the same page"
     }
   ],
-  "next.views.AgendaShow.ExportModal.optionSelectSub": [
-    {
-      "type": 0,
-      "value": "Drag and drop options to adjust order"
-    }
-  ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [
     {
       "type": 0,
@@ -269,18 +251,6 @@
       "value": "Paste the URL you copied in step 1. Select \"Import\"."
     }
   ],
-  "next.views.AgendaShow.ExportModal.region": [
-    {
-      "type": 0,
-      "value": "Region"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.sectioning": [
-    {
-      "type": 0,
-      "value": "Add sectioning"
-    }
-  ],
   "next.views.AgendaShow.ExportModal.selectAll": [
     {
       "type": 0,
@@ -291,12 +261,6 @@
     {
       "type": 0,
       "value": "Show filters"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.singleLocation": [
-    {
-      "type": 0,
-      "value": "Agenda with single location"
     }
   ],
   "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": [
