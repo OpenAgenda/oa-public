@@ -43,7 +43,7 @@ export const BDLtest = () => (
       ...location,
       extIds: [
         { key: 'default', value: '1221HHH34' },
-        { key: 'test', value: 1 },
+        { key: 'test', value: '12' },
       ],
     }}
     onSelect={() => null}
@@ -56,22 +56,29 @@ export const BDLtest = () => (
         delete: defaultAccess,
       },
       locations: {
-        actions: {
-          edit: {
+        extIds: [
+          {
             key: 'default',
-            link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
-            defaultLabel: 'BDL',
+            label: 'BDL',
+            actions: {
+              edit: {
+                link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
+              },
+              show: {
+                link: 'https://basedeslieux.culture.gouv.fr/carte#/pinpoints/{value}',
+                label: { fr: 'Voir sur la BDL' },
+              },
+            },
           },
-          show: {
-            key: 'default',
-            link: 'https://basedeslieux.culture.gouv.fr/carte#/pinpoints/{value}',
-            defaultLabel: 'BDL',
-          },
-          remove: {
+          {
             key: 'test',
-            link: 'ret/{value}',
+            actions: {
+              remove: {
+                link: 'ret/{value}',
+              },
+            },
           },
-        },
+        ],
       },
     }}
   />
