@@ -12,8 +12,7 @@ const {
   MAX_FETCHED_EVENT_COUNT: maxFetchedEventCount,
   TEST_QUERY:
     testQueryString = '?sort[]=location.region.asc&sort[]=location.city.asc',
-  TEST_MODE: testMode,
-  TEST_LANG: testLang = 'fr',
+  TEST_LANG: lang = 'fr',
 } = process.env;
 
 const query = testQueryString
@@ -28,7 +27,7 @@ const eventStream = new APIEventsStream({
 });
 
 const writeStream = fs.createWriteStream(
-  `${pdfTestFolder}/locationChapter.pdf`,
+  `${pdfTestFolder}/locationSection.pdf`,
 );
 
 const pdfExports = PDFExports({});
@@ -40,8 +39,10 @@ const logBundle = {
 
 await pdfExports.GenerateExportStream(eventStream, writeStream, {
   agenda,
-  lang: testLang,
-  mode: testMode,
+  lang,
   logBundle,
-  query: testQueryString,
+  sections: testQueryString
+    .split('sort[]=')
+    .filter((v) => v !== '?')
+    .map((v) => v.replace(/&|\.asc/g, '')),
 });

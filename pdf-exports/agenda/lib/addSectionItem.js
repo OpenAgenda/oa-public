@@ -3,9 +3,10 @@ import { fileURLToPath } from 'node:url';
 import { getLocaleValue } from '@openagenda/intl';
 import cleanString from '../../utils/cleanString.js';
 import addIcon from '../../utils/addIcon.js';
+import addSeparatorLine from '../../utils/addSeparatorLine.js';
 import addText from './addText.js';
 
-export default function addChapterItem(doc, cursor, options = {}) {
+export default function addSectionItem(doc, cursor, options = {}) {
   const {
     base = {
       margin: 20,
@@ -14,7 +15,7 @@ export default function addChapterItem(doc, cursor, options = {}) {
     fontSize,
     bold = true,
     simulate,
-    eventSortKeys,
+    eventSectionKeys,
     little,
     medium,
     currentCursorX,
@@ -40,7 +41,10 @@ export default function addChapterItem(doc, cursor, options = {}) {
 
   const arrowRightIconPath = `${__dirname}/../../images/arrow-right.png`;
 
-  eventSortKeys.forEach((item, index) => {
+  eventSectionKeys.forEach((item, index) => {
+    if (!item.value) {
+      return;
+    }
     const localValue = getLocaleValue(item.value, lang);
 
     const { width, height } = addText(doc, cursor, cleanString(localValue), {
@@ -55,7 +59,7 @@ export default function addChapterItem(doc, cursor, options = {}) {
     textHeight = height;
     cursor.x += width;
 
-    if (index < eventSortKeys.length - 1) {
+    if (index < eventSectionKeys.length - 1) {
       cursor.x += base.margin / 8 + iconHeightAndWidth / 2;
       cursor.y += base.margin / 5;
       const { width: iconWidth, height: iconHeight } = addIcon(
@@ -71,7 +75,18 @@ export default function addChapterItem(doc, cursor, options = {}) {
     }
   });
 
+  const hasSectionText = !!eventSectionKeys.filter((item) => item.value).length;
+
+  cursor.x += hasSectionText ? base.margin / 2 : 0;
+  cursor.y += textHeight / 2;
+  if (!simulate) {
+    addSeparatorLine(doc, cursor, {
+      width: doc.page.width - cursor.x - base.margin * (hasSectionText ? 3 : 1),
+    });
+  }
+
   cursor.x = currentCursorX;
+
   return {
     width: cursor.x,
     height: Math.max(textHeight, heightOfArrowRightIcon),

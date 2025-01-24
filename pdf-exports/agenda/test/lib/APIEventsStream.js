@@ -44,6 +44,11 @@ export default class APIEventsStream extends Readable {
       return;
     }
 
+    if (this.after === null) {
+      this.push(null);
+      return;
+    }
+
     this.requestInProgress = true;
 
     const url = [
@@ -64,6 +69,8 @@ export default class APIEventsStream extends Readable {
       )
       .join('');
 
+    log(url);
+
     https
       .get(url, (response) => {
         let rawData = '';
@@ -82,7 +89,7 @@ export default class APIEventsStream extends Readable {
               return;
             }
 
-            this.after = newAfter.map((a) => `${a}`);
+            this.after = newAfter?.map((a) => `${a}`) ?? null;
             this.buffer = events;
             this.requestInProgress = false;
 
