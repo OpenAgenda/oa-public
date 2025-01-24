@@ -148,3 +148,14 @@ export const WithUrl = () => `
   <script>history.replaceState({}, '', '#!/fr/embed/agendas/83549053?categories-agenda-metropolitain%255B0%255D=47');</script>
   <script async src="/index.js" charset="utf-8"></script>
 `;
+
+export const FixedHeight = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-iframe-height="430px"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053"><b>Bordeaux Métropole</b></a></p></blockquote>
+  </section>
+
+  <!-- remove hash -->
+  <script>history.replaceState({}, '', '#');</script>
+  <script async src="/index.js" charset="utf-8"></script>
+`;
