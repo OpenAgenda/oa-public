@@ -317,9 +317,12 @@ export function RegistrationSection({
               isExternal
               href={getRegistrationLink(registrationItem)}
               colorScheme="primary"
-              whiteSpace="nowrap"
-              overflow="hidden"
-              textOverflow="ellipsis"
+              // whiteSpace="normal"
+              // overflow="hidden"
+              // textOverflow="ellipsis"
+              wordBreak="break-all"
+              maxW="full"
+              noOfLines={2}
             >
               {registrationItem.type === 'link'
                 ? intl.formatMessage(messages.registerBook)
