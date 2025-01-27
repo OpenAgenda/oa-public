@@ -16,8 +16,6 @@ export default function useLoadGeoData(
       const northEast = bounds.getNorthEast().wrap();
       const southWest = bounds.getSouthWest().wrap();
 
-      console.log('useLoadGeoData', query, northEast, southWest);
-
       const params = {
         // oaq: { passed: 1 },
         size: 0,
