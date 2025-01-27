@@ -32,6 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const agendaUid = queryWithParams.agendaUid as string;
   const eventSlug = queryWithParams.eventSlug as string;
 
+  // const eventUrl = `api/agendas/${agendaUid}/events/slug/${eventSlug}`;
   const eventUrl = `api/agendas/${agendaUid}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
 
   let agenda = null;
