@@ -23,25 +23,29 @@ function isValidUrl(url: string) {
   }
 }
 
-function useEventLink({ baseUrl, agenda, event, nc }) {
+function useEventLink({ baseUrl, baseUrlTarget, agenda, event, nc }) {
   return useMemo(() => {
     if (baseUrl === 'oa') {
+      const target = baseUrlTarget || '_blank';
       return {
-        isExternal: true,
+        target,
+        rel: target === '_blank' ? 'nofollow noopener' : '',
         url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}${qs.stringify({ nc }, { addQueryPrefix: true })}`,
       };
     }
 
     if (isValidUrl(baseUrl)) {
+      const target = baseUrlTarget || '_blank';
       const trailingSlash = baseUrl.endsWith('/');
       return {
-        isExternal: true,
+        target,
+        rel: target === '_blank' ? 'nofollow noopener' : '',
         url: `${baseUrl}${trailingSlash ? '' : '/'}${event.slug}`,
       };
     }
 
     return {
-      isExternal: false,
+      target: '_self',
       url: `/embed/agendas/${agenda.uid}/events/${event.slug}${qs.stringify({ nc }, { addQueryPrefix: true })}`,
     };
   }, [baseUrl, agenda.uid, agenda.slug, event.slug, nc]);
@@ -59,7 +63,8 @@ export default function EventItem({
 
   const query = useLocationQuery();
 
-  const { baseUrl, primaryColor, imageList, sort } = useEmbedLayoutData();
+  const { baseUrl, baseUrlTarget, primaryColor, imageList, sort } =
+    useEmbedLayoutData();
 
   const nc = useMemo(
     () => ({
@@ -75,7 +80,13 @@ export default function EventItem({
     [first, from, last, query],
   );
 
-  const eventLink = useEventLink({ baseUrl, agenda, event, nc });
+  const eventLink = useEventLink({
+    baseUrl,
+    baseUrlTarget,
+    agenda,
+    event,
+    nc,
+  });
 
   const imageHeight = imageList ? imageList.height : '170px';
 
@@ -125,7 +136,8 @@ export default function EventItem({
           {getLocaleValue(event.dateRange, intl.locale)}
         </Box>
         <NextChakraLinkOverlay
-          isExternal={eventLink.isExternal}
+          target={eventLink.target}
+          rel={eventLink.rel}
           href={eventLink.url}
         >
           <b>{getLocaleValue(event.title, intl.locale)}</b>
