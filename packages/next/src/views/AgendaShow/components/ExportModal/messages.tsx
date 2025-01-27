@@ -76,10 +76,6 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.filterSelectPlaceholder',
     defaultMessage: 'One or more filters',
   },
-  sortableSelectPlaceholder: {
-    id: 'next.views.AgendaShow.ExportModal.sortableSelectPlaceholder',
-    defaultMessage: 'One or more options',
-  },
   filterSelectSub: {
     id: 'next.views.AgendaShow.ExportModal.filterSelectSub',
     defaultMessage: 'Drag and drop filters to adjust order',
@@ -146,6 +142,10 @@ export default defineMessages({
   PDFHighlightLocationName: {
     id: 'next.views.AgendaShow.ExportModal.PDFHighlightLocationName',
     defaultMessage: 'Highlight the location',
+  },
+  PDFSelectPlaceholder: {
+    id: 'next.views.AgendaShow.ExportModal.PDFSelectPlaceholder',
+    defaultMessage: 'Select one or more segment keys',
   },
   PDFGeoSections: {
     id: 'next.views.AgendaShow.ExportModal.PDFGeoSections',

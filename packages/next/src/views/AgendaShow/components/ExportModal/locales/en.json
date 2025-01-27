@@ -2,7 +2,8 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": "Download",
   "next.views.AgendaShow.ExportModal.PDFGeoSections": "Add geographical sections",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "Highlight the location",
-  "next.views.AgendaShow.ExportModal.PDFSelectSub": "Drag and drop options to adjust order",
+  "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "Segments",
+  "next.views.AgendaShow.ExportModal.PDFSelectSub": "Select one or more values",
   "next.views.AgendaShow.ExportModal.allFields": "Export every field",
   "next.views.AgendaShow.ExportModal.allLanguages": "Export in all languages",
   "next.views.AgendaShow.ExportModal.cancel": "Cancel",
@@ -36,7 +37,6 @@
   "next.views.AgendaShow.ExportModal.outlookStep5": "Paste the URL you copied in step 1. Select \"Import\".",
   "next.views.AgendaShow.ExportModal.selectAll": "Select all",
   "next.views.AgendaShow.ExportModal.showFilters": "Show filters",
-  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": "One or more options",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "Spreadsheet (Excel / CSV)",
   "next.views.AgendaShow.ExportModal.title": "Export"
 }

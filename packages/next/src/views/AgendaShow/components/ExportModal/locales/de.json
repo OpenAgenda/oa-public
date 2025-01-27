@@ -2,6 +2,7 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": "",
   "next.views.AgendaShow.ExportModal.PDFGeoSections": "",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "",
+  "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.PDFSelectSub": "",
   "next.views.AgendaShow.ExportModal.allFields": "",
   "next.views.AgendaShow.ExportModal.allLanguages": "",
@@ -36,7 +37,6 @@
   "next.views.AgendaShow.ExportModal.outlookStep5": "",
   "next.views.AgendaShow.ExportModal.selectAll": "",
   "next.views.AgendaShow.ExportModal.showFilters": "",
-  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "",
   "next.views.AgendaShow.ExportModal.title": ""
 }

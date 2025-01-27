@@ -2,6 +2,7 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": "",
   "next.views.AgendaShow.ExportModal.PDFGeoSections": "",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "",
+  "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.PDFSelectSub": "",
   "next.views.AgendaShow.ExportModal.allFields": "crwdns33930:0crwdne33930:0",
   "next.views.AgendaShow.ExportModal.allLanguages": "crwdns33932:0crwdne33932:0",
@@ -36,7 +37,6 @@
   "next.views.AgendaShow.ExportModal.outlookStep5": "crwdns33966:0crwdne33966:0",
   "next.views.AgendaShow.ExportModal.selectAll": "crwdns33968:0crwdne33968:0",
   "next.views.AgendaShow.ExportModal.showFilters": "",
-  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "crwdns33970:0crwdne33970:0",
   "next.views.AgendaShow.ExportModal.title": "crwdns33067:0crwdne33067:0"
 }

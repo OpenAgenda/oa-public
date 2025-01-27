@@ -134,7 +134,8 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
       const currentUrl = new URL(router.asPath, 'https://n');
       const url = new URL(href, 'https://n');
 
-      if (isDifferentPathname(currentUrl.pathname, url.pathname) || !shallow) return;
+      if (isDifferentPathname(currentUrl.pathname, url.pathname) || !shallow)
+        return;
 
       const form = filtersFormRef.current;
       const newUrlQuery = qs.parse(url.search, { ignoreQueryPrefix: true });
@@ -163,8 +164,9 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
         mapElem.onQueryChange(pages[0].aggregations.viewport);
       }
 
-      const url = new URL(latestRouter.current.asPath, 'https://n').pathname
-        + qs.stringify(latestQuery.current, { addQueryPrefix: true });
+      const url =
+        new URL(latestRouter.current.asPath, 'https://n').pathname +
+        qs.stringify(latestQuery.current, { addQueryPrefix: true });
 
       if (url !== latestRouter.current.asPath) {
         latestRouter.current.push(url, null, { shallow: true });
@@ -259,6 +261,7 @@ AgendaShow.fetchLocale = (locale: string) =>
   Promise.all([
     fetchLocale(locale),
     fetchErrorLocale(locale),
+    fetchCommonLocale('geo', locale),
     fetchCommonLocale('event/attendanceModes', locale),
     fetchCommonLocale('event/statuses', locale),
     fetchFiltersLocales(locale),

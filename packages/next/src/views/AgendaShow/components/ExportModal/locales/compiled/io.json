@@ -17,10 +17,16 @@
       "value": "Highlight the location"
     }
   ],
+  "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "Segments"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.PDFSelectSub": [
     {
       "type": 0,
-      "value": "Drag and drop options to adjust order"
+      "value": "Select one or more values"
     }
   ],
   "next.views.AgendaShow.ExportModal.allFields": [
@@ -235,12 +241,6 @@
     {
       "type": 0,
       "value": "Show filters"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": [
-    {
-      "type": 0,
-      "value": "One or more options"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [
