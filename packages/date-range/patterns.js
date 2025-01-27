@@ -4,11 +4,12 @@ const labels = require('@openagenda/labels/agendas/range');
 
 const moment = require('moment-timezone');
 
-function countSameWeekday(start, end, weekday) {
+function countSameWeekday(start, end, weekday, timezone = 'Europe/Paris') {
   let count = 0;
+  const endDate = moment.tz(end, timezone).format('YYYY-MM-DD');
   const currentDate = new Date(start);
 
-  while (currentDate <= end) {
+  while (moment.tz(currentDate, timezone).format('YYYY-MM-DD') <= endDate) {
     if (currentDate.getDay() === weekday) {
       count += 1;
     }
@@ -42,7 +43,9 @@ module.exports = (timings, lang, timezone = 'Europe/Paris') => {
     timings[0].start,
     timings[timings.length - 1].start,
     weekday,
+    timezone,
   );
+
   if (numberOfSameWeekday === days.length) {
     return `${labels[`all-weekday-${weekday}`][lang]}`;
   }
