@@ -72,6 +72,17 @@ export const BaseUrl = () => `
   <script async src="/index.js" charset="utf-8"></script>
 `;
 
+export const BaseUrlTarget = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-base-url="https://ville-fosses95.fr/agenda/#!/fr/embed/agendas/21419846/events/" data-base-url-target="_blank"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/21419846"><b>Fosses</b></a></p></blockquote>
+  </section>
+
+  <!-- remove hash -->
+  <script>history.replaceState({}, '', '#');</script>
+  <script async src="/index.js" charset="utf-8"></script>
+`;
+
 export const Filters = () => `
   <section class="page">
     <h2>Agenda</h2>
