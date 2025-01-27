@@ -8,7 +8,7 @@ import messages from './messages';
 
 export default function PdfAccordionItem({
   handleSubmit,
-  hasMultipleLocations,
+  hasMultipleLocations = true,
 }) {
   const intl = useIntl();
   const [locationInHeader, setLocationInHeader] =
