@@ -93,6 +93,10 @@ export default class EmbedLoader {
       url.searchParams.set('baseUrl', dataset.baseUrl);
     }
 
+    if (dataset.baseUrlTarget) {
+      url.searchParams.set('baseUrlTarget', dataset.baseUrlTarget);
+    }
+
     if (dataset.filters) {
       url.searchParams.set('filters', dataset.filters);
     }
