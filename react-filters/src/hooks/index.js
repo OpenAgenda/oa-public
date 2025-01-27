@@ -7,7 +7,5 @@ export { default as useFilterTitle } from './useFilterTitle.js';
 export { default as useGetFilterOptions } from './useGetFilterOptions.js';
 export { default as useGetTotal } from './useGetTotal.js';
 export { default as useLoadGeoData } from './useLoadGeoData.js';
-export { default as useMapOnChange } from './useMapOnChange.js';
-export { default as useMapUserControl } from './useMapUserControl.js';
 
 export { useField, useForm } from 'react-final-form';
