@@ -5,7 +5,13 @@ const mdStyle = {
   },
   p: {
     mb: '10px',
-    _last: {
+    _lastChild: {
+      mb: '0',
+    },
+  },
+  '& > div': {
+    mb: '10px',
+    _lastChild: {
       mb: '0',
     },
   },
