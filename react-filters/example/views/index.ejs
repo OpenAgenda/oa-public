@@ -44,6 +44,16 @@
       ></div>
 
       <div
+        data-oa-filter="cities"
+        data-oa-filter-params="<%= JSON.stringify({
+          type: 'choice',
+          name: 'city',
+          searchPlaceholder: 'Rechercher une ville',
+          searchAriaLabel: 'Rechercher une ville (actualisation des résultats ci-dessous au cours de la frappe)',
+        }) %>"
+      ></div>
+
+      <!--<div
         data-oa-filter="search"
         data-oa-filter-params="<%= JSON.stringify({ type: 'search', name: 'search' }); %>"
       ></div>
@@ -68,19 +78,9 @@
       ></div>
 
       <div
-        data-oa-filter="cities"
-        data-oa-filter-params="<%= JSON.stringify({
-          type: 'choice',
-          name: 'city',
-          searchPlaceholder: 'Rechercher une ville',
-          searchAriaLabel: 'Rechercher une ville (actualisation des résultats ci-dessous au cours de la frappe)',
-        }) %>"
-      ></div>
-
-      <div
         data-oa-filter="accessibilities"
         data-oa-filter-params="<%= JSON.stringify({ type: 'choice', name: 'accessibilities' }) %>"
-      ></div>
+      ></div>-->
 
       <!-- <div
         data-oa-filter="type-devenement"

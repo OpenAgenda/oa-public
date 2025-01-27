@@ -1,10 +1,16 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import cn from 'classnames';
-import { useMapUserControl, useMapOnChange } from '../../../hooks/index.js';
 import LoadableMap from './LoadableMap.js';
-import SearchWithMap from './SearchWithMap.js';
 import { gestureHandlingStyle, markerClusterStyle } from './mapStyle.js';
+
+// x remettre la carte en face des marqueurs après une recherche
+// x Submit au click du lien en mode manual
+// disabled sur le lien
+
+const mapContainerStyle = css`
+  position: relative;
+`;
 
 const mapStyle = css`
   height: 100%;
@@ -16,7 +22,7 @@ function MapField(
   {
     input,
     collapsed,
-    name,
+    // name,
     filter,
     tileAttribution,
     tileUrl,
@@ -25,40 +31,23 @@ function MapField(
     defaultViewport,
     className,
     mapClass,
-    searchMessage,
-    searchWithMap,
   },
   ref,
 ) {
-  const [userControlled, setUserControlled, toggleUserControlled] = useMapUserControl(name, searchWithMap);
-  const onChange = useMapOnChange({ input, loadGeoData, ref, userControlled });
-
   return !collapsed ? (
-    <>
-      <div className={cn(className, mapClass)}>
-        <LoadableMap
-          ref={ref}
-          input={input}
-          filter={filter}
-          tileAttribution={tileAttribution}
-          tileUrl={tileUrl}
-          loadGeoData={loadGeoData}
-          initialViewport={initialViewport}
-          defaultViewport={defaultViewport}
-          onChange={onChange}
-          userControlled={userControlled}
-          setUserControlled={setUserControlled}
-          css={mapStyle}
-        />
-      </div>
-
-      <SearchWithMap
-        name={name}
-        userControlled={userControlled}
-        toggleUserControlled={toggleUserControlled}
-        searchMessage={searchMessage}
+    <div css={mapContainerStyle} className={cn(className, mapClass)}>
+      <LoadableMap
+        ref={ref}
+        input={input}
+        filter={filter}
+        tileAttribution={tileAttribution}
+        tileUrl={tileUrl}
+        loadGeoData={loadGeoData}
+        initialViewport={initialViewport}
+        defaultViewport={defaultViewport}
+        css={mapStyle}
       />
-    </>
+    </div>
   ) : null;
 }
 
