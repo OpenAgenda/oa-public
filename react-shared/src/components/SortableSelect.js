@@ -46,17 +46,12 @@ export default function SortableSelect({
 }) {
   const sensors = useDragAndDropSensors();
 
-  const selectableOptions = useMemo(() => options.map((option) => ({
-    value: option.value,
-    label: option.label,
-  })), [options]);
-
   const selectedOptions = useMemo(
     () =>
       value
-        .map((selected) => selectableOptions.find((o) => o.value === selected))
+        .map((selected) => options.find((o) => o.value === selected))
         .filter((v) => !!v),
-    [value, selectableOptions],
+    [value, options],
   );
 
   const handleDragEnd = useHandleDragEnd(selectedOptions, onChange);
@@ -68,7 +63,7 @@ export default function SortableSelect({
         onChange={(update) => {
           onChange(update.map((o) => o.value));
         }}
-        options={selectableOptions}
+        options={options}
         isMulti
         closeMenuOnSelect
         openMenuOnFocus

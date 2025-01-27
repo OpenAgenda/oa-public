@@ -19,6 +19,7 @@ export default async function addDocumentHeader(
     little,
     medium,
     mode,
+    displaySeparator = true,
   } = options;
 
   const localCursor = {
@@ -143,15 +144,17 @@ export default async function addDocumentHeader(
 
   const textColHeight = localCursor.y;
 
-  localCursor.y = Math.max(textColHeight, logoHeight + margin) + margin;
   localCursor.x = base.margin * 3;
 
-  const { height: separatorLineHeight } = addSeparatorLine(doc, localCursor, {
-    base,
-    width: doc.page.width - base.margin * 6,
-  });
+  if (displaySeparator) {
+    localCursor.y = Math.max(textColHeight, logoHeight + margin) + margin;
+    const { height: separatorLineHeight } = addSeparatorLine(doc, localCursor, {
+      base,
+      width: doc.page.width - base.margin * 6,
+    });
 
-  localCursor.y += separatorLineHeight;
+    localCursor.y += separatorLineHeight;
+  }
 
   return {
     width:

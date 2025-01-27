@@ -85,8 +85,20 @@
     
     .search-item {
       padding: 0.5em 1em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   
+    .text {
+      flex: 1; /* Take up most of the space */
+      display: flex;
+      flex-direction: column; /* Stack name and address */
+    }
+
+    .icon {
+      margin-left: 10px; /* Space between text and icon */
+    }
     
   }
 

@@ -9,5 +9,6 @@
   "pdf-exports.registration": "Registration",
   "pdf-exports.registrationTool": "Registration tool",
   "pdf-exports.status": "Status",
-  "pdf-exports.tags": "Tags"
+  "pdf-exports.tags": "Tags",
+  "pdf-exports.undefined": "Undefined"
 }
