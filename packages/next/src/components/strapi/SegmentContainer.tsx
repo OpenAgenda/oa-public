@@ -16,7 +16,12 @@ export default function SegmentContainer({
     <chakra.div
       backgroundColor={backgroundColor ? color(backgroundColor) : undefined}
     >
-      <Container maxW="8xl" color={fontColor ? color(fontColor) : undefined}>
+      <Container
+        maxW="8xl"
+        color={fontColor ? color(fontColor) : undefined}
+        pt="60px"
+        pb="60px"
+      >
         {children}
       </Container>
     </chakra.div>

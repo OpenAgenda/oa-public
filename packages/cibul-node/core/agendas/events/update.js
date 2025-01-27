@@ -379,6 +379,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       ? ` by user ${actingUserUid}`
       : ' (no acting user)',
     callOrigin,
+    ...callOrigin === 'api' ? { event: response.event } : undefined,
   });
 
   return returnPayload ? response : response.event;

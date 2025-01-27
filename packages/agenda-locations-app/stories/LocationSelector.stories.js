@@ -98,6 +98,52 @@ export const SearchMode = () => {
   );
 };
 
+export const SearchModeWithExternalActions = () => {
+  const [mode, setMode] = useState('search');
+  const [location, setLocation] = useState(null);
+  return (
+    <LocationSelector
+      agenda={{ uid: 1 }}
+      mode={mode}
+      lang="fr"
+      settings={{
+        ...agendaSettings,
+        locations: {
+          extIds: [
+            {
+              key: 'default',
+              label: 'BDL',
+              actions: {
+                edit: {
+                  link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
+                },
+                show: {
+                  link: 'https://basedeslieux.culture.gouv.fr/carte#/pinpoints/{value}',
+                  label: { fr: 'Voir sur la BDL' },
+                },
+              },
+            },
+            {
+              key: 'test',
+              actions: {
+                remove: {
+                  link: 'ret/{value}',
+                },
+              },
+            },
+          ],
+        },
+      }}
+      res={res}
+      location={location}
+      onChange={(t, l) => {
+        setMode(t);
+        setLocation(l);
+      }}
+    />
+  );
+};
+
 export const ConfirmMode = () => {
   const [mode, setMode] = useState('confirm');
   const [location, setLocation] = useState(propLocation);
@@ -107,6 +153,63 @@ export const ConfirmMode = () => {
         mode={mode}
         lang="fr"
         settings={agendaSettings}
+        res={{
+          get: '/locations/:locationUid.json',
+          suggestChange:
+            '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
+          staticTiles:
+            'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+        }}
+        confirmRequired
+        location={location}
+        onChange={(t, l) => {
+          setMode(t);
+          setLocation(l);
+        }}
+      />
+    </Modal>
+  );
+};
+
+export const ConfirmModeExternalActions = () => {
+  const [mode, setMode] = useState('confirm');
+  const [location, setLocation] = useState({
+    ...propLocation,
+    extIds: [{ key: 'default', value: '123AAC' }],
+  });
+  return (
+    <Modal title={location.name} classNames={{ overlay: 'popup-overlay big' }}>
+      <LocationSelector
+        mode={mode}
+        lang="fr"
+        settings={{
+          ...agendaSettings,
+          locations: {
+            extIds: [
+              {
+                key: 'default',
+                label: 'BDL',
+                actions: {
+                  edit: {
+                    link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
+                  },
+                  show: {
+                    link: 'https://basedeslieux.culture.gouv.fr/carte#/pinpoints/{value}',
+                    label: { fr: 'Voir sur la BDL' },
+                  },
+                },
+              },
+              {
+                key: 'test',
+                actions: {
+                  remove: {
+                    link: 'ret/{value}',
+                  },
+                },
+              },
+            ],
+          },
+        }}
         res={{
           get: '/locations/:locationUid.json',
           suggestChange:

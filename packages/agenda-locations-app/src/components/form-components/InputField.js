@@ -18,7 +18,7 @@ const InputField = ({
   type,
   renderButton,
   enabled,
-  groupClassName,
+  groupClassName = '',
   className,
   value,
   info,
@@ -75,10 +75,8 @@ const InputField = ({
 
   return (
     <div className={classNameBis}>
-      <label
-        htmlFor="label"
-        className="control-label"
-      >{`${myGetLabel(name)} ${required ? myGetLabel('requiredField') : ''}`}
+      <label htmlFor="label" className="control-label">
+        {`${myGetLabel(name)} ${required ? myGetLabel('requiredField') : ''}`}
       </label>
       {info && myGetLabel(info) ? <div>{myGetLabel(info)}</div> : null}
       <div className={className || ''}>

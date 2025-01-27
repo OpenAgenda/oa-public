@@ -6,21 +6,23 @@ export default (services) => async (req, res, next) => {
   } = services;
 
   try {
-    const {
-      result: {
-        aggregations: { languages: languageCounts },
-      },
-      agenda,
-    } = await req.search(
+    const result = await req.search(
       req.searchQuery,
       { size: 0 },
       {
         ...req.searchOptions,
-        aggregations: ['languages'],
+        aggregations: ['languages', 'locations'],
         returnAgenda: true,
         includeLocationLegacyAdminLevels: false,
       },
     );
+
+    const {
+      result: {
+        aggregations: { languages: languageCounts, locations },
+      },
+      agenda,
+    } = result;
 
     req.languages = languageCounts
       .map((c) => c.key)
@@ -30,6 +32,8 @@ export default (services) => async (req, res, next) => {
           (uniqueKeys.includes(key) ? uniqueKeys : uniqueKeys.concat(key)),
         [],
       );
+
+    req.hasMultipleLocations = locations.length > 1;
 
     req.agenda = agenda;
 

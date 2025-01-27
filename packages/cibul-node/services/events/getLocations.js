@@ -36,6 +36,7 @@ const includeFields = [
   'disqualifiedDuplicates',
   'mergedIn',
   'agendaUid',
+  'extIds',
 ];
 
 const getLocations = (services, uids) => {

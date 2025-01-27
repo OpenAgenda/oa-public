@@ -1,4 +1,28 @@
 {
+  "next.views.AgendaShow.ExportModal.PDFDownload": [
+    {
+      "type": 0,
+      "value": "Download"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.PDFGeoSections": [
+    {
+      "type": 0,
+      "value": "Add geographical sections"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": [
+    {
+      "type": 0,
+      "value": "Highlight the location"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.PDFSelectSub": [
+    {
+      "type": 0,
+      "value": "Drag and drop options to adjust order"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.allFields": [
     {
       "type": 0,
@@ -15,12 +39,6 @@
     {
       "type": 0,
       "value": "crwdns33045:0crwdne33045:0"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.city": [
-    {
-      "type": 0,
-      "value": "crwdns33934:0crwdne33934:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
@@ -45,12 +63,6 @@
     {
       "type": 0,
       "value": "crwdns33938:0crwdne33938:0"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.default": [
-    {
-      "type": 0,
-      "value": "crwdns33940:0crwdne33940:0"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
@@ -165,12 +177,6 @@
       "value": "crwdne33956:0"
     }
   ],
-  "next.views.AgendaShow.ExportModal.locationName": [
-    {
-      "type": 0,
-      "value": "crwdns33958:0crwdne33958:0"
-    }
-  ],
   "next.views.AgendaShow.ExportModal.login": [
     {
       "type": 0,
@@ -229,6 +235,12 @@
     {
       "type": 0,
       "value": "Show filters"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "One or more options"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [

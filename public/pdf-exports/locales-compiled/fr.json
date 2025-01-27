@@ -50,7 +50,7 @@
   "pdf-exports.registrationTool": [
     {
       "type": 0,
-      "value": "Outil d'inscription"
+      "value": "Outils de réservation"
     }
   ],
   "pdf-exports.status": [
@@ -63,6 +63,12 @@
     {
       "type": 0,
       "value": "Tags"
+    }
+  ],
+  "pdf-exports.undefined": [
+    {
+      "type": 0,
+      "value": "Non défini"
     }
   ]
 }

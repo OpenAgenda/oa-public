@@ -102,15 +102,25 @@ function _getQueryMustParts(cleanQuery) {
   return parts;
 }
 
-function _extIdFilter(extId) {
+function _extIdFilter(extId, type = 'event') {
   return {
     nested: {
-      path: 'extIds',
+      path: `${type === 'location' ? 'location.' : ''}extIds`,
       query: {
         bool: {
           must: [
-            { match: { 'extIds.key': extId.key } },
-            { match: { 'extIds.value': extId.value } },
+            {
+              match: {
+                [`${type === 'location' ? 'location.' : ''}extIds.key`]:
+                  extId.key,
+              },
+            },
+            {
+              match: {
+                [`${type === 'location' ? 'location.' : ''}extIds.value`]:
+                  extId.value,
+              },
+            },
           ],
         },
       },
@@ -445,6 +455,14 @@ function _getQueryFilterParts(
 
   if (cleanQuery?.extId && cleanQuery.extId.key && cleanQuery.extId.value) {
     parts.push(_extIdFilter(cleanQuery.extId));
+  }
+
+  if (
+    cleanQuery?.locationExtId
+    && cleanQuery.locationExtId.key
+    && cleanQuery.locationExtId.value
+  ) {
+    parts.push(_extIdFilter(cleanQuery?.locationExtId, 'location'));
   }
 
   if (

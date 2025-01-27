@@ -76,6 +76,10 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.filterSelectPlaceholder',
     defaultMessage: 'One or more filters',
   },
+  sortableSelectPlaceholder: {
+    id: 'next.views.AgendaShow.ExportModal.sortableSelectPlaceholder',
+    defaultMessage: 'One or more options',
+  },
   filterSelectSub: {
     id: 'next.views.AgendaShow.ExportModal.filterSelectSub',
     defaultMessage: 'Drag and drop filters to adjust order',
@@ -139,18 +143,21 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.outlookStep5',
     defaultMessage: 'Paste the URL you copied in step 1. Select "Import".',
   },
-  // PDF
-  default: {
-    id: 'next.views.AgendaShow.ExportModal.default',
-    defaultMessage: 'By default',
-  },
-  city: {
-    id: 'next.views.AgendaShow.ExportModal.city',
-    defaultMessage: 'Highlight the city',
-  },
-  locationName: {
-    id: 'next.views.AgendaShow.ExportModal.locationName',
+  PDFHighlightLocationName: {
+    id: 'next.views.AgendaShow.ExportModal.PDFHighlightLocationName',
     defaultMessage: 'Highlight the location',
+  },
+  PDFGeoSections: {
+    id: 'next.views.AgendaShow.ExportModal.PDFGeoSections',
+    defaultMessage: 'Add geographical sections',
+  },
+  PDFDownload: {
+    id: 'next.views.AgendaShow.ExportModal.PDFDownload',
+    defaultMessage: 'Download',
+  },
+  PDFSelectSub: {
+    id: 'next.views.AgendaShow.ExportModal.PDFSelectSub',
+    defaultMessage: 'Drag and drop options to adjust order',
   },
   showFilters: {
     id: 'next.views.AgendaShow.ExportModal.showFilters',

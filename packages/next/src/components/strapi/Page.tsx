@@ -18,7 +18,7 @@ export default function StrapiPage({ page }) {
         }[Segment['__component']];
 
         return (
-          <Box key={id} pt={5} pb={5}>
+          <Box key={id}>
             <Component key={id} {...Segment} />
           </Box>
         );

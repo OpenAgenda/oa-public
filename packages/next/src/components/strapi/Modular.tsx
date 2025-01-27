@@ -30,14 +30,22 @@ export default function Modular({
   maxWidth = { name: 'sm' },
   backgroundColor = null,
   fontColor = null,
+  fontSize = null,
+  titleAlign = null,
 }) {
   return (
     <Wrapper card={card} maxWidth={maxWidth?.name} bg={color(backgroundColor)}>
-      <VStack spacing="3" align="center" color={color(fontColor)}>
+      <VStack
+        spacing="3"
+        align="center"
+        textAlign="left"
+        color={color(fontColor)}
+        fontSize={fontSize?.name}
+      >
         {Icon ? <IconComponent {...Icon} /> : null}
         {Illustration ? <IllustrationComponent {...Illustration} /> : null}
         {title ? (
-          <Heading size="md" textAlign="center">
+          <Heading textAlign={titleAlign} fontSize="160%">
             {title}
           </Heading>
         ) : null}

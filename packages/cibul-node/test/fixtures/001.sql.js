@@ -84,6 +84,7 @@ raw.push(
         timezone: 'Europe/Paris',
       }),
       agenda_id: 2,
+      ext_ids: '{"identifiers": ["default->32"]}',
     }),
   ]),
 );

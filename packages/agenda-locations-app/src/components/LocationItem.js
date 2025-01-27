@@ -1,8 +1,11 @@
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+import { useMemo } from 'react';
 import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal/index.js';
 import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries.js';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
+import completeExternalActions from '../completeExternalActions.js';
+import Badge from './BadgeWithMoreInfo.js';
 
 const getLabels = makeLabelGetter(countries);
 
@@ -10,6 +13,10 @@ const messages = defineMessages({
   edit: {
     id: 'AgendaLocations.LocationItem.edit',
     defaultMessage: 'Edit',
+  },
+  show: {
+    id: 'AgendaLocations.LocationItem.show',
+    defaultMessage: 'Show',
   },
   remove: {
     id: 'AgendaLocations.LocationItem.remove',
@@ -86,6 +93,43 @@ const LocationItem = ({
   seeDetails,
 }) => {
   const intl = useIntl();
+  const { externalActions, usedExtIds } = useMemo(
+    () =>
+      completeExternalActions(settings?.locations?.extIds, location?.extIds),
+    [settings, location],
+  );
+
+  const renderExternalActions = (extId) =>
+    externalActions
+      .filter((a) => a.extId.key === extId.key)
+      .map((externalAction) => (
+        <a
+          className="margin-right-sm"
+          key={externalAction.action}
+          href={externalAction.link}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <text className="margin-right-xs">
+            {externalAction?.label && externalAction?.label[intl.locale]
+              ? externalAction?.label[intl.locale]
+              : `${intl.formatMessage(messages[externalAction.action])}`}
+          </text>
+          <i className="fa fa-external-link" aria-hidden="true" />
+        </a>
+      ));
+
+  const renderUsedExtIds = () =>
+    usedExtIds.map((extId) => (
+      <div className="col col-md-12 margin-bottom-xs">
+        <Badge
+          key={extId.key}
+          label={extId?.label || extId.key}
+          value={extId.value}
+        />
+        {renderExternalActions(extId)}
+      </div>
+    ));
 
   const myRemove = (e) => {
     e.stopPropagation();
@@ -156,6 +200,11 @@ const LocationItem = ({
         !settings.access.update.authorized
           ? 'btn btn-link disabled action'
           : 'btn btn-link action'
+      }
+      disabled={
+        (externalActions
+          && externalActions.filter((a) => a.action === 'edit'))
+        || false
       }
       onClick={myEdit.bind(this)}
     >
@@ -309,6 +358,7 @@ const LocationItem = ({
           {selectMergeTargetButton}{' '}
         </div>
       ) : null}
+      {externalActions ? <div>{renderUsedExtIds()}</div> : null}
     </div>
   );
 };

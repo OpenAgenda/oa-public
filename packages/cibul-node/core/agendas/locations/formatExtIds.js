@@ -10,7 +10,9 @@ const beforeInsert = (data) => {
   return data;
 };
 
-const afterRead = (data) => {
+const afterRead = (inData) => {
+  if (!inData) return;
+  const data = { ...inData };
   data.extId = null;
   if (data.extIds && data.extIds.length) {
     const defaultExtId = data.extIds.find((extId) => extId.key === 'default');
@@ -19,7 +21,15 @@ const afterRead = (data) => {
   return data;
 };
 
+const searchQuery = (query) => {
+  if (!(query.locationExtId?.key && query.locationExtId?.value)) {
+    return { key: 'default', value: query.locationExtId };
+  }
+  return query.locationExtId;
+};
+
 export default {
   afterRead,
   beforeInsert,
+  searchQuery,
 };

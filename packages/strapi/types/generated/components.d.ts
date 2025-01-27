@@ -27,7 +27,7 @@ export interface ComponentsIcon extends Struct.ComponentSchema {
     displayName: 'Icon';
   };
   attributes: {
-    code: Schema.Attribute.Enumeration<
+    name: Schema.Attribute.Enumeration<
       [
         'calendar',
         'chart-network',
@@ -63,7 +63,7 @@ export interface ComponentsIcon extends Struct.ComponentSchema {
       ]
     > &
       Schema.Attribute.DefaultTo<'fa-1x'>;
-    type: Schema.Attribute.Enumeration<['regular', 'thin', 'solid']> &
+    style: Schema.Attribute.Enumeration<['regular', 'thin', 'solid']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'regular'>;
   };
@@ -101,10 +101,13 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     Icon: Schema.Attribute.Component<'components.icon', false>;
     Illustration: Schema.Attribute.Component<'components.illustration', false>;
     maxWidth: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     title: Schema.Attribute.String;
+    titleAlign: Schema.Attribute.Enumeration<['left', 'center', 'right']> &
+      Schema.Attribute.DefaultTo<'center'>;
   };
 }
 
@@ -115,8 +118,17 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
     displayName: 'ModularSet';
   };
   attributes: {
+    backgroundColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     Components: Schema.Attribute.Component<'components.modular', true>;
     CTA: Schema.Attribute.Component<'components.cta-button', false>;
+    description: Schema.Attribute.String;
+    fontColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     title: Schema.Attribute.String;
   };
 }

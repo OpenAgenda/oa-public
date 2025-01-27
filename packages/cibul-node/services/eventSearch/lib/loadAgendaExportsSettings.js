@@ -19,5 +19,6 @@ export default () => (req, res) => {
   res.json({
     languages: req.languages,
     spreadsheetColumns,
+    hasMultipleLocations: req.hasMultipleLocations ?? true,
   });
 };

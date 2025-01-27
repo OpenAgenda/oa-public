@@ -1,0 +1,301 @@
+{
+  "languages": ["fr", "en", "nl", "de", "es", "it"],
+  "spreadsheetColumns": [
+    {
+      "source": "uid",
+      "target": "Identifiant",
+      "hasOptions": false
+    },
+    {
+      "source": "title",
+      "target": [
+        "Titre - FR",
+        "Titre - EN",
+        "Titre - NL",
+        "Titre - DE",
+        "Titre - ES",
+        "Titre - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "description",
+      "target": [
+        "Description courte - FR",
+        "Description courte - EN",
+        "Description courte - NL",
+        "Description courte - DE",
+        "Description courte - ES",
+        "Description courte - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "longDescription",
+      "target": [
+        "Description longue - FR",
+        "Description longue - EN",
+        "Description longue - NL",
+        "Description longue - DE",
+        "Description longue - ES",
+        "Description longue - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "permalink",
+      "target": "Permalien",
+      "hasOptions": false
+    },
+    {
+      "source": "keywords",
+      "target": [
+        "Mots clés - FR",
+        "Mots clés - EN",
+        "Mots clés - NL",
+        "Mots clés - DE",
+        "Mots clés - ES",
+        "Mots clés - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "dateRange",
+      "target": ["Résumé horaires - FR", "Résumé horaires - EN"],
+      "hasOptions": false
+    },
+    {
+      "source": "timings",
+      "target": [
+        "Horaires ISO",
+        "Horaires détaillés - FR",
+        "Horaires détaillés - EN",
+        "Horaires détaillés - DE",
+        "Horaires détaillés - ES",
+        "Horaires détaillés - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "firstDate",
+      "target": [
+        "Première date - FR",
+        "Première date - EN",
+        "Première date - NL",
+        "Première date - DE",
+        "Première date - ES",
+        "Première date - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "lastDate",
+      "target": [
+        "Dernière date - FR",
+        "Dernière date - EN",
+        "Dernière date - NL",
+        "Dernière date - DE",
+        "Dernière date - ES",
+        "Dernière date - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "conditions",
+      "target": [
+        "Conditions de participation, tarifs - FR",
+        "Conditions de participation, tarifs - EN",
+        "Conditions de participation, tarifs - NL",
+        "Conditions de participation, tarifs - DE",
+        "Conditions de participation, tarifs - ES",
+        "Conditions de participation, tarifs - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "accessibility",
+      "target": [
+        "Accessibilité - FR",
+        "Accessibilité - EN",
+        "Accessibilité - DE",
+        "Accessibilité - ES",
+        "Accessibilité - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "createdAt",
+      "target": [
+        "Création de la fiche - FR",
+        "Création de la fiche - EN",
+        "Création de la fiche - NL",
+        "Création de la fiche - DE",
+        "Création de la fiche - ES",
+        "Création de la fiche - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "updatedAt",
+      "target": [
+        "Dernière mise à jour - FR",
+        "Dernière mise à jour - EN",
+        "Dernière mise à jour - NL",
+        "Dernière mise à jour - DE",
+        "Dernière mise à jour - ES",
+        "Dernière mise à jour - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "image",
+      "target": "Image",
+      "hasOptions": false
+    },
+    {
+      "source": "onlineAccessLink",
+      "target": "Lien d'accès",
+      "hasOptions": false
+    },
+    {
+      "source": "registration",
+      "target": "Outils d'inscription",
+      "hasOptions": false
+    },
+    {
+      "source": "featured",
+      "target": "En une",
+      "hasOptions": false
+    },
+    {
+      "source": "age",
+      "target": "Âge du public ciblé",
+      "hasOptions": false
+    },
+    {
+      "source": "state",
+      "target": "Statut",
+      "hasOptions": false
+    },
+    {
+      "source": "interetintercommunal",
+      "target": "Événement d’intérêt métropolitain",
+      "hasOptions": true
+    },
+    {
+      "source": "recurringevent",
+      "target": "Événement récurrent",
+      "hasOptions": true
+    },
+    {
+      "source": "categories-metropolitaines",
+      "target": "Catégories Métropolitaines",
+      "hasOptions": true
+    },
+    {
+      "source": "label",
+      "target": "Label",
+      "hasOptions": true
+    },
+    {
+      "source": "imageCredits",
+      "target": "Crédits de l'image",
+      "hasOptions": false
+    },
+    {
+      "source": "attendanceMode",
+      "target": "Mode de participation",
+      "hasOptions": true
+    },
+    {
+      "source": "location.uid",
+      "target": "Lieu: Identifiant",
+      "hasOptions": false
+    },
+    {
+      "source": "location.name",
+      "target": "Lieu: Nom",
+      "hasOptions": false
+    },
+    {
+      "source": "location.address",
+      "target": "Lieu: Adresse",
+      "hasOptions": false
+    },
+    {
+      "source": "location.countryCode",
+      "target": "Lieu: Code pays",
+      "hasOptions": false
+    },
+    {
+      "source": "location.adminLevel1",
+      "target": "Lieu: Région",
+      "hasOptions": false
+    },
+    {
+      "source": "location.adminLevel2",
+      "target": "Lieu: Département",
+      "hasOptions": false
+    },
+    {
+      "source": "location.adminLevel4",
+      "target": "Lieu: Ville",
+      "hasOptions": false
+    },
+    {
+      "source": "location.postalCode",
+      "target": "Lieu: Code postal",
+      "hasOptions": false
+    },
+    {
+      "source": "location.insee",
+      "target": "Lieu: Code INSEE",
+      "hasOptions": false
+    },
+    {
+      "source": "location.latitude",
+      "target": "Lieu: Latitude",
+      "hasOptions": false
+    },
+    {
+      "source": "location.longitude",
+      "target": "Lieu: Longitude",
+      "hasOptions": false
+    },
+    {
+      "source": "location.description",
+      "target": [
+        "Lieu: Description - FR",
+        "Lieu: Description - EN",
+        "Lieu: Description - NL",
+        "Lieu: Description - DE",
+        "Lieu: Description - ES",
+        "Lieu: Description - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "location.website",
+      "target": "Lieu: Site internet",
+      "hasOptions": false
+    },
+    {
+      "source": "location.access",
+      "target": [
+        "Lieu: Accès - FR",
+        "Lieu: Accès - EN",
+        "Lieu: Accès - NL",
+        "Lieu: Accès - DE",
+        "Lieu: Accès - ES",
+        "Lieu: Accès - IT"
+      ],
+      "hasOptions": false
+    },
+    {
+      "source": "status",
+      "target": "État",
+      "hasOptions": true
+    }
+  ],
+  "hasMultipleLocations": true
+}

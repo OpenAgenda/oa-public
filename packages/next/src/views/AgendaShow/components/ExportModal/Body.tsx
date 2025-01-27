@@ -96,6 +96,7 @@ export default function Body({ agenda, onClose, defaultIndex }) {
 
   const publicKey = meData?.apiKey;
   const languages = exportSettingsData?.languages;
+  const hasMultipleLocations = exportSettingsData?.hasMultipleLocations ?? true;
   const fields = exportSettingsData?.spreadsheetColumns;
 
   const handleSubmit = (type, options) => async (e) => {
@@ -147,8 +148,13 @@ export default function Body({ agenda, onClose, defaultIndex }) {
 
     if (type === 'pdf') {
       exportUrl = new URL(res.export.pdf);
-      if (options.mode !== 'default') {
-        exportUrl.searchParams.append('mode', options.mode);
+      if (options.locationInHeader) {
+        exportUrl.searchParams.append('locationInHeader', 'true');
+      }
+      if (options.sort?.length) {
+        options.sort.forEach((s) => {
+          exportUrl.searchParams.append('sort[]', s);
+        });
       }
     }
 
@@ -190,7 +196,10 @@ export default function Body({ agenda, onClose, defaultIndex }) {
           languages={languages}
           fields={fields}
         />
-        <PdfAccordionItem handleSubmit={handleSubmit} />
+        <PdfAccordionItem
+          handleSubmit={handleSubmit}
+          hasMultipleLocations={hasMultipleLocations}
+        />
         <JsonAccordionItem handleSubmit={handleSubmit} res={res} />
         <GcalAccordionItem res={res} />
         <OutlookAccordionItem res={res} />

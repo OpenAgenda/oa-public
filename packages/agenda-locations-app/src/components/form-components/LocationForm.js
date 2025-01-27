@@ -249,7 +249,7 @@ const LocationForm = ({
 
   const getLabel = (unclearName, values) => {
     const name = clearRequired(unclearName);
-    console.log('getLabel', name, values);
+
     let str;
     let k;
     // see if label is defined in agenda settings

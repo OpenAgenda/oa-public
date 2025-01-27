@@ -1,4 +1,28 @@
 {
+  "next.views.AgendaShow.ExportModal.PDFDownload": [
+    {
+      "type": 0,
+      "value": "Télécharger"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.PDFGeoSections": [
+    {
+      "type": 0,
+      "value": "Sections géographiques"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": [
+    {
+      "type": 0,
+      "value": "Placer les détails du lieu en entête"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.PDFSelectSub": [
+    {
+      "type": 0,
+      "value": "Cliquez/glissez pour ajuster l'ordre de tri"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.allFields": [
     {
       "type": 0,
@@ -15,12 +39,6 @@
     {
       "type": 0,
       "value": "Annuler"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.city": [
-    {
-      "type": 0,
-      "value": "Mettre en avant la ville"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
@@ -45,12 +63,6 @@
     {
       "type": 0,
       "value": "Copier"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.default": [
-    {
-      "type": 0,
-      "value": "Par défaut"
     }
   ],
   "next.views.AgendaShow.ExportModal.detailedFormat": [
@@ -181,12 +193,6 @@
       "value": "link"
     }
   ],
-  "next.views.AgendaShow.ExportModal.locationName": [
-    {
-      "type": 0,
-      "value": "Mettre en avant le lieu"
-    }
-  ],
   "next.views.AgendaShow.ExportModal.login": [
     {
       "type": 0,
@@ -255,6 +261,12 @@
     {
       "type": 0,
       "value": "Afficher les filtres"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "Une ou plusieurs options"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [

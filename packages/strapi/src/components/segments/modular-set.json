@@ -18,6 +18,19 @@
       "type": "component",
       "repeatable": false,
       "component": "components.cta-button"
+    },
+    "description": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "fontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
     }
   }
 }

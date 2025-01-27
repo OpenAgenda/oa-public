@@ -1,13 +1,15 @@
 {
+  "next.views.AgendaShow.ExportModal.PDFDownload": "",
+  "next.views.AgendaShow.ExportModal.PDFGeoSections": "",
+  "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "",
+  "next.views.AgendaShow.ExportModal.PDFSelectSub": "",
   "next.views.AgendaShow.ExportModal.allFields": "Esportare tutte le informazione",
   "next.views.AgendaShow.ExportModal.allLanguages": "Esportare tutte le lingue",
   "next.views.AgendaShow.ExportModal.cancel": "Annulla",
-  "next.views.AgendaShow.ExportModal.city": "Evidenziare la città",
   "next.views.AgendaShow.ExportModal.close": "Chiudere",
   "next.views.AgendaShow.ExportModal.color": "",
   "next.views.AgendaShow.ExportModal.copied": "Copiato",
   "next.views.AgendaShow.ExportModal.copy": "Copia",
-  "next.views.AgendaShow.ExportModal.default": "Predefinito",
   "next.views.AgendaShow.ExportModal.detailedFormat": "Usa il formato dettagliato",
   "next.views.AgendaShow.ExportModal.distributeFields": "Campi con opzioni: visualizza un valore per colonna",
   "next.views.AgendaShow.ExportModal.documentation": "Vedere la documentazione",
@@ -24,7 +26,6 @@
   "next.views.AgendaShow.ExportModal.inputFormat": "Scegliere un formatto",
   "next.views.AgendaShow.ExportModal.instructions": "Istruzioni",
   "next.views.AgendaShow.ExportModal.instructionsCopyLink": "Copiare il link nel campo qui sopra e aprirlo {link}",
-  "next.views.AgendaShow.ExportModal.locationName": "Evidenziare il luogo",
   "next.views.AgendaShow.ExportModal.login": "Si prega di effettuare il login per accedere al link di esportazione direttamente da questo menu",
   "next.views.AgendaShow.ExportModal.new": "",
   "next.views.AgendaShow.ExportModal.openData": "Il contenuto di questa agenda può essere utilizzato secondo il principio <link>Open Data</link>",
@@ -35,6 +36,7 @@
   "next.views.AgendaShow.ExportModal.outlookStep5": "Incolla l'URL che hai copiato nel passo 1. Selezionare \"Importa\".",
   "next.views.AgendaShow.ExportModal.selectAll": "Selezionare tutto",
   "next.views.AgendaShow.ExportModal.showFilters": "",
+  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "",
   "next.views.AgendaShow.ExportModal.title": "Esportare"
 }

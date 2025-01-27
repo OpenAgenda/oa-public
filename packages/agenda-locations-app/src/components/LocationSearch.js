@@ -2,6 +2,7 @@ import { createRef, useEffect, useReducer } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
 
+import completeExternalActions from '../completeExternalActions.js';
 import SearchInput from './SearchInput.js';
 
 const messages = defineMessages({
@@ -82,6 +83,7 @@ const LocationSearch = ({
   onCreateRequest,
   onSelect,
   placeholder,
+  settings,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState(init));
   const intl = useIntl();
@@ -158,17 +160,44 @@ const LocationSearch = ({
     return '';
   };
 
-  const renderItem = (l) => (
-    <li
-      role="presentation"
-      onClick={() => onSelect(l)}
-      className="search-item"
-      key={l.uid}
-    >
-      <div className="name">{l.name}</div>
-      <div className="address">{l.address}</div>
-    </li>
-  );
+  const renderItem = (l, locationsSettings) => {
+    const { externalActions } = completeExternalActions(
+      locationsSettings?.extIds,
+      l?.extIds,
+    );
+    return (
+      <li
+        role="presentation"
+        onClick={() => onSelect(l)}
+        className="search-item"
+        key={l.uid}
+      >
+        <div className="text">
+          <div className="name">{l.name}</div>
+          <div className="address">{l.address}</div>
+        </div>
+        {externalActions && externalActions.find((e) => e.action === 'show') ? (
+          <div className="icon">
+            <a
+              href={externalActions.find((e) => e.action === 'show').link}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="externalActionShow"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {externalActions.find((e) => e.action === 'show')?.label[
+                intl.locale
+              ] || ''}
+              <i
+                className="fa fa-external-link margin-left-xs"
+                aria-hidden="true"
+              />
+            </a>
+          </div>
+        ) : null}
+      </li>
+    );
+  };
 
   const renderCreateItem = () => {
     if (state.locations.length === 0) {
@@ -219,7 +248,9 @@ const LocationSearch = ({
       ) : null}
       <ul className="dropdown-menu">
         {renderNav('prev')}
-        {state.locations.length ? state.locations.map(renderItem) : null}
+        {state.locations.length
+          ? state.locations.map((l) => renderItem(l, settings?.locations))
+          : null}
         {renderNav('next')}
         {!state.locations.length ? renderEmpty() : null}
         {allowCreate ? renderCreateItem() : null}
