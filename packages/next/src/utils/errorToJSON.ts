@@ -37,11 +37,20 @@ export function errorToJSON(error): JsonError {
   // Conserve keys order in obj
   for (const key in error['@@verror/meta']) {
     if (
-      Object.prototype.hasOwnProperty.call(error['@@verror/meta'], key)
-      && !(key in obj)
+      Object.prototype.hasOwnProperty.call(error['@@verror/meta'], key) &&
+      !(key in obj)
     ) {
       obj[key] = error['@@verror/meta'][key];
     }
+  }
+
+  // Delete undefined keys for serializing
+  if (obj.shortMessage === undefined) {
+    delete obj.shortMessage;
+  }
+
+  if (obj.stack === undefined) {
+    delete obj.stack;
   }
 
   return obj;

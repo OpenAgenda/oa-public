@@ -1,6 +1,8 @@
-import { defineMessages, useIntl } from 'react-intl';
-import { Button, chakra, Flex, Link, Text, HStack } from '@openagenda/uikit';
+import { useIntl } from 'react-intl';
+import { chakra, Flex, Text } from '@openagenda/uikit';
 import ErrorContainer from './ErrorContainer';
+import messages from './messages';
+import ErrorActions from './ErrorActions';
 
 export interface JsonError {
   name: string;
@@ -15,34 +17,8 @@ interface ErrorProps {
   error?: Error | JsonError;
   errorTrackingId?: string;
   resetError?: () => void;
+  actionsComponent?: typeof ErrorActions;
 }
-
-const messages = defineMessages({
-  internalError: {
-    id: 'next.components.ErrorDisplay.internalError',
-    defaultMessage: 'Internal error',
-  },
-  internalErrorMsg: {
-    id: 'next.components.ErrorDisplay.internalErrorMsg',
-    defaultMessage: 'If the problem persists, please contact support.',
-  },
-  contactSupport: {
-    id: 'next.components.ErrorDisplay.contactSupport',
-    defaultMessage: 'Contact support',
-  },
-  errorTrackingId: {
-    id: 'next.components.ErrorDisplay.errorTrackingId',
-    defaultMessage: 'Error tracking id',
-  },
-  retry: {
-    id: 'next.components.ErrorDisplay.retry',
-    defaultMessage: 'Retry',
-  },
-  backToHome: {
-    id: 'next.components.ErrorDisplay.backToHome',
-    defaultMessage: 'Back to home',
-  },
-});
 
 // enhanced VError.fullStack working with JsonError
 function getFullStack(error) {
@@ -59,6 +35,7 @@ export function ErrorDisplay({
   error,
   errorTrackingId,
   resetError,
+  actionsComponent: ActionsComponent = ErrorActions,
 }: ErrorProps) {
   const intl = useIntl();
 
@@ -73,19 +50,7 @@ export function ErrorDisplay({
         {intl.formatMessage(messages.internalErrorMsg)}
       </Text>
 
-      <HStack mt="8">
-        <Button onClick={resetError} colorScheme="primary" variant="outline">
-          {intl.formatMessage(messages.retry)}
-        </Button>
-
-        <Button as={Link} href="/" colorScheme="primary" variant="outline">
-          {intl.formatMessage(messages.backToHome)}
-        </Button>
-
-        <Button as={Link} href="/support" colorScheme="primary">
-          {intl.formatMessage(messages.contactSupport)}
-        </Button>
-      </HStack>
+      <ActionsComponent resetError={resetError} />
 
       {errorTrackingId && (
         <Flex flexDirection="column" textAlign="center" mt="8">

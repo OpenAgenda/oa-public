@@ -11,6 +11,9 @@ import {
 } from '@openagenda/react-filters';
 import { NextPageWithLayout } from 'pages/_app';
 import EmbedAgendaShow, { EmbedAgendaShowProps } from 'views/EmbedAgendaShow';
+import EmbedAgendaError, {
+  EmbedAgendaErrorProps,
+} from 'views/EmbedAgendaError';
 import includeFields from 'views/AgendaShow/includeFields';
 import getPrefilteredQuery from 'views/EmbedAgendaShow/utils/getPrefilteredQuery';
 import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
@@ -22,6 +25,8 @@ import generateNonce from 'utils/generateNonce';
 import CSP, { DEFAULT_DIRECTIVES } from 'utils/contentSecurityPolicy';
 import { omitParams, validateSort } from 'utils/embedParams';
 import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
+import { errorToJSON } from 'utils/errorToJSON';
+import { logError } from 'utils/sentry';
 import { Agenda } from 'types';
 
 type CommonProps = {
@@ -29,7 +34,8 @@ type CommonProps = {
   fallback?: any;
 };
 type ShowPageProps = EmbedAgendaShowProps & CommonProps;
-type PageProps = ShowPageProps;
+type ErrorPageProps = EmbedAgendaErrorProps & CommonProps;
+type PageProps = ShowPageProps | ErrorPageProps;
 
 const intlCache = createIntlCache();
 
@@ -198,17 +204,35 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
 
     return { props };
-  } catch (e) {
-    console.log(e);
+  } catch (e: any) {
+    const intlMessages = await EmbedAgendaError.fetchLocale(locale).catch(
+      () => ({}),
+    );
 
-    return {
-      props: {},
+    const statusCode = Number.isInteger(e.code) ? e.code : 500;
+    res.statusCode = statusCode;
+
+    const props: ErrorPageProps = {
+      statusCode,
+      intlMessages,
     };
+
+    props.error = errorToJSON(e);
+
+    if (statusCode !== 401 && statusCode !== 403 && statusCode !== 404) {
+      logError(e);
+    }
+
+    return { props };
   }
 };
 
 const EmbedAgendaPage: NextPageWithLayout<PageProps> = (props) => {
   const { fallback = {} } = props;
+
+  if ('statusCode' in props) {
+    return <EmbedAgendaError {...props} />;
+  }
 
   return (
     <DateFnsLocaleProvider>

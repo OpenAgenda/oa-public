@@ -3,9 +3,12 @@ import ky from 'ky';
 import { SWRConfig } from 'swr';
 import { NextPageWithLayout } from 'pages/_app';
 import EmbedEventShow, { EmbedEventShowProps } from 'views/EmbedEventShow';
+import EmbedEventError, { EmbedEventErrorProps } from 'views/EmbedEventError';
 import { AgendaProvider } from 'views/EventShow/contexts/agenda';
 import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
 import EmbedLayout from 'components/EmbedLayout';
+import { errorToJSON } from 'utils/errorToJSON';
+import { logError } from 'utils/sentry';
 import { Agenda } from 'types';
 
 type CommonProps = {
@@ -17,10 +20,12 @@ type ShowPageProps = EmbedEventShowProps &
   CommonProps & {
     agenda: Agenda;
   };
-type PageProps = ShowPageProps;
+type ErrorPageProps = EmbedEventErrorProps & CommonProps;
+type PageProps = ShowPageProps | ErrorPageProps;
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
+  res,
   locale,
   query: queryWithParams,
 }) => {
@@ -70,15 +75,37 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
 
     return { props };
-  } catch {
-    return {
-      props: {},
+  } catch (e: any) {
+    const intlMessages = await EmbedEventError.fetchLocale(locale).catch(
+      () => ({}),
+    );
+
+    const statusCode = Number.isInteger(e.code) ? e.code : 500;
+    res.statusCode = statusCode;
+
+    const props: ErrorPageProps = {
+      statusCode,
+      intlMessages,
     };
+
+    props.error = errorToJSON(e);
+
+    if (statusCode !== 401 && statusCode !== 403 && statusCode !== 404) {
+      logError(e);
+    }
+
+    return { props };
   }
 };
 
 const EmbedEventPage: NextPageWithLayout<PageProps> = (props) => {
-  const { fallback = {}, agenda } = props;
+  const { fallback = {} } = props;
+
+  if ('statusCode' in props) {
+    return <EmbedEventError {...props} />;
+  }
+
+  const { agenda } = props;
 
   return (
     <DateFnsLocaleProvider>
