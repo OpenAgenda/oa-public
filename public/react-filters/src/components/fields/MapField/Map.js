@@ -1,6 +1,6 @@
 import React, {
   useCallback,
-  useEffect,
+  useContext,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -16,8 +16,10 @@ import {
 } from 'react-leaflet';
 import L from 'leaflet';
 import { useIntl } from 'react-intl';
-import { usePrevious } from 'react-use';
 import '@raruto/leaflet-gesture-handling';
+import { useForm } from 'react-final-form';
+import FiltersAndWidgetsContext from '../../../contexts/FiltersAndWidgetsContext.js';
+import SearchHereControl from './SearchHereControl.js';
 
 const padRatio = 0.2;
 const unpadRatio = -(1 / ((1 + padRatio + padRatio) / padRatio));
@@ -103,6 +105,15 @@ function viewportToBounds(viewport) {
   );
 }
 
+function isEqualBounds(a, b) {
+  return (
+    String(a?.northEast?.lat) === String(b?.northEast?.lat)
+    && String(a?.northEast?.lng) === String(b?.northEast?.lng)
+    && String(a?.southWest?.lat) === String(b?.southWest?.lat)
+    && String(a?.southWest?.lng) === String(b?.southWest?.lng)
+  );
+}
+
 /*
 Returns bounds created by extending or retracting the current bounds by a given ratio in each direction.
 For example, a ratio of 0.5 extends the bounds by 50% in each direction.
@@ -127,10 +138,6 @@ function normalizeBounds(bounds, bufferRatio = 1) {
     new L.LatLng(south, west),
     new L.LatLng(north, east),
   );
-}
-
-function isEmptyValue(value) {
-  return !value || value === '';
 }
 
 function convertToKFormat(intl, number) {
@@ -172,21 +179,10 @@ function MarkerClusterIcon({ latitude, longitude, eventCount }) {
   );
 }
 
-function OnMapMove({ onChange, programmaticMoveRef }) {
-  const map = useMapEvents({
+function OnMapMove({ onChange }) {
+  useMapEvents({
     moveend() {
-      if (programmaticMoveRef.current) {
-        programmaticMoveRef.current = false;
-        return;
-      }
-
-      const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
-      const innerZoom = map.getBoundsZoom(map.getBounds());
-
-      onChange({
-        bounds: innerBounds,
-        zoom: innerZoom,
-      });
+      onChange();
     },
   });
 
@@ -202,19 +198,26 @@ const Map = React.forwardRef(
       loadGeoData,
       initialViewport,
       defaultViewport,
-      onChange,
-      userControlled,
-      setUserControlled,
       className,
+      searchHereControl: SearchHereControlComponent = SearchHereControl,
     },
     ref,
   ) => {
     const intl = useIntl();
+    const form = useForm();
+
+    const {
+      filtersOptions: { manualSubmit },
+    } = useContext(FiltersAndWidgetsContext);
+
     const mapRef = useRef();
     const programmaticMoveRef = useRef(false);
 
     const [viewport] = useState(() =>
       (input.value ? valueToViewport(input.value) : initialViewport));
+
+    const skipMoveRef = useRef(true);
+
     const [data, setData] = useState(() => []);
 
     const [displayedMarkers, setDisplayedMarkers] = useState(false);
@@ -225,9 +228,7 @@ const Map = React.forwardRef(
     useImperativeHandle(ref, () => ({
       setData,
       onQueryChange: (newViewport) => {
-        // Just reload data if it's user controlled
         const map = mapRef.current;
-        const needFitBounds = !userControlled || isEmptyValue(input.value);
 
         function reloadData() {
           waitMapBounds(map).then((bounds1) => {
@@ -242,9 +243,8 @@ const Map = React.forwardRef(
           });
         }
 
-        if (needFitBounds) {
+        if (!skipMoveRef.current) {
           map.once('moveend', () => reloadData());
-
           programmaticMoveRef.current = true;
           map.fitBounds(
             viewportToBounds(
@@ -254,6 +254,7 @@ const Map = React.forwardRef(
         } else {
           reloadData();
         }
+        skipMoveRef.current = false;
       },
     }));
 
@@ -279,45 +280,80 @@ const Map = React.forwardRef(
             })
             .catch((err) => {
               console.log('Failed to load geo data', err);
+            })
+            .finally(() => {
+              skipMoveRef.current = false;
             });
         });
       },
       [bounds, loadGeoData],
     );
 
-    const previousValue = usePrevious(input.value);
-    const previousUserControlled = usePrevious(userControlled);
+    const searchHere = useCallback(
+      (e) => {
+        e.preventDefault();
 
-    useEffect(() => {
-      // Become not user controlled if value is cleared
-      if (
-        !isEmptyValue(previousValue)
-        && isEmptyValue(input.value)
-        && userControlled
-      ) {
-        setUserControlled(false);
-      }
-    });
+        const map = mapRef.current;
 
-    useEffect(() => {
+        if (!map) return;
+
+        skipMoveRef.current = true;
+
+        const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
+        const northEast = innerBounds.getNorthEast().wrap();
+        const southWest = innerBounds.getSouthWest().wrap();
+
+        input.onChange({
+          northEast: {
+            lat: String(northEast.lat),
+            lng: String(northEast.lng),
+          },
+          southWest: {
+            lat: String(southWest.lat),
+            lng: String(southWest.lng),
+          },
+        });
+
+        if (manualSubmit) {
+          form.submit();
+        }
+      },
+      [input, mapRef],
+    );
+
+    const [latestBounds, setLatestBounds] = useState(false);
+
+    const onChange = useCallback(() => {
       const map = mapRef.current;
 
-      if (!map || !displayedMarkers) return;
+      const bounds1 = map.getBounds();
+      const innerBounds = normalizeBounds(bounds1, unpadRatio);
+      const innerZoom = map.getBoundsZoom(bounds1);
 
-      if (previousUserControlled === false && userControlled === true) {
-        const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
-        const innerZoom = map.getBoundsZoom(map.getBounds());
+      setLatestBounds(innerBounds);
 
-        onChange({
-          bounds: innerBounds,
-          zoom: innerZoom,
+      if (programmaticMoveRef.current) {
+        programmaticMoveRef.current = false;
+        return;
+      }
+
+      const { current: mapElem } = ref;
+      loadGeoData(innerBounds, innerZoom)
+        .then((data1) => mapElem.setData(data1?.reverse() ?? []))
+        .catch((err) => {
+          console.log('Failed to geo data', err);
         });
-      }
+    }, [loadGeoData, ref]);
 
-      if (previousUserControlled === true && userControlled === false) {
-        onChange(undefined);
-      }
-    }, [displayedMarkers, onChange, previousUserControlled, userControlled]);
+    const disabledMapSearch = useMemo(
+      () =>
+        !latestBounds
+        || isEqualBounds(input.value, {
+          northEast: latestBounds.getNorthEast().wrap(),
+          southWest: latestBounds.getSouthWest().wrap(),
+        }),
+      [input.value, latestBounds],
+    );
 
     const gestureHandlingOptions = useMemo(
       () => ({
@@ -327,35 +363,38 @@ const Map = React.forwardRef(
     );
 
     return (
-      <MapContainer
-        className={className}
-        bounds={bounds}
-        whenReady={onMapReady}
-        // scrollWheelZoom={false}
-        gestureHandling
-        gestureHandlingOptions={gestureHandlingOptions}
-        doubleClickZoom
-        worldCopyJump
-        // minZoom={1}
-      >
-        <TileLayer attribution={tileAttribution} url={tileUrl} />
+      <>
+        <MapContainer
+          className={className}
+          bounds={bounds}
+          whenReady={onMapReady}
+          // scrollWheelZoom={false}
+          gestureHandling
+          gestureHandlingOptions={gestureHandlingOptions}
+          doubleClickZoom
+          worldCopyJump
+          // minZoom={1}
+        >
+          <TileLayer attribution={tileAttribution} url={tileUrl} />
 
-        {displayedMarkers
-          ? data.map((entry) => (
-            <MarkerClusterIcon
-              key={entry.key}
-              eventCount={entry.eventCount}
-              latitude={entry.latitude}
-              longitude={entry.longitude}
-            />
-          ))
-          : null}
+          {displayedMarkers
+            ? data.map((entry) => (
+              <MarkerClusterIcon
+                key={entry.key}
+                eventCount={entry.eventCount}
+                latitude={entry.latitude}
+                longitude={entry.longitude}
+              />
+            ))
+            : null}
 
-        <OnMapMove
-          onChange={onChange}
-          programmaticMoveRef={programmaticMoveRef}
-        />
-      </MapContainer>
+          <OnMapMove onChange={onChange} />
+        </MapContainer>
+
+        {!disabledMapSearch ? (
+          <SearchHereControlComponent searchHere={searchHere} />
+        ) : null}
+      </>
     );
   },
 );

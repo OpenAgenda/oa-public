@@ -43,6 +43,9 @@ window.oa = {
 
       const result = await loadEventList({ ...values, size: 0 }, aggregations);
 
+      // Already loaded by map
+      delete result?.aggregations?.viewport;
+
       filtersRef.updateFiltersAndWidgets(values, result);
     } catch (e) {
       console.log('onLoad error:', e);
