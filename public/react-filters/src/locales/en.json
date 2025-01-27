@@ -69,7 +69,7 @@
   "ReactFilters.messages.filterTitles.status": "Status",
   "ReactFilters.messages.filterTitles.timings": "Date",
   "ReactFilters.messages.filterTitles.updatedAt": "Date of update",
-  "ReactFilters.messages.map.searchWithMap": "Search with map",
+  "ReactFilters.messages.map.searchHere": "Search here",
   "ReactFilters.messages.provenance.aggregation": "Aggregation",
   "ReactFilters.messages.provenance.contribution": "Contribution",
   "ReactFilters.messages.provenance.share": "Share",

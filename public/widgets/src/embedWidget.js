@@ -52,12 +52,21 @@ export default class EmbedLoader {
         const iframe = this.createIframe(embedUrl, href);
         this.loadedEmbeds.add(iframe);
 
+        const { iframeHeight } = agendaBlockquote.dataset;
+
+        if (iframeHeight) {
+          iframe.scrolling = 'yes';
+          iframe.style.height = iframeHeight;
+        }
+
         iframe.addEventListener('load', () => {
           iframeResize(
             {
               license: '12ajjdewwwy-26rnhw2943-1s7g1u8ma0i',
               checkOrigin: false,
               onMessage: this.onChildMessage,
+              scrolling: !!iframeHeight,
+              direction: iframeHeight ? 'none' : 'vertical',
             },
             iframe,
           );
@@ -82,6 +91,10 @@ export default class EmbedLoader {
 
     if (dataset.baseUrl) {
       url.searchParams.set('baseUrl', dataset.baseUrl);
+    }
+
+    if (dataset.baseUrlTarget) {
+      url.searchParams.set('baseUrlTarget', dataset.baseUrlTarget);
     }
 
     if (dataset.filters) {
@@ -119,7 +132,7 @@ export default class EmbedLoader {
     const iframe = document.createElement('iframe');
     iframe.id = `oa-embed-${this.embedCounter}`;
     this.embedCounter += 1;
-    iframe.scrolling = 'no';
+    // iframe.scrolling = 'no';
     iframe.frameBorder = '0';
     iframe.allowTransparency = 'true';
     iframe.title = 'OpenAgenda Embed';

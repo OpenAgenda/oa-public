@@ -16,8 +16,10 @@ import {
 } from '@openagenda/uikit';
 import { getFilters, useFilters } from '@openagenda/react-filters';
 import { nl2br } from '@openagenda/react-shared';
+// import { getReactMarkdownProps } from '@openagenda/md';
 import qs from 'qs';
 import useSessionStorageState from 'use-session-storage-state';
+// import ReactMarkdown, { type ReactMarkdownOptions } from 'react-markdown';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
@@ -306,6 +308,19 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
                   }}
                 />
               ) : null}
+
+              {/* event.longDescription?.[contentLocale] ? (
+                <chakra.div sx={mdStyle}>
+                  <ReactMarkdown
+                    {...getReactMarkdownProps({
+                      selfDomain: false,
+                      embedLinks: event.links,
+                    }) as ReactMarkdownOptions}
+                  >
+                    {event.longDescription[contentLocale]}
+                  </ReactMarkdown>
+                </chakra.div>
+              ) : null */}
 
               {event.keywords?.[contentLocale]?.length ? (
                 <chakra.div color="oaGray.500">

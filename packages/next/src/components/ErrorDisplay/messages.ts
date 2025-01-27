@@ -1,0 +1,28 @@
+import { defineMessages } from 'react-intl';
+
+export default defineMessages({
+  internalError: {
+    id: 'next.components.ErrorDisplay.internalError',
+    defaultMessage: 'Internal error',
+  },
+  internalErrorMsg: {
+    id: 'next.components.ErrorDisplay.internalErrorMsg',
+    defaultMessage: 'If the problem persists, please contact support.',
+  },
+  contactSupport: {
+    id: 'next.components.ErrorDisplay.contactSupport',
+    defaultMessage: 'Contact support',
+  },
+  errorTrackingId: {
+    id: 'next.components.ErrorDisplay.errorTrackingId',
+    defaultMessage: 'Error tracking id',
+  },
+  retry: {
+    id: 'next.components.ErrorDisplay.retry',
+    defaultMessage: 'Retry',
+  },
+  backToHome: {
+    id: 'next.components.ErrorDisplay.backToHome',
+    defaultMessage: 'Back to home',
+  },
+});

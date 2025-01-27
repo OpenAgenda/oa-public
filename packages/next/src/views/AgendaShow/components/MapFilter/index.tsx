@@ -1,23 +1,10 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import {
-  MapFilter as ReactFiltersMapFilter,
-  useMapUserControl,
-  useMapOnChange,
-} from '@openagenda/react-filters';
-import { chakra, Box } from '@openagenda/uikit';
-import SearchWithMap from './SearchWithMap';
-
-type SetUserControlled = (userControlled: boolean) => void;
-type ToggleUserControlled = () => void;
-type UseMapUserControl = (
-  name: string,
-  searchWithMap: string,
-) => [boolean, SetUserControlled, ToggleUserControlled];
+import { MapFilter as ReactFiltersMapFilter } from '@openagenda/react-filters';
+import { Box } from '@openagenda/uikit';
+import SearchHereControl from './SearchHereControl';
 
 const DynamicMap = dynamic(() => import('./Map'), { ssr: false });
-
-const StyledSearchWithMap = chakra(SearchWithMap);
 
 const MapField = React.forwardRef<any, any>(function MapField(
   {
@@ -28,42 +15,23 @@ const MapField = React.forwardRef<any, any>(function MapField(
     loadGeoData,
     initialViewport,
     defaultViewport,
-    searchMessage,
-    searchWithMap,
   },
   ref,
 ) {
-  const [userControlled, setUserControlled, toggleUserControlled] = (
-    useMapUserControl as UseMapUserControl
-  )(input.name, searchWithMap);
-  const onChange = useMapOnChange({ input, loadGeoData, ref, userControlled });
-
   return (
-    <div>
-      <Box h="250px">
-        <DynamicMap
-          innerRef={ref}
-          input={input}
-          filter={filter}
-          tileAttribution={tileAttribution}
-          tileUrl={tileUrl}
-          loadGeoData={loadGeoData}
-          initialViewport={initialViewport}
-          defaultViewport={defaultViewport}
-          onChange={onChange}
-          userControlled={userControlled}
-          setUserControlled={setUserControlled}
-        />
-      </Box>
-
-      <StyledSearchWithMap
-        name={input.name}
-        userControlled={userControlled}
-        toggleUserControlled={toggleUserControlled}
-        searchMessage={searchMessage}
-        mt="1"
+    <Box h="250px" pos="relative">
+      <DynamicMap
+        innerRef={ref}
+        input={input}
+        filter={filter}
+        tileAttribution={tileAttribution}
+        tileUrl={tileUrl}
+        loadGeoData={loadGeoData}
+        initialViewport={initialViewport}
+        defaultViewport={defaultViewport}
+        searchHereControl={SearchHereControl}
       />
-    </div>
+    </Box>
   );
 });
 

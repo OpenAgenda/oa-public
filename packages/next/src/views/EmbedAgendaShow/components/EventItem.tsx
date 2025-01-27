@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import qs from 'qs';
-import { Box, Flex, LinkBox } from '@openagenda/uikit';
+import { Box, Flex, LinkBox, Tag, HStack } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
 import Image from 'components/Image';
@@ -9,6 +9,7 @@ import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
 import useLocationQuery from 'hooks/useLocationQuery';
 import { thumborLoader } from 'utils/imageLoader';
+import { sidebar as messages } from 'views/EventShow/messages';
 
 const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
@@ -23,25 +24,29 @@ function isValidUrl(url: string) {
   }
 }
 
-function useEventLink({ baseUrl, agenda, event, nc }) {
+function useEventLink({ baseUrl, baseUrlTarget, agenda, event, nc }) {
   return useMemo(() => {
     if (baseUrl === 'oa') {
+      const target = baseUrlTarget || '_blank';
       return {
-        isExternal: true,
+        target,
+        rel: target === '_blank' ? 'nofollow noopener' : '',
         url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}${qs.stringify({ nc }, { addQueryPrefix: true })}`,
       };
     }
 
     if (isValidUrl(baseUrl)) {
+      const target = baseUrlTarget || '_blank';
       const trailingSlash = baseUrl.endsWith('/');
       return {
-        isExternal: true,
+        target,
+        rel: target === '_blank' ? 'nofollow noopener' : '',
         url: `${baseUrl}${trailingSlash ? '' : '/'}${event.slug}`,
       };
     }
 
     return {
-      isExternal: false,
+      target: '_self',
       url: `/embed/agendas/${agenda.uid}/events/${event.slug}${qs.stringify({ nc }, { addQueryPrefix: true })}`,
     };
   }, [baseUrl, agenda.uid, agenda.slug, event.slug, nc]);
@@ -59,7 +64,8 @@ export default function EventItem({
 
   const query = useLocationQuery();
 
-  const { baseUrl, primaryColor, imageList, sort } = useEmbedLayoutData();
+  const { baseUrl, baseUrlTarget, primaryColor, imageList, sort } =
+    useEmbedLayoutData();
 
   const nc = useMemo(
     () => ({
@@ -75,7 +81,13 @@ export default function EventItem({
     [first, from, last, query],
   );
 
-  const eventLink = useEventLink({ baseUrl, agenda, event, nc });
+  const eventLink = useEventLink({
+    baseUrl,
+    baseUrlTarget,
+    agenda,
+    event,
+    nc,
+  });
 
   const imageHeight = imageList ? imageList.height : '170px';
 
@@ -121,11 +133,22 @@ export default function EventItem({
         <Box h={imageHeight} />
       )}
       <Flex direction="column" p="6" gap="2" grow="1" minH="170px">
-        <Box color={primaryColor ? 'primary.500' : null} fontWeight="bold">
-          {getLocaleValue(event.dateRange, intl.locale)}
-        </Box>
+        <HStack color={primaryColor ? 'primary.500' : null} fontWeight="bold">
+          <span>{getLocaleValue(event.dateRange, intl.locale)}</span>
+          {!event.nextTiming ? (
+            <Tag
+              borderRadius="full"
+              variant="outline"
+              colorScheme="oaGray"
+              flexShrink="0"
+            >
+              <b>{intl.formatMessage(messages.passed)}</b>
+            </Tag>
+          ) : null}
+        </HStack>
         <NextChakraLinkOverlay
-          isExternal={eventLink.isExternal}
+          target={eventLink.target}
+          rel={eventLink.rel}
           href={eventLink.url}
         >
           <b>{getLocaleValue(event.title, intl.locale)}</b>

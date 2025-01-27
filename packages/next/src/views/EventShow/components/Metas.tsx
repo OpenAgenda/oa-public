@@ -15,7 +15,7 @@ export default function Metas({ preload, contentLocale }) {
   const { event } = useEvent();
 
   const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_ROOT);
-  const canonicalUrl = `${absUrl.origin}/${intl.locale === 'io' ? intl.locale : 'en'}${absUrl.pathname}`;
+  const canonicalUrl = `${absUrl.origin}/${intl.locale === 'io' ? 'en' : intl.locale}${absUrl.pathname}`;
 
   const pageTitle = `${event.title[contentLocale]} | ${agenda.title} | OpenAgenda`;
   const description = event.description[contentLocale];
@@ -35,14 +35,15 @@ export default function Metas({ preload, contentLocale }) {
 
       <link rel="canonical" href={canonicalUrl} />
       {SUPPORTED_LOCALES.map((key) =>
-        (key === 'io' ? null : (
+        key === 'io' ? null : (
           <link
             key={`alternate:${key}`}
             rel="alternate"
             hrefLang={key}
             href={`${absUrl.origin}/${key}${absUrl.pathname}`}
           />
-        )))}
+        ),
+      )}
       <link
         rel="alternate"
         hrefLang="x-default"
@@ -56,13 +57,14 @@ export default function Metas({ preload, contentLocale }) {
       <meta property="og:type" content="website" />
       <meta property="og:locale" content={contentLocale} />
       {SUPPORTED_LOCALES.map((key) =>
-        (key === intl.locale || key === 'io' ? null : (
+        key === intl.locale || key === 'io' ? null : (
           <meta
             key={`ogLocale:${key}`}
             property="og:locale:alternate"
             content={key}
           />
-        )))}
+        ),
+      )}
       <meta property="og:url" content={absUrl.origin + absUrl.pathname} />
       {image ? <meta property="og:image" content={image} /> : null}
 

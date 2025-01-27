@@ -42,15 +42,27 @@ const sortValues = [
 
 type SortParam = (typeof sortValues)[number];
 
+const baseUrlTargetValues = ['_blank', '_parent', '_top'] as const;
+
+type BaseUrlTarget = (typeof baseUrlTargetValues)[number];
+
 export type EmbedParams = {
   filters?: any;
   baseUrl?: string;
+  baseUrlTarget?: BaseUrlTarget;
   primaryColor?: string;
   secondaryColor?: string;
   imageList?: ImageListParam;
   sort?: SortParam;
   displayTotal?: boolean;
 };
+
+function validateBaseUrlTarget(value: string): BaseUrlTarget | null {
+  if (baseUrlTargetValues.includes(value as BaseUrlTarget)) {
+    return value as BaseUrlTarget;
+  }
+  return null;
+}
 
 function parseAndValidateColor(value: string): string | null {
   try {
@@ -114,6 +126,7 @@ const noopParser = (v: unknown): unknown => v;
 const parsers = {
   filters: noopParser,
   baseUrl: noopParser,
+  baseUrlTarget: validateBaseUrlTarget,
   primaryColor: parseAndValidateColor,
   secondaryColor: parseAndValidateColor,
   imageList: parseImageList,

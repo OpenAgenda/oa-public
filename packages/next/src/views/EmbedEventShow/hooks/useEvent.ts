@@ -9,6 +9,7 @@ export default function useEvent() {
   const { eventSlug } = router.query;
 
   const { data, ...rest } = useSWRImmutable<{ success: boolean; event: Event }>(
+    // `/api/agendas/${agenda.uid}/events/slug/${eventSlug}`,
     `/api/agendas/${agenda.uid}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`,
   );
 
