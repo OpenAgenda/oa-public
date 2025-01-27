@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import thumbnail from '../thumbnail.js';
 import goToNextLine from '../goToNextLine.js';
-
 import titlePositioning from './titlePositioning.js';
 import descriptionPositioning from './descriptionPositioning.js';
 import dateRangePositioning from './dateRangePositioning.js';
@@ -128,12 +127,6 @@ export default async function addEventItem(
     ? imageWidth + base.margin * 2
     : base.margin;
 
-  if (includeEventImages) {
-    columnMaxWidth = doc.page.width - imageWidth - base.margin * 3;
-  } else {
-    columnMaxWidth = doc.page.width - base.margin * 2;
-  }
-
   const imageOptions = {
     cover: [imageWidth, imageHeight],
     align: 'center',
@@ -142,17 +135,20 @@ export default async function addEventItem(
 
   const imageUrl = await thumbnail(event);
 
-  if (!simulate && imageUrl && includeEventImages) {
-    const oaLogoPath = `${__dirname}/../images/oaLogo.png`;
-    try {
-      doc.image(imageUrl, cursor.x, cursor.y, imageOptions);
-    } catch (e) {
-      doc.image(oaLogoPath, cursor.x, cursor.y, imageOptions);
-    }
-  }
-
   if (includeEventImages) {
+    columnMaxWidth = doc.page.width - imageWidth - base.margin * 3;
+
+    if (!simulate && imageUrl) {
+      const oaLogoPath = `${__dirname}/../../../images/oaLogo.png`;
+      try {
+        doc.image(imageUrl, localCursor.x, localCursor.y, imageOptions);
+      } catch (e) {
+        doc.image(oaLogoPath, localCursor.x, localCursor.y, imageOptions);
+      }
+    }
     localCursor.x += imageWidth + base.margin;
+  } else {
+    columnMaxWidth = doc.page.width - base.margin * 2;
   }
 
   localCursor.y -= base.margin / 8;

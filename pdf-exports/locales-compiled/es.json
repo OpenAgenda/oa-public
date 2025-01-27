@@ -38,13 +38,13 @@
   "pdf-exports.page": [
     {
       "type": 0,
-      "value": "Pàgina"
+      "value": "Page"
     }
   ],
   "pdf-exports.registration": [
     {
       "type": 0,
-      "value": "Registro"
+      "value": "Registration"
     }
   ],
   "pdf-exports.registrationTool": [
@@ -63,6 +63,12 @@
     {
       "type": 0,
       "value": "Tags"
+    }
+  ],
+  "pdf-exports.undefined": [
+    {
+      "type": 0,
+      "value": "Undefined"
     }
   ]
 }

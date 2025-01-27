@@ -43,7 +43,10 @@ export default async (req, res, next) => {
   setPageProp(req, 'filtersBase', req.data.filtersBase);
 
   if (req.app.locals.tracking?.useAgendaGoogleAnalytics) {
-    const gaId = res.locals.agenda.settings.tracking?.googleAnalytics || null;
+    const gaId = res.locals.agenda.settings.tracking?.googleAnalytics
+      && req.app.locals.tracking?.enableTracking
+      ? res.locals.agenda.settings.tracking.googleAnalytics
+      : null;
     if (!gaId) {
       console.log(
         'Warning: no Google Analytics ID found. Set one in your agenda settings or disable tracking.',
