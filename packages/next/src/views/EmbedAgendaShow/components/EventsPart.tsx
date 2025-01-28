@@ -38,10 +38,7 @@ export default function EventsPart({
     query: omitParams({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
-      host:
-        typeof document !== 'undefined' && document.referrer
-          ? document.referrer
-          : referrer,
+      host: referrer,
     }),
     includeFields,
     pageSize: PAGE_SIZE,
@@ -94,6 +91,7 @@ export default function EventsPart({
               key={event.uid}
               event={event}
               agenda={agenda}
+              referrer={referrer}
               // nav
               from={pageIndex * PAGE_SIZE + eventIndex}
               first={pageIndex === 0 && eventIndex === 0}

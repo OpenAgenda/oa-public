@@ -5,12 +5,12 @@ import { SUPPORTED_LOCALES } from 'config/constants';
 import { useAgenda } from '../../EventShow/contexts/agenda';
 import useEvent from '../hooks/useEvent';
 
-export default function Metas({ preload, contentLocale }) {
+export default function Metas({ preload, contentLocale, referrer }) {
   const intl = useIntl();
   const router = useRouter();
 
   const agenda = useAgenda();
-  const { event } = useEvent();
+  const { event } = useEvent({ referrer });
 
   const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_ROOT);
   const canonicalUrl = `${absUrl.origin}/${intl.locale === 'io' ? 'en' : intl.locale}${absUrl.pathname}`;

@@ -62,10 +62,7 @@ export default function FiltersPart({
     query: omitParams({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
-      host:
-        typeof document !== 'undefined' && document.referrer
-          ? document.referrer
-          : referrer,
+      host: referrer,
     }),
     includeFields,
     pageSize: PAGE_SIZE,
@@ -95,10 +92,7 @@ export default function FiltersPart({
       ...getPrefilteredQuery({ prefilter, query, filters }),
       passed: undefined, // omit passed,
       cms: 'embed',
-      host:
-        typeof document !== 'undefined' && document.referrer
-          ? document.referrer
-          : referrer,
+      host: referrer,
     }),
   );
 

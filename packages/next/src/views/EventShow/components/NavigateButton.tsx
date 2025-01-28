@@ -17,6 +17,7 @@ export type NavigateButtonProps = {
   direction: 'previous' | 'next';
   prefilter?: Record<string, any>;
   filters?: any;
+  referrer?: string;
 };
 
 export function useGoToSiblingEvent({

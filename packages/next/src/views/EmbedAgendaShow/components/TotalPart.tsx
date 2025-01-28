@@ -104,10 +104,7 @@ export default function TotalPart({
     query: omitParams({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
-      host:
-        typeof document !== 'undefined' && document.referrer
-          ? document.referrer
-          : referrer,
+      host: referrer,
     }),
     includeFields,
     pageSize: PAGE_SIZE,

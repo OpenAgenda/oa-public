@@ -19,11 +19,12 @@ export default function NavigateButton({
   direction,
   prefilter,
   filters,
+  referrer,
 }: NavigateButtonProps) {
   const intl = useIntl();
   const query = useLocationQuery() as any;
   const agenda = useAgenda();
-  const { event } = useEvent();
+  const { event } = useEvent({ referrer });
 
   const { sort } = useEmbedLayoutData();
 

@@ -2,6 +2,7 @@ import {
   Suspense,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useTransition,
@@ -62,13 +63,26 @@ const stripLangPrefix = (pathname) => pathname.replace(/^\/[a-z][a-z]\//, '/');
 const isDifferentPathname = (pathname1, pathname2) =>
   stripLangPrefix(pathname1) !== stripLangPrefix(pathname2);
 
-function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
+function EmbedAgendaShow({
+  agenda,
+  preload,
+  referrer: referrerProps,
+}: EmbedAgendaShowProps) {
   const intl = useIntl();
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
 
-  const { query, setQuery, prefilter, sort, displayTotal } =
-    useEmbedLayoutData();
+  const {
+    query,
+    setQuery,
+    prefilter,
+    sort,
+    displayTotal,
+    referrer: layoutDataReferrer,
+    setReferrer,
+  } = useEmbedLayoutData();
+
+  const referrer = layoutDataReferrer || referrerProps;
 
   const filtersFormRef = useRef<any>();
 
@@ -115,10 +129,7 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
     query: omitParams({
       ...getPrefilteredQuery({ query, prefilter, filters }),
       cms: 'embed',
-      host:
-        typeof document !== 'undefined' && document.referrer
-          ? document.referrer
-          : referrer,
+      host: referrer,
     }),
     includeFields,
     pageSize: 12,
@@ -182,6 +193,12 @@ function EmbedAgendaShow({ agenda, preload, referrer }: EmbedAgendaShowProps) {
     }
     // deps: on `pages` change, useEffectEvent from react when possible
   }, [pages, previousPages, filters, latestQuery, latestRouter]);
+
+  useLayoutEffect(() => {
+    if (!layoutDataReferrer && referrerProps) {
+      setReferrer(referrerProps);
+    }
+  }, []);
 
   return (
     <>
