@@ -280,5 +280,11 @@
       "type": 0,
       "value": "Exportar"
     }
+  ],
+  "next.views.AgendaShow.ExportModal.viewEmbedDoc": [
+    {
+      "type": 0,
+      "value": "Voir toutes les options sur la documentation"
+    }
   ]
 }
