@@ -113,6 +113,9 @@
       .form-control {
         border-color: $oa-red;
       }
+      .control-label {
+        color: $oa-red;
+      }
     }
 
     .form-control {
@@ -126,6 +129,11 @@
         box-shadow: inherit;
       }
     }
+
+    .control-label {
+      color: $oa-black;
+    }
+  
   }
 
   .checkbox {
