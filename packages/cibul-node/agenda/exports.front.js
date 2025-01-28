@@ -57,7 +57,7 @@ function sleep(ms) {
 function checkKey(onError) {
   return cbify(async (req, res, next) => {
     if (!req.query.key) {
-      return sleep(400)(req, res, next);
+      return sleep(800)(req, res, next);
     }
 
     const { keys: keysSvc } = req.app.services;

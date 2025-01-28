@@ -17,10 +17,16 @@
       "value": "Placer les détails du lieu en entête"
     }
   ],
+  "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "Segments"
+    }
+  ],
   "next.views.AgendaShow.ExportModal.PDFSelectSub": [
     {
       "type": 0,
-      "value": "Cliquez/glissez pour ajuster l'ordre de tri"
+      "value": "Choisissez une ou plusieurs valeurs"
     }
   ],
   "next.views.AgendaShow.ExportModal.allFields": [
@@ -261,12 +267,6 @@
     {
       "type": 0,
       "value": "Afficher les filtres"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": [
-    {
-      "type": 0,
-      "value": "Une ou plusieurs options"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [

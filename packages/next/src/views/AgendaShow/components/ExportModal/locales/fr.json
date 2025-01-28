@@ -2,7 +2,8 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": "Télécharger",
   "next.views.AgendaShow.ExportModal.PDFGeoSections": "Sections géographiques",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "Placer les détails du lieu en entête",
-  "next.views.AgendaShow.ExportModal.PDFSelectSub": "Cliquez/glissez pour ajuster l'ordre de tri",
+  "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "Segments",
+  "next.views.AgendaShow.ExportModal.PDFSelectSub": "Choisissez une ou plusieurs valeurs",
   "next.views.AgendaShow.ExportModal.allFields": "Exporter tous les champs",
   "next.views.AgendaShow.ExportModal.allLanguages": "Exporter dans toutes les langues",
   "next.views.AgendaShow.ExportModal.cancel": "Annuler",
@@ -36,7 +37,6 @@
   "next.views.AgendaShow.ExportModal.outlookStep5": "Collez le lien et sélectionnez \"Importer\"",
   "next.views.AgendaShow.ExportModal.selectAll": "Tout sélectionner",
   "next.views.AgendaShow.ExportModal.showFilters": "Afficher les filtres",
-  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": "Une ou plusieurs options",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "Tableur (Excel / CSV)",
   "next.views.AgendaShow.ExportModal.title": "Exporter",
   "next.views.AgendaShow.ExportModal.viewEmbedDoc": "Voir toutes les options sur la documentation"

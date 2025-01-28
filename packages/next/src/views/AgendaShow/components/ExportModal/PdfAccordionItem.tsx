@@ -54,7 +54,7 @@ export default function PdfAccordionItem({
                   ]}
                   value={sort}
                   placeholder={intl.formatMessage(
-                    messages.sortableSelectPlaceholder,
+                    messages.PDFSelectPlaceholder,
                   )}
                   onChange={(update) => setSort(update)}
                   menuPosition="fixed"

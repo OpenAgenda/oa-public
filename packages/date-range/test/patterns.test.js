@@ -2,7 +2,7 @@
 
 const newPatterns = require('../patterns');
 
-describe('partterns', () => {
+describe('patterns', () => {
   it('no timings return empty string', () => {
     expect(newPatterns([], 'en')).toBe('');
   });

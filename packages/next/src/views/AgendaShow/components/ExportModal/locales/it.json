@@ -2,6 +2,7 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": "",
   "next.views.AgendaShow.ExportModal.PDFGeoSections": "",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "",
+  "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.PDFSelectSub": "",
   "next.views.AgendaShow.ExportModal.allFields": "Esportare tutte le informazione",
   "next.views.AgendaShow.ExportModal.allLanguages": "Esportare tutte le lingue",
@@ -36,7 +37,6 @@
   "next.views.AgendaShow.ExportModal.outlookStep5": "Incolla l'URL che hai copiato nel passo 1. Selezionare \"Importa\".",
   "next.views.AgendaShow.ExportModal.selectAll": "Selezionare tutto",
   "next.views.AgendaShow.ExportModal.showFilters": "",
-  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "",
   "next.views.AgendaShow.ExportModal.title": "Esportare",
   "next.views.AgendaShow.ExportModal.viewEmbedDoc": ""

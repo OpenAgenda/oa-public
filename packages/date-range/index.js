@@ -2,7 +2,7 @@
 
 const labels = require('@openagenda/labels/agendas/range');
 const moment = require('moment-timezone');
-const partterns = require('./patterns');
+const patterns = require('./patterns');
 
 const ucfirst = (str) => str.substr(0, 1).toUpperCase() + str.substr(1);
 
@@ -133,6 +133,8 @@ module.exports = (timings, lang, timezone) => {
     });
   }
 
+  const patternSuffix = patterns(timings, lang, timezone);
+
   return (
     _render(labels.moreDates[lang], {
       firstDate: _renderDate({
@@ -151,6 +153,6 @@ module.exports = (timings, lang, timezone) => {
         timezone,
         oneDate: false,
       }),
-    }) + partterns(timings, lang, timezone)
+    }) + patternSuffix
   );
 };

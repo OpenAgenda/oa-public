@@ -2,6 +2,7 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": "",
   "next.views.AgendaShow.ExportModal.PDFGeoSections": "",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "",
+  "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.PDFSelectSub": "",
   "next.views.AgendaShow.ExportModal.allFields": "Exportat totes los camps",
   "next.views.AgendaShow.ExportModal.allLanguages": "Exportar dins totas las lengas",
@@ -36,7 +37,6 @@
   "next.views.AgendaShow.ExportModal.outlookStep5": "Pegats l'URL que copièretz a l'etapa 1. Causissètz \"Impòrt\".",
   "next.views.AgendaShow.ExportModal.selectAll": "Seleccionar tot",
   "next.views.AgendaShow.ExportModal.showFilters": "",
-  "next.views.AgendaShow.ExportModal.sortableSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "",
   "next.views.AgendaShow.ExportModal.title": "Exportar",
   "next.views.AgendaShow.ExportModal.viewEmbedDoc": ""

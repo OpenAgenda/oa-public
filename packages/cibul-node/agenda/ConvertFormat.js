@@ -107,7 +107,7 @@ export default function ConvertFormat({
       events: convertedEvents,
     };
 
-    const readme = 'Results are paginated. See: https://developers.openagenda.com/export-json-dun-agenda/';
+    const readme = '⚠️⚠️⚠️Use the API rather than this legacy export. 👉 https://developers.openagenda.com | Results are paginated. Legacy export documentation: https://developers.openagenda.com/export-json-dun-agenda/';
 
     if (sendJSON && req.query.callback) {
       res.set('Content-Type', 'application/javascript');
