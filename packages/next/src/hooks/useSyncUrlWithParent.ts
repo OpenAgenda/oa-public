@@ -3,6 +3,12 @@ import { useRouter } from 'next/router';
 import { useLatest } from 'react-use';
 import { embedAgendaUrlRegex } from '../utils/isNextUrl';
 
+function removeHostQuery(urlString: string): string {
+  const url = new URL(urlString, 'https://n');
+  url.searchParams.delete('host');
+  return url.pathname + url.search;
+}
+
 export default function useSyncUrlWithParent() {
   const router = useRouter();
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -28,14 +34,15 @@ export default function useSyncUrlWithParent() {
   }, [latestRouter]);
 
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
+    const handleRouteChange = (urlArg: string) => {
       if (isFirstLoad) {
         setIsFirstLoad(false);
       } else if ('parentIframe' in window) {
+        const url = removeHostQuery(urlArg);
         const urlWithoutLocale = url.replace(/^\/[^/]+\//, '/');
         if (
-          embedAgendaUrlRegex.test(urlWithoutLocale)
-          && !/\?.+/.test(url) // no query
+          embedAgendaUrlRegex.test(urlWithoutLocale) &&
+          !/\?.+/.test(url) // no query
         ) {
           window.parentIFrame.sendMessage({ type: 'urlChange', url: '' });
           return;

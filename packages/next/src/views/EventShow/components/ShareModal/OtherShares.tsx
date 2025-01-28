@@ -131,7 +131,10 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
   const agenda = useAgenda();
   const { event } = useEvent();
 
-  const eventUrl = `${process.env.NEXT_PUBLIC_ROOT}${router.asPath}?cl=${contentLocale}`;
+  const absUrl = new URL(router.asPath, process.env.NEXT_PUBLIC_ROOT);
+  absUrl.searchParams.delete('sharemodal');
+  const eventUrl = new URL(absUrl);
+  eventUrl.searchParams.set('cl', contentLocale);
 
   const now = new Date();
 
@@ -193,7 +196,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
           <Button
             as={Link}
             variant="outline"
-            href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(eventUrl)}`}
+            href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(eventUrl.toString())}`}
             isExternal
             colorScheme="primary"
             leftIcon={<FaIcon icon={faFacebookF} />}
@@ -203,7 +206,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
           <Button
             as={Link}
             variant="outline"
-            href={`https://twitter.com/share?url=${encodeURIComponent(eventUrl)}`}
+            href={`https://twitter.com/share?url=${encodeURIComponent(eventUrl.toString())}`}
             isExternal
             colorScheme="primary"
             leftIcon={<FaIcon icon={faXTwitter} />}
@@ -213,7 +216,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
           <Button
             as={Link}
             variant="outline"
-            href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(eventUrl)}&title=${encodeURIComponent(event.title[contentLocale])}&summary=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}&source=${eventUrl}`}
+            href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(eventUrl.toString())}&title=${encodeURIComponent(event.title[contentLocale])}&summary=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}&source=${eventUrl}`}
             isExternal
             colorScheme="primary"
             leftIcon={<FaIcon icon={faLinkedinIn} />}
@@ -313,7 +316,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
           alignItems="center"
           justifyContent="space-between"
         >
-          {process.env.NEXT_PUBLIC_ROOT + router.asPath}
+          {absUrl.toString()}
           <Tooltip
             label={intl.formatMessage(messages.copied)}
             hasArrow
@@ -328,9 +331,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
               size="sm"
               mx="1"
               onClick={async () => {
-                const success = await copyText(
-                  process.env.NEXT_PUBLIC_ROOT + router.asPath,
-                );
+                const success = await copyText(absUrl.toString());
                 if (success) setCopied(true);
               }}
             >

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Box,
@@ -14,7 +14,11 @@ import {
   Wrap,
   WrapItem,
 } from '@openagenda/uikit';
-import { getFilters, useFilters } from '@openagenda/react-filters';
+import {
+  fetchLocale as fetchFiltersLocales,
+  getFilters,
+  useFilters,
+} from '@openagenda/react-filters';
 import { nl2br } from '@openagenda/react-shared';
 // import { getReactMarkdownProps } from '@openagenda/md';
 import qs from 'qs';
@@ -76,16 +80,27 @@ export type EmbedEventShowProps = {
   referrer?: string;
 };
 
-function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
+function EmbedEventShow({
+  preload,
+  referrer: referrerProps,
+}: EmbedEventShowProps) {
   const intl = useIntl();
   const dateFnsLocale = useDateFnsLocale();
 
+  const {
+    initPath,
+    baseUrl,
+    prefilter,
+    referrer: layoutDataReferrer,
+    setReferrer,
+  } = useEmbedLayoutData();
+
+  const referrer = layoutDataReferrer || referrerProps;
+
   const agenda = useAgenda();
-  const { event } = useEvent();
+  const { event } = useEvent({ referrer });
 
   const query = useLocationQuery() as any;
-
-  const { initPath, baseUrl, prefilter } = useEmbedLayoutData();
 
   const isViewedInAgendaContext = useMemo(
     () => embedAgendaUrlRegex.test(initPath),
@@ -151,6 +166,12 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
 
   useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
 
+  useLayoutEffect(() => {
+    if (!layoutDataReferrer && referrerProps) {
+      setReferrer(referrerProps);
+    }
+  }, []);
+
   const [nc] = useSessionStorageState('EventShow:nc');
   const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
 
@@ -158,7 +179,11 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
 
   return (
     <>
-      <Metas preload={preload} contentLocale={contentLocale} />
+      <Metas
+        preload={preload}
+        contentLocale={contentLocale}
+        referrer={referrer}
+      />
 
       <Grid
         templateAreas={{
@@ -180,7 +205,7 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
           flexDirection="column"
           flexGrow="1"
         >
-          <Sidebar />
+          <Sidebar referrer={referrer} />
         </GridItem>
 
         <GridItem area="event" display="flex" flexDirection="column" gap="12">
@@ -198,10 +223,7 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
                         },
                         { addQueryPrefix: true },
                       )}`,
-                      host:
-                        (typeof document !== 'undefined'
-                          ? document.referrer
-                          : referrer) || undefined,
+                      host: referrer || undefined,
                       from: undefined,
                       first: undefined,
                       last: undefined,
@@ -218,11 +240,13 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
                       direction="previous"
                       prefilter={prefilter}
                       filters={filters}
+                      referrer={referrer}
                     />
                     <NavigateButton
                       direction="next"
                       prefilter={prefilter}
                       filters={filters}
+                      referrer={referrer}
                     />
                   </Flex>
                 ) : null}
@@ -517,8 +541,8 @@ function EmbedEventShow({ preload, referrer }: EmbedEventShowProps) {
 }
 
 EmbedEventShow.fetchLocale = (locale: string) =>
-  Promise.all([fetchLocale(locale)]).then((results) =>
-    Object.assign({}, ...results),
+  Promise.all([fetchLocale(locale), fetchFiltersLocales(locale)]).then(
+    (results) => Object.assign({}, ...results),
   );
 
 export default EmbedEventShow;

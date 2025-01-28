@@ -88,8 +88,8 @@ export function ShareSection({ event, icon = faShareNodes, ...props }) {
   );
 }
 
-export default function Sidebar() {
-  const { event } = useEvent();
+export default function Sidebar({ referrer }) {
+  const { event } = useEvent({ referrer });
 
   return (
     <>

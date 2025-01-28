@@ -38,5 +38,6 @@
   "next.views.AgendaShow.ExportModal.selectAll": "Select all",
   "next.views.AgendaShow.ExportModal.showFilters": "Show filters",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "Spreadsheet (Excel / CSV)",
-  "next.views.AgendaShow.ExportModal.title": "Export"
+  "next.views.AgendaShow.ExportModal.title": "Export",
+  "next.views.AgendaShow.ExportModal.viewEmbedDoc": "See all options on the documentation"
 }

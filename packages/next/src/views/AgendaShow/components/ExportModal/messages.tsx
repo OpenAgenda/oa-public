@@ -167,4 +167,8 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.openInSamePage',
     defaultMessage: 'Open events on the same page',
   },
+  viewEmbedDoc: {
+    id: 'next.views.AgendaShow.ExportModal.viewEmbedDoc',
+    defaultMessage: 'See all options on the documentation',
+  },
 });

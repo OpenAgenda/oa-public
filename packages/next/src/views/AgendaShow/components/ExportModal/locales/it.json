@@ -38,5 +38,6 @@
   "next.views.AgendaShow.ExportModal.selectAll": "Selezionare tutto",
   "next.views.AgendaShow.ExportModal.showFilters": "",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "",
-  "next.views.AgendaShow.ExportModal.title": "Esportare"
+  "next.views.AgendaShow.ExportModal.title": "Esportare",
+  "next.views.AgendaShow.ExportModal.viewEmbedDoc": ""
 }

@@ -38,5 +38,6 @@
   "next.views.AgendaShow.ExportModal.selectAll": "Tout sélectionner",
   "next.views.AgendaShow.ExportModal.showFilters": "Afficher les filtres",
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": "Tableur (Excel / CSV)",
-  "next.views.AgendaShow.ExportModal.title": "Exporter"
+  "next.views.AgendaShow.ExportModal.title": "Exporter",
+  "next.views.AgendaShow.ExportModal.viewEmbedDoc": "Voir toutes les options sur la documentation"
 }

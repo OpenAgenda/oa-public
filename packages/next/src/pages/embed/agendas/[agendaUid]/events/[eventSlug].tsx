@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import ky from 'ky';
 import { SWRConfig } from 'swr';
+import qs from 'qs';
 import { NextPageWithLayout } from 'pages/_app';
 import EmbedEventShow, { EmbedEventShowProps } from 'views/EmbedEventShow';
 import EmbedEventError, { EmbedEventErrorProps } from 'views/EmbedEventError';
@@ -32,8 +33,17 @@ export const getServerSideProps: GetServerSideProps = async ({
   const agendaUid = queryWithParams.agendaUid as string;
   const eventSlug = queryWithParams.eventSlug as string;
 
+  const referrer =
+    (queryWithParams.host as string) || req.headers.referer || null;
+
   // const eventUrl = `api/agendas/${agendaUid}/events/slug/${eventSlug}`;
-  const eventUrl = `api/agendas/${agendaUid}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
+  const eventUrl = `api/agendas/${agendaUid}/events/slug/${eventSlug}?${qs.stringify(
+    {
+      longDescriptionFormat: 'HTMLWithEmbeds',
+      cms: 'embed',
+      host: referrer,
+    },
+  )}`;
 
   let agenda = null;
 
@@ -44,8 +54,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       Authorization: req.headers.authorization,
     },
   });
-
-  const referrer = req.headers.referer || null;
 
   try {
     const results = await Promise.allSettled([

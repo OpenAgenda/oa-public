@@ -10,6 +10,7 @@ import {
   Checkbox,
   Tag,
   Input,
+  Link,
 } from '@openagenda/uikit';
 import { FilterSelect } from '@openagenda/react-shared';
 import { getFilterSelectOptions } from '@openagenda/react-filters';
@@ -197,6 +198,16 @@ export default function EmbedAccordionItem({ res, agenda }) {
             }
           }}
         />
+
+        <Link
+          colorScheme="primary"
+          target="_blank"
+          rel="noopener"
+          href="https://developers.openagenda.com/codes-embed/"
+        >
+          {intl.formatMessage(messages.viewEmbedDoc)}
+        </Link>
+
         <Tooltip
           label={intl.formatMessage(messages.copied)}
           hasArrow
