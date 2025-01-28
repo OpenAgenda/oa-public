@@ -1,3 +1,10 @@
+const replaceCDNWithStorage = (base) => {
+  if (!base) {
+    return base;
+  }
+  return base.replace(/\/\/cdn\./, '//storage.');
+};
+
 export default (img) => {
   if (!img || img?.filename === null) {
     return {
@@ -9,16 +16,19 @@ export default (img) => {
 
   if (!img?.variants || !img.variants.length) {
     return {
-      image: img.base + img.filename,
+      image: replaceCDNWithStorage(img.base) + img.filename,
       thumbnail: false,
       originalImage: false,
     };
   }
 
   const { base, filename, variants } = img;
-  const image = base + filename;
-  const thumbnail = base + variants.find((variant) => variant.type === 'thumbnail').filename;
-  const originalImage = base + variants.find((variant) => variant.type === 'full').filename;
+
+  const image = replaceCDNWithStorage(base) + filename;
+  const thumbnail = replaceCDNWithStorage(base)
+    + variants.find((variant) => variant.type === 'thumbnail').filename;
+  const originalImage = replaceCDNWithStorage(base)
+    + variants.find((variant) => variant.type === 'full').filename;
 
   return {
     image,
