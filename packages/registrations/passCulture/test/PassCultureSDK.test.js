@@ -103,6 +103,61 @@ describe('PassCultureSDK', () => {
     });
   });
 
+  describe('offers.addresses', () => {
+    let response;
+    let pc;
+    beforeAll(async () => {
+      pc = PassCultureSDK({ key, api });
+    });
+
+    it('create', async () => {
+      const created = await pc.offers.addresses.create({
+        city: 'Paris',
+        latitude: 48.86696,
+        longitude: 2.31014,
+        postalCode: '75001',
+        street: '182 Rue Saint-Honoré',
+      });
+      expect(created).toStrictEqual({
+        banId: null,
+        city: 'Paris',
+        id: 1764,
+        latitude: 48.86696,
+        longitude: 2.31014,
+        postalCode: '75001',
+        street: '182 Rue Saint-Honoré',
+      });
+    });
+
+    it('search', async () => {
+      response = await pc.offers.addresses.search({
+        city: 'Paris',
+        postalCode: '75001',
+        street: '182 Rue Saint-Honoré',
+      });
+      expect(response.addresses).toStrictEqual([
+        {
+          banId: '75101_8635_00182',
+          city: 'Paris',
+          id: 1544,
+          latitude: 48.8624,
+          longitude: 2.3389,
+          postalCode: '75001',
+          street: '182 Rue Saint-Honoré',
+        },
+        {
+          banId: null,
+          city: 'Paris',
+          id: 1764,
+          latitude: 48.86696,
+          longitude: 2.31014,
+          postalCode: '75001',
+          street: '182 Rue Saint-Honoré',
+        },
+      ]);
+    });
+  });
+
   describe('offers.events', () => {
     let response;
 
@@ -160,6 +215,31 @@ describe('PassCultureSDK', () => {
 
       expect(typeof id).toBe('number');
       expect(name).toBe(formatted.name);
+    });
+
+    it('create Concert without sub', async () => {
+      let err;
+      const pc = PassCultureSDK({ key, api });
+
+      const [
+        {
+          venues: [{ id: venueId }],
+        },
+      ] = await pc.offers.offererVenues();
+      const formatted = await formatEvent(
+        pickEvent('animation-enfant-parure-de-terre-2615625'),
+        { venueId, category: 'CONCERT' },
+        { lang: 'fr' },
+      );
+
+      try {
+        /* const { id, name } = */ await pc.offers.events.create(formatted);
+      } catch (error) {
+        err = error.response.data;
+      }
+      expect(err).toStrictEqual({
+        'categoryRelatedFields.CONCERT_create.musicType': ['field required'],
+      });
     });
   });
 
@@ -296,22 +376,17 @@ describe('PassCultureSDK', () => {
       expect(resp.categoryRelatedFields).toStrictEqual(categoryRelatedFields);
     });
 
-    it('can not patch updates event venue', async () => {
-      let err;
+    it('(NEW can now) patch updates event venue', async () => {
       const offererVenues = await pc.offers.offererVenues();
 
       const location = {
         type: 'physical',
         venueId: offererVenues[0].venues[1].id,
       };
-      try {
-        await pc.offers.events(id).patch({ location });
-      } catch (error) {
-        err = error;
-      }
-      expect(err.response.data).toStrictEqual({
-        location: ['extra fields not permitted'],
-      });
+
+      const offer = await pc.offers.events(id).patch({ location });
+
+      expect(offer.location.venueId).toBe(offererVenues[0].venues[1].id);
     });
   });
 

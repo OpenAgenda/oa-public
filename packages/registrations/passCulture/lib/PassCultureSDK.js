@@ -45,7 +45,7 @@ async function listEventOfferCategories({ api }) {
       [],
     )
     .map((r) => ({
-      schema: r,
+      schema: r.replace('__deprecated_', ''),
       options: openAPIObj.components.schemas[r].enum.map((value) => ({
         value,
         label: labelizeENUMValue(value),
@@ -53,7 +53,10 @@ async function listEventOfferCategories({ api }) {
     }));
 
   return {
-    categories,
+    categories: categories.map((c) => ({
+      ...c,
+      related: c.related.map((r) => r.replace('__deprecated_', '')),
+    })),
     related,
   };
 }
@@ -153,6 +156,30 @@ export default function PassCultureSDK(params) {
         params,
         'get',
         '/public/offers/v1/offerer_venues',
+      ),
+      addresses: Object.assign(
+        (addressesId) => ({
+          get: call.bind(
+            null,
+            params,
+            'get',
+            `/public/offers/adressesId/${addressesId}`,
+          ),
+        }),
+        {
+          search: call.bind(
+            null,
+            params,
+            'get',
+            '/public/offers/v1/addresses/search',
+          ),
+          create: call.bind(
+            null,
+            params,
+            'post',
+            '/public/offers/v1/addresses',
+          ),
+        },
       ),
     },
   };
