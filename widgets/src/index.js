@@ -13,12 +13,12 @@ function init() {
   function readyHandler() {
     window.removeEventListener('DOMContentLoaded', readyHandler);
 
-    widgetManager.load();
-    widgetManager.executeReadyQueue();
-
     window.oa.widgets = {
       load: widgetManager.load,
     };
+
+    widgetManager.load();
+    widgetManager.executeReadyQueue();
   }
 
   if (
