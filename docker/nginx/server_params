@@ -10,6 +10,10 @@ location ~ ^/js/(matomo|crisp)\.js$ {
   include conf.d/nodejs_params;
 }
 
+location = /js/embed/cibulBodyWidget.js {
+  return 301 https://cdn.openagenda.com/js/widgets.js;
+}
+
 # cibul-templates/dist
 location ~ ^/(css|fonts|images|js) {
   add_header Access-Control-Allow-Origin *;
