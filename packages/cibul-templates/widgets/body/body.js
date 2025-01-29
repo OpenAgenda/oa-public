@@ -1,3 +1,5 @@
+import '@openagenda/widgets/src/index';
+
 if (
   document.readyState === 'complete'
   || document.readyState === 'interactive'
@@ -18,36 +20,18 @@ function readyHandler() {
     try {
       const agendaUid = (elem.dataset.src || elem.src).match(/[0-9]+/g)[0];
 
-      elem.src = 'about:blank'; // Arrêter le chargement des ressources
-      elem.onload = () => {
-        // Remplacer l'iframe après l'arrêt des ressources
-        const newElem = document.createElement('blockquote');
-        newElem.className = 'oa-agenda';
-        newElem.setAttribute('align', 'center');
-        newElem.innerHTML = `<a href="https://openagenda.com/agendas/${agendaUid}"></a>`;
-        elem.replaceWith(newElem);
-        window.oa.ready(oa => oa.widgets.load());
-      };
+      elem.style.display = 'none';
+      elem.src = 'about:blank';
+
+      const newElem = document.createElement('blockquote');
+      newElem.className = 'oa-agenda';
+      newElem.setAttribute('align', 'center');
+      newElem.innerHTML = `<a href="https://openagenda.com/agendas/${agendaUid}"></a>`;
+      elem.replaceWith(newElem);
     } catch (e) {
       console.log('Failed to replace old iframes', e);
     }
   }
 
-  window.oa = (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.oa || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = 'https://openagenda.com/js/newEmbed.js';
-    js.async = true;
-    fjs.parentNode.insertBefore(js, fjs);
-
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-
-    return t;
-  }(document, 'script', 'oa-wjs'));
+  window.oa.widgets.load();
 }
