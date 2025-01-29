@@ -22,6 +22,7 @@ import * as embedSvc from '../services/embed/index.js';
 import members from '../services/members/index.js';
 import eventFormat from '../services/event/middleware/format.js';
 import * as legacyEventSvc from '../services/event/index.js';
+import controlDataMw from '../lib/controlDataMw.js';
 import getLongDescriptionHTML from '../services/event/lib/getLongDescriptionHTML.js';
 import convertFormat from './ConvertFormat.js';
 import loadCredentials from './loadCredentials.js';
@@ -652,6 +653,7 @@ export default (app) => {
   const {
     sessions,
     legacy: { controlData: controlDataSvc },
+    agendas: agendasSvc,
   } = app.services;
 
   app.options('*/controldata*', (req, res) => res.sendStatus(200));
@@ -676,6 +678,23 @@ export default (app) => {
       next({ code: 403 });
     }),
     controlDataSvc.middleware,
+  );
+
+  app.get(
+    '/agendas/:uid/ctrldata',
+    preMw,
+    agendasSvc.middleware.load({
+      internal: true,
+      namespaces: {
+        identifiers: {
+          uid: 'params.uid',
+        },
+      },
+    }),
+    cmn.ifIs('agenda.private', (req, res, next) => {
+      next({ code: 403 });
+    }),
+    controlDataMw,
   );
 
   app.get(
