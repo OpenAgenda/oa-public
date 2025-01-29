@@ -16,7 +16,7 @@ function readyHandler() {
 
   for (const elem of elems) {
     try {
-      const agendaUid = elem.dataset.src.match(/[0-9]+/g)[0];
+      const agendaUid = (elem.dataset.src || elem.src).match(/[0-9]+/g)[0];
 
       const newElem = document.createElement('blockquote');
       newElem.className = 'oa-agenda';
