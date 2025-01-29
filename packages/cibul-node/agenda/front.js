@@ -13,7 +13,6 @@ import forbiddenLabels from '@openagenda/labels/agendas/forbidden.js';
 import { fromMarkdownToHTML } from '@openagenda/md';
 import utils from '@openagenda/utils';
 import * as agendaSvc from '../services/agenda/index.js';
-import cacheMw from '../lib/cache.mw.js';
 import cmn from '../lib/commons-app.js';
 import getStatusLabel from '../lib/getStatusLabel.js';
 import removeXFrameOptionsHeader from '../lib/removeXFrameOptionsHeader.js';
@@ -750,16 +749,19 @@ export default (app) => {
   app.get(
     '/agendas/:uid/embeds/:embedUid/events',
     preMw,
-    cacheMw('customEmbedShow', 'params.embedUid', 30, [
-      cmn.redirectLegacySearch,
-      agendaSvc.mw.load('uid', { cache: true }),
-      loadCredentials,
-      embedSvc.mw.load('embedUid', 'uid'),
-      embedSvc.mw.browserCache,
-      convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
-      middlewares.embedShow,
-      (req, res) => res.send(req.render),
-    ]),
+    // cacheMw('customEmbedShow', 'params.embedUid', 30, [
+    //   cmn.redirectLegacySearch,
+    //   agendaSvc.mw.load('uid', { cache: true }),
+    //   loadCredentials,
+    //   embedSvc.mw.load('embedUid', 'uid'),
+    //   embedSvc.mw.browserCache,
+    //   convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
+    //   middlewares.embedShow,
+    //   (req, res) => res.send(req.render),
+    // ]),
+    (req, res) => {
+      res.redirect(302, `/embed/agendas/${req.params.uid}`);
+    },
   );
 
   app.get(

@@ -96,7 +96,7 @@ export function getRelatedFieldName(categories, category) {
 export function getRelatedFieldOptions(related, relatedFieldName) {
   const enumValue = `${relatedFieldName.replace(/^\w/, (c) => c.toUpperCase())}Enum`;
 
-  return related.find(({ schema }) => schema === enumValue).options ?? [];
+  return related.find(({ schema }) => schema === enumValue)?.options ?? [];
 }
 
 const getCurrentValueArrayHandler = (initialAcc, objArr) =>

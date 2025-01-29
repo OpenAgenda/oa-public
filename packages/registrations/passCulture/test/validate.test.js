@@ -265,6 +265,18 @@ describe('validate', () => {
         expect(clean.subcategory).toBeUndefined();
       });
 
+      test('if category is CONCERT', () => {
+        const clean = validateLocalData(
+          {
+            ...validData,
+            category: 'CONCERT',
+          },
+          { timings: matchingTimings },
+          settings,
+        );
+        expect(clean.category).toBe('CONCERT');
+      });
+
       test('if a category requiring a subType is set, musicType/showType must be set', () => {
         let error;
 
