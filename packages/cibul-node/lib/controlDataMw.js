@@ -41,6 +41,7 @@ async function generateMemberData(core, agendaUID) {
       .agendas(agendaUID)
       .members.list({}, { after }, { access: 'internal' });
     for (const member of items) {
+      if (!member.userUid) continue;
       ctl[mMap[member.role]].push(member.userUid);
     }
     after = nextAfter;
@@ -67,9 +68,31 @@ function refreshLastTiming(lo, timings) {
   return { start: begin, end };
 }
 
-async function generateControlData(req) {
-  const { core } = req.app.services;
+function generateEmbedDefaults() {
+  return {
+    md: false,
+    sh: { fb: true, tw: true, gp: true, li: true, tu: true, pi: true },
+    synchref: true,
+    use_event_slug: false,
+    dcss: {
+      list: true,
+      map: true,
+      search: true,
+      categories: true,
+      tags: true,
+      calendar: true,
+      form: true,
+    },
+    sc: true,
+    mp: 'all',
+    mc: [],
+    ma: false,
+    mt: false,
+    classes: {},
+  };
+}
 
+async function generateControlData(core, agendaUID) {
   const ctl = {
     ev: [],
     l: [],
@@ -80,7 +103,7 @@ async function generateControlData(req) {
     ct: [],
   };
 
-  const schema = await core.agendas(req.agenda.uid).settings.schema.getMerged();
+  const schema = await core.agendas(agendaUID).settings.schema.getMerged();
 
   const additionalOptionedFields = schema.fields.filter(
     (f) => !!f.options && f.origin !== 'custom',
@@ -99,7 +122,7 @@ async function generateControlData(req) {
   additionalOptionedFields.forEach((f) => includeFields.push(f.field));
 
   for await (const event of await core
-    .agendas(req.agenda.uid)
+    .agendas(agendaUID)
     .events.search({}, null, {
       stream: true,
       includeFields,
@@ -137,12 +160,35 @@ async function generateControlData(req) {
 
   return Object.assign(
     ctl,
-    await generateMemberData(core, req.agenda.uid),
+    await generateMemberData(core, agendaUID),
     generateTagsAndGroups(additionalOptionedFields),
+    generateEmbedDefaults(),
   );
 }
 
-export default function controlDataMw(req, res, _next) {
-  generateControlData(req).then((data) =>
-    res.json({ success: true, code: 200, data }));
+export default async function controlDataMw(req, res, _next) {
+  const { simpleCache, core } = req.app.services;
+
+  const cachedData = await simpleCache
+    .hash('agendas', req.agenda.uid)
+    .get('controlData', { json: true });
+
+  if (cachedData) {
+    res.json({
+      success: true,
+      code: 200,
+      data: cachedData,
+    });
+    return;
+  }
+
+  const data = await generateControlData(core, req.agenda.uid);
+
+  await simpleCache.hash('agendas', req.agenda.uid).set('controlData', data);
+
+  res.json({
+    success: true,
+    code: 200,
+    data,
+  });
 }
