@@ -3599,16 +3599,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime-corejs2@npm:^7.3.1":
-  version: 7.26.0
-  resolution: "@babel/runtime-corejs2@npm:7.26.0"
-  dependencies:
-    core-js: "npm:^2.6.12"
-    regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/959108880ebb55d7bb31667b959bb6a01243ae89515f07d5bf6c0de7298c249c3624e85b0c4ccbbfd650a06a4cbde4045e60ed917ec1e61727a303a094638f15
-  languageName: node
-  linkType: hard
-
 "@babel/runtime-corejs3@npm:^7.23.2, @babel/runtime-corejs3@npm:^7.9.0, @babel/runtime-corejs3@npm:^7.9.2":
   version: 7.26.0
   resolution: "@babel/runtime-corejs3@npm:7.26.0"
@@ -8333,7 +8323,6 @@ __metadata:
     compile-ejs-loader: "npm:^0.0.3"
     copy-to-clipboard: "npm:^3.3.3"
     core-js: "npm:^3.29.1"
-    create-react-class: "npm:^15.5.2"
     d3: "npm:3.5.6"
     debug: "npm:^4.1.1"
     deep-extend: "npm:0.6.0"
@@ -8355,7 +8344,6 @@ __metadata:
     nodemon: "npm:^2.0.6"
     path-browserify: "npm:^1.0.1"
     point-in-polygon: "npm:^1.0.1"
-    prop-types: "npm:^15.5.8"
     qs: "npm:^6.9.1"
     raven-js: "npm:^3.9.1"
     raw-loader: "npm:^4.0.0"
@@ -8371,7 +8359,6 @@ __metadata:
     react-router-dom: "npm:^5.1.2"
     react-select: "npm:^5.8.3"
     react-tagsinput: "npm:^3.7.0"
-    react-timings-picker: "npm:^0.3.6"
     react-transform-catch-errors: "npm:^1.0.2"
     redbox-react: "npm:^1.5.0"
     redux: "npm:^4.0.5"
@@ -24210,7 +24197,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:2.x, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.4, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
+"classnames@npm:2.x, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
   version: 2.3.1
   resolution: "classnames@npm:2.3.1"
   checksum: 10c0/e3b832219042802464e648c41c2e8be96c2c64d2522cfa22fbb5ec088418406c61ab351a682c077c07f691c8b00c9f0ee7939b20fabc6c23da69063252a4ab89
@@ -25567,7 +25554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^2.4.0, core-js@npm:^2.6.12":
+"core-js@npm:^2.4.0":
   version: 2.6.12
   resolution: "core-js@npm:2.6.12"
   checksum: 10c0/00128efe427789120a06b819adc94cc72b96955acb331cb71d09287baf9bd37bebd191d91f1ee4939c893a050307ead4faea08876f09115112612b6a05684b63
@@ -25748,7 +25735,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"create-react-class@npm:^15.5.2, create-react-class@npm:^15.5.3":
+"create-react-class@npm:^15.5.3":
   version: 15.6.3
   resolution: "create-react-class@npm:15.6.3"
   dependencies:
@@ -26680,13 +26667,6 @@ __metadata:
   version: 1.30.1
   resolution: "date-fns@npm:1.30.1"
   checksum: 10c0/bad6ad7c15180121e15d61ad62a4a214c108d66f35b35f5eeb6ade837a3c29aa4444b9528a93a5374b95ba11231c142276351bf52f4d168676f9a1e17ce3726a
-  languageName: node
-  linkType: hard
-
-"date-format-lite@npm:^0.7.4":
-  version: 0.7.4
-  resolution: "date-format-lite@npm:0.7.4"
-  checksum: 10c0/f6e0929741b7ed60e660c9c2b7b54aa300978b0283d766d7a1244d19f79beef867f13347821854b0713f043b1b3b8227e0cb3da20e6dbf984bc94e9553cd644f
   languageName: node
   linkType: hard
 
@@ -46103,17 +46083,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-input-autosize@npm:^2.1.2":
-  version: 2.2.2
-  resolution: "react-input-autosize@npm:2.2.2"
-  dependencies:
-    prop-types: "npm:^15.5.8"
-  peerDependencies:
-    react: ^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0
-  checksum: 10c0/e60611ef36589d5ad6ce190f4bb77935835da95f6cbd384abaa3fdb689ebe7b9b65592292a8150140ce5401529cacf92ce43b59911817e64f7f276238cd44315
-  languageName: node
-  linkType: hard
-
 "react-inspector@npm:^6.0.0":
   version: 6.0.1
   resolution: "react-inspector@npm:6.0.1"
@@ -46308,15 +46277,6 @@ __metadata:
     react: ^0.14.0 || ^15.0.0 || ^16
     react-dom: ^0.14.0 || ^15.0.0 || ^16
   checksum: 10c0/40a78dec026cbbfef4f3c602643ce362623e46a34109c2dc5f9613fbcb6d6d3702dc236205454109cab3132d1ce8f1b8496aa69b1d2c795327fe2ec4c37879bc
-  languageName: node
-  linkType: hard
-
-"react-onclickoutside@npm:^4.5.0":
-  version: 4.9.0
-  resolution: "react-onclickoutside@npm:4.9.0"
-  dependencies:
-    object-assign: "npm:^4.0.1"
-  checksum: 10c0/f24d7089a8baea13447753485b80c081d6fc7dd21184b2ab751bfa32ef4579dfa25f103295e3d238750a089e243ae10651e659384a53b09ff54f095604a9fd15
   languageName: node
   linkType: hard
 
@@ -46692,20 +46652,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-select@npm:^1.0.0-rc.4":
-  version: 1.3.0
-  resolution: "react-select@npm:1.3.0"
-  dependencies:
-    classnames: "npm:^2.2.4"
-    prop-types: "npm:^15.5.8"
-    react-input-autosize: "npm:^2.1.2"
-  peerDependencies:
-    react: ^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0
-    react-dom: ^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0
-  checksum: 10c0/b7928ca5580201de3b1b3ffafcff997a2df0a6dbe7c02698045b63ecfb18e7866e0633eb77845374b7db505811c907a06be335cad0ce5c48472fefed204bbe8f
-  languageName: node
-  linkType: hard
-
 "react-select@npm:^5.8.3":
   version: 5.8.3
   resolution: "react-select@npm:5.8.3"
@@ -46820,25 +46766,6 @@ __metadata:
   peerDependencies:
     react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
   checksum: 10c0/5f64ba5cc28330d0f44515605bbef2fbcc2bed9fb97c11e081eab7b72451453795a2c8e16714fe3b927ac6676404419916e4e8fbb5e4f907d6226f614e285096
-  languageName: node
-  linkType: hard
-
-"react-timings-picker@npm:^0.3.6":
-  version: 0.3.8
-  resolution: "react-timings-picker@npm:0.3.8"
-  dependencies:
-    "@babel/runtime-corejs2": "npm:^7.3.1"
-    create-react-class: "npm:^15.5.3"
-    date-format-lite: "npm:^0.7.4"
-    lodash: "npm:^4.17.11"
-    prop-types: "npm:^15.5.8"
-    react-onclickoutside: "npm:^4.5.0"
-    react-select: "npm:^1.0.0-rc.4"
-    tether: "npm:^1.1.1"
-  peerDependencies:
-    react: ^16.7.0
-    react-dom: ^16.7.0
-  checksum: 10c0/22eb13ff662b826ed2e89daa4cb599e9f5e2b2ca430eafe193a4bacf9891c7e317f50cd89b95de337c8ef6580fcd78ae3b6b76d4776e8ef76874582919896be6
   languageName: node
   linkType: hard
 
@@ -51931,13 +51858,6 @@ __metadata:
     glob: "npm:^7.1.4"
     minimatch: "npm:^3.0.4"
   checksum: 10c0/019d33d81adff3f9f1bfcff18125fb2d3c65564f437d9be539270ee74b994986abb8260c7c2ce90e8f30162178b09dbbce33c6389273afac4f36069c48521f57
-  languageName: node
-  linkType: hard
-
-"tether@npm:^1.1.1":
-  version: 1.4.7
-  resolution: "tether@npm:1.4.7"
-  checksum: 10c0/ab960b2a7590ad9eb767802133fcc743cfb831895caf94a909bc84fd4f30baf9a15517d47a3af564427b6e16b6affa8beadbb7724767b2794ac12a7c6bfa4c26
   languageName: node
   linkType: hard
 
