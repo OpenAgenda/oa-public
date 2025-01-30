@@ -649,38 +649,12 @@ const middlewares = {
 };
 
 export default (app) => {
-  const {
-    sessions,
-    legacy: { controlData: controlDataSvc },
-    agendas: agendasSvc,
-  } = app.services;
+  const { sessions, agendas: agendasSvc } = app.services;
 
   app.options('*/controldata*', (req, res) => res.sendStatus(200));
 
   app.get(
-    '/agendas/:uid/embeds/:embedUid/controldata',
-    preMw,
-    agendaSvc.mw.load('uid', { basicLoad: true, cache: true }),
-    cmn.ifIs('agenda.private', (req, res, next) => {
-      next({ code: 403 });
-    }),
-    removeCsp,
-    controlDataSvc.embedMiddleware,
-    controlDataSvc.middleware,
-  );
-
-  app.get(
-    '/agendas/:uid/controldata',
-    preMw,
-    agendaSvc.mw.load('uid', { basicLoad: true, cache: true }),
-    cmn.ifIs('agenda.private', (req, res, next) => {
-      next({ code: 403 });
-    }),
-    controlDataSvc.middleware,
-  );
-
-  app.get(
-    '/agendas/:uid/ctrldata',
+    ['/agendas/:uid/controldata', '/agendas/:uid/embeds/:embedUid/controldata'],
     preMw,
     agendasSvc.middleware.load({
       internal: true,
@@ -693,19 +667,8 @@ export default (app) => {
     cmn.ifIs('agenda.private', (req, res, next) => {
       next({ code: 403 });
     }),
+    removeCsp,
     controlDataMw,
-  );
-
-  app.get(
-    '/agendas/:uid/controldata.prv',
-    preMw,
-    agendaSvc.mw.load('uid', { basicLoad: true, cache: true }),
-    cmn.ifIsNot(
-      'agenda.private',
-      cmn.redirectTo('controlData', { uid: 'uid' }),
-    ),
-    members.mw.loadAndAuthorize('reader'),
-    controlDataSvc.middleware,
   );
 
   app.post(
