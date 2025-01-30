@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
-  min: {
-    id: 'ReactFilters.fields.SimpleRangeField.gte',
-    defaultMessage: 'Min',
+  startDate: {
+    id: 'ReactFilters.fields.SimpleRangeField.startDate',
+    defaultMessage: 'Start date',
   },
-  max: {
-    id: 'ReactFilters.fields.SimpleRangeField.lte',
-    defaultMessage: 'Max',
+  endDate: {
+    id: 'ReactFilters.fields.SimpleRangeField.endDate',
+    defaultMessage: 'End date',
   },
 });
 
@@ -38,22 +38,27 @@ function SimpleDateRangeField({ input }, _ref) {
 
   return (
     <div>
-      <input
-        value={value?.gte || ''}
-        type="date"
-        className="form-control"
-        aria-label={intl.formatMessage(messages.min)}
-        onChange={(e) => onInputChange('gte', e.target.value)}
-        max={value?.lte || ''}
-      />
-      <input
-        value={value?.lte || ''}
-        type="date"
-        className="form-control"
-        aria-label={intl.formatMessage(messages.max)}
-        onChange={(e) => onInputChange('lte', e.target.value)}
-        min={value?.gte || ''}
-      />
+      <label>
+        {intl.formatMessage(messages.startDate)}
+        <input
+          value={value?.gte || ''}
+          type="date"
+          className="form-control"
+          onChange={(e) => onInputChange('gte', e.target.value)}
+          max={value?.lte}
+        />
+      </label>
+
+      <label>
+        {intl.formatMessage(messages.endDate)}
+        <input
+          value={value?.lte || ''}
+          type="date"
+          className="form-control"
+          onChange={(e) => onInputChange('lte', e.target.value)}
+          min={value?.gte}
+        />
+      </label>
     </div>
   );
 }
