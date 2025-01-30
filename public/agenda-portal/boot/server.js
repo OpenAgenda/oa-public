@@ -76,7 +76,7 @@ Portal({
     cookieBannerLink:
       'https://support.google.com/analytics/answer/6004245?hl=fr',
     requireConsent: (process.env.PORTAL_REQUIRE_CONSENT ?? '1') === '1',
-    enableTracking: process.env.PORTAL_ENABLE_TRACKING === '1',
+    gaIdOverride: process.env.PORTAL_GA_ID_OVERRIDE,
   },
   eventHook,
   // proxyHookBeforeGet
