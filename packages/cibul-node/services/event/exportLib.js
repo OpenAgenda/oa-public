@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import async from 'async';
 import moment from 'moment-timezone';
-import { getTypesAndValues as registration } from '@openagenda/registration/src/validate.js';
+import link from '@openagenda/validators/link.js';
+import phone from '@openagenda/validators/phone.js';
+import email from '@openagenda/validators/email.js';
 import config from '../../config/index.js';
 import pickEventImage from './lib/pickImage.js';
 import getLongDescriptionHTML from './lib/getLongDescriptionHTML.js';
@@ -84,6 +86,60 @@ function _extractKeywords(e) {
   }
 
   return keywords;
+}
+
+const ERRORS = {
+  NOTASTRING: 0,
+  EMPTY: 1,
+  UNKNOWNTYPE: 2,
+};
+
+const validators = {
+  link: link(),
+  phone: phone(),
+  email: email(),
+};
+
+function validate(tag) {
+  const result = {
+    value: typeof tag === 'string' ? tag.trim() : tag,
+    error: false,
+    type: undefined,
+  };
+
+  ['email', 'phone', 'link'].forEach((type) => {
+    try {
+      result.value = validators[type](tag);
+
+      result.type = type;
+    } catch (e) {
+      //
+    }
+  });
+
+  if (!result.type) {
+    result.error = ERRORS.UNKNOWNTYPE;
+  }
+
+  return result;
+}
+
+function registration(str) {
+  if (!str || !str.length) return [];
+
+  return str
+    .split(', ')
+    .map(validate)
+    .filter((v) => !v.error)
+    .map((v) => ({
+      value: v.value,
+      type: v.type,
+      prefix: {
+        link: '',
+        email: 'mailto:',
+        phone: 'tel:',
+      }[v.type],
+    }));
 }
 
 export function clean(services, eInst, options, cb) {

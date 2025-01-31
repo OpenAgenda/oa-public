@@ -3599,16 +3599,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime-corejs2@npm:^7.3.1":
-  version: 7.26.0
-  resolution: "@babel/runtime-corejs2@npm:7.26.0"
-  dependencies:
-    core-js: "npm:^2.6.12"
-    regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/959108880ebb55d7bb31667b959bb6a01243ae89515f07d5bf6c0de7298c249c3624e85b0c4ccbbfd650a06a4cbde4045e60ed917ec1e61727a303a094638f15
-  languageName: node
-  linkType: hard
-
 "@babel/runtime-corejs3@npm:^7.23.2, @babel/runtime-corejs3@npm:^7.9.0, @babel/runtime-corejs3@npm:^7.9.2":
   version: 7.26.0
   resolution: "@babel/runtime-corejs3@npm:7.26.0"
@@ -7636,16 +7626,13 @@ __metadata:
     concurrently: "npm:^6.0.2"
     core-js: "npm:^3.29.1"
     cors: "npm:^2.8.5"
-    create-react-class: "npm:^15.5.2"
     errorhandler: "npm:^1.5.0"
     express: "npm:^4.17.1"
-    immutability-helper: "npm:^3.0.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
     morgan: "npm:^1.9.1"
     mysql: "npm:^2.10.2"
     nodemon: "npm:^2.0.4"
-    prop-types: "npm:^15.5.8"
     rc-switch: "npm:^1.4.2"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -7877,7 +7864,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-filters": "npm:^2.12.4"
+    "@openagenda/react-filters": "npm:^2.12.5"
     "@openagenda/react-portal-ssr": "npm:^1.0.2"
     "@openagenda/react-shared": "npm:^2.4.3"
     axios: "npm:^0.21.1"
@@ -8007,7 +7994,7 @@ __metadata:
     "@openagenda/keys": "npm:^2.2.10"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/react-filters": "npm:^2.12.4"
+    "@openagenda/react-filters": "npm:^2.12.5"
     "@openagenda/react-shared": "npm:^2.4.3"
     "@openagenda/registration-apps": "npm:^0.0.0"
     "@openagenda/utils": "npm:^1.3.0"
@@ -8060,7 +8047,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/event-search": "npm:^2.8.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/react-filters": "npm:^2.12.4"
+    "@openagenda/react-filters": "npm:^2.12.5"
     "@openagenda/react-shared": "npm:^2.4.3"
     "@storybook/react-webpack5": "npm:^7.4.2"
     classnames: "npm:^2.5.1"
@@ -8323,7 +8310,6 @@ __metadata:
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/registration": "npm:^1.1.4"
     "@openagenda/sessions": "npm:^4.1.0"
     "@openagenda/tumblr-parser": "npm:^0.1.3"
     "@openagenda/utils": "npm:^1.3.0"
@@ -8336,7 +8322,6 @@ __metadata:
     compile-ejs-loader: "npm:^0.0.3"
     copy-to-clipboard: "npm:^3.3.3"
     core-js: "npm:^3.29.1"
-    create-react-class: "npm:^15.5.2"
     d3: "npm:3.5.6"
     debug: "npm:^4.1.1"
     deep-extend: "npm:0.6.0"
@@ -8358,7 +8343,6 @@ __metadata:
     nodemon: "npm:^2.0.6"
     path-browserify: "npm:^1.0.1"
     point-in-polygon: "npm:^1.0.1"
-    prop-types: "npm:^15.5.8"
     qs: "npm:^6.9.1"
     raven-js: "npm:^3.9.1"
     raw-loader: "npm:^4.0.0"
@@ -8374,7 +8358,6 @@ __metadata:
     react-router-dom: "npm:^5.1.2"
     react-select: "npm:^5.8.3"
     react-tagsinput: "npm:^3.7.0"
-    react-timings-picker: "npm:^0.3.6"
     react-transform-catch-errors: "npm:^1.0.2"
     redbox-react: "npm:^1.5.0"
     redux: "npm:^4.0.5"
@@ -8528,7 +8511,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/event-search": "npm:^2.8.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/react-filters": "npm:^2.12.4"
+    "@openagenda/react-filters": "npm:^2.12.5"
     "@openagenda/react-share-menus": "npm:^1.1.0"
     "@openagenda/react-shared": "npm:^2.4.3"
     "@openagenda/registrations": "npm:^0.0.2"
@@ -9017,7 +9000,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/labels@npm:^2.0.2, @openagenda/labels@npm:^2.0.7, @openagenda/labels@npm:^2.3.0, @openagenda/labels@workspace:packages/labels":
+"@openagenda/labels@npm:^2.0.7, @openagenda/labels@npm:^2.3.0, @openagenda/labels@workspace:packages/labels":
   version: 0.0.0-use.local
   resolution: "@openagenda/labels@workspace:packages/labels"
   dependencies:
@@ -9375,7 +9358,7 @@ __metadata:
     "@openagenda/mails": "npm:^4.0.1"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/react-filters": "npm:^2.12.4"
+    "@openagenda/react-filters": "npm:^2.12.5"
     "@openagenda/react-shared": "npm:^2.4.3"
     "@openagenda/registrations": "npm:^0.0.2"
     "@openagenda/sdk-js": "npm:^2.0.3"
@@ -9582,7 +9565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@npm:^2.12.4, @openagenda/react-filters@workspace:public/react-filters":
+"@openagenda/react-filters@npm:^2.12.5, @openagenda/react-filters@workspace:public/react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:public/react-filters"
   dependencies:
@@ -9961,21 +9944,6 @@ __metadata:
     react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
-
-"@openagenda/registration@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "@openagenda/registration@npm:1.1.4"
-  dependencies:
-    "@openagenda/labels": "npm:^2.0.2"
-    "@openagenda/validators": "npm:^2.0.1"
-    create-react-class: "npm:^15.5.3"
-    prop-types: "npm:^15.5.8"
-    react-tagsinput: "npm:^3.16.1"
-  peerDependencies:
-    react: 15 || 16 || 17
-  checksum: 10c0/92f119c721ead0837c0cfabc742a5669281d75434cb959df236cc5c0151f07e84a40ab77abcfc725c8dde98a2402b0da3eba680fc26dae5bebcf12932352e642
-  languageName: node
-  linkType: hard
 
 "@openagenda/registrations@npm:^0.0.2, @openagenda/registrations@workspace:packages/registrations":
   version: 0.0.0-use.local
@@ -24084,7 +24052,6 @@ __metadata:
     "@openagenda/react-integration-app": "npm:^1.6.1"
     "@openagenda/react-layouts": "npm:^2.2.1"
     "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/registration": "npm:^1.1.4"
     "@openagenda/registrations": "npm:^0.0.2"
     "@openagenda/sdk-js": "workspace:^"
     "@openagenda/security": "npm:^1.0.0"
@@ -24213,7 +24180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:2.x, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.4, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
+"classnames@npm:2.x, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
   version: 2.3.1
   resolution: "classnames@npm:2.3.1"
   checksum: 10c0/e3b832219042802464e648c41c2e8be96c2c64d2522cfa22fbb5ec088418406c61ab351a682c077c07f691c8b00c9f0ee7939b20fabc6c23da69063252a4ab89
@@ -25570,7 +25537,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^2.4.0, core-js@npm:^2.6.12":
+"core-js@npm:^2.4.0":
   version: 2.6.12
   resolution: "core-js@npm:2.6.12"
   checksum: 10c0/00128efe427789120a06b819adc94cc72b96955acb331cb71d09287baf9bd37bebd191d91f1ee4939c893a050307ead4faea08876f09115112612b6a05684b63
@@ -25748,17 +25715,6 @@ __metadata:
   bin:
     create-jest: bin/create-jest.js
   checksum: 10c0/e7e54c280692470d3398f62a6238fd396327e01c6a0757002833f06d00afc62dd7bfe04ff2b9cd145264460e6b4d1eb8386f2925b7e567f97939843b7b0e812f
-  languageName: node
-  linkType: hard
-
-"create-react-class@npm:^15.5.2, create-react-class@npm:^15.5.3":
-  version: 15.6.3
-  resolution: "create-react-class@npm:15.6.3"
-  dependencies:
-    fbjs: "npm:^0.8.9"
-    loose-envify: "npm:^1.3.1"
-    object-assign: "npm:^4.1.1"
-  checksum: 10c0/a6c172db2d770a6b237bf1afdbb2f86a62fa5410388d0c62ce7b7e3d52549ddc36991c0af3ed46df9372862d9f1cdc7fd8e6abfd9845d5e2e751c356550c548d
   languageName: node
   linkType: hard
 
@@ -26683,13 +26639,6 @@ __metadata:
   version: 1.30.1
   resolution: "date-fns@npm:1.30.1"
   checksum: 10c0/bad6ad7c15180121e15d61ad62a4a214c108d66f35b35f5eeb6ade837a3c29aa4444b9528a93a5374b95ba11231c142276351bf52f4d168676f9a1e17ce3726a
-  languageName: node
-  linkType: hard
-
-"date-format-lite@npm:^0.7.4":
-  version: 0.7.4
-  resolution: "date-format-lite@npm:0.7.4"
-  checksum: 10c0/f6e0929741b7ed60e660c9c2b7b54aa300978b0283d766d7a1244d19f79beef867f13347821854b0713f043b1b3b8227e0cb3da20e6dbf984bc94e9553cd644f
   languageName: node
   linkType: hard
 
@@ -28132,15 +28081,6 @@ __metadata:
   version: 1.0.2
   resolution: "encodeurl@npm:1.0.2"
   checksum: 10c0/f6c2387379a9e7c1156c1c3d4f9cb7bb11cf16dd4c1682e1f6746512564b053df5781029b6061296832b59fb22f459dbe250386d217c2f6e203601abb2ee0bec
-  languageName: node
-  linkType: hard
-
-"encoding@npm:^0.1.11":
-  version: 0.1.12
-  resolution: "encoding@npm:0.1.12"
-  dependencies:
-    iconv-lite: "npm:~0.4.13"
-  checksum: 10c0/1d0daefb259fb0c97b90baa7f98ea9bb3916a1aef39e21c2888a1602fb616fcd422db6e6281839dc7ff32c1db7448bcd258954d37d4f0e5f1503357db0793ee6
   languageName: node
   linkType: hard
 
@@ -30744,21 +30684,6 @@ __metadata:
   dependencies:
     bser: "npm:2.1.1"
   checksum: 10c0/796ce6de1f915d4230771a6ad2219e0555275f2936d66022321845f7e69c65b10baa74959322b1ab94ac65b91307f1f09a6b8e2097a337ff113101ebbc4c6958
-  languageName: node
-  linkType: hard
-
-"fbjs@npm:^0.8.9":
-  version: 0.8.17
-  resolution: "fbjs@npm:0.8.17"
-  dependencies:
-    core-js: "npm:^1.0.0"
-    isomorphic-fetch: "npm:^2.1.1"
-    loose-envify: "npm:^1.0.0"
-    object-assign: "npm:^4.1.0"
-    promise: "npm:^7.1.1"
-    setimmediate: "npm:^1.0.5"
-    ua-parser-js: "npm:^0.7.18"
-  checksum: 10c0/5f38f8d73ba8de9bf39fa75c680f54f383118b6138e64a0e3c2617c4ae2f97634e851d38efea227a310f46210e3ee3b52a098f8a77f174e51d713594d8ec7113
   languageName: node
   linkType: hard
 
@@ -33839,7 +33764,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iconv-lite@npm:0.4.24, iconv-lite@npm:^0.4.24, iconv-lite@npm:~0.4.13":
+"iconv-lite@npm:0.4.24, iconv-lite@npm:^0.4.24":
   version: 0.4.24
   resolution: "iconv-lite@npm:0.4.24"
   dependencies:
@@ -35469,13 +35394,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-stream@npm:^1.0.1":
-  version: 1.1.0
-  resolution: "is-stream@npm:1.1.0"
-  checksum: 10c0/b8ae7971e78d2e8488d15f804229c6eed7ed36a28f8807a1815938771f4adff0e705218b7dab968270433f67103e4fef98062a0beea55d64835f705ee72c7002
-  languageName: node
-  linkType: hard
-
 "is-stream@npm:^2.0.0":
   version: 2.0.0
   resolution: "is-stream@npm:2.0.0"
@@ -35790,16 +35708,6 @@ __metadata:
     dompurify: "npm:^3.1.2"
     jsdom: "npm:^24.0.0"
   checksum: 10c0/84b0a43813e7c4da951b5a954e0da3c18d5032aa7572525a408b4d37a0d8969157a20dd36fcd7f6c7841551fde3972553498b6135ec6d00e7ae9912ecfd7cc65
-  languageName: node
-  linkType: hard
-
-"isomorphic-fetch@npm:^2.1.1":
-  version: 2.2.1
-  resolution: "isomorphic-fetch@npm:2.2.1"
-  dependencies:
-    node-fetch: "npm:^1.0.1"
-    whatwg-fetch: "npm:>=0.10.0"
-  checksum: 10c0/ea9fd37d31ec7b35b82180e1946d4a2f512506d0559fa567ec6ee6701ff1c6d924be90e75499c50982274b707e03ecd9eaa21d618872dd0deff530e4c3bdb074
   languageName: node
   linkType: hard
 
@@ -41525,16 +41433,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^1.0.1":
-  version: 1.7.3
-  resolution: "node-fetch@npm:1.7.3"
-  dependencies:
-    encoding: "npm:^0.1.11"
-    is-stream: "npm:^1.0.1"
-  checksum: 10c0/5a6b56b3edf909ccd20414355867d24f15f1885da3b26be90840241c46e63754ebf4697050f897daab676e3952d969611ffe1d4bc4506cf50f70837e20ad5328
-  languageName: node
-  linkType: hard
-
 "node-fetch@npm:^2.0.0, node-fetch@npm:^2.2.0, node-fetch@npm:^2.6.0, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
   version: 2.6.11
   resolution: "node-fetch@npm:2.6.11"
@@ -42091,7 +41989,7 @@ __metadata:
     prettier: "npm:^3.3.3"
     regenerator-runtime: "npm:^0.13.8"
     tmp: "npm:^0.2.1"
-    turbo: "npm:^2.3.3"
+    turbo: "npm:^2.3.4"
   dependenciesMeta:
     webpack-dev-server:
       unplugged: true
@@ -44917,7 +44815,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"promise@npm:^7.0.1, promise@npm:^7.1.1":
+"promise@npm:^7.0.1":
   version: 7.3.1
   resolution: "promise@npm:7.3.1"
   dependencies:
@@ -46106,17 +46004,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-input-autosize@npm:^2.1.2":
-  version: 2.2.2
-  resolution: "react-input-autosize@npm:2.2.2"
-  dependencies:
-    prop-types: "npm:^15.5.8"
-  peerDependencies:
-    react: ^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0
-  checksum: 10c0/e60611ef36589d5ad6ce190f4bb77935835da95f6cbd384abaa3fdb689ebe7b9b65592292a8150140ce5401529cacf92ce43b59911817e64f7f276238cd44315
-  languageName: node
-  linkType: hard
-
 "react-inspector@npm:^6.0.0":
   version: 6.0.1
   resolution: "react-inspector@npm:6.0.1"
@@ -46311,15 +46198,6 @@ __metadata:
     react: ^0.14.0 || ^15.0.0 || ^16
     react-dom: ^0.14.0 || ^15.0.0 || ^16
   checksum: 10c0/40a78dec026cbbfef4f3c602643ce362623e46a34109c2dc5f9613fbcb6d6d3702dc236205454109cab3132d1ce8f1b8496aa69b1d2c795327fe2ec4c37879bc
-  languageName: node
-  linkType: hard
-
-"react-onclickoutside@npm:^4.5.0":
-  version: 4.9.0
-  resolution: "react-onclickoutside@npm:4.9.0"
-  dependencies:
-    object-assign: "npm:^4.0.1"
-  checksum: 10c0/f24d7089a8baea13447753485b80c081d6fc7dd21184b2ab751bfa32ef4579dfa25f103295e3d238750a089e243ae10651e659384a53b09ff54f095604a9fd15
   languageName: node
   linkType: hard
 
@@ -46695,20 +46573,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-select@npm:^1.0.0-rc.4":
-  version: 1.3.0
-  resolution: "react-select@npm:1.3.0"
-  dependencies:
-    classnames: "npm:^2.2.4"
-    prop-types: "npm:^15.5.8"
-    react-input-autosize: "npm:^2.1.2"
-  peerDependencies:
-    react: ^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0
-    react-dom: ^0.14.9 || ^15.3.0 || ^16.0.0-rc || ^16.0
-  checksum: 10c0/b7928ca5580201de3b1b3ffafcff997a2df0a6dbe7c02698045b63ecfb18e7866e0633eb77845374b7db505811c907a06be335cad0ce5c48472fefed204bbe8f
-  languageName: node
-  linkType: hard
-
 "react-select@npm:^5.8.3":
   version: 5.8.3
   resolution: "react-select@npm:5.8.3"
@@ -46782,7 +46646,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-tagsinput@npm:^3.16.1, react-tagsinput@npm:^3.19.0, react-tagsinput@npm:^3.7.0":
+"react-tagsinput@npm:^3.19.0, react-tagsinput@npm:^3.7.0":
   version: 3.19.0
   resolution: "react-tagsinput@npm:3.19.0"
   peerDependencies:
@@ -46823,25 +46687,6 @@ __metadata:
   peerDependencies:
     react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
   checksum: 10c0/5f64ba5cc28330d0f44515605bbef2fbcc2bed9fb97c11e081eab7b72451453795a2c8e16714fe3b927ac6676404419916e4e8fbb5e4f907d6226f614e285096
-  languageName: node
-  linkType: hard
-
-"react-timings-picker@npm:^0.3.6":
-  version: 0.3.8
-  resolution: "react-timings-picker@npm:0.3.8"
-  dependencies:
-    "@babel/runtime-corejs2": "npm:^7.3.1"
-    create-react-class: "npm:^15.5.3"
-    date-format-lite: "npm:^0.7.4"
-    lodash: "npm:^4.17.11"
-    prop-types: "npm:^15.5.8"
-    react-onclickoutside: "npm:^4.5.0"
-    react-select: "npm:^1.0.0-rc.4"
-    tether: "npm:^1.1.1"
-  peerDependencies:
-    react: ^16.7.0
-    react-dom: ^16.7.0
-  checksum: 10c0/22eb13ff662b826ed2e89daa4cb599e9f5e2b2ca430eafe193a4bacf9891c7e317f50cd89b95de337c8ef6580fcd78ae3b6b76d4776e8ef76874582919896be6
   languageName: node
   linkType: hard
 
@@ -51937,13 +51782,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tether@npm:^1.1.1":
-  version: 1.4.7
-  resolution: "tether@npm:1.4.7"
-  checksum: 10c0/ab960b2a7590ad9eb767802133fcc743cfb831895caf94a909bc84fd4f30baf9a15517d47a3af564427b6e16b6affa8beadbb7724767b2794ac12a7c6bfa4c26
-  languageName: node
-  linkType: hard
-
 "text-decoder@npm:^1.1.0":
   version: 1.2.1
   resolution: "text-decoder@npm:1.2.1"
@@ -52798,58 +52636,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turbo-darwin-64@npm:2.3.3":
-  version: 2.3.3
-  resolution: "turbo-darwin-64@npm:2.3.3"
+"turbo-darwin-64@npm:2.3.4":
+  version: 2.3.4
+  resolution: "turbo-darwin-64@npm:2.3.4"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-darwin-arm64@npm:2.3.3":
-  version: 2.3.3
-  resolution: "turbo-darwin-arm64@npm:2.3.3"
+"turbo-darwin-arm64@npm:2.3.4":
+  version: 2.3.4
+  resolution: "turbo-darwin-arm64@npm:2.3.4"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-linux-64@npm:2.3.3":
-  version: 2.3.3
-  resolution: "turbo-linux-64@npm:2.3.3"
+"turbo-linux-64@npm:2.3.4":
+  version: 2.3.4
+  resolution: "turbo-linux-64@npm:2.3.4"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-linux-arm64@npm:2.3.3":
-  version: 2.3.3
-  resolution: "turbo-linux-arm64@npm:2.3.3"
+"turbo-linux-arm64@npm:2.3.4":
+  version: 2.3.4
+  resolution: "turbo-linux-arm64@npm:2.3.4"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-windows-64@npm:2.3.3":
-  version: 2.3.3
-  resolution: "turbo-windows-64@npm:2.3.3"
+"turbo-windows-64@npm:2.3.4":
+  version: 2.3.4
+  resolution: "turbo-windows-64@npm:2.3.4"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-windows-arm64@npm:2.3.3":
-  version: 2.3.3
-  resolution: "turbo-windows-arm64@npm:2.3.3"
+"turbo-windows-arm64@npm:2.3.4":
+  version: 2.3.4
+  resolution: "turbo-windows-arm64@npm:2.3.4"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo@npm:^2.3.3":
-  version: 2.3.3
-  resolution: "turbo@npm:2.3.3"
+"turbo@npm:^2.3.4":
+  version: 2.3.4
+  resolution: "turbo@npm:2.3.4"
   dependencies:
-    turbo-darwin-64: "npm:2.3.3"
-    turbo-darwin-arm64: "npm:2.3.3"
-    turbo-linux-64: "npm:2.3.3"
-    turbo-linux-arm64: "npm:2.3.3"
-    turbo-windows-64: "npm:2.3.3"
-    turbo-windows-arm64: "npm:2.3.3"
+    turbo-darwin-64: "npm:2.3.4"
+    turbo-darwin-arm64: "npm:2.3.4"
+    turbo-linux-64: "npm:2.3.4"
+    turbo-linux-arm64: "npm:2.3.4"
+    turbo-windows-64: "npm:2.3.4"
+    turbo-windows-arm64: "npm:2.3.4"
   dependenciesMeta:
     turbo-darwin-64:
       optional: true
@@ -52865,7 +52703,7 @@ __metadata:
       optional: true
   bin:
     turbo: bin/turbo
-  checksum: 10c0/9aab52fb868a2b6246f41fe2343dec56c70252a9cb7729a3ea183458cfa728c1445d1b98882dd43542f0ffd46524e8ba7776fe0925e31a86904b113222778fa5
+  checksum: 10c0/c3c52f5aa4b7c38536f0229f59ae76592c581af351ebf4b6ed0eea95bd1534ed19d84fdaea6f8f26c106dfc95394f78d4361c95aa1ae3bacc255b4a8500d53cc
   languageName: node
   linkType: hard
 
@@ -53276,13 +53114,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10c0/f3b8082c9d1d1629a215245c9087df56cb784f9fb6f27b5d55577a20e68afe2a889c040aacff6d27e35be165ecf9dca66e694c42eb9a50b3b2c451b36b5675cb
-  languageName: node
-  linkType: hard
-
-"ua-parser-js@npm:^0.7.18":
-  version: 0.7.28
-  resolution: "ua-parser-js@npm:0.7.28"
-  checksum: 10c0/a26086831f21e6460b5a3f1d2f4c90b9ea9ae1b6cb151ee69e07c7a4eed88caf9d8ff9827ef293647f0adf8af767f59f02b933841663a4efaf18da3e003b2a27
   languageName: node
   linkType: hard
 
@@ -55269,13 +55100,6 @@ __metadata:
   dependencies:
     iconv-lite: "npm:0.6.3"
   checksum: 10c0/273b5f441c2f7fda3368a496c3009edbaa5e43b71b09728f90425e7f487e5cef9eb2b846a31bd760dd8077739c26faf6b5ca43a5f24033172b003b72cf61a93e
-  languageName: node
-  linkType: hard
-
-"whatwg-fetch@npm:>=0.10.0":
-  version: 3.0.0
-  resolution: "whatwg-fetch@npm:3.0.0"
-  checksum: 10c0/c4b4b0058df2358e5c8d1c7320069d89ac02d815a01dca66f838edf6498207f0c5a7a88029442e945042f61b54d29a16db1fed12c41abbe1f7f959e26d9134e6
   languageName: node
   linkType: hard
 

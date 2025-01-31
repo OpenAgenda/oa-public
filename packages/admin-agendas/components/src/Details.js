@@ -1,0 +1,310 @@
+import React, { Fragment, useState } from 'react';
+import Switch from 'rc-switch';
+import _ from 'lodash';
+
+function roleToString(type) {
+  switch (type) {
+    case 1:
+      return 'Contributeur';
+    case 2:
+      return 'Administrateur';
+    case 3:
+      return 'Modérateur';
+    // NOTE : la ligne suivante ne sera jamais atteinte car 'case 3' est déjà au-dessus
+    case 3:
+      return 'Lecteur';
+    default:
+      return 'Inconnu';
+  }
+}
+
+export default function Details(props) {
+  const {
+    limit = 20,
+    getQuery,
+    agenda,
+    members,
+    total,
+    pageRange,
+    getMembersPage,
+    displayConfirmDelete,
+    setAgenda,
+    updateHref
+  } = props;
+
+  // On lit la query initiale pour en déduire l'onglet par défaut
+  const initialQuery = getQuery();
+  const [tab, setTab] = useState(() => (initialQuery && initialQuery.tab) || 'members');
+
+  /**
+   * Sélecteurs d'onglet
+   */
+  const handleTabChange = (name) => {
+    setTab(name);
+    updateHref({
+      ...(getQuery() || {}),
+      tab: name
+    });
+  };
+
+  /**
+   * Switches
+   */
+  const setOfficial = (checked) => {
+    setAgenda({ official: checked });
+  };
+
+  const setPrivate = (checked) => {
+    setAgenda({ private: checked });
+  };
+
+  /**
+   * Pagination
+   */
+  const hasNextPage = () => {
+    const lastPage = pageRange[1];
+    return lastPage * limit < total;
+  };
+
+  const hasPrevPage = () => {
+    return pageRange[0] > 1;
+  };
+
+  const renderPrev = () => {
+    if (!hasPrevPage()) return null;
+    return (
+      <tr>
+        <td colSpan="6" className="text-center">
+          <button className="btn btn-default" onClick={() => getMembersPage(false)}>
+            Précédent
+          </button>
+        </td>
+      </tr>
+    );
+  };
+
+  const renderNext = () => {
+    if (!hasNextPage()) return null;
+    return (
+      <tr>
+        <td colSpan="6" className="text-center">
+          <button className="btn btn-default" onClick={() => getMembersPage(true)}>
+            Suivant
+          </button>
+        </td>
+      </tr>
+    );
+  };
+
+  /**
+   * Rendu des membres
+   */
+  const renderMemberItem = (member) => {
+    // Cas : utilisateur supprimé
+    if (member.deletedUser) {
+      return (
+        <tr key={member.id}>
+          <td className="text-danger text-center" colSpan={7}>User deleted</td>
+        </tr>
+      );
+    }
+
+    // Cas : invité
+    if (member.invited) {
+      return (
+        <tr key={member.id}>
+          <td className="text-info text-center" colSpan={7}>
+            User invited (
+            {member.custom.contactName ? <Fragment>{member.custom.contactName}: </Fragment> : null}
+            {member.custom.email})
+          </td>
+        </tr>
+      );
+    }
+
+    // Cas : utilisateur "actif"
+    return (
+      <tr key={member.id}>
+        <td className="text-primary">
+          {member.user?.uid ?? `Utilisateur supprimé (${member.userUid})`}
+        </td>
+        <td>{roleToString(member.role)}</td>
+        <td>{member.user?.fullName}</td>
+        <td>{member.user?.username}</td>
+        <td>{member.user?.email}</td>
+        <td>le {member.user?.createdAt}</td>
+        <td>
+          <a href={`/admin/users/signin?uid=${member.user?.uid}`}>
+            <i className="fa fa-sign-in" aria-hidden="true"></i>
+          </a>{' '}
+          <a
+            disabled={!member.user?.uid}
+            href={member.user?.uid ? `/admin/users?userUid=${member.user.uid}` : '#'}
+          >
+            <i className="fa fa-user" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    );
+  };
+
+  const renderMembersTable = () => {
+    return (
+      <table className="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Nom complet</th>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Depuis</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {renderPrev()}
+          {members?.length ? (
+            members.map((m) => renderMemberItem(m))
+          ) : (
+            <tr>
+              <td colSpan="7" className="text-center">
+                Y'a personne !
+              </td>
+            </tr>
+          )}
+          {renderNext()}
+        </tbody>
+      </table>
+    );
+  };
+
+  /**
+   * Header de l'agenda
+   */
+  const renderAgendaHeader = () => {
+    if (!agenda) return null;
+
+    const { network, image, slug, title, description, url, uid, official, private: isPrivate } = agenda;
+
+    return (
+      <header className="agenda-header">
+        <div className="container-fluid profile notheme">
+          <div className="row">
+            <button
+              type="button"
+              onClick={displayConfirmDelete}
+              className="btn btn-danger pull-right"
+            >
+              Supprimer
+            </button>
+
+            {image ? (
+              <div className="col-sm-2 avatar-container">
+                <a href={`/${slug}`}>
+                  <img className="avatar" src={image} alt={title} />
+                </a>
+              </div>
+            ) : null}
+
+            <div className={image ? 'col-sm-7 title-container' : 'title-container'}>
+              <a href={`/${slug}`}>
+                {network && (
+                  <span>
+                    {network.title} ›{' '}
+                    <a href={`/admin/networks/${network.uid}`}>config</a> -{' '}
+                    <a href={`/admin/networks/${network.uid}/agendas`}>agendas</a>{' '}
+                  </span>
+                )}
+                <h1>{title}</h1>
+                <p>{description}</p>
+              </a>
+              {url && (
+                <p>
+                  <a target="_blank" rel="noreferrer" href={url}>
+                    {url}
+                  </a>
+                </p>
+              )}
+              {uid && (
+                <div>
+                  <div>
+                    Agenda officiel{' '}
+                    <Switch
+                      className="rc-switch"
+                      checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                      unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                      onChange={setOfficial}
+                      checked={!!official}
+                    />
+                  </div>
+                  <div>
+                    Agenda privé{' '}
+                    <Switch
+                      className="rc-switch"
+                      checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                      unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                      onChange={setPrivate}
+                      checked={!!isPrivate}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  };
+
+  /**
+   * Onglet Features
+   */
+  const renderFeaturesTab = () => {
+    const credentials = _.get(agenda, 'config.credentials', {});
+    return (
+      <ul className="list-unstyled">
+        {_.keys(credentials).map((c) => (
+          <li key={c} className="margin-v-sm">
+            <Switch
+              className="rc-switch"
+              checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+              unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+              onChange={(checked) => setAgenda(_.set({}, ['credentials', c], checked))}
+              checked={!!agenda.credentials?.[c]}
+            />{' '}
+            {credentials[c].description}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+  return (
+    <div className="col-md-9">
+      <div className="row">
+        {renderAgendaHeader()}
+
+        <ul className="nav nav-tabs">
+          <li
+            role="presentation"
+            className={tab === 'members' ? 'active' : ''}
+            onClick={() => handleTabChange('members')}
+          >
+            <a href="#">Member</a>
+          </li>
+          <li
+            role="presentation"
+            className={tab === 'features' ? 'active' : ''}
+            onClick={() => handleTabChange('features')}
+          >
+            <a href="#">Features</a>
+          </li>
+        </ul>
+
+        {tab === 'members' && renderMembersTable()}
+        {tab === 'features' && renderFeaturesTab()}
+      </div>
+    </div>
+  );
+}

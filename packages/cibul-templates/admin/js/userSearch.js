@@ -1,33 +1,21 @@
-"use strict";
+import React, { useRef } from 'react';
 
-var React = require( 'react' ),
+export default function UserSearch({ onSearchSubmit }) {
+  const searchRef = useRef(null);
 
-  createReactClass = require( 'create-react-class' );
-
-module.exports = createReactClass({
-
-  handleSubmit: function( e ) {
-
+  const handleSubmit = (e) => {
     e.preventDefault();
+    const searchValue = searchRef.current.value;
+    onSearchSubmit(searchValue);
+  };
 
-    var searchValue = this.refs.search.value;
-
-    this.props.onSearchSubmit( searchValue );
-
-  },
-
-  render: function() {
-
-    return (
-      <form className="form-inline" onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="search"></label>
-          <input type="text" placeholder="search" ref="search" name="search" className="form-control" />
-        </div>
-        <button type="submit" className="btn btn-default">Ok</button>
-      </form>
-    );
-
-  }
-
-});
+  return (
+    <form className="form-inline" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="search"></label>
+        <input type="text" placeholder="search" ref={searchRef} name="search" className="form-control" />
+      </div>
+      <button type="submit" className="btn btn-default">Ok</button>
+    </form>
+  );
+}
