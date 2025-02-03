@@ -1,6 +1,6 @@
 "use strict";
 
-const ReactDOM = require( 'react-dom' );
+const { createRoot } = require( 'react-dom/client' );
 
 const du = require( '../../js/lib/domUtils' );
 
@@ -36,10 +36,8 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
     const activities = result.activities;
     const config = result.config;
 
-    ReactDOM.render(
-      activitiesEventApp( { activities, config, lang } ),
-      document.querySelector( '.js_event_activities' )
-    );
+    const root = createRoot(document.querySelector( '.js_event_activities' ));
+    root.render(activitiesEventApp( { activities, config, lang } ));
 
     buttonCanvas = document.querySelector( '.js_more_activities' );
 
@@ -69,10 +67,8 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
         Array.prototype.push.apply( activities, result.activities || [] );
 
-        ReactDOM.render(
-          activitiesEventApp( { activities, lang } ),
-          document.querySelector( '.js_event_activities' )
-        );
+        const root = createRoot( document.querySelector( '.js_event_activities' ) );
+        root.render(activitiesEventApp( { activities, lang } ));
 
         if ( result.nextUrl ) {
 
