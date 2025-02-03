@@ -6,8 +6,7 @@
   "scripts": {
     "start": "nodemon --ignore build --ignore node_modules app.js",
     "extract-messages": "yarn oa-intl '**/js/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json'",
-    "prepack": "node --max_old_space_size=4096 prodify/prodify",
-    "test": "nodemon ./event/js/test.js"
+    "prepack": "node --max_old_space_size=4096 prodify/prodify"
   },
   "dependencies": {
     "@babel/core": "^7.23.3",
