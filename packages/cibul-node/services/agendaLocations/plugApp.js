@@ -45,7 +45,7 @@ export default (config, services, instance, app, base) => {
             'access',
             'state',
             'imageCredits',
-            'extId',
+            'extIds',
             'duplicateCandidates',
             'disqualifiedDuplicates',
             'mergedIn',

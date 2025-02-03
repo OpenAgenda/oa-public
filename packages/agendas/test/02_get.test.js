@@ -170,6 +170,23 @@ describe('agendas - functional (server): get', () => {
     expect(agenda.settings.admin.filters.displayed).toEqual(['keyword']);
   });
 
+  it('location settings are part of detailed get when configured', async () => {
+    const agenda = await svc.get({ uid: 90695263 }, { detailed: true });
+    expect(agenda.settings.locations).toEqual({
+      extIds: [
+        {
+          key: 'default',
+          label: 'BDL',
+          actions: {
+            edit: {
+              link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
+            },
+          },
+        },
+      ],
+    });
+  });
+
   it('a few gets do not leak db connections', async () => {
     let remaining = 400;
 

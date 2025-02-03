@@ -16,19 +16,19 @@ const messages = defineMessages({
 const Badge = ({ label, value }) => {
   const intl = useIntl();
   return (
-    <div className="badge badge-sm badge-default margin-right-sm">
-      {label}
-      <MoreInfo
-        className="margin-left-xs"
-        content={(
-          <div>
-            <p>{`${intl.formatMessage(messages.externalRef)} ${value}`}</p>
-            <p>{intl.formatMessage(messages.extIdActionInfo)}</p>
-          </div>
-        )}
-        placement="top"
-      />
-    </div>
+    <MoreInfo
+      content={(
+        <div>
+          <p>{`${intl.formatMessage(messages.externalRef)} ${value}`}</p>
+          <p>{intl.formatMessage(messages.extIdActionInfo)}</p>
+        </div>
+      )}
+      placement="top"
+    >
+      <div className="badge badge-sm badge-default margin-right-sm">
+        {label}
+      </div>
+    </MoreInfo>
   );
 };
 

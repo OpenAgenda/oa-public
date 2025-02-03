@@ -267,6 +267,12 @@ describe('agendas - functional (server): set (update)', () => {
     });
   });
 
+  it('admin location settings are not lost with update', async () => {
+    const { agenda } = await svc.set({ uid: 90695263 }, { title: 'Bah quoi' });
+
+    expect(agenda.settings.locations).not.toBeUndefined();
+  });
+
   it('onUpdate callbacks with agenda data before and after update', () =>
     new Promise((rs) => {
       svc.init({
