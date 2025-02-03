@@ -1,4 +1,4 @@
-import ReactDom from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { getCookieConsentValue } from 'react-cookie-consent';
 import { IntlProvider } from 'react-intl';
 import ConsentBanner from '@openagenda/react-shared/dist/components/ConsentBanner.js';
@@ -30,7 +30,8 @@ export default (
     location: 'none',
   };
 
-  return ReactDom.render(
+  const root = createRoot(div);
+  return root.render(
     <IntlProvider locale={lang} key={lang}>
       <ConsentBanner
         onAccept={onConsentConfirmed}
@@ -40,6 +41,5 @@ export default (
         link={cookieBannerLink}
       />
     </IntlProvider>,
-    div,
   );
 };
