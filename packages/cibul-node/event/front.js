@@ -460,7 +460,7 @@ const middlewares = {
 const preMw = [cmn.loadLogger('event front'), cmn.redirectLegacySearch];
 
 export default (app) => {
-  const { agendas: agendasSvc, sessions } = app.services;
+  const { agendas: agendasSvc } = app.services;
 
   app.get(
     '/agendas/:agendaUid/events/:eventUid/share',
@@ -469,38 +469,6 @@ export default (app) => {
     redirectMiddelware.loadSiteURL,
     redirectMiddelware.loadFacebookMetas,
     redirectMiddelware.render,
-  );
-
-  app.get(
-    '/:slug.prv/events/:eventSlug',
-    preMw,
-    agendasSvc.mw.loadBy({ path: 'params.slug', field: 'slug' }),
-    cmn.ifIsNot('agenda.private', (req, res) => {
-      const query = qs.stringify(req.query, { addQueryPrefix: true });
-
-      res.redirect(
-        302,
-        `/${req.params.slug}/events/${req.params.eventSlug}${query}`,
-      );
-    }),
-    sessions.mw.ifUnlogged((req, res) => {
-      const query = qs.stringify(req.query, { addQueryPrefix: true });
-      const redirectTo = Buffer.from(
-        `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`,
-        'utf8',
-      ).toString('base64');
-
-      res.redirect(
-        302,
-        `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirectTo}`,
-      );
-    }),
-    members.mw.load,
-    (req, res, next) => {
-      if (!req.member) return cmn.renderUnauthorized(req, res, next);
-      next();
-    },
-    middlewares.agendaEventShow,
   );
 
   app.get(

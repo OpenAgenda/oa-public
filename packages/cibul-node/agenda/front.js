@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import _ from 'lodash';
 import async from 'async';
 import ih from 'immutability-helper';
@@ -23,6 +24,7 @@ import eventFormat from '../services/event/middleware/format.js';
 import * as legacyEventSvc from '../services/event/index.js';
 import controlDataMw from '../lib/controlDataMw.js';
 import getLongDescriptionHTML from '../services/event/lib/getLongDescriptionHTML.js';
+import layouts from '../services/lib/layouts/index.js';
 import convertFormat from './ConvertFormat.js';
 import loadCredentials from './loadCredentials.js';
 
@@ -39,6 +41,13 @@ function removeCsp(req, res, next) {
 }
 
 const preMw = [cmn.loadLogger('agenda front')];
+
+const renderDialog = _.template(
+  fs.readFileSync(
+    `${import.meta.dirname}/../services/lib/templates/dialog.tpl`,
+    'utf-8',
+  ),
+);
 
 /**
  * Requested by Education Nationale for RGPD compliance
@@ -601,23 +610,33 @@ function _layoutData(req, _res) {
 }
 
 function unauthorizedIP(req, res) {
-  cmn.render(req, res, 'dialog/index', {
+  const layoutData = {
+    lang: req.lang,
+    cspNonce: res.locals.cspNonce,
     agenda: req.agenda,
-    title: forbiddenLabel('title', req.lang),
-    content: fromMarkdownToHTML(forbiddenLabel('content', req.lang)),
-    actions: [
-      {
-        type: 'primary',
-        href: `/${req.agenda.slug}/contact`,
-        label: forbiddenLabel('contact', req.lang),
-      },
-      {
-        type: 'default',
-        href: `/${req.agenda.slug}`,
-        label: forbiddenLabel('back', req.lang),
-      },
-    ],
-  });
+  };
+
+  res.send(
+    layouts.agenda(
+      renderDialog({
+        title: forbiddenLabel('title', req.lang),
+        content: fromMarkdownToHTML(forbiddenLabel('content', req.lang)),
+        actions: [
+          {
+            type: 'primary',
+            href: `/${req.agenda.slug}/contact`,
+            label: forbiddenLabel('contact', req.lang),
+          },
+          {
+            type: 'default',
+            href: `/${req.agenda.slug}`,
+            label: forbiddenLabel('back', req.lang),
+          },
+        ],
+      }),
+      layoutData,
+    ),
+  );
 }
 
 const middlewares = {
@@ -649,7 +668,7 @@ const middlewares = {
 };
 
 export default (app) => {
-  const { sessions, agendas: agendasSvc } = app.services;
+  const { agendas: agendasSvc } = app.services;
 
   app.options('*/controldata*', (req, res) => res.sendStatus(200));
 
@@ -768,27 +787,6 @@ export default (app) => {
       }
       res.redirect(301, `/${req.agenda.slug}/contribute`);
     },
-  );
-
-  app.get(
-    '/:slug.prv',
-    preMw,
-    cmn.redirectLegacySearch,
-    agendaSvc.mw.load('slug', { cache: true }),
-    (req, res, next) => {
-      if (!req.agenda.private) {
-        return res.redirect(302, `/${req.agenda.slug}`);
-      }
-      next();
-    },
-    sessions.mw.loadOrRedirect(),
-    members.mw.load,
-    (req, res, next) => {
-      if (!req.member) return cmn.renderUnauthorized(req, res, next);
-      next();
-    },
-    _showJSONIfRequested,
-    middlewares.show,
   );
 
   app.get(
