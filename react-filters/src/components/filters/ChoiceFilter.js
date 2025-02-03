@@ -164,6 +164,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter(
             searchPlaceholder || intl.formatMessage(messages.searchPlaceholder)
           }
           aria-label={searchAriaLabel}
+          title={searchAriaLabel}
           css={css`
             width: 50%;
           `}
