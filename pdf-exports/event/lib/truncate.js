@@ -1,6 +1,14 @@
+import messages from './messages.js';
 import addText from './addText.js';
 
-export default async function truncate(doc, cursor, addFn, contentItem, remainingHeight, options = {}) {
+export default async function truncate(
+  doc,
+  cursor,
+  addFn,
+  contentItem,
+  remainingHeight,
+  options = {},
+) {
   const { columnWidth, iconHeightAndWidth, margin, footerHeight, intl, lang } = options;
 
   const beforeOverflow = { ...contentItem };
@@ -12,7 +20,7 @@ export default async function truncate(doc, cursor, addFn, contentItem, remainin
 
   if (contentItem.title) {
     const titleHeight = addText(doc, cursor, {
-      content: contentItem.title,
+      content: `${intl.formatMessage(messages[contentItem.title])}`,
       width: columnWidth,
       bold: true,
       intl,
@@ -27,10 +35,7 @@ export default async function truncate(doc, cursor, addFn, contentItem, remainin
     newRemainingHeight -= simulateHeight;
   }
 
-  if (
-    contentItem.addFn === 'addText'
-    || contentItem.addFn === 'addStatus'
-  ) {
+  if (contentItem.addFn === 'addText' || contentItem.addFn === 'addStatus') {
     let words;
     if (contentItem.data.value && !contentItem.data.value.includes(' ')) {
       words = contentItem.data.value.split(' ');
@@ -75,9 +80,10 @@ export default async function truncate(doc, cursor, addFn, contentItem, remainin
     });
 
     beforeOverflow.data = timings;
-    afterOverflow.data = timings.slice(timings.length - simulatedCalendar.remainingTimings.length);
-  } else if (
-    contentItem.addFn === 'addAdditionalFields') {
+    afterOverflow.data = timings.slice(
+      timings.length - simulatedCalendar.remainingTimings.length,
+    );
+  } else if (contentItem.addFn === 'addAdditionalFields') {
     const simulateAddAdditionalFields = await addFn(doc, cursor, {
       content: contentItem.data,
       agenda: contentItem.agenda,
@@ -99,7 +105,7 @@ export default async function truncate(doc, cursor, addFn, contentItem, remainin
         remainingFields: simulateAddAdditionalFields.remainingFields,
       };
     }
-  } else if ( contentItem.addFn === 'addRegistration') {
+  } else if (contentItem.addFn === 'addRegistration') {
     const simulateRegistration = await addFn(doc, cursor, {
       content: contentItem.data,
       width: columnWidth,
@@ -122,7 +128,10 @@ export default async function truncate(doc, cursor, addFn, contentItem, remainin
         titleAdded: simulateRegistration.titleAdded,
       };
     }
-  } else if (contentItem.addFn === 'addLocation') {
+  } else if (
+    contentItem.addFn === 'addTagsSection'
+    || contentItem.addFn === 'addAdditionalLinksSection'
+  ) {
     const simulateAddLocation = await addFn(doc, cursor, {
       content: contentItem.data,
       width: columnWidth,
@@ -145,5 +154,6 @@ export default async function truncate(doc, cursor, addFn, contentItem, remainin
       };
     }
   }
+
   return [beforeOverflow, afterOverflow];
 }
