@@ -83,7 +83,7 @@ function ConsentFixed({ consentFor, setConsent }) {
 function ConsentOverlay({ consentFor, setConsent }) {
   const intl = useIntl();
 
-  const declineRef = useRef();
+  const declineRef = useRef(undefined);
 
   const link = `https://support.google.com/analytics/answer/6004245?hl=${intl.locale || 'fr'}`;
 
@@ -162,7 +162,8 @@ export default function ConsentBanner({
 
   const setConsent = (value: any) => {
     if (consentSource === 'cookies') {
-      if (consentFor === 'ga') setCookie('GaCookieConsent', value, { sameSite: 'none', secure: true });
+      if (consentFor === 'ga')
+        setCookie('GaCookieConsent', value, { sameSite: 'none', secure: true });
       if (consentFor === 'matomo') {
         setCookie('MatomoCookieConsent', value, {
           sameSite: 'none',
@@ -179,7 +180,8 @@ export default function ConsentBanner({
     return null;
   }
 
-  const ConsentComponent = display === 'overlay' ? ConsentOverlay : ConsentFixed;
+  const ConsentComponent =
+    display === 'overlay' ? ConsentOverlay : ConsentFixed;
 
   return <ConsentComponent consentFor={consentFor} setConsent={setConsent} />;
 }
