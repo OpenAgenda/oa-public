@@ -167,8 +167,8 @@ function EmbedEventShow({
   useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
 
   useLayoutEffect(() => {
-    if (!layoutDataReferrer && referrerProps) {
-      setReferrer(referrerProps);
+    if (layoutDataReferrer === undefined) {
+      setReferrer(referrerProps || null);
     }
   }, []);
 
@@ -325,7 +325,10 @@ function EmbedEventShow({
 
               {event.longDescription?.[contentLocale] ? (
                 <LongDescription
-                  html={event.longDescription[contentLocale]}
+                  html={event.longDescription[contentLocale].replace(
+                    /<a\s/g,
+                    '<a target="_blank" rel="noopener" ',
+                  )}
                   links={event.links}
                 />
               ) : null}
