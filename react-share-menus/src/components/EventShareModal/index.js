@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 
 import { Modal } from '@openagenda/react-shared';
@@ -8,7 +7,13 @@ import OpenAgendaShare from './lib/OpenAgendaShare.js';
 import { EmailShareMenu, EmailSentMessage } from './lib/EmailShare.js';
 import CalendarShare from './lib/CalendarShare.js';
 
-const EventShareModal = ({ onClose, res, segment, event, userLogged }) => {
+const EventShareModal = ({
+  onClose,
+  res = '',
+  segment = 'openagenda, email, calendar',
+  event,
+  userLogged = false,
+}) => {
   const [emailState, setEmailState] = useState({
     sent: false,
     count: 0,
@@ -98,24 +103,3 @@ const EventShareModal = ({ onClose, res, segment, event, userLogged }) => {
 };
 
 export default EventShareModal;
-
-EventShareModal.propTypes = {
-  event: PropTypes.shape({
-    agendaUid: PropTypes.number,
-    uid: PropTypes.number,
-    agendaTitle: PropTypes.string,
-    agendaSlug: PropTypes.string,
-    lang: PropTypes.string,
-    root: PropTypes.string,
-  }).isRequired,
-  onClose: PropTypes.func.isRequired,
-  res: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  segment: PropTypes.string,
-  userLogged: PropTypes.bool,
-};
-
-EventShareModal.defaultProps = {
-  res: '',
-  segment: 'openagenda, email, calendar',
-  userLogged: false,
-};

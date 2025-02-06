@@ -1,4 +1,6 @@
 {
+  "common.roles.administrator": "Amministratore",
   "common.roles.contributor": "Collaboratore",
-  "common.roles.moderator": "Moderatore"
+  "common.roles.moderator": "Moderatore",
+  "common.roles.reader": "Lettore"
 }
