@@ -111,7 +111,7 @@
   "AgendaLocations.LocationForm.linksInfo": "Aggiungi facebook, twitter o qualsiasi altro link relativo al luogo",
   "AgendaLocations.LocationForm.loadingError": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
   "AgendaLocations.LocationForm.name": "Nome del luogo",
-  "AgendaLocations.LocationForm.namePlaceholder": "Esempio: il Moulin Rouge",
+  "AgendaLocations.LocationForm.namePlaceholder": "Esempio: Villa Borghese",
   "AgendaLocations.LocationForm.phone": "Numero di telefono",
   "AgendaLocations.LocationForm.postalCode": "Codice postale",
   "AgendaLocations.LocationForm.required": "Richiesto",

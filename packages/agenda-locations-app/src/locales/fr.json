@@ -127,7 +127,7 @@
   "AgendaLocations.LocationForm.linksInfo": "Ajoutez des liens Facebook, Twitter ou tout autre lien relatif au lieu",
   "AgendaLocations.LocationForm.loadingError": "Un problème est survenu lors du chargement. Veuillez réessayer.",
   "AgendaLocations.LocationForm.name": "Nom du lieu",
-  "AgendaLocations.LocationForm.namePlaceholder": "Exemple : Le Moulin Rouge",
+  "AgendaLocations.LocationForm.namePlaceholder": "Exemple : Moulin Rouge",
   "AgendaLocations.LocationForm.phone": "Numéro de téléphone",
   "AgendaLocations.LocationForm.phone.invalid": "Un numéro de téléphone valide doit être renseigné",
   "AgendaLocations.LocationForm.postalCode": "Code postal",
