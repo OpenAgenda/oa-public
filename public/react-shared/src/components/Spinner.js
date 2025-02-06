@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Spin from './Spin.js';
 import * as bodyScroll from './body-scroll.js';
 
@@ -11,6 +10,14 @@ class Spinner extends Component {
 
     this.canvasRef = React.createRef();
   }
+
+  static defaultProps = {
+    loading: true,
+    page: false, // DEPRECATE this
+    mode: false, // page, inline
+    message: null,
+    options: null,
+  };
 
   getSpinOptions() {
     if (this.props.options) return this.props.options;
@@ -96,20 +103,5 @@ class Spinner extends Component {
     );
   }
 }
-
-Spinner.propTypes = {
-  loading: PropTypes.bool,
-  page: PropTypes.bool,
-  message: PropTypes.string,
-  options: PropTypes.object, // spin.js options
-};
-
-Spinner.defaultProps = {
-  loading: true,
-  page: false, // DEPRECATE this
-  mode: false, // page, inline
-  message: null,
-  options: null,
-};
 
 export default Spinner;

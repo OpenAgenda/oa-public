@@ -28,7 +28,6 @@
     "final-form": "^4.20.2",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
-    "prop-types": "^15.5.8",
     "qs": "^6.9.1",
     "react-final-form": "^6.5.3",
     "react-helmet-async": "^1.0.3",
@@ -47,8 +46,8 @@
     "@storybook/react-webpack5": "^7.4.2",
     "msw": "^2.3.0",
     "msw-storybook-addon": "^2.0.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
@@ -57,7 +56,7 @@
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",
-    "react": "^18.2.0",
+    "react": "^19.0.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.5"
