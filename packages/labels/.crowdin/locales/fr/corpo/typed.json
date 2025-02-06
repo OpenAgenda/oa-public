@@ -1,17 +1,17 @@
 {
-  "festival": "festival",
-  "fair": "salon",
-  "federation": "fédération",
-  "theatre": "théâtre",
-  "city": "ville",
   "association": "association",
-  "university": "université",
+  "church": "diocèse",
+  "city": "ville",
   "company": "entreprise",
   "conventionCenter": "palais des congrès",
-  "incubator": "fablab",
   "coworkingSpace": "tiers-lieu",
+  "fair": "salon",
+  "federation": "fédération",
+  "festival": "festival",
   "fireStation": "caserne",
+  "hospital": "hôpital",
+  "incubator": "fablab",
   "ministry": "ministère",
-  "church": "diocèse",
-  "hospital": "hôpital"
+  "theatre": "théâtre",
+  "university": "université"
 }

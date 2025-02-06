@@ -1,10 +1,10 @@
 {
-  "upload": "Charger un fichier",
+  "acceptedExtensions": "Fichiers acceptés",
   "error": "Un problème est survenu pendant le chargement. Veuillez retenter",
-  "tip": "Glissez un fichier dans la zone grisée.",
-  "replace": "Remplacer le fichier",
   "loading": "Chargement en cours",
   "or": "OU",
-  "acceptedExtensions": "Fichiers acceptés",
-  "remove": "Supprimer"
+  "remove": "Supprimer",
+  "replace": "Remplacer le fichier",
+  "tip": "Glissez un fichier dans la zone grisée.",
+  "upload": "Charger un fichier"
 }

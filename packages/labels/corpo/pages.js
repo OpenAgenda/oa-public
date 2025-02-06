@@ -169,7 +169,7 @@ module.exports = {
     "de": "Du bist embedabble in Ihrem ** [Deine Website] (/ entdecken / your-Website) **",
     "es": "Se integran en ** [su sitio] (/ descubrir / tu-sitio web) **",
     "it": "Possono essere integrati su **[il tuo sito](/cover/il tuo sito)**.",
-    "io": "crwdns13482:0crwdne13482:0",
+    "io": "crwdns13482:0/discover/your-websitecrwdne13482:0",
     "oc": "Se pòdon integrar al **[vòstre site](/descobrir/vostre-site)**"
   },
   "mainBETitle": {
@@ -394,7 +394,7 @@ module.exports = {
     "en": "Your event pages are detailed and you can organize your calendar with multiple criteria.",
     "de": "Deine Veranstaltungsseiten sind detailliert und du kannst deinen Kalender mit mehreren Kriterien organisieren.",
     "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios!",
-    "it": "I suoi eventi sono dettagliati e potete organizzare la sua agenda secondo diversi criteri.",
+    "it": "I vostri eventi sono dettagliati e potete organizzare la vostra agenda secondo diversi criteri.",
     "io": "crwdns13532:0crwdne13532:0",
     "oc": "Vòstres eveniments son detalhats e podètz organizar vòstra agenda amb mai d'un critèri."
   },
@@ -421,7 +421,7 @@ module.exports = {
     "en": "Basic agenda",
     "de": "Grund Agenda",
     "es": "simple Calendar",
-    "it": "Agenda semplice",
+    "it": "Agenda di base",
     "io": "crwdns13538:0crwdne13538:0",
     "oc": "Agenda basica"
   },
@@ -1016,7 +1016,7 @@ module.exports = {
     "de": "werden unter ** [Open Data License] veröffentlicht (https://en.wikipedia.org/wiki/Open_licence_ (Französisch)) **",
     "es": "** licencia [abierta] (https://fr.wikipedia.org/wiki/Licence_Ouverte) **",
     "it": "su licenza **[open](https://fr.wikipedia.org/wiki/Licence_Ouverte)**",
-    "io": "crwdns13670:0crwdne13670:0",
+    "io": "crwdns13670:0https://en.wikipedia.org/wiki/Open_licence_(Frenchcrwdne13670:0",
     "oc": "son publicats jos una **[licéncia obèrta] (https://fr.wikipedia.org/wiki/Licence_ouverte)**"
   },
   "openDataDownload": {
@@ -1475,7 +1475,7 @@ module.exports = {
     "de": "[Entdecke die Premium-Agenda Features] (# premium)",
     "es": "[Descubre las características de un agenda de alta calidad] (# Premium)",
     "it": "[Scopri le caratteristiche di un pianificatore premium](#premium)",
-    "io": "crwdns13782:0crwdne13782:0"
+    "io": "crwdns13782:0#premiumcrwdne13782:0"
   },
   "footerBasic": {
     "en": "Basic - Free",
@@ -1625,7 +1625,7 @@ module.exports = {
     "es": "Su dirección de correo electrónico",
     "it": "Il tuo indirizzo e-mail",
     "io": "crwdns13816:0crwdne13816:0",
-    "oc": "Vòstra adreça email"
+    "oc": "Vòstre email"
   },
   "footerContactSubscribe": {
     "en": "Subscribe to the newsletter",

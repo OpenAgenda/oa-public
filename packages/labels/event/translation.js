@@ -66,7 +66,7 @@ module.exports = {
     "fr": "Changer",
     "de": "Veränderung",
     "es": "Cambiar",
-    "it": "Cambia",
+    "it": "Modificare",
     "io": "crwdns14662:0crwdne14662:0",
     "oc": "Cambiar"
   },

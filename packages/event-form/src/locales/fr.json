@@ -3,7 +3,7 @@
   "event-form.components.Events.loadError": "Erreur de chargement, merci de réessayer ultérieurement",
   "event-form.components.Events.noResult": "Aucun événement correspondant trouvé",
   "event-form.components.Events.remove": "Retirer",
-  "event-form.components.Events.search": "",
+  "event-form.components.Events.search": "Rechercher",
   "event-form.components.Events.searchEvents": "Chercher un événement",
   "event-form.components.Events.show": "Afficher"
 }

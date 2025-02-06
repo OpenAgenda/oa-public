@@ -1,8 +1,8 @@
 {
-  "newAggregationSubject": "%agenda% aggregiert ein neues Veranstaltung: %event% ",
-  "newAggregationBody": "**%event% ** von der Kalender **%sourceAgenda%** hat sich mit dem Zustand **%state%** aggregiert ",
   "newAggregationAction": "Deine Veranstaltung hier ansehen",
-  "toBeControlled": "kontrolliert werden",
+  "newAggregationBody": "**%event% ** von der Kalender **%sourceAgenda%** hat sich mit dem Zustand **%state%** aggregiert ",
+  "newAggregationSubject": "%agenda% aggregiert ein neues Veranstaltung: %event% ",
+  "published": "veröffentlicht",
   "readyToPublish": "bereit zu veröffentlichen",
-  "published": "veröffentlicht"
+  "toBeControlled": "kontrolliert werden"
 }

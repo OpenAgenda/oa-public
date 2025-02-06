@@ -1,18 +1,18 @@
 {
-  "viewAllActivities": "Ver todas las actividades",
-  "markAllAsRead": "Marcar todo como leído",
-  "noNotif": "Sin notificación.",
-  "next": "Próximo",
-  "user": "{others, plural, =0 {{user}} one {{user} y 1 otro} other {{user} y {others} otros}}",
-  "event": "{others, plural, =0 {{event}} one {{event} y 1 otro evento} other {{event} y eventos {others}}}",
-  "email": "{others, plural, =0 {{email}} one {{email} y 1 otros} other {{email} y {others} otros}}",
   "agenda": "{others, plural, =0 {{agenda}} one {{agenda} y 1 otros} other {{agenda} y {others} otros}}",
   "agenda.addMember.withYou": "{actor} te ha añadido como credencial {target}.",
-  "agenda.setMemberRole.withYou": "{actor} te ha llamado de {credential} en {target}.",
+  "agenda.aggregateEvent": "{target} ha importado {object} de {actor}.",
   "agenda.create": "{actor} creó la agenda {target}.",
+  "agenda.publishEvent": "{actor} publicado el {object} en {target}.",
   "agenda.rename": "{actor} cambió el nombre del agenda {beforeTitle} a {afterTitle}.",
+  "agenda.setMemberRole.withYou": "{actor} te ha llamado de {credential} en {target}.",
   "agenda.setOfficial": "La agenda {target} se hizo oficial.",
   "agenda.setUnofficial": "La agenda {target} se hizo oficial.",
-  "agenda.publishEvent": "{actor} publicado el {object} en {target}.",
-  "agenda.aggregateEvent": "{target} ha importado {object} de {actor}."
+  "email": "{others, plural, =0 {{email}} one {{email} y 1 otros} other {{email} y {others} otros}}",
+  "event": "{others, plural, =0 {{event}} one {{event} y 1 otro evento} other {{event} y eventos {others}}}",
+  "markAllAsRead": "Marcar todo como leído",
+  "next": "Próximo",
+  "noNotif": "Sin notificación.",
+  "user": "{others, plural, =0 {{user}} one {{user} y 1 otro} other {{user} y {others} otros}}",
+  "viewAllActivities": "Ver todas las actividades"
 }

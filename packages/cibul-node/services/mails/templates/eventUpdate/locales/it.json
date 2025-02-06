@@ -1,6 +1,6 @@
 {
   "actionDescription": "Vedere l'evento",
-  "body": "Il <b>{event}</b> è stato modificato sulla <b>{agenda}</b>.",
+  "body": "<b>{event}</b> è stato modificato sulla <b>{agenda}</b>.",
   "changeEmailSettings": "Modificare le mie impostazioni e-mail",
   "controlled": "pronto per la pubblicazione",
   "memberUnsubscribe": "Non riceverete più i cambiamenti di evento da questo calendario",

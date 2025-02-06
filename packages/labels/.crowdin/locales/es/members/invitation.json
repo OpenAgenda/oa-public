@@ -1,14 +1,14 @@
 {
   "administrator": "administrador",
-  "moderator": "moderador",
   "contributor": "contribuyente",
-  "reader": "lector",
-  "emailSubject": "Invitación a una agenda",
-  "emailTitle": "Se le ha invitado a contribuir a la agenda %title%",
-  "emailTitleForExistantUser": "Usted se convirtió en el título %credencial% de la agenda %title%",
+  "emailDescription": "Usted ha sido invitado a contribuir a la agenda ** %title%** como **%credencial%**",
   "emailInscription": "Inscribirse",
   "emailShowAgenda": "Ver la agenda",
   "emailSignup": "Inscribirse",
-  "emailDescription": "Usted ha sido invitado a contribuir a la agenda ** %title%** como **%credencial%**",
-  "newMessage": "El agenda %agenda% escribió un mensaje"
+  "emailSubject": "Invitación a una agenda",
+  "emailTitle": "Se le ha invitado a contribuir a la agenda %title%",
+  "emailTitleForExistantUser": "Usted se convirtió en el título %credencial% de la agenda %title%",
+  "moderator": "moderador",
+  "newMessage": "El agenda %agenda% escribió un mensaje",
+  "reader": "lector"
 }
