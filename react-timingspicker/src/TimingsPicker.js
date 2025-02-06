@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as dateFns from 'date-fns';
-import ReactResizeDetector from 'react-resize-detector';
 import cn from 'classnames';
 import { IntlProvider } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
@@ -76,6 +75,8 @@ export default class TimingsPicker extends Component {
 
   schedulerRef = React.createRef();
 
+  containerRef = React.createRef();
+
   constructor(props) {
     super(props);
 
@@ -137,6 +138,24 @@ export default class TimingsPicker extends Component {
     }
 
     return null;
+  }
+
+  componentDidMount() {
+    if (this.containerRef.current) {
+      this.resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const { width } = entry.contentRect;
+          this.onResize(width);
+        }
+      });
+      this.resizeObserver.observe(this.containerRef.current);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   }
 
   updateActiveWeek = (fn) => {
@@ -240,16 +259,11 @@ export default class TimingsPicker extends Component {
         defaultLocale={getSupportedLocale(locale)}
       >
         <div
+          ref={this.containerRef}
           className={cn(`${classNamePrefix}calendar`, {
             [classNamePrefix + breakpoint]: breakpoint,
           })}
         >
-          <ReactResizeDetector
-            handleWidth
-            handleHeight
-            onResize={this.onResize}
-          />
-
           <Stats
             value={value}
             reset={this.reset}

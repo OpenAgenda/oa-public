@@ -44,8 +44,6 @@ export default async function processGenerateRequest(
       query: _.pick(data, 'from', 'to'),
     });
 
-    console.log(outputPath, agenda);
-
     const filename = cleanString(`${agenda.title}.docx`);
 
     const { path } = await files.set(outputPath, filename);
