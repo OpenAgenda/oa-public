@@ -1,11 +1,11 @@
 {
   "connection": "acceder",
-  "incorrectPassword": "El correo electrónico o la contraseña son incorrectos.",
-  "resetPassword": "Restablecimiento de contraseña",
+  "createAccount": "Crea uno!",
   "email": "Dirección de correo electrónico",
-  "password": "Contraseña",
-  "signin": "Conectarse",
+  "incorrectPassword": "El correo electrónico o la contraseña son incorrectos.",
   "lostPassword": "He perdido mi contraseña",
   "noAccount": "¿No tienes una cuenta?",
-  "createAccount": "Crea uno!"
+  "password": "Contraseña",
+  "resetPassword": "Restablecimiento de contraseña",
+  "signin": "Conectarse"
 }

@@ -33,7 +33,6 @@ import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
 import CopyIdentifier from 'components/CopyIdentifier';
 import { keyCDNLoader } from 'utils/imageLoader';
-import mdStyle from 'utils/mdStyle';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
@@ -65,6 +64,7 @@ import EmailConfirmationAlert from './components/EmailConfirmationAlert';
 import Map from './components/Map';
 import LdJson from './components/LdJson';
 import EventImage from './components/EventImage';
+import LongDescription from './components/LongDescription';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
 import canModifyLocation from './utils/canModifyLocation';
@@ -320,12 +320,9 @@ function EventShow({ preload }: EventShowProps) {
                 ) : null}
 
                 {event.longDescription?.[contentLocale] ? (
-                  <chakra.div
-                    sx={mdStyle}
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{
-                      __html: event.longDescription[contentLocale],
-                    }}
+                  <LongDescription
+                    html={event.longDescription[contentLocale]}
+                    links={event.links}
                   />
                 ) : null}
 

@@ -1,8 +1,8 @@
 {
-  "upcomingEvents": "%count% eventi futuri",
-  "upcomingEvent": "1 evento futuro",
-  "totalEvents": "%count% eventi",
-  "totalEvent": "1 evento",
+  "excludePassed": "Escludi eventi passati",
   "includePassed": "Includi eventi passati",
-  "excludePassed": "Escludi eventi passati"
+  "totalEvent": "1 evento",
+  "totalEvents": "%count% eventi",
+  "upcomingEvent": "1 evento futuro",
+  "upcomingEvents": "%count% eventi futuri"
 }

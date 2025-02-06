@@ -1,7 +1,7 @@
 {
-  "eventCount": "Eventos asociados",
-  "agendaEventCount": "Eventos asociados en la agenda",
-  "website": "Sitio web",
   "access": "Acceso",
-  "description": "descripción"
+  "agendaEventCount": "Eventos asociados en la agenda",
+  "description": "descripción",
+  "eventCount": "Eventos asociados",
+  "website": "Sitio web"
 }

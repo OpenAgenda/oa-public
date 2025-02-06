@@ -1,4 +1,4 @@
 {
   "next.views.AgendaShow.ContextBar.emptySelection": "Aucun événement",
-  "next.views.AgendaShow.ContextBar.undefinedTitle": "Titre non défini"
+  "next.views.AgendaShow.ContextBar.undefinedTitle": "Événement brouillon sans titre"
 }

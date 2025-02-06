@@ -36,7 +36,6 @@
     "jquery": "^3.2.1",
     "lodash": "^4.17.15",
     "moment": "^2.27.0",
-    "prop-types": "^15.5.8",
     "qs": "^6.9.1",
     "react-helmet-async": "^1.0.3",
     "react-intersection-observer": "^9.4.1",
@@ -71,8 +70,8 @@
     "msw-storybook-addon": "^2.0.2",
     "mysql": "^2.16.0",
     "nodemon": "^2.0.6",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
@@ -81,7 +80,7 @@
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",
-    "react": "^18.2.0",
+    "react": "^19.0.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.5"

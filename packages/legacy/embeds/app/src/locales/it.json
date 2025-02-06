@@ -1,5 +1,9 @@
 {
   "LegacyEmbed.App.advancedMenu": "Avanzato",
   "LegacyEmbed.GeneralMenu.standardLayout": "Standard",
-  "LegacyEmbed.Presentation.moreInfo": "Per saperne di più"
+  "LegacyEmbed.Presentation.contactUs": "Contattateci",
+  "LegacyEmbed.Presentation.moreInfo": "Per saperne di più",
+  "LegacyEmbed.Presentation.standardEmbedPresentation": "Ottenete un codice embed da inserire in una pagina del vostro sito web. Verranno visualizzati gli eventi e le funzioni di ricerca e filtraggio di vostra scelta. È possibile apportare alcune modifiche visive. La configurazione e l'utilizzo di questo codice sono gratuiti.",
+  "LegacyEmbed.UpdateButton.save": "Salvare la configurazione",
+  "LegacyEmbed.UpdateButton.saved": "Configurazione salvata"
 }
