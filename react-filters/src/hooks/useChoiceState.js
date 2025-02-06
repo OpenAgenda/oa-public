@@ -1,8 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useIsomorphicLayoutEffect, usePrevious } from 'react-use';
+import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
+import usePreviousModule from 'react-use/lib/usePrevious.js';
 import { useIntl } from 'react-intl';
 import Fuse from 'fuse.js';
 import useConstant from '@openagenda/react-shared/dist/hooks/useConstant.js';
+
+const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
+const usePrevious = usePreviousModule.default || usePreviousModule;
 
 function getCollator(locale, defaultLocale) {
   try {
