@@ -1,13 +1,11 @@
 import _ from 'lodash';
 import { useRef, useCallback, useState, useEffect } from 'react';
-
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
-
-import { usePrevious } from 'react-use';
-
+import usePreviousModule from 'react-use/lib/usePrevious.js';
 import { produce } from 'immer';
-
 import { Helmet } from 'react-helmet-async';
+
+const usePrevious = usePreviousModule.default || usePreviousModule;
 
 const autoMode = {
   center: [47.1413835095447, 2.7386084664240578],

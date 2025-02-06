@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback, useEffect, useRef } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
-import { useLatest } from 'react-use';
+import useLatestModule from 'react-use/lib/useLatest.js';
 import a11yButtonActionHandler from '@openagenda/react-shared/dist/utils/a11yButtonActionHandler.js';
 import matchQuery from '../../utils/matchQuery.js';
 import updateFormValues from '../../utils/updateFormValues.js';
@@ -8,6 +8,8 @@ import updateCustomFilter from '../../utils/updateCustomFilter.js';
 import { useFavoriteState } from '../../hooks/index.js';
 import FilterPreviewer from '../FilterPreviewer.js';
 import useFavoritesOnChange from '../../hooks/useFavoritesOnChange.js';
+
+const useLatest = useLatestModule.default || useLatestModule;
 
 const subscription = { values: true };
 

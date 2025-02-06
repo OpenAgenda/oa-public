@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLatest } from 'react-use';
+import useLatestModule from 'react-use/lib/useLatest.js';
 import { useHistory, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
@@ -31,6 +31,8 @@ import AggregationCharts from '../components/AggregationCharts.js';
 import PulseChart from '../components/PulseChart.js';
 import determineDefaultRange from '../utils/determineDefaultRange.js';
 import emptyOptionMessage from '../messages/emptyOption.js';
+
+const useLatest = useLatestModule.default || useLatestModule;
 
 const messages = defineMessages({
   save: {
