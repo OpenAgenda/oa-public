@@ -55,11 +55,11 @@ import StatusTag from 'views/EventShow/components/StatusTag';
 import EventImage from 'views/EventShow/components/EventImage';
 import AdditionalFields from 'views/EventShow/components/AdditionalFields';
 import * as additionalFieldsUtils from 'views/EventShow/utils/additionalFields';
+import LongDescription from 'views/EventShow/components/LongDescription';
 import messages from 'views/EventShow/messages';
 import Map from 'views/EventShow/components/Map';
 import Timings from 'views/EventShow/components/Timings';
 import useNcEffect from 'views/EventShow/hooks/useNcEffect';
-import mdStyle from 'utils/mdStyle';
 import { thumborLoader } from 'utils/imageLoader';
 import { embedAgendaUrlRegex } from 'utils/isNextUrl';
 import OAAttribution from '../../components/OAAttribution';
@@ -324,12 +324,9 @@ function EmbedEventShow({
               ) : null}
 
               {event.longDescription?.[contentLocale] ? (
-                <chakra.div
-                  sx={mdStyle}
-                  // eslint-disable-next-line react/no-danger
-                  dangerouslySetInnerHTML={{
-                    __html: event.longDescription[contentLocale],
-                  }}
+                <LongDescription
+                  html={event.longDescription[contentLocale]}
+                  links={event.links}
                 />
               ) : null}
 
