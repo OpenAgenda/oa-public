@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 import base64 from 'base-64';
 import utf8 from 'utf8';
@@ -124,16 +123,3 @@ const AggregatorModal = ({ targetAgenda, onClose, res, userLogged, root }) => {
 };
 
 export default AggregatorModal;
-
-AggregatorModal.propTypes = {
-  res: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  targetAgenda: PropTypes.shape({
-    title: PropTypes.string,
-    slug: PropTypes.string,
-  }).isRequired,
-  userLogged: PropTypes.bool.isRequired,
-  root: PropTypes.string.isRequired,
-};
-
-AggregatorModal.defaultProps = {};
