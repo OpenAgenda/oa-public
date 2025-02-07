@@ -60,6 +60,7 @@
     "react-router-dom": "^5.1.2",
     "react-select": "^5.8.3",
     "slate": "^0.112.0",
+    "slate-history": "^0.110.3",
     "slate-html-serializer": "^0.8.13",
     "slate-react": "^0.112.1",
     "slugify": "^1.4.5",

@@ -4,6 +4,7 @@
 import { Component } from 'react';
 import { createEditor, Transforms, Editor, Node } from 'slate';
 import { ReactEditor, Slate, Editable, withReact } from 'slate-react';
+import { withHistory, HistoryEditor } from 'slate-history';
 import classNames from 'classnames';
 
 import richTextLabels from '@openagenda/labels/form-schemas/richText.js';
@@ -31,6 +32,18 @@ const DEFAULT_VALUE = [
 const DEFAULT_NODE_TYPE = 'paragraph';
 
 const SHORTCUTS = [
+  {
+    type: 'undo',
+    label: 'ctrl+z',
+    keys: ['z'],
+    method: 'undo',
+  },
+  {
+    type: 'redo',
+    label: 'ctrl+y',
+    keys: ['y'],
+    method: 'redo',
+  },
   {
     type: 'heading-two',
     label: 'ctrl+1',
@@ -69,11 +82,29 @@ const SHORTCUTS = [
   },
 ];
 
+function withInlines(editor) {
+  const { isInline, normalizeNode } = editor;
+  editor.isInline = (element) =>
+    (element.type === 'link' ? true : isInline(element));
+
+  editor.normalizeNode = (entry) => {
+    const [node, path] = entry;
+
+    if (node.type === 'link' && Editor.isEmpty(editor, node)) {
+      Transforms.unwrapNodes(editor, { at: path });
+      return;
+    }
+
+    normalizeNode(entry);
+  };
+  return editor;
+}
+
 export default class SlateField extends Component {
   constructor(props) {
     super(props);
 
-    this.editor = withReact(createEditor());
+    this.editor = withInlines(withReact(withHistory(createEditor())));
 
     const { value } = this.props;
 
@@ -115,7 +146,7 @@ export default class SlateField extends Component {
     onChange(raw ? newValue : newValue);
   };
 
-  onKeyDown(e) {
+  onKeyDown = (e) => {
     if (!e.ctrlKey) {
       return;
     }
@@ -129,9 +160,9 @@ export default class SlateField extends Component {
     e.preventDefault();
 
     this[match.method](match.type);
-  }
+  };
 
-  setFullscreen(fullscreen) {
+  setFullscreen = (fullscreen) => {
     if (fullscreen) {
       bodyScroll.disable();
     } else {
@@ -141,7 +172,7 @@ export default class SlateField extends Component {
     this.setState({
       fullscreen,
     });
-  }
+  };
 
   // eslint-disable-next-line class-methods-use-this
   renderElement = ({ attributes, children, element }) => {
@@ -247,18 +278,32 @@ export default class SlateField extends Component {
 
       const { selection } = this.editor;
 
-      const link = {
+      const linkNode = {
         type: 'link',
         url,
-        children: [{ text: url }],
+        children: [],
       };
 
       if (selection && Editor.string(this.editor, selection) === '') {
-        Transforms.insertNodes(this.editor, link);
+        Transforms.insertNodes(this.editor, {
+          type: 'link',
+          url,
+          children: [{ text: url }],
+        });
       } else {
-        Transforms.wrapNodes(this.editor, link, { split: true });
+        Transforms.wrapNodes(this.editor, linkNode, { split: true });
       }
     }
+  };
+
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  undo = () => {
+    HistoryEditor.undo(this.editor);
+  };
+
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  redo = () => {
+    HistoryEditor.undo(this.editor);
   };
 
   isEmpty = () => {
@@ -298,7 +343,7 @@ export default class SlateField extends Component {
     );
   };
 
-  renderFullscreenButton() {
+  renderFullscreenButton = () => {
     const { fullscreen = false } = this.state;
 
     return (
@@ -316,7 +361,7 @@ export default class SlateField extends Component {
         />
       </button>
     );
-  }
+  };
 
   renderMarkButton = (type) => {
     const isActive = this.isMarkActive(type);
@@ -341,7 +386,7 @@ export default class SlateField extends Component {
     );
   };
 
-  renderFullscreenTop() {
+  renderFullscreenTop = () => {
     const { field: fieldFromProps, lang } = this.props;
 
     const field = flattenFieldLabels(fieldFromProps, lang);
@@ -354,9 +399,9 @@ export default class SlateField extends Component {
         {field.info ? <Info value={field.info} /> : null}
       </>
     );
-  }
+  };
 
-  renderFullscreenBottom() {
+  renderFullscreenBottom = () => {
     const { field: fieldFromProps, lang, parentValue, error } = this.props;
 
     const field = flattenFieldLabels(fieldFromProps, lang);
@@ -371,7 +416,7 @@ export default class SlateField extends Component {
         ) : null}
       </>
     );
-  }
+  };
 
   render() {
     const { value, fullscreen } = this.state;
