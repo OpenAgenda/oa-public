@@ -12,6 +12,7 @@
   "next.views.AgendaShow.ExportModal.copied": "Copiato",
   "next.views.AgendaShow.ExportModal.copy": "Copia",
   "next.views.AgendaShow.ExportModal.detailedFormat": "Usa il formato dettagliato",
+  "next.views.AgendaShow.ExportModal.detectLang": "",
   "next.views.AgendaShow.ExportModal.distributeFields": "Campi con opzioni: visualizza un valore per colonna",
   "next.views.AgendaShow.ExportModal.documentation": "Vedere la documentazione",
   "next.views.AgendaShow.ExportModal.embed": "",

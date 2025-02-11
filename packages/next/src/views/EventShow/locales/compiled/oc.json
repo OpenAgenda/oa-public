@@ -140,13 +140,13 @@
   "next.views.EventShow.ContextBar.invalidEventMessage": [
     {
       "type": 0,
-      "value": "L'événement doit être corrigé avant que sont statut puisse être modifié. Si la modification est impossible, il devra être retiré de l'agenda."
+      "value": "Modifiez l'événement pour résoudre le problème avant de tenter à nouveau de modifier son état. Vous pouvez également le supprimer complètement de l’agenda."
     }
   ],
   "next.views.EventShow.ContextBar.invalidEventTitle": [
     {
       "type": 0,
-      "value": "L'événement est invalide"
+      "value": "Le nom de cet évènement n'est pas valide"
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelled": [
@@ -338,7 +338,7 @@
   "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": [
     {
       "type": 0,
-      "value": "Le transfert de propriété n'est possible que si vous avez les droits d'édition sur l'événement"
+      "value": "Le transfert de propriété n'est possible que si vous avez des droits d'éditeur de l'événement"
     }
   ],
   "next.views.EventShow.ContextBar.unfeature": [
@@ -528,7 +528,7 @@
   "next.views.EventShow.ShareModal.mustSignIn": [
     {
       "type": 0,
-      "value": "Vous devez vous connecter pour partager cet événement sur un autre agenda"
+      "value": "Vous devez vous connecter pour partager cet événement"
     }
   ],
   "next.views.EventShow.ShareModal.onOA": [
@@ -756,7 +756,7 @@
   "next.views.EventShow.backToList": [
     {
       "type": 0,
-      "value": "Retour à la liste"
+      "value": "Retourner à la liste"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
@@ -780,7 +780,7 @@
   "next.views.EventShow.rejectModal.confirm": [
     {
       "type": 0,
-      "value": "Confirmer"
+      "value": "Confirmar"
     }
   ],
   "next.views.EventShow.rejectModal.confirmRejection": [
@@ -798,13 +798,13 @@
   "next.views.EventShow.rejectModal.motiveInfo": [
     {
       "type": 0,
-      "value": "Le motif sera présenté au contributeur dans la notification qui lui sera envoyée par email et sera visible sur la fiche événement."
+      "value": "Le motif sera partagé au contributeur dans la notification qui lui est envoyée par email ainsi que directement associé au statut sur la page de l'événement."
     }
   ],
   "next.views.EventShow.rejectModal.motivePlaceholder": [
     {
       "type": 0,
-      "value": "Votre événement ne correspond pas au critères..."
+      "value": "Motif de rejet"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

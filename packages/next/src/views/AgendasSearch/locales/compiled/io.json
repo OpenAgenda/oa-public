@@ -62,19 +62,11 @@
   "next.views.AgendaSearch.total": [
     {
       "type": 0,
-      "value": "crwdns33464:0total="
+      "value": "crwdns33464:0count="
     },
     {
       "type": 1,
-      "value": "total"
-    },
-    {
-      "type": 0,
-      "value": "crwdnd33464:0total="
-    },
-    {
-      "type": 1,
-      "value": "total"
+      "value": "count"
     },
     {
       "type": 0,

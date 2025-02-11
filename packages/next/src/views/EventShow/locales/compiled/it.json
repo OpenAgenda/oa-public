@@ -50,7 +50,7 @@
   "next.views.EventShow.ContextBar.cancel": [
     {
       "type": 0,
-      "value": "Annulla"
+      "value": "Annullare"
     }
   ],
   "next.views.EventShow.ContextBar.clearStatus": [
@@ -152,7 +152,7 @@
   "next.views.EventShow.ContextBar.markAsCancelled": [
     {
       "type": 0,
-      "value": "The event is cancelled"
+      "value": "L'evento è annullato"
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelledStatus": [
@@ -164,7 +164,7 @@
   "next.views.EventShow.ContextBar.markAsFull": [
     {
       "type": 0,
-      "value": "The event is fully booked"
+      "value": "L'evento è esaurito"
     }
   ],
   "next.views.EventShow.ContextBar.markAsFullStatus": [
@@ -188,7 +188,7 @@
   "next.views.EventShow.ContextBar.markAsPostponed": [
     {
       "type": 0,
-      "value": "The event is postponed"
+      "value": "L'evento è rimandato"
     }
   ],
   "next.views.EventShow.ContextBar.markAsPostponedStatus": [
@@ -248,7 +248,7 @@
   "next.views.EventShow.ContextBar.readyToPublishInfo": [
     {
       "type": 0,
-      "value": "This event has been verified and is ready to be published"
+      "value": "Questo evento è stato verificato ed è pronto per essere pubblicato"
     }
   ],
   "next.views.EventShow.ContextBar.refusedContributorInfo": [
@@ -260,13 +260,13 @@
   "next.views.EventShow.ContextBar.refusedInfo": [
     {
       "type": 0,
-      "value": "This event is not compatible with the agenda and should not be published"
+      "value": "Questo evento non è compatibile con lAgenda e non sarà pubblicato"
     }
   ],
   "next.views.EventShow.ContextBar.remove": [
     {
       "type": 0,
-      "value": "Rimuovi"
+      "value": "Rimuovere"
     }
   ],
   "next.views.EventShow.ContextBar.removeConfirmation": [
@@ -320,7 +320,7 @@
   "next.views.EventShow.ContextBar.toModerateInfo": [
     {
       "type": 0,
-      "value": "This event needs to be verified and is not ready for publication"
+      "value": "Questo evento deve essere verificato  e non  è ancora stato pubblicato"
     }
   ],
   "next.views.EventShow.ContextBar.transferOwnership": [
@@ -368,13 +368,13 @@
   "next.views.EventShow.DuplicateModal.bigSentence": [
     {
       "type": 0,
-      "value": "You are about to create a new event based on a precedent."
+      "value": "State per creare un nuovo evento basato su un evento precedente."
     }
   ],
   "next.views.EventShow.DuplicateModal.createNewEventIn": [
     {
       "type": 0,
-      "value": "Create the new event in"
+      "value": "Creare il nuovo evento in"
     }
   ],
   "next.views.EventShow.DuplicateModal.or": [
@@ -474,19 +474,19 @@
   "next.views.EventShow.LocationHistory.locationHistory": [
     {
       "type": 0,
-      "value": "Location history"
+      "value": "Storia del luogo"
     }
   ],
   "next.views.EventShow.LocationHistory.noActivity": [
     {
       "type": 0,
-      "value": "no activity"
+      "value": "nessuna attività"
     }
   ],
   "next.views.EventShow.LocationHistory.showHistory": [
     {
       "type": 0,
-      "value": "Show history"
+      "value": "Vedere la storia"
     }
   ],
   "next.views.EventShow.NavigationButton.nextEvent": [
@@ -746,7 +746,7 @@
   "next.views.EventShow.actions": [
     {
       "type": 0,
-      "value": "Actions"
+      "value": "Azioni"
     }
   ],
   "next.views.EventShow.backToList": [
@@ -764,7 +764,7 @@
   "next.views.EventShow.history": [
     {
       "type": 0,
-      "value": "History"
+      "value": "Storia"
     }
   ],
   "next.views.EventShow.moreLinks": [
@@ -776,7 +776,7 @@
   "next.views.EventShow.rejectModal.confirm": [
     {
       "type": 0,
-      "value": "Confirm"
+      "value": "Confermare"
     }
   ],
   "next.views.EventShow.rejectModal.confirmRejection": [
