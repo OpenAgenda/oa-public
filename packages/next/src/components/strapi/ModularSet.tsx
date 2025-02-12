@@ -10,6 +10,7 @@ interface ModularSetProps {
   CTA?: any;
   backgroundColor?: string;
   fontColor?: string;
+  alignHeight?: boolean;
 }
 
 export default function ModularSet({
@@ -19,6 +20,7 @@ export default function ModularSet({
   CTA,
   backgroundColor,
   fontColor,
+  alignHeight,
 }: ModularSetProps) {
   return (
     <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
@@ -30,7 +32,7 @@ export default function ModularSet({
           {description}
         </Text>
       )}
-      <Grid display="flex" gap={8} p={8} alignItems="center">
+      <Grid display="flex" gap={8} p={8} alignItems="stretch">
         {Components.map((Component) => (
           <GridItem
             key={Component.id}
@@ -38,7 +40,7 @@ export default function ModularSet({
             justifyItems="center"
             flex={Component.grow || 1}
           >
-            <Modular {...Component} />
+            <Modular {...Component} alignHeight={alignHeight} />
           </GridItem>
         ))}
       </Grid>
