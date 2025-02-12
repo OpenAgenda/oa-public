@@ -126,6 +126,7 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
     displayName: 'ModularSet';
   };
   attributes: {
+    alignHeight: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     backgroundColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
