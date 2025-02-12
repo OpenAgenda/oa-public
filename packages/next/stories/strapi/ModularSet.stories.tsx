@@ -100,8 +100,10 @@ export function Heights() {
           {
             id: 4,
             ...fx.default,
-            description:
-              'A longer description that would normally make this card taller. This demonstrates how alignHeight makes all cards the same height regardless of content length. The description text should adapt to fill the available space.',
+            description: `A longer description that would normally make this card taller.
+
+This demonstrates how alignHeight makes all cards the same height regardless of content length.
+The description text should adapt to fill the available space.`,
             card: true,
           },
         ]}
