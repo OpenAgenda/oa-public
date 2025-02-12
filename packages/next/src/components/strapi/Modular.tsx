@@ -66,7 +66,7 @@ export default function Modular({
             </Heading>
           ) : null}
           {description ? (
-            <Box width="full">
+            <Box width="full" justifyContent="center" display="flex">
               <ReactMarkdown>{description}</ReactMarkdown>
             </Box>
           ) : null}
