@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Component } from 'react';
+import { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
@@ -16,11 +16,24 @@ if (typeof document !== 'undefined') {
   document.body.appendChild(portal);
 }
 
-export default class OptionItem extends Component {
-  renderEdit() {
-    const { field, lang, index, option, otherOptions, onUpdate, onEditCancel } = this.props;
-
-    return (
+const OptionItem = ({
+  field,
+  lang,
+  index,
+  option,
+  otherOptions,
+  onUpdate,
+  onEditCancel,
+  isEdited,
+  actionable,
+  disabled,
+  provided,
+  snapshot,
+  onEdit,
+  onRemove,
+}) => {
+  const renderEdit = useCallback(
+    () => (
       <OptionLabelsForm
         index={index}
         option={option}
@@ -30,67 +43,63 @@ export default class OptionItem extends Component {
         lang={lang}
         languages={field.labelLanguages}
       />
-    );
-  }
-
-  render() {
-    const {
-      option,
-      isEdited,
-      actionable,
-      disabled,
-      lang,
-      provided,
-      snapshot,
-      onEdit,
-      onRemove,
+    ),
+    [
+      field.labelLanguages,
       index,
-    } = this.props;
+      lang,
+      onEditCancel,
+      onUpdate,
+      option,
+      otherOptions,
+    ],
+  );
 
-    const child = (
-      <li
-        className={classNames({
-          'list-group-item': true,
-          disabled,
-        })}
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        style={provided.draggableProps.style}
-      >
-        {isEdited
-          ? this.renderEdit()
-          : (
-            <div>
-              <label htmlFor={`option-${option.id}`} className="margin-v-xs">
-                {getPreferredLang(option.label, lang)}
-              </label>
-              <div className="form-item-actions padding-h-xs">
-                <button
-                  type="button"
-                  id={`option-${option.id}`}
-                  disabled={!actionable}
-                  onClick={() => onEdit(index)}
-                  className="btn btn-link"
-                >
-                  {getLabel('optionEdit', lang)}
-                </button>
-                <button
-                  type="button"
-                  disabled={!actionable}
-                  onClick={onRemove}
-                  className="btn btn-link"
-                >
-                  <span className="text text-danger">
-                    {getLabel('optionRemove', lang)}
-                  </span>
-                </button>
-              </div>
+  const child = (
+    <li
+      className={classNames({
+        'list-group-item': true,
+        disabled,
+      })}
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      style={provided.draggableProps.style}
+    >
+      {isEdited
+        ? renderEdit()
+        : (
+          <div>
+            <label htmlFor={`option-${option.id}`} className="margin-v-xs">
+              {getPreferredLang(option.label, lang)}
+            </label>
+            <div className="form-item-actions padding-h-xs">
+              <button
+                type="button"
+                id={`option-${option.id}`}
+                disabled={!actionable}
+                onClick={() => onEdit(index)}
+                className="btn btn-link"
+              >
+                {getLabel('optionEdit', lang)}
+              </button>
+              <button
+                type="button"
+                disabled={!actionable}
+                onClick={onRemove}
+                className="btn btn-link"
+              >
+                <span className="text text-danger">
+                  {getLabel('optionRemove', lang)}
+                </span>
+              </button>
             </div>
-          )}
-      </li>
-    );
+          </div>
+        )}
+    </li>
+  );
 
-    return snapshot.isDragging ? ReactDOM.createPortal(child, portal) : child;
-  }
-}
+  return snapshot.isDragging ? ReactDOM.createPortal(child, portal) : child;
+};
+
+export default OptionItem;
