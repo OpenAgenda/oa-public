@@ -1,8 +1,8 @@
 import { initialize, mswLoader } from 'msw-storybook-addon';
 
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-};
+// export const parameters = {
+//   actions: { argTypesRegex: '^on[A-Z].*' },
+// };
 
 initialize({
   onUnhandledRequest(request, print) {
