@@ -4,9 +4,7 @@ function getFlatLabel(label) {
   return typeof label === 'object' ? label[Object.keys(label)[0]] : label;
 }
 
-async function generateSettings(core, agenda) {
-  const schema = await core.agendas(agenda.uid).settings.schema.getMerged();
-
+function generate(schema) {
   const tagGroups = schema.fields
     .filter((field) => field.options && (field.origin || 'tags') === 'tags')
     .map((field) => ({
@@ -35,7 +33,6 @@ async function generateSettings(core, agenda) {
     }));
 
   return {
-    ..._.pick(agenda, ['title', 'slug', 'description', 'url']),
     embeds: [],
     categorySet: {
       categories:
@@ -50,36 +47,16 @@ async function generateSettings(core, agenda) {
   };
 }
 
-export default async function legacySettingsMw(req, res, _next) {
+async function middleware(req, res, _next) {
   const { core } = req.app.services;
 
-  res.json(await generateSettings(core, req.agenda));
-}
-
-/* export default async function controlDataMw(req, res, _next) {
-  const { simpleCache, core } = req.app.services;
-
-  const cachedData = await simpleCache
-    .hash('agendas', req.agenda.uid)
-    .get('controlData', { json: true });
-
-  if (cachedData) {
-    res.json({
-      success: true,
-      code: 200,
-      data: cachedData,
-    });
-    return;
-  }
-
-  const data = await generateControlData(core, req.agenda.uid);
-
-  await simpleCache.hash('agendas', req.agenda.uid).set('controlData', data);
-
   res.json({
-    success: true,
-    code: 200,
-    data,
+    ..._.pick(req.agenda, ['title', 'slug', 'description', 'url']),
+    ...generate(await core.agendas(req.agenda.uid).settings.schema.getMerged()),
   });
 }
-*/
+
+export default {
+  middleware,
+  generate,
+};

@@ -3,6 +3,7 @@ import convertEventToLegacyFormat from '@openagenda/legacy/convertEventToLegacyF
 import convertLegacyFilter from '@openagenda/legacy/convertLegacyFilter/index.js';
 import renderHTMLFromMarkdown from '@openagenda/legacy/utils/renderHTMLFromMarkdown.js';
 import track from '../lib/track.js';
+import legacySettings from '../lib/legacySettings.js';
 
 export default function ConvertFormat({
   forceLimit = null,
@@ -12,18 +13,17 @@ export default function ConvertFormat({
   trackInfos = null,
 }) {
   return async (req, res, next) => {
-    const {
-      legacy: { tagsAndCustom },
-      core,
-    } = req.app.services;
+    const { core } = req.app.services;
 
     const config = core.getConfig();
 
-    const tagSet = await tagsAndCustom.getTagSet(req.params.uid);
-    const categorySet = await tagsAndCustom.getCategorySet(req.params.uid);
     const formSchema = await req.app.core
       .agendas(req.params.uid)
-      .settings.get({ access: 'internal' });
+      .settings.schema.getMerged({
+        access: 'internal',
+      });
+
+    const { tagSet, categorySet } = legacySettings.generate(formSchema);
 
     const nav = req.query.page
       ? {
@@ -81,7 +81,10 @@ export default function ConvertFormat({
     const agendaSettings = {
       uid: req.params.uid,
       slug: agenda.slug,
-      legacy: { tagSet, categorySet },
+      legacy: {
+        tagSet,
+        categorySet,
+      },
       formSchema,
       interfaces: {
         renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(

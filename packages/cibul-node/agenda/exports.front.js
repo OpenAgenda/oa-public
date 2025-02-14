@@ -1,6 +1,6 @@
 import cbify from '@openagenda/utils/cbify.js';
 import cmn from '../lib/commons-app.js';
-import legacySettingsMw from '../lib/legacySettingsMw.js';
+import legacySettings from '../lib/legacySettings.js';
 import convertFormat from './ConvertFormat.js';
 import loadCredentials from './loadCredentials.js';
 
@@ -69,6 +69,6 @@ export default (app) => {
       },
     }),
     removeCsp,
-    legacySettingsMw,
+    legacySettings.middleware,
   );
 };
