@@ -46,7 +46,7 @@
     "@formatjs/cli": "^2.11.3",
     "@openagenda/intl": "^1.1.5",
     "@openagenda/react-date-range": "^2.0.2",
-    "@openagenda/react-portal-ssr": "^1.0.2",
+    "@openagenda/react-portal-ssr": "^1.0.3",
     "@openagenda/react-shared": "^2.4.3",
     "@raruto/leaflet-gesture-handling": "^1.4.4",
     "axios": "^0.21.1",
