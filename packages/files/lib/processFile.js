@@ -80,17 +80,11 @@ function getFileVariants(options) {
   }
 
   // Multiple variants
-  const result = [];
-
-  for (const variant of variants) {
-    result.push({
-      key,
-      ...restOptions,
-      ...variant,
-    });
-  }
-
-  return result;
+  return variants.map((variant) => ({
+    key,
+    ...restOptions,
+    ...variant,
+  }));
 }
 
 function abortUpload(item, error) {
@@ -113,6 +107,30 @@ function abortAllVariants(registry, error) {
   }
 
   return Promise.all(promises);
+}
+
+function teeStream(inputStream, nbStreams) {
+  const outputs = Array.from({ length: nbStreams }, () => new PassThrough());
+
+  inputStream.on('data', (chunk) => {
+    for (const out of outputs) {
+      out.write(chunk);
+    }
+  });
+
+  inputStream.on('end', () => {
+    for (const out of outputs) {
+      out.end();
+    }
+  });
+
+  inputStream.on('error', (err) => {
+    for (const out of outputs) {
+      out.destroy(err);
+    }
+  });
+
+  return outputs;
 }
 
 module.exports = async function processFile(
@@ -139,11 +157,13 @@ module.exports = async function processFile(
     );
   }
 
+  const teeOutputs = teeStream(info.stream, variants.length);
+
   const promises = [];
   const variantsRegistry = new Map();
 
-  for (const variant of variants) {
-    const pass = new PassThrough();
+  for (const [i, variant] of variants.entries()) {
+    const pass = teeOutputs[i];
 
     const ctx = {
       originalname: fileStream.path,
@@ -167,22 +187,39 @@ module.exports = async function processFile(
 
     variantsRegistry.set(variant, response);
 
-    // Start upload
-    promises.push(
+    const variantPromise = new Promise((resolve, reject) => {
+      pass.on('error', (err) => {
+        response.uploadStatus = 'rejected';
+        response.uploadReason = err;
+
+        reject(
+          new VError({
+            cause: err,
+            info: response,
+          }),
+        );
+      });
+
       Promise.resolve()
         .then(async () => {
           response.filename = await variant.getFilename(response, ctx);
 
           if (typeof variant.transform === 'function') {
-            response.stream = await variant.transform(response, ctx);
+            response.stream = await variant.transform(
+              {
+                ...response,
+                stream: pass,
+              },
+              ctx,
+            );
+          } else {
+            response.stream = pass;
           }
-
-          const variantStream = response.stream.pipe(pass);
 
           response.existedBefore = await provider.exists(response.filename);
 
           const managedUpload = provider.upload(
-            variantStream,
+            response.stream,
             response.filename,
             ctx.providerParams,
           );
@@ -198,21 +235,25 @@ module.exports = async function processFile(
           response.uploadStatus = 'fulfilled';
           response.uploadValue = result;
 
-          return response;
+          resolve(response);
         })
         .catch((error) => {
           response.uploadStatus = 'rejected';
           response.uploadReason = error;
 
-          throw new VError({
-            cause: error,
-            info: response,
-          });
+          reject(
+            new VError({
+              cause: error,
+              info: response,
+            }),
+          );
         })
         .finally(() => {
           pass.destroy();
-        }),
-    );
+        });
+    });
+
+    promises.push(variantPromise);
   }
 
   const ret = (
