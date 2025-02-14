@@ -177,29 +177,25 @@ export default (core, { useRouter = true } = {}) => {
         }, next),
   );
 
-  app.post(
-    '/agendas/:agendaUid/events',
-    mw.moveEventLegacyImageCredits,
-    (req, res, next) =>
-      core
-        .agendas(req.agenda.uid)
-        .events.create(req.parsedData, {
-          context: {
-            userUid: req.member.userUid,
-          },
-          access: req.access,
-          defaultLang: req.headers.lang,
-          callOrigin: 'api',
-        })
-        .then(
-          (event) =>
-            res.json({
-              success: true,
-              event,
-            }),
-          next,
-        ),
-  );
+  app.post('/agendas/:agendaUid/events', (req, res, next) =>
+    core
+      .agendas(req.agenda.uid)
+      .events.create(req.parsedData, {
+        context: {
+          userUid: req.member.userUid,
+        },
+        access: req.access,
+        defaultLang: req.headers.lang,
+        callOrigin: 'api',
+      })
+      .then(
+        (event) =>
+          res.json({
+            success: true,
+            event,
+          }),
+        next,
+      ));
 
   app.post('/agendas/:agendaUid/events/search', [
     track.mw('api', 'list', 'events'),
