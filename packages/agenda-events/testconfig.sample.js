@@ -15,21 +15,6 @@ module.exports = {
     agendaEvent: 'agenda_event',
   },
 
-  legacy: {
-    mysql: {
-      host: '127.0.0.1',
-      database: 'oatest_agenda_event',
-      password: 'grut',
-      user: 'root',
-    },
-    schemas: {
-      agendaEvent: 'legacy_agenda_event',
-      event: 'legacy_event',
-      agenda: 'legacy_agenda',
-      eventEditor: 'legacy_event_editor',
-    },
-  },
-
   // given by agenda service
   eventStates: {
     REFUSED: -1,
