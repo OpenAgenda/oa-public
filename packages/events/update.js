@@ -4,7 +4,6 @@ import get from './get.js';
 import cleanSetOptions from './lib/cleanSetOptions.js';
 import generateFileKey from './lib/generateFileKey.js';
 import validate from './lib/validate.js';
-import setLegacy from './lib/legacy/set.js';
 import processImage from './lib/processImage.js';
 import handleInterface from './lib/handleInterface.js';
 import convertAndInjectTimingsWithTimezone from './utils/convertAndInjectTimingsWithTimezone.js';
@@ -75,14 +74,6 @@ async function update({ service, isPatch }, current, data, o = {}) {
   log('updated event with uid %s', current.uid);
 
   await handleInterface(service, 'onUpdate', current, updated, options.context);
-
-  if (!updated.draft && options.transferToLegacy) {
-    try {
-      await setLegacy(service.clients.knex, updated);
-    } catch (e) {
-      log('warn', 'failed to update legacy', e);
-    }
-  }
 
   return lastClean(updated, {
     ...options,
