@@ -1,1 +1,0 @@
-CREATE TABLE review_category (id BIGINT AUTO_INCREMENT, slug VARCHAR(255) NOT NULL, category VARCHAR(255) NOT NULL, review_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX review_id_idx (review_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

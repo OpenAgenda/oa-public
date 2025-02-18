@@ -58,8 +58,6 @@ export default (core) => {
 
     const agendas = await getAgendas(services, networkUid);
 
-    log('updating legacy models for %s agendas', agendas.length);
-
     for (const agenda of agendas) {
       tasks.enqueue('agendaRebuild', agenda.uid, true);
     }

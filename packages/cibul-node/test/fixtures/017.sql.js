@@ -170,45 +170,6 @@ raw.push(
 );
 
 raw.push(
-  knex('event_location').insert(
-    [1, 2, 3].map((id) => ({
-      id,
-      event_id: id,
-      location_id: 1,
-      created_at: '2016-01-11 13:07:08',
-      updated_at: '2016-01-18 16:14:06',
-    })),
-  ),
-);
-
-raw.push(
-  knex('occurrence').insert(
-    [
-      {
-        id: 1,
-        date: '2019-05-06',
-      },
-      {
-        id: 2,
-        date: '2019-12-18',
-      },
-      {
-        id: 3,
-        date: '2019-12-18',
-      },
-    ].map((o) => ({
-      ...o,
-      event_id: o.id,
-      time_start: '10:00:00',
-      time_end: '11:00:00',
-      created_at: '2016-01-11 13:07:08',
-      updated_at: '2016-01-18 16:14:06',
-      location_id: 1,
-    })),
-  ),
-);
-
-raw.push(
   knex('event_2').insert([
     {
       id: 12,
@@ -424,41 +385,6 @@ raw.push(
       can_edit: 1,
       user_uid: 63170203,
       state: 1,
-      created_at: new Date('2019-05-06T10:00:00'),
-      updated_at: new Date('2019-05-06T10:00:00'),
-    },
-  ]),
-);
-
-raw.push(
-  knex('review_article').insert([
-    {
-      id: 123,
-      event_id: 1,
-      review_id: 218,
-      state: 2,
-      is_published: 1,
-      user_id: 50304,
-      created_at: new Date('2019-05-06T10:00:00'),
-      updated_at: new Date('2019-05-06T10:00:00'),
-    },
-    {
-      id: 124,
-      event_id: 2,
-      review_id: 220,
-      state: 2,
-      is_published: 1,
-      user_id: 50304,
-      created_at: new Date('2019-05-06T10:00:00'),
-      updated_at: new Date('2019-05-06T10:00:00'),
-    },
-    {
-      id: 125,
-      event_id: 3,
-      review_id: 220,
-      state: 2,
-      is_published: 1,
-      user_id: 50304,
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
     },

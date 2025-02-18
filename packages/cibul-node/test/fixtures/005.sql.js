@@ -817,72 +817,6 @@ raw.push(
 );
 
 raw.push(
-  knex('event').insert([
-    {
-      id: 1,
-      uid: 19201989,
-      slug: 'un-event',
-      owner_id: 50304,
-      created_at: '2019-12-14T10:00:00.000',
-      updated_at: '2019-12-14T10:00:00.000',
-    },
-    {
-      id: 2,
-      uid: 18992812,
-      slug: 'encore-un-event',
-      image: 'an-image.jpg',
-      owner_id: 50304,
-      created_at: '2019-12-14T10:00:00.000',
-      updated_at: '2019-12-14T10:00:00.000',
-    },
-  ]),
-);
-
-raw.push(
-  knex('event_location').insert([
-    {
-      id: 1,
-      location_id: 1,
-      event_id: 1,
-      created_at: '2019-12-14T10:00:00.000',
-      updated_at: '2019-12-14T10:00:00.000',
-    },
-    {
-      id: 2,
-      location_id: 1,
-      event_id: 2,
-      created_at: '2019-12-14T10:00:00.000',
-      updated_at: '2019-12-14T10:00:00.000',
-    },
-  ]),
-);
-
-raw.push(
-  knex('occurrence').insert([
-    {
-      id: 1,
-      location_id: 1,
-      event_id: 1,
-      date: '2019-05-06',
-      time_start: '10:00:00',
-      time_end: '11:00:00',
-      created_at: '2017-10-30 14:21:07',
-      updated_at: '2017-10-30 14:21:07',
-    },
-    {
-      id: 2,
-      location_id: 1,
-      event_id: 2,
-      date: '2019-05-06',
-      time_start: '10:00:00',
-      time_end: '11:00:00',
-      created_at: '2017-10-30 14:21:07',
-      updated_at: '2017-10-30 14:21:07',
-    },
-  ]),
-);
-
-raw.push(
   knex('event_2').insert([
     {
       id: 12,
@@ -955,31 +889,6 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
       can_edit: 1,
-    },
-  ]),
-);
-
-raw.push(
-  knex('review_article').insert([
-    {
-      id: 123,
-      event_id: 1,
-      review_id: 218,
-      state: 2,
-      is_published: 1,
-      user_id: 50304,
-      created_at: new Date('2019-05-06T10:00:00'),
-      updated_at: new Date('2019-05-06T10:00:00'),
-    },
-    {
-      id: 124,
-      event_id: 1,
-      review_id: 218,
-      state: 2,
-      is_published: 1,
-      user_id: 50304,
-      created_at: new Date('2019-05-06T10:00:00'),
-      updated_at: new Date('2019-05-06T10:00:00'),
     },
   ]),
 );

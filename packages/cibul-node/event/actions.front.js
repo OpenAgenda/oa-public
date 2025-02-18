@@ -6,9 +6,8 @@ import formSchemaDecorate from '@openagenda/form-schemas/iso/getDecorate.js';
 import range from '@openagenda/date-range';
 import logs from '@openagenda/logs';
 import { getLocaleValue } from '@openagenda/intl';
-import * as agendaSvc from '../services/agenda/index.js';
 import cmn from '../lib/commons-app.js';
-import config from '../config/index.js';
+
 import addCalendarLinks from '../services/events/lib/addCalendarLinks.js';
 import track from '../lib/track.js';
 import ics from '../services/events/lib/ics.js';
@@ -53,14 +52,17 @@ function getDates(event, lang) {
 }
 
 function actionDatesJson(req, res, next) {
+  const { core } = req.app.services;
+  const { root } = core.getConfig();
+
   const service = ['google', 'yahoo', 'live', 'ics'].find((v) => v === req.query.service)
     || 'google';
 
   try {
     addCalendarLinks(
-      { root: config.root },
+      { root },
       req.event,
-      `${config.root}/${req.agenda.slug}/events/${req.event.slug}`,
+      `${root}/${req.agenda.slug}/events/${req.event.slug}`,
       req.agenda,
       req.lang,
     );
@@ -93,7 +95,8 @@ function actionDatesJson(req, res, next) {
 }
 
 async function eventMailSend(req, res, next) {
-  const { events: eventsSvc, mails } = req.app.services;
+  const { events: eventsSvc, mails, core } = req.app.services;
+  const config = core.getConfig();
 
   let customData = null;
 
@@ -237,6 +240,7 @@ export default (app) => {
     events: eventsSvc,
     members: membersSvc,
     users: usersSvc,
+    agendas: agendasSvc,
   } = app.services;
 
   app.get('/:slug/events/:eventSlug/action', (req, res) =>
@@ -244,9 +248,18 @@ export default (app) => {
       `/${req.params.slug}/events/${req.params.eventSlug}?sharemodal=1`,
     ));
 
+  const loadAgendaBySlug = agendasSvc.middleware.load({
+    internal: true,
+    namespaces: {
+      identifiers: {
+        slug: 'params.slug',
+      },
+    },
+  });
+
   app.get(
     '/:slug/events/:eventUid/action/dates',
-    agendaSvc.mw.load('slug'),
+    loadAgendaBySlug,
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) =>
       req.app.services.core
@@ -269,7 +282,7 @@ export default (app) => {
 
   app.post(
     '/:slug/events/:eventUid/email',
-    agendaSvc.mw.load('slug'),
+    loadAgendaBySlug,
     usersSvc.mw.loadBySessionOrKey(),
     (req, res, next) => {
       if (!req.user) return next({ code: 401 });
@@ -297,7 +310,7 @@ export default (app) => {
 
   app.get(
     '/:slug/events/:eventSlug/ics',
-    agendaSvc.mw.load('slug'),
+    loadAgendaBySlug,
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) =>
       eventsSvc
