@@ -71,7 +71,7 @@ function set(req, res, next) {
 
       result.agenda = _extendWithConfig(result.agenda);
 
-      return res.json(result);
+      next();
     },
   );
 }
