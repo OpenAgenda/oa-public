@@ -16,6 +16,33 @@ const PreMw = ({ sessions, users }) => [
   users.mw.allowSuperAdmin(),
 ];
 
+function sendAgendaData(req, res) {
+  const { core, agendas } = req.app.services;
+
+  core
+    .agendas(req.params.uid)
+    .get({ access: 'internal', detailed: true })
+    .then((agenda) => {
+      if (!agenda) {
+        res.json(null);
+        return;
+      }
+      res.json({
+        ...agenda,
+        credentials: {
+          ...Object.entries(agendas.utils.credentials).reduce(
+            (accu, [key, value]) => ({ ...accu, [key]: value.default }),
+            {},
+          ),
+          ...agenda.credentials,
+        },
+        config: {
+          credentials: agendas.utils.credentials,
+        },
+      });
+    });
+}
+
 function index(req, res) {
   cmn.render(req, res, 'admin/agendas', req.templateData);
 }
@@ -60,31 +87,7 @@ export default (app) => {
     );
   });
 
-  app.get('/admin/agendas/:uid', preMw, (req, res) => {
-    const { core, agendas } = req.app.services;
-    core
-      .agendas(req.params.uid)
-      .get({ access: 'internal', detailed: true })
-      .then((agenda) => {
-        if (!agenda) {
-          res.json(null);
-          return;
-        }
-        res.json({
-          ...agenda,
-          credentials: {
-            ...Object.entries(agendas.utils.credentials).reduce(
-              (accu, [key, value]) => ({ ...accu, [key]: value.default }),
-              {},
-            ),
-            ...agenda.credentials,
-          },
-          config: {
-            credentials: agendas.utils.credentials,
-          },
-        });
-      });
-  });
+  app.get('/admin/agendas/:uid', preMw, sendAgendaData);
 
   app.post(
     '/admin/agendas/:uid',
@@ -130,6 +133,7 @@ export default (app) => {
       }
     },
     mw.agendas.set,
+    sendAgendaData,
   );
 
   app.get(
