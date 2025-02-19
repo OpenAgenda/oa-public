@@ -54,7 +54,8 @@
     "@openagenda/agendas": "^1.7.0",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/react-webpack5": "^7.4.2",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
+    "@storybook/react-webpack5": "^8.5.8",
     "history": "^4.10.1",
     "jest": "^29.7.0",
     "msw": "^2.3.0",
@@ -65,7 +66,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "storybook": "^7.6.4"
+    "storybook": "^8.5.8"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

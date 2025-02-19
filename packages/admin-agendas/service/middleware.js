@@ -1,13 +1,11 @@
-'use strict';
-
-const _ = require('lodash');
-const validators = require('@openagenda/validators');
+import _ from 'lodash';
+import validators from '@openagenda/validators';
 
 let service;
 let config;
 let agendas;
 
-module.exports = {
+export default {
   init,
   agendas: {
     set,

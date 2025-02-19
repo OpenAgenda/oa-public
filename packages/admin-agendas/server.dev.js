@@ -5,8 +5,8 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
-import testconfig from './testconfig';
-import service from './service';
+import testconfig from './testconfig.js';
+import service from './service/index.js';
 
 const mw = service.mw;
 const app = express();
@@ -39,8 +39,8 @@ app.use( cors() );
 app.use( express.json() );
 app.use( express.urlencoded( { extended: true } ) );
 
-app.get( '/', mw.agendas.list );
-app.get( '/get', mw.agendas.get );
+// app.get( '/', mw.agendas.list );
+// app.get( '/get', mw.agendas.get );
 app.post( '/set/:uid', mw.agendas.set );
 app.get( '/members', mw.members.list );
 
