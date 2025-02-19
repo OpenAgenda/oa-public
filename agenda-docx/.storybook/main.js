@@ -16,5 +16,5 @@ export default {
     return { ...config, rootMode: 'upward' };
   },
 
-  addons: ['@storybook/addon-webpack5-compiler-babel'],
+  addons: [getAbsolutePath('@storybook/addon-webpack5-compiler-babel')],
 };
