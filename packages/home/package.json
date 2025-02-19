@@ -12,7 +12,8 @@
   "license": "ISC",
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/home",
   "scripts": {
-    "start": "storybook dev -p 9001 --ci",
+    "sb": "storybook dev -p 9001 --ci",
+    "start": "yarn sb",
     "build": "babel --copy-files src -d dist -s --env-name esm --root-mode upward",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn build"
@@ -43,7 +44,8 @@
     "@babel/cli": "^7.23.0",
     "@loadable/component": "^5.14.1",
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/react-webpack5": "^7.4.2",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
+    "@storybook/react-webpack5": "^8.5.8",
     "msw": "^2.3.0",
     "msw-storybook-addon": "^2.0.2",
     "react": "^19.0.0",
@@ -52,7 +54,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "storybook": "^7.6.4"
+    "storybook": "^8.5.8"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

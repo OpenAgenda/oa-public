@@ -1,8 +1,6 @@
-'use strict';
+import Files from '@openagenda/files';
 
-const Files = require('@openagenda/files');
-
-module.exports = {
+export default {
   mysql : {
     host : '127.0.0.1',
     database : 'oa_test_admin_agendas',

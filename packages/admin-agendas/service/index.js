@@ -1,21 +1,21 @@
-"use strict";
-
-const knexLib = require( 'knex' );
-const w = require( 'when' );
-const logs = require( '@openagenda/logs' );
-const mw = require( './middleware' );
+import knexLib from 'knex';
+import w from 'when';
+import logs from '@openagenda/logs';
+import mw from './middleware.js';
 
 let membersSvc;
 let config;
 let knex;
 
-module.exports = {
+const service = {
   init,
   mw,
   members: {
-    list: (...args) => membersSvc.list( ...args )
-  }
+    list: (...args) => membersSvc.list(...args),
+  },
 };
+
+export default service;
 
 function init( c, cb ) {
 
@@ -46,7 +46,7 @@ function init( c, cb ) {
 
   .then( () => {
 
-    mw.init( require( './' ), c );
+    mw.init( service, c );
 
   } )
 
