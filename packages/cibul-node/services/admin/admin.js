@@ -2,7 +2,6 @@
 
 import _ from 'lodash';
 import moment from 'moment';
-import async from 'async';
 import config from '../../config/index.js';
 import model from '../model/index.js';
 import es from './es.js';
@@ -74,8 +73,6 @@ export function getIndexedEventsByWeek(options, cb) {
  */
 
 export function getIndexDiff(cb) {
-  let dbCount;
-
   const unreferencedQuery = [
     'select count( * ) as unref_count from( ',
     'select e.id',
@@ -91,21 +88,17 @@ export function getIndexDiff(cb) {
     'where ra.state = 2',
   ].join(' ');
 
-  async.map(
-    [unreferencedQuery, referencedQuery],
-    model.lib.query,
-    (err, results) => {
-      if (err) return cb(err);
+  Promise.all([
+    model.lib.query(unreferencedQuery),
+    model.lib.query(referencedQuery),
+  ])
+    .then((results) => {
+      const dbCount = results[0][0].unref_count + results[1][0].ref_count;
 
-      dbCount = results[0][0].unref_count + results[1][0].ref_count;
-
-      // total es result for events should be same.
-
-      es(config.es, 'event', (err2, result) => {
-        if (err2) return cb(err2);
-
-        cb(null, dbCount - result.hits.total);
-      });
-    },
-  );
+      return es(config.es, 'event').then(
+        (result) => dbCount - result.hits.total,
+      );
+    })
+    .then((diff) => cb(null, diff))
+    .catch((err) => cb(err));
 }
