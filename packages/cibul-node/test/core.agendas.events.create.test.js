@@ -146,15 +146,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         expect(data.custom_description).toBeUndefined();
       });
 
-      it('event is created on legacy event data structure', async () => {
-        const entry = await core.services
-          .knex('event')
-          .first(['uid'])
-          .where('uid', event.uid);
-
-        expect(entry.uid).toEqual(event.uid);
-      });
-
       it('event is not marked as private', async () => async () => {
         const entry = await core.services
           .knex('event_2')
@@ -566,14 +557,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       );
 
       expect(incompleteEvent.title.fr).toEqual('Un autre événement brouillon');
-    });
-
-    it('no legacy event is created for draft', async () => {
-      const legacyEvent = await core.services
-        .knex('event')
-        .first()
-        .where('uid', event.uid);
-      expect(legacyEvent).toBeUndefined();
     });
 
     it('custom data is stored even if incomplete', async () => {

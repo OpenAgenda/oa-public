@@ -48,6 +48,13 @@
           }
         }
       },
+      "locations": {
+        "fields": {
+          "extIds": {
+            "type": "pass"
+          }
+        }
+      },
       "public": {
         "fields": {
           "filters": {

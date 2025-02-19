@@ -25,13 +25,11 @@ describe('agendas - functional (server): middleware', () => {
         `${__dirname}/../model.sql`,
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
-        `${__dirname}/fixtures/occurrence.data.sql`,
       ],
       map: {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
-        occurrence: 'occurrence',
       },
     }),
   );

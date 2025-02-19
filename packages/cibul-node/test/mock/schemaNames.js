@@ -3,11 +3,9 @@ export default {
   agenda: 'agenda',
   eventService: 'event_2',
   agendaEventService: 'agenda_event',
-  deleted: 'deleted',
   location: 'location',
   key: 'key', // users svc
   agendaEvent: 'legacy_agenda_event',
-  eventReferences: 'legacy_agenda_event_reference',
   agendaCategory: 'legacy_agenda_category',
   agendaTag: 'legacy_agenda_tag',
   agendaEventTag: 'legacy_agenda_event_tag',

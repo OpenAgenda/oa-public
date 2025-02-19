@@ -112,7 +112,6 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   if (!event.draft) {
     log('calling event service to remove event %s', eventUid);
     const result = await agendaEvents(agendaUid).remove(eventUid, {
-      transferToLegacy: true,
       context: {
         event,
         agenda,
@@ -133,7 +132,6 @@ export default async (core, agendaUid, eventUid, options = {}) => {
 
   if (formSchemaId && await custom(formSchemaId).get(eventUid)) {
     const result = await custom(formSchemaId).remove(eventUid, {
-      transferToLegacy: !event.draft,
       context: {
         agendaUid,
         user: actingUser,

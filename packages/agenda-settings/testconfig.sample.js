@@ -12,9 +12,7 @@ export default {
   },
   schemas: {
     agenda: 'agenda',
-    occurrence: 'occurrence',
     agendaEvent: 'agenda_event',
-    legacyCredentialSet: 'legacy_credential_set',
     key: 'key',
   },
   Files: Files({

@@ -1,12 +1,8 @@
 import _ from 'lodash';
 import VError from '@openagenda/verror';
-import logs from '@openagenda/logs';
 import validateOptions from './validators/options.js';
 import config from './config.js';
 import get from './get.js';
-import legacy from './legacy/index.js';
-
-const log = logs('update');
 
 export default async (formSchemaId, identifier, data, options = {}) => {
   const { knex, schemas, interfaces } = config;
@@ -68,20 +64,6 @@ export default async (formSchemaId, identifier, data, options = {}) => {
         form_schema_id: formSchemaId,
         identifier,
       });
-
-    if (cleanOptions.transferToLegacy) {
-      try {
-        await legacy(formSchemaId, identifier, completeClean, cleanOptions);
-      } catch (e) {
-        log(
-          'error',
-          'did not sync legacy on update %s.%s',
-          formSchemaId,
-          identifier,
-          e,
-        );
-      }
-    }
 
     if (updated && interfaces.onUpdate) {
       interfaces.onUpdate(

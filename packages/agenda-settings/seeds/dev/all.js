@@ -15,14 +15,11 @@ export async function seed(knex) {
       `${agendasSvcRoot}/test/fixtures/resetDb.sql`,
       `${agendasSvcRoot}/model.sql`,
       `${agendasSvcRoot}/test/fixtures/agenda.data.sql`,
-      `${agendasSvcRoot}/test/fixtures/occurrence.data.sql`,
-      `${agendasSvcRoot}/test/fixtures/legacyCredentialSet.data.sql`,
     ],
     map: {
       database: testconfig.mysql.database,
       agenda: 'agenda',
       agendaEvent: 'agenda_event',
-      occurrence: 'occurrence',
       legacyCredential: 'legacy_credential_set',
     },
   });

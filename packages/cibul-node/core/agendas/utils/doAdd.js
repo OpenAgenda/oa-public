@@ -46,7 +46,6 @@ export default async (core, payload, clean, options = {}) => {
         event.uid,
         clean.agendaEvent,
         {
-          transferToLegacy: true, // directive to replicate to legacy data structure
           aggregated,
           context: {
             event,

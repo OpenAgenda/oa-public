@@ -1,11 +1,7 @@
 import VError from '@openagenda/verror';
-import logs from '@openagenda/logs';
 import validateOptions from './validators/options.js';
 import config from './config.js';
 import get from './get.js';
-import legacy from './legacy/index.js';
-
-const log = logs('remove');
 
 export default async (formSchemaId, identifier, options = {}) => {
   const { knex, schemas, interfaces } = config;
@@ -36,20 +32,6 @@ export default async (formSchemaId, identifier, options = {}) => {
         form_schema_id: formSchemaId,
         identifier,
       });
-
-    if (removedCount && cleanOptions.tranferToLegacy) {
-      try {
-        await legacy.remove(formSchemaId, identifier);
-      } catch (e) {
-        log(
-          'error',
-          'did not sync legacy on remove %s.%s',
-          formSchemaId,
-          identifier,
-          e,
-        );
-      }
-    }
 
     if (removedCount && interfaces.onRemove) {
       interfaces.onRemove(deletedCustom, cleanOptions); // context is same as options here

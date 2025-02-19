@@ -12,7 +12,6 @@ module.exports = {
 
     schemas: {
       agenda: 'agenda',
-      occurrence: 'occurrence',
       agendaEvent: 'agenda_event',
     },
 
