@@ -11,7 +11,8 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "start": "storybook dev -p 9001 --ci",
+    "sb": "storybook dev -p 9001 --ci",
+    "start": "yarn sb",
     "prepack": "yarn clean && oa-intl compile --esm && yarn build",
     "clean": "rimraf dist",
     "build": "tsup",
@@ -34,10 +35,11 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/react-webpack5": "^7.4.2",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
+    "@storybook/react-webpack5": "^8.5.8",
     "axios-mock-adapter": "^1.19.0",
     "rimraf": "^3.0.1",
-    "storybook": "^7.6.4",
+    "storybook": "^8.5.8",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {
