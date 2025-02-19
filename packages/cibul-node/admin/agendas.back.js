@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { mw } from '@openagenda/admin-agendas';
+import adminAgendas from '@openagenda/admin-agendas';
 import validators from '@openagenda/validators';
 import isURL from 'validator/lib/isURL.js';
 import cmn from '../lib/commons-app.js';
@@ -129,7 +129,7 @@ export default (app) => {
         next(e);
       }
     },
-    mw.agendas.set,
+    adminAgendas.mw.agendas.set,
   );
 
   app.get(
@@ -142,6 +142,6 @@ export default (app) => {
       req.query.order = 'role.desc';
       next();
     },
-    mw.members.list,
+    adminAgendas.mw.members.list,
   );
 };
