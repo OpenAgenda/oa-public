@@ -1,9 +1,12 @@
 import _ from 'lodash';
+import logs from '@openagenda/logs';
 import convertEventToLegacyFormat from '@openagenda/legacy/convertEventToLegacyFormat/index.js';
 import convertLegacyFilter from '@openagenda/legacy/convertLegacyFilter/index.js';
 import renderHTMLFromMarkdown from '@openagenda/legacy/utils/renderHTMLFromMarkdown.js';
 import track from '../lib/track.js';
 import legacySettings from '../lib/legacySettings.js';
+
+const log = logs('ConvertFormat');
 
 export default function ConvertFormat({
   forceLimit = null,
@@ -100,8 +103,18 @@ export default function ConvertFormat({
       root: config.root,
     };
 
-    const convertedEvents = eventsList.events.map((event) =>
-      convertEventToLegacyFormat(agendaSettings, event));
+    const convertedEvents = eventsList.events.map((event) => {
+      try {
+        return convertEventToLegacyFormat(agendaSettings, event);
+      } catch (e) {
+        log.error('exception while converting to legacy event format', {
+          error: e,
+          agendaUID: agenda.uid,
+          eventUID: event.uid,
+        });
+        throw e;
+      }
+    });
 
     const response = {
       total: eventsList.total,
