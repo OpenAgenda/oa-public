@@ -3,10 +3,7 @@
 const _ = require('lodash');
 const Files = require('@openagenda/files');
 
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('../testconfig.sample');
+const { service: config, dependencies: dConfig } = require('../testconfig');
 const svc = require('../service/index');
 const loadFixtures = require('./fixtures/load');
 

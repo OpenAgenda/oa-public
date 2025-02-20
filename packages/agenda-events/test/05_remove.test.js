@@ -90,6 +90,7 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
             expect(removed.eventUid).toEqual(15205357);
 
             if (count === 2) {
+              queue.stop();
               rs();
             }
           },

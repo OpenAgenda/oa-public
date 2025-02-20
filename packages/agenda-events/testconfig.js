@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   redis: {
     host: '127.0.0.1',
     port: 6379,
@@ -9,6 +9,7 @@ module.exports = {
     database: 'oatest_agenda_event',
     password: 'grut',
     user: 'root',
+    ssl: true,
   },
 
   schemas: {

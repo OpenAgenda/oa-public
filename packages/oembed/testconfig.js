@@ -1,6 +1,6 @@
 export default {
   iframely: {
-    key: 'youriframelykey',
+    key: process.env.IFRAMELY_KEY,
   },
   filters: [
     'youtube',

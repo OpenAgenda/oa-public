@@ -5,5 +5,6 @@ export default {
     user: 'root',
     password: 'grut',
     timezone: 'UTC',
+    ssl: true,
   },
 };

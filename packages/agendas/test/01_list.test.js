@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const Files = require('@openagenda/files');
 
-const testConfig = require('../testconfig.sample');
+const testConfig = require('../testconfig');
 
 const { service: config, dependencies: dConfig } = testConfig;
 

@@ -5,10 +5,7 @@ process.env.NODE_ENV = 'test';
 const _ = require('lodash');
 const Files = require('@openagenda/files');
 const svc = require('../service/index');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('../testconfig.sample');
+const { service: config, dependencies: dConfig } = require('../testconfig');
 const loadFixtures = require('./fixtures/load');
 
 describe('agendas - functional (server): get', () => {

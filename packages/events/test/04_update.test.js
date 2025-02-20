@@ -4,10 +4,7 @@ import { createReadStream, createWriteStream } from 'node:fs';
 import _ from 'lodash';
 import Files from '@openagenda/files';
 
-import {
-  service as config,
-  dependencies as dConfig,
-} from '../testconfig.sample.js';
+import { service as config, dependencies as dConfig } from '../testconfig.js';
 
 import Service from '../index.js';
 import fixtures from './fixtures/index.js';
