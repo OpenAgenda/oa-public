@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import { useState, useCallback } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DndContext } from '@dnd-kit/core';
+
+import { dragAndDrop } from '@openagenda/react-shared';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
@@ -9,12 +11,19 @@ import labels from './lib/labels.js';
 import OptionLabelsForm from './OptionLabelsForm.js';
 import OptionItem from './OptionItem.js';
 
+const {
+  Droppable,
+  Draggable,
+  useDragAndDropSensors,
+  useHandleDragEnd,
+  arrayMove,
+} = dragAndDrop;
+
 const getLabel = makeLabelGetter(labels);
 
 const modes = {
   ADDING: 0,
   EDITING: 1,
-  ORDERING: 2,
 };
 
 const Options = ({ field, value, lang, onChange }) => {
@@ -23,26 +32,11 @@ const Options = ({ field, value, lang, onChange }) => {
     () => field.devInitState?.editedIndex ?? null,
   );
 
+  const sensors = useDragAndDropSensors();
+
   const getOptions = useCallback(() => value || [], [value]);
 
-  const handleDragEnd = useCallback(
-    ({ source, destination }) => {
-      if (!destination) return;
-
-      const options = getOptions();
-      const forward = source.index < destination.index;
-
-      onChange(
-        ih(options, {
-          $splice: [
-            [destination.index + (forward ? 1 : 0), 0, options[source.index]],
-            [source.index + (forward ? 0 : 1), 1],
-          ],
-        }),
-      );
-    },
-    [getOptions, onChange],
-  );
+  const handleDragEnd = useHandleDragEnd('value', getOptions(), ({ from, to }) => onChange(arrayMove(getOptions(), from, to)), 'droppable-options');
 
   const addOption = useCallback(
     (newOption) => {
@@ -123,53 +117,40 @@ const Options = ({ field, value, lang, onChange }) => {
     const options = getOptions();
 
     return (
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="droppable-options">
-          {(provided, snapshot) => (
-            <ul
-              ref={provided.innerRef}
-              style={snapshot.isDraggingOver ? { background: '#f9f9f9' } : {}}
-              className="list-group margin-v-sm"
-            >
-              {options.map((option, index) => (
-                <Draggable
+      <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+        <Droppable id="droppable-options" className="list-group margin-v-sm">
+          {options.map((option, index) => (
+            <Droppable id={option.value} className="list-group-item">
+              <Draggable
+                id={option.value}
+                className="list-group-item-content"
+              >
+                <OptionItem
+                  lang={lang}
+                  field={field}
+                  option={option}
+                  otherOptions={value.filter((o, i) => i !== index)}
                   index={index}
-                  isDragDisabled={mode === modes.ORDERING}
-                  draggableId={option.value}
-                  key={option.value}
-                >
-                  {(oProvided, oSnapshot) => (
-                    <OptionItem
-                      lang={lang}
-                      field={field}
-                      option={option}
-                      otherOptions={value.filter((o, i) => i !== index)}
-                      index={index}
-                      isEdited={mode === modes.EDITING && index === editedIndex}
-                      actionable={isOptionActionable()}
-                      disabled={isOptionDisabled(index)}
-                      onEdit={(i) => editOption(i)}
-                      onEditCancel={() => setMode(null)}
-                      onRemove={() => removeOption(index)}
-                      onUpdate={(i, o) => updateOption(i, o)}
-                      provided={oProvided}
-                      snapshot={oSnapshot}
-                    />
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </ul>
-          )}
+                  isEdited={mode === modes.EDITING && index === editedIndex}
+                  actionable={isOptionActionable()}
+                  disabled={isOptionDisabled(index)}
+                  onEdit={(i) => editOption(i)}
+                  onEditCancel={() => setMode(null)}
+                  onRemove={() => removeOption(index)}
+                  onUpdate={(i, o) => updateOption(i, o)}
+                />
+              </Draggable>
+            </Droppable>
+          ))}
         </Droppable>
-      </DragDropContext>
+      </DndContext>
     );
   };
 
   const options = getOptions();
 
   return (
-    <div className="options-field-form">
+    <div className="options-field-form dnd">
       {options.length
         ? renderDraggableOptions()
         : (

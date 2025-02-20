@@ -1,6 +1,4 @@
-import classNames from 'classnames';
 import { useCallback } from 'react';
-import ReactDOM from 'react-dom';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
@@ -26,9 +24,6 @@ const OptionItem = ({
   onEditCancel,
   isEdited,
   actionable,
-  disabled,
-  provided,
-  snapshot,
   onEdit,
   onRemove,
 }) => {
@@ -56,21 +51,12 @@ const OptionItem = ({
   );
 
   const child = (
-    <li
-      className={classNames({
-        'list-group-item': true,
-        disabled,
-      })}
-      ref={provided.innerRef}
-      {...provided.draggableProps}
-      {...provided.dragHandleProps}
-      style={provided.draggableProps.style}
-    >
+    <>
       {isEdited
         ? renderEdit()
         : (
           <div>
-            <label htmlFor={`option-${option.id}`} className="margin-v-xs">
+            <label htmlFor={`option-${option.id}`} className="margin-v-xs text-left">
               {getPreferredLang(option.label, lang)}
             </label>
             <div className="form-item-actions padding-h-xs">
@@ -96,10 +82,10 @@ const OptionItem = ({
             </div>
           </div>
         )}
-    </li>
+    </>
   );
 
-  return snapshot.isDragging ? ReactDOM.createPortal(child, portal) : child;
+  return child;
 };
 
 export default OptionItem;
