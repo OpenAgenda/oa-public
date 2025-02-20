@@ -1,17 +1,16 @@
-"use strict";
+'use strict';
 
-var fs = require( 'fs' ),
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const sassifyCb = require('./sassify');
 
-async = require( 'async' ),
+const files = fs.readdirSync(path.join(__dirname, '/../compiled'));
 
-sassify = require( './sassify' );
+const sassify = promisify(sassifyCb);
 
-fs.readdir( __dirname + '/../compiled', ( err, files ) => {
-
-  async.each( files.map( f => __dirname + '/../compiled/' + f ), sassify, err => {
-
-    console.log( 'done' );
-
-  } );
-
-} );
+Promise.all(files.map(f => sassify(path.join(__dirname, '/../compiled/', f))))
+  .then(
+    () => console.log('done'),
+    (err) => console.log(err),
+  );

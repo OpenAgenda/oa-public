@@ -32,7 +32,7 @@ function init(c) {
     logs.setModuleConfig(c.logger);
   }
 
-  _.extend(config, _.pick(c, ['knex', 'schemas', 'interfaces', 'legacy']));
+  _.extend(config, _.pick(c, ['knex', 'schemas', 'interfaces']));
 }
 
 export default _.extend(config, {

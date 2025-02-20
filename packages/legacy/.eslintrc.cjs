@@ -18,7 +18,6 @@ module.exports = {
           `${__dirname}/embeds/app/stories/**/*.js`,
           `${__dirname}/test/**/*.js`,
           `${__dirname}/controlData/test/**/*.js`,
-          `${__dirname}/testconfig.sample.js`,
           `${__dirname}/testconfig.js`,
         ],
       },

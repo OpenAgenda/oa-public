@@ -12,19 +12,23 @@ export function Activities({ res, hideEmpty = false, children }) {
     setSize,
   } = useSWRInfinite(
     (pageIndex, previousPageData) => {
+      const { after } = previousPageData || {};
+
       // reached the end
-      if (previousPageData && !previousPageData.activities?.length) return null;
+      if (after === null) {
+        return null;
+      }
 
       // first page, we don't have `previousPageData`
-      if (pageIndex === 0) return ['EventShow', 'activities', res, pageIndex, 0];
+      if (pageIndex === 0)
+        return ['EventShow', 'activities', res, pageIndex, 0];
 
       // add the cursor to the API endpoint
-      const fromId = previousPageData.activities[previousPageData.activities.length - 1].id;
-      return ['EventShow', 'activities', res, pageIndex, fromId];
+      return ['EventShow', 'activities', res, pageIndex, after];
     },
-    ([_comp, _requestId, activitiesRes, pageIndex, fromId]) =>
+    ([_comp, _requestId, activitiesRes, pageIndex, after]) =>
       fetch(
-        `${activitiesRes}?fromId=${fromId}${pageIndex === 0 ? '&withConfig=1' : ''}`,
+        `${activitiesRes}?after=${after}${pageIndex === 0 ? '&withConfig=1' : ''}`,
       ).then((r) => {
         if (r.ok) return r.json();
         throw new Error("Can't list activities");
@@ -38,11 +42,13 @@ export function Activities({ res, hideEmpty = false, children }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = !pages?.[0]?.activities?.length;
-  const isReachingEnd = isEmpty
-    || (pages && pages[pages.length - 1]?.activities?.length < PAGE_SIZE);
+  const isReachingEnd =
+    isEmpty ||
+    (pages && pages[pages.length - 1]?.activities?.length < PAGE_SIZE);
 
   const nextPage = useCallback(
     (e) => {

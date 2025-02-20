@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import Switch from 'rc-switch';
+import SwitchModule from 'rc-switch';
 import _ from 'lodash';
+
+const Switch = SwitchModule.default || SwitchModule;
 
 function roleToString(type) {
   switch (type) {

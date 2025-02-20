@@ -12,11 +12,7 @@ import addEventAdditionActivity from './lib/addEventAdditionActivity.js';
 const log = logs('agendaEvents/onCreate');
 
 export default async ({ config, services }, ae, context) => {
-  const {
-    activities: activitiesSvc,
-    custom,
-    legacy: { controlData: controlDataSvc },
-  } = services;
+  const { activities: activitiesSvc, custom } = services;
 
   services.tracker('agendaEvents.onCreate');
   log(
@@ -93,18 +89,6 @@ export default async ({ config, services }, ae, context) => {
         ae.eventUid,
         e,
       );
-    }
-  }
-
-  /**
-   * control data is used for displaying widget data
-   */
-
-  if (ae.state === 2) {
-    try {
-      await controlDataSvc.set(ae, event);
-    } catch (e) {
-      log('error', 'control data set failed', e);
     }
   }
 

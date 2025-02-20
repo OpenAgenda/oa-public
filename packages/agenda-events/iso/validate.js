@@ -57,10 +57,6 @@ const fields = {
     optional: false,
     options: _.keys(eventStates).map((k) => eventStates[k]),
   },
-  legacyId: {
-    type: 'text',
-    optional: true,
-  },
   createdAt: {
     type: 'date',
   },

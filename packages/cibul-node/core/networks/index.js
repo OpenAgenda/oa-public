@@ -18,10 +18,7 @@ export default (core) => {
       agendas: Object.assign(getAgendas.bind(null, core.services, networkUid), {
         add: addAgenda.bind(null, core, networkUid),
         create: (data, options = {}) =>
-          core.agendas.create(
-            { ...data, networkUid },
-            { ...options, updateLegacy: true },
-          ),
+          core.agendas.create({ ...data, networkUid }, { ...options }),
         remove: removeAgenda.bind(null, core, networkUid),
       }),
     }),

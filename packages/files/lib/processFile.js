@@ -179,6 +179,7 @@ module.exports = async function processFile(
 
     const response = {
       ...info,
+      stream: pass,
       key: variant.key,
       provider: providerKey,
       revert: () => provider.remove(response.filename),
@@ -205,15 +206,7 @@ module.exports = async function processFile(
           response.filename = await variant.getFilename(response, ctx);
 
           if (typeof variant.transform === 'function') {
-            response.stream = await variant.transform(
-              {
-                ...response,
-                stream: pass,
-              },
-              ctx,
-            );
-          } else {
-            response.stream = pass;
+            response.stream = await variant.transform(response, ctx);
           }
 
           response.existedBefore = await provider.exists(response.filename);

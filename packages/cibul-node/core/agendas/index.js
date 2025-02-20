@@ -1,5 +1,4 @@
 import Events from './events/index.js';
-import embeds from './embeds.js';
 import Settings from './settings/index.js';
 import create from './create.js';
 import update from './update.js';
@@ -26,7 +25,6 @@ export default (core) => {
       locations: locations(core, agendaUid),
       members: members(core, agendaUid),
       settings: settings(agendaUid),
-      embeds: embeds(core, agendaUid),
       sources: sources(core, agendaUid),
     };
 

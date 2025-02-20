@@ -268,7 +268,7 @@ export default function Body(props) {
         if (err) {
           return reject(err);
         }
-        setAgenda(result.agenda);
+        setAgenda(result);
         resolve(result);
       });
     });

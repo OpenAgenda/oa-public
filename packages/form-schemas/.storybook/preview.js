@@ -1,7 +1,6 @@
 import { initialize, mswLoader } from 'msw-storybook-addon';
 
 export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
   options: {
     storySort: {
       order: [

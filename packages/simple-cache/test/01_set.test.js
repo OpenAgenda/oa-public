@@ -1,13 +1,6 @@
 import redis from 'redis';
 import sCache from '../index.js';
-
-const config = {
-  redis: {
-    host: process.env.HOST,
-    port: process.env.PORT,
-  },
-  prefix: process.env.PREFIX,
-};
+import config from './config.js';
 
 describe('simple-cache - functional (service): set', () => {
   let cache;

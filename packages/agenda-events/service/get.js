@@ -20,7 +20,6 @@ async function _get(client, where, options = {}) {
     'aggregated',
     'created_at',
     'updated_at',
-    'legacy_id',
   ];
   const { removed } = options;
   if (removed || removed === null) {
@@ -38,66 +37,53 @@ async function _get(client, where, options = {}) {
   return postReadClean(validate(utils.fromEntry(entry)), options);
 }
 
-function byLegacyId(service, agendaId, eventId) {
-  const { client } = service;
+export default async function get(service, agendaUid, eventUid, options = {}) {
+  const { client, config } = service;
 
-  return _get(client, {
-    legacy_id: `${agendaId}.${eventId}`,
-  });
-}
+  if (!agendaUid) {
+    throw new NotFound('Agenda uid is missing');
+  }
+  if (!eventUid) {
+    throw new NotFound('Event uid is missing');
+  }
 
-export default Object.assign(
-  async function get(service, agendaUid, eventUid, options = {}) {
-    const { client, config } = service;
+  const { decorate, throwOnNotFound, removed } = validateOptions(options);
 
-    if (!agendaUid) {
-      throw new NotFound('Agenda uid is missing');
-    }
-    if (!eventUid) {
-      throw new NotFound('Event uid is missing');
-    }
+  const ae = await _get(
+    client,
+    {
+      agenda_uid: agendaUid,
+      event_uid: eventUid,
+    },
+    { removed },
+  );
 
-    const { decorate, throwOnNotFound, removed } = validateOptions(options);
+  if (!ae && !throwOnNotFound) {
+    return null;
+  }
 
-    const ae = await _get(
-      client,
-      {
-        agenda_uid: agendaUid,
-        event_uid: eventUid,
-      },
-      { removed },
+  if (!ae) {
+    throw new NotFoundError('agendaEvent', [agendaUid, eventUid].join('.'));
+  }
+
+  if (decorate.includes('member') && config.interfaces.getMembers) {
+    ae.member = ae.userUid
+      ? _.get(await config.interfaces.getMembers([ae]), '0')
+      : null;
+  }
+
+  if (decorate.includes('user') && config.interfaces.getUsers) {
+    ae.user = ae.userUid ? (await config.interfaces.getUsers(ae))?.[0] : null;
+  }
+
+  if (
+    decorate.includes('sourceAgendas')
+    && config.interfaces.getSourceAgendas
+  ) {
+    ae.sourceAgendas = await config.interfaces.getSourceAgendas(
+      (ae.sourcePaths || []).map((p) => p[p.length - 1]),
     );
+  }
 
-    if (!ae && !throwOnNotFound) {
-      return null;
-    }
-
-    if (!ae) {
-      throw new NotFoundError('agendaEvent', [agendaUid, eventUid].join('.'));
-    }
-
-    if (decorate.includes('member') && config.interfaces.getMembers) {
-      ae.member = ae.userUid
-        ? _.get(await config.interfaces.getMembers([ae]), '0')
-        : null;
-    }
-
-    if (decorate.includes('user') && config.interfaces.getUsers) {
-      ae.user = ae.userUid ? (await config.interfaces.getUsers(ae))?.[0] : null;
-    }
-
-    if (
-      decorate.includes('sourceAgendas')
-      && config.interfaces.getSourceAgendas
-    ) {
-      ae.sourceAgendas = await config.interfaces.getSourceAgendas(
-        (ae.sourcePaths || []).map((p) => p[p.length - 1]),
-      );
-    }
-
-    return ae;
-  },
-  {
-    byLegacyId,
-  },
-);
+  return ae;
+}
