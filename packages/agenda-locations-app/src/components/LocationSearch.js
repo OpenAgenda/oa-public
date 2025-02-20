@@ -125,7 +125,7 @@ const LocationSearch = ({
           hasPrev: state.page !== 1,
         });
       });
-  }, [state.query, state.from, state.page, res.index, settings]);
+  }, [state.query, state.from, state.page]);
 
   const onFocus = (value) => {
     dispatch({ type: 'setQuery', query: { search: value } });
