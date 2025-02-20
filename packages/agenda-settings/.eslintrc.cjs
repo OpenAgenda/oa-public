@@ -17,8 +17,6 @@ module.exports = {
           `${__dirname}/tsup.config.js`,
           `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
-          `${__dirname}/seeds/**/*.js`,
-          `${__dirname}/testconfig.js`,
           `${__dirname}/scripts/**/*.js`,
         ],
       },
