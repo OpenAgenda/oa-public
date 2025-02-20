@@ -32,7 +32,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     members,
     aggregators,
     custom,
-    legacy,
     registrations,
   } = core.services;
 
@@ -290,27 +289,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       } catch (e) {
         log('error', 'failed to update agendaEvent ref', e);
         throw e;
-      }
-    }
-
-    if (!draft) {
-      try {
-        await legacy.tagsAndCustom.set(
-          agenda.id,
-          eventUid,
-          [agenda.formSchema, _.get(agenda, 'network.formSchema')],
-          [
-            partial && agenda.formSchemaId
-              ? await custom(agenda.formSchemaId).get(eventUid)
-              : clean.custom,
-            partial && agenda.network && agenda.network.formSchemaId
-              ? await custom(agenda.network.formSchemaId).get(eventUid)
-              : clean.networkCustom,
-          ],
-        );
-        log('set legacy tag & custom values');
-      } catch (e) {
-        log('error', 'failed to set legacy tags and custom data', e);
       }
     }
 
