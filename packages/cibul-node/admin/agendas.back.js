@@ -1,8 +1,10 @@
 import _ from 'lodash';
-import { mw } from '@openagenda/admin-agendas';
+import adminAgendas from '@openagenda/admin-agendas';
 import validators from '@openagenda/validators';
 import isURL from 'validator/lib/isURL.js';
 import cmn from '../lib/commons-app.js';
+
+const { mw } = adminAgendas;
 
 const validatePage = validators.integer({
   min: 1,

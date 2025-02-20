@@ -237,6 +237,26 @@ export default (core, { useRouter = true } = {}) => {
       .then((references) => res.json({ success: true, references }), next));
 
   app.get(
+    '/agendas/:agendaUid/events/:eventUid/activities',
+    mw.member.allow(['contributor', 'moderator', 'administrator']),
+    (req, _res, next) => {
+      core
+        .agendas(req.agenda.uid)
+        .events.search.get(
+          { uid: req.params.eventUid },
+          {
+            userUid: req.user?.uid,
+          },
+        )
+        .then((event) => {
+          req.event = event;
+          next();
+        });
+    },
+    app.services.activities.mw.listUserEventActivities,
+  );
+
+  app.get(
     ['/agendas/:agendaUid/events', '/agendas/slug/:agendaSlug/events'],
     [
       mw.convertLegacyFilter,
