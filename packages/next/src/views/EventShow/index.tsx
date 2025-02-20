@@ -576,7 +576,7 @@ function EventShow({ preload }: EventShowProps) {
             <ContributorSection contentLocale={contentLocale} />
 
             <Activities
-              res={`/agendas/${agenda.uid}/events/${event.uid}/activities`}
+              res={`/api/agendas/${agenda.uid}/events/${event.uid}/activities`}
               hideEmpty
             >
               <div>
