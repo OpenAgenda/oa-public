@@ -1,15 +1,6 @@
 import redis from 'redis';
 import sCache from '../index.js';
-
-const prefix = process.env.PREFIX;
-
-const config = {
-  redis: {
-    host: process.env.HOST,
-    port: process.env.PORT,
-  },
-  prefix,
-};
+import config from './config.js';
 
 describe('simple-cache - functional (service): clear all', () => {
   let cache;
@@ -44,7 +35,7 @@ describe('simple-cache - functional (service): clear all', () => {
 
     await cache.clearAll();
 
-    const keys = await cli.keys(`${prefix}*`);
+    const keys = await cli.keys(`${config.prefix}*`);
 
     expect(keys.length).toBe(0);
   });

@@ -8,7 +8,7 @@ Do stuff with agendas: list, get, set them.
 
     agendas.init( {
       // change this to your db parameters
-      config: require( './testconfig.sample.js' )
+      config: require( './testconfig.js' )
     } );
 
 # List
@@ -187,6 +187,6 @@ This service usage is not documentation. More like todos.
           .standard: []
           .custom: []
 
-#Sample config
+# Sample config
 
-See testconfig.sample.js
+See testconfig.js

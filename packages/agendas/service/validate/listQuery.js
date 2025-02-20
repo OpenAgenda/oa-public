@@ -17,11 +17,6 @@ module.exports = schema({
     type: 'integer',
     list: { default: null },
   },
-  detailed: {
-    // deprecated
-    type: 'boolean',
-    default: false,
-  },
   private: {
     // deprecated
     type: 'boolean',

@@ -255,7 +255,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
             },
           }),
           {
-            transferToLegacy: true,
             aggregated,
             context: {
               aggregated,

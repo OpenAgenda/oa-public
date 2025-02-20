@@ -6,7 +6,7 @@ export default function embeds(options) {
 
   const { apiRoot, prefix } = initialState;
 
-  const getApp = createApp.bind(null, {
+  return createApp({
     ...options,
     name: 'legacyEmbeds',
     initialState,
@@ -14,17 +14,4 @@ export default function embeds(options) {
     prefix,
     getRoutes,
   });
-
-  const app = getApp();
-
-  // if (module.hot) {
-  //   module.hot.accept('./getRoutes', () => {
-  //     const newApp = getApp();
-  //
-  //     app.Content = newApp.Content;
-  //     app.triggerHooks = newApp.triggerHooks;
-  //   });
-  // }
-
-  return app;
 }

@@ -19,26 +19,12 @@ async function _memberIsExistingUser(
 ) {
   log('member is existing user', member);
 
-  const { inboxes, activities, legacy } = services;
+  const { inboxes, activities } = services;
 
   const { Inbox } = inboxes || {};
-  const controlDataSvc = (legacy || {}).controlData;
 
   if (user.isNew) {
     await services.users.setNewFlag(user.uid, { isNew: false });
-  }
-
-  if (controlDataSvc) {
-    controlDataSvc
-      .memberSet({
-        agendaUid: agenda.uid,
-        userUid: user.uid,
-        role: member.role,
-      })
-      .catch((e) =>
-        log('error', 'could not set member in control data', member, e));
-  } else {
-    log('warn', 'legacy service was not initialized');
   }
 
   if (Inbox) {

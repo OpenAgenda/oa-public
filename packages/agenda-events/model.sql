@@ -10,13 +10,11 @@ create table if not exists `agenda_event` (
   created_at datetime not null,
   updated_at datetime not null,
   removed tinyint(1) not null default 0,
-  legacy_id varchar(30),
   aggregated varchar(32) default null,
   motive TEXT default null,
   index user_uid_idx (user_uid),
   index agenda_uid_idx (agenda_uid),
   index event_uid_idx (event_uid),
-  index legacy_id_idx (legacy_id),
   index aggregated_idx (aggregated),
   primary key ( id )
 ) engine=InnoDB  default character set utf8mb4 collate utf8mb4_0900_ai_ci;

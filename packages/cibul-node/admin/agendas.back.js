@@ -134,7 +134,7 @@ export default (app) => {
         next(e);
       }
     },
-    mw.agendas.set,
+    adminAgendas.mw.agendas.set,
     sendAgendaData,
   );
 
@@ -148,6 +148,6 @@ export default (app) => {
       req.query.order = 'role.desc';
       next();
     },
-    mw.members.list,
+    adminAgendas.mw.members.list,
   );
 };

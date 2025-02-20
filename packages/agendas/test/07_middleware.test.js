@@ -4,10 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const Files = require('@openagenda/files');
 const svc = require('../service/index');
-const {
-  service: config,
-  dependencies: dConfig,
-} = require('../testconfig.sample');
+const { service: config, dependencies: dConfig } = require('../testconfig');
 const loadFixtures = require('./fixtures/load');
 
 describe('agendas - functional (server): middleware', () => {
@@ -25,13 +22,11 @@ describe('agendas - functional (server): middleware', () => {
         `${__dirname}/../model.sql`,
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
-        `${__dirname}/fixtures/occurrence.data.sql`,
       ],
       map: {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
-        occurrence: 'occurrence',
       },
     }),
   );

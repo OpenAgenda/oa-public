@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import schema from '@openagenda/validators/schema/index.js';
 import validators from '@openagenda/validators';
-import { mapSeries } from 'async';
 
 const { text, email, pass, number } = validators;
 
@@ -96,39 +95,41 @@ class Invitation {
 
   execute(data) {
     const { store } = this._data;
-    const errors = [];
 
     if (!store.actions) store.actions = [];
 
-    return new Promise((resolve, reject) => {
-      mapSeries(
-        store.actions,
-        (item, cb) => {
-          const action = _.get(config.actions, item.name);
+    return (async () => {
+      const results = [];
+      const errors = [];
 
-          if (!action) {
-            errors.push({
-              name: item.name,
-              code: 'action.notExists',
-              message: 'action is not found in config',
-            });
+      for (const item of store.actions) {
+        const action = _.get(config.actions, item.name);
 
-            return cb(null);
-          }
+        if (!action) {
+          errors.push({
+            name: item.name,
+            code: 'action.notExists',
+            message: 'action is not found in config',
+          });
+          results.push(null);
+          continue;
+        }
 
-          action(data, [].concat(item.params), cb);
-        },
-        (err, results) => {
-          if (err) reject(err);
+        const result = await new Promise((resolve, reject) => {
+          action(data, [].concat(item.params), (err, res) => {
+            if (err) return reject(err);
+            resolve(res);
+          });
+        });
+        results.push(result);
+      }
 
-          resolve({ results, errors });
-        },
-      );
-    }).then((results) =>
-      knex(config.schemas.invitation)
+      await knex(config.schemas.invitation)
         .where({ id: this.id })
-        .update({ processedAt: new Date() })
-        .then(() => results));
+        .update({ processedAt: new Date() });
+
+      return { results, errors };
+    })();
   }
 
   remove() {

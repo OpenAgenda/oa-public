@@ -3,7 +3,6 @@ import logs from '@openagenda/logs';
 import validateOptions from './validators/options.js';
 import config from './config.js';
 import get from './get.js';
-import legacy from './legacy/index.js';
 
 const log = logs('create');
 
@@ -59,22 +58,6 @@ export default async (formSchemaId, identifier, data, options = {}) => {
       updated_at: new Date(),
       store: JSON.stringify(clean),
     });
-
-    if (cleanOptions.transferToLegacy) {
-      log('info', 'transfering to legacy');
-
-      try {
-        await legacy(formSchemaId, identifier, clean, cleanOptions);
-      } catch (e) {
-        log(
-          'error',
-          'did not sync legacy on create %s.%s',
-          formSchemaId,
-          identifier,
-          e,
-        );
-      }
-    }
 
     const created = await get(formSchemaId, identifier);
 

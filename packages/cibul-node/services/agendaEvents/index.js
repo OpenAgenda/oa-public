@@ -19,16 +19,6 @@ export function init(config, services) {
       schemas: {
         agendaEvent: config.schemas.agendaEventService,
       },
-      legacy: {
-        schemas: {
-          agendaEvent: config.schemas.agendaEvent,
-          eventEditor: config.schemas.eventEditor,
-          event: config.schemas.event,
-          agenda: config.schemas.agenda,
-          user: config.schemas.user,
-        },
-        interval: 1000,
-      },
       eventStates,
       interfaces: interfaces({ config, services }),
     }),

@@ -42,7 +42,7 @@ export default async (core, agendaOrUid, identifiers, options = {}) => {
 
   const agenda = agendaOrUid?.constructor.name === 'Object'
     ? agendaOrUid
-    : await agendas.get({ detailed: true, uid: agendaUid });
+    : await agendas.get({ uid: agendaUid });
 
   if (!agenda.memberSchemaId) {
     return memberRes;
