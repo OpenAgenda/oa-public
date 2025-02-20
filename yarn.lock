@@ -8090,7 +8090,6 @@ __metadata:
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.5"
     "@storybook/react-webpack5": "npm:^8.5.8"
-    async: "npm:^2.1.4"
     body-parser: "npm:^1.15.2"
     concurrently: "npm:^6.0.2"
     core-js: "npm:^3.29.1"
@@ -20296,7 +20295,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^2.0.0, async@npm:^2.0.1, async@npm:^2.1.4, async@npm:^2.3.0, async@npm:^2.6.2":
+"async@npm:^2.0.0, async@npm:^2.0.1, async@npm:^2.6.2":
   version: 2.6.3
   resolution: "async@npm:2.6.3"
   dependencies:
@@ -22699,7 +22698,6 @@ __metadata:
     "@uppy/companion": "npm:^4.15.1"
     acorn: "npm:^8.12.1"
     acorn-walk: "npm:^8.3.3"
-    async: "npm:^2.3.0"
     axios: "npm:^1.4.0"
     body-parser: "npm:^1.19.0"
     bullmq: "npm:^3.14.0"
