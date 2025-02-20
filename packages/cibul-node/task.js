@@ -87,15 +87,11 @@ export default (config, core, services) => {
 
   services.aggregators.task();
 
-  services.agendaStatistics.task();
-
   services.activities.addActivity.task();
 
   services.activities.prepareSummary.task();
 
   services.mails.task();
-
-  services.legacy.task();
 
   if (services.registrations) {
     services.registrations.task();

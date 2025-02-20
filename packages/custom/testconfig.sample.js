@@ -11,20 +11,6 @@ export default {
     custom: 'custom',
   },
 
-  legacy: {
-    schemas: {
-      event: 'legacy_event',
-      agendaEvent: 'legacy_agenda_event',
-      agendaEventTag: 'legacy_agenda_event_tag',
-      agenda: 'agenda',
-    },
-    interfaces: {
-      getFormSchemaFields: async (_formSchemaId) =>
-        // need some
-        [], // should be an array of fields
-    },
-  },
-
   interfaces: {
     onCreate: () => {},
 

@@ -11,7 +11,6 @@ export default {
   schemas : {
     agenda: 'agenda',
     user: 'user',
-    event: 'event',
     member: 'member',
     stakeholder: 'stakeholder',
     stakeholderSettings: 'stakeholder_settings'

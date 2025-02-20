@@ -8,7 +8,7 @@ import * as utils from './lib/utils.js';
 const log = logs('update');
 
 export default async (service, agendaUid, eventUid, data, options = {}) => {
-  const { config, client, get, toLegacy } = service;
+  const { config, client, get } = service;
 
   log('input for %s.%s', agendaUid, eventUid, data);
 
@@ -74,14 +74,6 @@ export default async (service, agendaUid, eventUid, data, options = {}) => {
     updated = await get(clean.agendaUid, clean.eventUid, params);
 
     log('updated %s.%s', agendaUid, eventUid, updated);
-  }
-
-  if (success && params.transferToLegacy) {
-    try {
-      await toLegacy(updated);
-    } catch (e) {
-      log('error', 'failed this', e);
-    }
   }
 
   if (success && config.interfaces.onUpdate) {

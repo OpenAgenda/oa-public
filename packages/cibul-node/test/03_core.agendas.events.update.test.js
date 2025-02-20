@@ -565,17 +565,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         expect(result.event.state).toBe(-1);
       });
     });
-
-    describe('persistence', () => {
-      it('legacy model is patched', async () => {
-        const record = await testConfig
-          .knex('review_article')
-          .first('*')
-          .where('id', 123);
-
-        expect(record.state).toBe(-1);
-      });
-    });
   });
 
   describe('patch one language only', () => {

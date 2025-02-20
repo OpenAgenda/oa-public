@@ -9,10 +9,6 @@ import addEventAggregationActivity from './lib/addEventAggregationActivity.js';
 const log = logs('agendaEvents/onUpdate');
 
 export default async ({ config, services }, before, after, context) => {
-  const { legacy: legacySvc } = services;
-
-  const controlDataSvc = legacySvc.controlData;
-
   log(
     'updated agenda-event from %j to %j, %j',
     before,
@@ -26,20 +22,6 @@ export default async ({ config, services }, before, after, context) => {
     after,
     context,
   );
-
-  if (after.state === 2) {
-    try {
-      await controlDataSvc.set(after, event);
-    } catch (e) {
-      log('error', 'control data set failed', e);
-    }
-  } else if (before.state === 2 && after.state !== 2) {
-    try {
-      await controlDataSvc.remove(before);
-    } catch (e) {
-      log('error', 'control data remove failed', e);
-    }
-  }
 
   // source added
   if ((after.sourcePaths?.length || 0) > (before.sourcePaths?.length || 0)) {

@@ -73,7 +73,6 @@ function buildListQuery(service, query, nav, options = {}) {
     'aggregated',
     'featured',
     'updated_at',
-    'legacy_id',
   ];
 
   if (lastId !== undefined) {

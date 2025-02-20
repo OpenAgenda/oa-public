@@ -17,7 +17,6 @@ export function init(config, services) {
     },
     legacy: {
       schemas: {
-        event: config.schemas.event,
         agendaEvent: config.schemas.agendaEvent,
         agendaEventTag: config.schemas.agendaEventTag,
         agenda: config.schemas.agenda,

@@ -1,6 +1,5 @@
-INSERT INTO `agenda_event` (`id`, `legacy_id`, `agenda_uid`, `event_uid`, `user_uid`, `state`, `featured`, `created_at`, `updated_at`, `source_agenda_uid`, `aggregated`) VALUES (
+INSERT INTO `agenda_event` (`id`, `agenda_uid`, `event_uid`, `user_uid`, `state`, `featured`, `created_at`, `updated_at`, `source_agenda_uid`, `aggregated`) VALUES (
   435378,
-  '42.24',
   62792452,
   10974548,
   12312312,

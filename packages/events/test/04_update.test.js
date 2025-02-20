@@ -408,7 +408,6 @@ describe('events - functional - update', () => {
           ownerUid: 99999999,
         },
         {
-          transferToLegacy: true,
           access: 'internal',
         },
       );
@@ -422,7 +421,6 @@ describe('events - functional - update', () => {
         },
         {
           protected: false,
-          transferToLegacy: true,
           access: 'internal',
         },
       );

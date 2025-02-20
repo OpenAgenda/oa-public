@@ -1,9 +1,8 @@
 import convert from '@openagenda/legacy/convertLegacyFilter/index.js';
 
+import legacySettings from '../../lib/legacySettings.js';
+
 export default async (req, res, next) => {
-  const {
-    legacy: { tagsAndCustom },
-  } = req.app.services;
   const { query } = req;
 
   if (!Object.keys(query).includes('oaq')) {
@@ -11,14 +10,11 @@ export default async (req, res, next) => {
     return next();
   }
 
-  let tagSet;
-  let categorySet;
-  if (Object.keys(query.oaq).includes('tags')) tagSet = await tagsAndCustom.getTagSet(req.agenda.uid);
-  if (Object.keys(query.oaq).includes('category')) categorySet = await tagsAndCustom.getCategorySet(req.agenda.uid);
-
   const formSchema = await req.app.core
     .agendas(req.agenda.uid)
-    .settings.get({ access: 'internal' });
+    .settings.schema.getMerged({ access: 'internal' });
+
+  const { tagSet, categorySet } = legacySettings.generate(formSchema);
 
   req.convertedQuery = {
     ...convert(query.oaq, { formSchema, tagSet, categorySet }),

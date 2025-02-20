@@ -20,13 +20,11 @@ describe('agendas - functional (server): get', () => {
         `${__dirname}/../model.sql`,
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
-        `${__dirname}/fixtures/occurrence.data.sql`,
       ],
       map: {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
-        occurrence: 'occurrence',
       },
     }),
   );
@@ -80,22 +78,6 @@ describe('agendas - functional (server): get', () => {
     expect(agenda.image).toBe(
       `${config.imagePath}review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg`,
     );
-  });
-
-  it('get gets an agenda with details', async () => {
-    const agenda = await svc.get(4848, { detailed: true });
-
-    expect(agenda.publishedEvents).toBe(10);
-    expect(agenda.upcomingPublishedEvents).toBe(8);
-  });
-
-  it('get gets an agenda with restricted details', async () => {
-    const agenda = await svc.get(4848, {
-      detailed: true,
-      includeRestricted: true,
-    });
-
-    expect(agenda.totalEvents).toBe(19);
   });
 
   it('get gets an agenda by slug', async () => {
@@ -163,15 +145,14 @@ describe('agendas - functional (server): get', () => {
       { uid: 35338076 },
       {
         access: 'administrator',
-        detailed: true,
       },
     );
 
     expect(agenda.settings.admin.filters.displayed).toEqual(['keyword']);
   });
 
-  it('location settings are part of detailed get when configured', async () => {
-    const agenda = await svc.get({ uid: 90695263 }, { detailed: true });
+  it('get location settings', async () => {
+    const agenda = await svc.get({ uid: 90695263 });
     expect(agenda.settings.locations).toEqual({
       extIds: [
         {
