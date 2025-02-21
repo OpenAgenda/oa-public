@@ -92,6 +92,9 @@ export default (app) => {
         });
     },
     (req, res, next) => {
+      if (!req.event) {
+        return next({ code: 404 });
+      }
       req.agenda = req.event.agenda;
       next();
     },
