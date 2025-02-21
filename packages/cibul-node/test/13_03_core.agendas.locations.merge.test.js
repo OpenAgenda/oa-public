@@ -28,7 +28,6 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
       ],

@@ -27,7 +27,6 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
         'accessTokens',

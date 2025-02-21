@@ -26,7 +26,6 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
       ],

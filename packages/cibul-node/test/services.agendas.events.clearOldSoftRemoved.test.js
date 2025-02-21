@@ -27,7 +27,6 @@ describe('services - functional (server): core agendas() events.clearOldSoftRemo
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
       ],

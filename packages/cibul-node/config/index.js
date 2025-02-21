@@ -44,7 +44,6 @@ const config = {
     process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14,
     10,
   ),
-  legacyQueue: 'bgestack',
   tmpFolderPath: '/var/tmp/',
   logPath: '/var/tmp/cibul-node.log',
   logPathDebug: '/var/tmp/cibul-node-debug.log',
@@ -421,11 +420,6 @@ const config = {
   translators: prod?.translators ?? [],
   routes: {
     globals: {
-      agendaAdminWeb: {
-        method: 'get',
-        uri: '/:slug/admin/webembed',
-        legacy: true,
-      },
       agendaAdminShow: {
         method: 'get',
         uri: '/:slug/admin/events',

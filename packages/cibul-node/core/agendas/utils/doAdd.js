@@ -50,7 +50,6 @@ export default async (core, payload, clean, options = {}) => {
           context: {
             event,
             agenda,
-            legacy: false,
             batched,
             aggregated,
             sourceAgenda,

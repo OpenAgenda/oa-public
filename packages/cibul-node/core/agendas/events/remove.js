@@ -118,7 +118,6 @@ export default async (core, agendaUid, eventUid, options = {}) => {
         agendaUid,
         user: actingUser,
         userUid: actingUserUid,
-        legacy: false,
         deletion: isOriginAgenda,
         batched,
       },
@@ -136,7 +135,6 @@ export default async (core, agendaUid, eventUid, options = {}) => {
         agendaUid,
         user: actingUser,
         userUid: actingUserUid,
-        legacy: false,
       },
     });
 

@@ -257,7 +257,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
             aggregated,
             context: {
               aggregated,
-              legacy: false,
               userUid: actingUserUid,
               event: payload.getEvent('after'),
               agenda,

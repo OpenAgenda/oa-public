@@ -13,7 +13,7 @@ export default async ({ config, services }, before, after, context) => {
     'updated agenda-event from %j to %j, %j',
     before,
     after,
-    _.pick(context, ['legacy', 'aggregated', 'batched', 'stateChangeType']),
+    _.pick(context, ['aggregated', 'batched', 'stateChangeType']),
   );
 
   const { agenda, event, user } = await fallbackContextGet(
