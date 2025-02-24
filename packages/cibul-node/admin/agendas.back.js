@@ -4,8 +4,6 @@ import validators from '@openagenda/validators';
 import isURL from 'validator/lib/isURL.js';
 import cmn from '../lib/commons-app.js';
 
-const { mw } = adminAgendas;
-
 const validatePage = validators.integer({
   min: 1,
   default: 1,
@@ -23,7 +21,7 @@ function sendAgendaData(req, res) {
 
   core
     .agendas(req.params.uid)
-    .get({ access: 'internal', detailed: true })
+    .get({ access: 'internal', detailed: true, private: null })
     .then((agenda) => {
       if (!agenda) {
         res.json(null);
