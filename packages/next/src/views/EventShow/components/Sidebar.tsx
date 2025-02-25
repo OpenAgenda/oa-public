@@ -22,23 +22,16 @@ import {
   faClock,
   faSquareCheck,
   faLocationDot,
-  faEarDeaf,
-  faEyeLowVision,
 } from 'icons/regular';
-import {
-  faLink,
-  faClockRotateLeft,
-  faTicket,
-  faPhone,
-  faWheelchair,
-  faChild,
-} from 'icons/solid';
-import { faPI, faII } from 'icons/custom';
+import { faLink, faClockRotateLeft, faTicket, faPhone } from 'icons/solid';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
 import { sidebar as messages } from '../messages';
 import Timings from './Timings';
 import References from './References';
+import AccessibilitySection from './AccessibilitySection';
+import AgeSection from './AgeSection';
+export { default as AccessibilitySection } from './AccessibilitySection';
 import Map from './Map';
 
 function getPassImgSource(passData) {
@@ -75,40 +68,6 @@ function getRegistrationLink({ value, type }: { value: string; type: string }) {
       return `mailto:${value}`;
     default:
       return '#';
-  }
-}
-
-function defaultGetAccessibilityIcon(type: string) {
-  switch (type) {
-    case 'ii': // accessibleToIntellectually
-      return faII;
-    case 'hi': // accessibleToHearing
-      return faEarDeaf;
-    case 'vi': // accessibleToVisually
-      return faEyeLowVision;
-    case 'pi': // accessibleToPsychic
-      return faPI;
-    case 'mi': // accessibleToMotor
-      return faWheelchair;
-    default:
-      return null;
-  }
-}
-
-function getAccessibilityMessage(type: string) {
-  switch (type) {
-    case 'ii':
-      return messages.accessibleToIntellectually;
-    case 'hi':
-      return messages.accessibleToHearing;
-    case 'vi':
-      return messages.accessibleToVisually;
-    case 'pi':
-      return messages.accessibleToPsychic;
-    case 'mi':
-      return messages.accessibleToMotor;
-    default:
-      return null;
   }
 }
 
@@ -366,76 +325,6 @@ export function TimingsSection({ event }) {
   );
 }
 
-export function AccessibilitySection({
-  event,
-  ageIcon = faChild,
-  getAccessibilityIcon = defaultGetAccessibilityIcon,
-  ...props
-}) {
-  const intl = useIntl();
-
-  const accessibilities = Object.entries(event.accessibility);
-
-  const hasAccessibility = accessibilities.some((v) => v[1] === true);
-
-  if (!hasAccessibility && !event.age?.min && !event.age?.max) {
-    return null;
-  }
-
-  return (
-    <Grid
-      templateColumns="2em 1fr"
-      columnGap="4"
-      rowGap="8"
-      alignItems="center"
-      {...props}
-    >
-      {accessibilities.map(([accessibilityKey, accessibilityValue]) => {
-        if (!accessibilityValue) {
-          return null;
-        }
-
-        return (
-          <Fragment key={accessibilityKey}>
-            <Icon
-              as={FaIcon}
-              icon={getAccessibilityIcon(accessibilityKey)}
-              size="2xl"
-              color="oaGray.300"
-              justifySelf="end"
-            />
-
-            <div>
-              {intl.formatMessage(getAccessibilityMessage(accessibilityKey))}
-            </div>
-          </Fragment>
-        );
-      })}
-
-      {event.age?.min || event.age?.max ? (
-        <>
-          <Icon
-            as={FaIcon}
-            icon={ageIcon}
-            size="2xl"
-            color="oaGray.300"
-            justifySelf="end"
-          />
-
-          <div>
-            {!event.age.max
-              ? intl.formatMessage(messages.startingAt, { min: event.age.min })
-              : intl.formatMessage(messages.minToMaxYearsOld, {
-                  min: event.age.min,
-                  max: event.age.max,
-                })}
-          </div>
-        </>
-      ) : null}
-    </Grid>
-  );
-}
-
 export function LocationSection({ event, icon = faLocationDot }) {
   if (
     event.location?.latitude === undefined ||
@@ -505,6 +394,7 @@ export default function Sidebar({ shareOnOpen = null }) {
       <RegistrationSection event={event} />
       <TimingsSection event={event} />
       <AccessibilitySection event={event} />
+      <AgeSection event={event} />
       <LocationSection event={event} />
       <ReferencesSection agenda={agenda} event={event} />
     </Flex>

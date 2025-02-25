@@ -51,6 +51,7 @@ import Sidebar, {
   OnlineAccessSection,
   RegistrationSection,
   ShareSection,
+  AccessibilitySection,
 } from './components/Sidebar';
 import Footer from './components/Footer';
 import StatusTag from './components/StatusTag';
@@ -303,6 +304,10 @@ function EventShow({ preload }: EventShowProps) {
                   display={{ base: 'grid', lg: 'none' }}
                 />
                 <RegistrationSection
+                  event={event}
+                  display={{ base: 'grid', lg: 'none' }}
+                />
+                <AccessibilitySection
                   event={event}
                   display={{ base: 'grid', lg: 'none' }}
                 />
@@ -651,6 +656,7 @@ EventShow.fetchLocale = (locale: string) =>
     fetchCommonLocale('event/fields', locale),
     fetchCommonLocale('event/states', locale),
     fetchCommonLocale('event/statuses', locale),
+    fetchCommonLocale('event/accessibilities', locale),
     fetchCommonLocale('roles', locale),
     import(
       `@openagenda/activity-apps/src/locales-compiled/${locale}.json`
