@@ -1,4 +1,6 @@
-const Radio = ({ id, content, name, setChoice, defaultChecked = false }) => {
+import PropTypes from 'prop-types';
+
+const Radio = ({ id, content, name, setChoice, defaultChecked }) => {
   const handleChange = (e) => {
     setChoice(e.target.value, e.target.id);
   };
@@ -21,3 +23,15 @@ const Radio = ({ id, content, name, setChoice, defaultChecked = false }) => {
 };
 
 export default Radio;
+
+Radio.propTypes = {
+  id: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  setChoice: PropTypes.func.isRequired,
+  defaultChecked: PropTypes.bool,
+};
+
+Radio.defaultProps = {
+  defaultChecked: false,
+};

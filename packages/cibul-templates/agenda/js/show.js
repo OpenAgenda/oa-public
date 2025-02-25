@@ -1,6 +1,10 @@
 'use strict';
 
 import React from 'react';
+import displayExportButton from './displayExportButton';
+import displayAggregateButton from './displayAggregateButton';
+import displayContextBar from './displayContextBar';
+import addGoogleAnalyticsTracker from './addGoogleAnalyticsTracker';
 import session from '@openagenda/sessions/client';
 
 const controllers = require('../../widgets/controller/main'),
@@ -13,6 +17,7 @@ const controllers = require('../../widgets/controller/main'),
   },
   get = require('@openagenda/utils/get'),
   list = require('./list'),
+  timeliner = require('./timeliner'),
   config = require('./config'),
   favorites = require('./favorites'),
   widgets = {
@@ -22,6 +27,7 @@ const controllers = require('../../widgets/controller/main'),
     map: require('../../widgets/map/map'),
     calendar: require('../../widgets/calendar/calendar'),
     activeFilters: require('../../widgets/activeFilters/activeFilters'),
+    organizations: require('../../widgets/organizations/organizations'),
   },
   params = {
     selectors: {
@@ -42,7 +48,8 @@ const controllers = require('../../widgets/controller/main'),
     classes: {
       displayNone: 'display-none',
     },
-  };
+  },
+  totalLib = require('./total');
 
 let uid, log, total;
 

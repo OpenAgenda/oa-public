@@ -5,7 +5,6 @@ import * as eventSchema from '@openagenda/event-form/src/schema.js';
 import labels from '@openagenda/labels/event/form.js';
 import validateEvent from './validateEvent.js';
 import getWriteAccess from './getWriteAccess.js';
-import moveLegacyImageCredits from './moveLegacyImageCredits.js';
 
 const { diff } = deepDiff;
 
@@ -79,9 +78,7 @@ export default Object.assign(
 
     log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
 
-    const pre = moveLegacyImageCredits(
-      locationUid !== undefined ? { ...data, locationUid } : data,
-    );
+    const pre = locationUid !== undefined ? { ...data, locationUid } : data;
 
     if (location) {
       pre.location = location;

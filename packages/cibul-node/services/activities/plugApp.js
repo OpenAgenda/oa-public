@@ -1,6 +1,6 @@
 import logs from '@openagenda/logs';
 import cmn from '../../lib/commons-app.js';
-import listMiddleware from './middleware/list.js';
+import listMiddleware from './list.middleware.js';
 
 const log = logs('services/activites/plugApp');
 

@@ -1,6 +1,5 @@
 import { useIntl } from 'react-intl';
-import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
-import usePreviousModule from 'react-use/lib/usePrevious.js';
+import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 
 import { useForm, Field } from 'react-final-form';
 
@@ -9,9 +8,6 @@ import formLabels from '@openagenda/labels/event/form.js';
 import { getLocaleValue } from '@openagenda/intl';
 import isOptionedField from '../../utils/isOptionedField.js';
 import messages from './messages.js';
-
-const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
-const usePrevious = usePreviousModule.default || usePreviousModule;
 
 const AttendanceOptions = [
   {

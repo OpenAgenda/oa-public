@@ -1,0 +1,29 @@
+{
+  "nextOptionId": 1,
+  "custom" : null,
+  "defaultLabelLanguage": null,
+  "fields": [ {
+    "field": "animator",
+    "label": {
+      "fr": "Nom de l'animateur",
+      "en": "Name of the presenter"
+    },
+    "placeholder": null,
+    "sub": null,
+    "info": null,
+    "help": null,
+    "helpLink": null,
+    "helpContent": null,
+    "optional": false,
+    "display": true,
+    "fieldType": "text",
+    "min": 3,
+    "max": 50,
+    "read": null,
+    "write": null,
+    "origin" : "custom",
+    "enableWith" : null,
+    "default" : null,
+    "related" : []
+  } ]
+}

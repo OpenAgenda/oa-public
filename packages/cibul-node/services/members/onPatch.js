@@ -24,11 +24,22 @@ async function onNewMember({
         compareRoles: { isSuperiorToOrEqual },
       },
     },
+    legacy: { controlData: controlDataSvc },
   } = services;
   const { Inbox } = services.inboxes;
 
   if (user.isNew) {
     await usersSvc.setNewFlag(user.uid, { isNew: false });
+  }
+
+  try {
+    await controlDataSvc.memberSet({
+      agendaUid: agenda.uid,
+      userUid: user.uid,
+      role: member.role,
+    });
+  } catch (e) {
+    log('error', 'could not set member in control data', member, e);
   }
 
   await activities

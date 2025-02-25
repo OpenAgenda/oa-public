@@ -28,6 +28,7 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
       ],
@@ -89,5 +90,15 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
         .where('slug', 'que-ferons-nous-de-nos-deserts')
         .then(({ location_uid: locationUID }) => locationUID),
     ).toBe(76464022);
+  });
+
+  it('legacy event reference linked to merged location also has been updated', async () => {
+    expect(
+      await core.services
+        .knex('event_location')
+        .first('location_id')
+        .where('event_id', 802994)
+        .then(({ location_id: locationID }) => locationID),
+    ).toBe(8);
   });
 });

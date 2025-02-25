@@ -1,6 +1,6 @@
 {
   "actionDescription": "Vedere l'evento",
-  "body": "<b>{event}</b> è stato creato sull’ <b>{agenda}</b> con lo status di <b>{state}</b>.",
+  "body": "L’ <b>{event}</b> è stato creato sull’ <b>{agenda}</b> con lo status di <b>{state}</b>.",
   "changeEmailSettings": "Modificare le mie impostazioni e-mail",
   "controlled": "pronto per la pubblicazione",
   "memberUnsubscribe": "Smettila di ricevere le creazioni di eventi da questo agenda",

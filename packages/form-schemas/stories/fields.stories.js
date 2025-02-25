@@ -72,21 +72,7 @@ export function TextArea() {
 }
 
 export function SlateField() {
-  const [state, setState] = useState({
-    values: {
-      // this is what a slate value looks like.
-      singlelangfield: [
-        {
-          type: 'paragraph',
-          children: [
-            {
-              text: 'A line of text in a paragraph.',
-            },
-          ],
-        },
-      ],
-    },
-  });
+  const [state, setState] = useState('');
 
   const props = {
     res: {
@@ -94,7 +80,29 @@ export function SlateField() {
       redirect: '/',
     },
     lang: 'fr',
-    values: state.values,
+    values: {
+      // this is what a slate value looks like.
+      singlelangfield: JSON.stringify({
+        document: {
+          nodes: [
+            {
+              object: 'block',
+              type: 'paragraph',
+              nodes: [
+                {
+                  object: 'text',
+                  leaves: [
+                    {
+                      text: 'A line of text in a paragraph.',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      }),
+    },
     schema: {
       fields: [
         {
@@ -132,7 +140,7 @@ export function SlateField() {
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
             <p>An Slate field.</p>
-            <FormSchemaComponent {...props} onChange={setState} />
+            <FormSchemaComponent {...props} onChange={(v) => setState(v)} />
           </div>
         </div>
         <div className="wsq col-lg-5 col-lg-offset-1">

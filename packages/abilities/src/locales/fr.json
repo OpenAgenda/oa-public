@@ -10,7 +10,7 @@
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe": "Cliquez ici pour vous inscrire",
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": "Vous êtes désormais inscrit et recevrez la prochaine infolettre. Un lien se trouvera en fin de contenu permettant la désinscription.",
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterTitle": "Recevoir l'infolettre",
-  "Abilities.RulesCheckbox.AbilitiesForm.search": "Rechercher",
+  "Abilities.RulesCheckbox.AbilitiesForm.search": "",
   "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": "Recevoir les messages de la messagerie agenda",
   "Abilities.RulesCheckbox.rules.receiveEvent": "Recevoir les événements envoyés par d'autres utilisateurs",
   "Abilities.RulesCheckbox.rules.receiveEventAddition": "Recevoir les ajouts d'événements",

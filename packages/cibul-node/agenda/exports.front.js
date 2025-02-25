@@ -1,15 +1,47 @@
+import _ from 'lodash';
 import cbify from '@openagenda/utils/cbify.js';
+import * as agendaSvc from '../services/agenda/index.js';
 import cmn from '../lib/commons-app.js';
-import legacySettings from '../lib/legacySettings.js';
+import * as track from '../lib/track.js';
+import config from '../config/index.js';
 import convertFormat from './ConvertFormat.js';
 import loadCredentials from './loadCredentials.js';
 
 const preMw = [cmn.loadLogger('agenda front')];
 
-function removeCsp(req, res, next) {
-  res.removeHeader('Content-Security-Policy');
-  res.removeHeader('Content-Security-Policy-Report-Only');
-  next();
+function loadTagSet(req, res, next) {
+  const {
+    legacy: { getTagSet },
+  } = req.app.services;
+
+  getTagSet(req.agenda.id).then((tagSet) => {
+    req.tagSet = tagSet;
+
+    next();
+  }, next);
+}
+
+function loadCategorySet(req, res, next) {
+  const {
+    legacy: { getCategorySet },
+  } = req.app.services;
+
+  getCategorySet(req.agenda.id).then((categorySet) => {
+    req.categorySet = categorySet;
+    next();
+  }, next);
+}
+
+function loadEmbedUids(req, res, next) {
+  config
+    .knex('review_embed')
+    .select('uid')
+    .where('review_id', req.agenda.id)
+    .then((rows) => {
+      req.embeds = rows.map((r) => r.uid);
+
+      next();
+    });
 }
 
 function sleep(ms) {
@@ -45,7 +77,7 @@ function checkKey(onError) {
 }
 
 export default (app) => {
-  const { agendas: agendasSvc } = app.services;
+  const { members } = app.services;
 
   app.options('*/events.json*', (req, res) => res.sendStatus(200));
 
@@ -60,15 +92,24 @@ export default (app) => {
 
   app.get(
     '/agendas/:uid/settings.json',
-    agendasSvc.middleware.load({
-      internal: true,
-      namespaces: {
-        identifiers: {
-          uid: 'params.uid',
-        },
-      },
-    }),
-    removeCsp,
-    legacySettings.middleware,
+    preMw,
+    agendaSvc.mw.load('uid'),
+    cmn.ifIs('agenda.private', members.mw.loadOrFail),
+    loadTagSet,
+    loadCategorySet,
+    loadEmbedUids,
+    track.mw('settings', 'export', 'json'),
+    (req, res) =>
+      cmn.renderJson(
+        req,
+        res,
+        _.assign(_.pick(req.agenda, ['title', 'description', 'slug', 'url']), {
+          tagSet: req.tagSet,
+          categorySet: req.categorySet,
+          locationSet: req.locationSettings,
+          customSet: req.agenda.getCustomFieldsConfig(),
+          embeds: req.embeds,
+        }),
+      ),
   );
 };

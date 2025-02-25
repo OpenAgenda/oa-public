@@ -1,0 +1,141 @@
+import { BadRequest } from '@openagenda/verror';
+import schema from '@openagenda/validators/schema/index.js';
+import boolean from '@openagenda/validators/boolean.js';
+import choice from '@openagenda/validators/choice.js';
+import number from '@openagenda/validators/number.js';
+import text from '@openagenda/validators/text.js';
+import link from '@openagenda/validators/link.js';
+
+schema.register({
+  text,
+  link,
+  choice,
+  boolean,
+  number,
+});
+
+const fieldCollection = (type, codes, options = {}) =>
+  codes.reduce(
+    (fields, code) => ({
+      ...fields,
+      [code]: {
+        type,
+        ...options,
+      },
+    }),
+    {},
+  );
+
+const validate = schema({
+  config: {
+    facebookappid: {
+      type: 'text',
+      default: false,
+      max: 100,
+    },
+    head: {
+      type: 'text',
+      default: '',
+    },
+    siteurl: {
+      type: 'link',
+      default: '',
+      max: 1000,
+    },
+    layout: {
+      lang: {
+        type: 'text',
+        default: 'en',
+        max: 2,
+        min: 2,
+      },
+      mapTiles: {
+        type: 'text',
+        default: false,
+      },
+      mapPositionMode: {
+        type: 'choice',
+        unique: true,
+        options: ['all', 'manual'],
+        default: 'all',
+      },
+      mapCorners: fieldCollection(
+        'text',
+        ['neLat', 'neLng', 'swLat', 'swLng'],
+        null,
+      ),
+      mapAuto: {
+        type: 'boolean',
+        default: false,
+      },
+      layoutmode: {
+        type: 'choice',
+        options: ['standard', 'tiled', 'cascading', 'nocss'],
+        default: 'standard',
+        unique: true,
+      },
+      autoscroll: {
+        type: 'boolean',
+        default: true,
+      },
+      use_event_slug: {
+        type: 'boolean',
+        default: false,
+      },
+      synchref: {
+        type: 'boolean',
+        default: true,
+      },
+      customcss: {
+        type: 'text',
+        default: false,
+      },
+      linkcss: {
+        type: 'link',
+        default: false,
+      },
+      use_default_css: fieldCollection(
+        'boolean',
+        ['list', 'map', 'search', 'categories', 'tags', 'calendar'],
+        { default: true },
+      ),
+      shares: fieldCollection('boolean', ['fb', 'tw', 'li', 'pi', 'em'], {
+        default: false,
+      }),
+    },
+  },
+  template: fieldCollection('text', ['header', 'event', 'eventitem'], {
+    default: false,
+    max: 10000,
+  }),
+});
+
+export default (data = {}) => {
+  try {
+    const clean = validate(data);
+    if (clean.config.layout.mapCorners.neLat === 'false') {
+      Object.keys(clean.config.layout.mapCorners).forEach((corner) => {
+        clean.config.layout.mapCorners[corner] = false;
+      });
+    }
+    ['customcss', 'mapTiles'].forEach((field) => {
+      if (clean.config.layout[field] === 'false') {
+        clean.config.layout[field] = false;
+      }
+    });
+
+    Object.keys(clean.template).forEach((type) => {
+      if (clean.template[type] === 'false') {
+        clean.template[type] = false;
+      }
+    });
+    return clean;
+  } catch (errors) {
+    throw new BadRequest(
+      {
+        info: { errors },
+      },
+      'Submitted data is not valid',
+    );
+  }
+};

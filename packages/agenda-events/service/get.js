@@ -20,6 +20,7 @@ async function _get(client, where, options = {}) {
     'aggregated',
     'created_at',
     'updated_at',
+    'legacy_id',
   ];
   const { removed } = options;
   if (removed || removed === null) {
@@ -37,53 +38,66 @@ async function _get(client, where, options = {}) {
   return postReadClean(validate(utils.fromEntry(entry)), options);
 }
 
-export default async function get(service, agendaUid, eventUid, options = {}) {
-  const { client, config } = service;
+function byLegacyId(service, agendaId, eventId) {
+  const { client } = service;
 
-  if (!agendaUid) {
-    throw new NotFound('Agenda uid is missing');
-  }
-  if (!eventUid) {
-    throw new NotFound('Event uid is missing');
-  }
-
-  const { decorate, throwOnNotFound, removed } = validateOptions(options);
-
-  const ae = await _get(
-    client,
-    {
-      agenda_uid: agendaUid,
-      event_uid: eventUid,
-    },
-    { removed },
-  );
-
-  if (!ae && !throwOnNotFound) {
-    return null;
-  }
-
-  if (!ae) {
-    throw new NotFoundError('agendaEvent', [agendaUid, eventUid].join('.'));
-  }
-
-  if (decorate.includes('member') && config.interfaces.getMembers) {
-    ae.member = ae.userUid
-      ? _.get(await config.interfaces.getMembers([ae]), '0')
-      : null;
-  }
-
-  if (decorate.includes('user') && config.interfaces.getUsers) {
-    ae.user = ae.userUid ? (await config.interfaces.getUsers(ae))?.[0] : null;
-  }
-
-  if (
-    decorate.includes('sourceAgendas')
-    && config.interfaces.getSourceAgendas
-  ) {
-    ae.sourceAgendas = await config.interfaces.getSourceAgendas(
-      (ae.sourcePaths || []).map((p) => p[p.length - 1]),
-    );
-  }
-
-  return ae;
+  return _get(client, {
+    legacy_id: `${agendaId}.${eventId}`,
+  });
 }
+
+export default Object.assign(
+  async function get(service, agendaUid, eventUid, options = {}) {
+    const { client, config } = service;
+
+    if (!agendaUid) {
+      throw new NotFound('Agenda uid is missing');
+    }
+    if (!eventUid) {
+      throw new NotFound('Event uid is missing');
+    }
+
+    const { decorate, throwOnNotFound, removed } = validateOptions(options);
+
+    const ae = await _get(
+      client,
+      {
+        agenda_uid: agendaUid,
+        event_uid: eventUid,
+      },
+      { removed },
+    );
+
+    if (!ae && !throwOnNotFound) {
+      return null;
+    }
+
+    if (!ae) {
+      throw new NotFoundError('agendaEvent', [agendaUid, eventUid].join('.'));
+    }
+
+    if (decorate.includes('member') && config.interfaces.getMembers) {
+      ae.member = ae.userUid
+        ? _.get(await config.interfaces.getMembers([ae]), '0')
+        : null;
+    }
+
+    if (decorate.includes('user') && config.interfaces.getUsers) {
+      ae.user = ae.userUid ? (await config.interfaces.getUsers(ae))?.[0] : null;
+    }
+
+    if (
+      decorate.includes('sourceAgendas')
+      && config.interfaces.getSourceAgendas
+    ) {
+      ae.sourceAgendas = await config.interfaces.getSourceAgendas(
+        (ae.sourcePaths || []).map((p) => p[p.length - 1]),
+      );
+    }
+
+    return ae;
+  },
+  {
+    byLegacyId,
+  },
+);

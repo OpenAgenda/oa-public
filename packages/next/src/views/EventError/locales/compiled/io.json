@@ -8,7 +8,7 @@
   "next.views.EventError.contactAdministrators": [
     {
       "type": 0,
-      "value": "crwdns34012:0crwdne34012:0"
+      "value": "Contact administrators"
     }
   ],
   "next.views.EventError.eventNotFound": [

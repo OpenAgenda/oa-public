@@ -31,5 +31,9 @@ export default async (core, data, options = {}) => {
     throw new Error('could not create agenda');
   }
 
+  if (options.updateLegacy) {
+    await core.agendas(agenda.uid).settings.legacy.update(true);
+  }
+
   return agenda;
 };

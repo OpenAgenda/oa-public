@@ -1,0 +1,14 @@
+{
+  "Instructions"
+  : "Instructions",
+  "Copy the link in the field above"
+  : "Copiez le lien du champ ci-dessus",
+  "Open %google%"
+  : "Ouvrez %google%",
+  "Google Calendar"
+  : "Google Agenda",
+  "In the left section, open \"Other Calendars > Add by URL\""
+  : "Dans la section de gauche, ouvrez \"Autres Agendas > Ajouter par URL\"",
+  "Follow the instructions by pasting the link you copied in step 1"
+  : "Suivez les instructions en collant le lien que vous avez copié à l'étape 1"
+}

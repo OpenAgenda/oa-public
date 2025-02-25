@@ -1,9 +1,7 @@
 import { useCallback, useState, useMemo, useRef } from 'react';
-import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
+import { useIsomorphicLayoutEffect } from 'react-use';
 import classNames from 'classnames';
 import { useMemoOne } from '@openagenda/react-shared';
-
-const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
 
 const defaultBgColor = 'rgba(0, 0, 0, 0)';
 

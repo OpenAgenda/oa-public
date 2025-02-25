@@ -46,7 +46,7 @@ module.exports = {
     "de": "Sehbehinderung",
     "es": "Discapacidad visual",
     "br": "Na wel ket mat",
-    "it": "Disabilità visiva",
+    "it": "Invalidità visiva",
     "io": "crwdns14084:0crwdne14084:0",
     "oc": "Handicap visual"
   },

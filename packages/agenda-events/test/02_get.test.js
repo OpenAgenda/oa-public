@@ -12,6 +12,7 @@ import sourceAgendasFixtures from './fixtures/sourceAgendas.json';
 
 describe('agendaEvents - 02 - functional (server): get', () => {
   let svc;
+  let get;
   let redisClient;
   let knexClient;
 
@@ -61,6 +62,8 @@ describe('agendaEvents - 02 - functional (server): get', () => {
             sourceAgendaUids.includes(agenda.uid)),
       },
     });
+
+    get = svc.get;
   });
 
   afterAll(async () => redisClient.quit());
@@ -94,6 +97,10 @@ describe('agendaEvents - 02 - functional (server): get', () => {
 
     it('featured bool is provided', () => {
       expect(ref.featured).toBe(false);
+    });
+
+    it('legacyId is provided and is composed of legacy agenda id and event id', () => {
+      expect(ref.legacyId).toBe('42.24');
     });
   });
 
@@ -170,6 +177,24 @@ describe('agendaEvents - 02 - functional (server): get', () => {
     expect(ae.sourcePaths).toEqual([11, [22], 33]);
   });
 
+  it('get by legacy id', async () => {
+    const ref = await get.byLegacyId(42, 24);
+
+    expect(_.omit(ref, ['updatedAt', 'createdAt'])).toEqual({
+      eventUid: 10974548,
+      agendaUid: 62792452,
+      userUid: 12312312,
+      aggregated: 'achecksumvalue',
+      sourcePaths: [[6789678], [896785]],
+      featured: false,
+      canEdit: false,
+      state: config.eventStates.VALIDATED,
+      legacyId: '42.24',
+      motive: null,
+      removed: false,
+    });
+  });
+
   it('get returns null if no match is found', async () => {
     expect(await svc(62792452).get(60059377)).toBeNull();
   });
@@ -197,6 +222,7 @@ describe('agendaEvents - 02 - functional (server): get', () => {
       'featured',
       'canEdit',
       'state',
+      'legacyId',
       'createdAt',
       'updatedAt',
       'motive',

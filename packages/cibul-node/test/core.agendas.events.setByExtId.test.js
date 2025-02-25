@@ -32,6 +32,7 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
         'accessTokens',

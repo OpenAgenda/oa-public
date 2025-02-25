@@ -2,7 +2,7 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": [
     {
       "type": 0,
-      "value": "Descargar"
+      "value": "Download"
     }
   ],
   "next.views.AgendaShow.ExportModal.PDFGeoSections": [
@@ -75,12 +75,6 @@
     {
       "type": 0,
       "value": "Use the detailed format"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.detectLang": [
-    {
-      "type": 0,
-      "value": "Detect language automatically"
     }
   ],
   "next.views.AgendaShow.ExportModal.distributeFields": [

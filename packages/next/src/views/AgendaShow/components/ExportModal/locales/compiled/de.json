@@ -77,12 +77,6 @@
       "value": "Use the detailed format"
     }
   ],
-  "next.views.AgendaShow.ExportModal.detectLang": [
-    {
-      "type": 0,
-      "value": "Detect language automatically"
-    }
-  ],
   "next.views.AgendaShow.ExportModal.distributeFields": [
     {
       "type": 0,

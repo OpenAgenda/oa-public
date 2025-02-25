@@ -1,5 +1,254 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import Switch from 'rc-switch';
+
+export default class UserShow extends Component {
+  constructor(props) {
+    super(props);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleSubmitChangePassword =
+      this.handleSubmitChangePassword.bind(this);
+    this.renderMember = this.renderMember.bind(this);
+    this.toggleApiSecret = this.toggleApiSecret.bind(this);
+    this.toggleApiTransverse = this.toggleApiTransverse.bind(this);
+  }
+
+  state = {
+    password: null,
+  };
+
+  handleChangePassword(e) {
+    this.setState({ password: e.target.value });
+  }
+
+  handleSubmitChangePassword(e) {
+    e.preventDefault();
+
+    this.props
+      .onUserChangePassword({ password: this.state.password })
+      .then(() => this.setState({ password: '' }))
+      .catch(() => {
+        this.setState({ error: 'Ho ben non hein, Pupuce !' });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 3000);
+      });
+  }
+
+  renderMember(props) {
+    const { agenda } = props;
+
+    return (
+      <tr key={props.id}>
+        <td>{props.id}</td>
+        <td>{roleToString(props.role)}</td>
+        <td>
+          <a href={agenda ? `/${props.agenda.slug}` : '#'}>
+            {agenda?.title ?? 'Agenda indéfini'}
+          </a>
+        </td>
+        <td>{props.nbrEvents || '0'}</td>
+        <td>
+          <a
+            href={agenda ? `/admin/agendas?agendaUid=${props.agenda.uid}` : '#'}
+          >
+            Page admin/agendas
+          </a>
+        </td>
+        <td>
+          <pre>{JSON.stringify(props.custom, null, 4)}</pre>
+        </td>
+      </tr>
+    );
+  }
+
+  toggleApiSecret() {
+    this.props.onUserUpdate({
+      enable_secret: !(
+        this.props.user.store && this.props.user.store.enable_secret
+      ),
+    });
+  }
+
+  toggleApiTransverse() {
+    this.props.onUserUpdate({
+      transverseApiAccess: !(
+        this.props.user && this.props.user.transverseApiAccess
+      ),
+    });
+  }
+
+  render() {
+    const user = this.props.user;
+    let activationLink = '';
+
+    if (!user) {
+      return (
+        <div>
+          <p>Click on a user for details</p>
+        </div>
+      );
+    }
+
+    if (!user.isActivated) {
+      activationLink = (
+        <span>
+          {' '}
+          -{' '}
+          <a onClick={this.props.onUserActivation} href="#">
+            activate
+          </a>
+        </span>
+      );
+    }
+
+    return (
+      <div>
+        <h2>{user.fullName}</h2>
+        <table className="table">
+          <tbody>
+            <tr>
+              <td>uid</td>
+              <td>{user.uid}</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>
+                {user.email}{' '}
+                {user.isRemoved ? (
+                  <span style={{ color: 'brown' }}>Account removed</span>
+                ) : null}
+              </td>
+            </tr>
+            <tr>
+              <td>is activated?</td>
+              <td>
+                <span>{user.isActivated ? 'yes' : 'no'}</span>
+                {activationLink}
+              </td>
+            </tr>
+            <tr>
+              <td>Created At</td>
+              <td>{user.createdAt}</td>
+            </tr>
+            <tr>
+              <td>Updated At</td>
+              <td>{user.updatedAt}</td>
+            </tr>
+            <tr>
+              <td>Last signin</td>
+              <td>{user.lastSignin}</td>
+            </tr>
+            <tr>
+              <td>Enable API secret</td>
+              <td>
+                <Switch
+                  ref="switch"
+                  className="rc-switch"
+                  checkedChildren={
+                    <i className="fa fa-check" aria-hidden="true"></i>
+                  }
+                  unCheckedChildren={
+                    <i className="fa fa-times" aria-hidden="true"></i>
+                  }
+                  onChange={this.toggleApiSecret}
+                  checked={!!user.apiSecret}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Enable API transverse</td>
+              <td>
+                <Switch
+                  ref="switch"
+                  className="rc-switch"
+                  checkedChildren={
+                    <i className="fa fa-check" aria-hidden="true"></i>
+                  }
+                  unCheckedChildren={
+                    <i className="fa fa-times" aria-hidden="true"></i>
+                  }
+                  onChange={this.toggleApiTransverse}
+                  checked={user.transverseApiAccess}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Blacklisted</td>
+              <td>
+                <Switch
+                  ref="blacklist-switch"
+                  className="rc-switch"
+                  checkedChildren={
+                    <i className="fa fa-check" aria-hidden="true"></i>
+                  }
+                  unCheckedChildren={
+                    <i className="fa fa-times" aria-hidden="true"></i>
+                  }
+                  onChange={() => this.props.onUserIsBlacklistedToggle()}
+                  checked={!!user.isBlacklisted}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <a onClick={this.props.onUserSignin} href="#">
+          Signin as user
+        </a>
+        <br />
+        <form
+          className="form-inline"
+          onSubmit={this.handleSubmitChangePassword}
+        >
+          <div className="form-group">
+            <label htmlFor="password">Nouveau mot de passe: </label>
+            <input
+              type="text"
+              className="form-control"
+              id="password"
+              placeholder="No error allowed babe"
+              value={this.state.password}
+              onChange={this.handleChangePassword}
+            />
+          </div>
+          <button type="submit" className="btn btn-default">
+            Change password
+          </button>
+        </form>
+        {this.state.error && (
+          <div className="text-danger">
+            <b>{this.state.error}</b>
+          </div>
+        )}
+        <div>
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Rôle</th>
+                <th>Agenda</th>
+                <th>Nombre d'événements</th>
+                <th>admin/agendas</th>
+                <th>Custom</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {this.props.members?.length ? (
+                this.props.members.map((member) => this.renderMember(member))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="text-center">
+                    N'est pas contributeur !
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+}
 
 function roleToString(type) {
   switch (type) {
@@ -12,242 +261,4 @@ function roleToString(type) {
     default:
       return 'Inconnu';
   }
-}
-
-export default function UserShow({
-  user,
-  members,
-  onUserChangePassword,
-  onUserActivation,
-  onUserIsBlacklistedToggle,
-  onUserSignin,
-  onUserUpdate
-}) {
-  // État local pour le password et l'erreur
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-
-  /**
-   * Gère la modification du champ "password"
-   */
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  /**
-   * Soumet le formulaire pour changer le password
-   */
-  const handleSubmitChangePassword = (e) => {
-    e.preventDefault();
-
-    onUserChangePassword({ password })
-      .then(() => setPassword(''))
-      .catch(() => {
-        setError('Ho ben non hein, Pupuce !');
-        setTimeout(() => {
-          setError(null);
-        }, 3000);
-      });
-  };
-
-  /**
-   * Rendu d'une ligne "member"
-   */
-  const renderMember = (member) => {
-    const { agenda } = member;
-
-    return (
-      <tr key={member.id}>
-        <td>{member.id}</td>
-        <td>{roleToString(member.role)}</td>
-        <td>
-          <a href={agenda ? `/${agenda.slug}` : '#'}>
-            {agenda?.title ?? 'Agenda indéfini'}
-          </a>
-        </td>
-        <td>{member.nbrEvents || '0'}</td>
-        <td>
-          <a href={agenda ? `/admin/agendas?agendaUid=${agenda.uid}` : '#'}>
-            Page admin/agendas
-          </a>
-        </td>
-        <td>
-          <pre>{JSON.stringify(member.custom, null, 4)}</pre>
-        </td>
-      </tr>
-    );
-  };
-
-  /**
-   * Toggle de l'API secret
-   */
-  const toggleApiSecret = () => {
-    onUserUpdate({
-      enable_secret: !(user?.store && user.store.enable_secret)
-    });
-  };
-
-  /**
-   * Toggle de l'API transverse
-   */
-  const toggleApiTransverse = () => {
-    onUserUpdate({
-      transverseApiAccess: !(user && user.transverseApiAccess)
-    });
-  };
-
-  // Si aucun utilisateur sélectionné
-  if (!user) {
-    return (
-      <div>
-        <p>Click on a user for details</p>
-      </div>
-    );
-  }
-
-  // Gestion du lien d'activation
-  let activationLink = '';
-  if (!user.isActivated) {
-    activationLink = (
-      <span>
-        {' '}
-        -{' '}
-        <a onClick={onUserActivation} href="#">
-          activate
-        </a>
-      </span>
-    );
-  }
-
-  return (
-    <div>
-      <h2>{user.fullName}</h2>
-      <table className="table">
-        <tbody>
-          <tr>
-            <td>uid</td>
-            <td>{user.uid}</td>
-          </tr>
-          <tr>
-            <td>email</td>
-            <td>
-              {user.email}{' '}
-              {user.isRemoved ? (
-                <span style={{ color: 'brown' }}>Account removed</span>
-              ) : null}
-            </td>
-          </tr>
-          <tr>
-            <td>is activated?</td>
-            <td>
-              <span>{user.isActivated ? 'yes' : 'no'}</span>
-              {activationLink}
-            </td>
-          </tr>
-          <tr>
-            <td>Created At</td>
-            <td>{user.createdAt}</td>
-          </tr>
-          <tr>
-            <td>Updated At</td>
-            <td>{user.updatedAt}</td>
-          </tr>
-          <tr>
-            <td>Last signin</td>
-            <td>{user.lastSignin}</td>
-          </tr>
-          <tr>
-            <td>Enable API secret</td>
-            <td>
-              <Switch
-                className="rc-switch"
-                checkedChildren={<i className="fa fa-check" aria-hidden="true" />}
-                unCheckedChildren={<i className="fa fa-times" aria-hidden="true" />}
-                onChange={toggleApiSecret}
-                checked={!!user.apiSecret}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Enable API transverse</td>
-            <td>
-              <Switch
-                className="rc-switch"
-                checkedChildren={<i className="fa fa-check" aria-hidden="true" />}
-                unCheckedChildren={<i className="fa fa-times" aria-hidden="true" />}
-                onChange={toggleApiTransverse}
-                checked={!!user.transverseApiAccess}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Blacklisted</td>
-            <td>
-              <Switch
-                className="rc-switch"
-                checkedChildren={<i className="fa fa-check" aria-hidden="true" />}
-                unCheckedChildren={<i className="fa fa-times" aria-hidden="true" />}
-                onChange={onUserIsBlacklistedToggle}
-                checked={!!user.isBlacklisted}
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <a onClick={onUserSignin} href="#">
-        Signin as user
-      </a>
-
-      <br />
-      <form className="form-inline" onSubmit={handleSubmitChangePassword}>
-        <div className="form-group">
-          <label htmlFor="password">Nouveau mot de passe: </label>
-          <input
-            type="text"
-            className="form-control"
-            id="password"
-            placeholder="No error allowed babe"
-            value={password || ''}
-            onChange={handleChangePassword}
-          />
-        </div>
-        <button type="submit" className="btn btn-default">
-          Change password
-        </button>
-      </form>
-
-      {error && (
-        <div className="text-danger">
-          <b>{error}</b>
-        </div>
-      )}
-
-      <div>
-        <table className="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Rôle</th>
-              <th>Agenda</th>
-              <th>Nombre d'événements</th>
-              <th>admin/agendas</th>
-              <th>Custom</th>
-            </tr>
-          </thead>
-          <tbody>
-            {members?.length ? (
-              members.map((member) => renderMember(member))
-            ) : (
-              <tr>
-                <td colSpan="5" className="text-center">
-                  N'est pas contributeur !
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
 }

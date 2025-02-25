@@ -12,7 +12,7 @@ import session from '@openagenda/sessions/client';
 import { useRouter } from 'next/router';
 
 export default function FlashAlert() {
-  const cancelRef = useRef(undefined);
+  const cancelRef = useRef();
   const [flashMessage, setFlashMessage] = useState(null);
   const router = useRouter();
 

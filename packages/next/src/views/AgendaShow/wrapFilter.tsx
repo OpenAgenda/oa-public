@@ -1,9 +1,28 @@
-import { chakra } from '@openagenda/uikit';
+import React, {
+  ForwardRefExoticComponent,
+  PropsWithoutRef,
+  RefAttributes,
+} from 'react';
+import { chakra, HTMLChakraProps } from '@openagenda/uikit';
 
-export default function wrapFilter(Filter: React.FC<any>) {
-  // forwardedFilter prop -> filter prop
-  function WrappedFilter({ ref, forwardedFilter, ...props }) {
-    return <Filter ref={ref} filter={forwardedFilter} {...props} />;
+type ForwardRefComponent<T, P = {}> = ForwardRefExoticComponent<
+  PropsWithoutRef<P> & RefAttributes<T>
+>;
+
+type FilterType = ForwardRefComponent<
+  HTMLElement,
+  HTMLChakraProps<'div'> & {
+    forwardedFilter: object;
   }
+>;
+
+export default function wrapFilter(Filter: React.FC) {
+  // forwardedFilter prop -> filter prop
+  const WrappedFilter = React.forwardRef(function WrappedFilter(
+    { forwardedFilter, ...props },
+    ref,
+  ) {
+    return <Filter ref={ref} filter={forwardedFilter} {...props} />;
+  }) as FilterType;
   return chakra(WrappedFilter);
 }

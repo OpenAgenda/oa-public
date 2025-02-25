@@ -1,7 +1,10 @@
 'use strict';
 
 const Files = require('@openagenda/files');
-const { service: config, dependencies: dConfig } = require('../testconfig');
+const {
+  service: config,
+  dependencies: dConfig,
+} = require('../testconfig.sample');
 
 const svc = require('../service/index');
 const loadFixtures = require('./fixtures/load');
@@ -15,11 +18,13 @@ describe('agendas - functional (server): set (update)', () => {
         `${__dirname}/../model.sql`,
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
+        `${__dirname}/fixtures/occurrence.data.sql`,
       ],
       map: {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
+        occurrence: 'occurrence',
         legacyCredential: 'legacy_credential_set',
       },
     }),
@@ -260,12 +265,6 @@ describe('agendas - functional (server): set (update)', () => {
     expect(agenda.settings.admin).toEqual({
       filters: { displayed: ['keyword'] },
     });
-  });
-
-  it('admin location settings are not lost with update', async () => {
-    const { agenda } = await svc.set({ uid: 90695263 }, { title: 'Bah quoi' });
-
-    expect(agenda.settings.locations).not.toBeUndefined();
   });
 
   it('onUpdate callbacks with agenda data before and after update', () =>

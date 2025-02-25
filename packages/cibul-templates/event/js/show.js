@@ -1,5 +1,8 @@
 "use strict";
 import du from '../../js/lib/domUtils';
+import displayShareButtons from './displayShareButtons';
+import displayContributorSection from './displayContributorSection';
+import addTrackers from '../../agenda/js/addTrackers';
 import session from '@openagenda/sessions/client';
 
 const debug = require('debug');
@@ -10,9 +13,13 @@ const utils = require('@openagenda/utils');
 
 const get = require('@openagenda/utils/get');
 
+const adminControls = require('./adminControls');
+
 const ownershipTransfer = require('./ownershipTransfer');
 
 const displayReferences = require('./displayReferences');
+
+const displayAdditionalFields = require('./displayAdditionalFields');
 
 const privateData = require('./privateData');
 
@@ -85,7 +92,7 @@ window.asap(async options => {
 
   permalink();
 
-  // addTrackers(params);
+  addTrackers(params);
 
   displayShareButtons(params, !!params.user);
   eventMap();

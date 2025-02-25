@@ -1,5 +1,5 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import debug from 'debug';
 import { createMemoryHistory } from 'history';
@@ -112,27 +112,26 @@ module.exports = options => {
       locationActivitiesElem.classList.add('location-activities');
       locationActivitiesRoot.appendChild(locationActivitiesElem);
 
-      const root = createRoot(locationActivitiesElem);
-      root.render(
+      ReactDOM.render(
         ActivitiesModal({
           lang,
           trigger: ({ openModal }) => LocationHistoryTrigger({ openModal, lang }),
           res: `/api/agendas/${agendaUid}/locations/${locationUid}/activities`,
           modalTitle: getEventShowLabel('locationHistory', lang),
         }),
+        locationActivitiesElem,
       );
     }
   }
 
   function renderInboxApp({ initialState, extraProps, selector }) {
-    const root = createRoot(du.el(selector));
-    root.render(wrapApp(createInboxApp({
+    ReactDOM.render(wrapApp(createInboxApp({
       initialState,
       history: createMemoryHistory()
     }), {
       extraProps,
       disableScrollToTop: true
-    }), );
+    }), du.el(selector));
   }
 
   function inbox(params, { roles, ROLES }) {

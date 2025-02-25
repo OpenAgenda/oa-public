@@ -2,31 +2,31 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": [
     {
       "type": 0,
-      "value": "crwdns34240:0crwdne34240:0"
+      "value": "Download"
     }
   ],
   "next.views.AgendaShow.ExportModal.PDFGeoSections": [
     {
       "type": 0,
-      "value": "crwdns34242:0crwdne34242:0"
+      "value": "Add geographical sections"
     }
   ],
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": [
     {
       "type": 0,
-      "value": "crwdns34244:0crwdne34244:0"
+      "value": "Highlight the location"
     }
   ],
   "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": [
     {
       "type": 0,
-      "value": "crwdns34248:0crwdne34248:0"
+      "value": "Segments"
     }
   ],
   "next.views.AgendaShow.ExportModal.PDFSelectSub": [
     {
       "type": 0,
-      "value": "crwdns34246:0crwdne34246:0"
+      "value": "Select one or more values"
     }
   ],
   "next.views.AgendaShow.ExportModal.allFields": [
@@ -56,7 +56,7 @@
   "next.views.AgendaShow.ExportModal.color": [
     {
       "type": 0,
-      "value": "crwdns34098:0crwdne34098:0"
+      "value": "Color"
     }
   ],
   "next.views.AgendaShow.ExportModal.copied": [
@@ -75,12 +75,6 @@
     {
       "type": 0,
       "value": "crwdns33049:0crwdne33049:0"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.detectLang": [
-    {
-      "type": 0,
-      "value": "Detect language automatically"
     }
   ],
   "next.views.AgendaShow.ExportModal.distributeFields": [
@@ -136,13 +130,13 @@
   "next.views.AgendaShow.ExportModal.filterSelectPlaceholder": [
     {
       "type": 0,
-      "value": "crwdns34180:0crwdne34180:0"
+      "value": "One or more filters"
     }
   ],
   "next.views.AgendaShow.ExportModal.filterSelectSub": [
     {
       "type": 0,
-      "value": "crwdns34182:0crwdne34182:0"
+      "value": "Drag and drop filters to adjust order"
     }
   ],
   "next.views.AgendaShow.ExportModal.gcalStep2": [
@@ -198,7 +192,7 @@
   "next.views.AgendaShow.ExportModal.new": [
     {
       "type": 0,
-      "value": "crwdns34100:0crwdne34100:0"
+      "value": "New"
     }
   ],
   "next.views.AgendaShow.ExportModal.openData": [
@@ -210,7 +204,7 @@
   "next.views.AgendaShow.ExportModal.openInSamePage": [
     {
       "type": 0,
-      "value": "crwdns34072:0crwdne34072:0"
+      "value": "Open events on the same page"
     }
   ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [
@@ -246,7 +240,7 @@
   "next.views.AgendaShow.ExportModal.showFilters": [
     {
       "type": 0,
-      "value": "crwdns34074:0crwdne34074:0"
+      "value": "Show filters"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [
@@ -264,7 +258,7 @@
   "next.views.AgendaShow.ExportModal.viewEmbedDoc": [
     {
       "type": 0,
-      "value": "crwdns34250:0crwdne34250:0"
+      "value": "See all options on the documentation"
     }
   ]
 }

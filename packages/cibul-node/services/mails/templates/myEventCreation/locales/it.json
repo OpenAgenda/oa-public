@@ -6,7 +6,7 @@
   "memberUnsubscribe": "Non riceverete più conferme delle vostre creazioni di eventi su questa agenda",
   "published": "pubblicato",
   "refused": "rifiutato",
-  "title": "Confermare la creazione del evento su {agenda}: {event}",
+  "title": "Conferma della creazione del vostro evento su {agenda}: {event}.",
   "tocontrol": "verificabile",
   "unsubscribe": "Non riceverete più conferme delle vostre creazioni per l'evento"
 }

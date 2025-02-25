@@ -2,6 +2,7 @@ import { initialize, mswLoader } from 'msw-storybook-addon';
 
 export const parameters = {
   layout: 'fullscreen',
+  actions: { argTypesRegex: '^on[A-Z].*' },
 };
 
 initialize({

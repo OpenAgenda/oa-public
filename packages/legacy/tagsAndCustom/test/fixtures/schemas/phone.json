@@ -1,0 +1,29 @@
+{
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 29,
+  "fields": [{
+    "field": "organisateur-telephone",
+    "label": "Organisateur ( Téléphone )",
+    "help": null,
+    "helpLink": null,
+    "helpContent": null,
+    "info": null,
+    "sub": "Champ privé",
+    "placeholder": null,
+    "write": [
+      "administrator", "moderator"
+    ],
+    "read": [
+      "administrator", "moderator"
+    ],
+    "optional": true,
+    "display": true,
+    "origin": "custom",
+    "enableWith": null,
+    "related": [],
+    "min": null,
+    "max": null,
+    "fieldType": "phone"
+  }]
+}

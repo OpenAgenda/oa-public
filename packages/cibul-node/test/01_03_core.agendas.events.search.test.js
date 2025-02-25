@@ -31,6 +31,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         'members',
         'networks',
         'oembed',
+        'legacy',
         'users',
         'keys',
         'accessTokens',

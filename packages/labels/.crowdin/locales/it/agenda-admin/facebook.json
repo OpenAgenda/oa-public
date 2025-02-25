@@ -1,8 +1,8 @@
 {
-  "add": "Scegliere una pagina Facebook",
-  "conditions": "condizioni operative",
-  "description": "Aggiungi il tuo agenda a una pagina Facebook",
   "facebookTabAdded": "La scheda del agenda è stata aggiunta alla tua pagina Facebook",
+  "title": "Facebook",
+  "description": "Aggiungi il tuo agenda a una pagina Facebook",
   "footnote": "Poiché Facebook ha aggiornato il suo %link%, questa funzione è disponibile solo per le pagine con più di 2000 \"Mi piace\".",
-  "title": "Facebook"
+  "add": "Scegliere una pagina Facebook",
+  "conditions": "condizioni operative"
 }

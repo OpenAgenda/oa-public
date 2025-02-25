@@ -38,9 +38,20 @@ import getPrefilteredQuery from './utils/getPrefilteredQuery';
 
 import 'leaflet/dist/leaflet.css';
 
-const DynamicEventsPart = dynamic(() => import('./components/EventsPart'));
-const DynamicTotalPart = dynamic(() => import('./components/TotalPart'));
-const DynamicFiltersPart = dynamic(() => import('./components/FiltersPart'));
+const DynamicEventsPart = dynamic(() => import('./components/EventsPart'), {
+  // ssr: false,
+  suspense: true,
+});
+
+const DynamicTotalPart = dynamic(() => import('./components/TotalPart'), {
+  // ssr: false,
+  suspense: true,
+});
+
+const DynamicFiltersPart = dynamic(() => import('./components/FiltersPart'), {
+  // ssr: false,
+  suspense: true,
+});
 
 export type EmbedAgendaShowProps = {
   agenda: Agenda;
@@ -73,7 +84,7 @@ function EmbedAgendaShow({
 
   const referrer = layoutDataReferrer || referrerProps;
 
-  const filtersFormRef = useRef<any>(undefined);
+  const filtersFormRef = useRef<any>();
 
   const initialValues = useConst(() => omitParams(query));
 
@@ -184,8 +195,8 @@ function EmbedAgendaShow({
   }, [pages, previousPages, filters, latestQuery, latestRouter]);
 
   useLayoutEffect(() => {
-    if (layoutDataReferrer === undefined) {
-      setReferrer(referrerProps || null);
+    if (!layoutDataReferrer && referrerProps) {
+      setReferrer(referrerProps);
     }
   }, []);
 

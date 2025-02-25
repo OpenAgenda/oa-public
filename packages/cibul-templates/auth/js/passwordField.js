@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { useDebounce } from 'use-debounce';
 import { Spinner } from '@openagenda/react-shared';
 import { getSupportedLocale } from '@openagenda/intl';
@@ -138,8 +138,7 @@ export default function passwordField({ lang }) {
     },
   };
 
-  const root = createRoot(elem);
-  root.render(
+  ReactDOM.render(
     <IntlProvider
       key={lang}
       locale={lang}
@@ -148,5 +147,6 @@ export default function passwordField({ lang }) {
     >
       <PasswordField {...props} />
     </IntlProvider>,
+    elem,
   );
 }

@@ -32,11 +32,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     members,
     aggregators,
     custom,
+    legacy,
     registrations,
   } = core.services;
 
   const actingUserUid = options.userUid ?? options.context?.userUid;
-
   log(
     'info',
     'update of event %s on agenda %s%s',
@@ -60,317 +60,327 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     mergeExtIds = true,
   } = options;
 
-  let response;
+  const agenda = await getAgenda(core.services, agendaUid, {
+    detailed: true,
+    includeMemberSchema: true,
+  });
 
-  try {
-    const agenda = await getAgenda(core.services, agendaUid, {
-      detailed: true,
-      includeMemberSchema: true,
-    });
+  log('  loaded agenda %s', agenda?.slug);
 
-    log('  loaded agenda %s', agenda?.slug);
+  const event = await events.get(eventUid, {
+    access: 'internal',
+    detailed: true,
+    throwOnNotFound: true,
+    private: privateOption,
+  });
 
-    const event = await events.get(eventUid, {
-      access: 'internal',
-      detailed: true,
-      throwOnNotFound: true,
-      private: privateOption,
-    });
+  log('  loaded event %s', event.slug);
 
-    log('  loaded event %s', event.slug);
+  const agendaEvent = shouldHaveAgendaEvent('update', event)
+    ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true })
+    : null;
 
-    const agendaEvent = shouldHaveAgendaEvent('update', event)
-      ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true })
-      : null;
-
-    const actingMember = actingUserUid
-      ? await members.get(
-        {
-          agendaUid: agenda.uid,
-          userUid: actingUserUid,
-        },
-        { roleAsSlug: false },
-      )
-      : null;
-
-    const clean = await cleanEvent(core.services, agenda, data, {
-      validateWithStoredData: !!partial,
-      event, // required to validate related fields in case of partial update
-      draft,
-      optionalSecondaryFields: true,
-      partial,
-      access,
-      member: actingMember,
-      defaultLang,
-      aggregated,
-    });
-
-    const authorizations = await loadAuthorizations(core, 'update', {
-      agenda,
-      event,
-      agendaEvent,
-      member: actingMember,
-      access,
-    });
-
-    if (filterUnauthorizedData) {
-      filterUnauthorized(clean, data, authorizations);
-    }
-
-    if (!authorizations.canEditEvent && containsEventData(data)) {
-      throw new Forbidden(
-        {
-          info: {
-            uid: event.uid,
-          },
-        },
-        'not authorized to edit event',
-      );
-    }
-
-    const { type: stateChangeType } = assignState(agenda, event, clean, data, {
-      authorizations,
-      draft,
-      currentState: agendaEvent?.state,
-    });
-
-    const hasNewPassOffer = !draft
-      && clean.passCulture
-      && registrations.utils.passCulture.isNew(clean.passCulture);
-    const hasNonPendingPassOfferWithNewItems = !draft
-      && clean.passCulture
-      && !registrations.utils.passCulture.isMarkedAsPending(clean.passCulture)
-      && registrations.utils.passCulture.hasNonApplied(clean.passCulture);
-
-    if (!draft && (hasNewPassOffer || hasNonPendingPassOfferWithNewItems)) {
-      log.info('  There is a pass culture payload with event', {
-        eventUid: event.uid,
-      });
-      try {
-        clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
-      } catch (e) {
-        log('error', e);
-        throw e;
-      }
-    } else if (!draft && clean.passCulture) {
-      log.info('  There is no new non-pending pass culture payload', {
-        eventUid: event.uid,
-      });
-    }
-
-    const payload = createPayload(core, agenda);
-
-    if (containsEventData(data)) {
-      await updateEvent(core.services, {
-        clean,
-        payload,
-        draft,
-        agendaUid,
+  const actingMember = actingUserUid
+    ? await members.get(
+      {
+        agendaUid: agenda.uid,
         userUid: actingUserUid,
-        eventUid,
-        privateOption,
-        event,
-        partial,
-        userLang,
-        mergeExtIds,
-      });
-    } else {
-      payload.setItem('event', event, event);
-    }
+      },
+      { roleAsSlug: false },
+    )
+    : null;
 
-    if (agenda.formSchemaId && clean.custom) {
-      const result = await setCustom(
-        custom,
-        agenda.formSchemaId,
-        eventUid,
-        clean.custom,
-        {
-          draft,
-          agendaId: agenda.id,
-          access,
+  const clean = await cleanEvent(core.services, agenda, data, {
+    validateWithStoredData: !!partial,
+    event, // required to validate related fields in case of partial update
+    draft,
+    optionalSecondaryFields: true,
+    partial,
+    access,
+    member: actingMember,
+    defaultLang,
+    aggregated,
+  });
+
+  const authorizations = await loadAuthorizations(core, 'update', {
+    agenda,
+    event,
+    agendaEvent,
+    member: actingMember,
+    access,
+  });
+
+  if (filterUnauthorizedData) {
+    filterUnauthorized(clean, data, authorizations);
+  }
+
+  if (!authorizations.canEditEvent && containsEventData(data)) {
+    throw new Forbidden(
+      {
+        info: {
+          uid: event.uid,
         },
-      );
-      if (result.success) {
-        log('updated agenda custom data %s.%s', agenda.formSchemaId, eventUid);
-        payload.setItem('custom.agenda', result.before, result.custom);
-      }
-    }
+      },
+      'not authorized to edit event',
+    );
+  }
 
-    if (agenda.network?.formSchemaId && clean.networkCustom) {
-      const result = await setCustom(
-        custom,
-        agenda.network.formSchemaId,
-        eventUid,
-        clean.networkCustom,
-        {
-          agendaId: agenda.id,
-          access,
-        },
-      );
+  const { type: stateChangeType } = assignState(agenda, event, clean, data, {
+    authorizations,
+    draft,
+    currentState: agendaEvent?.state,
+  });
 
-      if (result.success) {
-        log(
-          'updated network custom data %s.%s',
-          agenda.network.formSchemaId,
-          eventUid,
-        );
-        payload.setItem('custom.network', result.before, result.custom);
-      }
-    }
+  const hasNewPassOffer = !draft
+    && clean.passCulture
+    && registrations.utils.passCulture.isNew(clean.passCulture);
+  const hasNonPendingPassOfferWithNewItems = !draft
+    && clean.passCulture
+    && !registrations.utils.passCulture.isMarkedAsPending(clean.passCulture)
+    && registrations.utils.passCulture.hasNonApplied(clean.passCulture);
 
-    if (draft) {
-      response = await payload.getResponse('updated', access);
-      log('sending response for draft update');
-      return returnPayload ? response : response.updated;
-    }
-
-    const formSchema = await payload.getFormSchema({ access: 'internal' });
-
-    const beforeEvent = await payload.getCompiledEvent('before');
-    const afterEvent = await payload.getCompiledEvent();
-
-    if (!event.draft && isEventDifferent(beforeEvent, afterEvent)) {
-      try {
-        await createUpdateActivity(core.services, beforeEvent, afterEvent, {
-          userUid: actingUserUid,
-          agenda,
-          formSchema,
-          member: actingMember,
-          agendaEvent,
-        });
-      } catch (e) {
-        log('error', 'failed to create activity', e);
-      }
-    }
-
-    // if event is not draft or was just undrafted, agendaEvent ref must be set
-    if (clean.agendaEvent) {
-      try {
-        const result = await agendaEvents(agendaUid).set(
-          eventUid,
-          ih(clean.agendaEvent, {
-            create: {
-              $set: { canEdit: true },
-            },
-          }),
-          {
-            aggregated,
-            context: {
-              aggregated,
-              userUid: actingUserUid,
-              event: payload.getEvent('after'),
-              agenda,
-              stateChangeType,
-              batched,
-            },
-            decorate: ['sourceAgendas', 'user'],
-          },
-        );
-
-        if (result.set.userUid) {
-          log(
-            'user linked to agendaEvent reference %s.%s: %s',
-            agendaUid,
-            eventUid,
-            result.set.userUid,
-          );
-          result.set.member = await core
-            .agendas(agenda)
-            .members.get(result.set.userUid, {
-              access: 'internal',
-              throwOnNotFound: false,
-              roleAsSlug: false,
-            });
-        }
-
-        log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
-        payload.setItem('agendaEvent', result.before, result.set);
-      } catch (e) {
-        log('error', 'failed to update agendaEvent ref', e);
-        throw e;
-      }
-    }
-
-    response = await payload.getResponse('event', access);
-    const compiledEvent = await payload.getCompiledEvent();
-
+  if (!draft && (hasNewPassOffer || hasNonPendingPassOfferWithNewItems)) {
+    log.info('  There is a pass culture payload with event', {
+      eventUid: event.uid,
+    });
     try {
-      await eventSearch.update({
-        ...response,
-        formSchema,
-        event: event.location
-          ? convertLocationAdditionalFields(formSchema, compiledEvent)
-          : compiledEvent,
-      });
-      log('updated search for event %s', eventUid);
+      clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
     } catch (e) {
-      log(
-        'error',
-        'could not update search indices for event %s.%s: %s',
-        agenda.uid,
-        eventUid,
-        formatError(e),
-      );
+      log('error', e);
+      throw e;
     }
-
-    const before = await payload.getCompiledEvent('before');
-
-    if (isEventDifferent(before, compiledEvent)) {
-      try {
-        await sendUpdateEmail(core, {
-          batched,
-          event: compiledEvent,
-          agenda,
-        });
-      } catch (e) {
-        log('error', 'failed to send update notification email', e);
-      }
-    }
-
-    if (
-      !draft
-      && hasNewPassOffer
-      && registrations.utils.passCulture.isMarkedAsPending(
-        response.event.registration.find((r) => r.service === 'passCulture')
-          ?.data,
-      )
-    ) {
-      registrations.utils.passCulture.enqueuePending({
-        agendaUid,
-        eventUid: response.event.uid,
-      });
-    }
-
-    await aggregators.notify(before.draft ? 'addEvent' : 'updateEvent', {
-      event: compiledEvent,
-      before,
-      agenda,
-      formSchema,
-      batched,
+  } else if (!draft && clean.passCulture) {
+    log.info('  There is no new non-pending pass culture payload', {
+      eventUid: event.uid,
     });
+  }
 
-    await refreshAgenda(agenda.uid);
+  const payload = createPayload(core, agenda);
 
-    log.info('update successful', {
-      agendaUid,
-      eventUid,
-      agenda: _.pick(agenda, ['uid', 'slug', 'title']),
-      actingUserUid: actingUserUid
-        ? ` by user ${actingUserUid}`
-        : ' (no acting user)',
-      callOrigin,
-      ...callOrigin === 'api' ? { event: response.event } : undefined,
-    });
-  } catch (e) {
-    log.info('update failed', {
-      error: e,
-      errors: e.info?.errors,
+  if (containsEventData(data)) {
+    await updateEvent(core.services, {
+      clean,
+      payload,
+      draft,
       agendaUid,
       userUid: actingUserUid,
-      callOrigin,
+      eventUid,
+      privateOption,
+      event,
+      partial,
+      userLang,
+      mergeExtIds,
     });
-    throw e;
+  } else {
+    payload.setItem('event', event, event);
   }
+
+  if (agenda.formSchemaId && clean.custom) {
+    const result = await setCustom(
+      custom,
+      agenda.formSchemaId,
+      eventUid,
+      clean.custom,
+      {
+        draft,
+        agendaId: agenda.id,
+        access,
+      },
+    );
+    if (result.success) {
+      log('updated agenda custom data %s.%s', agenda.formSchemaId, eventUid);
+      payload.setItem('custom.agenda', result.before, result.custom);
+    }
+  }
+
+  if (agenda.network?.formSchemaId && clean.networkCustom) {
+    const result = await setCustom(
+      custom,
+      agenda.network.formSchemaId,
+      eventUid,
+      clean.networkCustom,
+      {
+        agendaId: agenda.id,
+        access,
+      },
+    );
+
+    if (result.success) {
+      log(
+        'updated network custom data %s.%s',
+        agenda.network.formSchemaId,
+        eventUid,
+      );
+      payload.setItem('custom.network', result.before, result.custom);
+    }
+  }
+
+  if (draft) {
+    const response = await payload.getResponse('updated', access);
+    log('sending response for draft update');
+    return returnPayload ? response : response.updated;
+  }
+
+  const formSchema = await payload.getFormSchema({ access: 'internal' });
+
+  const beforeEvent = await payload.getCompiledEvent('before');
+  const afterEvent = await payload.getCompiledEvent();
+
+  if (!event.draft && isEventDifferent(beforeEvent, afterEvent)) {
+    try {
+      await createUpdateActivity(core.services, beforeEvent, afterEvent, {
+        userUid: actingUserUid,
+        agenda,
+        formSchema,
+        member: actingMember,
+        agendaEvent,
+      });
+    } catch (e) {
+      log('error', 'failed to create activity', e);
+    }
+  }
+
+  // if event is not draft or was just undrafted, agendaEvent ref must be set
+  if (clean.agendaEvent) {
+    try {
+      const result = await agendaEvents(agendaUid).set(
+        eventUid,
+        ih(clean.agendaEvent, {
+          create: {
+            $set: { canEdit: true },
+          },
+        }),
+        {
+          transferToLegacy: true,
+          aggregated,
+          context: {
+            aggregated,
+            legacy: false,
+            userUid: actingUserUid,
+            event: payload.getEvent('after'),
+            agenda,
+            stateChangeType,
+            batched,
+          },
+          decorate: ['sourceAgendas', 'user'],
+        },
+      );
+
+      if (result.set.userUid) {
+        log(
+          'user linked to agendaEvent reference %s.%s: %s',
+          agendaUid,
+          eventUid,
+          result.set.userUid,
+        );
+        result.set.member = await core
+          .agendas(agenda)
+          .members.get(result.set.userUid, {
+            access: 'internal',
+            throwOnNotFound: false,
+            roleAsSlug: false,
+          });
+      }
+
+      log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
+      payload.setItem('agendaEvent', result.before, result.set);
+    } catch (e) {
+      log('error', 'failed to update agendaEvent ref', e);
+      throw e;
+    }
+  }
+
+  if (!draft) {
+    try {
+      await legacy.tagsAndCustom.set(
+        agenda.id,
+        eventUid,
+        [agenda.formSchema, _.get(agenda, 'network.formSchema')],
+        [
+          partial && agenda.formSchemaId
+            ? await custom(agenda.formSchemaId).get(eventUid)
+            : clean.custom,
+          partial && agenda.network && agenda.network.formSchemaId
+            ? await custom(agenda.network.formSchemaId).get(eventUid)
+            : clean.networkCustom,
+        ],
+      );
+      log('set legacy tag & custom values');
+    } catch (e) {
+      log('error', 'failed to set legacy tags and custom data', e);
+    }
+  }
+
+  const response = await payload.getResponse('event', access);
+  const compiledEvent = await payload.getCompiledEvent();
+
+  try {
+    await eventSearch.update({
+      ...response,
+      formSchema,
+      event: event.location
+        ? convertLocationAdditionalFields(formSchema, compiledEvent)
+        : compiledEvent,
+    });
+    log('updated search for event %s', eventUid);
+  } catch (e) {
+    log(
+      'error',
+      'could not update search indices for event %s.%s: %s',
+      agenda.uid,
+      eventUid,
+      formatError(e),
+    );
+  }
+
+  const before = await payload.getCompiledEvent('before');
+
+  if (isEventDifferent(before, compiledEvent)) {
+    try {
+      await sendUpdateEmail(core, {
+        batched,
+        event: compiledEvent,
+        agenda,
+      });
+    } catch (e) {
+      log('error', 'failed to send update notification email', e);
+    }
+  }
+
+  if (
+    !draft
+    && hasNewPassOffer
+    && registrations.utils.passCulture.isMarkedAsPending(
+      response.event.registration.find((r) => r.service === 'passCulture')
+        ?.data,
+    )
+  ) {
+    registrations.utils.passCulture.enqueuePending({
+      agendaUid,
+      eventUid: response.event.uid,
+    });
+  }
+
+  await aggregators.notify(before.draft ? 'addEvent' : 'updateEvent', {
+    event: compiledEvent,
+    before,
+    agenda,
+    formSchema,
+    batched,
+  });
+
+  await refreshAgenda(agenda.uid);
+
+  log.info('update successful', {
+    agendaUid,
+    eventUid,
+    agenda: _.pick(agenda, ['uid', 'slug', 'title']),
+    actingUserUid: actingUserUid
+      ? ` by user ${actingUserUid}`
+      : ' (no acting user)',
+    callOrigin,
+    ...callOrigin === 'api' ? { event: response.event } : undefined,
+  });
 
   return returnPayload ? response : response.event;
 }

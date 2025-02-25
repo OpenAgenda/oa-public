@@ -1,11 +1,13 @@
-import _ from 'lodash';
-import validators from '@openagenda/validators';
+'use strict';
+
+const _ = require('lodash');
+const validators = require('@openagenda/validators');
 
 let service;
 let config;
 let agendas;
 
-export default {
+module.exports = {
   init,
   agendas: {
     set,
@@ -71,7 +73,7 @@ function set(req, res, next) {
 
       result.agenda = _extendWithConfig(result.agenda);
 
-      next();
+      return res.json(result);
     },
   );
 }

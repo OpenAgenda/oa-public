@@ -5,9 +5,13 @@ import getSchema, {
   network as getNetworkSchema,
   andParents as getSchemaAndParents,
 } from './getSchema.js';
+import updateLegacyFromSchema from './legacy/updateLegacySetFromSchema.js';
+import updateCustomFromSchema from './legacy/updateCustomFromSchema.js';
+import updateLegacy from './legacy/update.js';
 import resyncInbox from './resyncInbox.js';
 import updateSchemaFields from './updateSchemaFields.js';
 import updateMemberSchemaFields from './updateMemberSchemaFields.js';
+import createFormSchemaFromLegacy from './createFormSchemaFromLegacy.js';
 import * as contributionTypes from './contributionTypes.js';
 
 const log = logs('core/agendas/settings');
@@ -15,10 +19,26 @@ const log = logs('core/agendas/settings');
 export default (core) => {
   const { tasks, services } = core;
 
+  const { legacy: legacySvc } = services;
+
+  const updateCategorySetFromSchema = updateLegacyFromSchema('categories');
+  const updateTagSetFromSchema = updateLegacyFromSchema('tags');
+
   const resyncFn = {
     rebuildSearch: (agendaUid) =>
       core.agendas(agendaUid).events.search.rebuild(),
+    updateTagSet: (agendaUid, options) =>
+      updateTagSetFromSchema(core, agendaUid, options),
+    updateCategorySet: (agendaUid) =>
+      updateCategorySetFromSchema(core, agendaUid),
+    updateCustomFromSchema: (agendaUid, force = false) =>
+      updateCustomFromSchema(core, agendaUid, force),
+    updateLegacy: (agendaUid, options) =>
+      updateLegacy(core, agendaUid, options),
+    rebuildControlData: (agendaUid) => legacySvc.controlData.rebuild(agendaUid),
     resyncInbox: (agendaUid) => resyncInbox(services, agendaUid),
+    createFormSchemaFromLegacy: (agendaUid) =>
+      createFormSchemaFromLegacy(services, agendaUid),
     rebuildActivities: (agendaUid) =>
       services.activities.tasks.agendaRebuild(agendaUid),
   };
@@ -52,6 +72,17 @@ export default (core) => {
         agendaUid,
       ),
       updateMemberFields: updateMemberSchemaFields.bind(null, core, agendaUid),
+    },
+    legacy: {
+      updateTagSet: resyncFn.updateTagSet.bind(null, agendaUid),
+      updateCategorySet: resyncFn.updateCategorySet.bind(null, agendaUid),
+      updateCustom: resyncFn.updateCustomFromSchema.bind(null, agendaUid),
+      update: resyncFn.updateLegacy.bind(null, agendaUid),
+      rebuildControlData: resyncFn.rebuildControlData.bind(null, agendaUid),
+      createFormSchema: resyncFn.createFormSchemaFromLegacy.bind(
+        null,
+        agendaUid,
+      ),
     },
     resyncInbox: resyncFn.resyncInbox.bind(null, agendaUid),
     batchResync: async (resyncs = []) => {

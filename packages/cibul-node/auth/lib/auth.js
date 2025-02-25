@@ -7,12 +7,18 @@ import EmailValidator from '@openagenda/validators/email.js';
 import makeLabelGetter from '@openagenda/labels';
 import logs from '@openagenda/logs';
 import cmn from '../../lib/commons-app.js';
+import * as agendaSvc from '../../services/agenda/index.js';
 import { loadOptionals, render } from './utils.js';
 import loadCaptcha from './captcha.js';
 
 const log = logs('auth/lib/auth');
 const getLabel = makeLabelGetter(labels);
 const emailValidator = EmailValidator();
+const loadAgenda = agendaSvc.mw.load('slug', {
+  basicLoad: true,
+  cache: true,
+  required: false,
+});
 
 const authenticateFields = {
   facebook: 'facebookUid',
@@ -351,8 +357,6 @@ function restoreOptionals(req, res) {
 
 function serviceCallback(cb) {
   return (req, res, next) => {
-    const { agendas: agendasSvc } = req.app.services;
-
     restoreOptionals(req, res);
 
     if (!req.query.agenda) {
@@ -361,15 +365,7 @@ function serviceCallback(cb) {
 
     req.params.slug = req.query.agenda;
 
-    agendasSvc.middleware.load({
-      private: null,
-      internal: true,
-      namespaces: {
-        identifiers: {
-          slug: 'params.slug',
-        },
-      },
-    })(req, res, () => {
+    loadAgenda(req, res, () => {
       cb(req, res, next);
     });
   };

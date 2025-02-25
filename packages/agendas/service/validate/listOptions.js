@@ -23,6 +23,10 @@ module.exports = schema({
     type: 'boolean',
     default: false,
   },
+  detailed: {
+    type: 'boolean',
+    default: false,
+  },
   internal: {
     type: 'boolean',
     default: null,

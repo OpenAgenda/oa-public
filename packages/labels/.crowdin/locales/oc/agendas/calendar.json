@@ -1,14 +1,14 @@
 {
-  "agenda": "Agenda",
   "allDay": "Tota la jornada",
-  "date": "Data",
-  "day": "Jorn",
-  "event": "Eveniment",
-  "month": "Mes",
-  "more": "Veire totes los eveniments",
-  "next": "Seguent",
   "previous": "Precedent",
-  "time": "Ora",
+  "next": "Seguent",
   "today": "Uèi",
-  "week": "Setmana"
+  "month": "Mes",
+  "week": "Setmana",
+  "day": "Jorn",
+  "agenda": "Agenda",
+  "date": "Data",
+  "time": "Ora",
+  "event": "Eveniment",
+  "more": "Veire totes los eveniments"
 }

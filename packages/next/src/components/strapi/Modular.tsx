@@ -5,16 +5,16 @@ import CTAButton from './CTAButton';
 import IllustrationComponent from './Illustration';
 import IconComponent from './Icon';
 
-const Wrapper = ({ children, card, maxWidth = 'sm', bg, alignHeight }) => {
+const Wrapper = ({ children, card, maxWidth = 'sm', bg }) => {
   if (!card) {
     return (
-      <Box maxW={maxWidth} bg={bg} height={alignHeight && 'full'}>
+      <Box maxW={maxWidth} bg={bg}>
         {children}
       </Box>
     );
   }
   return (
-    <Card maxW={maxWidth} bg={bg} height={alignHeight && 'full'}>
+    <Card maxW={maxWidth} bg={bg}>
       <CardBody>{children}</CardBody>
     </Card>
   );
@@ -32,51 +32,25 @@ export default function Modular({
   fontColor = null,
   fontSize = null,
   titleAlign = null,
-  alignHeight = false,
 }) {
   return (
-    <Wrapper
-      card={card}
-      maxWidth={maxWidth?.name}
-      bg={color(backgroundColor)}
-      alignHeight={alignHeight}
-    >
+    <Wrapper card={card} maxWidth={maxWidth?.name} bg={color(backgroundColor)}>
       <VStack
         spacing="3"
         align="center"
         textAlign="left"
         color={color(fontColor)}
         fontSize={fontSize?.name}
-        height="full"
       >
         {Icon ? <IconComponent {...Icon} /> : null}
         {Illustration ? <IllustrationComponent {...Illustration} /> : null}
-        <Box
-          flex={1}
-          width="full"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          flexDirection="column"
-          gap={4}
-        >
-          {title ? (
-            <Heading textAlign={titleAlign} fontSize="160%">
-              {title}
-            </Heading>
-          ) : null}
-          {description ? (
-            <Box
-              width="full"
-              alignItems="center"
-              display="flex"
-              flexDirection="column"
-            >
-              <ReactMarkdown>{description}</ReactMarkdown>
-            </Box>
-          ) : null}
-          {CTA ? <CTAButton {...CTA} /> : null}
-        </Box>
+        {title ? (
+          <Heading textAlign={titleAlign} fontSize="160%">
+            {title}
+          </Heading>
+        ) : null}
+        {description ? <ReactMarkdown>{description}</ReactMarkdown> : null}
+        {CTA ? <CTAButton {...CTA} /> : null}
       </VStack>
     </Wrapper>
   );

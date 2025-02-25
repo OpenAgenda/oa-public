@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 // checks for svg if last 4 characters === '.svg'
 function srcRepresentsSvgFile(src) {
@@ -6,6 +7,13 @@ function srcRepresentsSvgFile(src) {
 }
 
 class Image extends PureComponent {
+  static propTypes = {
+    src: PropTypes.string.isRequired,
+    fallbackSrc: PropTypes.string,
+    alt: PropTypes.string,
+    onError: PropTypes.func,
+  };
+
   static defaultProps = {
     fallbackSrc: null,
     alt: '',

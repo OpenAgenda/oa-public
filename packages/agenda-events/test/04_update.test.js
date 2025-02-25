@@ -201,8 +201,10 @@ describe('agendaEvents - 04 - functional (server): update', () => {
               userUid: 111,
               aggregated: false,
               sourceAgenda: null,
+              transferToLegacy: false,
               agenda: null,
               event: null,
+              legacy: true,
             },
           },
         );

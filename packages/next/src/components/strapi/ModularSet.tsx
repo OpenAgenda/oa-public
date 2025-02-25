@@ -3,16 +3,6 @@ import Modular from './Modular';
 import SegmentContainer from './SegmentContainer';
 import CTAButton from './CTAButton';
 
-interface ModularSetProps {
-  title: string;
-  description?: string;
-  Components: Array<any>;
-  CTA?: any;
-  backgroundColor?: string;
-  fontColor?: string;
-  alignHeight?: boolean;
-}
-
 export default function ModularSet({
   title,
   description,
@@ -20,8 +10,7 @@ export default function ModularSet({
   CTA,
   backgroundColor,
   fontColor,
-  alignHeight,
-}: ModularSetProps) {
+}) {
   return (
     <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
       <Heading as="h2" size="xl" textAlign="center">
@@ -32,15 +21,16 @@ export default function ModularSet({
           {description}
         </Text>
       )}
-      <Grid display="flex" gap={8} p={8} alignItems="stretch">
+      <Grid
+        templateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+        gap={8}
+        p={8}
+        justifyItems="center"
+        alignItems="center"
+      >
         {Components.map((Component) => (
-          <GridItem
-            key={Component.id}
-            w="full"
-            justifyItems="center"
-            flex={Component.grow || 1}
-          >
-            <Modular {...Component} alignHeight={alignHeight} />
+          <GridItem key={Component.id} w="full" justifyItems="center">
+            <Modular {...Component} />
           </GridItem>
         ))}
       </Grid>

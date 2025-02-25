@@ -39,6 +39,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
         'trackers',

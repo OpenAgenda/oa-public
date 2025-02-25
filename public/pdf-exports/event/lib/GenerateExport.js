@@ -42,7 +42,7 @@ export default async function GenerateExport(writeStream, options = {}) {
             data: event.image,
           },
           {
-            addFn: 'addMarkdownDescription',
+            addFn: 'addText',
             data: getLocaleValue(event.longDescription, lang),
             truncable: true,
           },
@@ -88,9 +88,46 @@ export default async function GenerateExport(writeStream, options = {}) {
             truncable: true,
           },
           {
-            addFn: 'addLocation',
-            data: { event },
+            addFn: 'addLocationSection',
+            data: event.location,
+            title:
+              event.location.name || event.location.address ? 'location' : null,
+          },
+          {
+            addFn: 'addText',
+            data: event.onlineAccessLink,
+            title: event.onlineAccessLink ? 'online' : null,
+          },
+          {
+            addFn: 'addText',
+            data: getLocaleValue(event.location.description, lang),
             truncable: true,
+            title: event.location.description ? 'aboutLocation' : null,
+          },
+          {
+            addFn: 'addTagsSection',
+            data: event.location.tags,
+            truncable: true,
+            title: event.location.tags ? 'tags' : null,
+          },
+          {
+            addFn: 'addText',
+            data: getLocaleValue(event.location.access, lang),
+            title: event.location.access ? 'access' : null,
+          },
+          {
+            addFn: 'imagePositioning',
+            data: event.location.image,
+          },
+          {
+            addFn: 'addContactSection',
+            data: event.location,
+          },
+          {
+            addFn: 'addAdditionalLinksSection',
+            data: event.location.links,
+            truncable: true,
+            title: event.location.links ? 'additionalLinks' : null,
           },
         ],
       },

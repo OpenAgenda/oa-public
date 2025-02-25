@@ -11,8 +11,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "sb": "storybook dev -p 9001 --ci",
-    "start": "yarn sb",
+    "start": "storybook dev -p 9001 --ci",
     "prepack": "yarn clean && oa-intl compile --esm && yarn build",
     "clean": "rimraf dist",
     "build": "tsup",
@@ -27,23 +26,23 @@
     "final-form": "^4.20.2",
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.31",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-final-form": "^6.5.3",
     "react-intl": "^6.8.4",
     "utf8": "^3.0.0"
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/react-webpack5": "^8.5.8",
+    "@storybook/react-webpack5": "^7.4.2",
     "axios-mock-adapter": "^1.19.0",
     "rimraf": "^3.0.1",
-    "storybook": "^8.5.8",
+    "storybook": "^7.6.4",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

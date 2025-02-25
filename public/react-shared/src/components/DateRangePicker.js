@@ -3,15 +3,9 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { DateRange, DefinedRange } from 'react-date-range';
 import * as rdrLocales from 'react-date-range/dist/locale/index.js';
 import { useIntl } from 'react-intl';
-import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
-import useLatestModule from 'react-use/lib/useLatest.js';
-import usePreviousModule from 'react-use/lib/usePrevious.js';
+import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
 import useConstant from '../hooks/useConstant.js';
-
-const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
-const useLatest = useLatestModule.default || useLatestModule;
-const usePrevious = usePreviousModule.default || usePreviousModule;
 
 const defaultGetInitialValue = () => [
   {

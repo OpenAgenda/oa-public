@@ -6,7 +6,6 @@
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": "Vòstres reglatges d'administrator/moderator :",
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": "Vòstres reglatges de contributor :",
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": "Vòstres reglatges globals :",
-  "Abilities.RulesCheckbox.AbilitiesForm.search": "Cercar",
   "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": "Recebre los messatges de la boita d'agenda",
   "Abilities.RulesCheckbox.rules.receiveEvent": "Recebre los eveniments mandats per d'autres utilizaires",
   "Abilities.RulesCheckbox.rules.receiveEventAddition": "Recebre las creacions d'eveniments",

@@ -488,9 +488,6 @@ module.exports = {
     "oc": "Cercar una agenda"
   },
   "generate": {
-    "en": "Generate",
-    "de": "Generieren",
-    "oc": "Generar",
-    "io": "crwdns34094:0crwdne34094:0"
+    "en": "Generate"
   }
 }

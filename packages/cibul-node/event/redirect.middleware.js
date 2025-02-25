@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import _ from 'lodash';
 import { NotFound } from '@openagenda/verror';
+import unserialize from 'locutus/php/var/unserialize.js';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -8,7 +9,7 @@ const redirectTemplate = _.template(
   readFileSync(`${import.meta.dirname}/redirect.tpl`, 'utf-8'),
 );
 
-function render(req, res) {
+function render(config, req, res) {
   res.send(
     redirectTemplate({
       metas: req.metas,
@@ -19,10 +20,7 @@ function render(req, res) {
   );
 }
 
-function loadFacebookMetas(req, res, next) {
-  const { core } = req.app.services;
-  const { root } = core.getConfig();
-
+function loadFacebookMetas(config, req, res, next) {
   req.redirect = req.siteURL
     ? `${req.siteURL}?oaq[uid][]=${req.event.uid}`
     : `/${req.agenda.slug}/events/${req.event.slug}`;
@@ -42,7 +40,7 @@ function loadFacebookMetas(req, res, next) {
     },
     {
       property: 'og:url',
-      content: `${root}/agendas/${req.params.agendaUid}/events/${req.params.eventUid}/share`,
+      content: `${config.root}/agendas/${req.params.agendaUid}/events/${req.params.eventUid}/share`,
     },
   ];
 
@@ -57,10 +55,8 @@ function loadFacebookMetas(req, res, next) {
   next();
 }
 
-function loadEvent(req, res, next) {
-  const { core } = req.app.services;
-
-  core
+function loadEvent(config, req, res, next) {
+  req.app.services.core
     .agendas(req.params.agendaUid)
     .events.get(req.params.eventUid, {
       lang: req.lang,
@@ -91,8 +87,34 @@ function loadEvent(req, res, next) {
     );
 }
 
-export default {
-  loadEvent,
-  loadFacebookMetas,
-  render,
-};
+function loadSiteURL(config, req, res, next) {
+  config
+    .knex('review_embed')
+    .first(['uid', 'store'])
+    .where('review_id', req.agenda.id)
+    .then((embed) => {
+      if (!embed) return next();
+
+      try {
+        req.siteURL = _.get(unserialize(embed.store), 'siteurl');
+      } catch (e) {
+        req.log.error(
+          'could not extract siteurl from store of embed %s',
+          embed.uid,
+        );
+      }
+
+      if (!req.siteURL && req.agenda.url) {
+        req.siteURL = req.agenda.url;
+      }
+
+      next();
+    });
+}
+
+export default (config) => ({
+  loadEvent: loadEvent.bind(null, config),
+  loadSiteURL: loadSiteURL.bind(null, config),
+  loadFacebookMetas: loadFacebookMetas.bind(null, config),
+  render: render.bind(null, config),
+});

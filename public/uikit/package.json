@@ -15,8 +15,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "postinstall": "chakra-cli tokens src/theme/index.ts",
-    "sb": "storybook dev -p 9001 --ci",
-    "start": "yarn sb",
+    "start": "storybook dev -p 9001 --ci",
     "prepack": "tsup src --clean --format esm,cjs --dts"
   },
   "exports": {
@@ -40,31 +39,30 @@
   "dependencies": {
     "@chakra-ui/anatomy": "^2.3.4",
     "@chakra-ui/icons": "^2.2.4",
-    "@chakra-ui/react": "^2.10.5",
+    "@chakra-ui/react": "^2.10.3",
     "@chakra-ui/shared-utils": "2.0.4",
     "@chakra-ui/theme-tools": "^2.2.6",
-    "@emotion/cache": "^11.14.0",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "framer-motion": "^7.5.1",
     "react-remove-scroll": "^2.5.5"
   },
   "devDependencies": {
-    "@chakra-ui/cli": "^2.5.6",
+    "@chakra-ui/cli": "^2.5.5",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/tsconfig": "^0.0.0",
-    "@storybook/addon-essentials": "^8.5.8",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/react-webpack5": "^8.5.8",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "storybook": "^8.5.8",
+    "@storybook/addon-essentials": "^7.4.2",
+    "@storybook/react-webpack5": "^7.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "storybook": "^7.6.4",
     "tsup": "^6.2.3",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

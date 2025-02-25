@@ -1,20 +1,15 @@
+import * as agendaSvc from '../services/agenda/index.js';
 import convertFormat from './ConvertFormat.js';
 import loadCredentials from './loadCredentials.js';
 
+const preMw = [agendaSvc.mw.load('uid')];
+
 export default (app) => {
-  const { members, agendas: agendasSvc } = app.services;
+  const { members } = app.services;
 
   app.get(
     '/agendas/:uid/admin/events.json',
-    agendasSvc.middleware.load({
-      private: null,
-      internal: true,
-      namespaces: {
-        identifiers: {
-          uid: 'params.uid',
-        },
-      },
-    }),
+    preMw,
     members.mw.authorizeAdminModOrKey(),
     loadCredentials,
     convertFormat({

@@ -32,7 +32,7 @@ export default function Navbar() {
 
   const { inputValue, setInputValue, onSearch } = useSearch();
 
-  const headerRef = useRef(undefined);
+  const headerRef = useRef();
 
   const [cookies] = useCookies();
   const sessionUser = getSession(cookies)?.user;

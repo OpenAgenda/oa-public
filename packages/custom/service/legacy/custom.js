@@ -1,0 +1,152 @@
+import _ from 'lodash';
+import logs from '@openagenda/logs';
+import VError from '@openagenda/verror';
+import config from '../config.js';
+
+const log = logs('legacy/custom');
+
+function _transformFileEntryToLegacy(entry) {
+  return {
+    name: entry.originalName,
+    uploaded: entry.filename,
+  };
+}
+
+function _transformFileEntryFromLegacy(entry) {
+  return {
+    originalName: entry.name,
+    filename: entry.uploaded,
+  };
+}
+
+function _transformImageEntryFromLegacy(entry) {
+  return {
+    originalName: entry,
+    filename: entry,
+  };
+}
+
+function _isFile(entry) {
+  return _.keys(_.pick(entry, ['originalName', 'filename'])).length === 2;
+}
+
+function _isImage(entry) {
+  if (!_isFile(entry) || !entry.filename) return false;
+
+  const extension = entry.filename.split('.').pop();
+
+  return ['bmp', 'png', 'jpg', 'jpeg', 'gif'].includes(extension);
+}
+
+async function set(eventId, fields, data) {
+  if (!fields.length) return;
+
+  const { knex } = config;
+  const { schemas } = config.legacy;
+
+  let current;
+
+  log('info', 'getting custom from legacy event', { eventId });
+
+  try {
+    const { custom } = await knex(schemas.event)
+      .first('custom_fields as custom')
+      .where({ id: eventId });
+
+    current = custom && custom.length ? JSON.parse(custom) : {};
+  } catch (e) {
+    log('error', 'failed to get custom from legacy event', { eventId, e });
+
+    throw new VError(
+      e,
+      'could not parse custom fields from custom data of event of id %s',
+      eventId,
+    );
+  }
+
+  const parsed = fields.reduce((accu, f) => {
+    if (!data) return accu;
+
+    const matchingOption = f.options
+      ? _.first(f.options.filter((o) => o.id === data[f.field]))
+      : undefined;
+
+    if (_isImage(data[f.field])) {
+      accu[f.field] = data[f.field].filename;
+    } else if (_isFile(data[f.field])) {
+      accu[f.field] = _transformFileEntryToLegacy(data[f.field]);
+    } else if (!f.options) {
+      accu[f.field] = data[f.field];
+    } else if (!matchingOption) {
+      log(
+        'warn',
+        'no matching option was found for data %s of event of id %s',
+        f.field,
+        eventId,
+      );
+
+      accu[f.field] = data[f.field];
+    } else if (matchingOption.value === 'true') {
+      accu[f.field] = true;
+    } else if (matchingOption.value === 'false') {
+      accu[f.field] = false;
+    } else {
+      accu[f.field] = matchingOption.value;
+    }
+
+    return accu;
+  }, {});
+
+  log('info', 'updating legacy event custom_fields', { parsed });
+
+  const result = await knex(schemas.event)
+    .update({
+      custom_fields: JSON.stringify(_.assign(current, parsed)),
+    })
+    .where({ id: eventId });
+
+  return !!result;
+}
+
+function parse(fields, custom) {
+  const legacyFields = _.keys(custom);
+
+  const parsed = {};
+
+  fields
+    .filter((f) => legacyFields.includes(f.field))
+    .forEach((f) => {
+      const value = custom[f.field];
+
+      if (
+        ['text', 'textarea', 'integer', 'url', 'email'].includes(f.fieldType)
+      ) {
+        parsed[f.field] = value;
+      } else if (f.fieldType === 'radio') {
+        parsed[f.field] = _.get(
+          f.options.filter((o) => o.value === value),
+          '0.id',
+        );
+      } else if (f.fieldType === 'checkbox') {
+        parsed[f.field] = f.options
+          .filter((o) => o.value === value)
+          .map((o) => o.id);
+      } else if (f.fieldType === 'file') {
+        parsed[f.field] = _transformFileEntryFromLegacy(value);
+      } else if (f.fieldType === 'image') {
+        parsed[f.field] = _transformImageEntryFromLegacy(value);
+      } else {
+        log(
+          'warn',
+          'unhandled transfer for type %s',
+          f.fieldType || 'unspecified',
+        );
+      }
+    });
+
+  return parsed;
+}
+
+export default _.assign(set, {
+  parse,
+});

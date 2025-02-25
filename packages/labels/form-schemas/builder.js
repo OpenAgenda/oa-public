@@ -72,7 +72,7 @@ module.exports = {
     "en": "Save",
     "de": "Speichern",
     "es": "Guardar",
-    "it": "Registrare",
+    "it": "Salva",
     "br": "Enrollañ",
     "io": "crwdns14690:0crwdne14690:0",
     "oc": "Enregistrar"
@@ -302,9 +302,7 @@ module.exports = {
   "phoneFieldType": {
     "fr": "Numéro de téléphone",
     "en": "Phone number",
-    "es": "Numero de Téléfono",
-    "oc": "Numèro de telefòne",
-    "io": "crwdns34158:0crwdne34158:0"
+    "es": "Numero de Téléfono"
   },
   "linkFieldType": {
     "fr": "Hyperlien",
@@ -419,8 +417,7 @@ module.exports = {
     "fr": "Titre de section / séparateur",
     "en": "Section title / divider",
     "de": "Abschnittstitel/Trenner",
-    "io": "crwdns32879:0crwdne32879:0",
-    "it": "Titolo di sezione"
+    "io": "crwdns32879:0crwdne32879:0"
   },
   "sectionTypeInfo": {
     "fr": "Affiche un titre de section dans le formulaire marquant une séparation visuelle dans l'affichage des champs",
@@ -464,7 +461,7 @@ module.exports = {
     "fr": "Langues de saisie",
     "en": "Input languages",
     "es": "Idiomas de entrada",
-    "it": "Scegliere una lingua",
+    "it": "Lingue di ingresso",
     "de": "Wählen Sie eine Sprache",
     "br": "Choazit ur yezh",
     "io": "crwdns14774:0crwdne14774:0",
@@ -575,7 +572,7 @@ module.exports = {
     "en": "Cancel",
     "de": "Stornieren",
     "es": "Anular",
-    "it": "Annullare",
+    "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns14792:0crwdne14792:0",
     "oc": "Anullar"
@@ -696,7 +693,7 @@ module.exports = {
     "en": "Update",
     "de": "Aktualisieren",
     "es": "Poner al día",
-    "it": "Aggiornare",
+    "it": "Aggiorna",
     "br": "Hizivaat",
     "io": "crwdns14816:0crwdne14816:0",
     "oc": "Metre a jorn"
@@ -714,7 +711,7 @@ module.exports = {
     "en": "Cancel",
     "de": "Stornieren",
     "es": "Anular",
-    "it": "Annullare",
+    "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns14820:0crwdne14820:0",
     "oc": "Anullar"
@@ -741,7 +738,7 @@ module.exports = {
     "en": "Update",
     "de": "Aktualisieren",
     "es": "Poner al día",
-    "it": "Aggiornare",
+    "it": "Aggiorna",
     "br": "Hizivaat",
     "io": "crwdns14826:0crwdne14826:0",
     "oc": "Metre a jorn"
@@ -760,7 +757,7 @@ module.exports = {
     "en": "Cancel",
     "de": "Stornieren",
     "es": "Anular",
-    "it": "Annullare",
+    "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns14830:0crwdne14830:0",
     "oc": "Anullar"
@@ -788,7 +785,7 @@ module.exports = {
     "en": "Remove",
     "de": "Entfernen",
     "es": "Eliminar",
-    "it": "Rimuovere",
+    "it": "Rimuovi",
     "br": "Lemel",
     "io": "crwdns14836:0crwdne14836:0",
     "oc": "Suprimir"

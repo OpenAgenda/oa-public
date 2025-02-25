@@ -60,7 +60,11 @@ const LocationConfirmation = ({
   }, [res.get, location.uid]);
 
   const { externalActions } = useMemo(
-    () => completeExternalActions(settings?.extIds, detailedLocation?.extIds),
+    () =>
+      completeExternalActions(
+        settings?.locations?.extIds,
+        detailedLocation?.extIds,
+      ),
     [settings, detailedLocation],
   );
 

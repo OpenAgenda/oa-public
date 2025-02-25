@@ -2,7 +2,7 @@
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
-      "value": "Rimuovere il filtro"
+      "value": "Remove filter"
     }
   ],
   "ReactFilters.ValueBadge.removeFilterWithTitle": [

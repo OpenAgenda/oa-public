@@ -35,6 +35,7 @@ const config = {
   queues: {
     aggregator: 'aggregator',
     oembed: 'oembed',
+    controlData: 'agendaControlDataQueue',
     stakeholderCreate: 'stakeholderCreate',
     notificationAddActivity: 'notificationAddActivity',
     notificationSendSummary: 'notificationSendSummary',
@@ -44,6 +45,7 @@ const config = {
     process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14,
     10,
   ),
+  legacyQueue: 'bgestack',
   tmpFolderPath: '/var/tmp/',
   logPath: '/var/tmp/cibul-node.log',
   logPathDebug: '/var/tmp/cibul-node-debug.log',
@@ -136,16 +138,31 @@ const config = {
   schemas: {
     activity: 'activity',
     agenda: 'review',
+    agendaEvent: 'review_article',
+    agendaTag: 'review_tag',
+    agendaCategory: 'review_category',
+    agendaEventTag: 'review_tag_article',
     aggregator: 'aggregator',
     aggregatorSource: 'aggregator_source',
     apiKeySet: 'api_key_set',
+    categorySet: 'category_set',
+    event: 'event',
+    eventEditor: 'event_editor',
+    eventReferences: 'agenda_event_reference',
+    eventTranslation: 'event_translation',
     eventService: 'event_2',
     agendaEventService: 'agenda_event',
+    eventLocationTranslation: 'event_location_translation',
+    eventLocation: 'event_location',
+    deleted: 'deleted',
     location: 'location',
     locationSet: 'location_set',
+    occurrence: 'occurrence',
     stakeholder: 'reviewer',
+    tagSet: 'tag_set',
     user: 'user',
     userToken: 'user_token',
+    legacyCredentialSet: 'review_credential',
     invitation: 'invitation_2', // new invitation
     feed: 'activity_feed',
     feed_activity: 'activity_feed_activity',
@@ -420,6 +437,11 @@ const config = {
   translators: prod?.translators ?? [],
   routes: {
     globals: {
+      agendaAdminWeb: {
+        method: 'get',
+        uri: '/:slug/admin/webembed',
+        legacy: true,
+      },
       agendaAdminShow: {
         method: 'get',
         uri: '/:slug/admin/events',
@@ -563,6 +585,18 @@ const config = {
       agendaAdminActivityApps: {
         method: 'get',
         uri: '/:slug/admin/activities',
+      },
+      agendaEmbedShow: {
+        method: 'get',
+        uri: '/agendas/:uid/embed/events',
+      },
+      customEmbedShow: {
+        method: 'get',
+        uri: '/agendas/:uid/embeds/:embedUid/events',
+      },
+      customEmbedShowPreview: {
+        method: 'get',
+        uri: '/agendas/:uid/previewEmbeds/:embedUid/events',
       },
       agendaSearch: {
         method: 'get',

@@ -20,6 +20,7 @@
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.0.1",
+    "async": "^3.2.0",
     "knex": "^2.4.2",
     "lodash": "^4.17.4",
     "uuid": "^3.0.1"

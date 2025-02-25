@@ -1,7 +1,6 @@
 {
   "react-layouts.AdminHeader.return": "Vedere la pagina pubblica",
   "react-layouts.AdminSections.newTab": "Nuovo!",
-  "react-layouts.Announcement.close": "Chiudere",
   "react-layouts.MainLayout.help": "Aiuto",
   "react-layouts.MainLayout.myAgendas": "Le mie agende",
   "react-layouts.MainLayout.myEvents": "I miei eventi",
@@ -10,5 +9,5 @@
   "react-layouts.MainLayout.signin": "Accedi",
   "react-layouts.MainLayout.signout": "Uscire",
   "react-layouts.MainLayout.translate": "Gestire",
-  "react-layouts.components.Search.search": "Cerca un'agenda"
+  "react-layouts.components.Search.search": "Cerca"
 }

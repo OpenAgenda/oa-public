@@ -102,14 +102,6 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       'api::theme-color.theme-color'
     >;
     fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
-    grow: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 5;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
     Icon: Schema.Attribute.Component<'components.icon', false>;
     Illustration: Schema.Attribute.Component<'components.illustration', false>;
     maxWidth: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
@@ -126,7 +118,6 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
     displayName: 'ModularSet';
   };
   attributes: {
-    alignHeight: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     backgroundColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'

@@ -119,7 +119,7 @@
   "next.views.EventShow.contactAdministrators": "Contactar los administrators",
   "next.views.EventShow.history": "Istòria",
   "next.views.EventShow.moreLinks": "",
-  "next.views.EventShow.rejectModal.confirm": "Confirmar",
+  "next.views.EventShow.rejectModal.confirm": "",
   "next.views.EventShow.rejectModal.confirmRejection": "",
   "next.views.EventShow.rejectModal.motive": "",
   "next.views.EventShow.rejectModal.motiveInfo": "",

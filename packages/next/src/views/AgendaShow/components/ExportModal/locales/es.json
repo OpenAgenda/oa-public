@@ -1,5 +1,5 @@
 {
-  "next.views.AgendaShow.ExportModal.PDFDownload": "Descargar",
+  "next.views.AgendaShow.ExportModal.PDFDownload": "",
   "next.views.AgendaShow.ExportModal.PDFGeoSections": "",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "",
   "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "",
@@ -12,7 +12,6 @@
   "next.views.AgendaShow.ExportModal.copied": "Copiado",
   "next.views.AgendaShow.ExportModal.copy": "",
   "next.views.AgendaShow.ExportModal.detailedFormat": "",
-  "next.views.AgendaShow.ExportModal.detectLang": "",
   "next.views.AgendaShow.ExportModal.distributeFields": "",
   "next.views.AgendaShow.ExportModal.documentation": "",
   "next.views.AgendaShow.ExportModal.embed": "",

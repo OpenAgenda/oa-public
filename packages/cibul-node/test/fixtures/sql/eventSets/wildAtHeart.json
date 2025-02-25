@@ -1,4 +1,48 @@
 {
+  "legacyEvent": {
+    "id": "785561",
+    "slug": "wild-at-heart-fete-de-la-musique_720878",
+    "url": null,
+    "image": "974d953d688647e9bf8d6b9b6eb3ed93.base.image.jpg",
+    "background_image": null,
+    "background_color": null,
+    "owner_id": "109382",
+    "is_published": "1",
+    "is_new": "0",
+    "created_at": "2020-06-11 12:31:02",
+    "updated_at": "2020-06-15 15:44:46",
+    "uid": "40740739",
+    "store": "{\"images\":{\"filename\":\"974d953d688647e9bf8d6b9b6eb3ed93.base.image.jpg\",\"size\":{\"width\":700,\"height\":394},\"variants\":[{\"filename\":\"974d953d688647e9bf8d6b9b6eb3ed93.full.image.jpg\",\"type\":\"full\",\"size\":{\"width\":960,\"height\":540}},{\"filename\":\"974d953d688647e9bf8d6b9b6eb3ed93.thumb.image.jpg\",\"type\":\"thumbnail\",\"size\":{\"width\":200,\"height\":200}}],\"credits\":\"Wild At Heart\",\"base\":\"https://cdn.openagenda.com/main/\"},\"links\":[]}",
+    "eve_id": null,
+    "custom_fields": "{\"event_url\":\"https://www.twitch.tv/wildathearttv\"}",
+    "age_min": null,
+    "age_max": null,
+    "accessibility": "[]",
+    "type": null,
+    "origin_uid": "9059178",
+    "file_key": null,
+    "image_credits": "Wild At Heart"
+  },
+  "eventLocation": {
+    "event_id": "785561",
+    "location_id": "973610",
+    "created_at": "2020-06-11 12:31:02",
+    "updated_at": "2020-06-15 15:44:46",
+    "ticket_link": "",
+    "id": "806929"
+  },
+  "occurrences": [
+    {
+      "id": "39402436",
+      "event_id": "785561",
+      "location_id": "973610",
+      "date": "2020-06-21",
+      "time_start": "21:00:00",
+      "time_end": "21:45:00",
+      "created_at": "2020-06-11 12:31:02",
+      "updated_at": "2020-06-15 15:44:46"
+    }
+  ],
   "agendaEvents": [
     {
       "id": "2257627",

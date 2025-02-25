@@ -34,6 +34,7 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
         'accessTokens',

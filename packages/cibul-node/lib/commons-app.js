@@ -12,13 +12,16 @@ import logger from '@openagenda/logs';
 import templater from '@openagenda/cibul-templates';
 import outdatedBrowserMw from '@openagenda/outdated-browser/middleware';
 import makeLabelGetter from '@openagenda/labels';
+import unauthLabels from '@openagenda/labels/agendas/unauthorizedPrivate.js';
 import errorLabels from '@openagenda/labels/errors/index.js';
 import unauthorizedLabels from '@openagenda/labels/errors/unauthorized.js';
+import { fromMarkdownToHTML } from '@openagenda/md';
 import config from '../config/index.js';
 import errorLogger from '../services/errors.js';
 import i18n from '../i18n/i18n.js';
 import layouts from '../services/lib/layouts/index.js';
 
+const getUnauthLabel = makeLabelGetter(unauthLabels);
 const getErrorLabel = makeLabelGetter(errorLabels);
 const getUnauthorizedLabel = makeLabelGetter(unauthorizedLabels);
 
@@ -449,6 +452,23 @@ function render(req, res, templatePath, data, maintain) {
   });
 }
 
+function renderUnauthorized(req, res, _next) {
+  loadBaseData('oa-main.css')(req, res, () => {
+    render(req, res, 'dialog/index', {
+      agenda: req.agenda,
+      title: getUnauthLabel('title', req.lang),
+      content: fromMarkdownToHTML(getUnauthLabel('message', req.lang)),
+      actions: [
+        {
+          type: 'primary',
+          href: `${req.agenda.slug}/contact`,
+          label: getUnauthLabel('contactAdmin', req.lang),
+        },
+      ],
+    });
+  });
+}
+
 function useEmbedGoogleAnalytics(req, res, next) {
   req.googleAnalyticsId = config.embedGoogleAnalyticsId;
 
@@ -664,6 +684,7 @@ export default {
   loadBaseData, // middleware.
   loadAgenda: loadAgendaBy('slug'),
   loadAgendaBy,
+  renderUnauthorized,
 
   useEmbedGoogleAnalytics,
 

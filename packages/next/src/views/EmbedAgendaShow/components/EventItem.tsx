@@ -47,7 +47,7 @@ function useEventLink({ baseUrl, baseUrlTarget, agenda, event, nc, referrer }) {
 
     return {
       target: '_self',
-      url: `/embed/agendas/${agenda.uid}/events/${event.slug}${qs.stringify({ nc, host: referrer || undefined }, { addQueryPrefix: true })}`,
+      url: `/embed/agendas/${agenda.uid}/events/${event.slug}${qs.stringify({ nc, host: referrer }, { addQueryPrefix: true })}`,
     };
   }, [baseUrl, agenda.uid, agenda.slug, event.slug, nc]);
 }

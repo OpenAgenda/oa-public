@@ -13,13 +13,7 @@ function _total(client, query, options) {
   return k.count('id as total').then((rows) => rows[0].total);
 }
 
-export default async function listRemoved(
-  service,
-  query,
-  offset,
-  limit,
-  options,
-) {
+async function listRemoved(service, query, offset, limit, options) {
   const { client } = service;
 
   const params = extractListParameters(
@@ -43,3 +37,5 @@ export default async function listRemoved(
     total: await _total(client, params.query, { removed: true }),
   };
 }
+
+export default listRemoved;

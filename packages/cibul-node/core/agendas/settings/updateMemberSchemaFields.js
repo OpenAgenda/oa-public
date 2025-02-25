@@ -12,7 +12,7 @@ export default async function updateSchemaFields(
   updatedFields,
   options = {},
 ) {
-  const { services } = core;
+  const { services, tasks } = core;
   const { formSchemas, agendas } = services;
 
   const agenda = _.isObject(agendaOrUid)
@@ -50,6 +50,8 @@ export default async function updateSchemaFields(
 
     await formSchemas.update(agendaMemberSchema.id, fs.getData());
   }
+
+  tasks.enqueue('updateLegacy', agenda, true);
 
   return fs.getData();
 }

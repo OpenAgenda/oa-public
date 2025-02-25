@@ -457,13 +457,13 @@
   "ReactShared.ImageInput.update": [
     {
       "type": 0,
-      "value": "Aggiornare l'immagine"
+      "value": "Aggiorna l'immagine"
     }
   ],
   "ReactShared.ImageInput.upload": [
     {
       "type": 0,
-      "value": "Caricare un'immagine"
+      "value": "Carica un'immagine"
     }
   ],
   "ReactShared.LeaveWarningPrompt.areYouSure": [

@@ -1,0 +1,5 @@
+CREATE TABLE user (
+  id BIGINT,
+  uid BIGINT,
+  PRIMARY KEY(id)
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

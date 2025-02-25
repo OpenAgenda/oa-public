@@ -1,0 +1,138 @@
+{
+  "groups": [
+    {
+      "name": "Types d'événement",
+      "tags": [
+        {
+          "id": 58325,
+          "label": "Animation Jeune public",
+          "slug": "animation-jeune-public",
+          "schemaOptionId": "9888.1"
+        },
+        {
+          "id": 61170,
+          "label": "Animation pour scolaires / Levez les yeux",
+          "slug": "animation-pour-scolaires-levez-les-yeux",
+          "schemaOptionId": "9888.2"
+        },
+        {
+          "id": 58327,
+          "label": "Atelier / Démonstration / Savoir-faire",
+          "slug": "atelier-demonstration-savoir-faire",
+          "schemaOptionId": "9888.3"
+        },
+        {
+          "id": 58328,
+          "label": "Circuit",
+          "slug": "circuit",
+          "schemaOptionId": "9888.4"
+        },
+        {
+          "id": 58329,
+          "label": "Concert",
+          "slug": "concert",
+          "schemaOptionId": "9888.5"
+        },
+        {
+          "id": 58330,
+          "label": "Exposition",
+          "slug": "exposition",
+          "schemaOptionId": "9888.6"
+        },
+        {
+          "id": 58331,
+          "label": "Fouille archéologique",
+          "slug": "fouille-archeologique",
+          "schemaOptionId": "9888.7"
+        },
+        {
+          "id": 58332,
+          "label": "Projection",
+          "slug": "projection",
+          "schemaOptionId": "9888.8"
+        },
+        {
+          "id": 58333,
+          "label": "Spectacle / Lecture",
+          "slug": "spectacle-lecture",
+          "schemaOptionId": "9888.9"
+        },
+        {
+          "id": 58334,
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "schemaOptionId": "9888.10"
+        },
+        {
+          "id": 58335,
+          "label": "Visite commentée / Conférence",
+          "slug": "visite-commentee-conference",
+          "schemaOptionId": "9888.11"
+        }
+      ],
+      "access": "public",
+      "required": true,
+      "unique": true
+    },
+    {
+      "name": "Thème 2019",
+      "tags": [
+        {
+          "id": 58336,
+          "label": "Arts et divertissements",
+          "slug": "arts-et-divertissements",
+          "schemaOptionId": "9888.16"
+        }
+      ],
+      "access": "public",
+      "required": false,
+      "unique": false
+    },
+    {
+      "name": "Conditions de participation",
+      "tags": [
+        {
+          "id": 58337,
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "schemaOptionId": "9888.12"
+        },
+        {
+          "id": 58338,
+          "label": "Tarif préférentiel",
+          "slug": "tarif-preferentiel",
+          "schemaOptionId": "9888.13"
+        },
+        {
+          "id": 58339,
+          "label": "Tarif habituel",
+          "slug": "tarif-habituel",
+          "schemaOptionId": "9888.14"
+        },
+        {
+          "id": 58340,
+          "label": "Sur inscription",
+          "slug": "sur-inscription",
+          "schemaOptionId": "9888.15"
+        }
+      ],
+      "access": "public",
+      "required": false,
+      "unique": false
+    },
+    {
+      "name": "Diffusion sur le pass culture",
+      "tags": [
+        {
+          "id": 59282,
+          "label": "Cet évènement est spécifiquement pensé pour les jeunes de 18 ans. Je souhaite qu’il soit référencé sur le pass Culture. En cochant cette case, j’accepte l’utilisation de ces données par le pass Culture ainsi que les conditions générales d’utilisation de la plateforme : https://docs.passculture.app",
+          "slug": "pass-culture",
+          "schemaOptionId": "10100.1"
+        }
+      ],
+      "access": "public",
+      "required": false,
+      "unique": false
+    }
+  ]
+}

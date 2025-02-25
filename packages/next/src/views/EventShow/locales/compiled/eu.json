@@ -456,7 +456,7 @@
   "next.views.EventShow.Footer.help": [
     {
       "type": 0,
-      "value": "Ayuda"
+      "value": "Help"
     }
   ],
   "next.views.EventShow.Footer.termsOfUse": [
@@ -776,7 +776,7 @@
   "next.views.EventShow.rejectModal.confirm": [
     {
       "type": 0,
-      "value": "Confirmar"
+      "value": "Confirm"
     }
   ],
   "next.views.EventShow.rejectModal.confirmRejection": [

@@ -1,5 +1,4 @@
 import { useIntl } from 'react-intl';
-import { useSortable } from '@dnd-kit/react/sortable';
 import { hasFilter, hasValues } from '../../../utils/rules.js';
 import messages from './messages.js';
 import FilterPart from './FilterPart.js';
@@ -13,12 +12,11 @@ export default function RuleItem({
   sourceAgendaSchema,
   aggregatorAgenda,
   aggregatorAgendaSchema,
-  index,
 }) {
   const intl = useIntl();
-  const { ref } = useSortable({ id: rule.id, index });
+
   return (
-    <div className="list-group-item" ref={ref}>
+    <>
       {hasFilter(rule) ? (
         <FilterPart
           rule={rule}
@@ -57,6 +55,6 @@ export default function RuleItem({
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

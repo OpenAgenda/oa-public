@@ -1,0 +1,12 @@
+[
+  {
+    "name": "presence-sollicitee-du-maire",
+    "type": "administrator",
+    "fieldType": "checkbox",
+    "optional": true,
+    "label": {
+      "fr": "Présence sollicitée du Maire",
+      "en": "Présence sollicitée du Maire"
+    }
+  }
+]

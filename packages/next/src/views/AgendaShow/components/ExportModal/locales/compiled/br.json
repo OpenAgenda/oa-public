@@ -32,7 +32,7 @@
   "next.views.AgendaShow.ExportModal.allFields": [
     {
       "type": 0,
-      "value": "Exporter toutes les colonnes"
+      "value": "Exporter tous les champs"
     }
   ],
   "next.views.AgendaShow.ExportModal.allLanguages": [
@@ -77,16 +77,10 @@
       "value": "Utiliser le format détaillé"
     }
   ],
-  "next.views.AgendaShow.ExportModal.detectLang": [
-    {
-      "type": 0,
-      "value": "Detect language automatically"
-    }
-  ],
   "next.views.AgendaShow.ExportModal.distributeFields": [
     {
       "type": 0,
-      "value": "Champs avec options : affichage d'une valeur par colonne"
+      "value": "Champs à choix: une valeur par colonne"
     }
   ],
   "next.views.AgendaShow.ExportModal.documentation": [
@@ -180,7 +174,7 @@
   "next.views.AgendaShow.ExportModal.inputField": [
     {
       "type": 0,
-      "value": "Sélectionner les champs à exporter"
+      "value": "Sélectionner des champs"
     }
   ],
   "next.views.AgendaShow.ExportModal.inputFormat": [
@@ -236,7 +230,7 @@
   "next.views.AgendaShow.ExportModal.openInSamePage": [
     {
       "type": 0,
-      "value": "Ouvrir les événements sur la même page"
+      "value": "Ouvrir le détail d'un événement dans l'intégration"
     }
   ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [

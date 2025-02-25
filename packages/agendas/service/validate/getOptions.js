@@ -15,6 +15,10 @@ module.exports = schema({
     default: false,
     allowNull: true,
   },
+  detailed: {
+    type: 'boolean',
+    default: false,
+  },
   internal: {
     type: 'boolean',
     default: false,
@@ -24,6 +28,10 @@ module.exports = schema({
     default: false,
   },
   useDefaultImage: {
+    type: 'boolean',
+    default: false,
+  },
+  includeRestricted: {
     type: 'boolean',
     default: false,
   },

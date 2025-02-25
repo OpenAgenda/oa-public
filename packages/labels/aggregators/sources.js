@@ -34,7 +34,7 @@ module.exports = {
     "de": "Die Veranstaltungen, die von der Kalender veröffentlicht hier aufgeführt sind, auf die [%title%](%link%) Kalender automatisch hinzugefügt.",
     "es": "Eventos publicados por los organizadores figuran en esta lista se añaden automáticamente al agenda [%title%](%link%).",
     "it": "Gli eventi pubblicati dai calendari qui elencati vengono aggiunti automaticamente al agenda [%title%](%link%).",
-    "io": "crwdns13010:0%title%crwdnd13010:0%link%crwdne13010:0",
+    "io": "crwdns13010:0[%title%]crwdnd13010:0%link%crwdne13010:0",
     "oc": "Los eveniments publicats per las agendas listadas aquí son automaticament aponduts a l'agenda [%title%](%link%)."
   },
   "addSources": {

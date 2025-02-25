@@ -12,8 +12,7 @@
   "license": "ISC",
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/home",
   "scripts": {
-    "sb": "storybook dev -p 9001 --ci",
-    "start": "yarn sb",
+    "start": "storybook dev -p 9001 --ci",
     "build": "babel --copy-files src -d dist -s --env-name esm --root-mode upward",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn build"
@@ -29,6 +28,7 @@
     "final-form": "^4.20.2",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
+    "prop-types": "^15.5.8",
     "qs": "^6.9.1",
     "react-final-form": "^6.5.3",
     "react-helmet-async": "^1.0.3",
@@ -36,7 +36,7 @@
     "react-query": "^3.6.0",
     "react-redux": "^7.1.3",
     "react-router-config": "^5.1.1",
-    "react-use": "^17.6.0",
+    "react-use": "^15.3.4",
     "react-waypoint": "^9.0.2",
     "redial": "^0.5.0"
   },
@@ -44,21 +44,20 @@
     "@babel/cli": "^7.23.0",
     "@loadable/component": "^5.14.1",
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/react-webpack5": "^8.5.8",
+    "@storybook/react-webpack5": "^7.4.2",
     "msw": "^2.3.0",
     "msw-storybook-addon": "^2.0.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "storybook": "^8.5.8"
+    "storybook": "^7.6.4"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",
-    "react": "^19.0.0",
+    "react": "^18.2.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.5"

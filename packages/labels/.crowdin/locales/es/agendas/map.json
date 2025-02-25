@@ -1,4 +1,4 @@
 {
-  "events": "eventos",
-  "mapSync": "busca cuando cambia el mapa"
+  "mapSync": "busca cuando cambia el mapa",
+  "events": "eventos"
 }

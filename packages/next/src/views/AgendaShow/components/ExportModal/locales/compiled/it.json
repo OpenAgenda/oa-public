@@ -44,7 +44,7 @@
   "next.views.AgendaShow.ExportModal.cancel": [
     {
       "type": 0,
-      "value": "Annullare"
+      "value": "Annulla"
     }
   ],
   "next.views.AgendaShow.ExportModal.close": [
@@ -75,12 +75,6 @@
     {
       "type": 0,
       "value": "Usa il formato dettagliato"
-    }
-  ],
-  "next.views.AgendaShow.ExportModal.detectLang": [
-    {
-      "type": 0,
-      "value": "Detect language automatically"
     }
   ],
   "next.views.AgendaShow.ExportModal.distributeFields": [

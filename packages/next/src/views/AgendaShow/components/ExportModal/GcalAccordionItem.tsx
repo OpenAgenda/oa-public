@@ -27,7 +27,7 @@ export default function GcalAccordionItem({ res }) {
             {intl.formatMessage(messages.instructionsCopyLink, {
               link: (
                 <Link
-                  href="https://calendar.google.com"
+                  href="https://outlook.com"
                   isExternal
                   colorScheme="primary"
                 >

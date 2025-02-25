@@ -29,6 +29,7 @@ describe('core - functional (server): core.agendas().events.create api authentic
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
         'accessTokens',

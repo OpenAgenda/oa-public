@@ -4,6 +4,8 @@ var fs = require( 'fs' ),
 
   { mkdirp } = require( 'mkdirp' ),
 
+  async = require( 'async' ),
+
   debug = require( 'debug' ),
 
   webpack = require( 'webpack' ),
@@ -31,45 +33,32 @@ var fs = require( 'fs' ),
   buildFilter = [],
 
   run = function () {
-    debug.enable('prodify');
-    log = debug('prodify');
+
+    debug.enable( 'prodify' );
+
+    log = debug( 'prodify' );
 
     mkdirp.sync(path.join(__dirname, '../dist/css'));
     mkdirp.sync(path.join(__dirname, '../dist/js'));
 
-    const tasks = [
-      cb => prodifyCss(map, 'oaeCss', 'oae.css', cb),
-      cb => prodifyCss(map, 'oaetCss', 'oaet.css', cb)
-    ];
+    async.series( [
+      async.apply( prodifyCss, map, 'oaeCss', 'oae.css' ), // embeds (standard)
+      async.apply( prodifyCss, map, 'oaetCss', 'oaet.css' ), // embeds (tiled, cascading)
+    ].concat( onlyCss ? [
+      _copyMainCss,
+      _copyAdminCss,
+    ] : [
+      async.apply( prodifyJs, map ),
+      _copyMainCss,
+      _copyAdminCss,
+    ] ), function ( err ) {
 
-    if (onlyCss) {
-      tasks.push(_copyMainCss, _copyAdminCss);
-    } else {
-      tasks.push(
-        cb => prodifyJs(map, cb),
-        _copyMainCss,
-        _copyAdminCss
-      );
-    }
+      if ( err ) throw err;
 
-    // Exécute les tâches en série en utilisant des Promises
-    tasks
-      .reduce(
-        (promiseChain, task) =>
-          promiseChain.then(
-            () =>
-              new Promise((resolve, reject) => {
-                task(err => (err ? reject(err) : resolve()));
-              })
-          ),
-        Promise.resolve()
-      )
-      .then(() => {
-        log('done.');
-      })
-      .catch(err => {
-        throw err;
-      });
+      log( 'done.' );
+
+    } );
+
   },
 
 
@@ -125,38 +114,47 @@ var fs = require( 'fs' ),
 
       // concatenate
 
-      const mainCssPromise = csses.reduce((compiledPromise, cssFilename) => {
-        return compiledPromise.then(compiled => {
-          if (cssFilename.indexOf('//') !== -1) {
-            return compiled;
-          }
+      async.reduce( csses, '', function ( compiled, cssFilename, rcb ) {
 
-          const OAIndex = cssFilename.indexOf('@openagenda/');
-          const fileToAdd = OAIndex !== -1
-            ? require.resolve(cssFilename.slice(OAIndex))
-            : path.join(__dirname, '..', cssFilename);
+        if ( cssFilename.indexOf( '//' ) !== -1 ) {
 
-          log('adding content of %s', fileToAdd);
+          return rcb( null, compiled );
 
-          return new Promise((resolve, reject) => {
-            fs.readFile(fileToAdd, 'utf-8', (err, css) => {
-              if (err) return reject(err);
-              resolve(compiled + css);
-            });
-          });
-        });
-      }, Promise.resolve(''));
+        }
 
-      mainCssPromise
-        .then(mainCss => {
-          if (!mainCss.length) return cb();
+        const OAIndex = cssFilename.indexOf( '@openagenda/' )
+        const fileToAdd = OAIndex !== -1
+          ? require.resolve( cssFilename.slice( OAIndex ) )
+          : path.join( __dirname, '..', cssFilename );
 
-          sass.render({ data: mainCss }, (err, result) => {
-            if (err) return cb(err);
-            fs.writeFile(destPath, result.css.toString(), cb);
-          });
-        })
-        .catch(cb);
+        log( 'adding content of %s', fileToAdd );
+
+        fs.readFile( fileToAdd, 'utf-8', function ( err, css ) {
+
+          if ( err ) return rcb( err );
+
+          rcb( null, compiled + css );
+
+        } );
+
+      }, function ( err, mainCss ) {
+
+        if ( err ) return cb( err );
+
+        // write it in dest css folder
+
+        if ( !mainCss.length ) return cb();
+
+        sass.render( { data: mainCss }, function ( err, result ) {
+
+          if ( err ) return cb( err );
+
+          fs.writeFile( destPath, result.css.toString(), cb );
+
+        } );
+
+      } );
+
     } );
 
   },
@@ -180,55 +178,86 @@ var fs = require( 'fs' ),
 
     }
 
-    Promise.all(
-      map.map(mapItem => {
-        return new Promise((resolve, reject) => {
-          const templateName = typeof mapItem === 'string' ? mapItem : mapItem.uri;
-          if (!templateName) return resolve();
+    async.each( map, function ( mapItem, ecb ) {
 
-          readTemplateConfig(templateName, (err, config) => {
-            if (err) return reject(err);
+      var templateName = typeof mapItem == 'string' ? mapItem : mapItem.uri;
 
-            const offset = (templateName.split('/').length - 1) * 3;
-            const csses = {};
-            const templatePath = templateName.split('/');
-            templatePath.pop();
+      if ( !templateName ) {
 
-            if (config[cssKey]) {
-              for (let c in config[cssKey]) {
-                if (config[cssKey][c].indexOf('../') !== -1) {
-                  // CSS générique
-                  csses[c] = config[cssKey][c].substr(offset);
-                } else if (config[cssKey][c].indexOf('//') !== -1) {
-                  // Chemin web, on garde tel quel
-                  csses[c] = config[cssKey][c];
-                } else {
-                  // Chemin relatif : on ajoute le chemin du dossier
-                  csses[c] = templatePath.join('/') + '/' + config[cssKey][c];
-                }
-              }
-              cn.extend(cssIndex, csses);
+        return ecb();
+
+      }
+
+      readTemplateConfig( templateName, function ( err, config ) {
+
+        if ( err ) return cb( err );
+
+        var offset = (templateName.split( '/' ).length - 1) * 3,
+
+          csses = {},
+
+          templatePath = templateName.split( '/' );
+
+        templatePath.pop();
+
+        if ( config[ cssKey ] ) {
+
+          for ( var c in config[ cssKey ] ) {
+
+            if ( config[ cssKey ][ c ].indexOf( '../' ) !== -1 ) {
+
+              // generic css
+
+              csses[ c ] = config[ cssKey ][ c ].substr( offset );
+
+            } else if ( config[ cssKey ][ c ].indexOf( '//' ) !== -1 ) {
+
+              // web path, get as is
+
+              csses[ c ] = config[ cssKey ][ c ];
+
+            } else {
+
+              // relative css. add path to folder
+
+              csses[ c ] = templatePath + '/' + config[ cssKey ][ c ];
+
             }
 
-            if (config.layout && (parentsMap.indexOf(config.layout) === -1)) {
-              parentsMap.push(config.layout);
-            }
-            resolve();
-          });
-        });
-      })
-    )
-      .then(() => {
-        if (parentsMap.length) {
-          listCss(parentsMap, cssKey, (err, parentsCssIndex) => {
-            if (err) return cb(err);
-            cb(null, cn.extend(parentsCssIndex, cssIndex));
-          });
-        } else {
-          cb(null, cssIndex);
+          }
+
+          cn.extend( cssIndex, csses );
+
         }
-      })
-      .catch(cb);
+
+        if ( config.layout && (parentsMap.indexOf( config.layout ) == -1) ) parentsMap.push( config.layout );
+
+        ecb();
+
+      } );
+
+    }, function ( err ) {
+
+      if ( err ) return cb( err );
+
+      if ( parentsMap.length ) {
+
+        listCss( parentsMap, cssKey, function ( err, parentsCssIndex ) {
+
+          if ( err ) return cb( err );
+
+          cb( null, cn.extend( parentsCssIndex, cssIndex ) );
+
+        } );
+
+      } else {
+
+        cb( null, cssIndex );
+
+      }
+
+    } );
+
   },
 
 
@@ -256,52 +285,59 @@ var fs = require( 'fs' ),
 
     }, {} );
 
-    const jsEntriesPromise = map.reduce((promise, item) => {
-      return promise.then(result => {
-        const templateName = typeof item === 'string' ? item : item.uri;
-        if (!templateName) {
-          return result;
+    async.reduce( map, jsEntries, ( result, item, rcb ) => {
+
+      const templateName = typeof item == 'string' ? item : item.uri;
+
+      if ( !templateName ) {
+        return rcb( null, result );
+      }
+
+      getTemplateFilesToWebpackify( templateName, function ( err, toWebpackify ) {
+
+        if ( err ) return rcb( err );
+
+        toWebpackify.forEach( template => {
+
+          if (
+            buildFilter.length
+            && !buildFilter.some( v => path.basename( template.dest.name, '.js' ).includes( v ) )
+          ) {
+            return;
+          }
+
+          result[ template.dest.name.slice( 0, -3 ) ] = path.join(
+            __dirname,
+            template.src.path,
+            template.src.name
+          );
+
+        } );
+
+        rcb( null, result );
+
+      } );
+
+    }, ( err, entry ) => {
+
+      if ( err ) {
+
+        return cb( err );
+
+      }
+
+      log( 'browserificationization\n%O', entry );
+
+      _build( {
+        entry,
+        output: {
+          filename: '[name].js',
+          path: jsDestPath
         }
-        return new Promise((resolve, reject) => {
-          getTemplateFilesToWebpackify(templateName, (err, toWebpackify) => {
-            if (err) return reject(err);
+      }, cb );
 
-            toWebpackify.forEach(template => {
-              if (
-                buildFilter.length &&
-                !buildFilter.some(v => path.basename(template.dest.name, '.js').includes(v))
-              ) {
-                return;
-              }
-              // On retire les 3 derniers caractères (".js")
-              result[template.dest.name.slice(0, -3)] = path.join(
-                __dirname,
-                template.src.path,
-                template.src.name
-              );
-            });
+    } );
 
-            resolve(result);
-          });
-        });
-      });
-    }, Promise.resolve(jsEntries));
-
-    jsEntriesPromise
-      .then(entry => {
-        log('browserificationization\n%O', entry);
-        _build(
-          {
-            entry,
-            output: {
-              filename: '[name].js',
-              path: jsDestPath,
-            },
-          },
-          cb
-        );
-      })
-      .catch(cb);
   },
 
   getTemplateFilesToWebpackify = function ( templateName, cb ) {

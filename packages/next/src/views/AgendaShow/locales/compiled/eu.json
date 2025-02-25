@@ -14,7 +14,7 @@
   "next.views.AgendaShow.help": [
     {
       "type": 0,
-      "value": "Ayuda"
+      "value": "Help"
     }
   ],
   "next.views.AgendaShow.includePassedEvents": [

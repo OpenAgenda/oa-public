@@ -19,6 +19,7 @@ import sentry from './services/sentry.js';
 import sharesFront from './agenda/shares.front.js';
 import agendaFront from './agenda/front.js';
 import exportsBack from './agenda/exports.back.js';
+import facebookBack from './agenda/facebook.back.js';
 import exportsFront from './agenda/exports.front.js';
 
 export default (app) => {
@@ -84,5 +85,6 @@ export default (app) => {
   app.services.agendaSearch.plugApp(app, '/agendas');
   agendaFront(app);
   exportsBack(app);
+  facebookBack(app);
   exportsFront(app);
 };

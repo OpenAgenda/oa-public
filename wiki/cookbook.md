@@ -6,7 +6,6 @@
 - Jelastic
   - Portails agenda
   - Cluster redis
-- OpenStack
 - Mails
 - Ghost
 - React
@@ -119,16 +118,6 @@ Une interface d'administration permet d'avoir une vue d'ensemble sur l'utilisati
 ### Avoir les droits admin sur un noeud
 
 https://www.infomaniak.com/fr/support/faq/2346/jelastic-cloud-lancer-des-commandes-avec-un-acces-root-sur-nimporte-quel-conteneur
-
-## OpenStack
-
-Sur Public Cloud, on a une VM qui tourne qu'on appelle "serveur proxy swift" et qui est en sandwich entre KeyCDN et notre stoquage de fichiers sur le Public Cloud d'Infomaniak.
-
-    `Clients (scripts poour l'API ou navigateurs) -> KeyCDN -> Serveur proxy swift -> Public cloud infomaniak`
-
-Ce serveur proxy sert à faire du log vers insightOps et détecter les usages abusifs mais aussi à régler un problème lié au pre-signed URLs qui existe sur une version de ancienne de swift utilisée par infomaniak ne traite pas les requêtes pre-flight, utile lorsqu'on souhaite permettre de charger des fichiers depuis le navigateur (comme ce qu'on fait avec la lib uppy sur les chargements de fichiers depuis les conversations OA). Ce dernier problème pourrait être réglé si Infomaniak mettait à jour la version installée d'OpenStack. Ils nous ont proposé d'utiliser une zone plus récente.
-
-L'install de ce proxy est documenté dans `oa/wiki/openstack.md`
 
 ## Mails
 

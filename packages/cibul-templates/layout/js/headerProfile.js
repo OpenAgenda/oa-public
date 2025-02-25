@@ -8,6 +8,7 @@ const getLabelFactory = require( '@openagenda/labels' );
 const labels = require( '@openagenda/labels/users/profile' );
 
 const bsTemplate = require( '../../user/bsMenu.ejs' );
+const template = require( '../../user/menu.ejs' );
 const b64 = require( '../../js/lib/Base64' );
 const du = require( '../../js/lib/domUtils' );
 const envelope = require( './envelope' );
@@ -26,7 +27,7 @@ const params = {
   classes: {
     displayNone: 'display-none'
   },
-  template: 'user/bsMenu'
+  template: 'user/menu'
 };
 
 let pClicked = false;
@@ -55,7 +56,7 @@ module.exports = options => {
 
   signinLink.remove();
 
-  ul.innerHTML = bsTemplate( {
+  ul.innerHTML = ( window.templates === 'bs' ? bsTemplate : template )( {
     __ : getLabelFactory( labels, user.culture ),
     fullName: user.name,
     thumbnail: user.thumbnail

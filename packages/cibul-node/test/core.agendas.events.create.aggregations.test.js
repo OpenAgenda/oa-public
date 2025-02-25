@@ -31,6 +31,7 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
         'accessTokens',

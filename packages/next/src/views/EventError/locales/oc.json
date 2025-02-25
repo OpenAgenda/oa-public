@@ -1,6 +1,6 @@
 {
   "next.views.EventError.agendaNotFound": "Agenda pas trobada",
-  "next.views.EventError.contactAdministrators": "Contactar los administrators",
+  "next.views.EventError.contactAdministrators": "",
   "next.views.EventError.eventNotFound": "",
   "next.views.EventError.forbiddenMsg": "Avètz pas accès a aquela agenda.{br}Verificatz lo ligam que vos es estat donat o demandatz l'accès.",
   "next.views.EventError.notFoundMsg": "I a pas de calendièr que corresponda a aqueste ligam.{br}Siá lo ligam es invalide siá lo calendièr es estat suprimit.",

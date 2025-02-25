@@ -31,6 +31,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
       ],

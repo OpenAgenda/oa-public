@@ -1,0 +1,108 @@
+{
+  "base" : {
+    "type" : "html",
+    "layout" : {
+      "url" : "#",
+      "title" : "Apéro Moovjee ça continue ! - Les apéros Moovjee continuent ...",
+      "preheaderContent" : "Moovjee - La Newsletter"
+    },
+    "image" : "https://cdn.openagenda.com/main/review_save-the-date_01.jpg",
+    "title": "MOOVJEE",
+    "description" : "Ne manquez aucun évènements de la communauté Moovjee",
+    "edito" : "Accompagner les jeunes entrepreneurs de 18 à 30 ans, \n\n dans la construction et le développement de leur entreprise au sein d’un programme de mentorat et l’accès à un pool d’experts métiers bénévoles. \n\n\n See more at: http://www.moovjee.fr/#sthash.imJLTd7g.dpuf",
+    "agendaUrl": "http://www.moovjee.fr",
+    "uid" : 48789456648,
+    "contactListUid" : 456789456,
+    "campaignUid" : 1212313,
+    "slug" : "moovjee",
+    "contributable" : true,
+    "featuredEvents" : [
+      {
+        "title" : "Apéro Moovjee ça continue !",
+        "uid" : 74875645313,
+        "slug" : "fdqhlfh-hfdjqsh-fjk",
+        "image" : "http://dl.dropboxusercontent.com/u/2009989/images/moovjeevent.jpg",
+        "description" : "Les apéros Moovjee continuent tout l'été et prend ses quartiers au Jardin des Tuileries. Le traiteur LeCointre nous accueille une fois encore au restaurant le Médicis.",
+        "spaceTimeInfo" : ["%date% @ %placename%", { "%date%" : "2014-10-12T14:30:00", "%placename%" : "Restaurant Le Médicis"}, "LLL"],
+        "freeText" : "Ces apéros ont pour objectif de réunir la communauté des jeunes entrepreneurs, porteurs de projet, mentors et partenaires du Moovjee. \nCes bulles estivales sont placées sous les signes de la convivialité et de l'échange.\nDes tarifs spéciaux spécial Moovjee seront proposés.",
+        "mapImage" : "http://maps.google.com/maps/api/staticmap?maptype=roadmap&sensor=false&size=600x300&markers=48.863492,2.327494&zoom=15"
+      },
+
+      {
+        "title" : "Finale du concours de Pitch Startup",
+        "uid" : 79845421,
+        "image" : "https://cdn.openagenda.com/main/evfevent_finale-du-concours-de-pitch-startup_433516.jpg",
+        "description" : "Conférence \"Difficultés et enjeux de l'entreprise d'aujourd'hui\" et finale du concours de pitch ",
+        "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Théatre ADYAR"}],
+        "mapImage" : "http://maps.google.com/maps/api/staticmap?maptype=roadmap&sensor=false&size=600x300&markers=48.858543,2.301102&zoom=15"
+      }
+
+    ],
+    "items" : [
+      {
+        "itemType" : "segment",
+        "text" : "Mardi"
+      },
+      {
+        "itemType" : "event",
+        "title" : "Fêter l'esprit d'entreprendre avec 100 000 entrepreneurs",
+        "uid" : 446587654,
+        "slug" : "fdfh-hfdjh-fjk",
+        "image" : "https://cdn.openagenda.com/main/evtbevent_feter-l-esprit-d-entreprendre-avec-100-000-entrepreneurs_398964.jpg",
+        "description" : "100 000 entrepreneurs et Banque Populaire Atlantique vous invitent à \"fêter l'esprit d'entreprendre\" Avec la participation de Fabien Héraud, acteur principal du film \"De toutes nos forces",
+        "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Banque Populaire Atlantique"}]
+      },
+      {
+        "itemType" : "event",
+        "title" : "Ces jeunes qui entreprennent pour changer le monde",
+        "uid" : 8956454,
+        "slug" : "azereaz-azer-reza",
+        "image" : "http://cdn.openagenda.com/main/evtbevent_ces-jeunes-qui-entreprennent-pour-changer-le-monde_467189.jpg",
+        "description" : "Événement organisé par Danone for Entrepreneurs avec la présence de Ticket4Change.",
+        "spaceTimeInfo" : ["%date% @ %placename%", { "%date%" : "2014-10-12T14:30:00", "%placename%" : "Chez Gudule"}, "LLL"],
+        "ticketLink" : "https://docs.google.com/forms/d/1GjTvsXOEOEe2R0dUdkyIpXNLQYfvc5BlFGs1JnxXoNA/viewform"
+      },
+      {
+        "itemType" : "segment",
+        "text" : "Mercredi"
+      },
+      {
+        "itemType" : "event",
+        "title" : "Salon Créer",
+        "uid" : 4884548,
+        "slug" : "cwxcvcxw",
+        "image" : "http://cdn.openagenda.com/main/evtbevent_salon-creer_937617.jpg",
+        "description" : "3 jours de partages, de découvertes et d'échanges pour faire avancer tous vos projets de création, de reprise ou développement d'entreprises.",
+        "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Lille Grand Palais"}]
+      },
+      {
+        "itemType" : "segment",
+        "text" : "Jeudi"
+      },
+      {
+        "itemType" : "event",
+        "title" : "Postulez au comité de sélection du mentorat à Paris",
+        "uid" : 4884545684,
+        "slug" : "rezrez",
+        "image" : "http://cdn.openagenda.com/main/evtbevent_postulez-au-comite-de-selection-du-mentorat-a-paris_997047.jpg",
+        "description" : "Vous avez entre 18 et 30 ans, vous êtes entrepreneur et votre société est en phase de développement. Participez au comité de sélection le 8 Septembre 2014 à Paris.",
+        "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Paris"}]
+      }
+    ]
+  },
+  "html" : {
+    "type" : "html"
+  },
+  "text" : {
+    "type" : "text",
+    "responseType" : "text/plain; charset=utf-8"
+  },
+  "noimage" : {
+    "image" : false,
+    "previewLink" : false,
+    "mobileMeta" : true
+  },
+  "noedito" : {
+    "edito" : null
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "layout" : "layout/blank",
+  "css" : {},
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image"
+  }
+}

@@ -1,0 +1,1048 @@
+{
+  "groups": [
+    {
+      "name": "Service Contributeur",
+      "tags": [
+        {
+          "id": 56665,
+          "label": "INFOCOM",
+          "slug": "infocom",
+          "schemaOptionId": "54.1"
+        },
+        {
+          "id": 56666,
+          "label": "A21",
+          "slug": "a21",
+          "schemaOptionId": "54.2"
+        },
+        {
+          "id": 62113,
+          "label": "ARI",
+          "slug": "ari",
+          "schemaOptionId": "54.3"
+        },
+        {
+          "id": 62114,
+          "label": "BGE",
+          "slug": "bge",
+          "schemaOptionId": "54.4"
+        },
+        {
+          "id": 56667,
+          "label": "BMU",
+          "slug": "bmu",
+          "schemaOptionId": "54.5"
+        },
+        {
+          "id": 56668,
+          "label": "CJB",
+          "slug": "cjb",
+          "schemaOptionId": "54.6"
+        },
+        {
+          "id": 56669,
+          "label": "DEJ",
+          "slug": "dej",
+          "schemaOptionId": "54.7"
+        },
+        {
+          "id": 56670,
+          "label": "DCS",
+          "slug": "dcs",
+          "schemaOptionId": "54.8"
+        },
+        {
+          "id": 56671,
+          "label": "DFL",
+          "slug": "dfl",
+          "schemaOptionId": "54.9"
+        },
+        {
+          "id": 62115,
+          "label": "MAH",
+          "slug": "mah",
+          "schemaOptionId": "54.10"
+        },
+        {
+          "id": 56672,
+          "label": "MEG",
+          "slug": "meg",
+          "schemaOptionId": "54.11"
+        },
+        {
+          "id": 62116,
+          "label": "MHN",
+          "slug": "mhn",
+          "schemaOptionId": "54.12"
+        },
+        {
+          "id": 56674,
+          "label": "SOC",
+          "slug": "soc",
+          "schemaOptionId": "54.13"
+        },
+        {
+          "id": 56673,
+          "label": "SPO",
+          "slug": "spo",
+          "schemaOptionId": "54.14"
+        },
+        {
+          "id": 56675,
+          "label": "VH",
+          "slug": "vh",
+          "schemaOptionId": "54.54"
+        },
+        {
+          "id": 56676,
+          "label": "Contributeur Externe",
+          "slug": "ext",
+          "schemaOptionId": "54.55"
+        }
+      ],
+      "access": "public",
+      "required": true,
+      "unique": true
+    },
+    {
+      "name": "Type d'événement",
+      "tags": [
+        {
+          "id": 51442,
+          "label": "Animation",
+          "slug": "animation",
+          "schemaOptionId": "54.34"
+        },
+        {
+          "id": 51443,
+          "label": "Atelier",
+          "slug": "atelier",
+          "schemaOptionId": "54.35"
+        },
+        {
+          "id": 51444,
+          "label": "Balade",
+          "slug": "balade",
+          "schemaOptionId": "54.36"
+        },
+        {
+          "id": 51445,
+          "label": "Compétition",
+          "slug": "competition",
+          "schemaOptionId": "54.37"
+        },
+        {
+          "id": 51446,
+          "label": "Concert",
+          "slug": "concert",
+          "schemaOptionId": "54.38"
+        },
+        {
+          "id": 51447,
+          "label": "Conférence-Rencontre",
+          "slug": "conference-rencontre",
+          "schemaOptionId": "54.39"
+        },
+        {
+          "id": 51448,
+          "label": "Danse",
+          "slug": "danse",
+          "schemaOptionId": "54.40"
+        },
+        {
+          "id": 51449,
+          "label": "Exposition",
+          "slug": "exposition",
+          "schemaOptionId": "54.41"
+        },
+        {
+          "id": 51450,
+          "label": "Inauguration",
+          "slug": "inauguration",
+          "schemaOptionId": "54.42"
+        },
+        {
+          "id": 51451,
+          "label": "Lecture",
+          "slug": "lecture",
+          "schemaOptionId": "54.43"
+        },
+        {
+          "id": 51452,
+          "label": "Manifestation",
+          "slug": "manifestation",
+          "schemaOptionId": "54.44"
+        },
+        {
+          "id": 51453,
+          "label": "Projection",
+          "slug": "projection",
+          "schemaOptionId": "54.45"
+        },
+        {
+          "id": 51454,
+          "label": "Spectacle",
+          "slug": "spectacle",
+          "schemaOptionId": "54.46"
+        },
+        {
+          "id": 51455,
+          "label": "Théâtre",
+          "slug": "theatre",
+          "schemaOptionId": "54.47"
+        },
+        {
+          "id": 51456,
+          "label": "Visite commentée",
+          "slug": "visite-commentee",
+          "schemaOptionId": "54.48"
+        }
+      ],
+      "access": "public",
+      "required": true,
+      "unique": true
+    },
+    {
+      "name": "Public(s) cible(s)",
+      "tags": [
+        {
+          "id": 51457,
+          "label": "Jeunes",
+          "slug": "jeunes",
+          "schemaOptionId": "54.26"
+        },
+        {
+          "id": 51458,
+          "label": "Enfants et famille",
+          "slug": "enfants-et-famille",
+          "schemaOptionId": "54.27"
+        },
+        {
+          "id": 51459,
+          "label": "Personnes en situation de handicap",
+          "slug": "personnes-en-situation-de-handicap",
+          "schemaOptionId": "54.28"
+        },
+        {
+          "id": 51460,
+          "label": "Seniors et retraité-e-s",
+          "slug": "seniors-et-retraite-e-s",
+          "schemaOptionId": "54.29"
+        },
+        {
+          "id": 56664,
+          "label": "Tous publics",
+          "slug": "tous-publics",
+          "schemaOptionId": "54.30"
+        }
+      ],
+      "access": "public",
+      "required": true,
+      "unique": false
+    },
+    {
+      "name": "Type d'événement  Institutions",
+      "tags": [
+        {
+          "id": 51461,
+          "label": "Concert",
+          "slug": "concert",
+          "schemaOptionId": "62.25"
+        },
+        {
+          "id": 51462,
+          "label": "Animation",
+          "slug": "animation",
+          "schemaOptionId": "62.26"
+        },
+        {
+          "id": 52138,
+          "label": "Accrochage",
+          "slug": "accrochage",
+          "schemaOptionId": "62.33"
+        },
+        {
+          "id": 52139,
+          "label": "Achats au Musée",
+          "slug": "achats-au-musee",
+          "schemaOptionId": "62.34"
+        },
+        {
+          "id": 52140,
+          "label": "Animation dinosaures",
+          "slug": "animation-dinosaures",
+          "schemaOptionId": "62.35"
+        },
+        {
+          "id": 52141,
+          "label": "Anniversaire",
+          "slug": "anniversaire",
+          "schemaOptionId": "62.36"
+        },
+        {
+          "id": 52142,
+          "label": "Atelier danse",
+          "slug": "atelier-danse",
+          "schemaOptionId": "62.37"
+        },
+        {
+          "id": 52143,
+          "label": "Ateliers & Démonstrations",
+          "slug": "ateliers-and-demonstrations",
+          "schemaOptionId": "62.38"
+        },
+        {
+          "id": 52144,
+          "label": "Bilingue français-anglais",
+          "slug": "bilingue-francais-anglais",
+          "schemaOptionId": "62.39"
+        },
+        {
+          "id": 52145,
+          "label": "Brunch \"Eclairage d'une exposition\"",
+          "slug": "brunch-eclairage-dune-exposition",
+          "schemaOptionId": "62.40"
+        },
+        {
+          "id": 52146,
+          "label": "Colloque",
+          "slug": "colloque",
+          "schemaOptionId": "62.41"
+        },
+        {
+          "id": 52147,
+          "label": "Concours",
+          "slug": "concours",
+          "schemaOptionId": "62.42"
+        },
+        {
+          "id": 52148,
+          "label": "Conférence",
+          "slug": "conference",
+          "schemaOptionId": "62.43"
+        },
+        {
+          "id": 52149,
+          "label": "Conférence et atelier",
+          "slug": "conference-et-atelier",
+          "schemaOptionId": "62.44"
+        },
+        {
+          "id": 52150,
+          "label": "Conférence, colloque",
+          "slug": "conference-colloque",
+          "schemaOptionId": "62.45"
+        },
+        {
+          "id": 52151,
+          "label": "Conférences & Rencontres",
+          "slug": "conferences-and-rencontres",
+          "schemaOptionId": "62.46"
+        },
+        {
+          "id": 52152,
+          "label": "Conte",
+          "slug": "conte",
+          "schemaOptionId": "62.47"
+        },
+        {
+          "id": 52153,
+          "label": "Contes",
+          "slug": "contes",
+          "schemaOptionId": "62.48"
+        },
+        {
+          "id": 52154,
+          "label": "Cycle thématique",
+          "slug": "cycle-thematique",
+          "schemaOptionId": "62.49"
+        },
+        {
+          "id": 52155,
+          "label": "I-Danse",
+          "slug": "i-danse",
+          "schemaOptionId": "62.50"
+        },
+        {
+          "id": 52156,
+          "label": "Débat",
+          "slug": "debat",
+          "schemaOptionId": "62.51"
+        },
+        {
+          "id": 52157,
+          "label": "Démonstration",
+          "slug": "demonstration",
+          "schemaOptionId": "62.52"
+        },
+        {
+          "id": 52158,
+          "label": "Divers",
+          "slug": "divers",
+          "schemaOptionId": "62.53"
+        },
+        {
+          "id": 52159,
+          "label": "Egalité",
+          "slug": "egalite",
+          "schemaOptionId": "62.54"
+        },
+        {
+          "id": 52160,
+          "label": "Entretien du mercredi",
+          "slug": "entretien-du-mercredi",
+          "schemaOptionId": "62.55"
+        },
+        {
+          "id": 52161,
+          "label": "Estival",
+          "slug": "estival",
+          "schemaOptionId": "62.56"
+        },
+        {
+          "id": 52162,
+          "label": "Evénement",
+          "slug": "evenement",
+          "schemaOptionId": "62.57"
+        },
+        {
+          "id": 52163,
+          "label": "I-Exposition",
+          "slug": "i-exposition",
+          "schemaOptionId": "62.58"
+        },
+        {
+          "id": 52164,
+          "label": "Exposition hors-murs",
+          "slug": "exposition-hors-murs",
+          "schemaOptionId": "62.59"
+        },
+        {
+          "id": 52165,
+          "label": "Exposition permanente",
+          "slug": "exposition-permanente",
+          "schemaOptionId": "62.60"
+        },
+        {
+          "id": 52166,
+          "label": "Exposition temporaire",
+          "slug": "exposition-temporaire",
+          "schemaOptionId": "62.61"
+        },
+        {
+          "id": 52167,
+          "label": "Festival",
+          "slug": "festival",
+          "schemaOptionId": "62.62"
+        },
+        {
+          "id": 52168,
+          "label": "Film",
+          "slug": "film",
+          "schemaOptionId": "62.63"
+        },
+        {
+          "id": 52169,
+          "label": "FMAC Mobile",
+          "slug": "fmac-mobile",
+          "schemaOptionId": "62.64"
+        },
+        {
+          "id": 52170,
+          "label": "Forum",
+          "slug": "forum",
+          "schemaOptionId": "62.65"
+        },
+        {
+          "id": 52171,
+          "label": "Guided tour in English",
+          "slug": "guided-tour-in-english",
+          "schemaOptionId": "62.66"
+        },
+        {
+          "id": 52172,
+          "label": "Hors-les-murs ARIANA",
+          "slug": "hors-les-murs-ariana",
+          "schemaOptionId": "62.67"
+        },
+        {
+          "id": 52173,
+          "label": "Hors-murs BM",
+          "slug": "hors-murs-bm",
+          "schemaOptionId": "62.68"
+        },
+        {
+          "id": 52174,
+          "label": "I-Inauguration",
+          "slug": "i-inauguration",
+          "schemaOptionId": "62.69"
+        },
+        {
+          "id": 52175,
+          "label": "Installations artistiques participatives",
+          "slug": "installations-artistiques-participatives",
+          "schemaOptionId": "62.70"
+        },
+        {
+          "id": 52176,
+          "label": "Jeux vidéo",
+          "slug": "jeux-video",
+          "schemaOptionId": "62.71"
+        },
+        {
+          "id": 52177,
+          "label": "Journée thématique",
+          "slug": "journee-thematique",
+          "schemaOptionId": "62.72"
+        },
+        {
+          "id": 52178,
+          "label": "Langues/languages",
+          "slug": "langueslanguages",
+          "schemaOptionId": "62.73"
+        },
+        {
+          "id": 52179,
+          "label": "I-Lecture",
+          "slug": "i-lecture",
+          "schemaOptionId": "62.74"
+        },
+        {
+          "id": 52180,
+          "label": "Les ateliers du mercredi",
+          "slug": "les-ateliers-du-mercredi",
+          "schemaOptionId": "62.75"
+        },
+        {
+          "id": 52181,
+          "label": "Les cafés scientifiques",
+          "slug": "les-cafes-scientifiques",
+          "schemaOptionId": "62.76"
+        },
+        {
+          "id": 52182,
+          "label": "Les jeudis Midi de l'Affiche",
+          "slug": "les-jeudis-midi-de-laffiche",
+          "schemaOptionId": "62.77"
+        },
+        {
+          "id": 52183,
+          "label": "Les quatre saisons de la Musicale",
+          "slug": "les-quatre-saisons-de-la-musicale",
+          "schemaOptionId": "62.78"
+        },
+        {
+          "id": 52184,
+          "label": "Manifestation & animations",
+          "slug": "manifestation-and-animations",
+          "schemaOptionId": "62.79"
+        },
+        {
+          "id": 52185,
+          "label": "Marionettes",
+          "slug": "marionettes",
+          "schemaOptionId": "62.80"
+        },
+        {
+          "id": 52186,
+          "label": "Matinées décalées",
+          "slug": "matinees-decalees",
+          "schemaOptionId": "62.81"
+        },
+        {
+          "id": 52187,
+          "label": "Mercredi Family",
+          "slug": "mercredi-family",
+          "schemaOptionId": "62.82"
+        },
+        {
+          "id": 52188,
+          "label": "Mercredis des sciences nouvelle formule",
+          "slug": "mercredis-des-sciences-nouvelle-formule",
+          "schemaOptionId": "62.83"
+        },
+        {
+          "id": 52189,
+          "label": "Midi au musée",
+          "slug": "midi-au-musee",
+          "schemaOptionId": "62.84"
+        },
+        {
+          "id": 52190,
+          "label": "Midi de l'expo",
+          "slug": "midi-de-lexpo",
+          "schemaOptionId": "62.85"
+        },
+        {
+          "id": 52191,
+          "label": "Moments famille",
+          "slug": "moments-famille",
+          "schemaOptionId": "62.86"
+        },
+        {
+          "id": 52192,
+          "label": "Musique",
+          "slug": "musique",
+          "schemaOptionId": "62.87"
+        },
+        {
+          "id": 52193,
+          "label": "Nuits des Musées",
+          "slug": "nuits-des-musees",
+          "schemaOptionId": "62.88"
+        },
+        {
+          "id": 52194,
+          "label": "Numérique",
+          "slug": "numerique",
+          "schemaOptionId": "62.89"
+        },
+        {
+          "id": 52195,
+          "label": "Observations astronomiques",
+          "slug": "observations-astronomiques",
+          "schemaOptionId": "62.90"
+        },
+        {
+          "id": 52196,
+          "label": "Opération",
+          "slug": "operation",
+          "schemaOptionId": "62.91"
+        },
+        {
+          "id": 52197,
+          "label": "Performance",
+          "slug": "performance",
+          "schemaOptionId": "62.92"
+        },
+        {
+          "id": 52198,
+          "label": "Poésie en ville",
+          "slug": "poesie-en-ville",
+          "schemaOptionId": "62.93"
+        },
+        {
+          "id": 52199,
+          "label": "Présentation",
+          "slug": "presentation",
+          "schemaOptionId": "62.94"
+        },
+        {
+          "id": 52200,
+          "label": "Présentation de livre",
+          "slug": "presentation-de-livre",
+          "schemaOptionId": "62.95"
+        },
+        {
+          "id": 52201,
+          "label": "Prix littéraire",
+          "slug": "prix-litteraire",
+          "schemaOptionId": "62.96"
+        },
+        {
+          "id": 52202,
+          "label": "Programmation",
+          "slug": "programmation",
+          "schemaOptionId": "62.97"
+        },
+        {
+          "id": 52203,
+          "label": "Programmation invitée",
+          "slug": "programmation-invitee",
+          "schemaOptionId": "62.98"
+        },
+        {
+          "id": 52204,
+          "label": "I-Projection",
+          "slug": "i-projection",
+          "schemaOptionId": "62.99"
+        },
+        {
+          "id": 52205,
+          "label": "Projection, film, documentaire",
+          "slug": "projection-film-documentaire",
+          "schemaOptionId": "62.100"
+        },
+        {
+          "id": 52206,
+          "label": "Rencontre",
+          "slug": "rencontre",
+          "schemaOptionId": "62.101"
+        },
+        {
+          "id": 52207,
+          "label": "Rendez-vous recherche et collections",
+          "slug": "rendez-vous-recherche-et-collections",
+          "schemaOptionId": "62.102"
+        },
+        {
+          "id": 52208,
+          "label": "Séminaire",
+          "slug": "seminaire",
+          "schemaOptionId": "62.103"
+        },
+        {
+          "id": 52209,
+          "label": "I-Spectacle",
+          "slug": "i-spectacle",
+          "schemaOptionId": "62.104"
+        },
+        {
+          "id": 52210,
+          "label": "Spectacles & Contes",
+          "slug": "spectacles-and-contes",
+          "schemaOptionId": "62.105"
+        },
+        {
+          "id": 52211,
+          "label": "Studio photo",
+          "slug": "studio-photo",
+          "schemaOptionId": "62.106"
+        },
+        {
+          "id": 52212,
+          "label": "Table ronde",
+          "slug": "table-ronde",
+          "schemaOptionId": "62.107"
+        },
+        {
+          "id": 52213,
+          "label": "I-Théâtre",
+          "slug": "i-theatre",
+          "schemaOptionId": "62.108"
+        },
+        {
+          "id": 52214,
+          "label": "Théâtre & performance",
+          "slug": "theatre-and-performance",
+          "schemaOptionId": "62.109"
+        },
+        {
+          "id": 52215,
+          "label": "Théâtre d'ombres",
+          "slug": "theatre-dombres",
+          "schemaOptionId": "62.110"
+        },
+        {
+          "id": 52216,
+          "label": "Vernissage",
+          "slug": "vernissage",
+          "schemaOptionId": "62.111"
+        },
+        {
+          "id": 52217,
+          "label": "Vingt minutes, une oeuvre",
+          "slug": "vingt-minutes-une-oeuvre",
+          "schemaOptionId": "62.112"
+        },
+        {
+          "id": 52218,
+          "label": "Visite",
+          "slug": "visite",
+          "schemaOptionId": "62.113"
+        },
+        {
+          "id": 52219,
+          "label": "Visite atelier",
+          "slug": "visite-atelier",
+          "schemaOptionId": "62.114"
+        },
+        {
+          "id": 52220,
+          "label": "I-Visite commentée",
+          "slug": "i-visite-commentee",
+          "schemaOptionId": "62.115"
+        },
+        {
+          "id": 52221,
+          "label": "Visite contée",
+          "slug": "visite-contee",
+          "schemaOptionId": "62.116"
+        },
+        {
+          "id": 52222,
+          "label": "Visite descriptive et tactile",
+          "slug": "visite-descriptive-et-tactile",
+          "schemaOptionId": "62.117"
+        },
+        {
+          "id": 52223,
+          "label": "Visite en langue des signes",
+          "slug": "visite-en-langue-des-signes",
+          "schemaOptionId": "62.118"
+        },
+        {
+          "id": 52224,
+          "label": "Visite en langue des signes française (LSF)",
+          "slug": "visite-en-langue-des-signes-francaise-lsf",
+          "schemaOptionId": "62.119"
+        },
+        {
+          "id": 52225,
+          "label": "Visite guidée",
+          "slug": "visite-guidee",
+          "schemaOptionId": "62.120"
+        },
+        {
+          "id": 52226,
+          "label": "Visite hors les murs",
+          "slug": "visite-hors-les-murs",
+          "schemaOptionId": "62.121"
+        },
+        {
+          "id": 52227,
+          "label": "Visite musicale",
+          "slug": "visite-musicale",
+          "schemaOptionId": "62.122"
+        },
+        {
+          "id": 52228,
+          "label": "Visite pas à pas",
+          "slug": "visite-pas-a-pas",
+          "schemaOptionId": "62.123"
+        },
+        {
+          "id": 52229,
+          "label": "Visite pour aveugles et malvoyants",
+          "slug": "visite-pour-aveugles-et-malvoyants",
+          "schemaOptionId": "62.124"
+        },
+        {
+          "id": 52230,
+          "label": "Visite pour les enseignants",
+          "slug": "visite-pour-les-enseignants",
+          "schemaOptionId": "62.125"
+        },
+        {
+          "id": 52231,
+          "label": "Visite thématique",
+          "slug": "visite-thematique",
+          "schemaOptionId": "62.126"
+        },
+        {
+          "id": 52232,
+          "label": "Visites",
+          "slug": "visites",
+          "schemaOptionId": "62.127"
+        },
+        {
+          "id": 52233,
+          "label": "Visites - ateliers",
+          "slug": "visites-ateliers",
+          "schemaOptionId": "62.128"
+        },
+        {
+          "id": 52234,
+          "label": "Workshops créatifs",
+          "slug": "workshops-creatifs",
+          "schemaOptionId": "62.129"
+        },
+        {
+          "id": 52235,
+          "label": "Y a pas Photo !",
+          "slug": "y-a-pas-photo",
+          "schemaOptionId": "62.130"
+        },
+        {
+          "id": 52236,
+          "label": "I-A CLASSER",
+          "slug": "i-a-classer",
+          "schemaOptionId": "62.131"
+        }
+      ],
+      "access": "public",
+      "required": false,
+      "unique": false
+    },
+    {
+      "name": "Public(s) Cible(s) institutions typo3",
+      "tags": [
+        {
+          "id": 51463,
+          "label": "jeunes et familles",
+          "slug": "jeunes-et-familles",
+          "schemaOptionId": "62.27"
+        },
+        {
+          "id": 51464,
+          "label": "adulte",
+          "slug": "adulte",
+          "schemaOptionId": "62.28"
+        },
+        {
+          "id": 51465,
+          "label": "seniors",
+          "slug": "seniors",
+          "schemaOptionId": "62.29"
+        },
+        {
+          "id": 51466,
+          "label": "scolaire",
+          "slug": "scolaire",
+          "schemaOptionId": "62.30"
+        },
+        {
+          "id": 51467,
+          "label": "accès pour tous",
+          "slug": "acces-pour-tous",
+          "schemaOptionId": "62.31"
+        },
+        {
+          "id": 51468,
+          "label": "professionnels",
+          "slug": "professionnels",
+          "schemaOptionId": "62.32"
+        }
+      ],
+      "access": "public",
+      "required": true,
+      "unique": false
+    },
+    {
+      "name": "Labels",
+      "tags": [
+        {
+          "id": 56677,
+          "label": "100% gratuit",
+          "slug": "100-gratuit",
+          "schemaOptionId": "54.24"
+        },
+        {
+          "id": 56678,
+          "label": "En plein air",
+          "slug": "en-plein-air",
+          "schemaOptionId": "54.25"
+        }
+      ],
+      "access": "public",
+      "required": false,
+      "unique": false
+    },
+    {
+      "name": "Thématiques internes",
+      "tags": [
+        {
+          "id": 56679,
+          "label": "Culture VDG",
+          "slug": "culture-vdg",
+          "schemaOptionId": "54.49"
+        },
+        {
+          "id": 56680,
+          "label": "Sport",
+          "slug": "sport",
+          "schemaOptionId": "54.50"
+        },
+        {
+          "id": 56681,
+          "label": "Espaces de quartier",
+          "slug": "espaces-de-quartier",
+          "schemaOptionId": "54.51"
+        },
+        {
+          "id": 56682,
+          "label": "Intergénérationnel",
+          "slug": "intergenerationnel",
+          "schemaOptionId": "54.52"
+        },
+        {
+          "id": 56683,
+          "label": "Développement durable",
+          "slug": "developpement-durable",
+          "schemaOptionId": "54.53"
+        }
+      ],
+      "access": "public",
+      "required": false,
+      "unique": false
+    },
+    {
+      "name": "Organisation de l'événement",
+      "tags": [
+        {
+          "id": 56684,
+          "label": "Evénement VDG",
+          "slug": "evenement-vdg",
+          "schemaOptionId": "54.31"
+        },
+        {
+          "id": 56685,
+          "label": "Evénement soutenu par VDG",
+          "slug": "evenement-soutenu-par-vdg",
+          "schemaOptionId": "54.32"
+        },
+        {
+          "id": 56686,
+          "label": "Evénement organisé par un externe",
+          "slug": "evenement-organise-par-un-externe",
+          "schemaOptionId": "54.33"
+        }
+      ],
+      "access": "public",
+      "required": false,
+      "unique": true
+    },
+    {
+      "name": "Quartiers",
+      "tags": [
+        {
+          "id": 56687,
+          "label": "Acacias Bâtie",
+          "slug": "acacias-batie",
+          "schemaOptionId": "54.15"
+        },
+        {
+          "id": 56688,
+          "label": "Champel",
+          "slug": "champel",
+          "schemaOptionId": "54.16"
+        },
+        {
+          "id": 56689,
+          "label": "Eaux-Vives Cité",
+          "slug": "eaux-vives-cite",
+          "schemaOptionId": "54.17"
+        },
+        {
+          "id": 56690,
+          "label": "Grottes Saint-Gervais",
+          "slug": "grottes-saint-gervais",
+          "schemaOptionId": "54.18"
+        },
+        {
+          "id": 56691,
+          "label": "Pâquis Sécheron",
+          "slug": "paquis-secheron",
+          "schemaOptionId": "54.19"
+        },
+        {
+          "id": 56692,
+          "label": "Plainpalais Jonction",
+          "slug": "plainpalais-jonction",
+          "schemaOptionId": "54.20"
+        },
+        {
+          "id": 56693,
+          "label": "Saint-Jean Charmilles",
+          "slug": "saint-jean-charmilles",
+          "schemaOptionId": "54.21"
+        },
+        {
+          "id": 56694,
+          "label": "Servette Petit-Saconnex",
+          "slug": "servette-petit-saconnex",
+          "schemaOptionId": "54.22"
+        },
+        {
+          "id": 56695,
+          "label": "Hors Ville de Genève",
+          "slug": "hors-ville-de-geneve",
+          "schemaOptionId": "54.23"
+        }
+      ],
+      "access": "public",
+      "required": false,
+      "unique": false
+    }
+  ]
+}

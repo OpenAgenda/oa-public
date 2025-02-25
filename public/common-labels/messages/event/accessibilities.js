@@ -4,32 +4,23 @@ const { defineMessages } = require('react-intl');
 
 module.exports = defineMessages({
   hi: {
-    id: 'common.event.accessibilities.hi',
+    id: 'common.event.accessiblities.hi',
     defaultMessage: 'Hearing impairment',
   },
   vi: {
-    id: 'common.event.accessibilities.vi',
+    id: 'common.event.accessiblities.vi',
     defaultMessage: 'Visual impairment',
   },
   pi: {
-    id: 'common.event.accessibilities.pi',
+    id: 'common.event.accessiblities.pi',
     defaultMessage: 'Psychic impairment',
   },
   mi: {
-    id: 'common.event.accessibilities.mi',
+    id: 'common.event.accessiblities.mi',
     defaultMessage: 'Motor impairment',
   },
   ii: {
-    id: 'common.event.accessibilities.ii',
+    id: 'common.event.accessiblities.ii',
     defaultMessage: 'Intellectual impairment',
-  },
-  accessibleEvent: {
-    id: 'common.event.accessibilities.accessibleEvent',
-    defaultMessage: 'Accessibility installations',
-  },
-  accessibleDetail: {
-    id: 'common.event.accessibilities.detail',
-    defaultMessage:
-      'This event has installations setup to address specific types of disabilities',
   },
 });

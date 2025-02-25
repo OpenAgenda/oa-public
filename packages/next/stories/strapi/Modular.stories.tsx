@@ -88,7 +88,7 @@ export function Overview() {
       <WrapItem>
         <Modular
           title="Un icône et une image"
-          description="Description centrée"
+          description="Voilà voilà"
           maxWidth={{ name: 'lg' }}
           Illustration={{
             image: {

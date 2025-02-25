@@ -14,7 +14,7 @@ import { emailConfirmationAlert as messages } from '../messages';
 
 export default function EmailConfirmationAlert({ isOpen, onClose, count }) {
   const intl = useIntl();
-  const cancelRef = useRef(undefined);
+  const cancelRef = useRef();
 
   return (
     <AlertDialog

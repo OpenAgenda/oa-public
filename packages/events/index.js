@@ -9,6 +9,7 @@ import list from './list.js';
 import remove from './remove.js';
 import update from './update.js';
 import countByLocationUids from './countByLocationUids.js';
+import setFromLegacy from './lib/legacy/from.js';
 import imageVariants from './lib/imageVariants.js';
 import utils from './utils/index.js';
 import fields from './lib/fields.js';
@@ -60,7 +61,7 @@ const createService = (c) => {
     },
   };
 
-  return {
+  const endpoints = {
     create: create.bind(null, service),
     get: get.bind(null, service),
     list: list.bind(null, service),
@@ -73,6 +74,10 @@ const createService = (c) => {
     },
     utils,
   };
+
+  endpoints.setFromLegacy = setFromLegacy.bind(null, { service, endpoints });
+
+  return endpoints;
 };
 
 export default Object.assign(createService, { utils });

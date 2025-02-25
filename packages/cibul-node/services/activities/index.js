@@ -5,7 +5,6 @@ import activitiesConfig from './activitiesConfig.js';
 import addActivity from './addActivity.js';
 import RebuildTasks from './tasks/rebuild.js';
 import plugApp from './plugApp.js';
-import mw from './middleware/index.js';
 
 export async function init(config, services) {
   const { bull } = services;
@@ -61,8 +60,7 @@ export async function init(config, services) {
 
   Object.assign(service.tasks, RebuildTasks({ config, services }));
 
-  return Object.assign(service, {
-    mw,
-    plugApp,
-  });
+  service.plugApp = plugApp;
+
+  return service;
 }

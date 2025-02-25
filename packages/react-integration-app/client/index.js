@@ -54,224 +54,189 @@ import Root from './Root.js';
 //   whyDidYouRender(React);
 // }
 
-function readyHandler() {
-  window.IScroll = IScroll;
+window.IScroll = IScroll;
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        retry: (failureCount, error) => {
-          if (error?.response?.status > 400 && error.response.status < 500) {
-            return false;
-          }
-          return 3;
-        },
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: (failureCount, error) => {
+        if (error?.response?.status > 400 && error.response.status < 500) {
+          return false;
+        }
+        return 3;
       },
     },
-  });
+  },
+});
 
-  window.ReactQueryClientContext = React.createContext(queryClient);
+window.ReactQueryClientContext = React.createContext(queryClient);
 
-  // queryClient.getQueryCache().subscribe(query => {
-  //   console.log('Query:', query);
-  // });
+// queryClient.getQueryCache().subscribe(query => {
+//   console.log('Query:', query);
+// });
 
-  const history = createBrowserHistory();
+const history = createBrowserHistory();
 
-  const initialState = parse(
-    he.decode(document.querySelector('#initialState').innerHTML || '{}'),
-  );
+const initialState = parse(
+  he.decode(document.querySelector('#initialState').innerHTML || '{}'),
+);
 
-  NProgress.configure({ trickleSpeed: 200 });
+NProgress.configure({ trickleSpeed: 200 });
 
-  const onLocationChangeStart = () => NProgress.start();
-  const onLocationChangeFinish = () => NProgress.done();
+const onLocationChangeStart = () => NProgress.start();
+const onLocationChangeFinish = () => NProgress.done();
 
-  const layoutStore = createLayoutStore(initialState.layout, history);
+const layoutStore = createLayoutStore(initialState.layout, history);
 
-  const reduxMiddleware = createReduxMiddleware(layoutStore, queryClient);
+const reduxMiddleware = createReduxMiddleware(layoutStore, queryClient);
 
-  const apps = [
-    ['home', createHomeApp, [MainLayout, RequiredUser]],
-    ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],
+const apps = [
+  ['home', createHomeApp, [MainLayout, RequiredUser]],
+  ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],
+  ['agendaSettingsNew', createAgendaSettingsNewApp, [MainLayout, RequiredUser]],
+  ['userActivities', createUserActivitiesApp, [MainLayout, RequiredUser]],
+  ['inboxUser', createInboxApp, [MainLayout, RequiredUser, InboxUserLayout]],
+  ['support', createInboxApp, [MainLayout, RequiredUser, InboxUserLayout]],
+  // agenda admin
+  [
+    'aggregatorSources',
+    createAggregatorSourcesApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
+  ],
+  [
+    'agendaAdminInbox',
+    createInboxApp,
     [
-      'agendaSettingsNew',
-      createAgendaSettingsNewApp,
-      [MainLayout, RequiredUser],
+      MainLayout,
+      RequiredUser,
+      AgendaAdminDataLayout,
+      AgendaAdminLayout,
+      InboxAgendaAdminLayout,
     ],
-    ['userActivities', createUserActivitiesApp, [MainLayout, RequiredUser]],
-    ['inboxUser', createInboxApp, [MainLayout, RequiredUser, InboxUserLayout]],
-    ['support', createInboxApp, [MainLayout, RequiredUser, InboxUserLayout]],
-    // agenda admin
-    [
-      'aggregatorSources',
-      createAggregatorSourcesApp,
-      [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
-    ],
-    [
-      'agendaAdminInbox',
-      createInboxApp,
-      [
-        MainLayout,
-        RequiredUser,
-        AgendaAdminDataLayout,
-        AgendaAdminLayout,
-        InboxAgendaAdminLayout,
-      ],
-    ],
-    [
-      'members',
-      createMembersApp,
-      [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
-    ],
-    [
-      'agendaActivities',
-      createAgendaActivitiesApp,
-      [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
-    ],
-    [
-      'agendaStats',
-      createAgendaStatsApp,
-      [
-        MainLayout,
-        RequiredUser,
-        AgendaAdminDataLayout,
-        AgendaAdminFiltersLayout,
-      ],
-    ],
-    [
-      'legacyEmbeds',
-      createLegacyEmbedsApp,
-      [
-        MainLayout,
-        RequiredUser,
-        AgendaAdminDataLayout,
-        AgendaAdminFiltersLayout,
-      ],
-    ],
-    [
-      'agendaContribute',
-      createAgendaContributeApp,
-      [MainLayout, RequiredUser.agenda, AgendaDataLayout, AgendaLayout],
-    ],
-    [
-      'eventAdmin',
-      createEventAdminApp,
-      [
-        MainLayout,
-        RequiredUser,
-        AgendaAdminDataLayout,
-        AgendaAdminFiltersLayout,
-      ],
-    ],
-    [
-      'agendaLocationAdmin',
-      createAgendaLocationAdminApp,
-      [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
-    ],
-    [
-      'agendaSchemaAdmin',
-      createAgendaSchemaAdminApp,
-      [
-        MainLayout,
-        RequiredUser,
-        AgendaAdminDataLayout,
-        AgendaAdminFiltersLayout,
-      ],
-    ],
-    [
-      'agendaSettingsEdit',
-      createAgendaSettingsEditApp,
-      [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
-    ],
-    // superadmin
-    [
-      'adminSupport',
-      createInboxApp,
-      [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout],
-    ],
-    [
-      'supervisor',
-      createSupervisorApp,
-      [MainLayout, RequiredUser, RequiredSuperAdmin],
-    ],
-  ].reduce(
-    (accu, [key, createApp, layout]) => ({
-      ...accu,
-      [key]: createApp({
-        initialState: initialState[key],
-        layout,
-        history,
-        reduxMiddleware,
-      }),
+  ],
+  [
+    'members',
+    createMembersApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
+  ],
+  [
+    'agendaActivities',
+    createAgendaActivitiesApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
+  ],
+  [
+    'agendaStats',
+    createAgendaStatsApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
+  ],
+  [
+    'legacyEmbeds',
+    createLegacyEmbedsApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
+  ],
+  [
+    'agendaContribute',
+    createAgendaContributeApp,
+    [MainLayout, RequiredUser.agenda, AgendaDataLayout, AgendaLayout],
+  ],
+  [
+    'eventAdmin',
+    createEventAdminApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
+  ],
+  [
+    'agendaLocationAdmin',
+    createAgendaLocationAdminApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
+  ],
+  [
+    'agendaSchemaAdmin',
+    createAgendaSchemaAdminApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
+  ],
+  [
+    'agendaSettingsEdit',
+    createAgendaSettingsEditApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
+  ],
+  // superadmin
+  [
+    'adminSupport',
+    createInboxApp,
+    [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout],
+  ],
+  [
+    'supervisor',
+    createSupervisorApp,
+    [MainLayout, RequiredUser, RequiredSuperAdmin],
+  ],
+].reduce(
+  (accu, [key, createApp, layout]) => ({
+    ...accu,
+    [key]: createApp({
+      initialState: initialState[key],
+      layout,
+      history,
+      reduxMiddleware,
     }),
-    {},
+  }),
+  {},
+);
+
+// function QueryWatch() {
+//   const client = useQueryClient();
+//   const queryCache = client.getQueryCache();
+//
+//   // TODO if agenda modified THEN refetch layout data
+//
+//   return null;
+// }
+
+loadableReady(async () => {
+  // Trigger 'inject' before render, needed for the first render (in @connect)
+  await Promise.all(
+    Object.values(apps).map((app) => app.triggerHooks({ hooks: ['inject'] })),
   );
 
-  // function QueryWatch() {
-  //   const client = useQueryClient();
-  //   const queryCache = client.getQueryCache();
-  //
-  //   // TODO if agenda modified THEN refetch layout data
-  //
-  //   return null;
-  // }
-
-  loadableReady(async () => {
-    // Trigger 'inject' before render, needed for the first render (in @connect)
-    await Promise.all(
-      Object.values(apps).map((app) => app.triggerHooks({ hooks: ['inject'] })),
+  const triggerHooks = () =>
+    Promise.all(
+      Object.values(apps).map((app) =>
+        app.triggerHooks({
+          onStart: onLocationChangeStart,
+          onFinish: onLocationChangeFinish,
+        })),
     );
 
-    const triggerHooks = () =>
-      Promise.all(
-        Object.values(apps).map((app) =>
-          app.triggerHooks({
-            onStart: onLocationChangeStart,
-            onFinish: onLocationChangeFinish,
-          })),
-      );
+  const render = (forceRender = false) => {
+    const element = (
+      <ErrorBoundary>
+        <Root
+          apps={apps}
+          layoutStore={layoutStore}
+          history={history}
+          triggerHooks={triggerHooks}
+          queryClient={queryClient}
+        >
+          <RootHelmet />
 
-    const render = (forceRender = false) => {
-      const element = (
-        <ErrorBoundary>
-          <Root
-            apps={apps}
-            layoutStore={layoutStore}
-            history={history}
-            triggerHooks={triggerHooks}
-            queryClient={queryClient}
-          >
-            <RootHelmet />
+          {/* <QueryWatch /> */}
+        </Root>
+      </ErrorBoundary>
+    );
+    const canvas = document.querySelector('#root');
 
-            {/* <QueryWatch /> */}
-          </Root>
-        </ErrorBoundary>
-      );
-      const canvas = document.querySelector('#root');
-
-      if (!forceRender && canvas.hasChildNodes()) {
-        ReactDOM.hydrateRoot(canvas, element);
-      } else {
-        const root = ReactDOM.createRoot(canvas);
-        root.render(element);
-      }
-    };
-
-    render();
-
-    if (import.meta.webpackHot) {
-      import.meta.webpackHot.accept(() => render(true));
+    if (!forceRender && canvas.hasChildNodes()) {
+      ReactDOM.hydrateRoot(canvas, element);
+    } else {
+      const root = ReactDOM.createRoot(canvas);
+      root.render(element);
     }
-  });
-}
+  };
 
-if (
-  document.readyState === 'complete'
-  || document.readyState === 'interactive'
-) {
-  readyHandler();
-} else {
-  window.addEventListener('DOMContentLoaded', readyHandler);
-}
+  render();
+
+  if (import.meta.webpackHot) {
+    import.meta.webpackHot.accept(() => render(true));
+  }
+});

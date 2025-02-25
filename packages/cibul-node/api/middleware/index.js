@@ -5,6 +5,7 @@ export { default as loadAgenda } from './loadAgenda.js';
 export { default as eventUpdate } from './eventUpdate.js';
 export { default as redirectIfPrivate } from './redirectIfPrivate.js';
 export { default as loadEvent } from './loadEvent.js';
+export { default as moveEventLegacyImageCredits } from './moveEventLegacyImageCredits.js';
 export { default as parseBodyData } from './parseBodyData.js';
 export { default as requestAccessToken } from './requestAccessToken.js';
 export { default as convertLegacyFilter } from './convertLegacyFilter.js';

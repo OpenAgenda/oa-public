@@ -1,0 +1,201 @@
+{
+  "id" : 10100,
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 2,
+  "fields": [
+    {
+      "field": "languages",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "title",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "types-devenement",
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "theme-2019",
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "image",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "imageCredits",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "location",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "timings",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "description",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "longDescription",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "conditions-de-participation",
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "conditions",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "registration",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "age",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "keywords",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "diffusion-sur-le-pass-culture",
+      "label": "Diffusion sur le pass culture",
+      "help": "Contacter l'équipe du pass",
+      "helpLink": "mailto:support.passculture@beta.gouv.fr",
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": [
+        "administrator",
+        "moderator",
+        "contributor"
+      ],
+      "read": [
+        "administrator",
+        "moderator",
+        "contributor"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 1,
+          "value": "pass-culture",
+          "label": {
+            "en": "Cet évènement est spécifiquement pensé pour les jeunes de 18 ans. Je souhaite qu’il soit référencé sur le pass Culture. En cochant cette case, j’accepte l’utilisation de ces données par le pass Culture ainsi que les conditions générales d’utilisation de la plateforme : https://docs.passculture.app"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "siret",
+      "label": "Numéro SIRET de mon établissement (ou à défaut, numéro de SIREN)",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": [
+        "administrator",
+        "moderator",
+        "contributor"
+      ],
+      "read": [
+        "administrator",
+        "moderator",
+        "contributor"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": "diffusion-sur-le-pass-culture",
+      "related": [
+        "diffusion-sur-le-pass-culture"
+      ],
+      "min": null,
+      "max": 20,
+      "fieldType": "text"
+    },
+    {
+      "field": "prix-pass-culture",
+      "label": "Prix de l'événement tel qu'affiché sur le pass Culture",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Merci d'indiquer un nombre entier, saisissez « 0 » si l'événement est gratuit.",
+      "sub": null,
+      "placeholder": null,
+      "write": [
+        "administrator",
+        "moderator",
+        "contributor"
+      ],
+      "read": [
+        "administrator",
+        "moderator",
+        "contributor"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": "diffusion-sur-le-pass-culture",
+      "related": [
+        "diffusion-sur-le-pass-culture"
+      ],
+      "min": null,
+      "max": 100,
+      "fieldType": "number"
+    },
+    {
+      "field": "url-pass-culture",
+      "label": "URL pass culture",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": [
+        "administrator",
+        "moderator",
+        "contributor"
+      ],
+      "read": [
+        "administrator",
+        "moderator",
+        "contributor"
+      ],
+      "optional": true,
+      "display": false,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    }
+  ]
+}

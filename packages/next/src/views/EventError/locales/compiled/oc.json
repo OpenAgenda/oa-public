@@ -8,7 +8,7 @@
   "next.views.EventError.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contactar los administrators"
+      "value": "Contacter les administrateurs"
     }
   ],
   "next.views.EventError.eventNotFound": [
@@ -92,7 +92,7 @@
   "next.views.EventError.unauthorizedMsg": [
     {
       "type": 0,
-      "value": "L'accès à cet agenda est restreint,"
+      "value": "L'accès à cet événement est restrent, "
     },
     {
       "type": 1,
@@ -100,7 +100,7 @@
     },
     {
       "type": 0,
-      "value": "veuillez vous authentifier avant de pouvoir y accéder."
+      "value": "connectez-vous avant de tenter d'y accéder à nouveau"
     }
   ]
 }

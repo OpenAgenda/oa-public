@@ -54,11 +54,6 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::size.size"
-    },
-    "grow": {
-      "type": "integer",
-      "default": 1,
-      "max": 5
     }
   }
 }

@@ -1,6 +1,6 @@
 {
-  "ReactFilters.ValueBadge.removeFilter": "Supprimer le filtre",
-  "ReactFilters.ValueBadge.removeFilterWithTitle": "Supprimer le filtre ({title})",
+  "ReactFilters.ValueBadge.removeFilter": "",
+  "ReactFilters.ValueBadge.removeFilterWithTitle": "",
   "next.views.EmbedAgendaShow.search": "Rechercher",
   "next.views.EmbedAgendaShow.seeMore": "Voir plus"
 }

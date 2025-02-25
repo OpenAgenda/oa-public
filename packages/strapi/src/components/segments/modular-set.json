@@ -31,10 +31,6 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
-    },
-    "alignHeight": {
-      "type": "boolean",
-      "default": false
     }
   }
 }

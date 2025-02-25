@@ -249,8 +249,7 @@ module.exports = {
     "fr": "Historique",
     "io": "crwdns32760:0crwdne32760:0",
     "oc": "Istoric",
-    "es": "Historia",
-    "it": "Storia"
+    "es": "Historia"
   },
   "next": {
     "en": "Next",

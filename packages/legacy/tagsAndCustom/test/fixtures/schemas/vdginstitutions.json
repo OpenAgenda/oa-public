@@ -1,0 +1,1042 @@
+{
+  "id" : 62,
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 132,
+  "fields": [
+    {
+      "field": "service-contributeur",
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "languages",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "title",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "description",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "longDescription",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "type-devenement",
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "timings",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "location",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "other_place",
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "publics-cibles",
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "age",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "conditions",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "organisator",
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "organisator_url",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "registration",
+      "label": {
+        "fr": "Réservation et billetterie"
+      },
+      "info": {
+        "fr": "Indiquez les détails de contacts ou renvoyer vers le site de la billetterie"
+      },
+      "fieldType": "abstract"
+    },
+    {
+      "field": "image",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "imageCredits",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "image_alt_text",
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "type-devenement-institutions",
+      "label": {
+        "fr": "Type d'événement  Institutions"
+      },
+      "help": null,
+      "helpLink": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 25,
+          "value": "concert",
+          "label": {
+            "fr": "Concert"
+          },
+          "legacyId": 51461
+        },
+        {
+          "id": 26,
+          "value": "animation",
+          "label": {
+            "fr": "Animation"
+          },
+          "legacyId": 51462
+        },
+        {
+          "id": 33,
+          "value": "accrochage",
+          "label": {
+            "fr": "Accrochage"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 34,
+          "value": "achats-au-musee",
+          "label": {
+            "fr": "Achats au Musée"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 35,
+          "value": "animation-dinosaures",
+          "label": {
+            "fr": "Animation dinosaures"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 36,
+          "value": "anniversaire",
+          "label": {
+            "fr": "Anniversaire"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 37,
+          "value": "atelier-danse",
+          "label": {
+            "fr": "Atelier danse"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 38,
+          "value": "ateliers-and-demonstrations",
+          "label": {
+            "fr": "Ateliers & Démonstrations"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 39,
+          "value": "bilingue-francais-anglais",
+          "label": {
+            "fr": "Bilingue français-anglais"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 40,
+          "value": "brunch-eclairage-dune-exposition",
+          "label": {
+            "fr": "Brunch \"Eclairage d'une exposition\""
+          },
+          "legacyId": null
+        },
+        {
+          "id": 41,
+          "value": "colloque",
+          "label": {
+            "fr": "Colloque"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 42,
+          "value": "concours",
+          "label": {
+            "fr": "Concours"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 43,
+          "value": "conference",
+          "label": {
+            "fr": "Conférence"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 44,
+          "value": "conference-et-atelier",
+          "label": {
+            "fr": "Conférence et atelier"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 45,
+          "value": "conference-colloque",
+          "label": {
+            "fr": "Conférence, colloque"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 46,
+          "value": "conferences-and-rencontres",
+          "label": {
+            "fr": "Conférences & Rencontres"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 47,
+          "value": "conte",
+          "label": {
+            "fr": "Conte"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 48,
+          "value": "contes",
+          "label": {
+            "fr": "Contes"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 49,
+          "value": "cycle-thematique",
+          "label": {
+            "fr": "Cycle thématique"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 50,
+          "value": "i-danse",
+          "label": {
+            "fr": "I-Danse"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 51,
+          "value": "debat",
+          "label": {
+            "fr": "Débat"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 52,
+          "value": "demonstration",
+          "label": {
+            "fr": "Démonstration"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 53,
+          "value": "divers",
+          "label": {
+            "fr": "Divers"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 54,
+          "value": "egalite",
+          "label": {
+            "fr": "Egalité"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 55,
+          "value": "entretien-du-mercredi",
+          "label": {
+            "fr": "Entretien du mercredi"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 56,
+          "value": "estival",
+          "label": {
+            "fr": "Estival"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 57,
+          "value": "evenement",
+          "label": {
+            "fr": "Evénement"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 58,
+          "value": "i-exposition",
+          "label": {
+            "fr": "I-Exposition"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 59,
+          "value": "exposition-hors-murs",
+          "label": {
+            "fr": "Exposition hors-murs"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 60,
+          "value": "exposition-permanente",
+          "label": {
+            "fr": "Exposition permanente"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 61,
+          "value": "exposition-temporaire",
+          "label": {
+            "fr": "Exposition temporaire"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 62,
+          "value": "festival",
+          "label": {
+            "fr": "Festival"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 63,
+          "value": "film",
+          "label": {
+            "fr": "Film"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 64,
+          "value": "fmac-mobile",
+          "label": {
+            "fr": "FMAC Mobile"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 65,
+          "value": "forum",
+          "label": {
+            "fr": "Forum"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 66,
+          "value": "guided-tour-in-english",
+          "label": {
+            "fr": "Guided tour in English"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 67,
+          "value": "hors-les-murs-ariana",
+          "label": {
+            "fr": "Hors-les-murs ARIANA"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 68,
+          "value": "hors-murs-bm",
+          "label": {
+            "fr": "Hors-murs BM"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 69,
+          "value": "i-inauguration",
+          "label": {
+            "fr": "I-Inauguration"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 70,
+          "value": "installations-artistiques-participatives",
+          "label": {
+            "fr": "Installations artistiques participatives"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 71,
+          "value": "jeux-video",
+          "label": {
+            "fr": "Jeux vidéo"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 72,
+          "value": "journee-thematique",
+          "label": {
+            "fr": "Journée thématique"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 73,
+          "value": "langueslanguages",
+          "label": {
+            "fr": "Langues/languages"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 74,
+          "value": "i-lecture",
+          "label": {
+            "fr": "I-Lecture"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 75,
+          "value": "les-ateliers-du-mercredi",
+          "label": {
+            "fr": "Les ateliers du mercredi"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 76,
+          "value": "les-cafes-scientifiques",
+          "label": {
+            "fr": "Les cafés scientifiques"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 77,
+          "value": "les-jeudis-midi-de-laffiche",
+          "label": {
+            "fr": "Les jeudis Midi de l'Affiche"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 78,
+          "value": "les-quatre-saisons-de-la-musicale",
+          "label": {
+            "fr": "Les quatre saisons de la Musicale"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 79,
+          "value": "manifestation-and-animations",
+          "label": {
+            "fr": "Manifestation & animations"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 80,
+          "value": "marionettes",
+          "label": {
+            "fr": "Marionettes"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 81,
+          "value": "matinees-decalees",
+          "label": {
+            "fr": "Matinées décalées"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 82,
+          "value": "mercredi-family",
+          "label": {
+            "fr": "Mercredi Family"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 83,
+          "value": "mercredis-des-sciences-nouvelle-formule",
+          "label": {
+            "fr": "Mercredis des sciences nouvelle formule"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 84,
+          "value": "midi-au-musee",
+          "label": {
+            "fr": "Midi au musée"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 85,
+          "value": "midi-de-lexpo",
+          "label": {
+            "fr": "Midi de l'expo"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 86,
+          "value": "moments-famille",
+          "label": {
+            "fr": "Moments famille"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 87,
+          "value": "musique",
+          "label": {
+            "fr": "Musique"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 88,
+          "value": "nuits-des-musees",
+          "label": {
+            "fr": "Nuits des Musées"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 89,
+          "value": "numerique",
+          "label": {
+            "fr": "Numérique"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 90,
+          "value": "observations-astronomiques",
+          "label": {
+            "fr": "Observations astronomiques"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 91,
+          "value": "operation",
+          "label": {
+            "fr": "Opération"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 92,
+          "value": "performance",
+          "label": {
+            "fr": "Performance"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 93,
+          "value": "poesie-en-ville",
+          "label": {
+            "fr": "Poésie en ville"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 94,
+          "value": "presentation",
+          "label": {
+            "fr": "Présentation"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 95,
+          "value": "presentation-de-livre",
+          "label": {
+            "fr": "Présentation de livre"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 96,
+          "value": "prix-litteraire",
+          "label": {
+            "fr": "Prix littéraire"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 97,
+          "value": "programmation",
+          "label": {
+            "fr": "Programmation"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 98,
+          "value": "programmation-invitee",
+          "label": {
+            "fr": "Programmation invitée"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 99,
+          "value": "i-projection",
+          "label": {
+            "fr": "I-Projection"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 100,
+          "value": "projection-film-documentaire",
+          "label": {
+            "fr": "Projection, film, documentaire"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 101,
+          "value": "rencontre",
+          "label": {
+            "fr": "Rencontre"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 102,
+          "value": "rendez-vous-recherche-et-collections",
+          "label": {
+            "fr": "Rendez-vous recherche et collections"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 103,
+          "value": "seminaire",
+          "label": {
+            "fr": "Séminaire"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 104,
+          "value": "i-spectacle",
+          "label": {
+            "fr": "I-Spectacle"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 105,
+          "value": "spectacles-and-contes",
+          "label": {
+            "fr": "Spectacles & Contes"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 106,
+          "value": "studio-photo",
+          "label": {
+            "fr": "Studio photo"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 107,
+          "value": "table-ronde",
+          "label": {
+            "fr": "Table ronde"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 108,
+          "value": "i-theatre",
+          "label": {
+            "fr": "I-Théâtre"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 109,
+          "value": "theatre-and-performance",
+          "label": {
+            "fr": "Théâtre & performance"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 110,
+          "value": "theatre-dombres",
+          "label": {
+            "fr": "Théâtre d'ombres"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 111,
+          "value": "vernissage",
+          "label": {
+            "fr": "Vernissage"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 112,
+          "value": "vingt-minutes-une-oeuvre",
+          "label": {
+            "fr": "Vingt minutes, une oeuvre"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 113,
+          "value": "visite",
+          "label": {
+            "fr": "Visite"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 114,
+          "value": "visite-atelier",
+          "label": {
+            "fr": "Visite atelier"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 115,
+          "value": "i-visite-commentee",
+          "label": {
+            "fr": "I-Visite commentée"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 116,
+          "value": "visite-contee",
+          "label": {
+            "fr": "Visite contée"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 117,
+          "value": "visite-descriptive-et-tactile",
+          "label": {
+            "fr": "Visite descriptive et tactile"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 118,
+          "value": "visite-en-langue-des-signes",
+          "label": {
+            "fr": "Visite en langue des signes"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 119,
+          "value": "visite-en-langue-des-signes-francaise-lsf",
+          "label": {
+            "fr": "Visite en langue des signes française (LSF)"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 120,
+          "value": "visite-guidee",
+          "label": {
+            "fr": "Visite guidée"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 121,
+          "value": "visite-hors-les-murs",
+          "label": {
+            "fr": "Visite hors les murs"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 122,
+          "value": "visite-musicale",
+          "label": {
+            "fr": "Visite musicale"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 123,
+          "value": "visite-pas-a-pas",
+          "label": {
+            "fr": "Visite pas à pas"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 124,
+          "value": "visite-pour-aveugles-et-malvoyants",
+          "label": {
+            "fr": "Visite pour aveugles et malvoyants"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 125,
+          "value": "visite-pour-les-enseignants",
+          "label": {
+            "fr": "Visite pour les enseignants"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 126,
+          "value": "visite-thematique",
+          "label": {
+            "fr": "Visite thématique"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 127,
+          "value": "visites",
+          "label": {
+            "fr": "Visites"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 128,
+          "value": "visites-ateliers",
+          "label": {
+            "fr": "Visites - ateliers"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 129,
+          "value": "workshops-creatifs",
+          "label": {
+            "fr": "Workshops créatifs"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 130,
+          "value": "y-a-pas-photo",
+          "label": {
+            "fr": "Y a pas Photo !"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 131,
+          "value": "i-a-classer",
+          "label": {
+            "fr": "I-A CLASSER"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "publics-cibles-institutions-typo3",
+      "label": {
+        "fr": "Public(s) Cible(s) institutions typo3"
+      },
+      "help": null,
+      "helpLink": null,
+      "info": {
+        "fr": "rempli par l'interface typo3"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 27,
+          "value": "jeunes-et-familles",
+          "label": {
+            "fr": "jeunes et familles"
+          },
+          "legacyId": 51463
+        },
+        {
+          "id": 28,
+          "value": "adulte",
+          "label": {
+            "fr": "adulte"
+          },
+          "legacyId": 51464
+        },
+        {
+          "id": 29,
+          "value": "seniors",
+          "label": {
+            "fr": "seniors"
+          },
+          "legacyId": 51465
+        },
+        {
+          "id": 30,
+          "value": "scolaire",
+          "label": {
+            "fr": "scolaire"
+          },
+          "legacyId": 51466
+        },
+        {
+          "id": 31,
+          "value": "acces-pour-tous",
+          "label": {
+            "fr": "accès pour tous"
+          },
+          "legacyId": 51467
+        },
+        {
+          "id": 32,
+          "value": "professionnels",
+          "label": {
+            "fr": "professionnels"
+          },
+          "legacyId": 51468
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "references",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "internal_remarks",
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "labels",
+      "display": false,
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "director",
+      "display": false,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "thematiques-internes",
+      "display": false,
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "organisation-de-levenement",
+      "display": false,
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "quartiers",
+      "display": false,
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "keywords",
+      "fieldType": "abstract"
+    }
+  ]
+}

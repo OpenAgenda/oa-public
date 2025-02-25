@@ -5,7 +5,10 @@ process.env.NODE_ENV = 'test';
 const _ = require('lodash');
 const Files = require('@openagenda/files');
 const svc = require('../service/index');
-const { service: config, dependencies: dConfig } = require('../testconfig');
+const {
+  service: config,
+  dependencies: dConfig,
+} = require('../testconfig.sample');
 const loadFixtures = require('./fixtures/load');
 
 describe('agendas - functional (server): get', () => {
@@ -17,11 +20,13 @@ describe('agendas - functional (server): get', () => {
         `${__dirname}/../model.sql`,
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
+        `${__dirname}/fixtures/occurrence.data.sql`,
       ],
       map: {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
+        occurrence: 'occurrence',
       },
     }),
   );
@@ -75,6 +80,22 @@ describe('agendas - functional (server): get', () => {
     expect(agenda.image).toBe(
       `${config.imagePath}review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg`,
     );
+  });
+
+  it('get gets an agenda with details', async () => {
+    const agenda = await svc.get(4848, { detailed: true });
+
+    expect(agenda.publishedEvents).toBe(10);
+    expect(agenda.upcomingPublishedEvents).toBe(8);
+  });
+
+  it('get gets an agenda with restricted details', async () => {
+    const agenda = await svc.get(4848, {
+      detailed: true,
+      includeRestricted: true,
+    });
+
+    expect(agenda.totalEvents).toBe(19);
   });
 
   it('get gets an agenda by slug', async () => {
@@ -142,27 +163,11 @@ describe('agendas - functional (server): get', () => {
       { uid: 35338076 },
       {
         access: 'administrator',
+        detailed: true,
       },
     );
 
     expect(agenda.settings.admin.filters.displayed).toEqual(['keyword']);
-  });
-
-  it('get location settings', async () => {
-    const agenda = await svc.get({ uid: 90695263 });
-    expect(agenda.settings.locations).toEqual({
-      extIds: [
-        {
-          key: 'default',
-          label: 'BDL',
-          actions: {
-            edit: {
-              link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
-            },
-          },
-        },
-      ],
-    });
   });
 
   it('a few gets do not leak db connections', async () => {

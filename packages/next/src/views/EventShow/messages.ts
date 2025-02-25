@@ -501,6 +501,26 @@ export const sidebar = defineMessages({
     id: 'next.views.EventShow.Sidebar.accessPassOffer',
     defaultMessage: 'Access the pass Culture offer',
   },
+  accessibleToIntellectually: {
+    id: 'next.views.EventShow.Sidebar.accessibleToIntellectually',
+    defaultMessage: 'Accessible to the intellectually impaired',
+  },
+  accessibleToHearing: {
+    id: 'next.views.EventShow.Sidebar.accessibleToHearing',
+    defaultMessage: 'Accessible to the hearing impaired',
+  },
+  accessibleToVisually: {
+    id: 'next.views.EventShow.Sidebar.accessibleToVisually',
+    defaultMessage: 'Accessible to the visually impaired',
+  },
+  accessibleToPsychic: {
+    id: 'next.views.EventShow.Sidebar.accessibleToPsychic',
+    defaultMessage: 'Accessible to the psychic impaired',
+  },
+  accessibleToMotor: {
+    id: 'next.views.EventShow.Sidebar.accessibleToMotor',
+    defaultMessage: 'Accessible to the motor impaired',
+  },
   startingAt: {
     id: 'next.views.EventShow.Sidebar.startingAt',
     defaultMessage: 'Starting at {min} years old',

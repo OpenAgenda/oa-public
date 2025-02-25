@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 
 import Radio from '../Radio.js';
@@ -261,3 +262,22 @@ const SpreadsheetOptions = ({ languages, setChoice, fields, options }) => {
 };
 
 export default SpreadsheetOptions;
+
+SpreadsheetOptions.propTypes = {
+  options: PropTypes.shape({
+    format: PropTypes.string,
+    languages: PropTypes.arrayOf(PropTypes.string),
+    fields: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  languages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setChoice: PropTypes.func.isRequired,
+  fields: PropTypes.arrayOf(
+    PropTypes.shape({
+      source: PropTypes.string,
+      target: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string),
+      ]),
+    }),
+  ).isRequired,
+};

@@ -1,11 +1,11 @@
 {
-  "cancel": "Nullañ",
-  "close": "Serriñ",
   "contribDefaultStatePublished": "Embannet",
-  "copy": "Kopiañ",
-  "officialAgenda": "Deiziataer ofisiel",
-  "remove": "Lemel",
   "required": "Rekis",
+  "close": "Serriñ",
+  "remove": "Lemel",
+  "copy": "Kopiañ",
   "save": "Enrollañ",
+  "cancel": "Nullañ",
+  "officialAgenda": "Deiziataer ofisiel",
   "update": "Hizivaat"
 }

@@ -1,13 +1,7 @@
 {
-  "AgendaSchema.AfterRedirectModal.body": "La configurazione del modulo utente non è attivata sul calendario",
-  "AgendaSchema.AfterRedirectModal.title": "Informazione",
-  "AgendaSchema.EmbedSelection.eventInfo": "Configurazione degli eventi",
   "AgendaSchema.EmbedSelection.events": "Eventi",
-  "AgendaSchema.EmbedSelection.memberInfo": "Configurazione degli membri",
-  "AgendaSchema.EmbedSelection.memberInfoAsk": "Ask for access to member configuration",
   "AgendaSchema.EmbedSelection.members": "Membri",
   "AgendaSchema.adaptForm": "Adattare la configurazione del modulo eventi",
-  "AgendaSchema.adaptMemberForm": "Adattare la configurazione del modulo membri",
   "AgendaSchema.canAddField": "È possibile aggiungere al modulo dell'evento un campo di propria scelta",
   "AgendaSchema.event": "Standard",
   "AgendaSchema.eventDetail": "Campo eventi standard"

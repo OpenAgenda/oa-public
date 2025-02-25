@@ -277,7 +277,7 @@ module.exports = {
     "fr": "an",
     "de": "Jahr",
     "es": "año",
-    "it": "anno",
+    "it": "un",
     "io": "crwdns13334:0crwdne13334:0",
     "oc": "an"
   },

@@ -10,8 +10,7 @@
   "license": "ISC",
   "type": "module",
   "scripts": {
-    "sb": "storybook dev -p 9001",
-    "start": "yarn sb",
+    "start": "storybook dev -p 9001",
     "extract-messages": "oa-intl --esm",
     "build": "tsup",
     "prepack": "oa-intl compile --esm && yarn build"
@@ -36,16 +35,15 @@
   },
   "devDependencies": {
     "@openagenda/bs-templates": "^2.5.0",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/react-webpack5": "^8.5.8",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "storybook": "^8.5.8",
+    "@storybook/react-webpack5": "^7.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "storybook": "^7.6.4",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.0"
   }

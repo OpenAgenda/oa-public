@@ -10,6 +10,15 @@ schema.register({
 });
 
 export default schema({
+  transferToLegacy: {
+    type: 'boolean',
+    list: { default: false },
+  },
+  // required for legacy transfer to target an agenda
+  agendaId: {
+    type: 'integer',
+    optional: true,
+  },
   draft: {
     type: 'boolean',
     optional: true,

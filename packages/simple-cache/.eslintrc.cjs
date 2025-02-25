@@ -11,7 +11,10 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: [`${__dirname}/test/**/*.js`],
+        devDependencies: [
+          `${__dirname}/test/**/*.js`,
+          `${__dirname}/testconfig.sample.js`,
+        ],
       },
     ],
   },

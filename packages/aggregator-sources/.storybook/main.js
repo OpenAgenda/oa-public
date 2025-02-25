@@ -10,7 +10,6 @@ export default {
     name: getAbsolutePath('@storybook/react-webpack5'),
     options: {},
   },
-  addons: [getAbsolutePath('@storybook/addon-webpack5-compiler-babel')],
   staticDirs: ['./public'],
   babel: (config) => {
     return { ...config, rootMode: 'upward' };

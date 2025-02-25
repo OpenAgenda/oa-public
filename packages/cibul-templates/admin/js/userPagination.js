@@ -1,21 +1,43 @@
-import React from 'react';
+"use strict";
 
-export default function UserPagination({ total, perPage, page, onPageSelect }) {
-  const pageCount = Math.ceil(total / perPage);
-  const firstPage = Math.max(1, page - 5);
-  const maxPage = Math.min(page + 5, pageCount);
+var React = require( 'react' ),
 
-  const pages = Array.from({ length: maxPage - firstPage + 1 }, (_, i) => firstPage + i);
+  createReactClass = require( 'create-react-class' );
 
-  return (
-    <nav>
-      <ul className="pagination">
-        {pages.map((item) => (
-          <li key={item} onClick={() => onPageSelect(item)}>
-            <a href="#">{item}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-}
+module.exports = createReactClass({
+
+  handleClick: function( e ) {
+
+    e.preventDefault();
+
+    this.props.onPageSelect( e.target.innerHTML );
+
+  },
+
+  render: function() {
+
+    var pages = [], self = this,
+
+    pageCount = Math.ceil( this.props.total/this.props.perPage ),
+
+    createItem = function( item ) {
+
+      return <li key={item} onClick={self.handleClick}><a>{item}</a></li>;
+
+    },
+
+    firstPage = Math.max( 1, this.props.page - 5 ),
+
+    maxPage = Math.min( this.props.page + 5, pageCount );
+
+    for( var i = firstPage; i<=maxPage; i++ ) {
+
+      pages.push( i );
+
+    }
+
+    return <nav><ul className="pagination">{pages.map( createItem )}</ul></nav>;
+
+  }
+
+});

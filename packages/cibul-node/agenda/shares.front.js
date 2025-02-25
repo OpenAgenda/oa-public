@@ -1,11 +1,11 @@
 import Shares from '@openagenda/shares';
+import config from '../config/index.js';
+import * as agendaSvc from '../services/agenda/index.js';
+import * as embedSvc from '../services/embed/index.js';
+
+const shares = Shares(config.shares.agenda);
 
 function share(req, res, next) {
-  const { core } = req.app.services;
-  const config = core.getConfig();
-
-  const shares = Shares(config.shares.agenda);
-
   if (!shares.has(req.params.service)) {
     return next({ code: 404, message: 'This share type does not exist' });
   }
@@ -21,28 +21,29 @@ function share(req, res, next) {
     shares.getLink(req.params.service, {
       title: req.agenda.title,
       description: req.agenda.description,
-      url: req.genUrl(
-        'agendaShow',
-        { slug: req.agenda.slug },
-        { abs: true, protocol: 'https://' },
-      ),
+      url: req.embed
+        ? req.genUrl(
+          'customEmbedShow',
+          { uid: req.agenda.uid, embedUid: req.embed.uid },
+          { abs: true, protocol: 'https://' },
+        )
+        : req.genUrl(
+          'agendaShow',
+          { slug: req.agenda.slug },
+          { abs: true, protocol: 'https://' },
+        ),
       siteUrl: config.root,
     }),
   );
 }
 
 export default (app) => {
-  const { agendas: agendasSvc } = app.services;
+  app.get('/:slug/share/:service', agendaSvc.mw.load('slug'), share);
+
   app.get(
-    '/:slug/share/:service',
-    agendasSvc.middleware.load({
-      internal: true,
-      namespaces: {
-        identifiers: {
-          slug: 'params.slug',
-        },
-      },
-    }),
+    '/agendas/:uid/embed/share/:service',
+    agendaSvc.mw.load('uid'),
+    embedSvc.mw.load('embedUid', 'uid'),
     share,
   );
 };

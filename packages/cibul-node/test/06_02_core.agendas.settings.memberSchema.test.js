@@ -34,6 +34,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
       ],

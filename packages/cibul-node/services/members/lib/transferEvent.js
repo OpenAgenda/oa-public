@@ -25,7 +25,7 @@ export default async function transferEvent(services, event, member) {
     {
       ownerUid: member.userUid,
     },
-    { protected: false, access: 'internal' },
+    { protected: false, transferToLegacy: true, access: 'internal' },
   );
 
   log(
@@ -39,7 +39,7 @@ export default async function transferEvent(services, event, member) {
     {
       userUid: member.userUid,
     },
-    { protected: false },
+    { protected: false, transferToLegacy: true },
   );
 
   log.info('transferred event ownership', {

@@ -75,6 +75,7 @@ export default async function onAction(services, conversation, action) {
           await agendaEventsSvc(conversation.store.params.agendaUid).update(
             conversation.typeIdentifier,
             { canEdit: true },
+            { transferToLegacy: true },
           );
 
           log('info', 'Edition rights request accepted', {

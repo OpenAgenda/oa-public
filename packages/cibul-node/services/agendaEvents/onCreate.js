@@ -12,13 +12,17 @@ import addEventAdditionActivity from './lib/addEventAdditionActivity.js';
 const log = logs('agendaEvents/onCreate');
 
 export default async ({ config, services }, ae, context) => {
-  const { activities: activitiesSvc } = services;
+  const {
+    activities: activitiesSvc,
+    custom,
+    legacy: { controlData: controlDataSvc },
+  } = services;
 
   services.tracker('agendaEvents.onCreate');
   log(
     'created agenda-event %j',
     ae,
-    _.pick(context, ['aggregated', 'batched']),
+    _.pick(context, ['legacy', 'aggregated', 'batched']),
   );
 
   // use context.userUid. will be null when nothing was specified at create
@@ -71,6 +75,36 @@ export default async ({ config, services }, ae, context) => {
       );
     } catch (error) {
       log.error(new VError(error, 'Cannot send event aggregation emails'));
+    }
+  }
+
+  if (context.legacy && context.aggregated && agenda.formSchemaId) {
+    // this happens after legacy reference was added
+    try {
+      await custom(agenda.formSchemaId).transferFromLegacy(
+        event.uid,
+        _.get(agenda, 'id'),
+      );
+    } catch (e) {
+      log(
+        'error',
+        'could not transfer custom data from legacy (%s.%s)',
+        ae.agendaUid,
+        ae.eventUid,
+        e,
+      );
+    }
+  }
+
+  /**
+   * control data is used for displaying widget data
+   */
+
+  if (ae.state === 2) {
+    try {
+      await controlDataSvc.set(ae, event);
+    } catch (e) {
+      log('error', 'control data set failed', e);
     }
   }
 

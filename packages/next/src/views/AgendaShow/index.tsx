@@ -45,10 +45,25 @@ import fetchLocale from './locales';
 
 import 'leaflet/dist/leaflet.css';
 
-const DynamicEventsPart = dynamic(() => import('./components/EventsPart'));
-const DynamicTotalPart = dynamic(() => import('./components/TotalPart'));
-const DynamicFiltersPart = dynamic(() => import('./components/FiltersPart'));
-const DynamicLdJson = dynamic(() => import('./components/LdJson'));
+const DynamicEventsPart = dynamic(() => import('./components/EventsPart'), {
+  // ssr: false,
+  suspense: true,
+});
+
+const DynamicTotalPart = dynamic(() => import('./components/TotalPart'), {
+  // ssr: false,
+  suspense: true,
+});
+
+const DynamicFiltersPart = dynamic(() => import('./components/FiltersPart'), {
+  // ssr: false,
+  suspense: true,
+});
+
+const DynamicLdJson = dynamic(() => import('./components/LdJson'), {
+  // ssr: false,
+  suspense: true,
+});
 
 // @ts-ignore
 DynamicEventsPart.render.preload();
@@ -68,7 +83,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   const dateFnsLocale = useDateFnsLocale();
   const { user } = useUser();
 
-  const filtersFormRef = useRef<any>(undefined);
+  const filtersFormRef = useRef<any>();
 
   const urlQuery = useLocationQuery();
   const initialValues = useConst(() => urlQuery);

@@ -1,12 +1,8 @@
 import _ from 'lodash';
-import logs from '@openagenda/logs';
 import convertEventToLegacyFormat from '@openagenda/legacy/convertEventToLegacyFormat/index.js';
 import convertLegacyFilter from '@openagenda/legacy/convertLegacyFilter/index.js';
 import renderHTMLFromMarkdown from '@openagenda/legacy/utils/renderHTMLFromMarkdown.js';
 import track from '../lib/track.js';
-import legacySettings from '../lib/legacySettings.js';
-
-const log = logs('ConvertFormat');
 
 export default function ConvertFormat({
   forceLimit = null,
@@ -16,17 +12,18 @@ export default function ConvertFormat({
   trackInfos = null,
 }) {
   return async (req, res, next) => {
-    const { core } = req.app.services;
+    const {
+      legacy: { tagsAndCustom },
+      core,
+    } = req.app.services;
 
     const config = core.getConfig();
 
+    const tagSet = await tagsAndCustom.getTagSet(req.params.uid);
+    const categorySet = await tagsAndCustom.getCategorySet(req.params.uid);
     const formSchema = await req.app.core
       .agendas(req.params.uid)
-      .settings.schema.getMerged({
-        access: 'internal',
-      });
-
-    const { tagSet, categorySet } = legacySettings.generate(formSchema);
+      .settings.get({ access: 'internal' });
 
     const nav = req.query.page
       ? {
@@ -84,10 +81,7 @@ export default function ConvertFormat({
     const agendaSettings = {
       uid: req.params.uid,
       slug: agenda.slug,
-      legacy: {
-        tagSet,
-        categorySet,
-      },
+      legacy: { tagSet, categorySet },
       formSchema,
       interfaces: {
         renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(
@@ -103,18 +97,8 @@ export default function ConvertFormat({
       root: config.root,
     };
 
-    const convertedEvents = eventsList.events.map((event) => {
-      try {
-        return convertEventToLegacyFormat(agendaSettings, event);
-      } catch (e) {
-        log.error('exception while converting to legacy event format', {
-          error: e,
-          agendaUID: agenda.uid,
-          eventUID: event.uid,
-        });
-        throw e;
-      }
-    });
+    const convertedEvents = eventsList.events.map((event) =>
+      convertEventToLegacyFormat(agendaSettings, event));
 
     const response = {
       total: eventsList.total,

@@ -4,6 +4,7 @@ const _ = require('lodash');
 const VError = require('@openagenda/verror');
 const utils = require('@openagenda/utils');
 const mapper = require('@openagenda/mysql-utils/mapper');
+const details = require('./details');
 const map = require('./databaseFieldMap');
 const validate = require('./validate');
 const validateOptions = require('./validate/getOptions');
@@ -58,6 +59,9 @@ async function promise(identifiers, options = {}) {
 
   if (!rawAgenda) return null;
 
+  if (options.detailed) {
+    await _.assign(rawAgenda, await details.load(rawAgenda, options));
+  }
   const agenda = _.keys(rawAgenda).reduce((filtered, field) => {
     if (options.internal || !dbParse.is('obj', field, 'internal')) {
       filtered[field] = rawAgenda[field];

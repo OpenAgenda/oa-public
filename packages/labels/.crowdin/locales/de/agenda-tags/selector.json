@@ -1,8 +1,8 @@
 {
-  "defaultTagGroupInfo": "Wähle einen oder mehrere Tags",
+  "tagsTitle": "Stichworte",
   "defaultTagGroupName": "Tag Group",
-  "noSelection": "Nichts des oben Genannten",
+  "defaultTagGroupInfo": "Wähle einen oder mehrere Tags",
   "required": "Erforderlich.",
   "requiredTagError": "Du musst mindestens ein Element auswählen",
-  "tagsTitle": "Stichworte"
+  "noSelection": "Nichts des oben Genannten"
 }

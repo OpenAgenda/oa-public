@@ -212,7 +212,7 @@
   "next.views.EventShow.ContextBar.motive": [
     {
       "type": 0,
-      "value": "crwdns34024:0crwdne34024:0"
+      "value": "Motive"
     }
   ],
   "next.views.EventShow.ContextBar.otherActions": [
@@ -478,7 +478,7 @@
   "next.views.EventShow.ShareModal.byEmailSub": [
     {
       "type": 0,
-      "value": "crwdns34184:0crwdne34184:0"
+      "value": "The event will not be sent to more than 50 recipients"
     }
   ],
   "next.views.EventShow.ShareModal.copied": [
@@ -730,7 +730,7 @@
   "next.views.EventShow.backToList": [
     {
       "type": 0,
-      "value": "crwdns34070:0crwdne34070:0"
+      "value": "Back to list"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
@@ -754,31 +754,31 @@
   "next.views.EventShow.rejectModal.confirm": [
     {
       "type": 0,
-      "value": "crwdns34026:0crwdne34026:0"
+      "value": "Confirm"
     }
   ],
   "next.views.EventShow.rejectModal.confirmRejection": [
     {
       "type": 0,
-      "value": "crwdns34028:0crwdne34028:0"
+      "value": "Confirm rejection"
     }
   ],
   "next.views.EventShow.rejectModal.motive": [
     {
       "type": 0,
-      "value": "crwdns34030:0crwdne34030:0"
+      "value": "Motive"
     }
   ],
   "next.views.EventShow.rejectModal.motiveInfo": [
     {
       "type": 0,
-      "value": "crwdns34032:0crwdne34032:0"
+      "value": "The motive will be presented to the contributor in the notification sent to him by email as well as directly associated with the status on the event page."
     }
   ],
   "next.views.EventShow.rejectModal.motivePlaceholder": [
     {
       "type": 0,
-      "value": "crwdns34034:0crwdne34034:0"
+      "value": "Motive for rejection"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

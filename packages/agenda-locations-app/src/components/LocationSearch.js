@@ -108,7 +108,6 @@ const LocationSearch = ({
     const params = new URLSearchParams();
     if (state.from !== undefined) params.append('from', state.from);
     if (state.page !== undefined) params.append('page', state.page);
-    if (settings?.extIds) params.append('detailed', '1');
     params.append('size', '10');
     if (state.query.search !== undefined) params.append('search', state.query.search);
 
@@ -125,7 +124,7 @@ const LocationSearch = ({
           hasPrev: state.page !== 1,
         });
       });
-  }, [state.query, state.from, state.page]);
+  }, [state.query, state.from, state.page, res.index]);
 
   const onFocus = (value) => {
     dispatch({ type: 'setQuery', query: { search: value } });
@@ -250,7 +249,7 @@ const LocationSearch = ({
       <ul className="dropdown-menu">
         {renderNav('prev')}
         {state.locations.length
-          ? state.locations.map((l) => renderItem(l, settings))
+          ? state.locations.map((l) => renderItem(l, settings?.locations))
           : null}
         {renderNav('next')}
         {!state.locations.length ? renderEmpty() : null}

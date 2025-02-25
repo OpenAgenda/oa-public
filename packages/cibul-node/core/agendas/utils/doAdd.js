@@ -14,7 +14,7 @@ export default async (core, payload, clean, options = {}) => {
 
   const { services } = core;
 
-  const { aggregators, agendaEvents, eventSearch, custom, tracker } = services;
+  const { aggregators, agendaEvents, eventSearch, custom, tracker, legacy } = services;
 
   log('info', 'processing agenda %s, event %s', agenda.uid, event.uid);
   tracker('core.agendas.doAdd');
@@ -46,10 +46,12 @@ export default async (core, payload, clean, options = {}) => {
         event.uid,
         clean.agendaEvent,
         {
+          transferToLegacy: true, // directive to replicate to legacy data structure
           aggregated,
           context: {
             event,
             agenda,
+            legacy: false,
             batched,
             aggregated,
             sourceAgenda,
@@ -119,6 +121,24 @@ export default async (core, payload, clean, options = {}) => {
 
   if (draft) {
     return payload.getResponse('event', access);
+  }
+
+  log('info', 'syncing legacy custom and tag data');
+  try {
+    await legacy.tagsAndCustom.set(
+      agenda.id,
+      event.uid,
+      [agenda.formSchema, _.get(agenda, 'network.formSchema')],
+      [clean.custom, clean.networkCustom],
+    );
+  } catch (e) {
+    log(
+      'error',
+      'failed to set legacy tags and custom data for agenda id %s and event uid %s',
+      agenda.id,
+      event.uid,
+      e,
+    );
   }
 
   if (

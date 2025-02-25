@@ -5,14 +5,7 @@ const isUnknownFormatException = (error) =>
     error?.info?.uploadReason?.message
     || error?.jse_info?.uploadReason?.message
     || ''
-  ).includes('no decode delegate for this image format');
-
-const isTooLargeException = (error) =>
-  (
-    error?.info?.uploadReason?.message
-    || error?.jse_info?.uploadReason?.message
-    || ''
-  ).includes('Content length exceeded the maximum limit');
+  ).indexOf('no decode delegate for this image format') !== -1;
 
 export default async function processImage(service, { image, fileKey }) {
   if (image?.filename && !('transformAndUpload' in image)) {
@@ -29,21 +22,13 @@ export default async function processImage(service, { image, fileKey }) {
       fileKey,
     });
   } catch (error) {
-    if (isUnknownFormatException(error)) {
-      throw new ValidationError({
+    throw isUnknownFormatException(error)
+      ? new ValidationError({
         field: 'image',
         code: 'format.unknown',
         message: 'provided format is unknown',
-      });
-    }
-    if (isTooLargeException(error)) {
-      throw new ValidationError({
-        field: 'image',
-        code: 'size.tooLarge',
-        message: 'provided image is too large',
-      });
-    }
-    throw error;
+      })
+      : error;
   }
 
   const base = result.shift();

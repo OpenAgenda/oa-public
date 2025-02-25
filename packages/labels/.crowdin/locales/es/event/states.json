@@ -1,13 +1,13 @@
 {
-  "all": "ver todas",
-  "controlled": "listo para publicar",
-  "featured": "en una",
-  "featuredChange": "El evento esta destacado",
-  "published": "publicado",
   "refused": "rechazado",
+  "tocontrol": "a controlar",
+  "tobecontrolled": "a controlar",
+  "controlled": "listo para publicar",
+  "published": "publicado",
+  "featured": "en una",
+  "all": "ver todas",
   "state": "estatus",
   "stateChanged": "El estado del evento fue cambiado",
-  "tobecontrolled": "a controlar",
-  "tocontrol": "a controlar",
+  "featuredChange": "El evento esta destacado",
   "unfeaturedChange": "El evento ya no es más destacada"
 }

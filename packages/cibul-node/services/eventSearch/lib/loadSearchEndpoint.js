@@ -38,6 +38,10 @@ export default (core, options = {}) =>
       ...req.query,
     };
 
+    const {
+      legacy: { tagsAndCustom },
+    } = req.app.services;
+
     if (convertLegacy) {
       req.searchQuery = {
         ...convert(req.searchQuery.oaq ?? {}, {
@@ -46,6 +50,12 @@ export default (core, options = {}) =>
             .settings.get({
               access: 'internal',
             }),
+          tagSet: req.searchQuery?.oaq?.tags
+            ? await tagsAndCustom.getTagSet(req.params.agendaUid)
+            : null,
+          categorySet: req.searchQuery?.oaq?.category
+            ? await tagsAndCustom.getCategorySet(req.params.agendaUid)
+            : null,
           query: req.searchQuery,
         }),
         ...req.searchQuery,

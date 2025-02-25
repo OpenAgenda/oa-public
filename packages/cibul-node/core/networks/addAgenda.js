@@ -19,6 +19,7 @@ export default async (core, networkUid, agendaUid) => {
     { networkUid },
     {
       protected: false,
+      updateLegacy: true,
     },
   );
 };

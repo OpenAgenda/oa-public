@@ -32,6 +32,10 @@ export default schema({
     type: 'choice',
     options: fields.map((f) => f.field),
   },
+  transferToLegacy: {
+    type: 'boolean',
+    default: true,
+  },
   useProvidedIdentifiers: {
     type: 'boolean',
     default: false,

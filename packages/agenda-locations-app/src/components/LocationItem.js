@@ -5,7 +5,7 @@ import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries.js';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
 import completeExternalActions from '../completeExternalActions.js';
-import Badge from './ExtIdBadgeWithMoreInfo.js';
+import Badge from './BadgeWithMoreInfo.js';
 
 const getLabels = makeLabelGetter(countries);
 

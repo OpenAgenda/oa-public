@@ -123,7 +123,7 @@ async function corpo(cache, req, res, next) {
   const stats = {
     agendas: await getStat('review'),
     contributors: await getStat('reviewer'),
-    events: await getStat('event_2'),
+    events: await getStat('event'),
   };
 
   const pageScripts = [];

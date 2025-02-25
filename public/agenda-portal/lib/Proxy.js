@@ -87,7 +87,6 @@ export default ({
         slugSchemaOptionIdMap: await cachedHead(agendaUid, key).then(
           (a) => a.slugSchemaOptionIdMap,
         ),
-        query,
       }),
       key,
       size: limit,

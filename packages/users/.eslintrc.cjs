@@ -14,6 +14,7 @@ module.exports = {
         devDependencies: [
           `${__dirname}/seeds/**/*.js`,
           `${__dirname}/test/**/*.js`,
+          `${__dirname}/testconfig.sample.js`,
           `${__dirname}/testconfig.js`,
         ],
       },

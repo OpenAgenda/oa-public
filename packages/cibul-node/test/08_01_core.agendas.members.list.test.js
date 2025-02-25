@@ -30,6 +30,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
         'trackers',

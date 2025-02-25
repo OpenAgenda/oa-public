@@ -28,6 +28,7 @@ describe('core - functional (server): core.events.search', () => {
         'members',
         'networks',
         'oembed',
+        'legacy',
         'users',
         'keys',
         'accessTokens',

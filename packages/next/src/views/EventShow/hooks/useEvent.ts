@@ -87,7 +87,6 @@ export type Event = {
     img: string;
     label: string;
   };
-  links?: any[];
 };
 
 export default function useEvent() {

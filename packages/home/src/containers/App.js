@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
+import { useIsomorphicLayoutEffect } from 'react-use';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
@@ -18,8 +18,6 @@ import menuReducer from '../reducers/menu.js';
 import agendasReducer from '../reducers/agendas.js';
 import eventsReducer from '../reducers/events.js';
 import modalsReducer from '../reducers/modals.js';
-
-const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
 
 function App({ route }) {
   const queryClient = useConstant(

@@ -1,5 +1,6 @@
 import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
+import { controlData as controlDataSvc } from '../legacy.js';
 import fallbackContextGet from './lib/fallbackContextGet.js';
 
 const log = logs('agendaEvents/beforeRemove');
@@ -15,6 +16,14 @@ export default async ({ services }, ae, context) => {
     ae,
     context,
   );
+
+  if (ae.state === 2) {
+    try {
+      await controlDataSvc.remove(ae);
+    } catch (e) {
+      log('error', 'control data remove failed', e);
+    }
+  }
 
   if (!agenda || !event) {
     return log(

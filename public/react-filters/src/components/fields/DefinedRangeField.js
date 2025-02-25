@@ -2,13 +2,7 @@ import isEqual from 'lodash/isEqual.js';
 import isDate from 'lodash/isDate.js';
 import React, { useCallback, useState } from 'react';
 import { DefinedRange } from '@openagenda/react-date-range';
-import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
-import useLatestModule from 'react-use/lib/useLatest.js';
-import usePreviousModule from 'react-use/lib/usePrevious.js';
-
-const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
-const useLatest = useLatestModule.default || useLatestModule;
-const usePrevious = usePreviousModule.default || usePreviousModule;
+import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 
 const defaultGetInitialValue = () => [
   {

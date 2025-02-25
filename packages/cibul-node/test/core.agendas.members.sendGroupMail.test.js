@@ -30,6 +30,7 @@ describe('core.agendas.members.sendGroupMail', () => {
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
         'tracker',

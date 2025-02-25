@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import { useState, useCallback } from 'react';
-import { DragDropProvider } from '@dnd-kit/react';
-import { dragAndDrop } from '@openagenda/react-shared';
+import { Component } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
@@ -10,74 +9,110 @@ import labels from './lib/labels.js';
 import OptionLabelsForm from './OptionLabelsForm.js';
 import OptionItem from './OptionItem.js';
 
-const { arrayMove } = dragAndDrop;
-
 const getLabel = makeLabelGetter(labels);
 
 const modes = {
   ADDING: 0,
   EDITING: 1,
+  ORDERING: 2,
 };
 
-const Options = ({ field, value, lang, onChange }) => {
-  const [mode, setMode] = useState(() => field.devInitState?.mode ?? null);
-  const [editedIndex, setEditedIndex] = useState(
-    () => field.devInitState?.editedIndex ?? null,
-  );
+export default class OptionsField extends Component {
+  constructor(props) {
+    super(props);
 
-  const getOptions = useCallback(() => value || [], [value]);
+    const state = {
+      mode: null,
+      editedIndex: null,
+    };
 
-  const addOption = useCallback(
-    (newOption) => {
-      onChange(getOptions().concat(newOption));
-    },
-    [getOptions, onChange],
-  );
+    if (props.field.devInitState) _.assign(state, props.field.devInitState);
 
-  const editOption = useCallback((index) => {
-    setMode(modes.EDITING);
-    setEditedIndex(index);
-  }, []);
+    this.state = state;
+  }
 
-  const removeOption = useCallback(
-    (index) => {
-      onChange(ih(getOptions(), { $splice: [[index, 1]] }));
-    },
-    [getOptions, onChange],
-  );
+  onDragEnd({ source, destination }) {
+    const { onChange } = this.props;
 
-  const updateOption = useCallback(
-    (index, option) => {
-      const options = getOptions();
-      const optionWithId = _.assign({ id: options[index].id }, option);
-      onChange(_.set(options, index, optionWithId));
-      setMode(null);
-    },
-    [getOptions, onChange],
-  );
+    if (!destination) return;
 
-  const isOptionActionable = useCallback(
-    () => ![modes.EDITING].includes(mode),
-    [mode],
-  );
+    const options = this.getOptions();
+    const forward = source.index < destination.index;
 
-  const isOptionDisabled = useCallback(
-    (index) => {
-      if (mode === modes.ADDING) return false;
-      if (mode === modes.EDITING && index !== editedIndex) return true;
-      return false;
-    },
-    [mode, editedIndex],
-  );
+    onChange(
+      ih(options, {
+        $splice: [
+          [destination.index + (forward ? 1 : 0), 0, options[source.index]],
+          [source.index + (forward ? 0 : 1), 1],
+        ],
+      }),
+    );
+  }
 
-  const renderAdd = () => {
+  setMode(newMode) {
+    this.setState({ mode: newMode });
+  }
+
+  getOptions() {
+    const { value } = this.props;
+    return value || [];
+  }
+
+  addOption(newOption) {
+    const { onChange } = this.props;
+
+    onChange(this.getOptions().concat(newOption));
+  }
+
+  editOption(index) {
+    this.setState({ mode: modes.EDITING, editedIndex: index });
+  }
+
+  removeOption(index) {
+    const { onChange } = this.props;
+    onChange(ih(this.getOptions(), { $splice: [[index, 1]] }));
+  }
+
+  updateOption(index, option) {
+    const { onChange } = this.props;
+
+    const options = this.getOptions();
+
+    const optionWithId = _.assign({ id: options[index].id }, option);
+
+    onChange(_.set(options, index, optionWithId));
+
+    this.setState({ mode: null });
+  }
+
+  isOptionActionable() {
+    const { mode } = this.state;
+
+    return ![modes.EDITING].includes(mode);
+  }
+
+  isOptionDisabled(index) {
+    const { mode, editedIndex } = this.state;
+
+    if (mode === modes.ADDING) return false;
+
+    if (mode === modes.EDITING && index !== editedIndex) return true;
+
+    return false;
+  }
+
+  renderAdd() {
+    const { field, lang } = this.props;
+
+    const { mode } = this.state;
+
     if (![modes.ADDING].includes(mode)) {
       return (
         <button
           type="button"
           disabled={mode !== null}
           className="btn btn-primary margin-top-md"
-          onClick={() => setMode(modes.ADDING)}
+          onClick={this.setMode.bind(this, modes.ADDING)}
         >
           {getLabel('optionAdd', lang)}
         </button>
@@ -88,8 +123,8 @@ const Options = ({ field, value, lang, onChange }) => {
       return (
         <div className="margin-top-md">
           <OptionLabelsForm
-            otherOptions={getOptions()}
-            onSubmit={(i, o) => addOption(o)}
+            otherOptions={this.getOptions()}
+            onSubmit={(i, o) => this.addOption(o)}
             lang={lang}
             languages={
               _.isArray(field.labelLanguages) && field.labelLanguages.length
@@ -100,57 +135,70 @@ const Options = ({ field, value, lang, onChange }) => {
         </div>
       );
     }
-  };
+  }
 
-  const renderDraggableOptions = () => {
-    const options = getOptions();
-    const styles = { display: 'inline-flex', flexDirection: 'column' };
+  renderDraggableOptions() {
+    const { field, value, lang } = this.props;
+    const { mode, editedIndex } = this.state;
+
     return (
-      <DragDropProvider
-        onDragEnd={(event) => {
-          const from = event.operation.source.sortable.initialIndex;
-          const to = event.operation.source.sortable.previousIndex;
-          onChange(arrayMove(options, from, to));
-        }}
-      >
-        <div style={styles} className="list-group margin-v-sm">
-          {options.map((option, index) => (
-            <OptionItem
-              lang={lang}
-              field={field}
-              option={option}
-              otherOptions={value.filter((o, i) => i !== index)}
-              index={index}
-              isEdited={mode === modes.EDITING && index === editedIndex}
-              actionable={isOptionActionable()}
-              disabled={isOptionDisabled(index)}
-              onEdit={(i) => editOption(i)}
-              onEditCancel={() => setMode(null)}
-              onRemove={() => removeOption(index)}
-              onUpdate={(i, o) => updateOption(i, o)}
-              key={option.value}
-              disableDnD={mode !== null}
-            />
-          ))}
-        </div>
-      </DragDropProvider>
+      <DragDropContext onDragEnd={(values) => this.onDragEnd(values)}>
+        <Droppable droppableId="droppable-options">
+          {(provided, snapshot) => (
+            <ul
+              ref={provided.innerRef}
+              style={snapshot.isDraggingOver ? { background: '#f9f9f9' } : {}}
+              className="list-group margin-v-sm"
+            >
+              {this.getOptions().map((option, index) => (
+                <Draggable
+                  index={index}
+                  isDragDisabled={mode === modes.ORDERING}
+                  draggableId={option.value}
+                  key={option.value}
+                >
+                  {(oProvided, oSnapshot) => (
+                    <OptionItem
+                      lang={lang}
+                      field={field}
+                      option={option}
+                      otherOptions={value.filter((o, i) => i !== index)}
+                      index={index}
+                      isEdited={mode === modes.EDITING && index === editedIndex}
+                      actionable={this.isOptionActionable()}
+                      disabled={this.isOptionDisabled(index)}
+                      onEdit={(i) => this.editOption(i)}
+                      onEditCancel={() => this.setState({ mode: null })}
+                      onRemove={() => this.removeOption(index)}
+                      onUpdate={(i, o) => this.updateOption(i, o)}
+                      provided={oProvided}
+                      snapshot={oSnapshot}
+                    />
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </DragDropContext>
     );
-  };
+  }
 
-  const options = getOptions();
+  render() {
+    const { lang } = this.props;
 
-  return (
-    <div className="options-field-form dnd">
-      {options.length
-        ? renderDraggableOptions()
-        : (
-          <div className="margin-top-md margin-bottom-sm text-center">
-            {getLabel('emptyOptions', lang)}
-          </div>
-        )}
-      {renderAdd()}
-    </div>
-  );
-};
-
-export default Options;
+    return (
+      <div className="options-field-form">
+        {this.getOptions().length
+          ? this.renderDraggableOptions()
+          : (
+            <div className="margin-top-md margin-bottom-sm text-center">
+              {getLabel('emptyOptions', lang)}
+            </div>
+          )}
+        {this.renderAdd()}
+      </div>
+    );
+  }
+}

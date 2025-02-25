@@ -1,12 +1,10 @@
 import { useMemo, useState, useCallback } from 'react';
-import useLatestModule from 'react-use/lib/useLatest.js';
+import { useLatest } from 'react-use';
 import { useIntl, defineMessages } from 'react-intl';
 import { DateRangePicker } from 'react-date-range';
 import * as rdrLocales from 'react-date-range/dist/locale/index.js';
 import { Modal, Spinner } from '@openagenda/react-shared';
 import dateRanges from '../dateRanges.js';
-
-const useLatest = useLatestModule.default || useLatestModule;
 
 const messages = defineMessages({
   rangeModalTitle: {

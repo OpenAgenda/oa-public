@@ -1,13 +1,11 @@
 import { useCallback, useContext, useRef } from 'react';
 import { Field, useForm } from 'react-final-form';
 import { useSelector } from 'react-redux';
-import usePreviousModule from 'react-use/lib/usePrevious.js';
+import { usePrevious } from 'react-use';
 import { ImageInput, useApiClient } from '@openagenda/react-shared';
 import { schema as agendaSchema, checkSlug } from '../utils/validateProfile.js';
 import { BasicInput, BasicTextarea, InputGroup } from '../utils/inputs.js';
 import I18nContext from '../contexts/I18nContext.js';
-
-const usePrevious = usePreviousModule.default || usePreviousModule;
 
 const MAX_SIZE = 1024 * 1024 * 20; // 20MB
 

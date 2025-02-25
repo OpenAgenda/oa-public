@@ -1,6 +1,6 @@
 {
   "ActivityApps.HistoryModal.noActivity": "Pas d'activité",
-  "ActivityApps.Notifications.delete": "Supprimer",
+  "ActivityApps.Notifications.delete": "",
   "ActivityApps.Notifications.markAllAsRead": "Tout marquer comme lu",
   "ActivityApps.Notifications.markAsRead": "",
   "ActivityApps.Notifications.next": "Suivant",

@@ -5,7 +5,7 @@ Handle agenda-event references. Authority for knowing what events are listed in 
 Use likewise:
 
 // check testconfig.sample.js for service init requirements
-svc.init( { mysql, schemas, interfaces } );
+svc.init( { mysql, schemas, legacy, interfaces } );
 
 // check the events referenced by agenda of id 2802
 

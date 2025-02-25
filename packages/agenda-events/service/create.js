@@ -14,7 +14,7 @@ export default async (
   data = {},
   options = {},
 ) => {
-  const { config, client, get } = service;
+  const { config, client, get, toLegacy } = service;
 
   log('info', 'initiating create', { agendaUid, eventUid, data, options });
 
@@ -81,6 +81,18 @@ export default async (
 
   if (success) {
     created = await get(clean.agendaUid, clean.eventUid, params);
+  }
+
+  if (success && options.transferToLegacy) {
+    log('info', 'transfering to legacy %j', created);
+
+    try {
+      const updatedRef = await toLegacy(created);
+      log('info', 'successfully transferred to legacy', updatedRef);
+      created.legacyId = updatedRef.legacyId;
+    } catch (e) {
+      log('error', 'failed to transfer to legacy', e);
+    }
   }
 
   if (success && clean.aggregated) {

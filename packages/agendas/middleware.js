@@ -20,6 +20,7 @@ function load(options) {
   const params = _.merge(
     {
       instanciate: false,
+      detailed: false,
       internal: false,
       private: false,
       includeImagePath: false,
@@ -42,6 +43,7 @@ function load(options) {
       identifiers,
       _.pick(params, [
         'instanciate',
+        'detailed',
         'internal',
         'private',
         'includeImagePath',

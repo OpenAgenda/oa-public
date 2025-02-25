@@ -257,6 +257,7 @@ describe('agendaEvents - 01 - functional (server): list', () => {
       'featured',
       'canEdit',
       'state',
+      'legacyId',
       'createdAt',
       'updatedAt',
       'motive',

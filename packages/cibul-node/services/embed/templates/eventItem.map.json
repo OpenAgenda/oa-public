@@ -1,0 +1,223 @@
+{
+  "attributes": [
+    {
+      "name": "Uid",
+      "mapTo": "uid"
+    },
+    {
+      "mapTo": "oaLink",
+      "name": "OALink"
+    },
+    {
+      "mapTo": "title",
+      "name": "Title"
+    },
+    {
+      "mapTo": "description",
+      "name": "Description"
+    },
+    {
+      "mapTo": "freeText",
+      "name": "FreeText"
+    },
+    {
+      "mapTo": "link",
+      "name": "Link"
+    },
+    {
+      "name": "InterfaceLanguage",
+      "mapTo": "interfaceLang"
+    },
+    {
+      "mapTo": "image",
+      "name": "ImageUrl"
+    },
+    {
+      "mapTo": "thumbnail",
+      "name": "ThumbnailUrl"
+    },
+    {
+      "mapTo": "placeNameLabel",
+      "name": "LocationName"
+    },
+    {
+      "mapTo": "address",
+      "name": "Address"
+    },
+    {
+      "mapTo": "city",
+      "name": "City"
+    },
+    {
+      "mapTo": "location.district",
+      "name": "District"
+    },
+    {
+      "mapTo": "location.description",
+      "name": "LocationDescription"
+    },
+    {
+      "mapTo": "location.phone",
+      "name": "LocationPhone"
+    },
+    {
+      "mapTo": "location.website",
+      "name": "LocationWebsite"
+    },
+    {
+      "mapTo": "dateRange",
+      "name": "DateRange"
+    },
+    {
+      "mapTo": "pricingInfo",
+      "name": "PricingInfo"
+    },
+    {
+      "mapTo": "pricingInfo",
+      "name": "Conditions"
+    },
+    {
+      "mapTo": "ticketLink",
+      "name": "TicketUrl"
+    },
+    {
+      "mapTo": "ticketLabel",
+      "name": "TicketLabel"
+    },
+    {
+      "mapTo": "actionLink",
+      "name": "ShareUrl"
+    },
+    {
+      "mapTo": "actionLabel",
+      "name": "ShareLabel"
+    },
+    {
+      "mapTo": "category",
+      "name": "Category"
+    },
+    {
+      "mapTo": "categoryLink",
+      "name": "CategoryLink"
+    },
+    {
+      "mapTo": "categorySlug",
+      "name": "CategorySlug"
+    },
+    {
+      "mapTo": "favorite",
+      "name": "Favorite"
+    },
+    {
+      "mapTo": "featured",
+      "name": "Featured"
+    },
+    {
+      "name": "ContributorOrganization",
+      "mapTo": "contributor.organization"
+    },
+    {
+      "name": "StatusLabel",
+      "mapTo": "statusLabel"
+    },
+    {
+      "name": "IsNotScheduled",
+      "mapTo": "isNotScheduled"
+    }
+  ],
+  "children": [
+    {
+      "name": "Keywords",
+      "mapTo": "keywordList",
+      "itemName": "Keyword"
+    },
+    {
+      "name": "LongDescriptionLinks",
+      "mapTo": "longDescriptionLinks",
+      "attributes": [
+        {
+          "name": "Link",
+          "mapTo": "link"
+        },
+        {
+          "name": "Code",
+          "mapTo": "code"
+        }
+      ]
+    },
+    {
+      "name": "Registration",
+      "mapTo": "registration",
+      "attributes": [
+        {
+          "name": "Prefix",
+          "mapTo": "prefix"
+        },
+        {
+          "name": "Type",
+          "mapTo": "type"
+        },
+        {
+          "name": "Value",
+          "mapTo": "value"
+        }
+      ]
+    },
+    {
+      "name": "TagGroups",
+      "mapTo": "tagGroups",
+      "attributes": [
+        {
+          "name": "Name",
+          "mapTo": "name"
+        },
+        {
+          "name": "GroupName",
+          "mapTo": "name"
+        },
+        {
+          "name": "GroupSlug",
+          "mapTo": "slug"
+        }
+      ],
+      "children": [
+        {
+          "name": "Tags",
+          "mapTo": "tags",
+          "attributes": [
+            {
+              "name": "Tag",
+              "mapTo": "label"
+            },
+            {
+              "name": "TagLink",
+              "mapTo": "link"
+            },
+            {
+              "name": "TagSlug",
+              "mapTo": "slug"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "mapTo": "tags",
+      "name": "Tags",
+      "attributes": [
+        {
+          "mapTo": "label",
+          "name": "Tag"
+        },
+        {
+          "mapTo": "link",
+          "name": "TagLink"
+        },
+        {
+          "mapTo": "slug",
+          "name": "TagSlug"
+        }
+      ]
+    }
+  ]
+}

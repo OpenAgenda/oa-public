@@ -29,6 +29,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         'eventSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
         'accessTokens',
@@ -562,6 +563,17 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
       it('patched data is in event', () => {
         expect(result.event.state).toBe(-1);
+      });
+    });
+
+    describe('persistence', () => {
+      it('legacy model is patched', async () => {
+        const record = await testConfig
+          .knex('review_article')
+          .first('*')
+          .where('id', 123);
+
+        expect(record.state).toBe(-1);
       });
     });
   });

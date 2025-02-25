@@ -1,6 +1,6 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import Body from '@openagenda/admin-agendas/components/src/Body';
+import ReactDOM from 'react-dom';
+import Body from './Body';
 
 export default options => {
   const params = {
@@ -23,6 +23,5 @@ export default options => {
     return elem;
   }
 
-  const root = createRoot(document.querySelector(params.canvas));
-  root.render(elem);
+  ReactDOM.render(elem, document.querySelector(params.canvas));
 };

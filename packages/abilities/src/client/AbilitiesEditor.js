@@ -2,13 +2,11 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Form } from 'react-final-form';
 import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage } from 'react-intl';
-import useLatestModule from 'react-use/lib/useLatest.js';
+import { useLatest } from 'react-use';
 import { Spinner } from '@openagenda/react-shared';
 import * as locales from '../locales-compiled/index.js';
 import AbilitiesForm from './AbilitiesForm.js';
 import getChildCheckboxDecorator from './getChildCheckboxDecorator.js';
-
-const useLatest = useLatestModule.default || useLatestModule;
 
 let uniqueIdCounter = 0;
 

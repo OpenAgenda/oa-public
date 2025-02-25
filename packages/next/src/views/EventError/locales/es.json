@@ -1,6 +1,6 @@
 {
   "next.views.EventError.agendaNotFound": "",
-  "next.views.EventError.contactAdministrators": "Contactar los administradores",
+  "next.views.EventError.contactAdministrators": "",
   "next.views.EventError.eventNotFound": "",
   "next.views.EventError.forbiddenMsg": "",
   "next.views.EventError.notFoundMsg": "",

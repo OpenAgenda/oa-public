@@ -7,6 +7,8 @@ const map = require('./databaseFieldMap');
 
 const dbParse = mapper(map);
 
+const loadDetails = require('./details').load;
+
 const validateQuery = require('./validate/listQuery');
 const validateOptions = require('./validate/listOptions');
 
@@ -163,6 +165,9 @@ async function promise(query, offset, limit, options = {}) {
   const lastId = _.get(_.last(agendas), 'id', -1);
 
   for (const agenda of agendas) {
+    if (cleanOptions.detailed) {
+      await loadDetails(agenda);
+    }
     if (!cleanOptions.internal) {
       delete agenda.id;
     }

@@ -98,6 +98,121 @@ raw.push(
   ]),
 );
 
+const {
+  review_category: reviewCategory,
+  category_set: categorySet,
+  tag_set: tagSet,
+} = load('sql/legacy/218.json');
+
+raw.push(knex('review_category').insert(reviewCategory));
+
+raw.push(
+  knex('category_set').insert([
+    {
+      id: 218,
+      store: JSON.stringify(categorySet),
+    },
+  ]),
+);
+
+raw.push(
+  knex('tag_set').insert([
+    {
+      id: 218,
+      store: JSON.stringify(tagSet),
+    },
+  ]),
+);
+
+raw.push(
+  knex('review_tag').insert(
+    [
+      {
+        id: 9661,
+        slug: 'administration',
+        review_id: 218,
+        tag: 'Administration',
+      },
+      {
+        id: 9662,
+        slug: 'aeronautique',
+        review_id: 218,
+        tag: 'Aéronotique',
+      },
+    ].map((rt) => ({
+      ...rt,
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+    })),
+  ),
+);
+
+raw.push(
+  knex('event').insert(
+    [
+      {
+        id: 1,
+        uid: 19201989,
+        slug: 'un-event',
+      },
+      {
+        id: 2,
+        uid: 19390293,
+        slug: 'un-autre-event',
+      },
+      {
+        id: 3,
+        uid: 19390294,
+        slug: 'et-un-autre-event',
+      },
+    ].map((e) => ({
+      ...e,
+      owner_id: 50304,
+      created_at: '2019-12-14 10:00:00',
+      updated_at: '2019-12-14 10:00:00',
+    })),
+  ),
+);
+
+raw.push(
+  knex('event_location').insert(
+    [1, 2, 3].map((id) => ({
+      id,
+      event_id: id,
+      location_id: 1,
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+    })),
+  ),
+);
+
+raw.push(
+  knex('occurrence').insert(
+    [
+      {
+        id: 1,
+        date: '2019-05-06',
+      },
+      {
+        id: 2,
+        date: '2019-12-18',
+      },
+      {
+        id: 3,
+        date: '2019-12-18',
+      },
+    ].map((o) => ({
+      ...o,
+      event_id: o.id,
+      time_start: '10:00:00',
+      time_end: '11:00:00',
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+      location_id: 1,
+    })),
+  ),
+);
+
 raw.push(
   knex('event_2').insert([
     {
@@ -333,6 +448,41 @@ raw.push(
       can_edit: 0,
       created_at: new Date('2024-08-07T10:00:00'),
       updated_at: new Date('2024-08-07T10:00:00'),
+    },
+  ]),
+);
+
+raw.push(
+  knex('review_article').insert([
+    {
+      id: 123,
+      event_id: 1,
+      review_id: 218,
+      state: 2,
+      is_published: 1,
+      user_id: 50304,
+      created_at: new Date('2019-05-06T10:00:00'),
+      updated_at: new Date('2019-05-06T10:00:00'),
+    },
+    {
+      id: 124,
+      event_id: 2,
+      review_id: 220,
+      state: 2,
+      is_published: 1,
+      user_id: 50304,
+      created_at: new Date('2019-05-06T10:00:00'),
+      updated_at: new Date('2019-05-06T10:00:00'),
+    },
+    {
+      id: 125,
+      event_id: 3,
+      review_id: 220,
+      state: 2,
+      is_published: 1,
+      user_id: 50304,
+      created_at: new Date('2019-05-06T10:00:00'),
+      updated_at: new Date('2019-05-06T10:00:00'),
     },
   ]),
 );

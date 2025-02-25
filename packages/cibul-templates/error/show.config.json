@@ -1,0 +1,11 @@
+{
+  "layout" : "layout/main",
+  "css" : {},
+  "base" : {
+    "message" : false,
+    "link" : false
+  },
+  "helpers" : {
+    "_i" : "image"
+  }
+}

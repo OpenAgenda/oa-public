@@ -30,7 +30,7 @@ type EmbedLayoutDataValue = {
   query: Record<string, any>;
   setQuery: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   referrer: string;
-  setReferrer: React.Dispatch<React.SetStateAction<string | null>>;
+  setReferrer: React.Dispatch<React.SetStateAction<string>>;
 } & EmbedParams;
 
 export const [EmbedLayoutDataProvider, useEmbedLayoutData] =
@@ -92,7 +92,7 @@ export default function EmbedLayout({ children, emotionCache }: LayoutProps) {
     omitParams(initPath ? urlQuery : {}),
   );
 
-  const [referrer, setReferrer] = useState<string>();
+  const [referrer, setReferrer] = useState<string>('');
 
   const [prefilter, setStoredPrefilter] = useSessionStorageState('prefilter', {
     defaultValue: initPath ? initQuery : urlQuery,

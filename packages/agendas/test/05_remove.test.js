@@ -6,7 +6,10 @@ const mysql = require('mysql');
 const Files = require('@openagenda/files');
 
 const svc = require('../service/index');
-const { service: config, dependencies: dConfig } = require('../testconfig');
+const {
+  service: config,
+  dependencies: dConfig,
+} = require('../testconfig.sample');
 const loadFixtures = require('./fixtures/load');
 
 describe('agendas - functional (server): remove', () => {
@@ -18,11 +21,13 @@ describe('agendas - functional (server): remove', () => {
         `${__dirname}/../model.sql`,
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
+        `${__dirname}/fixtures/occurrence.data.sql`,
       ],
       map: {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
+        occurrence: 'occurrence',
       },
     }),
   );

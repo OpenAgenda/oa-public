@@ -44,11 +44,6 @@
       ></div>
 
       <div
-        data-oa-filter="date-range"
-        data-oa-filter-params="<%= JSON.stringify({ type: 'simpleDateRange', name: 'timings' }) %>"
-      ></div>
-
-      <div
         data-oa-filter="cities"
         data-oa-filter-params="<%= JSON.stringify({
           type: 'choice',
@@ -58,12 +53,17 @@
         }) %>"
       ></div>
 
-      <div
+      <!--<div
         data-oa-filter="search"
-        data-oa-filter-params="<%= JSON.stringify({ type: 'search', name: 'search', ariaLabel: 'Rechercher dans cet agenda' }); %>"
+        data-oa-filter-params="<%= JSON.stringify({ type: 'search', name: 'search' }); %>"
       ></div>
 
-      <!--<div
+      <div
+        data-oa-filter="date-range"
+        data-oa-filter-params="<%= JSON.stringify({ type: 'simpleDateRange', name: 'timings' }) %>"
+      ></div>
+
+      <div
         data-oa-filter="defined-range"
         data-oa-filter-params="<%= JSON.stringify({
           staticRanges: ['today', 'tomorrow'],

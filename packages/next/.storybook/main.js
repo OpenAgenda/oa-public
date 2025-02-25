@@ -22,6 +22,16 @@ const main = {
     config.generatorOpts = { importAttributesKeyword: 'with' };
     return config;
   },
+
+  env: (config) => ({
+    ...config,
+    __NEXT_REACT_ROOT: 'true', // Fix next/dynamic with suspense
+  }),
+
+  babel: async (config) => {
+    config.generatorOpts = { importAttributesKeyword: 'with' };
+    return config;
+  },
 };
 
 export default main;

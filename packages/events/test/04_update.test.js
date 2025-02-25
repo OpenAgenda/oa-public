@@ -4,7 +4,10 @@ import { createReadStream, createWriteStream } from 'node:fs';
 import _ from 'lodash';
 import Files from '@openagenda/files';
 
-import { service as config, dependencies as dConfig } from '../testconfig.js';
+import {
+  service as config,
+  dependencies as dConfig,
+} from '../testconfig.sample.js';
 
 import Service from '../index.js';
 import fixtures from './fixtures/index.js';
@@ -405,6 +408,7 @@ describe('events - functional - update', () => {
           ownerUid: 99999999,
         },
         {
+          transferToLegacy: true,
           access: 'internal',
         },
       );
@@ -418,6 +422,7 @@ describe('events - functional - update', () => {
         },
         {
           protected: false,
+          transferToLegacy: true,
           access: 'internal',
         },
       );

@@ -5,7 +5,10 @@ process.env.NODE_ENV = 'test';
 const mysql = require('mysql');
 const Files = require('@openagenda/files');
 
-const { service: config, dependencies: dConfig } = require('../testconfig');
+const {
+  service: config,
+  dependencies: dConfig,
+} = require('../testconfig.sample');
 const legacy = require('../service/legacy/index');
 const svc = require('../service/index');
 const loadFixtures = require('./fixtures/load');
@@ -25,11 +28,13 @@ describe('agendas - unit (server): legacy bridging', () => {
         `${__dirname}/../model.sql`,
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
+        `${__dirname}/fixtures/occurrence.data.sql`,
       ],
       map: {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
+        occurrence: 'occurrence',
         legacyCredential: 'legacy_credential_set',
       },
     }),

@@ -556,3 +556,20 @@ export default class FormSchemaComponent extends Component {
     );
   }
 }
+
+FormSchemaComponent.defaultPropTypes = {
+  withErrors: false,
+  stateless: false, // component handles its own state by default
+  onSubmit: null,
+  onSubmitSuccess: null,
+  method: 'post',
+  res: {
+    patch: '',
+    post: '',
+    redirect: null,
+  },
+  labels: {
+    errors: {},
+  },
+  fileKey: null,
+};

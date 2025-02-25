@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const Files = require('@openagenda/files');
 
-const testConfig = require('../testconfig');
+const testConfig = require('../testconfig.sample');
 
 const { service: config, dependencies: dConfig } = testConfig;
 
@@ -21,11 +21,13 @@ describe('agendas - functional (server): list', () => {
         `${__dirname}/../model.sql`,
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
+        `${__dirname}/fixtures/occurrence.data.sql`,
       ],
       map: {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
+        occurrence: 'occurrence',
       },
     }),
   );
@@ -52,6 +54,14 @@ describe('agendas - functional (server): list', () => {
     expect(agendas.length).toEqual(10);
     expect(offsetAgendas.length).toEqual(1);
     expect(agendas[4].id).toEqual(offsetAgendas[0].id);
+  });
+
+  it('list with { detailed: true } gets agendas with detailed info', async () => {
+    const { agendas } = await svc.list({}, 94, 1, {
+      detailed: true,
+      private: null,
+    });
+    expect(agendas[0].publishedEvents).toEqual(9);
   });
 
   it('list with { offsetAsLastId } option allows for using id value as offset base', async () => {
@@ -112,11 +122,25 @@ describe('agendas - functional (server): list', () => {
   it('list with includeImagePath includes full image path', async () => {
     const { agendas } = await svc.list({}, 0, 1, {
       includeImagePath: true,
+      detailed: true,
     });
 
     expect(agendas[0].image).toEqual(
       'https://cdn.openagenda.com/dev/review_sylvie-et-pascal-verger_00.jpg',
     );
+  });
+
+  it('DEPRECATE - list with { detailed: true } gets agendas with detailed info', async () => {
+    const { agendas } = await svc.list(
+      {
+        detailed: true,
+        private: null,
+      },
+      94,
+      1,
+    );
+
+    expect(agendas[0].publishedEvents).toEqual(9);
   });
 
   it('onlyIncludeFields option', async () => {
@@ -196,25 +220,27 @@ describe('agendas - functional (server): list', () => {
     expect(agendas[0].slug).toBe('inaregions');
   });
 
-  it('DEPRECATE - list with ids and search gets agendas', async () => {
+  it('DEPRECATE - list with ids, detailed and search gets agendas', async () => {
     const { agendas } = await svc.list(
-      { ids: [4828, 4848], private: null, search: 'gradignan' },
+      { ids: [4828, 4848], detailed: true, private: null, search: 'gradignan' },
       0,
       2,
     );
 
     expect(agendas.length).toEqual(1);
+    expect(agendas[0].publishedEvents).toEqual(9);
   });
 
-  it('list with ids and search gets agendas', async () => {
+  it('list with ids, detailed and search gets agendas', async () => {
     const { agendas } = await svc.list(
       { ids: [4828, 4848], search: 'gradignan' },
       0,
       2,
-      { private: null },
+      { detailed: true, private: null },
     );
 
     expect(agendas.length).toEqual(1);
+    expect(agendas[0].publishedEvents).toEqual(9);
   });
 
   it('list with idGreaterThan limits agendas which have an id greater than a given id', async () => {

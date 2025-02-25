@@ -9,6 +9,7 @@ import update from './service/update.js';
 import set from './service/set.js';
 import remove from './service/remove.js';
 import * as validate from './iso/validate.js';
+import * as legacy from './service/legacy.js';
 import * as stats from './service/stats.js';
 import interfacesTask from './tasks/interfaces.js';
 import setSourcePaths from './utils/setSourcePaths.js';
@@ -50,15 +51,21 @@ export default (c) => {
 
   Object.assign(service, {
     get: get.bind(null, service),
+    getByLegacyId: get.byLegacyId.bind(null, service),
     getAggregatedCount: getAggregatedCount(service),
     create: create.bind(null, service),
     update: update.bind(null, service),
     set: set.bind(null, service),
     remove: remove.bind(null, service),
+    removeByEventUid: remove.byEventUid.bind(null, service),
+    removeByLegacyId: remove.byLegacyId.bind(null, service),
     list: list.bind(null, service),
     listByLastId: list.byLastId.bind(null, service),
     listByUserUid: list.byUserUid.bind(null, service),
     listByEventUid: list.byEventUid.bind(null, service),
+    toLegacy: legacy.to.bind(null, service),
+    fromLegacy: legacy.from.bind(null, service),
+    removeLegacy: legacy.remove.bind(null, service),
     countByUserUid: stats.countByUserUid.bind(null, service),
     interfacesTask: interfacesTask.bind(null, service),
   });
@@ -83,10 +90,19 @@ export default (c) => {
         byUserUid: service.listByUserUid,
         removed: listRemoved.bind(null, service),
       },
-      remove: remove.byEventUid.bind(null, service),
+      get: {
+        byLegacyId: service.getByLegacyId,
+      },
+      remove: Object.assign(service.removeByEventUid, {
+        byLegacyId: service.removeByLegacyId,
+      }),
       tasks: {
         interfaces: service.interfacesTask,
       },
+      legacyTransfer: Object.assign(service.fromLegacy, {
+        to: service.toLegacy,
+        remove: service.removeLegacy,
+      }),
       validate: validate.validateData,
       utils: {
         setSourcePaths: setSourcePaths.bind(null, service),

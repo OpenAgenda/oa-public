@@ -2,19 +2,13 @@ import moment from 'moment-timezone';
 
 const { tz } = moment;
 
-export default (v1, { timezone, slugSchemaOptionIdMap, query = {} }) => {
+export default (v1, { timezone, slugSchemaOptionIdMap }) => {
   const v2 = {};
   if (!v1) {
     return v2;
   }
 
-  const currentQueryHasTemporalComponent = !![
-    'relative',
-    'timings',
-    'date',
-  ].filter((k) => !!query[k]).length;
-
-  if (!currentQueryHasTemporalComponent && (v1.from || v1.to)) {
+  if (v1.from || v1.to) {
     const fromAtDayStart = tz(v1.from || v1.to, timezone);
     const toAtDayEnd = tz(v1.to || v1.from, timezone);
 
@@ -27,7 +21,7 @@ export default (v1, { timezone, slugSchemaOptionIdMap, query = {} }) => {
       gte: fromAtDayStart.format(),
       lte: toAtDayEnd.format(),
     };
-  } else if (!currentQueryHasTemporalComponent && v1.passed !== undefined) {
+  } else if (v1.passed !== undefined) {
     const passed = parseInt(v1.passed, 10);
 
     v2.date = {

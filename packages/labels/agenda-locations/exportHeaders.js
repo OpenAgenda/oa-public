@@ -69,8 +69,7 @@ module.exports = {
   "siret": {
     "en": "SIRET Code",
     "fr": "Code SIRET",
-    "io": "crwdns33876:0crwdne33876:0",
-    "it": "Codice fiscale"
+    "io": "crwdns33876:0crwdne33876:0"
   },
   "countryCode": {
     "en": "Country code",

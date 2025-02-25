@@ -6,17 +6,12 @@ function getAbsolutePath(value) {
 
 export default {
   stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
     options: {},
   },
-
   staticDirs: ['./public'],
-
   babel: (config) => {
     return { ...config, rootMode: 'upward' };
   },
-
-  addons: [getAbsolutePath('@storybook/addon-webpack5-compiler-babel')],
 };

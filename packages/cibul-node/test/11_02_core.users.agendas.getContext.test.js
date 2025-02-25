@@ -28,6 +28,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
         'agendaSearch',
         'members',
         'networks',
+        'legacy',
         'users',
         'keys',
         'trackers',

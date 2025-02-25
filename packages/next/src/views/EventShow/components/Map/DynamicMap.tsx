@@ -36,7 +36,7 @@ const markerIcon = new L.Icon({
 
 export default function Map(props: MapProps) {
   const intl = useIntl();
-  const mapRef = useRef(undefined);
+  const mapRef = useRef();
 
   const { center } = props;
 

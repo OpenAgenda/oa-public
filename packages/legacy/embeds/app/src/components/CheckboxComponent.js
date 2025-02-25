@@ -1,0 +1,18 @@
+import _ from 'lodash';
+
+import toggleCheckbox from './utils/toggleCheckbox.js';
+
+export default ({ embed, onChange, path, label }) => (
+  <div key={path} className="checkbox">
+    <label htmlFor={path}>
+      <input
+        key={path}
+        checked={_.get(embed, path)}
+        id={path}
+        type="checkbox"
+        onChange={toggleCheckbox(embed, path, onChange)}
+      />{' '}
+      {label}
+    </label>
+  </div>
+);

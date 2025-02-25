@@ -4,8 +4,7 @@ import { useCallback, useMemo, useState, useRef, useLayoutEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
-import useLatestModule from 'react-use/lib/useLatest.js';
-import useUpdateEffectModule from 'react-use/lib/useUpdateEffect.js';
+import { useLatest, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { Base64 } from 'js-base64';
 import * as dateFnsLocales from 'date-fns/locale/index.js';
@@ -38,9 +37,6 @@ import removeQueryPrefix from '../utils/removeQueryPrefix.js';
 import addQueryPrefix from '../utils/addQueryPrefix.js';
 import flattenAgendaSchema from '../utils/flattenAgendaSchema.js';
 import ExportsDropdown from '../components/ExportsDropdown.js';
-
-const useLatest = useLatestModule.default || useLatestModule;
-const useUpdateEffect = useUpdateEffectModule.default || useUpdateEffectModule;
 
 const PAGE_SIZE = 20;
 

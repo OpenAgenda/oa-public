@@ -1,0 +1,6 @@
+CREATE TABLE review_category (
+  id BIGINT,
+  slug VARCHAR(255) NOT NULL,
+  category VARCHAR(255) NOT NULL,
+  review_id BIGINT NOT NULL
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

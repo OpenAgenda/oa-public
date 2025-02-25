@@ -1,9 +1,4 @@
 {
-  "AgendaSettings.AdvancedEdition.identifier": "Identificador",
-  "AgendaSettings.Components.DeleteAgenda.closeConfirm": "Cerca",
-  "AgendaSettings.Components.DeleteAgenda.confirmButton": "Confirmar eliminación",
-  "AgendaSettings.Components.FiltersSettings.resetModalConfirm": "Confirmar",
-  "AgendaSettings.Components.FiltersSettings.submit": "Validar",
   "AgendaSettings.contribution.contribution": "Contribución",
   "AgendaSettings.contribution.openContribution": "Ver"
 }

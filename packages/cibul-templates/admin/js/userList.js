@@ -1,21 +1,39 @@
-import React from 'react';
+"use strict";
 
-export default function UserList({ users, onUserClick }) {
-  const handleClick = (item, e) => {
+
+var React = require( 'react' ),
+
+  createReactClass = require( 'create-react-class' );
+
+module.exports = createReactClass({
+
+  onClick: function( item, e ) {
+
     e.preventDefault();
-    onUserClick(item.uid);
-  };
 
-  return (
-    <ul className="list-group">
-      {users.map((item) => (
-        <li className="list-group-item" key={item.uid} onClick={(e) => handleClick(item, e)}>
-          <a href="#">
-            <span>{item.fullName}</span> - <span>{item.email}</span>
-            {item.isRemoved ? <span style={{ color: 'brown' }}> Account removed</span> : null}
-          </a>
-        </li>
-      ))}
-    </ul>
-  );
-}
+    this.props.onUserClick( item.uid );
+
+  },
+
+  render: function() {
+
+    var self = this,
+
+    createItem = function( item ) {
+
+      return <li className="list-group-item" key={item.uid} onClick={self.onClick.bind(null, item)}>
+        <a href="#">
+          <span>
+            {item.fullName}</span> - <span>{item.email}
+            {item.isRemoved ? <span style={{ color: 'brown' }}>Account removed</span> : null}
+          </span>
+        </a>
+      </li>
+
+    };
+
+    return <ul className="list-group">{this.props.users.map( createItem )}</ul>;
+
+  }
+
+});

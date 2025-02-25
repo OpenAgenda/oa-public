@@ -6,6 +6,7 @@ export default async (services, agenda) => {
   const {
     members,
     users: usersSvc,
+    legacy,
     keys,
     activities,
     inboxes,
@@ -15,6 +16,8 @@ export default async (services, agenda) => {
   } = services;
 
   const Inbox = inboxes?.Inbox;
+
+  const controlDataSvc = legacy.controlData;
 
   // inbox
   if (Inbox) {
@@ -55,6 +58,17 @@ export default async (services, agenda) => {
 
   if (user.isNew) {
     await usersSvc.setNewFlag(user.uid, { isNew: false });
+  }
+
+  try {
+    await controlDataSvc.rebuild(agenda.uid);
+    await controlDataSvc.memberSet({
+      agendaUid: agenda.uid,
+      userUid: user.uid,
+      role: 2,
+    });
+  } catch (e) {
+    log('error', 'failed to set agenda control data', e);
   }
 
   await members

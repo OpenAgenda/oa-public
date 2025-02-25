@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import range from '@openagenda/date-range';
-import listMw from '../services/activities/middleware/list.js';
+import listMw from '../services/activities/list.middleware.js';
 import cmn from '../lib/commons-app.js';
 
 const LIST_LIMIT = 20;

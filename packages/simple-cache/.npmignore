@@ -9,3 +9,4 @@ yarn-error.log
 # sources are useless in npm package
 .tmp/
 test/
+testconfig.js

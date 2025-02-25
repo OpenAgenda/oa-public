@@ -23,6 +23,10 @@ const base = {
     max: 32,
     default: null,
   },
+  transferToLegacy: {
+    type: 'boolean',
+    default: false,
+  },
   decorate: {
     type: 'choice',
     options: ['member', 'sourceAgendas', 'user'],
@@ -53,6 +57,11 @@ const base = {
       agendaUid: {
         type: 'integer',
         default: null,
+      },
+      // if operation was done through legacy app
+      legacy: {
+        type: 'boolean',
+        default: true,
       },
       deletion: {
         type: 'boolean',
@@ -108,4 +117,10 @@ const validates = {
   }),
 };
 
-export default (values, operation = 'default') => validates[operation](values);
+export default (values, operation = 'default') => {
+  const clean = validates[operation](values);
+
+  clean.context.transferToLegacy = clean.transferToLegacy;
+
+  return clean;
+};
