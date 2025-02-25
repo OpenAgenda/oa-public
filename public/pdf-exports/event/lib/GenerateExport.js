@@ -27,26 +27,31 @@ export default async function GenerateExport(writeStream, options = {}) {
         width: 3,
         content: [
           {
+            id: 'title',
             addFn: 'addText',
             data: getLocaleValue(event.title, lang),
             truncable: true,
             bold: true,
           },
           {
+            id: 'description',
             addFn: 'addText',
             data: getLocaleValue(event.description, lang),
             truncable: true,
           },
           {
+            id: 'image',
             addFn: 'imagePositioning',
             data: event.image,
           },
           {
+            id: 'longDescription',
             addFn: 'addText',
             data: getLocaleValue(event.longDescription, lang),
             truncable: true,
           },
           {
+            id: 'timings',
             addFn: 'addCalendar',
             data: event.timings,
             columnNumber: 2,
@@ -58,12 +63,14 @@ export default async function GenerateExport(writeStream, options = {}) {
         width: 2,
         content: [
           {
+            id: 'dateRange',
             addFn: 'addText',
             data: getLocaleValue(event.dateRange, lang),
             bold: true,
             truncable: true,
           },
           {
+            id: 'status',
             addFn: 'addStatus',
             data: event.status,
             agenda,
@@ -71,28 +78,32 @@ export default async function GenerateExport(writeStream, options = {}) {
             title: 'status',
           },
           {
+            id: 'conditions',
             addFn: 'addText',
             data: getLocaleValue(event.conditions, lang),
             truncable: true,
             title: 'conditions',
           },
           {
+            id: 'registration',
             addFn: 'addRegistration',
             data: { registration: event.registration },
             truncable: true,
           },
           {
+            id: 'additionalFields',
             addFn: 'addAdditionalFields',
             data: { event },
             agenda,
             truncable: true,
           },
           {
+            id: 'location',
             addFn: 'addLocation',
             data: { event },
             truncable: true,
           },
-        ],
+        ].filter(({ data }) => data !== undefined),
       },
     ],
   });
