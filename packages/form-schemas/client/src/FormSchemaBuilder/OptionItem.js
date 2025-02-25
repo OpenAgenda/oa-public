@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-
+import { useSortable } from '@dnd-kit/react/sortable';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
 import getPreferredLang from './lib/getPreferredLang.js';
@@ -7,12 +7,6 @@ import labels from './lib/labels.js';
 import OptionLabelsForm from './OptionLabelsForm.js';
 
 const getLabel = makeLabelGetter(labels);
-const portal = typeof document !== 'undefined' ? document.createElement('div') : null;
-
-if (typeof document !== 'undefined') {
-  if (!document.body) throw new Error('body not ready for portal creation!');
-  document.body.appendChild(portal);
-}
 
 const OptionItem = ({
   field,
@@ -26,6 +20,7 @@ const OptionItem = ({
   actionable,
   onEdit,
   onRemove,
+  disableDnD,
 }) => {
   const renderEdit = useCallback(
     () => (
@@ -49,40 +44,49 @@ const OptionItem = ({
       otherOptions,
     ],
   );
-
+  const { ref } = useSortable({
+    id: option.value,
+    index,
+    disabled: disableDnD,
+  });
   const child = (
-    <>
-      {isEdited
-        ? renderEdit()
-        : (
-          <div>
-            <label htmlFor={`option-${option.id}`} className="margin-v-xs text-left">
-              {getPreferredLang(option.label, lang)}
-            </label>
-            <div className="form-item-actions padding-h-xs">
-              <button
-                type="button"
-                id={`option-${option.id}`}
-                disabled={!actionable}
-                onClick={() => onEdit(index)}
-                className="btn btn-link"
+    <div className="list-group-item draggable" ref={ref}>
+      <div className="list-group-item-content">
+        {isEdited
+          ? renderEdit()
+          : (
+            <>
+              <label
+                htmlFor={`option-${option.id}`}
+                className="margin-v-xs text-left"
               >
-                {getLabel('optionEdit', lang)}
-              </button>
-              <button
-                type="button"
-                disabled={!actionable}
-                onClick={onRemove}
-                className="btn btn-link"
-              >
-                <span className="text text-danger">
-                  {getLabel('optionRemove', lang)}
-                </span>
-              </button>
-            </div>
-          </div>
-        )}
-    </>
+                {getPreferredLang(option.label, lang)}
+              </label>
+              <div className="form-item-actions padding-h-xs">
+                <button
+                  type="button"
+                  id={`option-${option.id}`}
+                  disabled={!actionable}
+                  onClick={() => onEdit(index)}
+                  className="btn btn-link"
+                >
+                  {getLabel('optionEdit', lang)}
+                </button>
+                <button
+                  type="button"
+                  disabled={!actionable}
+                  onClick={onRemove}
+                  className="btn btn-link"
+                >
+                  <span className="text text-danger">
+                    {getLabel('optionRemove', lang)}
+                  </span>
+                </button>
+              </div>
+            </>
+          )}
+      </div>
+    </div>
   );
 
   return child;
