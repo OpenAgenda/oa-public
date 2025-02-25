@@ -42,7 +42,7 @@ export default async function GenerateExport(writeStream, options = {}) {
             data: event.image,
           },
           {
-            addFn: 'addText',
+            addFn: 'addMarkdownDescription',
             data: getLocaleValue(event.longDescription, lang),
             truncable: true,
           },
