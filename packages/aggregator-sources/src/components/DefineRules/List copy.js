@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { useState, useCallback } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
-import { DragDropProvider } from '@dnd-kit/react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MoreInfo } from '@openagenda/react-shared';
 import externalLinks from '../../utils/externalLinks.js';
 import readClipboard from '../../utils/readClipboard.js';
@@ -44,6 +44,28 @@ export default function List({
     [setMode],
   );
 
+  const onDragEndFilter = useCallback(
+    (result) => {
+      if (!result.destination) {
+        return;
+      }
+
+      reorderRules(result.source.index, result.destination.index, true);
+    },
+    [reorderRules],
+  );
+
+  const onDragEndAction = useCallback(
+    (result) => {
+      if (!result.destination) {
+        return;
+      }
+
+      reorderRules(result.source.index, result.destination.index, false);
+    },
+    [reorderRules],
+  );
+
   return (
     <>
       <div>
@@ -70,27 +92,43 @@ export default function List({
           </h4>
           <p>{intl.formatMessage(messages.filtersDesc)}</p>
           <div className="margin-v-sm">
-            <DragDropProvider
-              onDragEnd={(event) => {
-                const from = event.operation.source.sortable.initialIndex;
-                const to = event.operation.source.sortable.previousIndex;
-                reorderRules(from, to, true);
-              }}
-            >
-              {rules.requiredFilters.map((rule, index) => (
-                <RuleItem
-                  key={rule.id}
-                  rule={rule}
-                  onUpdate={setModeUpdate}
-                  onRemove={removeRule}
-                  sourceAgenda={sourceAgenda}
-                  sourceAgendaSchema={sourceSchema}
-                  aggregatorAgenda={aggregatorAgenda}
-                  aggregatorAgendaSchema={aggregatorAgendaSchema}
-                  index={index}
-                />
-              ))}
-            </DragDropProvider>
+            <DragDropContext className="list-group" onDragEnd={onDragEndFilter}>
+              <Droppable droppableId="droppable">
+                {(provided) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {rules.requiredFilters.map((rule, index) => (
+                      <Draggable
+                        key={rule.id}
+                        draggableId={rule.id}
+                        index={index}
+                      >
+                        {(provideInner, { isDragging }) => (
+                          <li
+                            className={`list-group-item draggable${
+                              isDragging ? ' dragged' : ''
+                            }`}
+                            ref={provideInner.innerRef}
+                            {...provideInner.draggableProps}
+                            {...provideInner.dragHandleProps}
+                          >
+                            <RuleItem
+                              rule={rule}
+                              onUpdate={setModeUpdate}
+                              onRemove={removeRule}
+                              sourceAgenda={sourceAgenda}
+                              sourceAgendaSchema={sourceSchema}
+                              aggregatorAgenda={aggregatorAgenda}
+                              aggregatorAgendaSchema={aggregatorAgendaSchema}
+                            />
+                          </li>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           </div>
         </div>
         {/* eslint-enable */}
@@ -113,27 +151,43 @@ export default function List({
           </h4>
           <p>{intl.formatMessage(messages.actionsDesc)}</p>
           <div className="margin-v-sm">
-            <DragDropProvider
-              onDragEnd={(event) => {
-                const from = event.operation.source.sortable.initialIndex;
-                const to = event.operation.source.sortable.previousIndex;
-                reorderRules(from, to, false);
-              }}
-            >
-              {rules.actions.map((rule, index) => (
-                <RuleItem
-                  key={rule.id}
-                  rule={rule}
-                  onUpdate={setModeUpdate}
-                  onRemove={removeRule}
-                  sourceAgenda={sourceAgenda}
-                  sourceAgendaSchema={sourceSchema}
-                  aggregatorAgenda={aggregatorAgenda}
-                  aggregatorAgendaSchema={aggregatorAgendaSchema}
-                  index={index}
-                />
-              ))}
-            </DragDropProvider>
+            <DragDropContext className="list-group" onDragEnd={onDragEndAction}>
+              <Droppable droppableId="droppable">
+                {(provided) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {rules.actions.map((rule, index) => (
+                      <Draggable
+                        key={rule.id}
+                        draggableId={rule.id}
+                        index={index}
+                      >
+                        {(provideInner, { isDragging }) => (
+                          <li
+                            className={`list-group-item draggable${
+                              isDragging ? ' dragged' : ''
+                            }`}
+                            ref={provideInner.innerRef}
+                            {...provideInner.draggableProps}
+                            {...provideInner.dragHandleProps}
+                          >
+                            <RuleItem
+                              rule={rule}
+                              onUpdate={setModeUpdate}
+                              onRemove={removeRule}
+                              sourceAgenda={sourceAgenda}
+                              sourceAgendaSchema={sourceSchema}
+                              aggregatorAgenda={aggregatorAgenda}
+                              aggregatorAgendaSchema={aggregatorAgendaSchema}
+                            />
+                          </li>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           </div>
         </div>
         {/* eslint-enable */}
