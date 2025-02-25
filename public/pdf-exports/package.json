@@ -17,6 +17,7 @@
     "@openagenda/date-utils": "^0.0.1",
     "@openagenda/intl": "^1.1.5",
     "@openagenda/logs": "^1.1.9",
+    "@openagenda/verror": "^3.1.0",
     "axios": "^0.21.1",
     "date-fns": "^2.29.3",
     "lodash": "^4.17.21",
