@@ -24,7 +24,8 @@
     "pdfkit": "^0.13.0",
     "qs": "^6.11.2",
     "react-intl": "^6.8.4",
-    "readable-stream": "^4.4.2"
+    "readable-stream": "^4.4.2",
+    "remark": "^15.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",
