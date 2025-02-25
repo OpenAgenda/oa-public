@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as bodyScroll from './body-scroll.js';
 import ClickListener from './lib/ClickListener.js';
 import Context from './lib/ModalContext.js';
 
 export default class Modal extends Component {
+  static propTypes = {
+    title: PropTypes.node,
+    visible: PropTypes.bool,
+    onClose: PropTypes.func,
+    disableBodyScroll: PropTypes.bool,
+    classNames: PropTypes.shape({
+      overlay: PropTypes.string,
+      title: PropTypes.string,
+    }),
+    children: PropTypes.node.isRequired,
+    contentRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.instanceOf(Object) }), // Element is undefined in ssr
+    ]),
+  };
+
   static defaultProps = {
     title: null,
     visible: true,

@@ -12,13 +12,7 @@ export default {
     options: {},
   },
   staticDirs: ['../dist'],
-  addons: [
-    getAbsolutePath('@storybook/addon-essentials'),
-    getAbsolutePath('@storybook/addon-webpack5-compiler-babel'),
-  ],
-  babel: (config) => {
-    return { ...config, rootMode: 'upward' };
-  },
+  addons: [getAbsolutePath('@storybook/addon-essentials')],
   webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.scss$/,

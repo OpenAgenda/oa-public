@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 import axios from 'axios';
 
@@ -64,7 +65,7 @@ const ExportModal = ({
   languages,
   onClose,
   userLogged,
-  mode: modeFromProps = 'all',
+  mode: modeFromProps,
 }) => {
   const [formatChoice, setFormatChoice] = useState({ value: '', id: '' });
   const [spreadsheetForm, setSpreadsheetForm] = useState(false);
@@ -311,3 +312,41 @@ const ExportModal = ({
 };
 
 export default ExportModal;
+
+ExportModal.propTypes = {
+  res: PropTypes.shape({
+    all: PropTypes.shape({
+      jsonV1: PropTypes.string,
+      jsonV2: PropTypes.string,
+      pdf: PropTypes.string,
+      xlsx: PropTypes.string,
+      gcal: PropTypes.string,
+      ical: PropTypes.string,
+      csv: PropTypes.string,
+      ics: PropTypes.string,
+      rss: PropTypes.string,
+    }),
+    selection: PropTypes.shape({
+      jsonV1: PropTypes.string,
+      jsonV2: PropTypes.string,
+      pdf: PropTypes.string,
+      xlsx: PropTypes.string,
+      gcal: PropTypes.string,
+      ical: PropTypes.string,
+      csv: PropTypes.string,
+      ics: PropTypes.string,
+      rss: PropTypes.string,
+    }),
+    me: PropTypes.string,
+    agendaExportSettings: PropTypes.string,
+  }).isRequired,
+  mode: PropTypes.string,
+  languages: PropTypes.arrayOf(PropTypes.string),
+  onClose: PropTypes.func.isRequired,
+  userLogged: PropTypes.bool.isRequired,
+};
+
+ExportModal.defaultProps = {
+  languages: undefined,
+  mode: 'all',
+};

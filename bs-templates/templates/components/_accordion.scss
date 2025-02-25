@@ -1,10 +1,5 @@
 .accordion {
   margin: 0;
-  display: flex;
-
-  .accordion-item {
-    width: 100%;
-  }
 
   .accordion-item.active .button {
     padding: 13px 8px 0px 8px;

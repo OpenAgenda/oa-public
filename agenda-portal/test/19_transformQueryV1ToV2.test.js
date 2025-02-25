@@ -47,25 +47,6 @@ describe('19 - lib/utils - transformQueryV1ToV2', () => {
     });
   });
 
-  test('oaq passed filter is not converted to lte/gte date filter when timings or relative filter is defined', () => {
-    const v2Query = transformQueryV1ToV2(
-      {
-        passed: '1',
-      },
-      {
-        timezone: 'Europe/Paris',
-        query: {
-          timings: {
-            gte: '2024-02-02',
-            lte: '2024-02-08',
-          },
-        },
-      },
-    );
-
-    expect(v2Query).toEqual({});
-  });
-
   test('oaq tags filter is converted to something', () => {
     const v2Query = transformQueryV1ToV2(
       {

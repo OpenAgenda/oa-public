@@ -18,7 +18,7 @@ import {
 const log = logs('generateDocument');
 
 export default async ({
-  // root = 'https://openagenda.com',
+  root = 'https://openagenda.com',
   agendaUid,
   localTmpPath,
   templatePath,
@@ -38,7 +38,7 @@ export default async ({
 
   const events = await loadEventsFromFile(eventsFilePath);
 
-  const { title, description, url } = await loadAgendaDetails(agendaUid);
+  const { title, description, url } = await loadAgendaDetails(root, agendaUid);
 
   const content = templateContent || await fs.readFile(templatePath, 'binary');
 

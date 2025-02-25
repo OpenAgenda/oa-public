@@ -1,11 +1,13 @@
 import addText from '../addText.js';
 import imagePositioning from '../imagePositioning.js';
-import addMarkdownDescription from '../addMarkdownDescription.js';
 import addCalendar from '../addCalendar.js';
 import addRegistration from '../addRegistration.js';
 import addAdditionalFields from '../addAdditionalFields.js';
 import addStatus from '../addStatus.js';
-import addLocation from '../addLocation.js';
+import addLocationSection from '../addLocation/addLocationSection.js';
+import addTagsSection from '../addLocation/addTagsSection.js';
+import addContactSection from '../addLocation/addContactSection.js';
+import addAdditionalLinksSection from '../addLocation/addAdditionalLinksSection.js';
 import truncate from '../truncate.js';
 import addContentItem from './addContentItem.js';
 import isOverflowing from './isOverflowing.js';
@@ -13,12 +15,14 @@ import isOverflowing from './isOverflowing.js';
 const addFunctions = {
   addText,
   imagePositioning,
-  addMarkdownDescription,
   addCalendar,
   addStatus,
   addRegistration,
   addAdditionalFields,
-  addLocation,
+  addLocationSection,
+  addTagsSection,
+  addContactSection,
+  addAdditionalLinksSection,
 };
 
 export default async function addPageColumn(doc, cursor, config, options = {}) {

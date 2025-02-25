@@ -13,7 +13,6 @@ export default {
   addons: [
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/preset-scss'),
-    getAbsolutePath('@storybook/addon-webpack5-compiler-babel'),
   ],
   staticDirs: ['./public'],
   babel: (config) => {

@@ -2,10 +2,11 @@ import _ from 'lodash';
 import { Component } from 'react';
 import sa from 'superagent';
 import { Form, Field } from 'react-final-form';
+import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import { formatDistanceToNow } from 'date-fns';
-import fr from 'date-fns/locale/fr';
-import en from 'date-fns/locale/en-US';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now/index.js';
+import fr from 'date-fns/locale/fr/index.js';
+import en from 'date-fns/locale/en/index.js';
 import flattenLabels from './utils/flattenLabels.js';
 import Modal from './Modal.js';
 
@@ -110,7 +111,7 @@ export default class ExportModal extends Component {
   dateToString = (date) => {
     const { locale } = this.props;
 
-    return formatDistanceToNow(date, { locale: locales[locale] });
+    return distanceInWordsToNow(date, { locale: locales[locale] });
   };
 
   open = () => {
@@ -157,6 +158,7 @@ export default class ExportModal extends Component {
   };
 
   renderGenerateForm = () => {
+    const { locale } = this.props;
     const { labels, service, limitDates } = this.state;
 
     return (
@@ -187,9 +189,9 @@ export default class ExportModal extends Component {
               <>
                 <Field
                   name="from"
-                  type="date"
-                  format={(value) => value && value.format('YYYY-MM-DD')}
-                  parse={(value) => value && moment(value).startOf('day')}
+                  format={(value) =>
+                    value && value.startOf('day').toISOString()}
+                  parse={(value) => value && moment(value)}
                   validate={(value, values) => {
                     if (values.to && moment(value).isAfter(values.to)) {
                       return labels.fromBeforeToError;
@@ -200,9 +202,18 @@ export default class ExportModal extends Component {
                     <div className="form-group margin-all-sm">
                       {labels.from}{' '}
                       <div style={{ display: 'inline-block' }}>
-                        <input
+                        <DatePicker
                           {...input}
+                          locale={locale}
                           className="form-control"
+                          selected={
+                            input.value ? moment(input.value) : input.value
+                          }
+                          value={
+                            input.value
+                              ? moment(input.value).locale(locale).format('LL')
+                              : input.value
+                          }
                           autoComplete="off"
                         />
                       </div>
@@ -215,9 +226,8 @@ export default class ExportModal extends Component {
 
                 <Field
                   name="to"
-                  type="date"
-                  format={(value) => value && value.format('YYYY-MM-DD')}
-                  parse={(value) => value && moment(value).endOf('day')}
+                  format={(value) => value && value.endOf('day').toISOString()}
+                  parse={(value) => value && moment(value)}
                   validate={(value, values) => {
                     if (values.from && moment(value).isBefore(values.from)) {
                       return labels.toAfterFromError;
@@ -228,9 +238,18 @@ export default class ExportModal extends Component {
                     <div className="form-group margin-bottom-sm margin-h-sm">
                       {labels.to}{' '}
                       <div style={{ display: 'inline-block' }}>
-                        <input
+                        <DatePicker
                           {...input}
+                          locale={locale}
                           className="form-control"
+                          selected={
+                            input.value ? moment(input.value) : input.value
+                          }
+                          value={
+                            input.value
+                              ? moment(input.value).locale(locale).format('LL')
+                              : input.value
+                          }
                           autoComplete="off"
                         />
                       </div>
