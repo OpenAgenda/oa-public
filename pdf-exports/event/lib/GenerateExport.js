@@ -46,7 +46,7 @@ export default async function GenerateExport(writeStream, options = {}) {
           },
           {
             id: 'longDescription',
-            addFn: 'addText',
+            addFn: 'addMarkdownDescription',
             data: getLocaleValue(event.longDescription, lang),
             truncable: true,
           },

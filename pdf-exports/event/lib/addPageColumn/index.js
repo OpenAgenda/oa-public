@@ -2,6 +2,7 @@ import VError from '@openagenda/verror';
 
 import addText from '../addText.js';
 import imagePositioning from '../imagePositioning.js';
+import addMarkdownDescription from '../addMarkdownDescription.js';
 import addCalendar from '../addCalendar.js';
 import addRegistration from '../addRegistration.js';
 import addAdditionalFields from '../addAdditionalFields.js';
@@ -14,6 +15,7 @@ import isOverflowing from './isOverflowing.js';
 const addFunctions = {
   addText,
   imagePositioning,
+  addMarkdownDescription,
   addCalendar,
   addStatus,
   addRegistration,
