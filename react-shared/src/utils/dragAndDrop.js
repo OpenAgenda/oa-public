@@ -9,44 +9,55 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 
-export function Droppable({ id, children }) {
-  const { isOver, setNodeRef } = useDroppable({ id });
+export function Droppable({ id, children, className = '', disabled = false }) {
+  const { isOver, setNodeRef } = useDroppable({ id, disabled });
   const style = {
     opacity: isOver ? '0.8' : undefined,
   };
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style} className={className}>
       {children}
     </div>
   );
 }
 
-export function Draggable({ id, children }) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
-  const style = {
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined,
-    border: 'none',
-    background: 'inherit',
-    margin: 0,
-    padding: 0,
-    display: 'flex',
-  };
+export function Draggable({ id, children, className = '', disabled = false }) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+    disabled,
+  });
+  const style = className === ''
+    ? {
+      transform: transform
+        ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+        : undefined,
+      border: 'none',
+      background: 'inherit',
+      margin: 0,
+      padding: 0,
+      display: 'flex',
+    }
+    : {
+      display: 'flex',
+      transform: transform
+        ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+        : undefined,
+    };
 
   return (
     /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
     <div onMouseDown={(e) => e.stopPropagation()}>
-      <button
-        type="button"
+      <div
+        /* type="button" */
         ref={setNodeRef}
         style={style}
         {...listeners}
         {...attributes}
+        className={className}
       >
         {children}
-      </button>
+      </div>
     </div>
   );
 }
@@ -73,26 +84,22 @@ export function useDragAndDropSensors() {
   return useSensors(mouseSensor, touchSensor, keyboardSensor);
 }
 
-export function useHandleDragEnd(selectedOptions, onChange) {
+export function useHandleDragEnd(key, items, onChange, containerId) {
   return useCallback(
     (event) => {
       const {
-        over: { id: overOptionValue },
-        active: { id: draggedOptionValue },
+        over: { id: overItemId },
+        active: { id: draggedItemId },
       } = event;
 
-      const to = overOptionValue === 'select'
-        ? selectedOptions.length
-        : selectedOptions.findIndex(
-          (option) => option.value === overOptionValue,
-        );
-      const from = selectedOptions.findIndex(
-        (option) => option.value === draggedOptionValue,
-      );
+      const to = overItemId === containerId
+        ? items.length
+        : items.findIndex((option) => option[key] === overItemId);
+      const from = items.findIndex((option) => option[key] === draggedItemId);
 
-      onChange(arrayMove(selectedOptions, from, to).map((o) => o.value));
+      return onChange({ from, to });
     },
-    [selectedOptions, onChange],
+    [items, onChange, key, containerId],
   );
 }
 

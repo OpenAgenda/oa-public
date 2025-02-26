@@ -19,7 +19,9 @@
   "ReactFilters.messages.filterTitles.locationUid": "Lugar",
   "ReactFilters.messages.filterTitles.relative": "Pasados / actuales / próximos",
   "ReactFilters.messages.filterTitles.state": "Estado",
+  "ReactFilters.messages.filterTitles.status": "Estado",
   "ReactFilters.messages.filterTitles.timings": "Fecha",
+  "ReactFilters.messages.map.searchWithMap": "Buscar en el mapa",
   "ReactFilters.messages.provenance.contribution": "Contribución",
   "ReactFilters.messages.relative.upcoming": "Próximos",
   "ReactFilters.messages.status.programmed": "Programado"

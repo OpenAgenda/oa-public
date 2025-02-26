@@ -7,6 +7,7 @@ import {
   Draggable,
   useDragAndDropSensors,
   useHandleDragEnd,
+  arrayMove,
 } from '../utils/dragAndDrop.js';
 
 function MultiValueContainer(props) {
@@ -54,7 +55,15 @@ export default function SortableSelect({
     [value, options],
   );
 
-  const handleDragEnd = useHandleDragEnd(selectedOptions, onChange);
+  const handleDragEndOnChange = ({ from, to }) => {
+    onChange(arrayMove(selectedOptions, from, to).map((i) => i.value));
+  };
+  const handleDragEnd = useHandleDragEnd(
+    'value',
+    selectedOptions,
+    handleDragEndOnChange,
+    'select',
+  );
 
   return (
     <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
