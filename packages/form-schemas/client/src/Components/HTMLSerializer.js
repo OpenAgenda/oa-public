@@ -1,8 +1,3 @@
-import _ from 'lodash';
-import SerializerModule from 'slate-html-serializer';
-
-const Serializer = SerializerModule.default || SerializerModule;
-
 const MARK_TAGS = {
   strong: 'bold',
   em: 'italic',
@@ -11,18 +6,13 @@ const MARK_TAGS = {
   code: 'code',
 };
 
-const TAG_MARKS = _.keys(MARK_TAGS).reduce(
-  (carry, key) => _.set(carry, MARK_TAGS[key], key),
-  {},
-);
-
 const BLOCK_TAGS = {
   p: 'paragraph',
   li: 'list-item',
   ul: 'bulleted-list',
   ol: 'numbered-list',
   blockquote: 'quote',
-  pre: 'code',
+  pre: 'code-block',
   h1: 'heading-one',
   h2: 'heading-two',
   h3: 'heading-three',
@@ -31,82 +21,182 @@ const BLOCK_TAGS = {
   h6: 'heading-six',
 };
 
-const TAG_BLOCKS = _.keys(BLOCK_TAGS).reduce(
-  (carry, key) => _.set(carry, BLOCK_TAGS[key], key),
-  {},
-);
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
 
-const RULES = [
-  {
-    serialize(obj, children) {
-      const { object, type } = obj ?? {};
+function applyMarkToDescendants(node, markType) {
+  if (node.text !== undefined) {
+    return { ...node, [markType]: true };
+  }
+  if (node.children && Array.isArray(node.children)) {
+    return {
+      ...node,
+      children: node.children.map((child) =>
+        applyMarkToDescendants(child, markType)),
+    };
+  }
+  return node;
+}
 
-      if (object !== 'block') return;
+function serializeNode(node) {
+  if (node.text !== undefined) {
+    let text = escapeHtml(node.text);
 
-      const ReactElem = `${TAG_BLOCKS[type]}`;
+    if (node.bold) {
+      text = `<strong>${text}</strong>`;
+    }
+    if (node.italic) {
+      text = `<em>${text}</em>`;
+    }
+    if (node.underline) {
+      text = `<u>${text}</u>`;
+    }
 
-      return <ReactElem>{children}</ReactElem>;
-    },
-    deserialize(el, next) {
-      const block = BLOCK_TAGS[el.tagName.toLowerCase()];
+    return text;
+  }
 
-      if (!block) return;
+  const childrenHtml = (node.children || []).map(serializeNode).join('');
 
-      return {
-        object: 'block',
-        type: block,
-        nodes: next(el.childNodes),
-      };
-    },
-  },
-  {
-    serialize(obj, children) {
-      const { object, type } = obj ?? {};
+  switch (node.type) {
+    case 'paragraph':
+      return `<p>${childrenHtml}</p>`;
+    case 'heading-one':
+      return `<h1>${childrenHtml}</h1>`;
+    case 'heading-two':
+      return `<h2>${childrenHtml}</h2>`;
+    case 'heading-three':
+      return `<h3>${childrenHtml}</h3>`;
+    case 'bulleted-list':
+      return `<ul>${childrenHtml}</ul>`;
+    case 'numbered-list':
+      return `<ol>${childrenHtml}</ol>`;
+    case 'list-item':
+      return `<li>${childrenHtml}</li>`;
+    case 'quote':
+      return `<blockquote>${childrenHtml}</blockquote>`;
+    case 'code-block':
+      return `<pre><code>${childrenHtml}</code></pre>`;
+    case 'link': {
+      const url = node.url || '#';
+      return `<a href="${escapeHtml(url)}">${childrenHtml}</a>`;
+    }
+    default:
+      return childrenHtml;
+  }
+}
 
-      if (object !== 'mark') return;
+function deserializeElements(domNodes) {
+  const array = [];
 
-      const ReactElem = `${TAG_MARKS[type]}`;
+  domNodes.forEach((domNode) => {
+    // TEXT_NODE
+    if (domNode.nodeType === 3) {
+      const text = domNode.nodeValue;
+      if (!text.trim() && text !== ' ') {
+        return;
+      }
 
-      return <ReactElem>{children}</ReactElem>;
-    },
-    deserialize(el, next) {
-      const mark = MARK_TAGS[el.tagName.toLowerCase()];
-      if (!mark) return;
+      array.push({ text });
+      return;
+    }
 
-      return {
-        object: 'mark',
-        type: mark,
-        nodes: next(el.childNodes),
-      };
-    },
-  },
-  {
-    serialize(obj, children) {
-      const { type, data } = obj ?? {};
+    // ELEMENT_NODE
+    if (domNode.nodeType === 1) {
+      const tag = domNode.nodeName.toLowerCase();
 
-      if (type !== 'link') return;
+      // MARKS: <strong>, <em>, etc.
+      if (MARK_TAGS[tag]) {
+        const markType = MARK_TAGS[tag];
+        const children = deserializeElements(
+          Array.from(domNode.childNodes),
+        ).map((child) => {
+          if (child.text !== undefined) {
+            return { ...child, [markType]: true };
+          }
+          return applyMarkToDescendants(child, markType);
+        });
+        array.push(...children);
+        return;
+      }
 
-      return <a href={data.get('href')}>{children}</a>;
-    },
-    // Special case for links, to grab their href.
-    deserialize(el, next) {
-      if (el.tagName.toLowerCase() !== 'a') return;
+      // BLOCKS: <p>, <h1>, <ul>, <li>, ...
+      if (BLOCK_TAGS[tag]) {
+        const blockType = BLOCK_TAGS[tag];
+        const children = deserializeElements(Array.from(domNode.childNodes));
 
-      return {
-        object: 'inline',
-        type: 'link',
-        nodes: next(el.childNodes),
-        data: {
-          href: el.getAttribute('href'),
-        },
-      };
-    },
-  },
-];
+        if (children.length === 0) {
+          children.push({ text: '' });
+        }
 
-const serializer = new Serializer({ rules: RULES });
+        array.push({
+          type: blockType,
+          children,
+        });
+        return;
+      }
+
+      // LINK / Inline <a> ?
+      if (tag === 'a') {
+        const href = domNode.getAttribute('href') || '';
+        const children = deserializeElements(Array.from(domNode.childNodes));
+
+        if (children.length === 0) {
+          children.push({ text: href });
+        }
+
+        array.push({
+          type: 'link',
+          url: href,
+          children,
+        });
+        return;
+      }
+
+      const children = deserializeElements(Array.from(domNode.childNodes));
+
+      if (children.length) {
+        array.push(...children);
+      }
+    }
+  });
+
+  return array;
+}
+
+function deserialize(html) {
+  if (!html || typeof html !== 'string') {
+    return [
+      {
+        type: 'paragraph',
+        children: [{ text: '' }],
+      },
+    ];
+  }
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+  const nodes = deserializeElements(Array.from(doc.body.childNodes));
+
+  return nodes.length > 0
+    ? nodes
+    : [
+      {
+        type: 'paragraph',
+        children: [{ text: '' }],
+      },
+    ];
+}
+
+function serialize(nodes) {
+  if (!Array.isArray(nodes)) {
+    return '';
+  }
+  return nodes.map((node) => serializeNode(node)).join('');
+}
 
 export default {
-  serialize: (slateObj) => serializer.serialize(slateObj),
-  deserialize: (html) => (html ? serializer.deserialize(html) : null),
+  serialize,
+  deserialize,
 };

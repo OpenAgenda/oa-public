@@ -1,6 +1,8 @@
 import { useMemo, useRef, useState, useEffect, useCallback } from 'react';
-import { usePrevious } from 'react-use';
+import usePreviousModule from 'react-use/lib/usePrevious.js';
 import { Text } from 'recharts';
+
+const usePrevious = usePreviousModule.default || usePreviousModule;
 
 export default function EllipsisAxisTick({ maxLines = 2, payload, ...rest }) {
   const [text, setText] = useState(payload.value);

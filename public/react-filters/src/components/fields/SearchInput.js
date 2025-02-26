@@ -17,7 +17,7 @@ const messages = defineMessages({
   },
 });
 
-function Input({ input, placeholder, onButtonClick, manualSubmit }) {
+function Input({ input, placeholder, ariaLabel, onButtonClick, manualSubmit }) {
   const intl = useIntl();
 
   return (
@@ -26,7 +26,8 @@ function Input({ input, placeholder, onButtonClick, manualSubmit }) {
         className="form-control"
         autoComplete="off"
         placeholder={placeholder}
-        aria-label={placeholder}
+        aria-label={ariaLabel}
+        title={ariaLabel}
         {...input}
       />
       {!manualSubmit ? (

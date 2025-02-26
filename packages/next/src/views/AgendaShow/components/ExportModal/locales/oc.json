@@ -1,5 +1,5 @@
 {
-  "next.views.AgendaShow.ExportModal.PDFDownload": "",
+  "next.views.AgendaShow.ExportModal.PDFDownload": "Descargar",
   "next.views.AgendaShow.ExportModal.PDFGeoSections": "",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "",
   "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "",
@@ -12,6 +12,7 @@
   "next.views.AgendaShow.ExportModal.copied": "Copiat",
   "next.views.AgendaShow.ExportModal.copy": "Copiar",
   "next.views.AgendaShow.ExportModal.detailedFormat": "Far servir lo format detalhat",
+  "next.views.AgendaShow.ExportModal.detectLang": "",
   "next.views.AgendaShow.ExportModal.distributeFields": "Camps amb opcions: mostrar una valor per colomna",
   "next.views.AgendaShow.ExportModal.documentation": "Veire la documentacion",
   "next.views.AgendaShow.ExportModal.embed": "",

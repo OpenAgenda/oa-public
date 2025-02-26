@@ -1,7 +1,7 @@
 {
-  "update": "Sauvegarder",
-  "updating": "Mise à jour",
-  "updated": "Enregistré",
+  "cancel": "Annuler",
   "syncError": "La sauvegarde n'a pas abouti. Veuillez ré-essayer.",
-  "cancel": "Annuler"
+  "update": "Sauvegarder",
+  "updated": "Enregistré",
+  "updating": "Mise à jour"
 }

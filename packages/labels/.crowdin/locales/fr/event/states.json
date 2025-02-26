@@ -1,15 +1,15 @@
 {
-  "refused": "refusé",
-  "tocontrol": "en modération",
-  "tobecontrolled": "en modération",
-  "controlled": "prêt à publier",
-  "published": "publié",
-  "featured": "en une",
   "all": "voir tous",
+  "controlled": "prêt à publier",
+  "featured": "en une",
+  "featuredChange": "L'événement est désormais en une",
+  "published": "publié",
+  "refused": "refusé",
   "state": "statut",
   "stateChanged": "Le statut de l'événement a été modifié",
-  "featuredChange": "L'événement est désormais en une",
-  "unfeaturedChange": "L'événement n'est plus en une",
   "stateFieldInfo": "L'accès à ce champ est restreint aux administrateurs et modérateurs de l'agenda",
-  "stateFieldSub": "Important: l'événement ne sera visible et diffusable que lorsqu'il aura été publié"
+  "stateFieldSub": "Important: l'événement ne sera visible et diffusable que lorsqu'il aura été publié",
+  "tobecontrolled": "en modération",
+  "tocontrol": "en modération",
+  "unfeaturedChange": "L'événement n'est plus en une"
 }

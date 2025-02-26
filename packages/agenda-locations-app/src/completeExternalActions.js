@@ -18,6 +18,9 @@ const completeExternalActions = (externalActions, extIds) => {
         });
       }
       for (const action of Object.keys(actionsByExtId.actions)) {
+        if (!actionsByExtId.actions[action]) {
+          continue;
+        }
         completedExternalActions.push({
           action,
           key: actionsByExtId.key,

@@ -1,4 +1,4 @@
-import { service as config } from '../testconfig.sample.js';
+import { service as config } from '../testconfig.js';
 import Service from '../index.js';
 import fixtures from './fixtures/index.js';
 

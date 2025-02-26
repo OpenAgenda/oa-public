@@ -1,4 +1,11 @@
 {
+  "AgendaSettings.AdvancedEdition.deleteTitle": "Suprimir",
+  "AgendaSettings.AdvancedEdition.filtersMenuTitle": "Filtres",
+  "AgendaSettings.AdvancedEdition.identifier": "Identificant",
+  "AgendaSettings.Components.DeleteAgenda.closeConfirm": "Tampar",
+  "AgendaSettings.Components.DeleteAgenda.confirmButton": "Confirmar la supression",
+  "AgendaSettings.Components.FiltersSettings.resetModalConfirm": "Confirmar",
+  "AgendaSettings.Components.FiltersSettings.submit": "Sometre",
   "AgendaSettings.CreationSecondStep.formEvent": "Eveniment de formulari",
   "AgendaSettings.CreationSecondStep.onlineEvents": "Autorizar l'inscripcion en linha als eveniments",
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": "Los eveniments en linha se pòdon associar a de lòcs fisics",

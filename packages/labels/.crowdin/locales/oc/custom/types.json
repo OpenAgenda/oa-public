@@ -1,11 +1,11 @@
 {
-  "radio": "Lista a causida unica",
   "checkbox": "Lista a causida multipla",
-  "select": "Camp de seleccion",
+  "image": "Imatge",
   "integer": "Entièr",
-  "number": "Nombre",
-  "text": "Camp de tèxte simple",
-  "textarea": "Camp de tèxte a maitas linhas",
   "markdown": "Camp de tèxte ric",
-  "image": "Imatge"
+  "number": "Nombre",
+  "radio": "Lista a causida unica",
+  "select": "Camp de seleccion",
+  "text": "Camp de tèxte simple",
+  "textarea": "Camp de tèxte a maitas linhas"
 }

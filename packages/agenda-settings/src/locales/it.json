@@ -1,4 +1,13 @@
 {
+  "AgendaSettings.AdvancedEdition.deleteTitle": "Cancellare",
+  "AgendaSettings.AdvancedEdition.filtersMenuTitle": "Filtri",
+  "AgendaSettings.Components.DeleteAgenda.closeConfirm": "Chiudere",
+  "AgendaSettings.Components.DeleteAgenda.confirmButton": "Confermare la cancellazione",
+  "AgendaSettings.Components.DeleteAgenda.dataImplication": "Anche tutte le conversazioni associate, la cronologia delle attività e i dati dei membri saranno cancellati",
+  "AgendaSettings.Components.FiltersSettings.reset": "Ripristino della configurazione",
+  "AgendaSettings.Components.FiltersSettings.resetModalConfirm": "Confermare",
+  "AgendaSettings.Components.FiltersSettings.submit": "Invia",
+  "AgendaSettings.Components.IdentifierInformation.APIAgendaConfigurationRoute": "Vedere le impostazioni e le informazioni generali",
   "AgendaSettings.CreationSecondStep.onlineEvents": "Consentire agli annunzi di eventi online",
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": "Eventi in linea possono anche essere collegati a un posto fisico",
   "AgendaSettings.contribution.closedContibution": "Chiusa",

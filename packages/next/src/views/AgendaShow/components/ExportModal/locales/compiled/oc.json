@@ -2,7 +2,7 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": [
     {
       "type": 0,
-      "value": "Télécharger"
+      "value": "Descargar"
     }
   ],
   "next.views.AgendaShow.ExportModal.PDFGeoSections": [
@@ -75,6 +75,12 @@
     {
       "type": 0,
       "value": "Far servir lo format detalhat"
+    }
+  ],
+  "next.views.AgendaShow.ExportModal.detectLang": [
+    {
+      "type": 0,
+      "value": "Detect language automatically"
     }
   ],
   "next.views.AgendaShow.ExportModal.distributeFields": [
@@ -230,7 +236,7 @@
   "next.views.AgendaShow.ExportModal.openInSamePage": [
     {
       "type": 0,
-      "value": "Ouvrir le détail d'un événement dans l'intégration"
+      "value": "Ouvrir les événements sur la même page"
     }
   ],
   "next.views.AgendaShow.ExportModal.outlookStep2": [

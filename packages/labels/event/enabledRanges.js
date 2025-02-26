@@ -23,7 +23,8 @@ module.exports = {
     "en": " Restrict the periods allowed for the dates entered",
     "fr": " Restreindre les périodes autorisées pour les dates saisies",
     "io": "crwdns31296:0crwdne31296:0",
-    "oc": " Restrénher los periòdes autorizats per las datas entradas"
+    "oc": " Restrénher los periòdes autorizats per las datas entradas",
+    "it": " Limitare i periodi consentiti per le date inserite"
   },
   "constraintError": {
     "en": "New limit should be in constraint",

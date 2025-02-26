@@ -1,11 +1,7 @@
 import { initialize, mswLoader } from 'msw-storybook-addon';
 
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-};
-
 initialize({
-  onUnhandledRequest({ request, print }) {
+  onUnhandledRequest(request, print) {
     const url = new URL(request.url);
     const sameOrigin = url.origin === window.location.origin;
 

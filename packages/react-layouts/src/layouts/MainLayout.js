@@ -6,7 +6,8 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
 import OutsideClickHandlerModule from 'react-outside-click-handler';
 import classNames from 'classnames';
-import { useCookie, useInterval } from 'react-use';
+import useCookieModule from 'react-use/lib/useCookie.js';
+import useIntervalModule from 'react-use/lib/useInterval.js';
 import { ErrorBoundary } from '@sentry/react';
 import session from '@openagenda/sessions/client';
 import Notifications from '@openagenda/activity-apps/dist/client/components/Notifications.js';
@@ -20,6 +21,8 @@ import Announcement from '../components/Announcement.js';
 import FlashModal from '../components/FlashModal.js';
 
 const OutsideClickHandler = OutsideClickHandlerModule.default || OutsideClickHandlerModule;
+const useCookie = useCookieModule.default || useCookieModule;
+const useInterval = useIntervalModule.default || useIntervalModule;
 
 const STORAGE_ANNOUNCEMENT_KEY = 'oa:announcement';
 

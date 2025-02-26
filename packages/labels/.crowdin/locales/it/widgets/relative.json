@@ -1,13 +1,13 @@
 {
-  "today": "Oggi",
-  "yesterday": "ieri",
-  "tomorrow": "Domani",
-  "thisWeekend": "Questo week end",
-  "thisWeek": "Settimana corrente",
-  "thisMonth": "Mese corrente",
-  "relativeToNowPast": "%count% %units% fa",
-  "relativeToNowUpcoming": "tra %count% %units%",
   "days": "giorni",
   "months": "mese",
-  "years": "anni"
+  "relativeToNowPast": "%count% %units% fa",
+  "relativeToNowUpcoming": "tra %count% %units%",
+  "thisMonth": "Mese corrente",
+  "thisWeek": "Settimana corrente",
+  "thisWeekend": "Questo week end",
+  "today": "Oggi",
+  "tomorrow": "Domani",
+  "years": "anni",
+  "yesterday": "ieri"
 }

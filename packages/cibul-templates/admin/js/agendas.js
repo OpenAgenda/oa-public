@@ -1,4 +1,4 @@
-var App = require( '@openagenda/admin-agendas/components/lib/main' ),
+var AppModule = require( '@openagenda/admin-agendas/components/lib/main' ),
 
   deepExtend = require( 'deep-extend' ),
 
@@ -14,6 +14,8 @@ var App = require( '@openagenda/admin-agendas/components/lib/main' ),
       canvas: '.js_canvas'
     },
   };
+
+const App = AppModule.default || AppModule;
 
 window.hook( function( options ) {
 

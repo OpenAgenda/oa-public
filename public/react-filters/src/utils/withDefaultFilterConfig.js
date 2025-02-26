@@ -400,16 +400,19 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       name: fieldSchema.field,
       type: 'choice',
       fieldSchema,
-      options: fieldSchema.options.map((option) => ({
-        ...option,
-        label: getLocaleValue(option.label, intl.locale),
-        value: String(option.id),
-      })),
+      options: !filter.aggregationOnly
+        ? fieldSchema.options.map((option) => ({
+          ...option,
+          label: getLocaleValue(option.label, intl.locale),
+          value: String(option.id),
+        }))
+        : null,
       missingValue,
       aggregation: {
         type: 'additionalFields',
         field: fieldSchema.field,
       },
+      labelKey: 'label',
     });
   }
 

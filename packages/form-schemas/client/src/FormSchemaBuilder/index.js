@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import debug from 'debug';
-import classNames from 'classnames';
-import { Component } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { useState, useCallback, useEffect, useMemo } from 'react';
+import { DragDropProvider } from '@dnd-kit/react';
 
 import { unloadWarning } from '@openagenda/react-shared';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
@@ -12,7 +11,6 @@ import merge from '../iso/merge.js';
 import labels from './lib/labels.js';
 
 import isOwnField from './lib/isOwnField.js';
-import draggableStyles from './lib/draggableStyles.js';
 
 import extractSchemaInfo from './lib/extractSchemaInfo.js';
 import insertMissingAbstractFields from './lib/insertMissingAbstractFields.js';
@@ -34,10 +32,18 @@ import FieldEdit from './FieldEdit.js';
 
 const modes = {
   DEFAULT: 0,
-  ORDERING: 1,
-  EDITLABELLANGUAGES: 2,
-  ADDFIELD: 3,
+  EDITLABELLANGUAGES: 1,
+  ADDFIELD: 2,
 };
+
+function isObjectWithKeys(obj) {
+  return (
+    obj !== null
+    && typeof obj === 'object'
+    && !Array.isArray(obj)
+    && Object.keys(obj).length > 0
+  );
+}
 
 const getLabel = makeLabelGetter(labels);
 
@@ -54,380 +60,333 @@ const FieldAddButton = ({ onClick, lang, disabled, block }) => (
   </button>
 );
 
-export default class FormSchemaBuilder extends Component {
-  constructor(props) {
-    super(props);
+const FormSchemaBuilder = ({
+  schema: initialSchema,
+  useExtendedLabelLanguages,
+  devState,
+  addEnabled,
+  settingsEnabled,
+  editableExtensions,
+  extendedFrom = [],
+  lang,
+  customFieldConfigurationSchemas,
+  components,
+  displaySidebar = true,
+  onUpdate,
+  onSuccess,
+  res,
+}) => {
+  // Helper functions
+  const getSchema = useCallback((schemaState) => {
+    const defaultSchema = { fields: [] };
+    return schemaState === null ? defaultSchema : schemaState || defaultSchema;
+  }, []);
 
-    const mergedSchema = this.getMergedSchema(props);
+  const getMergedSchema = useCallback(
+    (currentSchema) => {
+      const extensions = extendedFrom;
+      const merged = merge(
+        ...extensions.map((e) => e.schema).concat(currentSchema),
+      );
 
-    const schema = props.schema?.fields ? props.schema : { fields: [] };
+      return {
+        ...merged,
+        fields: merged.fields.filter((f) => f?.fieldType !== 'abstract'),
+      };
+    },
+    [extendedFrom],
+  );
 
-    const initState = {
-      schema,
-      labelLanguages: extractSchemaLabelLanguages(
-        props.useExtendedLabelLanguages ? mergedSchema : props.schema,
-      ),
-      saveState: saveStates.UNCHANGED,
-      editedField: null,
-      mode: null,
-      labels,
-      activeIndex: -1,
-    };
+  const getMergedExtentionSchema = useCallback(
+    () => merge(...extendedFrom.map((e) => e.schema)),
+    [extendedFrom],
+  );
 
-    if (props.devState) {
-      Object.assign(initState, props.devState);
+  // State initialization
+  const initSchema = useMemo(
+    () => (initialSchema?.fields ? initialSchema : { fields: [] }),
+    [initialSchema],
+  );
+  const mergedInitialSchema = getMergedSchema(initSchema);
+
+  const [schema, setSchema] = useState(initSchema);
+  const [labelLanguages, setLabelLanguages] = useState(
+    extractSchemaLabelLanguages(
+      useExtendedLabelLanguages ? mergedInitialSchema : initialSchema,
+    ),
+  );
+  const [saveState, setSaveState] = useState(saveStates.UNCHANGED);
+  const [editedField, setEditedField] = useState(null);
+  const [mode, setMode] = useState(null);
+  const [activeItemSlug, setActiveItemSlug] = useState(null);
+  const [addToEnd, setAddToEnd] = useState(false);
+
+  useEffect(() => {
+    if (isObjectWithKeys(devState)) {
+      setSchema(devState.schema || initSchema);
+      setLabelLanguages(devState.labelLanguages || []);
+      setSaveState(devState.saveState || saveStates.UNCHANGED);
+      setEditedField(devState.editedField || null);
+      setMode(devState.mode || null);
+      setActiveItemSlug(devState.activeItemSlug || null);
     }
+  }, [devState, initSchema]);
 
-    this.state = initState;
+  // Save state management
+  const updateSaveState = useCallback(
+    (newSaveState, schemaUpdate = null) => {
+      if (newSaveState === saveStates.SAVED) {
+        unloadWarning.unset();
+      } else {
+        unloadWarning.set();
+      }
 
-    this.onFieldEditCancel = this.onFieldEditCancel.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
+      setSaveState(newSaveState);
+      if (schemaUpdate) {
+        setSchema(schemaUpdate);
+        onUpdate(schemaUpdate);
+      }
+    },
+    [onUpdate],
+  );
 
-    log(
-      'builder for schema of %s fields, %s when merged',
-      schema.fields.length,
-      mergedSchema.fields.length,
-    );
-  }
-
-  onAccordionToggle(field) {
-    const { activeItemSlug } = this.state;
-
+  // Event handlers
+  const handleAccordionToggle = useCallback((field) => {
     const slug = getFormItemSlug(field);
+    setActiveItemSlug((prev) => (prev === slug ? null : slug));
+  }, []);
 
-    const isOpen = activeItemSlug === slug;
-
-    if (isOpen) {
-      this.setState({ activeItemSlug: null });
-    } else {
-      this.setState({ activeItemSlug: slug });
-    }
-  }
-
-  onDragEnd({ source, destination }) {
-    if (!destination) return;
-
-    const reorderedSchema = reorderSchemaFields(
-      this.getMergedSchema(),
-      source.index,
-      destination.index,
-    );
-
-    this.updateSchema(
-      insertMissingAbstractFields(this.getSchema(), reorderedSchema),
-    );
-  }
-
-  onSave() {
-    this.setSaveState(saveStates.LOADING);
-    const { res, onSuccess } = this.props;
-    const { labelLanguages } = this.state;
+  const handleSave = useCallback(() => {
+    updateSaveState(saveStates.LOADING);
 
     submit({
       res,
       values: restrictLabelLanguages.applyToSchema(
-        this.getSchema(),
+        getSchema(schema),
         labelLanguages,
       ),
     }).then(
       ({ body }) => {
-        this.updateSchema(body);
-        this.setSaveState(saveStates.SAVED);
+        updateSaveState(saveStates.SAVED, body);
         if (onSuccess) onSuccess();
       },
       (_err) => {
-        this.setSaveState(saveStates.ERROR);
+        updateSaveState(saveStates.ERROR);
       },
     );
-  }
+  }, [schema, labelLanguages, res, onSuccess, getSchema, updateSaveState]);
 
-  onFieldEdit(field) {
-    this.setState({ editedField: field });
-  }
+  const handleFieldEdit = useCallback((field) => {
+    setEditedField(field);
+  }, []);
 
-  onFieldRemove(field) {
-    this.updateSchema(removeSchemaField(this.getSchema(), field));
-  }
+  const handleFieldRemove = useCallback(
+    (field) => {
+      const updatedSchema = removeSchemaField(getSchema(schema), field);
+      updateSaveState(saveStates.CHANGED, updatedSchema);
+    },
+    [schema, getSchema, updateSaveState],
+  );
 
-  onFieldEditCancel() {
-    this.setState({ editedField: null });
-  }
+  const handleFieldEditCancel = useCallback(() => {
+    setEditedField(null);
+  }, []);
 
-  onFieldAdd(field) {
-    const { addToEnd } = this.state;
+  const handleFieldAdd = useCallback(
+    (field) => {
+      const currentSchema = getSchema(schema);
+      const mergedSchema = getMergedSchema(currentSchema);
+      const schemaWithAbstractFields = insertMissingAbstractFields(
+        currentSchema,
+        mergedSchema,
+      );
 
-    const schema = this.getSchema();
-    const mergedSchema = this.getMergedSchema();
+      log(
+        'adding field on schema of %s fields, %s when merged',
+        currentSchema.fields.length,
+        mergedSchema.fields.length,
+      );
 
-    const schemaWithAbstractFields = insertMissingAbstractFields(
-      schema,
-      mergedSchema,
-    );
+      const updatedSchema = addSchemaField(
+        schemaWithAbstractFields,
+        field,
+        addToEnd,
+      );
+      updateSaveState(saveStates.CHANGED, updatedSchema);
+      setMode(modes.DEFAULT);
+    },
+    [schema, addToEnd, getMergedSchema, getSchema, updateSaveState],
+  );
 
-    log(
-      'adding field on schema of %s fields, %s when merged',
-      schema.fields.length,
-      mergedSchema.fields.length,
-    );
+  const handleFieldEditSave = useCallback(
+    (field, update) => {
+      setEditedField(null);
 
-    this.updateSchema(
-      addSchemaField(schemaWithAbstractFields, field, addToEnd),
-    );
+      const currentSchema = insertMissingAbstractFields(
+        getSchema(schema),
+        getMergedSchema(schema),
+      );
 
-    this.setState({
-      mode: modes.DEFAULT,
-    });
-  }
+      const updatedSchema = updateSchemaField(currentSchema, field, update);
+      updateSaveState(saveStates.CHANGED, updatedSchema);
+    },
+    [schema, getMergedSchema, getSchema, updateSaveState],
+  );
 
-  onFieldEditSave(field, update) {
-    this.setState({ editedField: null });
+  const handleLabelLanguagesChange = useCallback(
+    (updatedLabelLanguages) => {
+      const wasMonolingualized = !updatedLabelLanguages.length && labelLanguages.length;
 
-    const schema = insertMissingAbstractFields(
-      this.getSchema(),
-      this.getMergedSchema(),
-    );
+      setLabelLanguages(updatedLabelLanguages);
+      updateSaveState(saveStates.CHANGED);
 
-    this.updateSchema(updateSchemaField(schema, field, update));
-  }
+      if (wasMonolingualized) {
+        const updatedSchema = monolingualizeSchema(getSchema(schema));
+        updateSaveState(saveStates.CHANGED, updatedSchema);
+      }
+    },
+    [labelLanguages, schema, getSchema, updateSaveState],
+  );
 
-  onLabelLanguagesChange(updatedLabelLanguages) {
-    const { labelLanguages } = this.state;
+  // Helper functions for UI state
+  const isDisabled = useCallback(
+    (actionName) => {
+      if (saveState === saveStates.LOADING) return true;
+      if (mode && mode !== actionName) return true;
+      return false;
+    },
+    [mode, saveState],
+  );
 
-    const wasMonolingualized = !updatedLabelLanguages.length && labelLanguages.length;
+  const isFieldDisabled = useCallback(
+    (field, forceDisabled) => {
+      if (forceDisabled) return true;
+      if (!_.get(field, 'display', true)) return true;
+      return editedField && editedField !== field.field;
+    },
+    [editedField],
+  );
 
-    this.setState({
-      labelLanguages: updatedLabelLanguages,
-      saveState: saveStates.CHANGED,
-    });
+  const mergedSchema = useMemo(
+    () => getMergedSchema(schema),
+    [schema, getMergedSchema],
+  );
+  const parentsMergedSchema = getMergedExtentionSchema();
+  const disabled = saveState === saveStates.LOADING;
 
-    if (wasMonolingualized) {
-      this.updateSchema(monolingualizeSchema(this.getSchema()));
-    }
-  }
-
-  getSchema() {
-    const defaultSchema = { fields: [] };
-    const { schema = defaultSchema } = this.state;
-
-    return schema === null ? defaultSchema : schema;
-  }
-
-  setSaveState(newSaveState, otherStateSet = {}) {
-    if (newSaveState === saveStates.SAVED) {
-      unloadWarning.unset();
-    } else {
-      unloadWarning.set();
-    }
-
-    this.setState({
-      saveState: newSaveState,
-      ...otherStateSet,
-    });
-  }
-
-  getMergedSchema(props) {
-    const currentSchema = props ? props.schema : this.getSchema();
-    const extensions = _.get(props || this.props, 'extendedFrom', []);
-
-    const merged = merge(
-      ...extensions.map((e) => e.schema).concat(currentSchema),
-    );
-
-    return {
-      ...merged,
-      fields: merged.fields.filter((f) => f?.fieldType !== 'abstract'),
-    };
-  }
-
-  getMergedExtentionSchema(props) {
-    const extensions = _.get(props || this.props, 'extendedFrom', []);
-    return merge(...extensions.map((e) => e.schema));
-  }
-
-  updateSchema(schema) {
-    const { onUpdate } = this.props;
-    this.setSaveState(saveStates.CHANGED, { schema });
-    onUpdate(schema);
-  }
-
-  isDisabled(actionName) {
-    const { mode, saveState } = this.state;
-
-    if (saveState === saveStates.LOADING) return true;
-
-    if (mode && mode !== actionName) return true;
-
-    return false;
-  }
-
-  isFieldDisabled(field, forceDisabled) {
-    if (forceDisabled) return true;
-
-    const { editedField } = this.state;
-
-    if (!_.get(field, 'display', true)) return true;
-
-    return editedField && editedField !== field.field;
-  }
-
-  render() {
-    const {
-      addEnabled,
-      settingsEnabled,
-      editableExtensions,
-      extendedFrom,
-      lang,
-      customFieldConfigurationSchemas,
-      components,
-      displaySidebar = true,
-    } = this.props;
-
-    const {
-      labelLanguages,
-      editedField,
-      saveState,
-      mode,
-      schema,
-      activeItemSlug,
-    } = this.state;
-
-    const mergedSchema = this.getMergedSchema();
-    const parentsMergedSchema = this.getMergedExtentionSchema();
-    const disabled = saveState === saveStates.LOADING;
-
-    return (
-      <div className="form-schema-builder row">
-        {displaySidebar ? (
-          <div className="col-sm-12 padding-bottom-sm">
-            <div className="padding-all-sm">
-              {settingsEnabled ? (
-                <LabelLanguages
-                  disabled={this.isDisabled(modes.EDITLABELLANGUAGES)}
-                  lang={lang}
-                  labelLanguages={labelLanguages}
-                  onUpdate={(update) => this.onLabelLanguagesChange(update)}
-                />
-              ) : null}
-              <div className="form-inline">
-                <FieldAddButton
-                  disabled={!addEnabled || this.isDisabled(modes.ADDFIELD)}
-                  lang={lang}
-                  onClick={() =>
-                    this.setState({ mode: modes.ADDFIELD, addToEnd: false })}
-                />
-                <SaveButton
-                  disabled={mode}
-                  lang={lang}
-                  onClick={() => this.onSave()}
-                  saveState={saveState}
-                />
-              </div>
-            </div>
-          </div>
-        ) : null}
-        <div className="col-sm-12">
-          {editedField ? (
-            <FieldEdit
-              isOwnField={isOwnField(schema, editedField)}
-              field={editedField}
-              labelLanguages={labelLanguages}
-              lang={lang}
-              onSave={(update) => this.onFieldEditSave(editedField, update)}
-              onCancel={this.onFieldEditCancel}
-              customFieldConfigurationSchemas={customFieldConfigurationSchemas}
-              components={components}
-              parentsFields={parentsMergedSchema}
-            />
-          ) : null}
-          <div className="margin-h-sm">
-            {/* {this.renderFieldListHead(mergedSchema)} */}
-            <DragDropContext className="list-group" onDragEnd={this.onDragEnd}>
-              <Droppable droppableId="droppable">
-                {(provided, snapshot) => (
-                  <div
-                    className={`list-group field-preview-canvas wsq${editedField ? ' editing' : ''}`}
-                    ref={provided.innerRef}
-                    style={draggableStyles.getDraggableListStyle(
-                      snapshot.isDraggingOver,
-                    )}
-                  >
-                    {_.get(mergedSchema, 'fields', []).map((field, index) => (
-                      <Draggable
-                        key={getFormItemSlug(field)}
-                        draggableId={getFormItemSlug(field)}
-                        index={index}
-                        disableInteractiveElementBlocking
-                      >
-                        {(providedInner, draggableSnapshot) => (
-                          <div
-                            className={classNames({
-                              'list-group-item draggable': true,
-                              dragged: draggableSnapshot.isDragging,
-                              disabled: this.isFieldDisabled(field, disabled),
-                            })}
-                            ref={providedInner.innerRef}
-                            {...providedInner.draggableProps}
-                            {...providedInner.dragHandleProps}
-                            style={draggableStyles.getDraggableListItemStyle(
-                              draggableSnapshot.isDragging,
-                              providedInner.draggableProps.style,
-                            )}
-                          >
-                            <FieldPreview
-                              disabled={this.isFieldDisabled(field, disabled)}
-                              ordering={mode === modes.ORDERING}
-                              field={field}
-                              isOwn={isOwnField(schema, field)}
-                              editableExtensions={editableExtensions}
-                              schemaInfo={extractSchemaInfo(
-                                field,
-                                extendedFrom,
-                              )}
-                              lang={lang}
-                              labelLanguages={labelLanguages}
-                              onEdit={() => this.onFieldEdit(field)}
-                              onHide={() =>
-                                this.onFieldEditSave(field, { display: false })}
-                              onShow={() =>
-                                this.onFieldEditSave(field, { display: true })}
-                              onRemove={() => this.onFieldRemove(field)}
-                              onAccordionToggle={() =>
-                                this.onAccordionToggle(field)}
-                              active={activeItemSlug === getFormItemSlug(field)}
-                              schema={mergedSchema}
-                            />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-            {addEnabled ? (
-              <div className="padding-v-sm">
-                <FieldAddButton
-                  block
-                  disabled={this.isDisabled(modes.ADDFIELD)}
-                  lang={lang}
-                  onClick={() =>
-                    this.setState({ mode: modes.ADDFIELD, addToEnd: true })}
-                />
-              </div>
-            ) : null}
-            {mode === modes.ADDFIELD ? (
-              <FieldAdd
-                schema={mergedSchema}
-                labelLanguages={labelLanguages}
+  return (
+    <div className="form-schema-builder dnd row">
+      {displaySidebar ? (
+        <div className="col-sm-12 padding-bottom-sm">
+          <div className="padding-all-sm">
+            {settingsEnabled ? (
+              <LabelLanguages
+                disabled={isDisabled(modes.EDITLABELLANGUAGES)}
                 lang={lang}
-                onAdd={(addedField) => this.onFieldAdd(addedField)}
-                onClose={() => this.setState({ mode: modes.DEFAULT })}
+                labelLanguages={labelLanguages}
+                onUpdate={handleLabelLanguagesChange}
               />
             ) : null}
+            <div className="form-inline">
+              <FieldAddButton
+                disabled={!addEnabled || isDisabled(modes.ADDFIELD)}
+                lang={lang}
+                onClick={() => {
+                  setMode(modes.ADDFIELD);
+                  setAddToEnd(false);
+                }}
+              />
+              <SaveButton
+                disabled={mode}
+                lang={lang}
+                onClick={handleSave}
+                saveState={saveState}
+              />
+            </div>
           </div>
         </div>
+      ) : null}
+      <div className="col-sm-12">
+        {editedField ? (
+          <FieldEdit
+            isOwnField={isOwnField(schema, editedField)}
+            field={editedField}
+            labelLanguages={labelLanguages}
+            lang={lang}
+            onSave={(update) => handleFieldEditSave(editedField, update)}
+            onCancel={handleFieldEditCancel}
+            customFieldConfigurationSchemas={customFieldConfigurationSchemas}
+            components={components}
+            parentsFields={parentsMergedSchema}
+          />
+        ) : null}
+        <div
+          className={`margin-h-sm list-group field-preview-canvas ${editedField ? ' editing' : ''}`}
+        >
+          <DragDropProvider
+            onDragEnd={(event) => {
+              const from = event.operation.source.sortable.initialIndex;
+              const to = event.operation.source.sortable.previousIndex;
+              const reorderedSchema = reorderSchemaFields(
+                getMergedSchema(schema),
+                from,
+                to,
+              );
+              const updatedSchema = insertMissingAbstractFields(
+                getSchema(schema),
+                reorderedSchema,
+              );
+              updateSaveState(saveStates.CHANGED, updatedSchema);
+            }}
+          >
+            {_.get(mergedSchema, 'fields', []).map((field, index) => (
+              <FieldPreview
+                index={index}
+                disabled={isFieldDisabled(field, disabled)}
+                ordering={mode === modes.ORDERING}
+                field={field}
+                isOwn={isOwnField(schema, field)}
+                editableExtensions={editableExtensions}
+                schemaInfo={extractSchemaInfo(field, extendedFrom)}
+                lang={lang}
+                labelLanguages={labelLanguages}
+                onEdit={() => handleFieldEdit(field)}
+                onHide={() => handleFieldEditSave(field, { display: false })}
+                onShow={() => handleFieldEditSave(field, { display: true })}
+                onRemove={() => handleFieldRemove(field)}
+                onAccordionToggle={() => handleAccordionToggle(field)}
+                active={activeItemSlug === getFormItemSlug(field)}
+                schema={mergedSchema}
+                key={field.field}
+              />
+            ))}
+          </DragDropProvider>
+          {addEnabled ? (
+            <div className="padding-v-sm">
+              <FieldAddButton
+                block
+                disabled={isDisabled(modes.ADDFIELD)}
+                lang={lang}
+                onClick={() => {
+                  setMode(modes.ADDFIELD);
+                  setAddToEnd(true);
+                }}
+              />
+            </div>
+          ) : null}
+          {mode === modes.ADDFIELD ? (
+            <FieldAdd
+              schema={mergedSchema}
+              labelLanguages={labelLanguages}
+              lang={lang}
+              onAdd={handleFieldAdd}
+              onClose={() => setMode(modes.DEFAULT)}
+            />
+          ) : null}
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default FormSchemaBuilder;

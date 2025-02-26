@@ -33,7 +33,6 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
         'tracker',

@@ -171,4 +171,8 @@ export default defineMessages({
     id: 'next.views.AgendaShow.ExportModal.viewEmbedDoc',
     defaultMessage: 'See all options on the documentation',
   },
+  detectLang: {
+    id: 'next.views.AgendaShow.ExportModal.detectLang',
+    defaultMessage: 'Detect language automatically',
+  },
 });

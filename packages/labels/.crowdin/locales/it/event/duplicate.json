@@ -1,13 +1,13 @@
 {
   "createAgenda": "Creare un'agenda",
-  "searchAgenda": "Cerca un'agenda",
-  "officialAgenda": "Agenda ufficiale",
-  "noResult": "Nessun risultato trovato",
-  "searchEvent": "Ricerca di un evento",
-  "selectAgenda": "Selezionare il agenda in cui creare l'evento",
-  "privateAgenda": "Agenda privato",
-  "or": "Oppure",
+  "createNewEventIn": "Creare il nuovo evento in",
   "modalBigSentence": "State per creare un nuovo evento basato su un evento precedente.",
   "modalReminder": "Promemoria: un singolo evento può essere condiviso su più calendari. Non creare duplicati! La duplicazione permette di creare un annuncio diverso, di solito per una nuova edizione altrove nel tempo o nello spazio, evitando il copia e incolla.",
-  "createNewEventIn": "Creare il nuovo evento in"
+  "noResult": "Nessun risultato trovato",
+  "officialAgenda": "Agenda ufficiale",
+  "or": "Oppure",
+  "privateAgenda": "Agenda privato",
+  "searchAgenda": "Cerca un'agenda",
+  "searchEvent": "Ricerca di un evento",
+  "selectAgenda": "Selezionare il agenda in cui creare l'evento"
 }

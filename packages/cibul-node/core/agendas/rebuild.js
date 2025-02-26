@@ -13,5 +13,4 @@ export default (core, endpoints, agendaUid) =>
 
     await agendasSvc.resetCache(agenda);
     await endpoints.events.search.rebuild();
-    await endpoints.settings.legacy.update(true);
   };

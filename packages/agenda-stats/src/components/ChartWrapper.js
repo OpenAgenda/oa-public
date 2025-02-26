@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { useUpdateEffect, usePrevious, useLatest } from 'react-use';
+import useUpdateEffectModule from 'react-use/lib/useUpdateEffect.js';
+import useLatestModule from 'react-use/lib/useLatest.js';
+import usePreviousModule from 'react-use/lib/usePrevious.js';
 import { useDispatch } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { useModal, Spinner } from '@openagenda/react-shared';
@@ -10,6 +12,10 @@ import BorderBox from './BorderBox.js';
 import IntervalSelect from './basics/IntervalSelect.js';
 import StatEditModal from './StatEditModal.js';
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
+
+const useUpdateEffect = useUpdateEffectModule.default || useUpdateEffectModule;
+const useLatest = useLatestModule.default || useLatestModule;
+const usePrevious = usePreviousModule.default || usePreviousModule;
 
 const messages = defineMessages({
   remove: {

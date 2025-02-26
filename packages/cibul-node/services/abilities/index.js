@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import async from 'async';
 import abilitiesSvc from '@openagenda/abilities';
 import editableRules from './editableRules.js';
 
-const secureMw = (req, res, next) => {
+async function secureMw(req, res, next) {
   const { services } = req.app;
   const membersSvc = services.members;
   const agendasSvc = services.agendas;
@@ -20,28 +19,29 @@ const secureMw = (req, res, next) => {
       }
       return next();
     case 'agenda':
-      return async.applyEachSeries(
-        [
-          agendasSvc.middleware.load({
-            private: null,
-            internal: true,
-            namespaces: {
-              identifiers: {
-                uid: 'query.identifier',
-              },
+      try {
+        await agendasSvc.middleware.load({
+          private: null,
+          internal: true,
+          namespaces: {
+            identifiers: {
+              uid: 'query.identifier',
             },
-          }),
-          membersSvc.mw.loadAndAuthorize('moderator'),
-        ],
-        req,
-        res,
-        next,
-      );
+          },
+        })(req, res);
+
+        await membersSvc.mw.loadAndAuthorize('moderator')(req, res);
+
+        next();
+      } catch (err) {
+        next(err);
+      }
+      break;
     default:
       res.status(403);
       throw new Error('You cannot get this rules index');
   }
-};
+}
 
 export default (app) => {
   // GET https://d.openagenda.com/abilities/form-index?entityName=user&identifier=99999999

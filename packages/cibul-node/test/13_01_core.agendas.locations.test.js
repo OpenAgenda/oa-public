@@ -40,7 +40,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
       ],
@@ -1161,14 +1160,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
         expect(!!dbEntry.deleted_at).toBeTruthy();
       });
-
-      it('legacy entry is also removed', async () => {
-        const legacyEntry = await core.services
-          .knex('event')
-          .first()
-          .where('uid', 55268456);
-        expect(legacyEntry).toBeFalsy();
-      });
     });
 
     describe('soft removal', () => {
@@ -1185,14 +1176,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           .where('uid', 20774404);
 
         expect(dbEntry.deleted_at).toBeFalsy();
-      });
-
-      it('legacy entry is not removed', async () => {
-        const legacyEntry = await core.services
-          .knex('event')
-          .first()
-          .where('uid', 20774404);
-        expect(legacyEntry).toBeTruthy();
       });
     });
   });

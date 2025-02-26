@@ -1,11 +1,11 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 
-import debug from 'debug';
+// import debug from 'debug';
 import { Component } from 'react';
-import { Editor } from 'slate-react';
-
+import { createEditor, Transforms, Editor, Node } from 'slate';
+import { ReactEditor, Slate, Editable, withReact } from 'slate-react';
+import { withHistory, HistoryEditor } from 'slate-history';
 import classNames from 'classnames';
-import { Value } from 'slate';
 
 import richTextLabels from '@openagenda/labels/form-schemas/richText.js';
 import formSchemaLabels from '@openagenda/labels/form-schemas/index.js';
@@ -20,28 +20,30 @@ import Sub from './Sub.js';
 
 const getLabel = makeLabelGetter(formSchemaLabels);
 
-const DEFAULT_NODE = 'paragraph';
+// const log = debug('SlateField');
 
-const DEFAULT_DOC = {
-  document: {
-    nodes: [
-      {
-        object: 'block',
-        type: 'paragraph',
-        nodes: [
-          {
-            object: 'text',
-            leaves: [{ text: '' }],
-          },
-        ],
-      },
-    ],
+const DEFAULT_VALUE = [
+  {
+    type: 'paragraph',
+    children: [{ text: '' }],
   },
-};
+];
 
-const log = debug('SlateField');
+const DEFAULT_NODE_TYPE = 'paragraph';
 
-const shortcuts = [
+const SHORTCUTS = [
+  {
+    type: 'undo',
+    label: 'ctrl+z',
+    keys: ['z'],
+    method: 'undo',
+  },
+  {
+    type: 'redo',
+    label: 'ctrl+y',
+    keys: ['y'],
+    method: 'redo',
+  },
   {
     type: 'heading-two',
     label: 'ctrl+1',
@@ -80,101 +82,87 @@ const shortcuts = [
   },
 ];
 
-function renderMark(props) {
-  const { children, mark, attributes } = props;
+function withInlines(editor) {
+  const { isInline, normalizeNode } = editor;
+  editor.isInline = (element) =>
+    (element.type === 'link' ? true : isInline(element));
 
-  if (mark.type === 'bold') {
-    return <strong {...attributes}>{children}</strong>;
-  }
+  editor.normalizeNode = (entry) => {
+    const [node, path] = entry;
 
-  if (mark.type === 'italic') {
-    return <em {...attributes}>{children}</em>;
-  }
-}
+    if (node.type === 'link' && Editor.isEmpty(editor, node)) {
+      Transforms.unwrapNodes(editor, { at: path });
+      return;
+    }
 
-function renderNode(props) {
-  const { attributes, children, node } = props;
-
-  if (node.type === 'bulleted-list') {
-    return <ul {...attributes}>{children}</ul>;
-  }
-
-  if (node.type === 'heading-two') {
-    return <h2 {...attributes}>{children}</h2>;
-  }
-
-  if (node.type === 'heading-three') {
-    return <h3 {...attributes}>{children}</h3>;
-  }
-
-  if (node.type === 'list-item') {
-    return <li {...attributes}>{children}</li>;
-  }
-
-  if (node.type === 'link') {
-    return (
-      <a {...attributes} href={node.data.get('href')}>
-        {children}
-      </a>
-    );
-  }
+    normalizeNode(entry);
+  };
+  return editor;
 }
 
 export default class SlateField extends Component {
   constructor(props) {
     super(props);
 
-    let update;
+    this.editor = withInlines(withReact(withHistory(createEditor())));
+
     const { value } = this.props;
 
-    if (value instanceof Value) {
-      update = value;
-    } else if (!value) {
-      update = Value.fromJSON(DEFAULT_DOC);
-    } else if (_.isString(value)) {
-      update = Value.fromJSON(JSON.parse(value));
+    let initialValue;
+
+    if (!value) {
+      initialValue = DEFAULT_VALUE;
+    } else if (typeof value === 'string') {
+      try {
+        initialValue = JSON.parse(value);
+      } catch (e) {
+        initialValue = DEFAULT_VALUE;
+      }
+    } else if (Array.isArray(value)) {
+      initialValue = value;
     } else {
-      update = Value.fromJSON(value);
+      initialValue = value.document
+        ? value.document.nodes || DEFAULT_VALUE
+        : DEFAULT_VALUE;
     }
 
     this.state = {
-      value: update,
+      value: initialValue,
       changed: false,
+      fullscreen: false, // Pour la gestion de l’écran plein
     };
   }
 
-  // slate triggers an onChange on load.
-  // The first can be ignored
-  onChange({ value }) {
+  onChange = (newValue) => {
     const { onChange, raw } = this.props;
+    const { changed: alreadyChanged, value: oldValue } = this.state;
 
-    const { changed: stateChangedValue, value: stateValue } = this.state;
+    const changed = alreadyChanged || JSON.stringify(newValue) !== JSON.stringify(oldValue);
 
-    const changed = stateChangedValue
-      || JSON.stringify(value.toJSON()) !== JSON.stringify(stateValue.toJSON());
-
-    this.setState({ value, changed });
+    this.setState({ value: newValue, changed });
 
     if (!changed) return;
 
-    onChange(raw ? value : value.toJSON());
-  }
+    onChange(raw ? newValue : newValue);
+  };
 
-  onKeyDown(e) {
+  onKeyDown = (e) => {
     if (!e.ctrlKey) {
       return;
     }
 
-    const match = shortcuts.find((s) => s.keys.includes(e.key));
+    const match = SHORTCUTS.find((s) => s.keys.includes(e.key));
 
     if (!match) {
       return;
     }
 
-    this[match.method](match.type, e);
-  }
+    e.preventDefault();
 
-  setFullscreen(fullscreen) {
+    this[match.method](match.type);
+  };
+
+  setFullscreen = (fullscreen) => {
     if (fullscreen) {
       bodyScroll.disable();
     } else {
@@ -184,160 +172,178 @@ export default class SlateField extends Component {
     this.setState({
       fullscreen,
     });
-  }
+  };
 
-  toggleMark(type, e) {
-    if (e) e.preventDefault();
-
-    const { value } = this.state;
-
-    this.onChange(value.change().toggleMark(type));
-  }
-
-  toggleLink({ value, change }) {
-    if (this.hasLinks()) {
-      change.unwrapInline('link');
-    } else if (value.isExpanded) {
-      /* eslint-disable */
-      const href = window.prompt('Enter the URL of the link:');
-      /* eslint-enable */
-
-      change.wrapInline({
-        type: 'link',
-        data: { href },
-      });
-    } else {
-      /* eslint-disable */
-      const href = window.prompt('Enter the URL of the link:');
-      const text = window.prompt('Enter the text for the link:');
-      /* eslint-enable */
-
-      if (text && text.length) {
-        change.insertText(text).extend(0 - text.length);
-
-        change.wrapInline({ type: 'link', data: { href } });
-      }
+  // eslint-disable-next-line class-methods-use-this
+  renderElement = ({ attributes, children, element }) => {
+    switch (element.type) {
+      case 'heading-two':
+        return <h2 {...attributes}>{children}</h2>;
+      case 'heading-three':
+        return <h3 {...attributes}>{children}</h3>;
+      case 'bulleted-list':
+        return <ul {...attributes}>{children}</ul>;
+      case 'list-item':
+        return <li {...attributes}>{children}</li>;
+      case 'link':
+        return (
+          <a {...attributes} href={element.url}>
+            {children}
+          </a>
+        );
+      default:
+        return <p {...attributes}>{children}</p>;
     }
-  }
+  };
 
-  toggleList({ value, change, document, type }) {
-    // Handle the extra wrapping required for list buttons.
-    const isList = this.hasBlock('list-item');
-
-    const isType = value.blocks.some(
-      (block) =>
-        !!document.getClosest(block.key, (parent) => parent.type === type),
-    );
-
-    if (isList && isType) {
-      change
-        .setBlocks(DEFAULT_NODE)
-        .unwrapBlock('bulleted-list')
-        .unwrapBlock('numbered-list');
-    } else if (isList) {
-      change
-        .unwrapBlock(
-          type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list',
-        )
-        .wrapBlock(type);
-    } else {
-      change.setBlocks('list-item').wrapBlock(type);
+  // eslint-disable-next-line class-methods-use-this
+  renderLeaf = ({ attributes, children, leaf }) => {
+    let child = children;
+    if (leaf.bold) {
+      child = <strong>{child}</strong>;
     }
-  }
+    if (leaf.italic) {
+      child = <em>{child}</em>;
+    }
+    return <span {...attributes}>{child}</span>;
+  };
 
-  toggleBlock(type, e) {
-    const { value } = this.state;
-    const change = value.change();
-    const { document } = value;
+  toggleMark = (mark) => {
+    const isActive = this.isMarkActive(mark);
 
-    if (e) e.preventDefault();
+    if (isActive) {
+      Editor.removeMark(this.editor, mark);
+    } else {
+      Editor.addMark(this.editor, mark, true);
+    }
+  };
+
+  isMarkActive = (mark) => {
+    const [match] = Editor.nodes(this.editor, {
+      match: (n) => n[mark] === true,
+      universal: true,
+    });
+    return !!match;
+  };
+
+  toggleBlock = (type) => {
+    const isActive = this.isBlockActive(type);
+    const isList = this.isBlockActive('list-item');
 
     if (type === 'link') {
-      this.toggleLink({ value, change });
-    } else if (['bulleted-list', 'numbered-list'].includes(type)) {
-      this.toggleList({
-        value,
-        change,
-        document,
-        type,
-      });
-    } else {
-      const isActive = this.hasBlock(type);
-
-      const isList = this.hasBlock('list-item');
-
+      // On gère les liens de façon particulière
+      this.toggleLink();
+    } else if (type === 'bulleted-list') {
+      // Gestion d'une liste non ordonnée
       if (isList) {
-        change
-          .setBlocks(isActive ? DEFAULT_NODE : type)
-          .unwrapBlock('bulleted-list')
-          .unwrapBlock('numbered-list');
+        // On unwrap la liste si elle est déjà active
+        Transforms.unwrapNodes(this.editor, {
+          match: (n) => n.type === 'bulleted-list',
+          split: true,
+        });
+        // On repasse en type paragraph
+        Transforms.setNodes(this.editor, { type: DEFAULT_NODE_TYPE });
       } else {
-        change.setBlocks(isActive ? DEFAULT_NODE : type);
+        // On set le bloc courant en list-item
+        Transforms.setNodes(this.editor, { type: 'list-item' });
+        // On wrap le tout dans 'bulleted-list'
+        Transforms.wrapNodes(this.editor, {
+          type: 'bulleted-list',
+          children: [],
+        });
+      }
+    } else {
+      // Pour un heading-two, heading-three, etc.
+      Transforms.setNodes(this.editor, {
+        type: isActive ? DEFAULT_NODE_TYPE : type,
+      });
+    }
+  };
+
+  isBlockActive = (type) => {
+    const [match] = Editor.nodes(this.editor, {
+      match: (n) => n.type === type,
+    });
+    return !!match;
+  };
+
+  toggleLink = () => {
+    const isLink = this.isBlockActive('link');
+
+    if (isLink) {
+      Transforms.unwrapNodes(this.editor, { match: (n) => n.type === 'link' });
+    } else {
+      const url = window.prompt('Enter the URL of the link:');
+      if (!url) return;
+
+      const { selection } = this.editor;
+
+      const linkNode = {
+        type: 'link',
+        url,
+        children: [],
+      };
+
+      if (selection && Editor.string(this.editor, selection) === '') {
+        Transforms.insertNodes(this.editor, {
+          type: 'link',
+          url,
+          children: [{ text: url }],
+        });
+      } else {
+        Transforms.wrapNodes(this.editor, linkNode, { split: true });
       }
     }
+  };
 
-    this.onChange(change);
-  }
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  undo = () => {
+    HistoryEditor.undo(this.editor);
+  };
 
-  hasLinks() {
+  // eslint-disable-next-line react/no-unused-class-component-methods
+  redo = () => {
+    HistoryEditor.undo(this.editor);
+  };
+
+  isEmpty = () => {
     const { value } = this.state;
+    if (!value || value.length === 0) return true;
 
-    return value.inlines.some((inline) => inline.type === 'link');
-  }
-
-  hasBlock(type) {
-    const { value } = this.state;
-
-    return value.blocks.some((node) => node.type === type);
-  }
-
-  isEmpty() {
-    let empty = false;
-
-    const { value } = this.state;
-
-    try {
-      const nodes = value?.document?.nodes;
-
-      if (!nodes.size) {
-        empty = true;
-      } else if (nodes.size === 1 && !nodes.get(0).text.length) {
-        empty = true;
-      }
-    } catch (e) {
-      log.error(e);
+    if (value.length === 1 && Node.string(value[0]) === '') {
+      return true;
     }
 
-    return empty;
-  }
+    return false;
+  };
 
-  renderBlockButton(type, label) {
-    let isActive = this.hasBlock(type);
+  renderBlockButton = (type, label) => {
+    let isActive = this.isBlockActive(type);
 
     if (type === 'bulleted-list') {
-      const { value } = this.state;
-
-      const parent = value.blocks.size && value.document.getParent(value.blocks.first().key);
-
-      isActive = this.hasBlock('list-item') && parent && parent.type === type;
+      const isListItem = this.isBlockActive('list-item');
+      isActive = isListItem && isActive;
     }
 
     return (
       <button
         type="button"
-        title={shortcuts.find((s) => s.type === type)?.label}
+        title={SHORTCUTS.find((s) => s.type === type)?.label}
         className={classNames('btn', {
           'btn-default': !isActive,
           'btn-primary': isActive,
         })}
-        onMouseDown={this.toggleBlock.bind(this, type)}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          this.toggleBlock(type);
+        }}
       >
         {label}
       </button>
     );
-  }
+  };
 
-  renderFullscreenButton() {
+  renderFullscreenButton = () => {
     const { fullscreen = false } = this.state;
 
     return (
@@ -355,32 +361,32 @@ export default class SlateField extends Component {
         />
       </button>
     );
-  }
+  };
 
-  renderMarkButton(type) {
-    const { value } = this.state;
-
-    const isActive = value.activeMarks.some((mark) => mark.type === type);
-
-    const label = shortcuts.find((s) => s.type === type)?.label;
+  renderMarkButton = (type) => {
+    const isActive = this.isMarkActive(type);
+    const label = SHORTCUTS.find((s) => s.type === type)?.label;
 
     return (
       <button
         type="button"
-        title={label}
         aria-label={label}
+        title={label}
         className={classNames('btn', {
           'btn-default': !isActive,
           'btn-primary': isActive,
         })}
-        onMouseDown={this.toggleMark.bind(this, type)}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          this.toggleMark(type);
+        }}
       >
         <i className={`fa fa-${type}`} />
       </button>
     );
-  }
+  };
 
-  renderFullscreenTop() {
+  renderFullscreenTop = () => {
     const { field: fieldFromProps, lang } = this.props;
 
     const field = flattenFieldLabels(fieldFromProps, lang);
@@ -393,9 +399,9 @@ export default class SlateField extends Component {
         {field.info ? <Info value={field.info} /> : null}
       </>
     );
-  }
+  };
 
-  renderFullscreenBottom() {
+  renderFullscreenBottom = () => {
     const { field: fieldFromProps, lang, parentValue, error } = this.props;
 
     const field = flattenFieldLabels(fieldFromProps, lang);
@@ -410,7 +416,7 @@ export default class SlateField extends Component {
         ) : null}
       </>
     );
-  }
+  };
 
   render() {
     const { value, fullscreen } = this.state;
@@ -444,24 +450,26 @@ export default class SlateField extends Component {
           {this.isEmpty() && placeholder ? (
             <button
               type="button"
-              onKeyDown={() => this.editor.focus()}
-              onClick={() => this.editor.focus()}
+              onKeyDown={() => ReactEditor.focus(this.editor)}
+              onClick={() => ReactEditor.focus(this.editor)}
               className="textarea-placeholder"
             >
               {nl2br(placeholder)}
             </button>
           ) : null}
-          <Editor
-            ref={(el) => {
-              this.editor = el;
-            }}
-            spellCheck={false}
-            value={value}
-            renderMark={renderMark}
-            renderNode={renderNode}
-            onChange={(params) => this.onChange(params)}
-            onKeyDown={(ev, ed) => this.onKeyDown(ev, ed)}
-          />
+          <Slate
+            editor={this.editor}
+            initialValue={value}
+            onChange={this.onChange}
+          >
+            <Editable
+              spellCheck={false}
+              renderElement={this.renderElement}
+              renderLeaf={this.renderLeaf}
+              onKeyDown={this.onKeyDown}
+              // placeholder={placeholder} // Slate gère aussi un placeholder natif si besoin
+            />
+          </Slate>
         </div>
         {fullscreen ? this.renderFullscreenBottom() : null}
       </div>

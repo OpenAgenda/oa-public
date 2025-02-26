@@ -3,12 +3,14 @@ import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { useIsomorphicLayoutEffect } from 'react-use';
+import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
 import ky from 'ky';
 import qs from 'qs';
 import * as agendaAdminActions from '../reducers/agendaAdmin.js';
 import ChildLayouts from '../components/ChildLayouts.js';
 import Loading from '../components/Loading.js';
+
+const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
 
 function AgendaAdminDataLayout({
   childLayouts,

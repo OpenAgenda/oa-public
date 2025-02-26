@@ -1,5 +1,17 @@
 'use strict';
 
+// 'agenda/show',
+// 'agenda/embedShow',
+// 'event/show',
+// 'event/action',
+// 'event/embedShow',
+// 'search/agendas',
+// 'search/events',
+// 'newsletter/show',
+// 'newsletter/unsubscribe',
+// 'newsletter/unsubscribeComplete',
+// 'error/show',
+
 module.exports = [
   'event/inbox',
   'agenda/inbox',
@@ -7,38 +19,17 @@ module.exports = [
   'admin/agendas',
   'admin/index',
   'admin/users',
-  'agenda/show',
-  'agenda/embedShow',
   'auth/signin',
   'auth/signup',
   'auth/emailForm',
   'auth/activation',
   'auth/lostPassword',
   'auth/resetPassword',
-  'event/show',
-  'event/action',
   'event/embedInbox',
-  'event/embedShow',
-  'event/action',
-  'dialog/index',
-  'search/agendas',
-  'search/events',
-  {
-    uri: 'user/menu',
-    public: true,
-  },
   {
     uri: 'user/bsMenu',
     public: true,
   },
-
-  'newsletter/show',
-  'newsletter/unsubscribe',
-  'newsletter/unsubscribeComplete',
-
-  'error/show',
-
-  'eventLists/searchList',
 
   {
     js: 'layout/js/outdated.js',
@@ -105,14 +96,14 @@ module.exports = [
     js: 'widgets/organizations/organizations.js',
     prod: 'embed/cibulOrganizationsWidget.js',
   },
-  {
-    js: 'widgets/map/admin/parent.js',
-    prod: 'review/widgetMapConfig.js',
-  },
-  {
-    js: 'widgets/map/admin/frame.js',
-    prod: 'review/widgetMapConfigFrame.js',
-  },
+  // {
+  //   js: 'widgets/map/admin/parent.js',
+  //   prod: 'review/widgetMapConfig.js',
+  // },
+  // {
+  //   js: 'widgets/map/admin/frame.js',
+  //   prod: 'review/widgetMapConfigFrame.js',
+  // },
   {
     js: 'widgets/custom/custom.js',
     prod: 'embed/cibulCustomWidget.js',

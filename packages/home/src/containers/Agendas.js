@@ -2,7 +2,8 @@ import { useCallback, useContext, useMemo, useRef } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
-import { useIsomorphicLayoutEffect, useLatest } from 'react-use';
+import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
+import useLatestModule from 'react-use/lib/useLatest.js';
 import qs from 'qs';
 import { Spinner, useModal } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext.js';
@@ -17,6 +18,9 @@ import {
 } from '../components/MemberModals.js';
 import useMemberModal from '../hooks/useMemberModal.js';
 import Wrapper from './Wrapper.js';
+
+const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
+const useLatest = useLatestModule.default || useLatestModule;
 
 function Agendas() {
   const { getLabel, lang } = useContext(I18nContext);

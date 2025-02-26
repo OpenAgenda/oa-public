@@ -31,7 +31,6 @@ describe('07 - core - functional (server): core.agendas().update', () => {
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
         'tracker',

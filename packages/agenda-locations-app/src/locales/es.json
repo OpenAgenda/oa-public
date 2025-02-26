@@ -4,6 +4,7 @@
   "AgendaLocations.AgendaAdminLocation.closeModal": "Cerca",
   "AgendaLocations.AgendaAdminLocation.search": "Se filtra la lista",
   "AgendaLocations.CreateForm.title": "Crear un nuevo lugar",
+  "AgendaLocations.Filters.removeFilter": "Eliminar filtro",
   "AgendaLocations.GeoBadges.geocodeFieldCancel": "Anular",
   "AgendaLocations.GeoBadges.geocodeFieldSave": "Ok",
   "AgendaLocations.LocationConfirmation.confirm": "Confirmar",
@@ -22,7 +23,9 @@
   "AgendaLocations.LocationForm.image": "Imagen",
   "AgendaLocations.LocationForm.imageCredits": "Créditos de las imágenes",
   "AgendaLocations.LocationForm.imageInfo": "Seleccione sólo las imágenes para las que tenga una licencia válida.",
+  "AgendaLocations.LocationForm.link.invalid": "Enlace no válido",
   "AgendaLocations.LocationForm.required": "Necesario",
+  "AgendaLocations.LocationForm.string.toolong": "El texto es demasiado largo",
   "AgendaLocations.LocationForm.string.tooshort": "El texto es demasiado corto",
   "AgendaLocations.LocationForm.toolong": "El texto es demasiado largo",
   "AgendaLocations.LocationForm.tooshort": "El texto es demasiado corto",
@@ -40,5 +43,6 @@
   "AgendaLocations.RemoveModal.confirm": "Confirmar",
   "AgendaLocations.RemoveModal.confirmRemove": "Confirmar eliminación",
   "AgendaLocations.RemoveModal.confirmRemoveMessage": "El lugar será eliminado de la base",
-  "AgendaLocations.RemoveModal.removeTitle": "Borrar un luego"
+  "AgendaLocations.RemoveModal.removeTitle": "Borrar un luego",
+  "AgendaLocations.SearchInput.search": "Buscar"
 }

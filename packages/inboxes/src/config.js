@@ -20,7 +20,7 @@ export default async function makeConfig(c) {
     'redis',
     'queue',
     'defaultImagePath',
-    'domain',
+    'mailsDomain',
     's3',
     'mw',
     'uppyCompanion',

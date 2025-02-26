@@ -6,7 +6,7 @@
   "MemberApps.Dashboard.sendMessageToUnfilteredMembers": "Il messaggio sarà inviato a tutti i membri ({total})",
   "MemberApps.Dashboard.writeToMembersActivation": "Questa funzione viene attivata su richiesta. Consente di nominare un membro come moderatore. Scrivici un breve messaggio e la tua richiesta verrà elaborata tempestivamente.",
   "MemberApps.Form.GDPRSummary": "Questi dati saranno visibili solo ai moderatori dell’Agenda e non saranno resi pubblici.",
-  "MemberApps.Form.cancel": "Annulla",
+  "MemberApps.Form.cancel": "Annullare",
   "MemberApps.Form.confirm": "Ok",
   "MemberApps.Form.confirmRemove": "Lasciare l'agenda",
   "MemberApps.Form.confirmRemoveInfo": "Se ti rimuovi dall'agenda, smetterai di ricevere notifiche e non potrai più modificare i tuoi eventi né aggiungere nuovi eventi. L'agenda smetterà di apparire nella tua schermata iniziale.",

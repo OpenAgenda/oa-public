@@ -33,7 +33,6 @@ import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
 import CopyIdentifier from 'components/CopyIdentifier';
 import { keyCDNLoader } from 'utils/imageLoader';
-import mdStyle from 'utils/mdStyle';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
@@ -52,6 +51,7 @@ import Sidebar, {
   OnlineAccessSection,
   RegistrationSection,
   ShareSection,
+  AccessibilitySection,
 } from './components/Sidebar';
 import Footer from './components/Footer';
 import StatusTag from './components/StatusTag';
@@ -65,6 +65,7 @@ import EmailConfirmationAlert from './components/EmailConfirmationAlert';
 import Map from './components/Map';
 import LdJson from './components/LdJson';
 import EventImage from './components/EventImage';
+import LongDescription from './components/LongDescription';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
 import canModifyLocation from './utils/canModifyLocation';
@@ -306,6 +307,10 @@ function EventShow({ preload }: EventShowProps) {
                   event={event}
                   display={{ base: 'grid', lg: 'none' }}
                 />
+                <AccessibilitySection
+                  event={event}
+                  display={{ base: 'grid', lg: 'none' }}
+                />
 
                 {event.image || event.imageCredits ? (
                   <chakra.div mx="-8">
@@ -320,12 +325,9 @@ function EventShow({ preload }: EventShowProps) {
                 ) : null}
 
                 {event.longDescription?.[contentLocale] ? (
-                  <chakra.div
-                    sx={mdStyle}
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{
-                      __html: event.longDescription[contentLocale],
-                    }}
+                  <LongDescription
+                    html={event.longDescription[contentLocale]}
+                    links={event.links}
                   />
                 ) : null}
 
@@ -579,7 +581,7 @@ function EventShow({ preload }: EventShowProps) {
             <ContributorSection contentLocale={contentLocale} />
 
             <Activities
-              res={`/agendas/${agenda.uid}/events/${event.uid}/activities`}
+              res={`/api/agendas/${agenda.uid}/events/${event.uid}/activities`}
               hideEmpty
             >
               <div>
@@ -654,6 +656,7 @@ EventShow.fetchLocale = (locale: string) =>
     fetchCommonLocale('event/fields', locale),
     fetchCommonLocale('event/states', locale),
     fetchCommonLocale('event/statuses', locale),
+    fetchCommonLocale('event/accessibilities', locale),
     fetchCommonLocale('roles', locale),
     import(
       `@openagenda/activity-apps/src/locales-compiled/${locale}.json`

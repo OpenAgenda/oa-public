@@ -6,7 +6,6 @@ const knexLib = require('knex');
 const logger = require('@openagenda/logs');
 const middleware = require('../middleware');
 const Agenda = require('./Agenda');
-const details = require('./details');
 const get = require('./get');
 const legacy = require('./legacy');
 const list = require('./list');
@@ -110,8 +109,6 @@ function init(c) {
       },
     ],
   });
-
-  details.init(schemas, knex);
 
   get.init(service, knex);
 

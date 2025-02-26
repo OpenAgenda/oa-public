@@ -35,7 +35,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
         'accessTokens',
@@ -146,15 +145,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         expect(data.custom_description).toBeUndefined();
       });
 
-      it('event is created on legacy event data structure', async () => {
-        const entry = await core.services
-          .knex('event')
-          .first(['uid'])
-          .where('uid', event.uid);
-
-        expect(entry.uid).toEqual(event.uid);
-      });
-
       it('event is not marked as private', async () => async () => {
         const entry = await core.services
           .knex('event_2')
@@ -164,13 +154,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         expect(!!entry.private).toBe(false);
       });
 
-      it('accessibility is saved in event and legacy event', async () => {
-        const entry = await core.services
-          .knex('event')
-          .first()
-          .where('uid', event.uid);
-        const legacyAccessibility = entry.accessibility;
-
+      it('accessibility is saved in event', async () => {
         expect(event.accessibility).toEqual({
           mi: false,
           hi: false,
@@ -178,31 +162,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           vi: false,
           ii: true,
         });
-
-        expect(legacyAccessibility).toEqual('["ii"]');
-      });
-
-      it('legacy entries were created for custom fields', async () => {
-        const legacyEvent = await core.services
-          .knex('event')
-          .first('*')
-          .where('uid', event.uid);
-
-        const reviewArticle = await core.services
-          .knex('review_article')
-          .first('id')
-          .where('event_id', legacyEvent.id)
-          .where('review_id', 218);
-
-        const reviewTagArticles = await core.services
-          .knex('review_tag_article')
-          .select('*')
-          .where('review_article_id', reviewArticle.id);
-
-        expect(reviewTagArticles.map((rta) => rta.review_tag_id)).toEqual([
-          9661, // Administration (2.3)
-          9662, // Aéronautique (2.4)
-        ]);
       });
     });
 
@@ -597,14 +556,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       );
 
       expect(incompleteEvent.title.fr).toEqual('Un autre événement brouillon');
-    });
-
-    it('no legacy event is created for draft', async () => {
-      const legacyEvent = await core.services
-        .knex('event')
-        .first()
-        .where('uid', event.uid);
-      expect(legacyEvent).toBeUndefined();
     });
 
     it('custom data is stored even if incomplete', async () => {

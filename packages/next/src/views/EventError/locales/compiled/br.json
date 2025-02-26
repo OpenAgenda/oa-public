@@ -28,19 +28,41 @@
     },
     {
       "type": 0,
-      "value": "Vérifiez le lien qui vous a été fourni ou faites une demande d’accès aux administrateurs de l'agenda."
+      "value": " Vérifiez le lien qui vous a été fourni ou faites une demande d’accès."
     }
   ],
   "next.views.EventError.notFoundMsg": [
     {
       "type": 0,
-      "value": "Il n'y a pas d'événement correspondant à ce lien"
+      "value": "Il n’y a pas d’agenda correspondant à ce lien."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " Soit le lien est invalide, soit l’agenda a été supprimé."
     }
   ],
   "next.views.EventError.orSignup": [
     {
       "type": 0,
-      "value": "Créer un compte"
+      "value": "Ou "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "inscrivez-vous"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " si vous n'avez pas encore de compte."
     }
   ],
   "next.views.EventError.restrictedAccess": [
@@ -70,7 +92,7 @@
   "next.views.EventError.unauthorizedMsg": [
     {
       "type": 0,
-      "value": "L'accès à cet événement est restrent, "
+      "value": "L'accès à cet agenda est restreint,"
     },
     {
       "type": 1,
@@ -78,7 +100,7 @@
     },
     {
       "type": 0,
-      "value": "connectez-vous avant de tenter d'y accéder à nouveau"
+      "value": "veuillez vous authentifier avant de pouvoir y accéder."
     }
   ]
 }

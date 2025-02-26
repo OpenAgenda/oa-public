@@ -8,7 +8,7 @@
   "next.views.EventError.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact administrators"
+      "value": "Contactar los administradores"
     }
   ],
   "next.views.EventError.eventNotFound": [

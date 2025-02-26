@@ -5,13 +5,15 @@ import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { useForm } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
-import { usePrevious } from 'react-use';
+import usePreviousModule from 'react-use/lib/usePrevious.js';
 
 import { useMemoOne, useCallbackOne } from '@openagenda/react-shared';
 
 import isOptionedField from '../../utils/isOptionedField.js';
 import ActionFormPart from './ActionFormPart.js';
 import messages from './messages.js';
+
+const usePrevious = usePreviousModule.default || usePreviousModule;
 
 export default ({ aggregatorAgendaSchema, sourceSchema }) => {
   const intl = useIntl();

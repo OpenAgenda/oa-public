@@ -108,31 +108,29 @@ export const SearchModeWithExternalActions = () => {
       lang="fr"
       settings={{
         ...agendaSettings,
-        locations: {
-          extIds: [
-            {
-              key: 'default',
-              label: 'BDL',
-              actions: {
-                edit: {
-                  link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
-                },
-                show: {
-                  link: 'https://basedeslieux.culture.gouv.fr/carte#/pinpoints/{value}',
-                  label: { fr: 'Voir sur la BDL' },
-                },
+        extIds: [
+          {
+            key: 'default',
+            label: 'BDL',
+            actions: {
+              edit: {
+                link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
+              },
+              show: {
+                link: 'https://basedeslieux.culture.gouv.fr/carte#/pinpoints/{value}',
+                label: { fr: 'Voir sur la BDL' },
               },
             },
-            {
-              key: 'test',
-              actions: {
-                remove: {
-                  link: 'ret/{value}',
-                },
+          },
+          {
+            key: 'test',
+            actions: {
+              remove: {
+                link: 'ret/{value}',
               },
             },
-          ],
-        },
+          },
+        ],
       }}
       res={res}
       location={location}
@@ -184,31 +182,30 @@ export const ConfirmModeExternalActions = () => {
         lang="fr"
         settings={{
           ...agendaSettings,
-          locations: {
-            extIds: [
-              {
-                key: 'default',
-                label: 'BDL',
-                actions: {
-                  edit: {
-                    link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
-                  },
-                  show: {
-                    link: 'https://basedeslieux.culture.gouv.fr/carte#/pinpoints/{value}',
-                    label: { fr: 'Voir sur la BDL' },
-                  },
+
+          extIds: [
+            {
+              key: 'default',
+              label: 'BDL',
+              actions: {
+                edit: {
+                  link: 'https://basedeslieux.culture.gouv.fr/lieux/{value}',
+                },
+                show: {
+                  link: 'https://basedeslieux.culture.gouv.fr/carte#/pinpoints/{value}',
+                  label: { fr: 'Voir sur la BDL' },
                 },
               },
-              {
-                key: 'test',
-                actions: {
-                  remove: {
-                    link: 'ret/{value}',
-                  },
+            },
+            {
+              key: 'test',
+              actions: {
+                remove: {
+                  link: 'ret/{value}',
                 },
               },
-            ],
-          },
+            },
+          ],
         }}
         res={{
           get: '/locations/:locationUid.json',

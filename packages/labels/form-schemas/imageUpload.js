@@ -15,7 +15,7 @@ module.exports = {
     "fr": "Modifier l'image",
     "de": "Aktualisieren Sie das Bild",
     "es": "Cambiar imagen",
-    "it": "Aggiorna l'immagine",
+    "it": "Aggiornare l'immagine",
     "io": "crwdns14866:0crwdne14866:0",
     "oc": "Metre l'imatge a jorn"
   },
@@ -60,7 +60,7 @@ module.exports = {
     "fr": "Retirer",
     "de": "Löschen",
     "es": "Eliminar",
-    "it": "Rimuovi",
+    "it": "Rimuovere",
     "br": "Lemel",
     "io": "crwdns14876:0crwdne14876:0",
     "oc": "Suprimir"
