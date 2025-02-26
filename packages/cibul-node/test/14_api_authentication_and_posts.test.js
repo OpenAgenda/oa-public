@@ -36,7 +36,6 @@ describe('14 - core - functional(server): api authentication and posts', () => {
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
       ],

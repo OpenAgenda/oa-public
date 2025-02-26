@@ -30,7 +30,7 @@ module.exports = {
   },
   "integer": {
     "en": "Integer",
-    "fr": "Entier",
+    "fr": "Nombre entier",
     "de": "Ganze Zahl",
     "es": "completo",
     "it": "Completo",

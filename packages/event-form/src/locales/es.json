@@ -1,3 +1,4 @@
 {
-  "event-form.components.Events.remove": "Eliminar"
+  "event-form.components.Events.remove": "Eliminar",
+  "event-form.components.Events.search": "Buscar"
 }

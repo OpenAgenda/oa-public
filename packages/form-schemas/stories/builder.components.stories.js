@@ -268,7 +268,7 @@ export function OptionsStory() {
               labelLanguages: ['fr', 'en'],
               optional: false,
               devInitState: {
-                mode: 2,
+                mode: null,
               },
             },
           ],

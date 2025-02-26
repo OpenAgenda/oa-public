@@ -198,6 +198,7 @@ const config = async () => {
         'intl-messageformat-parser',
         'react-intl',
         'react-markdown',
+        'react-use',
       ],
       sentry: {
         hideSourceMaps: true,

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import createApp from '@openagenda/inbox-apps/src/app';
 import { wrapApp } from '@openagenda/react-shared';
 
@@ -21,9 +21,9 @@ window.hook(options => {
     ...options.extraProps
   };
 
-  ReactDOM.render(wrapApp(
+  const root = createRoot(document.querySelector('.js_canvas'));
+  root.render(wrapApp(
     createApp({ initialState }),
     { extraProps }),
-    document.querySelector('.js_canvas')
   );
 });

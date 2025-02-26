@@ -8,7 +8,7 @@ import React, {
 import { Field, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
-import { usePrevious } from 'react-use';
+import usePreviousModule from 'react-use/lib/usePrevious.js';
 import { css } from '@emotion/react';
 import ChoiceField from '../fields/ChoiceField.js';
 import Title from '../Title.js';
@@ -16,6 +16,8 @@ import Panel from '../Panel.js';
 import FilterPreviewer from '../FilterPreviewer.js';
 import useChoiceState from '../../hooks/useChoiceState.js';
 import messages from '../../messages/choiceFilter.js';
+
+const usePrevious = usePreviousModule.default || usePreviousModule;
 
 const subscription = { value: true };
 
@@ -164,6 +166,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter(
             searchPlaceholder || intl.formatMessage(messages.searchPlaceholder)
           }
           aria-label={searchAriaLabel}
+          title={searchAriaLabel}
           css={css`
             width: 50%;
           `}

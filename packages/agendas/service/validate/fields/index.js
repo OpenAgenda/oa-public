@@ -396,6 +396,18 @@ module.exports = [
         ],
       },
       {
+        field: 'locations',
+        type: 'schema',
+        read: ['administrator', 'moderator', 'internal', 'public', 'legacy'],
+        write: ['internal'],
+        fields: [
+          {
+            field: 'extIds',
+            type: 'pass',
+          },
+        ],
+      },
+      {
         field: 'inbox',
         type: 'schema',
         read: [

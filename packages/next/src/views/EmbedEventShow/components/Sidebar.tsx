@@ -20,12 +20,8 @@ import {
   faPhone,
   faEnvelope,
   faChild,
-  faEarDeaf,
-  faEyeLowVision,
-  faWheelchair,
   faLocationDot,
 } from 'icons/thin';
-import { faII, faPI } from 'icons/custom';
 import { sidebar as messages } from 'views/EventShow/messages';
 import { useAgenda } from 'views/EventShow/contexts/agenda';
 import useEvent from '../hooks/useEvent';
@@ -38,23 +34,6 @@ export function getRegistrationIcon(type: string) {
       return faLink;
     case 'email':
       return faEnvelope;
-    default:
-      return null;
-  }
-}
-
-export function getAccessibilityIcon(type: string) {
-  switch (type) {
-    case 'ii': // accessibleToIntellectually
-      return faII;
-    case 'hi': // accessibleToHearing
-      return faEarDeaf;
-    case 'vi': // accessibleToVisually
-      return faEyeLowVision;
-    case 'pi': // accessibleToPsychic
-      return faPI;
-    case 'mi': // accessibleToMotor
-      return faWheelchair;
     default:
       return null;
   }
@@ -107,11 +86,7 @@ export default function Sidebar({ referrer }) {
         getRegistrationIcon={getRegistrationIcon}
       />
       <TimingsSection event={event} />
-      <AccessibilitySection
-        event={event}
-        ageIcon={faChild}
-        getAccessibilityIcon={getAccessibilityIcon}
-      />
+      <AccessibilitySection event={event} ageIcon={faChild} />
       <LocationSection event={event} icon={faLocationDot} />
     </>
   );

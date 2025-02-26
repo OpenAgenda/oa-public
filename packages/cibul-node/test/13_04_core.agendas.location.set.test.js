@@ -33,7 +33,6 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
       ],

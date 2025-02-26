@@ -1,8 +1,8 @@
 {
-  "info": "Outils d'inscription",
-  "placeholder": "Liens, emails ou numéros de téléphone. Séparez chaque valeur par une tabulation ou une virgule.",
+  "accessPassOffer": "Accéder à l'offre pass Culture",
   "error": "Séparez chaque valeur par une tabulation ou une virgule. Les saisies non valides ne seront pas sauvegardées.",
+  "info": "Outils d'inscription",
   "invalid": "Seuls les liens, emails ou numéros de téléphone sont acceptés",
-  "registerBook": "S'inscrire / Réserver",
-  "accessPassOffer": "Accéder à l'offre pass Culture"
+  "placeholder": "Liens, emails ou numéros de téléphone. Séparez chaque valeur par une tabulation ou une virgule.",
+  "registerBook": "S'inscrire / Réserver"
 }

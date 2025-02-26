@@ -43,6 +43,12 @@ function dispatchSettingsInFields(services, agenda, schema) {
       };
       continue;
     }
+
+    if (field.field === 'location') {
+      field.settings = {
+        ...agenda.settings.locations,
+      };
+    }
   }
 
   return schema;

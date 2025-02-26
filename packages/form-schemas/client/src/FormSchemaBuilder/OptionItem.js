@@ -1,7 +1,5 @@
-import classNames from 'classnames';
-import { Component } from 'react';
-import ReactDOM from 'react-dom';
-
+import { useCallback } from 'react';
+import { useSortable } from '@dnd-kit/react/sortable';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
 import getPreferredLang from './lib/getPreferredLang.js';
@@ -9,18 +7,23 @@ import labels from './lib/labels.js';
 import OptionLabelsForm from './OptionLabelsForm.js';
 
 const getLabel = makeLabelGetter(labels);
-const portal = typeof document !== 'undefined' ? document.createElement('div') : null;
 
-if (typeof document !== 'undefined') {
-  if (!document.body) throw new Error('body not ready for portal creation!');
-  document.body.appendChild(portal);
-}
-
-export default class OptionItem extends Component {
-  renderEdit() {
-    const { field, lang, index, option, otherOptions, onUpdate, onEditCancel } = this.props;
-
-    return (
+const OptionItem = ({
+  field,
+  lang,
+  index,
+  option,
+  otherOptions,
+  onUpdate,
+  onEditCancel,
+  isEdited,
+  actionable,
+  onEdit,
+  onRemove,
+  disableDnD,
+}) => {
+  const renderEdit = useCallback(
+    () => (
       <OptionLabelsForm
         index={index}
         option={option}
@@ -30,39 +33,33 @@ export default class OptionItem extends Component {
         lang={lang}
         languages={field.labelLanguages}
       />
-    );
-  }
-
-  render() {
-    const {
-      option,
-      isEdited,
-      actionable,
-      disabled,
-      lang,
-      provided,
-      snapshot,
-      onEdit,
-      onRemove,
+    ),
+    [
+      field.labelLanguages,
       index,
-    } = this.props;
-
-    const child = (
-      <li
-        className={classNames({
-          'list-group-item': true,
-          disabled,
-        })}
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        style={provided.draggableProps.style}
-      >
+      lang,
+      onEditCancel,
+      onUpdate,
+      option,
+      otherOptions,
+    ],
+  );
+  const { ref } = useSortable({
+    id: option.value,
+    index,
+    disabled: disableDnD,
+  });
+  const child = (
+    <div className="list-group-item draggable" ref={ref}>
+      <div className="list-group-item-content">
         {isEdited
-          ? this.renderEdit()
+          ? renderEdit()
           : (
-            <div>
-              <label htmlFor={`option-${option.id}`} className="margin-v-xs">
+            <>
+              <label
+                htmlFor={`option-${option.id}`}
+                className="margin-v-xs text-left"
+              >
                 {getPreferredLang(option.label, lang)}
               </label>
               <div className="form-item-actions padding-h-xs">
@@ -86,11 +83,13 @@ export default class OptionItem extends Component {
                   </span>
                 </button>
               </div>
-            </div>
+            </>
           )}
-      </li>
-    );
+      </div>
+    </div>
+  );
 
-    return snapshot.isDragging ? ReactDOM.createPortal(child, portal) : child;
-  }
-}
+  return child;
+};
+
+export default OptionItem;

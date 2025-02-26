@@ -69,9 +69,12 @@ class LocationComponent extends Component {
   }
 
   getSettings() {
-    const { lang } = this.props;
+    const { lang, field } = this.props;
 
-    const settings = _.get(this.props, 'field.legacy', {});
+    const settings = {
+      ...field?.legacy ?? {},
+      ...field?.settings ?? {},
+    };
 
     if (settings.tagSet) {
       return ih(settings, {

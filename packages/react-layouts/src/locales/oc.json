@@ -2,6 +2,7 @@
   "react-layouts.AdminHeader.administration": "Administracion",
   "react-layouts.AdminHeader.return": "Anar a l'acuèlh de l'agenda",
   "react-layouts.AdminSections.newTab": "Novèl !",
+  "react-layouts.Announcement.close": "Tampar",
   "react-layouts.MainLayout.createAgenda": "Crear una agenda",
   "react-layouts.MainLayout.general": "General",
   "react-layouts.MainLayout.help": "Ajuda",
@@ -12,5 +13,5 @@
   "react-layouts.MainLayout.signin": "Se connectar",
   "react-layouts.MainLayout.signout": "Se desconnectar",
   "react-layouts.MainLayout.translate": "Traduire",
-  "react-layouts.components.Search.search": "Cercar"
+  "react-layouts.components.Search.search": "Cercar una agenda"
 }

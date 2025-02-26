@@ -86,48 +86,4 @@ export default (app) => {
         role: req.member.role,
       }),
     ));
-
-  app.get('/:agendaSlug/admin/stats/transfer-form-schema', async (req, res) => {
-    res.json(
-      await req.app.services.core
-        .agendas(req.agenda.uid)
-        .settings.legacy.createFormSchema(),
-    );
-  });
-
-  app.get('/:agendaSlug/admin/stats/transfer-to-tagset', async (req, res) =>
-    res.json(
-      await req.app.services.core
-        .agendas(req.agenda.uid)
-        .settings.legacy.updateTagSet({ lang: req.lang }),
-    ));
-
-  app.get(
-    '/:agendaSlug/admin/stats/transfer-to-categoryset',
-    async (req, res) => {
-      res.json(
-        await req.app.services.core
-          .agendas(req.agenda.uid)
-          .settings.legacy.updateCategorySet({ lang: req.lang }),
-      );
-    },
-  );
-
-  app.get('/:agendaSlug/admin/stats/transfer-to-custom', async (req, res) => {
-    res.json(
-      await req.app.services.core
-        .agendas(req.agenda.uid)
-        .settings.legacy.updateCustom(req.query.force),
-    );
-  });
-
-  /**
-   * resync what can be
-   */
-
-  app.get('/:agendaSlug/admin/stats/resync/:type', (req, res) => {
-    agendaStatistics.resync(req.agenda.uid, req.params.type);
-
-    res.json({ operation: `resyncing ${req.params.type}` });
-  });
 };

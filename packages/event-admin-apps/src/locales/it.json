@@ -1,6 +1,6 @@
 {
   "EventAdminApp.Actions.createAnEvent": "Creare un evento",
-  "EventAdminApp.Actions.select": "Seleziona",
+  "EventAdminApp.Actions.select": "Selezionare",
   "EventAdminApp.BatchedStateSelector.confirmation": "Il cambiamento di stato è in corso e potrebbe richiedere del tempo.",
   "EventAdminApp.BatchedStateSelector.ok": "Chiudere",
   "EventAdminApp.BatchedStateSelector.title": "Conferma",
@@ -51,6 +51,7 @@
   "EventAdminApp.EventItem.sharedFromBy": "Condiviso da <agendaLink>{agendaTitle}</agendaLink> da <memberLink>{memberName}</memberLink>",
   "EventAdminApp.EventItem.showLocation": "Vedere il luogo",
   "EventAdminApp.EventItem.showOnlineLocation": "Accedere all'evento online",
+  "EventAdminApp.EventStateSelector.motiveConfirm": "Confermare",
   "EventAdminApp.FiltersPortal.filters": "Filtri",
   "EventAdminApp.PassImage.edit": "Modificare",
   "EventAdminApp.PassImage.see": "Vedere",
@@ -58,6 +59,7 @@
   "EventAdminApp.messages.attendanceModes.mixed": "Mista",
   "EventAdminApp.messages.attendanceModes.offline": "In presenza",
   "EventAdminApp.messages.attendanceModes.online": "Online",
+  "EventAdminApp.messages.exports.cancel": "Annullare",
   "EventAdminApp.messages.exports.export": "Esportare",
   "EventAdminApp.messages.exports.exportSelection": "Esportare",
   "EventAdminApp.messages.relative.passed": "Passato",

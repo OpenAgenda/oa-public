@@ -2,10 +2,19 @@ import base64 from './base64';
 
 const COOKIE_NAME = 'oa.user';
 
-export default function getSession(cookies) {
-  const sessionCookie = typeof cookies.get === 'function'
-    ? cookies.get(COOKIE_NAME)
-    : cookies[COOKIE_NAME];
+function getCookie(cookies: any, name: string) {
+  if (typeof cookies.get === 'function') {
+    const cookie = cookies.get(name);
+    return typeof cookie === 'object' && cookie !== null
+      ? cookie.value
+      : cookie;
+  }
+
+  return cookies?.[name];
+}
+
+export default function getSession(cookies: any) {
+  const sessionCookie = getCookie(cookies, COOKIE_NAME);
 
   if (!sessionCookie) return null;
 

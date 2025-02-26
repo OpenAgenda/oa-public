@@ -1,10 +1,12 @@
 import { useCallback, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { useLatest } from 'react-use';
+import useLatestModule from 'react-use/lib/useLatest.js';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Modal } from '@openagenda/react-shared';
 import { useSelector } from 'react-redux';
 import useChartTitle from '../hooks/useChartTitle.js';
+
+const useLatest = useLatestModule.default || useLatestModule;
 
 const messages = defineMessages({
   submit: {

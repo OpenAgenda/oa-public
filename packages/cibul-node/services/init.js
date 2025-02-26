@@ -124,13 +124,11 @@ export default async function initServices(config = null, options = {}) {
   await init('cache', () => import('./cache/index.js')); // required directly
   await init('eventSearch', () => import('./eventSearch/index.js'));
   await init('events', () => import('./events/index.js'));
-  await init('facebook', () => import('./facebook.js'));
   await init('formSchemas', () => import('./formSchemas.js'));
   await init('registrations', () => import('./registrations/index.js'));
   await init('pdfExports', () => import('./pdfExports.js'));
   await init('custom', () => import('./custom/index.js'));
   await init('invitations', () => import('./invitations.js'));
-  await init('legacy', () => import('./legacy.js')); // required directly
   await init('logRequests', () => import('./logRequests.js'));
   await init('unsubscriptions', () => import('./unsubscriptions.js'));
   await init('security', () => import('./security.js'));

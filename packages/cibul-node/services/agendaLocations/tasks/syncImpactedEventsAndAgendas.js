@@ -3,12 +3,10 @@ import logs from '@openagenda/logs';
 const log = logs('services/agendaLocations/tasks/syncImpactedEventsAndAgendas');
 
 export default (services) =>
-  async function syncImpactedEventsAndAgendas(before, after) {
-    const { core, legacy, events: eventsSvc, agendaEvents, tracker } = services;
+  async function syncImpactedEventsAndAgendas(before, _after) {
+    const { core, events: eventsSvc, agendaEvents, tracker } = services;
 
     tracker('agendaLocations.syncImpactedEventsAndAgendas');
-
-    const { controlData } = legacy;
 
     const uids = await eventsSvc
       .list(
@@ -65,14 +63,6 @@ export default (services) =>
           impactedAgendaUids.push(agendaUid);
         }
       }
-    }
-
-    // update control data and search indices of impacted agendas
-    for (const agendaUid of impactedAgendaUids) {
-      await controlData.locationSet({
-        agendaUid,
-        location: after,
-      });
     }
 
     tracker('agendaLocations.syncImpactedEventsAndAgendas.done');

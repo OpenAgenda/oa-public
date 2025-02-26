@@ -11,6 +11,7 @@ import {
   Tag,
   Input,
   Link,
+  Select,
 } from '@openagenda/uikit';
 import { FilterSelect } from '@openagenda/react-shared';
 import { getFilterSelectOptions } from '@openagenda/react-filters';
@@ -38,6 +39,7 @@ function getEmbedCode({
   selectedFilters,
   openEventsOnOA,
   primaryColor,
+  lang,
 }) {
   const attributes = [];
 
@@ -55,7 +57,13 @@ function getEmbedCode({
 
   const attributesStr = attributes.length ? ` ${attributes.join(' ')}` : '';
 
-  const title = `<a href="${href}"><b>${escapeHTML(agenda.title)}</b></a>`;
+  const url = new URL(href);
+
+  if (lang) {
+    url.searchParams.set('lang', lang);
+  }
+
+  const title = `<a href="${url.toString()}"><b>${escapeHTML(agenda.title)}</b></a>`;
   const text = intl.formatMessage(messages.embedSeeEvents, { title });
   const blockquote = `<blockquote class="oa-agenda" align="center"${attributesStr}><p lang="${intl.locale}">${text}</p></blockquote>`;
   const script = `<script async src="${SCRIPT_URL}" charset="utf-8"></script>`;
@@ -74,6 +82,7 @@ export default function EmbedAccordionItem({ res, agenda }) {
   const [withFilters, setWithFilters] = useState(true);
   const [openEventsOnOA, setOpenEventsOnOA] = useState(true);
   const [primaryColor, setPrimaryColor] = useState(DEFAULT_COLOR);
+  const [lang, setLang] = useState('');
 
   const [selectedFilters, setSelectedFilters] = useState(() =>
     loadPublicFilters(agenda.settings),
@@ -94,6 +103,7 @@ export default function EmbedAccordionItem({ res, agenda }) {
     selectedFilters,
     openEventsOnOA,
     primaryColor,
+    lang,
   });
 
   return (
@@ -186,6 +196,19 @@ export default function EmbedAccordionItem({ res, agenda }) {
           />
           {intl.formatMessage(messages.color)}
         </Flex>
+
+        <Select
+          placeholder={intl.formatMessage(messages.detectLang)}
+          value={lang}
+          onChange={(e) => setLang(e.target.value)}
+          w="fit-content"
+        >
+          {Object.keys(agenda.summary.languages).map((language) => (
+            <option key={language} value={language}>
+              {language.toUpperCase()}
+            </option>
+          ))}
+        </Select>
 
         <Textarea
           value={embedCode}

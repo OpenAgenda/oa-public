@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { mw } from '@openagenda/admin-agendas';
+import adminAgendas from '@openagenda/admin-agendas';
 import validators from '@openagenda/validators';
 import isURL from 'validator/lib/isURL.js';
 import cmn from '../lib/commons-app.js';
@@ -15,6 +15,33 @@ const PreMw = ({ sessions, users }) => [
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
   users.mw.allowSuperAdmin(),
 ];
+
+function sendAgendaData(req, res) {
+  const { core, agendas } = req.app.services;
+
+  core
+    .agendas(req.params.uid)
+    .get({ access: 'internal', detailed: true, private: null })
+    .then((agenda) => {
+      if (!agenda) {
+        res.json(null);
+        return;
+      }
+      res.json({
+        ...agenda,
+        credentials: {
+          ...Object.entries(agendas.utils.credentials).reduce(
+            (accu, [key, value]) => ({ ...accu, [key]: value.default }),
+            {},
+          ),
+          ...agenda.credentials,
+        },
+        config: {
+          credentials: agendas.utils.credentials,
+        },
+      });
+    });
+}
 
 function index(req, res) {
   cmn.render(req, res, 'admin/agendas', req.templateData);
@@ -60,31 +87,7 @@ export default (app) => {
     );
   });
 
-  app.get('/admin/agendas/:uid', preMw, (req, res) => {
-    const { core, agendas } = req.app.services;
-    core
-      .agendas(req.params.uid)
-      .get({ access: 'internal', detailed: true })
-      .then((agenda) => {
-        if (!agenda) {
-          res.json(null);
-          return;
-        }
-        res.json({
-          ...agenda,
-          credentials: {
-            ...Object.entries(agendas.utils.credentials).reduce(
-              (accu, [key, value]) => ({ ...accu, [key]: value.default }),
-              {},
-            ),
-            ...agenda.credentials,
-          },
-          config: {
-            credentials: agendas.utils.credentials,
-          },
-        });
-      });
-  });
+  app.get('/admin/agendas/:uid', preMw, sendAgendaData);
 
   app.post(
     '/admin/agendas/:uid',
@@ -129,7 +132,8 @@ export default (app) => {
         next(e);
       }
     },
-    mw.agendas.set,
+    adminAgendas.mw.agendas.set,
+    sendAgendaData,
   );
 
   app.get(
@@ -142,6 +146,6 @@ export default (app) => {
       req.query.order = 'role.desc';
       next();
     },
-    mw.members.list,
+    adminAgendas.mw.members.list,
   );
 };

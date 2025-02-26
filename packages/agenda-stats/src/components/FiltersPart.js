@@ -2,7 +2,8 @@ import _ from 'lodash';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import { useLatest, useUpdateEffect } from 'react-use';
+import useLatestModule from 'react-use/lib/useLatest.js';
+import useUpdateEffectModule from 'react-use/lib/useUpdateEffect.js';
 import qs from 'qs';
 import {
   Filters,
@@ -11,6 +12,9 @@ import {
 } from '@openagenda/react-filters';
 import { useLayoutData } from '@openagenda/react-shared';
 import validateQuery from '@openagenda/event-search/utils/validateQuery.js';
+
+const useUpdateEffect = useUpdateEffectModule.default || useUpdateEffectModule;
+const useLatest = useLatestModule.default || useLatestModule;
 
 export default function FiltersPart({
   filters,

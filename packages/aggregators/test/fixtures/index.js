@@ -1,8 +1,8 @@
-const { promisify } = require('node:util');
-const fs = require('node:fs');
-const _ = require('lodash');
-const knex = require('knex');
-const mysql = require('mysql');
+import { promisify } from 'node:util';
+import fs from 'node:fs';
+import _ from 'lodash';
+import knex from 'knex';
+import mysql from 'mysql';
 
 const mysqlKnex = knex({
   client: 'mysql',

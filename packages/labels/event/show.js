@@ -45,7 +45,7 @@ module.exports = {
   "otherShares": {
     "en": "Other shares",
     "fr": "Autres partages",
-    "it": "Condividere",
+    "it": "Altre opzione di condivisione",
     "de": "Teilen",
     "pl": "Udostępnij",
     "es": "Otros",
@@ -97,7 +97,7 @@ module.exports = {
   "startToFinish": {
     "en": "%start% to %finish%",
     "fr": "du %start% au %finish%",
-    "it": "da %start% a %finish%",
+    "it": "Dallo %start% al %finish%",
     "de": "von %start% bis %finish%",
     "pl": "od %start% do %finish%",
     "es": "%start% a %finish%",
@@ -765,7 +765,7 @@ module.exports = {
   "category": {
     "en": "Category",
     "fr": "Catégorie",
-    "it": "Categorie",
+    "it": "Categoria",
     "de": "Kategorie",
     "pl": "Kategorie",
     "es": "Categoría",
@@ -798,7 +798,7 @@ module.exports = {
   "requestChangeLocation": {
     "en": "Request a change in the location information",
     "fr": "Faire une demande de modification du lieu",
-    "it": "Fare una demanda di modifica del luogo. ",
+    "it": "Fare una demanda di modifica del luogo",
     "de": "eine Änderung der Standortinformationen beantragen",
     "pl": "Zaproponuj zmianę miejsca",
     "es": "Solicitar una modificación del lugar",
@@ -894,7 +894,8 @@ module.exports = {
     "fr": "Historique",
     "io": "crwdns32758:0crwdne32758:0",
     "es": "Historia",
-    "oc": "Istòria"
+    "oc": "Istòria",
+    "it": "Storia"
   },
   "inbox": {
     "en": "Inbox",
@@ -987,7 +988,7 @@ module.exports = {
     "en": "The timings and dates of the event have been modified",
     "fr": "Les dates et/ou horaires de l'événement ont été modifiées",
     "io": "crwdns16122:0crwdne16122:0",
-    "it": "Gli orari sono stati modificati",
+    "it": "Le date e gli orari dell' evento sono stati modificati",
     "oc": "Las oras e datas de l'eveniment son estadas modificadas"
   },
   "statusMovedOnline": {
@@ -1079,12 +1080,14 @@ module.exports = {
     "en": "See history",
     "fr": "Voir l'historique",
     "io": "crwdns33253:0crwdne33253:0",
-    "oc": "Véser l'istoric"
+    "oc": "Véser l'istoric",
+    "it": "Vedere la storia"
   },
   "locationHistory": {
     "en": "Location history",
     "fr": "Historique du lieu",
     "oc": "Istoric dels lòcs",
-    "io": "crwdns33255:0crwdne33255:0"
+    "io": "crwdns33255:0crwdne33255:0",
+    "it": "Storia del luogo"
   }
 }

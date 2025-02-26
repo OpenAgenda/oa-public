@@ -35,7 +35,6 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
         'accessTokens',

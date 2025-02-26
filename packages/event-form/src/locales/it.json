@@ -1,4 +1,5 @@
 {
-  "event-form.components.Events.remove": "Rimuovi",
+  "event-form.components.Events.remove": "Rimuovere",
+  "event-form.components.Events.search": "Cerca",
   "event-form.components.Events.show": "Mostrare"
 }

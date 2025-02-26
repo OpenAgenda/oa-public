@@ -15,20 +15,6 @@ export function init(config, services) {
       onRemove: () => {},
       getValidator: formSchemas.getValidator,
     },
-    legacy: {
-      schemas: {
-        event: config.schemas.event,
-        agendaEvent: config.schemas.agendaEvent,
-        agendaEventTag: config.schemas.agendaEventTag,
-        agenda: config.schemas.agenda,
-        agendaCategory: config.schemas.agendaCategory,
-        agendaTag: config.schemas.agendaTag,
-      },
-      interfaces: {
-        getFormSchemaFields: (formSchemaId) =>
-          formSchemas.get(formSchemaId).then((fs) => (fs ? fs.fields : [])),
-      },
-    },
   });
 
   return custom;

@@ -4,7 +4,6 @@ import validate from './lib/validate.js';
 import cleanSetOptions from './lib/cleanSetOptions.js';
 import defineUnique from './lib/defineUnique.js';
 import generateSlug from './lib/generateSlug.js';
-import setLegacy from './lib/legacy/set.js';
 import generateFileKey from './lib/generateFileKey.js';
 import processImage from './lib/processImage.js';
 import handleInterface from './lib/handleInterface.js';
@@ -70,14 +69,6 @@ export default async (service, data, o = {}) => {
     .insert(entry);
 
   log('created with id %s and uid %s', insertedID, entry.uid);
-
-  if (!options.draft && options.transferToLegacy) {
-    try {
-      await setLegacy(service.clients.knex, clean);
-    } catch (e) {
-      log('warn', 'failed to create legacy', e);
-    }
-  }
 
   await handleInterface(service, 'onCreate', clean, options.context);
 

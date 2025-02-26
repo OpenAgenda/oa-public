@@ -32,7 +32,6 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
         'eventSearch',
         'members',
         'networks',
-        'legacy',
         'users',
         'keys',
         'accessTokens',

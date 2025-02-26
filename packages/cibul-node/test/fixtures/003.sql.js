@@ -81,30 +81,4 @@ raw.push(
 
 raw.push(knex('location').insert([load('sql/locations/1.json')]));
 
-const {
-  review_category: reviewCategory,
-  category_set: categorySet,
-  tag_set: tagSet,
-} = load('./sql/legacy/218.json');
-
-raw.push(knex('review_category').insert(reviewCategory));
-
-raw.push(
-  knex('category_set').insert([
-    {
-      id: 218,
-      store: JSON.stringify(categorySet),
-    },
-  ]),
-);
-
-raw.push(
-  knex('tag_set').insert([
-    {
-      id: 218,
-      store: JSON.stringify(tagSet),
-    },
-  ]),
-);
-
 export default `${raw.join(';\n')};`;

@@ -10,15 +10,6 @@ location ~ ^/js/(matomo|crisp)\.js$ {
   include conf.d/nodejs_params;
 }
 
-location = /js/newEmbed.js {
-  proxy_pass https://cdn.openagenda.com/js/widgets.js;
-  proxy_set_header  Host              cdn.openagenda.com;
-  proxy_set_header  X-Real-IP         $remote_addr;
-  proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
-  proxy_set_header  X-Forwarded-Proto $scheme;
-  add_header Access-Control-Allow-Origin *;
-}
-
 # cibul-templates/dist
 location ~ ^/(css|fonts|images|js) {
   add_header Access-Control-Allow-Origin *;

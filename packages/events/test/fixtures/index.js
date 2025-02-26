@@ -19,7 +19,6 @@ function _sql(schema, SQLDataRelativePath) {
       '${schema}',
       schema,
     ),
-    fs.readFileSync(`${__dirname}/legacy.sql`, 'utf-8'),
     fs
       .readFileSync(`${__dirname}/mel.sql`, 'utf-8')
       .replace(/\$\{schema\}/g, schema),

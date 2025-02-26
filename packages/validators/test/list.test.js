@@ -1,3 +1,5 @@
+'use strict';
+
 const validators = require('../src');
 
 describe('list validator', () => {

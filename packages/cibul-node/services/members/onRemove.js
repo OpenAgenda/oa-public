@@ -39,7 +39,6 @@ export default function onRemove({ services, members, activityQueue }) {
       agendas,
       invitations,
       inboxes,
-      legacy: { controlData: controlDataSvc },
     } = services;
 
     const { Inbox } = inboxes;
@@ -90,18 +89,6 @@ export default function onRemove({ services, members, activityQueue }) {
         });
       } catch (e) {
         log('error', 'failed adding activity of type agenda.removeMember', {
-          member,
-          exception: e,
-        });
-      }
-
-      try {
-        await controlDataSvc.memberRemove({
-          agendaUid: agenda.uid,
-          userUid: memberUser.uid,
-        });
-      } catch (e) {
-        log('error', 'failed removing member from control data', {
           member,
           exception: e,
         });

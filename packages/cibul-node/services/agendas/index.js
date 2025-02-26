@@ -1,15 +1,11 @@
-import logs from '@openagenda/logs';
 import agendasSvc from '@openagenda/agendas';
 import cmn from '../../lib/commons-app.js';
-import * as legacy from '../legacy.js';
 import agendaAdminLayout from '../lib/layouts/agendaAdmin/index.js';
 import middleware from './middleware.js';
 import resetCache from './lib/resetCache.js';
 import onCreate from './onCreate.js';
 import onUpdate from './onUpdate.js';
 import onRemove from './onRemove.js';
-
-const log = logs('services/agendas');
 
 const throwUnauthorized = (req, res, next) => {
   const error = new Error('Unauthorized');
@@ -38,10 +34,7 @@ const checkUser = (req, res, next) => {
 };
 
 function beforeRemove(agenda, cb) {
-  legacy.controlData.clear(agenda.uid).then(cb.bind(null, null), (err) => {
-    log('warn', 'could not clear agenda control data', agenda.uid, err);
-    cb();
-  });
+  cb();
 }
 
 function plugApp(app) {

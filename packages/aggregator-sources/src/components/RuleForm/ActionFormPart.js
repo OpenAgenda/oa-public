@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
+import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
+import usePreviousModule from 'react-use/lib/usePrevious.js';
 import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';
 
@@ -10,6 +11,9 @@ import stringType from '../../utils/stringType.js';
 import isOptionedField from '../../utils/isOptionedField.js';
 import messages from './messages.js';
 import Radio from './Radio.js';
+
+const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
+const usePrevious = usePreviousModule.default || usePreviousModule;
 
 const isMultiLang = (field) => !!field.languages;
 
