@@ -51,11 +51,11 @@ const OptionItem = ({
   });
   const child = (
     <div className="list-group-item draggable" ref={ref}>
-      <div className="list-group-item-content">
+      <div className="list-group-item-content draggable">
         {isEdited
           ? renderEdit()
           : (
-            <>
+            <div className="margin-left-sm">
               <label
                 htmlFor={`option-${option.id}`}
                 className="margin-v-xs text-left"
@@ -83,7 +83,7 @@ const OptionItem = ({
                   </span>
                 </button>
               </div>
-            </>
+            </div>
           )}
       </div>
     </div>
