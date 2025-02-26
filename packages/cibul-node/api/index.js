@@ -69,8 +69,19 @@ export default (core, { useRouter = true } = {}) => {
 
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
-  app.param('eventUid', mw.loadEvent);
   app.param('agendaSlug', mw.loadAgenda);
+  app.param('eventUid', mw.loadEvent);
+  app.param('eventSlug', mw.loadEvent);
+
+  app.use(
+    [
+      '/agendas/:agendaUid/events/:eventUid/activities',
+      '/agendas/:agendaUid/events/:eventUid.pdf',
+      '/agendas/:agendaUid/events/slug/:eventSlug.pdf',
+      '/agendas/slug/:agendaSlug/events/slug/:eventSlug.pdf',
+    ],
+    mw.loadEvent.full,
+  );
 
   // control all the things
   app.post('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
@@ -240,20 +251,6 @@ export default (core, { useRouter = true } = {}) => {
     app.get(
       '/agendas/:agendaUid/events/:eventUid/activities',
       mw.member.allow(['contributor', 'moderator', 'administrator']),
-      (req, _res, next) => {
-        core
-          .agendas(req.agenda.uid)
-          .events.search.get(
-            { uid: req.params.eventUid },
-            {
-              userUid: req.user?.uid,
-            },
-          )
-          .then((event) => {
-            req.event = event;
-            next();
-          });
-      },
       app.services.activities.mw.listUserEventActivities,
     );
   }
@@ -325,7 +322,6 @@ export default (core, { useRouter = true } = {}) => {
             next();
           }),
       mw.evaluateAnonymousAccess,
-      mw.getEventFromSearchOrAsDraft,
       mw.loadEventPDF,
     ],
   );
