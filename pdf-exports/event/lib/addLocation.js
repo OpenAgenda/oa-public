@@ -114,7 +114,7 @@ async function addAboutLocationSection(doc, cursor, width, content, options = {}
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
-  if (content.location.description) {
+  if (Object.keys(content.location.description ?? {}).length) {
     const aboutLocationSectionName = await addText(doc, cursor, {
       content:`${intl.formatMessage(messages.aboutLocation)}`,
       width,
@@ -196,7 +196,7 @@ async function addAccessSection(doc, cursor, width, content, options = {}) {
   let accumulatedHeight = 0;
   let maxWidth = 0;
 
-  if (content.location.access) {
+  if (Object.keys(content.location.access ?? {}).length) {
     const accessSectionName = await addText(doc, cursor, {
       content:`${intl.formatMessage(messages.access)}`,
       width,
