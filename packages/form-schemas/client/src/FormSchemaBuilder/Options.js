@@ -104,7 +104,11 @@ const Options = ({ field, value, lang, onChange }) => {
 
   const renderDraggableOptions = () => {
     const options = getOptions();
-    const styles = { display: 'inline-flex', flexDirection: 'column' };
+    const styles = {
+      display: 'inline-flex',
+      flexDirection: 'column',
+      width: '100%',
+    };
     return (
       <DragDropProvider
         onDragEnd={(event) => {

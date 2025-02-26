@@ -162,7 +162,7 @@ export default function Content(props) {
             <button
               type="button"
               name={`edit-${field.field}`}
-              title={getInfoLabel(props)}
+              title={getInfoLabel({ ...props, editable })}
               onClick={() => (!isDisabled ? onEdit() : null)}
               className="btn btn-link"
               disabled={!editable || disabled}
