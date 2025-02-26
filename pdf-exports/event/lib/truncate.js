@@ -1,14 +1,6 @@
-import messages from './messages.js';
 import addText from './addText.js';
 
-export default async function truncate(
-  doc,
-  cursor,
-  addFn,
-  contentItem,
-  remainingHeight,
-  options = {},
-) {
+export default async function truncate(doc, cursor, addFn, contentItem, remainingHeight, options = {}) {
   const { columnWidth, iconHeightAndWidth, margin, footerHeight, intl, lang } = options;
 
   const beforeOverflow = { ...contentItem };
@@ -20,7 +12,7 @@ export default async function truncate(
 
   if (contentItem.title) {
     const titleHeight = addText(doc, cursor, {
-      content: `${intl.formatMessage(messages[contentItem.title])}`,
+      content: contentItem.title,
       width: columnWidth,
       bold: true,
       intl,
@@ -35,7 +27,10 @@ export default async function truncate(
     newRemainingHeight -= simulateHeight;
   }
 
-  if (contentItem.addFn === 'addText' || contentItem.addFn === 'addStatus') {
+  if (
+    contentItem.addFn === 'addText'
+    || contentItem.addFn === 'addStatus'
+  ) {
     let words;
     if (contentItem.data.value && !contentItem.data.value.includes(' ')) {
       words = contentItem.data.value.split(' ');
@@ -80,10 +75,9 @@ export default async function truncate(
     });
 
     beforeOverflow.data = timings;
-    afterOverflow.data = timings.slice(
-      timings.length - simulatedCalendar.remainingTimings.length,
-    );
-  } else if (contentItem.addFn === 'addAdditionalFields') {
+    afterOverflow.data = timings.slice(timings.length - simulatedCalendar.remainingTimings.length);
+  } else if (
+    contentItem.addFn === 'addAdditionalFields') {
     const simulateAddAdditionalFields = await addFn(doc, cursor, {
       content: contentItem.data,
       agenda: contentItem.agenda,
@@ -105,7 +99,7 @@ export default async function truncate(
         remainingFields: simulateAddAdditionalFields.remainingFields,
       };
     }
-  } else if (contentItem.addFn === 'addRegistration') {
+  } else if ( contentItem.addFn === 'addRegistration') {
     const simulateRegistration = await addFn(doc, cursor, {
       content: contentItem.data,
       width: columnWidth,
@@ -128,10 +122,7 @@ export default async function truncate(
         titleAdded: simulateRegistration.titleAdded,
       };
     }
-  } else if (
-    contentItem.addFn === 'addTagsSection'
-    || contentItem.addFn === 'addAdditionalLinksSection'
-  ) {
+  } else if (contentItem.addFn === 'addLocation') {
     const simulateAddLocation = await addFn(doc, cursor, {
       content: contentItem.data,
       width: columnWidth,
@@ -154,6 +145,5 @@ export default async function truncate(
       };
     }
   }
-
   return [beforeOverflow, afterOverflow];
 }

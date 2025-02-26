@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce.js';
 import throttle from 'lodash/throttle.js';
 import axios from 'axios';
@@ -29,10 +28,10 @@ const AgendaSearchInput = (props) => {
   const {
     targetAgenda,
     getTitleLink,
-    preFetchAgendas,
+    preFetchAgendas = false,
     noAgendas,
     res,
-    perPageLimit,
+    perPageLimit = 20,
     filter,
   } = props;
 
@@ -166,23 +165,3 @@ const AgendaSearchInput = (props) => {
 };
 
 export default AgendaSearchInput;
-
-AgendaSearchInput.propTypes = {
-  targetAgenda: PropTypes.shape({
-    title: PropTypes.string,
-    slug: PropTypes.string,
-  }).isRequired,
-  getTitleLink: PropTypes.func.isRequired,
-  preFetchAgendas: PropTypes.bool,
-  perPageLimit: PropTypes.number,
-  res: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-  noAgendas: PropTypes.func,
-  filter: PropTypes.shape({ role: PropTypes.string }),
-};
-
-AgendaSearchInput.defaultProps = {
-  perPageLimit: 20,
-  preFetchAgendas: false,
-  noAgendas: undefined,
-  filter: undefined,
-};

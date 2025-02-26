@@ -2,7 +2,9 @@ import isEqual from 'lodash/isEqual.js';
 import isDate from 'lodash/isDate.js';
 import React, { useCallback, useMemo, useState, useContext } from 'react';
 import { useIntl } from 'react-intl';
-import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
+import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
+import useLatestModule from 'react-use/lib/useLatest.js';
+import usePreviousModule from 'react-use/lib/usePrevious.js';
 import cn from 'classnames';
 import dateFnsLocaleEN from 'date-fns/locale/en-US/index.js';
 import { DateRange, DefinedRange } from '@openagenda/react-date-range';
@@ -10,6 +12,10 @@ import { getFallbackChain } from '@openagenda/intl';
 import useConstant from '@openagenda/react-shared/dist/hooks/useConstant.js';
 import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext.js';
 import convertPhpDateFormatToDateFns from '../../utils/convertPhpDateFormatToDateFns.js';
+
+const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
+const useLatest = useLatestModule.default || useLatestModule;
+const usePrevious = usePreviousModule.default || usePreviousModule;
 
 const dateDisplayFormats = {
   en: 'MMM d, yyyy', // Jan 1, 2024

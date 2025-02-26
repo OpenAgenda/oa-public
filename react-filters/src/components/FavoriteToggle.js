@@ -1,11 +1,13 @@
 import isEqual from 'lodash/isEqual.js';
 import { useEffect, useRef, useCallback, useMemo } from 'react';
-import { useLatest } from 'react-use';
+import useLatestModule from 'react-use/lib/useLatest.js';
 import { useForm } from 'react-final-form';
 import a11yButtonActionHandler from '@openagenda/react-shared/dist/utils/a11yButtonActionHandler.js';
 import updateCustomFilter from '../utils/updateCustomFilter.js';
 import updateFormValues from '../utils/updateFormValues.js';
 import { useFavoriteState } from '../hooks/index.js';
+
+const useLatest = useLatestModule.default || useLatestModule;
 
 export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
   const form = useForm();
