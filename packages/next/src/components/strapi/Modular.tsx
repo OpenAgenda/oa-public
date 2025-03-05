@@ -71,6 +71,7 @@ export default function Modular({
               alignItems="center"
               display="flex"
               flexDirection="column"
+              style={{ listStylePosition: 'inside' }}
             >
               <ReactMarkdown>{description}</ReactMarkdown>
             </Box>
