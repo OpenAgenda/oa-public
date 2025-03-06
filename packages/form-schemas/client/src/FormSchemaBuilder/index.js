@@ -163,6 +163,7 @@ const FormSchemaBuilder = ({
   );
 
   const handleSave = useCallback(() => {
+    if (isDragging) return;
     updateSaveState(saveStates.LOADING);
 
     submit({
@@ -180,7 +181,15 @@ const FormSchemaBuilder = ({
         updateSaveState(saveStates.ERROR);
       },
     );
-  }, [schema, labelLanguages, res, onSuccess, getSchema, updateSaveState]);
+  }, [
+    schema,
+    labelLanguages,
+    res,
+    onSuccess,
+    getSchema,
+    updateSaveState,
+    isDragging,
+  ]);
 
   const handleFieldEdit = useCallback(
     (field) => {
