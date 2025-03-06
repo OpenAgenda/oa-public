@@ -1,7 +1,7 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 import { fileURLToPath } from 'node:url';
 import { withSentryConfig } from '@sentry/nextjs';
-import nextPackageJson from 'next/package.json' assert { type: 'json' };
+import nextPackageJson from 'next/package.json' with { type: 'json' };
 import bundleAnalyser from '@next/bundle-analyzer';
 
 const { version: nextVersion } = nextPackageJson;

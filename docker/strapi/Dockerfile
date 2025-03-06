@@ -7,7 +7,7 @@ ENV HOME /root
 RUN apt-get update -y \
     && apt-get install -y apt-utils apt-transport-https ca-certificates curl gnupg ssh
 
-ENV NODE_MAJOR=20
+ENV NODE_MAJOR=22
 
 RUN mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \

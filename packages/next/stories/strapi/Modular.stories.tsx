@@ -1,4 +1,4 @@
-import { Wrap, WrapItem } from '@openagenda/uikit';
+import { Grid, GridItem } from '@openagenda/uikit';
 import Modular from 'components/strapi/Modular';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 
@@ -11,8 +11,8 @@ export default {
 
 export function Overview() {
   return (
-    <Wrap p="20px" spacing="20px" align="center">
-      <WrapItem>
+    <Grid display="flex" flexWrap="wrap" gap={8} p={8} alignItems="stretch">
+      <GridItem w="full" justifyItems="center" flex="1 1 33.333%">
         <Modular
           {...fx.default}
           card
@@ -35,8 +35,8 @@ export function Overview() {
             link: 'https://duckduckgo.com/?t=ffab&q=phteven&iax=images&ia=images',
           }}
         />
-      </WrapItem>
-      <WrapItem>
+      </GridItem>
+      <GridItem w="full" justifyItems="center" flex="1 1 33.333%">
         <Modular
           {...fx.default}
           title="Petit Phteven"
@@ -49,8 +49,8 @@ export function Overview() {
             borderRadius: 'full',
           }}
         />
-      </WrapItem>
-      <WrapItem>
+      </GridItem>
+      <GridItem w="full" justifyItems="center" flex="1 1 33.333%">
         <Modular
           title="Un icône"
           description="L'icône vient de Font Awesome."
@@ -60,8 +60,8 @@ export function Overview() {
             style: 'thin',
           }}
         />
-      </WrapItem>
-      <WrapItem>
+      </GridItem>
+      <GridItem w="full" justifyItems="center" flex="1 1 33.333%">
         <Modular
           {...fx.default}
           card
@@ -84,8 +84,8 @@ export function Overview() {
             },
           }}
         />
-      </WrapItem>
-      <WrapItem>
+      </GridItem>
+      <GridItem w="full" justifyItems="center" flex="1 1 33.333%">
         <Modular
           title="Un icône et une image"
           description="Description centrée"
@@ -103,7 +103,24 @@ export function Overview() {
           }}
           card
         />
-      </WrapItem>
-    </Wrap>
+      </GridItem>
+      <GridItem w="full" justifyItems="center" flex="1 1 33.333%">
+        <Modular
+          title="Une liste à puces"
+          CTA={null}
+          description={`Créée en 2015, OpenAgenda recense aujourd’hui :
+- **1 480 886 événements**
+- **40 897 agendas**
+- **553 554 contributeurs et contributrices**`}
+          card
+          Icon={{
+            name: 'chart-network',
+            size: '3x',
+            style: 'thin',
+          }}
+          titleAlign="center"
+        />
+      </GridItem>
+    </Grid>
   );
 }

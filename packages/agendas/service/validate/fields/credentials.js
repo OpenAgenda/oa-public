@@ -3,8 +3,7 @@
 const _ = require('lodash');
 
 module.exports = require('.')
-  .filter((f) => f.field === 'credentials')
-  .pop()
+  .find((f) => f.field === 'credentials')
   .fields.reduce(
     (credentials, field) => ({
       ...credentials,

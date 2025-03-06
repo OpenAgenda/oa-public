@@ -107,6 +107,11 @@
         "default": false,
         "description": "Allow customisation of member fields",
         "type": "boolean"
+      },
+      "keepActivities": {
+        "default": false,
+        "description": "Keeps activities for an indefinite period",
+        "type": "boolean"
       }
     }
   }
