@@ -120,6 +120,8 @@ const FormSchemaBuilder = ({
   const [mode, setMode] = useState(null);
   const [activeItemSlug, setActiveItemSlug] = useState(null);
   const [addToEnd, setAddToEnd] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragKey, setDragKey] = useState(0);
 
   useEffect(() => {
     if (isObjectWithKeys(devState)) {
@@ -151,10 +153,14 @@ const FormSchemaBuilder = ({
   );
 
   // Event handlers
-  const handleAccordionToggle = useCallback((field) => {
-    const slug = getFormItemSlug(field);
-    setActiveItemSlug((prev) => (prev === slug ? null : slug));
-  }, []);
+  const handleAccordionToggle = useCallback(
+    (field) => {
+      if (isDragging) return;
+      const slug = getFormItemSlug(field);
+      setActiveItemSlug((prev) => (prev === slug ? null : slug));
+    },
+    [isDragging],
+  );
 
   const handleSave = useCallback(() => {
     updateSaveState(saveStates.LOADING);
@@ -274,6 +280,12 @@ const FormSchemaBuilder = ({
   const parentsMergedSchema = getMergedExtentionSchema();
   const disabled = saveState === saveStates.LOADING;
 
+  useEffect(() => {
+    if (!isDragging && schema !== initialSchema) {
+      setDragKey((prev) => prev + 1);
+    }
+  }, [schema, isDragging, initialSchema]);
+
   return (
     <div className="form-schema-builder dnd row">
       {displaySidebar ? (
@@ -324,9 +336,21 @@ const FormSchemaBuilder = ({
           className={`margin-h-sm list-group field-preview-canvas ${editedField ? ' editing' : ''}`}
         >
           <DragDropProvider
+            key={dragKey}
+            onDragStart={(event) => {
+              event?.event?.stopPropagation();
+              setIsDragging(true);
+            }}
             onDragEnd={(event) => {
-              const from = event.operation.source.sortable.initialIndex;
-              const to = event.operation.source.sortable.previousIndex;
+              if (event.event) {
+                event.event.stopPropagation();
+                event.event.preventDefault();
+              }
+              const from = event?.operation?.source?.sortable?.initialIndex;
+              const to = event?.operation?.target?.sortable?.index ?? from;
+              if (from === undefined || to === undefined || from === to) {
+                return;
+              }
               const reorderedSchema = reorderSchemaFields(
                 getMergedSchema(schema),
                 from,
@@ -337,9 +361,10 @@ const FormSchemaBuilder = ({
                 reorderedSchema,
               );
               updateSaveState(saveStates.CHANGED, updatedSchema);
+              setTimeout(() => setIsDragging(false), 100);
             }}
           >
-            {_.get(mergedSchema, 'fields', []).map((field, index) => (
+            {(mergedSchema?.fields || []).map((field, index) => (
               <FieldPreview
                 index={index}
                 disabled={isFieldDisabled(field, disabled)}
@@ -358,6 +383,7 @@ const FormSchemaBuilder = ({
                 active={activeItemSlug === getFormItemSlug(field)}
                 schema={mergedSchema}
                 key={field.field}
+                isDragging={isDragging}
               />
             ))}
           </DragDropProvider>
