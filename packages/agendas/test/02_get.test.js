@@ -130,6 +130,7 @@ describe('agendas - functional (server): get', () => {
       aggregator: false,
       prioritizedAggregator: false,
       invitationMessage: false,
+      keepActivities: false,
       docxExport: false,
       eventOwnershipTransfer: false,
       useJSONBridge: false,
