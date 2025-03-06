@@ -221,6 +221,7 @@ services:
     ports:
       - 3306:3306
     volumes:
+      - ${MYSQL_CONFIG_PATH:-/dev/null}:/etc/mysql/conf.d/my.cnf
       - ${MYSQL_CONTAINER_DATA_PATH}:/var/lib/mysql
       - ${MYSQL_DUMP_FILE_PATH}:/docker-entrypoint-initdb.d/oa.sql
 
