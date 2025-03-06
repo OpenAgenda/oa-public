@@ -33,6 +33,6 @@ create table if not exists `location` (
   INDEX latlng_idx (latitude, longitude),
   INDEX owner_id_idx (owner_id),
   INDEX duplicate_candidates_idx (duplicate_candidates),
-  INDEX ext_ids_idx ((CAST(ext_ids->'$.identifiers' AS CHAR(100) ARRAY))),
+  INDEX ext_ids_idx ((CAST(ext_ids->'$.identifiers' AS CHAR(255) ARRAY))),
   primary key(id)
 ) default CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

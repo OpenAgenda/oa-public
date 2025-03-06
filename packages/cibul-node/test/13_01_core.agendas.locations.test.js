@@ -1137,6 +1137,22 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
         expect(location.address).toBe('40 rue Richard Lenoir, Paris');
       });
+
+      it('fix extId too long for index', async () => {
+        let err;
+        try {
+          await core
+            .agendas(55268170)
+            .locations.create(
+              JSON.parse(
+                '{"extId":"EitQbC4gSG9ub3LDqSBDb21tZXVyZWMsIDM1MDAwIFJlbm5lcywgRnJhbmNlIi4qLAoUChIJvxmyqDTeDkgRBO2KWK-eA0cSFAoS","name":"La Criée Marché Central","address":"Place Honoré Commeurec 35000 Rennes","city":"Rennes","postalCode":"35000","countryCode":"FR","latitude":48.10831839999999,"longitude":-1.6796329}',
+              ),
+            );
+        } catch (error) {
+          err = error;
+        }
+        expect(err).toBeUndefined();
+      });
     });
 
     describe('removal including linked events', () => {
