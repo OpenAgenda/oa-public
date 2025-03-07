@@ -35,9 +35,7 @@ export default async (
       (e) => ({ error: e }),
     );
 
-  if (
-    (error?.meta?.body.error.caused_by.reason ?? '').includes('search_after')
-  ) {
+  if (error?.meta?.body?.error?.caused_by?.reason?.includes('search_after')) {
     throw new BadRequest('Provided after value is invalid');
   } else if (error) {
     throw error;
