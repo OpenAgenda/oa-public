@@ -10,6 +10,9 @@ const validatePage = validators.integer({
 });
 const limit = 20;
 
+const isNumberLike = (value) =>
+  !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
+
 const PreMw = ({ sessions, users }) => [
   cmn.loadBaseData('oa-admin.css'),
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
@@ -53,38 +56,53 @@ export default (app) => {
   const preMw = PreMw(app.services);
 
   app.get('/admin/agendas/', preMw, index);
-  app.get('/admin/agendas/search', preMw, (req, res, next) => {
+
+  app.get('/admin/agendas/search', preMw, async (req, res, next) => {
     const query = {};
 
-    if (_.isInteger(parseInt(req.query.oas?.search, 10))) {
-      query.uid = parseInt(req.query.oas?.search, 10);
-    } else if (isURL(req.query.oas?.search)) {
-      const uidOrSlug = req.query.oas?.search
-        .split('/')
-        .pop()
-        .split('?')
-        .shift();
-      const isUID = _.isInteger(parseInt(uidOrSlug, 10));
-
-      query[isUID ? 'uid' : 'slug'] = isUID
-        ? parseInt(uidOrSlug, 10)
-        : uidOrSlug;
-    } else if (req.query.oas?.search?.length) {
-      query.search = req.query.oas.search;
+    async function listAgendas(q) {
+      return agendasSvc.list(
+        q,
+        (validatePage(req.query.searchPage) - 1) * limit,
+        limit,
+        { total: true, private: null },
+      );
     }
 
-    agendasSvc.list(
-      query,
-      (validatePage(req.query.searchPage) - 1) * limit,
-      limit,
-      { total: true, private: null },
-      (err, agendas, total) => {
-        if (err) {
-          return next(err);
+    try {
+      if (isURL(req.query.oas?.search)) {
+        const uidOrSlug = req.query.oas.search
+          .split('/')
+          .pop()
+          .split('?')
+          .shift();
+        const isUID = isNumberLike(uidOrSlug);
+
+        res.json(
+          await listAgendas({
+            [isUID ? 'uid' : 'slug']: isUID
+              ? parseInt(uidOrSlug, 10)
+              : uidOrSlug,
+          }),
+        );
+      } else if (isNumberLike(req.query.oas?.search, 10)) {
+        query.uid = parseInt(req.query.oas.search, 10);
+        const { agendas, total } = await listAgendas({
+          uid: parseInt(req.query.oas.search, 10),
+        });
+
+        if (total !== 0) {
+          return res.json({ agendas, total });
         }
-        res.json({ agendas, total });
-      },
-    );
+
+        // try to search text
+        res.json(await listAgendas({ search: req.query.oas.search }));
+      } else if (req.query.oas?.search?.length) {
+        res.json(await listAgendas({ search: req.query.oas.search }));
+      }
+    } catch (e) {
+      next(e);
+    }
   });
 
   app.get('/admin/agendas/:uid', preMw, sendAgendaData);
