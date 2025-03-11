@@ -174,11 +174,14 @@ async function promise(query, offset, limit, options = {}) {
   const total = cleanOptions.total ? await _total(k) : null;
 
   if (cleanQuery.order) {
-    k.orderBy.call(k, ...cleanQuery.order.split('.').map(_.snakeCase));
+    k.orderBy(...cleanQuery.order.split('.').map(_.snakeCase)).orderBy(
+      'id',
+      'desc',
+    );
   } else if (cleanOptions.offsetAsLastId) {
     k.orderBy('id', 'asc');
   } else {
-    k.orderBy('updated_at', 'desc');
+    k.orderBy('updated_at', 'desc').orderBy('id', 'desc');
   }
 
   k.limit(limit || 0);
