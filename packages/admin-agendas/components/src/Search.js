@@ -19,15 +19,13 @@ export default function Search({
 }) {
   const searchRef = useRef(null);
 
-  const { ref: infiniteRef, inView } = useInView({
-    threshold: 0,
-  });
-
-  useEffect(() => {
-    if (inView && !loading) {
-      getSearchPage(true);
+  const { ref: infiniteRef } = useInView({
+    onChange: (inView) => {
+      if (inView && !loading) {
+        getSearchPage(true);
+      }
     }
-  }, [inView, loading, getSearchPage]);
+  });
 
   return (
     <div className="col-md-3 admin-search" ref={searchRef}>
@@ -58,7 +56,7 @@ export default function Search({
       </div>
 
       <div className="row">
-        <div className="body media-list">
+        <div className="body media-list margin-bottom-xs">
           {agendas?.length ? (
             agendas.map((agenda) => (
               <AgendaItem
