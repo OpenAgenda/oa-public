@@ -141,7 +141,8 @@ export function OnlineAccessSection({ event, icon = faLink, ...props }) {
       <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
       <Button
         as={Link}
-        isExternal
+        target="_blank"
+        rel="noopener nofollow"
         href={event.onlineAccessLink}
         variant="outline"
         bg="white"
@@ -273,8 +274,9 @@ export function RegistrationSection({
             arrowPadding={6}
           >
             <Link
-              isExternal
               href={getRegistrationLink(registrationItem)}
+              target="_blank"
+              rel="noopener nofollow"
               colorScheme="primary"
               // whiteSpace="normal"
               // overflow="hidden"
@@ -296,7 +298,8 @@ export function RegistrationSection({
         <Button
           as={Link}
           href={passCulture.value}
-          isExternal
+          target="_blank"
+          rel="noopener nofollow"
           gridColumn="2"
           variant="outline"
           bg="white"
@@ -343,8 +346,9 @@ export function LocationSection({ event, icon = faLocationDot }) {
       <Box>
         <p>{event.location.name}</p>
         <Link
-          isExternal
           href={`https://www.openstreetmap.org/directions?to=${event.location.latitude}%2C${event.location.longitude}`}
+          target="_blank"
+          rel="noopener nofollow"
           colorScheme="primary"
         >
           {event.location.address}

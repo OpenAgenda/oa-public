@@ -15,7 +15,11 @@ export default function Footer() {
         {intl.formatMessage(messages.help)}
       </Link>
       {' · '}
-      <Link href="https://doc.openagenda.com/conditions/" colorScheme="primary">
+      <Link
+        href="https://doc.openagenda.com/conditions/"
+        isExternal
+        colorScheme="primary"
+      >
         {intl.formatMessage(messages.termsOfUse)}
       </Link>
     </footer>

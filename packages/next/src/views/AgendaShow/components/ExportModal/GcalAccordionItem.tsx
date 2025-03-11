@@ -28,7 +28,8 @@ export default function GcalAccordionItem({ res }) {
               link: (
                 <Link
                   href="https://calendar.google.com"
-                  isExternal
+                  target="_blank"
+                  rel="noopener nofollow"
                   colorScheme="primary"
                 >
                   Google Calendar

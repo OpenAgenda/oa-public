@@ -62,7 +62,13 @@ function ConsentFixed({ consentFor, setConsent }) {
           })}
         </Text>
         {consentFor === 'ga' ? (
-          <Link mt="3" href={link} isExternal color="primary.500">
+          <Link
+            mt="3"
+            href={link}
+            target="_blank"
+            rel="noopener nofollow"
+            color="primary.500"
+          >
             {intl.formatMessage(messages.moreInfoLink)}
           </Link>
         ) : null}
@@ -109,7 +115,13 @@ function ConsentOverlay({ consentFor, setConsent }) {
                 })}
               </Text>
               {consentFor === 'ga' ? (
-                <Link mt="3" href={link} isExternal color="primary.500">
+                <Link
+                  mt="3"
+                  href={link}
+                  target="_blank"
+                  rel="noopener nofollow"
+                  color="primary.500"
+                >
                   {intl.formatMessage(messages.moreInfoLink)}
                 </Link>
               ) : null}
