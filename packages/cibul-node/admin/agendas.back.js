@@ -70,7 +70,7 @@ export default (app) => {
     }
 
     try {
-      if (isURL(req.query.oas?.search)) {
+      if (req.query.oas?.search && isURL(req.query.oas.search)) {
         const uidOrSlug = req.query.oas.search
           .split('/')
           .pop()
@@ -99,6 +99,8 @@ export default (app) => {
         res.json(await listAgendas({ search: req.query.oas.search }));
       } else if (req.query.oas?.search?.length) {
         res.json(await listAgendas({ search: req.query.oas.search }));
+      } else {
+        res.json(await listAgendas({}));
       }
     } catch (e) {
       next(e);
