@@ -197,7 +197,8 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
             as={Link}
             variant="outline"
             href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(eventUrl.toString())}`}
-            isExternal
+            target="_blank"
+            rel="noopener nofollow"
             colorScheme="primary"
             leftIcon={<FaIcon icon={faFacebookF} />}
           >
@@ -207,7 +208,8 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
             as={Link}
             variant="outline"
             href={`https://twitter.com/share?url=${encodeURIComponent(eventUrl.toString())}`}
-            isExternal
+            target="_blank"
+            rel="noopener nofollow"
             colorScheme="primary"
             leftIcon={<FaIcon icon={faXTwitter} />}
           >
@@ -217,7 +219,8 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
             as={Link}
             variant="outline"
             href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(eventUrl.toString())}&title=${encodeURIComponent(event.title[contentLocale])}&summary=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}&source=${eventUrl}`}
-            isExternal
+            target="_blank"
+            rel="noopener nofollow"
             colorScheme="primary"
             leftIcon={<FaIcon icon={faLinkedinIn} />}
           >
@@ -293,7 +296,8 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
             type="submit"
             as={Link}
             href={importUrl}
-            isExternal
+            target="_blank"
+            rel="noopener nofollow"
             colorScheme="primary"
             isDisabled={service === '' || selectedTimingIndex === ''}
           >

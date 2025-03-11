@@ -28,13 +28,7 @@ function ErrorActions({ resetError }: ErrorActionsProps) {
         </Button>
       ) : null}
 
-      <Button
-        as={Link}
-        target="_blank"
-        rel="noopener"
-        href="/support"
-        colorScheme="primary"
-      >
+      <Button as={Link} isExternal href="/support" colorScheme="primary">
         {intl.formatMessage(errorDisplayMessages.contactSupport)}
       </Button>
     </HStack>

@@ -327,7 +327,7 @@ function EmbedEventShow({
                 <LongDescription
                   html={event.longDescription[contentLocale].replace(
                     /<a\s/g,
-                    '<a target="_blank" rel="noopener" ',
+                    '<a target="_blank" rel="noopener nofollow" ',
                   )}
                   links={event.links}
                 />
@@ -462,8 +462,9 @@ function EmbedEventShow({
                           verticalAlign="middle"
                         />
                         <Link
-                          isExternal
                           href={event.location.website}
+                          target="_blank"
+                          rel="noopener nofollow"
                           colorScheme="primary"
                           wordBreak="break-all"
                         >
@@ -480,8 +481,9 @@ function EmbedEventShow({
                           verticalAlign="middle"
                         />
                         <Link
-                          isExternal
                           href={`tel:${event.location.phone}`}
+                          target="_blank"
+                          rel="noopener nofollow"
                           colorScheme="primary"
                         >
                           {event.location.phone}
@@ -498,8 +500,9 @@ function EmbedEventShow({
                       {event.location.links?.map((link) => (
                         <ListItem key={link}>
                           <Link
-                            isExternal
                             href={link}
+                            target="_blank"
+                            rel="noopener nofollow"
                             colorScheme="primary"
                             wordBreak="break-all"
                           >
