@@ -146,7 +146,8 @@ export default class Message {
     if (options && options.latest) {
       request
         .where(`${schemas.message}.conversation_id`, this.conversation.data.id)
-        .orderBy('created_at', 'desc');
+        .orderBy('created_at', 'desc')
+        .orderBy(`${schemas.message}.id`, 'desc');
     }
 
     const row = await request;
