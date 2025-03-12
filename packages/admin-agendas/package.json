@@ -37,6 +37,7 @@
     "lodash": "^4.17.15",
     "mysql": "^2.10.2",
     "rc-switch": "^1.4.2",
+    "react-intersection-observer": "^9.4.1",
     "when": "^3.7.8"
   },
   "devDependencies": {

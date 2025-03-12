@@ -155,6 +155,7 @@ export default (app) => {
           slug: 'params.slug',
         },
       },
+      includeImagePath: true,
     }),
     unauthorizedIP,
   );

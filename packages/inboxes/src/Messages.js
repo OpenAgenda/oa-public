@@ -92,6 +92,7 @@ export default class Messages {
         `${schemas.inboxUser}.inbox_id`,
       )
       .orderBy('created_at', 'desc')
+      .orderBy(`${schemas.message}.id`, 'desc')
       .offset(offset)
       .limit(limit);
 

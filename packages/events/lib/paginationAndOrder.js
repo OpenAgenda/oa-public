@@ -16,7 +16,7 @@ export default (k, nav, options = {}) => {
 
   const [orderField, orderDirection] = order.split('.');
 
-  k.orderBy(snakeCase(orderField), orderDirection);
+  k.orderBy(snakeCase(orderField), orderDirection).orderBy('id', 'desc');
 
   return orderField;
 };

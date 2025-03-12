@@ -1,23 +1,24 @@
-import { getLocaleValue } from '@openagenda/intl';
-import addText from './addText.js';
+import VError from '@openagenda/verror';
+import addAdditionalFieldsOptionedValues from './addAdditionalFieldOptionedValues.js';
 
 export default async function addAdditionalFields(doc, cursor, options = {}) {
   const {
     content,
     agenda,
-    width,
+    width: availableWidth,
     height,
-    margin,
+    margin = 0,
     footerHeight,
     lang,
     simulate,
   } = options;
-  const currentCursor = { ...cursor };
+
+  const localCursor = { ...cursor };
 
   const availableHeight = height - margin - footerHeight;
 
   const fields = Object.values(agenda.schema.fields);
-  const eventFields = fields
+  const eventFieldsWithValues = fields
     .filter((field) => field.schemaType !== 'event')
     .filter((field) => field.field in content.event)
     .filter(
@@ -25,83 +26,64 @@ export default async function addAdditionalFields(doc, cursor, options = {}) {
         !content.remainingFields
         || content.remainingFields.find((f) => f.field === field.field),
     )
-    .filter((field) => !!field.options); // non-optionned types are not handled for the time being
-  const remainingFields = eventFields;
-  let index = 0;
-  let accumulatedHeight = 0;
-  let maxWidth = 0;
+    .filter((field) => !!field.options) // non-optionned types are not handled for the time being
+    .map((field) => ({
+      field,
+      values: [].concat(content.event[field.field] ?? []),
+    }))
+    .filter(({ values }) => values.length)
+    .map((fieldValues, index) => ({ ...fieldValues, index }));
 
-  while (index < remainingFields.length) {
-    const field = remainingFields[index];
-    const eventAdditionalField = [].concat(content.event[field.field]);
-    if (eventAdditionalField) {
-      const simulateFieldTitle = await addText(doc, cursor, {
-        content: getLocaleValue(field.label, lang),
-        width,
-        bold: true,
+  let blockHeight = 0;
+  let blockWidth = 0;
+
+  for (const { field, values, index } of eventFieldsWithValues) {
+    try {
+      const { height: simulatedHeight } = await addAdditionalFieldsOptionedValues(doc, localCursor, {
+        field,
+        values,
         lang,
+        availableWidth,
         simulate: true,
       });
 
-      accumulatedHeight += simulateFieldTitle.height;
-      maxWidth = Math.max(maxWidth, simulateFieldTitle.width);
-
-      for (const fieldValueId of eventAdditionalField) {
-        const option = field.options.find((opt) => opt.id === fieldValueId);
-
-        const simulateFieldValue = await addText(doc, cursor, {
-          content: getLocaleValue(option.label, lang),
-          width,
-          lang,
-          simulate: true,
-        });
-
-        accumulatedHeight += simulateFieldValue.height;
-        maxWidth = Math.max(maxWidth, simulateFieldValue.width);
-      }
-      if (currentCursor.y + accumulatedHeight > availableHeight) {
-        cursor.y = currentCursor.y;
+      if (localCursor.y + blockHeight + simulatedHeight > availableHeight) {
         return {
-          remainingFields: remainingFields.slice(index),
-          width: maxWidth,
-          height: accumulatedHeight,
+          remainingFields: eventFieldsWithValues
+            .slice(index)
+            .map(({ field: remainingField }) => remainingField),
+          width: blockWidth,
+          height: blockHeight,
         };
       }
-      accumulatedHeight += margin / 6;
 
-      const fieldTitle = await addText(doc, cursor, {
-        content: getLocaleValue(field.label, lang),
-        width,
-        bold: true,
-        lang,
-        simulate,
-      });
-
-      cursor.y += fieldTitle.height;
-
-      for (const fieldValueId of eventAdditionalField) {
-        const option = field.options.find((opt) => opt.id === fieldValueId);
-
-        const fieldValue = await addText(doc, cursor, {
-          content: getLocaleValue(option.label, lang),
-          width,
+      const fieldValuesBlock = await addAdditionalFieldsOptionedValues(
+        doc,
+        localCursor,
+        {
+          field,
+          values,
           lang,
+          availableWidth,
           simulate,
-        });
+        },
+      );
 
-        cursor.y += fieldValue.height;
-      }
-      cursor.y += margin / 6;
+      blockWidth += fieldValuesBlock.width;
+      blockHeight += fieldValuesBlock.height + margin / 6;
+
+      localCursor.y = cursor.y + blockHeight;
+    } catch (error) {
+      throw new VError(
+        { info: { error, field } },
+        'Failed to add additional field',
+      );
     }
-
-    index += 1;
   }
-
-  cursor.y = currentCursor.y;
 
   return {
     remainingFields: [],
-    width: maxWidth,
-    height: accumulatedHeight,
+    width: blockWidth,
+    height: blockHeight,
   };
 }

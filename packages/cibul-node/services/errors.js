@@ -24,6 +24,8 @@ function handler(namespace, err, req) {
       });
     }
 
+    // log(JSON.stringify(error, null, 2));
+
     log.error(obj);
   }
 }

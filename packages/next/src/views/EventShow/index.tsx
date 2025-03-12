@@ -515,8 +515,9 @@ function EventShow({ preload }: EventShowProps) {
                             verticalAlign="middle"
                           />
                           <Link
-                            isExternal
                             href={event.location.website}
+                            target="_blank"
+                            rel="noopener nofollow"
                             colorScheme="primary"
                             wordBreak="break-all"
                           >
@@ -533,8 +534,9 @@ function EventShow({ preload }: EventShowProps) {
                             verticalAlign="middle"
                           />
                           <Link
-                            isExternal
                             href={`tel:${event.location.phone}`}
+                            target="_blank"
+                            rel="noopener nofollow"
                             colorScheme="primary"
                           >
                             {event.location.phone}
@@ -551,8 +553,9 @@ function EventShow({ preload }: EventShowProps) {
                         {event.location.links?.map((link) => (
                           <ListItem key={link}>
                             <Link
-                              isExternal
                               href={link}
+                              target="_blank"
+                              rel="noopener nofollow"
                               colorScheme="primary"
                               wordBreak="break-all"
                             >

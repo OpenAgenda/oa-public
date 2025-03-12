@@ -55,7 +55,12 @@ function LinkField({ field }) {
   }[field.fieldType];
 
   return field.value ? (
-    <Link isExternal href={`${prefix}${field.value}`} color="primary.500">
+    <Link
+      href={`${prefix}${field.value}`}
+      target="_blank"
+      rel="noopener nofollow"
+      color="primary.500"
+    >
       {field.value}
     </Link>
   ) : (
@@ -106,8 +111,9 @@ function FileField({ field }) {
 
   return value ? (
     <Link
-      isExternal
       href={value.link}
+      target="_blank"
+      rel="noopener nofollow"
       color="primary.500"
       download={value.originalName}
     >

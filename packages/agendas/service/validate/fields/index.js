@@ -745,6 +745,12 @@ module.exports = [
         type: 'boolean',
         default: false,
       },
+      {
+        field: 'keepActivities',
+        description: 'Keeps activities for an indefinite period',
+        type: 'boolean',
+        default: false,
+      },
     ],
   },
 ];
