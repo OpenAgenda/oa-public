@@ -39,7 +39,7 @@ create table if not exists location (
   index duplicate_candidates_idx (duplicate_candidates),
   index created_at_idx (created_at),
   index updated_at_idx (updated_at),
-  index ext_ids_idx ((CAST(ext_ids->'$.identifiers' AS CHAR(100) ARRAY))),
+  index ext_ids_idx ((CAST(ext_ids->'$.identifiers' AS CHAR(255) ARRAY))),
   primary key(id)
 ) engine=InnoDB default character set utf8 collate utf8_general_ci;
 

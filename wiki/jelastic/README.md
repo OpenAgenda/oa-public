@@ -119,7 +119,7 @@ Pour mettre à jour node sur les noeuds déjà déployés, il suffit de reprendr
 Ex:
 
 ```
-export NODE_MAJOR=20
+export NODE_MAJOR=22
 
 mkdir -p /etc/apt/keyrings \
   && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \

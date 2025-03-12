@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { Spinner } from '@openagenda/react-shared';
 import AgendaItem from '@openagenda/admin-agendas/components/src/AgendaItem';
 
@@ -14,8 +15,17 @@ export default function Search({
   loading,
   onSelectAgenda,
   onSearchChange,
+  getSearchPage,
 }) {
   const searchRef = useRef(null);
+
+  const { ref: infiniteRef } = useInView({
+    onChange: (inView) => {
+      if (inView && !loading) {
+        getSearchPage(true);
+      }
+    }
+  });
 
   return (
     <div className="col-md-3 admin-search" ref={searchRef}>
@@ -46,7 +56,7 @@ export default function Search({
       </div>
 
       <div className="row">
-        <div className="body media-list">
+        <div className="body media-list margin-bottom-xs">
           {agendas?.length ? (
             agendas.map((agenda) => (
               <AgendaItem
@@ -60,6 +70,7 @@ export default function Search({
               <p>Aucun agenda correspondant à cette recherche</p>
             </div>
           )}
+          <div ref={infiniteRef} />
         </div>
       </div>
     </div>

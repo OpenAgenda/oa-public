@@ -169,7 +169,11 @@ export default function AgendaHeader({ agenda }) {
 
         <Text>{nl2br(agenda.description)}</Text>
 
-        {agenda.url ? <Link href={agenda.url}>{agenda.url}</Link> : null}
+        {agenda.url ? (
+          <Link href={agenda.url} target="_blank" rel="noopener nofollow">
+            {agenda.url}
+          </Link>
+        ) : null}
 
         <Wrap shouldWrapChildren mt="4 !important" justify="center">
           {/* !important to overwrite Stack spacing */}

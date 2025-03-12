@@ -25,6 +25,6 @@ module.exports = (k, nav, options = {}) => {
   if (orderParts[0] === 'createdAt') {
     k.orderBy('id', orderParts[1]);
   } else if (orderParts[0] === 'name') {
-    k.orderBy('placename', orderParts[1]);
+    k.orderBy('placename', orderParts[1]).orderBy('id', 'desc');
   }
 };

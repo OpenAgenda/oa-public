@@ -25,6 +25,15 @@ export async function init(config, services) {
       isUnsubscribed: () => false,
       prepareSummary,
       sendSummary: (...args) => sendSummary(config, services, ...args),
+      listAgendasThatKeepActivities: async () =>
+        (
+          await services.agendas.list(
+            { credentials: { keepActivities: true } },
+            0,
+            Number.MAX_SAFE_INTEGER,
+            { private: null, onlyIncludeFields: ['uid'] },
+          )
+        ).agendas,
     },
     services, // used in mask
     activities: activitiesConfig,

@@ -1,7 +1,21 @@
 import _ from 'lodash';
 import debug from 'debug';
 import { useState, useCallback, useEffect, useMemo } from 'react';
-import { DragDropProvider } from '@dnd-kit/react';
+
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 
 import { unloadWarning } from '@openagenda/react-shared';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
@@ -76,6 +90,17 @@ const FormSchemaBuilder = ({
   onSuccess,
   res,
 }) => {
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
+
   // Helper functions
   const getSchema = useCallback((schemaState) => {
     const defaultSchema = { fields: [] };
@@ -120,6 +145,7 @@ const FormSchemaBuilder = ({
   const [mode, setMode] = useState(null);
   const [activeItemSlug, setActiveItemSlug] = useState(null);
   const [addToEnd, setAddToEnd] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     if (isObjectWithKeys(devState)) {
@@ -151,12 +177,17 @@ const FormSchemaBuilder = ({
   );
 
   // Event handlers
-  const handleAccordionToggle = useCallback((field) => {
-    const slug = getFormItemSlug(field);
-    setActiveItemSlug((prev) => (prev === slug ? null : slug));
-  }, []);
+  const handleAccordionToggle = useCallback(
+    (field) => {
+      if (isDragging) return;
+      const slug = getFormItemSlug(field);
+      setActiveItemSlug((prev) => (prev === slug ? null : slug));
+    },
+    [isDragging],
+  );
 
   const handleSave = useCallback(() => {
+    if (isDragging) return;
     updateSaveState(saveStates.LOADING);
 
     submit({
@@ -174,11 +205,22 @@ const FormSchemaBuilder = ({
         updateSaveState(saveStates.ERROR);
       },
     );
-  }, [schema, labelLanguages, res, onSuccess, getSchema, updateSaveState]);
+  }, [
+    schema,
+    labelLanguages,
+    res,
+    onSuccess,
+    getSchema,
+    updateSaveState,
+    isDragging,
+  ]);
 
-  const handleFieldEdit = useCallback((field) => {
-    setEditedField(field);
-  }, []);
+  const handleFieldEdit = useCallback(
+    (field) => {
+      if (!isDragging) setEditedField(field);
+    },
+    [isDragging],
+  );
 
   const handleFieldRemove = useCallback(
     (field) => {
@@ -321,46 +363,62 @@ const FormSchemaBuilder = ({
           />
         ) : null}
         <div
-          className={`margin-h-sm list-group field-preview-canvas ${editedField ? ' editing' : ''}`}
+          className={`margin-h-sm list-group field-preview-canvas dnd${editedField ? ' editing' : ''}`}
         >
-          <DragDropProvider
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={() => {
+              setIsDragging(true);
+            }}
             onDragEnd={(event) => {
-              const from = event.operation.source.sortable.initialIndex;
-              const to = event.operation.source.sortable.previousIndex;
-              const reorderedSchema = reorderSchemaFields(
-                getMergedSchema(schema),
-                from,
-                to,
-              );
-              const updatedSchema = insertMissingAbstractFields(
-                getSchema(schema),
-                reorderedSchema,
-              );
-              updateSaveState(saveStates.CHANGED, updatedSchema);
+              const { active, over } = event;
+              if (active.id !== over.id) {
+                const mapped = (mergedSchema?.fields || []).map((f) => f.field);
+                const oldIndex = mapped.indexOf(active.id);
+                const newIndex = mapped.indexOf(over.id);
+                const reorderedSchema = reorderSchemaFields(
+                  getMergedSchema(schema),
+                  oldIndex,
+                  newIndex,
+                );
+                const updatedSchema = insertMissingAbstractFields(
+                  getSchema(schema),
+                  reorderedSchema,
+                );
+                updateSaveState(saveStates.CHANGED, updatedSchema);
+              }
+              setIsDragging(false);
             }}
           >
-            {_.get(mergedSchema, 'fields', []).map((field, index) => (
-              <FieldPreview
-                index={index}
-                disabled={isFieldDisabled(field, disabled)}
-                ordering={mode === modes.ORDERING}
-                field={field}
-                isOwn={isOwnField(schema, field)}
-                editableExtensions={editableExtensions}
-                schemaInfo={extractSchemaInfo(field, extendedFrom)}
-                lang={lang}
-                labelLanguages={labelLanguages}
-                onEdit={() => handleFieldEdit(field)}
-                onHide={() => handleFieldEditSave(field, { display: false })}
-                onShow={() => handleFieldEditSave(field, { display: true })}
-                onRemove={() => handleFieldRemove(field)}
-                onAccordionToggle={() => handleAccordionToggle(field)}
-                active={activeItemSlug === getFormItemSlug(field)}
-                schema={mergedSchema}
-                key={field.field}
-              />
-            ))}
-          </DragDropProvider>
+            <SortableContext
+              items={(mergedSchema?.fields || []).map((f) => f.field)}
+              strategy={verticalListSortingStrategy}
+            >
+              {(mergedSchema?.fields || []).map((field, index) => (
+                <FieldPreview
+                  index={index}
+                  disabled={isFieldDisabled(field, disabled)}
+                  ordering={mode === modes.ORDERING}
+                  field={field}
+                  isOwn={isOwnField(schema, field)}
+                  editableExtensions={editableExtensions}
+                  schemaInfo={extractSchemaInfo(field, extendedFrom)}
+                  lang={lang}
+                  labelLanguages={labelLanguages}
+                  onEdit={() => handleFieldEdit(field)}
+                  onHide={() => handleFieldEditSave(field, { display: false })}
+                  onShow={() => handleFieldEditSave(field, { display: true })}
+                  onRemove={() => handleFieldRemove(field)}
+                  onAccordionToggle={() => handleAccordionToggle(field)}
+                  active={activeItemSlug === getFormItemSlug(field)}
+                  schema={mergedSchema}
+                  key={field.field}
+                  isDragging={isDragging}
+                />
+              ))}
+            </SortableContext>
+          </DndContext>
           {addEnabled ? (
             <div className="padding-v-sm">
               <FieldAddButton

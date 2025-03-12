@@ -4,6 +4,20 @@ const schema = require('@openagenda/validators/schema');
 const integer = require('@openagenda/validators/integer');
 const date = require('@openagenda/validators/date');
 const choice = require('@openagenda/validators/choice');
+const fields = require('./fields');
+
+const credentialFields = fields
+  .find((f) => f.field === 'credentials')
+  .fields.reduce(
+    (credentials, field) => ({
+      ...credentials,
+      [field.field]: {
+        ...field,
+        default: undefined,
+      },
+    }),
+    {},
+  );
 
 schema.register({
   integer,
@@ -48,6 +62,10 @@ module.exports = schema({
   idGreaterThan: {
     type: 'integer',
     default: null,
+  },
+  credentials: {
+    type: 'schema',
+    fields: credentialFields,
   },
   order: {
     type: 'choice',

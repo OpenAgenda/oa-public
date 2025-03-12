@@ -28,7 +28,8 @@ export default function OutlookAccordionItem({ res }) {
               link: (
                 <Link
                   href="https://outlook.com"
-                  isExternal
+                  target="_blank"
+                  rel="noopener nofollow"
                   colorScheme="primary"
                 >
                   Outlook

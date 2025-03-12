@@ -15,9 +15,6 @@ function getQuery() {
 
 function updateHref(query) {
   const defaults = {
-    oas: {
-      search: ''
-    },
     searchPage: 1,
     membersPage: 1,
     tab: 'members'
@@ -27,7 +24,7 @@ function updateHref(query) {
 
   // Nettoyage des paramètres superflus
   if (q.searchPage <= 1) delete q.searchPage;
-  if (q.oas.search === '') delete q.oas.search;
+  if (q.oas?.search === '') delete q.oas.search;
   if (q.membersPage <= 1) delete q.membersPage;
   if (q.tab === 'members') delete q.tab;
 
@@ -102,9 +99,6 @@ export default function Body(props) {
     setLoading(false);
 
     const q = {
-      oas: {
-        search: ''
-      },
       searchPage: 1,
       agendaUid: null,
       agendaId: null,

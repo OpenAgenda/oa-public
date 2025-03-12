@@ -7,7 +7,7 @@ RUN apt-get update -y \
 
 RUN apt-get install -y imagemagick libmagick++-dev libmagic-dev webp
 
-ENV NODE_MAJOR=20
+ENV NODE_MAJOR=22
 
 RUN mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \

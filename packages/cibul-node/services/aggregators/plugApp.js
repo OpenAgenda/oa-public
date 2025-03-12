@@ -92,7 +92,7 @@ export default (config, parentApp) => {
         query,
         (validatePage(req.query.searchPage) - 1) * limit,
         limit,
-        { total: true },
+        { total: true, includeImagePath: true },
         (err, agendasResp, total) => {
           if (err) {
             return next(err);

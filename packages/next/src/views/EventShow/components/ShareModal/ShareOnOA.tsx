@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import qs from 'qs';
 import { useInView } from 'react-intersection-observer';
@@ -29,26 +29,28 @@ export default function ShareOnOA({ agenda, event }) {
     // isValidating,
   } = useSWRInfinite(
     (pageIndex, previousPageData) => {
-      if (previousPageData && previousPageData.agendas?.length < PAGE_SIZE) {
-        // reached the end of second route
-        if (previousPageData.secondRoutePage) return null;
-        // reached the end of first route
-        return ['shareModal', 'agendas', searchValue, pageIndex + 1, 1];
-      }
-
-      // first page, we don't have `previousPageData`
       if (pageIndex === 0) return ['shareModal', 'agendas', searchValue, 1, 0];
 
-      if (previousPageData.secondRoutePage) {
-        return [
-          'shareModal',
-          'agendas',
-          searchValue,
-          pageIndex + 1,
-          previousPageData.secondRoutePage + 1,
-        ];
+      if (previousPageData) {
+        // second route
+        if (
+          !previousPageData.secondRoutePage &&
+          previousPageData.agendas?.length < PAGE_SIZE
+        ) {
+          return ['shareModal', 'agendas', searchValue, pageIndex + 1, 1];
+        }
+        // continue on second route
+        if (previousPageData.secondRoutePage) {
+          return [
+            'shareModal',
+            'agendas',
+            searchValue,
+            pageIndex + 1,
+            previousPageData.secondRoutePage + 1,
+          ];
+        }
       }
-
+      // continue on first route
       return ['shareModal', 'agendas', searchValue, pageIndex + 1, 0];
     },
     ([_comp, _requestId, search, page, secondRoutePage]) => {
@@ -83,22 +85,17 @@ export default function ShareOnOA({ agenda, event }) {
     },
   );
 
-  // reset page size on unmount
-  useEffect(
-    () => () => {
-      setSize(1);
-    },
-    [setSize],
-  );
-
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
-  const isEmpty = pages?.[0]?.agendas?.length === 0;
-  const isReachingEnd = isEmpty
-    || (pages
-      && pages[pages.length - 1]?.secondRoutePage
-      && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
+  // const isEmpty = pages
+  //   && pages[pages.length - 1]?.secondRoutePage
+  //   && pages[pages.length - 1]?.agendas?.length === 0;
+  const isReachingEnd =
+    pages &&
+    pages[pages.length - 1]?.secondRoutePage &&
+    pages[pages.length - 1]?.agendas?.length < PAGE_SIZE;
 
   const { ref } = useInView({
     onChange: (inView) => {
@@ -137,7 +134,8 @@ export default function ShareOnOA({ agenda, event }) {
                 targetAgenda={targetAgenda}
                 event={event}
               />
-            )))}
+            )),
+        )}
       </VStack>
 
       <div ref={ref} />

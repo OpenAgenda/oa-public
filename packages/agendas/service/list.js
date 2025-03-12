@@ -9,6 +9,9 @@ const dbParse = mapper(map);
 
 const validateQuery = require('./validate/listQuery');
 const validateOptions = require('./validate/listOptions');
+const fields = require('./validate/fields');
+
+const credentialFields = fields.find((f) => f.field === 'credentials').fields;
 
 let service;
 let schemas;
@@ -57,6 +60,38 @@ function _search(k, query, options) {
   }
   if (query.idGreaterThan) {
     k.where('id', '>', query.idGreaterThan);
+  }
+  if (query.credentials) {
+    // Only to remove eslint error "no-loop-func" on knex
+    const safeKnex = knex;
+
+    for (const key in query.credentials) {
+      if (!Object.hasOwn(query.credentials, key)) {
+        continue;
+      }
+      const value = query.credentials[key];
+      if (typeof value !== 'boolean') {
+        continue;
+      }
+      k.where((builder) => {
+        builder.whereRaw('JSON_CONTAINS(credentials, ?, ?)', [
+          query.credentials[key].toString(),
+          `$.${key}`,
+        ]);
+
+        const defaultValue = credentialFields.find(
+          (field) => field.field === key,
+        ).default;
+
+        if (query.credentials[key] === defaultValue) {
+          builder.orWhereNot(
+            safeKnex.raw("JSON_CONTAINS_PATH(credentials, 'all', ?)", [
+              `$.${key}`,
+            ]),
+          );
+        }
+      });
+    }
   }
 
   if (!query.search) return k;
@@ -139,11 +174,14 @@ async function promise(query, offset, limit, options = {}) {
   const total = cleanOptions.total ? await _total(k) : null;
 
   if (cleanQuery.order) {
-    k.orderBy.call(k, ...cleanQuery.order.split('.').map(_.snakeCase));
+    k.orderBy(...cleanQuery.order.split('.').map(_.snakeCase)).orderBy(
+      'id',
+      'desc',
+    );
   } else if (cleanOptions.offsetAsLastId) {
     k.orderBy('id', 'asc');
   } else {
-    k.orderBy('updated_at', 'desc');
+    k.orderBy('updated_at', 'desc').orderBy('id', 'desc');
   }
 
   k.limit(limit || 0);

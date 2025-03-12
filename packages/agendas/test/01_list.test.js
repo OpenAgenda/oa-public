@@ -244,6 +244,22 @@ describe('agendas - functional (server): list', () => {
     });
   });
 
+  it('list with credentials', async () => {
+    const { agendas } = await svc.list(
+      {
+        credentials: {
+          moderators: true,
+          docxExport: false,
+        },
+      },
+      0,
+      10,
+      { private: null, includeFields: ['credentials'] },
+    );
+
+    expect(agendas.length).toBe(1);
+  });
+
   it('list ordered by createdAt.desc gets newest agenda listed first', async () => {
     const { agendas } = await svc.list({ order: 'createdAt.desc' }, 0, 10);
 
