@@ -1,14 +1,25 @@
 .dnd {
+  .drag-overlay {
+    width: 100%;
+    background: $oa-white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
   .list-group-item {
     background-color: inherit;
     padding: 0;
     border: none;
-
+    position: relative;
+    will-change: transform;
 
     .list-group-item-content {
-      background-color: $oa-white;
-      padding: 10px 15px;
+      background-color: $oa-white !important;
+      padding: 12px 15px;
       border: 1px solid $oa-gray-light;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 50px;
 
       &.disabled {
         background-color: $oa-gray-lighter;
@@ -22,20 +33,26 @@
           visibility: hidden;
           width: 1em;
           position: absolute;
-          left: 0;
-          top: 0;
+          left: 8px;
+          top: 50%;
+          transform: translateY(-50%);
           display: flex;
           flex-direction: column;
           justify-content: center;
           height: 100%;
-          content: "⋮";
+          content: "\22EE"; /* Vertical ellipsis */
           font-size: 1.2em;
           font-weight: bold;
           color: $oa-gray;
+          text-align: center;
         }
 
         &:hover {
           background-color: $oa-gray-lightest;
+        }
+
+        &.disabled:hover {
+          background-color: darken($oa-gray-lighter, 10%);
         }
 
         &:hover:before,
@@ -51,6 +68,7 @@
         border-top-right-radius: 4px;
       }
     }
+
     &:last-child {
       .list-group-item-content {
         border-bottom-left-radius: 4px;
