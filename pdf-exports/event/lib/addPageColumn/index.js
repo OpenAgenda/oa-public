@@ -1,3 +1,5 @@
+import VError from '@openagenda/verror';
+
 import addText from '../addText.js';
 import imagePositioning from '../imagePositioning.js';
 import addMarkdownDescription from '../addMarkdownDescription.js';
@@ -5,9 +7,13 @@ import addCalendar from '../addCalendar.js';
 import addRegistration from '../addRegistration.js';
 import addAdditionalFields from '../addAdditionalFields.js';
 import addStatus from '../addStatus.js';
-import addLocation from '../addLocation.js';
+import addLocationSection from '../addLocation/addLocationSection.js';
+import addTagsSection from '../addLocation/addTagsSection.js';
+import addContactSection from '../addLocation/addContactSection.js';
+import addAdditionalLinksSection from '../addLocation/addAdditionalLinksSection.js';
 import truncate from '../truncate.js';
 import addContentItem from './addContentItem.js';
+
 import isOverflowing from './isOverflowing.js';
 
 const addFunctions = {
@@ -18,7 +24,10 @@ const addFunctions = {
   addStatus,
   addRegistration,
   addAdditionalFields,
-  addLocation,
+  addLocationSection,
+  addTagsSection,
+  addContactSection,
+  addAdditionalLinksSection,
 };
 
 export default async function addPageColumn(doc, cursor, config, options = {}) {
@@ -39,63 +48,83 @@ export default async function addPageColumn(doc, cursor, config, options = {}) {
   let hasReachedBottom = false;
 
   for (const contentItem of content) {
-    const addFn = addFunctions[contentItem.addFn];
-    if (!addFn) {
-      throw new Error(`addFn '${contentItem.addFn}' missing`);
-    }
+    try {
+      const addFn = addFunctions[contentItem.addFn];
+      if (!addFn) {
+        throw new Error(`addFn '${contentItem.addFn}' missing`);
+      }
 
-    if (hasReachedBottom) {
-      remainingContent.push(contentItem);
-      continue;
-    }
+      if (hasReachedBottom) {
+        remainingContent.push(contentItem);
+        continue;
+      }
 
-    const remainingHeight = doc.page.height - cursor.y;
-
-    if (
-      await isOverflowing(doc, cursor, addFn, contentItem, {
-        addFunctions,
-        columnWidth,
-        iconHeightAndWidth,
-        margin,
-        footerHeight,
-        intl,
-        lang,
-      })
-    ) {
-      hasReachedBottom = true;
-      if (contentItem.truncable) {
-        const [beforeOverflow, afterOverflow] = await truncate(
-          doc,
-          cursor,
-          addFn,
-          contentItem,
-          remainingHeight,
-          { columnWidth, iconHeightAndWidth, margin, footerHeight, intl, lang },
-        );
-        await addContentItem(doc, cursor, addFn, addFunctions, beforeOverflow, {
+      const remainingHeight = doc.page.height - cursor.y;
+      if (
+        await isOverflowing(doc, cursor, addFn, contentItem, {
+          addFunctions,
           columnWidth,
           iconHeightAndWidth,
           margin,
           footerHeight,
           intl,
           lang,
-          simulate,
-        });
-        remainingContent.push(afterOverflow);
-      } else {
-        remainingContent.push(contentItem);
+        })
+      ) {
+        hasReachedBottom = true;
+        if (contentItem.truncable) {
+          const [beforeOverflow, afterOverflow] = await truncate(
+            doc,
+            cursor,
+            addFn,
+            contentItem,
+            remainingHeight,
+            {
+              columnWidth,
+              iconHeightAndWidth,
+              margin,
+              footerHeight,
+              intl,
+              lang,
+            },
+          );
+          await addContentItem(
+            doc,
+            cursor,
+            addFn,
+            addFunctions,
+            beforeOverflow,
+            {
+              columnWidth,
+              iconHeightAndWidth,
+              margin,
+              footerHeight,
+              intl,
+              lang,
+              simulate,
+            },
+          );
+          remainingContent.push(afterOverflow);
+        } else {
+          remainingContent.push(contentItem);
+        }
+        continue;
       }
-      continue;
+      await addContentItem(doc, cursor, addFn, addFunctions, contentItem, {
+        columnWidth,
+        iconHeightAndWidth,
+        margin,
+        footerHeight,
+        intl,
+        lang,
+        simulate,
+      });
+    } catch (error) {
+      throw new VError(
+        { info: { contentItem, error } },
+        'failed to generate content item',
+      );
     }
-    await addContentItem(doc, cursor, addFn, addFunctions, contentItem, {
-      columnWidth,
-      iconHeightAndWidth,
-      margin,
-      footerHeight,
-      intl,
-      lang,
-      simulate,
-    });
   }
   cursor.y = initialY;
   return remainingContent;
