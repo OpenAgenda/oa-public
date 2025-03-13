@@ -17,7 +17,7 @@ interface AccordionSetProps {
   variant?: string;
   Components: Array<any>;
   backgroundColor?: Color;
-  accordionColor?: Color;
+  contentColor?: Color;
   useAccordion?: boolean;
 }
 
@@ -30,7 +30,7 @@ export default function AccordionSet({
   variant = 'link',
   Components,
   backgroundColor,
-  accordionColor,
+  contentColor,
   useAccordion,
 }: AccordionSetProps) {
   if (!useAccordion) return null;
@@ -53,7 +53,7 @@ export default function AccordionSet({
               key={Component.id}
               {...Component}
               variant={variant}
-              accordionColor={color(accordionColor) || 'black'}
+              contentColor={color(contentColor) || 'black'}
             />
           ))}
         </Accordion>

@@ -18,7 +18,7 @@ export default function Accordion({
   CTA,
   contentAlign = null,
   variant = 'link',
-  accordionColor,
+  contentColor,
 }) {
   return (
     <AccordionItem sx={{ border: 'none' }}>
@@ -31,17 +31,17 @@ export default function Accordion({
             alignItems="center"
             p={4}
           >
-            {Icon ? <IconComponent {...Icon} color={accordionColor} /> : null}
+            {Icon ? <IconComponent {...Icon} color={contentColor} /> : null}
             <Heading
               textAlign={contentAlign}
               fontSize="140%"
               ml={Icon ? 4 : 0}
-              color={accordionColor}
+              color={contentColor}
             >
               {title}
             </Heading>
           </Box>
-          <AccordionIcon color={accordionColor} />
+          <AccordionIcon color={contentColor} />
         </AccordionButton>
       </h2>
       <AccordionPanel padding={8}>
@@ -52,7 +52,7 @@ export default function Accordion({
             display="flex"
             flexDirection="column"
             style={{ listStylePosition: 'inside' }}
-            color={color(accordionColor) || 'black'}
+            color={color(contentColor) || 'black'}
           >
             <ReactMarkdown>{description}</ReactMarkdown>
           </Box>
