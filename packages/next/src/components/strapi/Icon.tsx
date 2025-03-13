@@ -83,12 +83,14 @@ interface IconProps {
   name: string;
   size?: string;
   style?: 'solid' | 'regular' | 'thin';
+  color?: string;
 }
 
 export default function Icon({
   name,
   size = 'fa-1x',
   style = 'solid',
+  color,
 }: IconProps) {
   const iconSet =
     {
@@ -100,5 +102,5 @@ export default function Icon({
   // Remove 'fa-' prefix from size before passing to FaIcon
   const normalizedSize = size.replace('fa-', '') as SizeProp;
 
-  return <FaIcon icon={iconSet[name]} size={normalizedSize} />;
+  return <FaIcon icon={iconSet[name]} size={normalizedSize} color={color} />;
 }
