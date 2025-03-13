@@ -9,7 +9,6 @@ import './sentry.config.js';
 
 import { randomBytes } from 'node:crypto';
 import logs from '@openagenda/logs';
-import Sentry from '@sentry/node';
 import express from 'express';
 import helmet from 'helmet';
 import { NotFound } from '@openagenda/verror';
@@ -137,7 +136,6 @@ try {
       .use(
         '/v2',
         logContextMw.withContext,
-        Sentry.Handlers.requestHandler(),
         secureHeaders,
         logRequestMw,
         setAPIType('standalone'),

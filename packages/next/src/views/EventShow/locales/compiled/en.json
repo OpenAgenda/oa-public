@@ -615,36 +615,6 @@
       "value": "Access the pass Culture offer"
     }
   ],
-  "next.views.EventShow.Sidebar.accessibleToHearing": [
-    {
-      "type": 0,
-      "value": "Accessible to the hearing impaired"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToIntellectually": [
-    {
-      "type": 0,
-      "value": "Accessible to the intellectually impaired"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToMotor": [
-    {
-      "type": 0,
-      "value": "Accessible to the motor impaired"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToPsychic": [
-    {
-      "type": 0,
-      "value": "Accessible to the psychic impaired"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToVisually": [
-    {
-      "type": 0,
-      "value": "Accessible to the visually impaired"
-    }
-  ],
   "next.views.EventShow.Sidebar.completeLink": [
     {
       "type": 0,

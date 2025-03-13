@@ -615,36 +615,6 @@
       "value": "Accedir a l'ofèrta pass Culture"
     }
   ],
-  "next.views.EventShow.Sidebar.accessibleToHearing": [
-    {
-      "type": 0,
-      "value": "Accessible a las personas amb un handicap auditiu"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToIntellectually": [
-    {
-      "type": 0,
-      "value": "Accessible a las personas amb un handicap intellectual"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToMotor": [
-    {
-      "type": 0,
-      "value": "Accessible a las personas amb un handicap motor"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToPsychic": [
-    {
-      "type": 0,
-      "value": "Accessible a las personas amb un handicap psiquic"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToVisually": [
-    {
-      "type": 0,
-      "value": "Accessible a las personas amb un handicap visual"
-    }
-  ],
   "next.views.EventShow.Sidebar.completeLink": [
     {
       "type": 0,
