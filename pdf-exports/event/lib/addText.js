@@ -24,7 +24,6 @@ export default function addText(doc, cursor, options = {}) {
     simulate = false,
     bold = false,
     medium = false,
-    debug = false,
   } = options;
 
   let selectedFont;
@@ -37,10 +36,6 @@ export default function addText(doc, cursor, options = {}) {
   }
 
   doc.font(selectedFont).fontSize(fontSize ?? base.fontSize);
-
-  if (debug) {
-    console.log(`add text "${content}" at ${cursor.x}:${cursor.y}${simulate ? ' (simulate)' : ''}`);
-  }
 
   if (!simulate) {
     doc
