@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import qs from 'qs';
-import Sentry from '@sentry/node';
 import * as logContextMw from './lib/logContextMw.js';
 
 const app = express();
@@ -15,7 +14,6 @@ app
   .set('query parser', (str) =>
     qs.parse(str, { allowPrototypes: true, arrayLimit: Infinity }))
   .use(logContextMw.withContext)
-  .use(Sentry.Handlers.requestHandler())
   .use(bodyParser.json({ limit: '5mb', verify: rawBodySaver }))
   .use(
     bodyParser.urlencoded({
