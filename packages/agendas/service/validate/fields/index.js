@@ -710,7 +710,8 @@ module.exports = [
       },
       {
         field: 'invitationMessage',
-        description: 'Members invitation message can be customized',
+        description:
+          'Customizable members invitation message, contribution instruction, completion and publication, members grouped messaging',
         type: 'boolean',
         default: false,
       },
