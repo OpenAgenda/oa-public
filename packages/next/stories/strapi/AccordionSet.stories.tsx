@@ -63,7 +63,7 @@ export function Overview() {
           name: 'teal',
           swatch: '200',
         }}
-        accordionColor={{
+        contentColor={{
           name: 'teal',
           swatch: '800',
         }}
