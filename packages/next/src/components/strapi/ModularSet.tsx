@@ -1,7 +1,14 @@
 import { Heading, Grid, GridItem, Text } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 import Modular from './Modular';
 import SegmentContainer from './SegmentContainer';
 import CTAButton from './CTAButton';
+import Carousel from './Carousel';
+
+interface Color {
+  name: string;
+  swatch?: string;
+}
 
 interface ModularSetProps {
   title: string;
@@ -11,6 +18,8 @@ interface ModularSetProps {
   backgroundColor?: string;
   fontColor?: string;
   alignHeight?: boolean;
+  useCarousel?: boolean;
+  carouselBgColor?: Color;
 }
 
 export default function ModularSet({
@@ -21,6 +30,8 @@ export default function ModularSet({
   backgroundColor,
   fontColor,
   alignHeight,
+  useCarousel,
+  carouselBgColor,
 }: ModularSetProps) {
   return (
     <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
@@ -32,18 +43,35 @@ export default function ModularSet({
           {description}
         </Text>
       )}
-      <Grid display="flex" gap={8} p={8} alignItems="stretch">
-        {Components.map((Component) => (
-          <GridItem
-            key={Component.id}
-            w="full"
-            justifyItems="center"
-            flex={Component.grow || 1}
-          >
-            <Modular {...Component} alignHeight={alignHeight} />
-          </GridItem>
-        ))}
-      </Grid>
+      {useCarousel ? (
+        <Carousel backgroundColor={color(carouselBgColor)}>
+          {Components.map((Component) => (
+            <Modular
+              {...Component}
+              key={Component.id}
+              alignHeight={alignHeight}
+              useCarousel={useCarousel}
+            />
+          ))}
+        </Carousel>
+      ) : (
+        <Grid display="flex" gap={8} p={8} alignItems="stretch">
+          {Components.map((Component) => (
+            <GridItem
+              key={Component.id}
+              w="full"
+              justifyItems="center"
+              flex={Component.grow || 1}
+            >
+              <Modular
+                {...Component}
+                alignHeight={alignHeight}
+                useCarousel={useCarousel}
+              />
+            </GridItem>
+          ))}
+        </Grid>
+      )}
       {CTA ? (
         <Grid templateColumns="1fr" justifyItems="center" w="full">
           <CTAButton {...CTA} />

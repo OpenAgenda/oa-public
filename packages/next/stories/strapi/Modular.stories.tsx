@@ -66,6 +66,7 @@ export function Overview() {
           {...fx.default}
           card
           maxWidth={{ name: 'xs' }}
+          variant="outline"
           Illustration={{
             image: {
               url: '/rectanglePhteven.jpg',
@@ -118,7 +119,30 @@ export function Overview() {
             size: '3x',
             style: 'thin',
           }}
-          titleAlign="center"
+          contentAlign="center"
+        />
+      </GridItem>
+      <GridItem w="full" justifyItems="center" flex="1 1 33.333%">
+        <Modular
+          card
+          maxWidth={{ name: 'md' }}
+          title="Phteven"
+          Icon={{
+            name: 'chart-network',
+            size: '1x',
+            style: 'normal',
+          }}
+          Tag="Un tag"
+          tagColor={{
+            name: 'primary',
+            swatch: '500',
+          }}
+          contentAlign="left"
+          description="Également connu sous le nom de **Tuna**, Phteven est un chien devenu célèbre sur Internet en raison de son apparence distinctive et de son sourire particulier. Sa popularité a inspiré la création de mèmes humoristiques, souvent utilisés pour exprimer des situations comiques ou des jeux de mots. Par exemple, des générateurs de mèmes en ligne permettent aux utilisateurs de créer leurs propres versions en utilisant l'image de Ptheven."
+          CTA={{
+            label: 'Voir plus',
+            link: 'https://duckduckgo.com/?t=ffab&q=phteven&iax=images&ia=images',
+          }}
         />
       </GridItem>
     </Grid>

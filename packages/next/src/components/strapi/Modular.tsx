@@ -5,17 +5,38 @@ import CTAButton from './CTAButton';
 import IllustrationComponent from './Illustration';
 import IconComponent from './Icon';
 
-const Wrapper = ({ children, card, maxWidth = 'sm', bg, alignHeight }) => {
+const Wrapper = ({
+  children,
+  card,
+  maxWidth = 'sm',
+  width = 'sm',
+  bg,
+  alignHeight,
+  borderRadius,
+  useCarousel,
+}) => {
   if (!card) {
     return (
-      <Box maxW={maxWidth} bg={bg} height={alignHeight && 'full'}>
+      <Box
+        w={width}
+        maxW={maxWidth}
+        bg={useCarousel ? 'transparent' : bg}
+        height={alignHeight && 'full'}
+      >
         {children}
       </Box>
     );
   }
+
   return (
-    <Card maxW={maxWidth} bg={bg} height={alignHeight && 'full'}>
-      <CardBody>{children}</CardBody>
+    <Card
+      w={width}
+      maxW={maxWidth}
+      bg={useCarousel ? 'transparent' : bg}
+      height={alignHeight && 'full'}
+      borderRadius={borderRadius}
+    >
+      <CardBody p={8}>{children}</CardBody>
     </Card>
   );
 };
@@ -26,42 +47,83 @@ export default function Modular({
   Illustration = null,
   CTA = null,
   Icon = null,
+  Tag = null,
   card = false,
   maxWidth = { name: 'sm' },
+  width = { name: 'sm' },
   backgroundColor = null,
+  tagColor = null,
   fontColor = null,
   fontSize = null,
-  titleAlign = null,
+  contentAlign = null,
   alignHeight = false,
+  borderRadius = '2xl',
+  variant = 'solid',
+  useCarousel = false,
 }) {
   return (
     <Wrapper
-      card={card}
+      card={useCarousel ? false : card}
       maxWidth={maxWidth?.name}
+      width={width?.name}
       bg={color(backgroundColor)}
       alignHeight={alignHeight}
+      borderRadius={borderRadius}
+      useCarousel={useCarousel}
     >
       <VStack
         spacing="3"
-        align="center"
-        textAlign="left"
+        align={
+          contentAlign === 'left'
+            ? 'start'
+            : contentAlign === 'right'
+              ? 'end'
+              : 'center'
+        }
+        textAlign={contentAlign}
         color={color(fontColor)}
         fontSize={fontSize?.name}
         height="full"
       >
-        {Icon ? <IconComponent {...Icon} /> : null}
+        {Tag ? (
+          <Box
+            display="flex"
+            alignItems="center"
+            gap={2}
+            bg={tagColor ? `${tagColor.name}.200` : null}
+            color={tagColor ? `${tagColor.name}.800` : null}
+            px={4}
+            py={2}
+            borderRadius="full"
+          >
+            {Icon && (
+              <IconComponent
+                {...Icon}
+                color={tagColor ? `${tagColor.name}.800` : null}
+              />
+            )}
+            {Tag}
+          </Box>
+        ) : null}
+        {Icon && !Tag ? <IconComponent {...Icon} /> : null}
         {Illustration ? <IllustrationComponent {...Illustration} /> : null}
         <Box
           flex={1}
           width="full"
           display="flex"
-          alignItems="center"
-          justifyContent="center"
+          alignItems={
+            contentAlign === 'left'
+              ? 'flex-start'
+              : contentAlign === 'right'
+                ? 'flex-end'
+                : 'center'
+          }
+          justifyContent="space-around"
           flexDirection="column"
           gap={4}
         >
           {title ? (
-            <Heading textAlign={titleAlign} fontSize="160%">
+            <Heading textAlign={contentAlign} fontSize="160%">
               {title}
             </Heading>
           ) : null}
@@ -76,7 +138,7 @@ export default function Modular({
               <ReactMarkdown>{description}</ReactMarkdown>
             </Box>
           ) : null}
-          {CTA ? <CTAButton {...CTA} /> : null}
+          {CTA ? <CTAButton {...CTA} variant={variant} /> : null}
         </Box>
       </VStack>
     </Wrapper>

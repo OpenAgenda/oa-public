@@ -5348,6 +5348,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/verror": "npm:^3.1.0"
     axios: "npm:^0.21.1"
     date-fns: "npm:^2.29.3"
     lodash: "npm:^4.17.21"
