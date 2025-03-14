@@ -45,7 +45,7 @@
       "repeatable": false,
       "component": "components.icon"
     },
-    "titleAlign": {
+    "contentAlign": {
       "type": "enumeration",
       "enum": ["left", "center", "right"],
       "default": "center"
@@ -59,6 +59,26 @@
       "type": "integer",
       "default": 1,
       "max": 5
+    },
+    "Tag": {
+      "type": "string"
+    },
+    "width": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
+    },
+    "tagColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "alignHeight": {
+      "type": "boolean"
+    },
+    "borderRadius": {
+      "type": "enumeration",
+      "enum": ["none", "sm", "md", "lg", "xl", "full"]
     }
   }
 }
