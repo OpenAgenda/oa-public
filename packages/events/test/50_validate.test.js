@@ -277,7 +277,7 @@ describe('validate', () => {
       ]);
     });
 
-    it('passData protected', async () => {
+    it('passData maintained', async () => {
       const { compiled } = await compileForValidation(
         {
           registration: [
@@ -303,7 +303,7 @@ describe('validate', () => {
     });
   });
 
-  it('passData protection work with list of obj', async () => {
+  it('maintain passData work with list of obj', async () => {
     const { compiled } = await compileForValidation(
       {
         registration: [
