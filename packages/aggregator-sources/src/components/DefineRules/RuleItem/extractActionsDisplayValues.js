@@ -38,6 +38,7 @@ function getValues(action, sourceAgendaSchema, local) {
     return [].concat(label[local] || label);
   }
   if (action.values instanceof Object) {
+    if (Array.isArray(action.values)) return action.values;
     return [].concat(action.values[Object.keys(action.values)[0]]);
   }
   return [].concat(action.values);
@@ -132,8 +133,9 @@ export default ({
       detail: intl.formatMessage(messages.automaticDetail),
     };
   }
+  const values = getValues(action);
 
-  const matchingOptions = getValues(action).map((value) =>
+  const matchingOptions = values.map((value) =>
     field.options?.filter((o) => o.id === value).pop());
 
   return {

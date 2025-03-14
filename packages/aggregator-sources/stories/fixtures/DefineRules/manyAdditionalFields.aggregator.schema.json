@@ -73,6 +73,69 @@
         }
       ],
       "fieldType": "checkbox"
+    },
+    {
+      "field": "truc",
+      "label": {
+        "fr": "truc",
+        "en": "truc"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "display": true,
+      "enable": true,
+      "origin": "tags",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": [],
+        "other": []
+      },
+      "selfHandled": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 5,
+          "value": "r",
+          "label": {
+            "fr": "r",
+            "en": "r"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 6,
+          "value": "t",
+          "label": {
+            "fr": "t",
+            "en": "t"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 7,
+          "value": "c",
+          "label": {
+            "fr": "c",
+            "en": "c"
+          },
+          "info": null,
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 27188,
+      "schemaType": "agenda"
     }
   ]
 }
