@@ -56,6 +56,10 @@ export default async (core, agendaUid, eventUid, options = {}) => {
 
   payload.setItem('agendaEvent', agendaEvent);
 
+  if (agendaEvent) {
+    log('agendaEvent ref fetched');
+  }
+
   if (load.event) {
     const event = await events.get(eventUid, {
       access: access === 'internal' ? 'internal' : 'public',
@@ -103,6 +107,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     && payload.getItem('event').draft
     && payload.getItem('event.agendaUid') !== agenda.uid
   ) {
+    log('event is draft and update attempt is not from origin agenda');
     payload.setItem('event', null);
     return returnPayload ? payload.getResponse('event', access) : null;
   }

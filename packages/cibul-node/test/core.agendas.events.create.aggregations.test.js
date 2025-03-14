@@ -9,10 +9,14 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
 
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '003.sql.js'));
+  const config = testConfig.extendWith({
+    queuesPrefix: 'createaggrtst:',
+  });
+
+  beforeAll(() => loadFixtures(config.db, '003.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -37,12 +41,16 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
 
     services.aggregators.task();
 
     await core.agendas(55268170).events.search.rebuild();
     await core.agendas(17026800).events.search.rebuild();
+  });
+
+  beforeAll(() => {
+    core.services.tracker.flush();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

@@ -137,6 +137,7 @@ function makeGetResponse(core, data) {
       success: true,
       agenda: data.agendas.current,
       originAgenda: await getOriginAgenda(core.services, data),
+      standardEvent: data.services.after.event,
       member,
       formSchema,
       [primaryKey]: await getCompiledEvent(

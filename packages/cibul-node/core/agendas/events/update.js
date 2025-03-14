@@ -26,7 +26,6 @@ const shouldHaveAgendaEvent = (operation, event) =>
 
 async function update(core, agendaUid, eventUid, data, options = {}) {
   const {
-    events,
     agendaEvents,
     eventSearch,
     members,
@@ -70,11 +69,16 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
     log('  loaded agenda %s', agenda?.slug);
 
-    const event = await events.get(eventUid, {
+    const internalGetOptions = {
       access: 'internal',
       detailed: true,
       throwOnNotFound: true,
       private: privateOption,
+    };
+
+    const { standardEvent: event, event: eventWithAdditionalValues } = await core.agendas(agendaUid).events.get(eventUid, {
+      ...internalGetOptions,
+      returnPayload: true,
     });
 
     log('  loaded event %s', event.slug);
@@ -95,7 +99,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
     const clean = await cleanEvent(core.services, agenda, data, {
       validateWithStoredData: !!partial,
-      event, // required to validate related fields in case of partial update
+      // required to validate related fields in case of partial update
+      event: eventWithAdditionalValues,
       draft,
       optionalSecondaryFields: true,
       partial,
