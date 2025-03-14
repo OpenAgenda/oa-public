@@ -6,7 +6,7 @@ export default function SentryErrorBoundary({ children }) {
     <SErrorBoundary
       fallback={({ error, eventId, resetError }) => (
         <ErrorDisplay
-          error={error}
+          error={error as Error}
           errorTrackingId={eventId}
           resetError={resetError}
         />

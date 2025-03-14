@@ -111,3 +111,69 @@ The description text should adapt to fill the available space.`,
     </>
   );
 }
+export function Carousel() {
+  return (
+    <ModularSet
+      title="Carousel"
+      useCarousel={true}
+      Components={[
+        {
+          id: 1,
+          ...fx.default,
+          description: 'First item in the carousel.',
+          card: true,
+          maxWidth: { name: 'full' },
+          width: { name: 'full' },
+          variant: 'link',
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 2,
+          ...fx.default,
+          description: 'Second item in the carousel.',
+          card: true,
+          maxWidth: { name: 'full' },
+          width: { name: 'full' },
+          variant: 'link',
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 3,
+          ...fx.default,
+          description: 'Third item in the carousel.',
+          card: true,
+          maxWidth: { name: 'full' },
+          width: { name: 'full' },
+          variant: 'link',
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 4,
+          ...fx.default,
+          description: 'Fourth item in the carousel.',
+          card: true,
+          maxWidth: { name: 'full' },
+          width: { name: 'full' },
+          variant: 'link',
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+      ]}
+    />
+  );
+}

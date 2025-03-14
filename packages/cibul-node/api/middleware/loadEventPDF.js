@@ -1,3 +1,6 @@
+// import logs from '@openagenda/logs';
+
+// const log = logs('api/middleware/loadEventPDF');
 const isDev = process.env.NODE_ENV === 'development';
 
 function cleanImages({ event, agenda, app }) {
@@ -42,7 +45,9 @@ export default function loadEventPDF(req, res, next) {
   const {
     services: { pdfExports },
   } = req.app;
+
   const { agenda, event } = cleanImages(req);
+
   try {
     pdfExports.event.GenerateExport(res, {
       agenda,

@@ -1,23 +1,16 @@
-import sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 import context from '@openagenda/logs/context.js';
+import express from 'express';
 
 function isObject(o) {
   return Object.prototype.toString.call(o) === '[object Object]';
 }
 
 export default function sentryErrorHandler(options) {
-  const originalHandler = sentry.Handlers.errorHandler(options);
+  const router = express.Router({ mergeParams: true });
 
-  return function sentryErrorMiddleware(err, req, res, next) {
-    if (isObject(err)) {
-      const statusCode = err.statusCode || err.code || 500;
-
-      if (Number.isInteger(statusCode) && statusCode < 500) {
-        return next(err);
-      }
-    }
-
-    sentry.withScope((scope) => {
+  router.use((req, res, next) => {
+    Sentry.withScope((scope) => {
       if (options?.tag) {
         scope.setTag(options.tag, true);
 
@@ -33,7 +26,23 @@ export default function sentryErrorHandler(options) {
         });
       }
 
-      originalHandler(err, req, res, next);
+      next();
     });
-  };
+  });
+
+  Sentry.setupExpressErrorHandler(router, {
+    shouldHandleError(error) {
+      if (isObject(error)) {
+        const statusCode = error.statusCode || error.code || 500;
+
+        if (Number.isInteger(statusCode) && statusCode < 500) {
+          return false;
+        }
+      }
+
+      return true;
+    },
+  });
+
+  return router;
 }

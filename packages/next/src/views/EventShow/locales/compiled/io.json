@@ -589,36 +589,6 @@
       "value": "crwdns33742:0crwdne33742:0"
     }
   ],
-  "next.views.EventShow.Sidebar.accessibleToHearing": [
-    {
-      "type": 0,
-      "value": "crwdns33832:0crwdne33832:0"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToIntellectually": [
-    {
-      "type": 0,
-      "value": "crwdns33834:0crwdne33834:0"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToMotor": [
-    {
-      "type": 0,
-      "value": "crwdns33836:0crwdne33836:0"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToPsychic": [
-    {
-      "type": 0,
-      "value": "crwdns33838:0crwdne33838:0"
-    }
-  ],
-  "next.views.EventShow.Sidebar.accessibleToVisually": [
-    {
-      "type": 0,
-      "value": "crwdns33840:0crwdne33840:0"
-    }
-  ],
   "next.views.EventShow.Sidebar.completeLink": [
     {
       "type": 0,

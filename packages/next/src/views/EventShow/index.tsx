@@ -32,7 +32,7 @@ import { faPhone, faChevronDown } from 'icons/solid';
 import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
 import CopyIdentifier from 'components/CopyIdentifier';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
@@ -76,8 +76,8 @@ import messages from './messages';
 import fetchLocale from './locales';
 import useNcEffect from './hooks/useNcEffect';
 
-const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
-const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
+const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
+const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 
 export type EventShowProps = {
   preload?: string[];
@@ -153,8 +153,6 @@ function EventShow({ preload }: EventShowProps) {
   const isEventContributor = member && member.userUid === me?.member?.userUid;
 
   const displayContextBar = isEventContributor || isAdminMod(me?.member);
-
-  const updatedTs = new Date(event.updatedAt).getTime();
 
   const { canEditEvent = false } = me?.authorizations ?? {};
 
@@ -361,9 +359,6 @@ function EventShow({ preload }: EventShowProps) {
                 <AdditionalFields
                   agenda={agenda}
                   additionalFields={additionalFields}
-                  updatedAt={
-                    event.updatedAt !== event.createdAt ? event.updatedAt : null
-                  }
                 />
               </Flex>
             ) : null}
@@ -477,12 +472,12 @@ function EventShow({ preload }: EventShowProps) {
                         <Image
                           src={
                             process.env.NODE_ENV === 'development'
-                              ? `${DEV_IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
-                              : `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                              ? `${DEV_S3_BUCKET}/${event.location.image}`
+                              : `${S3_BUCKET}/${event.location.image}`
                           }
                           fallbackSrc={
                             process.env.NODE_ENV === 'development'
-                              ? `${IMAGE_PREFIX}${event.location.image}?__ts=${updatedTs}`
+                              ? `${S3_BUCKET}/${event.location.image}`
                               : undefined
                           }
                           fill
@@ -490,7 +485,7 @@ function EventShow({ preload }: EventShowProps) {
                           pos="unset !important"
                           w="full !important"
                           h="auto !important"
-                          loader={keyCDNLoader}
+                          loader={thumborLoader}
                           alt=""
                           m="auto"
                           priority

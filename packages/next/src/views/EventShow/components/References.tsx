@@ -1,33 +1,31 @@
 import { chakra, SimpleGrid } from '@openagenda/uikit';
 import useSWRImmutable from 'swr/immutable';
 import { FetchStatus } from 'config/types';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import NextChakraLink from 'components/NextChakraLink';
 import graylogo140 from '../../../../public/images/graylogo140.png';
 
 const isDev = process.env.NODE_ENV === 'development';
-const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
-const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
+const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
+const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 
-function getImageSrcProps(image?: string, updatedAt?: string) {
+function getImageSrcProps(image?: string) {
   if (!image) {
     return {
       src: graylogo140,
     };
   }
 
-  const updatedTs = new Date(updatedAt).getTime();
-
   if (isDev) {
     return {
-      src: `${DEV_IMAGE_PREFIX}${image}?__ts=${updatedTs}`,
-      fallbackSrc: `${IMAGE_PREFIX}${image}?__ts=${updatedTs}`,
+      src: `${DEV_S3_BUCKET}/${image}`,
+      fallbackSrc: `${S3_BUCKET}/${image}`,
     };
   }
 
   return {
-    src: `${IMAGE_PREFIX}${image}?__ts=${updatedTs}`,
+    src: `${S3_BUCKET}/${image}`,
   };
 }
 
@@ -54,13 +52,10 @@ export default function References({ agenda, event }) {
             rounded="full"
             width="70"
             height="70"
-            {...getImageSrcProps(
-              agendaReference.image,
-              agendaReference.updatedAt,
-            )}
+            {...getImageSrcProps(agendaReference.image)}
             alt=""
             draggable={false}
-            loader={agendaReference.image ? keyCDNLoader : null}
+            loader={agendaReference.image ? thumborLoader : null}
             border="3px solid white"
             h="70px"
             objectFit="cover"

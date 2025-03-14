@@ -175,8 +175,6 @@ function EmbedEventShow({
   const [nc] = useSessionStorageState('EventShow:nc');
   const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
 
-  const updatedTs = new Date(event.updatedAt).getTime();
-
   return (
     <>
       <Metas
@@ -313,7 +311,7 @@ function EmbedEventShow({
 
               {event.image || event.imageCredits ? (
                 <div>
-                  <EventImage event={event} thumbor />
+                  <EventImage event={event} />
 
                   {event.imageCredits ? (
                     <Flex justify="flex-end" color="oaGray.500" px="2">
@@ -362,9 +360,6 @@ function EmbedEventShow({
               <AdditionalFields
                 agenda={agenda}
                 additionalFields={additionalFields}
-                updatedAt={
-                  event.updatedAt !== event.createdAt ? event.updatedAt : null
-                }
               />
             </Flex>
           ) : null}
@@ -424,12 +419,12 @@ function EmbedEventShow({
                       <Image
                         src={
                           process.env.NODE_ENV === 'development'
-                            ? `${DEV_S3_BUCKET}/${event.location.image}?__ts=${updatedTs}`
-                            : `${S3_BUCKET}/${event.location.image}?__ts=${updatedTs}`
+                            ? `${DEV_S3_BUCKET}/${event.location.image}`
+                            : `${S3_BUCKET}/${event.location.image}`
                         }
                         fallbackSrc={
                           process.env.NODE_ENV === 'development'
-                            ? `${S3_BUCKET}/${event.location.image}?__ts=${updatedTs}`
+                            ? `${S3_BUCKET}/${event.location.image}`
                             : undefined
                         }
                         loader={thumborLoader}

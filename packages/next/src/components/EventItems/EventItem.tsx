@@ -2,34 +2,19 @@ import { HStack, Link, Text } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
 import Image from 'components/Image';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import graylogo140 from '../../../public/images/graylogo140.png';
 
 import messages from './messages';
 
-const getImageSrc = (event) =>
-  event.image &&
-  `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${event.image.filename}`;
-
-function EventImage({ src, loader = null }) {
-  const isDev = process.env.NODE_ENV === 'development';
-
+function EventImage({ src, fallbackSrc = null, loader = null }) {
   return (
     <Image
       rounded="full"
       width="56"
       height="56"
       src={src}
-      fallbackSrc={
-        isDev && typeof src === 'string'
-          ? src
-              .replace('dev', 'main')
-              .replace(
-                process.env.NEXT_PUBLIC_IMAGE_PREFIX,
-                process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX,
-              )
-          : undefined
-      }
+      fallbackSrc={fallbackSrc}
       alt=""
       draggable={false}
       loader={loader}
@@ -40,6 +25,8 @@ function EventImage({ src, loader = null }) {
 }
 
 export default function EventItem({ event, agenda }) {
+  const isDev = process.env.NODE_ENV === 'development';
+
   const intl = useIntl();
 
   return (
@@ -48,7 +35,19 @@ export default function EventItem({ event, agenda }) {
     >
       <HStack>
         {event.image ? (
-          <EventImage src={getImageSrc(event)} loader={keyCDNLoader} />
+          <EventImage
+            src={
+              isDev
+                ? `${process.env.NEXT_PUBLIC_DEV_S3_BUCKET}/${event.image.filename}`
+                : `${process.env.NEXT_PUBLIC_S3_BUCKET}/${event.image.filename}`
+            }
+            fallbackSrc={
+              isDev
+                ? `${process.env.NEXT_PUBLIC_S3_BUCKET}/${event.image.filename}`
+                : undefined
+            }
+            loader={thumborLoader}
+          />
         ) : (
           <EventImage src={graylogo140} />
         )}

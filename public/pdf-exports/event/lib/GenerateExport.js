@@ -21,84 +21,135 @@ export default async function GenerateExport(writeStream, options = {}) {
   let isFirstPage = true;
 
   doc.pipe(writeStream);
-  const pdfRender = () => ({
-    columns: [
-      {
-        width: 3,
-        content: [
-          {
-            addFn: 'addText',
-            data: getLocaleValue(event.title, lang),
-            truncable: true,
-            bold: true,
-          },
-          {
-            addFn: 'addText',
-            data: getLocaleValue(event.description, lang),
-            truncable: true,
-          },
-          {
-            addFn: 'imagePositioning',
-            data: event.image,
-          },
-          {
-            addFn: 'addMarkdownDescription',
-            data: getLocaleValue(event.longDescription, lang),
-            truncable: true,
-          },
-          {
-            addFn: 'addCalendar',
-            data: event.timings,
-            columnNumber: 2,
-            truncable: true,
-          },
-        ],
-      },
-      {
-        width: 2,
-        content: [
-          {
-            addFn: 'addText',
-            data: getLocaleValue(event.dateRange, lang),
-            bold: true,
-            truncable: true,
-          },
-          {
-            addFn: 'addStatus',
-            data: event.status,
-            agenda,
-            truncable: true,
-            title: 'status',
-          },
-          {
-            addFn: 'addText',
-            data: getLocaleValue(event.conditions, lang),
-            truncable: true,
-            title: 'conditions',
-          },
-          {
-            addFn: 'addRegistration',
-            data: { registration: event.registration },
-            truncable: true,
-          },
-          {
-            addFn: 'addAdditionalFields',
-            data: { event },
-            agenda,
-            truncable: true,
-          },
-          {
-            addFn: 'addLocation',
-            data: { event },
-            truncable: true,
-          },
-        ],
-      },
-    ],
-  });
 
-  const columnConfig = pdfRender(event);
-  let columnsWithContent = columnConfig.columns;
+  let columnsWithContent = [
+    {
+      width: 3,
+      content: [
+        {
+          id: 'title',
+          addFn: 'addText',
+          data: getLocaleValue(event.title, lang),
+          truncable: true,
+          bold: true,
+        },
+        {
+          id: 'description',
+          addFn: 'addText',
+          data: getLocaleValue(event.description, lang),
+          truncable: true,
+        },
+        {
+          id: 'image',
+          addFn: 'imagePositioning',
+          data: event.image,
+        },
+        {
+          id: 'longDescription',
+          addFn: 'addMarkdownDescription',
+          data: getLocaleValue(event.longDescription, lang),
+          truncable: true,
+        },
+        {
+          id: 'timings',
+          addFn: 'addCalendar',
+          data: event.timings,
+          columnNumber: 2,
+          truncable: true,
+        },
+      ],
+    },
+    {
+      width: 2,
+      content: [
+        {
+          id: 'dateRange',
+          addFn: 'addText',
+          data: getLocaleValue(event.dateRange, lang),
+          bold: true,
+          truncable: true,
+        },
+        {
+          id: 'status',
+          addFn: 'addStatus',
+          data: event.status,
+          agenda,
+          truncable: true,
+          title: 'status',
+        },
+        {
+          id: 'conditions',
+          addFn: 'addText',
+          data: getLocaleValue(event.conditions, lang),
+          truncable: true,
+          title: 'conditions',
+        },
+        {
+          id: 'registration',
+          addFn: 'addRegistration',
+          data: { registration: event.registration },
+          truncable: true,
+        },
+        {
+          id: 'additionalFields',
+          addFn: 'addAdditionalFields',
+          data: { event },
+          agenda,
+          truncable: true,
+        },
+        {
+          id: 'addLocationSection',
+          addFn: 'addLocationSection',
+          data: event.location,
+          title:
+            event.location.name || event.location.address ? 'location' : null,
+        },
+        {
+          id: 'onlineAccessLink',
+          addFn: 'addText',
+          data: event.onlineAccessLink,
+          title: event.onlineAccessLink ? 'online' : null,
+        },
+        {
+          id: 'locationDescription',
+          addFn: 'addText',
+          data: getLocaleValue(event.location.description, lang),
+          truncable: true,
+          title: event.location.description ? 'aboutLocation' : null,
+        },
+        {
+          id: 'locationTags',
+          addFn: 'addTagsSection',
+          data: event.location.tags,
+          truncable: true,
+          title: event.location.tags ? 'tags' : null,
+        },
+        {
+          id: 'locationAccess',
+          addFn: 'addText',
+          data: getLocaleValue(event.location.access, lang),
+          title: event.location.access ? 'access' : null,
+        },
+        {
+          id: 'locationImage',
+          addFn: 'imagePositioning',
+          data: event.location.image,
+        },
+        {
+          id: 'locationContact',
+          addFn: 'addContactSection',
+          data: event.location,
+        },
+        {
+          id: 'locationAdditionalLinks',
+          addFn: 'addAdditionalLinksSection',
+          data: event.location.links,
+          truncable: true,
+          title: event.location.links ? 'additionalLinks' : null,
+        },
+      ].filter(({ data }) => ![undefined, null].includes(data)),
+    },
+  ];
 
   const addedFooter = addFooter(
     doc,

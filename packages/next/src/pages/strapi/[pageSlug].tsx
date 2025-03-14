@@ -1,6 +1,7 @@
 import { NextPage, GetServerSideProps } from 'next';
 import ky from 'ky';
 import StrapiPage from 'components/strapi/Page';
+import buildPopulateStrapiQuery from 'utils/buildPopulateStrapiQuery';
 
 interface PageData {
   documentId: string;
@@ -41,24 +42,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
     };
   }
 
-  const pageRes = `${APIBase}/pages/${matches[0].documentId}?${[
-    'CTA',
-    'backgroundColor.name',
-    'fontColor.name',
-    'Illustration.image',
-    'Illustration.width.name',
-    'Components',
-    'Components.CTA',
-    'Components.maxWidth',
-    'Components.Illustration.image',
-    'Components.backgroundColor.name',
-    'Components.fontColor.name',
-    'Components.fontSize.name',
-    'Components.Illustration.width.name',
-    'Components.Icon.size',
-  ]
-    .map((v) => `populate[]=Segments.${v}`)
-    .join('&')}`;
+  const populateList = await buildPopulateStrapiQuery('page');
+
+  const populateParams = populateList.map((v) => `populate[]=${v}`).join('&');
+
+  const pageRes = `${APIBase}/pages/${matches[0].documentId}?${populateParams}`;
 
   const { data: page } = await ky(pageRes, {
     headers: {
