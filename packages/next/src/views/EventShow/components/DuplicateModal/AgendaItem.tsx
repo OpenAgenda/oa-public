@@ -2,25 +2,28 @@ import { HStack, Text, Link, NoBreak } from '@openagenda/uikit';
 import Image from 'components/Image';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import graylogo140 from '../../../../../public/images/graylogo140.png';
 
-const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
+const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
+const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 
-function getImageSrc(src, updatedAt) {
-  const url = src.startsWith('https://')
-    ? new URL(src)
-    : new URL(`${DEV_IMAGE_PREFIX}${src}`);
-  url.searchParams.set('__ts', updatedAt);
-  return url.href;
+function getImageSrc(src) {
+  if (!src) return null;
+
+  if (src.startsWith('https://')) {
+    return new URL(src).pathname.replace(/^\//, '');
+  }
+
+  return process.env.NODE_ENV === 'development'
+    ? `${DEV_S3_BUCKET}/${src}`
+    : `${S3_BUCKET}/${src}`;
 }
 
 export default function AgendaItem({ agenda, targetAgenda, event }) {
   const isDev = process.env.NODE_ENV === 'development';
 
-  const imageSrc = targetAgenda.image
-    ? getImageSrc(targetAgenda.image, targetAgenda.updatedAt)
-    : null;
+  const imageSrc = getImageSrc(targetAgenda.image);
 
   return (
     <Link
@@ -39,7 +42,7 @@ export default function AgendaItem({ agenda, targetAgenda, event }) {
           }
           alt=""
           draggable={false}
-          loader={imageSrc ? keyCDNLoader : null}
+          loader={imageSrc ? thumborLoader : null}
           border="3px solid white"
           h="40px"
           objectFit="cover"

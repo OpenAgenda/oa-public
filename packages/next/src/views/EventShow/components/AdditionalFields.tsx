@@ -3,14 +3,14 @@ import { chakra, Link, NoBreak, useTheme } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareCheck } from '@fortawesome/pro-solid-svg-icons';
 import { faSquare } from '@fortawesome/pro-regular-svg-icons';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import LockIcon from 'components/LockIcon';
 import EventItems from 'components/EventItems';
 import { additionalFields as messages } from '../messages';
 
-const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
-const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
+const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
+const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 
 function Label({ field }) {
   const intl = useIntl();
@@ -70,23 +70,21 @@ function LinkField({ field }) {
   );
 }
 
-function ImageField({ field, updatedAt }) {
+function ImageField({ field }) {
   const intl = useIntl();
 
   const { value } = field;
-
-  const suffix = updatedAt ? `?__ts=${updatedAt}` : '';
 
   return value ? (
     <Image
       src={
         process.env.NODE_ENV === 'development'
-          ? `${DEV_IMAGE_PREFIX}${value.filename}${suffix}`
-          : `${IMAGE_PREFIX}${value.filename}${suffix}`
+          ? `${DEV_S3_BUCKET}/${value.filename}`
+          : `${S3_BUCKET}/${value.filename}`
       }
       fallbackSrc={
         process.env.NODE_ENV === 'development'
-          ? `${IMAGE_PREFIX}${value.filename}${suffix}`
+          ? `${S3_BUCKET}/${value.filename}`
           : undefined
       }
       fill
@@ -95,7 +93,7 @@ function ImageField({ field, updatedAt }) {
       pos="unset !important"
       w="auto !important"
       h="auto !important"
-      loader={keyCDNLoader}
+      loader={thumborLoader}
       alt=""
     />
   ) : (
@@ -179,14 +177,14 @@ function DefaultField({ field }) {
   );
 }
 
-function Field({ field, updatedAt, agenda }) {
+function Field({ field, agenda }) {
   switch (field.fieldType) {
     case 'link':
     case 'phone':
     case 'email':
       return <LinkField field={field} />;
     case 'image':
-      return <ImageField field={field} updatedAt={updatedAt} />;
+      return <ImageField field={field} />;
     case 'file':
       return <FileField field={field} />;
     case 'markdown':
@@ -205,17 +203,11 @@ function Field({ field, updatedAt, agenda }) {
   }
 }
 
-export default function AdditionalFields({
-  additionalFields,
-  updatedAt: updatedAtStrDate,
-  agenda,
-}) {
-  const updatedAt = new Date(updatedAtStrDate).getTime();
-
+export default function AdditionalFields({ additionalFields, agenda }) {
   return additionalFields.map((field) => (
     <div key={field.key}>
       <Label field={field} />
-      <Field field={field} updatedAt={updatedAt} agenda={agenda} />
+      <Field field={field} agenda={agenda} />
     </div>
   ));
 }

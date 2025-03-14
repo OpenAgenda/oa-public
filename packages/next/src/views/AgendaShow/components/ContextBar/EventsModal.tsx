@@ -21,11 +21,13 @@ import { getLocaleValue } from '@openagenda/intl';
 import qs from 'qs';
 import Image from 'components/Image';
 // import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import graylogo140 from '../../../../../public/images/graylogo140.png';
 import messages from './messages';
 
 const PAGE_SIZE = 20;
+
+const isDev = process.env.NODE_ENV === 'development';
 
 function LoadingBody() {
   return (
@@ -37,25 +39,21 @@ function LoadingBody() {
   );
 }
 
-function EventImage({ src, loader = null, updatedAt = null }) {
-  const isDev = process.env.NODE_ENV === 'development';
-
-  const tsSuffix = updatedAt ? `?__ts=${new Date(updatedAt).getTime()}` : '';
-
+function EventImage({ src, loader = null }) {
   return (
     <Image
       rounded="full"
       width="56"
       height="56"
-      src={typeof src === 'string' ? `${src}${tsSuffix}` : src}
+      src={src}
       fallbackSrc={
         isDev && typeof src === 'string'
-          ? `${src
+          ? src
               .replace('dev', 'main')
               .replace(
                 process.env.NEXT_PUBLIC_IMAGE_PREFIX,
                 process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX,
-              )}${tsSuffix}`
+              )
           : undefined
       }
       alt=""
@@ -68,21 +66,23 @@ function EventImage({ src, loader = null, updatedAt = null }) {
   );
 }
 
+function getImageSrc(image) {
+  if (!image) return null;
+
+  return isDev
+    ? `${process.env.NEXT_PUBLIC_DEV_S3_BUCKET}/${image}`
+    : `${process.env.NEXT_PUBLIC_S3_BUCKET}/${image}`;
+}
+
 function EventItem({ agenda, event }) {
   const intl = useIntl();
 
-  const imageSrc =
-    event.image &&
-    `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${event.image.filename}`;
+  const imageSrc = event.image && getImageSrc(event.image.filename);
 
   return (
     <HStack>
       {imageSrc ? (
-        <EventImage
-          src={imageSrc}
-          updatedAt={event.updatedAt}
-          loader={keyCDNLoader}
-        />
+        <EventImage src={imageSrc} loader={thumborLoader} />
       ) : (
         <EventImage src={graylogo140} />
       )}

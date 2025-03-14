@@ -36,14 +36,14 @@ import useIsMounted from 'hooks/useIsMounted';
 import useLocationQuery from 'hooks/useLocationQuery';
 import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import upperFirst from 'utils/upperFirst';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import { EventStatusBadge, EventStatusTooltip } from 'components/EventStatus';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import NextChakraLink from 'components/NextChakraLink';
 
-const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
-const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
+const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
+const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 
 const messages = defineMessages({
   featured: {
@@ -253,17 +253,17 @@ function EventItem({
               <Image
                 src={
                   process.env.NODE_ENV === 'development'
-                    ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                    : `${IMAGE_PREFIX}${event.image.filename}`
+                    ? `${DEV_S3_BUCKET}/${event.image.filename}`
+                    : `${S3_BUCKET}/${event.image.filename}`
                 }
                 fallbackSrc={
                   process.env.NODE_ENV === 'development'
-                    ? `${IMAGE_PREFIX}${event.image.filename}`
+                    ? `${S3_BUCKET}/${event.image.filename}`
                     : undefined
                 }
                 width={event.image.size.width}
                 height={event.image.size.height}
-                loader={keyCDNLoader}
+                loader={thumborLoader}
                 alt=""
                 m="auto"
                 w="full"
@@ -273,12 +273,12 @@ function EventItem({
               <Image
                 src={
                   process.env.NODE_ENV === 'development'
-                    ? `${DEV_IMAGE_PREFIX}${event.image.filename}`
-                    : `${IMAGE_PREFIX}${event.image.filename}`
+                    ? `${DEV_S3_BUCKET}/${event.image.filename}`
+                    : `${S3_BUCKET}/${event.image.filename}`
                 }
                 fallbackSrc={
                   process.env.NODE_ENV === 'development'
-                    ? `${IMAGE_PREFIX}${event.image.filename}`
+                    ? `${S3_BUCKET}/${event.image.filename}`
                     : undefined
                 }
                 fill
@@ -286,7 +286,7 @@ function EventItem({
                 pos="unset !important"
                 w="full !important"
                 h="auto !important"
-                loader={keyCDNLoader}
+                loader={thumborLoader}
                 alt=""
                 m="auto"
                 priority={imagePriority}

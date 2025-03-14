@@ -32,7 +32,6 @@ export const OptionedField = () => {
 
   return (
     <AdditionalFields
-      updatedAt={new Date()}
       agenda={agendaFixtures}
       additionalFields={formatAdditionalFieldData({
         schema: {
@@ -80,7 +79,6 @@ export const OptionedFieldMissingOption = () => {
 
   return (
     <AdditionalFields
-      updatedAt={new Date()}
       agenda={agendaFixtures}
       additionalFields={formatAdditionalFieldData({
         schema: {
@@ -129,7 +127,6 @@ export const EventsField = {
 
     return (
       <AdditionalFields
-        updatedAt={new Date()}
         agenda={agendaFixtures}
         additionalFields={formatAdditionalFieldData({
           schema: {
@@ -180,7 +177,6 @@ export const EmptyEventsField = () => {
 
   return (
     <AdditionalFields
-      updatedAt={new Date()}
       agenda={agendaFixtures}
       additionalFields={formatAdditionalFieldData({
         schema: {
@@ -212,7 +208,6 @@ export const BooleanField = () => {
   return (
     <>
       <AdditionalFields
-        updatedAt={new Date()}
         agenda={agendaFixtures}
         additionalFields={formatAdditionalFieldData({
           schema: {
@@ -236,7 +231,6 @@ export const BooleanField = () => {
         })}
       />
       <AdditionalFields
-        updatedAt={new Date()}
         agenda={agendaFixtures}
         additionalFields={formatAdditionalFieldData({
           schema: {
@@ -260,7 +254,6 @@ export const BooleanField = () => {
         })}
       />
       <AdditionalFields
-        updatedAt={new Date()}
         agenda={agendaFixtures}
         additionalFields={formatAdditionalFieldData({
           schema: {
@@ -292,7 +285,6 @@ export const PDFField = () => {
 
   return (
     <AdditionalFields
-      updatedAt={new Date()}
       agenda={agendaFixtures}
       additionalFields={formatAdditionalFieldData({
         schema: {
@@ -332,7 +324,6 @@ export const ImageField = () => {
 
   return (
     <AdditionalFields
-      updatedAt={new Date()}
       agenda={agendaFixtures}
       additionalFields={formatAdditionalFieldData({
         schema: {
@@ -372,7 +363,6 @@ export const MarkdownField = () => {
 
   return (
     <AdditionalFields
-      updatedAt={new Date()}
       agenda={agendaFixtures}
       additionalFields={formatAdditionalFieldData({
         schema: {
@@ -402,7 +392,6 @@ export const EmptyMarkdownField = () => {
 
   return (
     <AdditionalFields
-      updatedAt={new Date()}
       agenda={agendaFixtures}
       additionalFields={formatAdditionalFieldData({
         schema: {

@@ -19,15 +19,15 @@ export default function ContributorSection({ contentLocale }) {
 
   const additionalFields = useMemo(
     () =>
-      (member
+      member
         ? additionalFieldsUtils.formatAdditionalFieldData({
-          schema: agenda.memberSchema,
-          event: member,
-          locale: contentLocale,
-          defaultLocale: intl.locale,
-          dateFnsLocale,
-        })
-        : null),
+            schema: agenda.memberSchema,
+            event: member,
+            locale: contentLocale,
+            defaultLocale: intl.locale,
+            dateFnsLocale,
+          })
+        : null,
     [agenda.memberSchema, dateFnsLocale, member, contentLocale, intl.locale],
   );
 
@@ -91,11 +91,7 @@ export default function ContributorSection({ contentLocale }) {
           {intl.formatMessage(messages.edit)}
         </Button>
 
-        <AdditionalFields
-          additionalFields={additionalFields}
-          updatedAt={member.updatedAt}
-          agenda={agenda}
-        />
+        <AdditionalFields additionalFields={additionalFields} agenda={agenda} />
       </Flex>
     </div>
   );

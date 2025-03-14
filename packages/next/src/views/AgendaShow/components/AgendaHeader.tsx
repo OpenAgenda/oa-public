@@ -23,7 +23,7 @@ import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import useLocationQuery from 'hooks/useLocationQuery';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import hrefWithLang from 'utils/hrefWithLang';
 import getSession from 'utils/getSession';
 import AggregateModal from './AggregateModal';
@@ -62,12 +62,6 @@ function getMailtoUrl(mailtoSettings) {
     },
     { addQueryPrefix: true, skipNulls: true },
   )}`;
-}
-
-function getImageSrc(src, updatedAt) {
-  const url = new URL(src);
-  url.searchParams.set('__ts', updatedAt);
-  return url.href;
 }
 
 export default function AgendaHeader({ agenda }) {
@@ -116,7 +110,9 @@ export default function AgendaHeader({ agenda }) {
     sessionUser ? null : intl.locale,
   );
 
-  const updatedTs = new Date(agenda.updatedAt).getTime();
+  const imageSrc = agenda.image
+    ? new URL(agenda.image).pathname.replace(/^\//, '')
+    : null;
 
   return (
     <Stack spacing="8" direction={{ base: 'column', md: 'row' }} align="center">
@@ -125,13 +121,9 @@ export default function AgendaHeader({ agenda }) {
           rounded="full"
           width="140"
           height="140"
-          src={getImageSrc(agenda.image, updatedTs)}
-          fallbackSrc={
-            isDev
-              ? `${agenda.image.replace('dev', 'main').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
-              : undefined
-          }
-          loader={keyCDNLoader}
+          src={imageSrc}
+          fallbackSrc={isDev ? imageSrc.replace('dev', 'main') : undefined}
+          loader={thumborLoader}
           priority
           draggable={false}
           alt=""

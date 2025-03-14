@@ -5,23 +5,19 @@ import NextChakraLink from 'components/NextChakraLink';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import { useAgenda } from '../contexts/agenda';
 import { agendaHeader as messages } from '../messages';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-function getImageSrc(src, updatedAt) {
-  const url = new URL(src);
-  url.searchParams.set('__ts', updatedAt);
-  return url.href;
-}
-
 export default function AgendaHeader() {
   const intl = useIntl();
   const agenda = useAgenda();
 
-  const updatedTs = new Date(agenda.updatedAt).getTime();
+  const imageSrc = agenda.image
+    ? new URL(agenda.image).pathname.replace(/^\//, '')
+    : null;
 
   return (
     <LinkBox
@@ -37,13 +33,9 @@ export default function AgendaHeader() {
           rounded="full"
           width="56"
           height="56"
-          src={getImageSrc(agenda.image, updatedTs)}
-          fallbackSrc={
-            isDev
-              ? `${agenda.image.replace('dev', 'main').replace('images-', 'imagesdev-')}?__ts=${updatedTs}`
-              : undefined
-          }
-          loader={keyCDNLoader}
+          src={imageSrc}
+          fallbackSrc={isDev ? imageSrc.replace('dev', 'main') : undefined}
+          loader={thumborLoader}
           priority
           draggable={false}
           alt=""
