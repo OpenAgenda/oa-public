@@ -47,7 +47,6 @@
     "@openagenda/verror": "^3.1.0",
     "@raruto/leaflet-gesture-handling": "^1.4.4",
     "@sentry/nextjs": "^9.5.0",
-    "axios": "^0.21.1",
     "base64-js": "^1.5.1",
     "color2k": "^2.0.3",
     "date-fns": "^2.29.3",
