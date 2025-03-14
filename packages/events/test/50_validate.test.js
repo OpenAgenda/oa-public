@@ -1,4 +1,5 @@
 import validate from '../lib/validate.js';
+import compileForValidation from '../lib/compileForValidation.js';
 
 describe('validate', () => {
   describe('miscellaneous', () => {
@@ -275,5 +276,58 @@ describe('validate', () => {
         },
       ]);
     });
+
+    it('passData protected', async () => {
+      const { compiled } = await compileForValidation(
+        {
+          registration: [
+            {
+              service: 'passCulture',
+              data: 'someData',
+              value: 'www.passlink.com',
+            },
+          ],
+        },
+        {
+          registration: ['www.passlink.com', 'someotherlink.com'],
+        },
+      );
+      expect(compiled.registration).toStrictEqual([
+        {
+          service: 'passCulture',
+          data: 'someData',
+          value: 'www.passlink.com',
+        },
+        'someotherlink.com',
+      ]);
+    });
+  });
+
+  it('passData protection work with list of obj', async () => {
+    const { compiled } = await compileForValidation(
+      {
+        registration: [
+          {
+            service: 'passCulture',
+            data: 'someData',
+            value: 'www.passlink.com',
+          },
+        ],
+      },
+      {
+        registration: [
+          { value: 'www.passlink.com' },
+          { value: 'someotherlink.com' },
+        ],
+      },
+    );
+    expect(compiled.registration).toStrictEqual([
+      {
+        service: 'passCulture',
+        data: 'someData',
+        value: 'www.passlink.com',
+      },
+      { value: 'someotherlink.com' },
+    ]);
   });
 });
