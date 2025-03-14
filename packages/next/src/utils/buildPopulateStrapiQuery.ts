@@ -5,11 +5,9 @@ const authToken = process.env.NEXT_STRAPI_API_AUTH_TOKEN!;
 
 interface SchemaAttribute {
   type?: string;
-  relation?: string;
   target?: string;
   component?: string;
   components?: string[];
-  repeatable?: boolean;
 }
 
 interface SchemaAttributes {
@@ -18,9 +16,7 @@ interface SchemaAttributes {
 
 interface SchemaResponse {
   data: {
-    schema: {
-      attributes: SchemaAttributes;
-    };
+    schema: { attributes: SchemaAttributes };
   };
 }
 
@@ -40,75 +36,83 @@ const fetchSchema = async (
   return res.data.schema.attributes;
 };
 
-const buildPopulateQuery = async (
+const buildPopulateStrapiQuery = async (
   uid: string,
   type: 'content-type' | 'component' = 'content-type',
   prefix = '',
   depth = 0,
   maxDepth = 8,
   visited = new Set<string>(),
-): Promise<Set<string>> => {
-  const uniqueId = `${type}:${uid}:${prefix}`;
-  if (depth > maxDepth || visited.has(uniqueId)) return new Set();
+): Promise<string[]> => {
+  const schemaKey = `${type}:${uid}:${prefix}`;
+  if (depth > maxDepth || visited.has(schemaKey)) return [];
 
-  visited.add(uniqueId);
+  visited.add(schemaKey);
 
   const schema = await fetchSchema(type, uid);
   const populate: Set<string> = new Set();
 
   for (const [key, attr] of Object.entries(schema)) {
     const currentPath = `${prefix}${key}`;
-    if (attr.type === 'relation' && attr.target) {
-      populate.add(currentPath);
-      const nested = await buildPopulateQuery(
-        attr.target.split('.')[1],
-        'content-type',
-        `${currentPath}.`,
-        depth + 1,
-        maxDepth,
-        visited,
-      );
-      nested.forEach((el) => populate.add(el));
-    } else if (attr.type === 'component' && attr.component) {
-      populate.add(currentPath);
-      const nested = await buildPopulateQuery(
-        attr.component,
-        'component',
-        `${currentPath}.`,
-        depth + 1,
-        maxDepth,
-        visited,
-      );
-      nested.forEach((el) => populate.add(el));
-    } else if (attr.type === 'dynamiczone' && attr.components) {
-      populate.add(currentPath);
-      for (const componentUid of attr.components) {
-        const nested = await buildPopulateQuery(
-          componentUid,
-          'component',
-          `${currentPath}.`,
-          depth + 1,
-          maxDepth,
-          visited,
-        );
-        nested.forEach((el) => populate.add(el));
-      }
+
+    switch (attr.type) {
+      case 'relation':
+        populate.add(currentPath);
+        if (attr.target) {
+          const nested = await buildPopulateStrapiQuery(
+            attr.target.split('.')[1],
+            'content-type',
+            `${currentPath}.`,
+            depth + 1,
+            maxDepth,
+            visited,
+          );
+          nested.forEach(populate.add, populate);
+        }
+        break;
+
+      case 'component':
+        populate.add(currentPath);
+        if (attr.component) {
+          const nested = await buildPopulateStrapiQuery(
+            attr.component,
+            'component',
+            `${currentPath}.`,
+            depth + 1,
+            maxDepth,
+            visited,
+          );
+          nested.forEach(populate.add, populate);
+        }
+        break;
+
+      case 'dynamiczone':
+        populate.add(currentPath);
+        if (attr.components) {
+          for (const componentUid of attr.components) {
+            const nested = await buildPopulateStrapiQuery(
+              componentUid,
+              'component',
+              `${currentPath}.`,
+              depth + 1,
+              maxDepth,
+              visited,
+            );
+            nested.forEach(populate.add, populate);
+          }
+        }
+        break;
+
+      case 'media':
+        populate.add(currentPath);
+        break;
+
+      default:
+        break;
     }
   }
 
-  return populate;
+  return Array.from(populate);
 };
 
-export default async function buildPopulateStrapiQuery(
-  contentType: string,
-  maxDepth = 8,
-): Promise<string[]> {
-  const populateSet = await buildPopulateQuery(
-    contentType,
-    'content-type',
-    '',
-    0,
-    maxDepth,
-  );
-  return Array.from(populateSet);
-}
+export default buildPopulateStrapiQuery;
