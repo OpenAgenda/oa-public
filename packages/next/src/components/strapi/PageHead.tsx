@@ -1,4 +1,5 @@
 import { Box, Grid, GridItem, Stack, Heading, Text } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 import CTAButton from './CTAButton';
 import IllustrationComponent from './Illustration';
 import SegmentContainer from './SegmentContainer';
@@ -8,20 +9,26 @@ const PageHeadContent = ({
   description,
   CTA,
   Illustration,
-  fontColor,
+  titleColor,
+  descriptionColor,
 }: Pick<
   PageHeadProps,
-  'title' | 'description' | 'CTA' | 'Illustration' | 'fontColor'
+  | 'title'
+  | 'description'
+  | 'CTA'
+  | 'Illustration'
+  | 'titleColor'
+  | 'descriptionColor'
 >) => (
   <Stack
     spacing={6}
     align={Illustration ? undefined : 'center'}
     textAlign={Illustration ? undefined : 'center'}
   >
-    <Heading as="h1" size="2xl" color={fontColor}>
+    <Heading as="h1" size="2xl" color={color(titleColor)}>
       {title}
     </Heading>
-    <Text fontSize="xl" color={fontColor || 'gray.600'}>
+    <Text fontSize="xl" color={color(descriptionColor) || 'gray.600'}>
       {description}
     </Text>
     {CTA ? (
@@ -32,9 +39,15 @@ const PageHeadContent = ({
   </Stack>
 );
 
+interface Color {
+  name: string;
+  swatch?: string;
+}
+
 interface PageHeadProps {
   backgroundColor?: any;
-  fontColor?: any;
+  titleColor?: Color;
+  descriptionColor?: Color;
   title: string;
   description: string;
   CTA?: {
@@ -55,10 +68,14 @@ export default function PageHead({
   CTA,
   Illustration,
   backgroundColor,
-  fontColor,
+  titleColor,
+  descriptionColor,
 }: PageHeadProps) {
   return (
-    <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
+    <SegmentContainer
+      backgroundColor={backgroundColor}
+      fontColor={color(titleColor)}
+    >
       <Grid
         templateColumns={Illustration ? { base: '1fr', md: '1fr auto' } : '1fr'}
         gap={8}
@@ -72,7 +89,8 @@ export default function PageHead({
             description={description}
             CTA={CTA}
             Illustration={Illustration}
-            fontColor={fontColor}
+            titleColor={titleColor}
+            descriptionColor={descriptionColor}
           />
         </GridItem>
         {Illustration ? (
