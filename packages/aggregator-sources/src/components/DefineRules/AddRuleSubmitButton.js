@@ -18,12 +18,17 @@ export default function AddRuleSubmitButton({ handleSubmit, onCancel }) {
     || hasChoiceValues;
   const disabled = !hasFilter
     && !(
+
       values.withActions
-      && (values.actions || []).some(
-        (v) => !['', null, undefined].includes(v.field),
-      )
-      && (values.actions || []).map((a) => a.values).filter((v) => v !== undefined)
-        .length
+        && (values.actions || []).some(
+          (v) => !['', null, undefined].includes(v.field),
+        )
+        && (values.actions || []).filter(
+          (v) => v.automatic || v?.values !== undefined,
+        ).length
+
+    /*       && (values.actions || []).map((a) => a.values).filter((v) => v !== undefined)
+        .length */
     );
 
   return (

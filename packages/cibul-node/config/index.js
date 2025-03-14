@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import debug from 'debug';
-import sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 import prod from './prod.js';
 
 const mailgun = {
@@ -54,7 +54,7 @@ const config = {
         prefix: 'oa:',
         enableDebug: false,
         token: insightOpsKeys?.oa ?? null,
-        sentry,
+        sentry: Sentry,
       }
       : {
         prefix: 'oa:',

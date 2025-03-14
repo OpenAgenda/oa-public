@@ -203,6 +203,32 @@ export default async function compileForValidation(
       .options.find((o) => o.value === data.status).id;
   }
 
+  if (
+    current?.registration?.find((r) => r.service === 'passCulture')
+    && data.registration
+  ) {
+    const passReg = current?.registration?.find(
+      (r) => r.service === 'passCulture',
+    );
+
+    const dataRegistrationValues = Array.isArray(data.registration)
+      ? data.registration.map((r) =>
+        (typeof r === 'object' && r !== null ? r.value : r))
+      : [];
+
+    if (dataRegistrationValues.includes(passReg.value)) {
+      compiled.registration = []
+        .concat(passReg)
+        .concat(
+          data.registration.filter(
+            (r) =>
+              (typeof r === 'object' && r !== null ? r.value : r)
+              !== passReg.value,
+          ),
+        );
+    }
+  }
+
   return {
     compiled,
     editedFields,

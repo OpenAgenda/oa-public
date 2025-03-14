@@ -1,39 +1,30 @@
-import { thumborLoader, keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
-
-const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
-const DEV_IMAGE_PREFIX = process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX;
 
 const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 
-export default function EventImage({ event, thumbor = false }) {
+export default function EventImage({ event }) {
   if (!event.image) {
     return null;
   }
-
-  const loader = thumbor ? thumborLoader : keyCDNLoader;
-  const devPrefix = thumbor ? DEV_S3_BUCKET + '/' : DEV_IMAGE_PREFIX;
-  const prefix = thumbor ? S3_BUCKET + '/' : IMAGE_PREFIX;
-
-  const updatedTs = new Date(event.updatedAt).getTime();
 
   if (event.image?.size?.width && event.image?.size?.height) {
     return (
       <Image
         src={
           process.env.NODE_ENV === 'development'
-            ? `${devPrefix}${event.image.filename}?__ts=${updatedTs}`
-            : `${prefix}${event.image.filename}?__ts=${updatedTs}`
+            ? `${DEV_S3_BUCKET}/${event.image.filename}`
+            : `${S3_BUCKET}/${event.image.filename}`
         }
         fallbackSrc={
           process.env.NODE_ENV === 'development'
-            ? `${prefix}${event.image.filename}?__ts=${updatedTs}`
+            ? `${S3_BUCKET}/${event.image.filename}`
             : undefined
         }
         width={event.image.size.width}
         height={event.image.size.height}
-        loader={loader}
+        loader={thumborLoader}
         alt=""
         m="auto"
         w="full"
@@ -46,12 +37,12 @@ export default function EventImage({ event, thumbor = false }) {
     <Image
       src={
         process.env.NODE_ENV === 'development'
-          ? `${devPrefix}${event.image.filename}?__ts=${updatedTs}`
-          : `${prefix}${event.image.filename}?__ts=${updatedTs}`
+          ? `${DEV_S3_BUCKET}/${event.image.filename}`
+          : `${S3_BUCKET}/${event.image.filename}`
       }
       fallbackSrc={
         process.env.NODE_ENV === 'development'
-          ? `${prefix}${event.image.filename}?__ts=${updatedTs}`
+          ? `${S3_BUCKET}/${event.image.filename}`
           : undefined
       }
       fill
@@ -59,7 +50,7 @@ export default function EventImage({ event, thumbor = false }) {
       pos="unset !important"
       w="full !important"
       h="auto !important"
-      loader={loader}
+      loader={thumborLoader}
       alt=""
       m="auto"
       priority

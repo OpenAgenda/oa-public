@@ -1,7 +1,7 @@
 import { useIntl } from 'react-intl';
 import { HStack, NoBreak, Text, Flex, Tag, LinkBox } from '@openagenda/uikit';
 import Image from 'components/Image';
-import { keyCDNLoader } from 'utils/imageLoader';
+import { thumborLoader } from 'utils/imageLoader';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
@@ -9,13 +9,20 @@ import NextChakraLink from 'components/NextChakraLink';
 import graylogo140 from '../../../../public/images/graylogo140.png';
 import messages from '../messages';
 
+const isDev = process.env.NODE_ENV === 'development';
+
+function getImageSrc(image) {
+  if (!image) return null;
+
+  return isDev
+    ? `${process.env.NEXT_PUBLIC_DEV_S3_BUCKET}/${image}`
+    : `${process.env.NEXT_PUBLIC_S3_BUCKET}/${image}`;
+}
+
 export default function AgendaItem({ agenda }) {
   const intl = useIntl();
 
-  const isDev = process.env.NODE_ENV === 'development';
-
-  const imageSrc =
-    agenda.image && `${process.env.NEXT_PUBLIC_IMAGE_PREFIX}${agenda.image}`;
+  const imageSrc = getImageSrc(agenda.image);
 
   const currentAndUpcomingEvents =
     (agenda.summary?.publishedEvents?.current ?? 0) +
@@ -36,7 +43,7 @@ export default function AgendaItem({ agenda }) {
         }
         alt=""
         draggable={false}
-        loader={imageSrc ? keyCDNLoader : null}
+        loader={imageSrc ? thumborLoader : null}
         border="3px solid white"
         h="96px"
         objectFit="cover"

@@ -1,47 +1,42 @@
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Box,
-  Heading,
-} from '@openagenda/uikit';
-import ReactMarkdown from 'react-markdown';
-import CTAButton from './CTAButton';
+import { Accordion, Box, Heading } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
-import IconComponent from './Icon';
+import AccordionItem from './Accordion';
 
-interface AccordionProps {
+interface Color {
+  name: string;
+  swatch?: string;
+}
+
+interface AccordionSetProps {
   title?: string;
   boxAlign?: React.CSSProperties['justifyContent'];
-  contentAlign?: React.CSSProperties['textAlign'];
   maxWidth?: { name: string };
   width?: { name: string };
   borderRadius?: string;
   variant?: string;
   Components: Array<any>;
-  backgroundColor?: string;
-  chevronColor?: string;
+  backgroundColor?: Color;
+  contentColor?: Color;
   useAccordion?: boolean;
 }
 
 export default function AccordionSet({
   title,
   boxAlign = 'center',
-  contentAlign = 'left',
   maxWidth = { name: 'sm' },
   width = { name: 'sm' },
   borderRadius = '2xl',
   variant = 'link',
   Components,
-  backgroundColor = 'white',
-  chevronColor = 'black',
+  backgroundColor,
+  contentColor,
   useAccordion,
-}: AccordionProps) {
+}: AccordionSetProps) {
   if (!useAccordion) return null;
+  console.log('color(backgroundColor)', color(backgroundColor));
   return (
-    <SegmentContainer backgroundColor={backgroundColor}>
+    <SegmentContainer backgroundColor={color(backgroundColor)}>
       <Heading as="h2" size="xl" textAlign="center">
         {title}
       </Heading>
@@ -50,56 +45,17 @@ export default function AccordionSet({
           allowMultiple
           maxWidth={maxWidth?.name}
           width={width?.name}
-          bg={backgroundColor}
+          bg={color(backgroundColor) || 'white'}
           borderRadius={borderRadius}
         >
-          {Components.map((Component) => {
-            return (
-              <AccordionItem key={Component.id} sx={{ border: 'none' }}>
-                <h2>
-                  <AccordionButton>
-                    <Box
-                      flex={1}
-                      display="flex"
-                      flexDirection="row"
-                      alignItems="center"
-                      p={4}
-                    >
-                      {Component.Icon ? (
-                        <IconComponent {...Component.Icon} />
-                      ) : null}
-                      <Heading
-                        textAlign={contentAlign}
-                        fontSize="140%"
-                        ml={Component.Icon ? 4 : 0}
-                      >
-                        {Component.title}
-                      </Heading>
-                    </Box>
-                    <AccordionIcon color={chevronColor} />
-                  </AccordionButton>
-                </h2>
-                <AccordionPanel padding={8}>
-                  {Component.description ? (
-                    <Box
-                      width="full"
-                      textAlign={contentAlign}
-                      display="flex"
-                      flexDirection="column"
-                      style={{ listStylePosition: 'inside' }}
-                    >
-                      <ReactMarkdown>{Component.description}</ReactMarkdown>
-                    </Box>
-                  ) : null}
-                  {Component.CTA ? (
-                    <Box textAlign={contentAlign} pt={2}>
-                      <CTAButton {...Component.CTA} variant={variant} />
-                    </Box>
-                  ) : null}
-                </AccordionPanel>
-              </AccordionItem>
-            );
-          })}
+          {Components.map((Component) => (
+            <AccordionItem
+              key={Component.id}
+              {...Component}
+              variant={variant}
+              contentColor={color(contentColor) || 'black'}
+            />
+          ))}
         </Accordion>
       </Box>
     </SegmentContainer>

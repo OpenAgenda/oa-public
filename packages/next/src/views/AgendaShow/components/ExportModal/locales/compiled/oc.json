@@ -80,7 +80,7 @@
   "next.views.AgendaShow.ExportModal.detectLang": [
     {
       "type": 0,
-      "value": "Detect language automatically"
+      "value": "Détecter la langue automatiquement"
     }
   ],
   "next.views.AgendaShow.ExportModal.distributeFields": [

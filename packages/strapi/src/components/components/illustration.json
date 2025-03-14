@@ -14,7 +14,7 @@
     },
     "borderRadius": {
       "type": "enumeration",
-      "enum": ["undefined", "full"]
+      "enum": ["none", "sm", "md", "lg", "xl", "full"]
     },
     "width": {
       "type": "relation",

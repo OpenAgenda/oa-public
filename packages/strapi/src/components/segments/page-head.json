@@ -28,7 +28,12 @@
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
     },
-    "fontColor": {
+    "titleColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "descriptionColor": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"

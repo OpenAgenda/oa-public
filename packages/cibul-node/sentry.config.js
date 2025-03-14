@@ -2,7 +2,7 @@
 // The config you add here will be used whenever the server handles a request.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-import { init, Integrations } from '@sentry/node';
+import { init } from '@sentry/node';
 
 const SENTRY_DSN = process.env.SENTRY_DSN
   || process.env.NEXT_PUBLIC_SENTRY_DSN
@@ -13,14 +13,6 @@ if (ENV === 'production') {
   init({
     dsn: SENTRY_DSN,
     environment: ENV === 'production' ? 'production' : 'development',
-    integrations: (integrations) => [
-      ...integrations.filter(
-        ({ name }) => !['OnUncaughtException', 'Modules'].includes(name),
-      ),
-      new Integrations.OnUncaughtException({
-        exitEvenIfOtherHandlersAreRegistered: false,
-      }),
-    ],
     // Adjust this value in production, or use tracesSampler for greater control
     tracesSampleRate: 1.0,
     // ...

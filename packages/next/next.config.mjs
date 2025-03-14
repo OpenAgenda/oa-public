@@ -10,7 +10,13 @@ const withBundleAnalyzer = bundleAnalyser({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const withSentry = (c) => withSentryConfig(c, { silent: true });
+const withSentry = (c) =>
+  withSentryConfig(c, {
+    widenClientFileUpload: true,
+    transpileClientSDK: true,
+    tunnelRoute: '/monit',
+    silent: true,
+  });
 
 function webpackCopyFiles(webpackConfig, files) {
   const CopyFilePlugin = webpackConfig.plugins.find(
@@ -200,12 +206,6 @@ const config = async () => {
         'react-markdown',
         'react-use',
       ],
-      sentry: {
-        hideSourceMaps: true,
-        widenClientFileUpload: true,
-        transpileClientSDK: true,
-        tunnelRoute: '/monit',
-      },
     }),
   );
 };

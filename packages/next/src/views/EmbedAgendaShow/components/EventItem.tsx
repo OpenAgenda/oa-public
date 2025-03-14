@@ -128,7 +128,7 @@ export default function EventItem({
                  (max-width: 954px) 50vw,
                  (max-width: 1279px) 33.33vw,
                  (max-width: 1590px) 25vw,
-                 12.5vw"
+                 20vw"
           />
         </Box>
       ) : (

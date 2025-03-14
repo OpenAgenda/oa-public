@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import Router from 'next/router';
 import useSWR from 'swr';
 import ky from 'ky';
-// import useRequest from 'hooks/useRequest';
 import { FetchStatus } from 'config/types';
 
 type User = {
@@ -37,7 +36,6 @@ export default function useUser({
   //   ? session.getUser()
   //   : null;
 
-  // const { data: user, status, error } = useRequest<any>('/users/me');
   const { data: user, status, error } = useSWR<User>('/users/me', fetcher);
 
   const finished = status !== FetchStatus.Fetching;
