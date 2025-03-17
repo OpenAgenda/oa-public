@@ -374,7 +374,9 @@ const FormSchemaBuilder = ({
             onDragEnd={(event) => {
               const { active, over } = event;
               if (active.id !== over.id) {
-                const mapped = (mergedSchema?.fields || []).map((f) => f.field);
+                const mapped = (mergedSchema?.fields || []).map(
+                  (f) => f.field || f.slug,
+                );
                 const oldIndex = mapped.indexOf(active.id);
                 const newIndex = mapped.indexOf(over.id);
                 const reorderedSchema = reorderSchemaFields(
@@ -392,7 +394,7 @@ const FormSchemaBuilder = ({
             }}
           >
             <SortableContext
-              items={(mergedSchema?.fields || []).map((f) => f.field)}
+              items={(mergedSchema?.fields || []).map((f) => f.field || f.slug)}
               strategy={verticalListSortingStrategy}
             >
               {(mergedSchema?.fields || []).map((field, index) => (
@@ -413,7 +415,7 @@ const FormSchemaBuilder = ({
                   onAccordionToggle={() => handleAccordionToggle(field)}
                   active={activeItemSlug === getFormItemSlug(field)}
                   schema={mergedSchema}
-                  key={field.field}
+                  key={field.field || field.slug}
                   isDragging={isDragging}
                 />
               ))}

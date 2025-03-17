@@ -19,6 +19,16 @@ export function StandardBuilderConfigurationExample() {
         fieldType: 'text',
         label: { fr: 'Mon champ' },
       },
+      {
+        label: {
+          fr: "Description de l'événement",
+        },
+        type: 'section',
+        slug: 'section-public-visiteur',
+        display: true,
+        schemaId: null,
+        schemaType: null,
+      },
     ],
   };
 

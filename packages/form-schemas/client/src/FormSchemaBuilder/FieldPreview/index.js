@@ -6,20 +6,28 @@ import Content from './Content.js';
 export default function FieldPreview(props) {
   const { onAccordionToggle, active, schema, field, disabled } = props;
 
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: field.field });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+    over,
+  } = useSortable({ id: field.field || field.slug });
 
   const style = {
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
-    transition: transition || 'transform 200ms ease',
+    transition,
   };
 
   return (
     <div
       ref={setNodeRef}
       className={`list-group-item draggable ${disabled ? 'disabled' : ''}`}
-      style={style}
+      style={isDragging || over ? style : null}
       {...attributes}
       {...listeners}
     >
