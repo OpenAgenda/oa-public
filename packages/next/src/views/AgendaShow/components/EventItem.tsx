@@ -263,6 +263,10 @@ function EventItem({
                 }
                 width={event.image.size.width}
                 height={event.image.size.height}
+                // >= 1280 : 577px
+                // >= 992 : 476px
+                // < 520 : 100vw
+                sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
                 loader={thumborLoader}
                 alt=""
                 m="auto"
@@ -286,6 +290,10 @@ function EventItem({
                 pos="unset !important"
                 w="full !important"
                 h="auto !important"
+                // >= 1280 : 577px
+                // >= 992 : 476px
+                // < 520 : 100vw
+                sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
                 loader={thumborLoader}
                 alt=""
                 m="auto"

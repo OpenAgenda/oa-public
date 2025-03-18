@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import type { MapContainerProps } from 'react-leaflet';
 import { useIntl } from 'react-intl';
 import L from 'leaflet';
-import { chakra } from '@openagenda/uikit';
+import { chakra, SystemStyleObject } from '@openagenda/uikit';
 import markerIconImg from '../../../../../public/images/markerIcon.png';
 import '@raruto/leaflet-gesture-handling';
 
@@ -19,6 +19,21 @@ type MapProps = MapContainerProps & {
     locale?: string;
     duration?: number;
   };
+};
+
+// Fix leaflet with iframe-resizer
+// https://github.com/davidjbradshaw/iframe-resizer/issues/1395
+const leafletProxyStyle: SystemStyleObject = {
+  '& .leaflet-proxy': {
+    transform: 'none !important',
+    position: 'fixed !important',
+    width: '0 !important',
+    height: '0 !important',
+    overflow: 'hidden !important',
+    pointerEvents: 'none !important',
+    visibility: 'hidden !important',
+    opacity: '0 !important',
+  },
 };
 
 const StyledMapContainer = chakra(MapContainer, {
@@ -57,6 +72,7 @@ export default function Map(props: MapProps) {
       worldCopyJump
       whenReady={onMapReady as () => void}
       {...props}
+      __css={leafletProxyStyle}
     >
       <TileLayer
         url={MAP_TILES}

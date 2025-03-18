@@ -88,7 +88,9 @@ function ImageField({ field }) {
           : undefined
       }
       fill
-      sizes="(max-width: 992px) 100vw, 60vw"
+      // Difficult to size because AdditionalFields
+      // is displayed on different parts
+      sizes="(max-width: 992px) 100vw, 66.67vw"
       // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
       pos="unset !important"
       w="auto !important"

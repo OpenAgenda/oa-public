@@ -312,7 +312,13 @@ function EventShow({ preload }: EventShowProps) {
 
                 {event.image || event.imageCredits ? (
                   <chakra.div mx="-8">
-                    <EventImage event={event} />
+                    <EventImage
+                      event={event}
+                      // >= 1095 : 659px
+                      // >= 992 : 66.67vw
+                      // < 992 : 100vw
+                      sizes="(max-width: 992px) 100vw, (max-width: 1095px) 66.67vw, 659px"
+                    />
 
                     {event.imageCredits ? (
                       <Flex justify="flex-end" color="oaGray.500" px="2">
@@ -485,6 +491,10 @@ function EventShow({ preload }: EventShowProps) {
                           pos="unset !important"
                           w="full !important"
                           h="auto !important"
+                          // >= 1095 : 659px
+                          // >= 992 : 66.67vw
+                          // < 992 : 100vw
+                          sizes="(max-width: 992px) 100vw, (max-width: 1095px) 66.67vw, 659px"
                           loader={thumborLoader}
                           alt=""
                           m="auto"

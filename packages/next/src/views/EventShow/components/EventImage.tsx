@@ -4,7 +4,7 @@ import Image from 'components/Image';
 const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 
-export default function EventImage({ event }) {
+export default function EventImage({ event, sizes = null }) {
   if (!event.image) {
     return null;
   }
@@ -24,6 +24,7 @@ export default function EventImage({ event }) {
         }
         width={event.image.size.width}
         height={event.image.size.height}
+        sizes={sizes}
         loader={thumborLoader}
         alt=""
         m="auto"
@@ -50,6 +51,7 @@ export default function EventImage({ event }) {
       pos="unset !important"
       w="full !important"
       h="auto !important"
+      sizes={sizes}
       loader={thumborLoader}
       alt=""
       m="auto"

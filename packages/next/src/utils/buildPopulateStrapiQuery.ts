@@ -67,7 +67,7 @@ const buildPopulateStrapiQuery = async (
             maxDepth,
             visited,
           );
-          nested.forEach(populate.add, populate);
+          nested.forEach((item) => populate.add(item));
         }
         break;
 
@@ -82,7 +82,7 @@ const buildPopulateStrapiQuery = async (
             maxDepth,
             visited,
           );
-          nested.forEach(populate.add, populate);
+          nested.forEach((item) => populate.add(item));
         }
         break;
 
@@ -98,7 +98,7 @@ const buildPopulateStrapiQuery = async (
               maxDepth,
               visited,
             );
-            nested.forEach(populate.add, populate);
+            nested.forEach((item) => populate.add(item));
           }
         }
         break;
