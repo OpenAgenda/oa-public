@@ -6,10 +6,14 @@ import testConfig from './testConfig.js';
 describe('core - functional (server): core.events.search', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '004.sql.js'));
+  const config = testConfig.extendWith({
+    queuesPrefix: 'trsvrsupdtest:',
+  });
+
+  beforeAll(() => loadFixtures(config.db, '004.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -35,7 +39,7 @@ describe('core - functional (server): core.events.search', () => {
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
 
     await core.agendas(17026855).events.search.rebuild();
     await core.agendas(92983929).events.search.rebuild();

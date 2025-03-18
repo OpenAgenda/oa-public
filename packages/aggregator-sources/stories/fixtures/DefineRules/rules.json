@@ -27,7 +27,9 @@
     "actions": [
       {
         "field": "someEmailField",
-        "values": { "$set": "test2@mail.com" }
+        "values": {
+          "$set": "test2@mail.com"
+        }
       }
     ]
   },
@@ -69,5 +71,16 @@
         "values": 2
       }
     ]
+  },
+  {
+    "query": {},
+    "actions": [
+      {
+        "field": "truc",
+        "values": [5, 6, 7],
+        "automatic": false
+      }
+    ],
+    "required": false
   }
 ]

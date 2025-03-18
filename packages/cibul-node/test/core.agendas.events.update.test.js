@@ -39,6 +39,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     core = Core(services, testConfig);
 
     await core.agendas(17026855).events.search.rebuild();
+    await core.agendas(9491431).events.search.rebuild();
   });
 
   afterAll(async () => {
@@ -532,6 +533,33 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         },
       );
       expect(event.extIds).toEqual([{ key: 'test3', value: '423' }]);
+    });
+  });
+
+  describe('patch on conditional field', () => {
+    test('patch on event title does not remove registration value', async () => {
+      const registrationValues = [
+        { value: 'https://registration.link.com', type: 'link' },
+      ];
+      expect(
+        await core
+          .agendas(9491431)
+          .events.get(12993375)
+          .then(({ registration }) => registration),
+      ).toEqual(registrationValues);
+      await core
+        .agendas(9491431)
+        .events.patch(
+          12993375,
+          { title: { fr: 'Un nouveau titre' } },
+          { access: 'internal' },
+        );
+      expect(
+        await core
+          .agendas(9491431)
+          .events.get(12993375)
+          .then(({ registration }) => registration),
+      ).toEqual(registrationValues);
     });
   });
 

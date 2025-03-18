@@ -40,6 +40,7 @@ raw.push(
     }),
     load('sql/agendas/officedutourismeroubaix.json'),
     load('sql/agendas/metropole-europeenne-de-lille.json'),
+    load('sql/agendas/ndm.json'),
   ]),
 );
 
@@ -88,6 +89,10 @@ raw.push(
     load('sql/members/chr-ctb-rbx.json'),
     load('sql/members/tb-adm-mel.json'),
     load('sql/members/ln-ctb-mel.json'),
+    load('sql/members/tb-adm-mel.json', {
+      id: 879456456,
+      agenda_uid: 9491431,
+    }),
   ]),
 );
 
@@ -134,6 +139,7 @@ raw.push(
       title: JSON.stringify({
         fr: 'Un brouillon',
       }),
+      agenda_uid: 17026855,
       description: JSON.stringify({}),
       timezone: 'Europe/Paris',
       created_at: new Date('2019-05-06T10:00:00'),
@@ -198,6 +204,7 @@ raw.push(
       title: JSON.stringify({
         fr: 'Un autre brouillon',
       }),
+      agenda_uid: 17026855,
       description: JSON.stringify({ fr: 'Une desc.' }),
       timezone: 'Europe/Paris',
       created_at: new Date('2019-05-06T10:00:00'),
@@ -249,6 +256,7 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
     },
+    load('events/des-oeuvres-et-vous.json'),
   ]),
 );
 
@@ -334,6 +342,7 @@ raw.push(
       created_at: new Date('2024-08-07T10:00:00'),
       updated_at: new Date('2024-08-07T10:00:00'),
     },
+    load('events/des-oeuvres-et-vous.ae.json'),
   ]),
 );
 
@@ -379,6 +388,19 @@ raw.push(
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
     },
+    {
+      id: 5,
+      form_schema_id: 39147,
+      identifier: 12993375,
+      store: JSON.stringify({
+        'types-devenement': 9,
+        'jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition': true,
+        'conditions-de-participation': [13],
+        'type-de-public': 80,
+      }),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
   ]),
 );
 
@@ -386,6 +408,10 @@ raw.push(
   knex('form_schema').insert([
     load('form-schemas/374.json', (fs) => ({
       id: 374,
+      store: JSON.stringify(fs),
+    })),
+    load('form-schemas/conditionalRegistration.schema.json', (fs) => ({
+      id: 39147,
       store: JSON.stringify(fs),
     })),
   ]),
