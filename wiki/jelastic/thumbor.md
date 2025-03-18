@@ -57,6 +57,8 @@ pip install -e .
 Modifier les valeurs suivantes de `/etc/thumbor.conf`:
 
 ```
+MAX_WIDTH = 3840
+MAX_HEIGHT = 3840
 LOADER=thumbor_loaders.oa_loader
 STORAGE = 'thumbor.storages.no_storage'
 AUTO_WEBP = True
