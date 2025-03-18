@@ -206,6 +206,7 @@ export default async function compileForValidation(
   if (
     current?.registration?.find((r) => r.service === 'passCulture')
     && data.registration
+    && !data.registration.find((r) => r.service === 'passCulture')?.data
   ) {
     const passReg = current?.registration?.find(
       (r) => r.service === 'passCulture',
