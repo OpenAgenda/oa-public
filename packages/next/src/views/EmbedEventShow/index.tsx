@@ -19,6 +19,7 @@ import {
   getFilters,
   useFilters,
 } from '@openagenda/react-filters';
+import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { nl2br } from '@openagenda/react-shared';
 // import { getReactMarkdownProps } from '@openagenda/md';
 import qs from 'qs';
@@ -539,8 +540,10 @@ function EmbedEventShow({
 }
 
 EmbedEventShow.fetchLocale = (locale: string) =>
-  Promise.all([fetchLocale(locale), fetchFiltersLocales(locale)]).then(
-    (results) => Object.assign({}, ...results),
-  );
+  Promise.all([
+    fetchLocale(locale),
+    fetchCommonLocale('event/accessibilities', locale),
+    fetchFiltersLocales(locale),
+  ]).then((results) => Object.assign({}, ...results));
 
 export default EmbedEventShow;
