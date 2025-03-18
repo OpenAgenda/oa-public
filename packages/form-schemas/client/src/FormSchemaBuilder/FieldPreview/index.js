@@ -21,6 +21,7 @@ export default function FieldPreview(props) {
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
     transition,
+    zIndex: isDragging ? 100 : 'auto',
   };
 
   return (
