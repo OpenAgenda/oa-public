@@ -58,6 +58,7 @@ export default function References({ agenda, event }) {
             loader={agendaReference.image ? thumborLoader : null}
             border="3px solid white"
             h="70px"
+            minW="70px"
             objectFit="cover"
             m="auto"
           />

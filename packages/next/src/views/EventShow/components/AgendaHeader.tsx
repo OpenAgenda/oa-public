@@ -41,6 +41,7 @@ export default function AgendaHeader() {
           alt=""
           border="3px solid white"
           h="56px"
+          minW="56px"
           objectFit="cover"
         />
       ) : null}

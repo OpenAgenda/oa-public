@@ -311,7 +311,13 @@ function EmbedEventShow({
 
               {event.image || event.imageCredits ? (
                 <div>
-                  <EventImage event={event} />
+                  <EventImage
+                    event={event}
+                    // >= 1038 : 659px
+                    // >= 992 : 66.67vw
+                    // < 992 : 100vw
+                    sizes="(max-width: 992px) 100vw, (max-width: 1038px) 66.67vw, 659px"
+                  />
 
                   {event.imageCredits ? (
                     <Flex justify="flex-end" color="oaGray.500" px="2">
@@ -427,6 +433,10 @@ function EmbedEventShow({
                             ? `${S3_BUCKET}/${event.location.image}`
                             : undefined
                         }
+                        // >= 1038 : 659px
+                        // >= 992 : 66.67vw
+                        // < 992 : 100vw
+                        sizes="(max-width: 992px) 100vw, (max-width: 1038px) 66.67vw, 659px"
                         loader={thumborLoader}
                         fill
                         // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211

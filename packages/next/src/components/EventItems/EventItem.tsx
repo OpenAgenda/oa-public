@@ -19,6 +19,7 @@ function EventImage({ src, fallbackSrc = null, loader = null }) {
       draggable={false}
       loader={loader}
       h="56px"
+      minW="56px"
       objectFit="cover"
     />
   );

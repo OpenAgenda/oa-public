@@ -45,6 +45,7 @@ export default function AgendaItem({ agenda, targetAgenda, event }) {
           loader={imageSrc ? thumborLoader : null}
           border="3px solid white"
           h="40px"
+          minW="40px"
           objectFit="cover"
         />
 

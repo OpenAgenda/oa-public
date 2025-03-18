@@ -61,6 +61,7 @@ function EventImage({ src, loader = null }) {
       loader={loader}
       // border="3px solid white"
       h="56px"
+      minW="56px"
       objectFit="cover"
     />
   );
