@@ -6,7 +6,7 @@ export default function OAAttribution({ source }: { source: string }) {
   return (
     <Box fontSize="sm" display="flex" justifyContent="flex-end" mt="2">
       <Link
-        href={`https://openagenda.com/?utm_source=${source}&utm_medium=embed&utm_campaign=logo`}
+        href={`https://openagenda.com/?mtm_source=${source}&mtm_medium=embed&mtm_campaign=logo`}
         target="_blank"
         display="flex"
         bg="white"
