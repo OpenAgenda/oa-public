@@ -13,6 +13,7 @@ import {
 import getPrefilteredQuery from 'views/EmbedAgendaShow/utils/getPrefilteredQuery';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
 import { omitParams } from 'utils/embedParams';
+import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import useEvent from '../hooks/useEvent';
 
 export default function NavigateButton({
@@ -34,13 +35,18 @@ export default function NavigateButton({
   const goToSiblingEvent = useGoToSiblingEvent({
     direction,
     agenda,
-    eventNc: omitParams(
-      getPrefilteredQuery({ query: eventNc || {}, prefilter, filters }),
-    ),
+    eventNc: omitParams({
+      ...isUpcomingOnlyQuery(eventNc || {})
+        ? {
+            relative: ['current', 'upcoming'],
+          }
+        : null,
+      ...getPrefilteredQuery({ query: eventNc || {}, prefilter, filters }),
+    }),
     setNc,
     query,
     urlPrefix: `/embed/agendas/${agenda.uid}`,
-    sort,
+    sort: sort || 'lastTimingWithFeatured.asc',
   });
 
   if (!eventNc) {
