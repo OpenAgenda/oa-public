@@ -67,6 +67,7 @@ function EmbedAgendaShow({
     prefilter,
     sort,
     displayTotal,
+    logo,
     referrer: layoutDataReferrer,
     setReferrer,
   } = useEmbedLayoutData();
@@ -261,7 +262,7 @@ function EmbedAgendaShow({
         />
       ) : null}
 
-      <OAAttribution />
+      {logo !== 'hide' ? <OAAttribution source="agenda" /> : null}
     </>
   );
 }

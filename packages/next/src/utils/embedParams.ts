@@ -46,6 +46,8 @@ const baseUrlTargetValues = ['_blank', '_parent', '_top'] as const;
 
 type BaseUrlTarget = (typeof baseUrlTargetValues)[number];
 
+type LogoParam = 'display' | 'hide';
+
 export type EmbedParams = {
   filters?: any;
   baseUrl?: string;
@@ -55,6 +57,7 @@ export type EmbedParams = {
   imageList?: ImageListParam;
   sort?: SortParam;
   displayTotal?: boolean;
+  logo?: LogoParam;
 };
 
 function validateBaseUrlTarget(value: string): BaseUrlTarget | null {
@@ -121,6 +124,10 @@ function parseAndValidateDisplayTotal(value: string): boolean | null {
   return null;
 }
 
+function parseAndvalidateLogo(value: string): LogoParam {
+  return value === 'hide' ? 'hide' : 'display';
+}
+
 const noopParser = (v: unknown): unknown => v;
 
 const parsers = {
@@ -132,6 +139,7 @@ const parsers = {
   imageList: parseImageList,
   sort: validateSort,
   displayTotal: parseAndValidateDisplayTotal,
+  logo: parseAndvalidateLogo,
 };
 
 export const extractParams = (source: Record<string, string>): EmbedParams => {

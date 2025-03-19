@@ -92,6 +92,7 @@ function EmbedEventShow({
     initPath,
     baseUrl,
     prefilter,
+    logo,
     referrer: layoutDataReferrer,
     setReferrer,
   } = useEmbedLayoutData();
@@ -548,7 +549,7 @@ function EmbedEventShow({
         />
       ) : null}
 
-      <OAAttribution />
+      {logo !== 'hide' ? <OAAttribution source="embed" /> : null}
     </>
   );
 }
