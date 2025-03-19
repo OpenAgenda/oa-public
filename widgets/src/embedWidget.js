@@ -117,6 +117,10 @@ export default class EmbedLoader {
       url.searchParams.set('displayTotal', dataset.displayTotal);
     }
 
+    if (dataset.logo) {
+      url.searchParams.set('logo', dataset.logo);
+    }
+
     const { hash } = window.location;
     if (hash?.startsWith('#!')) {
       const decodedSrc = decodeURIComponent(hash.substring(2));

@@ -174,7 +174,18 @@ export const FixedHeight = () => `
 export const FixedLanguage = () => `
   <section class="page">
     <h2>Agenda</h2>
-    <blockquote class="oa-agenda" align="center" data-iframe-height="430px"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/br/agendas/43546027"><b>Mizvezh ar Brezhoneg | Le Mois du Breton</b></a></p></blockquote>
+    <blockquote class="oa-agenda" align="center"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/br/agendas/43546027"><b>Mizvezh ar Brezhoneg | Le Mois du Breton</b></a></p></blockquote>
+  </section>
+
+  <!-- remove hash -->
+  <script>history.replaceState({}, '', '#');</script>
+  <script async src="/index.js" charset="utf-8"></script>
+`;
+
+export const WithoutLogo = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-logo="hide"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053"><b>Bordeaux Métropole</b></a></a></p></blockquote>
   </section>
 
   <!-- remove hash -->
