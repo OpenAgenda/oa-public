@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useSortable } from '@dnd-kit/react/sortable';
+import { useSortable } from '@dnd-kit/sortable';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 
 import getPreferredLang from './lib/getPreferredLang.js';
@@ -44,13 +44,33 @@ const OptionItem = ({
       otherOptions,
     ],
   );
-  const { ref } = useSortable({
-    id: option.value,
-    index,
-    disabled: disableDnD,
-  });
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+    over,
+  } = useSortable({ id: option.value, disabled: disableDnD });
+
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    transition,
+    zIndex: isDragging ? 100 : 'auto',
+  };
+
   const child = (
-    <div className="list-group-item draggable" ref={ref}>
+    <div
+      className="list-group-item draggable"
+      ref={setNodeRef}
+      style={isDragging || over ? style : null}
+      {...attributes}
+      {...listeners}
+    >
       <div className="list-group-item-content draggable">
         {isEdited
           ? renderEdit()
