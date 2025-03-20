@@ -4,7 +4,35 @@ import loadLocationEndpoints from './lib/loadLocationEndpoints.js';
 import transformLocationForFlatExport from './lib/transformLocationForFlatExport.js';
 import isSIRETEnabled from './lib/isSIRETEnabled.js';
 
-export default (config, services, instance, app, base) => {
+const extractIncludeFields = (req) => {
+  req.query.includeFields = req.query.includeFields ?? req.query.if;
+
+  if (!req.query.includeFields) {
+    return [
+      'uid',
+      'name',
+      'address',
+      'city',
+      'department',
+      'postalCode',
+      'region',
+      'countryCode',
+      'latitude',
+      'longitude',
+      'insee',
+      'state',
+      'extId',
+    ].concat(isSIRETEnabled(req.agenda) ? 'siret' : []);
+  }
+
+  return ['uid'].concat(
+    typeof req.query.includeFields === 'string'
+      ? req.query.includeFields.split(',')
+      : req.query.includeFields,
+  );
+};
+
+export default (services, instance, app, base) => {
   const { members, agendas, core } = services;
 
   app.use(
@@ -39,26 +67,14 @@ export default (config, services, instance, app, base) => {
           eventCounts: true,
           detailed: true,
           includeImagePath: true,
-          includeFields: [
-            'uid',
-            'name',
-            'address',
-            'city',
-            'department',
-            'postalCode',
-            'region',
-            'countryCode',
-            'latitude',
-            'longitude',
-            'insee',
-            'state',
-            'extId',
-          ].concat(isSIRETEnabled(req.agenda) ? 'siret' : []),
+          includeFields: extractIncludeFields(req),
         },
       )
       .then((stream) => {
         req.stream = stream.pipe(
-          transformLocationForFlatExport({ lang: req.lang }),
+          transformLocationForFlatExport({
+            lang: req.lang,
+          }),
         );
         next();
       }, next);

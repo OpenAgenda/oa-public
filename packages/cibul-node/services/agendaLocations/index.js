@@ -61,7 +61,7 @@ export async function init(config, services) {
     apps: Object.assign(
       plugApp.bind(null, { ...config, geocoder }, services, instance),
       {
-        agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
+        agendaAdmin: plugAgendaAdminApp.bind(null, services, instance),
         agenda: plugAgendaApp.bind(null, services, instance),
       },
     ),
