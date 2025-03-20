@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import { BadRequest } from '@openagenda/verror';
+import { BadRequest, GeneralError } from '@openagenda/verror';
 
 import logs from '@openagenda/logs';
 
@@ -19,7 +18,15 @@ export default async function postDSL({ client }, index, DSL, options = {}) {
     throw new BadRequest('Too many aggregations requested');
   }
 
-  log.info('response', _.pick(res, ['statusCode', 'meta.connection.status']));
+  if (`${res.statusCode}`[0] !== '2') {
+    log.error('elasticsearch error', res);
+    throw new GeneralError(
+      {
+        info: res,
+      },
+      'Elasticsearch error',
+    );
+  }
 
   return {
     events: res.body.hits.hits.map((h) => h._source),
