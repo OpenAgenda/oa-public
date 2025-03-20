@@ -9,7 +9,7 @@ const flatten = (obj, lang) => {
   return obj[lang] ?? obj[Object.keys(obj)[0]];
 };
 
-export default ({ lang }) => {
+export default ({ lang, includeFields }) => {
   const flatLabels = flattenLabels(labels, lang);
 
   return new Transform({
@@ -17,10 +17,10 @@ export default ({ lang }) => {
     transform(location, encoding, cb) {
       cb(
         null,
-        Object.keys(location).reduce((mapped, field) => {
+        includeFields.reduce((mapped, field) => {
           mapped[flatLabels[field] || field] = ['access', 'description'].includes(field) && location[field]
             ? flatten(location[field], lang)
-            : location[field];
+            : location[field] ?? '';
           return mapped;
         }, {}),
       );

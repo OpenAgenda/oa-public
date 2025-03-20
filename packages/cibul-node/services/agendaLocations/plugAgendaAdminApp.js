@@ -22,7 +22,9 @@ const extractIncludeFields = (req) => {
       'insee',
       'state',
       'extId',
-    ].concat(isSIRETEnabled(req.agenda) ? 'siret' : []);
+    ]
+      .concat(isSIRETEnabled(req.agenda) ? 'siret' : [])
+      .concat(['eventCount', 'agendaEventCount']);
   }
 
   return ['uid'].concat(
@@ -57,6 +59,8 @@ export default (services, instance, app, base) => {
   );
 
   app.get([`${base}.csv`, `${base}.xlsx`], (req, res, next) => {
+    const includeFields = extractIncludeFields(req);
+
     req.locations
       .list(
         req.query,
@@ -67,12 +71,13 @@ export default (services, instance, app, base) => {
           eventCounts: true,
           detailed: true,
           includeImagePath: true,
-          includeFields: extractIncludeFields(req),
+          includeFields,
         },
       )
       .then((stream) => {
         req.stream = stream.pipe(
           transformLocationForFlatExport({
+            includeFields,
             lang: req.lang,
           }),
         );
