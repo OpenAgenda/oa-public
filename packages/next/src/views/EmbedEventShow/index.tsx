@@ -92,6 +92,7 @@ function EmbedEventShow({
     initPath,
     baseUrl,
     prefilter,
+    logo,
     referrer: layoutDataReferrer,
     setReferrer,
   } = useEmbedLayoutData();
@@ -204,7 +205,7 @@ function EmbedEventShow({
           flexDirection="column"
           flexGrow="1"
         >
-          <Sidebar referrer={referrer} />
+          <Sidebar key={event.uid} referrer={referrer} />
         </GridItem>
 
         <GridItem area="event" display="flex" flexDirection="column" gap="12">
@@ -373,7 +374,11 @@ function EmbedEventShow({
 
           {/* timings */}
           <chakra.div display={{ base: 'block', lg: 'none' }}>
-            <Timings timings={event.timings} timezone={event.timezone} />
+            <Timings
+              key={event.uid}
+              timings={event.timings}
+              timezone={event.timezone}
+            />
           </chakra.div>
 
           {/* location */}
@@ -544,7 +549,7 @@ function EmbedEventShow({
         />
       ) : null}
 
-      <OAAttribution />
+      {logo !== 'hide' ? <OAAttribution source="embed" /> : null}
     </>
   );
 }
