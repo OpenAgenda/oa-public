@@ -21,7 +21,7 @@ const extractIncludeFields = (req) => {
       'longitude',
       'insee',
       'state',
-      'extId',
+      'extIds',
     ]
       .concat(isSIRETEnabled(req.agenda) ? 'siret' : [])
       .concat(['eventCount', 'agendaEventCount']);
