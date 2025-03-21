@@ -1,7 +1,24 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import { useState, useCallback } from 'react';
-import { DragDropProvider } from '@dnd-kit/react';
+
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+
 import { dragAndDrop } from '@openagenda/react-shared';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
@@ -23,6 +40,17 @@ const Options = ({ field, value, lang, onChange }) => {
   const [mode, setMode] = useState(() => field.devInitState?.mode ?? null);
   const [editedIndex, setEditedIndex] = useState(
     () => field.devInitState?.editedIndex ?? null,
+  );
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   const getOptions = useCallback(() => value || [], [value]);
@@ -104,40 +132,48 @@ const Options = ({ field, value, lang, onChange }) => {
 
   const renderDraggableOptions = () => {
     const options = getOptions();
-    const styles = {
-      display: 'inline-flex',
-      flexDirection: 'column',
-      width: '100%',
-    };
+
     return (
-      <DragDropProvider
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        modifiers={[restrictToVerticalAxis]}
         onDragEnd={(event) => {
-          const from = event.operation.source.sortable.initialIndex;
-          const to = event.operation.source.sortable.previousIndex;
-          onChange(arrayMove(options, from, to));
+          const { active, over } = event;
+          if (active.id !== over.id) {
+            const mapped = options.map((o) => o.value);
+            const oldIndex = mapped.indexOf(active.id);
+            const newIndex = mapped.indexOf(over.id);
+            onChange(arrayMove(options, oldIndex, newIndex));
+          }
         }}
       >
-        <div style={styles} className="list-group margin-v-sm">
-          {options.map((option, index) => (
-            <OptionItem
-              lang={lang}
-              field={field}
-              option={option}
-              otherOptions={value.filter((o, i) => i !== index)}
-              index={index}
-              isEdited={mode === modes.EDITING && index === editedIndex}
-              actionable={isOptionActionable()}
-              disabled={isOptionDisabled(index)}
-              onEdit={(i) => editOption(i)}
-              onEditCancel={() => setMode(null)}
-              onRemove={() => removeOption(index)}
-              onUpdate={(i, o) => updateOption(i, o)}
-              key={option.value}
-              disableDnD={mode !== null}
-            />
-          ))}
-        </div>
-      </DragDropProvider>
+        <SortableContext
+          items={options.map((o) => o.value)}
+          strategy={verticalListSortingStrategy}
+        >
+          <div className="list-group margin-v-sm">
+            {options.map((option, index) => (
+              <OptionItem
+                lang={lang}
+                field={field}
+                option={option}
+                otherOptions={value.filter((o, i) => i !== index)}
+                index={index}
+                isEdited={mode === modes.EDITING && index === editedIndex}
+                actionable={isOptionActionable()}
+                disabled={isOptionDisabled(index)}
+                onEdit={(i) => editOption(i)}
+                onEditCancel={() => setMode(null)}
+                onRemove={() => removeOption(index)}
+                onUpdate={(i, o) => updateOption(i, o)}
+                key={option.value}
+                disableDnD={mode !== null}
+              />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
     );
   };
 
