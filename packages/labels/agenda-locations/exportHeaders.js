@@ -116,11 +116,11 @@ module.exports = {
     "it": "Verificato",
     "oc": "Verificat"
   },
-  "extId": {
-    "en": "External id",
-    "fr": "Identifiant externe",
+  "extIds": {
+    "en": "External ids",
+    "fr": "Identifiants externes",
     "io": "crwdns12132:0crwdne12132:0",
-    "it": "Id esternale",
+    "it": "Id esternales",
     "oc": "Identificant extèrne"
   },
   "slug": {
