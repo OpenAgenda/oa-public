@@ -7,6 +7,7 @@ export default {
 };
 
 const CheckIcon = createIcon({
+  displayName: 'CheckIcon',
   viewBox: '0 0 14 14',
   path: (
     <g fill="currentColor">
@@ -18,19 +19,21 @@ const CheckIcon = createIcon({
 export function All() {
   return (
     <VStack>
-      <Box w="320px" bg="green.400">
+      <Box w="320px" bg="green.400" fontSize="sm">
         With <Code>NoBreak</Code>.<br />
         This is too long to keep the icon on the same line
         <NoBreak>
-          <CheckIcon ml="2" />
+          <CheckIcon size="sm" ml="2" />
         </NoBreak>
       </Box>
 
-      <Box w="320px" bg="red.400">
+      <Box w="320px" bg="red.400" fontSize="sm">
         Without <Code>NoBreak</Code>.<br />
         This is too long to keep the icon on the same line
-        <CheckIcon ml="2" />
+        <CheckIcon size="sm" ml="2" />
       </Box>
     </VStack>
   );
 }
+
+All.storyName = 'NoBreak';
