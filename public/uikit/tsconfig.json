@@ -1,4 +1,7 @@
 {
   "extends": "@openagenda/tsconfig/react-library",
-  "include": ["src", "stories"]
+  "include": ["src", "stories"],
+  "compilerOptions": {
+    "moduleResolution": "bundler"
+  }
 }

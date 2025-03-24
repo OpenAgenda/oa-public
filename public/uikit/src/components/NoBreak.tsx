@@ -5,6 +5,10 @@ const charMap = {
   noBreak: '\u2060',
 };
 
+const styles: SystemStyleObject = {
+  whiteSpace: 'nowrap',
+};
+
 interface NoBreakProps extends HTMLChakraProps<'span'> {
   char?: keyof typeof charMap;
 }
@@ -14,12 +18,8 @@ export function NoBreak({
   children,
   ...props
 }: NoBreakProps) {
-  const styles: SystemStyleObject = {
-    whiteSpace: 'nowrap',
-  };
-
   return (
-    <chakra.span __css={styles} {...props}>
+    <chakra.span css={styles} {...props}>
       {charMap[char]}
       {children}
     </chakra.span>
