@@ -38,6 +38,7 @@ export interface ComponentsCarousel extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    gradient: Schema.Attribute.Boolean;
   };
 }
 
@@ -67,6 +68,10 @@ export interface ComponentsIcon extends Struct.ComponentSchema {
     displayName: 'Icon';
   };
   attributes: {
+    color: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     name: Schema.Attribute.Enumeration<
       [
         'calendar',
@@ -167,6 +172,7 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       'api::theme-color.theme-color'
     >;
     title: Schema.Attribute.String;
+    useCarousel: Schema.Attribute.Boolean;
     width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
 }

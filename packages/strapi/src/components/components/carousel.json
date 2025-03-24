@@ -24,6 +24,9 @@
     "borderRadius": {
       "type": "enumeration",
       "enum": ["none", "sm", "md", "lg", "xl", "full"]
+    },
+    "gradient": {
+      "type": "boolean"
     }
   }
 }
