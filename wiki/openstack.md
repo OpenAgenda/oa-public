@@ -3,7 +3,7 @@
 Pour installer le CLI: https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html
 
 ```
-pip install python-openstackclient
+sudo apt install python3-openstackclient
 ```
 
 Pour configurer le CLI il faut télécharger le fichier OpenStack RC.
@@ -26,7 +26,7 @@ Swift est un service de stockage de fichiers comme S3.
 Le CLI s'installe comme celui d'OpenStack :
 
 ```
-pip install python-swiftclient
+sudo apt install python3-swiftclient
 ```
 
 On se connecte de la même manière:
@@ -98,7 +98,7 @@ sudo service nginx reload
 Avec le cron avec `crontab -e`:
 
 ```
-
+0 12 * * * /usr/bin/certbot renew --quiet
 ```
 
 `nginx.conf`:
