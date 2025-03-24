@@ -66,7 +66,6 @@ export function Overview() {
           {...fx.default}
           card
           maxWidth={{ name: 'xs' }}
-          variant="outline"
           Illustration={{
             image: {
               url: '/rectanglePhteven.jpg',
@@ -83,6 +82,7 @@ export function Overview() {
             fontColor: {
               name: 'white',
             },
+            variant: 'outline',
           }}
         />
       </GridItem>

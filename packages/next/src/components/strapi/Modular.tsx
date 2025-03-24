@@ -58,7 +58,6 @@ export default function Modular({
   contentAlign = null,
   alignHeight = false,
   borderRadius = '2xl',
-  variant = 'solid',
   useCarousel = false,
 }) {
   return (
@@ -90,8 +89,8 @@ export default function Modular({
             display="flex"
             alignItems="center"
             gap={2}
-            bg={tagColor ? `${tagColor.name}.200` : null}
-            color={tagColor ? `${tagColor.name}.800` : null}
+            bg={tagColor ? `${tagColor.name}.50` : null}
+            color={tagColor ? `${tagColor.name}.500` : null}
             px={4}
             py={2}
             borderRadius="full"
@@ -99,7 +98,7 @@ export default function Modular({
             {Icon && (
               <IconComponent
                 {...Icon}
-                color={tagColor ? `${tagColor.name}.800` : null}
+                color={tagColor ? `${tagColor.name}.500` : null}
               />
             )}
             {Tag}
@@ -138,7 +137,7 @@ export default function Modular({
               <ReactMarkdown>{description}</ReactMarkdown>
             </Box>
           ) : null}
-          {CTA ? <CTAButton {...CTA} variant={variant} /> : null}
+          {CTA ? <CTAButton {...CTA} /> : null}
         </Box>
       </VStack>
     </Wrapper>

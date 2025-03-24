@@ -1,5 +1,6 @@
 import { Card, Box, Flex, IconButton } from '@openagenda/uikit';
 import { useState } from 'react';
+import { color } from 'utils/strapi';
 import { FaIcon } from 'icons';
 import { faArrowLeft, faArrowRight } from 'icons/regular';
 
@@ -11,8 +12,9 @@ interface Color {
 interface CarouselProps {
   children: React.ReactNode[];
   colorScheme?: Color;
-  backgroundColor?: string;
+  backgroundColor?: Color;
   borderRadius?: string;
+  gradient?: boolean;
 }
 
 export default function Carousel({
@@ -20,6 +22,7 @@ export default function Carousel({
   colorScheme,
   backgroundColor,
   borderRadius = '2xl',
+  gradient = false,
 }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -35,12 +38,18 @@ export default function Carousel({
     );
   };
 
+  const gradientBackground =
+    gradient && backgroundColor
+      ? `radial-gradient(circle at top, #fff 50%, ${backgroundColor.name}.50 80%, ${backgroundColor.name}.100 93%,${backgroundColor.name}.200 100%)`
+      : undefined;
+
   return (
     <Card
       position="relative"
       width="100%"
       overflow="hidden"
-      bg={backgroundColor}
+      bg={!gradient ? color(backgroundColor) : undefined}
+      backgroundImage={gradientBackground ? gradientBackground : undefined}
       borderRadius={borderRadius}
       m={8}
       p={8}

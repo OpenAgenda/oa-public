@@ -124,11 +124,15 @@ export function Carousel() {
           card: true,
           maxWidth: { name: 'full' },
           width: { name: 'full' },
-          variant: 'link',
           Illustration: {
             image: {
               url: '/tinyPhteven.jpg',
             },
+          },
+          CTA: {
+            label: 'Une action',
+            link: 'mailto:support@openagenda.com',
+            variant: 'link',
           },
         },
         {
@@ -138,11 +142,15 @@ export function Carousel() {
           card: true,
           maxWidth: { name: 'full' },
           width: { name: 'full' },
-          variant: 'link',
           Illustration: {
             image: {
               url: '/tinyPhteven.jpg',
             },
+          },
+          CTA: {
+            label: 'Une action',
+            link: 'mailto:support@openagenda.com',
+            variant: 'link',
           },
         },
         {
@@ -152,11 +160,15 @@ export function Carousel() {
           card: true,
           maxWidth: { name: 'full' },
           width: { name: 'full' },
-          variant: 'link',
           Illustration: {
             image: {
               url: '/tinyPhteven.jpg',
             },
+          },
+          CTA: {
+            label: 'Une action',
+            link: 'mailto:support@openagenda.com',
+            variant: 'link',
           },
         },
         {
@@ -166,11 +178,15 @@ export function Carousel() {
           card: true,
           maxWidth: { name: 'full' },
           width: { name: 'full' },
-          variant: 'link',
           Illustration: {
             image: {
               url: '/tinyPhteven.jpg',
             },
+          },
+          CTA: {
+            label: 'Une action',
+            link: 'mailto:support@openagenda.com',
+            variant: 'link',
           },
         },
       ]}
