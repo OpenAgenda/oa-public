@@ -14,6 +14,28 @@ import testConfig from './testConfig.js';
 describe('core - functional (server): core.agendas().events.create()', () => {
   let core;
 
+  const now = new Date();
+  const inAnHour = new Date();
+  inAnHour.setHours(inAnHour.getHours() + 1);
+
+  const basicEventData = {
+    title: {
+      fr: 'Titre',
+    },
+    description: {
+      fr: 'Desc',
+    },
+    timings: [
+      {
+        begin: now,
+        end: inAnHour,
+      },
+    ],
+    location: {
+      uid: 123,
+    },
+  };
+
   beforeAll(() => loadFixtures(testConfig.db, '002.sql.js'));
 
   beforeAll(async () => {
@@ -63,7 +85,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  describe('simple create', () => {
+  describe('simple', () => {
     let event;
 
     const memberUserUid = 63170203;
@@ -197,134 +219,175 @@ describe('core - functional (server): core.agendas().events.create()', () => {
     });
   });
 
-  describe('simple create with returnPayload: true', () => {
-    let result;
+  describe('options', () => {
+    describe('returnPayload: true', () => {
+      let result;
 
-    beforeAll(async () => {
-      result = await core.agendas(17026855).events.create(
-        {
-          title: {
-            fr: 'Un événement',
-          },
-          description: {
-            fr: 'Test de la lib core',
-          },
-          timings: [
-            {
-              begin: new Date('2019-05-06T10:00:00'),
-              end: new Date('2019-05-06T11:00:00'),
+      beforeAll(async () => {
+        result = await core.agendas(17026855).events.create(
+          {
+            title: {
+              fr: 'Un événement',
             },
-          ],
-          location: {
-            uid: 123,
+            description: {
+              fr: 'Test de la lib core',
+            },
+            timings: [
+              {
+                begin: new Date('2019-05-06T10:00:00'),
+                end: new Date('2019-05-06T11:00:00'),
+              },
+            ],
+            location: {
+              uid: 123,
+            },
+            'categories-agenda-metropolitain': 42,
+            'thematiques-bordeaux-metropole': [3, 4],
           },
-          'categories-agenda-metropolitain': 42,
-          'thematiques-bordeaux-metropole': [3, 4],
-        },
-        {
-          context: {
-            userUid: 63170200,
+          {
+            context: {
+              userUid: 63170200,
+            },
+            returnPayload: true,
+            access: 'contributor',
           },
-          returnPayload: true,
-          access: 'contributor',
-        },
-      );
+        );
+      });
+
+      it('agenda formSchema is provided in result', () => {
+        expect(Object.keys(result.formSchema)).toEqual(['custom', 'fields']);
+      });
+
+      it('fields with moderator as access are not provided in schema', () => {
+        expect(
+          result.formSchema.fields.filter(
+            (f) => f.field === 'custom_description',
+          ).length,
+        ).toBe(0);
+      });
+
+      it('created event is provided in event key', () => {
+        expect(result.event.title.fr).toBe('Un événement');
+      });
+
+      it('success boolean is provided as true', () => {
+        expect(result.success).toBe(true);
+      });
+
+      it('event id is not in result', () => {
+        expect(result.event.id).toBeUndefined();
+      });
+
+      it('originAgenda is in created event', () => {
+        expect(result.event.originAgenda.uid).toBe(17026855);
+      });
+
+      it('state is in event', () => {
+        expect(result.event.state).toBe(2);
+      });
+
+      it('member is part of payload', () => {
+        expect(result.member.userUid).toBe(63170200);
+      });
+
+      it('agenda is part payload', () => {
+        expect(result.agenda.uid).toBe(17026855);
+      });
     });
 
-    it('agenda formSchema is provided in result', () => {
-      expect(Object.keys(result.formSchema)).toEqual(['custom', 'fields']);
-    });
+    describe('returnPayload: true, access:moderator', () => {
+      let result;
 
-    it('fields with moderator as access are not provided in schema', () => {
-      expect(
-        result.formSchema.fields.filter((f) => f.field === 'custom_description')
-          .length,
-      ).toBe(0);
-    });
+      beforeAll(async () => {
+        result = await core.agendas(17026855).events.create(
+          {
+            title: {
+              fr: 'Un événement',
+            },
+            description: {
+              fr: 'Test de la lib core',
+            },
+            timings: [
+              {
+                begin: new Date('2019-05-06T10:00:00'),
+                end: new Date('2019-05-06T11:00:00'),
+              },
+            ],
+            'categories-agenda-metropolitain': 42,
+            location: {
+              uid: 123,
+            },
+          },
+          {
+            context: {
+              userUid: 63170200,
+            },
+            returnPayload: true,
+            access: 'moderator',
+          },
+        );
+      });
 
-    it('created event is provided in event key', () => {
-      expect(result.event.title.fr).toBe('Un événement');
-    });
-
-    it('success boolean is provided as true', () => {
-      expect(result.success).toBe(true);
-    });
-
-    it('event id is not in result', () => {
-      expect(result.event.id).toBeUndefined();
-    });
-
-    it('originAgenda is in created event', () => {
-      expect(result.event.originAgenda.uid).toBe(17026855);
-    });
-
-    it('state is in event', () => {
-      expect(result.event.state).toBe(2);
-    });
-
-    it('member is part of payload', () => {
-      expect(result.member.userUid).toBe(63170200);
-    });
-
-    it('agenda is part payload', () => {
-      expect(result.agenda.uid).toBe(17026855);
+      it('field with "moderator" in read parameter are provided in result', () => {
+        expect(
+          result.formSchema.fields.filter(
+            (f) => f.field === 'custom_description',
+          ).length,
+        ).toBe(1);
+      });
     });
   });
 
-  describe('states', () => {
-    const now = new Date();
-    const inAnHour = new Date();
-    inAnHour.setHours(inAnHour.getHours() + 1);
+  describe('particular contexts', () => {
+    describe('states', () => {
+      it('create on agenda with published default state creates published event', async () => {
+        const event = await core.agendas(17026855).events.create(
+          {
+            ...basicEventData,
+            'categories-agenda-metropolitain': 42,
+          },
+          {
+            context: { userUid: 63170200 },
+            access: 'contributor',
+          },
+        );
 
-    it('create on agenda with published default state creates published event', async () => {
-      const event = await core.agendas(17026855).events.create(
-        {
-          title: {
-            fr: 'Titre',
-          },
-          description: {
-            fr: 'Desc',
-          },
-          timings: [
+        expect(event.state).toBe(2);
+      });
+
+      it('create on agenda with to moderate default state creates to moderate event', async () => {
+        const event = await core
+          .agendas(55268170)
+          .events.create(basicEventData, {
+            access: 'contributor',
+          });
+
+        expect(event.state).toBe(0);
+      });
+
+      it('create with contributor access can not force state', async () => {
+        let error;
+        try {
+          await core.agendas(55268170).events.create(
             {
-              begin: now,
-              end: inAnHour,
+              title: { fr: 'T' },
+              description: { fr: 'D' },
+              timings: [{ begin: now, end: inAnHour }],
+              location: { uid: 123 },
+              state: 2,
             },
-          ],
-          location: {
-            uid: 123,
-          },
-          'categories-agenda-metropolitain': 42,
-        },
-        {
-          context: { userUid: 63170200 },
-          access: 'contributor',
-        },
-      );
+            {
+              access: 'contributor',
+            },
+          );
+        } catch (e) {
+          error = e;
+        }
+        expect(error.message).toBe('not authorized to publish events');
+      });
 
-      expect(event.state).toBe(2);
-    });
-
-    it('create on agenda with to moderate default state creates to moderate event', async () => {
-      const event = await core.agendas(55268170).events.create(
-        {
-          title: { fr: 'T' },
-          description: { fr: 'D' },
-          timings: [{ begin: now, end: inAnHour }],
-          location: { uid: 123 },
-        },
-        {
-          access: 'contributor',
-        },
-      );
-
-      expect(event.state).toBe(0);
-    });
-
-    it('create with contributor access can not force state', async () => {
-      let error;
-      try {
-        await core.agendas(55268170).events.create(
+      it('create with "administrator" access can explicit state', async () => {
+        const event = await core.agendas(55268170).events.create(
           {
             title: { fr: 'T' },
             description: { fr: 'D' },
@@ -333,255 +396,330 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             state: 2,
           },
           {
-            access: 'contributor',
+            access: 'administrator',
           },
         );
-      } catch (e) {
-        error = e;
-      }
-      expect(error.message).toBe('not authorized to publish events');
-    });
 
-    it('create with "administrator" access can explicit state', async () => {
-      const event = await core.agendas(55268170).events.create(
-        {
-          title: { fr: 'T' },
-          description: { fr: 'D' },
-          timings: [{ begin: now, end: inAnHour }],
-          location: { uid: 123 },
-          state: 2,
-        },
-        {
-          access: 'administrator',
-        },
-      );
-
-      expect(event.state).toBe(2);
-    });
-  });
-
-  describe('status', () => {
-    it('create on agenda with published default state creates published event', async () => {
-      const event = await core.agendas(17026855).events.create(
-        {
-          title: {
-            fr: 'Titre',
-          },
-          description: {
-            fr: 'Desc',
-          },
-          status: 3,
-          timings: [
-            {
-              begin: new Date('2021-05-28T12:00:00+0100'),
-              end: new Date('2021-05-28T14:00:00+0100'),
-            },
-          ],
-          location: {
-            uid: 123,
-          },
-          'categories-agenda-metropolitain': 42,
-        },
-        {
-          context: { userUid: 63170200 },
-          access: 'contributor',
-        },
-      );
-
-      expect(event.status).toBe(3);
-    });
-  });
-
-  describe('simple create with returnPayload: true and access: "moderator"', () => {
-    let result;
-
-    beforeAll(async () => {
-      result = await core.agendas(17026855).events.create(
-        {
-          title: {
-            fr: 'Un événement',
-          },
-          description: {
-            fr: 'Test de la lib core',
-          },
-          timings: [
-            {
-              begin: new Date('2019-05-06T10:00:00'),
-              end: new Date('2019-05-06T11:00:00'),
-            },
-          ],
-          'categories-agenda-metropolitain': 42,
-          location: {
-            uid: 123,
-          },
-        },
-        {
-          context: {
-            userUid: 63170200,
-          },
-          returnPayload: true,
-          access: 'moderator',
-        },
-      );
-    });
-
-    it('field with "moderator" in read parameter are provided in result', () => {
-      expect(
-        result.formSchema.fields.filter((f) => f.field === 'custom_description')
-          .length,
-      ).toBe(1);
-    });
-  });
-
-  describe('create in private agenda', () => {
-    let event;
-
-    const agendaUid = 81989389;
-    const memberUserUid = 37892739;
-
-    beforeAll(async () => {
-      event = await core.agendas(agendaUid).events.create(
-        {
-          title: {
-            fr: 'Un événement privé',
-          },
-          description: { fr: 'D' },
-          timings: [
-            {
-              begin: new Date('2021-05-28T12:00:00+0100'),
-              end: new Date('2021-05-28T14:00:00+0100'),
-            },
-          ],
-          location: { uid: 123 },
-        },
-        {
-          userUid: memberUserUid,
-        },
-      );
-    });
-
-    it('event is marked as private', () => {
-      expect(event.private).toBe(true);
-    });
-  });
-
-  describe('online event create', () => {
-    let event;
-
-    const memberUserUid = 63170200;
-    const agendaUid = 17026855;
-
-    beforeAll(async () => {
-      event = await core.agendas(agendaUid).events.create(
-        {
-          title: {
-            fr: 'Un événement en ligne',
-          },
-          attendanceMode: 2,
-          onlineAccessLink: 'https://openagenda.com',
-          description: { fr: 'Voilà' },
-          timings: [
-            {
-              begin: new Date('2021-05-28T12:00:00+0100'),
-              end: new Date('2021-05-28T14:00:00+0100'),
-            },
-          ],
-          'categories-agenda-metropolitain': 42,
-        },
-        {
-          context: {
-            userUid: memberUserUid,
-          },
-          detailed: 1,
-          access: 'moderator',
-        },
-      );
-    });
-
-    it('online event was created and is online', () => {
-      expect(event.attendanceMode).toBe(2);
-    });
-  });
-
-  describe('draft create', () => {
-    let event;
-
-    const memberUserUid = 63170200;
-    const agendaUid = 17026855;
-
-    beforeAll(async () => {
-      event = await core.agendas(agendaUid).events.create(
-        {
-          title: {
-            fr: 'Un événement brouillon',
-          },
-          custom_description: ":')",
-        },
-        {
-          context: {
-            userUid: memberUserUid,
-          },
-          access: 'moderator',
-          draft: true,
-        },
-      );
-    });
-
-    it('incomplete event can be saved', () => {
-      expect(event.draft).toBe(true);
-    });
-
-    it('draft event is not referenced in agenda', async () => {
-      const ae = await core.services.agendaEvents(agendaUid).get(event.uid);
-
-      expect(ae).toBeNull();
-    });
-
-    it('incomplete event with default location data and undefined location can be saved', async () => {
-      const incompleteEvent = await core.agendas(agendaUid).events.create(
-        {
-          title: {
-            fr: 'Un autre événement brouillon',
-          },
-          location: {
-            countryCode: 'CH',
-          },
-        },
-        {
-          context: {
-            userUid: memberUserUid,
-          },
-          draft: true,
-        },
-      );
-
-      expect(incompleteEvent.title.fr).toEqual('Un autre événement brouillon');
-    });
-
-    it('custom data is stored even if incomplete', async () => {
-      const data = await core.services.custom(2).get(event.uid);
-
-      expect(data).toEqual({
-        custom_description: ":')",
+        expect(event.state).toBe(2);
       });
     });
 
-    it('draft event without title can be created', async () => {
-      const noTitleDraft = await core.agendas(agendaUid).events.create(
-        {
-          description: {
-            fr: 'Un brouillon sans titre',
+    describe('status', () => {
+      it('create on agenda with published default state creates published event', async () => {
+        const event = await core.agendas(17026855).events.create(
+          {
+            ...basicEventData,
+            status: 3,
+            timings: [
+              {
+                begin: new Date('2021-05-28T12:00:00+0100'),
+                end: new Date('2021-05-28T14:00:00+0100'),
+              },
+            ],
+            'categories-agenda-metropolitain': 42,
           },
-        },
-        {
-          context: {
+          {
+            context: { userUid: 63170200 },
+            access: 'contributor',
+          },
+        );
+
+        expect(event.status).toBe(3);
+      });
+    });
+
+    describe('private agenda', () => {
+      let event;
+
+      const agendaUid = 81989389;
+      const memberUserUid = 37892739;
+
+      beforeAll(async () => {
+        event = await core.agendas(agendaUid).events.create(
+          {
+            title: {
+              fr: 'Un événement privé',
+            },
+            description: { fr: 'D' },
+            timings: [
+              {
+                begin: new Date('2021-05-28T12:00:00+0100'),
+                end: new Date('2021-05-28T14:00:00+0100'),
+              },
+            ],
+            location: { uid: 123 },
+          },
+          {
             userUid: memberUserUid,
           },
-          draft: true,
-        },
-      );
+        );
+      });
 
-      expect(noTitleDraft.title).toBeUndefined();
+      it('event is marked as private', () => {
+        expect(event.private).toBe(true);
+      });
+    });
+
+    describe('online event', () => {
+      let event;
+
+      const memberUserUid = 63170200;
+      const agendaUid = 17026855;
+
+      beforeAll(async () => {
+        event = await core.agendas(agendaUid).events.create(
+          {
+            title: {
+              fr: 'Un événement en ligne',
+            },
+            attendanceMode: 2,
+            onlineAccessLink: 'https://openagenda.com',
+            description: { fr: 'Voilà' },
+            timings: [
+              {
+                begin: new Date('2021-05-28T12:00:00+0100'),
+                end: new Date('2021-05-28T14:00:00+0100'),
+              },
+            ],
+            'categories-agenda-metropolitain': 42,
+          },
+          {
+            context: {
+              userUid: memberUserUid,
+            },
+            detailed: 1,
+            access: 'moderator',
+          },
+        );
+      });
+
+      it('online event was created and is online', () => {
+        expect(event.attendanceMode).toBe(2);
+      });
+    });
+
+    describe('draft', () => {
+      let event;
+
+      const memberUserUid = 63170200;
+      const agendaUid = 17026855;
+
+      beforeAll(async () => {
+        event = await core.agendas(agendaUid).events.create(
+          {
+            title: {
+              fr: 'Un événement brouillon',
+            },
+            custom_description: ":')",
+          },
+          {
+            context: {
+              userUid: memberUserUid,
+            },
+            access: 'moderator',
+            draft: true,
+          },
+        );
+      });
+
+      it('incomplete event can be saved', () => {
+        expect(event.draft).toBe(true);
+      });
+
+      it('draft event is not referenced in agenda', async () => {
+        const ae = await core.services.agendaEvents(agendaUid).get(event.uid);
+
+        expect(ae).toBeNull();
+      });
+
+      it('incomplete event with default location data and undefined location can be saved', async () => {
+        const incompleteEvent = await core.agendas(agendaUid).events.create(
+          {
+            title: {
+              fr: 'Un autre événement brouillon',
+            },
+            location: {
+              countryCode: 'CH',
+            },
+          },
+          {
+            context: {
+              userUid: memberUserUid,
+            },
+            draft: true,
+          },
+        );
+
+        expect(incompleteEvent.title.fr).toEqual(
+          'Un autre événement brouillon',
+        );
+      });
+
+      it('custom data is stored even if incomplete', async () => {
+        const data = await core.services.custom(2).get(event.uid);
+
+        expect(data).toEqual({
+          custom_description: ":')",
+        });
+      });
+
+      it('draft event without title can be created', async () => {
+        const noTitleDraft = await core.agendas(agendaUid).events.create(
+          {
+            description: {
+              fr: 'Un brouillon sans titre',
+            },
+          },
+          {
+            context: {
+              userUid: memberUserUid,
+            },
+            draft: true,
+          },
+        );
+
+        expect(noTitleDraft.title).toBeUndefined();
+      });
+    });
+
+    describe('duplicate', () => {
+      let originEvent;
+      let duplicateEvent;
+      const memberUserUid = 63170203;
+      const agendaUid = 17026855;
+
+      beforeAll(async () => {
+        originEvent = await core.agendas(agendaUid).events.create(
+          {
+            title: {
+              fr: 'Origine',
+            },
+            description: {
+              fr: 'Test de la lib core',
+            },
+            timings: [
+              {
+                begin: new Date('2023-02-14T10:00:00'),
+                end: new Date('2023-02-14T12:00:00'),
+              },
+            ],
+            image: {
+              url: 'https://cdn.openagenda.com/main/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
+            },
+            attendanceMode: 2,
+            onlineAccessLink: 'https://oa.com',
+            'categories-agenda-metropolitain': 42,
+          },
+          {
+            context: {
+              userUid: memberUserUid,
+            },
+            access: 'contributor',
+          },
+        );
+
+        duplicateEvent = await core
+          .agendas(agendaUid)
+          .events.create(_.omit(originEvent, ['state']), {
+            context: {
+              userUid: memberUserUid,
+            },
+            access: 'contributor',
+            duplicateOrigin: {
+              agendaUid,
+              eventUid: originEvent.uid,
+            },
+          });
+      });
+
+      it('origin event image name derives from event fileKey', () => {
+        expect(
+          originEvent.image.filename.match(originEvent.fileKey),
+        ).toBeTruthy();
+      });
+
+      it('duplicate fileKey differs from origin fileKey', () => {
+        expect(originEvent.fileKey).not.toBe(duplicateEvent.fileKey);
+      });
+
+      it('duplicate event image name derives from duplicate fileKey', () => {
+        expect(
+          duplicateEvent.image.filename.match(duplicateEvent.fileKey),
+        ).toBeTruthy();
+      });
+    });
+
+    describe('conditional required field', () => {
+      test('when ref field is not specified, enabled with required field is not processed', async () => {
+        const createdEvent = await core.agendas(89904399).events.create(
+          {
+            ...basicEventData,
+            image: undefined,
+          },
+          {
+            userUid: 37892739,
+          },
+        );
+
+        expect(createdEvent).toBeDefined();
+      });
+
+      test('when ref field is specified, enableWith required field triggers validation error when not set', async () => {
+        const { error } = await core
+          .agendas(89904399)
+          .events.create(
+            {
+              ...basicEventData,
+              image: {
+                url: 'https://openagenda.com/images/openagenda.png',
+              },
+            },
+            {
+              userUid: 37892739,
+            },
+          )
+          .then(
+            (event) => ({ event }),
+            (e) => ({ error: e }),
+          );
+
+        expect(error.info.errors[0]).toEqual({
+          code: 'required',
+          field: 'image-droits',
+          message: 'a boolean is required',
+          origin: undefined,
+          step: 'validation',
+        });
+      });
+
+      test('when ref field is specified, enableWith required field has to be specified', async () => {
+        const { error } = await core
+          .agendas(89904399)
+          .events.create(
+            {
+              ...basicEventData,
+              image: {
+                url: 'https://openagenda.com/images/openagenda.png',
+              },
+              'images-droits': true,
+            },
+            {
+              userUid: 37892739,
+            },
+          )
+          .then(
+            (event) => ({ event }),
+            (e) => ({ error: e }),
+          );
+
+        expect(error.info.errors[0]).toEqual({
+          code: 'required',
+          field: 'image-droits',
+          message: 'a boolean is required',
+          origin: undefined,
+          step: 'validation',
+        });
+      });
     });
   });
 
@@ -641,73 +779,6 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
     it('long description is converted to markdown when HTML was provided', () => {
       expect(event.longDescription.fr.indexOf('<div>')).toBe(-1);
-    });
-  });
-
-  describe('creation of duplicate', () => {
-    let originEvent;
-    let duplicateEvent;
-    const memberUserUid = 63170203;
-    const agendaUid = 17026855;
-
-    beforeAll(async () => {
-      originEvent = await core.agendas(agendaUid).events.create(
-        {
-          title: {
-            fr: 'Origine',
-          },
-          description: {
-            fr: 'Test de la lib core',
-          },
-          timings: [
-            {
-              begin: new Date('2023-02-14T10:00:00'),
-              end: new Date('2023-02-14T12:00:00'),
-            },
-          ],
-          image: {
-            url: 'https://cdn.openagenda.com/main/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
-          },
-          attendanceMode: 2,
-          onlineAccessLink: 'https://oa.com',
-          'categories-agenda-metropolitain': 42,
-        },
-        {
-          context: {
-            userUid: memberUserUid,
-          },
-          access: 'contributor',
-        },
-      );
-
-      duplicateEvent = await core
-        .agendas(agendaUid)
-        .events.create(_.omit(originEvent, ['state']), {
-          context: {
-            userUid: memberUserUid,
-          },
-          access: 'contributor',
-          duplicateOrigin: {
-            agendaUid,
-            eventUid: originEvent.uid,
-          },
-        });
-    });
-
-    it('origin event image name derives from event fileKey', () => {
-      expect(
-        originEvent.image.filename.match(originEvent.fileKey),
-      ).toBeTruthy();
-    });
-
-    it('duplicate fileKey differs from origin fileKey', () => {
-      expect(originEvent.fileKey).not.toBe(duplicateEvent.fileKey);
-    });
-
-    it('duplicate event image name derives from duplicate fileKey', () => {
-      expect(
-        duplicateEvent.image.filename.match(duplicateEvent.fileKey),
-      ).toBeTruthy();
     });
   });
 
@@ -1201,6 +1272,44 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             step: 'validation',
           },
         ]);
+      });
+    });
+
+    describe('conditional required field', () => {
+      test('when ref is not specified, enableWith required field is not processed', async () => {
+        const { event } = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/agendas/89904399/events',
+          headers: {
+            'access-token': accessToken,
+            'content-type': 'application/json',
+          },
+          data: {
+            ...basicEventData,
+            image: undefined,
+          },
+        }).then((r) => r.data);
+
+        expect(event.uid).toBeDefined();
+      });
+
+      test('when ref field is specified, enableWith required field triggers validation error when not set', async () => {
+        const errorResponse = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/agendas/89904399/events',
+          headers: {
+            'access-token': accessToken,
+            'content-type': 'application/json',
+          },
+          data: {
+            ...basicEventData,
+            image: {
+              url: 'https://cdn.openagenda.com/main/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
+            },
+          },
+        }).catch((r) => r.response);
+
+        expect(errorResponse.data.message).toBe('data is invalid');
       });
     });
   });

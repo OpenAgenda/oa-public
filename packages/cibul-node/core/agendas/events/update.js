@@ -364,7 +364,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         ? ` by user ${actingUserUid}`
         : ' (no acting user)',
       callOrigin,
-      ...callOrigin === 'api' ? { event: response.event } : undefined,
+      // ...callOrigin === 'api' ? { event: response.event } : undefined,
     });
   } catch (e) {
     log.info('update failed', {
@@ -373,6 +373,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       agendaUid,
       userUid: actingUserUid,
       callOrigin,
+      ...callOrigin === 'api' ? { submittedData: data } : undefined,
     });
     throw e;
   }
