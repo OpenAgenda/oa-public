@@ -27,8 +27,11 @@ export default function useSyncUrlWithParent() {
     //     router.push(newUrl, null, { shallow: true });
     //   }
     // };
-    //
-    // window.iFrameResizer = { onMessage };
+
+    window.iFrameResizer = {
+      sizeSelector: 'body',
+      // onMessage
+    };
 
     import('@iframe-resizer/child');
   }, [latestRouter]);

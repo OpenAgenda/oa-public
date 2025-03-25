@@ -34,7 +34,11 @@
     },
     "Segments": {
       "type": "dynamiczone",
-      "components": ["segments.page-head", "segments.modular-set"],
+      "components": [
+        "segments.page-head",
+        "segments.modular-set",
+        "segments.accordion-set"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": true

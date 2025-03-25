@@ -192,6 +192,7 @@ export interface SegmentsAccordionSet extends Struct.ComponentSchema {
       ['none', 'sm', 'md', 'lg', 'xl', 'full']
     >;
     boxAlign: Schema.Attribute.Enumeration<['left', 'right', 'center']>;
+    Components: Schema.Attribute.Component<'components.accordion', true>;
     contentColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
