@@ -42,7 +42,7 @@
     },
     "Components": {
       "type": "component",
-      "repeatable": false,
+      "repeatable": true,
       "component": "components.accordion"
     }
   }
