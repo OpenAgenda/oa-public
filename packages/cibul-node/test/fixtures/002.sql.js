@@ -11,6 +11,10 @@ raw.push(
     load('sql/agendas/219.json'),
     load('sql/agendas/220.json'),
     load('sql/agendas/conges.json'),
+    load('sql/agendas/metropole-europeenne-de-lille.json', {
+      network_uid: null,
+      form_schema_id: 4,
+    }),
   ]),
 );
 
@@ -43,6 +47,10 @@ raw.push(
         nextOptionId: 1,
       }),
     },
+    load('form-schemas/conditionalImageRights.schema.json', (fxSchema) => ({
+      id: 4,
+      store: JSON.stringify(fxSchema),
+    })),
   ]),
 );
 
@@ -58,6 +66,15 @@ raw.push(
     }),
     load('sql/members/71386.json'),
     load('sql/members/kev.admin.json'),
+    load('sql/members/kev.admin.json', {
+      id: 78946456,
+      agenda_uid: 89904399, // MEL
+    }),
+    load('sql/members/71385.json', {
+      // steve, api secret enabled
+      id: 84578645,
+      agenda_uid: 89904399, // MEL
+    }),
   ]),
 );
 

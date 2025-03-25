@@ -1,0 +1,17 @@
+{
+  "fields": [
+    {
+      "field": "image-droits",
+      "label": {
+        "fr": "Important: je certifie détenir les droits nécessaires à la publication de l'image sous le régime de la licence ouverte",
+        "en": "Important: je certifie détenir les droits nécessaires à la publication de l'image sous le régime de la licence ouverte"
+      },
+      "optional": false,
+      "display": true,
+      "enable": true,
+      "origin": "custom",
+      "enableWith": "image",
+      "fieldType": "boolean"
+    }
+  ]
+}
