@@ -28,13 +28,15 @@ export default function useSyncUrlWithParent() {
     //   }
     // };
 
-    window.iFrameResizer = {
-      ignoreSelector: '.leaflet-proxy.leaflet-zoom-animated',
-      // sizeSelector: 'body',
-      // onMessage
-    };
+    if (typeof window !== 'undefined') {
+      window.iFrameResizer = {
+        ignoreSelector: '.leaflet-proxy.leaflet-zoom-animated',
+        // sizeSelector: 'body',
+        // onMessage
+      };
 
-    import('@iframe-resizer/child');
+      import('@iframe-resizer/child');
+    }
   }, [latestRouter]);
 
   useEffect(() => {

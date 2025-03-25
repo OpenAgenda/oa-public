@@ -54,6 +54,8 @@ export default function Modular({
   backgroundColor = null,
   tagColor = null,
   fontColor = null,
+  titleColor = null,
+  descriptionColor = null,
   fontSize = null,
   contentAlign = null,
   alignHeight = false,
@@ -122,12 +124,17 @@ export default function Modular({
           gap={4}
         >
           {title ? (
-            <Heading textAlign={contentAlign} fontSize="160%">
+            <Heading
+              textAlign={contentAlign}
+              fontSize="160%"
+              color={color(titleColor)}
+            >
               {title}
             </Heading>
           ) : null}
           {description ? (
             <Box
+              color={color(descriptionColor)}
               width="full"
               alignItems="center"
               display="flex"

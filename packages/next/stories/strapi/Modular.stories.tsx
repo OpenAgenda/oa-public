@@ -1,5 +1,6 @@
 import { Grid, GridItem } from '@openagenda/uikit';
 import Modular from 'components/strapi/Modular';
+import ModularSet from 'components/strapi/ModularSet';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 
 import fx from './fixtures/modular.json';
@@ -146,5 +147,138 @@ export function Overview() {
         />
       </GridItem>
     </Grid>
+  );
+}
+
+export function Widths() {
+  return (
+    <>
+      <ModularSet
+        title="Bigger to the left"
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            grow: 2,
+            description:
+              "Au bord d'un lac scintillant, entouré de roseaux et de nénuphars, vivait un flamant rose nommé Félix. Félix était un flamant un peu spécial : il adorait admirer son reflet dans l'eau. Tous les matins, dès l'aube, il s'approchait du lac, ajustait ses plumes soigneusement et se contemplait, fier de son plumage éclatant.",
+            card: true,
+            maxWidth: { name: 'full' },
+          },
+          {
+            id: 2,
+            ...fx.default,
+          },
+        ]}
+      />
+      <ModularSet
+        title="Width adapted to content"
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            description:
+              "Au bord d'un lac scintillant, entouré de roseaux et de nénuphars, vivait un flamant rose nommé Félix. Félix était un flamant un peu spécial : il adorait admirer son reflet dans l'eau. Tous les matins, dès l'aube, il s'approchait du lac, ajustait ses plumes soigneusement et se contemplait, fier de son plumage éclatant.",
+            card: true,
+            maxWidth: { name: 'full' },
+          },
+          {
+            id: 2,
+            ...fx.default,
+          },
+        ]}
+      />
+      <ModularSet
+        title="Same widths"
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            description:
+              "Au bord d'un lac scintillant, entouré de roseaux et de nénuphars, vivait un flamant rose nommé Félix. Félix était un flamant un peu spécial : il adorait admirer son reflet dans l'eau. Tous les matins, dès l'aube, il s'approchait du lac, ajustait ses plumes soigneusement et se contemplait, fier de son plumage éclatant.",
+            card: true,
+          },
+          {
+            id: 2,
+            ...fx.default,
+          },
+        ]}
+      />
+    </>
+  );
+}
+
+export function Heights() {
+  return (
+    <>
+      <ModularSet
+        title="Aligned"
+        alignHeight
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            description: 'Short description to show height difference.',
+            card: true,
+          },
+          {
+            id: 2,
+            ...fx.default,
+            description:
+              'A longer description that would normally make this card taller. This demonstrates how alignHeight makes all cards the same height regardless of content length. The description text should adapt to fill the available space.',
+            card: true,
+          },
+        ]}
+      />
+      <ModularSet
+        title="Default"
+        Components={[
+          {
+            id: 3,
+            ...fx.default,
+            description: 'Short description to show height difference.',
+            card: true,
+          },
+          {
+            id: 4,
+            ...fx.default,
+            description: `A longer description that would normally make this card taller.
+
+This demonstrates how alignHeight makes all cards the same height regardless of content length.
+The description text should adapt to fill the available space.`,
+            card: true,
+          },
+        ]}
+      />
+    </>
+  );
+}
+
+export function Colors() {
+  return (
+    <ModularSet
+        title="Colors"
+        alignHeight
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            title: 'The modular title is black',
+            description: 'The modular description is grey',
+            titleColor: { name: 'black' },
+            descriptionColor: { name: 'grey' },
+            card: true,
+          },
+          {
+            id: 2,
+            ...fx.default,
+            title: 'The modular title is black',
+            description: 'The modular description is also black',
+            titleColor: { name: 'black' },
+            descriptionColor: { name: 'black' },
+            card: true,
+          },
+        ]}
+      />
   );
 }

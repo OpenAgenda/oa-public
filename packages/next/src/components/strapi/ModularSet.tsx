@@ -20,6 +20,8 @@ interface ModularSetProps {
   alignHeight?: boolean;
   useCarousel?: boolean;
   carouselBgColor?: Color;
+  titleColor?: Color;
+  descriptionColor?: Color;
 }
 
 export default function ModularSet({
@@ -32,14 +34,16 @@ export default function ModularSet({
   alignHeight,
   useCarousel,
   carouselBgColor,
+  titleColor,
+  descriptionColor,
 }: ModularSetProps) {
   return (
     <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
-      <Heading as="h2" size="xl" textAlign="center">
+      <Heading as="h2" size="xl" textAlign="center" color={color(titleColor)}>
         {title}
       </Heading>
       {description && (
-        <Text textAlign="center" mt={4} mb={2}>
+        <Text textAlign="center" mt={4} mb={2} color={color(descriptionColor)}>
           {description}
         </Text>
       )}
