@@ -1,0 +1,23 @@
+diff --git a/dist/index.js b/dist/index.js
+index accc6720586211138859ddedfcc33c86092773ea..dc175d86986124c2b7aef36246ebf35631ffb0c2 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -85,7 +85,7 @@ function Q(t = {}) {
+     timeLog: m
+   };
+ }
+-const E = () => window == null ? void 0 : window.matchMedia("(prefers-color-scheme: dark)").matches, k = E() ? D : M, q = E() ? H : F;
++const E = () => typeof window ==="undefined" ? false : window.matchMedia("(prefers-color-scheme: dark)").matches, k = E() ? D : M, q = E() ? H : F;
+ /*!
+  *  @module      auto-console-group
+  *  @description Automagically group console messages
+diff --git a/dist/index.umd.cjs b/dist/index.umd.cjs
+index be1d606d47a38f830344cc840ad6985c25882da7..bd6b4bc4ec31ad56208754f1c6d3e423d170af7b 100644
+--- a/dist/index.umd.cjs
++++ b/dist/index.umd.cjs
+@@ -1,4 +1,4 @@
+-(function(n,r){typeof exports=="object"&&typeof module<"u"?r(exports):typeof define=="function"&&define.amd?define(["exports"],r):(n=typeof globalThis<"u"?globalThis:n||self,r(n["auto-console-group"]={}))})(this,function(n){"use strict";const r="font-weight: normal;",m="font-weight: bold;",g="font-style: italic;",L=r+g,w="color: #135CD2;",G="color: #A9C7FB;",I="color: #1F1F1F;",v="color: #E3E3E3;",a="default",A={collapsed:!1,defaultEvent:void 0,event:void 0,label:"AutoConsoleGroup",showTime:!0},M={profile:0,profileEnd:0,timeStamp:0,trace:0},O=t=>{const e=t.event||t.defaultEvent;return e?`${e}`:""};function $(){const t=new Date,e=(f,p)=>t[f]().toString().padStart(p,"0"),s=e("getHours",2),c=e("getMinutes",2),i=e("getSeconds",2),l=e("getMilliseconds",3);return`@ ${s}:${c}:${i}.${l}`}const{fromEntries:D,keys:H}=Object,b=t=>e=>[e,function(s){t[e]=s}],d=(t,e)=>D(H(t).map(e));function F(t={}){const e={},s=[],c={...A,...t};let i;function l(){s.length=0}function f(){delete c.event,l()}const p=()=>s.some(([o])=>o==="error"||o==="warn"),B=()=>p()?!1:!!c.collapsed,N=()=>c.showTime?i:"";function h(){if(s.length===0){f();return}console[B()?"groupCollapsed":"group"](`%c${c.label}%c ${O(c)} %c${N()}`,r,m,L);for(const[o,...u]of s)console[o](...u);console.groupEnd(),f()}function U(){i=$(),queueMicrotask(()=>queueMicrotask(h))}function T(o,...u){s.length===0&&U(),s.push([o,...u])}function _(o=a){e[o]=performance.now()}function C(o=a,...u){const k=performance.now()-e[o];T("log",`${o}: ${k} ms`,...u)}function j(o=a){C(o),delete e[o]}const Q=o=>[o,(...u)=>T(o,...u)];return{...d(c,b(c)),...d(console,Q),...d(M,o=>[o,console[o]]),endAutoGroup:h,purge:l,time:_,timeEnd:j,timeLog:C}}const E=()=>window==null?void 0:window.matchMedia("(prefers-color-scheme: dark)").matches,R=E()?G:w,S=E()?v:I;/*!
++(function(n,r){typeof exports=="object"&&typeof module<"u"?r(exports):typeof define=="function"&&define.amd?define(["exports"],r):(n=typeof globalThis<"u"?globalThis:n||self,r(n["auto-console-group"]={}))})(this,function(n){"use strict";const r="font-weight: normal;",m="font-weight: bold;",g="font-style: italic;",L=r+g,w="color: #135CD2;",G="color: #A9C7FB;",I="color: #1F1F1F;",v="color: #E3E3E3;",a="default",A={collapsed:!1,defaultEvent:void 0,event:void 0,label:"AutoConsoleGroup",showTime:!0},M={profile:0,profileEnd:0,timeStamp:0,trace:0},O=t=>{const e=t.event||t.defaultEvent;return e?`${e}`:""};function $(){const t=new Date,e=(f,p)=>t[f]().toString().padStart(p,"0"),s=e("getHours",2),c=e("getMinutes",2),i=e("getSeconds",2),l=e("getMilliseconds",3);return`@ ${s}:${c}:${i}.${l}`}const{fromEntries:D,keys:H}=Object,b=t=>e=>[e,function(s){t[e]=s}],d=(t,e)=>D(H(t).map(e));function F(t={}){const e={},s=[],c={...A,...t};let i;function l(){s.length=0}function f(){delete c.event,l()}const p=()=>s.some(([o])=>o==="error"||o==="warn"),B=()=>p()?!1:!!c.collapsed,N=()=>c.showTime?i:"";function h(){if(s.length===0){f();return}console[B()?"groupCollapsed":"group"](`%c${c.label}%c ${O(c)} %c${N()}`,r,m,L);for(const[o,...u]of s)console[o](...u);console.groupEnd(),f()}function U(){i=$(),queueMicrotask(()=>queueMicrotask(h))}function T(o,...u){s.length===0&&U(),s.push([o,...u])}function _(o=a){e[o]=performance.now()}function C(o=a,...u){const k=performance.now()-e[o];T("log",`${o}: ${k} ms`,...u)}function j(o=a){C(o),delete e[o]}const Q=o=>[o,(...u)=>T(o,...u)];return{...d(c,b(c)),...d(console,Q),...d(M,o=>[o,console[o]]),endAutoGroup:h,purge:l,time:_,timeEnd:j,timeLog:C}}const E=()=>typeof window==="undefined"?false:window.matchMedia("(prefers-color-scheme: dark)").matches,R=E()?G:w,S=E()?v:I;/*!
+  *  @module      auto-console-group
+  *  @description Automagically group console messages
+  *  @author      David J. Bradshaw

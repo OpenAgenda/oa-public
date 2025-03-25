@@ -4337,22 +4337,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/core@npm:5.4.0-beta.7":
-  version: 5.4.0-beta.7
-  resolution: "@iframe-resizer/core@npm:5.4.0-beta.7"
+"@iframe-resizer/core@npm:5.4.0-beta.8":
+  version: 5.4.0-beta.8
+  resolution: "@iframe-resizer/core@npm:5.4.0-beta.8"
   dependencies:
     auto-console-group: "npm:1.1.1-beta.4"
-  checksum: 10c0/4e693e3dbcc75fd5c590f3e26c5e57451c5c6459c5425b577e7377af578194a4dc70284edfcc4b0af56b3ba0345457dff3ac6b0de2bfffdbf30ea4b980dd7102
+  checksum: 10c0/f13d85b4e1a738f6ba3c4aec2bde1b834c3f6f61a598137d0b9a1f5929da977489fd0bb2cadb2af88fad97122a8a0c3f6f892a9c98aceb6baa252022283afef8
   languageName: node
   linkType: hard
 
-"@iframe-resizer/parent@npm:^5.4.0-beta.7":
-  version: 5.4.0-beta.7
-  resolution: "@iframe-resizer/parent@npm:5.4.0-beta.7"
+"@iframe-resizer/parent@npm:^5.4.0-beta.8":
+  version: 5.4.0-beta.8
+  resolution: "@iframe-resizer/parent@npm:5.4.0-beta.8"
   dependencies:
-    "@iframe-resizer/core": "npm:5.4.0-beta.7"
+    "@iframe-resizer/core": "npm:5.4.0-beta.8"
     auto-console-group: "npm:1.1.1-beta.4"
-  checksum: 10c0/92eb13489536d2d99371f6408abfbcbc2da01e2575180541a99f78a6b9cee5d48c0ef1eee7805b9ee3a86669eb4d9df87611e6cdea55374ef84e2697eaffc82a
+  checksum: 10c0/e381bd506aef1d499c075626f7fa9d72be00e056151ccf5c9e002ca4003892587a13d2af15750d22ff7d5517c6758acf66269692f3f040dc0513ddb58718dc48
   languageName: node
   linkType: hard
 
@@ -5797,7 +5797,7 @@ __metadata:
   resolution: "@openagenda/widgets@workspace:widgets"
   dependencies:
     "@babel/core": "npm:^7.26.0"
-    "@iframe-resizer/parent": "npm:^5.4.0-beta.7"
+    "@iframe-resizer/parent": "npm:^5.4.0-beta.8"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@storybook/addon-essentials": "npm:^8.5.8"
     "@storybook/html-webpack5": "npm:^8.5.8"
@@ -10093,6 +10093,13 @@ __metadata:
   version: 1.1.1-beta.4
   resolution: "auto-console-group@npm:1.1.1-beta.4"
   checksum: 10c0/b1148a42c8e3a4ada8023ba5db382c8df2c68e0d3e81c6280edf2599f08337471c81af5e70cba279140e4842d18ba0049cdc36f6e597784c1cbf1b41b01fd1b7
+  languageName: node
+  linkType: hard
+
+"auto-console-group@patch:auto-console-group@npm%3A1.1.1-beta.4#~/.yarn/patches/auto-console-group-npm-1.1.1-beta.4-920fd70f83.patch":
+  version: 1.1.1-beta.4
+  resolution: "auto-console-group@patch:auto-console-group@npm%3A1.1.1-beta.4#~/.yarn/patches/auto-console-group-npm-1.1.1-beta.4-920fd70f83.patch::version=1.1.1-beta.4&hash=28349a"
+  checksum: 10c0/27bba6528f2195a29a0b6978a83cafa05afdcb8cd66c08ecb9715cd97394ecb5bdef75f937a6635557abe5af9f26d656f31def3bf45762d85646f6a4d9419a56
   languageName: node
   linkType: hard
 
