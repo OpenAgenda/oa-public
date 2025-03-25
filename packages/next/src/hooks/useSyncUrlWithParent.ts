@@ -29,7 +29,8 @@ export default function useSyncUrlWithParent() {
     // };
 
     window.iFrameResizer = {
-      sizeSelector: 'body',
+      ignoreSelector: '.leaflet-proxy.leaflet-zoom-animated',
+      // sizeSelector: 'body',
       // onMessage
     };
 
