@@ -39,6 +39,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
+    },
+    "Components": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.accordion"
     }
   }
 }
