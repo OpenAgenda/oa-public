@@ -10,6 +10,7 @@ import booleanValidator from '@openagenda/validators/boolean.js';
 import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
 import preCleanRawQuery from './preCleanRawQuery.js';
 import derelativize from './derelativize.js';
+import adminLevelSwap from './adminLevelSwap.js';
 
 schema.register({
   text: textValidator,
@@ -383,17 +384,11 @@ function filterNullCountryCode(dirty) {
 }
 
 function mapAdminLevelSort(sort) {
-  const adminLevelToSwap = [
-    { al: 'adminLevel1', to: 'region' },
-    { al: 'adminLevel2', to: 'department' },
-    { al: 'adminLevel4', to: 'city' },
-    { al: 'adminLevel6', to: 'district' },
-  ];
   if (
     sort
     && sort.length
     && sort.some((s) =>
-      adminLevelToSwap
+      adminLevelSwap.map
         .map((e) => e.al)
         .includes(
           s.replace('location.', '').replace('.asc', '').replace('.desc', ''),
@@ -401,13 +396,13 @@ function mapAdminLevelSort(sort) {
   ) {
     return sort.map((s) => {
       if (
-        adminLevelToSwap
+        adminLevelSwap.map
           .map((e) => e.al)
           .includes(
             s.replace('location.', '').replace('.asc', '').replace('.desc', ''),
           )
       ) {
-        const adminLevel = adminLevelToSwap.find(
+        const adminLevel = adminLevelSwap.map.find(
           (e) =>
             e.al
             === s.replace('location.', '').replace('.asc', '').replace('.desc', ''),
