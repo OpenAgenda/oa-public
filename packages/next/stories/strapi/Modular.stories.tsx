@@ -253,3 +253,32 @@ The description text should adapt to fill the available space.`,
     </>
   );
 }
+
+export function Colors() {
+  return (
+    <ModularSet
+        title="Colors"
+        alignHeight
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            title: 'The modular title is black',
+            description: 'The modular description is grey',
+            titleColor: { name: 'black' },
+            descriptionColor: { name: 'grey' },
+            card: true,
+          },
+          {
+            id: 2,
+            ...fx.default,
+            title: 'The modular title is black',
+            description: 'The modular description is also black',
+            titleColor: { name: 'black' },
+            descriptionColor: { name: 'black' },
+            card: true,
+          },
+        ]}
+      />
+  );
+}
