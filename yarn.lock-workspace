@@ -4337,19 +4337,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/core@npm:5.3.3":
-  version: 5.3.3
-  resolution: "@iframe-resizer/core@npm:5.3.3"
-  checksum: 10c0/e9f22eacc9cd8e35bc4e8d82961a5df543e6359912f3b0c607aae684fcd11ab8de1755d95c86e248fa583755e337f990aa188f289cd291606d9a10d92f7b9bdf
+"@iframe-resizer/core@npm:5.4.0-beta.7":
+  version: 5.4.0-beta.7
+  resolution: "@iframe-resizer/core@npm:5.4.0-beta.7"
+  dependencies:
+    auto-console-group: "npm:1.1.1-beta.4"
+  checksum: 10c0/4e693e3dbcc75fd5c590f3e26c5e57451c5c6459c5425b577e7377af578194a4dc70284edfcc4b0af56b3ba0345457dff3ac6b0de2bfffdbf30ea4b980dd7102
   languageName: node
   linkType: hard
 
-"@iframe-resizer/parent@npm:^5.3.3":
-  version: 5.3.3
-  resolution: "@iframe-resizer/parent@npm:5.3.3"
+"@iframe-resizer/parent@npm:^5.4.0-beta.7":
+  version: 5.4.0-beta.7
+  resolution: "@iframe-resizer/parent@npm:5.4.0-beta.7"
   dependencies:
-    "@iframe-resizer/core": "npm:5.3.3"
-  checksum: 10c0/38657d0f811867c1c8e09d6b365ed16c63e99b6d3f2fb7599451442826ba6cb48649302011e7b0b28296834bd3724ac8cd6c4ff0a79af4d8472a9649649830a4
+    "@iframe-resizer/core": "npm:5.4.0-beta.7"
+    auto-console-group: "npm:1.1.1-beta.4"
+  checksum: 10c0/92eb13489536d2d99371f6408abfbcbc2da01e2575180541a99f78a6b9cee5d48c0ef1eee7805b9ee3a86669eb4d9df87611e6cdea55374ef84e2697eaffc82a
   languageName: node
   linkType: hard
 
@@ -5794,7 +5797,7 @@ __metadata:
   resolution: "@openagenda/widgets@workspace:widgets"
   dependencies:
     "@babel/core": "npm:^7.26.0"
-    "@iframe-resizer/parent": "npm:^5.3.3"
+    "@iframe-resizer/parent": "npm:^5.4.0-beta.7"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@storybook/addon-essentials": "npm:^8.5.8"
     "@storybook/html-webpack5": "npm:^8.5.8"
@@ -10083,6 +10086,13 @@ __metadata:
   version: 2.2.5
   resolution: "attr-accept@npm:2.2.5"
   checksum: 10c0/9b4cb82213925cab2d568f71b3f1c7a7778f9192829aac39a281e5418cd00c04a88f873eb89f187e0bf786fa34f8d52936f178e62cbefb9254d57ecd88ada99b
+  languageName: node
+  linkType: hard
+
+"auto-console-group@npm:1.1.1-beta.4":
+  version: 1.1.1-beta.4
+  resolution: "auto-console-group@npm:1.1.1-beta.4"
+  checksum: 10c0/b1148a42c8e3a4ada8023ba5db382c8df2c68e0d3e81c6280edf2599f08337471c81af5e70cba279140e4842d18ba0049cdc36f6e597784c1cbf1b41b01fd1b7
   languageName: node
   linkType: hard
 
