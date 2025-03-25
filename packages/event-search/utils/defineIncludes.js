@@ -1,4 +1,5 @@
 import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
+import adminLevelSwap from './adminLevelSwap.js';
 
 function _keepHigherOrderIncludes(includes = []) {
   const higherOrderIncludes = includes.filter((i) => !i.includes('.'));
@@ -13,8 +14,12 @@ function _keepHigherOrderIncludes(includes = []) {
 
 export default (
   { baseSearchIncludes, detailedSearchIncludes, otherStandardFields },
-  { detailed, formSchema, access, requested },
+  { detailed, formSchema, access, requested: dirtyRequested },
 ) => {
+  const requested = dirtyRequested
+    ? adminLevelSwap.apply(dirtyRequested)
+    : dirtyRequested;
+
   const additionalFields = formSchema
     ? getFormSchemaAdditionalFields(formSchema).map((f) => f.field)
     : [];

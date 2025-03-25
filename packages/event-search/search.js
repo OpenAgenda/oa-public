@@ -23,6 +23,7 @@ import cleanNavResult from './utils/cleanNavResult.js';
 import formatError from './utils/formatError.js';
 import cleanRequestedAggregation from './utils/cleanRequestedAggregation.js';
 import { inflateAndClean as inflateAndCleanQuery } from './utils/validateQuery.js';
+import adminLevelSwap from './utils/adminLevelSwap.js';
 
 const log = logs('search');
 
@@ -104,6 +105,10 @@ function buildEventParsers({
   if (includeLocationImagePath && assetsPath) {
     parsers.push(includePathInLocationImage.bind(null, { assetsPath }));
   }
+
+  parsers.push(
+    adminLevelSwap.transformToRequested.bind(null, requestedIncludes),
+  );
 
   return parsers;
 }

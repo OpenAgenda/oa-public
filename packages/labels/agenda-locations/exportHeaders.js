@@ -156,5 +156,13 @@ module.exports = {
     "it": "Descrizione",
     "oc": "Descripcion",
     "io": "crwdns32875:0crwdne32875:0"
+  },
+  "adminLevel5": {
+    "en": "Borough",
+    "fr": "Arrondissement"
+  },
+  "adminLevel6": {
+    "en": "City district",
+    "fr": "Quartier"
   }
 };

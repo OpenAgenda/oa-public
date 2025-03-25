@@ -35,11 +35,33 @@ describe('02 - event search - functional: location', () => {
         {},
         { size: 1 },
         {
-          includeFields: ['location.city', 'location.uid', 'location.name'],
+          includeFields: ['location.uid', 'location.city', 'location.name'],
         },
       );
 
       expect(Object.keys(event.location)).toEqual(['uid', 'city', 'name']);
+    });
+
+    it('includeFields on adminLevel names maps result keys to requested names', async () => {
+      const {
+        events: [event],
+      } = await service('location').search(
+        {},
+        { size: 1 },
+        {
+          includeFields: [
+            'location.uid',
+            'location.adminLevel4',
+            'location.adminLevel6',
+          ],
+        },
+      );
+
+      expect(event.location).toEqual({
+        uid: 1,
+        adminLevel4: 'Paris',
+        adminLevel6: 'Paris 02',
+      });
     });
   });
 
