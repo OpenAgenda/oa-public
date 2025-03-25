@@ -62,6 +62,7 @@ export default class EmbedLoader {
         iframe.addEventListener('load', () => {
           iframeResize(
             {
+              log: true,
               license: '12ajjdewwwy-26rnhw2943-1s7g1u8ma0i',
               checkOrigin: false,
               onMessage: this.onChildMessage,
