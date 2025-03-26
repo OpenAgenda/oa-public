@@ -30,7 +30,6 @@ export default async function postDSL({ client }, index, DSL) {
   return {
     events: res.body.hits.hits.map((h) => h._source),
     total: res.body.hits.total.value,
-    scrollId: res.body._scroll_id,
     sort:
       DSL.sort && res.body.hits.hits.length
         ? res.body.hits.hits[res.body.hits.hits.length - 1].sort

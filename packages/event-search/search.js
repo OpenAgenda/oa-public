@@ -232,7 +232,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     throw formatError(error);
   }
 
-  const { events, total, sort, scrollId } = result;
+  const { events, total, sort } = result;
 
   let { aggregations: aggregationResults } = result;
 
@@ -280,11 +280,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   return {
     total,
     events: parsedEvents,
-    ...cleanNavResult(
-      cleanQuery,
-      { scrollId, sort },
-      { useAfterKey, total, events },
-    ),
+    ...cleanNavResult(cleanQuery, { sort }, { useAfterKey, total, events }),
     ...aggregationResults ? { aggregations: aggregationResults } : {},
   };
 }
