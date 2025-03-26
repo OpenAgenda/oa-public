@@ -110,6 +110,10 @@ export default class EmbedLoader {
       url.searchParams.set('imageList', dataset.imageList);
     }
 
+    if (dataset.mapSize) {
+      url.searchParams.set('mapSize', dataset.mapSize);
+    }
+
     if (dataset.sort) {
       url.searchParams.set('sort', dataset.sort);
     }
