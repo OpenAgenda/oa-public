@@ -24,8 +24,7 @@
   "resolutions": {
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "jest-runtime@npm:^29.7.0": "patch:jest-runtime@npm%3A29.7.0#~/.yarn/patches/jest-runtime-npm-29.7.0-120fa64128.patch",
-    "auto-console-group@npm:1.1.1-beta.4": "patch:auto-console-group@npm%3A1.1.1-beta.4#~/.yarn/patches/auto-console-group-npm-1.1.1-beta.4-920fd70f83.patch"
+    "jest-runtime@npm:^29.7.0": "patch:jest-runtime@npm%3A29.7.0#~/.yarn/patches/jest-runtime-npm-29.7.0-120fa64128.patch"
   },
   "dependencies": {
     "mime": "^2.4.4"
