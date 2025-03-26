@@ -600,17 +600,17 @@ describe('02 - event search - functional: search', () => {
         stream.on('data', (_event) => {});
 
         let total;
-        let count = 0;
+        let reloads = 0;
 
         stream.on('reloading', (data) => {
           total = data.total;
 
-          count += 1;
+          reloads += 1;
         });
 
         return new Promise((rs) => {
           stream.on('end', () => {
-            expect(total).toBe(count + 1);
+            expect(total).toBe(reloads - 1);
             rs();
           });
         });

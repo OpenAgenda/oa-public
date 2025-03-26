@@ -237,36 +237,6 @@ describe('02 - event search - functional: Applied search', () => {
     });
 
     describe('Sort and navigation', () => {
-      it('scroll through results', async () => {
-        const { total, events, scrollId } = await service('bdx').search(
-          {},
-          {
-            scroll: '1m',
-          },
-          {
-            detailed: true,
-            formSchema,
-          },
-        );
-
-        let hasMore = true;
-
-        do {
-          const { events: moreEvents } = await service('bdx').search.scroll(
-            scrollId,
-            '1m',
-          );
-
-          if (moreEvents.length) {
-            moreEvents.forEach((e) => events.push(e));
-          } else {
-            hasMore = false;
-          }
-        } while (hasMore);
-
-        expect(events.length).toBe(total);
-      });
-
       it('navigation with search after and default sort', async () => {
         const { events: chunkOfEvents } = await service('bdx').search(
           {},

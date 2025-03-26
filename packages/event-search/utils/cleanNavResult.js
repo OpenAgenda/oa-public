@@ -1,4 +1,4 @@
-export default (query, { scrollId, sort }, { useAfterKey, total, events }) => {
+export default (query, { sort }, { useAfterKey, total, events }) => {
   let cleanSort = Array.isArray(sort) ? sort.map((s) => `${s}`) : sort;
 
   if (total === events?.length) {
@@ -7,14 +7,12 @@ export default (query, { scrollId, sort }, { useAfterKey, total, events }) => {
 
   if (!useAfterKey) {
     return {
-      scrollId,
       sort: cleanSort,
     };
   }
 
   return {
     after: cleanSort,
-    scrollId,
     sort: query.sort,
   };
 };
