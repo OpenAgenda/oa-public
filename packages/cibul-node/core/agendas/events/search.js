@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import { NotFound, Forbidden } from '@openagenda/verror';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
@@ -105,7 +104,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
       ...searchOptions,
       useAfterKey,
       access,
-    }).then((r) => _.omit(r, ['scrollId']));
+    });
 
   return returnAgenda ? { agenda, result } : result;
 }
