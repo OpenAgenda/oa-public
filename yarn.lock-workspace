@@ -4337,22 +4337,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/core@npm:5.4.0-beta.9":
-  version: 5.4.0-beta.9
-  resolution: "@iframe-resizer/core@npm:5.4.0-beta.9"
+"@iframe-resizer/core@npm:5.4.0-beta.12":
+  version: 5.4.0-beta.12
+  resolution: "@iframe-resizer/core@npm:5.4.0-beta.12"
   dependencies:
     auto-console-group: "npm:1.1.1-beta.5"
-  checksum: 10c0/56a2c475583c6a928a41386693b32929168dc91f403df84a4335c6ed4b0a19cacae24b09f26f148466e2c9def9b5b1a999dae78a342cff7a2ecd0c179a1d36bf
+  checksum: 10c0/99269a7a70588056dab0662ed87e45611f26c010fd87aa2c2595c403e62cf895439a2f6a0e987e98b2750b625bbeae89e7dd2f9f16adfcdbc4a5a501b46fac09
   languageName: node
   linkType: hard
 
-"@iframe-resizer/parent@npm:^5.4.0-beta.9":
-  version: 5.4.0-beta.9
-  resolution: "@iframe-resizer/parent@npm:5.4.0-beta.9"
+"@iframe-resizer/parent@npm:^5.4.0-beta.12":
+  version: 5.4.0-beta.12
+  resolution: "@iframe-resizer/parent@npm:5.4.0-beta.12"
   dependencies:
-    "@iframe-resizer/core": "npm:5.4.0-beta.9"
+    "@iframe-resizer/core": "npm:5.4.0-beta.12"
     auto-console-group: "npm:1.1.1-beta.5"
-  checksum: 10c0/1a7466fd839f5067f7964a60fb8962ebfe6e972dd2bafc5df8996f8b673583cf490caded054f54f987bdf440bf6e7c6a5bd5581a7a8e4c9f7f378afcbc41368e
+  checksum: 10c0/0b6bf3a70f425c685a7d96e8c56b6e3d0a7544ec349d5615a47437f56f240189d024afa55dee5da0a2c5a0eb5fa014c10d81038b4298e448f4108fe6fdab9a6a
   languageName: node
   linkType: hard
 
@@ -5797,7 +5797,7 @@ __metadata:
   resolution: "@openagenda/widgets@workspace:widgets"
   dependencies:
     "@babel/core": "npm:^7.26.0"
-    "@iframe-resizer/parent": "npm:^5.4.0-beta.9"
+    "@iframe-resizer/parent": "npm:^5.4.0-beta.12"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@storybook/addon-essentials": "npm:^8.5.8"
     "@storybook/html-webpack5": "npm:^8.5.8"
