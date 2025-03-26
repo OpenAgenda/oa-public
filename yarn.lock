@@ -3773,12 +3773,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.26.10":
-  version: 7.26.10
-  resolution: "@babel/runtime@npm:7.26.10"
+"@babel/runtime@npm:^7.27.0":
+  version: 7.27.0
+  resolution: "@babel/runtime@npm:7.27.0"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/6dc6d88c7908f505c4f7770fb4677dfa61f68f659b943c2be1f2a99cb6680343462867abf2d49822adc435932919b36c77ac60125793e719ea8745f2073d3745
+  checksum: 10c0/35091ea9de48bd7fd26fb177693d64f4d195eb58ab2b142b893b7f3fa0f1d7c677604d36499ae0621a3703f35ba0c6a8f6c572cc8f7dc0317213841e493cf663
   languageName: node
   linkType: hard
 
@@ -7026,44 +7026,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/child@npm:^5.4.0-beta.9":
-  version: 5.4.0-beta.9
-  resolution: "@iframe-resizer/child@npm:5.4.0-beta.9"
+"@iframe-resizer/child@npm:^5.4.0-beta.12":
+  version: 5.4.0-beta.12
+  resolution: "@iframe-resizer/child@npm:5.4.0-beta.12"
   dependencies:
     auto-console-group: "npm:1.1.1-beta.5"
-  checksum: 10c0/c952954be4e988dccd23dd9af8ac0555f877ca93eedb67154cf4ce898dfb04b002987cee9e598b55f5e5124eae53f1435d9bf00313904e006d504255741d4384
+  checksum: 10c0/0d8f05fff47c421706038f057eff5353cb69ad1eff6b95ec05e4c656a23481e3b1194562dc1247a9c517a8ec30bba4eec04786fd531607031cddf50d7bbd8de6
   languageName: node
   linkType: hard
 
-"@iframe-resizer/core@npm:5.4.0-beta.9":
-  version: 5.4.0-beta.9
-  resolution: "@iframe-resizer/core@npm:5.4.0-beta.9"
+"@iframe-resizer/core@npm:5.4.0-beta.12":
+  version: 5.4.0-beta.12
+  resolution: "@iframe-resizer/core@npm:5.4.0-beta.12"
   dependencies:
     auto-console-group: "npm:1.1.1-beta.5"
-  checksum: 10c0/56a2c475583c6a928a41386693b32929168dc91f403df84a4335c6ed4b0a19cacae24b09f26f148466e2c9def9b5b1a999dae78a342cff7a2ecd0c179a1d36bf
+  checksum: 10c0/99269a7a70588056dab0662ed87e45611f26c010fd87aa2c2595c403e62cf895439a2f6a0e987e98b2750b625bbeae89e7dd2f9f16adfcdbc4a5a501b46fac09
   languageName: node
   linkType: hard
 
-"@iframe-resizer/parent@npm:^5.4.0-beta.9":
-  version: 5.4.0-beta.9
-  resolution: "@iframe-resizer/parent@npm:5.4.0-beta.9"
+"@iframe-resizer/parent@npm:^5.4.0-beta.12":
+  version: 5.4.0-beta.12
+  resolution: "@iframe-resizer/parent@npm:5.4.0-beta.12"
   dependencies:
-    "@iframe-resizer/core": "npm:5.4.0-beta.9"
+    "@iframe-resizer/core": "npm:5.4.0-beta.12"
     auto-console-group: "npm:1.1.1-beta.5"
-  checksum: 10c0/1a7466fd839f5067f7964a60fb8962ebfe6e972dd2bafc5df8996f8b673583cf490caded054f54f987bdf440bf6e7c6a5bd5581a7a8e4c9f7f378afcbc41368e
+  checksum: 10c0/0b6bf3a70f425c685a7d96e8c56b6e3d0a7544ec349d5615a47437f56f240189d024afa55dee5da0a2c5a0eb5fa014c10d81038b4298e448f4108fe6fdab9a6a
   languageName: node
   linkType: hard
 
-"@iframe-resizer/react@npm:^5.4.0-beta.9":
-  version: 5.4.0-beta.9
-  resolution: "@iframe-resizer/react@npm:5.4.0-beta.9"
+"@iframe-resizer/react@npm:^5.4.0-beta.12":
+  version: 5.4.0-beta.12
+  resolution: "@iframe-resizer/react@npm:5.4.0-beta.12"
   dependencies:
-    "@babel/runtime": "npm:^7.26.10"
-    "@iframe-resizer/core": "npm:5.4.0-beta.9"
+    "@babel/runtime": "npm:^7.27.0"
+    "@iframe-resizer/core": "npm:5.4.0-beta.12"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
-  checksum: 10c0/a06b3dd45f079a882751178cce6047cee38d35afbb2b308f8ff5b0c007a6c4671f60643a16028b76a538863f4c2696f4f05a5d54e1255df57792206925c47812
+  checksum: 10c0/921fb5c1e7c3160c98545b76dc439261ba15949bc758a44e598f0da20c677f297fb58a52a733d1f9b0bc897b74e183bc5236a454be9da751fe5baaa6c5942e65
   languageName: node
   linkType: hard
 
@@ -8965,7 +8965,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.23.3"
     "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@iframe-resizer/child": "npm:^5.4.0-beta.9"
+    "@iframe-resizer/child": "npm:^5.4.0-beta.12"
     "@loadable/component": "npm:^5.14.1"
     "@loadable/webpack-plugin": "npm:^5.14.2"
     "@openagenda/activity-apps": "npm:^1.2.1"
@@ -10002,8 +10002,8 @@ __metadata:
     "@fortawesome/pro-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/pro-thin-svg-icons": "npm:^6.6.0"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
-    "@iframe-resizer/child": "npm:^5.4.0-beta.9"
-    "@iframe-resizer/react": "npm:^5.4.0-beta.9"
+    "@iframe-resizer/child": "npm:^5.4.0-beta.12"
+    "@iframe-resizer/react": "npm:^5.4.0-beta.12"
     "@next/bundle-analyzer": "npm:^15.2.2"
     "@openagenda/activity-apps": "npm:^1.2.1"
     "@openagenda/browserslist-config": "npm:^1.0.0"
@@ -10990,7 +10990,7 @@ __metadata:
   resolution: "@openagenda/widgets@workspace:public/widgets"
   dependencies:
     "@babel/core": "npm:^7.26.0"
-    "@iframe-resizer/parent": "npm:^5.4.0-beta.9"
+    "@iframe-resizer/parent": "npm:^5.4.0-beta.12"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@storybook/addon-essentials": "npm:^8.5.8"
     "@storybook/html-webpack5": "npm:^8.5.8"
