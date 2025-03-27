@@ -140,6 +140,7 @@ export default function Modular({
               display="flex"
               flexDirection="column"
               style={{ listStylePosition: 'inside' }}
+              fontSize="xl"
             >
               <ReactMarkdown>{description}</ReactMarkdown>
             </Box>

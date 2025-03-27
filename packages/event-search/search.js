@@ -39,6 +39,7 @@ function buildEventParsers({
   assetsPath,
   useDefaultImage,
   defaultImage,
+  useAdminLevels,
 }) {
   const parsers = [convertToLocalTimezone];
 
@@ -107,7 +108,10 @@ function buildEventParsers({
   }
 
   parsers.push(
-    adminLevelSwap.transformToRequested.bind(null, requestedIncludes),
+    adminLevelSwap.transformToRequested.bind(null, {
+      requestedIncludes,
+      useAdminLevels,
+    }),
   );
 
   return parsers;
@@ -143,6 +147,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     useDefaultImage,
     aggsSizeLimit,
     removed,
+    useAdminLevels,
   } = validateOptions(options);
 
   try {
@@ -247,6 +252,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
       requestedIncludes,
       assetsPath,
       useDefaultImage,
+      useAdminLevels,
       defaultImage,
       parser,
     },
