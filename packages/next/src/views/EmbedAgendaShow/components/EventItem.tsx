@@ -26,7 +26,7 @@ function isValidUrl(url: string) {
   }
 }
 
-function useEventLink({ baseUrl, baseUrlTarget, agenda, event, nc }) {
+function useEventLink({ baseUrl, baseUrlTarget, agenda, event, nc, referrer }) {
   return useMemo(() => {
     if (baseUrl === 'oa') {
       const target = baseUrlTarget || '_blank';
@@ -49,7 +49,7 @@ function useEventLink({ baseUrl, baseUrlTarget, agenda, event, nc }) {
 
     return {
       target: '_self',
-      url: `/embed/agendas/${agenda.uid}/events/${event.slug}${qs.stringify({ nc }, { addQueryPrefix: true })}`,
+      url: `/embed/agendas/${agenda.uid}/events/${event.slug}${qs.stringify({ nc, host: referrer || undefined }, { addQueryPrefix: true })}`,
     };
   }, [baseUrl, agenda.uid, agenda.slug, event.slug, nc]);
 }
@@ -57,6 +57,7 @@ function useEventLink({ baseUrl, baseUrlTarget, agenda, event, nc }) {
 export default function EventItem({
   event,
   agenda,
+  referrer,
   // nav
   from = 0,
   first = true,
@@ -89,6 +90,7 @@ export default function EventItem({
     agenda,
     event,
     nc,
+    referrer,
   });
 
   const imageHeight = imageList ? imageList.height : '170px';
