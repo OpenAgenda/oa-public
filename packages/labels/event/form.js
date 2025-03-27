@@ -628,6 +628,7 @@ module.exports = {
   "extIds": {
     "fr": "Identifiants externe",
     "en": "External identifiers",
-    "io": "crwdns34156:0crwdne34156:0"
+    "io": "crwdns34156:0crwdne34156:0",
+    "oc": "Identificants extèrnes"
   }
 };

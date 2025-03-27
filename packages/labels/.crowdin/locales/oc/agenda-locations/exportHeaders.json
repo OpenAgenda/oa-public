@@ -15,6 +15,7 @@
   "name": "Nom",
   "postalCode": "Còdi postal",
   "region": "Region",
+  "siret": "N° SIRET",
   "slug": "Còdi URL",
   "state": "Verificat",
   "uid": "Identificant",

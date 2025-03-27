@@ -7,7 +7,8 @@ module.exports = {
     "de": "Fügen Sie ein Feld hinzu",
     "es": "Agregar campo",
     "it": "Aggiungere un campo",
-    "io": "crwdns14674:0crwdne14674:0"
+    "io": "crwdns14674:0crwdne14674:0",
+    "oc": "Apondre un camp"
   },
   "draggableField": {
     "fr": "Glisser-déposer pour trier",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Zum Sortieren ziehen und ablegen",
     "es": "Arrastrar y soltar para ordenar",
     "it": "Trascinare e rilasciare per ordinare",
-    "io": "crwdns14676:0crwdne14676:0"
+    "io": "crwdns14676:0crwdne14676:0",
+    "oc": "Fasètz lisar per triar"
   },
   "editField": {
     "fr": "Modifier",
@@ -32,7 +34,8 @@ module.exports = {
     "de": "Verstecken",
     "es": "Ocultar",
     "it": "Nascondere",
-    "io": "crwdns14680:0crwdne14680:0"
+    "io": "crwdns14680:0crwdne14680:0",
+    "oc": "Amagar"
   },
   "showField": {
     "fr": "Afficher le champ",
@@ -40,7 +43,8 @@ module.exports = {
     "de": "Zeigen Sie das Feld an",
     "es": "campo de visualización",
     "it": "Visualizzare il campo",
-    "io": "crwdns14682:0crwdne14682:0"
+    "io": "crwdns14682:0crwdne14682:0",
+    "oc": "Mostrar lo camp"
   },
   "hiddenField": {
     "fr": "Champ caché",
@@ -48,7 +52,8 @@ module.exports = {
     "de": "Verstecktes Feld",
     "es": "campo oculto",
     "it": "Campo nascosto",
-    "io": "crwdns14684:0crwdne14684:0"
+    "io": "crwdns14684:0crwdne14684:0",
+    "oc": "Camp amagat"
   },
   "removeField": {
     "fr": "Supprimer",
@@ -65,7 +70,8 @@ module.exports = {
     "de": "Beschriftungen bearbeiten",
     "es": "Editar las etiquetas",
     "it": "Modifica etichette",
-    "io": "crwdns14688:0crwdne14688:0"
+    "io": "crwdns14688:0crwdne14688:0",
+    "oc": "Modificar las etiquetas"
   },
   "editFieldSave": {
     "fr": "Sauvegarder",
@@ -93,7 +99,8 @@ module.exports = {
     "de": "Ziehen und ablegen",
     "es": "Drag / drop",
     "it": "Trascina e rilascia",
-    "io": "crwdns14694:0crwdne14694:0"
+    "io": "crwdns14694:0crwdne14694:0",
+    "oc": "Lisar / pausar"
   },
   "fieldLabel": {
     "fr": "Titre du champ",
@@ -101,7 +108,8 @@ module.exports = {
     "de": "Feldtitel",
     "es": "Campo para el título",
     "it": "Titolo del campo",
-    "io": "crwdns14696:0crwdne14696:0"
+    "io": "crwdns14696:0crwdne14696:0",
+    "oc": "Títol del camp"
   },
   "fieldInfo": {
     "fr": "Information complémentaire",
@@ -109,7 +117,8 @@ module.exports = {
     "de": "Weitere Informationen",
     "es": "Más información",
     "it": "Ulteriori informazioni",
-    "io": "crwdns14698:0crwdne14698:0"
+    "io": "crwdns14698:0crwdne14698:0",
+    "oc": "Informacions complementàrias"
   },
   "fieldOptions": {
     "fr": "Valeurs possibles",
@@ -117,7 +126,8 @@ module.exports = {
     "de": "Mögliche Werte",
     "es": "Los valores posibles",
     "it": "Valori possibili",
-    "io": "crwdns14700:0crwdne14700:0"
+    "io": "crwdns14700:0crwdne14700:0",
+    "oc": "Valors possiblas"
   },
   "fieldInfoInfo": {
     "fr": "S'affiche sous le titre (comme ceci)",
@@ -125,7 +135,8 @@ module.exports = {
     "de": "Wird unter dem Titel angezeigt (so)",
     "es": "Aparece bajo el título (como este)",
     "it": "Visualizza sotto il titolo (così)",
-    "io": "crwdns14702:0crwdne14702:0"
+    "io": "crwdns14702:0crwdne14702:0",
+    "oc": "Apareis dejol títol (atal)"
   },
   "fieldPlaceholder": {
     "fr": "Substitut",
@@ -133,7 +144,8 @@ module.exports = {
     "de": "Platzhalter",
     "es": "sustituto",
     "it": "Sostituire",
-    "io": "crwdns14704:0crwdne14704:0"
+    "io": "crwdns14704:0crwdne14704:0",
+    "oc": "Tapatrauc"
   },
   "fieldPlaceholderPlaceholder": {
     "fr": "S'affiche à l'intérieur (comme ceci)",
@@ -141,7 +153,8 @@ module.exports = {
     "de": "Wird innerhalb des Feldes angezeigt (so)",
     "es": "Se muestra el interior (como este)",
     "it": "Display all'interno (come questo)",
-    "io": "crwdns14706:0crwdne14706:0"
+    "io": "crwdns14706:0crwdne14706:0",
+    "oc": "Apareis dins lo camp (atal)"
   },
   "fieldSub": {
     "fr": "Label de sous-champ",
@@ -149,7 +162,8 @@ module.exports = {
     "de": "Unterinfo-Label",
     "es": "subcampo etiqueta",
     "it": "Etichetta del sottocampo",
-    "io": "crwdns14708:0crwdne14708:0"
+    "io": "crwdns14708:0crwdne14708:0",
+    "oc": "Etiqueta de soscamp"
   },
   "fieldSubSub": {
     "fr": "S'affiche sous le champ (comme ceci)",
@@ -157,7 +171,8 @@ module.exports = {
     "de": "Wird unterhalb des Feldes angezeigt (so)",
     "es": "Aparece debajo del campo (como este)",
     "it": "Visualizza sotto il campo (così)",
-    "io": "crwdns14710:0crwdne14710:0"
+    "io": "crwdns14710:0crwdne14710:0",
+    "oc": "Apareis dejol camp (atal)"
   },
   "addLanguages": {
     "fr": "Ajouter des langues",
@@ -165,7 +180,8 @@ module.exports = {
     "de": "Sprachen hinzufügen",
     "es": "Añadir idiomas",
     "it": "Aggiungere una lingua",
-    "io": "crwdns14712:0crwdne14712:0"
+    "io": "crwdns14712:0crwdne14712:0",
+    "oc": "Apondre de lengas"
   },
   "monolingualLabels": {
     "fr": "Monolingue",
@@ -173,7 +189,8 @@ module.exports = {
     "de": "Einsprachig",
     "es": "monolingüe",
     "it": "Monolingue",
-    "io": "crwdns14714:0crwdne14714:0"
+    "io": "crwdns14714:0crwdne14714:0",
+    "oc": "Monolingüe"
   },
   "multilingualLabels": {
     "fr": "Langues des labels",
@@ -181,7 +198,8 @@ module.exports = {
     "de": "Sprachen beschriften",
     "es": "etiquetas de idioma",
     "it": "Lingue dell'etichetta",
-    "io": "crwdns14716:0crwdne14716:0"
+    "io": "crwdns14716:0crwdne14716:0",
+    "oc": "Lengas de las etiquetas"
   },
   "editLabelLanguages": {
     "fr": "Modifier",
@@ -198,7 +216,8 @@ module.exports = {
     "de": "Listen Sie die Sprachen auf, in denen die Beschriftungen des Formulars verfügbar sein werden",
     "es": "Enumerar los idiomas que será rechazada etiquetas forman",
     "it": "Elencare le lingue in cui le etichette sul modulo devono essere disponibili.",
-    "io": "crwdns14720:0crwdne14720:0"
+    "io": "crwdns14720:0crwdne14720:0",
+    "oc": "Listatz las lengas dins las qualas las etiquetas del formulari seràn disponiblas"
   },
   "uneditableFieldInfo": {
     "fr": "Ce champ ne peut pas être modifié",
@@ -206,7 +225,8 @@ module.exports = {
     "de": "Dieses Feld kann nicht geändert werden",
     "es": "Este campo no se puede modificar",
     "it": "Questo campo non può essere modificato",
-    "io": "crwdns14722:0crwdne14722:0"
+    "io": "crwdns14722:0crwdne14722:0",
+    "oc": "Aqueste camp se pòt pas modificar"
   },
   "editFieldInfo": {
     "fr": "Modifier les propriétés de ce champ",
@@ -214,7 +234,8 @@ module.exports = {
     "de": "Eigenschaften dieses Feldes aktualisieren",
     "es": "Editar las propiedades de este campo",
     "it": "Modificare le proprietà di questo campo",
-    "io": "crwdns14724:0crwdne14724:0"
+    "io": "crwdns14724:0crwdne14724:0",
+    "oc": "Metre a jorn las proprietats d'aqueste camp"
   },
   "addLabelLanguages": {
     "fr": "Définir des langues",
@@ -222,7 +243,8 @@ module.exports = {
     "de": "Sprachen definieren",
     "es": "Establecer idioma",
     "it": "Definire le lingue",
-    "io": "crwdns14726:0crwdne14726:0"
+    "io": "crwdns14726:0crwdne14726:0",
+    "oc": "Definir de lengas"
   },
   "submitLabelLanguages": {
     "fr": "Enregistrer",
@@ -240,7 +262,8 @@ module.exports = {
     "de": "Klare Sprachen",
     "es": "Eliminar idiomas",
     "it": "Rimozione delle lingue",
-    "io": "crwdns14730:0crwdne14730:0"
+    "io": "crwdns14730:0crwdne14730:0",
+    "oc": "Levar las lengas"
   },
   "fieldLabelLanguages": {
     "fr": "Langues des labels",
@@ -248,7 +271,8 @@ module.exports = {
     "de": "Sprachen beschriften",
     "es": "etiquetas de idioma",
     "it": "Lingue dell'etichetta",
-    "io": "crwdns14732:0crwdne14732:0"
+    "io": "crwdns14732:0crwdne14732:0",
+    "oc": "Lengas de las etiquetas"
   },
   "textFieldType": {
     "fr": "Champ texte",
@@ -256,7 +280,8 @@ module.exports = {
     "de": "Textfeld",
     "es": "Campo de texto",
     "it": "Campo di testo",
-    "io": "crwdns14734:0crwdne14734:0"
+    "io": "crwdns14734:0crwdne14734:0",
+    "oc": "Camp de tèxte"
   },
   "textareaFieldType": {
     "fr": "Champ texte multilignes (Paragraphe)",
@@ -264,7 +289,8 @@ module.exports = {
     "de": "Textbereich",
     "es": "Texto (Párrafo)",
     "it": "Testo (Paragrafo)",
-    "io": "crwdns14736:0crwdne14736:0"
+    "io": "crwdns14736:0crwdne14736:0",
+    "oc": "Zòna de tèxte"
   },
   "markdownFieldType": {
     "fr": "Texte enrichi",
@@ -272,14 +298,16 @@ module.exports = {
     "de": "Rich-Text",
     "es": "Texto enriquecido",
     "it": "Testo arricchito",
-    "io": "crwdns14738:0crwdne14738:0"
+    "io": "crwdns14738:0crwdne14738:0",
+    "oc": "Tèxte ric"
   },
   "markdownFieldTypeInfo": {
     "fr": "Champ texte enrichi (markdown)",
     "en": "Enriched text field (markdown)",
     "de": "Angereichertes Textfeld (Markdown)",
     "io": "crwdns14740:0crwdne14740:0",
-    "it": "Campo di testo arricchito (markdown)"
+    "it": "Campo di testo arricchito (markdown)",
+    "oc": "Camp de tèxte enriquesit (markdown)"
   },
   "integerFieldType": {
     "fr": "Nombre entier",
@@ -287,7 +315,8 @@ module.exports = {
     "de": "Ganzzahlige Zahl",
     "es": "Nombre completo",
     "it": "Numero intero",
-    "io": "crwdns14742:0crwdne14742:0"
+    "io": "crwdns14742:0crwdne14742:0",
+    "oc": "Nombre entièr"
   },
   "emailFieldType": {
     "fr": "Email",
@@ -304,7 +333,8 @@ module.exports = {
     "en": "Phone number",
     "es": "Numero de Téléfono",
     "oc": "Numèro de telefòne",
-    "io": "crwdns34158:0crwdne34158:0"
+    "io": "crwdns34158:0crwdne34158:0",
+    "it": "Telefono"
   },
   "linkFieldType": {
     "fr": "Hyperlien",
@@ -312,7 +342,8 @@ module.exports = {
     "de": "Hyperlink",
     "it": "Hyperlink",
     "es": "Enlace",
-    "io": "crwdns14746:0crwdne14746:0"
+    "io": "crwdns14746:0crwdne14746:0",
+    "oc": "Ligam ipertèxte"
   },
   "textMultilingualFieldType": {
     "fr": "Text multilingue",
@@ -320,7 +351,8 @@ module.exports = {
     "de": "Mehrsprachiger Text",
     "es": "Texto en varios idiomas",
     "it": "Testo multilingue",
-    "io": "crwdns14748:0crwdne14748:0"
+    "io": "crwdns14748:0crwdne14748:0",
+    "oc": "Tèxte multilingüe"
   },
   "checkboxFieldType": {
     "fr": "Liste de cases à cocher, à choix multiples",
@@ -328,28 +360,32 @@ module.exports = {
     "de": "Auswahl mehrerer Kontrollkästchen",
     "es": "Selección múltiple elección",
     "it": "Selezione a scelta multipla",
-    "io": "crwdns14750:0crwdne14750:0"
+    "io": "crwdns14750:0crwdne14750:0",
+    "oc": "Tièra de casas de picar, causida multipla"
   },
   "checkboxFieldTypeInfo": {
     "fr": "Séries de cases à cocher permettant la sélection de valeurs multiples",
     "en": "A series of checkboxes allowing for the selection of multiple values",
     "de": "Eine Reihe von Kontrollkästchen, die die Auswahl mehrerer Werte ermöglichen",
     "io": "crwdns14752:0crwdne14752:0",
-    "it": "Una serie di caselle di controllo che permettono la selezione di più valori"
+    "it": "Una serie di caselle di controllo che permettono la selezione di più valori",
+    "oc": "Una tièra de casas de picar que permet de triar mai d'una valor"
   },
   "multiselectFieldType": {
     "fr": "Menu déroulant à sélection multiple",
     "en": "Multiple choice dropdown select",
     "de": "Multiple-Choice-Dropdown-Auswahl",
     "io": "crwdns14754:0crwdne14754:0",
-    "it": "Selezione a discesa a scelta multipla"
+    "it": "Selezione a discesa a scelta multipla",
+    "oc": "Menut desrotlant a causida multipla"
   },
   "multiselectFieldTypeInfo": {
     "fr": "Champ de saisie avec menu déroulant et auto-completion permettant la sélection de valeurs multiples",
     "en": "Input field with dropdown and autocomplete allowing the selection of multiple values from a list",
     "de": "Eingabefeld mit Dropdown und Autovervollständigung, das die Auswahl mehrerer Werte aus einer Liste ermöglicht",
     "io": "crwdns14756:0crwdne14756:0",
-    "it": "Campo di input con dropdown e autocompletamento che permette la selezione di più valori da una lista"
+    "it": "Campo di input con dropdown e autocompletamento che permette la selezione di più valori da una lista",
+    "oc": "Camp de sasida amb menut desrotlant e autocomplecion que permet de triar mai d'una valor dins una lista"
   },
   "radioFieldType": {
     "fr": "Liste de cases à cocher, à choix unique",
@@ -357,28 +393,32 @@ module.exports = {
     "de": "Single-Choice-Auswahl",
     "es": "Selección de una sola elección",
     "it": "Selezione a scelta singola",
-    "io": "crwdns14758:0crwdne14758:0"
+    "io": "crwdns14758:0crwdne14758:0",
+    "oc": "Causida simpla"
   },
   "radioFieldTypeInfo": {
     "fr": "Adapté pour la sélection d'une valeur, une seule, parmi plusieurs options",
     "en": "List of choices allowing the selection of a unique value",
     "de": "Liste von Auswahlmöglichkeiten, die die Auswahl eines eindeutigen Werts ermöglichen",
     "io": "crwdns14760:0crwdne14760:0",
-    "it": "Elenco di scelte che permettono la selezione di un valore unico"
+    "it": "Elenco di scelte che permettono la selezione di un valore unico",
+    "oc": "Lista de causidas que permet de causir pas qu'una valor"
   },
   "selectFieldType": {
     "fr": "Menu déroulant à sélection unique",
     "en": "Single selection dropdown select",
     "de": "Einzelauswahl-Dropdown-Auswahl",
     "io": "crwdns14762:0crwdne14762:0",
-    "it": "Selezione singola a discesa"
+    "it": "Selezione singola a discesa",
+    "oc": "Menut desrotlant a causida unica"
   },
   "selectFieldTypeInfo": {
     "fr": "Adapté à une longue liste de choix. Cela affiche un champ de saisie avec menu déroulant et auto-completion pour trouver et sélectionner rapidement une valeur",
     "en": "Input field with dropdown and autocomplete allowing the selection of single value from a list",
     "de": "Eingabefeld mit Dropdown-Liste und automatischer Vervollständigung, die die Auswahl eines einzelnen Werts aus einer Liste ermöglicht",
     "io": "crwdns14764:0crwdne14764:0",
-    "it": "Campo di input con dropdown e autocompletamento che permette la selezione di più valori da una lista"
+    "it": "Campo di input con dropdown e autocompletamento che permette la selezione di più valori da una lista",
+    "oc": "Camp de sasida amb menut desrotlant e autocomplecion que permet de triar una sola valor dins una lista"
   },
   "booleanFieldType": {
     "fr": "Case à cocher unique",
@@ -386,28 +426,32 @@ module.exports = {
     "de": "Einzelnes Kontrollkästchen",
     "es": "Unica checkbox",
     "it": "Casella di controllo singola",
-    "io": "crwdns14766:0crwdne14766:0"
+    "io": "crwdns14766:0crwdne14766:0",
+    "oc": "Casa de picar unica"
   },
   "booleanFieldTypeInfo": {
     "fr": "Adapté aux choix de type oui/non",
     "en": "Yes/no choice",
     "de": "Ja/Nein-Auswahl",
     "io": "crwdns14768:0crwdne14768:0",
-    "it": "Scelta sì/no"
+    "it": "Scelta sì/no",
+    "oc": "Causida òc/non"
   },
   "dateFieldType": {
     "fr": "Sélecteur de date",
     "en": "Date selection",
     "de": "Datumsauswahl",
     "it": "Selezione della data",
-    "io": "crwdns16462:0crwdne16462:0"
+    "io": "crwdns16462:0crwdne16462:0",
+    "oc": "Seleccion de data"
   },
   "dateFieldTypeInfo": {
     "fr": "Un calendrier permet la sélection d'une date",
     "en": "A calendar to select a date",
     "de": "Ein Kalender zur Auswahl eines Datums",
     "it": "Un calendario per selezionare una data",
-    "io": "crwdns16464:0crwdne16464:0"
+    "io": "crwdns16464:0crwdne16464:0",
+    "oc": "Un calendièr per causir una data"
   },
   "section": {
     "fr": "Section",
@@ -426,7 +470,8 @@ module.exports = {
     "fr": "Affiche un titre de section dans le formulaire marquant une séparation visuelle dans l'affichage des champs",
     "en": "Displays a section head in the form creating a visual separation between the fields above and below",
     "de": "Zeigt einen Abschnittskopf im Formular an, wodurch eine visuelle Trennung zwischen den Feldern darüber und darunter entsteht",
-    "io": "crwdns32881:0crwdne32881:0"
+    "io": "crwdns32881:0crwdne32881:0",
+    "it": "Visualizza una testa di sezione nel modulo, creando una separazione visiva tra i campi sopra e sotto"
   },
   "sectionLabel": {
     "fr": "Titre",
@@ -441,7 +486,8 @@ module.exports = {
     "fr": "Laissez ce champ vide si vous souhaitez insérer une séparation sans titre",
     "en": "Leave this field empty if you wish to insert a separation without a title",
     "de": "Lassen Sie dieses Feld leer, wenn Sie eine Trennung ohne Titel einfügen möchten",
-    "io": "crwdns32885:0crwdne32885:0"
+    "io": "crwdns32885:0crwdne32885:0",
+    "it": "Lasciare questo campo vuoto se si desidera inserire una separazione senza titolo"
   },
   "imageFieldType": {
     "fr": "Image",
@@ -515,7 +561,7 @@ module.exports = {
     "en": "File",
     "de": "Datei",
     "es": "Archivo",
-    "it": "File",
+    "it": "Documento",
     "io": "crwdns32887:0crwdne32887:0"
   },
   "ageFieldType": {
@@ -532,7 +578,8 @@ module.exports = {
     "de": "Textfeld",
     "es": "Campo de texto",
     "it": "Campo di testo",
-    "io": "crwdns32891:0crwdne32891:0"
+    "io": "crwdns32891:0crwdne32891:0",
+    "oc": "Camp de tèxte"
   },
   "keywordsFieldType": {
     "fr": "Mots clés",
@@ -594,7 +641,7 @@ module.exports = {
     "en": "Drag and drop fields to the desired position",
     "de": "Ziehen Sie Felder per Drag-and-Drop an die gewünschte Position",
     "es": "Arrastre cada campo en el lugar deseado",
-    "it": "Trascinare ogni campo nella posizione desiderata",
+    "it": "Trascinare i campi nella posizione desiderata",
     "io": "crwdns14796:0crwdne14796:0"
   },
   "orderSave": {
@@ -625,7 +672,7 @@ module.exports = {
     "fr": "Obligatoire",
     "en": "Required",
     "es": "Necesario",
-    "it": "Richiesto",
+    "it": "Obbligatorio",
     "de": "Erforderlich",
     "br": "Rekis",
     "io": "crwdns14804:0crwdne14804:0",
@@ -673,7 +720,8 @@ module.exports = {
     "fr": "Le titre saisi est déjà pris par un autre champ. Veuillez le modifier avant de retenter l'ajout.",
     "en": "The title for this field is already taken by another of the form. Modify it before trying to add it again.",
     "de": "Der Titel für dieses Feld wird bereits von einem anderen Formular übernommen. Ändern Sie es, bevor Sie versuchen, es erneut hinzuzufügen.",
-    "io": "crwdns32768:0crwdne32768:0"
+    "io": "crwdns32768:0crwdne32768:0",
+    "it": "Il titolo di questo campo è già occupato da un altro del modulo. Modificarlo prima di provare ad aggiungerlo di nuovo."
   },
   "confirmFieldType": {
     "fr": "Configurer le champ",
@@ -724,7 +772,7 @@ module.exports = {
     "en": "Add values",
     "de": "Werte hinzufügen",
     "es": "Añadir valores",
-    "it": "Aggiunta di valori",
+    "it": "Aggiungere valori",
     "io": "crwdns14822:0crwdne14822:0"
   },
   "optionAddAction": {

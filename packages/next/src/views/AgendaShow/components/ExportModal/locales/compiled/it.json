@@ -2,13 +2,13 @@
   "next.views.AgendaShow.ExportModal.PDFDownload": [
     {
       "type": 0,
-      "value": "Download"
+      "value": "Scaricare"
     }
   ],
   "next.views.AgendaShow.ExportModal.PDFGeoSections": [
     {
       "type": 0,
-      "value": "Add geographical sections"
+      "value": "Aggiungere delle sezioni geografiche"
     }
   ],
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": [
@@ -26,7 +26,7 @@
   "next.views.AgendaShow.ExportModal.PDFSelectSub": [
     {
       "type": 0,
-      "value": "Select one or more values"
+      "value": "Selezionare uno o più valori"
     }
   ],
   "next.views.AgendaShow.ExportModal.allFields": [

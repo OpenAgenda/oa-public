@@ -6,6 +6,7 @@
   "react-layouts.MainLayout.createAgenda": "Crear una agenda",
   "react-layouts.MainLayout.general": "General",
   "react-layouts.MainLayout.help": "Ajuda",
+  "react-layouts.MainLayout.menu": "Menú",
   "react-layouts.MainLayout.myAgendas": "Mas agendas",
   "react-layouts.MainLayout.myEvents": "Mos eveniments",
   "react-layouts.MainLayout.searchAgenda": "Cercar una agenda",
@@ -13,5 +14,5 @@
   "react-layouts.MainLayout.signin": "Se connectar",
   "react-layouts.MainLayout.signout": "Se desconnectar",
   "react-layouts.MainLayout.translate": "Traduire",
-  "react-layouts.components.Search.search": "Cercar una agenda"
+  "react-layouts.components.Search.search": "Cercar"
 }

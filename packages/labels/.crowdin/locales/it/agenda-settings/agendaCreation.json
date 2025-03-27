@@ -17,7 +17,7 @@
   "parameters": "Impostazioni",
   "personalizedSlug": "Indirizzo web personalizzato",
   "previous": "Precedente",
-  "required": "Richiesto",
+  "required": "Obbligatorio",
   "slug.invalid": "Sono ammesse solo lettere minuscole, numeri e trattini (-).",
   "string.toolong": "La stringa è troppo lunga",
   "string.tooshort": "La stringa è troppo corta",

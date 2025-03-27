@@ -1,26 +1,86 @@
 {
-  "aggregate-button": [
+  "ReactShared.ImageInput.fileTooLarge": [
     {
       "type": 0,
-      "value": "Aggregate"
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the upper limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "maxSize"
     }
   ],
-  "cibulTemplates.displayContextBar.completeAction": [
+  "ReactShared.ImageInput.fileTooSmall": [
     {
       "type": 0,
-      "value": "Complete"
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the lower limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "minSize"
     }
   ],
-  "cibulTemplates.displayContextBar.displayAction": [
+  "ReactShared.ImageInput.notSupported": [
     {
       "type": 0,
-      "value": "Display"
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is not supported"
     }
   ],
-  "cibulTemplates.displayContextBar.modifyAction": [
+  "ReactShared.ImageInput.remove": [
     {
       "type": 0,
-      "value": "Modify"
+      "value": "Remove"
+    }
+  ],
+  "ReactShared.ImageInput.tooManyFiles": [
+    {
+      "type": 0,
+      "value": "Too many files, only accepts a single file"
+    }
+  ],
+  "ReactShared.ImageInput.update": [
+    {
+      "type": 0,
+      "value": "Update the image"
     }
   ],
   "cibulTemplates.passwordField.good": [
@@ -71,102 +131,6 @@
       "value": "A bit better 😬"
     }
   ],
-  "common.event.fields.accessibility": [
-    {
-      "type": 0,
-      "value": "Accessibility conditions"
-    }
-  ],
-  "common.event.fields.age": [
-    {
-      "type": 0,
-      "value": "Targeted public age"
-    }
-  ],
-  "common.event.fields.attendanceMode": [
-    {
-      "type": 0,
-      "value": "Attendance mode"
-    }
-  ],
-  "common.event.fields.conditions": [
-    {
-      "type": 0,
-      "value": "Conditions"
-    }
-  ],
-  "common.event.fields.description": [
-    {
-      "type": 0,
-      "value": "Short description"
-    }
-  ],
-  "common.event.fields.image": [
-    {
-      "type": 0,
-      "value": "Image"
-    }
-  ],
-  "common.event.fields.imageCredits": [
-    {
-      "type": 0,
-      "value": "Image credits"
-    }
-  ],
-  "common.event.fields.keywords": [
-    {
-      "type": 0,
-      "value": "Keywords"
-    }
-  ],
-  "common.event.fields.location": [
-    {
-      "type": 0,
-      "value": "Location"
-    }
-  ],
-  "common.event.fields.longDescription": [
-    {
-      "type": 0,
-      "value": "Long description"
-    }
-  ],
-  "common.event.fields.onlineAccessLink": [
-    {
-      "type": 0,
-      "value": "Access link"
-    }
-  ],
-  "common.event.fields.registration": [
-    {
-      "type": 0,
-      "value": "Registration"
-    }
-  ],
-  "common.event.fields.slug": [
-    {
-      "type": 0,
-      "value": "Slug"
-    }
-  ],
-  "common.event.fields.status": [
-    {
-      "type": 0,
-      "value": "Status"
-    }
-  ],
-  "common.event.fields.timings": [
-    {
-      "type": 0,
-      "value": "Timings"
-    }
-  ],
-  "common.event.fields.title": [
-    {
-      "type": 0,
-      "value": "Title"
-    }
-  ],
   "common.event.states.published": [
     {
       "type": 0,
@@ -189,150 +153,6 @@
     {
       "type": 0,
       "value": "To moderate"
-    }
-  ],
-  "common.roles.administrator": [
-    {
-      "type": 0,
-      "value": "Administrator"
-    }
-  ],
-  "common.roles.contributor": [
-    {
-      "type": 0,
-      "value": "Contributor"
-    }
-  ],
-  "common.roles.moderator": [
-    {
-      "type": 0,
-      "value": "Moderator"
-    }
-  ],
-  "common.roles.reader": [
-    {
-      "type": 0,
-      "value": "Reader"
-    }
-  ],
-  "displayAdditionalFields.emptyValue": [
-    {
-      "type": 0,
-      "value": "No input"
-    }
-  ],
-  "displayAdditionalFields.goToAdditionalFields": [
-    {
-      "type": 0,
-      "value": "see"
-    }
-  ],
-  "displayAdditionalFields.noFile": [
-    {
-      "type": 0,
-      "value": "No file is loaded"
-    }
-  ],
-  "displayAdditionalFields.noImage": [
-    {
-      "type": 0,
-      "value": "No image is loaded"
-    }
-  ],
-  "displayAdditionalFields.noSelectionValue": [
-    {
-      "type": 0,
-      "value": "No selection"
-    }
-  ],
-  "displayAdditionalFields.privateField": [
-    {
-      "type": 0,
-      "value": "Restricted information"
-    }
-  ],
-  "event/contributor-section": [
-    {
-      "type": 0,
-      "value": "Contributor"
-    }
-  ],
-  "event/contributor/edit": [
-    {
-      "type": 0,
-      "value": "Edit"
-    }
-  ],
-  "event/contributor/email": [
-    {
-      "type": 0,
-      "value": "Email"
-    }
-  ],
-  "event/contributor/emptyContactInfo": [
-    {
-      "type": 0,
-      "value": "No contact information available"
-    }
-  ],
-  "event/contributor/name": [
-    {
-      "type": 0,
-      "value": "Name"
-    }
-  ],
-  "event/contributor/organization": [
-    {
-      "type": 0,
-      "value": "Organization"
-    }
-  ],
-  "event/contributor/phone": [
-    {
-      "type": 0,
-      "value": "Phone"
-    }
-  ],
-  "event/contributor/position": [
-    {
-      "type": 0,
-      "value": "Position"
-    }
-  ],
-  "event/contributor/role": [
-    {
-      "type": 0,
-      "value": "Role"
-    }
-  ],
-  "event/private-section": [
-    {
-      "type": 0,
-      "value": "Private information"
-    }
-  ],
-  "export-all-button": [
-    {
-      "type": 0,
-      "value": "Export"
-    }
-  ],
-  "export-select-button": [
-    {
-      "type": 0,
-      "value": "Export the selection"
-    }
-  ],
-  "more-button": [
-    {
-      "type": 0,
-      "value": "more"
-    }
-  ],
-  "share-button": [
-    {
-      "type": 0,
-      "value": "Share on OpenAgenda"
     }
   ]
 }

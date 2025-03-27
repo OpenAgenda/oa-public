@@ -13,6 +13,7 @@
   "orSocial": "Oppure",
   "password": "Password",
   "passwordNotEqual": "Le password non sono identiche",
+  "passwordRequired": "È necessario definire una password",
   "passwordTooShort": "La password è troppo corta",
   "policy": "Informativa sulla privacy",
   "pseudonym": "Nome utente",
