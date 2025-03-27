@@ -46,6 +46,12 @@ const validate = schema({
     optional: true,
     list: { default: null },
   },
+  useAdminLevels: {
+    type: 'boolean',
+    optional: true,
+    allowNull: true,
+    default: null,
+  },
   includeLabels: {
     type: 'boolean',
     optional: true,
