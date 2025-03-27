@@ -38,6 +38,24 @@ export function Colors() {
           descriptionColor: { name: 'black' },
           card: true,
         },
+        {
+          id: 3,
+          ...fx.default,
+          title: 'The modular title is black',
+          description: 'The modular description is grey',
+          titleColor: { name: 'black' },
+          descriptionColor: { name: 'grey' },
+          card: true,
+        },
+        {
+          id: 4,
+          ...fx.default,
+          title: 'The modular title is black',
+          description: 'The modular description is also black',
+          titleColor: { name: 'black' },
+          descriptionColor: { name: 'black' },
+          card: true,
+        },
       ]}
     />
   );

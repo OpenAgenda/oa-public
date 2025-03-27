@@ -48,19 +48,23 @@ export default function ModularSet({
           {description}
         </Text>
       )}
-      <Grid display="flex" gap={8} p={8} alignItems="stretch">
+      <Grid
+        display="grid"
+        gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+        gap={8}
+        p={8}
+        alignItems="stretch"
+        mx="auto"
+      >
         {Components.map((Component) => (
           <GridItem
             key={Component.id}
             w="full"
-            justifyItems="center"
+            justifyContent="center"
+            display="flex"
             flex={Component.grow || 1}
           >
-            <Modular
-              {...Component}
-              key={Component.id}
-              alignHeight={alignHeight}
-            />
+            <Modular {...Component} alignHeight={alignHeight} />
           </GridItem>
         ))}
       </Grid>
