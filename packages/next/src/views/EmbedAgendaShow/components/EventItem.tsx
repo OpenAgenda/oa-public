@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import qs from 'qs';
-import { Box, Flex, LinkBox, Tag, HStack } from '@openagenda/uikit';
+import { Box, Flex, LinkBox, Tag, HStack, Icon } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
 import Image from 'components/Image';
@@ -10,6 +10,8 @@ import { useEmbedLayoutData } from 'components/EmbedLayout';
 import useLocationQuery from 'hooks/useLocationQuery';
 import { thumborLoader } from 'utils/imageLoader';
 import { sidebar as messages } from 'views/EventShow/messages';
+import { FaIcon } from 'icons';
+import { faThumbtack } from 'icons/solid';
 
 const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
@@ -103,6 +105,38 @@ export default function EventItem({
         border: '1px solid #00000052',
       }}
     >
+      {event.featured ? (
+        <Box
+          pos="absolute"
+          top="0px"
+          left="0px"
+          w="52px"
+          h="52px"
+          bgGradient="linear(to-br, white 36px, transparent 0)"
+          zIndex="docked"
+          // filter="drop-shadow(1px 1px 2px rgba(0,0,0,0.3))"
+        >
+          <Box
+            pos="absolute"
+            top="0px"
+            left="0px"
+            w="52px"
+            h="52px"
+            bgGradient="linear(to-br, primary.500 32px, transparent 0)"
+            zIndex="docked"
+            // filter="drop-shadow(1px 1px 2px rgba(0,0,0,0.3))"
+          >
+            <Icon
+              as={FaIcon}
+              icon={faThumbtack}
+              size="lg"
+              mt="6px"
+              ml="4px"
+              color="primaryContrast"
+            />
+          </Box>
+        </Box>
+      ) : null}
       {event.image ? (
         <Box pos="relative" h={imageHeight} maxH={imageList?.maxHeight}>
           <Image

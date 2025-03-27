@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import useSessionStorageState from 'use-session-storage-state';
 import qs from 'qs';
+import { getContrast } from 'color2k';
 import {
   EmotionCache,
   extendTheme,
@@ -41,16 +42,29 @@ export const [EmbedLayoutDataProvider, useEmbedLayoutData] =
     providerName: 'EmbedLayoutDataProvider',
   });
 
-function useEmbedTheme({ primaryColor, secondaryColor }) {
-  const primaryColorPalette = primaryColor
-    ? createColorPalette({ value: primaryColor })
-    : defaultTheme.colors.primary;
-  const secondaryColorPalette = secondaryColor
-    ? createColorPalette({ value: secondaryColor })
-    : null;
+function getContrastingColor(color) {
+  return getContrast(color, '#fff') > getContrast(color, '#000')
+    ? '#fff'
+    : '#000';
+}
 
-  return useConst(() =>
-    extendTheme(defaultTheme, {
+function useEmbedTheme({ primaryColor, secondaryColor }) {
+  return useConst(() => {
+    const primaryColorPalette = primaryColor
+      ? createColorPalette({ value: primaryColor })
+      : defaultTheme.colors.primary;
+    const secondaryColorPalette = secondaryColor
+      ? createColorPalette({ value: secondaryColor })
+      : null;
+
+    const primaryContrast = primaryColor
+      ? getContrastingColor(primaryColor)
+      : 'white';
+    const secondaryContrast = secondaryColor
+      ? getContrastingColor(secondaryColor)
+      : null;
+
+    return extendTheme(defaultTheme, {
       styles: {
         global: {
           body: {
@@ -61,9 +75,11 @@ function useEmbedTheme({ primaryColor, secondaryColor }) {
       colors: {
         primary: primaryColorPalette,
         secondary: secondaryColorPalette,
+        primaryContrast,
+        secondaryContrast,
       },
-    }),
-  );
+    });
+  });
 }
 
 export default function EmbedLayout({ children, emotionCache }: LayoutProps) {
