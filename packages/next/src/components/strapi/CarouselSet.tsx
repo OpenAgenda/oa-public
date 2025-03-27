@@ -23,6 +23,7 @@ interface CarouselSetProps {
   descriptionColor?: Color;
   variant?: string;
   width?: { name: string };
+  borderRadius?: string;
 }
 
 export default function CarouselSet({
@@ -39,6 +40,7 @@ export default function CarouselSet({
   descriptionColor,
   variant,
   width = { name: 'full' },
+  borderRadius = '2xl',
 }: CarouselSetProps) {
   return (
     <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
@@ -59,6 +61,7 @@ export default function CarouselSet({
         colorScheme={colorScheme}
         variant={variant}
         width={width}
+        borderRadius={borderRadius}
       />
       {CTA ? (
         <Grid templateColumns="1fr" justifyItems="center" w="full">

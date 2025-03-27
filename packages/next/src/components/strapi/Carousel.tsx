@@ -24,7 +24,7 @@ export default function Carousel({
   Components,
   colorScheme,
   backgroundColor,
-  borderRadius = '2xl',
+  borderRadius,
   gradient,
   variant,
   width,
