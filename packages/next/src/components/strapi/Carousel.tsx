@@ -51,22 +51,29 @@ export default function Carousel({
       bg={!gradient ? color(backgroundColor) : undefined}
       backgroundImage={gradientBackground ? gradientBackground : undefined}
       borderRadius={borderRadius}
-      m={8}
-      p={8}
+      my={8}
     >
       <Flex
         transition="transform 0.5s ease-in-out"
         transform={`translateX(-${currentIndex * 100}%)`}
         width="100%"
-        borderRadius={borderRadius}
       >
         {children.map((child, index) => (
-          <Box key={index} flex="0 0 100%" width="100%">
+          <Box
+            key={index}
+            flex="0 0 100%"
+            width="100%"
+            p={8}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            textAlign="center"
+          >
             {child}
           </Box>
         ))}
       </Flex>
-      <Box display="flex" justifyContent="center" mt={8}>
+      <Box display="flex" justifyContent="center" m={8}>
         <IconButton
           aria-label="Previous"
           icon={<FaIcon icon={faArrowLeft} size="sm" />}
@@ -74,7 +81,7 @@ export default function Carousel({
           borderRadius="50%"
           colorScheme={colorScheme ? colorScheme.name : 'primary'}
           size="lg"
-          mr={2}
+          mr={1}
         />
         <IconButton
           aria-label="Next"
@@ -83,6 +90,7 @@ export default function Carousel({
           borderRadius="50%"
           colorScheme={colorScheme ? colorScheme.name : 'primary'}
           size="lg"
+          ml={1}
         />
       </Box>
     </Card>

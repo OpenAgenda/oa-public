@@ -21,10 +21,23 @@ import { FiltersSkeleton } from './LoadingPage';
 
 const PAGE_SIZE = 12;
 
+const StyledAgendaShowMapFilter = chakra(AgendaShowMapFilter);
+
 const MapFilter = React.forwardRef<any, any>(function MapFilter(props, ref) {
+  const { mapSize } = useEmbedLayoutData();
+
+  const mapHeight = mapSize ? mapSize.height || 'auto' : '250px';
+
   return (
     <Box gridColumn="1 / -1" zIndex="5">
-      <AgendaShowMapFilter ref={ref} {...props} />
+      <StyledAgendaShowMapFilter
+        ref={ref}
+        mx="auto"
+        h={mapHeight}
+        maxH={mapSize?.maxHeight}
+        aspectRatio={mapSize?.aspectRatio}
+        {...props}
+      />
     </Box>
   );
 });
