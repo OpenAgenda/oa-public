@@ -16,7 +16,7 @@
     },
     {
       "type": 0,
-      "value": " Vérifiez le lien qui vous a été fourni ou faites une demande d’accès."
+      "value": "Vérifiez le lien qui vous a été fourni ou faites une demande d’accès."
     }
   ],
   "next.views.AgendaError.notFoundMsg": [
@@ -30,7 +30,7 @@
     },
     {
       "type": 0,
-      "value": " Soit le lien est invalide, soit l’agenda a été supprimé."
+      "value": "Soit le lien est invalide, soit l’agenda a été supprimé."
     }
   ],
   "next.views.AgendaError.orSignup": [

@@ -71,85 +71,99 @@ module.exports = {
     "fr": ", certains dimanches",
     "en": ", some Sundays",
     "de": ", einige Sonntage",
-    "io": "crwdns33794:0crwdne33794:0"
+    "io": "crwdns33794:0crwdne33794:0",
+    "oc": ", d'unes dimenges"
   },
   "all-weekday-0": {
     "fr": ", les dimanches",
     "en": ", every Sunday",
     "de": ", jeden Sonntag",
-    "io": "crwdns33796:0crwdne33796:0"
+    "io": "crwdns33796:0crwdne33796:0",
+    "oc": ", cada dimenge"
   },
   "some-weekday-1": {
     "fr": ", les lundis",
     "en": ", some Mondays",
     "de": ", einige Montags",
-    "io": "crwdns33798:0crwdne33798:0"
+    "io": "crwdns33798:0crwdne33798:0",
+    "oc": ", d'unes diluns"
   },
   "all-weekday-1": {
     "fr": ", les lundis",
     "en": ", every Monday",
     "de": ", jeden Montag",
-    "io": "crwdns33800:0crwdne33800:0"
+    "io": "crwdns33800:0crwdne33800:0",
+    "oc": ", cada diluns"
   },
   "some-weekday-2": {
     "fr": ", certains mardis",
     "en": ", some Tuesdays",
     "de": ", einige Dienstage",
-    "io": "crwdns33802:0crwdne33802:0"
+    "io": "crwdns33802:0crwdne33802:0",
+    "oc": ", d'unes dimarç"
   },
   "all-weekday-2": {
     "fr": ", les mardis",
     "en": ", every Tuesday",
     "de": ", jeden Dienstag",
-    "io": "crwdns33804:0crwdne33804:0"
+    "io": "crwdns33804:0crwdne33804:0",
+    "oc": ", cada dimars"
   },
   "some-weekday-3": {
     "fr": ", certains mercredis",
     "en": ", some Wednesdays",
     "de": ", einige Mittwochs",
-    "io": "crwdns33806:0crwdne33806:0"
+    "io": "crwdns33806:0crwdne33806:0",
+    "oc": ", d'unes dimècres"
   },
   "all-weekday-3": {
     "fr": ", les mercredis",
     "en": ", every Wednesday",
     "de": ", an jedem Mittwoch",
-    "io": "crwdns33808:0crwdne33808:0"
+    "io": "crwdns33808:0crwdne33808:0",
+    "oc": ", cada dimècres"
   },
   "some-weekday-4": {
     "fr": ", certains jeudis",
     "en": ", some Thursdays",
     "de": ", einige Donnerstage",
-    "io": "crwdns33810:0crwdne33810:0"
+    "io": "crwdns33810:0crwdne33810:0",
+    "oc": ", d'unes dijòus"
   },
   "all-weekday-4": {
     "fr": ", les jeudis",
     "en": ", every Thursday",
     "de": ", jeden Donnerstag",
-    "io": "crwdns33812:0crwdne33812:0"
+    "io": "crwdns33812:0crwdne33812:0",
+    "oc": ", cada dijòus"
   },
   "some-weekday-5": {
     "fr": ", certains vendredis",
     "en": ", some Fridays",
     "de": ", einige Freitage",
-    "io": "crwdns33814:0crwdne33814:0"
+    "io": "crwdns33814:0crwdne33814:0",
+    "oc": ", d'unes divendres"
   },
   "all-weekday-5": {
     "fr": ", les vendredis",
     "en": ", every Friday",
     "de": ", jeden Freitag",
-    "io": "crwdns33816:0crwdne33816:0"
+    "io": "crwdns33816:0crwdne33816:0",
+    "oc": ", cada divendres"
   },
   "some-weekday-6": {
     "fr": ", certains samedis",
     "en": ", some Saturdays",
     "de": ", einige Samstage",
-    "io": "crwdns33818:0crwdne33818:0"
+    "io": "crwdns33818:0crwdne33818:0",
+    "oc": ", d'unes dissabtes"
   },
   "all-weekday-6": {
     "fr": ", les samedis",
     "en": ", every Saturday",
     "de": ", jeden Samstag",
-    "io": "crwdns33820:0crwdne33820:0"
+    "io": "crwdns33820:0crwdne33820:0",
+    "oc": ", cada dissabte"
   },
   "weekday-0": {
     "en": "Sundays",

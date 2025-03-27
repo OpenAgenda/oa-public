@@ -70,7 +70,6 @@
   "ReactFilters.messages.filterTitles.timings": "Date",
   "ReactFilters.messages.filterTitles.updatedAt": "Date de mise à jour",
   "ReactFilters.messages.map.searchHere": "Rechercher ici",
-  "ReactFilters.messages.map.searchWithMap": "Rechercher avec la carte",
   "ReactFilters.messages.provenance.aggregation": "Agrégation",
   "ReactFilters.messages.provenance.contribution": "Contribution",
   "ReactFilters.messages.provenance.share": "Partage",

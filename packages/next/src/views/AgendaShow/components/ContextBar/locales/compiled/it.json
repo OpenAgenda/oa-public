@@ -78,7 +78,7 @@
   "next.views.AgendaShow.ContextBar.indexed": [
     {
       "type": 0,
-      "value": "Indexed"
+      "value": "Indicizzato"
     }
   ],
   "next.views.AgendaShow.ContextBar.manage": [
@@ -194,13 +194,13 @@
   "next.views.AgendaShow.ContextBar.unindexed": [
     {
       "type": 0,
-      "value": "Unindexed"
+      "value": "Non indicizzato"
     }
   ],
   "next.views.AgendaShow.ContextBar.visibility": [
     {
       "type": 0,
-      "value": "Visibility:"
+      "value": "Visibilità:"
     }
   ]
 }

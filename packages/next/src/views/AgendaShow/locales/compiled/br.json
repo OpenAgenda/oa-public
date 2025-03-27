@@ -20,7 +20,7 @@
   "next.views.AgendaShow.includePassedEvents": [
     {
       "type": 0,
-      "value": "Inclure les événements passés"
+      "value": "Diskouez an darvoudoù tremenet"
     }
   ],
   "next.views.AgendaShow.seeEvents": [
@@ -68,7 +68,7 @@
   "next.views.AgendaShow.showUpcomingEventsOnly": [
     {
       "type": 0,
-      "value": "Afficher uniquement les événements à venir"
+      "value": "Kuzhat an darvoudoù tremenet"
     }
   ],
   "next.views.AgendaShow.termsOfUse": [
@@ -121,16 +121,22 @@
         "=0": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "Aucun événement à venir"
+              "value": " Darvoud ebet o tont"
             }
           ]
         },
         "one": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "1 événement à venir"
+              "value": " darvoud o tont"
             }
           ]
         },
@@ -141,7 +147,7 @@
             },
             {
               "type": 0,
-              "value": " événements à venir"
+              "value": " darvoud o tont"
             }
           ]
         }

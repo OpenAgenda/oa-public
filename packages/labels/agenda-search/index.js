@@ -98,7 +98,8 @@ module.exports = {
     "es": "%count% próximos eventos",
     "it": "%count% eventi in programma",
     "io": "crwdns12432:0%count%crwdne12432:0",
-    "oc": "%count% eveniments a venir"
+    "oc": "%count% eveniments a venir",
+    "br": "%count% darvoud o tont"
   },
   "loadPrevious": {
     "en": "Load previous results",

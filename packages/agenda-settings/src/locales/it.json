@@ -1,9 +1,12 @@
 {
+  "AgendaSettings.AdvancedEdition.deleteDescription": "La cancellazione di un'agenda è irrevocabile",
   "AgendaSettings.AdvancedEdition.deleteTitle": "Cancellare",
   "AgendaSettings.AdvancedEdition.filtersMenuTitle": "Filtri",
   "AgendaSettings.Components.DeleteAgenda.closeConfirm": "Chiudere",
   "AgendaSettings.Components.DeleteAgenda.confirmButton": "Confermare la cancellazione",
+  "AgendaSettings.Components.DeleteAgenda.confirmDetail": "L'agenda è stata cancellata con successo, ora sarete reindirizzati alla vostra homepage",
   "AgendaSettings.Components.DeleteAgenda.dataImplication": "Anche tutte le conversazioni associate, la cronologia delle attività e i dati dei membri saranno cancellati",
+  "AgendaSettings.Components.DeleteAgenda.eventsImplication": "Gli eventi creati in questa agenda verranno cancellati e rimossi anche dalle agende in cui sono stati condivisi",
   "AgendaSettings.Components.FiltersSettings.reset": "Ripristino della configurazione",
   "AgendaSettings.Components.FiltersSettings.resetModalConfirm": "Confermare",
   "AgendaSettings.Components.FiltersSettings.submit": "Invia",

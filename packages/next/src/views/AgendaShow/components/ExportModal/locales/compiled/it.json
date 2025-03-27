@@ -26,7 +26,7 @@
   "next.views.AgendaShow.ExportModal.PDFSelectSub": [
     {
       "type": 0,
-      "value": "Select one or more values"
+      "value": "Selezionare uno o più valori"
     }
   ],
   "next.views.AgendaShow.ExportModal.allFields": [

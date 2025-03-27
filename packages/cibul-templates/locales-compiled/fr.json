@@ -1,26 +1,86 @@
 {
-  "aggregate-button": [
+  "ReactShared.ImageInput.fileTooLarge": [
     {
       "type": 0,
-      "value": "Agréger"
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the upper limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "maxSize"
     }
   ],
-  "cibulTemplates.displayContextBar.completeAction": [
+  "ReactShared.ImageInput.fileTooSmall": [
     {
       "type": 0,
-      "value": "Compléter"
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the lower limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "minSize"
     }
   ],
-  "cibulTemplates.displayContextBar.displayAction": [
+  "ReactShared.ImageInput.notSupported": [
     {
       "type": 0,
-      "value": "Afficher"
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is not supported"
     }
   ],
-  "cibulTemplates.displayContextBar.modifyAction": [
+  "ReactShared.ImageInput.remove": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Remove"
+    }
+  ],
+  "ReactShared.ImageInput.tooManyFiles": [
+    {
+      "type": 0,
+      "value": "Too many files, only accepts a single file"
+    }
+  ],
+  "ReactShared.ImageInput.update": [
+    {
+      "type": 0,
+      "value": "Update the image"
     }
   ],
   "cibulTemplates.passwordField.good": [
@@ -71,102 +131,6 @@
       "value": "Mieux, pas top 😬"
     }
   ],
-  "common.event.fields.accessibility": [
-    {
-      "type": 0,
-      "value": "Accessibility conditions"
-    }
-  ],
-  "common.event.fields.age": [
-    {
-      "type": 0,
-      "value": "Âge du public ciblé"
-    }
-  ],
-  "common.event.fields.attendanceMode": [
-    {
-      "type": 0,
-      "value": "Attendance mode"
-    }
-  ],
-  "common.event.fields.conditions": [
-    {
-      "type": 0,
-      "value": "Conditions"
-    }
-  ],
-  "common.event.fields.description": [
-    {
-      "type": 0,
-      "value": "Short description"
-    }
-  ],
-  "common.event.fields.image": [
-    {
-      "type": 0,
-      "value": "Image"
-    }
-  ],
-  "common.event.fields.imageCredits": [
-    {
-      "type": 0,
-      "value": "Image credits"
-    }
-  ],
-  "common.event.fields.keywords": [
-    {
-      "type": 0,
-      "value": "Mots clés"
-    }
-  ],
-  "common.event.fields.location": [
-    {
-      "type": 0,
-      "value": "Location"
-    }
-  ],
-  "common.event.fields.longDescription": [
-    {
-      "type": 0,
-      "value": "Long description"
-    }
-  ],
-  "common.event.fields.onlineAccessLink": [
-    {
-      "type": 0,
-      "value": "Lien d'accès"
-    }
-  ],
-  "common.event.fields.registration": [
-    {
-      "type": 0,
-      "value": "Outils d'inscription"
-    }
-  ],
-  "common.event.fields.slug": [
-    {
-      "type": 0,
-      "value": "Slug"
-    }
-  ],
-  "common.event.fields.status": [
-    {
-      "type": 0,
-      "value": "Statut"
-    }
-  ],
-  "common.event.fields.timings": [
-    {
-      "type": 0,
-      "value": "Horaires"
-    }
-  ],
-  "common.event.fields.title": [
-    {
-      "type": 0,
-      "value": "Titre"
-    }
-  ],
   "common.event.states.published": [
     {
       "type": 0,
@@ -189,150 +153,6 @@
     {
       "type": 0,
       "value": "À modérer"
-    }
-  ],
-  "common.roles.administrator": [
-    {
-      "type": 0,
-      "value": "Administrator"
-    }
-  ],
-  "common.roles.contributor": [
-    {
-      "type": 0,
-      "value": "Contributeur"
-    }
-  ],
-  "common.roles.moderator": [
-    {
-      "type": 0,
-      "value": "Moderator"
-    }
-  ],
-  "common.roles.reader": [
-    {
-      "type": 0,
-      "value": "Reader"
-    }
-  ],
-  "displayAdditionalFields.emptyValue": [
-    {
-      "type": 0,
-      "value": "Aucune saisie"
-    }
-  ],
-  "displayAdditionalFields.goToAdditionalFields": [
-    {
-      "type": 0,
-      "value": "voir"
-    }
-  ],
-  "displayAdditionalFields.noFile": [
-    {
-      "type": 0,
-      "value": "Fichier non chargé"
-    }
-  ],
-  "displayAdditionalFields.noImage": [
-    {
-      "type": 0,
-      "value": "Image non chargée"
-    }
-  ],
-  "displayAdditionalFields.noSelectionValue": [
-    {
-      "type": 0,
-      "value": "Aucune sélection"
-    }
-  ],
-  "displayAdditionalFields.privateField": [
-    {
-      "type": 0,
-      "value": "Information privée"
-    }
-  ],
-  "event/contributor-section": [
-    {
-      "type": 0,
-      "value": "Contributeur"
-    }
-  ],
-  "event/contributor/edit": [
-    {
-      "type": 0,
-      "value": "Modifier"
-    }
-  ],
-  "event/contributor/email": [
-    {
-      "type": 0,
-      "value": "Email"
-    }
-  ],
-  "event/contributor/emptyContactInfo": [
-    {
-      "type": 0,
-      "value": "Aucune information de contact n'a été saisie"
-    }
-  ],
-  "event/contributor/name": [
-    {
-      "type": 0,
-      "value": "Nom"
-    }
-  ],
-  "event/contributor/organization": [
-    {
-      "type": 0,
-      "value": "Organisme"
-    }
-  ],
-  "event/contributor/phone": [
-    {
-      "type": 0,
-      "value": "Téléphone"
-    }
-  ],
-  "event/contributor/position": [
-    {
-      "type": 0,
-      "value": "Fonction"
-    }
-  ],
-  "event/contributor/role": [
-    {
-      "type": 0,
-      "value": "Role"
-    }
-  ],
-  "event/private-section": [
-    {
-      "type": 0,
-      "value": "Information privée"
-    }
-  ],
-  "export-all-button": [
-    {
-      "type": 0,
-      "value": "Exporter"
-    }
-  ],
-  "export-select-button": [
-    {
-      "type": 0,
-      "value": "Exporter la sélection"
-    }
-  ],
-  "more-button": [
-    {
-      "type": 0,
-      "value": "plus"
-    }
-  ],
-  "share-button": [
-    {
-      "type": 0,
-      "value": "Partager sur OpenAgenda"
     }
   ]
 }

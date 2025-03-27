@@ -1,8 +1,3 @@
 {
-  "common.event.fields.imageCredits": "Bildnachweis",
-  "common.event.fields.location": "Ort",
-  "common.event.fields.longDescription": "Lange Beschreibung",
-  "common.event.fields.registration": "Registrierung",
-  "common.event.fields.title": "Titel",
   "common.event.states.toModerate": "Zu moderieren"
 }

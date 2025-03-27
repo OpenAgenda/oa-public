@@ -32,7 +32,7 @@
   "next.views.AgendaShow.ExportModal.allFields": [
     {
       "type": 0,
-      "value": "Exporter toutes les colonnes"
+      "value": "Exporter tous les champs"
     }
   ],
   "next.views.AgendaShow.ExportModal.allLanguages": [

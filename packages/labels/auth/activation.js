@@ -15,7 +15,8 @@ module.exports = {
   "sendActivateOnSigninAttempt": {
     "en": "Your account is not activated. Click on the link contained in the activation email that was just sent to you.",
     "fr": "Votre compte n'est pas activé. Cliquez sur le lien contenu dans le mail d'activation qui vient de vous être envoyé.",
-    "io": "crwdns34154:0crwdne34154:0"
+    "io": "crwdns34154:0crwdne34154:0",
+    "oc": "Vòstre compte es pas activat. Clicatz sul ligam enclaus dins lo mail d'activacion que vos ven d'èsser mandat."
   },
   "checkEmail": {
     "en": "Check your mail for a validation link",
@@ -86,12 +87,14 @@ module.exports = {
   "followUsOnLinkedIn": {
     "en": "Follow us on LinkedIn",
     "fr": "Suivez-nous sur LinkedIn",
-    "io": "crwdns34252:0crwdne34252:0"
+    "io": "crwdns34354:0crwdne34354:0",
+    "oc": "Seguissètz-nos sus LinkedIn"
   },
   "followUsOnBlueSky": {
     "en": "Follow us on Bluesky",
     "fr": "Suivez-nous sur Bluesky",
-    "io": "crwdns34254:0crwdne34254:0"
+    "io": "crwdns34356:0crwdne34356:0",
+    "oc": "Seguissètz-nos sus Bluesky"
   },
   "getOurNewsletter": {
     "en": "Get our newsletter",
