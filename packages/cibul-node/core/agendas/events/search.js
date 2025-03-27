@@ -92,8 +92,10 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
 
   const { search: agendaIndexSearch } = core.services.eventSearch.agendas(agenda);
 
-  searchOptions.parser = (e) =>
-    parsers.reduce((event, parser) => parser(event), e);
+  Object.assign(searchOptions, {
+    parser: (e) => parsers.reduce((event, parser) => parser(event), e),
+    useAdminLevels: includeLocationLegacyAdminLevels === false ? true : null,
+  });
 
   const result = stream
     ? agendaIndexSearch.stream(authorizedQuery, {
