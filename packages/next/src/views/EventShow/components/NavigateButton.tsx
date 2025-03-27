@@ -68,7 +68,17 @@ export function useGoToSiblingEvent({
           },
         });
       });
-  }, [agenda.slug, agenda.uid, direction, eventNc, query, router, setNc]);
+  }, [
+    agenda.slug,
+    agenda.uid,
+    direction,
+    eventNc,
+    query,
+    router,
+    setNc,
+    sort,
+    urlPrefix,
+  ]);
 }
 
 export function useNavigateKeyboardShortcut({ direction, goToSiblingEvent }) {

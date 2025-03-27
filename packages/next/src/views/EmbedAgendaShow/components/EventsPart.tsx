@@ -91,7 +91,6 @@ export default function EventsPart({
               key={event.uid}
               event={event}
               agenda={agenda}
-              referrer={referrer}
               // nav
               from={pageIndex * PAGE_SIZE + eventIndex}
               first={pageIndex === 0 && eventIndex === 0}
