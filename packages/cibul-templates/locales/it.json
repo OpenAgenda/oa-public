@@ -1,4 +1,7 @@
 {
+  "ReactShared.ImageInput.fileTooLarge": "Il documento {fileName} è {fileSize}, il limite superiore per la dimensione del file è {maxSize}",
+  "ReactShared.ImageInput.remove": "Rimuovere",
+  "ReactShared.ImageInput.update": "Aggiornare l'immagine",
   "cibulTemplates.passwordField.good": "Va bene 🙂",
   "cibulTemplates.passwordField.great": "Ottimo 🥳",
   "cibulTemplates.passwordField.isSameAs": "Deve essere diverso dal nome o dall'email 🙄",

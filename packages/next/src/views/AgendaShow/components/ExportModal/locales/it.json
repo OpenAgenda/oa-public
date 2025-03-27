@@ -1,6 +1,6 @@
 {
-  "next.views.AgendaShow.ExportModal.PDFDownload": "",
-  "next.views.AgendaShow.ExportModal.PDFGeoSections": "",
+  "next.views.AgendaShow.ExportModal.PDFDownload": "Scaricare",
+  "next.views.AgendaShow.ExportModal.PDFGeoSections": "Aggiungere delle sezioni geografiche",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "",
   "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "",
   "next.views.AgendaShow.ExportModal.PDFSelectSub": "Selezionare uno o più valori",

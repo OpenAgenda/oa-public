@@ -1,4 +1,10 @@
 {
+  "ReactShared.ImageInput.fileTooLarge": "Lo fichièr {fileName} fa {fileSize}, lo limit naut per la talha dels fichièrs es de {maxSize}",
+  "ReactShared.ImageInput.fileTooSmall": "Lo fichièr {fileName} fa {fileSize}, lo limit bas per la talha dels fichièrs es de {minSize}",
+  "ReactShared.ImageInput.notSupported": "Lo fichièr {fileName} es pas suportat",
+  "ReactShared.ImageInput.remove": "Suprimir",
+  "ReactShared.ImageInput.tooManyFiles": "Tròp de fichièrs, se'n accepta pas qu'un",
+  "ReactShared.ImageInput.update": "Metre l'imatge a jorn",
   "cibulTemplates.passwordField.good": "Ok 🙂",
   "cibulTemplates.passwordField.great": "Plan 🥳",
   "cibulTemplates.passwordField.required": "Se deu definir un senhal",

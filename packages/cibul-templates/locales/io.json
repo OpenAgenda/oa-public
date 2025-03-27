@@ -1,4 +1,10 @@
 {
+  "ReactShared.ImageInput.fileTooLarge": "crwdns34361:0{fileName}crwdnd34361:0{fileSize}crwdnd34361:0{maxSize}crwdne34361:0",
+  "ReactShared.ImageInput.fileTooSmall": "crwdns34363:0{fileName}crwdnd34363:0{fileSize}crwdnd34363:0{minSize}crwdne34363:0",
+  "ReactShared.ImageInput.notSupported": "crwdns34365:0{fileName}crwdne34365:0",
+  "ReactShared.ImageInput.remove": "crwdns34367:0crwdne34367:0",
+  "ReactShared.ImageInput.tooManyFiles": "crwdns34369:0crwdne34369:0",
+  "ReactShared.ImageInput.update": "crwdns34371:0crwdne34371:0",
   "cibulTemplates.passwordField.good": "crwdns33490:0crwdne33490:0",
   "cibulTemplates.passwordField.great": "crwdns33492:0crwdne33492:0",
   "cibulTemplates.passwordField.isSameAs": "crwdns33776:0crwdne33776:0",
