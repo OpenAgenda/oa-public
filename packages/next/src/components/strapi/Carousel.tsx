@@ -51,7 +51,7 @@ export default function Carousel({
   return (
     <Card
       position="relative"
-      width={width.name}
+      width={width?.name}
       overflow="hidden"
       bg={!gradient ? color(backgroundColor) : undefined}
       backgroundImage={gradientBackground ? gradientBackground : undefined}

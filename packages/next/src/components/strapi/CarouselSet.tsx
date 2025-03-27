@@ -36,7 +36,7 @@ export default function CarouselSet({
   titleColor,
   descriptionColor,
   variant,
-  width = { name: 'full' },
+  width,
   borderRadius = '2xl',
 }: CarouselSetProps) {
   return (
@@ -57,7 +57,7 @@ export default function CarouselSet({
         gradient={gradient}
         colorScheme={colorScheme}
         variant={variant}
-        width={width}
+        width={width || { name: 'full' }}
         borderRadius={borderRadius}
       />
     </SegmentContainer>
