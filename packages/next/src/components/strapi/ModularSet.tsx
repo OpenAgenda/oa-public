@@ -38,7 +38,13 @@ export default function ModularSet({
         {title}
       </Heading>
       {description && (
-        <Text textAlign="center" mt={4} mb={2} color={color(descriptionColor)}>
+        <Text
+          fontSize="xl"
+          textAlign="center"
+          mt={4}
+          mb={2}
+          color={color(descriptionColor)}
+        >
           {description}
         </Text>
       )}
