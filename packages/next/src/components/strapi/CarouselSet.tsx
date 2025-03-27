@@ -1,7 +1,6 @@
-import { Heading, Grid, Text } from '@openagenda/uikit';
+import { Heading, Text } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
-import CTAButton from './CTAButton';
 import Carousel from './Carousel';
 
 interface Color {
@@ -13,7 +12,6 @@ interface CarouselSetProps {
   title?: string;
   description?: string;
   Components: Array<any>;
-  CTA?: any;
   colorScheme?: Color;
   backgroundColor?: string;
   gradient?: boolean;
@@ -30,7 +28,6 @@ export default function CarouselSet({
   title = null,
   description,
   Components,
-  CTA,
   colorScheme,
   backgroundColor,
   gradient,
@@ -63,11 +60,6 @@ export default function CarouselSet({
         width={width}
         borderRadius={borderRadius}
       />
-      {CTA ? (
-        <Grid templateColumns="1fr" justifyItems="center" w="full">
-          <CTAButton {...CTA} />
-        </Grid>
-      ) : null}
     </SegmentContainer>
   );
 }
