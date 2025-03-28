@@ -52,6 +52,11 @@
       "type": "component",
       "repeatable": true,
       "component": "components.modular"
+    },
+    "backgroundColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
     }
   }
 }

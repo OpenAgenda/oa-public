@@ -188,6 +188,10 @@ export interface SegmentsCarouselSet extends Struct.ComponentSchema {
     displayName: 'CarouselSet';
   };
   attributes: {
+    backgroundColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     borderRadius: Schema.Attribute.Enumeration<
       ['none', 'sm', 'md', 'lg', 'xl', 'full']
     >;
@@ -230,22 +234,22 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
-    borderRadius: Schema.Attribute.Enumeration<
-      ['none', 'sm', 'md', 'lg', 'xl', 'full']
-    >;
-    carouselBgColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
     Components: Schema.Attribute.Component<'components.modular', true>;
     CTA: Schema.Attribute.Component<'components.cta-button', false>;
     description: Schema.Attribute.String;
+    descriptionColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     fontColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
     >;
     title: Schema.Attribute.String;
-    useCarousel: Schema.Attribute.Boolean;
+    titleColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
   };
 }
 
