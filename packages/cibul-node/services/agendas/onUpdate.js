@@ -67,8 +67,13 @@ export default async (services, before, after, context) => {
     && after.credentials.memberCustom
     && !before.memberSchemaId
   ) {
-    core
-      .agendas(before.uid)
-      .settings.schema.updateMemberFields(null, { access: 'internal' });
+    core.agendas(before.uid).settings.schema.updateMemberFields(
+      ['organization', 'phone', 'name', 'position', 'email'].map((field) => ({
+        field,
+        fieldType: 'abstract',
+        optional: false,
+      })),
+      { access: 'internal' },
+    );
   }
 };
