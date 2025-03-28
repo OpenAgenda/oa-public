@@ -19,28 +19,6 @@ export interface ComponentsAccordion extends Struct.ComponentSchema {
   };
 }
 
-export interface ComponentsCarousel extends Struct.ComponentSchema {
-  collectionName: 'components_components_carousels';
-  info: {
-    description: '';
-    displayName: 'Carousel';
-  };
-  attributes: {
-    backgroundColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    borderRadius: Schema.Attribute.Enumeration<
-      ['none', 'sm', 'md', 'lg', 'xl', 'full']
-    >;
-    children: Schema.Attribute.Component<'components.modular', true>;
-    colorScheme: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-  };
-}
-
 export interface ComponentsCtaButton extends Struct.ComponentSchema {
   collectionName: 'components_components_cta_buttons';
   info: {
@@ -67,6 +45,10 @@ export interface ComponentsIcon extends Struct.ComponentSchema {
     displayName: 'Icon';
   };
   attributes: {
+    color: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     name: Schema.Attribute.Enumeration<
       [
         'calendar',
@@ -167,6 +149,7 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       'api::theme-color.theme-color'
     >;
     title: Schema.Attribute.String;
+    useCarousel: Schema.Attribute.Boolean;
     width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
 }
@@ -186,6 +169,7 @@ export interface SegmentsAccordionSet extends Struct.ComponentSchema {
       ['none', 'sm', 'md', 'lg', 'xl', 'full']
     >;
     boxAlign: Schema.Attribute.Enumeration<['left', 'right', 'center']>;
+    Components: Schema.Attribute.Component<'components.accordion', true>;
     contentColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
@@ -193,6 +177,43 @@ export interface SegmentsAccordionSet extends Struct.ComponentSchema {
     maxWidth: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     title: Schema.Attribute.String;
     useAccordion: Schema.Attribute.Boolean;
+    width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
+  };
+}
+
+export interface SegmentsCarouselSet extends Struct.ComponentSchema {
+  collectionName: 'components_segments_carousel_sets';
+  info: {
+    description: '';
+    displayName: 'CarouselSet';
+  };
+  attributes: {
+    borderRadius: Schema.Attribute.Enumeration<
+      ['none', 'sm', 'md', 'lg', 'xl', 'full']
+    >;
+    carouselBgColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
+    colorScheme: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
+    Components: Schema.Attribute.Component<'components.modular', true>;
+    description: Schema.Attribute.Text;
+    descriptionColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
+    gradient: Schema.Attribute.Boolean;
+    title: Schema.Attribute.String;
+    titleColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
+    variant: Schema.Attribute.Enumeration<
+      ['outline', 'solid', 'link', 'ghost']
+    >;
     width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
 }
@@ -258,12 +279,12 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'components.accordion': ComponentsAccordion;
-      'components.carousel': ComponentsCarousel;
       'components.cta-button': ComponentsCtaButton;
       'components.icon': ComponentsIcon;
       'components.illustration': ComponentsIllustration;
       'components.modular': ComponentsModular;
       'segments.accordion-set': SegmentsAccordionSet;
+      'segments.carousel-set': SegmentsCarouselSet;
       'segments.modular-set': SegmentsModularSet;
       'segments.page-head': SegmentsPageHead;
     }

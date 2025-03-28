@@ -191,6 +191,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    label: labels.adminLevel5,
   },
   {
     field: 'adminLevel6',
@@ -207,6 +208,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    label: labels.adminLevel6,
   },
   {
     field: 'district',

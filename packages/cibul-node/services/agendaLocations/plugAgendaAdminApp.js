@@ -4,7 +4,37 @@ import loadLocationEndpoints from './lib/loadLocationEndpoints.js';
 import transformLocationForFlatExport from './lib/transformLocationForFlatExport.js';
 import isSIRETEnabled from './lib/isSIRETEnabled.js';
 
-export default (config, services, instance, app, base) => {
+const extractIncludeFields = (req) => {
+  req.query.includeFields = req.query.includeFields ?? req.query.if;
+
+  if (!req.query.includeFields) {
+    return [
+      'uid',
+      'name',
+      'address',
+      'city',
+      'department',
+      'postalCode',
+      'region',
+      'countryCode',
+      'latitude',
+      'longitude',
+      'insee',
+      'state',
+      'extIds',
+    ]
+      .concat(isSIRETEnabled(req.agenda) ? 'siret' : [])
+      .concat(['eventCount', 'agendaEventCount']);
+  }
+
+  return ['uid'].concat(
+    typeof req.query.includeFields === 'string'
+      ? req.query.includeFields.split(',')
+      : req.query.includeFields,
+  );
+};
+
+export default (services, instance, app, base) => {
   const { members, agendas, core } = services;
 
   app.use(
@@ -29,6 +59,8 @@ export default (config, services, instance, app, base) => {
   );
 
   app.get([`${base}.csv`, `${base}.xlsx`], (req, res, next) => {
+    const includeFields = extractIncludeFields(req);
+
     req.locations
       .list(
         req.query,
@@ -39,26 +71,15 @@ export default (config, services, instance, app, base) => {
           eventCounts: true,
           detailed: true,
           includeImagePath: true,
-          includeFields: [
-            'uid',
-            'name',
-            'address',
-            'city',
-            'department',
-            'postalCode',
-            'region',
-            'countryCode',
-            'latitude',
-            'longitude',
-            'insee',
-            'state',
-            'extId',
-          ].concat(isSIRETEnabled(req.agenda) ? 'siret' : []),
+          includeFields,
         },
       )
       .then((stream) => {
         req.stream = stream.pipe(
-          transformLocationForFlatExport({ lang: req.lang }),
+          transformLocationForFlatExport({
+            includeFields,
+            lang: req.lang,
+          }),
         );
         next();
       }, next);

@@ -17,6 +17,7 @@ interface AccordionSetProps {
   variant?: string;
   Components: Array<any>;
   backgroundColor?: Color;
+  gradient?: boolean;
   contentColor?: Color;
   useAccordion?: boolean;
 }
@@ -27,14 +28,18 @@ export default function AccordionSet({
   maxWidth = { name: 'sm' },
   width = { name: 'sm' },
   borderRadius = '2xl',
-  variant = 'link',
   Components,
   backgroundColor,
+  gradient = true,
   contentColor,
   useAccordion,
 }: AccordionSetProps) {
+  const gradientBackground =
+    gradient && backgroundColor
+      ? `linear-gradient(175deg, ${backgroundColor.name}.200 15%, ${backgroundColor.name}.100 40%, #fff 100%);`
+      : undefined;
+
   if (!useAccordion) return null;
-  console.log('color(backgroundColor)', color(backgroundColor));
   return (
     <SegmentContainer backgroundColor={color(backgroundColor)}>
       <Heading as="h2" size="xl" textAlign="center">
@@ -45,14 +50,14 @@ export default function AccordionSet({
           allowMultiple
           maxWidth={maxWidth?.name}
           width={width?.name}
-          bg={color(backgroundColor) || 'white'}
+          bg={!gradient && backgroundColor ? color(backgroundColor) : 'white'}
+          backgroundImage={gradientBackground ? gradientBackground : undefined}
           borderRadius={borderRadius}
         >
           {Components.map((Component) => (
             <AccordionItem
               key={Component.id}
               {...Component}
-              variant={variant}
               contentColor={color(contentColor) || 'black'}
             />
           ))}

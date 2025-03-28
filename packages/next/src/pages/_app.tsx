@@ -71,7 +71,9 @@ function MyApp({
       >
         <SentryErrorBoundary>
           <Layout emotionCache={cache}>
-            <Component {...pageProps} />
+            <SentryErrorBoundary>
+              <Component {...pageProps} />
+            </SentryErrorBoundary>
           </Layout>
         </SentryErrorBoundary>
       </Providers>

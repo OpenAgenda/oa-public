@@ -528,7 +528,7 @@
   "next.views.EventShow.ShareModal.mustSignIn": [
     {
       "type": 0,
-      "value": "Vous devez vous connecter pour partager cet événement"
+      "value": "Vous devez vous connecter pour partager cet événement dans un autre agenda"
     }
   ],
   "next.views.EventShow.ShareModal.onOA": [
@@ -652,7 +652,7 @@
   "next.views.EventShow.Sidebar.passed": [
     {
       "type": 0,
-      "value": "Passé"
+      "value": "Tremenet"
     }
   ],
   "next.views.EventShow.Sidebar.registerBook": [
@@ -726,7 +726,7 @@
   "next.views.EventShow.backToList": [
     {
       "type": 0,
-      "value": "Retourner à la liste"
+      "value": "Retour à la liste"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
@@ -774,7 +774,7 @@
   "next.views.EventShow.rejectModal.motivePlaceholder": [
     {
       "type": 0,
-      "value": "Motif de rejet"
+      "value": "Motif de refus"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

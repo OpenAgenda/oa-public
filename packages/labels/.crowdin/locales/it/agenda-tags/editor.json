@@ -23,7 +23,7 @@
   "publicAccess": "Visibile al pubblico",
   "redirectMain": "Questa scheda è stata spostata nella sezione \"Impostazioni\" dell'amministrazione del calendario",
   "redirectSub": "Sarete automaticamente reindirizzati in un attimo",
-  "required": "Richiesto",
+  "required": "Obbligatorio",
   "requiredInfo": "Deve essere selezionato almeno un tag.",
   "subtitle": "I tag formano una o più liste tra cui scegliere",
   "tagListTitle": "Tag di gruppo",

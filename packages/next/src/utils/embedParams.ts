@@ -7,6 +7,12 @@ export type ImageListParam = {
   aspectRatio?: string;
 };
 
+export type MapSizeParam = {
+  maxHeight?: string;
+  height?: string;
+  aspectRatio?: string;
+};
+
 const sortValues = [
   'timings.asc',
   'timingsWithFeatured.asc',
@@ -55,6 +61,7 @@ export type EmbedParams = {
   primaryColor?: string;
   secondaryColor?: string;
   imageList?: ImageListParam;
+  mapSize?: MapSizeParam;
   sort?: SortParam;
   displayTotal?: boolean;
   logo?: LogoParam;
@@ -107,6 +114,30 @@ function parseImageList(value: string): ImageListParam | null {
   }
 }
 
+function parseMapSize(value: string): MapSizeParam | null {
+  if (typeof value !== 'string') return null;
+
+  try {
+    const result: Record<string, string> = {};
+
+    const entries = value.split(';');
+
+    for (const entry of entries) {
+      const [key, val] = entry.split(':');
+      if (key === 'ratio') {
+        result.aspectRatio = val;
+      } else if (key === 'height') {
+        result.height = val;
+      } else if (key === 'maxHeight') {
+        result.maxHeight = val;
+      }
+    }
+    return Object.keys(result).length > 0 ? result : null;
+  } catch {
+    return null;
+  }
+}
+
 export function validateSort(value: string): SortParam | null {
   if (sortValues.includes(value as SortParam)) {
     return value as SortParam;
@@ -137,6 +168,7 @@ const parsers = {
   primaryColor: parseAndValidateColor,
   secondaryColor: parseAndValidateColor,
   imageList: parseImageList,
+  mapSize: parseMapSize,
   sort: validateSort,
   displayTotal: parseAndValidateDisplayTotal,
   logo: parseAndvalidateLogo,

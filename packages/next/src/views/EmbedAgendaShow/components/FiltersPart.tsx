@@ -12,6 +12,7 @@ import { useEmbedLayoutData } from 'components/EmbedLayout';
 import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import { omitParams } from 'utils/embedParams';
 import AgendaShowMapFilter from 'views/AgendaShow/components/MapFilter';
+import wrapFilter from 'views/AgendaShow/wrapFilter';
 import useGetFilterOptions from '../hooks/useGetFilterOptions';
 import getPrefilteredQuery from '../utils/getPrefilteredQuery';
 import DateRangeFilter from './DateRangeFilter';
@@ -21,10 +22,25 @@ import { FiltersSkeleton } from './LoadingPage';
 
 const PAGE_SIZE = 12;
 
+const StyledAgendaShowMapFilter = wrapFilter(AgendaShowMapFilter);
+
 const MapFilter = React.forwardRef<any, any>(function MapFilter(props, ref) {
+  const { mapSize } = useEmbedLayoutData();
+
+  const mapHeight = mapSize ? mapSize.height || 'auto' : '250px';
+
   return (
     <Box gridColumn="1 / -1" zIndex="5">
-      <AgendaShowMapFilter ref={ref} {...props} />
+      <StyledAgendaShowMapFilter
+        ref={ref}
+        mx="auto"
+        h={mapHeight}
+        maxH={mapSize?.maxHeight}
+        aspectRatio={mapSize?.aspectRatio}
+        {...props}
+        forwardedFilter={props.filter}
+        filter={null}
+      />
     </Box>
   );
 });

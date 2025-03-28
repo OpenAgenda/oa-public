@@ -212,7 +212,7 @@ module.exports = {
     "fr": "Obligatoire",
     "de": "Erforderlich",
     "es": "Necesario",
-    "it": "Richiesto",
+    "it": "Obbligatorio",
     "br": "Rekis",
     "io": "crwdns12730:0crwdne12730:0",
     "oc": "Requesit"

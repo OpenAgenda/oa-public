@@ -20,6 +20,7 @@ export function Overview() {
             CTA: {
               label: 'Learn more',
               link: 'https://duckduckgo.com/?t=ffab&q=phteven&iax=images&ia=images',
+              variant: 'link',
             },
             Icon: {
               name: 'chart-network',
@@ -34,6 +35,7 @@ export function Overview() {
             CTA: {
               label: 'Learn more',
               link: 'https://duckduckgo.com/?t=ffab&q=phteven&iax=images&ia=images',
+              variant: 'link',
             },
             Icon: {
               name: 'calendar',
@@ -48,6 +50,7 @@ export function Overview() {
             CTA: {
               label: 'Learn more',
               link: 'https://duckduckgo.com/?t=ffab&q=phteven&iax=images&ia=images',
+              variant: 'link',
             },
             Icon: {
               name: 'code',
@@ -60,14 +63,13 @@ export function Overview() {
       <AccordionSet
         useAccordion={true}
         backgroundColor={{
-          name: 'teal',
-          swatch: '200',
+          name: 'blue',
+          swatch: '500',
         }}
         contentColor={{
           name: 'teal',
           swatch: '800',
         }}
-        variant="solid"
         maxWidth={{ name: 'full' }}
         width={{ name: 'full' }}
         Components={[
@@ -78,6 +80,7 @@ export function Overview() {
             CTA: {
               label: 'Learn more',
               link: 'https://duckduckgo.com/?t=ffab&q=phteven&iax=images&ia=images',
+              variant: 'solid',
             },
             Icon: {
               name: 'chart-network',
@@ -92,6 +95,7 @@ export function Overview() {
             CTA: {
               label: 'Learn more',
               link: 'https://duckduckgo.com/?t=ffab&q=phteven&iax=images&ia=images',
+              variant: 'solid',
             },
             Icon: {
               name: 'calendar',
@@ -106,6 +110,7 @@ export function Overview() {
             CTA: {
               label: 'Learn more',
               link: 'https://duckduckgo.com/?t=ffab&q=phteven&iax=images&ia=images',
+              variant: 'solid',
             },
             Icon: {
               name: 'code',

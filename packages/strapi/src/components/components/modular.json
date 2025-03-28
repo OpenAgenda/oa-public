@@ -79,6 +79,9 @@
     "borderRadius": {
       "type": "enumeration",
       "enum": ["none", "sm", "md", "lg", "xl", "full"]
+    },
+    "useCarousel": {
+      "type": "boolean"
     }
   }
 }

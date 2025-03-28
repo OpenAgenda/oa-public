@@ -482,39 +482,6 @@ describe('10 - event-search - unit: dsl search', () => {
       ]);
     });
 
-    it('trasverse using scroll', async () => {
-      const dsl = {
-        query: {
-          match_all: {},
-        },
-      };
-
-      let fetchedCount = 0;
-
-      const cacheFor = '1m';
-
-      const { events, scrollId } = await post('test', dsl, {
-        scroll: cacheFor,
-      });
-
-      fetchedCount += events.length;
-
-      const nextEvents = (
-        await service('simple_search').search.scroll(scrollId, cacheFor)
-      ).events;
-
-      fetchedCount += nextEvents.length;
-
-      const result = await service('simple_search').search.scroll(
-        scrollId,
-        cacheFor,
-      );
-
-      fetchedCount += result.events.length;
-
-      expect(fetchedCount).toBe(result.total);
-    });
-
     it('from/size navigation works fine', async () => {
       const dsl = {
         from: 0,

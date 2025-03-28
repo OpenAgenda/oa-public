@@ -3836,12 +3836,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.26.7":
-  version: 7.26.10
-  resolution: "@babel/runtime@npm:7.26.10"
+"@babel/runtime@npm:^7.26.10":
+  version: 7.27.0
+  resolution: "@babel/runtime@npm:7.27.0"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/6dc6d88c7908f505c4f7770fb4677dfa61f68f659b943c2be1f2a99cb6680343462867abf2d49822adc435932919b36c77ac60125793e719ea8745f2073d3745
+  checksum: 10c0/35091ea9de48bd7fd26fb177693d64f4d195eb58ab2b142b893b7f3fa0f1d7c677604d36499ae0621a3703f35ba0c6a8f6c572cc8f7dc0317213841e493cf663
   languageName: node
   linkType: hard
 
@@ -4619,6 +4619,19 @@ __metadata:
     "@dnd-kit/state": "npm:^0.0.9"
     tslib: "npm:^2.6.2"
   checksum: 10c0/8ea35e7b9098d8d3bf5beb2eecaa25a3095355e0f22fb519d9bcef96ece47ccf9a6e22d8199ebdecf26e33dabcb6d3cda6b0f36639a0a63a1a9dbf161c1a07b9
+  languageName: node
+  linkType: hard
+
+"@dnd-kit/modifiers@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "@dnd-kit/modifiers@npm:9.0.0"
+  dependencies:
+    "@dnd-kit/utilities": "npm:^3.2.2"
+    tslib: "npm:^2.0.0"
+  peerDependencies:
+    "@dnd-kit/core": ^6.3.0
+    react: ">=16.8.0"
+  checksum: 10c0/ca8cc9da8296df10774d779c1611074dc327ccc3c49041c102111c98c7f2b2b73b6af5209c0eef6b2fe978ac63dc2a985efa87c85a8d786577304bd2e64cee1d
   languageName: node
   linkType: hard
 
@@ -6931,39 +6944,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iframe-resizer/child@npm:^5.3.3":
-  version: 5.3.3
-  resolution: "@iframe-resizer/child@npm:5.3.3"
-  checksum: 10c0/84d1ac9af642ceaa7eb4417a190e7849b85de0ff2a9691f42aaadf7390ec02ef1507025dc2e8db532aec14d5cb978c52d126e0e051f2ee652a4ecb87ca471719
-  languageName: node
-  linkType: hard
-
-"@iframe-resizer/core@npm:5.3.3":
-  version: 5.3.3
-  resolution: "@iframe-resizer/core@npm:5.3.3"
-  checksum: 10c0/e9f22eacc9cd8e35bc4e8d82961a5df543e6359912f3b0c607aae684fcd11ab8de1755d95c86e248fa583755e337f990aa188f289cd291606d9a10d92f7b9bdf
-  languageName: node
-  linkType: hard
-
-"@iframe-resizer/parent@npm:^5.3.3":
-  version: 5.3.3
-  resolution: "@iframe-resizer/parent@npm:5.3.3"
+"@iframe-resizer/child@npm:^5.4.0-beta.14":
+  version: 5.4.0-beta.14
+  resolution: "@iframe-resizer/child@npm:5.4.0-beta.14"
   dependencies:
-    "@iframe-resizer/core": "npm:5.3.3"
-  checksum: 10c0/38657d0f811867c1c8e09d6b365ed16c63e99b6d3f2fb7599451442826ba6cb48649302011e7b0b28296834bd3724ac8cd6c4ff0a79af4d8472a9649649830a4
+    auto-console-group: "npm:1.1.1-beta.6"
+  checksum: 10c0/4a3c56324256a726a51d7f230455cf3e11152138be9678176bd84d87ea10f985887c0fddd8dc78d2c5a87d8857b0f1ef2a6caef642f473d8ca176349348bb5b4
   languageName: node
   linkType: hard
 
-"@iframe-resizer/react@npm:^5.3.3":
-  version: 5.3.3
-  resolution: "@iframe-resizer/react@npm:5.3.3"
+"@iframe-resizer/core@npm:5.4.0-beta.14":
+  version: 5.4.0-beta.14
+  resolution: "@iframe-resizer/core@npm:5.4.0-beta.14"
   dependencies:
-    "@babel/runtime": "npm:^7.26.7"
-    "@iframe-resizer/core": "npm:5.3.3"
+    auto-console-group: "npm:1.1.1-beta.6"
+  checksum: 10c0/745c3fc77db65b50172bdef70e997aab3822a69c8101384508798e7be21194b9d97498ef93551f9027a6bd61abd265cba34ea06e1a4fb3b3309403b32eb223ea
+  languageName: node
+  linkType: hard
+
+"@iframe-resizer/parent@npm:^5.4.0-beta.14":
+  version: 5.4.0-beta.14
+  resolution: "@iframe-resizer/parent@npm:5.4.0-beta.14"
+  dependencies:
+    "@iframe-resizer/core": "npm:5.4.0-beta.14"
+    auto-console-group: "npm:1.1.1-beta.6"
+  checksum: 10c0/7a80ec9882fad6b28b009adb650456e31f45efa3ee3c490081d15d25c3463be0d7add0b5eddcb0dec69a124b2b24b03d543d6b936e911660367be99a1e210222
+  languageName: node
+  linkType: hard
+
+"@iframe-resizer/react@npm:^5.4.0-beta.14":
+  version: 5.4.0-beta.14
+  resolution: "@iframe-resizer/react@npm:5.4.0-beta.14"
+  dependencies:
+    "@babel/runtime": "npm:^7.26.10"
+    "@iframe-resizer/core": "npm:5.4.0-beta.14"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0  || ^19.0.0
-  checksum: 10c0/219505827e474b834a87d7edac12103bc5d344aaebed52af85f2527599345c795c6ce59447ebe0c8fe6fc565ba14493b8dfac4bf0b343595732caea25644d1ad
+  checksum: 10c0/100aa93d70eaaf0bb0565e93f5ff96b2c8e3a2566929ccc9fd62bd473e54ceba41c6ee347c3f6c79f06227b6cbac05e35d8f4b05a6d341681a0c4626dfd0bb9e
   languageName: node
   linkType: hard
 
@@ -8818,7 +8836,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.23.3"
     "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@iframe-resizer/child": "npm:^5.3.3"
+    "@iframe-resizer/child": "npm:^5.4.0-beta.14"
     "@loadable/component": "npm:^5.14.1"
     "@loadable/webpack-plugin": "npm:^5.14.2"
     "@openagenda/activity-apps": "npm:^1.2.1"
@@ -9236,7 +9254,7 @@ __metadata:
     "@aws-sdk/lib-storage": "npm:^3.705.0"
     "@babel/cli": "npm:^7.23.0"
     "@dnd-kit/core": "npm:^6.3.1"
-    "@dnd-kit/react": "npm:^0.0.9"
+    "@dnd-kit/modifiers": "npm:^9.0.0"
     "@dnd-kit/sortable": "npm:^10.0.0"
     "@dnd-kit/utilities": "npm:^3.2.2"
     "@openagenda/bs-templates": "npm:^2.5.0"
@@ -9855,8 +9873,8 @@ __metadata:
     "@fortawesome/pro-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/pro-thin-svg-icons": "npm:^6.6.0"
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
-    "@iframe-resizer/child": "npm:^5.3.3"
-    "@iframe-resizer/react": "npm:^5.3.3"
+    "@iframe-resizer/child": "npm:^5.4.0-beta.14"
+    "@iframe-resizer/react": "npm:^5.4.0-beta.14"
     "@next/bundle-analyzer": "npm:^15.2.2"
     "@openagenda/activity-apps": "npm:^1.2.1"
     "@openagenda/browserslist-config": "npm:^1.0.0"
@@ -10839,7 +10857,7 @@ __metadata:
   resolution: "@openagenda/widgets@workspace:public/widgets"
   dependencies:
     "@babel/core": "npm:^7.26.0"
-    "@iframe-resizer/parent": "npm:^5.3.3"
+    "@iframe-resizer/parent": "npm:^5.4.0-beta.14"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@storybook/addon-essentials": "npm:^8.5.8"
     "@storybook/html-webpack5": "npm:^8.5.8"
@@ -21919,6 +21937,13 @@ __metadata:
   version: 2.2.5
   resolution: "attr-accept@npm:2.2.5"
   checksum: 10c0/9b4cb82213925cab2d568f71b3f1c7a7778f9192829aac39a281e5418cd00c04a88f873eb89f187e0bf786fa34f8d52936f178e62cbefb9254d57ecd88ada99b
+  languageName: node
+  linkType: hard
+
+"auto-console-group@npm:1.1.1-beta.6":
+  version: 1.1.1-beta.6
+  resolution: "auto-console-group@npm:1.1.1-beta.6"
+  checksum: 10c0/9094c0ba6b2b6c3dd5aca6e09c2f70f80e46d325d035b205e581aae6a1c3faa38ffe6da92f3db76c8e5e585740e6de7552ef20a544683c154733c821394b6bc4
   languageName: node
   linkType: hard
 

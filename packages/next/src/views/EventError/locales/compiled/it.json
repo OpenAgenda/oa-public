@@ -14,7 +14,7 @@
   "next.views.EventError.eventNotFound": [
     {
       "type": 0,
-      "value": "Event not found"
+      "value": "Nessun evento trovato"
     }
   ],
   "next.views.EventError.forbiddenMsg": [

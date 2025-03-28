@@ -10,5 +10,6 @@
   "AgendaSchema.adaptMemberForm": "Adattare la configurazione del modulo membri",
   "AgendaSchema.canAddField": "È possibile aggiungere al modulo dell'evento un campo di propria scelta",
   "AgendaSchema.event": "Standard",
-  "AgendaSchema.eventDetail": "Campo eventi standard"
+  "AgendaSchema.eventDetail": "Campo eventi standard",
+  "AgendaSchema.networkDetail": "Campo richiesto dalla rete di agende"
 }

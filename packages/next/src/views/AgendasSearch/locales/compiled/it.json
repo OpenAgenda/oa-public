@@ -17,7 +17,7 @@
   "next.views.AgendaSearch.latestUpdated": [
     {
       "type": 0,
-      "value": "Recently updated agendas"
+      "value": "Agende aggiornate di recente"
     }
   ],
   "next.views.AgendaSearch.pageTitle": [
@@ -91,7 +91,7 @@
           "value": [
             {
               "type": 0,
-              "value": "No agenda found"
+              "value": "Nessuna agenda trovata"
             }
           ]
         },
@@ -99,7 +99,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 agenda found"
+              "value": "1 agenda trovata"
             }
           ]
         },
@@ -110,7 +110,7 @@
             },
             {
               "type": 0,
-              "value": " agendas found"
+              "value": " agendas trovate"
             }
           ]
         }

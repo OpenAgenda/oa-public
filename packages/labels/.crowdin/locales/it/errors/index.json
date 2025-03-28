@@ -1,5 +1,5 @@
 {
-  "choice.required": "Richiesto",
+  "choice.required": "Obbligatorio",
   "defaultAgendaBack": "Tornare all'agenda",
   "defaultBack": "Torna alla home page",
   "email.invalid": "Deve essere compilata un'e-mail valida",
@@ -14,7 +14,7 @@
   "number.toobig": "Il numero deve essere inferiore o uguale a %max%",
   "pageDoesNotExist": "La pagina richiesta non esiste",
   "phone.invalid": "È necessario inserire un numero di telefono valido",
-  "required": "Richiesto",
+  "required": "Obbligatorio",
   "serverErrorTooLargeFile": "L'invio non è riuscito: un'immagine o un file troppo grande è stato caricato nel modulo. La dimensione massima consentita è %max% megabyte",
   "serverException": "C'è stato un problema durante il backup, riprovare tra un attimo",
   "string.toolong": "Il campo non deve contenere più di %max% di caratteri",

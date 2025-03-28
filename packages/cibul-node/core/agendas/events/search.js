@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import { NotFound, Forbidden } from '@openagenda/verror';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
@@ -93,8 +92,10 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
 
   const { search: agendaIndexSearch } = core.services.eventSearch.agendas(agenda);
 
-  searchOptions.parser = (e) =>
-    parsers.reduce((event, parser) => parser(event), e);
+  Object.assign(searchOptions, {
+    parser: (e) => parsers.reduce((event, parser) => parser(event), e),
+    useAdminLevels: includeLocationLegacyAdminLevels === false ? true : null,
+  });
 
   const result = stream
     ? agendaIndexSearch.stream(authorizedQuery, {
@@ -105,7 +106,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
       ...searchOptions,
       useAfterKey,
       access,
-    }).then((r) => _.omit(r, ['scrollId']));
+    });
 
   return returnAgenda ? { agenda, result } : result;
 }

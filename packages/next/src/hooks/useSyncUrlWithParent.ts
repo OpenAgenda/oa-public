@@ -27,10 +27,16 @@ export default function useSyncUrlWithParent() {
     //     router.push(newUrl, null, { shallow: true });
     //   }
     // };
-    //
-    // window.iFrameResizer = { onMessage };
 
-    import('@iframe-resizer/child');
+    if (typeof window !== 'undefined') {
+      window.iFrameResizer = {
+        ignoreSelector: '.leaflet-proxy.leaflet-zoom-animated',
+        // sizeSelector: 'body',
+        // onMessage
+      };
+
+      import('@iframe-resizer/child');
+    }
   }, [latestRouter]);
 
   useEffect(() => {
