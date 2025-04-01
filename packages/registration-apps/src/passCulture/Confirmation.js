@@ -8,10 +8,20 @@ function ConfirmationBody({
   hasErrors,
   isPending,
   isPatch,
+  nonCreatedUnpublished,
   editLink,
   showLink,
   errors = [],
 }) {
+  if (nonCreatedUnpublished) {
+    return (
+      <p>
+        Votre saisie pour la création d&apos;une offre pass Culture a bien été
+        enregistrée, l&apos;offre sera créée dès la publication de
+        l&apos;événement sur OpenAgenda.
+      </p>
+    );
+  }
   if (isCreated && hasErrors) {
     return (
       <>
@@ -152,19 +162,14 @@ export default function Confirmation({ event, res, className }) {
   if (new Date(lastProcessed) < thirtySecAgo) {
     return null;
   }
-
-  const editLink = (res?.edit ?? '').replace(
-    ':id',
-    passData[0]?.response?.passId,
-  );
-  const showLink = (res?.show ?? '').replace(
-    ':id',
-    passData[0]?.response?.passId,
-  );
+  const passId = passData[0]?.response?.passId;
+  const editLink = (res?.edit ?? '').replace(':id', passId);
+  const showLink = (res?.show ?? '').replace(':id', passId);
   const isPatch = passData.length > 3;
   const hasErrors = (getCurrentValue(passData)?.errors ?? []).length > 0;
-  const isPending = passData[0]?.response.isPending ?? null;
-  const isCreated = !!passData[0]?.response?.passId;
+  const isPending = passData[0]?.response?.isPending ?? null;
+  const isCreated = !!passId;
+  const nonCreatedUnpublished = !isCreated && event.state !== 2;
 
   return (
     <div className={className ?? 'panel panel-default'}>
@@ -176,6 +181,7 @@ export default function Confirmation({ event, res, className }) {
             hasErrors,
             isPending,
             isPatch,
+            nonCreatedUnpublished,
             showLink,
             editLink,
             errors: passData?.errors,
