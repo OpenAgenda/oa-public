@@ -1,0 +1,174 @@
+{
+  "groups": [
+    {
+      "name": "Label",
+      "info": null,
+      "tags": [
+        {
+          "id": 50,
+          "label": "Architecture contemporaine remarquable"
+        },
+        {
+          "id": 38,
+          "label": "Jardin remarquable"
+        },
+        {
+          "id": 41,
+          "label": "Maison des illustres"
+        },
+        {
+          "id": 42,
+          "label": "Monument historique"
+        },
+        {
+          "id": 40,
+          "label": "Musée de France"
+        },
+        {
+          "id": 35,
+          "label": "Patrimoine européen"
+        },
+        {
+          "id": 37,
+          "label": "Patrimoine mondial de l'UNESCO"
+        },
+        {
+          "id": 60,
+          "label": "Site patrimonial remarquable"
+        },
+        {
+          "id": 39,
+          "label": "Tourisme et handicap"
+        },
+        {
+          "id": 36,
+          "label": "Villes et Pays d'art et d'histoire"
+        }
+      ]
+    },
+    {
+      "name": {
+        "fr": "Spécificité",
+        "en": "Specificity"
+      },
+      "info": null,
+      "tags": [
+        {
+          "id": 33,
+          "label": {
+            "fr": "Première participation",
+            "en": "First participation"
+          }
+        },
+        {
+          "id": 32,
+          "label": {
+            "fr": "Ouverture exceptionnelle",
+            "en": "Exceptional opening"
+          }
+        }
+      ]
+    },
+    {
+      "name": {
+        "fr": "Types de lieu",
+        "en": "Types of place"
+      },
+      "info": null,
+      "tags": [
+        {
+          "id": 1,
+          "label": {
+            "fr": "Atelier d'artiste",
+            "en": "Artist's studio"
+          }
+        },
+        {
+          "id": 61,
+          "label": {
+            "fr": "Archéologie",
+            "en": "Archeology"
+          }
+        },
+        {
+          "id": 2,
+          "label": {
+            "fr": "Château, hôtel urbain, palais, manoir",
+            "en": "Castle, palace, manor house"
+          }
+        },
+        {
+          "id": 17,
+          "label": {
+            "fr": "Beaux-Arts",
+            "en": "Museum of Arts"
+          }
+        },
+        {
+          "id": 18,
+          "label": {
+            "fr": "Art moderne et contemporain",
+            "en": "Contemporary and modern Arts"
+          }
+        },
+        {
+          "id": 19,
+          "label": {
+            "fr": "Arts décoratifs",
+            "en": "Decorative Arts"
+          }
+        },
+        {
+          "id": 62,
+          "label": {
+            "fr": "Histoire",
+            "en": "History"
+          }
+        },
+        {
+          "id": 63,
+          "label": {
+            "fr": "Photographie",
+            "en": "Photography"
+          }
+        },
+        {
+          "id": 20,
+          "label": {
+            "fr": "Sciences et techniques",
+            "en": "Sciences and technology"
+          }
+        },
+        {
+          "id": 21,
+          "label": {
+            "fr": "Insolites",
+            "en": "Unusual"
+          }
+        },
+        {
+          "id": 23,
+          "label": {
+            "fr": "Musée numérique",
+            "en": "Digital museum"
+          }
+        },
+        {
+          "id": 22,
+          "label": {
+            "fr": "Société et civilisation",
+            "en": "Society and civilisation"
+          }
+        },
+        {
+          "id": 64,
+          "label": {
+            "fr": "Numérique",
+            "en": "Digital"
+          }
+        }
+      ],
+      "required": true
+    }
+  ]
+}
