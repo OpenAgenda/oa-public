@@ -78,12 +78,6 @@ export default async (core, agendaUid, data, options = {}) => {
       draft,
     });
     log('  associated state');
-    console.log(
-      'clean after state',
-      clean,
-      clean.event.registration,
-      clean.event.registration[0].data,
-    );
 
     if (!draft && clean.passCulture) {
       log('  There is a pass culture payload');
@@ -106,7 +100,6 @@ export default async (core, agendaUid, data, options = {}) => {
           log('error', error);
           throw error;
         }
-        console.log('validate out', clean.event, registrations);
       }
     }
 
