@@ -143,6 +143,16 @@ describe('event-search - unit: utils', () => {
         title: 'La luna llena',
       });
     });
+
+    it('sub-fields are handled', () => {
+      expect(
+        monolingual(['location.description'], ['en'], {
+          location: {
+            description: { en: 'Does Lenny die at the end?' },
+          },
+        }).location.description,
+      ).toBe('Does Lenny die at the end?');
+    });
   });
 
   describe('includeLabelsInEvent', () => {

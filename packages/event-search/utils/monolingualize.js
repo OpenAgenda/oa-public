@@ -7,14 +7,15 @@ export default (fields, languages, event) => {
   }
 
   return produce(event, (draft) => {
-    const candidateFields = fields.filter((f) => _.isObject(draft[f]));
+    const candidateFields = fields.filter((f) => _.isObject(_.get(draft, f)));
 
     for (const field of candidateFields) {
       const language = []
         .concat(languages)
-        .filter((l) => draft[field][l])
+        .filter((l) => _.get(draft, `${field}.${l}`))
         .shift();
-      draft[field] = draft[field][language];
+
+      _.set(draft, field, _.get(draft, `${field}.${language}`));
     }
   });
 };
