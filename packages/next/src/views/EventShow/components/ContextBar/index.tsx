@@ -49,10 +49,10 @@ function getAdminNav(eventNc) {
   for (const key in eventNc) {
     if (Object.prototype.hasOwnProperty.call(eventNc, key)) {
       if (
-        key === 'from'
-        || key === 'fromAdmin'
-        || key === 'first'
-        || key === 'last'
+        key === 'from' ||
+        key === 'fromAdmin' ||
+        key === 'first' ||
+        key === 'last'
       ) {
         continue;
       }
@@ -116,8 +116,9 @@ export default function ContextBar() {
               >
                 {isMobile ? (
                   <FaIcon icon={faTurnLeft} size="lg" />
-                )
-                  : intl.formatMessage(messages.backToDashboard)}
+                ) : 
+                  intl.formatMessage(messages.backToDashboard)
+                }
               </ContextBarButton>
             </Tooltip>
           </Column>
@@ -129,7 +130,7 @@ export default function ContextBar() {
           <Edit agenda={agenda} />
         </Column>
         <Column>
-          <OtherActions agenda={agenda} />
+          <OtherActions agenda={agenda} editLink={editLink} />
         </Column>
       </SimpleGrid>
     </Collapse>
