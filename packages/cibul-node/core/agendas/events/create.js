@@ -63,16 +63,6 @@ export default async (core, agendaUid, data, options = {}) => {
 
     log('  cleaned data');
 
-    if (!draft && clean.passCulture) {
-      log('  There is a pass culture payload');
-      try {
-        clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
-      } catch (e) {
-        log('error', e);
-        throw e;
-      }
-    }
-
     const authorizations = await loadAuthorizations(core, 'create', {
       agenda,
       member,
@@ -88,6 +78,37 @@ export default async (core, agendaUid, data, options = {}) => {
       draft,
     });
     log('  associated state');
+    console.log(
+      'clean after state',
+      clean,
+      clean.event.registration,
+      clean.event.registration[0].data,
+    );
+
+    if (!draft && clean.passCulture) {
+      log('  There is a pass culture payload');
+      if (clean.agendaEvent.state === 2) {
+        try {
+          clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
+        } catch (e) {
+          log('error', e);
+          throw e;
+        }
+      } else {
+        // validate pass data
+        const passCultureService = registrations(
+          agenda.settings.registration,
+        ).passCulture;
+        log('validate pass data');
+        try {
+          await passCultureService.validate(clean.event, clean.passCulture);
+        } catch (error) {
+          log('error', error);
+          throw error;
+        }
+        console.log('validate out', clean.event, registrations);
+      }
+    }
 
     const payload = createPayload(core, agenda);
 
