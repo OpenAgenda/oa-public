@@ -1,3 +1,4 @@
 {
-  "next.components.SearchInput.ariaLabel": "Rechercher"
+  "next.components.SearchInput.ariaLabel": "Rechercher",
+  "next.views.AgendaShow.EventItem.featured": "En une"
 }

@@ -27,6 +27,7 @@ import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import DuplicateModal from '../DuplicateModal';
 import TransferOwnershipModal from '../TransferOwnershipModal';
+import { useInvalidEventModal } from './InvalidEventModal';
 import ContextBarButton from './ContextBarButton';
 import { fullWidth } from './popperModifiers';
 
@@ -76,6 +77,10 @@ export default function OtherActions({ agenda }) {
   const isOriginAgenda = event.originAgenda?.uid === agenda.uid;
   const { canEditEvent = false } = me?.authorizations ?? {};
 
+  const invalidEventModal = useInvalidEventModal(
+    `/${agenda.slug}/events/${event.slug}/edit`,
+  );
+
   const {
     isOpen: removeIsOpen,
     onOpen: removeOnOpen,
@@ -118,6 +123,10 @@ export default function OtherActions({ agenda }) {
           );
 
           if (response.ok) return optimisticResponse;
+          if (response.status === 400) {
+            invalidEventModal.onOpen();
+            return;
+          }
           throw new Error('Error');
         },
         {
@@ -324,6 +333,7 @@ export default function OtherActions({ agenda }) {
       {transferOwnershipIsOpen ? (
         <TransferOwnershipModal isOpen onClose={transferOwnershipOnClose} />
       ) : null}
+      {invalidEventModal.modal}
     </>
   );
 }

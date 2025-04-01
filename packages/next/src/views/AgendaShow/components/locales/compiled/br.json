@@ -38,7 +38,7 @@
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "À la une"
+      "value": "En une"
     }
   ],
   "next.views.AgendaShow.EventItem.removeFromFavorites": [

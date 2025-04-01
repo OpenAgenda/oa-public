@@ -137,16 +137,22 @@
       "value": "Un événement en une apparaît en haut de la liste"
     }
   ],
+  "next.views.EventShow.ContextBar.fixEvent": [
+    {
+      "type": 0,
+      "value": "Corriger l'événement"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEvent": [
+    {
+      "type": 0,
+      "value": "Cet évènement n'est pas valide"
+    }
+  ],
   "next.views.EventShow.ContextBar.invalidEventMessage": [
     {
       "type": 0,
-      "value": "Modifiez l'événement pour résoudre le problème avant de tenter à nouveau de modifier son état. Vous pouvez également le supprimer complètement de l’agenda."
-    }
-  ],
-  "next.views.EventShow.ContextBar.invalidEventTitle": [
-    {
-      "type": 0,
-      "value": "Le nom de cet évènement n'est pas valide"
+      "value": "Vous devrez effectuer une correction sur l'événement avant de pouvoir compléter cette action."
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelled": [

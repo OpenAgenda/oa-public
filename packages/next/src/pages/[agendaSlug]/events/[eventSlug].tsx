@@ -97,12 +97,12 @@ export const getServerSideProps: GetServerSideProps = async ({
               ...matomoDomain ? [`https://${matomoDomain}`] : [],
               ...googleAnalytics
                 ? [
-                  'https://*.google-analytics.com',
-                  'https://*.analytics.google.com',
-                  'https://*.googletagmanager.com',
-                  'https://*.g.doubleclick.net',
-                  'https://*.google.com',
-                ]
+                    'https://*.google-analytics.com',
+                    'https://*.analytics.google.com',
+                    'https://*.googletagmanager.com',
+                    'https://*.g.doubleclick.net',
+                    'https://*.google.com',
+                  ]
                 : [],
             ],
             imgSrc: [
@@ -110,12 +110,12 @@ export const getServerSideProps: GetServerSideProps = async ({
               ...matomoDomain ? [`https://${matomoDomain}`] : [],
               ...googleAnalytics
                 ? [
-                  'https://*.google-analytics.com',
-                  'https://*.analytics.google.com',
-                  'https://*.googletagmanager.com',
-                  'https://*.g.doubleclick.net',
-                  'https://*.google.com',
-                ]
+                    'https://*.google-analytics.com',
+                    'https://*.analytics.google.com',
+                    'https://*.googletagmanager.com',
+                    'https://*.g.doubleclick.net',
+                    'https://*.google.com',
+                  ]
                 : [],
             ],
           },
@@ -162,58 +162,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     return { props };
   }
 };
-
-// export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-//   try {
-//     const [
-//       agendaResult,
-//       eventResult,
-//       intlMessagesResult,
-//     ] = await Promise.allSettled([
-//       fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${params.agendaSlug}`)
-//         .then(r => {
-//           if (r.ok) return r.json();
-//           throw new VError[r.status](r.statusText);
-//         }),
-//       fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${params.agendaSlug}/events/slug/${params.eventSlug}?longDescriptionFormat=HTMLWithEmbeds`)
-//         .then(r => {
-//           if (r.ok) return r.json();
-//           throw new VError[r.status](r.statusText);
-//         }),
-//       EventShow.fetchLocale(locale),
-//     ]);
-//
-//     if (agendaResult.status === '') {
-//     }
-//
-//     const props: PageProps = { agenda, event, intlMessages };
-//
-//     return {
-//       props,
-//       revalidate: 10,
-//     };
-//   } catch (e: any) {
-//     console.log(e);
-//
-//     if (e.statusCode === 401 || e.statusCode === 403) {
-//       console.log('FALLBACK');
-//     }
-//
-//     return {
-//       props: {},
-//       revalidate: 10,
-//     };
-//
-//     return {
-//       notFound: true,
-//     };
-//   }
-// };
-//
-// export const getStaticPaths = () => ({
-//   paths: [],
-//   fallback: 'blocking',
-// });
 
 const EventPage: NextPageWithLayout<PageProps> = (props) => {
   const { fallback = {}, agenda } = props;

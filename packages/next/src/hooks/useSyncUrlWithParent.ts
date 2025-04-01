@@ -30,6 +30,7 @@ export default function useSyncUrlWithParent() {
 
     if (typeof window !== 'undefined') {
       window.iFrameResizer = {
+        // @ts-ignore - 'ignoreSelector' is not in type definition but is supported by iframe-resizer
         ignoreSelector: '.leaflet-proxy.leaflet-zoom-animated',
         // sizeSelector: 'body',
         // onMessage

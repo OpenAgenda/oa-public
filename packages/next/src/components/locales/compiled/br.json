@@ -4,5 +4,11 @@
       "type": 0,
       "value": "Rechercher"
     }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "En une"
+    }
   ]
 }
