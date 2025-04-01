@@ -133,7 +133,7 @@ module.exports = {
     "de": "Erforderlich",
     "es": "Necesario",
     "br": "Rekis",
-    "it": "Richiesto",
+    "it": "Obbligatorio",
     "io": "crwdns14058:0crwdne14058:0",
     "oc": "Requesit"
   },
@@ -143,7 +143,7 @@ module.exports = {
     "de": "Erforderlich",
     "es": "Necesario",
     "br": "Rekis",
-    "it": "Richiesto",
+    "it": "Obbligatorio",
     "io": "crwdns14060:0crwdne14060:0",
     "oc": "Requesit"
   },

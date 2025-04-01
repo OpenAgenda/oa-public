@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { color } from 'utils/strapi';
 import { FaIcon } from 'icons';
 import { faArrowLeft, faArrowRight } from 'icons/regular';
+import Modular from './Modular';
 
 interface Color {
   name: string;
@@ -10,31 +11,35 @@ interface Color {
 }
 
 interface CarouselProps {
-  children: React.ReactNode[];
+  Components: Array<any>;
   colorScheme?: Color;
   backgroundColor?: Color;
   borderRadius?: string;
   gradient?: boolean;
+  variant?: string;
+  width?: { name: string };
 }
 
 export default function Carousel({
-  children,
+  Components,
   colorScheme,
   backgroundColor,
-  borderRadius = '2xl',
-  gradient = false,
+  borderRadius,
+  gradient,
+  variant,
+  width,
 }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : children.length - 1,
+      prevIndex > 0 ? prevIndex - 1 : Components.length - 1,
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex < children.length - 1 ? prevIndex + 1 : 0,
+      prevIndex < Components.length - 1 ? prevIndex + 1 : 0,
     );
   };
 
@@ -46,19 +51,20 @@ export default function Carousel({
   return (
     <Card
       position="relative"
-      width="100%"
+      width={width?.name}
       overflow="hidden"
       bg={!gradient ? color(backgroundColor) : undefined}
       backgroundImage={gradientBackground ? gradientBackground : undefined}
       borderRadius={borderRadius}
       my={8}
+      mx="auto"
     >
       <Flex
         transition="transform 0.5s ease-in-out"
         transform={`translateX(-${currentIndex * 100}%)`}
         width="100%"
       >
-        {children.map((child, index) => (
+        {Components.map((Component, index) => (
           <Box
             key={index}
             flex="0 0 100%"
@@ -69,7 +75,7 @@ export default function Carousel({
             alignItems="center"
             textAlign="center"
           >
-            {child}
+            <Modular {...Component} useCarousel={true} />
           </Box>
         ))}
       </Flex>
@@ -80,6 +86,7 @@ export default function Carousel({
           onClick={handlePrev}
           borderRadius="50%"
           colorScheme={colorScheme ? colorScheme.name : 'primary'}
+          variant={variant}
           size="lg"
           mr={1}
         />
@@ -89,6 +96,7 @@ export default function Carousel({
           onClick={handleNext}
           borderRadius="50%"
           colorScheme={colorScheme ? colorScheme.name : 'primary'}
+          variant={variant}
           size="lg"
           ml={1}
         />

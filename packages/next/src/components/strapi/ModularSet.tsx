@@ -3,7 +3,6 @@ import { color } from 'utils/strapi';
 import Modular from './Modular';
 import SegmentContainer from './SegmentContainer';
 import CTAButton from './CTAButton';
-import Carousel from './Carousel';
 
 interface Color {
   name: string;
@@ -18,8 +17,6 @@ interface ModularSetProps {
   backgroundColor?: string;
   fontColor?: string;
   alignHeight?: boolean;
-  useCarousel?: boolean;
-  carouselBgColor?: Color;
   titleColor?: Color;
   descriptionColor?: Color;
 }
@@ -30,10 +27,8 @@ export default function ModularSet({
   Components,
   CTA,
   backgroundColor,
-  fontColor,
   alignHeight,
-  useCarousel,
-  carouselBgColor,
+  fontColor,
   titleColor,
   descriptionColor,
 }: ModularSetProps) {
@@ -43,39 +38,36 @@ export default function ModularSet({
         {title}
       </Heading>
       {description && (
-        <Text textAlign="center" mt={4} mb={2} color={color(descriptionColor)}>
+        <Text
+          fontSize="xl"
+          textAlign="center"
+          mt={4}
+          mb={2}
+          color={color(descriptionColor)}
+        >
           {description}
         </Text>
       )}
-      {useCarousel ? (
-        <Carousel backgroundColor={color(carouselBgColor)}>
-          {Components.map((Component) => (
-            <Modular
-              {...Component}
-              key={Component.id}
-              alignHeight={alignHeight}
-              useCarousel={useCarousel}
-            />
-          ))}
-        </Carousel>
-      ) : (
-        <Grid display="flex" gap={8} p={8} alignItems="stretch">
-          {Components.map((Component) => (
-            <GridItem
-              key={Component.id}
-              w="full"
-              justifyItems="center"
-              flex={Component.grow || 1}
-            >
-              <Modular
-                {...Component}
-                alignHeight={alignHeight}
-                useCarousel={useCarousel}
-              />
-            </GridItem>
-          ))}
-        </Grid>
-      )}
+      <Grid
+        display="grid"
+        gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+        gap={8}
+        p={8}
+        alignItems="stretch"
+        mx="auto"
+      >
+        {Components.map((Component) => (
+          <GridItem
+            key={Component.id}
+            w="full"
+            justifyContent="center"
+            display="flex"
+            flex={Component.grow || 1}
+          >
+            <Modular {...Component} alignHeight={alignHeight} />
+          </GridItem>
+        ))}
+      </Grid>
       {CTA ? (
         <Grid templateColumns="1fr" justifyItems="center" w="full">
           <CTAButton {...CTA} />

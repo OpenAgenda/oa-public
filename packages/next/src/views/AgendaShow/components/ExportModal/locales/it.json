@@ -1,9 +1,9 @@
 {
-  "next.views.AgendaShow.ExportModal.PDFDownload": "",
-  "next.views.AgendaShow.ExportModal.PDFGeoSections": "",
+  "next.views.AgendaShow.ExportModal.PDFDownload": "Scaricare",
+  "next.views.AgendaShow.ExportModal.PDFGeoSections": "Aggiungere delle sezioni geografiche",
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "",
   "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "",
-  "next.views.AgendaShow.ExportModal.PDFSelectSub": "",
+  "next.views.AgendaShow.ExportModal.PDFSelectSub": "Selezionare uno o più valori",
   "next.views.AgendaShow.ExportModal.allFields": "Esportare tutte le informazione",
   "next.views.AgendaShow.ExportModal.allLanguages": "Esportare tutte le lingue",
   "next.views.AgendaShow.ExportModal.cancel": "Annullare",

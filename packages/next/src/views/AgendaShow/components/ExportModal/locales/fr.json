@@ -4,7 +4,7 @@
   "next.views.AgendaShow.ExportModal.PDFHighlightLocationName": "Placer les détails du lieu en entête",
   "next.views.AgendaShow.ExportModal.PDFSelectPlaceholder": "Segments",
   "next.views.AgendaShow.ExportModal.PDFSelectSub": "Choisissez une ou plusieurs valeurs",
-  "next.views.AgendaShow.ExportModal.allFields": "Exporter toutes les colonnes",
+  "next.views.AgendaShow.ExportModal.allFields": "Exporter tous les champs",
   "next.views.AgendaShow.ExportModal.allLanguages": "Exporter dans toutes les langues",
   "next.views.AgendaShow.ExportModal.cancel": "Annuler",
   "next.views.AgendaShow.ExportModal.close": "Fermer",

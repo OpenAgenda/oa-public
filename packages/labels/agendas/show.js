@@ -346,7 +346,7 @@ module.exports = {
     "it": "%count% eventi futuri",
     "de": "%count% künftige Veranstaltungen",
     "pl": "%count% przyszłych wydarzeń",
-    "br": "%count% a zarvoudoù da zont",
+    "br": "%count% darvoud o tont",
     "es": "%count% próximos eventos",
     "io": "crwdns12962:0%count%crwdne12962:0",
     "oc": "%count% eveniments a venir"

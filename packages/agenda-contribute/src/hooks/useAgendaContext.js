@@ -28,7 +28,8 @@ export default function useAgendaContext(agendaUid) {
     },
   );
 
-  const memberIsFresh = new Date(agendaContext?.me?.member?.updatedAt) > new Date(memberFreshness);
+  const memberIsFresh = new Date(agendaContext?.me?.member?.updatedAt).getTime()
+    > new Date().getTime() - memberFreshness;
 
   return useMemo(
     () => ({

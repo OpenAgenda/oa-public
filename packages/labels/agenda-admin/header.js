@@ -6,7 +6,7 @@ module.exports = {
     "en": "Administration",
     "de": "Verwaltung",
     "es": "Administración",
-    "it": "Amministrazione",
+    "it": "Gestione",
     "io": "crwdns11386:0crwdne11386:0",
     "oc": "Administracion"
   },

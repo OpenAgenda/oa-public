@@ -218,7 +218,7 @@
   "next.views.EventShow.ContextBar.motive": [
     {
       "type": 0,
-      "value": "Motif"
+      "value": "Rason"
     }
   ],
   "next.views.EventShow.ContextBar.otherActions": [
@@ -534,7 +534,7 @@
   "next.views.EventShow.ShareModal.mustSignIn": [
     {
       "type": 0,
-      "value": "Vous devez vous connecter pour partager cet événement"
+      "value": "Vous devez vous connecter pour partager cet événement dans un autre agenda"
     }
   ],
   "next.views.EventShow.ShareModal.onOA": [
@@ -726,13 +726,13 @@
   "next.views.EventShow.actions": [
     {
       "type": 0,
-      "value": "Actions"
+      "value": "Accions"
     }
   ],
   "next.views.EventShow.backToList": [
     {
       "type": 0,
-      "value": "Retourner à la liste"
+      "value": "Retour à la liste"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
@@ -768,19 +768,19 @@
   "next.views.EventShow.rejectModal.motive": [
     {
       "type": 0,
-      "value": "Motif"
+      "value": "Rason"
     }
   ],
   "next.views.EventShow.rejectModal.motiveInfo": [
     {
       "type": 0,
-      "value": "Le motif sera partagé au contributeur dans la notification qui lui est envoyée par email ainsi que directement associé au statut sur la page de l'événement."
+      "value": "La rason serà presentada al contributor dins las notificacions mandadas per mail e dirèctament associada a l'estatut sus la pagina de l'eveniment."
     }
   ],
   "next.views.EventShow.rejectModal.motivePlaceholder": [
     {
       "type": 0,
-      "value": "Motif de rejet"
+      "value": "Motif de refus"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

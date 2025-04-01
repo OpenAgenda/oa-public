@@ -108,6 +108,7 @@
   "ActivityApps.publishEvent.full": "<user>{userName}</user> a publicat <event>{eventName}</event> sus <agenda>{agendaName}</agenda>.",
   "ActivityApps.publishEvent.target": "<event>{eventName}</event> es estat publicat sus <agenda>{agendaName}</agenda>.",
   "ActivityApps.refuseEvent.actor": "<user>{userName}</user> a refusat <event>{eventName}</event>.",
+  "ActivityApps.refuseEvent.detailModalTitle": "Rason del refús",
   "ActivityApps.refuseEvent.full": "<user>{userName}</user> a refusat <event>{eventName}</event> sus <agenda>{agendaName}</agenda>.",
   "ActivityApps.refuseEvent.target": "<event>{eventName}</event> es estat refusat sus <agenda>{agendaName}</agenda>.",
   "ActivityApps.removeDeletedEvent.full": "<event>{eventName}</event> es estat tirat de <agenda>{agendaName}</agenda> aprèp sa supression.",

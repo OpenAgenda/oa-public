@@ -1,4 +1,5 @@
 {
+  "format.unknown": "Lo format d'imatge es desconegut",
   "location.required": "Cal precisar lo lòc",
   "timings.empty": "Cal indicar al mens un orari",
   "timings.invalid": "Cal indicar al mens un orari",
