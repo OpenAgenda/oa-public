@@ -116,7 +116,7 @@
     "tags": [
       {
         "id": 3,
-        "label": "Édifice religieux"
+        "label": { "fr": "Édifice religieux" }
       }
     ],
     "insee": "67404",

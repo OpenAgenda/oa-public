@@ -25,10 +25,12 @@ import {
   Wrap,
 } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { FaIcon } from 'icons';
 import { faGlobe } from 'icons/regular';
 import { faPhone, faChevronDown } from 'icons/solid';
+import { FALLBACK_LOCALE } from 'config/constants';
 import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
 import CopyIdentifier from 'components/CopyIdentifier';
@@ -463,7 +465,12 @@ function EventShow({ preload }: EventShowProps) {
                         {intl.formatMessage(messages.tags)}
                       </chakra.div>
                       {intl.formatList(
-                        event.location.tags.map((tag) => tag.label),
+                        event.location.tags.map((tag) =>
+                          getLocaleValue(tag.label, contentLocale, [
+                            intl.locale,
+                            FALLBACK_LOCALE,
+                          ]),
+                        ),
                         { style: 'narrow' },
                       )}
                     </div>
