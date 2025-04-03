@@ -213,8 +213,16 @@ module.exports = {
     "io": "crwdns16424:0crwdne16424:0",
     "oc": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar"
   },
-  "badChangeEmailToken": {
-    "fr": "Le lien n'est pas ou plus valide. Il a soit déjà été utilisé ou a été remplacé par une autre tentative de changement d'email. Vérifiez que le nouvel email n'a pas déjà été enregistré ou veuillez recommencer l'opération.",
-    "en": "The link is not or no longer valid. Either it was already used or it was replaced by another attempt to change the email. Check that the account email has not been already changed and repeat the operation."
+  "changeEmailErrorTitle": {
+    "en": "The link you clicked on is invalid",
+    "fr": "Ce lien est invalide"
+  },
+  "changeEmailError": {
+    "en": "This can happen for a few reasons:\n1. This link was already used and the email change was already validated.\n2. Several email changes were submitted sequentially. In that case only the last link sent to your inbox can be valid.\n3. You are attempting to open this link from an account different than the one from which the request was initiated.\n\nContact support if this problem persists.",
+    "fr": "Ceci peut avoir plusieurs causes:\n1. Le lien a déjà servi et la demande de changement d'email a abouti.\n2. Plusieurs emails ont été soumis: seul le lien associé à la dernière demande est valide.\n3. Le lien est ouvert depuis une session d'un compte autre que celui à l'origine de la demande.\n\nContactez le support si ce problème persiste."
+  },
+  "contactSupport": {
+    "en": "Contact support",
+    "fr": "Contacter le support"
   }
 }

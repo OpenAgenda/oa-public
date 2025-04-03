@@ -122,11 +122,11 @@ module.exports = {
     "oc": "Un ligam de validacion es estat mandat a vòstra novèla adreça email."
   },
   "changeEmailSuccess": {
-    "en": "Your email was successfully updated",
-    "fr": "Votre email a été mis à jour avec succès",
+    "en": "Your email was changed",
+    "fr": "Votre email a été modifié",
     "de": "Ihre E-Mail wurde erfolgreich aktualisiert",
-    "es": "Su correo electrónico se ha actualizado correctamente",
-    "it": "La tua email è stata aggiornata con successo",
+    "es": "Su correo electrónico se ha actualizado",
+    "it": "La tua email è stata aggiornata",
     "io": "crwdns15846:0crwdne15846:0",
     "oc": "Vòstre email es plan estat mes a jorn"
   },
