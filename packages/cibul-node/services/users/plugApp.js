@@ -1,15 +1,10 @@
 import { Forbidden } from '@openagenda/verror';
 import feathers from '@feathersjs/feathers';
-import logs from '@openagenda/logs';
 import express from '@feathersjs/express';
 import cmn from '../../lib/commons-app.js';
-import sendChangeEmail from './middleware/sendChangeEmail.js';
-import setFlashChangeEmail from './middleware/setFlashChangeEmail.js';
+import changeEmailMw from './middleware/changeEmail.js';
 import setFlashAccountRemoved from './middleware/setFlashAccountRemoved.js';
 import getHandler from './lib/getHandler.js';
-import resetCache from './lib/resetCache.js';
-
-const log = logs('services/users/plugApp');
 
 export default function plugApp(app) {
   const service = app.services.users;
@@ -102,18 +97,9 @@ export default function plugApp(app) {
   );
 
   // send confirmation email after requestChangeEmail
-  app.patch(
-    '/users/:__feathersId/requestChangeEmail',
-    sendChangeEmail(service),
-  );
+  app.patch('/users/:__feathersId/requestChangeEmail', changeEmailMw.send);
 
-  // set flash message after confirm change of email
-  app.get(
-    '/users/:__feathersId/confirmChangeEmail',
-    (req, _res, next) =>
-      resetCache(req.app.services, req.user).then(() => next(), next),
-    setFlashChangeEmail(),
-  );
+  app.get('/users/:__feathersId/confirmChangeEmail', changeEmailMw.onSuccess);
 
   // set flash & redirect message after account deletion
   app.delete('/users/:__feathersId', setFlashAccountRemoved());
@@ -122,19 +108,9 @@ export default function plugApp(app) {
     '/users',
     express.errorHandler({
       html: (err, req, res) => {
-        if (req.originalUrl.includes('confirmChangeEmail') && !req.user) {
-          return cmn.redirectToSignin(req, res);
-        }
-
-        if (
-          req.originalUrl.includes('confirmChangeEmail')
-          && err.code === 400
-        ) {
-          err.message = 'badChangeEmailToken';
-          log.info('email change failed', {
-            operation: 'changeEmail',
-            userUid: req.user.uid,
-          });
+        if (req.originalUrl.includes('confirmChangeEmail')) {
+          changeEmailMw.onError(err, req, res);
+          return;
         }
         cmn.catchError(req, res)(err);
       },
