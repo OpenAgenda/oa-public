@@ -6,6 +6,7 @@ import sendChangeEmail from './middleware/sendChangeEmail.js';
 import setFlashChangeEmail from './middleware/setFlashChangeEmail.js';
 import setFlashAccountRemoved from './middleware/setFlashAccountRemoved.js';
 import getHandler from './lib/getHandler.js';
+import resetCache from './lib/resetCache.js';
 
 export default function plugApp(app) {
   const service = app.services.users;
@@ -104,7 +105,12 @@ export default function plugApp(app) {
   );
 
   // set flash message after confirm change of email
-  app.get('/users/:__feathersId/confirmChangeEmail', setFlashChangeEmail());
+  app.get(
+    '/users/:__feathersId/confirmChangeEmail',
+    (req, _res, next) =>
+      resetCache(req.app.services, req.user).then(() => next(), next),
+    setFlashChangeEmail(),
+  );
 
   // set flash & redirect message after account deletion
   app.delete('/users/:__feathersId', setFlashAccountRemoved());
