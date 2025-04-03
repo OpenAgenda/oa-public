@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row margin-top-lg">
     <div class="col-sm-offset-4 col-sm-4">
-      <div class="wsq padding-h-sm padding-v-md">
+      <div class="wsq padding-h-lg padding-v-md">
         <div class="text-center margin-v-md">
           <strong><%- title %></strong>
         </div>
