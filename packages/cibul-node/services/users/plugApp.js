@@ -122,7 +122,14 @@ export default function plugApp(app) {
     '/users',
     express.errorHandler({
       html: (err, req, res) => {
-        if (req.originalUrl.includes('confirmChangeEmail')) {
+        if (req.originalUrl.includes('confirmChangeEmail') && !req.user) {
+          return cmn.redirectToSignin(req, res);
+        }
+
+        if (
+          req.originalUrl.includes('confirmChangeEmail')
+          && err.code === 400
+        ) {
           err.message = 'badChangeEmailToken';
           log.info('email change failed', {
             operation: 'changeEmail',
