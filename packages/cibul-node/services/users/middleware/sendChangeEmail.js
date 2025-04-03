@@ -1,3 +1,7 @@
+import logs from '@openagenda/logs';
+
+const log = logs('services/users/middleware/sendChangeEmail');
+
 export default (service) => (req, res, next) => {
   const { mails, core } = req.app.services;
 
@@ -13,6 +17,11 @@ export default (service) => (req, res, next) => {
         if (!token) {
           return next();
         }
+
+        log.info('sending email for email change confirmation', {
+          operation: 'changeEmail',
+          userUid: req.user.uid,
+        });
 
         const link = `${config.root}/users/${user.uid}/confirmChangeEmail?token=${token}`;
 
