@@ -60,3 +60,54 @@ export function Colors() {
     />
   );
 }
+
+export function Multiple() {
+  return (
+    <ModularSet
+      title="The modularSet has more than four components"
+      minColumnWidth="100px"
+      Components={[
+        {
+          id: 1,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 2,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 3,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 4,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 5,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+      ]}
+    />
+  );
+}
