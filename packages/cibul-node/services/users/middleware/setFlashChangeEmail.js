@@ -6,7 +6,7 @@ const getLabel = makeLabelGetter(labels);
 
 const log = logs('services/users/middleware/setFlashChangeEmail');
 
-export default () => (req, res, next) => {
+export default () => (req, res) => {
   const { sessions } = req.app.services;
 
   log.info('email changed successfully', {
@@ -14,15 +14,7 @@ export default () => (req, res, next) => {
     userUid: req.user.uid,
   });
 
-  if (res.data) {
-    sessions.setFlash(
-      req,
-      res,
-      getLabel(res.data ? 'changeEmailSuccess' : 'changeEmailFail', req.lang),
-    );
+  sessions.setFlash(req, res, getLabel('changeEmailSuccess', req.lang));
 
-    return res.redirect('/home');
-  }
-
-  next();
+  res.redirect('/home');
 };

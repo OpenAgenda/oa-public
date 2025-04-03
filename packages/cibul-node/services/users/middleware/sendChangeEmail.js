@@ -23,7 +23,7 @@ export default (service) => (req, res, next) => {
           userUid: req.user.uid,
         });
 
-        const link = `${config.root}/users/${user.uid}/confirmChangeEmail?token=${token}`;
+        const link = `${config.root}/users/me/confirmChangeEmail?token=${token}`;
 
         mails.send({
           template: 'changeEmail',
