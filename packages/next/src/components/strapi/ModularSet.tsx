@@ -19,6 +19,8 @@ interface ModularSetProps {
   alignHeight?: boolean;
   titleColor?: Color;
   descriptionColor?: Color;
+  minColumnWidth?: string;
+  justifyContent?: 'left' | 'center' | 'right';
 }
 
 export default function ModularSet({
@@ -31,6 +33,8 @@ export default function ModularSet({
   fontColor,
   titleColor,
   descriptionColor,
+  minColumnWidth,
+  justifyContent,
 }: ModularSetProps) {
   return (
     <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
@@ -50,11 +54,18 @@ export default function ModularSet({
       )}
       <Grid
         display="grid"
-        gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+        gridTemplateColumns={`repeat(auto-fit, minmax(${minColumnWidth || '250px'}, 1fr))`}
         gap={8}
         p={8}
         alignItems="stretch"
         mx="auto"
+        justifyContent={
+          justifyContent === 'left'
+            ? 'start'
+            : justifyContent === 'right'
+              ? 'end'
+              : 'center'
+        }
       >
         {Components.map((Component) => (
           <GridItem

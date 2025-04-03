@@ -245,6 +245,8 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    justifyContent: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
+    sizeminColumnWidth: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     title: Schema.Attribute.String;
     titleColor: Schema.Attribute.Relation<
       'oneToOne',
