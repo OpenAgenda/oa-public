@@ -9,7 +9,10 @@ const log = logs('services/users/middleware/setFlashChangeEmail');
 export default () => (req, res, next) => {
   const { sessions } = req.app.services;
 
-  log('setting flash');
+  log.info('email changed successfully', {
+    operation: 'changeEmail',
+    userUid: req.user.uid,
+  });
 
   if (res.data) {
     sessions.setFlash(
