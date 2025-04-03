@@ -212,5 +212,9 @@ module.exports = {
     "en": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again",
     "io": "crwdns16424:0crwdne16424:0",
     "oc": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar"
+  },
+  "badChangeEmailToken": {
+    "fr": "Le lien n'est pas ou plus valide. Il a soit déjà été utilisé ou a été remplacé par une autre tentative de changement d'email. Vérifiez que le nouvel email n'a pas déjà été enregistré ou veuillez recommencer l'opération.",
+    "en": "The link is not or no longer valid. Either it was already used or it was replaced by another attempt to change the email. Check that the account email has not been already changed and repeat the operation."
   }
 }
