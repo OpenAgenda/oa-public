@@ -63,7 +63,7 @@ export default function ModularSet({
       <Box
         display="flex"
         gap={8}
-        p={8}
+        py={8}
         mx="auto"
         flexWrap="wrap"
         alignItems={alignHeight ? 'stretch' : 'flex-start'}
