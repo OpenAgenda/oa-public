@@ -127,6 +127,10 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'center'>;
     CTA: Schema.Attribute.Component<'components.cta-button', false>;
     description: Schema.Attribute.Text;
+    descriptionColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     fontColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
@@ -148,6 +152,10 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       'api::theme-color.theme-color'
     >;
     title: Schema.Attribute.String;
+    titleColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     useCarousel: Schema.Attribute.Boolean;
     width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
@@ -244,7 +252,7 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
-    fontsize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
+    fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     justifyContent: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
     title: Schema.Attribute.String;
     titleColor: Schema.Attribute.Relation<

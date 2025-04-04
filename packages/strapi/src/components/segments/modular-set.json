@@ -55,7 +55,7 @@
       "type": "enumeration",
       "enum": ["left", "center", "right"]
     },
-    "fontsize": {
+    "fontSize": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::size.size"

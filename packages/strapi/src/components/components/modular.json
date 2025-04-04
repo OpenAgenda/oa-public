@@ -77,6 +77,16 @@
     },
     "useCarousel": {
       "type": "boolean"
+    },
+    "descriptionColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "titleColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
     }
   }
 }
