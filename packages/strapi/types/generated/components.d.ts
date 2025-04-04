@@ -114,7 +114,6 @@ export interface ComponentsModular extends Struct.ComponentSchema {
     displayName: 'Modular';
   };
   attributes: {
-    alignHeight: Schema.Attribute.Boolean;
     backgroundColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
@@ -157,6 +156,9 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       'api::theme-color.theme-color'
     >;
     useCarousel: Schema.Attribute.Boolean;
+    verticalAlign: Schema.Attribute.Enumeration<
+      ['center', 'stretch', 'flex-start']
+    >;
     width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
 }
@@ -236,7 +238,6 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
     displayName: 'ModularSet';
   };
   attributes: {
-    alignHeight: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     backgroundColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
@@ -258,6 +259,9 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
     titleColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
+    >;
+    verticalAlign: Schema.Attribute.Enumeration<
+      ['center', 'stretch', 'flex-start']
     >;
     width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };

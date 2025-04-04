@@ -68,9 +68,6 @@
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
     },
-    "alignHeight": {
-      "type": "boolean"
-    },
     "borderRadius": {
       "type": "enumeration",
       "enum": ["none", "sm", "md", "lg", "xl", "full"]
@@ -87,6 +84,10 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
+    },
+    "verticalAlign": {
+      "type": "enumeration",
+      "enum": ["center", "stretch", "flex-start"]
     }
   }
 }
