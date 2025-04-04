@@ -22,6 +22,7 @@ interface CarouselSetProps {
   variant?: string;
   width?: { name: string };
   borderRadius?: string;
+  fontSize?: { name: string };
 }
 
 export default function CarouselSet({
@@ -37,12 +38,19 @@ export default function CarouselSet({
   descriptionColor,
   variant,
   width,
-  borderRadius = '2xl',
+  borderRadius,
+  fontSize,
 }: CarouselSetProps) {
   return (
     <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
       {title ? (
-        <Heading as="h2" size="xl" textAlign="center" color={color(titleColor)}>
+        <Heading
+          fontSize={fontSize?.name || '4xl'}
+          as="h2"
+          size="xl"
+          textAlign="center"
+          color={color(titleColor)}
+        >
           {title}
         </Heading>
       ) : null}
@@ -64,7 +72,7 @@ export default function CarouselSet({
         colorScheme={colorScheme}
         variant={variant}
         width={width || { name: 'full' }}
-        borderRadius={borderRadius}
+        borderRadius={borderRadius || '2xl'}
       />
     </SegmentContainer>
   );

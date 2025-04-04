@@ -11,6 +11,7 @@ const PageHeadContent = ({
   Illustration,
   titleColor,
   descriptionColor,
+  fontSize,
 }: Pick<
   PageHeadProps,
   | 'title'
@@ -19,13 +20,19 @@ const PageHeadContent = ({
   | 'Illustration'
   | 'titleColor'
   | 'descriptionColor'
+  | 'fontSize'
 >) => (
   <Stack
     spacing={6}
     align={Illustration ? undefined : 'center'}
     textAlign={Illustration ? undefined : 'center'}
   >
-    <Heading as="h1" size="2xl" color={color(titleColor)}>
+    <Heading
+      fontSize={fontSize?.name || '6xl'}
+      as="h1"
+      size="2xl"
+      color={color(titleColor)}
+    >
       {title}
     </Heading>
     <Text fontSize="xl" color={color(descriptionColor) || 'gray.600'}>
@@ -50,6 +57,7 @@ interface PageHeadProps {
   descriptionColor?: Color;
   title: string;
   description: string;
+  fontSize?: { name: string };
   CTA?: {
     label: string;
     link: string;

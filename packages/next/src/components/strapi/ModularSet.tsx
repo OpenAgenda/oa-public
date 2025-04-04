@@ -1,4 +1,4 @@
-import { Heading, Grid, GridItem, Text } from '@openagenda/uikit';
+import { Heading, Grid, Box, Text } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 import Modular from './Modular';
 import SegmentContainer from './SegmentContainer';
@@ -19,8 +19,9 @@ interface ModularSetProps {
   alignHeight?: boolean;
   titleColor?: Color;
   descriptionColor?: Color;
-  minColumnWidth?: string;
   justifyContent?: 'left' | 'center' | 'right';
+  fontSize?: { name: string };
+  width?: { name: string };
 }
 
 export default function ModularSet({
@@ -33,12 +34,19 @@ export default function ModularSet({
   fontColor,
   titleColor,
   descriptionColor,
-  minColumnWidth,
   justifyContent,
+  fontSize,
+  width,
 }: ModularSetProps) {
   return (
     <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
-      <Heading as="h2" size="xl" textAlign="center" color={color(titleColor)}>
+      <Heading
+        fontSize={fontSize?.name || '4xl'}
+        as="h2"
+        size="xl"
+        textAlign="center"
+        color={color(titleColor)}
+      >
         {title}
       </Heading>
       {description && (
@@ -52,33 +60,38 @@ export default function ModularSet({
           {description}
         </Text>
       )}
-      <Grid
-        display="grid"
-        gridTemplateColumns={`repeat(auto-fit, minmax(${minColumnWidth || '250px'}, 1fr))`}
+      <Box
+        display="flex"
         gap={8}
-        p={8}
-        alignItems="stretch"
+        py={8}
         mx="auto"
+        flexWrap="wrap"
+        alignItems={alignHeight ? 'stretch' : 'flex-start'}
         justifyContent={
           justifyContent === 'left'
-            ? 'start'
+            ? 'flex-start'
             : justifyContent === 'right'
-              ? 'end'
+              ? 'flex-end'
               : 'center'
         }
       >
         {Components.map((Component) => (
-          <GridItem
+          <Box
             key={Component.id}
-            w="full"
             justifyContent="center"
             display="flex"
-            flex={Component.grow || 1}
+            flexGrow={Component.grow || 0}
+            flexBasis={0}
           >
-            <Modular {...Component} alignHeight={alignHeight} />
-          </GridItem>
+            <Modular
+              {...Component}
+              alignHeight={alignHeight}
+              grow={Component.grow}
+              width={Component.grow ? undefined : width}
+            />
+          </Box>
         ))}
-      </Grid>
+      </Box>
       {CTA ? (
         <Grid templateColumns="1fr" justifyItems="center" w="full">
           <CTAButton {...CTA} />

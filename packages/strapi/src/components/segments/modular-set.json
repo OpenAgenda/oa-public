@@ -45,6 +45,20 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
+    },
+    "width": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
+    },
+    "justifyContent": {
+      "type": "enumeration",
+      "enum": ["left", "center", "right"]
+    },
+    "fontSize": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
     }
   }
 }

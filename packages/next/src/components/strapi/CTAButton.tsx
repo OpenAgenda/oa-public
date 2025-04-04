@@ -27,6 +27,7 @@ export default function CTAButton({
       colorScheme={colorScheme ? colorScheme.name : 'primary'}
       size="lg"
       variant={variant}
+      fontSize="xl"
     >
       {label}
     </Button>

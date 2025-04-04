@@ -127,6 +127,10 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'center'>;
     CTA: Schema.Attribute.Component<'components.cta-button', false>;
     description: Schema.Attribute.Text;
+    descriptionColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     fontColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
@@ -142,13 +146,16 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<1>;
     Icon: Schema.Attribute.Component<'components.icon', false>;
     Illustration: Schema.Attribute.Component<'components.illustration', false>;
-    maxWidth: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     Tag: Schema.Attribute.String;
     tagColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
     >;
     title: Schema.Attribute.String;
+    titleColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     useCarousel: Schema.Attribute.Boolean;
     width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
@@ -245,11 +252,14 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
+    justifyContent: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
     title: Schema.Attribute.String;
     titleColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
 }
 
@@ -270,6 +280,7 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     Illustration: Schema.Attribute.Component<'components.illustration', false>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     titleColor: Schema.Attribute.Relation<

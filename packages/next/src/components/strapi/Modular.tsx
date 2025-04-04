@@ -8,8 +8,7 @@ import IconComponent from './Icon';
 const Wrapper = ({
   children,
   card,
-  maxWidth = 'sm',
-  width = 'sm',
+  width,
   bg,
   alignHeight,
   borderRadius,
@@ -19,9 +18,9 @@ const Wrapper = ({
     return (
       <Box
         w={width}
-        maxW={maxWidth}
+        flex={1}
         bg={useCarousel ? 'transparent' : bg}
-        height={alignHeight && 'full'}
+        height={alignHeight ? 'full' : 'auto'}
       >
         {children}
       </Box>
@@ -31,9 +30,9 @@ const Wrapper = ({
   return (
     <Card
       w={width}
-      maxW={maxWidth}
+      flex={1}
       bg={useCarousel ? 'transparent' : bg}
-      height={alignHeight && 'full'}
+      height={alignHeight ? 'full' : 'auto'}
       borderRadius={borderRadius}
     >
       <CardBody p={8}>{children}</CardBody>
@@ -49,7 +48,7 @@ export default function Modular({
   Icon = null,
   Tag = null,
   card = false,
-  maxWidth = { name: 'sm' },
+  grow = 0,
   width = { name: 'sm' },
   backgroundColor = null,
   tagColor = null,
@@ -65,8 +64,7 @@ export default function Modular({
   return (
     <Wrapper
       card={useCarousel ? false : card}
-      maxWidth={maxWidth?.name}
-      width={width?.name}
+      width={grow ? 'auto' : width?.name || '400px'}
       bg={color(backgroundColor)}
       alignHeight={alignHeight}
       borderRadius={borderRadius}
@@ -81,10 +79,9 @@ export default function Modular({
               ? 'end'
               : 'center'
         }
-        textAlign={contentAlign}
+        textAlign={contentAlign || 'center'}
         color={color(fontColor)}
-        fontSize={fontSize?.name}
-        height="full"
+        height={alignHeight ? 'full' : 'auto'}
       >
         {Tag ? (
           <Box
@@ -93,9 +90,10 @@ export default function Modular({
             gap={2}
             bg={tagColor ? `${tagColor.name}.50` : null}
             color={tagColor ? `${tagColor.name}.500` : null}
-            px={4}
+            px={6}
             py={2}
             borderRadius="full"
+            fontSize="xl"
           >
             {Icon && (
               <IconComponent
@@ -119,15 +117,15 @@ export default function Modular({
                 ? 'flex-end'
                 : 'center'
           }
-          justifyContent="space-around"
+          {...(alignHeight && { justifyContent: 'space-around' })}
           flexDirection="column"
           gap={4}
         >
           {title ? (
             <Heading
-              textAlign={contentAlign}
-              fontSize="160%"
+              textAlign={contentAlign || 'center'}
               color={color(titleColor)}
+              fontSize={fontSize?.name || '160%'}
             >
               {title}
             </Heading>
@@ -136,11 +134,17 @@ export default function Modular({
             <Box
               color={color(descriptionColor)}
               width="full"
-              alignItems="center"
               display="flex"
               flexDirection="column"
               style={{ listStylePosition: 'inside' }}
               fontSize="xl"
+              sx={{
+                a: {
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                },
+              }}
             >
               <ReactMarkdown>{description}</ReactMarkdown>
             </Box>
