@@ -90,11 +90,10 @@ export default function Modular({
             gap={2}
             bg={tagColor ? `${tagColor.name}.50` : null}
             color={tagColor ? `${tagColor.name}.500` : null}
-            px={4}
+            px={6}
             py={2}
             borderRadius="full"
             fontSize="xl"
-            fontWeight="bold"
           >
             {Icon && (
               <IconComponent
