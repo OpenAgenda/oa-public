@@ -272,6 +272,7 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     Illustration: Schema.Attribute.Component<'components.illustration', false>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     titleColor: Schema.Attribute.Relation<
