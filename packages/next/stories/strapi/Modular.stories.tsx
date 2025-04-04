@@ -213,7 +213,7 @@ export function Heights() {
     <>
       <ModularSet
         title="Aligned"
-        alignHeight={true}
+        verticalAlign="stretch"
         Components={[
           {
             id: 1,
@@ -258,7 +258,7 @@ export function Colors() {
   return (
     <ModularSet
       title="Colors"
-      alignHeight
+      verticalAlign="stretch"
       Components={[
         {
           id: 1,

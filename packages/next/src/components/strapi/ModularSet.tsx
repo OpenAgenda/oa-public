@@ -16,7 +16,7 @@ interface ModularSetProps {
   CTA?: any;
   backgroundColor?: string;
   fontColor?: string;
-  alignHeight?: boolean;
+  verticalAlign?: 'center' | 'stretch' | 'flex-start';
   titleColor?: Color;
   descriptionColor?: Color;
   justifyContent?: 'left' | 'center' | 'right';
@@ -30,7 +30,7 @@ export default function ModularSet({
   Components,
   CTA,
   backgroundColor,
-  alignHeight,
+  verticalAlign,
   fontColor,
   titleColor,
   descriptionColor,
@@ -66,7 +66,13 @@ export default function ModularSet({
         py={8}
         mx="auto"
         flexWrap="wrap"
-        alignItems={alignHeight ? 'stretch' : 'flex-start'}
+        alignItems={
+          verticalAlign === 'center'
+            ? 'center'
+            : verticalAlign === 'stretch'
+              ? 'stretch'
+              : 'flex-start'
+        }
         justifyContent={
           justifyContent === 'left'
             ? 'flex-start'
@@ -85,7 +91,7 @@ export default function ModularSet({
           >
             <Modular
               {...Component}
-              alignHeight={alignHeight}
+              verticalAlign={verticalAlign}
               grow={Component.grow}
               width={Component.grow ? undefined : width}
             />
