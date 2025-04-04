@@ -161,19 +161,28 @@ export const conversations = {
         message: _.get(req, namespaces.message),
       };
 
+      const inboxIdentifiers = {
+        type: _.get(req, namespaces.type),
+        identifier: parseInt(_.get(req, namespaces.identifier), 10),
+      };
+
       const optionalData = _.pickBy({
         typeIdentifier: _.get(req, namespaces.conversationTypeIdentifier),
       });
 
-      const conversationEntities = await new Conversations(svc, {
-        userUid: parseInt(_.get(req, namespaces.userUid), 10),
-        inbox: await new Inbox(svc, {
-          type: _.get(req, namespaces.type),
-          identifier: parseInt(_.get(req, namespaces.identifier), 10),
-        }),
+      const creatingInbox = await new Inbox(svc, inboxIdentifiers);
+
+      log('inbox creating conversation', {
+        id: creatingInbox?.id,
+        inboxIdentifiers,
       });
 
-      log.info('Middleware - conversation create', {
+      const conversationEntities = await new Conversations(svc, {
+        userUid: parseInt(_.get(req, namespaces.userUid), 10),
+        inbox: creatingInbox,
+      });
+
+      log('conversation create data', {
         ...data,
         ...optionalData,
       });
