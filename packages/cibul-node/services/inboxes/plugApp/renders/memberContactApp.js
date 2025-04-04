@@ -1,18 +1,26 @@
 import _ from 'lodash';
+import logs from '@openagenda/logs';
 import labels from '@openagenda/labels/inboxes/index.js';
 import makeLabelGetter from '@openagenda/labels';
 
 const getLabel = makeLabelGetter(labels);
 
+const log = logs('services/inboxes/memberContactApp');
+
+const getCreationRedirect = (agenda, query) => {
+  const defaultRedirect = `/agendas/${agenda.uid}/admin/members`;
+  if (!query.creationRedirect) {
+    return defaultRedirect;
+  }
+  return Buffer.from(query.creationRedirect, 'base64').toString().split('?')[1]
+    ? `/agendas/${agenda.uid}/admin/members?${Buffer.from(query.creationRedirect, 'base64').toString().split('?')[1]}`
+    : defaultRedirect;
+};
+
 export default ({ services, config, render }) =>
   (req, res, next) => {
+    log('processing');
     const { members } = services;
-
-    const creationRedirect = Buffer.from(req.query.creationRedirect, 'base64')
-      .toString()
-      .split('?')[1]
-      ? `/agendas/${req.agenda.uid}/admin/members?${Buffer.from(req.query.creationRedirect, 'base64').toString().split('?')[1]}`
-      : `/agendas/${req.agenda.uid}/admin/members`;
 
     const targetIsAdminMod = members.utils.compareRoles.isSuperiorToOrEqual(
       req.targetMember.role,
@@ -23,6 +31,12 @@ export default ({ services, config, render }) =>
       req.targetMember,
       'custom.contactName',
       req.targetMember.user.fullName,
+    );
+
+    log(
+      'loaded targetted member %s. Is %s',
+      userName,
+      targetIsAdminMod ? 'adminmod' : 'not adminmod',
     );
 
     render({
@@ -60,7 +74,10 @@ export default ({ services, config, render }) =>
             { url: '/home/inbox' },
             req.lang,
           ),
-          onConversationCreateRedirect: creationRedirect,
+          onConversationCreateRedirect: getCreationRedirect(
+            req.agenda,
+            req.query,
+          ),
           onConversationCreateFlash: getLabel(
             'conversationCreationSuccess',
             req.lang,
@@ -75,11 +92,11 @@ export default ({ services, config, render }) =>
               userName,
             },
             destinationInbox: targetIsAdminMod
-              ? []
-              : {
+              ? {
                 type: 'user',
                 identifier: req.targetMember.user.uid,
-              },
+              }
+              : [],
           },
         },
         agenda: req.agenda,
