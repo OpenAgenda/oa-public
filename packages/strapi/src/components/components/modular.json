@@ -35,11 +35,6 @@
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
     },
-    "maxWidth": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::size.size"
-    },
     "Icon": {
       "type": "component",
       "repeatable": false,
