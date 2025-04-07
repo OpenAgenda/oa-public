@@ -1,6 +1,16 @@
 import formatEvent from '../lib/formatEvent.js';
 import handleError from './handleError.js';
 
+const venueDiffThanLoc = (venueLoc, location) => {
+  if (!venueLoc || !location) return true; // If either is missing, consider them different
+
+  return (
+    venueLoc.address !== location.address
+    || venueLoc.city !== location.city
+    || venueLoc.postalCode !== location.postalCode
+  );
+};
+
 async function update(
   pc,
   passEventOfferId,
@@ -37,14 +47,34 @@ async function update(
 }
 
 async function create(pc, OAEvent, entry, options) {
+  let address = null;
   const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
 
   const { categories, related } = !categoriesFromOptions || !relatedFromOptions
     ? await pc.offers.events.categories.list()
     : { categories: categoriesFromOptions, related: relatedFromOptions };
 
+  // check if oa location is diffrent from venue
+  const [{ venues }] = await pc.offers.offererVenues();
+
+  const usedVenue = venues.find((v) => v.id === entry.venueId);
+
+  if (venueDiffThanLoc(usedVenue.location, OAEvent.location)) {
+    try {
+      address = await pc.offers.addresses.create({
+        city: OAEvent.location.city,
+        latitude: OAEvent.location.latitude,
+        longitude: OAEvent.location.longitude,
+        postalCode: OAEvent.location.postalCode,
+        street: OAEvent.location.address,
+      });
+    } catch (error) {
+      console.log('address error', error.response.data);
+    }
+  }
   const eventOffer = await formatEvent(OAEvent, entry, {
     ...options,
+    addressId: address?.id,
     categories,
     related,
   });
