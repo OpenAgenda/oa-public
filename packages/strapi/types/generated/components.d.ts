@@ -255,6 +255,7 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
     >;
     fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     justifyContent: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
+    margin: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     title: Schema.Attribute.String;
     titleColor: Schema.Attribute.Relation<
       'oneToOne',

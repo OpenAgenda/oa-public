@@ -59,6 +59,11 @@
     "verticalAlign": {
       "type": "enumeration",
       "enum": ["center", "stretch", "flex-start"]
+    },
+    "margin": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
     }
   }
 }
