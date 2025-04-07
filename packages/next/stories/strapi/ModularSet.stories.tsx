@@ -18,7 +18,7 @@ export function Colors() {
         swatch: '500',
       }}
       descriptionColor={{ name: 'black' }}
-      alignHeight
+      verticalAlign="stretch"
       Components={[
         {
           id: 1,

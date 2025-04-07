@@ -23,7 +23,7 @@ const PageHeadContent = ({
   | 'fontSize'
 >) => (
   <Stack
-    spacing={6}
+    spacing={0}
     align={Illustration ? undefined : 'center'}
     textAlign={Illustration ? undefined : 'center'}
   >
@@ -32,14 +32,15 @@ const PageHeadContent = ({
       as="h1"
       size="2xl"
       color={color(titleColor)}
+      fontWeight={600}
     >
       {title}
     </Heading>
-    <Text fontSize="xl" color={color(descriptionColor) || 'gray.600'}>
+    <Text fontSize="lg" color={color(descriptionColor) || 'gray.600'} mt={7}>
       {description}
     </Text>
     {CTA ? (
-      <Box pt={4}>
+      <Box>
         <CTAButton {...CTA} />
       </Box>
     ) : null}
