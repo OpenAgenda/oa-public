@@ -1,0 +1,2230 @@
+{
+  "uid": 201697,
+  "title": "Vivre le patrimoine culturel immatériel : Corse",
+  "description": "Retrouvez toutes les manifestations du patrimoine culturel immatériel en France et ses activités de sauvegarde, de transmission et de valorisation.",
+  "slug": "pci-corse",
+  "url": "https://immateriel.culture.gouv.fr",
+  "official": 1,
+  "networkUid": 69304610,
+  "locationSetUid": null,
+  "updatedAt": "2025-04-15T07:15:54.000Z",
+  "createdAt": "2025-03-07T17:04:49.000Z",
+  "memberSchemaId": null,
+  "officializedAt": null,
+  "image": "https://cdn.openagenda.com/main/agenda41141276.72d9721923ab4a6796575e8983a3d38a.jpg",
+  "private": 0,
+  "indexed": 1,
+  "settings": {
+    "tracking": {
+      "googleAnalytics": null,
+      "matomoUrl": null,
+      "matomoSiteId": null,
+      "matomoCustom": []
+    },
+    "public": {
+      "filters": {
+        "displayed": null
+      }
+    },
+    "admin": {
+      "filters": {
+        "displayed": null
+      }
+    },
+    "lab": {
+      "status": true
+    },
+    "locations": {
+      "extIds": [
+        {
+          "key": "default",
+          "label": "Base des lieux du ministère",
+          "actions": {
+            "edit": {
+              "link": "https://basedeslieux.culture.gouv.fr/lieux/{value}"
+            },
+            "show": null
+          }
+        }
+      ]
+    },
+    "inbox": {
+      "mailto": {
+        "enabled": false,
+        "email": null,
+        "subject": null,
+        "body": null
+      }
+    },
+    "contribution": {
+      "type": 1,
+      "defaultState": 0,
+      "canPublish": ["administrators", "moderators"],
+      "moderateOnChangeBy": [],
+      "modoCanInviteModo": true,
+      "defaultLang": "fr",
+      "allowLocationCreate": true,
+      "messages": {
+        "instructions": "Pour permettre aux visiteurs de bien voir l’ensemble de votre programmation, il est indispensable de respecter les consignes suivantes :\n\n * **Ne regroupez pas toute votre programmation dans une même fiche sous peine de rendre invisible vos évènements qui ne pourront pas être trouvés par les filtres du moteur de recherche**. Si vous proposez plusieurs évènements différents, il faut créer une fiche par évènement. De même, si l’événement se tient dans plusieurs lieux différents, il faut créer autant de fiches qu’il y a de lieux.\n\n * **N'écrivez pas de mots entiers en majuscules**.\n\n * **Ne mentionnez pas le nom de votre lieu dans le titre de votre fiche évènement**. \n\n * Respectez au mieux les consignes de saisie figurant sur les différents champs du formulaire.\n\nLes événements proposés sur cet agenda seront validés avant publication par la coordination de l'opération. Aucun événement à des fins commerciales ou lucratives ne sera accepté.\n\nPour toute question, vous pouvez nous adresser un message directement à [vivrelepci-agenda@culture.gouv.fr](mailto:vivrelepci-agenda@culture.gouv.fr).\n\nBonne contribution,\n\nLe Ministère de la Culture",
+        "complete": "Merci pour votre contribution !\n\nLes événements proposés sur cet agenda seront soumis à validation avant publication par la coordination du ministère de la Culture. Vous recevrez un message au moment de la publication de votre événement.\n\nPour toute demande d’information supplémentaire, vous pouvez adresser un message à la coordination par courriel à [vivrelepci-agenda@culture.gouv.fr](mailto:vivrelepci-agenda@culture.gouv.fr).\n\nLe Ministère de la Culture",
+        "publication": "Votre événement vient d'être publié par la coordination du ministère de la Culture. \n\nMerci de votre participation !\n\nLe ministère de la Culture",
+        "GDPRInformation": null
+      },
+      "useFields": true,
+      "authorizedIPAddresses": []
+    },
+    "translation": {
+      "enabled": false,
+      "source": "fr",
+      "service": "reverso",
+      "options": null
+    }
+  },
+  "summary": {
+    "keywords": ["Brando", "Haute-Corse", "Corse"],
+    "publishedEvents": {
+      "current": 1,
+      "passed": 0,
+      "upcoming": 0
+    },
+    "languages": {
+      "fr": 1
+    },
+    "recentlyAddedEvents": {
+      "contribution": 1,
+      "shared": 0,
+      "aggregation": 0
+    },
+    "eventCountsByState": [
+      {
+        "key": 2,
+        "eventCount": 1
+      },
+      {
+        "key": 0,
+        "eventCount": 1
+      }
+    ],
+    "viewport": {
+      "topLeft": {
+        "latitude": 48.85798798408359,
+        "longitude": 2.4579989723861217
+      },
+      "bottomRight": {
+        "latitude": 42.76468296535313,
+        "longitude": 9.467856930568814
+      }
+    }
+  },
+  "network": {
+    "uid": 69304610,
+    "formSchemaId": 39362,
+    "title": "Patrimoine culturel immatériel"
+  },
+  "locationSet": null,
+  "schema": {
+    "custom": {},
+    "fields": [
+      {
+        "languages": [],
+        "field": "title",
+        "fieldType": "text",
+        "optional": false,
+        "max": 150,
+        "label": "Nom de l'événement",
+        "placeholder": "ex : Exposition sur l’histoire du fest-noz",
+        "purpose": {
+          "fr": "Titre de l'événement",
+          "en": "Title of the event",
+          "es": "Nombre del evento",
+          "br": "Titl an darvoud",
+          "io": "crwdns14286:0crwdne14286:0",
+          "it": "Il titolo del tuo evento",
+          "oc": "Títol de l'eveniment"
+        },
+        "sub": {
+          "fr": "",
+          "en": "",
+          "de": "",
+          "br": ""
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "info": "Précisez le titre de l'événement ou de l'activité"
+      },
+      {
+        "field": "types-devenement",
+        "label": "Types d'événement",
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": "Quel type d'événement organisez-vous ?",
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "tags",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": [],
+          "other": []
+        },
+        "selfHandled": [],
+        "options": [
+          {
+            "id": 1,
+            "value": "atelier-demonstration",
+            "label": "Atelier / Démonstration",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 2,
+            "value": "championnat",
+            "label": "Championnat",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 3,
+            "value": "circuit-procession",
+            "label": "Circuit / Procession",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 4,
+            "value": "concert-spectacle",
+            "label": "Concert / Spectacle",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 5,
+            "value": "exposition",
+            "label": "Exposition",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 6,
+            "value": "fete-festival",
+            "label": "Fête / Festival",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 7,
+            "value": "formation",
+            "label": "Formation",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 8,
+            "value": "projection",
+            "label": "Projection",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 9,
+            "value": "rencontre-conference",
+            "label": "Rencontre / Conférence",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 81,
+            "value": "visite-libre-portes-ouvertes",
+            "label": "Visite libre / Portes ouvertes",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 82,
+            "value": "visite-commentee",
+            "label": "Visite commentée",
+            "info": null,
+            "display": true
+          }
+        ],
+        "fieldType": "radio",
+        "schemaId": 39362,
+        "schemaType": "network"
+      },
+      {
+        "field": "element-patrimoine-culturel-immateriel",
+        "label": "Élément du patrimoine culturel immatériel",
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": "À quel élément inclus à l'Inventaire national du patrimoine culturel immatériel est associé votre événement ?",
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "tags",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": [],
+          "other": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 83,
+            "value": "savoir-faire-artisanat-traditionnel",
+            "label": "Savoir-faire liés à l'artisanat traditionnel",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 84,
+            "value": "pratiques-sociales-rituels-evenements-festifs",
+            "label": "Pratiques sociales, rituels ou événements festifs",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 85,
+            "value": "jeux-sports-traditionnels",
+            "label": "Jeux et sports traditionnels",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 86,
+            "value": "pratiques-alimentaires",
+            "label": "Pratiques alimentaires",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 87,
+            "value": "connaissances-pratiques-nature-univers",
+            "label": "Connaissances et pratiques concernant la nature et l'univers",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 88,
+            "value": "traditions-expressions-orales",
+            "label": "Traditions et expressions orales",
+            "info": null,
+            "display": true
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 39362,
+        "schemaType": "network"
+      },
+      {
+        "field": "image",
+        "fieldType": "image",
+        "optional": true,
+        "label": "Image de l'événement",
+        "info": "Pour rendre visible votre événement, mettre une image est fortement recommandée ! \nFormat du visuel :  horizontal / 500 pixels de largeur",
+        "allowURL": true,
+        "allowPath": true,
+        "imageWithSizeAndVariants": true,
+        "extensions": ["jpg", "bmp", "png", "jpeg", "webp"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "imageCredits",
+        "fieldType": "text",
+        "optional": false,
+        "label": "Crédits de l'image",
+        "enableWith": "image",
+        "max": 255,
+        "schemaId": null,
+        "schemaType": "event",
+        "default": "©",
+        "info": "Indiquez impérativement le nom de l'auteur et des éventuels ayants-droits de l'image.",
+        "placeholder": "© Ministère de la Culture"
+      },
+      {
+        "field": "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition",
+        "label": "J'accepte que l'image puisse être librement utilisée, à la condition de l'attribuer à l'auteur en citant son nom, et partagée dans les mêmes conditions.",
+        "help": "En savoir plus sur la licence",
+        "helpLink": "https://creativecommons.org/licenses/by-sa/4.0/deed.fr",
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": "image",
+        "optionalWith": null,
+        "related": {
+          "enable": ["image"],
+          "optional": [],
+          "other": []
+        },
+        "selfHandled": [],
+        "fieldType": "boolean",
+        "schemaId": 39362,
+        "schemaType": "network"
+      },
+      {
+        "display": true,
+        "field": "attendanceMode",
+        "fieldType": "radio",
+        "label": {
+          "fr": "Mode de participation",
+          "en": "Attendance mode",
+          "it": "Modalità di partecipazione",
+          "es": "Modo de asistencia",
+          "de": "Anwesenheitsmodus",
+          "br": "Doare perzhiañ",
+          "io": "crwdns14264:0crwdne14264:0",
+          "oc": "Mòde de participacion"
+        },
+        "optional": false,
+        "default": 1,
+        "options": [
+          {
+            "id": 1,
+            "value": "offline",
+            "label": {
+              "fr": "Sur place",
+              "en": "In situ",
+              "it": "In presenza",
+              "es": "Desconnectad",
+              "de": "Offline",
+              "br": "War al lec’h",
+              "io": "crwdns14266:0crwdne14266:0",
+              "oc": "Sus plaça"
+            }
+          },
+          {
+            "id": 2,
+            "value": "online",
+            "label": {
+              "fr": "En ligne",
+              "en": "Online",
+              "it": "Online",
+              "es": "En linea",
+              "de": "Online",
+              "br": "Enlinenn",
+              "io": "crwdns14268:0crwdne14268:0",
+              "oc": "En linha"
+            }
+          },
+          {
+            "id": 3,
+            "value": "mixed",
+            "label": {
+              "fr": "Mixte",
+              "en": "Mixed",
+              "it": "Mista",
+              "es": "Mezclado",
+              "de": "Gemischt",
+              "br": "Kemmesk",
+              "io": "crwdns14270:0crwdne14270:0",
+              "oc": "Mesclat"
+            }
+          }
+        ],
+        "schemaId": null,
+        "schemaType": "event",
+        "info": "Précisez si l'événement est physique ou à suivre à distance depuis un ordinateur ou un mobile ou les 2 à la fois en tant qu'événement mixte."
+      },
+      {
+        "display": true,
+        "field": "onlineAccessLink",
+        "fieldType": "link",
+        "label": {
+          "fr": "Lien d'accès",
+          "en": "Access link",
+          "de": "Zugangslink",
+          "es": "Enlace de acceso",
+          "it": "Collegamento di accesso",
+          "br": "Liamm moned",
+          "io": "crwdns14272:0crwdne14272:0",
+          "oc": "Ligam d'accès"
+        },
+        "optional": false,
+        "enableWith": {
+          "field": "attendanceMode",
+          "value": [2, 3]
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "info": "Indiquez l'adresse de votre événement en ligne (inclure le http:// ou https://)."
+      },
+      {
+        "field": "location",
+        "fieldType": "location",
+        "label": "Lieu",
+        "sub": {
+          "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
+          "en": "If no location matches the name, add a new location by clicking on 'Create a new location'",
+          "it": "Se nessun luogo corrisponde alla tua voce, aggiungilo cliccando su 'Crea un luogo'",
+          "de": "Wenn kein Standort mit dem Namen übereinstimmt, füge einen neuen Standort hinzu, indem du auf \"Neuen Standort erstellen\" klickst.",
+          "es": "Si hay lugar corresponda a su entrada, añadirlo haciendo clic en 'Crear un lugar'",
+          "br": "Ma ne glot lec'h ebet gant an hini ho peus skrivet, klikit war \"Krouiñ ul lec'h\" da ouzhpennañ anezhañ",
+          "io": "crwdns14278:0crwdne14278:0",
+          "oc": "Se cap lòc correspond pas al nom, apondètz un novèl lòc en clicant sus 'Crear un lòc novèl'"
+        },
+        "optionalWith": {
+          "field": "attendanceMode",
+          "value": 2
+        },
+        "disableChange": false,
+        "selfHandled": ["sub"],
+        "schemaId": null,
+        "schemaType": "event",
+        "info": "Recherchez un lieu dans notre base de données. S’il n’existe pas, vous pouvez le créer.",
+        "placeholder": "Saisissez le nom du lieu de l'événement.",
+        "optional": false,
+        "confirmRequired": true,
+        "legacy": {
+          "displayImageRightsConfirmCheckbox": true,
+          "displaySIRETInput": true,
+          "eventForm": {
+            "detailed": true
+          },
+          "labels": {
+            "create": {
+              "info": {
+                "fr": "L'adresse sera automatiquement complétée avec les correspondances Département, Ville, Pays extraites de la géolocalisation."
+              }
+            },
+            "name": {
+              "fr": "Saisissez le nom du lieu de l'événement"
+            },
+            "nameInfo": {
+              "fr": "Saisissez le nom du lieu où se déroule l’événement. Si l’événement est itinérant, indiquez le nom et l’adresse du lieu de départ et précisez le déroulé du parcours dans la description de l’événement."
+            },
+            "namePlaceholder": {
+              "fr": "Ministère de la Culture"
+            },
+            "address": {
+              "fr": "Adresse"
+            },
+            "addressInfo": {
+              "fr": "Indiquez le numéro, le nom de la voie, le code postal et le nom de la commune.\nAttention : N’utilisez pas de codes postaux sous forme de cedex.\nUne fois le champ « Adresse » complété, vérifiez sur la carte que le pointeur est correctement situé. Vous pouvez le déplacer manuellement si nécessaire.\nA noter : L'adresse sera automatiquement complétée avec les correspondances Département, Région, Pays, extraites de la géolocalisation."
+            },
+            "addressPlaceholder": {
+              "fr": "03 rue de Valois 75001 Paris"
+            },
+            "imageInfo": {
+              "fr": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide. L'image doit présenter 500 pixels de largeur minimum et être au format horizontal."
+            },
+            "imageCredits": {
+              "fr": "Crédits de l’image ( Champ obligatoire )"
+            },
+            "imageCreditsInfo": {
+              "fr": "Indiquez impérativement le nom de l’auteur de l'image et des éventuels ayants-droits."
+            },
+            "imageCreditsPlaceholder": {
+              "fr": "© Ministère de la Culture"
+            },
+            "descriptionInfo": {
+              "fr": "Présentez votre lieu (son histoire, ses particularités, le type d’activité proposée, etc)."
+            },
+            "accessInfo": {
+              "fr": "Indiquez les conditions d’accès à votre lieu (transports à proximité, présence de parkings, aménagements spécifiques, etc)."
+            },
+            "phoneInfo": {
+              "fr": "Indiquez un numéro de téléphone pour les demandes du public (standard, tél. fixe)."
+            },
+            "email": {
+              "fr": "Courriel"
+            },
+            "emailInfo": {
+              "fr": "Indiquez une adresse courriel contact, à laquelle les visiteurs peuvent écrire si besoin."
+            },
+            "emailPlaceholder": {
+              "fr": "webmaster@culture.gouv.fr"
+            },
+            "phonePlaceholder": {
+              "fr": "Ex : +33 (0)1 40 15 80 00"
+            },
+            "website": {
+              "fr": "Site internet"
+            },
+            "websiteInfo": {
+              "fr": "Indiquez l’adresse de votre site Internet, si existant (inclure le http:// ou https://)"
+            },
+            "websitePlaceholder": {
+              "fr": "http://www.culture.gouv.fr"
+            },
+            "linksInfo": {
+              "fr": "Ajoutez le lien de vos pages Facebook, Twitter ou tout autre lien relatif au lieu."
+            },
+            "extId": {
+              "fr": "Définir un identifiant unique pour ce lieu"
+            },
+            "extIdInfo": {
+              "fr": "Identifiant de la base des lieux du ministère de la Culture"
+            }
+          },
+          "tagSet": {
+            "groups": [
+              {
+                "name": "Types de lieu",
+                "info": null,
+                "tags": [
+                  {
+                    "id": 89,
+                    "label": "Archives"
+                  },
+                  {
+                    "id": 90,
+                    "label": "Archéologie"
+                  },
+                  {
+                    "id": 91,
+                    "label": "Arts de la rue"
+                  },
+                  {
+                    "id": 92,
+                    "label": "Arts de la marionnette"
+                  },
+                  {
+                    "id": 93,
+                    "label": "Arts du cirque"
+                  },
+                  {
+                    "id": 94,
+                    "label": "Art urbain"
+                  },
+                  {
+                    "id": 95,
+                    "label": "Audiovisuel"
+                  },
+                  {
+                    "id": 96,
+                    "label": "Bibliothèque et médiathèque"
+                  },
+                  {
+                    "id": 97,
+                    "label": "Centre culturel"
+                  },
+                  {
+                    "id": 98,
+                    "label": "Centre d'art"
+                  },
+                  {
+                    "id": 99,
+                    "label": "Cinéma"
+                  },
+                  {
+                    "id": 100,
+                    "label": "Conservatoire"
+                  },
+                  {
+                    "id": 101,
+                    "label": "Danse"
+                  },
+                  {
+                    "id": 102,
+                    "label": "Espace protégé"
+                  },
+                  {
+                    "id": 103,
+                    "label": "Établissement d'enseignement supérieur"
+                  },
+                  {
+                    "id": 104,
+                    "label": "Librairie"
+                  },
+                  {
+                    "id": 105,
+                    "label": "Lieu de mémoire"
+                  },
+                  {
+                    "id": 106,
+                    "label": "Monument et architecture"
+                  },
+                  {
+                    "id": 107,
+                    "label": "Musée"
+                  },
+                  {
+                    "id": 108,
+                    "label": "Musique"
+                  },
+                  {
+                    "id": 109,
+                    "label": "Théâtre"
+                  },
+                  {
+                    "id": 110,
+                    "label": "Parc et jardin"
+                  },
+                  {
+                    "id": 111,
+                    "label": "Photographie"
+                  }
+                ],
+                "required": false
+              }
+            ]
+          }
+        },
+        "schema": {
+          "custom": {},
+          "fields": [
+            {
+              "field": "types-de-lieu",
+              "label": "Types de lieu",
+              "fieldType": "checkbox",
+              "info": null,
+              "options": [
+                {
+                  "id": 89,
+                  "value": "archives",
+                  "label": "Archives"
+                },
+                {
+                  "id": 90,
+                  "value": "archeologie",
+                  "label": "Archéologie"
+                },
+                {
+                  "id": 91,
+                  "value": "arts-de-la-rue",
+                  "label": "Arts de la rue"
+                },
+                {
+                  "id": 92,
+                  "value": "arts-de-la-marionnette",
+                  "label": "Arts de la marionnette"
+                },
+                {
+                  "id": 93,
+                  "value": "arts-du-cirque",
+                  "label": "Arts du cirque"
+                },
+                {
+                  "id": 94,
+                  "value": "art-urbain",
+                  "label": "Art urbain"
+                },
+                {
+                  "id": 95,
+                  "value": "audiovisuel",
+                  "label": "Audiovisuel"
+                },
+                {
+                  "id": 96,
+                  "value": "bibliotheque-et-mediatheque",
+                  "label": "Bibliothèque et médiathèque"
+                },
+                {
+                  "id": 97,
+                  "value": "centre-culturel",
+                  "label": "Centre culturel"
+                },
+                {
+                  "id": 98,
+                  "value": "centre-dart",
+                  "label": "Centre d'art"
+                },
+                {
+                  "id": 99,
+                  "value": "cinema",
+                  "label": "Cinéma"
+                },
+                {
+                  "id": 100,
+                  "value": "conservatoire",
+                  "label": "Conservatoire"
+                },
+                {
+                  "id": 101,
+                  "value": "danse",
+                  "label": "Danse"
+                },
+                {
+                  "id": 102,
+                  "value": "espace-protege",
+                  "label": "Espace protégé"
+                },
+                {
+                  "id": 103,
+                  "value": "etablissement-denseignement-superieur",
+                  "label": "Établissement d'enseignement supérieur"
+                },
+                {
+                  "id": 104,
+                  "value": "librairie",
+                  "label": "Librairie"
+                },
+                {
+                  "id": 105,
+                  "value": "lieu-de-memoire",
+                  "label": "Lieu de mémoire"
+                },
+                {
+                  "id": 106,
+                  "value": "monument-et-architecture",
+                  "label": "Monument et architecture"
+                },
+                {
+                  "id": 107,
+                  "value": "musee",
+                  "label": "Musée"
+                },
+                {
+                  "id": 108,
+                  "value": "musique",
+                  "label": "Musique"
+                },
+                {
+                  "id": 109,
+                  "value": "theatre",
+                  "label": "Théâtre"
+                },
+                {
+                  "id": 110,
+                  "value": "parc-et-jardin",
+                  "label": "Parc et jardin"
+                },
+                {
+                  "id": 111,
+                  "value": "photographie",
+                  "label": "Photographie"
+                }
+              ],
+              "schemaId": "location",
+              "schemaType": null
+            },
+            {
+              "field": "uid",
+              "fieldType": "integer",
+              "optional": false,
+              "read": ["internal", "public", "list"],
+              "write": ["internal"],
+              "label": {
+                "en": "Id",
+                "fr": "Identifiant",
+                "io": "crwdns12102:0crwdne12102:0",
+                "it": "ID",
+                "oc": "Identificant"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "setUid",
+              "fieldType": "integer",
+              "optional": true,
+              "default": null,
+              "read": ["internal", "public"],
+              "write": ["internal"],
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "slug",
+              "fieldType": "text",
+              "optional": false,
+              "read": ["internal", "public"],
+              "write": ["internal"],
+              "max": 100,
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "name",
+              "optional": false,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "text",
+              "max": 100,
+              "label": {
+                "en": "Name",
+                "fr": "Nom",
+                "io": "crwdns12104:0crwdne12104:0",
+                "it": "Nome",
+                "oc": "Nom"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "address",
+              "optional": false,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Address",
+                "fr": "Adresse",
+                "io": "crwdns12106:0crwdne12106:0",
+                "it": "Indirizzo",
+                "oc": "Adreiça"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "countryCode",
+              "optional": false,
+              "fieldType": "text",
+              "max": 2,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "label": {
+                "en": "Country code",
+                "fr": "Code pays",
+                "io": "crwdns12120:0crwdne12120:0",
+                "it": "Codice del paese",
+                "oc": "Còdi país"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "adminLevel1",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Region",
+                "fr": "Région",
+                "io": "crwdns12124:0crwdne12124:0",
+                "it": "Regione",
+                "oc": "Region"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "adminLevel2",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Department",
+                "fr": "Département",
+                "br": "Departamant",
+                "io": "crwdns12110:0crwdne12110:0",
+                "it": "Provincia",
+                "oc": "Departament"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "adminLevel3",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "adminLevel4",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 100,
+              "label": {
+                "en": "City",
+                "fr": "Ville",
+                "br": "Kêr",
+                "io": "crwdns12108:0crwdne12108:0",
+                "it": "Città",
+                "oc": "Vila"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "city",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 100,
+              "label": {
+                "en": "City",
+                "fr": "Ville",
+                "br": "Kêr",
+                "io": "crwdns12108:0crwdne12108:0",
+                "it": "Città",
+                "oc": "Vila"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "adminLevel5",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Borough",
+                "fr": "Arrondissement"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "adminLevel6",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "City district",
+                "fr": "Quartier"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "district",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "District",
+                "fr": "Quartier",
+                "io": "crwdns12122:0crwdne12122:0",
+                "it": "Quartiere",
+                "oc": "Districte"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "postalCode",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 20,
+              "label": {
+                "en": "Postal code",
+                "fr": "Code postal",
+                "io": "crwdns12116:0crwdne12116:0",
+                "it": "Codice postale",
+                "oc": "Còdi postal"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "insee",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 10,
+              "label": {
+                "en": "INSEE Code",
+                "fr": "Code INSEE",
+                "io": "crwdns12118:0crwdne12118:0",
+                "it": "Codice INSEE (Francia)",
+                "oc": "Còdi INSEE"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "latitude",
+              "optional": false,
+              "fieldType": "latitude",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "label": {
+                "en": "Latitude",
+                "fr": "Latitude",
+                "io": "crwdns12112:0crwdne12112:0",
+                "it": "Latitudine",
+                "oc": "Latitud"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "longitude",
+              "optional": false,
+              "fieldType": "longitude",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "label": {
+                "en": "Longitude",
+                "fr": "Longitude",
+                "io": "crwdns12114:0crwdne12114:0",
+                "it": "Longitudine",
+                "oc": "Longitud"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "region",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Region",
+                "fr": "Région",
+                "io": "crwdns12124:0crwdne12124:0",
+                "it": "Regione",
+                "oc": "Region"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "department",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "terms"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "max": 255,
+              "label": {
+                "en": "Department",
+                "fr": "Département",
+                "br": "Departamant",
+                "io": "crwdns12110:0crwdne12110:0",
+                "it": "Provincia",
+                "oc": "Departament"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "timezone",
+              "optional": true,
+              "fieldType": "timezone",
+              "read": ["internal", "public"],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "updatedAt",
+              "optional": false,
+              "fieldType": "date",
+              "read": ["internal", "public"],
+              "write": ["internal"],
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "createdAt",
+              "optional": false,
+              "fieldfieldType": "date",
+              "read": ["internal", "public"],
+              "write": ["internal"],
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "image",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "stream",
+              "allowNull": true,
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "description",
+              "label": {
+                "en": "Description",
+                "fr": "Description",
+                "de": "Beschreibung",
+                "es": "descripción",
+                "it": "Descrizione",
+                "oc": "Descripcion",
+                "io": "crwdns32875:0crwdne32875:0"
+              },
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "multilingual",
+              "languages": [],
+              "max": 5000,
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "tags",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "pass",
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "website",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "link",
+              "label": {
+                "en": "Website",
+                "fr": "Site internet",
+                "es": "Sitio web",
+                "oc": "Site web",
+                "io": "crwdns32871:0crwdne32871:0"
+              },
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "email",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "email",
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "phone",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "phone",
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "links",
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "list": true,
+              "fieldType": "link",
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "access",
+              "label": {
+                "en": "Access",
+                "fr": "Accès",
+                "it": "Accesso",
+                "de": "Zugang",
+                "pl": "Dostęp",
+                "es": "Acceso",
+                "br": "Moned",
+                "oc": "Accès",
+                "io": "crwdns32873:0crwdne32873:0"
+              },
+              "optional": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "fieldType": "multilingual",
+              "languages": [],
+              "max": 1000,
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "state",
+              "optional": true,
+              "fieldType": "choice",
+              "unique": true,
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor",
+                "list"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "default": 0,
+              "options": [0, 1],
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "imageCredits",
+              "optional": true,
+              "fieldType": "text",
+              "read": [
+                "internal",
+                "public",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "enableWith": "image",
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "siret",
+              "optional": true,
+              "fieldType": "regex",
+              "error": {
+                "code": "invalidSIRET",
+                "message": "siret must be 14 digits"
+              },
+              "max": 14,
+              "min": 14,
+              "regex": {},
+              "read": ["internal", "public"],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "imageRightsAreHeld",
+              "optional": true,
+              "fieldType": "boolean",
+              "read": ["internal", "public"],
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "enableWith": "image",
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "extIds",
+              "fieldType": "extIds",
+              "optional": true,
+              "max": 200,
+              "write": [
+                "internal",
+                "administrator",
+                "moderator",
+                "contributor"
+              ],
+              "read": ["internal", "public"],
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "duplicateCandidates",
+              "fieldType": "integer",
+              "list": {
+                "max": 100,
+                "default": null
+              },
+              "optional": true,
+              "read": ["internal", "public"],
+              "write": ["internal", "contributor"],
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "disqualifiedDuplicates",
+              "fieldType": "integer",
+              "list": {
+                "max": 100,
+                "default": null
+              },
+              "optional": true,
+              "read": ["internal", "public"],
+              "write": ["internal", "contributor"],
+              "schemaId": null,
+              "schemaType": null
+            },
+            {
+              "field": "mergedIn",
+              "fieldType": "integer",
+              "optional": true,
+              "default": null,
+              "read": ["internal", "public"],
+              "write": ["internal"],
+              "schemaId": null,
+              "schemaType": null
+            }
+          ]
+        },
+        "settings": {
+          "extIds": [
+            {
+              "key": "default",
+              "label": "Base des lieux du ministère",
+              "actions": {
+                "edit": {
+                  "link": "https://basedeslieux.culture.gouv.fr/lieux/{value}"
+                },
+                "show": null
+              }
+            }
+          ]
+        }
+      },
+      {
+        "field": "timings",
+        "fieldType": "timings",
+        "max": 800,
+        "optional": false,
+        "label": "Horaires",
+        "info": "Ajoutez ou modifiez des horaires",
+        "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "languages": [],
+        "field": "description",
+        "fieldType": "text",
+        "optional": false,
+        "max": 200,
+        "label": {
+          "fr": "Description courte",
+          "en": "Short description",
+          "it": "Breve descrizione",
+          "de": "Kurzbeschreibung",
+          "es": "Descripción corta",
+          "br": "Deskrivadur berr",
+          "io": "crwdns14290:0crwdne14290:0",
+          "oc": "Descripcion corta"
+        },
+        "purpose": {
+          "fr": "Description pour les affichages réduits ou liste",
+          "en": "Description for short or list displays",
+          "es": "Descripción de las pequeñas pantallas o lista",
+          "br": "Deskrivadur evit an diskweloù berr pe listenn",
+          "io": "crwdns14292:0crwdne14292:0",
+          "it": "Utile per la lista degli eventi",
+          "oc": "Descripcion pels afichatges cortets o en lista"
+        },
+        "placeholder": {
+          "fr": "Une courte description de votre événement",
+          "en": "A short description of your event",
+          "it": "Una breve descrizione del vostro evento",
+          "de": "Eine kurze Beschreibung Ihrer Veranstaltung",
+          "es": "Una breve descripción de su evento",
+          "br": "Un deskrivadur berr eus ho tarvoud",
+          "io": "crwdns14294:0crwdne14294:0",
+          "oc": "Una descripcion corteta de vòstre eveniment"
+        },
+        "sub": {
+          "fr": "",
+          "en": "",
+          "de": "",
+          "br": ""
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "default": "Vivre le patrimoine",
+        "info": "Ce champ ne saffiche pas sur le formulaire des contributeurs. Il n'apparaitra pas sur le site internet, seulement dans les exports.",
+        "write": null,
+        "display": ["administrator", "moderator"]
+      },
+      {
+        "languages": [],
+        "field": "longDescription",
+        "fieldType": "longDescription",
+        "label": "Description",
+        "max": 10000,
+        "sub": {
+          "fr": "",
+          "en": "",
+          "de": "",
+          "br": ""
+        },
+        "placeholder": "Vous pouvez ajouter des médias (audio, vidéo) en copiant une URL Youtube, Dailymotion ou Soundcloud, par ex.",
+        "schemaId": null,
+        "schemaType": "event",
+        "info": "Décrivez l'événement, donnez des précisions sur son déroulé.\nVeillez à ce que le texte ne soit pas le même que celui de la description du lieu.\nNe mentionnez pas les outils d'inscription et conditions de participation, ni le lieu, les dates et horaires, qui seront renseignés dans les champs spécifiques ci-dessous.",
+        "optional": false
+      },
+      {
+        "field": "conditions-de-participation",
+        "label": "Conditions de participation",
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "tags",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": [],
+          "other": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 10,
+            "value": "gratuit",
+            "label": "Gratuit",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 11,
+            "value": "payant",
+            "label": "Payant",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 12,
+            "value": "sans-reservation",
+            "label": "Sans réservation",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 13,
+            "value": "sur-reservation",
+            "label": "Sur réservation",
+            "info": null,
+            "display": true
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 39362,
+        "schemaType": "network"
+      },
+      {
+        "field": "registration",
+        "fieldType": "registration",
+        "label": "Outils d'inscription",
+        "info": "Pour les inscriptions obligatoires, indiquez un numéro de téléphone, une adresse courriel ou un lien de réservation.",
+        "placeholder": "Séparez chaque valeur par une virgule",
+        "sub": {
+          "fr": "Séparez les items par des tabulations ou des virgules",
+          "en": "Separate each item with tabs or commas",
+          "it": "Separare le voci per tabulazione o virgole",
+          "de": "Trenne jedes Element mit Tabs oder Kommas.",
+          "es": "artículos por separado con tabulaciones o comas",
+          "br": "Dispartiit an elfennoù gant arouezennoù taolennata pe virgulennoù",
+          "io": "crwdns14318:0crwdne14318:0",
+          "oc": "Desseparatz cada element per de tabulacion o de virgulas"
+        },
+        "related": {
+          "enable": ["conditions-de-participation"]
+        },
+        "selfHandled": ["info"],
+        "schemaId": null,
+        "schemaType": "event",
+        "optional": false,
+        "enableWith": {
+          "field": "conditions-de-participation",
+          "value": 13
+        },
+        "settings": {
+          "passCulture": {
+            "siren": null,
+            "bookingEmail": null,
+            "defaultVenueId": null,
+            "access": null,
+            "res": {
+              "context": "/api/me/agendas/201697",
+              "settings": "/api/agendas/201697/settings/passCulture",
+              "offerLink": "https://passculture.app/offre/:id",
+              "offerEditLink": "https://passculture.pro/offre/individuelle/:id/recapitulatif"
+            }
+          }
+        }
+      },
+      {
+        "languages": [],
+        "field": "conditions",
+        "fieldType": "text",
+        "label": "Détail des conditions de participation",
+        "max": 255,
+        "placeholder": "ex : détail du tarif, nombre de places limitées, gratuit pour les moins de 26 ans",
+        "sub": {
+          "fr": "",
+          "en": "",
+          "de": "",
+          "br": ""
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "info": "Indiquez les tarifs, les conditions de gratuité, le nombre limité de places disponibles, le matériel à prévoir, etc."
+      },
+      {
+        "field": "type-de-public",
+        "label": "Type de public",
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": "Quel type de public peut participer à votre événement ?",
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "tags",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": [],
+          "other": []
+        },
+        "selfHandled": [],
+        "options": [
+          {
+            "id": 55,
+            "value": "enfants-0-15-ans",
+            "label": "Enfants (0 – 15 ans)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 56,
+            "value": "jeunes-15-20-ans",
+            "label": "Jeunes (15 - 20 ans)",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 57,
+            "value": "scolaire",
+            "label": "Scolaire",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 58,
+            "value": "adulte",
+            "label": "Adulte",
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 80,
+            "value": "tout-public",
+            "label": "Tout public",
+            "info": null,
+            "display": true
+          }
+        ],
+        "fieldType": "radio",
+        "schemaId": 39362,
+        "schemaType": "network"
+      },
+      {
+        "field": "age",
+        "fieldType": "age",
+        "optional": true,
+        "label": {
+          "fr": "Âge du public ciblé",
+          "en": "Targeted public age",
+          "it": "Età del pubblico di riferimento",
+          "de": "Gezieltes öffentliches Alter",
+          "es": "Edad del objetivo",
+          "br": "Oad an dud a glasker tizhout",
+          "io": "crwdns14326:0crwdne14326:0",
+          "oc": "Atge del public tocat"
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "display": false
+      },
+      {
+        "field": "accessibility",
+        "fieldType": "accessibility",
+        "optional": true,
+        "label": "Accessibilité particulière",
+        "schemaId": null,
+        "schemaType": "event",
+        "info": "Précisez à quel(s) type(s) de handicap(s) cet événement est accessible."
+      },
+      {
+        "languages": [],
+        "field": "keywords",
+        "fieldType": "keywords",
+        "optional": true,
+        "max": 255,
+        "label": {
+          "fr": "Mots clés",
+          "en": "Keywords",
+          "it": "Parole Chiave",
+          "de": "Schlüsselwörter",
+          "es": "Palabras llave",
+          "br": "Gerioù-alc'hwez",
+          "io": "crwdns14306:0crwdne14306:0",
+          "oc": "Mots claus"
+        },
+        "placeholder": {
+          "fr": "Séparez les mots clés par des tabulations ou des virgules",
+          "en": "Separate each keyword with tabs or commas",
+          "it": "Parole chiave separate con schede o virgole",
+          "de": "Trenne jedes Keyword durch Tabulatoren oder Kommas.",
+          "es": "palabras llave separadas por comas o fichas",
+          "br": "Dispartiit ar gerioù-alc'hwez gant arouezennoù taolennata pe virgulennoù",
+          "io": "crwdns14308:0crwdne14308:0",
+          "oc": "Desseparatz cada mot clau per de tabulacion o de virgulas"
+        },
+        "sub": {
+          "fr": "Les mots clés sont utiles pour les fonctions de recherche",
+          "en": "Keywords are useful for search features",
+          "it": "Le parole chiave sono utili per le funzioni di ricerca",
+          "de": "Keywords sind nützlich für Suchfunktionen.",
+          "es": "Las palabras llave son útiles para las funciones de búsqueda",
+          "br": "Talvoudus eo ar gerioù-alc'hwez evit an arc'hwelioù enklask",
+          "io": "crwdns14310:0crwdne14310:0",
+          "oc": "Los mots claus son utiles per las recèrcas futuras"
+        },
+        "schemaId": null,
+        "schemaType": "event",
+        "display": false
+      },
+      {
+        "field": "status",
+        "fieldType": "select",
+        "default": 1,
+        "display": false,
+        "label": {
+          "fr": "État",
+          "en": "Status",
+          "io": "crwdns16110:0crwdne16110:0",
+          "oc": "Estatut",
+          "es": "Estado"
+        },
+        "options": [
+          {
+            "id": 1,
+            "value": "scheduled",
+            "label": {
+              "fr": "Programmé",
+              "en": "Scheduled",
+              "io": "crwdns16100:0crwdne16100:0",
+              "es": "Programado",
+              "oc": "Programat"
+            }
+          },
+          {
+            "id": 2,
+            "value": "rescheduled",
+            "label": {
+              "fr": "Re-programmé",
+              "en": "Re-scheduled",
+              "io": "crwdns16102:0crwdne16102:0",
+              "es": "Reprogramado",
+              "oc": "Tornat programar"
+            }
+          },
+          {
+            "id": 3,
+            "value": "movedOnline",
+            "label": {
+              "fr": "Déplacé en ligne",
+              "en": "Moved online",
+              "it": "Oramai online",
+              "oc": "Transferit en linha",
+              "io": "crwdns16104:0crwdne16104:0",
+              "es": "Trasladado en línea"
+            }
+          },
+          {
+            "id": 4,
+            "value": "postponed",
+            "label": {
+              "fr": "Reporté",
+              "en": "Postponed",
+              "it": "Riprogrammato",
+              "io": "crwdns16108:0crwdne16108:0",
+              "oc": "Remandat",
+              "es": "Aplazado"
+            }
+          },
+          {
+            "id": 5,
+            "value": "full",
+            "label": {
+              "fr": "Complet",
+              "en": "Full",
+              "io": "crwdns16448:0crwdne16448:0",
+              "es": "Completo",
+              "oc": "Complèt"
+            }
+          },
+          {
+            "id": 6,
+            "value": "cancelled",
+            "label": {
+              "fr": "Annulé",
+              "en": "Canceled",
+              "it": "Cancellato",
+              "io": "crwdns16106:0crwdne16106:0",
+              "es": "Cancelado",
+              "oc": "Anullat"
+            }
+          }
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "extIds",
+        "fieldType": "extIds",
+        "optional": true,
+        "display": false,
+        "label": {
+          "fr": "Identifiants externe",
+          "en": "External identifiers",
+          "io": "crwdns34156:0crwdne34156:0",
+          "oc": "Identificants extèrnes"
+        },
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "uid",
+        "fieldType": "integer",
+        "optional": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "slug",
+        "fieldType": "text",
+        "optional": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "private",
+        "fieldType": "boolean",
+        "default": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "timezone",
+        "fieldType": "text",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "draft",
+        "fieldType": "boolean",
+        "default": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "createdAt",
+        "fieldType": "date",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "creatorUid",
+        "fieldType": "integer",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "ownerUid",
+        "fieldType": "integer",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "updatedAt",
+        "fieldType": "date",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "agendaUid",
+        "fieldType": "integer",
+        "optional": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "fileKey",
+        "fieldType": "text",
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "locationUid",
+        "fieldType": "integer",
+        "optional": false,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "links",
+        "fieldType": "enrichedLinks",
+        "optional": true,
+        "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      }
+    ]
+  }
+}
