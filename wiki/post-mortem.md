@@ -2,6 +2,59 @@
 
 Quand une interruption de service a lieu, garder une trace de ce qu'il s'est passé, sur la résolution et sur les mesures à prendre pour réduire le risque d'une nouvelle occurrence
 
+## 2025-03-08 - Tous les agendas apparaissent vides d'événements
+
+Les événements n'apparaissaient plus sur les agendas le matin du samedi 8 mars. Les pages agenda s'affichent bien, mais ils n'affichent aucun événement à venir. L'erreur est remontée via plusieurs canaux:
+
+1. Par email automatique via InsightOps dans les minutes qui ont suivi l'interruption
+2. Par un email d'un chargé de com en début de matinée
+3. Via crisp vers midi.
+
+Les emails sont moins lus en fin de semaine, et une interruption d'Elasticsearch ne se manifeste pas en une erreur visible sur les pages. Les erreurs explicites sur openagenda.com provoquent des alertes via Uptime robot qui teste certaines pages toutes les quelques minutes.
+
+Relancer le cluster à suffit pour résoudre le problèmes.
+
+En connaitre la cause est plus compliqué. Les logs Elasticsearch ne persistent que 2 jours. Désormais nous sommes à +4 jours. Infomaniak dit ne pas avoir constaté de problèmes d'infra qui pourraient expliquer cette indispo. Il n'y avait pas plus d'activité de lecture, d'écriture au moment de l'interruption que par rapport à un autre jour.
+
+3 mesures pourraient éviter & réduire le risque que ce problème se pose à nouveau à l'avenir.
+
+1. être au courant plus vite: afficher une erreur plutôt qu'un agenda vide sur les pages openagenda.com & sur l'api permettrait de savoir que les agendas ne sont pas vides mais qu'il y a une indisponibilité. Et là, recevoir une notification uptime robot
+2. Pouvoir provoquer l'envoi d'un sms au lancement d'une alerte insightOps. Un service hosteur permet d'envoyer un sms, insightOps propose un webhook à placer sur une alerte, il nous reste à monter un middleware express pour brancher les 2 fonctions.
+3. Faire persister les logs elasticsearch plus longtemps, ou bien les envoyer sur insightOps
+
+## 2025-02-28 - Suppression de la base par erreur
+
+### Messages bluesky
+
+Un souci technique qui impacte la plateforme dans son ensemble est en cours de résolution. Nous rétablissons le service au plus vite.
+
+Le service est de nouveau disponible. Les données saisies dans le courant de la matinée sont pour le moment perdues. Nous tâchons de restaurer l'essentiel de ces données dans les prochaines heures.
+
+Certains événements ne sont encore pas accessibles à la consultation sur la page de détail, bien que visibles sur les vues liste. Ce problème sera résolu très prochainement.
+
+Les événements et lieux créés ou mis à jour dans la matinée du vendredi ont été récupérés. Voici le résumé de l'incident
+
+[Ici](https://bsky.app/profile/openagendastatus.bsky.social/post/3ljajxx4gyc2a)
+
+### La doc
+
+La plateforme a été indisponible vendredi après-midi suite a une erreur de manipulation qui a conduit à la perte de la base de données principale peu après 14h. Tous les services ont été mis en indisponibilité le temps de charger la dernière sauvegarde faite à 3h du matin le même jour. Les données événementielles et de lieu saisies ou mises à jour dans le courant de la matinée ont pu être récupérées de l'index de recherche qui lui n'avait pas été impacté.
+
+Cela dit, la récupération n'inclut pas les créations ou mises à jour qui ont eu lieu le vendredi matin pour les données suivantes:
+
+les comptes créés
+les agendas créés
+les conversations
+les brouillons d'événements
+les historiques
+
+Nous disposons des informations nécessaires pour reproduire la création des comptes - à l'exception des mots de passe - et des agendas perdus et contacterons les personnes concernées dans le courant de la journée pour les accompagner dans la ré-initialisation et la reprise en main de leurs contenus.
+Un incident conduisant une à perte de données est une première dans l'histoire d'OpenAgenda, nous apportons plusieurs modifications dans nos procédures et interfaces pour réduire le risque que ce type de problème se reproduise. Si vous souhaitez en connaître le détail, contactez-nous en utilisant l'outil de clavardage ou par email
+
+Nous nous excusons pour le désagrément et restons à votre disposition pour vous accompagner dans le rétablissement des interfaces impactées par cette indisponibilité.
+
+[Ici](https://doc.openagenda.com/fr/article/maintenances-indisponibilites-bym0je/)
+
 ## 2024-07-03 - Interruption de la base, disque plein
 
 **Le début**: j'ai tenté de me connecté sur la base pour je ne sais plus quelle raison, la session phpmyadmin ne s'ouvrait pas. Je me suis rendu sur jelastic/infomaniak au bout de 2 minutes, le temps de tester ma connexion internet, les chargements de page (pages de lecture elasticsearch ok, pas de lecture db nok.
