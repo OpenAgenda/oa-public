@@ -46,12 +46,13 @@ export default function ModularSet({
         size="xl"
         textAlign="center"
         color={color(titleColor)}
+        fontWeight={600}
       >
         {title}
       </Heading>
       {description && (
         <Text
-          fontSize="xl"
+          fontSize="lg"
           textAlign="center"
           mt={4}
           mb={2}
