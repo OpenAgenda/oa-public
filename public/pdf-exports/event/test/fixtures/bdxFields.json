@@ -1,0 +1,2030 @@
+[
+    {
+        "field": "intermunicipal_interest",
+        "label": {
+            "fr": "Événement d'intérêt intercommunal",
+            "en": "Event of inter-municipal interest"
+        },
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "options": [
+            {
+                "id": 1,
+                "value": "true",
+                "label": {
+                    "fr": "Événement d'intérêt intercommunal",
+                    "en": "Event of inter-municipal interest"
+                },
+                "info": null,
+                "display": true
+            }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 3,
+        "schemaType": "network"
+    },
+    {
+        "field": "recurring",
+        "label": {
+            "fr": "Événement récurrent",
+            "en": "Recurring Event"
+        },
+        "optional": true,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+        },
+        "options": [
+            {
+                "id": 2,
+                "value": "true",
+                "label": {
+                    "fr": "Événement récurrent",
+                    "en": "Recurring Event"
+                },
+                "info": null,
+                "display": true
+            }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 3,
+        "schemaType": "network"
+    },
+    {
+        "field": "categories-agenda-metropolitain",
+        "label": {
+            "fr": "Catégories Agenda Métropolitain",
+            "en": "Catégories Agenda Métropolitain"
+        },
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "options": [
+            {
+                "id": 42,
+                "value": "animation-loto",
+                "label": {
+                    "fr": "Animation - Loto",
+                    "en": "Animation - Loto"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 43,
+                "value": "atelier",
+                "label": {
+                    "fr": "Atelier",
+                    "en": "Atelier"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 44,
+                "value": "ceremonie",
+                "label": {
+                    "fr": "Cérémonie",
+                    "en": "Cérémonie"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 45,
+                "value": "cinema-projection",
+                "label": {
+                    "fr": "Cinéma - Projection",
+                    "en": "Cinéma - Projection"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 46,
+                "value": "concert",
+                "label": {
+                    "fr": "Concert",
+                    "en": "Concert"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 47,
+                "value": "conference-rencontre",
+                "label": {
+                    "fr": "Conférence - Rencontre",
+                    "en": "Conférence - Rencontre"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 48,
+                "value": "congres-colloque",
+                "label": {
+                    "fr": "Congrès - Colloque",
+                    "en": "Congrès - Colloque"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 49,
+                "value": "conseil-de-metropole",
+                "label": {
+                    "fr": "Conseil de métropole",
+                    "en": "Conseil de métropole"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 50,
+                "value": "conseil-municipal",
+                "label": {
+                    "fr": "Conseil municipal",
+                    "en": "Conseil municipal"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 51,
+                "value": "evenement-sportif",
+                "label": {
+                    "fr": "Événement sportif",
+                    "en": "Événement sportif"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 52,
+                "value": "exposition",
+                "label": {
+                    "fr": "Exposition",
+                    "en": "Exposition"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 53,
+                "value": "fete-festival",
+                "label": {
+                    "fr": "Fête - Festival",
+                    "en": "Fête - Festival"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 54,
+                "value": "foire-salon",
+                "label": {
+                    "fr": "Foire - Salon",
+                    "en": "Foire - Salon"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 55,
+                "value": "inauguration",
+                "label": {
+                    "fr": "Inauguration",
+                    "en": "Inauguration"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 56,
+                "value": "lecture",
+                "label": {
+                    "fr": "Lecture",
+                    "en": "Lecture"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 57,
+                "value": "marche-brocante-vide-grenier",
+                "label": {
+                    "fr": "Marché-Brocante - Vide grenier",
+                    "en": "Marché-Brocante - Vide grenier"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 58,
+                "value": "reunion-publique",
+                "label": {
+                    "fr": "Réunion publique",
+                    "en": "Réunion publique"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 59,
+                "value": "spectacle",
+                "label": {
+                    "fr": "Spectacle",
+                    "en": "Spectacle"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 60,
+                "value": "visite-balade",
+                "label": {
+                    "fr": "Visite - Balade",
+                    "en": "Visite - Balade"
+                },
+                "info": null,
+                "display": true
+            }
+        ],
+        "fieldType": "radio",
+        "schemaId": 3,
+        "schemaType": "network"
+    },
+    {
+        "field": "categories-mediatheque",
+        "label": {
+            "fr": "Catégories Médiathèque",
+            "en": "Catégories Médiathèque"
+        },
+        "display": false,
+        "enable": true,
+        "options": [
+            {
+                "id": 88,
+                "value": "braderie",
+                "label": {
+                    "fr": "Braderie",
+                    "en": "Braderie"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 89,
+                "value": "cafe-bd",
+                "label": {
+                    "fr": "Café BD",
+                    "en": "Café BD"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 62,
+                "value": "cafe-litteraire",
+                "label": {
+                    "fr": "Café littéraire",
+                    "en": "Café littéraire"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 90,
+                "value": "cafe-musique",
+                "label": {
+                    "fr": "Café musique",
+                    "en": "Café musique"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 91,
+                "value": "club-de-lecture",
+                "label": {
+                    "fr": "Club de lecture",
+                    "en": "Club de lecture"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 92,
+                "value": "concert-dessine",
+                "label": {
+                    "fr": "Concert dessiné",
+                    "en": "Concert dessiné"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 93,
+                "value": "conference-musicale",
+                "label": {
+                    "fr": "Conférence musicale",
+                    "en": "Conférence musicale"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 64,
+                "value": "conte",
+                "label": {
+                    "fr": "Conte",
+                    "en": "Conte"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 65,
+                "value": "dedicace",
+                "label": {
+                    "fr": "Dédicace",
+                    "en": "Dédicace"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 94,
+                "value": "dj-set",
+                "label": {
+                    "fr": "DJ Set",
+                    "en": "DJ Set"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 63,
+                "value": "jeu",
+                "label": {
+                    "fr": "Jeu",
+                    "en": "Jeu"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 98,
+                "value": "numerique",
+                "label": {
+                    "fr": "Numérique",
+                    "en": "Numérique"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 66,
+                "value": "partage-et-decouverte",
+                "label": {
+                    "fr": "Partage et découverte",
+                    "en": "Partage et découverte"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 95,
+                "value": "performance",
+                "label": {
+                    "fr": "Performance",
+                    "en": "Performance"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 96,
+                "value": "presentation-thematique-docs",
+                "label": {
+                    "fr": "Présentation thématique de documents",
+                    "en": "Présentation thématique de documents"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 97,
+                "value": "sieste-musicale",
+                "label": {
+                    "fr": "Sieste musicale",
+                    "en": "Sieste musicale"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 99,
+                "value": "vente",
+                "label": {
+                    "fr": "Vente",
+                    "en": "Vente"
+                },
+                "info": null,
+                "display": true
+            }
+        ],
+        "fieldType": "radio",
+        "schemaId": 3,
+        "schemaType": "network"
+    },
+    {
+        "field": "image",
+        "fieldType": "image",
+        "optional": true,
+        "label": {
+            "fr": "Image de l'événement",
+            "en": "Image of the event"
+        },
+        "info": {
+            "fr": "Chargez une image d'au moins 300 pixels de large",
+            "en": "Load an image of at least 300 pixels width"
+        },
+        "allowURL": true,
+        "allowPath": true,
+        "imageWithSizeAndVariants": true,
+        "extensions": [
+            "jpg",
+            "bmp",
+            "png",
+            "jpeg",
+            "webp"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "imageCredits",
+        "fieldType": "text",
+        "optional": true,
+        "label": {
+            "fr": "Crédits de l'image",
+            "en": "Image credits"
+        },
+        "enableWith": "image",
+        "max": 255,
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "image-droits",
+        "label": {
+            "fr": "Important: je certifie détenir les droits nécessaires à la publication de l'image sous le régime de la licence ouverte",
+            "en": "Important: je certifie détenir les droits nécessaires à la publication de l'image sous le régime de la licence ouverte"
+        },
+        "help": {
+            "en": "Notice d'information sur les droits des images à lire impérativement avant toute publication"
+        },
+        "helpLink": "https://www.bordeaux-metropole.fr/mentions-legales#oa",
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "enable": true,
+        "origin": "custom",
+        "enableWith": "image",
+        "optionalWith": null,
+        "related": {
+            "enable": [
+                "image"
+            ],
+            "optional": [],
+            "other": []
+        },
+        "selfHandled": [],
+        "fieldType": "boolean",
+        "schemaId": 3,
+        "schemaType": "network"
+    },
+    {
+        "languages": [],
+        "field": "title",
+        "fieldType": "text",
+        "optional": false,
+        "max": 150,
+        "label": {
+            "fr": "Titre",
+            "en": "Title"
+        },
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "languages": [],
+        "field": "description",
+        "fieldType": "text",
+        "optional": false,
+        "max": 200,
+        "label": {
+            "fr": "Description courte",
+            "en": "Short description"
+        },
+        "schemaType": "event"
+    },
+    {
+        "languages": [],
+        "field": "keywords",
+        "fieldType": "keywords",
+        "optional": true,
+        "max": 255,
+        "label": {
+            "fr": "Mots clés",
+            "en": "Keywords"
+        },
+        "placeholder": {
+            "fr": "Séparez les mots clés par des tabulations ou des virgules",
+            "en": "Separate each keyword with tabs or commas"
+        },
+        "sub": {
+            "fr": "Les mots clés sont utiles pour les fonctions de recherche",
+            "en": "Keywords are useful for search features"
+        },
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "languages": [],
+        "field": "longDescription",
+        "fieldType": "longDescription",
+        "label": {
+            "fr": "Description longue",
+            "en": "Long description"
+        },
+        "max": 10000,
+        "placeholder": {
+            "fr": "Saisissez une description détaillée de votre événement.",
+            "en": "Type in a detailed description of your event."
+        },
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "languages": [],
+        "field": "conditions",
+        "fieldType": "text",
+        "label": {
+            "fr": "Conditions de participation, tarifs",
+            "en": "Attendance conditions, pricing"
+        },
+        "max": 255,
+        "placeholder": {
+            "fr": "Entrée libre, sur inscription, autre...",
+            "en": "Free access, registration required, other..."
+        },
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "age",
+        "fieldType": "age",
+        "optional": true,
+        "label": {
+            "fr": "Âge du public ciblé",
+            "en": "Targeted public age"
+        },
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "registration",
+        "fieldType": "registration",
+        "label": {
+            "fr": "Outils d'inscription",
+            "en": "Registration"
+        },
+        "info": {
+            "fr": "Liens, emails ou numéros de téléphone",
+            "en": "Links, emails or phone numbers"
+        },
+        "sub": {
+            "fr": "Séparez les items par des tabulations ou des virgules",
+            "en": "Separate each item with tabs or commas"
+        },
+        "related": {
+            "other": [
+                "timings",
+                "location",
+                "longDescription",
+                "title",
+                "conditions"
+            ]
+        },
+        "selfHandled": [
+            "info"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "accessibility",
+        "fieldType": "accessibility",
+        "optional": true,
+        "label": {
+            "fr": "Accessibilité particulière",
+            "en": "Accessibility conditions"
+        },
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "display": false,
+        "field": "attendanceMode",
+        "fieldType": "radio",
+        "label": {
+            "fr": "Mode de participation",
+            "en": "Attendance mode"
+        },
+        "optional": false,
+        "default": 1,
+        "options": [
+            {
+                "id": 1,
+                "value": "offline",
+                "label": {
+                    "fr": "Sur place",
+                    "en": "In situ"
+                }
+            },
+            {
+                "id": 2,
+                "value": "online",
+                "label": {
+                    "fr": "En ligne",
+                    "en": "Online"
+                }
+            },
+            {
+                "id": 3,
+                "value": "mixed",
+                "label": {
+                    "fr": "Mixte",
+                    "en": "Mixed"
+                }
+            }
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "location",
+        "fieldType": "location",
+        "label": {
+            "fr": "Lieu",
+            "en": "Location"
+        },
+        "sub": {
+            "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
+            "en": "If no location matches the name, add a new location by clicking on 'Create a new location'"
+        },
+        "optionalWith": {
+            "field": "attendanceMode",
+            "value": 2
+        },
+        "disableChange": false,
+        "selfHandled": [
+            "sub"
+        ],
+        "schemaId": null,
+        "schemaType": "event",
+        "schema": {
+            "fields": [
+                {
+                    "field": "uid",
+                    "fieldType": "integer",
+                    "optional": false,
+                    "read": [
+                        "internal",
+                        "public",
+                        "list"
+                    ],
+                    "write": [
+                        "internal"
+                    ],
+                    "label": {
+                        "en": "Id",
+                        "fr": "Identifiant"
+                    }
+                },
+                {
+                    "field": "setUid",
+                    "fieldType": "integer",
+                    "optional": true,
+                    "default": null,
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal"
+                    ]
+                },
+                {
+                    "field": "slug",
+                    "fieldType": "text",
+                    "optional": false,
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal"
+                    ],
+                    "max": 100
+                },
+                {
+                    "field": "name",
+                    "optional": false,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "list",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "fieldType": "text",
+                    "max": 100,
+                    "label": {
+                        "en": "Name",
+                        "fr": "Nom",
+                        "io": "crwdns12104:0crwdne12104:0",
+                        "it": "Nome",
+                        "oc": "Nom"
+                    }
+                },
+                {
+                    "field": "address",
+                    "optional": false,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "list"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 255,
+                    "label": {
+                        "en": "Address",
+                        "fr": "Adresse",
+                        "io": "crwdns12106:0crwdne12106:0",
+                        "it": "Indirizzo",
+                        "oc": "Adreiça"
+                    }
+                },
+                {
+                    "field": "countryCode",
+                    "optional": false,
+                    "fieldType": "text",
+                    "max": 2,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "label": {
+                        "en": "Country code",
+                        "fr": "Code pays",
+                        "io": "crwdns12120:0crwdne12120:0",
+                        "it": "Codice del paese",
+                        "oc": "Còdi país"
+                    }
+                },
+                {
+                    "field": "adminLevel1",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 255,
+                    "label": {
+                        "en": "Region",
+                        "fr": "Région",
+                        "io": "crwdns12124:0crwdne12124:0",
+                        "it": "Regione",
+                        "oc": "Region"
+                    }
+                },
+                {
+                    "field": "adminLevel2",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 255,
+                    "label": {
+                        "en": "Department",
+                        "fr": "Département",
+                        "br": "Departamant",
+                        "io": "crwdns12110:0crwdne12110:0",
+                        "it": "Provincia",
+                        "oc": "Departament"
+                    }
+                },
+                {
+                    "field": "adminLevel3",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 255
+                },
+                {
+                    "field": "adminLevel4",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 100,
+                    "label": {
+                        "en": "City",
+                        "fr": "Ville",
+                        "br": "Kêr",
+                        "io": "crwdns12108:0crwdne12108:0",
+                        "it": "Città",
+                        "oc": "Vila"
+                    }
+                },
+                {
+                    "field": "city",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 100,
+                    "label": {
+                        "en": "City",
+                        "fr": "Ville",
+                        "br": "Kêr",
+                        "io": "crwdns12108:0crwdne12108:0",
+                        "it": "Città",
+                        "oc": "Vila"
+                    }
+                },
+                {
+                    "field": "adminLevel5",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 255
+                },
+                {
+                    "field": "adminLevel6",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 255
+                },
+                {
+                    "field": "district",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 255,
+                    "label": {
+                        "en": "District",
+                        "fr": "Quartier",
+                        "io": "crwdns12122:0crwdne12122:0",
+                        "it": "Quartiere",
+                        "oc": "Districte"
+                    }
+                },
+                {
+                    "field": "postalCode",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 20,
+                    "label": {
+                        "en": "Postal code",
+                        "fr": "Code postal",
+                        "io": "crwdns12116:0crwdne12116:0",
+                        "it": "Codice postale",
+                        "oc": "Còdi postal"
+                    }
+                },
+                {
+                    "field": "insee",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 10,
+                    "label": {
+                        "en": "INSEE Code",
+                        "fr": "Code INSEE",
+                        "io": "crwdns12118:0crwdne12118:0",
+                        "it": "Codice INSEE (Francia)",
+                        "oc": "Còdi INSEE"
+                    }
+                },
+                {
+                    "field": "latitude",
+                    "optional": false,
+                    "fieldType": "latitude",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "list"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "label": {
+                        "en": "Latitude",
+                        "fr": "Latitude",
+                        "io": "crwdns12112:0crwdne12112:0",
+                        "it": "Latitudine",
+                        "oc": "Latitud"
+                    }
+                },
+                {
+                    "field": "longitude",
+                    "optional": false,
+                    "fieldType": "longitude",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "list"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "label": {
+                        "en": "Longitude",
+                        "fr": "Longitude",
+                        "io": "crwdns12114:0crwdne12114:0",
+                        "it": "Longitudine",
+                        "oc": "Longitud"
+                    }
+                },
+                {
+                    "field": "region",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 255,
+                    "label": {
+                        "en": "Region",
+                        "fr": "Région",
+                        "io": "crwdns12124:0crwdne12124:0",
+                        "it": "Regione",
+                        "oc": "Region"
+                    }
+                },
+                {
+                    "field": "department",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "terms"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "max": 255,
+                    "label": {
+                        "en": "Department",
+                        "fr": "Département",
+                        "br": "Departamant",
+                        "io": "crwdns12110:0crwdne12110:0",
+                        "it": "Provincia",
+                        "oc": "Departament"
+                    }
+                },
+                {
+                    "field": "timezone",
+                    "optional": true,
+                    "fieldType": "timezone",
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ]
+                },
+                {
+                    "field": "updatedAt",
+                    "optional": false,
+                    "fieldType": "date",
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal"
+                    ]
+                },
+                {
+                    "field": "createdAt",
+                    "optional": false,
+                    "fieldfieldType": "date",
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal"
+                    ]
+                },
+                {
+                    "field": "image",
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "fieldType": "stream",
+                    "allowNull": true
+                },
+                {
+                    "field": "description",
+                    "label": {
+                        "en": "Description",
+                        "fr": "Description",
+                        "de": "Beschreibung",
+                        "es": "descripción",
+                        "it": "Descrizione",
+                        "oc": "Descripcion",
+                        "io": "crwdns32875:0crwdne32875:0"
+                    },
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "fieldType": "multilingual",
+                    "languages": [],
+                    "max": 5000
+                },
+                {
+                    "field": "tags",
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "fieldType": "pass"
+                },
+                {
+                    "field": "website",
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "fieldType": "link",
+                    "label": {
+                        "en": "Website",
+                        "fr": "Site internet",
+                        "es": "Sitio web",
+                        "oc": "Site web",
+                        "io": "crwdns32871:0crwdne32871:0"
+                    }
+                },
+                {
+                    "field": "email",
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "fieldType": "email"
+                },
+                {
+                    "field": "phone",
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "fieldType": "phone"
+                },
+                {
+                    "field": "links",
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "list": true,
+                    "fieldType": "link"
+                },
+                {
+                    "field": "access",
+                    "label": {
+                        "en": "Access",
+                        "fr": "Accès",
+                        "it": "Accesso",
+                        "de": "Zugang",
+                        "pl": "Dostęp",
+                        "es": "Acceso",
+                        "br": "Moned",
+                        "oc": "Accès",
+                        "io": "crwdns32873:0crwdne32873:0"
+                    },
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "fieldType": "multilingual",
+                    "languages": [],
+                    "max": 1000
+                },
+                {
+                    "field": "state",
+                    "optional": true,
+                    "fieldType": "choice",
+                    "unique": true,
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor",
+                        "list"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "default": 0,
+                    "options": [
+                        0,
+                        1
+                    ]
+                },
+                {
+                    "field": "imageCredits",
+                    "optional": true,
+                    "fieldType": "text",
+                    "read": [
+                        "internal",
+                        "public",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "enableWith": "image"
+                },
+                {
+                    "field": "siret",
+                    "optional": true,
+                    "fieldType": "regex",
+                    "error": {
+                        "code": "invalidSIRET",
+                        "message": "siret must be 14 digits"
+                    },
+                    "max": 14,
+                    "min": 14,
+                    "regex": {},
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ]
+                },
+                {
+                    "field": "imageRightsAreHeld",
+                    "optional": true,
+                    "fieldType": "boolean",
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "enableWith": "image"
+                },
+                {
+                    "field": "extIds",
+                    "fieldType": "extIds",
+                    "optional": true,
+                    "max": 200,
+                    "write": [
+                        "internal",
+                        "administrator",
+                        "moderator",
+                        "contributor"
+                    ],
+                    "read": [
+                        "internal",
+                        "public"
+                    ]
+                },
+                {
+                    "field": "duplicateCandidates",
+                    "fieldType": "integer",
+                    "list": {
+                        "max": 100,
+                        "default": null
+                    },
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal",
+                        "contributor"
+                    ]
+                },
+                {
+                    "field": "disqualifiedDuplicates",
+                    "fieldType": "integer",
+                    "list": {
+                        "max": 100,
+                        "default": null
+                    },
+                    "optional": true,
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal",
+                        "contributor"
+                    ]
+                },
+                {
+                    "field": "mergedIn",
+                    "fieldType": "integer",
+                    "optional": true,
+                    "default": null,
+                    "read": [
+                        "internal",
+                        "public"
+                    ],
+                    "write": [
+                        "internal"
+                    ]
+                }
+            ],
+            "schemaId": "location"
+        },
+        "settings": {}
+    },
+    {
+        "display": false,
+        "field": "onlineAccessLink",
+        "fieldType": "link",
+        "label": {
+            "fr": "Lien d'accès",
+            "en": "Access link",
+            "de": "Zugangslink",
+            "es": "Enlace de acceso",
+            "it": "Collegamento di accesso",
+            "br": "Liamm moned",
+            "io": "crwdns14272:0crwdne14272:0",
+            "oc": "Ligam d'accès"
+        },
+        "optional": false,
+        "enableWith": {
+            "field": "attendanceMode",
+            "value": [
+                2,
+                3
+            ]
+        },
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "status",
+        "fieldType": "select",
+        "default": 1,
+        "display": true,
+        "label": {
+            "fr": "État",
+            "en": "Status",
+            "io": "crwdns16110:0crwdne16110:0",
+            "oc": "Estatut",
+            "es": "Estado"
+        },
+        "options": [
+            {
+                "id": 1,
+                "value": "scheduled",
+                "label": {
+                    "fr": "Programmé",
+                    "en": "Scheduled",
+                    "io": "crwdns16100:0crwdne16100:0",
+                    "es": "Programado",
+                    "oc": "Programat"
+                }
+            },
+            {
+                "id": 2,
+                "value": "rescheduled",
+                "label": {
+                    "fr": "Re-programmé",
+                    "en": "Re-scheduled",
+                    "io": "crwdns16102:0crwdne16102:0",
+                    "es": "Reprogramado",
+                    "oc": "Tornat programar"
+                }
+            },
+            {
+                "id": 3,
+                "value": "movedOnline",
+                "label": {
+                    "fr": "Déplacé en ligne",
+                    "en": "Moved online",
+                    "it": "Oramai online",
+                    "oc": "Transferit en linha",
+                    "io": "crwdns16104:0crwdne16104:0",
+                    "es": "Trasladado en línea"
+                }
+            },
+            {
+                "id": 4,
+                "value": "postponed",
+                "label": {
+                    "fr": "Reporté",
+                    "en": "Postponed",
+                    "it": "Riprogrammato",
+                    "io": "crwdns16108:0crwdne16108:0",
+                    "oc": "Remandat",
+                    "es": "Aplazado"
+                }
+            },
+            {
+                "id": 5,
+                "value": "full",
+                "label": {
+                    "fr": "Complet",
+                    "en": "Full",
+                    "io": "crwdns16448:0crwdne16448:0",
+                    "es": "Completo",
+                    "oc": "Complèt"
+                }
+            },
+            {
+                "id": 6,
+                "value": "cancelled",
+                "label": {
+                    "fr": "Annulé",
+                    "en": "Canceled",
+                    "it": "Cancellato",
+                    "io": "crwdns16106:0crwdne16106:0",
+                    "es": "Cancelado",
+                    "oc": "Anullat"
+                }
+            }
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "timings",
+        "fieldType": "timings",
+        "max": 800,
+        "optional": false,
+        "label": {
+            "fr": "Horaires",
+            "en": "Timings",
+            "it": "Orari",
+            "de": "Timings",
+            "es": "Horarios",
+            "br": "Eurioù",
+            "io": "crwdns14328:0crwdne14328:0",
+            "oc": "Oraris"
+        },
+        "info": {
+            "fr": "Définissez les horaires de votre événement",
+            "en": "Specify timings for your event",
+            "it": "Definire gli orari dell'evento",
+            "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
+            "es": "Indicar los horarios de su evento",
+            "br": "Lakait eurioù ho tarvoud",
+            "io": "crwdns14330:0crwdne14330:0",
+            "oc": "Indicar d'oraris per vòstre eveniment"
+        },
+        "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "ean",
+        "label": {
+            "fr": "EAN",
+            "en": "EAN"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": false,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 3,
+        "schemaType": "network"
+    },
+    {
+        "field": "cycle",
+        "label": {
+            "fr": "Cycle",
+            "en": "Cycle"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": false,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+        },
+        "selfHandled": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 3,
+        "schemaType": "network"
+    },
+    {
+        "field": "extIds",
+        "fieldType": "extIds",
+        "optional": true,
+        "display": false,
+        "label": {
+            "fr": "Identifiants externe",
+            "en": "External identifiers",
+            "io": "crwdns34156:0crwdne34156:0"
+        },
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "categories-ville-de-bordeaux",
+        "label": {
+            "fr": "Catégories Ville de Bordeaux",
+            "en": "Categories of the city of Bordeaux"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "display": false,
+        "enable": true,
+        "origin": null,
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+        },
+        "selfHandled": [],
+        "options": [
+            {
+                "id": 100,
+                "value": "animation",
+                "label": {
+                    "fr": "Animation",
+                    "en": "Animation"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 101,
+                "value": "cinema",
+                "label": {
+                    "fr": "Cinéma",
+                    "en": "Cinema"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 102,
+                "value": "concert",
+                "label": {
+                    "fr": "Concert",
+                    "en": "Concert"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 103,
+                "value": "exposition",
+                "label": {
+                    "fr": "Exposition",
+                    "en": "Exhibition"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 104,
+                "value": "festival",
+                "label": {
+                    "fr": "Festival",
+                    "en": "Festival"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 105,
+                "value": "rencontre",
+                "label": {
+                    "fr": "Rencontre",
+                    "en": "Rencontre"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 106,
+                "value": "solidarite",
+                "label": {
+                    "fr": "Solidarité",
+                    "en": "Solidarity"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 107,
+                "value": "spectacle",
+                "label": {
+                    "fr": "Spectacle",
+                    "en": "Show"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 108,
+                "value": "sport",
+                "label": {
+                    "fr": "Sport",
+                    "en": "Sport"
+                },
+                "info": null,
+                "display": true
+            },
+            {
+                "id": 109,
+                "value": "visite",
+                "label": {
+                    "fr": "Visite",
+                    "en": "Visit"
+                },
+                "info": null,
+                "display": true
+            }
+        ],
+        "fieldType": "radio",
+        "schemaId": 3,
+        "schemaType": "network"
+    },
+    {
+        "field": "uid",
+        "fieldType": "integer",
+        "optional": false,
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "slug",
+        "fieldType": "text",
+        "optional": false,
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "private",
+        "fieldType": "boolean",
+        "default": false,
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "timezone",
+        "fieldType": "text",
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "draft",
+        "fieldType": "boolean",
+        "default": false,
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "createdAt",
+        "fieldType": "date",
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "creatorUid",
+        "fieldType": "integer",
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "ownerUid",
+        "fieldType": "integer",
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "updatedAt",
+        "fieldType": "date",
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "agendaUid",
+        "fieldType": "integer",
+        "optional": false,
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "fileKey",
+        "fieldType": "text",
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "locationUid",
+        "fieldType": "integer",
+        "optional": false,
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    },
+    {
+        "field": "links",
+        "fieldType": "enrichedLinks",
+        "optional": true,
+        "write": [
+            "internal"
+        ],
+        "schemaId": null,
+        "schemaType": "event"
+    }
+]
