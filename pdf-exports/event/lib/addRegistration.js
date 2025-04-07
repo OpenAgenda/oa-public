@@ -1,113 +1,100 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import addText from './addText.js';
-import iconPositioning from './iconPositioning.js';
-import messages from './messages.js';
+import Cursor from './Cursor.js';
+import adjustSize from './adjustSize.js';
 
-export default async function addRegistration(doc, cursor, options = {}) {
-  const { content, height, width, iconHeightAndWidth, margin, footerHeight, intl, lang, simulate} = options;
-  const currentCursor = { ...cursor };
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-  const availableHeight = height - margin - footerHeight;
+const icons = {
+  email: `${__dirname}/../../images/email.png`,
+  phone: `${__dirname}/../../images/phone.png`,
+  link: `${__dirname}/../../images/link.png`,
+};
+const prefixes = {
+  email: 'mailto:',
+  phone: 'tel:',
+  link: '',
+};
+const topPadding = 5;
 
-  let accumulatedHeight = 0;
-  let maxWidth = 0;
-  let index = 0;
-  const remainingRegistrations = content.registration;
-  const titleAdded = content.titleAdded ;
+async function addImage(doc, parentCursor, params) {
+  const { simulate, value, iconSize } = params;
 
-  if (!titleAdded) {
-    const simulateTitle = await addText(doc, cursor, {
-      content: `${intl.formatMessage(messages.registrationTool)}`,
-      width,
-      bold: true,
-      lang,
-      simulate: true,
+  const cursor = Cursor(parentCursor);
+
+  if (!simulate) {
+    doc.image(value, cursor.x, cursor.y, {
+      align: 'center',
+      valign: 'center',
+      height: iconSize,
     });
-
-    accumulatedHeight += simulateTitle.height;
-    maxWidth = Math.max(maxWidth, simulateTitle.width);
-    cursor.y += simulateTitle.height;
-
-    const { height: lineHeight } = await addText(doc, cursor, {
-      content: '.',
-      simulate: true,
-    });
-
-    cursor.y += lineHeight;
-
-
-    if(cursor.y > availableHeight) {
-      cursor.y = currentCursor.y;
-      return {
-        remainingFields: remainingRegistrations,
-        titleAdded: false,
-        width: maxWidth,
-        height: cursor.y,
-      };
-    }
-
-    cursor.y -= simulateTitle.height;
-    cursor.y -= lineHeight;
-
-    const registrationTitle = await addText(doc, cursor, {
-      content: `${intl.formatMessage(messages.registrationTool)}`,
-      width,
-      bold: true,
-      lang,
-      simulate,
-    });
-
-    cursor.y += registrationTitle.height;
   }
 
-  while (index < remainingRegistrations.length) {
-    const registration = remainingRegistrations[index];
+  return { height: iconSize, width: iconSize };
+}
 
-    const simulateIcon = await iconPositioning(doc, cursor, registration.type, { iconHeightAndWidth, margin, simulate: true });
+async function addContent(doc, parentCursor, params) {
+  const { value } = params;
+  const cursor = Cursor(parentCursor);
 
-    const simulateReg = await addText(doc, cursor, {
-      content: registration.value,
-      width: width - iconHeightAndWidth - margin / 2,
-      bold: content.bold,
-      link: simulateIcon.linkPrefix + registration.value,
-      lang,
-      simulate: true,
-    })
+  const size = { height: topPadding, width: 0 };
+  cursor.moveY(topPadding);
 
-    accumulatedHeight += Math.max(simulateReg.height, simulateIcon.height);
-    maxWidth = Math.max(maxWidth, simulateReg.width + simulateIcon.width + margin / 2);
+  const { height: lineHeight } = await addText(doc, cursor, {
+    ...params,
+    value: value[0].value,
+    simulate: true,
+  });
 
-    if (currentCursor.y + accumulatedHeight > availableHeight) {
-      cursor.y = currentCursor.y;
-      return {
-        remainingFields: remainingRegistrations.slice(index),
-        width: maxWidth,
-        height: accumulatedHeight,
-        titleAdded: true,
-      };
-    }
-
-    const icon = await iconPositioning(doc, cursor, registration.type, { iconHeightAndWidth, margin });
-    const reg = await addText(doc, cursor, {
-      content: registration.value,
-      width: width - iconHeightAndWidth - margin / 2,
-      bold: content.bold,
-      link: icon.linkPrefix + registration.value,
-      lang,
-      simulate,
+  for (const { type, value: registrationItemValue } of value) {
+    const imageSize = await addImage(doc, cursor, {
+      ...params,
+      value: icons[type],
+      iconSize: lineHeight * 0.6,
     });
+    adjustSize(size, imageSize);
 
-    cursor.y += reg.height;
-    cursor.x = currentCursor.x;
+    cursor.moveX(imageSize.width * 1.5);
+    cursor.moveY(-imageSize.height * 0.3);
 
-    index += 1;
+    adjustSize(
+      size,
+      await addText(doc, cursor, {
+        ...params,
+        value: registrationItemValue,
+        link: `${prefixes[type]}${registrationItemValue}`,
+      }),
+    );
+
+    cursor.reset();
+    cursor.moveY(size.height * 0.8);
   }
 
-  cursor.y = currentCursor.y;
+  return size;
+}
 
-  return {
-    remainingFields: [],
-    width: maxWidth,
-    height: accumulatedHeight,
-    titleAdded: true,
-  };
+export default async function addRegistration(doc, parentCursor, params = {}) {
+  const { value, availableHeight } = params;
+
+  if (!value.length) {
+    return { height: 0, width: 0 };
+  }
+
+  const { height } = await addContent(doc, parentCursor, {
+    ...params,
+    simulate: true,
+  });
+
+  if (height > availableHeight) {
+    return {
+      height: 0,
+      width: 0,
+      remaining: value,
+    };
+  }
+
+  return addContent(doc, parentCursor, params);
 }

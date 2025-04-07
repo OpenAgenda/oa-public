@@ -1,0 +1,213 @@
+{
+  "firstTiming": {
+    "end": "2025-04-10T12:00:00.000+02:00",
+    "begin": "2025-04-10T10:00:00.000+02:00"
+  },
+  "nextTiming": {
+    "begin": "2025-04-15T10:00:00+02:00",
+    "end": "2025-04-15T12:00:00+02:00"
+  },
+  "lastTiming": {
+    "end": "2025-04-15T16:00:00.000+02:00",
+    "begin": "2025-04-15T14:00:00.000+02:00"
+  },
+  "dateRange": {
+    "ar": "١٠ - ١٥ أبريل",
+    "de": "10 - 15 April",
+    "en": "10 - 15 April",
+    "it": "10 - 15 aprile",
+    "fr": "10 - 15 avril",
+    "es": "10 - 15 abril"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 80605813,
+    "image": "agenda80605813.jpg?__ts=1644930213856",
+    "description": "Retrouvez les grands événements organisés par la Ville. Pour retrouver toutes les informations et l'agenda complet, rendez-vous sur saintjeandebraye.fr",
+    "official": false,
+    "title": "Ville de Saint-Jean de Braye",
+    "slug": "ville-de-saint-jean-de-braye",
+    "url": "https://www.saintjeandebraye.fr/",
+    "_agg": "eyJ1aWQiOjgwNjA1ODEzLCJ0aXRsZSI6IlZpbGxlIGRlIFNhaW50LUplYW4gZGUgQnJheWUiLCJpbWFnZSI6ImFnZW5kYTgwNjA1ODEzLmpwZz9fX3RzPTE2NDQ5MzAyMTM4NTYiLCJ1cmwiOiJodHRwczovL3d3dy5zYWludGplYW5kZWJyYXllLmZyLyIsInNsdWciOiJ2aWxsZS1kZS1zYWludC1qZWFuLWRlLWJyYXllIn0="
+  },
+  "sourceAgendas": [
+    {
+      "image": "agenda80605813.jpg?__ts=1644930213856",
+      "private": 0,
+      "indexed": 1,
+      "locationSetUid": null,
+      "official": 1,
+      "description": "Retrouvez les grands événements organisés par la Ville. Pour retrouver toutes les informations et l'agenda complet, rendez-vous sur saintjeandebraye.fr",
+      "title": "Ville de Saint-Jean de Braye",
+      "url": "https://www.saintjeandebraye.fr/",
+      "_agg": "eyJ1aWQiOjgwNjA1ODEzLCJ0aXRsZSI6IlZpbGxlIGRlIFNhaW50LUplYW4gZGUgQnJheWUiLCJpbWFnZSI6ImFnZW5kYTgwNjA1ODEzLmpwZz9fX3RzPTE2NDQ5MzAyMTM4NTYifQ==",
+      "uid": 80605813,
+      "createdAt": "2022-02-15T13:03:33.000Z",
+      "officializedAt": "2024-02-06T20:44:12.000Z",
+      "slug": "ville-de-saint-jean-de-braye",
+      "updatedAt": "2025-03-21T08:42:12.000Z"
+    }
+  ],
+  "organizatorName": "Ville de Saint-Jean de Braye",
+  "organizatorContact": "communication@ville-saintjeandebraye.fr",
+  "categorie-principale": [10, 9],
+  "balade-decouverte-visite": [],
+  "conference-rencontre-debat": [],
+  "exposition": [],
+  "fete-salon-marche": [],
+  "musique": [],
+  "projection-cinema": [],
+  "spectacle": [],
+  "sport": [],
+  "stage-atelier-jeu": [74],
+  "image": {
+    "filename": "966722831b394ed1914f5191e15aecec.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 368
+    },
+    "variants": [
+      {
+        "filename": "966722831b394ed1914f5191e15aecec.full.image.jpg",
+        "size": {
+          "width": 2500,
+          "height": 1313
+        },
+        "type": "full"
+      },
+      {
+        "filename": "966722831b394ed1914f5191e15aecec.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": "Ville de Saint-Jean de Braye",
+  "title": {
+    "fr": "Ateliers Urb'Braye"
+  },
+  "description": {
+    "fr": "La ville propose des ateliers sur les vacances d’avril, pour les 11-17ans. Animés par Art plus, ces ateliers se dérouleront dans les locaux de l’Arche du 6-10, avenue François Rabelais."
+  },
+  "keywords": {
+    "fr": ["gratuit", "atelier", "art", "festival"]
+  },
+  "longDescription": {
+    "fr": "### Pour les 11/15 ans – Personnalise ton affiche !\n\n*   Jeudi 10 avril de 10h à 12h et de 14h à 16h\n*   Vendredi 11 avril de 10h à 12h\n\nSur une affiche pré-imprimée, construite autour des informations du festival, les participants personnaliseront la partie centrale laissée vide. L’imagination sera de mise pour illustrer une passion ou trouver son blaze, son nom de street artiste.\n\n### Pour les 15/17 ans – Décore ton skate !\n\n*   Lundi 14 avril de 10h à 12h et de 14h à 16h\n*   Mardi 15 avril de 10h à 12h et de 14h à 16h\n\nLes participants habillent et décorent leur propre planche de skate (planche en bois décou-pée en forme de skate mais non incurvée) avec une illustration ou un logo typographique mettant en avant leur passion, leur univers.  \n**Modalités :** Nous comptons sur la présence des jeunes sur les deux jours afin de mener le projet jusqu’au bout. Les places sont limitées, une inscription est nécessaire depuis le site de la Ville : [https://www.saintjeandebraye.fr/evenement/ateliers-urbbraye/](https://www.saintjeandebraye.fr/evenement/ateliers-urbbraye/)"
+  },
+  "conditions": {
+    "fr": "Gratuit sur inscription"
+  },
+  "age": {
+    "min": 11,
+    "max": 17
+  },
+  "registration": [
+    {
+      "type": "link",
+      "value": "https://www.saintjeandebraye.fr/evenement/ateliers-urbbraye/"
+    }
+  ],
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Saint-Jean-de-Braye",
+    "timezone": "Europe/Paris",
+    "postalCode": "45800",
+    "latitude": 47.906997,
+    "imageCredits": null,
+    "description": {},
+    "setUid": null,
+    "uid": 93369394,
+    "createdAt": "2024-09-18T15:10:49.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 0,
+    "extId": null,
+    "department": "Loiret",
+    "slug": "larche-du-6-10_43864",
+    "email": null,
+    "longitude": 1.952282,
+    "updatedAt": "2024-09-18T15:10:49.000Z",
+    "image": null,
+    "website": null,
+    "address": "6-10 avenue françois rabelais, saint-jean de braye",
+    "adminLevel3": "Orléans Métropole",
+    "agendaUid": 80605813,
+    "adminLevel4": "Saint-Jean-de-Braye",
+    "adminLevel1": "Centre-Val de Loire",
+    "adminLevel2": "Loiret",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjkzMzY5Mzk0LCJuYW1lIjoiTCdBcmNoZSBkdSA2LTEwIn0=",
+    "tags": null,
+    "insee": "45284",
+    "phone": null,
+    "district": "Pont Bordeau",
+    "name": "L'Arche du 6-10",
+    "region": "Centre-Val de Loire",
+    "extIds": null
+  },
+  "timings": [
+    {
+      "begin": "2025-04-10T10:00:00+02:00",
+      "end": "2025-04-10T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-10T14:00:00+02:00",
+      "end": "2025-04-10T16:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-11T10:00:00+02:00",
+      "end": "2025-04-11T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-14T10:00:00+02:00",
+      "end": "2025-04-14T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-14T14:00:00+02:00",
+      "end": "2025-04-14T16:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-15T10:00:00+02:00",
+      "end": "2025-04-15T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-15T14:00:00+02:00",
+      "end": "2025-04-15T16:00:00+02:00"
+    }
+  ],
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "status": 1,
+  "extIds": null,
+  "uid": 17528115,
+  "slug": "ateliers-urbbraye",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2025-03-21T08:42:11.000Z",
+  "creatorUid": 34277627,
+  "ownerUid": 34277627,
+  "updatedAt": "2025-03-21T08:42:12.000Z",
+  "links": [
+    {
+      "link": "https://www.saintjeandebraye.fr/evenement/ateliers-urbbraye/"
+    }
+  ]
+}
