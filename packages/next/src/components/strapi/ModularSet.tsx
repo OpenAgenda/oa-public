@@ -22,6 +22,7 @@ interface ModularSetProps {
   justifyContent?: 'left' | 'center' | 'right';
   fontSize?: { name: string };
   width?: { name: string };
+  margin?: { name: string };
 }
 
 export default function ModularSet({
@@ -37,6 +38,7 @@ export default function ModularSet({
   justifyContent,
   fontSize,
   width,
+  margin,
 }: ModularSetProps) {
   return (
     <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
@@ -63,7 +65,6 @@ export default function ModularSet({
       )}
       <Box
         display="flex"
-        gap={8}
         py={8}
         mx="auto"
         flexWrap="wrap"
@@ -82,22 +83,27 @@ export default function ModularSet({
               : 'center'
         }
       >
-        {Components.map((Component) => (
-          <Box
-            key={Component.id}
-            justifyContent="center"
-            display="flex"
-            flexGrow={Component.grow || 0}
-            flexBasis={0}
-          >
-            <Modular
-              {...Component}
-              verticalAlign={verticalAlign}
-              grow={Component.grow}
-              width={Component.grow ? undefined : width}
-            />
-          </Box>
-        ))}
+        {Components.map((Component, index) => {
+          const isLast = index === Components.length - 1;
+
+          return (
+            <Box
+              key={Component.id}
+              justifyContent="center"
+              display="flex"
+              flexGrow={Component.grow || 0}
+              flexBasis={0}
+              mr={isLast ? 0 : { base: 0, md: margin?.name ?? '2%' }}
+            >
+              <Modular
+                {...Component}
+                verticalAlign={verticalAlign}
+                grow={Component.grow}
+                width={Component.grow ? undefined : width}
+              />
+            </Box>
+          );
+        })}
       </Box>
       {CTA ? (
         <Grid templateColumns="1fr" justifyItems="center" w="full">

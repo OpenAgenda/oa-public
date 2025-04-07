@@ -93,6 +93,7 @@ export default function Modular({
             py={2}
             borderRadius="full"
             fontSize="lg"
+            gap="2"
           >
             {Icon && (
               <IconComponent
