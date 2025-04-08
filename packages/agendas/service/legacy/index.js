@@ -1,7 +1,5 @@
 'use strict';
 
-const w = require('when');
-
 const utils = require('@openagenda/utils');
 const log = require('@openagenda/logs')('legacy');
 
@@ -15,15 +13,12 @@ function _updateDefaultState(v) {
 
   if (defaultState === undefined) return v;
 
-  const d = w.defer();
-
-  store(v.agendaId, 'moderated', defaultState !== 2, (err) => {
-    if (err) return d.reject(err);
-
-    d.resolve(v);
+  return new Promise((rs, rj) => {
+    store(v.agendaId, 'moderated', defaultState !== 2, (err) => {
+      if (err) return rj(err);
+      rs(v);
+    });
   });
-
-  return d.promise;
 }
 
 function agenda(agendaId) {
@@ -31,10 +26,10 @@ function agenda(agendaId) {
    * apply given data to legacy db stores
    */
   function applyToLegacy(data, cb) {
-    w({ agendaId, data, loaded: {} })
+    new Promise((rs) => rs({ agendaId, data, loaded: {} }))
       .then(_updateDefaultState)
 
-      .done(() => cb(), cb);
+      .then(() => cb(), cb);
   }
 
   return {

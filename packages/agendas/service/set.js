@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const w = require('when');
 const slugify = require('slugify');
 
 const logs = require('@openagenda/logs');
@@ -110,22 +109,19 @@ function _doUpdate(v) {
 function _applyToLegacy(v) {
   if (!v.success) return v;
 
-  const d = w.defer();
-
-  legacy(v.id).applyToLegacy(v.clean, (err) => {
-    if (err) {
-      log('error', {
-        message: 'agenda legacy save triggered error',
-        error: err,
-      });
-    } else {
-      log('applied agenda configuration to legacy data structure');
-    }
-
-    d.resolve(v);
+  return new Promise((rs) => {
+    legacy(v.id).applyToLegacy(v.clean, (err) => {
+      if (err) {
+        log('error', {
+          message: 'agenda legacy save triggered error',
+          error: err,
+        });
+      } else {
+        log('applied agenda configuration to legacy data structure');
+      }
+      rs(v);
+    });
   });
-
-  return d.promise;
 }
 
 function _doCreate(v) {
@@ -172,98 +168,92 @@ function _areIdentifiers(identifiers) {
 }
 
 function _createUid(v) {
-  const d = w.defer();
+  return new Promise((rs, rj) => {
+    defineUnique(
+      {
+        table: schemas.agenda,
+        field: 'uid',
+        mysql: mysqlConfig,
+      },
+      () => Math.ceil(Math.random() * 99999999),
+      (err, uid) => {
+        if (err) return rj(err);
 
-  defineUnique(
-    {
-      table: schemas.agenda,
-      field: 'uid',
-      mysql: mysqlConfig,
-    },
-    () => Math.ceil(Math.random() * 99999999),
-    (err, uid) => {
-      if (err) return d.reject(err);
+        v.data.uid = uid;
 
-      v.data.uid = uid;
+        log('created uid %s', uid);
 
-      log('created uid %s', uid);
-
-      d.resolve(v);
-    },
-  );
-
-  return d.promise;
+        rs(v);
+      },
+    );
+  });
 }
 
 function _createSlugIfNotSet(v) {
   if (v.data.slug) return v;
 
-  const d = w.defer();
+  return new Promise((rs, rj) => {
+    defineUnique(
+      {
+        table: schemas.agenda,
+        field: 'slug',
+        mysql: mysqlConfig,
+      },
+      (previousSlug) =>
+        slugify(v.data.title || '', { lower: true, strict: true })
+        + (previousSlug ? Math.ceil(Math.random() * 1000) : ''),
+      (err, slug) => {
+        if (err) return rj(err);
 
-  defineUnique(
-    {
-      table: schemas.agenda,
-      field: 'slug',
-      mysql: mysqlConfig,
-    },
-    (previousSlug) =>
-      slugify(v.data.title || '', { lower: true, strict: true })
-      + (previousSlug ? Math.ceil(Math.random() * 1000) : ''),
-    (err, slug) => {
-      if (err) return d.reject(err);
+        log('created slug %s', slug);
 
-      log('created slug %s', slug);
+        v.data.slug = slug;
 
-      v.data.slug = slug;
-
-      d.resolve(v);
-    },
-  );
-
-  return d.promise;
+        rs(v);
+      },
+    );
+  });
 }
 
 function _verifyUnique(field) {
   return (v) => {
     log('verifying unique %s', field);
 
-    const d = w.defer();
+    return new Promise((rs, rj) => {
+      // value checked for unicity is from data for create
+      // from merged values in case of update
+      const value = dbParse.toDb(v.id ? v.merged : v.data)[field];
 
-    // value checked for unicity is from data for create
-    // from merged values in case of update
-    const value = dbParse.toDb(v.id ? v.merged : v.data)[field];
-
-    verifyUnique(
-      {
-        table: schemas.agenda,
-        field,
-        value,
-        exclude: v.id ? { id: v.id } : false,
-        mysql: mysqlConfig,
-      },
-      (err, is) => {
-        if (err) return d.reject(err);
-
-        if (is) {
-          log('%s is unique', field);
-
-          return d.resolve(v);
-        }
-
-        log('%s is not unique', field);
-
-        v.errors.push({
+      verifyUnique(
+        {
+          table: schemas.agenda,
           field,
-          code: 'duplicate',
-          message: 'duplicate value found',
-          origin: value,
-        });
+          value,
+          exclude: v.id ? { id: v.id } : false,
+          mysql: mysqlConfig,
+        },
+        (err, is) => {
+          if (err) return rj(err);
 
-        return d.resolve(v);
-      },
-    );
+          if (is) {
+            log('%s is unique', field);
 
-    return d.promise;
+            return rs(v);
+          }
+
+          log('%s is not unique', field);
+
+          v.errors.push({
+            field,
+            code: 'duplicate',
+            message: 'duplicate value found',
+            origin: value,
+          });
+
+          return rs(v);
+        },
+      );
+    });
   };
 }
 
@@ -327,31 +317,29 @@ function _get(options) {
       return v;
     }
 
-    const d = w.defer();
+    return new Promise((rs, rj) => {
+      get(
+        v.id ? { id: v.id } : v.identifiers,
+        {
+          internal: params.internal,
+          includeImagePath: params.includeImagePath,
+          private: params.private,
+        },
+        (err, data) => {
+          if (err) return rj(err);
 
-    get(
-      v.id ? { id: v.id } : v.identifiers,
-      {
-        internal: params.internal,
-        includeImagePath: params.includeImagePath,
-        private: params.private,
-      },
-      (err, data) => {
-        if (err) return d.reject(err);
+          if (!data) return rj(new Error('agenda not found'));
 
-        if (!data) return d.reject(new Error('agenda not found'));
+          log('retrieved agenda of uid %s', data.uid);
 
-        log('retrieved agenda of uid %s', data.uid);
+          v.id = data.id;
 
-        v.id = data.id;
+          v[params.target] = data;
 
-        v[params.target] = data;
-
-        d.resolve(v);
-      },
-    );
-
-    return d.promise;
+          rs(v);
+        },
+      );
+    });
   };
 }
 
