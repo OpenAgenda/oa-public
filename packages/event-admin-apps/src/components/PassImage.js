@@ -19,6 +19,10 @@ const messages = defineMessages({
     defaultMessage:
       'A problem occurred during the creation or update of the linked pass Culture offer. Contact support to find a resolution.',
   },
+  likedUnpublished: {
+    id: 'EventAdminApp.PassImage.linkUnpublished',
+    defaultMessage: 'The offer will be created upon publication of the event',
+  },
   see: {
     id: 'EventAdminApp.PassImage.see',
     defaultMessage: 'See',
@@ -29,17 +33,19 @@ const messages = defineMessages({
   },
 });
 
-const imgSource = (errored, rejected, pending) => {
+const imgSource = (errored, rejected, pending, unpublished) => {
   if (errored) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-error-22.png';
   if (rejected) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-rejected-22.png';
   if (pending) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-pending-22.png';
+  if (unpublished) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-unpublished-22.png';
   return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png';
 };
 
-const title = (intl, errored, rejected, pending) => {
+const title = (intl, errored, rejected, pending, unpublished) => {
   if (errored) return intl.formatMessage(messages.linkedErrored);
   if (rejected) return intl.formatMessage(messages.linkedRejected);
   if (pending) return intl.formatMessage(messages.linkedPending);
+  if (unpublished) return intl.formatMessage(messages.likedUnpublished);
   return intl.formatMessage(messages.linked);
 };
 
@@ -47,6 +53,7 @@ export default function PassImage({
   pending,
   rejected,
   errored,
+  passUnpublished,
   passId,
   passRes,
   passTabIsOpen,
@@ -66,9 +73,9 @@ export default function PassImage({
       })}
     >
       <img
-        src={imgSource(errored, rejected, pending)}
+        src={imgSource(errored, rejected, pending, passUnpublished)}
         alt="logoPassCulture"
-        title={title(intl, errored, rejected, pending)}
+        title={title(intl, errored, rejected, pending, passUnpublished)}
       />
       {passTabIsOpen ? (
         <span>

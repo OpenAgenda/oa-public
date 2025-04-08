@@ -66,6 +66,7 @@
   "EventAdminApp.PassImage.linkErrored": "An error occurred during the creation or update of the linked pass Culture offer. Contact support to find a resolution",
   "EventAdminApp.PassImage.linkPending": "The pass Culture offer linked with this event is pending moderation by the pass Culture team",
   "EventAdminApp.PassImage.linkRejected": "The pass Culture offer linked with this event was rejected by the pass Culture team",
+  "EventAdminApp.PassImage.linkUnpublished": "The offer will be created upon publication of the event",
   "EventAdminApp.PassImage.see": "See",
   "EventAdminApp.RemoveModal.confirm": "Confirm",
   "EventAdminApp.RemoveModal.deleteDesc": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda.",
