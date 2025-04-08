@@ -2,7 +2,6 @@ import fs from 'node:fs';
 import axios from 'axios';
 import _ from 'lodash';
 import qs from 'qs';
-import w from 'when';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import * as invitationsSvc from '@openagenda/invitations';
@@ -94,7 +93,7 @@ function signinSubmit(req, res, next) {
         });
       }
 
-      w({ err, req, res, data, user })
+      new Promise((rs) => rs({ err, req, res, data, user }))
         .then(
           auth.ifUserLoaded(false, async (v) => {
             if (v.err && v.err.name !== 'NotFound') {
@@ -112,16 +111,13 @@ function signinSubmit(req, res, next) {
             return auth.renderSignin(v);
           }),
         )
-
         .then(
           auth.ifUserLoaded(
             true,
             auth.ifUserActivated(false, auth.redirectToResend),
           ),
         )
-
         .then(auth.ifUserLoaded(true, auth.signin))
-
         .then((v) => {
           log.info(
             'signin attempt %s',
@@ -133,8 +129,7 @@ function signinSubmit(req, res, next) {
           );
           return v;
         })
-
-        .done(auth.done, cmn.catchError(req, res));
+        .then(auth.done, cmn.catchError(req, res));
     },
   )(req, res, next);
 }
@@ -246,7 +241,7 @@ function handleSigninRequest(req, email, password, cb) {
 }
 
 function pLoadCaptcha(v) {
-  return w.promise((rs) => {
+  return new Promise((rs) => {
     loadCaptcha(v.req, v.res, () => {
       rs(v);
     });
@@ -264,7 +259,7 @@ function signupSubmit(req, res) {
 
   log.info('signup attempt', logBundle);
 
-  w({ req, res, data: req.body })
+  new Promise((rs) => rs({ req, res, data: req.body }))
     .then(passwordComplexity)
 
     .then(passwordMatchCheck)
@@ -368,7 +363,7 @@ function signupSubmit(req, res) {
 
     .then(auth.ifUnresolved(auth.renderSignup))
 
-    .done(auth.done, cmn.catchError(req, res));
+    .then(auth.done, cmn.catchError(req, res));
 }
 
 function presetEmail(req, res, next) {
