@@ -13,6 +13,7 @@ import {
   rejectedLogoPath,
   errorLogoPath,
   pendingLogoPath,
+  unpublishedLogoPath,
   isPatchMode,
 } from './utils.js';
 
@@ -20,10 +21,18 @@ function checkboxText({
   offerWasRejected,
   offerIsPending,
   offerHasError,
+  offerUnpublished,
   patchMode,
   settings,
   value,
 }) {
+  if (offerUnpublished) {
+    return (
+      <div className="text-muted">
+        L&apos;offre sera créée à la publication de l&apos;événement
+      </div>
+    );
+  }
   if (offerWasRejected) {
     return (
       <>
@@ -113,13 +122,15 @@ export default ({
     [currentValue],
   );
   const offerHasError = useMemo(() => !!currentValue.error, [currentValue]);
+  const offerUnpublished = useMemo(() => !currentValue.passId, [currentValue]);
 
   const currLogoPath = useMemo(() => {
     if (offerWasRejected) return rejectedLogoPath;
     if (offerIsPending) return pendingLogoPath;
     if (offerHasError) return errorLogoPath;
+    if (offerUnpublished) return unpublishedLogoPath;
     return logoPath;
-  }, [offerWasRejected, offerHasError, offerIsPending]);
+  }, [offerWasRejected, offerHasError, offerIsPending, offerUnpublished]);
 
   const upcomingTimings = useMemo(() => {
     if (!Array.isArray(timings)) {
@@ -225,6 +236,7 @@ export default ({
           onSubmit={onSubmit}
           onClear={onClear}
           patchMode={patchMode}
+          defaultVenueId={settings?.defaultVenueId}
         />
       ) : null}
       {modal === 'unlink' ? (
@@ -256,6 +268,7 @@ export default ({
             offerWasRejected,
             offerIsPending,
             offerHasError,
+            offerUnpublished,
             patchMode,
             settings,
             value,

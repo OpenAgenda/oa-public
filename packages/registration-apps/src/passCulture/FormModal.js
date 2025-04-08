@@ -16,6 +16,7 @@ export default function FormModal({
   conditions,
   bookingEmail,
   patchMode,
+  defaultVenueId,
 }) {
   return (
     <Modal
@@ -40,6 +41,7 @@ export default function FormModal({
           longDesc={longDesc}
           conditions={conditions}
           patchMode={patchMode}
+          defaultVenueId={defaultVenueId}
         />
       </div>
     </Modal>
