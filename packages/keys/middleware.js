@@ -1,13 +1,11 @@
 import _ from 'lodash';
-import w from 'when';
 import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import service from './service/index.js';
 
 const log = logs('keys/middleware');
-
 const cbify = (fn) => (req, res, next) =>
-  w(fn(req, res, w.resolve)).done(next, next);
+  new Promise((rs) => fn(req, res, rs)).then(next, next);
 
 function create(options) {
   const { namespaces } = _.merge(
