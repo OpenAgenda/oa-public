@@ -119,7 +119,6 @@ export default async function initServices(config = null, options = {}) {
   await init('agendaStatistics', () => import('./agendaStatistics/index.js'));
   await init('agendas', () => import('./agendas/index.js'));
   await init('agendaSearch', () => import('./agendaSearch/index.js'));
-  await init('adminAgendas', () => import('./adminAgendas.js'));
   await init('aggregators', () => import('./aggregators/index.js'));
   await init('cache', () => import('./cache/index.js')); // required directly
   await init('eventSearch', () => import('./eventSearch/index.js'));
@@ -140,6 +139,7 @@ export default async function initServices(config = null, options = {}) {
   await init('oembed', () => import('./oembed.js'));
   await init('simpleCache', () => import('./simpleCache.js'));
   await init('supervisor', () => import('./supervisor/index.js'));
+  await init('superadmin', () => import('./superadmin/index.js'));
   await init('stats', () => import('./stats/index.js'));
   await init('reports', () => import('./reports.js'));
   await init('dynamicScripts', () => import('./dynamicScripts.js'));
