@@ -623,6 +623,12 @@
       "value": "crwdne33842:0"
     }
   ],
+  "next.views.EventShow.Sidebar.passUnpublished": [
+    {
+      "type": 0,
+      "value": "The offer will be created upon publication of the event"
+    }
+  ],
   "next.views.EventShow.Sidebar.passed": [
     {
       "type": 0,
