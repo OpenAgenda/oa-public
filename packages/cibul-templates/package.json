@@ -4,7 +4,6 @@
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --ignore build --ignore node_modules app.js",
     "extract-messages": "yarn oa-intl '**/js/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json'",
     "prepack": "node --max_old_space_size=4096 prodify/prodify"
   },
@@ -89,7 +88,6 @@
     "webpack": "^5.53.0",
     "webpack-assets-manifest": "^5.0.6",
     "webpackbar": "^5.0.0-3",
-    "when": "~3.7.8",
     "xhr": "^2.2.0"
   },
   "devDependencies": {
