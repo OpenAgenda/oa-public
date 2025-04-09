@@ -59,6 +59,16 @@
                 "default": null,
                 "optional": true,
                 "type": "email"
+              },
+              "access": {
+                "list": { "default": null },
+                "optional": true,
+                "type": "text"
+              },
+              "defaultVenueId": {
+                "default": null,
+                "optional": true,
+                "type": "integer"
               }
             },
             "optional": true
