@@ -176,14 +176,14 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     const payload = createPayload(core, agenda);
-    const newPublishedPassData = clean.event.registration.find(
+    const newPublishedPassData = clean.event.registration?.find(
       (e) => e.service === 'passCulture',
-    ).value;
-    const oldUnpublishedPassData = event.registration.find(
-      (e) => e.service === 'passCulture',
-    ).value;
-    const publishWithPendingPassData = newPublishedPassData && !oldUnpublishedPassData;
-    if (containsEventData(data) || publishWithPendingPassData) {
+    )?.value;
+    const oldUnpublishedPassData = event.registration?.find((e) => e.service === 'passCulture')
+      && !event.registration?.find((e) => e.service === 'passCulture')?.value;
+    const newlyPublishedPassData = newPublishedPassData && oldUnpublishedPassData;
+
+    if (containsEventData(data) || newlyPublishedPassData) {
       await updateEvent(core.services, {
         clean,
         payload,
