@@ -90,6 +90,7 @@ function checkboxText({
 }
 
 export default ({
+  access,
   value,
   onChange,
   timings = [],
@@ -122,7 +123,10 @@ export default ({
     [currentValue],
   );
   const offerHasError = useMemo(() => !!currentValue.error, [currentValue]);
-  const offerUnpublished = useMemo(() => !currentValue.passId, [currentValue]);
+  const offerUnpublished = useMemo(
+    () => Object.keys(currentValue).length && !currentValue.passId,
+    [currentValue],
+  );
 
   const currLogoPath = useMemo(() => {
     if (offerWasRejected) return rejectedLogoPath;
@@ -180,14 +184,12 @@ export default ({
     fetch(settings.res.context)
       .then((r) => r.json())
       .then((data) => {
-        setHasAccess(
-          ['administrator', 'moderator'].includes(data.me.member?.role),
-        );
+        setHasAccess(access.includes(data.me.member?.role));
       })
       .catch(() => {
         setHasAccess(false);
       });
-  }, [settings]);
+  }, [settings, access]);
 
   const onCheck = useCallback(() => {
     setModal(offerWasRejected ? 'unlink' : 'show');
