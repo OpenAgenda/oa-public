@@ -650,6 +650,18 @@ module.exports = [
                 default: null,
                 optional: true,
               },
+              {
+                field: 'defaultVenueId',
+                type: 'integer',
+                default: null,
+                optional: true,
+              },
+              {
+                field: 'access',
+                list: { default: null },
+                type: 'text',
+                optional: true,
+              },
             ],
           },
         ],

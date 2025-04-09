@@ -74,6 +74,7 @@ function Registration(props) {
       {(settings.passCulture?.siren ?? []).length
       && access.includes(userRole) ? (
         <PassCultureCheckbox
+          access={access}
           value={passCultureValue}
           settings={settings.passCulture}
           timings={relatedValues?.timings ?? []}
