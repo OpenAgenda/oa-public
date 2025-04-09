@@ -187,7 +187,7 @@ export default function Details(props) {
   const renderAgendaHeader = () => {
     if (!agenda) return null;
 
-    const { network, image, slug, title, description, url, uid, official, private: isPrivate } = agenda;
+    const { network, image, slug, title, description, url, uid, official, private: isPrivate, updatedAt, createdAt } = agenda;
 
     return (
       <header className="agenda-header">
@@ -229,7 +229,7 @@ export default function Details(props) {
                 </p>
               )}
               {uid && (
-                <div>
+                <>
                   <div>
                     Agenda officiel{' '}
                     <Switch
@@ -250,7 +250,8 @@ export default function Details(props) {
                       checked={!!isPrivate}
                     />
                   </div>
-                </div>
+                  <div>Création: {createdAt} - Dernière mise à jour: {updatedAt}</div>
+                </>
               )}
             </div>
           </div>
