@@ -151,11 +151,23 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       log.info('  There is a pass culture payload with event', {
         eventUid: event.uid,
       });
-      try {
-        clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
-      } catch (e) {
-        log('error', e);
-        throw e;
+      if (clean.agendaEvent.state === 2) {
+        try {
+          clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
+        } catch (e) {
+          log('error', e);
+          throw e;
+        }
+      } else {
+        const passCultureService = registrations(
+          agenda.settings.registration,
+        ).passCulture;
+        try {
+          await passCultureService.validate(clean.event, clean.passCulture);
+        } catch (error) {
+          log('error', error);
+          throw error;
+        }
       }
     } else if (!draft && clean.passCulture) {
       log.info('  There is no new non-pending pass culture payload', {
@@ -164,8 +176,14 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     const payload = createPayload(core, agenda);
-
-    if (containsEventData(data)) {
+    const newPublishedPassData = clean.event.registration.find(
+      (e) => e.service === 'passCulture',
+    ).value;
+    const oldUnpublishedPassData = event.registration.find(
+      (e) => e.service === 'passCulture',
+    ).value;
+    const publishWithPendingPassData = newPublishedPassData && !oldUnpublishedPassData;
+    if (containsEventData(data) || publishWithPendingPassData) {
       await updateEvent(core.services, {
         clean,
         payload,

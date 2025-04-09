@@ -66,6 +66,7 @@
   "EventAdminApp.PassImage.linkErrored": "Une anomalie a eu lieu lors de la création ou mise à jour de l'offre pass Culture. Contactez le support pour en savoir plus",
   "EventAdminApp.PassImage.linkPending": "L'offre pass Culture liée à cette fiche est en cours de modération par l'équipe du pass",
   "EventAdminApp.PassImage.linkRejected": "L'offre pass Culture liée à cette fiche a été rejetée par l'équipe du pass",
+  "EventAdminApp.PassImage.linkUnpublished": "L'offre sera créée à la publication de l'événement",
   "EventAdminApp.PassImage.see": "Voir",
   "EventAdminApp.RemoveModal.confirm": "Confirmer",
   "EventAdminApp.RemoveModal.deleteDesc": "Êtes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda.",

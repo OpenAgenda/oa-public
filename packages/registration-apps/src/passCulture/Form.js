@@ -75,6 +75,7 @@ export default function Form({
   longDesc = null,
   conditions = null,
   patchMode = false,
+  defaultVenueId = null,
 }) {
   const [patch, setPatch] = useState(
     initialValue[initialValue.length - 1]?.editing
@@ -132,6 +133,9 @@ export default function Form({
 
   useEffect(() => {
     const defaultsAtInit = {};
+    if (defaultVenueId) {
+      defaultsAtInit.venueId = defaultVenueId;
+    }
     if (venuesOptions.length === 1 && !initialValue.venueId) {
       defaultsAtInit.venueId = venuesOptions[0].value;
     }
@@ -164,26 +168,28 @@ export default function Form({
   return (
     <form>
       <Section>{infoBlock({ status })}</Section>
-      <Section>
-        <Select
-          disabled={openSubForm || patchMode}
-          label="Lieu"
-          value={currentValue?.venueId}
-          placeholder="Sélectionner un lieu"
-          options={venuesOptions}
-          onChange={(option) =>
-            setPatch({
-              ...patch,
-              venueId: option.value,
-            })}
-          error={
-            showErrors
-              ? (errors || []).filter((e) => e?.field === 'venueId')
-              : false
-          }
-          optional={false}
-        />
-      </Section>
+      {!defaultVenueId ? (
+        <Section>
+          <Select
+            disabled={openSubForm || patchMode}
+            label="Lieu"
+            value={currentValue?.venueId}
+            placeholder="Sélectionner un lieu"
+            options={venuesOptions}
+            onChange={(option) =>
+              setPatch({
+                ...patch,
+                venueId: option.value,
+              })}
+            error={
+              showErrors
+                ? (errors || []).filter((e) => e?.field === 'venueId')
+                : false
+            }
+            optional={false}
+          />
+        </Section>
+      ) : null}
       <Section>
         <Select
           disabled={openSubForm || patchMode}

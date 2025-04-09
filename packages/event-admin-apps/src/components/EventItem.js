@@ -150,6 +150,11 @@ export default function EventItem({
     )?.isRejected
     : undefined;
 
+  const passUnpublished = !passId
+    && getCurrentValue(
+      event.registration.find((r) => r.service === 'passCulture')?.data,
+    );
+
   const isPassed = useMemo(() => {
     if (!event.timings?.length) {
       return false;
@@ -256,11 +261,12 @@ export default function EventItem({
             </span>
           ) : null}
         </a>
-        {passId ? (
+        {passId || passUnpublished ? (
           <PassImage
             pending={passPending}
             rejected={passRejected}
             errored={passErrored}
+            passUnpublished={passUnpublished}
             passId={passId}
             passRes={passRes}
             passTabIsOpen={passTabIsOpen}

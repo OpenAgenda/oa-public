@@ -26,6 +26,7 @@ export default async function formatEvent(event, ...args) {
 
   const {
     venueId,
+    addressId,
     category,
     bookingContact,
     description,
@@ -73,7 +74,16 @@ export default async function formatEvent(event, ...args) {
     formatted.image.credit = event.imageCredits;
   }
 
-  if (venueId) {
+  if (addressId && venueId) {
+    formatted.location = {
+      type: 'address',
+      venueId,
+      addressId,
+      addressLabel: event.location.name,
+    };
+  }
+
+  if (venueId && !addressId) {
     formatted.location = {
       type: 'physical',
       venueId,

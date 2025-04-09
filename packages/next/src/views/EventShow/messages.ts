@@ -513,6 +513,10 @@ export const sidebar = defineMessages({
     id: 'next.views.EventShow.Sidebar.minToMaxYearsOld',
     defaultMessage: '{min} to {max} years old',
   },
+  passUnpublished: {
+    id: 'next.views.EventShow.Sidebar.passUnpublished',
+    defaultMessage: 'The offer will be created upon publication of the event',
+  },
 });
 
 export const suggestLocationChangeButton = defineMessages({
