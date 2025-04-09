@@ -1,5 +1,8 @@
+import logs from '@openagenda/logs';
 import formatEvent from '../lib/formatEvent.js';
 import handleError from './handleError.js';
+
+const log = logs('passCulture/eventOffer');
 
 const venueDiffThanLoc = (venueLoc, location) => {
   if (!venueLoc || !location) return true; // If either is missing, consider them different
@@ -69,7 +72,8 @@ async function create(pc, OAEvent, entry, options) {
         street: OAEvent.location.address,
       });
     } catch (error) {
-      console.log('address error', error.response.data);
+      log('error', 'address error', error.response.data);
+      throw error;
     }
   }
   const eventOffer = await formatEvent(OAEvent, entry, {
